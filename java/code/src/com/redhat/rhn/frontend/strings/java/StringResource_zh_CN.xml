@@ -833,13 +833,6 @@
         </context-group>
         <target>地区首选项</target>
       </trans-unit>
-      <trans-unit id="Probes">
-        <source>Probes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>探测</target>
-      </trans-unit>
       <trans-unit id="Profiles">
         <source>Profiles</source>
         <context-group name="ctx">
@@ -1076,7 +1069,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Test Message - ignore</context>
         </context-group>
-        <target>&lt;p&gt;您对&lt;strong&gt; &lt;a href="http://www.redhat.com"&gt;{0} 系统&lt;/a&gt;&lt;/strong&gt;没有足够的权利。&lt;/p&gt;</target>
+        <target>&lt;p&gt;您对&lt;strong&gt; &lt;a href=&quot;http://www.redhat.com&quot;&gt;{0} 系统&lt;/a&gt;&lt;/strong&gt;没有足够的权利。&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="traceback message header">
         <source>The following exception occurred while executing this request:</source>
@@ -1955,21 +1948,21 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Logfile error message</context>
         </context-group>
-        <target>不能解释 ACL 声明："{0}"</target>
+        <target>不能解释 ACL 声明：&quot;{0}&quot;</target>
       </trans-unit>
       <trans-unit id="bad-handler">
         <source>Could not find ACL handler {0} in statement: "{1}". Available ACL handlers: {2}</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Logfile error message</context>
         </context-group>
-        <target>不能在声明 "{1}"中找到 ACL handler {0}。可用的 ACL handlers：{2}</target>
+        <target>不能在声明 &quot;{1}&quot;中找到 ACL handler {0}。可用的 ACL handlers：{2}</target>
       </trans-unit>
       <trans-unit id="invocation-target-exception">
         <source>IllegalInvocationException calling {0} ("{1}"): {2}</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Logfile error message</context>
         </context-group>
-        <target>IllegalInvocationException calling {0} ("{1}"): {2}</target>
+        <target>IllegalInvocationException calling {0} (&quot;{1}&quot;): {2}</target>
       </trans-unit>
       <trans-unit id="no notes">
         <source>(none)</source>
@@ -2088,7 +2081,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/configuration/addfiles/ImportFileConfirm.do</context>
         </context-group>
-        <target>{0} 文件 &lt;a href="{1}"&gt;scheduled&lt;/a&gt; 上载。</target>
+        <target>{0} 文件 &lt;a href=&quot;{1}&quot;&gt;scheduled&lt;/a&gt; 上载。</target>
       </trans-unit>
       <trans-unit id="configfiles.upload">
         <source>Import config file data from system</source>
@@ -2124,7 +2117,7 @@
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
           <context context-type="paramnotes">Revision 5 of /etc/foo from My Config Channel</context>
         </context-group>
-        <target>&lt;a href="{0}"&gt;Revision {1}&lt;/a&gt; of {2} from &lt;a href="{3}"&gt;{4}&lt;/a&gt;</target>
+        <target>&lt;a href=&quot;{0}&quot;&gt;Revision {1}&lt;/a&gt; of {2} from &lt;a href=&quot;{3}&quot;&gt;{4}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="config.upload.onechannel">
         <source>Destination Configuration Channel: {0}</source>
@@ -2185,7 +2178,7 @@ available for this kickstart profile to function properly.
         <context-group name="ctx">
           <context context-type="sourcefile">Kickstart Profile Details pages.</context>
         </context-group>
-        <target>&lt;div style="text-align: left;"&gt;
+        <target>&lt;div style=&quot;text-align: left;&quot;&gt;
 &lt;p&gt;要解决这个问题，请检查下列事项：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -2520,7 +2513,7 @@ available for this kickstart profile to function properly.
             1 system failed to complete this action.
           </context>
         </context-group>
-        <target>&lt;a href="/rhn/schedule/FailedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} system&lt;/strong&gt;&lt;/a&gt;无法完成这个动作。&lt;br/&gt;&lt;br/&gt;</target>
+        <target>&lt;a href=&quot;/rhn/schedule/FailedSystems.do?aid={0}&quot;&gt;&lt;strong&gt;{1} system&lt;/strong&gt;&lt;/a&gt;无法完成这个动作。&lt;br/&gt;&lt;br/&gt;</target>
       </trans-unit>
       <trans-unit id="action.failedlink.plural">
         <source>&lt;a href="/rhn/schedule/FailedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} systems&lt;/a&gt;&lt;/strong&gt; failed to complete this action.&lt;br/&gt;&lt;br/&gt;</source>
@@ -2530,7 +2523,7 @@ available for this kickstart profile to function properly.
             2 systems failed to complete this action.
           </context>
         </context-group>
-        <target>&lt;a href="/rhn/schedule/FailedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} system&lt;/strong&gt;&lt;/a&gt;无法完成这个动作。&lt;br/&gt;&lt;br/&gt;</target>
+        <target>&lt;a href=&quot;/rhn/schedule/FailedSystems.do?aid={0}&quot;&gt;&lt;strong&gt;{1} system&lt;/strong&gt;&lt;/a&gt;无法完成这个动作。&lt;br/&gt;&lt;br/&gt;</target>
       </trans-unit>
       <trans-unit id="action.completelink">
         <source>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} system&lt;/a&gt;&lt;/strong&gt; successfully completed this action.&lt;br/&gt;&lt;br/&gt;</source>
@@ -2540,7 +2533,7 @@ available for this kickstart profile to function properly.
             1 system successfully completed this action.
           </context>
         </context-group>
-        <target>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} system&lt;/strong&gt;&lt;/a&gt; 成功地完成了这个动作。&lt;br/&gt;&lt;br/&gt;</target>
+        <target>&lt;a href=&quot;/rhn/schedule/CompletedSystems.do?aid={0}&quot;&gt;&lt;strong&gt;{1} system&lt;/strong&gt;&lt;/a&gt; 成功地完成了这个动作。&lt;br/&gt;&lt;br/&gt;</target>
       </trans-unit>
       <trans-unit id="action.completelink.plural">
         <source>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} systems&lt;/a&gt;&lt;/strong&gt; successfully completed this action.&lt;br/&gt;&lt;br/&gt;</source>
@@ -2550,7 +2543,7 @@ available for this kickstart profile to function properly.
             2 systems successfully completed this action.
           </context>
         </context-group>
-        <target>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} system&lt;/strong&gt;&lt;/a&gt; 成功地完成了这个动作。&lt;br/&gt;&lt;br/&gt;</target>
+        <target>&lt;a href=&quot;/rhn/schedule/CompletedSystems.do?aid={0}&quot;&gt;&lt;strong&gt;{1} system&lt;/strong&gt;&lt;/a&gt; 成功地完成了这个动作。&lt;br/&gt;&lt;br/&gt;</target>
       </trans-unit>
       <trans-unit id="action.name">
         <source>Errata Update: {0} - {1}</source>
@@ -2574,7 +2567,7 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">1 errata update has been scheduled for workstation.</context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; 个勘误更新已经为 &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt; 调度。</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 个勘误更新已经为 &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{1}&lt;/a&gt; 调度。</target>
       </trans-unit>
       <trans-unit id="errata.schedule.plural">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; errata updates have been scheduled for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
@@ -2582,7 +2575,7 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">43 errata updates have been scheduled for workstation.</context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; 个勘误更新已经为 &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt; 调度。</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 个勘误更新已经为 &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{1}&lt;/a&gt; 调度。</target>
       </trans-unit>
       <trans-unit id="errataconfirm.schedule">
         <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
@@ -2590,7 +2583,7 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 1 system</context>
         </context-group>
-        <target>勘误 &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; 已经为 &lt;strong&gt;{1}&lt;/strong&gt; 个系统调度</target>
+        <target>勘误 &lt;a href=&quot;/rhn/errata/details/Details.do?eid={2}&quot;&gt;{0}&lt;/a&gt; 已经为 &lt;strong&gt;{1}&lt;/strong&gt; 个系统调度</target>
       </trans-unit>
       <trans-unit id="errataconfirm.schedule.plural">
         <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; systems</source>
@@ -2598,7 +2591,7 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 3 systems</context>
         </context-group>
-        <target>勘误 &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; 已经为 &lt;strong&gt;{1}&lt;/strong&gt; 个系统调度</target>
+        <target>勘误 &lt;a href=&quot;/rhn/errata/details/Details.do?eid={2}&quot;&gt;{0}&lt;/a&gt; 已经为 &lt;strong&gt;{1}&lt;/strong&gt; 个系统调度</target>
       </trans-unit>
       <trans-unit id="errataconfirm.nosystems">
         <source>You must select at least one system.</source>
@@ -2801,14 +2794,14 @@ available for this kickstart profile to function properly.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserList</context>
         </context-group>
-        <target>克隆 Kickstart</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.CryptoKeyDelete">
         <source>Delete Key</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeyEdit</context>
         </context-group>
-        <target>删除密钥</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.create.user">
         <source>Create User</source>
@@ -2846,103 +2839,75 @@ available for this kickstart profile to function properly.
         </context-group>
         <target>删除外部组</target>
       </trans-unit>
-      <trans-unit id="toolbar.create.probe">
-        <source>Create Probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-        <target>创建探测</target>
-      </trans-unit>
-      <trans-unit id="toolbar.delete.probe">
-        <source>Delete Probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-        <target>删除探测</target>
-      </trans-unit>
       <trans-unit id="toolbar.delete.user">
         <source>Delete User</source>
         <context-group name="ctx">
           <context context-type="sourcefile">User details pages</context>
         </context-group>
-        <target>删除用户</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.erratum">
         <source>Delete Erratum</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Errata details pages</context>
         </context-group>
-        <target>删除勘误</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.system">
         <source>Delete System</source>
         <context-group name="ctx">
           <context context-type="sourcefile">System Details Package list pages</context>
         </context-group>
-        <target>删除系统</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.systemgroup">
         <source>Delete Group</source>
         <context-group name="ctx">
           <context context-type="sourcefile">System Group pages</context>
         </context-group>
-        <target>删除组群</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.work.with.group">
         <source>Work With Group</source>
         <context-group name="ctx">
           <context context-type="sourcefile">System Group pages</context>
         </context-group>
-        <target>与组群一同工作</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.errata">
         <source>Delete Errata</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Errata edit page</context>
         </context-group>
-        <target>删除勘误</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.kickstart">
         <source>Delete Kickstart</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Kickstart profile pages</context>
         </context-group>
-        <target>删除 Kickstart</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.deleteTree">
         <source>Delete Distribution</source>
         <context-group name="ctx">
           <context context-type="sourcefile">rhn/Kickstart/TreeEdit.do</context>
         </context-group>
-        <target>删除发布</target>
-      </trans-unit>
-      <trans-unit id="toolbar.create.probesuite">
-        <source>Create Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-        <target>创建探测套件</target>
-      </trans-unit>
-      <trans-unit id="toolbar.create.probesuitesystem">
-        <source>Add Systems to Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-        <target>在探测套件中添加系统</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.profile">
         <source>Delete Profile</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles/CompareProfiles.do</context>
         </context-group>
-        <target>删除侧写</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.crash">
         <source>Delete Software Crash</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SoftwareCrashDetail.do</context>
         </context-group>
-        <target>删除软件崩溃</target>
+        
       </trans-unit>
       <trans-unit id="message.unscheduled.system">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; unscheduled for &lt;strong&gt;{1}&lt;/strong&gt; system.</source>
@@ -3520,13 +3485,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>没有系统被选择。</target>
       </trans-unit>
-      <trans-unit id="probesuites.none">
-        <source>No probe suites selected.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites</context>
-        </context-group>
-        <target>没有探测套件被选择。</target>
-      </trans-unit>
       <trans-unit id="systemgroups.none">
         <source>No system groups selected.</source>
         <context-group name="ctx">
@@ -3541,27 +3499,6 @@ user before attempting to deactivate their account.</source>
       <trans-unit id="systemgroups.edit.successmessage">
         <source>System group {0} updated.</source>
         <target>已更新系统组  {0}。</target>
-      </trans-unit>
-      <trans-unit id="probe.empty.status">
-        <source>No status for probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-        <target>没有探测的状态</target>
-      </trans-unit>
-      <trans-unit id="probedetails.graph.noprobedata">
-        <source>NO DATA FOR SELECTED TIME PERIOD AND METRIC</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-        <target>选择的时间段和统计没有数据。</target>
-      </trans-unit>
-      <trans-unit id="probedetails.graph.yAxis">
-        <source>Metrics</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-        <target>统计数据</target>
       </trans-unit>
       <!-- Errata creation validation errors -->
       <trans-unit id="product">
@@ -3741,63 +3678,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>没有补丁程序被选择。</target>
       </trans-unit>
-      <!-- Probe Edit -->
-      <trans-unit id="probeeditaction.minute">
-        <source>1 minute</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>1分钟</target>
-      </trans-unit>
-      <trans-unit id="probeeditaction.minutes">
-        <source>{0} minutes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>{0} 分钟</target>
-      </trans-unit>
-      <trans-unit id="probeeditaction.hour">
-        <source>1 hour</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>1小时</target>
-      </trans-unit>
-      <trans-unit id="probeeditaction.hours">
-        <source>{0} hours</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>{0} 小时</target>
-      </trans-unit>
-      <trans-unit id="probeedit.probesdeleted">
-        <source>Successfully deleted {0} probe(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>成功删除的 {0} 探测。</target>
-      </trans-unit>
-      <trans-unit id="probeedit.probedeleted">
-        <source>Probe &lt;strong&gt;{0}&lt;/strong&gt; deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>探测 &lt;strong&gt;{0}&lt;/strong&gt; 被删除。</target>
-      </trans-unit>
-      <trans-unit id="probeedit.probesaved">
-        <source>System Probe &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>系统探测 &lt;strong&gt;{0}&lt;/strong&gt; 被更新。</target>
-      </trans-unit>
-      <trans-unit id="probecreate.created">
-        <source>Probe &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
-        </context-group>
-        <target>探测 &lt;strong&gt;{0}&lt;/strong&gt; 被创建。</target>
-      </trans-unit>
       <trans-unit id="timetag.lastcheckin">
         <source>System last check-in:</source>
         <context-group name="ctx">
@@ -3966,14 +3846,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>{0} {1}</target>
       </trans-unit>
-      <trans-unit id="message.patchsetinstall">
-        <source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/rhn/systems/details/history/Event.do?sid={2}&amp;aid={3}"&gt;scheduled&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/patchsets/InstallPatchSet</context>
-          <context context-type="paramnotes">Installation of patch cluster Sun Patch Cluster for Solaris 8 has been scheduled.</context>
-        </context-group>
-        <target>已 &lt;a href="/rhn/systems/details/history/Event.do?sid={2}&amp;aid={3}"&gt;预订&lt;/a&gt; 安装补丁集群 &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt;。</target>
-      </trans-unit>
       <trans-unit id="message.packagerefresh">
         <source>You have successfully scheduled a &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;package profile refresh&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;.</source>
         <context-group name="ctx">
@@ -3981,159 +3853,22 @@ user before attempting to deactivate their account.</source>
           <context context-type="paramnotes">You have successfully scheduled a package profile refresh
                                              for workstation3.</context>
         </context-group>
-        <target>您已经成功地为 &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;调度了一个 &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;软件包侧写刷新&lt;/a&gt;。</target>
+        <target>您已经成功地为 &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={1}&quot;&gt;{2}&lt;/a&gt;调度了一个 &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={0}&quot;&gt;软件包侧写刷新&lt;/a&gt;。</target>
       </trans-unit>
-      <trans-unit id="Probe Suites">
-        <source>Probe Suites</source>
+      <trans-unit id="message.bulkremovecustomdata">
+        <source>Value removed for &lt;strong&gt;{0}&lt;/strong&gt; from {1} systems.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
+          <context context-type="sourcefile">/rhn/systems/ssm/misc/CustomDataSet.do</context>
+          <context context-type="paramnotes">Value removed for &lt;strong&gt;custom-data-key&lt;/strong&gt; from 2 systems.</context>
         </context-group>
-        <target>探测套件</target>
       </trans-unit>
-      <trans-unit id="probeSuiteEdit.success">
-        <source>Probe Suite {0} updated</source>
+      <trans-unit id="message.bulksetcustomdata">
+        <source>Value set for &lt;strong&gt;{0}&lt;/strong&gt; for selected systems.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteEdit.do</context>
+          <context context-type="sourcefile">/rhn/systems/ssm/misc/CustomDataSet.do</context>
+          <context context-type="paramnotes">Value set for &lt;strong&gt;custom-data-key&lt;/strong&gt; for selected systems.</context>
         </context-group>
-        <target>探测套件 {0} 被更新</target>
       </trans-unit>
-      <trans-unit id="probeSuiteCreate.success">
-        <source>Probe Suite {0} created</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteCreate.do</context>
-        </context-group>
-        <target>探测套件 {0} 被创建</target>
-      </trans-unit>
-      <trans-unit id="suite_name">
-        <source>Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteCreate.do</context>
-        </context-group>
-        <target>名字</target>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.systemsadded">
-        <source>Systems added to Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-        <target>系统加入到探测套件</target>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.systemsdeleted">
-        <source>{0} system(s) deleted from Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-        <target>{0} 个系统被从探测套件被删除</target>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.systemsdetached">
-        <source>{0} system(s) detached from Probe Suite.  You may now edit the probes directly against the Systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-        <target>{0} 个系统被从探测套件中分离。您现在可以对系统直接编辑探测。</target>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.addprobesfirst">
-        <source>Please add Probes to the Suite before adding Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-        <target>请在添加系统前把探测加入到套件</target>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.addsystem">
-        <source>Add systems to probe suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-        <target>把系统加入到探测套件</target>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.search">
-        <source>Search for Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-        <target>搜索系统</target>
-      </trans-unit>
-      <trans-unit id="probesuites.jsp.selectasuite">
-        <source>No Probe Suites selected.  Please select a Probe Suite from the list and try again.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-        <target>没有探测套件被选择。请从列表中选择一个探测套件后再试。</target>
-      </trans-unit>
-      <trans-unit id="probesuites.jsp.suitesdeleted">
-        <source>{0} Probe Suite(s) deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-        <target>{0} 探测套件被删除。</target>
-      </trans-unit>
-      <trans-unit id="probes.jsp.probesdeleted">
-        <source>{0} Probe(s) deleted from suite.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-        <target>{0} 个探测被从套件中删除。</target>
-      </trans-unit>
-      <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeCreate.do</context>
-        </context-group>
-        <note>Validation errors for probe parameters</note>
-        <trans-unit id="probeparam.mandatory">
-          <source>The parameter {0} is mandatory.</source>
-          <target>参数 {0} 是必需的。</target>
-        </trans-unit>
-        <trans-unit id="probeparam.toolarge">
-          <source>The parameter {0} cannot be larger than {2}, but is {1}.</source>
-          <target>参数 {0} 不能大于 {2}，但确是 {1}。</target>
-        </trans-unit>
-        <trans-unit id="probeparam.toosmall">
-          <source>The parameter {0} must be at least {2}, but is {1}.</source>
-          <target>参数 {0} 必须最小是 {2}，但确是 {1}。</target>
-        </trans-unit>
-        <trans-unit id="probeparam.notbetween">
-          <source>The parameter {0} must be between {2} and {3}, but is {1}.</source>
-          <target>参数 {0} 必须是 {2} 和 {3} 之间的值，但确是 {1}。</target>
-        </trans-unit>
-        <trans-unit id="probeparam.illegal">
-          <source>The parameter {0} must be {2}, but is {1}.</source>
-          <target>参数 {0} 必须是 {2}，但确是 {1}。</target>
-        </trans-unit>
-        <trans-unit id="probeparam.threshold.inverted">
-          <source>For the metric {0}, the value for "{1}" must be smaller than the value for "{3}", but the values are {2} and {4}.</source>
-          <target>对于统计数据 {0}，"{1}" 的值必须小于 "{3}" 的值。但它的值确是 {2} 和 {4}。</target>
-        </trans-unit>
-      </group>
-      <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeCreate.do</context>
-        </context-group>
-        <note>Names for the command parameter data types</note>
-        <trans-unit id="checkbox">
-          <source>an on/off value</source>
-          <target>一个 on/off 值</target>
-        </trans-unit>
-        <trans-unit id="float">
-          <source>a floating point value</source>
-          <target>一个浮点值</target>
-        </trans-unit>
-        <trans-unit id="generic">
-          <source>a generic value</source>
-          <target>一个一般的值</target>
-        </trans-unit>
-        <trans-unit id="integer">
-          <source>an integer value</source>
-          <target>一个整数值</target>
-        </trans-unit>
-        <trans-unit id="probestate">
-          <source>a probe state</source>
-          <target>一个探测状态</target>
-        </trans-unit>
-        <trans-unit id="string">
-          <source>string</source>
-          <target>串</target>
-        </trans-unit>
-      </group>
       <trans-unit id="General Config">
         <source>General Config</source>
         <context-group name="ctx">
@@ -4224,7 +3959,7 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles/</context>
           <context context-type="paramnotes">sid, actionid, servername, profilename</context>
         </context-group>
-        <target>已成功 &lt;strong&gt;&lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;预订&lt;/a&gt;&lt;/strong&gt;  &lt;strong&gt;{2}&lt;/strong&gt; 使用 &lt;strong&gt;{3}&lt;/strong&gt; 进行软件包侧写同步。</target>
+        <target>已成功 &lt;strong&gt;&lt;a href=&quot;/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}&quot;&gt;预订&lt;/a&gt;&lt;/strong&gt;  &lt;strong&gt;{2}&lt;/strong&gt; 使用 &lt;strong&gt;{3}&lt;/strong&gt; 进行软件包侧写同步。</target>
       </trans-unit>
       <trans-unit id="message.hardwarerefresh">
         <source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
@@ -4232,7 +3967,7 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles/</context>
           <context context-type="paramnotes">sid, actionid, servername, profilename</context>
         </context-group>
-        <target>&lt;strong&gt;注：&lt;/strong&gt;@@PRODUCT_NAME@@ 已经为 &lt;strong&gt;{2}&lt;/strong&gt; &lt;strong&gt;&lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;预订&lt;/a&gt;&lt;/strong&gt;了一个硬件刷新来在同步软件包侧写前运行。这需要检查系统有比较软件包的能力。</target>
+        <target>&lt;strong&gt;注：&lt;/strong&gt;@@PRODUCT_NAME@@ 已经为 &lt;strong&gt;{2}&lt;/strong&gt; &lt;strong&gt;&lt;a href=&quot;/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}&quot;&gt;预订&lt;/a&gt;&lt;/strong&gt;了一个硬件刷新来在同步软件包侧写前运行。这需要检查系统有比较软件包的能力。</target>
       </trans-unit>
       <trans-unit id="filterCreate.success">
         <source>The filter {0} was successfully created</source>
@@ -4255,13 +3990,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>没有同步的软件包。</target>
       </trans-unit>
-      <trans-unit id="probedit.checklessthannotif">
-        <source>The Notification Interval must be greater than or equal to the Probe Check Interval.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">com.redhat.rhn.frontend.action.systems.monitoring.BaseProbeAction</context>
-        </context-group>
-        <target>通知的间隔时间必须大于或等于探测检查的间隔时间。</target>
-      </trans-unit>
       <trans-unit id="punctuation.colonwithspace">
         <source>: </source>
         <context-group name="ctx">
@@ -4275,13 +4003,6 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles</context>
         </context-group>
         <target>{0} 已经被使用。请输入一个不同的侧写。</target>
-      </trans-unit>
-      <trans-unit id="probestate.pending">
-        <source>Awaiting Update</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-        <target>等待更新</target>
       </trans-unit>
       <trans-unit id="message.serverdeleted.param">
         <source>System profile &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
@@ -4335,11 +4056,11 @@ user before attempting to deactivate their account.</source>
                 </note>
         <trans-unit id="daterangepicker.error.invalid">
           <source>The date "{0}" is not valid and has been reset to its default. Check to make sure selected month has that many days.</source>
-          <target>日期 "{0}" 无效，它被重新设置为默认的值。请检查所选择的月份有正确的天数。</target>
+          <target>日期 &quot;{0}&quot; 无效，它被重新设置为默认的值。请检查所选择的月份有正确的天数。</target>
         </trans-unit>
         <trans-unit id="daterangepicker.error.start.before.end">
           <source>The start date "{0}" must be before the end date "{1}"</source>
-          <target>开始的日期 "{0}" 必须要早于结束的日期 "{1}"</target>
+          <target>开始的日期 &quot;{0}&quot; 必须要早于结束的日期 &quot;{1}&quot;</target>
         </trans-unit>
       </group>
       <trans-unit id="monitoring.services.restarted">
@@ -6213,21 +5934,21 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>您已经为 @@PRODUCT_NAME@@ 服务创建了第一个用户。其它的配置应该&lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;点这里&lt;/strong&gt;&lt;/a&gt;</target>
+        <target>您已经为 @@PRODUCT_NAME@@ 服务创建了第一个用户。其它的配置应该&lt;a href=&quot;/rhn/admin/config/GeneralConfig.do&quot;&gt;&lt;strong&gt;点这里&lt;/strong&gt;&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.kerbuserlogged">
         <source>You've logged as externally authenticated &lt;strong&gt;{0}&lt;/strong&gt; user. To be able to login using this account with login and password, please set your password on &lt;a href="/rhn/account/UserDetails.do"&gt;&lt;strong&gt;{0} user page&lt;/strong&gt;&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>已作为外部认证的 &lt;strong&gt;{0}&lt;/strong&gt; 用户记录。要使用这个帐户的登录和密码登录，请在 &lt;a href="/rhn/account/UserDetails.do"&gt;&lt;strong&gt;{0} 用户页面&lt;/strong&gt;&lt;/a&gt; 设置密码。</target>
+        <target>已作为外部认证的 &lt;strong&gt;{0}&lt;/strong&gt; 用户记录。要使用这个帐户的登录和密码登录，请在 &lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;{0} 用户页面&lt;/strong&gt;&lt;/a&gt; 设置密码。</target>
       </trans-unit>
       <trans-unit id="satellite.expired">
         <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login.do</context>
         </context-group>
-        <target>您的 satellite 证书已经过期。请访问以下连接查看如何请求或者生成一个新证书：&lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</target>
+        <target>您的 satellite 证书已经过期。请访问以下连接查看如何请求或者生成一个新证书：&lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="satellite.expired.restricted">
         <source>Your Satellite Certificate has expired. Your Satellite is on day {0} of {1} day restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
@@ -6242,7 +5963,7 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">/rhn/Login.do</context>
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>您的 satellite 证书已经过期。请访问以下连接查看如何请求或者生成一个新证书：&lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt;。您的 satellite 进入 {0} 天限制期。</target>
+        <target>您的 satellite 证书已经过期。请访问以下连接查看如何请求或者生成一个新证书：&lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt;。您的 satellite 进入 {0} 天限制期。</target>
       </trans-unit>
       <trans-unit id="restricted.forbidden">
         <source>You are not allowed to perform this action until your Satellite Certificate is renewed. Your Satellite is on day {0} of the {1} restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
@@ -6439,7 +6160,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
-        <target>Bootstrap 脚本被成功生成。您可以通过 &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt; 访问它。</target>
+        <target>Bootstrap 脚本被成功生成。您可以通过 &lt;a href=&quot;{0}/pub/bootstrap/&quot;&gt;{0}/pub/bootstrap/&lt;/a&gt; 访问它。</target>
       </trans-unit>
       <trans-unit id="restart.config.error">
         <source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: /usr/sbin/service rhn-satellite restart.  Please contact support for more information.</source>
@@ -6460,7 +6181,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-        <target>重启 @@PRODUCT_NAME@@。如果本页在 5 分钟内没有刷新，请点击&lt;a href="/rhn/YourRhn.do"&gt;这里&lt;/a&gt;来尝试手动重启。</target>
+        <target>重启 @@PRODUCT_NAME@@。如果本页在 5 分钟内没有刷新，请点击&lt;a href=&quot;/rhn/YourRhn.do&quot;&gt;这里&lt;/a&gt;来尝试手动重启。</target>
       </trans-unit>
       <trans-unit id="restart.config.norestart">
         <source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
@@ -7095,7 +6816,7 @@ Follow this url to see the full list of inactive systems:
         </trans-unit>
         <trans-unit id="system.sdc.missing.config_deploy2">
           <source>You may ensure that configuration deployment capability will be enabled on this system by selecting this system in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
-          <target>您要确定在这个系统中启用了配置部署功能，在 &lt;a href="{0}"&gt;"{1}"&lt;/a&gt; 中选择这个系统，然后点击 "{2}" 就可达到此目的。</target>
+          <target>您要确定在这个系统中启用了配置部署功能，在 &lt;a href=&quot;{0}&quot;&gt;&quot;{1}&quot;&lt;/a&gt; 中选择这个系统，然后点击 &quot;{2}&quot; 就可达到此目的。</target>
         </trans-unit>
         <trans-unit id="system.sdc.addtossm">
           <source>System added to the System Set Manager.</source>
@@ -7184,6 +6905,41 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>{0} 个修订被成功删除。</target>
       </trans-unit>
+      <trans-unit id="config_files.setFilesToRemove.success">
+        <source>{0} configuration file(s) successfully deleted.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
+          <context context-type="paramnotes">7 configuration files were successfully deleted.</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="config_files.setFilesToRemove.failure">
+        <source>{0} file deletion(s) failed.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
+          <context context-type="paramnotes">7 file deletions failed.</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="config_files.setFilesToImport.success">
+        <source>{0} configuration file(s) successfully imported.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelImportFiles.do</context>
+          <context context-type="paramnotes">7 configuration files were successfully imported.</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="config_files.setFilesToImport.failure">
+        <source>{0} file import(s) failed.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelImportFiles.do</context>
+          <context context-type="paramnotes">7 file imports failed.</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="config_subscribed_systems.unsubscribeSystems.failure">
+        <source>Failed to unsubscribe {0} system(s).</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
+          <context context-type="paramnotes">7 revision deletions failed.</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="config_subscribed_systems.unsubscribeSystems.success">
         <source>Successfully unsubscribed {0} system(s).</source>
         <context-group name="ctx">
@@ -7191,6 +6947,13 @@ Follow this url to see the full list of inactive systems:
           <context context-type="paramnotes">Successfully copied file to 7 channels.</context>
         </context-group>
         <target>成功地退订 {0} 个系统。</target>
+      </trans-unit>
+      <trans-unit id="config_target_systems.subscribeSystems.failure">
+        <source>Failed to subscribe {0} system(s).</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
+          <context context-type="paramnotes">7 revision deletions failed.</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="config_target_systems.subscribeSystems.success">
         <source>Successfully subscribed {0} system(s).</source>
@@ -7522,7 +7285,7 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
           <context context-type="paramnotes">{0} - name of a system ex: highwind</context>
         </context-group>
-        <target>&lt;a href="{0}"&gt;预定了&lt;/a&gt; RHN Applet @@PRODUCT_NAME@@ 的激活</target>
+        <target>&lt;a href=&quot;{0}&quot;&gt;预定了&lt;/a&gt; RHN Applet @@PRODUCT_NAME@@ 的激活</target>
       </trans-unit>
       <trans-unit id="sdc.details.edit.none">
         <source>None</source>
@@ -7564,11 +7327,11 @@ Follow this url to see the full list of inactive systems:
         </trans-unit>
         <trans-unit id="sdc.config.deploy.failure">
           <source>All file and/or directory ({0}) deployments failed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
-          <target>所有的文件和/或目录 ({0}) 都部署失败。 [&lt;a href="{1}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>所有的文件和/或目录 ({0}) 都部署失败。 [&lt;a href=&quot;{1}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.deploy.success">
           <source>All files and/or directories ({0}) were successfully deployed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
-          <target>所有的文件和/或目录 ({0}) 都部署成功。 [&lt;a href="{1}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>所有的文件和/或目录 ({0}) 都部署成功。 [&lt;a href=&quot;{1}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
       </group>
       <group>
@@ -7581,111 +7344,111 @@ Follow this url to see the full list of inactive systems:
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_0">
           <source>No files, directories or symlinks were selected for comparison. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>没有文件、目录或 symlink 被用于比较。[&lt;a href="{6}"&gt;查看细节&lt;/a&gt;]</target>
+          <target>没有文件、目录或 symlink 被用于比较。[&lt;a href=&quot;{6}&quot;&gt;查看细节&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_1">
           <source>{4} of 1 symlink on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{4} 系统里的 1 symlink 的{4} 成功地和 @@PRODUCT_NAME@@-Managed 文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>{4} 系统里的 1 symlink 的{4} 成功地和 @@PRODUCT_NAME@@-Managed 文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_2">
           <source>{4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 {5} 个 symlink 中的 {4} 个成功和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 {5} 个 symlink 中的 {4} 个成功和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_1_symlinks_0">
           <source>{2} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 1 个目录中的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 1 个目录中的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_1_symlinks_1">
           <source>{2} of 1 directory and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 1 个目录中的 {2} 个以及 1 个symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 1 个目录中的 {2} 个以及 1 个symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_1_symlinks_2">
           <source>{2} of 1 directory and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 1 个目录中的 {2} 个以及 {5} 个symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 1 个目录中的 {2} 个以及 {5} 个symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_2_symlinks_0">
           <source>{2} of {3} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里{3} 个目录中的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里{3} 个目录中的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_2_symlinks_1">
           <source>{2} of {3} directories and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里{3} 个目录中的 {2} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里{3} 个目录中的 {2} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_2_symlinks_2">
           <source>{2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里{3} 个目录中的 {2} 个以及 {5} 个symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里{3} 个目录中的 {2} 个以及 {5} 个symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_0_symlinks_0">
           <source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 1 个文件的 {0} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 1 个文件的 {0} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_0_symlinks_1">
           <source>{0} of 1 file and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 1 个文件中的 {0} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 1 个文件中的 {0} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_0_symlinks_2">
           <source>{0} of 1 file and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 1 个文件中的 {0} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 1 个文件中的 {0} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_1_symlinks_0">
           <source>{0} of 1 file and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 1 个文件中的 {0} 个、1 个目录里的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 1 个文件中的 {0} 个、1 个目录里的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_1_symlinks_1">
           <source>{0} of 1 file and {2} of 1 directory and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 1 个文件中的 {0} 个、1 个目录里的 {2} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 1 个文件中的 {0} 个、1 个目录里的 {2} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_1_symlinks_2">
           <source>{0} of 1 file and {2} of 1 directory and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 1 个文件中的 {0} 个、1 个目录里的 {2} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 1 个文件中的 {0} 个、1 个目录里的 {2} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_2_symlinks_0">
           <source>{0} of 1 file and {2} of {3} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 1 个文件中的 {0} 个以及 {3} 个目录里的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 1 个文件中的 {0} 个以及 {3} 个目录里的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_2_symlinks_1">
           <source>{0} of 1 file and {2} of {3} directories and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 1 个文件中的 {0} 个、{3} 个目录里的 {2} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 1 个文件中的 {0} 个、{3} 个目录里的 {2} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_2_symlinks_2">
           <source>{0} of 1 file and {2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 1 个文件中的 {0} 个、{3} 个目录里的 {2} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 1 个文件中的 {0} 个、{3} 个目录里的 {2} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_0_symlinks_0">
           <source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 {1} 个文件中的 {0} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 {1} 个文件中的 {0} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_0_symlinks_1">
           <source>{0} of {1} files and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 {1} 个文件中的 {0} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 {1} 个文件中的 {0} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_0_symlinks_2">
           <source>{0} of {1} files and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 {1} 个文件中的 {0} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 {1} 个文件中的 {0} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_1_symlinks_0">
           <source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 {1} 个文件中的 {0} 个、1 个目录里的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 {1} 个文件中的 {0} 个、1 个目录里的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_1_symlinks_1">
           <source>{0} of {1} files and {2} of 1 directory and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 {1} 个文件中的 {0} 个、1 个目录里的 {2} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 {1} 个文件中的 {0} 个、1 个目录里的 {2} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_1_symlinks_2">
           <source>{0} of {1} files and {2} of 1 directory and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 {1} 个文件中的 {0} 个、1 个目录里的 {2} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 {1} 个文件中的 {0} 个、1 个目录里的 {2} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_2_symlinks_0">
           <source>{0} of {1} files and {2} of {3} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 {1} 个文件中的 {0} 个以及 {3} 个目录里的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 {1} 个文件中的 {0} 个以及 {3} 个目录里的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_2_symlinks_1">
           <source>{0} of {1} files and {2} of {3} directories and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 {1} 个文件中的 {0} 个、{3} 个目录里的 {2} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 {1} 个文件中的 {0} 个、{3} 个目录里的 {2} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_2_symlinks_2">
           <source>{0} of {1} files and {2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>系统里 {1} 个文件中的 {0} 个、{3} 个目录里的 {2} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target>
+          <target>系统里 {1} 个文件中的 {0} 个、{3} 个目录里的 {2} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href=&quot;{6}&quot;&gt;查看详情&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.differing.files_0">
           <source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
@@ -7710,7 +7473,7 @@ Follow this url to see the full list of inactive systems:
         </trans-unit>
         <trans-unit id="sdc.config.time.message_url">
           <source>{0} by &lt;a href="{1}"&gt;{2}&lt;/a&gt;</source>
-          <target>{0} by &lt;a href="{1}"&gt;{2}&lt;/a&gt;</target>
+          <target>{0} by &lt;a href=&quot;{1}&quot;&gt;{2}&lt;/a&gt;</target>
         </trans-unit>
       </group>
       <group>
@@ -7719,7 +7482,7 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <trans-unit id="config.files_0_dirs_0_symlinks_0_url">
           <source>No files, directories or symlinks. &lt;a href="{0}"&gt; Add&lt;/a&gt;</source>
-          <target>没有文件、目录 symlink。&lt;a href="{0}"&gt;添加&lt;/a&gt;</target>
+          <target>没有文件、目录 symlink。&lt;a href=&quot;{0}&quot;&gt;添加&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="config.files_0_dirs_0_symlinks_0">
           <source>No files, directories or symlinks.</source>
@@ -7861,6 +7624,18 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>脚本不能少于 {0} 个字符。</target>
       </trans-unit>
+      <trans-unit id="file_lists.success">
+        <source>{0} File List(s) deleted.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="file_lists.failure">
+        <source>{0} File List(s) could not be deleted.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="cobbler.powermanagement.poweron">
         <source>Power On</source>
         <target>打开</target>
@@ -7892,7 +7667,7 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
         </context-group>
-        <target>只能在安装了 "fence 代理" 的 @@PRODUCT_NAME@@ 服务器中使用这个功能，根据您使用的操作系统以及所需电源管理架构，所需软件包可能为 "fence-agents"、"fence-agents-all" 或者 "fence-agents-ipmilan"。请安装这个 fence 代理 。如果您的操作系统无法使用 fence 代理，那么就不会支持电源管理功能。</target>
+        <target>只能在安装了 &quot;fence 代理&quot; 的 @@PRODUCT_NAME@@ 服务器中使用这个功能，根据您使用的操作系统以及所需电源管理架构，所需软件包可能为 &quot;fence-agents&quot;、&quot;fence-agents-all&quot; 或者 &quot;fence-agents-ipmilan&quot;。请安装这个 fence 代理 。如果您的操作系统无法使用 fence 代理，那么就不会支持电源管理功能。</target>
       </trans-unit>
       <trans-unit id="cobbler.powermanagement.alom">
         <source>Advanced Lights Out Manager</source>
@@ -8412,12 +8187,24 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>删除了 {0} 个虚拟系统。</target>
       </trans-unit>
+      <trans-unit id="channels.subscribers.updated">
+        <source>{0} channel subscriber(s) successfully updated.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/Subscribers.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="channels.managers.updated">
         <source>{0} channel manager(s) successfully updated.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
         <target>成功地更新了 {0} 频道管理器</target>
+      </trans-unit>
+      <trans-unit id="sdc.activation.kickstarting">
+        <source>There is a kickstart session in progress for this system.  Modifying this activation key is likely to cause the system to fail to re-register when the kickstart session is complete.  Using this key manually could cause unintended side-effects.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/Activation.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="sdc.channels.edit.base_channel_updated">
         <source>System's Base Channel has been updated.</source>
@@ -8440,12 +8227,18 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>注意：因为没有可用的订阅，某些频道订阅可能没有更新。</target>
       </trans-unit>
+      <trans-unit id="ssm.groups.changed">
+        <source>System Group membership changed.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/groups/Manage.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="selinux.java.invalid_mode">
         <source>Invalid SE Linux mode "{0}" specified. Valid values are {1}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">SELinuxMode</context>
         </context-group>
-        <target>指定了无效 SE Linux 模式 "{0}"。有效值为 {1}。</target>
+        <target>指定了无效 SE Linux 模式 &quot;{0}&quot;。有效值为 {1}。</target>
       </trans-unit>
       <trans-unit id="softwareEntitlementSubs.successMessage">
         <source>Updated entitlement count for '{0}'</source>
@@ -8533,7 +8326,7 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/details/configuration/addfiles/UploadFile</context>
           <context context-type="paramnotes">A file named "/etc/passwd" already exists in this channel.</context>
         </context-group>
-        <target>名为 "{0}" 的文件已经存在于此频道里。</target>
+        <target>名为 &quot;{0}&quot; 的文件已经存在于此频道里。</target>
       </trans-unit>
       <trans-unit id="system.entitle.notoolschannel">
         <source>Could not automatically subscribe the system to the RHN Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
@@ -8582,7 +8375,7 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
-        <target>因为您在该系统中添加了虚拟化权利，我们也可执行某些额外的步骤来确保您的系统能够更好地管理虚拟化客体。更多信息请参考&lt;a href="{0}"&gt;这里&lt;/a&gt;。</target>
+        <target>因为您在该系统中添加了虚拟化权利，我们也可执行某些额外的步骤来确保您的系统能够更好地管理虚拟化客体。更多信息请参考&lt;a href=&quot;{0}&quot;&gt;这里&lt;/a&gt;。</target>
       </trans-unit>
       <trans-unit id="system.entitle.addedvirtualization.nodoc">
         <source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.</source>
@@ -8750,7 +8543,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
       <trans-unit id="api.systemgroup.lookupServerGroup">
         <source>Unable to locate or access server group: "{0}"</source>
-        <target>无法定位或者访问服务器组群："{0}"</target>
+        <target>无法定位或者访问服务器组群：&quot;{0}&quot;</target>
       </trans-unit>
       <trans-unit id="api.systemgroup.accessChangeDenied">
         <source>Changing administrator access is not allowed for Satellite and Organization administrators.  These users are granted access by default; therefore, the following users should be removed from the input: {0}</source>
@@ -8782,11 +8575,11 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
       <trans-unit id="api.errata.invalidadvisorytype">
         <source>Invalid errata type, "{0}". Please use one of the following: "Security Advisory", "Product Enhancement Advisory", or "Bug Fix Advisory".</source>
-        <target>无效勘误类型 "{0}"。请使用以下类型之一："Security Advisory"、"Product Enhancement Advisory" 或者 "Bug Fix Advisory"。</target>
+        <target>无效勘误类型 &quot;{0}&quot;。请使用以下类型之一：&quot;Security Advisory&quot;、&quot;Product Enhancement Advisory&quot; 或者 &quot;Bug Fix Advisory&quot;。</target>
       </trans-unit>
       <trans-unit id="api.errata.invalidadvisoryrelease">
         <source>Invalid advisory release, "{0}". Maximum value is {1}.</source>
-        <target>无效公告发布 "{0}"。最大值为 {1}。</target>
+        <target>无效公告发布 &quot;{0}&quot;。最大值为 {1}。</target>
       </trans-unit>
       <trans-unit id="api.errata.nochannelsselected">
         <source>You are trying to publish an errata but have not selected any channels to publish to.  Errata must be published to at least one channel.</source>
@@ -8806,11 +8599,11 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
       <trans-unit id="api.channel.access.invalidaccessvalue">
         <source>Access value, "{0}". Please use one of the following: "public", "private", or "protected".</source>
-        <target>访问值 "{0}"。请使用以下值之一："public"、"private" 或者 "protected"。</target>
+        <target>访问值 &quot;{0}&quot;。请使用以下值之一：&quot;public&quot;、&quot;private&quot; 或者 &quot;protected&quot;。</target>
       </trans-unit>
       <trans-unit id="api.channel.software.channelsubscription">
         <source>Unable to subscribe this system to the requested channel: "{0}"</source>
-        <target>无法将此系统订阅到要求的频道："{0}"</target>
+        <target>无法将此系统订阅到要求的频道：&quot;{0}&quot;</target>
       </trans-unit>
       <trans-unit id="api.channel.software.multiplebasechannel">
         <source>Multiple base channels selected for subscription.  The channels {0} and {1} were both selected for subscription, but a system can only be subscribed to a single base channel.</source>
@@ -9114,7 +8907,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
       <trans-unit id="filter.clearfilter">
         <source>The list below is filtered.&lt;br/&gt; &lt;a href="{0}"&gt; &lt;strong&gt;Clear filter to see all items.&lt;/strong&gt; &lt;/a&gt;</source>
-        <target>过滤以下列表。&lt;a href="{0}"&gt; &lt;strong&gt;清除过滤器以便查看所有项。&lt;/strong&gt; &lt;/a&gt;</target>
+        <target>过滤以下列表。&lt;a href=&quot;{0}&quot;&gt; &lt;strong&gt;清除过滤器以便查看所有项。&lt;/strong&gt; &lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="listtag.clearfilter">
         <source>Clear filter </source>
@@ -9180,13 +8973,9 @@ Follow this url to see the full list of inactive systems:
         <source>Confirm</source>
         <target>确认</target>
       </trans-unit>
-      <trans-unit id="frontend.actions.channels.manager.addcustom.success">
-        <source>Successfully added {1} package(s) and scheduled {0} custom errata to be added to channel {2}.  The custom Errata should appear in the channel and applicable to systems within a few minutes.</source>
-        <target>成功添加 {1} 软件包并预定在频道 {2} 中预定定制 {0} 勘误。几分钟后应在该频道中显示定制勘误并可将其用于系统。</target>
-      </trans-unit>
       <trans-unit id="frontend.actions.channels.manager.add.success">
-        <source>Successfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
-        <target>成功添加 {1} 软件包并预定在频道 {2} 中预定克隆 {0} 勘误。几分钟后克隆的勘误应该出现在频道并可用于系统。</target>
+        <source>Successfully added {1} package(s) and {0} errata to channel {2}.</source>
+        
       </trans-unit>
       <trans-unit id="frontend.actions.channels.manager.add.permsfailure">
         <source>You do not have sufficient permissions to perform this action.</source>
@@ -9294,10 +9083,6 @@ Follow this url to see the full list of inactive systems:
         <source>PPC64LE</source>
         <target>PPC64LE</target>
       </trans-unit>
-      <trans-unit id="channel.manage.patchset.deleteconfirm">
-        <source>{0} patch cluster(s) have been removed from this channel</source>
-        <target>已经从此频道中删除了 {0} 不定栈</target>
-      </trans-unit>
       <trans-unit id="probeparam.passnomatch">
         <source>The Password and Password Confirm did not match.</source>
         <target>密码于密钥确认不匹配。</target>
@@ -9308,7 +9093,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
       <trans-unit id="api.kickstart.invalidscripttype">
         <source>Only script types of "pre" and "post" are allowed for kickstarts.</source>
-        <target>kickstart 中只允许脚本类型 "pre" 和 "post"。</target>
+        <target>kickstart 中只允许脚本类型 &quot;pre&quot; 和 &quot;post&quot;。</target>
       </trans-unit>
       <trans-unit id="api.kickstart.invalidscriptname">
         <source>Script Name must be larger than 0 and fewer than 40 characters.</source>
@@ -9533,6 +9318,12 @@ Follow this url to see the full list of inactive systems:
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
         <target>生成了频道 &lt;strong&gt;{0}&lt;/strong&gt;。</target>
       </trans-unit>
+      <trans-unit id="message.channelcloned">
+        <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; cloned from channel &lt;strong&gt;{1}&lt;/strong&gt;.</source>
+      </trans-unit>
+      <trans-unit id="message.cloneselect">
+        <source>You may now wish to clone the errata associated with &lt;strong&gt;{0}&lt;/strong&gt;.</source>
+      </trans-unit>
       <trans-unit id="message.channeldeleted">
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
         <target>激活码 &lt;strong&gt;{0}&lt;/strong&gt; 已经被删除。</target>
@@ -9600,6 +9391,9 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="kickstart.cobbler.profile.notenoughmemory">
         <source>Red Hat Enterprise Linux 7 and higher guests require at least 1024 MB of memory.</source>
         <target>Red Hat Enterprise Linux 7 或更高版本的虚拟机需要至少 1024MB 内存。</target>
+      </trans-unit>
+      <trans-unit id="kickstart.cobbler.profile.notenoughmemorysuse">
+        <source>SUSE Linux Enterprise Server guests require at least 512 MB of memory.</source>
       </trans-unit>
       <trans-unit id="kickstart.cobbler.profile.invalidvirt">
         <source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
@@ -9684,6 +9478,12 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="ssm.migrate.systems.orgnone">
         <source>This organization has no trusted organizations.  Systems can only be migrated between organizations with defined trusts.</source>
         <target>这个机构没有可信的机构。只能在定义了可信性的机构间迁移系统。</target>
+      </trans-unit>
+      <trans-unit id="ssm.misc.changeprefs.changed">
+        <source>Preferences changed for selected systems.</source>
+      </trans-unit>
+      <trans-unit id="ssm.misc.changeprefs.updatesscheduled">
+        <source>Selected systems will be fully updated in accordance with new Auto Errata Update setting.</source>
       </trans-unit>
       <trans-unit id="channel.manage.merge.finished">
         <source>{0} Package(s) have been added and {1} Package(s) have been removed from the channel.</source>
@@ -9773,12 +9573,24 @@ Kickstart 树将不可用。
         <source>Invalid schedule entry: {0}</source>
         <target>无效调度条目：{0}</target>
       </trans-unit>
-      <trans-unit id="config.multiple.channels">
-        <source>A selected system has multiple child channels available that contain the rhncfg package. You must manually subscribe to the child channel you want and then try this action again.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/system/TargetSystemsSubmit.do</context>
-        </context-group>
-        <target>所选系统有多个子频道可用，并包含 rhncfg 软件包。您必须手动订阅您需要的子频道，并再次尝试这个操作。</target>
+      <!-- SUSE Studio -->
+      <trans-unit id="credentials.message.updated">
+        <source>Your credentials were successfully updated.</source>
+      </trans-unit>
+      <trans-unit id="credentials.message.deleted">
+        <source>Your credentials were successfully deleted.</source>
+      </trans-unit>
+      <trans-unit id="credentials.message.incomplete">
+        <source>Your credentials are incomplete, at least username and password are needed.</source>
+      </trans-unit>
+      <trans-unit id="images.message.error.nocreds">
+        <source>It looks like you did not enter valid credentials for talking to SUSE Studio, please check &lt;a href="/rhn/account/Credentials.do"&gt;here&lt;/a&gt;.</source>
+      </trans-unit>
+      <trans-unit id="images.message.error.connection">
+        <source>There was a problem connecting to SUSE Studio, you might want to review your configuration &lt;a href="/rhn/account/Credentials.do"&gt;here&lt;/a&gt; or try again later.</source>
+      </trans-unit>
+      <trans-unit id="images.message.success.scheduled">
+        <source>Image deployment scheduled: {0}</source>
       </trans-unit>
       <trans-unit id="help.credentials.rerequest">
         <source>An email has already been sent. You may request this action only every {0} seconds.</source>
@@ -9803,6 +9615,13 @@ Kickstart 树将不可用。
       <trans-unit id="help.credentials.loginssent">
         <source>Found login(s) sent to {0}.</source>
         <target>找到登录发送至 {0}。</target>
+      </trans-unit>
+      <trans-unit id="config.multiple.channels">
+        <source>A selected system has multiple child channels available that contain the rhncfg package. You must manually subscribe to the child channel you want and then try this action again.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/system/TargetSystemsSubmit.do</context>
+        </context-group>
+        <target>所选系统有多个子频道可用，并包含 rhncfg 软件包。您必须手动订阅您需要的子频道，并再次尝试这个操作。</target>
       </trans-unit>
     </body>
   </file>

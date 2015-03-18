@@ -354,14 +354,14 @@ click the "Details" tab.
 Ändern der Benachrichtungspräferenzen
 ---------------------------------
 Um Ihre Präferenzen zur Errata-Benachrichtigung global zu aktivieren/deaktivieren, loggen Sie sich
-bei @@PRODUCT_NAME@@ ein und navigieren via "Überblick" / "Ihr Account" zum Tab "Ihre Präferenzen".
+bei @@PRODUCT_NAME@@ ein und navigieren via &quot;Überblick&quot; / &quot;Ihr Account&quot; zum Tab &quot;Ihre Präferenzen&quot;.
 
 
         URL: {0}
 
 Sie können die Benachrichtigung auch pro System aktivieren/deaktivieren,
-indem Sie ein einzelnes System aus der "Systemliste" auswählen. Klicken Sie aus
-der Ansicht des Einzelsystems den Tab "Details".
+indem Sie ein einzelnes System aus der &quot;Systemliste&quot; auswählen. Klicken Sie aus
+der Ansicht des Einzelsystems den Tab &quot;Details&quot;.
 
 {1}
 {2}</target>

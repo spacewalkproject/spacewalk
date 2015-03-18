@@ -112,12 +112,17 @@
         </trans-unit>
       </group>
       <!-- TimeZones -->
-      <trans-unit id="Australia/Sydney">
-        <source>(GMT+1000) Australia (Eastern)</source>
+      <trans-unit id="Australia/Brisbane">
+        <source>(GMT+1000) Australia (Eastern Standard)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT+1000) ਆਸਟਰੇਲੀਆ (ਪੂਰਬੀ)</target>
+      </trans-unit>
+      <trans-unit id="Australia/Sydney">
+        <source>(GMT+1000) Australia (Eastern Daylight)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Asia/Tokyo">
         <source>(GMT+0900) Japan</source>
@@ -125,6 +130,12 @@
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
         <target>(GMT+0900) ਜਪਾਨ</target>
+      </trans-unit>
+      <trans-unit id="Asia/Seoul">
+        <source>(GMT+0900) Korea</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Australia/Perth">
         <source>(GMT+0800) Australia (Western)</source>
@@ -139,6 +150,12 @@
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
         <target>(GMT+0400) ਰੂਸ (ਮਾਸਕੋ)</target>
+      </trans-unit>
+      <trans-unit id="Africa/Johannesburg">
+        <source>(GMT+0200) South Africa (Johannesburg)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Europe/Bucharest">
         <source>(GMT+0200) Europe (Eastern)</source>
@@ -189,6 +206,12 @@
         </context-group>
         <target>(GMT-0600) ਅਮਰੀਕਾ (ਕੇਂਦਰੀ)</target>
       </trans-unit>
+      <trans-unit id="America/Regina">
+        <source>(GMT-0600) Canada (Regina)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="America/Denver">
         <source>(GMT-0700) United States (Mountain)</source>
         <context-group name="ctx">
@@ -225,11 +248,16 @@
         <target>(GMT+1300) ਟਾਂਗੋ</target>
       </trans-unit>
       <trans-unit id="Pacific/Wallis">
-        <source>(GMT+1200) New Zealand</source>
+        <source>(GMT+1200) New Zealand (Wallis)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT+1200) ਨਿਊਜ਼ੀਲੈਂਡ</target>
+      </trans-unit>
+      <trans-unit id="Pacific/Auckland">
+        <source>(GMT+1200) New Zealand (Auckland)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Pacific/Norfolk">
         <source>(GMT+1130) Norfolk Island</source>
@@ -349,6 +377,12 @@
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
         <target>(GMT-0700) ਅਮਰੀਕਾ (ਅਰੀਜ਼ੋਨਾ)</target>
+      </trans-unit>
+      <trans-unit id="Asia/Riyadh">
+        <source>(GMT+0300) Saudi Arabia</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Asia/Tehran">
         <source>(GMT+0330) Iran</source>
@@ -2784,486 +2818,6 @@
       </trans-unit>
       <group>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <note>Threshold types for threshold parameters
-                rhn_command_param_threshold.threshold_type_name -&gt; text
-        </note>
-        <trans-unit id="crit_max">
-          <source>Critical if above</source>
-          <target>ਨਾਜ਼ੁਕ ਜੇਕਰ ਉੱਪਰ ਹੈ</target>
-        </trans-unit>
-        <trans-unit id="crit_min">
-          <source>Critical if below</source>
-          <target>ਨਾਜ਼ੁਕ ਜੇਕਰ ਘੱਟ</target>
-        </trans-unit>
-        <trans-unit id="warn_max">
-          <source>Warn if above</source>
-          <target>ਸਾਵਧਾਨ ਜੇਕਰ ਜਿਆਦਾ ਹੈ</target>
-        </trans-unit>
-        <trans-unit id="warn_min">
-          <source>Warn if below</source>
-          <target>ਸਾਵਧਾਨ ਜੇਕਰ ਘੱਟ ਹੈ</target>
-        </trans-unit>
-      </group>
-      <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <note>Metrics for threshold params:
-          rhn_metrics.description -&gt; rhn_metrics.description
-        </note>
-        <trans-unit id="Active Locks">
-          <source>Active Locks</source>
-          <target>ਸਰਗਰਮ ਤਾਲੇ</target>
-        </trans-unit>
-        <trans-unit id="Blocked Processes">
-          <source>Blocked Processes</source>
-          <target>ਪਾਬੰਦੀ ਕਾਰਜ</target>
-        </trans-unit>
-        <trans-unit id="Buffer Cache Hit Ratio">
-          <source>Buffer Cache Hit Ratio</source>
-          <target>ਬਫ਼ਰ ਕੈਸ਼ੇ ਹਿੱਟ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="CLOSE_WAIT Connections">
-          <source>CLOSE_WAIT Connections</source>
-          <target>CLOSE_WAIT ਕੁਨੈਕਸ਼ਨ</target>
-        </trans-unit>
-        <trans-unit id="CPU Load 1-Minute Average">
-          <source>CPU Load 1-Minute Average</source>
-          <target>CPU ਲੋਡ 1-ਮਿੰਟ ਔਸਤ</target>
-        </trans-unit>
-        <trans-unit id="CPU Load 15-Minute Average">
-          <source>CPU Load 15-Minute Average</source>
-          <target>CPU ਲੋਡ 15-ਮਿੰਟ ਔਸਤ</target>
-        </trans-unit>
-        <trans-unit id="CPU Load 5-Minute Average">
-          <source>CPU Load 5-Minute Average</source>
-          <target>CPU ਲੋਡ 5-ਮਿੰਟ ਔਸਤ</target>
-        </trans-unit>
-        <trans-unit id="CPU Used">
-          <source>CPU Used</source>
-          <target>CPU ਵਰਤੋਂ</target>
-        </trans-unit>
-        <trans-unit id="Cache Miss Rate">
-          <source>Cache Miss Rate</source>
-          <target>ਕੈਸ਼ੇ ਮਿਸ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Child Process Groups">
-          <source>Child Process Groups</source>
-          <target>ਚਲਾਇਡ ਕਾਰਜ ਗਰੁੱਪ</target>
-        </trans-unit>
-        <trans-unit id="Connection Rate">
-          <source>Connection Rate</source>
-          <target>ਕੁਨੈਕਸ਼ਨ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Connections">
-          <source>Connections</source>
-          <target>ਕੁਨੈਕਸ਼ਨ</target>
-        </trans-unit>
-        <trans-unit id="Consistent Get Rate">
-          <source>Consistent Get Rate</source>
-          <target>ਇਕਸਾਰ ਪਰਾਪਤੀ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Current Requests">
-          <source>Current Requests</source>
-          <target>ਮੌਜੂਦਾ ਮੰਗਾਂ</target>
-        </trans-unit>
-        <trans-unit id="DB Block Get Rate">
-          <source>DB Block Get Rate</source>
-          <target>DB ਬਲਾਕ ਪਰਾਪਤੀ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Data Dictionary Hit Ratio">
-          <source>Data Dictionary Hit Ratio</source>
-          <target>ਡਾਟਾ ਡਿਕਸ਼ਨਰੀ ਹਿੱਟ ਅਨੁਪਾਤ</target>
-        </trans-unit>
-        <trans-unit id="Defunct Processes">
-          <source>Defunct Processes</source>
-          <target>ਡੀ-ਫੰਕਸ਼ ਕਾਰਜ</target>
-        </trans-unit>
-        <trans-unit id="Disk Sort Rate">
-          <source>Disk Sort Rate</source>
-          <target>ਡਿਸਕ ਲੜੀਬੱਧ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="ESTABLISHED Connections">
-          <source>ESTABLISHED Connections</source>
-          <target>ਸਥਾਪਤ ਕੁਨੈਕਸ਼ਨ</target>
-        </trans-unit>
-        <trans-unit id="Execution Rate">
-          <source>Execution Rate</source>
-          <target>ਚੱਲਣ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Execution Time Ave">
-          <source>Execution Time Ave</source>
-          <target>ਚੱਲਣ ਸਮਾਂ ਔਸਤ</target>
-        </trans-unit>
-        <trans-unit id="Execution Time Moving Average">
-          <source>Execution Time Moving Average</source>
-          <target>ਚੱਲਣ ਸਮਾਂ ਏਧਰ-ਓਧਰ ਔਸਤ</target>
-        </trans-unit>
-        <trans-unit id="FIN_WAIT Connections">
-          <source>FIN_WAIT Connections</source>
-          <target>FIN_WAIT ਕੁਨੈਕਸ਼ਨ</target>
-        </trans-unit>
-        <trans-unit id="Filesystem Used">
-          <source>Filesystem Used</source>
-          <target>ਫਾਇਲ ਸਿਸਟਮ ਵਰਤੋਂ</target>
-        </trans-unit>
-        <trans-unit id="Get Rate">
-          <source>Get Rate</source>
-          <target>ਪਰਾਪਤੀ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="High Execution Time">
-          <source>High Execution Time</source>
-          <target>ਉੱਚ ਚੱਲਣ ਸਮਾਂ</target>
-        </trans-unit>
-        <trans-unit id="Idle Execute Threads">
-          <source>Idle Execute Threads</source>
-          <target>ਵਿਹਲੇ ਚੱਲਣ ਥਰਿੱਡ</target>
-        </trans-unit>
-        <trans-unit id="Inodes Used">
-          <source>Inodes Used</source>
-          <target>ਆਈਨੋਡ ਵਰਤੋਂ</target>
-        </trans-unit>
-        <trans-unit id="Input Rate">
-          <source>Input Rate</source>
-          <target>ਇੰਪੁੱਟ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Invocation Rate">
-          <source>Invocation Rate</source>
-          <target>ਸੰਕੇਤ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Library Cache Miss Ratio">
-          <source>Library Cache Miss Ratio</source>
-          <target>ਲਾਇਬਰੇਰੀ ਕੈਸ਼ੇ ਮਿਸ ਅਨੁਪਾਤ</target>
-        </trans-unit>
-        <trans-unit id="Line Rate">
-          <source>Line Rate</source>
-          <target>ਲਾਇਨ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Lines">
-          <source>Lines</source>
-          <target>ਲਾਈਨਾਂ</target>
-        </trans-unit>
-        <trans-unit id="Low Execution Time">
-          <source>Low Execution Time</source>
-          <target>ਚੱਲਣ ਸਮਾਂ ਔਸਤ</target>
-        </trans-unit>
-        <trans-unit id="Max Data Transferred Per Child">
-          <source>Max Data Transferred Per Child</source>
-          <target>ਵੱਧੋ-ਵੱਧ ਸੰਚਾਰ ਪ੍ਰਤੀ ਚਾਈਲਡ</target>
-        </trans-unit>
-        <trans-unit id="Max Data Transferred Per Slot">
-          <source>Max Data Transferred Per Slot</source>
-          <target>ਵੱਧੋ-ਵੱਧ ਸੰਚਾਰ ਪ੍ਰਤੀ ਸਲਾਟ</target>
-        </trans-unit>
-        <trans-unit id="Memory Sort Rate">
-          <source>Memory Sort Rate</source>
-          <target>ਮੈਮੋਰ ਲੜੀਬੱਧ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Open Objects">
-          <source>Open Objects</source>
-          <target>ਖੁੱਲੀਆਂ ਇਕਾਈਆਂ</target>
-        </trans-unit>
-        <trans-unit id="Opened Objects">
-          <source>Opened Objects</source>
-          <target>ਖੁੱਲੀਆਂ ਇਕਾਈਆਂ</target>
-        </trans-unit>
-        <trans-unit id="Output Rate">
-          <source>Output Rate</source>
-          <target>ਆਊਟਪੁੱਟ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Packet Loss">
-          <source>Packet Loss</source>
-          <target>ਪੈਕਟ ਗੁੰਮ</target>
-        </trans-unit>
-        <trans-unit id="Physical Memory Used">
-          <source>Physical Memory Used</source>
-          <target>ਭੌਤਿਕ ਮੈਮੋਰੀ ਵਰਤੋਂ</target>
-        </trans-unit>
-        <trans-unit id="Physical Read Rate">
-          <source>Physical Read Rate</source>
-          <target>ਭੌਤਿਕ ਪੜਨ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Probe Execution Time Average">
-          <source>Probe Execution Time Average</source>
-          <target>ਪੜਤਾਲ ਚੱਲਣ ਸਮਾਂ ਔਸਤ</target>
-        </trans-unit>
-        <trans-unit id="Probe Latency Average">
-          <source>Probe Latency Average</source>
-          <target>ਪੜਤਾਲ ਪੁਰਾਤਨ ਔਸਤ</target>
-        </trans-unit>
-        <trans-unit id="Probes">
-          <source>Probes</source>
-          <target>ਪੜਤਾਲਾਂ</target>
-        </trans-unit>
-        <trans-unit id="Query Time">
-          <source>Query Time</source>
-          <target>ਕਿਊਰੀ ਸਮਾਂ</target>
-        </trans-unit>
-        <trans-unit id="Queue Length">
-          <source>Queue Length</source>
-          <target>ਕਿਊਰੀ ਲੰਬਾਈ</target>
-        </trans-unit>
-        <trans-unit id="RAM Free">
-          <source>RAM Free</source>
-          <target>RAM ਮੁਕਤ</target>
-        </trans-unit>
-        <trans-unit id="Read Rate">
-          <source>Read Rate</source>
-          <target>ਪੜਨ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Redo Buffer Allocation Retry Rate">
-          <source>Redo Buffer Allocation Retry Rate</source>
-          <target>ਮੁੜ-ਵਾਪਸ ਬਫ਼ਰ ਜਾਰੀ ਮੁੜ-ਕੋਸ਼ਸ਼ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Redo Log Space Request Rate">
-          <source>Redo Log Space Request Rate</source>
-          <target>ਮੁੜ-ਵਾਪਸ ਲਾਗ ਥਾਂ ਮੰਗ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Regular Expression Match Rate">
-          <source>Regular Expression Match Rate</source>
-          <target>ਨਿਯਮਤ ਸਮੀਕਰਨ ਮਿਲਾਨ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Regular Expression Matches">
-          <source>Regular Expression Matches</source>
-          <target>ਨਿਯਮਤ ਸਮੀਕਰਨ ਮਿਲਾਨ</target>
-        </trans-unit>
-        <trans-unit id="Reload Rate">
-          <source>Reload Rate</source>
-          <target>ਮੁੜ-ਲੋਡ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Remote Service Latency">
-          <source>Remote Service Latency</source>
-          <target>ਰਿਮੋਟ ਸੇਵਾ ਪੁਰਾਤਨ</target>
-        </trans-unit>
-        <trans-unit id="Request Rate">
-          <source>Request Rate</source>
-          <target>ਮੰਗ ਦਰ</target>
-        </trans-unit>
-        <trans-unit id="Round-trip Average">
-          <source>Round-trip Average</source>
-          <target>ਫੇਰ ਔਸਤ</target>
-        </trans-unit>
-        <trans-unit id="SYN_RCVD Connections">
-          <source>SYN_RCVD Connections</source>
-          <target>SYN_RCVD ਕੁਨੈਕਸ਼ਨ</target>
-        </trans-unit>
-        <trans-unit id="Size">
-          <source>Size</source>
-          <target>ਅਕਾਰ</target>
-        </trans-unit>
-        <trans-unit id="Sleeping Processes">
-          <source>Sleeping Processes</source>
-          <target>ਵਿਰਾਮ ਕਾਰਜ</target>
-        </trans-unit>
-        <trans-unit id="Space Available">
-          <source>Space Available</source>
-          <target>ਥਾਂ ਉਪਲੱਬਧ</target>
-        </trans-unit>
-        <trans-unit id="Space Used">
-          <source>Space Used</source>
-          <target>ਥਾਂ ਵਰਤੋਂ</target>
-        </trans-unit>
-        <trans-unit id="Stopped Processes">
-          <source>Stopped Processes</source>
-          <target>ਰੁਕੇ ਕਾਰਜ</target>
-        </trans-unit>
-        <trans-unit id="Swap Space Free">
-          <source>Swap Space Free</source>
-          <target>ਸਵੈਪ ਥਾਂ ਮੁਕਤ</target>
-        </trans-unit>
-        <trans-unit id="TIME_WAIT Connections">
-          <source>TIME_WAIT Connections</source>
-          <target>TIME_WAIT ਕੁਨੈਕਸ਼ਨ</target>
-        </trans-unit>
-        <trans-unit id="Threads">
-          <source>Threads</source>
-          <target>ਥਰਿੱਡ</target>
-        </trans-unit>
-        <trans-unit id="Total Connections">
-          <source>Total Connections</source>
-          <target>ਕੁੱਲ ਕੁਨੈਕਸ਼ਨ</target>
-        </trans-unit>
-        <trans-unit id="Traffic">
-          <source>Traffic</source>
-          <target>ਆਵਾਜਾਈ</target>
-        </trans-unit>
-        <trans-unit id="Used Sessions">
-          <source>Used Sessions</source>
-          <target>ਵਰਤਿਆ ਸ਼ੈਸ਼ਨ</target>
-        </trans-unit>
-        <trans-unit id="Value">
-          <source>Value</source>
-          <target>ਮੁੱਲ</target>
-        </trans-unit>
-        <trans-unit id="Virtual Memory Free">
-          <source>Virtual Memory Free</source>
-          <target>ਵਰਚੁਅਲ ਮੈਮੋਰੀ ਮੁਕਤ</target>
-        </trans-unit>
-        <trans-unit id="Virtual Memory Used">
-          <source>Virtual Memory Used</source>
-          <target>ਵਰਚੁਅਲ ਮੈਮੋਰੀ ਵਰਤੀਂ</target>
-        </trans-unit>
-        <trans-unit id="Waiters">
-          <source>Waiters</source>
-          <target>ਉਡੀਕਾਵਾਨ</target>
-        </trans-unit>
-        <trans-unit id="Write Rate">
-          <source>Write Rate</source>
-          <target>ਲਿਖਣ ਦਰ</target>
-        </trans-unit>
-      </group>
-      <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <note>Units for metrics:
-                rhn_units.unit_id -&gt; '(' || rhn_units.description || ')'
-        </note>
-        <trans-unit id="secs">
-          <source>(Seconds)</source>
-          <target>(ਸਕਿੰਟ)</target>
-        </trans-unit>
-        <trans-unit id="percent">
-          <source>(Percentage)</source>
-          <target>(ਫੀ-ਸਦੀ)</target>
-        </trans-unit>
-        <trans-unit id="bits">
-          <source>(Bits)</source>
-          <target>(ਬਿੱਟ)</target>
-        </trans-unit>
-        <trans-unit id="count">
-          <source>(Number)</source>
-          <target>(ਨੰਬਰ)</target>
-        </trans-unit>
-        <trans-unit id="astring">
-          <source>(ASCII string)</source>
-          <target>(ASCII ਸਤਰ)</target>
-        </trans-unit>
-        <trans-unit id="Bps">
-          <source>(Bits per second)</source>
-          <target>(ਬਿੱਟ ਪ੍ਰਤੀ ਸਕਿੰਟ)</target>
-        </trans-unit>
-        <trans-unit id="hertz">
-          <source>(Cycles per second)</source>
-          <target>(ਚੱਕਰ ਪ੍ਰਤੀ ਸਕਿੰਟ)</target>
-        </trans-unit>
-        <trans-unit id="kelvins">
-          <source>(Degrees Kelvin)</source>
-          <target>(ਡਿਗਰੀ ਕੈਲਵਿਨ)</target>
-        </trans-unit>
-        <trans-unit id="kilograms">
-          <source>(Kilograms)</source>
-          <target>(ਕਿਲੋਗਰਾਮ)</target>
-        </trans-unit>
-        <trans-unit id="amperes">
-          <source>(Amperes)</source>
-          <target>(ਐਮਪੀਅਰ)</target>
-        </trans-unit>
-        <trans-unit id="newtons">
-          <source>(Newtons)</source>
-          <target>(ਨਿਊਟਨ)</target>
-        </trans-unit>
-        <trans-unit id="watts">
-          <source>(Watts)</source>
-          <target>(ਵਾਟ)</target>
-        </trans-unit>
-        <trans-unit id="coulombs">
-          <source>(Coulombs)</source>
-          <target>(ਕੰਲੋਬਸ)</target>
-        </trans-unit>
-        <trans-unit id="volts">
-          <source>(Volts)</source>
-          <target>(ਵੋਲਟ)</target>
-        </trans-unit>
-        <trans-unit id="rpm">
-          <source>(Revolutions per minute)</source>
-          <target>(ਚੱਕਰ ਪ੍ਰਤੀ ਮਿੰਟ)</target>
-        </trans-unit>
-        <trans-unit id="MHz">
-          <source>(Megahertz)</source>
-          <target>(ਮੈਗਾਹਰਟਜ਼)</target>
-        </trans-unit>
-        <trans-unit id="bps">
-          <source>(Bytes per second)</source>
-          <target>(ਬਾਈਟ ਪ੍ਰਤੀ ਸਕਿੰਟ)</target>
-        </trans-unit>
-        <trans-unit id="kBps">
-          <source>(Kilobits per second)</source>
-          <target>(ਕਿਲੋਬਾਈਟ ਪ੍ਰਤੀ ਸਕਿੰਟ)</target>
-        </trans-unit>
-        <trans-unit id="MBps">
-          <source>(Megabits per second)</source>
-          <target>(ਮੈਗਾਬਾਈਟ ਪ੍ਰਤੀ ਸਕਿੰਟ)</target>
-        </trans-unit>
-        <trans-unit id="bytes">
-          <source>(Bytes)</source>
-          <target>(ਬਾਈਟ)</target>
-        </trans-unit>
-        <trans-unit id="kb">
-          <source>(Kilobytes)</source>
-          <target>(ਕਿਲੋਬਾਈਟ)</target>
-        </trans-unit>
-        <trans-unit id="Mb">
-          <source>(Megabytes)</source>
-          <target>(ਮੈਗਾਬਾਈਟ)</target>
-        </trans-unit>
-        <trans-unit id="Gb">
-          <source>(Gigabytes)</source>
-          <target>(ਗੈਗਾਬਾਈਟ)</target>
-        </trans-unit>
-        <trans-unit id="kW">
-          <source>(Kilowatts)</source>
-          <target>(ਕਿਲੋਵਾਟ)</target>
-        </trans-unit>
-        <trans-unit id="millisecs">
-          <source>(Milliseconds)</source>
-          <target>(ਮਿਲੀਸਕਿੰਟ)</target>
-        </trans-unit>
-        <trans-unit id="boolean">
-          <source>(Boolean)</source>
-          <target>(ਬੁਲੀਅਨ)</target>
-        </trans-unit>
-        <trans-unit id="eps">
-          <source>(Events per second)</source>
-          <target>(ਘਟਨਾਵਾਂ ਪ੍ਰਤੀ ਸਕਿੰਟ)</target>
-        </trans-unit>
-        <trans-unit id="celsius">
-          <source>(Degrees Celsius)</source>
-          <target>(ਡਿਗਰੀ ਸੈਲਸੀਅਸ)</target>
-        </trans-unit>
-        <trans-unit id="metres">
-          <source>(Metres)</source>
-          <target>(ਮੈਟਰਿਕ)</target>
-        </trans-unit>
-        <trans-unit id="epm">
-          <source>(Events per minute)</source>
-          <target>(ਘਟਨਾਵਾਂ ਪ੍ਰਤੀ ਮਿੰਟ)</target>
-        </trans-unit>
-        <trans-unit id="Kbps">
-          <source>(Kilobytes per second)</source>
-          <target>(ਕਿਲੋਬਾਈਟ ਪ੍ਰਤੀ ਮਿੰਟ)</target>
-        </trans-unit>
-        <trans-unit id="bpm">
-          <source>(Bytes per minute)</source>
-          <target>(ਬਾਈਟ ਪ੍ਰਤੀ ਮਿੰਟ)</target>
-        </trans-unit>
-        <trans-unit id="lpm">
-          <source>(Lines per minute)</source>
-          <target>(ਸਤਰਾਂ ਪ੍ਰਤੀ ਮਿੰਟ)</target>
-        </trans-unit>
-        <trans-unit id="pounds">
-          <source>(Pounds)</source>
-          <target>(ਪਾਊਂਡ)</target>
-        </trans-unit>
-        <trans-unit id="msps">
-          <source>(Milliseconds per second)</source>
-          <target>(ਮਿਲਸਕਿੰਟ ਪ੍ਰਤੀ ਸਕਿੰਟ)</target>
-        </trans-unit>
-      </group>
-      <group>
-        <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
         <note>Probe command requirements:
@@ -3298,7 +2852,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
         <note>Command group names:
-                        rhn_command_groups.description -&gt; rhn_command_groups.description</note>
+      rhn_command_groups.description -&gt; rhn_command_groups.description</note>
         <trans-unit id="All">
           <source>All</source>
           <target>ਸਭ</target>
@@ -3349,7 +2903,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
         <note>Command names:
-                        rhn_command.description -&gt; rhn_command.description</note>
+      rhn_command.description -&gt; rhn_command.description</note>
         <trans-unit id="Active Sessions">
           <source>Active Sessions</source>
           <target>ਸਰਗਰਮ ਸ਼ੈਸ਼ਨ</target>

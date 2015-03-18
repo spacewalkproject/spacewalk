@@ -833,13 +833,6 @@
         </context-group>
         <target>Preferencias de localización</target>
       </trans-unit>
-      <trans-unit id="Probes">
-        <source>Probes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Sondeos</target>
-      </trans-unit>
       <trans-unit id="Profiles">
         <source>Profiles</source>
         <context-group name="ctx">
@@ -1076,7 +1069,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Test Message - ignore</context>
         </context-group>
-        <target>&lt;p&gt;No tiene los suficientes derechos para &lt;strong&gt; &lt;a href="http://www.redhat.com"&gt;{0} sistemas&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;</target>
+        <target>&lt;p&gt;No tiene los suficientes derechos para &lt;strong&gt; &lt;a href=&quot;http://www.redhat.com&quot;&gt;{0} sistemas&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="traceback message header">
         <source>The following exception occurred while executing this request:</source>
@@ -1955,21 +1948,21 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Logfile error message</context>
         </context-group>
-        <target>No se pudo analizar la declaración ACL: "{0}"</target>
+        <target>No se pudo analizar la declaración ACL: &quot;{0}&quot;</target>
       </trans-unit>
       <trans-unit id="bad-handler">
         <source>Could not find ACL handler {0} in statement: "{1}". Available ACL handlers: {2}</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Logfile error message</context>
         </context-group>
-        <target>No se pudieron encontrar indicadores ACL {0} en la declaración: "{1}". indicadores ACL disponibles: {2}</target>
+        <target>No se pudieron encontrar indicadores ACL {0} en la declaración: &quot;{1}&quot;. indicadores ACL disponibles: {2}</target>
       </trans-unit>
       <trans-unit id="invocation-target-exception">
         <source>IllegalInvocationException calling {0} ("{1}"): {2}</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Logfile error message</context>
         </context-group>
-        <target>IllegalInvocationException llamando {0} ("{1}"): {2}</target>
+        <target>IllegalInvocationException llamando {0} (&quot;{1}&quot;): {2}</target>
       </trans-unit>
       <trans-unit id="no notes">
         <source>(none)</source>
@@ -2088,7 +2081,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/configuration/addfiles/ImportFileConfirm.do</context>
         </context-group>
-        <target>{0} archivos &lt;a href="{1}"&gt;programados&lt;/a&gt; para cargar.</target>
+        <target>{0} archivos &lt;a href=&quot;{1}&quot;&gt;programados&lt;/a&gt; para cargar.</target>
       </trans-unit>
       <trans-unit id="configfiles.upload">
         <source>Import config file data from system</source>
@@ -2124,7 +2117,7 @@
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
           <context context-type="paramnotes">Revision 5 of /etc/foo from My Config Channel</context>
         </context-group>
-        <target>&lt;a href="{0}"&gt;Revisión {1}&lt;/a&gt; de {2} desde &lt;a href="{3}"&gt;{4}&lt;/a&gt;</target>
+        <target>&lt;a href=&quot;{0}&quot;&gt;Revisión {1}&lt;/a&gt; de {2} desde &lt;a href=&quot;{3}&quot;&gt;{4}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="config.upload.onechannel">
         <source>Destination Configuration Channel: {0}</source>
@@ -2185,7 +2178,7 @@ available for this kickstart profile to function properly.
         <context-group name="ctx">
           <context context-type="sourcefile">Kickstart Profile Details pages.</context>
         </context-group>
-        <target>&lt;div style="text-align: left;"&gt;
+        <target>&lt;div style=&quot;text-align: left;&quot;&gt;
 &lt;p&gt;Para resolver este problema, revise lo siguiente:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -2520,7 +2513,7 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
             1 system failed to complete this action.
           </context>
         </context-group>
-        <target>&lt;a href="/rhn/schedule/FailedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} sistema&lt;/a&gt;&lt;/strong&gt; falló en completar esta acción.&lt;br/&gt;&lt;br/&gt;</target>
+        <target>&lt;a href=&quot;/rhn/schedule/FailedSystems.do?aid={0}&quot;&gt;&lt;strong&gt;{1} sistema&lt;/a&gt;&lt;/strong&gt; falló en completar esta acción.&lt;br/&gt;&lt;br/&gt;</target>
       </trans-unit>
       <trans-unit id="action.failedlink.plural">
         <source>&lt;a href="/rhn/schedule/FailedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} systems&lt;/a&gt;&lt;/strong&gt; failed to complete this action.&lt;br/&gt;&lt;br/&gt;</source>
@@ -2530,7 +2523,7 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
             2 systems failed to complete this action.
           </context>
         </context-group>
-        <target>&lt;a href="/rhn/schedule/FailedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} sistemas&lt;/a&gt;&lt;/strong&gt; fallaron en completar esta acción.&lt;br/&gt;&lt;br/&gt;</target>
+        <target>&lt;a href=&quot;/rhn/schedule/FailedSystems.do?aid={0}&quot;&gt;&lt;strong&gt;{1} sistemas&lt;/a&gt;&lt;/strong&gt; fallaron en completar esta acción.&lt;br/&gt;&lt;br/&gt;</target>
       </trans-unit>
       <trans-unit id="action.completelink">
         <source>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} system&lt;/a&gt;&lt;/strong&gt; successfully completed this action.&lt;br/&gt;&lt;br/&gt;</source>
@@ -2540,7 +2533,7 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
             1 system successfully completed this action.
           </context>
         </context-group>
-        <target>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} sistema&lt;/a&gt;&lt;/strong&gt; completó esta acción con éxito.&lt;br/&gt;&lt;br/&gt;</target>
+        <target>&lt;a href=&quot;/rhn/schedule/CompletedSystems.do?aid={0}&quot;&gt;&lt;strong&gt;{1} sistema&lt;/a&gt;&lt;/strong&gt; completó esta acción con éxito.&lt;br/&gt;&lt;br/&gt;</target>
       </trans-unit>
       <trans-unit id="action.completelink.plural">
         <source>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} systems&lt;/a&gt;&lt;/strong&gt; successfully completed this action.&lt;br/&gt;&lt;br/&gt;</source>
@@ -2550,7 +2543,7 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
             2 systems successfully completed this action.
           </context>
         </context-group>
-        <target>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} sistemas&lt;/a&gt;&lt;/strong&gt; completaron esta acción con éxito.&lt;br/&gt;&lt;br/&gt;</target>
+        <target>&lt;a href=&quot;/rhn/schedule/CompletedSystems.do?aid={0}&quot;&gt;&lt;strong&gt;{1} sistemas&lt;/a&gt;&lt;/strong&gt; completaron esta acción con éxito.&lt;br/&gt;&lt;br/&gt;</target>
       </trans-unit>
       <trans-unit id="action.name">
         <source>Errata Update: {0} - {1}</source>
@@ -2574,7 +2567,7 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">1 errata update has been scheduled for workstation.</context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; actualización de erratas ha sido programada para &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; actualización de erratas ha sido programada para &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{1}&lt;/a&gt;.</target>
       </trans-unit>
       <trans-unit id="errata.schedule.plural">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; errata updates have been scheduled for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
@@ -2582,7 +2575,7 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">43 errata updates have been scheduled for workstation.</context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; actualizaciones de erratas han sido programadas para &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; actualizaciones de erratas han sido programadas para &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{1}&lt;/a&gt;.</target>
       </trans-unit>
       <trans-unit id="errataconfirm.schedule">
         <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
@@ -2590,7 +2583,7 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 1 system</context>
         </context-group>
-        <target>Las erratas &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; han sido programadas para &lt;strong&gt;{1}&lt;/strong&gt; sistema</target>
+        <target>Las erratas &lt;a href=&quot;/rhn/errata/details/Details.do?eid={2}&quot;&gt;{0}&lt;/a&gt; han sido programadas para &lt;strong&gt;{1}&lt;/strong&gt; sistema</target>
       </trans-unit>
       <trans-unit id="errataconfirm.schedule.plural">
         <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; systems</source>
@@ -2598,7 +2591,7 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 3 systems</context>
         </context-group>
-        <target>Las erratas &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; han sido programadas para &lt;strong&gt;{1}&lt;/strong&gt; sistemas</target>
+        <target>Las erratas &lt;a href=&quot;/rhn/errata/details/Details.do?eid={2}&quot;&gt;{0}&lt;/a&gt; han sido programadas para &lt;strong&gt;{1}&lt;/strong&gt; sistemas</target>
       </trans-unit>
       <trans-unit id="errataconfirm.nosystems">
         <source>You must select at least one system.</source>
@@ -2801,14 +2794,14 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserList</context>
         </context-group>
-        <target>Clonar kickstart</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.CryptoKeyDelete">
         <source>Delete Key</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeyEdit</context>
         </context-group>
-        <target>Borrar llave</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.create.user">
         <source>Create User</source>
@@ -2846,103 +2839,75 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
         </context-group>
         <target>Borrar grupo externo</target>
       </trans-unit>
-      <trans-unit id="toolbar.create.probe">
-        <source>Create Probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-        <target>Crear sondeo</target>
-      </trans-unit>
-      <trans-unit id="toolbar.delete.probe">
-        <source>Delete Probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-        <target>Borrar sondeo</target>
-      </trans-unit>
       <trans-unit id="toolbar.delete.user">
         <source>Delete User</source>
         <context-group name="ctx">
           <context context-type="sourcefile">User details pages</context>
         </context-group>
-        <target>Borrar usuario</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.erratum">
         <source>Delete Erratum</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Errata details pages</context>
         </context-group>
-        <target>Borrar errata</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.system">
         <source>Delete System</source>
         <context-group name="ctx">
           <context context-type="sourcefile">System Details Package list pages</context>
         </context-group>
-        <target>Borrar sistema</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.systemgroup">
         <source>Delete Group</source>
         <context-group name="ctx">
           <context context-type="sourcefile">System Group pages</context>
         </context-group>
-        <target>Borrar grupo</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.work.with.group">
         <source>Work With Group</source>
         <context-group name="ctx">
           <context context-type="sourcefile">System Group pages</context>
         </context-group>
-        <target>Trabajar con grupo</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.errata">
         <source>Delete Errata</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Errata edit page</context>
         </context-group>
-        <target>Borrar erratas</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.kickstart">
         <source>Delete Kickstart</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Kickstart profile pages</context>
         </context-group>
-        <target>Borrar kickstart</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.deleteTree">
         <source>Delete Distribution</source>
         <context-group name="ctx">
           <context context-type="sourcefile">rhn/Kickstart/TreeEdit.do</context>
         </context-group>
-        <target>Borrar distribución</target>
-      </trans-unit>
-      <trans-unit id="toolbar.create.probesuite">
-        <source>Create Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-        <target>Crear conjunto de sondeos</target>
-      </trans-unit>
-      <trans-unit id="toolbar.create.probesuitesystem">
-        <source>Add Systems to Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-        <target>Añadir sistema al conjunto de sondeos</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.profile">
         <source>Delete Profile</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles/CompareProfiles.do</context>
         </context-group>
-        <target>Borrar perfil</target>
+        
       </trans-unit>
       <trans-unit id="toolbar.delete.crash">
         <source>Delete Software Crash</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SoftwareCrashDetail.do</context>
         </context-group>
-        <target>Borrar fallo de software</target>
+        
       </trans-unit>
       <trans-unit id="message.unscheduled.system">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; unscheduled for &lt;strong&gt;{1}&lt;/strong&gt; system.</source>
@@ -3520,13 +3485,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
         </context-group>
         <target>Ningún sistema seleccionado.</target>
       </trans-unit>
-      <trans-unit id="probesuites.none">
-        <source>No probe suites selected.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites</context>
-        </context-group>
-        <target>Ningún conjunto de sondeos seleccionado.</target>
-      </trans-unit>
       <trans-unit id="systemgroups.none">
         <source>No system groups selected.</source>
         <context-group name="ctx">
@@ -3541,27 +3499,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
       <trans-unit id="systemgroups.edit.successmessage">
         <source>System group {0} updated.</source>
         <target>Grupo de sistema {0} actualizado.</target>
-      </trans-unit>
-      <trans-unit id="probe.empty.status">
-        <source>No status for probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-        <target>Ningún estado para el sondeo</target>
-      </trans-unit>
-      <trans-unit id="probedetails.graph.noprobedata">
-        <source>NO DATA FOR SELECTED TIME PERIOD AND METRIC</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-        <target>NO HAY DATOS PARA EL PERIODO DE TIEMPO Y LA MEDICIÓN SELECCIONADA</target>
-      </trans-unit>
-      <trans-unit id="probedetails.graph.yAxis">
-        <source>Metrics</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-        <target>Mediciones</target>
       </trans-unit>
       <!-- Errata creation validation errors -->
       <trans-unit id="product">
@@ -3741,63 +3678,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
         </context-group>
         <target>Ningún parche seleccionado.</target>
       </trans-unit>
-      <!-- Probe Edit -->
-      <trans-unit id="probeeditaction.minute">
-        <source>1 minute</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>1 minuto</target>
-      </trans-unit>
-      <trans-unit id="probeeditaction.minutes">
-        <source>{0} minutes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>{0} minutos</target>
-      </trans-unit>
-      <trans-unit id="probeeditaction.hour">
-        <source>1 hour</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>1 hora</target>
-      </trans-unit>
-      <trans-unit id="probeeditaction.hours">
-        <source>{0} hours</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>{0} horas</target>
-      </trans-unit>
-      <trans-unit id="probeedit.probesdeleted">
-        <source>Successfully deleted {0} probe(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>{0} sondeo(s) borrados correctamente.</target>
-      </trans-unit>
-      <trans-unit id="probeedit.probedeleted">
-        <source>Probe &lt;strong&gt;{0}&lt;/strong&gt; deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Sondeo &lt;strong&gt;{0}&lt;/strong&gt; borrado.</target>
-      </trans-unit>
-      <trans-unit id="probeedit.probesaved">
-        <source>System Probe &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Sondeo del sistema &lt;strong&gt;{0}&lt;/strong&gt; actualizado.</target>
-      </trans-unit>
-      <trans-unit id="probecreate.created">
-        <source>Probe &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
-        </context-group>
-        <target>Sondeo &lt;strong&gt;{0}&lt;/strong&gt; creado.</target>
-      </trans-unit>
       <trans-unit id="timetag.lastcheckin">
         <source>System last check-in:</source>
         <context-group name="ctx">
@@ -3966,14 +3846,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
         </context-group>
         <target>{0} {1}</target>
       </trans-unit>
-      <trans-unit id="message.patchsetinstall">
-        <source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/rhn/systems/details/history/Event.do?sid={2}&amp;aid={3}"&gt;scheduled&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/patchsets/InstallPatchSet</context>
-          <context context-type="paramnotes">Installation of patch cluster Sun Patch Cluster for Solaris 8 has been scheduled.</context>
-        </context-group>
-        <target>La instalación de clúster de parches &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; ha sido &lt;a href="/rhn/systems/details/history/Event.do?sid={2}&amp;aid={3}"&gt;programada&lt;/a&gt;.</target>
-      </trans-unit>
       <trans-unit id="message.packagerefresh">
         <source>You have successfully scheduled a &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;package profile refresh&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;.</source>
         <context-group name="ctx">
@@ -3981,159 +3853,22 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
           <context context-type="paramnotes">You have successfully scheduled a package profile refresh
                                              for workstation3.</context>
         </context-group>
-        <target>Ha programado correctamente &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;refrescar el perfil de paquetes&lt;/a&gt; para &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;.</target>
+        <target>Ha programado correctamente &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={0}&quot;&gt;refrescar el perfil de paquetes&lt;/a&gt; para &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={1}&quot;&gt;{2}&lt;/a&gt;.</target>
       </trans-unit>
-      <trans-unit id="Probe Suites">
-        <source>Probe Suites</source>
+      <trans-unit id="message.bulkremovecustomdata">
+        <source>Value removed for &lt;strong&gt;{0}&lt;/strong&gt; from {1} systems.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
+          <context context-type="sourcefile">/rhn/systems/ssm/misc/CustomDataSet.do</context>
+          <context context-type="paramnotes">Value removed for &lt;strong&gt;custom-data-key&lt;/strong&gt; from 2 systems.</context>
         </context-group>
-        <target>Conjunto de sondeos</target>
       </trans-unit>
-      <trans-unit id="probeSuiteEdit.success">
-        <source>Probe Suite {0} updated</source>
+      <trans-unit id="message.bulksetcustomdata">
+        <source>Value set for &lt;strong&gt;{0}&lt;/strong&gt; for selected systems.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteEdit.do</context>
+          <context context-type="sourcefile">/rhn/systems/ssm/misc/CustomDataSet.do</context>
+          <context context-type="paramnotes">Value set for &lt;strong&gt;custom-data-key&lt;/strong&gt; for selected systems.</context>
         </context-group>
-        <target>Conjunto de sondeos {0} actualizado</target>
       </trans-unit>
-      <trans-unit id="probeSuiteCreate.success">
-        <source>Probe Suite {0} created</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteCreate.do</context>
-        </context-group>
-        <target>Conjunto de sondeos {0} creado</target>
-      </trans-unit>
-      <trans-unit id="suite_name">
-        <source>Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteCreate.do</context>
-        </context-group>
-        <target>Nombre</target>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.systemsadded">
-        <source>Systems added to Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-        <target>Sistemas añadidos al conjunto de sondeos</target>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.systemsdeleted">
-        <source>{0} system(s) deleted from Probe Suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-        <target>{0} sistema(s) borrado(s) del conjunto de sondeos</target>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.systemsdetached">
-        <source>{0} system(s) detached from Probe Suite.  You may now edit the probes directly against the Systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-        <target>{0} sistema(s) desvinculado(s) del conjunto de sondeos. Ahora usted puede editar los sondeos directamente contra los sistemas.</target>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.addprobesfirst">
-        <source>Please add Probes to the Suite before adding Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-        <target>Agregue los sondeos al conjunto antes de añadir los sistemas</target>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.addsystem">
-        <source>Add systems to probe suite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-        <target>Añadir sistemas al conjunto de sondeos</target>
-      </trans-unit>
-      <trans-unit id="probesuitesystemsedit.jsp.search">
-        <source>Search for Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
-        </context-group>
-        <target>Búsqueda de sistemas</target>
-      </trans-unit>
-      <trans-unit id="probesuites.jsp.selectasuite">
-        <source>No Probe Suites selected.  Please select a Probe Suite from the list and try again.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-        <target>No se ha seleccionado ingún conjunto de sondeos. Seleccione un conjunto de sondeos de la lista e intente de nuevo.</target>
-      </trans-unit>
-      <trans-unit id="probesuites.jsp.suitesdeleted">
-        <source>{0} Probe Suite(s) deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-        <target>{0} conjunto(s) de sondeos borrado(s).</target>
-      </trans-unit>
-      <trans-unit id="probes.jsp.probesdeleted">
-        <source>{0} Probe(s) deleted from suite.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-        <target>{0} sondeo(s) borrado(s) del conjunto.</target>
-      </trans-unit>
-      <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeCreate.do</context>
-        </context-group>
-        <note>Validation errors for probe parameters</note>
-        <trans-unit id="probeparam.mandatory">
-          <source>The parameter {0} is mandatory.</source>
-          <target>El parámetro {0} es obligatorio.</target>
-        </trans-unit>
-        <trans-unit id="probeparam.toolarge">
-          <source>The parameter {0} cannot be larger than {2}, but is {1}.</source>
-          <target>El parámetro {0} no puede ser más largo que {2}, pero es {1}.</target>
-        </trans-unit>
-        <trans-unit id="probeparam.toosmall">
-          <source>The parameter {0} must be at least {2}, but is {1}.</source>
-          <target>El parámetro {0} debe ser por lo menos {2}, pero es {1}.</target>
-        </trans-unit>
-        <trans-unit id="probeparam.notbetween">
-          <source>The parameter {0} must be between {2} and {3}, but is {1}.</source>
-          <target>El parámetro {0} debe estar entre {2} y {3}, pero es {1}.</target>
-        </trans-unit>
-        <trans-unit id="probeparam.illegal">
-          <source>The parameter {0} must be {2}, but is {1}.</source>
-          <target>El parámetro {0} debe ser {2} pero es {1}</target>
-        </trans-unit>
-        <trans-unit id="probeparam.threshold.inverted">
-          <source>For the metric {0}, the value for "{1}" must be smaller than the value for "{3}", but the values are {2} and {4}.</source>
-          <target>Para la medición {0}, el valor para "{1}" debe ser menor que el valor para "{3}", pero los valores son {2} y {4}.</target>
-        </trans-unit>
-      </group>
-      <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeCreate.do</context>
-        </context-group>
-        <note>Names for the command parameter data types</note>
-        <trans-unit id="checkbox">
-          <source>an on/off value</source>
-          <target>un valor on/off</target>
-        </trans-unit>
-        <trans-unit id="float">
-          <source>a floating point value</source>
-          <target>un valor de punto flotante</target>
-        </trans-unit>
-        <trans-unit id="generic">
-          <source>a generic value</source>
-          <target>un valor genérico</target>
-        </trans-unit>
-        <trans-unit id="integer">
-          <source>an integer value</source>
-          <target>Un valor integral</target>
-        </trans-unit>
-        <trans-unit id="probestate">
-          <source>a probe state</source>
-          <target>un estado de sondeo</target>
-        </trans-unit>
-        <trans-unit id="string">
-          <source>string</source>
-          <target>cadena</target>
-        </trans-unit>
-      </group>
       <trans-unit id="General Config">
         <source>General Config</source>
         <context-group name="ctx">
@@ -4224,7 +3959,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles/</context>
           <context context-type="paramnotes">sid, actionid, servername, profilename</context>
         </context-group>
-        <target>Ha &lt;strong&gt;&lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;programado&lt;/a&gt;&lt;/strong&gt; con éxito la sincronización de perfil de paquete para &lt;strong&gt;{2}&lt;/strong&gt; de &lt;strong&gt;{3}&lt;/strong&gt;.</target>
+        <target>Ha &lt;strong&gt;&lt;a href=&quot;/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}&quot;&gt;programado&lt;/a&gt;&lt;/strong&gt; con éxito la sincronización de perfil de paquete para &lt;strong&gt;{2}&lt;/strong&gt; de &lt;strong&gt;{3}&lt;/strong&gt;.</target>
       </trans-unit>
       <trans-unit id="message.hardwarerefresh">
         <source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
@@ -4232,7 +3967,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles/</context>
           <context context-type="paramnotes">sid, actionid, servername, profilename</context>
         </context-group>
-        <target>&lt;strong&gt;NOTA:&lt;/strong&gt; @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;programado&lt;/a&gt;&lt;/strong&gt; refrescar el hardware para que  &lt;strong&gt;{2}&lt;/strong&gt; se ejecute antes de sincronizar el perfil de paquetes. Esto se requiere para verificar si el sistema tiene la capacidad para comparar paquetes.</target>
+        <target>&lt;strong&gt;NOTA:&lt;/strong&gt; @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href=&quot;/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}&quot;&gt;programado&lt;/a&gt;&lt;/strong&gt; refrescar el hardware para que  &lt;strong&gt;{2}&lt;/strong&gt; se ejecute antes de sincronizar el perfil de paquetes. Esto se requiere para verificar si el sistema tiene la capacidad para comparar paquetes.</target>
       </trans-unit>
       <trans-unit id="filterCreate.success">
         <source>The filter {0} was successfully created</source>
@@ -4255,13 +3990,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
         </context-group>
         <target>No hay paquetes a sincronizar.</target>
       </trans-unit>
-      <trans-unit id="probedit.checklessthannotif">
-        <source>The Notification Interval must be greater than or equal to the Probe Check Interval.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">com.redhat.rhn.frontend.action.systems.monitoring.BaseProbeAction</context>
-        </context-group>
-        <target>El intervalo de notificación debe ser mayor o igual que el intervalo de prueba del sondeo.</target>
-      </trans-unit>
       <trans-unit id="punctuation.colonwithspace">
         <source>: </source>
         <context-group name="ctx">
@@ -4275,13 +4003,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles</context>
         </context-group>
         <target>{0} ya está en uso. Ingrese un nombre de perfil diferente.</target>
-      </trans-unit>
-      <trans-unit id="probestate.pending">
-        <source>Awaiting Update</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-        <target>Esperando la actualización</target>
       </trans-unit>
       <trans-unit id="message.serverdeleted.param">
         <source>System profile &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
@@ -4335,11 +4056,11 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
                 </note>
         <trans-unit id="daterangepicker.error.invalid">
           <source>The date "{0}" is not valid and has been reset to its default. Check to make sure selected month has that many days.</source>
-          <target>La fecha "{0}" no es válida y ha sido restituida a su valor predeterminado. Verifique si el mes seleccionado tiene ese número de días.</target>
+          <target>La fecha &quot;{0}&quot; no es válida y ha sido restituida a su valor predeterminado. Verifique si el mes seleccionado tiene ese número de días.</target>
         </trans-unit>
         <trans-unit id="daterangepicker.error.start.before.end">
           <source>The start date "{0}" must be before the end date "{1}"</source>
-          <target>La fecha de inicio "{0}" debe ser anterior a la fecha de finalización "{1}"</target>
+          <target>La fecha de inicio &quot;{0}&quot; debe ser anterior a la fecha de finalización &quot;{1}&quot;</target>
         </trans-unit>
       </group>
       <trans-unit id="monitoring.services.restarted">
@@ -6213,21 +5934,21 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Ha creado el primer usuario para el servicio de @@PRODUCT_NAME@@. La configuración adicional debe ser finalizada por &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt; &lt;strong&gt;haciendo clic aquí&lt;/strong&gt;&lt;/a&gt;</target>
+        <target>Ha creado el primer usuario para el servicio de @@PRODUCT_NAME@@. La configuración adicional debe ser finalizada por &lt;a href=&quot;/rhn/admin/config/GeneralConfig.do&quot;&gt; &lt;strong&gt;haciendo clic aquí&lt;/strong&gt;&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.kerbuserlogged">
         <source>You've logged as externally authenticated &lt;strong&gt;{0}&lt;/strong&gt; user. To be able to login using this account with login and password, please set your password on &lt;a href="/rhn/account/UserDetails.do"&gt;&lt;strong&gt;{0} user page&lt;/strong&gt;&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Ha ingresado como usuario &lt;strong&gt;'{0}'&lt;/strong&gt; externamente autenticado. Para poder ingresar a esta cuenta con el nombre de usuario y contraseña,  establezca su contraseña en la &lt;a href="/rhn/account/UserDetails.do"&gt;&lt;strong&gt;'{0}' página de usuario&lt;/strong&gt;&lt;/a&gt;.</target>
+        <target>Ha ingresado como usuario &lt;strong&gt;'{0}'&lt;/strong&gt; externamente autenticado. Para poder ingresar a esta cuenta con el nombre de usuario y contraseña,  establezca su contraseña en la &lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;'{0}' página de usuario&lt;/strong&gt;&lt;/a&gt;.</target>
       </trans-unit>
       <trans-unit id="satellite.expired">
         <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login.do</context>
         </context-group>
-        <target>Su certificado de Satellite está vencido. Visite el siguiente enlace para obtener los pasos sobre cómo solicitar o regenerar un nuevo certificado: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</target>
+        <target>Su certificado de Satellite está vencido. Visite el siguiente enlace para obtener los pasos sobre cómo solicitar o regenerar un nuevo certificado: &lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="satellite.expired.restricted">
         <source>Your Satellite Certificate has expired. Your Satellite is on day {0} of {1} day restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
@@ -6242,7 +5963,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
           <context context-type="sourcefile">/rhn/Login.do</context>
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>Su certificado de Satellite está vencido. Por favor visite el siguiente enlace para obtener los pasos sobre cómo solicitar o regenerar un nuevo certificado: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Su Satellite entra en periodo restringido en {0} día(s).</target>
+        <target>Su certificado de Satellite está vencido. Por favor visite el siguiente enlace para obtener los pasos sobre cómo solicitar o regenerar un nuevo certificado: &lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Su Satellite entra en periodo restringido en {0} día(s).</target>
       </trans-unit>
       <trans-unit id="restricted.forbidden">
         <source>You are not allowed to perform this action until your Satellite Certificate is renewed. Your Satellite is on day {0} of the {1} restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
@@ -6439,7 +6160,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
-        <target>El script Bootstrap fue generado con éxito. Puede acceder a él en &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</target>
+        <target>El script Bootstrap fue generado con éxito. Puede acceder a él en &lt;a href=&quot;{0}/pub/bootstrap/&quot;&gt;{0}/pub/bootstrap/&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="restart.config.error">
         <source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: /usr/sbin/service rhn-satellite restart.  Please contact support for more information.</source>
@@ -6460,7 +6181,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-        <target>Reiniciando @@PRODUCT_NAME@@. Esta página se refrescará en 5 minutos. Para cargarla manualmente, haga clic en &lt;a href="/rhn/YourRhn.do"&gt;aquí&lt;/a&gt;.</target>
+        <target>Reiniciando @@PRODUCT_NAME@@. Esta página se refrescará en 5 minutos. Para cargarla manualmente, haga clic en &lt;a href=&quot;/rhn/YourRhn.do&quot;&gt;aquí&lt;/a&gt;.</target>
       </trans-unit>
       <trans-unit id="restart.config.norestart">
         <source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
@@ -7095,7 +6816,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </trans-unit>
         <trans-unit id="system.sdc.missing.config_deploy2">
           <source>You may ensure that configuration deployment capability will be enabled on this system by selecting this system in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
-          <target>Puede asegurarse de que la capacidad de implementación de configuración será activada en este sistema al seleccionar este sistema en la pantalla  &lt;a href={0}&gt;{1}&lt;/a&gt; y hacer clic en "{2}"</target>
+          <target>Puede asegurarse de que la capacidad de implementación de configuración será activada en este sistema al seleccionar este sistema en la pantalla  &lt;a href={0}&gt;{1}&lt;/a&gt; y hacer clic en &quot;{2}&quot;</target>
         </trans-unit>
         <trans-unit id="system.sdc.addtossm">
           <source>System added to the System Set Manager.</source>
@@ -7184,6 +6905,41 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
         <target>{0} revisiones fueron borradas con éxito.</target>
       </trans-unit>
+      <trans-unit id="config_files.setFilesToRemove.success">
+        <source>{0} configuration file(s) successfully deleted.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
+          <context context-type="paramnotes">7 configuration files were successfully deleted.</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="config_files.setFilesToRemove.failure">
+        <source>{0} file deletion(s) failed.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
+          <context context-type="paramnotes">7 file deletions failed.</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="config_files.setFilesToImport.success">
+        <source>{0} configuration file(s) successfully imported.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelImportFiles.do</context>
+          <context context-type="paramnotes">7 configuration files were successfully imported.</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="config_files.setFilesToImport.failure">
+        <source>{0} file import(s) failed.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelImportFiles.do</context>
+          <context context-type="paramnotes">7 file imports failed.</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="config_subscribed_systems.unsubscribeSystems.failure">
+        <source>Failed to unsubscribe {0} system(s).</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
+          <context context-type="paramnotes">7 revision deletions failed.</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="config_subscribed_systems.unsubscribeSystems.success">
         <source>Successfully unsubscribed {0} system(s).</source>
         <context-group name="ctx">
@@ -7191,6 +6947,13 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
           <context context-type="paramnotes">Successfully copied file to 7 channels.</context>
         </context-group>
         <target>Cancelación con éxito de suscripciones a {0} sistema(s).</target>
+      </trans-unit>
+      <trans-unit id="config_target_systems.subscribeSystems.failure">
+        <source>Failed to subscribe {0} system(s).</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
+          <context context-type="paramnotes">7 revision deletions failed.</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="config_target_systems.subscribeSystems.success">
         <source>Successfully subscribed {0} system(s).</source>
@@ -7522,7 +7285,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
           <context context-type="paramnotes">{0} - name of a system ex: highwind</context>
         </context-group>
-        <target>Activación de aplicación de RHN con @@PRODUCT_NAME@@ &lt;a href="{0}"&gt;programada&lt;/a&gt;</target>
+        <target>Activación de aplicación de RHN con @@PRODUCT_NAME@@ &lt;a href=&quot;{0}&quot;&gt;programada&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="sdc.details.edit.none">
         <source>None</source>
@@ -7564,11 +7327,11 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </trans-unit>
         <trans-unit id="sdc.config.deploy.failure">
           <source>All file and/or directory ({0}) deployments failed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
-          <target>Todas las implementaciones de archivo y/o directorio ({0}) fallaron. [&lt;a href="{1}"&gt;Ver Información&lt;/a&gt;]</target>
+          <target>Todas las implementaciones de archivo y/o directorio ({0}) fallaron. [&lt;a href=&quot;{1}&quot;&gt;Ver Información&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.deploy.success">
           <source>All files and/or directories ({0}) were successfully deployed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
-          <target>Todos los archivos y/o directorios ({0}) fueron implementados correctamente. [&lt;a href="{1}"&gt;Ver información&lt;/a&gt;]</target>
+          <target>Todos los archivos y/o directorios ({0}) fueron implementados correctamente. [&lt;a href=&quot;{1}&quot;&gt;Ver información&lt;/a&gt;]</target>
         </trans-unit>
       </group>
       <group>
@@ -7581,111 +7344,111 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_0">
           <source>No files, directories or symlinks were selected for comparison. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>Ningún archivo, directorio o enlace simbólico fue seleccionado para comparar.  [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>Ningún archivo, directorio o enlace simbólico fue seleccionado para comparar.  [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_1">
           <source>{4} of 1 symlink on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{4} de 1 enlace simbólico en el sistema fue comparado exitosamente con @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{4} de 1 enlace simbólico en el sistema fue comparado exitosamente con @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_2">
           <source>{4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{4} de {5} enlaces simbólicos en el sistema fueron comparados exitosamente con @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{4} de {5} enlaces simbólicos en el sistema fueron comparados exitosamente con @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_1_symlinks_0">
           <source>{2} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{2} de 1 directorio en el sistema fue comparado exitosamente con @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{2} de 1 directorio en el sistema fue comparado exitosamente con @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_1_symlinks_1">
           <source>{2} of 1 directory and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{2} de 1 directorio y {4} de 1 enlace simbólico en el sistema fueron comparados exitosamente con los archivos administrados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{2} de 1 directorio y {4} de 1 enlace simbólico en el sistema fueron comparados exitosamente con los archivos administrados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_1_symlinks_2">
           <source>{2} of 1 directory and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{2} de 1 directorio y {4} de {5} enlaces simbólicos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{2} de 1 directorio y {4} de {5} enlaces simbólicos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_2_symlinks_0">
           <source>{2} of {3} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{2} de {3} directorios en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{2} de {3} directorios en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_2_symlinks_1">
           <source>{2} of {3} directories and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{2} de {3} directorios y {4} de 1 enlace simbólico en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{2} de {3} directorios y {4} de 1 enlace simbólico en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_0_dirs_2_symlinks_2">
           <source>{2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{2} de {3} directorios y {4} de {5} enlaces simbólicos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{2} de {3} directorios y {4} de {5} enlaces simbólicos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_0_symlinks_0">
           <source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de 1 archivo en el sistema fue comparado exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de 1 archivo en el sistema fue comparado exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_0_symlinks_1">
           <source>{0} of 1 file and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de 1 archivo y {4} de 1 enlace simbólico en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de 1 archivo y {4} de 1 enlace simbólico en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_0_symlinks_2">
           <source>{0} of 1 file and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de 1 archivo y {4} de {5} enlaces simbólicos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de 1 archivo y {4} de {5} enlaces simbólicos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_1_symlinks_0">
           <source>{0} of 1 file and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de 1 archivo y {2} de 1 directorio en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de 1 archivo y {2} de 1 directorio en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_1_symlinks_1">
           <source>{0} of 1 file and {2} of 1 directory and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de 1 archivo y {2} de un directorio y {4} de 1 enlace simbólico en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de 1 archivo y {2} de un directorio y {4} de 1 enlace simbólico en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_1_symlinks_2">
           <source>{0} of 1 file and {2} of 1 directory and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de 1 archivo y {2} de 1 directorio y {4} de {5} enlace simbólicos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de 1 archivo y {2} de 1 directorio y {4} de {5} enlace simbólicos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_2_symlinks_0">
           <source>{0} of 1 file and {2} of {3} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de 1 archivo y {2} de {3} directorios en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de 1 archivo y {2} de {3} directorios en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_2_symlinks_1">
           <source>{0} of 1 file and {2} of {3} directories and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de 1 archivo y {2} de {3} directorios y {4} de 1 enlace simbólico en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de 1 archivo y {2} de {3} directorios y {4} de 1 enlace simbólico en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_1_dirs_2_symlinks_2">
           <source>{0} of 1 file and {2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de 1 archivo y {2} de {3} directorios y {4} de {5} enlaces simbólicos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de 1 archivo y {2} de {3} directorios y {4} de {5} enlaces simbólicos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_0_symlinks_0">
           <source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de {1} archivos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de {1} archivos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_0_symlinks_1">
           <source>{0} of {1} files and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de {1} archivos y {4} de 1 enlace simbólico en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de {1} archivos y {4} de 1 enlace simbólico en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_0_symlinks_2">
           <source>{0} of {1} files and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de {1} archivos y {4} de {5} enlaces simbólicos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de {1} archivos y {4} de {5} enlaces simbólicos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_1_symlinks_0">
           <source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de {1} archivos y {2} de 1 directorio en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de {1} archivos y {2} de 1 directorio en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_1_symlinks_1">
           <source>{0} of {1} files and {2} of 1 directory and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de {1} archivos y {2} de 1 directorio y {4} de 1 enlace simbólico en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de {1} archivos y {2} de 1 directorio y {4} de 1 enlace simbólico en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_1_symlinks_2">
           <source>{0} of {1} files and {2} of 1 directory and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de {1} archivos y {2} de 1 directorio y {4} de {5} enlaces simbólicos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de {1} archivos y {2} de 1 directorio y {4} de {5} enlaces simbólicos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_2_symlinks_0">
           <source>{0} of {1} files and {2} of {3} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de {1} archivos y {2} de {3} directorios en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de {1} archivos y {2} de {3} directorios en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_2_symlinks_1">
           <source>{0} of {1} files and {2} of {3} directories and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de {1} archivos y {2} de {3} directorios y {4} de 1 symlink en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de {1} archivos y {2} de {3} directorios y {4} de 1 symlink en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.diff.files_2_dirs_2_symlinks_2">
           <source>{0} of {1} files and {2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-          <target>{0} de {1} archivos y {2} de {3} directorios y {4} de {5} enlaces simbólicos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href="{6}"&gt;Ver detalles&lt;/a&gt;]</target>
+          <target>{0} de {1} archivos y {2} de {3} directorios y {4} de {5} enlaces simbólicos en el sistema fueron comparados exitosamente con los archivos manejados por @@PRODUCT_NAME@@. [&lt;a href=&quot;{6}&quot;&gt;Ver detalles&lt;/a&gt;]</target>
         </trans-unit>
         <trans-unit id="sdc.config.differing.files_0">
           <source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
@@ -7710,7 +7473,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </trans-unit>
         <trans-unit id="sdc.config.time.message_url">
           <source>{0} by &lt;a href="{1}"&gt;{2}&lt;/a&gt;</source>
-          <target>{0} de &lt;a href="{1}"&gt;{2}&lt;/a&gt;</target>
+          <target>{0} de &lt;a href=&quot;{1}&quot;&gt;{2}&lt;/a&gt;</target>
         </trans-unit>
       </group>
       <group>
@@ -7719,7 +7482,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
         <trans-unit id="config.files_0_dirs_0_symlinks_0_url">
           <source>No files, directories or symlinks. &lt;a href="{0}"&gt; Add&lt;/a&gt;</source>
-          <target>No hay archivos, directorios o enlaces simbólicos. &lt;a href="{0}"&gt; Añadir&lt;/a&gt;</target>
+          <target>No hay archivos, directorios o enlaces simbólicos. &lt;a href=&quot;{0}&quot;&gt; Añadir&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="config.files_0_dirs_0_symlinks_0">
           <source>No files, directories or symlinks.</source>
@@ -7861,6 +7624,18 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
         <target>El script debe tener menos de {0} caracteres.</target>
       </trans-unit>
+      <trans-unit id="file_lists.success">
+        <source>{0} File List(s) deleted.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="file_lists.failure">
+        <source>{0} File List(s) could not be deleted.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="cobbler.powermanagement.poweron">
         <source>Power On</source>
         <target>Encender</target>
@@ -7892,7 +7667,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
         </context-group>
-        <target>Esta funcionalidad solo está disponible en servidores  @@PRODUCT_NAME@@ que tienen "agentes de valla", los cuales posiblemente están disponibles como paquetes:  "fence-agents", "fence-agents-all" o "fence-agents-ipmilan" según su sistema operativo e infraestructura de administración de energía deseada. Por favor instale l os agentes de vallas. Si los agentes de vallas no están disponibles para su sistema operativo, entonces la funcionalidad de administración de energía no cuenta con soporte.</target>
+        <target>Esta funcionalidad solo está disponible en servidores  @@PRODUCT_NAME@@ que tienen &quot;agentes de valla&quot;, los cuales posiblemente están disponibles como paquetes:  &quot;fence-agents&quot;, &quot;fence-agents-all&quot; o &quot;fence-agents-ipmilan&quot; según su sistema operativo e infraestructura de administración de energía deseada. Por favor instale l os agentes de vallas. Si los agentes de vallas no están disponibles para su sistema operativo, entonces la funcionalidad de administración de energía no cuenta con soporte.</target>
       </trans-unit>
       <trans-unit id="cobbler.powermanagement.alom">
         <source>Advanced Lights Out Manager</source>
@@ -8412,12 +8187,24 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
         <target>{0} sistemas virtuales borrados.</target>
       </trans-unit>
+      <trans-unit id="channels.subscribers.updated">
+        <source>{0} channel subscriber(s) successfully updated.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/Subscribers.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="channels.managers.updated">
         <source>{0} channel manager(s) successfully updated.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
         <target>El o Los gestor(es) de canal {0} fueron actualizados con éxito.</target>
+      </trans-unit>
+      <trans-unit id="sdc.activation.kickstarting">
+        <source>There is a kickstart session in progress for this system.  Modifying this activation key is likely to cause the system to fail to re-register when the kickstart session is complete.  Using this key manually could cause unintended side-effects.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/Activation.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="sdc.channels.edit.base_channel_updated">
         <source>System's Base Channel has been updated.</source>
@@ -8440,12 +8227,18 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
         <target>Nota: las suscripciones de algunos canales no fueron actualizadas porque no hay suscripciones disponibles.</target>
       </trans-unit>
+      <trans-unit id="ssm.groups.changed">
+        <source>System Group membership changed.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/groups/Manage.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="selinux.java.invalid_mode">
         <source>Invalid SE Linux mode "{0}" specified. Valid values are {1}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">SELinuxMode</context>
         </context-group>
-        <target>Modo "{0}" SE Linux especificado inválido. Los valores válidos son {1}.</target>
+        <target>Modo &quot;{0}&quot; SE Linux especificado inválido. Los valores válidos son {1}.</target>
       </trans-unit>
       <trans-unit id="softwareEntitlementSubs.successMessage">
         <source>Updated entitlement count for '{0}'</source>
@@ -8533,7 +8326,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
           <context context-type="sourcefile">/rhn/systems/details/configuration/addfiles/UploadFile</context>
           <context context-type="paramnotes">A file named "/etc/passwd" already exists in this channel.</context>
         </context-group>
-        <target>Un archivo llamado "{0}" ya existe en este canal.</target>
+        <target>Un archivo llamado &quot;{0}&quot; ya existe en este canal.</target>
       </trans-unit>
       <trans-unit id="system.entitle.notoolschannel">
         <source>Could not automatically subscribe the system to the RHN Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
@@ -8582,7 +8375,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
-        <target>Ya que usted ha añadido derechos de virtualización al sistema, también hemos llevado a cabo algunos pasos adicionales para estar seguros de que su sistema pueda administrar mejor los huéspedes virtuales. Para obtener más información,  consulte &lt;a href="{0}"&gt;aquí&lt;/a&gt;</target>
+        <target>Ya que usted ha añadido derechos de virtualización al sistema, también hemos llevado a cabo algunos pasos adicionales para estar seguros de que su sistema pueda administrar mejor los huéspedes virtuales. Para obtener más información,  consulte &lt;a href=&quot;{0}&quot;&gt;aquí&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="system.entitle.addedvirtualization.nodoc">
         <source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.</source>
@@ -8750,7 +8543,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       </trans-unit>
       <trans-unit id="api.systemgroup.lookupServerGroup">
         <source>Unable to locate or access server group: "{0}"</source>
-        <target>Incapaz de ubicar o acceder al grupo de servidores: "{0}"</target>
+        <target>Incapaz de ubicar o acceder al grupo de servidores: &quot;{0}&quot;</target>
       </trans-unit>
       <trans-unit id="api.systemgroup.accessChangeDenied">
         <source>Changing administrator access is not allowed for Satellite and Organization administrators.  These users are granted access by default; therefore, the following users should be removed from the input: {0}</source>
@@ -8782,11 +8575,11 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       </trans-unit>
       <trans-unit id="api.errata.invalidadvisorytype">
         <source>Invalid errata type, "{0}". Please use one of the following: "Security Advisory", "Product Enhancement Advisory", or "Bug Fix Advisory".</source>
-        <target>Tipo de erratas no válidas, "{0}". Utilice una de las siguientes: "Recomendación de seguridad", "Recomendación de mejoras de productos" o "Recomendación de corrección de error".</target>
+        <target>Tipo de erratas no válidas, &quot;{0}&quot;. Utilice una de las siguientes: &quot;Recomendación de seguridad&quot;, &quot;Recomendación de mejoras de productos&quot; o &quot;Recomendación de corrección de error&quot;.</target>
       </trans-unit>
       <trans-unit id="api.errata.invalidadvisoryrelease">
         <source>Invalid advisory release, "{0}". Maximum value is {1}.</source>
-        <target>Lanzamiento de recomendación inválido, "{0}". El valor máximo es {1}</target>
+        <target>Lanzamiento de recomendación inválido, &quot;{0}&quot;. El valor máximo es {1}</target>
       </trans-unit>
       <trans-unit id="api.errata.nochannelsselected">
         <source>You are trying to publish an errata but have not selected any channels to publish to.  Errata must be published to at least one channel.</source>
@@ -8806,11 +8599,11 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       </trans-unit>
       <trans-unit id="api.channel.access.invalidaccessvalue">
         <source>Access value, "{0}". Please use one of the following: "public", "private", or "protected".</source>
-        <target>Valor de acceso, "{0}". Utilice uno de los siguientes: "público", "privado", o "protegido".</target>
+        <target>Valor de acceso, &quot;{0}&quot;. Utilice uno de los siguientes: &quot;público&quot;, &quot;privado&quot;, o &quot;protegido&quot;.</target>
       </trans-unit>
       <trans-unit id="api.channel.software.channelsubscription">
         <source>Unable to subscribe this system to the requested channel: "{0}"</source>
-        <target>No se pudo suscribir este sistema al canal solicitado: "{0}"</target>
+        <target>No se pudo suscribir este sistema al canal solicitado: &quot;{0}&quot;</target>
       </trans-unit>
       <trans-unit id="api.channel.software.multiplebasechannel">
         <source>Multiple base channels selected for subscription.  The channels {0} and {1} were both selected for subscription, but a system can only be subscribed to a single base channel.</source>
@@ -9114,7 +8907,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       </trans-unit>
       <trans-unit id="filter.clearfilter">
         <source>The list below is filtered.&lt;br/&gt; &lt;a href="{0}"&gt; &lt;strong&gt;Clear filter to see all items.&lt;/strong&gt; &lt;/a&gt;</source>
-        <target>La lista a continuación está filtrada.&lt;br/&gt; &lt;a href="{0}"&gt; &lt;strong&gt;Limpiar filtro para ver todos los elementos.&lt;/strong&gt; &lt;/a&gt;</target>
+        <target>La lista a continuación está filtrada.&lt;br/&gt; &lt;a href=&quot;{0}&quot;&gt; &lt;strong&gt;Limpiar filtro para ver todos los elementos.&lt;/strong&gt; &lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="listtag.clearfilter">
         <source>Clear filter </source>
@@ -9180,13 +8973,9 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         <source>Confirm</source>
         <target>Confirmar</target>
       </trans-unit>
-      <trans-unit id="frontend.actions.channels.manager.addcustom.success">
-        <source>Successfully added {1} package(s) and scheduled {0} custom errata to be added to channel {2}.  The custom Errata should appear in the channel and applicable to systems within a few minutes.</source>
-        <target>Se ha(n) agregado paquete(s)  {1}  y erratas personalizadas  {0}  al canal {2}. Las erratas personalizadas aparecen en el canal y son aplicables a sistemas dentro de unos pocos minutos.</target>
-      </trans-unit>
       <trans-unit id="frontend.actions.channels.manager.add.success">
-        <source>Successfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
-        <target>Paquetes {1} agregados correctamente y erratas {0} programadas para ser clonadas a canal {2}. Las erratas clonadas deben aparecer en el canal y se pueden aplicar a sistemas en unos minutos.</target>
+        <source>Successfully added {1} package(s) and {0} errata to channel {2}.</source>
+        
       </trans-unit>
       <trans-unit id="frontend.actions.channels.manager.add.permsfailure">
         <source>You do not have sufficient permissions to perform this action.</source>
@@ -9294,10 +9083,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         <source>PPC64LE</source>
         <target>PPC64LE</target>
       </trans-unit>
-      <trans-unit id="channel.manage.patchset.deleteconfirm">
-        <source>{0} patch cluster(s) have been removed from this channel</source>
-        <target>{0} racimos de parches han sido eliminados de este canal</target>
-      </trans-unit>
       <trans-unit id="probeparam.passnomatch">
         <source>The Password and Password Confirm did not match.</source>
         <target>La contraseña y la confirmación de ésta no coinciden.</target>
@@ -9308,7 +9093,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       </trans-unit>
       <trans-unit id="api.kickstart.invalidscripttype">
         <source>Only script types of "pre" and "post" are allowed for kickstarts.</source>
-        <target>Solamente tipos de scripts "pre" y "post" son permitidos para kickstart.</target>
+        <target>Solamente tipos de scripts &quot;pre&quot; y &quot;post&quot; son permitidos para kickstart.</target>
       </trans-unit>
       <trans-unit id="api.kickstart.invalidscriptname">
         <source>Script Name must be larger than 0 and fewer than 40 characters.</source>
@@ -9533,6 +9318,12 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
         <target>Canal &lt;strong&gt;{0}&lt;/strong&gt; creado.</target>
       </trans-unit>
+      <trans-unit id="message.channelcloned">
+        <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; cloned from channel &lt;strong&gt;{1}&lt;/strong&gt;.</source>
+      </trans-unit>
+      <trans-unit id="message.cloneselect">
+        <source>You may now wish to clone the errata associated with &lt;strong&gt;{0}&lt;/strong&gt;.</source>
+      </trans-unit>
       <trans-unit id="message.channeldeleted">
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
         <target>La llave de activación &lt;strong&gt;{0}&lt;/strong&gt; ha sido borrada.</target>
@@ -9600,6 +9391,9 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       <trans-unit id="kickstart.cobbler.profile.notenoughmemory">
         <source>Red Hat Enterprise Linux 7 and higher guests require at least 1024 MB of memory.</source>
         <target>Huéspedes Red Hat Enterprise Linux 7 y superior requieren al menos 1024 MB de memoria. </target>
+      </trans-unit>
+      <trans-unit id="kickstart.cobbler.profile.notenoughmemorysuse">
+        <source>SUSE Linux Enterprise Server guests require at least 512 MB of memory.</source>
       </trans-unit>
       <trans-unit id="kickstart.cobbler.profile.invalidvirt">
         <source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
@@ -9684,6 +9478,12 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       <trans-unit id="ssm.migrate.systems.orgnone">
         <source>This organization has no trusted organizations.  Systems can only be migrated between organizations with defined trusts.</source>
         <target>Esta organización no tiene organizaciones confiables. Los sistemas solo  pueden ser migrados entre organizaciones con conformidades definidas.</target>
+      </trans-unit>
+      <trans-unit id="ssm.misc.changeprefs.changed">
+        <source>Preferences changed for selected systems.</source>
+      </trans-unit>
+      <trans-unit id="ssm.misc.changeprefs.updatesscheduled">
+        <source>Selected systems will be fully updated in accordance with new Auto Errata Update setting.</source>
       </trans-unit>
       <trans-unit id="channel.manage.merge.finished">
         <source>{0} Package(s) have been added and {1} Package(s) have been removed from the channel.</source>
@@ -9773,12 +9573,24 @@ no podrá ser usado para instalaciones kickstart.
         <source>Invalid schedule entry: {0}</source>
         <target>Entrada del programa inválida: {0}</target>
       </trans-unit>
-      <trans-unit id="config.multiple.channels">
-        <source>A selected system has multiple child channels available that contain the rhncfg package. You must manually subscribe to the child channel you want and then try this action again.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/system/TargetSystemsSubmit.do</context>
-        </context-group>
-        <target>Un sistema seleccionado tiene múltiples canales hijos disponibles que contienen el paquete rhncfg. Debe suscribirse manualmente al canal hijo que desea y luego, intentar de nuevo esta acción.</target>
+      <!-- SUSE Studio -->
+      <trans-unit id="credentials.message.updated">
+        <source>Your credentials were successfully updated.</source>
+      </trans-unit>
+      <trans-unit id="credentials.message.deleted">
+        <source>Your credentials were successfully deleted.</source>
+      </trans-unit>
+      <trans-unit id="credentials.message.incomplete">
+        <source>Your credentials are incomplete, at least username and password are needed.</source>
+      </trans-unit>
+      <trans-unit id="images.message.error.nocreds">
+        <source>It looks like you did not enter valid credentials for talking to SUSE Studio, please check &lt;a href="/rhn/account/Credentials.do"&gt;here&lt;/a&gt;.</source>
+      </trans-unit>
+      <trans-unit id="images.message.error.connection">
+        <source>There was a problem connecting to SUSE Studio, you might want to review your configuration &lt;a href="/rhn/account/Credentials.do"&gt;here&lt;/a&gt; or try again later.</source>
+      </trans-unit>
+      <trans-unit id="images.message.success.scheduled">
+        <source>Image deployment scheduled: {0}</source>
       </trans-unit>
       <trans-unit id="help.credentials.rerequest">
         <source>An email has already been sent. You may request this action only every {0} seconds.</source>
@@ -9803,6 +9615,13 @@ no podrá ser usado para instalaciones kickstart.
       <trans-unit id="help.credentials.loginssent">
         <source>Found login(s) sent to {0}.</source>
         <target>Nombre(s) de usuario enviado(s) a  {0}.</target>
+      </trans-unit>
+      <trans-unit id="config.multiple.channels">
+        <source>A selected system has multiple child channels available that contain the rhncfg package. You must manually subscribe to the child channel you want and then try this action again.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/system/TargetSystemsSubmit.do</context>
+        </context-group>
+        <target>Un sistema seleccionado tiene múltiples canales hijos disponibles que contienen el paquete rhncfg. Debe suscribirse manualmente al canal hijo que desea y luego, intentar de nuevo esta acción.</target>
       </trans-unit>
     </body>
   </file>

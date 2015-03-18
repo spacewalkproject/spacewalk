@@ -229,7 +229,6 @@ Summary:
         {7} - errata refs
       </context>
           </context-group>
-          <target/>
         </trans-unit>
         <trans-unit id="email.errata.notification.body.affectedheader">
           <source>
@@ -241,14 +240,12 @@ this errata does not apply to a system listed, it might be possible that the
 package profile for that server is out of date. In that case you should run
 'up2date -p' (RHEL 4 and below) or 'rhn-profile-sync' (RHEL 5 and above) as root on the system in question to refresh your software profile.
     </source>
-          <target/>
         </trans-unit>
         <trans-unit id="email.errata.notification.body.onesystem">
           <source>
 There is 1 affected system registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).
     </source>
-          <target/>
         </trans-unit>
         <trans-unit id="email.errata.notification.body.numsystems">
           <source>
@@ -260,7 +257,6 @@ which you have explicitly enabled Errata Alerts are shown).
         {0} - system count
       </context>
           </context-group>
-          <target/>
         </trans-unit>
         <trans-unit id="email.errata.notification.body.affected">
           <source>
@@ -283,7 +279,6 @@ You may address the issues outlined in this advisory in two ways:
         {1} - system list URL
       </context>
           </context-group>
-          <target/>
         </trans-unit>
         <trans-unit id="email.errata.notification.body.preferences">
           <source>
@@ -308,7 +303,6 @@ click the "Details" tab.
         {2} - account info
       </context>
           </context-group>
-          <target/>
         </trans-unit>
       </group>
       <trans-unit id="dailysummary.email.subject">
@@ -332,9 +326,8 @@ This email will be sent when any of the following apply:
 Disabling this email:
 ----------------------
 
-To learn how to disable this email for systems:
-
-https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
+To disable this email for systems, visit the Preferences page at
+https://{4}/rhn/account/UserPreferences.do
 
 
 Thank you for using @@PRODUCT_NAME@@.
@@ -353,28 +346,21 @@ Thank you for using @@PRODUCT_NAME@@.
              {6} = email account info from template db
           </context>
         </context-group>
-        <target/>
       </trans-unit>
       <trans-unit id="email.satellitecert.graceperiod.subject">
-        <source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
+        <source>@@PRODUCT_NAME@@ Certificate expiration warning</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
         </context-group>
-        <target>Red Hat @@PRODUCT_NAME@@ ਸਰਵਰ ਸਾਰਟੀਫਿਕੇਟ ਮਿਆਦ ਚੇਤਾਵਨੀ</target>
       </trans-unit>
       <trans-unit id="email.satellitecert.graceperiod.body">
         <source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. After {1} day(s) the systems
-management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
-Please contact your regional Red Hat Customer  Service Representative for information
-on how to renew your @@PRODUCT_NAME@@ Certificate.
-
-Thank you for using @@PRODUCT_NAME@@.
---the @@PRODUCT_NAME@@ Team
-</source>
+has expired on your {0} server. After {1} day(s) the systems
+management services provided by your @@PRODUCT_NAME@@ Server will be restricted for {2} days.
+After that the services will become inaccessible.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
           <context context-type="paramnotes">
@@ -382,23 +368,15 @@ Thank you for using @@PRODUCT_NAME@@.
           {1} - Days Until satellite certificate expiration: 7
           </context>
         </context-group>
-        <target/>
       </trans-unit>
       <trans-unit id="email.satellitecert.expired.subject">
-        <source>Red Hat satellite certificate expiration notice</source>
+        <source>@@PRODUCT_NAME@@ Certificate expiration notice</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
         </context-group>
-        <target>Red Hat ਸੈਟੇਲਾਈਟ ਸਾਰਟੀਫਿਕੇਟ ਮਿਆਦ ਪੁੱਗ ਗਈ ਹੈ</target>
       </trans-unit>
-      <trans-unit id="email.satellitecert.expired.body">
+      <trans-unit id="email.satellitecert.spwbodyend">
         <source>
-Dear @@PRODUCT_NAME@@ User,
-
-This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. The system management services will be inaccessible
-until your certificate is renewed. Please contact your regional Red Hat
-Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 
 Thank you for using @@PRODUCT_NAME@@.
@@ -406,9 +384,94 @@ Thank you for using @@PRODUCT_NAME@@.
 </source>
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="email.satellitecert.satbodyend">
+        <source>
+Please visit the following url for steps on how to request or generate a new @@PRODUCT_NAME@@ certificate: https://access.redhat.com/knowledge/tools/satcert
+
+
+Thank you for using @@PRODUCT_NAME@@.
+--the @@PRODUCT_NAME@@ Team
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="email.satellitecert.restricted.body">
+        <source>
+Dear @@PRODUCT_NAME@@ User,
+
+This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
+has expired on your {0} server. Your Satellite is on day {1} of {2} day restricted period
+and will soon stop functioning.</source>
+      </trans-unit>
+      <trans-unit id="email.satellitecert.expired.body">
+        <source>
+Dear @@PRODUCT_NAME@@ User,
+
+This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
+has expired on your {0} server. The system management services will be inaccessible
+until your certificate is renewed.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
           <context context-type="paramnotes">{0} - Hostname of the @@PRODUCT_NAME@@ Whose Cert has Expired: highwind.devel.redhat.com </context>
         </context-group>
-        <target/>
+      </trans-unit>
+      <trans-unit id="email.forgotten.password">
+        <source>
+[ This is an automated email sent to {0} at your request. ]
+
+Your @@PRODUCT_NAME@@ password has been reset.  To sign in, go to:
+
+https://{1}/
+
+And use the following username and password:
+
+Username: {2}
+Password: {3}
+
+Once you have logged in, you may then change your password.
+
+If you continue to have difficulties logging in, please contact
+your @@PRODUCT_NAME@@ administrator for further assistance.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx"><context context-type="sourcefile">ForgotCredentials</context><context context-type="paramnotes">
+            {0} - Email address
+            {1} - Hostname of the @@PRODUCT_NAME@@</context>
+            {2} - Username
+            {3} - Password
+        </context-group>
+      </trans-unit>
+      <trans-unit id="email.forgotten.logins">
+        <source>
+[ This is an automated email sent to {0} at your request. ]
+
+You have requested a list of all @@PRODUCT_NAME@@ logins associated
+with the email address {0}.
+
+Existing login(s):
+
+{1}
+You may reset the passwords for any of the above @@PRODUCT_NAME@@ logins at:
+
+  https://{2}/rhn/help/ForgotCredentials.do
+
+If you continue to have difficulties logging in, please contact
+your @@PRODUCT_NAME@@ administrator for further assistance.
+If you did not request this email be sent, please disregard this message.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">ForgotCredentials</context>
+          <context context-type="paramnotes">
+            {0} - Email address
+            {1} - Existing logins
+            {2} - Hostname of the @@PRODUCT_NAME@@</context>
+        </context-group>
       </trans-unit>
     </body>
   </file>

@@ -112,12 +112,17 @@
         </trans-unit>
       </group>
       <!-- TimeZones -->
-      <trans-unit id="Australia/Sydney">
-        <source>(GMT+1000) Australia (Eastern)</source>
+      <trans-unit id="Australia/Brisbane">
+        <source>(GMT+1000) Australia (Eastern Standard)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT+1000) ஆஸ்திரேலியா (கிழக்கு)</target>
+      </trans-unit>
+      <trans-unit id="Australia/Sydney">
+        <source>(GMT+1000) Australia (Eastern Daylight)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Asia/Tokyo">
         <source>(GMT+0900) Japan</source>
@@ -125,6 +130,12 @@
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
         <target>(GMT+0900) ஜப்பான்</target>
+      </trans-unit>
+      <trans-unit id="Asia/Seoul">
+        <source>(GMT+0900) Korea</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Australia/Perth">
         <source>(GMT+0800) Australia (Western)</source>
@@ -139,6 +150,12 @@
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
         <target>(GMT+0400) ரஷ்யா (மாஸ்கோ)</target>
+      </trans-unit>
+      <trans-unit id="Africa/Johannesburg">
+        <source>(GMT+0200) South Africa (Johannesburg)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Europe/Bucharest">
         <source>(GMT+0200) Europe (Eastern)</source>
@@ -189,6 +206,12 @@
         </context-group>
         <target>(GMT-0600) ஐக்கிய அமெரிக்கா (மத்திய)</target>
       </trans-unit>
+      <trans-unit id="America/Regina">
+        <source>(GMT-0600) Canada (Regina)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="America/Denver">
         <source>(GMT-0700) United States (Mountain)</source>
         <context-group name="ctx">
@@ -225,11 +248,16 @@
         <target>(GMT+1300) டொங்கா</target>
       </trans-unit>
       <trans-unit id="Pacific/Wallis">
-        <source>(GMT+1200) New Zealand</source>
+        <source>(GMT+1200) New Zealand (Wallis)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT+1200) நியுசிலாந்து</target>
+      </trans-unit>
+      <trans-unit id="Pacific/Auckland">
+        <source>(GMT+1200) New Zealand (Auckland)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Pacific/Norfolk">
         <source>(GMT+1130) Norfolk Island</source>
@@ -349,6 +377,12 @@
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
         <target>(GMT-0700) ஐக்கிய அமெரிக்க (அரிசோனா)</target>
+      </trans-unit>
+      <trans-unit id="Asia/Riyadh">
+        <source>(GMT+0300) Saudi Arabia</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Asia/Tehran">
         <source>(GMT+0330) Iran</source>
@@ -2784,486 +2818,6 @@
       </trans-unit>
       <group>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <note>Threshold types for threshold parameters
-                rhn_command_param_threshold.threshold_type_name -&gt; text
-        </note>
-        <trans-unit id="crit_max">
-          <source>Critical if above</source>
-          <target>மேலே எனில் சிக்கல்</target>
-        </trans-unit>
-        <trans-unit id="crit_min">
-          <source>Critical if below</source>
-          <target>கீழே எனில் சிக்கல்</target>
-        </trans-unit>
-        <trans-unit id="warn_max">
-          <source>Warn if above</source>
-          <target>மேலே எனில் எச்சரிக்கவும்</target>
-        </trans-unit>
-        <trans-unit id="warn_min">
-          <source>Warn if below</source>
-          <target>கீழே எனில் எச்சரிக்கவும்</target>
-        </trans-unit>
-      </group>
-      <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <note>Metrics for threshold params:
-          rhn_metrics.description -&gt; rhn_metrics.description
-        </note>
-        <trans-unit id="Active Locks">
-          <source>Active Locks</source>
-          <target>செயலிலுள்ள பூட்டுகள்</target>
-        </trans-unit>
-        <trans-unit id="Blocked Processes">
-          <source>Blocked Processes</source>
-          <target>தடுக்கப்பட்ட பணிகள்</target>
-        </trans-unit>
-        <trans-unit id="Buffer Cache Hit Ratio">
-          <source>Buffer Cache Hit Ratio</source>
-          <target>இடையக இடைமாற்று விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="CLOSE_WAIT Connections">
-          <source>CLOSE_WAIT Connections</source>
-          <target>CLOSE_WAIT இணைப்புகள்</target>
-        </trans-unit>
-        <trans-unit id="CPU Load 1-Minute Average">
-          <source>CPU Load 1-Minute Average</source>
-          <target>CPU ஏற்றம் 1-நிமிட சராசரி</target>
-        </trans-unit>
-        <trans-unit id="CPU Load 15-Minute Average">
-          <source>CPU Load 15-Minute Average</source>
-          <target>CPU ஏற்றம் 15-நிமிட சராசரி</target>
-        </trans-unit>
-        <trans-unit id="CPU Load 5-Minute Average">
-          <source>CPU Load 5-Minute Average</source>
-          <target>CPU ஏற்றம் 5-நிமிட சராசரி</target>
-        </trans-unit>
-        <trans-unit id="CPU Used">
-          <source>CPU Used</source>
-          <target>பயன்படுத்தப்பட்ட CPU</target>
-        </trans-unit>
-        <trans-unit id="Cache Miss Rate">
-          <source>Cache Miss Rate</source>
-          <target>இடைமாற்று விடுபடுதல் விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Child Process Groups">
-          <source>Child Process Groups</source>
-          <target>சேய் பணி குழுக்கள்</target>
-        </trans-unit>
-        <trans-unit id="Connection Rate">
-          <source>Connection Rate</source>
-          <target>இணைப்பு விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Connections">
-          <source>Connections</source>
-          <target>இணைப்புகள்</target>
-        </trans-unit>
-        <trans-unit id="Consistent Get Rate">
-          <source>Consistent Get Rate</source>
-          <target>தொடர்ச்சியான பெறும் விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Current Requests">
-          <source>Current Requests</source>
-          <target>நடப்பு கோரிக்கைகள்</target>
-        </trans-unit>
-        <trans-unit id="DB Block Get Rate">
-          <source>DB Block Get Rate</source>
-          <target>தரவுத்தள தடை பெறும் விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Data Dictionary Hit Ratio">
-          <source>Data Dictionary Hit Ratio</source>
-          <target>தரவு அகராதியின் விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Defunct Processes">
-          <source>Defunct Processes</source>
-          <target>செயலிழப்பு பணிகள்</target>
-        </trans-unit>
-        <trans-unit id="Disk Sort Rate">
-          <source>Disk Sort Rate</source>
-          <target>வட்டு வரிசை விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="ESTABLISHED Connections">
-          <source>ESTABLISHED Connections</source>
-          <target>ESTABLISHED இணைப்புகள்</target>
-        </trans-unit>
-        <trans-unit id="Execution Rate">
-          <source>Execution Rate</source>
-          <target>இயங்கும் விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Execution Time Ave">
-          <source>Execution Time Ave</source>
-          <target>இயங்கும் நேர சராசரி</target>
-        </trans-unit>
-        <trans-unit id="Execution Time Moving Average">
-          <source>Execution Time Moving Average</source>
-          <target>இயங்கு நேர நகர்வு சராசரி</target>
-        </trans-unit>
-        <trans-unit id="FIN_WAIT Connections">
-          <source>FIN_WAIT Connections</source>
-          <target>FIN_WAIT இணைப்புகள்</target>
-        </trans-unit>
-        <trans-unit id="Filesystem Used">
-          <source>Filesystem Used</source>
-          <target>பயன்படுத்தப்பட்ட கோப்பு அமைப்பு</target>
-        </trans-unit>
-        <trans-unit id="Get Rate">
-          <source>Get Rate</source>
-          <target>பெறும் விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="High Execution Time">
-          <source>High Execution Time</source>
-          <target>உயர்ந்த இயங்கு நேரம்</target>
-        </trans-unit>
-        <trans-unit id="Idle Execute Threads">
-          <source>Idle Execute Threads</source>
-          <target>வெறுமையான இயங்கு த்ரட்கள்</target>
-        </trans-unit>
-        <trans-unit id="Inodes Used">
-          <source>Inodes Used</source>
-          <target>பயன்படுத்தப்பட்ட Inodes</target>
-        </trans-unit>
-        <trans-unit id="Input Rate">
-          <source>Input Rate</source>
-          <target>உள்ளீடு விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Invocation Rate">
-          <source>Invocation Rate</source>
-          <target>இன்னோவோகஷன் விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Library Cache Miss Ratio">
-          <source>Library Cache Miss Ratio</source>
-          <target>நூலக இடைமாற்று இழப்பு விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Line Rate">
-          <source>Line Rate</source>
-          <target>வரி விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Lines">
-          <source>Lines</source>
-          <target>வரிகள்</target>
-        </trans-unit>
-        <trans-unit id="Low Execution Time">
-          <source>Low Execution Time</source>
-          <target>குறைந்த இயங்கு நேரம்</target>
-        </trans-unit>
-        <trans-unit id="Max Data Transferred Per Child">
-          <source>Max Data Transferred Per Child</source>
-          <target>ஒரு சேய்க்கான அதிகபட்ச தரவு பரிமாற்றம்</target>
-        </trans-unit>
-        <trans-unit id="Max Data Transferred Per Slot">
-          <source>Max Data Transferred Per Slot</source>
-          <target>ஒரு இடத்திற்கான அதிகபட்ச தரவு பரிமாற்றம்</target>
-        </trans-unit>
-        <trans-unit id="Memory Sort Rate">
-          <source>Memory Sort Rate</source>
-          <target>நினைவக வரிசை விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Open Objects">
-          <source>Open Objects</source>
-          <target>பொருட்களை திறக்கவும்</target>
-        </trans-unit>
-        <trans-unit id="Opened Objects">
-          <source>Opened Objects</source>
-          <target>திறந்த பொருட்கள்</target>
-        </trans-unit>
-        <trans-unit id="Output Rate">
-          <source>Output Rate</source>
-          <target>வெளியீடு விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Packet Loss">
-          <source>Packet Loss</source>
-          <target>இழந்த பாக்கெட்</target>
-        </trans-unit>
-        <trans-unit id="Physical Memory Used">
-          <source>Physical Memory Used</source>
-          <target>பயன்படுத்தப்பட்ட நிலையான நினைவகம்</target>
-        </trans-unit>
-        <trans-unit id="Physical Read Rate">
-          <source>Physical Read Rate</source>
-          <target>நிலையான படிப்பு விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Probe Execution Time Average">
-          <source>Probe Execution Time Average</source>
-          <target>ஆய்வு இயங்கு நேர சராசரி</target>
-        </trans-unit>
-        <trans-unit id="Probe Latency Average">
-          <source>Probe Latency Average</source>
-          <target>ஆய்வு உள்ளமைவு சராசரி</target>
-        </trans-unit>
-        <trans-unit id="Probes">
-          <source>Probes</source>
-          <target>ஆய்வுகள்</target>
-        </trans-unit>
-        <trans-unit id="Query Time">
-          <source>Query Time</source>
-          <target>வினா நேரம்</target>
-        </trans-unit>
-        <trans-unit id="Queue Length">
-          <source>Queue Length</source>
-          <target>வினா அளவு</target>
-        </trans-unit>
-        <trans-unit id="RAM Free">
-          <source>RAM Free</source>
-          <target>ரேம் இடம்</target>
-        </trans-unit>
-        <trans-unit id="Read Rate">
-          <source>Read Rate</source>
-          <target>படிப்பு விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Redo Buffer Allocation Retry Rate">
-          <source>Redo Buffer Allocation Retry Rate</source>
-          <target>இடையக ஒதுக்கீடு மறுமுயற்சி விகிதத்தை மீண்டும் செய்யவும்</target>
-        </trans-unit>
-        <trans-unit id="Redo Log Space Request Rate">
-          <source>Redo Log Space Request Rate</source>
-          <target>பதிவு இடைவெளி கோரிக்கை விகித்ததை மீண்டும் செய்யும்</target>
-        </trans-unit>
-        <trans-unit id="Regular Expression Match Rate">
-          <source>Regular Expression Match Rate</source>
-          <target>தொடர் வெளிப்பாடு ஒப்பீடு விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Regular Expression Matches">
-          <source>Regular Expression Matches</source>
-          <target>தொடர் வெளிப்பாடு ஒப்பீடுகள்</target>
-        </trans-unit>
-        <trans-unit id="Reload Rate">
-          <source>Reload Rate</source>
-          <target>மறு ஏற்ற விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Remote Service Latency">
-          <source>Remote Service Latency</source>
-          <target>தூரத்து சேவை உள்ளமைவு</target>
-        </trans-unit>
-        <trans-unit id="Request Rate">
-          <source>Request Rate</source>
-          <target>கோரிக்கை விகிதம்</target>
-        </trans-unit>
-        <trans-unit id="Round-trip Average">
-          <source>Round-trip Average</source>
-          <target>சுற்றுப்பயண சராசரி</target>
-        </trans-unit>
-        <trans-unit id="SYN_RCVD Connections">
-          <source>SYN_RCVD Connections</source>
-          <target>SYN_RCVD இணைப்புகள்</target>
-        </trans-unit>
-        <trans-unit id="Size">
-          <source>Size</source>
-          <target>அளவு</target>
-        </trans-unit>
-        <trans-unit id="Sleeping Processes">
-          <source>Sleeping Processes</source>
-          <target>தூங்கும் பணிகள்</target>
-        </trans-unit>
-        <trans-unit id="Space Available">
-          <source>Space Available</source>
-          <target>இருக்கும் இடம்</target>
-        </trans-unit>
-        <trans-unit id="Space Used">
-          <source>Space Used</source>
-          <target>பயன்படுத்தப்பட்ட இடம்</target>
-        </trans-unit>
-        <trans-unit id="Stopped Processes">
-          <source>Stopped Processes</source>
-          <target>நிறுத்தப்பட்ட பணிகள்</target>
-        </trans-unit>
-        <trans-unit id="Swap Space Free">
-          <source>Swap Space Free</source>
-          <target>இருக்கும் மாறும் இடைவெளி</target>
-        </trans-unit>
-        <trans-unit id="TIME_WAIT Connections">
-          <source>TIME_WAIT Connections</source>
-          <target>TIME_WAIT இணைப்புகள்</target>
-        </trans-unit>
-        <trans-unit id="Threads">
-          <source>Threads</source>
-          <target>த்ரட்கள்</target>
-        </trans-unit>
-        <trans-unit id="Total Connections">
-          <source>Total Connections</source>
-          <target>மொத்த இணைப்புகள்</target>
-        </trans-unit>
-        <trans-unit id="Traffic">
-          <source>Traffic</source>
-          <target>போக்குவரத்து</target>
-        </trans-unit>
-        <trans-unit id="Used Sessions">
-          <source>Used Sessions</source>
-          <target>பயன்படுத்திய அமர்வுகள்</target>
-        </trans-unit>
-        <trans-unit id="Value">
-          <source>Value</source>
-          <target>மதிப்பு</target>
-        </trans-unit>
-        <trans-unit id="Virtual Memory Free">
-          <source>Virtual Memory Free</source>
-          <target>மெய்நிகர் நினைவக வெற்று இடம்</target>
-        </trans-unit>
-        <trans-unit id="Virtual Memory Used">
-          <source>Virtual Memory Used</source>
-          <target>பயன்படுத்தப்பட்ட மெய்நிகர் நினைவகம்</target>
-        </trans-unit>
-        <trans-unit id="Waiters">
-          <source>Waiters</source>
-          <target>காத்திருப்பவர்கள்</target>
-        </trans-unit>
-        <trans-unit id="Write Rate">
-          <source>Write Rate</source>
-          <target>எழுதும் விகிதம்</target>
-        </trans-unit>
-      </group>
-      <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <note>Units for metrics:
-                rhn_units.unit_id -&gt; '(' || rhn_units.description || ')'
-        </note>
-        <trans-unit id="secs">
-          <source>(Seconds)</source>
-          <target>(விநாடிகள்)</target>
-        </trans-unit>
-        <trans-unit id="percent">
-          <source>(Percentage)</source>
-          <target>(சதவீதம்)</target>
-        </trans-unit>
-        <trans-unit id="bits">
-          <source>(Bits)</source>
-          <target>(பிட்ஸ்)</target>
-        </trans-unit>
-        <trans-unit id="count">
-          <source>(Number)</source>
-          <target>(எண்)</target>
-        </trans-unit>
-        <trans-unit id="astring">
-          <source>(ASCII string)</source>
-          <target>(ஆஸ்கி சரம்)</target>
-        </trans-unit>
-        <trans-unit id="Bps">
-          <source>(Bits per second)</source>
-          <target>(விநாடிக்கான பிட்ஸ்)</target>
-        </trans-unit>
-        <trans-unit id="hertz">
-          <source>(Cycles per second)</source>
-          <target>(விநாடிக்கான சுழற்சி)</target>
-        </trans-unit>
-        <trans-unit id="kelvins">
-          <source>(Degrees Kelvin)</source>
-          <target>(டிகிரிஸ் கெல்வின்)</target>
-        </trans-unit>
-        <trans-unit id="kilograms">
-          <source>(Kilograms)</source>
-          <target>(கிலோகிராம்ஸ்)</target>
-        </trans-unit>
-        <trans-unit id="amperes">
-          <source>(Amperes)</source>
-          <target>(ஆம்பயரிஸ்)</target>
-        </trans-unit>
-        <trans-unit id="newtons">
-          <source>(Newtons)</source>
-          <target>(நியுட்டன்ஸ்)</target>
-        </trans-unit>
-        <trans-unit id="watts">
-          <source>(Watts)</source>
-          <target>(வாட்ஸ்)</target>
-        </trans-unit>
-        <trans-unit id="coulombs">
-          <source>(Coulombs)</source>
-          <target>(கொலோம்ப்ஸ்)</target>
-        </trans-unit>
-        <trans-unit id="volts">
-          <source>(Volts)</source>
-          <target>(வோல்ட்ஸ்)</target>
-        </trans-unit>
-        <trans-unit id="rpm">
-          <source>(Revolutions per minute)</source>
-          <target>(நிமிடத்திற்கான சுழற்சிகள்)</target>
-        </trans-unit>
-        <trans-unit id="MHz">
-          <source>(Megahertz)</source>
-          <target>(மெகாஹர்ட்ஸ்)</target>
-        </trans-unit>
-        <trans-unit id="bps">
-          <source>(Bytes per second)</source>
-          <target>(விநாடிக்கான பைட்ஸ்)</target>
-        </trans-unit>
-        <trans-unit id="kBps">
-          <source>(Kilobits per second)</source>
-          <target>(நிமிடத்திற்கான கிலோபிட்ஸ்)</target>
-        </trans-unit>
-        <trans-unit id="MBps">
-          <source>(Megabits per second)</source>
-          <target>(விநாடிக்கான மெகாபிட்ஸ்)</target>
-        </trans-unit>
-        <trans-unit id="bytes">
-          <source>(Bytes)</source>
-          <target>(பைட்ஸ்)</target>
-        </trans-unit>
-        <trans-unit id="kb">
-          <source>(Kilobytes)</source>
-          <target>(கிலோபைட்ஸ்)</target>
-        </trans-unit>
-        <trans-unit id="Mb">
-          <source>(Megabytes)</source>
-          <target>(மெகாபைட்ஸ்)</target>
-        </trans-unit>
-        <trans-unit id="Gb">
-          <source>(Gigabytes)</source>
-          <target>(கிகாபைட்ஸ்)</target>
-        </trans-unit>
-        <trans-unit id="kW">
-          <source>(Kilowatts)</source>
-          <target>(கிலோவாட்ஸ்)</target>
-        </trans-unit>
-        <trans-unit id="millisecs">
-          <source>(Milliseconds)</source>
-          <target>(மில்லிவிநாடிகள்)</target>
-        </trans-unit>
-        <trans-unit id="boolean">
-          <source>(Boolean)</source>
-          <target>(பூலியன்)</target>
-        </trans-unit>
-        <trans-unit id="eps">
-          <source>(Events per second)</source>
-          <target>(விநாடிக்கான நிகழ்வுகள்)</target>
-        </trans-unit>
-        <trans-unit id="celsius">
-          <source>(Degrees Celsius)</source>
-          <target>(டிகிரிஸ் செல்சியஸ்)</target>
-        </trans-unit>
-        <trans-unit id="metres">
-          <source>(Metres)</source>
-          <target>(மீட்டர்)</target>
-        </trans-unit>
-        <trans-unit id="epm">
-          <source>(Events per minute)</source>
-          <target>(நிமிடத்திற்கான நிகழ்வுகள்)</target>
-        </trans-unit>
-        <trans-unit id="Kbps">
-          <source>(Kilobytes per second)</source>
-          <target>(விநாடிக்கான கிலோபைட்கள்)</target>
-        </trans-unit>
-        <trans-unit id="bpm">
-          <source>(Bytes per minute)</source>
-          <target>(நிமிடத்திற்கான பைட்கள்)</target>
-        </trans-unit>
-        <trans-unit id="lpm">
-          <source>(Lines per minute)</source>
-          <target>(நிமிடத்திற்கான வரிகள்)</target>
-        </trans-unit>
-        <trans-unit id="pounds">
-          <source>(Pounds)</source>
-          <target>(பவுண்டு)</target>
-        </trans-unit>
-        <trans-unit id="msps">
-          <source>(Milliseconds per second)</source>
-          <target>(விநாடிக்கான மில்லிவிநாடிகள்)</target>
-        </trans-unit>
-      </group>
-      <group>
-        <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
         <note>Probe command requirements:
@@ -3298,7 +2852,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
         <note>Command group names:
-                        rhn_command_groups.description -&gt; rhn_command_groups.description</note>
+      rhn_command_groups.description -&gt; rhn_command_groups.description</note>
         <trans-unit id="All">
           <source>All</source>
           <target>அனைத்தும்</target>
@@ -3349,7 +2903,7 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
         <note>Command names:
-                        rhn_command.description -&gt; rhn_command.description</note>
+      rhn_command.description -&gt; rhn_command.description</note>
         <trans-unit id="Active Sessions">
           <source>Active Sessions</source>
           <target>செயலிலுள்ள அமர்வுகள்</target>

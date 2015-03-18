@@ -100,40 +100,89 @@
         </context-group>
         <target>वर्चुअल सिस्टम</target>
       </trans-unit>
+      <trans-unit id="Physical Systems">
+        <source>Physical Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Duplicate Systems">
         <source>Duplicate Systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target/>
+      </trans-unit>
+      <trans-unit id="Requiring Reboot">
+        <source>Requiring Reboot</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Extra Packages">
+        <source>Extra Packages</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="duplicate.systems.nav.ips">
         <source>Duplicate IP Address</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Duplicate Systems Navigation Menu</context>
         </context-group>
-        <target/>
+      </trans-unit>
+      <trans-unit id="duplicate.systems.nav.ip6s">
+        <source>Duplicate IPv6 Address</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Duplicate Systems Navigation Menu</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="duplicate.systems.nav.mac_address">
         <source>Duplicate MAC Address</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target/>
       </trans-unit>
       <trans-unit id="duplicate.systems.nav.hostname">
         <source>Duplicate Hostname</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target/>
       </trans-unit>
       <trans-unit id="System Currency">
         <source>System Currency</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target/>
+      </trans-unit>
+      <trans-unit id="software.crashes">
+        <source>Software Crashes</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="software.crashes.overview">
+        <source>Software Crashes Overview</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="software.crashes.overview.summary">
+        <source>The table below lists software crashes, grouped by UUID, that occurred on your systems. Identical crash UUIDs may potentially indicate similar or identical types of software crash.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="software.crashes.by.uuid.summary">
+        <source>The table below lists systems where a crash with the above UUID occurred.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="software.crashes.uuid.header">
+        <source>Summary for crashes with identical UUID</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="ssm.nav.config">
         <source>Configuration</source>
@@ -219,6 +268,12 @@
         </context-group>
         <target>साझा चैनल</target>
       </trans-unit>
+      <trans-unit id="channel.nav.vendor">
+        <source>Red Hat Channels</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="channel.nav.popular">
         <source>Popular Channels</source>
         <context-group name="ctx">
@@ -238,7 +293,6 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Channel Navigation Menu</context>
         </context-group>
-        <target/>
       </trans-unit>
       <trans-unit id="config.nav.managed">
         <source>Managed Systems</source>
@@ -446,6 +500,17 @@
         </context-group>
         <target>अन्य फाइल</target>
       </trans-unit>
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/audit/ListScap.do</context>
+        </context-group>
+        <trans-unit id="nav.system.audit.list_scans">
+          <source>List Scans</source>
+        </trans-unit>
+        <trans-unit id="nav.system.audit.schedule">
+          <source>Schedule</source>
+        </trans-unit>
+      </group>
       <!-- SDC Config file navigation-->
       <group>
         <context-group name="ctx">
@@ -590,6 +655,42 @@
         </context-group>
         <target>@@PRODUCT_NAME@@ विन्यास</target>
       </trans-unit>
+      <trans-unit id="ISS Configuration">
+        <source>ISS Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="External Authentication">
+        <source>External Authentication</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Group Role Mapping">
+        <source>Group Role Mapping</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="System Group Configuration">
+        <source>System Group Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Master Setup">
+        <source>Master Setup</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Slave Setup">
+        <source>Slave Setup</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Remote Command">
         <source>Remote Command</source>
         <context-group name="ctx">
@@ -597,12 +698,23 @@
         </context-group>
         <target>दूरस्थ कमांड</target>
       </trans-unit>
+      <trans-unit id="Power Management Configuration">
+        <source>Power Management Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Power Management Operations">
+        <source>Power Management Operations</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Tag Systems">
         <source>Tag Systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target/>
       </trans-unit>
       <trans-unit id="Reactivation">
         <source>Reactivation</source>
@@ -665,7 +777,6 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target/>
       </trans-unit>
       <trans-unit id="List / Leave">
         <source>List / Leave</source>
@@ -931,7 +1042,6 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
-        <target/>
       </trans-unit>
       <trans-unit id="Managers">
         <source>Managers</source>
@@ -966,7 +1076,6 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata/SyncErrata.do</context>
         </context-group>
-        <target/>
       </trans-unit>
       <trans-unit id="Organizations">
         <source>Organizations</source>
@@ -1017,7 +1126,6 @@
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/help/about.do</context>
           </context-group>
-          <target/>
         </trans-unit>
         <trans-unit id="Base Channels">
           <source>Base Channels</source>
@@ -1054,13 +1162,18 @@
         </context-group>
         <trans-unit id="manage">
           <source>Manage</source>
-          <target/>
         </trans-unit>
         <trans-unit id="clear">
           <source>Clear</source>
-          <target/>
         </trans-unit>
       </group>
+      <!-- SUSE Studio -->
+      <trans-unit id="Credentials">
+        <source>Credentials</source>
+      </trans-unit>
+      <trans-unit id="Images">
+        <source>Images</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

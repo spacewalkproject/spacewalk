@@ -354,16 +354,16 @@ click the "Details" tab.
  Changer vos préférences de notification
 ---------------------------------
  Pour activer/désactiver vos préférences d' Errata Alert globalement, veuillez vous connecter à @@PRODUCT_NAME@@
- et naviguer de "Overview" (aperçu) / "Your Account" (votre compte) à l'onglet "Preferences".
+ et naviguer de &quot;Overview&quot; (aperçu) / &quot;Your Account&quot; (votre compte) à l'onglet &quot;Preferences&quot;.
 
  URL: {0}
 
 Vous pouvez également activer/désactiver la notification sur une base par système en sélectionnant un système individuel
- à partir de la "Systems List" (liste des systèmes). A partir de la vue du système individuel,
- cliquez sur le "onglet
+ à partir de la &quot;Systems List&quot; (liste des systèmes). A partir de la vue du système individuel,
+ cliquez sur le &quot;onglet
  {1}
  {2}
- "Details\.n
+ &quot;Details\.n
 {1}
 {2}
 </target>

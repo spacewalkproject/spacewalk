@@ -680,6 +680,24 @@
         </context-group>
         <target>Configuration ISS</target>
       </trans-unit>
+      <trans-unit id="External Authentication">
+        <source>External Authentication</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Group Role Mapping">
+        <source>Group Role Mapping</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="System Group Configuration">
+        <source>System Group Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Master Setup">
         <source>Master Setup</source>
         <context-group name="ctx">
@@ -700,6 +718,18 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Commande à distance</target>
+      </trans-unit>
+      <trans-unit id="Power Management Configuration">
+        <source>Power Management Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Power Management Operations">
+        <source>Power Management Operations</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Tag Systems">
         <source>Tag Systems</source>
@@ -1165,6 +1195,13 @@
           <target>Vider</target>
         </trans-unit>
       </group>
+      <!-- SUSE Studio -->
+      <trans-unit id="Credentials">
+        <source>Credentials</source>
+      </trans-unit>
+      <trans-unit id="Images">
+        <source>Images</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
