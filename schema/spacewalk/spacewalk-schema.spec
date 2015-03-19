@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.39
+Version:        2.3.40
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Mar 19 2015 Grant Gainey 2.3.40-1
+- Automatic commit of package [osad] release [5.11.56-1].
+- Updating copyright info for 2015
+
 * Thu Mar 05 2015 Stephen Herr <sherr@redhat.com> 2.3.39-1
 - add the EPEL 7 key to new db installation scripts, move upgrade script
 - Add EPEL 7 package key
