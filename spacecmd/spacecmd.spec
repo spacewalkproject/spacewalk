@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.3.18
+Version:     2.3.19
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -77,6 +77,11 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Mar 19 2015 Grant Gainey 2.3.19-1
+- Updating copyright info for 2015
+- Added a bit more documentation to softwarechannel_setsyncschedule to make it
+  more obvious what the schedule format is.
+
 * Fri Mar 13 2015 Tomas Lestach <tlestach@redhat.com> 2.3.18-1
 - Added softwarechannel_removesyncschedule to remove a sync schedule from a
   channel.
