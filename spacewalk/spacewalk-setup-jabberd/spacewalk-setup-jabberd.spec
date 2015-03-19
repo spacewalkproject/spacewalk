@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        2.3.1
+Version:        2.3.2
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 Group:          Applications/System
@@ -57,6 +57,9 @@ rm -rf %{buildroot}
 %{_sysconfdir}/pki/spacewalk
 
 %changelog
+* Thu Mar 19 2015 Grant Gainey 2.3.2-1
+- Updating copyright info for 2015
+
 * Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.1-1
 - Getting rid of trailing spaces in Perl
 - Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
