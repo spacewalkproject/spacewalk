@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.3.16
+Version: 2.3.17
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -97,6 +97,9 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Thu Mar 19 2015 Grant Gainey 2.3.17-1
+- remove unused dependency
+
 * Fri Mar 13 2015 Tomas Lestach <tlestach@redhat.com> 2.3.16-1
 - preparations for mod_perl removal
 
