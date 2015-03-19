@@ -1,5 +1,5 @@
 Name:		spacewalk-client-cert
-Version:	2.3.1
+Version:	2.3.2
 Release:	1%{?dist}
 Summary:	Package allowing manipulation with Spacewalk client certificates
 
@@ -39,6 +39,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Mar 19 2015 Grant Gainey 2.3.2-1
+- Updating copyright info for 2015
+
 * Wed Jan 14 2015 Matej Kollar <mkollar@redhat.com> 2.3.1-1
 - Getting rid of Tabs and trailing spaces in Python
 - Bumping package versions for 2.3.
