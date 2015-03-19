@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.23
+Version:    2.3.24
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -92,6 +92,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Mar 19 2015 Grant Gainey 2.3.24-1
+- Updating copyright info for 2015
+
 * Wed Mar 18 2015 Tomas Kasparek <tkasparek@redhat.com> 2.3.23-1
 - update documentation with Satellite 5.7
 
