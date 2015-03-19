@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.170
+Version: 2.3.171
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -770,6 +770,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 19 2015 Grant Gainey 2.3.171-1
+- Update api version
+- Updated copyright year missed in 2013
+- Updating copyright info for 2015
+
 * Thu Mar 19 2015 Tomas Lestach <tlestach@redhat.com> 2.3.170-1
 - pass reposync params as List
 - adding java .project to git
