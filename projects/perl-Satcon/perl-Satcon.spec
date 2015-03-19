@@ -2,7 +2,7 @@
 
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        2.3.1
+Version:        2.3.2
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Thu Mar 19 2015 Grant Gainey 2.3.2-1
+- Updating copyright info for 2015
+
 * Fri Jan 16 2015 Matej Kollar <mkollar@redhat.com> 2.3.1-1
 - Getting rid of trailing spaces in Perl
 - Getting rid of Tabs in Perl
