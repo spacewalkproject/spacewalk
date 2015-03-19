@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.3.1
+Version: 2.3.2
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Thu Mar 19 2015 Grant Gainey 2.3.2-1
+- Updating copyright info for 2015
+
 * Fri Jan 30 2015 Stephen Herr <sherr@redhat.com> 2.3.1-1
 - 1187482 - make file preservation work again with new upstream koan
 - spacewalk-koan: improved merge-rd
