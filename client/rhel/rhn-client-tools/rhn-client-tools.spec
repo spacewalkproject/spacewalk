@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.3.15
+Version: 2.3.16
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -370,6 +370,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Mar 19 2015 Grant Gainey 2.3.16-1
+- Updating copyright info for 2015
+- Revert "allow building rhn-client-tools package on rhel5"
+
 * Thu Mar 19 2015 Tomas Kasparek <tkasparek@redhat.com> 2.3.15-1
 - allow building rhn-client-tools package on rhel5
 
