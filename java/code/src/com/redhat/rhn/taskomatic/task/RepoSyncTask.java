@@ -49,13 +49,13 @@ public class RepoSyncTask extends RhnJavaJob {
                     context.getJobDetail().getJobDataMap().get("channel_id");
         String [] lparams = {"no-errata", "sync-kickstart", "fail"};
         List<String> ltrue = Arrays.asList("true", "1");
-        String params = "";
+        List<String> params = new ArrayList<String>();
 
         for (String p : lparams) {
             if (context.getJobDetail().getJobDataMap().containsKey(p)) {
-               if (ltrue.contains(context.getJobDetail().getJobDataMap()
+                if (ltrue.contains(context.getJobDetail().getJobDataMap()
                         .get(p).toString().toLowerCase().trim())) {
-                   params = params + " --" + p;
+                    params.add("--" + p);
                }
             }
         }
@@ -79,7 +79,7 @@ public class RepoSyncTask extends RhnJavaJob {
         c.setLastSynced(new Date());
     }
 
-    private static List<String> getSyncCommand(Channel c, String params) {
+    private static List<String> getSyncCommand(Channel c, List<String> params) {
         List<String> cmd = new ArrayList<String>();
         cmd.add(Config.get().getString(ConfigDefaults.SPACEWALK_REPOSYNC_PATH,
                 "/usr/bin/spacewalk-repo-sync"));
@@ -87,7 +87,7 @@ public class RepoSyncTask extends RhnJavaJob {
         cmd.add(c.getLabel());
         cmd.add("--type");
         cmd.add(ChannelFactory.CONTENT_SOURCE_TYPE_YUM.getLabel());
-        cmd.add(params);
+        cmd.addAll(params);
         return cmd;
     }
 }
