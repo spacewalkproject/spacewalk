@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.3.18
+Version: 2.3.19
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,9 @@ fi
 
 
 %changelog
+* Thu Mar 19 2015 Grant Gainey 2.3.19-1
+- Updating copyright info for 2015
+
 * Wed Mar 18 2015 Stephen Herr <sherr@redhat.com> 2.3.18-1
 - 1194056 - pylint is barfing over perfectly valid pep-8 compliant code. Oh
   well.
