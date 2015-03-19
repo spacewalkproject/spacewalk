@@ -7,10 +7,10 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 --
 
@@ -60,12 +60,21 @@ insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 -- Fedora 20
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 (sequence_nextval('rhn_pkey_id_seq'), '2eb161fa246110c1', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+-- Fedora 20 (secondary)
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), 'dbeae2e4efe550f5', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
 -- Fedora 21
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 (sequence_nextval('rhn_pkey_id_seq'), '89ad4e8795a43f54', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
 -- Fedora 21 (secondary)
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 (sequence_nextval('rhn_pkey_id_seq'), '636dea19a0a7badb', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+-- Fedora 22
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), '11adc0948e1431d5', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+-- Fedora 22 (secondary)
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), 'd8d1fa8ca29cb19c', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
 
 -- CentOS
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
