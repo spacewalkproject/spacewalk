@@ -9,7 +9,6 @@ Group: Applications/System
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Buildarch: noarch
 Requires: perl(Satcon)
-Requires: perl(Apache::DBI)
 Obsoletes: rhn-satellite-config < 5.3.0
 Provides: rhn-satellite-config = 5.3.0
 Requires(post): chkconfig
