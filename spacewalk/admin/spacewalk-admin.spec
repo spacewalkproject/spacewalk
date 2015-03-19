@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for Red Hat Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 2.3.3
+Version: 2.3.4
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -90,6 +90,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Mar 19 2015 Grant Gainey 2.3.4-1
+- drop requires for perl-URI - seems to be unused
+- Updating copyright info for 2015
+
 * Fri Jan 16 2015 Tomas Lestach <tlestach@redhat.com> 2.3.3-1
 - remove Monitoring and MonitoringScout from spacewalk.target and spacewalk-
   service
