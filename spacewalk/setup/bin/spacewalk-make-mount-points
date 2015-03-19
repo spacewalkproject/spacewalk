@@ -83,7 +83,7 @@ spacewalk-setup(8)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2011 Red Hat, Inc.
+Copyright (c) 2011--2015 Red Hat, Inc.
 Released under GNU General Public License, version 2 (GPLv2).
 
 =cut

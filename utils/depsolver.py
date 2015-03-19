@@ -2,7 +2,7 @@
 #
 # -*- coding: utf-8 -*-
 #
-# Copyright (c) 2012 Red Hat, Inc.
+# Copyright (c) 2012--2015 Red Hat, Inc.
 #
 # Lookup package dependencies in a yum repository
 #
