@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.kickstart.builder;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
@@ -33,8 +34,10 @@ import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.KickstartTreeUpdateType;
+import com.redhat.rhn.frontend.dto.StringDto;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeException;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
+import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartScriptCreateCommand;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCommand;
@@ -600,6 +603,16 @@ public class KickstartBuilder {
     }
 
     private void setTimezone(KickstartWizardHelper cmd, KickstartData ksdata) {
+        if (user != null && user.getTimeZone() != null) {
+            StringDto userTzOlson = new StringDto(user.getTimeZone().getOlsonName());
+            DataResult<StringDto> tzs =
+                    KickstartLister.getInstance().getValidTimezonesFotInstallType(
+                            ksdata.getTree().getInstallType());
+            if (tzs.contains(userTzOlson)) {
+                cmd.createCommand("timezone", userTzOlson.getValue(), ksdata);
+                return;
+            }
+        }
         cmd.createCommand("timezone", "America/New_York", ksdata);
     }
 

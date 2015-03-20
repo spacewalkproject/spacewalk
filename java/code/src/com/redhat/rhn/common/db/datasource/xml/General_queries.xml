@@ -276,6 +276,15 @@ ORDER BY KTZ.name
   </query>
 </mode>
 
+<mode name="valid_timezones_for_kickstart_install_type" class="com.redhat.rhn.frontend.dto.StringDto">
+  <query params="id">
+  SELECT KTZ.label AS value
+    FROM rhnKickstartTimezone KTZ
+   WHERE KTZ.install_type = :id
+ORDER BY KTZ.name
+  </query>
+</mode>
+
 <mode name="server_group_membership">
     <query params="org_id, label">
 SELECT max_members, current_members FROM rhnServerGroup sg, rhnServerGroupType sgt

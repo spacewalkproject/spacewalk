@@ -92,6 +92,7 @@ public class KickstartFactory extends HibernateFactory {
      * Get the Logger for the derived class so log messages
      * show up on the correct class
      */
+    @Override
     protected Logger getLogger() {
         return log;
     }
@@ -373,7 +374,6 @@ public class KickstartFactory extends HibernateFactory {
         KickstartCommand retval = new KickstartCommand();
         KickstartCommandName name =
                 KickstartFactory.lookupKickstartCommandName(nameIn);
-        retval = new KickstartCommand();
         retval.setCommandName(name);
         retval.setKickstartData(ksdata);
         retval.setCreated(new Date());
@@ -759,8 +759,6 @@ public class KickstartFactory extends HibernateFactory {
      * @return list of kickstart trees
      */
     public static List <KickstartableTree> lookupKickstartTrees() {
-        Session session = null;
-        List retval = null;
         String query = "KickstartableTree.findAll";
         return singleton.listObjectsByNamedQuery(query, Collections.EMPTY_MAP, false);
     }

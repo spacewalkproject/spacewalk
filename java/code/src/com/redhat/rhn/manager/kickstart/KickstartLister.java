@@ -19,11 +19,13 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartInstallType;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ActivationKeyDto;
+import com.redhat.rhn.frontend.dto.StringDto;
 import com.redhat.rhn.frontend.dto.kickstart.CobblerProfileDto;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.listview.PageControl;
@@ -396,6 +398,25 @@ public class KickstartLister extends BaseManager {
             logger.debug("getValidTimezones(ksId)" +
                          " - end - return value=" + returnDataResult);
         }
+
+        return returnDataResult;
+    }
+
+    /**
+     * Get the valid timezones for a given ks install type
+     * @param ksInstallType kickstart install type
+     * @return DataResult list of timezones.
+     */
+    public DataResult<StringDto> getValidTimezonesFotInstallType(
+            KickstartInstallType ksInstallType) {
+
+        SelectMode m =
+                ModeFactory.getMode("General_queries",
+                        "valid_timezones_for_kickstart_install_type");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("id", ksInstallType.getId());
+        DataResult<StringDto> returnDataResult =
+                makeDataResultNoPagination(params, new HashMap(), m);
 
         return returnDataResult;
     }
