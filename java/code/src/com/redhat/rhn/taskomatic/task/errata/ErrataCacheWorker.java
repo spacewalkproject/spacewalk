@@ -56,7 +56,7 @@ class ErrataCacheWorker implements QueueWorker {
     public void run() {
         try {
             Date d = new Date(System.currentTimeMillis());
-            removeTask();
+            removeTask(task);
             HibernateFactory.commitTransaction();
             HibernateFactory.closeSession();
             parentQueue.workerStarting();
@@ -91,10 +91,15 @@ class ErrataCacheWorker implements QueueWorker {
         parentQueue = queue;
     }
 
-    private void removeTask() {
+    /**
+     * Remove a given task from the database via mode query.
+     *
+     * @param task task to remove
+     */
+    protected static void removeTask(Task task) {
         WriteMode mode = ModeFactory.getWriteMode("Task_queries", "delete_task");
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("org_id", orgId);
+        params.put("org_id", task.getOrg().getId());
         params.put("name", task.getName());
         params.put("task_data", task.getData());
         params.put("priority", new Integer(task.getPriority()));
