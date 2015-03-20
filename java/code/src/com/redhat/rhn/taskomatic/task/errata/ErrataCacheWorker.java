@@ -57,8 +57,6 @@ class ErrataCacheWorker implements QueueWorker {
         try {
             Date d = new Date(System.currentTimeMillis());
             removeTask();
-            HibernateFactory.commitTransaction();
-            HibernateFactory.closeSession();
             parentQueue.workerStarting();
             UpdateErrataCacheCommand uecc = new UpdateErrataCacheCommand();
             if (ErrataCacheWorker.FOR_SERVER.equals(task.getName())) {
