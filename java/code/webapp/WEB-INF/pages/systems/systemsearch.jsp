@@ -13,87 +13,104 @@
         </rhn:toolbar>
         <p><bean:message key="systemsearch.jsp.summary"/></p>
         <p><bean:message key="erratasearch.jsp.instructions"/></p>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <html:form action="/systems/Search.do" styleClass="form-horizontal">
+                    <rhn:csrf />
+                    <rhn:submitted />
 
-        <html:form action="/systems/Search.do" styleClass="form-horizontal">
-            <rhn:csrf />
-            <rhn:submitted />
-
-            <div class="form-group">
-                <label class="col-lg-3 control-label" for="searchfor">
-                    <bean:message key="erratasearch.jsp.searchfor"/>
-                </label>
-                <div class="col-lg-6">
-                    <div class="input-group">
-                        <html:text property="search_string" styleClass="form-control"
-                                   name="search_string" styleId="searchfor"
-                                   value="${search_string}" maxlength="100" accesskey="4"/>
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-default">
-                                <rhn:icon type="header-search" />
-                            </button>
-                        </span>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="searchfor">
+                            <bean:message key="erratasearch.jsp.searchfor"/>
+                        </label>
+                        <div class="col-sm-6">
+                            <html:text property="search_string" styleClass="form-control" name="search_string" styleId="searchfor" value="${search_string}" maxlength="100" accesskey="4"/>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-3 control-label" for="fieldtosearch">
-                    <bean:message key="systemsearch.jsp.fieldtosearch"/>
-                </label>
-                <div class="col-lg-6">
-                    <select name="view_mode" id="fieldtosearch" class="form-control">
-                        <c:forEach items="${optGroupsKeys}" var="key">
-                            <optgroup label="<bean:message key='${key}'/>">
-                                <c:forEach items="${optGroupsMap[key]}" var="option">
-                                    <c:choose>
-                                        <c:when test="${view_mode == option['value']}">
-                                            <option value="${option["value"]}" selected="selected">${option["display"]}</option>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <option value="${option["value"]}">${option["display"]}</option>
-                                        </c:otherwise>
-                                    </c:choose>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="fieldtosearch">
+                            <bean:message key="systemsearch.jsp.fieldtosearch"/>
+                        </label>
+                        <div class="col-sm-6">
+                            <select name="view_mode" id="fieldtosearch" class="form-control">
+                                <c:forEach items="${optGroupsKeys}" var="key">
+                                    <optgroup label="<bean:message key='${key}'/>">
+                                        <c:forEach items="${optGroupsMap[key]}" var="option">
+                                            <c:choose>
+                                                <c:when test="${view_mode == option['value']}">
+                                                    <option value="${option["value"]}" selected="selected">${option["display"]}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${option["value"]}">${option["display"]}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </optgroup>
                                 </c:forEach>
-                            </optgroup>
-                        </c:forEach>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-3 control-label">
-                    <bean:message key="systemsearch.jsp.wheretosearch"/>
-                </label>
-                <div class="col-lg-6">
-                    <html:radio property="whereToSearch" value="all" styleId="whereToSearch-all"/>
-                    <label for="whereToSearch-all"><bean:message key="systemsearch.jsp.searchallsystems"/></label>
-                    <br/>
-                    <html:radio property="whereToSearch" value="system_list" styleId="whereToSearch-system_list"/>
-                    <label for="whereToSearch-system_list"><bean:message key="systemsearch.jsp.searchSSM"/></label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="invertlabel" class="col-lg-3 control-label">
-                    <bean:message key="systemsearch.jsp.invertlabel"/>
-                </label>
-                <div class="col-lg-6">
-                    <div style="text-align: left">
-                        <html:checkbox property="invert" styleId="invertlabel">
-                            <label for="invertlabel"><bean:message key="systemsearch.jsp.invertdescription"/></label>
-                        </html:checkbox>
+                            </select>
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            <bean:message key="systemsearch.jsp.wheretosearch"/>
+                        </label>
+                        <div class="col-sm-6">
+                            <div class="radio">
+                              <label for="whereToSearch-all">
+                            <html:radio property="whereToSearch" value="all" styleId="whereToSearch-all"/>
+                                  <bean:message key="systemsearch.jsp.searchallsystems"/>
+                              </label>
+                            </div>
+                            <div class="radio">
+                                <label for="whereToSearch-system_list">
+                            <html:radio property="whereToSearch" value="system_list" styleId="whereToSearch-system_list"/>
+                                    <bean:message key="systemsearch.jsp.searchSSM"/>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="invertlabel" class="col-sm-3 control-label">
+                            <bean:message key="systemsearch.jsp.invertlabel"/>
+                        </label>
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label for="invertlabel">
+                                <html:checkbox property="invert" styleId="invertlabel">
+                                        <bean:message key="systemsearch.jsp.invertdescription"/>
+                                </html:checkbox>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fineGrainedlabel" class="col-sm-3 control-label">
+                            <bean:message key="systemsearch.jsp.finegrainedlabel"/>
+                        </label>
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label for="fineGrainedlabel">
+                            <html:checkbox property="fineGrained" styleId="fineGrainedlabel">
+                                        <bean:message key="systemsearch.jsp.finegrained"/>
+                            </html:checkbox>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            <button type="submit" class="btn btn-primary">
+                                <rhn:icon type="header-search" />
+                                <bean:message key="button.search"/>
+                            </button>
+                        </div>
+                    </div>
+                    <html:hidden property="submitted" value="true"/>
+                </html:form>
             </div>
-            <div class="form-group">
-                <label for="fineGrainedlabel" class="col-lg-3 control-label">
-                    <bean:message key="systemsearch.jsp.finegrainedlabel"/>
-                </label>
-                <div class="col-lg-6">
-                    <html:checkbox property="fineGrained" styleId="fineGrainedlabel">
-                        <label for="fineGrainedlabel"><bean:message key="systemsearch.jsp.finegrained"/></label>
-                    </html:checkbox>
-                </div>
-            </div>
-            <html:hidden property="submitted" value="true"/>
-        </html:form>
+        </div>
+
+
 
         <c:if test="${search_string != null && search_string != ''}">
             <hr/>

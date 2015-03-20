@@ -204,7 +204,6 @@ public class AddressTag extends TagSupport {
 
                 result.append("</address>");
 
-                result.append("<p>");
                 result.append("<a ")
                       .append("class=\"btn btn-primary\"")
                       .append(" href=\"")
@@ -216,15 +215,13 @@ public class AddressTag extends TagSupport {
                       .append("\">")
                       .append(ls.getMessage("Edit this address"))
                       .append("</a>");
-                result.append("</p>");
             }
             else {
                 result.append("<div class=\"alert alert-info\">");
                 result.append(ls.getMessage("address not filled in"));
                 result.append("</div>");
-                result.append("<p>");
                 result.append("<a ")
-                      .append("class=\"btn btn-primary\"")
+                      .append("class=\"btn btn-default\"")
                       .append(" href=\"")
                       .append(getActionUrl())
                       .append("/EditAddress.do?type=")
@@ -234,7 +231,6 @@ public class AddressTag extends TagSupport {
                       .append("\">")
                       .append(ls.getMessage("Fill in this address"))
                       .append("</a>");
-                result.append("</p>");
             }
 
             out.print(result);

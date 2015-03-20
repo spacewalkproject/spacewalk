@@ -134,9 +134,9 @@ function clickNewestTree() {
           </div>
         </div>
       </div>
-    </div>
-    <div class="pull-right">
-      <button onclick="moveNext();" class="btn btn-primary"><bean:message key='wizard.jsp.next.step'/></button>
+      <div class="panel-footer text-center">
+        <button onclick="moveNext();" class="btn btn-primary"><bean:message key='wizard.jsp.next.step'/> <i class="fa fa-arrow-right"></i></button>
+      </div>
     </div>
   </html:form>
 </body>

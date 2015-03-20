@@ -31,12 +31,14 @@ function showFiltered() {
         <rhn:csrf />
         <rhn:submitted />
         <table class="table">
-                <th>
-                        <bean:message key="channels.popular.jsp.label0" />:
-                </th>
                 <td>
-                        <bean:message key="channels.popular.jsp.label1" />
-                        <select name="server_count" >
+                        <bean:message key="channels.popular.jsp.label0" />:
+                </td>
+                <td>
+                        <p class="form-input-inline"> 
+                                <bean:message key="channels.popular.jsp.label1" />
+                        </p>
+                        <select name="server_count" class="form-control form-input-inline">
                          <c:forEach var="parameter" items="${counts}">
                                         <option value="<c:out value='${parameter.count}' />"
                                                 <c:if test="${parameter.selected}">
@@ -47,12 +49,41 @@ function showFiltered() {
                                         </option>
                          </c:forEach>
                         </select>
-                        <bean:message key="channels.popular.jsp.label2" />
-                        <INPUT type="submit" class="btn btn-default" value="<bean:message key='channels.popular.jsp.button'/>">
+                        <p class="form-input-inline">
+                                <bean:message key="channels.popular.jsp.label2" />
+                        </p>
+                        <INPUT type="submit" class="btn btn-success form-input-inline" value="<bean:message key='channels.popular.jsp.button'/>">
                         </td>
                 </table>
                 <br/>
         <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_multiorg.jspf" %>
+    	<table class="table">
+		<td>
+    			<bean:message key="channels.popular.jsp.label0" />:
+		</td>
+    		<td>
+      <p class="form-input-inline">
+			<bean:message key="channels.popular.jsp.label1" />
+      </p>
+			<select name="server_count" class="form-control form-input-inline">
+		         <c:forEach var="parameter" items="${counts}">
+					<option value="<c:out value='${parameter.count}' />"
+						<c:if test="${parameter.selected}">
+							selected
+						</c:if>
+					>
+						<c:out value='${parameter.count}' />
+					</option>
+		         </c:forEach>
+			</select>
+      <p class="form-input-inline">
+			<bean:message key="channels.popular.jsp.label2" />
+      </p>
+			<INPUT type="submit" class="btn btn-success form-input-inline" value="<bean:message key='channels.popular.jsp.button'/>">
+			</td>
+		</table>
+		<br/>
+	<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_multiorg.jspf" %>
 </form>
 
 </body>

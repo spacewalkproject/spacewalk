@@ -105,7 +105,7 @@
 
     </rl:list>
 </rl:listset>
-
+<hr/>
 <rhn:tooltip><small>*-<bean:message key = "Available/Total.tip"/></small></rhn:tooltip>
 <rhn:tooltip><small>**-<bean:message key = "Used/Allotted.tip"/></small></rhn:tooltip>
 </body>

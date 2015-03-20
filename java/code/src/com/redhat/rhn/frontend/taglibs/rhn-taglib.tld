@@ -356,6 +356,11 @@
         <name>tabindex</name>
             <required>false</required>
         </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
