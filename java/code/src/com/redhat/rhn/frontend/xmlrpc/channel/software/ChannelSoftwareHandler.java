@@ -1746,8 +1746,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
             inParams = new HashMap<String, Object>();
             inParams.put("org_id", org.getId());
-            inParams.put("cid", channel.getId());
-            inParams.put("task_data", "update_errata_cache_by_channel");
+            inParams.put("task_name", "update_errata_cache_by_channel");
+            inParams.put("task_data", channel.getId());
             inParams.put("earliest", new Timestamp(System.currentTimeMillis() + delay));
 
             w.executeUpdate(inParams);
