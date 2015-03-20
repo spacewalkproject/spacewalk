@@ -617,10 +617,10 @@ where snc.errata_id = :errata_id
 </write-mode>
 
 <write-mode name="insert_into_task_queue">
-        <query params="org_id, task_data, cid, earliest">
+        <query params="org_id, task_name, task_data, earliest">
         INSERT INTO rhnTaskQueue
        (org_id, task_name, task_data, priority, earliest)
-                VALUES (:org_id, :task_data, :cid, 0, :earliest)
+                VALUES (:org_id, :task_name, :task_data, 0, :earliest)
         </query>
 </write-mode>
 
