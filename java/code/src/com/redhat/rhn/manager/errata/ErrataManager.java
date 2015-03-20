@@ -1693,12 +1693,19 @@ public class ErrataManager extends BaseManager {
     private static List<Long> applyErrata(User user, List errataIds, Date earliest,
         ActionChain actionChain, List<Long> serverIds, boolean onlyRelevant) {
 
-        // not all errata applies to all systems, so we will group actions per systems
-        // having the same sets of errata
-        // We can't do a Set<Errata> because AbstractErrata equals/hashCode does not use Id.
-        // System Id -> Errata Ids
-        Map<Long, Set<Long>> relevantErrataForServer = new HashMap<Long, Set<Long>>();
+        // not all errata applies to all systems, so we will filter them
+        Map<Long, List<Long>> serversForErrata = new HashMap<Long, List<Long>>();
 
+        // Prepare empty list of systems for each errata
+        for (Object errataIdObject : errataIds) {
+            // HACK: ugly conversion needed because in some cases errataIds contains
+            // Integers, in other cases Longs
+            Long errataId = ((Number) errataIdObject).longValue();
+            List<Long> serverList = new ArrayList<Long>();
+            serversForErrata.put(errataId, serverList);
+        }
+
+        // Filter only relevant errata for servers
         for (Long serverId : serverIds) {
             List<Errata> relevantErrata =
                     SystemManager.unscheduledErrata(user, serverId, null);
@@ -1707,13 +1714,10 @@ public class ErrataManager extends BaseManager {
                 relevantErrataIds.add(e.getId());
             }
 
-            Set<Long> effectiveErrataIds = new HashSet<Long>();
-            for (Object errataIdObject : errataIds) {
-                // HACK: ugly conversion needed because in some cases errataIds contains
-                // Integers, in other cases Longs
-                Long errataId = ((Number) errataIdObject).longValue();
+            for (Long errataId : serversForErrata.keySet()) {
                 if (relevantErrataIds.contains(errataId)) {
-                    effectiveErrataIds.add(errataId);
+                    List<Long> serverList = serversForErrata.get(errataId);
+                    serverList.add(serverId);
                 }
                 else {
                     if (!onlyRelevant) {
@@ -1721,46 +1725,23 @@ public class ErrataManager extends BaseManager {
                     }
                 }
             }
-
-            relevantErrataForServer.put(serverId, effectiveErrataIds);
-        }
-
-        Map<Set<Long>, List<Long>> serversForErrataSet =
-                new HashMap<Set<Long>, List<Long>>();
-        for (Long serverId : relevantErrataForServer.keySet()) {
-            Set<Long> errataSet = relevantErrataForServer.get(serverId);
-            List<Long> serverList = serversForErrataSet.get(errataSet);
-            if (serverList == null) {
-                serverList = new ArrayList<Long>();
-                serversForErrataSet.put(errataSet, serverList);
-            }
-            serverList.add(serverId);
         }
 
         List<Long> actionIds = new ArrayList<Long>();
-        for (Set<Long> relevantErrataIds : serversForErrataSet.keySet()) {
+        for (Long errataId : serversForErrata.keySet()) {
 
-            List<Long> affectedServers = serversForErrataSet.get(relevantErrataIds);
+            List<Long> affectedServers = serversForErrata.get(errataId);
 
             // Schedule updates to the software update stack first
             List<ErrataAction> stackUpdates = null;
             List<Errata> errata = new ArrayList<Errata>();
-            for (Long eid : relevantErrataIds) {
-                Errata erratum = ErrataManager.lookupErrata(eid, user);
-                if (erratum.hasKeyword("restart_suggested")) {
-                    if (stackUpdates == null) {
-                        stackUpdates = createErrataActions(user, erratum,
-                                earliest, actionChain, affectedServers);
-                    }
-                    else {
-                        for (ErrataAction stackUpdate : stackUpdates) {
-                            stackUpdate.addErrata(erratum);
-                        }
-                    }
-                }
-                else {
-                    errata.add(erratum);
-                }
+            Errata erratum = ErrataManager.lookupErrata(errataId, user);
+            if (erratum.hasKeyword("restart_suggested")) {
+                stackUpdates = createErrataActions(user, erratum,
+                        earliest, actionChain, affectedServers);
+            }
+            else {
+                errata.add(erratum);
             }
             if (stackUpdates != null) {
                 for (ErrataAction stackUpdate : stackUpdates) {
