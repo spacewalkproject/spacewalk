@@ -22,10 +22,13 @@ import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
 
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Driver for the threaded errata cache update queue
@@ -49,7 +52,8 @@ public class ErrataCacheDriver implements QueueDriver {
      */
     public List<Map<String, Object>> getCandidates() {
         List<Task> tasks = TaskFactory.getTaskListByNameLike(ErrataCacheWorker.BY_CHANNEL);
-        tasks.addAll(TaskFactory.getTaskListByNameLike(ErrataCacheWorker.FOR_SERVER));
+        tasks.addAll(consolidateTasks(
+                TaskFactory.getTaskListByNameLike(ErrataCacheWorker.FOR_SERVER)));
         List<Map<String, Object>> retval = new LinkedList<Map<String, Object>>();
         for (Task current : tasks) {
             Map<String, Object> item = new HashMap<String, Object>();
@@ -99,5 +103,30 @@ public class ErrataCacheDriver implements QueueDriver {
     */
     public void initialize() {
         // empty
+    }
+
+    /**
+     * Reduce a given list of tasks to a list with unique data fields. Data is either
+     * a system id or a channel id depending on the type of tasks given in.
+     *
+     * @param tasks list of {@link Task} objects
+     * @return consolidated list of tasks
+     */
+    private List<Task> consolidateTasks(List<Task> tasks) {
+        Set<Long> uniqueTaskData = new HashSet<Long>();
+        List<Task> consolidated = new ArrayList<Task>();
+        for (Task task : tasks) {
+            if (uniqueTaskData.add(task.getData())) {
+                consolidated.add(task);
+            }
+            else {
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Removing task for consolidation: " + task.getName() +
+                            " (" + task.getData() + ")");
+                }
+                ErrataCacheWorker.removeTask(task);
+            }
+        }
+        return consolidated;
     }
 }
