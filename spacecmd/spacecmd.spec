@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.3.19
+Version:     2.3.20
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -85,6 +85,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Mar 23 2015 Grant Gainey 2.3.20-1
+- Standardize pylint-check to only happen on Fedora
+
 * Thu Mar 19 2015 Grant Gainey 2.3.19-1
 - Updating copyright info for 2015
 - Added a bit more documentation to softwarechannel_setsyncschedule to make it
