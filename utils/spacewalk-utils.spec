@@ -1,4 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
+%if 0%{?fedora}
+%{!?pylint_check: %global pylint_check 1}
+%endif
 
 Name:		spacewalk-utils
 Version:	2.3.34
@@ -12,13 +15,14 @@ Source0:	https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
+%if 0%{?pylint_check}
+BuildRequires:  spacewalk-pylint >= 2.2
+%endif
 BuildRequires:  /usr/bin/docbook2man
 BuildRequires:  docbook-utils
 BuildRequires:  python
 BuildRequires: /usr/bin/pod2man
 %if 0%{?fedora} || 0%{?rhel} > 5
-# pylint check
-BuildRequires:  spacewalk-pylint >= 2.2
 BuildRequires:  yum
 BuildRequires:  spacewalk-config
 BuildRequires:  spacewalk-backend >= 1.7.24
@@ -74,7 +78,7 @@ make install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
 rm -rf $RPM_BUILD_ROOT
 
 %check
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?pylint_check}
 # check coding style
 spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %endif

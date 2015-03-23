@@ -7,7 +7,7 @@
 %endif
 %global pythonrhnroot %{python_sitelib}/spacewalk
 
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?fedora}
 %{!?pylint_check: %global pylint_check 1}
 %endif
 
@@ -31,11 +31,13 @@ Requires: %{name}-libs >= 1.1.16-1
 %if 0%{?rhel} > 5
 Requires: pyliblzma
 %endif
+%if 0%{?pylint_check}
+BuildRequires: spacewalk-pylint >= 2.2
+%endif
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
-%if 0%{?pylint_check}
-BuildRequires: spacewalk-pylint >= 2.2
+%if 0%{?fedora} || 0%{?rhel} > 5
 BuildRequires: rhnlib >= 2.5.74
 BuildRequires: rhn-client-tools
 BuildRequires: rpm-python
@@ -55,7 +57,7 @@ Provides: rhns-common = 1:%{version}-%{release}
 Obsoletes: spacewalk-backend-upload-server < 1.2.28
 Provides: spacewalk-backend-upload-server = 1:%{version}-%{release}
 
-%description 
+%description
 Generic program files needed by the Spacewalk server machines.
 This package includes the common code required by all servers/proxies.
 
@@ -173,7 +175,7 @@ functionality for a variety of XML-RPC receivers. The architecture is
 modular so that you can plug/install additional modules for XML-RPC
 receivers and get them enabled automatically.
 
-This package contains /SAT handler, which provide Inter Spacewalk Sync 
+This package contains /SAT handler, which provide Inter Spacewalk Sync
 capability.
 
 %package iss-export
@@ -329,13 +331,13 @@ if grep -E -i $regex %{rhnconf}/rhn.conf > /dev/null 2>&1 ; then
     rm -f %{rhnconf}/rhnSecret.py*
     exit 0
 fi
-    
+
 # Generate a secret key if old one is not present
 if [ -f %{rhnconf}/rhnSecret.py ]; then
     secret_key=$(PYTHONPATH=%{rhnconf} %{__python} -c \
         "from rhnSecret import SECRET_KEY; print SECRET_KEY")
 else
-    secret_key=$(dd if=/dev/urandom bs=1024 count=1 2>/dev/null | sha1sum - | 
+    secret_key=$(dd if=/dev/urandom bs=1024 count=1 2>/dev/null | sha1sum - |
         awk '{print $1}')
 fi
 
@@ -2620,7 +2622,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 - removed dead function dbiDate2timestamp() (michael.mraka@redhat.com)
 
 * Mon Feb 28 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.12-1
-- reverted bask to RHEL4 rpm read header code 
+- reverted bask to RHEL4 rpm read header code
 * Thu Feb 24 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.11-1
 - RPMTransaction is dead after RPMReadOnlyTransaction removal
 - SharedStateTransaction is dead after RPMReadOnlyTransaction removal
@@ -2928,20 +2930,20 @@ rm -f %{rhnconf}/rhnSecret.py*
 - do not raise exception in exception in case stream is None
 
 * Thu Nov 11 2010 Lukas Zapletal 1.2.69-1
-- Adding missing AS keyword to SELECT clause 
-- Force EVR to be strings in the backend 
+- Adding missing AS keyword to SELECT clause
+- Force EVR to be strings in the backend
 
 * Thu Nov 11 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.68-1
 - removed dead unique() and intersection()
 - replaced own intersection() and unique() with faster builtin set operations
 
 * Thu Nov 11 2010 Lukas Zapletal 1.2.67-1
-- Fixing space in SQL bind parameter 
-- Keyword MINUS is not recognized by PostgreSQL 
-- Fixing indentation in spacewalk-remove-channel 
-- l10n: Updates to German 
-- Revert "l10n: Updates to Swedish 
-- l10n: Updates to Swedish 
+- Fixing space in SQL bind parameter
+- Keyword MINUS is not recognized by PostgreSQL
+- Fixing indentation in spacewalk-remove-channel
+- l10n: Updates to German
+- Revert "l10n: Updates to Swedish
+- l10n: Updates to Swedish
 
 * Thu Nov 11 2010 Jan Pazdziora 1.2.66-1
 - Update copyright years in backend.
@@ -3028,7 +3030,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 - moved progress bar blocks into function
 
 * Thu Nov 04 2010 Lukas Zapletal 1.2.58-1
-- Adding missing colon in channelImport.py 
+- Adding missing colon in channelImport.py
 
 * Wed Nov 03 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.57-1
 - merged simple sql fetches into a single command
@@ -3039,12 +3041,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 * Wed Nov 03 2010 Lukas Zapletal 1.2.56-1
 - Adding one parameter to to_number functions to be PG compatible
-- Fixing query in dumper to be PostgreSQL compatible 
-- Rewriting SQL JOIN to ANSI syntax in test-dump-channel 
-- Rewriting SQL JOIN to ANSI syntax in exporter 
-- Rewriting SQL JOIN to ANSI syntax in disk_dumper 
+- Fixing query in dumper to be PostgreSQL compatible
+- Rewriting SQL JOIN to ANSI syntax in test-dump-channel
+- Rewriting SQL JOIN to ANSI syntax in exporter
+- Rewriting SQL JOIN to ANSI syntax in disk_dumper
 - Rewriting SQL JOIN to ANSI syntax in spacewalk-remove-channel
-- 644239 - do not check minor version of xml_dump_version 
+- 644239 - do not check minor version of xml_dump_version
 
 * Wed Nov 03 2010 Jan Pazdziora 1.2.55-1
 - fixed couple of root_dir leftovers from commit
@@ -3149,22 +3151,22 @@ rm -f %{rhnconf}/rhnSecret.py*
 - Class ServerGroupTypeDumper not used anywhere, removing.
 
 * Wed Oct 27 2010 Lukas Zapletal 1.2.42-1
-- Fixing c89830b90cb36bd6a79641553c5091c57af8fb8e typo 
+- Fixing c89830b90cb36bd6a79641553c5091c57af8fb8e typo
 
 * Wed Oct 27 2010 Lukas Zapletal 1.2.41-1
-- Fixing typo in driver_postgresql.py 
+- Fixing typo in driver_postgresql.py
 - Class ReleaseChannelMapImport does not seem to be called, removing.
 - fixed NameError: name 'SourcePackageImport' is not defined
-- removed redundant empty tagMaps 
+- removed redundant empty tagMaps
 - reused load_sql
-- XXX: not used currently; removing 
+- XXX: not used currently; removing
 
 * Wed Oct 27 2010 Lukas Zapletal 1.2.40-1
 - In PostgreSQL NUMERIC types are returned as int or float now
-- Rewritten DECODE to ANSI CASE-WHEN syntax for yum 
+- Rewritten DECODE to ANSI CASE-WHEN syntax for yum
 - Class FileWireSource does not seem to be used, removing.
 - Class ChannelProductsDumper does not seem to be used, removing.
-  
+
 
 * Wed Oct 27 2010 Jan Pazdziora 1.2.39-1
 - Previous commit leaves __single_query unused, removing.
@@ -3285,13 +3287,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 * Wed Oct 13 2010 Lukas Zapletal 1.2.24-1
 - Procedure call now general (update_needed_cache) in backend
 - Vn_constriant violation in Postgres (vn_rhnpackageevr_epoch)
-- Postgres reserved word fix 
-- Vn_constriant violation in Postgres 
-- Sysdate changed to current_timestamp 
-- ANSI syntax for outer join during system registration 
-- Debug log from postgresql backend driver removed 
-- Postgres python backend driver functions support 
-- Postgres savepoint support in backend code 
+- Postgres reserved word fix
+- Vn_constriant violation in Postgres
+- Sysdate changed to current_timestamp
+- ANSI syntax for outer join during system registration
+- Debug log from postgresql backend driver removed
+- Postgres python backend driver functions support
+- Postgres savepoint support in backend code
 
 * Wed Oct 13 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.23-1
 - speed up queries
@@ -3382,7 +3384,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 - 591050 - satellite sync report type of disk dump
 
 * Tue Aug 17 2010 Justin Sherrill <jsherril@redhat.com> 1.2.6-1
-- fixing small mistake where the wrong variable name was 
+- fixing small mistake where the wrong variable name was
   used (jsherril@redhat.com)
 
 * Tue Aug 17 2010 Justin Sherrill <jsherril@redhat.com> 1.2.5-1
@@ -3683,7 +3685,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 - The checksumtype is now called checksum_type.
 
 * Tue Apr 27 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.6-1
-- implemented dump version 3.6 in rhn-satellite-exporter 
+- implemented dump version 3.6 in rhn-satellite-exporter
 
 * Tue Apr 27 2010 Jan Pazdziora 1.1.5-1
 - 585233 - add support for syncing comps data.

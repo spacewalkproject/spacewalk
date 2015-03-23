@@ -1,3 +1,7 @@
+%if 0%{?fedora}
+%{!?pylint_check: %global pylint_check 1}
+%endif
+
 Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
@@ -17,10 +21,11 @@ Requires: glibc-common
 Requires: chkconfig
 Requires: libxslt
 Requires: spacewalk-certs-tools >= 1.6.4
+%if 0%{?pylint_check}
+BuildRequires: spacewalk-pylint
+%endif
 BuildRequires: /usr/bin/docbook2man
 %if 0%{?fedora} || 0%{?rhel} > 5
-# pylint check
-BuildRequires: spacewalk-pylint
 BuildRequires: rhnlib
 BuildRequires: rhn-client-tools
 %endif
@@ -71,7 +76,7 @@ install -m 640 jabberd/sm.xml jabberd/c2s.xml $RPM_BUILD_ROOT%{_usr}/share/rhn/i
 rm -rf $RPM_BUILD_ROOT
 
 %check
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?pylint_check}
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT/usr/share/rhn:/usr/share/rhn
 spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn

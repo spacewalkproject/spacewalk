@@ -1,5 +1,9 @@
 %define rhnroot %{_datadir}/rhn
 
+%if 0%{?fedora}
+%{!?pylint_check: %global pylint_check 1}
+%endif
+
 Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
@@ -13,6 +17,9 @@ Requires:      rpm-python
 Requires:      rhnlib >= 2.5.74
 Requires:      spacewalk-backend-libs >= 1.7.17
 Requires:      rhn-client-tools
+%if 0%{?pylint_check}
+BuildRequires:  spacewalk-pylint >= 0.6
+%endif
 %if 0%{?suse_version}
 # provides rhn directories for filelist check in OBS
 BuildRequires:      rhn-client-tools
@@ -20,8 +27,6 @@ BuildRequires:      rhn-client-tools
 BuildRequires: docbook-utils, gettext
 BuildRequires: python-devel
 %if 0%{?fedora} || 0%{?rhel} > 5
-# pylint check
-BuildRequires:  spacewalk-pylint >= 0.6
 BuildRequires:  rhn-client-tools
 BuildRequires:  spacewalk-backend-libs > 1.8.33
 %endif
@@ -55,7 +60,7 @@ rm -fv $RPM_BUILD_ROOT%{_mandir}/man8/solaris2mpm.8*
 rm -rf $RPM_BUILD_ROOT
 
 %check
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?pylint_check}
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}:/usr/share/rhn
 spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}

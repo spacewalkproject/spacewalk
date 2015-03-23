@@ -1,3 +1,7 @@
+%if 0%{?fedora}
+%{!?pylint_check: %global pylint_check 1}
+%endif
+
 Name: spacewalk-proxy
 Summary: Spacewalk Proxy Server
 Group:   Applications/Internet
@@ -6,13 +10,14 @@ URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version: 2.3.19
 Release: 1%{?dist}
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python
 BuildArch: noarch
 Requires: httpd
-%if 0%{?fedora} || 0%{?rhel} > 5
-# pylint check
+%if 0%{?pylint_check}
 BuildRequires: spacewalk-pylint
+%endif
+%if 0%{?fedora} || 0%{?rhel} > 5
 BuildRequires: rhnpush >= 5.5.74
 BuildRequires: spacewalk-backend-libs >= 1.7.24
 BuildRequires: spacewalk-backend >= 1.7.24
@@ -85,7 +90,7 @@ Obsoletes: rhns-proxy-broker < 5.3.0
 %description broker
 The Spacewalk Proxy Server allows package caching
 and local package delivery services for groups of local servers from
-Spacewalk Server. This service adds flexibility and economy of 
+Spacewalk Server. This service adds flexibility and economy of
 resources to package update and deployment.
 
 This package includes module, which request is cache-able and should
@@ -106,7 +111,7 @@ Spacewalk Server. This service adds flexibility and economy of
 resources to package update and deployment.
 
 This package includes module, which handle request passed through squid
-and assures a fully secure SSL connection is established and maintained 
+and assures a fully secure SSL connection is established and maintained
 between an Spacewalk Proxy Server and parent Spacewalk server.
 
 %package common
@@ -146,7 +151,7 @@ and local package delivery services for groups of local servers from
 Spacewalk Server. This service adds flexibility and economy of
 resources to package update and deployment.
 
-This package contains the Command rhn_package_manager, which  manages 
+This package contains the Command rhn_package_manager, which  manages
 an Spacewalk Proxy Server's custom channel.
 
 %prep
@@ -169,7 +174,7 @@ touch $RPM_BUILD_ROOT/%{httpdconf}/cobbler-proxy.conf
 rm -rf $RPM_BUILD_ROOT
 
 %check
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?pylint_check}
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT/usr/share/rhn:$RPM_BUILD_ROOT%{python_sitelib}:/usr/share/rhn
 spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
@@ -217,7 +222,7 @@ if rhncfg-client verify %{_sysconfdir}/rhn/rhn.conf 2>&1|grep 'Not found'; then
      %{_bindir}/rhncfg-client get %{_sysconfdir}/rhn/rhn.conf
 fi > /dev/null 2>&1
 if rhncfg-client verify %{_sysconfdir}/squid/squid.conf | grep -E '(modified|missing)'; then
-    rhncfg-client get %{_sysconfdir}/squid/squid.conf 
+    rhncfg-client get %{_sysconfdir}/squid/squid.conf
     rm -rf %{_var}/spool/squid/*
     %{_usr}/sbin/squid -z
     /sbin/service squid condrestart
