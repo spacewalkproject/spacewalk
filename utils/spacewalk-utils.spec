@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.3.34
+Version:	2.3.35
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Mar 23 2015 Grant Gainey 2.3.35-1
+- Standardize pylint-check to only happen on Fedora
+
 * Thu Mar 19 2015 Grant Gainey 2.3.34-1
 - Spacewalk 2.3 repos for spacewalk-common-channels
 - Updating copyright info for 2015
