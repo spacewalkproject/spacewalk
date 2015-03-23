@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.171
+Version: 2.3.172
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -770,6 +770,56 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 23 2015 Grant Gainey 2.3.172-1
+- 1204246 - close auto errata update timing hole
+- Forward to "raw mode" edit page in case of uploaded profiles
+- checkstyle fixes
+- Fix: kickstart wizard step 2 and 3 => removed unnecessary BR and empty DIV
+  from both files.
+- Fix: step 3 kickstart wizard => added the missing class form-horizontal in
+  the form tag. removed the class list-group from a div since its a class for
+  Ul tags. added the form-control class to the inputs.
+- Fix: Step 2 kickstart wizard => removed the class list-group from a div (this
+  class is only for UL). Properly formated the html of the radio buttons with
+  their labels and classes. Changed the disposition of the labels to make it
+  more clear that its 1 property with 2 different options, since before it
+  looked like 2 different properties.
+- FIX: error from last 2 commits where the icons were included in a wrong place
+  inside the buttons of the wizard
+- Fix: Step 3: Create Kickstart Profile => the panel didnt have a panel-body
+  and that is now fixed. The group lists were inside a UL (without list inside)
+  and it was replaced for a div. The buttons to submit or go back were inserted
+  into the panel-footer
+- Fix: Step 2: Create Kickstart Profile => the panel didnt have a panel-body
+  and that is now fixed. The group lists were inside a UL (without list inside)
+  and it was replaced for a div. The buttons to submit or go back were inserted
+  into the panel-footer
+- Fix: Step 1: Create Kickstart Profile => the buttons sending the form are
+  included inside the panel-footer in order to follow the 3 steps process,
+  where in the following steps there will be a Prev button as well
+- address tag: fix extra p and testcase to latest changes
+- form inserted into panel and button moved to the buttom of the form to make
+  it more obvious it is the button that submits the whole form and not just one
+  input
+- Fix button style on locale settings
+- wrap information in panel and show with alert class
+- hr to separate the form and the table
+- message inserted inside an alert.
+- buton changed to primary
+- duplicated title removed
+- sw entitlements page: hr tag addded to separate the pagination and the tips
+- row with no margin
+- xcddf search: radio and checkbox inputs formated with bootstrap
+- popular channels page: elements vertically aligned
+- button position fix
+- user preferences: use the new input with inline class
+- address tag: removed unnecessary p tag
+- user details page: fix column sizes and panel title
+- fix column sizes in the edit address form
+- button class changed from primary to default
+- col size, labels, checkboxes and radio buttons fixed
+- buttons fix
+
 * Thu Mar 19 2015 Grant Gainey 2.3.171-1
 - Update api version
 - Updated copyright year missed in 2013
