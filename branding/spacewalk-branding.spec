@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.3.24
+Version:    2.3.25
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -92,6 +92,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Mar 23 2015 Grant Gainey 2.3.25-1
+- inline input class
+- spacewalk-theme.less: bottom-margin to section tag
+
 * Thu Mar 19 2015 Grant Gainey 2.3.24-1
 - Updating copyright info for 2015
 
