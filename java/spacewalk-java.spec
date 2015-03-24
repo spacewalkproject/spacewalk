@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.172
+Version: 2.3.173
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -770,6 +770,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 24 2015 Tomas Lestach <tlestach@redhat.com> 2.3.173-1
+- set kickstart timezone according to the user locale, who creates it
+
 * Mon Mar 23 2015 Grant Gainey 2.3.172-1
 - 1204246 - close auto errata update timing hole
 - Forward to "raw mode" edit page in case of uploaded profiles
