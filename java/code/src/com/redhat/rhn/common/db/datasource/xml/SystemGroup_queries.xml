@@ -35,11 +35,11 @@
   <query name="errata_count">
            SELECT
                  sgm.server_group_id AS ID,
-                 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Security Advisory') AS SECURITY_ERRATA,
-                 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Bug Fix Advisory') AS BUG_ERRATA,
-                 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Product Enhancement Advisory') AS ENHANCEMENT_ERRATA
+                 ( select count(distinct E.id) from rhnErrata E where E.id = SNEC.errata_id AND E.advisory_type = 'Security Advisory') AS SECURITY_ERRATA,
+                 ( select count(distinct E.id) from rhnErrata E where E.id = SNEC.errata_id AND E.advisory_type = 'Bug Fix Advisory') AS BUG_ERRATA,
+                 ( select count(distinct E.id) from rhnErrata E where E.id = SNEC.errata_id AND E.advisory_type = 'Product Enhancement Advisory') AS ENHANCEMENT_ERRATA
             FROM
-                 rhnServerNeededPackageCache SNPC,
+                 rhnServerNeededErrataCache SNEC,
                  rhnServerGroupMembers SGM,
 
 

@@ -41,7 +41,7 @@ ORDER BY  E.update_date DESC, E.id
 SELECT E.id, E.update_date, E.synopsis as advisory_synopsis
   FROM rhnErrata E,
        (SELECT SNEC.errata_id, COUNT(SNEC.server_id) C
-          FROM rhnServerNeededPackageCache SNEC
+          FROM rhnServerNeededErrataCache SNEC
          WHERE SNEC.server_id IN (SELECT server_id FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id)
            AND errata_id IS NOT NULL
         GROUP BY SNEC.errata_id) X
@@ -57,7 +57,7 @@ ORDER BY  E.update_date DESC, E.id
 SELECT E.id, E.update_date, E.synopsis as advisory_synopsis
   FROM rhnErrata E,
        (SELECT SNEC.errata_id, COUNT(SNEC.server_id) C
-          FROM rhnServerNeededPackageCache SNEC
+          FROM rhnServerNeededErrataCache SNEC
          WHERE SNEC.server_id IN (SELECT server_id FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id)
            AND errata_id IS NOT NULL
         GROUP BY SNEC.errata_id) X
@@ -278,10 +278,10 @@ SELECT COUNT(DISTINCT E.ID) AS COUNT
   <query params="user_id, sid">
 SELECT DISTINCT E.id, E.update_date
   FROM rhnErrata E,
-       rhnServerNeededPackageCache SNPC
+       rhnServerNeededErrataCache SNEC
  WHERE EXISTS (SELECT server_id FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = :sid)
-   AND SNPC.server_id = :sid
-   AND SNPC.errata_id = E.id
+   AND SNEC.server_id = :sid
+   AND SNEC.errata_id = E.id
    AND NOT EXISTS (SELECT SA.server_id
                      FROM rhnActionErrataUpdate AEU,
                           rhnServerAction SA,
@@ -1141,12 +1141,12 @@ SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type,
         E.synopsis AS advisory_synopsis,
         TO_CHAR(E.update_date, 'YYYY-MM-DD') AS advisory_last_updated,
         COUNT(DISTINCT S.id) AS affected_system_count
-  FROM  rhnErrata E, rhnSet ST, rhnServerNeededPackageCache SNPC, rhnServer S, rhnUserServerPerms USP
+  FROM  rhnErrata E, rhnSet ST, rhnServerNeededErrataCache SNEC, rhnServer S, rhnUserServerPerms USP
  WHERE  USP.user_id = :user_id
    AND  USP.server_id = S.ID
-   AND  S.id = SNPC.server_id
+   AND  S.id = SNEC.server_id
    AND  E.id IN (%s)
-   AND  SNPC.errata_id = E.id
+   AND  SNEC.errata_id = E.id
    AND  USP.user_id = ST.user_id
    AND  ST.label = 'system_list'
    AND  S.id = ST.element
