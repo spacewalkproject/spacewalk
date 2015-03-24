@@ -25,6 +25,7 @@ BuildRequires: python-devel
 Requires: python
 Requires: rhnlib >= 1.8-3
 Requires: jabberpy
+Requires: osa-common = %{version}
 %if 0%{?rhel} && 0%{?rhel} < 6
 Requires: rhn-client-tools >= 0.4.20-66
 %else
@@ -76,12 +77,23 @@ commands are instantly executed.
 This package effectively replaces the behavior of rhnsd/rhn_check that
 only poll the Spacewalk Server from time to time.
 
+%package -n osa-common
+Summary: OSA common files
+Group:    System Environment/Daemons
+Requires: jabberpy
+Conflicts: %{name} < %{version}-%{release}
+Conflicts: %{name} > %{version}-%{release}
+
+%description -n osa-common
+Common files needed by osad and osa-dispatcher
+
 %package -n osa-dispatcher
 Summary: OSA dispatcher
 Group:    System Environment/Daemons
 Requires: spacewalk-backend-server >= 1.2.32
 Requires: jabberpy
 Requires: lsof
+Requires: osa-common = %{version}
 Conflicts: %{name} < %{version}-%{release}
 Conflicts: %{name} > %{version}-%{release}
 %if 0%{?suse_version} >= 1210
@@ -335,13 +347,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %files
 %dir %{rhnroot}/osad
 %attr(755,root,root) %{_sbindir}/osad
-%{rhnroot}/osad/__init__.py*
 %{rhnroot}/osad/_ConfigParser.py*
-%{rhnroot}/osad/jabber_lib.py*
 %{rhnroot}/osad/osad.py*
 %{rhnroot}/osad/osad_client.py*
 %{rhnroot}/osad/osad_config.py*
-%{rhnroot}/osad/rhn_log.py*
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/osad.conf
 %config(noreplace) %attr(600,root,root) %{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 %config(noreplace) %{client_caps_dir}/*
@@ -364,11 +373,8 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %defattr(0644,root,root,0755)
 %dir %{rhnroot}/osad
 %attr(755,root,root) %{_sbindir}/osa-dispatcher
-%{rhnroot}/osad/__init__.py*
-%{rhnroot}/osad/jabber_lib.py*
 %{rhnroot}/osad/osa_dispatcher.py*
 %{rhnroot}/osad/dispatcher_client.py*
-%{rhnroot}/osad/rhn_log.py*
 %config(noreplace) %{_sysconfdir}/sysconfig/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/logrotate.d/osa-dispatcher
 %{rhnroot}/config-defaults/rhn_osa-dispatcher.conf
@@ -389,6 +395,11 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %dir %{rhnroot}/config-defaults
 %dir %{_var}/log/rhn
 %endif
+
+%files -n osa-common
+%{rhnroot}/osad/__init__.py*
+%{rhnroot}/osad/jabber_lib.py*
+%{rhnroot}/osad/rhn_log.py*
 
 %if 0%{?include_selinux_package}
 %files -n osa-dispatcher-selinux
