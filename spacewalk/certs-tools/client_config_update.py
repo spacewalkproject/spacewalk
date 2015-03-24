@@ -90,7 +90,7 @@ def _parseConfigLine(line):
 
     if len(kv) > 2:
         # '=' is part of the value, need to rejoin it.
-        kv = kv[0], string.join(kv[1:], '=')
+        kv = [kv[0], string.join(kv[1:], '=')]
 
     if string.find(kv[0], '[comment]') > 0:
         # comment; not a setting
