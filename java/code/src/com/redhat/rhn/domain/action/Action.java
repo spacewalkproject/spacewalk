@@ -394,12 +394,4 @@ public class Action extends BaseDomainHelper implements Serializable {
     public String getHistoryDetails(Server server, User currentUser) {
         return "";
     }
-
-    /**
-     * @param server server to which action is linked
-     * @return string which is used on system history details
-     */
-    public String getHistoryDetails(Server server) {
-        return getHistoryDetails(server, null);
-    }
 }

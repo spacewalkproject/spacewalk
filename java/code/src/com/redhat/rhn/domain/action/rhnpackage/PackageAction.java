@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFormatter;
 import com.redhat.rhn.domain.action.PackageActionFormatter;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -74,7 +75,7 @@ public class PackageAction extends Action {
      * {@inheritDoc}
      */
     @Override
-    public String getHistoryDetails(Server server) {
+    public String getHistoryDetails(Server server, User currentUser) {
         LocalizationService ls = LocalizationService.getInstance();
         StringBuilder retval = new StringBuilder();
         retval.append("</br>");

@@ -14,11 +14,12 @@
  */
 package com.redhat.rhn.domain.action.scap;
 
-import org.apache.commons.lang.StringEscapeUtils;
-
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
+
+import org.apache.commons.lang.StringEscapeUtils;
 /**
  * ScapAction - Class representing TYPE_SCAP_*.
  * @version $Rev$
@@ -46,7 +47,7 @@ public class ScapAction extends Action {
      * {@inheritDoc}
      */
     @Override
-    public String getHistoryDetails(Server server) {
+    public String getHistoryDetails(Server server, User currentUser) {
         LocalizationService ls = LocalizationService.getInstance();
         StringBuilder retval = new StringBuilder();
         retval.append("</br>");

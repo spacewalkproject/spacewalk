@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFormatter;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -62,6 +63,7 @@ public class ErrataAction extends Action {
      *
      * {@inheritDoc}
      */
+    @Override
     public ActionFormatter getFormatter() {
         if (formatter == null) {
             formatter = new ErrataActionFormatter(this);
@@ -73,7 +75,7 @@ public class ErrataAction extends Action {
      * {@inheritDoc}
      */
     @Override
-    public String getHistoryDetails(Server server) {
+    public String getHistoryDetails(Server server, User currentUser) {
         LocalizationService ls = LocalizationService.getInstance();
         StringBuilder retval = new StringBuilder();
         retval.append("</br>");
