@@ -60,10 +60,12 @@ Requires:       yum-utils
 
 # Requires:       osa-dispatcher
 # Requires:       jabberpy
+Obsoletes:      spacewalk-monitoring < 2.3
 
 # SELinux
 Requires:       osa-dispatcher-selinux
 Requires:       spacewalk-selinux
+Obsoletes:      spacewalk-monitoring-selinux < 2.3
 
 %if 0%{?rhel} == 5
 Requires:       jabberd-selinux
