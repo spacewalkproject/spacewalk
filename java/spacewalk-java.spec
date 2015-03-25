@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.173
+Version: 2.3.174
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -770,6 +770,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 25 2015 Tomas Lestach <tlestach@redhat.com> 2.3.174-1
+- 1205108 - extend getHistoryDetails() method by the User argument and unify
+  this interface
+
 * Tue Mar 24 2015 Tomas Lestach <tlestach@redhat.com> 2.3.173-1
 - set kickstart timezone according to the user locale, who creates it
 
