@@ -42,6 +42,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.manage.PublishErrataHelper;
 import com.redhat.rhn.frontend.dto.CVE;
@@ -1694,14 +1695,14 @@ public class ErrataManager extends BaseManager {
         ActionChain actionChain, List<Long> serverIds, boolean onlyRelevant) {
 
         // not all errata applies to all systems, so we will filter them
-        Map<Long, List<Long>> serversForErrata = new HashMap<Long, List<Long>>();
+        Map<Long, List<Server>> serversForErrata = new HashMap<Long, List<Server>>();
 
         // Prepare empty list of systems for each errata
         for (Object errataIdObject : errataIds) {
             // HACK: ugly conversion needed because in some cases errataIds contains
             // Integers, in other cases Longs
             Long errataId = ((Number) errataIdObject).longValue();
-            List<Long> serverList = new ArrayList<Long>();
+            List<Server> serverList = new ArrayList<Server>();
             serversForErrata.put(errataId, serverList);
         }
 
@@ -1714,10 +1715,12 @@ public class ErrataManager extends BaseManager {
                 relevantErrataIds.add(e.getId());
             }
 
+            Server server = SystemManager.lookupByIdAndOrg(serverId, user.getOrg());
+
             for (Long errataId : serversForErrata.keySet()) {
                 if (relevantErrataIds.contains(errataId)) {
-                    List<Long> serverList = serversForErrata.get(errataId);
-                    serverList.add(serverId);
+                    List<Server> serverList = serversForErrata.get(errataId);
+                    serverList.add(server);
                 }
                 else {
                     if (!onlyRelevant) {
@@ -1777,11 +1780,11 @@ public class ErrataManager extends BaseManager {
      * @param erratum the erratum
      * @param earliest the earliest
      * @param actionChain the action chain to add the actions to or null
-     * @param serverIds the server ids
+     * @param servers the servers
      * @return the list
      */
     private static List<ErrataAction> createErrataActions(User user, Errata erratum,
-        Date earliest, ActionChain actionChain, List<Long> serverIds) {
+        Date earliest, ActionChain actionChain, List<Server> servers) {
 
         List<ErrataAction> result = new LinkedList<ErrataAction>();
         if (actionChain == null) {
@@ -1790,21 +1793,21 @@ public class ErrataManager extends BaseManager {
             if (earliest != null) {
                 errataAction.setEarliestAction(earliest);
             }
-            for (Long serverId : serverIds) {
-                ActionManager.addServerToAction(serverId, errataAction);
+            for (Server server : servers) {
+                ActionManager.addServerToAction(server, errataAction);
             }
             result.add(errataAction);
         }
         else {
             int sortOrder = ActionChainFactory.getNextSortOrderValue(actionChain);
-            for (Long serverId : serverIds) {
+            for (Server server : servers) {
                 ErrataAction errataAction = (ErrataAction) ActionManager.createErrataAction(
                     user, erratum);
                 if (earliest != null) {
                     errataAction.setEarliestAction(earliest);
                 }
                 ActionChainFactory.queueActionChainEntry(errataAction, actionChain,
-                    serverId, sortOrder);
+                    server, sortOrder);
 
                 result.add(errataAction);
             }

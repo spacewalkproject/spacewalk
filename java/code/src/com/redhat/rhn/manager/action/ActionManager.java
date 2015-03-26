@@ -309,6 +309,15 @@ public class ActionManager extends BaseManager {
     }
 
     /**
+     * Adds a server to an action
+     * @param server The server
+     * @param action The parent action
+     */
+    public static void addServerToAction(Server server, Action action) {
+        ActionFactory.addServerToAction(server, action);
+    }
+
+    /**
      * Creates an errata action with the specified Org
      * @return The created action
      * @param org The org that needs the errata.
