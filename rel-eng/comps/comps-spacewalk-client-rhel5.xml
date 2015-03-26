@@ -16,6 +16,7 @@
        <packagereq type="default">rhncfg-client</packagereq>
        <packagereq type="default">rhncfg-management</packagereq>
        <packagereq type="default">rhn-custom-info</packagereq>
+       <packagereq type="default">osa-common</packagereq>
        <packagereq type="default">osad</packagereq>
        <packagereq type="default">rhn-client-tools</packagereq>
        <packagereq type="default">rhn-virtualization-common</packagereq>
