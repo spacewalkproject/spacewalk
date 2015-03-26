@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.175
+Version: 2.3.176
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -770,6 +770,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 26 2015 Jan Dobes 2.3.176-1
+- 1200162 - reduce number of system lookups
+- 1188954 - also get errata scheduling out of cycle to make stackUpdates sense
+- 1188954 - schedule only one errata action for each errata
+
 * Wed Mar 25 2015 Grant Gainey 2.3.175-1
 - Updating copyright info for 2015
 
