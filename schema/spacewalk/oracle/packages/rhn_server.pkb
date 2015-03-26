@@ -749,7 +749,10 @@ is
         is
           update_lock number;
         begin
-          select id into update_lock from rhnServer where id = server_id_in for update;
+          begin
+            select id into update_lock from rhnServer where id = server_id_in for update;
+          exception when NO_DATA_FOUND then NULL;
+          end;
           delete from rhnServerNeededCache
            where server_id = server_id_in;
           insert into rhnServerNeededCache
