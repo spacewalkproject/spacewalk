@@ -699,6 +699,35 @@ def channels_for_server(server_id):
         channels = []
     return __stringify(channels)
 
+def getSubscribedChannels(server_id):
+    """
+    Format the response from channels_for_server in the way that the
+    handlers expect.
+    """
+    channelList = channels_for_server(server_id)
+    channels = []
+    for each in channelList:
+        if not each.has_key('last_modified'):
+            # No last_modified attribute
+            # Probably an empty channel, so ignore
+            continue
+        channel = [each['label'], each['last_modified']]
+        # isBaseChannel
+        if each['parent_channel']:
+            flag = "0"
+        else:
+            flag = "1"
+        channel.append(flag)
+
+        # isLocalChannel
+        if each['local_channel']:
+            flag = "1"
+        else:
+            flag = "0"
+        channel.append(flag)
+
+        channels.append(channel)
+    return channels
 
 def isCustomChannel(channel_id):
     """

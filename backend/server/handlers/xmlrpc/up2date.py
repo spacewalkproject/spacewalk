@@ -88,29 +88,7 @@ class Up2date(rhnHandler):
         # Update the capabilities list
         rhnCapability.update_client_capabilities(self.server_id)
         # Fetch the channels this client is subscribed to
-        channelList = rhnChannel.channels_for_server(self.server_id)
-        channels = []
-        for each in channelList:
-            if not each.has_key('last_modified'):
-                # No last_modified attribute
-                # Probably an empty channel, so ignore
-                continue
-            channel = [each['label'], each['last_modified']]
-            # isBaseChannel
-            if each['parent_channel']:
-                flag = "0"
-            else:
-                flag = "1"
-            channel.append(flag)
-
-            # isLocalChannel
-            if each['local_channel']:
-                flag = "1"
-            else:
-                flag = "0"
-            channel.append(flag)
-
-            channels.append(channel)
+        channels = rhnChannel.getSubscribedChannels(self.server_id)
 
         rhnServerTime = str(time.time())
         expireOffset = str(CFG.CLIENT_AUTH_TIMEOUT)

@@ -115,6 +115,27 @@ class Proxy(rhnProxyHandler):
         self.functions.append('getKickstartSessionChannel')
         self.functions.append('getKickstartChildChannel')
         self.functions.append('getTinyUrlChannel')
+        self.functions.append('checkTokenValidity')
+
+    # Method to force a check of the client's auth token.
+    # Proxy may call this if it does not recognize the token, which may
+    # happen if the proxy is load-balanced.
+    def checkTokenValidity(self, token, systemid):
+        log_debug(5, token, systemid)
+        # authenticate that this request is initiated from a proxy
+        try:
+            self.auth_system(systemid)
+            server = self.auth_client(token) # sets self.server_id
+        except rhnFault:
+            # A Fault means that something did not auth. Either the caller
+            # is not a proxy or the token is not valid, return false.
+            return False
+        # Proxy has to calculate new proxy-clock-skew, and needs channel info
+        ret = {}
+        ret['X-RHN-Auth-Server-Time'] = str(time.time())
+        channels = rhnChannel.getSubscribedChannels(self.server_id)
+        ret['X-RHN-Auth-Channels'] = channels
+        return ret
 
     def package_source_in_channel(self, package, channel, auth_token):
         """ Validates the client request for a source package download """
