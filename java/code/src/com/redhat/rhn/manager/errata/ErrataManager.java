@@ -1727,41 +1727,47 @@ public class ErrataManager extends BaseManager {
             }
         }
 
-        List<Long> actionIds = new ArrayList<Long>();
+        // Schedule updates to the software update stack first
+        List<ErrataAction> stackUpdates = null;
+        List<Errata> errata = new ArrayList<Errata>();
         for (Long errataId : serversForErrata.keySet()) {
-
-            List<Long> affectedServers = serversForErrata.get(errataId);
-
-            // Schedule updates to the software update stack first
-            List<ErrataAction> stackUpdates = null;
-            List<Errata> errata = new ArrayList<Errata>();
             Errata erratum = ErrataManager.lookupErrata(errataId, user);
             if (erratum.hasKeyword("restart_suggested")) {
-                stackUpdates = createErrataActions(user, erratum,
-                        earliest, actionChain, affectedServers);
+                if (stackUpdates == null) {
+                    stackUpdates = createErrataActions(user, erratum,
+                        earliest, actionChain, serversForErrata.get(errataId));
+                }
+                else {
+                    for (ErrataAction stackUpdate : stackUpdates) {
+                        stackUpdate.addErrata(erratum);
+                    }
+                }
             }
             else {
                 errata.add(erratum);
             }
-            if (stackUpdates != null) {
-                for (ErrataAction stackUpdate : stackUpdates) {
-                    Object[] args = new Object[]{stackUpdate.getErrata().size()};
-                    stackUpdate.setName(LocalizationService.getInstance().getMessage(
-                            "errata.swstack", args));
-                    ActionManager.storeAction(stackUpdate);
-                }
-            }
+        }
 
-            // Schedule remaining errata actions
-            for (Errata e : errata) {
-                List<ErrataAction> errataActions = createErrataActions(user, e, earliest,
-                        actionChain, affectedServers);
-                for (ErrataAction errataAction : errataActions) {
-                    Action action = ActionManager.storeAction(errataAction);
-                    actionIds.add(action.getId());
-                }
+        if (stackUpdates != null) {
+            for (ErrataAction stackUpdate : stackUpdates) {
+                Object[] args = new Object[]{stackUpdate.getErrata().size()};
+                stackUpdate.setName(LocalizationService.getInstance().getMessage(
+                        "errata.swstack", args));
+                ActionManager.storeAction(stackUpdate);
             }
         }
+
+        List<Long> actionIds = new ArrayList<Long>();
+        // Schedule remaining errata actions
+        for (Errata e : errata) {
+            List<ErrataAction> errataActions = createErrataActions(user, e, earliest,
+                    actionChain, serversForErrata.get(e.getId()));
+            for (ErrataAction errataAction : errataActions) {
+                Action action = ActionManager.storeAction(errataAction);
+                actionIds.add(action.getId());
+            }
+        }
+
         return actionIds;
     }
 
