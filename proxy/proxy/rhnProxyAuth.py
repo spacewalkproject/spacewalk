@@ -336,6 +336,48 @@ problems, isn't running, or the token is somehow corrupt.
         log_debug(6, "New proxy token: %s" % token)
         return token
 
+    def get_client_token(self, clientid):
+        shelf = get_auth_shelf()
+        if shelf.has_key(clientid):
+            return shelf[clientid]
+        return None
+
+    def set_client_token(self, clientid, token):
+        shelf = get_auth_shelf()
+        shelf[clientid] = token
+
+    def update_client_token_if_valid(self, clientid, token):
+        # Maybe a load-balanced proxie and client logged in through a
+        # different one? Ask upstream if token is valid. If it is,
+        # upate cache.
+        # copy to simple dict for transmission. :-/
+        dumbToken = {}
+        satInfo = None
+        for key in ('X-RHN-Server-Id', 'X-RHN-Auth-User-Id', 'X-RHN-Auth',
+                    'X-RHN-Auth-Server-Time', 'X-RHN-Auth-Expire-Offset'):
+            if token.has_key(key):
+                dumbToken[key] = token[key]
+        try:
+            s = self.__getXmlrpcServer()
+            satInfo = s.proxy.checkTokenValidity(
+                    dumbToken, self.get_system_id())
+        except Exception, e:  # pylint: disable=E0012, W0703
+            pass # Satellite is not updated enough, keep old behavior
+
+        # False if not valid token, a dict of info we need otherwise
+        # We have to calculate the proxy-clock-skew between Sat and this
+        # Proxy, as well as store the subscribed channels for this client
+        # (which the client does not pass up in headers and which we
+        # wouldn't trust even if it did).
+        if satInfo:
+            clockSkew = time.time() - float(satInfo['X-RHN-Auth-Server-Time'])
+            dumbToken['X-RHN-Auth-Proxy-Clock-Skew'] = clockSkew
+            dumbToken['X-RHN-Auth-Channels'] = satInfo['X-RHN-Auth-Channels']
+            # update our cache so we don't have to ask next time
+            self.set_client_token(clientid, dumbToken)
+            return dumbToken
+        return None
+
     # __private methods__
 
     @staticmethod

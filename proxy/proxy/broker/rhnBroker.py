@@ -501,7 +501,7 @@ class BrokerHandler(SharedHandler):
         token["X-RHN-Auth-Proxy-Clock-Skew"] = time.time() - serverTime
 
         # Save the token
-        _writeToCache(self.clientServerId, token)
+        self.proxyAuth.set_client_token(self.clientServerId, token)
         return token
 
     def __callLocalRepository(self, req_type, identifier, funct, params):
@@ -582,15 +582,20 @@ class BrokerHandler(SharedHandler):
         log_debug(2, token, channel)
         self.clientServerId = token['X-RHN-Server-ID']
 
-        shelf = proxy.rhnProxyAuth.get_auth_shelf()
-        if not shelf.has_key(self.clientServerId):
-            # should this ever happen?
-            msg = _("Invalid session key - server ID not found in cache: %s") \
-                % self.clientServerId
-            log_error(msg)
-            raise rhnFault(33, msg)
+        cachedToken = self.proxyAuth.get_client_token(self.clientServerId)
+        if not cachedToken:
+            # maybe client logged in through different load-balanced proxy
+            # try to update the cache an try again
+            cachedToken = self.proxyAuth.update_client_token_if_valid(
+                    self.clientServerId, token)
 
-        self.cachedClientInfo = UserDictCase(shelf[self.clientServerId])
+            if not cachedToken:
+                msg = _("Invalid session key - server ID not found in cache: %s") \
+                        % self.clientServerId
+                log_error(msg)
+                raise rhnFault(33, msg)
+
+        self.cachedClientInfo = UserDictCase(cachedToken)
 
         clockSkew = self.cachedClientInfo["X-RHN-Auth-Proxy-Clock-Skew"]
         del self.cachedClientInfo["X-RHN-Auth-Proxy-Clock-Skew"]
@@ -604,8 +609,28 @@ class BrokerHandler(SharedHandler):
         # Compare the two things
         if not _dictEquals(token, self.cachedClientInfo,
                            ['X-RHN-Auth-Channels']):
-            log_debug(3, "Session tokens different")
-            raise rhnFault(33)  # Invalid session key
+            # Maybe the client logged in through a different load-balanced
+            # proxy? Check validity of the token the client passed us.
+            updatedToken = self.proxyAuth.update_client_token_if_valid(
+                    self.clientServerId, token)
+            # fix up the updated token the same way we did above
+            if updatedToken:
+                self.cachedClientInfo = UserDictCase(updatedToken)
+                clockSkew = self.cachedClientInfo[
+                        "X-RHN-Auth-Proxy-Clock-Skew"]
+                del self.cachedClientInfo["X-RHN-Auth-Proxy-Clock-Skew"]
+                self.authChannels = self.cachedClientInfo[
+                        'X-RHN-Auth-Channels']
+                del self.cachedClientInfo['X-RHN-Auth-Channels']
+                self.cachedClientInfo['X-RHN-Server-ID'] = \
+                        self.clientServerId
+                log_debug(4, 'Retrieved token from cache: %s' %
+                        self.cachedClientInfo)
+
+            if not updatedToken or not _dictEquals(
+                    token, self.cachedClientInfo, ['X-RHN-Auth-Channels']):
+                log_debug(3, "Session tokens different")
+                raise rhnFault(33)  # Invalid session key
 
         # Check the expiration
         serverTime = float(token['X-RHN-Auth-Server-Time'])
@@ -639,12 +664,5 @@ def _dictEquals(d1, d2, exceptions=None):
             return 0
     return 1
 
-
-def _writeToCache(key, value):
-    """ Open a connection to the shelf """
-    shelf = proxy.rhnProxyAuth.get_auth_shelf()
-    # Cache the thing
-    shelf[key] = value
-    log_debug(2, "successfully returning")
 
 #===============================================================================
