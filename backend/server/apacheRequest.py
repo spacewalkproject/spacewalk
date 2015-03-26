@@ -607,17 +607,17 @@ class GetHandler(apacheRequest):
             if abs(response.faultCode) in (33, 34, 35, 37, 39, 41):
                 retcode = apache.HTTP_UNAUTHORIZED
 
-            self.req.err_headers_out["X-RHN-Fault-Code"] = \
+            self.req.headers_out["X-RHN-Fault-Code"] = \
                 str(response.faultCode)
             faultString = string.strip(base64.encodestring(
                 response.faultString))
             # Split the faultString into multiple lines
             for line in string.split(faultString, '\n'):
-                self.req.err_headers_out.add("X-RHN-Fault-String",
+                self.req.headers_out.add("X-RHN-Fault-String",
                                              string.strip(line))
             # And then send all the other things
             for k, v in rhnFlags.get('outputTransportOptions').items():
-                setHeaderValue(self.req.err_headers_out, k, v)
+                setHeaderValue(self.req.headers_out, k, v)
             return retcode
         # Otherwise we're pretty much fine with the standard response
         # handler
