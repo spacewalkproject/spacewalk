@@ -240,11 +240,11 @@ class SharedHandler:
         if (status != apache.HTTP_OK) and (status != apache.HTTP_PARTIAL_CONTENT):
             # Non 200 response; have to treat it differently
             log_debug(2, "Forwarding status %s" % status)
-            # Copy the incoming headers to err_headers_out
+            # Copy the incoming headers to headers_out
             headers = self.responseContext.getHeaders()
             if headers is not None:
                 for k in headers.keys():
-                    rhnLib.setHeaderValue(self.req.err_headers_out, k,
+                    rhnLib.setHeaderValue(self.req.headers_out, k,
                                           self._get_header(k))
             else:
                 log_error('WARNING? - no incoming headers found!')

@@ -574,14 +574,14 @@ class apacheHandler(rhnApache):
 
     @staticmethod
     def _response_fault_get(req, response):
-        req.err_headers_out["X-RHN-Fault-Code"] = str(response.faultCode)
+        req.headers_out["X-RHN-Fault-Code"] = str(response.faultCode)
         faultString = base64.encodestring(response.faultString).strip()
         # Split the faultString into multiple lines
         for line in faultString.split('\n'):
-            req.err_headers_out.add("X-RHN-Fault-String", line.strip())
+            req.headers_out.add("X-RHN-Fault-String", line.strip())
         # And then send all the other things
         for k, v in rhnFlags.get('outputTransportOptions').items():
-            setHeaderValue(req.err_headers_out, k, v)
+            setHeaderValue(req.headers_out, k, v)
         return apache.HTTP_NOT_FOUND
 
     def cleanupHandler(self, req):
