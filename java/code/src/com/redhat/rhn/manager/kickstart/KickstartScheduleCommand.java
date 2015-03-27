@@ -1059,9 +1059,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         channelIds.addAll(SystemManager.subscribableChannelIds(hostServer.getId(),
                 this.user.getId(), hostServer.getBaseChannel().getId()));
 
-        Iterator<Long> i2 = channelIds.iterator();
-        while (i2.hasNext()) {
-            Long cid = i2.next();
+        for (Long cid : channelIds) {
             log.debug("    Checking on:" + cid + " for: " +
                     getKickstartPackageName());
             List<Map<String, Object>> result =
