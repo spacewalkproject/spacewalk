@@ -1103,20 +1103,20 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     public Map<String, Long> findKickstartPackageToInstall(Server server, Collection<Long> channelIds) {
         List<Map<String, Long>> results = new LinkedList<Map<String,Long>>();
 
-        for (Long cid : channelIds) {
-            log.debug("    Checking on:" + cid + " for: " + getKickstartPackageName());
-            List<Map<String, Object>> result = ChannelManager.listLatestPackagesEqual(cid, getKickstartPackageName());
-            log.debug("    size: " + result.size());
+        for (Long chnnelId : channelIds) {
+            log.debug("    Checking on:" + chnnelId + " for: " + getKickstartPackageName());
+            List<Map<String, Object>> packages = ChannelManager.listLatestPackagesEqual(chnnelId, getKickstartPackageName());
+            log.debug("    size: " + packages.size());
 
-            for (Map<String, Object> row : result) {
-                log.debug("    Found the package: " + row);
-                Map<String, Long> pkgToInstall = new HashMap<String, Long>();
-                pkgToInstall.put("name_id", (Long)row.get("name_id"));
-                pkgToInstall.put("evr_id", (Long)row.get("evr_id"));
-                pkgToInstall.put("arch_id", (Long)row.get("package_arch_id"));
-                pkgToInstall.put("channel_id", cid);
+            for (Map<String, Object> aPackage : packages) {
+                log.debug("    Found the package: " + aPackage);
+                Map<String, Long> result = new HashMap<String, Long>();
+                result.put("name_id", (Long)aPackage.get("name_id"));
+                result.put("evr_id", (Long)aPackage.get("evr_id"));
+                result.put("arch_id", (Long)aPackage.get("package_arch_id"));
+                result.put("channel_id", chnnelId);
 
-                results.add(pkgToInstall);
+                results.add(result);
             }
         }
 
