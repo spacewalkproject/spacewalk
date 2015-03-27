@@ -360,8 +360,8 @@ problems, isn't running, or the token is somehow corrupt.
         try:
             s = self.__getXmlrpcServer()
             satInfo = s.proxy.checkTokenValidity(
-                    dumbToken, self.get_system_id())
-        except Exception, e:  # pylint: disable=E0012, W0703
+                dumbToken, self.get_system_id())
+        except Exception:  # pylint: disable=E0012, W0703
             pass # Satellite is not updated enough, keep old behavior
 
         # False if not valid token, a dict of info we need otherwise

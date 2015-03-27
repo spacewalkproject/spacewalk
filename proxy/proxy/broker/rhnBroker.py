@@ -587,7 +587,7 @@ class BrokerHandler(SharedHandler):
             # maybe client logged in through different load-balanced proxy
             # try to update the cache an try again
             cachedToken = self.proxyAuth.update_client_token_if_valid(
-                    self.clientServerId, token)
+                self.clientServerId, token)
 
             if not cachedToken:
                 msg = _("Invalid session key - server ID not found in cache: %s") \
@@ -612,20 +612,20 @@ class BrokerHandler(SharedHandler):
             # Maybe the client logged in through a different load-balanced
             # proxy? Check validity of the token the client passed us.
             updatedToken = self.proxyAuth.update_client_token_if_valid(
-                    self.clientServerId, token)
+                self.clientServerId, token)
             # fix up the updated token the same way we did above
             if updatedToken:
                 self.cachedClientInfo = UserDictCase(updatedToken)
                 clockSkew = self.cachedClientInfo[
-                        "X-RHN-Auth-Proxy-Clock-Skew"]
+                    "X-RHN-Auth-Proxy-Clock-Skew"]
                 del self.cachedClientInfo["X-RHN-Auth-Proxy-Clock-Skew"]
                 self.authChannels = self.cachedClientInfo[
-                        'X-RHN-Auth-Channels']
+                    'X-RHN-Auth-Channels']
                 del self.cachedClientInfo['X-RHN-Auth-Channels']
                 self.cachedClientInfo['X-RHN-Server-ID'] = \
                         self.clientServerId
                 log_debug(4, 'Retrieved token from cache: %s' %
-                        self.cachedClientInfo)
+                    self.cachedClientInfo)
 
             if not updatedToken or not _dictEquals(
                     token, self.cachedClientInfo, ['X-RHN-Auth-Channels']):
