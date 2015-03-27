@@ -35,6 +35,8 @@ import com.redhat.rhn.domain.kickstart.KickstartSessionState;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.RegistrationType;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.PackageEvr;
+import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
@@ -65,9 +67,9 @@ import org.apache.log4j.Logger;
 import org.cobbler.CobblerConnection;
 import org.cobbler.SystemRecord;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -1092,20 +1094,21 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
     /**
      * Looks for the package name among the specified channels and, if it is found,
-     * it returns it.
+     * it returns the highest available version in Map form.
      *
      * @param server the server
      * @param channelIds channels the server could be subscribed to
      * @return a ValidationError or null
      */
     public Map<String, Long> findKickstartPackageToInstall(Server server, Collection<Long> channelIds) {
+        List<Map<String, Long>> results = new LinkedList<Map<String,Long>>();
+
         for (Long cid : channelIds) {
             log.debug("    Checking on:" + cid + " for: " + getKickstartPackageName());
             List<Map<String, Object>> result = ChannelManager.listLatestPackagesEqual(cid, getKickstartPackageName());
             log.debug("    size: " + result.size());
 
-            if (result.size() > 0) {
-                Map<String, Object> row = result.get(0);
+            for (Map<String, Object> row : result) {
                 log.debug("    Found the package: " + row);
                 Map<String, Long> pkgToInstall = new HashMap<String, Long>();
                 pkgToInstall.put("name_id", (Long)row.get("name_id"));
@@ -1113,11 +1116,23 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 pkgToInstall.put("arch_id", (Long)row.get("package_arch_id"));
                 pkgToInstall.put("channel_id", cid);
 
-                return pkgToInstall;
+                results.add(pkgToInstall);
             }
         }
 
-        return null;
+        if (!results.isEmpty()) {
+            return Collections.max(results, new Comparator<Map<String, Long>>() {
+                @Override
+                public int compare(Map<String, Long> o1In, Map<String, Long> o2In) {
+                    PackageEvr evr1 = PackageEvrFactory.lookupPackageEvrById(o1In.get("evr_id"));
+                    PackageEvr evr2 = PackageEvrFactory.lookupPackageEvrById(o2In.get("evr_id"));
+                    return evr1.compareTo(evr2);
+                }
+            });
+        }
+        else {
+            return null;
+        }
     }
 
     /**
