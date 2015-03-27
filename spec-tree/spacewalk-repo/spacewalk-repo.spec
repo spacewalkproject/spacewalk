@@ -96,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
+* Fri Mar 27 2015 Grant Gainey 2.4-2
+- Update for Spacewalk 2.4
+
 * Thu Jul 31 2014 Michael Mraka <michael.mraka@redhat.com> 2.3-2
 - New signing key for 2014-2016
 
