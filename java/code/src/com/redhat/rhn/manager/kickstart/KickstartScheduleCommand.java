@@ -1100,11 +1100,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      */
     public Map<String, Long> findKickstartPackageToInstall(Server server, Collection<Long> channelIds) {
         for (Long cid : channelIds) {
-            log.debug("    Checking on:" + cid + " for: " +
-                    getKickstartPackageName());
-            List<Map<String, Object>> result =
-                    ChannelManager.listLatestPackagesEqual(cid,
-                    getKickstartPackageName());
+            log.debug("    Checking on:" + cid + " for: " + getKickstartPackageName());
+            List<Map<String, Object>> result = ChannelManager.listLatestPackagesEqual(cid, getKickstartPackageName());
             log.debug("    size: " + result.size());
 
             if (result.size() > 0) {
