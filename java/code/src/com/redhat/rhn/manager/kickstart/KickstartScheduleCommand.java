@@ -66,6 +66,7 @@ import org.cobbler.CobblerConnection;
 import org.cobbler.SystemRecord;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -1046,32 +1047,58 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         }
 
         Server hostServer = getHostServer();
-        List<Long> channelIds = new ArrayList<Long>();
         Set<Long> serverChannelIds = new HashSet<Long>();
         Iterator<Channel> i = hostServer.getChannels().iterator();
         while (i.hasNext()) {
             Channel c = i.next();
             serverChannelIds.add(c.getId());
         }
-        // first add channels, the system is currently subscribed to
-        channelIds.addAll(serverChannelIds);
-        // then add all the other subscribable channels
-        channelIds.addAll(SystemManager.subscribableChannelIds(hostServer.getId(),
-                this.user.getId(), hostServer.getBaseChannel().getId()));
 
-        return ensureKickstartPackageIsInstalled(hostServer, serverChannelIds, channelIds);
+        // check for package among channels the server is subscribed to. If one is found, return
+        Map<String, Object> pkgToInstall = findKickstartPackageToInstall(hostServer, serverChannelIds);
+        if (pkgToInstall != null) {
+            this.packagesToInstall.add(pkgToInstall);
+            log.debug("    packagesToInstall: " + packagesToInstall);
+            return null;
+        }
+
+        // otherwise search in channels that can be subscribed. If one is found, subscribe channel and return
+        Set<Long> subscribableChannelIds = SystemManager.subscribableChannelIds(hostServer.getId(),
+                this.user.getId(), hostServer.getBaseChannel().getId());
+        pkgToInstall = findKickstartPackageToInstall(hostServer, subscribableChannelIds);
+
+        if (pkgToInstall != null) {
+            this.packagesToInstall.add(pkgToInstall);
+            log.debug("    packagesToInstall: " + packagesToInstall);
+            Long cid = (Long) pkgToInstall.get("channel_id");
+            log.debug("    Subscribing to: " + cid);
+            Channel c = ChannelFactory.lookupById(cid);
+            try {
+                SystemManager.subscribeServerToChannel(this.user, server, c);
+                log.debug("    Subscribed: " + cid);
+            }
+            catch (PermissionException pe) {
+                return new ValidatorError("kickstart.schedule.cantsubscribe");
+            }
+            catch (Exception e) {
+                return new ValidatorError("kickstart.schedule.cantsubscribe.channel", c.getName(), server.getName());
+            }
+            return null;
+        }
+
+        return new ValidatorError("kickstart.schedule.nopackage",
+                this.getKsdata().getChannel().getName());
     }
 
     /**
      * Looks for the package name among the specified channels and, if it is found,
-     * it adds it to packagesToInstall for server
+     * it returns it.
      *
      * @param server the server
-     * @param serverChannelIds channels the server is subscribed to
      * @param channelIds channels the server could be subscribed to
      * @return a ValidationError or null
      */
-    public ValidatorError ensureKickstartPackageIsInstalled(Server server, Set<Long> serverChannelIds, List<Long> channelIds) {
+    public Map<String, Object> findKickstartPackageToInstall(Server server, Collection<Long> channelIds) {
         for (Long cid : channelIds) {
             log.debug("    Checking on:" + cid + " for: " +
                     getKickstartPackageName());
@@ -1087,31 +1114,13 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 pkgToInstall.put("name_id", row.get("name_id"));
                 pkgToInstall.put("evr_id", row.get("evr_id"));
                 pkgToInstall.put("arch_id", row.get("package_arch_id"));
-                this.packagesToInstall.add(pkgToInstall);
-                log.debug("    packagesToInstall: " + packagesToInstall);
+                pkgToInstall.put("channel_id", cid);
 
-                // this.kickstartPackageId = ;
-                if (!serverChannelIds.contains(cid)) {
-                    log.debug("    Subscribing to: " + cid);
-                    Channel c = ChannelFactory.lookupById(cid);
-                    try {
-                        SystemManager.subscribeServerToChannel(this.user, server, c);
-                        log.debug("    Subscribed: " + cid);
-                    }
-                    catch (PermissionException pe) {
-                        return new ValidatorError("kickstart.schedule.cantsubscribe");
-                    }
-                    catch (Exception e) {
-                        return new ValidatorError(
-                                "kickstart.schedule.cantsubscribe.channel", c.getName());
-                    }
-                }
-                return null;
+                return pkgToInstall;
             }
         }
 
-        return new ValidatorError("kickstart.schedule.nopackage",
-                this.getKsdata().getChannel().getName());
+        return null;
     }
 
     /**
