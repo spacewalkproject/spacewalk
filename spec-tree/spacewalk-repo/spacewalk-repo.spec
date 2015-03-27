@@ -1,6 +1,6 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
-Version: 2.3
+Version: 2.4
 Release: 2%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -125,7 +125,7 @@ rm -rf $RPM_BUILD_ROOT
 - replace legacy name of Tagger with new one
 
 * Mon Mar 04 2013 Stephen Herr <sherr@redhat.com> 1.10-1
-- 
+-
 
 * Wed Oct 31 2012 Jan Pazdziora 1.9-1
 - Bumping up version.
