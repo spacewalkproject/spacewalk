@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.40
+Version:        2.3.41
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Mar 27 2015 Tomas Lestach <tlestach@redhat.com> 2.3.41-1
+- Fix ORA-01403: no data found in update_needed_cache during re-registrations
+
 * Thu Mar 19 2015 Grant Gainey 2.3.40-1
 - Automatic commit of package [osad] release [5.11.56-1].
 - Updating copyright info for 2015
