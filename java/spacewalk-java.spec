@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.3.176
+Version: 2.3.177
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -770,6 +770,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 27 2015 Tomas Lestach <tlestach@redhat.com> 2.3.177-1
+- change evr parsing for repodata primary.xml dependencies
+- expand checkstyle copyright regexp
+- Add a test for getCandidates() in ErrataCacheDriver
+- Fix parameter names for "insert_into_task_queue"
+- Create only one errata cache worker per server
+- Add type parameters throughout getCandidates()
+
 * Thu Mar 26 2015 Jan Dobes 2.3.176-1
 - 1200162 - reduce number of system lookups
 - 1188954 - also get errata scheduling out of cycle to make stackUpdates sense
