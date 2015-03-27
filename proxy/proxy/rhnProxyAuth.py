@@ -336,13 +336,15 @@ problems, isn't running, or the token is somehow corrupt.
         log_debug(6, "New proxy token: %s" % token)
         return token
 
-    def get_client_token(self, clientid):
+    @staticmethod
+    def get_client_token(clientid):
         shelf = get_auth_shelf()
         if shelf.has_key(clientid):
             return shelf[clientid]
         return None
 
-    def set_client_token(self, clientid, token):
+    @staticmethod
+    def set_client_token(clientid, token):
         shelf = get_auth_shelf()
         shelf[clientid] = token
 

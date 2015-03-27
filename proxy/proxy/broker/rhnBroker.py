@@ -625,7 +625,7 @@ class BrokerHandler(SharedHandler):
                 self.cachedClientInfo['X-RHN-Server-ID'] = \
                         self.clientServerId
                 log_debug(4, 'Retrieved token from cache: %s' %
-                    self.cachedClientInfo)
+                          self.cachedClientInfo)
 
             if not updatedToken or not _dictEquals(
                     token, self.cachedClientInfo, ['X-RHN-Auth-Channels']):
