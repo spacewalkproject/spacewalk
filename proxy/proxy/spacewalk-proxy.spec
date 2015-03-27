@@ -8,7 +8,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.3.20
+Version: 2.3.21
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python
@@ -317,6 +317,12 @@ fi
 
 
 %changelog
+* Fri Mar 27 2015 Stephen Herr <sherr@redhat.com> 2.3.21-1
+- 1206350 - Proxy needs to correctly pass around -Auth-Error headers on SSL GET
+  requests
+- 1206350 - teach Proxy to auth up to Satellite if it doesn't recognize client
+  token
+
 * Mon Mar 23 2015 Grant Gainey 2.3.20-1
 - Standardize pylint-check to only happen on Fedora
 
