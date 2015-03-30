@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
+import com.redhat.rhn.domain.task.Task;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 import com.redhat.rhn.taskomatic.task.errata.ErrataCacheDriver;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
@@ -48,7 +49,14 @@ public class ErrataCacheDriverTest extends BaseTestCaseWithUser {
         // Get the candidates and verify
         ErrataCacheDriver driver = new ErrataCacheDriver();
         driver.setLogger(Logger.getLogger(ErrataCacheDriverTest.class));
-        assertEquals(1, driver.getCandidates().size());
+        int candidateCount = 0;
+        for (Map<String, Object> candidate : driver.getCandidates()) {
+            Task task = (Task) candidate.get("task");
+            if (task.getData().equals(server.getId())) {
+                candidateCount++;
+            }
+        }
+        assertEquals(1, candidateCount);
     }
 
     /**
