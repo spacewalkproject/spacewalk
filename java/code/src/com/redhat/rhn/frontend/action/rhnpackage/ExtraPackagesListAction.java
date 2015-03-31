@@ -14,7 +14,7 @@
  */
 
 /**
- * Copyright (c) 2012 Novell
+ * Copyright (c) 2012 SUSE LLC
  */
 
 package com.redhat.rhn.frontend.action.rhnpackage;

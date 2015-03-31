@@ -13,7 +13,7 @@
  * in this software or its documentation.
  */
 /*
- * Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
+ * Copyright (c) 2010 SUSE LLC
  */
 package com.redhat.rhn.manager.errata;
 

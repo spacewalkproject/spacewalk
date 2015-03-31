@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013 SUSE
+ * Copyright (c) 2013 SUSE LLC
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or

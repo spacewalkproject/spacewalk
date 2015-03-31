@@ -1,7 +1,7 @@
 #
 # spec file for package simple-xml
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuremberg, Germany.
+# Copyright (c) 2012 SUSE LLC
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed

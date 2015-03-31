@@ -1,7 +1,7 @@
 #
 # spec file for package susestudio-java-client
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuremberg, Germany.
+# Copyright (c) 2014 SUSE LLC
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
