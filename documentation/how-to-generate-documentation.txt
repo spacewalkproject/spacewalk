@@ -56,7 +56,7 @@ API docs
     # Check your work
     cd $SVN; diff -rb --context=1 --exclude=.svn api/$PREV_VERS api/$VERS | less
     # Check it in
-    cd $SVN; svn ci -m "Updating API documentation for $VERS" api/$VERS
+    cd $SVN; svn add api/$VERS; svn ci -m "Updating API documentation for $VERS" api/$VERS
 
 schema-docs
 ===========
