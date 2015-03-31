@@ -1,46 +1,89 @@
+Generated documentation is stored ONLY in SVN, to be auto-pulled into
 
-Documentation for java:
-    # javadoc needs to be installed, it needs java-1.6.0-openjdk-devel
-    # In the Spacewalk git repo checkout, in documentation/ directory:
-    git rm -rf javadoc
-    make java
-    git add javadoc
-    # update javadoc.readme
-    git commit -m 'Updating javadoc documentation.' .
+http://spacewalk.redhat.com/documentation/
 
-Documentation of python:
-    # epydoc needs to be installed, it needs texlive, ouch :-(
-    # graphviz needs to be installed.
-    # In the Spacewalk git repo checkout, in documentation/ directory:
-    git rm -rf python-doc
-    make python
-    git add python-doc
-    rm -rf build
-    # update python-doc.readme
-    git commit -m 'Updating python documentation.' .
+SVN repo is here:
 
-Documentation for the db schema:
-    # On an installed Spacewalk with Oracle backend, install graphviz
-    # and graphviz-gd; you obviously already have cx_Oracle.
-    # Retrieve oraschemadoc from http://oraschemadoc.sourceforge.net/
-    # Namely, wget http://sourceforge.net/projects/oraschemadoc/files/oraschemadoc/0.31/oraschemadoc-0.31.tar.gz/download
-    # and unpack it and
-    chmod a+x oraschemadoc-0.31/oraschemadoc.py
-    # and copy over the documentation/Makefile from the Spacewalk git repo
-    rm -rf db-schema
-    ORASCHEMADOC=oraschemadoc-0.31/oraschemadoc.py DSN=user/pass@db make schema
+svn checkout svn+ssh://svn.rhndev.redhat.com/svn/rhn-svn/branches/spacewalk_web/LIVE/documentation
 
-    # In the Spacewalk git repo checkout, in documentation/ directory:
-    git rm -rf db-schema
-    # Copy the resulting db-schema content from the installed Spacewalk
-    git add db-schema
-    # update db-schema.readme
-    git commit -m 'Updating db schema documentation.' .
+To generate the docs, one needs to:
 
-Documentation of API:
-    cd java/
+Setup
+=====
+    * Have available a SW-nightly/OracleXE machine, we'll call it 'SW-ORA'
+    * Checkout docs from SVN
+    * export SVN=<wherever you checked out documentation>
+    * export GIT=<wherever your spacewalk.github checkout is>
+    * export VERS=2.3 # SW-version you're generating docs for
+    * export PREV_VERS=2.2 # SW-version prior to $VERS
+    * yum install epydoc graphviz # for python
+    * javadoc needs to be installed, it needs java-1.6.0-openjdk-devel # for java
+
+Javadoc
+=======
+    # Build
+    cd $GIT/documentation; make java
+    # Move to SVN repo
+    rm -rf $SVN/javadoc; cp -r $GIT/documentation/javadoc $SVN
+    # Check your work
+    cd $SVN; svn diff --diff-cmd diff -x -b -x --context=1 javadoc | less
+    # Check it in
+    cd $SVN; svn ci -m "Updating javadoc documentation for $VERS" javadoc
+
+Python
+======
+    # Build
+    cd $GIT/documentation; make python
+    # Move to SVN repo
+    rm -rf $SVN/python-doc; cp -r $GIT/documentation/python-doc $SVN
+    # Check your work
+    cd $SVN; svn diff --diff-cmd diff -x -b -x --context=1 python-doc | less
+    # Check it in
+    cd $SVN; svn ci -m "Updating python documentation for $VERS" python-doc
+
+API docs
+========
+  * The following, unless you're already on a dev-workstation setup:
     # remove apache-ivy :-(
     # install ivy from http://mirrors.dotsrc.org/jpackage/5.0/generic/free/
     # install ant and ant-junit
-    ant apidoc-html
-    # documentation is in build/reports/apidocs/html
+
+  * Then:
+    # Build
+    cd $GIT/java; ant apidoc-html
+    # Move to SVN repo
+    rm -rf $SVN/api/$VERS; cp -r $GIT/java/build/reports/apidocs/html $SVN/api/$VERS
+    # Check your work
+    cd $SVN; diff -rb --context=1 --exclude=.svn api/$PREV_VERS api/$VERS | less
+    # Check it in
+    cd $SVN; svn ci -m "Updating API documentation for $VERS" api/$VERS
+
+schema-docs
+===========
+  Log into SW-ORA and :
+  --------------------
+    # Get required tools
+    yum install -y wget graphviz graphviz-gd git
+    # Setup source from git
+    git clone https://github.com/spacewalkproject/spacewalk.git
+    cd spacewalk/documentation
+    git checkout SPACEWALK-2.3 # SPACEWALK-$VERS
+    # Get schema-vsiualization tools
+    wget http://sourceforge.net/projects/oraschemadoc/files/oraschemadoc/0.31/oraschemadoc-0.31.tar.gz/download -O oraschemadoc-0.31.tar.gz
+    tar xvzf oraschemadoc-0.31.tar.gz
+    chmod a+x oraschemadoc-0.31/oraschemadoc.py
+    # Run the schema-visualization tool
+    # NOTE: user/pass/db from /etc/rhn/rhn.conf db_user, db_password, db_name
+    ORASCHEMADOC=oraschemadoc-0.31/oraschemadoc.py DSN=user/pass@db make schema
+    # Send the results home
+    scp -r db-schema <YOU>@<MACHINE-WITH-YOUR-SVN-CHECKOUT>:/tmp
+
+  Back to <MACHINE-WITH-YOUR-SVN-CHECKOUT>:
+  ----------------------------------------
+    # Move to SVN repo
+    cp -fr /tmp/db-schema $SVN/schema-doc
+    # Check your work
+    cd $SVN; diff -rb --context=1 --exclude=.svn schema-doc | less
+    # Check it in
+    cd $SVN; svn ci -m "Updating Schema documentation for $VERS" schema-doc
+
