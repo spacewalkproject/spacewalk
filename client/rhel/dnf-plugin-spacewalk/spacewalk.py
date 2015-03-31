@@ -24,6 +24,7 @@ import dnf
 import dnf.exceptions
 import errno
 import json
+import librepo
 import os
 import sys
 
@@ -47,7 +48,7 @@ USE_RHNREGISTER      = _("You can use rhn_register to register.")
 UPDATES_FROM_SPACEWALK = _("This system is receiving updates from Spacewalk server.")
 GPG_KEY_REJECTED     = _("For security reasons packages from Spacewalk based repositories can be verified only with locally installed gpg keys. GPG key '%s' has been rejected.")
 PROFILE_NOT_SENT     = _("Package profile information could not be sent.")
-
+MISSING_HEADER       = _("Missing required login information for Spacewalk: %s")
 
 class Spacewalk(dnf.Plugin):
 
@@ -133,6 +134,7 @@ class Spacewalk(dnf.Plugin):
                                     'sslcacert' : sslcacert,
                                     'force_http': force_http,
                                     'cached_version' : cached_version,
+                                    'login_info': login_info,
                                 })
             repos.add(repo)
 
@@ -140,12 +142,11 @@ class Spacewalk(dnf.Plugin):
         logger.debug(enabled_channels)
 
     def transaction(self):
-	""" Update system's profile after transaction. """
-        import pdb; pdb.set_trace()
+        """ Update system's profile after transaction. """
         if not self.connected_to_spacewalk:
             # not connected so nothing to do here
             return
-	if self.up2date_cfg['writeChangesToLog'] == 1:
+        if self.up2date_cfg['writeChangesToLog'] == 1:
             delta = self._make_package_delta()
             up2date_client.rhnPackageInfo.logDeltaPackages(delta)
         try:
@@ -207,6 +208,7 @@ class  SpacewalkRepo(dnf.repo.Repo):
             self.metadata_expire = 1
 
         # spacewalk stuff
+        self.login_info = opts.get('login_info')
         self.keepalive = 0
         self.bandwidth = 0
         self.retries = 1
@@ -215,6 +217,26 @@ class  SpacewalkRepo(dnf.repo.Repo):
         self.force_http = opts.get('force_http')
 
         self.enable()
+
+    def add_http_headers(self, handle):
+        http_headers = []
+        for header in self.needed_headers:
+            if not self.login_info.has_key(header):
+                error = MISSING_HEADER % header
+                raise dnf.Error.RepoError(error)
+            if self.login_info[header] in (None, ''):
+                http_headers.append("%s;" % header)
+            else:
+                http_headers.append("%s: %s" % (header, self.login_info[header]))
+        if not self.force_http:
+            http_headers.append("X-RHN-Transport-Capability: follow-redirects=3")
+        if http_headers:
+            handle.setopt(librepo.LRO_HTTPHEADER, http_headers)
+
+    def _handle_new_remote(self, destdir, mirror_setup=True):
+        handle = super(SpacewalkRepo, self)._handle_new_remote(destdir, mirror_setup)
+        self.add_http_headers(handle)
+        return handle
 
 
 # FIXME
