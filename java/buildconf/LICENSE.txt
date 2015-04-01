@@ -1,5 +1,5 @@
 ^/\*\*$
-^ \* Copyright \(c\) (20(0\d|1[01234])--)?201[012345] (Red Hat, Inc.|Novell|Novell, Inc.|SUSE|SUSE LLC)$
+^ \* Copyright \(c\) (20(0\d|1[01234])--)?201[012345] (Red Hat, Inc.|SUSE LLC)$
 ^ \*$
 ^ \* This software is licensed to you under the GNU General Public License,$
 ^ \* version 2 \(GPLv2\). There is NO WARRANTY for this software, express or$
