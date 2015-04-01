@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.0
+Version: 2.4.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -770,6 +770,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 01 2015 Jan Dobes 2.4.1-1
+- 1205328 - do not ignore errata with same package version
+- allow only Red Hat, Inc. and SUSE LLC in the checkstyle preferences
+- Copyright texts updated to SUSE LLC
+- to create .project file for eclipse, 'ant make-eclipse-project' should be run
+- Bumping package versions for 2.4.
+
 * Fri Mar 27 2015 Grant Gainey 2.3.178-1
 - Copyrights 2015, redux
 
