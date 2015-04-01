@@ -222,7 +222,7 @@ def main(options):
 
         tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db,
                                         options.to_date, options.blacklist,
-                                        options.removelist, options.background,
+                                        options.removelist,
                                         options.security_only, options.use_update_date,
                                         options.no_errata_sync, errata, parents)
 
@@ -287,7 +287,7 @@ class ChannelTreeCloner:
 
     """Usage:
         a = ChannelTreeCloner(channel_hash, xmlrpc, db, to_date, blacklist,
-            removelist, detached, security_only, use_update_date,
+            removelist, security_only, use_update_date,
             no_errata_sync, errata, parents)
         a.create_channels()
         a.prepare()
@@ -296,7 +296,7 @@ class ChannelTreeCloner:
     # pylint: disable=R0902
 
     def __init__(self, channels, remote_api, db_api, to_date, blacklist,
-                 removelist, detached, security_only, use_update_date,
+                 removelist, security_only, use_update_date,
                  no_errata_sync, errata, parents=None):
         self.remote_api = remote_api
         self.db_api = db_api
@@ -314,7 +314,6 @@ class ChannelTreeCloner:
             self.dest_parent = None
             self.parents_specified = False
         self.channel_details = None
-        self.detached = detached
         self.security_only = security_only
         self.use_update_date = use_update_date
         self.no_errata_sync = no_errata_sync
@@ -324,7 +323,7 @@ class ChannelTreeCloner:
         for from_label in self.ordered_labels():
             to_label = self.channel_map[from_label][0]
             cloner = ChannelCloner(from_label, to_label, self.to_date,
-                                   self.remote_api, self.db_api, self.detached,
+                                   self.remote_api, self.db_api,
                                    self.security_only, self.use_update_date,
                                    self.no_errata_sync, errata)
             self.cloners.append(cloner)
@@ -557,7 +556,7 @@ class ChannelCloner:
     # pylint: disable=R0902
 
     def __init__(self, from_label, to_label, to_date, remote_api, db_api,
-                 detached, security_only, use_update_date, no_errata_sync, errata):
+                 security_only, use_update_date, no_errata_sync, errata):
         self.remote_api = remote_api
         self.db_api = db_api
         self.from_label = from_label
@@ -568,7 +567,6 @@ class ChannelCloner:
         self.available_errata = None
         self.new_pkg_hash = {}
         self.old_pkg_hash = {}
-        self.detached = detached
         self.security_only = security_only
         self.use_update_date = use_update_date
         self.no_errata_sync = no_errata_sync
@@ -660,10 +658,7 @@ class ChannelCloner:
         while(len(needed_errata) > 0):
             errata_set = needed_errata[:self.bunch_size]
             del needed_errata[:self.bunch_size]
-            if self.detached:
-                self.remote_api.clone_errata_async(self.to_label, errata_set)
-            else:
-                self.remote_api.clone_errata(self.to_label, errata_set)
+            self.remote_api.clone_errata(self.to_label, errata_set)
 
         if len(needed_ids) > 0:
             log_clean(0, "")
@@ -711,10 +706,7 @@ class ChannelCloner:
         while(len(errata_ids) > 0):
             errata_set = errata_ids[:self.bunch_size]
             del errata_ids[:self.bunch_size]
-            if self.detached:
-                self.remote_api.clone_errata_async(self.to_label, errata_set)
-            else:
-                self.remote_api.clone_errata(self.to_label, errata_set)
+            self.remote_api.clone_errata(self.to_label, errata_set)
             pb.addTo(self.bunch_size)
             pb.printIncrement()
 
@@ -858,11 +850,6 @@ class RemoteApi:
         self.auth_check()
         self.client.errata.cloneAsOriginal(self.auth_token, to_label,
                                            errata_list)
-
-    def clone_errata_async(self, to_label, errata_list):
-        self.auth_check()
-        self.client.errata.cloneAsOriginalAsync(self.auth_token, to_label,
-                                                errata_list)
 
     def sync_errata(self, to_label):
         self.auth_check()

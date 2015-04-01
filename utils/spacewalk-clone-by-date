@@ -232,8 +232,7 @@ def parse_args():
     parser.add_option("-v", "--validate", dest='validate', action='store_true',
                       help="Run repoclosure on the set of specified repositories.")
     parser.add_option("-g", "--background", dest='background',
-                      action='store_true', help="Clone the errata in the background. "
-                      + "Prompt will return quicker; before cloning is finished.")
+                      action='store_true', help="DEPRECATED: does nothing.")
     parser.add_option("-o", "--security_only", dest='security_only',
                       action='store_true',
                       help="Only clone security errata (and their dependencies).")

@@ -71,9 +71,6 @@ Utility for cloning errata by date (For RHEL5 and above).
         <arg>-z</arg><arg>--use-update-date</arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>-g</arg><arg>--background</arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
         <arg>-n</arg><arg>--no-errata-sync</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -218,16 +215,6 @@ Utility for cloning errata by date (For RHEL5 and above).
         <term>-r <replaceable>PKG1,PKG2,PKG3</replaceable>, --removelist=<replaceable>PKG1,PKG2,PKG3</replaceable></term>
         <listitem>
             <para>Comma separated list of package names to be removed after cloning.  Perl-style regular expressions are also supported.  All packages are considered for removal, even those not added by errata/channel cloning.  <emphasis>Dependency resolution is not ensured on resulting repository.</emphasis>
-            </para>
-            <para>
-                Note:  This option is global across all destination channels. To specify per channel removelists, you must use a configuration file.  See --sample-config for an example.
-            </para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>-g --background</term>
-        <listitem>
-            <para>This option makes the cloning of the errata into the destination channel happen asynchronously in the background, allowing the script to return much faster.
             </para>
             <para>
                 Note:  This option is global across all destination channels. To specify per channel removelists, you must use a configuration file.  See --sample-config for an example.
