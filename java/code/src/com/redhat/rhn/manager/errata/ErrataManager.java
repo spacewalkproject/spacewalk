@@ -1148,20 +1148,20 @@ public class ErrataManager extends BaseManager {
 
 
     /**
-     * Lookup errata that are in the set
+     * Lookup errata that are in the set and relevant to selected systems (in SSM)
      * @param user the user to search the set for
      * @param setLabel the set label
      * @return list of Errata Overview Objects
      */
-    public static DataResult<ErrataOverview> lookupErrataListFromSet(
+    public static DataResult<ErrataOverview> lookupSelectedErrataInSystemSet(
             User user, String setLabel) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
-        params.put("set", setLabel);
+        params.put("set_label", setLabel);
         Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("user_id", user.getId());
         SelectMode m = ModeFactory.getMode(
-                "Errata_queries", "errata_list_in_set");
+                "Errata_queries", "in_set_relevant_to_system_set");
         return  makeDataResult(params, elabParams, null, m);
 
     }

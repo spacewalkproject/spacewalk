@@ -775,6 +775,10 @@ ORDER BY E.update_date, E.id
   <elaborator name="errata_overview" />
 </mode>
 
+<mode name="in_set_relevant_to_system_set" class="com.redhat.rhn.frontend.dto.ErrataOverview">
+  <query name="in_set" />
+  <elaborator name="relevant_to_system_set_elab" />
+</mode>
 
 <mode name="in_set_details" class="com.redhat.rhn.frontend.dto.ErrataOverview">
         <query params="user_id, set_label">
