@@ -472,22 +472,6 @@ SELECT DISTINCT E.id , E.advisory AS advisory,
   </query>
 </mode>
 
-<mode  name="errata_list_in_set" class="com.redhat.rhn.frontend.dto.ErrataOverview">
-  <query params="user_id, set" >
-  Select DISTINCT E.id , E.advisory_name AS advisory,
-               E.update_date AS UPDATE_DATE,
-               E.synopsis as ADVISORY_SYNOPSIS,
-               E.advisory_type as ADVISORY_TYPE,
-               E.advisory_name AS advisory
-  FROM rhnErrata E,
-       rhnSet ST
- WHERE ST.user_id = :user_id
-   AND ST.label = :set
-   AND ST.element = E.id
-  </query>
-  <elaborator name="errata_overview" />
-</mode>
-
 <mode name="in_sources_for_target_package_assoc" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="custom_cid, user_id">
 SELECT DISTINCT E.id, E.advisory_name AS advisory_name,
