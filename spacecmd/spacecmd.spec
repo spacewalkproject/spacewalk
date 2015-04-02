@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.4.0
+Version:     2.4.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -85,6 +85,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Apr 02 2015 Tomas Lestach <tlestach@redhat.com> 2.4.1-1
+- 1207606 - do not return one package multiple times
+- Bumping package versions for 2.4.
+
 * Mon Mar 23 2015 Grant Gainey 2.3.20-1
 - Standardize pylint-check to only happen on Fedora
 
