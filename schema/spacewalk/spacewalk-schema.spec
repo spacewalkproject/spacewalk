@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.41
+Version:        2.3.42
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Apr 02 2015 Tomas Kasparek <tkasparek@redhat.com> 2.3.42-1
+- Oracle alter table xxx add column syntax differs from PostgreSQL one
+
 * Fri Mar 27 2015 Tomas Lestach <tlestach@redhat.com> 2.3.41-1
 - Fix ORA-01403: no data found in update_needed_cache during re-registrations
 
