@@ -107,7 +107,7 @@ public class ConfirmErrataAction extends RhnListAction {
 
         //Get Errata Summary Counts
         DataResult<ErrataOverview> errataResult = ErrataManager.
-                    lookupErrataListFromSet(user, getSetDecl(currentChan).getLabel());
+                    errataInSet(user, getSetDecl(currentChan).getLabel());
         int bugCount = 0;
         int enhanceCount = 0;
         int securityCount = 0;

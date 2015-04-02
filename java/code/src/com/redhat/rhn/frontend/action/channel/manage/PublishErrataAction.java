@@ -93,7 +93,7 @@ public class PublishErrataAction extends RhnListAction {
         //Set<Long> errataIds = RhnSetDecl.setForChannelErrata(currentChan).get(
         //        user).getElementValues();
         //ErrataManager.publishErrataToChannelAsync(currentChan, errataIds, user);
-        List<ErrataOverview> errata = ErrataManager.lookupErrataListFromSet(user,
+        List<ErrataOverview> errata = ErrataManager.errataInSet(user,
                 RhnSetDecl.setForChannelErrata(currentChan).get(user).getLabel());
         List<Long> eids = ErrataManager.cloneChannelErrata(errata, currentChan.getId(),
                 user);
