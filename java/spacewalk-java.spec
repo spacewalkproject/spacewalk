@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.2
+Version: 2.4.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -770,6 +770,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 02 2015 Jan Dobes 2.4.3-1
+- remove query errata_list_in_set as it is not used anymore
+- use another method as lookupErrataListFromSet does not exist anymore
+- change method to get selected errata relevant to system set
+
 * Thu Apr 02 2015 Stephen Herr <sherr@redhat.com> 2.4.2-1
 - 1204246 - re-deleting the commit lines after commit 0a54057de3 re-added them
 
