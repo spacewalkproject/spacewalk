@@ -49,7 +49,6 @@
        <packagereq type="default">patternfly1</packagereq>
        <packagereq type="default">perl-DBD-Oracle</packagereq>
        <packagereq type="default">perl-Mail-RFC822-Address</packagereq>
-       <packagereq type="default">perl-Net-INET6Glue</packagereq>
        <packagereq type="default">perl-Satcon</packagereq>
        <packagereq type="default">python-gzipstream</packagereq>
        <packagereq type="default">pwstrength-bootstrap</packagereq>
