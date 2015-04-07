@@ -31,7 +31,6 @@
        <packagereq type="default">dwr</packagereq>
        <packagereq type="default">font-awesome</packagereq>
        <packagereq type="optional">font-awesome-devel</packagereq>
-       <packagereq type="optional">heirloom-pkgtools</packagereq>
        <packagereq type="default">jpam</packagereq>
        <packagereq type="default">jquery-ui</packagereq>
        <packagereq type="default">jquery-timepicker</packagereq>
