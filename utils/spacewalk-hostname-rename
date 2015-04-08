@@ -130,12 +130,19 @@ function initial_system_hostname_check {
         return 1
     fi
 
-    # check /etc/sysconfig/network
-    HN_NETWORK=`awk -F= '/HOSTNAME/ {print $2}' /etc/sysconfig/network`
-
-    if [ "$HOSTNAME" != "$HN_NETWORK" ]
+    # check /etc/sysconfig/network or /etc/hostname
+    HN_ETC_FILE="/etc/hostname"
+    if [ -f "$HN_ETC_FILE" ]
     then
-        echo_err "Wrong hostname in /etc/sysconfig/network: \"$HN_NETWORK\""
+        HN_ETC=`cat $HN_ETC_FILE`
+    else
+        HN_ETC_FILE="/etc/sysconfig/network"
+        HN_ETC=`awk -F= '/HOSTNAME/ {print $2}' $HN_ETC_FILE`
+    fi
+
+    if [ "$HOSTNAME" != "$HN_ETC" ]
+    then
+        echo_err "Wrong hostname in $HN_ETC_FILE: \"$HN_ETC\""
         return 1
     fi
 
