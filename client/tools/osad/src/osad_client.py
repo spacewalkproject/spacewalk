@@ -16,11 +16,14 @@
 import os
 import time
 import string
-
+from subprocess import Popen, PIPE, STDOUT
 import jabber_lib
 from rhn_log import log_debug
 
 class Client(jabber_lib.JabberClient):
+
+    RHN_CHECK_CMD = '/usr/sbin/rhn_check'
+
     def __init__(self, *args, **kwargs):
         apply(jabber_lib.JabberClient.__init__, (self, ) + args, kwargs)
         self.username = None
@@ -31,6 +34,8 @@ class Client(jabber_lib.JabberClient):
         self.time_drift = 0
         self._dispatchers = []
         self._config = {}
+        self._rhn_check_process = None
+        self._rhn_check_fail_count = 0
 
     def set_config_options(self, config):
         self._config = config
@@ -180,36 +185,66 @@ class Client(jabber_lib.JabberClient):
         self.send_message(stanza.getFrom(),
             jabber_lib.NS_RHN_MESSAGE_RESPONSE_CHECKIN)
 
-        command = self._config.get('rhn_check_command')
-        # rhn_check now checks for multiple instances,
-        # lets use that directly
-        if command is None:
-            args = [ "/usr/sbin/rhn_check" ]
-        else:
-            # XXX should find a better way to get the list of args
-            args = string.split(command)
-
-        log_debug(3, "About to execute:", args)
-
         # Checkin
         run_check = self._config.get('run_rhn_check')
         log_debug(3, "run_rhn_check:", run_check)
 
         if not self._config.get('run_rhn_check'):
-            log_debug(0, "Pretend that rhn_check just ran")
+            log_debug(0, "Pretend that command just ran")
         else:
-            # We have to redirect stdout and stderr to /dev/null or else
-            # initlog will make rhn_check break, for some reason
-            pid = os.fork()
-            if pid == 0:
-                # In the child
-                fd = os.open("/dev/null", os.O_WRONLY)
-                os.close(1)
-                os.close(2)
-                os.dup(fd)
-                os.dup(fd)
-                os.umask(os.umask(0077) | 0022)
-                os.execv(args[0], args)
-                # Never reached
-            # Wait for the child to finish
-            os.waitpid(pid, 0)
+            self.run_rhn_check_async()
+
+    def process_loop_hook(self):
+        # if rhn_check process exists, check it last
+        # status
+        if self._rhn_check_process is not None:
+            retcode = self._rhn_check_process.poll()
+            if retcode is not None:
+                log_debug(3, "rhn_check exited with status %d" % retcode)
+                if retcode != 0:
+                    self._rhn_check_fail_count += 1
+                else:
+                    self._rhn_check_fail_count = 0
+                self._rhn_check_process = None
+            else:
+                log_debug(3, "rhn_check is still running...")
+        else:
+            # rhn_check is not running but last one failed
+            # we force a check even if the server does not
+            # contact us. The idea is to exhaust the number of
+            # times we can pick up the action until the server fails
+            # it.
+            if self._rhn_check_fail_count > 0:
+                log_debug(3, "rhn_check failed last time, " \
+                          "force retry (fail count %d)" % self._rhn_check_fail_count)
+                self.run_rhn_check_async()
+
+    def run_rhn_check_async(self):
+        """Runs rhn_check and keeps a handle that it is monitored
+        during the event loop
+        """
+        command = self._config.get('rhn_check_command')
+        # rhn_check now checks for multiple instances,
+        # lets use that directly
+        if command is None:
+            args = [self.RHN_CHECK_CMD]
+        else:
+            # XXX should find a better way to get the list of args
+            args = string.split(command)
+
+        # if rhn_check process already exists
+        if self._rhn_check_process is not None:
+            retcode = self._rhn_check_process.poll()
+            if retcode is None:
+                log_debug(3, "rhn_check is still running, not running again...")
+                return
+
+        if self._rhn_check_fail_count > 0:
+            log_debug(3, "rhn_check failed last time (fail count %d)" % self._rhn_check_fail_count)
+
+        log_debug(3, "About to execute:", args)
+        oldumask = os.umask(0077)
+        os.umask(oldumask | 0022)
+        self._rhn_check_process = Popen(args)
+        os.umask(oldumask)
+        log_debug(0, "executed %s with pid %d" % (args[0], self._rhn_check_process.pid))

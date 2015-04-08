@@ -247,7 +247,11 @@ class Runner(jabber_lib.Runner):
             config = self.read_config()
             raise jabber_lib.NeedRestart
 
-        client.process(timeout=180)
+        # if rhn_check is running or the last one failed, check more often
+        if (client._rhn_check_process is None) and (client._rhn_check_fail_count < 1):
+            client.process(timeout=180)
+        else:
+            client.process(timeout=5)
 
     def read_config(self):
         ret = {}
