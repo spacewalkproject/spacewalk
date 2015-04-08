@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.4.1
+Version:	2.4.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Apr 08 2015 Jan Dobes 2.4.2-1
+- RHEL 7 and recent Fedoras don't have hostname in /etc/sysconfig/network
+
 * Wed Apr 01 2015 Stephen Herr <sherr@redhat.com> 2.4.1-1
 - 1207846 - clone-by-date no longer can asynchronously clone errata
 - Bumping package versions for 2.4.
