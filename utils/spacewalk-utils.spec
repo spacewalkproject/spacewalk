@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.3.36
+Version:	2.3.37
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Apr 13 2015 Tomas Lestach <tlestach@redhat.com> 2.3.37-1
+- 1207846 - clone-by-date no longer can asynchronously clone errata
+
 * Wed Mar 25 2015 Grant Gainey 2.3.36-1
 - Remove references to fedora18/19 and spacewalk20
 
