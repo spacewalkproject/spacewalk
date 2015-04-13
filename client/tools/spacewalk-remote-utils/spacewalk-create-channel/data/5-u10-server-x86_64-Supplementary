@@ -62,6 +62,12 @@ java-1.7.0-ibm-plugin-1.7.0.5.0-1jpp.2.el5_9.i386.rpm
 java-1.7.0-ibm-plugin-1.7.0.5.0-1jpp.2.el5_9.x86_64.rpm
 java-1.7.0-ibm-src-1.7.0.5.0-1jpp.2.el5_9.i386.rpm
 java-1.7.0-ibm-src-1.7.0.5.0-1jpp.2.el5_9.x86_64.rpm
+java-1.7.0-oracle-1.7.0.25-1jpp.1.el5_9.x86_64.rpm
+java-1.7.0-oracle-devel-1.7.0.25-1jpp.1.el5_9.x86_64.rpm
+java-1.7.0-oracle-javafx-1.7.0.25-1jpp.1.el5_9.x86_64.rpm
+java-1.7.0-oracle-jdbc-1.7.0.25-1jpp.1.el5_9.x86_64.rpm
+java-1.7.0-oracle-plugin-1.7.0.25-1jpp.1.el5_9.x86_64.rpm
+java-1.7.0-oracle-src-1.7.0.25-1jpp.1.el5_9.x86_64.rpm
 kmod-ipw3945-1.2.0-4.20.el5.x86_64.rpm
 kmod-ipw3945-xen-1.2.0-4.20.el5.x86_64.rpm
 kmod-kspiceusb-rhel5u6-4.5-8.el5.x86_64.rpm

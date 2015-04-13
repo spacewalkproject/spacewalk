@@ -1,3 +1,5 @@
+cmirror-1.1.39-15.el5.ia64.rpm
+gfs-utils-0.1.20-14.el5.ia64.rpm
 Global_File_System-as-IN-5.8-1.el5.noarch.rpm
 Global_File_System-bn-IN-5.8-1.el5.noarch.rpm
 Global_File_System-de-DE-5.8-1.el5.noarch.rpm
@@ -21,8 +23,6 @@ Global_File_System-ta-IN-5.8-1.el5.noarch.rpm
 Global_File_System-te-IN-5.8-1.el5.noarch.rpm
 Global_File_System-zh-CN-5.8-1.el5.noarch.rpm
 Global_File_System-zh-TW-5.8-1.el5.noarch.rpm
-cmirror-1.1.39-15.el5.ia64.rpm
-gfs-utils-0.1.20-14.el5.ia64.rpm
 gnbd-1.1.7-3.el5.ia64.rpm
 isns-utils-0.93-1.0.el5.ia64.rpm
 kmod-cmirror-0.1.22-3.el5.ia64.rpm

@@ -232,8 +232,17 @@ cloog-ppl-0.15.7-1.2.el6.i686.rpm
 cloog-ppl-0.15.7-1.2.el6.x86_64.rpm
 clucene-core-0.9.21b-1.el6.i686.rpm
 clucene-core-0.9.21b-1.el6.x86_64.rpm
+cluster-cim-0.16.2-10.el6.x86_64.rpm
+cluster-glue-1.0.5-2.el6.x86_64.rpm
+cluster-glue-libs-1.0.5-2.el6.i686.rpm
+cluster-glue-libs-1.0.5-2.el6.x86_64.rpm
+clusterlib-3.0.12-23.el6.i686.rpm
+clusterlib-3.0.12-23.el6.x86_64.rpm
+cluster-snmp-0.16.2-10.el6.x86_64.rpm
 clutter-1.0.6-3.el6.x86_64.rpm
 cmake-2.6.4-5.el6.x86_64.rpm
+cman-3.0.12-23.el6.x86_64.rpm
+cmirror-2.02.72-8.el6.x86_64.rpm
 compat-dapl-1.2.15-2.1.el6.x86_64.rpm
 compat-db42-4.2.52-15.el6.i686.rpm
 compat-db42-4.2.52-15.el6.x86_64.rpm
@@ -279,6 +288,9 @@ coolkey-1.1.0-16.el6.i686.rpm
 coolkey-1.1.0-16.el6.x86_64.rpm
 coreutils-8.4-9.el6.x86_64.rpm
 coreutils-libs-8.4-9.el6.x86_64.rpm
+corosync-1.2.3-21.el6.x86_64.rpm
+corosynclib-1.2.3-21.el6.i686.rpm
+corosynclib-1.2.3-21.el6.x86_64.rpm
 cpio-2.10-9.el6.x86_64.rpm
 cpp-4.4.4-13.el6.x86_64.rpm
 cpufrequtils-007-5.el6.i686.rpm
@@ -311,6 +323,7 @@ ctan-kerkis-fonts-common-2.0-23.el6.noarch.rpm
 ctan-kerkis-sans-fonts-2.0-23.el6.noarch.rpm
 ctan-kerkis-serif-fonts-2.0-23.el6.noarch.rpm
 ctapi-common-1.1-6.1.el6.x86_64.rpm
+ctdb-1.0.112-3.el6.x86_64.rpm
 culmus-aharoni-clm-fonts-0.103-7.el6.noarch.rpm
 culmus-caladings-clm-fonts-0.103-7.el6.noarch.rpm
 culmus-david-clm-fonts-0.103-7.el6.noarch.rpm
@@ -394,6 +407,7 @@ dialog-1.1-9.20080819.1.el6.i686.rpm
 dialog-1.1-9.20080819.1.el6.x86_64.rpm
 diffstat-1.51-2.el6.x86_64.rpm
 diffutils-2.8.1-28.el6.x86_64.rpm
+dlm-pcmk-3.0.12-23.el6.x86_64.rpm
 dmidecode-2.10-1.30.1.el6.x86_64.rpm
 dmraid-1.0.0.rc16-10.el6.i686.rpm
 dmraid-1.0.0.rc16-10.el6.x86_64.rpm
@@ -551,6 +565,8 @@ fakeroot-1.12.2-22.2.el6.x86_64.rpm
 fakeroot-libs-1.12.2-22.2.el6.x86_64.rpm
 fcoe-utils-1.0.14-9.el6.x86_64.rpm
 febootstrap-2.7-1.2.el6.x86_64.rpm
+fence-agents-3.0.12-8.el6.x86_64.rpm
+fence-virt-0.2.1-5.el6.x86_64.rpm
 fence-virtd-0.2.1-5.el6.x86_64.rpm
 fence-virtd-libvirt-0.2.1-5.el6.x86_64.rpm
 fence-virtd-multicast-0.2.1-5.el6.x86_64.rpm
@@ -659,6 +675,8 @@ gettext-devel-0.17-16.el6.i686.rpm
 gettext-devel-0.17-16.el6.x86_64.rpm
 gettext-libs-0.17-16.el6.i686.rpm
 gettext-libs-0.17-16.el6.x86_64.rpm
+gfs2-utils-3.0.12-23.el6.x86_64.rpm
+gfs-pcmk-3.0.12-23.el6.x86_64.rpm
 ggz-base-libs-0.99.5-5.1.el6.i686.rpm
 ggz-base-libs-0.99.5-5.1.el6.x86_64.rpm
 ghostscript-8.70-6.el6.i686.rpm
@@ -1034,6 +1052,7 @@ iptables-ipv6-1.4.7-3.el6.x86_64.rpm
 iptraf-3.0.1-13.el6.x86_64.rpm
 iptstate-2.2.2-4.el6.x86_64.rpm
 iputils-20071127-13.el6.x86_64.rpm
+ipvsadm-1.25-9.el6.x86_64.rpm
 ipw2100-firmware-1.3-11.el6.noarch.rpm
 ipw2200-firmware-3.1-4.el6.noarch.rpm
 irqbalance-0.55-27.el6.x86_64.rpm
@@ -1957,7 +1976,9 @@ lua-5.1.4-4.1.el6.i686.rpm
 lua-5.1.4-4.1.el6.x86_64.rpm
 lucene-2.3.1-5.9.el6.noarch.rpm
 lucene-contrib-2.3.1-5.9.el6.noarch.rpm
+luci-0.22.2-14.el6.x86_64.rpm
 lvm2-2.02.72-8.el6.x86_64.rpm
+lvm2-cluster-2.02.72-8.el6.x86_64.rpm
 lvm2-libs-2.02.72-8.el6.i686.rpm
 lvm2-libs-2.02.72-8.el6.x86_64.rpm
 lx-20030328-5.1.el6.x86_64.rpm
@@ -2061,6 +2082,7 @@ mod_auth_kerb-5.4-6.el6.x86_64.rpm
 mod_auth_mysql-3.0.0-11.el6.x86_64.rpm
 mod_auth_pgsql-2.0.3-10.1.el6.x86_64.rpm
 mod_authz_ldap-0.26-15.el6.x86_64.rpm
+modcluster-0.16.2-10.el6.x86_64.rpm
 mod_dav_svn-1.6.11-2.el6.x86_64.rpm
 mod_dnssd-0.6-2.el6.x86_64.rpm
 ModemManager-0.4.0-3.git20100628.el6.x86_64.rpm
@@ -2195,6 +2217,9 @@ objectweb-asm-3.1-7.2.el6.noarch.rpm
 oddjob-0.30-1.el6.x86_64.rpm
 oddjob-mkhomedir-0.30-1.el6.i686.rpm
 oddjob-mkhomedir-0.30-1.el6.x86_64.rpm
+openais-1.1.1-6.el6.x86_64.rpm
+openaislib-1.1.1-6.el6.i686.rpm
+openaislib-1.1.1-6.el6.x86_64.rpm
 opencryptoki-2.3.1-5.el6.x86_64.rpm
 opencryptoki-libs-2.3.1-5.el6.x86_64.rpm
 openct-0.6.19-4.el6.x86_64.rpm
@@ -2259,6 +2284,9 @@ ORBit2-devel-2.14.17-3.1.el6.x86_64.rpm
 orca-2.28.2-1.el6.x86_64.rpm
 oxygen-cursor-themes-4.3.4-19.el6.noarch.rpm
 oxygen-icon-theme-4.3.4-2.el6.noarch.rpm
+pacemaker-1.1.2-7.el6.x86_64.rpm
+pacemaker-libs-1.1.2-7.el6.i686.rpm
+pacemaker-libs-1.1.2-7.el6.x86_64.rpm
 PackageKit-0.5.8-13.el6.x86_64.rpm
 PackageKit-device-rebind-0.5.8-13.el6.x86_64.rpm
 PackageKit-glib-0.5.8-13.el6.i686.rpm
@@ -2467,6 +2495,7 @@ pinentry-0.7.6-5.el6.x86_64.rpm
 pinentry-gtk-0.7.6-5.el6.x86_64.rpm
 pinentry-qt-0.7.6-5.el6.x86_64.rpm
 pinfo-0.6.9-12.el6.x86_64.rpm
+piranha-0.8.5-7.el6.x86_64.rpm
 pixman-0.16.6-1.el6.i686.rpm
 pixman-0.16.6-1.el6.x86_64.rpm
 pixman-devel-0.16.6-1.el6.i686.rpm
@@ -2652,6 +2681,7 @@ python-repoze-tm2-1.0-0.5.a4.el6.noarch.rpm
 python-repoze-what-1.0.8-6.el6.noarch.rpm
 python-repoze-what-pylons-1.0-4.el6.noarch.rpm
 python-repoze-who-1.0.13-2.el6.noarch.rpm
+python-repoze-who-friendlyform-1.0-0.3.b3.el6.noarch.rpm
 python-repoze-who-testutil-1.0-0.4.rc1.el6.noarch.rpm
 python-routes-1.10.3-2.el6.noarch.rpm
 python-saslwrapper-0.1.934605-2.el6.x86_64.rpm
@@ -2666,6 +2696,7 @@ python-tempita-0.4-2.el6.noarch.rpm
 python-toscawidgets-0.9.8-1.el6.noarch.rpm
 python-transaction-1.0.1-1.el6.noarch.rpm
 python-turbojson-1.2.1-8.1.el6.noarch.rpm
+python-tw-forms-0.9.9-1.el6.noarch.rpm
 python-twisted-8.2.0-3.1.el6.noarch.rpm
 python-twisted-conch-8.2.0-3.2.el6.x86_64.rpm
 python-twisted-core-8.2.0-4.el6.x86_64.rpm
@@ -2808,7 +2839,9 @@ report-newt-0.18-7.el6.x86_64.rpm
 report-plugin-ftp-0.18-7.el6.x86_64.rpm
 report-plugin-localsave-0.18-7.el6.x86_64.rpm
 report-plugin-scp-0.18-7.el6.x86_64.rpm
+resource-agents-3.0.12-15.el6.x86_64.rpm
 rfkill-0.3-4.el6.x86_64.rpm
+rgmanager-3.0.12-10.el6.x86_64.rpm
 rhdb-utils-8.4.0-3.el6.x86_64.rpm
 rhino-1.7-0.7.r2.2.el6.noarch.rpm
 rhn-check-1.0.0-38.el6.noarch.rpm
@@ -2820,6 +2853,7 @@ rhn-setup-gnome-1.0.0-38.el6.noarch.rpm
 rhythmbox-0.12.8-1.el6.i686.rpm
 rhythmbox-0.12.8-1.el6.x86_64.rpm
 rhythmbox-upnp-0.12.8-1.el6.x86_64.rpm
+ricci-0.16.2-13.el6.x86_64.rpm
 rmt-0.4-0.5.b42.el6.x86_64.rpm
 rng-tools-2-8.el6.x86_64.rpm
 rome-0.9-4.2.el6.noarch.rpm
@@ -3072,6 +3106,7 @@ tcp_wrappers-devel-7.6-56.3.el6.x86_64.rpm
 tcp_wrappers-libs-7.6-56.3.el6.i686.rpm
 tcp_wrappers-libs-7.6-56.3.el6.x86_64.rpm
 tcsh-6.17-8.el6.x86_64.rpm
+tdb-tools-1.2.1-2.el6.x86_64.rpm
 telnet-0.17-46.el6.x86_64.rpm
 telnet-server-0.17-46.el6.x86_64.rpm
 terminus-fonts-4.30-1.el6.noarch.rpm
@@ -3254,6 +3289,9 @@ xferstats-2.16-21.el6.x86_64.rpm
 xfig-3.2.5-22.a.1.el6.x86_64.rpm
 xfig-common-3.2.5-22.a.1.el6.x86_64.rpm
 xfig-plain-3.2.5-22.a.1.el6.x86_64.rpm
+xfsdump-3.0.4-2.el6.x86_64.rpm
+xfsprogs-3.1.1-4.el6.i686.rpm
+xfsprogs-3.1.1-4.el6.x86_64.rpm
 xguest-1.0.8-6.el6.noarch.rpm
 xinetd-2.3.14-29.el6.x86_64.rpm
 xkeyboard-config-1.6-7.el6.noarch.rpm
