@@ -39,13 +39,13 @@ def main():
     g = globals()
 
     for module_name in args:
-        print "Checking module %s" % module_name
+        print "Checking module {}".format(module_name)
         pmn = proper_module_name(module_name)
         try:
             m = __import__(pmn)
             g[module_name] = m
         except ImportError, e:
-            print "Unable to import module %s: %s" % (module_name, e)
+            print "Unable to import module {}: {}".format(module_name, e)
             continue
 
         comps = pmn.split('.')
@@ -56,7 +56,7 @@ def main():
             try:
                 rhnSQL.prepare(statement)
             except rhnSQL.SQLStatementPrepareError, e:
-                print "Error: %s.%s: %s" % (mod.__name__, name, e)
+                print "Error: {}.{}: {}".format(mod.__name__, name, e)
 
 
 def proper_module_name(module_name):
