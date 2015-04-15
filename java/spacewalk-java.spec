@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.3
+Version: 2.4.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -770,6 +770,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 15 2015 Jan Dobes 2.4.4-1
+- fixing alphabar and pagination rendering on some pages
+- 1202233 - include missing taglib
+
 * Thu Apr 02 2015 Jan Dobes 2.4.3-1
 - remove query errata_list_in_set as it is not used anymore
 - use another method as lookupErrataListFromSet does not exist anymore
