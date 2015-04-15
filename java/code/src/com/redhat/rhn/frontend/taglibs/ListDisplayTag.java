@@ -45,6 +45,7 @@ import com.redhat.rhn.frontend.html.HtmlTag;
 import com.redhat.rhn.frontend.listview.AlphaBar;
 import com.redhat.rhn.frontend.listview.PaginationUtil;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.taglibs.list.DataSetManipulator;
 import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
@@ -132,10 +133,10 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
  */
 public class ListDisplayTag extends ListDisplayTagBase {
     private static final long serialVersionUID = 8952182346554627507L;
-    private static final String LAST = "Last";
-    private static final String NEXT = "Next";
-    private static final String PREV = "Prev";
-    private static final String FIRST = "First";
+    private static final String LAST = "Last Page";
+    private static final String NEXT = "Next Page";
+    private static final String PREV = "Previous Page";
+    private static final String FIRST = "First Page";
     private static final String LAST_LOWER = "last_lower";
     private static final String NEXT_LOWER = "next_lower";
     private static final String PREV_LOWER = "prev_lower";
@@ -534,8 +535,6 @@ public class ListDisplayTag extends ListDisplayTagBase {
         throws IOException {
 
         out.append("<div class=\"spacewalk-list-pagination\">\n");
-
-        out.append("<div class=\"list-infotext\">");
         int finalResult = getPageList().getEnd();
         if (finalResult > getPageList().getTotalSize()) {
             finalResult = getPageList().getTotalSize();
@@ -569,7 +568,6 @@ public class ListDisplayTag extends ListDisplayTagBase {
             out.append("</span></strong>\n");
         }
 
-        out.append("</div>");
         appendButtons(out);
         out.append("  </div>");
     }
@@ -583,31 +581,30 @@ public class ListDisplayTag extends ListDisplayTagBase {
 
         if (canGoForward || canGoBack) {
             out.append(renderPaginationButton(FIRST,
-                    "nav-page-first", " |&lt; ", canGoBack));
-            out.append(renderPaginationButton(PREV, "nav-page-prev",
-                    " &lt; ", canGoBack));
-            out.append(renderPaginationButton(NEXT, "nav-page-next",
-                    " &gt; ", canGoForward));
+                    DataSetManipulator.ICON_FIRST, canGoBack));
+            out.append(renderPaginationButton(PREV, DataSetManipulator.ICON_PREV,
+                    canGoBack));
+            out.append(renderPaginationButton(NEXT, DataSetManipulator.ICON_NEXT,
+                    canGoForward));
             out.append(renderPaginationButton(LAST,
-                    "nav-page-last", " &gt;| ", canGoForward));
+                    DataSetManipulator.ICON_LAST, canGoForward));
         }
         out.append("</div>\n");
     }
 
     private String renderPaginationButton(String name, String icon,
-            String text, boolean active) {
+            boolean active) {
         HtmlTag ret = new HtmlTag("button");
         ret.setAttribute("name", name);
-        String styleClass = "btn btn-default btn-xs";
-        IconTag iconTag = new IconTag(icon);
-        ret.addBody(iconTag.render());
+        String styleClass = "btn btn-default btn-xs " + icon;
 
         if (!active) {
             styleClass += " disabled";
         }
+        else {
+            ret.setAttribute("title", name);
+        }
         ret.setAttribute("class", styleClass);
-
-        ret.addBody(String.format("<span class=\"sr-only\">%s</span>", text));
         return ret.render();
     }
 
@@ -701,9 +698,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
     private void renderAlphabar(Writer out) throws IOException {
         StringBuilder target = new StringBuilder();
 
-        target.append("<div class=\"spacewalk-alphabar\">");
-
-        target.append("<ul class=\"pagination pagination-sm\">");
+        target.append("<ul class=\"spacewalk-alphabar pagination pagination-sm\">");
         StringBuilder enabled = new StringBuilder("<li><a href=\"");
         enabled.append("?lower={1}");
 
@@ -745,10 +740,9 @@ public class ListDisplayTag extends ListDisplayTagBase {
 
         enabled.append("\">{0}</a><li>");
         AlphaBar ab = new AlphaBar(enabled.toString(),
-                      "<li class=\"disabled\"><span>{0}</span></li>");
+                      "<li class=\"disabled\"><a href=\"#\">{0}</a></li>");
         target.append(ab.getAlphaList(getPageList().getIndex()));
         target.append("</ul>");
-        target.append("</div>");
         out.append(target.toString());
     }
 

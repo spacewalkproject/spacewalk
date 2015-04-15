@@ -68,10 +68,10 @@ public class DataSetManipulator {
     private final boolean searchChild;
 
     private String defaultSortAttribute;
-    private static final String ICON_FIRST = "fa fa-angle-double-left";
-    private static final String ICON_PREV = "fa fa-angle-left";
-    private static final String ICON_NEXT = "fa fa-angle-right";
-    private static final String ICON_LAST = "fa fa-angle-double-right";
+    public static final String ICON_FIRST = "fa fa-angle-double-left";
+    public static final String ICON_PREV = "fa fa-angle-left";
+    public static final String ICON_NEXT = "fa fa-angle-right";
+    public static final String ICON_LAST = "fa fa-angle-double-right";
 
 
     /**

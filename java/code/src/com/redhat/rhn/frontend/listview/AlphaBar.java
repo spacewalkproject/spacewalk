@@ -80,8 +80,8 @@ public class AlphaBar {
         StringBuilder target = new StringBuilder();
         // Get the list of all the letters and digits in current thread's Locale
         // and put them together in the collection
-        List alist = LocalizationService.getInstance().getAlphabet();
-        alist.addAll(LocalizationService.getInstance().getDigits());
+        List alist = LocalizationService.getInstance().getDigits();
+        alist.addAll(LocalizationService.getInstance().getAlphabet());
         Iterator it = alist.iterator();
         // Iterator over each character and determine if we need to
         // enable or disable the row.
