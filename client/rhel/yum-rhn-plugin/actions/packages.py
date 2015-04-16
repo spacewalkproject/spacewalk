@@ -439,7 +439,7 @@ def runTransaction(transaction_data, cache_only=None):
             pkgkeys['arch'] = None
 
         if pkgkeys['epoch'] == '':
-            pkgkeys['epoch'] = '0'
+            pkgkeys['epoch'] = None
 
         package_exists = yum_base.rpmdb.searchNevra(name=pkgkeys['name'],
                     epoch=pkgkeys['epoch'], arch=pkgkeys['arch'],
