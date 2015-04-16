@@ -1,0 +1,57 @@
+.\" Copyright 2015 Red Hat, Inc.
+.\"
+.\" This man page is free documentation; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this man page; if not, write to the Free Software
+.\" Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+.\"
+.TH "DNF.PLUGIN.SPACEWALK" "8" "2015 April 16" "Linux" "Red Hat, Inc."
+.SH NAME
+
+spacewalk \- Spacewalk/Red Hat Satellite support for \fBdnf\fP(8).
+
+.SH DESCRIPTION
+
+.PP
+\fBspacewalk\fP provides Spacewalk support for \fBdnf\fP(8) via its
+plugin architecture. A system registered with Spacewalk will be able to
+update and install packages from Spacewalk.
+
+.SH FILES
+
+.IP \fI/etc/sysconfig/rhn/up2date\fP
+The common configuration file used by Spacewalk client programs.
+.br
+.IP \fI/etc/dnf/plugins/spacewalk.conf\fP
+A file containing plugin specific configuration options.
+
+.SH "SEE ALSO"
+
+.PP
+\fBdnf\fP(8), \fBrhn_check\fP(8), \fBrhn_register\fP(8), \fBspacewalk.conf\fP(5), \fBup2date\fP(5).
+
+.SH AUTHORS
+.PP
+Michael Mraka <michael.mraka@redhat.com>
+
+.SH "BUGS"
+.PP
+Report bugs to <http://bugzilla.redhat.com>.
+
+.SH COPYRIGHT
+
+.PP
+Copyright \(co 2015 Red Hat, Inc.
+
+.PP
+This is free software; see the source for copying conditions.  There is
+NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

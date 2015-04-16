@@ -1,0 +1,81 @@
+.\" Copyright 2015 Red Hat, Inc.
+.\"
+.\" This man page is free documentation; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this man page; if not, write to the Free Software
+.\" Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+.\"
+.TH "SPACEWALK.CONF" "8" "2015 April 16" "Linux" "Red Hat, Inc."
+.SH NAME
+
+spacewalk.conf \- Configuration file for the \fBdnf.plugin.spacewalk\fP(8) \fBdnf\fP(8) plugin.
+
+.SH SYNOPSIS
+
+\fB/etc/dnf/plugins/spacewalk.conf\fP
+
+.SH DESCRIPTION
+
+.PP
+\fBspacewalk.conf\fP contains configuration options which are specific to
+\fBdnf.plugin.spacewalk\fP(8). The configuration file is located at
+\fI/etc/dnf/plugins/spacewalk.conf\fP.
+
+.SH [main] OPTIONS
+
+.PP
+All options of \fBdnf.conf\fP(5) are available. Most notable are:
+
+.IP \fBenabled\fR
+Either `0' or `1'. Determines whether the plugin will be used by dnf or not.
+Default value is `1'.
+
+.IP \fBgpgcheck\fR
+Either `0' or `1'. Determines whether gpg signature checking will be performed
+on packages coming from Spacewalk/Red Hat Satellite. Default value is `1'. If this option
+is not set, the value from \fBdnf.conf\fP(5) will be used.
+
+.IP \fBtimeout\fR
+The amount of time (in seconds) that you want to wait for a response before timing out. If this option is not set, the value from \fBdnf.conf\fP(5) will be used.
+
+.SH [\fIchannel-label\fP] OPTIONS
+
+.PP
+Individual channels available to client can be configured (enabled/disabled, ...)
+in sections named by channel label.
+
+.SH FILES
+
+.IP \fI/etc/dnf/plugins/spacewalk.conf\fP
+The location of this configuration file.
+
+.SH "SEE ALSO"
+
+.PP
+\fBdnf.plugin.spacewalk\fP(8), \fBdnf\fP(8), \fBup2date\fP(5), \fBdnf.conf\fP(5).
+
+.SH AUTHORS
+.PP
+Michael Mraka <michael.mraka@redhat.com>
+
+.SH "BUGS"
+.PP
+Report bugs to <http://bugzilla.redhat.com>.
+
+.SH COPYRIGHT
+
+.PP
+Copyright \(co 2015 Red Hat, Inc.
+
+.PP
+This is free software; see the source for copying conditions.  There is
+NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
