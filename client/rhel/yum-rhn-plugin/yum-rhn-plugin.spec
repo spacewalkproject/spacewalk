@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.4.0
+Version: 2.4.1
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,10 @@ fi
 %doc LICENSE
 
 %changelog
+* Thu Apr 16 2015 Matej Kollar <mkollar@redhat.com> 2.4.1-1
+- 1172288 - Unspecified epoch is not epoch = '0'
+- Bumping package versions for 2.4.
+
 * Thu Mar 19 2015 Grant Gainey 2.3.3-1
 - Updating copyright info for 2015
 
