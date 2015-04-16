@@ -150,6 +150,9 @@ ln -s -f %{_prefix}/share/rhn/search/lib/spacewalk-search-%{version}.jar $RPM_BU
 %if 0%{?fedora} && 0%{?fedora} >= 21
 sed -i 's/log4j.jar/log4j-1.jar/' $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_search_daemon.conf
 %endif
+%if 0%{?suse_version} >= 1315
+sed -i 's/nutch-2008-12-01_04-01-21.jar/apache-nutch-1.9.jar/' $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_search_daemon.conf
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
