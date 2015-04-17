@@ -124,4 +124,12 @@ public class SnapshotTag extends GenericRecord {
     public void setModified(String modifiedIn) {
         this.modified = modifiedIn;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return String.valueOf(getUniqId());
+    }
 }

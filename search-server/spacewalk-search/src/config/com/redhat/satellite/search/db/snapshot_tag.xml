@@ -38,8 +38,8 @@
         SELECT last_modified from rhnIndexerWork where object_type='snapshot_tag'
     </select>
 
-    <select id="queryAllSnapshotTagIds" resultType="Long">
-        SELECT snapshot_id from rhnSnapshotTag
+    <select id="queryAllSnapshotTagIds" resultType="com.redhat.satellite.search.db.models.SnapshotTag">
+        SELECT server_id as serverId, snapshot_id as snapshotId from rhnSnapshotTag
     </select>
 
 
