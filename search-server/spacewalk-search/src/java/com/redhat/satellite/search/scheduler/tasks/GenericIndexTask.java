@@ -102,7 +102,7 @@ public abstract class GenericIndexTask implements Job {
         throws SQLException {
 
         WriteQuery updateQuery = databaseManager.getWriterQuery(getQueryUpdateLastRecord());
-        WriteQuery insertQuery = databaseManager.getWriterQuery(getQueryCreateLastRecord());
+        WriteQuery insertQuery = null;
 
         try {
             Map<String, Object> params = new HashMap<String, Object>();
@@ -110,6 +110,7 @@ public abstract class GenericIndexTask implements Job {
             params.put("last_modified", Calendar.getInstance().getTime());
 
             if (updateQuery.update(params) == 0) {
+                insertQuery = databaseManager.getWriterQuery(getQueryCreateLastRecord());
                 insertQuery.insert(params);
             }
         }
