@@ -646,5 +646,5 @@ if getPlatform() == 'deb':
         """On Debian no extra action for plugin is needed"""
         return 1, 0
 else:
-    from yumPlugin import pluginEnable
+    from pmPlugin import pluginEnable
 

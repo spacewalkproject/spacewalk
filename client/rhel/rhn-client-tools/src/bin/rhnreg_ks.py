@@ -35,6 +35,7 @@ from up2date_client import hardware
 from up2date_client import pkgUtils
 from up2date_client import up2dateErrors
 from up2date_client import rhncli
+from up2date_client.pmPlugin import PM_PLUGIN_NAME, PM_PLUGIN_CONF
 
 
 class RegisterKsCli(rhncli.RhnCli):
@@ -175,9 +176,9 @@ class RegisterKsCli(rhncli.RhnCli):
         try:
             present, conf_changed = rhnreg.pluginEnable()
             if not present:
-                sys.stderr.write(rhncli.utf8_encode(_("Warning: yum-rhn-plugin is not present, could not enable it.")))
+                sys.stderr.write(rhncli.utf8_encode(_("Warning: %s is not present, could not enable it.") % PM_PLUGIN_NAME))
         except IOError, e:
-            sys.stderr.write(rhncli.utf8_encode(_("Warning: Could not open /etc/yum/pluginconf.d/rhnplugin.conf\nyum-rhn-plugin is not enabled.\n") + e.errmsg))
+            sys.stderr.write(rhncli.utf8_encode(_("Warning: Could not open %s\n%s is not enabled.\n") % (PM_PLUGIN_CONF, PM_PLUGIN_NAME) + e.errmsg))
         RegisterKsCli.__runRhnCheck(self.options.verbose)
 
     @staticmethod

@@ -7,6 +7,8 @@
 #       James Slagle <jslagle@redhat.com>
 
 
+from up2date_client.pmPlugin import PM_PLUGIN_NAME, PM_NAME
+
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
@@ -148,7 +150,7 @@ SENDING_WINDOW = _("Sending Profile to Red Hat Satellite")
 
 # Finish Window
 FINISH_WINDOW           = _("Updates Configured")
-FINISH_WINDOW_TEXT_TUI  = _("You may now run 'yum update' from this system's "
+FINISH_WINDOW_TEXT_TUI  = _("You may now run '%s update' from this system's "
                             "command line to get the latest "
                             "software updates from Red Hat Satellite. You will need to run this "
                             "periodically to "
@@ -156,7 +158,7 @@ FINISH_WINDOW_TEXT_TUI  = _("You may now run 'yum update' from this system's "
                             "system for automatic software updates (also known as 'auto errata update') "
                             "via the Red Hat Satellite web interface.  (Instructions for this are in chapter 6 "
                             "of the RHN Reference Guide, available from the 'Help' button in the main Red "
-                            "Hat Network Satellite web interface.)")
+                            "Hat Network Satellite web interface.)") % PM_NAME
 
 # Review Window
 REVIEW_WINDOW           = _("Review Subscription")
@@ -176,12 +178,12 @@ CHANNELS_SAT_WARNING    = _("Warning: Only installed product listed above will r
                             "software channels. See Kbase article "
                             "for more details. "
                             "(http://kbase.redhat.com/faq/docs/DOC-11313)")
-YUM_PLUGIN_WARNING              = _("Warning: yum-rhn-plugin is not present, could not enable it.\n"
-                                                        "Automatic updates will not work.")
-YUM_PLUGIN_CONF_CHANGED = _("Note: yum-rhn-plugin has been enabled.")
-YUM_PLUGIN_CONF_ERROR   = _("Warning: An error occurred during enabling yum-rhn-plugin.\n"
-                                                        "yum-rhn-plugin is not enabled.\n"
-                                                        "Automatic updates will not work.")
+PM_PLUGIN_WARNING       = _("Warning: %s is not present, could not enable it.\n"
+                            "Automatic updates will not work.") % (PM_PLUGIN_NAME)
+PM_PLUGIN_CONF_CHANGED  = _("Note: %s has been enabled.") % (PM_PLUGIN_NAME)
+PM_PLUGIN_CONF_ERROR    = _("Warning: An error occurred during enabling %s.\n"
+                            "%s is not enabled.\n"
+                            "Automatic updates will not work.") % (PM_PLUGIN_NAME, PM_PLUGIN_NAME)
 FAILED_CHANNELS         = _("You were unable to be subscribed to the following "
                             "software channels because there were insufficient "
                             "subscriptions available in your account:")

@@ -73,6 +73,7 @@ import up2dateLog
 from rhn import rpclib
 from rhn.connections import idn_puny_to_unicode
 import rhnreg_constants
+from pmPlugin import PM_PLUGIN_NAME, PM_PLUGIN_CONF
 
 cfg = config.initUp2dateConfig()
 log = up2dateLog.initLog()
@@ -147,25 +148,25 @@ class ReviewLog:
         self.addText(rhnreg_constants.ACTIVATION_KEY % (keys))
         self.addText('') # adds newline
 
-    def yum_plugin_warning(self):
-        """ Add to review screen warning that yum-rhn-plugin is not installed """
+    def pm_plugin_warning(self):
+        """ Add to review screen warning that plugin is not installed """
         # prepending -> reverse order
         self.prependText('') # adds newline
-        self.prependText(rhnreg_constants.YUM_PLUGIN_WARNING)
+        self.prependText(rhnreg_constants.PM_PLUGIN_WARNING)
         self.prependBoldText(_("Warning"))
 
-    def yum_plugin_conf_changed(self):
-        """ Add to review screen warning that yum-rhn-plugin config file has been changed """
+    def pm_plugin_conf_changed(self):
+        """ Add to review screen warning that plugin config file has been changed """
         # prepending -> reverse order
         self.prependText('') # adds newline
-        self.prependText(rhnreg_constants.YUM_PLUGIN_CONF_CHANGED)
+        self.prependText(rhnreg_constants.PM_PLUGIN_CONF_CHANGED)
         self.prependBoldText(_("Notice"))
 
-    def yum_plugin_conf_error(self):
-        """ Add to review screen warning that yum-rhn-plugin config file can not be open """
+    def pm_plugin_conf_error(self):
+        """ Add to review screen warning that plugin config file can not be open """
         # prepending -> reverse order
         self.prependText('') # adds newline
-        self.prependText(rhnreg_constants.YUM_PLUGIN_CONF_ERROR)
+        self.prependText(rhnreg_constants.PM_PLUGIN_CONF_ERROR)
         self.prependBoldText(_("Warning"))
 
     def channels(self, subscribedChannels, failedChannels):
@@ -832,16 +833,16 @@ class CreateProfilePage:
                 # no channels subscribe
                 self.noChannels = 1
 
-        # enable yum-rhn-plugin
+        # enable yum-rhn-plugin / dnf-plugin-spacewalk
         try:
             present, conf_changed = rhnreg.pluginEnable()
             if not present:
-                reviewLog.yum_plugin_warning()
+                reviewLog.pm_plugin_warning()
             if conf_changed:
-                reviewLog.yum_plugin_conf_changed()
+                reviewLog.pm_lugin_conf_changed()
         except IOError, e:
-            errorWindow(_("Could not open /etc/yum/pluginconf.d/rhnplugin.conf\nyum-rhn-plugin is not enabled.\n") + e.errmsg)
-            reviewLog.yum_plugin_conf_error()
+            errorWindow(_("Could not open %s\n%s is not enabled.\n") % (PM_PLUGIN_CONF, PM_PLUGIN_NAME) + e.errmsg)
+            reviewLog.pm_plugin_conf_error()
         rhnreg.spawnRhnCheckForUI()
         pwin.setProgress(6,6)
         pwin.hide()

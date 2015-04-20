@@ -1,58 +1,66 @@
-# Client code for enabling yum-rhn-plugin
-# Copyright (c) 2000--2012 Red Hat, Inc.
+# Client code for enabling plugin
+# Copyright (c) 2000--2015 Red Hat, Inc.
 
 import os
 import re
 import rpm
 
 # global variables
-YUM_PLUGIN_CONF = '/etc/yum/pluginconf.d/rhnplugin.conf'
+try:
+   from yum import __version__
+   PM_PLUGIN_CONF = '/etc/yum/pluginconf.d/rhnplugin.conf'
+   PM_PLUGIN_NAME = 'yum-rhn-plugin'
+   PM_NAME        = 'yum'
+except ImportError:
+   PM_PLUGIN_CONF = '/etc/dnf/plugins/spacewalk.conf'
+   PM_PLUGIN_NAME = 'dnf-plugin-spacewalk'
+   PM_NAME        = 'dnf'
 
 def pluginEnable():
-    """Enables yum-rhn-plugin, may throw IOError"""
+    """Enables plugin, may throw IOError"""
     conf_changed = 0
     plugin_present = 0
-    if YumRHNPluginPackagePresent():
+    if PluginPackagePresent():
         plugin_present = 1
-        if YumRHNPluginConfPresent():
-            if not YumRhnPluginEnabled():
-                enableYumRhnPlugin()
+        if PluginConfPresent():
+            if not PluginEnabled():
+                enablePlugin()
                 conf_changed = 1
         else:
-            createDefaultYumRHNPluginConf()
+            createDefaultPluginConf()
             conf_changed = 1
     elif os.path.exists("/usr/lib/zypp/plugins/services/spacewalk"):
         """SUSE zypp plugin is installed"""
         plugin_present = 1
     return plugin_present, conf_changed
 
-def YumRHNPluginPackagePresent():
-    """ Returns positive number if packaga yum-rhn-plugin is installed, otherwise it return 0 """
+def PluginPackagePresent():
+    """ Returns positive number if plugin package is installed, otherwise it return 0 """
     ts = rpm.TransactionSet()
-    headers = ts.dbMatch('providename', 'yum-rhn-plugin')
+    headers = ts.dbMatch('providename', PM_PLUGIN_NAME)
     return headers.count()
 
-def YumRHNPluginConfPresent():
-    """ Returns true if /etc/yum/pluginconf.d/rhnplugin.conf is presented """
+def PluginConfPresent():
+    """ Returns true if PM_PLUGIN_CONF is presented """
     try:
-        os.stat(YUM_PLUGIN_CONF)
+        os.stat(PM_PLUGIN_CONF)
         return True
     except OSError:
         return False
 
-def createDefaultYumRHNPluginConf():
-    """ Create file /etc/yum/pluginconf.d/rhnplugin.conf with default values """
-    f = open(YUM_PLUGIN_CONF, 'w')
+def createDefaultPluginConf():
+    """ Create file PM_PLUGIN_CONF, with default values """
+    f = open(PM_PLUGIN_CONF, 'w')
     f.write("""[main]
 enabled = 1
 gpgcheck = 1""")
     f.close()
 
-def YumRhnPluginEnabled():
-    """ Returns True if yum-rhn-plugin is enabled
+def PluginEnabled():
+    """ Returns True if plugin is enabled
         Can thrown IOError exception.
     """
-    f = open(YUM_PLUGIN_CONF, 'r')
+    f = open(PM_PLUGIN_CONF, 'r')
     lines = f.readlines()
     f.close()
     main_section = False
@@ -72,16 +80,15 @@ def YumRhnPluginEnabled():
                     result = False
     return result
 
-def enableYumRhnPlugin():
-    """ enable yum-rhn-plugin by setting enabled=1 in file
-        /etc/yum/pluginconf.d/rhnplugin.conf
+def enablePlugin():
+    """ enable plugin by setting enabled=1 in file PM_PLUGIN_CONF
         Can thrown IOError exception.
     """
-    f = open(YUM_PLUGIN_CONF, 'r')
+    f = open(PM_PLUGIN_CONF, 'r')
     lines = f.readlines()
     f.close()
     main_section = False
-    f = open(YUM_PLUGIN_CONF, 'w')
+    f = open(PM_PLUGIN_CONF, 'w')
     for line in lines:
         if re.match("^\[.*]", line):
             if re.match("^\[main]", line):

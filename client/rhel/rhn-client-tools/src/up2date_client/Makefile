@@ -15,7 +15,7 @@ FILES		:= config gui hardware progress \
 		   messageWindow rhncli \
 		   rhnreg_constants \
                    pkgplatform debUtils pkgUtils \
-                   yumPlugin
+                   pmPlugin
 
 PYFILES 	:= $(addsuffix .py, $(FILES))
 PYCFILES	:= $(addsuffix .pyc, $(FILES))

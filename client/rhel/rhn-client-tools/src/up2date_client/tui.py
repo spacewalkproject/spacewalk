@@ -35,7 +35,7 @@ from config import convert_url_from_puny
 import up2dateAuth
 from rhn import rpclib
 from rhn.connections import idn_puny_to_unicode
-
+from pmPlugin import PM_PLUGIN_NAME, PM_PLUGIN_CONF
 from rhnreg_constants import *
 
 log = up2dateLog.initLog()
@@ -1044,12 +1044,12 @@ class SendingWindow:
         # Send virtualization information to the server.
         rhnreg.sendVirtInfo(systemId)
 
-        # enable yum-rhn-plugin
+        # enable yum-rhn-plugin / dnf-plugin-spacewalk
         try:
-            self.tui.yum_plugin_present, self.tui.yum_plugin_conf_changed = rhnreg.pluginEnable()
+            self.tui.pm_plugin_present, self.tui.pm_plugin_conf_changed = rhnreg.pluginEnable()
         except IOError, e:
-            WarningWindow(self.screen, _("Could not open /etc/yum/pluginconf.d/rhnplugin.conf\nyum-rhn-plugin is not enabled.\n") + e.errmsg)
-            self.tui.yum_plugin_conf_error = 1
+            WarningWindow(self.screen, _("Could not open %s\n%s is not enabled.\n") % (PM_PLUGIN_CONF, PM_PLUGIN_NAME) + e.errmsg)
+            self.tui.pm_plugin_conf_error = 1
 
         rhnreg.spawnRhnCheckForUI()
         self.setScale(4, 4)
@@ -1117,12 +1117,12 @@ class ReviewWindow:
         toplevel = snack.GridForm(screen, REVIEW_WINDOW.encode('utf-8'), 1, 2)
         review_window_text = ''
 
-        if not self.tui.yum_plugin_present:
-            review_window_text += YUM_PLUGIN_WARNING + "\n\n"
-        if self.tui.yum_plugin_conf_error:
-            review_window_text += YUM_PLUGIN_CONF_ERROR + "\n\n"
-        if self.tui.yum_plugin_conf_changed:
-            review_window_text += YUM_PLUGIN_CONF_CHANGED + "\n\n"
+        if not self.tui.pm_plugin_present:
+            review_window_text += PM_PLUGIN_WARNING + "\n\n"
+        if self.tui.pm_plugin_conf_error:
+            review_window_text += PM_PLUGIN_CONF_ERROR + "\n\n"
+        if self.tui.pm_plugin_conf_changed:
+            review_window_text += PM_PLUGIN_CONF_CHANGED + "\n\n"
 
         # Build up the review_window_text based on the data in self.reg_info
         review_window_text += REVIEW_WINDOW_PROMPT + "\n\n"
@@ -1189,9 +1189,9 @@ class ReviewWindow:
 
         if result == "F12":
             button = "next"
-        if not self.tui.yum_plugin_present:
+        if not self.tui.pm_plugin_present:
             button = "exit"
-        if self.tui.yum_plugin_conf_error:
+        if self.tui.pm_plugin_conf_error:
             button = "exit"
 
         return button
@@ -1271,9 +1271,9 @@ class Tui:
         self.includePackages = 0
         self.packageList = []
         self.selectedPackages = []
-        self.yum_plugin_present = 1
-        self.yum_plugin_conf_error = 0
-        self.yum_plugin_conf_changed = 0
+        self.pm_plugin_present = 1
+        self.pm_plugin_conf_error = 0
+        self.pm_plugin_conf_changed = 0
 
     def run(self):
         log.log_debug("Running %s" % self.name)
