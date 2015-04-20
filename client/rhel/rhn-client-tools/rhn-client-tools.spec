@@ -64,6 +64,7 @@ BuildRequires: desktop-file-utils
 
 %if 0%{?fedora}
 BuildRequires: fedora-logos
+BuildRequires: yum
 %endif
 %if 0%{?rhel}
 BuildRequires: redhat-logos
