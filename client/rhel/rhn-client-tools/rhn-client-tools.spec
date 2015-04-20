@@ -47,7 +47,11 @@ Requires: python-dmidecode
 %if 0%{?suse_version}
 Requires: zypper
 %else
+%if 0%{?fedora} > 22
+Requires: dnf
+%else
 Requires: yum
+%endif
 %endif
 
 Conflicts: up2date < 5.0.0
@@ -64,7 +68,11 @@ BuildRequires: desktop-file-utils
 
 %if 0%{?fedora}
 BuildRequires: fedora-logos
+%if 0%{?fedora} > 22
+BuildRequires: dnf
+%else
 BuildRequires: yum
+%endif
 %endif
 %if 0%{?rhel}
 BuildRequires: redhat-logos
@@ -88,7 +96,11 @@ Requires: %{name} = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: zypp-plugin-spacewalk
 %else
+%if 0%{?fedora} > 22
+Requires: dnf-plugin-spacewalk >= 2.4.0
+%else
 Requires: yum-rhn-plugin >= 1.6.4-1
+%endif
 %endif
 
 %description -n rhn-check
@@ -299,7 +311,7 @@ make -f Makefile.rhn-client-tools test
 %{_sbindir}/rhn-channel
 
 %{_datadir}/rhn/up2date_client/rhnreg.*
-%{_datadir}/rhn/up2date_client/yumPlugin.*
+%{_datadir}/rhn/up2date_client/pmPlugin.*
 %{_datadir}/rhn/up2date_client/tui.*
 %{_datadir}/rhn/up2date_client/rhnreg_constants.*
 
