@@ -61,7 +61,12 @@
                     headerkey="kickstartscript.jsp.scriptname">
                 <c:if test="${current.editable}">
                 <a href="/rhn/kickstart/KickstartScriptEdit.do?kssid=${current.id}&amp;ksid=${ksdata.id}">
-                <c:out value="${current.scriptName}" escapeXml="true" />
+                    <c:if test="${! empty current.scriptName}" >
+                        <c:out value="${current.scriptName}" escapeXml="true" />
+                    </c:if>
+                    <c:if test="${empty current.scriptName}" >
+                        <bean:message key="kickstartscript.jsp.script"/>
+                    </c:if>
                 </a>
                 </c:if>
                 <c:if test="${not current.editable}">
