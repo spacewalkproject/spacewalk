@@ -24,7 +24,7 @@ def schedule_action(action_type, action_name=None, delta_time=0,
 
     at = rhnSQL.Table('rhnActionType', 'label')
     if not at.has_key(action_type):
-        raise ValueError("Unknown action type {}".format(action_type))
+        raise ValueError("Unknown action type %s" % action_type)
 
     params = {
         'action_id': action_id,
@@ -54,7 +54,7 @@ def schedule_server_action(server_id, action_type, action_name=None,
         h.execute(id=server_id)
         row = h.fetchone_dict()
         if not row:
-            raise ValueError("Invalid server id {}".format(server_id))
+            raise ValueError("Invalid server id %s" % server_id)
         org_id = row['org_id']
 
     action_id = schedule_action(action_type,

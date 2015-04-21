@@ -36,7 +36,7 @@ def __pam_conv(auth, query_list):
             resp.append((__password, 0))
         else:
             # Unknown PAM type
-            log_error("Got unknown PAM type {} (query={})".format(type, query))
+            log_error("Got unknown PAM type %s (query=%s)" % (type, query))
             return None
 
     return resp
@@ -61,7 +61,7 @@ def check_password(username, password, service):
             __username = __password = None
     except PAM.error, e:
         resp, code = e.args[:2]
-        log_error("Password check failed ({}): {}".format(code, resp))
+        log_error("Password check failed (%s): %s" % (code, resp))
         return 0
     except:
         raise rhnException('Internal PAM error'), None, sys.exc_info()[2]

@@ -47,7 +47,7 @@ def main():
     for key, value in file_tags.iteritems():
         for tag in value:
             if not tag_is_used(tag[0]):
-                print "{}\t{}\t{}".format(key, tag[0], tag[1])
+                print "%s\t%s\t%s" % (key, tag[0], tag[1])
 
 if __name__ == "__main__":
     main()
