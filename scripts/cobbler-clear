@@ -1,4 +1,4 @@
 #!/bin/bash
-sudo cobbler system list |xargs -n 1 -I foo sudo cobbler system remove --name=foo
-sudo cobbler profile list |  xargs -n 1 -I foo  sudo cobbler profile remove --name=foo
-sudo cobbler distro list |  xargs -n 1 -I foo sudo cobbler distro remove --name=foo
+sudo cobbler system list | xargs -n 1 -I foo sudo cobbler system remove --name=foo
+sudo cobbler profile list | xargs -n 1 -I foo  sudo cobbler profile remove --name=foo
+sudo cobbler distro list | xargs -n 1 -I foo sudo cobbler distro remove --name=foo
