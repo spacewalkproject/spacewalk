@@ -26,6 +26,7 @@ Patch12: cobbler-modprobe-d.patch
 Patch13: fedora_os_entry.patch
 Patch14: centos7-version.patch
 Patch15: unicode-scripts.patch
+Patch16: cobbler-bz1214458.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -125,6 +126,7 @@ a XMLRPC API for integration with other applications.
 %patch13 -p1
 %patch14 -p0
 %patch15 -p1
+%patch16 -p1
 
 %build
 %{__python} setup.py build 
