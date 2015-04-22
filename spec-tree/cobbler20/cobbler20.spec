@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 43%{?dist}
+Release: 44%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -476,6 +476,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Wed Apr 22 2015 Stephen Herr <sherr@redhat.com> 2.0.11-44
+- 1214458 - fix cobbler timing window that can mess up pxe file permissions
+
 * Wed Apr 15 2015 Jan Dobes 2.0.11-43
 - 1096263 - specify unicode encoding for Cheetah
 
