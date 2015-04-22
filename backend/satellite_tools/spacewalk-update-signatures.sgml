@@ -1,5 +1,4 @@
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN"
->
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN">
 <refentry>
 
 <RefMeta>
@@ -9,7 +8,7 @@
 <RefNameDiv>
 <RefName><command>spacewalk-update-signatures</command></RefName>
 <RefPurpose>
-Helper utility that update packages checksum.  
+Helper utility that update packages checksum.
 </RefPurpose>
 </RefNameDiv>
 
@@ -25,7 +24,7 @@ Helper utility that update packages checksum.
 
 <para>
     The <emphasis>spacewalk-update-signatures</emphasis>) is a
-    helper utility that recalculate checksum of packages in db. New 
+    helper utility that recalculate checksum of packages in db. New
     checksum is calculated from files on disk.
 </para>
 <para>

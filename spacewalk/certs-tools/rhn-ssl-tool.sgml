@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSSLTOOL "Spacewalk SSL Maintenance Tool" >
+<!ENTITY RHNSSLTOOL "Spacewalk SSL Maintenance Tool">
 
 ]>
 <refentry>
@@ -68,7 +68,7 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
     current Red Hat Satellite Servers use <emphasis>/root/ssl-build</emphasis> as
     the default build directory. Older Red Hat Satellites and Proxies used the
     <emphasis>/etc/sysconfig/rhn/ssl</emphasis> directory, and *very* old
-    installations used <emphasis>/etc/sysconfig/rhn</emphasis>.</para>    
+    installations used <emphasis>/etc/sysconfig/rhn</emphasis>.</para>
 
     <para>The basic process of SSL key/certificate/RPM generation using this
     tool: (<emphasis>step 1</emphasis>) generate a CA SSL key pair(set) and
@@ -148,7 +148,7 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
         <variablelist><varlistentry>
             <term>A note about generated RPMs:</term>
             <listitem>
-            
+
                 <para>The <command>--gen-ca</command> process generates an RPM
                 that contains the public CA certificate. It needs to be
                 deployed to any clients making SSL connections to an RHN server
@@ -164,18 +164,18 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
                 on the appropriate server. That server then needs to have it's
                 <emphasis>httpd</emphasis> processes restarted
                 <command>/sbin/service httpd restart</command>.</para>
-                
+
             </listitem>
         </varlistentry></variablelist>
         <variablelist><varlistentry>
             <term>IMPORTANT:</term>
             <listitem>
-            
+
                 <para>Time and date need to be correctly set on systems
                 establishing SSL connections. It is highly recommended that all
                 client and server systems have the <emphasis>ntpd</emphasis>
                 service installed, configured and running.</para>
-                
+
             </listitem>
         </varlistentry></variablelist>
         </msgtext></member>

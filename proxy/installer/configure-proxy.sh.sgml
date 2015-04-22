@@ -1,6 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNPROXY "Spacewalk Proxy Server" >
-<!ENTITY SCRIPTCOMMAND "configure-proxy.sh" >
+<!ENTITY RHNPROXY "Spacewalk Proxy Server">
+<!ENTITY SCRIPTCOMMAND "configure-proxy.sh">
 
 ]>
 <refentry>
@@ -20,7 +20,7 @@ Configures and activates &RHNPROXY;.
 <RefSynopsisDiv>
 <Synopsis>
     <cmdsynopsis>
-        <command>&SCRIPTCOMMAND;</command> 
+        <command>&SCRIPTCOMMAND;</command>
         <arg>options <replaceable>...</replaceable></arg>
     </cmdsynopsis>
 </Synopsis>
@@ -28,7 +28,7 @@ Configures and activates &RHNPROXY;.
 
 <RefSect1><Title>Description</Title>
 <para>
-This script asks all necessary questions to configure &RHNPROXY; 
+This script asks all necessary questions to configure &RHNPROXY;
 and then deploys configuration files and activates the &RHNPROXY;.
 </para>
 <para>

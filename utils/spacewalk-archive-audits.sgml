@@ -1,5 +1,4 @@
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN"
->
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN">
 <refentry>
 
 <RefMeta>
@@ -95,4 +94,3 @@ Archive and purge the audit-logging tables introduced with Spacewalk 2.0
 </simplelist>
 </RefSect1>
 </RefEntry>
-

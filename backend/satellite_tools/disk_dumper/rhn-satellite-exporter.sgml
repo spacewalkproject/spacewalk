@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSATEXPORTER "Spacewalk Server Exporter" >
+<!ENTITY RHNSATEXPORTER "Spacewalk Server Exporter">
 
 ]>
 <refentry>

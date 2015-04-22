@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY PRODUCT "Red Hat Satellite or Spacewalk server" >
+<!ENTITY PRODUCT "Red Hat Satellite or Spacewalk server">
 ]>
 <refentry>
 
@@ -174,4 +174,3 @@ Utility for exporting the minimal set of RPMs and metadata required to recreate 
 </simplelist>
 </RefSect1>
 </refentry>
-
