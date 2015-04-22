@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY THECOMMAND "rhn-schema-stats" >
+<!ENTITY THECOMMAND "rhn-schema-stats">
 
 ]>
 <refentry>

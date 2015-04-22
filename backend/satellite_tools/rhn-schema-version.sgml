@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSAT "Spacewalk Server" >
+<!ENTITY RHNSAT "Spacewalk Server">
 
 ]>
 <refentry>
@@ -19,7 +19,7 @@ Fetch the database schema version for a &RHNSAT;.
 <RefSynopsisDiv>
 <Synopsis>
     <cmdsynopsis>
-        <command>rhn-schema-version</command> 
+        <command>rhn-schema-version</command>
         <arg>options <replaceable>...</replaceable></arg>
     </cmdsynopsis>
 </Synopsis>
@@ -56,4 +56,3 @@ Fetch the database schema version for a &RHNSAT;.
 </simplelist>
 </RefSect1>
 </RefEntry>
-

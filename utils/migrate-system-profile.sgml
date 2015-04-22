@@ -1,5 +1,4 @@
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN"
->
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN">
 <refentry>
 
 <RefMeta>
@@ -112,4 +111,3 @@ Migrate a system between organizations on the Red Hat Satellite server .
 </simplelist>
 </RefSect1>
 </RefEntry>
-

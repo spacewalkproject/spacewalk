@@ -1,6 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
 <!ENTITY RHNSAT "Red Hat Satellite Server" >
-<!ENTITY RHNSYNC "Red Hat Satellite Incremental Synchronization Tool" >
+<!ENTITY RHNSYNC "Red Hat Satellite Incremental Synchronization Tool">
 
 ]>
 <refentry>
@@ -427,8 +427,8 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
                 <varlistentry>
                 <term>kickstarts</term>
                 <listitem>
-                    <simpara>process kickstart data (metadata and files) for 
-                    provisioning. This option will automatically enable the 
+                    <simpara>process kickstart data (metadata and files) for
+                    provisioning. This option will automatically enable the
                     "channels" step.</simpara>
                 </listitem>
                 </varlistentry>

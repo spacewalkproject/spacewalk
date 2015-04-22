@@ -1,5 +1,4 @@
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN"
->
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN">
 <refentry>
 
 <RefMeta>
@@ -83,7 +82,7 @@ size of your filer and the speed of your hardware. Assume 60 - 120 GB / hour.
             <para>Fix kickstart trees permissions.</para>
         </listitem>
     </varlistentry>
- 
+
 </variablelist>
 </RefSect1>
 

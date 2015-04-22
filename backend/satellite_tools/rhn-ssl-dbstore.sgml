@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY THECOMMAND "rhn-ssl-dbstore" >
+<!ENTITY THECOMMAND "rhn-ssl-dbstore">
 
 ]>
 <refentry>
@@ -12,7 +12,7 @@
 <RefNameDiv>
 <RefName><command>&THECOMMAND;</command></RefName>
 <RefPurpose>
-This is a simple utility that pushes your CA SSL certificate into the local 
+This is a simple utility that pushes your CA SSL certificate into the local
 database so that it can be used for things such as provisioning.
 </RefPurpose>
 </RefNameDiv>

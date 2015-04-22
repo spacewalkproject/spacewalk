@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY THECOMMAND "spacewalk-data-fsck" >
+<!ENTITY THECOMMAND "spacewalk-data-fsck">
 ]>
 
 <refentry>

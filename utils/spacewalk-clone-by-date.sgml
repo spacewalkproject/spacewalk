@@ -1,5 +1,4 @@
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN"
->
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN">
 <refentry>
 
 <RefMeta>
@@ -268,4 +267,3 @@ Utility for cloning errata by date (For RHEL5 and above).
 </simplelist>
 </RefSect1>
 </refentry>
-
