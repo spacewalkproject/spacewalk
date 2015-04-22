@@ -301,6 +301,26 @@ ORDER BY E.update_date, E.id
   </elaborator>
 </mode>
 
+<mode name="count_unscheduled_relevant_to_system">
+  <query params="user_id, sid">
+ SELECT COUNT(DISTINCT E.id) AS COUNT
+   FROM rhnErrata E,
+        rhnServerNeededErrataCache SNPC
+  WHERE EXISTS (SELECT server_id FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = :sid)
+    AND SNPC.server_id = :sid
+    AND SNPC.errata_id = E.id
+    AND NOT EXISTS (SELECT SA.server_id
+                      FROM rhnActionErrataUpdate AEU,
+                           rhnServerAction SA,
+                           rhnActionStatus AST
+                     WHERE SA.server_id = :sid
+                       AND SA.status = AST.id
+                       AND AST.name IN('Queued', 'Picked Up')
+                       AND AEU.action_id = SA.action_id
+                       AND AEU.errata_id = E.id )
+  </query>
+</mode>
+
 <mode name="issued_between">
   <query params="start_date_str, end_date_str">
 SELECT DISTINCT

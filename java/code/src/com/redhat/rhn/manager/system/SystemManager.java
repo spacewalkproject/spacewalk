@@ -944,12 +944,12 @@ public class SystemManager extends BaseManager {
      */
     public static boolean hasUnscheduledErrata(User user, Long sid) {
         SelectMode m = ModeFactory.getMode("Errata_queries",
-                "unscheduled_relevant_to_system");
+                "count_unscheduled_relevant_to_system");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("sid", sid);
-        DataResult dr = m.execute(params);
-        return !dr.isEmpty();
+        DataResult<Map<String, Object>> dr = makeDataResult(params, null, null, m);
+        return ((Long) dr.get(0).get("count")).intValue() > 0;
     }
 
     /**
