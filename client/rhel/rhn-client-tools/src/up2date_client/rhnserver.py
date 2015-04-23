@@ -61,9 +61,9 @@ class _DoCallWrapper(object):
 
         try:
             return rpcServer.doCall(method, *args, **kwargs)
-        except xmlrpclib.Fault, f:
-            raise self.__exception_from_fault(f), None, sys.exc_info()[2]
-        except OpenSSL.SSL.Error, e:
+        except xmlrpclib.Fault as f:
+            raise (self.__exception_from_fault(f), None, sys.exc_info()[2])
+        except OpenSSL.SSL.Error as e:
             # TODO This should probably be moved to rhnlib and raise an
             # exception that subclasses OpenSSL.SSL.Error
             # TODO Is there a better way to detect cert failures?
@@ -77,9 +77,9 @@ class _DoCallWrapper(object):
                 message = pieces[1]
             message = message.strip(" '")
             if message == 'certificate verify failed':
-                raise up2dateErrors.SSLCertificateVerifyFailedError(), None, sys.exc_info()[2]
+                raise (up2dateErrors.SSLCertificateVerifyFailedError(), None, sys.exc_info()[2])
             else:
-                raise up2dateErrors.NetworkError(message), None, sys.exc_info()[2]
+                raise (up2dateErrors.NetworkError(message), None, sys.exc_info()[2])
 
     def __exception_from_fault(self, fault):
             if fault.faultCode == -3:

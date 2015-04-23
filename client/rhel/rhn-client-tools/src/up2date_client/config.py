@@ -13,8 +13,12 @@ up2date agent to hold config info.
 import os
 import sys
 import locale
-from urlparse import urlsplit, urlunsplit
 from rhn.connections import idn_ascii_to_puny, idn_puny_to_unicode
+
+try: # python2
+    from urlparse import urlsplit, urlunsplit
+except ImportError: # python3
+    from urllib.parse import urlsplit, urlunsplit
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
@@ -151,11 +155,11 @@ class ConfigFile:
         # and fails (see #130391)
         if not os.access(self.fileName, os.R_OK):
             if not os.access(os.path.dirname(self.fileName), os.R_OK):
-                print _("%s was not found" % os.path.dirname(self.fileName))
+                print(_("%s was not found" % os.path.dirname(self.fileName)))
                 return
 
         f = open(self.fileName+'.new', "w")
-        os.chmod(self.fileName, 0600)
+        os.chmod(self.fileName, 0o600)
 
         f.write("# Automatically generated Red Hat Update Agent "\
                 "config file, do not edit.\n")
