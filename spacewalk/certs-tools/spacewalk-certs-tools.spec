@@ -2,7 +2,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.0
+Version: 2.4.1
 Release: 1%{?dist}
 URL:      https://fedorahosted.org/spacewalk 
 Source0:  https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -57,6 +57,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Fri Apr 24 2015 Matej Kollar <mkollar@redhat.com> 2.4.1-1
+- remove whitespace from .sgml files
+- Bumping package versions for 2.4.
+
 * Fri Mar 27 2015 Grant Gainey 2.3.3-1
 - tuple assignment should be list in client_config_update.py
 
