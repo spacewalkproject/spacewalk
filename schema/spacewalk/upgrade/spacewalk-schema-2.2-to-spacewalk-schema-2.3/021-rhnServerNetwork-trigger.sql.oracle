@@ -13,7 +13,16 @@
 -- in this software or its documentation. 
 --
 
-drop trigger if exists rhn_servnet_ipaddr_mon_trig;
+declare
+        e exception;
+        pragma exception_init(e,-4080);
+begin
+        execute immediate 'drop trigger rhn_servnet_ipaddr_mon_trig';
+exception
+        when e then
+                null;
+end;
+/
 
 create or replace trigger
 rhn_servernetwork_mod_trig
