@@ -159,7 +159,7 @@ class ConfigFile:
                 return
 
         f = open(self.fileName+'.new', "w")
-        os.chmod(self.fileName, 0o600)
+        os.chmod(self.fileName, int('0600', 8))
 
         f.write("# Automatically generated Red Hat Update Agent "\
                 "config file, do not edit.\n")
