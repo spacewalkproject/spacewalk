@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.4.2
+Version:	2.4.3
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Apr 24 2015 Matej Kollar <mkollar@redhat.com> 2.4.3-1
+- remove whitespace from .sgml files
+
 * Wed Apr 08 2015 Jan Dobes 2.4.2-1
 - RHEL 7 and recent Fedoras don't have hostname in /etc/sysconfig/network
 
