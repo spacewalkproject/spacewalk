@@ -97,37 +97,38 @@ class RhnCli(object):
         except KeyboardInterrupt:
             sys.stderr.write(utf8_encode(_("\nAborted.\n")))
             sys.exit(1)
-        except OSError, e:
-            sys.stderr.write(utf8_encode(_("An unexpected OS error occurred: %s\n") % e))
+        except OSError:
+            sys.stderr.write(utf8_encode(_("An unexpected OS error occurred: %s\n") % sys.exc_info()[1]))
             sys.exit(1)
-        except rpclib.MalformedURIError, e: # Subclass of IOError so must come 1st?
+        except rpclib.MalformedURIError: # Subclass of IOError so must come 1st?
+            e = sys.exc_info()[1]
             if e is None or len(str(e)) == 0:
                 sys.stderr.write(utf8_encode(_("A connection was attempted with a malformed URI.\n")))
             else:
                 sys.stderr.write(utf8_encode(_("A connection was attempted with a malformed URI: %s.\n") % e))
-        except IOError, e:
-            sys.stderr.write(utf8_encode(_("There was some sort of I/O error: %s\n") % e))
+        except IOError:
+            sys.stderr.write(utf8_encode(_("There was some sort of I/O error: %s\n") % sys.exc_info()[1]))
             sys.exit(1)
-        except SSL.Error, e:
-            sys.stderr.write(utf8_encode(_("There was an SSL error: %s\n") % e))
+        except SSL.Error:
+            sys.stderr.write(utf8_encode(_("There was an SSL error: %s\n") % sys.exc_info()[1]))
             sys.stderr.write(utf8_encode(_("A common cause of this error is the system time being incorrect. " \
                                "Verify that the time on this system is correct.\n")))
             sys.exit(1)
-        except (SSL.SysCallError, socket.error), e:
-            sys.stderr.write(utf8_encode("OpenSSL.SSL.SysCallError: %s\n" % str(e)))
+        except (SSL.SysCallError, socket.error):
+            sys.stderr.write(utf8_encode("OpenSSL.SSL.SysCallError: %s\n" % str(sys.exc_info()[1])))
             sys.exit(2)
-        except crypto.Error, e:
-            sys.stderr.write(utf8_encode(_("There was a SSL crypto error: %s\n") % e))
-        except SystemExit, e:
+        except crypto.Error:
+            sys.stderr.write(utf8_encode(_("There was a SSL crypto error: %s\n") % sys.exc_info()[1]))
+        except SystemExit:
             raise
-        except up2dateErrors.AuthenticationError, e:
-            sys.stderr.write(utf8_encode(_("There was an authentication error: %s\n") % e))
+        except up2dateErrors.AuthenticationError:
+            sys.stderr.write(utf8_encode(_("There was an authentication error: %s\n") % sys.exc_info()[1]))
             sys.exit(1)
-        except up2dateErrors.RpmError, e:
-            sys.stderr.write(utf8_encode("%s\n" % e))
+        except up2dateErrors.RpmError:
+            sys.stderr.write(utf8_encode("%s\n" % sys.exc_info()[1]))
             sys.exit(1)
-        except xmlrpclib.ProtocolError, e:
-            sys.stderr.write(utf8_encode("XMLRPC ProtocolError: %s\n" % str(e)))
+        except xmlrpclib.ProtocolError:
+            sys.stderr.write(utf8_encode("XMLRPC ProtocolError: %s\n" % str(sys.exc_info()[1]))
             sys.exit(3)
 
     def initialize(self):
@@ -150,12 +151,12 @@ class RhnCli(object):
         try:
             up2dateAuth.updateLoginInfo()
             return True
-        except up2dateErrors.ServerCapabilityError, e:
-            print e
+        except up2dateErrors.ServerCapabilityError:
+            print sys.exc_info()[1]
             return False
-        except up2dateErrors.AuthenticationError, e:
+        except up2dateErrors.AuthenticationError:
             return False
-        except up2dateErrors.RhnServerException, e:
+        except up2dateErrors.RhnServerException:
             log = up2dateLog.initLog()
             log.log_me('There was a RhnServerException while testing login:\n')
             log.log_exception(*sys.exc_info())

@@ -205,9 +205,9 @@ def doCall(method, *args, **kwargs):
             raise (up2dateErrors.CommunicationError(_(
                 "Connection aborted by the user")), None, sys.exc_info()[2])
         # if we get a socket error, keep tryingx2
-        except (socket.error, socket.sslerror) as e:
+        except (socket.error, socket.sslerror):
             log.log_me("A socket error occurred: %s, attempt #%s" % (
-                e, attempt_count))
+                sys.exc_info()[1], attempt_count))
             if attempt_count >= attempts:
                 if len(e.args) > 1:
                     raise (up2dateErrors.CommunicationError(e.args[1]), None, sys.exc_info()[2])
@@ -219,7 +219,8 @@ def doCall(method, *args, **kwargs):
             print "httplib.IncompleteRead"
             raise (up2dateErrors.CommunicationError("httplib.IncompleteRead"), None, sys.exc_info()[2])
 
-        except urllib2.HTTPError as e:
+        except urllib2.HTTPError:
+            e = sys.exc_info()[1]
             msg = "\nAn HTTP error occurred:\n"
             msg = msg + "URL: %s\n" % e.filename
             msg = msg + "Status Code: %s\n" % e.code
@@ -227,8 +228,8 @@ def doCall(method, *args, **kwargs):
             log.log_me(msg)
             raise (up2dateErrors.CommunicationError(msg), None, sys.exc_info()[2])
 
-        except xmlrpclib.ProtocolError as e:
-
+        except xmlrpclib.ProtocolError:
+            e = sys.exc_info()[1]
             log.log_me("A protocol error occurred: %s , attempt #%s," % (
                 e.errmsg, attempt_count))
             if e.errcode == 404:

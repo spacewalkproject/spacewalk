@@ -140,7 +140,8 @@ class RegisterKsCli(rhncli.RhnCli):
         except (up2dateErrors.AuthenticationTicketError,
                 up2dateErrors.RhnUuidUniquenessError,
                 up2dateErrors.CommunicationError,
-                up2dateErrors.AuthenticationOrAccountCreationError), e:
+                up2dateErrors.AuthenticationOrAccountCreationError):
+            e = sys.exc_info()[1]
             print "%s" % e.errmsg
             sys.exit(1)
 
@@ -177,7 +178,8 @@ class RegisterKsCli(rhncli.RhnCli):
             present, conf_changed = rhnreg.pluginEnable()
             if not present:
                 sys.stderr.write(rhncli.utf8_encode(_("Warning: %s is not present, could not enable it.") % PM_PLUGIN_NAME))
-        except IOError, e:
+        except IOError:
+            e = sys.exc_info()[1]
             sys.stderr.write(rhncli.utf8_encode(_("Warning: Could not open %s\n%s is not enabled.\n") % (PM_PLUGIN_CONF, PM_PLUGIN_NAME) + e.errmsg))
         RegisterKsCli.__runRhnCheck(self.options.verbose)
 

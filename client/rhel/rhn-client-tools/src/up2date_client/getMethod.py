@@ -129,7 +129,8 @@ if __name__ == '__main__':
         print "----Running method %s: " % m
         try:
             method = getMethod(m, '.', 'Actions')
-        except GetMethodException, e:
+        except GetMethodException:
+            e = sys.exc_info()[1]
             print "Error getting the method %s: %s" % (m,
                 string.join(map(str, e.args)))
         else:

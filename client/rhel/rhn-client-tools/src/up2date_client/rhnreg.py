@@ -389,7 +389,8 @@ def getAvailableChannels(username, password):
                                                  username, password,
                                                  server_arch, server_version,
                                                  server_release)
-    except xmlrpclib.Fault, f:
+    except xmlrpclib.Fault:
+        f = sys.exc_info()[1]
         if f.faultCode == 99:
             raise up2dateErrors.DelayError(f.faultString), None, sys.exc_info()[2]
         else:

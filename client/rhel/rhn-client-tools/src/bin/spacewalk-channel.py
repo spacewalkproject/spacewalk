@@ -133,14 +133,16 @@ def get_available_channels(user, password):
     client = rhnserver.RhnServer(serverOverride=modified_servers)
     try:
         key = client.auth.login(user, password)
-    except xmlrpclib.Fault, exc:
+    except xmlrpclib.Fault:
+        exc = sys.exc_info()[1]
         systemExit(1, "Error during client authentication: %s" % exc.faultString)
 
     system_id = re.sub('^ID-', '', rpclib.xmlrpclib.loads(up2dateAuth.getSystemId())[0][0]['system_id'])
     result = []
     try:
         channels = client.system.listChildChannels(key, int(system_id))
-    except xmlrpclib.Fault, exc:
+    except xmlrpclib.Fault:
+        exc = sys.exc_info()[1]
         systemExit(1, "Error when listing child channels: %s" % exc.faultString)
 
     for channel in channels:
@@ -231,9 +233,9 @@ if __name__ == '__main__':
         main()
     except KeyboardInterrupt:
         systemExit(0, "\n" + _("User interrupted process."))
-    except up2dateErrors.RhnServerException, e:
+    except up2dateErrors.RhnServerException:
         # do not print traceback, it will scare people
-        systemExit(1, e)
+        systemExit(1, sys.exc_info()[1])
 else:
     # If you need some code from here, separate it to some proper place...
     raise ImportError('This was never supposed to be used as a library')

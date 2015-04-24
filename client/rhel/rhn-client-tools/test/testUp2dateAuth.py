@@ -62,7 +62,7 @@ class TestMaybeUpdateVersion(unittest.TestCase):
         self.cfg['versionOverride'] = "1000000"
         try:
             ret = up2dateAuth.maybeUpdateVersion()
-        except up2dateErrors.CommunicationError, e:
+        except up2dateErrors.CommunicationError:
             pass
         else:
             self.fail("Excepted to get a Communication Error indicating unknown version")
@@ -72,7 +72,7 @@ class TestMaybeUpdateVersion(unittest.TestCase):
         self.cfg['versionOverride'] = ".1"
         try:
             ret = up2dateAuth.maybeUpdateVersion()
-        except up2dateErrors.CommunicationError, e:
+        except up2dateErrors.CommunicationError:
             pass
         else:
             self.fail("Excepted to get a Communication Error indicating unknown version")

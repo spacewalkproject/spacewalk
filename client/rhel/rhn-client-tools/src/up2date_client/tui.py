@@ -84,18 +84,20 @@ def tui_call_wrapper(screen, func, *params):
 
     try:
         results = func(*params)
-    except up2dateErrors.CommunicationError, e:
+    except up2dateErrors.CommunicationError:
         ErrorWindow(screen, HOSTED_CONNECTION_ERROR % config.getServerlURL()[0])
-        raise e
-    except up2dateErrors.SSLCertificateVerifyFailedError, e:
+        raise sys.exc_info()[1]
+    except up2dateErrors.SSLCertificateVerifyFailedError:
         ErrorWindow(screen, e.errmsg)
-        raise e
-    except up2dateErrors.NoBaseChannelError, e:
+        raise sys.exc_info()[1]
+    except up2dateErrors.NoBaseChannelError:
+        e = sys.exc_info()[1]
         FatalErrorWindow(screen, e.errmsg + '\n' +
                          BASECHANNELERROR % (up2dateUtils.getArch(),
                                              up2dateUtils.getOSRelease(),
                                              up2dateUtils.getVersion()))
-    except up2dateErrors.SSLCertificateFileNotFound, e:
+    except up2dateErrors.SSLCertificateFileNotFound:
+        e = sys.exc_info()[1]
         ErrorWindow(screen, e.errmsg + '\n\n' +
                          SSL_CERT_FILE_NOT_FOUND_ERRER)
         raise e
@@ -532,11 +534,13 @@ class InfoWindow:
 
         try:
             self.tui.alreadyRegistered = rhnreg.reserveUser(self.userNameEntry.value(), self.passwordEntry.value())
-        except up2dateErrors.ValidationError, e:
+        except up2dateErrors.ValidationError:
+            e = sys.exc_info()[1]
             snack.ButtonChoiceWindow(self.screen, _("Error").encode('utf-8'), _("The server indicated an error:\n").encode('utf-8') + e.errmsg.encode('utf-8'), buttons = [_("OK").encode('utf-8')])
             self.g.setCurrent(self.userNameEntry)
             return 0
-        except up2dateErrors.CommunicationError,e:
+        except up2dateErrors.CommunicationError:
+            e = sys.exc_info()[1]
             FatalErrorWindow(self.screen, _("There was an error communicating with the registration server:\n") + e.errmsg)
         return 1
 
@@ -980,19 +984,23 @@ class SendingWindow:
             else:
                 systemId = reg_info['system_id']
 
-        except up2dateErrors.CommunicationError, e:
+        except up2dateErrors.CommunicationError:
+            e = sys.exc_info()[1]
             FatalErrorWindow(self.screen,
                              _("Problem registering system:\n") + e.errmsg)
-        except up2dateErrors.RhnUuidUniquenessError, e:
+        except up2dateErrors.RhnUuidUniquenessError:
+            e = sys.exc_info()[1]
             FatalErrorWindow(self.screen,
                              _("Problem registering system:\n") + e.errmsg)
-        except up2dateErrors.InsuffMgmntEntsError, e:
+        except up2dateErrors.InsuffMgmntEntsError:
+            e = sys.exc_info()[1]
             FatalErrorWindow(self.screen,
                              _("Problem registering system:\n") + e.errmsg)
-        except up2dateErrors.RegistrationDeniedError, e:
+        except up2dateErrors.RegistrationDeniedError:
+            e = sys.exc_info()[1]
             FatalErrorWindow(self.screen,
                              _("Problem registering system:\n") + e.errmsg)
-        except up2dateErrors.ActivationKeyUsageLimitError, e:
+        except up2dateErrors.ActivationKeyUsageLimitError:
             FatalErrorWindow(self.screen,
                              ACT_KEY_USAGE_LIMIT_ERROR)
         except:
@@ -1015,7 +1023,8 @@ class SendingWindow:
         if self.tui.includeHardware:
             try:
                 rhnreg.sendHardware(systemId, self.tui.hardware)
-            except up2dateErrors.CommunicationError, e:
+            except up2dateErrors.CommunicationError:
+                e = sys.exc_info()[1]
                 FatalErrorWindow(self.screen,
                                  _("Problem sending hardware profile:\n") + e.errmsg)
             except:
@@ -1029,7 +1038,8 @@ class SendingWindow:
         if self.tui.includePackages:
             try:
                 rhnreg.sendPackages(systemId, self.tui.selectedPackages)
-            except up2dateErrors.CommunicationError, e:
+            except up2dateErrors.CommunicationError:
+                e = sys.exc_info()[1]
                 FatalErrorWindow(self.screen, _("Problem sending package list:\n") + e.errmsg)
             except:
                 log.log_exception(*sys.exc_info())
@@ -1038,8 +1048,8 @@ class SendingWindow:
         li = None
         try:
             li = up2dateAuth.updateLoginInfo()
-        except up2dateErrors.InsuffMgmntEntsError, e:
-            FatalErrorWindow(self.screen, e)
+        except up2dateErrors.InsuffMgmntEntsError:
+            FatalErrorWindow(self.screen, sys.exc_info()[1])
 
         # Send virtualization information to the server.
         rhnreg.sendVirtInfo(systemId)
@@ -1047,7 +1057,8 @@ class SendingWindow:
         # enable yum-rhn-plugin / dnf-plugin-spacewalk
         try:
             self.tui.pm_plugin_present, self.tui.pm_plugin_conf_changed = rhnreg.pluginEnable()
-        except IOError, e:
+        except IOError:
+            e = sys.exc_info()[1]
             WarningWindow(self.screen, _("Could not open %s\n%s is not enabled.\n") % (PM_PLUGIN_CONF, PM_PLUGIN_NAME) + e.errmsg)
             self.tui.pm_plugin_conf_error = 1
 

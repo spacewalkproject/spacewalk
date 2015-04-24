@@ -103,7 +103,8 @@ class CheckCli(rhncli.RhnCli):
                 ACTION_VERSION, status_report)
 
             return action
-        except xmlrpclib.Fault, f:
+        except xmlrpclib.Fault:
+            f = sys.exc_info()[1]
             if f.faultCode == -31:
                 raise up2dateErrors.InsuffMgmntEntsError(f.faultString), None, sys.exc_info()[2]
             else:
@@ -123,12 +124,12 @@ class CheckCli(rhncli.RhnCli):
             print "Could not retrieve action from %s.\n"\
                   "Possible networking problem?" % str(self.server)
             sys.exit(-1)
-        except up2dateErrors.ServerCapabilityError, e:
-            print e
+        except up2dateErrors.ServerCapabilityError:
+            print sys.exc_info()[1]
             sys.exit(1)
-        except SSL.Error, e:
+        except SSL.Error:
             print "ERROR: SSL errors detected"
-            print "%s" % e
+            print "%s" % sys.exc_info()[1]
             sys.exit(-1)
 
     def __query_future_actions(self, time_window):
@@ -136,7 +137,8 @@ class CheckCli(rhncli.RhnCli):
             actions = self.server.queue.get_future_actions(up2dateAuth.getSystemId(),
                 time_window)
             return actions
-        except xmlrpclib.Fault, f:
+        except xmlrpclib.Fault:
+            f = sys.exc_info()[1]
             if f.faultCode == -31:
                 raise up2dateErrors.InsuffMgmntEntsError(f.faultString), None, sys.exc_info()[2]
             else:
@@ -156,12 +158,12 @@ class CheckCli(rhncli.RhnCli):
             print "Could not retrieve action from %s.\n"\
                   "Possible networking problem?" % str(self.server)
             sys.exit(-1)
-        except up2dateErrors.ServerCapabilityError, e:
-            print e
+        except up2dateErrors.ServerCapabilityError:
+            print sys.exc_info()[1]
             sys.exit(1)
-        except SSL.Error, e:
+        except SSL.Error:
             print "ERROR: SSL errors detected"
-            print "%s" % e
+            print "%s" % sys.exc_info()[1]
             sys.exit(-1)
 
     def __fetch_future_action(self, action):
@@ -189,8 +191,8 @@ class CheckCli(rhncli.RhnCli):
             if self.is_valid_action(action):
                 try:
                     up2dateAuth.updateLoginInfo()
-                except up2dateErrors.ServerCapabilityError, e:
-                    print e
+                except up2dateErrors.ServerCapabilityError:
+                    print sys.exc_info()[1]
                     sys.exit(1)
                 self.handle_action(action)
 
@@ -202,8 +204,8 @@ class CheckCli(rhncli.RhnCli):
         # do we actually want to validte here?
         try:
             caps.validate()
-        except up2dateErrors.ServerCapabilityError, e:
-            print e
+        except up2dateErrors.ServerCapabilityError:
+            print sys.exc_info()[1]
             sys.exit(1)
 
     def __parse_action_data(self, action):
@@ -225,7 +227,8 @@ class CheckCli(rhncli.RhnCli):
         try:
             ret = self.server.queue.submit(up2dateAuth.getSystemId(),
                                       action_id, status, message, data)
-        except xmlrpclib.Fault, f:
+        except xmlrpclib.Fault:
+            f = sys.exc_info()[1]
             print "Could not submit results to server %s" % self.server
             print "Error code: %d%s" % (f.faultCode, f.faultString)
             sys.exit(-1)
@@ -302,8 +305,8 @@ class CheckCli(rhncli.RhnCli):
     def __update_system_id():
         try:
             up2dateAuth.maybeUpdateVersion()
-        except up2dateErrors.CommunicationError, e:
-            print e
+        except up2dateErrors.CommunicationError:
+            print sys.exc_info()[1]
             sys.exit(1)
 
     @staticmethod
@@ -387,7 +390,7 @@ class CheckCli(rhncli.RhnCli):
         lock = None
         try:
             lock = rhnLockfile.Lockfile('/var/run/rhn_check.pid')
-        except rhnLockfile.LockfileLockedException, e:
+        except rhnLockfile.LockfileLockedException:
             sys.stderr.write(rhncli.utf8_encode(_("Attempting to run more than one instance of rhn_check. Exiting.\n")))
             sys.exit(0)
 

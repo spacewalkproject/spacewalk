@@ -745,9 +745,9 @@ def get_hal_system_and_smbios():
         else:
             computer = get_hal_computer()
             props = computer.GetAllProperties()
-    except Exception, e:
+    except Exception:
         log = up2dateLog.initLog()
-        msg = "Error reading system and smbios information: %s\n" % (e)
+        msg = "Error reading system and smbios information: %s\n" % (sys.exc_info()[1])
         log.log_debug(msg)
         return {}
     system_and_smbios = {}
