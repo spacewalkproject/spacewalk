@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 
-drop trigger if exists rhn_servnet_ipaddr_mon_trig;
+drop trigger rhn_servnet_ipaddr_mon_trig;
 
 create or replace trigger
 rhn_servernetwork_mod_trig
