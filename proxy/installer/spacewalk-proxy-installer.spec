@@ -6,7 +6,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.4.0
+Version: 2.4.1
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -98,6 +98,10 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Fri Apr 24 2015 Matej Kollar <mkollar@redhat.com> 2.4.1-1
+- remove whitespace from .sgml files
+- Bumping package versions for 2.4.
+
 * Mon Mar 23 2015 Grant Gainey 2.3.13-1
 - Standardize pylint-check to only happen on Fedora
 
