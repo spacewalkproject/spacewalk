@@ -20,21 +20,24 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.ChannelOverview;
+import com.redhat.rhn.frontend.dto.ChannelTreeNode;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
+
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -75,31 +78,44 @@ public class CloneChannelAction extends RhnAction {
 
         // create the channel tree for the drop down box.
         // only subscribable channels should be shown.
-        // Currently channels that are subscribable but owned by other orgs
-        // are not included. Is this correct? For now I'll do a straight port
-        // from perl and keep the behavior the same.
         Set<Long> subscribableCids = ChannelManager.subscribableChannelIdsForUser(user);
 
         List<Map<String, String>> channels = new ArrayList<Map<String, String>>();
+        Map<String, Long> nameToId = new HashMap<String, Long>();
+        Map<Long, TreeSet<String>> parentToChildren = new HashMap<Long, TreeSet<String>>();
+        TreeSet<String> parents = new TreeSet<String>();
 
-        for (ChannelOverview base : ChannelManager.listBaseChannelsForOrg(org)) {
-            if (!subscribableCids.contains(base.getId())) {
+        List<ChannelTreeNode> channelTree = ChannelManager.allChannelTree(user, null);
+        // add all parents
+        for (ChannelTreeNode channel : channelTree) {
+            if (!subscribableCids.contains(channel.getId()) || !channel.isParent()) {
                 continue;
             }
+            nameToId.put(channel.getName(), channel.getId());
+            parents.add(channel.getName());
+            parentToChildren.put(channel.getId(), new TreeSet<String>());
+        }
 
-            addOption(channels, base.getName(), base.getId().toString());
+        // add all children
+        for (ChannelTreeNode channel : channelTree) {
+            if (!subscribableCids.contains(channel.getId()) || channel.isParent()) {
+                continue;
+            }
+            nameToId.put(channel.getName(), channel.getId());
+            parentToChildren.get(channel.getParentId()).add(channel.getName());
+        }
 
-            for (ChannelOverview child : ChannelManager.listChildChannelsForOrgAndBase(org,
-                    base.getId())) {
-                if (!subscribableCids.contains(child.getId())) {
-                    continue;
-                }
-
+        // construct channel tree (string TreeSets are alphabetically ordered)
+        for (String parentName : parents) {
+            Long parentId = nameToId.get(parentName);
+            addOption(channels, parentName, parentId.toString());
+            for (String childName : parentToChildren.get(parentId)) {
                 // indent a few spaces for child channels
-                addOption(channels, "&nbsp;&nbsp;&nbsp;" + child.getName(), child.getId()
-                        .toString());
+                addOption(channels, "&nbsp;&nbsp;&nbsp;" + childName, nameToId.get(
+                        childName).toString());
             }
         }
+
         ctx.getRequest().setAttribute("channels", channels);
         // set default radio button
         form.set(EditChannelAction.CLONE_TYPE, CURRENT);

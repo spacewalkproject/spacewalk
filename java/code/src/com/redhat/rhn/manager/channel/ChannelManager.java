@@ -705,34 +705,6 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
-     * list of base channels visible to the org
-     * @param org Org to check
-     * @return List of Base ChannelOverviews visible to the org
-     */
-    public static List<ChannelOverview> listBaseChannelsForOrg(Org org) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", "list_base_channels_for_org");
-        Map<String, Long> params = new HashMap<String, Long>();
-        params.put("org_id", org.getId());
-        return m.execute(params);
-    }
-
-    /**
-     * list of child channels visible to the org for a given base channel
-     * @param org Org to check
-     * @param baseId Cid of the base channel
-     * @return List of Child ChannelOverviews visible to the org
-     */
-    public static List<ChannelOverview>
-            listChildChannelsForOrgAndBase(Org org, Long baseId) {
-        SelectMode m = ModeFactory.getMode("Channel_queries",
-                "list_child_channels_for_org_and_base");
-        Map<String, Long> params = new HashMap<String, Long>();
-        params.put("org_id", org.getId());
-        params.put("base_id", baseId);
-        return m.execute(params);
-    }
-
-    /**
      * returns a list of channel ids that the user can subscribe to
      * @param user User to check
      * @return List of all channel ids that are subscribable for this user
