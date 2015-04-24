@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.7
+Version: 2.4.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -770,6 +770,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 24 2015 Stephen Herr <sherr@redhat.com> 2.4.8-1
+- 1207816 - You should be able to clone channels shared from other orgs
+
 * Wed Apr 22 2015 Stephen Herr <sherr@redhat.com> 2.4.7-1
 - 1214437 - improve system overview list performance
 
