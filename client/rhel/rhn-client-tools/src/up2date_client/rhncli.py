@@ -128,7 +128,7 @@ class RhnCli(object):
             sys.stderr.write(utf8_encode("%s\n" % sys.exc_info()[1]))
             sys.exit(1)
         except xmlrpclib.ProtocolError:
-            sys.stderr.write(utf8_encode("XMLRPC ProtocolError: %s\n" % str(sys.exc_info()[1]))
+            sys.stderr.write(utf8_encode("XMLRPC ProtocolError: %s\n" % str(sys.exc_info()[1])))
             sys.exit(3)
 
     def initialize(self):
