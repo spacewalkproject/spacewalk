@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.3.43
+Version:        2.3.44
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Apr 27 2015 Grant Gainey 2.3.44-1
+- Update 021 postgres to new oracle sha1
+
 * Mon Apr 27 2015 Grant Gainey 2.3.43-1
 - 1215151 - Update 021-rhnServerNetwork-trigger.sql.oracle
 
