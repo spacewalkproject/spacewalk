@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.4.2
+Version:        2.4.3
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Apr 27 2015 Grant Gainey 2.4.3-1
+- 1215151 - Update 021-rhnServerNetwork-trigger.sql.oracle
+
 * Thu Apr 02 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.2-1
 - Oracle alter table xxx add column syntax differs from PostgreSQL one
 
