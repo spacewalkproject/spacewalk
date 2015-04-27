@@ -41,7 +41,7 @@ cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk.repo <<REPO
 [spacewalk]
 name=Spacewalk
 baseurl=http://yum.spacewalkproject.org/%{version}/%{reposubdir}/\$basearch/
-gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2015
+gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2014
 enabled=1
 gpgcheck=1
 REPO
@@ -50,7 +50,7 @@ cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-client.repo <<REPO
 [spacewalk-client]
 name=Spacewalk Client Tools
 baseurl=http://yum.spacewalkproject.org/%{version}-client/%{reposubdir}/\$basearch/
-gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2015
+gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2014
 enabled=1
 gpgcheck=1
 REPO
@@ -59,7 +59,7 @@ cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-source.repo <<REPO
 [spacewalk-source]
 name=Spacewalk SRPMS
 baseurl=http://yum.spacewalkproject.org/%{version}/%{reposubdir}/source/
-gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2015
+gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2014
 enabled=0
 gpgcheck=1
 REPO
@@ -68,7 +68,7 @@ cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-nightly.repo <<REPO
 [spacewalk-nightly]
 name=Spacewalk nightly
 baseurl=http://yum.spacewalkproject.org/nightly/%{reposubdir}/\$basearch/
-gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2015
+gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2014
 enabled=0
 gpgcheck=0
 REPO
@@ -77,7 +77,7 @@ cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo <<
 [spacewalk-client-nightly]
 name=Spacewalk Client Tools nightly
 baseurl=http://yum.spacewalkproject.org/nightly-client/%{reposubdir}/\$basearch/
-gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2015
+gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2014
 enabled=0
 gpgcheck=0
 REPO
@@ -128,7 +128,7 @@ rm -rf $RPM_BUILD_ROOT
 - replace legacy name of Tagger with new one
 
 * Mon Mar 04 2013 Stephen Herr <sherr@redhat.com> 1.10-1
-- 
+-
 
 * Wed Oct 31 2012 Jan Pazdziora 1.9-1
 - Bumping up version.
