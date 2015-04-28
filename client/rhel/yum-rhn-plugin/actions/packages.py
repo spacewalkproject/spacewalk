@@ -337,7 +337,7 @@ def update(package_list, cache_only=None):
             pkgkeys['arch'] = None
 
         if pkgkeys['epoch'] == '':
-            pkgkeys['epoch'] = '0'
+            pkgkeys['epoch'] = None
 
         pkgs = yum_base.rpmdb.searchNevra(name=pkgkeys['name'], arch=pkgkeys['arch'])
         evr  = yum.packages.PackageEVR(pkgkeys['epoch'], pkgkeys['version'], pkgkeys['release'])
