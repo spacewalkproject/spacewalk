@@ -75,6 +75,7 @@ import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.taskomatic.TaskomaticApi;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
+import com.redhat.rhn.taskomatic.task.errata.ErrataCacheWorker;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -1420,6 +1421,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
             List<Long> cids = new ArrayList<Long>();
             cids.add(channel.getId());
             ErrataCacheManager.insertCacheForChannelPackagesAsync(cids, packagesToRemove);
+
         }
 
         return 1;
@@ -1746,7 +1748,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
             inParams = new HashMap<String, Object>();
             inParams.put("org_id", org.getId());
-            inParams.put("task_name", "update_errata_cache_by_channel");
+            inParams.put("task_name", ErrataCacheWorker.BY_CHANNEL);
             inParams.put("task_data", channel.getId());
             inParams.put("earliest", new Timestamp(System.currentTimeMillis() + delay));
 
@@ -2243,7 +2245,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
         ChannelManager.queueChannelChange(mergeTo.getLabel(), "java::mergePackages",
             loggedInUser.getLogin());
 
-
         List<Long> cids = new ArrayList<Long>();
         cids.add(mergeTo.getId());
         ErrataCacheManager.insertCacheForChannelPackagesAsync(cids, pids);
@@ -2259,7 +2260,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.doc Completely clear and regenerate the needed Errata and Package
      *      cache for all systems subscribed to the specified channel.  This should
      *      be used only if you believe your cache is incorrect for all the systems
-     *      in a given channel.
+     *      in a given channel. This will schedule an asynchronous action to actually
+     *      do the processing.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "the label of the
      *          channel")
@@ -2282,7 +2284,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *
      * @xmlrpc.doc Completely clear and regenerate the needed Errata and Package
      *      cache for all systems subscribed.  You must be a Satellite Admin to
-     *      perform this action.
+     *      perform this action. This will schedule an asynchronous action to
+     *      actually do the processing.
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype  #return_int_success()
      *

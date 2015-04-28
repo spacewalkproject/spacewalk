@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.task.Task;
 import com.redhat.rhn.domain.task.TaskFactory;
+import com.redhat.rhn.taskomatic.task.errata.ErrataCacheWorker;
 
 import org.apache.commons.collections.IteratorUtils;
 
@@ -38,7 +39,6 @@ public class TaskScheduler {
 
     //Name for tasks that were scheduled by channel. Goes in the TASK_NAME column
     //in the rhnTaskQueue table in the db.
-    private static final String CHANNELNAME = "update_errata_cache_by_channel";
     private static final int DELAY = 1000 * 60 * 10; //10 minute delay in milliseconds
 
     /**
@@ -77,9 +77,11 @@ public class TaskScheduler {
             Channel channel = (Channel) itr.next();
 
             //Look to see if task already exists...
-            Task task = TaskFactory.lookup(org, CHANNELNAME, channel.getId());
+            Task task = TaskFactory.lookup(org, ErrataCacheWorker.BY_CHANNEL, channel
+                    .getId());
             if (task == null) { //if not, create a new task
-                task = TaskFactory.createTask(org, CHANNELNAME, channel.getId());
+                task = TaskFactory.createTask(org, ErrataCacheWorker.BY_CHANNEL, channel
+                        .getId());
             }
             else { //if so, update the earliest column
                 task.setEarliest(new Date(System.currentTimeMillis() + DELAY));

@@ -179,8 +179,6 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
      */
     public void updateErrataCacheForChannel(Long cid) {
         log.info("Updating errata cache for servers in channel [" + cid + "]");
-        // get list of serverid for channel
-        // for each call internalUpdateerrataCacheForServer
         try {
             ErrataCacheManager.updateErrataAndPackageCacheForChannel(cid);
         }

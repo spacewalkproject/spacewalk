@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.task;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.taskomatic.task.errata.ErrataCacheWorker;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -97,7 +98,7 @@ public class TaskFactory extends HibernateFactory {
     }
 
     /**
-     * Gets the list of tasks with "update_errata_cache_by_channel" for their name attr.
+     * Gets the list of "update errata cache for channel" tasks.
      * @param org The org containing the tasks
      * @return Returns a list of task objects
      */
@@ -105,7 +106,7 @@ public class TaskFactory extends HibernateFactory {
         Session session = HibernateFactory.getSession();
         return session.getNamedQuery("Task.lookupByOrgAndName")
                       .setEntity("org", org)
-                      .setString("name", "update_errata_cache_by_channel")
+                      .setString("name", ErrataCacheWorker.BY_CHANNEL)
                       .list();
     }
 

@@ -32,7 +32,7 @@ import java.util.Map;
  * Performs errata cache recalc for a given server or channel
  * @version $Rev $
  */
-class ErrataCacheWorker implements QueueWorker {
+public class ErrataCacheWorker implements QueueWorker {
 
     public static final String BY_CHANNEL = "update_errata_cache_by_channel";
     public static final String FOR_SERVER = "update_server_errata_cache";
