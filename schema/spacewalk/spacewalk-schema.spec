@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.4.4
+Version:        2.4.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Apr 29 2015 Stephen Herr <sherr@redhat.com> 2.4.5-1
+- 1215671 - move auto-errata updates into separate taskomatic task
+
 * Mon Apr 27 2015 Grant Gainey 2.4.4-1
 - Update 021 postgres to new oracle sha1
 
