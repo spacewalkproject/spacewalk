@@ -15,19 +15,10 @@
 package com.redhat.rhn.taskomatic.task.errata;
 
 import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.domain.action.ActionFactory;
-import com.redhat.rhn.domain.action.ActionStatus;
-import com.redhat.rhn.domain.action.errata.ErrataAction;
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.org.OrgFactory;
-import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
 import com.redhat.rhn.taskomatic.task.threaded.TaskQueue;
@@ -35,11 +26,15 @@ import com.redhat.rhn.taskomatic.task.threaded.TaskQueue;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
- * Processes an errata for a single org
+ * This task used to both schedule auto errata updates and schedule errata
+ * notifications for the Errata Mailer task to pick up. Now auto errata updates
+ * have been moved out to the AutoErrataTask, so it just is basically a gatekeeper
+ * that ensures that the yum metadata has been regenerated and that the errata cache
+ * has already been updated before scheduling the errata notifications.
+ * TODO: consolidate this job with Errata Mailer.
  * ErrataQueueWorker
  * @version $Rev$
  */
@@ -62,26 +57,6 @@ class ErrataQueueWorker implements QueueWorker {
         try {
             parentQueue.workerStarting();
             markInProgress();
-            ActionStatus queuedStatus = lookupQueuedStatus();
-            try {
-                Errata errata = loadErrata();
-                Channel channel = ChannelFactory.lookupById(channelId);
-                if (errata == null || channel == null) {
-                    logger.error("Either errata or channel is null, " +
-                            "skipping ErrataQueue. (" + errataId + ", " + channelId + ")");
-                }
-                else {
-                    scheduleAutoUpdates(errata, queuedStatus, channel);
-                }
-            }
-            catch (Exception e) {
-                logger.error("Errata: " + errataId + ", Org Id: " + orgId, e);
-                return;
-            }
-            if (logger.isDebugEnabled()) {
-                logger.debug("Scheduling autoupdate actions for errata " +
-                        errataId.longValue());
-            }
             if (logger.isDebugEnabled()) {
                 logger.debug("Processing errata queue for " +
                         errataId.longValue());
@@ -141,64 +116,6 @@ class ErrataQueueWorker implements QueueWorker {
 
     private Errata loadErrata() throws Exception {
         return ErrataFactory.lookupById(new Long(errataId.longValue()));
-    }
-
-    private void scheduleAutoUpdates(Errata errata,
-                ActionStatus queuedStatus, Channel chan) throws Exception {
-        logger.debug("Scheduling auto updates for " + errata.getAdvisoryName() + "(" +
-                errata.getId() + ")");
-        HibernateFactory.getSession();
-        SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
-                TaskConstants.TASK_QUERY_ERRATA_QUEUE_FIND_AUTOUPDATE_SERVERS);
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("channel_id", chan.getId());
-        params.put("errata_id", errata.getId());
-        @SuppressWarnings("unchecked")
-        List<Map<String, Long>> results = select.execute(params);
-        if (results == null || results.size() == 0) {
-            if (logger.isDebugEnabled()) {
-                logger.debug("No autoupdate servers found for errata " +
-                        errata.getId());
-            }
-            return;
-        }
-        else if (logger.isDebugEnabled()) {
-            logger.debug("Found " + results.size() + " autoupdate servers for " +
-                    "errata " + errata.getId());
-        }
-
-        for (Map<String, Long> row : results) {
-            Long serverId = row.get("server_id");
-            Long serverOrgId = row.get("org_id");
-            Org org = OrgFactory.lookupById(serverOrgId);
-            // Only schedule an Auto Update if the server supports the
-            // feature.  We originally calculated this in the driving
-            // query but it wasn't performant.
-            if (logger.isDebugEnabled()) {
-                logger.debug("Scheduling auto update for Errata: " +
- errata.getId() +
-                        ", Server: " + serverId + ", Org: " + serverOrgId);
-            }
-            ErrataAction errataAction = ActionManager.
-                createErrataAction(org, errata);
-            ActionManager.addServerToAction(serverId, errataAction);
-            ActionManager.storeAction(errataAction);
-            HibernateFactory.commitTransaction();
-            HibernateFactory.closeSession();
-        }
-        HibernateFactory.commitTransaction();
-        HibernateFactory.closeSession();
-
-    }
-
-    private ActionStatus lookupQueuedStatus() {
-        ActionStatus queuedStatus = ActionFactory.STATUS_QUEUED;
-        if (queuedStatus != null) {
-            return queuedStatus;
-        }
-        logger.error("Couldn't locate \"queued\" action status");
-        return null;
-
     }
 
     public void setParentQueue(TaskQueue queue) {

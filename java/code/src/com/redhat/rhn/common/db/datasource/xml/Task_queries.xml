@@ -1,5 +1,36 @@
 <datasource_modes>
 
+<mode name="auto_errata_candidates">
+  <query>
+select distinct s.id as server_id, s.org_id, snc.errata_id
+  from rhnServer s,
+       rhnServerFeaturesView sfv,
+       rhnServerNeededCache snc,
+       rhnServerChannel sc,
+       rhnChannel c,
+       rhnChannelErrata ce
+ where upper(s.auto_update) = 'Y'
+   and s.id = sfv.server_id
+   and sfv.label = 'ftr_auto_errata_updates'
+   and s.id = snc.server_id
+   and s.id = sc.server_id
+   and sc.channel_id = c.id
+   and c.id = ce.channel_id
+   and ce.errata_id = snc.errata_id
+   and not exists ( -- not regenerating channel metadata
+       select 1
+         from rhnRepoRegenQueue rrq
+        where rrq.channel_label = c.label)
+   and not exists ( -- haven't already scheduled action
+       select 1
+         from rhnServerAction sa,
+              rhnActionErrataUpdate aeu
+        where s.id = sa.server_id
+          and sa.action_id = aeu.action_id
+          and aeu.errata_id = snc.errata_id)
+  </query>
+</mode>
+
 <!-- threshold must be in minutes -->
 <mode name="errataqueue_find_candidates">
   <query>
@@ -147,22 +178,6 @@ SELECT DISTINCT
          AND channel_id = :channel_id
    </query>
 </write-mode>
-
-
-<mode name="errataqueue_find_autoupdate_servers">
-  <query params="errata_id, channel_id">
-select distinct s.id as server_id , s.org_id
-  from rhnServerNeededCache snc
-  join rhnServer s
-    on s.id = snc.server_id
- where snc.channel_id = :channel_id
-   and snc.errata_id = :errata_id
-   and upper(s.auto_update) = 'Y'
-   and exists (select 1 from rhnServerFeaturesView sfv
-                where sfv.server_id = S.id and sfv.label = 'ftr_auto_errata_updates')
-order by s.org_id
-  </query>
-</mode>
 
 <mode name="repomd_driver_query">
   <query>

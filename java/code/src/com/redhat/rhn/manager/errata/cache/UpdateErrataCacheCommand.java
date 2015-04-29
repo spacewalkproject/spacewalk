@@ -20,24 +20,14 @@ import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.domain.action.errata.ErrataAction;
-import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.frontend.dto.ErrataCacheDto;
 import com.redhat.rhn.manager.BaseTransactionCommand;
-import com.redhat.rhn.manager.action.ActionManager;
-import com.redhat.rhn.manager.errata.ErrataManager;
-import com.redhat.rhn.manager.system.SystemManager;
-
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -96,7 +86,7 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
                 log.debug("Working on server [" + sid.toString() + "]");
             }
             Long serverId = new Long(sid.longValue());
-            processServer(serverId, org);
+            processServer(serverId);
             handleTransaction();
         }
 
@@ -109,18 +99,16 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
     /**
      * Updates the errata cache for the given server.
      * @param serverId Server id which needs to get updated.
-     * @param orgId Org id which owns the server
      * @param commit commit the database transaction when complete
      * @return Map of results formatted like so:
      * Key: 'errata'   Value: list of erratas added
      * Key: 'packages' Value: list of packages added
      */
-    public Map updateErrataCacheForServer(Long serverId, Long orgId, boolean commit) {
+    public Map updateErrataCacheForServer(Long serverId, boolean commit) {
         log.info("Updating errata cache for server [" + serverId + "]");
         Map changes = null;
         try {
-            Org org = OrgFactory.lookupById(orgId);
-            processServer(serverId, org);
+            processServer(serverId);
         }
         catch (Exception e) {
             log.error("Problem updating cache for server", e);
@@ -192,92 +180,12 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
         log.info("Finished with servers in channel [" + cid + "]");
     }
 
-    private Map internalUpdateErrataCacheForServer(Long serverId) {
-
-        // let's avoid the dreaded nullpointer
-        if (serverId == null) {
-            return null;
-        }
-
-        if (log.isDebugEnabled()) {
-            log.debug("internalUpdateErrataCacheForServer - sid: " + serverId);
-        }
-
-        DataResult pkgs = ErrataCacheManager.packagesNeedingUpdates(serverId);
-
+    private void processServer(Long serverId) {
         CallableMode m = ModeFactory.getCallableMode(
                 "System_queries", "update_needed_cache");
         Map inParams = new HashMap();
         inParams.put("server_id", serverId);
 
         m.execute(inParams, new HashMap());
-
-        DataResult newpkgs = ErrataCacheManager.packagesNeedingUpdates(serverId);
-
-        if (log.isDebugEnabled()) {
-            log.debug("newpkgs: " + newpkgs);
-            log.debug("Packages: " + pkgs);
-        }
-
-        List pAdded = new ArrayList();
-
-
-        // get list of new packages
-        Iterator itr = null;
-        for (itr = newpkgs.iterator(); itr.hasNext();) {
-            ErrataCacheDto ecd = (ErrataCacheDto) itr.next();
-            if (log.isDebugEnabled()) {
-                log.debug("newpkgs  - processing ErrataCacheDto: " + ecd.getErrataId());
-            }
-
-            if (!pkgs.contains(ecd)) {
-                log.debug("pkgs doesn't contain current ecd");
-                pAdded.add(ecd);
-            }
-        }
-
-        Map retval = new HashMap();
-        if (!pAdded.isEmpty()) {
-            retval.put("packages", new LinkedList(pAdded));
-        }
-
-        if (log.isDebugEnabled()) {
-            log.debug("retval: " + retval);
-        }
-        return retval;
-
-    }
-
-    private void processServer(Long serverId, Org org) {
-        Server server = SystemManager.lookupByIdAndOrg(serverId, org);
-        Map changes = internalUpdateErrataCacheForServer(serverId);
-        log.debug("Scheduling auto errata updates for server [" + serverId + "]");
-        if (SystemManager.serverHasFeature(serverId, "ftr_auto_errata_updates") &&
-                server.getAutoUpdate() != null &&
-                server.getAutoUpdate().equalsIgnoreCase("y")) {
-            scheduleAutoUpdates(serverId, org, changes);
-        }
-        else {
-            log.debug("Auto errata updates not enabled for server [" + serverId + "]");
-        }
-    }
-
-    private void scheduleAutoUpdates(Long sid, Org org, Map updates) {
-        log.debug("Scheduling auto updates");
-        List errataAdded = (List) updates.get("errata");
-        if (errataAdded == null) {
-            return;
-        }
-        log.debug("Have errata - scheduling");
-        for (Iterator iter = errataAdded.iterator(); iter.hasNext();) {
-            ErrataCacheDto ecd = (ErrataCacheDto) iter.next();
-            Errata errata = ErrataManager.lookupPublishedErrata(ecd.getErrataId());
-            ErrataAction errataAction =
-                ActionManager.createErrataAction(org, errata);
-            ActionManager.addServerToAction(sid, errataAction);
-            ActionManager.storeAction(errataAction);
-        }
-        log.debug("Scheduling complete");
-
     }
 }

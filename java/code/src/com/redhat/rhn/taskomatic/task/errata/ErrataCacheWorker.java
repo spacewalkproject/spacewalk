@@ -43,6 +43,11 @@ public class ErrataCacheWorker implements QueueWorker {
     private Logger logger;
     private TaskQueue parentQueue;
 
+    /**
+     * Constructor
+     * @param items list of items to work on
+     * @param parentLogger logger to use
+     */
     public ErrataCacheWorker(Map items, Logger parentLogger) {
         task = (Task) items.get("task");
         orgId = (Long) items.get("orgId");
@@ -64,7 +69,7 @@ public class ErrataCacheWorker implements QueueWorker {
                 if (logger.isDebugEnabled()) {
                     logger.debug("Updating errata cache for sid [" + sid + "]");
                 }
-                uecc.updateErrataCacheForServer(sid, orgId, false);
+                uecc.updateErrataCacheForServer(sid, false);
             }
             else if (ErrataCacheWorker.BY_CHANNEL.equals(task.getName())) {
                 Long cid = task.getData();
@@ -85,6 +90,10 @@ public class ErrataCacheWorker implements QueueWorker {
         }
     }
 
+    /**
+     * Set the parent so we can tell it when we're done
+     * @param queue the parent queue
+     */
     public void setParentQueue(TaskQueue queue) {
         parentQueue = queue;
     }

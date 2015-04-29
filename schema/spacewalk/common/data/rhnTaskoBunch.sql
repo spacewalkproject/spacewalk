@@ -72,4 +72,7 @@ INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
              VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'reboot-action-cleanup-bunch', 'invalidate reboot actions which never finish', null);
 
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'auto-errata-bunch', 'Schedule automatic errata update actions', null);
+
 commit;

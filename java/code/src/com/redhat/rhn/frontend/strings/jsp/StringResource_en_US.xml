@@ -20865,6 +20865,12 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="bunch.jsp.description.auto-errata-bunch">
+        <source>Schedule auto errata updates as necessary</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="schedule.jsp.noschedules">
         <source>There're no schedules available.</source>
         <context-group name="ctx">
@@ -21252,6 +21258,9 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="task.status.reboot-action-cleanup">
         <source>Failed reboots cleanup</source>
+      </trans-unit>
+      <trans-unit id="task.status.auto-errata">
+        <source>Auto Errata Updates</source>
       </trans-unit>
       <trans-unit id="task.status.message">
         <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
