@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.8
+Version: 2.4.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -770,6 +770,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 29 2015 Stephen Herr <sherr@redhat.com> 2.4.9-1
+- 1215671 - move auto-errata updates into separate taskomatic task
+- 1215671 - Magic strings should only be defined in one place
+- ErrataCacheDriverTest: make condition robust to pre-existing Tasks
+
 * Fri Apr 24 2015 Stephen Herr <sherr@redhat.com> 2.4.8-1
 - 1207816 - You should be able to clone channels shared from other orgs
 
