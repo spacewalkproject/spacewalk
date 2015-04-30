@@ -23,17 +23,17 @@ This DNF plugin provides access to a Spacewalk server for software updates.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/%{python_sitelib}/dnf-plugins/
+install -d $RPM_BUILD_ROOT%{python_sitelib}/dnf-plugins/
 install -d $RPM_BUILD_ROOT%{python3_sitelib}/dnf-plugins/
-install -d $RPM_BUILD_ROOT/%{_sysconfdir}/dnf/plugins/
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/dnf/plugins/
 install -d $RPM_BUILD_ROOT/var/lib/up2date
-install -d $RPM_BUILD_ROOT/%{_mandir}/man{5,8}
-install -m 644 spacewalk.py $RPM_BUILD_ROOT/%{python_sitelib}/dnf-plugins/
+install -d $RPM_BUILD_ROOT%{_mandir}/man{5,8}
+install -m 644 spacewalk.py $RPM_BUILD_ROOT%{python_sitelib}/dnf-plugins/
 ln -s %{python_sitelib}/dnf-plugins/spacewalk.py \
         $RPM_BUILD_ROOT%{python3_sitelib}/dnf-plugins/spacewalk.py
-install -m 644 spacewalk.conf $RPM_BUILD_ROOT/%{_sysconfdir}/dnf/plugins/
-install -m 644 man/spacewalk.conf.5 $RPM_BUILD_ROOT/%{_mandir}/man5/
-install -m 644 man/dnf.plugin.spacewalk.8 $RPM_BUILD_ROOT/%{_mandir}/man8/
+install -m 644 spacewalk.conf $RPM_BUILD_ROOT%{_sysconfdir}/dnf/plugins/
+install -m 644 man/spacewalk.conf.5 $RPM_BUILD_ROOT%{_mandir}/man5/
+install -m 644 man/dnf.plugin.spacewalk.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 
 #%find_lang %{name}
 
