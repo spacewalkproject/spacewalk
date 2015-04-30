@@ -11,6 +11,7 @@ BuildArch: noarch
 
 Requires: dnf >= 0.5.3
 Requires: rhn-client-tools >= 1.10.3-1
+Conflicts: yum-rhn-plugin
 
 %description
 This DNF plugin provides access to a Spacewalk server for software updates.
@@ -26,11 +27,14 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{python_sitelib}/dnf-plugins/
 install -d $RPM_BUILD_ROOT%{python3_sitelib}/dnf-plugins/
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/dnf/plugins/
+install -d $RPM_BUILD_ROOT/usr/share/rhn/actions
 install -d $RPM_BUILD_ROOT/var/lib/up2date
 install -d $RPM_BUILD_ROOT%{_mandir}/man{5,8}
 install -m 644 spacewalk.py $RPM_BUILD_ROOT%{python_sitelib}/dnf-plugins/
 ln -s %{python_sitelib}/dnf-plugins/spacewalk.py \
         $RPM_BUILD_ROOT%{python3_sitelib}/dnf-plugins/spacewalk.py
+install -m 644 actions/packages.py $RPM_BUILD_ROOT/usr/share/rhn/actions/
+install -m 644 actions/errata.py $RPM_BUILD_ROOT/usr/share/rhn/actions/
 install -m 644 spacewalk.conf $RPM_BUILD_ROOT%{_sysconfdir}/dnf/plugins/
 install -m 644 man/spacewalk.conf.5 $RPM_BUILD_ROOT%{_mandir}/man5/
 install -m 644 man/dnf.plugin.spacewalk.8 $RPM_BUILD_ROOT%{_mandir}/man8/
@@ -52,6 +56,7 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/dnf-plugins/*
 %{python3_sitelib}/dnf-plugins/*
 #%{_datadir}/rhn/actions/*
+/usr/share/rhn/actions/*
 %dir /var/lib/up2date
 
 %changelog
