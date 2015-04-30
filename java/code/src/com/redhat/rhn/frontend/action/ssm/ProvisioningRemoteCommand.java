@@ -38,8 +38,6 @@ import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
-import com.redhat.rhn.domain.server.Capability;
-import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.struts.ActionChainHelper;
@@ -54,19 +52,16 @@ import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 
-import java.util.Iterator;
-
-
 /**
  * Remote command for the SSM provisioning.
  *
  * @author Bo Maryniuk
  */
-public class ProvisioningRemoteCommand extends RhnAction implements Listable {
+public class ProvisioningRemoteCommand extends RhnAction implements
+        Listable<SystemOverview> {
     private static final String[] FORM_FIELD_IDS = {
         "uid", "gid", "script_body",
     };
-
     /**
      * Form values bean to keep values if form failed.
      */
@@ -222,14 +217,11 @@ public class ProvisioningRemoteCommand extends RhnAction implements Listable {
                         form.get("timeout") == null ? 300 : (Long) form.get("timeout"),
                         form.getString("script_body").trim());
 
-                List<SystemOverview> systems = this.getResult(context);
-                List<Server> servers = new ArrayList<Server>();
+                List<SystemOverview> servers = getResult(context);
                 List<Long> serverIds = new ArrayList<Long>();
 
-                for (int i = 0; i < systems.size(); i++) {
-                    servers.add(SystemManager.lookupByIdAndUser(
-                            systems.get(i).getId(), user));
-                    serverIds.add(systems.get(i).getId());
+                for (SystemOverview system : servers) {
+                    serverIds.add(system.getId());
                 }
 
                 String label = StringUtil.nullIfEmpty(form.getString("lbl"));
@@ -289,8 +281,8 @@ public class ProvisioningRemoteCommand extends RhnAction implements Listable {
      * @param locale
      * @return
      */
-    private String generateLabel(List<Server> servers, Locale locale, String script) {
-        // Spacewalk developers are still sitting in front of 80x25 TTY terminals. :-(
+    private String generateLabel(List<SystemOverview> servers, Locale locale,
+            String script) {
         String body = LocalizationService.getInstance().getMessage(
                 "ssm.operations.provisioning.remotecommand" +
                 ".form.script_label.title.default.body");
@@ -340,18 +332,10 @@ public class ProvisioningRemoteCommand extends RhnAction implements Listable {
         List<SystemOverview> sysOvr = SystemManager.inSet(context.getCurrentUser(),
             RhnSetDecl.SYSTEMS.getLabel(), true);
         for (int i = 0; i < sysOvr.size(); i++) {
-            Server server = SystemManager.lookupByIdAndUser(sysOvr.get(i).getId(),
-                                                            context.getCurrentUser());
-            if (server != null &&
-                server.hasEntitlement(EntitlementManager.PROVISIONING) &&
-                server.getCapabilities() != null) {
-                    Iterator<Capability> citer = server.getCapabilities().iterator();
-                    while (citer.hasNext()) {
-                        if (citer.next().getName().equals("script.run")) {
-                            dataset.add(sysOvr.get(i));
-                            break;
-                        }
-                    }
+            if (SystemManager.hasEntitlement(sysOvr.get(i).getId(),
+                    EntitlementManager.PROVISIONING) &&
+                    SystemManager.clientCapable(sysOvr.get(i).getId(), "script.run")) {
+                dataset.add(sysOvr.get(i));
             }
         }
 
