@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.9
+Version: 2.4.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -770,6 +770,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 30 2015 Stephen Herr <sherr@redhat.com> 2.4.10-1
+- 1215271 - Scheduling remote command for large system sets is slow
+
 * Wed Apr 29 2015 Stephen Herr <sherr@redhat.com> 2.4.9-1
 - 1215671 - move auto-errata updates into separate taskomatic task
 - 1215671 - Magic strings should only be defined in one place
