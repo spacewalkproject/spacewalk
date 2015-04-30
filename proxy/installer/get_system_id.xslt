@@ -6,8 +6,7 @@
 
   <xsl:template match="/">
     <xsl:value-of select="/params/param/value/struct/member[name/text()='system_id']/value"/>
-    <xsl:text>
-  </xsl:text>
+    <xsl:text></xsl:text>
 
   </xsl:template>
 
