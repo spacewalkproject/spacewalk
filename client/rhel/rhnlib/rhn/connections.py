@@ -168,14 +168,14 @@ class HTTPSConnection(HTTPConnection):
             af, socktype, proto, canonname, sa = r
             try:
                 sock = socket.socket(af, socktype, proto)
-            except socket.error, msg:
+            except socket.error:
                 sock = None
                 continue
 
             try:
                 sock.connect((self.host, self.port))
                 sock.settimeout(self.timeout)
-            except socket.error, e:
+            except socket.error:
                 sock.close()
                 sock = None
                 continue

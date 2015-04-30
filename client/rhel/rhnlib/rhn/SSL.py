@@ -31,6 +31,8 @@ import os
 import socket
 import select
 
+import sys
+
 DEFAULT_TIMEOUT = 120
 
 
@@ -191,7 +193,8 @@ class SSLSocket:
             except SSL.ZeroReturnError:
                 # Nothing more to be read
                 break
-            except SSL.SysCallError, e:
+            except SSL.SysCallError:
+                e = sys.exc_info()[1]
                 print "SSL exception", e.args
                 break
             except SSL.WantWriteError:

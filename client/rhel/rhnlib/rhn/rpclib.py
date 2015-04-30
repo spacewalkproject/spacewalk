@@ -383,11 +383,11 @@ class Server:
                 response = self._transport.request(self._host, \
                                 self._handler, request, verbose=self._verbose)
                 save_response = self._transport.response_status
-            except xmlrpclib.ProtocolError, pe:
+            except xmlrpclib.ProtocolError:
                 if self.use_handler_path:
                     raise
                 else:
-                     save_response = pe.errcode
+                     save_response = sys.exc_info()[1].errcode
 
             self._redirected = None
             retry += 1
