@@ -124,7 +124,7 @@ class Transport(xmlrpclib.Transport):
 
     def get_connection(self, host):
         if self.verbose:
-            print "Connecting via http to %s" % (host, )
+            print("Connecting via http to %s" % (host, ))
         if self.timeout:
             return connections.HTTPConnection(host, timeout=self.timeout)
         else:
@@ -170,9 +170,9 @@ class Transport(xmlrpclib.Transport):
         headers, fd = req.send_http(host, handler)
 
         if self.verbose:
-            print "Incoming headers:"
+            print("Incoming headers:")
             for header, value in headers.items():
-                print "\t%s : %s" % (header, value)
+                print("\t%s : %s" % (header, value))
 
         if fd.status in (301, 302):
             self._redirected = headers["Location"]
@@ -231,7 +231,7 @@ class Transport(xmlrpclib.Transport):
             if self.refreshCallback:
                 self.refreshCallback()
             if self.verbose:
-                print "body:", repr(response)
+                print("body:", repr(response))
             p.feed(response)
 
         f.close()
@@ -261,7 +261,7 @@ class SafeTransport(Transport):
         # implement BASIC HTTP AUTHENTICATION
         host, extra_headers, x509 = self.get_host_info(host)
         if self.verbose:
-            print "Connecting via https to %s" % (host, )
+            print("Connecting via https to %s" % (host, ))
         if self.timeout:
             return connections.HTTPSConnection(host,
                     trusted_certs=self.trusted_certs, timeout=self.timeout)
@@ -283,8 +283,8 @@ class ProxyTransport(Transport):
 
     def get_connection(self, host):
         if self.verbose:
-            print "Connecting via http to %s proxy %s, username %s, pass %s" % (
-                host, self._proxy, self._proxy_username, self._proxy_password)
+            print("Connecting via http to %s proxy %s, username %s, pass %s" % (
+                host, self._proxy, self._proxy_username, self._proxy_password))
         if self.timeout:
             return connections.HTTPProxyConnection(self._proxy, host,
                 username=self._proxy_username, password=self._proxy_password,
@@ -314,8 +314,8 @@ class SafeProxyTransport(ProxyTransport):
 
     def get_connection(self, host):
         if self.verbose:
-            print "Connecting via https to %s proxy %s, username %s, pass %s" % (
-                host, self._proxy, self._proxy_username, self._proxy_password)
+            print("Connecting via https to %s proxy %s, username %s, pass %s" % (
+                host, self._proxy, self._proxy_username, self._proxy_password))
         if self.timeout:
             return connections.HTTPSProxyConnection(self._proxy, host,
                 username=self._proxy_username, password=self._proxy_password,

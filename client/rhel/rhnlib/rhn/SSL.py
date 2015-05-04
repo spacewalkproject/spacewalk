@@ -195,7 +195,7 @@ class SSLSocket:
                 break
             except SSL.SysCallError:
                 e = sys.exc_info()[1]
-                print "SSL exception", e.args
+                print("SSL exception", e.args)
                 break
             except SSL.WantWriteError:
                 self._poll(select.POLLOUT, 'read')

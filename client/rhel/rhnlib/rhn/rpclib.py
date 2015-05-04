@@ -407,7 +407,7 @@ class Server:
                 raise InvalidRedirectionError("Redirects not allowed")
 
             if self._verbose:
-                print "%s redirected to %s" % (self._uri, self._redirected)
+                print("%s redirected to %s" % (self._uri, self._redirected))
 
             typ, uri = urllib.splittype(self._redirected)
 

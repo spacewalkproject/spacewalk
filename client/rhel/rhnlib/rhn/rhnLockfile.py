@@ -98,12 +98,12 @@ def main():
         sys.stderr.write("%s\n" % sys.exc_info()[1])
         sys.exit(-1)
     else:
-        print "lock acquired "
-        print "...sleeping for 10 seconds"
+        print("lock acquired ")
+        print("...sleeping for 10 seconds")
         import time
         time.sleep(10)
         L.release()
-        print "lock released "
+        print("lock released ")
 
 if __name__ == '__main__':
     # test code

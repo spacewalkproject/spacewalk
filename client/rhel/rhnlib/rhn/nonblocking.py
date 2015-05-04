@@ -36,9 +36,9 @@ class NonBlockingFile:
             readfds = self.read_fd_set + [self.fd]
             writefds = self.write_fd_set
             excfds = self.exc_fd_set
-            print "Calling select", readfds
+            print("Calling select", readfds)
             readfds, writefds, excfds = select.select(readfds, writefds, excfds)
-            print "Select returned", readfds, writefds, excfds
+            print("Select returned", readfds, writefds, excfds)
             if self.fd in readfds:
                 # Our own file descriptor has changed status
                 # Mark this, but also try to call the callback with the rest
@@ -49,7 +49,7 @@ class NonBlockingFile:
                 self.callback(readfds, writefds, excfds, self.user_data)
             if status_changed:
                 break
-        print "Returning"
+        print("Returning")
         return self.fd.read(amt)
 
     def write(self, data):
@@ -59,8 +59,8 @@ class NonBlockingFile:
         return getattr(self.fd, name)
 
 def callback(r, w, e, user_data):
-    print "Callback called", r, w, e
-    print r[0].read()
+    print("Callback called", r, w, e)
+    print(r[0].read())
 
 if __name__ == '__main__':
     import socket
@@ -76,4 +76,4 @@ if __name__ == '__main__':
     ss.set_callback([f], [], [], None, callback)
 
     xx = ss.read()
-    print len(xx)
+    print(len(xx))
