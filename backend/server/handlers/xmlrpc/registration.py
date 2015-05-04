@@ -1007,10 +1007,23 @@ class Registration(rhnHandler):
         """ Recreate the server HW profile """
         log_debug(5, system_id, hwlist)
         server = self.auth_system(system_id)
+        sid = server.getid()
         # clear out the existing list first
         # the only difference between add_hw_profile and refresh_hw_profile
+        # make sure primary network interface does not get reset
+        h = rhnSQL.prepare("""
+            select name from rhnservernetinterface where server_id = :server_id AND is_primary ='Y'
+        """)
+        h.execute(server_id=sid)
+        row = h.fetchone_dict()
         server.delete_hardware()
         self.__add_hw_profile_no_auth(server, hwlist)
+        if row:
+            h = rhnSQL.prepare("""
+                update rhnservernetinterface set is_primary = 'Y' where server_id = :server_id AND name = :name
+            """)
+            h.execute(server_id=sid, name=row['name'])
+            rhnSQL.commit()
         return 0
 
     def welcome_message(self, lang=None):
