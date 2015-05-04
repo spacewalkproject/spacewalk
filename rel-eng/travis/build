@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+
+LOOKASIDE="http://koji.spacewalkproject.org/lookaside-static"
+
+STATUS_ALL=0
+
+GITROOT=$(pwd)/$(git rev-parse --show-cdup)
+CHANGED_FILES=$(git diff --name-only $TRAVIS_COMMIT_RANGE)
+
+echo "Building commits: $TRAVIS_COMMIT_RANGE"
+
+# loop all packages
+for package in $GITROOT/rel-eng/packages/* ; do
+    prefix=$(cat $package | awk '{print $2}')
+    package_basename=$(basename $package)
+    latest_tag=$package_basename-$(cat $package | awk '{print $1}')
+    if echo "$CHANGED_FILES" | grep -q "^$prefix" ; then
+        # process package
+        echo -en "travis_fold:start:$package_basename-build\\r"
+        echo "Building $package_basename"
+        cd $GITROOT$prefix
+        # can we describe latest tag? tito fails if not
+        echo -en "travis_fold:start:$package_basename-latest-tag\\r"
+        echo "Describing latest tag"
+        # doesn't make sense to fetch history if the tag isn't there anyway
+        if git ls-remote origin $latest_tag | grep -q $latest_tag ; then
+            until git describe $latest_tag ; do
+                git_depth=$((git_depth + 500))
+                echo "Tag not found, fetching git history with depth $git_depth"
+                git fetch --depth=$git_depth
+            done
+        else
+            echo "Tag not in remote, not pushed?"
+        fi
+        echo -en "travis_fold:end:$package_basename-latest-tag\\r"
+        # we may need third party dependencies for creating SRPM
+        if grep -q "NoTgzBuilder" tito.props ; then
+            echo "Tito NoTgzBuilder found, getting sources"
+            version=$(rpmspec -q --srpm --qf "%{version}" $package_basename.spec)
+            wget -r -nd -np -nv -R "index.html*" -e robots=off $LOOKASIDE/$package_basename-$version/
+            # need to commit downloaded sources for Tito
+            git add . && git commit -am "Adding sources"
+        fi
+        # create SRPM
+        srpm=$(tito build --test --srpm | tail -n1 | sed 's/^Wrote: //g')
+        echo "SRPM created: $srpm"
+        echo -en "travis_fold:start:$package_basename-mock\\r"
+        echo "Running mock"
+        # build SRPM
+        sudo mock -r spacewalk --resultdir=/tmp/mock/$package_basename --rebuild $srpm
+        status=$?
+        echo -en "travis_fold:end:$package_basename-mock\\r"
+        if [ $status -eq 0 ] ; then
+            echo "Building $package_basename succeeded"
+            # build in koji if tag was pushed
+            tag_commit=$(git rev-parse $latest_tag^{commit})
+            if [ -f ~/.koji/.spacewalk.cert ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && git rev-list $TRAVIS_COMMIT_RANGE | grep -q "$tag_commit" ; then
+                echo "Tag present, releasing to Koji"
+                # workarround - git ls-remote ./. on Travis doesn't work with shallow clones (bug?)
+                mv $GITROOT/.git/shallow $GITROOT/.git/shallow.org
+                tito release koji
+                mv $GITROOT/.git/shallow.org $GITROOT/.git/shallow
+            fi
+        else
+            echo "Mock failed with code: $status"
+        fi
+        # output logs
+        echo -en "travis_fold:start:$package_basename-build-log\\r"
+        echo "# build.log"
+        cat /tmp/mock/$package_basename/build.log
+        echo -en "travis_fold:end:$package_basename-build-log\\r"
+
+        echo -en "travis_fold:start:$package_basename-root-log\\r"
+        echo "# root.log"
+        cat /tmp/mock/$package_basename/root.log
+        echo -en "travis_fold:end:$package_basename-root-log\\r"
+
+        echo -en "travis_fold:start:$package_basename-state-log\\r"
+        echo "# state.log"
+        cat /tmp/mock/$package_basename/state.log
+        echo -en "travis_fold:end:$package_basename-state-log\\r"
+
+        STATUS_ALL=$((STATUS_ALL+status))
+        echo -en "travis_fold:end:$package_basename-build\\r"
+    fi
+done
+
+exit $STATUS_ALL
+

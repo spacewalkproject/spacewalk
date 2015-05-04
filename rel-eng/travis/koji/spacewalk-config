@@ -1,0 +1,9 @@
+[koji]
+;configuration for koji cli tool
+
+server = http://koji.spacewalkproject.org/kojihub
+weburl = http://koji.spacewalkproject.org/koji
+topurl = http://koji.spacewalkproject.org/
+cert = ~/.koji/.spacewalk.cert
+ca = ~/.koji/.spacewalk-ca.cert
+serverca = ~/.koji/.spacewalk-ca.cert
