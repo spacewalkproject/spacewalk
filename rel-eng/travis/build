@@ -13,7 +13,7 @@ GITROOT=$(pwd)/$(git rev-parse --show-cdup)
 if [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
     COMMIT_RANGE=$TRAVIS_COMMIT_RANGE
 else
-    COMMIT_RANGE=$TRAVIS_BRANCH...$TRAVIS_COMMIT
+    COMMIT_RANGE=$TRAVIS_BRANCH...FETCH_HEAD
 fi
 
 echo "Commit range: $COMMIT_RANGE"
