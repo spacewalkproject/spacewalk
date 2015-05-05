@@ -5,9 +5,20 @@ LOOKASIDE="http://koji.spacewalkproject.org/lookaside-static"
 STATUS_ALL=0
 
 GITROOT=$(pwd)/$(git rev-parse --show-cdup)
-CHANGED_FILES=$(git diff --name-only $TRAVIS_COMMIT_RANGE)
 
-echo "Building commits: $TRAVIS_COMMIT_RANGE"
+# For pull requests just compare target branch and github merge commit,
+# TRAVIS_COMMIT_RANGE is unusable because there is commit from master
+# and if pull request modifies old version, range is big and many files
+# differ (may be bug in travis)
+if [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
+    COMMIT_RANGE=$TRAVIS_COMMIT_RANGE
+else
+    COMMIT_RANGE=$TRAVIS_BRANCH...$TRAVIS_COMMIT
+fi
+
+echo "Commit range: $COMMIT_RANGE"
+
+CHANGED_FILES=$(git diff --name-only $COMMIT_RANGE)
 
 # loop all packages
 for package in $GITROOT/rel-eng/packages/* ; do
