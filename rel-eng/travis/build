@@ -31,19 +31,17 @@ for package in $GITROOT/rel-eng/packages/* ; do
         echo "Building $package_basename"
         cd $GITROOT$prefix
         # can we describe latest tag? tito fails if not
-        echo -en "travis_fold:start:$package_basename-latest-tag\\r"
         echo "Describing latest tag"
         # doesn't make sense to fetch history if the tag isn't there anyway
         if git ls-remote origin $latest_tag | grep -q $latest_tag ; then
             until git describe $latest_tag ; do
-                git_depth=$((git_depth + 500))
+                git_depth=$((git_depth + 2000))
                 echo "Tag not found, fetching git history with depth $git_depth"
-                git fetch --depth=$git_depth
+                git fetch --depth=$git_depth 2>&1 | grep "[new tag]" | wc -l | xargs echo "New tags:"
             done
         else
             echo "Tag not in remote, not pushed?"
         fi
-        echo -en "travis_fold:end:$package_basename-latest-tag\\r"
         # we may need third party dependencies for creating SRPM
         if grep -q "NoTgzBuilder" tito.props ; then
             echo "Tito NoTgzBuilder found, getting sources"
