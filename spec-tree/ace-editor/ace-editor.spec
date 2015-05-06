@@ -23,7 +23,7 @@
 
 Name:           ace-editor
 Version:        1.1.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        BSD-3-Clause
 Summary:        High performance code editor for the web
 Url:            http://ace.c9.io/
@@ -71,6 +71,9 @@ cp -r src-min %{buildroot}%{_datadir}/ace-editor/src-min-noconflict
 %config(noreplace) %{_sysconfdir}/%{httpd}/conf.d/*.conf
 
 %changelog
+* Wed May 06 2015 Tomas Lestach <tlestach@redhat.com> 1.1.3-3
+- Copyright texts updated to SUSE LLC
+
 * Fri Apr 25 2014 Michael Mraka <michael.mraka@redhat.com> 1.1.3-2
 - missing dist in release
 
