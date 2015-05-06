@@ -71,12 +71,15 @@ class Spacewalk(dnf.Plugin):
     def config(self):
         self.cli.demands.root_user = True
 
+        self.activate_channels(self.cli.demands.sack_activation)
+
+    def activate_channels(self, networking=True):
         enabled_channels = {}
         sslcacert = None
         force_http = 0
         proxy_url = None
         cached_channels = self._read_channels_file()
-        if not self.cli.demands.sack_activation:
+        if not networking:
             # no network communication, use list of channels from persistdir
             enabled_channels = cached_channels
         else:
