@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
 Version: 2.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2
 Group: System Environment/Base
 # This src.rpm is cannonical upstream
@@ -96,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
+* Wed May 06 2015 Tomas Lestach <tlestach@redhat.com> 2.4-3
+- Update spacewalk-repo to use 2015 RPM-GPG-KEY
+
 * Fri Mar 27 2015 Grant Gainey 2.4-2
 - Update for Spacewalk 2.4
 
