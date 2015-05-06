@@ -74,7 +74,7 @@ class Transport(xmlrpclib.Transport):
     # set the request method
     def set_method(self, method):
         if method not in ("GET", "POST"):
-            raise IOError, "Unknown request method %s" % method
+            raise IOError("Unknown request method %s" % method)
         self.method = method
 
     # reset the transport options
@@ -254,7 +254,7 @@ class SafeTransport(Transport):
 
     def add_trusted_cert(self, certfile):
         if not os.access(certfile, os.R_OK):
-            raise ValueError, "Certificate file %s is not accessible" % certfile
+            raise ValueError("Certificate file %s is not accessible" % certfile)
         self.trusted_certs.append(certfile)
 
     def get_connection(self, host):
@@ -309,7 +309,7 @@ class SafeProxyTransport(ProxyTransport):
 
     def add_trusted_cert(self, certfile):
         if not os.access(certfile, os.R_OK):
-            raise ValueError, "Certificate file %s is not accessible" % certfile
+            raise ValueError("Certificate file %s is not accessible" % certfile)
         self.trusted_certs.append(certfile)
 
     def get_connection(self, host):

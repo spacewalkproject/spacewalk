@@ -75,7 +75,7 @@ class SSLSocket:
         object.
         """
         if not os.access(file, os.R_OK):
-            raise ValueError, "Unable to read certificate file %s" % file
+            raise ValueError("Unable to read certificate file %s" % file)
         self._trusted_certs.append(file.encode("utf-8"))
 
     def init_ssl(self):
@@ -141,12 +141,12 @@ class SSLSocket:
 
     def _check_closed(self):
         if self._closed:
-            raise ValueError, "I/O operation on closed file"
+            raise ValueError("I/O operation on closed file")
 
     def __getattr__(self, name):
         if hasattr(self._connection, name):
             return getattr(self._connection, name)
-        raise AttributeError, name
+        raise AttributeError(name)
 
     # File methods
     def isatty(self):
@@ -159,7 +159,7 @@ class SSLSocket:
         return self._pos
 
     def seek(self, pos, mode=0):
-        raise NotImplementedError, "seek"
+        raise NotImplementedError("seek")
 
     def read(self, amt=None):
         """
@@ -217,7 +217,7 @@ class SSLSocket:
         poller.register(self._sock, filter_type)
         res = poller.poll(self._sock.gettimeout() * 1000)
         if res == []:
-            raise TimeoutException, "Connection timed out on %s" % caller_name
+            raise TimeoutException("Connection timed out on %s" % caller_name)
 
     def write(self, data):
         """

@@ -80,7 +80,7 @@ def split_host(hoststring):
 
 def get_proxy_info(proxy):
     if proxy == None:
-        raise ValueError, "Host string cannot be null"
+        raise ValueError("Host string cannot be null")
 
     arr = proxy.split('://', 1)
     if len(arr) == 2:
@@ -300,7 +300,7 @@ class Server:
         # get the url
         type, uri = urllib.splittype(self._uri)
         if type is None:
-            raise MalformedURIError, "missing protocol in uri"
+            raise MalformedURIError("missing protocol in uri")
         # with a real uri passed in, uri will now contain "//hostname..." so we
         # need at least 3 chars for it to maybe be ok...
         if len(uri) < 3 or uri[0:2] != "//":
@@ -310,7 +310,7 @@ class Server:
         else:
             self._type = type
         if self._type not in ("http", "https"):
-            raise IOError, "unsupported XML-RPC protocol"
+            raise IOError("unsupported XML-RPC protocol")
         self._host, self._handler = urllib.splithost(uri)
         if not self._handler:
             self._handler = "/RPC2"
@@ -516,7 +516,7 @@ class Server:
 
     # Sets the CA chain to be used
     def use_CA_chain(self, ca_chain = None):
-        raise NotImplementedError, "This method is deprecated"
+        raise NotImplementedError("This method is deprecated")
 
     def add_trusted_cert(self, certfile):
         self._trusted_cert_files.append(certfile)
@@ -595,14 +595,14 @@ class GETServer(Server):
                 offset = int(offset)
             except ValueError:
                 # Error
-                raise RangeError("Invalid value `%s' for offset" % offset), None, sys.exc_info()[2]
+                raise RangeError("Invalid value `%s' for offset" % offset, None, sys.exc_info()[2])
 
         if amount is not None:
             try:
                 amount = int(amount)
             except ValueError:
                 # Error
-                raise RangeError("Invalid value `%s' for amount" % amount), None, sys.exc_info()[2]
+                raise RangeError("Invalid value `%s' for amount" % amount, None, sys.exc_info()[2])
 
             if amount <= 0:
                 raise RangeError("Invalid value `%s' for amount" % amount)
