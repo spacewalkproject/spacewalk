@@ -1,4 +1,4 @@
-Spacewalk
+Spacewalk [![Build Status](https://travis-ci.org/spacewalkproject/spacewalk.svg?branch=master)](https://travis-ci.org/spacewalkproject/spacewalk/builds)
 =========
 
 Spacewalk is an open source Linux systems management solution.
