@@ -68,7 +68,7 @@ public class BaseHandler implements XmlRpcInvocationHandler {
 
     private static Logger log = Logger.getLogger(BaseHandler.class);
 
-    private static final String RO_REGEX = "^(list|get|is).*$";
+    private static final String RO_REGEX = "^(list|get|is|find).*$";
     private static final String KEY_REGEX = "^[1-9][0-9]*x[a-f0-9]{64}$";
 
     protected boolean providesAuthentication() {
