@@ -166,7 +166,6 @@ MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, S
         <!-- See http://checkstyle.sf.net/config_coding.html -->
         <!-- <module name="AvoidInlineConditionals"/> -->
 <!--        <module name="CovariantEquals"/>                 -->
-        <module name="DoubleCheckedLocking"/>    <!-- MY FAVOURITE -->
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
         <module name="HiddenField"/>

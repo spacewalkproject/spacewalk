@@ -18,8 +18,7 @@
 %endif
 %endif
 
-%if 0%{?rhel} && 0%{?rhel} >= 6
-# checkstyle is broken on Fedoras - we skip for now
+%if 0%{?fedora} || 0%{?rhel} >= 6
 # RHEL5 checkstyle4 is incompatible with checkstyle5
 %define run_checkstyle  1
 %endif
@@ -402,7 +401,7 @@ ant -Dprefix=$RPM_BUILD_ROOT init-install compile
 %if 0%{?run_checkstyle}
 echo "Running checkstyle on java main sources"
 export CLASSPATH="build/classes:build/build-lib/*"
-export BASE_OPTIONS="-Djavadoc.method.scope=public \
+export ADDITIONAL_OPTIONS="-Djavadoc.method.scope=public \
 -Djavadoc.type.scope=package \
 -Djavadoc.var.scope=package \
 -Dcheckstyle.cache.file=build/checkstyle.cache.src \
@@ -412,7 +411,7 @@ find . -name *.java | grep -vE '(/test/|/jsp/|/playpen/)' | \
 xargs checkstyle -c buildconf/checkstyle.xml
 
 echo "Running checkstyle on java test sources"
-export BASE_OPTIONS="-Djavadoc.method.scope=nothing \
+export ADDITIONAL_OPTIONS="-Djavadoc.method.scope=nothing \
 -Djavadoc.type.scope=nothing \
 -Djavadoc.var.scope=nothing \
 -Dcheckstyle.cache.file=build/checkstyle.cache.test \
