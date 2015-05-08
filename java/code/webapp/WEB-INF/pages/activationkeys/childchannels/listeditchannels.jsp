@@ -17,31 +17,24 @@
             </c:if>
             <div class="form-group">
                 <div class="col-md-6">
-                <select multiple="multiple" name="childChannels" size="20" class="form-control">
+                <table class="table">
                     <c:set var="first" scope="session" value="yes"/>
+                    <c:set var="last_parent" scope="session" value=""/>
                     <c:forEach items="${channels}" var="channel" varStatus="loop">
-                        <c:choose>
-                            <c:when test="${first == 'yes'}">
-                                <c:set var="first" scope="session" value="no"/>
-                                <c:set var="last_parent" scope="session" value="${channel.parent}"/>
-                                <c:if test="${empty baseChannel}">
-                                    <optgroup label="${channel.parent}">
-                                </c:if>
-                            </c:when>
-                            <c:otherwise>
-                                <c:if test="${(channel.parent != last_parent) && empty baseChannel}">
-                                    </optgroup>
-                                    <optgroup label="${channel.parent}">
-                                </c:if>
-                            </c:otherwise>
-                        </c:choose>
-                        <option value="${channel.id}" ${channel.s}>${channel.name}</option>
+                        <c:set var="first" scope="session" value="no"/>
+                        <c:if test="${(channel.parent != last_parent || first == 'yes') && empty baseChannel}">
+                            <tr>
+                                <td><h4>${channel.parent}</h4></td>
+                            </tr>
+                        </c:if>
+                        <tr class="${channel.s == 'selected' ? 'success' : ''}">
+                            <td>
+                                <label><input type="checkbox" name="childChannels" value="${channel.id}" ${channel.s == 'selected' ? 'checked' : ''}/> ${channel.name}</label>
+                            </td>
+                        </tr>
                         <c:set var="last_parent" scope="session" value="${channel.parent}"/>
                     </c:forEach>
-                    <c:if test="${empty baseChannel}">
-                        </optgroup>
-                    </c:if>
-                </select>
+                </table>
                 </div>
             </div>
             <div class="form-group text-right">
