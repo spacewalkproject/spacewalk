@@ -642,7 +642,7 @@ public class ErrataManagerTest extends BaseTestCaseWithUser {
                 server1ScheduledErrata.contains(yumErrata2.getId()));
 
 
-        assertEquals("Server 1 Scheduled Erratas has 2 erratas (errata2 and errata3)",
+        assertEquals("Server 2 Scheduled Erratas has 2 erratas (errata2 and errata3)",
                 2, server2ScheduledErrata.size());
         assertFalse("Server 2 Scheduled Erratas do not include irrelevant errata",
                 server2ScheduledErrata.contains(errata3.getId()));
