@@ -344,13 +344,13 @@ def update(package_list, cache_only=None):
 
         found = False
         for pkg in pkgs:
-            if pkg.returnEVR() == evr:
+            if pkg.returnEVR().compare(evr) == 0:
                 log.log_debug('Package %s already installed' \
                     % _yum_package_tup(package))
                 package_list.remove(package)
                 found = True
                 break
-            elif pkg.returnEVR() > evr:
+            elif pkg.returnEVR().compare(evr) > 0:
                 log.log_debug('More recent version of package %s is already installed' \
                     % _yum_package_tup(package))
                 package_list.remove(package)
