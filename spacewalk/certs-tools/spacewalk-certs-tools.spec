@@ -13,6 +13,9 @@ Requires: rhn-client-tools
 Requires: tar
 Requires: spacewalk-backend-libs >= 0.8.28
 Requires: /usr/bin/sudo
+%if 0%{?rhel} && 0%{?rhel} <= 5
+Requires: python-hashlib
+%endif
 BuildRequires: docbook-utils
 BuildRequires: python
 Obsoletes: rhns-certs < 5.3.0
