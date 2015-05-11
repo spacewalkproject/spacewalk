@@ -27,6 +27,7 @@ Patch13: fedora_os_entry.patch
 Patch14: centos7-version.patch
 Patch15: unicode-scripts.patch
 Patch16: cobbler-bz1214458.patch
+Patch17: whitelist.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -127,6 +128,7 @@ a XMLRPC API for integration with other applications.
 %patch14 -p0
 %patch15 -p1
 %patch16 -p1
+%patch17 -p1
 
 %build
 %{__python} setup.py build 
