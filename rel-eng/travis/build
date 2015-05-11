@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-LOOKASIDE="http://koji.spacewalkproject.org/lookaside-static"
+LOOKASIDE="http://koji.spacewalkproject.org/kojifiles/lookaside-static"
 
 STATUS_ALL=0
 
