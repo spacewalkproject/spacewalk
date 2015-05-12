@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.4.2
+Version: 2.4.3
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir /var/lib/up2date
 
 %changelog
+* Tue May 12 2015 Michael Mraka <michael.mraka@redhat.com> 2.4.3-1
+- fixed rpmbuild issues
+
 * Mon May 11 2015 Michael Mraka <michael.mraka@redhat.com> 2.4.2-1
 - add action files for packages/errata installation
 - put spacewalk both into python2 and python3 setelibs
