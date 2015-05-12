@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.1
+Version: 2.4.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -655,6 +655,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Tue May 12 2015 Stephen Herr <sherr@redhat.com> 2.4.2-1
+- Implement the new rpm weak dependency tags.
+
 * Fri Apr 24 2015 Matej Kollar <mkollar@redhat.com> 2.4.1-1
 - remove whitespace from .sgml files
 - Copyright texts updated to SUSE LLC
