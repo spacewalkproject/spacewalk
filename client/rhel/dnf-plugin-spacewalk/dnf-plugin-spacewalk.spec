@@ -9,6 +9,7 @@ URL:     https://fedorahosted.org/spacewalk
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
+BuildRequires: python3-devel
 Requires: dnf >= 0.5.3
 Requires: rhn-client-tools >= 1.10.3-1
 Conflicts: yum-rhn-plugin
@@ -55,8 +56,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man*/*
 %{python_sitelib}/dnf-plugins/*
 %{python3_sitelib}/dnf-plugins/*
-#%{_datadir}/rhn/actions/*
-/usr/share/rhn/actions/*
+%{_datadir}/rhn/actions/*
 %dir /var/lib/up2date
 
 %changelog
