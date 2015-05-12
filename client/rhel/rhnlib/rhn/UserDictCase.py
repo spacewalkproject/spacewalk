@@ -66,8 +66,8 @@ class UserDictCase(UserDict):
 
     # return this data as a real hash
     def get_hash(self):
-        return reduce(lambda a, (ik, v), hc=self.kcase:
-                      a.update({ hc[ik] : v}) or a, self.data.items(), {})
+        return reduce(lambda a, t, hc=self.kcase:
+                      a.update({ hc[t[0]] : t[1]}) or a, self.data.items(), {})
 
     # return the data for marshalling
     def __getstate__(self):
