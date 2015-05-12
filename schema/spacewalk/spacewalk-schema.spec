@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.4.6
+Version:        2.4.7
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue May 12 2015 Grant Gainey 2.4.7-1
+- 1220361 - clean up upgrade with empty .sql.oracle file
+
 * Mon May 11 2015 Grant Gainey 2.4.6-1
 - 1220361 - Use GREATEST to insure LIMIT is >= 0
 
