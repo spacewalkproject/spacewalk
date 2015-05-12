@@ -4,7 +4,7 @@ Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.75
+Version: 2.5.76
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -59,6 +59,12 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Tue May 12 2015 Tomas Kasparek <tkasparek@redhat.com> 2.5.76-1
+- use single variable instead of a tuple
+- exception rising has changed in python 3
+- print is function in python3
+- make exceptions compatible with python 2.4 to 3.3
+
 * Thu Mar 19 2015 Grant Gainey 2.5.75-1
 - Updating copyright info for 2015
 
