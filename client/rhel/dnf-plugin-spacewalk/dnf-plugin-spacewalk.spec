@@ -9,7 +9,9 @@ URL:     https://fedorahosted.org/spacewalk
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
+%if 0%{?fedora}
 BuildRequires: python3-devel
+%endif
 Requires: dnf >= 0.5.3
 Requires: rhn-client-tools >= 1.10.3-1
 Conflicts: yum-rhn-plugin
@@ -26,14 +28,16 @@ This DNF plugin provides access to a Spacewalk server for software updates.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{python_sitelib}/dnf-plugins/
-install -d $RPM_BUILD_ROOT%{python3_sitelib}/dnf-plugins/
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/dnf/plugins/
 install -d $RPM_BUILD_ROOT/usr/share/rhn/actions
 install -d $RPM_BUILD_ROOT/var/lib/up2date
 install -d $RPM_BUILD_ROOT%{_mandir}/man{5,8}
 install -m 644 spacewalk.py $RPM_BUILD_ROOT%{python_sitelib}/dnf-plugins/
+%if 0%{?fedora}
+install -d $RPM_BUILD_ROOT%{python3_sitelib}/dnf-plugins/
 ln -s %{python_sitelib}/dnf-plugins/spacewalk.py \
         $RPM_BUILD_ROOT%{python3_sitelib}/dnf-plugins/spacewalk.py
+%endif
 install -m 644 actions/packages.py $RPM_BUILD_ROOT/usr/share/rhn/actions/
 install -m 644 actions/errata.py $RPM_BUILD_ROOT/usr/share/rhn/actions/
 install -m 644 spacewalk.conf $RPM_BUILD_ROOT%{_sysconfdir}/dnf/plugins/
@@ -55,7 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir /var/lib/up2date
 %{_mandir}/man*/*
 %{python_sitelib}/dnf-plugins/*
+%if 0%{?fedora}
 %{python3_sitelib}/dnf-plugins/*
+%endif
 %{_datadir}/rhn/actions/*
 %dir /var/lib/up2date
 
