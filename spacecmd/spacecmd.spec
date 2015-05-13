@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.4.2
+Version:     2.4.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -85,6 +85,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed May 13 2015 Stephen Herr <sherr@redhat.com> 2.4.3-1
+- See pull request 247, always base64 encode config files to prevent whitespace
+  stripping
+
 * Mon May 11 2015 Tomas Lestach <tlestach@redhat.com> 2.4.2-1
 - do not escape spacecmd command arguments
 
