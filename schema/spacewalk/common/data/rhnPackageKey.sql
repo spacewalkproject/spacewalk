@@ -75,6 +75,12 @@ insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 -- Fedora 22 (secondary)
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 (sequence_nextval('rhn_pkey_id_seq'), 'd8d1fa8ca29cb19c', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+-- Fedora 23
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), '32474cf834ec9cba', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+-- Fedora 23 (secondary)
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), 'b4bb871c873529b8', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
 
 -- CentOS
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
@@ -153,6 +159,8 @@ insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 (sequence_nextval('rhn_pkey_id_seq'), '0e646f68863a853d', lookup_package_key_type('gpg'), lookup_package_provider('Spacewalk'));
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 (sequence_nextval('rhn_pkey_id_seq'), '41605346066e5810', lookup_package_key_type('gpg'), lookup_package_provider('Spacewalk'));
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), 'dcc981cdb8002de1', lookup_package_key_type('gpg'), lookup_package_provider('Spacewalk'));
 
 
 -- EPEL 5
