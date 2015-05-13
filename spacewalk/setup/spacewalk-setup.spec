@@ -30,6 +30,7 @@ Requires:       cobbler >= 2.0.0
 Requires:       PyYAML
 Requires:       /usr/bin/gpg
 Requires:       spacewalk-setup-jabberd
+Requires:       spacewalk-base-minimal
 Requires:       curl
 
 %description
