@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.4.7
+Version:        2.4.8
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed May 13 2015 Stephen Herr <sherr@redhat.com> 2.4.8-1
+- Add spacewalk-2015 and Fedora 23 gpg key fingerprints
+- Add package key for Spacewalk 2014 (RPM-GPG-KEY-spacewalk-2014)
+
 * Tue May 12 2015 Grant Gainey 2.4.7-1
 - 1220361 - clean up upgrade with empty .sql.oracle file
 
