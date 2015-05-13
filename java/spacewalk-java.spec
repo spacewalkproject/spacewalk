@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.13
+Version: 2.4.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed May 13 2015 Stephen Herr <sherr@redhat.com> 2.4.14-1
+- Change Activation Key Child Channels from multiple select to checkboxes
+
 * Tue May 12 2015 Stephen Herr <sherr@redhat.com> 2.4.13-1
 - hasPreflag(): improve documentation about which rpm flags are evaluated
 - fix generating pre-equires (pre="1" in metadata)
