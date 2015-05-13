@@ -764,6 +764,9 @@ def file_needs_b64_enc(self, contents):
     if not contents:  # zero length
         return False
 
+    if contents[-1] == '\n': # trailing new lines
+        return True
+
     text_characters = "".join(map(chr, range(32, 127)) + list("\n\r\t\b"))
     # More than 30% non-text characters -> considered a binary file
     if isinstance(contents, unicode):
