@@ -138,7 +138,13 @@ class BrokerHandler(SharedHandler):
         # We are doing this because the ubuntu clients request uris like
         # 'http://hostname//XMLRPC...'. See bug 1220399 for details.
         if not effectiveURI_parts.scheme and effectiveURI_parts.netloc and effectiveURI_parts.netloc == 'XMLRPC':
-            effectiveURI_parts = urlparse( urlunparse( [ '', '', '/' + effectiveURI_parts.netloc + effectiveURI_parts.path, effectiveURI_parts.params, effectiveURI_parts.query, effectiveURI_parts.fragment ] ) )
+            effectiveURI_parts = urlparse(urlunparse([
+                '',
+                '',
+                '/' + effectiveURI_parts.netloc + effectiveURI_parts.path,
+                effectiveURI_parts.params,
+                effectiveURI_parts.query,
+                effectiveURI_parts.fragment]))
 
         if req.method == 'GET':
             scheme = 'http'
