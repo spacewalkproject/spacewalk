@@ -764,13 +764,4 @@ def file_needs_b64_enc(self, contents):
     if not contents:  # zero length
         return False
 
-    text_characters = "".join(map(chr, range(32, 127)) + list("\n\r\t\b"))
-    # More than 30% non-text characters -> considered a binary file
-    if isinstance(contents, unicode):
-        translate_table = dict((ord(char), None) for char in text_characters)
-        return float(len(contents.translate(translate_table))) / len(contents) > 0.3
-    if isinstance(contents, str):
-        # pylint: disable=W0402
-        import string
-        translate_table = string.maketrans("", "")
-        return float(len(contents.translate(translate_table, text_characters))) / len(contents) > 0.3
+    return True # always base64 encode, prevents stripping of whitespace
