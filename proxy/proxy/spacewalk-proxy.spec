@@ -8,7 +8,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.4.1
+Version: 2.4.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python
@@ -317,6 +317,9 @@ fi
 
 
 %changelog
+* Wed May 13 2015 Stephen Herr <sherr@redhat.com> 2.4.2-1
+- Break up long line to make pylint happy
+
 * Mon May 11 2015 Stephen Herr <sherr@redhat.com> 2.4.1-1
 - 1220399 - make proxy able to understand (bad) requests from ubuntu clients
 - Bumping package versions for 2.4.
