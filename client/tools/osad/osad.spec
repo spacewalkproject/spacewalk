@@ -17,7 +17,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.58
+Version: 5.11.59
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -413,6 +413,11 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Thu May 14 2015 Stephen Herr <sherr@redhat.com> 5.11.59-1
+- define the order of pending clients
+- explain the new notify_threshold param
+- introduce notify_threshold for osa-dispatcher (bsc#915581)
+
 * Fri Apr 10 2015 Matej Kollar <mkollar@redhat.com> 5.11.58-1
 - Improve osad's handling of the rhn_check process.
 
