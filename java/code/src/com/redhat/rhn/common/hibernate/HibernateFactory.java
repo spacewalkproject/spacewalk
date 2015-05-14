@@ -414,7 +414,6 @@ public abstract class HibernateFactory {
         return retval;
     }
 
-
     /**
      * Util to reload an object using Hibernate
      * @param obj to be reloaded
@@ -473,17 +472,6 @@ public abstract class HibernateFactory {
             }
         }
     }
-    /**
-     * utility to convert blob to String
-     * @param fromBlob blob to convert
-     * @return String converted from blob
-     */
-    public static String blobToString(Blob fromBlob) {
-        if (fromBlob != null) {
-            return getByteArrayContents(blobToByteArray(fromBlob));
-        }
-        return "";
-    }
 
     /**
      * helper utility to convert blob to byte array
@@ -539,6 +527,26 @@ public abstract class HibernateFactory {
             }
         }
         return retval;
+    }
+
+    /**
+     * Get the String version of an object corresponding to a BLOB column
+     * Handles both the byte[] and the Blob cases
+     * @param blob the blob to handle
+     * @return String version of the blob contents, null if the blob was null
+     * or if the specified object is not actually a Blob
+     */
+    public static String getBlobContents(Object blob) {
+        // Returned by Hibernate, and also returned by mode queries
+        // from an Oracle database
+        if (blob instanceof byte[]) {
+            return getByteArrayContents((byte[]) blob);
+        }
+        // Returned only by mode queries from a Postgres database
+        if (blob instanceof Blob) {
+            return getByteArrayContents(blobToByteArray((Blob) blob));
+        }
+        return null;
     }
 
     /**

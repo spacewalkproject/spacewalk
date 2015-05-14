@@ -147,7 +147,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -2253,16 +2252,7 @@ public class SystemHandler extends BaseHandler {
                     else {
                         // if there wasn't an error, check to see if there was a difference
                         // detected...
-                        String diffString = "";
-                        Object diff = file.get("diff");
-                        if (diff instanceof byte[]) {
-                            diffString = HibernateFactory.getByteArrayContents(
-                                    (byte[]) file.get("diff"));
-                        }
-                        else {
-                            diffString = HibernateFactory.blobToString(
-                                    (Blob) file.get("diff"));
-                        }
+                        String diffString = HibernateFactory.getBlobContents(file.get("diff"));
                         if (diffString != null) {
                             info.put("result", diffString);
                         }
