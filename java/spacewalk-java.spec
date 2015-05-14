@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.15
+Version: 2.4.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu May 14 2015 Stephen Herr <sherr@redhat.com> 2.4.16-1
+- Kickstart: install the latest available koan package, not first found
+
 * Thu May 14 2015 Grant Gainey 2.4.15-1
 - 1221739 - EXISTS is an Oracle keyword, don't use it casually
 
