@@ -62,21 +62,8 @@ public class LoginSetupAction extends RhnAction {
         if (dr.size() > 0) {
             installedSchemaVersion = (String) dr.get(0).get("version");
         }
-
-        if (log.isDebugEnabled()) {
-            log.debug("RPM version of schema: " +
-                (rpmSchemaVersion == null ? "null" : rpmSchemaVersion));
-            log.debug("Version of installed database schema: " +
-                (installedSchemaVersion == null ? "null" : installedSchemaVersion));
-        }
-
-        if (rpmSchemaVersion != null && installedSchemaVersion != null &&
-            !rpmSchemaVersion.equals(installedSchemaVersion)) {
-            request.setAttribute("schemaUpgradeRequired", "true");
-        }
-        else {
-            request.setAttribute("schemaUpgradeRequired", "false");
-        }
+        request.setAttribute("schemaUpgradeRequired",
+                LoginHelper.isSchemaUpgradeRequired().toString());
 
         CertificateManager man = CertificateManager.getInstance();
         if (man.isSatelliteCertInRestrictedPeriod()) {

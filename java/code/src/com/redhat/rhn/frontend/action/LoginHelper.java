@@ -15,6 +15,9 @@
 package com.redhat.rhn.frontend.action;
 
 import com.redhat.rhn.common.db.WrappedSQLException;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.messaging.MessageQueue;
@@ -30,6 +33,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
 import com.redhat.rhn.frontend.servlets.PxtSessionDelegateFactory;
+import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
 import com.redhat.rhn.manager.user.CreateUserCommand;
 import com.redhat.rhn.manager.user.UpdateUserCommand;
 import com.redhat.rhn.manager.user.UserManager;
@@ -44,6 +48,7 @@ import org.apache.struts.action.ActionMessages;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -299,6 +304,44 @@ public class LoginHelper {
             log.debug("Finished Updating errata cache. Took [" +
                     sw.getTime() + "]");
         }
+    }
+
+    /**
+     * @return returns whether installed schema version matches schema version of DB
+     */
+    public static Boolean isSchemaUpgradeRequired() {
+        String rpmSchemaVersion = getRpmSchemaVersion("satellite-schema");
+        if (rpmSchemaVersion == null) {
+            rpmSchemaVersion = getRpmSchemaVersion("spacewalk-schema");
+        }
+
+        SelectMode m = ModeFactory.getMode("General_queries", "installed_schema_version");
+        DataResult<HashMap> dr = m.execute();
+        String installedSchemaVersion = null;
+        if (dr.size() > 0) {
+            installedSchemaVersion = (String) dr.get(0).get("version");
+        }
+
+        if (log.isDebugEnabled()) {
+            log.debug("RPM version of schema: " +
+                (rpmSchemaVersion == null ? "null" : rpmSchemaVersion));
+            log.debug("Version of installed database schema: " +
+                (installedSchemaVersion == null ? "null" : installedSchemaVersion));
+        }
+
+        return rpmSchemaVersion != null && installedSchemaVersion != null &&
+                !rpmSchemaVersion.equals(installedSchemaVersion);
+    }
+
+    private static String getRpmSchemaVersion(String schemaName) {
+        String[] rpmCommand = new String[4];
+        rpmCommand[0] = "rpm";
+        rpmCommand[1] = "-q";
+        rpmCommand[2] = "--qf=%{VERSION}-%{RELEASE}";
+        rpmCommand[3] = schemaName;
+        SystemCommandExecutor ce = new SystemCommandExecutor();
+        return ce.execute(rpmCommand) == 0 ?
+            ce.getLastCommandOutput().replace("\n", "") : null;
     }
 
 }

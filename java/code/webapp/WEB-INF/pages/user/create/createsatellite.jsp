@@ -6,6 +6,13 @@
 
 <html>
 <body>
+
+<c:if test="${schemaUpgradeRequired == 'true'}">
+    <div class="alert alert-danger">
+        <bean:message key="login.jsp.schemaupgraderequired" />
+    </div>
+</c:if>
+
 <h1><bean:message key="usercreate.createFirstLogin" /></h1>
 
 <p><bean:message key="usercreate.satSummary" /></p>

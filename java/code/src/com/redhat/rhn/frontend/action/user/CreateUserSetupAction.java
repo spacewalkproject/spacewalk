@@ -18,9 +18,11 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.LoginHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.ActionForm;
@@ -55,6 +57,10 @@ public class CreateUserSetupAction extends BaseUserSetupAction {
                                   UserActionHelper.getPrefixes());
         request.setAttribute("countries",
                                   UserActionHelper.getCountries());
+        if (AclManager.hasAcl("need_first_user()", request, null)) {
+            request.setAttribute("schemaUpgradeRequired",
+                    LoginHelper.isSchemaUpgradeRequired().toString());
+        }
         if (UserManager.satelliteHasUsers()) {
             request.setAttribute("firstUserMode", Boolean.FALSE);
         }
