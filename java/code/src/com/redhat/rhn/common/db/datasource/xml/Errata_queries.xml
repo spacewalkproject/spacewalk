@@ -482,12 +482,12 @@ SELECT DISTINCT E.id , E.advisory AS advisory,
             rhnErrataCloned Cloned on CE2.errata_id = cloned.id
         where CE2.channel_id = :custom_cid
     )  temp on E.id  = temp.clonedId left join
-        (SELECT errata_id from rhnChannelErrata where channel_id = :custom_cid) exists on exists.errata_id = E.id,
+        (SELECT errata_id from rhnChannelErrata where channel_id = :custom_cid) errata_exists on errata_exists.errata_id = E.id,
        rhnSet S
  WHERE CE.channel_id  = S.element
  AND S.label =  'channels_for_errata'
          and temp.clonedId is null
-         and exists.errata_id is null
+         and errata_exists.errata_id is null
          and S.user_id = :user_id
   </query>
 </mode>
@@ -584,11 +584,11 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory_name,
             rhnErrataCloned EC3 on CE3.errata_id = EC3.id
             where CE3.channel_id = :custom_cid
     ) temp2 on temp2.id = EC.original_id left join
-    (SELECT errata_id from rhnChannelErrata where channel_id = :custom_cid) exists on exists.errata_id = E.id
+    (SELECT errata_id from rhnChannelErrata where channel_id = :custom_cid) errata_exists on errata_exists.errata_id = E.id
  WHERE
    CE.channel_id != :custom_cid
    and temp2.id is null
-   and exists.errata_id is null
+   and errata_exists.errata_id is null
    and E.org_id is not null
    and UC.org_id = :org_id
   </query>
@@ -611,11 +611,11 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory_name,
     rhnPackage P2 on P.name_id = P2.name_id inner join
     rhnChannelPackage CP on P2.id = CP.package_id and CP.channel_id = :custom_cid left join
     rhnErrataCloned EC on EC.id = E.id left join
-    (SELECT errata_id from rhnChannelErrata where channel_id = :custom_cid) exists on exists.errata_id = E.id
+    (SELECT errata_id from rhnChannelErrata where channel_id = :custom_cid) errata_exists on errata_exists.errata_id = E.id
     where CE.channel_id != :custom_cid
     and E.org_id is not null
     and UC.org_id = :org_id
-    and exists.errata_id is null
+    and errata_exists.errata_id is null
      )  Errata1 left join
     (   select EC3.original_id as id from rhnChannelErrata CE3 inner join
             rhnErrataCloned EC3 on CE3.errata_id = EC3.id
