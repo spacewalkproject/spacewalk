@@ -1,5 +1,7 @@
-Spacewalk [![Build Status](https://travis-ci.org/spacewalkproject/spacewalk.svg?branch=master)](https://travis-ci.org/spacewalkproject/spacewalk/builds)
+Spacewalk
 =========
+
+[![Build Status](https://travis-ci.org/spacewalkproject/spacewalk.svg?branch=master)](https://travis-ci.org/spacewalkproject/spacewalk/builds)
 
 Spacewalk is an open source Linux systems management solution.
 It is the upstream community project from which the [Red Hat
