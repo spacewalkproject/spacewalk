@@ -1128,7 +1128,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
         if (!results.isEmpty()) {
             return Collections.max(results, new Comparator<Map<String, Long>>() {
-                @Override
                 public int compare(Map<String, Long> o1In, Map<String, Long> o2In) {
                     PackageEvr evr1 = PackageEvrFactory.lookupPackageEvrById(
                             o1In.get("evr_id"));
