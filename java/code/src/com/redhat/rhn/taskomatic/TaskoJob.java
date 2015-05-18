@@ -17,7 +17,6 @@ package com.redhat.rhn.taskomatic;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.taskomatic.task.RhnJob;
-import com.redhat.rhn.taskomatic.task.RhnQueueJob;
 import com.redhat.rhn.taskomatic.task.TaskHelper;
 
 import org.apache.log4j.Logger;
@@ -63,8 +62,7 @@ public class TaskoJob implements Job {
 
     private boolean isTaskSingleThreaded(TaskoTask task) {
         try {
-            RhnQueueJob job =  (RhnQueueJob)
-                Class.forName(task.getTaskClass()).newInstance();
+            Class.forName(task.getTaskClass()).newInstance();
         }
         catch (Exception e) {
             return false;
@@ -158,11 +156,14 @@ public class TaskoJob implements Job {
                     job = (RhnJob) jobClass.newInstance();
                 }
                 catch (Exception e) {
-                    String errorLog = e.getMessage() + '\n' + e.getCause() + '\n';
+                    String errorLog = e.getClass().toString() + ": " +
+                            e.getMessage() + '\n' + e.getCause() + '\n';
                     taskRun.appendToErrorLog(errorLog);
                     taskRun.saveStatus(TaskoRun.STATUS_FAILED);
                     HibernateFactory.commitTransaction();
                     HibernateFactory.closeSession();
+                    // log the exception properly to the rhn_taskomatic_daemon.log log
+                    e.printStackTrace();
                     return;
                 }
 
