@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.4.9
+Version:        2.4.10
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon May 18 2015 Tomas Lestach <tlestach@redhat.com> 2.4.10-1
+- we need to run cleanup-packagechangelog-data as the 1st task of the template
+
 * Fri May 15 2015 Stephen Herr <sherr@redhat.com> 2.4.9-1
 - Remove monitoring cleanup taskomatic task - monitoring longer exists
 
