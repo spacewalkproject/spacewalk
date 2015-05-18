@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.16
+Version: 2.4.17
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon May 18 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.17-1
+- 1221224 - display schema upgrade required message on CreateFirstUser page
+
 * Thu May 14 2015 Stephen Herr <sherr@redhat.com> 2.4.16-1
 - Kickstart: install the latest available koan package, not first found
 
