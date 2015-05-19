@@ -18,15 +18,17 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 
-import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.messaging.EventDatabaseMessage;
 import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionType;
+import org.hibernate.Transaction;
 
 /**
  * Event carrying information necessary to schedule config files actions
  * for systems.
  */
-public class SsmConfigFilesEvent implements EventMessage {
+public class SsmConfigFilesEvent implements EventDatabaseMessage {
 
     private Collection<Long> systemIds;
     private Map<Long, Collection<Long>> revisionMappings;
@@ -34,6 +36,7 @@ public class SsmConfigFilesEvent implements EventMessage {
     private ActionType type;
     private Date earliest;
     private Long actionChainId;
+    private Transaction txn;
 
     /**
      * Creates a new event to trigger the action over the message queue.
@@ -64,6 +67,7 @@ public class SsmConfigFilesEvent implements EventMessage {
         if (actionChainIn != null) {
             this.actionChainId = actionChainIn.getId();
         }
+        this.txn = HibernateFactory.getSession().getTransaction();
     }
 
     /** @return will not be <code>null</code> */
@@ -110,5 +114,10 @@ public class SsmConfigFilesEvent implements EventMessage {
     /** {@inheritDoc} */
     public String toString() {
         return "SsmConfigFilesEvent[UserId: " + userId + "]";
+    }
+
+    /** {@inheritDoc} */
+    public Transaction getTransaction() {
+        return txn;
     }
 }

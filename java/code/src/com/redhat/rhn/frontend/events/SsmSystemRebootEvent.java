@@ -15,8 +15,10 @@
 
 package com.redhat.rhn.frontend.events;
 
-import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.messaging.EventDatabaseMessage;
 import com.redhat.rhn.domain.action.ActionChain;
+import org.hibernate.Transaction;
 
 import java.util.Date;
 import java.util.Set;
@@ -26,11 +28,12 @@ import java.util.Set;
  *
  * @author Bo Maryniuk
  */
-public class SsmSystemRebootEvent implements EventMessage {
+public class SsmSystemRebootEvent implements EventDatabaseMessage {
     private final Long userId;
     private final Date earliest;
     private final Long actionChainId;
     private final Set<Long> serverIds;
+    private Transaction txn;
 
     /**
      * Constructor.
@@ -63,6 +66,7 @@ public class SsmSystemRebootEvent implements EventMessage {
             this.actionChainId = null;
         }
         this.serverIds = servers;
+        this.txn = HibernateFactory.getSession().getTransaction();
     }
 
 
@@ -122,5 +126,10 @@ public class SsmSystemRebootEvent implements EventMessage {
      */
     public String toText() {
         return this.toString();
+    }
+
+    /** {@inheritDoc} */
+    public Transaction getTransaction() {
+        return txn;
     }
 }

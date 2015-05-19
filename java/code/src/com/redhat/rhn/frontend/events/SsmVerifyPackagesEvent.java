@@ -17,19 +17,22 @@ package com.redhat.rhn.frontend.events;
 import java.util.Date;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.messaging.EventDatabaseMessage;
 import com.redhat.rhn.domain.action.ActionChain;
+import org.hibernate.Transaction;
 
 /**
  * Event carrying information necessary to schedule package verifications on systems
  * in the SSM.
  */
-public class SsmVerifyPackagesEvent implements EventMessage {
+public class SsmVerifyPackagesEvent implements EventDatabaseMessage {
 
     private Long userId;
     private Date earliest;
     private Long actionChainId;
     private DataResult result;
+    private Transaction txn;
 
     /**
      * Creates a new event to trigger the action over the message queue.
@@ -58,6 +61,7 @@ public class SsmVerifyPackagesEvent implements EventMessage {
             this.actionChainId = actionChainIn.getId();
         }
         this.result = resultIn;
+        this.txn = HibernateFactory.getSession().getTransaction();
     }
 
     /** @return will not be <code>null</code> */
@@ -91,5 +95,10 @@ public class SsmVerifyPackagesEvent implements EventMessage {
     /** {@inheritDoc} */
     public String toString() {
         return "SsmPackageVerifyEvent[UserId: " + userId + "]";
+    }
+
+    /** {@inheritDoc} */
+    public Transaction getTransaction() {
+        return txn;
     }
 }

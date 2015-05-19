@@ -14,8 +14,10 @@
  */
 package com.redhat.rhn.frontend.events;
 
-import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.messaging.EventDatabaseMessage;
 import com.redhat.rhn.domain.action.ActionChain;
+import org.hibernate.Transaction;
 
 import java.util.Date;
 
@@ -26,11 +28,12 @@ import java.util.Date;
  * @author ggainey
  *
  */
-public abstract class SsmPackageEvent implements EventMessage {
+public abstract class SsmPackageEvent implements EventDatabaseMessage {
 
     protected Long                userId;
     protected Date                earliest;
     protected Long                actionChainId;
+    private Transaction           txn;
 
     /**
      * Creates a new event to install a set of packages on systems in the SSM.
@@ -51,6 +54,7 @@ public abstract class SsmPackageEvent implements EventMessage {
         if (actionChainIn != null) {
             this.actionChainId = actionChainIn.getId();
         }
+        this.txn = HibernateFactory.getSession().getTransaction();
     }
 
     /**
@@ -85,6 +89,11 @@ public abstract class SsmPackageEvent implements EventMessage {
     /** {@inheritDoc} */
     public String toText() {
         return toString();
+    }
+
+    /** {@inheritDoc} */
+    public Transaction getTransaction() {
+        return txn;
     }
 
 }

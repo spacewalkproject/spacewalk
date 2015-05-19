@@ -14,8 +14,10 @@
  */
 package com.redhat.rhn.frontend.events;
 
-import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.messaging.EventDatabaseMessage;
 import com.redhat.rhn.domain.action.ActionChain;
+import org.hibernate.Transaction;
 
 import java.util.Collections;
 import java.util.Date;
@@ -26,12 +28,13 @@ import java.util.List;
  *
  * @author Bo Maryniuk <bo@suse.de>
  */
-public class SsmErrataEvent implements EventMessage {
+public class SsmErrataEvent implements EventDatabaseMessage {
     private final Long userId;
     private final Date earliest;
     private final Long actionChainId;
     private final List<Long> errataIds;
     private final List<Long> serverIds;
+    private Transaction txn;
 
     /**
      * SSM Errata Event object constructor.
@@ -67,6 +70,7 @@ public class SsmErrataEvent implements EventMessage {
         }
         this.errataIds = errataList;
         this.serverIds = serverList;
+        this.txn = HibernateFactory.getSession().getTransaction();
     }
 
 
@@ -127,5 +131,10 @@ public class SsmErrataEvent implements EventMessage {
     /** {@inheritDoc} */
     public String toText() {
         return this.toString();
+    }
+
+    /** {@inheritDoc} */
+    public Transaction getTransaction() {
+        return txn;
     }
 }
