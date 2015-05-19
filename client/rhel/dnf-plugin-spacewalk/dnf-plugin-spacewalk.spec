@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.4.4
+Version: 2.4.5
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -67,6 +67,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir /var/lib/up2date
 
 %changelog
+* Tue May 19 2015 Michael Mraka <michael.mraka@redhat.com> 2.4.5-1
+- minimal needed version of librepo
+
 * Tue May 12 2015 Michael Mraka <michael.mraka@redhat.com> 2.4.4-1
 - fixed rpmbuild issues
 
