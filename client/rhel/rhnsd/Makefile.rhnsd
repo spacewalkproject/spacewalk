@@ -46,7 +46,7 @@ install:: all $(DIRS)
 	$(INSTALL_DATA) $(RHNSD).sysconfig $(CONFIG_DIR)/$(RHNSD)	
 
 $(RHNSD): $(RHNSD).o
-	$(CC) -o $@ $<
+	$(CC) $(CFLAGS) -o $@ $<
 %.o : %.c
 	$(CC) -DVERSION=\"$(VERSION)\" -fPIC $(CFLAGS) -c -o $@ $<
 

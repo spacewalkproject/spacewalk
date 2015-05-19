@@ -46,7 +46,7 @@ your machine, and runs any actions.
 %setup -q
 
 %build
-make -f Makefile.rhnsd %{?_smp_mflags} CFLAGS="%{optflags}"
+make -f Makefile.rhnsd %{?_smp_mflags} CFLAGS="-pie -fPIE -Wl,-z,relro,-z,now %{optflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
