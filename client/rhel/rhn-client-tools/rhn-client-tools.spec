@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.4.4
+Version: 2.4.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -383,6 +383,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue May 19 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.5-1
+- dnf is default on fedora22, so require it instead of yum
+
 * Fri Apr 24 2015 Michael Mraka <michael.mraka@redhat.com> 2.4.4-1
 - make code python 2.4 to 3.3 compatible
 
