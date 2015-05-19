@@ -47,7 +47,7 @@ Requires: python-dmidecode
 %if 0%{?suse_version}
 Requires: zypper
 %else
-%if 0%{?fedora} > 22
+%if 0%{?fedora} >= 22
 Requires: dnf
 %else
 Requires: yum
@@ -68,7 +68,7 @@ BuildRequires: desktop-file-utils
 
 %if 0%{?fedora}
 BuildRequires: fedora-logos
-%if 0%{?fedora} > 22
+%if 0%{?fedora} >= 22
 BuildRequires: dnf
 %else
 BuildRequires: yum
