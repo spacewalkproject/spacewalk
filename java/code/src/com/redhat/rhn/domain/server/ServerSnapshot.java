@@ -459,7 +459,7 @@ public class ServerSnapshot extends BaseDomainHelper {
 
             PackageMetadata pm = new PackageMetadata(systemPkg, snapshotPkg);
             int comparison;
-            switch ((Integer) pkgDiff.get("comparison")) {
+            switch (((Number) pkgDiff.get("comparison")).intValue()) {
             case -2: comparison = PackageMetadata.KEY_OTHER_ONLY;
                      break;
             case -1: comparison = PackageMetadata.KEY_OTHER_NEWER;
