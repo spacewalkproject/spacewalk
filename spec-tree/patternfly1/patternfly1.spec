@@ -11,7 +11,7 @@
 Name:		patternfly1
 Summary:	PatternFly open interface project and its dependencies
 Version:	1.0.5
-Release:	6%{?release_suffix}%{?dist}
+Release:	7%{?release_suffix}%{?dist}
 License:	ASL 2.0
 Group:      Applications/Internet
 URL:		https://github.com/patternfly/patternfly
@@ -40,6 +40,9 @@ cp -pR less/ %{buildroot}%{_datadir}/%{name}/resources/less
 %{_datadir}/%{name}/
 
 %changelog
+* Wed May 20 2015 Tomas Kasparek <tkasparek@redhat.com> 1.0.5-7
+- fix fonts paths for usage in Spacewalk
+
 * Fri Sep 26 2014 Tomas Kasparek <tkasparek@redhat.com> 1.0.5-6
 - move less files into resources directory
 
