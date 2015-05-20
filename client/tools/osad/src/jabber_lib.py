@@ -943,28 +943,24 @@ class JabberClient(jabber.Client, object):
             jid = str(jid)
             if subscribed_both.has_key(jid):
                 log_debug(4, "Already subscribed to the presence of node", jid)
-                del subscribed_both[jid]
                 continue
             # If to or from subscription for this node, we still send the
             # subscription request, but we shouldn't drop the subscription, so
             # we take the jid out of the respective hash
             if subscribed_to.has_key(jid):
                 log_debug(4, "Subscribed to")
-                del subscribed_to[jid]
                 continue
             if subscribed_none.has_key(jid):
                 ent = subscribed_none[jid]
                 if ent.has_key('ask') and ent['ask'] == 'subscribe':
                     log_debug(4, "Subscribed none + ask=subscribe")
                     # We already asked for a subscription
-                    del subscribed_none[jid]
                     continue
             if subscribed_from.has_key(jid):
                 ent = subscribed_from[jid]
                 if ent.has_key('ask') and ent['ask'] == 'subscribe':
                     log_debug(4, "Subscribed from + ask=subscribe")
                     # We already asked for a subscription
-                    del subscribed_from[jid]
                     continue
 
             # Make sure we update the roster ourselves, to avoid sending
