@@ -979,7 +979,17 @@ class JabberClient(jabber.Client, object):
                 'subscription'  : subscription,
                 'ask'           : 'subscribe',
             }
-            self._subscribe_to_presence(jid)
+
+            # subscribe this node to the jid's presence
+            log_debug(4, jid)
+            stripped_jid = self._strip_resource(jid)
+            presence_node = JabberPresenceNode(to=stripped_jid, type="subscribe")
+            presence_node.setID("presence-%s" % self.get_unique_id())
+            sig = self._create_signature(jid, NS_RHN_PRESENCE_SUBSCRIBE)
+            if sig:
+                presence_node.insertNode(sig)
+            log_debug(5, "Sending presence subscription request", presence_node)
+            self.send(presence_node)
 
         # XXX Here we should clean up everybody that is no longer online, but
         # this is more difficult
@@ -1258,18 +1268,6 @@ class JabberClient(jabber.Client, object):
 
     def _strip_resource(self, jid):
         return strip_resource(jid)
-
-    def _subscribe_to_presence(self, full_jid):
-        """Subscribes this node to the jid's presence"""
-        log_debug(4, full_jid)
-        jid = self._strip_resource(full_jid)
-        presence_node = JabberPresenceNode(to=jid, type="subscribe")
-        presence_node.setID("presence-%s" % self.get_unique_id())
-        sig = self._create_signature(full_jid, NS_RHN_PRESENCE_SUBSCRIBE)
-        if sig:
-            presence_node.insertNode(sig)
-        log_debug(5, "Sending presence subscription request", presence_node)
-        self.send(presence_node)
 
     def _create_signature(self, jid, action):
         return None
