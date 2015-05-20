@@ -1,0 +1,20 @@
+--- patternfly-1.0.5-orig/less/variables.less	2015-05-20 13:01:21.466533299 +0200
++++ patternfly-1.0.5/less/variables.less	2015-05-20 11:50:25.094886996 +0200
+@@ -57,7 +57,7 @@
+ @font-size-large:                                                   ceil(@font-size-base * 1.1666); // ~14px
+ @font-size-small:                                                   ceil(@font-size-base * .9166); // ~11px
+ @grid-gutter-width:                                                 40px;
+-@icon-font-path:                                                    "../../components/bootstrap/dist/fonts/";
++@icon-font-path:                                                    "../fonts/";
+ @input-bg-disabled:                                                 #F8F8F8;
+ @input-border:                                                      #BABABA;
+ @input-color:                                                       @gray-dark;
+@@ -122,7 +122,7 @@
+ @dropdown-link-hover-border-color:                                  #b3d3e7;
+ @dropdown-link-focus-bg:                                            @link-color;
+ @dropdown-link-focus-color:                                         #fff;
+-@fa-font-path:                                                      "../../components/font-awesome/fonts";
++@fa-font-path:                                                      "../fonts";
+ @font-path:                                                         "../fonts";
+ @gray-light-pf:                                                     #aaa;
+ @gray-pf:                                                           #4d5258;

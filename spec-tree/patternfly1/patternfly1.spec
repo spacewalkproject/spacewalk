@@ -16,6 +16,7 @@ License:	ASL 2.0
 Group:      Applications/Internet
 URL:		https://github.com/patternfly/patternfly
 Source:		patternfly-1.0.5.tar.gz
+Patch0:   fix_paths.patch
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
@@ -25,6 +26,7 @@ PatternFly open interface project, with dependencies bundled
 
 %prep
 %setup -q -n patternfly-1.0.5
+%patch0 -p1
 
 %build
 make %{?_smp_mflags} %{make_common_opts}
