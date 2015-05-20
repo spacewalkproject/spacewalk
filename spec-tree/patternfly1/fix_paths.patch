@@ -14,7 +14,7 @@
  @dropdown-link-focus-bg:                                            @link-color;
  @dropdown-link-focus-color:                                         #fff;
 -@fa-font-path:                                                      "../../components/font-awesome/fonts";
-+@fa-font-path:                                                      "../fonts";
++@fa-font-path:                                                      "../fonts/font-awesome/fonts";
  @font-path:                                                         "../fonts";
  @gray-light-pf:                                                     #aaa;
  @gray-pf:                                                           #4d5258;
