@@ -45,7 +45,7 @@ class Runner(jabber_lib.Runner):
     def __init__(self):
         jabber_lib.Runner.__init__(self)
         initCFG("osa-dispatcher")
-        self._tcp_server = None
+        self._notifier = Notifier
         self._poll_interval = None
         self._next_poll_interval = None
         # Cache states
@@ -121,15 +121,7 @@ class Runner(jabber_lib.Runner):
 
     def fix_connection(self, c):
         "After setting up the connection, do whatever else is necessary"
-        if not self._tcp_server:
-            # Bind to a port
-            self._tcp_server = bind_server(1290)
-
-        port = self._tcp_server.get_server_port()
-        # XXX Update the server's tables with our port
-        log_debug(1, "Upstream notification server started on port", port)
-
-        self._tcp_server.set_jabber_connection(c)
+        self._notifier.set_jabber_connection(c)
 
         self._poll_interval = CFG.poll_interval
         self._next_poll_interval = self._poll_interval
@@ -139,7 +131,7 @@ class Runner(jabber_lib.Runner):
         else:
             hostname = socket.gethostname()
 
-        self._register_dispatcher(c.jid, hostname, port)
+        self._register_dispatcher(c.jid, hostname)
 
         c.retrieve_roster()
         log_debug(4, "Subscribed to",   c._roster.get_subscribed_to())
@@ -192,21 +184,17 @@ class Runner(jabber_lib.Runner):
             client.ping_clients(need_pinging)
         npi = self._next_poll_interval
 
-        rfds, wfds, efds = select.select([client, self._tcp_server], [client], [], npi)
+        rfds, wfds, efds = select.select([client], [client], [], npi)
         # Reset the next poll interval
         npi = self._next_poll_interval = self._poll_interval
         if client in rfds:
             log_debug(5, "before process")
             client.process(timeout=None)
             log_debug(5, "after process")
-        if self._tcp_server in rfds:
-            # we were tickled
-            self._tcp_server.handle_request()
-            npi = self._tcp_server.get_next_poll_interval() or self._poll_interval
         if wfds:
             # Timeout
             log_debug(5,"Notifying jabber nodes")
-            self._tcp_server.notify_jabber_nodes()
+            self._notifier.notify_jabber_nodes()
         else:
             log_debug(5,"Not notifying jabber nodes")
 
@@ -276,23 +264,22 @@ class Runner(jabber_lib.Runner):
     _query_update_register_dispatcher = rhnSQL.Statement("""
             update rhnPushDispatcher
                set last_checkin = current_timestamp,
-                   hostname = :hostname_in,
-                   port = :port_in
+                   hostname = :hostname_in
              where jabber_id = :jabber_id_in
     """)
     _query_insert_register_dispatcher = rhnSQL.Statement("""
                 insert into rhnPushDispatcher
-                       (id, jabber_id, last_checkin, hostname, port, password)
+                       (id, jabber_id, last_checkin, hostname, password)
                 values (sequence_nextval('rhn_pushdispatch_id_seq'), :jabber_id_in, current_timestamp,
-                       :hostname_in, :port_in, :password_in)
+                       :hostname_in, :password_in)
     """)
 
-    def _register_dispatcher(self, jabber_id, hostname, port):
+    def _register_dispatcher(self, jabber_id, hostname):
         h = rhnSQL.prepare(self._query_update_register_dispatcher)
-        rowcount = h.execute(jabber_id_in=jabber_id, hostname_in=hostname, port_in=port, password_in=self._password)
+        rowcount = h.execute(jabber_id_in=jabber_id, hostname_in=hostname, password_in=self._password)
         if not rowcount:
             h = rhnSQL.prepare(self._query_insert_register_dispatcher)
-            h.execute(jabber_id_in=jabber_id, hostname_in=hostname, port_in=port, password_in=self._password)
+            h.execute(jabber_id_in=jabber_id, hostname_in=hostname, password_in=self._password)
         rhnSQL.commit()
 
     _query_get_client_jids = rhnSQL.Statement("""
@@ -314,25 +301,16 @@ class Runner(jabber_lib.Runner):
         return ret
 
 
-class UpstreamServer(SocketServer.TCPServer):
-    def __init__(self, server_address):
-        SocketServer.TCPServer.__init__(self, server_address, None)
+class Notifier:
+    def __init__(self):
         self._next_poll_interval = None
         self._notify_threshold = CFG.get('notify_threshold')
-
-    def get_server_port(self):
-        return self.server_address[1]
 
     def get_next_poll_interval(self):
         return self._next_poll_interval
 
     def set_jabber_connection(self, jabber_connection):
         self.jabber_connection = jabber_connection
-
-    def finish_request(self, request, client_address):
-        log_debug(2, client_address)
-        log_debug(2,"###about to notify jabber nodes from finish request")
-        self.notify_jabber_nodes()
 
     def get_running_clients(self):
         log_debug(3)
@@ -435,19 +413,6 @@ class UpstreamServer(SocketServer.TCPServer):
           from rhnServerAction
          where status = 1 -- picked up
     """)
-
-def bind_server(start_port=1290):
-    port = start_port
-    while 1:
-        server_addr = ('', port)
-        try:
-            return UpstreamServer(server_addr)
-        except SocketServer.socket.error, e:
-            if e[0] != 98:
-                # address already in use
-                raise
-            port = port + 1
-    return None
 
 def reboot_in_progress(server_id):
     """check for a reboot action for this server in status Picked Up"""
