@@ -131,14 +131,7 @@
             <bean:message key="kickstart.advanced.jsp.uploadtab"/>
         </label>
         <div class="col-lg-6">
-            <div class="input-group">
-                <html:file property="fileUpload" size="30" styleClass="form-control"/>
-                <span class="input-group-btn">
-                    <html:submit property="dispatch" styleClass="btn btn-success">
-                        <bean:message key="${requestScope.uploadKey}"/>
-                    </html:submit>
-                </span>
-            </div>
+            <html:file property="fileUpload" size="30" styleClass="form-control"/>
         </div>
     </div>
     <div class="form-group">
