@@ -1,0 +1,1 @@
+ALTER TABLE rhnContentSource MODIFY label VARCHAR2(128);

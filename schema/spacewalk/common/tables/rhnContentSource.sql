@@ -28,7 +28,7 @@ rhnContentSource
                         constraint rhn_cs_type_fk
                                 references rhnContentSourceType(id),
         source_url      varchar2(2048) NOT NULL,
-        label           varchar2(64) NOT NULL,
+        label           varchar2(128) NOT NULL,
         created         timestamp with local time zone default(current_timestamp) NOT NULL,
         modified        timestamp with local time zone default(current_timestamp) NOT NULL
 )
