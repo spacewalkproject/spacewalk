@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.xmlrpc.system;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.client.ClientCertificate;
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -76,8 +75,8 @@ import com.redhat.rhn.frontend.dto.ActivationKeyDto;
 import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.EssentialChannelDto;
-import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.HistoryEvent;
+import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.ProfileOverviewDto;
 import com.redhat.rhn.frontend.dto.ServerPath;
 import com.redhat.rhn.frontend.dto.SystemCurrency;
@@ -86,9 +85,9 @@ import com.redhat.rhn.frontend.dto.VirtualSystemOverview;
 import com.redhat.rhn.frontend.events.SsmDeleteServersEvent;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelListException;
-import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidParameterException;
@@ -172,6 +171,7 @@ public class SystemHandler extends BaseHandler {
 
     private static Logger log = Logger.getLogger(SystemHandler.class);
 
+    @Override
     protected boolean availableInRestrictedPeriod() {
         return true;
     }
@@ -2585,20 +2585,6 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
-     * Private helper method to determine if a server is inactive.
-     * @param so SystemOverview object representing system to inspect.
-     * @return Returns true if system is inactive, false if system is active.
-     */
-    private boolean isSystemInactive(SystemOverview so) {
-        Long threshold = new Long(Config.get().getInt(
-                ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD, 1));
-        if (so.getLastCheckinDaysAgo().compareTo(threshold) == 1) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Get system IDs and last check in information for the given system name.
      * @param loggedInUser The current user
      * @param name of the server
@@ -3454,10 +3440,8 @@ public class SystemHandler extends BaseHandler {
         for (Iterator<Integer> sysIter = systemIds.iterator(); sysIter.hasNext();) {
             Integer sidAsInt = sysIter.next();
             Long sid = new Long(sidAsInt.longValue());
-            Server server = null;
-
             try {
-                server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
+                SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                         loggedInUser);
                 servers.add(sid);
             }
