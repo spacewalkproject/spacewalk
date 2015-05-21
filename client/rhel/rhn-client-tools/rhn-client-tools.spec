@@ -12,7 +12,7 @@ BuildArch: noarch
 BuildRequires: update-desktop-files
 %endif
 
-Requires: rhnlib >= 2.5.57
+Requires: rhnlib >= 2.5.74
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
 Requires: python-ethtool >= 0.4
