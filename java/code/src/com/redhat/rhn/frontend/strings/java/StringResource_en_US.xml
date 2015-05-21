@@ -1909,6 +1909,12 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="kickstart.details.duplicatefile">
+        <source>Please specify only file contents or a file to upload but not both.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.details.nolabel">
         <source>Kickstart profile label is required.</source>
         <context-group name="ctx">

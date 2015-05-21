@@ -312,6 +312,11 @@ public class AdvancedModeDetailsAction extends RhnAction {
             throw new ValidatorException(result);
         }
 
+        FormFile file = (FormFile) form.get(FILE_UPLOAD);
+        String contents = form.getString(CONTENTS);
+        if (!file.getFileName().equals("") && !contents.equals("")) {
+            ValidatorException.raiseException("kickstart.details.duplicatefile");
+        }
 
         KickstartableTree tree =  KickstartFactory.lookupKickstartTreeByIdAndOrg(
                 (Long) form.get(KSTREE_ID_PARAM),
@@ -328,12 +333,18 @@ public class AdvancedModeDetailsAction extends RhnAction {
     }
 
     private String getData(RequestContext context, DynaActionForm form) {
-        if (context.wasDispatched(UPLOAD_KEY)) {
+        FormFile file = (FormFile) form.get(FILE_UPLOAD);
+        String contents = form.getString(CONTENTS);
+        if (!file.getFileName().equals("")) {
             StrutsDelegate delegate = getStrutsDelegate();
-            FormFile file = (FormFile) form.get(FILE_UPLOAD);
             return delegate.extractString(file);
         }
-        return StringUtil.webToLinux(form.getString(CONTENTS));
+        else if (!contents.equals("")) {
+            return StringUtil.webToLinux(contents);
+        }
+        else {
+            return null;
+        }
     }
 
     private KickstartRawData getKsData(RequestContext context) {
