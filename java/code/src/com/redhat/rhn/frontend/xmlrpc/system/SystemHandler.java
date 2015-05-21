@@ -2252,7 +2252,8 @@ public class SystemHandler extends BaseHandler {
                     else {
                         // if there wasn't an error, check to see if there was a difference
                         // detected...
-                        String diffString = HibernateFactory.getBlobContents(file.get("diff"));
+                        String diffString = HibernateFactory.getBlobContents(
+                                file.get("diff"));
                         if (diffString != null) {
                             info.put("result", diffString);
                         }
