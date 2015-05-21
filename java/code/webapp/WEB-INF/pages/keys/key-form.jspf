@@ -40,7 +40,7 @@
         </c:choose>
     </label>
     <div class="col-lg-6">
-        <html:file property="contents" styleClass="file-control"/>
+        <html:file property="contents" styleClass="form-control"/>
     </div>
 </div>
 
