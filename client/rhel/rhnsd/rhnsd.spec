@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 5.0.15
+Version: 5.0.16
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -138,6 +138,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu May 21 2015 Matej Kollar <mkollar@redhat.com> 5.0.16-1
+- 1092518 - PIE+RELRO for rhnsd
+
 * Tue Jan 13 2015 Matej Kollar <mkollar@redhat.com> 5.0.15-1
 - Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
 
