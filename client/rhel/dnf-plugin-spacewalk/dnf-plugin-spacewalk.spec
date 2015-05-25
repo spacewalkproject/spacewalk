@@ -6,7 +6,6 @@ License: GPLv2
 Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 %if 0%{?fedora}
@@ -27,7 +26,6 @@ This DNF plugin provides access to a Spacewalk server for software updates.
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{python_sitelib}/dnf-plugins/
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/dnf/plugins/
 install -d $RPM_BUILD_ROOT/usr/share/rhn/actions
@@ -45,16 +43,12 @@ install -m 644 spacewalk.conf $RPM_BUILD_ROOT%{_sysconfdir}/dnf/plugins/
 install -m 644 man/spacewalk.conf.5 $RPM_BUILD_ROOT%{_mandir}/man5/
 install -m 644 man/dnf.plugin.spacewalk.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 
-#%find_lang %{name}
-
-%clean
-rm -rf $RPM_BUILD_ROOT
+%find_lang %{name}
 
 %pre
 
 %post
 
-#%files -f %{name}.lang
 %files
 %verify(not md5 mtime size) %config(noreplace) %{_sysconfdir}/dnf/plugins/spacewalk.conf
 %dir /var/lib/up2date
