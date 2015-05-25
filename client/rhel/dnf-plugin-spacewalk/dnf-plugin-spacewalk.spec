@@ -51,6 +51,7 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 
 %files
 %verify(not md5 mtime size) %config(noreplace) %{_sysconfdir}/dnf/plugins/spacewalk.conf
+%license LICENSE
 %dir /var/lib/up2date
 %{_mandir}/man*/*
 %{python_sitelib}/dnf-plugins/*
