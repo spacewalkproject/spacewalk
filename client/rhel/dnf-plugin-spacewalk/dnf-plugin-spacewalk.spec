@@ -43,8 +43,6 @@ install -m 644 spacewalk.conf %{buildroot}%{_sysconfdir}/dnf/plugins/
 install -m 644 man/spacewalk.conf.5 %{buildroot}%{_mandir}/man5/
 install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 
-%find_lang %{name}
-
 %pre
 
 %post
