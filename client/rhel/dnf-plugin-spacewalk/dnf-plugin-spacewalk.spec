@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.4.6
+Version: 2.4.7
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -60,7 +60,7 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %dir /var/lib/up2date
 
 %changelog
-* Mon May 25 2015 Michael Mraka <michael.mraka@redhat.com> 2.4.6-1
+* Mon May 25 2015 Michael Mraka <michael.mraka@redhat.com> 2.4.7-1
 - added license
 - be consistent in using macros vs. shell variables
 - make spec complient with fedora packaging guidlines
