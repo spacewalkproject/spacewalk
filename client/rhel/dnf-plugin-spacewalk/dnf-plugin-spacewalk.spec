@@ -26,22 +26,22 @@ This DNF plugin provides access to a Spacewalk server for software updates.
 
 
 %install
-install -d $RPM_BUILD_ROOT%{python_sitelib}/dnf-plugins/
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/dnf/plugins/
-install -d $RPM_BUILD_ROOT/usr/share/rhn/actions
-install -d $RPM_BUILD_ROOT/var/lib/up2date
-install -d $RPM_BUILD_ROOT%{_mandir}/man{5,8}
-install -m 644 spacewalk.py $RPM_BUILD_ROOT%{python_sitelib}/dnf-plugins/
+install -d %{buildroot}%{python_sitelib}/dnf-plugins/
+install -d %{buildroot}%{_sysconfdir}/dnf/plugins/
+install -d %{buildroot}/usr/share/rhn/actions
+install -d %{buildroot}/var/lib/up2date
+install -d %{buildroot}%{_mandir}/man{5,8}
+install -m 644 spacewalk.py %{buildroot}%{python_sitelib}/dnf-plugins/
 %if 0%{?fedora}
-install -d $RPM_BUILD_ROOT%{python3_sitelib}/dnf-plugins/
+install -d %{buildroot}%{python3_sitelib}/dnf-plugins/
 ln -s %{python_sitelib}/dnf-plugins/spacewalk.py \
-        $RPM_BUILD_ROOT%{python3_sitelib}/dnf-plugins/spacewalk.py
+        %{buildroot}%{python3_sitelib}/dnf-plugins/spacewalk.py
 %endif
-install -m 644 actions/packages.py $RPM_BUILD_ROOT/usr/share/rhn/actions/
-install -m 644 actions/errata.py $RPM_BUILD_ROOT/usr/share/rhn/actions/
-install -m 644 spacewalk.conf $RPM_BUILD_ROOT%{_sysconfdir}/dnf/plugins/
-install -m 644 man/spacewalk.conf.5 $RPM_BUILD_ROOT%{_mandir}/man5/
-install -m 644 man/dnf.plugin.spacewalk.8 $RPM_BUILD_ROOT%{_mandir}/man8/
+install -m 644 actions/packages.py %{buildroot}/usr/share/rhn/actions/
+install -m 644 actions/errata.py %{buildroot}/usr/share/rhn/actions/
+install -m 644 spacewalk.conf %{buildroot}%{_sysconfdir}/dnf/plugins/
+install -m 644 man/spacewalk.conf.5 %{buildroot}%{_mandir}/man5/
+install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 
 %find_lang %{name}
 
