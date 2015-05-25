@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.4.0
+Version:        2.4.1
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -112,6 +112,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon May 25 2015 Tomas Lestach <tlestach@redhat.com> 2.4.1-1
+- spacewalk-setup spec: add spacewalk-base-minimal as an explicit dependency
+- Bumping package versions for 2.4.
+
 * Thu Mar 19 2015 Grant Gainey 2.3.14-1
 - Updating copyright info for 2015
 
