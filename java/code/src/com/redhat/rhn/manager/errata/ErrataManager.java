@@ -1730,37 +1730,33 @@ public class ErrataManager extends BaseManager {
             }
         }
 
-        // Schedule updates to the software update stack first
-        List<ErrataAction> stackUpdates = null;
+        // Divide stack updates from regular errata
+        List<Errata> stackUpdates = new ArrayList<Errata>();
         List<Errata> errata = new ArrayList<Errata>();
         for (Long errataId : serversForErrata.keySet()) {
             Errata erratum = ErrataManager.lookupErrata(errataId, user);
             if (erratum.hasKeyword("restart_suggested")) {
-                if (stackUpdates == null) {
-                    stackUpdates = createErrataActions(user, erratum,
-                        earliest, actionChain, serversForErrata.get(errataId));
-                }
-                else {
-                    for (ErrataAction stackUpdate : stackUpdates) {
-                        stackUpdate.addErrata(erratum);
-                    }
-                }
+                stackUpdates.add(erratum);
             }
             else {
                 errata.add(erratum);
             }
         }
 
-        if (stackUpdates != null) {
-            for (ErrataAction stackUpdate : stackUpdates) {
-                Object[] args = new Object[]{stackUpdate.getErrata().size()};
-                stackUpdate.setName(LocalizationService.getInstance().getMessage(
+        // Schedule updates to the software update stack first
+        List<Long> actionIds = new ArrayList<Long>();
+        for (Errata stackUpdate : stackUpdates) {
+            List<ErrataAction> errataActions = createErrataActions(user, stackUpdate,
+                    earliest, actionChain, serversForErrata.get(stackUpdate.getId()));
+            for (ErrataAction errataAction : errataActions) {
+                Object[] args = new Object[] {errataAction.getErrata().size()};
+                errataAction.setName(LocalizationService.getInstance().getMessage(
                         "errata.swstack", args));
-                ActionManager.storeAction(stackUpdate);
+                Action action = ActionManager.storeAction(errataAction);
+                actionIds.add(action.getId());
             }
         }
 
-        List<Long> actionIds = new ArrayList<Long>();
         // Schedule remaining errata actions
         for (Errata e : errata) {
             List<ErrataAction> errataActions = createErrataActions(user, e, earliest,
