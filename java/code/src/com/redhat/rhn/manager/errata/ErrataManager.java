@@ -1746,11 +1746,12 @@ public class ErrataManager extends BaseManager {
         // Schedule updates to the software update stack first
         List<Long> actionIds = new ArrayList<Long>();
         for (Errata stackUpdate : stackUpdates) {
-            List<ErrataAction> errataActions =
-                    createErrataActions(user, stackUpdate, earliest, actionChain, serversForErrata.get(stackUpdate.getId()));
+            List<ErrataAction> errataActions = createErrataActions(user, stackUpdate,
+                    earliest, actionChain, serversForErrata.get(stackUpdate.getId()));
             for (ErrataAction errataAction : errataActions) {
                 Object[] args = new Object[] {errataAction.getErrata().size()};
-                errataAction.setName(LocalizationService.getInstance().getMessage("errata.swstack", args));
+                errataAction.setName(LocalizationService.getInstance().getMessage(
+                        "errata.swstack", args));
                 Action action = ActionManager.storeAction(errataAction);
                 actionIds.add(action.getId());
                 ActionManager.storeAction(errataAction);
