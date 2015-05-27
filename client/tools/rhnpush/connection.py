@@ -116,7 +116,7 @@ class PackageUpload:
             vlist = self.headers[name] = []
         else:
             vlist = self.headers[name]
-            if type(vlist) not in (ListType, TupleType):
+            if not isinstance(vlist, (ListType, TupleType)):
                 vlist = [vlist]
         vlist.append(value)
 
@@ -134,7 +134,7 @@ class PackageUpload:
 
         # Additional headers
         for hname, hval in self.headers.items():
-            if type(hval) not in [ListType, TupleType]:
+            if not isinstance(hval, (ListType, TupleType)):
                 hval = [hval]
 
             for v in hval:

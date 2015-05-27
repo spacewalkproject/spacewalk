@@ -205,7 +205,7 @@ def _extract_array_fields(header, tag_maps):
         tag_dict = {}
         for key, rpmtag in tag_maps.items():
             arr = header[rpmtag]
-            if type(arr) not in (ListType, TupleType):
+            if not isinstance(arr, (ListType, TupleType)):
                 arr = [arr]
             tag_dict[key] = arr[i]
         result.append(tag_dict)

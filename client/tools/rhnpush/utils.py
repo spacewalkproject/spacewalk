@@ -39,7 +39,8 @@ def make_common_attr_equal(object1, object2):
             continue
 
         # Make sure the attributes are the same type OR that the attribute in object1 is None.
-        if type(object1.__dict__[attr]) == type(object2.__dict__[attr]) or type(object1.__dict__[attr]) == type(None):
+        if isinstance(object1.__dict__[attr], type(object2.__dict__[attr])) or \
+        isinstance(object1.__dict__[attr], type(None)):
             if object1.__dict__[attr] != object2.__dict__[attr]:
                 object1.__dict__[attr] = object2.__dict__[attr]
             else:

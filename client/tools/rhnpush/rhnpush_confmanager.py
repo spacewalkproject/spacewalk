@@ -42,13 +42,13 @@ class ConfManager:
     def _files_to_list(self):
         # Change the files options to lists.
         if (self.defaultconfig.__dict__.has_key('files') and
-                not type(self.defaultconfig.files) == type([])):
+                not isinstance(self.defaultconfig.files, type([]))):
             self.defaultconfig.files = [x.strip() for x in
                                         self.defaultconfig.files.split(',')]
 
         # Change the exclude options to list.
         if (self.defaultconfig.__dict__.has_key('exclude') and
-                not type(self.defaultconfig.__dict__['exclude']) == type([])):
+                not isinstance(self.defaultconfig.__dict__['exclude'], type([]))):
             self.defaultconfig.exclude = [x.strip() for x in
                                           self.defaultconfig.exclude.split(',')]
 
