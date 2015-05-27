@@ -1,0 +1,28 @@
+
+synopsis:
+
+    Proxies report
+
+description:
+
+    List of proxies and the servers registered through them
+
+columns:
+
+    proxy_id     Proxy identifier
+    proxy_name   Proxy name
+    server_name  Server name
+    server_id    Server identifier
+
+sql:
+
+    select * from (
+        select proxy.id proxy_id, proxy.name proxy_name, server.name server_name, server.id server_id
+          from rhnserver proxy
+               inner join rhnserverpath sp on sp.proxy_server_id = proxy.id
+               inner join rhnserver server on server.id = sp.server_id
+         order by proxy.name, server.name 
+    ) X
+    -- where placeholder
+    order by proxy_name, server_name
+
