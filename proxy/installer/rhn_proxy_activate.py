@@ -380,7 +380,7 @@ def processCommandline(cfg):
 
     up2date_cfg = dict(cfg.items())
 
-    if type(up2date_cfg['serverURL']) is type([]):
+    if isinstance(up2date_cfg['serverURL'], type([])):
         rhn_parent = urlparse.urlparse(up2date_cfg['serverURL'][0])[1]
     else:
         rhn_parent = urlparse.urlparse(up2date_cfg['serverURL'])[1]
