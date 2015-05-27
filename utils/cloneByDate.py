@@ -169,7 +169,7 @@ def main(options):
         for src_channel in channel_list.keys():
             dest_channel = channel_list[src_channel]
             # new-style config file channel specification
-            if type(dest_channel) == dict:
+            if isinstance(dest_channel, dict):
                 if 'label' not in dest_channel:
                     raise UserError("You must specify a label for the clone of %s" % src_channel)
                 label = dest_channel['label']
@@ -407,7 +407,7 @@ class ChannelTreeCloner:
     def validate_children(self, parent, channel_list):
         """ Make sure all children are children of the parent"""
         for channel in channel_list:
-            if type(channel) == type([]):
+            if isinstance(channel, type([])):
                 channel = channel[0]
             if channel != parent:
                 if (self.channel_details[channel]['parent_channel_label']
@@ -421,7 +421,7 @@ class ChannelTreeCloner:
     def find_parent(self, label_list):
         found_list = []
         for label in label_list:
-            if type(label) == type([]):
+            if isinstance(label, type([])):
                 label = label[0]
             if self.channel_details[label]['parent_channel_label'] == '':
                 found_list.append(label)

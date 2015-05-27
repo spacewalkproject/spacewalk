@@ -92,7 +92,7 @@ def main():
         sys.exit(1)
 
     for server_id, to_org_id in migrate_data:
-        if type(server_id) == type([]):
+        if isinstance(server_id, type([])):
             server_id = map(int, server_id)
         else:
             server_id = [int(server_id)]
