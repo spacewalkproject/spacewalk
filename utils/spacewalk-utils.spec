@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.4.3
+Version:	2.4.4
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed May 27 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.4-1
+- fix pylint warning on Fedora 22
+
 * Fri Apr 24 2015 Matej Kollar <mkollar@redhat.com> 2.4.3-1
 - remove whitespace from .sgml files
 
