@@ -83,7 +83,7 @@ class Repository(rhnRepository.Repository):
         # If the file name has parameters, it's a different kind of package.
         # Determine the architecture requested so we can construct an
         # appropriate filename.
-        if type(pkgFilename) == types.ListType:
+        if isinstance(pkgFilename, types.ListType):
             arch = pkgFilename[3]
             # Not certain if anything is needed here for Debian, but since what I've tested
             # works.   Leave it alone.

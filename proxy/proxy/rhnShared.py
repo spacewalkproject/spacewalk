@@ -362,7 +362,7 @@ class SharedHandler:
                         'warning', 'www-authenticate']):
                 # filter out header we don't want to send
                 continue
-            if type(vals) not in (ListType, TupleType):
+            if not isinstance(vals, (ListType, TupleType)):
                 vals = [vals]
             for v in vals:
                 log_debug(5, "Outgoing header", k, v)
