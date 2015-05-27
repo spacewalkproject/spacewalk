@@ -99,7 +99,7 @@ def log2disk(level, msg, cleanYN=0, notimeYN=0):
     """Log to a log file.
     Arguments: see def _prepLogMsg(...) above.
     """
-    if type(msg) != type([]):
+    if not isinstance(msg, type([])):
         msg = [msg]
     for m in msg:
         try:
@@ -114,7 +114,7 @@ def log2stream(level, msg, cleanYN, notimeYN, stream):
     """Log to a specified stream.
     Arguments: see def _prepLogMsg(...) above.
     """
-    if type(msg) != type([]):
+    if not isinstance(msg, type([])):
         msg = [msg]
     if CFG.DEBUG >= level:
         for m in msg:

@@ -26,7 +26,7 @@ from stringutils import to_string
 
 
 def __check_headers(h):
-    if type(h) != type({}) or not hasattr(h, "has_key"):
+    if not isinstance(h, type({})) or not hasattr(h, "has_key"):
         # does not look like a dictionary
         h = {}
     if not h.has_key("Subject"):
@@ -38,7 +38,7 @@ def __check_headers(h):
         to = h["To"]
     if not ("Content-Type" in h):
         h["Content-Type"] = "text/plain; charset=utf-8"
-    if type(to) in [type([]), type(())]:
+    if isinstance(to, (type([]), type(()))):
         toaddrs = to
         to = ', '.join(to)
     else:

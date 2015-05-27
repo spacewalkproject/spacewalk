@@ -27,7 +27,7 @@ def setHeaderValue(mp_table, name, values):
     """
     # mp_table is an Apache mp_table (like headers_in or headers_out)
     # Sets the header name to the values
-    if type(values) in (types.ListType, types.TupleType):
+    if isinstance(values, (types.ListType, types.TupleType)):
         for v in values:
             mp_table.add(name, str(v))
     else:
@@ -56,7 +56,7 @@ def rfc822time(arg):
            be translated to GMT in the return value.
     """
 
-    if type(arg) in (types.ListType, types.TupleType):
+    if isinstance(arg, (types.ListType, types.TupleType)):
         # Convert to float.
         arg = time.mktime(arg)
 
@@ -75,7 +75,7 @@ def timestamp(s):
     """
     Converts the string in format YYYYMMDDHHMISS to seconds from the epoch
     """
-    if type(s) in (types.IntType, types.FloatType):
+    if isinstance(s, (types.IntType, types.FloatType)):
         # Presumably already a timestamp
         return s
     if len(s) == 14:
@@ -97,9 +97,9 @@ def checkValue(val, *args):
     """
 
     for a in args:
-        if type(a) is types.TypeType:
+        if isinstance(a, types.TypeType):
             # Is val of type a?
-            if type(val) is a:
+            if isinstance(val, a):
                 return 1
         else:
             # This is an actual value we allow

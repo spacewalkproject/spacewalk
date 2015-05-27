@@ -17,14 +17,14 @@ from types import StringType, UnicodeType
 
 
 def to_unicode(obj):
-    if type(obj) == StringType:
+    if isinstance(obj, StringType):
         return unicode(obj, 'utf8')
     else:
         return obj
 
 
 def to_string(obj):
-    if type(obj) == UnicodeType:
+    if isinstance(obj, UnicodeType):
         return obj.encode('utf8')
     else:
         return obj

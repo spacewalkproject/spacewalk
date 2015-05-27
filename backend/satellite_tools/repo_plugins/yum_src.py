@@ -69,7 +69,7 @@ class YumUpdateMetadata(UpdateMetadata):
         """ Parse a metadata from a given YumRepository, file, or filename. """
         if not obj:
             raise UpdateNoticeException
-        if type(obj) in (type(''), type(u'')):
+        if isinstance(obj, (type(''), type(u''))):
             infile = fileutils.decompress_open(obj)
         elif isinstance(obj, YumRepository):
             if obj.id not in self._repos:

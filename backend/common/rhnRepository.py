@@ -222,7 +222,7 @@ class Repository(RPC_Base):
         transport = rhnFlags.get('outputTransportOptions')
         if last_modified:
             # Put the last-modified info too
-            if type(last_modified) in (types.IntType, types.FloatType):
+            if isinstance(last_modified, (types.IntType, types.FloatType)):
                 last_modified = rfc822time(last_modified)
             transport['Last-Modified'] = last_modified
         if extra_headers:

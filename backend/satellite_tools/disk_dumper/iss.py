@@ -1090,7 +1090,7 @@ class ExporterMain:
                 self.options.channel.append(pc)
                 self.options.channel.extend(channel_dict[pc])
         elif self.options.channel:
-            if type(self.options.channel) != type([]):
+            if not isinstance(self.options.channel, type([])):
                 self.options.channel = [self.options.channel]
         else:
             sys.stdout.write("--channel not included!\n")
@@ -1103,7 +1103,7 @@ class ExporterMain:
             for org in orgs:
                 self.options.org.append(org['id'])
         elif self.options.org:
-            if type(self.options.org) != type([]):
+            if not type(self.options.org, type([])):
                 self.options.org = [self.options.org]
             orgs = {}
             for org in self.list_orgs():
@@ -1313,7 +1313,7 @@ class ExporterMain:
                         # contains a action that isn't defined in self.actionmap.
                         sys.stderr.write("List of actions doesn't have %s.\n" % (action,))
                     else:
-                        if type(self.actionmap[action]['dump']) == type([]):
+                        if isinstance(self.actionmap[action]['dump'], type([])):
                             for dmp in self.actionmap[action]['dump']:
                                 dmp()
                         else:
