@@ -153,7 +153,9 @@ public abstract class RhnSetAction extends RhnListDispatchAction {
      */
     protected abstract RhnSetDecl getSetDecl();
 
-    protected final String getSetName() { throw new UnsupportedOperationException(); }
+    protected final String getSetName() {
+        throw new UnsupportedOperationException();
+    }
 
     protected abstract DataResult getDataResult(User user,
             ActionForm formIn, HttpServletRequest request);

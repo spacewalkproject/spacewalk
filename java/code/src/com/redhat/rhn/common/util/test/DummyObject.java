@@ -30,7 +30,11 @@ public class DummyObject {
         values = new HashMap();
     }
 
-    public Map getValues() { return values; }
-    public void put(Object s, Object o) { values.put(s, o); }
+    public Map getValues() {
+        return values;
+    }
+    public void put(Object s, Object o) {
+        values.put(s, o);
+    }
 }
 

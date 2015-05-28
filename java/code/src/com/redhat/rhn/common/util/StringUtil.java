@@ -70,14 +70,18 @@ public class StringUtil {
          * Get error ID.
          * @return int Return check restult ID.
          */
-        public int getId() { return id; }
+        public int getId() {
+            return id;
+        }
 
 
         /**
          * Get message key.
          * @return string Returns message key for the translation.
          */
-        public String getMessageKey() { return messageKey; }
+        public String getMessageKey() {
+            return messageKey;
+        }
     }
 
 

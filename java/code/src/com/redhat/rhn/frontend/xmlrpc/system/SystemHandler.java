@@ -4049,8 +4049,12 @@ public class SystemHandler extends BaseHandler {
                         if (header == null) {
                             header = line.split(",");
                             for (int i = 0; i < header.length; i++) {
-                                if (header[i].equals(csvUuid)) { uuidPos = i; }
-                                if (header[i].equals(csvSystemId)) { systemIdPos = i; }
+                                if (header[i].equals(csvUuid)) {
+                                    uuidPos = i;
+                                }
+                                if (header[i].equals(csvSystemId)) {
+                                    systemIdPos = i;
+                                }
                             }
                             if (uuidPos == null || systemIdPos == null) {
                                 log.warn("Unexpected format of mapping file " +

@@ -138,15 +138,24 @@ public class KickstartOptionValue implements Comparable<KickstartOptionValue> {
 
     /** {@inheritDoc} */
     public boolean equals(Object o) {
-        if (this == o) { return true; }
-        if (!(o instanceof KickstartOptionValue)) { return false; }
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof KickstartOptionValue)) {
+            return false;
+        }
 
         KickstartOptionValue that = (KickstartOptionValue) o;
 
-        if (arg != null ? !arg.equals(that.arg) : that.arg != null) { return false; }
-        if (enabled != null ? !enabled.equals(that.enabled) : that.enabled != null)
-            { return false; }
-        if (name != null ? !name.equals(that.name) : that.name != null) { return false; }
+        if (arg != null ? !arg.equals(that.arg) : that.arg != null) {
+            return false;
+        }
+        if (enabled != null ? !enabled.equals(that.enabled) : that.enabled != null) {
+            return false;
+        }
+        if (name != null ? !name.equals(that.name) : that.name != null) {
+            return false;
+        }
 
         return true;
     }
