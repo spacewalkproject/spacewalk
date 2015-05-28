@@ -1,5 +1,5 @@
 Name:		spacewalk-jpp-workaround
-Version:	2.3.2
+Version:	2.3.3
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu May 28 2015 Tomas Kasparek <tkasparek@redhat.com> 2.3.3-1
+- update spacewalk-jpp-workaround for Fedora 22
+
 * Thu Sep 11 2014 Michael Mraka <michael.mraka@redhat.com> 2.3.2-1
 - replace jakarta-commons-validator on RHEL7
 
