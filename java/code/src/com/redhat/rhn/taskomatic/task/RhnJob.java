@@ -24,7 +24,7 @@ import org.quartz.JobExecutionException;
  * RhnJob
  * @version $Rev$
  */
-public abstract interface RhnJob extends Job {
+public interface RhnJob extends Job {
 
     String DEFAULT_LOGGING_LAYOUT = "%d [%t] %-5p %c %x - %m%n";
 
