@@ -454,34 +454,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     }
 
     /**
-     *
-     * @return primary proxy for server
-     */
-    public String getPrimaryProxy() {
-        String proxyServerName = "";
-        DataResult retval = null;
-        if (getTargetServer() != null) {
-            SelectMode mode = ModeFactory.getMode("System_queries",
-                    "proxy_path_for_server");
-            Map<String, Object> params = new HashMap<String, Object>();
-            params.put("sid", getTargetServer().getId().toString());
-            retval = mode.execute(params);
-        }
-
-        // loop through the proxy path and return 1st in chain
-        if (retval != null) {
-            for (Iterator itr = retval.iterator(); itr.hasNext();) {
-                ServerPath sPath = (ServerPath)itr.next();
-                if (sPath.getPosition().toString().equals("1")) {
-                    proxyServerName = sPath.getName();
-                    break;
-                }
-            }
-        }
-        return proxyServerName;
-    }
-
-    /**
      * Get the DataResult list of com.redhat.rhn.frontend.dto.ProfileDto that are
      * compatible with the BaseChannel for the selected KickstartData object.
      *
