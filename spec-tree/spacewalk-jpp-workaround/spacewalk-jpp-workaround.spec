@@ -58,6 +58,16 @@ Provides:   jpackage-utils
 Obsoletes:  jpackage-utils >= 5.0.0
 %endif
 
+%if 0%{?fedora} >= 22
+Requires:   apache-commons-fileupload
+Provides:   jakarta-commons-fileupload = 1.3.0
+Obsoletes:  jakarta-commons-fileupload < 1.3.0
+
+Requires:   apache-commons-collections
+Provides:   jakarta-commons-collections = 3.2.0
+Obsoletes:  jakarta-commons-collections < 3.2.0
+%endif
+
 %description
 This package fulfills jpackage missing msv-msv dependency.
 
