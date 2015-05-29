@@ -39,6 +39,15 @@ Requires:      select2-bootstrap-css
 %description
 Spacewalk specific branding, CSS, and images.
 
+%package devel
+Requires:       %{name} = %{version}-%{release}
+Summary:        Spacewalk LESS source files for development use
+Group:          Applications/Internet
+
+%description devel
+This package contains LESS source files corresponding to Spacewalk's
+CSS files.
+
 %prep
 %setup -q
 
@@ -61,7 +70,7 @@ install -d -m 755 %{buildroot}%{_datadir}/rhn/lib/
 install -d -m 755 %{buildroot}%{_var}/lib/%{tomcat}/webapps/rhn/WEB-INF/lib/
 install -d -m 755 %{buildroot}/%{_sysconfdir}/rhn
 install -d -m 755 %{buildroot}/%{_prefix}/share/rhn/config-defaults
-cp -p css/spacewalk.css %{buildroot}/%{_var}/www/html/css
+cp -pR css/* %{buildroot}/%{_var}/www/html/css
 cp -pR fonts %{buildroot}/%{_var}/www/html/
 cp -pR img %{buildroot}/%{_var}/www/html/
 # Appplication expects two favicon's for some reason, copy it so there's just
@@ -79,7 +88,7 @@ rm -rf %{buildroot}
 
 %files
 %dir %{_var}/www/html/css
-%{_var}/www/html/css/*
+%{_var}/www/html/css/*.css
 %dir %{_var}/www/html/fonts
 %{_var}/www/html/fonts/*
 %dir /%{_var}/www/html/img
@@ -90,6 +99,10 @@ rm -rf %{buildroot}
 %{_var}/lib/%{tomcat}/webapps/rhn/WEB-INF/lib/java-branding.jar
 %{_prefix}/share/rhn/config-defaults/rhn_docs.conf
 %doc LICENSE
+
+%files devel
+%defattr(-,root,root)
+%{_var}/www/html/css/*.less
 
 %changelog
 * Wed May 20 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.2-1
