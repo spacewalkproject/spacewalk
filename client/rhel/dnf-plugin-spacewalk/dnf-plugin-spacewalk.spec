@@ -1,5 +1,3 @@
-%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import %get_python_lib; print get_python_lib()")}
-
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
 Version: 2.4.8
@@ -10,6 +8,7 @@ Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.
 URL:     https://fedorahosted.org/spacewalk
 BuildArch: noarch
 
+BuildRequires: python-devel
 %if 0%{?fedora}
 BuildRequires: python3-devel
 %endif
@@ -28,15 +27,15 @@ This DNF plugin provides access to a Spacewalk server for software updates.
 
 
 %install
-install -d %{buildroot}%{python_sitelib}/dnf-plugins/
+install -d %{buildroot}%{python2_sitelib}/dnf-plugins/
 install -d %{buildroot}%{_sysconfdir}/dnf/plugins/
 install -d %{buildroot}/usr/share/rhn/actions
 install -d %{buildroot}/var/lib/up2date
 install -d %{buildroot}%{_mandir}/man{5,8}
-install -m 644 spacewalk.py %{buildroot}%{python_sitelib}/dnf-plugins/
+install -m 644 spacewalk.py %{buildroot}%{python2_sitelib}/dnf-plugins/
 %if 0%{?fedora}
 install -d %{buildroot}%{python3_sitelib}/dnf-plugins/
-ln -s %{python_sitelib}/dnf-plugins/spacewalk.py \
+ln -s %{python2_sitelib}/dnf-plugins/spacewalk.py \
         %{buildroot}%{python3_sitelib}/dnf-plugins/spacewalk.py
 %endif
 install -m 644 actions/packages.py %{buildroot}/usr/share/rhn/actions/
@@ -54,7 +53,7 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %license LICENSE
 %dir /var/lib/up2date
 %{_mandir}/man*/*
-%{python_sitelib}/dnf-plugins/*
+%{python2_sitelib}/dnf-plugins/*
 %if 0%{?fedora}
 %{python3_sitelib}/dnf-plugins/*
 %endif
