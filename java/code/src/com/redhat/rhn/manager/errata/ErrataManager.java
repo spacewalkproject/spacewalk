@@ -1754,7 +1754,6 @@ public class ErrataManager extends BaseManager {
                         "errata.swstack", args));
                 Action action = ActionManager.storeAction(errataAction);
                 actionIds.add(action.getId());
-                ActionManager.storeAction(errataAction);
             }
         }
 
