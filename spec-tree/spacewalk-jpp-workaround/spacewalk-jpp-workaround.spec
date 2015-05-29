@@ -1,5 +1,5 @@
 Name:		spacewalk-jpp-workaround
-Version:	2.3.3
+Version:	2.3.4
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri May 29 2015 Tomas Kasparek <tkasparek@redhat.com> 2.3.4-1
+- add epoch for jakarta-commons-fileupload
+
 * Thu May 28 2015 Tomas Kasparek <tkasparek@redhat.com> 2.3.3-1
 - update spacewalk-jpp-workaround for Fedora 22
 
