@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.4.9
+Version: 2.4.10
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -61,6 +61,9 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %dir /var/lib/up2date
 
 %changelog
+* Fri May 29 2015 Michael Mraka <michael.mraka@redhat.com> 2.4.10-1
+- fixed variable asignment
+
 * Fri May 29 2015 Michael Mraka <michael.mraka@redhat.com> 2.4.9-1
 - koji does not define python_sitelib
 
