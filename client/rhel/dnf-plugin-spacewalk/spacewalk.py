@@ -78,6 +78,7 @@ class Spacewalk(dnf.Plugin):
         sslcacert = None
         force_http = 0
         proxy_url = None
+        login_info = None
         cached_channels = self._read_channels_file()
         if not networking:
             # no network communication, use list of channels from persistdir
