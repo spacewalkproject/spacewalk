@@ -500,7 +500,7 @@ public class ErrataManagerTest extends BaseTestCaseWithUser {
         assertTrue("Server 1 Scheduled Erratas contain relevant erratas",
                 server1ScheduledErrata.contains(errata3.getId()));
 
-        assertEquals("Server 1 Scheduled Erratas has 2 erratas (errata2 and errata3)",
+        assertEquals("Server 2 Scheduled Erratas has 2 erratas (errata2 and errata3)",
                 2, server2ScheduledErrata.size());
         assertFalse("Server 2 Scheduled Erratas do not include other server's errata",
                 server2ScheduledErrata.contains(errata1.getId()));
