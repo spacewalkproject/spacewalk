@@ -27,6 +27,7 @@ import json
 import librepo
 import os
 import sys
+from copy import copy
 
 # up2date libs are in non-standard path
 sys.path.append("/usr/share/rhn/")
@@ -37,7 +38,7 @@ import up2date_client.rhnPackageInfo
 from up2date_client import up2dateErrors
 
 STORED_CHANNELS_NAME = '_spacewalk.json'
-PLUGIN_CONF = 'spacewalk.conf'
+PLUGIN_CONF = 'spacewalk'
 
 RHN_DISABLED    = _("Spacewalk based repositories will be disabled.")
 CHANNELS_DISABLED = _("RHN channel support will be disabled.")
@@ -62,12 +63,15 @@ class Spacewalk(dnf.Plugin):
         self.stored_channels_path = os.path.join(self.base.conf.persistdir,
                                                  STORED_CHANNELS_NAME)
         self.connected_to_spacewalk = False
-        self.timeout = self.base.conf.timeout
         self.up2date_cfg = {}
         self.conf = dnf.conf.Conf()
-        self.read_config(self.conf, PLUGIN_CONF)
+        self.conf.timeout = self.base.conf.timeout
+        self.parser = self.read_config(self.conf, PLUGIN_CONF)
+        if "main" in self.parser.sections():
+            options = self.parser.items("main")
+            for (key, value) in options:
+                setattr(self.conf, key, value)
         logger.debug('initialized Spacewalk plugin')
-
 
     def config(self):
         self.cli.demands.root_user = True
@@ -91,7 +95,7 @@ class Spacewalk(dnf.Plugin):
             force_http = self.up2date_cfg['useNoSSLForPackages'],
 
             try:
-                login_info = up2date_client.up2dateAuth.getLoginInfo(timeout=self.timeout)
+                login_info = up2date_client.up2dateAuth.getLoginInfo(timeout=self.conf.timeout)
             except up2dateErrors.RhnServerException as e:
                 logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, RHN_DISABLED,
                                            unicode(e))
@@ -104,7 +108,7 @@ class Spacewalk(dnf.Plugin):
 
             try:
                 svrChannels = up2date_client.rhnChannel.getChannelDetails(
-                                                              timeout=self.timeout)
+                                                              timeout=self.conf.timeout)
             except up2dateErrors.CommunicationError as e:
                 logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, RHN_DISABLED,
                                            unicode(e))
@@ -132,14 +136,21 @@ class Spacewalk(dnf.Plugin):
             cached_version = None
             if cached_channel:
                 cached_version = cached_channel.get('version')
+            conf = copy(self.conf)
+            if channel_id in self.parser.sections():
+                options = self.parser.items(channel_id)
+                for (key, value) in options:
+                    setattr(conf, key, value)
             repo = SpacewalkRepo(channel_dict, {
                                     'cachedir'  : self.base.conf.cachedir,
                                     'proxy'     : proxy_url,
-                                    'timeout'   : self.timeout,
+                                    'timeout'   : conf.timeout,
                                     'sslcacert' : sslcacert,
                                     'force_http': force_http,
                                     'cached_version' : cached_version,
                                     'login_info': login_info,
+                                    'gpgcheck': conf.gpgcheck,
+                                    'enabled': conf.enabled,
                                 })
             repos.add(repo)
 
@@ -156,7 +167,7 @@ class Spacewalk(dnf.Plugin):
             up2date_client.rhnPackageInfo.logDeltaPackages(delta)
         try:
             up2date_client.rhnPackageInfo.updatePackageProfile(
-                                                        timeout=self.timeout)
+                                                        timeout=self.conf.timeout)
         except up2dateErrors.RhnServerException as e:
             logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, PROFILE_NOT_SENT,
                                        unicode(e))
@@ -219,9 +230,11 @@ class  SpacewalkRepo(dnf.repo.Repo):
         self.retries = 1
         self.throttle = 0
         self.timeout = opts.get('timeout')
+        self.gpgcheck = opts.get('gpgcheck')
         self.force_http = opts.get('force_http')
 
-        self.enable()
+        if opts.get('enabled'):
+            self.enable()
 
     def add_http_headers(self, handle):
         http_headers = []
