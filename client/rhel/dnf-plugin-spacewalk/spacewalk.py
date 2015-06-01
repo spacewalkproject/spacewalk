@@ -235,6 +235,8 @@ class  SpacewalkRepo(dnf.repo.Repo):
 
         if opts.get('enabled'):
             self.enable()
+        else:
+            self.disable()
 
     def add_http_headers(self, handle):
         http_headers = []
