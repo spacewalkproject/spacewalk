@@ -40,6 +40,7 @@ STORED_CHANNELS_NAME = '_spacewalk.json'
 PLUGIN_CONF = 'spacewalk.conf'
 
 RHN_DISABLED    = _("Spacewalk based repositories will be disabled.")
+CHANNELS_DISABLED = _("RHN channel support will be disabled.")
 COMMUNICATION_ERROR  = _("There was an error communicating with Spacewalk server.")
 NOT_REGISTERED_ERROR = _("This system is not registered with Spacewalk server.")
 NOT_SUBSCRIBED_ERROR = _("This system is not subscribed to any channels.")
