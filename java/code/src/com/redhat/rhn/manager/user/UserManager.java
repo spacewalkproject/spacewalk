@@ -330,6 +330,11 @@ public class UserManager extends BaseManager {
             }
         }
 
+        // ORG admin role needs to be added last so that others don't get skipped
+        if (rolesToAdd.remove(ORG_ADMIN_LABEL)) {
+            rolesToAdd.add(ORG_ADMIN_LABEL);
+        }
+
         for (String removeLabel : rolesToRemove) {
             Role removeMe = RoleFactory.lookupByLabel(removeLabel);
             log.debug("Removing role: " + removeMe.getName());
