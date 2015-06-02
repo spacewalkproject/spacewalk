@@ -22,6 +22,10 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * PreservationListDeleteSingleTest
  * @version $Rev$
@@ -37,9 +41,17 @@ public class PreservationListDeleteSingleTest extends RhnMockStrutsTestCase {
         TestUtils.flushAndEvict(list);
         addRequestParameter(RequestContext.FILE_LIST_ID, list.getId().toString());
         actionPerform();
-        String expected = "/systems/provisioning/preservation/" +
-                "PreservationListDeleteSubmit.do?setupdated=t" +
-                "rue&items_selected=" + list.getId() + "&dispatch=Delete+File+List";
-        verifyForwardPath(expected);
+
+        // Verify forward path and query ignoring the order of parameters
+        String forward = getActualForward();
+        String path = "/systems/provisioning/preservation/PreservationListDeleteSubmit.do";
+        assertTrue(forward.startsWith(path));
+        assertEquals(path.length(), forward.indexOf("?"));
+        String queryString = forward.substring(forward.indexOf("?") + 1);
+        List<String> query = new ArrayList<String>(Arrays.asList(queryString.split("&")));
+        assertEquals(3, query.size());
+        assertTrue(query.contains("dispatch=Delete+File+List"));
+        assertTrue(query.contains("setupdated=true"));
+        assertTrue(query.contains("items_selected=" + list.getId()));
     }
 }
