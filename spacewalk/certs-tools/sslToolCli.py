@@ -72,6 +72,9 @@ def _getOptionsTree(defs):
 
     _optRpmOnly = make_option('--rpm-only', action='store_true', help='(rarely used) only generate a deployable RPM. (and tar archive if used during the --gen-server step) Review "<baseoption> --rpm-only --help" for more information.')
     _optNoRpm = make_option('--no-rpm',   action='store_true', help='(rarely used) do everything *except* generate an RPM.')
+    _optFromCaCert = make_option('--from-ca-cert', action='store', type="string", help='(for usage with --gen-ca and --rpm-only) Use a custom CA certificate from the given file. Note this doesn\'t affect the output CA certificate filename (for this use --ca-cert option).')
+    _optFromServerKey = make_option('--from-server-key', action='store', type="string", help='(for usage with --gen-server and --rpm-only) Use a server private SSL key from the given file. Note this doesn\'t affect the output server key filename (for this use --server-key option).')
+    _optFromServerCert = make_option('--from-server-cert', action='store', type="string", help='(for usage with --gen-server and --rpm-only) Use server public SSL certificate from the given file. Note this doesn\'t affect the output server certificate filename (for this use --server-cert option).')
 
     _optSetHostname = make_option('--set-hostname', action='store', type="string", help='hostname of the web server you are installing the key set on (default: %s)' % repr(defs['--set-hostname']))
 
@@ -154,7 +157,7 @@ def _getOptionsTree(defs):
     _caCertOnlySet = [_optGenCa] + _caOptions + _caCertOptions \
       + _genOptions + [_optCaCertOnly]
     _caRpmOnlySet = [_optGenCa, _optCaKey, _optCaCert] \
-      + _buildRpmOptions + [_optCaCertRpm] + _genOptions
+      + _buildRpmOptions + [_optFromCaCert] + [_optCaCertRpm] + _genOptions
 
     # server build option tree set possibilities
     _serverSet = [_optGenServer] + _serverKeyOptions + _serverCertReqOptions \
@@ -169,7 +172,8 @@ def _getOptionsTree(defs):
     _serverCertOnlySet = [_optGenServer] + _serverCertOptions \
       + _genOptions + [_optServerCertOnly]
     _serverRpmOnlySet = [_optGenServer, _optServerKey, _optServerCertReq, _optServerCert, _optSetHostname, _optSetCname ] \
-      + _buildRpmOptions + [_optServerRpm, _optServerTar] + _genOptions
+      + _buildRpmOptions + [_optFromServerKey, _optFromServerCert] \
+      + [_optServerRpm, _optServerTar] + _genOptions
 
     optionsTree = {
         '--gen-ca' : _caSet,
