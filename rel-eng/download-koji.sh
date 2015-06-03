@@ -12,6 +12,8 @@ $WGET -O - $1 \
                 /"getfile?.*\.rpm"/ && ! /src\.rpm/ {
                         print "'"$KOJI"'" $2 " -O " basename($2)}
                 /"http:\/\/download.*\.rpm/ && ! /src\.rpm/ {
+                        print $2 " -O " basename($2)}
+                /\/kojifiles\/.*\.rpm/ && ! /src\.rpm/ {
                         print $2 " -O " basename($2)} ' \
     | xargs --no-run-if-empty -n 3 $WGET
 
