@@ -50,8 +50,7 @@ public class ErrataCacheDriverTest extends BaseTestCaseWithUser {
         ErrataCacheDriver driver = new ErrataCacheDriver();
         driver.setLogger(Logger.getLogger(ErrataCacheDriverTest.class));
         int candidateCount = 0;
-        for (Map<String, Object> candidate : driver.getCandidates()) {
-            Task task = (Task) candidate.get("task");
+        for (Task task : driver.getCandidates()) {
             if (task.getData().equals(server.getId())) {
                 candidateCount++;
             }

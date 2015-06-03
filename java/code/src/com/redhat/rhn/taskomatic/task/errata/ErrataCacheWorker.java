@@ -38,7 +38,6 @@ public class ErrataCacheWorker implements QueueWorker {
 
 
     private Task task;
-    private Long orgId;
     private Logger logger;
     private TaskQueue parentQueue;
 
@@ -47,9 +46,8 @@ public class ErrataCacheWorker implements QueueWorker {
      * @param items list of items to work on
      * @param parentLogger logger to use
      */
-    public ErrataCacheWorker(Map items, Logger parentLogger) {
-        task = (Task) items.get("task");
-        orgId = (Long) items.get("orgId");
+    public ErrataCacheWorker(Task taskIn, Logger parentLogger) {
+        task = taskIn;
         logger = parentLogger;
     }
 
