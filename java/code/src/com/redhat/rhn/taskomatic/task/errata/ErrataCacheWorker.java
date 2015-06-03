@@ -36,14 +36,13 @@ public class ErrataCacheWorker implements QueueWorker {
     public static final String BY_CHANNEL = "update_errata_cache_by_channel";
     public static final String FOR_SERVER = "update_server_errata_cache";
 
-
     private Task task;
     private Logger logger;
     private TaskQueue parentQueue;
 
     /**
      * Constructor
-     * @param items list of items to work on
+     * @param taskIn the task to work on
      * @param parentLogger logger to use
      */
     public ErrataCacheWorker(Task taskIn, Logger parentLogger) {
@@ -52,7 +51,6 @@ public class ErrataCacheWorker implements QueueWorker {
     }
 
     /**
-     *
      * {@inheritDoc}
      */
     public void run() {
@@ -106,5 +104,4 @@ public class ErrataCacheWorker implements QueueWorker {
         params.put("priority", new Integer(task.getPriority()));
         mode.executeUpdate(params);
     }
-
 }

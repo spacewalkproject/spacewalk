@@ -36,7 +36,6 @@ public class ErrataCacheDriver implements QueueDriver {
     private Logger logger = null;
 
     /**
-     *
      * {@inheritDoc}
      */
     public boolean canContinue() {
@@ -44,7 +43,6 @@ public class ErrataCacheDriver implements QueueDriver {
     }
 
     /**
-     *
      * {@inheritDoc}
      */
     public List<Task> getCandidates() {
@@ -55,7 +53,6 @@ public class ErrataCacheDriver implements QueueDriver {
     }
 
     /**
-     *
      * {@inheritDoc}
      */
     public Logger getLogger() {
@@ -65,13 +62,11 @@ public class ErrataCacheDriver implements QueueDriver {
     /**
      * {@inheritDoc}
      */
-
     public void setLogger(Logger loggerIn) {
         logger = loggerIn;
     }
 
     /**
-     *
      * {@inheritDoc}
      */
     public int getMaxWorkers() {
@@ -79,7 +74,6 @@ public class ErrataCacheDriver implements QueueDriver {
     }
 
     /**
-     *
      * {@inheritDoc}
      */
     public QueueWorker makeWorker(Object workItem) {
@@ -88,9 +82,8 @@ public class ErrataCacheDriver implements QueueDriver {
     }
 
     /**
-    *
-    * {@inheritDoc}
-    */
+     * {@inheritDoc}
+     */
     public void initialize() {
         // empty
     }
