@@ -289,6 +289,7 @@ class Runner:
         # Register callbacks
         c.custom_handler.register_callback(c._presence_callback, 'presence')
         c.custom_handler.register_callback(c._message_callback, 'message')
+        c.custom_handler.register_callback(self._error_callback, 'error')
         return c
 
     def _get_jabber_client(self, jabber_server):
@@ -319,6 +320,10 @@ class Runner:
         c.add_trusted_cert(self.ssl_cert)
         c.connect()
         return c
+
+    def _error_callback(self, client, stanza):
+        """Logs error stanza messages for diagnostic purposes"""
+        log_error("Received an error stanza: ", stanza)
 
 class InvalidCertError(SSL.SSL.Error):
     def __str__(self):
@@ -543,6 +548,7 @@ class JabberClient(jabber.Client, object):
         self.registerProtocol('iq', JabberIqNode)
         self.registerProtocol('message', JabberMessageNode)
         self.registerProtocol('presence', JabberPresenceNode)
+        self.registerProtocol('error', JabberProtocolNode)
 
         self.registerHandler('iq', self._expectedIqHandler, system=True)
         self.registerHandler('iq', self._IqRegisterResult, 'result',
@@ -553,6 +559,7 @@ class JabberClient(jabber.Client, object):
         self.registerHandler('presence', h.dispatch)
         self.registerHandler('iq', h.dispatch)
         self.registerHandler('message', h.dispatch)
+        self.registerHandler('error', h.dispatch)
 
         self._non_ssl_sock = None
         self._roster = Roster()
