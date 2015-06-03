@@ -57,6 +57,7 @@ class Logger:
         return "%s.%s" % (module_file, module[2])
 
     def log_error(self, *args):
+        log_debug(self, 0, *args)
         line = map(str, args)
         sys.stderr.write(string.join(line))
         sys.stderr.write("\n")
