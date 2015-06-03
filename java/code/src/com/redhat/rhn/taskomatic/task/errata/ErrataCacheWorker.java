@@ -24,7 +24,6 @@ import com.redhat.rhn.taskomatic.task.threaded.TaskQueue;
 
 import org.apache.log4j.Logger;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,7 +59,6 @@ public class ErrataCacheWorker implements QueueWorker {
      */
     public void run() {
         try {
-            Date d = new Date(System.currentTimeMillis());
             removeTask();
             parentQueue.workerStarting();
             UpdateErrataCacheCommand uecc = new UpdateErrataCacheCommand();
