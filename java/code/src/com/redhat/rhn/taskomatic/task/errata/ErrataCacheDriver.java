@@ -119,13 +119,6 @@ public class ErrataCacheDriver implements QueueDriver {
             if (uniqueTaskData.add(task.getData())) {
                 consolidated.add(task);
             }
-            else {
-                if (logger.isDebugEnabled()) {
-                    logger.debug("Removing task for consolidation: " + task.getName() +
-                            " (" + task.getData() + ")");
-                }
-                ErrataCacheWorker.removeTask(task);
-            }
         }
         return consolidated;
     }

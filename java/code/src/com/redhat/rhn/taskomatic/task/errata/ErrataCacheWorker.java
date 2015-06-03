@@ -61,7 +61,7 @@ public class ErrataCacheWorker implements QueueWorker {
     public void run() {
         try {
             Date d = new Date(System.currentTimeMillis());
-            removeTask(task);
+            removeTask();
             parentQueue.workerStarting();
             UpdateErrataCacheCommand uecc = new UpdateErrataCacheCommand();
             if (ErrataCacheWorker.FOR_SERVER.equals(task.getName())) {
@@ -99,11 +99,9 @@ public class ErrataCacheWorker implements QueueWorker {
     }
 
     /**
-     * Remove a given task from the database via mode query.
-     *
-     * @param task task to remove
+     * Remove the task related to this worker from the DB via mode query.
      */
-    protected static void removeTask(Task task) {
+    private void removeTask() {
         WriteMode mode = ModeFactory.getWriteMode("Task_queries", "delete_task");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", task.getOrg().getId());
