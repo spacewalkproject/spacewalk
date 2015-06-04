@@ -206,11 +206,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
      <query name="Server.listConfigDiffEnabledSystems">
         <![CDATA[ select s
-                                 from com.redhat.rhn.domain.server.Server as s
-                                         inner join s.groups as sg
-                                         inner join sg.groupType.features as f
-                                         inner join s.capabilities as c
-                                        where (sg.groupType is not null) and f.label='ftr_config' and c.name = 'configfiles.diff']]>
+                      from com.redhat.rhn.domain.server.Server as s
+                          inner join s.groups as sg
+                          inner join sg.groupType.features as f
+                          inner join s.capabilities as c
+                      where (sg.groupType is not null) and f.label='ftr_config' and c.name = 'configfiles.diff'
+        ]]>
     </query>
 
     <sql-query name="Server.findVirtPlatformHostsByOrg">
