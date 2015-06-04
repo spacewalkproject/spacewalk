@@ -211,6 +211,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                           inner join sg.groupType.features as f
                           inner join s.capabilities as c
                       where (sg.groupType is not null) and f.label='ftr_config' and c.name = 'configfiles.diff'
+                      order by s.id asc
         ]]>
     </query>
 
