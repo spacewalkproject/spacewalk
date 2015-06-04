@@ -53,10 +53,15 @@ for package in $GITROOT/rel-eng/packages/* ; do
         # create SRPM
         srpm=$(tito build --test --srpm | tail -n1 | sed 's/^Wrote: //g')
         echo "SRPM created: $srpm"
+        # decide arch
+        case $package_basename in
+            cx_Oracle|jpam|oracle-lib-compat|perl-DBD-Oracle|tanukiwrapper|rhnsd) arch="x86_64";;
+            *) arch="noarch";;
+        esac
         echo -en "travis_fold:start:$package_basename-mock\\r"
         echo "Running mock"
         # build SRPM
-        sudo mock -r spacewalk --resultdir=/tmp/mock/$package_basename --rebuild $srpm
+        sudo mock -r spacewalk --resultdir=/tmp/mock/$package_basename --arch=$arch --rebuild $srpm
         status=$?
         echo -en "travis_fold:end:$package_basename-mock\\r"
         if [ $status -eq 0 ] ; then
