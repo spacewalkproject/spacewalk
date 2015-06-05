@@ -459,106 +459,140 @@ sub setup_jabberd {
 sub setup_ssl_certs {
   my $opts = shift;
   my $answers = shift;
+  Spacewalk::Setup::ask(
+    -noninteractive => $opts{"non-interactive"},
+    -question => "Do you want to import exising certificates?",
+    -test => sub { my $text = shift; return $text =~ /^[YyNn]/ },
+    -answer => \$answers->{"ssl-use-existing-certs"},
+    -default => 'N',
+  );
+
+  my $use_own_certs = $answers->{'ssl-use-existing-certs'} &&
+                      $answers->{'ssl-use-existing-certs'} =~ /^[Yy]/;
 
   if ($opts{"skip-ssl-cert-generation"} || $opts{"upgrade"}) {
     print Spacewalk::Setup::loc("** Skipping SSL certificate generation.\n");
     return;
   }
 
-  my ($password_1, $password_2);
+  if (!$use_own_certs) {
+      my ($password_1, $password_2);
 
-  unless ($answers->{"ssl-password"}) {
-    do {
-      ($password_1, $password_2) = (undef, undef); # clear previous passwords
+      unless ($answers->{"ssl-password"}) {
+        do {
+          ($password_1, $password_2) = (undef, undef); # clear previous passwords
+          Spacewalk::Setup::ask(
+            -noninteractive => $opts{"non-interactive"},
+            -question => "CA certificate password",
+              -test => \&valid_ssl_cert_password,
+              -answer => \$password_1,
+              -password => 1,
+             );
+
+          Spacewalk::Setup::ask(
+            -noninteractive => $opts{"non-interactive"},
+              -question => "Re-enter CA certificate password",
+              -test => \&valid_ssl_cert_password,
+              -answer => \$password_2,
+              -password => 1,
+             );
+        } until (passwords_match($password_1, $password_2));
+
+        $answers->{"ssl-password"} ||= $password_1;
+      };
+
       Spacewalk::Setup::ask(
-        -noninteractive => $opts{"non-interactive"},
-        -question => "CA certificate password",
-          -test => \&valid_ssl_cert_password,
-          -answer => \$password_1,
-          -password => 1,
+          -noninteractive => $opts{"non-interactive"},
+          -question => "Organization",
+          -test => sub { my $text = shift;
+                         return $text =~ /\S/ && length($text) <= 128 },
+          -answer => \$answers->{"ssl-set-org"},
          );
 
       Spacewalk::Setup::ask(
-        -noninteractive => $opts{"non-interactive"},
-          -question => "Re-enter CA certificate password",
-          -test => \&valid_ssl_cert_password,
-          -answer => \$password_2,
-          -password => 1,
+          -noninteractive => $opts{"non-interactive"},
+          -question => "Organization Unit",
+          -test => sub { my $text = shift;
+                         return $text =~ /\S/ && length($text) <= 128 },
+          -default => $answers->{'hostname'},
+          -answer => \$answers->{"ssl-set-org-unit"},
          );
-    } until (passwords_match($password_1, $password_2));
 
-    $answers->{"ssl-password"} ||= $password_1;
-  };
+      $answers->{"ssl-set-common-name"} ||= $answers->{hostname};
 
-  Spacewalk::Setup::ask(
-      -noninteractive => $opts{"non-interactive"},
-      -question => "Organization",
-      -test => sub { my $text = shift;
-                     return $text =~ /\S/ && length($text) <= 128 },
-      -answer => \$answers->{"ssl-set-org"},
-     );
+      Spacewalk::Setup::ask(
+          -noninteractive => $opts{"non-interactive"},
+          -question => 'Email Address',
+          -test => sub { my $text = shift;
+                         valid_multiple_email($text) && length($text) <= 128 },
+          -default => $answers->{'admin-email'},
+          -answer => \$answers->{'ssl-set-email'},
+         );
 
-  Spacewalk::Setup::ask(
-      -noninteractive => $opts{"non-interactive"},
-      -question => "Organization Unit",
-      -test => sub { my $text = shift;
-                     return $text =~ /\S/ && length($text) <= 128 },
-      -default => $answers->{'hostname'},
-      -answer => \$answers->{"ssl-set-org-unit"},
-     );
+      Spacewalk::Setup::ask(
+          -noninteractive => $opts{"non-interactive"},
+          -question => 'City',
+          -test => sub { my $text = shift;
+                         $text =~ /\S+/ && length($text) < 128 },
+          -answer => \$answers->{'ssl-set-city'},
+         );
 
-  $answers->{"ssl-set-common-name"} ||= $answers->{hostname};
+      Spacewalk::Setup::ask(
+          -noninteractive => $opts{"non-interactive"},
+          -question => 'State',
+          -test => sub { my $text = shift;
+                         length($text) > 0 && length($text) < 128 },
+          -answer => \$answers->{'ssl-set-state'},
+         );
 
-  Spacewalk::Setup::ask(
-      -noninteractive => $opts{"non-interactive"},
-      -question => 'Email Address',
-      -test => sub { my $text = shift;
-                     valid_multiple_email($text) && length($text) <= 128 },
-      -default => $answers->{'admin-email'},
-      -answer => \$answers->{'ssl-set-email'},
-     );
+      my ($by_code, $by_name) = valid_cert_countries($answers);
 
-  Spacewalk::Setup::ask(
-      -noninteractive => $opts{"non-interactive"},
-      -question => 'City',
-      -test => sub { my $text = shift;
-                     $text =~ /\S+/ && length($text) < 128 },
-      -answer => \$answers->{'ssl-set-city'},
-     );
+      while (not $answers->{'ssl-set-country'}
+             or not (exists $by_code->{$answers->{'ssl-set-country'}}
+                     or exists $by_name->{$answers->{'ssl-set-country'}})) {
+        Spacewalk::Setup::ask(
+            -noninteractive => $opts{"non-interactive"},
+            -question => 'Country code (Examples: "US", "JP", "IN", or type "?" to see a list)',
+            -test => sub { my $text = shift;
+                           exists $by_code->{$text} or exists $by_name->{$text} or $text eq '?' },
+            -answer => \$answers->{'ssl-set-country'},
+           );
 
-  Spacewalk::Setup::ask(
-      -noninteractive => $opts{"non-interactive"},
-      -question => 'State',
-      -test => sub { my $text = shift;
-                     length($text) > 0 && length($text) < 128 },
-      -answer => \$answers->{'ssl-set-state'},
-     );
+        if ($answers->{'ssl-set-country'} eq '?') {
+          print_country_list($by_name);
+          $answers->{'ssl-set-country'} = "";
+        }
+      }
 
-  my ($by_code, $by_name) = valid_cert_countries($answers);
+      if (my $code = $by_name->{$answers->{'ssl-set-country'}}) {
+        $answers->{'ssl-set-country'} = $code;
+      }
 
-  while (not $answers->{'ssl-set-country'}
-         or not (exists $by_code->{$answers->{'ssl-set-country'}}
-                 or exists $by_name->{$answers->{'ssl-set-country'}})) {
-    Spacewalk::Setup::ask(
-        -noninteractive => $opts{"non-interactive"},
-        -question => 'Country code (Examples: "US", "JP", "IN", or type "?" to see a list)',
-        -test => sub { my $text = shift;
-                       exists $by_code->{$text} or exists $by_name->{$text} or $text eq '?' },
-        -answer => \$answers->{'ssl-set-country'},
-       );
-
-    if ($answers->{'ssl-set-country'} eq '?') {
-      print_country_list($by_name);
-      $answers->{'ssl-set-country'} = "";
-    }
+      $answers->{'ssl-ca-cert-expiration'} ||= default_cert_expiration();
+      $answers->{'ssl-server-cert-expiration'} ||= default_cert_expiration();
+  } else {
+      Spacewalk::Setup::ask(
+          -noninteractive => $opts{"non-interactive"},
+          -question => "Path to CA Certificate",
+          -test => sub { my $text = shift;
+                         length($text) > 0 && -r $text && -s $text },
+          -answer => \$answers->{"ssl-ca-cert"},
+         );
+      Spacewalk::Setup::ask(
+          -noninteractive => $opts{"non-interactive"},
+          -question => "Path to Server Certificate",
+          -test => sub { my $text = shift;
+                         length($text) > 0 && -r $text && -s $text },
+          -answer => \$answers->{"ssl-server-cert"},
+         );
+      Spacewalk::Setup::ask(
+          -noninteractive => $opts{"non-interactive"},
+          -question => "Path to Server Key",
+          -test => sub { my $text = shift;
+                         length($text) > 0 && -r $text && -s $text },
+          -answer => \$answers->{"ssl-server-key"},
+         );
   }
-
-  if (my $code = $by_name->{$answers->{'ssl-set-country'}}) {
-    $answers->{'ssl-set-country'} = $code;
-  }
-
-  $answers->{'ssl-ca-cert-expiration'} ||= default_cert_expiration();
-  $answers->{'ssl-server-cert-expiration'} ||= default_cert_expiration();
 
   my @hostname_parts = split(/\./, $answers->{hostname});
   my $system_name;
@@ -573,37 +607,50 @@ sub setup_ssl_certs {
   $answers->{'ssl-server-rpm'} ||= 'rhn-org-httpd-ssl-key-pair-' . $system_name;
   $answers->{'ssl-dir'} ||= '/root/ssl-build';
 
-  print Spacewalk::Setup::loc("** SSL: Generating CA certificate.\n");
-
-  generate_ca_cert(-dir => $answers->{'ssl-dir'},
-                   -password => $answers->{'ssl-password'},
-                   '-set-country' => $answers->{'ssl-set-country'},
-                   '-set-state' => $answers->{'ssl-set-state'},
-                   '-set-city' => $answers->{'ssl-set-city'},
-                   '-set-org' => $answers->{'ssl-set-org'},
-                   '-set-org-unit' => $answers->{'ssl-set-org-unit'},
-                   '-set-common-name' => $answers->{'ssl-set-common-name'},
-                   '-cert-expiration' => $answers->{'ssl-ca-cert-expiration'},
-                  );
-
-  print Spacewalk::Setup::loc("** SSL: Deploying CA certificate.\n");
-
-  deploy_ca_cert("-source-dir" => $answers->{'ssl-dir'},
-                 "-target-dir" => '/var/www/html/pub');
-
-  print Spacewalk::Setup::loc("** SSL: Generating server certificate.\n");
-
-  generate_server_cert(-dir => $answers->{'ssl-dir'},
+  if (!$use_own_certs) {
+      print Spacewalk::Setup::loc("** SSL: Generating CA certificate.\n");
+      generate_ca_cert(-dir => $answers->{'ssl-dir'},
                        -password => $answers->{'ssl-password'},
                        '-set-country' => $answers->{'ssl-set-country'},
                        '-set-state' => $answers->{'ssl-set-state'},
                        '-set-city' => $answers->{'ssl-set-city'},
                        '-set-org' => $answers->{'ssl-set-org'},
                        '-set-org-unit' => $answers->{'ssl-set-org-unit'},
-                       '-cert-expiration' => $answers->{'ssl-server-cert-expiration'},
-                       '-set-email' => $answers->{'ssl-set-email'},
-                       '-set-hostname' => $answers->{'hostname'},
+                       '-set-common-name' => $answers->{'ssl-set-common-name'},
+                       '-cert-expiration' => $answers->{'ssl-ca-cert-expiration'},
                       );
+  } else {
+    my @opts = ( "--gen-ca",
+                 "--rpm-only",
+                 "--from-ca-cert=$answers->{'ssl-ca-cert'}" );
+    Spacewalk::Setup::system_or_exit(['/usr/bin/rhn-ssl-tool', @opts], 35, 'Could not import CA certificate.');
+  }
+
+  print Spacewalk::Setup::loc("** SSL: Deploying CA certificate.\n");
+
+  deploy_ca_cert("-source-dir" => $answers->{'ssl-dir'},
+                 "-target-dir" => '/var/www/html/pub');
+
+  if (!$use_own_certs) {
+      print Spacewalk::Setup::loc("** SSL: Generating server certificate.\n");
+      generate_server_cert(-dir => $answers->{'ssl-dir'},
+                           -password => $answers->{'ssl-password'},
+                           '-set-country' => $answers->{'ssl-set-country'},
+                           '-set-state' => $answers->{'ssl-set-state'},
+                           '-set-city' => $answers->{'ssl-set-city'},
+                           '-set-org' => $answers->{'ssl-set-org'},
+                           '-set-org-unit' => $answers->{'ssl-set-org-unit'},
+                           '-cert-expiration' => $answers->{'ssl-server-cert-expiration'},
+                           '-set-email' => $answers->{'ssl-set-email'},
+                           '-set-hostname' => $answers->{'hostname'},
+                          );
+  } else {
+    my @opts = ( "--gen-server",
+                 "--rpm-only",
+                 "--from-server-cert=$answers->{'ssl-server-cert'}",
+                 "--from-server-key=$answers->{'ssl-server-key'}" );
+    Spacewalk::Setup::system_or_exit(['/usr/bin/rhn-ssl-tool', @opts], 35, 'Could not import Server certificate and key.');
+  }
 
   print Spacewalk::Setup::loc("** SSL: Storing SSL certificates.\n");
 
