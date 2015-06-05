@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.4.2
+Version:    2.4.3
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -105,6 +105,10 @@ rm -rf %{buildroot}
 %{_var}/www/html/css/*.less
 
 %changelog
+* Fri Jun 05 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.3-1
+- Add a spacewalk-branding-devel package to install LESS files for development
+  use
+
 * Wed May 20 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.2-1
 - Rebuild package due to BZ#1223240
 
