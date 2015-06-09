@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 45%{?dist}
+Release: 46%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -478,6 +478,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Tue Jun 09 2015 Tomas Kasparek <tkasparek@redhat.com> 2.0.11-46
+- disable https comunication with spacewalk
+
 * Mon May 11 2015 Jan Dobes 2.0.11-45
 - enabling patch
 - adding keyword also into config file
