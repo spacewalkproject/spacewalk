@@ -30,6 +30,8 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.util.Collection;
 import java.util.zip.GZIPOutputStream;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  *
@@ -41,6 +43,7 @@ public class DebPackageWriter {
     private static Logger log = Logger.getLogger(DebPackageWriter.class);
     private String filenamePackages = "";
     private String channelLabel = "";
+    private Pattern versionRegex = Pattern.compile("^([<>=]+)(.*)$");
 
     /**
      *
@@ -228,7 +231,15 @@ public class DebPackageWriter {
                 }
                 out.write(names[iIndex]);
                 if (versions[iIndex] != null && !versions[iIndex].isEmpty()) {
-                    out.write(" (" + versions[iIndex] + ")");
+                    /* check if the version contains operators. If so, split them
+                       up with a space
+                    */
+                    Matcher m = versionRegex.matcher(versions[iIndex]);
+                    if (m.matches()) {
+                        out.write(" (" + m.group(1) + " " + m.group(2) + ")");
+                    } else {
+                        out.write(" (" + versions[iIndex] + ")");
+                    }
                 }
             }
         }
