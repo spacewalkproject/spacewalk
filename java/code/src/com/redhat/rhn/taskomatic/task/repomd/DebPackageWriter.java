@@ -237,7 +237,9 @@ public class DebPackageWriter {
                     Matcher m = versionRegex.matcher(versions[iIndex]);
                     if (m.matches()) {
                         out.write(" (" + m.group(1) + " " + m.group(2) + ")");
-                    } else {
+                    }
+                    else
+                    {
                         out.write(" (" + versions[iIndex] + ")");
                     }
                 }
