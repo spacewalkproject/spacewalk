@@ -190,8 +190,6 @@ public class TaskoXmlRpcHandler {
         if (!TaskoFactory.listActiveSchedulesByOrgAndLabel(orgId, jobLabel).isEmpty() ||
                 (SchedulerKernel.getScheduler().getTrigger(jobLabel,
                         TaskoQuartzHelper.getGroupName(orgId)) != null)) {
-            String[] triggerNames = SchedulerKernel.getScheduler().
-                getTriggerNames(TaskoQuartzHelper.getGroupName(orgId));
             throw new InvalidParamException("jobLabel already in use");
         }
         return bunch;
