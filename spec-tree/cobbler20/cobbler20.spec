@@ -28,6 +28,7 @@ Patch14: centos7-version.patch
 Patch15: unicode-scripts.patch
 Patch16: cobbler-bz1214458.patch
 Patch17: whitelist.patch
+Patch18: disable_https.patch
 Group: Applications/System
 Requires: python >= 2.3
 
