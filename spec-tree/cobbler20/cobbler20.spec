@@ -34,6 +34,7 @@ Requires: python >= 2.3
 
 Provides: cobbler = %{version}-%{release}
 Obsoletes: cobbler <= %{version}-%{release}
+Conflicts: cobbler-epel
 
 %if 0%{?suse_version} >= 1000
 Requires: apache2
