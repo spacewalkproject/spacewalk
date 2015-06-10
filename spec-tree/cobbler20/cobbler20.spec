@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 46%{?dist}
+Release: 47%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -480,6 +480,10 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Wed Jun 10 2015 Tomas Kasparek <tkasparek@redhat.com> 2.0.11-47
+- cobbler20 needs to conflict with cobbler-epel - DNF is too smart
+- include disable_https.patch in cobbler20 spec
+
 * Tue Jun 09 2015 Tomas Kasparek <tkasparek@redhat.com> 2.0.11-46
 - disable https comunication with spacewalk
 
