@@ -536,7 +536,7 @@ class UploadClass(uploadLib.UploadClass):
             # computing checksum and other info is expensive process and session
             # could have expired.Make sure its re-authenticated.
             self.authenticate()
-            if uploadLib.exists_getPackageChecksumBySession(self.server):
+            if uploadLib.exists_getPackageChecksumBySession(self.server, self.ca_chain):
                 checksum_data = uploadLib.getPackageChecksumBySession(self.server,
                                                                       self.session.getSessionString(), info)
             else:
@@ -547,7 +547,7 @@ class UploadClass(uploadLib.UploadClass):
             # computing checksum and other info is expensive process and session
             # could have expired.Make sure its re-authenticated.
             self.authenticate()
-            if uploadLib.exists_getPackageChecksumBySession(self.server):
+            if uploadLib.exists_getPackageChecksumBySession(self.server, self.ca_chain):
                 checksum_data = uploadLib.getSourcePackageChecksumBySession(self.server,
                                                                             self.session.getSessionString(), info)
             else:
