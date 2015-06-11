@@ -324,6 +324,10 @@ class Runner:
     def _error_callback(self, client, stanza):
         """Logs error stanza messages for diagnostic purposes"""
         log_error("Received an error stanza: ", stanza)
+        for kid in stanza.kids:
+            if kid.getName() == "conflict":
+                log_error("Received an conflict. Restarting with new credentials.")
+                raise NeedRestart
 
 class InvalidCertError(SSL.SSL.Error):
     def __str__(self):
