@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.4.11
+Version: 2.4.12
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -61,6 +61,10 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %dir /var/lib/up2date
 
 %changelog
+* Thu Jun 11 2015 Michael Mraka <michael.mraka@redhat.com> 2.4.12-1
+- bz1230251: do nothing if enabled=0
+- bz1226986: accept options from plugin configuration file
+
 * Mon Jun 01 2015 Michael Mraka <michael.mraka@redhat.com> 2.4.11-1
 - global name 'CHANNELS_DISABLED' is not defined
 
