@@ -64,8 +64,7 @@ class Spacewalk(dnf.Plugin):
                                                  STORED_CHANNELS_NAME)
         self.connected_to_spacewalk = False
         self.up2date_cfg = {}
-        self.conf = dnf.conf.Conf()
-        self.conf.timeout = self.base.conf.timeout
+        self.conf = copy(self.base.conf)
         self.parser = self.read_config(self.conf, PLUGIN_CONF)
         if "main" in self.parser.sections():
             options = self.parser.items("main")
