@@ -25,14 +25,15 @@ def verifyPackages(packages):
 
 def parseVRE(version):
     epoch = ''
-    release = '0'
-    if version.find(':') != -1:
-        epoch, version = version.split(':')
-    if version.find('-') != -1:
-        tmp = version.split('-')
-        version = '-'.join(tmp[:-1])
-        release = tmp[-1]
-    return version, release, epoch
+    version_tmpArr = version.split('-')
+    if len(version_tmpArr) == 1:
+       version = version
+       release = 'X'
+       return version, release, epoch
+    else:
+       version = version_tmpArr[0]
+       release = version_tmpArr[1]
+       return version, release, epoch
 
 def installTime(pkg_name, pkg_arch):
     path = '/var/lib/dpkg/info/%s.list' % pkg_name
