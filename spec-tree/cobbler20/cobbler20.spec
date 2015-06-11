@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 48%{?dist}
+Release: 49%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -481,6 +481,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Thu Jun 11 2015 Jan Dobes 2.0.11-49
+- fix adding netmask kernel parameter into isolinux.cfg
+
 * Wed Jun 10 2015 Tomas Kasparek <tkasparek@redhat.com> 2.0.11-48
 - fix paths for disable_https patch
 
