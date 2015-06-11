@@ -70,9 +70,13 @@ class Spacewalk(dnf.Plugin):
             options = self.parser.items("main")
             for (key, value) in options:
                 setattr(self.conf, key, value)
+        if not self.conf.enabled:
+            return
         logger.debug('initialized Spacewalk plugin')
 
     def config(self):
+        if not self.conf.enabled:
+            return
         self.cli.demands.root_user = True
 
         self.activate_channels(self.cli.demands.sack_activation)
@@ -158,6 +162,8 @@ class Spacewalk(dnf.Plugin):
 
     def transaction(self):
         """ Update system's profile after transaction. """
+        if not self.conf.enabled:
+            return
         if not self.connected_to_spacewalk:
             # not connected so nothing to do here
             return
