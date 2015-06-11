@@ -259,7 +259,9 @@ Requires: pyliblzma
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
 Requires: cobbler >= 2.0.0
+%if 0%{?fedora} >= 22
 Recommends: cobbler20
+%endif
 Requires: rhnlib  >= 2.5.57
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
