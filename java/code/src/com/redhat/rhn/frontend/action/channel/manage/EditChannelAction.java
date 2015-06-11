@@ -671,6 +671,7 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
             request.setAttribute(CHANNEL_NAME, channelName);
             form.set(ORG_SHARING, "private");
             form.set(SUBSCRIPTIONS, "all");
+            form.set(ARCH, "channel-x86_64");
             form.set(CHECKSUM, "sha1");
         }
     }
