@@ -20,6 +20,13 @@ CA_CHAIN=/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
 HTTP_PROXY=
 HTTP_USERNAME=
 HTTP_PASSWORD=
+
+# Use the following variables to import custom SSL keys/certificates
+USE_EXISTING_CERTS=N
+CA_CERT=/root/my_ca.crt
+SERVER_CERT=/root/my_server.key
+SERVER_KEY=/root/my_server.crt
+
 # If you want to populate configuration channel 
 # and want to have realy silent installation, then
 # you must run rhncfg-manager to enter your login 
