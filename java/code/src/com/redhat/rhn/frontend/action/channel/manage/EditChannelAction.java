@@ -54,6 +54,8 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
+import org.stringtree.json.JSONWriter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -719,13 +721,18 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
         }
         ctx.getRequest().setAttribute("parentChannelChecksums", parentChannelChecksums);
 
+        JSONWriter json = new JSONWriter();
+
         // base channel arches
         List<Map<String, String>> channelArches = new ArrayList<Map<String, String>>();
         List<ChannelArch> arches = ChannelManager.getChannelArchitectures();
-        List<String> allArchConstruct = new ArrayList<String>();
+        List<Map<String, String>> allArchConstruct = new ArrayList<Map<String, String>>();
         for (ChannelArch arch : arches) {
             addOption(channelArches, arch.getName(), arch.getLabel());
-            allArchConstruct.add(arch.getLabel() + ":" + arch.getName());
+            Map<String, String> archAttrs = new HashMap<String, String>();
+            archAttrs.put(NAME, arch.getName());
+            archAttrs.put(LABEL, arch.getLabel());
+            allArchConstruct.add(archAttrs);
         }
         ctx.getRequest().setAttribute("channelArches", channelArches);
 
@@ -733,17 +740,11 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
         Set<String> uniqueParentChannelArches = new HashSet<String>(parentChannelArches
                 .values());
         for (String arch : uniqueParentChannelArches) {
-            List<Map<String, String>> compatibleArches = ChannelManager
-                    .compatibleChildChannelArches(arch);
-            List<String> mapConstruct = new ArrayList<String>();
-            for (Map<String, String> compatibleArch : compatibleArches) {
-                mapConstruct
-                        .add(compatibleArch.get(LABEL) + ":" + compatibleArch.get(NAME));
-            }
-            archCompatMap.put(arch, StringUtils.join(mapConstruct.toArray(), ","));
+            archCompatMap.put(
+                    arch, json.write(ChannelManager.compatibleChildChannelArches(arch)));
         }
         // empty string for when there is no parent, all arches are available
-        archCompatMap.put("", StringUtils.join(allArchConstruct.toArray(), ","));
+        archCompatMap.put("", json.write(allArchConstruct));
         ctx.getRequest().setAttribute("archCompatMap", archCompatMap);
 
         // set the list of yum supported checksums

@@ -6,35 +6,53 @@
 <html>
     <body>
         <script type="text/javascript">
-            function setChildChannelArchChecksum() {
-                var baseChannelArches = {};
-            <c:forEach items="${parentChannelArches}" var="parentChannel">
+            $(document).ready(function() {
+                var defaultArch = $('#parentarch option:selected').val();
+                var defaultChecksum = $('#checksum option:selected').val();
+
+                function setChildChannelArchChecksum() {
+                    var baseChannelArches = {};
+                    <c:forEach items="${parentChannelArches}" var="parentChannel">
                     baseChannelArches["<c:out value="${parentChannel.key}" />"] = "<c:out value="${parentChannel.value}"/>";
-            </c:forEach>
+                    </c:forEach>
                     var baseChannelChecksums = {};
-            <c:forEach items="${parentChannelChecksums}" var="parentChannel">
+                    <c:forEach items="${parentChannelChecksums}" var="parentChannel">
                     baseChannelChecksums["<c:out value="${parentChannel.key}" />"] = "<c:out value="${parentChannel.value}"/>";
-            </c:forEach>
+                    </c:forEach>
                     var archCompatMap = {};
-            <c:forEach items="${archCompatMap}" var="archCompat">
-                    archCompatMap["<c:out value="${archCompat.key}" />"] = "<c:out value="${archCompat.value}"/>".split(",");
-            </c:forEach>
-            
-                    var parentArchLabel = baseChannelArches[document.getElementById("parent").value]
-                    if (!parentArchLabel) {
-                      parentArchLabel = "";
+                    <c:forEach items="${archCompatMap}" var="archCompat">
+                    archCompatMap["<c:out value="${archCompat.key}" />"] = ${archCompat.value};
+                    </c:forEach>
+
+                    var parentArchLabel = baseChannelArches[$('#parent').val()];
+                    archCompatMapKey = parentArchLabel;
+                    if (typeof parentArchLabel === 'undefined') {
+                        archCompatMapKey = "";
+                        parentArchLabel = defaultArch;
                     }
-                    
-                    var archSelect = document.getElementById("parentarch");
-                    archSelect.options.length=0;
-                    for (i in archCompatMap[parentArchLabel]) {
-                      var arch = archCompatMap[parentArchLabel][i].split(":");
-                      archSelect.options[i]=new Option(arch[1], arch[0], arch[1] == parentArchLabel, arch[1] == parentArchLabel);
+
+                    var archSelect = $('#parentarch');
+                    archSelect.find('option').remove();
+                    $.each(archCompatMap[archCompatMapKey], function(i, compatibleArch) {
+                        archSelect.append($('<option>', {
+                            value: compatibleArch.label,
+                            text: compatibleArch.name,
+                            selected: compatibleArch.label == parentArchLabel
+                        }));
+                    });
+                    archSelect.val(parentArchLabel);
+
+                    var checksum = baseChannelChecksums[$('#parent').val()];
+                    if (typeof checksum === 'undefined') {
+                        checksum = defaultChecksum
                     }
-                    archSelect.value = parentArchLabel;
-                    
-                    document.getElementById("checksum").value = baseChannelChecksums[document.getElementById("parent").value];
+                    $('#checksum').val(checksum);
                 }
+
+                $('#parent').change(function() {
+                    setChildChannelArchChecksum();
+                });
+            });
         </script>
         <rhn:toolbar base="h1" icon="header-channel"
                      deletionUrl="/rhn/channels/manage/Delete.do?cid=${param.cid}"
@@ -125,8 +143,7 @@
                         <c:when test='${empty param.cid}'>
                             <html:select property="parent" styleId="parent"
                                          styleClass="form-control"
-                                         value="${defaultParent}"
-                                         onchange="setChildChannelArchChecksum()">
+                                         value="${defaultParent}">
                                 <html:options collection="parentChannels"
                                               property="value"
                                               labelProperty="label" />
