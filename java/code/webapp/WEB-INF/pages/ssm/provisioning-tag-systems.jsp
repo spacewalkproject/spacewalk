@@ -9,7 +9,7 @@
   <body>
     <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
           <h2>
-      <rhn:icon type="header-snapshot" title="snapshot"/>
+      <rhn:icon type="header-snapshot" />
       <bean:message key="ssm.operations.provisioning.tagsystems.header"/>
     </h2>
 
