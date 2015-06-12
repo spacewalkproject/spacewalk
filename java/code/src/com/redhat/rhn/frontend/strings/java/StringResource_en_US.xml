@@ -4751,6 +4751,12 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="SS">
+        <source>South Sudan</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="ST">
         <source>Saint Tome (Sao Tome) and Principe</source>
         <context-group name="ctx">
