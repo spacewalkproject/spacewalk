@@ -32,13 +32,9 @@
                     }
 
                     var archSelect = $('#parentarch');
-                    archSelect.find('option').remove();
+                    archSelect.find('option').hide();
                     $.each(archCompatMap[archCompatMapKey], function(i, compatibleArch) {
-                        archSelect.append($('<option>', {
-                            value: compatibleArch.label,
-                            text: compatibleArch.name,
-                            selected: compatibleArch.label == parentArchLabel
-                        }));
+                        archSelect.find('option[value="' + compatibleArch.label + '"]').show();
                     });
                     archSelect.val(parentArchLabel);
 
