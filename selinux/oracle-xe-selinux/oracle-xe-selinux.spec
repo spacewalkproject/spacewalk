@@ -25,7 +25,7 @@ BuildArch:       noarch
 %if "%{selinux_policyver}" != ""
 Requires:         selinux-policy >= %{selinux_policyver}
 %endif
-Requires(post):   /usr/sbin/semodule, %{sbinpath}/restorecon, %{sbinpath}/ldconfig, /usr/sbin/selinuxenabled
+Requires(post):   /usr/sbin/semodule, %{sbinpath}/restorecon, /sbin/ldconfig, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, %{sbinpath}/restorecon
 Requires:         /etc/init.d/oracle-xe
 Requires:         oracle-nofcontext-selinux
