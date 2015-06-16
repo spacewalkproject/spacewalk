@@ -10,6 +10,7 @@ java/lib
 java/*.log
 java/*.log.*
 java/buildconf/builder/config/local
+java/buildconf/tempjars/*
 java/.checkstyle
 java/.classpath
 java/.externalToolBuilders
