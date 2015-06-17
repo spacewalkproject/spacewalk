@@ -29,6 +29,7 @@ Patch15: unicode-scripts.patch
 Patch16: cobbler-bz1214458.patch
 Patch17: whitelist.patch
 Patch18: disable_https.patch
+Patch19: buildiso-boot-options.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -132,6 +133,7 @@ a XMLRPC API for integration with other applications.
 %patch16 -p1
 %patch17 -p1
 %patch18 -p1
+%patch19 -p1
 
 %build
 %{__python} setup.py build 

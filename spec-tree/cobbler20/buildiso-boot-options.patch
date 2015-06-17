@@ -1,0 +1,19 @@
+diff -rupN cobbler-2.0.11.old/cobbler/action_buildiso.py cobbler-2.0.11/cobbler/action_buildiso.py
+--- cobbler-2.0.11.old/cobbler/action_buildiso.py	2015-06-11 18:48:59.000000000 +0200
++++ cobbler-2.0.11/cobbler/action_buildiso.py.new	2015-06-17 13:33:13.392123548 +0200
+@@ -269,7 +269,14 @@ class BuildIso:
+                        append_line = append_line + " gateway=%s" % data["gateway"]
+ 
+                    if not exclude_dns and data.has_key("name_servers") and data["name_servers"]:
+-                       append_line = append_line + " dns=%s\n" % ",".join(data["name_servers"])
++                       version = dist.os_version
++                       if dist.breed == "redhat" and (
++                           (version.startswith("rhel") and version >= "rhel7") or
++                           (version.startswith("fedora") and version >= "fedora17")
++                       ):
++                           append_line = append_line + " nameserver=%s\n" % " nameserver=".join(data["name_servers"])
++                       else:
++                           append_line = append_line + " dns=%s\n" % ",".join(data["name_servers"])
+ 
+                    length=len(append_line)
+                    if length > 254:
