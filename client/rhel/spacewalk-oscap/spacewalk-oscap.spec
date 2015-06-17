@@ -12,11 +12,7 @@ BuildArch:	noarch
 BuildRequires:	python-devel
 BuildRequires:	rhnlib
 BuildRequires:  libxslt
-%if 0%{?rhel} && 0%{?rhel} < 6
-Requires:	openscap-utils >= 0.8.0
-%else
-Requires:	openscap-utils >= 0.9.2
-%endif
+Requires:	openscap-scanner
 Requires:	libxslt
 Requires:       rhnlib
 Requires:       rhn-check
