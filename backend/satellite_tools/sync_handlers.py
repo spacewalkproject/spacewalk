@@ -778,23 +778,3 @@ def purge_extra_channel_families():
         # Log it and move on - maybe we missed a FK; no reason to break the
         # sync completely for this.
         syncLib.log(-1, str(e))
-
-
-_query_private_families = rhnSQL.Statement("""
-    select channel_family_id, org_id
-    from rhnPrivateChannelFamily
-    order by channel_family_id, org_id
-""")
-
-
-def update_channel_family_counts():
-    update_family_counts_proc = rhnSQL.Procedure("rhn_channel.update_family_counts")
-    h = rhnSQL.prepare(_query_private_families)
-    h.execute()
-    while 1:
-        row = h.fetchone_dict()
-        if not row:
-            break
-        update_family_counts_proc(row['channel_family_id'], row['org_id'])
-
-    rhnSQL.commit()
