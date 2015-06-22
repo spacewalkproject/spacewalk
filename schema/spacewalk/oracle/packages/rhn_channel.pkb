@@ -48,7 +48,7 @@ IS
            for update;
     end obtain_read_lock;
 
-    PROCEDURE subscribe_server(server_id_in IN NUMBER, channel_id_in NUMBER, immediate_in NUMBER := 1, user_id_in in number := null, recalcfamily_in number := 1)
+    PROCEDURE subscribe_server(server_id_in IN NUMBER, channel_id_in NUMBER, immediate_in NUMBER := 1, user_id_in in number := null)
     IS
         channel_parent_val      rhnChannel.parent_channel%TYPE;
         parent_subscribed       BOOLEAN;
@@ -156,10 +156,6 @@ IS
             );
 
             INSERT INTO rhnServerChannel (server_id, channel_id, is_fve) VALUES (server_id_in, channel_id_in, is_fve);
-			IF recalcfamily_in > 0
-			THEN
-                rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
-			END IF;
             queue_server(server_id_in, immediate_in);
 
             update rhnServer
@@ -236,8 +232,7 @@ IS
                                  sc.channel_id in 
                                     (select cfm.channel_id from rhnChannelFamilyMembers cfm
                                                 where cfm.CHANNEL_FAMILY_ID = channel_family_id_val);
-            
-            rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
+
         ELSE
             rhn_exception.raise_exception('not_enough_flex_entitlements');
         END IF;
@@ -413,8 +408,7 @@ IS
         return NULL;
     end base_channel_rel_archid;
 
-    PROCEDURE clear_subscriptions(server_id_in IN NUMBER, deleting_server IN NUMBER := 0,
-                                update_family_countsYN IN NUMBER := 1)
+    PROCEDURE clear_subscriptions(server_id_in IN NUMBER, deleting_server IN NUMBER := 0)
     IS
         cursor server_channels(server_id_in in number) is
                 select  s.org_id, sc.channel_id, cfm.channel_family_id
@@ -430,27 +424,12 @@ IS
     BEGIN
         for channel in server_channels(server_id_in)
         loop
-                unsubscribe_server(server_id_in, channel.channel_id, 1, 1, deleting_server, 0);
-                if update_family_countsYN > 0
-                    and channel.channel_family_id != last_channel_family_id then
-                    -- update family counts only once
-                    -- after all channels with same family has been fetched
-                    if last_channel_family_id != -1 then
-                        update_family_counts(last_channel_family_id, last_channel_org_id);
-                    end if;
-                    last_channel_family_id := channel.channel_family_id;
-                    last_channel_org_id    := channel.org_id;
-                end if;
+                unsubscribe_server(server_id_in, channel.channel_id, 1, 1, deleting_server);
         end loop channel;
-        if update_family_countsYN > 0 and last_channel_family_id != -1 then
-            -- update the last family fetched
-            update_family_counts(last_channel_family_id, last_channel_org_id);
-        end if;
     END clear_subscriptions;
 
     PROCEDURE unsubscribe_server(server_id_in IN NUMBER, channel_id_in NUMBER, immediate_in NUMBER := 1, unsubscribe_children_in number := 0,
-                                 deleting_server IN NUMBER := 0,
-                                 update_family_countsYN IN NUMBER := 1)
+                                 deleting_server IN NUMBER := 0)
     IS
         channel_family_id_val   NUMBER;
         server_org_id_val       NUMBER;
@@ -487,8 +466,7 @@ IS
                                                                 channel_id_in => child.id,
                                                                 immediate_in => immediate_in,
                                                                 unsubscribe_children_in => unsubscribe_children_in,
-                        deleting_server => deleting_server,
-                        update_family_countsYN => update_family_countsYN);
+                        deleting_server => deleting_server);
             else
                 rhn_exception.raise_exception('channel_unsubscribe_child_exists');
             end if;
@@ -543,10 +521,7 @@ IS
         SELECT org_id INTO server_org_id_val
           FROM rhnServer
          WHERE id = server_id_in;
-         
-        if update_family_countsYN = 1 then
-            rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
-        end if;
+
     END unsubscribe_server;
 
 
@@ -657,7 +632,7 @@ IS
     -- FUNCTION: channel_family_current_members
     -- Calculates and returns the actual count of systems consuming
     --   physical channel subscriptions.
-    -- Called by: update_family_counts 
+    -- Called by:
     --            rhn_entitlements.repoll_virt_guest_entitlements
     -- *******************************************************************
     function channel_family_current_members(channel_family_id_in IN NUMBER,
@@ -701,39 +676,6 @@ IS
 
         return current_members_count;
     end;
-    PROCEDURE update_family_counts(channel_family_id_in IN NUMBER, 
-                                   org_id_in IN NUMBER)
-    IS
-    BEGIN
-        update rhnPrivateChannelFamily
-           set current_members = ( channel_family_current_members(channel_family_id_in, org_id_in)),
-               fve_current_members = ( cfam_curr_fve_members(channel_family_id_in, org_id_in))
-         where org_id = org_id_in
-           and channel_family_id = channel_family_id_in;
-    END update_family_counts;
-    
-    PROCEDURE update_group_family_counts(group_label_in IN VARCHAR2,
-                                   org_id_in IN NUMBER)
-    IS
-    BEGIN
-        FOR i IN (
-                SELECT DISTINCT CFM.channel_family_id, SG.org_id
-                 FROM rhnChannelFamilyMembers CFM
-                 JOIN rhnServerChannel SC
-                   ON SC.channel_id = CFM.channel_id
-                 JOIN rhnServerGroupMembers SGM
-                   ON SC.server_id = SGM.server_id
-                 JOIN rhnServerGroup SG
-                   ON SGM.server_group_id = SG.id
-                 JOIN rhnServerGroupType SGT
-                   ON SG.group_type = SGT.id
-                WHERE SGT.label = group_label_in
-                  AND SG.org_id = org_id_in
-                  AND SGT.is_base = 'Y'
-        ) LOOP
-            rhn_channel.update_family_counts(i.channel_family_id, i.org_id);
-        END LOOP;
-    END update_group_family_counts;
 
     FUNCTION available_chan_subscriptions(channel_id_in IN NUMBER, 
                                           org_id_in IN NUMBER)
