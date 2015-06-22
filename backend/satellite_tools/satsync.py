@@ -613,9 +613,6 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             # XXX bug 146395
             satCerts.storeRhnCert(cert)
 
-        # Fix the channel family counts now
-        sync_handlers.update_channel_family_counts()
-
         if store_cert:
             # save it to disk
             log2(1, 4, _("    - syncing to disk %s") %
