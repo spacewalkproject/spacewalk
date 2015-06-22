@@ -237,7 +237,6 @@ def localUpdateChannels():
 
     sync_handlers.populate_channel_family_permissions(sat_cert)
     sync_handlers.purge_extra_channel_families()
-    sync_handlers.update_channel_family_counts()
 
 
 class RHNCertRemoteActivationException(Exception):
