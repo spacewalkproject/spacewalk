@@ -460,8 +460,6 @@ select c.id
                rhnPrivateChannelFamily pcf
          where pcf.org_id = :org_id
            and pcf.channel_family_id = cfm.channel_family_id
-           and pcf.current_members < coalesce(pcf.max_members,
-                  pcf.current_members + 1)
         union
         select cfm.channel_id
           from rhnChannelFamilyMembers cfm,
