@@ -141,7 +141,7 @@ def token_channels(server, server_arch, tokens_obj):
             # don't run the EC yet
             # XXX: test return code when this one will start returning
             # a status
-            subscribe_channel(server_id, c["id"], 0, None, 0)
+            subscribe_channel(server_id, c["id"], 0, None)
             child = rhnChannel.Channel()
             child.load_by_id(c["id"])
             child._load_channel_families()
