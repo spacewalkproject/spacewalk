@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.4.12
+Version:        2.4.13
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Jun 22 2015 Grant Gainey 2.4.13-1
+- 1234604 - Make rhn_channel.update_needed_cache hand off servers to Taskomatic
+
 * Fri Jun 12 2015 Jan Dobes 2.4.12-1
 - prevent inserting duplicate update_server_errata_cache tasks
 
