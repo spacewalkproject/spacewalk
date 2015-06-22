@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 schema/spacewalk/upgrade/spacewalk-schema-2.3-to-spacewalk-schema-2.4/007-rhn_channel-update_needed_cache-async.sql.postgresql
+-- oracle equivalent source sha1 8ab1028a753d0bbf3d70e9c3cfaac409d346eeae
 --
 -- Copyright (c) 2008--2014 Red Hat, Inc.
 --
