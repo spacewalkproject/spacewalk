@@ -156,16 +156,6 @@ def token_channels(server, server_arch, tokens_obj):
 
     log_debug(5, "cf ids: %s" % str(channel_family_ids))
     log_debug(5, "Server org_id: %s" % str(server['org_id']))
-    #rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val)
-    update_family_counts = rhnSQL.Procedure("rhn_channel.update_family_counts")
-    for famid in channel_family_ids:
-        # Update the channel family counts separately at the end here
-        # instead of in the loop above.  If you have an activation key
-        # with lots of custom child channels you can end up repeatedly
-        # updating the same channel family counts over and over and over
-        # even thou you really only need todo it once.
-        log_debug(5, "calling update fam counts: %s" % famid)
-        update_family_counts(famid, server['org_id'])
 
     return ret
 
