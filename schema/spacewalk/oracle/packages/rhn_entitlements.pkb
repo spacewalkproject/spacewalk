@@ -1345,8 +1345,6 @@ is
             set_server_group_count(org_id_in,
                                              group_type,
                                              quantity_in);
-            -- bulk update family counts
-            rhn_channel.update_group_family_counts(group_label_in, org_id_in);
         end if;
 
 
