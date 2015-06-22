@@ -673,22 +673,10 @@ is
 
            end if;
 
-            -- update current_members for the family.  This will set the value
-            -- to reflect adding/removing the entitlement.
-            --
-            -- what's the difference of doing this vs the unavoidable set_family_count above?
-            rhn_channel.update_family_counts(family.channel_family_id,
-                                             org_id_val);
 
             exception when no_data_found then null;
             end;
 
-            -- It is possible that the guests belong  to a different org than the host
-            -- so we are going to update the family counts in the guests orgs also
-            for org in virt_guest_orgs loop
-                    rhn_channel.update_family_counts(family.channel_family_id,
-                                             org.org_id);
-            end loop;
         end loop;
 
         for a_group_type in group_types loop
@@ -972,8 +960,7 @@ is
     -- *******************************************************************
     procedure prune_group (
         group_id_in in number,
-        quantity_in in number,
-                update_family_countsYN in number := 1
+        quantity_in in number
     ) is
         cursor servergroups is
            select  server_id, server_group_id, sgt.id as group_type_id, sgt.label
@@ -1019,8 +1006,7 @@ is
             -- if we're removing a base ent, then be sure to
             -- remove the server's channel subscriptions.
             if ( type_is_base = 'Y' ) then
-                   rhn_channel.clear_subscriptions(sg.server_id,
-                                        update_family_countsYN => update_family_countsYN);
+                   rhn_channel.clear_subscriptions(sg.server_id);
             end if;
 
         end loop;
@@ -1029,8 +1015,7 @@ is
     procedure set_server_group_count (
         customer_id_in in number,
         group_type_in in number,
-        quantity_in in number,
-                update_family_countsYN in number := 1
+        quantity_in in number
     ) is
         group_id number;
         quantity number;
@@ -1049,8 +1034,7 @@ is
 
         rhn_entitlements.prune_group(
             group_id,
-            quantity,
-                        update_family_countsYN
+            quantity
         );
     exception
         when no_data_found then
@@ -1360,8 +1344,7 @@ is
             -- will do bulk update afterwards
             set_server_group_count(org_id_in,
                                              group_type,
-                                             quantity_in,
-                                             update_family_countsYN => 0);
+                                             quantity_in);
             -- bulk update family counts
             rhn_channel.update_group_family_counts(group_label_in, org_id_in);
         end if;
@@ -1584,16 +1567,13 @@ is
         end if;
 
         for sc in serverchannels(quantity_in, 'N') loop
-            rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1,
-                                                       update_family_countsYN => 0);
+            rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1);
         end loop;
 
         for sc in serverchannels(flex_in, 'Y') loop
-            rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1,
-                                                        update_family_countsYN => 0);
+            rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1);
         end loop;
 
-        rhn_channel.update_family_counts(channel_family_id_in, customer_id_in);
     end prune_family;
 
     procedure set_family_count (
