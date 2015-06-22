@@ -46,9 +46,8 @@ IS
 
 
     PROCEDURE unsubscribe_server(server_id_in IN NUMBER, channel_id_in NUMBER, immediate_in NUMBER := 1, unsubscribe_children_in number := 0,
-                                 deleting_server in number := 0,
-                                 update_family_countsYN IN NUMBER := 1);
-    PROCEDURE subscribe_server(server_id_in IN NUMBER, channel_id_in NUMBER, immediate_in NUMBER := 1, user_id_in number := null, recalcfamily_in number := 1);
+                                 deleting_server in number := 0);
+    PROCEDURE subscribe_server(server_id_in IN NUMBER, channel_id_in NUMBER, immediate_in NUMBER := 1, user_id_in number := null);
     
     PROCEDURE convert_to_fve(server_id_in IN NUMBER, channel_family_id_val IN NUMBER);
 
@@ -72,8 +71,7 @@ IS
 
     FUNCTION channel_priority(channel_id_in in number) RETURN number;
     
-    PROCEDURE clear_subscriptions(server_id_in IN NUMBER, deleting_server in number := 0,
-                                update_family_countsYN IN NUMBER := 1);
+    PROCEDURE clear_subscriptions(server_id_in IN NUMBER, deleting_server in number := 0);
     
     FUNCTION available_family_subscriptions(channel_family_id_in IN NUMBER, org_id_in IN NUMBER) RETURN NUMBER;
 
@@ -83,8 +81,6 @@ IS
 
     FUNCTION cfam_curr_fve_members(channel_family_id_in IN NUMBER, org_id_in IN NUMBER) return number;
 
-    PROCEDURE update_family_counts(channel_family_id_in IN NUMBER, org_id_in IN NUMBER);
-    PROCEDURE update_group_family_counts(group_label_in IN VARCHAR2, org_id_in IN NUMBER);
     FUNCTION family_for_channel(channel_id_in IN NUMBER) RETURN NUMBER;
 
     FUNCTION available_chan_subscriptions(channel_id_in IN NUMBER, org_id_in IN NUMBER) RETURN NUMBER;
