@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 819e1878bc4f1d230ea77c99c09469b207a6ab5f
+-- oracle equivalent source sha1 bfce6d906cb0080af88fd90e5fb35e9c1e04b818
 --
 -- Copyright (c) 2008--2015 Red Hat, Inc.
 --
@@ -655,35 +655,6 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
           from  rhnChannelFamilyServerPhysical cfsp
          where  cfsp.channel_family_id = channel_family_id_in
            and  cfsp.customer_id = org_id_in;
-        return current_members_count;
-    end$$ language plpgsql;
-
-
-    create or replace function cfam_curr_fve_members(
-        channel_family_id_in IN NUMERIC,
-        org_id_in IN NUMERIC)
-    returns numeric
-    as $$
-    declare
-        current_members_count numeric := 0;
-
-    begin
-        select count(distinct sc.server_id)
-          into current_members_count
-          from rhnServerChannel sc,
-               rhnChannelFamilyMembers cfm,
-               rhnServer s
-         where s.org_id = org_id_in
-           and s.id = sc.server_id
-           and cfm.channel_family_id = channel_family_id_in
-           and cfm.channel_id = sc.channel_id
-           and exists (
-                select 1
-                  from rhnChannelFamilyServerFve cfsp
-                 where cfsp.CHANNEL_FAMILY_ID = channel_family_id_in
-                   and cfsp.server_id = s.id
-                );
-
         return current_members_count;
     end$$ language plpgsql;
 
