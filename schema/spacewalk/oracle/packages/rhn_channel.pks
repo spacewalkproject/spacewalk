@@ -79,8 +79,6 @@ IS
 
     FUNCTION channel_family_current_members(channel_family_id_in IN NUMBER, org_id_in IN NUMBER) return number;
 
-    FUNCTION cfam_curr_fve_members(channel_family_id_in IN NUMBER, org_id_in IN NUMBER) return number;
-
     FUNCTION family_for_channel(channel_id_in IN NUMBER) RETURN NUMBER;
 
     FUNCTION available_chan_subscriptions(channel_id_in IN NUMBER, org_id_in IN NUMBER) RETURN NUMBER;
