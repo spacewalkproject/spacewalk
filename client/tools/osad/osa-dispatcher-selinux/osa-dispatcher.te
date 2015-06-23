@@ -100,3 +100,5 @@ require {
 }
 
 allow osa_dispatcher_t self:netlink_route_socket { write getattr read bind create nlmsg_read };
+
+allow osa_dispatcher_t self:process execmem;
