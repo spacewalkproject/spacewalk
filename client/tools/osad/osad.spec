@@ -17,7 +17,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.61
+Version: 5.11.62
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -413,6 +413,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Jun 23 2015 Tomas Kasparek <tkasparek@redhat.com> 5.11.62-1
+- allow exexmem to osa-dispatcher
+
 * Fri Jun 19 2015 Tomas Kasparek <tkasparek@redhat.com> 5.11.61-1
 - auto-healing for duplicate jabber ids
 
