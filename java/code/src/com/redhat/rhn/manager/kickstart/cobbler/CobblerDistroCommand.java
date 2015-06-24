@@ -75,7 +75,6 @@ public class CobblerDistroCommand extends CobblerCommand {
                         .getInstallType().getCobblerBreed(), tree.getInstallType()
                         .getCobblerOsVersion(), tree.getChannel().getChannelArch()
                         .cobblerArch());
-                xen.save();
                 tree.setCobblerXenId(xen.getId());
             }
             else {
