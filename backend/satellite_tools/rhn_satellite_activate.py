@@ -229,16 +229,6 @@ def activateSatellite_local(options):
     return 0
 
 
-def localUpdateChannels():
-    cert = open(DEFAULT_RHN_CERT_LOCATION).read()
-
-    sat_cert = satellite_cert.SatelliteCert()
-    sat_cert.load(cert)
-
-    sync_handlers.populate_channel_family_permissions(sat_cert)
-    sync_handlers.purge_extra_channel_families()
-
-
 class RHNCertRemoteActivationException(Exception):
 
     "general remote activate failure exception"
@@ -669,10 +659,6 @@ def main():
             except PopulateChannelFamiliesException, e:
                 writeError(e)
                 return 40
-        else:
-            # We're disconnected so we'll only update the channels we
-            # already know about.
-            localUpdateChannels()
 
     return 0
 
