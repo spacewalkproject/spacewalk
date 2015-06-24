@@ -151,18 +151,6 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
     }
 
-    public void testGetEntitlementAllOrgs() throws Exception {
-        Channel channel = ChannelFactoryTest.createTestChannel(user);
-
-        OrgFactory.save(user.getOrg());
-
-        List<ChannelOverview> co = ChannelManager.getEntitlementForAllOrgs(
-                channel.getChannelFamily().getId());
-        assertNotNull(co);
-        assertTrue(co.size() > 0);
-
-    }
-
     public void testVendorChannelTree() throws Exception {
 
         Channel channel = ChannelFactoryTest.createTestChannel(user);
