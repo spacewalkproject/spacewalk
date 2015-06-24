@@ -19,12 +19,10 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
 import org.apache.log4j.Logger;
 import org.cobbler.Distro;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -75,17 +73,7 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
     public ValidatorError store() {
         log.debug("Token : [" + xmlRpcToken + "]");
 
-        Map<String, String> ksmeta = new HashMap<String, String>();
-        KickstartUrlHelper helper = new KickstartUrlHelper(this.tree);
-        ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
-                helper.getKickstartMediaPath());
-        if (!tree.isRhnTree()) {
-            ksmeta.put("org", tree.getOrgId().toString());
-        }
-
-        if (tree.getInstallType().isSUSE()) {
-            ksmeta.put("autoyast", "true");
-        }
+        Map<String, String> ksmeta = createKsMetadataFromTree(this.tree);
 
         Distro distro =
                 Distro.create(CobblerXMLRPCHelper.getConnection(user),

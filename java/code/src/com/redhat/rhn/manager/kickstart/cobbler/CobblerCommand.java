@@ -24,11 +24,14 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 
+import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import org.apache.log4j.Logger;
 import org.cobbler.CobblerConnection;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import redstone.xmlrpc.XmlRpcFault;
 
@@ -188,5 +191,23 @@ public abstract class CobblerCommand {
             return CobblerXMLRPCHelper.getAutomatedConnection();
         }
         return CobblerXMLRPCHelper.getConnection(user);
+    }
+
+    protected Map<String, String> createKsMetadataFromTree(KickstartableTree tree) {
+        Map<String, String> ksmeta = new HashMap<>();
+
+        KickstartUrlHelper helper = new KickstartUrlHelper(tree);
+        ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
+                helper.getKickstartMediaPath());
+
+        if (!tree.isRhnTree()) {
+            ksmeta.put("org", tree.getOrgId().toString());
+        }
+
+        if (tree.getInstallType().isSUSE()) {
+            ksmeta.put("autoyast", "true");
+        }
+
+        return ksmeta;
     }
 }

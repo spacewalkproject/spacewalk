@@ -20,7 +20,6 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
-import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
 import org.apache.log4j.Logger;
 import org.cobbler.Distro;
@@ -198,18 +197,8 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
     private String createDistro(KickstartableTree tree, boolean xen) {
         String treeLabel = tree.getLabel();
         log.debug("Trying to create: " + treeLabel + " in cobbler over xmlrpc");
-        Map ksmeta = new HashMap();
-        KickstartUrlHelper helper = new KickstartUrlHelper(tree);
-        ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
-                helper.getKickstartMediaPath());
-        if (!tree.isRhnTree()) {
-            ksmeta.put("org", tree.getOrgId().toString());
-        }
 
-        if (tree.getInstallType().isSUSE()) {
-            ksmeta.put("autoyast", "true");
-        }
-
+        Map ksmeta = createKsMetadataFromTree(tree);
 
         if (!xen) {
 
