@@ -4427,13 +4427,6 @@ deducted from the default organization.</source>
         </context-group>
         <target>உரிம பயன்பாடு</target>
       </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.nochannelfams">
-        <source>No channels found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>தடங்கள் எதுவும் இல்லை.</target>
-      </trans-unit>
       <trans-unit id="No Entitlements Available">
         <source>No Entitlements Available</source>
         <context-group name="ctx">
@@ -21395,13 +21388,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
         <target>&lt;strong&gt;*துணுக்கு:&lt;/strong&gt; 'மொத்தம்' என்பது இந்த @@PRODUCT_NAME@@இல் நிறுவனங்களில் உள்ள
 மொத்த உரிமங்கள் ஆகும் (முன்னிருப்பு @@PRODUCT_NAME@@ நிறுவனங்களை தவிர்த்து). இது @@PRODUCT_NAME@@ சான்றிதழிலுள்ள மொத்தத்திற்கு சமமில்லை</target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.header2">
-        <source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>மென்பொருள் தட உரிம எண்ணிக்கைகள்</target>
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
         <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
