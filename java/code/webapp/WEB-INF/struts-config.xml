@@ -5634,22 +5634,6 @@
                path="/admin/multiorg/OrgSystemSubscriptions.do" redirect="true" />
     </action>
 
-    <action path="/admin/multiorg/OrgSoftwareSubscriptions"
-        name="submittedForm"
-        scope="request"
-        input="/WEB-INF/pages/admin/multiorg/orgsoftwaresubs.jsp"
-        type="com.redhat.rhn.frontend.action.multiorg.OrgSoftwareSubscriptionsAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequiredIfSubmitted" value="true" />
-        <set-property property="acls" value="user_role(satellite_admin)"/>
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/multiorg/orgsoftwaresubs.jsp"/>
-        <forward name="success"
-               path="/admin/multiorg/OrgSoftwareSubscriptions.do" redirect="true" />
-        <forward name="error"
-               path="/WEB-INF/pages/admin/multiorg/orgsoftwaresubs.jsp"/>
-    </action>
-
     <action path="/admin/multiorg/SystemEntitlements"
         scope="request"
         input="/WEB-INF/pages/admin/multiorg/sys_entitlements.jsp"
