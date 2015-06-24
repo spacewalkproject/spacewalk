@@ -167,10 +167,6 @@
             <form-property name="entName" type="java.lang.String"/>
             <form-property name="submitted" type="java.lang.Boolean"/>
         </form-bean>
-        <form-bean name="softwareEntitlementSubsForm"
-            type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="submitted" type="java.lang.Boolean" />
-        </form-bean>
         <form-bean name="userPrefForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="uid" type="java.lang.Long"/>
@@ -5709,23 +5705,6 @@
         <forward name="default"
             path="/WEB-INF/pages/admin/multiorg/softwareentitlementdetails.jsp"/>
     </action>
-
-    <action path="/admin/multiorg/SoftwareEntitlementSubscriptions"
-        name="softwareEntitlementSubsForm"
-        scope="request"
-        input="/WEB-INF/pages/admin/multiorg/softwareentitlementsubs.jsp"
-        type="com.redhat.rhn.frontend.action.multiorg.SoftwareEntitlementSubscriptionsAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequiredIfSubmitted" value="true" />
-        <set-property property="acls" value="user_role(satellite_admin)"/>
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/multiorg/softwareentitlementsubs.jsp"/>
-        <forward name="success"
-               path="/admin/multiorg/SoftwareEntitlementSubscriptions.do" redirect="true" />
-        <forward name="unlimited"
-               path="/admin/multiorg/SoftwareEntitlements.do" redirect="true" />
-    </action>
-
 
     <action path="/admin/multiorg/SystemEntitlements"
         scope="request"
