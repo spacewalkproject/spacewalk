@@ -602,12 +602,6 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         # possible place for bug 146395
 
-        # Populate channel family permissions
-        sync_handlers.populate_channel_family_permissions(sat_cert)
-
-        # Get rid of the extra channel families
-        sync_handlers.purge_extra_channel_families()
-
         if store_cert:
             # store it! (does a commit)
             # XXX bug 146395
