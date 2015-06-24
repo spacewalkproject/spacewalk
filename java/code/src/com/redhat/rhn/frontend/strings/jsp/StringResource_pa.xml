@@ -4487,80 +4487,6 @@ deducted from the default organization.</source>
         </context-group>
         <target>ਪੈਕੇਜ</target>
       </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.viewModifyCounts.header">
-        <source>View/Modify Entitlement Counts by Organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>ਸੰਗਠਨ ਲਈ ਇੰਟਾਈਟਲਮੈਂਟ ਗਿਣਤੀ ਵੇਖਾਓ/ਸੋਧੋ</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.viewModifyCounts.description">
-        <source>The current allocation of entitlements for '{0}' across the organizations on this @@PRODUCT_NAME@@ is displayed below. You may make changes to the allocation of entitlements for each organization in the 'Proposed Total' column, but your changes will not take effect until you depress the appropriate 'Update' button.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>ਇਸ @@PRODUCT_NAME@@ ਉੱਪਰਲੇ ਸੰਗਠਨਾਂ ਨੂੰ '{0}' ਪਹੁੰਚ ਲਈ ਇੰਟਾਈਟਲਮੈਂਟਾਂ ਦਾ ਵਰਤਮਾਨ ਨਿਰਧਾਰਨ ਹੇਠਾਂ ਵੇਖਾਇਆ ਗਿਆ ਹੈ। ਤੁਸੀਂ 'ਪ੍ਰਸਤਾਵਿਤ ਕੁੱਲ' ਕਾਲਮ ਵਿੱਚ ਹਰੇਕ ਸੰਗਠਨ ਲਈ ਇੰਟਾਈਟਲਮੈਂਟਾਂ ਦਾ ਨਿਰਧਾਰਨ ਤਬਦੀਲ ਕਰ ਸਕਦੇ ਹੋ, ਪਰ ਤੁਹਾਡੀ ਤਬਦੀਲੀ ਤਾਂ ਹੀ ਲਾਗੂ ਹੋਵੇਗੀ ਜਦੋਂ ਤੁਸੀਂ ਅਨੁਸਾਰੀ 'ਅੱਪਡੇਟ' ਬਟਨ ਦਬਾ ਕੇ ਛੱਡਦੇ ਹੋ।</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.noOrgsFound">
-        <source>No organizations found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>ਕੋਈ ਸੰਗਠਨ ਨਹੀਂ ਲੱਭਿਆ।</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.column.orgName">
-        <source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>ਸੰਗਠਨ ਨਾਂ</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.regular">
-        <source>System-Wide Regular Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.flex">
-        <source>System-Wide Flex Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.submit">
-        <source>Update</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>ਅੱਪਡੇਟ</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.possibleValues">
-        <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>ਸੰਭਵ ਮੁੱਲ: &lt;strong&gt;{0}&lt;/strong&gt; ਤੋਂ &lt;strong&gt;{1}&lt;/strong&gt; ਤੱਕ</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.total">
-        <source>Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>ਕੁੱਲ</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.Used/Allotted">
-        <source>'Allotted' refers to the total available entitlements to the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.totaltip">
-        <source> This total corresponds to your @@PRODUCT_NAME@@ certificate's
-value for this entitlement, excluding the default organization's consumption.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
         <target>ਸ਼ੁਰੂ ਮਿਤੀ:</target>
@@ -4569,47 +4495,12 @@ value for this entitlement, excluding the default organization's consumption.</s
         <source>End date:</source>
         <target>ਅੰਤ ਮਿਤੀ:</target>
       </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsage">
-        <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>ਇੰਟਾਈਟਲਮੈਂਟ ਉਪਯੋਗਤਾ</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsage">
-        <source>Organization Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>ਸੰਗਠਨ ਉਪਯੋਗਤਾ</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsageData">
-        <source>{0} of {1} ({2}%)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>{1} ({2}%) ਦਾ {0}</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsageData">
-        <source>{0} of {1} organizations ({2}%) have access to this entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>{1} ਵਿੱਚੋਂ {0} ਸੰਗਠਨਾਂ ({2}%) ਨੂੰ ਇਸ ਇੰਟਾਈਟਲਮੈਂਟ ਦੀ ਪਹੁੰਚ ਹੈ</target>
-      </trans-unit>
       <trans-unit id="softwareEntitlementSubs.invalidInput">
         <source>Proposed Allocation is invalid.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
         <target>ਦਿੱਤਾ ਨਿਰਧਾਰਨ ਗਲਤ ਹੈ।</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.noEntitlementsAvailable">
-        <source>No entitlements are available for allocation.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>ਨਿਰਧਾਰਤ ਲਈ ਕੋਈ ਇੰਟਾਈਟਲਮੈਂਟ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ।</target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.start_date">
         <source>Issue Start Date: </source>
