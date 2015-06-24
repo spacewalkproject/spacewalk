@@ -17,12 +17,10 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
 import org.cobbler.CobblerConnection;
 import org.cobbler.Distro;
 
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -66,17 +64,7 @@ public class CobblerDistroCommand extends CobblerCommand {
         Distro nonXen = Distro.lookupById(con, tree.getCobblerId());
         Distro xen = Distro.lookupById(con, tree.getCobblerXenId());
 
-        Map ksmeta = new HashMap();
-        KickstartUrlHelper helper = new KickstartUrlHelper(this.tree);
-        ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
-                helper.getKickstartMediaPath());
-        if (!tree.isRhnTree()) {
-            ksmeta.put("org", tree.getOrgId().toString());
-        }
-
-        if (tree.getInstallType().isSUSE()) {
-            ksmeta.put("autoyast", "true");
-        }
+        Map<String, String> ksmeta = createKsMetadataFromTree(this.tree);
 
         //if the newly edited tree does para virt....
         if (tree.doesParaVirt()) {
