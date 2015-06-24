@@ -256,7 +256,6 @@
 
       <rhn-tab name="Software Channel Entitlements" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/multiorg/SoftwareEntitlements.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/admin/multiorg/SoftwareEntitlementDetails.do</rhn-tab-url>
       </rhn-tab>
       <rhn-tab name="System Entitlements" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/multiorg/SystemEntitlements.do</rhn-tab-url>
