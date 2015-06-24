@@ -43,9 +43,7 @@
             filterattr="name"
             headerkey="softwareentitlements.header.entitlement.name"
             >
-            <a href="/rhn/admin/multiorg/SoftwareEntitlementDetails.do?cfid=${current.id}">
                 ${current.name}
-            </a>
         </rl:column>
 
         <rl:column

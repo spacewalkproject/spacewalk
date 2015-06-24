@@ -54,7 +54,7 @@
                filterattr="name"
                sortattr = "name"
                headerkey="entitlements.jsp.channel">
-            <a href="/rhn/admin/multiorg/SoftwareEntitlementDetails.do?cfid=${current.id}" tabindex="-1"><c:out value="${current.name}" /></a>
+            <c:out value="${current.name}" />
         </rl:column>
         <rl:column   styleclass="center"
                headertext="${rhn:localize('Regular Usage')} <br/>(${rhn:localize('Used/Allotted')})*">
