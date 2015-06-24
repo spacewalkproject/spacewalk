@@ -18,11 +18,6 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 
-import org.cobbler.CobblerConnection;
-import org.cobbler.Distro;
-
-import java.util.Map;
-
 
 /**
  * CobblerProfileComand - class to contain logic to communicate with cobbler
@@ -55,58 +50,6 @@ public class CobblerDistroCommand extends CobblerCommand {
         super();
         this.tree = ksTreeIn;
     }
-
-    /**
-     * Copy cobbler fields that shouldn't change in cobbler
-     */
-    protected void updateCobblerFields() {
-        CobblerConnection con = getCobblerConnection();
-        Distro nonXen = Distro.lookupById(con, tree.getCobblerId());
-        Distro xen = Distro.lookupById(con, tree.getCobblerXenId());
-
-        Map<String, String> ksmeta = createKsMetadataFromTree(this.tree);
-
-        //if the newly edited tree does para virt....
-        if (tree.doesParaVirt()) {
-            //IT does paravirt so we need to either update the xen distro or create one
-            if (xen == null) {
-                xen = Distro.create(con, tree.getCobblerXenDistroName(), tree
-                        .getKernelXenPath(), tree.getInitrdXenPath(), ksmeta, tree
-                        .getInstallType().getCobblerBreed(), tree.getInstallType()
-                        .getCobblerOsVersion(), tree.getChannel().getChannelArch()
-                        .cobblerArch());
-                tree.setCobblerXenId(xen.getId());
-            }
-            else {
-                xen.setKernel(tree.getKernelXenPath());
-                xen.setInitrd(tree.getInitrdXenPath());
-                xen.setBreed(tree.getInstallType().getCobblerBreed());
-                xen.setOsVersion(tree.getInstallType().getCobblerOsVersion());
-                xen.setKsMeta(ksmeta);
-                xen.setArch(tree.getChannel().getChannelArch().cobblerArch());
-                xen.save();
-            }
-
-        }
-        else {
-            //it doesn't do paravirt, so we need to delete the xen distro
-            if (xen != null) {
-                xen.remove();
-                tree.setCobblerXenId(null);
-            }
-        }
-
-        if (nonXen != null) {
-            nonXen.setInitrd(tree.getInitrdPath());
-            nonXen.setKernel(tree.getKernelPath());
-            nonXen.setBreed(tree.getInstallType().getCobblerBreed());
-            nonXen.setOsVersion(tree.getInstallType().getCobblerOsVersion());
-            nonXen.setKsMeta(ksmeta);
-            nonXen.setArch(tree.getChannel().getChannelArch().cobblerArch());
-            nonXen.save();
-        }
-    }
-
 
     /**
      * {@inheritDoc}
