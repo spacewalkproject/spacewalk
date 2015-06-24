@@ -27,6 +27,9 @@ Requires:       spacewalk-certs-tools
 Requires:       perl-Satcon
 Requires:       spacewalk-backend-tools
 Requires:       cobbler >= 2.0.0
+%if 0%{?fedora} >= 22
+Recommends: cobbler20
+%endif
 Requires:       PyYAML
 Requires:       /usr/bin/gpg
 Requires:       spacewalk-setup-jabberd

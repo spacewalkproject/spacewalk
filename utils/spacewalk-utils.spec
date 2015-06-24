@@ -32,6 +32,9 @@ BuildRequires:  spacewalk-backend-tools >= 1.7.24
 
 Requires:       bash
 Requires:       cobbler
+%if 0%{?fedora} >= 22
+Recommends: cobbler20
+%endif
 Requires:       coreutils
 Requires:       initscripts
 Requires:       iproute

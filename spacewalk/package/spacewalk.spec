@@ -78,6 +78,9 @@ Requires:       selinux-policy-base >= 3.7.19-93
 Requires:       ace-editor >= 1.1.1
 
 Requires:       cobbler2
+%if 0%{?fedora} >= 22
+Recommends: cobbler20
+%endif
 
 %description common
 Spacewalk is a systems management application that will
