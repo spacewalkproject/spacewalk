@@ -4594,13 +4594,6 @@ deducted from the default organization.</source>
         </context-group>
         <target>エンタイトルメントの使用</target>
       </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.nochannelfams">
-        <source>No channels found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>チャンネルが見つかりませんでした。</target>
-      </trans-unit>
       <trans-unit id="No Entitlements Available">
         <source>No Entitlements Available</source>
         <context-group name="ctx">
@@ -22578,13 +22571,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
         <target>&lt;strong&gt;*ヒント:&lt;/strong&gt; 「合計」とは、この @@PRODUCT_NAME@@ 上の組織群（デフォルトの @@PRODUCT_NAME@@ 組織を除く）に利用可能なエンタイトルメントの合計を示します。これは、 @@PRODUCT_NAME@@ 証明書内の利用可能な
 合計と同じではありません。</target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.header2">
-        <source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>ソフトウェアチャンネルのエンタイトルメント数</target>
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
         <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>

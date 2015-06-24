@@ -4527,13 +4527,6 @@ deducted from the default organization.</source>
         </context-group>
         <target>인타이틀먼트 사용: </target>
       </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.nochannelfams">
-        <source>No channels found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>채널을 찾을 수 없습니다.</target>
-      </trans-unit>
       <trans-unit id="No Entitlements Available">
         <source>No Entitlements Available</source>
         <context-group name="ctx">
@@ -22122,13 +22115,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
         </context-group>
         <target>&lt;strong&gt;*힌트:&lt;/strong&gt; '합계'는 @@PRODUCT_NAME@@ 상에 있는 조직에서 (기본값 @@PRODUCT_NAME@@ 조직 제외) 사용 가능한 인타이틀먼트 합계를 말합니다. 이는 @@PRODUCT_NAME@@ 인증서에 있는 사용 가능한 합계와 동일하지 않습니다.  </target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.header2">
-        <source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>소프트웨어 채널 인타이틀먼트 수 </target>
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
         <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>

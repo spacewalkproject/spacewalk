@@ -4589,13 +4589,6 @@ deducted from the default organization.</source>
         </context-group>
         <target>權利的用量</target>
       </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.nochannelfams">
-        <source>No channels found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>找不到頻道。</target>
-      </trans-unit>
       <trans-unit id="No Entitlements Available">
         <source>No Entitlements Available</source>
         <context-group name="ctx">
@@ -22571,13 +22564,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
         <target>&lt;strong&gt;*提示：&lt;/strong&gt;「總數」指的是此 @@PRODUCT_NAME@@ 上，一個組織
 （不包括預設的 @@PRODUCT_NAME@@ 組織）可用的權利數目。這與 @@PRODUCT_NAME@@ 憑證所擁有的總數不同。</target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.header2">
-        <source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>軟體頻道權利的數量</target>
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
         <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
