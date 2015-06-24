@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        2.4.0
+Version:        2.4.1
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -168,6 +168,10 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Wed Jun 24 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.1-1
+- Recommend cobbler20 with all packages requiring cobbler on Fedora 22
+- Bumping package versions for 2.4.
+
 * Wed Mar 25 2015 Tomas Lestach <tlestach@redhat.com> 2.3.4-1
 - 1205113 - obsoleting spacewalk-monitoring and spacewalk-monitoring-selinux
   packages
