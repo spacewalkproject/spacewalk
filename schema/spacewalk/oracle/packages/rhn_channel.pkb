@@ -732,7 +732,7 @@ IS
            and CFM.channel_family_id = CFP.channel_family_id
            and CFM.channel_id = channel_id_in
            and (CFP.max_members > 0 or CFP.max_members is null or CFP.fve_max_members > 0 or CFP.fve_max_members is null or CFP.org_id = 1);
-           
+
         return 1;
         exception
             when no_data_found
@@ -742,8 +742,8 @@ IS
     
     -- check if a user has a given role, or if such a role is inferrable
     -- returns NULL if OK, error message otherwise
-    function user_role_check_debug(channel_id_in in number, 
-                                   user_id_in in number, 
+    function user_role_check_debug(channel_id_in in number,
+                                   user_id_in in number,
                                    role_in in varchar2)
     return varchar2
     is
@@ -761,18 +761,18 @@ IS
            NVL(rhn_channel.get_org_id(channel_id_in), -1) <> org_id then
                return 'channel_not_owned';
         end if;
-        
-        if role_in = 'subscribe' and 
+
+        if role_in = 'subscribe' and
            rhn_channel.get_org_access(channel_id_in, org_id) = 0 then
                 return 'channel_not_available';
         end if;
-        
+
         -- channel admins have all roles
         if rhn_user.check_role_implied(user_id_in, 'channel_admin') = 1 then
             return NULL;
         end if;
 
-        -- the subscribe permission is inferred 
+        -- the subscribe permission is inferred
         -- UNLESS the not_globally_subscribable flag is set
         if role_in = 'subscribe'
         then
@@ -782,15 +782,15 @@ IS
                     return NULL;
             end if;
         end if;
-        
-        -- all other roles (manage right now) are explicitly granted    
+
+        -- all other roles (manage right now) are explicitly granted
         if rhn_channel.direct_user_role_check(channel_id_in,
                                               user_id_in, role_in) = 1 then
             return NULL;
         end if;
         return 'direct_permission';
     end;
-    
+
     -- same as above, but with 1/0 output; useful in views, etc
     function user_role_check(channel_id_in in number, user_id_in in number, role_in in varchar2)
     return number

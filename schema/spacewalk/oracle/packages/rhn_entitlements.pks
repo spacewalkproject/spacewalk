@@ -7,10 +7,10 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 --
 --
@@ -42,14 +42,14 @@ is
 		type_label_in in varchar2 := 'sw_mgr_entitled'
 	) return number;
 
-   function can_entitle_server ( 
-      server_id_in   in number, 
+   function can_entitle_server (
+      server_id_in   in number,
       type_label_in  in varchar2
    )
    return number;
 
-   function can_switch_base ( 
-      server_id_in   in    integer, 
+   function can_switch_base (
+      server_id_in   in    integer,
       type_label_in  in    varchar2
    )
    return number;
