@@ -4547,84 +4547,6 @@ deducted from the default organization.</source>
         </context-group>
         <target>패키지</target>
       </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.viewModifyCounts.header">
-        <source>View/Modify Entitlement Counts by Organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>조직에 따라 인타이틀먼트 수 보기/수정  </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.viewModifyCounts.description">
-        <source>The current allocation of entitlements for '{0}' across the organizations on this @@PRODUCT_NAME@@ is displayed below. You may make changes to the allocation of entitlements for each organization in the 'Proposed Total' column, but your changes will not take effect until you depress the appropriate 'Update' button.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@에 있는 조직 전역에 걸친 '{0}'에 대한 현재 인타이틀먼트 할당을 아래에서 보여주고 있습니다. '제시된 합계' 부분에서 각각의 조직에 대한 인타이틀먼트 할당을 변경할 수 있지만, 변경된 사항은 '업데이트' 버튼을 누를때 까지 영향을 미치지 않게 됩니다.   </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.noOrgsFound">
-        <source>No organizations found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>조직을 찾을 수 없습니다.  </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.column.orgName">
-        <source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>조직 이름 </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.regular">
-        <source>System-Wide Regular Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>시스템 전역 일반 인타이틀먼트 수 </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.flex">
-        <source>System-Wide Flex Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>시스템 전역 Flex 인타이틀먼트 수 </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.submit">
-        <source>Update</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>업데이트</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.possibleValues">
-        <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>가능한 값: &lt;strong&gt;{0}&lt;/strong&gt;에서 &lt;strong&gt;{1}&lt;/strong&gt; 까지 </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.total">
-        <source>Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>총 파일</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.Used/Allotted">
-        <source>'Allotted' refers to the total available entitlements to the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>'할당 수'는 @@PRODUCT_NAME@@ 상에 있는 조직에서 (기본값 @@PRODUCT_NAME@@ 조직 제외) 사용 가능한 인타이틀먼트 합계를 말합니다. 이는 @@PRODUCT_NAME@@ 인증서에 있는 사용 가능한 합계와 동일하지 않습니다.  </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.totaltip">
-        <source> This total corresponds to your @@PRODUCT_NAME@@ certificate's
-value for this entitlement, excluding the default organization's consumption.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>합계는 기본적인 조직의 사용 수를 제외하고 인타이틀먼트의 @@PRODUCT_NAME@@ 인증서 값에 해당합니다.</target>
-      </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
         <target>시작 날짜:</target>
@@ -4633,47 +4555,12 @@ value for this entitlement, excluding the default organization's consumption.</s
         <source>End date:</source>
         <target>마지막 날짜:</target>
       </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsage">
-        <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>인타이틀먼트 사용: </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsage">
-        <source>Organization Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>조직 사용  </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsageData">
-        <source>{0} of {1} ({2}%)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>{1} 중 {0} ({2}%) </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsageData">
-        <source>{0} of {1} organizations ({2}%) have access to this entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>{1} 중 {0} 조직 ({2}%)이 이 인타이틀먼트로 액세스함   </target>
-      </trans-unit>
       <trans-unit id="softwareEntitlementSubs.invalidInput">
         <source>Proposed Allocation is invalid.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
         <target>제시된 할당이 부적절합니다.  </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.noEntitlementsAvailable">
-        <source>No entitlements are available for allocation.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>할당에 사용할 수 있는 인타이틀먼트가 없습니다. </target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.start_date">
         <source>Issue Start Date: </source>

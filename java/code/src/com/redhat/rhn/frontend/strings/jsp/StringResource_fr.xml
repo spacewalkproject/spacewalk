@@ -4613,85 +4613,6 @@ que celle par défaut, ces droits d'accès seront déduits de l'organisation
         </context-group>
         <target>Paquetages</target>
       </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.viewModifyCounts.header">
-        <source>View/Modify Entitlement Counts by Organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Voir/modifier le nombre de droits d'accès par organisation</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.viewModifyCounts.description">
-        <source>The current allocation of entitlements for '{0}' across the organizations on this @@PRODUCT_NAME@@ is displayed below. You may make changes to the allocation of entitlements for each organization in the 'Proposed Total' column, but your changes will not take effect until you depress the appropriate 'Update' button.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>L'allocation actuelle des droits d'accès pour &quot;{0}&quot; à travers les organisations de ce @@PRODUCT_NAME@@ est affichée ci-dessous. Vous pouvez changer l'allocation des droits d'accès de chaque organisation dans la colonne &quot;Total proposé&quot; mais vos changements ne prendront pas effet tant que vous n'aurez pas cliqué sur le bouton &quot;Mettre à jour&quot;.</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.noOrgsFound">
-        <source>No organizations found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Aucune organisation trouvée.</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.column.orgName">
-        <source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Nom de l'organisation</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.regular">
-        <source>System-Wide Regular Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Nombre de droits d'accès habituels pour tout le système</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.flex">
-        <source>System-Wide Flex Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Nombre de droits d'accès Flex pour tout le système</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.submit">
-        <source>Update</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Mettre à jour</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.possibleValues">
-        <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Valeurs possibles : de &lt;strong&gt;{0}&lt;/strong&gt; à &lt;strong&gt;{1}&lt;/strong&gt;</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.total">
-        <source>Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Total</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.Used/Allotted">
-        <source>'Allotted' refers to the total available entitlements to the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>'Alloted' (alloué) signifie le nombre total de droits d'accès disponibles aux organisations (sauf l'organisation @@PRODUCT_NAME@@ par défaut) pour ce @@PRODUCT_NAME@@. Ce n'est pas égal au nombre total disponible sur le certificat @@PRODUCT_NAME@@.</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.totaltip">
-        <source> This total corresponds to your @@PRODUCT_NAME@@ certificate's
-value for this entitlement, excluding the default organization's consumption.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Ce total correspond à la valeur qui se trouve sur le sertificat @@PRODUCT_NAME@@
-pour ce droit d'accès, moins la consommation par défaut de l'organisation.</target>
-      </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
         <target>Date de début :</target>
@@ -4700,47 +4621,12 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         <source>End date:</source>
         <target>Date de fin :</target>
       </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsage">
-        <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Utilisation des droits d'accès</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsage">
-        <source>Organization Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Utilisation de l'organisation</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsageData">
-        <source>{0} of {1} ({2}%)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>{0} de {1} ({2}%)</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsageData">
-        <source>{0} of {1} organizations ({2}%) have access to this entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>{0} des {1} organisations ({2}%) ont accès à ce droit d'accès</target>
-      </trans-unit>
       <trans-unit id="softwareEntitlementSubs.invalidInput">
         <source>Proposed Allocation is invalid.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
         <target>L'allocation proposée est invalide</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.noEntitlementsAvailable">
-        <source>No entitlements are available for allocation.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Aucun droit d'accès n'est disponible pour l'allocation.</target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.start_date">
         <source>Issue Start Date: </source>

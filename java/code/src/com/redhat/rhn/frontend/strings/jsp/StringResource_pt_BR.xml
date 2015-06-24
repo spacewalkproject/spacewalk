@@ -4611,84 +4611,6 @@ serviços de uma organização não-padrão, eles serão deduzidos da organizaç
         </context-group>
         <target>Pacotes</target>
       </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.viewModifyCounts.header">
-        <source>View/Modify Entitlement Counts by Organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Visualizar/Modificar Contas de Serviços por Empresas</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.viewModifyCounts.description">
-        <source>The current allocation of entitlements for '{0}' across the organizations on this @@PRODUCT_NAME@@ is displayed below. You may make changes to the allocation of entitlements for each organization in the 'Proposed Total' column, but your changes will not take effect until you depress the appropriate 'Update' button.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>A alocação atual de serviços para '{0}' em organizações neste @@PRODUCT_NAME@@, está exposta abaixo. Você poderá modificar para a alocação dos serviços de cada organização na coluna 'Total Proposto', mas suas mudanças não surtirão efeito antes de apertar o botão 'Update'.</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.noOrgsFound">
-        <source>No organizations found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Não foi encontrada nenhuma organização.</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.column.orgName">
-        <source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Nome da Organização</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.regular">
-        <source>System-Wide Regular Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Contagens de Serviço Regular </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.flex">
-        <source>System-Wide Flex Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Contagens de Serviço Flexível de Sistema </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.submit">
-        <source>Update</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Atualizar</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.possibleValues">
-        <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Valores Possíveis: &lt;strong&gt;{0}&lt;/strong&gt; até &lt;strong&gt;{1}&lt;/strong&gt;</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.total">
-        <source>Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Total </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.Used/Allotted">
-        <source>'Allotted' refers to the total available entitlements to the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>'Reservado' refere-se aos serviços totais disponíveis às organizações (com exceção da organização do @@PRODUCT_NAME@@ padrão) neste @@PRODUCT_NAME@@. Ele não é igual à disponibilidade total no certificado do @@PRODUCT_NAME@@.</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.totaltip">
-        <source> This total corresponds to your @@PRODUCT_NAME@@ certificate's
-value for this entitlement, excluding the default organization's consumption.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Este total corresponde ao valor do certificado @@PRODUCT_NAME@@ deste serviço, com exclusão do consumo da organização padrão.</target>
-      </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
         <target>Data inicial:</target>
@@ -4697,47 +4619,12 @@ value for this entitlement, excluding the default organization's consumption.</s
         <source>End date:</source>
         <target>Data final:</target>
       </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsage">
-        <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Uso dos Serviços:</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsage">
-        <source>Organization Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Uso da Organização</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsageData">
-        <source>{0} of {1} ({2}%)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>{0} de {1} ({2}%)</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsageData">
-        <source>{0} of {1} organizations ({2}%) have access to this entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>{0} de {1} organizações ({2}%) possuem acesso à este serviço</target>
-      </trans-unit>
       <trans-unit id="softwareEntitlementSubs.invalidInput">
         <source>Proposed Allocation is invalid.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
         <target>Alocação Proposta é inválida</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.noEntitlementsAvailable">
-        <source>No entitlements are available for allocation.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>Nenhum serviço está disponível para esta alocação.</target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.start_date">
         <source>Issue Start Date: </source>
