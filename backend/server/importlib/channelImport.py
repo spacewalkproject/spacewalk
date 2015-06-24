@@ -270,41 +270,6 @@ class ChannelFamilyImport(Import):
         self.batch = new_batch
 
 
-class ChannelFamilyPermissionsImport(Import):
-
-    def __init__(self, batch, backend):
-        Import.__init__(self, batch, backend)
-        self.channel_families = {}
-        self.will_commit = 1
-
-    def preprocess(self):
-        for cf in self.batch:
-            self.channel_families[cf['channel_family']] = None
-
-    def fix(self):
-        # Look up the _only_ org in the system
-        org_id = self.backend.lookupOrg()
-        self.backend.lookupChannelFamilies(self.channel_families)
-        for cf in self.batch:
-            cf_name = cf['channel_family']
-            if self.channel_families[cf_name] is None:
-                # Unsupported channel family
-                raise InvalidChannelFamilyError(cf_name)
-            cf['channel_family_id'] = self.channel_families[cf_name]
-            if cf['org_id'] == -1:
-                # Make it our own org_id
-                cf['org_id'] = org_id
-
-    def submit(self):
-        try:
-            self.backend.processChannelFamilyPermissions(self.batch)
-        except:
-            self.backend.rollback()
-            raise
-        if self.will_commit:
-            self.backend.commit()
-
-
 class DistChannelMapImport(Import):
 
     def __init__(self, batch, backend):
