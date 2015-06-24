@@ -33,18 +33,6 @@
                 key="yourrhn.jsp.task.manage_subscriptions" /> <br />
               &ensp; &ensp;<a href="/rhn/systems/SystemEntitlements.do">
                 <bean:message key="header.jsp.my_organization" />
-            </a> <strong>|</strong> <a
-              href="/rhn/admin/multiorg/SoftwareEntitlements.do"><bean:message
-                  key="header.jsp.satellite_wide" /> </a>
-          </li>
-        </rhn:require>
-      </rhn:require>
-
-      <rhn:require acl="user_role(satellite_admin)">
-        <rhn:require acl="not user_role(org_admin)">
-          <li class="list-group-item"><rhn:icon type="nav-bullet" /> <a
-              href="/rhn/admin/multiorg/SoftwareEntitlements.do"> <bean:message
-                  key="yourrhn.jsp.tasks.subscriptions" />
             </a>
           </li>
         </rhn:require>
