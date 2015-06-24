@@ -1,20 +1,20 @@
 
 synopsis:
 
-	Entitlement and channel list and usage
+	Entitlement list and usage
 
 description:
 
-	For each organization, list of system entitlements and
-	channels to which the organization is entitled, together
+	For each organization, list of system entitlements
+	to which the organization is entitled, together
 	with current usage.
 
 columns:
 
 	organization_id:i	Organization identifier
 	organization		Organization name
-	entitlement_type	'system' or 'channel'
-	entitlement		System entitlement name or channel name
+	entitlement_type	'system'
+	entitlement		System entitlement name
 	used:i			How many entitlements are currently used
 	total:i			The total number of entitlements
 	flex_used:i		How many Flex entitlements are currently used
@@ -38,16 +38,6 @@ sql:
 		flex_used,
 		flex_total
 	from (
-		select rhnprivatechannelfamily.org_id as organization_id,
-			'channel' as entitlement_type,
-			rhnchannelfamily.name as entitlement,
-			rhnprivatechannelfamily.current_members as used,
-			rhnprivatechannelfamily.max_members as total,
-			rhnprivatechannelfamily.fve_current_members as flex_used,
-			rhnprivatechannelfamily.fve_max_members as flex_total
-		from rhnchannelfamily, rhnprivatechannelfamily
-		where rhnchannelfamily.id = rhnprivatechannelfamily.channel_family_id
-		union all
 		select rhnservergroup.org_id as organization_id,
 			'system' as entitlement_type,
 			rhnservergrouptype.name as entitlement,
