@@ -194,75 +194,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         return org;
     }
 
-    public void testListSoftwareEntitlementsNoSuchFamily() throws Exception {
-        try {
-            handler.listSoftwareEntitlements(admin, "nosuchfamily");
-            fail();
-        }
-        catch (InvalidEntitlementException e) {
-            // expected
-        }
-
-        try {
-            handler.listSoftwareEntitlements(admin, "nosuchfamily", Boolean.TRUE);
-            fail();
-        }
-        catch (InvalidEntitlementException e) {
-            // expected
-        }
-    }
-
-    public void testListSoftwareEntitlementsForOrgNoSuchOrg() throws Exception {
-        try {
-            handler.listSoftwareEntitlementsForOrg(admin, -1);
-            fail();
-        }
-        catch (NoSuchOrgException e) {
-            // expected
-        }
-    }
-
-    public void testListSoftwareEntitlements() throws Exception {
-        // Spacewalk servers have no software entitlements:
-        if (ConfigDefaults.get().isSpacewalk()) {
-            return;
-        }
-
-        Org testOrg = createOrg();
-
-        // test the entitlement api before the entitlement has been assigned to the org
-        List<OrgSoftwareEntitlementDto> entitlementCounts = null;
-
-        entitlementCounts = handler.listSoftwareEntitlements(admin,
-                channelFamily.getLabel(), Boolean.TRUE);
-        // since includeUnentitled=TRUE, we should find an entry for the org w/ 0 ents
-        assertOrgSoftwareEntitlement(testOrg.getId(), channelFamily.getLabel(),
-            entitlementCounts, 0, true);
-
-        entitlementCounts = handler.listSoftwareEntitlements(admin,
-            channelFamily.getLabel(), Boolean.FALSE);
-        // since includeUnentitled=FALSE, we shouldn't be able to locate the org
-        assertOrgSoftwareEntitlement(testOrg.getId(), channelFamily.getLabel(),
-            entitlementCounts, 0, false);
-
-        // now give the org some entitlements
-        int result = handler.setSoftwareEntitlements(admin,
-                       testOrg.getId().intValue(), channelFamily.getLabel(), 1);
-        assertEquals(1, result);
-
-        // now that the org has the entitlement, we should find it entitled with
-        // both variations of the api call
-        entitlementCounts = handler.listSoftwareEntitlements(admin,
-            channelFamily.getLabel(), Boolean.TRUE);
-        assertOrgSoftwareEntitlement(testOrg.getId(), channelFamily.getLabel(),
-            entitlementCounts, 1, true);
-
-        entitlementCounts = handler.listSoftwareEntitlements(admin,
-            channelFamily.getLabel(), Boolean.FALSE);
-        assertOrgSoftwareEntitlement(testOrg.getId(), channelFamily.getLabel(),
-            entitlementCounts, 1, true);
-    }
-
     private void assertOrgSoftwareEntitlement(Long orgId, String channelFamilyLabel,
             List<OrgSoftwareEntitlementDto> entitlementCounts, int expectedAllocation,
             boolean orgShouldExist) {
@@ -283,46 +214,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         }
     }
 
-    public void testListAllSoftwareEntitlements() throws Exception {
-        List<MultiOrgEntitlementsDto> ents = handler.listSoftwareEntitlements(admin);
-        assertNotNull(ents);
-
-        // Spacewalk servers have no software entitlements:
-        if (ConfigDefaults.get().isSpacewalk()) {
-            return;
-        }
-
-        assertTrue(!ents.isEmpty());
-
-        MultiOrgEntitlementsDto dto1 = findEntitlementDto(ents, channelFamily.getLabel());
-        assertNotNull(dto1);
-
-        String random = TestUtils.randomString();
-        String newOrgName = "EdwardNortonOrg" + random;
-        String login = "edward" + random;
-        String password = "redhat";
-        String first = "Edward";
-        String last = "Norton";
-        String email = "EddieNorton@redhat.com";
-        Org org = createOrg(newOrgName, login, password, "Dr.",
-                                        first, last, email, false);
-        int slots = 1;
-        handler.setSoftwareEntitlements(admin,
-                    org.getId().intValue(), channelFamily.getLabel(), slots);
-
-        ents = handler.listSoftwareEntitlements(admin);
-
-        MultiOrgEntitlementsDto dto2 = findEntitlementDto(ents, channelFamily.getLabel());
-        assertNotNull(dto2);
-
-        assertEquals(dto1.getLabel(), dto2.getLabel());
-        assertEquals(dto1.getTotal(), dto2.getTotal());
-        assertEquals(dto1.getUsed(), dto2.getUsed());
-        assertEquals(Long.valueOf(dto1.getAvailable() - slots), dto2.getAvailable());
-        assertEquals(Long.valueOf(dto1.getAllocated() + slots), dto2.getAllocated());
-    }
-
-
     private MultiOrgEntitlementsDto findEntitlementDto(
                                     List< ? extends MultiOrgEntitlementsDto> dtos,
                                                 String label) {
@@ -332,20 +223,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
             }
         }
         return null;
-    }
-
-    public void testSetSoftwareEntitlements() throws Exception {
-        // Spacewalk servers have no software entitlements:
-        if (ConfigDefaults.get().isSpacewalk()) {
-            return;
-        }
-
-        Org testOrg = createOrg();
-        int result = handler.setSoftwareEntitlements(admin,
-                       testOrg.getId().intValue(), channelFamily.getLabel(), 1);
-        assertEquals(1, result);
-
-        assertOrgSoftwareEntitlementCount(testOrg.getId(), channelFamily.getLabel(), 1);
     }
 
     public void testSetSystemEntitlements() throws Exception {
@@ -374,34 +251,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         assertOrgSystemEntitlementCount(testOrg.getId(), systemEnt, 1);
     }
 
-    public void testSetSoftwareEntitlementsNoSuchOrgOrFamily() throws Exception {
-        // Spacewalk servers have no software entitlements:
-        if (ConfigDefaults.get().isSpacewalk()) {
-            return;
-        }
-
-        Org testOrg = createOrg();
-        try {
-            handler.setSoftwareEntitlements(admin,
-                    new Integer(testOrg.getId().intValue()), "nosuchfamily",
-                    new Integer(1));
-            fail();
-        }
-        catch (InvalidEntitlementException e) {
-            // expected
-        }
-
-        try {
-            handler.setSoftwareEntitlements(admin,
-                    new Integer(-1), channelFamily.getLabel(),
-                    new Integer(1));
-            fail();
-        }
-        catch (NoSuchOrgException e) {
-            // expected
-        }
-    }
-
     public void testSetSystemEntitlementsNoSuchOrgOrFamily() throws Exception {
         Org testOrg = createOrg();
         String systemEnt = EntitlementManager.PROVISIONING_ENTITLED;
@@ -421,22 +270,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
             fail();
         }
         catch (NoSuchOrgException e) {
-            // expected
-        }
-    }
-
-    public void testSetSoftwareEntitlementsDefaultOrg() throws Exception {
-        // Spacewalk servers have no software entitlements:
-        if (ConfigDefaults.get().isSpacewalk()) {
-            return;
-        }
-
-        try {
-            handler.setSoftwareEntitlements(admin,
-                    new Integer(1), channelFamily.getLabel(), new Integer(10));
-            fail();
-        }
-        catch (IllegalArgumentException e) {
             // expected
         }
     }
@@ -506,55 +339,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         }
         if (!found && orgShouldExist) {
             fail("unable to find org: " + orgId);
-        }
-    }
-
-    /**
-     * Test both list entitlement calls by verifying the given org has the
-     * expected allocation for the given channel family.
-     *
-     * @param orgId orgId to lookup allocations for
-     * @param channelFamilyLabel channel family label
-     * @param expectedAllocation expected allocation
-     */
-    private void assertOrgSoftwareEntitlementCount(Long orgId, String channelFamilyLabel,
-            int expectedAllocation) {
-
-        boolean found = false;
-
-        List<OrgSoftwareEntitlementDto> entitlementCounts =
-            handler.listSoftwareEntitlements(admin, channelFamilyLabel);
-
-        for (OrgSoftwareEntitlementDto counts : entitlementCounts) {
-
-            if (!counts.getOrg().getId().equals(orgId)) {
-                continue;
-            }
-            // Found our org, check it's allocation:
-            found = true;
-            assertEquals(expectedAllocation, counts.getMaxMembers().intValue());
-        }
-        if (!found) {
-            fail("unable to find org: " + orgId);
-        }
-
-        // Repeat for the "by org" list:
-        List <OrgChannelFamily> entCounts = handler.listSoftwareEntitlementsForOrg(admin,
-                orgId.intValue());
-        found = false;
-
-        for (OrgChannelFamily counts : entCounts) {
-            String lookupLabel = counts.getLabel();
-            if (!lookupLabel.equals(channelFamilyLabel)) {
-                continue;
-            }
-            // Found our channel family label, check it's allocation:
-            found = true;
-            Number allocated = counts.getMaxMembers();
-            assertEquals(expectedAllocation, allocated.intValue());
-        }
-        if (!found) {
-            fail("unable to find channel family: " + channelFamilyLabel);
         }
     }
 
