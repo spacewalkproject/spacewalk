@@ -128,13 +128,6 @@ is
         quantity_in in number
     );
 
-    procedure activate_channel_entitlement(
-        org_id_in in number,
-        channel_family_label_in in varchar2,
-        quantity_in in number,
-        flex_in in number
-    );
-
     procedure set_family_count (
 		customer_id_in in number,		-- customer_id
 		channel_family_id_in in number,	-- 246
