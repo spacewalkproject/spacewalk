@@ -4551,13 +4551,6 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
         </context-group>
         <target>Uso de derechos</target>
       </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.nochannelfams">
-        <source>No channels found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>No se encontró ningún canal.</target>
-      </trans-unit>
       <trans-unit id="No Entitlements Available">
         <source>No Entitlements Available</source>
         <context-group name="ctx">
@@ -22530,13 +22523,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         <target>&lt;strong&gt;*Consejo:&lt;/strong&gt; 'Total' se refiere al total de derechos disponibles
 para las organizaciones (excluyendo la organización predeterminada del  @@PRODUCT_NAME@@.)
 en este  @@PRODUCT_NAME@@. No es igual al total disponible en el certificado del @@PRODUCT_NAME@@.</target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.header2">
-        <source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>Conteo de derechos de canal de software</target>
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
         <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>

@@ -4427,13 +4427,6 @@ deducted from the default organization.</source>
         </context-group>
         <target>ઉમેદવારી વપરાશ</target>
       </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.nochannelfams">
-        <source>No channels found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>કોઈ ચેનલો મળી નહિં.</target>
-      </trans-unit>
       <trans-unit id="No Entitlements Available">
         <source>No Entitlements Available</source>
         <context-group name="ctx">
@@ -21398,13 +21391,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
         <target>&lt;strong&gt;*ટિપ્પણી:&lt;/strong&gt; 'કુલ' આ @@PRODUCT_NAME@@ પર સંસ્થાઓમાં (મૂળભૂત @@PRODUCT_NAME@@ સંસ્થાનો નહિં સમાવેશ કરીને)
 કુલ ઉપલબ્ધ ઉમેદવારીઓનો સંદર્ભ આપે છે. તે @@PRODUCT_NAME@@ પ્રમાણપત્રમાં ઉપલબ્ધ કુલને બરાબર નથી</target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.header2">
-        <source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>સોફ્ટવેર ચેનલ ઉમેદવારી ગણતરીઓ</target>
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
         <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>

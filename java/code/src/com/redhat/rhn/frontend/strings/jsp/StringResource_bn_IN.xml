@@ -4427,13 +4427,6 @@ deducted from the default organization.</source>
         </context-group>
         <target>এনটাইটেলমেন্টের ব্যবহার:</target>
       </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.nochannelfams">
-        <source>No channels found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>কোনো চ্যানেল পাওয়া যায়নি।</target>
-      </trans-unit>
       <trans-unit id="No Entitlements Available">
         <source>No Entitlements Available</source>
         <context-group name="ctx">
@@ -21393,13 +21386,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
         <target>&lt;strong&gt;*উপদেশ:&lt;/strong&gt; @@PRODUCT_NAME@@-র মধ্যে উপস্থিত (@@PRODUCT_NAME@@-র ডিফল্ট প্রতিষ্ঠান ভিন্ন অন্যান্য) প্রতিষ্ঠানের জন্য সর্বমোট উপলব্ধ এনটাইটেলমেন্ট
 'সর্বমোট' দ্বারা চিহ্নিত হয়েছে। @@PRODUCT_NAME@@ সার্টিফিকেটের মধ্যে উল্লিখিত সর্বমোট উপলব্ধ এনটাইটেলমেন্ট থেকে এটি ভিন্ন।</target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.header2">
-        <source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>সফ্টওয়্যার চ্যানেলের এন্টাইটেলমেন্টের সংখ্যা</target>
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
         <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
