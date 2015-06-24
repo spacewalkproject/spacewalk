@@ -255,11 +255,8 @@
         <rhn-tab-url>/rhn/admin/multiorg/OrgCreate.do</rhn-tab-url>
     </rhn-tab>
 
-    <rhn-tab name="Subscriptions" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/SoftwareEntitlements.do">
+    <rhn-tab name="Subscriptions" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/SystemEntitlements.do">
 
-      <rhn-tab name="Software Channel Entitlements" acl="user_role(satellite_admin)">
-        <rhn-tab-url>/rhn/admin/multiorg/SoftwareEntitlements.do</rhn-tab-url>
-      </rhn-tab>
       <rhn-tab name="System Entitlements" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/multiorg/SystemEntitlements.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/EntitlementOrgs.do</rhn-tab-url>
