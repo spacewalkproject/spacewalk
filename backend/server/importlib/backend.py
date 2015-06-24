@@ -1096,40 +1096,6 @@ class Backend:
         hdel.executemany(sgt_id=sgt_ids)
         hins.executemany(vsl_id=vsl_ids, sgt_id=sgt_ids)
 
-    def processChannelFamilyPermissions(self, cfps):
-        # Process channelFamilyPermissions
-        activate_channel_entitlements = self.dbmodule.Procedure(
-            'rhn_entitlements.activate_channel_entitlement')
-        for cfp in cfps:
-            if "private-channel-family" in cfp['channel_family']:
-                # As this is a generic list of channel families
-                # skip private channel families from channel family
-                # perm checks, as they are specific to ui and should
-                # not be handed over for org checks through satellite-sync
-                # or activate to pl/sql. As there is no unique way to
-                # identify these, filter based on name which is a
-                # standard for private channel families. Hopefully we'll
-                # have a better param to filter this in future.
-                continue
-            try:
-                activate_channel_entitlements(cfp['org_id'],
-                                              cfp['channel_family'], cfp['max_members'], cfp['max_flex'])
-            except rhnSQL.SQLError, e:
-                raise rhnFault(23, str(e[1]) + ": org_id [%s] family [%s] max [%s]" %
-                               (cfp['org_id'], cfp['channel_family'], cfp['max_members']), explain=0), None, sys.exc_info()[2]
-
-        # The way we constructed the list of channel family permissions, we
-        # should have (at least) all of the permissions from the database in
-        # the cfps list, so no need to prune channel entitlements outside of
-        # the set_family_count call
-
-        # Now subscribe the newest servers
-        # bug 146395: apparently this is an undesired 'nicety'
-#        org_id = self.lookupOrg()
-#        subscribe_newest_servers = self.dbmodule.Procedure(
-#            'rhn_entitlements.subscribe_newest_servers')
-#        subscribe_newest_servers(org_id)
-
     def processDistChannelMap(self, dcms):
         dcmTable = self.tables['rhnDistChannelMap']
         lookup = TableLookup(dcmTable, self.dbmodule)
