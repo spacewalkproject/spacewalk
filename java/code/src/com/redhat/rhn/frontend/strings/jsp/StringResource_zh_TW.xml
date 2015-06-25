@@ -12193,8 +12193,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>除役軟體頻道清單</target>
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
-        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>以下列出的軟體頻道是您組織&lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt;享有權利&lt;/a&gt;，但由於已經達到「產品週期盡頭」，因此不再由 Red Hat 所支援的「&lt;strong&gt;退役頻道&lt;/strong&gt;」。</target>
+        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
+        <target>以下列出的軟體頻道是您組織享有權利，但由於已經達到「產品週期盡頭」，因此不再由 Red Hat 所支援的「&lt;strong&gt;退役頻道&lt;/strong&gt;」。</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>

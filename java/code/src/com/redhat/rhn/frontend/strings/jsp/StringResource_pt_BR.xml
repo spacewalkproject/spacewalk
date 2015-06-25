@@ -12189,8 +12189,8 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <target>Lista de Canais de Software Aposentados</target>
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
-        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>Os canais de software listados abaixo são &lt;strong&gt;canais aposentados&lt;/strong&gt; aos quais a sua organização tem &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt; direito de acesso &lt;/a&gt;mas que não são mais suportados pela Red Hat porque alcançaram suas datas de validade.</target>
+        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
+        <target>Os canais de software listados abaixo são &lt;strong&gt;canais aposentados&lt;/strong&gt; aos quais a sua organização tem direito de acesso mas que não são mais suportados pela Red Hat porque alcançaram suas datas de validade.</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
