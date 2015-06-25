@@ -12230,8 +12230,8 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         <target>过期的软件频道列表</target>
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
-        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>下面列出的软件频道是您的机构 &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt; 有权利的&lt;/a&gt;，但是因为它们已经过了产品“生命周期”而不再被红帽支持的 &lt;strong&gt;过期的频道&lt;/strong&gt;。</target>
+        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
+        <target>下面列出的软件频道是您的机构  有权利的，但是因为它们已经过了产品“生命周期”而不再被红帽支持的 &lt;strong&gt;过期的频道&lt;/strong&gt;。</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>

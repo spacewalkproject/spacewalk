@@ -12237,8 +12237,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>リタイアしたソフトウェアチャンネルの一覧</target>
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
-        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>以下に表示されるソフトウェアチャンネルは、企業/組織が&lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt;エンタイトルメントを有している&lt;/a&gt;が、「終了」日に達したため Red Hat ではサポートしなくなった&lt;strong&gt;リタイアチャンネル&lt;/strong&gt;になります。</target>
+        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
+        <target>以下に表示されるソフトウェアチャンネルは、企業/組織がエンタイトルメントを有しているが、「終了」日に達したため Red Hat ではサポートしなくなった&lt;strong&gt;リタイアチャンネル&lt;/strong&gt;になります。</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>

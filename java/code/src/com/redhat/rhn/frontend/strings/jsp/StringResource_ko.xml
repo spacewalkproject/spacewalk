@@ -12033,8 +12033,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>더이상 사용되지 않는 소프트웨어 채널 목록</target>
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
-        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>아래에 기재된 소프트웨어 채널은 사용자 조직에 &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt; 인타이틀먼트가 있는 &lt;/a&gt; &lt;strong&gt;더이상 사용되지 않는 채널&lt;/strong&gt;이며 이는 만료되어 더 이상 Red Hat에서 지원하지 않습니다.  </target>
+        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
+        <target>아래에 기재된 소프트웨어 채널은 사용자 조직에 인타이틀먼트가 있는 &lt;strong&gt;더이상 사용되지 않는 채널&lt;/strong&gt;이며 이는 만료되어 더 이상 Red Hat에서 지원하지 않습니다.  </target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
