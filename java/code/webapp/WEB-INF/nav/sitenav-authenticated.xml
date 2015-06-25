@@ -30,8 +30,6 @@
         <rhn-tab-url>/rhn/systems/entitlements/GuestUnlimitedHosts.do</rhn-tab-url>
         <rhn-tab-url>/rhn/systems/entitlements/PhysicalHosts.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="Software Channel Entitlements" url="/rhn/channels/software/Entitlements.do" acl="user_role(org_admin)">
-      </rhn-tab>
     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Systems" url="/rhn/systems/Overview.do">
