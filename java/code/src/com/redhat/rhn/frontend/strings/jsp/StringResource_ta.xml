@@ -11639,8 +11639,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>ஓய்வான மென்பொருள் தட பட்டியல்</target>
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
-        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>கீழே பட்டியலிடப்பட்ட தடங்கள் &lt;strong&gt;ஓய்வான தடங்களாகும்&lt;/strong&gt; உங்கள் நிறுவனம்  &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt;  உரிமப்படுத்திய &lt;/a&gt;ஆனால் அவை Red Hat ஆல் உதவி வழங்க முடியாது, ஏனெனில் அவை இறுதி நாட்களை எட்டிவிட்டன.</target>
+        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
+        <target>கீழே பட்டியலிடப்பட்ட தடங்கள் &lt;strong&gt;ஓய்வான தடங்களாகும்&lt;/strong&gt; உங்கள் நிறுவனம்வை Red Hat ஆல் உதவி வழங்க முடியாது, ஏனெனில் அவை இறுதி நாட்களை எட்டிவிட்டன.</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>

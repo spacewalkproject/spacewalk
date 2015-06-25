@@ -11639,8 +11639,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>अवकाशप्राप्त सॉफ्टवेयर चैनल सूची</target>
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
-        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>नीचे सूचीबद्ध सॉफ्टवेयर चैनल &lt;strong&gt;अवकाश प्राप्त चैनल&lt;/strong&gt; हैं जिसमें आपका संगठन &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt; एंटाइटेल है &lt;/a&gt;लेकिन अब Red Hat के द्वारा समर्थित नहीं है क्योंकि वे उनके 'जीवन के आखिरी' दिन पर पहुंच चुके हैं.</target>
+        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
+        <target>नीचे सूचीबद्ध सॉफ्टवेयर चैनल &lt;strong&gt;अवकाश प्राप्त चैनल&lt;/strong&gt; हैं जिसमें आपका संगठन &lt;a hइटेल है लेकिन अब Red Hat के द्वारा समर्थित नहीं है क्योंकि वे उनके 'जीवन के आखिरी' दिन पर पहुंच चुके हैं.</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>

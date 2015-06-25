@@ -11638,8 +11638,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>অবচিত সফ্টওয়্যার চ্যানেলের তালিকা</target>
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
-        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>আপনার প্রতিষ্ঠানের &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt;এনটাইটেলমেন্ট অনুযায়ী &lt;/a&gt; নিম্নলিখিত &lt;strong&gt;অবচিত&lt;/strong&gt; সফ্টওয়্যার চ্যানেল ব্যবহার করতে আপনার প্রতিষ্ঠান অধিকারপ্রাপ্ত, কিন্তু সেগুলির ব্যবহারকাল অতিক্রান্ত হওয়ার ফলে বর্তমানে Red Hat-র দ্বারা সমর্থিত নয়।</target>
+        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
+        <target>আপনার প্রতিষ্ঠানের &lt;এনটাইটেলমেন্ট অনুযায়ী &lt;/ নিম্নলিখিত &lt;strong&gt;অবচিত&lt;/strong&gt; সফ্টওয়্যার চ্যানেল ব্যবহার করতে আপনার প্রতিষ্ঠান অধিকারপ্রাপ্ত, কিন্তু সেগুলির ব্যবহারকাল অতিক্রান্ত হওয়ার ফলে বর্তমানে Red Hat-র দ্বারা সমর্থিত নয়।</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
