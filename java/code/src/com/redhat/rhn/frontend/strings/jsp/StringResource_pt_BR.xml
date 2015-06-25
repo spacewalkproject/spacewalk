@@ -5141,34 +5141,6 @@ serviços de uma organização não-padrão, eles serão deduzidos da organizaç
         </context-group>
         <target>As linhas na cor cinza representam pais de canais filho neste serviço, que não pertencem ao serviço.</target>
       </trans-unit>
-      <trans-unit id="entitledsystems.jsp.header">
-        <source>Subscribed Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-        <target>Sistemas Subscritos</target>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.regular">
-        <source>The systems listed below consume regular software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-        <target>Os sistemas listados abaixo consomem direitos de serviços de canal de software regulares a partir do &lt;b&gt;{0}&lt;/b&gt;.</target>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.flex">
-        <source>The systems listed below consume flex guest software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-        <target>Os sistemas listados abaixo consomem direitos de serviços de canal de softwarede convidados flex a partir do &lt;b&gt;{0}&lt;/b&gt;.</target>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.all">
-        <source>The systems listed below consume both regular and flex guest software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-        <target>Os sistemas listados abaixo consomem direitos de serviços de canal de softwarede convidados flex e regulares a partir do &lt;b&gt;{0}&lt;/b&gt;.</target>
-      </trans-unit>
       <trans-unit id="packagesearch.jsp.toolbar">
         <source>Package Search</source>
         <context-group name="ctx">
