@@ -749,7 +749,6 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
 
         // set the list of yum supported checksums
         List<Map<String, String>> checksums = new ArrayList<Map<String, String>>();
-        addOption(checksums, ls.getMessage("generic.jsp.none"), "");
         for (ChecksumType chType : ChannelFactory.listYumSupportedChecksums()) {
             addOption(checksums, chType.getLabel(), chType.getLabel());
         }
