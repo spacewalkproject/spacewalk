@@ -70,8 +70,12 @@ public class CobblerDistroCommand extends CobblerCommand {
         KickstartUrlHelper helper = new KickstartUrlHelper(this.tree);
         ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
                 helper.getKickstartMediaPath());
-        if (tree.getOrgId() != null) {
-            ksmeta.put("org", tree.getOrg().getId());
+        if (!tree.isRhnTree()) {
+            ksmeta.put("org", tree.getOrgId().toString());
+        }
+
+        if (tree.getInstallType().isSUSE()) {
+            ksmeta.put("autoyast", "true");
         }
 
         //if the newly edited tree does para virt....

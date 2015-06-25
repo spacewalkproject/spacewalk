@@ -202,7 +202,13 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         KickstartUrlHelper helper = new KickstartUrlHelper(tree);
         ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
                 helper.getKickstartMediaPath());
+        if (!tree.isRhnTree()) {
+            ksmeta.put("org", tree.getOrgId().toString());
+        }
 
+        if (tree.getInstallType().isSUSE()) {
+            ksmeta.put("autoyast", "true");
+        }
 
 
         if (!xen) {
