@@ -12192,8 +12192,8 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
         <target>Lista de canales de software jubilados</target>
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
-        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>Los canales de software listados a continuación son los &lt;strong&gt;canales jubilados&lt;/strong&gt; sobre los cuales su organización &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt; tiene derechos&lt;/a&gt;, pero que ya no son soportados por Red Hat puesto que han alcanzado la vida útil.</target>
+        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
+        <target>Los canales de software listados a continuación son los &lt;strong&gt;canales jubilados&lt;/strong&gt; sobre los cuales su organización tiene derechos, pero que ya no son soportados por Red Hat puesto que han alcanzado la vida útil.</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>

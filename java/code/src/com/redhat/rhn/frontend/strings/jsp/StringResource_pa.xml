@@ -11638,8 +11638,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>ਰੀਟਾਇਰਡ ਸਾਫਟਵੇਅਰ ਚੈਨਲ ਸੂਚੀ</target>
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
-        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>ਹੇਠਾਂ ਦਿੱਤੇ ਚੈਨਲ &lt;strong&gt;ਰੀਟਾਇਰ ਚੈਨਲ&lt;/strong&gt; ਹਨ ਜੋ ਤੁਹਾਡੀ ਸੰਗਠਨ ਦੁਆਰਾ &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt; ਇਲਟਾਈਟਲ ਹਨ &lt;/a&gt;ਪਰ Red Hat ਦੁਆਰਾ ਸਹਿਯੋਗੀ ਨਹੀਂ ਹੋਣਗੇ ਕਿਉਂਕਿ ਇਹਨਾਂ ਦੀ 'ਜੀਵਨ-ਸੀਮਾ' ਮਿਤੀ ਆ ਗਈ ਹੈ।</target>
+        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
+        <target>ਹੇਠਾਂ ਦਿੱਤੇ ਚੈਨਲ &lt;strong&gt;ਰੀਟਾਇਰ ਚੈਨਲ&lt;/strong&gt; ਹਨ ਜੋ ਤੁਹਾਡੀ ਸੰਗਠਨ ਦੁਆਰਾ &lt;a hਪਰ Red Hat ਦੁਆਰਾ ਸਹਿਯੋਗੀ ਨਹੀਂ ਹੋਣਗੇ ਕਿਉਂਕਿ ਇਹਨਾਂ ਦੀ 'ਜੀਵਨ-ਸੀਮਾ' ਮਿਤੀ ਆ ਗਈ ਹੈ।</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>

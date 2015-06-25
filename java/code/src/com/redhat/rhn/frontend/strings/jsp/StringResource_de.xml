@@ -12190,8 +12190,8 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
         <target>Liste stillgelegter Software-Channels</target>
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
-        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>Die unten aufgelisteten Software-Channels sind &lt;strong&gt;stillgelegte Channels&lt;/strong&gt;, zu denen Ihre Organisation &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt; berechtigt ist&lt;/a&gt;, die aber nicht mehr von Red Hat unterstützt werden, weil sie ihr Auslaufdatum erreicht haben.</target>
+        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
+        <target>Die unten aufgelisteten Software-Channels sind &lt;strong&gt;stillgelegte Channels&lt;/strong&gt;, zu denen Ihre Organisation berechtigt ist, die aber nicht mehr von Red Hat unterstützt werden, weil sie ihr Auslaufdatum erreicht haben.</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
