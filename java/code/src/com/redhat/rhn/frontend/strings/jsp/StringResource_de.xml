@@ -5143,34 +5143,6 @@ nicht standardmäßigen Organisation hinzufügen, werden diese von der Standard-
         </context-group>
         <target>Grau markierte Reihen sind übergeordnete Channels (&quot;Parents&quot;) von Sub-Channels in dieser Berechtigung, die nicht zur Berechtigung gehören.</target>
       </trans-unit>
-      <trans-unit id="entitledsystems.jsp.header">
-        <source>Subscribed Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-        <target>Subskribierte Systeme</target>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.regular">
-        <source>The systems listed below consume regular software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-        <target>Die unten gelisteten Systeme verbrauchen reguläre Software-Channel-Berechtigungen von &lt;b&gt;{0}&lt;/b&gt;.</target>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.flex">
-        <source>The systems listed below consume flex guest software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-        <target>Die unten gelisteten Systeme verbrauchen flex Gast-Software-Channel-Berechtigungen von &lt;b&gt;{0}&lt;/b&gt;.</target>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.all">
-        <source>The systems listed below consume both regular and flex guest software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-        <target>Die unten gelisteten Systeme verbrauchen sowohl reguläre als auch flex Gast-Software-Channel-Berechtigungen von &lt;b&gt;{0}&lt;/b&gt;.</target>
-      </trans-unit>
       <trans-unit id="packagesearch.jsp.toolbar">
         <source>Package Search</source>
         <context-group name="ctx">

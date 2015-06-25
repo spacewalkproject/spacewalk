@@ -5143,34 +5143,6 @@ presi dall'organizzazione predefinita.</target>
         </context-group>
         <target>Le righe grigie rappresentano i genitori dei canali figlio in questo entitlement, che non appartengono all'entitlement stesso.</target>
       </trans-unit>
-      <trans-unit id="entitledsystems.jsp.header">
-        <source>Subscribed Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-        <target>Sistemi sottoscritti</target>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.regular">
-        <source>The systems listed below consume regular software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-        <target>I sistemi di seguito riportati utilizzano gli entitlement del canale software regolare di &lt;b&gt;{0}&lt;/b&gt;.</target>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.flex">
-        <source>The systems listed below consume flex guest software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-        <target>I sistemi di seguito riportati utilizzano gli entitlement del canale software guest flex di &lt;b&gt;{0}&lt;/b&gt;.</target>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.all">
-        <source>The systems listed below consume both regular and flex guest software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-        <target>I sistemi di seguito riportati utilizzano sia gli entitlement del canale software regolare che quelli guest flex di &lt;b&gt;{0}&lt;/b&gt;.</target>
-      </trans-unit>
       <trans-unit id="packagesearch.jsp.toolbar">
         <source>Package Search</source>
         <context-group name="ctx">
