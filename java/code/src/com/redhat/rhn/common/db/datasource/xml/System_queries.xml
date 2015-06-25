@@ -2085,33 +2085,6 @@ select s.id as id,
   <elaborator name="is_virtual_host" />
 </mode>
 
-<mode name="systems_in_channel_family"
-      class="com.redhat.rhn.frontend.dto.SystemOverview">
-  <query params="cfamid, userid, orgid, isfve">
-    select distinct s.id as id,
-                    s.name as name,
-                    1 as selectable
-      from rhnServer s,
-            rhnServerChannel sc,
-            rhnChannelFamilyMembers cfm
-      where s.org_id = :orgid
-        and s.id = sc.server_id
-        and sc.channel_id = cfm.channel_id
-        and (sc.is_fve = :isfve or :isfve = 'All')
-        and cfm.channel_family_id = :cfamid
-        and exists (
-            select 1
-              from rhnUserServerPerms usp
-             where usp.user_id = :userid
-               and usp.server_id = s.id)
- order by s.name, s.id
-  </query>
-  <elaborator name="system_overview" />
-  <elaborator name="entitlements" />
-  <elaborator name="is_virtual_guest" />
-  <elaborator name="is_virtual_host" />
-</mode>
-
 <mode name="system_events_history"
   class="com.redhat.rhn.frontend.dto.SystemEventDto">
   <query params="sid">
