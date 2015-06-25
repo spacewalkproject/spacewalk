@@ -2670,28 +2670,6 @@
                  path="/WEB-INF/pages/multiorg/channels/provided.jsp" />
     </action>
 
-    <action path="/channels/software/Entitlements"
-        scope="request"
-        input="/WEB-INF/pages/channel/entitlements.jsp"
-        type="com.redhat.rhn.frontend.action.channel.ChannelEntitlementSetupAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(org_admin)"/>
-        <forward name="default"
-                 path="/WEB-INF/pages/channel/entitlements.jsp"/>
-    </action>
-
-
-     <action path="/channels/software/EntitlementsSubmit"
-         scope="request"
-         input="/WEB-INF/pages/channel/entitlements.jsp"
-         type="com.redhat.rhn.frontend.action.channel.ChannelEntitlementAction"
-         parameter="dispatch"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="postRequired" value="true" />
-         <forward name="default"
-                  path="/channels/software/Entitlements.do" redirect="true" />
-     </action>
-
     <action path="/channels/software/Search"
         scope="request"
         name="combinedSearchForm"
