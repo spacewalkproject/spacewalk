@@ -6964,9 +6964,6 @@ deducted from the default organization.</source>
         </trans-unit>
       </group>
       <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">rhn/systems/entitlements/EligibleFlexGuests.do</context>
-        </context-group>
         <trans-unit id="Registered">
           <source>Registered</source>
           <target>登録済み</target>
@@ -6979,14 +6976,6 @@ deducted from the default organization.</source>
           <source>{0} consumed, {1} available entitlement</source>
           <target>{0} が使用されています。利用可能なエンタイトルメントは {1} です</target>
         </trans-unit>
-        <trans-unit id="flexguest.jsp.header">
-          <source>Flex Guest Entitlement Consumers</source>
-          <target>Flex ゲストエンタイトルメントコンシューマ</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.message">
-          <source>The following is a list of guest systems that are currently consuming &lt;a href="{0}"&gt; Flex Guest entitlements&lt;/a&gt;. These entitlements are used when registering virtual guests that are not associated with a registered host system or that are associated with a host system that is not Virtualization or Virtualization Platform entitled. Flex Guest Entitlement Consumers</source>
-          <target>以下に、現在 &lt;a href=&quot;{0}&quot;&gt;Flex ゲストエンタイトルメント&lt;/a&gt;を使用しているゲストシステムのリストを示します。これらのエンタイトルメントは、登録されたホストシステムに関連付けられていない仮想ゲスト、または Virtualization または Virtualization Platform のエンタイトルメントを持たないホストシステムに関連付けられた仮想ゲストを登録するときに使用されます。Flex ゲストエンタイトルメントコンシューマ</target>
-        </trans-unit>
         <trans-unit id="floating.guests">
           <source>Flex Guest Entitlement Consumers</source>
           <target>Flex ゲストエンタイトルメントコンシューマ</target>
@@ -6995,29 +6984,9 @@ deducted from the default organization.</source>
           <source>Guests Consuming Regular Entitlements</source>
           <target>通常のエンタイトルメントを使用しているゲスト</target>
         </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.header">
-          <source>Guests Consuming Regular Entitlements</source>
-          <target>通常のエンタイトルメントを使用しているゲスト</target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.message">
-          <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in RHN or for whom there are no remaining &lt;a href="{0}"&gt; Virtualization inherited guest entitlements&lt;/a&gt;. These systems are consuming the same software and system entitlements as a physical system.</source>
-          <target>以下に、仮想エンタイトルメント (Virtualization または Virtualization Platform) を持つ RHN のホストシステムに関連付けられていないゲストシステム、または &lt;a href=&quot;{0}&quot;&gt;Virtualization 継承ゲストエンタイトルメント&lt;/a&gt;が残っていないゲストシステムのリストを示します。これらのシステムは、物理的なシステムと同じソフトウェアおよびシステムエンタイトルメントを使用しています。</target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.no-systems">
-          <source>There are no eligible flex guest systems consuming regular entitlements.</source>
-          <target>通常のエンタイトルメントを使用している適切な Flex ゲストシステムがありません。</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.no-systems">
-          <source>There are no systems consuming Flex Guest entitlements.</source>
-          <target>Flex ゲストエンタイトルメントを使用しているシステムがありません。</target>
-        </trans-unit>
         <trans-unit id="Make Flex">
           <source>Convert To Flex Guest Entitlement</source>
           <target>Flex ゲストエンタイトルメントへの変換</target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.systems.confirm.message">
-          <source>Converted &lt;strong&gt;{0}&lt;/strong&gt; system(s) to use Flex Guest Entitlement.</source>
-          <target>Flex ゲストエンタイトルメントを使用するように &lt;strong&gt;{0}&lt;/strong&gt; システムが変換されました。</target>
         </trans-unit>
       </group>
       <!--  System search -->
