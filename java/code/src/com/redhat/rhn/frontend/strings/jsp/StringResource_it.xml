@@ -6963,9 +6963,6 @@ presi dall'organizzazione predefinita.</target>
         </trans-unit>
       </group>
       <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">rhn/systems/entitlements/EligibleFlexGuests.do</context>
-        </context-group>
         <trans-unit id="Registered">
           <source>Registered</source>
           <target>R</target>
@@ -6978,14 +6975,6 @@ presi dall'organizzazione predefinita.</target>
           <source>{0} consumed, {1} available entitlement</source>
           <target>{0} consumati, {1} entitlement disponibile</target>
         </trans-unit>
-        <trans-unit id="flexguest.jsp.header">
-          <source>Flex Guest Entitlement Consumers</source>
-          <target>Utenza entitlement guest flex</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.message">
-          <source>The following is a list of guest systems that are currently consuming &lt;a href="{0}"&gt; Flex Guest entitlements&lt;/a&gt;. These entitlements are used when registering virtual guests that are not associated with a registered host system or that are associated with a host system that is not Virtualization or Virtualization Platform entitled. Flex Guest Entitlement Consumers</source>
-          <target>Di seguito viene riportato un elenco di sistemi guest che attualmente consumano &lt;a href=&quot;{0}&quot;&gt; Entitlement guest Flex&lt;/a&gt;. Gli entitlement vengono usati durante la registrazione dei guest virtuali non associati con un sistema host registrato o associati con un sistema host senza un entitlement di Virtualizzazione o di Piattaforma di virtualizzazione. Utenze con entitlement guest Flex.</target>
-        </trans-unit>
         <trans-unit id="floating.guests">
           <source>Flex Guest Entitlement Consumers</source>
           <target>Utenze con entitlement guest Flex</target>
@@ -6994,29 +6983,9 @@ presi dall'organizzazione predefinita.</target>
           <source>Guests Consuming Regular Entitlements</source>
           <target>Guest che utilizzano entitlement regolari</target>
         </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.header">
-          <source>Guests Consuming Regular Entitlements</source>
-          <target>Guest che utilizzano entitlement regolari</target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.message">
-          <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in RHN or for whom there are no remaining &lt;a href="{0}"&gt; Virtualization inherited guest entitlements&lt;/a&gt;. These systems are consuming the same software and system entitlements as a physical system.</source>
-          <target>Di seguito viene riportato un elenco dei sistemi guest non associati con un sistema host con un entitlement di  Virtualizzazione o di Piattaforma di virtualizzazione in RHN o per i quali non sono presenti alcuni &lt;a href=&quot;{0}&quot;&gt; entitlement guest ereditati di virtualizzazione&lt;/a&gt;. I suddetti sistemi usano lo stesso software ed entitlement di un sistema fisico normale.</target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.no-systems">
-          <source>There are no eligible flex guest systems consuming regular entitlements.</source>
-          <target>Non è presente alcun guest flex idoneo che utilizza entitlement regolari</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.no-systems">
-          <source>There are no systems consuming Flex Guest entitlements.</source>
-          <target>Non è presente alcun sistema che utilizza entitlement guest flex</target>
-        </trans-unit>
         <trans-unit id="Make Flex">
           <source>Convert To Flex Guest Entitlement</source>
           <target>Converti ad entitlement guest flex</target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.systems.confirm.message">
-          <source>Converted &lt;strong&gt;{0}&lt;/strong&gt; system(s) to use Flex Guest Entitlement.</source>
-          <target>Convertiti &lt;strong&gt;{0}&lt;/strong&gt; sistemi per utilizzare l'entitlement guest flex.</target>
         </trans-unit>
       </group>
       <!--  System search -->

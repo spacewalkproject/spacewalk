@@ -6808,9 +6808,6 @@ deducted from the default organization.</source>
         </trans-unit>
       </group>
       <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">rhn/systems/entitlements/EligibleFlexGuests.do</context>
-        </context-group>
         <trans-unit id="Registered">
           <source>Registered</source>
           <target>등록됨</target>
@@ -6823,14 +6820,6 @@ deducted from the default organization.</source>
           <source>{0} consumed, {1} available entitlement</source>
           <target>{0} 사용됨, {1} 사용 가능한 인타이틀먼트 </target>
         </trans-unit>
-        <trans-unit id="flexguest.jsp.header">
-          <source>Flex Guest Entitlement Consumers</source>
-          <target>Flex 게스트 인타이틀먼트 컨슈머 </target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.message">
-          <source>The following is a list of guest systems that are currently consuming &lt;a href="{0}"&gt; Flex Guest entitlements&lt;/a&gt;. These entitlements are used when registering virtual guests that are not associated with a registered host system or that are associated with a host system that is not Virtualization or Virtualization Platform entitled. Flex Guest Entitlement Consumers</source>
-          <target>다음은 현재 &lt;a href=&quot;{0}&quot;&gt; Flex 게스트 인타이틀먼트&lt;/a&gt;를 사용하고 있는 게스트 시스템 목록을 보여주고 있습니다. 이러한 인타이틀먼트는 등록된 호스트 시스템에 연결되지 않은 가상 게스트 또는 가상화나 가상화 플랫폼 인타이틀먼트가 없는 호스트 시스템에 연결된 가상 게스트를 등록할 때 사용됩니다.</target>
-        </trans-unit>
         <trans-unit id="floating.guests">
           <source>Flex Guest Entitlement Consumers</source>
           <target>Flex 게스트 인타이틀먼트 컨슈머 </target>
@@ -6839,29 +6828,9 @@ deducted from the default organization.</source>
           <source>Guests Consuming Regular Entitlements</source>
           <target>일반적인 인타이틀먼트를 사용하는 게스트 </target>
         </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.header">
-          <source>Guests Consuming Regular Entitlements</source>
-          <target>일반적인 인타이틀먼트를 사용하는 게스트 </target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.message">
-          <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in RHN or for whom there are no remaining &lt;a href="{0}"&gt; Virtualization inherited guest entitlements&lt;/a&gt;. These systems are consuming the same software and system entitlements as a physical system.</source>
-          <target>다음은 가상 인타이틀먼트 (가상화 또는 가상호 플랫폼)를 갖는 RHN 호스트 시스템에 연결되지 않은 게스트 시스템 또는 &lt;a href=&quot;{0}&quot;&gt; 가상화 상속 게스트 인타이틀먼트&lt;/a&gt;에 남아 있는 게스트 시스템의 목록을 보여줍니다. 이러한 시스템은 물리적 시스템과 동일한 소프트웨어 및 시스템 인타이틀먼트를 사용하고 있습니다. </target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.no-systems">
-          <source>There are no eligible flex guest systems consuming regular entitlements.</source>
-          <target>일반적 인타이틀먼트를 사용하는 적절한 flex 게스트 시스템이 없습니다.</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.no-systems">
-          <source>There are no systems consuming Flex Guest entitlements.</source>
-          <target>Flex 게스트 인타이틀먼트를 사용하는 시스템이 없습니다.</target>
-        </trans-unit>
         <trans-unit id="Make Flex">
           <source>Convert To Flex Guest Entitlement</source>
           <target>Flex 게스트 인타이틀먼트로 전환 </target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.systems.confirm.message">
-          <source>Converted &lt;strong&gt;{0}&lt;/strong&gt; system(s) to use Flex Guest Entitlement.</source>
-          <target>Flex 게스트 인타이틀먼트를 사용하도록 &lt;strong&gt;{0}&lt;/strong&gt; 시스템이 전환되었습니다.</target>
         </trans-unit>
       </group>
       <!--  System search -->

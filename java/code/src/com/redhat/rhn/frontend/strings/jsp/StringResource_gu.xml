@@ -6616,9 +6616,6 @@ deducted from the default organization.</source>
         </trans-unit>
       </group>
       <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">rhn/systems/entitlements/EligibleFlexGuests.do</context>
-        </context-group>
         <trans-unit id="Registered">
           <source>Registered</source>
         </trans-unit>
@@ -6628,35 +6625,14 @@ deducted from the default organization.</source>
         <trans-unit id="flexguest.jsp.entitlement_counts_message">
           <source>{0} consumed, {1} available entitlement</source>
         </trans-unit>
-        <trans-unit id="flexguest.jsp.header">
-          <source>Flex Guest Entitlement Consumers</source>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.message">
-          <source>The following is a list of guest systems that are currently consuming &lt;a href="{0}"&gt; Flex Guest entitlements&lt;/a&gt;. These entitlements are used when registering virtual guests that are not associated with a registered host system or that are associated with a host system that is not Virtualization or Virtualization Platform entitled. Flex Guest Entitlement Consumers</source>
-        </trans-unit>
         <trans-unit id="floating.guests">
           <source>Flex Guest Entitlement Consumers</source>
         </trans-unit>
         <trans-unit id="eligible.floating.guests">
           <source>Guests Consuming Regular Entitlements</source>
         </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.header">
-          <source>Guests Consuming Regular Entitlements</source>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.message">
-          <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in RHN or for whom there are no remaining &lt;a href="{0}"&gt; Virtualization inherited guest entitlements&lt;/a&gt;. These systems are consuming the same software and system entitlements as a physical system.</source>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.no-systems">
-          <source>There are no eligible flex guest systems consuming regular entitlements.</source>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.no-systems">
-          <source>There are no systems consuming Flex Guest entitlements.</source>
-        </trans-unit>
         <trans-unit id="Make Flex">
           <source>Convert To Flex Guest Entitlement</source>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.systems.confirm.message">
-          <source>Converted &lt;strong&gt;{0}&lt;/strong&gt; system(s) to use Flex Guest Entitlement.</source>
         </trans-unit>
       </group>
       <!--  System search -->

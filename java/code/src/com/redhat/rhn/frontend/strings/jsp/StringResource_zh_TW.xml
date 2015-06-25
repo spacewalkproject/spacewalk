@@ -6959,9 +6959,6 @@ deducted from the default organization.</source>
         </trans-unit>
       </group>
       <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">rhn/systems/entitlements/EligibleFlexGuests.do</context>
-        </context-group>
         <trans-unit id="Registered">
           <source>Registered</source>
           <target>已註冊</target>
@@ -6974,14 +6971,6 @@ deducted from the default organization.</source>
           <source>{0} consumed, {1} available entitlement</source>
           <target>已消耗了 {0}，有 {1} 個可用權利</target>
         </trans-unit>
-        <trans-unit id="flexguest.jsp.header">
-          <source>Flex Guest Entitlement Consumers</source>
-          <target>Flex 客座端權利消耗者</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.message">
-          <source>The following is a list of guest systems that are currently consuming &lt;a href="{0}"&gt; Flex Guest entitlements&lt;/a&gt;. These entitlements are used when registering virtual guests that are not associated with a registered host system or that are associated with a host system that is not Virtualization or Virtualization Platform entitled. Flex Guest Entitlement Consumers</source>
-          <target>以下為一列目前正使用了 &lt;a href=&quot;{0}&quot;&gt; Flex 客座端權利&lt;/a&gt;的客座端系統之清單。當要註冊非與已註冊主機系統相聯的虛擬客座端，或與無 Virtualization 或 Virtualization Platform 權利的主機系統相聯的虛擬客座端時，這些權利便會被使用到。Flex 客座端權利消耗者</target>
-        </trans-unit>
         <trans-unit id="floating.guests">
           <source>Flex Guest Entitlement Consumers</source>
           <target>Flex 客座端權利消耗者</target>
@@ -6990,29 +6979,9 @@ deducted from the default organization.</source>
           <source>Guests Consuming Regular Entitlements</source>
           <target>使用一般權利的客座端</target>
         </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.header">
-          <source>Guests Consuming Regular Entitlements</source>
-          <target>使用一般權利的客座端</target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.message">
-          <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in RHN or for whom there are no remaining &lt;a href="{0}"&gt; Virtualization inherited guest entitlements&lt;/a&gt;. These systems are consuming the same software and system entitlements as a physical system.</source>
-          <target>以下為一列不與在 RHN 中、擁有虛擬權利（Virtualization 或是 Virtualization Platform）的主機系統相聯的客座端系統，或是無剩餘的&lt;a href=&quot;{0}&quot;&gt; Virtualization inherited guest 權利&lt;/a&gt;的客座端系統。這些系統所耗費的軟體與系統權利和實體系統相同。</target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.no-systems">
-          <source>There are no eligible flex guest systems consuming regular entitlements.</source>
-          <target>沒有正在使用一般權利的有效 flex 客座端系統。</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.no-systems">
-          <source>There are no systems consuming Flex Guest entitlements.</source>
-          <target>沒有正在使用 Flex 客座端權利的系統。</target>
-        </trans-unit>
         <trans-unit id="Make Flex">
           <source>Convert To Flex Guest Entitlement</source>
           <target>轉換至 Flex 客座端權利</target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.systems.confirm.message">
-          <source>Converted &lt;strong&gt;{0}&lt;/strong&gt; system(s) to use Flex Guest Entitlement.</source>
-          <target>已轉換了 &lt;strong&gt;{0}&lt;/strong&gt; 部系統以使用 Flex 客座端權利。</target>
         </trans-unit>
       </group>
       <!--  System search -->
