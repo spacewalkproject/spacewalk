@@ -6965,7 +6965,6 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
       </group>
       <group>
         <context-group name="ctx">
-          <context context-type="sourcefile">rhn/systems/entitlements/FlexGuests.do</context>
           <context context-type="sourcefile">rhn/systems/entitlements/EligibleFlexGuests.do</context>
         </context-group>
         <trans-unit id="Registered">

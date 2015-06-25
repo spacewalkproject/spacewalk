@@ -6960,7 +6960,6 @@ deducted from the default organization.</source>
       </group>
       <group>
         <context-group name="ctx">
-          <context context-type="sourcefile">rhn/systems/entitlements/FlexGuests.do</context>
           <context context-type="sourcefile">rhn/systems/entitlements/EligibleFlexGuests.do</context>
         </context-group>
         <trans-unit id="Registered">
