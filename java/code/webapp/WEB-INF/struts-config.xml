@@ -2646,16 +2646,6 @@
                  path="/WEB-INF/pages/channel/entitlements.jsp"/>
     </action>
 
-    <action path="/channels/software/EntitledSystems"
-        scope="request"
-        input="/WEB-INF/pages/channel/entitled-systems.jsp"
-        type="com.redhat.rhn.frontend.action.channel.EntitledSystemsSetupAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequiredIfSubmitted" value="true" />
-        <set-property property="acls" value="user_role(org_admin)"/>
-        <forward name="default"
-                 path="/WEB-INF/pages/channel/entitled-systems.jsp"/>
-    </action>
 
      <action path="/channels/software/EntitlementsSubmit"
          scope="request"
