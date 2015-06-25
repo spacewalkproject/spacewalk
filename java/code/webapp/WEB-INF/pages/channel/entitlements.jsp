@@ -39,13 +39,7 @@
     </rl:column>
 
     <rl:column headerkey="entitlements.jsp.consumed" sortattr="currentMembers">
-        <c:if test="${current.currentMembers == 0}">
-            ${current.currentMembers}
-        </c:if>
-        <c:if test="${current.currentMembers > 0}">
-            <a href="/rhn/channels/software/EntitledSystems.do?cfam_id=${current.id}&type=regular">
-                ${current.currentMembers}</a>
-        </c:if>
+        ${current.currentMembers}
     </rl:column>
 
     <rl:column headerkey="entitlements.jsp.available"   >
@@ -58,12 +52,7 @@
     </rl:column>
 
     <rl:column headerkey="entitlements.jsp.subscribed_flex" sortattr="currentFlex">
-        <c:if test="${current.currentFlex == 0}">
-            ${current.currentFlex}
-        </c:if>
-        <c:if test="${current.currentFlex > 0}">
-            <a href="/rhn/channels/software/EntitledSystems.do?cfam_id=${current.id}&type=flex">${current.currentFlex}</a>
-        </c:if>
+        ${current.currentFlex}
     </rl:column>
 
     <rl:column headerkey="entitlements.jsp.avaible_flex" >
@@ -76,13 +65,7 @@
     </rl:column>
 
     <rl:column headerkey="entitlements.jsp.subscribed" sortattr="subscribeCount">
-        <c:if test="${current.subscribeCount == 0}">
-            ${current.subscribeCount}
-        </c:if>
-        <c:if test="${current.subscribeCount > 0}">
-            <a href="/rhn/channels/software/EntitledSystems.do?cfam_id=${current.id}&type=all">
-                ${current.subscribeCount}</a>
-        </c:if>
+        ${current.subscribeCount}
     </rl:column>
 
 
