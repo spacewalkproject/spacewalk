@@ -276,35 +276,6 @@ public class SystemManager extends BaseManager {
     }
 
     /**
-     * Returns a list of systems consuming given channel family entitlement
-     *
-     * @param cfId Channel family ID to list the entitled systems for
-     * @param user User to list the entitled systems for
-     * @param entitlementType regular, flex or all
-     * @param pc Page control
-     * @return list of SystemOverviews.
-     */
-    public static DataResult<SystemOverview> getEntitledSystems(Long cfId, User user,
-                                                String entitlementType, PageControl pc) {
-        SelectMode m = ModeFactory.getMode("System_queries", "systems_in_channel_family");
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("cfamid", cfId);
-        params.put("userid", user.getId());
-        params.put("orgid", user.getOrg().getId());
-        params.put("isfve", "All");
-
-        if (entitlementType.equals("regular")) {
-            params.put("isfve", "N");
-        }
-        else if (entitlementType.equals("flex")) {
-            params.put("isfve", "Y");
-        }
-
-        return makeDataResult(params, new HashMap<String, Object>(), pc, m,
-                SystemOverview.class);
-    }
-
-    /**
      * Gets the latest upgradable packages for a system
      * @param sid The id for the system we want packages for
      * @return Returns a list of the latest upgradable packages for a system
