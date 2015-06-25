@@ -7582,16 +7582,6 @@
        <forward name="success" path="/WEB-INF/pages/systems/entitlements/physicalhosts.jsp"/>
      </action>
 
-     <action path="/systems/entitlements/EligibleFlexGuests"
-             scope="request"
-             type="com.redhat.rhn.frontend.action.systems.entitlements.EligibleFlexGuestAction"
-             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-       <set-property property="postRequiredIfSubmitted" value="true" />
-       <set-property property="acls" value="user_role(org_admin)"/>
-       <forward name="default" path="/WEB-INF/pages/systems/entitlements/flexguests.jsp"/>
-       <forward name="success" path="/systems/entitlements/EligibleFlexGuests.do" redirect="true"/>
-     </action>
-
     <action path="/channels/manage/errata/Add"
         scope="request"
         input="/WEB-INF/pages/channel/manage/add.jsp"
