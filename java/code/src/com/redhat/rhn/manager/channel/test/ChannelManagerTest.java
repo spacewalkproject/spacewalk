@@ -534,36 +534,6 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         assertEquals(-1, comparator.compare("5.0.9.0", "5.0.10.0"));
     }
 
-    public void testIsChannelFree() throws Exception {
-
-        Server s = ServerTestUtils.createVirtHostWithGuests(user, 1);
-        Server guest = (s.getGuests().iterator().next()).getGuestSystem();
-        Channel b1 = ChannelTestUtils.createTestChannel(user);
-        Channel b2 = ChannelTestUtils.createTestChannel(user);
-        assertFalse(ChannelManager.isChannelFreeForSubscription(s.getId(), b1));
-        assertFalse(ChannelManager.isChannelFreeForSubscription(s.getId(), b2));
-
-        b1.getChannelFamily().addVirtSubscriptionLevel(
-                CommonConstants.getVirtSubscriptionLevelFree());
-        assertTrue(ChannelManager.isChannelFreeForSubscription(guest.getId(), b1));
-
-        b2.getChannelFamily().addVirtSubscriptionLevel(
-                CommonConstants.getVirtSubscriptionLevelPlatformFree());
-
-        // Check virt-plat
-        UserTestUtils.addVirtualizationPlatform(user.getOrg());
-        SystemManager.removeServerEntitlement(s.getId(),
-                EntitlementManager.VIRTUALIZATION);
-        SystemManager.entitleServer(s, EntitlementManager.VIRTUALIZATION_PLATFORM);
-
-        assertTrue(ChannelManager.isChannelFreeForSubscription(guest.getId(), b2));
-
-        // Check guest without host
-        guest.getVirtualInstance().setHostSystem(null);
-        assertFalse(ChannelManager.isChannelFreeForSubscription(guest.getId(), b1));
-
-    }
-
     public void testGetToolsChannel() throws Exception {
         Channel base = ChannelTestUtils.createTestChannel(user);
         Channel tools = ChannelTestUtils.createChildChannel(user, base);
