@@ -83,7 +83,6 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(OrgEntitlementDtoSerializer.class);
         SERIALIZER_CLASSES.add(EntitlementSerializer.class);
         SERIALIZER_CLASSES.add(OrgChannelFamilySerializer.class);
-        SERIALIZER_CLASSES.add(OrgSoftwareEntitlementDtoSerializer.class);
         SERIALIZER_CLASSES.add(NetworkInterfaceSerializer.class);
         SERIALIZER_CLASSES.add(ScheduleActionSerializer.class);
         SERIALIZER_CLASSES.add(ScheduleSystemSerializer.class);
