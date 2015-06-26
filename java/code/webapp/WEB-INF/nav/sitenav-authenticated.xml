@@ -28,7 +28,6 @@
       <rhn-tab name="System Entitlements" url="/rhn/systems/SystemEntitlements.do" acl="user_role(org_admin)" />
       <rhn-tab name="virtualization.entitlements" url="/rhn/systems/entitlements/GuestLimitedHosts.do" acl="user_role(org_admin)">
         <rhn-tab-url>/rhn/systems/entitlements/GuestUnlimitedHosts.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/systems/entitlements/PhysicalHosts.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
   </rhn-tab>
