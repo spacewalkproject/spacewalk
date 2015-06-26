@@ -163,7 +163,6 @@
                         <c:when test='${empty param.cid}'>
                             <html:select property="arch"
                                          styleClass="form-control"
-                                         value="${channel_arch_label}"
                                          styleId="parentarch">
                                 <html:options collection="channelArches"
                                               property="value"
