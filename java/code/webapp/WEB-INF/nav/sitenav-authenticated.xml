@@ -26,8 +26,6 @@
     </rhn-tab>
     <rhn-tab name="Subscription Management" url="/rhn/systems/SystemEntitlements.do" acl="user_role(org_admin)" >
       <rhn-tab name="System Entitlements" url="/rhn/systems/SystemEntitlements.do" acl="user_role(org_admin)" />
-      <rhn-tab name="virtualization.entitlements" url="/rhn/systems/entitlements/GuestLimitedHosts.do" acl="user_role(org_admin)">
-      </rhn-tab>
     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Systems" url="/rhn/systems/Overview.do">
