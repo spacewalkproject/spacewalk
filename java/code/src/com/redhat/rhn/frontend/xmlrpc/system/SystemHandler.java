@@ -5132,38 +5132,6 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
-     * Converts the given list of systems to use the flex entitlement.
-     * @param loggedInUser The current user
-     * @param serverIds list of server ids whom
-     *      you want to get converted to flex entitlement
-     * @param channelFamilyLabel the channel family label of the channel
-     * @return the total the number of systems that were converted to use flex entitlement.
-     *
-     * @xmlrpc.doc Converts the given list of systems for a given channel family
-     *   to use the flex entitlement.
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #array_single("int", "serverId")
-     * @xmlrpc.param #param("string", "channelFamilyLabel")
-     * @xmlrpc.returntype int - the total the number of systems
-     *                  that were converted to use flex entitlement.
-     */
-    public int convertToFlexEntitlement(User loggedInUser,
-            List<Integer> serverIds, String channelFamilyLabel) {
-        ChannelFamily cf = ChannelFamilyFactory.lookupByLabel(
-                channelFamilyLabel, loggedInUser.getOrg());
-        if (cf == null) {
-            throw new InvalidEntitlementException();
-        }
-        // we need long values to pass
-        List<Long> longServerIds = new ArrayList<Long>();
-        for (Iterator<Integer> it = serverIds.iterator(); it.hasNext();) {
-            longServerIds.add(new Long(it.next()));
-        }
-        return VirtualizationEntitlementsManager.getInstance().
-                convertToFlex(longServerIds, cf.getId(), loggedInUser).size();
-    }
-
-    /**
      * Get the System Currency score multipliers
      * @param loggedInUser The current user
      * @return the score multipliers used by the System Currency page
