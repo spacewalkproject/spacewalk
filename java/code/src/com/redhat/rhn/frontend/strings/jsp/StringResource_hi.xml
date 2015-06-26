@@ -20626,41 +20626,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>बेस सॉफ्टवेयर चैनल रूपांतरित करें</target>
       </trans-unit>
-      <trans-unit id="guestlimited.jsp.title">
-        <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Virtualization Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ - वर्चुअलाइजेशन एंटाइटेलमेंट - वर्चुअलाइजेशन मेजबान</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.header2">
-        <source>Guest-Limited  Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>अतिथि सीमित मेजबान</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.para1">
-        <source>The following is a list of host systems with the 'Virtualization' entitlement. You may wish to consider upgrading systems that have exceeded the 4-guest limit to an 'Unlimited Virtualization' entitlement to make the most of your subscriptions and stay in compliance with your service level agreements with Red Hat.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>निम्नलिखित मेजबान सिस्टम की सूची है 'वर्चुअलाइजेशन' एंटाइटेलमेंट के साथ. आप सिस्टम के उन्नयन की इच्छा कर सकते हैं जो कि  4-अतिथि सीमा को बढ़ गया है एक 'असीमित वर्चुअलाइजेशन' एंटाइटेलमेंट में अपनी सदस्यता के ज्यादातर हिस्से को निर्मित करते हुए और Red Hat के साथ सेवा स्तरीय अनुबंध से सुसंगत रहते हुए.</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.hostsystem">
-        <source>Host System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>मेजबानित सिस्टम</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.guest">
-        <source>Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>अतिथि</target>
-      </trans-unit>
       <trans-unit id="guestslimited.jsp.hostsystem">
         <source>Host System</source>
         <context-group name="ctx">
@@ -20674,13 +20639,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
         <target>बर्चुअलाइजेशन एंटाइटेलमेंट</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.nosystems">
-        <source>There are no systems with the Virtualization entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>वर्चुअलाइजेशन एंटाइटेलमेंट के बिना कोई सिस्टम के.</target>
       </trans-unit>
       <trans-unit id="system.remotecommand.scheduled">
         <source>Remote command &lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{2}&lt;/strong&gt;.</source>
