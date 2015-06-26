@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-
-<rhn-navi-tree label="virt_entitlements" invisible="1" title-depth="1">
-  <rhn-tab name="guest.limited.hosts">
-    <rhn-tab-url>/rhn/systems/entitlements/GuestLimitedHosts.do</rhn-tab-url>
-  </rhn-tab>
-</rhn-navi-tree>
