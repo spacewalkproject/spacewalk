@@ -756,14 +756,6 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertFalse(server.isProxy());
     }
 
-    public void testCanServerSubscribeToChannel() throws Exception {
-        Server server = ServerTestUtils.createTestSystem();
-        Channel childChannel = ChannelTestUtils.createChildChannel(server.getCreator(),
-                server.getBaseChannel());
-        assertTrue(SystemManager.canServerSubscribeToChannel(server.getCreator().getOrg(),
-                server, childChannel));
-    }
-
     private void addCpuToServer(Server s) {
         CPU cpu = new CPU();
         cpu.setArch(ServerFactory.lookupCPUArchByName(CPUTest.ARCH_NAME));
