@@ -4428,13 +4428,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
         <target>{1} 중 {0} ({2}%) </target>
       </trans-unit>
-      <trans-unit id="Available/Total.tip">
-        <source>'Total' refers to the total available entitlements to the @@PRODUCT_NAME@@ as reflected in this @@PRODUCT_NAME@@'s certificate. 'Available' refers to the number entitlements that are available to be allocated to various organizations.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>'합계'는 @@PRODUCT_NAME@@ 인증서에 반영된것으로 @@PRODUCT_NAME@@에서 사용 가능한 인타이틀먼트 합계를 말합니다. '사용 가능'은 다양한 조직에 할당된 사용 가능한 인타이틀먼트 수를 말합니다.</target>
-      </trans-unit>
       <trans-unit id="Used/Allotted.tip">
         <source>'Allotted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
         <context-group name="ctx">

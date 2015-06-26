@@ -4493,13 +4493,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target>
         </context-group>
         <target>{0} de {1} ({2}%)</target>
       </trans-unit>
-      <trans-unit id="Available/Total.tip">
-        <source>'Total' refers to the total available entitlements to the @@PRODUCT_NAME@@ as reflected in this @@PRODUCT_NAME@@'s certificate. 'Available' refers to the number entitlements that are available to be allocated to various organizations.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>'Total' refer-se aos serviços totais disponíveis ao  @@PRODUCT_NAME@@ como refletido neste certificado do @@PRODUCT_NAME@@. 'Disponível' refere-se aos serviços de número que estão disponíveis a serem posicionados em diversas organizações.</target>
-      </trans-unit>
       <trans-unit id="Used/Allotted.tip">
         <source>'Allotted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
         <context-group name="ctx">
