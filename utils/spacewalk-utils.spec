@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.4.4
+Version:	2.4.5
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Jun 26 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.5-1
+- Recommend cobbler20 with all packages requiring cobbler on Fedora 22
+
 * Wed May 27 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.4-1
 - fix pylint warning on Fedora 22
 
