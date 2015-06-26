@@ -133,7 +133,6 @@ import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.UpdateBaseChannelCommand;
 import com.redhat.rhn.manager.system.UpdateChildChannelsCommand;
 import com.redhat.rhn.manager.system.VirtualizationActionCommand;
-import com.redhat.rhn.manager.system.VirtualizationEntitlementsManager;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 import com.redhat.rhn.manager.user.UserManager;
 
