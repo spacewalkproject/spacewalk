@@ -5106,25 +5106,6 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
-     * List eligible flex guests accessible to the user
-     * @param loggedInUser The current user
-     * @return List of Flex guests
-     *
-     *
-     * @xmlrpc.doc  List eligible flex guests accessible to the user
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.returntype
-     *          #array()
-     *              $ChannelFamilySystemGroupSerializer
-     *          #array_end()
-     **/
-    public List<ChannelFamilySystemGroup> listEligibleFlexGuests(
-            User loggedInUser) {
-        return VirtualizationEntitlementsManager.
-                getInstance().listEligibleFlexGuests(loggedInUser);
-    }
-
-    /**
      * Get the System Currency score multipliers
      * @param loggedInUser The current user
      * @return the score multipliers used by the System Currency page
