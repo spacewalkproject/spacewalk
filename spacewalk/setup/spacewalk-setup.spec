@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.4.2
+Version:        2.4.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -115,6 +115,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Jun 26 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.3-1
+- Recommend cobbler20 with all packages requiring cobbler on Fedora 22
+
 * Wed Jun 03 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.2-1
 - use ls -Z instead of ls --scontext
 
