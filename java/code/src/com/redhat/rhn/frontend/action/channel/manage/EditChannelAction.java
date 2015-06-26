@@ -98,6 +98,11 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
     public static final String CHANNEL_ARCH = "channel_arch";
     public static final String CHANNEL_ARCH_LABEL = "channel_arch_label";
 
+    public static final String DEFAULT_ARCH = "channel-x86_64";
+    public static final String DEFAULT_CHECKSUM = "sha1";
+    public static final String DEFAULT_ORG_SHARING = "private";
+    public static final String DEFAULT_SUBSCRIPTIONS = "all";
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -671,9 +676,10 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
             String channelName = LocalizationService.getInstance()
               .getMessage("frontend.actions.channels.manager.create");
             request.setAttribute(CHANNEL_NAME, channelName);
-            form.set(ORG_SHARING, "private");
-            form.set(SUBSCRIPTIONS, "all");
-            form.set(CHECKSUM, "sha1");
+            form.set(ORG_SHARING, DEFAULT_ORG_SHARING);
+            form.set(SUBSCRIPTIONS, DEFAULT_SUBSCRIPTIONS);
+            form.set(CHECKSUM, DEFAULT_CHECKSUM);
+            request.setAttribute(CHANNEL_ARCH_LABEL, DEFAULT_ARCH);
         }
     }
 
@@ -753,7 +759,6 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
             addOption(checksums, chType.getLabel(), chType.getLabel());
         }
         ctx.getRequest().setAttribute("checksums", checksums);
-
     }
 
     /**
