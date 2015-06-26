@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.24
+Version: 2.4.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jun 26 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.25-1
+- Avoid deadlock in CompareConfigFilesTask when a
+  rhn_channel.update_needed_cache is in progress
+- Server.listConfigDiffEnabledSystems: fix indentation
+- Recommend cobbler20 with all packages requiring cobbler on Fedora 22
+
 * Fri Jun 12 2015 Jan Dobes 2.4.24-1
 - 1227700 - add missing country code
 - 1227700 - removing invalid title
