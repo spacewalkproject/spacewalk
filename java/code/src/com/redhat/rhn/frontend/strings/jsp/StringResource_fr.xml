@@ -21787,117 +21787,12 @@ Le chemin d'arborescence, le RPM Kickstart, le canal de base, et la génération
         </context-group>
         <target>Système hôte</target>
       </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsystem">
-        <source>Guest System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>Système invité</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.title">
-        <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Guests without Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>Droits d'accès virtualisation - invités sans hôtes</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.header2">
-        <source>Guests of Non-Virtual Entitled Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>Invités des hôtes sans droit d'accès virtuel</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.para1">
-        <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in @@PRODUCT_NAME@@.  These systems are consuming the same software and system entitlements as a normal physical system.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>Ci-dessous figure une liste de systèmes invités qui ne sont pas associés à un système hôte avec des droits d'accès virtuels (Virtualisation ou Plateforme de Virtualisation) dans @@PRODUCT_NAME@@. Ces systèmes consomment le même logiciel et les mêmes droits d'accès système qu'un système physique normal.</target>
-      </trans-unit>
       <trans-unit id="virtualentitlements.toolbar">
         <source>Virtualization Entitlements</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
         <target>Droits d'accès à la Virtualisation</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.header3">
-        <source>Reconciling the Entitlements from Guests of Non-Virtualization Entitled Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>Accorder les droits d'accès des invités sur les hôtes sans droit au module &quot;Virtualisation&quot;.</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.para2">
-        <source>You may always delete the @@PRODUCT_NAME@@ system profile of a guest listed above to free the software and system entitlements it consumes (or you may remove system entitlements from the guest to free system entitlements).  You may be able to free the physical entitlements associated with the guest without deleting the guest's profile:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>Vous pouvez toujours supprimer le profil système @@PRODUCT_NAME@@ d'un invité listé ci-dessus pour libérer les droits d'accès logiciel et système qu'il consomme (ou vous pouvez supprimer les droits d'accès d'un invité pour libérer les droits d'accès système).  Vous pouvez libérer les droits d'accès physiques associés à l'invité sans supprimer le profil invité :</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofknown">
-        <source>Guests of Known Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>Invités des hôtes connus</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofunknown">
-        <source>Guests of Known Unknown Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>Invités des hôtes inconnus</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofnonredhat">
-        <source>Guests of Non-Red Hat Virtualization Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>Invités des hôtes ne possédant pas le module de Virtualisation Red Hat</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.knownnote">
-        <source>If you would like to free the physical entitlements of a guest listed above and it is associated with a Host registered with @@PRODUCT_NAME@@ please add either the Virtualization or Virtualization Platform system entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>Si vous voulez libérer les droits d'accès physiques d'un invité listé ci-dessus et que celui-ci est associé à un hôte enregistré à @@PRODUCT_NAME@@, veuillez ajouter le droit d'accès système au module &quot;Virtualisation&quot; ou &quot;Plateforme de Virtualisation&quot;.</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.unknownnote">
-        <source>If the host of a guest system above is listed as an unknown and you would like to free the physical entitlements the guest consumes please make sure that:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>Si l'hôte d'un des systèmes invité ci-dessus est listé comme étant un hôte inconnu et que vous désirez libérer les droits d'accès physiques que l'invité consomme, veuillez vous assurer que :</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.unknownnote2">
-        <source>The host has a Virtualization or Virtualization host applied to it</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>L'hôte a le module &quot;Virtualisation&quot; ou &quot;Plafeforme de Virtualisation&quot; qui lui est appliqué.</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.note3">
-        <source>The host is subscribed to the @@PRODUCT_NAME@@ Tools channel and has the rhn-virtualization-host package installed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>L'hôte est abonné au canal @@PRODUCT_NAME@@ Tools et a le paquetage rhn-virtualization-host installé.</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.nonredhatnote">
-        <source>If the host of a guest system above is not a Red Hat Virtualization host running Red Hat Enterprise Linux, it must consume the same software and system entitlements it would if it were a physical system at this time.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>Si l'hôte d'un des systèmes invité ci-dessus n'est pas un hôte de Virtualisation Red Hat exécutant Red Hat Enterprise Linux, il doit consommer les mêmes droits d'accès logiciel et système qu'un système physique.</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.nosystems">
-        <source>There are no guests consuming physical entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>Aucun système ne consomme de droits d'accès physiques.</target>
       </trans-unit>
       <trans-unit id="guestunlimited.jsp.nosystems">
         <source>There are no systems with the Virtualization Platform entitlement.</source>
