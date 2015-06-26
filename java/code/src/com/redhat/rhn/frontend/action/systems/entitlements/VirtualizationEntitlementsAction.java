@@ -65,27 +65,4 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
                                     findGuestLimitedHostsByOrg(user.getOrg()));
         return mapping.findForward("success");
     }
-
-    /**
-     * Creates a list of host systems with the <i>Virtualization Platform</i>
-     * (guest-unlimited) entitlement and the number of guests for each host.
-     *
-     * @param mapping The action mapping
-     * @param form The action form
-     * @param request The servlet request
-     * @param response The servlet response
-     * @return An action forward
-     */
-    public ActionForward listGuestUnlimited(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response) {
-
-        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        RequestContext context = new RequestContext(request);
-        User user = context.getCurrentUser();
-        request.setAttribute(PAGELIST,
-                VirtualizationEntitlementsManager.getInstance().
-                                    findGuestUnlimitedHostsByOrg(user.getOrg()));
-
-        return mapping.findForward("success");
-    }
 }
