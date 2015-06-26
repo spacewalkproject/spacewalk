@@ -88,26 +88,4 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
 
         return mapping.findForward("success");
     }
-
-    /**
-     * Creates a list of host systems with the <i>Virtualization</i> entitlement and
-     * the number of guests for each host.
-     *
-     * @param mapping The action mapping
-     * @param form The action form
-     * @param request The servlet request
-     * @param response The servlet response
-     * @return An action forward
-     */
-    public ActionForward listPhysicalHosts(ActionMapping mapping,
-            ActionForm form, HttpServletRequest request, HttpServletResponse response) {
-
-        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        RequestContext rctx = new RequestContext(request);
-        User user = rctx.getCurrentUser();
-        request.setAttribute(PAGELIST,
-                VirtualizationEntitlementsManager.getInstance().
-                                    findGuestsWithoutHostsByOrg(user.getOrg()));
-        return mapping.findForward("success");
-    }
 }
