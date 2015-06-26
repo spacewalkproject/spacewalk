@@ -1506,17 +1506,6 @@ public class ChannelManager extends BaseManager {
                     cid + ".");
         }
 
-        boolean canSubscribe = false;
-
-        // check to make sure we *can* sub to this channel
-        if (channel != null) {
-            canSubscribe = SystemManager.canServerSubscribeToChannel(user.getOrg(),
-                    current, channel);
-        }
-        if (!canSubscribe) {
-            return null;
-        }
-
         if (!current.isSubscribed(channel)) {
             if (log.isDebugEnabled()) {
                 log.debug("Subscribing server to channel: " + channel);
@@ -1566,15 +1555,9 @@ public class ChannelManager extends BaseManager {
                     DistChannelMap dcm = di.next();
                     log.debug("got DistChannelMap: " + dcm);
                     if (dcm.getOs().equals(osProductName)) {
-                        log.debug("found a possible channel: " + dcm.getChannel());
+                        log.debug("found a channel to subscribe: " + dcm.getChannel());
                         foundChannel = dcm.getChannel();
-                        if (SystemManager.canServerSubscribeToChannel(user.getOrg(),
-                                current, dcm.getChannel())) {
-                            log.debug("we can subscribe.  lets set foundChannel");
-                            foundChannel = dcm.getChannel();
-                            break;
-                        }
-                        log.debug("no subscriptions available.");
+                        break;
                     }
                 }
             }
@@ -1860,10 +1843,7 @@ public class ChannelManager extends BaseManager {
         channelDtos.addAll(listCustomBaseChannelsForServer(s));
 
         for (DistChannelMap dcm : ChannelFactory.listCompatibleDcmByServerInNullOrg(s)) {
-            if (SystemManager.canServerSubscribeToChannel(
-                    usr.getOrg(), s, dcm.getChannel())) {
-                channelDtos.add(new EssentialChannelDto(dcm.getChannel()));
-            }
+            channelDtos.add(new EssentialChannelDto(dcm.getChannel()));
         }
 
         return channelDtos;

@@ -2138,44 +2138,6 @@ public class SystemManager extends BaseManager {
         return (m.execute(params).size() >= 1);
     }
 
-
-    /**
-     * Check to see if an attempt to subscribe the passed in server to the
-     * passed in channel will succeed.  Checks available slots, if the channel is
-     * 'free' and the Server is virtual.
-     *
-     * @param orgIn of caller
-     * @param serverIn to check
-     * @param channelIn to check
-     * @return boolean if it will succeed.
-     */
-    public static boolean canServerSubscribeToChannel(Org orgIn, Server serverIn,
-            Channel channelIn) {
-        if (serverIn.isSubscribed(channelIn)) {
-            return true;
-        }
-
-        // If channel is free for this guest, dont check avail subs
-        if (ChannelManager.isChannelFreeForSubscription(serverIn.getId(), channelIn)) {
-            return true;
-        }
-
-        // Not free.  Check to see if we're a guest, and there are FVEs available.
-        // Note that for FVEs, NULL == NOT FOUND
-        if (isServerFveEligible(serverIn)) {
-            Long availableFVEs = ChannelManager.getAvailableFveEntitlements(orgIn,
-                    channelIn);
-            if (availableFVEs != null && (availableFVEs.longValue() > 0)) {
-                return true;
-            }
-        }
-
-        // Finally, check available physical subs
-        // Note that for PHYS SUBS, NULL == UNLIMITED
-        Long availableSubs = ChannelManager.getAvailableEntitlements(orgIn, channelIn);
-        return ((availableSubs == null) || (availableSubs.longValue() > 0));
-    }
-
     /**
      * Checks if the user has permissions to see the Server
      * @param user User being checked

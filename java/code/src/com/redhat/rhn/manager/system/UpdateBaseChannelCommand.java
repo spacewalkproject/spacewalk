@@ -77,12 +77,6 @@ public class UpdateBaseChannelCommand extends BaseUpdateChannelCommand {
             }
         }
 
-        // Check for available subs
-        if (newChannel != null &&
-                !SystemManager.canServerSubscribeToChannel(user.getOrg(),
-                        server, newChannel)) {
-            return new ValidatorError("system.channel.nochannelslots");
-        }
         List <Long> newKidsToSubscribe = new LinkedList<Long>();
 
         if (oldChannel != null && newChannel != null) {
