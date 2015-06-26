@@ -26,7 +26,6 @@ import com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto;
 import com.redhat.rhn.frontend.dto.MultiOrgUserOverview;
 import com.redhat.rhn.frontend.dto.OrgDto;
 import com.redhat.rhn.frontend.dto.OrgEntitlementDto;
-import com.redhat.rhn.frontend.dto.OrgSoftwareEntitlementDto;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.MigrationToSameOrgException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
@@ -190,26 +189,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         Org org =  OrgFactory.lookupByName(name);
         assertNotNull(org);
         return org;
-    }
-
-    private void assertOrgSoftwareEntitlement(Long orgId, String channelFamilyLabel,
-            List<OrgSoftwareEntitlementDto> entitlementCounts, int expectedAllocation,
-            boolean orgShouldExist) {
-
-        boolean found = false;
-
-        for (OrgSoftwareEntitlementDto counts : entitlementCounts) {
-
-            if (!counts.getOrg().getId().equals(orgId)) {
-                continue;
-            }
-            // Found our org, check it's allocation
-            found = true;
-            assertEquals(expectedAllocation, counts.getMaxMembers().intValue());
-        }
-        if (!found && orgShouldExist) {
-            fail("unable to find org: " + orgId);
-        }
     }
 
     private MultiOrgEntitlementsDto findEntitlementDto(
