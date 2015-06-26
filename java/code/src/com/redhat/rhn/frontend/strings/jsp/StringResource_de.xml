@@ -4493,13 +4493,6 @@ drücken und &lt;b&gt;können sich nicht wieder einloggen&lt;/b&gt;.</target>
         </context-group>
         <target>{0} von {1} ({2}%)</target>
       </trans-unit>
-      <trans-unit id="Available/Total.tip">
-        <source>'Total' refers to the total available entitlements to the @@PRODUCT_NAME@@ as reflected in this @@PRODUCT_NAME@@'s certificate. 'Available' refers to the number entitlements that are available to be allocated to various organizations.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>'Gesamt' bezieht sich auf die insgesamt verfügbaren Berechtigungen für @@PRODUCT_NAME@@ wie im Zertifikat des @@PRODUCT_NAME@@ angegeben. 'Verfügbar' bezieht sich auf die Anzahl an Berechtigungen, die verschiedenen Organisationen noch zugewiesen werden können.</target>
-      </trans-unit>
       <trans-unit id="Used/Allotted.tip">
         <source>'Allotted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
         <context-group name="ctx">
