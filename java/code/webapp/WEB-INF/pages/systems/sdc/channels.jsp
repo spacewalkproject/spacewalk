@@ -46,38 +46,6 @@
                       <input ${disabledChannel} name="child_channel" value="${channel.id}" type="checkbox" id="unchecked">
                     </c:if>
                     <a href="/rhn/channels/ChannelDetail.do?cid=${channel.id}">${channel.name}</a>
-                    <c:if test="${system.virtualGuest}">
-                      <c:if test="${not channel.freeForGuests}">
-                        <span class="asterisk">*&nbsp;</span>
-                        <c:set var="display_asterisk" value="true" scope="page" />
-                      </c:if>
-                      <c:choose>
-                        <c:when test="${channel.freeForGuests && system.virtualInstance.hostSystem != null}">
-                          (<bean:message key="sdc.channels.edit.unlimited"/>)
-                        </c:when>
-
-                        <c:when test="${server_fve_eligible && channel.availableFveSubscriptions > 0}">
-                          (<strong>${channel.availableFveSubscriptions}</strong> flex <bean:message key="sdc.channels.edit.available"/>)
-                        </c:when>
-
-                        <c:otherwise>
-                          <c:if test="${channel.availableSubscriptions == null}">
-                            (<bean:message key="sdc.channels.edit.unlimited"/>)
-                          </c:if>
-                          <c:if test="${channel.availableSubscriptions != null}">
-                            (<strong>${channel.availableSubscriptions}</strong> <bean:message key="sdc.channels.edit.available"/>)
-                          </c:if>
-                        </c:otherwise>
-                      </c:choose>
-                    </c:if>
-                    <c:if test="${not system.virtualGuest}">
-                      <c:if test="${channel.availableSubscriptions == null}">
-                        (<bean:message key="sdc.channels.edit.unlimited"/>)
-                      </c:if>
-                      <c:if test="${channel.availableSubscriptions != null}">
-                        (<strong>${channel.availableSubscriptions}</strong> <bean:message key="sdc.channels.edit.available"/>)
-                      </c:if>
-                    </c:if>
                   </li>
                 </c:forEach>
               </ul>
