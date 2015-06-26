@@ -106,16 +106,7 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
                 Channel child = (Channel) channels.get(i);
                 childchannels[i] = new ChildChannelDto(child.getId(), child.getName(),
                         s.isSubscribed(child),
-                        ChannelManager.isChannelFreeForSubscription(s.getId(), child),
                         child.isSubscribable(user.getOrg(), s));
-
-                childchannels[i].setAvailableSubscriptions(
-                        ChannelManager.getAvailableEntitlements(
-                        user.getOrg(), child));
-
-                childchannels[i].setAvailableFveSubscriptions(
-                        ChannelManager.getAvailableFveEntitlements(
-                        user.getOrg(), child));
             }
             request.setAttribute(AVAIL_CHILD_CHANNELS, childchannels);
             form.set(NEW_BASE_CHANNEL_ID, s.getBaseChannel().getId());
