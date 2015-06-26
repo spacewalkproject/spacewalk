@@ -1,0 +1,51 @@
+diff -rupN release.py release.py.new 
+--- a/src/tito/release.py  2013-11-14 14:08:54.000000000 +0100
++++ b/src/tito/release.py      2015-06-26 10:00:11.865440732 +0200
+@@ -512,7 +512,7 @@ class FedoraGitReleaser(Releaser):
+         self._git_upload_sources(project_checkout)
+         self._git_user_confirm_commit(project_checkout)
+ 
+-    def _confirm_commit_msg(self, diff_output):
++    def _confirm_commit_msg(self, diff_output, quick_build=False):
+         """
+         Generates a commit message in a temporary file, gives the user a
+         chance to edit it, and returns the filename to the caller.
+@@ -539,7 +539,7 @@ class FedoraGitReleaser(Releaser):
+         print("")
+         print("###############################")
+         print("")
+-        if self._ask_yes_no("Would you like to edit this commit message? [y/n] ", False):
++        if quick_build == False and self._ask_yes_no("Would you like to edit this commit message? [y/n] ", False):
+             debug("Opening editor for user to edit commit message in: %s" % name)
+             editor = 'vi'
+             if "EDITOR" in os.environ:
+@@ -548,7 +548,7 @@ class FedoraGitReleaser(Releaser):
+ 
+         return name
+ 
+-    def _git_user_confirm_commit(self, project_checkout):
++    def _git_user_confirm_commit(self, project_checkout, quick_build=False):
+         """ Prompt user if they wish to proceed with commit. """
+         print("")
+         text = "Running 'git diff' in: %s" % project_checkout
+@@ -570,16 +570,18 @@ class FedoraGitReleaser(Releaser):
+         if diff_output.strip() == "":
+             print("No changes in main branch, skipping commit for: %s" % main_branch)
+         else:
++            if 'GIT_QUICK_BUILD' in self.builder.user_config and self.builder.user_config['GIT_QUICK_BUILD'] != '0':
++                quick_build =  bool(self.builder.user_config['GIT_QUICK_BUILD'])
+             print(diff_output)
+             print("")
+             print("##### Please review the above diff #####")
+-            if not self._ask_yes_no("Do you wish to proceed with commit? [y/n] "):
++            if quick_build == False and not self._ask_yes_no("Do you wish to proceed with commit? [y/n] "):
+                 print("Fine, you're on your own!")
+                 self.cleanup()
+                 sys.exit(1)
+ 
+             print("Proceeding with commit.")
+-            commit_msg_file = self._confirm_commit_msg(diff_output)
++            commit_msg_file = self._confirm_commit_msg(diff_output, quick_build)
+             cmd = '%s commit -F %s' % (self.cli_tool,
+                     commit_msg_file)
+             debug("git commit command: %s" % cmd)
