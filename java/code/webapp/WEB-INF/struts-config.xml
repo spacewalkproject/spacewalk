@@ -7530,16 +7530,6 @@
        <forward name="success" path="/WEB-INF/pages/systems/entitlements/guestlimited.jsp"/>
      </action>
 
-     <action path="/systems/entitlements/GuestUnlimitedHosts"
-             scope="request"
-             type="com.redhat.rhn.frontend.action.systems.entitlements.VirtualizationEntitlementsAction"
-             parameter="listGuestUnlimited"
-             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-       <set-property property="postRequiredIfSubmitted" value="true" />
-       <set-property property="acls" value="user_role(org_admin)"/>
-       <forward name="success" path="/WEB-INF/pages/systems/entitlements/guestunlimited.jsp"/>
-     </action>
-
     <action path="/channels/manage/errata/Add"
         scope="request"
         input="/WEB-INF/pages/channel/manage/add.jsp"
