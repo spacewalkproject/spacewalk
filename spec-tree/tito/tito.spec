@@ -2,7 +2,7 @@
 
 Name: tito
 Version: 0.4.18
-Release: 1.6%{?dist}
+Release: 1.7%{?dist}
 Summary: A tool for managing rpm based git projects
 
 Group: Development/Tools
@@ -88,6 +88,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jun 26 2015 Tomas Kasparek <tkasparek@redhat.com> 0.4.18-1.7
+- enable building without prompting with git builders
+
 * Wed Aug 06 2014 Michael Mraka <michael.mraka@redhat.com> 0.4.18-1.6
 - actually it's good to apply patches as well
 
