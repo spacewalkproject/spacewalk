@@ -324,17 +324,6 @@ public class VirtualInstanceFactory extends HibernateFactory {
         return runFlexGuestsQuery(user, "flex_guests");
     }
 
-    /**
-     * Returns a list of eligible systems who could become  floating guests
-     *  with a channel family grouping
-     * @param user the user object needed for perms checking
-     * @return a list of  ChannelFamilySystemGroups
-     */
-    public List<ChannelFamilySystemGroup> listEligibleFlexGuests(User user) {
-        return runFlexGuestsQuery(user, "eligible_flex_guests");
-    }
-
-
     private List<ChannelFamilySystemGroup> runFlexGuestsQuery(User user, String query) {
         List<ChannelFamilySystemGroup> ret = new LinkedList<ChannelFamilySystemGroup>();
 
