@@ -20666,116 +20666,12 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>হোস্ট সিস্টেম</target>
       </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsystem">
-        <source>Guest System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>গেস্ট সিস্টেম</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.title">
-        <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Guests without Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ - ভার্চুয়ালাইজেশন এনটাইটেলমেন্ট - হোস্ট বিহীন গেস্ট</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.header2">
-        <source>Guests of Non-Virtual Entitled Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>Virtual-বিহীন এনটাইটেলমেন্ট সহ হোস্ট সিস্টেমের গেস্ট</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.para1">
-        <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in @@PRODUCT_NAME@@.  These systems are consuming the same software and system entitlements as a normal physical system.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>নিম্নলিখিত তালিকায় উপস্থিত গেস্ট সিস্টেমগুলি @@PRODUCT_NAME@@-র ভার্চুয়ালাইজেশন এনটইটেলমেন্টসহ (Virtualization অথবা Virtualization Platform) কোনো হোস্ট সিস্টেম যুক্ত নয়।  এই সিস্টেমগুলিরক্ষেত্রে সাধারণ সিস্টেমের অনুরূপে সফ্টওয়্যার ও সিস্টেম এনটাইটেলমেন্ট প্রয়োগ করা হচ্ছে।</target>
-      </trans-unit>
       <trans-unit id="virtualentitlements.toolbar">
         <source>Virtualization Entitlements</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
         <target>ভার্চুয়ালাইজেশন এনটাইটেলমেন্ট</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.header3">
-        <source>Reconciling the Entitlements from Guests of Non-Virtualization Entitled Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>Virtualization-বিহীন এনটাইটেলমেন্ট সহ হোস্ট সিস্টেমের জন্য গেস্ট সিস্টেমের এনটাইটেলমেন্ট সুসংগতি</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.para2">
-        <source>You may always delete the @@PRODUCT_NAME@@ system profile of a guest listed above to free the software and system entitlements it consumes (or you may remove system entitlements from the guest to free system entitlements).  You may be able to free the physical entitlements associated with the guest without deleting the guest's profile:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofknown">
-        <source>Guests of Known Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>পরিচিত হোস্টের গেস্ট</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofunknown">
-        <source>Guests of Known Unknown Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>অপরিচিত হোস্টের গেস্ট</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofnonredhat">
-        <source>Guests of Non-Red Hat Virtualization Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>Red Hat Virtualization ব্যতীত হোস্টের গেস্ট</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.knownnote">
-        <source>If you would like to free the physical entitlements of a guest listed above and it is associated with a Host registered with @@PRODUCT_NAME@@ please add either the Virtualization or Virtualization Platform system entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@-এ নিবন্ধিত কোনো হোস্ট সিস্টেমের উপর স্থাপিত ও উপরোক্ত তালিকায় উপস্থিত গেস্ট সিস্টেম থেকে প্রকৃথ এনটাইটেলমেন্ট মুক্ত করলে অনুগ্রহ করে Virtualization অথবা Virtualization Platform সিস্টেম এনটাইটেলমেন্ট যোগ করুন।</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.unknownnote">
-        <source>If the host of a guest system above is listed as an unknown and you would like to free the physical entitlements the guest consumes please make sure that:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>কোনো গেস্ট সিস্টেমের হোস্ট যদি উপের অপরিচিত রূপে উল্লিখিত হয় এবং গেস্ট সিস্টেম দ্বারা ব্যবহৃত প্রকৃত এনটাইটেলমেন্টমুক্ত করার সময় অনুগ্রহ করে নিশ্চিত করুন:</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.unknownnote2">
-        <source>The host has a Virtualization or Virtualization host applied to it</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>হোস্টে Virtualization অথবা Virtualization হোস্ট প্রয়োগ করা হয়েছে</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.note3">
-        <source>The host is subscribed to the @@PRODUCT_NAME@@ Tools channel and has the rhn-virtualization-host package installed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>হোস্ট সিস্টেমটি @@PRODUCT_NAME@@ Tools চ্যানেলে সাবস্ক্রাইব করা হয়েছে এবং এর মধ্যে rhn-virtualization-host প্যাকেজটি ইনস্টল করা হয়েছে।</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.nonredhatnote">
-        <source>If the host of a guest system above is not a Red Hat Virtualization host running Red Hat Enterprise Linux, it must consume the same software and system entitlements it would if it were a physical system at this time.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>উপরোক্ত কোনো গেস্টে সিস্টেম ধারণকারী কোনো হোস্ট সিস্টেম যদি Red Hat Enterprise Linux সঞ্চালনকারী Red Hat Virtualization হোস্ট না নয় তাহলে গেস্ট সিস্টেমটি একটি প্রকৃত সিস্টেমে প্রয়োগ হওয়া সফ্টওয়্যার এবং সিস্টেম এনটাইটেলমেন্ট ব্যবহার করা হবে।</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.nosystems">
-        <source>There are no guests consuming physical entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>প্রকৃত এনটাইটেলমেন্ট গ্রাসকারী কোনো গেস্ট সিস্টেম বর্তমানে উপস্থিত নেই।</target>
       </trans-unit>
       <trans-unit id="guestunlimited.jsp.nosystems">
         <source>There are no systems with the Virtualization Platform entitlement.</source>
