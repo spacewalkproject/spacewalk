@@ -100,24 +100,4 @@ public class VirtualizationEntitlementsManager {
         return guestsWithoutHosts;
     }
 
-    /**
-     * Returns a list of guests using FVE
-     * @param user user for access checks
-     * @return a list of ChannelFamilySystemGroup
-     */
-    public List<ChannelFamilySystemGroup> listFlexGuests(User user) {
-        return VirtualInstanceFactory.getInstance().listFlexGuests(user);
-
-    }
-
-
-    /**
-     * Returns a list of eligible guest systems that could be moved to FVE bucket
-     * @param user user for access checks
-     * @return a list of ChannelFamilySystemGroup
-     */
-    public List<ChannelFamilySystemGroup> listEligibleFlexGuests(User user) {
-        return VirtualInstanceFactory.getInstance().listEligibleFlexGuests(user);
-
-    }
 }
