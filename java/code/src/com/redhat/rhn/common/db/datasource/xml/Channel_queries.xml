@@ -1008,12 +1008,6 @@ GROUP BY C.id, C.name
     </query>
 </mode>
 
-<callable-mode name="convert_to_flex">
-    <query params="sid, cfid">
-      { call rhn_channel.convert_to_fve(:sid, :cfid) }
-    </query>
-</callable-mode>
-
 <mode name="activation_key_child_channels">
   <query params="token_id, user_id">
     SELECT DISTINCT c1.id as id,

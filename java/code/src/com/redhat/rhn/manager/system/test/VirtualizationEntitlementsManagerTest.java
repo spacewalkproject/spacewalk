@@ -143,30 +143,6 @@ public class VirtualizationEntitlementsManagerTest extends BaseTestCaseWithUser 
         assertEquals(guestsToCreate, l.get(0).expand().size());
     }
 
-    public void testConvertToFlex() throws Exception {
-        int guestsToCreate = setupEligibleFlexGuestTests(true, user.getOrg(),
-                user, 5, 5, 20);
-
-        List<ChannelFamilySystemGroup> l = VirtualizationEntitlementsManager.
-                                        getInstance().listEligibleFlexGuests(user);
-        assertTrue(!l.isEmpty());
-        assertEquals(1, l.size());
-        assertEquals(guestsToCreate, l.get(0).expand().size());
-        ChannelFamilySystemGroup group = l.get(0);
-        List<Long> sids = new LinkedList<Long>();
-        for (ChannelFamilySystem cfs : group.expand().subList(0, 1)) {
-            sids.add(cfs.getId());
-        }
-        assertEquals(1, VirtualizationEntitlementsManager.getInstance().
-                convertToFlex(sids, group.getId(), user).size());
-        l = VirtualizationEntitlementsManager.getInstance().listFlexGuests(user);
-        assertTrue(!l.isEmpty());
-        assertEquals(1, l.size());
-        assertEquals(1, l.get(0).expand().size());
-
-    }
-
-
     public void testNonVirtHostEligibleFlexGuests() throws Exception {
         executeEligibleGuestTests(false);
     }
