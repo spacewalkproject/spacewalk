@@ -83,7 +83,6 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
         set.add("/rhn/admin/multiorg/OrgSystemSubscriptions.do");
         // software channel entitlements
         set.add("/rhn/admin/multiorg/SoftwareEntitlements.do");
-        set.add("/rhn/admin/multiorg/SoftwareEntitlementSubscriptions.do");
         set.add("/rhn/admin/multiorg/OrgSoftwareSubscriptions.do");
         // delete system(s)
         set.add("/rhn/systems/details/DeleteConfirm.do");
