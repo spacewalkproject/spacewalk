@@ -51,9 +51,6 @@ if __name__ == '__main__':
         sys.exit(1)
 
     userIn = sys.argv.pop()
-    if not userIn.isalnum():
-        print_help()
-        sys.exit(1)
 
     initCFG('server.satellite')
     rhnSQL.initDB()
