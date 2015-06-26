@@ -7,7 +7,4 @@
   <rhn-tab name="guest.unlimited.hosts">
     <rhn-tab-url>/rhn/systems/entitlements/GuestUnlimitedHosts.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="guests.without.hosts">
-    <rhn-tab-url>/rhn/systems/entitlements/PhysicalHosts.do</rhn-tab-url>
-  </rhn-tab>
 </rhn-navi-tree>
