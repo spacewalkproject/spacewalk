@@ -5106,24 +5106,6 @@ public class SystemHandler extends BaseHandler {
         return transformDuplicate(list, "hostname");
     }
 
-
-    /**
-     * List flex guests accessible to the user
-     * @param loggedInUser The current user
-     * @return List of Flex guests
-     *
-     *
-     * @xmlrpc.doc  List flex guests accessible to the user
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.returntype
-     *          #array()
-     *              $ChannelFamilySystemGroupSerializer
-     *          #array_end()
-     **/
-    public List<ChannelFamilySystemGroup> listFlexGuests(User loggedInUser) {
-        return VirtualizationEntitlementsManager.getInstance().listFlexGuests(loggedInUser);
-    }
-
     /**
      * List eligible flex guests accessible to the user
      * @param loggedInUser The current user
