@@ -20668,116 +20668,12 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>புரவலன் கணினி</target>
       </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsystem">
-        <source>Guest System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>விருந்தினர் கணினி</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.title">
-        <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Guests without Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ - மெய்நிகர் உரிமங்கள் - புரவலர்கள் இல்லாமல் விருந்தினர்கள்</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.header2">
-        <source>Guests of Non-Virtual Entitled Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>மெய்நிகர் அல்லாத புரவலன்கள் உரிமத்தின் விருந்தினர்கள்</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.para1">
-        <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in @@PRODUCT_NAME@@.  These systems are consuming the same software and system entitlements as a normal physical system.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>பின்வருவது @@PRODUCT_NAME@@ இல் புரவலன் கணினியில் மெய்நிகர் உரிமப்படுத்தப்பட்டவைகளுடன் (மெய்நிகராக்கம் அல்லது மெய்நிகராக்க இயக்கத்தளம்) தொடர்பில்லாத விருந்தினர் கணினிகளின் பட்டியலாகும். </target>
-      </trans-unit>
       <trans-unit id="virtualentitlements.toolbar">
         <source>Virtualization Entitlements</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
         <target>மெய்நிகராக்க உரிமங்கள்</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.header3">
-        <source>Reconciling the Entitlements from Guests of Non-Virtualization Entitled Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>மெய்நிகராக்கம் இல்லாத உரிமப்படுத்தப்பட்ட புரவலன்களின் விருந்தினரிலிருந்து உரிமங்களை மீண்டும் இணைத்தல்</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.para2">
-        <source>You may always delete the @@PRODUCT_NAME@@ system profile of a guest listed above to free the software and system entitlements it consumes (or you may remove system entitlements from the guest to free system entitlements).  You may be able to free the physical entitlements associated with the guest without deleting the guest's profile:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofknown">
-        <source>Guests of Known Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>தெரிந்த புரவலன்களின் விருந்தினர்கள்</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofunknown">
-        <source>Guests of Known Unknown Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>தெரிந்த தெரியாத புரவலன்களின் விருந்தினர்கள்</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofnonredhat">
-        <source>Guests of Non-Red Hat Virtualization Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>Red Hat அல்லாத மெய்நிகராக்க புரவலன்களின் விருந்தினர்கள்</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.knownnote">
-        <source>If you would like to free the physical entitlements of a guest listed above and it is associated with a Host registered with @@PRODUCT_NAME@@ please add either the Virtualization or Virtualization Platform system entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>நீங்கள் மேலே ஒரு விருந்தினரின் பருநிலை உரிமங்களை வெறுமையாக்கலாம் மற்றும் அதனுடன் தொடர்புடைய ஒரு புரவலனை @@PRODUCT_NAME@@ உடன் பதிவு செய்யப்பட்டிருக்கும் அதனுடன் மெய்நிகராக்கம் அல்லது மெய்நிகராக்க இயக்கத்தள கணினி உரிமத்தை சேர்க்கலாம்.</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.unknownnote">
-        <source>If the host of a guest system above is listed as an unknown and you would like to free the physical entitlements the guest consumes please make sure that:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>புரவலனின் ஒரு விருந்தினர் கணினி மேலே பட்டியலிடப்பட்டது தெரியாதது மற்றும் நீங்கள் பருநிலை உரிமங்கள் விருந்தினரில் விடலாம் அதனை உறுதிப்படுத்தவும்:</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.unknownnote2">
-        <source>The host has a Virtualization or Virtualization host applied to it</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>புரவலன் மெய்நிகராக்கம் அல்லது அது செயல்படுத்தப்பட்ட மெய்நிகராக்க புரவலனை கொண்டிருக்கும்</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.note3">
-        <source>The host is subscribed to the @@PRODUCT_NAME@@ Tools channel and has the rhn-virtualization-host package installed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>புரவலன் @@PRODUCT_NAME@@ கருவிகள் தடத்துடன் சந்தாப்படுத்தப்பட்டு rhn-virtualization-host தொகுப்பை நிறுவியிருக்கும்.</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.nonredhatnote">
-        <source>If the host of a guest system above is not a Red Hat Virtualization host running Red Hat Enterprise Linux, it must consume the same software and system entitlements it would if it were a physical system at this time.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>புரவலனின் விருந்தினர் கணினி மேலே Red Hat மெய்நிகராக்க புரவலனாக இல்லாமல் Red Hat Enterprise Linux இல் இயங்கினால், அதே மென்பொருள் மற்றும் கணினி உரிமங்கள் ஒரு பருநிலை கணினியில் இந்த நேரத்தில் இருக்க வேண்டும்.</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.nosystems">
-        <source>There are no guests consuming physical entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>எந்த விருந்தினரும் பருநிலை உரிமங்களை பெறவில்லை.</target>
       </trans-unit>
       <trans-unit id="guestunlimited.jsp.nosystems">
         <source>There are no systems with the Virtualization Platform entitlement.</source>

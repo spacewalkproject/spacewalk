@@ -20667,116 +20667,12 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>ਮੇਜ਼ਬਾਨ ਸਿਸਟਮ</target>
       </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsystem">
-        <source>Guest System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>ਗਿਸਟ ਸਿਸਟਮ</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.title">
-        <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Guests without Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ - ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਇੰਟਾਈਟਲਮੈਂਟ - ਬਿਨਾਂ ਮੇਜ਼ਬਾਨ ਗਿਸਟ</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.header2">
-        <source>Guests of Non-Virtual Entitled Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>ਨਾਨ-ਵਰਚੁਅਲ ਇੰਟਾਈਟਲ ਮੇਜ਼ਬਾਨ ਵਾਲੇ ਗਿਸਟ</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.para1">
-        <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in @@PRODUCT_NAME@@.  These systems are consuming the same software and system entitlements as a normal physical system.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>ਹੇਠਾਂ ਗਿਸਟ ਸਿਸਟਮਾਂ ਦੀ ਸੂਚੀ ਹੈ ਜੋ @@PRODUCT_NAME@@ ਵਿੱਚ ਇੱਕ ਵਰਚੁਅਲ ਇੰਟਾਈਟਲ (ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਜਾਂ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਪਲੇਟਫਾਰਮ) ਮੇਜ਼ਬਾਨ ਸਿਸਟਮ ਨਾਲ ਸੰਬੰਧਿਤ ਨਹੀਂ ਹਨ। ਇਹ ਸਿਸਟਮ ਆਮ ਭੌਤਿਕ ਸਿਸਟਮ ਵਾਂਗ ਉਹੀ ਸਾਫਟਵੇਅਰ ਅਤੇ ਸਿਸਟਮ ਇੰਟਾਈਟਲਮੈਂਟ ਨਹੀਂ ਵਰਤਦੇ ਹਨ।</target>
-      </trans-unit>
       <trans-unit id="virtualentitlements.toolbar">
         <source>Virtualization Entitlements</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
         <target>ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਇੰਟਾਈਟਲਮੈਂਟ</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.header3">
-        <source>Reconciling the Entitlements from Guests of Non-Virtualization Entitled Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>ਨਾਨ-ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਇੰਟਾਈਟਲਡ ਮੇਜ਼ਬਾਨ ਦੇ ਗਿਸਟ ਤੋਂ ਇੰਟਾਈਟਲ ਨੂੰ ਪਰਾਪਤ ਕਰਨਾ</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.para2">
-        <source>You may always delete the @@PRODUCT_NAME@@ system profile of a guest listed above to free the software and system entitlements it consumes (or you may remove system entitlements from the guest to free system entitlements).  You may be able to free the physical entitlements associated with the guest without deleting the guest's profile:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofknown">
-        <source>Guests of Known Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>ਪਛਾਣ ਵਾਲੇ ਮੇਜ਼ਬਾਨਾ ਦੇ ਗਿਸਟ</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofunknown">
-        <source>Guests of Known Unknown Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>ਨਾ-ਪਛਾਣ ਵਾਲੇ ਮੇਜ਼ਬਾਨਾ ਦੇ ਗਿਸਟ</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofnonredhat">
-        <source>Guests of Non-Red Hat Virtualization Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>ਨਾਨ-Red Hat ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਮੇਜ਼ਬਾਨ ਦੇ ਗਿਸਟ</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.knownnote">
-        <source>If you would like to free the physical entitlements of a guest listed above and it is associated with a Host registered with @@PRODUCT_NAME@@ please add either the Virtualization or Virtualization Platform system entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>ਜੇ ਤੁਸੀਂ ਉੱਪਰ ਵੇਖਾਏ ਗਿਸਟ ਦੇ ਭੌਤਿਕ ਇੰਟਾਈਟਲਮੈਂਟ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ ਅਤੇ ਇਹ @@PRODUCT_NAME@@ ਨਾਲ ਰਜਿਸਟਰ ਕੀਤੇ ਮੇਜ਼ਬਾਨ ਨਾਲ ਸੰਬੇਧਿਤ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਜਾਂ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਪਲੇਟਫਾਰਮ ਸਿਸਟਮ ਇੰਟਾਈਟਲਮੈਂਟ ਸ਼ਾਮਿਲ ਕਰੋ।</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.unknownnote">
-        <source>If the host of a guest system above is listed as an unknown and you would like to free the physical entitlements the guest consumes please make sure that:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>ਜੇ ਉੱਪਰਲੇ ਗਿਸਟ ਸਿਸਟਮ ਦਾ ਮੇਜ਼ਬਾਨ ਅਣਪਛਾਤਾ ਵੇਖਾਇਆ ਗਿਆ ਹੈ ਅਤੇ ਤੁਸੀਂ ਭੌਤਿਕ ਇੰਟਾਈਟਲਮੈਂਟ ਮੁਕਤ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ ਜੋ ਗਿਸਟ ਵਰਤਦਾ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਇਹ ਜਾਂਚ ਕਰੋ ਕਿ:</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.unknownnote2">
-        <source>The host has a Virtualization or Virtualization host applied to it</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>ਮੇਜ਼ਬਾਨ ਤੇ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਹੈ ਜਾਂ ਇਸ ਉੱਪਰ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਮੇਜ਼ਬਾਨ ਲਾਗੂ ਕੀਤਾ ਗਿਆ ਹੈ</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.note3">
-        <source>The host is subscribed to the @@PRODUCT_NAME@@ Tools channel and has the rhn-virtualization-host package installed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>ਮੇਜ਼ਬਾਨ @@PRODUCT_NAME@@ ਜੰਤਰ ਚੈਨਲ ਤੇ ਮੈਂਬਰ ਬਣਿਆ ਹੈ ਅਤੇ ਇਸ ਉੱਪਰ rhn-ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ-ਮੇਜ਼ਬਾਨ ਪੈਕੇਜ ਇੰਸਟਾਲ ਹਨ।</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.nonredhatnote">
-        <source>If the host of a guest system above is not a Red Hat Virtualization host running Red Hat Enterprise Linux, it must consume the same software and system entitlements it would if it were a physical system at this time.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>ਜੇ ਉੱਪਰਲੇ ਗਿਸਟ ਸਿਸਟਮ ਦਾ ਮੇਜ਼ਬਾਨ Red Hat ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਮੇਜ਼ਬਾਨ ਨਹੀਂ ਹੈ ਜੋ Red Hat Enterprise Linux ਚਲਾਉਂਦਾ ਹੈ, ਤਾਂ ਇਸ ਨੂੰ ਉਹੀ ਸਾਫਟਵੇਅਰ ਅਤੇ ਸਿਸਟਮ ਇੰਟਾਈਟਲਮੈਂਟ ਵਰਤਣੇ ਚਾਹੀਦੇ ਹਨ ਜੋ ਇਸ ਨੇ ਭੌਤਿਕ ਸਿਸਟਮ ਹੁੰਦੇ ਹੋਏ ਵਰਤਣੇ ਸੀ। </target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.nosystems">
-        <source>There are no guests consuming physical entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>ਇੱਥੇ ਕੋਈ ਸਿਸਟਮ ਭੌਤਿਕ ਇੰਟਾਈਟਲਮੈਂਟ ਨਹੀਂ ਵਰਤ ਰਿਹਾ ਹੈ।</target>
       </trans-unit>
       <trans-unit id="guestunlimited.jsp.nosystems">
         <source>There are no systems with the Virtualization Platform entitlement.</source>
