@@ -74,14 +74,8 @@ public class TargetSystemsConfirmAction extends RhnAction implements Listable {
             List<Server> servers = new ArrayList<Server>();
             for (Long id : set.getElementValues()) {
                 Server s  = SystemManager.lookupByIdAndUser(id, user);
-                if (!SystemManager.canServerSubscribeToChannel(user.getOrg(), s, chan)) {
-                    createErrorMessage(request, "api.channel.software.channelsubscription",
-                            s.getHostname());
-                }
-                else {
-                    SystemManager.subscribeServerToChannel(user, s, chan);
-                    servers.add(s);
-                }
+                SystemManager.subscribeServerToChannel(user, s, chan);
+                servers.add(s);
             }
             Map<String, Object> params = new HashMap<String, Object>();
             params.put(RequestContext.CID, cid);
