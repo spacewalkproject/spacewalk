@@ -2115,29 +2115,6 @@ public class SystemManager extends BaseManager {
         server.setLock(sl);
     }
 
-
-    /**
-     * Check if a given Server is FVE eligible
-     * @param serverIn to check
-     * @return true if Server is FVE eligible, false otherwise
-     */
-    public static boolean isServerFveEligible(Server serverIn) {
-        return isServerIdFveEligible(serverIn.getId());
-    }
-
-    /**
-     * Check if a given ServerId is FVE eligible
-     * @param serverIdIn to check
-     * @return true if Server is FVE eligible, false otherwise
-     */
-    public static boolean isServerIdFveEligible(Long serverIdIn) {
-        SelectMode m = ModeFactory.getMode("System_queries", "is_server_fve_eligible");
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("sid", serverIdIn);
-
-        return (m.execute(params).size() >= 1);
-    }
-
     /**
      * Checks if the user has permissions to see the Server
      * @param user User being checked
