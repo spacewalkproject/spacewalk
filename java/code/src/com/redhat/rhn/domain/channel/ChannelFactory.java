@@ -504,29 +504,6 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
-     * Returns available flex entitlements for the org and the given channel.
-     * @param org Org (used <b>only</b> when channel's org is NULL)
-     * @param c Channel
-     * @return available flex entitlements for the org and the given channel.
-     */
-    public static Long getAvailableFveEntitlements(Org org, Channel c) {
-        //
-        // The channel's org is used when not NULL to support
-        // shared channels.
-        //
-        Org channelOrg = c.getOrg();
-        if (channelOrg != null) {
-            org = channelOrg;
-        }
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("channel_id", c.getId());
-        params.put("org_id", org.getId());
-        return (Long) singleton.lookupObjectByNamedQuery(
-                "Channel.availableFveEntitlements", params);
-
-    }
-
-    /**
      * Creates an empty Channel
      * @return empty Channel
      */
