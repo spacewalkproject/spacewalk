@@ -977,23 +977,6 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
-     * Returns available entitlements for the org and the given channel.
-     * @param org Org
-     * @param c Channel
-     * @return available entitlements for the org and the given channel.
-     */
-    public static Long getAvailableEntitlements(Org org, Channel c) {
-        ChannelEntitlementCounter counter =
-            (ChannelEntitlementCounter) MethodUtil.getClassFromConfig(
-                    ChannelEntitlementCounter.class.getName());
-
-        Long retval = counter.getAvailableEntitlements(org, c);
-        log.debug("getAvailableEntitlements: " + c.getLabel() + " got: " + retval);
-
-        return retval;
-    }
-
-    /**
      * Returns available flex entitlements for the org and the given channel.
      * @param org Org
      * @param c Channel

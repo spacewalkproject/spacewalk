@@ -26,18 +26,6 @@ import com.redhat.rhn.domain.org.Org;
 public class ChannelEntitlementCounter {
 
     /**
-     * Get the available entitlements for the passed in Org
-     * and Channel
-     * @param orgIn to check
-     * @param channelIn to check
-     * @return Long count, null if unlimited.
-     */
-    public Long getAvailableEntitlements(Org orgIn, Channel channelIn) {
-        Long retval = ChannelFactory.getAvailableEntitlements(orgIn, channelIn);
-        return retval;
-    }
-
-    /**
      * Get the available flex guest entitlements for the passed in Org
      * and Channel
      * @param orgIn to check
