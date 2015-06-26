@@ -680,29 +680,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
 
     /**
-     * Returns the number of available subscriptions for the given channel
-     * @param loggedInUser The current user
-     * @param channelLabel Label of channel whose details are sought.
-     * @return the number of available subscriptions for the given channel
-     * @throws NoSuchChannelException thrown if no channel is found.
-     *
-     * @xmlrpc.doc Returns the number of available subscriptions for the given channel
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
-     * @xmlrpc.returntype int number of available subscriptions for the given channel
-     */
-    public int availableEntitlements(User loggedInUser, String channelLabel)
-        throws NoSuchChannelException {
-
-        Channel c = lookupChannelByLabel(loggedInUser, channelLabel);
-        Long cnt = ChannelManager.getAvailableEntitlements(loggedInUser.getOrg(), c);
-        if (cnt == null) {
-            return 0;
-        }
-        return cnt.intValue();
-    }
-
-    /**
      * Creates a software channel, parent_channel_label can be empty string
      * @param loggedInUser The current user
      * @param label Channel label to be created
