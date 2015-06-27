@@ -54,6 +54,8 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
+import org.stringtree.json.JSONWriter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -95,6 +97,11 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
     public static final String CHANNEL_LABEL = "channel_label";
     public static final String CHANNEL_ARCH = "channel_arch";
     public static final String CHANNEL_ARCH_LABEL = "channel_arch_label";
+
+    public static final String DEFAULT_ARCH = "channel-x86_64";
+    public static final String DEFAULT_CHECKSUM = "sha1";
+    public static final String DEFAULT_ORG_SHARING = "private";
+    public static final String DEFAULT_SUBSCRIPTIONS = "all";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -669,9 +676,10 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
             String channelName = LocalizationService.getInstance()
               .getMessage("frontend.actions.channels.manager.create");
             request.setAttribute(CHANNEL_NAME, channelName);
-            form.set(ORG_SHARING, "private");
-            form.set(SUBSCRIPTIONS, "all");
-            form.set(CHECKSUM, "sha1");
+            form.set(ORG_SHARING, DEFAULT_ORG_SHARING);
+            form.set(SUBSCRIPTIONS, DEFAULT_SUBSCRIPTIONS);
+            form.set(CHECKSUM, DEFAULT_CHECKSUM);
+            ctx.getRequest().setAttribute(CHANNEL_ARCH_LABEL, DEFAULT_ARCH);
         }
     }
 
@@ -719,13 +727,18 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
         }
         ctx.getRequest().setAttribute("parentChannelChecksums", parentChannelChecksums);
 
+        JSONWriter json = new JSONWriter();
+
         // base channel arches
         List<Map<String, String>> channelArches = new ArrayList<Map<String, String>>();
         List<ChannelArch> arches = ChannelManager.getChannelArchitectures();
-        List<String> allArchConstruct = new ArrayList<String>();
+        List<Map<String, String>> allArchConstruct = new ArrayList<Map<String, String>>();
         for (ChannelArch arch : arches) {
             addOption(channelArches, arch.getName(), arch.getLabel());
-            allArchConstruct.add(arch.getLabel() + ":" + arch.getName());
+            Map<String, String> archAttrs = new HashMap<String, String>();
+            archAttrs.put(NAME, arch.getName());
+            archAttrs.put(LABEL, arch.getLabel());
+            allArchConstruct.add(archAttrs);
         }
         ctx.getRequest().setAttribute("channelArches", channelArches);
 
@@ -733,27 +746,19 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
         Set<String> uniqueParentChannelArches = new HashSet<String>(parentChannelArches
                 .values());
         for (String arch : uniqueParentChannelArches) {
-            List<Map<String, String>> compatibleArches = ChannelManager
-                    .compatibleChildChannelArches(arch);
-            List<String> mapConstruct = new ArrayList<String>();
-            for (Map<String, String> compatibleArch : compatibleArches) {
-                mapConstruct
-                        .add(compatibleArch.get(LABEL) + ":" + compatibleArch.get(NAME));
-            }
-            archCompatMap.put(arch, StringUtils.join(mapConstruct.toArray(), ","));
+            archCompatMap.put(
+                    arch, json.write(ChannelManager.compatibleChildChannelArches(arch)));
         }
         // empty string for when there is no parent, all arches are available
-        archCompatMap.put("", StringUtils.join(allArchConstruct.toArray(), ","));
+        archCompatMap.put("", json.write(allArchConstruct));
         ctx.getRequest().setAttribute("archCompatMap", archCompatMap);
 
         // set the list of yum supported checksums
         List<Map<String, String>> checksums = new ArrayList<Map<String, String>>();
-        addOption(checksums, ls.getMessage("generic.jsp.none"), "");
         for (ChecksumType chType : ChannelFactory.listYumSupportedChecksums()) {
             addOption(checksums, chType.getLabel(), chType.getLabel());
         }
         ctx.getRequest().setAttribute("checksums", checksums);
-
     }
 
     /**
