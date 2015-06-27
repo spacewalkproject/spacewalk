@@ -679,7 +679,7 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
             form.set(ORG_SHARING, DEFAULT_ORG_SHARING);
             form.set(SUBSCRIPTIONS, DEFAULT_SUBSCRIPTIONS);
             form.set(CHECKSUM, DEFAULT_CHECKSUM);
-            form.set(ARCH, DEFAULT_ARCH);
+            ctx.getRequest().setAttribute(CHANNEL_ARCH_LABEL, DEFAULT_ARCH);
         }
     }
 
@@ -759,7 +759,6 @@ public class EditChannelAction extends RhnAction implements Listable<OrgTrust> {
             addOption(checksums, chType.getLabel(), chType.getLabel());
         }
         ctx.getRequest().setAttribute("checksums", checksums);
-
     }
 
     /**

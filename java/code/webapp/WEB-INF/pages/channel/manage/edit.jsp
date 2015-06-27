@@ -162,6 +162,7 @@
                     <c:choose>
                         <c:when test='${empty param.cid}'>
                             <html:select property="arch"
+                                         value="${channel_arch_label}"
                                          styleClass="form-control"
                                          styleId="parentarch">
                                 <html:options collection="channelArches"
