@@ -114,14 +114,6 @@ is
         quantity_in in number
     );
 
-    procedure assign_channel_entitlement(
-        channel_family_label_in in varchar2,
-        from_org_id_in in number,
-        to_org_id_in in number,
-        quantity_in in number,
-        flex_in in number
-    );
-
     procedure activate_system_entitlement(
         org_id_in in number,
         group_label_in in varchar2,
