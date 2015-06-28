@@ -71,8 +71,6 @@ IS
 
     FUNCTION family_for_channel(channel_id_in IN NUMBER) RETURN NUMBER;
 
-    FUNCTION available_fve_chan_subs(channel_id_in IN NUMBER, org_id_in IN NUMBER) RETURN NUMBER;
-
     PROCEDURE unsubscribe_server_from_family(server_id_in in number, channel_family_id_in in number);
 
     PROCEDURE delete_server_channels(server_id_in in number);
