@@ -26,8 +26,6 @@ rhnAvailableChannels
 	channel_name,
 	channel_arch_id,
 	padded_name,
-	current_members,
-	available_members,
         last_modified,
         channel_label,
 	parent_or_self_label,
@@ -41,13 +39,6 @@ select
      CT.name,
      CT.channel_arch_id,
      CT.padded_name,
-    (SELECT COUNT(1)
-     FROM rhnServer S 
-     INNER JOIN rhnServerChannel SC
-       ON SC.server_id = S.id
-     WHERE SC.channel_id = CT.id AND
-           S.org_id = CT.org_id),
-     rhn_channel.available_chan_subscriptions(ct.id, ct.org_id),
      CT.last_modified,
      CT.label,
      CT.parent_or_self_label,
@@ -62,13 +53,6 @@ select
      CT.name,
      CT.channel_arch_id,
      CT.padded_name,
-    (SELECT COUNT(1)
-     FROM rhnServer S 
-     INNER JOIN rhnServerChannel SC
-       ON SC.server_id = S.id
-     WHERE SC.channel_id = CT.id AND
-           S.org_id = CT.org_id),
-     NULL,
      CT.last_modified,
      CT.label,
      CT.parent_or_self_label,
