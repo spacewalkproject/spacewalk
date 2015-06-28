@@ -135,36 +135,21 @@ IS
                 rhn_exception.raise_exception('channel_family_no_subscriptions');
         end;
 
-        available_subscriptions := rhn_channel.available_family_subscriptions(channel_family_id_val, server_org_id_val);
-        available_fve_subs := rhn_channel.available_fve_family_subs(channel_family_id_val, server_org_id_val);
+        insert into rhnServerHistory (id,server_id,summary,details) (
+            select  rhn_event_id_seq.nextval,
+                    server_id_in,
+                    'subscribed to channel ' || SUBSTR(c.label, 0, 106),
+                    c.label
+            from    rhnChannel c
+            where   c.id = channel_id_in
+        );
 
-        IF available_subscriptions IS NULL OR
-            available_subscriptions > 0 or
-            can_server_consume_virt_channl(server_id_in, channel_family_id_val) = 1 OR
-            (available_fve_subs > 0 AND can_server_consume_fve(server_id_in) = 1)
-        THEN
-            if can_server_consume_virt_channl(server_id_in, channel_family_id_val) = 0 AND available_fve_subs > 0 AND can_server_consume_fve(server_id_in) = 1 THEN
-                is_fve := 'Y';
-            END IF;
-            insert into rhnServerHistory (id,server_id,summary,details) (
-                select  rhn_event_id_seq.nextval,
-                        server_id_in,
-                        'subscribed to channel ' || SUBSTR(c.label, 0, 106),
-                        c.label
-                from    rhnChannel c
-                where   c.id = channel_id_in
-            );
+        INSERT INTO rhnServerChannel (server_id, channel_id, is_fve) VALUES (server_id_in, channel_id_in, is_fve);
+        queue_server(server_id_in, immediate_in);
 
-            INSERT INTO rhnServerChannel (server_id, channel_id, is_fve) VALUES (server_id_in, channel_id_in, is_fve);
-            queue_server(server_id_in, immediate_in);
-
-            update rhnServer
-               set channels_changed = current_timestamp
-             where id = server_id_in;
-        ELSE
-            rhn_exception.raise_exception('channel_family_no_subscriptions');
-        END IF;
-            
+        update rhnServer
+           set channels_changed = current_timestamp
+         where id = server_id_in;
     END subscribe_server;
 
     function can_server_consume_virt_channl(
