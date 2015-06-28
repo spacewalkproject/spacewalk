@@ -63,8 +63,6 @@ IS
 
     PROCEDURE clear_subscriptions(server_id_in IN NUMBER, deleting_server in number := 0);
 
-    FUNCTION available_family_subscriptions(channel_family_id_in IN NUMBER, org_id_in IN NUMBER) RETURN NUMBER;
-
     FUNCTION channel_family_current_members(channel_family_id_in IN NUMBER, org_id_in IN NUMBER) return number;
 
     FUNCTION family_for_channel(channel_id_in IN NUMBER) RETURN NUMBER;
