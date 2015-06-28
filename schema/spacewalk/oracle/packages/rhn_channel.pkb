@@ -455,45 +455,7 @@ IS
         RETURN max_members_val - current_members_val;                   
     END available_family_subscriptions;
 
-    FUNCTION available_fve_family_subs(channel_family_id_in IN NUMBER, org_id_in IN NUMBER)
-    RETURN NUMBER
-    IS
-        cfp channel_family_perm_cursor%ROWTYPE;
-        fve_current_members_val NUMBER;
-        fve_max_members_val     NUMBER;
-        found               NUMBER;
 
-    BEGIN
-        IF NOT channel_family_perm_cursor%ISOPEN THEN
-            OPEN channel_family_perm_cursor(channel_family_id_in, org_id_in);
-        END IF;
-
-        FETCH channel_family_perm_cursor INTO cfp;
-
-        WHILE channel_family_perm_cursor%FOUND LOOP
-            found := 1;
-            fve_current_members_val := cfp.fve_current_members;
-            fve_max_members_val := cfp.fve_max_members;
-            FETCH channel_family_perm_cursor INTO cfp;
-        END LOOP;
-
-        IF channel_family_perm_cursor%ISOPEN THEN
-            CLOSE channel_family_perm_cursor;
-        END IF;
-
-        IF found IS NULL THEN
-            RETURN 0;
-        END IF;
-
-        IF fve_max_members_val IS NULL THEN
-            RETURN NULL;
-        END IF;
-
-        RETURN fve_max_members_val - fve_current_members_val;
-
-    END available_fve_family_subs;
-
-    
     -- *******************************************************************
     -- FUNCTION: channel_family_current_members
     -- Calculates and returns the actual count of systems consuming
