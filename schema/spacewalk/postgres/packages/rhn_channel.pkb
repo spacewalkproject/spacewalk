@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 bd8d80e711630991b2489b54ad76a7b2f9450582
+-- oracle equivalent source sha1 4c5ae672cca4e3d619c56222762fc934a4a6d8a7
 --
 -- Copyright (c) 2008--2015 Red Hat, Inc.
 --
@@ -127,38 +127,22 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                 perform rhn_exception.raise_exception('channel_family_no_subscriptions');
         end;
 
-        available_subscriptions := rhn_channel.available_family_subscriptions(channel_family_id_val, server_org_id_val);
-        available_fve_subs := rhn_channel.available_fve_family_subs(channel_family_id_val, server_org_id_val);
+        insert into rhnServerHistory (id,server_id,summary,details) (
+            select  nextval('rhn_event_id_seq'),
+                    server_id_in,
+                    'subscribed to channel ' || SUBSTR(c.label, 0, 106),
+                    c.label
+            from    rhnChannel c
+            where   c.id = channel_id_in
+        );
 
-        IF available_subscriptions IS NULL OR
-           available_subscriptions > 0 or
-           rhn_channel.can_server_consume_virt_channl(server_id_in, channel_family_id_val) = 1 OR
-            (available_fve_subs > 0 AND rhn_channel.can_server_consume_fve(server_id_in) = 1)
-        THEN
-            if rhn_channel.can_server_consume_virt_channl(server_id_in, channel_family_id_val) = 0 AND available_fve_subs > 0 AND rhn_channel.can_server_consume_fve(server_id_in) = 1 THEN
-                is_fve_char := 'Y';
-            end if;
+        INSERT INTO rhnServerChannel (server_id, channel_id, is_fve) VALUES (server_id_in, channel_id_in, is_fve_char);
 
-            insert into rhnServerHistory (id,server_id,summary,details) (
-                select  nextval('rhn_event_id_seq'),
-                        server_id_in,
-                        'subscribed to channel ' || SUBSTR(c.label, 0, 106),
-                        c.label
-                from    rhnChannel c
-                where   c.id = channel_id_in
-            );
+        perform queue_server(server_id_in, immediate_in);
 
-            INSERT INTO rhnServerChannel (server_id, channel_id, is_fve) VALUES (server_id_in, channel_id_in, is_fve_char);
-
-            perform queue_server(server_id_in, immediate_in);
-
-            update rhnServer
-               set channels_changed = current_timestamp
-             where id = server_id_in;
-        ELSE
-            perform rhn_exception.raise_exception('channel_family_no_subscriptions');
-        END IF;
-
+        update rhnServer
+           set channels_changed = current_timestamp
+         where id = server_id_in;
     END$$ language plpgsql;
 
     create or replace function can_server_consume_virt_channl(
