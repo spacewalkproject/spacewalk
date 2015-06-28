@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 4c5ae672cca4e3d619c56222762fc934a4a6d8a7
+-- oracle equivalent source sha1 2826fd7f91a8b26ee86268deb317c863895faa27
 --
 -- Copyright (c) 2008--2015 Red Hat, Inc.
 --
@@ -144,34 +144,6 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
            set channels_changed = current_timestamp
          where id = server_id_in;
     END$$ language plpgsql;
-
-    create or replace function can_server_consume_virt_channl(
-        server_id_in in numeric,
-        family_id_in in numeric )
-    returns numeric
-    as $$
-    begin
-      if exists(
-            select 1
-            from
-                rhnChannelFamilyVirtSubLevel cfvsl,
-                rhnSGTypeVirtSubLevel sgtvsl,
-                rhnVirtualInstance vi
-            where
-                vi.virtual_system_id = server_id_in
-                and sgtvsl.virt_sub_level_id = cfvsl.virt_sub_level_id
-                and cfvsl.channel_family_id = family_id_in
-                and exists (
-                    select 1
-                    from rhnServerEntitlementView sev
-                    where vi.host_system_id = sev.server_id
-                    and sev.server_group_type_id = sgtvsl.server_group_type_id ))
-      then
-        return 1;
-      else
-        return 0;
-      end if;
-    end$$ language plpgsql;
 
     create or replace function can_server_consume_fve(server_id_in in numeric) returns numeric
     as $$

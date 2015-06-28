@@ -152,37 +152,6 @@ IS
          where id = server_id_in;
     END subscribe_server;
 
-    function can_server_consume_virt_channl(
-        server_id_in in number,
-        family_id_in in number )
-    return number
-    is
-
-        cursor server_virt_families is
-            select vi.virtual_system_id, cfvsl.channel_family_id
-            from
-                rhnChannelFamilyVirtSubLevel cfvsl,
-                rhnSGTypeVirtSubLevel sgtvsl,
-                rhnVirtualInstance vi
-            where
-                vi.virtual_system_id = server_id_in 
-                and sgtvsl.virt_sub_level_id = cfvsl.virt_sub_level_id
-                and cfvsl.channel_family_id = family_id_in
-                and exists (
-                    select 1
-                    from rhnServerEntitlementView sev
-                    where vi.host_system_id = sev.server_id
-                    and sev.server_group_type_id = sgtvsl.server_group_type_id );
-    begin
-
-        for server_virt_family in server_virt_families loop
-            return 1;
-        end loop;
-
-        return 0;
-
-    end;
-
     FUNCTION can_server_consume_fve(server_id_in IN NUMBER)
     RETURN NUMBER
     IS
