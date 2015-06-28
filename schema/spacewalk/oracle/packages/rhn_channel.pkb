@@ -515,20 +515,6 @@ IS
         return current_members_count;
     end;
 
-    FUNCTION available_chan_subscriptions(channel_id_in IN NUMBER, 
-                                          org_id_in IN NUMBER)
-    RETURN NUMBER
-    IS
-            channel_family_id_val NUMBER;
-    BEGIN
-        SELECT channel_family_id INTO channel_family_id_val
-            FROM rhnChannelFamilyMembers
-            WHERE channel_id = channel_id_in;
-         
-            RETURN rhn_channel.available_family_subscriptions(
-                           channel_family_id_val, org_id_in);
-    END available_chan_subscriptions;
-
 	FUNCTION available_fve_chan_subs(channel_id_in IN NUMBER,
                                           org_id_in IN NUMBER)
     RETURN NUMBER
