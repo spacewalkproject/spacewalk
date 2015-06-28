@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 2826fd7f91a8b26ee86268deb317c863895faa27
+-- oracle equivalent source sha1 75c8c2b3a3b81d675531059d6d1be5f34bdd28aa
 --
 -- Copyright (c) 2008--2015 Red Hat, Inc.
 --
@@ -144,22 +144,6 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
            set channels_changed = current_timestamp
          where id = server_id_in;
     END$$ language plpgsql;
-
-    create or replace function can_server_consume_fve(server_id_in in numeric) returns numeric
-    as $$
-    declare
-        vi_entries cursor for
-            SELECT 1
-              FROM rhnVirtualInstance vi
-             WHERE vi.virtual_system_id = server_id_in;
-        vi_count numeric;
-
-    begin
-        FOR vi_entry IN VI_ENTRIES LOOP
-            return 1;
-        END LOOP;
-        RETURN 0;
-    end$$ language plpgsql;
 
     create or replace function guess_server_base(
         server_id_in in numeric
