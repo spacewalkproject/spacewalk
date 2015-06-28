@@ -152,22 +152,6 @@ IS
          where id = server_id_in;
     END subscribe_server;
 
-    FUNCTION can_server_consume_fve(server_id_in IN NUMBER)
-    RETURN NUMBER
-    IS
-        CURSOR vi_entries IS
-            SELECT 1
-              FROM rhnVirtualInstance vi
-             WHERE vi.virtual_system_id = server_id_in;
-        vi_count NUMBER;
-
-    BEGIN
-        FOR vi_entry IN VI_ENTRIES LOOP
-            return 1;
-        END LOOP;
-        RETURN 0;
-    END;
-
     function guess_server_base(
         server_id_in in number
     ) RETURN number is

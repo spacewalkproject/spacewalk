@@ -49,8 +49,6 @@ IS
                                  deleting_server in number := 0);
     PROCEDURE subscribe_server(server_id_in IN NUMBER, channel_id_in NUMBER, immediate_in NUMBER := 1, user_id_in number := null);
 
-    FUNCTION can_server_consume_fve( server_id_in IN NUMBER) RETURN NUMBER;
-
     FUNCTION guess_server_base(server_id_in IN NUMBER) RETURN NUMBER;
 
     FUNCTION base_channel_for_release_arch(release_in in varchar2,
