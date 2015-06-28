@@ -49,10 +49,6 @@ IS
                                  deleting_server in number := 0);
     PROCEDURE subscribe_server(server_id_in IN NUMBER, channel_id_in NUMBER, immediate_in NUMBER := 1, user_id_in number := null);
 
-    PROCEDURE convert_to_fve(server_id_in IN NUMBER, channel_family_id_val IN NUMBER);
-
-    FUNCTION can_convert_to_fve(server_id_in IN NUMBER, channel_family_id_val IN NUMBER)  RETURN NUMBER;
-
     function can_server_consume_virt_channl(
         server_id_in IN NUMBER,
         family_id_in in number)
