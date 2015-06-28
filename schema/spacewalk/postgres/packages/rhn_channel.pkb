@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 75c8c2b3a3b81d675531059d6d1be5f34bdd28aa
+-- oracle equivalent source sha1 c96cc0855fd65f5116bf8ddad38269072475fe8c
 --
 -- Copyright (c) 2008--2014 Red Hat, Inc.
 --
@@ -523,21 +523,6 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
            and  cfsp.customer_id = org_id_in;
         return current_members_count;
     end$$ language plpgsql;
-
-    CREATE OR REPLACE FUNCTION available_chan_subscriptions(channel_id_in IN NUMERIC,
-                                          org_id_in IN NUMERIC)
-    RETURNS NUMERIC
-    AS $$
-    declare
-            channel_family_id_val NUMERIC;
-    BEGIN
-        SELECT channel_family_id INTO STRICT channel_family_id_val
-            FROM rhnChannelFamilyMembers
-            WHERE channel_id = channel_id_in;
-
-            RETURN rhn_channel.available_family_subscriptions(
-                           channel_family_id_val, org_id_in);
-    END$$ language plpgsql;
 
     CREATE OR REPLACE FUNCTION available_fve_chan_subs(channel_id_in IN NUMERIC,
                                           org_id_in IN NUMERIC)
