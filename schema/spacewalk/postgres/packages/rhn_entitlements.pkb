@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 c633e6b256bf78d5470c4243da2394915a192112
+-- oracle equivalent source sha1 5f40368e7cf1f4d3e50600b7dd2f893984f2f362
 --
 -- Copyright (c) 2008--2015 Red Hat, Inc.
 --
@@ -517,16 +517,6 @@ language plpgsql;
     ) returns void
 as $$
     declare
-        -- All channel families associated with the guests of server_id_in
-        families cursor for
-            select distinct cfs.channel_family_id
-            from
-                rhnChannelFamilyServers cfs,
-                rhnVirtualInstance vi
-            where
-                vi.host_system_id = server_id_in
-                and vi.virtual_system_id = cfs.server_id;
-
         -- All of server group types associated with the guests of
         -- server_id_in
         group_types cursor for
@@ -541,22 +531,6 @@ as $$
                 and vi.virtual_system_id = sgm.server_id
                 and sgm.server_group_id = sg.id
                 and sg.group_type = sgt.id;
-
-        -- Virtual servers from a certain family belonging to a specific
-        -- host that are consuming physical channel slots over the limit.
-        virt_servers_cfam cursor(family_id_in numeric, quantity_in numeric) for
-                select vi.virtual_system_id
-                from
-                    rhnChannelFamilyMembers cfm,
-                    rhnServerChannel sc,
-                    rhnVirtualInstance vi
-                where
-                    vi.host_system_id = server_id_in
-                    and vi.virtual_system_id = sc.server_id
-                    and sc.channel_id = cfm.channel_id
-                    and cfm.channel_family_id = family_id_in
-                order by sc.modified desc
-                limit quantity_in;
 
         -- Virtual servers from a certain family belonging to a specific
         -- host that are consuming physical system slots over the limit.
@@ -605,89 +579,6 @@ as $$
         into org_id_val
         from rhnServer
         where id = server_id_in;
-
-        -- deal w/ channel entitlements first ...
-        for family in families loop
-            if is_virt = 0 then
-            -- if the host_server does not have virt
-            --- find all possible flex slots
-            -- and set each of the flex eligible guests to Y
-                select GREATEST(sfc.max_members - sfc.current_members, 0)
-                  into free_slots
-                  from rhnServerFveCapable sfc
-                 where sfc.channel_family_id = family.channel_family_id;
-                UPDATE rhnServerChannel sc set is_fve = 'Y'
-                where sc.server_id in (
-                            select vi.virtual_system_id
-                            from rhnServerFveCapable sfc
-                                inner join rhnVirtualInstance vi on vi.virtual_system_id = sfc.server_id
-                            where vi.host_system_id = server_id_in
-                                  and sfc.channel_family_id = family.channel_family_id
-                              order by vi.modified desc
-                            limit free_slots
-                );
-            else
-            -- if the host_server has virt
-            -- set all its flex guests to N
-                UPDATE rhnServerChannel sc set is_fve = 'N'
-                where
-                    sc.channel_id in (select cfm.channel_id from rhnChannelFamilyMembers cfm
-                                      where cfm.CHANNEL_FAMILY_ID = family.channel_family_id)
-                    and sc.is_fve = 'Y'
-                    and sc.server_id in
-                            (select vi.virtual_system_id  from rhnVirtualInstance vi
-                                    where vi.host_system_id = server_id_in);
-            end if;
-
-            -- get the current (physical) members of the family
-            current_members_calc :=
-                rhn_channel.channel_family_current_members(family.channel_family_id,
-                                                           org_id_val); -- fixed transposed args
-
-            -- get the max members of the family
-            select max_members
-            into max_members_val
-            from rhnPrivateChannelFamily
-            where channel_family_id = family.channel_family_id
-            and org_id = org_id_val;
-
-            select fve_max_members
-            into max_flex_val
-            from rhnPrivateChannelFamily
-            where channel_family_id = family.channel_family_id
-            and org_id = org_id_val;
-
-            if current_members_calc > max_members_val then
-                -- A virtualization_host* ent must have been removed, so we'll
-                -- unsubscribe guests from the host first.
-
-                -- hm, i don't think max_members - current_members_calc yielding a negative number
-                -- will work w/ rownum, swaping 'em in the body of this if...
-                for virt_server in virt_servers_cfam(family.channel_family_id,
-                                current_members_calc - max_members_val) loop
-
-                    perform rhn_channel.unsubscribe_server_from_family(
-                                virt_server.virtual_system_id,
-                                family.channel_family_id);
-                end loop;
-
-                -- if we're still over the limit, which would be odd,
-                -- just prune the group to max_members
-                --
-                -- er... wouldn't we actually have to refresh the values of
-                -- current_members_calc and max_members_val to actually ever
-                -- *skip this??
-                if current_members_calc > max_members_val then
-                    -- argh, transposed again?!
-                    perform rhn_entitlements.set_family_count(org_id_val,
-                                     family.channel_family_id,
-                                     max_members_val, max_flex_val);
-                    --TODO calculate this correctly
-                end if;
-
-           end if;
-
-        end loop;
 
         for a_group_type in group_types loop
           -- get the current *physical* members of the system entitlement type for the org...
