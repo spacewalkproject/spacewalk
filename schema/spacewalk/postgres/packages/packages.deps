@@ -26,7 +26,7 @@ rhn_channel.pkb         :: rhnChannel rhn_exception.pks rhnServer rhnServerChann
                            rhnChannelPackage rhnChannelErrata rhnSnapshotChannel \
                            rhnServerUuid rhnChannelPermissions rhnServerEntitlementView \
                            rhnChannelFamilyServerPhysical rhnSharedChannelView \
-                           rhnServerFveCapable rhnChannelFamilyServerFve \
+                           rhnChannelFamilyServerFve \
                            rhnOrgDistChannelMap \
                            rhn_user.pks
 rhn_channel.pks         :: rhnChannel rhnOrgChannelFamilyPermissions \
@@ -44,7 +44,7 @@ rhn_entitlements.pkb    :: rhnServerGroupType rhnServerGroup rhnServerGroupMembe
                            rhnUserGroup rhnChannelFamilyMembers rhnServerChannel \
                            rhnOrgChannelFamilyPermissions \
                            rhnServerServerGroupArchCompat rhnPrivateChannelFamily \
-                           rhnServerEntitlementPhysical rhnServerFveCapable
+                           rhnServerEntitlementPhysical
 rhn_entitlements.pks    :: rhnServerGroupType
 rhn_exception.pkb       :: rhnException
 rhn_exception.pks       :: rhnException
