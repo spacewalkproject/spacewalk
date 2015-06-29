@@ -101,21 +101,11 @@ public class SnapshotRollbackAction extends RhnAction {
                             ServerSnapshot snapshot) {
         boolean packagesChanged = false;
         boolean configsChanged  = false;
-        try {
-            snapshot.cancelPendingActions();
-            snapshot.rollbackChannels();
-            snapshot.rollbackGroups();
-            packagesChanged = snapshot.rollbackPackages(user);
-            configsChanged   = snapshot.rollbackConfigFiles(user);
-        }
-        catch (WrappedSQLException e) {
-            String msg = e.getMessage();
-            if (msg != null && msg.contains("channel_family_no_subscriptions")) {
-                createErrorMessage(request, NO_SUBSCRIPTION_MSG, null);
-                return RhnHelper.DEFAULT_FORWARD;
-            }
-            throw e;
-        }
+        snapshot.cancelPendingActions();
+        snapshot.rollbackChannels();
+        snapshot.rollbackGroups();
+        packagesChanged = snapshot.rollbackPackages(user);
+        configsChanged   = snapshot.rollbackConfigFiles(user);
 
         createSuccessMessage(request, GROUPS_CHANGED_MSG, null);
         if (packagesChanged) {

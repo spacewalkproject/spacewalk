@@ -388,19 +388,10 @@ public class SnapshotHandler extends BaseHandler {
         SystemManager.ensureAvailableToUser(loggedInUser, snapshot.getServer().getId());
         ActionManager.checkConfigActionOnServer(ActionFactory.TYPE_CONFIGFILES_DEPLOY,
                 snapshot.getServer());
-        try {
-            snapshot.cancelPendingActions();
-            snapshot.rollbackChannels();
-            snapshot.rollbackGroups();
-            snapshot.rollbackPackages(loggedInUser);
-            snapshot.rollbackConfigFiles(loggedInUser);
-        }
-        catch (WrappedSQLException e) {
-            String msg = e.getMessage();
-            if (msg != null && msg.contains("channel_family_no_subscriptions")) {
-                throw new SnapshotRollbackException();
-            }
-            throw e;
-        }
+        snapshot.cancelPendingActions();
+        snapshot.rollbackChannels();
+        snapshot.rollbackGroups();
+        snapshot.rollbackPackages(loggedInUser);
+        snapshot.rollbackConfigFiles(loggedInUser);
     }
 }
