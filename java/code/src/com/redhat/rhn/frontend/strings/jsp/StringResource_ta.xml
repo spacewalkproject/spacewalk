@@ -23099,7 +23099,7 @@ given channel.</source>
       <trans-unit id="channel.edit.jsp.checksumtip">
         <source>&lt;strong&gt; Tip:&lt;/strong&gt;
           sha1 offers the widest compatibility with clients. sha-256 offers higher security,
-          but is compatible only with newer clients: Fedora 11 and newer, or Enterprise Linux 6 and newer. Yum repository checksum type 'None' is supported only for RHEL 3 and RHEL 4.
+          but is compatible only with newer clients: Fedora 11 and newer, or Enterprise Linux 6 and newer.
          </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
