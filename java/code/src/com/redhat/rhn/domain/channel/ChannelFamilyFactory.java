@@ -124,8 +124,7 @@ public class ChannelFamilyFactory extends HibernateFactory {
             cfam.setName(name);
 
             // This is only really a thing for orgs we get from Hosted
-            cfam.setProductUrl("/rhn/software/channels/ChannelFamilyTree.do?cfid" +
-                    cfam.getId());
+            cfam.setProductUrl("https://getfedora.org/");
 
             ChannelFamilyFactory.save(cfam);
 
