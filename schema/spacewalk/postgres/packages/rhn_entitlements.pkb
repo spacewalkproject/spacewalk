@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 d21ea1a441c23218cf7d68f5e64b38408010533d
+-- oracle equivalent source sha1 8be194e1173fc70cf15465b0cf7acba6e7adb81d
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -1128,70 +1128,6 @@ as $$
                     where   id = group_type_in
             );
         end if;
-
-    end$$
-language plpgsql;
-
-    -- *******************************************************************
-    -- PROCEDURE: prune_family
-    -- Unsubscribes servers consuming physical slots from the channel family
-    --   that are over the org's limit.
-    -- *******************************************************************
-    create or replace function prune_family (
-        customer_id_in in numeric,
-        channel_family_id_in in numeric,
-        quantity_in in numeric,
-        flex_in in numeric
-    ) returns void
-as $$
-    declare
-        serverchannels cursor(tmp_quantity numeric, is_fve_in char) for
-            select  sc.server_id,
-                    sc.channel_id
-            from    rhnServerChannel sc,
-                    rhnChannelFamilyMembers cfm
-            where   1=1
-                and cfm.channel_family_id = channel_family_id_in
-                and cfm.channel_id = sc.channel_id
-                and server_id in (
-                       select server_id from (
-                            select  distinct rs.id as server_id
-                            from
-                                    rhnServerChannel        rsc,
-                                    rhnChannelFamilyMembers rcfm,
-                                    rhnServer               rs
-                            where   1=1
-                                and rs.org_id = customer_id_in
-                                and rs.id = rsc.server_id
-                                and rsc.channel_id = rcfm.channel_id
-                                and rcfm.channel_family_id =  channel_family_id_in
-                                and rsc.is_fve = is_fve_in
-                                -- we only want to grab servers consuming
-                                -- physical slots.
-                                and exists (
-                                    select 1
-                                    from rhnChannelFamilyServerPhysical cfsp
-                                    where cfsp.server_id = rs.id
-                                    and cfsp.channel_family_id =
-                                        channel_family_id_in
-                                    )
-                            ) Q
-                        order by server_id asc
-                        offset quantity_in
-                        );
-    begin
-        -- if we get a null customer_id, this is completely bogus.
-        if customer_id_in is null then
-            return;
-        end if;
-
-        for sc in serverchannels(quantity_in, 'N') loop
-            perform rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1, 0);
-        end loop;
-
-        for sc in serverchannels(flex_in, 'Y') loop
-            perform rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1, 0);
-        end loop;
 
     end$$
 language plpgsql;
