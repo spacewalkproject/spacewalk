@@ -33,7 +33,6 @@ insert into rhnException values (-20232, 'no_org_admin_group', 'Organization has
 insert into rhnException values (-20233, 'sg_delete_typed', 'Special server groups (non-null group_type) cannot be deleted');
 insert into rhnException values (-20234, 'ug_delete_typed', 'Special user groups (non-null group_type) cannot be deleted');
 
-insert into rhnException values (-20235, 'channel_family_no_subscriptions', 'Channel family subscription count cannot exceed maximum membership');
 insert into rhnException values (-20236, 'channel_subscribe_no_family', 'Attempt to subscribe to a channel with no family');
 
 insert into rhnException values (-20237, 'invalid_enterprise_flag','Enterprise flag must be Y or N');
