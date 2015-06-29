@@ -2612,14 +2612,6 @@
                  path="/WEB-INF/pages/channel/retired.jsp" />
     </action>
 
-    <action path="/software/channels/ChannelFamilyTree"
-        scope="request"
-        input="/WEB-INF/pages/channel/channel_family_tree.jsp"
-        type="com.redhat.rhn.frontend.action.channel.ChannelFamilyTreeAction">
-        <forward name="default"
-                 path="/WEB-INF/pages/channel/channel_family_tree.jsp" />
-    </action>
-
     <action path="/multiorg/channels/Consumed"
         scope="request"
         input="/WEB-INF/pages/multiorg/channels/consumed.jsp"
