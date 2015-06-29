@@ -1183,7 +1183,7 @@ is
                 begin
                     rhn_channel.subscribe_server(server.id, channel_id);
                     commit;
-                -- exception is really channel_family_no_subscriptions
+                -- exception is really channel_subscribe_no_family
                 exception
                     when others then
                         null;
