@@ -407,27 +407,6 @@ IS
             RETURN NULL;
     END family_for_channel;
 
-    -- *******************************************************************
-    -- FUNCTION: channel_family_current_members
-    -- Calculates and returns the actual count of systems consuming
-    --   physical channel subscriptions.
-    -- Called by:
-    --            rhn_entitlements.repoll_virt_guest_entitlements
-    -- *******************************************************************
-    function channel_family_current_members(channel_family_id_in IN NUMBER,
-                                            org_id_in IN NUMBER)
-    return number
-    is
-        current_members_count number := 0;
-    begin
-        select  count(distinct server_id)
-        into    current_members_count
-          from  rhnChannelFamilyServerPhysical cfsp
-         where  cfsp.channel_family_id = channel_family_id_in
-           and  cfsp.customer_id = org_id_in;
-        return current_members_count;
-    end;
-
     procedure unsubscribe_server_from_family(server_id_in in number,
                                              channel_family_id_in in number)
     is
