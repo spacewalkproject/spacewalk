@@ -111,14 +111,7 @@ def token_channels(server, server_arch, tokens_obj):
             sbc = None  # force true on the next test
         if sbc is None:
             # no base channel subscription at this point
-            try:
-                rhnChannel._subscribe_sql(server_id, bc["id"], commit=0)
-            except rhnChannel.SubscriptionCountExceeded:
-                ret.append("System registered without a base channel: "
-                           "subscription count exceeded for channel %s (%s)" %
-                           (bc["name"], bc["label"]))
-                return ret
-
+            rhnChannel.subscribe_sql(server_id, bc["id"], commit=0)
             ret.append("Subscribed to base channel '%s' (%s)" % (
                 bc["name"], bc["label"]))
             sbc = bc
