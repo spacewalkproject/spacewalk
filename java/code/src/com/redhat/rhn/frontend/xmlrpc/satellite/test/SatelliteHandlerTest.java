@@ -36,28 +36,6 @@ public class SatelliteHandlerTest extends BaseHandlerTestCase {
         assertEquals(server.getId(), ((Map)list[0]).get("id"));
     }
 
-    public void testListEntitlements() throws Exception {
-
-        //Can't really do that much testing, since it isn't that easy to test
-        //  these values.  Just some basic class checking done to make sure nothing has
-        //  really gone crazy
-
-        Map map = handler.listEntitlements(admin);
-        Object[] systemEnts = (Object[]) map.get("system");
-        assertNotNull(systemEnts);
-        for (int i = 0; i < systemEnts.length; i++) {
-            assertTrue(systemEnts[i].getClass() == EntitlementServerGroup.class);
-        }
-
-        Object[] channelEnts = (Object[]) map.get("channel");
-        assertNotNull(channelEnts);
-
-        for (int i = 0; i < channelEnts.length; i++) {
-            assertTrue(channelEnts[i].getClass() == ChannelOverview.class);
-        }
-    }
-
-
     public void testGetCertificateExpiration() throws Exception  {
         admin.addPermanentRole(RoleFactory.SAT_ADMIN);
         handler.getCertificateExpirationDate(admin);
