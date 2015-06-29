@@ -132,7 +132,7 @@ IS
             obtain_read_lock(channel_family_id_val, server_org_id_val);
         exception
             when no_data_found then
-                rhn_exception.raise_exception('channel_family_no_subscriptions');
+                rhn_exception.raise_exception('channel_subscribe_no_family');
         end;
 
         insert into rhnServerHistory (id,server_id,summary,details) (
