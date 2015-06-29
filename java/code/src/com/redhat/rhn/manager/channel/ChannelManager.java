@@ -192,40 +192,6 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
-     * Returns a list channel entitlements
-     * @param orgId The users org ID
-     * @param pc The PageControl
-     * @return channel entitlements
-     */
-    public static DataResult<ChannelOverview> entitlements(Long orgId, PageControl pc) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", "channel_entitlements");
-
-        Map<String, Long> params = new HashMap<String, Long>();
-        params.put("org_id", orgId);
-        return makeDataResult(params, params, pc, m, ChannelOverview.class);
-    }
-
-    /**
-     * Returns a specifically requested entitlement
-     * @param orgId The user's org ID
-     * @param entitlementId the id of the entitlement
-     * @return the Channel Entitlement
-     */
-    public static ChannelOverview getEntitlement(Long orgId, Long entitlementId) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", "channel_entitlement");
-
-        Map<String, Long> params = new HashMap<String, Long>();
-        params.put("org_id", orgId);
-        params.put("entitlement_id", entitlementId);
-        DataResult<ChannelOverview> dr = m.execute(params);
-
-        if (dr != null && !dr.isEmpty()) {
-            return dr.get(0);
-        }
-        return null;
-    }
-
-    /**
      * Returns a list of ChannelTreeNodes that have orgId null
      *      or has a parent with org_id null
      * @param user who we are requesting channels for
