@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.25
+Version: 2.4.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jun 29 2015 Jan Dobes 2.4.26-1
+- checksum type None is no longer available
+- Make arch x86_64 the default when creating new channels.
+- Remove checksum type None. It prevents metadata generation.
+- do not recreate the option tags, just change visibility
+- New Channel: Fix setting the default architecture/checksum when selecting
+  back Parent: None
+
 * Fri Jun 26 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.25-1
 - Avoid deadlock in CompareConfigFilesTask when a
   rhn_channel.update_needed_cache is in progress
