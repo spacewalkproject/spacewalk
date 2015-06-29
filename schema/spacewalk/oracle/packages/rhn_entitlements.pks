@@ -120,13 +120,6 @@ is
         quantity_in in number
     );
 
-    procedure set_family_count (
-		customer_id_in in number,		-- customer_id
-		channel_family_id_in in number,	-- 246
-		quantity_in in number,			-- 3
-                flex_in in number
-    );
-
     -- this makes NO checks that the quantity is within max,
     -- so we should NEVER run this unless we KNOW that we won't be
     -- violating the max
