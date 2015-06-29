@@ -54,11 +54,6 @@ class ChannelException(Exception):
         self.channel_id = channel_id
         self.channel = None
 
-# FIXME SC: remove after cleanup of the stored proceedure
-class SubscriptionCountExceeded(ChannelException):
-    pass
-
-
 class ModifiedError(ChannelException):
     pass
 
@@ -1779,16 +1774,13 @@ def __auth_user(server_id, username, password):
 
 
 # small wrapper around a PL/SQL function
-def _subscribe_sql(server_id, channel_id, commit=1):
+def subscribe_sql(server_id, channel_id, commit=1):
     log_debug(3, server_id, channel_id, commit)
     subscribe_channel = rhnSQL.Procedure("rhn_channel.subscribe_server")
     try:
         # don't run the EC yet
         subscribe_channel(server_id, channel_id, 0)
     except rhnSQL.SQLSchemaError, e:
-        # FIXME SC: remove after cleanup of the stored proceedure
-        if e.errno == 20235:  # channel_family_no_subscriptions
-            raise SubscriptionCountExceeded(channel_id=channel_id), None, sys.exc_info()[2]
         if e.errno == 20102:  # channel_server_one_base
             log_error("Channel subscribe failed, "
                       "%s already subscribed to %s (?)" % (server_id, channel_id))
@@ -1803,18 +1795,6 @@ def _subscribe_sql(server_id, channel_id, commit=1):
     if commit:
         rhnSQL.commit()
     return 1
-
-
-# Wrapper around _subscribe_sql, raises rhnFault instead of
-# SubscriptionCountExceeded
-def subscribe_sql(server_id, channel_id, commit=1):
-    try:
-        _subscribe_sql(server_id, channel_id, commit=commit)
-    except SubscriptionCountExceeded:
-        # FIXME SC: remove after cleanup of the stored proceedure
-        log_error("Subscription count exceeded for channel id %s" %
-                  channel_id)
-        raise rhnFault(70, "Subscription count for the target channel exceeded"), None, sys.exc_info()[2]
 
 _query_parent_channel_subscribed = rhnSQL.Statement("""
 select 1
@@ -1962,7 +1942,7 @@ def guess_channels_for_server(server, user_id=None, none_ok=0,
                        % (server.release, server.arch)), None, sys.exc_info()[2]
 
 # Subscribes the server to channels
-# can raise SubscriptionCountExceeded, BaseChannelDeniedError, NoBaseChannelError
+# can raise BaseChannelDeniedError, NoBaseChannelError
 # Only used for new server registrations
 
 
@@ -1977,14 +1957,7 @@ def subscribe_server_channels(server, user_id=None, none_ok=0):
                                          raise_exceptions=1)
     rhnSQL.transaction('subscribe_server_channels')
     for c in channels:
-        try:
-            _subscribe_sql(s.id, c["id"], 0)
-        except SubscriptionCountExceeded, e:
-            # FIXME SC: remove after cleanup of the stored proceedure
-            rhnSQL.rollback('subscribe_server_channels')
-            # Re-raise the exception
-            e.channel = c
-            raise
+        subscribe_sql(s.id, c["id"], 0)
 
     return channels
 

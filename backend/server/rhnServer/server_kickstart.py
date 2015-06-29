@@ -514,11 +514,7 @@ def _subscribe_server_to_capable_channels(server_id, scheduler, capability):
                 return packages
 
             # Try to subscribe to it
-            try:
-                rhnChannel._subscribe_sql(server_id, channel_id, 0)
-            except rhnChannel.SubscriptionCountExceeded:
-                # Try another one
-                continue
+            rhnChannel.subscribe_sql(server_id, channel_id, 0)
             log_debug(4, "Subscribed to", channel_id,
                       "Found packages", packages)
             # We subscribed to this channel - we're done

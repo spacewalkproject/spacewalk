@@ -535,7 +535,7 @@ class Server(ServerWrapper):
             if channel is not None:
                 channel_info = dict(rhnChannel.channel_info(channel))
                 log_debug(4, "eus channel id %s" % str(channel_info))
-                rhnChannel._subscribe_sql(server_id, channel_info['id'])
+                rhnChannel.subscribe_sql(server_id, channel_info['id'])
             else:
                 rhnChannel.subscribe_server_channels(self,
                                                      none_ok=have_reg_token,

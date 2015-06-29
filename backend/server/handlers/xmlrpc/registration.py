@@ -396,7 +396,6 @@ class Registration(rhnHandler):
             # groups, channels, etc)
 
             # bretm 02/19/2007 -- this shouldn't throw any of the following:
-            #   SubscriptionCountExceeded
             #   BaseChannelDeniedError
             #   NoBaseChannelError
             # since we have the token object, and underneath the hood, we have none_ok=have_token
@@ -407,8 +406,7 @@ class Registration(rhnHandler):
             try:
                 # don't commit
                 newserv.save(0, channel)
-            except (rhnChannel.SubscriptionCountExceeded,
-                    rhnChannel.NoBaseChannelError), channel_error:
+            except (rhnChannel.NoBaseChannelError), channel_error:
                 raise rhnFault(70), None, sys.exc_info()[2]
             except rhnChannel.BaseChannelDeniedError, channel_error:
                 raise rhnFault(71), None, sys.exc_info()[2]
@@ -437,7 +435,6 @@ class Registration(rhnHandler):
         # Commits to the db.
         #
         # bretm 02/19/2007 -- this *can* now throw any of the following:
-        #   rhnChannel.SubscriptionCountExceeded
         #   rhnChannel.BaseChannelDeniedError
         #   rhnChannel.NoBaseChannelError
         #   rhnSystemEntitlementException
@@ -445,8 +442,7 @@ class Registration(rhnHandler):
         #   +--rhnNoSystemEntitlementsException
         try:
             newserv.save(1, channel)
-        except (rhnChannel.SubscriptionCountExceeded,
-                rhnChannel.NoBaseChannelError), channel_error:
+        except (rhnChannel.NoBaseChannelError), channel_error:
             raise rhnFault(70), None, sys.exc_info()[2]
         except rhnChannel.BaseChannelDeniedError, channel_error:
             raise rhnFault(71), None, sys.exc_info()[2]
@@ -506,7 +502,6 @@ class Registration(rhnHandler):
         # bretm 02/19/2007 -- the following things get thrown underneath,
         # but we issue the faults in create_system for uniformity:
         #
-        #   rhnChannel.SubscriptionCountExceeded
         #   rhnChannel.BaseChannelDeniedError
         #   rhnChannel.NoBaseChannelError
         #   rhnSystemEntitlementException
