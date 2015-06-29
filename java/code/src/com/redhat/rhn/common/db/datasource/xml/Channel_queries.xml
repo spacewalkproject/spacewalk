@@ -219,23 +219,6 @@ ORDER BY UPPER(C.name)
   </query>
 </callable-mode>
 
-
-
-<mode name="channel_entitlements" class="com.redhat.rhn.frontend.dto.ChannelOverview">
-  <query params="org_id">
-SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url,
-                CFO.fve_current_members as current_flex, CFO.fve_max_members as max_flex,
-                (select count(distinct s.id)
-                    from rhnServerChannel sc
-                         inner join rhnChannelFamilyMembers CFM on CFM.channel_id = sc.channel_id
-                         inner join rhnServer s on s.id = sc.server_id
-                     where CFM.channel_family_id = CFO.id and s.org_id = cfo.org_id) as subscribe_count
-  FROM rhnChannelFamilyOverview CFO
- WHERE CFO.org_id = :org_id
- ORDER BY CFO.name ASC
-  </query>
-</mode>
-
 <mode name="channel_entitlement" class="com.redhat.rhn.frontend.dto.ChannelOverview">
   <query params="org_id, entitlement_id">
 SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members,
