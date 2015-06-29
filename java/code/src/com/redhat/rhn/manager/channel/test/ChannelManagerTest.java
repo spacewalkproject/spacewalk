@@ -126,27 +126,6 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
     }
 
-    public void testEntitlements() throws Exception {
-        ChannelFactoryTest.createTestChannel(user);
-
-        OrgFactory.save(user.getOrg());
-
-        DataResult<ChannelOverview> dr =
-                ChannelManager.entitlements(user.getOrg().getId(), null);
-        assertNotEmpty(dr);
-    }
-
-    public void testGetEntitlement() throws Exception {
-        Channel channel = ChannelFactoryTest.createTestChannel(user);
-
-        OrgFactory.save(user.getOrg());
-
-        ChannelOverview co = ChannelManager.getEntitlement(user.getOrg().getId(),
-                                                   channel.getChannelFamily().getId());
-        assertNotNull(co);
-
-    }
-
     public void testVendorChannelTree() throws Exception {
 
         Channel channel = ChannelFactoryTest.createTestChannel(user);
