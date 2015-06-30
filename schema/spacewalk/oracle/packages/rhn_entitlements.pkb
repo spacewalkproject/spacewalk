@@ -530,16 +530,6 @@ is
                 order by sgm.modified desc
                 )
             where rownum <= quantity_in;
-        -- Get the orgs of Virtual guests
-        -- Since they may belong to different orgs
-        cursor virt_guest_orgs  is
-                select  distinct (s.org_id)
-                from rhnServer s
-                    inner join  rhnVirtualInstance vi on vi.virtual_system_id = s.id
-                where
-                    vi.host_system_id = server_id_in
-                    and s.org_id <> (select s1.org_id from rhnServer s1 where s1.id = vi.host_system_id) ;
-
 
         org_id_val number;
         max_members_val number;
