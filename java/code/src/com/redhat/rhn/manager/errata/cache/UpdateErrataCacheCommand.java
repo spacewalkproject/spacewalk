@@ -120,7 +120,7 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
                 handleTransaction();
             }
         }
-        log.info("Finished with servers in channel [" + serverId + "]");
+        log.info("Finished errata cache for server [" + serverId + "]");
         return changes;
     }
 
