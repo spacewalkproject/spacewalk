@@ -26,6 +26,8 @@ import pprint
 import subprocess
 import datetime
 import re
+if sys.version_info >= (2, 7, 9):
+    import ssl
 
 from yum.Errors import RepoError
 
@@ -791,7 +793,12 @@ class RemoteApi:
     cache = {}
 
     def __init__(self, server_url, username, password):
-        self.client = xmlrpclib.Server(server_url)
+        if server_url.startswith("https") and sys.version_info >= (2, 7, 9):
+            self.client = xmlrpclib.Server(server_url, verbose=0,
+                                  context=ssl._create_unverified_context())
+        else:
+            self.client = xmlrpclib.Server(server_url)
+
         self.auth_time = None
         self.auth_token = None
         try:
