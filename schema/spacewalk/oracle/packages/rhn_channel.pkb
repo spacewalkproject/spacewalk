@@ -56,11 +56,7 @@ IS
         server_already_in_chan  BOOLEAN;
         channel_family_id_val   NUMBER;
         server_org_id_val       NUMBER;
-        available_subscriptions NUMBER;
-        available_fve_subs      NUMBER;
-        consenting_user         NUMBER;
         allowed                 number := 0;
-        is_fve                  CHAR(1) := 'N';
     BEGIN
         if user_id_in is not null then
             allowed := rhn_channel.user_role_check(channel_id_in, user_id_in, 'subscribe');
@@ -144,7 +140,7 @@ IS
             where   c.id = channel_id_in
         );
 
-        INSERT INTO rhnServerChannel (server_id, channel_id, is_fve) VALUES (server_id_in, channel_id_in, is_fve);
+        INSERT INTO rhnServerChannel (server_id, channel_id, is_fve) VALUES (server_id_in, channel_id_in, 'N');
         queue_server(server_id_in, immediate_in);
 
         update rhnServer
@@ -299,7 +295,6 @@ IS
     IS
         channel_family_id_val   NUMBER;
         server_org_id_val       NUMBER;
-        available_subscriptions NUMBER; 
         server_already_in_chan  BOOLEAN;
         cursor  channel_family_is_proxy(channel_family_id_in in number) is
                 select  1
