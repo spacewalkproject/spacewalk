@@ -64,6 +64,9 @@ public class ErrataCacheWorker implements QueueWorker {
                     logger.debug("Updating errata cache for sid [" + sid + "]");
                 }
                 uecc.updateErrataCacheForServer(sid, false);
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Finished errata cache for sid [" + sid + "]");
+                }
             }
             else if (ErrataCacheWorker.BY_CHANNEL.equals(task.getName())) {
                 Long cid = task.getData();
@@ -71,6 +74,9 @@ public class ErrataCacheWorker implements QueueWorker {
                     logger.debug("Updating errata cache for cid [" + cid + "]");
                 }
                 uecc.updateErrataCacheForChannel(cid);
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Finished errata cache for cid [" + cid + "]");
+                }
             }
             HibernateFactory.commitTransaction();
         }
