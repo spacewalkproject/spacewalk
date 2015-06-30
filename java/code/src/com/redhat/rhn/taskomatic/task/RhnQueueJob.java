@@ -127,7 +127,7 @@ public abstract class RhnQueueJob implements RhnJob {
         int queueSize = queue.getQueueSize();
         getLogger().debug("Queue size (before run): " + queueSize);
         if (queueSize < maxWorkItems) {
-            queue.run(this);
+            queue.run();
         }
         else {
             getLogger().debug("Maximum number of workers already put ... skipping.");
