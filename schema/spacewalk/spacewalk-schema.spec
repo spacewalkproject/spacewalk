@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.4.14
+Version:        2.4.15
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Jun 30 2015 Grant Gainey 2.4.15-1
+- 1234604 - teach oracle to do update_needed_cache async as well
+
 * Mon Jun 22 2015 Grant Gainey 2.4.14-1
 - 1234604 - Fix oracle-sha1sum for 007- upgrade
 
