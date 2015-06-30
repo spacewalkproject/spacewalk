@@ -1216,8 +1216,7 @@ IS
                  where sc.channel_id = channel_id_in
                  order by id asc
       ) loop
-         rhn_server.update_needed_cache(server.id);
-         commit;
+         queue_server(server.id, 0); -- NOT IMMEDIATELY
       end loop;
    end update_needed_cache;
 
