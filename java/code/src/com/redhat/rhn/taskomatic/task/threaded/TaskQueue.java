@@ -109,7 +109,7 @@ public class TaskQueue {
     public void run() {
         setupQueue();
         List candidates = queueDriver.getCandidates();
-        queueSize = candidates.size();
+        queueSize += candidates.size();
         if (queueSize > 0) {
             queueDriver.getLogger().info("In the queue: " + queueSize);
         }
