@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 22d73f7139dee5c824c268fe240db3b6a8f96325
+-- oracle equivalent source sha1 b6a806fbaea616a7d5525d7305ea674cad76a6ff
 --
 -- Copyright (c) 2008--2015 Red Hat, Inc.
 --
@@ -60,11 +60,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
         server_already_in_chan  BOOLEAN;
         channel_family_id_val   NUMERIC;
         server_org_id_val       NUMERIC;
-        available_subscriptions NUMERIC;
-        available_fve_subs      numeric;
-        consenting_user         NUMERIC;
         allowed                 numeric;
-        is_fve_char             char(1) := 'N';
     BEGIN
         if user_id_in is not null then
             allowed := rhn_channel.user_role_check(channel_id_in, user_id_in, 'subscribe');
@@ -136,7 +132,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
             where   c.id = channel_id_in
         );
 
-        INSERT INTO rhnServerChannel (server_id, channel_id, is_fve) VALUES (server_id_in, channel_id_in, is_fve_char);
+        INSERT INTO rhnServerChannel (server_id, channel_id, is_fve) VALUES (server_id_in, channel_id_in, 'N');
 
         perform queue_server(server_id_in, immediate_in);
 
@@ -331,7 +327,6 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
     declare
         channel_family_id_val   NUMERIC;
         server_org_id_val       NUMERIC;
-        available_subscriptions NUMERIC;
         server_already_in_chan  BOOLEAN;
         channel_family_is_proxy cursor(channel_family_id_in numeric) for
                 select  1
