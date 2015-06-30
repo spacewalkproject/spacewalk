@@ -795,7 +795,7 @@ class RemoteApi:
     def __init__(self, server_url, username, password):
         if server_url.startswith("https") and sys.version_info >= (2, 7, 9):
             self.client = xmlrpclib.Server(server_url, verbose=0,
-                                  context=ssl._create_unverified_context())
+                                           context=ssl._create_unverified_context())
         else:
             self.client = xmlrpclib.Server(server_url)
 
