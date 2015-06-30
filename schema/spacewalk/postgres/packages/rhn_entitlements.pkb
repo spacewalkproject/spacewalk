@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 f7f2f81c4e59d41c7088a713501b48ec2810c8d1
+-- oracle equivalent source sha1 a5864b4203c3b6c069dd5943fa9f20a7d0926a21
 --
 -- Copyright (c) 2008--2015 Red Hat, Inc.
 --
@@ -547,16 +547,6 @@ as $$
                     and sg.group_type = group_type_in
                 order by sgm.modified desc
                 limit quantity_in;
-
-        -- Get the orgs of Virtual guests
-        -- Since they may belong to different orgs
-        virt_guest_orgs cursor for
-                select  distinct (s.org_id)
-                from rhnServer s
-                    inner join  rhnVirtualInstance vi on vi.virtual_system_id = s.id
-                where
-                    vi.host_system_id = server_id_in
-                    and s.org_id <> (select s1.org_id from rhnServer s1 where s1.id = vi.host_system_id) ;
 
         org_id_val numeric;
         max_members_val numeric;
