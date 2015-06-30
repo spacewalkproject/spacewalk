@@ -44,9 +44,6 @@ procedure delete_server (
 
     is_virt number := 0;
 begin
-	rhn_channel.delete_server_channels(server_id_in);
-	-- rhn_channel.clear_subscriptions(server_id_in);
-
         -- filelists
 	select	spfl.file_list_id id bulk collect into filelistsid_c
 	  from	rhnServerPreserveFileList spfl

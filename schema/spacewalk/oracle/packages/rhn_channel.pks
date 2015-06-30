@@ -67,8 +67,6 @@ IS
 
     PROCEDURE unsubscribe_server_from_family(server_id_in in number, channel_family_id_in in number);
 
-    PROCEDURE delete_server_channels(server_id_in in number);
-
     PROCEDURE refresh_newest_package(channel_id_in in number,
                                      caller_in in varchar2 := '(unknown)',
                                      package_name_id_in in number := null);
