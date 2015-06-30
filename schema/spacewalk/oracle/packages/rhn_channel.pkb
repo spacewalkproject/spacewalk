@@ -702,48 +702,6 @@ IS
 
     end channel_priority;
 
-    -- right now this only does the accounting changes; the cascade
-    -- actually does the rhnServerChannel delete.
-    procedure delete_server_channels(server_id_in in number)
-    is
-    begin
-        update  rhnPrivateChannelFamily
-        set     current_members = current_members -1
-        where   org_id in (
-                        select  org_id
-                        from    rhnServer
-                        where   id = server_id_in
-                )
-                and channel_family_id in (
-                        select  rcfm.channel_family_id
-                        from    rhnChannelFamilyMembers rcfm,
-                                rhnServerChannel rsc
-                        where   rsc.server_id = server_id_in
-                                and rsc.channel_id = rcfm.channel_id
-                and not exists (
-                    select 1
-                    from
-                        rhnChannelFamilyVirtSubLevel cfvsl,
-                        rhnSGTypeVirtSubLevel sgtvsl,
-                        rhnServerEntitlementView sev,
-                        rhnVirtualInstance vi
-                    where
-                        -- system is a virtual instance
-                        vi.virtual_system_id = server_id_in
-                        and vi.host_system_id = sev.server_id
-                        -- system's host has a virt ent
-                        and sev.label in ('virtualization_host',
-                                          'virtualization_host_platform')
-                        and sev.server_group_type_id = 
-                            sgtvsl.server_group_type_id
-                        -- the host's virt ent grants a cf virt sub level
-                        and sgtvsl.virt_sub_level_id = cfvsl.virt_sub_level_id
-                        -- the cf is in that virt sub level
-                        and cfvsl.channel_family_id = rcfm.channel_family_id
-                    )
-                );
-    end;
-
     -- this could certainly be optimized to do updates if needs be
     procedure refresh_newest_package(channel_id_in in number,
                                      caller_in in varchar2 := '(unknown)',
