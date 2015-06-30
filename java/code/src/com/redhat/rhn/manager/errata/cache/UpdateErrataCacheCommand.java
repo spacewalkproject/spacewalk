@@ -118,7 +118,6 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
         log.info("Finished errata cache for server [" + serverId + "]");
     }
 
-
     /**
      * Updates the needed cache for particular packages within a channel
      *  This isn't a full regeneration, only the changes are handled
@@ -153,7 +152,6 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
         log.info("Finished with servers in channel [" + cid + "] " +
                 "and errata [" + eid + "]" + " with pids [" + pids + "]");
     }
-
 
     /**
      * Updates the errata cache for all the servers in the given channel.
