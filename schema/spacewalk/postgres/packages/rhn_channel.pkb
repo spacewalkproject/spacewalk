@@ -479,7 +479,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                rhnOrgChannelFamilyPermissions CFP
          where cfp.org_id = org_id_in
            and CFM.channel_family_id = CFP.channel_family_id
-           and CFM.channel_id = channel_id_in
+           and CFM.channel_id = channel_id_in)
         then
           return 1;
         else
