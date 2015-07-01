@@ -641,8 +641,8 @@ def verify_family_permissions(orgid=1):
 
     _query_create_priv_chfam = """
         INSERT INTO  rhnPrivateChannelFamily
-            (channel_family_id, org_id, max_members, current_members)
-        VALUES  (:id, :org_id, NULL, 0)
+            (channel_family_id, org_id)
+        VALUES  (:id, :org_id)
     """
 
     h = rhnSQL.prepare(_query_create_priv_chfam)
