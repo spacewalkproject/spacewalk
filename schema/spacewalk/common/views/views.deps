@@ -29,13 +29,6 @@ rhnChannelFamilyServerPhysical   :: rhnServerEntitlementView \
                                     rhnChannelFamilyMembers \
                                     rhnServerChannel \
                                     rhnServer
-rhnChannelFamilyServerVirtual    :: rhnServerEntitlementView \
-                                    rhnChannelFamilyVirtSubLevel \
-                                    rhnSGTypeVirtSubLevel \
-                                    rhnVirtualInstance \
-                                    rhnChannelFamilyMembers \
-                                    rhnServerChannel \
-                                    rhnServer
 rhnChannelFamilyPermissions      :: rhnPublicChannelFamily \
                                     rhnPrivateChannelFamily
 rhnChannelPermissions            :: rhnChannelFamilyMembers rhnPrivateChannelFamily \
