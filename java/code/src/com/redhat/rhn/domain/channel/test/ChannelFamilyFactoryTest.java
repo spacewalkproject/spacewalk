@@ -92,15 +92,6 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
         assertEquals(orgfam.getName(), orgfam2.getName());
     }
 
-    public void testPrivateChannelFamily() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
-        ChannelFamily cfam = createTestChannelFamily(user);
-        assertNotNull(cfam.getMaxMembers(user.getOrg()));
-        assertNotNull(cfam.getCurrentMembers(user.getOrg()));
-
-    }
-
     public static ChannelFamily createTestChannelFamily() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrgCreateTestChannelFamily");
 
@@ -144,10 +135,6 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
         PrivateChannelFamily pcf = new PrivateChannelFamily();
         pcf.setOrg(user.getOrg());
         pcf.setChannelFamily(cfam);
-        pcf.setCurrentMembers(new Long(0));
-        pcf.setMaxMembers(ents);
-        pcf.setCurrentFlex(0L);
-        pcf.setMaxFlex(flexEnts);
         HibernateFactory.getSession().save(pcf);
 
         cfam.addPrivateChannelFamily(pcf);

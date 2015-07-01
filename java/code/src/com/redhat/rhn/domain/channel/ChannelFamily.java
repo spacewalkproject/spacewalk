@@ -186,59 +186,6 @@ public class ChannelFamily extends BaseDomainHelper {
         this.virtSubscriptionLevels.add(virtSubIn);
     }
 
-    /**
-     * Get max members of this channel family.  NULL means unlimited
-     * @param orgIn org to lookup the max members for
-     * @return maxmembers of this channelfamily.  NULL == unlimited
-     */
-    public Long getMaxMembers(Org orgIn) {
-        PrivateChannelFamily pcf = getAllocation(orgIn);
-        if (pcf != null) {
-            return pcf.getMaxMembers();
-        }
-        return null;
-    }
-
-    /**
-     * Get current members of this channel family.
-     * @param orgIn org to lookup the current members for
-     * @return currentMembers of this channelfamily.
-     */
-    public Long getCurrentMembers(Org orgIn) {
-        PrivateChannelFamily pcf = getAllocation(orgIn);
-        if (pcf != null) {
-            return pcf.getCurrentMembers();
-        }
-        return null;
-    }
-
-
-    /**
-     * Get max flex members of this channel family.  NULL means unlimited
-     * @param orgIn org to lookup the max flex  embers for
-     * @return max flex members of this channelfamily.  NULL == unlimited
-     */
-    public Long getMaxFlex(Org orgIn) {
-        PrivateChannelFamily pcf = getAllocation(orgIn);
-        if (pcf != null) {
-            return pcf.getMaxFlex();
-        }
-        return null;
-    }
-
-    /**
-     * Get current flex members of this channel family.
-     * @param orgIn org to lookup the current flex members for
-     * @return currentflex  Members of this channelfamily.
-     */
-    public Long getCurrentFlex(Org orgIn) {
-        PrivateChannelFamily pcf = getAllocation(orgIn);
-        if (pcf != null) {
-            return pcf.getCurrentFlex();
-        }
-        return null;
-    }
-
 
     /**
      * returns the channel family allocation of this channel family
