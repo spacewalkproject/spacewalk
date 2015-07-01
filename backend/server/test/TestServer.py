@@ -85,12 +85,12 @@ class TestServer:
             # Create a new channel using the channel family info
             self.channel = misc_functions.create_channel(self.label, self.label, org_id=self.org_id)
 
-            # Associate the channel family with the organization and set the maximum number of members it can have
+            # Associate the channel family with the organization
             _insert_channel_family = """
-            INSERT INTO rhnPrivateChannelFamily( channel_family_id, org_id, max_members )
-            VALUES ( :channel_family_id, :org_id, :max_members )"""
+            INSERT INTO rhnPrivateChannelFamily( channel_family_id, org_id )
+            VALUES ( :channel_family_id, :org_id )"""
             insert_channel_family = rhnSQL.prepare(_insert_channel_family)
-            insert_channel_family.execute(channel_family_id=self.cf.get_id(), org_id=self.org_id, max_members=10)
+            insert_channel_family.execute(channel_family_id=self.cf.get_id(), org_id=self.org_id)
             rhnSQL.commit()
 
             # Associate the channel with the server
