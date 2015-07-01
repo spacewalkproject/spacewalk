@@ -1895,32 +1895,6 @@ SELECT 1
     </query>
 </mode>
 
-
-<mode name="flex_guests">
-  <query params="user_id, checkin_threshold ">
-    select
-    cf.label as cf_label,
-    cf.name as cf_name,
-    cf.id as cf_id,
-    s.id as system_id,
-    s.name as system_name,
-    (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second')) as inactive,
-    TO_CHAR(s.created, 'YYYY-MM-DD HH24:MI:SS') as registered,
-    pcf.FVE_CURRENT_MEMBERS as current_members,
-    pcf.FVE_MAX_MEMBERS as max_members
-  from
-      RhnVirtualInstance vi
-      inner join rhnServer s on vi.virtual_system_id = s.id
-      inner join rhnUserServerPerms USP on s.id = USP.server_id
-      inner join rhnServerChannel sc on sc.server_id = s.id
-      inner join rhnChannelFamilyMembers cfm on cfm.channel_id = sc.channel_id
-      inner join rhnChannelFamily cf on cf.id = cfm.channel_family_id
-      inner join rhnPrivateChannelFamily pcf on pcf.channel_family_id  = cf.id and pcf.org_id = s.org_id
-  where sc.is_fve = 'Y'
-                AND USP.user_id = :user_id
-  </query>
-</mode>
-
 <mode name="server_notes">
   <query params="sid">
     select
