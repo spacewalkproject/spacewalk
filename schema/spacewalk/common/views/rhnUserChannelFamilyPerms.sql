@@ -17,8 +17,6 @@ create or replace view rhnUserChannelFamilyPerms as
 	select	pcf.channel_family_id,
 		u.org_id as org_id,
 		u.id as user_id,
-		to_number(null, null) as max_members,
-		0 as current_members,
 		pcf.created,
 		pcf.modified
 	from	rhnPublicChannelFamily pcf,
@@ -27,8 +25,6 @@ create or replace view rhnUserChannelFamilyPerms as
 	select	pcf.channel_family_id,
 		u.org_id,
 		u.id as user_id,
-		pcf.max_members,
-		pcf.current_members,
 		pcf.created,
 		pcf.modified
 	from	rhnPrivateChannelFamily pcf,
