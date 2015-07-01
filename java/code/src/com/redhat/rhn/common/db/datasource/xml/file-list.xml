@@ -3,8 +3,6 @@
     <template name="Package_queries" filename="xml/Package_queries.xml" />
     <template name="Channel_queries" filename="xml/Channel_queries.xml" />
     <template name="checksum_queries" filename="xml/checksum_queries.xml" />
-    <template name="package_search_elaborators" filename="xml/package_search_elaborators.xml" />
-    <template name="package_search_setbuilder" filename="xml/package_search_setbuilder.xml" />
     <template name="config_queries" filename="xml/config_queries.xml" />
     <template name="profile_queries" filename="xml/profile_queries.xml" />
     <template name="SystemGroup_queries" filename="xml/SystemGroup_queries.xml" />
