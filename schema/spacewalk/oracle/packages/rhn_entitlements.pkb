@@ -78,14 +78,6 @@ is
         where group_type is not null
           and org_id = org_id_in;
 
-        cursor channel_subs is
-        select pcf.channel_family_id, pcf.max_members
-        from rhnChannelFamily cf,
-             rhnPrivateChannelFamily pcf
-        where pcf.org_id = org_id_in
-          and pcf.channel_family_id = cf.id
-          and cf.org_id is null;
-
     begin
 
         for system_ent in system_ents loop
@@ -96,17 +88,6 @@ is
         end loop;
 
         update rhnServerGroup
-        set max_members = 0
-        where org_id = org_id_in;
-
-        for channel_sub in channel_subs loop
-            update rhnPrivateChannelFamily
-            set max_members = max_members + channel_sub.max_members
-            where org_id = 1
-              and channel_family_id = channel_sub.channel_family_id;
-        end loop;
-
-        update rhnPrivateChannelFamily
         set max_members = 0
         where org_id = org_id_in;
 
