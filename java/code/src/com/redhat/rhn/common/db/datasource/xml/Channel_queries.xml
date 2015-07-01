@@ -711,8 +711,8 @@ ORDER BY  CF.id
 <write-mode name="insert_family_perms">
   <query params="org_id, id">
 INSERT INTO  rhnPrivateChannelFamily
-             (channel_family_id, org_id, max_members, current_members)
-     VALUES  (:id, :org_id, NULL, 0)
+             (channel_family_id, org_id)
+     VALUES  (:id, :org_id)
   </query>
 </write-mode>
 
