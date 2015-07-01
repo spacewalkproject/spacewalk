@@ -23,13 +23,6 @@ CREATE TABLE rhnPrivateChannelFamily
                            CONSTRAINT rhn_privcf_oid_fk
                                REFERENCES web_customer (id)
                                ON DELETE CASCADE,
-    max_members        NUMBER,
-    current_members    NUMBER
-                           DEFAULT (0) NOT NULL,
-    fve_max_members    NUMBER
-                           DEFAULT (0),
-    fve_current_members       NUMBER
-                           DEFAULT (0) NOT NULL,
     created            timestamp with local time zone
                            DEFAULT (current_timestamp) NOT NULL,
     modified           timestamp with local time zone
