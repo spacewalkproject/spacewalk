@@ -38,8 +38,6 @@ rhnChannelFamilyServerVirtual    :: rhnServerEntitlementView \
                                     rhnServer
 rhnChannelFamilyPermissions      :: rhnPublicChannelFamily \
                                     rhnPrivateChannelFamily
-rhnChannelFamilyServers          :: rhnChannelFamilyMembers rhnChannelFamily \
-                                    rhnServerChannel rhnServer
 rhnChannelPermissions            :: rhnChannelFamilyMembers rhnPrivateChannelFamily \
                                     rhnPublicChannelFamily web_contact
 rhnChannelTreeView               :: rhnChannel rhnChannelFamilyMembers \
