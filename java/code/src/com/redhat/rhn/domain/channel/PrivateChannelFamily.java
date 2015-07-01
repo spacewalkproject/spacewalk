@@ -31,45 +31,9 @@ public class PrivateChannelFamily implements Serializable {
     private static final long serialVersionUID = 1L;
     private ChannelFamily channelFamily;
     private Org org;
-    private Long maxMembers;
-    private Long currentMembers;
     private Date created;
     private Date modified;
-    private Long maxFlex;
-    private Long currentFlex;
 
-
-    /**
-     * Get the max flex count
-     * @return the count
-     */
-    public Long getMaxFlex() {
-        return maxFlex;
-    }
-
-    /**
-     * Set the max flex count
-     * @param maxFlexIn the max flex
-     */
-    public void setMaxFlex(Long maxFlexIn) {
-        this.maxFlex = maxFlexIn;
-    }
-
-    /**
-     * get the current flex
-     * @return the current flex count
-     */
-    public Long getCurrentFlex() {
-        return currentFlex;
-    }
-
-    /**
-     * set current flex
-     * @param currentFlexIn the current flex to set
-     */
-    public void setCurrentFlex(Long currentFlexIn) {
-        this.currentFlex = currentFlexIn;
-    }
 
     /**
      * @return Returns the channelFamily.
@@ -97,38 +61,6 @@ public class PrivateChannelFamily implements Serializable {
      */
     public void setOrg(Org orgIn) {
         this.org = orgIn;
-    }
-
-    /**
-     * Getter for maxMembers
-     * @return Long to get
-    */
-    public Long getMaxMembers() {
-        return this.maxMembers;
-    }
-
-    /**
-     * Setter for maxMembers
-     * @param maxMembersIn to set
-    */
-    public void setMaxMembers(Long maxMembersIn) {
-        this.maxMembers = maxMembersIn;
-    }
-
-    /**
-     * Getter for currentMembers
-     * @return Long to get
-    */
-    public Long getCurrentMembers() {
-        return this.currentMembers;
-    }
-
-    /**
-     * Setter for currentMembers
-     * @param currentMembersIn to set
-    */
-    public void setCurrentMembers(Long currentMembersIn) {
-        this.currentMembers = currentMembersIn;
     }
 
     /**
