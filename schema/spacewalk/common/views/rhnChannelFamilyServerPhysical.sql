@@ -27,7 +27,6 @@ create or replace view rhnChannelFamilyServerPhysical as
 	where
 		rcfm.channel_id = rsc.channel_id
 		and rsc.server_id = rs.id
-         and rsc.is_fve = 'N'
         and not exists (
                 select 1
                 from 
