@@ -22,13 +22,6 @@ rhnAvailableChannels             :: rhnServer \
                                     rhnSharedChannelTreeView \
                                     rhn_channel.pks 
 rhnCDDevice                      :: rhnDevice
-rhnChannelFamilyServerPhysical   :: rhnServerEntitlementView \
-                                    rhnChannelFamilyVirtSubLevel \
-                                    rhnSGTypeVirtSubLevel \
-                                    rhnVirtualInstance \
-                                    rhnChannelFamilyMembers \
-                                    rhnServerChannel \
-                                    rhnServer
 rhnChannelFamilyPermissions      :: rhnPublicChannelFamily \
                                     rhnPrivateChannelFamily
 rhnChannelPermissions            :: rhnChannelFamilyMembers rhnPrivateChannelFamily \
