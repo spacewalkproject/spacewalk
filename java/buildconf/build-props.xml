@@ -33,7 +33,7 @@
   <property name="includehelp" value="true" />
 
   <!-- IVY Properties -->
-  <property name="ivyserver" value="http://sherr.fedorapeople.org" />
+  <property name="ivyserver" value="https://sherr.fedorapeople.org" />
   <property name="ivy.log.module.when.found" value="false"/>
   <property name="ivy.log.resolved.revision" value="false"/>
 
