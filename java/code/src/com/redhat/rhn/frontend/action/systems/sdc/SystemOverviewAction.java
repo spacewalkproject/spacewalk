@@ -86,7 +86,6 @@ public class SystemOverviewAction extends RhnAction {
                 ch.get("id").equals(s.getBaseChannel().getId())) {
                 baseChannel.put("id", ch.get("id"));
                 baseChannel.put("name", ch.get("name"));
-                baseChannel.put("is_fve", ch.get("is_fve"));
             }
             else {
                 childChannels.add(ch);
