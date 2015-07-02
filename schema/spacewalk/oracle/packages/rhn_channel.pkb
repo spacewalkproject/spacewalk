@@ -140,7 +140,7 @@ IS
             where   c.id = channel_id_in
         );
 
-        INSERT INTO rhnServerChannel (server_id, channel_id, is_fve) VALUES (server_id_in, channel_id_in, 'N');
+        INSERT INTO rhnServerChannel (server_id, channel_id) VALUES (server_id_in, channel_id_in);
         queue_server(server_id_in, immediate_in);
 
         update rhnServer
