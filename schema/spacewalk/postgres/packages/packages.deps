@@ -25,7 +25,7 @@ rhn_channel.pkb         :: rhnChannel rhn_exception.pks rhnServer rhnServerChann
                            rhnPublicChannelFamily rhnOrgChannelFamilyPermissions \
                            rhnChannelPackage rhnChannelErrata rhnSnapshotChannel \
                            rhnServerUuid rhnChannelPermissions rhnServerEntitlementView \
-                           rhnChannelFamilyServerPhysical rhnSharedChannelView \
+                           rhnSharedChannelView \
                            rhnOrgDistChannelMap \
                            rhn_user.pks
 rhn_channel.pks         :: rhnChannel rhnOrgChannelFamilyPermissions \
