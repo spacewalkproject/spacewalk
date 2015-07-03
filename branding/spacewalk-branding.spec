@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.4.3
+Version:    2.4.4
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -105,6 +105,9 @@ rm -rf %{buildroot}
 %{_var}/www/html/css/*.less
 
 %changelog
+* Fri Jul 03 2015 Matej Kollar <mkollar@redhat.com> 2.4.4-1
+- Fix file input control alignment issue with form-control (bsc#873203)
+
 * Fri Jun 05 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.3-1
 - Add a spacewalk-branding-devel package to install LESS files for development
   use
