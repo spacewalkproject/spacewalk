@@ -28,82 +28,9 @@ public class ChannelOverview extends BaseDto implements Comparable {
     private Long orgId;
     private String name;
     private String label;
-    private Long currentMembers;
-    private Long maxMembers;
-    private Long currentFlex;
-    private Long maxFlex;
-    private Long subscribeCount;
-    private Long hasSubscription;
-    private String url;
     private Long relevantPackages;
     private Long originalId;
     private List<PackageDto> packages = new ArrayList<PackageDto>();
-
-
-    /**
-     * @return Returns the subscribeCount.
-     */
-    public Long getSubscribeCount() {
-        return subscribeCount;
-    }
-
-
-
-
-    /**
-     * @param subscribeCountIn The subscribeCountIn to set.
-     */
-    public void setSubscribeCount(Long subscribeCountIn) {
-        this.subscribeCount = subscribeCountIn;
-    }
-
-
-
-    /**
-     * @return Returns the currentFlex.
-     */
-    public Long getCurrentFlex() {
-        return currentFlex;
-    }
-
-
-
-    /**
-     * @param currentFlexIn The currentFlex to set.
-     */
-    public void setCurrentFlex(Long currentFlexIn) {
-        this.currentFlex = currentFlexIn;
-    }
-
-
-
-    /**
-     * @return Returns the maxFlex.
-     */
-    public Long getMaxFlex() {
-        return maxFlex;
-    }
-
-
-
-    /**
-     * @param maxFlexIn The maxFlex to set.
-     */
-    public void setMaxFlex(Long maxFlexIn) {
-        this.maxFlex = maxFlexIn;
-    }
-
-    /**
-     * @return Returns the free flex members.
-     */
-    public Long getFreeFlex() {
-        // Looks like the schema sadly allows this to be null:
-        Long max = maxFlex;
-        if (max == null || max == 0) {
-            return 0L;
-        }
-        return max - currentFlex;
-    }
 
     /**
      * @return Returns the originalId.
@@ -133,54 +60,6 @@ public class ChannelOverview extends BaseDto implements Comparable {
     public ChannelOverview(String nameIn, Long idIn) {
         this.name = nameIn;
         this.id = idIn;
-    }
-    /**
-     * @return Returns the currentMembers.
-     */
-    public Long getCurrentMembers() {
-        return currentMembers;
-    }
-
-    /**
-     * @param currentMembersIn The currentMembers to set.
-     */
-    public void setCurrentMembers(Long currentMembersIn) {
-        this.currentMembers = currentMembersIn;
-    }
-
-    /**
-     * @return Returns the free members.
-     */
-    public Long getFreeMembers() {
-        // Looks like the schema sadly allows this to be null:
-        Long max = maxMembers;
-        if (max == null || max == 0) {
-            return 0L;
-        }
-        return max - currentMembers;
-    }
-
-    /**
-     * @return Returns the hasSubscription.
-     */
-    public Long isHasSubscription() {
-        return hasSubscription;
-    }
-
-    /**
-     * For PostgreSQL we need to accept also Integer and cast it to Long.
-     *
-     * @param hasSubscriptionIn The hasSubscription to set.
-     */
-    public void setHasSubscription(Integer hasSubscriptionIn) {
-        setHasSubscription(new Long(hasSubscriptionIn));
-    }
-
-    /**
-     * @param hasSubscriptionIn The hasSubscription to set.
-     */
-    public void setHasSubscription(Long hasSubscriptionIn) {
-        this.hasSubscription = hasSubscriptionIn;
     }
 
     /**
@@ -214,20 +93,6 @@ public class ChannelOverview extends BaseDto implements Comparable {
     }
 
     /**
-     * @return Returns the maxMembers.
-     */
-    public Long getMaxMembers() {
-        return maxMembers;
-    }
-
-    /**
-     * @param maxMembersIn The maxMembers to set.
-     */
-    public void setMaxMembers(Long maxMembersIn) {
-        this.maxMembers = maxMembersIn;
-    }
-
-    /**
      * @return Returns the name.
      */
     public String getName() {
@@ -253,20 +118,6 @@ public class ChannelOverview extends BaseDto implements Comparable {
      */
     public void setLabel(String labelIn) {
         this.label = labelIn;
-    }
-
-    /**
-     * @return Returns the url.
-     */
-    public String getUrl() {
-        return url;
-    }
-
-    /**
-     * @param urlIn The url to set.
-     */
-    public void setUrl(String urlIn) {
-        this.url = urlIn;
     }
 
     /**
@@ -299,16 +150,6 @@ public class ChannelOverview extends BaseDto implements Comparable {
            return getName().compareTo(((ChannelOverview) o).getName());
     }
 
-
-    /**
-     * @return Returns the hasSubscription.
-     */
-    public Long getHasSubscription() {
-        return hasSubscription;
-    }
-
-
-
     /**
      * @return Returns the packages.
      */
@@ -316,15 +157,10 @@ public class ChannelOverview extends BaseDto implements Comparable {
         return packages;
     }
 
-
-
     /**
      * @param packagesIn The packages to set.
      */
     public void setPackages(List<PackageDto> packagesIn) {
         this.packages = packagesIn;
     }
-
-
-
 }
