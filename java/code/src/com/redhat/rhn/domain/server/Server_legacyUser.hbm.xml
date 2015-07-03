@@ -252,26 +252,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <return alias="wc" class="com.redhat.rhn.domain.user.legacy.UserImpl"/>
     </sql-query>
 
-    <sql-query name="Server.findUngrouped">
-            <![CDATA[select S.*
-                                        from rhnServer S
-                                     left outer join  rhnSatelliteInfo S_2_ on S.id = S_2_.server_id
-                                     left outer join  rhnProxyInfo S_3_ on S.id = S_3_.server_id
-
-                                        where S.org_id = :orgId
-
-                                        and exists (select 1 from rhnUserServerPerms
-                                                                        USP where USP.user_id = :userId
-                                                                        AND USP.server_id = S.id)
-                                        and not exists (select 1
-                                                from rhnServerGroupMembers M inner join
-                                                        rhnServerGroup G on M.server_group_id = G.id
-                                                where G.group_type is null
-                                                and M.server_id = S.id)
-                                          ]]>
-                <return alias="S" class="com.redhat.rhn.domain.server.Server"/>
-    </sql-query>
-
     <sql-query name="Server.listProxies">
         <![CDATA[select S.id
                                         from rhnServer S

@@ -564,24 +564,6 @@ public class ServerFactory extends HibernateFactory {
     }
 
     /**
-     * List systems that are not in a ServerGroup The query would (hopefully)
-     * return Server objects, but due to the parent child relationship of Server
-     * to SpacewalkServer and ProxyServer, hibernate won't properly return all
-     * the Servers
-     *
-     * @param user the user, who's accessible servers will be returned.
-     * @return A list of servers
-     */
-    public static List<Server> listUngroupedSystems(User user) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("userId", user.getId());
-        params.put("orgId", user.getOrg().getId());
-        List<Server> servers = singleton.listObjectsByNamedQuery(
-                "Server.findUngrouped", params);
-        return servers;
-    }
-
-    /**
      * List all proxies for a given org
      * @param user the user, who's accessible proxies will be returned.
      * @return a list of Proxy Server objects
