@@ -1989,12 +1989,12 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Server testServer = ServerFactoryTest.createTestServer(admin, false);
         ServerFactoryTest.createTestServer(admin, true);
 
-        Object[] servers = handler.listUngroupedSystems(admin);
-        assertTrue(servers.length > 0);
+        List<SystemOverview> servers = handler.listUngroupedSystems(admin);
+        assertTrue(servers.size() > 0);
         boolean sidExists  = false;
-        for (int i = 0; i < servers.length; i++) {
-            Map s = (Map) servers[i];
-            if (testServer.getId().equals(s.get("id"))) {
+        for (int i = 0; i < servers.size(); i++) {
+            SystemOverview s = servers.get(i);
+            if (testServer.getId().equals(s.getId())) {
                 sidExists = true;
                 break;
             }
