@@ -1123,45 +1123,6 @@ is
         end loop;
     end entitle_last_modified_servers;
 
-    procedure subscribe_newest_servers (
-        customer_id_in in number
-    ) is
-        -- find servers without base channels
-        cursor servers(cid_in in number) is
-            select    s.id
-            from    rhnServer            s
-            where    1=1
-                and s.org_id = cid_in
-                and not exists (
-                        select 1
-                        from    rhnChannel            c,
-                                rhnServerChannel    sc
-                        where    sc.server_id = s.id
-                            and sc.channel_id = c.id
-                            and c.parent_channel is null
-                    )
-                and not exists (
-                        select 1
-                        from rhnVirtualInstance vi
-                        where vi.virtual_system_id = s.id
-                    )
-            order by s.modified desc;
-        channel_id number;
-    begin
-        for server in servers(customer_id_in) loop
-            channel_id := rhn_channel.guess_server_base(server.id);
-            if channel_id is not null then
-                begin
-                    rhn_channel.subscribe_server(server.id, channel_id);
-                    commit;
-                -- exception is really channel_subscribe_no_family
-                exception
-                    when others then
-                        null;
-                end;
-            end if;
-        end loop;
-    end subscribe_newest_servers;
 end rhn_entitlements;
 /
 show errors
