@@ -129,9 +129,6 @@ is
 		quantity_in in number		-- 3
     );
 
-	procedure subscribe_newest_servers (
-		customer_id_in in number
-	);
 end rhn_entitlements;
 /
 show errors
