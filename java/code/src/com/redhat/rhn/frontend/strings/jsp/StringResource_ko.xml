@@ -4412,27 +4412,6 @@ deducted from the default organization.</source>
         </context-group>
         <target>인타이틀먼트 사용: </target>
       </trans-unit>
-      <trans-unit id="No Entitlements Available">
-        <source>No Entitlements Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>사용 가능한 인타이틀먼트가 없음 </target>
-      </trans-unit>
-      <trans-unit id="Regular Proposed Total">
-        <source>Regular Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>일반적으로 제시된 합계 </target>
-      </trans-unit>
-      <trans-unit id="Flex Proposed Total">
-        <source>Flex Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>제시된 Flex 합계 </target>
-      </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
         <target>시작 날짜:</target>
@@ -4947,13 +4926,6 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
         <target>채널 인타이틀먼트가 없습니다</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.channel">
-        <source>Channel Entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>채널 인타이틀먼트</target>
       </trans-unit>
       <trans-unit id="entitlements.jsp.subscribed">
         <source>Systems Subscribed</source>
@@ -22726,10 +22698,6 @@ given channel.</source>
         <source>Regular Usage - Alloted</source>
         <target>일반적인 사용 - 할당됨 </target>
       </trans-unit>
-      <trans-unit id="maxAvailable">
-        <source>Regular Proposed Total</source>
-        <target>일반적으로 제시된 합계 </target>
-      </trans-unit>
       <trans-unit id="currentFlex">
         <source>Flex Usage - Used</source>
         <target>Flex 사용 - 사용됨</target>
@@ -22737,10 +22705,6 @@ given channel.</source>
       <trans-unit id="maxFlex">
         <source>Flex Usage - Allotted</source>
         <target>Flex 사용 - 할당됨 </target>
-      </trans-unit>
-      <trans-unit id="maxAvailableFlex">
-        <source>Flex Proposed Total</source>
-        <target>제시된 Flex 합계 </target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>

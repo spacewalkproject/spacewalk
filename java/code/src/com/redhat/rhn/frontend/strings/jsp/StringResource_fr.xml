@@ -4478,27 +4478,6 @@ que celle par défaut, ces droits d'accès seront déduits de l'organisation
         </context-group>
         <target>Utilisation des droits d'accès</target>
       </trans-unit>
-      <trans-unit id="No Entitlements Available">
-        <source>No Entitlements Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Aucun droit d'accès disponible</target>
-      </trans-unit>
-      <trans-unit id="Regular Proposed Total">
-        <source>Regular Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Total proposé habituellement</target>
-      </trans-unit>
-      <trans-unit id="Flex Proposed Total">
-        <source>Flex Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Total proposé Flex</target>
-      </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
         <target>Date de début :</target>
@@ -5014,13 +4993,6 @@ que celle par défaut, ces droits d'accès seront déduits de l'organisation
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
         <target>Aucun droit d'accès aux canaux</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.channel">
-        <source>Channel Entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>Droits d'accès aux canaux</target>
       </trans-unit>
       <trans-unit id="entitlements.jsp.subscribed">
         <source>Systems Subscribed</source>
@@ -23186,10 +23158,6 @@ fois pour un canal donné.</target>
         <source>Regular Usage - Alloted</source>
         <target>Utilisation normale - Imparti</target>
       </trans-unit>
-      <trans-unit id="maxAvailable">
-        <source>Regular Proposed Total</source>
-        <target>Total normal proposé</target>
-      </trans-unit>
       <trans-unit id="currentFlex">
         <source>Flex Usage - Used</source>
         <target>Utilisation flexible - Utilisé</target>
@@ -23197,10 +23165,6 @@ fois pour un canal donné.</target>
       <trans-unit id="maxFlex">
         <source>Flex Usage - Allotted</source>
         <target>Utilisation flexible - Imparti</target>
-      </trans-unit>
-      <trans-unit id="maxAvailableFlex">
-        <source>Flex Proposed Total</source>
-        <target>Total flexible proposé </target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>

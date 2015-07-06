@@ -4475,27 +4475,6 @@ deducted from the default organization.</source>
         </context-group>
         <target>Использование полномочий</target>
       </trans-unit>
-      <trans-unit id="No Entitlements Available">
-        <source>No Entitlements Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Нет доступных полномочий</target>
-      </trans-unit>
-      <trans-unit id="Regular Proposed Total">
-        <source>Regular Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Всего предложено обычных</target>
-      </trans-unit>
-      <trans-unit id="Flex Proposed Total">
-        <source>Flex Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Всего предложено гибких</target>
-      </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
         <target>Дата начала:</target>
@@ -5011,13 +4990,6 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
         <target>Нет полномочий канала.</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.channel">
-        <source>Channel Entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>Полномочия каналов</target>
       </trans-unit>
       <trans-unit id="entitlements.jsp.subscribed">
         <source>Systems Subscribed</source>
@@ -23163,10 +23135,6 @@ given channel.</source>
         <source>Regular Usage - Alloted</source>
         <target>Выделено обычных</target>
       </trans-unit>
-      <trans-unit id="maxAvailable">
-        <source>Regular Proposed Total</source>
-        <target>Всего обычных</target>
-      </trans-unit>
       <trans-unit id="currentFlex">
         <source>Flex Usage - Used</source>
         <target>Занято гибких</target>
@@ -23174,10 +23142,6 @@ given channel.</source>
       <trans-unit id="maxFlex">
         <source>Flex Usage - Allotted</source>
         <target>Выделено гибких</target>
-      </trans-unit>
-      <trans-unit id="maxAvailableFlex">
-        <source>Flex Proposed Total</source>
-        <target>Всего гибких</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>

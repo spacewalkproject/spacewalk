@@ -4474,27 +4474,6 @@ deducted from the default organization.</source>
         </context-group>
         <target>權利的用量</target>
       </trans-unit>
-      <trans-unit id="No Entitlements Available">
-        <source>No Entitlements Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>沒有可用權利</target>
-      </trans-unit>
-      <trans-unit id="Regular Proposed Total">
-        <source>Regular Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>一般建議的總數</target>
-      </trans-unit>
-      <trans-unit id="Flex Proposed Total">
-        <source>Flex Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Flex 建議的總數</target>
-      </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
         <target>開始日期：</target>
@@ -5010,13 +4989,6 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
         <target>沒有頻道權利</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.channel">
-        <source>Channel Entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>頻道權利</target>
       </trans-unit>
       <trans-unit id="entitlements.jsp.subscribed">
         <source>Systems Subscribed</source>
@@ -23181,10 +23153,6 @@ given channel.</source>
         <source>Regular Usage - Alloted</source>
         <target>一般使用量 - 已指定</target>
       </trans-unit>
-      <trans-unit id="maxAvailable">
-        <source>Regular Proposed Total</source>
-        <target>一般建議的總數</target>
-      </trans-unit>
       <trans-unit id="currentFlex">
         <source>Flex Usage - Used</source>
         <target>彈性使用量 - 已使用</target>
@@ -23192,10 +23160,6 @@ given channel.</source>
       <trans-unit id="maxFlex">
         <source>Flex Usage - Allotted</source>
         <target>彈性使用量 - 已指定</target>
-      </trans-unit>
-      <trans-unit id="maxAvailableFlex">
-        <source>Flex Proposed Total</source>
-        <target>彈性建議的總數</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>

@@ -4479,27 +4479,6 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
         </context-group>
         <target>Uso de derechos</target>
       </trans-unit>
-      <trans-unit id="No Entitlements Available">
-        <source>No Entitlements Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>No hay derechos disponibles</target>
-      </trans-unit>
-      <trans-unit id="Regular Proposed Total">
-        <source>Regular Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Total propuesto normal</target>
-      </trans-unit>
-      <trans-unit id="Flex Proposed Total">
-        <source>Flex Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Total propuesto flexible</target>
-      </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
         <target>Fecha de inicio:</target>
@@ -5015,13 +4994,6 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
         <target>Ningún derecho de canal</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.channel">
-        <source>Channel Entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>Derechos de canal</target>
       </trans-unit>
       <trans-unit id="entitlements.jsp.subscribed">
         <source>Systems Subscribed</source>
@@ -23191,10 +23163,6 @@ given channel.</source>
         <source>Regular Usage - Alloted</source>
         <target>Uso normal - Asignado</target>
       </trans-unit>
-      <trans-unit id="maxAvailable">
-        <source>Regular Proposed Total</source>
-        <target>Total propuesto normal</target>
-      </trans-unit>
       <trans-unit id="currentFlex">
         <source>Flex Usage - Used</source>
         <target>Uso flexible - Utilizado</target>
@@ -23202,10 +23170,6 @@ given channel.</source>
       <trans-unit id="maxFlex">
         <source>Flex Usage - Allotted</source>
         <target>Uso flexible - Asignado</target>
-      </trans-unit>
-      <trans-unit id="maxAvailableFlex">
-        <source>Flex Proposed Total</source>
-        <target>Total propuesto flexible</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>

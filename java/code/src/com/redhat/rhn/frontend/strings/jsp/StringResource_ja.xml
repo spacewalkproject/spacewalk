@@ -4479,27 +4479,6 @@ deducted from the default organization.</source>
         </context-group>
         <target>エンタイトルメントの使用</target>
       </trans-unit>
-      <trans-unit id="No Entitlements Available">
-        <source>No Entitlements Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>利用可能なエンタイトルメントがありません</target>
-      </trans-unit>
-      <trans-unit id="Regular Proposed Total">
-        <source>Regular Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>通常の提示合計数</target>
-      </trans-unit>
-      <trans-unit id="Flex Proposed Total">
-        <source>Flex Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Flex 提示合計数</target>
-      </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
         <target>開始日:</target>
@@ -5015,13 +4994,6 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
         <target>チャンネルのエンタイトルメントはありません。</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.channel">
-        <source>Channel Entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>チャンネルのエンタイトルメント</target>
       </trans-unit>
       <trans-unit id="entitlements.jsp.subscribed">
         <source>Systems Subscribed</source>
@@ -23189,10 +23161,6 @@ given channel.</source>
         <source>Regular Usage - Alloted</source>
         <target>通常の使用 - 割り当て済み</target>
       </trans-unit>
-      <trans-unit id="maxAvailable">
-        <source>Regular Proposed Total</source>
-        <target>通常の提示合計数</target>
-      </trans-unit>
       <trans-unit id="currentFlex">
         <source>Flex Usage - Used</source>
         <target>Flex の使用 - 使用中</target>
@@ -23200,10 +23168,6 @@ given channel.</source>
       <trans-unit id="maxFlex">
         <source>Flex Usage - Allotted</source>
         <target>Flex の使用 - 割り当て済み</target>
-      </trans-unit>
-      <trans-unit id="maxAvailableFlex">
-        <source>Flex Proposed Total</source>
-        <target>Flex の提示合計数</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>
