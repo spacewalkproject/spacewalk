@@ -8314,26 +8314,6 @@ the following tabs in the left navigation menu:</source>
         </context-group>
         <target>સંસ્થાઓ પર વધુ વિગતો માટે, મહેરબાની કરીને આનો સંદર્ભ લો</target>
       </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.header2">
-        <source>Subscriptions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>ઉમેદવારીઓ</target>
-      </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.description2">
-        <source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis,
-you can allocate entitlements for any particular entitlement across all
-organizations on your @@PRODUCT_NAME@@ here as well.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>તમારા @@PRODUCT_NAME@@ પરની ઉમેદવારીઓની વ્યવસ્થા કરો. દરેક ઉમેદવારી દ્વારા કયા પ્રકારનો વપરાશ
-પૂરો પાડવામાં આવે છે તે પણ જોઈ શકશો. ઉમેદવારી-પ્રતિના આધાર પર,
-તમે તમારા @@PRODUCT_NAME@@ પર અંહિ બધી સંસ્થાઓમાં કોઈ વ્યક્તિગત ઉમેદવારી માટેની
-ઉમેદવારીઓ ફાળવી શકો છો.</target>
-      </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link2">
         <source>Go to Subscriptions now</source>
         <context-group name="ctx">

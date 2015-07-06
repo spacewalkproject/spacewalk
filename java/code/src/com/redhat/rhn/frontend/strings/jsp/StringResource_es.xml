@@ -8692,25 +8692,6 @@ the following tabs in the left navigation menu:</source>
         </context-group>
         <target>Para obtener más información sobre las organizaciones, consulte </target>
       </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.header2">
-        <source>Subscriptions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>Suscripciones</target>
-      </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.description2">
-        <source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis,
-you can allocate entitlements for any particular entitlement across all
-organizations on your @@PRODUCT_NAME@@ here as well.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>Administre las suscripciones en su @@PRODUCT_NAME@@. Puede buscar también el acceso
-que proporciona cada derecho. Por cada derecho, puede asignar derechos por
-un derecho particular a lo largo de las organizaciones en su @@PRODUCT_NAME@@.</target>
-      </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link2">
         <source>Go to Subscriptions now</source>
         <context-group name="ctx">

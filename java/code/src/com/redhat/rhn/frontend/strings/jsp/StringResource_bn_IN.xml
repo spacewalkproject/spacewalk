@@ -8314,26 +8314,6 @@ the following tabs in the left navigation menu:</source>
         </context-group>
         <target>প্রতিষ্ঠান সম্পর্কের অধিক জানতে, অনুগ্রহ করে দেখুন</target>
       </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.header2">
-        <source>Subscriptions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>সাবস্ক্রিপশন</target>
-      </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.description2">
-        <source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis,
-you can allocate entitlements for any particular entitlement across all
-organizations on your @@PRODUCT_NAME@@ here as well.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@-র মধ্যে উপস্থিত সাবস্ক্রিপশন পরিচালনা করুন। উপরন্তু, প্রতিটি এনটাইটেলমেন্ট দ্বারা উপলব্ধ ব্যবহারাধিকার
-প্রদর্শন করা যাবে। প্রতিটি এনটাইটেলমেন্টের উপর ভিত্তি করে,
-@@PRODUCT_NAME@@-র মধ্যে উপস্থিত সমস্ত প্রতিষ্ঠানের জন্য কোনো সুনির্দিষ্ট এনটাইটেলমেন্ট,
-এই স্থানে বরাদ্দ করা যাবে।</target>
-      </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link2">
         <source>Go to Subscriptions now</source>
         <context-group name="ctx">
