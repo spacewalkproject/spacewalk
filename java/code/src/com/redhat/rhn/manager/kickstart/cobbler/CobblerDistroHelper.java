@@ -101,6 +101,8 @@ public class CobblerDistroHelper {
         distro.setOsVersion(tree.getInstallType().getCobblerOsVersion());
         distro.setKsMeta(ksmeta);
         distro.setArch(tree.getChannel().getChannelArch().cobblerArch());
+        distro.setKernelOptions(tree.getKernelOptions());
+        distro.setKernelPostOptions(tree.getKernelOptionsPost());
         distro.save();
     }
 
@@ -119,6 +121,8 @@ public class CobblerDistroHelper {
         distro.setOsVersion(tree.getInstallType().getCobblerOsVersion());
         distro.setKsMeta(ksmeta);
         distro.setArch(tree.getChannel().getChannelArch().cobblerArch());
+        distro.setKernelOptions(tree.getKernelOptions());
+        distro.setKernelPostOptions(tree.getKernelOptionsPost());
         distro.save();
     }
 

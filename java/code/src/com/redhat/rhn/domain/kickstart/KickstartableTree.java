@@ -48,6 +48,8 @@ public class KickstartableTree extends BaseDomainHelper {
     private Date lastModified;
     private String cobblerId;
     private String cobblerXenId;
+    private String kernelOptions;
+    private String kernelOptionsPost;
 
     private Org org;
     private KickstartTreeType treeType;
@@ -386,6 +388,34 @@ public class KickstartableTree extends BaseDomainHelper {
      */
     public void setCobblerXenId(String cobblerXenIdIn) {
         this.cobblerXenId = cobblerXenIdIn;
+    }
+
+    /**
+     * @return Returns the kernelOptions.
+     */
+    public String getKernelOptions() {
+        return kernelOptions;
+    }
+
+    /**
+     * @param kernelOptionsIn The kernelOptions to set.
+     */
+    public void setKernelOptions(String kernelOptionsIn) {
+        kernelOptions = kernelOptionsIn;
+    }
+
+    /**
+     * @return Returns the kernelOptionsPost.
+     */
+    public String getKernelOptionsPost() {
+        return kernelOptionsPost;
+    }
+
+    /**
+     * @param kernelOptionsPostIn The kernelOptionsPost to set.
+     */
+    public void setKernelOptionsPost(String kernelOptionsPostIn) {
+        kernelOptionsPost = kernelOptionsPostIn;
     }
 
     /**
