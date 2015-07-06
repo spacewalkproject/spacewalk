@@ -6845,10 +6845,6 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
           <source>Guests Consuming Regular Entitlements</source>
           <target>Huéspedes que consumen derechos normales</target>
         </trans-unit>
-        <trans-unit id="Make Flex">
-          <source>Convert To Flex Guest Entitlement</source>
-          <target>Convertir a derecho de huésped flexible</target>
-        </trans-unit>
       </group>
       <!--  System search -->
       <trans-unit id="search.alt.img">
@@ -21660,13 +21656,6 @@ La ruta del árbol, el RPM Kickstart, el canal base y la generación del instala
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
         <target>Sistema huésped</target>
-      </trans-unit>
-      <trans-unit id="virtualentitlements.toolbar">
-        <source>Virtualization Entitlements</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>Derechos de virtualización</target>
       </trans-unit>
       <trans-unit id="system.remotecommand.scheduled">
         <source>Remote command &lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{2}&lt;/strong&gt;.</source>
