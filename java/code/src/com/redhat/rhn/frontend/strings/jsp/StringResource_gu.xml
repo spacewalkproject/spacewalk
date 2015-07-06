@@ -20498,7 +20498,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
       <trans-unit id="system.reboot.scheduled">
         <source>Reboot scheduled for system &lt;strong&gt;{0}&lt;/strong&gt; for {1}.  To cancel the reboot, remove &lt;strong&gt;{0}&lt;/strong&gt; from &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;the list of systems to be rebooted&lt;/strong&gt;&lt;/a&gt;.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
+          <context context-type="sourcefile">/rhn/systems/details/RebootSystem.do</context>
         </context-group>
         <target>{1} માટે સિસ્ટમ &lt;strong&gt;{0}&lt;/strong&gt; માટે રીબુટ સુનિશ્ચિત થયેલ છે.  રીબુટ રદ કરવા માટે, &lt;strong&gt;{0}&lt;/strong&gt; ને &lt;a href=&quot;/rhn/schedule/InProgressSystems.do?aid={2}&quot;&gt;&lt;strong&gt;રીબુટ કરવા માટેની સિસ્ટમોની યાદી&lt;/strong&gt;&lt;/a&gt; માંથી દૂર કરો.</target>
       </trans-unit>
