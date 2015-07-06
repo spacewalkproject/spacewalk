@@ -22,7 +22,6 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto;
 import com.redhat.rhn.frontend.dto.MultiOrgUserOverview;
 import com.redhat.rhn.frontend.dto.OrgDto;
 import com.redhat.rhn.frontend.dto.OrgEntitlementDto;
@@ -189,17 +188,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         Org org =  OrgFactory.lookupByName(name);
         assertNotNull(org);
         return org;
-    }
-
-    private MultiOrgEntitlementsDto findEntitlementDto(
-                                    List< ? extends MultiOrgEntitlementsDto> dtos,
-                                                String label) {
-        for (MultiOrgEntitlementsDto dto : dtos) {
-            if (label.equals(dto.getLabel())) {
-                return dto;
-            }
-        }
-        return null;
     }
 
     public void testSetSystemEntitlements() throws Exception {
