@@ -76,7 +76,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
             profile.setKernelOptions(kernelOptions);
         }
         if (postKernelOptions != null) {
-            profile.setKernelPostOptions(postKernelOptions);
+            profile.setKernelOptionsPost(postKernelOptions);
         }
         // redhat_management_key
         KickstartSession ksession =
