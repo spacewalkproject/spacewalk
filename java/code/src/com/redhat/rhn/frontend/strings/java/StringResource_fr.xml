@@ -8428,13 +8428,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
         <target>Il n'y avait plus de droits d'accès système {0} disponibles.</target>
       </trans-unit>
-      <trans-unit id="system.channel.nochannelslots">
-        <source>There are no more channel entitlements available.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>Il n'y a plus de droits d'accès aux canaux disponibles.</target>
-      </trans-unit>
       <trans-unit id="system.entitle.no-add.solaris-slots">
         <source>{0} entitlements cannot be added to solaris machines</source>
         <context-group name="ctx">
