@@ -55,10 +55,6 @@ class OrgTests(RhnTestCase):
                 return count
         self.fail("Unable to find channel family: %s" % channel_family_label)
 
-    def test_set_channel_family_entitlements_on_default_org(self):
-        self.assertRaises(Exception, client.org.setSoftwareEntitlements,
-                self.session_key, SATELLITE_ORG_ID, CHANNEL_FAMILY_LABEL, 100)
-
     def test_list_system_entitlements_global(self):
         result = client.org.listSystemEntitlements(self.session_key)
         for r in result:
@@ -93,26 +89,10 @@ class OrgTests(RhnTestCase):
                 SYSTEM_ENTITLEMENT_LABEL)
         self.assertEquals(sat_org_total - 100, count['allocated'])
 
-    def test_set_too_many_system_entitlements(self):
-        result = client.org.listSystemEntitlementsForOrg(self.session_key,
-                SATELLITE_ORG_ID)
-        count = self.__find_count_for_entitlement(result,
-                SYSTEM_ENTITLEMENT_LABEL)
-        sat_org_free = count['free']
-
-        # Allocate one too many entitlements:
-        result = self.assertRaises(Exception,
-                client.org.setSoftwareEntitlements, self.session_key,
-                self.org_id, SYSTEM_ENTITLEMENT_LABEL, sat_org_free + 1)
-
     def test_set_system_entitlements_on_default_org(self):
         self.assertRaises(Exception, client.org.setSystemEntitlements,
                 self.session_key, SATELLITE_ORG_ID, SYSTEM_ENTITLEMENT_LABEL,
                 100)
 
-
-
 if __name__ == "__main__":
     unittest.main()
-
-
