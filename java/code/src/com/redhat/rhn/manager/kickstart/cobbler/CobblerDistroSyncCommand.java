@@ -198,8 +198,6 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         String treeLabel = tree.getLabel();
         log.debug("Trying to create: " + treeLabel + " in cobbler over xmlrpc");
 
-        Map ksmeta = createKsMetadataFromTree(tree);
-
         if (!xen) {
 
             log.debug("tree missing in cobbler. " +
@@ -227,12 +225,9 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                         "] unusable.";
             }
 
-            Distro distro = Distro.create(CobblerXMLRPCHelper.getAutomatedConnection(),
-                    tree.getCobblerDistroName(), tree.getKernelPath(),
-                    tree.getInitrdPath(), ksmeta, tree.getInstallType().getCobblerBreed(),
-                    tree.getInstallType().getCobblerOsVersion(),
-                    tree.getChannel().getChannelArch().cobblerArch());
-            tree.setCobblerId(distro.getUid());
+            CobblerDistroHelper.getInstance().createDistroFromTree(
+                    CobblerXMLRPCHelper.getAutomatedConnection(),
+                    tree);
             invokeCobblerUpdate();
         }
         else if (tree.doesParaVirt() && xen) {
@@ -246,13 +241,9 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                 return error;
             }
 
-            Distro distroXen = Distro.create(CobblerXMLRPCHelper.getAutomatedConnection(),
-                    tree.getCobblerXenDistroName(), tree.getKernelXenPath(),
-                    tree.getInitrdXenPath(), ksmeta,
-                    tree.getInstallType().getCobblerBreed(),
-                    tree.getInstallType().getCobblerOsVersion(),
-                    tree.getChannel().getChannelArch().cobblerArch());
-            tree.setCobblerXenId(distroXen.getUid());
+            CobblerDistroHelper.getInstance().createXenDistroFromTree(
+                    CobblerXMLRPCHelper.getAutomatedConnection(),
+                    tree);
         }
         tree.setModified(new Date());
         return null;

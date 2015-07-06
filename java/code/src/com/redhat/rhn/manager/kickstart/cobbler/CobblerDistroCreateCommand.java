@@ -21,10 +21,8 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
-import org.cobbler.Distro;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
@@ -73,28 +71,15 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
     public ValidatorError store() {
         log.debug("Token : [" + xmlRpcToken + "]");
 
-        Map<String, String> ksmeta = createKsMetadataFromTree(this.tree);
-
-        Distro distro =
-                Distro.create(CobblerXMLRPCHelper.getConnection(user),
-                        tree.getCobblerDistroName(), tree.getKernelPath(),
-                        tree.getInitrdPath(), ksmeta,
-                        tree.getInstallType().getCobblerBreed(),
-                        tree.getInstallType().getCobblerOsVersion(),
-                        tree.getChannel().getChannelArch().cobblerArch());
-        // Setup the kickstart metadata so the URLs and activation key are setup
-        tree.setCobblerId(distro.getUid());
+        CobblerDistroHelper.getInstance().createDistroFromTree(
+                CobblerXMLRPCHelper.getConnection(user),
+                tree);
         invokeCobblerUpdate();
 
         if (tree.doesParaVirt()) {
-            Distro distroXen =
-                    Distro.create(CobblerXMLRPCHelper.getConnection(user),
-                            tree.getCobblerXenDistroName(),
-                            tree.getKernelXenPath(), tree.getInitrdXenPath(),
-                            ksmeta, tree.getInstallType().getCobblerBreed(),
-                            tree.getInstallType().getCobblerOsVersion(),
-                            tree.getChannel().getChannelArch().cobblerArch());
-            tree.setCobblerXenId(distroXen.getUid());
+            CobblerDistroHelper.getInstance().createXenDistroFromTree(
+                    CobblerXMLRPCHelper.getConnection(user),
+                    tree);
         }
 
         if (syncProfiles) {
