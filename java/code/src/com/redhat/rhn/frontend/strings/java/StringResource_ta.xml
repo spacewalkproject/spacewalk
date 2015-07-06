@@ -8013,13 +8013,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
         <target>{0} உரிமம் மாற்றங்களுக்கு ஒரு சரியான எண் இருக்க வேண்டும்.</target>
       </trans-unit>
-      <trans-unit id="orgsoftwaresubs.invalid">
-        <source>Entitlement modification must be a valid number for {0}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>{0} உரிமம் மாற்றங்களுக்கு ஒரு சரியான எண் இருக்க வேண்டும்.</target>
-      </trans-unit>
       <trans-unit id="message.ext_auth_disable">
         <source>No default organization</source>
         <context-group name="ctx">

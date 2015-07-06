@@ -8257,13 +8257,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>Чтобы изменить полномочие, введите допустимое число {0}.</target>
       </trans-unit>
-      <trans-unit id="orgsoftwaresubs.invalid">
-        <source>Entitlement modification must be a valid number for {0}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>Чтобы изменить полномочие, введите допустимое число {0}.</target>
-      </trans-unit>
       <trans-unit id="message.ext_auth_disable">
         <source>No default organization</source>
         <context-group name="ctx">
