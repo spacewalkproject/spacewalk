@@ -8695,14 +8695,6 @@ Follow this url to see the full list of inactive systems:
         <source>Entitlements successfully updated.</source>
         <target>Полномочия успешно обновлены.</target>
       </trans-unit>
-      <trans-unit id="org.entitlements.software.not_in_range">
-        <source>You attempted to give {0} too many {1} entitlements.  Please enter a value between {2} and {3}</source>
-        <target>Вы пытаетесь предоставить {0} слишком много полномочий ({1}). Выберите число из диапазона {2} - {3}.</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.not_in_range.flex">
-        <source>You attempted to give {0} too many {1} flex entitlements.  Please enter a value between {2} and {3}</source>
-        <target>Вы пытаетесь предоставить {0} слишком много гибких полномочий ({1}). Выберите число из диапазона {2} - {3}.</target>
-      </trans-unit>
       <trans-unit id="org.entitlements.software.proposedwarning">
         <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
         <target>Внимание: Предлагаемое распределение полномочий для {0} предоставляет меньше полномочий, чем используется организацией {1}. Исправьте число полномочий.</target>
