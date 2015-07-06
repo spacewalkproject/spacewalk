@@ -4964,20 +4964,6 @@ serviços de uma organização não-padrão, eles serão deduzidos da organizaç
         </context-group>
         <target>Ícone de Canal de Software</target>
       </trans-unit>
-      <trans-unit id="entitlements.tree.description1">
-        <source>The following channels are associated with your {0} channel entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>Os seguintes canais estão associados com o direito a serviços de canal do seu {0}.</target>
-      </trans-unit>
-      <trans-unit id="entitlements.tree.description2">
-        <source>Greyed out rows are parents of child channels in this entitlement that do not belong to the entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>As linhas na cor cinza representam pais de canais filho neste serviço, que não pertencem ao serviço.</target>
-      </trans-unit>
       <trans-unit id="packagesearch.jsp.toolbar">
         <source>Package Search</source>
         <context-group name="ctx">

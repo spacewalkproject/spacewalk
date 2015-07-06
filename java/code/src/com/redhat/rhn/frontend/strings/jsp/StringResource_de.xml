@@ -4966,20 +4966,6 @@ nicht standardmäßigen Organisation hinzufügen, werden diese von der Standard-
         </context-group>
         <target>Software-Channel-Icon</target>
       </trans-unit>
-      <trans-unit id="entitlements.tree.description1">
-        <source>The following channels are associated with your {0} channel entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>Die folgenden Channels stehen mit Ihrer {0} Channelberechtigung in Zusammenhang.</target>
-      </trans-unit>
-      <trans-unit id="entitlements.tree.description2">
-        <source>Greyed out rows are parents of child channels in this entitlement that do not belong to the entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>Grau markierte Reihen sind übergeordnete Channels (&quot;Parents&quot;) von Sub-Channels in dieser Berechtigung, die nicht zur Berechtigung gehören.</target>
-      </trans-unit>
       <trans-unit id="packagesearch.jsp.toolbar">
         <source>Package Search</source>
         <context-group name="ctx">
