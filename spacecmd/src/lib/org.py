@@ -446,10 +446,6 @@ def complete_org_setsystementitlements(self, text, line, beg, end):
 
     if len(parts) == 2:
         return tab_completer(self.do_org_list('', True), text)
-    elif len(parts) == 3:
-        entitlements = self.client.satellite.listEntitlements(self.session)
-        items = sorted([e.get('label') for e in entitlements.get('system')])
-        return tab_completer(items, parts[-1])
 
 
 def do_org_setsystementitlements(self, args):
