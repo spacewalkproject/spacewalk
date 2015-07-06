@@ -21144,7 +21144,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
       <trans-unit id="system.reboot.scheduled">
         <source>Reboot scheduled for system &lt;strong&gt;{0}&lt;/strong&gt; for {1}.  To cancel the reboot, remove &lt;strong&gt;{0}&lt;/strong&gt; from &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;the list of systems to be rebooted&lt;/strong&gt;&lt;/a&gt;.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
+          <context context-type="sourcefile">/rhn/systems/details/RebootSystem.do</context>
         </context-group>
         <target>{1}에 대해 스케줄된 시스템 &lt;strong&gt;{0}&lt;/strong&gt;을 재부팅합니다. 재부팅을 취소하시려면, &lt;a href=&quot;/rhn/schedule/InProgressSystems.do?aid={2}&quot;&gt;&lt;strong&gt;재부팅할 시스템 목록&lt;/strong&gt;&lt;/a&gt; 에서 &lt;strong&gt;{0}&lt;/strong&gt;을 삭제합니다.</target>
       </trans-unit>
