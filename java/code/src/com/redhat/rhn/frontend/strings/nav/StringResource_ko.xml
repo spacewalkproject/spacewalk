@@ -72,13 +72,6 @@
         </context-group>
         <target>가상화 호스트</target>
       </trans-unit>
-      <trans-unit id="guest.unlimited.hosts">
-        <source>Virtualization Platform Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
-        </context-group>
-        <target>가상화 플랫폼 호스트</target>
-      </trans-unit>
       <trans-unit id="guests.without.hosts">
         <source>Guests Without Hosts</source>
         <context-group name="ctx">
