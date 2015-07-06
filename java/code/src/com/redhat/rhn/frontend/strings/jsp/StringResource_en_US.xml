@@ -5832,9 +5832,6 @@ deducted from the default organization.</source>
         <trans-unit id="eligible.floating.guests">
           <source>Guests Consuming Regular Entitlements</source>
         </trans-unit>
-        <trans-unit id="Make Flex">
-          <source>Convert To Flex Guest Entitlement</source>
-        </trans-unit>
       </group>
       <!--  System search -->
       <trans-unit id="search.alt.img">
@@ -18162,12 +18159,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <source>Host System</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="virtualentitlements.toolbar">
-        <source>Virtualization Entitlements</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="system.remotecommand.scheduled">

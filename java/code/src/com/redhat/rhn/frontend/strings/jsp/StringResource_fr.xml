@@ -6844,10 +6844,6 @@ que celle par défaut, ces droits d'accès seront déduits de l'organisation
           <source>Guests Consuming Regular Entitlements</source>
           <target>Invités consommant les droits d'accès habituels</target>
         </trans-unit>
-        <trans-unit id="Make Flex">
-          <source>Convert To Flex Guest Entitlement</source>
-          <target>Se convertir aux droits d'accès d'invité Flex</target>
-        </trans-unit>
       </group>
       <!--  System search -->
       <trans-unit id="search.alt.img">
@@ -21655,13 +21651,6 @@ Le chemin d'arborescence, le RPM Kickstart, le canal de base, et la génération
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
         <target>Système hôte</target>
-      </trans-unit>
-      <trans-unit id="virtualentitlements.toolbar">
-        <source>Virtualization Entitlements</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>Droits d'accès à la Virtualisation</target>
       </trans-unit>
       <trans-unit id="system.remotecommand.scheduled">
         <source>Remote command &lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{2}&lt;/strong&gt;.</source>
