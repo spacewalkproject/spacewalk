@@ -1748,15 +1748,6 @@ public class Server extends BaseDomainHelper implements Identifiable {
         return retval;
 
     }
-    /**
-     * An adapter method that transforms a Server into a HostAndGuestCountView.
-     *
-     * @return A HostAndGuestCountView from which the Server was transformed
-     */
-    public HostAndGuestCountView asHostAndGuestCountView() {
-        return new HostAndGuestCountView(getId(), getName(), getGuests().size());
-
-    }
 
     /**
      * @return this list of history events for this server
