@@ -8417,12 +8417,6 @@ Follow this url to see the full list of inactive systems:
         <source>Entitlements successfully updated.</source>
         <target>সাফল্যের সাথে এনটাইটেলমেন্ট আপডেট করা হয়েছে।</target>
       </trans-unit>
-      <trans-unit id="org.entitlements.software.not_in_range">
-        <source>You attempted to give {0} too many {1} entitlements.  Please enter a value between {2} and {3}</source>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.not_in_range.flex">
-        <source>You attempted to give {0} too many {1} flex entitlements.  Please enter a value between {2} and {3}</source>
-      </trans-unit>
       <trans-unit id="org.entitlements.software.proposedwarning">
         <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
         <target>সতর্কবার্তা: প্রস্তাবিত {0} বরাদ্দকরণের ফলে উপলব্ধ এনটাইটেলমেন্টের সংখ্যা, {1} প্রতিষ্ঠানে ব্যবহৃত এনটাইটেলমেন্টের তুলনায় কম। অনুগ্রহ করে, প্রস্তাবিত বরাদ্দকরণের সংখ্যা, বর্তমানে ব্যবহৃত এনটাইটেলমেন্টের সংখ্যার সমান অথবা বেশি চিহ্নিত করুন।</target>

@@ -8416,12 +8416,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         <source>Entitlements successfully updated.</source>
         <target>உரிமங்கள் வெற்றிகரமாக மேம்படுத்தப்பட்டது.</target>
       </trans-unit>
-      <trans-unit id="org.entitlements.software.not_in_range">
-        <source>You attempted to give {0} too many {1} entitlements.  Please enter a value between {2} and {3}</source>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.not_in_range.flex">
-        <source>You attempted to give {0} too many {1} flex entitlements.  Please enter a value between {2} and {3}</source>
-      </trans-unit>
       <trans-unit id="org.entitlements.software.proposedwarning">
         <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
         <target>எச்சரிக்கை: நீங்கள் கூறிய உரிம ஒதுக்கீடு {0}க்கு {1} நிறுவனத்தில் பயன்படுத்திய உரிமங்களை விட அதிகமாக தேவைப்படுகிறது. எனவே நீங்கள் கூறிய ஒதுக்கீட்டை அதற்கேற்றாற் போல மாற்றவும்.</target>

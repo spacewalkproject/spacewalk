@@ -8698,14 +8698,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         <source>Entitlements successfully updated.</source>
         <target>Entitlement aggiornati con successo.</target>
       </trans-unit>
-      <trans-unit id="org.entitlements.software.not_in_range">
-        <source>You attempted to give {0} too many {1} entitlements.  Please enter a value between {2} and {3}</source>
-        <target>È stato tentato di conferire altri {0} entitlement {1}. Inserire un valore compreso tra {2} e {3}</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.not_in_range.flex">
-        <source>You attempted to give {0} too many {1} flex entitlements.  Please enter a value between {2} and {3}</source>
-        <target>È stato tentato di conferire altri {0} entitlement flex {1}. Inserire un valore compreso tra {2} e {3}</target>
-      </trans-unit>
       <trans-unit id="org.entitlements.software.proposedwarning">
         <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
         <target>Avvertenza: L'assegnazione {0} proposta, fornisce un numero minore di entitlement rispetto a quelli in uso nell'organizzazione {1}. Si prega di modificare di conseguenza tale assegnazione ad un valore non minore al numero di entitlement attualmente in uso.</target>
