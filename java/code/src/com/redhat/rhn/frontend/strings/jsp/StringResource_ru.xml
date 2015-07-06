@@ -13742,10 +13742,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Checksum</source>
           <target>Контрольная сумма</target>
         </trans-unit>
-        <trans-unit id="system.history.snapshot.no_subscriptions">
-          <source>Insufficient channel subscriptions to complete rollback; aborted.</source>
-          <target>Недостаточно подписок для завершения восстановления. Выход...</target>
-        </trans-unit>
         <trans-unit id="system.history.snapshot.groups_changed">
           <source>Channels and groups changed.</source>
           <target>Каналы и группы были изменены.</target>

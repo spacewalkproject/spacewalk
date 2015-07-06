@@ -13756,10 +13756,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           <source>Checksum</source>
           <target>Checksum</target>
         </trans-unit>
-        <trans-unit id="system.history.snapshot.no_subscriptions">
-          <source>Insufficient channel subscriptions to complete rollback; aborted.</source>
-          <target>Subscrições de canais insuficientes para concluir o rollback; abortado.</target>
-        </trans-unit>
         <trans-unit id="system.history.snapshot.groups_changed">
           <source>Channels and groups changed.</source>
           <target>Canais e grupos modificados</target>
