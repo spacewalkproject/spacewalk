@@ -6689,10 +6689,6 @@ deducted from the default organization.</source>
           <source>{0} consumed, {1} available entitlement</source>
           <target>{0} 사용됨, {1} 사용 가능한 인타이틀먼트 </target>
         </trans-unit>
-        <trans-unit id="floating.guests">
-          <source>Flex Guest Entitlement Consumers</source>
-          <target>Flex 게스트 인타이틀먼트 컨슈머 </target>
-        </trans-unit>
         <trans-unit id="eligible.floating.guests">
           <source>Guests Consuming Regular Entitlements</source>
           <target>일반적인 인타이틀먼트를 사용하는 게스트 </target>
