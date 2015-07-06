@@ -11891,7 +11891,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>Icona software</target>
       </trans-unit>
@@ -11942,7 +11941,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>Nessun canale trovato.</target>
       </trans-unit>
@@ -11951,7 +11949,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>Mostra tutti i canali figlio</target>
       </trans-unit>
@@ -11960,7 +11957,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>Nascondi tutti i canali figlio</target>
       </trans-unit>
@@ -11969,7 +11965,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
         <target>Pulsante Canale genitore</target>
@@ -11979,7 +11974,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>Canale figlio</target>
       </trans-unit>

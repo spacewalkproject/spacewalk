@@ -11909,7 +11909,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>ソフトウェアアイコン</target>
       </trans-unit>
@@ -11960,7 +11959,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>チャンネルが見つかりませんでした。</target>
       </trans-unit>
@@ -11969,7 +11967,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>すべての子チャンネルを表示</target>
       </trans-unit>
@@ -11978,7 +11975,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>すべての子チャンネルを非表示</target>
       </trans-unit>
@@ -11987,7 +11983,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
         <target>親チャンネルボタン</target>
@@ -11997,7 +11992,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>子チャンネル</target>
       </trans-unit>
