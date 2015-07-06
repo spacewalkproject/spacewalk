@@ -115,7 +115,7 @@ public class CobblerDistroHelper {
         distro.setKsMeta(ksmeta);
         distro.setArch(tree.getChannel().getChannelArch().cobblerArch());
         distro.setKernelOptions(tree.getKernelOptions());
-        distro.setKernelPostOptions(tree.getKernelOptionsPost());
+        distro.setKernelOptionsPost(tree.getKernelOptionsPost());
         distro.save();
     }
 
@@ -135,7 +135,7 @@ public class CobblerDistroHelper {
         distro.setKsMeta(ksmeta);
         distro.setArch(tree.getChannel().getChannelArch().cobblerArch());
         distro.setKernelOptions(tree.getKernelOptions());
-        distro.setKernelPostOptions(tree.getKernelOptionsPost());
+        distro.setKernelOptionsPost(tree.getKernelOptionsPost());
         distro.save();
     }
 

@@ -97,11 +97,11 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
 
             Map kOpts = distro.getKernelOptions();
             distro.setKernelOptions(getKernelOptions());
-            distro.setKernelPostOptions(getPostKernelOptions());
+            distro.setKernelOptionsPost(getKernelOptionsPost());
             distro.save();
             if (xenDistro != null) {
                 xenDistro.setKernelOptions(getKernelOptions());
-                xenDistro.setKernelPostOptions(getPostKernelOptions());
+                xenDistro.setKernelOptionsPost(getKernelOptionsPost());
                 xenDistro.save();
             }
         }
@@ -234,18 +234,18 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
 
 
     /**
-     * @return Returns the postKernelOptions.
+     * @return Returns the kernelOptionsPost.
      */
-    public String getPostKernelOptions() {
+    public String getKernelOptionsPost() {
         return tree.getKernelOptionsPost();
     }
 
 
     /**
-     * @param postKernelOptionsIn The postKernelOptions to set.
+     * @param kernelOptionsPostIn The kernelOptionsPost to set.
      */
-    public void setPostKernelOptions(String postKernelOptionsIn) {
-        tree.setKernelOptionsPost(postKernelOptionsIn);
+    public void setKernelOptionsPost(String kernelOptionsPostIn) {
+        tree.setKernelOptionsPost(kernelOptionsPostIn);
     }
 
 

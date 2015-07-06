@@ -68,7 +68,7 @@ public class KickstartCloneCommand extends BaseKickstartCommand {
         cloned.setVirtBridge(original.getVirtBridge());
         cloned.setVirtPath(original.getVirtBridge());
         cloned.setKernelOptions(original.getKernelOptions());
-        cloned.setKernelPostOptions(original.getKernelPostOptions());
+        cloned.setKernelOptionsPost(original.getKernelOptionsPost());
         cloned.save();
 
         return null;

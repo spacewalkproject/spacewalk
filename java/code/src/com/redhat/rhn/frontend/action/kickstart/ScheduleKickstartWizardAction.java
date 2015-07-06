@@ -529,14 +529,14 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             ctx.getRequest().setAttribute("distro_kernel_params",
                     distro.getKernelOptionsString());
             ctx.getRequest().setAttribute("distro_post_kernel_params",
-                    distro.getKernelPostOptionsString());
+                    distro.getKernelOptionsPostString());
 
             org.cobbler.Profile profile = org.cobbler.Profile.
                     lookupById(con, cmd.getKsdata().getCobblerId());
             ctx.getRequest().setAttribute("profile_kernel_params",
                     profile.getKernelOptionsString());
             ctx.getRequest().setAttribute("profile_post_kernel_params",
-                    profile.getKernelPostOptionsString());
+                    profile.getKernelOptionsPostString());
             if (cmd.getServer().getCobblerId() != null) {
                 SystemRecord rec = SystemRecord.
                         lookupById(con, cmd.getServer().getCobblerId());
@@ -548,7 +548,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                     }
                     if (StringUtils.isBlank(form.getString(POST_KERNEL_PARAMS_TYPE))) {
                         form.set(POST_KERNEL_PARAMS_TYPE, KERNEL_PARAMS_CUSTOM);
-                        form.set(POST_KERNEL_PARAMS, rec.getKernelPostOptionsString());
+                        form.set(POST_KERNEL_PARAMS, rec.getKernelOptionsPostString());
                     }
                 }
             }
@@ -975,7 +975,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         if (!isPost) {
             return ret.getKernelOptionsString();
         }
-        return ret.getKernelPostOptionsString();
+        return ret.getKernelOptionsPostString();
 
     }
 }

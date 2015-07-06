@@ -364,7 +364,7 @@ public class Distro extends CobblerObject {
             distro.setKsMeta(ksmeta);
             distro.setArch(arch);
             distro.setKernelOptions(kernelOptions);
-            distro.setKernelPostOptions(kernelOptionsPost);
+            distro.setKernelOptionsPost(kernelOptionsPost);
             distro.save();
             distro = lookupByName(connection, name);
             return distro;

@@ -122,7 +122,7 @@ public abstract class BaseTreeAction extends BaseEditAction {
         else {
             bte.setKernelOptions(form.getString(KERNEL_OPTS));
         }
-        bte.setPostKernelOptions(form.getString(POST_KERNEL_OPTS));
+        bte.setKernelOptionsPost(form.getString(POST_KERNEL_OPTS));
 
         return null;
 
