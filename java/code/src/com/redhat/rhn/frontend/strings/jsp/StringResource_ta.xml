@@ -11330,7 +11330,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>மென்பொருள் சின்னம்</target>
       </trans-unit>
@@ -11380,7 +11379,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>தடங்கள் எதுவும் இல்லை.</target>
       </trans-unit>
@@ -11389,7 +11387,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>அனைத்து சேய் தடங்களையும் காட்டவும்</target>
       </trans-unit>
@@ -11398,7 +11395,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>அனைத்து சேய் தடங்களையும் மறைக்கவும்</target>
       </trans-unit>
@@ -11407,7 +11403,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
         <target>தாய் தட பொத்தான்</target>
@@ -11417,7 +11412,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>சேய் தடம்</target>
       </trans-unit>

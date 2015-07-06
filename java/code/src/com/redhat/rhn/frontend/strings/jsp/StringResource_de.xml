@@ -11862,7 +11862,6 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>Software-Icon</target>
       </trans-unit>
@@ -11913,7 +11912,6 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>Keine Channels gefunden.</target>
       </trans-unit>
@@ -11922,7 +11920,6 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>Alle Sub-Channels anzeigen</target>
       </trans-unit>
@@ -11931,7 +11928,6 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>Alle Sub-Channels verstecken</target>
       </trans-unit>
@@ -11940,7 +11936,6 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
         <target>Parent-Channel-Schaltfläche</target>
@@ -11950,7 +11945,6 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>Sub-Channel</target>
       </trans-unit>
