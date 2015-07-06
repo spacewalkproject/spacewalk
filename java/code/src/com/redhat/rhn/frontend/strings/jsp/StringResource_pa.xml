@@ -8314,26 +8314,6 @@ the following tabs in the left navigation menu:</source>
         </context-group>
         <target>ਸੰਗਠਨ ਬਾਰੇ ਹੋਰ ਵੇਰਵੇ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ ਇਹ ਵੇਖੋ</target>
       </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.header2">
-        <source>Subscriptions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>ਮੈਂਬਰੀ</target>
-      </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.description2">
-        <source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis,
-you can allocate entitlements for any particular entitlement across all
-organizations on your @@PRODUCT_NAME@@ here as well.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>ਤੁਹਾਡੇ @@PRODUCT_NAME@@ ਉੱਪਰ ਮੈਂਬਰੀਆਂ ਦਾ ਪਰਬੰਧਨ ਕਰਦਾ ਹੈ। ਤੁਸੀਂ ਇਹ ਵੀ ਵੇਖ ਸਕਦੇ ਹੋ ਕਿ ਹਰੇਕ ਇੰਟਾਈਟਲਮੈਂਟ
-ਦੁਆਰਾ ਕਿਹੜੇ ਅਧਿਕਾਰ ਦਿੱਤੇ ਗਏ ਹਨ। ਪਰੀ-ਇੰਟਾਈਟਲਮੈਂਟ ਅਧਾਰ ਤੇ,
-ਤੁਸੀਂ ਆਪਣੇ @@PRODUCT_NAME@@ ਉੱਪਰ ਪੂਰੇ ਸੰਗਠਨਾਂ ਵਿੱਚ ਕਿਸੇ ਖਾਸ ਇੰਟਾਈਟਲਮੈਂਟ
-ਲਈ ਇੰਟਾਈਲਮੈਂਟ ਨਿਰਧਾਰਤ ਕਰ ਸਕਦੇ ਹੋ।</target>
-      </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link2">
         <source>Go to Subscriptions now</source>
         <context-group name="ctx">

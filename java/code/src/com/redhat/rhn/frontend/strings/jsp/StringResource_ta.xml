@@ -8314,26 +8314,6 @@ the following tabs in the left navigation menu:</source>
         </context-group>
         <target>நிறுவனங்கள் பற்றிய மேலும் தகவல்களுக்கு, பின்வருவனவற்றைப் பார்க்கவும்</target>
       </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.header2">
-        <source>Subscriptions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>சந்தாக்கள்</target>
-      </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.description2">
-        <source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis,
-you can allocate entitlements for any particular entitlement across all
-organizations on your @@PRODUCT_NAME@@ here as well.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>உங்கள் @@PRODUCT_NAME@@இல் சந்தாக்களை மேலாண்மை செய்யவும். நீங்கள் ஒவ்வொரு உரிமமும்
-எந்த அணுகலை கொண்டுள்ளது என்பதை பார்க்கலாம். ஒரு உரிமத்தின்
-அடிப்படையில், நீங்கள் எந்த குறிப்பிட்ட உரிமத்திற்கும் உங்கள் @@PRODUCT_NAME@@இல்
-அனைத்து நிறுவனங்களுக்கும் ஒதுக்கலாம்.</target>
-      </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link2">
         <source>Go to Subscriptions now</source>
         <context-group name="ctx">

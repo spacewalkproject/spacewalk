@@ -8685,26 +8685,6 @@ the following tabs in the left navigation menu:</source>
         </context-group>
         <target>欲知更多關於組織的詳情，請參閱</target>
       </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.header2">
-        <source>Subscriptions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>訂閱</target>
-      </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.description2">
-        <source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis,
-you can allocate entitlements for any particular entitlement across all
-organizations on your @@PRODUCT_NAME@@ here as well.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>管理您 @@PRODUCT_NAME@@ 上的訂閱服務。您也可以檢閱每個權利所提供的存取功能。
-在單一權利的基礎上，
-您也可在此為任何 @@PRODUCT_NAME@@ 上的所有
-組織，分配特定的權利。</target>
-      </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link2">
         <source>Go to Subscriptions now</source>
         <context-group name="ctx">

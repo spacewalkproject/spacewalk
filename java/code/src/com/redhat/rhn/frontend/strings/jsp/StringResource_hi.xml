@@ -8314,26 +8314,6 @@ the following tabs in the left navigation menu:</source>
         </context-group>
         <target>संगठन पर अधिक विस्तार के लिए, कृपया इसका संदर्भ लें</target>
       </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.header2">
-        <source>Subscriptions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>सदस्यता</target>
-      </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.description2">
-        <source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis,
-you can allocate entitlements for any particular entitlement across all
-organizations on your @@PRODUCT_NAME@@ here as well.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>अपने @@PRODUCT_NAME@@ पर सदस्यता प्रबंधित करें. आप इसके लिए भी देख सकते हैं कि कौन सा अभिगम
-हर एंटाइटेलमेंट के द्वारा दिया गया है. प्रति एंटाइटेलमेंट आधार पर,
-आप एंटाइटेलमेंट आबंटित कर सकते हैं किसी खास एंटाइटेलमेंट के लिए सभी
-संगठन पर साथ ही अपने @@PRODUCT_NAME@@ पर यहां.</target>
-      </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link2">
         <source>Go to Subscriptions now</source>
         <context-group name="ctx">

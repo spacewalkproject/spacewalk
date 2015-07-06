@@ -8533,26 +8533,6 @@ the following tabs in the left navigation menu:</source>
         </context-group>
         <target>조직에 관한 보다 자세한 정보는, 다음에서 참조하시기 바랍니다: </target>
       </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.header2">
-        <source>Subscriptions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>서브스크립션 </target>
-      </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.description2">
-        <source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis,
-you can allocate entitlements for any particular entitlement across all
-organizations on your @@PRODUCT_NAME@@ here as well.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@에 있는 서브스크립션을 관리합니다. 각각의 인타이틀먼트에서 제공하는 액세스가 무엇인지를
-살펴보실 수 도 있습니다. 각각의 인타이틀먼트에 기반하여,
-여기서 @@PRODUCT_NAME@@에 있는 모든 조직에 걸쳐 특정 인타이틀먼트에 대한 인타이틀먼트를
-할당하실 수 있습니다.      </target>
-      </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link2">
         <source>Go to Subscriptions now</source>
         <context-group name="ctx">

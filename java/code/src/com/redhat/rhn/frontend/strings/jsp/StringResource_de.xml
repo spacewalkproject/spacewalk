@@ -8689,26 +8689,6 @@ gehen Sie zu den folgenden Tabs im linken Navigationsmenü:</target>
         </context-group>
         <target>Für weitere Details zu Organisationen, beziehen Sie sich bitte auf das </target>
       </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.header2">
-        <source>Subscriptions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>Subskriptionen</target>
-      </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.description2">
-        <source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis,
-you can allocate entitlements for any particular entitlement across all
-organizations on your @@PRODUCT_NAME@@ here as well.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>Verwalten der Subskriptionen auf Ihrem @@PRODUCT_NAME@@. Sie sollten außerdem nachsehen,
-welcher Zugriff von jeder Berechtigung zur Verfügung gestellt wird. Auf einer
-Pro-Berechtigung-Basis können Sie hier auch Berechtigungen für jede beliebige
-Berechtigung über alle Organisationen hinweg auf Ihrem @@PRODUCT_NAME@@ zuweisen.</target>
-      </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link2">
         <source>Go to Subscriptions now</source>
         <context-group name="ctx">

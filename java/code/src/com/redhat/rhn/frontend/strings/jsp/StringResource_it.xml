@@ -8677,25 +8677,6 @@ tabelle nel menu di navigazione di sinistra:</target>
         </context-group>
         <target>Per maggiori informazioni sulle organizzazioni consultate</target>
       </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.header2">
-        <source>Subscriptions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>Sottoscrizioni</target>
-      </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.description2">
-        <source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis,
-you can allocate entitlements for any particular entitlement across all
-organizations on your @@PRODUCT_NAME@@ here as well.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>Gestite le sottoscrizioni sul vostro @@PRODUCT_NAME@@. È possibile cercare quale tipo di accesso è
-fornito da ogni entitlement. In base all'entitlement, qui sarà possibile assegnare
-entitlement per ogni entitlement particolare su tutte le organizzazioni presenti su @@PRODUCT_NAME@@.</target>
-      </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link2">
         <source>Go to Subscriptions now</source>
         <context-group name="ctx">

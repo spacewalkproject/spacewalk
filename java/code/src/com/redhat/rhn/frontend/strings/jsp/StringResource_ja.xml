@@ -8690,26 +8690,6 @@ the following tabs in the left navigation menu:</source>
         </context-group>
         <target>組織に関する詳細情報は、次を参照してください。</target>
       </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.header2">
-        <source>Subscriptions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>サブスクリプション</target>
-      </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.description2">
-        <source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis,
-you can allocate entitlements for any particular entitlement across all
-organizations on your @@PRODUCT_NAME@@ here as well.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>ご使用の @@PRODUCT_NAME@@ 上のサブスクリプションを管理します。また各エンタイトルメントで
-提供されているアクセスも確認します。エンタイトルメントごとに、ご使用の @@PRODUCT_NAME@@ 上の
-すべての組織で、特定のエンタイトルメントにエンタイトルメントを
-割り当てることもできます。</target>
-      </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link2">
         <source>Go to Subscriptions now</source>
         <context-group name="ctx">
