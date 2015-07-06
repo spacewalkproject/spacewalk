@@ -1161,16 +1161,6 @@
           <target>基本频道</target>
         </trans-unit>
       </group>
-      <!-- Multiorg nav -->
-      <group>
-        <trans-unit id="Software Channel Entitlements">
-          <source>Software Channel Entitlements</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-          </context-group>
-          <target>软件频道权利</target>
-        </trans-unit>
-      </group>
       <!-- Activation Keys nav -->
       <group>
         <trans-unit id="activation-keys.nav.activated_systems">
