@@ -4512,27 +4512,6 @@ serviços de uma organização não-padrão, eles serão deduzidos da organizaç
         </context-group>
         <target>Uso dos Serviços:</target>
       </trans-unit>
-      <trans-unit id="No Entitlements Available">
-        <source>No Entitlements Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Não há serviços disponíveis</target>
-      </trans-unit>
-      <trans-unit id="Regular Proposed Total">
-        <source>Regular Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Total Proposto Regular</target>
-      </trans-unit>
-      <trans-unit id="Flex Proposed Total">
-        <source>Flex Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Total Proposto Flexível</target>
-      </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
         <target>Data inicial:</target>
@@ -5048,13 +5027,6 @@ serviços de uma organização não-padrão, eles serão deduzidos da organizaç
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
         <target>Nenhum Serviço no Canal</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.channel">
-        <source>Channel Entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>Canal de Software</target>
       </trans-unit>
       <trans-unit id="entitlements.jsp.subscribed">
         <source>Systems Subscribed</source>
@@ -23228,10 +23200,6 @@ of @@PRODUCT_NAME@@.</target>
         <source>Regular Usage - Alloted</source>
         <target>Uso Regular - Alocada</target>
       </trans-unit>
-      <trans-unit id="maxAvailable">
-        <source>Regular Proposed Total</source>
-        <target>Total Proposto Regular</target>
-      </trans-unit>
       <trans-unit id="currentFlex">
         <source>Flex Usage - Used</source>
         <target>Uso Flex - Utilizado</target>
@@ -23239,10 +23207,6 @@ of @@PRODUCT_NAME@@.</target>
       <trans-unit id="maxFlex">
         <source>Flex Usage - Allotted</source>
         <target>Uso Flexível - Alocado</target>
-      </trans-unit>
-      <trans-unit id="maxAvailableFlex">
-        <source>Flex Proposed Total</source>
-        <target>Total Proposto Flexível</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>
