@@ -6839,10 +6839,6 @@ deducted from the default organization.</source>
           <source>{0} consumed, {1} available entitlement</source>
           <target>{0} 已经被消费，{1} 可用的权利</target>
         </trans-unit>
-        <trans-unit id="floating.guests">
-          <source>Flex Guest Entitlement Consumers</source>
-          <target>Flex 客户权利消费者</target>
-        </trans-unit>
         <trans-unit id="eligible.floating.guests">
           <source>Guests Consuming Regular Entitlements</source>
           <target>消费常规权利的客户</target>

@@ -6840,10 +6840,6 @@ presi dall'organizzazione predefinita.</target>
           <source>{0} consumed, {1} available entitlement</source>
           <target>{0} consumati, {1} entitlement disponibile</target>
         </trans-unit>
-        <trans-unit id="floating.guests">
-          <source>Flex Guest Entitlement Consumers</source>
-          <target>Utenze con entitlement guest Flex</target>
-        </trans-unit>
         <trans-unit id="eligible.floating.guests">
           <source>Guests Consuming Regular Entitlements</source>
           <target>Guest che utilizzano entitlement regolari</target>

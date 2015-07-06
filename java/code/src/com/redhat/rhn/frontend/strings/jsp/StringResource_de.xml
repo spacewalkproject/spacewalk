@@ -6840,10 +6840,6 @@ Sobald Sie zusätzliche &lt;strong&gt;Management&lt;/strong&gt; Berechtigungen h
           <source>{0} consumed, {1} available entitlement</source>
           <target>{0} konsumiert, {1} verfügbare Berechtigung</target>
         </trans-unit>
-        <trans-unit id="floating.guests">
-          <source>Flex Guest Entitlement Consumers</source>
-          <target>Verbraucher von Flex-Gast-Berechtigungen</target>
-        </trans-unit>
         <trans-unit id="eligible.floating.guests">
           <source>Guests Consuming Regular Entitlements</source>
           <target>Gäste, die reguläre Berechtigungen konsumieren</target>

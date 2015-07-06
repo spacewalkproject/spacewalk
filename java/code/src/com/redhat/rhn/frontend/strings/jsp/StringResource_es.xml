@@ -6841,10 +6841,6 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
           <source>{0} consumed, {1} available entitlement</source>
           <target>{0} consumido, {1} derecho disponible</target>
         </trans-unit>
-        <trans-unit id="floating.guests">
-          <source>Flex Guest Entitlement Consumers</source>
-          <target>Consumidores flexibles de derechos de huéspedes. </target>
-        </trans-unit>
         <trans-unit id="eligible.floating.guests">
           <source>Guests Consuming Regular Entitlements</source>
           <target>Huéspedes que consumen derechos normales</target>

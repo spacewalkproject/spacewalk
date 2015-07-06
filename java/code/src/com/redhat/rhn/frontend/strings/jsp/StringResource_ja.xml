@@ -6841,10 +6841,6 @@ deducted from the default organization.</source>
           <source>{0} consumed, {1} available entitlement</source>
           <target>{0} が使用されています。利用可能なエンタイトルメントは {1} です</target>
         </trans-unit>
-        <trans-unit id="floating.guests">
-          <source>Flex Guest Entitlement Consumers</source>
-          <target>Flex ゲストエンタイトルメントコンシューマ</target>
-        </trans-unit>
         <trans-unit id="eligible.floating.guests">
           <source>Guests Consuming Regular Entitlements</source>
           <target>通常のエンタイトルメントを使用しているゲスト</target>
