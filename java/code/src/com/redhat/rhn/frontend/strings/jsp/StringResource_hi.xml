@@ -20492,20 +20492,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>बेस सॉफ्टवेयर चैनल रूपांतरित करें</target>
       </trans-unit>
-      <trans-unit id="guestslimited.jsp.hostsystem">
-        <source>Host System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>मेजबानित सिस्टम</target>
-      </trans-unit>
-      <trans-unit id="system.remotecommand.scheduled">
-        <source>Remote command &lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{2}&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>दूरस्थ कमांड को &lt;a href=&quot;/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}&quot;&gt;नियोजित किया गया&lt;/a&gt; &lt;strong&gt;{2}&lt;/strong&gt; के लिए.</target>
-      </trans-unit>
       <trans-unit id="system.reboot.scheduled">
         <source>Reboot scheduled for system &lt;strong&gt;{0}&lt;/strong&gt; for {1}.  To cancel the reboot, remove &lt;strong&gt;{0}&lt;/strong&gt; from &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;the list of systems to be rebooted&lt;/strong&gt;&lt;/a&gt;.</source>
         <context-group name="ctx">
