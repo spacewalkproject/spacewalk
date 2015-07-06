@@ -8261,13 +8261,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
         <target>La modificación de derechos debe ser un número válido para {0}.</target>
       </trans-unit>
-      <trans-unit id="orgsoftwaresubs.invalid">
-        <source>Entitlement modification must be a valid number for {0}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>La modificación de derechos debe ser un número válido para {0}.</target>
-      </trans-unit>
       <trans-unit id="message.ext_auth_disable">
         <source>No default organization</source>
         <context-group name="ctx">
