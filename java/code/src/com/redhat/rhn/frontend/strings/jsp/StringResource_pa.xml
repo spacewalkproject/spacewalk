@@ -4293,12 +4293,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
         <target>ਸਿਸਟਮ</target>
       </trans-unit>
-      <trans-unit id="Available/Total">
-        <source>Available/Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Used/Allotted">
         <source>Used/Allotted</source>
         <context-group name="ctx">
@@ -4309,32 +4303,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <source>None Allotted</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Regular Counts">
-        <source>Regular Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Regular Usage">
-        <source>Regular Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Flex Counts">
-        <source>Flex Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Flex Usage">
-        <source>Flex Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Used/Allotted.tip">

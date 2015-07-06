@@ -4407,13 +4407,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
         <target>Системы</target>
       </trans-unit>
-      <trans-unit id="Available/Total">
-        <source>Available/Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>Доступно/Всего</target>
-      </trans-unit>
       <trans-unit id="Used/Allotted">
         <source>Used/Allotted</source>
         <context-group name="ctx">
@@ -4427,36 +4420,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
         <target>Не выделено</target>
-      </trans-unit>
-      <trans-unit id="Regular Counts">
-        <source>Regular Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>Обычные</target>
-      </trans-unit>
-      <trans-unit id="Regular Usage">
-        <source>Regular Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Занято обычных</target>
-      </trans-unit>
-      <trans-unit id="Flex Counts">
-        <source>Flex Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>Гибкие</target>
-      </trans-unit>
-      <trans-unit id="Flex Usage">
-        <source>Flex Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Занято гибких</target>
       </trans-unit>
       <trans-unit id="Used/Allotted.tip">
         <source>'Allotted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
