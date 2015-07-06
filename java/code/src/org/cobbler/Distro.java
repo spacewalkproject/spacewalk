@@ -37,41 +37,6 @@ public class Distro extends CobblerObject {
     }
 
     /**
-     * Create a new distro in cobbler
-     * @param client the xmlrpc client
-     * @param name the name of the distro
-     * @param kernel the kernel path of the distro
-     * @param initrd the initrd path of the distro
-     * @param ksmeta inital ksmeta to set
-     * @param breed initial breed to set
-     * @param osVersion initial os_version to set
-     * @param arch initial cobbler arch to set
-     * @return a new Distro
-     */
-    public static Distro create(CobblerConnection client, String name, String kernel,
-            String initrd, Map ksmeta, String breed, String osVersion, String arch) {
-        Distro distro = new Distro(client);
-        distro.handle = (String) client.invokeTokenMethod("new_distro");
-        distro.modify(NAME, name);
-        distro.setKernel(kernel);
-        distro.setInitrd(initrd);
-        if (ksmeta.containsKey("autoyast")) {
-            distro.setBreed("suse");
-        }
-        else if (breed != null) {
-            distro.setBreed(breed);
-        }
-        if (osVersion != null) {
-            distro.setOsVersion(osVersion);
-        }
-        distro.setKsMeta(ksmeta);
-        distro.setArch(arch);
-        distro.save();
-        distro = lookupByName(client, name);
-        return distro;
-    }
-
-    /**
      * Returns a distro matching the given name or null
      * @param client the xmlrpc client
      * @param name the distro name
@@ -268,5 +233,142 @@ public class Distro extends CobblerObject {
      */
     public void setBreed(String breedIn) {
         modify(BREED, breedIn);
+    }
+
+    /**
+     * Builder to create a Distro
+     */
+    public static class Builder {
+
+        private String name;
+        private String kernel;
+        private String initrd;
+        private Map<String, ? extends Object> ksmeta;
+        private String breed;
+        private String osVersion;
+        private String arch;
+        private String kernelOptions;
+        private String kernelOptionsPost;
+
+
+        /**
+         * Set architecture
+         * @param archIn value to set
+         * @return this builder to chain operations
+         */
+        public Builder setArch(String archIn) {
+            arch = archIn;
+            return this;
+        }
+
+        /**
+         * Set breed
+         * @param breedIn value to set
+         * @return this builder to chain operations
+         */
+        public Builder setBreed(String breedIn) {
+            breed = breedIn;
+            return this;
+        }
+
+        /**
+         * Set initrd path
+         * @param initrdIn value to set
+         * @return this builder to chain operations
+         */
+        public Builder setInitrd(String initrdIn) {
+            initrd = initrdIn;
+            return this;
+        }
+
+        /**
+         * Set kernel path
+         * @param kernelIn value to set
+         * @return this builder to chain operations
+         */
+        public Builder setKernel(String kernelIn) {
+            kernel = kernelIn;
+            return this;
+        }
+
+        /**
+         * Set kernel options
+         * @param kernelOptionsIn value to set
+         * @return this builder to chain operations
+         */
+        public Builder setKernelOptions(String kernelOptionsIn) {
+            kernelOptions = kernelOptionsIn;
+            return this;
+        }
+
+        /**
+         * Set kernel options (post install)
+         * @param kernelOptionsPostIn value to set
+         * @return this builder to chain operations
+         */
+        public Builder setKernelOptionsPost(String kernelOptionsPostIn) {
+            kernelOptionsPost = kernelOptionsPostIn;
+            return this;
+        }
+
+        /**
+         * Set kickstart metadata
+         * @param ksmetaIn value to set
+         * @return this builder to chain operations
+         */
+        public Builder setKsmeta(Map<String, ? extends Object> ksmetaIn) {
+            ksmeta = ksmetaIn;
+            return this;
+        }
+
+        /**
+         * Set distro name
+         * @param nameIn value to set
+         * @return this builder to chain operations
+         */
+        public Builder setName(String nameIn) {
+            name = nameIn;
+            return this;
+        }
+
+        /**
+         * Set OS version
+         * @param osVersionIn value to set
+         * @return this builder to chain operations
+         */
+        public Builder setOsVersion(String osVersionIn) {
+            osVersion = osVersionIn;
+            return this;
+        }
+
+        /**
+         * Create the distro with the current builder settings
+         * @param connection Connection to use for Distro creation
+         * @return this builder to chain operations
+         */
+        public Distro build(CobblerConnection connection) {
+            Distro distro = new Distro(connection);
+            distro.handle = (String) connection.invokeTokenMethod("new_distro");
+            distro.modify(NAME, name);
+            distro.setKernel(kernel);
+            distro.setInitrd(initrd);
+            if (ksmeta.containsKey("autoyast")) {
+                distro.setBreed("suse");
+            }
+            else if (breed != null) {
+                distro.setBreed(breed);
+            }
+            if (osVersion != null) {
+                distro.setOsVersion(osVersion);
+            }
+            distro.setKsMeta(ksmeta);
+            distro.setArch(arch);
+            distro.setKernelOptions(kernelOptions);
+            distro.setKernelPostOptions(kernelOptionsPost);
+            distro.save();
+            distro = lookupByName(connection, name);
+            return distro;
+        }
+
     }
 }
