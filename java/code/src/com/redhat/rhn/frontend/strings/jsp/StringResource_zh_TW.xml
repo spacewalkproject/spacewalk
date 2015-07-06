@@ -21637,20 +21637,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>修改基礎軟體頻道</target>
       </trans-unit>
-      <trans-unit id="guestslimited.jsp.hostsystem">
-        <source>Host System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>主機系統</target>
-      </trans-unit>
-      <trans-unit id="system.remotecommand.scheduled">
-        <source>Remote command &lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{2}&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>已為 &lt;strong&gt;{2}&lt;/strong&gt; 排程的遠端指令 &lt;a href=&quot;/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}&quot;&gt;scheduled&lt;/a&gt;。</target>
-      </trans-unit>
       <trans-unit id="system.reboot.scheduled">
         <source>Reboot scheduled for system &lt;strong&gt;{0}&lt;/strong&gt; for {1}.  To cancel the reboot, remove &lt;strong&gt;{0}&lt;/strong&gt; from &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;the list of systems to be rebooted&lt;/strong&gt;&lt;/a&gt;.</source>
         <context-group name="ctx">
