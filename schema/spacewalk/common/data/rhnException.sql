@@ -55,7 +55,6 @@ insert into rhnException values (-20247, 'null_email_address','A user must have 
 insert into rhnException values (-20248, 'invalid_item_code','The specified item does not exist');
 insert into rhnException values (-20249, 'invalid_server_group','The specified server group does not exist');
 
-insert into rhnException values (-20250, 'invalid_channel_family','The specified channel family does not exist');
 insert into rhnException values (-20251, 'invalid_state','The specified state does not exist');
 insert into rhnException values (-20253, 'invalid_state_transition','The specified transition is not allowed');
 insert into rhnException values (-20254, 'ep_error','Entitlement Proxy error');
