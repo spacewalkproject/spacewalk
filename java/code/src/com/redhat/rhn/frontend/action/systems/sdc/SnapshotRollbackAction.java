@@ -44,9 +44,6 @@ public class SnapshotRollbackAction extends RhnAction {
     private static final String CHANNEL_CHANGES = "channel_changes";
     private static final String PACKAGE_CHANGES = "package_changes";
     private static final String CONFIG_CHANGES  = "config_changes";
-
-    private static final String NO_SUBSCRIPTION_MSG  =
-                                                "system.history.snapshot.no_subscriptions";
     private static final String GROUPS_CHANGED_MSG   =
                                                 "system.history.snapshot.groups_changed";
     private static final String PACKAGES_CHANGED_MSG =
