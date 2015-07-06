@@ -20495,20 +20495,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>આધાર સોફ્ટવેર ચેનલ સુધારો</target>
       </trans-unit>
-      <trans-unit id="guestslimited.jsp.hostsystem">
-        <source>Host System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>યજમાન સિસ્ટમ</target>
-      </trans-unit>
-      <trans-unit id="system.remotecommand.scheduled">
-        <source>Remote command &lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{2}&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>દૂરસ્થ આદેશ &lt;strong&gt;{2}&lt;/strong&gt; માટે &lt;a href=&quot;/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}&quot;&gt;સુનિશ્ચિત&lt;/a&gt; થઈ ગયેલ છે.</target>
-      </trans-unit>
       <trans-unit id="system.reboot.scheduled">
         <source>Reboot scheduled for system &lt;strong&gt;{0}&lt;/strong&gt; for {1}.  To cancel the reboot, remove &lt;strong&gt;{0}&lt;/strong&gt; from &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;the list of systems to be rebooted&lt;/strong&gt;&lt;/a&gt;.</source>
         <context-group name="ctx">
