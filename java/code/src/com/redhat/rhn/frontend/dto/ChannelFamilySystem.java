@@ -29,29 +29,12 @@ public class ChannelFamilySystem extends SelectableAdapter {
     private Long id;
     private boolean active;
     private Date registered;
-    private ChannelFamilySystemGroup group;
 
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
-    }
-
-
-    /**
-     * @return Returns the group.
-     */
-    public ChannelFamilySystemGroup getGroup() {
-        return group;
-    }
-
-
-    /**
-     * @param groupIn The group to set.
-     */
-    public void setGroup(ChannelFamilySystemGroup groupIn) {
-        group = groupIn;
     }
 
     /**
