@@ -73,7 +73,6 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(ConfigFileDtoSerializer.class);
         SERIALIZER_CLASSES.add(ConfigFileNameDtoSerializer.class);
         SERIALIZER_CLASSES.add(ConfigSystemDtoSerializer.class);
-        SERIALIZER_CLASSES.add(ChannelFamilySystemGroupSerializer.class);
         SERIALIZER_CLASSES.add(OrgDtoSerializer.class);
         SERIALIZER_CLASSES.add(MultiOrgUserOverviewSerializer.class);
         SERIALIZER_CLASSES.add(VirtualSystemOverviewSerializer.class);
