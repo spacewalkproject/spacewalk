@@ -4899,20 +4899,6 @@ deducted from the default organization.</source>
         </context-group>
         <target>소프트웨어 채널 아이콘</target>
       </trans-unit>
-      <trans-unit id="entitlements.tree.description1">
-        <source>The following channels are associated with your {0} channel entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>다음 채널은 {0} 채널 인타이틀먼트와 연관되어 있습니다.</target>
-      </trans-unit>
-      <trans-unit id="entitlements.tree.description2">
-        <source>Greyed out rows are parents of child channels in this entitlement that do not belong to the entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>회색 가로줄은 인타이틀먼트에 속하지 않은 자식 채널에 대한 부모 채널을 나타냅니다.</target>
-      </trans-unit>
       <trans-unit id="packagesearch.jsp.toolbar">
         <source>Package Search</source>
         <context-group name="ctx">

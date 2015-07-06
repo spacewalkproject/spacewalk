@@ -4844,20 +4844,6 @@ deducted from the default organization.</source>
         </context-group>
         <target>மென்பொருள் தட சின்னம்</target>
       </trans-unit>
-      <trans-unit id="entitlements.tree.description1">
-        <source>The following channels are associated with your {0} channel entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>பின்வரும் தடங்கள் உங்கள் {0} தட உரிமத்திற்கு தொடர்புடையது.</target>
-      </trans-unit>
-      <trans-unit id="entitlements.tree.description2">
-        <source>Greyed out rows are parents of child channels in this entitlement that do not belong to the entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>இந்த உரிமத்தில் சாம்பல் நிறமிட்ட வரிசைகள் சேய் தடங்களின் தாயாகும் அவை உரிமத்தில் இருக்காது.</target>
-      </trans-unit>
       <trans-unit id="packagesearch.jsp.toolbar">
         <source>Package Search</source>
         <context-group name="ctx">

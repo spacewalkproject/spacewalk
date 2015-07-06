@@ -4844,20 +4844,6 @@ deducted from the default organization.</source>
         </context-group>
         <target>সফ্টওয়্যার চ্যানেলের আইকন</target>
       </trans-unit>
-      <trans-unit id="entitlements.tree.description1">
-        <source>The following channels are associated with your {0} channel entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>আপনার {0} চ্যানেল এনটাইটেলমেন্টের সাথে নিম্নলিখিত চ্যানেলগুলি সংযুক্ত রয়েছে।</target>
-      </trans-unit>
-      <trans-unit id="entitlements.tree.description2">
-        <source>Greyed out rows are parents of child channels in this entitlement that do not belong to the entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>চিহ্নিত এনটাইটেলমেন্টে উপস্থিত চাইল্ড চ্যানেলের ঊর্ধ্বতন চ্যানেল যেগুলি এই এনটাইটেলমেন্টের অংশ নয় সেগুলি ধূসর রং দ্বারা চিহ্নিত করা হয়েছে।</target>
-      </trans-unit>
       <trans-unit id="packagesearch.jsp.toolbar">
         <source>Package Search</source>
         <context-group name="ctx">

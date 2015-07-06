@@ -4966,20 +4966,6 @@ que celle par défaut, ces droits d'accès seront déduits de l'organisation
         </context-group>
         <target>Icône Canaux logiciels</target>
       </trans-unit>
-      <trans-unit id="entitlements.tree.description1">
-        <source>The following channels are associated with your {0} channel entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>Les canaux suivants sont associés à votre droit d'accès aux canaux {0}.</target>
-      </trans-unit>
-      <trans-unit id="entitlements.tree.description2">
-        <source>Greyed out rows are parents of child channels in this entitlement that do not belong to the entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>Les lignes en gris représentent les parents des canaux enfants pour ce droit d'accès qui n'appartiennent pas à ce droit.</target>
-      </trans-unit>
       <trans-unit id="packagesearch.jsp.toolbar">
         <source>Package Search</source>
         <context-group name="ctx">
