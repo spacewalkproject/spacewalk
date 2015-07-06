@@ -8260,13 +8260,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         </context-group>
         <target>La modifica dell'entitlement deve essere un numero valido per {0}.</target>
       </trans-unit>
-      <trans-unit id="orgsoftwaresubs.invalid">
-        <source>Entitlement modification must be a valid number for {0}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>La modifica dell'entitlement deve essere un numero valido per {0}.</target>
-      </trans-unit>
       <trans-unit id="message.ext_auth_disable">
         <source>No default organization</source>
         <context-group name="ctx">
