@@ -21620,7 +21620,7 @@ versione di Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
       <trans-unit id="system.reboot.scheduled">
         <source>Reboot scheduled for system &lt;strong&gt;{0}&lt;/strong&gt; for {1}.  To cancel the reboot, remove &lt;strong&gt;{0}&lt;/strong&gt; from &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;the list of systems to be rebooted&lt;/strong&gt;&lt;/a&gt;.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
+          <context context-type="sourcefile">/rhn/systems/details/RebootSystem.do</context>
         </context-group>
         <target>Riavvio del sistema &lt;strong&gt;{0}&lt;/strong&gt; programmato per {1}.  Per cancellare il processo di riavvio rimuovere &lt;strong&gt;{0}&lt;/strong&gt; dall'elenco &lt;a href=&quot;/rhn/schedule/InProgressSystems.do?aid={2}&quot;&gt;&lt;strong&gt;di sistemi da riavviare&lt;/strong&gt;&lt;/a&gt;.</target>
       </trans-unit>
