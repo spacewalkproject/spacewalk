@@ -47,8 +47,15 @@ public class DistroTest extends TestCase {
         String breed = "redhat";
         String osVersion = "rhel4";
         String arch = "i386";
-        Distro newDistro = Distro.create(client, name, kernel, initrd, new HashMap(),
-                breed, osVersion, arch);
+        Distro newDistro = new Distro.Builder()
+                .setName(name)
+                .setKernel(kernel)
+                .setInitrd(initrd)
+                .setKsmeta(new HashMap<>())
+                .setBreed(breed)
+                .setOsVersion(osVersion)
+                .setArch(arch)
+                .build(client);
         assertEquals(name, newDistro.getName());
         assertEquals(kernel, newDistro.getKernel());
         assertEquals(initrd, newDistro.getInitrd());

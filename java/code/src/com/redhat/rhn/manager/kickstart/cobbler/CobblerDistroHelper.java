@@ -55,12 +55,18 @@ public class CobblerDistroHelper {
                                        KickstartableTree tree) {
         Map<String, String> ksmeta = createKsMetadataFromTree(tree);
 
-        Distro distro = Distro.create(cobblerConnection,
-                tree.getCobblerDistroName(), tree.getKernelPath(),
-                tree.getInitrdPath(), ksmeta,
-                tree.getInstallType().getCobblerBreed(),
-                tree.getInstallType().getCobblerOsVersion(),
-                tree.getChannel().getChannelArch().cobblerArch());
+        Distro distro = new Distro.Builder()
+                .setName(tree.getCobblerDistroName())
+                .setKernel(tree.getKernelPath())
+                .setInitrd(tree.getInitrdPath())
+                .setKsmeta(ksmeta)
+                .setBreed(tree.getInstallType().getCobblerBreed())
+                .setOsVersion(tree.getInstallType().getCobblerOsVersion())
+                .setArch(tree.getChannel().getChannelArch().cobblerArch())
+                .setKernelOptions(tree.getKernelOptions())
+                .setKernelOptionsPost(tree.getKernelOptionsPost())
+                .build(cobblerConnection);
+
         tree.setCobblerId(distro.getUid());
         return distro;
     }
@@ -76,12 +82,19 @@ public class CobblerDistroHelper {
     public Distro createXenDistroFromTree(CobblerConnection cobblerConnection,
                                           KickstartableTree tree) {
         Map<String, String> ksmeta = createKsMetadataFromTree(tree);
-        Distro xen = Distro.create(cobblerConnection, tree.getCobblerXenDistroName(),
-                tree.getKernelXenPath(),
-                tree.getInitrdXenPath(), ksmeta,
-                tree.getInstallType().getCobblerBreed(),
-                tree.getInstallType().getCobblerOsVersion(),
-                tree.getChannel().getChannelArch().cobblerArch());
+
+        Distro xen = new Distro.Builder()
+                .setName(tree.getCobblerXenDistroName())
+                .setKernel(tree.getKernelXenPath())
+                .setInitrd(tree.getInitrdXenPath())
+                .setKsmeta(ksmeta)
+                .setBreed(tree.getInstallType().getCobblerBreed())
+                .setOsVersion(tree.getInstallType().getCobblerOsVersion())
+                .setArch(tree.getChannel().getChannelArch().cobblerArch())
+                .setKernelOptions(tree.getKernelOptions())
+                .setKernelOptionsPost(tree.getKernelOptionsPost())
+                .build(cobblerConnection);
+
         tree.setCobblerXenId(xen.getId());
         return xen;
     }
