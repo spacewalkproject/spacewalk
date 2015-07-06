@@ -13739,10 +13739,6 @@ cancellati.{0}
           <source>Checksum</source>
           <target>Checksum</target>
         </trans-unit>
-        <trans-unit id="system.history.snapshot.no_subscriptions">
-          <source>Insufficient channel subscriptions to complete rollback; aborted.</source>
-          <target>Sottoscrizioni del canale insufficienti per il completamento del processo di ripristino; operazione interrotta.</target>
-        </trans-unit>
         <trans-unit id="system.history.snapshot.groups_changed">
           <source>Channels and groups changed.</source>
           <target>Gruppi e canali modificati.</target>
