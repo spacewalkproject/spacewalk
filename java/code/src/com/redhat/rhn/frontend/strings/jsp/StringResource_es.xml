@@ -13811,10 +13811,6 @@ Esto puede tener algún efecto en los archivos de configuración que se implemen
           <source>Checksum</source>
           <target>Suma de verificación</target>
         </trans-unit>
-        <trans-unit id="system.history.snapshot.no_subscriptions">
-          <source>Insufficient channel subscriptions to complete rollback; aborted.</source>
-          <target>Las suscripciones de canales son insuficientes  para completar reversión; sale.</target>
-        </trans-unit>
         <trans-unit id="system.history.snapshot.groups_changed">
           <source>Channels and groups changed.</source>
           <target>Los canales y grupos han cambiado.</target>

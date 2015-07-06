@@ -13808,10 +13808,6 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
           <source>Checksum</source>
           <target>Prüfsumme</target>
         </trans-unit>
-        <trans-unit id="system.history.snapshot.no_subscriptions">
-          <source>Insufficient channel subscriptions to complete rollback; aborted.</source>
-          <target>Unzureichende Channel-Subskriptionen um das Zurücksetzen abzuschließen; abgebrochen.</target>
-        </trans-unit>
         <trans-unit id="system.history.snapshot.groups_changed">
           <source>Channels and groups changed.</source>
           <target>Channels und Gruppen geändert.</target>

@@ -13807,10 +13807,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
           <source>Checksum</source>
           <target>Checksum</target>
         </trans-unit>
-        <trans-unit id="system.history.snapshot.no_subscriptions">
-          <source>Insufficient channel subscriptions to complete rollback; aborted.</source>
-          <target>Abonnements aux canaux insuffisants pour terminer la restauration. Annulé.</target>
-        </trans-unit>
         <trans-unit id="system.history.snapshot.groups_changed">
           <source>Channels and groups changed.</source>
           <target>Les canaux et groupes ont changé.</target>

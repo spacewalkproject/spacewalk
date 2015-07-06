@@ -13809,10 +13809,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Checksum</source>
           <target>チェックサム</target>
         </trans-unit>
-        <trans-unit id="system.history.snapshot.no_subscriptions">
-          <source>Insufficient channel subscriptions to complete rollback; aborted.</source>
-          <target>ロールバックを完了させるにはチャンネルサブスクリプションが足りません、ロールバックを中止します。</target>
-        </trans-unit>
         <trans-unit id="system.history.snapshot.groups_changed">
           <source>Channels and groups changed.</source>
           <target>チャンネルとグループが変更されました。</target>
