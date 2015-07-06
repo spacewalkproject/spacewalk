@@ -4471,27 +4471,6 @@ presi dall'organizzazione predefinita.</target>
         </context-group>
         <target>Utilizzo Entitlement</target>
       </trans-unit>
-      <trans-unit id="No Entitlements Available">
-        <source>No Entitlements Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Nessun entitlement disponibile</target>
-      </trans-unit>
-      <trans-unit id="Regular Proposed Total">
-        <source>Regular Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Totale suggerito regolare</target>
-      </trans-unit>
-      <trans-unit id="Flex Proposed Total">
-        <source>Flex Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Totale suggerito Flex</target>
-      </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
         <target>Data d'inizio:</target>
@@ -5007,13 +4986,6 @@ presi dall'organizzazione predefinita.</target>
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
         <target>Nessun entitlement del canale</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.channel">
-        <source>Channel Entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>Entitlement del canale</target>
       </trans-unit>
       <trans-unit id="entitlements.jsp.subscribed">
         <source>Systems Subscribed</source>
@@ -23142,10 +23114,6 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
         <source>Regular Usage - Alloted</source>
         <target>Utilizzo normale - Assegnati</target>
       </trans-unit>
-      <trans-unit id="maxAvailable">
-        <source>Regular Proposed Total</source>
-        <target>Totale suggerito regolare</target>
-      </trans-unit>
       <trans-unit id="currentFlex">
         <source>Flex Usage - Used</source>
         <target>Utilizzo Flex - Usati</target>
@@ -23153,10 +23121,6 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
       <trans-unit id="maxFlex">
         <source>Flex Usage - Allotted</source>
         <target>Utilizzo Flex - Assegnati</target>
-      </trans-unit>
-      <trans-unit id="maxAvailableFlex">
-        <source>Flex Proposed Total</source>
-        <target>Totale suggerito Flex</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>

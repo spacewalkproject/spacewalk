@@ -4354,24 +4354,6 @@ deducted from the default organization.</source>
         </context-group>
         <target>ਇੰਟਾਈਟਲਮੈਂਟ ਉਪਯੋਗਤਾ</target>
       </trans-unit>
-      <trans-unit id="No Entitlements Available">
-        <source>No Entitlements Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Regular Proposed Total">
-        <source>Regular Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Flex Proposed Total">
-        <source>Flex Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
         <target>ਸ਼ੁਰੂ ਮਿਤੀ:</target>
@@ -4882,13 +4864,6 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
         <target>ਕੋਈ ਚੈਨਲ ਇੰਟਾਇਲਮਿੰਟ ਨਹੀਂ</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.channel">
-        <source>Channel Entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>ਚੈਨਲ ਇੰਟਾਈਟਲਮੈਂਟ</target>
       </trans-unit>
       <trans-unit id="entitlements.jsp.subscribed">
         <source>Systems Subscribed</source>
@@ -22016,17 +21991,11 @@ given channel.</source>
       <trans-unit id="maxMembers">
         <source>Regular Usage - Alloted</source>
       </trans-unit>
-      <trans-unit id="maxAvailable">
-        <source>Regular Proposed Total</source>
-      </trans-unit>
       <trans-unit id="currentFlex">
         <source>Flex Usage - Used</source>
       </trans-unit>
       <trans-unit id="maxFlex">
         <source>Flex Usage - Allotted</source>
-      </trans-unit>
-      <trans-unit id="maxAvailableFlex">
-        <source>Flex Proposed Total</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>

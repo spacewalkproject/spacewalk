@@ -4471,27 +4471,6 @@ nicht standardmäßigen Organisation hinzufügen, werden diese von der Standard-
         </context-group>
         <target>Berechtigungsverwendung</target>
       </trans-unit>
-      <trans-unit id="No Entitlements Available">
-        <source>No Entitlements Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Keine Berechtigungen verfügbar</target>
-      </trans-unit>
-      <trans-unit id="Regular Proposed Total">
-        <source>Regular Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Insgesamt vorgeschlagen Regulär</target>
-      </trans-unit>
-      <trans-unit id="Flex Proposed Total">
-        <source>Flex Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Insgesamt vorgeschlagen Flex</target>
-      </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
         <target>Anfangsdatum:</target>
@@ -5007,13 +4986,6 @@ nicht standardmäßigen Organisation hinzufügen, werden diese von der Standard-
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
         <target>Keine Channel-Berechtigungen</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.channel">
-        <source>Channel Entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>Channel-Berechtigung</target>
       </trans-unit>
       <trans-unit id="entitlements.jsp.subscribed">
         <source>Systems Subscribed</source>
@@ -23181,10 +23153,6 @@ für einen angegebenen Channel aufgelistet wird.</target>
         <source>Regular Usage - Alloted</source>
         <target>Regulärer Verbrauch - Zugeordnet</target>
       </trans-unit>
-      <trans-unit id="maxAvailable">
-        <source>Regular Proposed Total</source>
-        <target>Insgesamt vorgeschlagen Regulär</target>
-      </trans-unit>
       <trans-unit id="currentFlex">
         <source>Flex Usage - Used</source>
         <target>Flex-Verbrauch - Verwendet</target>
@@ -23192,10 +23160,6 @@ für einen angegebenen Channel aufgelistet wird.</target>
       <trans-unit id="maxFlex">
         <source>Flex Usage - Allotted</source>
         <target>Flex-Verbrauch - Zugeordnet</target>
-      </trans-unit>
-      <trans-unit id="maxAvailableFlex">
-        <source>Flex Proposed Total</source>
-        <target>Insgesamt vorgeschlagen Flex</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>
