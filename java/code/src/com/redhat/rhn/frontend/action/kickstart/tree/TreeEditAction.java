@@ -16,13 +16,13 @@ package com.redhat.rhn.frontend.action.kickstart.tree;
 
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.PersistOperation;
 import com.redhat.rhn.manager.kickstart.tree.BaseTreeEditOperation;
 import com.redhat.rhn.manager.kickstart.tree.TreeEditOperation;
 
 import org.apache.struts.action.DynaActionForm;
-import org.cobbler.Distro;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -70,15 +70,13 @@ public class TreeEditAction extends BaseTreeAction {
     protected void processFormValues(PersistOperation operation,
             DynaActionForm form) {
         BaseTreeEditOperation bte = (BaseTreeEditOperation) operation;
-        form.set(BASE_PATH, bte.getTree().getBasePath());
-        form.set(CHANNEL_ID, bte.getTree().getChannel().getId());
-        form.set(LABEL, bte.getTree().getLabel());
-        form.set(INSTALL_TYPE, bte.getTree().getInstallType().getLabel());
-        Distro distro = bte.getTree().getCobblerObject(bte.getUser());
-        if (distro != null) {
-            form.set(KERNEL_OPTS, distro.getKernelOptionsString());
-            form.set(POST_KERNEL_OPTS, distro.getKernelPostOptionsString());
-        }
+        KickstartableTree tree = bte.getTree();
+        form.set(BASE_PATH, tree.getBasePath());
+        form.set(CHANNEL_ID, tree.getChannel().getId());
+        form.set(LABEL, tree.getLabel());
+        form.set(INSTALL_TYPE, tree.getInstallType().getLabel());
+        form.set(KERNEL_OPTS, tree.getKernelOptions());
+        form.set(POST_KERNEL_OPTS, tree.getKernelOptionsPost());
     }
 
     private void checkDistroValidity(HttpServletRequest request,

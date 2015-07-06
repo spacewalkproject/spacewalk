@@ -18,6 +18,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="basePath" type="string" column="base_path"/>
         <property name="label" type="string" column="label"/>
         <property name="lastModified" type="timestamp" column="last_modified"/>
+        <property name="kernelOptions" type="string" column="kernel_options"/>
+        <property name="kernelOptionsPost" type="string" column="kernel_options_post"/>
 
         <property name="created" type="timestamp" column="created"/>
         <property name="modified" type="timestamp" column="modified"/>

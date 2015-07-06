@@ -48,8 +48,6 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
     protected KickstartableTree tree;
     private static final String EMPTY_STRING = "";
     public static final String KICKSTART_CAPABILITY = "rhn.kickstart.boot_image";
-    private String postKernelOptions = "";
-    private String kernelOptions = "";
 
     /**
      * Constructor
@@ -239,7 +237,7 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
      * @return Returns the postKernelOptions.
      */
     public String getPostKernelOptions() {
-        return postKernelOptions;
+        return tree.getKernelOptionsPost();
     }
 
 
@@ -247,7 +245,7 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
      * @param postKernelOptionsIn The postKernelOptions to set.
      */
     public void setPostKernelOptions(String postKernelOptionsIn) {
-        postKernelOptions = postKernelOptionsIn;
+        tree.setKernelOptionsPost(postKernelOptionsIn);
     }
 
 
@@ -255,7 +253,7 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
      * @return Returns the kernelOptions.
      */
     public String getKernelOptions() {
-        return kernelOptions;
+        return tree.getKernelOptions();
     }
 
 
@@ -263,6 +261,6 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
      * @param kernelOptionsIn The kernelOptions to set.
      */
     public void setKernelOptions(String kernelOptionsIn) {
-        kernelOptions = kernelOptionsIn;
+        tree.setKernelOptions(kernelOptionsIn);
     }
 }
