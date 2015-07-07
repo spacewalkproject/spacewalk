@@ -4307,9 +4307,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       </trans-unit>
       <trans-unit id="Used/Allotted.tip">
         <source>'Allotted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="satusers.tip">
         <source>&lt;strong&gt;*Tip:&lt;/strong&gt; Organization administrator privileges can
@@ -4317,9 +4314,6 @@ not be modified on this page. Instead, please visit the "Users" top-level
 navigational tab above to access the profiles of individual users in your
 organization. You may grant or remove the organization administrator role in the
 "Roles" section of the "Details" tab in individual users' profiles.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;*ਟਿੱਪਣੀ:&lt;/strong&gt; ਸੰਗਠਨ ਪਰਬੰਧਕ ਅਧਿਕਾਰ ਇਸ ਸਫੇ ਤੇ ਤਬਦੀਲ
 ਨਹੀਂ ਕੀਤੇ ਜਾ ਸਕਦੇ। ਇਸ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਸੰਗਠਨ ਵਿੱਚ ਹਰੇਕ ਉਪਭੋਗੀ
 ਦਾ ਪਰੋਫਾਈਲ ਵੇਖਣ ਲਈ ਉੱਪਰ ਨੇਵੀਗੇਸ਼ਨ ਟੈਬ ਵਿੱਚ  &quot;ਉਪਭੋਗੀ&quot; ਵੇਖੋ।
@@ -4331,9 +4325,6 @@ organization. You may grant or remove the organization administrator role in the
 organization above, those entitlements will be added back to the default organization,
 and if you add entitlements from a non-default organization they will be
 deducted from the default organization.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;ਟਿੱਪਣੀ:&lt;/strong&gt; ਇਹ ਸੰਗਠਨ ਤੁਹਾਡੇ @@PRODUCT_NAME@@ ਦਾ ਮੂਲ ਸੰਗਠਨ ਹੈ। ਇਸ ਸੰਗਠਨ ਦੇ ਇੰਟਾਈਟਲਮੈਂਟ ਤੁਹਾਡੀ @@PRODUCT_NAME@@ ਸਾਰਟੀਫਿਕੇਟ ਫਾਇਲ ਨਾਲ ਲਿੰਕ ਕੀਤੇ ਹਨ, ਇਸ ਲਈ ਇਹ ਤਬਦੀਲੀ-ਯੋਗ ਨਹੀਂ ਹਨ। ਜੇ ਤੁਸੀਂ ਉੱਪਰਲੇ ਨਾ-ਮੂਲ ਸੰਗਠਨ ਵਿੱਚੋਂ ਇੰਟਾਈਟਲਮੈਂਟ ਹਟਾ ਦਿੰਦੇ
 ਹੋ, ਤਾਂ ਇਹ ਸਾਰੇ ਇੰਟਾਈਟਲਮੈਂਟ ਮੂਲ ਸੰਗਠਨ ਵਿੱਚ ਮੁੜ ਸ਼ਾਮਿਲ ਕੀਤੇ ਜਾਣਗੇ,
 ਅਤੇ ਜੇ ਤੁਸੀਂ ਨਾ-ਮੂਲ ਸੰਗਠਨ ਵਿੱਚ ਇੰਟਾਈਟਲਮੈਂਟ ਸ਼ਾਮਿਲ ਕਰਦੇ ਹੋ ਤਾਂ ਇਹ ਮੂਲ ਸੰਗਠਨ ਵਿੱਚੋਂ
@@ -4349,9 +4340,6 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.entitlementUsage">
         <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
         <target>ਇੰਟਾਈਟਲਮੈਂਟ ਉਪਯੋਗਤਾ</target>
       </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
@@ -4364,9 +4352,6 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementSubs.invalidInput">
         <source>Proposed Allocation is invalid.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>ਦਿੱਤਾ ਨਿਰਧਾਰਨ ਗਲਤ ਹੈ।</target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.start_date">
@@ -20934,16 +20919,10 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
         <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
         <target>ਹੇਠਾਂ ਤੁਸੀਂ ਪ੍ਰਤੀ-ਚੈਨਲ ਅਧਾਰ ਤੇ &lt;strong&gt;{0}&lt;/strong&gt; ਸੰਗਠਨ ਲਈ ਉਪਲੱਬਧ ਇੰਟਾਈਟਲਮੈਂਟ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਤਬਦੀਲ ਕਰ ਸਕਦੇ ਹੋ।  ਜੇ ਤੁਸੀਂ ਖਾਸ ਚੈਨਲ ਲਈ ਉਪਲੱਬਧ ਇੰਟਾਈਟਲਮੈਂਟਾਂ ਦੀ ਗਿਣਤੀ ਤਬਦੀਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ ਤਾਂ ਯਾਦ ਰੱਖੋ ਕਿ ਤੁਸੀਂ ਖੇਤਰ ਤੋਂ ਅੱਗੇ ਦਿੱਤੀ ਰੇਂਜ ਦੁਆਰਾ ਸੀਮਿਤ ਹੋ।</target>
       </trans-unit>
       <trans-unit id="orgsysubs.jsp.header2">
         <source>System Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
         <target>ਸਿਸਟਮ ਇੰਟਾਈਟਲਮੈਂਟ ਗਿਣਤੀ</target>
       </trans-unit>
       <!-- multiorg trustedorg strings  -->

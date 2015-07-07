@@ -4307,9 +4307,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       </trans-unit>
       <trans-unit id="Used/Allotted.tip">
         <source>'Allotted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="satusers.tip">
         <source>&lt;strong&gt;*Tip:&lt;/strong&gt; Organization administrator privileges can
@@ -4317,9 +4314,6 @@ not be modified on this page. Instead, please visit the "Users" top-level
 navigational tab above to access the profiles of individual users in your
 organization. You may grant or remove the organization administrator role in the
 "Roles" section of the "Details" tab in individual users' profiles.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;*উপদেশ:&lt;/strong&gt; এই পৃষ্ঠার মধ্যে প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটরের অধিকার
 পরিবর্তন করা যাবে। উপরের অংশে অবস্থিত &quot;ব্যবহারকারী&quot; শীর্ষক ট্যাব প্রয়োগ করে
 আপনার প্রতিষ্ঠানের মধ্যে উপস্থিত সকল ব্যবহারকারীদের সম্পর্কে তথ্য
@@ -4331,9 +4325,6 @@ organization. You may grant or remove the organization administrator role in the
 organization above, those entitlements will be added back to the default organization,
 and if you add entitlements from a non-default organization they will be
 deducted from the default organization.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;উপদেশ:&lt;/strong&gt; এটি আপনার @@PRODUCT_NAME@@-র ডিফল্ট প্রতিষ্ঠান রূপে চিহ্নিত হবে। এই প্রতিষ্ঠানের জন্য উপলব্ধ এনটাইটেলমেন্টগুলি @@PRODUCT_NAME@@ সার্টিফিকেটের সাথে যুক্ত ও সার্টিফিকেটটি পরিবর্তন করা যাবে না। ডিফল্ট ভিন্ন অন্য কোনো উপরোক্ত প্রতিষ্ঠানে থেকে
 এনটাইটেলমেন্ট মুছে ফেলা হলে, সংশ্লিষ্ট এনটাইটেলমেন্টগুলি ডিফল্ট প্রতিষ্ঠানের মধ্যে যোগ করা হবে এবং
 ডিফল্ট-ভিন্ন অন্যান্য প্রতিষ্ঠান থেকে এনটাইটেলমেন্ট যোগ করা হলে সেগুলি ডিফল্ট প্রতিষ্ঠান থেকে
@@ -4349,9 +4340,6 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.entitlementUsage">
         <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
         <target>এনটাইটেলমেন্টের ব্যবহার:</target>
       </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
@@ -4364,9 +4352,6 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementSubs.invalidInput">
         <source>Proposed Allocation is invalid.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>প্রস্তাবিত বরাদ্দকরণ বৈধ নয়।</target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.start_date">
@@ -20933,16 +20918,10 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
         <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; প্রতিষ্ঠানের জন্য সর্বমোট উপলব্ধ সফ্টওয়্যার চ্যানেল এনটাইটেলমেন্ট নীচে পরিবর্তন করা যাবে। প্রতিটি চ্যানেলের ভিত্তিতে এই গণনা করা হয়েছে। কোনো নির্দিষ্ট চ্যানেলের জন্য উপলব্ধ এনটাইটেলমেন্টের সংখ্যা পরিবর্তন করার সময় পার্শ্ববর্তী ক্ষেত্রে চিহ্নিত সর্বাধিক এনটাইটেলমেন্ট সংখ্যা গ্রাহ্য করা আবশ্যক।</target>
       </trans-unit>
       <trans-unit id="orgsysubs.jsp.header2">
         <source>System Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
         <target>সিস্টেম এনটাইটেলমেন্টের সংখ্যা</target>
       </trans-unit>
       <!-- multiorg trustedorg strings  -->

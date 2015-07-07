@@ -4358,9 +4358,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       </trans-unit>
       <trans-unit id="Used/Allotted.tip">
         <source>'Allotted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>'할당 수'는 @@PRODUCT_NAME@@ 인증서에 반영된 것으로 초기 풀에서 조직에 할당된 총 인타이틀먼트 수를 말합니다. '사용 수'는 다양한 조직에서 시스템에 의해 소비되는 인타이틀먼트를 말합니다.</target>
       </trans-unit>
       <trans-unit id="satusers.tip">
@@ -4369,9 +4366,6 @@ not be modified on this page. Instead, please visit the "Users" top-level
 navigational tab above to access the profiles of individual users in your
 organization. You may grant or remove the organization administrator role in the
 "Roles" section of the "Details" tab in individual users' profiles.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;* 힌트:&lt;/strong&gt; 조직 관리자 권한은 이 페이지에서 수정될 수 없습니다.
 상부 네비게이션 탭에 있는 &quot;사용자&quot;로 가셔서 조직에 있는 개별 사용자의
 프로파일을 액세스하시기바랍니다. 개별 사용자 프로파일에
@@ -4383,9 +4377,6 @@ organization. You may grant or remove the organization administrator role in the
 organization above, those entitlements will be added back to the default organization,
 and if you add entitlements from a non-default organization they will be
 deducted from the default organization.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;힌트:&lt;/strong&gt; 이 조직은  @@PRODUCT_NAME@@에서 기본값으로 설정되어있는 조직입니다. 이 조직에 해당하는 인타이틀먼트는  @@PRODUCT_NAME@@ 인증서 파일과 링크되어 있으므로, 수정할 수 없습니다. 기본값이 아닌 조직에서 인타이틀먼트를
 삭제할 경우, 이러한 인타이틀먼트는 기본값 조직으로 다시 추가되며, 기본값이 아닌 조직에서
 인타이틀먼트를 추가할 경우, 이는 기본값 조직에서 삭제됩니다.    </target>
@@ -4400,9 +4391,6 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.entitlementUsage">
         <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
         <target>인타이틀먼트 사용: </target>
       </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
@@ -4415,9 +4403,6 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementSubs.invalidInput">
         <source>Proposed Allocation is invalid.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>제시된 할당이 부적절합니다.  </target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.start_date">
@@ -21587,16 +21572,10 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
         <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
         <target>아래에서 각각의 채널에 기반한 &lt;strong&gt;{0}&lt;/strong&gt; 조직에서 사용 가능한 소프트웨어 채널 인타이틀먼트 합계를 수정하셨습니다. 특정 채널에서 사용 가능한 인타이틀먼트 수를 수정하시려면 범위에 제한이 있음에 유의하시기 바랍니다.  </target>
       </trans-unit>
       <trans-unit id="orgsysubs.jsp.header2">
         <source>System Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
         <target>시스템 인타이틀먼트 수 </target>
       </trans-unit>
       <!-- multiorg trustedorg strings  -->

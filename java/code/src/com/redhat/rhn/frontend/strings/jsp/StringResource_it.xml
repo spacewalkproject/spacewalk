@@ -4423,9 +4423,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       </trans-unit>
       <trans-unit id="Used/Allotted.tip">
         <source>'Allotted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>'Assegnati' si riferisce al numero totale di entitlement assegnati ad ogni organizzazione del pool iniziale come riportato nel certificato di  @@PRODUCT_NAME@@. 'Usati' si riferisce agli entitlement utilizzati dai sistemi nelle varie organizzazioni.</target>
       </trans-unit>
       <trans-unit id="satusers.tip">
@@ -4434,9 +4431,6 @@ not be modified on this page. Instead, please visit the "Users" top-level
 navigational tab above to access the profiles of individual users in your
 organization. You may grant or remove the organization administrator role in the
 "Roles" section of the "Details" tab in individual users' profiles.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;*Suggerimento:&lt;/strong&gt; I privilegi di amministratore dell'organizzazione
  non possono essere modificati su questa pagina. Al contrario vi consigliamo di visitare
 &quot;Utenti&quot; nella barra di navigazione del livello superiore, per accedere ai profili individuali
@@ -4448,9 +4442,6 @@ amministratore dell'organizzazione all'interno della sezione &quot;Ruoli&quot; d
 organization above, those entitlements will be added back to the default organization,
 and if you add entitlements from a non-default organization they will be
 deducted from the default organization.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;Suggerimento:&lt;/strong&gt; Questa organizzazione è la vostra organizzazione predefinita di @@PRODUCT_NAME@@. Gli entitlement per questa organizzazione sono collegati al file del vostro certificato @@PRODUCT_NAME@@, e quindi non possono essere modificati. Se rimuovete gli entitlement da una organizzazione non predefinita,
 i suddetti entitlement verranno aggiunti all'organizzazione predefinita, se
 aggiungete entitlement da una organizzazione non predefinita essi verranno
@@ -4466,9 +4457,6 @@ presi dall'organizzazione predefinita.</target>
       </trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.entitlementUsage">
         <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
         <target>Utilizzo Entitlement</target>
       </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
@@ -4481,9 +4469,6 @@ presi dall'organizzazione predefinita.</target>
       </trans-unit>
       <trans-unit id="softwareEntitlementSubs.invalidInput">
         <source>Proposed Allocation is invalid.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>L'assegnazione suggerita non è valida.</target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.start_date">
@@ -22012,16 +21997,10 @@ per l'organizzazione (ad esclusione dell'organizzazione satellite predefinita) s
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
         <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
         <target>Di seguito è possibile modificare il numero totale di entitlement del canale software disponibili all'organizzazione &lt;strong&gt;{0}&lt;/strong&gt; in base al canale. Se desiderate modificare il numero di entitlement disponibili per un canale in particolare, ricordate che sarete limitati da una gamma riportata accanto al campo.</target>
       </trans-unit>
       <trans-unit id="orgsysubs.jsp.header2">
         <source>System Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
         <target>Conteggi Entitlement del sistema</target>
       </trans-unit>
       <!-- multiorg trustedorg strings  -->
