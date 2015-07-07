@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.org.test;
 
-import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.test.ChannelFamilyFactoryTest;
 import com.redhat.rhn.domain.org.Org;
@@ -25,7 +24,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto;
 import com.redhat.rhn.frontend.dto.MultiOrgUserOverview;
-import com.redhat.rhn.frontend.dto.OrgChannelFamily;
 import com.redhat.rhn.frontend.dto.OrgDto;
 import com.redhat.rhn.frontend.dto.OrgEntitlementDto;
 import com.redhat.rhn.frontend.dto.OrgSoftwareEntitlementDto;
