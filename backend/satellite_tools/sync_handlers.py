@@ -17,10 +17,8 @@
 import types
 import sys
 
-from spacewalk.common.stringutils import to_string
-from spacewalk.server import rhnSQL
 from spacewalk.server.importlib import channelImport, packageImport, errataImport, \
-    kickstartImport, importLib
+    kickstartImport
 import diskImportLib
 import xmlSource
 import string  # pylint: disable=W0402
