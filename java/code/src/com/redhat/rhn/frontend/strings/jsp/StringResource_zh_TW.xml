@@ -4423,9 +4423,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       </trans-unit>
       <trans-unit id="Used/Allotted.tip">
         <source>'Allotted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>「已撥出（Allotted）」代表已從初始集區分配給組織的權利總數，如此 @@PRODUCT_NAME@@ 憑證中所顯示。「已使用（Used）」代表各組織中之系統所消耗的權利。</target>
       </trans-unit>
       <trans-unit id="satusers.tip">
@@ -4434,9 +4431,6 @@ not be modified on this page. Instead, please visit the "Users" top-level
 navigational tab above to access the profiles of individual users in your
 organization. You may grant or remove the organization administrator role in the
 "Roles" section of the "Details" tab in individual users' profiles.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;*提示：&lt;/strong&gt;組織管理員的權利在這階段並不能修改。相反地，請使用上方導覽列的「使用者」分頁，存取您組織個別使用者的基本資料。您可以從每個使用者的基本資料頁面，「詳細資料」分頁中的「角色」一節裡，賦予或移除組織管理員角色。</target>
       </trans-unit>
       <trans-unit id="organizations.tip">
@@ -4444,9 +4438,6 @@ organization. You may grant or remove the organization administrator role in the
 organization above, those entitlements will be added back to the default organization,
 and if you add entitlements from a non-default organization they will be
 deducted from the default organization.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;提示：&lt;/strong&gt;這組織是您 @@PRODUCT_NAME@@ 的預設組織。此組織的權利與您 @@PRODUCT_NAME@@ 的憑證檔相連結，所以是不能修改的。如果您從以上非預設
 的組織移除了權利，這些權利將會被加回預設的組織中，
 同時如果您從非預設的組織中加入權利，它們也會
@@ -4462,9 +4453,6 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.entitlementUsage">
         <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
         <target>權利的用量</target>
       </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
@@ -4477,9 +4465,6 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementSubs.invalidInput">
         <source>Proposed Allocation is invalid.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>提議的分配無效。</target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.start_date">
@@ -22031,16 +22016,10 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
         <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
         <target>以下您修改 &lt;strong&gt;{0}&lt;/strong&gt; 組織可用的軟體頻道權利總數，列出方式以頻道為基準。如果您想修改特定頻道的可用權利數，您將會受限於該欄位旁邊列出的範圍。</target>
       </trans-unit>
       <trans-unit id="orgsysubs.jsp.header2">
         <source>System Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
         <target>系統權利的數量</target>
       </trans-unit>
       <!-- multiorg trustedorg strings  -->

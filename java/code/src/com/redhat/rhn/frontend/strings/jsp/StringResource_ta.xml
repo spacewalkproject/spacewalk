@@ -4307,9 +4307,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       </trans-unit>
       <trans-unit id="Used/Allotted.tip">
         <source>'Allotted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="satusers.tip">
         <source>&lt;strong&gt;*Tip:&lt;/strong&gt; Organization administrator privileges can
@@ -4317,9 +4314,6 @@ not be modified on this page. Instead, please visit the "Users" top-level
 navigational tab above to access the profiles of individual users in your
 organization. You may grant or remove the organization administrator role in the
 "Roles" section of the "Details" tab in individual users' profiles.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;*துணுக்கு:&lt;/strong&gt; நிறுவன நிர்வாகி முன்னுரிமைகள் இந்தப்
 பக்கத்தில் மாற்றப்படவில்லை. அதற்குப் பதில் மேல் நில் திசையமைப்பு தத்தலில் &quot;பயனர்கள்&quot;
 என்பதில் உங்கள் நிறுவனத்தின் தனிப்பட்ட பயனர்களின் விவரக்குறிப்பை அணுகலாம்.
@@ -4331,9 +4325,6 @@ organization. You may grant or remove the organization administrator role in the
 organization above, those entitlements will be added back to the default organization,
 and if you add entitlements from a non-default organization they will be
 deducted from the default organization.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;துணுக்கு:&lt;/strong&gt; இந்த நிறுவனம் @@PRODUCT_NAME@@இன் முன்னிருப்பு நிறுவனம் ஆகும். இந்த நிறுவனத்தின் உரிமங்கள் உங்கள் @@PRODUCT_NAME@@ சான்றிதழ் கோப்புடன் இணைக்கப்பட்டுள்ளது, எனவே அவற்றை மாற்ற முடியாது. நீங்கள் முன்னிருப்பில்லாத
 நிறுவனங்களில் உரிமங்களை நீக்கினால், அந்த உரிமங்கள் முன்னிருப்பு நிறுவனத்துடன்
 சேர்க்கப்படும் மற்றும் நீங்கள் ஒரு முன்னிருப்பில்லாத நிறுவனத்திலிருந்து உரிமங்களை
@@ -4349,9 +4340,6 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.entitlementUsage">
         <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
         <target>உரிம பயன்பாடு</target>
       </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
@@ -4364,9 +4352,6 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementSubs.invalidInput">
         <source>Proposed Allocation is invalid.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>கூறப்பட்ட ஒதுக்கீடு தவறானதாகும்.</target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.start_date">
@@ -20935,16 +20920,10 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
         <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
         <target>கீழே தடங்களின் அடிப்படையில் &lt;strong&gt;{0}&lt;/strong&gt; நிறுவனத்திற்கு நீங்கள் மென்பொருள் தட உரிமங்களை மாற்றலாம். நீங்கள் ஒரு குறிப்பிட்ட தடத்திற்கு உள்ள உரிமங்களின் எண்ணிக்கையை மாற்ற வேண்டுமென்றால் அடுத்த புலத்திலுள்ள வரம்பு வரையறையை குறித்து கொள்ள வேண்டும்.</target>
       </trans-unit>
       <trans-unit id="orgsysubs.jsp.header2">
         <source>System Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
         <target>கணினி உரிம எண்ணிக்கைகள்</target>
       </trans-unit>
       <!-- multiorg trustedorg strings  -->

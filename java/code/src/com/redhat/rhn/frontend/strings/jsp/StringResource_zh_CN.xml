@@ -4423,9 +4423,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       </trans-unit>
       <trans-unit id="Used/Allotted.tip">
         <source>'Allotted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>'已分配' 指的是本 @@PRODUCT_NAME@@ 证书所反映的初始池分配给任何机构的总共数目。'Used' 指的是不同机构中系统已经消费的权利。</target>
       </trans-unit>
       <trans-unit id="satusers.tip">
@@ -4434,9 +4431,6 @@ not be modified on this page. Instead, please visit the "Users" top-level
 navigational tab above to access the profiles of individual users in your
 organization. You may grant or remove the organization administrator role in the
 "Roles" section of the "Details" tab in individual users' profiles.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;*窍门：&lt;/strong&gt;在本页中可修改
 机构管理员权限。您还可以访问以上最上层导航标签中的“用户”
 来访问您机构中各个用户的侧写。在每个用户侧写的“详情”标签的“角色”部分
@@ -4447,9 +4441,6 @@ organization. You may grant or remove the organization administrator role in the
 organization above, those entitlements will be added back to the default organization,
 and if you add entitlements from a non-default organization they will be
 deducted from the default organization.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;窍门：&lt;/strong&gt;这个机构是您的 @@PRODUCT_NAME@@ 默认机构。该机构的权利与您的 @@PRODUCT_NAME@@ 证书文件关联，因此无法进行修改。如果您从以上列出的一个非默认机构中删除权利，
 那些权利会被添加回默认机构中，
 同时如果您从非默认机构中添加权利，
@@ -4465,9 +4456,6 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.entitlementUsage">
         <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
         <target>权利使用</target>
       </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
@@ -4480,9 +4468,6 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementSubs.invalidInput">
         <source>Proposed Allocation is invalid.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>提出的分配无效。</target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.start_date">
@@ -22030,16 +22015,10 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
         <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
         <target>下面您为每个频道修改可用于 &lt;strong&gt;{0}&lt;/strong&gt; 机构的软件频道权利总数。如果您不想修改可用于特定频道的权利数目，请注意，您将会受到字段旁给出的范围的限制。</target>
       </trans-unit>
       <trans-unit id="orgsysubs.jsp.header2">
         <source>System Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
         <target>系统权利计数</target>
       </trans-unit>
       <!-- multiorg trustedorg strings  -->
