@@ -39,34 +39,6 @@ ARCH_LABELS = ['ia32', 'ia64', 'x86_64', 'ppc',
                'i386-sun-solaris', 'sparc-sun-solaris']
 
 
-def help_softwarechannel_getentitlements(self):
-    print 'softwarechannel_getentitlements: List the available ' + \
-          'entitlements for a software channel'
-    print 'usage: softwarechannel_getentitlements CHANNEL'
-
-
-def complete_softwarechannel_getentitlements(self, text, line, beg, end):
-    return tab_completer(self.do_softwarechannel_list('', True), text)
-
-
-def do_softwarechannel_getentitlements(self, args):
-    (args, _options) = parse_arguments(args)
-
-    if not len(args):
-        self.help_softwarechannel_getentitlements()
-        return
-
-    channel = args[0]
-
-    entitlements = \
-        self.client.channel.software.availableEntitlements(self.session,
-                                                           channel)
-
-    print entitlements
-
-####################
-
-
 def help_softwarechannel_list(self):
     print 'softwarechannel_list: List all available software channels'
     print '''usage: softwarechannel_list [options]'
