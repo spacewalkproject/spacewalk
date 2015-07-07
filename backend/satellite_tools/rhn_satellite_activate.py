@@ -39,7 +39,6 @@ from spacewalk.server.rhnServer import satellite_cert
 import tempfile
 
 # local imports
-import sync_handlers
 import satCerts
 
 
