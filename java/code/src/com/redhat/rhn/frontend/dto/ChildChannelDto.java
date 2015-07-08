@@ -40,7 +40,6 @@ public class ChildChannelDto {
      * @param idIn id
      * @param nameIn name
      * @param subscribedIn sub
-     * @param isFreeForGuestsIn is it free?
      * @param isSubscriableIn if subscriable or not
      */
     public ChildChannelDto(Long idIn, String nameIn,
