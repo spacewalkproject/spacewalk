@@ -206,11 +206,12 @@ def run(action_id, params, cache_only=None):
 
         # Finally, exec the script
         try:
-            oumask = os.umask(022)
+            os.umask(022)
             os.execv(script_path, [script_path, ])
-            os.umask(oumask)
         finally:
-            # Shouldn't reach this part - execv never returns
+            # This code can be reached only when script_path can not be
+            # executed as otherwise execv never returns.
+            # (The umask syscall always succeeds.)
             os._exit(1)
 
     # Parent doesn't write to child, so close that part
