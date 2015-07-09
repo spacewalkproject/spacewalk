@@ -5,22 +5,22 @@ changelog_with_email = 0
 changelog_do_not_remove_cherrypick = 0
 lib_dir = rel-eng/lib
 
-[spacewalk-nightly-rhel5]
-disttag = .el5
+[spacewalk-devel-rhel5]
+disttag = .el5.dev
 blacklist=nutch spacewalk-search spacewalk-proxy-installer python-gzipstream spacewalk-setup cobbler20 spacewalk spacewalk-selinux select2-bootstrap-css spacewalk-proxy-selinux spacewalk-branding jquery-timepicker spacewalk-java spacewalk-setup-jabberd spacewalk-web momentjs spacewalk-schema cobbler-loaders susestudio-java-client spacewalk-setup-postgresql spacewalk-jpp-workaround simple-xml select2 oracle-lib-compat ace-editor perl-Satcon jquery-ui cx_Oracle simple-core spacewalk-reports stringtree-json bootstrap redstone-xmlrpc oracle-selinux spacewalk-pylint tito bootstrap-datepicker spacewalk-config font-awesome dwr roboto jpam spacewalk-remote-utils spacewalk-doc-indexes spacewalk-backend perl-DBD-Oracle perl-Mail-RFC822-Address patternfly1 spacewalk-utils spacewalk-ssl-cert-check oracle-instantclient-selinux spacecmd tanukiwrapper quartz spacewalk-proxy-html spacewalk-proxy spacewalk-admin pwstrength-bootstrap spacewalk-repo spacewalk-proxy-docs oracle-xe-selinux apt-spacewalk mod_perl oracle-rhnsat-selinux oracle-server-admin oracle-server-scripts ycssmin dnf-plugin-spacewalk
 
-[spacewalk-nightly-rhel6]
-disttag = .el6
+[spacewalk-devel-rhel6]
+disttag = .el6.dev
 blacklist=oracle-server-admin oracle-server-scripts oracle-rhnsat-selinux jabberd-selinux apt-spacewalk python-hwdata mod_perl nodejs-less nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging ycssmin dnf-plugin-spacewalk
 
-[spacewalk-nightly-rhel7]
-disttag = .el7
+[spacewalk-devel-rhel7]
+disttag = .el7.dev
 blacklist=oracle-server-admin oracle-server-scripts oracle-rhnsat-selinux jabberd-selinux apt-spacewalk python-hwdata mod_perl nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging
 
-[spacewalk-nightly-fedora21]
-disttag = .fc21
+[spacewalk-devel-fedora21]
+disttag = .fc21.dev
 blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts apt-spacewalk python-hwdata oracle-rhnsat-selinux mod_perl nodejs-less nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging ycssmin perl-Mail-RFC822-Address
 
-[spacewalk-nightly-fedora22]
-disttag = .fc22
+[spacewalk-devel-fedora22]
+disttag = .fc22.dev
 blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts apt-spacewalk python-hwdata oracle-rhnsat-selinux mod_perl nodejs-less nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging ycssmin perl-Mail-RFC822-Address
