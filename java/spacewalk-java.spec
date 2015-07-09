@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.29
+Version: 2.4.30
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 09 2015 Tomas Lestach <tlestach@redhat.com> 2.4.30-1
+- log debug messages only if debug is enabled
+- Fix queue size: consider possible remainders from last run
+- Log message when finished errata cache for a server or channel
+- Remove some duplicated empty lines
+- Remove unused return value that was always null
+- Remove unused parameter to TaskQueue.run()
+- Log the current queue size before every job run (DEBUG)
+- Fix log message when finished with server
+
 * Fri Jul 03 2015 Jan Dobes 2.4.29-1
 - removing dead code
 - fixing system.listUngroupedSystems API
