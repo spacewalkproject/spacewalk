@@ -11462,6 +11462,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.event.header">
           <source>System History Event</source>
         </trans-unit>
+        <trans-unit id="system.event.pendingHeader">
+          <source>System Pending Event</source>
+        </trans-unit>
         <trans-unit id="system.event.summary">
           <source>Summary:</source>
         </trans-unit>
@@ -11518,6 +11521,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="system.event.return">
           <source>Return to history list for {0}</source>
+        </trans-unit>
+        <trans-unit id="system.event.pendingReturn">
+          <source>Return to pending list for {0}</source>
         </trans-unit>
         <trans-unit id="system.event.returnIcon">
           <source>Return to history list</source>

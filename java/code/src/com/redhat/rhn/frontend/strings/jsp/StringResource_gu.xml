@@ -12938,6 +12938,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.event.header">
           <source>System History Event</source>
         </trans-unit>
+        <trans-unit id="system.event.pendingHeader">
+          <source>System Pending Event</source>
+        </trans-unit>
         <trans-unit id="system.event.summary">
           <source>Summary:</source>
         </trans-unit>

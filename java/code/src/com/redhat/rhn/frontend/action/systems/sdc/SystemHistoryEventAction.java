@@ -62,6 +62,9 @@ public class SystemHistoryEventAction extends RhnAction {
             request.setAttribute("earliestaction", event.getCreated());
             request.setAttribute("actionnotes", event.getDetails());
             request.setAttribute("failed", false);
+            request.setAttribute("referrerLink", "History.do");
+            request.setAttribute("linkLabel", "system.event.return");
+            request.setAttribute("headerLabel", "system.event.header");
             return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
         ActionFormatter af = action.getFormatter();
@@ -73,7 +76,9 @@ public class SystemHistoryEventAction extends RhnAction {
                 requestContext.getCurrentUser()));
         request.setAttribute("failed", action.getFailedCount() > 0 ? true : false);
         request.setAttribute("aid", aid);
-
+        request.setAttribute("referrerLink", "Pending.do");
+        request.setAttribute("linkLabel", "system.event.pendingReturn");
+        request.setAttribute("headerLabel", "system.event.pendingHeader");
         if (isSubmitted((DynaActionForm)formIn)) {
             createSuccessMessage(request, "system.event.rescheduled", action.getName());
             ActionFactory.rescheduleAllServerActions(action, 5L);

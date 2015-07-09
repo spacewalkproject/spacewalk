@@ -11,7 +11,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <rhn:toolbar base="h2" icon="header-event-history">
-  <bean:message key="system.event.header" />
+  <bean:message key="${headerLabel}" />
 </rhn:toolbar>
 
 <html:form method="post" action="/systems/details/history/Event.do?sid=${system.id}&aid=${requestScope.aid}">
@@ -83,7 +83,7 @@
   </div>
 </c:if>
 
-<rhn:icon type="nav-up" title="system.event.returnIcon"/><a href="/rhn/systems/details/history/History.do?sid=${system.id}"><bean:message key="system.event.return" arg0="${fn:escapeXml(system.name)}" /></a>
+<rhn:icon type="nav-up" title="system.event.returnIcon"/><a href="${referrerLink}?sid=${system.id}"><bean:message key="${linkLabel}" arg0="${fn:escapeXml(system.name)}" /></a>
 
 </html:form>
 
