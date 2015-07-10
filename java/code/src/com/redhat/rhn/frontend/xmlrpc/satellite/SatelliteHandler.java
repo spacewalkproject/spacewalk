@@ -14,30 +14,20 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.satellite;
 
-import com.redhat.rhn.domain.channel.ChannelFamily;
-import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
-import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.satellite.CertificateFactory;
-import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
-import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
-import com.redhat.rhn.manager.channel.ChannelManager;
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
+
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
