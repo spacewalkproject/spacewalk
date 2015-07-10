@@ -15,10 +15,8 @@
 package com.redhat.rhn.frontend.xmlrpc.satellite.test;
 
 import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
-import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.xmlrpc.satellite.SatelliteHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 
