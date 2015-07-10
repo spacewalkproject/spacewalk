@@ -14,27 +14,16 @@
  */
 package com.redhat.rhn.domain.server;
 
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.ChannelFamilySystem;
-import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
