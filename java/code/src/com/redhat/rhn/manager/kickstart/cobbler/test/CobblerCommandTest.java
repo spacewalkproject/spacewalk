@@ -14,21 +14,15 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler.test;
 
-import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
-import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
-import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.NetworkInterfaceTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroDeleteCommand;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroEditCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroSyncCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerLoginCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
@@ -36,42 +30,15 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileDeleteCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
-import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
-import com.redhat.rhn.testing.UserTestUtils;
 import org.cobbler.CobblerConnection;
 import org.cobbler.Distro;
-
-import java.io.File;
 
 /**
  * CobblerCommandTest
  */
-public class CobblerCommandTest extends BaseTestCaseWithUser {
-    protected KickstartData ksdata;
-
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-
-        user = UserTestUtils.createUserInOrgOne();
-        user.addPermanentRole(RoleFactory.ORG_ADMIN);
-        this.ksdata = KickstartDataTest.createKickstartWithDefaultKey(this.user.getOrg());
-        this.ksdata.getTree().setBasePath("/tmp/opt/repo/f9-x86_64/");
-
-        // Uncomment this if you want the tests to actually talk to cobbler
-        //Config.get().setString(CobblerXMLRPCHelper.class.getName(),
-        //        CobblerXMLRPCHelper.class.getName());
-        //Config.get().setString(CobblerConnection.class.getName(),
-        //        CobblerConnection.class.getName());
-        //commitAndCloseSession();
-
-        KickstartableTreeTest.createKickstartTreeItems(this.ksdata.getTree());
-        CobblerDistroCreateCommand dcreate = new
-            CobblerDistroCreateCommand(ksdata.getTree(), user);
-        dcreate.store();
-    }
+public class CobblerCommandTest extends CobblerCommandTestBase {
 
     /*public void testDupSystems() throws Exception {
         Server s = ServerFactory.lookupById(new Long(1000010339));
@@ -131,51 +98,6 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         assertNull(ksdata.getCobblerObject(user));
     }
 
-    public void testDistroCreate() throws Exception {
-        CobblerDistroCreateCommand cmd = new
-            CobblerDistroCreateCommand(ksdata.getTree(), user);
-        assertNull(cmd.store());
-        assertNotNull(ksdata.getTree().getCobblerObject(user));
-        assertNotNull(ksdata.getTree().getCobblerObject(user).
-                getKsMeta().get(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE));
-    }
-
-    /**
-     * Tests whether the xen distro is created for a tree with paravirtualization.
-     */
-    public void testDistroCreateXenCreated() throws Exception {
-        KickstartableTree tree = ksdata.getTree();
-        CobblerConnection con = CobblerXMLRPCHelper.getAutomatedConnection();
-
-        Distro distro = Distro.lookupById(con, tree.getCobblerXenId());
-        distro.remove();
-        assertNull(Distro.lookupById(con, tree.getCobblerXenId()));
-
-        CobblerDistroCreateCommand cmd = new
-            CobblerDistroCreateCommand(tree, user);
-        cmd.store();
-        assertNotNull(Distro.lookupById(con, tree.getCobblerXenId()));
-    }
-
-    /**
-     * Tests that the xen distro is NOT created for a tree without paravirtualization.
-     */
-    public void testDistroCreateXenNotCreated() throws Exception {
-        KickstartableTree tree = ksdata.getTree();
-        CobblerConnection con = CobblerXMLRPCHelper.getAutomatedConnection();
-
-        Distro.lookupById(con, tree.getCobblerXenId()).remove();
-        assertNull(Distro.lookupById(con, tree.getCobblerXenId()));
-
-        File xenPath = new File(tree.getKernelXenPath());
-        xenPath.delete();
-
-        CobblerDistroCreateCommand cmd = new
-            CobblerDistroCreateCommand(tree, user);
-        cmd.store();
-        assertNull(Distro.lookupById(con, tree.getCobblerXenId()));
-    }
-
     /**
      * Tests that CobblerDistroSyncCommand recreates missing cobbler entries.
      */
@@ -188,7 +110,8 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         }
 
         // verify the distros corresponding to our tree aren't there
-        for (KickstartableTree kickstartableTree : KickstartFactory.lookupKickstartTrees()) {
+        for (KickstartableTree kickstartableTree :
+                KickstartFactory.lookupKickstartTrees()) {
             assertNull(Distro.lookupById(con, kickstartableTree.getCobblerId()));
             assertNull(Distro.lookupById(con, kickstartableTree.getCobblerXenId()));
         }
@@ -197,7 +120,8 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         cmd.store();
 
         // verify they got resynced
-        for (KickstartableTree kickstartableTree : KickstartFactory.lookupKickstartTrees()) {
+        for (KickstartableTree kickstartableTree :
+                KickstartFactory.lookupKickstartTrees()) {
             assertNotNull(Distro.lookupById(con, kickstartableTree.getCobblerId()));
             assertNotNull(Distro.lookupById(con, kickstartableTree.getCobblerXenId()));
         }
@@ -207,78 +131,6 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         CobblerDistroDeleteCommand cmd = new
             CobblerDistroDeleteCommand(ksdata.getTree(), user);
         assertNull(cmd.store());
-    }
-
-    public void testDistroEdit() throws Exception {
-        CobblerDistroEditCommand cmd = new
-            CobblerDistroEditCommand(ksdata.getTree(), user);
-        String newName = TestUtils.randomString();
-        ksdata.getKickstartDefaults().getKstree().setLabel(newName);
-        assertNull(cmd.store());
-        assertNotNull(ksdata.getTree().getCobblerObject(user));
-        assertNotNull(ksdata.getTree().getCobblerObject(user).getName());
-    }
-
-    /**
-     * Tests the recreation logic of the CobblerDistroEditCommand.
-     * If the tree does paravirtualization, but the cobbler xen distro is missing,
-     * CobblerDistroEditCommand recreates it.
-     */
-    public void testParaDistroRecreateXenDistroOnEdit() throws Exception {
-        KickstartableTree tree = ksdata.getTree();
-        CobblerConnection con = CobblerXMLRPCHelper.getAutomatedConnection();
-
-        // remove the distro
-        Distro xen = Distro.lookupById(con, tree.getCobblerXenId());
-        xen.remove();
-
-        // verify it's null
-        assertNull(Distro.lookupById(con, tree.getCobblerXenId()));
-
-        // verify it's recreated
-        CobblerDistroEditCommand cmd = new
-                CobblerDistroEditCommand(tree, user);
-        assertNull(cmd.store());
-        assertNotNull(Distro.lookupById(con, tree.getCobblerXenId()));
-    }
-
-    /**
-     * Tests the removing logic of the CobblerDistroEditCommand.
-     * If the tree does NOT paravirtualization, but the cobbler distro exists,
-     * CobblerDistroEditCommand removes it.
-     */
-    public void testParaDistroXenDistroRemovedOnEdit() throws Exception {
-        KickstartableTree tree = ksdata.getTree();
-        CobblerConnection con = CobblerXMLRPCHelper.getAutomatedConnection();
-
-        // verify it's there
-        assertNotNull(Distro.lookupById(con, tree.getCobblerXenId()));
-
-        // delete its file
-        File xenPath = new File(tree.getKernelXenPath());
-        xenPath.delete();
-
-        // verify it's removed
-        CobblerDistroEditCommand cmd = new
-                CobblerDistroEditCommand(tree, user);
-        assertNull(cmd.store());
-        assertNull(Distro.lookupById(con, tree.getCobblerXenId()));
-    }
-
-    /**
-     * Verify that the cobbler xen id stays same after
-     * CobblerDistroEditCommand.store when xen distro already exists.
-     */
-    public void testParaDistroEditIdStaysSameOnEdit() throws Exception {
-        KickstartableTree tree = ksdata.getTree();
-        String xenIdBefore = tree.getCobblerXenId();
-
-        CobblerDistroEditCommand cmd = new
-                CobblerDistroEditCommand(tree, user);
-        cmd.store();
-
-        String xenIdAfter = tree.getCobblerXenId();
-        assertEquals(xenIdBefore, xenIdAfter);
     }
 
     public void testLogin() throws Exception {
