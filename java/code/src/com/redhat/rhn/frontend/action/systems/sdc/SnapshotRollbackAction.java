@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
-import com.redhat.rhn.common.db.WrappedSQLException;
 import com.redhat.rhn.domain.server.InvalidSnapshotReason;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerSnapshot;
