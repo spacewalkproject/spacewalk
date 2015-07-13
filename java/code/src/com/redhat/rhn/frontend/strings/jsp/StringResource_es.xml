@@ -18348,7 +18348,7 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
           <target>El script no contiene la definición de shell.</target>
         </trans-unit>
         <trans-unit id="stringutil.scriptcheck.error.noscript">
-          <source>Script does not seem doing anything.</source>
+          <source>Script does not seem to be doing anything.</source>
           <target>El script no parece estar haciendo nada.</target>
         </trans-unit>
         <!-- Errata -->

@@ -18338,7 +18338,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <target>O script não contém a definição da shell</target>
         </trans-unit>
         <trans-unit id="stringutil.scriptcheck.error.noscript">
-          <source>Script does not seem doing anything.</source>
+          <source>Script does not seem to be doing anything.</source>
           <target>O script não parece estar funcionando.</target>
         </trans-unit>
         <!-- Errata -->

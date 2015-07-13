@@ -18345,7 +18345,7 @@ dieser Revisionen.  Möchten Sie dies wirklich tun?</target>
           <target>Skript enthält keine Shell-Definition.</target>
         </trans-unit>
         <trans-unit id="stringutil.scriptcheck.error.noscript">
-          <source>Script does not seem doing anything.</source>
+          <source>Script does not seem to be doing anything.</source>
           <target>Skript scheint nichts zu tun.</target>
         </trans-unit>
         <!-- Errata -->

@@ -18344,7 +18344,7 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
           <target>Le script ne contient pas de définition de shell.</target>
         </trans-unit>
         <trans-unit id="stringutil.scriptcheck.error.noscript">
-          <source>Script does not seem doing anything.</source>
+          <source>Script does not seem to be doing anything.</source>
           <target>Le script ne semble pas être en train de faire quoi que ce soit.</target>
         </trans-unit>
         <!-- Errata -->

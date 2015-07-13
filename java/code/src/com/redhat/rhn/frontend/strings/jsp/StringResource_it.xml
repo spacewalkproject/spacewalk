@@ -18323,7 +18323,7 @@ Siete sicuri di voler fare questo?</target>
           <target>Lo scirpt non contiene la definizione della shell.</target>
         </trans-unit>
         <trans-unit id="stringutil.scriptcheck.error.noscript">
-          <source>Script does not seem doing anything.</source>
+          <source>Script does not seem to be doing anything.</source>
           <target>Lo script non esegue nessuna azione.</target>
         </trans-unit>
         <!-- Errata -->
