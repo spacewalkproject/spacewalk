@@ -34,11 +34,8 @@ def systemExit(code, msgs=None):
             sys.stderr.write(str(msg) + '\n')
     sys.exit(code)
 
-try:
-    import os
-    import socket
-except KeyboardInterrupt:
-    systemExit(0, "\nUser interrupted process.")
+import os
+import socket
 
 _LIBPATH = "/usr/share/rhn"
 # add to the path if need be

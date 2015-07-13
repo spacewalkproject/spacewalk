@@ -16,12 +16,8 @@
 
 
 import sys
-try:
-    import os
-    from os.path import exists, join
-except KeyboardInterrupt:
-    sys.stderr.write("\nUser interrupted process.\n")
-    sys.exit(0)
+import os
+from os.path import exists, join
 
 
 def errAndExit(errno, msg):

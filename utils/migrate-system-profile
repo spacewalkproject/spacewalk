@@ -40,12 +40,9 @@ _LIBPATH = "/usr/share/rhn"
 if _LIBPATH not in sys.path:
     sys.path.append(_LIBPATH)
 
-try:
-    import os
-    import socket
-    from rhn import rhnLockfile
-except KeyboardInterrupt:
-    systemExit(0, "\nUser interrupted process.")
+import os
+import socket
+from rhn import rhnLockfile
 
 
 ### acquire lock/check for other instances of migrate servers

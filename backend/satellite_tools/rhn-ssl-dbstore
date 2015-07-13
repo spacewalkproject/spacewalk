@@ -17,11 +17,7 @@
 
 ## language imports
 import sys
-try:
-    import os
-except KeyboardInterrupt:
-    sys.stderr.write("\nUser interrupted process.\n")
-    sys.exit(0)
+import os
 
 
 mod_name = os.path.basename(sys.argv[0]).replace('-', '_')

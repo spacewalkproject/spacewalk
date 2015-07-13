@@ -28,12 +28,8 @@
 
 ## language imports
 import sys
-try:
-    import os
-    import string
-except KeyboardInterrupt:
-    sys.stderr.write("\nUser interrupted process.\n")
-    sys.exit(0)
+import os
+import string
 
 
 sys.path.append("@@ROOT@@")
