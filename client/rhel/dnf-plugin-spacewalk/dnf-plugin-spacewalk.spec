@@ -13,6 +13,7 @@ BuildRequires: python-devel
 BuildRequires: python3-devel
 %endif
 Requires: dnf >= 0.5.3
+Requires: dnf-plugins-core
 Requires: librepo >= 1.7.15
 Requires: rhn-client-tools >= 1.10.3-1
 Conflicts: yum-rhn-plugin
