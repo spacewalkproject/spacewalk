@@ -36,11 +36,8 @@ def systemExit(code, msgs=None):
     sys.exit(code)
 
 
-try:
-    import os
-    import socket
-except KeyboardInterrupt:
-    systemExit(0, "\nUser interrupted process.")
+import os
+import socket
 
 # quick check to see if you are a super-user.
 if os.getuid() != 0:
