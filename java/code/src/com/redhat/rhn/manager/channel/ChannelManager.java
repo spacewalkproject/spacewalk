@@ -881,15 +881,11 @@ public class ChannelManager extends BaseManager {
             throw new NoSuchChannelException();
         }
         if (toRemove.getOrg() == null) {
-            throw new PermissionException(
-                    LocalizationService.getInstance().getMessage(
-                            "api.channel.delete.redhat"));
+            throw new PermissionException("api.channel.delete.redhat");
         }
         if (verifyChannelAdmin(user, toRemove.getId())) {
             if (!ChannelFactory.listAllChildrenForChannel(toRemove).isEmpty()) {
-                throw new PermissionException(
-                        LocalizationService.getInstance().getMessage(
-                                "api.channel.delete.haschild"));
+                throw new PermissionException("api.channel.delete.haschild");
             }
             if (toRemove.containsDistributions()) {
                 ValidatorException.raiseException(

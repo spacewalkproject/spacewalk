@@ -29,9 +29,9 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.channel.ContentSourceFilter;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
-import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
+import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -527,6 +527,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
         catch (InvalidChannelRoleException e) {
             throw new PermissionCheckFailureException(e);
+        }
+        catch (PermissionException e) {
+            throw new FaultException(1234, "permissions", e.getMessage(), new String[] {});
         }
 
         return 1;
