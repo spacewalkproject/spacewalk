@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.32
+Version: 2.4.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 13 2015 Matej Kollar <mkollar@redhat.com> 2.4.33-1
+- Grammar fix
+
 * Fri Jul 10 2015 Tomas Lestach <tlestach@redhat.com> 2.4.32-1
 - 1235955 - fix detection of systems requiring reboot
 
