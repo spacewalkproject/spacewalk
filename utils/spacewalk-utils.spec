@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.4.5
+Version:	2.4.6
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Jul 14 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.6-1
+- remove Except KeyboardInterrupt from imports
+- don't add newer errata when processing dependencies
+
 * Fri Jun 26 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.5-1
 - Recommend cobbler20 with all packages requiring cobbler on Fedora 22
 
