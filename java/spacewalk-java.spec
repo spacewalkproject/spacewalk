@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.34
+Version: 2.4.35
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 14 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.35-1
+- allow to change 1st organization name
+
 * Mon Jul 13 2015 Jan Dobes 2.4.34-1
 - properly close 'a' tag
 - removing dead code
