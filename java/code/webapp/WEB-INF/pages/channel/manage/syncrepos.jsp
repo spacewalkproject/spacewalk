@@ -62,7 +62,7 @@
                 <hr />
                 <button type="submit" name="dispatch" value="<bean:message key='repos.jsp.button-sync'/>"
                         class="btn btn-success"
-                        <c:if test="${inactive}">disabled="disabled"</c:if>>
+                        <c:if test="${in_progress || inactive}">disabled="disabled"</c:if>>
                     <rhn:icon type="repo-sync"/>
                     <bean:message key='repos.jsp.button-sync'/>
                 </button>
