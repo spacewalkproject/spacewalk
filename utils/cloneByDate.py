@@ -638,7 +638,8 @@ class ChannelCloner:
                 errata_list = self.remote_api.list_providing_errata(pid)
                 for erratum in errata_list:
                     if erratum['advisory'] in self.original_errata:
-                        if not self.to_date or (self.to_date and datetime.datetime.strptime(erratum[self.use_update_date], '%Y-%m-%d %H:%M:%S').date() <= self.to_date.date()):
+                        if not self.to_date or (self.to_date and \
+    datetime.datetime.strptime(erratum[self.use_update_date], '%Y-%m-%d %H:%M:%S').date() <= self.to_date.date()):
                             self.original_pid_errata_map[pid] = erratum['advisory']
                             break
                 else:  # no match found, store so we don't repeat search
