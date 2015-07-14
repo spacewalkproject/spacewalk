@@ -49,17 +49,10 @@
                         <label class="col-lg-3 control-label">
                             <bean:message key="org.name.jsp"/>:
                         </label>
-                        <c:choose>
-                            <c:when test="${param.oid != 1}">
-                                <div class="col-lg-6">
-                                    <html:text property="orgName" styleClass="form-control" maxlength="128" size="40" />
-                                    <span class="help-block"><strong>Tip:</strong>Between 3 and 128 characters</span>
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                                <span class=""><bean:write name="orgDetailsForm" property="orgName"/></td>
-                            </c:otherwise>
-                        </c:choose>
+                            <div class="col-lg-6">
+                                <html:text property="orgName" styleClass="form-control" maxlength="128" size="40" />
+                                <span class="help-block"><strong>Tip:</strong>Between 3 and 128 characters</span>
+                            </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-3 control-label"><bean:message key="org.id.jsp"/>:</label>
