@@ -16,6 +16,14 @@
     </rhn-tab>
     <rhn-tab name="Your Preferences" url="/rhn/account/UserPreferences.do" />
     <rhn-tab name="Locale Preferences" url="/rhn/account/LocalePreferences.do" />
+    <rhn-tab name="Your Organization" url="/rhn/multiorg/OrgConfigDetails.do" acl="user_role(org_admin)">
+      <rhn-tab name="Configuration" url="/rhn/multiorg/OrgConfigDetails.do" acl="user_role(org_admin)"/>
+      <rhn-tab name="Organization Trusts" url="/rhn/multiorg/Organizations.do" acl="user_role(org_admin)">
+        <rhn-tab-url>/rhn/multiorg/OrgTrustDetails.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/multiorg/channels/Consumed.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/multiorg/channels/Provided.do</rhn-tab-url>
+      </rhn-tab>
+    </rhn-tab>
     <rhn-tab name="Subscription Management" url="/rhn/systems/SystemEntitlements.do" acl="user_role(org_admin)" >
       <rhn-tab name="System Entitlements" url="/rhn/systems/SystemEntitlements.do" acl="user_role(org_admin)" />
       <rhn-tab name="virtualization.entitlements" url="/rhn/systems/entitlements/GuestLimitedHosts.do" acl="user_role(org_admin)">
@@ -27,11 +35,6 @@
       <rhn-tab name="Software Channel Entitlements" url="/rhn/channels/software/Entitlements.do" acl="user_role(org_admin)">
         <rhn-tab-url>/rhn/channels/software/EntitledSystems.do</rhn-tab-url>
       </rhn-tab>
-    </rhn-tab>
-    <rhn-tab name="Organization Trusts" url="/rhn/multiorg/Organizations.do" acl="user_role(org_admin)">
-        <rhn-tab-url>/rhn/multiorg/OrgTrustDetails.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/multiorg/channels/Consumed.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/multiorg/channels/Provided.do</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Systems" url="/rhn/systems/Overview.do">

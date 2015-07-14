@@ -14,15 +14,16 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 
 import org.apache.commons.lang.StringUtils;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -48,7 +49,16 @@ public class OrgConfigAction extends RhnAction {
             HttpServletRequest request, HttpServletResponse response)
     throws Exception {
         RequestContext ctx = new RequestContext(request);
-        Org org = ctx.lookupAndBindOrg();
+        Org org = ctx.getCurrentUser().getOrg();
+        if (!ctx.getCurrentUser().hasRole(RoleFactory.ORG_ADMIN)) {
+            throw new PermissionException("Organization Administrator role is required.");
+        }
+        request.setAttribute(RequestContext.ORG, org);
+        return process(mapping, request, ctx, org);
+    }
+
+    protected ActionForward process(ActionMapping mapping, HttpServletRequest request,
+            RequestContext ctx, Org org) {
         if (ctx.isSubmitted()) {
             org.getOrgConfig().setStagingContentEnabled(request.
                     getParameter("staging_content_enabled") != null);

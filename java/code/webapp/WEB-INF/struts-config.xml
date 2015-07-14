@@ -5362,6 +5362,20 @@
                  path="/WEB-INF/pages/multiorg/organizations.jsp"/>
     </action>
 
+    <action path="/multiorg/OrgConfigDetails"
+        scope="request"
+        input="/WEB-INF/pages/multiorg/configuration.jsp"
+        type="com.redhat.rhn.frontend.action.multiorg.OrgConfigAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <set-property property="postRequiredIfSubmitted" value="true" />
+      <set-property property="acls" value="user_role(org_admin)"/>
+      <forward name="default" path="/WEB-INF/pages/multiorg/configuration.jsp" />
+      <forward name="success"
+               path="/multiorg/OrgConfigDetails.do" redirect="true" />
+      <forward name="error"
+               path="/WEB-INF/pages/multiorg/configuration.jsp" />
+    </action>
+
     <action path="/admin/multiorg/OrgUsers"
         scope="request"
         input="/WEB-INF/pages/admin/multiorg/org_users.jsp"
@@ -5412,7 +5426,7 @@
     <action path="/admin/multiorg/OrgConfigDetails"
         scope="request"
         input="/WEB-INF/pages/admin/multiorg/configuration.jsp"
-        type="com.redhat.rhn.frontend.action.multiorg.OrgConfigAction"
+        type="com.redhat.rhn.frontend.action.multiorg.OrgConfigSatAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="postRequiredIfSubmitted" value="true" />
       <set-property property="acls" value="user_role(satellite_admin)"/>
