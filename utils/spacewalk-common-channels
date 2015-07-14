@@ -259,7 +259,11 @@ Create everything as well as unlimited activation key for every channel:
                     if e.faultCode != 1200:  # ignore if channel exists
                         sys.stderr.write("ERROR: %s: %s\n" % (
                             base_info['label'], e.faultString))
-                        continue
+                    if e.faultCode == 1200:
+                        sys.stderr.write("ERROR: %s: %s\n" % (
+                            base_info['label'], e.faultString))
+                        sys.exit(2)
+                    continue
 
             if options.key_limit is not None:
                 if options.verbose:
@@ -290,9 +294,8 @@ Create everything as well as unlimited activation key for every channel:
                     sys.stdout.write("Base channel '%s' - exists\n"
                                      % base_info['name'])
             except xmlrpclib.Fault, e:
-                if e.faultCode != -210:  # don't report 'No such channel'
-                    sys.stderr.write("ERROR: %s: %s\n" % (
-                        base_channel_label, e.faultString))
+                sys.stderr.write("ERROR: %s: %s\n" % (
+                    base_channel_label, e.faultString))
                 continue
 
         if options.default_channels:
@@ -337,6 +340,10 @@ Create everything as well as unlimited activation key for every channel:
                     if e.faultCode != 1200:  # ignore if channel exists
                         sys.stderr.write("ERROR: %s: %s\n" % (
                             child_info['label'], e.faultString))
+                    if e.faultCode == 1200:
+                        sys.stderr.write("ERROR: %s: %s\n" % (
+                            child_info['label'], e.faultString))
+                        sys.exit(2)
 
             if options.key_limit is not None:
                 if ('base_channel_activationkey' in child_info
