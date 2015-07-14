@@ -7939,6 +7939,9 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="message.syncscheduled">
         <source>Repository sync scheduled for {0}.</source>
       </trans-unit>
+      <trans-unit id="message.syncinprogress">
+        <source>Repository sync is running.</source>
+      </trans-unit>
       <trans-unit id="message.channelsubscribers">
         <source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
       </trans-unit>

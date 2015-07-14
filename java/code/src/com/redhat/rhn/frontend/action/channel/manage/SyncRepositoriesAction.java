@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
+import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.common.util.RecurringEventPicker;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -25,6 +26,7 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.taskomatic.TaskomaticApi;
 import com.redhat.rhn.taskomatic.TaskomaticApiException;
@@ -49,6 +51,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SyncRepositoriesAction extends RhnAction implements Listable {
 
+    private static final String REPOSYNC_LOCKFILE = "/var/run/spacewalk-repo-sync.pid";
+
   /**
    *
    * {@inheritDoc}
@@ -67,6 +71,11 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
         request.setAttribute("channel_name", chan.getName());
         request.setAttribute("cid",  chan.getId());
 
+        boolean inProgress = isSyncInProgress(chan);
+        if (inProgress) {
+            addMessage(request, "message.syncinprogress");
+            request.setAttribute("in_progress", true);
+        }
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.CID, chan.getId().toString());
@@ -161,8 +170,21 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
+    private boolean isSyncInProgress(Channel chan) {
+        String pid;
+        try {
+            pid = FileUtils.readStringFromFile(REPOSYNC_LOCKFILE).trim();
+        }
+        catch (RuntimeException e) {
+            return false;
+        }
 
-
+        // Is this PID running?
+        String[] cmd = {"ps", "-o", "args", "-p", pid};
+        SystemCommandExecutor ce = new SystemCommandExecutor();
+        ce.execute(cmd);
+        return ce.getLastCommandOutput().contains(" " + chan.getLabel() + " ");
+    }
 
         /**
          *
