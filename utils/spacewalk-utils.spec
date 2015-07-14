@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.4.7
+Version:	2.4.8
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+
+* Tue Jul 14 2015 Jiri Dostal <jdostal@redhat.com> 2.4.8-1
+- Bug 1077770 - Added error messages and fixed error codes
+
 * Tue Jul 14 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.7-1
 - satisfy pylint
 
