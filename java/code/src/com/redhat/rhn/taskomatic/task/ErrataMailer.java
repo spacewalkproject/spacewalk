@@ -70,19 +70,27 @@ public class ErrataMailer extends RhnJavaJob {
                 Long orgId = (Long) row.get("org_id");
                 Long channelId = (Long) row.get("channel_id");
                 markErrataDone(errataId, orgId, channelId);
-                if (log.isDebugEnabled()) {
-                    log.debug("Processing errata " + errataId +
-                            " for org " + orgId);
-                }
-                try {
-                    sendEmails(errataId, orgId, channelId);
+                if (OrgFactory.lookupById(orgId).getOrgConfig().isErrataEmailsEnabled()) {
                     if (log.isDebugEnabled()) {
-                        log.debug("Finished errata " + errataId +
+                        log.debug("Processing errata " + errataId +
                                 " for org " + orgId);
                     }
+                    try {
+                        sendEmails(errataId, orgId, channelId);
+                        if (log.isDebugEnabled()) {
+                            log.debug("Finished errata " + errataId +
+                                    " for org " + orgId);
+                        }
+                    }
+                    catch (JavaMailException e) {
+                        log.error("Error sending mail", e);
+                    }
                 }
-                catch (JavaMailException e) {
-                    log.error("Error sending mail", e);
+                else {
+                    if (log.isDebugEnabled()) {
+                        log.debug("Errata notifications disabled for whole org " + orgId +
+                                " => skipping " + errataId);
+                    }
                 }
             }
         }

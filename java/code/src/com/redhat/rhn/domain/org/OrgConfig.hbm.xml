@@ -11,6 +11,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             </generator>
         </id>
         <property name="stagingContentEnabled" column="staging_content_enabled" type="yes_no" not-null="true"/>
+        <property name="errataEmailsEnabled" column="errata_emails_enabled" type="yes_no" not-null="true"/>
         <property name="crashReportingEnabled" column="crash_reporting_enabled" type="yes_no" not-null="true"/>
         <property name="crashfileUploadEnabled" column="crashfile_upload_enabled" type="yes_no" not-null="true"/>
         <property name="crashFileSizelimit" column="crash_file_sizelimit" type="long" not-null="true"/>

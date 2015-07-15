@@ -75,6 +75,20 @@ function modifyUploadCheckbox(checkbox) {
             </div>
             <div class="form-group">
                 <label class="col-lg-3 control-label">
+                    <bean:message key="org-config.errata-emails.jsp"/>
+                </label>
+                <div class="col-lg-6">
+                    <div class="checkbox">
+                        <input type="checkbox" name="errata_emails_enabled"
+                               value="enabled" id="errata_emails_enabled"
+                               <c:if test = "${org.orgConfig.errataEmailsEnabled}">
+                                   checked="checked"
+                               </c:if>/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">
                     <bean:message key="org-config.crash-reporting.jsp"/>
                 </label>
                 <div class="col-lg-6">

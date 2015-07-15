@@ -62,6 +62,9 @@ public class OrgConfigAction extends RhnAction {
         if (ctx.isSubmitted()) {
             org.getOrgConfig().setStagingContentEnabled(request.
                     getParameter("staging_content_enabled") != null);
+            org.getOrgConfig().setErrataEmailsEnabled(request.
+                    getParameter("errata_emails_enabled") != null);
+
 
             if (request.getParameter("crash_reporting_enabled") == null) {
                 org.getOrgConfig().setCrashReportingEnabled(false);
