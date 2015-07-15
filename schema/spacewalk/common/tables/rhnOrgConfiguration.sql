@@ -23,6 +23,10 @@ create table rhnOrgConfiguration
                                    default ('N') not null
                                    constraint rhn_org_conf_stage_content_chk
                                    check (staging_content_enabled in ('Y', 'N')),
+    errata_emails_enabled      char(1)
+                                    default ('Y') not null
+                                    constraint rhn_org_conf_errata_emails_chk
+                                    check (errata_emails_enabled in ('Y', 'N')),
     crash_reporting_enabled    char(1)
                                    default ('Y') not null
                                    constraint rhn_org_conf_crash_report_chk
