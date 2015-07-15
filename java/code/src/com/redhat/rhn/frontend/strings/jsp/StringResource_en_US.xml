@@ -8077,6 +8077,9 @@ Please note that some manual configuration of these scripts may still be require
       <trans-unit id="repos.jsp.channel.header">
         <source>Repository</source>
       </trans-unit>
+      <trans-unit id="repos.jsp.channel.status">
+        <source>Sync Status</source>
+      </trans-unit>
       <trans-unit id="repos.jsp.channel.repos">
         <source>Channel Repositories</source>
       </trans-unit>
