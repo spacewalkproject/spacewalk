@@ -76,7 +76,7 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
 
 
         TaskomaticApi taskomatic = new TaskomaticApi();
-        String oldCronExpr;
+        String oldCronExpr = null;
         try {
             oldCronExpr = taskomatic.getRepoSyncSchedule(chan, user);
         }
@@ -85,8 +85,6 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
             request.setAttribute("inactive", true);
             createErrorMessage(request,
                     "repos.jsp.message.taskomaticdown", null);
-            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
-
         }
 
         RecurringEventPicker picker = RecurringEventPicker.prepopulatePicker(
