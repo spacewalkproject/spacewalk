@@ -43,7 +43,7 @@ public class DebPackageWriter {
     private static Logger log = Logger.getLogger(DebPackageWriter.class);
     private String filenamePackages = "";
     private String channelLabel = "";
-    private Pattern versionRegex = Pattern.compile("^([<>=]+)\s*(.*)$");
+    private Pattern versionRegex = Pattern.compile("^([<>=]+)\\s*(.*)$");
 
     /**
      *
