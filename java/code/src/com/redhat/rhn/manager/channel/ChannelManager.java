@@ -2809,7 +2809,7 @@ public class ChannelManager extends BaseManager {
         String[] dirList = dir.list();
         if (dirList != null) {
             for (String file : dirList) {
-                if (file.startsWith(c.getLabel()) && !file.endsWith(".gz")) {
+                if (file.startsWith(c.getLabel() + ".log") && !file.endsWith(".gz")) {
                     possibleList.add(logPath + file);
                 }
             }
