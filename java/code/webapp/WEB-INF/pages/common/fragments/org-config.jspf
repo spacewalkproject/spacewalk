@@ -6,9 +6,13 @@
         <div class="checkbox">
             <input type="checkbox" name="staging_content_enabled"
                    value="enabled" id="staging_content_enabled"
+                   <c:if test = "${edit_disabled}">
+                        disabled="disabled"
+                   </c:if>
                    <c:if test = "${org.orgConfig.stagingContentEnabled}">
                        checked="checked"
-                   </c:if>/>
+                   </c:if>
+            />
         </div>
     </div>
 </div>
@@ -20,9 +24,13 @@
         <div class="checkbox">
             <input type="checkbox" name="errata_emails_enabled"
                    value="enabled" id="errata_emails_enabled"
+                   <c:if test = "${edit_disabled}">
+                        disabled="disabled"
+                   </c:if>
                    <c:if test = "${org.orgConfig.errataEmailsEnabled}">
                        checked="checked"
-                   </c:if>/>
+                   </c:if>
+            />
         </div>
     </div>
 </div>
@@ -37,9 +45,13 @@
                    value="enabled"
                    id="crash_reporting_enabled"
                    onChange="modifyUploadCheckbox(this)"
+                   <c:if test = "${edit_disabled}">
+                        disabled="disabled"
+                   </c:if>
                    <c:if test = "${org.orgConfig.crashReportingEnabled}">
                        checked="checked"
-                   </c:if>/>
+                   </c:if>
+            />
         </div>
     </div>
 </div>
@@ -53,12 +65,13 @@
                    name="crashfile_upload_enabled"
                    value="enabled"
                    id="crashfile_upload_enabled"
-                   <c:if test = "${not org.orgConfig.crashReportingEnabled}">
+                   <c:if test = "${not org.orgConfig.crashReportingEnabled || edit_disabled}">
                        disabled="true"
                    </c:if>
                    <c:if test = "${org.orgConfig.crashfileUploadEnabled}">
                        checked="checked"
-                   </c:if>/>
+                   </c:if>
+            />
         </div>
     </div>
 </div>
@@ -71,7 +84,11 @@
                class="form-control"
                name="crashfile_sizelimit"
                value="${org.orgConfig.crashFileSizelimit}"
-               id="crashfile_sizelimit" />
+               id="crashfile_sizelimit"
+               <c:if test = "${edit_disabled}">
+                    disabled="disabled"
+               </c:if>
+        />
     </div>
 </div>
 <div class="form-group">
@@ -84,9 +101,13 @@
                    name="scapfile_upload_enabled"
                    value="enabled"
                    id="scapfile_upload_enabled"
+                   <c:if test = "${edit_disabled}">
+                       disabled="disabled"
+                   </c:if>
                    <c:if test = "${org.orgConfig.scapfileUploadEnabled}">
                        checked="checked"
-                   </c:if>/>
+                   </c:if>
+            />
         </div>
     </div>
 </div>
@@ -99,7 +120,11 @@
                class="form-control"
                name="scapfile_sizelimit"
                value="${org.orgConfig.scapFileSizelimit}"
-               id="scapfile_sizelimit" />
+               id="scapfile_sizelimit"
+               <c:if test = "${edit_disabled}">
+                   disabled="disabled"
+               </c:if>
+        />
     </div>
 </div>
 <div class="form-group">
@@ -113,9 +138,13 @@
                    value="on"
                    id="scap_retention_set"
                    onChange="modifyTrVisibility('tr_scap_retention')"
+                   <c:if test = "${edit_disabled}">
+                       disabled="disabled"
+                   </c:if>
                    <c:if test = "${org.orgConfig.scapRetentionPeriodDays != null}">
                        checked="checked"
-                   </c:if>/>
+                   </c:if>
+            />
         </div>
     </div>
 </div>
@@ -128,6 +157,11 @@
                class="form-control"
                name="scap_retention_period"
                value="${org.orgConfig.scapRetentionPeriodDays == null ? 90 : org.orgConfig.scapRetentionPeriodDays}"
-               id="scap_retention_period" />
+               id="scap_retention_period"
+               <c:if test = "${edit_disabled}">
+                   disabled="disabled"
+               </c:if>
+        />
     </div>
 </div>
+

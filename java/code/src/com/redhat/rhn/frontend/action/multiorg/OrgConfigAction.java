@@ -54,6 +54,7 @@ public class OrgConfigAction extends RhnAction {
             throw new PermissionException("Organization Administrator role is required.");
         }
         request.setAttribute(RequestContext.ORG, org);
+        request.setAttribute("edit_disabled", !org.getOrgAdminMgmt().isEnabled());
         return process(mapping, request, ctx, org);
     }
 
@@ -84,12 +85,12 @@ public class OrgConfigAction extends RhnAction {
             Long newScapRetentionPeriod = null;
             try {
                 newCrashLimit = Long.parseLong(
-                           request.getParameter("crashfile_sizelimit").trim());
+                           request.getParameter("crashfile_sizelimit"));
 
                 newScapLimit = Long.parseLong(
-                           request.getParameter("scapfile_sizelimit").trim());
+                           request.getParameter("scapfile_sizelimit"));
                 newScapRetentionPeriod = Long.parseLong(
-                           request.getParameter(SCAP_RETENTION_PERIOD).trim());
+                           request.getParameter(SCAP_RETENTION_PERIOD));
 
                 if (newCrashLimit < 0 || newScapLimit < 0 || newScapRetentionPeriod < 0) {
                     throw new IllegalArgumentException();

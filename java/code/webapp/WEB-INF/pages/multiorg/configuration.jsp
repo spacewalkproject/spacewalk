@@ -42,9 +42,12 @@ function modifyUploadCheckbox(checkbox) {
 	    <%@ include file="/WEB-INF/pages/common/fragments/org-config.jspf" %>
             <div class="form-group">
                 <div class="col-lg-offset-3 col-lg-6">
-                    <html:submit styleClass="btn btn-success">
-                        <bean:message key="orgdetails.jsp.submit"/>
-                    </html:submit>
+                    <input type="submit" class="btn btn-success"
+                      value="<bean:message key='orgdetails.jsp.submit'/>"
+                      <c:if test = "${edit_disabled}">
+                        disabled="${disabled}"
+                      </c:if>
+                    />
                 </div>
             </div>
         </form>

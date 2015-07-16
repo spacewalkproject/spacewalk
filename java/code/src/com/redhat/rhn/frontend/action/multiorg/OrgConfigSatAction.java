@@ -15,7 +15,9 @@
 
 package com.redhat.rhn.frontend.action.multiorg;
 
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 
 import org.apache.struts.action.ActionForm;
@@ -37,6 +39,16 @@ public class OrgConfigSatAction extends OrgConfigAction {
     throws Exception {
         RequestContext ctx = new RequestContext(request);
         Org org = ctx.lookupAndBindOrg();
+        if (ctx.isSubmitted()) {
+            if (!ctx.getCurrentUser().hasRole(RoleFactory.SAT_ADMIN)) {
+                throw new PermissionException("Satellite Administrator role is required.");
+            }
+            org.getOrgAdminMgmt().setEnabled(request.
+                    getParameter("org_admin_mgmt") != null);
+        }
+        else {
+            request.setAttribute("org_admin_mgmt", org.getOrgAdminMgmt().isEnabled());
+        }
         return process(mapping, request, ctx, org);
     }
 }

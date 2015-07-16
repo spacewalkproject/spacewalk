@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.org.OrgAdminManagement"
+           table="rhnOrgAdminManagement">
+        <id name="orgId" type="long" column="org_id">
+            <generator class="foreign">
+                <param name="property">org</param>
+            </generator>
+        </id>
+        <property name="enabled" type="yes_no" />
+        <property name="created" type="timestamp" insert="false" update="false" />
+        <property name="modified" type="timestamp" insert="false" update="false" />
+    </class>
+</hibernate-mapping>

@@ -46,29 +46,52 @@ function modifyUploadCheckbox(checkbox) {
 
     <rhn:dialogmenu mindepth="0" maxdepth="2" definition="/WEB-INF/nav/org_tabs.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4><bean:message key="orgconfig.jsp.header"/></h4>
-      </div>
-      <div class="panel-body">
-        <p><bean:message key="orgconfig.jsp.description"/></p>
-        <hr />
-          <form method="post"
-          class="form-horizontal"
-          action="/rhn/admin/multiorg/OrgConfigDetails.do">
-            <rhn:csrf />
-            <rhn:submitted/>
-            <input type="hidden" name="oid" value="${param.oid}"/>
-	    <%@ include file="/WEB-INF/pages/common/fragments/org-config.jspf" %>
-            <div class="form-group">
-                <div class="col-lg-offset-3 col-lg-6">
-                    <html:submit styleClass="btn btn-success">
-                        <bean:message key="orgdetails.jsp.submit"/>
-                    </html:submit>
-                </div>
+    <form method="post"
+      class="form-horizontal"
+      action="/rhn/admin/multiorg/OrgConfigDetails.do">
+      <rhn:csrf />
+      <rhn:submitted/>
+      <input type="hidden" name="oid" value="${param.oid}"/>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4><bean:message key="satconfig.jsp.header"/></h4>
+        </div>
+        <div class="panel-body">
+          <p><bean:message key="satconfig.jsp.description"/></p>
+          <hr />
+          <div class="form-group">
+            <label class="col-lg-3 control-label">
+              <bean:message key="org-config.orgadm-mgmt.jsp"/>
+            </label>
+            <div class="col-lg-6">
+              <div class="checkbox">
+                <input type="checkbox" name="org_admin_mgmt"
+                  value="enabled" id="org_admin_mgmt"
+                <c:if test = "${org.orgAdminMgmt.enabled}">
+                  checked="checked"
+                </c:if>/>
+              </div>
             </div>
-        </form>
+          </div>
+        </div>
       </div>
-    </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4><bean:message key="orgconfig.jsp.header"/></h4>
+        </div>
+        <div class="panel-body">
+          <p><bean:message key="orgconfig.jsp.description"/></p>
+          <hr />
+	  <%@ include file="/WEB-INF/pages/common/fragments/org-config.jspf" %>
+          <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-6">
+              <html:submit styleClass="btn btn-success">
+                <bean:message key="orgdetails.jsp.submit"/>
+              </html:submit>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
 </body>
 </html:html>

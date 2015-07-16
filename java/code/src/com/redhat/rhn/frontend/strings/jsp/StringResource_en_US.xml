@@ -3596,6 +3596,18 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="satconfig.jsp.header">
+        <source>@@PRODUCT_NAME@@ Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="satconfig.jsp.description">
+        <source>As @@PRODUCT_NAME@@ Admin you can configure, whether Organization Administrators may configure Organization Configuration. Organizaton Configuration settings may have huge impact on the @@PRODUCT_NAME@@ performance.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="orgconfig.jsp.header">
         <source>Organization Configuration</source>
         <context-group name="ctx">
@@ -3630,6 +3642,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <source>System Groups</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org-config.orgadm-mgmt.jsp">
+        <source>Allow Organization Admin to manage Organization Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="org-config.staging-content.jsp">

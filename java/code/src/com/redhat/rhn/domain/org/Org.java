@@ -76,6 +76,7 @@ public class Org extends BaseDomainHelper {
     private Set<Org> trustedOrgs;
     private Set<IssSlave> allowedToSlaves;
     private Token token;
+    private OrgAdminManagement orgAdminMgmt;
 
     private OrgConfig orgConfig;
 
@@ -573,6 +574,22 @@ public class Org extends BaseDomainHelper {
      */
     protected void setAllowedToSlaves(Set<IssSlave> inSlaves) {
         allowedToSlaves = inSlaves;
+    }
+
+
+    /**
+     * @return Returns the orgAdminMgmt.
+     */
+    public OrgAdminManagement getOrgAdminMgmt() {
+        return orgAdminMgmt;
+    }
+
+
+    /**
+     * @param orgAdminMgmtIn The orgAdminMgmt to set.
+     */
+    public void setOrgAdminMgmt(OrgAdminManagement orgAdminMgmtIn) {
+        this.orgAdminMgmt = orgAdminMgmtIn;
     }
 
     /**
