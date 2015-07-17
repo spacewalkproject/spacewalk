@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 7d4cf775fd438438e65e6eb9e8be419f441fdff8
+-- oracle equivalent source sha1 c73d4e9a6e8150284ea568bd57badb36ea3b8d74
 
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
@@ -43,6 +43,7 @@ as
 $$
 begin
 	insert into rhnOrgConfiguration (org_id) values (new.id);
+	insert into rhnOrgAdminManagement (org_id) values (new.id);
 
         return new;
 end;

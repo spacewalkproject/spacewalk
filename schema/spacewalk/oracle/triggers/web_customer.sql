@@ -33,6 +33,7 @@ after insert on web_customer
 for each row
 begin
     insert into rhnOrgConfiguration (org_id) values (:new.id);
+    insert into rhnOrgAdminManagement (org_id) values (:new.id);
 end;
 /
 show errors
