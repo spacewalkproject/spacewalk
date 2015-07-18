@@ -194,7 +194,9 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.doc Returns the list of organizations.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype
-     * $OrgDtoSerializer
+     *   #array()
+     *     $OrgDtoSerializer
+     *   #array_end()
      */
     public List<OrgDto> listOrgs(User loggedInUser) {
         ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
