@@ -4197,13 +4197,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target>
         </context-group>
         <target>Configuração da Organização</target>
       </trans-unit>
-      <trans-unit id="orgconfig.jsp.description">
-        <source>Below you configure your organization to use staging content and set up software crash reporting. Crash file upload limit is a non negative number, zero means no limit.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
-        </context-group>
-        <target>Configure abaixo sua empresa que irá utilizar o conteúdo de estágio e configurar relatórios de travamento de software. O limite de carga de arquivo de travamento é um número não negativo, zero significa sem limite.</target>
-      </trans-unit>
       <trans-unit id="org.name.jsp">
         <source>Organization Name</source>
         <context-group name="ctx">

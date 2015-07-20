@@ -4197,13 +4197,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
         <target>組織配置</target>
       </trans-unit>
-      <trans-unit id="orgconfig.jsp.description">
-        <source>Below you configure your organization to use staging content and set up software crash reporting. Crash file upload limit is a non negative number, zero means no limit.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
-        </context-group>
-        <target>以下部分中您將會配置您的組織，以使用 staging 內容並設定軟體當機報告。當機檔案上傳限制必須是正數，零則代表無限制。</target>
-      </trans-unit>
       <trans-unit id="org.name.jsp">
         <source>Organization Name</source>
         <context-group name="ctx">

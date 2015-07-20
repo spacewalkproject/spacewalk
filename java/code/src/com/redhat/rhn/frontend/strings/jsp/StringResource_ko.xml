@@ -4132,13 +4132,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
         <target>조직 설정</target>
       </trans-unit>
-      <trans-unit id="orgconfig.jsp.description">
-        <source>Below you configure your organization to use staging content and set up software crash reporting. Crash file upload limit is a non negative number, zero means no limit.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
-        </context-group>
-        <target>아래에서 스테이징 컨텐츠를 사용하기 위해 조직을 설정하고 소프트웨어 충돌 보고서를 설정합니다. 충돌 파일 업로드 제한은 음수가 아닌 숫자로 지정합니다. 제로는 제한이 없음을 의미합니다.</target>
-      </trans-unit>
       <trans-unit id="org.name.jsp">
         <source>Organization Name</source>
         <context-group name="ctx">

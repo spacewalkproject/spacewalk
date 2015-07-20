@@ -31,7 +31,7 @@ function modifyUploadCheckbox(checkbox) {
         <h4><bean:message key="orgconfig.jsp.header"/></h4>
       </div>
       <div class="panel-body">
-        <p><bean:message key="orgconfig.jsp.description"/></p>
+        <p><bean:message key="orgconfig.jsp.description.noteditable"/></p>
         <hr />
           <form method="post"
           class="form-horizontal"
