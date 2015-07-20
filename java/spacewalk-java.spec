@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.36
+Version: 2.4.37
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 20 2015 Tomas Lestach <tlestach@redhat.com> 2.4.37-1
+- update organization configuration description
+- spacewalk/satellite admin may allow org admin to manage org configuration
+- re-use same org config jsp code
+- introduce errata_emails_enabled per org
+- make the Organization Configuration pages available also to org amin
+- Fix docs
+
 * Wed Jul 15 2015 Jan Dobes 2.4.36-1
 - prevent ISE if taskomatic is not running
 - get files only for correct channel
