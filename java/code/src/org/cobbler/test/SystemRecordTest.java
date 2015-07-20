@@ -52,7 +52,7 @@ public class SystemRecordTest extends BaseTestCaseWithUser {
                 .setName("test-distro")
                 .setKernel("kernel")
                 .setInitrd("initrd")
-                .setKsmeta(new HashMap<>())
+                .setKsmeta(new HashMap<String, Object>())
                 .setBreed("redhat")
                 .setOsVersion("rhel6")
                 .setArch("x86_64")

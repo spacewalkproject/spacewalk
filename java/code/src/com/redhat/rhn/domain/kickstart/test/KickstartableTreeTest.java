@@ -209,7 +209,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         Distro d = builder.setName(k.getLabel())
                 .setKernel(k.getDefaultKernelPath())
                 .setInitrd(k.getDefaultInitrdPath()[0])
-                .setKsmeta(new HashMap<>())
+                .setKsmeta(new HashMap<String, Object>())
                 .setBreed(k.getInstallType().getCobblerBreed())
                 .setOsVersion(k.getInstallType().getCobblerOsVersion())
                 .setArch(k.getChannel().getChannelArch().cobblerArch())
@@ -217,7 +217,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
                 .setKernelOptionsPost(k.getKernelOptionsPost())
                 .build(CobblerXMLRPCHelper.getConnection("test"));
 
-        Distro xend = builder.setKsmeta(new HashMap<>())
+        Distro xend = builder.setKsmeta(new HashMap<String, Object>())
                 .build(CobblerXMLRPCHelper.getConnection("test"));
 
         k.setCobblerId(d.getUid());
