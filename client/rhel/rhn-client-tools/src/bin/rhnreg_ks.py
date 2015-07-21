@@ -130,13 +130,8 @@ class RegisterKsCli(rhncli.RhnCli):
             other['channel'] = channels['default_channel']
 
         try:
-            if self.options.activationkey:
-                systemId = rhnreg.registerSystem(token = self.options.activationkey,
-                                                 profileName = profilename,
-                                                 other = other)
-            else:
-                systemId = rhnreg.registerSystem(self.options.username,
-                    self.options.password, profilename, other = other)
+            systemId = rhnreg.registerSystem(self.options.username,
+                self.options.password, profilename, self.options.activationkey, other)
         except (up2dateErrors.AuthenticationTicketError,
                 up2dateErrors.RhnUuidUniquenessError,
                 up2dateErrors.CommunicationError,
