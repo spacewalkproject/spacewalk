@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.common.util.RecurringEventPicker;
 import com.redhat.rhn.domain.channel.Channel;
@@ -28,6 +29,7 @@ import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.taskomatic.TaskomaticApi;
 import com.redhat.rhn.taskomatic.TaskomaticApiException;
@@ -79,6 +81,21 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
         }
 
         request.setAttribute("status", parseSyncLog(chan, inProgress));
+
+        if (!chan.getSources().isEmpty()) {
+            String lastSync = LocalizationService.getInstance().getMessage(
+                    "channel.edit.repo.neversynced");
+            if (chan.getLastSynced() != null) {
+                lastSync = LocalizationService.getInstance().formatCustomDate(
+                        chan.getLastSynced());
+            }
+            request.setAttribute("last_sync", lastSync);
+            if (!ChannelManager.getLatestSyncLogFiles(chan).isEmpty()) {
+                request.setAttribute("log_url",
+                        DownloadManager.getChannelSyncLogDownloadPath(chan,
+                                context.getCurrentUser()));
+            }
+        }
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.CID, chan.getId().toString());
