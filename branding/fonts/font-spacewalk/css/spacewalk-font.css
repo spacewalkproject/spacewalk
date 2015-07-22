@@ -53,35 +53,20 @@
 .spacewalk-icon-bug-ex:before {
 	content: "\e609";
 }
-.spacewalk-icon-monitoring-warning:before {
-	content: "\e60a";
-}
 .spacewalk-icon-sandbox:before {
 	content: "\e60b";
 }
 .spacewalk-icon-proxy:before {
 	content: "\e60c";
 }
-.spacewalk-icon-monitoring-unknown:before {
-	content: "\e60d";
-}
 .spacewalk-icon-patchset-install:before {
 	content: "\e60e";
-}
-.spacewalk-icon-monitoring-pending:before {
-	content: "\e60f";
 }
 .spacewalk-icon-patch-set:before {
 	content: "\e610";
 }
-.spacewalk-icon-monitoring-ok:before {
-	content: "\e611";
-}
 .spacewalk-icon-patch-remove:before {
 	content: "\e612";
-}
-.spacewalk-icon-monitoring-down:before {
-	content: "\e613";
 }
 .spacewalk-icon-package-upgrade:before {
 	content: "\e614";
@@ -154,9 +139,6 @@
 }
 .spacewalk-icon-manage-software-packages:before {
 	content: "\e62c";
-}
-.spacewalk-icon-monitoring-status:before {
-	content: "\e62d";
 }
 .spacewalk-icon-system-groups:before {
 	content: "\e62e";
