@@ -78,7 +78,7 @@
                    sortable="false"
                    headerkey="realname.displayname"
                    attr="userLastName">
-                <c:out value="${current.userDisplayName}" escapeXml="false" />
+                <c:out value="${current.userDisplayName}" escapeXml="true" />
         </rl:column>
         <rl:column bound="false"
                    sortable="false"

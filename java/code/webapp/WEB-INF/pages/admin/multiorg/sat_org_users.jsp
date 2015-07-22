@@ -55,7 +55,7 @@
                    sortable="false"
                    headerkey="realname.displayname"
                    attr="userLastName">
-                <c:out value="<a href=\"mailto:${current.address}\">${current.userLastName}, ${current.userFirstName}</a>" escapeXml="false"/>
+                <c:out value="<a href=\"mailto:${current.address}\">${current.userLastName}, ${current.userFirstName}</a>" escapeXml="true"/>
         </rl:column>
         <rl:column bound="false"
                    sortable="false"

@@ -44,7 +44,7 @@
                    sortable="true"
                    headerkey="realname.displayname"
                    sortattr="userLastName">
-                <c:out value="${current.userLastName}, ${current.userFirstName}" />
+                <c:out escapeXml="true" value="${current.userLastName}, ${current.userFirstName}" />
         </rl:column>
 
         <!--  Roles column -->
