@@ -34,12 +34,3 @@ exception
 end;
 /
 show errors
-
---
--- Revision 1.1  2003/03/11 00:37:16  pjones
--- bugzilla: 85516
---
--- public errata schema checkin
---
--- bretm, you owe me cookies.
---

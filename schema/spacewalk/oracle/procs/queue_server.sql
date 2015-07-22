@@ -48,15 +48,3 @@ BEGIN
 END queue_server;
 /
 SHOW ERRORS
-
---
--- Revision 1.8  2004/11/09 18:16:21  pjones
--- bugzilla: none -- make this faster by using the table the second time.
---
--- Revision 1.7  2004/07/13 21:29:35  pjones
--- bugzilla: 125938 -- make queue_server handle new EP table, too
---
--- Revision 1.6  2002/05/13 22:53:38  pjones
--- cvs id/log
--- some (note enough) readability fixes
---

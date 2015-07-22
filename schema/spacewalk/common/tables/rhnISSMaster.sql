@@ -7,7 +7,3 @@ create table rhnIssMaster (
 );
 
 create sequence rhn_issmaster_seq;
-
--- functional indexes for this table can be found at:
--- oracle: oracle/tables/rhnISSMaster_index.sql
--- postgres: postgres/tables/rhnISSMaster_index.sql

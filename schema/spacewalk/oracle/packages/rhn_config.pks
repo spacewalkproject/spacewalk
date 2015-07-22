@@ -64,35 +64,3 @@ is
 end rhn_config;
 /
 show errors
-
---
---
--- Revision 1.8  2005/02/16 14:03:35  jslagle
--- bz #148844
--- Changed insert_revision function to take a config_file_type_id instead of label
---
--- Revision 1.7  2005/02/15 02:42:59  jslagle
--- bz #147860
--- insert_revision function now takes a rhnConfigFileType label as a parameter instead of an id
---
--- Revision 1.6  2005/02/14 22:45:23  jslagle
--- bz#147860
--- Update rhn_config package body and specification for additional column to rhnConfigRevision
---
--- Revision 1.5  2004/01/09 17:39:45  pjones
--- bugzilla: 113029 -- need to do functions for deleting rhnConfigChannel,
--- too, or we can't prune rhnConfigFile when we do.
---
--- Revision 1.4  2004/01/08 19:46:31  pjones
--- bugzilla: 113029 -- insert/delete for rhnConfigFile and rhnConfigRevision
---
--- Revision 1.3  2004/01/08 00:30:10  pjones
--- bugzilla: 113029 -- more deletion of config files and revisions
---
--- Revision 1.2  2004/01/08 00:03:37  pjones
--- bugzilla: 113029 -- rhn_config.delete_revision() and delete trigger on
--- rhnConfigFile
---
--- Revision 1.1  2003/12/19 22:07:30  pjones
--- bugzilla: 112392 -- quota support for config files
---

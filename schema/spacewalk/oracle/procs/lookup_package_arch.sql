@@ -38,13 +38,3 @@ EXCEPTION
 END;
 /
 SHOW ERRORS
-
---
--- Revision 1.2  2004/02/20 18:08:51  pjones
--- bugzilla: none -- make lookup_*_arch.sql not autonomous since they never
--- insert
--- add changes files for nonlinux systems
---
--- Revision 1.1  2002/11/13 23:16:18  pjones
--- lookup_*_arch()
---

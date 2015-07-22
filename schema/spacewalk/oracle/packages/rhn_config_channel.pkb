@@ -168,39 +168,3 @@ IS
 END rhn_config_channel;
 /
 SHOW ERRORS
-
---
--- Revision 1.6  2004/03/22 19:52:02  pjones
--- bugzilla: none -- 8.1.7 compat changes
---
--- Revision 1.5  2004/02/09 17:30:42  bretm
--- bugzilla:  109398
---
--- o  remove crackrock function rhn_config_channel.get_config_channel_server,
---    greps done against webcode, sql, and backend code to ensure it wasn't
---    used elsewhere
--- o  correctly determine if a user_id has access to a particular
---    config_channel_id
---
--- Revision 1.4  2004/02/05 19:21:00  bretm
--- bugzilla:  109938
---
--- security fix for viewing config channel info
---
--- Revision 1.3  2003/12/02 20:33:58  bretm
--- bugzilla:  108651
---
--- ugh.  it's diff, not deploy.  not sure if deploy even uses rhnActionConfigRevisionResult...
---
--- Revision 1.2  2003/12/01 22:54:14  bretm
--- bugzilla:  101303
---
--- added a function for determining the status of a config file during a verification action
---
--- painful schema is
--- really freakin annoying
--- cherry blossoms fall
---
--- Revision 1.1  2003/11/13 19:22:49  cturner
--- refactor some permission checks into a plsql package to simplify some web code; necessary so sysadmins can view some config files without being config admins
---

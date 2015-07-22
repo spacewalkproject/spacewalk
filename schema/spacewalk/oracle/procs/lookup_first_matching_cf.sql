@@ -62,12 +62,3 @@ begin
 end lookup_first_matching_cf;
 /
 show errors
-
---
---
--- Revision 1.5  2003/11/09 19:51:43  pjones
--- bugzilla: 109083 -- use rhnConfigFileName
---
--- Revision 1.4  2003/11/09 17:37:12  pjones
--- bugzilla: 109083 -- update this for new schema
---

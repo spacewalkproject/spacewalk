@@ -30,14 +30,3 @@ begin
 end;
 /
 show errors
-
---
--- Revision 1.4  2003/05/07 14:41:48  pjones
--- this should be part of satellite
---
--- Revision 1.3  2002/05/09 17:17:39  pjones
--- move the prop stuff to it's own file and merge the others
---
--- Revision 1.2  2002/05/09 06:22:25  gafton
--- exclude this one from the satellite build
---

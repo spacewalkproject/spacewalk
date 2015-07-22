@@ -30,8 +30,3 @@ exception
 end;
 /
 show errors
-
---
--- Revision 1.1  2008/07/01 23:16:18  jsherrill
--- adding 
---

@@ -25,8 +25,3 @@ begin
 end;
 /
 show errors
-
---
--- Revision 1.1  2002/09/25 19:09:02  pjones
--- transaction changes discussed today
---

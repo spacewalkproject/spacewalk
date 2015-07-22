@@ -42,7 +42,3 @@ ALTER TABLE rhnServerNetInterface
     ADD CONSTRAINT rhn_srv_net_iface_sid_name_uq UNIQUE (server_id, name);
 
 CREATE SEQUENCE rhn_srv_net_iface_id_seq;
-
--- functional indexes for this table can be found at:
--- oracle: oracle/tables/rhnServerNetInterface_index.sql
--- postgres: postgres/tables/rhnServerNetInterface_index.sql

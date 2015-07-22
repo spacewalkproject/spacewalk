@@ -34,10 +34,3 @@ exception
 end;
 /
 show errors
-
---
---
--- Revision 1.1  2004/02/19 22:19:29  pjones
--- bugzilla: 115896 -- don't let servers subscribe to services for which
--- their server arch is not compatible
---

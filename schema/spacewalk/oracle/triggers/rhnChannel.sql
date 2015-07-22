@@ -73,30 +73,3 @@ begin
 end;
 /
 show errors
-
---
---
--- Revision 1.5  2004/01/15 21:25:50  pjones
--- bugzilla: none (Joe is filing one now, maybe?)
--- Fix deletion of snapshots
--- Fix deletion of channels once a snapshot has been taken of a server
---   in said channel
---
--- Revision 1.4  2003/11/09 18:13:20  pjones
--- bugzilla: 109083 -- re-enable snapshot invalidation
---
--- Revision 1.3  2003/11/07 18:05:42  pjones
--- bugzilla: 109083
--- kill old config file schema (currently just an exclude except for
---   rhnConfigFile which is replaced)
--- exclude the snapshot stuff, and comment it from triggers and procs
--- more to come, but the basic config file stuff is in.
---
--- Revision 1.2  2003/10/07 20:49:18  pjones
--- bugzilla: 106188
---
--- snapshot invalidation
---
--- Revision 1.1  2002/11/14 22:34:04  pjones
--- split triggers for rhnChannel off and fix them for arch
---
