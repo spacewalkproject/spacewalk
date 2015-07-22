@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 183f8d160868d0d5b6249e042e80567146bab169
+-- oracle equivalent source sha1 525a760e56188dd4da10017209c75304d66d5e4d
 -- retrieved from ./1277998476/8137f83e27373f9f452ff8787bf5140737a09f5e/schema/spacewalk/oracle/procs/create_new_user.sql
 --
 -- Copyright (c) 2008--2014 Red Hat, Inc.

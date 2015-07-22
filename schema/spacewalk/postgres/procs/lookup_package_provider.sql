@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 0004ba889c732073e26ba3ba4273220ba50e89dc
+-- oracle equivalent source sha1 b0617849cac971de06cf675b88e5099ef6fcb849
 -- retrieved from ./1234445323/8c9aab43b76cfe2b234425a270944019bb987884/schema/spacewalk/rhnsat/procs/lookup_package_provider.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.

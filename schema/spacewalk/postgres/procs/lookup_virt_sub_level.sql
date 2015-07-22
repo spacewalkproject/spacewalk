@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 04a67d2813394f199101fb14920090fdac54a024
+-- oracle equivalent source sha1 94b5e8e94d293627da3d233d54a6331e6849e0d8
 -- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/procs/lookup_virt_sub_level.sql
 --
 -- Copyright (c) 2008--2013 Red Hat, Inc.

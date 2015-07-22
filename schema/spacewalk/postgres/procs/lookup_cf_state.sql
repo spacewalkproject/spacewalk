@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 bcb684fd222c9464bf11437e47fd4172b68c7021
+-- oracle equivalent source sha1 5a8fbbe2d34204942aa74cd5b405122e5c7097b7
 -- retrieved from ./1235013416/07c0bfbb6902a98d09f8a41896bd55900645af6b/schema/spacewalk/rhnsat/procs/lookup_cf_state.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.

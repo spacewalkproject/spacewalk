@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 5bbc2342aa557e108a77b57a091fe30e292e1739
+-- oracle equivalent source sha1 c4c870680a11a54d87f389327aa9eab875be79ad
 -- retrieved from ./1235561447/a7740e6945947b753ef3359998c3a103d464f765/schema/spacewalk/rhnsat/procs/delete_channel.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
