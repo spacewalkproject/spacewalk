@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.39
+Version: 2.4.40
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jul 22 2015 Jiri Dostal <jdostal@redhat.com> 2.4.40-1
+- 1181152 - XSS when altering user details and going somewhere where you are
+  choosing user         - Escaped tags in real names
+- Make RhnServletListenerTest not extend RhnBaseTestCase
+
 * Tue Jul 21 2015 Tomas Lestach <tlestach@redhat.com> 2.4.39-1
 - introduce org.setErrataEmailNotifsForOrg and org.isErrataEmailNotifsForOrg
   API calls
