@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 555bb31cfef3ea09d3b8e0e1260d23dc5485201c
+-- oracle equivalent source sha1 0304a4541296f9a2e15880a1abf07d83d5273c00
 --
 -- Copyright (c) 2008--2015 Red Hat, Inc.
 --
@@ -111,10 +111,6 @@ as $$
                 return 1;
             else
                 return 0;
-            end if;
-        elsif service_level_in = 'monitoring' then
-            if entitlement_in = 'monitoring_entitled' then
-                return 1;
             end if;
         elsif service_level_in = 'updates' then
             return 1;
@@ -338,7 +334,6 @@ as $$
                        when 'enterprise_entitled' then 'Management'
                        when 'sw_mgr_entitled' then 'Update'
                        when 'provisioning_entitled' then 'Provisioning'
-                       when 'monitoring_entitled' then 'Monitoring'
                        when 'virtualization_host' then 'Virtualization'
                        when 'virtualization_host_platform' then
                             'Virtualization Platform' end  );
@@ -407,7 +402,6 @@ as $$
                     when 'enterprise_entitled' then 'Management'
                     when 'sw_mgr_entitled' then 'Update'
                     when 'provisioning_entitled' then 'Provisioning'
-                    when 'monitoring_entitled' then 'Monitoring'
                     when 'virtualization_host' then 'Virtualization'
                     when 'virtualization_host_platform' then
                          'Virtualization Platforrm' end  );
@@ -461,7 +455,6 @@ as $$
                     when 'enterprise_entitled' then 'Management'
                     when 'sw_mgr_entitled' then 'Update'
                     when 'provisioning_entitled' then 'Provisioning'
-                    when 'monitoring_entitled' then 'Monitoring'
                     when 'virtualization_host' then 'Virtualization'
                     when 'virtualization_host_platform' then
                          'Virtualization Platform' end  );
@@ -608,8 +601,7 @@ as $$
                 and sgt.label in (
                     'sw_mgr_entitled','enterprise_entitled',
                     'provisioning_entitled', 'nonlinux_entitled',
-                    'monitoring_entitled', 'virtualization_host',
-                                        'virtualization_host_platform'
+                    'virtualization_host', 'virtualization_host_platform'
                     );
 
          ent_array varchar[];
@@ -687,10 +679,6 @@ as $$
             if enable_in = 'Y' then
                 ents_to_process := array_append(ents_to_process, 'sw_mgr_enterprise');
             end if;
-        elsif service_label_in = 'monitoring' then
-            ents_to_process := array_append(ents_to_process, 'rhn_monitor');
-
-            roles_to_process := array_append(roles_to_process, 'monitoring_admin');
         elsif service_label_in = 'virtualization' then
             ents_to_process := array_append(ents_to_process, 'rhn_virtualization');
 
@@ -770,15 +758,6 @@ as $$
     end$$
 language plpgsql;
 
-    create or replace function set_customer_monitoring (
-        customer_id_in in numeric
-    ) returns void
-as $$
-    begin
-        perform rhn_entitlements.modify_org_service(customer_id_in, 'monitoring', 'Y');
-    end$$
-language plpgsql;
-
     create or replace function set_customer_nonlinux (
         customer_id_in in numeric
     ) returns void
@@ -803,15 +782,6 @@ language plpgsql;
 as $$
     begin
         perform rhn_entitlements.modify_org_service(customer_id_in, 'provisioning', 'N');
-    end$$
-language plpgsql;
-
-    create or replace function unset_customer_monitoring (
-        customer_id_in in numeric
-    ) returns void
-as $$
-    begin
-        perform rhn_entitlements.modify_org_service(customer_id_in, 'monitoring', 'N');
     end$$
 language plpgsql;
 
@@ -972,14 +942,6 @@ as $$
                 perform rhn_entitlements.set_customer_provisioning(to_org_id_in);
             else
                 perform rhn_entitlements.unset_customer_provisioning(to_org_id_in);
-            end if;
-        end if;
-
-        if group_label_in = 'monitoring_entitled' then
-            if new_quantity > 0 then
-                perform rhn_entitlements.set_customer_monitoring(to_org_id_in);
-            else
-                perform rhn_entitlements.unset_customer_monitoring(to_org_id_in);
             end if;
         end if;
 

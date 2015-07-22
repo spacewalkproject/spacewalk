@@ -24,11 +24,6 @@ insert into rhnOrgEntitlementType (id, label, name)
 
 insert into rhnOrgEntitlementType (id, label, name)
         values (sequence_nextval('rhn_org_entitlement_type_seq'),
-                'rhn_monitor','Spacewalk Monitoring'
-        );
-
-insert into rhnOrgEntitlementType (id, label, name)
-        values (sequence_nextval('rhn_org_entitlement_type_seq'),
                 'rhn_provisioning','Spacewalk Provisioning'
         );
 
