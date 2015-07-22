@@ -17,8 +17,8 @@ package com.redhat.rhn.manager.satellite;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.domain.monitoring.config.ConfigMacro;
-import com.redhat.rhn.domain.monitoring.config.MonitoringConfigFactory;
+import com.redhat.rhn.domain.configmacro.ConfigMacro;
+import com.redhat.rhn.domain.configmacro.ConfigMacroFactory;
 import com.redhat.rhn.domain.user.User;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -208,13 +208,13 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
     // and stores it
     private void setConfigMacro(ConfigMacro cm, String value) {
         cm.setDefinition(value);
-        MonitoringConfigFactory.saveConfigMacro(cm);
+        ConfigMacroFactory.saveConfigMacro(cm);
     }
 
 
     // Update hostname when modified in the UI
     private void updateHostname() {
-        ConfigMacro sathostname = MonitoringConfigFactory.
+        ConfigMacro sathostname = ConfigMacroFactory.
                            lookupConfigMacroByName("RHN_SAT_HOSTNAME");
         setConfigMacro(sathostname, ConfigDefaults.get().getHostname());
     }

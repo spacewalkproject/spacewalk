@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.monitoring.config.ConfigMacro"
+    <class name="com.redhat.rhn.domain.configmacro.ConfigMacro"
         table="rhn_config_macro" >
                 <composite-id>
                         <key-property name="name" type="string" column="name"/>
@@ -15,9 +15,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="lastUpdateDate" column="last_update_date"  type="timestamp" insert="false" update="false"/>
     </class>
     <query name="ConfigMacro.loadAllByEditable">
-        <![CDATA[from com.redhat.rhn.domain.monitoring.config.ConfigMacro where editable = :editable]]>
+        <![CDATA[from com.redhat.rhn.domain.configmacro.ConfigMacro where editable = :editable]]>
     </query>
     <query name="ConfigMacro.lookupByName">
-        <![CDATA[from com.redhat.rhn.domain.monitoring.config.ConfigMacro where name = :name]]>
+        <![CDATA[from com.redhat.rhn.domain.configmacro.ConfigMacro where name = :name]]>
     </query>
 </hibernate-mapping>
