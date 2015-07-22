@@ -12,7 +12,7 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
-package com.redhat.rhn.domain.monitoring.config;
+package com.redhat.rhn.domain.configmacro;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
@@ -26,17 +26,17 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * MonitoringConfigFactory - the singleton class used to fetch and store
- * com.redhat.rhn.domain.monitoring.config.* objects from the
+ * ConfigMacroFactory - the singleton class used to fetch and store
+ * com.redhat.rhn.domain.configmacro.* objects from the
  * database.
  * @version $Rev: 51602 $
  */
-public class MonitoringConfigFactory extends HibernateFactory {
+public class ConfigMacroFactory extends HibernateFactory {
 
-    private static MonitoringConfigFactory singleton = new MonitoringConfigFactory();
-    private static Logger log = Logger.getLogger(MonitoringConfigFactory.class);
+    private static ConfigMacroFactory singleton = new ConfigMacroFactory();
+    private static Logger log = Logger.getLogger(ConfigMacroFactory.class);
 
-    private MonitoringConfigFactory() {
+    private ConfigMacroFactory() {
         super();
     }
 
@@ -49,7 +49,7 @@ public class MonitoringConfigFactory extends HibernateFactory {
     }
 
     /**
-     * Get the list of com.redhat.rhn.domain.monitoring.config.ConfigMacro
+     * Get the list of ConfigMacro
      * objects from the DB.  The editable param indicates if you want the
      * editable or non editable items.
      * @param editable if you want editable ConfigMacro items or not
