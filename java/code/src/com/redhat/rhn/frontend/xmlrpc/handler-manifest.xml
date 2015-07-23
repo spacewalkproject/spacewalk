@@ -1,11 +1,35 @@
 <factory>
+  <template name="actionchain" classname="com.redhat.rhn.frontend.xmlrpc.chain.ActionChainHandler" />
+  <template name="activationkey" classname="com.redhat.rhn.frontend.xmlrpc.activationkey.ActivationKeyHandler"/>
   <template name="api" classname="com.redhat.rhn.frontend.xmlrpc.api.ApiHandler" />
   <template name="auth" classname="com.redhat.rhn.frontend.xmlrpc.auth.AuthHandler" />
-  <template name="user" classname="com.redhat.rhn.frontend.xmlrpc.user.UserHandler" />
+  <template name="channel" classname="com.redhat.rhn.frontend.xmlrpc.channel.ChannelHandler"/>
+  <template name="channel.access" classname="com.redhat.rhn.frontend.xmlrpc.channel.access.ChannelAccessHandler"/>
+  <template name="channel.org" classname="com.redhat.rhn.frontend.xmlrpc.channel.org.ChannelOrgHandler"/>
+  <template name="channel.software" classname="com.redhat.rhn.frontend.xmlrpc.channel.software.ChannelSoftwareHandler"/>
+  <template name="configchannel" classname="com.redhat.rhn.frontend.xmlrpc.configchannel.ConfigChannelHandler"/>
+  <template name="distchannel" classname="com.redhat.rhn.frontend.xmlrpc.distchannel.DistChannelHandler" />
   <template name="errata" classname="com.redhat.rhn.frontend.xmlrpc.errata.ErrataHandler" />
+  <template name="kickstart" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.KickstartHandler" />
+  <template name="kickstart.filepreservation" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.filepreservation.FilePreservationListHandler" />
+  <template name="kickstart.keys" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.keys.CryptoKeysHandler" />
+  <template name="kickstart.profile" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.profile.ProfileHandler" />
+  <template name="kickstart.profile.keys" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.KeysHandler" />
+  <template name="kickstart.profile.software" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.profile.software.SoftwareHandler" />
+  <template name="kickstart.profile.system" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.profile.system.SystemDetailsHandler" />
+  <template name="kickstart.snippet" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.snippet.SnippetHandler" />
+  <template name="kickstart.tree" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.tree.KickstartTreeHandler" />
+  <template name="org" classname="com.redhat.rhn.frontend.xmlrpc.org.OrgHandler" />
+  <template name="org.trusts" classname="com.redhat.rhn.frontend.xmlrpc.org.trusts.OrgTrustHandler" />
   <template name="packages" classname="com.redhat.rhn.frontend.xmlrpc.packages.PackagesHandler" />
-  <template name="packages.search" classname="com.redhat.rhn.frontend.xmlrpc.packages.search.PackagesSearchHandler" />
   <template name="packages.provider" classname="com.redhat.rhn.frontend.xmlrpc.packages.provider.PackagesProviderHandler" />
+  <template name="packages.search" classname="com.redhat.rhn.frontend.xmlrpc.packages.search.PackagesSearchHandler" />
+  <template name="preferences.locale" classname="com.redhat.rhn.frontend.xmlrpc.preferences.locale.PreferencesLocaleHandler"/>
+  <template name="proxy" classname="com.redhat.rhn.frontend.xmlrpc.proxy.ProxyHandler"/>
+  <template name="satellite" classname="com.redhat.rhn.frontend.xmlrpc.satellite.SatelliteHandler"/>
+  <template name="schedule" classname="com.redhat.rhn.frontend.xmlrpc.schedule.ScheduleHandler" />
+  <template name="sync.master" classname="com.redhat.rhn.frontend.xmlrpc.sync.master.MasterHandler" />
+  <template name="sync.slave" classname="com.redhat.rhn.frontend.xmlrpc.sync.slave.SlaveHandler" />
   <template name="system" classname="com.redhat.rhn.frontend.xmlrpc.system.SystemHandler" />
   <template name="system.config" classname="com.redhat.rhn.frontend.xmlrpc.system.config.ServerConfigHandler"/>
   <template name="system.config" classname="com.redhat.rhn.frontend.xmlrpc.system.config.ServerConfigHandler"/>
@@ -15,32 +39,8 @@
   <template name="system.scap" classname="com.redhat.rhn.frontend.xmlrpc.system.scap.SystemScapHandler"/>
   <template name="system.search" classname="com.redhat.rhn.frontend.xmlrpc.system.search.SystemSearchHandler"/>
   <template name="systemgroup" classname="com.redhat.rhn.frontend.xmlrpc.systemgroup.ServerGroupHandler" />
-  <template name="proxy" classname="com.redhat.rhn.frontend.xmlrpc.proxy.ProxyHandler"/>
-  <template name="satellite" classname="com.redhat.rhn.frontend.xmlrpc.satellite.SatelliteHandler"/>
-  <template name="channel" classname="com.redhat.rhn.frontend.xmlrpc.channel.ChannelHandler"/>
-  <template name="channel.access" classname="com.redhat.rhn.frontend.xmlrpc.channel.access.ChannelAccessHandler"/>
-  <template name="channel.org" classname="com.redhat.rhn.frontend.xmlrpc.channel.org.ChannelOrgHandler"/>
-  <template name="channel.software" classname="com.redhat.rhn.frontend.xmlrpc.channel.software.ChannelSoftwareHandler"/>
-  <template name="configchannel" classname="com.redhat.rhn.frontend.xmlrpc.configchannel.ConfigChannelHandler"/>
-  <template name="activationkey" classname="com.redhat.rhn.frontend.xmlrpc.activationkey.ActivationKeyHandler"/>
-  <template name="preferences.locale" classname="com.redhat.rhn.frontend.xmlrpc.preferences.locale.PreferencesLocaleHandler"/>
-  <template name="kickstart" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.KickstartHandler" />
-  <template name="kickstart.filepreservation" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.filepreservation.FilePreservationListHandler" />
-  <template name="kickstart.profile" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.profile.ProfileHandler" />
-  <template name="kickstart.keys" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.keys.CryptoKeysHandler" />
-  <template name="kickstart.profile.software" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.profile.software.SoftwareHandler" />
-  <template name="kickstart.profile.system" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.profile.system.SystemDetailsHandler" />
-  <template name="kickstart.profile.keys" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.KeysHandler" />
-  <template name="kickstart.snippet" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.snippet.SnippetHandler" />
-  <template name="kickstart.tree" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.tree.KickstartTreeHandler" />
-  <template name="org" classname="com.redhat.rhn.frontend.xmlrpc.org.OrgHandler" />
-  <template name="org.trusts" classname="com.redhat.rhn.frontend.xmlrpc.org.trusts.OrgTrustHandler" />
-  <template name="schedule" classname="com.redhat.rhn.frontend.xmlrpc.schedule.ScheduleHandler" />
-  <template name="actionchain" classname="com.redhat.rhn.frontend.xmlrpc.chain.ActionChainHandler" />
-  <template name="distchannel" classname="com.redhat.rhn.frontend.xmlrpc.distchannel.DistChannelHandler" />
   <template name="taskomatic" classname="com.redhat.rhn.frontend.xmlrpc.taskomatic.TaskomaticHandler" />
   <template name="taskomatic.org" classname="com.redhat.rhn.frontend.xmlrpc.taskomatic.TaskomaticOrgHandler" />
-  <template name="sync.master" classname="com.redhat.rhn.frontend.xmlrpc.sync.master.MasterHandler" />
-  <template name="sync.slave" classname="com.redhat.rhn.frontend.xmlrpc.sync.slave.SlaveHandler" />
+  <template name="user" classname="com.redhat.rhn.frontend.xmlrpc.user.UserHandler" />
   <template name="user.external" classname="com.redhat.rhn.frontend.xmlrpc.user.external.UserExternalHandler" />
 </factory>
