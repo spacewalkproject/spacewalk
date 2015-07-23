@@ -50,7 +50,7 @@ class ActivationKeyTests(RhnTestCase):
 
         # Add some new entitlements:
         client.activationkey.addEntitlements(self.session_key, newkey,
-            ['monitoring_entitled', 'virtualization_host'])
+            ['virtualization_host'])
 
         client.activationkey.addChildChannels(self.session_key, newkey,
             [CHILD_CHANNEL_LABEL])
@@ -73,7 +73,7 @@ class ActivationKeyTests(RhnTestCase):
 
         # Remove the original entitlement and one of the new:
         client.activationkey.removeEntitlements(self.session_key, newkey,
-            ['provisioning_entitled', 'monitoring_entitled'])
+            ['provisioning_entitled')
 
     def validateActivationKeyHash(self, keyDetails):
         self.assertTrue(keyDetails.has_key('key'))
