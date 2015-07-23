@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 2e5804554aaeaa793761cd8a3f24cc1fbe7381de
+-- oracle equivalent source sha1 2b426de666bf428ca96c3519882980a8733add57
 
 CREATE OR REPLACE VIEW
 rhnServerNeededView
