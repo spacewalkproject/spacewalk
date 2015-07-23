@@ -23,7 +23,6 @@
   <template name="channel.software" classname="com.redhat.rhn.frontend.xmlrpc.channel.software.ChannelSoftwareHandler"/>
   <template name="configchannel" classname="com.redhat.rhn.frontend.xmlrpc.configchannel.ConfigChannelHandler"/>
   <template name="activationkey" classname="com.redhat.rhn.frontend.xmlrpc.activationkey.ActivationKeyHandler"/>
-  <template name="test" classname="com.redhat.rhn.frontend.xmlrpc.apitest.TestHandler"/>
   <template name="preferences.locale" classname="com.redhat.rhn.frontend.xmlrpc.preferences.locale.PreferencesLocaleHandler"/>
   <template name="kickstart" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.KickstartHandler" />
   <template name="kickstart.filepreservation" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.filepreservation.FilePreservationListHandler" />
