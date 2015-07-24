@@ -1163,8 +1163,6 @@ class ReviewWindow:
                     slot_list += PROVISIONING + "\n"
                 elif slot == 'sw_mgr_entitled':
                     slot_list += UPDATES + "\n"
-                elif slot == 'monitoring_entitled':
-                    slot_list += MONITORING + "\n"
                 elif slot == 'virtualization_host':
                     slot_list += VIRT + "\n"
                 elif slot == 'virtualization_host_platform':
