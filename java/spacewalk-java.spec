@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.41
+Version: 2.4.42
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jul 24 2015 Jan Dobes 2.4.42-1
+- adding link to reposync logs
+- adding progress bar showing sync status
+- disable sync button and show message if reposync is in progress
+- Sort api list
+- Remove test handler from API
+
 * Fri Jul 24 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.41-1
 - require cobbler20 - Spacewalk is not working with upstream cobbler anyway
 
