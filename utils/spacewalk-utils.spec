@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.4.8
+Version:	2.4.9
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Jul 24 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.9-1
+- require cobbler20 - Spacewalk is not working with upstream cobbler anyway
+
 
 * Tue Jul 14 2015 Jiri Dostal <jdostal@redhat.com> 2.4.8-1
 - Bug 1077770 - Added error messages and fixed error codes
