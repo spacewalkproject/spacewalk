@@ -208,9 +208,6 @@ MANAGEMENT              = _("Management module: automatic updates, systems "
                             "grouping, systems permissions, system package profiling")
 PROVISIONING            = _("Provisioning module: bare-metal provisioning, existing state provisioning, "
                             "rollbacks, configuration management")
-MONITORING              = _("Monitoring module: pre-defined and custom system "
-                            "performance probes, system performance email "
-                            "notifications, graphs of system performance")
 
 VIRT = _("Virtualization module: software updates for a limited number of "
         "virtual guests on this system.")

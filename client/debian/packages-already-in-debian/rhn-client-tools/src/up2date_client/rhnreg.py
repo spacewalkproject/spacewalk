@@ -309,8 +309,6 @@ class RegistrationResult:
             return rhnreg_constants.UPDATES
         elif slot == 'provisioning_entitled':
             return rhnreg_constants.PROVISIONING
-        elif slot == 'monitoring_entitled':
-            return rhnreg_constants.MONITORING
         elif slot == 'virtualization_host':
             return rhnreg_constants.VIRT
         elif slot == 'virtualization_host_platform':
