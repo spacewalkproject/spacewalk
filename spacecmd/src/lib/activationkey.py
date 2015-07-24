@@ -642,8 +642,8 @@ options:
   -d DESCRIPTION
   -b BASE_CHANNEL
   -u set key as universal default
-  -e [provisioning_entitled,enterprise_entitled,monitoring_entitled,
-      virtualization_host,virtualization_host_platform]'''
+  -e [provisioning_entitled,enterprise_entitled,virtualization_host,
+      virtualization_host_platform]'''
 
 
 def do_activationkey_create(self, args):
