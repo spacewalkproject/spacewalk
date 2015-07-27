@@ -318,6 +318,7 @@ class ChannelTreeCloner:
         self.use_update_date = use_update_date
         self.no_errata_sync = no_errata_sync
         self.solver = None
+        self.visited = {}
 
         self.validate_source_channels()
         for from_label in self.ordered_labels():
@@ -504,8 +505,13 @@ class ChannelTreeCloner:
         self.process_deps(dep_results)
 
     def process_deps(self, deps):
+        list_to_set = lambda x: set(map(lambda y: tuple(y), x))
         needed_list = dict((channel[0], [])
                            for channel in self.channel_map.values())
+        for cloner in self.cloners:
+            if not cloner.dest_label() in self.visited:
+                self.visited[cloner.dest_label()] = list_to_set(needed_list[cloner.dest_label()])
+            self.visited[cloner.dest_label()] |= list_to_set(needed_list[cloner.dest_label()])
 
         print('Processing Dependencies:')
         pb = ProgressBar(prompt="", endTag=' - complete',
@@ -531,6 +537,11 @@ class ChannelTreeCloner:
         added_nevras = []
         for cloner in self.cloners:
             needed = needed_list[cloner.dest_label()]
+            needed_str = list_to_set(needed)
+            for needed_pkg in needed_str:
+                if needed_pkg in self.visited[cloner.dest_label()]:
+                    needed.remove(list[needed_pkg])
+            self.visited[cloner.dest_label()] |= needed_str
             if len(needed) > 0:
                 added_nevras = added_nevras + cloner.process_deps(needed)
 
