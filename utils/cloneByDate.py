@@ -506,7 +506,6 @@ class ChannelTreeCloner:
     def process_deps(self, deps):
         needed_list = dict((channel[0], [])
                            for channel in self.channel_map.values())
-        unsolved_deps = []
 
         print('Processing Dependencies:')
         pb = ProgressBar(prompt="", endTag=' - complete',
@@ -528,8 +527,6 @@ class ChannelTreeCloner:
                         needed_list[cloner.dest_label()].append(solved_list[0])
                     elif exists_from:
                         found = True
-                if not found:
-                    unsolved_deps.append((pkg))
 
         added_nevras = []
         for cloner in self.cloners:
@@ -622,14 +619,11 @@ class ChannelCloner:
     def process_deps(self, needed_pkgs):
         needed_ids = []
         needed_names = []
-        unsolved_deps = []
         for pkg in needed_pkgs:
             found = self.src_pkg_exist([pkg])
             if found:
                 needed_ids.append(found['id'])
                 needed_names.append(found['nvrea'])
-            else:
-                unsolved_deps.append(pkg)
 
         needed_errata = []
         still_needed_pids = []
