@@ -205,6 +205,12 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
   </query>
 </mode>
 
+<write-mode name="repomd_unmark_in_progress">
+   <query params="channel_label">
+      UPDATE rhnRepoRegenQueue set next_action=current_timestamp WHERE channel_label = :channel_label
+   </query>
+</write-mode>
+
 <write-mode name="repomd_mark_in_progress">
    <query params="channel_label">
       UPDATE rhnRepoRegenQueue set next_action=null WHERE channel_label = :channel_label

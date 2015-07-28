@@ -80,6 +80,9 @@ public class TaskConstants {
     public static final String TASK_QUERY_REPOMD_MARK_IN_PROGRESS =
         "repomd_mark_in_progress";
 
+    public static final String TASK_QUERY_REPOMD_UNMARK_IN_PROGRESS =
+            "repomd_unmark_in_progress";
+
     public static final String TASK_QUERY_REPOMOD_CLEAR_IN_PROGRESS =
         "repomd_clear_in_progress";
 

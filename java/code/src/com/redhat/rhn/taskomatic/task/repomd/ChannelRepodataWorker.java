@@ -89,7 +89,7 @@ public class ChannelRepodataWorker implements QueueWorker {
         try {
             parentQueue.workerStarting();
             if (!isChannelLabelAlreadyInProcess()) {
-                markInProgress();
+                markInProgress(true);
                 populateQueueEntryDetails();
                 Channel channelToProcess = ChannelFactory
                         .lookupByLabel(channelLabelToProcess);
@@ -119,7 +119,7 @@ public class ChannelRepodataWorker implements QueueWorker {
             }
             else {
                 HibernateFactory.commitTransaction();
-                logger.debug("NOT processing channel(" + channelLabelToProcess +
+                logger.warn("NOT processing channel(" + channelLabelToProcess +
                         ") because another thread is already working on run");
             }
         }
@@ -127,7 +127,8 @@ public class ChannelRepodataWorker implements QueueWorker {
             logger.error(e);
             e.printStackTrace();
             parentQueue.getQueueRun().failed();
-            HibernateFactory.commitTransaction();
+            // unmark channel to be worked on
+            markInProgress(false);
             parentQueue.changeRun(null);
         }
         finally {
@@ -179,25 +180,38 @@ public class ChannelRepodataWorker implements QueueWorker {
     /**
      * marks the channel as in progress to avoid conflicts
      */
-    private void markInProgress() throws Exception {
-        WriteMode inProgressChannel = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
+    private void markInProgress(boolean inProgress) {
+        WriteMode inProgressChannel;
+        if (inProgress) {
+            inProgressChannel = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_REPOMD_MARK_IN_PROGRESS);
+        }
+        else {
+            inProgressChannel = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
+                    TaskConstants.TASK_QUERY_REPOMD_UNMARK_IN_PROGRESS);
+        }
         Map<String, String> dqeParams = new HashMap<String, String>();
         dqeParams.put("channel_label", channelLabelToProcess);
         try {
             int channelLabels = inProgressChannel.executeUpdate(dqeParams);
             if (logger.isDebugEnabled()) {
-                logger.debug("Marked " + channelLabels + " rows from the " +
+                if (inProgress) {
+                    logger.debug("Marked " + channelLabels + " rows from the " +
                         "rhnRepoRegenQueue table in progress by " +
                         "setting next_action to null");
+                }
+                else {
+                    logger.debug("Cleared " + channelLabels + " in progress rows " +
+                            "from the rhnRepoRegenQueue table by setting next_action");
+                }
             }
             HibernateFactory.commitTransaction();
         }
         catch (Exception e) {
             logger.error(
-                    "Error marking in use for channel_label: " + channelLabelToProcess, e);
+                    "Error un/marking in use for channel_label: " + channelLabelToProcess,
+                    e);
             HibernateFactory.rollbackTransaction();
-            throw e;
         }
         finally {
             HibernateFactory.closeSession();

@@ -132,7 +132,7 @@ public abstract class RhnQueueJob implements RhnJob {
             queue.run();
         }
         else {
-            getLogger().debug("Maximum number of workers already put ... skipping.");
+            getLogger().warn("Maximum number of workers already put ... skipping.");
         }
     }
 
