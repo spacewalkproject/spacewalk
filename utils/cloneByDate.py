@@ -525,9 +525,7 @@ class ChannelTreeCloner:
             pb.printIncrement()
             for solved_list in pkg.values():
                 for cloner in self.cloners:
-                    exists_from = cloner.src_pkg_exist(solved_list)
-                    exists_to = cloner.dest_pkg_exist(solved_list)
-                    if exists_from and not exists_to:
+                    if cloner.src_pkg_exist(solved_list) and not cloner.dest_pkg_exist(solved_list):
                         #grab oldest package
                         needed_list[cloner.dest_label()].append(solved_list[0])
 
