@@ -524,15 +524,12 @@ class ChannelTreeCloner:
             pb.addTo(1)
             pb.printIncrement()
             for solved_list in pkg.values():
-                found = False
                 for cloner in self.cloners:
                     exists_from = cloner.src_pkg_exist(solved_list)
                     exists_to = cloner.dest_pkg_exist(solved_list)
                     if exists_from and not exists_to:
                         #grab oldest package
                         needed_list[cloner.dest_label()].append(solved_list[0])
-                    elif exists_from:
-                        found = True
 
         added_nevras = []
         for cloner in self.cloners:
