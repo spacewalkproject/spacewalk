@@ -36,6 +36,7 @@ class Client(jabber_lib.JabberClient):
         self._config = {}
         self._rhn_check_process = None
         self._rhn_check_fail_count = 0
+        self._stuck_subscription_timestamp = time.time()
 
     def set_config_options(self, config):
         self._config = config
@@ -248,3 +249,32 @@ class Client(jabber_lib.JabberClient):
         self._rhn_check_process = Popen(args)
         os.umask(oldumask)
         log_debug(0, "executed %s with pid %d" % (args[0], self._rhn_check_process.pid))
+
+    def unstick_contacts(self, jids):
+        """If we are waiting for 'subscribed' presence stanzas for too long, ask again"""
+        if time.time() - self._stuck_subscription_timestamp > 60:
+            for jid in jids:
+                stripped_jid = self._strip_resource(jid)
+                if self.needs_unsticking(stripped_jid):
+                    presence_node = jabber_lib.JabberPresenceNode(to=stripped_jid, type="subscribe")
+                    presence_node.setID("presence-%s" % self.get_unique_id())
+                    log_debug(4, "Re-sending presence subscription request", presence_node)
+                    self.send(presence_node)
+            self._stuck_subscription_timestamp = time.time()
+
+    def needs_unsticking(self, jid):
+        """Returns True if jid is in state [none + ask] or [from + ask]"""
+        contact = None
+
+        subscribed_none = self._roster.get_subscribed_none()
+        if subscribed_none.has_key(jid):
+            contact = subscribed_none[jid]
+
+        subscribed_from = self._roster.get_subscribed_from()
+        if subscribed_from.has_key(jid):
+            contact = subscribed_from[jid]
+
+        if contact is not None:
+            return contact.has_key('ask') and contact['ask'] == 'subscribe'
+
+        return False
