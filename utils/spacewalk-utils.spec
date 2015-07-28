@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.4.9
+Version:	2.4.10
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Jul 28 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.10-1
+- prevent infinte recursion cycles in spacewalk-clone-by-date
+- remove unused variable
+
 * Fri Jul 24 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.9-1
 - require cobbler20 - Spacewalk is not working with upstream cobbler anyway
 
