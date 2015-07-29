@@ -10,7 +10,6 @@ from config import *
 # Should have at least 100 free slots to run these tests, which *should*
 # return all of those back to the default satellite org once finished.
 CHANNEL_FAMILY_LABEL = "rhel-server"
-SYSTEM_ENTITLEMENT_LABEL = "provisioning_entitled"
 
 SATELLITE_ORG_ID = 1
 
@@ -62,37 +61,6 @@ class OrgTests(RhnTestCase):
             self.assertTrue(r.has_key('used'))
             self.assertTrue(r.has_key('free'))
             self.assertTrue(r.has_key('unallocated'))
-
-    def test_set_system_entitlements(self):
-        # Lookup satellite org count for verification:
-        result = client.org.listSystemEntitlementsForOrg(self.session_key,
-                SATELLITE_ORG_ID)
-        count = self.__find_count_for_entitlement(result,
-                SYSTEM_ENTITLEMENT_LABEL)
-        sat_org_total = count['allocated']
-        self.assertTrue(count['free'] >= 100)
-
-        result = client.org.setSystemEntitlements(self.session_key,
-                self.org_id, SYSTEM_ENTITLEMENT_LABEL, 100)
-        self.assertEquals(1, result)
-
-        result = client.org.listSystemEntitlementsForOrg(self.session_key,
-                self.org_id)
-        count = self.__find_count_for_entitlement(result,
-                SYSTEM_ENTITLEMENT_LABEL)
-        self.assertEquals(100, count['allocated'])
-
-        # Check that the satellite org lost it's entitlements:
-        result = client.org.listSystemEntitlementsForOrg(self.session_key,
-                SATELLITE_ORG_ID)
-        count = self.__find_count_for_entitlement(result,
-                SYSTEM_ENTITLEMENT_LABEL)
-        self.assertEquals(sat_org_total - 100, count['allocated'])
-
-    def test_set_system_entitlements_on_default_org(self):
-        self.assertRaises(Exception, client.org.setSystemEntitlements,
-                self.session_key, SATELLITE_ORG_ID, SYSTEM_ENTITLEMENT_LABEL,
-                100)
 
 if __name__ == "__main__":
     unittest.main()
