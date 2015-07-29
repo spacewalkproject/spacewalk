@@ -28,7 +28,6 @@ import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerGroup;
-import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
@@ -38,7 +37,6 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidArgsException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidServerGroupException;
-import com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.ValidationException;
 import com.redhat.rhn.frontend.xmlrpc.configchannel.XmlRpcConfigChannelHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -623,22 +621,6 @@ public class ActivationKeyHandler extends BaseHandler {
     }
 
     /**
-     * Validate that an activation key has a particular entitlement.
-     *
-     * @param key
-     * @param entitlement
-     */
-    private void validateKeyHasEntitlement(ActivationKey key, String entitlement) {
-        for (Iterator it = key.getEntitlements().iterator(); it.hasNext();) {
-            ServerGroupType type = (ServerGroupType)it.next();
-            if (type.getLabel().equals(entitlement)) {
-                return;
-            }
-        }
-        throw new MissingEntitlementException(entitlement);
-    }
-
-    /**
      * Add packages to an activation key using package name only.
      *
      * @param loggedInUser The current user
@@ -660,7 +642,6 @@ public class ActivationKeyHandler extends BaseHandler {
 
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         ActivationKey activationKey = lookupKey(key, loggedInUser);
-        validateKeyHasEntitlement(activationKey, "provisioning_entitled");
 
         for (Iterator it = packageNames.iterator(); it.hasNext();) {
             String name = (String)it.next();
@@ -692,7 +673,6 @@ public class ActivationKeyHandler extends BaseHandler {
 
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         ActivationKey activationKey = lookupKey(key, loggedInUser);
-        validateKeyHasEntitlement(activationKey, "provisioning_entitled");
 
         for (Iterator it = packageNames.iterator(); it.hasNext();) {
             String name = (String)it.next();
@@ -742,7 +722,6 @@ public class ActivationKeyHandler extends BaseHandler {
 
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         ActivationKey activationKey = lookupKey(key, loggedInUser);
-        validateKeyHasEntitlement(activationKey, "provisioning_entitled");
 
         String name = null;
         String arch = null;
@@ -796,7 +775,6 @@ public class ActivationKeyHandler extends BaseHandler {
 
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         ActivationKey activationKey = lookupKey(key, loggedInUser);
-        validateKeyHasEntitlement(activationKey, "provisioning_entitled");
 
         String name = null;
         String arch = null;
