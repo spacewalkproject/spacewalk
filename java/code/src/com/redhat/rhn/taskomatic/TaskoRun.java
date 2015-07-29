@@ -118,7 +118,15 @@ public class TaskoRun {
         Date now = new Date();
         setStartTime(now);
         setEndTime(now);
-        setStatus(STATUS_SKIPPED);
+        saveStatus(STATUS_SKIPPED);
+    }
+
+    /**
+     * if task execution fails
+     */
+    public void failed() {
+        finished();
+        saveStatus(TaskoRun.STATUS_FAILED);
     }
 
     /**

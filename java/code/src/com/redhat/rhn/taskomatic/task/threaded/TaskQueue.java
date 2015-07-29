@@ -14,14 +14,14 @@
  */
 package com.redhat.rhn.taskomatic.task.threaded;
 
-import EDU.oswego.cs.dl.util.concurrent.Channel;
-import EDU.oswego.cs.dl.util.concurrent.LinkedQueue;
-import EDU.oswego.cs.dl.util.concurrent.PooledExecutor;
-
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.taskomatic.TaskoRun;
 
 import java.util.List;
+
+import EDU.oswego.cs.dl.util.concurrent.Channel;
+import EDU.oswego.cs.dl.util.concurrent.LinkedQueue;
+import EDU.oswego.cs.dl.util.concurrent.PooledExecutor;
 
 /**
  * Generic threaded queue suitable for use wherever Taskomatic
@@ -189,15 +189,17 @@ public class TaskQueue {
      * @return whether run was changed
      */
     public boolean changeRun(TaskoRun runIn) {
-        if (runIn == null) {
-            queueRun = null;
-            return true;
+        synchronized (this) {
+            if (runIn == null) {
+                queueRun = null;
+                return true;
+            }
+            else if (queueRun == null) {
+                queueRun = runIn;
+                return true;
+            }
+            return false;
         }
-        else if (queueRun == null) {
-            queueRun = runIn;
-            return true;
-        }
-        return false;
     }
 
     /**
