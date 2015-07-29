@@ -11855,10 +11855,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
           <target> विन्यास फाइल को सिस्टम में तैनात करें जब वे इस सक्रियकरण कुंजी से पंजीकृत किए जाते हैं.</target>
         </trans-unit>
-        <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
-          <source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-          <target> विन्यास फाइल तैनाती को अभी निष्क्रिय किया गया है. &quot;&lt;strong&gt;{0}&lt;/strong&gt;&quot; को &quot;&lt;strong&gt;{1}&lt;/strong&gt;&quot; के अंतर्गत विन्यास प्रबंधन सुविधा को सक्रिय करने के लिए चुनें इस सक्रियकरण कुंजी के लिए.</target>
-        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">
