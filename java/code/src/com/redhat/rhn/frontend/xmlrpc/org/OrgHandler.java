@@ -523,7 +523,6 @@ public class OrgHandler extends BaseHandler {
      * Valid values include:")
      *   #options()
      *     #item("enterprise_entitled")
-     *     #item("provisioning_entitled")
      *     #item("virtualization_host")
      *     #item("virtualization_host_platform")
      *   #options_end()
