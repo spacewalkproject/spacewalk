@@ -172,6 +172,7 @@ public class TaskQueue {
         }
         int maxPoolSize = queueDriver.getMaxWorkers();
         executor = new PooledExecutor(workers);
+        executor.waitWhenBlocked();
         executor.setThreadFactory(new TaskThreadFactory());
         executor.setKeepAliveTime(5000);
         executor.setMinimumPoolSize(1);
