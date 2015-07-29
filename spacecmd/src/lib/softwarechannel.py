@@ -1526,7 +1526,7 @@ def help_softwarechannel_regenerateneededcache(self):
     print 'softwarechannel_regenerateneededcache: '
     print 'Regenerate the needed errata and package cache for all systems'
     print
-    print 'usage: softwarechannel_regnerateneededcache'
+    print 'usage: softwarechannel_regenerateneededcache'
 
 
 def do_softwarechannel_regenerateneededcache(self, args):
@@ -1540,7 +1540,7 @@ def help_softwarechannel_regenerateyumcache(self):
     print 'softwarechannel_regenerateyumcache: '
     print 'Regenerate the YUM cache for a software channel'
     print
-    print 'usage: softwarechannel_regnerateyumcache <CHANNEL ...>'
+    print 'usage: softwarechannel_regenerateyumcache <CHANNEL ...>'
 
 
 def complete_softwarechannel_regenerateyumcache(self, text, line, beg, end):
