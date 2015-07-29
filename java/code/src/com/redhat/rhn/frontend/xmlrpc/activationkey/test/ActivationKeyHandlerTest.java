@@ -689,21 +689,6 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
         return found;
     }
 
-    public void testAddPackageWithoutProvisioningEntitementFails() throws Exception
-    {
-        String newKey = keyHandler.create(admin, KEY, KEY_DESCRIPTION, baseChannelLabel,
-                KEY_USAGE_LIMIT, new LinkedList(), Boolean.FALSE);
-
-        PackageName newName = PackageNameTest.createTestPackageName();
-        try {
-            keyHandler.addPackageNames(admin, newKey, buildList(newName.getName()));
-            fail();
-        }
-        catch (MissingEntitlementException e) {
-            // expected
-        }
-    }
-
     public void testRemoveProvisioningEntitementClearsPackages() throws Exception
     {
         String newKey = keyHandler.create(admin, KEY, KEY_DESCRIPTION, baseChannelLabel,
