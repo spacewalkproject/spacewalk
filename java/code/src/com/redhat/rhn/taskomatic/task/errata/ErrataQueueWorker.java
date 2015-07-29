@@ -17,8 +17,6 @@ package com.redhat.rhn.taskomatic.task.errata;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
 import com.redhat.rhn.taskomatic.task.threaded.TaskQueue;
@@ -112,10 +110,6 @@ class ErrataQueueWorker implements QueueWorker {
             logger.debug("deleted " + eqDeleted +
                     " rows from the rhnErrataQueue table");
         }
-    }
-
-    private Errata loadErrata() throws Exception {
-        return ErrataFactory.lookupById(new Long(errataId.longValue()));
     }
 
     public void setParentQueue(TaskQueue queue) {
