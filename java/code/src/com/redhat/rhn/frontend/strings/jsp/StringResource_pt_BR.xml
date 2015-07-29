@@ -21688,13 +21688,6 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         </context-group>
         <target>Habilita o rastreamento da monitoração de dados para um sistema.</target>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.provis_tip">
-        <source>Allows various advanced functionality such as kickstart and configuration file provisioning.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>Permite diversas funcionalidades avançadas, tais como kickstart e provisionamento de configuração de arquivo.</target>
-      </trans-unit>
       <trans-unit id="orgsystemsubs.jsp.virt_tip">
         <source>Applied to a host system, enables management for up to 4 guests.</source>
         <context-group name="ctx">

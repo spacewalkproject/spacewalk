@@ -9,12 +9,6 @@
         </simpleType>
     </attribute>
 
-    <attribute name="provisioning_entitled">
-        <simpleType baseType="long">
-            <minInclusive value="0" />
-        </simpleType>
-    </attribute>
-
     <attribute name="virtualization_host">
         <simpleType baseType="long">
             <minInclusive value="0" />

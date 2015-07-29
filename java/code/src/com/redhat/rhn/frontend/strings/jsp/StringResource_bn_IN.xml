@@ -20591,13 +20591,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>সিস্টেমের monitoring সংক্রান্ত তথ্য নিরীক্ষণে সহায়ক।</target>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.provis_tip">
-        <source>Allows various advanced functionality such as kickstart and configuration file provisioning.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>kickstart ও কনফিগারেশন ফাইলের প্রভিশনিং প্রভৃতি উন্নত বৈশিষ্ট্য উপলব্ধ করে।</target>
-      </trans-unit>
       <trans-unit id="orgsystemsubs.jsp.virt_tip">
         <source>Applied to a host system, enables management for up to 4 guests.</source>
         <context-group name="ctx">

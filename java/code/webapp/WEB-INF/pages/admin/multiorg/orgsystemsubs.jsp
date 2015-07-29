@@ -80,35 +80,6 @@
                         </tr>
                         <tr>
                             <td>
-                                <strong><bean:message key="provisioning_entitled"/> <bean:message key="orgsystemsubs.jsp.add_on"/></strong>
-                                <span class="help-block">
-                                    <bean:message key="orgsystemsubs.jsp.provis_tip"/>
-                                </span>
-                            </td>
-                            <td>
-                                ${provisioning_entitled.maxEntitlements}
-                            </td>
-                            <td>
-                                ${provisioning_entitled.currentEntitlements}
-                            </td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${param.oid != 1}">
-                                        <html:text property="provisioning_entitled"
-                                                   styleClass="form-control"
-                                                   onkeydown="return blockEnter(event)"/>
-                                        <span class="help-block">
-                                            <bean:message key="orgsystemsubs.jsp.possible_vals" arg0="0" arg1="${provisioning_entitled.upperRange}"/>
-                                        </span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <bean:write name="orgSystemSubscriptionsForm" property="provisioning_entitled"/>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
                                 <strong><bean:message key="virtualization_host"/> <bean:message key="orgsystemsubs.jsp.add_on"/></strong>
                                 <span class="help-block">
                                     <bean:message key="orgsystemsubs.jsp.virt_tip"/>
