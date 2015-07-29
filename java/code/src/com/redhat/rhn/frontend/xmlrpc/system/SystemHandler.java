@@ -2385,9 +2385,9 @@ public class SystemHandler extends BaseHandler {
 
         // Lookup the server so we can validate it exists and throw error if not.
         Server server = lookupServer(loggedInUser, serverId);
-        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+        if (!(server.hasEntitlement(EntitlementManager.MANAGEMENT))) {
             throw new FaultException(-2, "provisionError",
-                    "System does not have provisioning entitlement");
+                    "System does not have management entitlement");
         }
 
         KickstartData ksdata = KickstartFactory.
@@ -2438,9 +2438,9 @@ public class SystemHandler extends BaseHandler {
 
         // Lookup the server so we can validate it exists and throw error if not.
         Server server = lookupServer(loggedInUser, serverId);
-        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+        if (!(server.hasEntitlement(EntitlementManager.MANAGEMENT))) {
             throw new FaultException(-2, "provisionError",
-                    "System does not have provisioning entitlement");
+                    "System cannot be provisioned");
         }
 
         KickstartData ksdata = KickstartFactory.
@@ -4883,9 +4883,9 @@ public class SystemHandler extends BaseHandler {
             throw new NoSuchSystemException();
         }
 
-        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+        if (!(server.hasEntitlement(EntitlementManager.MANAGEMENT))) {
             throw new FaultException(-2, "provisionError",
-                    "System does not have provisioning entitlement");
+                    "System cannot be provisioned");
         }
 
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
@@ -4936,9 +4936,9 @@ public class SystemHandler extends BaseHandler {
             throw new NoSuchSystemException();
         }
 
-        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+        if (!(server.hasEntitlement(EntitlementManager.MANAGEMENT))) {
             throw new FaultException(-2, "provisionError",
-                    "System does not have provisioning entitlement");
+                    "System cannot be provisioned");
         }
 
         SystemRecord rec = SystemRecord.lookupById(
@@ -4997,9 +4997,9 @@ public class SystemHandler extends BaseHandler {
             throw new NoSuchSystemException();
         }
 
-        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+        if (!(server.hasEntitlement(EntitlementManager.MANAGEMENT))) {
             throw new FaultException(-2, "provisionError",
-                    "System does not have provisioning entitlement");
+                    "System cannot be provisioned");
         }
 
         SystemRecord rec = SystemRecord.lookupById(
@@ -5199,9 +5199,9 @@ public class SystemHandler extends BaseHandler {
      */
     public int tagLatestSnapshot(User loggedInUser, Integer serverId, String tagName) {
         Server server = lookupServer(loggedInUser, serverId);
-        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+        if (!(server.hasEntitlement(EntitlementManager.MANAGEMENT))) {
             throw new FaultException(-2, "provisionError",
-                    "System does not have provisioning entitlement: " + server.getId());
+                    "System cannot be provisioned");
         }
         List<ServerSnapshot> snps = ServerFactory.listSnapshots(loggedInUser.getOrg(),
                 server, null, null);
