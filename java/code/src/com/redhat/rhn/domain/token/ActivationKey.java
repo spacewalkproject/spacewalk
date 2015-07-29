@@ -178,7 +178,6 @@ public class ActivationKey extends BaseDomainHelper {
      */
     public void setDeployConfigs(boolean b) {
         if (b && b != getDeployConfigs()) {
-            checkProvisioning();
             ActivationKeyManager.getInstance().
                     setupAutoConfigDeployment(this);
         }
@@ -387,18 +386,7 @@ public class ActivationKey extends BaseDomainHelper {
      * @return the config channels associated to this activation key
      */
     public List <ConfigChannel> getConfigChannelsFor(User user) {
-        checkProvisioning();
         return getToken().getConfigChannelsFor(user);
-    }
-
-    private void checkProvisioning() {
-        if (!getEntitlements().contains(ServerConstants.
-                getServerGroupTypeProvisioningEntitled())) {
-            String msg = String.format("The activation key '%s' needs" +
-                        "  provisioning capabilities to be able to facilitate " +
-                        " the config channel functionality", this);
-                throw new PermissionException(msg);
-        }
     }
 
     /**
