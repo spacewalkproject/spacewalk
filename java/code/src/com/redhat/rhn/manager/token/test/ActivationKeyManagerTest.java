@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.manager.token.test;
 
-import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelListProcessor;
@@ -95,14 +94,6 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         Channel base = ChannelTestUtils.createBaseChannel(user);
         ChannelTestUtils.setupBaseChannelForVirtualization(user, base);
 
-
-        try {
-            key.setDeployConfigs(true);
-            fail("Permission exception not raised");
-        }
-        catch (PermissionException pe) {
-            //success
-        }
         key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
         key.setDeployConfigs(true);
         //Create a config channel

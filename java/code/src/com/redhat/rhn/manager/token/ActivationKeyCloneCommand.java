@@ -15,7 +15,6 @@
 package com.redhat.rhn.manager.token;
 
 import com.redhat.rhn.FaultException;
-import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.config.ConfigChannel;
@@ -81,31 +80,26 @@ public class ActivationKeyCloneCommand {
         channels.addAll(ak.getChannels());
         cak.setChannels(channels);
 
-        try {
-            // Configuration File Deployment
-            cak.setDeployConfigs(ak.getDeployConfigs());
+        // Configuration File Deployment
+        cak.setDeployConfigs(ak.getDeployConfigs());
 
-            // packages
-            for (Iterator<TokenPackage> it = ak.getPackages().iterator(); it
-                    .hasNext();) {
-                TokenPackage temp = it.next();
-                cak.addPackage(temp.getPackageName(), temp.getPackageArch());
-            }
-
-            // Configuration channels
-            List<String> lcloneConfigChannels = new ArrayList<String>();
-            for (Iterator<ConfigChannel> it = ak.getConfigChannelsFor(userIn)
-                    .iterator(); it.hasNext();) {
-                lcloneConfigChannels.add(it.next().getLabel());
-            }
-
-            List<String> lcak = new ArrayList<String>();
-            lcak.add(cak.getKey());
-            setConfigChannels(userIn, lcak, lcloneConfigChannels);
+        // packages
+        for (Iterator<TokenPackage> it = ak.getPackages().iterator(); it
+                .hasNext();) {
+            TokenPackage temp = it.next();
+            cak.addPackage(temp.getPackageName(), temp.getPackageArch());
         }
-        catch (PermissionException e) {
-            // no provisioning ent
+
+        // Configuration channels
+        List<String> lcloneConfigChannels = new ArrayList<String>();
+        for (Iterator<ConfigChannel> it = ak.getConfigChannelsFor(userIn)
+                .iterator(); it.hasNext();) {
+            lcloneConfigChannels.add(it.next().getLabel());
         }
+
+        List<String> lcak = new ArrayList<String>();
+        lcak.add(cak.getKey());
+        setConfigChannels(userIn, lcak, lcloneConfigChannels);
 
         // Groups
         Set<ServerGroup> cloneServerGroups = new HashSet<ServerGroup>();
