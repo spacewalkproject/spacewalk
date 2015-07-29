@@ -65,7 +65,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
 
     public static final String UPDATE_COUNTS_MESSAGE = "updateCountsMessage";
     public static final String MANAGEMENT_COUNTS_MESSAGE = "managementCountsMessage";
-    public static final String PROVISION_COUNTS_MESSAGE = "provisioningCountsMessage";
     public static final String VIRTUALIZATION_COUNTS_MESSAGE =
         "virtualizationCountsMessage";
     public static final String VIRTUALIZATION_PLATFORM_COUNTS_MESSAGE =
@@ -133,13 +132,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
             setIfSlotsAvailable(SHOW_MANAGEMENT_ASPECTS,
                     request, user,
                     EntitlementManager.MANAGEMENT);
-
-
-            if (user.getOrg().hasEntitlement(OrgFactory.getEntitlementProvisioning())) {
-                addOnEntitlements.add(lvl10n("provisioning_entitled",
-                        EntitlementManager.PROVISIONING_ENTITLED));
-                request.setAttribute(SHOW_ADDON_ASPECTS, Boolean.TRUE);
-            }
         }
 
         log.debug("addonents.size(): " + addOnEntitlements.size());
@@ -198,10 +190,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
         setupCountsMessage(request, user,
                 EntitlementManager.MANAGEMENT,
                 MANAGEMENT_COUNTS_MESSAGE);
-
-        setupCountsMessage(request, user,
-                EntitlementManager.PROVISIONING,
-                PROVISION_COUNTS_MESSAGE);
 
         setupCountsMessage(request, user, EntitlementManager.VIRTUALIZATION,
                 VIRTUALIZATION_COUNTS_MESSAGE);

@@ -68,8 +68,6 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
         assertNull(request.getAttribute(
                             SystemEntitlementsSetupAction.SHOW_MANAGEMENT_ASPECTS));
         assertNotNull(request.getAttribute(
-                             SystemEntitlementsSetupAction.PROVISION_COUNTS_MESSAGE));
-        assertNotNull(request.getAttribute(
                         SystemEntitlementsSetupAction.UPDATE_COUNTS_MESSAGE));
         assertNotNull(request.getAttribute(
                 SystemEntitlementsSetupAction.MANAGEMENT_COUNTS_MESSAGE));
