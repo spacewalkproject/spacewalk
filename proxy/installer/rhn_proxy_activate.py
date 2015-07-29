@@ -112,7 +112,6 @@ def _getActivationError(e):
     """ common error strings dependent upon faultString
         1      general
         2      proxy_invalid_systemid
-        3      proxy_no_provisioning_entitlements
         4      proxy_no_management_entitlements
         5      proxy_no_enterprise_entitlements
         6      proxy_no_channel_entitlements
@@ -127,12 +126,6 @@ def _getActivationError(e):
         errorString = ("this server does not seem to be registered or "
                        "/etc/sysconfig/rhn/systemid is corrupt.")
         errorCode = 2
-    elif e.faultString.find('proxy_no_provisioning_entitlements') != -1:
-        # possible future error message?
-        errorString = ("no Provisioning entitlements available. There must "
-                       "be at least one free Management/Provisioning slot "
-                       "available in your RHN account.")
-        errorCode = 3
     elif e.faultString.find('proxy_no_management_entitlements') != -1:
         errorString = ("no Management entitlements available. There must be "
                        "at least one free Management/Provisioning slot "
@@ -169,7 +162,6 @@ def _errorHandler(pre='', post=''):
 
         1      general
         2      proxy_invalid_systemid
-        3      proxy_no_provisioning_entitlements
         4      proxy_no_management_entitlements
         5      proxy_no_enterprise_entitlements
         6      proxy_no_channel_entitlements
@@ -470,7 +462,6 @@ def main():
 
         1      general
         2      proxy_invalid_systemid
-        3      proxy_no_provisioning_entitlements
         4      proxy_no_management_entitlements
         5      proxy_no_enterprise_entitlements
         6      proxy_no_channel_entitlements
