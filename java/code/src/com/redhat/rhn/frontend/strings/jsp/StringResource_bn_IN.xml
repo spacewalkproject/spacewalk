@@ -11854,10 +11854,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
           <target> এই অ্যাক্টিভেশন-কি সহযোগে সিস্টেম নিবন্ধিত হলে সেগুলির মধ্যে কনফিগারেশন ফাইল স্থাপন করা হবে।</target>
         </trans-unit>
-        <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
-          <source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-          <target> কনফিগারেশন ফাইল স্থাপনা ব্যবস্থা বর্তমানে নিষ্ক্রিয় করা আছে। এই অ্যাক্টিভেশন-কির জন্য কনফিগারেশন পরিচালনা ব্যবস্থা সক্রিয় করার জন্য Select  under &quot;&lt;strong&gt;{1}&lt;/strong&gt;&quot;-র অধীন &quot;&lt;strong&gt;{0}&lt;/strong&gt;&quot; নির্বাচন করুন।</target>
-        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">

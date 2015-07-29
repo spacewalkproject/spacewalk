@@ -11855,10 +11855,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
           <target>இந்த செயல்படுத்தல் விசையுடன் பதிவு செய்யப்படும் போது கட்டமைப்பு கோப்புகளை கணினிகளுக்கு வரிசைப்படுத்தவும்.</target>
         </trans-unit>
-        <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
-          <source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-          <target>பரவலாக நடப்பிலுள்ள கட்டமைப்பு கோப்பு செயல்படுத்த முடியவில்லை. Select &quot;&lt;strong&gt;{0}&lt;/strong&gt;&quot; under &quot;&lt;strong&gt;{1}&lt;/strong&gt;&quot;  இந்த செயல்பாட்டு விசையை மேலாண்மைபடுத்திகட்டமைக்க முடிகிறது.</target>
-        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">

@@ -11854,10 +11854,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
           <target> ਸੰਰਚਨਾ ਫਾਇਲਾਂ ਨੂੰ ਸਿਸਟਮਾਂ ਤੇ ਡਿਪਲਾਇ ਕਰੋ ਜਦੋਂ ਉਹ ਇਸ ਸਰਗਰਮੀ ਕੁੰਜੀ ਨਾਲ ਰਜਿਸਟਰ ਹੁੰਦੇ ਹਨ।</target>
         </trans-unit>
-        <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
-          <source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-          <target> ਸੰਰਚਨਾ ਫਾਇਲ ਡਿਪਲਾਇਮੈਂਟ ਹਾਲੇ ਅਯੋਗ ਹੈ। ਇਸ ਸਰਗਰਮੀ ਕੁੰਜੀ ਲਈ ਸੰਰਚਨਾ ਪਰਬੰਧਨ ਸਹੂਲਤ ਯੋਗ ਕਰਨ ਲਈ &quot;&lt;strong&gt;{0}&lt;/strong&gt;&quot; under &quot;&lt;strong&gt;{1}&lt;/strong&gt;&quot; ਚੁਣੋ।</target>
-        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">

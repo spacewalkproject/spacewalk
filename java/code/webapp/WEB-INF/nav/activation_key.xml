@@ -1,14 +1,12 @@
 <?xml version="1.0"?>
-<rhn-navi-tree label="activation_key" invisible="1" title-depth="1" formvar="tid"
-        acl_mixins="com.redhat.rhn.common.security.acl.ActivationKeyAclHandler">
+<rhn-navi-tree label="activation_key" invisible="1" title-depth="1" formvar="tid">
   <rhn-tab name="Details" url="/rhn/activationkeys/Edit.do" />
   <rhn-tab name="Child Channels" url="/rhn/activationkeys/channels/ChildChannels.do"/>
 
   <rhn-tab name="Packages"
            url="/rhn/activationkeys/packages/Packages.do"/>
   <rhn-tab name="Configuration"
-           url="/rhn/activationkeys/configuration/List.do"
-           acl="token_has_entitlement(provisioning_entitled)">
+           url="/rhn/activationkeys/configuration/List.do">
                 <rhn-tab-directory>/rhn/activationkeys/configuration</rhn-tab-directory>
 
         <rhn-tab name="nav.sdc.config.list_unsubscribe_channels" url="/rhn/activationkeys/configuration/List.do">

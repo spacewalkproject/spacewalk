@@ -101,28 +101,13 @@
                     <bean:message key="activation-key.jsp.enable-config-auto-deploy"/>:
                 </label>
                 <div class="col-lg-6">
-                    <rhn:require acl="token_has_entitlement(provisioning_entitled)"
-                                 mixins="com.redhat.rhn.common.security.acl.ActivationKeyAclHandler">
-                        <div class="checkbox">
-                            <html:checkbox property="autoDeploy" styleId="enable-config-auto-deploy" />
-                            <br/>
-                        </div>
-                        <span class="help-block">
-                            <bean:message key="activation-key.jsp.config-auto-deploy-tooltip"/>
-                        </span>
-                    </rhn:require>
-                    <rhn:require acl="not token_has_entitlement(provisioning_entitled)"
-                                 mixins="com.redhat.rhn.common.security.acl.ActivationKeyAclHandler">
-                        <div class="checkbox">
-                            <input type=checkbox disabled=true/>
-                            <br/>
-                        </div>
-                        <span class="help-block">
-                            <bean:message key="activation-key.jsp.disabled-config-auto-deploy-tooltip"
-                                          arg0="${rhn:localize('provisioning_entitled')}"
-                                          arg1="${rhn:localize('activation-key.jsp.addon-entitlements')}"/>
-                        </span>
-                    </rhn:require>
+                    <div class="checkbox">
+                        <html:checkbox property="autoDeploy" styleId="enable-config-auto-deploy" />
+                        <br/>
+                    </div>
+                    <span class="help-block">
+                        <bean:message key="activation-key.jsp.config-auto-deploy-tooltip"/>
+                    </span>
                 </div>
             </div>
         </c:if>

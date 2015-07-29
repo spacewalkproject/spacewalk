@@ -11855,10 +11855,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
           <target> સિસ્ટમોમાં રૂપરેખાંકન ફાઇલોની જમાવટ કરો જ્યારે આ સક્રિયકૃત કી સાથે તેઓ રજીસ્ટર થયેલ હોય.</target>
         </trans-unit>
-        <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
-          <source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-          <target> રૂપરેખાંકન ફાઇલ જમાવટ એ હાલમાં નિષ્ક્રિય થયેલ છે. આ સક્રિયકૃત કી માટે રૂપરેખાંકન વ્યવસ્થાપન સુધારાઓને સક્રિય કરવા માટે &quot;&lt;strong&gt;{1}&lt;/strong&gt;&quot; ની હેઠળ &quot;&lt;strong&gt;{0}&lt;/strong&gt;&quot; ને પસંદ કરો.</target>
-        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">
