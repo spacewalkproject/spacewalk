@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.4.3
+Version:     2.4.4
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -85,6 +85,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Jul 29 2015 Aron Parsons <aronparsons@gmail.com> 2.4.4-1
+- spacecmd: add missing CHECKSUM list
+
 * Wed May 13 2015 Stephen Herr <sherr@redhat.com> 2.4.3-1
 - See pull request 247, always base64 encode config files to prevent whitespace
   stripping
