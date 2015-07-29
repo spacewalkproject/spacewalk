@@ -38,6 +38,7 @@ import xmlrpclib
 ARCH_LABELS = ['ia32', 'ia64', 'x86_64', 'ppc',
                'i386-sun-solaris', 'sparc-sun-solaris']
 
+CHECKSUM = ['sha1', 'sha256']
 
 def help_softwarechannel_getentitlements(self):
     print 'softwarechannel_getentitlements: List the available ' + \
