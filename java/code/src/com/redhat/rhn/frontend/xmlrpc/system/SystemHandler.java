@@ -258,8 +258,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param_desc("string", "entitlementName", "One of:
-     *          'enterprise_entitled', 'provisioning_entitled',
-     *          'virtualization_host', or 'virtualization_host_platform'.")
+     *          'enterprise_entitled', 'virtualization_host', or
+     *          'virtualization_host_platform'.")
      * @xmlrpc.returntype #return_int_success()
      */
     public int upgradeEntitlement(User loggedInUser, Integer sid, String entitlementLevel)
@@ -3845,8 +3845,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #array_single("string", "entitlementLabel - one of following:
-     * provisioning_entitled, virtualization_host,
-     * virtualization_host_platform, enterprise_entitled")
+     * virtualization_host, virtualization_host_platform, enterprise_entitled")
      * @xmlrpc.returntype #return_int_success()
      */
     public int addEntitlements(User loggedInUser, Integer serverId,
