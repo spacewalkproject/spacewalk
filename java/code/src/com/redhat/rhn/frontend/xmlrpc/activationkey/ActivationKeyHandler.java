@@ -115,7 +115,6 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.param #array_desc("string", "Add-on entitlement label to associate with the
      * key.")
      *   #options()
-     *     #item("provisioning_entitled")
      *     #item("virtualization_host")
      *     #item("virtualization_host_platform")
      *   #options_end()
@@ -245,7 +244,6 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.param #array_desc("string", "Add-on entitlement label to associate with the
      * key.")
      *   #options()
-     *     #item("provisioning_entitled")
      *     #item("virtualization_host")
      *     #item("virtualization_host_platform")
      *   #options_end()
@@ -398,8 +396,7 @@ public class ActivationKeyHandler extends BaseHandler {
 
     /**
      * Add entitlements to an activation key. Currently only add-on entitlements are
-     * permitted. (provisioning_entitled, virtualization_host,
-     * virtualization_host_platform)
+     * permitted (virtualization_host and virtualization_host_platform).
      *
      * @param loggedInUser The current user
      * @param key The activation key to act upon.
@@ -407,13 +404,12 @@ public class ActivationKeyHandler extends BaseHandler {
      * @return 1 on success, exception thrown otherwise.
      *
      * @xmlrpc.doc Add entitlements to an activation key. Currently only add-on
-     * entitlements are permitted. (provisioning_entitled,
-     * virtualization_host, virtualization_host_platform)
+     * entitlements are permitted (virtualization_host and
+     * virtualization_host_platform).
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "key")
      * @xmlrpc.param #array_desc("string", "entitlement label")
      *   #options()
-     *     #item("provisioning_entitled")
      *     #item("virtualization_host")
      *     #item("virtualization_host_platform")
      *   #options_end()
@@ -429,8 +425,7 @@ public class ActivationKeyHandler extends BaseHandler {
 
     /**
      * Remove entitlements from an activation key. Currently only add-on entitlements are
-     * permitted. (provisioning_entitled, virtualization_host,
-     * virtualization_host_platform)
+     * permitted (virtualization_host and virtualization_host_platform).
      *
      * @param loggedInUser The current user
      * @param key The activation key to act upon.
@@ -438,13 +433,12 @@ public class ActivationKeyHandler extends BaseHandler {
      * @return 1 on success, exception thrown otherwise.
      *
      * @xmlrpc.doc Remove entitlements (by label) from an activation key. Currently
-     * only add-on entitlements are permitted. (
-     * provisioning_entitled, virtualization_host, virtualization_host_platform)
+     * only add-on entitlements are permitted (virtualization_host and
+     * virtualization_host_platform).
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "key")
      * @xmlrpc.param #array_desc("string", "entitlement label")
      *   #options()
-     *     #item("provisioning_entitled")
      *     #item("virtualization_host")
      *     #item("virtualization_host_platform")
      *   #options_end()
