@@ -137,10 +137,6 @@
                 </div>
        <table class="table">
                 <tr>
-                      <td><bean:message key="provisioning_entitled"/>:</td>
-                          <td>${requestScope.provisioningCountsMessage}</td>
-                </tr>
-                <tr>
                         <td><bean:message key="virtualization_host"/>:</td>
                         <td>${requestScope.virtualizationCountsMessage}</td>
                 </tr>
