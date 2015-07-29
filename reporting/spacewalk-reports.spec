@@ -2,8 +2,9 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.2
-Release: 1%{?dist}
+Version: 2.4.3
+Release: 1%{?dist}.dev
+Epoch: 1
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -43,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Wed Jul 29 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.3-1.dev
+- 
+
 * Tue Jul 21 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.2-1
 - 
 
