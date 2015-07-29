@@ -12430,10 +12430,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
           <target>Implementa i file di configurazione sui sistemi quando gli stessi sono registrati con questa chiave di attivazione.</target>
         </trans-unit>
-        <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
-          <source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-          <target>L'implementazione del file di configurazione è attualmente disabilitata. Selezionare &quot;&lt;strong&gt;{0}&lt;/strong&gt;&quot; sotto &quot;&lt;strong&gt;{1}&lt;/strong&gt;&quot; per abilitare le funzioni di gestione della configurazione per questa chiave di attivazione.</target>
-        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">

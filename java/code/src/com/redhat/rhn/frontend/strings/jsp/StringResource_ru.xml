@@ -12429,10 +12429,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
           <target>Развернуть файлы конфигурации в системах после их регистрации с использованием этого ключа активации.</target>
         </trans-unit>
-        <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
-          <source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-          <target>Развертывание файлов конфигурации отключено. Чтобы включить возможности управления настройками, выберите &quot;&lt;strong&gt;{0}&lt;/strong&gt;&quot; в &quot;&lt;strong&gt;{1}&lt;/strong&gt;&quot;.</target>
-        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">

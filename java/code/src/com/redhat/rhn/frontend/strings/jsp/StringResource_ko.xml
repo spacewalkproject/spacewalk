@@ -12241,10 +12241,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
           <target>설정 파일이 활성 키에 등록하였을 경우 이를 시스템에 배치합니다.     </target>
         </trans-unit>
-        <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
-          <source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-          <target>현재 설정 파일 배치는 비활성화되어 있습니다. &quot;&lt;strong&gt;{1}&lt;/strong&gt;&quot; 하의 &quot;&lt;strong&gt;{0}&lt;/strong&gt;&quot;을 선택하여 활성키에 해당하는 설정 관리 기능을 활성화합니다.   </target>
-        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">

@@ -12447,10 +12447,6 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
           <target>Konfigurationsdateien bei Systemen einsetzen, wenn sie mit diesem Aktivierungsschlüssel angemeldet werden.</target>
         </trans-unit>
-        <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
-          <source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-          <target>Der Einsatz der Konfigurationsdatei ist derzeit deaktiviert. Wählen Sie &quot;&lt;strong&gt;{0}&lt;/strong&gt;&quot; unter &quot;&lt;strong&gt;{1}&lt;/strong&gt;&quot;, um Konfigurationsmanagement für diesen Aktivierungsschlüssel zu aktivieren.</target>
-        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">

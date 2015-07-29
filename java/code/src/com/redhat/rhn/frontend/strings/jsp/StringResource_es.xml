@@ -12450,10 +12450,6 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
           <target>Implementar archivos de configuración para sistemas cuando son registrados con esta llave de activación.</target>
         </trans-unit>
-        <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
-          <source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-          <target>Configuración de implementación de archivo inactiva. Seleccione &quot;&lt;strong&gt;{0}&lt;/strong&gt;&quot; bajo &quot;&lt;strong&gt;{1}&lt;/strong&gt;&quot;  para activar los servicios administrativos de configuración para esta llave de activación.</target>
-        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">

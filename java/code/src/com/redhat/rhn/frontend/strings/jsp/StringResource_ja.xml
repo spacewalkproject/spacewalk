@@ -12448,10 +12448,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
           <target> 設定ファイルがこのアクティベーションキーで登録される際に、設定ファイルをシステムに配備します。</target>
         </trans-unit>
-        <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
-          <source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-          <target>設定ファイルの配備は現在無効になっています。「&lt;strong&gt;{1}&lt;/strong&gt;」以下の「&lt;strong&gt;{0}&lt;/strong&gt;」を選択し、このアクティベーションキーの設定管理機能を有効にします。</target>
-        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">

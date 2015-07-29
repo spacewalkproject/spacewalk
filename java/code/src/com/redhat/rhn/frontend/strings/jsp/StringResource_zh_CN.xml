@@ -12442,10 +12442,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
           <target>当系统使用此激活码注册时会在该系统中部署配置文件。</target>
         </trans-unit>
-        <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
-          <source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-          <target>目前禁用了配置文件部署。请在 &quot;&lt;strong&gt;{1}&lt;/strong&gt;&quot; 中选择 &quot;&lt;strong&gt;{0}&lt;/strong&gt;&quot; 以便为这个激活码启用配置管理程序。</target>
-        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">

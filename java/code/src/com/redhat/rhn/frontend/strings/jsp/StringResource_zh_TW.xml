@@ -12443,10 +12443,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
           <target> 當配置檔案註冊至此啟動金鑰時，將其建置至系統。</target>
         </trans-unit>
-        <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
-          <source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-          <target> 配置檔案的建置目前已被停用。請選擇「&lt;strong&gt;{1}&lt;/strong&gt;」下的「&lt;strong&gt;{0}&lt;/strong&gt;」來啟用此啟用金鑰的配置管理功能。</target>
-        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">
