@@ -181,9 +181,11 @@ SELECT DISTINCT
 
 <mode name="repomd_driver_query">
   <query>
-SELECT distinct channel_label
+SELECT channel_label, min(next_action) AS min_next_action
   FROM rhnRepoRegenQueue
    WHERE next_action is not null
+   GROUP BY channel_label
+   ORDER BY min_next_action
   </query>
 </mode>
 
