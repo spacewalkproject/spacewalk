@@ -20724,6 +20724,12 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/Sync.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="channel.manage.sync.latestonly.jsp">
+        <source>Sync only latest packages</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Sync.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="channel.manage.sync.synckickstart.jsp">
         <source>Create kickstartable tree</source>
         <context-group name="ctx">

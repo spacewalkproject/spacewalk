@@ -138,7 +138,7 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
 
             try {
                 Map<String, String> mparams = new HashMap<String, String>();
-                String [] lparams = {"no-errata", "sync-kickstart", "fail"};
+                String [] lparams = {"no-errata", "latest", "sync-kickstart", "fail"};
 
                 for (String p : lparams) {
                     if  (request.getParameter(p) != null) {

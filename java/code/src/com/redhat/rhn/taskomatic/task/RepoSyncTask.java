@@ -47,10 +47,9 @@ public class RepoSyncTask extends RhnJavaJob {
 
         String channelIdString = (String)
                     context.getJobDetail().getJobDataMap().get("channel_id");
-        String [] lparams = {"no-errata", "sync-kickstart", "fail"};
+        String [] lparams = {"no-errata", "latest", "sync-kickstart", "fail"};
         List<String> ltrue = Arrays.asList("true", "1");
         List<String> params = new ArrayList<String>();
-
         for (String p : lparams) {
             if (context.getJobDetail().getJobDataMap().containsKey(p)) {
                 if (ltrue.contains(context.getJobDetail().getJobDataMap()
@@ -59,7 +58,6 @@ public class RepoSyncTask extends RhnJavaJob {
                }
             }
         }
-
         Long channelId;
         try {
             channelId = Long.parseLong(channelIdString);
@@ -72,9 +70,7 @@ public class RepoSyncTask extends RhnJavaJob {
         if (c == null) {
             throw new JobExecutionException("No such channel with channel_id " + channelId);
         }
-
         log.info("Syncing repos for channel: " + c.getName());
-
         executeExtCmd(getSyncCommand(c, params).toArray(new String[0]));
         c.setLastSynced(new Date());
     }

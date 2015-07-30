@@ -83,6 +83,13 @@
 
             <div class="checkbox">
                 <label>
+                    <input type="checkbox" name="latest" id="latest"/>
+                    <bean:message key="channel.manage.sync.latestonly.jsp"/>
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label>
                     <input type="checkbox" name="sync-kickstart" id="sync-kickstart"/>
                     <bean:message key="channel.manage.sync.synckickstart.jsp"/>
                 </label>
