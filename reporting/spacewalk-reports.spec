@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.1
+Version: 2.4.101.dev
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Thu Jul 30 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.101.dev-1
+- report: remove channel entitlements from report
+
 * Wed May 27 2015 Grant Gainey 2.4.1-1
 - 1225220 - add new spacewalk-report for proxies-info
 - Bumping package versions for 2.4.
