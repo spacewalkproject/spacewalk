@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.4.15
+Version:        2.4.116.dev
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,64 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Jul 30 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.116.dev-1
+- schema: drop parameter from clear_subscriptions in delete_server
+- schema migration: drop not_enough_flex_entitlements exception
+- schema migration: drop not_enough_flex_entitlements_in_base_org exception
+- schema migration: remove server_cannot_convert_to_flex exception
+- schema: drop not_enough_flex_entitlements exception
+- schema: drop not_enough_flex_entitlements_in_base_org exception
+- schema: remove server_cannot_convert_to_flex exception
+- schema migration: remove unused invalid_channel_family exception
+- schema: remove unused invalid_channel_family exception
+- schema migration: drop software channel subscription counting
+- schema: drop unused rhnChannelFamilyServerPhysical view
+- schema: drop is_fve column from rhnServerChannel
+- schema: remove unused rhn_entitlements.subscribe_newest_servers()
+- schema: fix syntax error in rhn_channel
+- schema: remove member columns from rhnPrivateChannelFamily
+- schema: remove channel entitlement setting from remove_org_entitlements in
+  rhn_entitlements
+- schema: remove maxMembers, currentMembers, maxFlex and currentFlex from
+  rhnChannelFamilyPermissions view
+- schema: remove member check from rhn_channel.get_org_access()
+- schema: remove members from rhnOrgChannelFamilyPermissions and
+  rhnUserChannelFamilyPerms views
+- schema: drop rhnChannelFamilyServerVirtual view
+- schema: drop unused view rhnChannelFamilyServers
+- schema: drop rhnChannelFamilyServerFve view
+- schema: remove unused vars from [un]subscribe_server in rhn_channel
+- schema: remove unused virt_guest_orgs from repoll_virt_guest_entitlements in
+  rhn_entitlements
+- schema: remove delete_server_channels from rhn_channel and delete_server
+  proceedure
+- schema: remove rhnChannelFamilyOverview view
+- schema: remove channel_family_no_subscriptions exception
+- schema: drop unused view rhnServerFveCapable
+- schema: drop channel_family_no_subscriptions exception
+- schema: remove channel_family_current_members from rhn_channel
+- schema: remove prune_family from rhn_entitlements
+- schema: remove set_family_count from rhn_entitlements
+- schema: remove channel entitlement handling from
+  repoll_virt_guest_entitlements in rhn_entitlements
+- schema: remove assign_channel_entitlement from rhn_entitlements
+- schema: remove available_family_subscriptions from rhn_channel
+- schema: remove available_fve_family_subs from rhn_channel
+- schema: remove unused available_fve_chan_subs from rhn_channel
+- schema: remove unused available_chan_subscriptions from rhn_channel
+- schema: remove unused rhnUserAvailableChannels view
+- remove current_members and available_members from rhnAvailableChannels view
+- schema: remove unused can_server_consume_fve from rhn_channel
+- schema: remove unused can_server_consume_virt_channl from rhn_channel
+- schema: remove channel entitlement checks on subscribe_server
+- schema: drop convert_to_fve and can_convert_to_fve from rhn_channel
+- schema: whitespace fixes
+- schema: remove unused activate_channel_entitlement from rhn_entitlements
+- schema: remove unused function cfam_curr_fve_members from rhn_channel
+- schema: remove usage of update_group_family_counts from rhn_entitlements
+- schema: remove update_family_counts from rhn_entitlements
+- schema: remove update_family_counts and update_group_family_counts
+
 * Tue Jun 30 2015 Grant Gainey 2.4.15-1
 - 1234604 - teach oracle to do update_needed_cache async as well
 
