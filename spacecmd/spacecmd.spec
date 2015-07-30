@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.4.3
+Version:     2.4.104.dev
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -85,6 +85,12 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Jul 30 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.104.dev-1
+- spacecmd: remove softwarechannel_getentitlements
+- spacecmd: remove report_entitlements; uses removed API
+- spacecmd: not use dropped satellite.listEntitlements api
+- spacecmd: remove org_listsoftwareentitlements and org_setsoftwareentitlements
+
 * Wed May 13 2015 Stephen Herr <sherr@redhat.com> 2.4.3-1
 - See pull request 247, always base64 encode config files to prevent whitespace
   stripping
