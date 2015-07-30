@@ -17,10 +17,6 @@ blacklist=oracle-server-admin oracle-server-scripts oracle-rhnsat-selinux jabber
 disttag = .el7.dev
 blacklist=oracle-server-admin oracle-server-scripts oracle-rhnsat-selinux jabberd-selinux apt-spacewalk python-hwdata mod_perl nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging
 
-[spacewalk-devel-fedora20]
-disttag = .fc20.dev
-blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts apt-spacewalk python-hwdata oracle-rhnsat-selinux mod_perl nodejs-less nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging ycssmin perl-Mail-RFC822-Address dnf-plugin-spacewalk
-
 [spacewalk-devel-fedora21]
 disttag = .fc21.dev
 blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts apt-spacewalk python-hwdata oracle-rhnsat-selinux mod_perl nodejs-less nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging ycssmin perl-Mail-RFC822-Address
