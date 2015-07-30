@@ -81,6 +81,9 @@ def main():
     parser.add_option('-d', '--dry-run', action='store_true',
                       dest='dry_run',
                       help='Test run. No sync takes place.')
+    parser.add_option('-n', '--latest', action='store_true',
+                      dest='latest',
+                      help='Sync lastest packages only. Use carefully - you might need to fix some dependencies on your own.')
     parser.add_option('-g', '--config', action='store', dest='config',
                help='Configuration file')
     parser.add_option('-t', '--type', action='store', dest='repo_type',
@@ -196,7 +199,6 @@ def main():
         print "======================================"
         print "| Channel: %s" % ch
         print "======================================"
-
         sync = reposync.RepoSync(channel_label=ch,
                       repo_type=options.repo_type,
                       url=repo,
@@ -204,7 +206,8 @@ def main():
                       quiet=options.quiet,
                       filters=options.filters,
                       no_errata=options.no_errata,
-                      sync_kickstart=options.sync_kickstart)
+                      sync_kickstart=options.sync_kickstart,
+                      latest=options.latest)
         sync.sync()
     releaseLOCK()
     return 0

@@ -117,13 +117,14 @@ def getCustomChannels():
 class RepoSync(object):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,
-                 quiet=False, filters=None, no_errata=False, sync_kickstart=False):
+                 quiet=False, filters=None, no_errata=False, sync_kickstart=False, latest=False):
         self.regen = False
         self.fail = fail
         self.quiet = quiet
         self.filters = filters or []
         self.no_errata = no_errata
         self.sync_kickstart = sync_kickstart
+        self.latest = latest
 
         initCFG('server')
         rhnSQL.initDB()
@@ -448,6 +449,20 @@ class RepoSync(object):
         importer.run()
         self.regen = True
 
+    def latest_packages(self,packages):
+        #allows to download only lastest packages
+        latest =  [pack for pack in packages if (any(
+                   pack.version>dupl.version for
+                   dupl in packages if dupl.name==pack.name))]
+        #select latest packages only, rest is disassociated
+        rest = list(set(packages) - set(latest))
+        for packToDisassoc in rest:
+            package = {}
+            package['checksum'] = packToDisassoc.checksum
+            package['checksum_type'] = packToDisassoc.checksum_type
+            self.disassociate_package(package)
+        return latest
+
     def import_packages(self, plug, source_id, url):
         if (not self.filters) and source_id:
             h = rhnSQL.prepare("""
@@ -463,6 +478,8 @@ class RepoSync(object):
             filters = self.filters
 
         packages = plug.list_packages(filters)
+        if self.latest:
+            packages = self.latest_packages(packages)
         to_process = []
         num_passed = len(packages)
         self.print_msg("Packages in repo:             %5d" % plug.num_packages)
