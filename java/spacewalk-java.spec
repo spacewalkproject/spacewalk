@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.29
+Version: 2.4.130.dev
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -775,6 +775,118 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 30 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.130.dev-1
+- java: ServerFactoryTest imports organized
+- java: context references to removed page removed
+- Unused translation removed
+- Unused translation removed
+- java: remove unused constant and import
+- java: remove unused class SnapshotRollbackException
+- java: context references to removed page removed
+- Unused translation removed
+- Unused translation removed
+- java: remove HostAndGuestCountView and related methods
+- Unused translation removed
+- java: fixed context in StringResource
+- Unused translation removed
+- Unused translation removed
+- Unused translation removed
+- java: remove ChannelFamilySystem
+- Unused translation removed
+- java: remove ChannelFamilySystemGroup
+- java python tests: remove tests for dropped API setSoftwareEntitlements
+- java: remove example script which uses obsolete satellite.listEntitlements
+  API
+- java python tests: remove tests for dropped APIs
+- java: remove MultiOrgEntitlementsDto
+- Unused translation removed
+- java: remove page from authentication service whitelist
+- Unused translation removed
+- java: remove SoftwareEntitlementDto
+- Unused translation removed
+- java: remove SoftwareEntitlement StringResources
+- java: remove unused members from ChannelOverview
+- java: remove OrgChannelFamily
+- java: remove OrgChannelFamilySerializer
+- java: remove ChannelOverviewSerializer
+- java: remove is_fve from system_channel_subscriptions query
+- VirtualInstanceFactory: imports organized
+- java: remove maxMembers, currentMembers, maxFlex and currentFlex from
+  PrivateChannelFamily
+- java: removed unused package_search query files
+- java: modify insert_family_perms - not set members explicitly
+- java: remove unused methods listFlexGuests and runFlexGuestsQuery
+- java: remove channel_entitlement and channel_entitlement_for_all_orgs queries
+- SnapshotHandler: imports organized
+- SatelliteHandlerTest: imports organized
+- SatelliteHandler: imports organized
+- SnapshotRollbackAction: imports organized
+- java: remove handling for channel_family_no_subscriptions exception
+- java: remove entitlements() and getEntitlement() from ChannelManager
+- java: change ChannelFamily product URL
+- java: remove ChannelFamilyTree page
+- java XMLRPC: remove listEntitlements from SatelliteHandler
+- remove current_members and available_members from rhnAvailableChannels view
+- ChannelManagerTest: imports organized
+- SsmManager: imports organized
+- ChannelManager: imports organized
+- ChildChannelDto: checkstyle fixes
+- ChildChannelConfirmAction: checkstyle fixes
+- java: remove SystemManager.isServerIdFveEligible()
+- java: remove ChannelManager.isChannelFreeForSubscription()
+- java: remove all getAvailableFveEntitlements() methods and
+  ChannelEntitlementCounter
+- java: remove getAvailableEntitlements() methods
+- java: remove SsmManager.verifyChildEntitlements()
+- java: remove SystemManager.canServerSubscribeToChannel()
+- java: cleanup ChildChanneDto; remove available(Fve)Subscriptions and
+  isFreeForGuest
+- java XMLRPC: remove ChannelSoftwareHandler.availableEntitlements()
+- java: remove OrgSoftwareEntitlementDto
+- java: remove unused assign_software_entitlements query
+- java: remove unused VirtualInstanceFactory.listEligibleFlexGuests() method
+- java: remove unused UpdateOrgSoftwareEntitlementsCommand and test
+- java: SystemHandler imports organized
+- java: remove unused VirtualizationEntitlementsManager class and tests
+- java: remove GuetsLimitedHosts StringResources
+- java: remove GuestLimitedHosts page
+- java: remove GuestUnlimitedHosts StringResources
+- java: remove GuestUnlimitedHosts page
+- java: update NavTest not to rely on removed page
+- java: remove PhysicalHosts StringResources
+- java: remove PhysicalHosts page
+- java: remove unused methods VirtEntManager listFlexGuests,
+  listEligibleFlexGuests
+- java: remove unused convertToFlex method
+- java XMLRPC: remove SystemHandler.listEligibleFlexGuests()
+- java XMLRPC: remove SystemHandler.listFlexGuests()
+- java XMLRPC: remove SystemHandler.convertToFlexEntitlement()
+- java: remove softwareentitlements from StringResource
+- java: remove SoftwareEntitlements from PxtAuth
+- java: remove an unused SoftwareEntitlementSubscriptions StringResource
+- java: remove SoftwareEntitlementSubscriptions from PxtAuth
+- java: remove unused SystemManager.getEntitledSystems() method
+- java: remove link to dropped software entitlemet page
+- java: remove software Entitlements pages
+- java: remove EntitledSystems StringResources
+- java: remove EntitledSystems page
+- java: remove EligibleFlexGuests StringResources
+- java: remove EligibleFlexGuests page
+- java: remove FlexGuest from StringResources
+- java: remove FlexGuest page
+- OrgHandlerTest: imports organized
+- ChannelManager: imports organized
+- OrgHandler: imports organized
+- java: remove unused software entitlement backend methods
+- java XMLRPC: remove SoftwareEntitlement functions
+- java: remove OrgSoftwareSubscription StringResources
+- java: remove OrgSoftwareSubscriptions page
+- java: remove SoftwareEntitlements page
+- java: remove SoftwareEntitlementDetails StringResources
+- java: remove SoftwareEntitlementDetails page
+- java: remove softwareEntitlementSubscriptions StringResources
+- java: remove SoftwareEntitlementSubscriptions page
+
 * Fri Jul 03 2015 Jan Dobes 2.4.29-1
 - removing dead code
 - fixing system.listUngroupedSystems API
