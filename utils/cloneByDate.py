@@ -505,6 +505,7 @@ class ChannelTreeCloner:
         self.process_deps(dep_results)
 
     def process_deps(self, deps):
+        # pylint: disable=deprecated-lambda, unnecessary-lambda
         list_to_set = lambda x: set(map(lambda y: tuple(y), x))
         needed_list = dict((channel[0], [])
                            for channel in self.channel_map.values())
