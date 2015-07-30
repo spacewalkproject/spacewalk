@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.10
+Version: 2.4.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -655,6 +655,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Thu Jul 30 2015 Jiri Dostal <jdostal@redhat.com> 2.4.11-1
+- [RFE] - --latest feature for spacewalk-repo-sync
+
 * Fri Jul 24 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.10-1
 - require cobbler20 - Spacewalk is not working with upstream cobbler anyway
 - remove un-intentional changes
