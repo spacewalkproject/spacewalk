@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.4.10
+Version:	2.4.11
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,11 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Jul 30 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.11-1
+- disable pylint warnings
+- simplify expression
+- remove unused variable
+
 * Tue Jul 28 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.10-1
 - prevent infinte recursion cycles in spacewalk-clone-by-date
 - remove unused variable
