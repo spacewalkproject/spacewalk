@@ -14,6 +14,19 @@
  */
 package com.redhat.rhn.taskomatic.task.repomd;
 
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.frontend.dto.PackageDto;
+import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
+import com.redhat.rhn.manager.task.TaskManager;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,19 +40,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
-
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.util.StringUtil;
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.frontend.dto.PackageDto;
-import com.redhat.rhn.manager.channel.ChannelManager;
-import com.redhat.rhn.manager.rhnpackage.PackageManager;
-import com.redhat.rhn.manager.task.TaskManager;
 
 /**
  *
@@ -71,6 +71,7 @@ public class RpmRepositoryWriter extends RepositoryWriter {
      * @param channel channel info
      * @return repodata sanity
      */
+    @Override
     public boolean isChannelRepodataStale(Channel channel) {
         File theFile = new File(mountPoint + File.separator + pathPrefix +
                 File.separator + channel.getLabel() + File.separator +
@@ -97,6 +98,7 @@ public class RpmRepositoryWriter extends RepositoryWriter {
      *
      * @param channel channelinfo for repomd file creation
      */
+    @Override
     public void writeRepomdFiles(Channel channel) {
         PackageManager.createRepoEntrys(channel.getId());
 
@@ -185,6 +187,14 @@ public class RpmRepositoryWriter extends RepositoryWriter {
             DataResult<PackageDto> packageBatch = packages.subList(i, i + batchSize);
             packageBatch.elaborate();
             for (PackageDto pkgDto : packageBatch) {
+                // this is a sanity check
+                // package may have been deleted before packageBatch.elaborate()
+                if (pkgDto.getChecksum() == null) {
+                    // channel content changed, we cannot guarantee correct repodata
+                    throw new RepomdRuntimeException("Package with id " + pkgDto.getId() +
+                            " removed from server, interrupting repo generation for " +
+                            channel.getLabel());
+                }
                 primary.addPackage(pkgDto);
                 filelists.addPackage(pkgDto);
                 other.addPackage(pkgDto);
