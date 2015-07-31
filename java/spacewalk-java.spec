@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.42
+Version: 2.4.43
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jul 31 2015 Tomas Lestach <tlestach@redhat.com> 2.4.43-1
+- detect removed packages during repo generation
+- sort the channels for rego generation task
+- set the policy for blocked execution (concurrent settings)
+- unmark channel in progress for failed repomd tasks
+- mark ChannelRepodataWorker failed, when exception is thrown
+- removing unused loadErrata() from ErrataQueueWorker
+- modified will be set by the rhnRepoRegenQueue update trigger
+
 * Fri Jul 24 2015 Jan Dobes 2.4.42-1
 - adding link to reposync logs
 - adding progress bar showing sync status
