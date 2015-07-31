@@ -20704,13 +20704,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target> Provisioning (অতিরিক্ত)</target>
       </trans-unit>
-      <trans-unit id="sys_entitlements.monitoring_entitled">
-        <source> Monitoring (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target> Monitoring (অতিরিক্ত)</target>
-      </trans-unit>
       <trans-unit id="sys_entitlements.virtualization_host">
         <source> Virtualization (Add-On)</source>
         <context-group name="ctx">
@@ -20779,13 +20772,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
         <target>একটি Provisioning (অতিরিক্ত) এনটাইটেলমেন্টের সাহায্যে kickstart ও কনফিগারেশন ফাইল প্রস্তুতি প্রভৃতি উন্নত বৈশিষ্ট্য উপলব্ধ করা হবে। </target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.monitoring_entitled">
-        <source>A single Monitoring (Add-On) entitlement enables the tracking of monitoring data for a system. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>একটি Monitoring (অতিরিক্ত) এনটাইটেলমেন্টের সাহায্যে সিস্টেমের মধ্যে উপস্থিত নিরীক্ষণযোগ্য তথ্যের অবস্থা পরীক্ষা করা যাবে। </target>
       </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
         <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>

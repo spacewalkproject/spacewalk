@@ -78,10 +78,6 @@
           <source>Management</source>
           <target>மேலாண்மை</target>
         </trans-unit>
-        <trans-unit id="monitoring_entitled">
-          <source>Monitoring</source>
-          <target>கண்காணித்தல்</target>
-        </trans-unit>
         <trans-unit id="provisioning_entitled">
           <source>Provisioning</source>
           <target>வாய்ப்பளித்தல்</target>
