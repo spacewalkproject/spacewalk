@@ -21831,13 +21831,6 @@ come riportato in questo certificato @@PRODUCT_NAME@@.</target>
         </context-group>
         <target> Provisioning (Aggiuntivo)</target>
       </trans-unit>
-      <trans-unit id="sys_entitlements.monitoring_entitled">
-        <source> Monitoring (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target> Monitoring (Aggiuntivo)</target>
-      </trans-unit>
       <trans-unit id="sys_entitlements.virtualization_host">
         <source> Virtualization (Add-On)</source>
         <context-group name="ctx">
@@ -21907,13 +21900,6 @@ come riportato in questo certificato @@PRODUCT_NAME@@.</target>
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
         <target>Un entitlement (aggiuntivo) singolo di Provisioning abilita diverse funzionalità avanzate come kickstart ed il provisioning del file di configurazione.</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.monitoring_entitled">
-        <source>A single Monitoring (Add-On) entitlement enables the tracking of monitoring data for a system. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>Un entitlement (aggiuntivo) singolo di Monitoring permette il controllo dei dati del monitoring per un sistema.</target>
       </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
         <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>

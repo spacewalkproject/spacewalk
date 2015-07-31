@@ -21855,13 +21855,6 @@ Tree-Pfad, Kickstart-RPM, Basis-Channel und Installer-Generation sollten immer �
         </context-group>
         <target> Provisioning (Zusatz)</target>
       </trans-unit>
-      <trans-unit id="sys_entitlements.monitoring_entitled">
-        <source> Monitoring (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target> Monitoring (Zusatz)</target>
-      </trans-unit>
       <trans-unit id="sys_entitlements.virtualization_host">
         <source> Virtualization (Add-On)</source>
         <context-group name="ctx">
@@ -21931,13 +21924,6 @@ Tree-Pfad, Kickstart-RPM, Basis-Channel und Installer-Generation sollten immer �
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
         <target>Eine einzelne Provisioning- (Zusatz-) Berechtigung ermöglicht verschiedene erweiterte Funktionen, wie Kickstart- und Konfigurationsdatei-Provisioning. </target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.monitoring_entitled">
-        <source>A single Monitoring (Add-On) entitlement enables the tracking of monitoring data for a system. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>Eine einzelne Monitoring- (Zusatz-) Berechtigung ermöglicht das Verfolgen von Überwachungsdaten für ein System. </target>
       </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
         <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>

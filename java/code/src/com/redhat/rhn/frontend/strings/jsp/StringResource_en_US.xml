@@ -18305,12 +18305,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="sys_entitlements.monitoring_entitled">
-        <source> Monitoring (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="sys_entitlements.virtualization_host">
         <source> Virtualization (Add-On)</source>
         <context-group name="ctx">
@@ -18367,12 +18361,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
       </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
         <source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.monitoring_entitled">
-        <source>A single Monitoring (Add-On) entitlement enables the tracking of monitoring data for a system. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>

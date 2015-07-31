@@ -78,10 +78,6 @@
           <source>Management</source>
           <target>관리 (Management)</target>
         </trans-unit>
-        <trans-unit id="monitoring_entitled">
-          <source>Monitoring</source>
-          <target>모니터링 (Monitoring)</target>
-        </trans-unit>
         <trans-unit id="provisioning_entitled">
           <source>Provisioning</source>
           <target>프로비저닝 (Provisioning)</target>
