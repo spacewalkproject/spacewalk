@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.xmlrpc.serializer;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Date;
 
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
@@ -36,6 +37,9 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *      #prop("string", "name")
  *       #prop_desc("dateTime.iso8601",  "last_checkin", "Last time server
  *              successfully checked in")
+ *       #prop_desc("dateTime.iso8601",  "last_boot", "Last server boot time")
+ *       #prop_desc("dateTime.iso8601",  "created", "Server registration time")
+ *
  * #struct_end()
  *
  *
@@ -60,6 +64,17 @@ public class SystemOverviewSerializer extends RhnXmlRpcCustomSerializer {
         helper.add("id", system.getId());
         helper.add("name", system.getName());
         helper.add("last_checkin", system.getLastCheckinDate());
+
+        Date regDate = system.getCreated();
+        if (regDate != null) {
+          helper.add("created", regDate);
+        }
+
+        Date lastBoot = system.getLastBootAsDate();
+        if (lastBoot != null) {
+          helper.add("last_boot", lastBoot);
+        }
+
         helper.add("extra_pkg_count", system.getExtraPkgCount());
         helper.writeTo(output);
     }

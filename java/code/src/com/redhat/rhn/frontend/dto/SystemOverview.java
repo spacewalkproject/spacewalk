@@ -74,6 +74,7 @@ public class SystemOverview extends BaseDto implements Serializable  {
     private static final  String NONE_VALUE = "(none)";
     private Long totalCrashCount;
     private Long uniqueCrashCount;
+    private Long lastBoot;
 
 
     /**
@@ -124,6 +125,28 @@ public class SystemOverview extends BaseDto implements Serializable  {
     public void setBugErrata(Long bugErrataIn) {
         this.bugErrata = bugErrataIn;
     }
+    /**
+     * @return Returns the last boot.
+     */
+   public Long getLastBoot() {
+        return lastBoot;
+    }
+    /**
+     * @param lastBootIn The lastBoot to set.
+     */
+    public void setLastBoot(Long lastBootIn) {
+        this.lastBoot = lastBootIn;
+    }
+    /**
+     * @return Returns the last boot as Date.
+     */
+    public Date getLastBootAsDate() {
+        if (this.lastBoot == null) {
+          return null;
+        }
+        return new Date(this.lastBoot.longValue() * 1000);
+    }
+
     /**
      * @return ReturnsIn the channelLabels.
      */

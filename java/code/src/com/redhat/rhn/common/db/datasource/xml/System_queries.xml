@@ -345,6 +345,8 @@ ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
 select * from (
   SELECT  DISTINCT S.id AS ID,
           S.name AS NAME,
+          S.created as CREATED,
+          S.last_boot as LAST_BOOT,
           INFO.checkin AS LAST_CHECKIN
     FROM  rhnServer S,
           rhnServerInfo INFO,
