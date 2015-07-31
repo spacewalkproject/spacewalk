@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.4.19
+Version:        2.4.20
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jul 31 2015 Grant Gainey 2.4.20-1
+- 1249219 - Fix file-naming error for upgrade
+
 * Fri Jul 31 2015 Grant Gainey 2.4.19-1
 - 1249219 - Fix postgres rpm.rpmstrcmp to exhibit same behavior as original
   Oracle functionality
