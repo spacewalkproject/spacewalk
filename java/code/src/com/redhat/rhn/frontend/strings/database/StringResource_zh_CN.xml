@@ -78,10 +78,6 @@
           <source>Management</source>
           <target>管理</target>
         </trans-unit>
-        <trans-unit id="monitoring_entitled">
-          <source>Monitoring</source>
-          <target>监控</target>
-        </trans-unit>
         <trans-unit id="provisioning_entitled">
           <source>Provisioning</source>
           <target>Provisioning</target>

@@ -78,10 +78,6 @@
           <source>Management</source>
           <target>Управление</target>
         </trans-unit>
-        <trans-unit id="monitoring_entitled">
-          <source>Monitoring</source>
-          <target>Мониторинг</target>
-        </trans-unit>
         <trans-unit id="provisioning_entitled">
           <source>Provisioning</source>
           <target>Эксплуатация</target>

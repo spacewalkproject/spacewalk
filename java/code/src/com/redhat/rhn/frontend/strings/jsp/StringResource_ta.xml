@@ -20706,13 +20706,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>வாய்ப்பளித்தல் (கூடுதல்)</target>
       </trans-unit>
-      <trans-unit id="sys_entitlements.monitoring_entitled">
-        <source> Monitoring (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>கண்காணித்தல் (கூடுதல்)</target>
-      </trans-unit>
       <trans-unit id="sys_entitlements.virtualization_host">
         <source> Virtualization (Add-On)</source>
         <context-group name="ctx">
@@ -20781,13 +20774,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
         <target>ஒரு ஒற்றை வாய்ப்பளித்தல் (கூடுதல்) உரிமம் கிக்ஸ்டார்ட் மற்றும் கட்டமைப்பு கோப்பு வாய்ப்பளித்தல் போன்ற பல்வேறு கூடுதல் செயல்பாடுகளை அனுமதிக்கிறது.</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.monitoring_entitled">
-        <source>A single Monitoring (Add-On) entitlement enables the tracking of monitoring data for a system. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>ஒரு கணினிக்கு தரவை கண்காணித்தலை தேட ஒரு ஒற்றை கண்காணித்தல் (கூடுதல்) உரிமத்தை செயல்படுத்தப்பட்டுள்ளது.</target>
       </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
         <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>

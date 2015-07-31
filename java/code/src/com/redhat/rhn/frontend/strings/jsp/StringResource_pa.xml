@@ -20705,13 +20705,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target> ਮਨਜੂਰੀ (ਐਡ-ਆਨ)</target>
       </trans-unit>
-      <trans-unit id="sys_entitlements.monitoring_entitled">
-        <source> Monitoring (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target> ਨਿਗਰਾਨੀ (ਐਡ-ਆਨ)</target>
-      </trans-unit>
       <trans-unit id="sys_entitlements.virtualization_host">
         <source> Virtualization (Add-On)</source>
         <context-group name="ctx">
@@ -20780,13 +20773,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
         <target>ਇੱਕ ਸਿੰਗਲ ਨਿਗਰਾਨੀ (ਐਡ-ਆਨ) ਇੰਟਾਈਟਲਮੈਂਟ ਵੱਖ-ਵੱਖ ਤਕਨੀਕੀ ਫੰਕਸ਼ਨ ਜਿਵੇਂ ਕਿੱਕਸਟਾਰਟ ਅਤੇ ਸੰਰਚਨਾ ਫਾਇਲ ਮਨਜੂਰੀ ਲਈ ਮਦਦ ਕਰਦਾ ਹੈ।</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.monitoring_entitled">
-        <source>A single Monitoring (Add-On) entitlement enables the tracking of monitoring data for a system. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>ਇੱਕ ਸਿੰਗਲ ਨਿਗਰਾਨੀ (ਆਡ-ਆਨ) ਇੰਟਾਈਟਲਮੈਂਟ ਇੱਕ ਸਿਸਟਮ ਲਈ ਡਾਟਾ ਪਰਬੰਧਨ ਦੀ ਜਾਂਚ ਯੋਗ ਕਰਦਾ ਹੈ।</target>
       </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
         <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>
