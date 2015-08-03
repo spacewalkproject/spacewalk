@@ -23,15 +23,12 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * CompareRevisionActionTest
- * @version $Rev$
  */
 public class CompareRevisionActionTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         //Make the user a config admin
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
-
 
         //Create the revision to copy
         ConfigRevision revision = ConfigTestUtils.createConfigRevision(user.getOrg());

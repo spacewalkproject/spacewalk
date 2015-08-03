@@ -27,7 +27,6 @@ public class GlobalConfigChannelListTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         //Make a config channel so that it will appear in the list.
         ConfigChannel channel = ConfigTestUtils.createConfigChannel(user.getOrg());
@@ -39,7 +38,4 @@ public class GlobalConfigChannelListTest extends RhnMockStrutsTestCase {
 
         verifyList(RequestContext.PAGE_LIST, ConfigChannelDto.class);
     }
-
-
-
 }

@@ -43,20 +43,17 @@ import java.util.List;
 
 /**
  * TreeCreateTest
- * @version $Rev: 1 $
  */
 public class TreeActionTest extends RhnPostMockStrutsTestCase {
 
     public void testCreateNonSubmit() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
         ChannelFactoryTest.createTestChannel(user);
         executeNonSubmit("/kickstart/TreeCreate");
     }
 
     public void testCreateSubmit() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
         Channel c = ChannelFactoryTest.createTestChannel(user);
         executeSubmit("/kickstart/TreeCreate", c);
         verifyActionMessage("tree.create.success");
@@ -64,7 +61,6 @@ public class TreeActionTest extends RhnPostMockStrutsTestCase {
 
     public void testCreateRefresh() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         Channel rhel5BaseChan = createRhel5Channels();
         Channel rhel4BaseChan = createRhel4Channels();
@@ -149,7 +145,6 @@ public class TreeActionTest extends RhnPostMockStrutsTestCase {
 
     public void testEditSubmit() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
-        UserTestUtils.addProvisioning(user.getOrg());
         KickstartableTree t = KickstartableTreeTest.createTestKickstartableTree(c);
         addRequestParameter(RequestContext.KSTREE_ID, t.getId().toString());
         String newLabel = executeSubmit("/kickstart/TreeEdit", c);
@@ -162,7 +157,6 @@ public class TreeActionTest extends RhnPostMockStrutsTestCase {
 
     public void testEditNonSubmit() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
-        UserTestUtils.addProvisioning(user.getOrg());
         KickstartableTree t = KickstartableTreeTest.createTestKickstartableTree(c);
         addRequestParameter(RequestContext.KSTREE_ID, t.getId().toString());
         executeNonSubmit("/kickstart/TreeEdit");
@@ -260,6 +254,4 @@ public class TreeActionTest extends RhnPostMockStrutsTestCase {
         verifyForward("success");
         verifyActionMessage("tree.delete.success");
     }
-
 }
-

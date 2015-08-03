@@ -24,13 +24,11 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * KickstartsSetupActionTest
- * @version $Rev: 1 $
  */
 public class KickstartsSetupActionTest extends RhnMockStrutsTestCase {
 
     public void testKickstartList() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         // Create a kickstart and the defaults so the list
         // will return something.
@@ -41,6 +39,4 @@ public class KickstartsSetupActionTest extends RhnMockStrutsTestCase {
         assertNotNull(dr);
         assertTrue(dr.size() >= 1);
     }
-
 }
-

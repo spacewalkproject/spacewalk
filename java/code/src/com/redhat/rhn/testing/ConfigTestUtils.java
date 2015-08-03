@@ -26,7 +26,6 @@ import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -354,8 +353,7 @@ public class ConfigTestUtils extends Assert {
             throw new IllegalArgumentException("User and channel " +
                     "must be from the same org!");
         }
-        Server srv = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv = ServerFactoryTest.createTestServer(user, true);
         if (channel.isGlobalChannel()) {
             srv.subscribe(channel);
         }

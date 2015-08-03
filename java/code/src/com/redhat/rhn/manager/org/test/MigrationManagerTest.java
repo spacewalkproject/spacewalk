@@ -79,8 +79,7 @@ public class MigrationManagerTest extends RhnBaseTestCase {
         // and associate the first org's admins with them both
         server = ServerTestUtils.createVirtHostWithGuests(
                 origOrgAdmins.iterator().next(), 2);
-        server2 = ServerFactoryTest.createTestServer(origOrgAdmins.iterator().next(), true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        server2 = ServerFactoryTest.createTestServer(origOrgAdmins.iterator().next(), true);
 
         ServerFactory.save(server);
         ServerFactory.save(server2);

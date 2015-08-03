@@ -338,17 +338,6 @@ public class SystemEntitlementsSubmitActionTest extends RhnPostMockStrutsTestCas
      *
      * @throws Exception on server init failure
      */
-    public void testAddProvisioningForUpdate() throws Exception {
-        testAddOnForUpdate("provisioning_entitled",
-                            "provisioning",
-                            EntitlementManager.PROVISIONING,
-                           ServerConstants.getServerGroupTypeProvisioningEntitled());
-    }
-
-    /**
-     *
-     * @throws Exception on server init failure
-     */
     public void testAddVirtForManagement() throws Exception {
         testAddOnVirt(EntitlementManager.VIRTUALIZATION_ENTITLED,
                 EntitlementManager.VIRTUALIZATION.getLabel(),
@@ -365,29 +354,6 @@ public class SystemEntitlementsSubmitActionTest extends RhnPostMockStrutsTestCas
                 EntitlementManager.VIRTUALIZATION_PLATFORM.getLabel(),
                 EntitlementManager.VIRTUALIZATION_PLATFORM,
                 ServerConstants.getServerGroupTypeVirtualizationPlatformEntitled());
-    }
-
-    /**
-     *
-     * @throws Exception on server init failure
-     */
-    public void testAddProvisioningForManagement() throws Exception {
-        testAddOnForManagement("provisioning_entitled",
-                "provisioning",
-                EntitlementManager.PROVISIONING,
-               ServerConstants.getServerGroupTypeProvisioningEntitled());
-    }
-
-    /**
-     *
-     * @throws Exception on server init failure
-     */
-    public void testRemoveProvisioningForManagement() throws Exception {
-
-        testRemoveAddOnForManagement("provisioning_entitled",
-                "provisioning",
-                EntitlementManager.PROVISIONING,
-               ServerConstants.getServerGroupTypeProvisioningEntitled());
     }
 
     /**

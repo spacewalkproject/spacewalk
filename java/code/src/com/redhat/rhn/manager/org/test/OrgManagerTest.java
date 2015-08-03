@@ -25,7 +25,6 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * OrgManagerTest
- * @version $Rev$
  */
 public class OrgManagerTest extends RhnBaseTestCase {
 
@@ -43,12 +42,10 @@ public class OrgManagerTest extends RhnBaseTestCase {
         UserFactory.save(user);
 
         UserTestUtils.addManagement(o);
-        UserTestUtils.addProvisioning(o);
         UserTestUtils.addVirtualization(o);
 
         DataList orgs = OrgManager.activeOrgs(user);
         assertNotNull(orgs);
         assertTrue(orgs.size() > 0);
     }
-
 }

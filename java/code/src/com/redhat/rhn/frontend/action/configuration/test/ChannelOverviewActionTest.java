@@ -26,7 +26,6 @@ public class ChannelOverviewActionTest extends RhnMockStrutsTestCase {
 
     public void testExecuteNoFiles() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
         ConfigFile cf = ConfigTestUtils.createConfigFile(cc);

@@ -191,8 +191,7 @@ public class AccessTest extends BaseTestCaseWithUser {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
         context.put("user", user);
-        Server s = ServerFactoryTest.createTestServer(user, false, ServerConstants
-                .getServerGroupTypeProvisioningEntitled());
+        Server s = ServerFactoryTest.createTestServer(user, false);
         context.put("sid", new String[] {s.getId().toString()});
         boolean rc = acl.evalAcl(context, "system_feature(ftr_kickstart)");
         assertTrue(rc);
