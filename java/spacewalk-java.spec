@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.44
+Version: 2.4.45
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Aug 03 2015 Tomas Lestach <tlestach@redhat.com> 2.4.45-1
+- 1219140 - skip errata clone events, where channel or erratum aren't available
+  anymore (were deleted in the meantime)
+- 1219140 - let errata.cloneAsync process the cloning process async
+
 * Fri Jul 31 2015 Tomas Lestach <tlestach@redhat.com> 2.4.44-1
 - 1179479 - add last boot and registration date to
   systemgroup.listSystemsMinimal API
