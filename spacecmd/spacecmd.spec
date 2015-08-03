@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.4.4
+Version:     2.4.5
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -85,6 +85,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Aug 03 2015 Tomas Lestach <tlestach@redhat.com> 2.4.5-1
+- 1244099 - fix spacecmd do_configchannel_sync for directories
+- Fix typo in softwarechannel.py
+
 * Wed Jul 29 2015 Aron Parsons <aronparsons@gmail.com> 2.4.4-1
 - spacecmd: add missing CHECKSUM list
 
