@@ -1448,6 +1448,8 @@ def do_configchannel_sync(self, args, doreturn=False):
             for k, v in target_data.items():
                 if not v:
                     del target_data[k]
+            if source_data.get('type') == 'directory':
+                del target_data['contents_enc64']
             logging.debug(source_data.get('path') + ": " + str(target_data))
             self.client.configchannel.createOrUpdatePath(self.session,
                                                          target_channel,
