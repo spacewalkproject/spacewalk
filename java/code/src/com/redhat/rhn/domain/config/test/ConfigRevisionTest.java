@@ -24,13 +24,11 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * ConfigRevisionTest
- * @version $Rev$
  */
 public class ConfigRevisionTest extends BaseTestCaseWithUser {
 
     public void testCreateConfigRevision() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         ConfigRevision cr = ConfigTestUtils.createConfigRevision(user.getOrg());
 

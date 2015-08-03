@@ -277,21 +277,6 @@ public class UserTestUtils extends Assert {
         incrementSgMaxMembers(sg);
     }
 
-
-    /**
-     * Add provisioning to an org
-     * @param orgIn to add to
-     * @throws Exception foo
-     */
-    public static void addProvisioning(Org orgIn) throws Exception {
-        Set ents = orgIn.getEntitlements();
-        ents.add(OrgFactory.getEntitlementProvisioning());
-        EntitlementServerGroup sg =
-            ServerGroupTestUtils.createEntitled(orgIn,
-                    ServerConstants.getServerGroupTypeProvisioningEntitled());
-        incrementSgMaxMembers(sg);
-    }
-
     /**
      * Increases a server group max members' count by 10
      * @param sg the server group to add members to

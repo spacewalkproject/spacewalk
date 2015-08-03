@@ -82,9 +82,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     public void setUp() throws Exception {
         super.setUp();
 
-        // Provisioning included
-        this.server = ServerFactoryTest.createTestServer(
-                this.admin, true, ServerConstants.getServerGroupTypeProvisioningEntitled());
+        this.server = ServerFactoryTest.createTestServer(this.admin, true);
 
         // Network
         Network net = new Network();

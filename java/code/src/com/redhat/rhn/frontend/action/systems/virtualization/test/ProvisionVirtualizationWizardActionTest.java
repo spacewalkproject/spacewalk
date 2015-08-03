@@ -69,7 +69,7 @@ public class ProvisionVirtualizationWizardActionTest extends RhnMockStrutsTestCa
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         s.addChannel(ChannelFactoryTest.createBaseChannel(user));
         EntitlementServerGroup sg = ServerGroupTestUtils.createEntitled(user.getOrg(),
-                ServerFactory.lookupServerGroupTypeByLabel("provisioning_entitled"));
+                ServerFactory.lookupServerGroupTypeByLabel("enterprise_entitled"));
         SystemManager.entitleServer(s, sg.getGroupType().getAssociatedEntitlement());
         Channel c = ChannelFactoryTest.createTestChannel(user);
         // Required so the Server has a base channel

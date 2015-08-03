@@ -64,8 +64,7 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         super.setUp();
         setRequestPathInfo("/systems/details/kickstart/ScheduleWizard");
         user.addPermanentRole(RoleFactory.ORG_ADMIN);
-        s = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        s = ServerFactoryTest.createTestServer(user, true);
         NetworkInterface device = NetworkInterfaceTest.createTestNetworkInterface(s);
         s.addNetworkInterface(device);
 
@@ -101,7 +100,7 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
 
     public static final Server addProxy(User user, Server s) throws Exception {
         Server proxy = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled(),
+                ServerConstants.getServerGroupTypeEnterpriseEntitled(),
                 ServerFactoryTest.TYPE_SERVER_PROXY);
         proxy.addNetwork(NetworkTest.createNetworkInstance());
         ServerFactory.save(proxy);

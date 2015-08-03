@@ -19,25 +19,19 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
-import com.redhat.rhn.domain.server.ServerFactory;
-import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
-import com.redhat.rhn.domain.server.test.ServerGroupTest;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.action.systems.entitlements.SystemEntitlementsSetupAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.Iterator;
 
 /**
- *
  * SystemEntitlementsSetupActionToast
- * @version $Rev$
  */
 public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
     /**
@@ -101,36 +95,15 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
         UserFactory.save(user);
         OrgFactory.save(user.getOrg());
 
+
         executeTests();
         assertNotNull(request.getAttribute(
-                                SystemEntitlementsSetupAction.SHOW_MANAGEMENT_ASPECTS));
+                            SystemEntitlementsSetupAction.SHOW_ADDON_ASPECTS));
         assertNotNull(request.getAttribute(
-                SystemEntitlementsSetupAction.MANAGEMENT_COUNTS_MESSAGE));
+                            SystemEntitlementsSetupAction.ADDON_ENTITLEMENTS));
 
-        assertNotNull(request.getAttribute(
-                SystemEntitlementsSetupAction.SHOW_ADDON_ASPECTS));
-        assertNotNull(request.getAttribute(
-                SystemEntitlementsSetupAction.ADDON_ENTITLEMENTS));
-
-        assertNotNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_COMMANDS));
-
-        //add provisioning and test again...
-        user.getOrg().getEntitlements().add(OrgFactory.getEntitlementProvisioning());
-
-        ServerGroup provisioning = ServerGroupTest.createTestServerGroup(user.getOrg(),
-                 ServerConstants.getServerGroupTypeProvisioningEntitled());
-         SystemManager.addServerToServerGroup(server, provisioning);
-         UserFactory.save(user);
-         OrgFactory.save(user.getOrg());
-         ServerFactory.save(server);
-         executeTests();
-         assertNotNull(request.getAttribute(
-                             SystemEntitlementsSetupAction.SHOW_ADDON_ASPECTS));
-         assertNotNull(request.getAttribute(
-                             SystemEntitlementsSetupAction.ADDON_ENTITLEMENTS));
-
-         testZeroSlots(SystemEntitlementsSetupAction.SHOW_MANAGEMENT_ASPECTS,
-                         ServerConstants.getServerGroupTypeEnterpriseEntitled());
+        testZeroSlots(SystemEntitlementsSetupAction.SHOW_MANAGEMENT_ASPECTS,
+                        ServerConstants.getServerGroupTypeEnterpriseEntitled());
     }
     /**
      * Tests the case where there are zero slots available

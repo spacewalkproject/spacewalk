@@ -55,8 +55,7 @@ public class FileListConfirmSetupActionTest extends RhnMockStrutsTestCase {
      * @throws Exception under exceptional circumstances
      */
     private Server setupTest(RhnSet set, String feature) throws Exception {
-        Server server = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server server = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(server.getId(), feature, 1L);
 
         //create a normal config revision
@@ -128,8 +127,7 @@ public class FileListConfirmSetupActionTest extends RhnMockStrutsTestCase {
 
     public void testImportWithNewPath() throws Exception {
         //create the server
-        Server server = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server server = ServerFactoryTest.createTestServer(user, true);
 
         SystemManagerTest.giveCapability(server.getId(),
                             SystemManager.CAP_CONFIGFILES_UPLOAD, 1L);

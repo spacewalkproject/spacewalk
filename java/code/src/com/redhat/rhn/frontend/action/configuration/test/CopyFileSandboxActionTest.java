@@ -27,7 +27,6 @@ public class CopyFileSandboxActionTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         //Create the revision to copy
         ConfigRevision revision = ConfigTestUtils.createConfigRevision(user.getOrg());
@@ -48,5 +47,4 @@ public class CopyFileSandboxActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         verifyPageList(ConfigSystemDto.class);
     }
-
 }

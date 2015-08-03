@@ -33,8 +33,7 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 public class FileListSetupActionTest extends RhnMockStrutsTestCase {
 
     private void doTheTest(String path, String feature) throws Exception {
-        Server server = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server server = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(server.getId(), feature, 1L);
 
         //create a normal config revision

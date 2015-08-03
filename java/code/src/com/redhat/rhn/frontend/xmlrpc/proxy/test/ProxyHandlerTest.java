@@ -22,7 +22,6 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.proxy.ProxyHandler;
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
@@ -41,7 +40,6 @@ public class ProxyHandlerTest extends RhnBaseTestCase {
 
     public void testActivateProxy() throws Exception {
         User user = UserTestUtils.findNewUser("testuser", "testorg");
-        UserTestUtils.addProvisioning(user.getOrg());
         ProxyHandler ph = new ProxyHandler();
 
         user.addPermanentRole(RoleFactory.ORG_ADMIN);
@@ -49,16 +47,11 @@ public class ProxyHandlerTest extends RhnBaseTestCase {
                 ServerConstants.getServerGroupTypeEnterpriseEntitled(),
                 ServerFactoryTest.TYPE_SERVER_NORMAL);
 
-        SystemManager.entitleServer(server, EntitlementManager.PROVISIONING);
-
-
         ClientCertificate cert = SystemManager.createClientCertificate(server);
         cert.validate(server.getSecret());
 
         int rc = ph.activateProxy(cert.toString(), "5.0");
         assertEquals(1, rc);
-
-
     }
 
     public void testDeactivateProxy() throws Exception {

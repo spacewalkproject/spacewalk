@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.action.configuration.sdc.test;
 
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.dto.ConfigChannelDto;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -32,8 +31,7 @@ public class ChannelListActionTest extends RhnMockStrutsTestCase {
     public void testExecute() throws Exception {
         //Create a config channel and a server
         ConfigChannel channel = ConfigTestUtils.createConfigChannel(user.getOrg());
-        Server server = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server server = ServerFactoryTest.createTestServer(user, true);
         //associate the two.
         server.subscribe(channel);
         SystemManager.storeServer(server);

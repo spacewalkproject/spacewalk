@@ -359,12 +359,9 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         assertCmdSuccess(cmd);
 
         // verify that the kickstart session has an activation key
-        // with provisioning entitlement
         ActivationKey key = ActivationKeyFactory.lookupByKickstartSession(
                 cmd.getKickstartSession());
-        Set<ServerGroupType> entitlements = key.getEntitlements();
-        assertTrue(entitlements.contains(
-                ServerConstants.getServerGroupTypeProvisioningEntitled()));
+        assertNotNull(key);
 
         TestUtils.flushAndEvict(ksdata);
         assertNotNull(KickstartFactory.

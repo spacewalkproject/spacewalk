@@ -28,13 +28,11 @@ import java.util.Date;
 
 /**
  * KickstartsSetupActionTest
- * @version $Rev: 1 $
  */
 public class KickstartIpSetupActionTest extends RhnMockStrutsTestCase {
 
     public void testKickstartIpList() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         // Create a kickstart and the ranges so the list
         // will return something.
@@ -67,6 +65,4 @@ public class KickstartIpSetupActionTest extends RhnMockStrutsTestCase {
         assertNotNull(dr);
         assertTrue(dr.size() >= 2);
     }
-
 }
-
