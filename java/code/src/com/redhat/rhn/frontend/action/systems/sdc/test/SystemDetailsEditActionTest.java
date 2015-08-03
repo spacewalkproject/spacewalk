@@ -37,7 +37,6 @@ import java.util.List;
 
 /**
  * SystemDetailsEditActionTest
- * @version $Rev$
  */
 public class SystemDetailsEditActionTest extends RhnPostMockStrutsTestCase {
 
@@ -49,7 +48,6 @@ public class SystemDetailsEditActionTest extends RhnPostMockStrutsTestCase {
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/systems/details/Edit");
-        UserTestUtils.addProvisioning(user.getOrg());
         TestUtils.saveAndFlush(user.getOrg());
 
         /*s = ServerFactoryTest.createTestServer(user, true,
@@ -57,7 +55,6 @@ public class SystemDetailsEditActionTest extends RhnPostMockStrutsTestCase {
         s = ServerTestUtils.createTestSystem(user);
         ChannelTestUtils.setupBaseChannelForVirtualization(user, s.getBaseChannel());
 
-        UserTestUtils.addProvisioning(user.getOrg());
         UserTestUtils.addVirtualization(user.getOrg());
         UserTestUtils.addVirtualizationPlatform(user.getOrg());
         TestUtils.saveAndFlush(user.getOrg());
@@ -161,8 +158,6 @@ public class SystemDetailsEditActionTest extends RhnPostMockStrutsTestCase {
         request.addParameter(SystemDetailsEditAction.BASE_ENTITLEMENT,
                 EntitlementManager.MANAGEMENT.getLabel());
 
-        addRequestParameter(EntitlementManager.PROVISIONING_ENTITLED,
-                Boolean.TRUE.toString());
         addRequestParameter(EntitlementManager.VIRTUALIZATION_ENTITLED,
                 Boolean.TRUE.toString());
         request.addParameter(SystemDetailsEditAction.NAME, s.getName());
@@ -170,7 +165,7 @@ public class SystemDetailsEditActionTest extends RhnPostMockStrutsTestCase {
         addSubmitted();
         actionPerform();
         s = (Server) TestUtils.reload(s);
-        assertTrue(s.getAddOnEntitlements().contains(EntitlementManager.PROVISIONING));
+        assertTrue(s.getAddOnEntitlements().contains(EntitlementManager.VIRTUALIZATION));
     }
 
     public void testSetBaseEntitlement() throws Exception {

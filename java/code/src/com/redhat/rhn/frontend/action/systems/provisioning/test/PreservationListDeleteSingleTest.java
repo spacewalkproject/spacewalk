@@ -20,7 +20,6 @@ import com.redhat.rhn.domain.common.test.FileListTest;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
-import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,12 +27,10 @@ import java.util.List;
 
 /**
  * PreservationListDeleteSingleTest
- * @version $Rev$
  */
 public class PreservationListDeleteSingleTest extends RhnMockStrutsTestCase {
 
     public void testForwardToDelete() throws Exception {
-        UserTestUtils.addProvisioning(user.getOrg());
         setRequestPathInfo(
                 "/systems/provisioning/preservation/PreservationListDeleteSingle");
         FileList list = FileListTest.createTestFileList(user.getOrg());

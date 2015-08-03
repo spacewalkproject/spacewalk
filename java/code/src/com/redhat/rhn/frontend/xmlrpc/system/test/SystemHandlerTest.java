@@ -88,7 +88,6 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidErrataException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.frontend.xmlrpc.MissingCapabilityException;
-import com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchActionException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
@@ -131,7 +130,6 @@ import java.util.regex.Pattern;
 
 /**
  * SystemHandlerTest
- * @version $Rev$
  */
 public class SystemHandlerTest extends BaseHandlerTestCase {
 
@@ -157,7 +155,8 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testObtainReactivationKey() throws Exception {
-        Server server = ServerFactoryTest.createTestServer(admin, true);
+        Server server = ServerFactoryTest.createUnentitledTestServer(admin, true,
+                ServerFactoryTest.TYPE_SERVER_NORMAL, new Date());
         //since we can't really test this without giving the server entitlements, just
         //make sure we get a permission exception
         try {
@@ -172,8 +171,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testObtainReactivationKeyWithCert() throws Exception {
-        Server server = ServerFactoryTest.createTestServer(admin, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server server = ServerFactoryTest.createTestServer(admin, true);
         ClientCertificate cert = SystemManager.createClientCertificate(server);
         cert.validate(server.getSecret());
         assertFalse(StringUtils.isBlank(handler.obtainReactivationKey(cert.toString())));
@@ -182,7 +180,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     public void xxxtestUpgradeEntitlement() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        Entitlement ent = EntitlementManager.PROVISIONING;
+        Entitlement ent = EntitlementManager.VIRTUALIZATION;
 
         assertTrue(SystemManager.canEntitleServer(server, ent));
 
@@ -221,8 +219,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         // the usage of setChildChannels API as tested by this junit where
         // channel ids are passed as arguments is being deprecated...
 
-        Server server = ServerFactoryTest.createTestServer(admin, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server server = ServerFactoryTest.createTestServer(admin, true);
         assertNull(server.getBaseChannel());
         Integer sid = new Integer(server.getId().intValue());
 
@@ -315,8 +312,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testSetChildChannels() throws Exception {
-        Server server = ServerFactoryTest.createTestServer(admin, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server server = ServerFactoryTest.createTestServer(admin, true);
         assertNull(server.getBaseChannel());
         Integer sid = new Integer(server.getId().intValue());
 
@@ -411,8 +407,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     public void testSetBaseChannelDeprecated() throws Exception {
         // the setBaseChannel API tested by this junit is being deprecated
 
-        Server server = ServerFactoryTest.createTestServer(admin, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server server = ServerFactoryTest.createTestServer(admin, true);
         assertNull(server.getBaseChannel());
         Integer sid = new Integer(server.getId().intValue());
 
@@ -471,8 +466,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testSetBaseChannel() throws Exception {
-        Server server = ServerFactoryTest.createTestServer(admin, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server server = ServerFactoryTest.createTestServer(admin, true);
         assertNull(server.getBaseChannel());
         Integer sid = new Integer(server.getId().intValue());
 
@@ -1356,8 +1350,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testScheduleScript() throws Exception {
-        Server server = ServerFactoryTest.createTestServer(admin, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server server = ServerFactoryTest.createTestServer(admin, true);
         SystemManagerTest.giveCapability(server.getId(), "script.run", new Long(1));
 
         List serverIds = new ArrayList();
@@ -1412,24 +1405,6 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         }
     }
 
-    public void testScheduleScriptWithoutProvisioningEntitlement() throws Exception {
-        Server server = ServerFactoryTest.createTestServer(admin, true);
-        SystemManagerTest.giveCapability(server.getId(), "script.run", new Long(1));
-
-        List serverIds = new ArrayList();
-        serverIds.add(server.getId().intValue());
-
-        try {
-            handler.scheduleScriptRun(admin,
-                    serverIds, "root", "root",
-                    new Integer(600), "", new Date());
-            fail();
-        }
-        catch (MissingEntitlementException e) {
-            // expected
-        }
-    }
-
     public void testScheduleScriptNoSuchServer() throws Exception {
         List serverIds = new ArrayList();
         serverIds.add(new Integer(-1));
@@ -1448,8 +1423,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Calendar futureCal = GregorianCalendar.getInstance();
         futureCal.set(2050, 12, 14);
 
-        Server server = ServerFactoryTest.createTestServer(admin, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server server = ServerFactoryTest.createTestServer(admin, true);
         SystemManagerTest.giveCapability(server.getId(), "script.run", new Long(1));
 
         List serverIds = new ArrayList();
@@ -1738,41 +1712,55 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testAddEntitlements() throws Exception {
-        UserTestUtils.addProvisioning(admin.getOrg());
-        Server server = ServerFactoryTest.createTestServer(admin, true,
-                ServerConstants.getServerGroupTypeEnterpriseEntitled());
+        Server server = ServerTestUtils.createVirtHostWithGuests(admin, 0);
 
-        List entitlements = new LinkedList();
-        entitlements.add(EntitlementManager.PROVISIONING_ENTITLED);
+        Integer serverId = server.getId().intValue();
+        List<String> entitlements = new LinkedList<String>() { {
+            add(EntitlementManager.VIRTUALIZATION_ENTITLED);
+        } };
 
-        handler.addEntitlements(admin, new Integer(server.getId().intValue()),
-                entitlements);
+        assertTrue(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
+
+        int result = handler.removeEntitlements(admin, serverId, entitlements);
+        assertEquals(1, result);
 
         TestUtils.flushAndEvict(server);
         server = SystemManager.lookupByIdAndUser(server.getId(), admin);
-        assertTrue(server.hasEntitlement(EntitlementManager.PROVISIONING));
+        assertFalse(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
+
+        result = handler.addEntitlements(admin, serverId, entitlements);
+        assertEquals(1, result);
+
+        TestUtils.flushAndEvict(server);
+        server = SystemManager.lookupByIdAndUser(server.getId(), admin);
+        assertTrue(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
     }
 
     public void testAddEntitlementSystemAlreadyHas() throws Exception {
-        UserTestUtils.addProvisioning(admin.getOrg());
-        Server server = ServerFactoryTest.createTestServer(admin, true,
-                ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        SystemManager.entitleServer(server, EntitlementManager.PROVISIONING);
-        List entitlements = new LinkedList();
-        entitlements.add(EntitlementManager.PROVISIONING_ENTITLED);
+        Server server = ServerTestUtils.createVirtHostWithGuests(admin, 0);
+
+        Integer serverId = server.getId().intValue();
+        List<String> entitlements = new LinkedList<String>() { {
+            add(EntitlementManager.VIRTUALIZATION_ENTITLED);
+        } };
+
+        assertTrue(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
 
         // Shouldn't fail:
-        handler.addEntitlements(admin, new Integer(server.getId().intValue()),
-                entitlements);
+        int result = handler.addEntitlements(admin, serverId, entitlements);
+        assertEquals(1, result);
+
+        TestUtils.flushAndEvict(server);
+        server = SystemManager.lookupByIdAndUser(server.getId(), admin);
+        assertTrue(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
     }
 
     public void testRemoveEntitlements() throws Exception {
-        UserTestUtils.addProvisioning(admin.getOrg());
         Server server = ServerFactoryTest.createTestServer(admin, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        SystemManager.entitleServer(server, EntitlementManager.PROVISIONING);
+        SystemManager.entitleServer(server, EntitlementManager.VIRTUALIZATION);
         List entitlements = new LinkedList();
-        entitlements.add(EntitlementManager.PROVISIONING_ENTITLED);
+        entitlements.add(EntitlementManager.VIRTUALIZATION_ENTITLED);
 
         handler.removeEntitlements(admin, new Integer(server.getId().intValue()),
                 entitlements);
@@ -1781,9 +1769,9 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     public void testRemoveEntitlementsServerDoesNotHave() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        assertFalse(server.hasEntitlement(EntitlementManager.PROVISIONING));
+        assertFalse(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
         List entitlements = new LinkedList();
-        entitlements.add(EntitlementManager.PROVISIONING_ENTITLED);
+        entitlements.add(EntitlementManager.VIRTUALIZATION_ENTITLED);
 
         handler.removeEntitlements(admin, new Integer(server.getId().intValue()),
                 entitlements);
@@ -2003,8 +1991,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testGetSubscribedBaseChannel() throws Exception {
-        Server srv1 = ServerFactoryTest.createTestServer(regular, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(regular, true);
         if (srv1.getBaseChannel() != null) {
             Channel base = (Channel) handler.getSubscribedBaseChannel(admin,
                 new Integer(srv1.getId().intValue()));
@@ -2013,8 +2000,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testListInactiveSystems() throws Exception {
-        Server srv1 = ServerFactoryTest.createTestServer(regular, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(regular, true);
         Calendar cal = Calendar.getInstance();
         srv1.getServerInfo().setCheckin(cal.getTime());
 
@@ -2047,16 +2033,14 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
 
     public void testWhoCreated() throws Exception {
-        Server srv1 = ServerFactoryTest.createTestServer(regular, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(regular, true);
         srv1.setCreator(admin);
         assertEquals(admin, handler.whoRegistered(admin, srv1.getId().intValue()));
     }
 
 
     public void testListSystemsWithPackage() throws Exception {
-        Server srv1 = ServerFactoryTest.createTestServer(regular, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(regular, true);
 
 
         Package pack = PackageTest.createTestPackage(admin.getOrg());
@@ -2229,11 +2213,8 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         String pattern = "0 \\d+ \\d+ \\? \\* \\*";
         String str = "0 0 23 ? * *";
 
-
-
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(str);
         assertTrue(m.matches());
     }
-
 }

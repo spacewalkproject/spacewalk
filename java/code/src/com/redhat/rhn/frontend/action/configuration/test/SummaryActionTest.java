@@ -27,13 +27,11 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * SummaryActionTest
- * @version $Rev$
  */
 public class SummaryActionTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         //The information for this page is simply stored into a set
         Long sid = ServerFactoryTest.createTestServer(user, true).getId();
@@ -47,4 +45,3 @@ public class SummaryActionTest extends RhnMockStrutsTestCase {
         verifyList(RequestContext.PAGE_LIST, ConfigSystemDto.class);
     }
 }
-

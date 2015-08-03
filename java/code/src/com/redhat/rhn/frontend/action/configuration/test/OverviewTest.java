@@ -29,9 +29,6 @@ public class OverviewTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
-
-
         TestUtils.saveAndFlush(user);
 
         //Make a file for the recentFiles list
@@ -52,7 +49,5 @@ public class OverviewTest extends RhnMockStrutsTestCase {
 
         assertTrue(summary.containsKey("channels"));
         assertFalse(summary.containsKey("quota"));
-
     }
-
 }

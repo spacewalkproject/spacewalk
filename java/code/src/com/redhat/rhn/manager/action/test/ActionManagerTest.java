@@ -557,8 +557,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         user.addPermanentRole(RoleFactory.ORG_ADMIN);
         assertNotNull(user);
 
-        Server srvr = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srvr = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(srvr.getId(), "script.run", new Long(1));
         assertNotNull(srvr);
 

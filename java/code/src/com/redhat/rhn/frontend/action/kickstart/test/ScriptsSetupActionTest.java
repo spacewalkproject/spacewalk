@@ -20,18 +20,15 @@ import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.frontend.action.kickstart.ScriptsSetupAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
-import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * KickstartsSetupActionTest
- * @version $Rev: 1 $
  */
 public class ScriptsSetupActionTest extends RhnMockStrutsTestCase {
 
     public void testKickstartList() throws Exception {
         // Create a kickstart and the defaults so the list
         // will return something.
-        UserTestUtils.addProvisioning(user.getOrg());
         KickstartData k = KickstartDataTest.createTestKickstartData(user.getOrg());
         setRequestPathInfo("/kickstart/Scripts");
         addRequestParameter(RequestContext.KICKSTART_ID, k.getId().toString());
@@ -39,8 +36,5 @@ public class ScriptsSetupActionTest extends RhnMockStrutsTestCase {
         DataResult dr = (DataResult) request.getAttribute(ScriptsSetupAction.LIST_NAME);
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
-
     }
-
 }
-

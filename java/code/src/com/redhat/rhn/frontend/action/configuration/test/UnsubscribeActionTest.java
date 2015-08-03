@@ -33,14 +33,12 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * UnsubscribeActionTest
- * @version $Rev$
  */
 public class UnsubscribeActionTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         //give the user config admin status
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         //create a global channel
         ConfigChannel channel = ConfigTestUtils.createConfigChannel(user.getOrg());
@@ -51,7 +49,7 @@ public class UnsubscribeActionTest extends RhnMockStrutsTestCase {
         Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         ServerGroup group = ServerGroupTest.createTestServerGroup(user.getOrg(),
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+                ServerConstants.getServerGroupTypeEnterpriseEntitled());
         ServerFactory.addServerToGroup(server, group);
 
         //subscribe to the channel
@@ -68,4 +66,3 @@ public class UnsubscribeActionTest extends RhnMockStrutsTestCase {
         verifyPageList(ConfigChannelDto.class);
     }
 }
-

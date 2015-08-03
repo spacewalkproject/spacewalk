@@ -26,13 +26,11 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * PreservationListActionTest
- * @version $Rev: 1 $
  */
 public class PreservationListActionTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         FileList f = FileListTest.createTestFileList(user.getOrg());
         CommonFactory.saveFileList(f);
@@ -44,4 +42,3 @@ public class PreservationListActionTest extends RhnMockStrutsTestCase {
         assertTrue(dr.size() > 0);
     }
 }
-

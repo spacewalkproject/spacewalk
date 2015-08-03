@@ -198,11 +198,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
                 new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));
         assertEquals(1, result);
 
-        systemEnt = EntitlementManager.PROVISIONING_ENTITLED;
-        result = handler.setSystemEntitlements(admin,
-                new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));
-        assertEquals(1, result);
-
         systemEnt = EntitlementManager.VIRTUALIZATION_ENTITLED;
         result = handler.setSystemEntitlements(admin,
                 new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));
@@ -218,7 +213,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
 
     public void testSetSystemEntitlementsNoSuchOrgOrFamily() throws Exception {
         Org testOrg = createOrg();
-        String systemEnt = EntitlementManager.PROVISIONING_ENTITLED;
+        String systemEnt = EntitlementManager.VIRTUALIZATION_ENTITLED;
         try {
             handler.setSystemEntitlements(admin,
                     new Integer(testOrg.getId().intValue()), "nosuchentitlement",
@@ -240,7 +235,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testSetSystemEntitlementsDefaultOrg() throws Exception {
-        String systemEnt = EntitlementManager.PROVISIONING_ENTITLED;
+        String systemEnt = EntitlementManager.VIRTUALIZATION_ENTITLED;
         try {
             handler.setSystemEntitlements(admin,
                     new Integer(1), systemEnt, new Integer(10));

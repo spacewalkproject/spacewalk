@@ -67,7 +67,6 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
     }
     public void testDeployConfig() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         //need a tools channel for config deploy
         Channel base = ChannelTestUtils.createBaseChannel(user);
@@ -76,7 +75,6 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         ActivationKey key = createActivationKey();
         //Create a config channel
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
-        key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
         ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
         proc.add(key.getConfigChannelsFor(user), cc);
         key.setDeployConfigs(true);
@@ -87,14 +85,12 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
     }
     public void testConfigPermissions() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
         ActivationKey key = createActivationKey();
 
         //need a tools channel for config deploy
         Channel base = ChannelTestUtils.createBaseChannel(user);
         ChannelTestUtils.setupBaseChannelForVirtualization(user, base);
 
-        key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
         key.setDeployConfigs(true);
         //Create a config channel
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
@@ -225,7 +221,6 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
 
     public void testVirtEnt() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
         UserTestUtils.addVirtualization(user.getOrg());
         Channel baseChannel = ChannelTestUtils.createBaseChannel(user);
         Channel [] channels =

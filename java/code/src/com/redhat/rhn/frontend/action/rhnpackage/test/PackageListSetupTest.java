@@ -23,17 +23,14 @@ import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
-import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * PackageListSetupTest
- * @version $Rev$
  */
 public class PackageListSetupTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         user.addPermanentRole(RoleFactory.ORG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
         Server server = ServerFactoryTest.createTestServer(user, true);
         PackageManagerTest.addPackageToSystemAndChannel(
                 "test-package-name" + TestUtils.randomString(), server,

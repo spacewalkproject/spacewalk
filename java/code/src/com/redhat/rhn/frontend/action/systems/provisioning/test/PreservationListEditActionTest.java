@@ -22,16 +22,13 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
-import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * PreservationListEditActionTest
- * @version $Rev: 1 $
  */
 public class PreservationListEditActionTest extends RhnPostMockStrutsTestCase {
 
     public void testEditExecute() throws Exception {
-        UserTestUtils.addProvisioning(user.getOrg());
         FileList list = FileListTest.createTestFileList(user.getOrg());
         CommonFactory.saveFileList(list);
         TestUtils.flushAndEvict(list);
@@ -50,7 +47,6 @@ public class PreservationListEditActionTest extends RhnPostMockStrutsTestCase {
     }
 
     public void testCreateSubmit() throws Exception {
-        UserTestUtils.addProvisioning(user.getOrg());
         executeCreate(Boolean.TRUE);
         String[] msgs = {"preservation.key.success"};
         verifyActionMessages(msgs);
@@ -74,8 +70,4 @@ public class PreservationListEditActionTest extends RhnPostMockStrutsTestCase {
             assertEquals(testLabel, fl.getLabel());
         }
     }
-
-
-
 }
-

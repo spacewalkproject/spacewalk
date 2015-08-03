@@ -106,12 +106,10 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
         //Only Config Admins can use this manager function.
         //Making the user a config admin will also automatically
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         //That is not enough though, the user must also have a server that is
         //a member of the config channel and have access to the server as well.
-        Server s = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server s = ServerFactoryTest.createTestServer(user, true);
         ConfigTestUtils.giveConfigCapabilities(s);
         List<Server> systems = ServerFactory.listConfigEnabledSystems();
         assertNotNull(systems);
@@ -434,18 +432,9 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
      * @throws Exception
      */
     public void aTestServerHasSpecificEntitlement() throws Exception {
-
         Server s = createTestServer(user);
-
-        // Add two different entitlements.
-
-        SystemManager.entitleServer(s, EntitlementManager.PROVISIONING);
         SystemManager.entitleServer(s, EntitlementManager.VIRTUALIZATION);
-
-        // Check the last entitlement we added.
-
         assertTrue(s.hasEntitlement(EntitlementManager.VIRTUALIZATION));
-
     }
 
     /**
@@ -454,10 +443,10 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
      */
     public void testServerDoesNotHaveSpecificEntitlement() throws Exception {
 
-        // The default test server should not have a provisioning entitlement.
+        // The default test server should not have a virtualization entitlement.
 
         Server s = createTestServer(user);
-        assertFalse(s.hasEntitlement(EntitlementManager.PROVISIONING));
+        assertFalse(s.hasEntitlement(EntitlementManager.VIRTUALIZATION));
     }
 
     /**
@@ -948,7 +937,5 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
 
         List<SnapshotTag> tags = ServerFactory.getSnapshotTags(snap);
         assertContains(tags, tag);
-
     }
-
 }

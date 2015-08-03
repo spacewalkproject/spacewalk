@@ -28,7 +28,6 @@ import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.dto.ConfigChannelDto;
@@ -43,7 +42,6 @@ import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.test.SystemManagerTest;
 import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.TestUtils;
-import com.redhat.rhn.testing.UserTestUtils;
 
 import org.apache.commons.lang.RandomStringUtils;
 
@@ -415,8 +413,6 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
 
 
     public void testDeployAllSystems()  throws Exception {
-        UserTestUtils.addProvisioning(admin.getOrg());
-
         // Create  global config channels
         ConfigChannel gcc1 = ConfigTestUtils.createConfigChannel(admin.getOrg(),
                 ConfigChannelType.global());
@@ -426,8 +422,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
         Long ver = new Long(2);
 
         // gcc1 only
-        Server srv1 = ServerFactoryTest.createTestServer(regular, true,
-                    ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(regular, true);
 
         srv1.subscribe(gcc1);
         srv1.subscribe(gcc2);
