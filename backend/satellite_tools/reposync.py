@@ -451,9 +451,9 @@ class RepoSync(object):
 
     def latest_packages(self,packages):
         #allows to download only lastest packages
-        latest =  [pack for pack in packages if (any(
-                   pack.version>dupl.version for
-                   dupl in packages if dupl.name==pack.name))]
+        latest =  [pack for pack in packages if \
+                  (any(pack.version>dupl.version for \
+                  dupl in packages if dupl.name==pack.name))]
         #select latest packages only, rest is disassociated
         rest = list(set(packages) - set(latest))
         for packToDisassoc in rest:
