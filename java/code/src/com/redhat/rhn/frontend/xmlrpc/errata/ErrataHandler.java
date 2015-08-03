@@ -980,7 +980,7 @@ public class ErrataHandler extends BaseHandler {
      */
     public int cloneAsync(User loggedInUser, String channelLabel,
             List advisoryNames) throws InvalidChannelRoleException {
-        clone(loggedInUser, channelLabel, advisoryNames, false, false);
+        clone(loggedInUser, channelLabel, advisoryNames, false, true);
         return 1;
     }
 
