@@ -105,11 +105,6 @@ class VirtualizationPlatformSlots(Slots):
 # NonLinux slots are gone - misa 20050527
 
 
-class MonitoringSlots(Slots):
-    _db_label = 'monitoring_entitled'
-    _slot_name = 'monitoring'
-
-
 class SatelliteCert:
 
     """Satellite certificate class
@@ -121,9 +116,8 @@ class SatelliteCert:
 
     fields_scalar = ['product', 'owner', 'issued', 'expires', 'slots',
                      'provisioning-slots', 'nonlinux-slots',
-                     'monitoring-slots', 'virtualization_host',
-                     'virtualization_host_platform', 'satellite-version',
-                     'generation', ]
+                     'virtualization_host', 'virtualization_host_platform',
+                     'satellite-version', 'generation', ]
     fields_list = {'channel-families': ChannelFamily}
 
     # datesFormat_cert = '%a %b %d %H:%M:%S %Y' ## OLD CERT FORMAT
@@ -190,7 +184,6 @@ class SatelliteCert:
     _slot_maps = {
         'management': ('slots', ManagementSlots),
         'provisioning': ('provisioning-slots', ProvisioningSlots),
-        'monitoring': ('monitoring-slots', MonitoringSlots),
         'virtualization': ('virtualization_host', VirtualizationSlots),
         'virtualization_platform': ('virtualization_host_platform', VirtualizationPlatformSlots)
     }
