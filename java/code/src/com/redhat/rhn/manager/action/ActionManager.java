@@ -1199,9 +1199,9 @@ public class ActionManager extends BaseManager {
                 throw new MissingCapabilityException("script.run", sid);
             }
 
-            if (!SystemManager.hasEntitlement(sid, EntitlementManager.PROVISIONING)) {
+            if (!SystemManager.hasEntitlement(sid, EntitlementManager.MANAGEMENT)) {
                 throw new MissingEntitlementException(
-                    EntitlementManager.PROVISIONING.getHumanReadableLabel());
+                    EntitlementManager.MANAGEMENT.getHumanReadableLabel());
             }
         }
     }
