@@ -333,7 +333,7 @@ public class ProvisioningRemoteCommand extends RhnAction implements
             RhnSetDecl.SYSTEMS.getLabel(), true);
         for (int i = 0; i < sysOvr.size(); i++) {
             if (SystemManager.hasEntitlement(sysOvr.get(i).getId(),
-                    EntitlementManager.PROVISIONING) &&
+                    EntitlementManager.MANAGEMENT) &&
                     SystemManager.clientCapable(sysOvr.get(i).getId(), "script.run")) {
                 dataset.add(sysOvr.get(i));
             }
