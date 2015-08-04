@@ -3142,9 +3142,9 @@ public class SystemManager extends BaseManager {
      * @param tid tag id
      * @return ssm systems with tag
      */
-    public static DataResult provisioningSystemsInSetWithTag(Long uid, Long tid) {
+    public static DataResult systemsInSetWithTag(Long uid, Long tid) {
         SelectMode m = ModeFactory.getMode("System_queries",
-                "provisioning_systems_in_set_with_tag");
+                "systems_in_set_with_tag");
         Map params = new HashMap();
         params.put("user_id", uid);
         params.put("tag_id",  tid);
@@ -3214,7 +3214,7 @@ public class SystemManager extends BaseManager {
      */
     public static DataResult<Map<String, Object>> listTagsForSystemsInSet(User user) {
         SelectMode mode = ModeFactory.getMode("General_queries",
-                "tags_for_provisioning_entitled_in_set");
+                "tags_for_entitled_in_set");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         return mode.execute(params);
