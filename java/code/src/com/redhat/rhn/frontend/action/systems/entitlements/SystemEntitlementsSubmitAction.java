@@ -252,10 +252,7 @@ public class SystemEntitlementsSubmitAction extends
         String entType = form
         .getString(SystemEntitlementsSetupAction.ADDON_ENTITLEMENT);
 
-        if (EntitlementManager.PROVISIONING_ENTITLED.equals(entType)) {
-            return EntitlementManager.PROVISIONING;
-        }
-        else if (EntitlementManager.VIRTUALIZATION_ENTITLED.equals(entType)) {
+        if (EntitlementManager.VIRTUALIZATION_ENTITLED.equals(entType)) {
             return EntitlementManager.VIRTUALIZATION;
         }
         else if (EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED.equals(entType)) {
