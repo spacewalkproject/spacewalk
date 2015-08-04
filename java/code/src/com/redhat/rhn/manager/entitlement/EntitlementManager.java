@@ -89,9 +89,6 @@ public class EntitlementManager extends BaseManager {
         else if (ENTERPRISE_ENTITLED.equals(name)) {
             return MANAGEMENT;
         }
-        else if (PROVISIONING_ENTITLED.equals(name)) {
-            return PROVISIONING;
-        }
         else if (VIRTUALIZATION_ENTITLED.equals(name)) {
             return VIRTUALIZATION;
         }
