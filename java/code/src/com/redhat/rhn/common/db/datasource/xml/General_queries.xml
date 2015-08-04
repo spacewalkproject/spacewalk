@@ -322,7 +322,7 @@ ORDER BY created DESC
   </query>
 </mode>
 
-<mode name="tags_for_provisioning_entitled_in_set">
+<mode name="tags_for_entitled_in_set">
   <query params="user_id">
 select * from (
 SELECT DISTINCT T.id AS ID,
@@ -341,7 +341,7 @@ SELECT DISTINCT T.id AS ID,
    AND ST.user_id = :user_id
    AND ST.label = 'system_list'
    AND USP.server_id = ST.element
-   AND rhn_server.system_service_level(USP.server_id, 'provisioning') > 0
+   AND rhn_server.system_service_level(USP.server_id, 'management') > 0
    AND USP.server_id = CC.server_id
    AND CC.capability_name_id = CCN.id
    AND CCN.name = 'packages.runTransaction'

@@ -74,13 +74,13 @@ public class RollbackToTagAction extends RhnAction implements Listable {
     public List getResult(RequestContext context) {
         Long uid = context.getCurrentUser().getId();
         Long tagid = context.getRequiredParam(TAG_ID);
-        return SystemManager.provisioningSystemsInSetWithTag(uid, tagid);
+        return SystemManager.systemsInSetWithTag(uid, tagid);
     }
 
     private void rollback(RequestContext context, Long tagId) {
         User user = context.getCurrentUser();
         DataResult<Map<String, Object>> systems =
-                    SystemManager.provisioningSystemsInSetWithTag(user.getId(), tagId);
+                    SystemManager.systemsInSetWithTag(user.getId(), tagId);
         for (Map<String, Object> system : systems) {
             ServerSnapshot snapshot = ServerFactory.lookupSnapshotById(
                                          ((Long) system.get("snapshot_id")).intValue());
