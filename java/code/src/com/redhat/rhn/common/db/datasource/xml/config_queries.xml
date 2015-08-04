@@ -555,7 +555,7 @@ SELECT DISTINCT CFN.id, CFN.path
           AND ST.user_id = :user_id
           AND ST.label = 'system_list'
           AND USP.server_id = ST.element
-          AND rhn_server.system_service_level(USP.server_id, 'provisioning') > 0
+          AND rhn_server.system_service_level(USP.server_id, 'management') > 0
        )
    AND SCC.config_channel_id = CF.config_channel_id
    AND CF.config_file_name_id = CFN.id
@@ -581,7 +581,7 @@ SELECT CFN.id, count(DISTINCT SCC.server_id) AS system_count
           AND ST.user_id = :user_id
           AND ST.label = 'system_list'
           AND USP.server_id = ST.element
-          AND rhn_server.system_service_level(USP.server_id, 'provisioning') > 0
+          AND rhn_server.system_service_level(USP.server_id, 'management') > 0
           AND USP.server_id = S.id
        )
    AND CFN.id IN (%s)
