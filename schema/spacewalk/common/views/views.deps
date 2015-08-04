@@ -67,7 +67,6 @@ rhnVisServerGroupMembership      :: rhnServerGroupType rhnServerGroupMembers \
 rhnVisibleServerGroup            :: rhnServerGroup
 rhnVisibleServerGroupMembers     :: rhnServerGroup rhnServerGroupMembers
 rhnWebContactDisabled            :: rhnWebContactChangeLog rhnWebContactChangeState web_contact
-rhn_host_monitoring              :: rhnServer
 rhnSharedChannelView             :: rhnChannel rhnChannelTrust rhnTrustedOrgs
 rhnSharedChannelTreeView         :: rhnSharedChannelView
 rhnUserActionOverview            :: rhnActionStatus rhnUserServerPerms rhnServerAction \
