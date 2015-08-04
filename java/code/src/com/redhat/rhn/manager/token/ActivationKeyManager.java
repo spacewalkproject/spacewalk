@@ -62,7 +62,6 @@ import java.util.Set;
 
 /**
  * ActivationKeyManager
- * @version $Rev$
  */
 public class ActivationKeyManager {
     private static Logger log = Logger.getLogger(ActivationKeyManager.class);
@@ -250,14 +249,6 @@ public class ActivationKeyManager {
             ServerGroupType entitlement =
                 ServerFactory.lookupServerGroupTypeByLabel(label);
             key.removeEntitlement(entitlement);
-
-            if (label.equals("provisioning_entitled")) {
-                // Special case, clear all packages and configuration channels:
-                key.clearPackages();
-                key.clearConfigChannels();
-                key.setDeployConfigs(false);
-                // TODO: clear configuration channels as well
-            }
         }
     }
 
