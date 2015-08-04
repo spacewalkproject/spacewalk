@@ -84,8 +84,7 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
          *  subscribed to, then the rollback will not work, lets give the user
          *  a message telling them that.
          */
-        if (this instanceof RemoveConfirmSetupAction &&
-            server.hasEntitlement(EntitlementManager.PROVISIONING)) {
+        if (this instanceof RemoveConfirmSetupAction) {
             for (PackageListItem item : items) {
                 Map<String, Long> map = item.getKeyMap();
                 if (!SystemManager.hasPackageAvailable(server, map.get("name_id"),
