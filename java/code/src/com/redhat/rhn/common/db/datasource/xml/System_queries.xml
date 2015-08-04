@@ -2198,7 +2198,7 @@ select a.id
   </query>
 </mode>
 
-<mode name="provisioning_systems_in_set_with_tag">
+<mode name="systems_in_set_with_tag">
   <query params="user_id, tag_id">
 SELECT * FROM (
 SELECT DISTINCT S.id,
@@ -2217,7 +2217,7 @@ SELECT DISTINCT S.id,
    AND ST.user_id = :user_id
    AND ST.label = 'system_list'
    AND USP.server_id = ST.element
-   AND rhn_server.system_service_level(USP.server_id, 'provisioning') &gt; 0
+   AND rhn_server.system_service_level(USP.server_id, 'management') &gt; 0
    AND USP.server_id = CC.server_id
    AND CC.capability_name_id = CCN.id
    AND CCN.name = 'packages.runTransaction'
