@@ -128,34 +128,11 @@ public class EnableConfigHelper {
     private boolean grantProvisioning(Org org, Server current) {
         Long sid = current.getId();
 
-        if (ServerGroupFactory.lookupEntitled(EntitlementManager.PROVISIONING, org)
-                .getAvailableSlots() < 1) {
-            return false;
-        }
-
         /*
-         * This is more complicated than it might originally seem.
          * If they have no entitlements, I have to give them management
-         *   and then provisioning.
          * If they have an update entitlement, I have to switch them to
-         *   management, then give provisioning.
-         * If they have management, I need to give them provisioning.
-         *
-         * I believe the fastest way to do this for a set of systems is to
-         * assume that most of them already have management.  Therefore
-         * I will start by trying to add provisioning.
+         *   management
          */
-        if (SystemManager.canEntitleServer(sid, EntitlementManager.PROVISIONING)) {
-            SystemManager.entitleServer(org, sid, EntitlementManager.PROVISIONING);
-            return true;
-        }
-
-        //darn.  But we won't give up just yet.
-        if (SystemManager.hasEntitlement(sid, EntitlementManager.MANAGEMENT)) {
-            //This means they ran out of provisioning entitlements or some other
-            //problem that we can't fix.
-            return false;
-        }
 
         //remember what entitlements they had so we can put them back if we fail.
         boolean hadUpdate = false;
@@ -173,16 +150,9 @@ public class EnableConfigHelper {
                 manageSlots > 0) {
             SystemManager.entitleServer(org, sid, EntitlementManager.MANAGEMENT);
 
-            if (SystemManager.canEntitleServer(sid, EntitlementManager.PROVISIONING)) {
-                //Excellent, we will now grant provisioning and be happy.
-                SystemManager.entitleServer(org, sid, EntitlementManager.PROVISIONING);
-                return true;
-            }
-
             //We added management, but we couldn't add provisioning, take back management.
             SystemManager.removeServerEntitlement(sid, EntitlementManager.MANAGEMENT);
         }
-
 
         //Something went wrong,  revert changes!!
         if (hadUpdate) {
