@@ -2248,7 +2248,7 @@ ORDER BY UPPER(COALESCE(X.SERVER_NAME, '(none)')), X.ID
   <query params="user_id, set_label, key_id">
 DELETE FROM rhnServerCustomDataValue
       WHERE server_id IN (SELECT element FROM rhnSet WHERE user_id = :user_id AND label = :set_label)
-        AND rhn_server.system_service_level(server_id, 'provisioning') = 1
+        AND rhn_server.system_service_level(server_id, 'management') = 1
         AND key_id = :key_id
   </query>
 </write-mode>
