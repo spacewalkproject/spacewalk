@@ -381,23 +381,6 @@ public class BaseHandler implements XmlRpcInvocationHandler {
             throw new PermissionCheckFailureException(role);
         }
     }
-    /**
-     * Private helper method to make sure a user's org has a
-     * provisioning role
-     * If not, this will throw a generic Permission exception.
-     * @param user The user to check
-     * @throws PermissionCheckFailureException if user's org does not
-     *                                      have provisioning
-     */
-    public static void ensureProvisioning(User user)
-        throws PermissionCheckFailureException {
-        if (!user.getOrg().hasEntitlement(
-                    OrgFactory.getEntitlementProvisioning())) {
-            throw new PermissionCheckFailureException(OrgFactory.
-                                getEntitlementProvisioning());
-        }
-    }
-
 
     /**
      * Ensure the org exists
