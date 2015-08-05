@@ -41,8 +41,7 @@
             </rhn-tab>
         </rhn-tab>
 
-        <rhn-tab name="ssm.nav.config" url="/rhn/systems/ssm/config/Deploy.do"
-                 acl="org_entitlement(rhn_provisioning)">
+        <rhn-tab name="ssm.nav.config" url="/rhn/systems/ssm/config/Deploy.do">
           <rhn-tab-directory>/rhn/systems/ssm/config</rhn-tab-directory>
           <rhn-tab name="ssm.nav.config.deploy" url="/rhn/systems/ssm/config/Deploy.do">
             <rhn-tab-url>/rhn/systems/ssm/config/DeploySubmit.do</rhn-tab-url>
@@ -70,7 +69,7 @@
           </rhn-tab>
         </rhn-tab>
 
-        <rhn-tab name="Provisioning" acl="org_entitlement(rhn_provisioning)" url="/rhn/systems/ssm/kickstart/KickstartableSystems.do">
+        <rhn-tab name="Provisioning" url="/rhn/systems/ssm/kickstart/KickstartableSystems.do">
           <rhn-tab name="Kickstart" url="/rhn/systems/ssm/kickstart/KickstartableSystems.do" >
                 <rhn-tab-url>/rhn/systems/ssm/kickstart/ScheduleByProfile.do</rhn-tab-url>
                 <rhn-tab-url>/rhn/systems/ssm/kickstart/ScheduleByIp.do</rhn-tab-url>

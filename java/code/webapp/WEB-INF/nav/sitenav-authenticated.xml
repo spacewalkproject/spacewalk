@@ -77,28 +77,28 @@
       <rhn-tab-url>/rhn/profiles/List.do</rhn-tab-url>
       <rhn-tab-directory>/rhn/profiles</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Custom System Info" acl="org_entitlement(rhn_provisioning)">
+    <rhn-tab name="Custom System Info">
       <rhn-tab-url>/rhn/systems/customdata/CustomDataList.do</rhn-tab-url>
       <rhn-tab-directory>/rhn/systems/customdata</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Kickstart" url="/rhn/kickstart/KickstartOverview.do" acl="org_entitlement(rhn_provisioning); user_role(config_admin)">
-      <rhn-tab name="Profiles" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/Kickstarts.do">
+    <rhn-tab name="Kickstart" url="/rhn/kickstart/KickstartOverview.do" acl="user_role(config_admin)">
+      <rhn-tab name="Profiles" acl="user_role(config_admin)" url="/rhn/kickstart/Kickstarts.do">
         <rhn-tab-url>/rhn/kickstart/Kickstarts.do</rhn-tab-url>
         <rhn-tab-directory>/rhn/kickstart</rhn-tab-directory>
       </rhn-tab>
-      <rhn-tab name="Bare Metal" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/KickstartIpRanges.do" />
-      <rhn-tab name="GPG and SSL Keys" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/keys/CryptoKeysList.do">
+      <rhn-tab name="Bare Metal" acl="user_role(config_admin)" url="/rhn/kickstart/KickstartIpRanges.do" />
+      <rhn-tab name="GPG and SSL Keys" acl="user_role(config_admin)" url="/rhn/keys/CryptoKeysList.do">
         <rhn-tab-directory>/rhn/keys</rhn-tab-directory>
       </rhn-tab>
-      <rhn-tab name="Distributions" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/ViewTrees.do">
+      <rhn-tab name="Distributions" acl="user_role(config_admin)" url="/rhn/kickstart/ViewTrees.do">
         <rhn-tab-url>/rhn/kickstart/TreeEdit.do</rhn-tab-url>
         <rhn-tab-url>/rhn/kickstart/TreeCreate.do</rhn-tab-url>
         <rhn-tab-url>/rhn/kickstart/TreeDelete.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="File Preservation" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/systems/provisioning/preservation/PreservationList.do">
+      <rhn-tab name="File Preservation" acl="user_role(config_admin)" url="/rhn/systems/provisioning/preservation/PreservationList.do">
         <rhn-tab-url>/rhn/systems/provisioning/preservation/PreservationListEdit.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="snippets.jsp.toolbar" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/cobbler/CustomSnippetList.do" >
+      <rhn-tab name="snippets.jsp.toolbar" acl="user_role(config_admin)" url="/rhn/kickstart/cobbler/CustomSnippetList.do" >
         <rhn-tab-url>/rhn/kickstart/cobbler/DefaultSnippetList.do</rhn-tab-url>
         <rhn-tab-url>/rhn/kickstart/cobbler/CobblerSnippetList.do</rhn-tab-url>
         <rhn-tab-url>/rhn/kickstart/cobbler/CustomSnippetList.do</rhn-tab-url>
@@ -191,9 +191,9 @@
          <rhn-tab name="Search" url="/rhn/audit/Search.do" />
      </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="config.nav.config" url="/rhn/configuration/Overview.do" acl="org_entitlement(rhn_provisioning);user_role(config_admin)">
+  <rhn-tab name="config.nav.config" url="/rhn/configuration/Overview.do" acl="user_role(config_admin)">
     <rhn-tab-directory>/rhn/configuration</rhn-tab-directory>
-    <rhn-tab name="common.nav.overview" url="/rhn/configuration/Overview.do" acl="org_entitlement(rhn_provisioning);user_role(config_admin)" />
+    <rhn-tab name="common.nav.overview" url="/rhn/configuration/Overview.do" acl="user_role(config_admin)" />
     <rhn-tab name="config.nav.channels" url="/rhn/configuration/GlobalConfigChannelList.do" acl="user_role(config_admin)" />
     <rhn-tab name="config.nav.files" url="/rhn/configuration/file/GlobalConfigFileList.do" acl="user_role(config_admin)" >
       <rhn-tab-directory>/rhn/configuration/file</rhn-tab-directory>
