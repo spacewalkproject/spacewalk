@@ -544,9 +544,8 @@ class Registration(rhnHandler):
               entitlements
             * universal_activation_key - a list of universal default activation keys
               (as strings) that were used while registering.
-            Allowable slots are 'enterprise_entitled' (management), 'sw_mgr_entitled'
-            (updates), and provisioning_entitled (provisioning add on to
-            management).
+            Allowable slots are 'enterprise_entitled' (management) and
+            'sw_mgr_entitled' (updates).
             The call will try to use the highest system slot available. An entry will
             be added to failed_system_slots for each one that is tried and fails and
             system_slots will contain the one that succeeded if any.
