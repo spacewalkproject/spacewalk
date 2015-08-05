@@ -589,7 +589,8 @@ sub setup_ssl_certs {
   print Spacewalk::Setup::loc("** SSL: Deploying CA certificate.\n");
 
   deploy_ca_cert("-source-dir" => $answers->{'ssl-dir'},
-                 "-target-dir" => '/var/www/html/pub');
+                 "-target-dir" => '/var/www/html/pub',
+                 "-trust-dir" => '/etc/pki/ca-trust/source/anchors');
 
   print Spacewalk::Setup::loc("** SSL: Generating server certificate.\n");
 
@@ -685,7 +686,8 @@ sub generate_server_cert {
 
 sub deploy_ca_cert {
   my %params = validate(@_, { "source-dir" => 1,
-                              "target-dir" => 1 });
+                              "target-dir" => 1,
+                              "trust-dir" => 1 });
 
   my @opts;
 

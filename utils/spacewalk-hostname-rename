@@ -28,6 +28,7 @@ BOOTSTRAP_SH=/var/www/html/pub/bootstrap/bootstrap.sh
 BOOTSTRAP_CCO=/var/www/html/pub/bootstrap/client-config-overrides.txt
 SAT_LOCAL_RULES_CONF=/var/lib/rhn/rhn-satellite-prep/satellite-local-rules.conf
 BACKUP_EXT=.rnmbck
+CA_CERT_TRUST_DIR=/etc/pki/ca-trust/source/anchors
 
 DB_BACKEND="$(spacewalk-cfg-get db_backend)"
 if [ "$DB_BACKEND" = "oracle" ]; then
@@ -320,7 +321,7 @@ function re-generate_server_ssl_certificate {
         print_status $?
 
         echo -n "Making new SSL certificate publicly available ... " | tee -a $LOG
-        /usr/bin/rhn-deploy-ca-cert.pl --source-dir=$SSL_BUILD_DIR --target-dir=$HTTP_PUB_DIR
+        /usr/bin/rhn-deploy-ca-cert.pl --source-dir=$SSL_BUILD_DIR --target-dir=$HTTP_PUB_DIR --trust-dir=$CA_CERT_TRUST_DIR
         print_status $?
 
         # copy jabberd certificate, too

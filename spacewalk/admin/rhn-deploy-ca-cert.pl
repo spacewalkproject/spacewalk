@@ -25,13 +25,14 @@ use File::Spec;
 
 $ENV{PATH} = '/bin:/usr/bin';
 
-my $usage = "usage: $0 --source-dir=<source-directory> --target-dir=<target-directory> [ --help ]\n";
+my $usage = "usage: $0 --source-dir=<source-directory> --target-dir=<target-directory> --trust-dir=<ca-trust-directory> [ --help ]\n";
 
 my $source_dir = '';
 my $target_dir = '';
+my $trust_dir = '';
 my $help = '';
 
-GetOptions("source-dir=s" => \$source_dir, "target-dir=s" => \$target_dir, "help" => \$help) or die $usage;
+GetOptions("source-dir=s" => \$source_dir, "target-dir=s" => \$target_dir, "trust-dir=s" => \$trust_dir, "help" => \$help) or die $usage;
 
 if ($help or not ($source_dir and $target_dir)) {
   die $usage;
@@ -51,6 +52,7 @@ unless (-r $latest_file) {
 
 my $rpm;
 my $cert;
+my $cert_target_file;
 
 open(LATEST, $latest_file) or die "Could not open '$latest_file' for reading: $OS_ERROR";
 
@@ -59,8 +61,10 @@ while (my $line = <LATEST>) {
 
   $rpm = File::Spec->catfile($source_dir, $line)
     if ($line =~ /(?<!src)\.rpm$/);
-  $cert = File::Spec->catfile($source_dir, $line)
-    if ($line =~ /CERT$/);
+  if ($line =~ /CERT$/) {
+    $cert = File::Spec->catfile($source_dir, $line);
+    $cert_target_file = File::Spec->catfile($target_dir, $line);
+  }
 }
 
 close(LATEST);
@@ -83,6 +87,18 @@ $ret = system('cp', $rpm, $target_dir);
 
 if ($ret) {
   die "Could not copy $rpm to $target_dir";
+}
+
+$ret = system('ln', '-sf', $cert_target_file, $trust_dir);
+
+if ($ret) {
+  die "Could not link $cert_target_file to $trust_dir";
+}
+
+$ret = system('update-ca-trust', 'extract');
+
+if ($ret) {
+  die "Could not update CA trusts.";
 }
 
 exit 0;
