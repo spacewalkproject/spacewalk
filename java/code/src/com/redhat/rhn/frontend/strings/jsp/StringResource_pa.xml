@@ -13077,14 +13077,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Actions needed for configuration capabilities.</source>
           <target>ਸੰਰਚਨਾ ਸਮਰੱਥਾ ਲਈ ਲੋੜੀਂਦੀਆਂ ਕਾਰਵਾਈਆਂ।</target>
         </trans-unit>
-        <trans-unit id="targetsystems.jsp.orgadmin">
-          <source>Requires organization administrator</source>
-          <target>ਸੰਗਠਨ ਪਰਬੰਧਕ ਦੀ ਲੋੜ ਹੈ</target>
-        </trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-          <target>ਮਨਜੂਰੀ ਇੰਟਾਈਟਲਮੈਂਟ ਜੋੜੋ</target>
-        </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to RHN Tools channel</source>
           <target>RHN ਜੰਤਰ ਚੈਨਲ ਤੇ ਮੈਂਬਰ ਬਣੋ</target>
@@ -13154,14 +13146,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="summary.jsp.noerror">
           <source>No Error.</source>
           <target>ਕੋਈ ਗਲਤੀ ਨਹੀਂ</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.orgadmin">
-          <source>Remaining actions require organization administrator.</source>
-          <target>ਬਾਕੀ ਕਾਰਵਾਈਆਂ ਲਈ ਸੰਗਠਨ ਪਰਬੰਧਕ ਦੀ ਲੋੜ ਹੈ।</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.provision">
-          <source>Could not grant provisioning entitlement.</source>
-          <target>ਮਨਜੂਰੀ ਇੰਟਾਈਟਲਮੈਂਟ ਗਰਾਂਟ ਨਹੀਂ ਕਰ ਸਕਦਾ।</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>

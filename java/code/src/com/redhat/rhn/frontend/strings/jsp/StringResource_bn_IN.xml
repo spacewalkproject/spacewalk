@@ -13077,14 +13077,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Actions needed for configuration capabilities.</source>
           <target>কনফিগারেশন সংক্রান্ত বৈশিষ্ট্যের জন্য প্রয়োজনীয় কর্ম।</target>
         </trans-unit>
-        <trans-unit id="targetsystems.jsp.orgadmin">
-          <source>Requires organization administrator</source>
-          <target>প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটর আবশ্যক</target>
-        </trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-          <target>provisioning এনটাইটেলমেন্ট যোগ করুন</target>
-        </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to RHN Tools channel</source>
           <target>RHN Tools চ্যানেলে সাবস্ক্রাইব করুন</target>
@@ -13154,14 +13146,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="summary.jsp.noerror">
           <source>No Error.</source>
           <target>কোনো ত্রুটি নেই।</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.orgadmin">
-          <source>Remaining actions require organization administrator.</source>
-          <target>অবশিষ্ট কর্মের জন্য প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটরের ক্ষমতা আবশ্যক।</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.provision">
-          <source>Could not grant provisioning entitlement.</source>
-          <target>provisioning এনটাইটেলমেন্ট জ্ঞাপন করা সম্ভব হয়নি।</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>

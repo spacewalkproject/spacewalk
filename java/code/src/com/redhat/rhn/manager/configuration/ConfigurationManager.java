@@ -73,7 +73,6 @@ import java.util.Set;
 
 /**
  * ConfigurationManager
- * @version $Rev$
  */
 public class ConfigurationManager extends BaseManager {
 
@@ -88,10 +87,8 @@ public class ConfigurationManager extends BaseManager {
     //These are used when enabling a system for configuration management
     //through our helpful user interface
     public static final int ENABLE_SUCCESS = 0;
-    public static final int ENABLE_ERROR_PROVISIONING = 1;
     public static final int ENABLE_ERROR_RHNTOOLS = 2;
     public static final int ENABLE_ERROR_PACKAGES = 3;
-    public static final int ENABLE_NEED_ORG_ADMIN = 4;
 
     public static final String FEATURE_CONFIG = "ftr_config";
     /**
