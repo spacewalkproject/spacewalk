@@ -86,7 +86,7 @@ class Tests(unittest.TestCase):
     def test_grant_entitlements_q(self):
         "Grant entitlements"
         org_id = misc_functions.create_new_org()
-        entitlement_level = 'provisioning_entitled'
+        entitlement_level = 'enterprise_entitled'
         quantity = 17
 
         misc_functions.grant_entitlements(org_id, entitlement_level, quantity)

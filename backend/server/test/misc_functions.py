@@ -318,7 +318,7 @@ def create_activation_key(org_id=None, user_id=None, groups=None,
         channels = ['rhel-i386-as-3-beta', 'rhel-i386-as-2.1-beta']
 
     if entitlement_level is None:
-        entitlement_level = 'provisioning_entitled'
+        entitlement_level = 'enterprise_entitled'
 
     if note is None:
         note = "Test activation key %d" % int(time.time())
