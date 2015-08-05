@@ -354,14 +354,6 @@ public class OrgFactory extends HibernateFactory {
     }
 
     /**
-     * Get entitlement for provisioning
-     * @return OrgEntitlementType
-     */
-    public static OrgEntitlementType getEntitlementProvisioning() {
-        return lookupEntitlementByLabel("rhn_provisioning");
-    }
-
-    /**
      * Get entitlement for sw_mgr_enterprise - aka MANAGEMENT
      * @return OrgEntitlementType
      */
