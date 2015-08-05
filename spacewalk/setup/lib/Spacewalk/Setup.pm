@@ -793,7 +793,7 @@ REDO_CONNECT:
 
         ask(
                 -noninteractive => $opts->{"non-interactive"},
-                -question => "Database service name (SID)",
+                -question => "Global Database Name or SID (requires tnsnames.ora)",
                 -test => qr/\S+/,
                 -answer => \$answers->{'db-name'}
         );
