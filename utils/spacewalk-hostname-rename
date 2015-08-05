@@ -281,8 +281,25 @@ function re-generate_server_ssl_certificate {
             SSL_CA_PASSWORD=${REPLY}
         fi
 
-        echo " Generating SSL certificate:" | tee -a $LOG
+        echo " Generating SSL certificates:" | tee -a $LOG
         # just log the SSL info ...
+        echo "rhn-ssl-tool --gen-ca --force \
+            --dir="$SSL_BUILD_DIR" \
+            --set-country="$SSL_COUNTRY" \
+            --set-state="$SSL_STATE" \
+            --set-org="$SSL_ORG" \
+            --set-org-unit="$SSL_ORGUNIT" \
+            --set-common-name="${HOSTNAME}" \
+        " >> $LOG
+        rhn-ssl-tool --gen-ca --force \
+            --dir="$SSL_BUILD_DIR" \
+            --set-country="$SSL_COUNTRY" \
+            --set-state="$SSL_STATE" \
+            --set-org="$SSL_ORG" \
+            --set-org-unit="$SSL_ORGUNIT" \
+            --set-common-name="${HOSTNAME}" \
+            --password="$SSL_CA_PASSWORD" \
+            2>>$LOG
         echo "rhn-ssl-tool --gen-server \
             --dir="$SSL_BUILD_DIR" \
             --set-country="$SSL_COUNTRY" \
