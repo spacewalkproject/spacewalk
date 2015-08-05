@@ -61,6 +61,7 @@ import com.redhat.rhn.domain.server.Location;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Note;
+import com.redhat.rhn.domain.server.PushClient;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
@@ -5453,5 +5454,74 @@ public class SystemHandler extends BaseHandler {
 
         return action.getId().intValue();
     }
-
+    /**
+     * send a ping to a system using OSA
+     * @param loggedInUser the session key
+     * @param serverId server id
+     * @return 1 on success, exception thrown otherwise.
+     *
+     * @xmlrpc.doc send a ping to a system using OSA
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int sendOsaPing(User loggedInUser, Integer serverId) {
+        Server server = lookupServer(loggedInUser, serverId);
+        PushClient client = server.getPushClient();
+        client.setLastPingTime(new Date());
+        client.setNextActionTime(null);
+        SystemManager.storeServer(server);
+        return 1;
+    }
+    /**
+     * get details about a ping sent to a system using OSA
+     * @param loggedInUser the session key
+     * @param serverId server id
+     * @return details about a ping sent to a system using OSA
+     *
+     * @xmlrpc.doc get details about a ping sent to a system using OSA
+     * @xmlrpc.param #param("User", "loggedInUser")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype
+     *      #struct("osaPing")
+     *          #prop_desc("String" "state"
+     *          "state of the system (unknown, online, offline)")
+     *          #prop_desc("dateTime.iso8601" "lastMessageTime"
+     *          "time of the last received response
+     *          (1970/01/01 00:00:00 if never received a response)")
+     *          #prop_desc("dateTime.iso8601" "lastPingTime"
+     *          "time of the last sent ping
+     *          (1970/01/01 00:00:00 if no ping is pending")
+     *      #struct_end()
+     */
+    public Map<String, Object> getOsaPing(User loggedInUser, Integer serverId) {
+        Server server = lookupServer(loggedInUser, serverId);
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (server.getPushClient() != null) {
+            if (server.getPushClient().getState().getName() == null) {
+                map.put("state", "unknown");
+            }
+            else {
+                map.put("state", server.getPushClient().getState().getName());
+            }
+            if (server.getPushClient().getLastMessageTime() == null) {
+                map.put("lastMessageTime", new Date(0));
+            }
+            else {
+                map.put("lastMessageTime", server.getPushClient().getLastMessageTime());
+            }
+            if (server.getPushClient().getLastPingTime() == null) {
+                map.put("lastPingTime", new Date(0));
+            }
+            else {
+                map.put("lastPingTime", server.getPushClient().getLastPingTime());
+            }
+        }
+        else {
+            map.put("state", "unknown");
+            map.put("lastMessageTime", new Date(0));
+            map.put("lastPingTime", new Date(0));
+        }
+        return map;
+    }
 }
