@@ -67,7 +67,6 @@ class Tests(unittest.TestCase):
         token_user_id = u.getid()
         token_org_id = org_id
         token_entitlement_level = {
-            'provisioning_entitled': None,
             'enterprise_entitled': None,
         }
         token_note = "Test activation key %d" % int(time.time())
