@@ -252,7 +252,7 @@ class Packages:
 
         # if provisioning box, and there was an actual delta, snapshot
         ents = check_entitlement(sysid)
-        if commits and ents.has_key("provisioning_entitled"):
+        if commits and ents.has_key("enterprise_entitled"):
             snapshot_server(sysid, "Package profile changed")
 
         # Our new state does not reflect what's on the database anymore
