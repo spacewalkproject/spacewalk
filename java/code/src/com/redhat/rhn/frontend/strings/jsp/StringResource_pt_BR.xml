@@ -13940,14 +13940,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           <source>Actions needed for configuration capabilities.</source>
           <target>São necessárias certas ações para as capacidades de configuração.</target>
         </trans-unit>
-        <trans-unit id="targetsystems.jsp.orgadmin">
-          <source>Requires organization administrator</source>
-          <target>Requer um administrador da organização</target>
-        </trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-          <target>Adicionar Serviços de provisão</target>
-        </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to RHN Tools channel</source>
           <target>Registrar-se nos canais de Ferramenta da RHN</target>
@@ -14017,14 +14009,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <trans-unit id="summary.jsp.noerror">
           <source>No Error.</source>
           <target>Nenhum Erro</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.orgadmin">
-          <source>Remaining actions require organization administrator.</source>
-          <target>Ações restantes requerem o administrador da organização.</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.provision">
-          <source>Could not grant provisioning entitlement.</source>
-          <target>Não foi possível obter serviço de provisão.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>

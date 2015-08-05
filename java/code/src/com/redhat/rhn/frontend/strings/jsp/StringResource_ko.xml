@@ -13582,14 +13582,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Actions needed for configuration capabilities.</source>
           <target>설정 기능에 필요한 작업</target>
         </trans-unit>
-        <trans-unit id="targetsystems.jsp.orgadmin">
-          <source>Requires organization administrator</source>
-          <target>조직 관리자 필요</target>
-        </trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-          <target>프로비저닝 (Provisioning) 인타이틀먼트 추가</target>
-        </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to RHN Tools channel</source>
           <target>RHN 도구 채널에 등록</target>
@@ -13659,14 +13651,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="summary.jsp.noerror">
           <source>No Error.</source>
           <target>오류 없음</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.orgadmin">
-          <source>Remaining actions require organization administrator.</source>
-          <target>나머지 작업에서는 조직 관리자가 필요합니다.</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.provision">
-          <source>Could not grant provisioning entitlement.</source>
-          <target>프로비저닝 (Provisioning) 인타이틀먼트를 승인할 수 없음</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>
