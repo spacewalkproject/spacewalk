@@ -78,10 +78,6 @@
           <source>Management</source>
           <target>વ્યવસ્થાપન</target>
         </trans-unit>
-        <trans-unit id="provisioning_entitled">
-          <source>Provisioning</source>
-          <target>બચાવ</target>
-        </trans-unit>
         <trans-unit id="sw_mgr_entitled">
           <source>Update</source>
           <target>સુધારો</target>

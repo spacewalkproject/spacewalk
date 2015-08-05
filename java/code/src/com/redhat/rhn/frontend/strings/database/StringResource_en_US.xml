@@ -68,9 +68,6 @@
         <trans-unit id="enterprise_entitled">
           <source>Management</source>
         </trans-unit>
-        <trans-unit id="provisioning_entitled">
-          <source>Provisioning</source>
-        </trans-unit>
         <trans-unit id="sw_mgr_entitled">
           <source>Update</source>
         </trans-unit>

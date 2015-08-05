@@ -70,10 +70,6 @@
         <source>Management</source>
         <target>Gestió</target>
       </trans-unit>
-      <trans-unit id="provisioning_entitled">
-        <source>Provisioning</source>
-        <target>Aprovisionament</target>
-      </trans-unit>
       <trans-unit id="sw_mgr_entitled">
         <source>Update</source>
         <target>Actualització</target>
