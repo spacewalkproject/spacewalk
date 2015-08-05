@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.4.4
+Version:        2.4.5
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -112,6 +112,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Aug 05 2015 Jan Dobes 2.4.5-1
+- trust spacewalk CA certificate
+
 * Fri Jul 24 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.4-1
 - require cobbler20 - Spacewalk is not working with upstream cobbler anyway
 
