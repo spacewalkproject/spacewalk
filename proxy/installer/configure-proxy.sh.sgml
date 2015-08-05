@@ -186,6 +186,30 @@ provide a required response, default answer is used.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>--ssl-use-existing-certs=USE_EXISTING_CERTS</term>
+        <listitem>
+            <para>Use custom SSL certificates instead of generating new ones (use --ssl-ca-cert, --ssl-server-key and --ssl-server-cert parameters or corresponding variables to specify paths).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ssl-ca-cert=CA_CERT</term>
+        <listitem>
+            <para>(If --ssl-use-existing-certs=1) use a custom CA certificate from the given file.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ssl-server-key=SERVER_KEY</term>
+        <listitem>
+            <para>(If --ssl-use-existing-certs=1) use a server private SSL key from the given file.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ssl-server-cert=SERVER_CERT</term>
+        <listitem>
+            <para>(If --ssl-use-existing-certs=1) use a server public SSL certificate from the given file.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>--version=VERSION</term>
         <listitem>
             <para>Version of Spacewalk Proxy Server you want to activate.</para>
@@ -225,6 +249,30 @@ provide a required response, default answer is used.</para>
         <term>USE_SSL</term>
         <listitem>
            <para>1 if &RHNPROXY; should communicate with parent over SSL. 0 otherwise. Even if disabled, client can still use SSL to connect to &RHNPROXY;</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>USE_EXISTING_CERTS</term>
+        <listitem>
+           <para>Use custom SSL certificates instead of generating new ones (use CA_CERT, SERVER_KEY and SERVER_CERT variables to specify paths).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>CA_CERT</term>
+        <listitem>
+            <para>(If USE_EXISTING_CERTS=1) use a custom CA certificate from the given file.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>SERVER_KEY</term>
+        <listitem>
+            <para>(If USE_EXISTING_CERTS=1) use a server private SSL key from the given file.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>SERVER_CERT</term>
+        <listitem>
+            <para>(If USE_EXISTING_CERTS=1) use a server public SSL certificate from the given file.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

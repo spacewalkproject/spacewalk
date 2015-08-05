@@ -189,11 +189,13 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
             <para>generate a CA SSL private key: <command>--gen-ca --key-only <replaceable>...</replaceable></command></para>
             <para>generate a CA SSL public certificate: <command>--gen-ca --cert-only <replaceable>...</replaceable></command></para>
             <para>generate a CA SSL public RPM: <command>--gen-ca --rpm-only <replaceable>...</replaceable></command></para>
+            <para>generate a CA SSL public RPM using a custom CA certificate from the given file: <command>--gen-ca --rpm-only --from-ca-cert=<replaceable>FILE</replaceable></command></para>
 
             <para>generate a web server's SSL private key: <command>--gen-server --key-only <replaceable>...</replaceable></command></para>
             <para>generate a web server's SSL certificate request: <command>--gen-server --cert-req-only <replaceable>...</replaceable></command></para>
             <para>generate/sign a web server's SSL certificate: <command>--gen-server --cert-only <replaceable>...</replaceable></command></para>
             <para>generate a web server's private RPM (and tar archive used for Red Hat Satellite Proxy installations): <command>--gen-server --rpm-only <replaceable>...</replaceable></command></para>
+            <para>generate a web server's private RPM using a custom SSL key and certificate: <command>--gen-server --rpm-only --from-server-key=<replaceable>FILE</replaceable> --from-server-cert=<replaceable>FILE</replaceable></command></para>
 
             </listitem>
         </varlistentry></variablelist>
@@ -203,6 +205,13 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
         <variablelist><varlistentry>
 
             <term>Using a 3rd party CA (rarely done in the RHN context):</term>
+
+            <para><emphasis>DEPRECATED:</emphasis> Use
+            <command>--from-ca-cert</command>,
+            <command>--from-server-key</command> and
+            <command>--from-server-cert</command> parameters instead as
+            described in Advanced options section.
+            </para>
 
             <listitem>
             <para></para>

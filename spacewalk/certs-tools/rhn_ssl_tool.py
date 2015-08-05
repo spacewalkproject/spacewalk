@@ -793,13 +793,11 @@ def genProxyServerTarball_dependencies(d):
     ca_cert = pathJoin(d['--dir'], d['--ca-cert'])
     server_key = pathJoin(serverKeySetDir, d['--server-key'])
     server_cert = pathJoin(serverKeySetDir, d['--server-cert'])
-    server_cert_req = pathJoin(serverKeySetDir, d['--server-cert-req'])
     jabberd_ssl_cert = pathJoin(serverKeySetDir, d['--jabberd-ssl-cert'])
 
     dependencyCheck(ca_cert)
     dependencyCheck(server_key)
     dependencyCheck(server_cert)
-    dependencyCheck(server_cert_req)
     dependencyCheck(jabberd_ssl_cert)
 
 
@@ -850,17 +848,12 @@ def genProxyServerTarball(d, version='1.0', release='1', verbosity=0):
     tarballFilepath = pathJoin(d['--dir'], tarballFilepath)
 
     machinename = getMachineName(d['--set-hostname'])
-    ca_cert = os.path.basename(d['--ca-cert'])
-    server_key = pathJoin(machinename, d['--server-key'])
-    server_cert = pathJoin(machinename, d['--server-cert'])
-    server_cert_req = pathJoin(machinename, d['--server-cert-req'])
-    jabberd_ssl_cert = os.path.join(machinename, d['--jabberd-ssl-cert'])
 
-    ## build the server tarball
-    args = '/bin/tar -cvf %s %s %s %s %s %s' \
-           % (repr(os.path.basename(tarballFilepath)), repr(ca_cert),
-              repr(server_key), repr(server_cert), repr(server_cert_req),
-              repr(jabberd_ssl_cert))
+    tar_args = [repr(os.path.basename(tarballFilepath)),
+                repr(os.path.basename(d['--ca-cert'])),
+                repr(pathJoin(machinename, d['--server-key'])),
+                repr(pathJoin(machinename, d['--server-cert'])),
+                repr(os.path.join(machinename, d['--jabberd-ssl-cert']))]
 
     serverKeySetDir = pathJoin(d['--dir'], machinename)
     tarballFilepath2 = pathJoin(serverKeySetDir, tarballFilepath)
@@ -875,6 +868,18 @@ Generating the web server's SSL key set and CA SSL public certificate archive:
     %s""" % tarballFilepath2
 
     cwd = chdir(d['--dir'])
+
+    # check if (optional) cert request exists
+    server_cert_req = os.path.join(machinename, d['--server-cert-req'])
+    if os.path.exists(server_cert_req):
+        tar_args.append(repr(server_cert_req))
+    else:
+        sys.stderr.write("WARNING: Not bundling %s to server tarball (file "
+                         "not found)." % repr(server_cert_req))
+
+    # build the server tarball
+    args = ('/bin/tar -cvf %s ' % " ".join(tar_args)).strip()
+
     try:
         if verbosity > 1:
             print "Current working directory:", os.getcwd()
@@ -933,7 +938,6 @@ def genServerRpm_dependencies(d):
 
     dependencyCheck(server_key)
     dependencyCheck(server_cert)
-    dependencyCheck(server_cert_req)
 
     gen_jabberd_cert(d)
 
@@ -1038,18 +1042,26 @@ server with this hostname: %s
             "--name %s --version %s --release %s --packager %s --vendor %s "
             "--group 'RHN/Security' --summary %s --description %s --postun %s "
             "/etc/httpd/conf/ssl.key/server.key:0600=%s "
-            "/etc/httpd/conf/ssl.csr/server.csr=%s "
             "/etc/httpd/conf/ssl.crt/server.crt=%s "
-            "%s"
+            "%s "
             % (repr(server_rpm_name), ver, rel, repr(d['--rpm-packager']),
                repr(d['--rpm-vendor']),
                repr(SERVER_RPM_SUMMARY), repr(description),
                repr(cleanupAbsPath(postun_scriptlet)),
                repr(cleanupAbsPath(server_key)),
-               repr(cleanupAbsPath(server_cert_req)),
                repr(cleanupAbsPath(server_cert)),
                jabberd_cert_string
                ))
+
+    abs_server_cert_req = cleanupAbsPath(server_cert_req)
+    if os.path.exists(abs_server_cert_req):
+        args += ("/etc/httpd/conf/ssl.csr/server.csr=%s"
+                 % repr(abs_server_cert_req))
+    else:
+        sys.stderr.write("WARNING: Not bundling %s to server RPM "
+                         "(file not found)." %
+                         repr(server_cert_req))
+
     serverRpmName = "%s-%s-%s" % (server_rpm, ver, rel)
 
     if verbosity >= 0:
@@ -1141,8 +1153,46 @@ def genServer_dependencies(password, d):
         sys.stderr.write('ERROR: a CA password must be supplied.\n')
         sys.exit(errnoGeneralError)
 
+def _copy_ca_file(d,f):
+    if not os.path.isfile(f):
+        raise GenCaCertRpmException("CA public SSL certificate RPM generation "
+                                   "failed: file %s not found." % f)
+
+    gendir(d['--dir'])
+    ca_cert_name = os.path.basename(d['--ca-cert'])
+    ca_cert = os.path.join(d['--dir'], ca_cert_name)
+    shutil.copy2(f, ca_cert)
+
+def _copy_server_ssl_key(d,key_file):
+    if not os.path.isfile(key_file):
+        raise GenServerRpmException("web server's SSL key set RPM generation "
+                                    "failed: file %s not found." % key_file)
+
+    serverKeyPairDir = os.path.join(d['--dir'],
+                                    getMachineName(d['--set-hostname']))
+    gendir(serverKeyPairDir)
+
+    server_key_name = os.path.basename(d['--server-key'])
+    server_key = os.path.join(serverKeyPairDir, server_key_name)
+
+    shutil.copy2(key_file, server_key)
+
+def _copy_server_ssl_cert(d,cert_file):
+    if not os.path.isfile(cert_file):
+        raise GenServerRpmException("web server's SSL key set RPM generation "
+                                    "failed: file %s not found." % cert_file)
+
+    serverKeyPairDir = os.path.join(d['--dir'],
+                                    getMachineName(d['--set-hostname']))
+    gendir(serverKeyPairDir)
+
+    server_cert_name = os.path.basename(d['--server-cert'])
+    server_cert = os.path.join(serverKeyPairDir, server_cert_name)
+
+    shutil.copy2(cert_file, server_cert)
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 
 def _main():
     """ main routine """
@@ -1160,6 +1210,8 @@ def _main():
             genPublicCaCert(getCAPassword(options), DEFS,
                             options.verbose, options.force)
         elif getOption(options, 'rpm_only'):
+            if getOption(options, 'from_ca_cert'):
+                _copy_ca_file(DEFS, getOption(options, 'from_ca_cert'));
             genCaRpm_dependencies(DEFS)
             genCaRpm(DEFS, options.verbose)
         else:
@@ -1180,6 +1232,10 @@ def _main():
             genServerCert_dependencies(getCAPassword(options, confirmYN=0), DEFS)
             genServerCert(getCAPassword(options, confirmYN=0), DEFS, options.verbose)
         elif getOption(options, 'rpm_only'):
+            if getOption(options, 'from_server_key'):
+                _copy_server_ssl_key(DEFS, getOption(options, 'from_server_key'))
+            if getOption(options, 'from_server_cert'):
+                _copy_server_ssl_cert(DEFS, getOption(options, 'from_server_cert'))
             genServerRpm_dependencies(DEFS)
             genServerRpm(DEFS, options.verbose)
         else:

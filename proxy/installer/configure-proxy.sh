@@ -63,6 +63,16 @@ options:
             Let Spacewalk Proxy Server communicate with parent over SSL.
             Even if it is disabled client can still use SSL to connect
             to Spacewalk Proxy Server.
+  --ssl-use-existing-certs
+            Use custom SSL certificates instead of generating new ones (use
+            --ssl-ca-cert, --ssl-server-key and --ssl-server-cert parameters to
+            specify paths).
+  --ssl-ca-cert
+            Use a custom CA certificate from the given file.
+  --ssl-server-key
+            Use a server private SSL key from the given file.
+  --ssl-server-cert
+            Use a server public SSL certificate from the given file.
   --version=VERSION
             Version of Spacewalk Proxy Server you want to activate.
 HELP
@@ -95,7 +105,7 @@ set_value() {
 INTERACTIVE=1
 CNAME_INDEX=0
 
-OPTS=$(getopt --longoptions=help,answer-file:,non-interactive,version:,traceback-email:,use-ssl::,force-own-ca,http-proxy:,http-username:,http-password:,ssl-build-dir:,ssl-org:,ssl-orgunit:,ssl-common:,ssl-city:,ssl-state:,ssl-country:,ssl-email:,ssl-password:,ssl-cname:,populate-config-channel::,start-services:: -n ${0##*/} -- h "$@")
+OPTS=$(getopt --longoptions=help,answer-file:,non-interactive,version:,traceback-email:,use-ssl::,force-own-ca,http-proxy:,http-username:,http-password:,ssl-build-dir:,ssl-org:,ssl-orgunit:,ssl-common:,ssl-city:,ssl-state:,ssl-country:,ssl-email:,ssl-password:,ssl-cname:,ssl-use-existing-certs::,ssl-ca-cert:,ssl-server-key:,ssl-server-cert:,populate-config-channel::,start-services:: -n ${0##*/} -- h "$@")
 
 if [ $? != 0 ] ; then
     print_help
@@ -131,6 +141,10 @@ while : ; do
         --start-services) START_SERVICES="${2:-Y}"; shift;;
         --rhn-user) set_value "$1" RHN_USER "$2"; shift;;
         --rhn-password) set_value "$1" RHN_PASSWORD "$2"; shift;;
+        --ssl-use-existing-certs) USE_EXISTING_CERTS="${2:-Y}"; shift;;
+        --ssl-ca-cert) set_value "$1" CA_CERT "$2"; shift;;
+        --ssl-server-key) set_value "$1" SERVER_KEY "$2"; shift;;
+        --ssl-server-cert) set_value "$1" SERVER_CERT "$2"; shift;;
         --) shift;
             if [ $# -gt 0 ] ; then
                 echo "Error: Extra arguments found: $@"
@@ -284,14 +298,6 @@ SYSTEM_ID=$(/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt $SYSTEMID_PATH |
 DIR=/usr/share/doc/proxy/conf-template
 HOSTNAME=$(hostname)
 
-FORCE_OWN_CA=$(yes_no $FORCE_OWN_CA)
-
-SSL_BUILD_DIR=${SSL_BUILD_DIR:-/root/ssl-build}
-if ! [ -d $SSL_BUILD_DIR ] && [ 0$FORCE_OWN_CA -eq 0 ]; then
-    echo "Error: ssl build directory $SSL_BUILD_DIR does not exist. Please create this directory."
-    exit 1
-fi
-
 UP2DATE_FILE=$SYSCONFIG_DIR/up2date
 RHN_PARENT=$(awk -F= '/serverURL=/ {split($2, a, "/")} END {print a[3]}' $UP2DATE_FILE)
 echo "Using RHN parent (from $UP2DATE_FILE): $RHN_PARENT"
@@ -306,20 +312,6 @@ fi
 
 CA_CHAIN=$(awk -F'[=;]' '/sslCACert=/ {a=$2} END {print a}' $UP2DATE_FILE)
 echo "Using CA Chain (from $UP2DATE_FILE): $CA_CHAIN"
-
-if [ 0$FORCE_OWN_CA -eq 0 ] && \
-    ! is_hosted "$RHN_PARENT" && \
-    [ ! -f /root/ssl-build/RHN-ORG-PRIVATE-SSL-KEY ] && \
-    ! diff $CA_CHAIN /root/ssl-build/RHN-ORG-TRUSTED-SSL-KEY &>/dev/null; then
-        cat <<CA_KEYS
-Please do copy your CA key and public certificate from $RHN_PARENT to
-/root/ssl-build directory. You may want to execute this command:
- scp 'root@$RHN_PARENT:/root/ssl-build/{RHN-ORG-PRIVATE-SSL-KEY,RHN-ORG-TRUSTED-SSL-CERT,rhn-ca-openssl.cnf}' $SSL_BUILD_DIR
-CA_KEYS
-        exit 1
-fi
-
-check_ca_conf
 
 if ! /sbin/runuser nobody -s /bin/sh --command="[ -r $CA_CHAIN ]" ; then
     echo Error: File $CA_CHAIN is not readable by nobody user.
@@ -354,36 +346,14 @@ USE_SSL=$(yes_no $USE_SSL)
 
 cat <<SSLCERT
 Regardless of whether you enabled SSL for the connection to the Spacewalk Parent
-Server, you will be prompted to generate an SSL certificate.
+Server, you will be prompted to generate/import an SSL certificate.
 This SSL certificate will allow client systems to connect to this Spacewalk Proxy
 securely. Refer to the Spacewalk Proxy Installation Guide for more information.
 SSLCERT
 
-default_or_input "Organization" SSL_ORG ''
-
-default_or_input "Organization Unit" SSL_ORGUNIT "$HOSTNAME"
-
-default_or_input "Common Name" SSL_COMMON "$HOSTNAME"
-
-default_or_input "City" SSL_CITY ''
-
-default_or_input "State" SSL_STATE ''
-
-default_or_input "Country code" SSL_COUNTRY ''
-
-default_or_input "Email" SSL_EMAIL "$TRACEBACK_EMAIL"
-
-if [ ${#SSL_CNAME_PARSED[@]} -eq 0 ]; then
-    VARIABLE_ISSET=$(set | grep "^SSL_CNAME=")
-    if [ -z $VARIABLE_ISSET ]; then
-        default_or_input "Cname aliases (separated by space)" SSL_CNAME_ASK ''
-        CNAME=($SSL_CNAME_ASK)
-        for ALIAS in ${CNAME[@]}; do
-            SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname=$ALIAS
-        done
-        check_ca_conf
-    fi
-fi
+default_or_input "Do you want to import existing certificates?" \
+    USE_EXISTING_CERTS "y/N"
+USE_EXISTING_CERTS=$(yes_no $USE_EXISTING_CERTS)
 
 /usr/bin/rhn-proxy-activate --server="$RHN_PARENT" \
                             --http-proxy="$HTTP_PROXY" \
@@ -463,18 +433,74 @@ sed -e "s/\$PROTO/$PROTO/g" \
 
 
 # lets do SSL stuff
+FORCE_OWN_CA=$(yes_no $FORCE_OWN_CA)
+
+SSL_BUILD_DIR=${SSL_BUILD_DIR:-/root/ssl-build}
+if ! [ -d $SSL_BUILD_DIR ] && [ 0$FORCE_OWN_CA -eq 0 ] && [ 0$USE_EXISTING_CERTS -eq 0 ]; then
+    echo "Error: ssl build directory $SSL_BUILD_DIR does not exist. Please create this directory."
+    exit 1
+fi
+
+if [ 0$FORCE_OWN_CA -eq 0 ] && \
+    [ 0$USE_EXISTING_CERTS -eq 0 ] && \
+    ! is_hosted "$RHN_PARENT" && \
+    [ ! -f /root/ssl-build/RHN-ORG-PRIVATE-SSL-KEY ] && \
+    ! diff $CA_CHAIN /root/ssl-build/RHN-ORG-TRUSTED-SSL-KEY &>/dev/null; then
+        cat <<CA_KEYS
+Please do copy your CA key and public certificate from $RHN_PARENT to
+/root/ssl-build directory. You may want to execute this command:
+ scp 'root@$RHN_PARENT:/root/ssl-build/{RHN-ORG-PRIVATE-SSL-KEY,RHN-ORG-TRUSTED-SSL-CERT,rhn-ca-openssl.cnf}' $SSL_BUILD_DIR
+CA_KEYS
+        exit 1
+fi
+
+check_ca_conf
+
 SSL_BUILD_DIR=${SSL_BUILD_DIR:-"/root/ssl-build"}
 
 if [ -n "$SSL_PASSWORD" ] ; then
     # use SSL_PASSWORD if already set
     RHN_SSL_TOOL_PASSWORD_OPTION="--password"
     RHN_SSL_TOOL_PASSWORD="$SSL_PASSWORD"
-elif [ "$INTERACTIVE" = "0" ] ; then
+elif [ "$INTERACTIVE" = "0" ] && [ 0$USE_EXISTING_CERTS -eq 0 ] ; then
     # non-interactive mode but no SSL_PASSWORD :(
     config_error 4 "Please define SSL_PASSWORD."
 fi
 
-if [ ! -f $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY ]; then
+# get input for generating CA/server certs
+if [ 0$USE_EXISTING_CERTS -eq 0 ]; then
+    default_or_input "Organization" SSL_ORG ''
+    default_or_input "Organization Unit" SSL_ORGUNIT "$HOSTNAME"
+    default_or_input "Common Name" SSL_COMMON "$HOSTNAME"
+    default_or_input "City" SSL_CITY ''
+    default_or_input "State" SSL_STATE ''
+    default_or_input "Country code" SSL_COUNTRY ''
+    default_or_input "Email" SSL_EMAIL "$TRACEBACK_EMAIL"
+    if [ ${#SSL_CNAME_PARSED[@]} -eq 0 ]; then
+        VARIABLE_ISSET=$(set | grep "^SSL_CNAME=")
+        if [ -z $VARIABLE_ISSET ]; then
+            default_or_input "Cname aliases (separated by space)" SSL_CNAME_ASK ''
+            CNAME=($SSL_CNAME_ASK)
+            for ALIAS in ${CNAME[@]}; do
+                SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname=$ALIAS
+            done
+            check_ca_conf
+        fi
+    fi
+fi
+
+if [ "$USE_EXISTING_CERTS" -eq "1" ]; then
+    default_or_input "Path to CA SSL certificate:" CA_CERT ""
+    if [ ! -e $CA_CERT ]; then
+        config_error 1 "Given file doesn't exist!"
+    fi
+    echo "Generating SSL CA rpm from custom CA: $CA_CERT."
+    /usr/bin/rhn-ssl-tool --gen-ca -q \
+        --dir="$SSL_BUILD_DIR" \
+        --rpm-only \
+        --from-ca-cert $CA_CERT
+    config_error $? "CA certificate generation failed!"
+elif [ ! -f $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY ]; then
     echo "Generating CA key and public certificate:"
     /usr/bin/rhn-ssl-tool --gen-ca -q \
         --dir="$SSL_BUILD_DIR" \
@@ -505,22 +531,41 @@ if [ ! -f $HTMLPUB_DIR/$RPM_CA ] || [ ! -f $HTMLPUB_DIR/RHN-ORG-TRUSTED-SSL-CERT
         cp $SSL_BUILD_DIR/RHN-ORG-TRUSTED-SSL-CERT $SSL_BUILD_DIR/$RPM_CA $HTMLPUB_DIR/
 fi
 
-echo "Generating SSL key and public certificate:"
-/usr/bin/rhn-ssl-tool --gen-server -q --no-rpm \
-    --set-hostname "$HOSTNAME" \
-    --dir="$SSL_BUILD_DIR" \
-    --set-country="$SSL_COUNTRY" \
-    --set-city="$SSL_CITY" \
-    --set-state="$SSL_STATE" \
-    --set-org="$SSL_ORG" \
-    --set-org-unit="$SSL_ORGUNIT" \
-    --set-email="$SSL_EMAIL" \
-    ${SSL_CNAME_PARSED[@]} \
-    $RHN_SSL_TOOL_PASSWORD_OPTION $RHN_SSL_TOOL_PASSWORD
-config_error $? "SSL key generation failed!"
+if [ "$USE_EXISTING_CERTS" -eq "1" ]; then
+    echo "Using custom SSL key and public certificate."
+    default_or_input "Path to the Server's SSL key:" SERVER_KEY ""
+    if [ ! -e $SERVER_KEY ]; then
+        config_error 1 "Given file doesn't exist!"
+    fi
 
-echo "Installing SSL certificate for Apache and Jabberd:"
-rpm -Uv $(/usr/bin/rhn-ssl-tool --gen-server --rpm-only --dir="$SSL_BUILD_DIR" 2>/dev/null |grep noarch.rpm)
+    default_or_input "Path to the Server's SSL certificate:" SERVER_CERT ""
+    if [ ! -e $SERVER_CERT ]; then
+        config_error 1 "Given file doesn't exist!"
+    fi
+
+    RPM_GEN_RPM_CMD="/usr/bin/rhn-ssl-tool --gen-server --rpm-only \
+        --dir="$SSL_BUILD_DIR" \
+        --from-server-key $SERVER_KEY \
+        --from-server-cert $SERVER_CERT"
+else
+    echo "Generating SSL key and public certificate."
+    /usr/bin/rhn-ssl-tool --gen-server -q --no-rpm \
+        --set-hostname "$HOSTNAME" \
+        --dir="$SSL_BUILD_DIR" \
+        --set-country="$SSL_COUNTRY" \
+        --set-city="$SSL_CITY" \
+        --set-state="$SSL_STATE" \
+        --set-org="$SSL_ORG" \
+        --set-org-unit="$SSL_ORGUNIT" \
+        --set-email="$SSL_EMAIL" \
+        ${SSL_CNAME_PARSED[@]} \
+        $RHN_SSL_TOOL_PASSWORD_OPTION $RHN_SSL_TOOL_PASSWORD
+    config_error $? "SSL key generation failed!"
+    RPM_GEN_RPM_CMD="/usr/bin/rhn-ssl-tool --gen-server --rpm-only \
+        --dir=\"$SSL_BUILD_DIR\""
+fi
+
+rpm -Uv $(eval $RPM_GEN_RPM_CMD 2>/dev/null |grep noarch.rpm)
 
 if [ -e $HTTPDCONFD_DIR/ssl.conf ]; then
     mv $HTTPDCONFD_DIR/ssl.conf $HTTPDCONFD_DIR/ssl.conf.bak
