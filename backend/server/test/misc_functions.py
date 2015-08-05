@@ -274,30 +274,6 @@ class Counter:
         self._counter = val + 1
         return val
 
-# def register_product(system_id):
-#    product = {
-#        "reg_num"           : "0",
-#        "state"             : "NC",
-#        "country"           : "US",
-#        "contact-email"     : "test@email.com",
-#        "first_name"        : "testwregglej01first",
-#        "last_name"         : "testwregglej01last",
-#        "company"           : "test company",
-#        "phone"             : "555-555-5555",
-#        "fax"               : "555-555-5555",
-#        "title"             : "None",
-#        "position"          : "Test",
-#        "city"              : "Raleigh",
-#        "zip"               : "27606",
-#        "address1"          : "1111 test address dr.",
-#        "address2"          : "",
-#        "expires"           : "5555-12-12 2224:55:55"
-#    }
-#    return registration.Registration().register_product( system_id, product )
-
-# stolen from backend/server/test/unit-test/
-
-
 def build_sys_params_with_username(**kwargs):
     val = Counter().value()
     rnd_string = "%s%s" % (int(time.time()), val)
