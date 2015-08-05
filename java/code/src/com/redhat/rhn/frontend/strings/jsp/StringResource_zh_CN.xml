@@ -21830,13 +21830,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target> 管理（基本）</target>
       </trans-unit>
-      <trans-unit id="sys_entitlements.provisioning_entitled">
-        <source> Provisioning (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target> Provisioning（添加）</target>
-      </trans-unit>
       <trans-unit id="sys_entitlements.virtualization_host">
         <source> Virtualization (Add-On)</source>
         <context-group name="ctx">
@@ -21899,13 +21892,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
         <target>所有在 satellite 中注册的系统都需要单一管理（基本）权利</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
-        <source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>单一 Provisioning（添加）权利允许各种高级功能，比如 kickstart 和配置文件准备。</target>
       </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
         <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>

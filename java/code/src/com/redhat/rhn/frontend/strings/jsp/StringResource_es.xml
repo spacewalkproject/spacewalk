@@ -21841,13 +21841,6 @@ tal y como se refleja en el certificado de @@PRODUCT_NAME@@.</target>
         </context-group>
         <target> Administración (Base)</target>
       </trans-unit>
-      <trans-unit id="sys_entitlements.provisioning_entitled">
-        <source> Provisioning (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target> Aprovisionamiento (Adicional)</target>
-      </trans-unit>
       <trans-unit id="sys_entitlements.virtualization_host">
         <source> Virtualization (Add-On)</source>
         <context-group name="ctx">
@@ -21910,13 +21903,6 @@ tal y como se refleja en el certificado de @@PRODUCT_NAME@@.</target>
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
         <target>Un solo derecho administrativo (Base) se requiere para todos los sistemas registrados al satélite</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
-        <source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>Un derecho de aprovisionamiento (adicional) permite varias funciones avanzadas como Kickstart y el aprovisionamiento de archivos de configuración.</target>
       </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
         <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>
