@@ -11,7 +11,7 @@
 #
 #  The contact info is in the form or a "key: value" one per line.
 #  valid keys are:
-#       reg_num, title, first_name, last_name, company,
+#       title, first_name, last_name, company,
 #       position, address1, address2, city, state, zip,
 #       country, phone, fax, contact_email, contact_mail,
 #       contact_phone, contact_fax, contact_special,
