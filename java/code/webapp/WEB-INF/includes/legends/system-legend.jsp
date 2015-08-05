@@ -11,9 +11,7 @@
   <rhn:require acl="org_entitlement(sw_mgr_enterprise)">
     <li><rhn:icon type="system-locked" /><bean:message key="system-legend.jsp.locked"/></li>
   </rhn:require>
-  <rhn:require acl="org_entitlement(rhn_provisioning)">
-    <li><rhn:icon type="system-kickstarting" /><bean:message key="system-legend.jsp.kickstarting"/></li>
-  </rhn:require>
+  <li><rhn:icon type="system-kickstarting" /><bean:message key="system-legend.jsp.kickstarting"/></li>
   <li><rhn:icon type="action-pending" /><bean:message key="system-legend.jsp.pending"/></li>
   <li><rhn:icon type="system-unentitled" /><bean:message key="system-legend.jsp.unentitled"/></li>
   <li><rhn:icon type="system-virt-host" /><bean:message key="systemlist.jsp.virthost"/></li>

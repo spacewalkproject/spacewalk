@@ -59,7 +59,7 @@
       </rhn:require>
 
       <rhn:require
-        acl="org_entitlement(rhn_provisioning); user_role(config_admin)">
+        acl="user_role(config_admin)">
         <li class="list-group-item">
           <rhn:icon type="nav-bullet" /> <a
             href="/rhn/kickstart/KickstartOverview.do"> <bean:message

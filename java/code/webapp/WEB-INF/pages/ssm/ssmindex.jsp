@@ -73,7 +73,7 @@
                 <div class="col-sm-10">
                     <ul>
                         <li><bean:message key="ssm.overview.channels.memberships"/></li>
-                        <rhn:require acl="org_entitlement(rhn_provisioning); user_role(config_admin)">
+                        <rhn:require acl="user_role(config_admin)">
                           <li><bean:message key="ssm.overview.channels.subscriptions"/></li>
                           <li><bean:message key="ssm.overview.channels.deploy"/></li>
                         </rhn:require>
@@ -81,25 +81,23 @@
                 </div>
             </div>
         </li>
-        <rhn:require acl="org_entitlement(rhn_provisioning);">
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-sm-2">
-                      <rhn:icon type="header-kickstart" title="ssm.overview.provisioning" />
-                        <bean:message key="ssm.overview.provisioning"/>
-                    </div>
-                    <div class="col-sm-10">
-                        <ul>
-                            <li><bean:message key="ssm.overview.provisioning.kickstart"/></li>
-                            <li><bean:message key="ssm.overview.provisioning.rollback"/></li>
-                            <li><bean:message key="ssm.overview.provisioning.remotecommands"/></li>
-                            <li><bean:message key="ssm.overview.provisioning.powermanagement.configure"/></li>
-                            <li><bean:message key="ssm.overview.provisioning.powermanagement.operations"/></li>
-                        </ul>
-                    </div>
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-sm-2">
+                  <rhn:icon type="header-kickstart" title="ssm.overview.provisioning" />
+                    <bean:message key="ssm.overview.provisioning"/>
                 </div>
-            </li>
-        </rhn:require>
+                <div class="col-sm-10">
+                    <ul>
+                        <li><bean:message key="ssm.overview.provisioning.kickstart"/></li>
+                        <li><bean:message key="ssm.overview.provisioning.rollback"/></li>
+                        <li><bean:message key="ssm.overview.provisioning.remotecommands"/></li>
+                        <li><bean:message key="ssm.overview.provisioning.powermanagement.configure"/></li>
+                        <li><bean:message key="ssm.overview.provisioning.powermanagement.operations"/></li>
+                    </ul>
+                </div>
+            </div>
+        </li>
         <li class="list-group-item">
             <div class="row">
                 <div class="col-sm-2">
@@ -109,10 +107,8 @@
                 <div class="col-sm-10">
                     <ul>
                         <li><bean:message key="ssm.overview.misc.updateprofiles"/></li>
-                        <rhn:require acl="org_entitlement(rhn_provisioning)">
-                            <li><bean:message key="ssm.overview.misc.customvalues"/></li>
-                        </rhn:require>
-                        <rhn:require acl="user_role(org_admin);org_entitlement(rhn_provisioning)">
+                        <li><bean:message key="ssm.overview.misc.customvalues"/></li>
+                        <rhn:require acl="user_role(org_admin)">
                             <li><bean:message key="ssm.overview.misc.entitlements"/></li>
                         </rhn:require>
                         <li><bean:message key="ssm.overview.misc.delete"/></li>
