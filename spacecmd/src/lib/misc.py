@@ -80,8 +80,7 @@ SEPARATOR = '\n' + '#' * 30 + '\n'
 
 ####################
 
-ENTITLEMENTS = ['provisioning_entitled',
-                'enterprise_entitled',
+ENTITLEMENTS = ['enterprise_entitled',
                 'virtualization_host',
                 'virtualization_host_platform']
 
