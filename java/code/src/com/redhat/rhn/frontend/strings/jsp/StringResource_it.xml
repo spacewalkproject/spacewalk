@@ -13875,14 +13875,6 @@ cancellati.{0}
           <source>Actions needed for configuration capabilities.</source>
           <target>Azioni necessarie per le capacità di configurazione.</target>
         </trans-unit>
-        <trans-unit id="targetsystems.jsp.orgadmin">
-          <source>Requires organization administrator</source>
-          <target>Richiede uno stato di amministratore di organizzazione</target>
-        </trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-          <target>Aggiungi entitlement di provisioning</target>
-        </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to RHN Tools channel</source>
           <target>Sottoscrivi al canale RHN Tool</target>
@@ -13952,14 +13944,6 @@ cancellati.{0}
         <trans-unit id="summary.jsp.noerror">
           <source>No Error.</source>
           <target>Nessun Errore.</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.orgadmin">
-          <source>Remaining actions require organization administrator.</source>
-          <target>Le azioni restanti richiedono uno stato di organization administrator.</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.provision">
-          <source>Could not grant provisioning entitlement.</source>
-          <target>Impossibile conferire l'entitlement di provisioning.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>

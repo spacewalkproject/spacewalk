@@ -13892,14 +13892,6 @@ Esto puede tener algún efecto en los archivos de configuración que se implemen
           <source>Actions needed for configuration capabilities.</source>
           <target>Acciones necesarias para activar las capacidades de configuración.</target>
         </trans-unit>
-        <trans-unit id="targetsystems.jsp.orgadmin">
-          <source>Requires organization administrator</source>
-          <target>Requiere un administrador de la organización</target>
-        </trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-          <target>Añadir derechos de aprovisionamiento</target>
-        </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to RHN Tools channel</source>
           <target>Suscribir al canal de herramientas de RHN</target>
@@ -13969,14 +13961,6 @@ Esto puede tener algún efecto en los archivos de configuración que se implemen
         <trans-unit id="summary.jsp.noerror">
           <source>No Error.</source>
           <target>Ningún error.</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.orgadmin">
-          <source>Remaining actions require organization administrator.</source>
-          <target>Las acciones restantes requieren un administrador de la organización.</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.provision">
-          <source>Could not grant provisioning entitlement.</source>
-          <target>No se pudieron otorgar los derechos de aprovisionamiento</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>

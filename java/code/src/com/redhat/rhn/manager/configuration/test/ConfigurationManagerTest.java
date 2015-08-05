@@ -371,7 +371,6 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
          */
         ConfigTestUtils.giveUserChanAccess(user, cc);  //option 2
         //UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);  //option 1
-        //UserTestUtils.addProvisioning(user.getOrg());
 
         DataResult dr = cm.listGlobalChannels(user, pc);
         assertEquals(1, dr.getTotalSize());

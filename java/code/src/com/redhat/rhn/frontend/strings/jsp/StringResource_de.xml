@@ -13889,14 +13889,6 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
           <source>Actions needed for configuration capabilities.</source>
           <target>Nötigte Aktionen für die Konfigurationsfähigkeit.</target>
         </trans-unit>
-        <trans-unit id="targetsystems.jsp.orgadmin">
-          <source>Requires organization administrator</source>
-          <target>Erfordert den Organisationsadministrator.</target>
-        </trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-          <target>Provisioning-Berechtigung hinzufügen</target>
-        </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to RHN Tools channel</source>
           <target>RHN Tools-Channel subskribieren</target>
@@ -13966,14 +13958,6 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
         <trans-unit id="summary.jsp.noerror">
           <source>No Error.</source>
           <target>Kein Fehler.</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.orgadmin">
-          <source>Remaining actions require organization administrator.</source>
-          <target>Für die übrigen Aktionen wird der Organisationsadministrator benötigt.</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.provision">
-          <source>Could not grant provisioning entitlement.</source>
-          <target>Provisioning-Berechtigung konnte nicht erteilt werden.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>
