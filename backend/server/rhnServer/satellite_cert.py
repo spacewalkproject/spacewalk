@@ -85,11 +85,6 @@ class ManagementSlots(Slots):
     _db_label = 'enterprise_entitled'
     _slot_name = 'enterprise'
 
-
-class ProvisioningSlots(Slots):
-    _db_label = 'provisioning_entitled'
-    _slot_name = 'provisioning'
-
 # Slots for virt entitlements support
 
 
@@ -115,8 +110,8 @@ class SatelliteCert:
     """
 
     fields_scalar = ['product', 'owner', 'issued', 'expires', 'slots',
-                     'provisioning-slots', 'nonlinux-slots',
-                     'virtualization_host', 'virtualization_host_platform',
+                     'nonlinux-slots', 'virtualization_host',
+                     'virtualization_host_platform',
                      'satellite-version', 'generation', ]
     fields_list = {'channel-families': ChannelFamily}
 
@@ -183,7 +178,6 @@ class SatelliteCert:
 
     _slot_maps = {
         'management': ('slots', ManagementSlots),
-        'provisioning': ('provisioning-slots', ProvisioningSlots),
         'virtualization': ('virtualization_host', VirtualizationSlots),
         'virtualization_platform': ('virtualization_host_platform', VirtualizationPlatformSlots)
     }

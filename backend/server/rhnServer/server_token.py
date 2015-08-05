@@ -1018,11 +1018,7 @@ def process_token(server, server_arch, tokens_obj, virt_type=None):
     else:
         tokens_obj.entitle(server_id, history, virt_type)
 
-    is_provisioning_entitled = None
     is_management_entitled = None
-
-    if tokens_obj.has_entitlement_label('provisioning_entitled'):
-        is_provisioning_entitled = 1
 
     if tokens_obj.has_entitlement_label('enterprise_entitled'):
         is_management_entitled = 1
@@ -1031,16 +1027,16 @@ def process_token(server, server_arch, tokens_obj, virt_type=None):
         history["groups"] = ["Re-activation: keeping previous server groups"]
     else:
         # server groups - allowed for enterprise only
-        if is_management_entitled or is_provisioning_entitled:
+        if is_management_entitled:
             history["groups"] = token_server_groups(server_id, tokens_obj)
         else:
             # FIXME:  better messaging about minimum service level
             history["groups"] = [
                 "Not subscribed to any system groups: not entitled for "
-                "RHN Management or RHN Provisioning"
+                "Management"
             ]
 
-    if is_provisioning_entitled:
+    if is_management_entitled:
         history["packages"] = token_packages(server_id, tokens_obj)
         history["config_channels"] = token_config_channels(server,
                                                            tokens_obj)
