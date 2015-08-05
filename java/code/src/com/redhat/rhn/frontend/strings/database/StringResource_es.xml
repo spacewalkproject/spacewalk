@@ -78,10 +78,6 @@
           <source>Management</source>
           <target>Administración</target>
         </trans-unit>
-        <trans-unit id="provisioning_entitled">
-          <source>Provisioning</source>
-          <target>Aprovisionamiento</target>
-        </trans-unit>
         <trans-unit id="sw_mgr_entitled">
           <source>Update</source>
           <target>Actualizar</target>
