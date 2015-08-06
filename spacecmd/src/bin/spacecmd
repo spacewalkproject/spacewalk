@@ -30,6 +30,7 @@ import codecs
 import locale
 from ConfigParser import SafeConfigParser
 from optparse import Option, OptionParser
+from socket import gethostname
 
 _INTRO = '''Welcome to spacecmd, a command-line interface to Spacewalk.
 
@@ -53,7 +54,7 @@ if __name__ == '__main__':
         Option('-p', '--password', action='store',
                help='use this password to connect to the server'),
         Option('-s', '--server', action='store',
-               help='connect to this server [default: localhost]'),
+               help='connect to this server [default: local hostname]'),
         Option('--nossl', action='store_true',
                help='use HTTP instead of HTTPS'),
         Option('--nohistory', action='store_true',
@@ -100,11 +101,11 @@ if __name__ == '__main__':
     # create an instance of the shell
     shell = SpacewalkShell(options, conf_dir, config)
 
-    # set the default server to localhost
+    # set the default server to local hostname
     if shell.options.server:
         shell.config['server'] = shell.options.server
     else:
-        shell.config['server'] = 'localhost'
+        shell.config['server'] = gethostname()
 
     # create an empty configuration file if one's not present
     if not os.path.isfile(user_conf_file):

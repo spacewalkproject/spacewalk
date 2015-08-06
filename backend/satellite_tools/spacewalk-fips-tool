@@ -21,6 +21,7 @@ from spacewalk.common import rhn_rpm
 import sys
 import time
 import xmlrpclib
+from socket import gethostname
 
 
 def parse_args():
@@ -35,8 +36,8 @@ def parse_args():
     parser.add_option("-p", action="store", type="string", dest="password",
                       help="password")
     parser.add_option("-s", action="store", type="string", dest="hostname",
-                      help="server hostname to use, defaults to localhost",
-                      default="localhost")
+                      help="server hostname to use, defaults to local hostname",
+                      default=gethostname())
     parser.add_option("-d", action="store", type="string", dest="date",
                       help="date to schedule the conversion for, defaults to now, " +
                            "format: %Y-%m-%d %H:%M:%S (e.g. 2014-10-30 19:30:00)")

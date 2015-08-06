@@ -18,6 +18,7 @@ import os
 from os import path
 from optparse import OptionParser
 from rhn.connections import idn_ascii_to_puny
+from socket import gethostname
 
 DATA_DIR = "./data/"
 DATA_DIR_RHN = "/usr/share/rhn/channel-data/"
@@ -51,7 +52,7 @@ def get_args():
                 [-C | --clear] [-n | --nossl]""")
    parser.add_option("-n", "--nossl", action="store_false", dest="ssl", default=True, help="disables the use of SSL when connecting to the server")
    parser.add_option("-C", "--clear", action="store_true", dest="clear_channel", help="remove all channel packages from the channel before adding")
-   parser.add_option("-s", "--server", action="store", dest="server", default="localhost", help="the server to connect to (i.e. hostname.domain.com) [default: %default]")
+   parser.add_option("-s", "--server", action="store", dest="server", default=gethostname(), help="the server to connect to (i.e. hostname.domain.com) [default: %default]")
    parser.add_option("-l", "--user", action="store", dest="user", help="the user to connect as")
    parser.add_option("-p", "--password", action="store", dest="password", help="the password to use for the connection (if not specified, will be prompted for)")
    parser.add_option("-v", "--version", action="store", dest="version", help='the version to use (i.e.' + string.join(versions, ', ') +')')

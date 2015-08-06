@@ -117,7 +117,7 @@ the Spacewalk or Satellite server.
     <varlistentry>
         <term>-s<replaceable>SERVER</replaceable>, --server=<replaceable>SERVER</replaceable></term>
         <listitem>
-            <para>The hostname or IP address of the Satellite or Spacewalk server to connect to.  Defaults to localhost.</para>
+            <para>The hostname or IP address of the Satellite or Spacewalk server to connect to.  Defaults to local hostname.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

@@ -150,7 +150,7 @@ A tool to help in the process of converting certificates of registered
         <term>-s <replaceable>hostname</replaceable></term>
         <listitem>
             <para>
-                Hostname of your &RHNSAT;, localhost by default.
+                Hostname of your &RHNSAT;, local hostname by default.
             </para>
         </listitem>
     </varlistentry>

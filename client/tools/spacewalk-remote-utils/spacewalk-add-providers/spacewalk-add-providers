@@ -6,6 +6,7 @@
 from optparse import Option, OptionParser
 import logging, os, shutil, sys, tempfile, xmlrpclib
 import gpgme
+from socket import gethostname
 
 opts = [ Option('-u', '--username'),
          Option('-p', '--password'),
@@ -30,7 +31,7 @@ if options.test:
     logging.info('TEST MODE: no providers will be added to the server')
 
 if not options.server:
-    options.server = 'localhost'
+    options.server = gethostname()
 
 if not options.username or not options.password:
     logging.error('--username or --password missing')

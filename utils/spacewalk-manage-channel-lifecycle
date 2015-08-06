@@ -29,6 +29,7 @@ import time
 import xmlrpclib
 from optparse import Option, OptionParser
 import ConfigParser
+from socket import gethostname
 
 
 class Config(object):
@@ -381,7 +382,7 @@ option_list = [
     Option('-u', '--username', help='Spacewalk username'),
     Option('-p', '--password', help='Spacewalk password'),
     Option('-s', '--server',
-           help='Spacewalk server [default: %default]', default='localhost'),
+           help='Spacewalk server [default: %default]', default=gethostname()),
     Option('-n', '--dry-run', help="don't perform any operations",
            action='store_true'),
     Option('-t', '--tolerant', help='be tolerant of errors',

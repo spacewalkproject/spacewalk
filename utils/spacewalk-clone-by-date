@@ -25,6 +25,7 @@ import os
 import StringIO
 from optparse import OptionParser
 import simplejson as json
+from socket import gethostname
 
 _LIBPATH = "/usr/share/rhn"
 if _LIBPATH not in sys.path:
@@ -200,9 +201,8 @@ def parse_args():
     parser.add_option("-u", "--username", dest="username", help="Username")
     parser.add_option("-p", "--password", dest="password", help="Password")
     parser.add_option("-s", "--server", dest="server",
-                      help="Server URL to use for api connections (defaults to "
-                      + "https://localhost/rpc/api)",
-                      default="https://localhost/rpc/api")
+                      help="Server URL to use for api connections (defaults to %default)",
+                      default="https://" + gethostname() + "/rpc/api")
     parser.add_option("-l", "--channels", dest="channels", action="callback",
                       callback=vararg_callback, help="Original channel and clone "
                       + "channel labels space separated, with optional channel name and "
