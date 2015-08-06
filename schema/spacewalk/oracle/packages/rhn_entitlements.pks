@@ -87,19 +87,11 @@ is
 		customer_id_in in number
 	);
 
-	procedure set_customer_provisioning (
-		customer_id_in in number
-	);
-
 	procedure set_customer_nonlinux (
 		customer_id_in in number
 	);
 
     procedure unset_customer_enterprise (
-		customer_id_in in number
-	);
-
-	procedure unset_customer_provisioning (
 		customer_id_in in number
 	);
 
