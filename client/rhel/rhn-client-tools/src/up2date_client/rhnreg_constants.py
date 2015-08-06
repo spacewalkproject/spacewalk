@@ -205,8 +205,8 @@ FAILED_SLOTS            = _("This system was unable to be associated with the "
 UPDATES                 = _("Update module: per-system updates, email errata "
                             "notifications, errata information")
 MANAGEMENT              = _("Management module: automatic updates, systems "
-                            "grouping, systems permissions, system package profiling")
-PROVISIONING            = _("Provisioning module: bare-metal provisioning, existing state provisioning, "
+                            "grouping, systems permissions, system package profiling, "
+                            "bare-metal provisioning, existing state provisioning, "
                             "rollbacks, configuration management")
 
 VIRT = _("Virtualization module: software updates for a limited number of "
