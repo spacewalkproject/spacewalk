@@ -718,15 +718,19 @@ def genCaRpm(d, verbosity=0):
     if rel:
         rel = str(int(rel)+1)
 
+    update_trust_script = os.path.join(CERT_PATH, 'update-ca-cert-trust.sh')
+
     # build the CA certificate RPM
     args = (os.path.join(CERT_PATH, 'gen-rpm.sh') + " "
             "--name %s --version %s --release %s --packager %s --vendor %s "
             "--group 'RHN/Security' --summary %s --description %s "
+            "--post %s --postun %s "
             "/usr/share/rhn/%s=%s"
             % (repr(ca_cert_rpm_name), ver, rel, repr(d['--rpm-packager']),
                repr(d['--rpm-vendor']), repr(CA_CERT_RPM_SUMMARY),
-               repr(CA_CERT_RPM_SUMMARY), repr(ca_cert_name),
-               repr(cleanupAbsPath(ca_cert))))
+               repr(CA_CERT_RPM_SUMMARY),
+               repr(update_trust_script), repr(update_trust_script),
+               repr(ca_cert_name), repr(cleanupAbsPath(ca_cert))))
     clientRpmName = '%s-%s-%s' % (ca_cert_rpm, ver, rel)
     if verbosity >= 0:
         print """
