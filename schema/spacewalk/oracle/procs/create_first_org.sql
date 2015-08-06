@@ -85,9 +85,6 @@ begin
 		NULL, ug_type, 1
 	);
 
-	-- config admin is special; it gets created in
-	-- rhn_entitlements.set_customer_provisioning instead.
-	
 	select rhn_user_group_id_seq.nextval into group_val from dual;
 
 	select	id
