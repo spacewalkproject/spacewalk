@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 8ff682efdc779b99dab251538eb05436d849c672
+-- oracle equivalent source sha1 67bd6f41241f4e66993fd060107e2e2e8d364168
 --
 -- Copyright (c) 2008--2014 Red Hat, Inc.
 --
@@ -119,7 +119,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 	    WHERE label = set_label_in
 	      AND user_id = set_uid_in
 	) loop
-	    if rhn_server.system_service_level(server.element, 'provisioning') = 1 then
+	    if rhn_server.system_service_level(server.element, 'management') = 1 then
 	    	perform rhn_server.set_custom_value(server.element, set_uid_in, key_label_in, value_in);
             i := i + 1;
 	    end if;
@@ -144,7 +144,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 	    WHERE label = set_label_in
 	      AND user_id = set_uid_in
 	    ) loop
-	    if rhn_server.system_service_level(server.element, 'provisioning') = 1 then
+	    if rhn_server.system_service_level(server.element, 'management') = 1 then
 	    	    select max(id) into snapshot_id
 	    	    from rhnSnapshot
 	    	    where server_id = server.element;
@@ -227,7 +227,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 	    WHERE label = set_label_in
 	      AND user_id = set_uid_in
 	    ) loop
-    	    if rhn_server.system_service_level(server.element, 'provisioning') = 1 then
+	    if rhn_server.system_service_level(server.element, 'management') = 1 then
 	    	perform rhn_server.snapshot_server(server.element, reason_in);
 	    end if;
 	end loop;
@@ -540,7 +540,6 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 		-- the naive easy path that gets hit most often and has to be quickest.
 		if group_label in ('sw_mgr_entitled',
                            'enterprise_entitled',
-                           'provisioning_entitled',
                            'virtualization_host',
                            'virtualization_host_platform') then
 			if used_slots >= max_slots and 
@@ -674,7 +673,6 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 
 		if label in ('sw_mgr_entitled',
                      'enterprise_entitled', 
-                     'provisioning_entitled', 
                      'virtualization_host',
                      'virtualization_host_platform') then
 
