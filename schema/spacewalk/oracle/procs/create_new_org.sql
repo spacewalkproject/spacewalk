@@ -86,9 +86,6 @@ begin
 		'Activation Key Administrators for Org ' || name_in,
 		NULL, ug_type, new_org_id
 	);
-
-	-- config admin is special; it gets created in
-	-- rhn_entitlements.set_customer_provisioning instead.
 	
 	select rhn_user_group_id_seq.nextval into group_val from dual;
 
