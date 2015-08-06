@@ -22,7 +22,7 @@ import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProxyVersionException;
 import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyAlreadyRegisteredException;
-import com.redhat.rhn.frontend.xmlrpc.ProxyNeedProvisioningException;
+import com.redhat.rhn.frontend.xmlrpc.ProxyNeedManagementException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyNotActivatedException;
 import com.redhat.rhn.frontend.xmlrpc.ProxySystemIsSatelliteException;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
@@ -34,7 +34,6 @@ import java.util.List;
 
 /**
  * ProxyHandler
- * @version $Rev$
  * @xmlrpc.namespace proxy
  * @xmlrpc.doc Provides methods to activate/deactivate a proxy
  * server.
@@ -93,8 +92,8 @@ public class ProxyHandler extends BaseHandler {
      * @throws ProxySystemIsSatelliteException thrown if client certificate is
      * for a satellite
      * @throws InvalidProxyVersionException thrown if version is not supported.
-     * @throws ProxyNeedProvisioningException thrown if system do not have
-     * provisioning entitlement.
+     * @throws ProxyNeedManagementException thrown if system does not have the
+     * management entitlement.
      *
      * @xmlrpc.doc Activates the proxy identified by the given client
      * certificate i.e. systemid file.
@@ -112,8 +111,8 @@ public class ProxyHandler extends BaseHandler {
             throw new ProxyAlreadyRegisteredException();
         }
 
-        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
-            throw new ProxyNeedProvisioningException();
+        if (!(server.hasEntitlement(EntitlementManager.MANAGEMENT))) {
+            throw new ProxyNeedManagementException();
         }
 
         // if the server does nto have enterprise_entitled entitlement, add it
