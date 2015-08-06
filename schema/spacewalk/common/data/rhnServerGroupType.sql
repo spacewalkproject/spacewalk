@@ -33,14 +33,6 @@ insert into rhnServerGroupType (id, label, name, permanent, is_base)
                 'N', 'Y'
         );
 
--- provisioning_entitled type ------------------------------------------------
-
-insert into rhnServerGroupType (id, label, name, permanent, is_base)
-        values (sequence_nextval('rhn_servergroup_type_seq'),
-                'provisioning_entitled', 'Spacewalk Provisioning Entitled Servers', 
-                'N', 'N'
-        );
-
 -- nonlinux_entitled type ----------------------------------------------------
 
 insert into rhnServerGroupType ( id, label, name, permanent, is_base)
