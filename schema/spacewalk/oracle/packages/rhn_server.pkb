@@ -111,7 +111,7 @@ is
 	    WHERE label = set_label_in
 	      AND user_id = set_uid_in
 	) loop
-	    if rhn_server.system_service_level(server.element, 'provisioning') = 1 then
+	    if rhn_server.system_service_level(server.element, 'management') = 1 then
 	    	rhn_server.set_custom_value(server.element, set_uid_in, key_label_in, value_in);
             i := i + 1;
 	    end if;
@@ -133,7 +133,7 @@ is
 	    WHERE label = set_label_in
 	      AND user_id = set_uid_in
 	    ) loop
-	    if rhn_server.system_service_level(server.element, 'provisioning') = 1 then
+	    if rhn_server.system_service_level(server.element, 'management') = 1 then
 	    	begin
 	    	    select max(id) into snapshot_id
 	    	    from rhnSnapshot
@@ -211,7 +211,7 @@ is
 	    WHERE label = set_label_in
 	      AND user_id = set_uid_in
 	    ) loop
-    	    if rhn_server.system_service_level(server.element, 'provisioning') = 1 then
+	    if rhn_server.system_service_level(server.element, 'management') = 1 then
 	    	rhn_server.snapshot_server(server.element, reason_in);
 	    end if;
 	end loop server;
@@ -510,7 +510,6 @@ is
 		-- the naive easy path that gets hit most often and has to be quickest.
 		if group_label in ('sw_mgr_entitled',
                            'enterprise_entitled',
-                           'provisioning_entitled',
                            'virtualization_host',
                            'virtualization_host_platform') then
 			if used_slots >= max_slots and 
@@ -640,7 +639,6 @@ is
 
 		if label in ('sw_mgr_entitled',
                      'enterprise_entitled', 
-                     'provisioning_entitled', 
                      'virtualization_host',
                      'virtualization_host_platform') then
 
