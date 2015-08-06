@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 62df7a6985c0deb03680ec4b374e17c175cd35d1
+-- oracle equivalent source sha1 05dd1f9409ed73040a93e0082630d8923c9f41cc
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -86,9 +86,6 @@ begin
 		'Activation Key Administrators for Org ' || name_in || ' (1)',
 		NULL, ug_type, 1
 	);
-
-	-- config admin is special; it gets created in
-	-- rhn_entitlements.set_customer_provisioning instead.
 	
 	select nextval('rhn_user_group_id_seq') into group_val from dual;
 
