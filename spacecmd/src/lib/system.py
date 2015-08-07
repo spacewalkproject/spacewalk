@@ -599,8 +599,11 @@ def do_system_listhardware(self, args):
                     print
                 count += 1
 
-                print 'Description: %s' % (
-                    wrap(device.get('description'), 60)[0])
+                if device.get('description') == None:
+                    print 'Description: None'
+                else:
+                    print 'Description: %s' % (
+                             wrap(device.get('description'), 60)[0])
                 print 'Driver:      %s' % device.get('driver')
                 print 'Class:       %s' % device.get('device_class')
                 print 'Bus:         %s' % device.get('bus')
