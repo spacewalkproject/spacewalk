@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.4.13
+Version:	2.4.14
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Aug 07 2015 Jan Dobes 2.4.14-1
+- use hostname instead of localhost for https connections
+
 * Wed Aug 05 2015 Jan Dobes 2.4.13-1
 - regenerate CA cert too
 
