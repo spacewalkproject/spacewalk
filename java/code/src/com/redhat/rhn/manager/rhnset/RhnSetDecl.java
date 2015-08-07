@@ -109,7 +109,7 @@ public class RhnSetDecl {
 
     // set of packages by package_id
     public static final RhnSetDecl PACKAGES_TO_ADD = make("packages_to_add",
-            SetCleanup.UNOWNED_PACKAGES);
+            SetCleanup.NOOP);
 
     // set of packages by package_id
     public static final RhnSetDecl PACKAGES_TO_PUSH = make(
