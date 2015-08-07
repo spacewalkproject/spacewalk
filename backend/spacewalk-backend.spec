@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.13
+Version: 2.4.111.dev
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -655,6 +655,28 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Fri Aug 07 2015 Silvio Moioli <smoioli@suse.de> 2.4.111.dev-1
+- Change error message for NoBaseChannel Exception
+- Remove monitoring from cert tools
+- Remove traces of monitoring from registration.py doc
+- backend: do not set max_members of rhnChannelFamily
+- backend: do not set values for max_members and current_members
+- backend: remove unused ChannelFamilyPermissions class
+- backend: remove special handling for SubscriptionCountExceeded
+- backend: remove unused imports
+- entitlement-report: remove channel entitlement views
+- backend: remove unused ChannelFamilyPermissionsImport() and
+  processChannelFamilyPermissions
+- backend: remove populate_channel_family_permissions and
+  purge_extra_channel_families from sync_handler
+- backend: remove local handling of channel family members from satsync
+- backend: remove channel subscription checks from rhn-satellite-activate
+- backend: update rhn_channel.subscribe_server signature
+- backend: remove usage of update_family_counts
+- backend: remove available_subscriptions from channel object
+- backend: remove family count handling from server_kickstart
+- backend: remove family count handling from server_token
+
 * Fri Aug 07 2015 Jan Dobes 2.4.13-1
 - use hostname instead of localhost for https connections
 
