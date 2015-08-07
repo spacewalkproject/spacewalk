@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.4.5
+Version:     2.4.6
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -85,6 +85,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Aug 07 2015 Jan Dobes 2.4.6-1
+- use hostname instead of localhost for https connections
+
 * Mon Aug 03 2015 Tomas Lestach <tlestach@redhat.com> 2.4.5-1
 - 1244099 - fix spacecmd do_configchannel_sync for directories
 - Fix typo in softwarechannel.py
