@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.47
+Version: 2.4.48
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Aug 07 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.48-1
+- reremove unsused SetDecl
+- don't cleanup set when adding packages to a channel
+
 * Tue Aug 04 2015 Jiri Dostal <jdostal@redhat.com> 2.4.47-1
 - 1241945 - Fixed - search field only allows 40 characters
 
