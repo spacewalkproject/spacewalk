@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.2
+Version: 2.4.103.dev
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Fri Aug 07 2015 Silvio Moioli <smoioli@suse.de> 2.4.103.dev-1
+- report: remove channel entitlements from report
+
 * Tue Jul 14 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.2-1
 - remove Except KeyboardInterrupt from imports
 
