@@ -28,8 +28,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * ActivationKeyAclHandler
- * @version $Rev$
+ * PackageAclHandler
  */
 public class PackageAclHandler extends BaseHandler {
 
