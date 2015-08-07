@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.4.4
+Version:    2.4.103.dev
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -105,6 +105,12 @@ rm -rf %{buildroot}
 %{_var}/www/html/css/*.less
 
 %changelog
+* Fri Aug 07 2015 Silvio Moioli <smoioli@suse.de> 2.4.103.dev-1
+- branding: remove unused css classes and their dead references
+
+* Fri Aug 07 2015 Silvio Moioli <smoioli@suse.de>
+- branding: remove unused css classes and their dead references
+
 * Fri Jul 03 2015 Matej Kollar <mkollar@redhat.com> 2.4.4-1
 - Fix file input control alignment issue with form-control (bsc#873203)
 
