@@ -283,9 +283,6 @@ public class RhnSetDecl {
     public static final RhnSetDecl ERRATA_TO_ADD = make("errata_to_add",
             SetCleanup.NOOP);
 
-    public static final RhnSetDecl PACKAGE_TO_ADD = make("packages_to_add",
-            SetCleanup.NOOP);
-
     public static final RhnSetDecl PACKAGES_FOR_MERGE = make(
             "packages_for_merge", SetCleanup.NOOP);
 
