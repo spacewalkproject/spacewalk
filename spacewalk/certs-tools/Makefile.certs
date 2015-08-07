@@ -19,7 +19,7 @@
 SUBDIR	=   certs
 FILES	=   __init__ rhn_ssl_tool sslToolCli sslToolConfig sslToolLib \
             timeLib rhn_bootstrap rhn_bootstrap_strings client_config_update
-INSTALL_FILES   = gen-rpm.sh sign.sh
+INSTALL_FILES   = gen-rpm.sh sign.sh update-ca-cert-trust.sh
 
 # check if we can build man pages
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
