@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.132.dev
+Version: 2.4.133.dev
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,52 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Aug 10 2015 Silvio Moioli <smoioli@suse.de> 2.4.133.dev-1
+- Task_queries: remove provisioning entitlement
+- EnableListAction: don't show provisioning entitlement
+- Unused translation strings removed
+- navigation menus: remove rhn_provisioning ACL checks
+- jsps: remove rhn_provisioning ACL checks
+- struts-config.xml: removed all rhn_provisioning references
+- PackageAclHandler: fix javadoc
+- OrgFactory: remove unused method
+- BaseHandler: remove unused method
+- Drop provisioning entitlement code from Java test classes
+- SystemDetailsEditAction: don't expect provisioning parameter
+- ConfigList actions: don't require provisioning entitlement
+- CustomValueSetAction: don't require provisioning for custom data setting
+- SystemManager: don't require provisioning in rollback to tag
+- ActivationKeyManager: don't handle special provisioning entitlement case
+- ServerConstants: getServerGroupTypeProvisioningEntitled dropped
+- ProvisioningEntitlement: dropped
+- EntitlementManager: don't expect provisioning entitlement
+- EnableConfigHelper: don't add provisioning entitlement
+- ActionManager: don't require provisioning entitlement to run scripts
+- SystemEntitlementsSubmitAction: don't expect provisioning entitlement in form
+  data
+- ProvisioningRemoteCommand: don't require provisioning for remote command
+- BaseSystemPackagesConfirmAction: don't require provisioning for rollback
+- KickstartScheduleCommand: avoid adding provisioning entitlement to activation
+  key
+- ActivationKeyDetailsAction: remove provisioning entitlement check
+- SystemHandler: drop provisioning entitlement checks
+- SystemHandler: drop provisioning entitlement from documentation
+- OrgHandler: drop provisioning entitlement from documentation
+- ActivationKeyHandler: drop provisioning entitlement checks
+- ActivationKeyHandler: drop provisioning entitlement from documentation
+- ServerSerializer: remove provisioning entitlement documentation
+- Drop Activation Key checks on config file deployments on provisioning
+  entitlement
+- ActivationKeyAclHandler: drop
+- Activation Key page: remove check on provisioning entitlement
+- System Details page: don't show provisioning entitlement
+- ProxyHandler: require enterprise entitlement instead of provisioning
+- System Entitlement Counts page: removal of the provisioning entitlement
+- Allow system tagging actions even without the provisioning entitlement in UI
+- Allow power management actions even without the provisioning entitlement in
+  UI
+- Drop provisioning-related Python tests
+
 * Fri Aug 07 2015 Silvio Moioli <smoioli@suse.de> 2.4.132.dev-1
 - Unused translation strings removed: monitoring entitlement
 - Remove references to rhn_config_macro from Java code
