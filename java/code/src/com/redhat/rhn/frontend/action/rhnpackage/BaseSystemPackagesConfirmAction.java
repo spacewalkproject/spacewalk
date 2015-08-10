@@ -30,7 +30,6 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
@@ -54,7 +53,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author paji
  * BaseSystemPackagesAction
- * @version $Rev$
  */
 public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
     private static final String DATA_SET = RequestContext.PAGE_LIST;
