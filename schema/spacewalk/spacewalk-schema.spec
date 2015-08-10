@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.4.118.dev
+Version:        2.4.119.dev
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Aug 10 2015 Silvio Moioli <smoioli@suse.de> 2.4.119.dev-1
+- db: upgrade scripts
+- rhnEntitledServers view: remove references to provisioning
+- db data: remove references to provisioning
+- rhn_server: remove provisioning references
+- create_new_org and create_first_org: remove outdated comment
+- rhn_entitlements: remove provisioning references
+
 * Fri Aug 07 2015 Silvio Moioli <smoioli@suse.de> 2.4.118.dev-1
 - Remove unused rhn_host_monitoring and its oracle synonym
 - Remove unused rhn_customer_monitoring view and its oracle synonym
