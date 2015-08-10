@@ -317,7 +317,7 @@ def do_softwarechannel_listlatestpackages(self, args, doreturn=False):
     (args, _options) = parse_arguments(args)
 
     if not len(args):
-        self.help_softwarechannel_listallpackages()
+        self.help_softwarechannel_listlatestpackages()
         return
 
     channel = args[0]
