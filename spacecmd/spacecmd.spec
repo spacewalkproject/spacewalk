@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.4.7
+Version:     2.4.8
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -85,6 +85,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Aug 10 2015 Jan Dobes 2.4.8-1
+- softwarechannel_listlatestpackages help message
+
 * Fri Aug 07 2015 Jan Dobes 2.4.7-1
 - check for existence of device description in spacecmd system_listhardware
   (bsc#932288)
