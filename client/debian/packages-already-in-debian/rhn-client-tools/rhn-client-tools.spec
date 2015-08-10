@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.101.dev
+Version: 1.8.102.dev
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Aug 10 2015 Silvio Moioli <smoioli@suse.de> 1.8.102.dev-1
+- client-tools: Remove 'provisioning_entitled' slot from RHEL and Debian
+- backend: unused reg_num parameter removed from documentation
+
 * Fri Aug 07 2015 Silvio Moioli <smoioli@suse.de> 1.8.101.dev-1
 - client-tools: Remove 'monitoring_entitled' slot from RHEL and Debian
 
