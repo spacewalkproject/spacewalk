@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.4.106.dev
+Version:     2.4.107.dev
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -85,6 +85,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Aug 10 2015 Silvio Moioli <smoioli@suse.de> 2.4.107.dev-1
+- spacecmd: remove references to provisioning entitlements
+- spacecmd: remove entitlements example from documentation
+
 * Fri Aug 07 2015 Silvio Moioli <smoioli@suse.de> 2.4.106.dev-1
 - Remove monitoring entitlement from spacecmd activation key help string
 - Remove monitoring entitlement from spacecmd misc module
