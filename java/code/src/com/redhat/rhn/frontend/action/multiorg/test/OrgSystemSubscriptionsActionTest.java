@@ -36,8 +36,6 @@ public class OrgSystemSubscriptionsActionTest extends RhnPostMockStrutsTestCase 
         assertNotNull(request.getAttribute("org"));
         assertNotNull(request.getAttribute(EntitlementManager.ENTERPRISE_ENTITLED));
         assertNotNull(request.getAttribute(EntitlementManager.VIRTUALIZATION_ENTITLED));
-        assertNotNull(request.getAttribute(EntitlementManager.
-                VIRTUALIZATION_PLATFORM_ENTITLED));
         DynaActionForm af = (DynaActionForm) getActionForm();
         assertNotNull(af.get(EntitlementManager.ENTERPRISE_ENTITLED));
         assertNotNull(af.get(EntitlementManager.VIRTUALIZATION_ENTITLED));
@@ -51,8 +49,6 @@ public class OrgSystemSubscriptionsActionTest extends RhnPostMockStrutsTestCase 
         addRequestParameter(EntitlementManager.ENTERPRISE_ENTITLED,
                 new Long(1).toString());
         addRequestParameter(EntitlementManager.VIRTUALIZATION_ENTITLED,
-                new Long(0).toString());
-        addRequestParameter(EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED,
                 new Long(0).toString());
         addSubmitted();
         actionPerform();

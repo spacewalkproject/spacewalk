@@ -156,7 +156,6 @@
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="enterprise_entitled" type="java.lang.String"/>
             <form-property name="virtualization_host" type="java.lang.String"/>
-            <form-property name="virtualization_host_platform" type="java.lang.String"/>
             <form-property name="submitted" type="java.lang.Boolean" />
         </form-bean>
         <form-bean name="orgSysEntitlementsForm"

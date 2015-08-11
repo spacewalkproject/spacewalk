@@ -15,10 +15,4 @@
         </simpleType>
     </attribute>
 
-    <attribute name="virtualization_host_platform">
-        <simpleType baseType="long">
-            <minInclusive value="0" />
-        </simpleType>
-    </attribute>
-	
 </schema>
