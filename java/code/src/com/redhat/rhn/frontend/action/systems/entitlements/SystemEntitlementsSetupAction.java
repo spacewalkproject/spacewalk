@@ -61,7 +61,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
     public static final String ADDON_ENTITLEMENTS = "addOnEntitlements";
     public static final String ADDON_ENTITLEMENT = "addOnEntitlement";
 
-    public static final String UPDATE_COUNTS_MESSAGE = "updateCountsMessage";
     public static final String MANAGEMENT_COUNTS_MESSAGE = "managementCountsMessage";
     public static final String VIRTUALIZATION_COUNTS_MESSAGE =
         "virtualizationCountsMessage";
@@ -185,10 +184,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
 
         setupCountsMessage(request, user, EntitlementManager.VIRTUALIZATION_PLATFORM,
                 VIRTUALIZATION_PLATFORM_COUNTS_MESSAGE);
-
-        setupCountsMessage(request, user,
-                EntitlementManager.UPDATE,
-                UPDATE_COUNTS_MESSAGE);
     }
 
     private void setupCountsMessage(HttpServletRequest request,
