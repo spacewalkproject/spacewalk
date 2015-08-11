@@ -30,7 +30,6 @@ import com.redhat.rhn.domain.server.Network;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.session.InvalidSessionIdException;

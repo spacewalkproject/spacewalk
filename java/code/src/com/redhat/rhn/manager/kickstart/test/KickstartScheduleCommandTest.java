@@ -38,7 +38,6 @@ import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
-import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
@@ -54,7 +53,6 @@ import com.redhat.rhn.testing.TestUtils;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 /**
  * KickstartScheduleCommandTest

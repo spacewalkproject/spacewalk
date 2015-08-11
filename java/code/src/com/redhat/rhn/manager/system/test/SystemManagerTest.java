@@ -67,7 +67,6 @@ import com.redhat.rhn.frontend.dto.EssentialServerDto;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
-import com.redhat.rhn.manager.entitlement.test.EntitlementManagerTest;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.test.MockXMLRPCInvoker;

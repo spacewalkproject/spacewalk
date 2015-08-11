@@ -45,7 +45,6 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
