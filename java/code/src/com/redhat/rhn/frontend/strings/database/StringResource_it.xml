@@ -32,13 +32,6 @@
         <target>Archiviato</target>
       </trans-unit>
       <!-- System Group Types -->
-      <trans-unit id="Spacewalk Update Entitled Servers">
-        <source>Update</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-        <target>Aggiorna</target>
-      </trans-unit>
       <trans-unit id="Spacewalk Management Entitled Servers">
         <source>Management</source>
         <context-group name="ctx">

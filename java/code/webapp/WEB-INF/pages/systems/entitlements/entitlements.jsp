@@ -115,10 +115,6 @@
                 </div>
                 <table class="table">
                 <tr>
-                    <td><bean:message key="Spacewalk Update Entitled Servers"/>:</td>
-                        <td>${requestScope.updateCountsMessage}</td>
-                </tr>
-                <tr>
                 <td><bean:message key="Spacewalk Management Entitled Servers"/>:</td>
                 <td>${requestScope.managementCountsMessage}</td>
                 </tr>
