@@ -19,7 +19,6 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.entitlement.ManagementEntitlement;
-import com.redhat.rhn.domain.entitlement.UpdateEntitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationPlatformEntitlement;
 import com.redhat.rhn.domain.org.Org;
@@ -38,7 +37,6 @@ import java.util.Set;
 
 /**
  * EntitlementManager
- * @version $Rev$
  */
 public class EntitlementManager extends BaseManager {
 
@@ -49,14 +47,12 @@ public class EntitlementManager extends BaseManager {
             .getLogger(EntitlementManager.class);
 
     //  ENTITLEMENTS
-    public static final Entitlement UPDATE = new UpdateEntitlement();
     public static final Entitlement MANAGEMENT = new ManagementEntitlement();
     public static final Entitlement VIRTUALIZATION = new VirtualizationEntitlement();
     public static final Entitlement VIRTUALIZATION_PLATFORM =
         new VirtualizationPlatformEntitlement();
 
     public static final String UNENTITLED = "unentitled";
-    public static final String SW_MGR_ENTITLED = "sw_mgr_entitled";
     public static final String ENTERPRISE_ENTITLED = "enterprise_entitled";
     public static final String VIRTUALIZATION_ENTITLED = "virtualization_host";
     public static final String VIRTUALIZATION_PLATFORM_ENTITLED
@@ -79,10 +75,7 @@ public class EntitlementManager extends BaseManager {
      * @return the entitlement whose name matches the given name.
      */
     public static Entitlement getByName(String name) {
-        if (SW_MGR_ENTITLED.equals(name)) {
-            return UPDATE;
-        }
-        else if (ENTERPRISE_ENTITLED.equals(name)) {
+        if (ENTERPRISE_ENTITLED.equals(name)) {
             return MANAGEMENT;
         }
         else if (VIRTUALIZATION_ENTITLED.equals(name)) {
