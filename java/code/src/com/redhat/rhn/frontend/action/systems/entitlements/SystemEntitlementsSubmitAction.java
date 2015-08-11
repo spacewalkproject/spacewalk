@@ -50,15 +50,12 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Class representing the submit action of the Systeme Eintitlements page
  * SystemEntitlementsSubmitAction
- * @version $Rev$
  */
 public class SystemEntitlementsSubmitAction extends
                 BaseSetOperateOnSelectedItemsAction {
 
     private static Logger log = Logger.getLogger(SystemEntitlementsSubmitAction.class);
 
-    public static final String KEY_UPDATE_ENTITLED =
-        "systementitlements.jsp.set_to_update_entitled";
     public static final String KEY_MANAGEMENT_ENTITLED =
         "systementitlements.jsp.set_to_manage_entitled";
     public static final String KEY_UNENTITLED =
@@ -85,7 +82,6 @@ public class SystemEntitlementsSubmitAction extends
      * {@inheritDoc}
      */
     protected void processMethodKeys(Map<String, String> map) {
-        map.put(KEY_UPDATE_ENTITLED, "processUpdateEntitled");
         map.put(KEY_MANAGEMENT_ENTITLED, "processManagementEntitled");
         map.put(KEY_UNENTITLED, "processUnentitle");
         map.put(KEY_ADD_ENTITLED, "processAdd");
@@ -95,39 +91,6 @@ public class SystemEntitlementsSubmitAction extends
     protected void processParamMap(ActionForm formIn,
             HttpServletRequest request,
             Map<String, Object> params) {
-    }
-
-    /**
-     *
-     * @param mapping ActionMapping
-     * @param formIn ActionForm
-     * @param request ServletRequest
-     * @param response ServletResponse
-     * @return The ActionForward to go to next.
-     */
-    public ActionForward processUpdateEntitled(ActionMapping mapping,
-            ActionForm formIn, HttpServletRequest request,
-            HttpServletResponse response) {
-        return operateOnSelectedSet(mapping, formIn, request, response,
-        "setToUpdateEntitled");
-
-    }
-
-    /**
-     * This method is called when the &quot;Set To Update Entitled&quot;
-     * button is clicked in the System Entitlements page.
-     * Basically sets the entitlements of the selected systems to
-     * Update.
-     * @param form Action form object.
-     * @param req The servlet request object
-     * @param elementIn The checked element in the set
-     * @param userIn logged in user
-     * @return true of the server was entitled.
-     */
-    public Boolean setToUpdateEntitled(ActionForm form,
-            HttpServletRequest req,
-            RhnSetElement elementIn, User userIn) {
-        return entitle(elementIn.getElement(), EntitlementManager.UPDATE, userIn, req);
     }
 
     //This method does not deal with add-on entitlements
