@@ -59,7 +59,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * SystemDetailsEditAction
- * @version $Rev$
  */
 public class SystemDetailsEditAction extends RhnAction {
 
