@@ -31,13 +31,6 @@
           <context context-type="sourcefile">/rhn/configuration/Overview</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Spacewalk Update Entitled Servers">
-        <source>Update</source>
-        <target>Actualització</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Spacewalk Management Entitled Servers">
         <source>Management</source>
         <target>Gestió</target>
