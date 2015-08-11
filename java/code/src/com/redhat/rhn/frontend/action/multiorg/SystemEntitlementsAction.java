@@ -33,7 +33,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * SystemEntitlementsAction
- * @version $Rev$
  */
 public class SystemEntitlementsAction extends RhnAction {
 

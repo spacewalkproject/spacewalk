@@ -87,7 +87,6 @@ WHERE  org.id != :org_id
                  AND sgt2.label = sgt.label) as available
    FROM     rhnServerGroup sg
                                 inner join rhnServerGroupType sgt on sgt.id = sg.group_type
-   WHERE    sgt.label != 'sw_mgr_entitled'
 GROUP BY sgt.label, sgt.id
 ORDER BY sgt.label
   </query>
