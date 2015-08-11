@@ -218,9 +218,6 @@ public class SystemEntitlementsSubmitAction extends
         if (EntitlementManager.VIRTUALIZATION_ENTITLED.equals(entType)) {
             return EntitlementManager.VIRTUALIZATION;
         }
-        else if (EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED.equals(entType)) {
-            return EntitlementManager.VIRTUALIZATION_PLATFORM;
-        }
 
         return null;
     }
@@ -360,8 +357,7 @@ public class SystemEntitlementsSubmitAction extends
 
         String prefix = getSetDecl().getLabel() + ".provisioning";
         log.debug("prefix: " + prefix);
-        if (ent.equals(EntitlementManager.VIRTUALIZATION) ||
-                ent.equals(EntitlementManager.VIRTUALIZATION_PLATFORM)) {
+        if (ent.equals(EntitlementManager.VIRTUALIZATION)) {
             prefix = getSetDecl().getLabel() + "." + ent.getLabel();
         }
         if (!add) {
