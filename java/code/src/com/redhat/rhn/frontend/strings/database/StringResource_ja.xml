@@ -71,10 +71,6 @@
           <source>Management</source>
           <target>Management</target>
         </trans-unit>
-        <trans-unit id="sw_mgr_entitled">
-          <source>Update</source>
-          <target>Update</target>
-        </trans-unit>
         <trans-unit id="unentitled">
           <source>&lt;em&gt;(none)&lt;/em&gt;</source>
           <target>&lt;em&gt;(なし)&lt;/em&gt;</target>
