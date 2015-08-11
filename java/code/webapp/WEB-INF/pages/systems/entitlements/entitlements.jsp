@@ -131,10 +131,6 @@
                         <td><bean:message key="virtualization_host"/>:</td>
                         <td>${requestScope.virtualizationCountsMessage}</td>
                 </tr>
-                <tr>
-                        <td><bean:message key="virtualization_host_platform"/>:</td>
-                        <td>${requestScope.virtualizationPlatformCountsMessage}</td>
-                </tr>
        </table>
         </div>
 

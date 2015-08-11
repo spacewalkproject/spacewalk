@@ -236,20 +236,8 @@ public class SystemEntitlementsSubmitActionTest extends RhnPostMockStrutsTestCas
      */
     public void testAddVirtForManagement() throws Exception {
         testAddOnVirt(EntitlementManager.VIRTUALIZATION_ENTITLED,
-                EntitlementManager.VIRTUALIZATION.getLabel(),
                 EntitlementManager.VIRTUALIZATION,
                 ServerConstants.getServerGroupTypeVirtualizationEntitled());
-    }
-
-    /**
-     *
-     * @throws Exception on server init failure
-     */
-    public void testAddVirtPlatformForManagement() throws Exception {
-        testAddOnVirt(EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED,
-                EntitlementManager.VIRTUALIZATION_PLATFORM.getLabel(),
-                EntitlementManager.VIRTUALIZATION_PLATFORM,
-                ServerConstants.getServerGroupTypeVirtualizationPlatformEntitled());
     }
 
     /**
@@ -276,24 +264,14 @@ public class SystemEntitlementsSubmitActionTest extends RhnPostMockStrutsTestCas
      * @throws Exception on server init failure
      */
     private void testAddOnVirt(String selectKey,
-                                            String msgSubKey,
                                             Entitlement ent,
                                             ServerGroupType groupType
                                             )  throws Exception {
 
-        Server server = null;
-        if (EntitlementManager.VIRTUALIZATION_PLATFORM.equals(ent)) {
-            server = ServerTestUtils.createVirtPlatformHostWithGuest(user);
-        }
-        else {
-            server = ServerTestUtils.createVirtHostWithGuests(user, 1);
-        }
-
+        Server server = ServerTestUtils.createVirtHostWithGuests(user, 1);
 
         SystemManager.removeServerEntitlement(server.getId(),
                 EntitlementManager.VIRTUALIZATION);
-        SystemManager.removeServerEntitlement(server.getId(),
-                EntitlementManager.VIRTUALIZATION_PLATFORM);
         ServerGroupTest.createTestServerGroup(user.getOrg(),
                 groupType);
 
