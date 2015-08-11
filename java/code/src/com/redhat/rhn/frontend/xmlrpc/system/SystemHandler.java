@@ -159,7 +159,6 @@ import java.util.regex.Pattern;
 
 /**
  * SystemHandler
- * @version $Rev$
  * @xmlrpc.namespace system
  * @xmlrpc.doc Provides methods to access and modify registered system.
  */
@@ -3645,7 +3644,7 @@ public class SystemHandler extends BaseHandler {
      *      #struct("server details")
      *          #prop_desc("string", "profile_name", "System's profile name")
      *          #prop_desc("string", "base_entitlement", "System's base entitlement label.
-     *                      (enterprise_entitled or sw_mgr_entitled)")
+     *                      (enterprise_entitled or unentitle)")
      *           #prop_desc("boolean", "auto_errata_update", "True if system has
      *                          auto errata updates enabled")
      *           #prop_desc("string", "description", "System description")
