@@ -38,7 +38,6 @@ import java.util.Set;
 
 /**
  * AccessTest
- * @version $Rev$
  */
 public class AccessTest extends BaseTestCaseWithUser {
 
@@ -163,12 +162,13 @@ public class AccessTest extends BaseTestCaseWithUser {
         assertFalse(rc);
     }
 
-    public void testOrgEntitlementAclTrue() {
+    public void testOrgEntitlementAclTrue() throws Exception {
         Map context = new HashMap();
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
+        UserTestUtils.addManagement(user.getOrg());
         context.put("user", user);
-        boolean rc = acl.evalAcl(context, "org_entitlement(sw_mgr_personal)");
+        boolean rc = acl.evalAcl(context, "org_entitlement(sw_mgr_enterprise)");
         assertTrue(rc);
     }
 

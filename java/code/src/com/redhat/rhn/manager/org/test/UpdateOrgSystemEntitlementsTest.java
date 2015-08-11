@@ -21,7 +21,6 @@ import com.redhat.rhn.testing.BaseTestCaseWithUser;
 
 /**
  * UpdateOrgSystemEntitlements
- * @version $Rev$
  */
 public class UpdateOrgSystemEntitlementsTest extends BaseTestCaseWithUser {
 

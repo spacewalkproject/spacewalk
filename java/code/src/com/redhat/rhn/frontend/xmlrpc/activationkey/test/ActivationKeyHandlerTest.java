@@ -315,20 +315,6 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
         }
     }
 
-    public void testSetNonAddOnEntitlement() throws Exception {
-        String newKey = keyHandler.create(admin, KEY, KEY_DESCRIPTION, baseChannelLabel,
-                KEY_USAGE_LIMIT, KEY_ENTITLEMENTS, Boolean.FALSE);
-        try {
-            // Not an add-on entitlement:
-            keyHandler.addEntitlements(admin, newKey,
-                    buildEntitlementsList(new String []{"sw_mgr_entitled"}));
-            fail();
-        }
-        catch (ValidatorException e) {
-            // expected
-        }
-    }
-
     /*
      * Ensure no exception is thrown when adding an entitlement the key already has.
      */
