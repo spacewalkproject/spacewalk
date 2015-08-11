@@ -64,8 +64,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
     public static final String MANAGEMENT_COUNTS_MESSAGE = "managementCountsMessage";
     public static final String VIRTUALIZATION_COUNTS_MESSAGE =
         "virtualizationCountsMessage";
-    public static final String VIRTUALIZATION_PLATFORM_COUNTS_MESSAGE =
-        "virtualizationPlatformCountsMessage";
 
     /**
      * {@inheritDoc}
@@ -114,14 +112,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
             log.debug("Adding virt-entitled droplist entry");
             addOnEntitlements.add(lvl10n(EntitlementManager.VIRTUALIZATION_ENTITLED,
                     EntitlementManager.VIRTUALIZATION_ENTITLED));
-            request.setAttribute(SHOW_ADDON_ASPECTS, Boolean.TRUE);
-        }
-        if (user.getOrg().hasEntitlement(
-                OrgFactory.getEntitlementVirtualizationPlatform())) {
-            log.debug("Adding virt-host-entitled droplist entry");
-            addOnEntitlements.add(lvl10n(
-                    EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED,
-                    EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED));
             request.setAttribute(SHOW_ADDON_ASPECTS, Boolean.TRUE);
         }
 
@@ -181,9 +171,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
 
         setupCountsMessage(request, user, EntitlementManager.VIRTUALIZATION,
                 VIRTUALIZATION_COUNTS_MESSAGE);
-
-        setupCountsMessage(request, user, EntitlementManager.VIRTUALIZATION_PLATFORM,
-                VIRTUALIZATION_PLATFORM_COUNTS_MESSAGE);
     }
 
     private void setupCountsMessage(HttpServletRequest request,

@@ -171,26 +171,6 @@ public class ServerTestUtils {
     }
 
     /**
-     *
-     * Create a sytem with the virtualization platform entitlement and  with 1 guest system
-     * associated with it.
-     *
-     * @param user to own system
-     * @return Server with guest.
-     * @throws Exception if error
-     */
-    public static Server createVirtPlatformHostWithGuest(User user) throws Exception {
-        Server s = createVirtPlatformHost(user);
-
-        VirtualInstance vi = new VirtualInstanceManufacturer(user).
-            newRegisteredGuestWithoutHost();
-
-        s.addGuest(vi);
-
-        return s;
-    }
-
-   /**
     *
     * Create a sytem with the virtualization platform entitlement.
     *
