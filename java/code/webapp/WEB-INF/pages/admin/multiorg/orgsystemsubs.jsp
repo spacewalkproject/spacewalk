@@ -107,35 +107,6 @@
                                 </c:choose>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <strong>
-                                    <bean:message key="virtualization_host_platform"/> <bean:message key="orgsystemsubs.jsp.add_on"/>
-                                </strong>
-                                <span class="help-block"><bean:message key="orgsystemsubs.jsp.virt_plat_tip"/></span>
-                            </td>
-                            <td>
-                                ${virtualization_host_platform.maxEntitlements}
-                            </td>
-                            <td>
-                                ${virtualization_host_platform.currentEntitlements}
-                            </td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${param.oid != 1}">
-                                        <html:text property="virtualization_host_platform"
-                                                   styleClass="form-control"
-                                                   onkeydown="return blockEnter(event)"/>
-                                        <span class="help-block">
-                                            <bean:message key="orgsystemsubs.jsp.possible_vals" arg0="0" arg1="${virtualization_host_platform.upperRange}"/>
-                                        </span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <bean:write name="orgSystemSubscriptionsForm" property="virtualization_host_platform"/>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
