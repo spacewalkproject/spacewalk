@@ -92,18 +92,6 @@ public class HostBuilder {
     }
 
     /**
-     * Creates a Server with the Virtualization Platform entitlement.
-     *
-     * @return This builder
-     *
-     * @throws Exception if an error occurs
-     */
-    public HostBuilder createVirtPlatformHost() throws Exception {
-        host = ServerTestUtils.createVirtPlatformHost(owner);
-        return this;
-    }
-
-    /**
      * Creates a server without any of the virtualization entitlements. Note that a non-virt
      * host is useful in those situations in which a guest consumes physical entitlements.
      *
