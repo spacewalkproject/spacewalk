@@ -79,7 +79,6 @@ import java.util.Set;
 
 /**
  * ServerFactoryTest
- * @version $Rev$
  */
 public class ServerFactoryTest extends BaseTestCaseWithUser {
     private Server server;
@@ -187,9 +186,9 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
     public void testServerGroupType() throws Exception {
         //let's hope nobody calls their server group this
         assertNull(ServerFactory.lookupServerGroupTypeByLabel("8dafs8320921kfgbzz"));
-        assertNotNull(ServerConstants.getServerGroupTypeUpdateEntitled());
+        assertNotNull(ServerConstants.getServerGroupTypeEnterpriseEntitled());
         assertNotNull(ServerFactory.lookupServerGroupTypeByLabel(
-                ServerConstants.getServerGroupTypeUpdateEntitled().getLabel()));
+                ServerConstants.getServerGroupTypeEnterpriseEntitled().getLabel()));
     }
 
     public void testCreateServer() throws Exception {
@@ -884,7 +883,8 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
     public void testListSnapshotsForServer() throws Exception {
         Server server2 = ServerFactoryTest.createTestServer(user, true);
         ServerSnapshot snap = generateSnapshot(server2);
-        ServerGroup grp = ServerGroupTestUtils.createEntitled(server2.getOrg());
+        ServerGroup grp = ServerGroupTestUtils.createEntitled(server2.getOrg(),
+         ServerConstants.getServerGroupTypeEnterpriseEntitled());
         snap.addGroup(grp);
 
         TestUtils.saveAndFlush(snap);

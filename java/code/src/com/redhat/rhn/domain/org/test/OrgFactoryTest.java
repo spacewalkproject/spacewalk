@@ -25,7 +25,6 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
-import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.test.ServerGroupTest;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.Token;
@@ -37,15 +36,12 @@ import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 /**
  * JUnit test case for the Org class.
- * @version $Rev$
  */
-
 public class OrgFactoryTest extends RhnBaseTestCase {
 
     public void testOrgTrust() throws Exception {
@@ -156,12 +152,6 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         assertNull(lookup.getToken());
     }
 
-    public void testImpliedEntitlement() throws Exception {
-        Org org1 = createTestOrg();
-        assertTrue(org1
-                .hasEntitlement(OrgFactory.getEntitlementSwMgrPersonal()));
-    }
-
     /**
      * Test the addition of an entitlement to an org This code should be
      * refactored into a business method of some sort if it becomes necessary to
@@ -226,26 +216,12 @@ public class OrgFactoryTest extends RhnBaseTestCase {
 
     public void testAddServerGroup() throws Exception {
         Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
-        assertTrue(org1.getEntitledServerGroups().size() > 0);
-        boolean contains = false;
-        for (Iterator itr = org1.getEntitledServerGroups().iterator(); itr
-        .hasNext();) {
-            ServerGroup group = (ServerGroup) itr.next();
-            assertNotNull(group);
-            if (ServerConstants.getServerGroupTypeUpdateEntitled().equals(
-                    group.getGroupType())) {
-                contains = true;
-            }
-        }
-        assertTrue(contains);
+        int previousGroupCount = org1.getEntitledServerGroups().size();
 
-        // in hosted, the hibernate mapping files were broken so that adding a
-        // second
-        // server group would break a database constraint. This line ensures
-        // that that
-        // problem will not exist again.
         ServerGroupTest.createTestServerGroup(org1, ServerConstants
                 .getServerGroupTypeEnterpriseEntitled());
+
+        assertEquals(previousGroupCount + 1, org1.getEntitledServerGroups().size());
     }
 
     public void testLookupSatOrg() {

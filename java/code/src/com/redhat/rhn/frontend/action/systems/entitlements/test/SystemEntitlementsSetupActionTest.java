@@ -31,7 +31,7 @@ import com.redhat.rhn.testing.UserTestUtils;
 import java.util.Iterator;
 
 /**
- * SystemEntitlementsSetupActionToast
+ * SystemEntitlementsSetupActionTest
  */
 public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
     /**
@@ -52,8 +52,7 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
         //create a user with Update  Only-> Org entitlement
         ServerFactoryTest.createTestServer(user);
         executeTests();
-        assertNotNull(request.getAttribute(
-                SystemEntitlementsSetupAction.SHOW_UPDATE_ASPECTS));
+
         assertNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_NO_SYSTEMS));
         assertNotNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_COMMANDS));
 
@@ -62,17 +61,12 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
         assertNull(request.getAttribute(
                             SystemEntitlementsSetupAction.SHOW_MANAGEMENT_ASPECTS));
         assertNotNull(request.getAttribute(
-                        SystemEntitlementsSetupAction.UPDATE_COUNTS_MESSAGE));
-        assertNotNull(request.getAttribute(
                 SystemEntitlementsSetupAction.MANAGEMENT_COUNTS_MESSAGE));
-        testZeroSlots(SystemEntitlementsSetupAction.SHOW_UPDATE_ASPECTS,
-                ServerConstants.getServerGroupTypeUpdateEntitled());
     }
 
-    public void testUpdatePlusVirt() throws Exception {
-
+    public void testAddVirtualization() throws Exception {
         ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeUpdateEntitled());
+                ServerConstants.getServerGroupTypeEnterpriseEntitled());
 
         UserTestUtils.addVirtualization(user.getOrg());
         executeTests();
@@ -80,7 +74,6 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
                 SystemEntitlementsSetupAction.ADDON_ENTITLEMENTS));
         assertNotNull(request.getAttribute(
                 SystemEntitlementsSetupAction.VIRTUALIZATION_COUNTS_MESSAGE));
-
     }
 
     /**

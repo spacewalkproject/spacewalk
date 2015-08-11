@@ -17,7 +17,6 @@ package com.redhat.rhn.testing;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.server.test.ServerGroupTest;
 import com.redhat.rhn.domain.user.User;
@@ -26,7 +25,6 @@ import com.redhat.rhn.manager.system.ServerGroupManager;
 
 /**
  * ServerGroupTestUtils
- * @version $Rev$
  */
 public class ServerGroupTestUtils {
 
@@ -36,18 +34,6 @@ public class ServerGroupTestUtils {
 
     public static final String NAME = "ManagedGroup";
     public static final String DESCRIPTION = "User Managed Group ";
-
-
-    /**
-     * Create Entitled Server group (Update, Management, Provis, etc..)
-     * @param org bar
-     * @return baz
-     * @throws Exception if error
-     */
-    public static EntitlementServerGroup createEntitled(Org org) throws Exception {
-        return ServerGroupTestUtils.createEntitled(org,
-                             ServerConstants.getServerGroupTypeUpdateEntitled());
-    }
 
     /**
      * Create Entitled Server group (Update, Management, Provis, etc..)

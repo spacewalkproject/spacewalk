@@ -20,7 +20,6 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 /**
  * SearchActionTest
- * @version $Rev$
  */
 public class SearchActionTest extends RhnMockStrutsTestCase {
 
