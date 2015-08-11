@@ -45,7 +45,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * SystemEntitlementsSetupAction
- * @version $Rev$
  */
 public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
 
@@ -54,7 +53,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
     public static final String SHOW_COMMANDS = "showCommands";
 
     public static final String SHOW_MANAGEMENT_ASPECTS = "showManagementAspects";
-    public static final String SHOW_UPDATE_ASPECTS = "showUpdateAspects";
 
     public static final String SHOW_UNENTITLED = "showUnentitled";
 
@@ -143,15 +141,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
             form.set(ADDON_ENTITLEMENT, addOnEntitlements.get(0).getValue());
         }
         setupCounts(request, user);
-
-        setIfSlotsAvailable(SHOW_UPDATE_ASPECTS,
-                request, user,
-                EntitlementManager.UPDATE);
-
-
-        setupCounts(request, user);
-
-
 
         return forward;
     }

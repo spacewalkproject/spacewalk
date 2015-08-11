@@ -6553,13 +6553,6 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
         </context-group>
         <target>Derechos adicionales</target>
       </trans-unit>
-      <trans-unit id="systementitlements.jsp.set_to_update_entitled">
-        <source>Set to Update Entitled</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-        <target>Establecer a derecho de actualización</target>
-      </trans-unit>
       <trans-unit id="systementitlements.jsp.set_to_manage_entitled">
         <source>Set to Management Entitled</source>
         <context-group name="ctx">

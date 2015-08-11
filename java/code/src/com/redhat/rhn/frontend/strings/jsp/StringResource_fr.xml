@@ -6552,13 +6552,6 @@ que celle par défaut, ces droits d'accès seront déduits de l'organisation
         </context-group>
         <target>Droits d'accès supplémentaire</target>
       </trans-unit>
-      <trans-unit id="systementitlements.jsp.set_to_update_entitled">
-        <source>Set to Update Entitled</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-        <target>Donner le droit à Update</target>
-      </trans-unit>
       <trans-unit id="systementitlements.jsp.set_to_manage_entitled">
         <source>Set to Management Entitled</source>
         <context-group name="ctx">
