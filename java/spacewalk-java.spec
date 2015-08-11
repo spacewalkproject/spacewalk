@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.48
+Version: 2.4.49
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 11 2015 Jiri Dostal <jdostal@redhat.com> 2.4.49-1
+- [RFE] 1167999 - Osa ping for API, check sendOsaPing/getOsaPing methods
+
 * Fri Aug 07 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.48-1
 - reremove unsused SetDecl
 - don't cleanup set when adding packages to a channel
