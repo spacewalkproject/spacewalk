@@ -1694,23 +1694,6 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         }
     }
 
-    public void testAddVirtAndVirtPlatformEntitlements() throws Exception {
-        Server server = ServerFactoryTest.createTestServer(admin, true,
-                ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        List entitlements = new LinkedList();
-        entitlements.add(EntitlementManager.VIRTUALIZATION_ENTITLED);
-        entitlements.add(EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED);
-
-        try {
-            handler.addEntitlements(admin, new Integer(server.getId().intValue()),
-                    entitlements);
-            fail();
-        }
-        catch (InvalidEntitlementException e) {
-            // expected
-        }
-    }
-
     public void testAddEntitlements() throws Exception {
         Server server = ServerTestUtils.createVirtHostWithGuests(admin, 0);
 
