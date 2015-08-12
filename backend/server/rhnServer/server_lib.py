@@ -177,9 +177,7 @@ def join_server_group(server_id, server_group_id):
 
 
 def create_server_setup(server_id, org_id):
-    """ This function makes sure the necessary server groups are in place
-        for a new server entry and also adds a new server to the required
-        groups and channels.
+    """ This function inserts a row in rhnServerInfo.
     """
     # create the rhnServerInfo record
     h = rhnSQL.prepare("""
@@ -187,11 +185,6 @@ def create_server_setup(server_id, org_id):
                        values (:server_id, current_timestamp, :checkin_counter)
     """)
     h.execute(server_id=server_id, checkin_counter=0)
-
-    # make sure we create the sw_mgr_entitled server group
-    # bugzilla #203973 No longer grant the free demo entitlement
-    sm_grp_id = __create_server_group('sw_mgr_entitled', org_id, 0)
-    # XXX: What other groups do we need to create?
 
     # Do not entitle the server yet
     return 1
