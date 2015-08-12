@@ -97,9 +97,6 @@ class VirtualizationPlatformSlots(Slots):
     _db_label = 'virtualization_host_platform'
     _slot_name = 'virtualization_platform'
 
-# NonLinux slots are gone - misa 20050527
-
-
 class SatelliteCert:
 
     """Satellite certificate class
