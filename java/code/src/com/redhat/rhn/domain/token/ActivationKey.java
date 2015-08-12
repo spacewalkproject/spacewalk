@@ -244,9 +244,7 @@ public class ActivationKey extends BaseDomainHelper {
     public void addEntitlement(ServerGroupType entitlementIn) {
         this.getToken().addEntitlement(entitlementIn);
         if (ServerConstants.getServerGroupTypeVirtualizationEntitled().
-                                                        equals(entitlementIn) ||
-              ServerConstants.getServerGroupTypeVirtualizationPlatformEntitled().
-                                              equals(entitlementIn)) {
+                                                        equals(entitlementIn)) {
             ActivationKeyManager.getInstance().setupVirtEntitlement(this);
         }
     }
