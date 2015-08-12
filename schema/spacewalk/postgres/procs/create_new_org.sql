@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 2fc674575af44aefd73a58f074f951692ad2bbe8
+-- oracle equivalent source sha1 bfdb816ee2d07c5eb59f858aac7004f0fc9ff84a
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -105,15 +105,6 @@ begin
                 'Channel Administrators for Org ' || name_in,
                 NULL, ug_type, new_org_id
         );
-
-        -- there aren't any users yet, so we don't need to update
-        -- rhnUserServerPerms
-        insert into rhnServerGroup
-                ( id, name, description, max_members, group_type, org_id )
-                select nextval('rhn_server_group_id_seq'), sgt.name, sgt.name,
-                        0, sgt.id, new_org_id
-                from rhnServerGroupType sgt
-                where sgt.label = 'sw_mgr_entitled';
 
         org_id_out := new_org_id;
 
