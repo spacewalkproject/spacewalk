@@ -396,6 +396,10 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
 
+    /**
+     * Tests adding and removing entitlement on a server
+     * @throws Exception if something goes wrong
+     */
     public void testEntitleServer() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
@@ -404,37 +408,20 @@ public class SystemManagerTest extends RhnBaseTestCase {
         ChannelTestUtils.setupBaseChannelForVirtualization(user,
                 server.getBaseChannel());
         UserTestUtils.addVirtualization(user.getOrg());
-        UserTestUtils.addVirtualizationPlatform(user.getOrg());
         TestUtils.saveAndFlush(user.getOrg());
 
         assertTrue(SystemManager.canEntitleServer(server,
                 EntitlementManager.VIRTUALIZATION));
-        assertTrue(SystemManager.canEntitleServer(server,
-                EntitlementManager.VIRTUALIZATION_PLATFORM));
-
-        assertFalse(SystemManager.entitleServer(server,
-                EntitlementManager.VIRTUALIZATION).hasErrors());
-        assertFalse(SystemManager.entitleServer(server,
-                EntitlementManager.VIRTUALIZATION_PLATFORM).hasErrors());
-        server = (Server) reload(server);
-
-        assertTrue(server.hasEntitlement(EntitlementManager.VIRTUALIZATION_PLATFORM));
-        // By adding virt_platform above we swapped out virt
-        assertFalse(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
-
-        SystemManager.entitleServer(server, EntitlementManager.VIRTUALIZATION);
-        SystemManager.entitleServer(server, EntitlementManager.VIRTUALIZATION_PLATFORM);
+        boolean hasErrors = SystemManager.entitleServer(server,
+                EntitlementManager.VIRTUALIZATION).hasErrors();
+        assertFalse(hasErrors);
+        assertTrue(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
 
         // Removal
         SystemManager.removeServerEntitlement(server.getId(),
                 EntitlementManager.VIRTUALIZATION);
-        SystemManager.removeServerEntitlement(server.getId(),
-                EntitlementManager.VIRTUALIZATION_PLATFORM);
-
         server = (Server) reload(server);
-
         assertFalse(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
-        assertFalse(server.hasEntitlement(EntitlementManager.VIRTUALIZATION_PLATFORM));
     }
 
     public void testEntitleVirtForGuest() throws Exception {
@@ -527,34 +514,6 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertFalse(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
 
     }
-
-    public void testSwapVirts() throws Exception {
-        Server host = ServerTestUtils.createVirtHostWithGuest();
-        User user = host.getCreator();
-        UserTestUtils.addVirtualization(user.getOrg());
-        UserTestUtils.addVirtualizationPlatform(user.getOrg());
-        assertTrue(SystemManager.hasEntitlement(host.getId(),
-                EntitlementManager.VIRTUALIZATION));
-        assertFalse(SystemManager.hasEntitlement(host.getId(),
-                        EntitlementManager.VIRTUALIZATION_PLATFORM));
-        ValidatorResult result = SystemManager.entitleServer(host,
-                                        EntitlementManager.VIRTUALIZATION_PLATFORM);
-        assertFalse(result.hasErrors());
-        assertTrue(SystemManager.hasEntitlement(host.getId(),
-                                EntitlementManager.VIRTUALIZATION_PLATFORM));
-        assertFalse(SystemManager.hasEntitlement(host.getId(),
-                                        EntitlementManager.VIRTUALIZATION));
-        host = (Server) reload(host);
-        result = SystemManager.entitleServer(host,
-                                        EntitlementManager.VIRTUALIZATION);
-         assertFalse(result.hasErrors());
-         assertTrue(SystemManager.hasEntitlement(host.getId(),
-                                 EntitlementManager.VIRTUALIZATION));
-         assertFalse(SystemManager.hasEntitlement(host.getId(),
-                             EntitlementManager.VIRTUALIZATION_PLATFORM));
-
-    }
-
 
     public void testGetServerEntitlement() throws Exception {
         // create a new server
