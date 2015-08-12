@@ -17,14 +17,6 @@
 --
 -- data for rhnServerGroupType
 
--- sw_mgr_entitled type ------------------------------------------------------
-
-insert into rhnServerGroupType (id, label, name, permanent, is_base)
-        values (sequence_nextval('rhn_servergroup_type_seq'),
-                'sw_mgr_entitled', 'Spacewalk Update Entitled Servers', 
-                'N', 'Y'
-        );
-
 -- enterprise_entitled type --------------------------------------------------
 
 insert into rhnServerGroupType (id, label, name, permanent, is_base)
