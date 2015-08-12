@@ -524,7 +524,6 @@ public class OrgHandler extends BaseHandler {
      *   #options()
      *     #item("enterprise_entitled")
      *     #item("virtualization_host")
-     *     #item("virtualization_host_platform")
      *   #options_end()
      * @xmlrpc.param #param("int", "allocation")
      * @xmlrpc.returntype #return_int_success()
