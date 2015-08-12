@@ -111,27 +111,6 @@ is
         end if;
     end entitlement_grants_service;
 
-    function lookup_entitlement_group (
-        org_id_in in number,
-        type_label_in in varchar2 := 'sw_mgr_entitled'
-    ) return number is
-        cursor server_groups is
-            select    sg.id                server_group_id
-            from    rhnServerGroup        sg,
-                    rhnServerGroupType    sgt
-            where    sgt.label = type_label_in
-                and sgt.id = sg.group_type
-                and sg.org_id = org_id_in;
-    begin
-        for sg in server_groups loop
-            return sg.server_group_id;
-        end loop;
-        return rhn_entitlements.create_entitlement_group(
-                org_id_in,
-                type_label_in
-            );
-    end lookup_entitlement_group;
-
     function create_entitlement_group (
         org_id_in in number,
         type_label_in in varchar2 := 'sw_mgr_entitled'
