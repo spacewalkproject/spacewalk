@@ -229,9 +229,6 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         checkVirtEnt(ServerConstants.getServerGroupTypeVirtualizationEntitled(),
                         channels[ChannelTestUtils.VIRT_INDEX],
                         channels[ChannelTestUtils.TOOLS_INDEX]);
-        checkVirtEnt(ServerConstants.getServerGroupTypeVirtualizationPlatformEntitled(),
-                channels[ChannelTestUtils.VIRT_INDEX],
-                channels[ChannelTestUtils.TOOLS_INDEX]);
     }
 
     private void checkVirtEnt(ServerGroupType sgt,
