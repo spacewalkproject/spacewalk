@@ -114,30 +114,6 @@ as $$
     end$$
 language plpgsql;
 
-    create or replace function lookup_entitlement_group (
-        org_id_in in numeric,
-        type_label_in in varchar default 'sw_mgr_entitled'
-    ) returns numeric
-as $$
-    declare
-        server_groups cursor for
-            select  sg.id               server_group_id
-            from    rhnServerGroup      sg,
-                    rhnServerGroupType  sgt
-            where   sgt.label = type_label_in
-                and sgt.id = sg.group_type
-                and sg.org_id = org_id_in;
-    begin
-        for sg in server_groups loop
-            return sg.server_group_id;
-        end loop;
-        return rhn_entitlements.create_entitlement_group(
-                org_id_in,
-                type_label_in
-            );
-    end$$
-language plpgsql;
-
     create or replace function create_entitlement_group (
         org_id_in in numeric,
         type_label_in in varchar default 'sw_mgr_entitled'
