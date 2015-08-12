@@ -43,7 +43,6 @@ import java.util.Map;
 /**
  * A small wrapper around hibernate files to remove some of the complexities
  * of writing to hibernate.
- * @version $Rev$
  */
 public class OrgFactory extends HibernateFactory {
 
@@ -155,10 +154,6 @@ public class OrgFactory extends HibernateFactory {
      * @return OrgEntitlementType that was found, null if not.
      */
     public static OrgEntitlementType lookupEntitlementByLabel(String label) {
-        if (label.equals("sw_mgr_personal")) {
-            return getEntitlementSwMgrPersonal();
-        }
-
         //hack around this for now...
         Session session = HibernateFactory.getSession();
         return (OrgEntitlementType) session.
@@ -359,16 +354,6 @@ public class OrgFactory extends HibernateFactory {
      */
     public static OrgEntitlementType getEntitlementEnterprise() {
         return lookupEntitlementByLabel("sw_mgr_enterprise");
-    }
-
-    /**
-     * Get entitlement for sw_mgr_personal - aka UPDATE
-     * @return OrgEntitlementType
-     */
-    public static OrgEntitlementType getEntitlementSwMgrPersonal() {
-        return new OrgEntitlementType(
-                "sw_mgr_personal",
-                new Long(-1));
     }
 
     /**
