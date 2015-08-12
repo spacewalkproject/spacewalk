@@ -299,7 +299,7 @@ language plpgsql;
 
     create or replace function remove_server_entitlement (
         server_id_in in numeric,
-        type_label_in in varchar default 'sw_mgr_entitled',
+        type_label_in in varchar,
         repoll_virt_guests in numeric default 1
     ) returns void
 as $$
