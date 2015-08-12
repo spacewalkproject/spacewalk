@@ -32,11 +32,6 @@ is
 		service_level_in in varchar2
 	) return number;
 
-	function create_entitlement_group (
-		org_id_in in number,
-		type_label_in in varchar2 := 'sw_mgr_entitled'
-	) return number;
-
    function can_entitle_server (
       server_id_in   in number,
       type_label_in  in varchar2
