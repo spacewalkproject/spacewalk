@@ -947,7 +947,6 @@
       <form-property name="base_entitlement" type="java.lang.String"/>
       <form-property name="submitted" type="java.lang.Boolean"/>
       <form-property name="virtualization_host" type="java.lang.Boolean"/>
-      <form-property name="virtualization_host_platform" type="java.lang.Boolean"/>
       <form-property name="receive_notifications" type="java.lang.Boolean"/>
       <form-property name="include_in_daily_summary" type="java.lang.Boolean"/>
       <form-property name="auto_update" type="java.lang.Boolean"/>
