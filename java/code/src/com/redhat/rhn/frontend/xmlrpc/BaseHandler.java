@@ -406,11 +406,6 @@ public class BaseHandler implements XmlRpcInvocationHandler {
      */
     protected void validateEntitlements(List<String> entitlements) {
 
-        if (entitlements.contains(EntitlementManager.VIRTUALIZATION_ENTITLED) &&
-                entitlements.contains(EntitlementManager.
-                        VIRTUALIZATION_PLATFORM_ENTITLED)) {
-            throw new InvalidEntitlementException();
-        }
         for (String e : entitlements) {
             Entitlement ent = EntitlementManager.getByName(e);
             if ((ent == null) || (!ent.isSatelliteEntitlement())) {
