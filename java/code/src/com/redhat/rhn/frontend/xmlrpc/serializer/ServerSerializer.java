@@ -45,7 +45,7 @@ import com.redhat.rhn.manager.entitlement.EntitlementManager;
  *         #prop_desc("string", "base_entitlement", "System's base entitlement label")
  *
  *         #prop_array("string", "addon_entitlements","System's addon entitlements labels,
- *                       including virtualization_host, virtualization_host_platform")
+ *                       currently only 'virtualization_host'")
  *          #prop_desc("boolean", "auto_update", "True if system has auto errata updates
  *                                          enabled.")
  *          #prop_desc("string", "release", "The Operating System release (i.e. 4AS,
