@@ -36,6 +36,7 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
 import com.redhat.rhn.manager.system.SystemManager;
+
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -80,6 +81,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
 */
 
 
+    @Override
     protected Map<String, String> getKeyMethodMap() {
         Map<String, String> map = new HashMap<String, String>();
         map.put("basesub.jsp.confirmSubscriptions", "confirmUpdateBaseChannels");
@@ -91,6 +93,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ActionForward unspecified(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         log.debug("unspecified()");
@@ -171,13 +174,15 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
                            ChannelManager.lookupDistChannelMapByPnReleaseArch(
                                 ChannelManager.RHEL_PRODUCT_NAME, version,
                                 oldBase.getChannelArch());
-                        newBase = defaultDcm.getChannel();
-                        log.debug("Determined default base channel will be: " +
-                            newBase.getLabel());
-                            break;
+                        if (defaultDcm != null) {
+                            newBase = defaultDcm.getChannel();
+                            log.debug("Determined default base channel will be: " +
+                                    newBase.getLabel());
+                                break;
+                        }
                     }
                 }
-                else {
+                if (newBase == null) {
                     // Looks like an EUS or custom channel, need to get a little crazy :(
                     // Should be safe to assume there's at least one result returned here,
                     // we need a server object to call the stored procedure and guess a
@@ -507,7 +512,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
 
                 // let's only hydrate the channel objects once
                 if (!channelMap.containsKey(cid)) {
-                    channelMap.put(cid, ChannelManager.lookupByIdAndUser(toId, u));
+                    channelMap.put(cid, ChannelManager.lookupByIdAndUser(cid, u));
                 }
 
                 Channel c = channelMap.get(cid);

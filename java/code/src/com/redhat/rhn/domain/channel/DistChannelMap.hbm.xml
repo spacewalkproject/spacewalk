@@ -50,7 +50,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[
         SELECT dcm.id, dcm.org_id, dcm.os, dcm.release, dcm.channel_arch_id, dcm.channel_id
         FROM rhnOrgDistChannelMap dcm
-        WHERE dcm.for_org_id = :org_id
+        WHERE dcm.org_id = :org_id
         AND dcm.release = :release
         AND dcm.channel_arch_id = :channel_arch_id
         ]]>
