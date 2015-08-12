@@ -81,8 +81,8 @@ SEPARATOR = '\n' + '#' * 30 + '\n'
 ####################
 
 ENTITLEMENTS = ['enterprise_entitled',
-                'virtualization_host',
-                'virtualization_host_platform']
+                'virtualization_host'
+               ]
 
 SYSTEM_SEARCH_FIELDS = ['id', 'name', 'ip', 'hostname',
                         'device', 'vendor', 'driver', 'uuid']
