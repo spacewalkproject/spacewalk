@@ -317,23 +317,6 @@ public class UserTestUtils extends Assert {
     }
 
     /**
-     * Add virtualization to an org
-     * @param orgIn to add to
-     * @throws Exception foo
-     */
-    public static void addVirtualizationPlatform(Org orgIn) throws Exception {
-        Set ents = orgIn.getEntitlements();
-        ents.add(OrgFactory.getEntitlementVirtualizationPlatform());
-
-        EntitlementServerGroup sg =
-            ServerGroupTestUtils.createEntitled(orgIn,
-                    ServerConstants.getServerGroupTypeVirtualizationPlatformEntitled());
-        incrementSgMaxMembers(sg);
-        TestUtils.saveAndFlush(sg);
-
-    }
-
-    /**
      * Create a new user 'testUser' and 'testOrg'
      * @return User created
      */
