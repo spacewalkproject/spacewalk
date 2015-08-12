@@ -111,29 +111,6 @@ is
         end if;
     end entitlement_grants_service;
 
-    function create_entitlement_group (
-        org_id_in in number,
-        type_label_in in varchar2 := 'sw_mgr_entitled'
-    ) return number is
-        sg_id_val number;
-    begin
-        select    rhn_server_group_id_seq.nextval
-        into    sg_id_val
-        from    dual;
-
-        insert into rhnServerGroup (
-                id, name, description, max_members, current_members,
-                group_type, org_id
-            ) (
-                select    sg_id_val, sgt.label, sgt.label,
-                        0, 0, sgt.id, org_id_in
-                from    rhnServerGroupType sgt
-                where    sgt.label = type_label_in
-            );
-
-        return sg_id_val;
-    end create_entitlement_group;
-
    function can_entitle_server (
         server_id_in in number,
         type_label_in in varchar2 )

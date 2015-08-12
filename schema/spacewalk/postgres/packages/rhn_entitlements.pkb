@@ -114,31 +114,6 @@ as $$
     end$$
 language plpgsql;
 
-    create or replace function create_entitlement_group (
-        org_id_in in numeric,
-        type_label_in in varchar default 'sw_mgr_entitled'
-    ) returns numeric
-as $$
-    declare
-        sg_id_val numeric;
-    begin
-        select  nextval('rhn_server_group_id_seq')
-        into    sg_id_val;
-
-        insert into rhnServerGroup (
-                id, name, description, max_members, current_members,
-                group_type, org_id
-            ) (
-                select  sg_id_val, sgt.label, sgt.label,
-                        0, 0, sgt.id, org_id_in
-                from    rhnServerGroupType sgt
-                where   sgt.label = type_label_in
-            );
-
-        return sg_id_val;
-    end$$
-language plpgsql;
-
    create or replace function can_entitle_server (
       server_id_in   in numeric,
       type_label_in  in varchar
