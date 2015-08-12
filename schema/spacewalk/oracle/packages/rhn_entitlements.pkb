@@ -230,7 +230,7 @@ is
 
     procedure entitle_server (
         server_id_in in number,
-        type_label_in in varchar2 := 'sw_mgr_entitled'
+        type_label_in in varchar2
     ) is
       sgid  number := 0;
       is_virt number := 0;
