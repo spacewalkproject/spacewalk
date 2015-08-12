@@ -59,13 +59,4 @@ public class ServerConstants {
     public static final ServerGroupType getServerGroupTypeVirtualizationEntitled() {
         return ServerFactory.lookupServerGroupTypeByLabel("virtualization_host");
     }
-
-    /**
-     * Static representing the provisioning entitled server group type
-     * @return ServerGroupType
-     */
-    public static final ServerGroupType getServerGroupTypeVirtualizationPlatformEntitled() {
-        return ServerFactory.lookupServerGroupTypeByLabel("virtualization_host_platform");
-    }
-
 }

@@ -215,7 +215,6 @@ public class VirtualInstanceFactoryTest extends RhnBaseTestCase {
                 .withPersistence().build().asGuestAndNonVirtHostView());
 
         builder.createGuest().withVirtHost().withPersistence().build();
-        builder.createGuest().withVirtPlatformHost().withPersistence().build();
         builder.createGuest().withPersistence().build();
 
         Set actualViews = virtualInstanceDAO
@@ -237,7 +236,6 @@ public class VirtualInstanceFactoryTest extends RhnBaseTestCase {
         builder.createGuest().withNonVirtHostInAnotherOrg().withPersistence().build();
         builder.createGuest().withNonVirtHost().withPersistence().build();
         builder.createGuest().withVirtHost().withPersistence().build();
-        builder.createGuest().withVirtPlatformHost().withPersistence().build();
 
         Set actualViews = virtualInstanceDAO.findGuestsWithoutAHostByOrg(user
                 .getOrg());

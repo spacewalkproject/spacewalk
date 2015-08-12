@@ -214,21 +214,6 @@ public class GuestBuilder {
         guest.setHostSystem(host);
     }
 
-    /**
-     * Creates the host for the guest under construction. The host will have a
-     * Virtualization Platform entitlement.
-     *
-     * @return This builder
-     *
-     * @throws Exception if an error occurs
-     */
-    public GuestBuilder withVirtPlatformHost() throws Exception {
-        ServerGroupType groupType = ServerConstants
-                .getServerGroupTypeVirtualizationPlatformEntitled();
-
-        return withHost(groupType);
-    }
-
     public GuestBuilder asParaVirtGuest() {
         guest.setType(guestDAO.getParaVirtType());
         return this;
