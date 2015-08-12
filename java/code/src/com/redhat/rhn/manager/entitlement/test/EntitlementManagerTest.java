@@ -36,19 +36,11 @@ public class EntitlementManagerTest extends RhnBaseTestCase {
         ent = EntitlementManager.getByName("enterprise_entitled");
         assertNotNull(ent);
         assertEquals(EntitlementManager.MANAGEMENT, ent);
-    }
 
-    public void testGetVirtEnt() {
-        Entitlement ent = EntitlementManager.getByName(
+        ent = EntitlementManager.getByName(
                 EntitlementManager.VIRTUALIZATION_ENTITLED);
         assertNotNull(ent);
         assertEquals(EntitlementManager.VIRTUALIZATION, ent);
-
-        Entitlement entplat = EntitlementManager.getByName(
-                EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED);
-        assertNotNull(entplat);
-        assertEquals(EntitlementManager.VIRTUALIZATION_PLATFORM, entplat);
-
     }
 
     public void testGetUsedEntitlements() {
