@@ -526,8 +526,14 @@ is
                 and sgt.id = sg.group_type
                 and sgt.label in (
                     'enterprise_entitled',
+<<<<<<< HEAD
                     'nonlinux_entitled',
                     'virtualization_host', 'virtualization_host_platform'
+=======
+                    'bootstrap_entitled',
+                    'virtualization_host',
+                    'virtualization_host_platform'
+>>>>>>> 6dc6161... rhn_entitlements: remove references to nonlinux entitlements
                     );
 
          ent_array ents_array;
@@ -609,11 +615,6 @@ is
             ents_to_process(ents_to_process.count) := 'rhn_virtualization_platform';
             roles_to_process.extend;
             roles_to_process(roles_to_process.count) := 'config_admin';
-    elsif service_label_in = 'nonlinux' then
-            ents_to_process.extend;
-            ents_to_process(ents_to_process.count) := 'rhn_nonlinux';
-            roles_to_process.extend;
-            roles_to_process(roles_to_process.count) := 'config_admin';
         end if;
 
         if enable_in = 'Y' then
@@ -671,26 +672,12 @@ is
         modify_org_service(customer_id_in, 'enterprise', 'Y');
     end set_customer_enterprise;
 
-    procedure set_customer_nonlinux (
-        customer_id_in in number
-    ) is
-    begin
-        modify_org_service(customer_id_in, 'nonlinux', 'Y');
-    end set_customer_nonlinux;
-
     procedure unset_customer_enterprise (
         customer_id_in in number
     ) is
     begin
         modify_org_service(customer_id_in, 'enterprise', 'N');
     end unset_customer_enterprise;
-
-    procedure unset_customer_nonlinux (
-        customer_id_in in number
-    ) is
-    begin
-        modify_org_service(customer_id_in, 'nonlinux', 'N');
-    end unset_customer_nonlinux;
 
     -- *******************************************************************
     -- PROCEDURE: prune_group
