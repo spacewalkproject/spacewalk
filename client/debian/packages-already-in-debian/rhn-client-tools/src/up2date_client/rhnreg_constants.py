@@ -214,8 +214,6 @@ SLOTS                   =  SLOTS_TITLE + "\n" + OK_SLOTS + "\n%s"
 FAILED_SLOTS            = _("This system was unable to be associated with the "
                             "following RHN module(s) because there were "
                             "insufficient subscriptions available in your account:")
-UPDATES                 = _("Update module: per-system updates, email errata "
-                            "notifications, errata information")
 MANAGEMENT              = _("Management module: automatic updates, systems "
                             "grouping, systems permissions, system package profiling, "
                             "bare-metal provisioning, existing state provisioning, "
