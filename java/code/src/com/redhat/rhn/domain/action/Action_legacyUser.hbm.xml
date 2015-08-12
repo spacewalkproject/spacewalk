@@ -442,20 +442,26 @@ select {ra.*}
 
      <query name="Action.rescheduleFailedActions">
        <![CDATA[ update  com.redhat.rhn.domain.action.server.ServerAction sa
-                                        set sa.status = :queued, sa.remainingTries = :tries
+                                        set sa.status = :queued, sa.remainingTries = :tries,
+                                            sa.pickupTime = null, sa.completionTime = null,
+                                            resultCode = null, resultMsg = null
                                         where sa.status = :failed and
                                                         sa.parentAction = :action ]]>
     </query>
 
      <query name="Action.rescheduleAllActions">
        <![CDATA[ update  com.redhat.rhn.domain.action.server.ServerAction sa
-                                        set sa.status = :queued, sa.remainingTries = :tries
+                                        set sa.status = :queued, sa.remainingTries = :tries,
+                                            sa.pickupTime = null, sa.completionTime = null,
+                                            resultCode = null, resultMsg = null
                                         where sa.parentAction = :action ]]>
     </query>
     
     <query name="Action.rescheduleSingleServerAction">
        <![CDATA[ update  com.redhat.rhn.domain.action.server.ServerAction sa
-                                        set sa.status = :queued, sa.remainingTries = :tries
+                                        set sa.status = :queued, sa.remainingTries = :tries,
+                                            sa.pickupTime = null, sa.completionTime = null,
+                                            resultCode = null, resultMsg = null
                                         where sa.parentAction = :action and
                                                               sa.serverId = :server ]]>
     </query>
