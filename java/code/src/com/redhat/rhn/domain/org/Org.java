@@ -336,15 +336,7 @@ public class Org extends BaseDomainHelper {
         if (!OrgFactory.isValidEntitlement(ent)) {
             throw new IllegalArgumentException("Invalid Entitlement specified");
         }
-        // This is really bogus, but sw_mgr_personal isn't stored in the DB.
-        // The rule is that if you don't have the sw_mgr_enterprise entitlement,
-        // then you have the sw_mgr_personal one. So add that logic here.
 
-        if (ent.equals(OrgFactory.getEntitlementSwMgrPersonal())) {
-            if (!entitlements.contains(OrgFactory.getEntitlementEnterprise())) {
-                return true;
-            }
-        }
         return entitlements.contains(ent);
     }
 
