@@ -264,7 +264,6 @@ is
                      'added system entitlement ',
                       case type_label_in
                        when 'enterprise_entitled' then 'Management'
-                       when 'sw_mgr_entitled' then 'Update'
                        when 'virtualization_host' then 'Virtualization'
                        when 'virtualization_host_platform' then
                             'Virtualization Platform' end  );
@@ -329,7 +328,6 @@ is
                   'removed system entitlement ',
                    case type_label_in
                     when 'enterprise_entitled' then 'Management'
-                    when 'sw_mgr_entitled' then 'Update'
                     when 'virtualization_host' then 'Virtualization'
                     when 'virtualization_host_platform' then
                          'Virtualization Platforrm' end  );
@@ -384,7 +382,6 @@ is
                   'removed system entitlement ',
                    case servergroup.label
                     when 'enterprise_entitled' then 'Management'
-                    when 'sw_mgr_entitled' then 'Update'
                     when 'virtualization_host' then 'Virtualization'
                     when 'virtualization_host_platform' then
                          'Virtualization Platform' end  );
@@ -528,7 +525,7 @@ is
                 and sg.id = sgm.server_group_id
                 and sgt.id = sg.group_type
                 and sgt.label in (
-                    'sw_mgr_entitled','enterprise_entitled',
+                    'enterprise_entitled',
                     'nonlinux_entitled',
                     'virtualization_host', 'virtualization_host_platform'
                     );

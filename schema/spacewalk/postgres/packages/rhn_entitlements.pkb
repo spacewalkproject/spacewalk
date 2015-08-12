@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 d0d92c859d450f6faf8e22b7f8a980de3dc4877d
+-- oracle equivalent source sha1 a5ab059acdf43fe3114a159706bcb02c88e4a7c0
 --
 -- Copyright (c) 2008--2015 Red Hat, Inc.
 --
@@ -277,7 +277,6 @@ as $$
                      'added system entitlement ',
                       case type_label_in
                        when 'enterprise_entitled' then 'Management'
-                       when 'sw_mgr_entitled' then 'Update'
                        when 'virtualization_host' then 'Virtualization'
                        when 'virtualization_host_platform' then
                             'Virtualization Platform' end  );
@@ -344,7 +343,6 @@ as $$
                   'removed system entitlement ',
                    case type_label_in
                     when 'enterprise_entitled' then 'Management'
-                    when 'sw_mgr_entitled' then 'Update'
                     when 'virtualization_host' then 'Virtualization'
                     when 'virtualization_host_platform' then
                          'Virtualization Platforrm' end  );
@@ -396,7 +394,6 @@ as $$
                   'removed system entitlement ',
                    case servergroup.label
                     when 'enterprise_entitled' then 'Management'
-                    when 'sw_mgr_entitled' then 'Update'
                     when 'virtualization_host' then 'Virtualization'
                     when 'virtualization_host_platform' then
                          'Virtualization Platform' end  );
@@ -541,7 +538,7 @@ as $$
                 and sg.id = sgm.server_group_id
                 and sgt.id = sg.group_type
                 and sgt.label in (
-                    'sw_mgr_entitled','enterprise_entitled',
+                    'enterprise_entitled',
                     'nonlinux_entitled',
                     'virtualization_host', 'virtualization_host_platform'
                     );
