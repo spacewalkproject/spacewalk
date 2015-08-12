@@ -243,7 +243,7 @@ language plpgsql;
 
     create or replace function entitle_server (
         server_id_in in numeric,
-        type_label_in in varchar default 'sw_mgr_entitled'
+        type_label_in in varchar
     ) returns void
 as $$
     declare
