@@ -184,23 +184,21 @@ public class ActionFormatter {
         }
         else {
             retval.append(ls.getMessage("system.event.details.notPickedUp"));
-            retval.append(action.getHistoryDetails(server, currentUser));
-            return retval.toString();
         }
         retval.append("</br>");
         if (sa.getCompletionTime() != null) {
             retval.append(ls.getMessage("system.event.details.completed",
                     sa.getCompletionTime()));
+            retval.append("</br>");
+            retval.append(ls.getMessage("system.event.details.returned",
+                    StringEscapeUtils.escapeHtml(sa.getResultMsg()), sa.getResultCode()));
         }
         else {
             retval.append(ls.getMessage("system.event.details.notCompleted"));
-            retval.append(action.getHistoryDetails(server, currentUser));
-            return retval.toString();
         }
         retval.append("</br>");
-        retval.append(ls.getMessage("system.event.details.returned",
-                StringEscapeUtils.escapeHtml(sa.getResultMsg()), sa.getResultCode()));
         retval.append(action.getHistoryDetails(server, currentUser));
+
         return retval.toString();
     }
 
