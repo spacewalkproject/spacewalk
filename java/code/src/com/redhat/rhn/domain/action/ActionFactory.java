@@ -719,6 +719,21 @@ public class ActionFactory extends HibernateFactory {
     }
 
     /**
+     * Reschedule Server Action associated with an action and system
+     * @param action the action who's server actions you are rescheduling
+     * @param tries the number of tries to set (should be set to 5)
+     * @param server system id of action we want reschedule
+     */
+    public static void rescheduleSingleServerAction(Action action, Long tries,
+            Long server) {
+        HibernateFactory.getSession().getNamedQuery("Action.rescheduleSingleServerAction")
+        .setParameter("action", action)
+        .setParameter("tries", tries)
+        .setParameter("queued", ActionFactory.STATUS_QUEUED)
+        .setParameter("server", server).executeUpdate();
+    }
+
+    /**
      * @param aid history event id to look up for
      * @return history event
      */
