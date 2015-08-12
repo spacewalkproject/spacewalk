@@ -20,7 +20,6 @@ import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.entitlement.ManagementEntitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
-import com.redhat.rhn.domain.entitlement.VirtualizationPlatformEntitlement;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
@@ -49,21 +48,16 @@ public class EntitlementManager extends BaseManager {
     //  ENTITLEMENTS
     public static final Entitlement MANAGEMENT = new ManagementEntitlement();
     public static final Entitlement VIRTUALIZATION = new VirtualizationEntitlement();
-    public static final Entitlement VIRTUALIZATION_PLATFORM =
-        new VirtualizationPlatformEntitlement();
 
     public static final String UNENTITLED = "unentitled";
     public static final String ENTERPRISE_ENTITLED = "enterprise_entitled";
     public static final String VIRTUALIZATION_ENTITLED = "virtualization_host";
-    public static final String VIRTUALIZATION_PLATFORM_ENTITLED
-        = "virtualization_host_platform";
 
     private static final Set <Entitlement> ADDON_ENTITLEMENTS;
     private static final Set <Entitlement> BASE_ENTITLEMENTS;
     static {
         ADDON_ENTITLEMENTS = new LinkedHashSet<Entitlement>();
         ADDON_ENTITLEMENTS.add(VIRTUALIZATION);
-        ADDON_ENTITLEMENTS.add(VIRTUALIZATION_PLATFORM);
 
         BASE_ENTITLEMENTS = new LinkedHashSet<Entitlement>();
         BASE_ENTITLEMENTS.add(MANAGEMENT);
@@ -80,9 +74,6 @@ public class EntitlementManager extends BaseManager {
         }
         else if (VIRTUALIZATION_ENTITLED.equals(name)) {
             return VIRTUALIZATION;
-        }
-        else if (VIRTUALIZATION_PLATFORM_ENTITLED.equals(name)) {
-            return VIRTUALIZATION_PLATFORM;
         }
         return null;
     }

@@ -387,16 +387,6 @@ public class ActivationKeyManager {
      * @param adding True if adding entitlements, false if removing.
      */
     public void validateAddOnEntitlements(List <String> entitlements, boolean adding) {
-
-        if (adding && entitlements.contains(
-                EntitlementManager.VIRTUALIZATION_ENTITLED) &&
-                entitlements.contains(EntitlementManager.
-                        VIRTUALIZATION_PLATFORM_ENTITLED)) {
-            ValidatorResult ve = new ValidatorResult();
-            ve.addError(new ValidatorError("system.entitle.alreadyvirt"));
-            throw new ValidatorException(ve);
-        }
-
         ValidatorResult ve = new ValidatorResult();
         for (String entitlementLabel : entitlements) {
             Entitlement ent = EntitlementManager.getByName(entitlementLabel);
