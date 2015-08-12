@@ -93,8 +93,6 @@ public class SearchAction extends RhnAction {
 
     private boolean systemSearchAllowed(User user) {
         return user.getOrg().getEntitlements().contains(
-                OrgFactory.getEntitlementSwMgrPersonal()) ||
-        user.getOrg().getEntitlements().contains(
                 OrgFactory.getEntitlementEnterprise());
     }
 
