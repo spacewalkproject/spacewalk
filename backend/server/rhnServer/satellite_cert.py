@@ -107,7 +107,7 @@ class SatelliteCert:
     """
 
     fields_scalar = ['product', 'owner', 'issued', 'expires', 'slots',
-                     'nonlinux-slots', 'virtualization_host',
+                     'virtualization_host',
                      'virtualization_host_platform',
                      'satellite-version', 'generation', ]
     fields_list = {'channel-families': ChannelFamily}
