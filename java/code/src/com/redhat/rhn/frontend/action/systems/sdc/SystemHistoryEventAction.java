@@ -18,6 +18,7 @@ import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.ActionFormatter;
+import com.redhat.rhn.domain.action.server.ServerAction;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerHistoryEvent;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -53,8 +54,10 @@ public class SystemHistoryEventAction extends RhnAction {
         request.setAttribute("aid", aid);
 
         Action action;
+        ServerAction serverAction;
         try {
             action = ActionManager.lookupAction(requestContext.getCurrentUser(), aid);
+            serverAction = ActionFactory.getServerActionForServerAndAction(server, action);
         }
         catch (LookupException e) {
             ServerHistoryEvent event = ActionFactory.lookupHistoryEventById(aid);
@@ -74,7 +77,8 @@ public class SystemHistoryEventAction extends RhnAction {
         request.setAttribute("earliestaction", af.getEarliestDate());
         request.setAttribute("actionnotes", af.getDetails(server,
                 requestContext.getCurrentUser()));
-        request.setAttribute("failed", action.getFailedCount() > 0 ? true : false);
+        request.setAttribute("failed",
+                serverAction.getStatus().equals(ActionFactory.STATUS_FAILED));
         request.setAttribute("aid", aid);
         request.setAttribute("referrerLink", "Pending.do");
         request.setAttribute("linkLabel", "system.event.pendingReturn");
