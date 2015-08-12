@@ -1436,14 +1436,13 @@ public class Server extends BaseDomainHelper implements Identifiable {
     }
 
     /**
-     * Return <code>true</code> if this system has virtualization entitlements,
+     * Return <code>true</code> if this system has virtualization entitlement,
      * <code>false</code> otherwise.
-     * @return <code>true</code> if this system has virtualization entitlements,
+     * @return <code>true</code> if this system has virtualization entitlement,
      *      <code>false</code> otherwise.
      */
     public boolean hasVirtualizationEntitlement() {
-        return hasEntitlement(EntitlementManager.VIRTUALIZATION) ||
-                hasEntitlement(EntitlementManager.VIRTUALIZATION_PLATFORM);
+        return hasEntitlement(EntitlementManager.VIRTUALIZATION);
     }
 
     /**

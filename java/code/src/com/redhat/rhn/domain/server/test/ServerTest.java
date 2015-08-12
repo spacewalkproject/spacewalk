@@ -69,19 +69,15 @@ public class ServerTest extends BaseTestCaseWithUser {
     }
 
     public void testIsEntitlementAllowed() throws Exception {
-        UserTestUtils.addVirtualizationPlatform(user.getOrg());
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
         Server guest =
             host.getGuests().iterator().next().getGuestSystem();
         guest.setBaseEntitlement(EntitlementManager.MANAGEMENT);
 
         assertFalse(guest.isEntitlementAllowed(EntitlementManager.VIRTUALIZATION));
-        assertFalse(guest.isEntitlementAllowed(EntitlementManager.VIRTUALIZATION_PLATFORM));
-
-        assertTrue(host.isEntitlementAllowed(EntitlementManager.VIRTUALIZATION_PLATFORM));
 
         assertNotNull(host.getValidAddonEntitlementsForServer());
-        assertEquals(2, host.getValidAddonEntitlementsForServer().size());
+        assertEquals(1, host.getValidAddonEntitlementsForServer().size());
     }
 
 
