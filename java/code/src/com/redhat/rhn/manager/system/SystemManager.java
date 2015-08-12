@@ -1654,30 +1654,13 @@ public class SystemManager extends BaseManager {
                     ent.getHumanReadableLabel()));
             return result;
         }
-        if (ent instanceof VirtualizationEntitlement) {
+        if (EntitlementManager.VIRTUALIZATION.equals(ent)) {
             if (server.isVirtualGuest()) {
                 result.addError(new ValidatorError("system.entitle.guestcantvirt"));
                 return result;
             }
-            //we now check if we need to swap the server's entitlement
-            // with the entitlement you are passing in.
-            // if server has virt and we want convert it to virt_platform
-            // or server has virt_platform and we want convert it to virt
-            // are the 2 instances where we want to swap the old virt
-            // with the new...
-            if ((EntitlementManager.VIRTUALIZATION.equals(ent) &&
-                    hasEntitlement(sid, EntitlementManager.VIRTUALIZATION_PLATFORM))) {
-                log.debug("removing VIRT_PLATFORM");
-                removeServerEntitlement(sid, EntitlementManager.VIRTUALIZATION_PLATFORM,
-                        false);
-            }
-            else if ((EntitlementManager.VIRTUALIZATION_PLATFORM.equals(ent) &&
-                    hasEntitlement(sid, EntitlementManager.VIRTUALIZATION))) {
-                log.debug("removing VIRT");
-                removeServerEntitlement(sid, EntitlementManager.VIRTUALIZATION,
-                        false);
-            }
-            else {
+
+            if (!hasEntitlement(sid, EntitlementManager.VIRTUALIZATION)) {
                 log.debug("setting up system for virt.");
                 ValidatorResult virtSetupResults = setupSystemForVirtualization(orgIn, sid);
                 result.append(virtSetupResults);
@@ -1694,9 +1677,7 @@ public class SystemManager extends BaseManager {
             Server host = server.getVirtualInstance().getHostSystem();
             if (host != null) {
                 log.debug("host isnt null, checking entitlements.");
-                if ((host.hasEntitlement(EntitlementManager.VIRTUALIZATION) ||
-                        host.hasEntitlement(EntitlementManager.VIRTUALIZATION_PLATFORM)) &&
-                        host.hasEntitlement(ent)) {
+                if (host.hasVirtualizationEntitlement() && host.hasEntitlement(ent)) {
                     log.debug("host has virt and the ent passed in. FREE entitlement");
                     checkCounts = false;
                 }
