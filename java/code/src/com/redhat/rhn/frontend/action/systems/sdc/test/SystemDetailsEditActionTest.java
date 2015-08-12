@@ -56,7 +56,6 @@ public class SystemDetailsEditActionTest extends RhnPostMockStrutsTestCase {
         ChannelTestUtils.setupBaseChannelForVirtualization(user, s.getBaseChannel());
 
         UserTestUtils.addVirtualization(user.getOrg());
-        UserTestUtils.addVirtualizationPlatform(user.getOrg());
         TestUtils.saveAndFlush(user.getOrg());
 
         request.addParameter("sid", s.getId().toString());
@@ -204,11 +203,9 @@ public class SystemDetailsEditActionTest extends RhnPostMockStrutsTestCase {
 
         while (i.hasNext()) {
             Entitlement e = (Entitlement) i.next();
-            if (!e.equals(EntitlementManager.VIRTUALIZATION_PLATFORM)) {
-                assertFalse(s.hasEntitlement(e));
-                request.addParameter(e.getLabel(), Boolean.TRUE.toString());
-                System.out.println("added: " + e.getLabel());
-            }
+            assertFalse(s.hasEntitlement(e));
+            request.addParameter(e.getLabel(), Boolean.TRUE.toString());
+            System.out.println("added: " + e.getLabel());
         }
 
         s.setAutoUpdate("N");
@@ -233,8 +230,7 @@ public class SystemDetailsEditActionTest extends RhnPostMockStrutsTestCase {
                         s.hasEntitlement(e));
             }
         }
-        assertTrue(s.hasEntitlement(EntitlementManager.VIRTUALIZATION) ||
-                s.hasEntitlement(EntitlementManager.VIRTUALIZATION_PLATFORM));
+        assertTrue(s.hasEntitlement(EntitlementManager.VIRTUALIZATION));
 
         assertEquals("Y", s.getAutoUpdate());
     }

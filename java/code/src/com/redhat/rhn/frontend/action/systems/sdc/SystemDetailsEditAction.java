@@ -222,72 +222,57 @@ public class SystemDetailsEditAction extends RhnAction {
         // to be made
         boolean needsSnapshot = false;
 
-        //Check add-on entitlements for V18n
-        //Basically make sure both Virt and Virt_platform are not checked
-        //if so mention it as an error.
-        final Entitlement virt = EntitlementManager.VIRTUALIZATION;
-        final Entitlement virtPlatform = EntitlementManager.VIRTUALIZATION_PLATFORM;
-        if (validAddons.contains(virtPlatform) && validAddons.contains(virt) &&
-                 Boolean.TRUE.equals(daForm.get(virt.getLabel())) &&
-                 Boolean.TRUE.equals(daForm.get(virtPlatform.getLabel()))) {
-            ValidatorError err = new ValidatorError("system.entitle.alreadyvirt");
-            getStrutsDelegate().saveMessages(request,
-                    RhnValidationHelper.validatorErrorToActionErrors(err));
-            success = false;
-        }
-        else {
-            for (Iterator i = validAddons.iterator(); i.hasNext();) {
-                Entitlement e = (Entitlement) i.next();
-                log.debug("Entitlement: " + e.getLabel());
-                log.debug("form.get: " + daForm.get(e.getLabel()));
-                if (Boolean.TRUE.equals(daForm.get(e.getLabel())) &&
-                    SystemManager.canEntitleServer(s, e)) {
-                    log.debug("Entitling server with: " + e);
-                    ValidatorResult vr = SystemManager.entitleServer(s, e);
+        for (Iterator i = validAddons.iterator(); i.hasNext();) {
+            Entitlement e = (Entitlement) i.next();
+            log.debug("Entitlement: " + e.getLabel());
+            log.debug("form.get: " + daForm.get(e.getLabel()));
+            if (Boolean.TRUE.equals(daForm.get(e.getLabel())) &&
+                SystemManager.canEntitleServer(s, e)) {
+                log.debug("Entitling server with: " + e);
+                ValidatorResult vr = SystemManager.entitleServer(s, e);
 
-                    if (vr.getWarnings().size() > 0) {
-                        getStrutsDelegate().saveMessages(request,
-                                RhnValidationHelper.validatorWarningToActionMessages(
-                                    vr.getWarnings().toArray(new ValidatorWarning [] {})));
-                    }
-
-
-                    if (vr.getErrors().size() > 0) {
-                        ValidatorError ve = vr.getErrors().get(0);
-                        log.debug("Got error: " + ve);
-                        getStrutsDelegate().saveMessages(request,
-                                RhnValidationHelper.
-                                            validatorErrorToActionErrors(ve));
-                        success = false;
-                    }
-                    else {
-                        needsSnapshot = true;
-
-                        if (log.isDebugEnabled()) {
-                            log.debug("entitling worked?: " + s.hasEntitlement(e));
-                        }
-                        if (e instanceof VirtualizationEntitlement) {
-                            log.debug("adding virt msg");
-                            if (ConfigDefaults.get().isDocAvailable()) {
-                                createSuccessMessage(request,
-                                    "system.entitle.addedvirtualization",
-                                    "/rhn/help/reference/en-US/ch-virtualization.jsp");
-                            }
-                            else {
-                                createSuccessMessage(request,
-                                        "system.entitle.addedvirtualization.nodoc", null);
-                            }
-                        }
-                    }
+                if (vr.getWarnings().size() > 0) {
+                    getStrutsDelegate().saveMessages(request,
+                            RhnValidationHelper.validatorWarningToActionMessages(
+                                vr.getWarnings().toArray(new ValidatorWarning [] {})));
                 }
-                else if ((daForm.get(e.getLabel()) == null ||
-                         daForm.get(e.getLabel()).equals(Boolean.FALSE)) &&
-                         s.hasEntitlement(e)) {
-                    log.debug("removing entitlement: " + e);
-                    SystemManager.removeServerEntitlement(s.getId(), e);
 
+
+                if (vr.getErrors().size() > 0) {
+                    ValidatorError ve = vr.getErrors().get(0);
+                    log.debug("Got error: " + ve);
+                    getStrutsDelegate().saveMessages(request,
+                            RhnValidationHelper.
+                                        validatorErrorToActionErrors(ve));
+                    success = false;
+                }
+                else {
                     needsSnapshot = true;
+
+                    if (log.isDebugEnabled()) {
+                        log.debug("entitling worked?: " + s.hasEntitlement(e));
+                    }
+                    if (e instanceof VirtualizationEntitlement) {
+                        log.debug("adding virt msg");
+                        if (ConfigDefaults.get().isDocAvailable()) {
+                            createSuccessMessage(request,
+                                "system.entitle.addedvirtualization",
+                                "/rhn/help/reference/en-US/ch-virtualization.jsp");
+                        }
+                        else {
+                            createSuccessMessage(request,
+                                    "system.entitle.addedvirtualization.nodoc", null);
+                        }
+                    }
                 }
+            }
+            else if ((daForm.get(e.getLabel()) == null ||
+                     daForm.get(e.getLabel()).equals(Boolean.FALSE)) &&
+                     s.hasEntitlement(e)) {
+                log.debug("removing entitlement: " + e);
+                SystemManager.removeServerEntitlement(s.getId(), e);
+
+                needsSnapshot = true;
             }
         }
 
