@@ -305,8 +305,6 @@ class RegistrationResult:
     def _getSlotDescription(self, slot):
         if slot == 'enterprise_entitled':
             return rhnreg_constants.MANAGEMENT
-        elif slot == 'sw_mgr_entitled':
-            return rhnreg_constants.UPDATES
         elif slot == 'virtualization_host':
             return rhnreg_constants.VIRT
         elif slot == 'virtualization_host_platform':
