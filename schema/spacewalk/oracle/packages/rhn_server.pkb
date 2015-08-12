@@ -508,7 +508,7 @@ is
 		where	sgt.id = group_type;
 
 		-- the naive easy path that gets hit most often and has to be quickest.
-		if group_label in ('sw_mgr_entitled',
+		if group_label in (
                            'enterprise_entitled',
                            'virtualization_host',
                            'virtualization_host_platform') then
@@ -637,8 +637,8 @@ is
 		from	rhnServerGroupType sgt
 		where	sgt.id = group_type;
 
-		if label in ('sw_mgr_entitled',
-                     'enterprise_entitled', 
+		if label in (
+                     'enterprise_entitled',
                      'virtualization_host',
                      'virtualization_host_platform') then
 
