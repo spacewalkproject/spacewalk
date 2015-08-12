@@ -191,7 +191,7 @@ class SatelliteCert:
         return self._slot_maps.keys()
 
     def lookup_slot_by_db_label(self, db_label):
-        # Given a string like 'sw_mgr_entitled', returns a string 'management'
+        # Given a string like 'virtualization_host', returns a string 'virtualization'
         for label, (slot_name, slot_class) in self._slot_maps.items():
             if slot_class._db_label == db_label:
                 return label
