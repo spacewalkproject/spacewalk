@@ -46,13 +46,6 @@
         </context-group>
         <target>வாய்ப்பளித்தல்</target>
       </trans-unit>
-      <trans-unit id="Non-Linux Entitled Servers">
-        <source>Non-Linux</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-        <target>லினக்ஸ்-அல்லாத</target>
-      </trans-unit>
       <trans-unit id="Spacewalk Monitoring Entitled Servers">
         <source>Monitoring</source>
         <context-group name="ctx">

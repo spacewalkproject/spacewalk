@@ -45,13 +45,6 @@
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Non-Linux Entitled Servers">
-        <source>Non-Linux</source>
-        <target>No Linux</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Spacewalk Monitoring Entitled Servers">
         <source>Monitoring</source>
         <target>Monitorització</target>
