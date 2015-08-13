@@ -70,7 +70,7 @@ begin
       select count(1) into is_virt
         from rhnServerEntitlementView
        where server_id = server_id_in
-         and label in ('virtualization_host', 'virtualization_host_platform')
+         and label =  'virtualization_host'
          and rownum <= 1;
 
 	for sgm in servergroups loop
