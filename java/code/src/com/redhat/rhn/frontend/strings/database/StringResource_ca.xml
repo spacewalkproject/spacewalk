@@ -72,10 +72,6 @@
         <source>Virtualization</source>
         <target>Virtualització</target>
       </trans-unit>
-      <trans-unit id="virtualization_host_platform">
-        <source>Virtualization Platform</source>
-        <target>Plataforma de virtualització</target>
-      </trans-unit>
       <trans-unit id="Europe/Paris">
         <source>(GMT+0100) Europe (Central)</source>
         <target>(GMT+0100) Europa (Central)</target>
