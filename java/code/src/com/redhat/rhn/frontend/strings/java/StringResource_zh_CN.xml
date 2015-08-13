@@ -8377,13 +8377,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>注：要在 @@PRODUCT_NAME@@ 中为这个系统启用并使用虚拟化功能，请使用关联的 RHN 工具子频道安装 rhn-virtualization-host 软件包。查看红帽文档中有关启用了主机系统虚拟化的红帽企业版 Linux 的所有注意事项和要求。</target>
       </trans-unit>
-      <trans-unit id="system.entitle.alreadyvirt">
-        <source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>系统可以具有虚拟化权利或虚拟化平台权利，但不能两者兼有。</target>
-      </trans-unit>
       <trans-unit id="system.migrate.user_no_perms">
         <source>This user lacks the required permissions to migrate this system.</source>
         <context-group name="ctx">

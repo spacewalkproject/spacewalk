@@ -8364,13 +8364,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>NOTA: Para habilitar e usar as capacidades de virtualização dentro do @@PRODUCT_NAME@@ para este sistema, instale o pacote do rhn-virtualization-host a partir do canal filho associado às Ferramentas do RHN. Reveja a documentação da Red Hat para qualquer consideração ou requerimento que o Red Hat Enterprise Linux tenha quanto à habilitação da Ferramenta de Virtualização de um sistema Host. </target>
       </trans-unit>
-      <trans-unit id="system.entitle.alreadyvirt">
-        <source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>Um sistema pode ter tanto o serviço de Virtualização quanto o serviço de Virtualização Ilimitada, porém não ambos ao mesmo tempo.</target>
-      </trans-unit>
       <trans-unit id="system.migrate.user_no_perms">
         <source>This user lacks the required permissions to migrate this system.</source>
         <context-group name="ctx">
