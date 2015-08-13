@@ -21796,13 +21796,6 @@ como refletido neste certificado do @@PRODUCT_NAME@@. </target>
         </context-group>
         <target>Um único serviço de Virtualização (Complementar) em um sistema host, permite o gerenciamento de até 4 convidados.</target>
       </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
-        <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>Uma única Plataforma de Virtualização (Complementar) aplicada em um sistema host, habilitou gerenciamento para um número ilimitado de convidados.</target>
-      </trans-unit>
       <trans-unit id="entitlementorgs.orgname">
         <source>Organization Name</source>
         <context-group name="ctx">

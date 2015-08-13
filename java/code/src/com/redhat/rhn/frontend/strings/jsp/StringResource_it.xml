@@ -21775,13 +21775,6 @@ come riportato in questo certificato @@PRODUCT_NAME@@.</target>
         </context-group>
         <target>Un entitlement (aggiuntivo) singolo di Virtualizzazione applicato ad un sistema host, abilita il management fino a 4 guest.</target>
       </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
-        <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>Un entitlement singolo di Piattaforma di virtualizzazione (Add-On) applicato ad un sistema host permette una gestione per un numero di guest illimitati.</target>
-      </trans-unit>
       <trans-unit id="entitlementorgs.orgname">
         <source>Organization Name</source>
         <context-group name="ctx">
