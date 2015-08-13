@@ -21726,13 +21726,6 @@ La ruta del árbol, el RPM Kickstart, el canal base y la generación del instala
         </context-group>
         <target>Aplicado a un sistema host, permite administrar hasta 4 huéspedes.</target>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.virt_plat_tip">
-        <source>Applied to a host system, enables management for unlimited guests.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>Aplicado a un sistema host, permite administrar un número ilimitado de huéspedes.</target>
-      </trans-unit>
       <trans-unit id="orgsystemsubs.jsp.possible_vals">
         <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
         <context-group name="ctx">
