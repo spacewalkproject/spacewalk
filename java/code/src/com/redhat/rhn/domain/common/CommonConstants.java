@@ -33,13 +33,4 @@ public class CommonConstants {
             lookupVirtSubscriptionLevel("virtualization_free");
     }
 
-    /**
-     * Get constant for virtualization_platform_free
-     * @return VirtSubscriptionLevel for platform
-     */
-    public static final VirtSubscriptionLevel getVirtSubscriptionLevelPlatformFree() {
-        return CommonFactory.
-            lookupVirtSubscriptionLevel("virtualization_platform_free");
-    }
-
 }
