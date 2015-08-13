@@ -21829,13 +21829,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>Всего одно полномочие виртуализации (подключаемое к размещающей системе) позволяет управлять несколькими гостевыми системами (до 4-х).</target>
       </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
-        <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>Хосту выделено одно полномочие платформы виртуализации. При этом число виртуальных гостей неограничено.</target>
-      </trans-unit>
       <trans-unit id="entitlementorgs.orgname">
         <source>Organization Name</source>
         <context-group name="ctx">

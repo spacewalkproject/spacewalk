@@ -21854,13 +21854,6 @@ tal y como se refleja en el certificado de @@PRODUCT_NAME@@.</target>
         </context-group>
         <target>Un derecho único de virtualización (adicional) se aplica al sistema host y permite administrar hasta 4 huéspedes.</target>
       </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
-        <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>Un solo derecho de plataforma de virtualización (adicional) se aplica al sistema host y permite la administración de un número ilimitado de huéspedes.</target>
-      </trans-unit>
       <trans-unit id="entitlementorgs.orgname">
         <source>Organization Name</source>
         <context-group name="ctx">

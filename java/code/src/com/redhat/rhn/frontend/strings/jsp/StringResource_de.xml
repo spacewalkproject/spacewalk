@@ -21850,13 +21850,6 @@ Tree-Pfad, Kickstart-RPM, Basis-Channel und Installer-Generation sollten immer �
         </context-group>
         <target>Eine einzelne Virtualisierungs- (Zusatz-) Berechtigung, angewendet auf ein Host-System, ermöglicht das Management von bis zu 4 Gästen. </target>
       </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
-        <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>Eine einzelne Virtualisierungsplattform- (Zusatz-) Berechtigung, angewendet auf ein Host-System, ermöglicht das Management von beliebig vielen Guests. </target>
-      </trans-unit>
       <trans-unit id="entitlementorgs.orgname">
         <source>Organization Name</source>
         <context-group name="ctx">

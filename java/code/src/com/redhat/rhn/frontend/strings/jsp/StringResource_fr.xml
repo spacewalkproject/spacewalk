@@ -21849,13 +21849,6 @@ comme défini dans le certificat de ce @@PRODUCT_NAME@@.</target>
         </context-group>
         <target>Un droit d'accès Virtualisation unique (Supplémentaire) appliqué à un système hôte, permet de gérer jusqu'à 4 invités.</target>
       </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
-        <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>Un droit d'accès Plateforme de virtualisation unique (Supplémentaire) appliqué à un système hôte, permet de gérer un nombre illimité d'invités.</target>
-      </trans-unit>
       <trans-unit id="entitlementorgs.orgname">
         <source>Organization Name</source>
         <context-group name="ctx">
