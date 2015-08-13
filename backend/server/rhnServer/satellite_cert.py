@@ -85,17 +85,9 @@ class ManagementSlots(Slots):
     _db_label = 'enterprise_entitled'
     _slot_name = 'enterprise'
 
-# Slots for virt entitlements support
-
-
 class VirtualizationSlots(Slots):
     _db_label = 'virtualization_host'
     _slot_name = 'virtualization'
-
-
-class VirtualizationPlatformSlots(Slots):
-    _db_label = 'virtualization_host_platform'
-    _slot_name = 'virtualization_platform'
 
 class SatelliteCert:
 
@@ -108,7 +100,6 @@ class SatelliteCert:
 
     fields_scalar = ['product', 'owner', 'issued', 'expires', 'slots',
                      'virtualization_host',
-                     'virtualization_host_platform',
                      'satellite-version', 'generation', ]
     fields_list = {'channel-families': ChannelFamily}
 
@@ -175,8 +166,7 @@ class SatelliteCert:
 
     _slot_maps = {
         'management': ('slots', ManagementSlots),
-        'virtualization': ('virtualization_host', VirtualizationSlots),
-        'virtualization_platform': ('virtualization_host_platform', VirtualizationPlatformSlots)
+        'virtualization': ('virtualization_host', VirtualizationSlots)
     }
 
     def get_slots(self, slot_type):

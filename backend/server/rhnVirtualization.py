@@ -1028,10 +1028,6 @@ class EntitlementVirtualizationListener(VirtualizationListener):
             host_system_slots.remove("virtualization_host")
         except ValueError:
             pass
-        try:
-            host_system_slots.remove("virtualization_host_platform")
-        except ValueError:
-            pass
 
         guest_system_slots = server_lib.check_entitlement(guest_sid)
         guest_system_slots = guest_system_slots.keys()

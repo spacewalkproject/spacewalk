@@ -26,8 +26,6 @@ from spacewalk.server import rhnSQL, rhnChannel, rhnAction
 from server_lib import join_server_group
 
 VIRT_ENT_LABEL = 'virtualization_host'
-VIRT_PLATFORM_ENT_LABEL = 'virtualization_host_platform'
-
 
 def token_channels(server, server_arch, tokens_obj):
     """ Handle channel subscriptions for the registration token """
@@ -593,28 +591,8 @@ class ActivationTokens:
 
         history["entitlement"] = ""
 
-        # Do a quick check to see if both virt entitlements are present. (i.e.
-        # activation keys stacked together) If so, give preference to the more
-        # powerful virtualization platform and remove the regular virt
-        # entitlement from the list.
-        found_virt = False
-        found_virt_platform = False
         for entitlement in self.entitlements:
-            if entitlement[0] == VIRT_ENT_LABEL:
-                found_virt = True
-            elif entitlement[0] == VIRT_PLATFORM_ENT_LABEL:
-                found_virt_platform = True
-
-        for entitlement in self.entitlements:
-            if virt_type is not None and entitlement[0] in \
-                    (VIRT_ENT_LABEL, VIRT_PLATFORM_ENT_LABEL):
-                continue
-
-            # If both virt entitlements are present, skip the least powerful:
-            if found_virt and found_virt_platform and entitlement[0] == VIRT_ENT_LABEL:
-                log_debug(1, "Virtualization and Virtualization Platform " +
-                          "entitlements both present.")
-                log_debug(1, "Skipping Virtualization.")
+            if virt_type is not None and entitlement[0] == VIRT_ENT_LABEL:
                 continue
 
             try:
@@ -752,31 +730,6 @@ def _validate_entitlements(token_string, rereg_ents, base_entitlements,
         raise rhnFault(63,
                        _("Stacking of re-registration tokens with different base entitlements "
                          "is not supported"), explain=0)
-
-    # Don't allow an activation key to give virt entitlement to a system
-    # that's re-activating and already has virt platform: (or vice-versa)
-    found_virt = False
-    virt_tuple = None
-    found_virt_platform = False
-    for ent_tuple in extra_entitlements.keys():
-        if ent_tuple[0] == VIRT_ENT_LABEL:
-            found_virt = True
-            virt_tuple = ent_tuple
-        elif ent_tuple[0] == VIRT_PLATFORM_ENT_LABEL:
-            found_virt_platform = True
-
-    if found_virt and found_virt_platform and len(rereg_ents) > 0:
-        # Both virt entitlements found, give preference to the most powerful.
-        # (i.e. virtualization_host_platform) This may mean we have to remove
-        # virtualization_host if a reregistration key is in use and contains
-        # this entitlement.
-        if VIRT_ENT_LABEL in rereg_ents:
-            # The system already has virt host, so it must be removed:
-            log_debug(1, "Removing Virtualization entitlement from profile.")
-            remove_entitlements.append(virt_tuple[0])
-
-        # NOTE: the call to entitle will actually skip the virtualization
-        # entitlement, so we can leave it in the list here.
 
 _query_token = rhnSQL.Statement("""
     select rt.id as token_id,
