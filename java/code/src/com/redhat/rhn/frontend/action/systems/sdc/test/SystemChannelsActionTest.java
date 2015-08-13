@@ -47,7 +47,7 @@ public class SystemChannelsActionTest extends RhnMockStrutsTestCase {
         Channel child2 = ChannelTestUtils.createChildChannel(user, server.getBaseChannel());
         child2.setOrg(null);
         child2.getChannelFamily().addVirtSubscriptionLevel(
-                CommonConstants.getVirtSubscriptionLevelPlatformFree());
+                CommonConstants.getVirtSubscriptionLevelFree());
 
         TestUtils.saveAndFlush(child1);
         TestUtils.saveAndFlush(child2);
