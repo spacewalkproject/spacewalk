@@ -21,10 +21,4 @@ values(lookup_sg_type('virtualization_host'),
        lookup_virt_sub_level('virtualization_free'),
        current_timestamp, current_timestamp);
 
-insert into rhnSGTypeVirtSubLevel
-values(lookup_sg_type('virtualization_host_platform'),
-       lookup_virt_sub_level('virtualization_platform_free'),
-       current_timestamp, current_timestamp);
-
 commit;
-

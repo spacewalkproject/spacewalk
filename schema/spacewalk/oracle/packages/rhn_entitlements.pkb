@@ -365,7 +365,7 @@ is
         select 1 into is_virt
           from rhnServerEntitlementView
          where server_id = server_id_in
-           and label in = 'virtualization_host';
+           and label = 'virtualization_host';
       exception
         when no_data_found then
           is_virt := 0;
