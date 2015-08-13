@@ -25,21 +25,13 @@ insert into rhnServerGroupType (id, label, name, permanent, is_base)
                 'N', 'Y'
         );
 
--- virtualization_* types ----------------------------------------------------
+-- virtualization_host type ----------------------------------------------------
 
 insert into rhnServerGroupType ( id, label, name, permanent, is_base)
    values ( sequence_nextval('rhn_servergroup_type_seq'),
       'virtualization_host', 'Virtualization Host Entitled Servers',
       'N', 'N'
    );      
-
-insert into rhnServerGroupType ( id, label, name, permanent, is_base)
-   values ( sequence_nextval('rhn_servergroup_type_seq'),
-      'virtualization_host_platform', 
-      'Virtualization Host Platform Entitled Servers',
-      'N', 'N'
-   );      
-
 
 commit;
 
