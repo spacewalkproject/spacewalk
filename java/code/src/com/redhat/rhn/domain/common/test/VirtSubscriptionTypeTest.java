@@ -25,8 +25,6 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 public class VirtSubscriptionTypeTest extends RhnBaseTestCase {
 
     public void testLoadVSType() throws Exception {
-
         assertNotNull(CommonConstants.getVirtSubscriptionLevelFree());
-        assertNotNull(CommonConstants.getVirtSubscriptionLevelPlatformFree());
     }
 }

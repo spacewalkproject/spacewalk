@@ -59,11 +59,10 @@ public class ChannelFamilyTest extends BaseTestCaseWithUser {
                                 lookupOrCreatePrivateFamily(user.getOrg());
         Set<VirtSubscriptionLevel> levels = new HashSet<VirtSubscriptionLevel>();
         levels.add(CommonConstants.getVirtSubscriptionLevelFree());
-        levels.add(CommonConstants.getVirtSubscriptionLevelPlatformFree());
         cfam.setVirtSubscriptionLevels(levels);
         ChannelFamilyFactory.save(cfam);
         cfam = (ChannelFamily) reload(cfam);
         assertNotNull(cfam.getVirtSubscriptionLevels());
-        assertTrue(cfam.getVirtSubscriptionLevels().size() >= 2);
+        assertTrue(cfam.getVirtSubscriptionLevels().size() >= 1);
     }
 }
