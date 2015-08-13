@@ -21800,13 +21800,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>ホストシステムに適用された１つの仮想化 (付属) エンタイトルメントにより、最高 ４ つまでのゲスト用の管理が可能になります。</target>
       </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
-        <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>ホストシステムに適用されている １ つの仮想化プラットフォーム (付属) エンタイトルメントにより、無制限のゲストの管理が有効になります。</target>
-      </trans-unit>
       <trans-unit id="entitlementorgs.orgname">
         <source>Organization Name</source>
         <context-group name="ctx">
