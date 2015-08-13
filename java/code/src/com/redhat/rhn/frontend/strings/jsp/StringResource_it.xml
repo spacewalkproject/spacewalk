@@ -21647,13 +21647,6 @@ versione di Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
         </context-group>
         <target>Applicato ad un sistema host, abilita il management fino a 4 guest.</target>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.virt_plat_tip">
-        <source>Applied to a host system, enables management for unlimited guests.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>Applicato ad un sistema host, abilita il management per un numero di guest illimitato.</target>
-      </trans-unit>
       <trans-unit id="orgsystemsubs.jsp.possible_vals">
         <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
         <context-group name="ctx">

@@ -21672,13 +21672,6 @@ Tree-Pfad, Kickstart-RPM, Basis-Channel und Installer-Generation sollten immer �
         </context-group>
         <target>Angewendet auf ein Host-System, ermöglicht das Management für bis zu 4 Gäste.</target>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.virt_plat_tip">
-        <source>Applied to a host system, enables management for unlimited guests.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>Angewendet auf ein Host-System, ermöglicht das Management beliebig viele Gäste.</target>
-      </trans-unit>
       <trans-unit id="orgsystemsubs.jsp.possible_vals">
         <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
         <context-group name="ctx">

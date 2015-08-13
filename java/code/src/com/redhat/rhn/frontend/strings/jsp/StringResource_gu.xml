@@ -20576,13 +20576,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>યજમાન સિસ્ટમને લાગુ પડે છચે, ૪ મહેમાનો સુધી વ્યવસ્થાપન સક્રિય કરે છે.</target>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.virt_plat_tip">
-        <source>Applied to a host system, enables management for unlimited guests.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>યજમાન સિસ્ટમને લાગુ પડે છચે, અમર્યાદિત મહેમાનો સુધી વ્યવસ્થાપન સક્રિય કરે છે.</target>
-      </trans-unit>
       <trans-unit id="orgsystemsubs.jsp.possible_vals">
         <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
         <context-group name="ctx">
