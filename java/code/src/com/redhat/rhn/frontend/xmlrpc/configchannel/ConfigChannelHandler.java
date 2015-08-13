@@ -713,13 +713,9 @@ public class ConfigChannelHandler extends BaseHandler {
      */
     public int channelExists(User loggedInUser, String channelLabel) {
         ConfigurationManager manager = ConfigurationManager.getInstance();
-        DataResult<ConfigChannelDto> list = manager.
-                                    listGlobalChannels(loggedInUser, null);
-
-        for (ConfigChannelDto channel : list) {
-            if (channel.getLabel().equals(channelLabel)) {
-                return 1;
-            }
+        if (manager.isDuplicated(channelLabel, ConfigChannelType.global(),
+                loggedInUser.getOrg())) {
+            return 1;
         }
         return 0;
     }
