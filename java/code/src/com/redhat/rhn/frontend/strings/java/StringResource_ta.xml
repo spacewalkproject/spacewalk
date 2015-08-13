@@ -8117,13 +8117,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
           <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="system.entitle.alreadyvirt">
-        <source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>ஒரு கணினி மெய்நிகராக்கம் அல்லது மெய்நிகராக்க இயக்கத்தள உரிமத்தைக் கொண்டிருக்கும். ஆனால் இரண்டையும் கொண்டிருக்காது.</target>
-      </trans-unit>
       <trans-unit id="system.migrate.user_no_perms">
         <source>This user lacks the required permissions to migrate this system.</source>
         <context-group name="ctx">

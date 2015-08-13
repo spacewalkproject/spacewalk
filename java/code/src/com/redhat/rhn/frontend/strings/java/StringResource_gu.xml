@@ -8117,13 +8117,6 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="system.entitle.alreadyvirt">
-        <source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>સિસ્ટમ પાસે ક્યાં તો વર્ચ્યુઅલાઈઝેશન હોઈ શકે અથવા વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ ઉમેદવારી હોઈ શકે પરંતુ બંને નહિં.</target>
-      </trans-unit>
       <trans-unit id="system.migrate.user_no_perms">
         <source>This user lacks the required permissions to migrate this system.</source>
         <context-group name="ctx">

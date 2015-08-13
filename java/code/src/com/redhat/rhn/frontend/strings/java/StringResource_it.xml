@@ -8376,13 +8376,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         </context-group>
         <target>NOTA BENE: Per abilitare e usare le funzioni di virtualizzazione per questo sistema all'interno di @@PRODUCT_NAME@@ installare il pacchetto rhn-virtualization-host dal canale figlio dei Tool di RHN. Controllare la documentazione di Red Hat per considerazioni e requisiti di Red Hat Enterprise Linux, presenti con il processo di abilitazione della virtualizzazione di un sistema Host.</target>
       </trans-unit>
-      <trans-unit id="system.entitle.alreadyvirt">
-        <source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>Un sistema può avere un entitlement di Virtualizzazione o una Virtualization Platform, non entrambi.</target>
-      </trans-unit>
       <trans-unit id="system.migrate.user_no_perms">
         <source>This user lacks the required permissions to migrate this system.</source>
         <context-group name="ctx">

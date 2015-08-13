@@ -8377,13 +8377,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>注記: @@PRODUCT_NAME@@ 内でこのシステムの仮想化機能を有効にして使用する場合には、rhn-virtualization-host パッケージを関連する RHN ツールの子チャンネルからインストールします。ホストシステムの仮想化を有効にする際に注意すべき事項や Red Hat Enterprise Linux の要件などについては Red Hat ガイドを参照してください。</target>
       </trans-unit>
-      <trans-unit id="system.entitle.alreadyvirt">
-        <source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>システムは Virtualization または Virtualization Platform のいずれかのエンタイトルメントを持つことができますが、両方を一緒に持つことはできません。</target>
-      </trans-unit>
       <trans-unit id="system.migrate.user_no_perms">
         <source>This user lacks the required permissions to migrate this system.</source>
         <context-group name="ctx">
