@@ -6703,10 +6703,6 @@ deducted from the default organization.</source>
           <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement to these system(s).</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; システムに対する &lt;strong&gt;仮想化プラットフォーム&lt;/strong&gt; のエンタイトルメントの付与が失敗しました。これらのシステムに &lt;strong&gt;Management&lt;/strong&gt; ベースのエンタイトルメントがなかったためです。失敗したシステムは以下で選択された状態のままになっています。まず &lt;strong&gt;Management エンタイトルメントの設定&lt;/strong&gt; ボタンを以下でクリックしてから、&lt;strong&gt;付属エンタイトルメントのセクション&lt;/strong&gt; 内にあるドロップダウンリストのアイテム &lt;strong&gt;仮想化プラットフォーム&lt;/strong&gt; を選択し、次に以下の &lt;strong&gt;エンタイトルメントの追加&lt;/strong&gt; ボタンをクリックします。これでこれらのシステムに &lt;strong&gt;仮想化プラットフォーム&lt;/strong&gt; エンタイトルメントを追加することができます。</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
-          <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
-          <target>仮想化は Solaris システム上ではサポートがないため、&lt;strong&gt;{0}&lt;/strong&gt; システム用の &lt;strong&gt;仮想化プラットフォーム&lt;/strong&gt; エンタイトルメントの付与が失敗しました。</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; システムが &lt;strong&gt;Monitoring&lt;/strong&gt; に設定されています。</target>

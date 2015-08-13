@@ -6698,10 +6698,6 @@ deducted from the default organization.</source>
           <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement to these system(s).</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統無法獲得&lt;strong&gt;虛擬化平台&lt;/strong&gt;權利，因為缺少足夠的&lt;strong&gt;管理&lt;/strong&gt;基礎權利。下方仍勾選著這些無法獲得權利的系統。如果您先按下下方的&lt;strong&gt;設定為管理權利&lt;/strong&gt;按鈕，再選擇位於&lt;strong&gt;新增權利部份&lt;/strong&gt;中的下拉式選單中的&lt;strong&gt;虛擬化平台&lt;/strong&gt;，再按下下方的&lt;strong&gt;新增權利&lt;/strong&gt;按鈕，然後您就可以為這些系統新增&lt;strong&gt;虛擬化平台&lt;/strong&gt;權利。</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
-          <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統無法被設為&lt;strong&gt;虛擬化平台&lt;/strong&gt;，因為虛擬化並不支援 Solaris 平台。</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經設定為&lt;strong&gt;監控&lt;/strong&gt;權利。</target>
