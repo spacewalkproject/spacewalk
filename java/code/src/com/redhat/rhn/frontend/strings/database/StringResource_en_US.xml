@@ -68,9 +68,6 @@
         <trans-unit id="virtualization_host">
           <source>Virtualization</source>
         </trans-unit>
-        <trans-unit id="virtualization_host_platform">
-          <source>Virtualization Platform</source>
-        </trans-unit>
       </group>
       <!-- TimeZones -->
       <trans-unit id="Australia/Brisbane">

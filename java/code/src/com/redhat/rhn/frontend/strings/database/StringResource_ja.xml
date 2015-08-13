@@ -80,10 +80,6 @@
           <source>Virtualization</source>
           <target>仮想化</target>
         </trans-unit>
-        <trans-unit id="virtualization_host_platform">
-          <source>Virtualization Platform</source>
-          <target>仮想化プラットフォーム</target>
-        </trans-unit>
       </group>
       <!-- TimeZones -->
       <trans-unit id="Australia/Brisbane">
