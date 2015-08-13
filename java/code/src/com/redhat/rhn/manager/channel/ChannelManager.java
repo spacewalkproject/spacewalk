@@ -1992,12 +1992,12 @@ public class ChannelManager extends BaseManager {
         return m.execute(params);
     }
 
-    private static boolean isDefaultBaseChannel(Channel baseChan, String version) {
+    private static boolean isDefaultBaseChannel(Org org, Channel baseChan, String version) {
         if (baseChan == null) {
             return false;
         }
 
-        Channel defaultBaseChan = getDefaultBaseChannel(version,
+        Channel defaultBaseChan = getDefaultBaseChannel(org, version,
             baseChan.getChannelArch());
         if (defaultBaseChan == null) {
             return false;
@@ -2005,10 +2005,10 @@ public class ChannelManager extends BaseManager {
         return defaultBaseChan.getId().equals(baseChan.getId());
     }
 
-    private static Channel getDefaultBaseChannel(String version, ChannelArch
+    private static Channel getDefaultBaseChannel(Org org, String version, ChannelArch
             arch) {
         DistChannelMap dcm = ChannelManager.lookupDistChannelMapByPnReleaseArch(
-                RHEL_PRODUCT_NAME, version, arch);
+                org, RHEL_PRODUCT_NAME, version, arch);
         if (dcm == null) {
             return null;
         }
@@ -2044,7 +2044,7 @@ public class ChannelManager extends BaseManager {
             String rhelVersion = releaseEvr.getVersion();
 
             List<EssentialChannelDto> baseEusChans = new LinkedList<EssentialChannelDto>();
-            if (isDefaultBaseChannel(s.getBaseChannel(), rhelVersion)) {
+            if (isDefaultBaseChannel(usr.getOrg(), s.getBaseChannel(), rhelVersion)) {
                 EssentialChannelDto baseEus = lookupLatestEusChannelForRhelVersion(usr,
                         rhelVersion, s.getBaseChannel().getChannelArch().getId());
                 if (baseEus != null) {
@@ -2113,7 +2113,7 @@ public class ChannelManager extends BaseManager {
         else {
             for (DistChannelMap dcm : inChan.getDistChannelMaps()) {
                 String rhelVersion = dcm.getRelease();
-                if (isDefaultBaseChannel(inChan, rhelVersion)) {
+                if (isDefaultBaseChannel(u.getOrg(), inChan, rhelVersion)) {
                     EssentialChannelDto latestEus = lookupLatestEusChannelForRhelVersion(u,
                             rhelVersion, inChan.getChannelArch().getId());
                     if (latestEus != null) {
@@ -2149,16 +2149,16 @@ public class ChannelManager extends BaseManager {
     /**
      * Lookup the dist channel map for the given os, release, and channel arch.
      * Returns null if none is found.
-     *
+     * @param org organization
      * @param productName Product name.
      * @param release Version.
      * @param channelArch Channel arch.
      * @return DistChannelMap, null if none is found
      */
-    public static DistChannelMap lookupDistChannelMapByPnReleaseArch(String productName,
-            String release, ChannelArch channelArch) {
-        return ChannelFactory.lookupDistChannelMapByPnReleaseArch(productName, release,
-                channelArch);
+    public static DistChannelMap lookupDistChannelMapByPnReleaseArch(Org org,
+            String productName, String release, ChannelArch channelArch) {
+        return ChannelFactory.lookupDistChannelMapByPnReleaseArch(org, productName,
+                release, channelArch);
     }
 
     /**

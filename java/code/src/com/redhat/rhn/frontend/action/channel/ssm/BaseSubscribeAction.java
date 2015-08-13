@@ -171,7 +171,8 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
                     for (DistChannelMap dcm : dcms) {
                         String version = dcm.getRelease();
                         DistChannelMap defaultDcm =
-                           ChannelManager.lookupDistChannelMapByPnReleaseArch(
+                            ChannelManager.lookupDistChannelMapByPnReleaseArch(
+                                user.getOrg(),
                                 ChannelManager.RHEL_PRODUCT_NAME, version,
                                 oldBase.getChannelArch());
                         if (defaultDcm != null) {
