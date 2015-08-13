@@ -6690,10 +6690,6 @@ Sobald Sie zusätzliche &lt;strong&gt;Management&lt;/strong&gt; Berechtigungen h
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; System(e) auf &lt;strong&gt;Virtualisierungsplattform&lt;/strong&gt; gesetzt.  &lt;br/&gt; &lt;strong&gt;ANMERKUNG: &lt;/strong&gt;Falls das System zuvor die Virtualisierung besaß, wurde es nun auf Virtualisierungsplattform aktualisiert.</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
-          <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-          <target>&lt;strong&gt;Virtualisierung&lt;/strong&gt; von &lt;strong&gt;{0}&lt;/strong&gt; System(en) entfernt. Dies führt dazu, dass jeder Gast, der mit dem ausgewählten Host verknüpft ist, physische Channel- und System-Berechtigungen verbraucht.</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; System(e) eingestellt auf &lt;strong&gt;Monitoring&lt;/strong&gt;.</target>

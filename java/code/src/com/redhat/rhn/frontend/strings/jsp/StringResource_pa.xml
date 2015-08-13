@@ -6361,10 +6361,6 @@ deducted from the default organization.</source>
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; ਸਿਸਟਮ ਨੂੰ &lt;strong&gt;ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਪਲੇਟਫਾਰਮ&lt;/strong&gt; ਨਿਰਧਾਰਤ ਕੀਤਾ ਗਿਆ ਹੈ। &lt;br/&gt; &lt;strong&gt;ਸੂਚਨਾ: &lt;/strong&gt; ਜੇ ਸਿਸਟਮ ਉੱਪਰ ਪਹਿਲਾਂ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਹੈ ਤਾਂ ਇਸ ਨੂੰ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਪਲੇਟਫਾਰਮ ਅੱਪਗਰੇਡ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
-          <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-          <target>&lt;strong&gt;ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ&lt;/strong&gt; ਨੂੰ &lt;strong&gt;{0}&lt;/strong&gt; ਸਿਸਟਮਾਂ ਤੋਂ ਹਟਾਇਆ ਗਿਆ ਹੈ। ਇਸ ਨਾਲ ਚੁਣੇ ਮੇਜ਼ਬਾਨ ਨਾਲ ਸੰਬੰਧਿਤ ਕੋਈ ਵੀ ਗਿਸਟ ਭੌਤਿਕ ਚੈਨਲ ਅਤੇ ਸਿਸਟਮ ਇੰਟਾਈਟਲਮੈਂਟ ਵਰਤ ਸਕੇਗਾ।</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; ਸਿਸਟਮ ਨੂੰ &lt;strong&gt;ਨਿਗਰਾਨੀ&lt;/strong&gt; ਲਈ ਦਰਸਾਇਆ ਹੈ।</target>

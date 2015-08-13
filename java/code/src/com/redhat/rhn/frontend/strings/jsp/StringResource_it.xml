@@ -6690,10 +6690,6 @@ presi dall'organizzazione predefinita.</target>
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; sistemi impostati per la &lt;strong&gt;Virtualization Platform&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTA BENE: &lt;/strong&gt;Se il sistema in questione precedentemente presentava la Virtualizzazione, ora lo stesso verrà aggiornato a Piattaforma di Virtualizzazione. </target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
-          <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-          <target>&lt;strong&gt;Virtualizzazione&lt;/strong&gt; rimossa da &lt;strong&gt;{0}&lt;/strong&gt; sistema(i)  Ciò causerà ad ogni guest associato all'host selezionato, un consumo di entitlement del sistema e di canali fisici.</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(i) impostato(i) per il &lt;strong&gt;Monitoring&lt;/strong&gt;.</target>

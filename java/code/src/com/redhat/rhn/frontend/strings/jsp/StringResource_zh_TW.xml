@@ -6686,10 +6686,6 @@ deducted from the default organization.</source>
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統被設為&lt;strong&gt;虛擬化平台&lt;/strong&gt;。  &lt;br/&gt; &lt;strong&gt;註： &lt;/strong&gt;假如系統先前就擁有虛擬化的話，它就會被升級為虛擬化平台。 </target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
-          <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-          <target>已將&lt;strong&gt;虛擬化&lt;/strong&gt;由 &lt;strong&gt;{0}&lt;/strong&gt; 台系統中移除掉了 這會造成任何與所選主機相關的客座耗費實體的頻道與系統權利。</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經設定為&lt;strong&gt;監控&lt;/strong&gt;權利。</target>

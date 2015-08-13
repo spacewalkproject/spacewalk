@@ -6361,10 +6361,6 @@ deducted from the default organization.</source>
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम &lt;strong&gt;वर्चुअलाइजेशन प्लैटफ़ार्म&lt;/strong&gt; पर सेट.  &lt;br/&gt; &lt;strong&gt;नोट: &lt;/strong&gt;अगर सिस्टम पहले वर्चुअलाइजेशन रखता है इसे वर्चुअलाइजेशन प्लैटफॉर्म में उन्नत किया जा रहा है. </target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
-          <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-          <target>&lt;strong&gt;वर्चुअलाइजेशन&lt;/strong&gt; को &lt;strong&gt;{0}&lt;/strong&gt; सिस्टम से हटाया चुने मेजबान से जुड़े किसी अतिथि का कारण बनेगा भौतिक चैनल व सिस्टम एंटाइटेलमें की खपत करने के लिए.</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम &lt;strong&gt;मॉनिटरिंग&lt;/strong&gt; सेट किया गया.</target>

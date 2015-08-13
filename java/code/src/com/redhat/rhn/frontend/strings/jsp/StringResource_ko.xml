@@ -6539,10 +6539,6 @@ deducted from the default organization.</source>
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt;으로 설정되었습니다.  &lt;br/&gt; &lt;strong&gt;알림: &lt;/strong&gt;시스템에 가상화가 있을 경우 이는 가상화 플랫폼으로 업그레이드됩니다.</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
-          <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템에서 삭제된 &lt;strong&gt;가상화&lt;/strong&gt;는 선택한 호스트와 연계된 게스트가 물리적 채널 및 시스템 인타이틀먼트를 사용하게 합니다.</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;모니터링&lt;/strong&gt;으로 설정되어졌습니다.</target>
