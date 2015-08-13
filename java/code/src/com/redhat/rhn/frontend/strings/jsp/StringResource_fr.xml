@@ -21742,13 +21742,6 @@ comme défini dans le certificat de ce @@PRODUCT_NAME@@.</target>
         </context-group>
         <target> Virtualisation (Supplémentaire)</target>
       </trans-unit>
-      <trans-unit id="sys_entitlements.virtualization_host_platform">
-        <source> Virtualization Platform (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>Plateforme de virtualisation (Supplémentaire)</target>
-      </trans-unit>
       <trans-unit id="sys_entitlements.add_on">
         <source>(Add-On)</source>
         <context-group name="ctx">
