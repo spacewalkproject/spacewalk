@@ -6361,10 +6361,6 @@ deducted from the default organization.</source>
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; கணினிகள் &lt;strong&gt;மெய்நிகராக்க இயக்கத்தளத்திற்கு&lt;/strong&gt; அமைக்கப்பட்டன.  &lt;br/&gt; &lt;strong&gt;குறிப்பு: &lt;/strong&gt;கணினி முன்பே மெய்நிகராக்கத்தை கொண்டிருந்தால் அது மெய்நிகராக்க இயக்கத்தளத்திற்கு மேம்படுத்தப்படும். </target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
-          <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-          <target>&lt;strong&gt;மெய்நிகராக்கத்தை&lt;/strong&gt; &lt;strong&gt;{0}&lt;/strong&gt; கணினிகளிலிருந்து நீக்குவது தேர்ந்தெடுக்கப்பட்ட  புரவலினிலிருந்து தொடர்புடைய விருந்தினர்களை பருநிலை தடம் மற்றும் கணினி உரிமங்களை வைத்திருக்கிறது.</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt;கணினி(கள்) &lt;strong&gt;கண்காணிக்க&lt;/strong&gt;அமைக்கப்பட்டுள்ளது.</target>

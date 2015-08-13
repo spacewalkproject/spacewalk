@@ -6361,10 +6361,6 @@ deducted from the default organization.</source>
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; সিস্টেমের ক্ষেত্রে &lt;strong&gt;Virtualization Platform&lt;/strong&gt; ধার্য করা হয়েছে।  &lt;br/&gt; &lt;strong&gt;উল্লেখ্য: &lt;/strong&gt;সিস্টেমের মধ্যে পূর্বে Virtualization উপস্থিত থাকলে তা Virtualization Platform-এ আপগ্রেড করা হয়েছে। </target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
-          <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; সিস্টেম থেকে &lt;strong&gt;Virtualization&lt;/strong&gt;  মুছে ফেলা হয়েছে। এর ফলে নির্বাচিত হোস্টের সাথে সংযুক্ত কোনো গেস্ট সিস্টেম দ্বারা চ্যানেল ও সিস্টেম সংক্রান্ত এনটাইটেলমেন্ট গ্রাস করা হবে।</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt;-টি সিস্টেম &lt;strong&gt;Monitoring&lt;/strong&gt; হিসাবে নির্ধারিত।</target>
