@@ -6551,10 +6551,6 @@ deducted from the default organization.</source>
           <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement to these system(s).</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;관리&lt;/strong&gt; 기본 인타이틀먼트를 가지고 있지 않기 때문에 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 인타이틀먼트를 실패하였습니다. 실패한 시스템은 아직 아래에 선택되어져 있습니다. 먼저 아래의 &lt;strong&gt;관리 인타이틀먼트 설정 &lt;/strong&gt; 버튼을 클릭하시고, &lt;strong&gt;애드온 인타이틀먼트 부분&lt;/strong&gt;에 위치한 드롭다운 목록에서 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 항목을 선택하신 다음, 아래의 &lt;strong&gt;인타이틀먼트 추가&lt;/strong&gt; 버튼을 클릭하시면, 이 시스템에 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 인타이틀먼트를 추가하실 수 있습니다. </target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
-          <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
-          <target>가상화는 Solaris 시스템에서 지원되지 않기 때문에 &lt;strong&gt;{0}&lt;/strong&gt; 시스템에 대한 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 인타이틀먼트를 실패하였습니다.   </target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;모니터링&lt;/strong&gt;으로 설정되어졌습니다.</target>
