@@ -222,15 +222,11 @@ MANAGEMENT              = _("Management module: automatic updates, systems "
 VIRT = _("Virtualization module: software updates for a limited number of "
         "virtual guests on this system.")
 
-VIRT_PLATFORM = _("Virtualization Platform module: software updates for an "
-        "unlimited number virtual guests of this system, access to additional "
-        "software channels for guests of this system.")
-
 VIRT_FAILED = _("<b>Warning:</b> Any guest systems you create on this system "
         "and register to RHN will consume Red Hat Enterprise Linux "
         "subscriptions beyond this host system's subscription. You will need "
-        "to: (1) make a virtualization or virtualization platform system "
-        "entitlement available and (2) apply that system entitlement to this "
+        "to: (1) make a virtualization system entitlement available and "
+        "(2) apply that system entitlement to this "
         "system in RHN's web interface if you do not want virtual guests of "
         "this system to consume additional subscriptions.")
 
