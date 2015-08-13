@@ -6682,10 +6682,6 @@ deducted from the default organization.</source>
           <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
           <target>&lt;strong&gt;虛擬化&lt;/strong&gt;權利無法套用至 &lt;strong&gt;{0}&lt;/strong&gt; 台系統上，因為虛擬化不支援 Solaris 系統。</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.success">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統被設為&lt;strong&gt;虛擬化平台&lt;/strong&gt;。  &lt;br/&gt; &lt;strong&gt;註： &lt;/strong&gt;假如系統先前就擁有虛擬化的話，它就會被升級為虛擬化平台。 </target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經設定為&lt;strong&gt;監控&lt;/strong&gt;權利。</target>

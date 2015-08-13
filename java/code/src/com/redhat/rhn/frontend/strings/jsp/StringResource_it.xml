@@ -6686,10 +6686,6 @@ presi dall'organizzazione predefinita.</target>
           <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
           <target>Entitlement di &lt;strong&gt;Virtualizzazione&lt;/strong&gt; fallito per &lt;strong&gt;{0}&lt;/strong&gt; sistemi poichè la Virtualizzazione non è supportata sui sistemi Solaris.</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.success">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; sistemi impostati per la &lt;strong&gt;Virtualization Platform&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTA BENE: &lt;/strong&gt;Se il sistema in questione precedentemente presentava la Virtualizzazione, ora lo stesso verrà aggiornato a Piattaforma di Virtualizzazione. </target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(i) impostato(i) per il &lt;strong&gt;Monitoring&lt;/strong&gt;.</target>

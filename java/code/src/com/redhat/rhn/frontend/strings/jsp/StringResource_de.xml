@@ -6686,10 +6686,6 @@ Sobald Sie zusätzliche &lt;strong&gt;Management&lt;/strong&gt; Berechtigungen h
           <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
           <target>&lt;strong&gt;Virtualisierungs&lt;/strong&gt; Berechtigung für &lt;strong&gt;{0}&lt;/strong&gt; System(e) gescheitert, da Virtualisierung auf Solaris-Systemen nicht unterstützt wird.</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.success">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; System(e) auf &lt;strong&gt;Virtualisierungsplattform&lt;/strong&gt; gesetzt.  &lt;br/&gt; &lt;strong&gt;ANMERKUNG: &lt;/strong&gt;Falls das System zuvor die Virtualisierung besaß, wurde es nun auf Virtualisierungsplattform aktualisiert.</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; System(e) eingestellt auf &lt;strong&gt;Monitoring&lt;/strong&gt;.</target>
