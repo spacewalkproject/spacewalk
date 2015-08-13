@@ -6687,10 +6687,6 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
           <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
           <target>El derecho de &lt;strong&gt;Virtualización&lt;/strong&gt; falló en &lt;strong&gt;{0}&lt;/strong&gt; sistema(s) porque la virtualización no está soportada en sistemas Solaris.</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.success">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) establecidos en el servicio de &lt;strong&gt;Plataforma de Virtualización&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTA: &lt;/strong&gt;Si el sistema tenía nivel de servicios de virtualización, éste ha sido promovido al nivel de servicios de Plataforma de virtualización.</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) establecidos en el servicio de &lt;strong&gt;monitorización&lt;/strong&gt;.</target>

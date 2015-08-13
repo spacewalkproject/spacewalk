@@ -6687,10 +6687,6 @@ deducted from the default organization.</source>
           <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
           <target>仮想化は Solaris システムではサポートされていないため、&lt;strong&gt;{0}&lt;/strong&gt; システムの&lt;strong&gt;仮想化&lt;/strong&gt; エンタイトルメントは失敗しました。</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.success">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; システムに&lt;strong&gt;仮想化プラットフォーム&lt;/strong&gt;が設定されました。&lt;br/&gt; &lt;strong&gt;注記: &lt;/strong&gt; このシステムが以前に仮想化を有していた場合、仮想化プラットフォームにアップグレードしたことになります。</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; システムが &lt;strong&gt;Monitoring&lt;/strong&gt; に設定されています。</target>

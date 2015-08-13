@@ -6683,10 +6683,6 @@ deducted from the default organization.</source>
           <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
           <target>Не удалось присвоить полномочие &lt;strong&gt;виртуализации&lt;/strong&gt; &lt;strong&gt;{0}&lt;/strong&gt; системе(ам), так как Solaris не поддерживает виртуализацию.</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.success">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; системе(ам) было присвоено полномочие &lt;strong&gt;платформы виртуализации&lt;/strong&gt;. &lt;br/&gt; &lt;strong&gt;Примечание.&lt;/strong&gt; Если система обладала полномочием виртуализации, оно было повышено до уровня платформы виртуализации.</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; системе(ам) присвоены полномочия &lt;strong&gt;мониторинга&lt;/strong&gt;.</target>
