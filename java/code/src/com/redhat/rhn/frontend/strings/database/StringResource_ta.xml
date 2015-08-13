@@ -80,10 +80,6 @@
           <source>Virtualization</source>
           <target>மெய்நிகர் புரவலன்</target>
         </trans-unit>
-        <trans-unit id="virtualization_host_platform">
-          <source>Virtualization Platform</source>
-          <target>மெய்நிகர் பிளாட்பார்ம்</target>
-        </trans-unit>
       </group>
       <!-- TimeZones -->
       <trans-unit id="Australia/Brisbane">

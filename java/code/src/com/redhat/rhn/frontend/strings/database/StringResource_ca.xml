@@ -68,9 +68,5 @@
         <source>Virtualization</source>
         <target>Virtualització</target>
       </trans-unit>
-      <trans-unit id="virtualization_host_platform">
-        <source>Virtualization Platform</source>
-        <target>Plataforma de virtualització</target>
-      </trans-unit>
     </body>
   </file></xliff>
