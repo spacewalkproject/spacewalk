@@ -21,12 +21,6 @@ values(sequence_nextval('rhn_virt_sl_seq'), 'virtualization_free',
        'Virtualization free content group',
        current_timestamp, current_timestamp);
 
-insert into rhnVirtSubLevel(id, label, name, created, modified)
-values(sequence_nextval('rhn_virt_sl_seq'), 'virtualization_platform_free',
-       'Virtualization Platform free content group',
-       current_timestamp, current_timestamp);
-
-
 commit;
 
 

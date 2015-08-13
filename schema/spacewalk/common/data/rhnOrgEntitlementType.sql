@@ -27,11 +27,4 @@ insert into rhnOrgEntitlementType (id, label, name)
                 'rhn_virtualization', 'Spacewalk Virtualization'
         );
 
-insert into rhnOrgEntitlementType (id, label, name)
-        values (sequence_nextval('rhn_org_entitlement_type_seq'),
-                'rhn_virtualization_platform', 'Spacewalk Virtualization Platform'
-        );
-
-
 commit;
-
