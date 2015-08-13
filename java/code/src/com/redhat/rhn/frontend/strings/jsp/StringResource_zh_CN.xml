@@ -6693,10 +6693,6 @@ deducted from the default organization.</source>
           <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
           <target>从系统 &lt;strong&gt;{0}&lt;/strong&gt; 中删除 &lt;strong&gt;虚拟化&lt;/strong&gt;。这将导致任何和选定主机关联的虚拟机消耗物理的频道和系统权利。</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.notEnoughSlots">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements, you will be able to upgrade these systems.  &lt;br/&gt;&lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization.</source>
-          <target>成功将 &lt;strong&gt;{0}&lt;/strong&gt; 系统设定为&lt;strong&gt;虚拟化平台&lt;/strong&gt;权利，但是没有足够的&lt;strong&gt;虚拟化平台&lt;/strong&gt;权利来满足剩余的 &lt;strong&gt;{1}&lt;/strong&gt; 系统。您可以通过 &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt; 购买额外的 &lt;strong&gt;虚拟化平台&lt;/strong&gt; 权利。在您具有了额外的&lt;strong&gt;虚拟化平台&lt;/strong&gt;权利后，您将可以升级这些系统。&lt;br/&gt; &lt;strong&gt;注意：&lt;/strong&gt;如果系统以前具有虚拟化平台权利，它就降级为虚拟化权利了。</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>将 &lt;strong&gt;{0}&lt;/strong&gt; 个系统设为&lt;strong&gt;监测&lt;/strong&gt;。</target>
