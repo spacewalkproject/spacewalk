@@ -70,7 +70,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                         inner join rhnServerGroup sg on sgm.server_group_id = sg.id
                         inner join rhnServerGroupType sgt on sg.group_type = sgt.id
                where
-                    sgt.label in ('virtualization_host', 'virtualization_host_platform')
+                    sgt.label = 'virtualization_host'
                     and sgm.server_id = host.id
             ))
         ]]>
