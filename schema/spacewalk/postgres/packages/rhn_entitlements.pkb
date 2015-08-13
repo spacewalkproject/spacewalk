@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 529a67ee154a305e69afd8aa98dca6fc01f87f68
+-- oracle equivalent source sha1 1f59caf7f0f12572b52ae53467cf680c16a50987
 --
 -- Copyright (c) 2008--2015 Red Hat, Inc.
 --
@@ -255,15 +255,13 @@ as $$
       select 1 into is_virt
         from rhnServerEntitlementView
         where server_id = server_id_in
-          and label in ('virtualization_host', 'virtualization_host_platform');
+          and label = 'virtualization_host';
 
       if not found then
           is_virt := 0;
       end if;
 
-      if is_virt = 0 and (type_label_in = 'virtualization_host' or
-                          type_label_in = 'virtualization_host_platform') then
-
+      if is_virt = 0 and type_label_in = 'virtualization_host' then
         is_virt := 1;
       end if;
 
@@ -278,8 +276,7 @@ as $$
                       case type_label_in
                        when 'enterprise_entitled' then 'Management'
                        when 'virtualization_host' then 'Virtualization'
-                       when 'virtualization_host_platform' then
-                            'Virtualization Platform' end  );
+                      end  );
 
             perform rhn_server.insert_into_servergroup (server_id_in, sgid);
 
@@ -311,7 +308,7 @@ as $$
         select 1 into is_virt
           from rhnServerEntitlementView
           where server_id = server_id_in
-            and label in ('virtualization_host', 'virtualization_host_platform');
+            and label = 'virtualization_host';
         if not found then
             is_virt := 0;
         end if;
@@ -344,8 +341,7 @@ as $$
                    case type_label_in
                     when 'enterprise_entitled' then 'Management'
                     when 'virtualization_host' then 'Virtualization'
-                    when 'virtualization_host_platform' then
-                         'Virtualization Platforrm' end  );
+                   end  );
 
          perform rhn_server.delete_from_servergroup(server_id_in, group_id);
 
@@ -381,7 +377,7 @@ as $$
       select 1 into is_virt
         from rhnServerEntitlementView
         where server_id = server_id_in
-         and label in ('virtualization_host', 'virtualization_host_platform');
+         and label = 'virtualization_host';
 
       if not found then
           is_virt := 0;
@@ -395,8 +391,7 @@ as $$
                    case servergroup.label
                     when 'enterprise_entitled' then 'Management'
                     when 'virtualization_host' then 'Virtualization'
-                    when 'virtualization_host_platform' then
-                         'Virtualization Platform' end  );
+                   end  );
 
          perform rhn_server.delete_from_servergroup(server_id_in,
                                             servergroup.server_group_id );
@@ -472,7 +467,7 @@ as $$
           select 1 into is_virt
                 from rhnServerEntitlementView
            where server_id = server_id_in
-                 and label in ('virtualization_host', 'virtualization_host_platform');
+                 and label = 'virtualization_host';
 
       if not found then
           is_virt := 0;
@@ -539,8 +534,7 @@ as $$
                 and sgt.id = sg.group_type
                 and sgt.label in (
                     'enterprise_entitled',
-                    'virtualization_host',
-                    'virtualization_host_platform'
+                    'virtualization_host'
                     );
 
          ent_array varchar[];
@@ -609,9 +603,6 @@ as $$
         elsif service_label_in = 'virtualization' then
             ents_to_process := array_append(ents_to_process, 'rhn_virtualization');
 
-            roles_to_process := array_append(roles_to_process, 'config_admin');
-        elsif service_label_in = 'virtualization_platform' then
-            ents_to_process := array_append(ents_to_process, 'rhn_virtualization_platform');
             roles_to_process := array_append(roles_to_process, 'config_admin');
         end if;
 

@@ -241,15 +241,13 @@ is
           select 1 into is_virt
             from rhnServerEntitlementView
            where server_id = server_id_in
-             and label in ('virtualization_host', 'virtualization_host_platform');
+             and label = 'virtualization_host';
       exception
             when no_data_found then
               is_virt := 0;
           end;
 
-      if is_virt = 0 and (type_label_in = 'virtualization_host' or
-                          type_label_in = 'virtualization_host_platform') then
-
+      if is_virt = 0 and type_label_in = 'virtualization_host' then
         is_virt := 1;
       end if;
 
@@ -265,8 +263,7 @@ is
                       case type_label_in
                        when 'enterprise_entitled' then 'Management'
                        when 'virtualization_host' then 'Virtualization'
-                       when 'virtualization_host_platform' then
-                            'Virtualization Platform' end  );
+                      end  );
 
             rhn_server.insert_into_servergroup (server_id_in, sgid);
 
@@ -299,7 +296,7 @@ is
           select 1 into is_virt
             from rhnServerEntitlementView
            where server_id = server_id_in
-             and label in ('virtualization_host', 'virtualization_host_platform');
+             and label = 'virtualization_host';
         exception
           when no_data_found then
             is_virt := 0;
@@ -329,8 +326,7 @@ is
                    case type_label_in
                     when 'enterprise_entitled' then 'Management'
                     when 'virtualization_host' then 'Virtualization'
-                    when 'virtualization_host_platform' then
-                         'Virtualization Platforrm' end  );
+                   end  );
 
          rhn_server.delete_from_servergroup(server_id_in, group_id);
 
@@ -369,7 +365,7 @@ is
         select 1 into is_virt
           from rhnServerEntitlementView
          where server_id = server_id_in
-           and label in ('virtualization_host', 'virtualization_host_platform');
+           and label in = 'virtualization_host';
       exception
         when no_data_found then
           is_virt := 0;
@@ -383,8 +379,7 @@ is
                    case servergroup.label
                     when 'enterprise_entitled' then 'Management'
                     when 'virtualization_host' then 'Virtualization'
-                    when 'virtualization_host_platform' then
-                         'Virtualization Platform' end  );
+                   end  );
 
          rhn_server.delete_from_servergroup(server_id_in,
                                             servergroup.server_group_id );
@@ -460,7 +455,7 @@ is
           select 1 into is_virt
                 from rhnServerEntitlementView
            where server_id = server_id_in
-                 and label in ('virtualization_host', 'virtualization_host_platform');
+                 and label = 'virtualization_host';
            exception
                 when no_data_found then
                   is_virt := 0;
@@ -526,14 +521,7 @@ is
                 and sgt.id = sg.group_type
                 and sgt.label in (
                     'enterprise_entitled',
-<<<<<<< HEAD
-                    'nonlinux_entitled',
-                    'virtualization_host', 'virtualization_host_platform'
-=======
-                    'bootstrap_entitled',
-                    'virtualization_host',
-                    'virtualization_host_platform'
->>>>>>> 6dc6161... rhn_entitlements: remove references to nonlinux entitlements
+                    'virtualization_host'
                     );
 
          ent_array ents_array;
@@ -608,11 +596,6 @@ is
             ents_to_process.extend;
             ents_to_process(ents_to_process.count) := 'rhn_virtualization';
 
-            roles_to_process.extend;
-            roles_to_process(roles_to_process.count) := 'config_admin';
-        elsif service_label_in = 'virtualization_platform' then
-            ents_to_process.extend;
-            ents_to_process(ents_to_process.count) := 'rhn_virtualization_platform';
             roles_to_process.extend;
             roles_to_process(roles_to_process.count) := 'config_admin';
         end if;
