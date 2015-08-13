@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 aaf32f49a60107b15dc14858bf8161a9b03403d7
+-- oracle equivalent source sha1 a56504e2f17f7a108f2eb55073e6ea17152c430b
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -72,7 +72,7 @@ begin
        select 1
         from rhnServerEntitlementView
        where server_id = server_id_in
-         and label in ('virtualization_host', 'virtualization_host_platform')
+         and label = 'virtualization_host'
       );
 
 	for sgm in servergroups loop
