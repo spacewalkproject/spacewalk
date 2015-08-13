@@ -1161,8 +1161,6 @@ class ReviewWindow:
                     slot_list += MANAGEMENT + "\n"
                 elif slot == 'virtualization_host':
                     slot_list += VIRT + "\n"
-                elif slot == 'virtualization_host_platform':
-                    slot_list += VIRT_PLATFORM + "\n"
                 else:
                     slot_list += slot + "\n"
             review_window_text += SLOTS % slot_list + "\n\n"
