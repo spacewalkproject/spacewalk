@@ -1049,7 +1049,7 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
                                                 and grp.id = sgm.server_group_id
                                                 and grp.group_type = type.id
                                                 and VI.virtual_system_id is null
-                                                and  ( type.label = 'virtualization_host' or type.label = 'virtualization_host_platform')
+                                                and type.label = 'virtualization_host'
        ) as virt_entitlement,
      COALESCE(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
          rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable
@@ -1338,8 +1338,7 @@ select distinct sgm.server_id as ID, 1 as virtual_host
             INNER JOIN rhnServerGroupType sgt ON sgt.id = sg.group_type
             where
                 sgm.server_id in (%s) and
-                    (sgt.label='virtualization_host_platform' or
-                                sgt.label='virtualization_host')
+                    sgt.label='virtualization_host'
 union
 select VI.host_system_id as ID, 1 as virtual_host
     from rhnVirtualInstance VI
