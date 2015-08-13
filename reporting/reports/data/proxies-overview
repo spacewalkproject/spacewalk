@@ -19,6 +19,7 @@ sql:
     select * from (
         select proxy.id proxy_id, proxy.name proxy_name, server.name server_name, server.id server_id
           from rhnserver proxy
+               inner join rhnproxyinfo pi on proxy.id = pi.server_id
                left outer join rhnserverpath sp on sp.proxy_server_id = proxy.id
                left outer join rhnserver server on server.id = sp.server_id
          order by proxy.name, server.name 
