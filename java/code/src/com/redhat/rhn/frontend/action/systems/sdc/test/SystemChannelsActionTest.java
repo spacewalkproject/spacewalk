@@ -90,34 +90,6 @@ public class SystemChannelsActionTest extends RhnMockStrutsTestCase {
 
     }
 
-    /*
-     * TODO: I'm not certain what we're trying to accomplish here.  HOWEVER - you
-     * can't make another ChannelFamily have the label SATELLITE_CHANNEL_FAMILY_LABEL;
-     * labels must be unique, and that one's in use.
-     *
-     * Commenting this test out until we can correct it.
-     */
-//    public void testProxySatChannels() throws Exception {
-//        Channel child3 = ChannelTestUtils.createChildChannel(user,
-//                server.getBaseChannel());
-//        child3.getChannelFamily().setLabel(ChannelFamilyFactory
-//                       .SATELLITE_CHANNEL_FAMILY_LABEL);
-//        TestUtils.saveAndFlush(child3);
-//        actionPerform();
-//        ChildChannelDto[] children =
-//            (ChildChannelDto[])
-//                request.getAttribute(SystemChannelsAction.AVAIL_CHILD_CHANNELS);
-//
-//        boolean found = false;
-//        for (int i = 0; i < children.length; i++) {
-//            if (!children[i].getSubscribable()) {
-//                found = true;
-//            }
-//        }
-//        assertTrue("We didnt find the unsubscribeable sat channel", found);
-//
-//    }
-
     public void testConfirmUpdateBaseChannel() throws Exception {
         addDispatchCall("sdc.channels.edit.confirm_update_base");
         Channel newBase = ChannelTestUtils.createBaseChannel(user);
