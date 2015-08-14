@@ -450,17 +450,14 @@ class RepoSync(object):
         self.regen = True
 
     def latest_packages(self,packages):
-        #allows to download only lastest packages
-        latest =  [pack for pack in packages if \
-                  (any(pack.version>dupl.version for \
-                  dupl in packages if dupl.name==pack.name))]
-        #select latest packages only, rest is disassociated
-        rest = list(set(packages) - set(latest))
-        for packToDisassoc in rest:
-            package = {}
-            package['checksum'] = packToDisassoc.checksum
-            package['checksum_type'] = packToDisassoc.checksum_type
-            self.disassociate_package(package)
+        #allows to download only latest packages
+        packages.sort(reverse=True)
+        seen = set()
+        latest = []
+        for pack in packages:
+            if pack.getNRA() not in seen:
+                latest.append(pack)
+                seen.add(pack.getNRA())
         return latest
 
     def import_packages(self, plug, source_id, url):
