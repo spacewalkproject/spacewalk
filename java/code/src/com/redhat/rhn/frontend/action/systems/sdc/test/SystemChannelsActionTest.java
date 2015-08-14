@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.action.systems.sdc.test;
 
 import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.common.CommonConstants;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.frontend.action.systems.sdc.SystemChannelsAction;
 import com.redhat.rhn.frontend.dto.ChildChannelDto;
@@ -29,7 +28,6 @@ import org.apache.struts.action.DynaActionForm;
 
 /**
  * SystemChannelsActionTest
- * @version $Rev: 1 $
  */
 public class SystemChannelsActionTest extends RhnMockStrutsTestCase {
 
@@ -46,8 +44,6 @@ public class SystemChannelsActionTest extends RhnMockStrutsTestCase {
         child1.setOrg(null);
         Channel child2 = ChannelTestUtils.createChildChannel(user, server.getBaseChannel());
         child2.setOrg(null);
-        child2.getChannelFamily().addVirtSubscriptionLevel(
-                CommonConstants.getVirtSubscriptionLevelFree());
 
         TestUtils.saveAndFlush(child1);
         TestUtils.saveAndFlush(child2);
@@ -60,7 +56,6 @@ public class SystemChannelsActionTest extends RhnMockStrutsTestCase {
 
         addRequestParameter(RequestContext.SID, server.getId().toString());
         setRequestPathInfo("/systems/details/SystemChannels");
-
     }
 
 
