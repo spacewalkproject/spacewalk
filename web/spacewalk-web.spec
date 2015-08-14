@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.1
+Version: 2.4.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -157,6 +157,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Aug 14 2015 Grant Gainey 2.4.2-1
+- 1253793 - Fixing IE8 display issues  * Add respond.js/html5-shim for IE8  *
+  Block editarea.js, which breaks respond.js under IE8, from    executing under
+  IE8
+
 * Fri Mar 27 2015 Grant Gainey 2.4.1-1
 - Update web.version to 2.4
 - Bumping package versions for 2.4.
