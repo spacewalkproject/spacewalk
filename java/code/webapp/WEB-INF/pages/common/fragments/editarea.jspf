@@ -7,8 +7,13 @@
       just add data-editor="language" to the textarea to ge the editor
       The following is just for backward compatibility -->
 
+<!-- NOTE: the ugly conditional-commenting below is to insure that this javascript is
+     turned OFF for IE8 and below, and ON for Everything Else. The shimming needed to
+     make IE8 and bootstrap, and the ACE editor magic, do not like each other. -->
+<!--[if gt IE 8]><!-->
 <script language="javascript" type="text/javascript">
   $(function () {
     setupTextareaEditor($('textarea[name="contents"]'), "");
   });
 </script>
+<!--<![endif]-->
