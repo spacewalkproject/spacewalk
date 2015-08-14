@@ -20,16 +20,13 @@ import com.redhat.rhn.domain.org.Org;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
 import java.util.Calendar;
 import java.util.Date;
 
 /**
- * KickstartFactory
- * @version $Rev$
+ * CommonFactory
  */
 public class CommonFactory extends HibernateFactory {
 
@@ -156,17 +153,5 @@ public class CommonFactory extends HibernateFactory {
         return (TinyUrl) session.getNamedQuery("TinyUrl.findByToken")
                                       .setString("token", tokenIn)
                                       .uniqueResult();
-    }
-
-    /**
-     * Lookup a VirtSubLevel by label.
-     * @param label to lookup
-     * @return VirtSubscriptionLevel if found
-     */
-    public static VirtSubscriptionLevel lookupVirtSubscriptionLevel(String label) {
-        Session session = getSession();
-        Criteria criteria = session.createCriteria(VirtSubscriptionLevel.class);
-        criteria.add(Restrictions.eq("label", label));
-        return (VirtSubscriptionLevel) criteria.uniqueResult();
     }
 }
