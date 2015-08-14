@@ -145,7 +145,6 @@ class ServerGroupServerArchCompatImport(BaseArchCompatImport):
     arches1_field_name = 'server_arch_id'
     arches2_field_name = 'server_group_type'
     submit_method_name = 'processServerGroupServerArchCompatMap'
-    virt_sub_level = 'virt_sub_level'
 
     # monitoring is no longer supported, ignore any monitoring info for
     # backwards compatibility
