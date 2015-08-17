@@ -738,14 +738,6 @@ class _ChannelFamilyDumper(BaseRowDumper):
 
         self._virt_filter = virt_filter
 
-    _query_cf_virt_sublevel = """
-        select vsl.label, vsl.name
-          from rhnChannelFamilyVirtSubLevel cfvsl,
-               rhnVirtSubLevel vsl
-         where cfvsl.channel_family_id = :channel_family_id
-           and cfvsl.virt_sub_level_id = vsl.id
-    """
-
     def set_iterator(self):
         if self._ignore_subelements:
             return None
