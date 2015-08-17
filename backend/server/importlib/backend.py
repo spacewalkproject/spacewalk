@@ -994,57 +994,6 @@ class Backend:
         hdel.executemany(vsl_label=virt_labels)
         hins.executemany(vsl_label=virt_labels, vsl_text=virt_text)
 
-    def processSGTVirtSubLevel(self, entries):
-        h_lookup_virtid = self.dbmodule.prepare("""
-            select vsl.label
-              from rhnSGTypeVirtSubLevel sgtvsl,
-                   rhnVirtSubLevel vsl
-             where sgtvsl.server_group_type_id = :sgt_id
-               and vsl.id = sgtvsl.virt_sub_level_id
-
-        """)
-        lookup_vsl = self.dbmodule.prepare("""
-            select id
-              from rhnVirtSubLevel
-             where label = :label
-        """)
-        lookup_sgtid = self.dbmodule.prepare("""
-            select id
-              from rhnServerGroupType
-            where label = :sgt_label
-        """)
-        sgt_ids = []
-        vsl_ids = []
-        for entry in entries:
-            if not entry.has_key('virt-sub-level'):
-                continue
-            lookup_sgtid.execute(sgt_label=entry['server-group-type'])
-            row_sgt_id = lookup_sgtid.fetchone_dict()
-            h_lookup_virtid.execute(sgt_id=row_sgt_id['id'])
-            row = h_lookup_virtid.fetchone_dict()
-            if row and row['label'] == entry['virt-sub-level']:
-                continue
-            sgt_ids.append(row_sgt_id['id'])
-            lookup_vsl.execute(label=entry['virt-sub-level'])
-            row_id = lookup_vsl.fetchone_dict()
-            if row_id:
-                vsl_ids.append(row_id['id'])
-        if not vsl_ids:
-            # We're done
-            return
-        hdel = self.dbmodule.prepare("""
-            delete from rhnSGTypeVirtSubLevel
-             where server_group_type_id = :sgt_id
-        """)
-        hins = self.dbmodule.prepare("""
-            insert into rhnSGTypeVirtSubLevel
-              (virt_sub_level_id, server_group_type_id)
-            values (:vsl_id, :sgt_id)
-        """)
-
-        hdel.executemany(sgt_id=sgt_ids)
-        hins.executemany(vsl_id=vsl_ids, sgt_id=sgt_ids)
-
     def processDistChannelMap(self, dcms):
         dcmTable = self.tables['rhnDistChannelMap']
         lookup = TableLookup(dcmTable, self.dbmodule)
