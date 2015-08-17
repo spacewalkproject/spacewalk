@@ -960,57 +960,6 @@ class Backend:
         hdel.executemany(channel_id=c_ids)
         hins.executemany(channel_family_id=cf_ids, channel_id=c_ids)
 
-    def processChannelFamilyVirtSubLevel(self, channel_families):
-        h_lookup_virtid = self.dbmodule.prepare("""
-            select vsl.label
-              from rhnChannelFamilyVirtSubLevel cfvsl,
-                   rhnVirtSubLevel vsl
-             where cfvsl.channel_family_id = :channel_family_id
-               and vsl.id = cfvsl.virt_sub_level_id
-
-        """)
-
-        lookup_vsl = self.dbmodule.prepare("""
-            select id
-              from rhnVirtSubLevel
-             where label = :label
-        """)
-        cf_ids = []
-        vsl_ids = []
-        for cf in channel_families:
-            if not cf.has_key('virt_sub_level_label'):
-                continue
-            vsl_labels = cf['virt_sub_level_label'].split()
-            h_lookup_virtid.execute(channel_family_id=cf.id)
-            row = h_lookup_virtid.fetchall_dict()
-
-            if row:
-                labels_existing = map(lambda x: x['label'], row)
-            for vsl_label in vsl_labels:
-                if row and vsl_label in labels_existing:
-                    continue
-                cf_ids.append(cf.id)
-                lookup_vsl.execute(label=vsl_label)
-                row_id = lookup_vsl.fetchone_dict()
-                if row_id:
-                    vsl_ids.append(row_id['id'])
-
-        if not vsl_ids:
-            # We're done
-            return
-        hdel = self.dbmodule.prepare("""
-            delete from rhnChannelFamilyVirtSubLevel
-             where channel_family_id = :channel_family_id
-        """)
-        hins = self.dbmodule.prepare("""
-            insert into rhnChannelFamilyVirtSubLevel
-              (virt_sub_level_id, channel_family_id)
-            values (:vsl_id, :channel_family_id)
-        """)
-
-        # hdel.executemany(channel_family_id=cf_ids)
-        hins.executemany(vsl_id=vsl_ids, channel_family_id=cf_ids)
-
     def processVirtSubLevel(self, entries):
         h_lookup_virt = self.dbmodule.prepare("""
             select label
