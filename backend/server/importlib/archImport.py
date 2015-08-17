@@ -102,7 +102,6 @@ class BaseArchCompatImport(Import):
 
     def submit(self):
         getattr(self.backend, self.submit_method_name)(self.batch)
-        self.backend.processVirtSubLevel(self.batch)
         self.backend.commit()
 
 
