@@ -960,40 +960,6 @@ class Backend:
         hdel.executemany(channel_id=c_ids)
         hins.executemany(channel_family_id=cf_ids, channel_id=c_ids)
 
-    def processVirtSubLevel(self, entries):
-        h_lookup_virt = self.dbmodule.prepare("""
-            select label
-              from rhnVirtSubLevel
-             where label = :virt_label
-        """)
-        virt_labels = []
-        virt_text = []
-        for entry in entries:
-            if not entry.has_key('virt_sub_level_label'):
-                continue
-            if not entry.has_key('virt_sub_level_name'):
-                continue
-            h_lookup_virt.execute(virt_label=entry['virt_sub_level_label'])
-            row = h_lookup_virt.fetchone_dict()
-            if row and row['label'] == entry['virt_sub_level_label']:
-                continue
-            virt_labels.append(entry['virt_sub_level_label'])
-            virt_text.append(entry['virt_sub_level_name'])
-        if not virt_labels:
-            return
-        hdel = self.dbmodule.prepare("""
-           delete from rhnVirtSubLevel
-            where label = :vsl_label
-        """)
-        hins = self.dbmodule.prepare("""
-            insert into rhnVirtSubLevel
-              (label, name)
-            values (:vsl_label, :vsl_text)
-        """)
-
-        hdel.executemany(vsl_label=virt_labels)
-        hins.executemany(vsl_label=virt_labels, vsl_text=virt_text)
-
     def processDistChannelMap(self, dcms):
         dcmTable = self.tables['rhnDistChannelMap']
         lookup = TableLookup(dcmTable, self.dbmodule)
