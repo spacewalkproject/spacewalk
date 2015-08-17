@@ -253,7 +253,6 @@ class ChannelFamilyImport(Import):
             self.backend.processChannelFamilies(self.batch)
             self.backend.processChannelFamilyMembers(self.batch)
             # self.backend.processVirtSubLevel(self.batch)
-            self.backend.processChannelFamilyVirtSubLevel(self.batch)
         except:
             self.backend.rollback()
             raise

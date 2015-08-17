@@ -468,7 +468,6 @@ class ChannelFamilyItem(BaseItem):
         'rhn-channel-family-name': 'name',
         'rhn-channel-family-product-url': 'product_url',
         'channel-labels': 'channels',
-        'virt-sub-level-label': 'virt_sub_level_label',
     }
 addItem(ChannelFamilyItem)
 
