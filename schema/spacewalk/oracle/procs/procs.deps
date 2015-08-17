@@ -116,7 +116,6 @@ lookup_transaction_package      :: rhnTransactionOperation lookup_package_name \
                                    lookup_evr lookup_package_arch \
                                    rhnTransactionPackage rhn_exception.pks \
                                    insert_transaction_package
-lookup_virt_sub_level           :: rhnVirtSubLevel                                
 lookup_xccdf_benchmark          :: insert_xccdf_benchmark rhnXccdfBenchmark
 lookup_xccdf_ident              :: insert_xccdf_ident \
                                    insert_xccdf_ident_system \
