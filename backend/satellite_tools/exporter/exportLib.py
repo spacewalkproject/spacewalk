@@ -715,28 +715,25 @@ class ChannelFamiliesDumper(BaseQueryDumper):
     iterator_query = 'select cf.* from rhnChannelFamily'
 
     def __init__(self, writer, data_iterator=None, ignore_subelements=0,
-                 null_max_members=1, virt_filter=0):
+                 null_max_members=1):
         BaseQueryDumper.__init__(self, writer, data_iterator=data_iterator)
         self._ignore_subelements = ignore_subelements
         self._null_max_members = null_max_members
-        self.virt_filter = virt_filter
 
     def dump_subelement(self, data):
         cf = _ChannelFamilyDumper(self._writer, data,
                                   ignore_subelements=self._ignore_subelements,
-                                  null_max_members=self._null_max_members, virt_filter=self.virt_filter)
+                                  null_max_members=self._null_max_members)
         cf.dump()
 
 
 class _ChannelFamilyDumper(BaseRowDumper):
     tag_name = 'rhn-channel-family'
 
-    def __init__(self, writer, row, ignore_subelements=0, null_max_members=1, virt_filter=0):
+    def __init__(self, writer, row, ignore_subelements=0, null_max_members=1):
         BaseRowDumper.__init__(self, writer, row)
         self._ignore_subelements = ignore_subelements
         self._null_max_members = null_max_members
-
-        self._virt_filter = virt_filter
 
     def set_iterator(self):
         if self._ignore_subelements:
