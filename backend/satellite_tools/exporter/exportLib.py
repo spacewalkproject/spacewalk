@@ -775,27 +775,11 @@ class _ChannelFamilyDumper(BaseRowDumper):
         h.execute(channel_family_id=channel_family_id)
         channels = [x['label'] for x in h.fetchall_dict() or []]
 
-        if not self._virt_filter:
-            h_virt = rhnSQL.prepare(self._query_cf_virt_sublevel)
-            h_virt.execute(channel_family_id=channel_family_id)
-
-            cf_virt_data = h_virt.fetchall_dict() or []
-            log_debug(3, cf_virt_data, channel_family_id)
-
-            vsl_label = [x['label'] for x in cf_virt_data]
-            cf_vsl_label = ' '.join(vsl_label)
-
-            vsl_name = [x['name'] for x in cf_virt_data]
-            cf_vsl_name = ','.join(vsl_name)
-
         attributes = {
             'id': "rhn-channel-family-%s" % channel_family_id,
             'label': self._row['label'],
             'channel-labels': ' '.join(channels),
         }
-        if not self._virt_filter and cf_virt_data != []:
-            attributes['virt-sub-level-label'] = cf_vsl_label
-            attributes['virt-sub-level-name'] = cf_vsl_name
 
         if self._ignore_subelements:
             return attributes
