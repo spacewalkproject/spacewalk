@@ -94,11 +94,6 @@ insert into rhnException values (-20287, 'invalid_entitlement', 'The server can 
 insert into rhnException values (-20288, 'invalid_server_group_member', 'The specified entitlement can not be removed from the specified server because the server does not have that entitlement level');
 
 insert into rhnException
-values (-20289,
-        'invalid_virt_sub_level',
-        'The specified virtualization subscription level does not exist.');
-
-insert into rhnException
 values (-20290,
         'not_enough_entitlements_in_base_org',
         'You do not have enough entitlements in the base org.');
