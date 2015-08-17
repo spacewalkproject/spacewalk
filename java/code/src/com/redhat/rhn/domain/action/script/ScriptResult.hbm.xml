@@ -17,4 +17,16 @@
                         class="com.redhat.rhn.domain.action.script.ScriptActionDetails"
                         outer-join="true" not-null="true" insert="false" update="false" />
         </class>
+        
+        <query name="ScriptResult.removeInvalidResults">
+            <![CDATA[ delete from com.redhat.rhn.domain.action.script.ScriptResult sr
+                             where sr.actionScriptId = (
+                                       select sa.id from com.redhat.rhn.domain.action.script.ScriptActionDetails sa
+                                                 where sa.parentAction = :action ) and
+                                   sr.serverId in (
+                                       select sa.serverId from com.redhat.rhn.domain.action.server.ServerAction sa
+                                                          where sa.parentAction = :action and
+                                                                sa.status = :queued )
+             ]]>
+        </query>
 </hibernate-mapping>

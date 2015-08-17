@@ -704,6 +704,7 @@ public class ActionFactory extends HibernateFactory {
         .setParameter("tries", tries)
         .setParameter("failed", ActionFactory.STATUS_FAILED)
         .setParameter("queued", ActionFactory.STATUS_QUEUED).executeUpdate();
+        removeInvalidResults(action);
     }
 
     /**
@@ -716,6 +717,7 @@ public class ActionFactory extends HibernateFactory {
         .setParameter("action", action)
         .setParameter("tries", tries)
         .setParameter("queued", ActionFactory.STATUS_QUEUED).executeUpdate();
+        removeInvalidResults(action);
     }
 
     /**
@@ -731,6 +733,7 @@ public class ActionFactory extends HibernateFactory {
         .setParameter("tries", tries)
         .setParameter("queued", ActionFactory.STATUS_QUEUED)
         .setParameter("server", server).executeUpdate();
+        removeInvalidResults(action);
     }
 
     /**
@@ -742,6 +745,19 @@ public class ActionFactory extends HibernateFactory {
         params.put("id", aid);
         return (ServerHistoryEvent) singleton.lookupObjectByNamedQuery(
                 "ServerHistory.lookupById", params);
+    }
+
+    /**
+     * Removes results of queued action.
+     * @param action results of which action to remove
+     */
+    public static void removeInvalidResults(Action action) {
+        if (action.getActionType().equals(TYPE_SCRIPT_RUN)) {
+            HibernateFactory.getSession().getNamedQuery("ScriptResult.removeInvalidResults")
+            .setParameter("action", action)
+            .setParameter("queued", ActionFactory.STATUS_QUEUED)
+            .executeUpdate();
+        }
     }
 
 
