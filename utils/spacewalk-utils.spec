@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.4.14
+Version:	2.4.15
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Aug 18 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.15-1
+- list[] vs list() - list[] is bad
+
 * Fri Aug 07 2015 Jan Dobes 2.4.14-1
 - use hostname instead of localhost for https connections
 
