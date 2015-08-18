@@ -52,7 +52,7 @@ if opts.brew:
 else:
     mysession = koji.ClientSession("http://koji.spacewalkproject.org/kojihub")
 
-rpmlist = mysession.getLatestRPMS(tag)
+rpmlist = mysession.listTaggedRPMS(tag, latest=True)
 nvrs = []
 kojinames = []
 pkglist = []
@@ -83,8 +83,9 @@ for pkg in pkgfileList:
     pkginfo = fd.read()
     fd.close()
     pkginfo = pkginfo.split()
-    pkglist.append("%s-%s" % (pkg, pkginfo[0].rstrip('-' + distsuffix)))
-    gitnames.append(pkg)
+    if '.dev' in pkginfo[0]:
+        pkglist.append("%s-%s" % (pkg, pkginfo[0].rstrip('-' + distsuffix)))
+        gitnames.append(pkg)
 
 pkglist.sort()
 nvrs.sort()
