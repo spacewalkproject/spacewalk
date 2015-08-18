@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.14
+Version: 2.4.15
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -655,6 +655,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Tue Aug 18 2015 Jiri Dostal <jdostal@redhat.com> 2.4.15-1
+- 1097634 - reposync fixed pylint warnings
+
 * Fri Aug 14 2015 Jiri Dostal <jdostal@redhat.com> 2.4.14-1
 - RFE 1097634 - fixed package sorting             - removed package
   disassociation
