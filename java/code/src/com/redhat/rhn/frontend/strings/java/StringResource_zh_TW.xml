@@ -5935,35 +5935,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>您已經以外部認證的 &lt;strong&gt;{0}&lt;/strong&gt; 使用者登錄。若要以登錄帳號和密碼使用此帳號登錄，請在 &lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;{0} 使用者專頁&lt;/strong&gt;&lt;/a&gt;上設定您的密碼。</target>
       </trans-unit>
-      <trans-unit id="satellite.expired">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>您的 satellite 憑證已過期。請至以下連結以查看如何請求或產生新憑證的步驟：&lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</target>
-      </trans-unit>
-      <trans-unit id="satellite.expired.restricted">
-        <source>Your Satellite Certificate has expired. Your Satellite is on day {0} of {1} day restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>您的 Satellite 憑證已過期。您的 Satellite 目前處於第 {0} 天（總共 {1} 天）的受限期間，並且很快便會停止運作。請至以下 url，以查看如何請求或產生新的憑證：https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
-      <trans-unit id="satellite.graceperiod">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Your satellite enters restricted period in {0} day(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-        <target>您的 satellite 憑證已過期。請至以下連結以查看如何請求或產生新憑證的步驟：&lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt; 您的衛星伺服器將在 {0} 天內進入受限期。</target>
-      </trans-unit>
-      <trans-unit id="restricted.forbidden">
-        <source>You are not allowed to perform this action until your Satellite Certificate is renewed. Your Satellite is on day {0} of the {1} restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>在更新您的衛星伺服器憑證之前，您不允許執行這項動作。您的 Satellite 目前處於第 {0} 天（總共 {1} 天）的受限期間，並且很快便會停止運作。請至以下 url，以查看如何請求或產生新憑證的步驟：https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
       <trans-unit id="certificate.config.error.nocert">
         <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
         <context-group name="ctx">
