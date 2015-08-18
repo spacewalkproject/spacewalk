@@ -90,11 +90,6 @@ INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
         current_timestamp, '0 0 23 ? * *');
 
 INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
-    VALUES(sequence_nextval('rhn_tasko_schedule_id_seq'), 'satcert-check-default',
-        (SELECT id FROM rhnTaskoBunch WHERE name='satcert-check-bunch'),
-        current_timestamp, '0 0 23 ? * *');
-
-INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
     VALUES(sequence_nextval('rhn_tasko_schedule_id_seq'), 'clear-taskologs-default',
         (SELECT id FROM rhnTaskoBunch WHERE name='clear-taskologs-bunch'),
         current_timestamp, '0 0 23 ? * *');
