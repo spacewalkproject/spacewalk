@@ -19,7 +19,6 @@ import com.redhat.rhn.common.security.CSRFTokenException;
 import com.redhat.rhn.common.security.CSRFTokenValidator;
 import com.redhat.rhn.frontend.security.AuthenticationService;
 import com.redhat.rhn.frontend.security.AuthenticationServiceFactory;
-import com.redhat.rhn.manager.satellite.CertificateManager;
 
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.domain.common.LoggingFactory;
@@ -99,25 +98,6 @@ public class AuthFilter implements Filter {
                                 e.getMessage());
                         return;
                     }
-                }
-                CertificateManager cm = CertificateManager.getInstance();
-                if (cm.isSatelliteCertInRestrictedPeriod() &&
-                        !authenticationService.postOnRestrictedWhitelist(hreq)) {
-                    // interrupt the POST and redirect to the referer page
-                    URL url = getHttpRequestReferer(hreq);
-                    String pathUrl;
-                    if (url == null) {
-                        pathUrl = "/YourRhn.do";
-                    }
-                    else {
-                        pathUrl = url.getProtocol() + "://" + url.getHost() + url.getFile();
-                    }
-                    log.warn("Blocking " + hreq.getRequestURI() +
-                            " POST in restricted period. Redirecting to " + pathUrl);
-                    addErrorMessage(hreq, "restricted.forbidden",
-                           cm.getDayProgressInRestrictedPeriod());
-                    ((HttpServletResponse) response).sendRedirect(url.getFile());
-                    return;
                 }
             }
             User user = new RequestContext((HttpServletRequest)request).getCurrentUser();
