@@ -40,6 +40,9 @@ if config.has_section(tag) and config.has_option(tag, 'blacklist'):
     pkgstoignore = config.get(tag, 'blacklist').split(' ')
 
 disttag = config.get(tag, 'disttag')
+if isinstance(disttag, str):
+    disttag = disttag.replace('.dev', '')
+
 if tag.startswith('satellite'):
     tag = tag + '-candidate'
 
