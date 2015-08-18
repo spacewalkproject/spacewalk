@@ -1,0 +1,122 @@
+-- rhnServerGroup and dependencies
+BEGIN
+
+logging.clear_log_id();
+
+DELETE FROM rhnOrgExtGroupMapping
+  WHERE server_group_id = (
+    SELECT id
+      FROM rhnServerGroup
+      WHERE group_type = (
+        SELECT id
+          FROM rhnServerGroupType
+          WHERE label = 'sw_mgr_entitled'
+      )
+  );
+
+DELETE FROM rhnRegTokenGroups
+  WHERE server_group_id = (
+    SELECT id
+      FROM rhnServerGroup
+      WHERE group_type = (
+        SELECT id
+          FROM rhnServerGroupType
+          WHERE label = 'sw_mgr_entitled'
+      )
+  );
+
+UPDATE rhnServerGroupMembers
+  SET server_group_id = (
+    SELECT id
+      FROM rhnServerGroup
+      WHERE group_type = (
+        SELECT id
+          FROM rhnServerGroupType
+          WHERE label = 'enterprise_entitled'
+      )
+  )
+  WHERE server_group_id = (
+    SELECT id
+      FROM rhnServerGroup
+      WHERE group_type = (
+        SELECT id
+          FROM rhnServerGroupType
+          WHERE label = 'sw_mgr_entitled'
+      )
+  );
+
+DELETE FROM rhnSnapshotServerGroup
+  WHERE server_group_id = (
+    SELECT id
+      FROM rhnServerGroup
+      WHERE group_type = (
+        SELECT id
+          FROM rhnServerGroupType
+          WHERE label = 'sw_mgr_entitled'
+      )
+  );
+
+DELETE FROM rhnUserDefaultSystemGroups
+  WHERE system_group_id = (
+    SELECT id
+      FROM rhnServerGroup
+      WHERE group_type = (
+        SELECT id
+          FROM rhnServerGroupType
+          WHERE label = 'sw_mgr_entitled'
+      )
+  );
+
+DELETE FROM rhnUserServerGroupPerms
+  WHERE server_group_id = (
+    SELECT id
+      FROM rhnServerGroup
+      WHERE group_type = (
+        SELECT id
+          FROM rhnServerGroupType
+          WHERE label = 'sw_mgr_entitled'
+      )
+  );
+
+DELETE FROM rhnServerGroup
+  WHERE group_type = (
+    SELECT id
+      FROM rhnServerGroupType
+      WHERE label = 'sw_mgr_entitled'
+  );
+
+-- rhnServerGroupType and dependencies
+
+DELETE FROM rhnRegTokenEntitlement
+  WHERE server_group_type_id = (
+    SELECT id
+      FROM rhnServerGroupType
+      WHERE label = 'sw_mgr_entitled'
+  );
+
+DELETE FROM rhnServerGroupTypeFeature
+  WHERE server_group_type_id = (
+    SELECT id
+      FROM rhnServerGroupType
+      WHERE label = 'sw_mgr_entitled'
+  );
+
+DELETE FROM rhnServerServerGroupArchCompat
+  WHERE server_group_type = (
+    SELECT id
+      FROM rhnServerGroupType
+      WHERE label = 'sw_mgr_entitled'
+  );
+
+DELETE FROM rhnSGTypeBaseAddonCompat
+  WHERE base_id = (
+    SELECT id
+      FROM rhnServerGroupType
+      WHERE label = 'sw_mgr_entitled'
+  );
+
+DELETE FROM rhnServerGroupType
+  WHERE label = 'sw_mgr_entitled';
+
+END;
+/
