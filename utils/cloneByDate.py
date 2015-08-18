@@ -536,7 +536,7 @@ class ChannelTreeCloner:
             needed_str = list_to_set(needed)
             for needed_pkg in needed_str:
                 if needed_pkg in self.visited[cloner.dest_label()]:
-                    needed.remove(list[needed_pkg])
+                    needed.remove(list(needed_pkg))
             self.visited[cloner.dest_label()] |= needed_str
             if len(needed) > 0:
                 added_nevras = added_nevras + cloner.process_deps(needed)
