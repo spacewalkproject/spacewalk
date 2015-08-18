@@ -1,0 +1,2 @@
+-- oracle equivalent source sha1 1f424b9d7c3a6302de6ed19bd67c027fe96733f9
+DROP FUNCTION lookup_virt_sub_level(varchar); -- TODO really 'character varying'?
