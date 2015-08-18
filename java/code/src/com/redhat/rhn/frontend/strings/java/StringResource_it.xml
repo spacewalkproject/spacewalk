@@ -5879,13 +5879,6 @@ utente prima di disabilitare l'account in questione.</target>
         </context-group>
         <target>Metodo di Notifica con nome {0} è già stato utilizzato. Si prega di inserire un altro nome.</target>
       </trans-unit>
-      <trans-unit id="Certificate">
-        <source>Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Certificato</target>
-      </trans-unit>
       <trans-unit id="Bootstrap Script">
         <source>Bootstrap Script</source>
         <context-group name="ctx">
@@ -5934,20 +5927,6 @@ utente prima di disabilitare l'account in questione.</target>
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Hai eseguito l'accesso come utente &lt;strong&gt;{0}&lt;/strong&gt; autenticato esternamente. Per eseguire l'accesso a questo account usando le credenziali per il login e la password, impostare la password sulla &lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;pagina utente {0}&lt;/strong&gt;&lt;/a&gt;.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.nocert">
-        <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Nessun certificato trovato.  Vi preghiamo di selezionare un file del certificato locale oppure copiate i contenuti all'interno del modulo.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.success">
-        <source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Certificato caricato.  @@PRODUCT_NAME@@ è stato riattivato.</target>
       </trans-unit>
       <trans-unit id="certificate.config.error.10">
         <source>Could not parse certificate file, see log file for more details.</source>

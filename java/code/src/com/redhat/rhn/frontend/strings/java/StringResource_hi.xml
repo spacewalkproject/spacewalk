@@ -5773,13 +5773,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>'{0}' नाम के साथ अधिसूचना विधि पहले से प्रयोग में है.  कृपया अलग नाम चुनें.</target>
       </trans-unit>
-      <trans-unit id="Certificate">
-        <source>Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>प्रमाणपत्र</target>
-      </trans-unit>
       <trans-unit id="Bootstrap Script">
         <source>Bootstrap Script</source>
         <context-group name="ctx">
@@ -5824,20 +5817,6 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.nocert">
-        <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>कोई प्रमाणपत्र नहीं मिला.  कृपया एक स्थानीय प्रमाणपत्र फाइल चुनें या प्रपत्र में सामग्री चिपकायें.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.success">
-        <source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>प्रमाणपत्र अपलोड किया गया.  @@PRODUCT_NAME@@ फिर से सक्रिय किया गया.</target>
       </trans-unit>
       <trans-unit id="certificate.config.error.10">
         <source>Could not parse certificate file, see log file for more details.</source>

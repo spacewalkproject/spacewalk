@@ -3,9 +3,6 @@
   <rhn-tab name="General" acl="user_role(satellite_admin)">
     <rhn-tab-url>/rhn/admin/config/GeneralConfig.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Certificate" acl="user_role(satellite_admin)">
-    <rhn-tab-url>/rhn/admin/config/CertificateConfig.do</rhn-tab-url>
-  </rhn-tab>
   <rhn-tab name="Bootstrap Script" acl="user_role(satellite_admin)">
       <rhn-tab-url>/rhn/admin/config/BootstrapConfig.do</rhn-tab-url>
   </rhn-tab>

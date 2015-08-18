@@ -414,15 +414,6 @@
 
         </form-bean>
 
-        <form-bean name="certificateConfigForm"
-                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="cert_file"  type="org.apache.struts.upload.FormFile"/>
-            <form-property name="cert_text"  type="java.lang.String"/>
-            <form-property name="submitted"  type="java.lang.Boolean"/>
-            <form-property name="no_scrub" type="java.lang.String"
-                        initial="cert_text"/>
-        </form-bean>
-
         <form-bean name="bootstrapConfigForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="hostname"  type="java.lang.String"/>
@@ -5069,19 +5060,6 @@
                  path="/WEB-INF/pages/admin/config/general.jsp"/>
         <forward name="failure"
                  path="/WEB-INF/pages/admin/config/general.jsp"/>
-    </action>
-
-
-    <action path="/admin/config/CertificateConfig"
-        scope="request"
-        name="certificateConfigForm"
-        input="/WEB-INF/pages/admin/config/certificate.jsp"
-        type="com.redhat.rhn.frontend.action.satellite.CertificateConfigAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequiredIfSubmitted" value="true" />
-        <set-property property="acls" value="user_role(satellite_admin)"/>
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/config/certificate.jsp"/>
     </action>
 
     <action path="/admin/config/BootstrapConfig"

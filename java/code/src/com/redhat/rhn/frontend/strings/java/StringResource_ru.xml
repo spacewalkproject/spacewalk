@@ -5876,13 +5876,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>Метод уведомления '{0}' уже используется. Выберите другое имя.</target>
       </trans-unit>
-      <trans-unit id="Certificate">
-        <source>Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Сертификат</target>
-      </trans-unit>
       <trans-unit id="Bootstrap Script">
         <source>Bootstrap Script</source>
         <context-group name="ctx">
@@ -5931,20 +5924,6 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Вы зашли как внешний пользователь &lt;strong&gt;{0}&lt;/strong&gt;. Чтобы использовать свою учетную запись,  &lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;настройте пароль&lt;/strong&gt;&lt;/a&gt;.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.nocert">
-        <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Сертификат не найден. Выберите локальный файл сертификата или вставьте его содержимое в форму.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.success">
-        <source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Сертификат загружен. Произведена реактивация @@PRODUCT_NAME@@.</target>
       </trans-unit>
       <trans-unit id="certificate.config.error.10">
         <source>Could not parse certificate file, see log file for more details.</source>
