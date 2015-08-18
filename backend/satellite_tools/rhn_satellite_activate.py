@@ -581,13 +581,6 @@ def main():
     def writeError(e):
         sys.stderr.write('\nERROR: %s\n' % e)
 
-    # general sanity/GPG check
-    try:
-        validateSatCert(options.rhn_cert, options.verbose)
-    except RHNCertGeneralSanityException, e:
-        writeError(e)
-        return 10
-
     # expiration check
     if not options.ignore_expiration:
         date = expiredYN(options.rhn_cert)
