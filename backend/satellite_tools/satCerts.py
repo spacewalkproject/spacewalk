@@ -118,7 +118,6 @@ def create_first_org(owner):
     except NoOrgIdError:
         # gotta create one first org then
         p = rhnSQL.Procedure("create_first_org")
-        # copying logic from validate-sat-cert.pl
         # I.e., setting their org_id password to the pid cubed.
         #       That password is not used by anything.
         pword = str(long(os.getpid()) ** 3)
