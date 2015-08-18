@@ -160,8 +160,6 @@ def prepRhnCert(options):
 
     # NOTE: db_* options MUST be populated in /etc/rhn/rhn.conf before this
     #       function is run.
-    #       validateSatCert() must have been run prior to this as well (it
-    #       populates "/var/log/entitlementCert"
     if options.rhn_cert and options.rhn_cert != DEFAULT_RHN_CERT_LOCATION:
         try:
             cert = openGzippedFile(options.rhn_cert).read()
