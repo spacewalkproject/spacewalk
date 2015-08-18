@@ -114,13 +114,6 @@ INSERT INTO rhnTaskoTemplate (id, bunch_id, task_id, ordering, start_if)
 
 INSERT INTO rhnTaskoTemplate (id, bunch_id, task_id, ordering, start_if)
              VALUES (sequence_nextval('rhn_tasko_template_id_seq'),
-                        (SELECT id FROM rhnTaskoBunch WHERE name='satcert-check-bunch'),
-                        (SELECT id FROM rhnTaskoTask WHERE name='sat-cert-check'),
-                        0,
-                        null);
-
-INSERT INTO rhnTaskoTemplate (id, bunch_id, task_id, ordering, start_if)
-             VALUES (sequence_nextval('rhn_tasko_template_id_seq'),
                         (SELECT id FROM rhnTaskoBunch WHERE name='errata-cache-bunch'),
                         (SELECT id FROM rhnTaskoTask WHERE name='errata-cache'),
                         0,
