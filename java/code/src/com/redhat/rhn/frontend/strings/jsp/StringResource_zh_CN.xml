@@ -8712,41 +8712,6 @@ administrator privileges.</source>
         </context-group>
         <target>禁用监测功能。请访问 &lt;a href=&quot;/rhn/admin/config/GeneralConfig.do&quot;&gt;&lt;strong&gt;一般配置&lt;/strong&gt;&lt;/a&gt; 页并选择启用监测选择框。</target>
       </trans-unit>
-      <trans-unit id="certificate.jsp.toolbar">
-        <source>@@PRODUCT_NAME@@ Configuration - Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ 配置 - 证书</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.summary">
-        <source>You must provide an @@PRODUCT_NAME@@ certificate. This certificate entitles you to the various levels of service provided by the @@PRODUCT_NAME@@.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>您必须提供一个 @@PRODUCT_NAME@@ 证书。这个证书给予了您使用 @@PRODUCT_NAME@@ 所提供不同服务的权利。</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.header2">
-        <source>@@PRODUCT_NAME@@ Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ 证书</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.cert_file">
-        <source>Upload Certificate File:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>上传证书文件：</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.cert_text">
-        <source>-or- Certificate Text:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>-或- 证书内容：</target>
-      </trans-unit>
       <trans-unit id="bootstrap.jsp.toolbar">
         <source>@@PRODUCT_NAME@@ Configuration - Bootstrap</source>
         <context-group name="ctx">

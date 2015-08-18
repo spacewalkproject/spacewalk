@@ -5880,13 +5880,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>名为 '{0}' 的通知方法已经在使用。请输入一个不同的名字。</target>
       </trans-unit>
-      <trans-unit id="Certificate">
-        <source>Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>证书</target>
-      </trans-unit>
       <trans-unit id="Bootstrap Script">
         <source>Bootstrap Script</source>
         <context-group name="ctx">
@@ -5935,20 +5928,6 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>已作为外部认证的 &lt;strong&gt;{0}&lt;/strong&gt; 用户记录。要使用这个帐户的登录和密码登录，请在 &lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;{0} 用户页面&lt;/strong&gt;&lt;/a&gt; 设置密码。</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.nocert">
-        <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>没有找到证书。请选择一个本地的证书文件或把它的内容粘贴到表格中。</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.success">
-        <source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>证书已被上传。已重新激活 @@PRODUCT_NAME@@。</target>
       </trans-unit>
       <trans-unit id="certificate.config.error.10">
         <source>Could not parse certificate file, see log file for more details.</source>

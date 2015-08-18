@@ -5773,13 +5773,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>அறிவிப்பு முறை '{0}' பெயர் உடையது ஏற்கனவே பயனில் உள்ளது. எனவே வேறு பெயரை தேர்ந்தெடுக்கவும்.</target>
       </trans-unit>
-      <trans-unit id="Certificate">
-        <source>Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>சான்றிதழ்</target>
-      </trans-unit>
       <trans-unit id="Bootstrap Script">
         <source>Bootstrap Script</source>
         <context-group name="ctx">
@@ -5824,20 +5817,6 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.nocert">
-        <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>சான்றிதழ் எதுவுமில்லை.  எனவே ஒரு இருப்பிட சான்றிதழ் கோப்பினை தேர்வு செய்யவும் அல்லது உள்ளடக்கத்தை படிவத்தில் ஒட்டவும்.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.success">
-        <source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>சான்றிதழ் ஏற்றப்பட்டது. @@PRODUCT_NAME@@ மீண்டும் செயல்படுத்தப்பட்டது.</target>
       </trans-unit>
       <trans-unit id="certificate.config.error.10">
         <source>Could not parse certificate file, see log file for more details.</source>

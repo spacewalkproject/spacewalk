@@ -5880,13 +5880,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>{0} という名前の通知メソッドはすでに使用されています。別の名前を選択してください。</target>
       </trans-unit>
-      <trans-unit id="Certificate">
-        <source>Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>証明書</target>
-      </trans-unit>
       <trans-unit id="Bootstrap Script">
         <source>Bootstrap Script</source>
         <context-group name="ctx">
@@ -5935,20 +5928,6 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>外部で認証された &lt;strong&gt;{0}&lt;/strong&gt; ユーザーとしてログインしています。このアカウントのログインとパスワードでログインするには、&lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;{0} ユーザーページ&lt;/strong&gt;&lt;/a&gt; でパスワードを設定してください。</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.nocert">
-        <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>証明書が見つかりませんでした。ローカルの証明書ファイルを選択するか、または内容をフォームに貼り付けてください。</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.success">
-        <source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>証明書がアップロードされました。@@PRODUCT_NAME@@ が再度アクティベートされました。</target>
       </trans-unit>
       <trans-unit id="certificate.config.error.10">
         <source>Could not parse certificate file, see log file for more details.</source>

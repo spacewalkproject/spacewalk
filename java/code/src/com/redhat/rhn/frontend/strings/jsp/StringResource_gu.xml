@@ -8352,41 +8352,6 @@ administrator privileges.</source>
         </context-group>
         <target>મોનીટરીંગ નિષ્ક્રિય કરેલ છે.  મહેરબાની કરીને &lt;a href=&quot;/rhn/admin/config/GeneralConfig.do&quot;&gt;&lt;strong&gt;સામાન્ય&lt;/strong&gt;&lt;/a&gt; રૂપરેખાંકન પાનાં પર જાઓ અને મોનટરીંગ ચકાસણીબોક્સ સક્રિય કરો પસંદ કરો.</target>
       </trans-unit>
-      <trans-unit id="certificate.jsp.toolbar">
-        <source>@@PRODUCT_NAME@@ Configuration - Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ રૂપરેખાંકન - પ્રમાણપત્ર</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.summary">
-        <source>You must provide an @@PRODUCT_NAME@@ certificate. This certificate entitles you to the various levels of service provided by the @@PRODUCT_NAME@@.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>તમારે @@PRODUCT_NAME@@ સેટેલાઈટ પ્રમાણપત્ર પૂરું પાડવું જ જોઈએ. આ પ્રમાણપત્ર તમને @@PRODUCT_NAME@@ સેટેલાઈટ દ્વારા પૂરી પાડવામાં આવેલ સેવાના વિવિધ સ્તરોની ઉમેદવારી આપે છે.</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.header2">
-        <source>@@PRODUCT_NAME@@ Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ પ્રમાણપત્ર</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.cert_file">
-        <source>Upload Certificate File:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>પ્રમાણપત્ર ફાઈલ અપલોડ કરો:</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.cert_text">
-        <source>-or- Certificate Text:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>-અથવા- પ્રમાણપત્ર લખાણ:</target>
-      </trans-unit>
       <trans-unit id="bootstrap.jsp.toolbar">
         <source>@@PRODUCT_NAME@@ Configuration - Bootstrap</source>
         <context-group name="ctx">

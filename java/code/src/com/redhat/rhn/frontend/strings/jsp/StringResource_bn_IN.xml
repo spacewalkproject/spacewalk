@@ -8352,41 +8352,6 @@ administrator privileges.</source>
         </context-group>
         <target>Monitoring বৈশিষ্ট্য নিষ্ক্রিয় অবস্থা রয়েচে। অনুগ্রহ করে &lt;a href=&quot;/rhn/admin/config/GeneralConfig.do&quot;&gt;&lt;strong&gt;General&lt;/strong&gt;&lt;/a&gt; কনফিগারেশন পৃষ্ঠায় গিয়ে Enable Monitoring চেকবক্স নির্বাচন করুন।</target>
       </trans-unit>
-      <trans-unit id="certificate.jsp.toolbar">
-        <source>@@PRODUCT_NAME@@ Configuration - Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ কনফিগারেশন - সার্টিফিকেট</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.summary">
-        <source>You must provide an @@PRODUCT_NAME@@ certificate. This certificate entitles you to the various levels of service provided by the @@PRODUCT_NAME@@.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>একটি @@PRODUCT_NAME@@ সার্টিফিকেট উপস্থিত করা আবশ্যক। এই সার্টিফিকেটের সাহায্যে @@PRODUCT_NAME@@-র বিভিন্ন স্তরের পরিসেবা ব্যবহার করা সম্ভব।</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.header2">
-        <source>@@PRODUCT_NAME@@ Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ সার্টিফিকেট</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.cert_file">
-        <source>Upload Certificate File:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>সার্টিফিকেট ফাইল আপলোড করুন:</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.cert_text">
-        <source>-or- Certificate Text:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>-অথবা- সার্টিফিকেটের মধ্যেকার তথ্য:</target>
-      </trans-unit>
       <trans-unit id="bootstrap.jsp.toolbar">
         <source>@@PRODUCT_NAME@@ Configuration - Bootstrap</source>
         <context-group name="ctx">
