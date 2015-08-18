@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.action;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
-import com.redhat.rhn.manager.satellite.CertificateManager;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -36,7 +35,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * LoginAction
- * @version $Rev$
  */
 public class LoginAction extends RhnAction {
 
@@ -48,24 +46,12 @@ public class LoginAction extends RhnAction {
             ActionForm form, HttpServletRequest request,
             HttpServletResponse response) {
 
-        CertificateManager cm = CertificateManager.getInstance();
-        if (cm.isSatelliteCertInRestrictedPeriod()) {
-            createErrorMessageWithMultipleArgs(request, "satellite.expired.restricted",
-                   cm.getDayProgressInRestrictedPeriod());
-        }
-        else if (cm.isSatelliteCertExpired()) {
-            addMessage(request, "satellite.expired");
-            request.setAttribute(LoginSetupAction.HAS_EXPIRED, Boolean.TRUE);
-            return mapping.findForward("failure");
-        }
-
         ActionForward ret = null;
         DynaActionForm f = (DynaActionForm)form;
 
         // Validate the form
         ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this, f);
         if (!errors.isEmpty()) {
-            performGracePeriodCheck(request);
             addErrors(request, errors);
             return mapping.findForward("failure");
         }
@@ -86,7 +72,6 @@ public class LoginAction extends RhnAction {
             LoginHelper.successfulLogin(request, response, user);
         }
         else {
-            performGracePeriodCheck(request);
             addErrors(request, errors);
             ret = mapping.findForward("failure");
         }
@@ -144,15 +129,4 @@ public class LoginAction extends RhnAction {
 
         return user;
     }
-
-    private void performGracePeriodCheck(HttpServletRequest request) {
-        CertificateManager man = CertificateManager.getInstance();
-        if (man.isSatelliteCertInGracePeriod()) {
-                long daysUntilExpiration = man.getDaysLeftBeforeCertExpiration();
-                createSuccessMessage(request,
-                                     "satellite.graceperiod",
-                                     new Long(daysUntilExpiration).toString());
-            }
-    }
-
 }
