@@ -59,8 +59,6 @@ import com.redhat.rhn.manager.system.SystemManager;
  * to call the appropriate method on a subclass.  So, an xmlrpc call to
  * 'registration.privacy_message' might call
  * RegistrationHandler.privacyMessage
- *
- * @version $Rev$
  */
 public class BaseHandler implements XmlRpcInvocationHandler {
     public static final int VALID = 1;
@@ -71,10 +69,6 @@ public class BaseHandler implements XmlRpcInvocationHandler {
     private static final String KEY_REGEX = "^[1-9][0-9]*x[a-f0-9]{64}$";
 
     protected boolean providesAuthentication() {
-        return false;
-    }
-
-    protected boolean availableInRestrictedPeriod() {
         return false;
     }
 

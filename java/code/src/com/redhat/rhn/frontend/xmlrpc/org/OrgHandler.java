@@ -85,11 +85,6 @@ public class OrgHandler extends BaseHandler {
     private static final String FREE_KEY = "free";
     private static Logger log = Logger.getLogger(OrgHandler.class);
 
-    @Override
-    protected boolean availableInRestrictedPeriod() {
-        return true;
-    }
-
     /**
      * Create a new organization.
      * @param loggedInUser The current user
