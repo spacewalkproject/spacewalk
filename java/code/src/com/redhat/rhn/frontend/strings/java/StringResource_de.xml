@@ -1296,12 +1296,6 @@
         </context-group>
         <target>Ihre Präferenzen</target>
       </trans-unit>
-      <trans-unit id="Your Organization">
-        <source>Your Organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Organization Applicants">
         <source>Organization Applicants</source>
         <context-group name="ctx">
@@ -1483,7 +1477,7 @@
         <target>Passwörter dürfen keine Tabulatur- oder Zeilenvorschubzeichen beinhalten.</target>
       </trans-unit>
       <trans-unit id="error.maxpassword">
-        <source>Passwords cannot be more than {0} characters.</source>
+        <source>The password you requested is too long. Please enter a shorter password and try again.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
@@ -2245,12 +2239,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
         <target>Die Kickstart-Details wurden erfolgreich aktualisiert.</target>
-      </trans-unit>
-      <trans-unit id="kickstart.details.duplicatefile">
-        <source>Please specify only file contents or a file to upload but not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="kickstart.details.nolabel">
         <source>Kickstart profile label is required.</source>
@@ -5556,12 +5544,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
         </context-group>
         <target>Surinam</target>
       </trans-unit>
-      <trans-unit id="SS">
-        <source>South Sudan</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">All country select list pull-downs</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="ST">
         <source>Saint Tome (Sao Tome) and Principe</source>
         <context-group name="ctx">
@@ -5953,35 +5935,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Sie haben sich als extern authentifizierter &lt;strong&gt;{0}&lt;/strong&gt;-Benutzer angemeldet. Um sich an diesem Account mit dem Benutzernamen und Passwort anmelden zu können, stellen Sie Ihr Passwort bitte auf der &lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;{0} Benutzerseite&lt;/strong&gt;&lt;/a&gt; an.</target>
-      </trans-unit>
-      <trans-unit id="satellite.expired">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Ihr Satellite-Zertifikat ist abgelaufen. Bitte besuchen Sie den folgenden Link für Schritte, wie ein neues Zertifikat zu beantragen oder generieren ist: &lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</target>
-      </trans-unit>
-      <trans-unit id="satellite.expired.restricted">
-        <source>Your Satellite Certificate has expired. Your Satellite is on day {0} of {1} day restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Ihr Satellite-Zertifikat ist abgelaufen. Ihr Satellite ist auf Tag {0} von {1} Tag(en) der eingeschränkten Periode und wird in Kürze aufhören zu funktionieren. Bitte besuchen Sie den folgenden URL für Schritte, wie ein neues Zertifikat zu beantragen oder generieren ist: https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
-      <trans-unit id="satellite.graceperiod">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt; Your satellite enters restricted period in {0} day(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-        <target>Ihr Satellite-Zertifikat ist abgelaufen. Bitte besuchen Sie den folgenden Link für Schritte, wie ein neues Zertifikat zu beantragen oder generieren ist: &lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Ihr Satellite beginnt die eingeschränkte Periode in {0} Tag(en).</target>
-      </trans-unit>
-      <trans-unit id="restricted.forbidden">
-        <source>You are not allowed to perform this action until your Satellite Certificate is renewed. Your Satellite is on day {0} of the {1} restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Sie sind nicht berechtigt, diese Aktion auszuführen, bis Ihr Satellite-Zertifikat erneuert ist. Ihr Satellite ist auf Tag {0} von {1} Tag(en) der eingeschränkten Periode und wird in Kürze aufhören zu funktionieren. Bitte besuchen Sie die folgenden URL für Schritte, wie ein neues Zertifikat zu beantragen oder generieren ist: https://access.redhat.com/knowledge/tools/satcert</target>
       </trans-unit>
       <trans-unit id="certificate.config.error.nocert">
         <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
@@ -9326,9 +9279,6 @@ Folgen Sie dieser URL für die vollständige Liste inaktiver Systeme:
         <source>Repository sync scheduled for {0}.</source>
         <target>Repository-Synchronisation geplant für {0}.</target>
       </trans-unit>
-      <trans-unit id="message.syncinprogress">
-        <source>Repository sync is running.</source>
-      </trans-unit>
       <trans-unit id="message.channelsubscribers">
         <source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
         <target>Einschränkungen der Subskriptionen pro Benutzer können im Subskriptionen-Tab auferlegt werden</target>
@@ -9582,7 +9532,7 @@ Kickstart-Tree für Kickstart's unbrauchbar sein.
         <target>Eine E-Mail wurde bereits verschickt. Sie können diese Aktion alle {0} Sekunden anfordern.</target>
       </trans-unit>
       <trans-unit id="help.credentials.passwordsent">
-        <source>Password reset information sent to {0}.</source>
+        <source>New password sent to {0}.</source>
         <target>Neues Passwort an {0} geschickt.</target>
       </trans-unit>
       <trans-unit id="help.credentials.invalidemail">

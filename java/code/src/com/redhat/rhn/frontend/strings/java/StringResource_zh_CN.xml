@@ -1296,12 +1296,6 @@
         </context-group>
         <target>您的首选项</target>
       </trans-unit>
-      <trans-unit id="Your Organization">
-        <source>Your Organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Organization Applicants">
         <source>Organization Applicants</source>
         <context-group name="ctx">
@@ -1483,7 +1477,7 @@
         <target>密码包括制表符或者换行符。</target>
       </trans-unit>
       <trans-unit id="error.maxpassword">
-        <source>Passwords cannot be more than {0} characters.</source>
+        <source>The password you requested is too long. Please enter a shorter password and try again.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
@@ -2245,12 +2239,6 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
         <target>kickstart 的信息已被成功地更新。</target>
-      </trans-unit>
-      <trans-unit id="kickstart.details.duplicatefile">
-        <source>Please specify only file contents or a file to upload but not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="kickstart.details.nolabel">
         <source>Kickstart profile label is required.</source>
@@ -5556,12 +5544,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>苏里南</target>
       </trans-unit>
-      <trans-unit id="SS">
-        <source>South Sudan</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">All country select list pull-downs</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="ST">
         <source>Saint Tome (Sao Tome) and Principe</source>
         <context-group name="ctx">
@@ -5953,35 +5935,6 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>已作为外部认证的 &lt;strong&gt;{0}&lt;/strong&gt; 用户记录。要使用这个帐户的登录和密码登录，请在 &lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;{0} 用户页面&lt;/strong&gt;&lt;/a&gt; 设置密码。</target>
-      </trans-unit>
-      <trans-unit id="satellite.expired">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>您的 satellite 证书已经过期。请访问以下连接查看如何请求或者生成一个新证书：&lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</target>
-      </trans-unit>
-      <trans-unit id="satellite.expired.restricted">
-        <source>Your Satellite Certificate has expired. Your Satellite is on day {0} of {1} day restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>您的 Satellite 证书已经过期。您的 Satellite 正处于 {1} 之 {0} 天限制期内，并将很快无法工作。请访问以下 url 产看请求或者生成新证书的步骤：https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
-      <trans-unit id="satellite.graceperiod">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt; Your satellite enters restricted period in {0} day(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-        <target>您的 satellite 证书已经过期。请访问以下连接查看如何请求或者生成一个新证书：&lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt;。您的 satellite 进入 {0} 天限制期。</target>
-      </trans-unit>
-      <trans-unit id="restricted.forbidden">
-        <source>You are not allowed to perform this action until your Satellite Certificate is renewed. Your Satellite is on day {0} of the {1} restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>未更新 Satellite 证书前您无法执行这个动作。您的 Satellite 证书已经过期。您的 Satellite 正处于 {1} 之 {0} 天限制期内，并将很快无法工作。请访问以下 url 产看请求或者生成新证书的步骤：https://access.redhat.com/knowledge/tools/satcert</target>
       </trans-unit>
       <trans-unit id="certificate.config.error.nocert">
         <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
@@ -9326,9 +9279,6 @@ Follow this url to see the full list of inactive systems:
         <source>Repository sync scheduled for {0}.</source>
         <target>为 {0} 预定了库同步。</target>
       </trans-unit>
-      <trans-unit id="message.syncinprogress">
-        <source>Repository sync is running.</source>
-      </trans-unit>
       <trans-unit id="message.channelsubscribers">
         <source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
         <target>每个用户订阅限制可能适用于订阅者标签</target>
@@ -9582,7 +9532,7 @@ Kickstart 树将不可用。
         <target>电子邮件已发送。您只可以每隔 {0} 秒请求一次这个操作。</target>
       </trans-unit>
       <trans-unit id="help.credentials.passwordsent">
-        <source>Password reset information sent to {0}.</source>
+        <source>New password sent to {0}.</source>
         <target>已将新密码发送至 {0}。</target>
       </trans-unit>
       <trans-unit id="help.credentials.invalidemail">

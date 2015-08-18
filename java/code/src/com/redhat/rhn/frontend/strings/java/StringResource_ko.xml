@@ -1296,12 +1296,6 @@
         </context-group>
         <target>사용자 환경 설정</target>
       </trans-unit>
-      <trans-unit id="Your Organization">
-        <source>Your Organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Organization Applicants">
         <source>Organization Applicants</source>
         <context-group name="ctx">
@@ -1483,7 +1477,7 @@
         <target>암호에 탭이나 개행 문자가 포함되어 있습니다. </target>
       </trans-unit>
       <trans-unit id="error.maxpassword">
-        <source>Passwords cannot be more than {0} characters.</source>
+        <source>The password you requested is too long. Please enter a shorter password and try again.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
@@ -2245,12 +2239,6 @@ rhn-tools 채널의 satellite 동기화를 요청하고 다시 시도해야
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
         <target>킥스타트 정보가 성공적으로 업데이트되었습니다.</target>
-      </trans-unit>
-      <trans-unit id="kickstart.details.duplicatefile">
-        <source>Please specify only file contents or a file to upload but not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="kickstart.details.nolabel">
         <source>Kickstart profile label is required.</source>
@@ -5553,12 +5541,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>수리남</target>
       </trans-unit>
-      <trans-unit id="SS">
-        <source>South Sudan</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">All country select list pull-downs</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="ST">
         <source>Saint Tome (Sao Tome) and Principe</source>
         <context-group name="ctx">
@@ -5949,35 +5931,6 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="satellite.expired">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Satellite 인증서가 만료되었습니다. 새로운 인증서를 요청하거나 생성하는 방법에 대한 자세한 내용은 다음 링크를 통해 확인하십시오: &lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</target>
-      </trans-unit>
-      <trans-unit id="satellite.expired.restricted">
-        <source>Your Satellite Certificate has expired. Your Satellite is on day {0} of {1} day restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Satellite 인증서가 만료되었습니다. Satellite 서버는 {1}일 제한 기간 중 {0}일 째이며 곧 기능이 중지됩니다. 새 인증서를 요청하거나 생성하는 방법에 대한 자세한 내용은 다음 URL에서 참조하십시오: https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
-      <trans-unit id="satellite.graceperiod">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt; Your satellite enters restricted period in {0} day(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-        <target>Satellite 인증서가 만료되었습니다. 새로운 인증서를 요청하거나 생성하는 방법에 대한 자세한 내용은 다음 링크를 통해 확인하십시오: &lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Satellite 서버는 {0}일 제한됩니다.</target>
-      </trans-unit>
-      <trans-unit id="restricted.forbidden">
-        <source>You are not allowed to perform this action until your Satellite Certificate is renewed. Your Satellite is on day {0} of the {1} restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>사용하는 Satellite 인증서가 갱신될 때 까지 이 동작을 수행할 수 없습니다. Satellite 서버는 {1}일 제한 기간 중 {0}일 째이며 곧 기능이 중지됩니다. 새 인증서를 요청하거나 생성하는 방법에 대한 자세한 내용은 다음 URL에서 참조하십시오: https://access.redhat.com/knowledge/tools/satcert</target>
       </trans-unit>
       <trans-unit id="certificate.config.error.nocert">
         <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
@@ -9278,9 +9231,6 @@ Follow this url to see the full list of inactive systems:
         <source>Repository sync scheduled for {0}.</source>
         <target>{0}에 대해 리포지터리 동기화가 스케줄되었습니다.</target>
       </trans-unit>
-      <trans-unit id="message.syncinprogress">
-        <source>Repository sync is running.</source>
-      </trans-unit>
       <trans-unit id="message.channelsubscribers">
         <source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
         <target>등록자 탭에서 사용자마다 서브스크립션 제한이 적용될 수 있습니다.  </target>
@@ -9531,7 +9481,7 @@ Spacewalk이 킥스타트 배포판을 Spacewalk에서 Cobbler로
         <source>An email has already been sent. You may request this action only every {0} seconds.</source>
       </trans-unit>
       <trans-unit id="help.credentials.passwordsent">
-        <source>Password reset information sent to {0}.</source>
+        <source>New password sent to {0}.</source>
       </trans-unit>
       <trans-unit id="help.credentials.invalidemail">
         <source>Supplied email address and login do not match.</source>
