@@ -5882,13 +5882,6 @@ utilisateur avant de désactiver son compte.</target>
         </context-group>
         <target>La méthode de notification avec le nom &quot;{0}&quot; est déjà utilisée. Veuillez saisir un nom différent.</target>
       </trans-unit>
-      <trans-unit id="Certificate">
-        <source>Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Certificat</target>
-      </trans-unit>
       <trans-unit id="Bootstrap Script">
         <source>Bootstrap Script</source>
         <context-group name="ctx">
@@ -5937,20 +5930,6 @@ utilisateur avant de désactiver son compte.</target>
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Vous êtes connecté comme utilisateur externe &lt;strong&gt;{0}&lt;/strong&gt; authentifié. Pour pouvoir vous connecter à ce compte avec un nom d'utilisateur et mot de passe, veuillez définir votre mot de passe sur &lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;page utilisateur {0}&lt;/strong&gt;&lt;/a&gt;.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.nocert">
-        <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Aucun certificat trouvé. Veuillez sélectionner un fichier de certificat local ou coller son contenu dans le formulaire.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.success">
-        <source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Certificat téléchargé. @@PRODUCT_NAME@@ a été réactivé.</target>
       </trans-unit>
       <trans-unit id="certificate.config.error.10">
         <source>Could not parse certificate file, see log file for more details.</source>

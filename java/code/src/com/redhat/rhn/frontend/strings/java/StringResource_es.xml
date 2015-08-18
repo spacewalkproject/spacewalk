@@ -5880,13 +5880,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
         </context-group>
         <target>El método de notificación con nombre '{0}' ya existe. Elija un nombre diferente.</target>
       </trans-unit>
-      <trans-unit id="Certificate">
-        <source>Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Certificado</target>
-      </trans-unit>
       <trans-unit id="Bootstrap Script">
         <source>Bootstrap Script</source>
         <context-group name="ctx">
@@ -5935,20 +5928,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Ha ingresado como usuario &lt;strong&gt;'{0}'&lt;/strong&gt; externamente autenticado. Para poder ingresar a esta cuenta con el nombre de usuario y contraseña,  establezca su contraseña en la &lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;'{0}' página de usuario&lt;/strong&gt;&lt;/a&gt;.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.nocert">
-        <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>No se encontró ningún certificado. Seleccione un archivo de certificado local o pegue el contenido en la forma.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.success">
-        <source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>El certificado ha sido cargado. @@PRODUCT_NAME@@ ha sido reactivado.</target>
       </trans-unit>
       <trans-unit id="certificate.config.error.10">
         <source>Could not parse certificate file, see log file for more details.</source>

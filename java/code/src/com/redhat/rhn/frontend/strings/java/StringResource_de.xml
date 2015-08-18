@@ -5880,13 +5880,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
         </context-group>
         <target>Die Benachrichtigungs-Methode mit dem Namen '{0}' wird bereits verwendet.  Bitte geben Sie einen anderen Namen ein.</target>
       </trans-unit>
-      <trans-unit id="Certificate">
-        <source>Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Zertifikat</target>
-      </trans-unit>
       <trans-unit id="Bootstrap Script">
         <source>Bootstrap Script</source>
         <context-group name="ctx">
@@ -5935,20 +5928,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Sie haben sich als extern authentifizierter &lt;strong&gt;{0}&lt;/strong&gt;-Benutzer angemeldet. Um sich an diesem Account mit dem Benutzernamen und Passwort anmelden zu können, stellen Sie Ihr Passwort bitte auf der &lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;{0} Benutzerseite&lt;/strong&gt;&lt;/a&gt; an.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.nocert">
-        <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Es wurde kein Zertifikat gefunden.  Bitte wählen Sie eine lokale Zertifikat-Datei oder fügen Sie Inhalte in das Formular ein.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.success">
-        <source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Das Zertifikat wurde hochgeladen.  Der @@PRODUCT_NAME@@ wurde reaktiviert.</target>
       </trans-unit>
       <trans-unit id="certificate.config.error.10">
         <source>Could not parse certificate file, see log file for more details.</source>
