@@ -113,6 +113,16 @@ def getCustomChannels():
 
     return l_custom_ch
 
+def latest_packages(packages):
+    #allows to download only lastest packages
+    packages.sort(reverse=True)
+    seen = set()
+    latest = []
+    for pack in packages:
+        if pack.getNRA() not in seen:
+            latest.append(pack)
+            seen.add(pack.getNRA())
+    return latest
 
 class RepoSync(object):
 
@@ -254,6 +264,7 @@ class RepoSync(object):
                     abspath = abspath.rstrip(suffix)
                     relativepath = relativepath.rstrip(suffix)
             src = fileutils.decompress_open(groupsfile)
+            print src
             dst = open(abspath, "w")
             shutil.copyfileobj(src, dst)
             dst.close()
@@ -449,17 +460,6 @@ class RepoSync(object):
         importer.run()
         self.regen = True
 
-    def latest_packages(self,packages):
-        #allows to download only latest packages
-        packages.sort(reverse=True)
-        seen = set()
-        latest = []
-        for pack in packages:
-            if pack.getNRA() not in seen:
-                latest.append(pack)
-                seen.add(pack.getNRA())
-        return latest
-
     def import_packages(self, plug, source_id, url):
         if (not self.filters) and source_id:
             h = rhnSQL.prepare("""
@@ -476,7 +476,7 @@ class RepoSync(object):
 
         packages = plug.list_packages(filters)
         if self.latest:
-            packages = self.latest_packages(packages)
+            packages = latest_packages(packages)
         to_process = []
         num_passed = len(packages)
         self.print_msg("Packages in repo:             %5d" % plug.num_packages)

@@ -46,7 +46,7 @@ class ContentPackage:
                                 (other.epoch,other.version,relOther))
 
     def getNRA(self):
-        rel = re.match(".*?\.(.*)",self.release)
+        rel = re.match(".*?\\.(.*)",self.release)
         rel = rel.group(1)
         nra = str(self.name) + str(rel) + str(self.arch)
         return nra
