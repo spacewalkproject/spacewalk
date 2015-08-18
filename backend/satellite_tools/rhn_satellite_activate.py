@@ -45,7 +45,6 @@ import satCerts
 DEFAULT_SYSTEMID_LOCATION = '/etc/sysconfig/rhn/systemid'
 DEFAULT_RHN_CERT_LOCATION = '/etc/sysconfig/rhn/rhn-entitlement-cert.xml'
 DEFAULT_WEB_HANDLER = '/rpc/api'
-DEFAULT_WEBAPP_GPG_KEY_RING = "/etc/webapp-keyring.gpg"
 DEFAULT_CONFIG_FILE = "/etc/rhn/rhn.conf"
 
 
@@ -98,51 +97,6 @@ def getXmlrpcServer(server, handler, proxy, proxyUser, proxyPass,
         s.add_trusted_cert(sslCertPath)
 
     return s
-
-
-class RHNCertGeneralSanityException(Exception):
-
-    "general failure"
-
-
-def validateSatCert(certFilename, verbosity=0):
-    """ validating (i.e., verifing sanity of) this product. Calls
-        validate-sat-cert.pl
-        I.e., makes sure the product Certificate is a sane certificate
-    """
-
-    # copy cert to temp location (it may be gzipped which validate-sat-cert.pl
-    # doesn't like).
-    fd, certTmpFile = tempfile.mkstemp(prefix=DEFAULT_RHN_CERT_LOCATION + '-')
-    fo = os.fdopen(fd, 'wb')
-    fo.write(openGzippedFile(certFilename).read().strip())
-    fo.flush()
-    fo.close()
-
-    args = ['/usr/bin/validate-sat-cert.pl', '--keyring',
-            DEFAULT_WEBAPP_GPG_KEY_RING, certTmpFile]
-
-    if verbosity:
-        print "Checking cert XML sanity and GPG signature:", repr(' '.join(args))
-
-    ret, out, err = fileutils.rhn_popen(args)
-    err = err.read()
-    out = out.read()
-
-    # nuke temp cert
-    os.unlink(certTmpFile)
-
-    if err.find('Ohhhh jeeee: ... this is a bug') != -1 or err.find('verify err') != -1 or ret:
-        msg = "%s Entitlement Certificate failed to validate.\n" % PRODUCT_NAME
-        msg = msg + "MORE INFORMATION:\n"
-        msg = msg + "  Return value: %s\n" % ret +\
-                    "  Standard-out: %s\n" % out +\
-                    "  Standard-error: %s\n" % err
-        sys.stderr.write(msg)
-        raise RHNCertGeneralSanityException("RHN Entitlement Certificate failed "
-                                            "to validate.")
-    return 0
-
 
 def writeRhnCert(options, cert):
     if os.path.exists(DEFAULT_RHN_CERT_LOCATION):
@@ -273,13 +227,7 @@ class RHNCertNoSatChanForVersion(Exception):
 
 
 def activateSatellite_remote(options):
-    """ activate/entitle this product on the remote RHN servers
-
-        NOTE: validateSatCert calls validate-sat-cert.pl which will activate
-              the satellite as well. But we don't use it's version cuz
-              (a) it doesn't handle http proxies/systemid's/ca-certs,
-              and (b) I can't do error handling as easily.
-    """
+    """ activate/entitle this product on the remote RHN servers """
 
     # may raise InvalidRhnCertError, UnhandledXmlrpcError, socket.error,
     # or cgiwrap.ProtocolError
