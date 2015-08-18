@@ -4,7 +4,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <html>
 <head>
-  <script src="/javascript/spacewalk-login.js"></script>
+    <script src="/javascript/spacewalk-login.js"></script>
 </head>
 <body>
 
@@ -15,15 +15,15 @@
 </c:if>
 
 <rhn:require acl="not user_authenticated()">
-  <c:if test="${requestScope.hasExpired != 'true'}">
     <div class="text-center">
-      <h1><bean:message key="relogin.jsp.pleasesignin"/></h1>
-      <html:form styleId="loginForm" styleClass="form-horizontal col-md-6 col-md-offset-3 text-left" action="/ReLoginSubmit">
-        <rhn:csrf />
-        <%@ include file="/WEB-INF/pages/common/fragments/login_form.jspf" %>
-      </html:form>
+        <h1>
+            <bean:message key="relogin.jsp.pleasesignin" />
+        </h1>
+        <html:form styleId="loginForm" styleClass="form-horizontal col-md-6 col-md-offset-3 text-left" action="/ReLoginSubmit">
+            <rhn:csrf />
+            <%@ include file="/WEB-INF/pages/common/fragments/login_form.jspf"%>
+        </html:form>
     </div>
-  </c:if>
 </rhn:require>
 
 </body>

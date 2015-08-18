@@ -4,8 +4,8 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <html>
 <head>
-  <meta name="decorator" content="layout_c" />
-  <script src="/javascript/spacewalk-login.js"></script>
+    <meta name="decorator" content="layout_c" />
+    <script src="/javascript/spacewalk-login.js"></script>
 </head>
 <body>
 
@@ -15,37 +15,47 @@
     </div>
 </c:if>
 
-<c:if test="${requestScope.hasExpired != 'true'}">
-  <div class="text-center">
+<div class="text-center">
     <c:set var="login_banner" scope="page" value="${rhn:getConfig('java.login_banner')}" />
     <c:choose>
-      <c:when test="${! empty login_banner}">
-        <p><c:out value="${login_banner}" escapeXml="false" /></p>
-      </c:when>
-      <c:otherwise>
-        <h1><bean:message key="login.jsp.welcomemessage" /></h1>
-        <p><bean:message key="login.jsp.satbody1" /></p>
-      </c:otherwise>
+        <c:when test="${! empty login_banner}">
+            <p>
+                <c:out value="${login_banner}" escapeXml="false" />
+            </p>
+        </c:when>
+        <c:otherwise>
+            <h1>
+                <bean:message key="login.jsp.welcomemessage" />
+            </h1>
+            <p>
+                <bean:message key="login.jsp.satbody1" />
+            </p>
+        </c:otherwise>
     </c:choose>
 
     <html:form styleId="loginForm" styleClass="form-horizontal col-md-6 col-md-offset-3 text-left" action="/LoginSubmit">
-      <rhn:csrf />
-      <%@ include file="/WEB-INF/pages/common/fragments/login_form.jspf" %>
+        <rhn:csrf />
+        <%@ include file="/WEB-INF/pages/common/fragments/login_form.jspf"%>
     </html:form>
     <div class="col-md-6 col-md-offset-3 text-left">
-    <c:set var="legal_note" scope="page" value="${rhn:getConfig('java.legal_note')}" />
-    <c:choose>
-      <c:when test="${! empty legal_note}">
-          <p><c:out value="${legal_note}" escapeXml="false" /></p>
-      </c:when>
-      <c:otherwise>
-          <p><bean:message key="login.jsp.satbody2" /></p>
-          <p><bean:message key="login.jsp.satbody3"/></p>
-      </c:otherwise>
-    </c:choose>
+        <c:set var="legal_note" scope="page" value="${rhn:getConfig('java.legal_note')}" />
+        <c:choose>
+            <c:when test="${! empty legal_note}">
+                <p>
+                    <c:out value="${legal_note}" escapeXml="false" />
+                </p>
+            </c:when>
+            <c:otherwise>
+                <p>
+                    <bean:message key="login.jsp.satbody2" />
+                </p>
+                <p>
+                    <bean:message key="login.jsp.satbody3" />
+                </p>
+            </c:otherwise>
+        </c:choose>
     </div>
-  </div>
-</c:if>
+</div>
 
 </body>
 </html>
