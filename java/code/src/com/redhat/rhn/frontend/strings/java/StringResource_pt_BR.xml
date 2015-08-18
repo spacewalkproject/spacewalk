@@ -5923,35 +5923,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>Você se autenticou como usuário externo &lt;strong&gt;{0}&lt;/strong&gt;. Para que você possa se autenticar utilizando esta conta com o login e senha, por favor defina sua senha no &lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;{0} user page&lt;/strong&gt;&lt;/a&gt;.</target>
       </trans-unit>
-      <trans-unit id="satellite.expired">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>O certificado do seu Satellite está vencido.  Por favor visite o link a seguir onde encontrará os passos sobre como requisitar ou gerar um novo certificado. &lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</target>
-      </trans-unit>
-      <trans-unit id="satellite.expired.restricted">
-        <source>Your Satellite Certificate has expired. Your Satellite is on day {0} of {1} day restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>O certificado do seu Satellite está vencido. Seu Satellite está no dia {0} do dia {1} de período de restrição e irá parar de funcionar. Por favor visite a seguinte url para obter os passos sobre como requisitar ou gerar um novo certificado:  https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
-      <trans-unit id="satellite.graceperiod">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Your satellite enters restricted period in {0} day(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-        <target>O certificado do seu Satellite está vencido.  Por favor visite o link a seguir onde encontrará os passos sobre como requisitar ou gerar um novo certificado. &lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Seu satellite entra no período de restrição em {0} dia(s).</target>
-      </trans-unit>
-      <trans-unit id="restricted.forbidden">
-        <source>You are not allowed to perform this action until your Satellite Certificate is renewed. Your Satellite is on day {0} of the {1} restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Você não poderá realizar esta ação até que seu Certificado Satellite seja renovado. Seu Satellite está no dia {0} do dia {1} de período de restrição e irá parar de funcionar. Por favor visite a seguinte url para obter os passos sobre como requisitar ou gerar um novo certificado:  https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
       <trans-unit id="certificate.config.error.nocert">
         <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
         <context-group name="ctx">

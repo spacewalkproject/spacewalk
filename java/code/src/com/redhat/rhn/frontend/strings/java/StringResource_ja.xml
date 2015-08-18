@@ -5936,35 +5936,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>外部で認証された &lt;strong&gt;{0}&lt;/strong&gt; ユーザーとしてログインしています。このアカウントのログインとパスワードでログインするには、&lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;{0} ユーザーページ&lt;/strong&gt;&lt;/a&gt; でパスワードを設定してください。</target>
       </trans-unit>
-      <trans-unit id="satellite.expired">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>ご使用の Satellite 証明書は有効期限切れです。新しい証明書をリクエストするか、または生成する方法については以下のリンクをご覧ください。&lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</target>
-      </trans-unit>
-      <trans-unit id="satellite.expired.restricted">
-        <source>Your Satellite Certificate has expired. Your Satellite is on day {0} of {1} day restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>ご使用の Satellite 証明書は有効期限切れです。ご使用の  Satellite {1} 日の制限期間の {0} 日目で、まもなく機能が停止します。新しい証明書をリクエストするか、または生成する方法の手順については、以下の URL をご覧ください。 https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
-      <trans-unit id="satellite.graceperiod">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Your satellite enters restricted period in {0} day(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-        <target>ご使用の Satellite 証明書は有効期限切れです。新しい証明書をリクエストするか、または生成する方法については以下のリンクをご覧ください。&lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; ご使用の Satellite は {0} 日以内に制限されます。</target>
-      </trans-unit>
-      <trans-unit id="restricted.forbidden">
-        <source>You are not allowed to perform this action until your Satellite Certificate is renewed. Your Satellite is on day {0} of the {1} restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>ご使用の Satellite 証明書が更新されるまでこの動作を実行することはできません。ご使用の Satellite の制限期間 {1} の内 {0} 日目で、まもなく機能が停止します。新しい証明書をリクエストするか、または生成する方法の手順については、以下の URL をご覧ください。https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
       <trans-unit id="certificate.config.error.nocert">
         <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
         <context-group name="ctx">

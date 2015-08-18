@@ -5936,35 +5936,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
         </context-group>
         <target>Sie haben sich als extern authentifizierter &lt;strong&gt;{0}&lt;/strong&gt;-Benutzer angemeldet. Um sich an diesem Account mit dem Benutzernamen und Passwort anmelden zu können, stellen Sie Ihr Passwort bitte auf der &lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;{0} Benutzerseite&lt;/strong&gt;&lt;/a&gt; an.</target>
       </trans-unit>
-      <trans-unit id="satellite.expired">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Ihr Satellite-Zertifikat ist abgelaufen. Bitte besuchen Sie den folgenden Link für Schritte, wie ein neues Zertifikat zu beantragen oder generieren ist: &lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</target>
-      </trans-unit>
-      <trans-unit id="satellite.expired.restricted">
-        <source>Your Satellite Certificate has expired. Your Satellite is on day {0} of {1} day restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Ihr Satellite-Zertifikat ist abgelaufen. Ihr Satellite ist auf Tag {0} von {1} Tag(en) der eingeschränkten Periode und wird in Kürze aufhören zu funktionieren. Bitte besuchen Sie den folgenden URL für Schritte, wie ein neues Zertifikat zu beantragen oder generieren ist: https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
-      <trans-unit id="satellite.graceperiod">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Your satellite enters restricted period in {0} day(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-        <target>Ihr Satellite-Zertifikat ist abgelaufen. Bitte besuchen Sie den folgenden Link für Schritte, wie ein neues Zertifikat zu beantragen oder generieren ist: &lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Ihr Satellite beginnt die eingeschränkte Periode in {0} Tag(en).</target>
-      </trans-unit>
-      <trans-unit id="restricted.forbidden">
-        <source>You are not allowed to perform this action until your Satellite Certificate is renewed. Your Satellite is on day {0} of the {1} restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Sie sind nicht berechtigt, diese Aktion auszuführen, bis Ihr Satellite-Zertifikat erneuert ist. Ihr Satellite ist auf Tag {0} von {1} Tag(en) der eingeschränkten Periode und wird in Kürze aufhören zu funktionieren. Bitte besuchen Sie die folgenden URL für Schritte, wie ein neues Zertifikat zu beantragen oder generieren ist: https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
       <trans-unit id="certificate.config.error.nocert">
         <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
         <context-group name="ctx">

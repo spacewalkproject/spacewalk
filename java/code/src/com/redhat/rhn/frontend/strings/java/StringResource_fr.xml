@@ -5938,35 +5938,6 @@ utilisateur avant de désactiver son compte.</target>
         </context-group>
         <target>Vous êtes connecté comme utilisateur externe &lt;strong&gt;{0}&lt;/strong&gt; authentifié. Pour pouvoir vous connecter à ce compte avec un nom d'utilisateur et mot de passe, veuillez définir votre mot de passe sur &lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;page utilisateur {0}&lt;/strong&gt;&lt;/a&gt;.</target>
       </trans-unit>
-      <trans-unit id="satellite.expired">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Votre certificat Satellite a expiré. Veuillez vous rendre sur le lien suivant afin de voir les étapes pour requérir ou générer un nouveau certificat : &lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</target>
-      </trans-unit>
-      <trans-unit id="satellite.expired.restricted">
-        <source>Your Satellite Certificate has expired. Your Satellite is on day {0} of {1} day restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Votre certificat Satellite a expiré. Votre Satellite en est au jour {0} sur {1} de la période de restriction et arrêtera bientôt de fonctionner. Veuillez vous rendre sur l'URL suivant afin de voir les étapes à suivre pour requérir ou générer un nouveau certificat : https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
-      <trans-unit id="satellite.graceperiod">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Your satellite enters restricted period in {0} day(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-        <target>Votre certificat Satellite a expiré. Veuillez vous rendre sur le lien suivant afin de voir les étapes à suivre pour requérir ou générer un nouveau certificat : &lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Votre Satellite va entrer dans la période de restriction dans {0} jour(s).</target>
-      </trans-unit>
-      <trans-unit id="restricted.forbidden">
-        <source>You are not allowed to perform this action until your Satellite Certificate is renewed. Your Satellite is on day {0} of the {1} restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Vous n'êtes pas autorisé à effectuer cette action tant que votre certificat Satellite n'est pas renouvelé. Votre Satellite en est au jour {0} sur {1} de la période de restriction et arrêtera bientôt de fonctionner. Veuilez vous rendre sur l'URL suivant afin de voir comment requérir ou générer un nouveau certificat : https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
       <trans-unit id="certificate.config.error.nocert">
         <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
         <context-group name="ctx">

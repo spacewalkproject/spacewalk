@@ -24137,13 +24137,6 @@ given channel.</source>
         </context-group>
         <target>Генерирует repodata</target>
       </trans-unit>
-      <trans-unit id="bunch.jsp.description.satcert-check-bunch">
-        <source>Checks whether satellite certificate has not expired</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
-        </context-group>
-        <target>Проверяет срок действия сертификата Satellite</target>
-      </trans-unit>
       <trans-unit id="bunch.jsp.description.cleanup-data-bunch">
         <source>Cleans up orphaned and outdated data</source>
         <context-group name="ctx">
@@ -24610,10 +24603,6 @@ given channel.</source>
       <trans-unit id="task.status.channel-repodata">
         <source>Channel Repodata</source>
         <target>Repodata канала</target>
-      </trans-unit>
-      <trans-unit id="task.status.sat-cert-check">
-        <source>Certificate Check</source>
-        <target>Проверка сертификата</target>
       </trans-unit>
       <trans-unit id="task.status.cleanup-timeseries-data">
         <source>TimeSeries Cleanup</source>

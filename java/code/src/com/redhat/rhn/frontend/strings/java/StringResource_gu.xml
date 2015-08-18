@@ -5825,31 +5825,6 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="satellite.expired">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="satellite.expired.restricted">
-        <source>Your Satellite Certificate has expired. Your Satellite is on day {0} of {1} day restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="satellite.graceperiod">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Your satellite enters restricted period in {0} day(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="restricted.forbidden">
-        <source>You are not allowed to perform this action until your Satellite Certificate is renewed. Your Satellite is on day {0} of the {1} restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="certificate.config.error.nocert">
         <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
         <context-group name="ctx">
