@@ -14,25 +14,19 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.satellite;
 
-import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.satellite.CertificateFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
-import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
 
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
- *
  * SatelliteHandler
- * @version $Rev$
  *
  * @xmlrpc.namespace satellite
  * @xmlrpc.doc Provides methods to obtain details on the Satellite.
@@ -60,24 +54,5 @@ public class SatelliteHandler extends BaseHandler {
             toReturn.add(helper.format(server));
         }
         return toReturn.toArray();
-    }
-
-    /**
-     * Get the Satellite certificate expiration date
-     * @param loggedInUser The current user
-     * @return A Date object of the expiration of the certificate
-     *
-     * @xmlrpc.doc Retrieves the certificate expiration date of the activated
-     *      certificate.
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.returntype
-     *    $date
-     */
-    public Date getCertificateExpirationDate(User loggedInUser) {
-        if (!loggedInUser.hasRole(RoleFactory.SAT_ADMIN)) {
-            throw new PermissionCheckFailureException(RoleFactory.SAT_ADMIN);
-        }
-
-        return CertificateFactory.lookupNewestCertificate().getExpires();
     }
 }

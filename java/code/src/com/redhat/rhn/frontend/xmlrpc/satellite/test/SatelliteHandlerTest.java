@@ -14,14 +14,12 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.satellite.test;
 
-import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.xmlrpc.satellite.SatelliteHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 
 import java.util.Map;
-
 
 public class SatelliteHandlerTest extends BaseHandlerTestCase {
 
@@ -33,11 +31,4 @@ public class SatelliteHandlerTest extends BaseHandlerTestCase {
         assertEquals(1, list.length);
         assertEquals(server.getId(), ((Map)list[0]).get("id"));
     }
-
-    public void testGetCertificateExpiration() throws Exception  {
-        admin.addPermanentRole(RoleFactory.SAT_ADMIN);
-        handler.getCertificateExpirationDate(admin);
-    }
-
-
 }
