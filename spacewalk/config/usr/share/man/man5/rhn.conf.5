@@ -9,9 +9,6 @@ rhn.conf \- Configuration file for Spacewalk/Red Hat Satellite Server
 .SH DESCRIPTION
 .B rhn.conf
 is a configuration file used for several services in Spacewalk/Red Hat Satellite server.
-The file contents are read by the
-.B rhn-satellite (8)
-command to start the Spacewalk/Red Hat Satellite service.
 .SH FORMAT
 .P
 Format of /etc/rhn/rhn.conf is very simple. Each line is either a comment or a directive.  Comment lines start with a # and are ignored. A directive line has the format below:
@@ -130,8 +127,7 @@ Valid values:
 .B "disconnected (boolean)"
 This parameter controls whether server is running in connected or disconnected mode.
 When running in disconnected mode, the RHN Entitlement Certificate is activated locally
-but not on remote RHN Servers. To switch to connected mode, see man page
-.B rhn-satellite-activate (8).
+but not on remote RHN Servers.
 .IP
 .B Default:
 0

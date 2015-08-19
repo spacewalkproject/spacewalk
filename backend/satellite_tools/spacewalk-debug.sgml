@@ -56,7 +56,6 @@ Debug utility that packages log files and relevant debug information needed for 
     <member>db-control(1) - embedded database environment only!</member>
     <member>rhn-charsets(8)</member>
     <member>rhnpush(8)</member>
-    <member>rhn-satellite-activate(8)</member>
     <member>rhn-schema-version(8)</member>
     <member>rhn-ssl-dbstore(8)</member>
     <member>satellite-sync(8)</member>
