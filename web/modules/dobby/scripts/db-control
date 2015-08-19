@@ -166,5 +166,5 @@ Verifies the contents of the backup kept in DIRNAME.  This command checks the md
 
 =head1 SEE ALSO
 
-B<rhn-charsets>(8), B<rhnpush>(8), B<rhn-satellite-activate>(8), B<rhn-schema-version>(8), B<rhn-ssl-dbstore>(8), B<satellite-sync>(8), B<satellite-debug>(8)
+B<rhn-charsets>(8), B<rhnpush>(8), B<rhn-schema-version>(8), B<rhn-ssl-dbstore>(8), B<satellite-sync>(8), B<satellite-debug>(8)
 
