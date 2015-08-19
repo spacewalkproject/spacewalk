@@ -16,7 +16,6 @@
 #
 
 # system modules
-import time
 import string
 import sys
 
@@ -668,39 +667,6 @@ class Server(ServerWrapper):
         log_debug(3, self.server["id"])
 
         return server_lib.check_entitlement(self.server['id'])
-
-    def validateSatCert(self):
-        # make sure the cert is still valid
-
-        h = rhnSQL.prepare("""
-        select TO_CHAR(expires, 'YYYY-MM-DD HH24:MI:SS') expires
-          from rhnSatelliteCert
-         where label = 'rhn-satellite-cert'
-         order by version desc nulls last
-        """)
-        # Fetching just the first row will get the max version, null
-        # included
-        h.execute()
-        ret = h.fetchone_dict()
-        if not ret:
-            log_debug(2, "Satellite certificate not found")
-            return 0
-        expire_string = ret['expires']
-        expire_time = time.mktime(time.strptime(expire_string,
-                                                "%Y-%m-%d %H:%M:%S"))
-
-        now = time.time()
-        log_debug(3, "Certificate expiration: %s; now: time: %s (%s)" % (
-            expire_string, time.ctime(now), now))
-
-        # We will allow for a grace period of 7 days after the cert expires to
-        # give the user some time renew the certificate before we disable.
-        grace_period_seconds = 60 * 60 * 24 * 7
-
-        if (now > expire_time + grace_period_seconds):
-            log_debug(1, "Satellite certificate expired on %s" % expire_string)
-            return 0
-        return 1
 
     def checkin(self, commit=1):
         """ convenient wrapper for these thing until we clean the code up """
