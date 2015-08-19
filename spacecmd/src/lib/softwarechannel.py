@@ -38,7 +38,7 @@ import xmlrpclib
 ARCH_LABELS = ['ia32', 'ia64', 'x86_64', 'ppc',
                'i386-sun-solaris', 'sparc-sun-solaris']
 
-CHECKSUM = ['sha1', 'sha256']
+CHECKSUM = ['sha1', 'sha256', 'sha384', 'sha512']
 
 def help_softwarechannel_getentitlements(self):
     print 'softwarechannel_getentitlements: List the available ' + \
@@ -537,10 +537,10 @@ options:
   -p PARENT_CHANNEL
   -a ARCHITECTURE ['ia32', 'ia64', 'x86_64', 'ppc',
                   'i386-sun-solaris', 'sparc-sun-solaris']
-  -c CHECKSUM ['sha1', 'sha256']
+  -c CHECKSUM %s
   -u GPG_URL
   -i GPG_ID
-  -f GPG_FINGERPRINT'''
+  -f GPG_FINGERPRINT''' % CHECKSUM
 
 
 def do_softwarechannel_create(self, args):
