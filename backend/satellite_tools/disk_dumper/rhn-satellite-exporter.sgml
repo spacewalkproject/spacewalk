@@ -112,9 +112,6 @@ A tool that exports Red Hat Satellite content into a directory in an XML format.
     If you are exporting one of the base channels provided by RHN, you will also need to export the tools channel associated with that base channel in order to kickstart machines to the distribution in the base channel. For instance, if you export rhel-i386-as-4 you should also export the rhn-tools-rhel-4-as-i386 channel in order to kickstart machines to RHEL 4 AS. This is because the tools channels contain the auto-kickstart packages that install packages for kickstarting a machine through the Red Hat Satellite.
 </para>
 <para>
-    When importing an exported channel into Red Hat Satellite on which you have not run satellite-sync, you will need to use satellite-sync's --rhn-cert option to import the entitlements cert.
-</para>
-<para>
     The --email option is used to send a report to the administrator's email address when the export is complete. If an error occurs when the --email option is set, the error should be included in the report. The only time that --email will not work is if an error occurs while the program is starting up. Increasing the debug level by using --debug-level will increase the amount of information included in the report.
 </para>
 </RefSect1>
