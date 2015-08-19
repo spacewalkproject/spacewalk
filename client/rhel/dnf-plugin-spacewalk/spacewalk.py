@@ -285,6 +285,9 @@ def get_gpg_key_urls(key_url_string):
             raise InvalidGpgKeyLocation(key_url)
     return key_urls
 
+class InvalidGpgKeyLocation(Exception):
+    pass
+
 def is_valid_gpg_key_url(key_url):
     proto_split = key_url.split('://')
     if len(proto_split) != 2:
