@@ -60,8 +60,6 @@ class Server(ServerWrapper):
         # Also, at this point we know that this is a real server
         self.type = "REAL"
         self.default_description()
-        # Satellite certificate associated to this server
-        self.satellite_cert = None
 
         # custom info values
         self.custom_info = None
