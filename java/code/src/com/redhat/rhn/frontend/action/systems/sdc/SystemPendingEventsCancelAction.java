@@ -24,6 +24,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -63,8 +64,9 @@ public class SystemPendingEventsCancelAction extends RhnAction {
         if (context.wasDispatched("system.event.pending.confirm")) {
             createSuccessMessage(request, "system.event.pending.canceled",
                     new Integer(set.size()).toString());
-            ActionManager.deleteActions(user,
-                    RhnSetDecl.PENDING_ACTIONS_TO_DELETE.getLabel());
+            for (SystemPendingEventDto action : result) {
+                ActionFactory.removeActionForSystem(action.getId(), sid);
+            }
             set.clear();
             RhnSetManager.store(set);
             Map params = makeParamMap(request);
