@@ -362,7 +362,6 @@ Using the --stdin and --dir options at the same time works as follows: rhnpush w
     <member>rhn-ssl-dbstore(8)</member>
     <member>satellite-debug(8)</member>
     <member>satellite-sync(8)</member>
-    <member>rhn-satellite-activate(8)</member>
 </simplelist>
 </RefSect1>
 
