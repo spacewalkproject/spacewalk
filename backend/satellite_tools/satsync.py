@@ -44,7 +44,6 @@ from spacewalk.common.checksum import getFileChecksum
 
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
-from spacewalk.server.rhnServer import satellite_cert
 from spacewalk.server.rhnLib import get_package_path
 from spacewalk.common import fileutils
 
@@ -77,7 +76,6 @@ import sync_handlers
 import constants
 
 _DEFAULT_SYSTEMID_PATH = '/etc/sysconfig/rhn/systemid'
-_DEFAULT_RHN_ENTITLEMENT_CERT_BACKUP = '/etc/sysconfig/rhn/rhn-entitlement-cert.xml'
 DEFAULT_ORG = 1
 
 # the option object is used everywhere in this module... make it a
@@ -297,9 +295,6 @@ class Runner:
 
     def _step_channel_families(self):
         self.syncer.processChannelFamilies()
-        # Sync the certificate (and update channel family permissions)
-        if not CFG.ISS_PARENT:
-            self.syncer.syncCert()
 
     def _step_channels(self):
         try:
@@ -395,7 +390,6 @@ class Syncer:
 
         self._requested_channels = channels
         self.mountpoint = OPTIONS.mount_point
-        self.rhn_cert = OPTIONS.rhn_cert
         self.listChannelsYN = listChannelsYN
         self.forceAllErrata = forceAllErrata
         self.sslYN = not OPTIONS.no_ssl
@@ -543,78 +537,6 @@ class Syncer:
 
     def import_orgs(self):
         self._process_simple("getOrgsXmlStream", "orgs")
-
-    def syncCert(self):
-        "sync the Red Hat Satellite cert if applicable (to local DB & filesystem)"
-
-        store_cert = True
-        if self.mountpoint:
-            if self.rhn_cert:
-                # Certificate was presented on the command line
-                try:
-                    cert = open(self.rhn_cert).read()
-                except IOError, e:
-                    raise RhnSyncException(_("Unable to open file %s: %s") % (
-                        self.rhn_cert, e)), None, sys.exc_info()[2]
-                cert = cert.strip()
-            else:
-                # Try to retrieve the certificate from the database
-                row = satCerts.retrieve_db_cert()
-                if row is None:
-                    raise RhnSyncException(_("No certificate found. "
-                                             "Please use --rhn-cert"))
-                cert = row['cert']
-                store_cert = False
-        else:
-            log2(1, 3, ["", _("RHN Entitlement Certificate sync")])
-            certSource = xmlWireSource.CertWireSource(self.systemid, self.sslYN,
-                                                      self.xml_dump_version)
-            cert = certSource.download().strip()
-
-        return self._process_cert(cert, store_cert)
-
-    @staticmethod
-    def _process_cert(cert, store_cert=1):
-        """Give the cert a check - if it's broken xml we'd better find it out
-           now
-        """
-        log2(1, 4, _("    - parsing for sanity"))
-        sat_cert = satellite_cert.SatelliteCert()
-        try:
-            sat_cert.load(cert)
-        except satellite_cert.ParseException:
-            # XXX figure out what to do
-            raise RhnSyncException(_("Error parsing the satellite cert")), None, sys.exc_info()[2]
-
-        # pylint: disable=E1101
-        # Compare certificate generation - should match the stream's
-        generation = rhnFlags.get('stream-generation')
-        if sat_cert.generation != generation:
-            raise RhnSyncException(_("""\
-Unable to import certificate:
-channel dump generation %s incompatible with cert generation %s.
-Please contact your RHN representative""") % (generation, sat_cert.generation))
-
-        satCerts.set_slots_from_cert(sat_cert, testonly=True)
-
-        # push it into the database
-        log2(1, 4, _("    - syncing to local database"))
-
-        # possible place for bug 146395
-
-        if store_cert:
-            # store it! (does a commit)
-            # XXX bug 146395
-            satCerts.storeRhnCert(cert)
-
-        if store_cert:
-            # save it to disk
-            log2(1, 4, _("    - syncing to disk %s") %
-                 _DEFAULT_RHN_ENTITLEMENT_CERT_BACKUP)
-            fileutils.rotateFile(_DEFAULT_RHN_ENTITLEMENT_CERT_BACKUP, depth=5)
-            open(_DEFAULT_RHN_ENTITLEMENT_CERT_BACKUP, 'wb').write(cert)
-
-        log2(1, 3, _("RHN Entitlement Certificate sync complete"))
 
     def processChannelFamilies(self):
         self._process_simple("getChannelFamilyXmlStream", "channel-families")
@@ -2090,6 +2012,7 @@ def processCommandline():
 
     log2disk(-1, _("Commandline: %s") % repr(sys.argv))
     optionsTable = [
+<<<<<<< HEAD
         Option('--batch-size',          action='store',
                help=_('DEBUG ONLY: max. batch-size for XML/database-import processing (1..%s).'
                       + '"man satellite-sync" for more information.') % SequenceServer.NEVER_MORE_THAN),
@@ -2157,6 +2080,70 @@ def processCommandline():
                help=_('the fully qualified domain name of the master Satellite. '
                       'Valid with --mount-point only. '
                       'Required if you want to import org data and channel permissions.')),
+=======
+        Option(     '--batch-size',          action='store',
+            help=_('DEBUG ONLY: max. batch-size for XML/database-import processing (1..%s).'
+                 + '"man satellite-sync" for more information.') % SequenceServer.NEVER_MORE_THAN),
+        Option(     '--ca-cert',             action='store',
+            help=_('alternative SSL CA Cert (fullpath to cert file)')),
+        Option('-c','--channel',             action='append',
+            help=_('process data for this channel only')),
+        Option(     '--consider-full',       action='store_true',
+            help=_('disk dump will be considered to be a full export; see "man satellite-sync" for more information.')),
+        Option(     '--include-custom-channels',       action='store_true',
+            help=_('existing custom channels will also be synced (unless -c is used)')),
+        Option(     '--debug-level',         action='store',
+            help=_('override debug level set in /etc/rhn/rhn.conf (which is currently set at %s).') % CFG.DEBUG),
+        Option(     '--dump-version',        action='store',
+            help=_("requested version of XML dump (default: %s)") % constants.PROTOCOL_VERSION),
+        Option(     '--email',               action='store_true',
+            help=_('e-mail a report of what was synced/imported')),
+        Option(     '--force-all-errata',  action='store_true',
+            help=_('forcibly process all (not a diff of) patch metadata')),
+        Option(     '--force-all-packages',  action='store_true',
+            help=_('forcibly process all (not a diff of) package metadata')),
+        Option(     '--http-proxy',          action='store',
+            help=_('alternative http proxy (hostname:port)')),
+        Option(     '--http-proxy-username', action='store',
+            help=_('alternative http proxy username')),
+        Option(     '--http-proxy-password', action='store',
+            help=_('alternative http proxy password')),
+        Option(     '--iss-parent',             action='store',
+            help=_('parent SUSE Manager server to import content from')),
+        Option('-l','--list-channels',       action='store_true',
+            help=_('list all available channels and exit')),
+        Option(     '--list-error-codes',         action='store_true',
+            help=_("help on all error codes mgr-inter-sync returns")),
+        Option('-m','--mount-point',         action='store',
+            help=_('source mount point for import - disk update only')),
+        Option(     '--no-errata',           action='store_true',
+            help=_('do not process patch data')),
+        Option(     '--no-kickstarts',       action='store_true',
+            help=_('do not process kickstart data (provisioning only)')),
+        Option(     '--no-packages',         action='store_true',
+            help=_('do not process full package metadata')),
+        Option(     '--no-rpms',             action='store_true',
+            help=_('do not download, or process any RPMs')),
+        Option(     '--no-ssl',              action='store_true',
+            help=_('turn off SSL (not recommended)')),
+        Option(    '--orgid',                  action='store',
+            help=_('org to which the sync imports data. defaults to the admin account')),
+        Option('-p','--print-configuration', action='store_true',
+            help=_('print the configuration and exit')),
+        Option('-s','--server',              action='store',
+            help=_('alternative server with which to connect (hostname)')),
+        Option(     '--step',                action='store',
+            help=_('synchronize to this step (man satellite-sync for more info)')),
+        Option(     '--systemid',            action='store',
+            help=_("DEBUG ONLY: alternative path to digital system id")),
+        Option(     '--traceback-mail',      action='store',
+            help=_('alternative email address(es) for sync output (--email option)')),
+        Option(     '--keep-rpms',      action='store_true',
+            help=_('do not remove rpms when importing from local dump')),
+        Option(     '--master',      action='store',
+            help=_('the fully qualified domain name of the master Satellite. '
+                 + 'Valid with --mount-point only. Required if you want to import org data and channel permissions.')),
+>>>>>>> ecd929d... satellite-sync: don't sync the certificate
     ]
     optionParser = OptionParser(option_list=optionsTable)
     global OPTIONS
@@ -2353,18 +2340,7 @@ def processCommandline():
                 None, sys.exc_info()[2]
 
     OPTIONS.mount_point = fileutils.cleanupAbsPath(OPTIONS.mount_point)
-    OPTIONS.rhn_cert = fileutils.cleanupAbsPath(OPTIONS.rhn_cert)
     OPTIONS.systemid = fileutils.cleanupAbsPath(OPTIONS.systemid)
-
-    if OPTIONS.rhn_cert:
-        if not OPTIONS.mount_point:
-            msg = _("ERROR: --rhn-cert requires --mount-point")
-            log2stderr(-1, msg, cleanYN=1)
-            sys.exit(23)
-        if not os.path.isfile(OPTIONS.rhn_cert):
-            msg = _("ERROR: no such file %s") % OPTIONS.rhn_cert
-            log2stderr(-1, msg, cleanYN=1)
-            sys.exit(24)
 
     if OPTIONS.mount_point:
         if not os.path.isdir(OPTIONS.mount_point):
@@ -2398,7 +2374,6 @@ def processCommandline():
                _("  20 - Could not connect to db."),
                _("  21 - Bad debug level"),
                _("  22 - Not valid step"),
-               _("  23 - error: --rhn-cert requires --mount-point"),
                _("  24 - no such file"),
                _("  25 - no such directory"),
                _("  26 - mount_point does not exist"),

@@ -200,7 +200,6 @@ if __name__ == '__main__':
 # 20 Could not connect to db.
 # 21 Bad debug level
 # 22 Not valid step
-# 23 error: --rhn-cert requires --mount-point
 # 24 no such file
 # 25 no such directory
 # 26 ISS parent is not configure for ISS
