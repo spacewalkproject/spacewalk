@@ -573,7 +573,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_satellite.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-tools
 %attr(755,root,root) %{_bindir}/rhn-charsets
-%attr(755,root,root) %{_bindir}/rhn-satellite-activate
 %attr(755,root,root) %{_bindir}/rhn-schema-version
 %attr(755,root,root) %{_bindir}/rhn-ssl-dbstore
 %attr(755,root,root) %{_bindir}/satellite-sync
@@ -599,7 +598,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/satComputePkgHeaders.py*
 %{pythonrhnroot}/satellite_tools/syncCache.py*
 %{pythonrhnroot}/satellite_tools/sync_handlers.py*
-%{pythonrhnroot}/satellite_tools/rhn_satellite_activate.py*
 %{pythonrhnroot}/satellite_tools/rhn_ssl_dbstore.py*
 %{pythonrhnroot}/satellite_tools/xmlWireSource.py*
 %{pythonrhnroot}/satellite_tools/updatePackages.py*
@@ -621,7 +619,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %config %attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_iss.conf
 %{_mandir}/man8/rhn-satellite-exporter.8*
 %{_mandir}/man8/rhn-charsets.8*
-%{_mandir}/man8/rhn-satellite-activate.8*
 %{_mandir}/man8/rhn-schema-version.8*
 %{_mandir}/man8/rhn-ssl-dbstore.8*
 %{_mandir}/man8/rhn-db-stats.8*
