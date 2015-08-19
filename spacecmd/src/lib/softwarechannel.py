@@ -608,8 +608,7 @@ def do_softwarechannel_create(self, args):
             return
 
         if not options.arch:
-            logging.error('An architecture is required')
-            return
+            options.arch = 'x86_64'
 
         if not options.checksum:
             options.checksum = 'sha256'
