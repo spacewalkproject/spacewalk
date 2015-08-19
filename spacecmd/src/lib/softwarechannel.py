@@ -641,7 +641,8 @@ def do_softwarechannel_create(self, args):
                                             options.name,
                                             options.name,  # summary
                                             'channel-%s' % options.arch,
-                                            options.parent_channel)
+                                            options.parent_channel,
+                                            options.checksum)
 ####################
 
 
