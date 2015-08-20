@@ -78,12 +78,7 @@ DELETE FROM rhnServerGroup
 
 -- rhnServerGroupType and dependencies
 
-UPDATE rhnRegTokenEntitlement
-  SET server_group_type_id = (
-    SELECT id
-      FROM rhnServerGroupType
-      WHERE label = 'enterprise_entitled'
-  )
+DELETE FROM rhnRegTokenEntitlement
   WHERE server_group_type_id = (
     SELECT id
       FROM rhnServerGroupType
