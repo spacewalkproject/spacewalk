@@ -1920,6 +1920,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          #prop_desc("string", "gpg_key_fp", "(optional),
      *              gpg_fingerprint might be used as well")
      *          #prop_desc("string", "description", "(optional)")
+     *          #prop_desc("string", "checksum", "(optional)")
      *      #struct_end()
      * @xmlrpc.param #param("boolean", "original_state")
      * @xmlrpc.returntype int the cloned channel ID
@@ -1941,6 +1942,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         validKeys.add("gpg_key_id");
         validKeys.add("gpg_key_fp");
         validKeys.add("description");
+        validKeys.add("checksum");
         validateMap(validKeys, channelDetails);
 
         channelAdminPermCheck(loggedInUser);
@@ -1951,6 +1953,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         String archLabel = channelDetails.get("arch_label");
         String summary = channelDetails.get("summary");
         String description = channelDetails.get("description");
+        String checksum = channelDetails.get("checksum");
 
         if (ChannelFactory.lookupByLabel(loggedInUser.getOrg(), label) != null) {
             throw new DuplicateChannelLabelException(label);
@@ -1968,6 +1971,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
         else {
             arch = originalChan.getChannelArch();
+        }
+
+        if (checksum == null) {
+            checksum = originalChan.getChecksumTypeLabel();
         }
 
         String gpgUrl, gpgId, gpgFingerprint;
@@ -2018,6 +2025,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
         helper.setUser(loggedInUser);
         helper.setSummary(summary);
+        helper.setChecksumLabel(checksum);
 
         Channel clone = helper.create();
         return clone.getId().intValue();
