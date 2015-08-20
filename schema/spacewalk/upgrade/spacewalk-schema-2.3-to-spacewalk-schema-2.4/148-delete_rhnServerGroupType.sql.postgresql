@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 3734f43761906bf84112fd74ca8be2e39830d9e3
+-- oracle equivalent source sha1 d130b6810a88f60d18168cf65494494f3ce00e6f
 
 -- rhnServerGroup and dependencies
 
@@ -79,12 +79,7 @@ DELETE FROM rhnServerGroup
 
 -- rhnServerGroupType and dependencies
 
-UPDATE rhnRegTokenEntitlement
-  SET server_group_type_id = (
-    SELECT id
-      FROM rhnServerGroupType
-      WHERE label = 'enterprise_entitled'
-  )
+DELETE FROM rhnRegTokenEntitlement
   WHERE server_group_type_id = (
     SELECT id
       FROM rhnServerGroupType
