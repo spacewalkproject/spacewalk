@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.56
+Version: 2.4.57
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 20 2015 Jan Dobes 2.4.57-1
+- 1229427 - support checksum change when cloning as in WebUI
+- 1229427 - channels without checksum are no longer supported
+- bump year in all languages
+
 * Wed Aug 19 2015 Jan Dobes 2.4.56-1
 - removing duplicate button
 - bump year
