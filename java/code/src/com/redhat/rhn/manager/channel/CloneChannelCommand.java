@@ -65,8 +65,9 @@ public class CloneChannelCommand extends CreateChannelCommand {
         throws InvalidChannelLabelException, InvalidChannelNameException,
         InvalidParentChannelException {
 
-        ChannelArch ca = validateChannel();
+        ChannelArch ca = ChannelFactory.findArchByLabel(archLabel);
         ChecksumType ct = ChannelFactory.findChecksumTypeByLabel(checksum);
+        validateChannel(ca, ct);
 
         ClonedChannel c = new ClonedChannel();
         c.setLabel(label);
