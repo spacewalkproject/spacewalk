@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.112.dev
+Version: 2.4.113.dev
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -655,6 +655,21 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Fri Aug 21 2015 Silvio Moioli <smoioli@suse.de> 2.4.113.dev-1
+- import: don't import rhnVirtSubLevel
+- import: don't import from rhnSGTypeVirtSubLevel
+- import: don't import table rhnChannelFamilyVirtSubLevel
+- export refactoring: remove unused parameters/fields
+- export refactoring: remove unused query
+- export: don't export rhnChannelFamilyVirtSubLevel
+- export refactoring: unused attributes removed
+- import refactoring: unused attribute removed
+- backend: remove virtualization host platform entitlement references
+- backend: remove references to nonlinux entitlements
+- backend: remove comments that are not relevant anymore
+- backend: remove references to the update entitlement
+- rhn-entitlement-report: don't filter update entitlements
+
 * Mon Aug 10 2015 Silvio Moioli <smoioli@suse.de> 2.4.112.dev-1
 - python backend unit tests: remove references to provisioning_entitled
 - registration.py: remove references to provisioning_entitled in documentation
