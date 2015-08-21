@@ -128,8 +128,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n spacewalk-base
 %dir %{perl_vendorlib}/RHN
 %{perl_vendorlib}/RHN.pm
-%{perl_vendorlib}/RHN/Cert.pm
-%{perl_vendorlib}/RHN/SatelliteCert.pm
 
 %files -n spacewalk-base-minimal
 %dir %{perl_vendorlib}/RHN
