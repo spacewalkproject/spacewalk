@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-06 14:52+0200\n"
+"POT-Creation-Date: 2015-08-21 11:59+0200\n"
 "PO-Revision-Date: 2014-01-14 15:04+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
@@ -29,390 +29,48 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../src/up2date_client/rhnregGui.py:145
-#: ../src/up2date_client/rhnregGui.py:162
-msgid "Notice"
-msgstr "注意"
-
-#: ../src/up2date_client/rhnregGui.py:155
-#: ../src/up2date_client/rhnregGui.py:169
-#: ../src/up2date_client/rhnreg_constants.py:248
-msgid "Warning"
-msgstr "警告"
-
-#: ../src/up2date_client/rhnregGui.py:270
-msgid "There was an error while applying your choice."
-msgstr "在应用您的选择时出错。"
-
-#: ../src/up2date_client/rhnregGui.py:289
-msgid "You specified an invalid protocol. Only https and http are allowed."
-msgstr "您指定了一个无效的协议。只允许使用 https 和 http。"
-
-#: ../src/up2date_client/rhnregGui.py:303
-msgid ""
-"You will not be able to successfully register this system without contacting "
-"a Spacewalk server."
-msgstr ""
-
-#: ../src/up2date_client/rhnregGui.py:323
-msgid "Cannot contact selected server"
-msgstr "无法联络所选服务器"
-
-#: ../src/up2date_client/rhnregGui.py:324
-#, python-format
-msgid "We could not contact the Satellite or Proxy at '%s.'"
-msgstr "我们无法连接到 Satellite 或代理服务器（'%s.'）。"
-
-#: ../src/up2date_client/rhnregGui.py:326
+#: ../src/up2date_client/capabilities.py:88
 #, python-format
 msgid ""
-"Double-check the location - is '%s' correct? If not, you can correct it and "
-"try again."
-msgstr "请检查位置 - '%s' 正确吗？如果不正确，您可以修改它后再重新尝试。"
+"This client requires the server to support %s, which the current server does "
+"not support"
+msgstr "该客户端要求服务器支持 %s，但是当前的服务器不支持"
 
-#: ../src/up2date_client/rhnregGui.py:329
-msgid "Make sure the network connection on this system is operational."
-msgstr "确认这个系统的网络连接可以正常工作。"
-
-#: ../src/up2date_client/rhnregGui.py:339
-msgid "There was an error communicating with Spacewalk server."
-msgstr ""
-
-#: ../src/up2date_client/rhnregGui.py:340
-msgid "The server may be in outage mode. You may have to try connecting later."
-msgstr "服务器可能无法使用。您可以稍后再试图与它连接。"
-
-#: ../src/up2date_client/rhnregGui.py:342
-msgid "You may be running a client that is incompatible with the server."
-msgstr "您可能正在运行一个与服务器不兼容的客户端系统。"
-
-#: ../src/up2date_client/rhnregGui.py:375
-#, python-format
-msgid ""
-"Please enter your account information for the <b>%s</b> Spacewalk server:"
-msgstr ""
-
-#: ../src/up2date_client/rhnregGui.py:414
-msgid "You must enter a login."
-msgstr "您必须输入登录名。"
-
-#: ../src/up2date_client/rhnregGui.py:420
-msgid "You must enter a password."
-msgstr "您必须输入密码。"
-
-#: ../src/up2date_client/rhnregGui.py:433
-msgid "There was an error while logging in."
-msgstr "登录时出错。"
-
-#: ../src/up2date_client/rhnregGui.py:458
-msgid ""
-"There was an error communicating with the registration server.  The message "
-"was:\n"
-msgstr "在与注册服务器联络时出现了一个致命错误。  错误消息是：\n"
-
-#: ../src/up2date_client/rhnregGui.py:596
-msgid "There was an error while assembling information for the profile."
-msgstr "在收集概要信息时出错。"
-
-#: ../src/up2date_client/rhnregGui.py:617
-msgid "Error running hardware profile"
-msgstr "运行硬件概要时出错"
-
-#: ../src/up2date_client/rhnregGui.py:647
-msgid "There was an error while populating the profile."
-msgstr "在写入概要档案时出现了一个错误。"
-
-#: ../src/up2date_client/rhnregGui.py:667
-msgid "You must choose a name for this profile."
-msgstr "您必须为这个档案命名。"
-
-#: ../src/up2date_client/rhnregGui.py:681
-msgid "There was an error while creating the profile."
-msgstr "在生成概要档案时出现了一个错误。"
-
-#: ../src/up2date_client/rhnregGui.py:692
-msgid "Registering system and sending profile information.  Please wait."
-msgstr ""
-
-#: ../src/up2date_client/rhnregGui.py:711
-msgid "Registering System"
-msgstr "注册系统"
-
-#: ../src/up2date_client/rhnregGui.py:725
-#: ../src/up2date_client/rhnregGui.py:729
-#: ../src/up2date_client/rhnregGui.py:733
-#: ../src/up2date_client/rhnregGui.py:736 ../src/up2date_client/tui.py:985
-#: ../src/up2date_client/tui.py:988 ../src/up2date_client/tui.py:991
-#: ../src/up2date_client/tui.py:994
-msgid "Problem registering system:\n"
-msgstr "注册系统时出现问题：\n"
-
-#: ../src/up2date_client/rhnregGui.py:739
-#, python-format
-msgid ""
-"The installation number [ %s ] provided is not a valid installation number. "
-"Please go back to the previous screen and fix it."
-msgstr "所提供的安装号 [ %s ] 无效。请返回上一页改正。"
-
-#: ../src/up2date_client/rhnregGui.py:749 ../src/up2date_client/tui.py:1000
-msgid "Problem registering system."
-msgstr "注册系统时出现问题。"
-
-#: ../src/up2date_client/rhnregGui.py:759 ../src/up2date_client/tui.py:1005
-msgid "Problem writing out system id to disk."
-msgstr "在把系统 ID 写到磁盘时出现问题。"
-
-#: ../src/up2date_client/rhnregGui.py:765
-msgid "There was a problem registering this system."
-msgstr "注册系统时出现问题。"
-
-#: ../src/up2date_client/rhnregGui.py:778
-msgid "Sending hardware information"
-msgstr "发送硬件信息"
-
-#: ../src/up2date_client/rhnregGui.py:783
-msgid "Problem sending hardware information."
-msgstr "发送硬件信息时出错。"
-
-#. #            for row in range(self.regPackageArea.n_rows):
-#. #                rowData = self.regPackageArea.get_row_data(row)
-#. #                if rowData[0] == 1:
-#. #                    selection.append(rowData[1])
-#. #            print "gh270"
-#. #            selectedPackages = []
-#. #            for pkg in packageList:
-#. #                if pkg[0] in selection:
-#. #                    selectedPackages.append(pkg)
-#: ../src/up2date_client/rhnregGui.py:807
-msgid "Sending package information"
-msgstr "发送软件包信息"
-
-#: ../src/up2date_client/rhnregGui.py:812
-msgid "Problem sending package information."
-msgstr "发送软件包信息时出现问题。"
-
-#: ../src/up2date_client/rhnregGui.py:843 ../src/up2date_client/tui.py:1051
-msgid ""
-"Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
-"yum-rhn-plugin is not enabled.\n"
-msgstr ""
-"无法打开 /etc/yum/pluginconf.d/rhnplugin.conf\n"
-"没有启用 yum-rhn-plugin。\n"
-
-#: ../src/up2date_client/rhnregGui.py:897
-msgid "There was an error while installing the certificate."
-msgstr "安装证书时出错。"
-
-#: ../src/up2date_client/rhnregGui.py:923
-msgid "You must select a certificate."
-msgstr "您必须选择一个证书。"
-
-#. TODO Modify rhnlib to raise a unique exception for the not a
-#. cert file case.
-#: ../src/up2date_client/rhnregGui.py:953
-msgid ""
-"There was an SSL error. This could be because the file you picked was not a "
-"certificate file."
-msgstr "出现了 SSL 错误。这可能是因为您所选择的文件不是证书文件。"
-
-#. TODO Provide better messages
-#: ../src/up2date_client/rhnregGui.py:960
-msgid "Something went wrong while installing the new certificate:\n"
-msgstr "在安装新证书时出现错误：\n"
-
-#: ../src/up2date_client/rhnregGui.py:1012
-#: ../src/up2date_client/rhnregGui.py:1013
-#: ../src/up2date_client/rhnregGui.py:1014
-msgid "unknown"
-msgstr "未知"
-
-#: ../src/up2date_client/rhnregGui.py:1118
-msgid "There was an error getting the list of hardware."
-msgstr "获取硬件列表时出错。"
-
-#: ../src/up2date_client/rhnregGui.py:1130 ../src/up2date_client/tui.py:782
-#, python-format
-msgid "%d MHz"
-msgstr "%d MHz"
-
-#: ../src/up2date_client/rhnregGui.py:1134
-#, python-format
-msgid "%s MB"
-msgstr "%s MB"
-
-#: ../src/up2date_client/rhnregGui.py:1178
-msgid "There was an error building the list of packages."
-msgstr "构建软件包列表时出错。"
-
-#: ../src/up2date_client/rhnregGui.py:1193
-msgid "Package"
-msgstr "软件包"
-
-#: ../src/up2date_client/rhnregGui.py:1198
-msgid "Arch"
-msgstr "体系"
-
-#: ../src/up2date_client/rhnregGui.py:1205
-msgid "Building a list of RPM packages installed on your system.  Please wait."
-msgstr "正在建立一个在您的系统上安装了的 RPM 软件包列表。  请稍候。"
-
-#: ../src/up2date_client/rhnregGui.py:1236
-msgid ""
-"There was an error loading your configuration.  Make sure that\n"
-"you have read access to /etc/sysconfig/rhn."
-msgstr ""
-"在载入您的配置时出现错误。  请确定\n"
-"您有对 /etc/sysconfig/rhn 的读取权限。"
-
-#: ../src/up2date_client/rhnregGui.py:1278
-#, python-format
-msgid ""
-"There was an error saving your configuration. Make sure that\n"
-"you own %s."
-msgstr ""
-"在保存您的配置时出现错误。请确定\n"
-"您拥有 %s。"
-
-#: ../src/up2date_client/rhnregGui.py:1308
-#, python-format
-msgid ""
-"This error shouldn't have happened. If you'd like to help us improve this "
-"program, please file a bug at bugzilla.redhat.com. Including the relevant "
-"parts of '%s' would be very helpful. Thanks!"
-msgstr ""
-"这个错误不应该发生。如果您希望帮助我们改进这个程序，请在 bugzilla.redhat.com "
-"上提交一个错误报告。请包括 '%s' 的相关部分。谢谢！"
-
-#: ../src/up2date_client/config.py:154
+#: ../src/up2date_client/config.py:158
 #, python-format
 msgid "%s was not found"
 msgstr "没有找到 %s "
 
-#: ../src/up2date_client/rpcServer.py:45
-msgid "Error: Server Unavailable. Please try later."
-msgstr "错误：服务器不可用，请稍后再试。"
-
-#: ../src/up2date_client/rpcServer.py:168
-msgid "ERROR: can not find RHNS CA file"
-msgstr "错误：找不到 RHNS CA 文件"
-
-#: ../src/up2date_client/rpcServer.py:206
-msgid "Connection aborted by the user"
-msgstr "连接被用户中止"
-
-#: ../src/up2date_client/rpcServer.py:251
-msgid "Server has refused connection due to high load"
-msgstr "由于负载过重，服务器拒绝连接"
-
-#: ../src/up2date_client/rpmUtils.py:112 ../src/up2date_client/debUtils.py:56
+#: ../src/up2date_client/debUtils.py:56 ../src/up2date_client/rpmUtils.py:112
 msgid "Getting list of packages installed on the system"
 msgstr "正在获取安装在您的系统上的软件包列表"
 
-#: ../src/up2date_client/tui.py:134
-msgid "Spacewalk Location:"
-msgstr ""
+#: ../src/up2date_client/gui.py:313
+msgid "_Finish"
+msgstr "(_F)结束"
 
-#: ../src/up2date_client/tui.py:135
-#: ../src/up2date_client/rhnreg_constants.py:84
-msgid "Login:"
-msgstr "登录："
+#. Finish Window
+#: ../src/up2date_client/gui.py:314
+#: ../src/up2date_client/rhnreg_constants.py:152
+msgid "Updates Configured"
+msgstr "已配置更新"
 
-#: ../src/up2date_client/tui.py:136
-msgid "System ID:"
-msgstr "系统 ID： "
+#: ../src/up2date_client/gui.py:316
+msgid "_Exit"
+msgstr "退出（_）"
 
-#: ../src/up2date_client/tui.py:536
-#: ../src/up2date_client/rhnreg_constants.py:313
-msgid "Error"
-msgstr "错误"
+#: ../src/up2date_client/gui.py:317
+msgid "Software Updates Not Set Up"
+msgstr "设置软件更新"
 
-#: ../src/up2date_client/tui.py:536
-msgid "The server indicated an error:\n"
-msgstr "服务器提示发生错误：\n"
+#: ../src/up2date_client/gui.py:327
+msgid "You must run rhn_register as root."
+msgstr "您必须以根用户的身份运行 rhn_register。"
 
-#. Navigation
-#: ../src/up2date_client/tui.py:536
-#: ../src/up2date_client/rhnreg_constants.py:312
-msgid "OK"
-msgstr "确定"
-
-#: ../src/up2date_client/tui.py:540
-msgid "There was an error communicating with the registration server:\n"
-msgstr "在与注册服务器联络时出错：\n"
-
-#: ../src/up2date_client/tui.py:731
-msgid "Profile name:"
-msgstr "档案名称："
-
-#: ../src/up2date_client/tui.py:753 ../src/up2date_client/tui.py:754
-msgid "Version: "
-msgstr "版本："
-
-#: ../src/up2date_client/tui.py:760
-msgid "CPU model: "
-msgstr "CPU 型号："
-
-#: ../src/up2date_client/tui.py:766
-msgid "Hostname: "
-msgstr "主机名："
-
-#: ../src/up2date_client/tui.py:778
-msgid "CPU speed: "
-msgstr "CPU 速度："
-
-#: ../src/up2date_client/tui.py:784
-msgid "IP Address: "
-msgstr "IP 地址："
-
-#: ../src/up2date_client/tui.py:793
-msgid "Memory: "
-msgstr "内存："
-
-#: ../src/up2date_client/tui.py:797
+#: ../src/up2date_client/gui.py:352
 #, python-format
-msgid "%s megabytes"
-msgstr "%s MB"
-
-#: ../src/up2date_client/tui.py:1020
-msgid "Problem sending hardware profile:\n"
-msgstr "在发送硬件档案时出现问题：\n"
-
-#: ../src/up2date_client/tui.py:1024
-msgid "Problem sending hardware profile."
-msgstr "发送硬件档案时出现问题。"
-
-#: ../src/up2date_client/tui.py:1033
-msgid "Problem sending package list:\n"
-msgstr "发送软件包列表时出现问题：\n"
-
-#: ../src/up2date_client/tui.py:1036
-msgid "Problem sending package list."
-msgstr "发送软件包列表时出现问题。"
-
-#: ../src/up2date_client/tui.py:1089
-msgid "Finish"
-msgstr "结束"
-
-#: ../src/up2date_client/tui.py:1211
-msgid "You specified an invalid protocol."
-msgstr "您指定了一个无效的协议。"
-
-#: ../src/up2date_client/tui.py:1242
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr "  <Tab>/<Alt-Tab> 在元素间切换  |  <Space> 选择  |  <F12> 下一屏幕"
-
-#: ../src/up2date_client/tui.py:1346
-msgid "You must run the RHN registration program as root."
-msgstr "您必须以根用户（root）运行 RHN 注册程序。"
-
-#: ../src/up2date_client/rhnreg.py:59
-msgid "Warning: unable to enable rhnsd with systemd"
-msgstr ""
-
-#: ../src/up2date_client/rhnreg.py:65
-msgid "Warning: unable to enable rhnsd with chkconfig"
-msgstr "警告：无法使用 chkconfig 来启用 rhnsd"
+msgid "There was some sort of I/O error: %s"
+msgstr "出现了某种 I/O 错误：%s"
 
 #: ../src/up2date_client/hardware.py:819
 msgid "Error reading cpu information:"
@@ -450,87 +108,6 @@ msgstr "无法定位 SystemId"
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "该系统在和某频道关联前可能不会被更新。"
 
-#: ../src/up2date_client/up2dateErrors.py:39
-#: ../src/up2date_client/up2dateErrors.py:74
-#, python-format
-msgid "class %s has no attribute '%s'"
-msgstr "%s 类没有 '%s' 属性"
-
-#: ../src/up2date_client/up2dateErrors.py:97
-msgid "RPM error.  The message was:\n"
-msgstr "RPM 错误。错误消息是：\n"
-
-#: ../src/up2date_client/up2dateErrors.py:104
-msgid "Password error. The message was:\n"
-msgstr "口令错误。错误消息是：\n"
-
-#: ../src/up2date_client/up2dateErrors.py:108
-msgid "RPM dependency error. The message was:\n"
-msgstr "RPM 依赖关系错误。错误消息是：\n"
-
-#: ../src/up2date_client/up2dateErrors.py:118
-msgid "Error communicating with server. The message was:\n"
-msgstr "在与服务器联络时出错。错误消息是：\n"
-
-#: ../src/up2date_client/up2dateErrors.py:125
-msgid "File Not Found: \n"
-msgstr "没有找到文件：\n"
-
-#: ../src/up2date_client/up2dateErrors.py:132
-msgid "Delay error from server.  The message was:\n"
-msgstr "来自服务器的延迟错误。  错误消息是：\n"
-
-#: ../src/up2date_client/up2dateErrors.py:170
-msgid "Error validating data at server:\n"
-msgstr "在服务器上校验数据时出错：\n"
-
-#: ../src/up2date_client/up2dateErrors.py:183
-msgid ""
-"\n"
-"Red Hat Network Classic is not supported.\n"
-"To register with Red Hat Subscription Management please run:\n"
-"\n"
-"    subscription-manager register --auto-attach\n"
-"\n"
-"Get more information at access.redhat.com/knowledge\n"
-"    "
-msgstr ""
-
-#: ../src/up2date_client/up2dateErrors.py:194
-msgid "The installation number is invalid"
-msgstr "安装号无效"
-
-#: ../src/up2date_client/up2dateErrors.py:197
-msgid "Error parsing the oemInfo file at field:\n"
-msgstr "解析 oemInfo 文件时出错的字段：\n"
-
-#: ../src/up2date_client/up2dateErrors.py:224
-msgid "Network error: "
-msgstr "网络错误："
-
-#: ../src/up2date_client/up2dateErrors.py:292
-msgid ""
-"\n"
-"    Your organization does not have enough Management entitlements to "
-"register this\n"
-"    system to Red Hat Satellite. Please notify your organization "
-"administrator of this error.\n"
-"    You should be able to register this system after your organization frees "
-"existing\n"
-"    or purchases additional entitlements. Additional entitlements may be "
-"purchased by your\n"
-"    organization administrator by logging into Red Hat Network Classic and "
-"visiting\n"
-"    the 'Subscription Management' page in the 'Your RHN' section of RHN.\n"
-"\n"
-"    A common cause of this error code is due to having mistakenly setup an\n"
-"    Activation Key which is set as the universal default.  If an activation "
-"key is set\n"
-"    on the account as a universal default, you can disable this key and "
-"retry to avoid\n"
-"    requiring a Management entitlement."
-msgstr ""
-
 #: ../src/up2date_client/rhncli.py:70
 msgid "Show additional output"
 msgstr "显示附加输出"
@@ -560,51 +137,51 @@ msgstr ""
 msgid "An unexpected OS error occurred: %s\n"
 msgstr "发生了一个意外的操作系统错误：%s\n"
 
-#: ../src/up2date_client/rhncli.py:105
+#: ../src/up2date_client/rhncli.py:106
 msgid "A connection was attempted with a malformed URI.\n"
 msgstr "尝试使用异常 URI 连接。\n"
 
-#: ../src/up2date_client/rhncli.py:107
+#: ../src/up2date_client/rhncli.py:108
 #, python-format
 msgid "A connection was attempted with a malformed URI: %s.\n"
 msgstr "尝试使用异常 URI 连接：%s。\n"
 
-#: ../src/up2date_client/rhncli.py:109
+#: ../src/up2date_client/rhncli.py:110
 #, python-format
 msgid "There was some sort of I/O error: %s\n"
 msgstr "出现了某种 I/O 错误：%s\n"
 
-#: ../src/up2date_client/rhncli.py:112
+#: ../src/up2date_client/rhncli.py:113
 #, python-format
 msgid "There was an SSL error: %s\n"
 msgstr "出现了某种 SSL 错误：%s\n"
 
-#: ../src/up2date_client/rhncli.py:113
+#: ../src/up2date_client/rhncli.py:114
 msgid ""
 "A common cause of this error is the system time being incorrect. Verify that "
 "the time on this system is correct.\n"
 msgstr "导致该错误的常见原因是不正确的系统时间。请校验系统时间是否正确。\n"
 
-#: ../src/up2date_client/rhncli.py:120
+#: ../src/up2date_client/rhncli.py:121
 #, python-format
 msgid "There was a SSL crypto error: %s\n"
 msgstr "出现了某种 SSL 加密错误：%s\n"
 
-#: ../src/up2date_client/rhncli.py:124
+#: ../src/up2date_client/rhncli.py:125
 #, python-format
 msgid "There was an authentication error: %s\n"
 msgstr "出现了某种验证错误：%s\n"
 
-#: ../src/up2date_client/rhncli.py:140
+#: ../src/up2date_client/rhncli.py:141
 #, python-format
 msgid "You must be root to run %s"
 msgstr "您必须是根用户才能运行 %s"
 
-#: ../src/up2date_client/rhncli.py:170 ../src/up2date_client/rhncli.py:205
+#: ../src/up2date_client/rhncli.py:171 ../src/up2date_client/rhncli.py:206
 msgid "Unable to open gui. Try `up2date --nox`"
 msgstr "无法打开 gui，请尝试“up2date --nox”"
 
-#: ../src/up2date_client/rhncli.py:212
+#: ../src/up2date_client/rhncli.py:213
 #, python-format
 msgid ""
 "%%prog (Spacewalk Client Tools) %s\n"
@@ -612,103 +189,69 @@ msgid ""
 "Licensed under the terms of the GPLv2."
 msgstr ""
 
-#: ../src/up2date_client/rhncli.py:227
+#: ../src/up2date_client/rhncli.py:228
 msgid "An error has occurred:"
 msgstr "发生了一个错误："
 
-#: ../src/up2date_client/rhncli.py:235
+#: ../src/up2date_client/rhncli.py:236
 msgid "See /var/log/up2date for more information"
 msgstr "查看 /var/log/up2date 来获得详悉信息"
 
-#: ../src/up2date_client/capabilities.py:88
-#, python-format
-msgid ""
-"This client requires the server to support %s, which the current server does "
-"not support"
-msgstr "该客户端要求服务器支持 %s，但是当前的服务器不支持"
-
-#: ../src/up2date_client/gui.py:313
-msgid "_Finish"
-msgstr "(_F)结束"
-
-#. Finish Window
-#: ../src/up2date_client/gui.py:314
-#: ../src/up2date_client/rhnreg_constants.py:150
-msgid "Updates Configured"
-msgstr "已配置更新"
-
-#: ../src/up2date_client/gui.py:316
-msgid "_Exit"
-msgstr "退出（_）"
-
-#: ../src/up2date_client/gui.py:317
-msgid "Software Updates Not Set Up"
-msgstr "设置软件更新"
-
-#: ../src/up2date_client/gui.py:327
-msgid "You must run rhn_register as root."
-msgstr "您必须以根用户的身份运行 rhn_register。"
-
-#: ../src/up2date_client/gui.py:351
-#, python-format
-msgid "There was some sort of I/O error: %s"
-msgstr "出现了某种 I/O 错误：%s"
-
-#: ../src/up2date_client/rhnreg_constants.py:14
+#: ../src/up2date_client/rhnreg_constants.py:16
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
 msgstr "Copyright © 2006--2014 红帽公司，版权所有。"
 
 #. Satellite URL Window
-#: ../src/up2date_client/rhnreg_constants.py:17
+#: ../src/up2date_client/rhnreg_constants.py:19
 msgid "Enter your Red Hat Satellite URL."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:18
+#: ../src/up2date_client/rhnreg_constants.py:20
 msgid ""
 "Please enter the location of your Red Hat Satellite server and of its SSL "
 "certificate. The SSL certificate is only required if you will be connecting "
 "over https (recommended)."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:22
+#: ../src/up2date_client/rhnreg_constants.py:24
 msgid "Satellite URL:"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:23
+#: ../src/up2date_client/rhnreg_constants.py:25
 msgid "SSL certificate:"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:24
+#: ../src/up2date_client/rhnreg_constants.py:26
 msgid "You must enter a valid Satellite URL."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:25
+#: ../src/up2date_client/rhnreg_constants.py:27
 msgid ""
 "If you are using https you must enter the location of a valid SSL "
 "certificate."
 msgstr ""
 
 #. Connect Window
-#: ../src/up2date_client/rhnreg_constants.py:29
+#: ../src/up2date_client/rhnreg_constants.py:31
 msgid "Attempting to contact the Spacewalk server."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:30
+#: ../src/up2date_client/rhnreg_constants.py:32
 #, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
 msgstr "正在试图与红帽网络服务器（%s）联系。"
 
-#: ../src/up2date_client/rhnreg_constants.py:32
+#: ../src/up2date_client/rhnreg_constants.py:34
 #, python-format
 msgid "A proxy was specified at %s."
 msgstr "在 %s 上指定了一个代理服务器。"
 
 #. Start Window
-#: ../src/up2date_client/rhnreg_constants.py:35 ../data/gui.glade.h:1
+#: ../src/up2date_client/rhnreg_constants.py:37 ../data/gui.glade.h:1
 msgid "System Registration"
 msgstr "RHN 注册"
 
-#: ../src/up2date_client/rhnreg_constants.py:36
+#: ../src/up2date_client/rhnreg_constants.py:38
 msgid ""
 "This assistant will guide you through connecting your system to Red Hat "
 "Satellite to receive software updates, including security updates, to keep "
@@ -722,37 +265,37 @@ msgid ""
 msgstr ""
 
 #. Why Register Window
-#: ../src/up2date_client/rhnreg_constants.py:49 ../data/rh_register.glade.h:5
+#: ../src/up2date_client/rhnreg_constants.py:51 ../data/rh_register.glade.h:5
 msgid "Why Should I Connect to RHN? ..."
 msgstr "我为什么需要连接到 RHN？"
 
-#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:69
+#: ../src/up2date_client/rhnreg_constants.py:52 ../data/rh_register.glade.h:69
 msgid "Why Register"
 msgstr "为什么要注册"
 
-#: ../src/up2date_client/rhnreg_constants.py:51
+#: ../src/up2date_client/rhnreg_constants.py:53
 msgid ""
 "Connecting your system to Red Hat Satellite allows you to take full "
 "advantage of the benefits of a paid subscription, including:"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:53
+#: ../src/up2date_client/rhnreg_constants.py:55
 msgid "Security & Updates:"
 msgstr "安全和更新："
 
-#: ../src/up2date_client/rhnreg_constants.py:54
+#: ../src/up2date_client/rhnreg_constants.py:56
 msgid "Downloads & Upgrades:"
 msgstr "下载和升级："
 
-#: ../src/up2date_client/rhnreg_constants.py:55
+#: ../src/up2date_client/rhnreg_constants.py:57
 msgid "Support:"
 msgstr "支持："
 
-#: ../src/up2date_client/rhnreg_constants.py:56
+#: ../src/up2date_client/rhnreg_constants.py:58
 msgid "Compliance:"
 msgstr "承诺："
 
-#: ../src/up2date_client/rhnreg_constants.py:57
+#: ../src/up2date_client/rhnreg_constants.py:59
 msgid ""
 "Receive the latest software updates, including security updates, keeping "
 "this Red Hat Enterprise Linux system updated and secure."
@@ -760,66 +303,66 @@ msgstr ""
 "接收最新的软件更新，包括安全更新，保持这个红帽企业 Linux 系统更新并处于安全状"
 "态。"
 
-#: ../src/up2date_client/rhnreg_constants.py:59 ../data/rh_register.glade.h:76
+#: ../src/up2date_client/rhnreg_constants.py:61 ../data/rh_register.glade.h:76
 msgid ""
 "Download installation images for Red Hat Enterprise Linux releases, "
 "including new releases."
 msgstr "下载红帽企业级 Linux 发行的安装映像，包括新的发行。"
 
-#: ../src/up2date_client/rhnreg_constants.py:61 ../data/rh_register.glade.h:78
+#: ../src/up2date_client/rhnreg_constants.py:63 ../data/rh_register.glade.h:78
 msgid ""
 "Access to the technical support experts at Red Hat or Red Hat's partners for "
 "help with any issues you might encounter with this system."
 msgstr "联系红帽或红帽合作伙伴的技术支持专家来帮助您解决这个系统所遇到的问题。"
 
-#: ../src/up2date_client/rhnreg_constants.py:63
+#: ../src/up2date_client/rhnreg_constants.py:65
 msgid ""
 "Stay in compliance with your subscription agreement and manage subscriptions "
 "for systems connected to your account."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:66
+#: ../src/up2date_client/rhnreg_constants.py:68
 msgid ""
 "Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
 "privacy_statement.html"
 msgstr "红帽尊重您的隐私权：http://www.redhat.com/legal/privacy_statement.html"
 
-#: ../src/up2date_client/rhnreg_constants.py:68
+#: ../src/up2date_client/rhnreg_constants.py:70
 msgid "Take me back to the registration"
 msgstr "返回注册过程"
 
 #. Confirm Quit Window
-#: ../src/up2date_client/rhnreg_constants.py:71
+#: ../src/up2date_client/rhnreg_constants.py:73
 msgid "Software Update Not Set Up"
 msgstr "设置软件更新"
 
-#: ../src/up2date_client/rhnreg_constants.py:72
+#: ../src/up2date_client/rhnreg_constants.py:74
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Satellite? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:74
+#: ../src/up2date_client/rhnreg_constants.py:76
 msgid ""
 "You will not be able to take advantage of these subscription privileges "
 "without connecting your system to Red Hat Satellite.\n"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:76
+#: ../src/up2date_client/rhnreg_constants.py:78
 msgid "Take me back to the setup process."
 msgstr "返回到设置过程。"
 
-#: ../src/up2date_client/rhnreg_constants.py:77
+#: ../src/up2date_client/rhnreg_constants.py:79
 msgid "I'll register later."
 msgstr "我稍后再注册。"
 
 #. Info Window
-#: ../src/up2date_client/rhnreg_constants.py:80 ../data/gui.glade.h:4
+#: ../src/up2date_client/rhnreg_constants.py:82 ../data/gui.glade.h:4
 #: ../data/rh_register.glade.h:13
 msgid "Red Hat Account"
 msgstr "红帽登录"
 
-#: ../src/up2date_client/rhnreg_constants.py:81
+#: ../src/up2date_client/rhnreg_constants.py:83
 #, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
@@ -828,127 +371,132 @@ msgstr ""
 "请输入您的 %s 红帽网络 Satellite 的登录信息：\n"
 "\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:83
+#: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Red Hat Login:"
 msgstr "红帽登录："
 
-#: ../src/up2date_client/rhnreg_constants.py:85
+#: ../src/up2date_client/rhnreg_constants.py:86
+#: ../src/up2date_client/tui.py:137
+msgid "Login:"
+msgstr "登录："
+
+#: ../src/up2date_client/rhnreg_constants.py:87
 msgid "Password:"
 msgstr "密码："
 
-#: ../src/up2date_client/rhnreg_constants.py:86
+#: ../src/up2date_client/rhnreg_constants.py:88
 msgid ""
 "Tip: Forgot your login or password?  Contact your Satellite's Organization "
 "Administrator."
 msgstr "忘记了您的用户名或密码？请联系您的 Satellite 机构管理员。"
 
-#: ../src/up2date_client/rhnreg_constants.py:88
+#: ../src/up2date_client/rhnreg_constants.py:90
 msgid "Please enter a desired login."
 msgstr "请输入登录信息。"
 
-#: ../src/up2date_client/rhnreg_constants.py:89
+#: ../src/up2date_client/rhnreg_constants.py:91
 msgid "Please enter and verify a password."
 msgstr "请输入并重复验证密码。"
 
 #. OS Release Window
-#: ../src/up2date_client/rhnreg_constants.py:92 ../data/gui.glade.h:5
+#: ../src/up2date_client/rhnreg_constants.py:94 ../data/gui.glade.h:5
 #: ../data/rh_register.glade.h:142
 msgid "Operating System Release Version"
 msgstr "操作系统版本："
 
-#: ../src/up2date_client/rhnreg_constants.py:93
+#: ../src/up2date_client/rhnreg_constants.py:95
 msgid "Operating System version:"
 msgstr "操作系统版本："
 
-#: ../src/up2date_client/rhnreg_constants.py:94
+#: ../src/up2date_client/rhnreg_constants.py:96
 msgid " Minor Release: "
 msgstr " 次要版本： "
 
-#: ../src/up2date_client/rhnreg_constants.py:95
+#: ../src/up2date_client/rhnreg_constants.py:97
 msgid "Limited Updates Only"
 msgstr "仅限有限更新"
 
-#: ../src/up2date_client/rhnreg_constants.py:96
+#: ../src/up2date_client/rhnreg_constants.py:98
 #: ../data/rh_register.glade.h:151
 msgid "All available updates"
 msgstr "所有可用更新"
 
-#: ../src/up2date_client/rhnreg_constants.py:97
+#: ../src/up2date_client/rhnreg_constants.py:99
 msgid "Confirm operating system release selection"
 msgstr "确认操作系统发行本选择"
 
-#: ../src/up2date_client/rhnreg_constants.py:98
+#: ../src/up2date_client/rhnreg_constants.py:100
 msgid ""
 "Your system will be subscribed to the base software channel to receive all "
 "available updates."
 msgstr "您的系统将订阅基本软件频道以便接收所有可用更新。"
 
 #. Hardware Window
-#: ../src/up2date_client/rhnreg_constants.py:103
+#: ../src/up2date_client/rhnreg_constants.py:105
 msgid "Create Profile - Hardware"
 msgstr "创建您的系统侧写 -- 硬件"
 
-#: ../src/up2date_client/rhnreg_constants.py:104
+#: ../src/up2date_client/rhnreg_constants.py:106
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Satellite web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:108
+#: ../src/up2date_client/rhnreg_constants.py:110
 msgid ""
 "Additional hardware information including PCI devices, disk sizes and mount "
 "points will be included in the profile."
 msgstr "该档案中还会包括其它硬件信息，包括 PCI 设备、磁盘大小和挂载点。"
 
-#: ../src/up2date_client/rhnreg_constants.py:111
+#: ../src/up2date_client/rhnreg_constants.py:113
 msgid "Include the following information about hardware and network:"
 msgstr "包括下列关于硬件和网络的信息："
 
 #. Packages Window
-#: ../src/up2date_client/rhnreg_constants.py:115
+#: ../src/up2date_client/rhnreg_constants.py:117
 msgid "Create Profile - Packages"
 msgstr "创建您的系统侧写 -- 软件包"
 
-#: ../src/up2date_client/rhnreg_constants.py:116
+#: ../src/up2date_client/rhnreg_constants.py:118
 msgid ""
 "RPM information is important to determine what updated software packages are "
 "relevant to this system."
 msgstr "RPM 信息对于决定哪些更新的软件包和您的系统有关来说至关重要。"
 
-#: ../src/up2date_client/rhnreg_constants.py:119
+#: ../src/up2date_client/rhnreg_constants.py:121
 msgid "Include RPM packages installed on this system in my System Profile"
 msgstr "把在该系统上安装的 RPM 软件包包括在我的系统档案中"
 
-#: ../src/up2date_client/rhnreg_constants.py:121
+#: ../src/up2date_client/rhnreg_constants.py:123
 msgid "You may deselect individual packages by unchecking them below."
 msgstr "您可以通过取消下面复选箱内的符号来取消选择相应的单个软件包。"
 
-#: ../src/up2date_client/rhnreg_constants.py:123
+#: ../src/up2date_client/rhnreg_constants.py:125
 msgid "Building Package List"
 msgstr "建立软件包列表"
 
 #. Product Window
-#: ../src/up2date_client/rhnreg_constants.py:126
+#: ../src/up2date_client/rhnreg_constants.py:128
 msgid "*Email Address:"
 msgstr "*电子邮件地址："
 
-#: ../src/up2date_client/rhnreg_constants.py:128
+#: ../src/up2date_client/rhnreg_constants.py:130
 #: ../data/rh_register.glade.h:125
 msgid "System Already Registered"
 msgstr "注册系统已经注册"
 
-#: ../src/up2date_client/rhnreg_constants.py:129
+#: ../src/up2date_client/rhnreg_constants.py:131
 #: ../data/rh_register.glade.h:126
 msgid "It appears this system has already been set up for software updates:"
 msgstr "该系统已经设置了软件更新："
 
-#: ../src/up2date_client/rhnreg_constants.py:130
+#: ../src/up2date_client/rhnreg_constants.py:132
 #: ../data/rh_register.glade.h:131
 msgid "Are you sure you would like to continue?"
 msgstr "您确定要继续吗？"
 
-#: ../src/up2date_client/rhnreg_constants.py:132
+#: ../src/up2date_client/rhnreg_constants.py:134
 msgid ""
 "This system has already been registered using Red Hat Subscription "
 "Management.\n"
@@ -963,11 +511,11 @@ msgid ""
 msgstr ""
 
 #. Send Window
-#: ../src/up2date_client/rhnreg_constants.py:139
+#: ../src/up2date_client/rhnreg_constants.py:141
 msgid "Send Profile Information to Red Hat Satellite"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:140
+#: ../src/up2date_client/rhnreg_constants.py:142
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -977,13 +525,14 @@ msgid ""
 msgstr ""
 
 #. Sending Window
-#: ../src/up2date_client/rhnreg_constants.py:147
+#: ../src/up2date_client/rhnreg_constants.py:149
 msgid "Sending Profile to Red Hat Satellite"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:151
+#: ../src/up2date_client/rhnreg_constants.py:153
+#, fuzzy, python-format
 msgid ""
-"You may now run 'yum update' from this system's command line to get the "
+"You may now run '%s update' from this system's command line to get the "
 "latest software updates from Red Hat Satellite. You will need to run this "
 "periodically to get the latest updates. Alternatively, you may configure "
 "this system for automatic software updates (also known as 'auto errata "
@@ -991,39 +540,43 @@ msgid ""
 "are in chapter 6 of the RHN Reference Guide, available from the 'Help' "
 "button in the main Red Hat Network Satellite web interface.)"
 msgstr ""
+"您现在可以在这个系统的命令行中运行 'yum update' 来从红帽网络获得最新的软件更"
+"新。您需要定期地运行这个程序；或者您可以通过红帽网络网站界面进行配置来使您的"
+"系统自动获得软件更新（这被称为“自动勘误更新”。具体的步骤可以在《RHN 参考指"
+"南》的第6章获得。您可以点红帽网络网站界面的“帮助”按钮来获得这个文档。）"
 
 #. Review Window
-#: ../src/up2date_client/rhnreg_constants.py:162 ../data/gui.glade.h:7
+#: ../src/up2date_client/rhnreg_constants.py:164 ../data/gui.glade.h:7
 msgid "Review Subscription"
 msgstr "查看订阅"
 
-#: ../src/up2date_client/rhnreg_constants.py:163
+#: ../src/up2date_client/rhnreg_constants.py:165
 #: ../data/rh_register.glade.h:53
 msgid "Please review the subscription details below:"
 msgstr "请查看订阅详情如下："
 
-#: ../src/up2date_client/rhnreg_constants.py:164
+#: ../src/up2date_client/rhnreg_constants.py:166
 #, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Satellite."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:166
+#: ../src/up2date_client/rhnreg_constants.py:168
 msgid ""
 "Subscriptions have been activated for the following Red Hat products/"
 "services:"
 msgstr "以下红帽产品或服务的订阅已经被激活："
 
-#: ../src/up2date_client/rhnreg_constants.py:168
+#: ../src/up2date_client/rhnreg_constants.py:170
 msgid "Software Channel Subscriptions:"
 msgstr "软件频道订阅："
 
-#: ../src/up2date_client/rhnreg_constants.py:169
+#: ../src/up2date_client/rhnreg_constants.py:171
 msgid "This system will receive updates from the following software channels:"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:171
+#: ../src/up2date_client/rhnreg_constants.py:173
 msgid ""
 "Warning: Only installed product listed above will receive updates and "
 "support. If you would like to receive updates for additional products, "
@@ -1036,35 +589,38 @@ msgstr ""
 "的网络界面，并把这个系统订阅到可以提供那些产品的更新的软件频道。详情请知识库"
 "文章。(http://kbase.redhat.com/faq/docs/DOC-11313)"
 
-#: ../src/up2date_client/rhnreg_constants.py:179
+#: ../src/up2date_client/rhnreg_constants.py:181
+#, fuzzy, python-format
 msgid ""
-"Warning: yum-rhn-plugin is not present, could not enable it.\n"
+"Warning: %s is not present, could not enable it.\n"
 "Automatic updates will not work."
 msgstr ""
 "警告：没有显示 yum-rhn-plugin，可能没有启用它。\n"
 "无法进行自动更新。"
 
-#: ../src/up2date_client/rhnreg_constants.py:181
-msgid "Note: yum-rhn-plugin has been enabled."
+#: ../src/up2date_client/rhnreg_constants.py:183
+#, fuzzy, python-format
+msgid "Note: %s has been enabled."
 msgstr "备注：已经启用 yum-rhn-plugin。"
 
-#: ../src/up2date_client/rhnreg_constants.py:182
+#: ../src/up2date_client/rhnreg_constants.py:184
+#, fuzzy, python-format
 msgid ""
-"Warning: An error occurred during enabling yum-rhn-plugin.\n"
-"yum-rhn-plugin is not enabled.\n"
+"Warning: An error occurred during enabling %s.\n"
+"%s is not enabled.\n"
 "Automatic updates will not work."
 msgstr ""
 "警告：在启用 yum-rhn-plugin 的过程中出错。\n"
 "没有启用 yum-rhn-plugin。\n"
 "自动更新无法工作。"
 
-#: ../src/up2date_client/rhnreg_constants.py:185
+#: ../src/up2date_client/rhnreg_constants.py:187
 msgid ""
 "You were unable to be subscribed to the following software channels because "
 "there were insufficient subscriptions available in your account:"
 msgstr "您的帐号中没有足够的有效订阅，您将无法订阅到以下的软件频道："
 
-#: ../src/up2date_client/rhnreg_constants.py:189
+#: ../src/up2date_client/rhnreg_constants.py:191
 msgid ""
 "This system was unable to subscribe to any software channels. Your system "
 "will not receive any software updates to keep it secure and supported. "
@@ -1074,80 +630,53 @@ msgid ""
 "to software channels via the software > software channels tab."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:195
+#: ../src/up2date_client/rhnreg_constants.py:197
 msgid "Service Level:"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:196
+#: ../src/up2date_client/rhnreg_constants.py:198
 msgid ""
 "Depending on what Red Hat Satellite modules are associated with a system, "
 "you'll enjoy different benefits. The following are the Red Hat Satellite "
 "modules associated with this system:"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:200
+#: ../src/up2date_client/rhnreg_constants.py:202
 msgid ""
 "This system was unable to be associated with the following RHN module(s) "
 "because there were insufficient subscriptions available in your account:"
 msgstr "您的帐号中没有足够的订阅，这个系统无法和以下的 RHN 模块相关联："
 
-#: ../src/up2date_client/rhnreg_constants.py:203
-msgid ""
-"Update module: per-system updates, email errata notifications, errata "
-"information"
-msgstr "更新模块：每个系统的更新，电子邮件勘误通知，勘误信息"
-
 #: ../src/up2date_client/rhnreg_constants.py:205
+#, fuzzy
 msgid ""
 "Management module: automatic updates, systems grouping, systems permissions, "
-"system package profiling"
+"system package profiling, bare-metal provisioning, existing state "
+"provisioning, rollbacks, configuration management"
 msgstr "管理模块：自动更新、系统组群、系统访问权限、软件包侧写"
 
-#: ../src/up2date_client/rhnreg_constants.py:207
-msgid ""
-"Provisioning module: bare-metal provisioning, existing state provisioning, "
-"rollbacks, configuration management"
-msgstr ""
-"Provision 模块：全新系统 provision、已存在状态 provision、系统恢复、配置管理"
-
-#: ../src/up2date_client/rhnreg_constants.py:209
-msgid ""
-"Monitoring module: pre-defined and custom system performance probes, system "
-"performance email notifications, graphs of system performance"
-msgstr ""
-"监测模块：预定义的和自定义的系统性能探测、系统性能电子邮件通知，系统性能的显"
-"示图"
-
-#: ../src/up2date_client/rhnreg_constants.py:213
+#: ../src/up2date_client/rhnreg_constants.py:210
 msgid ""
 "Virtualization module: software updates for a limited number of virtual "
 "guests on this system."
 msgstr "虚拟化模块：对本系统上一定数量的虚拟客户机的软件进行更新。"
 
-#: ../src/up2date_client/rhnreg_constants.py:216
-msgid ""
-"Virtualization Platform module: software updates for an unlimited number "
-"virtual guests of this system, access to additional software channels for "
-"guests of this system."
-msgstr ""
-"虚拟化平台模块：对本系统上的不限制数量的客户机的软件进行更新，以及对其他软件"
-"通道的访问。"
-
-#: ../src/up2date_client/rhnreg_constants.py:220
+#: ../src/up2date_client/rhnreg_constants.py:214
+#, fuzzy
 msgid ""
 "<b>Warning:</b> Any guest systems you create on this system and register to "
 "RHN will consume Red Hat Enterprise Linux subscriptions beyond this host "
-"system's subscription. You will need to: (1) make a virtualization or "
-"virtualization platform system entitlement available and (2) apply that "
-"system entitlement to this system in RHN's web interface if you do not want "
-"virtual guests of this system to consume additional subscriptions."
+"system's subscription. You will need to: (1) make a virtualization system "
+"entitlement available and (2) apply that system entitlement to this system "
+"in RHN's web interface if you do not want virtual guests of this system to "
+"consume additional subscriptions."
 msgstr ""
 "<b>警告：</b>在本系统上创建并向 RHN 注册的任何客户机系统都将占用主机之外的红"
 "帽企业 Linux 的订阅。如果你不想客户机系统占用额外的订阅，你将需要：（1）获取"
 "一个虚拟化或者虚拟化平台的系统权利（system entitlement），（2）在 RHN 网站上"
 "应用这个系统权利。"
 
-#: ../src/up2date_client/rhnreg_constants.py:228
+#: ../src/up2date_client/rhnreg_constants.py:222
 msgid ""
 "This system was unable to be associated with any RHN service level modules. "
 "This system will not receive any software updates to keep it secure and "
@@ -1157,7 +686,7 @@ msgid ""
 "profile, and re-connect this system to Red Hat Satellite."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:235
+#: ../src/up2date_client/rhnreg_constants.py:229
 #, python-format
 msgid ""
 "Universal default activation key detected\n"
@@ -1172,11 +701,17 @@ msgid ""
 msgstr ""
 
 #. Error Messages.
-#: ../src/up2date_client/rhnreg_constants.py:247
+#: ../src/up2date_client/rhnreg_constants.py:241
 msgid "Fatal Error"
 msgstr "致命错误"
 
-#: ../src/up2date_client/rhnreg_constants.py:249
+#: ../src/up2date_client/rhnreg_constants.py:242
+#: ../src/up2date_client/rhnregGui.py:156
+#: ../src/up2date_client/rhnregGui.py:170
+msgid "Warning"
+msgstr "警告"
+
+#: ../src/up2date_client/rhnreg_constants.py:243
 #, python-format
 msgid ""
 "We can't contact the Red Hat Satellite.\n"
@@ -1190,12 +725,12 @@ msgid ""
 "Red Hat without connecting to a Red Hat Satellite server"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:256
+#: ../src/up2date_client/rhnreg_constants.py:250
 #, python-format
 msgid "Architecture: %s, OS Release: %s, OS Version: %s"
 msgstr "体系结构：%s，OS 发行版本：%s, OS 版本：%s"
 
-#: ../src/up2date_client/rhnreg_constants.py:258
+#: ../src/up2date_client/rhnreg_constants.py:252
 msgid ""
 "This server doesn't support functionality needed by this version of the "
 "software update setup client. Please try again with a newer server."
@@ -1203,7 +738,7 @@ msgstr ""
 "这个服务器不支持客户端系统所设置的软件更新所需要的功能。请尝试使用一个较新的"
 "服务器。"
 
-#: ../src/up2date_client/rhnreg_constants.py:264
+#: ../src/up2date_client/rhnreg_constants.py:258
 #, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
@@ -1216,7 +751,7 @@ msgid ""
 "Please try again with a different certificate file."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:272
+#: ../src/up2date_client/rhnreg_constants.py:266
 msgid ""
 "<b><span size=\"12000\">Incompatible Certificate File</span></b>\n"
 "\n"
@@ -1227,7 +762,7 @@ msgstr ""
 "\n"
 "该证书已经过期。请确定您使用了正确的证书文件，且您的系统时间是正确的。"
 
-#: ../src/up2date_client/rhnreg_constants.py:276
+#: ../src/up2date_client/rhnreg_constants.py:270
 msgid ""
 "Please verify the values of sslCACert and serverURL in /etc/sysconfig/rhn/"
 "up2date. You can either make the serverURL use http instead of https, or you "
@@ -1235,7 +770,7 @@ msgid ""
 "and ensure sslCACert points to it."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:282
+#: ../src/up2date_client/rhnreg_constants.py:276
 msgid ""
 "Problem registering system.\n"
 "\n"
@@ -1253,7 +788,7 @@ msgstr ""
 "用这个通用的默认激活码。更多信息，请参阅红帽 Knowledgebase 的第7924号信息"
 "（http://kbase.redhat.com/faq/FAQ_61_7924.shtm）"
 
-#: ../src/up2date_client/rhnreg_constants.py:295
+#: ../src/up2date_client/rhnreg_constants.py:289
 msgid ""
 "\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
@@ -1263,7 +798,7 @@ msgstr ""
 "提示：目前红帽支持使用 '*' 的次要版本。\n"
 "\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:298
+#: ../src/up2date_client/rhnreg_constants.py:292
 msgid ""
 "Warning:You will not be able to limit this system to minor release that is "
 "older than the recent minor release if you select this option.\n"
@@ -1271,7 +806,7 @@ msgstr ""
 "警告：如果您选择该选项，您将无法将这个系统限定为比最近次要版本旧的次要版"
 "本。\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:303
+#: ../src/up2date_client/rhnreg_constants.py:297
 #, python-format
 msgid ""
 "Your system will be subscribed to %s \n"
@@ -1286,224 +821,479 @@ msgstr ""
 "（您可以将其移动到更新的版本）。\n"
 "您确定要继续吗？"
 
-#: ../src/up2date_client/rhnreg_constants.py:314
+#. Navigation
+#: ../src/up2date_client/rhnreg_constants.py:306
+#: ../src/up2date_client/tui.py:539
+msgid "OK"
+msgstr "确定"
+
+#: ../src/up2date_client/rhnreg_constants.py:307
+#: ../src/up2date_client/tui.py:539
+msgid "Error"
+msgstr "错误"
+
+#: ../src/up2date_client/rhnreg_constants.py:308
 msgid "Next"
 msgstr "下一步"
 
-#: ../src/up2date_client/rhnreg_constants.py:315
+#: ../src/up2date_client/rhnreg_constants.py:309
 msgid "Back"
 msgstr "上一步"
 
-#: ../src/up2date_client/rhnreg_constants.py:316
+#: ../src/up2date_client/rhnreg_constants.py:310
 msgid "Cancel"
 msgstr "取消"
 
-#: ../src/up2date_client/rhnreg_constants.py:317
+#: ../src/up2date_client/rhnreg_constants.py:311
 #: ../data/rh_register.glade.h:110
 msgid "No, Cancel"
 msgstr "不，取消"
 
-#: ../src/up2date_client/rhnreg_constants.py:318
+#: ../src/up2date_client/rhnreg_constants.py:312
 #: ../data/rh_register.glade.h:112
 msgid "Yes, Continue"
 msgstr "是，继续"
 
-#: ../src/up2date_client/rhnreg_constants.py:319
+#: ../src/up2date_client/rhnreg_constants.py:313
 msgid "Press <space> to deselect the option."
 msgstr "按 <空格键> 来取消选择该选项。"
 
-#: ../src/bin/rhnreg_ks.py:46
-msgid "Specify a profilename"
-msgstr "指定档案名"
+#: ../src/up2date_client/rhnregGui.py:146
+#: ../src/up2date_client/rhnregGui.py:163
+msgid "Notice"
+msgstr "注意"
 
-#: ../src/bin/rhnreg_ks.py:48
-msgid "Specify a username"
-msgstr "指定用户名"
+#: ../src/up2date_client/rhnregGui.py:271
+msgid "There was an error while applying your choice."
+msgstr "在应用您的选择时出错。"
 
-#: ../src/bin/rhnreg_ks.py:50
-msgid "Specify a password"
-msgstr "指定口令"
+#: ../src/up2date_client/rhnregGui.py:290
+msgid "You specified an invalid protocol. Only https and http are allowed."
+msgstr "您指定了一个无效的协议。只允许使用 https 和 http。"
 
-#: ../src/bin/rhnreg_ks.py:52
-msgid "Specify an organizational id for this system"
-msgstr "为这个系统指定机构 id"
-
-#: ../src/bin/rhnreg_ks.py:54
-msgid "Specify a url to use as a server"
-msgstr "指定要使用的服务器 URL"
-
-#: ../src/bin/rhnreg_ks.py:56
-msgid "Specify a file to use as the ssl CA cert"
-msgstr "指定要用作为 ssl CA 证书的文件"
-
-#: ../src/bin/rhnreg_ks.py:58
-msgid "Specify an activation key"
-msgstr "指定激活码"
-
-#: ../src/bin/rhnreg_ks.py:60
+#: ../src/up2date_client/rhnregGui.py:304
 msgid ""
-"Subscribe this system to the EUS channel tied to the system's redhat-release"
-msgstr "将这个系统订阅到与系统 redhat-release 绑定的 EUS 频道"
-
-#: ../src/bin/rhnreg_ks.py:62
-msgid "[Deprecated] Read contact info from stdin"
-msgstr "[过时的] 从标准输入中读取联系信息"
-
-#: ../src/bin/rhnreg_ks.py:64
-msgid "Do not probe or upload any hardware info"
-msgstr "不要探测或上传任何硬件信息"
-
-#: ../src/bin/rhnreg_ks.py:66
-msgid "Do not profile or upload any package info"
-msgstr "不要建档或上传任何软件包信息"
-
-#: ../src/bin/rhnreg_ks.py:68
-msgid "Do not upload any virtualization info"
-msgstr "不要上传任何虚拟化信息"
-
-#: ../src/bin/rhnreg_ks.py:70
-msgid "Do not start rhnsd after completion"
-msgstr "在完成后不要启动 rhnsd"
-
-#: ../src/bin/rhnreg_ks.py:72
-msgid "Register the system even if it is already registered"
-msgstr "注册系统，即便它已经注册了"
-
-#: ../src/bin/rhnreg_ks.py:82
-msgid "A username and password are required to register a system."
-msgstr "注册系统时需要用户名和口令。"
-
-#: ../src/bin/rhnreg_ks.py:87
-msgid "This system is already registered. Use --force to override"
-msgstr "该系统已经注册了。使用 --force 强制注册"
-
-#: ../src/bin/rhnreg_ks.py:121
-msgid ""
-"Usage of --use-eus-channel option with --activationkey is not supported. "
-"Please use username and password instead."
-msgstr ""
-"不支持在 --activationkey 中使用 --use-eus-channel 选项。请使用 username 和 "
-"password。"
-
-#: ../src/bin/rhnreg_ks.py:124
-msgid "The server you are registering against does not support EUS."
-msgstr "您订阅的服务器不支持 EUS。"
-
-#: ../src/bin/rhnreg_ks.py:154
-msgid ""
-"Warning: --contactinfo option has been deprecated. Please login to the "
-"server web user Interface and update your contactinfo. "
-msgstr ""
-"警告：--contactinfo 选项已经过时。请登录到服务器网页用户界面并更新您的联络信"
-"息。"
-
-#: ../src/bin/rhnreg_ks.py:178
-msgid "Warning: yum-rhn-plugin is not present, could not enable it."
-msgstr "警告：不存在 yum-rhn-plugin，无法启用。"
-
-#: ../src/bin/rhnreg_ks.py:180
-msgid ""
-"Warning: Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
-"yum-rhn-plugin is not enabled.\n"
-msgstr ""
-"警告：无法打开 /etc/yum/pluginconf.d/rhnplugin.conf\n"
-"没有启用 yum-rhn-plugin。\n"
-
-#: ../src/bin/rhnreg_ks.py:202
-msgid ""
-"A profilename was not specified, and hostname and IP address could not be "
-"determined to use as a profilename, please specify one."
-msgstr "没有指定档案名，并且无法判定主机名和 IP 地址来用作档案名，请指定一个。"
-
-#: ../src/bin/rhn_register.py:37
-msgid "Do not attempt to use X"
-msgstr "不要试图使用 X"
-
-#: ../src/bin/spacewalk-channel.py:53
-msgid "ERROR: must be root to execute\n"
-msgstr "错误：您必须是根用户（root）才能执行\n"
-
-#: ../src/bin/spacewalk-channel.py:59
-msgid "name of channel you want to (un)subscribe"
-msgstr "要订阅（或取消订阅）的频道名称"
-
-#: ../src/bin/spacewalk-channel.py:61
-msgid "subscribe to channel"
-msgstr "订阅频道"
-
-#: ../src/bin/spacewalk-channel.py:63
-msgid "unsubscribe from channel"
-msgstr "取消订阅频道"
-
-#: ../src/bin/spacewalk-channel.py:65
-msgid "list channels"
-msgstr "列出频道"
-
-#: ../src/bin/spacewalk-channel.py:67
-msgid "show base channel of a system"
+"You will not be able to successfully register this system without contacting "
+"a Spacewalk server."
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:69
-msgid "list all available child channels"
-msgstr "列出所有可用的子频道"
+#: ../src/up2date_client/rhnregGui.py:324
+msgid "Cannot contact selected server"
+msgstr "无法联络所选服务器"
 
-#: ../src/bin/spacewalk-channel.py:71
-msgid "verbose output"
-msgstr "详细输出"
-
-#: ../src/bin/spacewalk-channel.py:73
-msgid "your user name"
-msgstr "您的用户名"
-
-#: ../src/bin/spacewalk-channel.py:75
-msgid "your password"
-msgstr "您的密码"
-
-#: ../src/bin/spacewalk-channel.py:83
-msgid "ERROR: these arguments make no sense in this context (try --help)"
-msgstr "这些参数在当前没有意义（试试 --help）"
-
-#: ../src/bin/spacewalk-channel.py:123
-msgid "ERROR: you have to specify at least one channel"
-msgstr "您必须至少指定一个频道"
-
-#: ../src/bin/spacewalk-channel.py:131
+#: ../src/up2date_client/rhnregGui.py:325
 #, python-format
-msgid "Channel(s): %s successfully added"
-msgstr "成功添加频道%s"
+msgid "We could not contact the Satellite or Proxy at '%s.'"
+msgstr "我们无法连接到 Satellite 或代理服务器（'%s.'）。"
 
-#: ../src/bin/spacewalk-channel.py:133
+#: ../src/up2date_client/rhnregGui.py:327
 #, python-format
-msgid "Error during adding channel(s) %s"
-msgstr "添加频道过程中出现错误%s"
+msgid ""
+"Double-check the location - is '%s' correct? If not, you can correct it and "
+"try again."
+msgstr "请检查位置 - '%s' 正确吗？如果不正确，您可以修改它后再重新尝试。"
 
-#: ../src/bin/spacewalk-channel.py:141
+#: ../src/up2date_client/rhnregGui.py:330
+msgid "Make sure the network connection on this system is operational."
+msgstr "确认这个系统的网络连接可以正常工作。"
+
+#: ../src/up2date_client/rhnregGui.py:340
+msgid "There was an error communicating with Spacewalk server."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:341
+msgid "The server may be in outage mode. You may have to try connecting later."
+msgstr "服务器可能无法使用。您可以稍后再试图与它连接。"
+
+#: ../src/up2date_client/rhnregGui.py:343
+msgid "You may be running a client that is incompatible with the server."
+msgstr "您可能正在运行一个与服务器不兼容的客户端系统。"
+
+#: ../src/up2date_client/rhnregGui.py:376
 #, python-format
-msgid "Channel(s): %s successfully removed"
-msgstr "成功移除频道%s"
+msgid ""
+"Please enter your account information for the <b>%s</b> Spacewalk server:"
+msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:143
+#: ../src/up2date_client/rhnregGui.py:415
+msgid "You must enter a login."
+msgstr "您必须输入登录名。"
+
+#: ../src/up2date_client/rhnregGui.py:421
+msgid "You must enter a password."
+msgstr "您必须输入密码。"
+
+#: ../src/up2date_client/rhnregGui.py:434
+msgid "There was an error while logging in."
+msgstr "登录时出错。"
+
+#: ../src/up2date_client/rhnregGui.py:461
+msgid ""
+"There was an error communicating with the registration server.  The message "
+"was:\n"
+msgstr "在与注册服务器联络时出现了一个致命错误。  错误消息是：\n"
+
+#: ../src/up2date_client/rhnregGui.py:599
+msgid "There was an error while assembling information for the profile."
+msgstr "在收集概要信息时出错。"
+
+#: ../src/up2date_client/rhnregGui.py:620
+msgid "Error running hardware profile"
+msgstr "运行硬件概要时出错"
+
+#: ../src/up2date_client/rhnregGui.py:650
+msgid "There was an error while populating the profile."
+msgstr "在写入概要档案时出现了一个错误。"
+
+#: ../src/up2date_client/rhnregGui.py:670
+msgid "You must choose a name for this profile."
+msgstr "您必须为这个档案命名。"
+
+#: ../src/up2date_client/rhnregGui.py:684
+msgid "There was an error while creating the profile."
+msgstr "在生成概要档案时出现了一个错误。"
+
+#: ../src/up2date_client/rhnregGui.py:695
+msgid "Registering system and sending profile information.  Please wait."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:714
+msgid "Registering System"
+msgstr "注册系统"
+
+#: ../src/up2date_client/rhnregGui.py:729
+#: ../src/up2date_client/rhnregGui.py:734
+#: ../src/up2date_client/rhnregGui.py:739
+#: ../src/up2date_client/rhnregGui.py:743 ../src/up2date_client/tui.py:990
+#: ../src/up2date_client/tui.py:994 ../src/up2date_client/tui.py:998
+#: ../src/up2date_client/tui.py:1002
+msgid "Problem registering system:\n"
+msgstr "注册系统时出现问题：\n"
+
+#: ../src/up2date_client/rhnregGui.py:746
 #, python-format
-msgid "Error during removal of channel(s) %s"
-msgstr "移除频道过程中出现错误%s"
+msgid ""
+"The installation number [ %s ] provided is not a valid installation number. "
+"Please go back to the previous screen and fix it."
+msgstr "所提供的安装号 [ %s ] 无效。请返回上一页改正。"
 
-#: ../src/bin/spacewalk-channel.py:150
-msgid "This system is not associated with any channel."
-msgstr "这台系统没有与任何频道连关联。"
+#: ../src/up2date_client/rhnregGui.py:756 ../src/up2date_client/tui.py:1008
+msgid "Problem registering system."
+msgstr "注册系统时出现问题。"
 
-#: ../src/bin/spacewalk-channel.py:152
-msgid "Unable to locate SystemId file. Is this system registered?"
-msgstr "无法定位系统标识（SystemId）文件。该系统注册过吗？"
+#: ../src/up2date_client/rhnregGui.py:766 ../src/up2date_client/tui.py:1013
+msgid "Problem writing out system id to disk."
+msgstr "在把系统 ID 写到磁盘时出现问题。"
 
-#: ../src/bin/spacewalk-channel.py:171
-msgid "ERROR: you may want to specify --add, --remove or --list"
-msgstr "错误：应该指定 --add，--remove 或 --list"
+#: ../src/up2date_client/rhnregGui.py:772
+msgid "There was a problem registering this system."
+msgstr "注册系统时出现问题。"
 
-#: ../src/bin/spacewalk-channel.py:178
-msgid "User interrupted process."
-msgstr "用户中止了进程。"
+#: ../src/up2date_client/rhnregGui.py:785
+msgid "Sending hardware information"
+msgstr "发送硬件信息"
 
-#: ../src/bin/rhn_check.py:386
+#: ../src/up2date_client/rhnregGui.py:790
+msgid "Problem sending hardware information."
+msgstr "发送硬件信息时出错。"
+
+#. #            for row in range(self.regPackageArea.n_rows):
+#. #                rowData = self.regPackageArea.get_row_data(row)
+#. #                if rowData[0] == 1:
+#. #                    selection.append(rowData[1])
+#. #            print "gh270"
+#. #            selectedPackages = []
+#. #            for pkg in packageList:
+#. #                if pkg[0] in selection:
+#. #                    selectedPackages.append(pkg)
+#: ../src/up2date_client/rhnregGui.py:814
+msgid "Sending package information"
+msgstr "发送软件包信息"
+
+#: ../src/up2date_client/rhnregGui.py:819
+msgid "Problem sending package information."
+msgstr "发送软件包信息时出现问题。"
+
+#: ../src/up2date_client/rhnregGui.py:851 ../src/up2date_client/tui.py:1062
+#, python-format
+msgid ""
+"Could not open %s\n"
+"%s is not enabled.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:905
+msgid "There was an error while installing the certificate."
+msgstr "安装证书时出错。"
+
+#: ../src/up2date_client/rhnregGui.py:931
+msgid "You must select a certificate."
+msgstr "您必须选择一个证书。"
+
+#. TODO Modify rhnlib to raise a unique exception for the not a
+#. cert file case.
+#: ../src/up2date_client/rhnregGui.py:961
+msgid ""
+"There was an SSL error. This could be because the file you picked was not a "
+"certificate file."
+msgstr "出现了 SSL 错误。这可能是因为您所选择的文件不是证书文件。"
+
+#. TODO Provide better messages
+#: ../src/up2date_client/rhnregGui.py:969
+msgid "Something went wrong while installing the new certificate:\n"
+msgstr "在安装新证书时出现错误：\n"
+
+#: ../src/up2date_client/rhnregGui.py:1021
+#: ../src/up2date_client/rhnregGui.py:1022
+#: ../src/up2date_client/rhnregGui.py:1023
+msgid "unknown"
+msgstr "未知"
+
+#: ../src/up2date_client/rhnregGui.py:1127
+msgid "There was an error getting the list of hardware."
+msgstr "获取硬件列表时出错。"
+
+#: ../src/up2date_client/rhnregGui.py:1139 ../src/up2date_client/tui.py:786
+#, python-format
+msgid "%d MHz"
+msgstr "%d MHz"
+
+#: ../src/up2date_client/rhnregGui.py:1143
+#, python-format
+msgid "%s MB"
+msgstr "%s MB"
+
+#: ../src/up2date_client/rhnregGui.py:1188
+msgid "There was an error building the list of packages."
+msgstr "构建软件包列表时出错。"
+
+#: ../src/up2date_client/rhnregGui.py:1203
+msgid "Package"
+msgstr "软件包"
+
+#: ../src/up2date_client/rhnregGui.py:1208
+msgid "Arch"
+msgstr "体系"
+
+#: ../src/up2date_client/rhnregGui.py:1215
+msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgstr "正在建立一个在您的系统上安装了的 RPM 软件包列表。  请稍候。"
+
+#: ../src/up2date_client/rhnregGui.py:1246
+msgid ""
+"There was an error loading your configuration.  Make sure that\n"
+"you have read access to /etc/sysconfig/rhn."
+msgstr ""
+"在载入您的配置时出现错误。  请确定\n"
+"您有对 /etc/sysconfig/rhn 的读取权限。"
+
+#: ../src/up2date_client/rhnregGui.py:1288
+#, python-format
+msgid ""
+"There was an error saving your configuration. Make sure that\n"
+"you own %s."
+msgstr ""
+"在保存您的配置时出现错误。请确定\n"
+"您拥有 %s。"
+
+#: ../src/up2date_client/rhnregGui.py:1318
+#, python-format
+msgid ""
+"This error shouldn't have happened. If you'd like to help us improve this "
+"program, please file a bug at bugzilla.redhat.com. Including the relevant "
+"parts of '%s' would be very helpful. Thanks!"
+msgstr ""
+"这个错误不应该发生。如果您希望帮助我们改进这个程序，请在 bugzilla.redhat.com "
+"上提交一个错误报告。请包括 '%s' 的相关部分。谢谢！"
+
+#: ../src/up2date_client/rhnreg.py:59
+msgid "Warning: unable to enable rhnsd with systemd"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg.py:65
+msgid "Warning: unable to enable rhnsd with chkconfig"
+msgstr "警告：无法使用 chkconfig 来启用 rhnsd"
+
+#: ../src/up2date_client/rpcServer.py:45
+msgid "Error: Server Unavailable. Please try later."
+msgstr "错误：服务器不可用，请稍后再试。"
+
+#: ../src/up2date_client/rpcServer.py:168
+msgid "ERROR: can not find RHNS CA file"
+msgstr "错误：找不到 RHNS CA 文件"
+
+#: ../src/up2date_client/rpcServer.py:206
+msgid "Connection aborted by the user"
+msgstr "连接被用户中止"
+
+#: ../src/up2date_client/rpcServer.py:252
+msgid "Server has refused connection due to high load"
+msgstr "由于负载过重，服务器拒绝连接"
+
+#: ../src/up2date_client/tui.py:136
+msgid "Spacewalk Location:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:138
+msgid "System ID:"
+msgstr "系统 ID： "
+
+#: ../src/up2date_client/tui.py:539
+msgid "The server indicated an error:\n"
+msgstr "服务器提示发生错误：\n"
+
+#: ../src/up2date_client/tui.py:544
+msgid "There was an error communicating with the registration server:\n"
+msgstr "在与注册服务器联络时出错：\n"
+
+#: ../src/up2date_client/tui.py:735
+msgid "Profile name:"
+msgstr "档案名称："
+
+#: ../src/up2date_client/tui.py:757 ../src/up2date_client/tui.py:758
+msgid "Version: "
+msgstr "版本："
+
+#: ../src/up2date_client/tui.py:764
+msgid "CPU model: "
+msgstr "CPU 型号："
+
+#: ../src/up2date_client/tui.py:770
+msgid "Hostname: "
+msgstr "主机名："
+
+#: ../src/up2date_client/tui.py:782
+msgid "CPU speed: "
+msgstr "CPU 速度："
+
+#: ../src/up2date_client/tui.py:788
+msgid "IP Address: "
+msgstr "IP 地址："
+
+#: ../src/up2date_client/tui.py:797
+msgid "Memory: "
+msgstr "内存："
+
+#: ../src/up2date_client/tui.py:801
+#, python-format
+msgid "%s megabytes"
+msgstr "%s MB"
+
+#: ../src/up2date_client/tui.py:1029
+msgid "Problem sending hardware profile:\n"
+msgstr "在发送硬件档案时出现问题：\n"
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Problem sending hardware profile."
+msgstr "发送硬件档案时出现问题。"
+
+#: ../src/up2date_client/tui.py:1043
+msgid "Problem sending package list:\n"
+msgstr "发送软件包列表时出现问题：\n"
+
+#: ../src/up2date_client/tui.py:1046
+msgid "Problem sending package list."
+msgstr "发送软件包列表时出现问题。"
+
+#: ../src/up2date_client/tui.py:1100
+msgid "Finish"
+msgstr "结束"
+
+#: ../src/up2date_client/tui.py:1214
+#, fuzzy
+msgid "You specified an invalid protocol.Only https and http are allowed."
+msgstr "您指定了一个无效的协议。只允许使用 https 和 http。"
+
+#: ../src/up2date_client/tui.py:1245
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr "  <Tab>/<Alt-Tab> 在元素间切换  |  <Space> 选择  |  <F12> 下一屏幕"
+
+#: ../src/up2date_client/tui.py:1349
+msgid "You must run the RHN registration program as root."
+msgstr "您必须以根用户（root）运行 RHN 注册程序。"
+
+#: ../src/up2date_client/up2dateErrors.py:39
+#: ../src/up2date_client/up2dateErrors.py:78
+#, python-format
+msgid "class %s has no attribute '%s'"
+msgstr "%s 类没有 '%s' 属性"
+
+#: ../src/up2date_client/up2dateErrors.py:104
+msgid "RPM error.  The message was:\n"
+msgstr "RPM 错误。错误消息是：\n"
+
+#: ../src/up2date_client/up2dateErrors.py:111
+msgid "Password error. The message was:\n"
+msgstr "口令错误。错误消息是：\n"
+
+#: ../src/up2date_client/up2dateErrors.py:115
+msgid "RPM dependency error. The message was:\n"
+msgstr "RPM 依赖关系错误。错误消息是：\n"
+
+#: ../src/up2date_client/up2dateErrors.py:125
+msgid "Error communicating with server. The message was:\n"
+msgstr "在与服务器联络时出错。错误消息是：\n"
+
+#: ../src/up2date_client/up2dateErrors.py:132
+msgid "File Not Found: \n"
+msgstr "没有找到文件：\n"
+
+#: ../src/up2date_client/up2dateErrors.py:139
+msgid "Delay error from server.  The message was:\n"
+msgstr "来自服务器的延迟错误。  错误消息是：\n"
+
+#: ../src/up2date_client/up2dateErrors.py:177
+msgid "Error validating data at server:\n"
+msgstr "在服务器上校验数据时出错：\n"
+
+#: ../src/up2date_client/up2dateErrors.py:190
+msgid ""
+"\n"
+"Red Hat Network Classic is not supported.\n"
+"To register with Red Hat Subscription Management please run:\n"
+"\n"
+"    subscription-manager register --auto-attach\n"
+"\n"
+"Get more information at access.redhat.com/knowledge\n"
+"    "
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:201
+msgid "The installation number is invalid"
+msgstr "安装号无效"
+
+#: ../src/up2date_client/up2dateErrors.py:204
+msgid "Error parsing the oemInfo file at field:\n"
+msgstr "解析 oemInfo 文件时出错的字段：\n"
+
+#: ../src/up2date_client/up2dateErrors.py:231
+msgid "Network error: "
+msgstr "网络错误："
+
+#: ../src/up2date_client/up2dateErrors.py:299
+msgid ""
+"\n"
+"    Your organization does not have enough Management entitlements to "
+"register this\n"
+"    system to Red Hat Satellite. Please notify your organization "
+"administrator of this error.\n"
+"    You should be able to register this system after your organization frees "
+"existing\n"
+"    or purchases additional entitlements. Additional entitlements may be "
+"purchased by your\n"
+"    organization administrator by logging into Red Hat Network Classic and "
+"visiting\n"
+"    the 'Subscription Management' page in the 'Your RHN' section of RHN.\n"
+"\n"
+"    A common cause of this error code is due to having mistakenly setup an\n"
+"    Activation Key which is set as the universal default.  If an activation "
+"key is set\n"
+"    on the account as a universal default, you can disable this key and "
+"retry to avoid\n"
+"    requiring a Management entitlement."
+msgstr ""
+
+#: ../src/bin/rhn_check.py:394
 msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
 msgstr "尝试运行一个以上 rhn_check 实例。退出。\n"
 
@@ -1524,6 +1314,203 @@ msgstr "正在更新硬件档案..."
 #: ../src/bin/rhn-profile-sync.py:50
 msgid "Updating virtualization profile..."
 msgstr "更新虚拟化档案..."
+
+#: ../src/bin/rhn_register.py:37
+msgid "Do not attempt to use X"
+msgstr "不要试图使用 X"
+
+#: ../src/bin/rhnreg_ks.py:47
+msgid "Specify a profilename"
+msgstr "指定档案名"
+
+#: ../src/bin/rhnreg_ks.py:49
+msgid "Specify a username"
+msgstr "指定用户名"
+
+#: ../src/bin/rhnreg_ks.py:51
+msgid "Specify a password"
+msgstr "指定口令"
+
+#: ../src/bin/rhnreg_ks.py:53
+msgid "Specify an organizational id for this system"
+msgstr "为这个系统指定机构 id"
+
+#: ../src/bin/rhnreg_ks.py:55
+msgid "Specify a url to use as a server"
+msgstr "指定要使用的服务器 URL"
+
+#: ../src/bin/rhnreg_ks.py:57
+msgid "Specify a file to use as the ssl CA cert"
+msgstr "指定要用作为 ssl CA 证书的文件"
+
+#: ../src/bin/rhnreg_ks.py:59
+msgid "Specify an activation key"
+msgstr "指定激活码"
+
+#: ../src/bin/rhnreg_ks.py:61
+msgid ""
+"Subscribe this system to the EUS channel tied to the system's redhat-release"
+msgstr "将这个系统订阅到与系统 redhat-release 绑定的 EUS 频道"
+
+#: ../src/bin/rhnreg_ks.py:63
+msgid "[Deprecated] Read contact info from stdin"
+msgstr "[过时的] 从标准输入中读取联系信息"
+
+#: ../src/bin/rhnreg_ks.py:65
+msgid "Do not probe or upload any hardware info"
+msgstr "不要探测或上传任何硬件信息"
+
+#: ../src/bin/rhnreg_ks.py:67
+msgid "Do not profile or upload any package info"
+msgstr "不要建档或上传任何软件包信息"
+
+#: ../src/bin/rhnreg_ks.py:69
+msgid "Do not upload any virtualization info"
+msgstr "不要上传任何虚拟化信息"
+
+#: ../src/bin/rhnreg_ks.py:71
+msgid "Do not start rhnsd after completion"
+msgstr "在完成后不要启动 rhnsd"
+
+#: ../src/bin/rhnreg_ks.py:73
+msgid "Register the system even if it is already registered"
+msgstr "注册系统，即便它已经注册了"
+
+#: ../src/bin/rhnreg_ks.py:83
+msgid "A username and password are required to register a system."
+msgstr "注册系统时需要用户名和口令。"
+
+#: ../src/bin/rhnreg_ks.py:88
+msgid "This system is already registered. Use --force to override"
+msgstr "该系统已经注册了。使用 --force 强制注册"
+
+#: ../src/bin/rhnreg_ks.py:122
+msgid ""
+"Usage of --use-eus-channel option with --activationkey is not supported. "
+"Please use username and password instead."
+msgstr ""
+"不支持在 --activationkey 中使用 --use-eus-channel 选项。请使用 username 和 "
+"password。"
+
+#: ../src/bin/rhnreg_ks.py:125
+msgid "The server you are registering against does not support EUS."
+msgstr "您订阅的服务器不支持 EUS。"
+
+#: ../src/bin/rhnreg_ks.py:151
+msgid ""
+"Warning: --contactinfo option has been deprecated. Please login to the "
+"server web user Interface and update your contactinfo. "
+msgstr ""
+"警告：--contactinfo 选项已经过时。请登录到服务器网页用户界面并更新您的联络信"
+"息。"
+
+#: ../src/bin/rhnreg_ks.py:175
+#, fuzzy, python-format
+msgid "Warning: %s is not present, could not enable it."
+msgstr "警告：不存在 yum-rhn-plugin，无法启用。"
+
+#: ../src/bin/rhnreg_ks.py:178
+#, fuzzy, python-format
+msgid ""
+"Warning: Could not open %s\n"
+"%s is not enabled.\n"
+msgstr ""
+"警告：无法打开 /etc/yum/pluginconf.d/rhnplugin.conf\n"
+"没有启用 yum-rhn-plugin。\n"
+
+#: ../src/bin/rhnreg_ks.py:200
+msgid ""
+"A profilename was not specified, and hostname and IP address could not be "
+"determined to use as a profilename, please specify one."
+msgstr "没有指定档案名，并且无法判定主机名和 IP 地址来用作档案名，请指定一个。"
+
+#: ../src/bin/spacewalk-channel.py:94
+msgid "name of channel you want to (un)subscribe"
+msgstr "要订阅（或取消订阅）的频道名称"
+
+#: ../src/bin/spacewalk-channel.py:96
+msgid "subscribe to channel"
+msgstr "订阅频道"
+
+#: ../src/bin/spacewalk-channel.py:98
+msgid "unsubscribe from channel"
+msgstr "取消订阅频道"
+
+#: ../src/bin/spacewalk-channel.py:100
+msgid "list channels"
+msgstr "列出频道"
+
+#: ../src/bin/spacewalk-channel.py:102
+msgid "show base channel of a system"
+msgstr ""
+
+#: ../src/bin/spacewalk-channel.py:104
+msgid "list all available child channels"
+msgstr "列出所有可用的子频道"
+
+#: ../src/bin/spacewalk-channel.py:106
+msgid "verbose output"
+msgstr "详细输出"
+
+#: ../src/bin/spacewalk-channel.py:108
+msgid "your user name"
+msgstr "您的用户名"
+
+#: ../src/bin/spacewalk-channel.py:110
+msgid "your password"
+msgstr "您的密码"
+
+#: ../src/bin/spacewalk-channel.py:117
+msgid "ERROR: these arguments make no sense in this context (try --help)"
+msgstr "这些参数在当前没有意义（试试 --help）"
+
+#: ../src/bin/spacewalk-channel.py:159
+msgid "ERROR: you have to specify at least one channel"
+msgstr "您必须至少指定一个频道"
+
+#: ../src/bin/spacewalk-channel.py:165
+msgid "ERROR: this action does not require channel"
+msgstr ""
+
+#: ../src/bin/spacewalk-channel.py:172
+#, python-format
+msgid "Channel(s): %s successfully added"
+msgstr "成功添加频道%s"
+
+#: ../src/bin/spacewalk-channel.py:174
+#, python-format
+msgid "Error during adding channel(s) %s"
+msgstr "添加频道过程中出现错误%s"
+
+#: ../src/bin/spacewalk-channel.py:181
+#, python-format
+msgid "Channel(s): %s successfully removed"
+msgstr "成功移除频道%s"
+
+#: ../src/bin/spacewalk-channel.py:183
+#, python-format
+msgid "Error during removal of channel(s) %s"
+msgstr "移除频道过程中出现错误%s"
+
+#: ../src/bin/spacewalk-channel.py:190
+msgid "This system is not associated with any channel."
+msgstr "这台系统没有与任何频道连关联。"
+
+#: ../src/bin/spacewalk-channel.py:192
+msgid "Unable to locate SystemId file. Is this system registered?"
+msgstr "无法定位系统标识（SystemId）文件。该系统注册过吗？"
+
+#: ../src/bin/spacewalk-channel.py:225
+msgid "ERROR: you may want to specify --add, --remove or --list"
+msgstr "错误：应该指定 --add，--remove 或 --list"
+
+#: ../src/bin/spacewalk-channel.py:230
+msgid "ERROR: must be root to execute\n"
+msgstr "错误：您必须是根用户（root）才能执行\n"
+
+#: ../src/bin/spacewalk-channel.py:235
+msgid "User interrupted process."
+msgstr "用户中止了进程。"
 
 #: ../data/gui.glade.h:2
 msgid "Set Up Software Updates"
@@ -2247,6 +2234,43 @@ msgstr ""
 msgid "Register to Spacewalk/Red Hat Satellite/Red Hat Network Classic."
 msgstr ""
 
+#~ msgid ""
+#~ "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
+#~ "yum-rhn-plugin is not enabled.\n"
+#~ msgstr ""
+#~ "无法打开 /etc/yum/pluginconf.d/rhnplugin.conf\n"
+#~ "没有启用 yum-rhn-plugin。\n"
+
+#~ msgid "You specified an invalid protocol."
+#~ msgstr "您指定了一个无效的协议。"
+
+#~ msgid ""
+#~ "Update module: per-system updates, email errata notifications, errata "
+#~ "information"
+#~ msgstr "更新模块：每个系统的更新，电子邮件勘误通知，勘误信息"
+
+#~ msgid ""
+#~ "Provisioning module: bare-metal provisioning, existing state "
+#~ "provisioning, rollbacks, configuration management"
+#~ msgstr ""
+#~ "Provision 模块：全新系统 provision、已存在状态 provision、系统恢复、配置管"
+#~ "理"
+
+#~ msgid ""
+#~ "Monitoring module: pre-defined and custom system performance probes, "
+#~ "system performance email notifications, graphs of system performance"
+#~ msgstr ""
+#~ "监测模块：预定义的和自定义的系统性能探测、系统性能电子邮件通知，系统性能的"
+#~ "显示图"
+
+#~ msgid ""
+#~ "Virtualization Platform module: software updates for an unlimited number "
+#~ "virtual guests of this system, access to additional software channels for "
+#~ "guests of this system."
+#~ msgstr ""
+#~ "虚拟化平台模块：对本系统上的不限制数量的客户机的软件进行更新，以及对其他软"
+#~ "件通道的访问。"
+
 #~ msgid "Automatic Subscription Activation"
 #~ msgstr "自动订阅激活"
 
@@ -2415,21 +2439,6 @@ msgstr ""
 
 #~ msgid "Sending Profile to Red Hat Network"
 #~ msgstr "将侧写发送给红帽网络"
-
-#~ msgid ""
-#~ "You may now run 'yum update' from this system's command line to get the "
-#~ "latest software updates from Red Hat Network. You will need to run this "
-#~ "periodically to get the latest updates. Alternatively, you may configure "
-#~ "this system for automatic software updates (also known as 'auto errata "
-#~ "update') via the Red Hat Network web interface.  (Instructions for this "
-#~ "are in chapter 6 of the RHN Reference Guide, available from the 'Help' "
-#~ "button in the main Red Hat Network web interface.)"
-#~ msgstr ""
-#~ "您现在可以在这个系统的命令行中运行 'yum update' 来从红帽网络获得最新的软件"
-#~ "更新。您需要定期地运行这个程序；或者您可以通过红帽网络网站界面进行配置来使"
-#~ "您的系统自动获得软件更新（这被称为“自动勘误更新”。具体的步骤可以在《RHN 参"
-#~ "考指南》的第6章获得。您可以点红帽网络网站界面的“帮助”按钮来获得这个文"
-#~ "档。）"
 
 #~ msgid ""
 #~ "The installation number %s was activated during this system's initial "
