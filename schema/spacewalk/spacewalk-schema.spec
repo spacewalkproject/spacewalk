@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.4.119.dev
+Version:        2.4.120.dev
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,46 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Aug 21 2015 Silvio Moioli <smoioli@suse.de> 2.4.120.dev-1
+- rhn_server migrations: drop provisioning, update,
+  virtualization_host_platform entitlements
+- rhn_entitlements migrations: drop provisioning, update, nonlinux and
+  virtualization_host_platform entitlements
+- migration for create_first_org and create_new_org SP: don't add update
+  entitlement for new orgs
+- rhnEntitledServers view migration: remove reference to update entitlements
+- db migration: remove references to rhnVirtSubLevel, rhnSGTypeVirtSubLevel and
+  rhnChannelFamilyVirtSubLevel
+- delete_server stored procedure migration: remove references to virtualization
+  host platform entitlements
+- data migration: remove references to virtualization host platform
+  entitlements
+- data migration: remove references to nonlinux entitlements
+- data migration: remove references to update entitlements
+- db: remove references to rhnVirtSubLevel, rhnSGTypeVirtSubLevel and
+  rhnChannelFamilyVirtSubLevel
+- data: remove references to virtualization host platform entitlements
+- rhn_server: remove references to virtualization host platform entitlements
+- rhn_entitlements: remove references to virtualization host platform
+  entitlements
+- delete_server: remove references to virtualization host platform entitlements
+- data: remove references to nonlinux entitlements
+- rhn_entitlements: remove references to nonlinux entitlements
+- rhnEntitledServers: remove reference to update entitlements
+- data: remove references to update entitlements
+- rhn_server: don't expect update entitlement
+- rhn_entitlements: update shas
+- rhn_entitlements.entitle_server: remove update entitlement references
+- rhn_entitlements.remove_server_entitlement: delete default function value,
+  callers always specify it
+- rhn_entitlements.entitle_server: delete default function value, callers
+  always specify it
+- rhn_entitlements: drop unused create_entitlement_group function
+- rhn_entitlements: drop unused lookup_entitlement_group function
+- create_new_org and create_first_org: remove automatically added update
+  entitlement server group
+- schema upgrades: fix to the dropping of provisioning entitlements
+
 * Mon Aug 10 2015 Silvio Moioli <smoioli@suse.de> 2.4.119.dev-1
 - db: upgrade scripts
 - rhnEntitledServers view: remove references to provisioning
