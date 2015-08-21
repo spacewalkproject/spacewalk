@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.135.dev
+Version: 2.4.136.dev
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,69 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Aug 21 2015 Silvio Moioli <smoioli@suse.de> 2.4.136.dev-1
+- ActivationKeyHandlerTest: avoid Java 7 constructs
+- i18n: Remove system.entitle.alreadyvirt
+- i18n: Remove virtualization_host_platform
+- i18n: Remove
+  system_entitlement_details.access_grant_desc.virtualization_host_platform
+- i18n: Remove sys_entitlements.virtualization_host_platform
+- i18n: Remove system_entitlements.virtualization_host_platform.success
+- i18n: Remove system_entitlements.virtualization_host_platform.removed.success
+- i18n: Remove system_entitlements.virtualization_host_platform.notEnoughSlots
+- i18n: Remove system_entitlements.virtualization_host_platform.noManagement
+- i18n: Remove
+  system_entitlements.virtualization_host_platform.noSolarisSupport
+- java: remove references to rhnVirtSubLevel which is not used anymore
+- java: delete class and methods not used anymore
+- java: remove test code referencing rhnVirtSublevel
+- SystemChannelsActionTest: remove commented out dead test
+- SystemManager: unused import removed
+- Removed dead localization key (virt_plat_tip)
+- Remove Virtualization Platform from hibernate
+- Remove Virtualization Platform from CommonConstants and tests
+- Remove Virtualization Platform from some tests
+- Remove Virtualization Platform checking when adding entitlement to an
+  activation key, adjust the test
+- Drop EntitlementManager.VIRTUALIZATION_PLATFORM ent and
+  EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED and their usages
+- Remove Virtualization Platform test from EntitlementManagerTest
+- Remove Virtualization Platform from Server and ServerTest
+- api: Remove Virtualization Platform from SystemHandler, remove Virtualization
+  Platform and Virtualization exclusivity check, adjust the test
+- api(doc): Remove Virtualization Platform from ServerSerializer
+- api: Remove Virtualization Platform from OrgHandlerTest
+- api(doc): Remove Virtualization Platform from OrgHandler
+- api: Remove Virtualization Platform from ActivationKeyHandlerTest
+- api(doc): Remove Virtualization Platform from documentation of
+  ActivationKeyHandler
+- api: Remove checking for Virtualization Platform and Virtualization
+  entitlements exclusivity from the API validation
+- Remove Virtualization Platform from SystemManagerTest, cleaned up unused
+  methods.
+- Remove handling Virtualization Platform when entitling a server in
+  SystemManager
+- Remove unused methods from tests
+- Remove checking for Virtualization Platform when checking and updating server
+  entitlements in SystemDetailsEditAction
+- Remove Virtualization Platform from Overview -> Subscription Management ->
+  System Entitlements view
+- Remove Virtualization Platform from Admin -> Organizations view
+- translation strings: remove unused non-linux entitlement string
+- java: remove update entitlement references from test code
+- Org: remove unused fake update org entitlement
+- SearchAction: don't check for update org entitlement
+- EntitlementManager: remove references to update entitlements
+- translation strings: remove unused references
+- translation strings: remove reference to update entitlements
+- SystemDetailsEditAction: don't show update entitlement counts
+- SystemDetailsEditAction: don't filter update entitlements
+- ServerConstants: remove unused method getServerGroupTypeUpdateEntitled
+- System entitlements page: don't handle update entitlements
+- SystemEntitlementsAction: don't check for update entitlements
+- SystemHandler: update entitlement removed from documentation
+- ServerSerializer: update entitlement removed from documentation
+
 * Tue Aug 11 2015 Silvio Moioli <smoioli@suse.de> 2.4.135.dev-1
 - java: more unused imports removed
 
