@@ -38,8 +38,6 @@ make -f Makefile.admin install_systemd PREFIX=$RPM_BUILD_ROOT
 %endif
 make -f Makefile.admin install PREFIX=$RPM_BUILD_ROOT
 
-cd $RPM_BUILD_ROOT/%{_bindir}
-
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man8/
 %{_bindir}/pod2man --section=8 rhn-config-schema.pl > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-config-schema.pl.8
 %{_bindir}/pod2man --section=8 man/spacewalk-service.pod > $RPM_BUILD_ROOT%{_mandir}/man8/spacewalk-service.8
