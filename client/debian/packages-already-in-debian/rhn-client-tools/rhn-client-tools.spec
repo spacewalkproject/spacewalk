@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.102.dev
+Version: 1.8.103.dev
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,12 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Aug 21 2015 Silvio Moioli <smoioli@suse.de> 1.8.103.dev-1
+- debian client tools: po files updated
+- debian client tools: remove virtualization host platform entitlement
+  references
+- debian client tools: drop references to update entitlements
+
 * Mon Aug 10 2015 Silvio Moioli <smoioli@suse.de> 1.8.102.dev-1
 - client-tools: Remove 'provisioning_entitled' slot from RHEL and Debian
 - backend: unused reg_num parameter removed from documentation
