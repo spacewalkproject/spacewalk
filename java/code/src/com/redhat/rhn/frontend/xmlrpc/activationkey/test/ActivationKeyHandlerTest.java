@@ -344,7 +344,7 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
      * No exception should be thrown removing an entitlement the key doesn't have:
      */
     public void testRemoveUnappliedAddOnEntitements() throws Exception {
-        List<String> noEntitlements = new ArrayList<>();
+        List<String> noEntitlements = new ArrayList<String>();
         String newKey = keyHandler.create(admin, KEY, KEY_DESCRIPTION, baseChannelLabel,
                 KEY_USAGE_LIMIT, noEntitlements, Boolean.FALSE);
         ActivationKey activationKey = ActivationKeyManager.getInstance().
