@@ -31,12 +31,13 @@ def reboot(test=None, cache_only=None):
 
     pid = os.fork()
     data = {'version': '0'}
+    reboot_message = 'Reboot of system "' + os.uname()[1] + '" initiated by Spacewalk reboot action.'
     if not pid:
         try:
             if test:
-                os.execvp("/sbin/shutdown", ['/sbin/shutdown','-r','-k', '+3'])
+                os.execvp("/sbin/shutdown", ['/sbin/shutdown','-r','-k', '+3', reboot_message])
             else:
-                os.execvp("/sbin/shutdown", ['/sbin/shutdown','-r', '+3'])
+                os.execvp("/sbin/shutdown", ['/sbin/shutdown','-r', '+3', reboot_message])
         except OSError:
             data['name'] = "reboot.reboot.shutdown_failed"
             return (34, "Could not execute /sbin/shutdown", data)
