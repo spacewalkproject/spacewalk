@@ -20,7 +20,7 @@ ULN plugin for spacewalk-repo-sync.
 """
 import sys
 sys.path.append('/usr/share/rhn')
-from up2date_client.rpcServer import RetryServer
+from up2date_client.rpcServer import RetryServer, ServerList
 
 from spacewalk.satellite_tools.repo_plugins.yum_src import ContentSource as yum_ContentSource
 from spacewalk.satellite_tools.syncLib import RhnSyncException
@@ -56,12 +56,14 @@ class ContentSource(yum_ContentSource):
         print "The download URL is: " + self.url
         if self.proxy_addr:
             print "Trying proxy " + self.proxy_addr
-        s = RetryServer(self.uln_url + "/rpc/api",
+        slist = ServerList([self.uln_url+"/rpc/api",])
+        s = RetryServer(slist.server(),
                         refreshCallback=None,
                         proxy=self.proxy_addr,
                         username=self.proxy_user,
                         password=self.proxy_pass,
                         timeout=5)
+        s.addServerList(slist)
         self.key = s.auth.login(self.uln_user, self.uln_pass)
 
     def setup_repo(self, repo):
