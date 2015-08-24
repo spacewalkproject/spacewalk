@@ -76,7 +76,6 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(OrgDtoSerializer.class);
         SERIALIZER_CLASSES.add(MultiOrgUserOverviewSerializer.class);
         SERIALIZER_CLASSES.add(VirtualSystemOverviewSerializer.class);
-        SERIALIZER_CLASSES.add(SystemEntitlementsDtoSerializer.class);
         SERIALIZER_CLASSES.add(EntitlementSerializer.class);
         SERIALIZER_CLASSES.add(NetworkInterfaceSerializer.class);
         SERIALIZER_CLASSES.add(ScheduleActionSerializer.class);
