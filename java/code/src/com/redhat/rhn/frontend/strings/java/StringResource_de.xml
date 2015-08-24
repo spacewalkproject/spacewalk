@@ -8522,14 +8522,6 @@ Folgen Sie dieser URL für die vollständige Liste inaktiver Systeme:
         <source>A required errata attribute ({0}) was missing.</source>
         <target>Ein erforderliches Errata-Attribut ({0}) fehlte.</target>
       </trans-unit>
-      <trans-unit id="org.entitlements.system.toomany">
-        <source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
-        <target>Sie versuchten, {0} zu viele {1} Berechtigungen zu erteilen.  Bitte geben Sie einen Wert weniger oder gleich {2} ein</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.proposedwarning">
-        <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
-        <target>Warnung: Ihre vorgeschlagene {0} Zuweisung von Berechtigungen bietet weniger Berechtigungen, als derzeit in der {1} Organisation verwendet werden. Bitte ändern Sie Ihre vorgeschlagene Zuweisung auf eine Anzahl nicht weniger als die Anzahl der derzeit verwendeten Berechtigungen.</target>
-      </trans-unit>
       <trans-unit id="api.iss.duplicatemaster">
         <source>A record for Master satellite {0} already exists</source>
         <target>Ein Satz für Master Satellite {0} existiert bereits</target>
