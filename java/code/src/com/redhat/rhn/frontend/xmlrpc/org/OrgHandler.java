@@ -33,7 +33,6 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.OrgDto;
-import com.redhat.rhn.frontend.dto.SystemEntitlementsDto;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
@@ -332,28 +331,6 @@ public class OrgHandler extends BaseHandler {
             throw new InvalidEntitlementException();
         }
         return cf;
-    }
-
-    /**
-     * Lists system entitlement allocation/distribution information
-     *  across all organizations.
-     * User needs to be a satellite administrator to get this information
-     * @param loggedInUser The current user
-     * @return Array of SystemEntitlementsDtoSerializer.
-     *
-     * @xmlrpc.doc Lists system entitlement allocation information
-     * across all organizations.
-     * Caller must be a satellite administrator.
-     *
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.returntype
-     *   #array()
-     *     $SystemEntitlementsDtoSerializer
-     *   #array_end()
-     */
-    public List<SystemEntitlementsDto> listSystemEntitlements(User loggedInUser) {
-        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
-        return OrgManager.allOrgsEntitlements();
     }
 
     /**
