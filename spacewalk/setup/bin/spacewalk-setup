@@ -116,6 +116,8 @@ else {
     die "No idea how to install to database: " . $answers{'db-backend'};
 }
 
+post_populate_db(\%answers);
+
 print Spacewalk::Setup::loc("* Configuring tomcat.\n");
 setup_tomcat(\%opts, \%answers);
 
@@ -141,8 +143,6 @@ mkdir_mount_points($config_opts->{'mount_point'},
         $config_opts->{'kickstart_mount_point'});
 setup_sudoers();
 
-print Spacewalk::Setup::loc("* Activating $product_name.\n");
-load_satellite_certificate(\%opts, \%answers);
 
 print Spacewalk::Setup::loc("* Configuring apache SSL virtual host.\n");
 setup_mod_ssl(\%opts, \%answers);
@@ -728,95 +728,185 @@ sub store_ssl_cert {
   return;
 }
 
-sub satellite_activate {
-  my %params = validate(@_, { filename => 1,
-                              sanity_only => 0,
-                              disconnected => 0,
-                            });
-
-  my @args = ('--rhn-cert', $params{filename});
-
-  if ($params{sanity_only}) {
-    push @args, '--sanity-only';
+# Post populating the DB
+# - creates the first organization and if it doesn't exist
+# - adds corresponding rhnChannelFamily and rhnPrivateChannelFamily entries
+sub post_populate_db {
+  my $answers = shift;
+  
+  if($opts{"skip-db-population"}) {
+      # If the DB exists, we expect orgs and entitlements are already there.
+      # This should also fix bsc#900956
+      return;
   }
 
-  if ($params{disconnected}) {
-    push @args, '--disconnected';
-  }
+  print Spacewalk::Setup::loc("** Post-populating database.\n");
 
-  # Only need to run the local checks the first time.
-  if ($params{sanity_only}) {
-    local_sat_cert_checks($params{filename});
-  }
+  my $org_id = get_org_id($answers);
 
-  my $ret = Spacewalk::Setup::system_debug('/usr/bin/rhn-satellite-activate',
-                   @args);
-
-  my %retcodes = (
-                  10 => 'Could not parse certificate file',
-                  11 => 'Certificate expired',
-                  12 => "Unknown $product_name version",
-                  20 => 'Remote activation failure',
-                  30 => 'Local activation failure',
-                  40 => 'Channel population failure',
-                  80 => 'No management entitlements remaining',
-                  82 => "$product_name channel not found",
-                  83 => "No $product_name channel entitlements remaining",
-                  84 => "Invalid $product_name certificate",
-                  85 => 'Unknown activation error',
-                  86 => "$product_name has no base channel on parent server",
-                  87 => "No $product_name channel available for this version",
-                  127 => 'Unhandled error',
-                 );
-
-  if ($ret) {
-    my $exit_value = $? >> 8;
-
-    die "(satellite_activation_failed) $retcodes{$exit_value}\n\n"
-      if exists $retcodes{$exit_value};
-
-    die "There was a problem validating the satellite certificate: $exit_value\n\n";
-  }
-
-  return 1;
+  unless ($org_id) {
+    set_log_auth_login($answers);
+    create_first_org($answers);
+  } 
 }
 
-sub local_sat_cert_checks {
-  my $filename = shift;
+sub set_log_auth_login {
+  my $answers = shift;
+  my $query_str = <<'EOQ';
+SELECT id FROM web_contact_all
+WHERE login = ?
+EOQ
+  my $login = 'SETUP';
+  
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
+  my $sth = $dbh->prepare($query_str);
+  
+  $sth->execute($login);
+  my ($web_contact_id) = $sth->fetchrow();
 
-  open(CERT, $filename) or die "Could not open '$filename': $OS_ERROR\n";
-  my @data = <CERT>;
-  close(CERT);
+  $sth->finish();
+  $dbh->disconnect();
 
-  my $cert_str = join('', @data);
-  my ($signature, $cert);
-
-  eval {
-    ($signature, $cert) = Sat::Cert->parse_cert($cert_str);
-  };
-  if ($@) {
-    die "(parse_error) Error parsing satellite cert: $@\n";
+  if ($web_contact_id) {
+      set_log_auth($web_contact_id);
+  } else {
+      die "No such log user: $login";
   }
-
-  return 1;
-
-  my $sat_version = 0; #PXT::Config->get('version');
-  my $cert_version = $cert->get_field('satellite-version');
-
-  #The cert version should be less specific than the sat version.
-  my $match_length = length($cert_version);
-  $sat_version = substr($sat_version, 0, $match_length);
-  unless ($sat_version eq $cert_version) {
-    die "(satellite_activation_failed) The version of the supplied cert ($cert_version)"
-      . " did not match the version of this satellite ($sat_version)\n";
-  }
-
-  return;
 }
 
+sub set_log_auth {
+  my $uid = shift;
+  my $dbh = RHN::DB->connect; # for running SP we need RHN::DB
+  
+  $dbh->call_procedure('logging.set_log_auth', $uid);
+  $dbh->commit();
+}
+
+sub create_first_org {
+  my $answers = shift;
+  my $dbh = RHN::DB->connect; # for running SP we need RHN::DB
+  my $owner = 'SUSE'; # todo this was pulled out of the certificate before,
+                      # make an option from this?
+
+  # I.e., setting their org_id password to the pid cubed.
+  # That password is not used by anything.
+  $dbh->call_procedure('logging.clear_log_id') if $dbh->{Active};
+  my $pass = $$**3;
+  $dbh->call_procedure('create_first_org', $owner, "$pass") if $dbh->{Active};
+  $dbh->commit();
+
+  create_first_private_chan_family($answers);
+  verify_family_permissions($answers, 1);
+}
+
+# Fetch base org id
+sub get_org_id() {
+  my $query_str = <<'EOQ';
+SELECT min(id) as id
+FROM web_customer
+EOQ
+
+  my $answers = shift;
+  
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
+  my $sth = $dbh->prepare($query_str);
+  
+  $sth->execute();
+  my ($org_id) = $sth->fetchrow();
+  
+  $sth->finish();
+  $dbh->disconnect();
+
+  return $org_id;
+}
+
+# Check to see if the first org has a channelfamily associated with it.
+# If not, create one.
+sub create_first_private_chan_family {
+  my $answers = shift;
+  my $query_str = <<'EOQ';
+SELECT 1 from rhnChannelFamily
+WHERE label='private-channel-family-1'
+EOQ
+
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
+  my $sth = $dbh->prepare($query_str);
+  $sth->execute();
+  my ($chan_family) = $sth->fetchrow();
+  $sth->finish();
+
+  if ($chan_family) { # channel family exists -> do nothing
+    $dbh->disconnect();
+    return;
+  }
+
+  my $query_create_chfam = <<'EOQ';
+INSERT INTO  rhnChannelFamily (id, name, label, org_id, product_url)
+VALUES (sequence_nextval('rhn_channel_family_id_seq'), ?, ?, ?, ?)
+EOQ
+
+  my $sth1 = $dbh->prepare($query_create_chfam);
+  $sth1->execute('Private Channel Family 1',
+    'private-channel-family-1',
+    1,
+    'First Org Created');
+
+  $dbh->commit();
+  $sth1->finish();
+  $dbh->disconnect();
+}
+
+sub verify_family_permissions {
+  my $answers = shift;
+  my $org_id = shift;
+
+  # Verify channel family permissions for first org
+  my $query_lookup_cfid = <<EOQ;
+SELECT  CF.id
+FROM  rhnChannelFamily CF
+WHERE  CF.org_id = ?
+AND NOT  EXISTS (
+           SELECT  1
+             FROM  rhnPrivateChannelFamily PCF
+            WHERE  PCF.org_id = CF.org_id
+              AND  PCF.channel_family_id = CF.id)
+ORDER BY  CF.id
+EOQ
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
+  my $sth = $dbh->prepare($query_lookup_cfid);
+
+  $sth->execute($org_id);
+  my ($cf_id) = $sth->fetchrow();
+  $sth->finish();
+
+  unless ($cf_id) {
+    $dbh->disconnect();
+    return;
+  }
+
+  my $query_create_priv_chfam = <<EOQ;
+INSERT INTO  rhnPrivateChannelFamily
+    (channel_family_id, org_id)
+VALUES  (?, ?)
+EOQ
+
+  my $sth1 = $dbh->prepare($query_create_priv_chfam);
+  $sth1->execute($cf_id, $org_id);
+  $dbh->commit();
+  $sth1->finish();
+  $dbh->disconnect();
+}
+
+# todo rename/remove?
 sub load_satellite_certificate {
   my $opts = shift;
   my $answers = shift;
+
+  post_populate_db($answers);
+
+  # SKIP the following certificate machinery
+  # (todo) this will be removed
+  return;
 
   if ($opts->{'upgrade'}) {
     print Spacewalk::Setup::loc("** Certificate not activated.\n");
@@ -824,6 +914,7 @@ sub load_satellite_certificate {
     return;
   }
 
+  # todo get rid of this satellite-cert-file
   Spacewalk::Setup::ask(
       -noninteractive => $opts{"non-interactive"},
       -question => "Where is your satellite certificate file",
@@ -842,24 +933,6 @@ sub load_satellite_certificate {
     exit 34;
   }
 
-  my %activate_options;
-
-  if ($opts->{disconnected}) {
-    $activate_options{"-disconnected"} = 1;
-  }
-
-  eval {
-    print Spacewalk::Setup::loc("** Verifying certificate locally.\n");
-
-    satellite_activate(-filename => $answers->{'satellite-cert-file'},
-                       -sanity_only => 1,
-                      );
-
-    print Spacewalk::Setup::loc("** Activating $product_name.\n");
-
-    satellite_activate(-filename => $answers->{'satellite-cert-file'},
-                       %activate_options);
-  };
 
   if ($@) {
     my $E = $@;
