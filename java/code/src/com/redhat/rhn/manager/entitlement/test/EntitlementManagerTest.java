@@ -15,7 +15,6 @@
 package com.redhat.rhn.manager.entitlement.test;
 
 import com.redhat.rhn.domain.entitlement.Entitlement;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
@@ -41,11 +40,5 @@ public class EntitlementManagerTest extends RhnBaseTestCase {
                 EntitlementManager.VIRTUALIZATION_ENTITLED);
         assertNotNull(ent);
         assertEquals(EntitlementManager.VIRTUALIZATION, ent);
-    }
-
-    public void testGetUsedEntitlements() {
-        assertNotNull(EntitlementManager.
-                getUsedEntitlements(EntitlementManager.MANAGEMENT,
-                        OrgFactory.getSatelliteOrg()));
     }
 }
