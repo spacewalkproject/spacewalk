@@ -5565,16 +5565,6 @@
             path="/WEB-INF/pages/admin/multiorg/sys_entitlements.jsp"/>
     </action>
 
-    <action path="/admin/multiorg/EntitlementDetails"
-        scope="request"
-        input="/WEB-INF/pages/admin/multiorg/system_entitlement_details.jsp"
-        type="com.redhat.rhn.frontend.action.multiorg.SystemEntitlementDetailsAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(satellite_admin)"/>
-        <forward name="default"
-            path="/WEB-INF/pages/admin/multiorg/system_entitlement_details.jsp"/>
-    </action>
-
      <!-- Activation Key  Pages-->
     <action path="/activationkeys/List"
         name="activationKeyForm"

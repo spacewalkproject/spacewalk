@@ -21701,27 +21701,6 @@ tal y como se refleja en el certificado de @@PRODUCT_NAME@@.</target>
         </context-group>
         <target>Tipo</target>
       </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant">
-        <source>Access Granted by this Entitlement:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>Acceso garantizado por este derecho:</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.enterprise_entitled">
-        <source>A single Management (Base) entitlement is required for all systems registered to satellite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>Un solo derecho administrativo (Base) se requiere para todos los sistemas registrados al satélite</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
-        <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>Un derecho único de virtualización (adicional) se aplica al sistema host y permite administrar hasta 4 huéspedes.</target>
-      </trans-unit>
       <!-- multiorg trustedorg strings  -->
       <trans-unit id="org.trust.summary">
         <source>
