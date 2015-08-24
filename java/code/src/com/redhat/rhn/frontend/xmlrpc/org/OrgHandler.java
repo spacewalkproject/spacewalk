@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.xmlrpc.org;
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
@@ -38,7 +37,6 @@ import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidParameterException;
 import com.redhat.rhn.frontend.xmlrpc.MigrationToSameOrgException;
-import com.redhat.rhn.frontend.xmlrpc.NoSuchEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.OrgNotInTrustException;
@@ -226,14 +224,6 @@ public class OrgHandler extends BaseHandler {
             throw new NoSuchOrgException(name);
         }
         return org;
-    }
-
-    private Entitlement verifyEntitlementExists(String sysLabel) {
-        Entitlement ent = EntitlementManager.getByName(sysLabel);
-        if (ent == null) {
-            throw new NoSuchEntitlementException(sysLabel);
-        }
-        return ent;
     }
 
     /**
