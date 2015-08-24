@@ -20437,76 +20437,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>প্রারম্ভিক প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটর নির্মাণ করুন</target>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.ent_name">
-        <source>Entitlement Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>এনটাইটেলমেন্টের নাম</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.total">
-        <source>Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>সর্বমোট</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.usage">
-        <source>Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>ব্যবহারপ্রণালী</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.proposed_total">
-        <source>Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>সর্বমোট প্রস্তাবিত</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.base">
-        <source>(Base)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>(বেস)</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.add_on">
-        <source>(Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>(অতিরিক্ত)</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.man_tip">
-        <source>Required for all systems registered to the @@PRODUCT_NAME@@.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@e-এ নিবন্ধিত সকল সিস্টেমের ক্ষেত্রে আবশ্যক।</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.mon_tip">
-        <source>Enables the tracking of monitoring data for a system.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>সিস্টেমের monitoring সংক্রান্ত তথ্য নিরীক্ষণে সহায়ক।</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.virt_tip">
-        <source>Applied to a host system, enables management for up to 4 guests.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>হোস্ট সিস্টেমে প্রয়োগ করা হলে, ৪-টি গেস্ট সিস্টেম অবধি management সক্রিয় করা হয়।</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.possible_vals">
-        <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>সম্ভাব্য মান: &lt;strong&gt;{0}&lt;/strong&gt; থেকে &lt;strong&gt;{1}&lt;/strong&gt;।</target>
-      </trans-unit>
       <trans-unit id="sys_entitlements.description">
         <source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
         <context-group name="ctx">
@@ -20762,14 +20692,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
         <target>&lt;strong&gt;*উপদেশ:&lt;/strong&gt; @@PRODUCT_NAME@@-র মধ্যে উপস্থিত (@@PRODUCT_NAME@@-র ডিফল্ট প্রতিষ্ঠান ভিন্ন অন্যান্য) প্রতিষ্ঠানের জন্য সর্বমোট উপলব্ধ এনটাইটেলমেন্ট
 'সর্বমোট' দ্বারা চিহ্নিত হয়েছে। @@PRODUCT_NAME@@ সার্টিফিকেটের মধ্যে উল্লিখিত সর্বমোট উপলব্ধ এনটাইটেলমেন্ট থেকে এটি ভিন্ন।</target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.description">
-        <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; প্রতিষ্ঠানের জন্য সর্বমোট উপলব্ধ সফ্টওয়্যার চ্যানেল এনটাইটেলমেন্ট নীচে পরিবর্তন করা যাবে। প্রতিটি চ্যানেলের ভিত্তিতে এই গণনা করা হয়েছে। কোনো নির্দিষ্ট চ্যানেলের জন্য উপলব্ধ এনটাইটেলমেন্টের সংখ্যা পরিবর্তন করার সময় পার্শ্ববর্তী ক্ষেত্রে চিহ্নিত সর্বাধিক এনটাইটেলমেন্ট সংখ্যা গ্রাহ্য করা আবশ্যক।</target>
-      </trans-unit>
-      <trans-unit id="orgsysubs.jsp.header2">
-        <source>System Entitlement Counts</source>
-        <target>সিস্টেম এনটাইটেলমেন্টের সংখ্যা</target>
       </trans-unit>
       <!-- multiorg trustedorg strings  -->
       <trans-unit id="org.trust.summary">

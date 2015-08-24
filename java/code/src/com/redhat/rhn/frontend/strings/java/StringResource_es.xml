@@ -8099,13 +8099,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
         <target>La modificación del límite de tamaño debe ser un  número no negativo.</target>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.invalid">
-        <source>Entitlement modification must be a valid number for {0}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubscriptions.do</context>
-        </context-group>
-        <target>La modificación de derechos debe ser un número válido para {0}.</target>
-      </trans-unit>
       <trans-unit id="message.ext_auth_disable">
         <source>No default organization</source>
         <context-group name="ctx">
@@ -8532,10 +8525,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       <trans-unit id="org.entitlements.system.toomany">
         <source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
         <target>Intentó dar a {0} demasiados derechos {1}. Ingrese un valor menor o igual a {2}</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.syssoft.success">
-        <source>Entitlements successfully updated.</source>
-        <target>Derechos actualizados con éxito.</target>
       </trans-unit>
       <trans-unit id="org.entitlements.software.proposedwarning">
         <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
