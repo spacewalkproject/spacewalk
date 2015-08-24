@@ -335,58 +335,6 @@ public class OrgHandler extends BaseHandler {
 
     /**
      * List an organization's allocation of a system entitlement.
-     * If the organization has no allocation for a particular entitlement, it will
-     * not appear in the list.
-     *
-     * @param loggedInUser The current user
-     * @param label system entitlement label
-     * @return a list of Maps having the system entitlements info.
-     * @deprecated being replaced by listSystemEntitlements(string sessionKey,
-     * string label, boolean includeUnentitled)
-     *
-     * @xmlrpc.doc List each organization's allocation of a system entitlement.
-     * If the organization has no allocation for a particular entitlement, it will
-     * not appear in the list.
-     *
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("string", "label")
-     * @xmlrpc.returntype
-     *   #array()
-     *     #struct("entitlement usage")
-     *       #prop("int", "org_id")
-     *       #prop("string", "org_name")
-     *       #prop("int", "allocated")
-     *       #prop("int", "unallocated")
-     *       #prop("int", "used")
-     *       #prop("int", "free")
-     *     #struct_end()
-     *   #array_end()
-     */
-    @Deprecated
-    public List<Map> listSystemEntitlements(User loggedInUser,
-            String label) {
-        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
-        verifyEntitlementExists(label);
-        DataList<Map> result = OrgManager.allOrgsSingleEntitlement(label);
-        List<Map> details = new LinkedList<Map>();
-        for (Map row : result) {
-            Map <String, Object> map = new HashMap<String, Object>();
-            Org org = OrgFactory.lookupById((Long)row.get("orgid"));
-            map.put(ORG_ID_KEY, new Integer(org.getId().intValue()));
-            map.put(ORG_NAME_KEY, org.getName());
-            map.put(ALLOCATED_KEY, ((Long)row.get("total")).intValue());
-            map.put(USED_KEY, row.get("usage"));
-            long free  = (Long)row.get("total") - (Long)row.get("usage");
-            map.put(FREE_KEY, free);
-            long unallocated  = (Long)row.get("upper") - (Long)row.get("total");
-            map.put(UN_ALLOCATED_KEY, unallocated);
-            details.add(map);
-        }
-        return details;
-    }
-
-    /**
-     * List an organization's allocation of a system entitlement.
      *
      * @param loggedInUser The current user
      * @param label System entitlement label.
