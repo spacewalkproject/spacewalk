@@ -21,7 +21,6 @@ import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorException;
-import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -29,12 +28,10 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.MultiOrgUserOverview;
 import com.redhat.rhn.frontend.dto.OrgChannelDto;
 import com.redhat.rhn.frontend.dto.OrgDto;
-import com.redhat.rhn.frontend.dto.OrgEntitlementDto;
 import com.redhat.rhn.frontend.dto.OrgTrustOverview;
 import com.redhat.rhn.frontend.dto.SystemEntitlementsDto;
 import com.redhat.rhn.frontend.dto.TrustedOrgDto;
 import com.redhat.rhn.manager.BaseManager;
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -42,14 +39,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * OrgManager - Manages MultiOrg tasks
- * @version $Rev$
  */
 public class OrgManager extends BaseManager {
 
@@ -464,24 +459,5 @@ public class OrgManager extends BaseManager {
         else if (OrgFactory.lookupByName(newOrgName) != null) {
             ValidatorException.raiseException("error.org_already_taken", newOrgName);
         }
-    }
-
-    /**
-     * Returns a list of entitlement dtos for a given org ..
-     * Basically collects a list of all entitlements and provides
-     * a DTO with information abt the entitlements
-     *  (like current members, available members etc.)
-     * @param org the org to lookup on
-     * @return List of dtos for all entitlements.
-     */
-    public static List <OrgEntitlementDto> listEntitlementsFor(Org org) {
-        List <OrgEntitlementDto> dtos = new LinkedList<OrgEntitlementDto>();
-        List <Entitlement> entitlements = new LinkedList<Entitlement>();
-        entitlements.addAll(EntitlementManager.getBaseEntitlements());
-        entitlements.addAll(EntitlementManager.getAddonEntitlements());
-        for (Entitlement ent : entitlements) {
-            dtos.add(new OrgEntitlementDto(ent, org));
-        }
-        return dtos;
     }
 }
