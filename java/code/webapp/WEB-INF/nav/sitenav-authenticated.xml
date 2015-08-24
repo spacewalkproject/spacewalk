@@ -244,14 +244,6 @@
         <rhn-tab-url>/rhn/admin/multiorg/OrgCreate.do</rhn-tab-url>
     </rhn-tab>
 
-    <rhn-tab name="Subscriptions" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/SystemEntitlements.do">
-
-      <rhn-tab name="System Entitlements" acl="user_role(satellite_admin)">
-        <rhn-tab-url>/rhn/admin/multiorg/SystemEntitlements.do</rhn-tab-url>
-      </rhn-tab>
-
-    </rhn-tab>
-
     <rhn-tab name="Users" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/Users.do">
         <rhn-tab-url>/rhn/admin/multiorg/SatRoleConfirm.do</rhn-tab-url>
         <rhn-tab name="External Authentication" acl="user_role(satellite_admin)">
