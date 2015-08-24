@@ -24,7 +24,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.MultiOrgUserOverview;
 import com.redhat.rhn.frontend.dto.OrgDto;
-import com.redhat.rhn.frontend.dto.OrgEntitlementDto;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.MigrationToSameOrgException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
@@ -202,8 +201,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         result = handler.setSystemEntitlements(admin,
                 new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));
         assertEquals(1, result);
-
-        assertOrgSystemEntitlementCount(testOrg.getId(), systemEnt, 1);
     }
 
     public void testSetSystemEntitlementsNoSuchOrgOrFamily() throws Exception {
@@ -297,53 +294,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         }
     }
 
-    /**
-     * Test both list entitlement calls by verifying the given org has the
-     * expected allocation for the given system entitlement.
-     *
-     * @param orgId orgId to lookup allocations for
-     * @param systemEntitlementLabel system entitlement label
-     * @param expectedAllocation expected allocation
-     */
-    private void assertOrgSystemEntitlementCount(Long orgId,
-            String systemEntitlementLabel, int expectedAllocation) {
-        List<Map> entitlementCounts = handler.listSystemEntitlements(admin,
-                systemEntitlementLabel);
-        boolean found = false;
-
-        for (Map counts : entitlementCounts) {
-            Integer lookupOrgId = (Integer)counts.get("org_id");
-            if (lookupOrgId.longValue() != orgId.longValue()) {
-                continue;
-            }
-            // Found our org, check it's allocation:
-            found = true;
-            Integer total = (Integer)counts.get("allocated");
-            assertEquals(new Integer(expectedAllocation), total);
-        }
-        if (!found) {
-            fail("unable to find org: " + orgId);
-        }
-
-        // Repeat for the "by org" list:
-        List<OrgEntitlementDto> counts2 = handler.listSystemEntitlementsForOrg(admin,
-                new Integer(orgId.intValue()));
-        found = false;
-
-        for (OrgEntitlementDto dto : counts2) {
-            String lookupLabel = dto.getEntitlement().getLabel();
-            if (!lookupLabel.equals(systemEntitlementLabel)) {
-                continue;
-            }
-            // Found our channel family label, check it's allocation:
-            found = true;
-            Integer total = new Integer(dto.getMaxEntitlements().intValue());
-            assertEquals(new Integer(expectedAllocation), total);
-        }
-        if (!found) {
-            fail("unable to find channel family: " + systemEntitlementLabel);
-        }
-    }
 
     public void testMigrateSystem() throws Exception {
         User newOrgAdmin = UserTestUtils.findNewUser("newAdmin", "newOrg", true);
