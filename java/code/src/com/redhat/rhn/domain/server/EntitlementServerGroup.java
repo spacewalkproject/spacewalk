@@ -21,7 +21,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * EntitledServerGroup
- * @version $Rev$
  */
 public class EntitlementServerGroup extends ServerGroup {
     private Long maxMembers;
@@ -40,20 +39,6 @@ public class EntitlementServerGroup extends ServerGroup {
     */
     public void setMaxMembers(Long maxMembersIn) {
         this.maxMembers = maxMembersIn;
-    }
-
-
-    /**
-     * Report the number of systems that can currently be added to this group.
-     * @return ServerGroup.UNLIMITED if infinite.
-     *         (maxmembers - current members) otherwise
-     */
-    public long getAvailableSlots() {
-        if (getMaxMembers() == null) {
-            return UNLIMITED;
-        }
-        //Now do the actual math.
-        return getMaxMembers().longValue() - getCurrentMembers().longValue();
     }
 
     /**
