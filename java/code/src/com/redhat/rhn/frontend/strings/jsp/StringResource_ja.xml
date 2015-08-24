@@ -4451,23 +4451,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
         <target>システム</target>
       </trans-unit>
-      <trans-unit id="Used/Allotted">
-        <source>Used/Allotted</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>使用数/割り当て数</target>
-      </trans-unit>
       <trans-unit id="None Allocated">
         <source>None Allotted</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
         <target>割り当てなし</target>
-      </trans-unit>
-      <trans-unit id="Used/Allotted.tip">
-        <source>'Allotted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
-        <target>「割り当て数」は、この @@PRODUCT_NAME@@ の証明書に反映されるように初期プールから任意の組織に割り当てられたエンタイトルメントの合計数を示します。「使用数」は各種の組織のシステムによって使用されたエンタイトルメントの数を示します。</target>
       </trans-unit>
       <trans-unit id="satusers.tip">
         <source>&lt;strong&gt;*Tip:&lt;/strong&gt; Organization administrator privileges can
@@ -21585,104 +21574,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgCreate.do</context>
         </context-group>
         <target>最初の組織管理者の作成</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.description">
-        <source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements</context>
-        </context-group>
-        <target>この @@PRODUCT_NAME@@ 上の組織全体のすべてのソフトウェアチャンネルエンタイトルメントとその使用の一覧を以下に示します。詳細情報についてはそれぞれのエンタイトルメント名をクリックして下さい。</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.header">
-        <source>System Entitlements Across @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ 全体のシステムエンタイトルメント</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.ent_name">
-        <source>Entitlement Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>エンタイトルメント名</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.usage">
-        <source>Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>使用</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.usagedata">
-        <source>{0} of {1} ({2}%)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>{1} の内 {0} ({2}%)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.total">
-        <source>Total*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>合計*</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.available">
-        <source>Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>利用可能</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.tip">
-        <source>'Total' refers to the total available to the @@PRODUCT_NAME@@ as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>「合計」とは、この @@PRODUCT_NAME@@ の証明書で反映されているように、 @@PRODUCT_NAME@@ に対する利用可能な合計を示します。</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.not_allocated">
-        <source>Not Allocated*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>割り当てなし*</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.notinuse">
-        <source>Not In Use</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>未使用</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.enterprise_entitled">
-        <source> Management (Base)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>Management (ベース)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.virtualization_host">
-        <source> Virtualization (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target> 仮想化 (付属)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.add_on">
-        <source>(Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>(付属)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.noentitlements">
-        <source>No Entitlements Found</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>エンタイトルメントは見つかりませんでした</target>
       </trans-unit>
       <trans-unit id="kickstart.cryptokey.description">
         <source>Description</source>
