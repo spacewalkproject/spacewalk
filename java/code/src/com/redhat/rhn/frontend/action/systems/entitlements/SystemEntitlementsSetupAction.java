@@ -116,9 +116,11 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
         }
 
         if (user.getOrg().hasEntitlement(OrgFactory.getEntitlementEnterprise())) {
-            setIfSlotsAvailable(SHOW_MANAGEMENT_ASPECTS,
-                    request, user,
-                    EntitlementManager.MANAGEMENT);
+            if (ServerGroupFactory.lookupEntitled(EntitlementManager.MANAGEMENT,
+                    user.getOrg()) != null) {
+                request.setAttribute(SHOW_MANAGEMENT_ASPECTS, Boolean.TRUE);
+                request.setAttribute(SHOW_UNENTITLED, Boolean.TRUE);
+            }
         }
 
         log.debug("addonents.size(): " + addOnEntitlements.size());
@@ -134,36 +136,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
         return forward;
     }
 
-    /**
-     * @param request
-     * @param user
-     */
-    private void setIfSlotsAvailable(String aspectName,
-            HttpServletRequest request,
-            User user,
-            Entitlement ent) {
-        EntitlementServerGroup sg = ServerGroupFactory.lookupEntitled(ent,
-                user.getOrg());
-        if (sg != null) {
-            if (sg.getMaxMembers() == null) {
-                request.setAttribute(aspectName, Boolean.TRUE);
-            }
-            else {
-                long available = sg.getMaxMembers().longValue() -
-                sg.getCurrentMembers().longValue();
-                if (available > 0) {
-                    request.setAttribute(aspectName, Boolean.TRUE);
-                }
-            }
-
-
-            if (sg.getMaxMembers() == null || sg.getMaxMembers().longValue() > 0) {
-                request.setAttribute(SHOW_UNENTITLED, Boolean.TRUE);
-            }
-        }
-    }
-
-
     private void setupCounts(HttpServletRequest request, User user) {
         setupCountsMessage(request, user,
                 EntitlementManager.MANAGEMENT,
@@ -173,65 +145,18 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
                 VIRTUALIZATION_COUNTS_MESSAGE);
     }
 
-    private void setupCountsMessage(HttpServletRequest request,
-            User user,
-            Entitlement ent,
+    private void setupCountsMessage(HttpServletRequest request, User user, Entitlement ent,
             String requestId) {
-
-        long total = 0, current = 0, available = 0;
-
-        EntitlementServerGroup sg = ServerGroupFactory.lookupEntitled(ent,
-                user.getOrg());
+        EntitlementServerGroup sg = ServerGroupFactory.lookupEntitled(ent, user.getOrg());
         if (sg != null) {
+            LocalizationService service = LocalizationService.getInstance();
+            String unlimitedKey =
+                    "systementitlements.jsp.entitlement_counts_message";
 
-            if (sg.getMaxMembers() == null) {
-                current = sg.getCurrentMembers().longValue();
+            String message = service.getMessage(unlimitedKey,
+                new Object[] {String.valueOf(sg.getCurrentMembers())});
 
-                LocalizationService service  = LocalizationService.getInstance();
-                String  unlimitedKey =
-                    "systementitlements.jsp.entitlement_counts_message_unlimited";
-
-                String message = service.getMessage(unlimitedKey,
-                        new Object[] {
-                        String.valueOf(current)});
-                request.setAttribute(requestId, message);
-                return;
-            }
-
-            total = sg.getMaxMembers().longValue();
-            current = sg.getCurrentMembers().longValue();
-            available = total - current;
+            request.setAttribute(requestId, message);
         }
-
-        String message = getEntitlementsCountsMessage(total, current, available);
-        request.setAttribute(requestId, message);
-    }
-
-    /**
-     * @param total
-     * @param current
-     * @param available
-     * @return
-     */
-    private String getEntitlementsCountsMessage(long total, long current, long available) {
-        String  countsMessage = "systementitlements.jsp.entitlement_counts_message_";
-        if (current == 1 && available == 1) {
-            countsMessage += "1";
-        }
-        else if (current == 1) {
-            countsMessage += "2";
-        }
-        else if (available == 1) {
-            countsMessage += "3";
-        }
-        else {
-            countsMessage += "4";
-        }
-        LocalizationService service  = LocalizationService.getInstance();
-        String message = service.getMessage(countsMessage,
-                new Object[] {String.valueOf(current),
-                String.valueOf(available),
-                String.valueOf(total)});
-        return message;
     }
 }
