@@ -21,8 +21,6 @@ import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.entitlement.ManagementEntitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.server.EntitlementServerGroup;
-import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.manager.BaseManager;
 
 import org.apache.log4j.Logger;
@@ -125,33 +123,5 @@ public class EntitlementManager extends BaseManager {
      */
     public static Set<Entitlement>  getBaseEntitlements() {
         return Collections.unmodifiableSet(BASE_ENTITLEMENTS);
-    }
-
-    /**
-     * Check the count of used entitlements for the passed in ent and org.
-     * @param ent to check
-     * @param org to check
-     * @return Long count, null of unlimited.
-     */
-    public static Long getUsedEntitlements(Entitlement ent, Org org) {
-        EntitlementServerGroup sg = ServerGroupFactory.lookupEntitled(ent, org);
-        if (sg != null) {
-            return sg.getCurrentMembers();
-        }
-        return null;
-    }
-
-    /**
-     * Check the count of max entitlements for the passed in ent and org.
-     * @param ent to check
-     * @param org to check
-     * @return Long count, null of unlimited.
-     */
-    public static Long getMaxEntitlements(Entitlement ent, Org org) {
-        EntitlementServerGroup sg = ServerGroupFactory.lookupEntitled(ent, org);
-        if (sg != null) {
-            return sg.getMaxMembers();
-        }
-        return null;
     }
 }
