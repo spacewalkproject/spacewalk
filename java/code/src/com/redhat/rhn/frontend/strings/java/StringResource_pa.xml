@@ -8286,10 +8286,6 @@ Follow this url to see the full list of inactive systems:
         <source>Entitlements</source>
         <target>ਇੰਟਾਈਟਲਮੈਂਟ</target>
       </trans-unit>
-      <trans-unit id="org.entitlements.system.defaultorg">
-        <source>You are not allowed to update entitlements in the Default Org.  These entitlements are determined by your satellite certificate file.</source>
-        <target>ਤੁਹਾਨੂੰ ਮੂਲ ਸੰਗਠਨ ਵਿੱਚ ਇੰਟਾਈਟਲਮੈਂਟ ਅੱਪਡੇਟ ਕਰਨ ਦੀ ਮਨਜੂਰੀ ਨਹੀਂ ਹੈ।  ਇਹ ਇੰਟਾਈਟਲਮੈਂਟ ਤੁਹਾਡੀ ਸੈਟੇਲਾਈਟ ਸਾਰਟੀਫਿਕੇਟ ਫਾਈਲ ਦੁਆਰਾ ਮਿਲਦੀਆਂ ਹਨ।</target>
-      </trans-unit>
       <trans-unit id="groupAdmins">
         <source>Group Admins</source>
         <target>ਗਰੁੱਪ ਪਰਬੰਧਕ</target>

@@ -8284,10 +8284,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         <source>Entitlements</source>
         <target>உரிமங்கள்</target>
       </trans-unit>
-      <trans-unit id="org.entitlements.system.defaultorg">
-        <source>You are not allowed to update entitlements in the Default Org.  These entitlements are determined by your satellite certificate file.</source>
-        <target>நீங்கள் முன்னிருப்பு நிறுவனத்தில் உரிமங்களை மேம்படுத்த அனுமதிக்கப்பட மாட்டீர்கள். இந்த உரிமங்கள் உங்கள் சேட்டிலைட் சான்றிதழ் கோப்பில் குறிக்கப்பட்டுள்ளது.</target>
-      </trans-unit>
       <trans-unit id="groupAdmins">
         <source>Group Admins</source>
         <target>குழு நிர்வாகிகள்</target>
