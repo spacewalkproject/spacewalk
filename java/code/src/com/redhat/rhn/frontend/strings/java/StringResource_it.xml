@@ -8561,10 +8561,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         <source>Entitlements</source>
         <target>Entitlement</target>
       </trans-unit>
-      <trans-unit id="org.entitlements.system.defaultorg">
-        <source>You are not allowed to update entitlements in the Default Org.  These entitlements are determined by your satellite certificate file.</source>
-        <target>Non vi è permesso aggiornare gli entitlement nell'Org. predefinita. I suddetti entitlement vengono determinati dal file del certificato di satellite.</target>
-      </trans-unit>
       <trans-unit id="groupAdmins">
         <source>Group Admins</source>
         <target>Group Admins</target>

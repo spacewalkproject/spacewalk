@@ -8561,10 +8561,6 @@ Follow this url to see the full list of inactive systems:
         <source>Entitlements</source>
         <target>權利</target>
       </trans-unit>
-      <trans-unit id="org.entitlements.system.defaultorg">
-        <source>You are not allowed to update entitlements in the Default Org.  These entitlements are determined by your satellite certificate file.</source>
-        <target>您不允許在預設組織中更新權利。這些權利是由您的衛星伺服器憑證檔所決定的。</target>
-      </trans-unit>
       <trans-unit id="groupAdmins">
         <source>Group Admins</source>
         <target>群組管理員</target>

@@ -152,13 +152,6 @@
             <form-property name="cfgchannels" type="java.lang.String"/>
             <form-property name="submitted" type="java.lang.Boolean" />
         </form-bean>
-        <form-bean name="orgSysEntitlementsForm"
-            type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="proposed_count" type="java.lang.String"/>
-            <form-property name="orgId" type="java.lang.Long"/>
-            <form-property name="entName" type="java.lang.String"/>
-            <form-property name="submitted" type="java.lang.Boolean"/>
-        </form-bean>
         <form-bean name="userPrefForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="uid" type="java.lang.Long"/>
@@ -5580,18 +5573,6 @@
         <set-property property="acls" value="user_role(satellite_admin)"/>
         <forward name="default"
             path="/WEB-INF/pages/admin/multiorg/system_entitlement_details.jsp"/>
-    </action>
-
-    <action path="/admin/multiorg/EntitlementOrgs"
-        name="orgSysEntitlementsForm"
-        scope="request"
-        input="/WEB-INF/pages/admin/multiorg/entitlementorgs.jsp"
-        type="com.redhat.rhn.frontend.action.multiorg.SystemEntitlementOrgsAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequiredIfSubmitted" value="true" />
-        <set-property property="acls" value="user_role(satellite_admin)"/>
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/multiorg/entitlementorgs.jsp"/>
     </action>
 
      <!-- Activation Key  Pages-->

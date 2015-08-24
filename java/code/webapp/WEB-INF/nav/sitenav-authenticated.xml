@@ -248,7 +248,6 @@
 
       <rhn-tab name="System Entitlements" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/multiorg/SystemEntitlements.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/admin/multiorg/EntitlementOrgs.do</rhn-tab-url>
       </rhn-tab>
 
     </rhn-tab>

@@ -7288,9 +7288,6 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="entitlement">
         <source>Entitlements</source>
       </trans-unit>
-      <trans-unit id="org.entitlements.system.defaultorg">
-        <source>You are not allowed to update entitlements in the Default Org.  These entitlements are determined by your satellite certificate file.</source>
-      </trans-unit>
       <trans-unit id="groupAdmins">
         <source>Group Admins</source>
       </trans-unit>
