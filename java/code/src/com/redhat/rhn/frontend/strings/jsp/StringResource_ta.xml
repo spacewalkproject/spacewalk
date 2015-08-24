@@ -20439,76 +20439,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>ஆரம்ப நிறுவன நிர்வாகியை உருவாக்குதல்</target>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.ent_name">
-        <source>Entitlement Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>உரிம பெயர்</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.total">
-        <source>Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>மொத்தம்</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.usage">
-        <source>Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>பயன்பாடு</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.proposed_total">
-        <source>Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>கூறப்பட்ட மொத்தம்</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.base">
-        <source>(Base)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>(அடிப்பகுதி)</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.add_on">
-        <source>(Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>(கூடுதல் இணைப்பு)</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.man_tip">
-        <source>Required for all systems registered to the @@PRODUCT_NAME@@.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ உடன் பதிவு செய்யப்பட்ட அனைத்து கணினிகளுக்கும் தேவை.</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.mon_tip">
-        <source>Enables the tracking of monitoring data for a system.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>ஒரு கணினிக்கு கண்காணித்தல் தரவுகளை தேட செயல்படுத்தப்பட்டுள்ளது.</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.virt_tip">
-        <source>Applied to a host system, enables management for up to 4 guests.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>ஒரு புரவலன் கணினிக்கு செயல்படுத்தப்பட்டுள்ளது, 4 விருந்தினர்களை மேலாண்மை செய்ய செயல்படுத்தப்பட்டுள்ளது.</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.possible_vals">
-        <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>வரும் மதிப்புகள் &lt;strong&gt;{0}&lt;/strong&gt; லிருந்து &lt;strong&gt;{1}&lt;/strong&gt; வரை.</target>
-      </trans-unit>
       <trans-unit id="sys_entitlements.description">
         <source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
         <context-group name="ctx">
@@ -20764,14 +20694,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
         <target>&lt;strong&gt;*துணுக்கு:&lt;/strong&gt; 'மொத்தம்' என்பது இந்த @@PRODUCT_NAME@@இல் நிறுவனங்களில் உள்ள
 மொத்த உரிமங்கள் ஆகும் (முன்னிருப்பு @@PRODUCT_NAME@@ நிறுவனங்களை தவிர்த்து). இது @@PRODUCT_NAME@@ சான்றிதழிலுள்ள மொத்தத்திற்கு சமமில்லை</target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.description">
-        <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
-        <target>கீழே தடங்களின் அடிப்படையில் &lt;strong&gt;{0}&lt;/strong&gt; நிறுவனத்திற்கு நீங்கள் மென்பொருள் தட உரிமங்களை மாற்றலாம். நீங்கள் ஒரு குறிப்பிட்ட தடத்திற்கு உள்ள உரிமங்களின் எண்ணிக்கையை மாற்ற வேண்டுமென்றால் அடுத்த புலத்திலுள்ள வரம்பு வரையறையை குறித்து கொள்ள வேண்டும்.</target>
-      </trans-unit>
-      <trans-unit id="orgsysubs.jsp.header2">
-        <source>System Entitlement Counts</source>
-        <target>கணினி உரிம எண்ணிக்கைகள்</target>
       </trans-unit>
       <!-- multiorg trustedorg strings  -->
       <trans-unit id="org.trust.summary">

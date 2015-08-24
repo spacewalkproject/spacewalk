@@ -8067,13 +8067,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>크기 제한 변경은 음수가 아닌 유효한 숫자를 사용해야 합니다.</target>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.invalid">
-        <source>Entitlement modification must be a valid number for {0}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubscriptions.do</context>
-        </context-group>
-        <target>인타이틀먼트 수정은 {0}에 대해 유효한 숫자이어야 합니다.  </target>
-      </trans-unit>
       <trans-unit id="message.ext_auth_disable">
         <source>No default organization</source>
         <context-group name="ctx">
@@ -8486,10 +8479,6 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="org.entitlements.system.toomany">
         <source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
         <target>{0}에게 너무 많은 {1} 인타이틀먼트를 할당하게 됩니다. {2} 보다 작은 값이나 동일한 값을 입력하십시오.</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.syssoft.success">
-        <source>Entitlements successfully updated.</source>
-        <target>인타이틀먼트가 성공적으로 업데이트되었습니다.  </target>
       </trans-unit>
       <trans-unit id="org.entitlements.software.proposedwarning">
         <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>

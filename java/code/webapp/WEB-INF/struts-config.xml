@@ -152,12 +152,6 @@
             <form-property name="cfgchannels" type="java.lang.String"/>
             <form-property name="submitted" type="java.lang.Boolean" />
         </form-bean>
-        <form-bean name="orgSystemSubscriptionsForm"
-            type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="enterprise_entitled" type="java.lang.String"/>
-            <form-property name="virtualization_host" type="java.lang.String"/>
-            <form-property name="submitted" type="java.lang.Boolean" />
-        </form-bean>
         <form-bean name="orgSysEntitlementsForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="proposed_count" type="java.lang.String"/>
@@ -5476,7 +5470,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/admin/multiorg/orgcreate.jsp"/>
       <forward name="success"
-               path="/admin/multiorg/OrgSystemSubscriptions.do" redirect="true" />
+               path="/admin/multiorg/OrgUsers.do" redirect="true" />
     </action>
 
     <action path="/admin/multiorg/OrgTrusts"
@@ -5531,22 +5525,6 @@
                path="/admin/multiorg/Organizations.do" redirect="true" />
       <forward name="error"
                path="/admin/multiorg/OrgDetails.do" redirect="true" />
-    </action>
-
-    <action path="/admin/multiorg/OrgSystemSubscriptions"
-        name="orgSystemSubscriptionsForm"
-        scope="request"
-        input="/WEB-INF/pages/admin/multiorg/orgsystemsubs.jsp"
-        type="com.redhat.rhn.frontend.action.multiorg.OrgSystemSubscriptionsAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(satellite_admin)"/>
-        <set-property property="postRequiredIfSubmitted" value="true" />
-        <forward name="default"
-                 path="/WEB-INF/pages/admin/multiorg/orgsystemsubs.jsp"/>
-        <forward name="success"
-               path="/admin/multiorg/OrgSystemSubscriptions.do" redirect="true" />
-        <forward name="error"
-               path="/admin/multiorg/OrgSystemSubscriptions.do" redirect="true" />
     </action>
 
     <action path="/admin/multiorg/SystemEntitlements"

@@ -7858,13 +7858,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.invalid">
-        <source>Entitlement modification must be a valid number for {0}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubscriptions.do</context>
-        </context-group>
-        <target>{0} உரிமம் மாற்றங்களுக்கு ஒரு சரியான எண் இருக்க வேண்டும்.</target>
-      </trans-unit>
       <trans-unit id="message.ext_auth_disable">
         <source>No default organization</source>
         <context-group name="ctx">
@@ -8256,10 +8249,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
       <trans-unit id="org.entitlements.system.toomany">
         <source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
         <target>நீங்க்ள {0} அதிகமான உரிமங்களை கொடுக்க முயற்சிக்கிறீர்கள். எனவே நீங்கள் குறைவான மதிப்பு அல்லது {1} க்கு சமமான மதிப்பை கொடுக்கவும்</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.syssoft.success">
-        <source>Entitlements successfully updated.</source>
-        <target>உரிமங்கள் வெற்றிகரமாக மேம்படுத்தப்பட்டது.</target>
       </trans-unit>
       <trans-unit id="org.entitlements.software.proposedwarning">
         <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
