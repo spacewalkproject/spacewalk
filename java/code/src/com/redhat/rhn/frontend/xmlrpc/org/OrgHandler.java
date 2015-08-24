@@ -33,7 +33,6 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.OrgDto;
-import com.redhat.rhn.frontend.dto.OrgEntitlementDto;
 import com.redhat.rhn.frontend.dto.SystemEntitlementsDto;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
@@ -469,29 +468,6 @@ public class OrgHandler extends BaseHandler {
             details.add(map);
         }
         return details;
-    }
-
-    /**
-     * List an organization's allocations of each system entitlement.
-     *
-     * @param loggedInUser The current user
-     * @param orgId Organization ID
-     * @return Array of maps.
-     *
-     * @xmlrpc.doc List an organization's allocation of each system entitlement.
-     *
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "orgId")
-     * @xmlrpc.returntype
-     *   #array()
-     *     $OrgEntitlementDtoSerializer
-     *   #array_end()
-     */
-    public List<OrgEntitlementDto> listSystemEntitlementsForOrg(User loggedInUser,
-            Integer orgId)  {
-        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
-        Org org = verifyOrgExists(orgId);
-        return OrgManager.listEntitlementsFor(org);
     }
 
     /**
