@@ -29,7 +29,6 @@ import com.redhat.rhn.frontend.dto.MultiOrgUserOverview;
 import com.redhat.rhn.frontend.dto.OrgChannelDto;
 import com.redhat.rhn.frontend.dto.OrgDto;
 import com.redhat.rhn.frontend.dto.OrgTrustOverview;
-import com.redhat.rhn.frontend.dto.SystemEntitlementsDto;
 import com.redhat.rhn.frontend.dto.TrustedOrgDto;
 import com.redhat.rhn.manager.BaseManager;
 
@@ -178,17 +177,6 @@ public class OrgManager extends BaseManager {
     public static DataList allUsers() {
         SelectMode m = ModeFactory.getMode("User_queries",
                 "all_users_in_multiorg");
-        return DataList.getDataList(m, Collections.EMPTY_MAP,
-                Collections.EMPTY_MAP);
-    }
-
-    /**
-     *
-     * @return all entitlements across all orgs on sat
-     */
-    public static DataList <SystemEntitlementsDto> allOrgsEntitlements() {
-        SelectMode m = ModeFactory.getMode("Org_queries",
-                "get_total_entitlement_counts");
         return DataList.getDataList(m, Collections.EMPTY_MAP,
                 Collections.EMPTY_MAP);
     }
