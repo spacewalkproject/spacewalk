@@ -54,13 +54,5 @@ class OrgTests(RhnTestCase):
                 return count
         self.fail("Unable to find channel family: %s" % channel_family_label)
 
-    def test_list_system_entitlements_global(self):
-        result = client.org.listSystemEntitlements(self.session_key)
-        for r in result:
-            self.assertTrue(r.has_key('allocated'))
-            self.assertTrue(r.has_key('used'))
-            self.assertTrue(r.has_key('free'))
-            self.assertTrue(r.has_key('unallocated'))
-
 if __name__ == "__main__":
     unittest.main()
