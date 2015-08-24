@@ -41,7 +41,6 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class OrgHandlerTest extends BaseHandlerTestCase {
 
@@ -237,63 +236,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
             // expected
         }
     }
-
-    public void testListSystemEntitlements() throws Exception {
-        Org testOrg = createOrg();
-        String systemEnt = EntitlementManager.ENTERPRISE_ENTITLED;
-
-        // test the entitlement api before the entitlement has been assigned to the org
-        List<Map> entitlementCounts = null;
-
-        entitlementCounts = handler.listSystemEntitlements(admin, systemEnt,
-            Boolean.TRUE);
-        // since includeUnentitled=TRUE, we should find an entry for the org w/ 0 ents
-        assertOrgSystemEntitlement(testOrg.getId(), systemEnt,
-            entitlementCounts, 0, true);
-
-        entitlementCounts = handler.listSystemEntitlements(admin, systemEnt,
-           Boolean.FALSE);
-        // since includeUnentitled=FALSE, we shouldn't be able to locate the org
-        assertOrgSystemEntitlement(testOrg.getId(), systemEnt,
-           entitlementCounts, 0, false);
-
-        int result = handler.setSystemEntitlements(admin,
-            new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));
-        assertEquals(1, result);
-
-        // now that the org has the entitlement, we should find it entitled with
-        // both variations of the api call
-        entitlementCounts = handler.listSystemEntitlements(admin, systemEnt,
-            Boolean.TRUE);
-        assertOrgSystemEntitlement(testOrg.getId(), systemEnt,
-            entitlementCounts, 1, true);
-
-        entitlementCounts = handler.listSystemEntitlements(admin, systemEnt,
-            Boolean.FALSE);
-        assertOrgSystemEntitlement(testOrg.getId(), systemEnt,
-            entitlementCounts, 1, true);
-    }
-
-    private void assertOrgSystemEntitlement(Long orgId, String systemEntitlmentLabel,
-            List<Map> entitlementCounts, int expectedAllocation, boolean orgShouldExist) {
-
-        boolean found = false;
-
-        for (Map counts : entitlementCounts) {
-            Integer lookupOrgId = (Integer)counts.get("org_id");
-            if (lookupOrgId.longValue() != orgId.longValue()) {
-                continue;
-            }
-            // Found our org, check it's allocation:
-            found = true;
-            Integer total = (Integer)counts.get("allocated");
-            assertEquals(new Integer(expectedAllocation), total);
-        }
-        if (!found && orgShouldExist) {
-            fail("unable to find org: " + orgId);
-        }
-    }
-
 
     public void testMigrateSystem() throws Exception {
         User newOrgAdmin = UserTestUtils.findNewUser("newAdmin", "newOrg", true);

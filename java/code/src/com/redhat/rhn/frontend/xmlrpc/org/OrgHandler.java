@@ -334,68 +334,6 @@ public class OrgHandler extends BaseHandler {
     }
 
     /**
-     * List an organization's allocation of a system entitlement.
-     *
-     * @param loggedInUser The current user
-     * @param label System entitlement label.
-     * @param includeUnentitled If true, the result will include both organizations
-     * that have the entitlement as well as those that do not; otherwise, the
-     * result will only include organizations that have the entitlement.
-     * @return a list of Maps having the system entitlements info.
-     * @since 10.4
-     *
-     * @xmlrpc.doc List each organization's allocation of a system entitlement.
-     *
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("string", "label")
-     * @xmlrpc.param #param_desc("boolean", "includeUnentitled", "If true, the
-     * result will include both organizations that have the entitlement as well as
-     * those that do not; otherwise, the result will only include organizations
-     * that have the entitlement.")
-     * @xmlrpc.returntype
-     *   #array()
-     *     #struct("entitlement usage")
-     *       #prop("int", "org_id")
-     *       #prop("string", "org_name")
-     *       #prop("int", "allocated")
-     *       #prop("int", "unallocated")
-     *       #prop("int", "used")
-     *       #prop("int", "free")
-     *     #struct_end()
-     *   #array_end()
-     */
-    public List<Map> listSystemEntitlements(User loggedInUser,
-            String label, Boolean includeUnentitled) {
-
-        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
-        verifyEntitlementExists(label);
-
-        DataList<Map> result = null;
-        if (includeUnentitled) {
-            result = OrgManager.allOrgsSingleEntitlementWithEmptyOrgs(label);
-        }
-        else {
-            result = OrgManager.allOrgsSingleEntitlement(label);
-        }
-
-        List<Map> details = new LinkedList<Map>();
-        for (Map row : result) {
-            Map <String, Object> map = new HashMap<String, Object>();
-            Org org = OrgFactory.lookupById((Long)row.get("orgid"));
-            map.put(ORG_ID_KEY, new Integer(org.getId().intValue()));
-            map.put(ORG_NAME_KEY, org.getName());
-            map.put(ALLOCATED_KEY, ((Long)row.get("total")).intValue());
-            map.put(USED_KEY, row.get("usage"));
-            long free  = (Long)row.get("total") - (Long)row.get("usage");
-            map.put(FREE_KEY, free);
-            long unallocated  = (Long)row.get("upper") - (Long)row.get("total");
-            map.put(UN_ALLOCATED_KEY, unallocated);
-            details.add(map);
-        }
-        return details;
-    }
-
-    /**
      * Set an organizations entitlement allocation for a channel family.
      *
      * If increasing the entitlement allocation, the default organization
