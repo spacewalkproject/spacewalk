@@ -401,38 +401,6 @@ def do_org_details(self, args):
 ####################
 
 
-def help_org_listsystementitlements(self):
-    print "org_listsystementitlements: List an organization's system",
-    print "entitlements"
-    print 'usage: org_listsystementitlements NAME'
-
-
-def complete_org_listsystementitlements(self, text, line, beg, end):
-    return tab_completer(self.do_org_list('', True), text)
-
-
-def do_org_listsystementitlements(self, args):
-    (args, _options) = parse_arguments(args)
-
-    if not len(args):
-        self.help_org_listsystementitlements()
-        return
-
-    org_id = self.get_org_id(args[0])
-
-    entitlements = self.client.org.listSystemEntitlementsForOrg(self.session,
-                                                                org_id)
-
-    for e in sorted(entitlements, key=itemgetter('label')):
-        if e.get('allocated') > 0:
-            print '%s: %i/%i' % (
-                e.get('label'),
-                e.get('used'),
-                e.get('allocated'))
-
-####################
-
-
 def help_org_setsystementitlements(self):
     print "org_setsystementitlements: Sets an organization's system",
     print "entitlements"
