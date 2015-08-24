@@ -8549,10 +8549,6 @@ Follow this url to see the full list of inactive systems:
         <source>Entitlements</source>
         <target>Serviços</target>
       </trans-unit>
-      <trans-unit id="org.entitlements.system.defaultorg">
-        <source>You are not allowed to update entitlements in the Default Org.  These entitlements are determined by your satellite certificate file.</source>
-        <target>Você não tem permissão para atualizar os serviços do Default Org. Estes serviços são determinados pelo seu arquivo de certificado do satellite.</target>
-      </trans-unit>
       <trans-unit id="groupAdmins">
         <source>Group Admins</source>
         <target>Administração de Grupos</target>
