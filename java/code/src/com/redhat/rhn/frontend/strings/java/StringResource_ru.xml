@@ -8518,14 +8518,6 @@ Follow this url to see the full list of inactive systems:
         <source>A required errata attribute ({0}) was missing.</source>
         <target>Отсутствует обязательный атрибут исправлений: {0}</target>
       </trans-unit>
-      <trans-unit id="org.entitlements.system.toomany">
-        <source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
-        <target>Вы пытаетесь предоставить {0} слишком много полномочий ({1}). Укажите значение, не превышающее {2}.</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.proposedwarning">
-        <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
-        <target>Внимание: Предлагаемое распределение полномочий для {0} предоставляет меньше полномочий, чем используется организацией {1}. Исправьте число полномочий.</target>
-      </trans-unit>
       <trans-unit id="api.iss.duplicatemaster">
         <source>A record for Master satellite {0} already exists</source>
         <target>Запись для мастер-сервера {0}  уже существует.</target>

@@ -81,10 +81,4 @@ WHERE  org.id != :org_id
   </query>
 </callable-mode>
 
-<callable-mode name="assign_system_entitlements">
-  <query params="group_label, from_org_id, to_org_id, quantity">
-     {call rhn_entitlements.assign_system_entitlement(:group_label,:from_org_id,:to_org_id,:quantity)}
-  </query>
-</callable-mode>
-
 </datasource_modes>

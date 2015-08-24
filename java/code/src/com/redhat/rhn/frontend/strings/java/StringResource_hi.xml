@@ -8246,14 +8246,6 @@ Follow this url to see the full list of inactive systems:
         <source>A required errata attribute ({0}) was missing.</source>
         <target>जरूरी इरेटा गुण ({0}) अनुपस्थित है.</target>
       </trans-unit>
-      <trans-unit id="org.entitlements.system.toomany">
-        <source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
-        <target>आपने {0} को कई एंटाइटेलमेंट {1} देने का प्रयास किया.  कृपया {2} से कम या बराबर मान दें.</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.proposedwarning">
-        <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
-        <target>चेतावनी: आपका प्रस्तावित एंटाइटेलमेंट संभाजन {0} के लिए अधिक एंटाइटेलमेंट चाहिए जो {1} संगठन के लिए प्रयोग से अधिक है. कृपया अपना प्रस्तावित आबंटन अभी प्रयोग में आ रहे मात्रा से कम नहीं होना चाहिए.</target>
-      </trans-unit>
       <trans-unit id="api.iss.duplicatemaster">
         <source>A record for Master satellite {0} already exists</source>
       </trans-unit>

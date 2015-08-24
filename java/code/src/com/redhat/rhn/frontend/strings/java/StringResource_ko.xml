@@ -8476,14 +8476,6 @@ Follow this url to see the full list of inactive systems:
         <source>A required errata attribute ({0}) was missing.</source>
         <target>필요한 에라타 속성 ({0})이 없습니다. </target>
       </trans-unit>
-      <trans-unit id="org.entitlements.system.toomany">
-        <source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
-        <target>{0}에게 너무 많은 {1} 인타이틀먼트를 할당하게 됩니다. {2} 보다 작은 값이나 동일한 값을 입력하십시오.</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.proposedwarning">
-        <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
-        <target>경고: 제안된 {0} 할당은 현재 {1} 조직에서 사용되는 인타이틀먼트 보다 적은 수를 제공합니다. 현재 사용 중인 인타이틀먼트 수 보다 적지 않게 제안된 할당을 조정해 주십시오.    </target>
-      </trans-unit>
       <trans-unit id="api.iss.duplicatemaster">
         <source>A record for Master satellite {0} already exists</source>
         <target>마스터 Satellite {0}의 기록은 이미 존재합니다.</target>
