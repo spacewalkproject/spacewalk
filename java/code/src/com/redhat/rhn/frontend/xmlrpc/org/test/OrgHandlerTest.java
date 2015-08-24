@@ -24,7 +24,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.MultiOrgUserOverview;
 import com.redhat.rhn.frontend.dto.OrgDto;
-import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.MigrationToSameOrgException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
@@ -33,7 +32,6 @@ import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.ValidationException;
 import com.redhat.rhn.frontend.xmlrpc.org.OrgHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
@@ -186,55 +184,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         Org org =  OrgFactory.lookupByName(name);
         assertNotNull(org);
         return org;
-    }
-
-    public void testSetSystemEntitlements() throws Exception {
-        Org testOrg = createOrg();
-
-        String systemEnt = EntitlementManager.ENTERPRISE_ENTITLED;
-        int result = handler.setSystemEntitlements(admin,
-                new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));
-        assertEquals(1, result);
-
-        systemEnt = EntitlementManager.VIRTUALIZATION_ENTITLED;
-        result = handler.setSystemEntitlements(admin,
-                new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));
-        assertEquals(1, result);
-    }
-
-    public void testSetSystemEntitlementsNoSuchOrgOrFamily() throws Exception {
-        Org testOrg = createOrg();
-        String systemEnt = EntitlementManager.VIRTUALIZATION_ENTITLED;
-        try {
-            handler.setSystemEntitlements(admin,
-                    new Integer(testOrg.getId().intValue()), "nosuchentitlement",
-                    new Integer(1));
-            fail();
-        }
-        catch (InvalidEntitlementException e) {
-            // expected
-        }
-
-        try {
-            handler.setSystemEntitlements(admin,
-                    new Integer(-1), systemEnt, new Integer(1));
-            fail();
-        }
-        catch (NoSuchOrgException e) {
-            // expected
-        }
-    }
-
-    public void testSetSystemEntitlementsDefaultOrg() throws Exception {
-        String systemEnt = EntitlementManager.VIRTUALIZATION_ENTITLED;
-        try {
-            handler.setSystemEntitlements(admin,
-                    new Integer(1), systemEnt, new Integer(10));
-            fail();
-        }
-        catch (IllegalArgumentException e) {
-            // expected
-        }
     }
 
     public void testMigrateSystem() throws Exception {

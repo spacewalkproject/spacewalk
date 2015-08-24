@@ -23,7 +23,6 @@ import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
-import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgConfig;
 import com.redhat.rhn.domain.org.OrgFactory;
@@ -44,11 +43,9 @@ import com.redhat.rhn.frontend.xmlrpc.PamAuthNotConfiguredException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.SatelliteOrgException;
 import com.redhat.rhn.frontend.xmlrpc.ValidationException;
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.org.CreateOrgCommand;
 import com.redhat.rhn.manager.org.MigrationManager;
 import com.redhat.rhn.manager.org.OrgManager;
-import com.redhat.rhn.manager.org.UpdateOrgSystemEntitlementsCommand;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -321,58 +318,6 @@ public class OrgHandler extends BaseHandler {
             throw new InvalidEntitlementException();
         }
         return cf;
-    }
-
-    /**
-     * Set an organizations entitlement allocation for a channel family.
-     *
-     * If increasing the entitlement allocation, the default organization
-     * (i.e. orgId=1) must have a sufficient number of free entitlements.
-     *
-     * @param loggedInUser The current user
-     * @param orgId Organization ID to set allocation for.
-     * @param systemEntitlementLabel System entitlement to set allocation for.
-     * @param allocation New entitlement allocation.
-     * @return 1 on success.
-     *
-     * @xmlrpc.doc Set an organization's entitlement allocation for the given
-     * software entitlement.
-     *
-     * If increasing the entitlement allocation, the default organization
-     * (i.e. orgId=1) must have a sufficient number of free entitlements.
-     *
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "orgId")
-     * @xmlrpc.param #param_desc("string", "label", "System entitlement label.
-     * Valid values include:")
-     *   #options()
-     *     #item("enterprise_entitled")
-     *     #item("virtualization_host")
-     *   #options_end()
-     * @xmlrpc.param #param("int", "allocation")
-     * @xmlrpc.returntype #return_int_success()
-     */
-    public int setSystemEntitlements(User loggedInUser, Integer orgId,
-            String systemEntitlementLabel, Integer allocation) {
-
-        ensureUserRole(loggedInUser, RoleFactory.SAT_ADMIN);
-
-        Org org = verifyOrgExists(orgId);
-
-        Entitlement ent = EntitlementManager.getByName(systemEntitlementLabel);
-        if (ent == null || (!EntitlementManager.getAddonEntitlements().contains(ent) &&
-                !EntitlementManager.getBaseEntitlements().contains(ent))) {
-            throw new InvalidEntitlementException();
-        }
-
-        UpdateOrgSystemEntitlementsCommand cmd =
-                new UpdateOrgSystemEntitlementsCommand(ent, org, new Long(allocation));
-        ValidatorError ve = cmd.store();
-        if (ve != null) {
-            throw new ValidationException(ve.getMessage());
-        }
-
-        return 1;
     }
 
     /**
