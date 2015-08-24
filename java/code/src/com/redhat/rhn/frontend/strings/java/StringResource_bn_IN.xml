@@ -7859,13 +7859,6 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.invalid">
-        <source>Entitlement modification must be a valid number for {0}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubscriptions.do</context>
-        </context-group>
-        <target>{0}-র ক্ষেত্রে এনটাইটেলমেন্ট পরিবর্তনের বৈধ মান উল্লেখ করা আবশ্যক।</target>
-      </trans-unit>
       <trans-unit id="message.ext_auth_disable">
         <source>No default organization</source>
         <context-group name="ctx">
@@ -8257,10 +8250,6 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="org.entitlements.system.toomany">
         <source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
         <target>{0}-কে অত্যাধিক {1} এনটাইটেলমেন্ট বিতরণের প্রচেষ্টা হয়েছে। অনুগ্রহ করে {2} অথবা কম সংখ্যা উল্লেখ করুন।</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.syssoft.success">
-        <source>Entitlements successfully updated.</source>
-        <target>সাফল্যের সাথে এনটাইটেলমেন্ট আপডেট করা হয়েছে।</target>
       </trans-unit>
       <trans-unit id="org.entitlements.software.proposedwarning">
         <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
