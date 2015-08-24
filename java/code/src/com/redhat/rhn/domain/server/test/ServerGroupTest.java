@@ -23,7 +23,6 @@ import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.org.UpdateOrgSystemEntitlementsCommand;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.TestUtils;
@@ -79,9 +78,6 @@ public class ServerGroupTest extends RhnBaseTestCase {
             if (existingGroup != null) {
                 return existingGroup;
             }
-            assertNull(new UpdateOrgSystemEntitlementsCommand(
-                    typeIn.getAssociatedEntitlement(), org,
-                    DEFAULT_MAX_MEMBERS).store());
             EntitlementServerGroup group = ServerGroupFactory.lookupEntitled(
                                         typeIn.getAssociatedEntitlement(), org);
             assertNotNull(group);

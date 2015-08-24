@@ -8522,14 +8522,6 @@ Follow this url to see the full list of inactive systems:
         <source>A required errata attribute ({0}) was missing.</source>
         <target>丢失需要的勘误属性（{0}）。</target>
       </trans-unit>
-      <trans-unit id="org.entitlements.system.toomany">
-        <source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
-        <target>您试图赋予 {0} 太多的 {1} 权利。请输入小于或者等于 {2} 的值。</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.proposedwarning">
-        <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
-        <target>警告：您提出的 {0} 分配提供比目前在机构 {1} 中所使用的更少的权利。请调整您提出的分配方案，使其不少于目前正在使用的权利数。</target>
-      </trans-unit>
       <trans-unit id="api.iss.duplicatemaster">
         <source>A record for Master satellite {0} already exists</source>
         <target>已有一条主 satellite {0} 记录</target>
