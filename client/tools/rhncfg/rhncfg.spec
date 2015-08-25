@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.84
+Version: 5.10.85
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -122,6 +122,9 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Tue Aug 25 2015 Tomas Kasparek <tkasparek@redhat.com> 5.10.85-1
+- specify that md5 is not used for security purposes
+
 * Fri Jul 10 2015 Matej Kollar <mkollar@redhat.com> 5.10.84-1
 - Unused code removal
 
