@@ -1920,7 +1920,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          #prop_desc("string", "gpg_key_fp", "(optional),
      *              gpg_fingerprint might be used as well")
      *          #prop_desc("string", "description", "(optional)")
-     *          #prop_desc("string", "checksum", "(optional)")
+     *          #prop_desc("string", "checksum", "either sha1 or sha256")
      *      #struct_end()
      * @xmlrpc.param #param("boolean", "original_state")
      * @xmlrpc.returntype int the cloned channel ID
