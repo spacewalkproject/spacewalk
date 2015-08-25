@@ -20,7 +20,13 @@ import re
 import shutil
 import pwd
 import urlparse
+import inspect
 from config_common.rhn_log import log_debug
+
+hashlib_has_usedforsecurity = False
+
+if 'usedforsecurity' in inspect.getargspec(hashlib.new)[0]:
+    hashlib_has_usedforsecurity = True
 
 _normpath_re = re.compile("^(%s)+" % os.sep)
 def normalize_path(path):
@@ -156,7 +162,10 @@ def rm_trailing_slash(slashstring):
     return slashstring
 
 def getContentChecksum(checksum_type, contents):
-    engine = hashlib.new(checksum_type)
+    if hashlib_has_usedforsecurity:
+        engine = hashlib.new(checksum_type, usedforsecurity=False)
+    else:
+        engine = hashlib.new(checksum_type)
     engine.update(contents)
     return engine.hexdigest()
 
