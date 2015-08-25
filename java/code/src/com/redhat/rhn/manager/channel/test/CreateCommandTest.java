@@ -25,7 +25,6 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * CreateCommandTest
- * @version $Rev$
  */
 public class CreateCommandTest extends RhnBaseTestCase {
 

@@ -37,7 +37,6 @@ import java.util.regex.Pattern;
 
 /**
  * CreateChannelCommand - command to create a new channel.
- * @version $Rev$
  */
 public class CreateChannelCommand {
 

@@ -58,7 +58,6 @@ import java.util.Map;
 
 /**
  * ChannelSoftwareHandlerTest
- * @version $Rev$
  */
 @SuppressWarnings("deprecation")
 public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
