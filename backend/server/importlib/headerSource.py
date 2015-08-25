@@ -150,6 +150,10 @@ class rpmBinaryPackage(Package, rpmPackage):
         rpmPackage.populate(self, header, size, checksum_type, checksum, path, org_id,
                             header_start, header_end)
 
+        # bz 1218762: if package group is None
+        if self['package_group'] is None:
+            self['package_group'] = "Unspecified"
+
         # workaround for bug in rpm-python <= 4.4.2.3-27.el5 (BZ# 783451)
         self['package_group'] = self['package_group'].rstrip()
         # Populate file information
@@ -296,6 +300,10 @@ class rpmSourcePackage(SourcePackage, rpmPackage):
                  header_start=None, header_end=None, channels=[]):
         rpmPackage.populate(self, header, size, checksum_type, checksum, path, org_id,
                             header_start, header_end)
+        # bz 1218762: if package group is None
+        if self['package_group'] is None:
+            self['package_group'] = "Unspecified"
+
         nvr = []
         # workaround for bug in rpm-python <= 4.4.2.3-27.el5 (BZ# 783451)
         self['package_group'] = self['package_group'].rstrip()
