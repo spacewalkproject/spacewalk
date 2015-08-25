@@ -21,13 +21,11 @@ import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.common.validator.ValidatorWarning;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
-import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Location;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserServerPreferenceId;
-import com.redhat.rhn.frontend.dto.EntitlementDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -46,7 +44,6 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.util.LabelValueBean;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -293,8 +290,7 @@ public class SystemDetailsEditAction extends RhnAction {
                 createBaseEntitlementDropDownList(user, s));
         request.setAttribute("countries", getCountries());
         request.setAttribute(ADDON_ENTITLEMENTS,
-                createAddOnEntitlementList(user.getOrg(),
-                            s.getValidAddonEntitlementsForServer()));
+                s.getValidAddonEntitlementsForServer());
 
         request.setAttribute("notifications_disabled",
                 user.getEmailNotify() == 0 ? Boolean.TRUE : Boolean.FALSE);
@@ -344,19 +340,6 @@ public class SystemDetailsEditAction extends RhnAction {
             daForm.set(ROOM, s.getLocation().getRoom());
             daForm.set(RACK, s.getLocation().getRack());
         }
-    }
-
-    private List createAddOnEntitlementList(Org orgIn,
-            Set validAddonEntitlementsForServer) {
-        List retval = new LinkedList();
-        Iterator i = validAddonEntitlementsForServer.iterator();
-        while (i.hasNext()) {
-            Entitlement e = (Entitlement) i.next();
-            retval.add(new EntitlementDto(e,
-                    EntitlementManager.getAvailableEntitlements(e, orgIn)));
-        }
-        Collections.sort(retval);
-        return retval;
     }
 
     protected List createBaseEntitlementDropDownList(User user, Server s) {

@@ -20175,13 +20175,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>நீங்கள் அணுக முயற்சிக்கும் தடம் இல்லை அல்லது உங்களுக்கு அணுக அனுமதி இல்லை. இந்த பக்கத்திற்கு வந்த இணைப்பினை மீண்டும் சோதிக்கவும்.</target>
         </trans-unit>
       </group>
-      <trans-unit id="sdc.channels.edit.available">
-        <source>available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-        <target>இருப்பவை</target>
-      </trans-unit>
       <trans-unit id="sdc.channels.edit.unlimited">
         <source>unlimited</source>
         <context-group name="ctx">
