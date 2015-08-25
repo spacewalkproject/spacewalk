@@ -21322,13 +21322,6 @@ Tree-Pfad, Kickstart-RPM, Basis-Channel und Installer-Generation sollten immer �
           <target>Den Channel, auf den Sie versuchten, zuzugreifen, existiert entweder nicht, oder Sie sind nicht berechtigt, darauf zuzugreifen.  Bitte überprüfen Sie den Link erneut, der Sie auf diese Seite geführt hat.</target>
         </trans-unit>
       </group>
-      <trans-unit id="sdc.channels.edit.available">
-        <source>available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-        <target>verfügbar</target>
-      </trans-unit>
       <trans-unit id="sdc.channels.edit.unlimited">
         <source>unlimited</source>
         <context-group name="ctx">

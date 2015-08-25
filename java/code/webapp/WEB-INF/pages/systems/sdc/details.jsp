@@ -60,13 +60,12 @@
                                 <c:otherwise>
                                     <c:forEach items="${addon_entitlements}" var="entitlement">
                                         <div class="checkbox">
-                                            <label for="${entitlement.entitlement.label}">
-                                                <html:checkbox property="${entitlement.entitlement.label}"
-                                                               styleId="${entitlement.entitlement.label}"/>
+                                            <label for="${entitlement.label}">
+                                                <html:checkbox property="${entitlement.label}"
+                                                               styleId="${entitlement.label}"/>
                                                 <strong>
-                                                    <c:out value="${entitlement.entitlement.humanReadableLabel}"/>
+                                                    <c:out value="${entitlement.humanReadableLabel}"/>
                                                 </strong>
-                                                (${entitlement.availbleEntitlements} <bean:message key="sdc.channels.edit.available"/>)
                                             </label>
                                         </div>
                                     </c:forEach>

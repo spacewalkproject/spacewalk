@@ -21323,13 +21323,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>アクセスを試行したチャンネルが存在しないか、またはユーザーはアクセスを許可されていないかのどちらかになります。使用したこのページのリンク元を再確認してください。</target>
         </trans-unit>
       </group>
-      <trans-unit id="sdc.channels.edit.available">
-        <source>available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-        <target>利用可能</target>
-      </trans-unit>
       <trans-unit id="sdc.channels.edit.unlimited">
         <source>unlimited</source>
         <context-group name="ctx">

@@ -21315,13 +21315,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>您试图访问的频道或者是不存在，也或者是您没有权限。请重新检查把您带入此页面的链接。</target>
         </trans-unit>
       </group>
-      <trans-unit id="sdc.channels.edit.available">
-        <source>available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-        <target>可用的</target>
-      </trans-unit>
       <trans-unit id="sdc.channels.edit.unlimited">
         <source>unlimited</source>
         <context-group name="ctx">

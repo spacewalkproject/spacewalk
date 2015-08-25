@@ -21297,13 +21297,6 @@ versione di Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
           <target>Il canale che avete cercato di accedere potrebbe non esistere, oppure potreste non essere autorizzati al suo accesso.  Vi preghiamo di ricontrollare il link utilizzato per visualizzare questa pagina.</target>
         </trans-unit>
       </group>
-      <trans-unit id="sdc.channels.edit.available">
-        <source>available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-        <target>disponibile</target>
-      </trans-unit>
       <trans-unit id="sdc.channels.edit.unlimited">
         <source>unlimited</source>
         <context-group name="ctx">

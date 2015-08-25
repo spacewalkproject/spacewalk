@@ -20873,13 +20873,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>액세스하시려는 채널이 존재하지 않거나 액세스 권한이 없습니다. 이 페이지에 있는 링크를 다시 확인하시기 바랍니다.</target>
         </trans-unit>
       </group>
-      <trans-unit id="sdc.channels.edit.available">
-        <source>available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-        <target>사용 가능</target>
-      </trans-unit>
       <trans-unit id="sdc.channels.edit.unlimited">
         <source>unlimited</source>
         <context-group name="ctx">

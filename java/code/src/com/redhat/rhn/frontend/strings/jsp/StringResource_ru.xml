@@ -21301,13 +21301,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>Канал, к которому вы пытаетесь получить доступ, не существует или доступ запрещен. Проверьте ссылку, по которой вы перешли на эту страницу.</target>
         </trans-unit>
       </group>
-      <trans-unit id="sdc.channels.edit.available">
-        <source>available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-        <target>доступно</target>
-      </trans-unit>
       <trans-unit id="sdc.channels.edit.unlimited">
         <source>unlimited</source>
         <context-group name="ctx">

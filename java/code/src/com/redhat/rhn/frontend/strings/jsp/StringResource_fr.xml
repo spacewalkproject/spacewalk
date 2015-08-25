@@ -21320,13 +21320,6 @@ Le chemin d'arborescence, le RPM Kickstart, le canal de base, et la génération
           <target>Le canal auquel vous avez essayé d'accéder n'existe pas ou vous n'êtes pas autorisé à y accéder. Veuillez vérifier le lien qui vous a dirigé sur cette page.</target>
         </trans-unit>
       </group>
-      <trans-unit id="sdc.channels.edit.available">
-        <source>available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-        <target>disponible</target>
-      </trans-unit>
       <trans-unit id="sdc.channels.edit.unlimited">
         <source>unlimited</source>
         <context-group name="ctx">
