@@ -20175,13 +20175,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>चैनल जिसे आपने अभिगम की कोशिश की है या तो मौजूद नहीं है या आपके लिये अभिगम की स्वीकृति नहीं है.  कृपया लिंक जांचे जिसने आपको इस पृष्ठ पर लाया है.</target>
         </trans-unit>
       </group>
-      <trans-unit id="sdc.channels.edit.available">
-        <source>available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-        <target>उपलब्ध</target>
-      </trans-unit>
       <trans-unit id="sdc.channels.edit.unlimited">
         <source>unlimited</source>
         <context-group name="ctx">

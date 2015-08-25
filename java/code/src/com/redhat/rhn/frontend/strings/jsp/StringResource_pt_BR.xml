@@ -21267,13 +21267,6 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
           <target>O canal que você tentou acessar não existe ou você não possui permissão de acesso. Por favor, verifique novamente o link que o trouxe à esta página.</target>
         </trans-unit>
       </group>
-      <trans-unit id="sdc.channels.edit.available">
-        <source>available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-        <target>disponível</target>
-      </trans-unit>
       <trans-unit id="sdc.channels.edit.unlimited">
         <source>unlimited</source>
         <context-group name="ctx">

@@ -20173,13 +20173,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>যে চ্যানেল ব্যবহারের প্রচেষ্টা করা হয়েছে সেটি সম্ভবত উপস্থিত নেই অথবা সেটি ব্যবহারের যথাযত অনুমতি আপনার নেই।  অনুগ্রহ করে এই পৃষ্ঠা নির্দেশকারী লিঙ্কটি পুনরায় পরীক্ষা করুন।</target>
         </trans-unit>
       </group>
-      <trans-unit id="sdc.channels.edit.available">
-        <source>available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-        <target>উপলব্ধ</target>
-      </trans-unit>
       <trans-unit id="sdc.channels.edit.unlimited">
         <source>unlimited</source>
         <context-group name="ctx">
