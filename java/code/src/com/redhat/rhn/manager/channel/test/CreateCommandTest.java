@@ -85,7 +85,10 @@ public class CreateCommandTest extends RhnBaseTestCase {
     private void invalidChannelName(String cname) {
         // Give it an invalid name
         ccc.setName(cname);
-        ccc.setLabel("valid-label-name"); // valid label
+        // give it a valid label
+        ccc.setLabel("valid-label-name");
+        // need to specify a checksum type
+        ccc.setChecksumLabel("sha256");
 
         try {
             assertNotNull(ccc.create());
@@ -107,6 +110,8 @@ public class CreateCommandTest extends RhnBaseTestCase {
         ccc.setName(cname);
         // need to create unique label names.
         ccc.setLabel("valid-label-name-" + label_count++);
+        // need to specify a checksum type
+        ccc.setChecksumLabel("sha256");
 
         try {
             Channel c = ccc.create();
@@ -169,7 +174,10 @@ public class CreateCommandTest extends RhnBaseTestCase {
     private void invalidChannelLabel(String clabel) {
         // Give it an invalid label
         ccc.setLabel(clabel);
-        ccc.setName("Valid Name"); // valid name
+        // give it a valid name
+        ccc.setName("Valid Name");
+        // need to specify a checksum type
+        ccc.setChecksumLabel("sha256");
 
         try {
             assertNotNull(ccc.create());
@@ -191,6 +199,8 @@ public class CreateCommandTest extends RhnBaseTestCase {
         ccc.setLabel(clabel);
         // need to create unique label names.
         ccc.setName("Valid Name" + label_count++);
+        // need to specify a checksum type
+        ccc.setChecksumLabel("sha256");
 
         try {
             Channel c = ccc.create();

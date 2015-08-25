@@ -736,6 +736,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         details.put("name", "test-clone");
         details.put("summary", "summary");
         details.put("label", label);
+        details.put("checksum", "sha256");
 
         int id = handler.clone(admin, original.getLabel(), details, false);
         Channel chan = ChannelFactory.lookupById(new Long(id));
@@ -768,6 +769,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         details.put("name", "test-clone2");
         details.put("summary", "summary2");
         details.put("label", label);
+        details.put("checksum", "sha256");
 
         int id = handler.clone(admin, original.getLabel(), details, true);
         Channel chan = ChannelFactory.lookupById(new Long(id));

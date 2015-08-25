@@ -71,6 +71,7 @@ public class CloneErrataActionTest extends BaseTestCaseWithUser {
         helper.setLabel("test-clone-of-" + original.getLabel());
         helper.setUser(admin);
         helper.setSummary(original.getSummary());
+        helper.setChecksumLabel("sha256");
         Channel cloned = helper.create();
 
         // check cloned channel has no errata and repository metadata
