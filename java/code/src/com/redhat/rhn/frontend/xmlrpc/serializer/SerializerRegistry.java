@@ -27,8 +27,6 @@ import java.util.List;
  * existing satellite's and likely Tomcat caching. We're unsure of how stable this will be
  * in the future so resorting to an explicit method of declaring serializer classes once
  * again.
- *
- * @version $Rev$
  */
 public class SerializerRegistry {
 
@@ -46,7 +44,6 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(CpuSerializer.class);
         SERIALIZER_CLASSES.add(DeviceSerializer.class);
         SERIALIZER_CLASSES.add(DmiSerializer.class);
-        SERIALIZER_CLASSES.add(EntitlementServerGroupSerializer.class);
         SERIALIZER_CLASSES.add(ErrataOverviewSerializer.class);
         SERIALIZER_CLASSES.add(ErrataSerializer.class);
         SERIALIZER_CLASSES.add(HistoryEventSerializer.class);
