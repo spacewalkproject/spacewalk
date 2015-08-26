@@ -6349,15 +6349,6 @@ deducted from the default organization.</source>
         <trans-unit id="Registered">
           <source>Registered</source>
         </trans-unit>
-        <trans-unit id="flexguest.jsp.entitlement_counts_message_unlimited">
-          <source>{0} consumed, unlimited available entitlements</source>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.entitlement_counts_message">
-          <source>{0} consumed, {1} available entitlement</source>
-        </trans-unit>
-        <trans-unit id="eligible.floating.guests">
-          <source>Guests Consuming Regular Entitlements</source>
-        </trans-unit>
       </group>
       <!--  System search -->
       <trans-unit id="search.alt.img">

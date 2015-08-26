@@ -6673,18 +6673,6 @@ deducted from the default organization.</source>
           <source>Registered</source>
           <target>已註冊</target>
         </trans-unit>
-        <trans-unit id="flexguest.jsp.entitlement_counts_message_unlimited">
-          <source>{0} consumed, unlimited available entitlements</source>
-          <target>已消耗了 {0}，可用的權利無限</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.entitlement_counts_message">
-          <source>{0} consumed, {1} available entitlement</source>
-          <target>已消耗了 {0}，有 {1} 個可用權利</target>
-        </trans-unit>
-        <trans-unit id="eligible.floating.guests">
-          <source>Guests Consuming Regular Entitlements</source>
-          <target>使用一般權利的客座端</target>
-        </trans-unit>
       </group>
       <!--  System search -->
       <trans-unit id="search.alt.img">

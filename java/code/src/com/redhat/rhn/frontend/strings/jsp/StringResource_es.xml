@@ -6678,18 +6678,6 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
           <source>Registered</source>
           <target>Registrado</target>
         </trans-unit>
-        <trans-unit id="flexguest.jsp.entitlement_counts_message_unlimited">
-          <source>{0} consumed, unlimited available entitlements</source>
-          <target>{0} consumidos, derechos disponibles ilimitados</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.entitlement_counts_message">
-          <source>{0} consumed, {1} available entitlement</source>
-          <target>{0} consumido, {1} derecho disponible</target>
-        </trans-unit>
-        <trans-unit id="eligible.floating.guests">
-          <source>Guests Consuming Regular Entitlements</source>
-          <target>Huéspedes que consumen derechos normales</target>
-        </trans-unit>
       </group>
       <!--  System search -->
       <trans-unit id="search.alt.img">
