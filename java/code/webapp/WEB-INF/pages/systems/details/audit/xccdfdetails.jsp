@@ -12,7 +12,7 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<div class="toolbar">
+<div class="spacewalk-toolbar">
   <c:choose>
     <c:when test="${not empty testResult.comparableId}">
       <a href="/rhn/audit/scap/DiffSubmit.do?first=${testResult.comparableId}&second=${testResult.id}&view=changed">
@@ -37,14 +37,12 @@
       <bean:message key="system.audit.xccdfdetails.jsp.nodiff"/>
     </c:otherwise>
   </c:choose>
-  |
 
   <c:if test="${testResult.deletable}">
     <a href="/rhn/systems/details/audit/XccdfDeleteConfirm.do?sid=${param.sid}&xid=${testResult.id}">
       <rhn:icon type="item-del" title="system.audit.xccdfdelete" />
       <bean:message key="system.audit.xccdfdelete"/>
     </a>
-  |
   </c:if>
 
   <a href="/rhn/systems/details/audit/ScheduleXccdf.do?sid=${param.sid}&path=${testResult.scapActionDetails.path}&params=${testResult.scapActionDetails.parametersContents}">
