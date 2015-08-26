@@ -6674,18 +6674,6 @@ deducted from the default organization.</source>
           <source>Registered</source>
           <target>Зарегистрировано</target>
         </trans-unit>
-        <trans-unit id="flexguest.jsp.entitlement_counts_message_unlimited">
-          <source>{0} consumed, unlimited available entitlements</source>
-          <target>{0} использовано, доступно неограниченное число полномочий</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.entitlement_counts_message">
-          <source>{0} consumed, {1} available entitlement</source>
-          <target>{0} использовано, доступно {1} полномочие</target>
-        </trans-unit>
-        <trans-unit id="eligible.floating.guests">
-          <source>Guests Consuming Regular Entitlements</source>
-          <target>Гости с обычными полномочиями</target>
-        </trans-unit>
       </group>
       <!--  System search -->
       <trans-unit id="search.alt.img">
