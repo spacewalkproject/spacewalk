@@ -8256,13 +8256,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         </context-group>
         <target>Entitlement aggiuntivo [{0}] non valido. Entitlement non esistente.</target>
       </trans-unit>
-      <trans-unit id="system.entitle.noslots">
-        <source>There were no more {0} System Entitlements available.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>Gli entitlement del sistema {0} non erano più disponibili.</target>
-      </trans-unit>
       <trans-unit id="system.entitle.no-add.solaris-slots">
         <source>{0} entitlements cannot be added to solaris machines</source>
         <context-group name="ctx">

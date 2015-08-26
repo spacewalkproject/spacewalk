@@ -102,7 +102,6 @@ import java.util.Set;
 
 /**
  * SystemManager
- * @version $Rev$
  */
 public class SystemManager extends BaseManager {
 
@@ -116,8 +115,6 @@ public class SystemManager extends BaseManager {
     public static final String CAP_PACKAGES_VERIFY = "packages.verify";
     public static final String CAP_CONFIGFILES_BASE64_ENC =
             "configfiles.base64_enc";
-
-    public static final String NO_SLOT_KEY = "system.entitle.noslots";
 
     private SystemManager() {
     }
@@ -1668,35 +1665,6 @@ public class SystemManager extends BaseManager {
                             virtSetupResults.getMessage());
                     return result;
                 }
-            }
-        }
-
-        boolean checkCounts = true;
-        if (server.isVirtualGuest()) {
-            Server host = server.getVirtualInstance().getHostSystem();
-            if (host != null) {
-                log.debug("host isnt null, checking entitlements.");
-                if (host.hasVirtualizationEntitlement() && host.hasEntitlement(ent)) {
-                    log.debug("host has virt and the ent passed in. FREE entitlement");
-                    checkCounts = false;
-                }
-                else {
-                    if (log.isDebugEnabled()) {
-                        log.debug("host doesnt have virt or : " + ent.getLabel());
-                    }
-                }
-            }
-        }
-        if (checkCounts) {
-            Long availableEntitlements =
-                    EntitlementManager.getAvailableEntitlements(ent, orgIn);
-            log.debug("avail: " + availableEntitlements);
-            if (availableEntitlements != null &&
-                    availableEntitlements.longValue() < 1) {
-                log.debug("Not enough slots.  returning error");
-                result.addError(new ValidatorError(NO_SLOT_KEY,
-                        ent.getHumanReadableLabel()));
-                return result;
             }
         }
 

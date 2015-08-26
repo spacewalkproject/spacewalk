@@ -8253,13 +8253,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>Дополнительное полномочие [{0}] не существует.</target>
       </trans-unit>
-      <trans-unit id="system.entitle.noslots">
-        <source>There were no more {0} System Entitlements available.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>Нет доступных системных полномочий {0}.</target>
-      </trans-unit>
       <trans-unit id="system.entitle.no-add.solaris-slots">
         <source>{0} entitlements cannot be added to solaris machines</source>
         <context-group name="ctx">

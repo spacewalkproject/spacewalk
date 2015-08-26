@@ -258,7 +258,6 @@ public class SystemEntitlementsSubmitAction extends
         User user = rctx.getCurrentUser();
 
         int successCount = 0;
-        int failureDueToSlotsCount = 0;
         int failureDueToNonManagementCount = 0;
         int failureDueToVirtErrorCount = 0;
         int failureDueToSolarisCount = 0;
@@ -289,11 +288,7 @@ public class SystemEntitlementsSubmitAction extends
                             log.debug("entitleServer.VE: " + vr.getMessage());
                             if (vr.getErrors().size() > 0) {
                                 ValidatorError ve = vr.getErrors().get(0);
-                                if (ve.getKey().equals(SystemManager.NO_SLOT_KEY)) {
-                                    failureDueToSlotsCount++;
-                                    i.remove();
-                                }
-                                else if (isVirtEntitlement) {
+                                if (isVirtEntitlement) {
                                     failureDueToVirtErrorCount++;
                                     i.remove();
                                 }
@@ -345,13 +340,11 @@ public class SystemEntitlementsSubmitAction extends
         else {
             if (log.isDebugEnabled()) {
                 log.debug("successCount: " + successCount +
-                        " failureDueToSlotsCount:" + failureDueToSlotsCount +
                         " failureDueToNonManagementCount: " +
                         failureDueToNonManagementCount);
             }
             //Create the 'added entitlements' success message
             if (successCount > 0 &&
-                    failureDueToSlotsCount == 0 &&
                     failureDueToNonManagementCount == 0 &&
                     failureDueToVirtErrorCount == 0 &&
                     unknownFailureCount == 0 &&
@@ -373,14 +366,6 @@ public class SystemEntitlementsSubmitAction extends
                                 noteargs);
                     msg.add(ActionMessages.GLOBAL_MESSAGE, note);
                 }
-            }
-
-            //Create the 'not enough slots' failure message
-            if (failureDueToSlotsCount > 0) {
-                Object [] args = new Object[] {String.valueOf(successCount),
-                        String.valueOf(failureDueToSlotsCount)};
-                ActionMessage m = new ActionMessage(prefix + ".notEnoughSlots", args);
-                msg.add(ActionMessages.GLOBAL_MESSAGE, m);
             }
 
             //Create the 'invalid entitlement' failure message
@@ -411,7 +396,6 @@ public class SystemEntitlementsSubmitAction extends
                         String.valueOf(unknownFailureCount));
                 msg.add(ActionMessages.GLOBAL_MESSAGE, m);
             }
-
         }
 
         strutsDelegate.saveMessages(request, msg);
