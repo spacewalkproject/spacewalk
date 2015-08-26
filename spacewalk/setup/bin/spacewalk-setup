@@ -897,68 +897,6 @@ EOQ
   $dbh->disconnect();
 }
 
-# todo rename/remove?
-sub load_satellite_certificate {
-  my $opts = shift;
-  my $answers = shift;
-
-  post_populate_db($answers);
-
-  # SKIP the following certificate machinery
-  # (todo) this will be removed
-  return;
-
-  if ($opts->{'upgrade'}) {
-    print Spacewalk::Setup::loc("** Certificate not activated.\n");
-    print Spacewalk::Setup::loc("** Upgrade process requires the certificate to be activated after the schema is upgraded.\n");
-    return;
-  }
-
-  # todo get rid of this satellite-cert-file
-  Spacewalk::Setup::ask(
-      -noninteractive => $opts{"non-interactive"},
-      -question => "Where is your satellite certificate file",
-      -test => sub { my $text = shift; return (-e File::Spec->canonpath($text) and not -d File::Spec->canonpath($text)) },
-      -answer => \$answers->{'satellite-cert-file'});
-
-  print Spacewalk::Setup::loc("** Loading $product_name Certificate.\n");
-
-  open(FH, $answers->{'satellite-cert-file'})
-    or die "Could not open '" . $answers->{'satellite-cert-file'} . "' - $OS_ERROR.\n";
-
-  my $cert_contents = do { local $INPUT_RECORD_SEPARATOR; <FH> };
-
-  if (not $cert_contents) {
-    print Spacewalk::Setup::loc("No data found in '%s'.\n", $answers->{'satellite-cert-file'});
-    exit 34;
-  }
-
-
-  if ($@) {
-    my $E = $@;
-
-    my $msg;
-
-    if ($E =~ /\(satellite_activation_failed\) (.*)/) {
-      $msg = $1;
-      print Spacewalk::Setup::loc("There was a problem activating the satellite: %s.\n", $msg);
-      exit 31;
-    }
-    elsif ($E =~ /\(parse_error\) (.*)/) {
-      $msg = $1;
-      print Spacewalk::Setup::loc($msg);
-      exit 32;
-    }
-    else {
-      $msg = $E;
-      print Spacewalk::Setup::loc($msg);
-      exit 33;
-    }
-  }
-
-  return 1;
-}
-
 sub populate_initial_configs {
     my $opts = shift;
     my $answers = shift;

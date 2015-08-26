@@ -82,14 +82,6 @@ ssl-password =
 # db-port = 1521
 
 
-## The location (absolute path) of the satellite certificate file.
-#  Required.
-#
-# Example:
-# satellite-cert-file = /tmp/satcert.cert
-
-satellite-cert-file =
-
 ## Apache conf.d/ssl.conf virtual host definition reconfiguration
 #
 # A value of "Y" or "y" here will cause the installer to make a numbered
