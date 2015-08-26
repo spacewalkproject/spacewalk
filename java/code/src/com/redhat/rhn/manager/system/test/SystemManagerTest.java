@@ -451,21 +451,11 @@ public class SystemManagerTest extends RhnBaseTestCase {
         EntitlementServerGroup group = ServerGroupFactory.lookupEntitled(
                                                 EntitlementManager.MANAGEMENT,
                                                 user.getOrg());
-        group.setMaxMembers(new Long(0));
-        TestUtils.saveAndFlush(group);
-
-        ValidatorResult vr =
-            SystemManager.entitleServer(server, EntitlementManager.MANAGEMENT);
-        assertTrue("we shoulda gotten an error", vr.hasErrors());
-        ValidatorError ve = vr.getErrors().get(0);
-        assertEquals("system.entitle.noslots", ve.getKey());
-
-        // now entitle the server for real
-        group.setMaxMembers(new Long(1));
         TestUtils.saveAndFlush(group);
         TestUtils.flushAndEvict(group);
-        vr = SystemManager.entitleServer(server, EntitlementManager.MANAGEMENT);
-        assertFalse("no errors after increasing max members", vr.hasErrors());
+        ValidatorResult vr =
+                SystemManager.entitleServer(server, EntitlementManager.MANAGEMENT);
+        assertFalse("no errors", vr.hasErrors());
     }
 
     public void testVirtualEntitleServer() throws Exception {

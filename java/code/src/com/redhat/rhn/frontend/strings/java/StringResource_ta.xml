@@ -8000,13 +8000,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
         <target>தவறான கூடுதல் உரிமம் [{0}] கொடுக்கப்பட்டுள்ளது. வேறு உரிமம் இல்லை.</target>
       </trans-unit>
-      <trans-unit id="system.entitle.noslots">
-        <source>There were no more {0} System Entitlements available.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>{0} கணினி உரிமங்கள் எதுவும் இல்லை.</target>
-      </trans-unit>
       <trans-unit id="system.entitle.no-add.solaris-slots">
         <source>{0} entitlements cannot be added to solaris machines</source>
         <context-group name="ctx">
