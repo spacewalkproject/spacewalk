@@ -9,10 +9,10 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<div class="toolbar-h2">
+<h2>
   <rhn:icon type="header-info" />
   <bean:message key="system.jsp.customkey.updatetitle"/>
-</div>
+</h2>
 
   <hr />
 

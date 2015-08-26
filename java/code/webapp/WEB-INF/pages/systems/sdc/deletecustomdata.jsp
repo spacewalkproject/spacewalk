@@ -11,11 +11,10 @@
 <div>
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
-  <div class="toolbar-h2">
-    <div class="toolbar"></div>
-      <rhn:icon type="system-warn" />
-      <bean:message key="system.jsp.customdata.deletetitle"/>
-    </div>
+      <h2>
+        <rhn:icon type="system-warn" />
+        <bean:message key="system.jsp.customdata.deletetitle"/>
+      </h2>
 
       <div class="page-summary">
         <p><bean:message key="system.jsp.customdata.removemsg"/></p>
