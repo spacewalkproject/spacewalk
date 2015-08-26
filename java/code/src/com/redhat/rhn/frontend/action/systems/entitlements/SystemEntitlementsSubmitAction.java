@@ -21,7 +21,6 @@ import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
-import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BaseSetOperateOnSelectedItemsAction;
 import com.redhat.rhn.frontend.dto.SystemOverview;
@@ -48,8 +47,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Class representing the submit action of the Systeme Eintitlements page
- * SystemEntitlementsSubmitAction
+ * Class representing the submit action of the System Entitlements page
  */
 public class SystemEntitlementsSubmitAction extends
                 BaseSetOperateOnSelectedItemsAction {
@@ -100,44 +98,21 @@ public class SystemEntitlementsSubmitAction extends
             Entitlement ent,
             User userIn,
             HttpServletRequest req) {
-        final String availableSlotsLabel = "Available_Slots";
         //Only entitle if the system doesn't already have the entitlement
         if (!SystemManager.hasEntitlement(sid, ent)) {
-
-            if (req.getAttribute(availableSlotsLabel) == null) {
-                //The slots were not in the request, find them and put them there.
-                Long slots = EntitlementManager.getAvailableEntitlements(ent,
-                        userIn.getOrg());
-                req.setAttribute(availableSlotsLabel, slots);
-            }
-            //We need one slot to put our system in.
-            Long availableSlots =
-                ((Long) req.getAttribute(availableSlotsLabel));
-
-            if (availableSlots != null && availableSlots.longValue() > 0) {
-                //Remove the current ones
-                //This is ok because of the prereq for this method.
-                SystemManager.removeAllServerEntitlements(sid);
-                if (SystemManager.canEntitleServer(sid, ent)) {
-                    SystemManager.entitleServer(userIn.getOrg(), sid, ent);
-                    if (availableSlots.longValue() != ServerGroup.UNLIMITED) {
-                        //Now we need to update our request attribute.
-                        req.setAttribute(availableSlotsLabel,
-                                new Long(availableSlots.longValue() - 1));
-                    }
-                }
-                else {
-                    //entitlement is invalid
-                    return Boolean.FALSE;
-                }
+            //Remove the current ones
+            //This is ok because of the prereq for this method.
+            SystemManager.removeAllServerEntitlements(sid);
+            if (SystemManager.canEntitleServer(sid, ent)) {
+                SystemManager.entitleServer(userIn.getOrg(), sid, ent);
             }
             else {
-                //not enough slots to put server
-                return Boolean.FALSE;
+                //entitlement is invalid
+                return false;
             }
         }
         //They have been successfully entitled, or they already were.
-        return Boolean.TRUE;
+        return true;
     }
 
     /**
