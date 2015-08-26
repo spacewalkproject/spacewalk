@@ -20057,6 +20057,12 @@ given channel.</source>
       <trans-unit id="system.jsp.customkey.updatebutton">
         <source>Update Key</source>
       </trans-unit>
+      <trans-unit id="system.jsp.customdata.createtitle">
+        <source>Create Custom Value</source>
+      </trans-unit>
+      <trans-unit id="system.jsp.customdata.updatetitle">
+        <source>Edit Custom Value</source>
+      </trans-unit>
       <trans-unit id="system.jsp.customdata.deletetitle">
         <source>Remove Custom Value</source>
       </trans-unit>

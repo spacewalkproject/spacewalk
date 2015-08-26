@@ -11,7 +11,7 @@
 
 <h2>
   <rhn:icon type="header-info" />
-  <bean:message key="system.jsp.customkey.updatetitle"/>
+  <bean:message key="system.jsp.customdata.createtitle"/>
 </h2>
 
   <hr />
