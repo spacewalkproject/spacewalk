@@ -14,23 +14,16 @@
  */
 package com.redhat.rhn.manager.entitlement;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.entitlement.ManagementEntitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
-import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.manager.BaseManager;
 
 import org.apache.log4j.Logger;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.Set;
-
 
 /**
  * EntitlementManager
@@ -74,39 +67,6 @@ public class EntitlementManager extends BaseManager {
             return VIRTUALIZATION;
         }
         return null;
-    }
-
-    /**
-     * Get count of avail ents for the given entitlement and org.  NULL
-     * if unlimited or not found.
-     *
-     * @param ent to lookup
-     * @param orgIn to query
-     * @return long count of avail ents
-     */
-    public static Long getAvailableEntitlements(Entitlement ent, Org orgIn) {
-        Long available = null;
-        if (log.isDebugEnabled()) {
-            log.debug("getAvailableEntitlements.label: " + ent.getLabel());
-        }
-        SelectMode m =
-            ModeFactory.getMode("General_queries", "server_group_membership");
-
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("org_id", orgIn.getId());
-        params.put("label", ent.getLabel());
-
-        DataResult dr = m.execute(params);
-        if (dr.size() > 0) {
-            Map row = (Map) dr.get(0);
-            Long max = (Long) row.get("max_members");
-            Long current = (Long) row.get("current_members");
-            available = new Long(max.longValue() - current.longValue());
-        }
-        else {
-            log.debug("something weird, we didnt get a SG.");
-        }
-        return available;
     }
 
     /**
