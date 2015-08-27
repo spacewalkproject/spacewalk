@@ -709,7 +709,6 @@ class DistsDumper(BaseSubelementDumper):
     tag_name = 'rhn-dists'
     subelement_dumper_class = _DistDumper
 
-
 class ChannelFamiliesDumper(BaseQueryDumper):
     tag_name = 'rhn-channel-families'
     iterator_query = 'select cf.* from rhnChannelFamily'

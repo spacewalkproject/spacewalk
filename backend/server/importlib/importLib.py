@@ -171,7 +171,6 @@ class DistChannelMap(Information):
         'org_id': IntType,
     }
 
-
 class ReleaseChannelMap(Information):
     attributeTypes = {
         'product': StringType,
