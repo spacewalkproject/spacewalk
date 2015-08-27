@@ -11,22 +11,20 @@
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 <h2><bean:message key="system.audit.schedulexccdf.jsp.schedule"/></h2>
 
-<div>
-<html:form method="post" action="/systems/ssm/audit/ScheduleXccdfConfirm.do">
+<html:form method="post" action="/systems/ssm/audit/ScheduleXccdfConfirm.do" styleClass="form-horizontal">
 
   <%@ include file="/WEB-INF/pages/common/fragments/audit/schedule-xccdf.jspf" %>
-
-  <div class="text-right">
-    </hr>
-    <html:submit styleClass="btn btn-success" property="schedule_button">
-      <bean:message key="system.audit.confirmschedulexccdf.jsp.button"/>
-    </html:submit>
+  <div class="form-group">
+    <div class="col-md-offset-3 col-md-6">
+      <html:submit styleClass="btn btn-success" property="schedule_button">
+        <bean:message key="system.audit.confirmschedulexccdf.jsp.button"/>
+      </html:submit>
+    </div>
   </div>
+
 </html:form>
 
 <%@ include file="/WEB-INF/pages/common/fragments/audit/scapcap-list.jspf" %>
-
-</div>
 
 </body>
 </html>
