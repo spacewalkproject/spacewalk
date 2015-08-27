@@ -4245,7 +4245,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <target>প্রতিষ্ঠানের নাম ৩ থেকে ১২৮-টি অক্ষরের মধ্যে সীমাবদ্ধ রাখা আবশ্যক।</target>
       </trans-unit>
       <trans-unit id="org.users.summary">
-        <source>The following is a list of all users in the {0} organization. Note that you will only have access to modify the details of these users if you are logged into the {0} organization and have organization administrator privleges.</source>
+        <source>The following is a list of all users in the {0} organization. Note that you will only have access to modify the details of these users if you are logged into the {0} organization and have organization administrator privileges.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/UserList</context>
         </context-group>

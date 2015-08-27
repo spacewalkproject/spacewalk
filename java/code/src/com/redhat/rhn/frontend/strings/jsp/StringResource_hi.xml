@@ -4245,7 +4245,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <target>संगठन नाम को 3 से 128 संप्रतीक के बीच होना चाहिए.</target>
       </trans-unit>
       <trans-unit id="org.users.summary">
-        <source>The following is a list of all users in the {0} organization. Note that you will only have access to modify the details of these users if you are logged into the {0} organization and have organization administrator privleges.</source>
+        <source>The following is a list of all users in the {0} organization. Note that you will only have access to modify the details of these users if you are logged into the {0} organization and have organization administrator privileges.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/UserList</context>
         </context-group>
