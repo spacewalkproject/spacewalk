@@ -517,8 +517,6 @@ class ActivationTokens:
         self.user_id = user_id
         self.org_id = org_id
         self.kickstart_session_id = kickstart_session_id
-#        self.entitlement_label = entitlement_label
-#        self.entitlement_name = entitlement_name
         # Boolean
         self.deploy_configs = deploy_configs
         # entitlements is list of tuples [(name, label)]
