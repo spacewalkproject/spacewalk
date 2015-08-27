@@ -46,7 +46,6 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.CPU;
-import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Network;
@@ -55,7 +54,6 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerGroup;
-import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.test.CPUTest;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
@@ -88,7 +86,6 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -437,25 +434,6 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertTrue(SystemManager.entitleServer(guest,
                 EntitlementManager.VIRTUALIZATION).hasErrors());
         assertFalse(guest.hasEntitlement(EntitlementManager.VIRTUALIZATION));
-    }
-
-    public void testEntitleMaxMembers() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
-        user.addPermanentRole(RoleFactory.ORG_ADMIN);
-        Server server = ServerFactoryTest.createUnentitledTestServer(user, true,
-                ServerFactoryTest.TYPE_SERVER_NORMAL, new Date());
-
-        // try to entitle a server with no slots, let it fail
-        UserTestUtils.addManagement(user.getOrg());
-        EntitlementServerGroup group = ServerGroupFactory.lookupEntitled(
-                                                EntitlementManager.MANAGEMENT,
-                                                user.getOrg());
-        TestUtils.saveAndFlush(group);
-        TestUtils.flushAndEvict(group);
-        ValidatorResult vr =
-                SystemManager.entitleServer(server, EntitlementManager.MANAGEMENT);
-        assertFalse("no errors", vr.hasErrors());
     }
 
     public void testVirtualEntitleServer() throws Exception {
