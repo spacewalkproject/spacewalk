@@ -32,10 +32,8 @@ import org.hibernate.Session;
 
 /**
  * ServerGroupTest
- * @version $Rev$
  */
 public class ServerGroupTest extends RhnBaseTestCase {
-    public static final long DEFAULT_MAX_MEMBERS = 10;
 
     public void testEquals() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testorg");
@@ -53,11 +51,6 @@ public class ServerGroupTest extends RhnBaseTestCase {
 
         assertEquals(sg1, sg2);
     }
-
-    /* Commented out while we redo the virtualization entitlements
-    public void testVirtServerGroup() {
-        assertNotNull(ServerConstants.getServerGroupTypeVirtualizationEntitled());
-    }*/
 
     /**
      * @param user
@@ -100,5 +93,4 @@ public class ServerGroupTest extends RhnBaseTestCase {
         assertTrue(org1.getEntitledServerGroups().get(0).getGroupType().
                                                         getFeatures().size() > 0);
     }
-
 }
