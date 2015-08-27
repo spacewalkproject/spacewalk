@@ -11139,6 +11139,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.audit.listscap.jsp.testresult">
           <source>Xccdf Test Result</source>
         </trans-unit>
+        <trans-unit id="system.audit.listscap.jsp.diff">
+          <source>Diff</source>
+        </trans-unit>
         <trans-unit id="system.audit.listscap.jsp.completed">
           <source>Completed</source>
         </trans-unit>

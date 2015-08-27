@@ -1,4 +1,9 @@
 <rl:column headerkey="system.audit.listscap.jsp.testresult">
+        <a href="/rhn/systems/details/audit/XccdfDetails.do?sid=${param.sid}&xid=${current.xid}">
+                ${current.testResult}
+        </a>
+</rl:column>
+<rl:column headerkey="system.audit.listscap.jsp.diff">
         <c:choose>
                 <c:when test="${not empty current.comparableId}">
                         <a href="/rhn/audit/scap/DiffSubmit.do?first=${current.comparableId}&second=${current.xid}&view=changed">
@@ -21,11 +26,7 @@
                 <c:otherwise>
                         <rhn:icon type="system-unknown" title="system.audit.xccdfdetails.jsp.nodiff" />
                 </c:otherwise>
-        </c:choose>&nbsp;
-
-        <a href="/rhn/systems/details/audit/XccdfDetails.do?sid=${param.sid}&xid=${current.xid}">
-                ${current.testResult}
-        </a>
+        </c:choose>
 </rl:column>
 <rl:column headerkey="system.audit.listscap.jsp.completed">
         ${current.completed}
