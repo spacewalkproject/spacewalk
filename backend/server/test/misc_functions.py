@@ -53,13 +53,12 @@ def create_new_org():
     return (org_id, org_name, org_password)
 
 
-def _create_server_group(org_id, name, description, max_members):
+def _create_server_group(org_id, name, description):
     "Create a server group; return the server group object"
     s = rhnServerGroup.ServerGroup()
     s.set_org_id(org_id)
     s.set_name(name)
     s.set_description(description)
-    s.set_max_members(max_members)
     s.save()
     rhnSQL.commit()
     return s
@@ -101,7 +100,6 @@ def build_server_group_params(**kwargs):
         'org_id':   'no such org',
         'name':   "unittest group name %.3f" % time.time(),
         'description':   "unittest group description %.3f" % time.time(),
-        'max_members':   1001,
     }
     params.update(kwargs)
     return params
