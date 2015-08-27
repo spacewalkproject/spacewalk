@@ -4293,12 +4293,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
         <target>सिस्टम</target>
       </trans-unit>
-      <trans-unit id="None Allocated">
-        <source>None Allotted</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="satusers.tip">
         <source>&lt;strong&gt;*Tip:&lt;/strong&gt; Organization administrator privileges can
 not be modified on this page. Instead, please visit the "Users" top-level
@@ -21352,15 +21346,6 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="currentMembers">
         <source>Regular Usage - Used</source>
-      </trans-unit>
-      <trans-unit id="maxMembers">
-        <source>Regular Usage - Alloted</source>
-      </trans-unit>
-      <trans-unit id="currentFlex">
-        <source>Flex Usage - Used</source>
-      </trans-unit>
-      <trans-unit id="maxFlex">
-        <source>Flex Usage - Allotted</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>
