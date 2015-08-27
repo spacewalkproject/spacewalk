@@ -14,11 +14,9 @@
  */
 package com.redhat.rhn.frontend.dto;
 
-import java.util.Date;
 
 /**
  * SystemGroupOverview
- * @version $Rev$
  */
 public class SystemGroupOverview extends BaseDto {
 
@@ -26,10 +24,7 @@ public class SystemGroupOverview extends BaseDto {
     private String name;
     private Long groupAdmins;
     private Long serverCount;
-    private Date modified;
-    private Long maxMembers;
     private String mostSevereErrata;
-
 
     /**
      * Gets the most severe errata type
@@ -78,30 +73,6 @@ public class SystemGroupOverview extends BaseDto {
      */
     public void setId(Long idIn) {
         this.id = idIn;
-    }
-    /**
-     * @return Returns the maxMembers.
-     */
-    public Long getMaxMembers() {
-        return maxMembers;
-    }
-    /**
-     * @param maxMembersIn The maxMembers to set.
-     */
-    public void setMaxMembers(Long maxMembersIn) {
-        this.maxMembers = maxMembersIn;
-    }
-    /**
-     * @return Returns the modified.
-     */
-    public Date getModified() {
-        return modified;
-    }
-    /**
-     * @param modifiedIn The modified to set.
-     */
-    public void setModified(Date modifiedIn) {
-        this.modified = modifiedIn;
     }
     /**
      * @return Returns the name.
