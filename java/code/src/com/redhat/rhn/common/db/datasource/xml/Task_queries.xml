@@ -325,7 +325,6 @@ select distinct sg.org_id as id
   from rhnServerGroup sg, rhnServerGroupType sgt
  where SGT.label = 'enterprise_entitled'
    AND SGT.id = SG.group_type
-   AND SG.max_members > 0
    and sg.org_id in (
        select s.org_id
          from rhnServer s, rhnServerINfo si
@@ -345,7 +344,6 @@ SELECT DISTINCT S.org_id as id
        rhnServerGroupType SGT
  WHERE SGT.label = 'enterprise_entitled'
    AND SGT.id = SG.group_type
-   AND SG.max_members > 0
    AND SG.org_id = S.org_id
    AND  S.id = SA.server_id
    AND SA.modified between current_timestamp - interval '1' day and current_timestamp
