@@ -8002,13 +8002,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>ਗਲਤ ਐਡ-ਆਨ ਇੰਟਾਈਟਲਮੈਂਟ [{0}] ਮਨਜੂਰ ਕੀਤਾ ਗਿਆ ਹੈ। ਅਜਿਹਾ ਕੋਈ ਇੰਟਾਈਟਲਮੈਂਟ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।</target>
       </trans-unit>
-      <trans-unit id="system.entitle.no-add.solaris-slots">
-        <source>{0} entitlements cannot be added to solaris machines</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>{0} ਇੰਟਾਈਟਲਮੈਂਟ ਨੂੰ ਸੋਲਾਰਸ ਮਸ਼ੀਨਾਂ ਉੱਪਰ ਸ਼ਾਮਲਿ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।</target>
-      </trans-unit>
       <trans-unit id="system.entitle.guestcantvirt">
         <source>The system cannot have a Virtualization entitlement because it is a virtual guest.</source>
         <context-group name="ctx">
