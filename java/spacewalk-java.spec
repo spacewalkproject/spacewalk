@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.58
+Version: 2.4.59
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 27 2015 Jan Dobes 2.4.59-1
+- 1000415 - add icon for compliance status
+- 1000415 - show diff icon in separate column
+- 1000415 - change icon for empty diff
+- making confirm page readable
+- Organization users page: fix typo
+
 * Wed Aug 26 2015 Jan Dobes 2.4.58-1
 - correct message
 - this is not a toolbar
