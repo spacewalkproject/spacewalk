@@ -157,6 +157,7 @@ public class IconTag extends TagSupport {
         icons.put("system-warn", "fa fa-exclamation-triangle fa-1-5x text-warning");
         icons.put("repo-sync", "fa fa-refresh");
         icons.put("repo-schedule-sync", "fa fa-calendar");
+        icons.put("scap-nochange", "fa fa-dot-circle-o fa-1-5x text-info");
     }
 
     /**

@@ -4,7 +4,7 @@
                         <a href="/rhn/audit/scap/DiffSubmit.do?first=${current.comparableId}&second=${current.xid}&view=changed">
                         <c:choose>
                                 <c:when test="${current.diffIcon == 'checked'}" >
-                                        <rhn:icon type="system-ok" title="scapdiff.jsp.i.checked" />
+                                        <rhn:icon type="scap-nochange" title="scapdiff.jsp.i.checked" />
                                 </c:when>
                                 <c:when test="${current.diffIcon == 'alert'}" >
                                         <rhn:icon type="system-warn" title="scapdiff.jsp.i.alert" />
