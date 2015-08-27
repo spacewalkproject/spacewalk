@@ -8253,13 +8253,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>Дополнительное полномочие [{0}] не существует.</target>
       </trans-unit>
-      <trans-unit id="system.entitle.no-add.solaris-slots">
-        <source>{0} entitlements cannot be added to solaris machines</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>Полномочия {0} не могут быть добавлены для Solaris.</target>
-      </trans-unit>
       <trans-unit id="system.entitle.guestcantvirt">
         <source>The system cannot have a Virtualization entitlement because it is a virtual guest.</source>
         <context-group name="ctx">

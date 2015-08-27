@@ -8256,13 +8256,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>提供了無效的額外權利「{0}」。這項權利不存在。</target>
       </trans-unit>
-      <trans-unit id="system.entitle.no-add.solaris-slots">
-        <source>{0} entitlements cannot be added to solaris machines</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>{0} 權利無法新增到 Solaris 機器上</target>
-      </trans-unit>
       <trans-unit id="system.entitle.guestcantvirt">
         <source>The system cannot have a Virtualization entitlement because it is a virtual guest.</source>
         <context-group name="ctx">
