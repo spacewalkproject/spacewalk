@@ -14,65 +14,9 @@
  */
 package com.redhat.rhn.domain.server;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 
 /**
- * EntitledServerGroup
+ * A ServerGroup that corresponds to an entitlement.
  */
 public class EntitlementServerGroup extends ServerGroup {
-    private Long maxMembers;
-
-    /**
-     * Getter for maxMembers
-     * @return Long to get
-    */
-    public Long getMaxMembers() {
-        return this.maxMembers;
-    }
-
-    /**
-     * Setter for maxMembers
-     * @param maxMembersIn to set
-    */
-    public void setMaxMembers(Long maxMembersIn) {
-        this.maxMembers = maxMembersIn;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public int hashCode() {
-        return new HashCodeBuilder().append(super.hashCode())
-                                    .append(getMaxMembers())
-                                    .toHashCode();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean equals(Object other) {
-        if (!(other instanceof EntitlementServerGroup)) {
-            return false;
-        }
-        EntitlementServerGroup castOther = (EntitlementServerGroup) other;
-        if (!super.equals(other)) {
-            return false;
-        }
-        return new EqualsBuilder().append(getMaxMembers(), castOther.getMaxMembers())
-                                  .append(getCurrentMembers(),
-                                              castOther.getCurrentMembers())
-                                  .isEquals();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String toString() {
-        return new ToStringBuilder(this).append(super.toString()).
-                    append("maxMembers", getMaxMembers()).append("currentMembers",
-                                    getCurrentMembers()).toString();
-    }
 }

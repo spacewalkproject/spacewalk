@@ -48,7 +48,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
        <subclass name="com.redhat.rhn.domain.server.EntitlementServerGroup"
                 discriminator-value="not null">
-                        <property name="maxMembers" column="max_members" type="long" />
        </subclass>
         </class>
 
