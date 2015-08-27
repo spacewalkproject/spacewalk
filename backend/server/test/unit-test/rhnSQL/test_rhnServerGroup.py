@@ -65,7 +65,6 @@ class Tests(unittest.TestCase):
         s = misc_functions.fetch_server_group(params['org_id'], params['name'])
         self.assertEqual(s.get_name(), params['name'])
         self.assertEqual(s.get_description(), params['description'])
-        self.assertEqual(s.get_max_members(), params['max_members'])
 
     def test_exception_user_missing_1(self):
         params = misc_functions.build_server_group_params(org_id="no such user")

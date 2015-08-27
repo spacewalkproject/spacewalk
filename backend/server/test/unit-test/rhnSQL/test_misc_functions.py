@@ -87,13 +87,12 @@ class Tests(unittest.TestCase):
         "Grant entitlements"
         org_id = misc_functions.create_new_org()
         entitlement_level = 'enterprise_entitled'
-        quantity = 17
 
-        misc_functions.grant_entitlements(org_id, entitlement_level, quantity)
+        misc_functions.grant_entitlements(org_id, entitlement_level)
 
         # Verify
         h = rhnSQL.prepare("""
-            select sg.max_members quantity
+            select 1
               from rhnServerGroupType sgt, rhnServerGroup sg
              where sg.org_id = :org_id
                and sg.group_type = sgt.id
@@ -103,7 +102,6 @@ class Tests(unittest.TestCase):
         row = h.fetchone_dict()
 
         self.assertNotEqual(row, None)
-        self.assertEqual(row['quantity'], quantity)
 
 
 if __name__ == '__main__':
