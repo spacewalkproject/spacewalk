@@ -605,12 +605,7 @@ class ActivationTokens:
             except rhnSQL.SQLSchemaError, e:
                 log_error("Token failed to entitle server", server_id,
                           self.get_names(), entitlement[0], e.errmsg)
-                if e.errno == 20220:
-                    # ORA-20220: (servergroup_max_members) - Server group membership
-                    # cannot exceed maximum membership
-                    raise rhnFault(91,
-                                   _("Registration failed: RHN Software service entitlements exhausted: %s") % entitlement[0]), None, sys.exc_info()[2]
-                # No idea what error may be here...
+                #No idea what error may be here...
                 raise rhnFault(90, e.errmsg), None, sys.exc_info()[2]
             except rhnSQL.SQLError, e:
                 log_error("Token failed to entitle server", server_id,
