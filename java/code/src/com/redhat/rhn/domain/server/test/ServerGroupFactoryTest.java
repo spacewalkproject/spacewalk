@@ -66,7 +66,6 @@ public class ServerGroupFactoryTest extends BaseTestCaseWithUser {
                 .getServerGroupTypeEnterpriseEntitled());
         EntitlementServerGroup sg = ServerGroupFactory.lookupEntitled(user.getOrg(),
                     ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        sg.setMaxMembers(new Long(10));
         ServerGroupFactory.save(sg);
         TestUtils.saveAndFlush(sg);
     }

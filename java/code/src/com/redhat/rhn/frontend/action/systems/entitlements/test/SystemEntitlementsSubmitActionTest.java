@@ -29,9 +29,7 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
-import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.ServerTestUtils;
-import com.redhat.rhn.testing.TestUtils;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -164,51 +162,6 @@ public class SystemEntitlementsSubmitActionTest extends RhnPostMockStrutsTestCas
          assertTrue(SystemManager.hasEntitlement(server.getId(),
                                                      EntitlementManager.MANAGEMENT));
          verifyActionMessage(success(MANAGEMENT));
-    }
-
-    /**
-     *
-     * @throws Exception on server init failure
-     */
-    private void testExhaustedSlots(ServerGroupType initType,
-                                        ServerGroupType addOnType,
-                                        String dispatchKey,
-                                        Entitlement ent,
-                                        String failMsg
-                                        ) throws Exception {
-        final Server server1 = ServerFactoryTest.createTestServer(user, true, initType);
-        final Server server2 = ServerFactoryTest.createTestServer(user, true, initType);
-
-        // add type update to the server now
-        EntitlementServerGroup addOn = ServerGroupTestUtils.createEntitled(user.getOrg(),
-                                                                          addOnType);
-        addOn.setMaxMembers(new Long(addOn.getCurrentMembers().longValue() + 1));
-        TestUtils.saveAndFlush(addOn);
-
-        String [] selectedItems = {server1.getId().toString(),
-                                                server2.getId().toString()};
-
-        addRequestParameter("items_on_page", (String)null);
-        addRequestParameter("items_selected", selectedItems);
-        addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
-        addDispatchCall(dispatchKey);
-        actionPerform();
-
-        /*
-         * this should fail on server2 even though the org has groups of both types
-         * because the org becasue Max Members = 1 but
-         *  we are trying to add 2 systems to updategroup.
-         */
-        verifyActionMessage(failMsg);
-
-        boolean a = SystemManager.hasEntitlement(server1.getId(), ent);
-
-        boolean b = SystemManager.hasEntitlement(server2.getId(), ent);
-
-        // Either the the first server1 got updated successfully &
-        // second one didn't
-        // or vice versa
-        assertTrue((a && !b)  || (!a && b));
     }
 
     /**
