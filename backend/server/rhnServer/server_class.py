@@ -399,14 +399,6 @@ class Server(ServerWrapper):
                 self._entitle(entitlement)
                 any_base_entitlements = 1
             except rhnSQL.SQLSchemaError, e:
-                if e.errno == 20220:
-                    # ORA-20220: (servergroup_max_members) - Server group
-                    # membership cannot excede maximum membership
-                    #
-                    # ignore for now, since any_base_entitlements will throw
-                    # an error at the end if not set
-                    continue
-
                 if e.errno == 20287:
                     # ORA-20287: (invalid_entitlement) - The server can not be
                     # entitled to the specified level
