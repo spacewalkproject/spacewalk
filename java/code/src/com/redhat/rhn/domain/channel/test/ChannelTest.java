@@ -111,9 +111,7 @@ public class ChannelTest extends BaseTestCaseWithUser {
     public void testIsProxy() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         ChannelFamily cfam =
-                ChannelFamilyFactoryTest.createTestChannelFamily(user,
-                        ChannelFamilyFactoryTest.ENTITLEMENT_ALLOCATION,
-                        ChannelFamilyFactoryTest.FLEX_ALLOCATION, false,
+                ChannelFamilyFactoryTest.createTestChannelFamily(user, false,
                         ChannelFamilyFactory.PROXY_CHANNEL_FAMILY_LABEL);
 
         c.setChannelFamily(cfam);

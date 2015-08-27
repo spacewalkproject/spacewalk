@@ -62,11 +62,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         }
         TestUtils.saveAndFlush(admin);
 
-        channelFamily = ChannelFamilyFactoryTest.createTestChannelFamily(
-                admin,
-                ChannelFamilyFactoryTest.ENTITLEMENT_ALLOCATION,
-                ChannelFamilyFactoryTest.FLEX_ALLOCATION,
-                true);
+        channelFamily = ChannelFamilyFactoryTest.createTestChannelFamily(admin, true);
     }
 
     public void testCreate() throws Exception {
