@@ -1,4 +1,12 @@
 <rl:column headerkey="system.audit.listscap.jsp.testresult">
+        <c:choose>
+                <c:when test="${current.sum - current.notselected - current.informational == current.pass}">
+                        <rhn:icon type="system-ok" />
+                </c:when>
+                <c:otherwise>
+                        <rhn:icon type="system-crit" />
+                </c:otherwise>
+        </c:choose>&nbsp;
         <a href="/rhn/systems/details/audit/XccdfDetails.do?sid=${param.sid}&xid=${current.xid}">
                 ${current.testResult}
         </a>
