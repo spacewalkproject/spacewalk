@@ -253,11 +253,6 @@ def check_entitlement(server_id):
     return ents
 
 
-def entitlement_grants_service(entitlement, service):
-    egs = rhnSQL.Function("rhn_entitlements.entitlement_grants_service",
-                          rhnSQL.types.STRING())
-    return egs(entitlement, service)
-
 # Push client related
 # XXX should be moved to a different file?
 _query_update_push_client_registration = rhnSQL.Statement("""
