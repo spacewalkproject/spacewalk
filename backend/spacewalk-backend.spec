@@ -585,7 +585,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/satpasswd
 %attr(755,root,root) %{_bindir}/satwho
 %attr(755,root,root) %{_bindir}/spacewalk-remove-channel*
-%attr(755,root,root) %{_bindir}/rhn-entitlement-report
 %attr(755,root,root) %{_bindir}/spacewalk-update-signatures
 %attr(755,root,root) %{_bindir}/spacewalk-data-fsck
 %attr(755,root,root) %{_bindir}/spacewalk-fips-tool
@@ -633,7 +632,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/spacewalk-data-fsck.8*
 %{_mandir}/man8/spacewalk-update-signatures.8*
 %{_mandir}/man8/update-packages.8*
-%{_mandir}/man8/rhn-entitlement-report.8*
 
 %files xml-export-libs
 %doc LICENSE

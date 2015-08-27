@@ -128,11 +128,6 @@ for tomcat in tomcat tomcat5 tomcat6 ; do
   fi
 done
 
-#entitlement report
-if [ -x /usr/bin/rhn-entitlement-report ]; then
-   /usr/bin/rhn-entitlement-report &> $DIR/entitlement-report
-fi
-
 # copying the /usr/share/rhn/config-defaults
 echo "    * copying config-defaults files"
 if [ -d /usr/share/rhn/config-defaults ]; then

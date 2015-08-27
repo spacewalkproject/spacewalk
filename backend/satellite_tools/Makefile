@@ -13,8 +13,7 @@ SPACEWALK_FILES	= __init__ connection constants diskImportLib messages \
             xmlSource xmlWireSource rhn_ssl_dbstore \
             satComputePkgHeaders updatePackages reposync \
 	    geniso
-
-SCRIPTS = satellite-sync spacewalk-debug rhn-entitlement-report \
+SCRIPTS = satellite-sync spacewalk-debug \
 	  rhn-schema-version rhn-charsets \
 	  rhn-ssl-dbstore update-packages rhn-db-stats rhn-schema-stats \
           spacewalk-repo-sync spacewalk-remove-channel \
