@@ -127,7 +127,7 @@ def getServerSecret(server):
 # Server Class Helper functions
 ###############################
 
-def __create_server_group(group_label, org_id, maxnum=''):
+def __create_server_group(group_label, org_id):
     """ create the initial server groups for a new server """
     # Add this new server to the pending group
     h = rhnSQL.prepare("""
@@ -144,16 +144,16 @@ def __create_server_group(group_label, org_id, maxnum=''):
         ret_id = rhnSQL.Sequence("rhn_server_group_id_seq")()
         h = rhnSQL.prepare("""
         insert into rhnServerGroup
-        ( id, name, description, max_members,
+        ( id, name, description,
           group_type, org_id)
         select
-            :new_id, sgt.name, sgt.name, :maxnum,
+            :new_id, sgt.name, sgt.name,
             sgt.id, :org_id
         from rhnServerGroupType sgt
         where sgt.label = :group_label
         """)
         rownum = h.execute(new_id=ret_id, org_id=org_id,
-                           group_label=group_label, maxnum=str(maxnum))
+                           group_label=group_label)
         if rownum == 0:
             # No rows were created, probably invalid label
             raise rhnException("Could not create new group for org=`%s'"
