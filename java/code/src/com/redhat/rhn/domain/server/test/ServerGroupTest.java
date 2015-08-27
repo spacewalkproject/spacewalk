@@ -81,9 +81,6 @@ public class ServerGroupTest extends RhnBaseTestCase {
             EntitlementServerGroup group = ServerGroupFactory.lookupEntitled(
                                         typeIn.getAssociatedEntitlement(), org);
             assertNotNull(group);
-            assertNotNull(group.getMaxMembers());
-            assertTrue(group.getMaxMembers() > 0);
-            assertTrue(group.getMaxMembers() - group.getCurrentMembers() > 0);
             assertNotNull(group.getGroupType().getAssociatedEntitlement());
             return group;
 

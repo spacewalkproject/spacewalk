@@ -19,8 +19,6 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
-import com.redhat.rhn.domain.server.ServerGroupFactory;
-import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.action.systems.entitlements.SystemEntitlementsSetupAction;
@@ -94,30 +92,6 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
                             SystemEntitlementsSetupAction.SHOW_ADDON_ASPECTS));
         assertNotNull(request.getAttribute(
                             SystemEntitlementsSetupAction.ADDON_ENTITLEMENTS));
-
-        testZeroSlots(SystemEntitlementsSetupAction.SHOW_MANAGEMENT_ASPECTS,
-                        ServerConstants.getServerGroupTypeEnterpriseEntitled());
-    }
-    /**
-     * Tests the case where there are zero slots available
-     * for a give servergroup type. In ttaht case we want the
-     * button set by the param name hidden.
-     * @param server server object
-     * @param buttonName name of the button to be hidden
-     * @param testGroupType the group type who's available subscriptions = 0
-     */
-    private void testZeroSlots(String buttonName,
-                                ServerGroupType testGroupType) throws Exception {
-
-        // Testing to make sure the Management Entitled Button does not show up
-         // if the number of subscription slots = 0
-        EntitlementServerGroup group = ServerGroupFactory.lookupEntitled
-                                                (user.getOrg(), testGroupType);
-        group.setMaxMembers(group.getCurrentMembers());
-        ServerGroupFactory.save(group);
-        request.removeAttribute(buttonName);
-        executeTests();
-        assertNull(request.getAttribute(buttonName));
     }
 
     /**
@@ -164,7 +138,6 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
         String message = (String)request.getAttribute(
                 SystemEntitlementsSetupAction.MANAGEMENT_COUNTS_MESSAGE);
 
-        assertTrue(message.indexOf(String.valueOf(eGrp.getMaxMembers())) > 0);
         assertTrue(message.indexOf(String.valueOf(eGrp.getCurrentMembers())) > 0);
     }
 }
