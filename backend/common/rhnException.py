@@ -149,8 +149,6 @@ on this system."),
 
     # 90-100: entitlement errors
     90: _("Unable to entitle system"),
-    91: _("Registration token unable to entitle system: \
-maximum membership exceeded"),
 
     # 100-109: e-mail and uuid related faults
     100: _("Maximum e-mail length violation."),
