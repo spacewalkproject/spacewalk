@@ -243,7 +243,6 @@ public class SystemHandler extends BaseHandler {
      *   - The logged in user cannot access the system
      *   - The entitlement cannot be found
      *   - The server cannot be entitled with the given entitlement
-     *   - There are no available slots for the entitlement.
      *
      * @xmlrpc.doc Adds an entitlement to a given server.
      * @xmlrpc.param #param("string", "sessionKey")
