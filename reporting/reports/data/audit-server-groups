@@ -17,12 +17,11 @@ columns:
 	organization_id:i	Organization identifier
 	group_name		Server group name
 	group_description 	Server group description
-	max_members 		Number of server group max members
 	current_members 	Number of server group current members
 
 sql:
 
-	select group_id, audit_stamp, audit_action, audit_user_id, audit_username, organization_id, group_name, group_description, max_members, current_members
+	select group_id, audit_stamp, audit_action, audit_user_id, audit_username, organization_id, group_name, group_description, current_members
 	from (
 	select log.id as log_id,
 		rhnServerGroup_log.id as group_id,
@@ -36,7 +35,6 @@ sql:
 		rhnServerGroup_log.org_id as organization_id,
 		rhnServerGroup_log.name as group_name,
 		rhnServerGroup_log.description as group_description,
-		rhnServerGroup_log.max_members as max_members,
 		rhnServerGroup_log.current_members as current_members
 	from rhnServerGroup_log left outer join log
 			on log.id=rhnServerGroup_log.log_id
