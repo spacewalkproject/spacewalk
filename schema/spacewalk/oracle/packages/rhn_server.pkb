@@ -459,14 +459,7 @@ is
 		server_group_id_in in number
     ) is
 		used_slots number;
-		max_slots number;
 		org_id number;
-		mgmt_available number;
-		mgmt_upgrade number;
-		mgmt_sgid number;
-		prov_available number;
-		prov_upgrade number;
-		prov_sgid number;
 		group_label rhnServerGroupType.label%TYPE;
 		group_type number;
 	begin
@@ -475,16 +468,13 @@ is
 		-- this will rowlock the servergroup we're trying to change;
 		-- we probably need to lock the other one, but I think the chances
 		-- of it being a real issue are very small for now...
-		select	sg.group_type, sg.org_id, sg.current_members, sg.max_members
-		into	group_type, org_id, used_slots, max_slots
+		select	sg.group_type, sg.org_id, sg.current_members
+		into	group_type, org_id, used_slots
 		from	rhnServerGroup sg
 		where	sg.id = server_group_id_in
 		for update of sg.current_members;
 
 		if group_type is null then
-			if used_slots >= max_slots then
-				rhn_exception.raise_exception('servergroup_max_members');
-			end if;
 
 			insert into rhnServerGroupMembers(
 					server_id, server_group_id
@@ -501,38 +491,22 @@ is
 
 		-- now for group_type != null
 		-- 
-		select	label
-		into	group_label
-		from	rhnServerGroupType	sgt
-		where	sgt.id = group_type;
+    select  label
+    into  group_label
+    from  rhnServerGroupType  sgt
+    where sgt.id = group_type;
 
-		-- the naive easy path that gets hit most often and has to be quickest.
-		if group_label in (
-                           'enterprise_entitled',
-                           'virtualization_host'
-                      ) then
-			if used_slots >= max_slots and 
-               (can_server_consume_virt_slot(server_id_in, group_label) != 1) 
-               then
-				rhn_exception.raise_exception('servergroup_max_members');
-			end if;
+		insert into rhnServerGroupMembers(server_id, server_group_id)
+		values (server_id_in, server_group_id_in);
 
-			insert into rhnServerGroupMembers(
-					server_id, server_group_id
-				) values (
-					server_id_in, server_group_id_in
-				);
-
-            -- Only update current members if the system in consuming a 
-            -- physical slot.
-            if can_server_consume_virt_slot(server_id_in, group_label) = 0 then
-                update rhnServerGroup
-                set current_members = current_members + 1
-                where id = server_group_id_in;
-            end if;                
-
-			return;
-		end if;
+                -- Only update current members if the system in consuming a
+                -- physical slot.
+                if can_server_consume_virt_slot(server_id_in, group_label) = 0 then
+                    update rhnServerGroup
+                    set current_members = current_members + 1
+                    where id = server_group_id_in;
+                end if;
+		return;
 	end;
 
 	function insert_into_servergroup_maybe (
