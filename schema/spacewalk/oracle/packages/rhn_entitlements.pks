@@ -77,12 +77,6 @@ is
 		customer_id_in in number
 	);
 
-    procedure activate_system_entitlement(
-        org_id_in in number,
-        group_label_in in varchar2,
-        quantity_in in number
-    );
-
     -- this makes NO checks that the quantity is within max,
     -- so we should NEVER run this unless we KNOW that we won't be
     -- violating the max
