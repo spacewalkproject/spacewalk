@@ -47,8 +47,7 @@ is
 
 	procedure remove_server_entitlement (
 		server_id_in in number,
-		type_label_in in varchar2,
-        repoll_virt_guests in number := 1
+		type_label_in in varchar2
 	);
 
 	procedure unentitle_server (
