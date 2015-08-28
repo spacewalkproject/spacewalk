@@ -119,6 +119,30 @@ begin
 		NULL, ug_type, 1
 	);
 
+	-- there aren't any users yet, so we don't need to update
+	-- rhnUserServerPerms
+
+        insert into rhnServerGroup
+                ( id, name, description, max_members, group_type, org_id )
+                select rhn_server_group_id_seq.nextval, sgt.name, sgt.name,
+                        200000, sgt.id, 1
+                from rhnServerGroupType sgt
+                where sgt.label = 'bootstrap_entitled';
+        
+        insert into rhnServerGroup
+                ( id, name, description, max_members, group_type, org_id )
+                select rhn_server_group_id_seq.nextval, sgt.name, sgt.name,
+                        200000, sgt.id, 1
+                from rhnServerGroupType sgt
+                where sgt.label = 'enterprise_entitled';
+        
+        insert into rhnServerGroup
+                ( id, name, description, max_members, group_type, org_id )
+                select rhn_server_group_id_seq.nextval, sgt.name, sgt.name,
+                        200000, sgt.id, 1
+                from rhnServerGroupType sgt
+                where sgt.label = 'virtualization_host';
+
 end create_first_org;
 /
 show errors;
