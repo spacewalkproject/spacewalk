@@ -119,6 +119,23 @@ begin
 		NULL, ug_type, 1
 	);
 
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'config_admin';
+
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Configuration Administrators',
+		'Configuration Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+
 	-- there aren't any users yet, so we don't need to update
 	-- rhnUserServerPerms
 
