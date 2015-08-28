@@ -362,13 +362,6 @@ def setup_db_connection():
     )
 
 
-def grant_entitlements(org_id, entitlement, quantity):
-    activate_system_entitlement = rhnSQL.Procedure(
-        "rhn_entitlements.activate_system_entitlement")
-
-    activate_system_entitlement(org_id, entitlement, quantity)
-
-
 def grant_channel_family_entitlements(org_id, channel_family, quantity):
     """
     Check to see if org has a channelfamily associated with it.
