@@ -13,10 +13,10 @@
 -- in this software or its documentation. 
 --
 CREATE OR REPLACE VIEW rhnVisServerGroupMembership (
-         ORG_ID, SERVER_ID, GROUP_ID, GROUP_NAME, GROUP_TYPE, CURRENT_MEMBERS, MAX_MEMBERS
+         ORG_ID, SERVER_ID, GROUP_ID, GROUP_NAME, GROUP_TYPE, CURRENT_MEMBERS
 )
 AS
-SELECT   SG.org_id, SGM.server_id, SG.id, SG.name, SGT.label, SG.current_members, SG.max_members
+SELECT   SG.org_id, SGM.server_id, SG.id, SG.name, SGT.label, SG.current_members
   FROM
 	 rhnServerGroupMembers SGM
             right outer join
