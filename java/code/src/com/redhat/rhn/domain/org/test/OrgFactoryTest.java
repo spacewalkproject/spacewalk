@@ -24,8 +24,6 @@ import com.redhat.rhn.domain.org.OrgEntitlementType;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
-import com.redhat.rhn.domain.server.test.ServerGroupTest;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.token.TokenFactory;
@@ -212,16 +210,6 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
         assertNotNull(org1.getRoles());
         assertTrue(org1.hasRole(RoleFactory.ORG_ADMIN));
-    }
-
-    public void testAddServerGroup() throws Exception {
-        Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
-        int previousGroupCount = org1.getEntitledServerGroups().size();
-
-        ServerGroupTest.createTestServerGroup(org1, ServerConstants
-                .getServerGroupTypeEnterpriseEntitled());
-
-        assertEquals(previousGroupCount + 1, org1.getEntitledServerGroups().size());
     }
 
     public void testLookupSatOrg() {
