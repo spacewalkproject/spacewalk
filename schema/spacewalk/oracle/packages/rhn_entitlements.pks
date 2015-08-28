@@ -73,16 +73,9 @@ is
 		customer_id_in in number
 	);
 
-  procedure unset_customer_enterprise (
+    procedure unset_customer_enterprise (
 		customer_id_in in number
 	);
-
-    procedure assign_system_entitlement(
-        group_label_in in varchar2,
-        from_org_id_in in number,
-        to_org_id_in in number,
-        quantity_in in number
-    );
 
     procedure activate_system_entitlement(
         org_id_in in number,
