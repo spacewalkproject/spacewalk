@@ -25,8 +25,6 @@ insert into rhnException values (-20102, 'channel_server_one_base', 'A server ca
 
 insert into rhnException values (-20200, 'usergroup_max_members', 'User group membership cannot exceed maximum membership');
 
-insert into rhnException values (-20220, 'servergroup_max_members', 'Server group membership cannot exceed maximum membership');
-
 insert into rhnException values (-20230, 'ugm_different_orgs', 'User and usergroup must be in same group to make a user a member');
 insert into rhnException values (-20231, 'sgm_different_orgs', 'Server and servergroup must be in same group to make a server a member');
 insert into rhnException values (-20232, 'no_org_admin_group', 'Organization has no org_admin usergroup');
