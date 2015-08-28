@@ -34,6 +34,7 @@ import org.apache.struts.util.LabelValueBean;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * SystemDetailsEditActionTest
@@ -121,10 +122,11 @@ public class SystemDetailsEditActionTest extends RhnPostMockStrutsTestCase {
 
     public void testAddonEntitlemntsList() throws Exception {
         actionPerform();
-        assertNotNull(request.getAttribute(SystemDetailsEditAction.ADDON_ENTITLEMENTS));
-        List addons = (List)
-            request.getAttribute(SystemDetailsEditAction.ADDON_ENTITLEMENTS);
-        assertTrue(addons.size() > 0);
+        Object addonsAtt =
+                request.getAttribute(SystemDetailsEditAction.ADDON_ENTITLEMENTS);
+        assertNotNull(addonsAtt);
+        Set<Entitlement> addons = (Set<Entitlement>) addonsAtt;
+        assertFalse(addons.isEmpty());
     }
 
     public void testBaseEntitlementListForUnetitledSystem() throws Exception {
