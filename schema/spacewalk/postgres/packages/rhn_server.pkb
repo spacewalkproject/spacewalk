@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 04800143e8be97d24689602e38c53270d513f7ff
+-- oracle equivalent source sha1 9eadafdda7894845d9beb2e0e9d019e6649427e3
 --
 -- Copyright (c) 2008--2014 Red Hat, Inc.
 --
@@ -489,14 +489,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
     as $$
     declare
 		used_slots numeric;
-		max_slots numeric;
 		org_id numeric;
-		mgmt_available numeric;
-		mgmt_upgrade numeric;
-		mgmt_sgid numeric;
-		prov_available numeric;
-		prov_upgrade numeric;
-		prov_sgid numeric;
 		group_label varchar;
 		group_type numeric;
 	begin
@@ -505,16 +498,13 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 		-- this will rowlock the servergroup we're trying to change;
 		-- we probably need to lock the other one, but I think the chances
 		-- of it being a real issue are very small for now...
-		select	sg.group_type, sg.org_id, sg.current_members, sg.max_members
-		into	group_type, org_id, used_slots, max_slots
+		select	sg.group_type, sg.org_id, sg.current_members
+		into	group_type, org_id, used_slots
 		from	rhnServerGroup sg
 		where	sg.id = server_group_id_in
 		for update of sg;
 
 		if group_type is null then
-			if used_slots >= max_slots then
-				perform rhn_exception.raise_exception('servergroup_max_members');
-			end if;
 
 			insert into rhnServerGroupMembers(
 					server_id, server_group_id
@@ -537,32 +527,19 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 		where	sgt.id = group_type;
 
 		-- the naive easy path that gets hit most often and has to be quickest.
-		if group_label in (
-                           'enterprise_entitled',
-                           'virtualization_host'
-                      ) then
-			if used_slots >= max_slots and 
-               (rhn_server.can_server_consume_virt_slot(server_id_in, group_label) != 1) 
-               then
-				perform rhn_exception.raise_exception('servergroup_max_members');
-			end if;
 
-			insert into rhnServerGroupMembers(
-					server_id, server_group_id
-				) values (
-					server_id_in, server_group_id_in
-				);
+		insert into rhnServerGroupMembers(server_id, server_group_id)
+		values (server_id_in, server_group_id_in);
 
-            -- Only update current members if the system in consuming a 
-            -- physical slot.
-            if rhn_server.can_server_consume_virt_slot(server_id_in, group_label) = 0 then
-                update rhnServerGroup
-                set current_members = current_members + 1
-                where id = server_group_id_in;
-            end if;                
+                -- Only update current members if the system in consuming a
+                -- physical slot.
+                if rhn_server.can_server_consume_virt_slot(server_id_in, group_label) = 0 then
+                    update rhnServerGroup
+                    set current_members = current_members + 1
+                    where id = server_group_id_in;
+                end if;
 
-			return;
-		end if;
+		return;
 	end$$ language plpgsql;
 
 	create or replace function insert_into_servergroup_maybe (
