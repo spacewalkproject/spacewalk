@@ -106,6 +106,30 @@ begin
                 NULL, ug_type, new_org_id
         );
 
+        -- there aren't any users yet, so we don't need to update
+        -- rhnUserServerPerms
+
+        insert into rhnServerGroup
+                ( id, name, description, max_members, group_type, org_id )
+                select nextval('rhn_server_group_id_seq'), sgt.name, sgt.name,
+                        200000, sgt.id, new_org_id
+                from rhnServerGroupType sgt
+                where sgt.label = 'bootstrap_entitled';
+
+        insert into rhnServerGroup
+                ( id, name, description, max_members, group_type, org_id )
+                select nextval('rhn_server_group_id_seq'), sgt.name, sgt.name,
+                        200000, sgt.id, new_org_id
+                from rhnServerGroupType sgt
+                where sgt.label = 'enterprise_entitled';
+
+        insert into rhnServerGroup
+                ( id, name, description, max_members, group_type, org_id )
+                select nextval('rhn_server_group_id_seq'), sgt.name, sgt.name,
+                        200000, sgt.id, new_org_id
+                from rhnServerGroupType sgt
+                where sgt.label = 'virtualization_host';
+
         org_id_out := new_org_id;
 
 	-- Returning the value of OUT parameter
