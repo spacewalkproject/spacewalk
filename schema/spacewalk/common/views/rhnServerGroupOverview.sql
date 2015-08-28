@@ -15,7 +15,7 @@
 --
 --
 CREATE OR REPLACE VIEW rhnServerGroupOverview (
-         ORG_ID, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, GROUP_ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT, MODIFIED, MAX_MEMBERS
+         ORG_ID, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, GROUP_ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT, MODIFIED
 )
 AS
   SELECT SG.org_id,
@@ -62,6 +62,6 @@ AS
                               FROM rhnServerFeaturesView SFV
                               WHERE SFV.server_id = SGM.server_id
                                     AND SFV.label = 'ftr_system_grouping')),
-         CURRENT_TIMESTAMP, MAX_MEMBERS
+         CURRENT_TIMESTAMP
     FROM rhnServerGroup SG;
 
