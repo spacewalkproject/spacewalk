@@ -154,9 +154,6 @@ class apacheRequest:
             if e.errno == 20200:
                 log_debug(2, "User Group Membership EXCEEDED")
                 f = rhnFault(43, e.errmsg)
-            elif e.errno == 20220:
-                log_debug(2, "Server Group Membership EXCEEDED")
-                f = rhnFault(44, e.errmsg)
             if not f:
                 log_error("rhnSQL.SQLSchemaError caught", e)
                 rhnSQL.rollback()
