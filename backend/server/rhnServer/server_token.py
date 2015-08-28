@@ -644,7 +644,7 @@ class ReRegistrationActivationToken(ReRegistrationToken):
             unentitle_server = rhnSQL.Procedure(
                 "rhn_entitlements.remove_server_entitlement")
             try:
-                unentitle_server(server_id, ent, 0)
+                unentitle_server(server_id, ent)
             except rhnSQL.SQLSchemaError, e:
                 log_error("Failed to unentitle server", server_id,
                           ent, e.errmsg)
