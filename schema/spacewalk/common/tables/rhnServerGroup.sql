@@ -21,7 +21,6 @@ CREATE TABLE rhnServerGroup
                          USING INDEX TABLESPACE [[4m_tbs]],
     name             VARCHAR2(64) NOT NULL,
     description      VARCHAR2(1024) NOT NULL,
-    max_members      NUMBER,
     current_members  NUMBER
                          DEFAULT (0) NOT NULL,
     group_type       NUMBER
