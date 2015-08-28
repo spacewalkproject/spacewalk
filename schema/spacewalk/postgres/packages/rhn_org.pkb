@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 a9d16d81fb97485aad121d13ea1f52ef426f2254
+-- oracle equivalent source sha1 18b26199f630d46ba7ce6fc32763078538aee3cb
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -85,9 +85,6 @@ create or replace function delete_org (
         for e in errata loop
             delete from rhnErrataPackage where errata_id = e.id;
         end loop;
-
-        -- Give the org's entitlements back to the main org.
-        perform rhn_entitlements.remove_org_entitlements(org_id_in);
 
         -- Clean up tables where we don't have a cascading delete.
         delete from rhnChannel where org_id = org_id_in;
