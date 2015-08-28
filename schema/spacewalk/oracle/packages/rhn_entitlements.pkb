@@ -570,66 +570,6 @@ is
         modify_org_service(customer_id_in, 'enterprise', 'N');
     end unset_customer_enterprise;
 
-    -- *******************************************************************
-    -- PROCEDURE: prune_group
-    -- Unsubscribes servers consuming physical slots that over the org's
-    --   limit.
-    -- Called by: set_server_group_count, repoll_virt_guest_entitlements
-    -- *******************************************************************
-    procedure prune_group (
-        group_id_in in number,
-        quantity_in in number
-    ) is
-        cursor servergroups is
-           select  server_id, server_group_id, sgt.id as group_type_id, sgt.label
-            from    rhnServerGroupType              sgt,
-                            rhnServerGroup                  sg,
-                            rhnServerGroupMembers   sgm
-            where   1=1
-                    and sgm.server_group_id = group_id_in
-                    and sgm.server_id in (
-                            select  server_id
-                            from    (
-                                    select  rownum row_number,
-                                                    server_id,
-                                                    time
-                                    from    (
-                                            select  sep.server_id,
-                                                    sep.modified time
-                                            from
-                                                rhnServerEntitlementPhysical sep
-                                            where
-                                                sep.server_group_id = group_id_in
-                                            order by time asc
-                                    )
-                            )
-                            where   row_number > quantity_in
-                    )
-                    and sgm.server_group_id = sg.id
-                    and sg.group_type = sgt.id;
-      type_is_base char;
-    begin
-        update        rhnServerGroup
-            set        max_members = quantity_in
-            where    id = group_id_in;
-
-        for sg in servergroups loop
-            remove_server_entitlement(sg.server_id, sg.label);
-
-            select is_base
-            into type_is_base
-            from rhnServerGroupType sgt
-            where sgt.id = sg.group_type_id;
-
-            -- if we're removing a base ent, then be sure to
-            -- remove the server's channel subscriptions.
-            if ( type_is_base = 'Y' ) then
-                   rhn_channel.clear_subscriptions(sg.server_id);
-            end if;
-
-        end loop;
-    end prune_group;
-
     procedure set_server_group_count (
         customer_id_in in number,
         group_type_in in number,
@@ -650,10 +590,6 @@ is
             and rsg.org_id = customer_id_in
             and rsg.group_type = group_type_in;
 
-        rhn_entitlements.prune_group(
-            group_id,
-            quantity
-        );
     exception
         when no_data_found then
             insert into rhnServerGroup (

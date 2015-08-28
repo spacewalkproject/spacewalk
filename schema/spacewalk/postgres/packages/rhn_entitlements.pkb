@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 d031b27bc02401b383c8a725fdeaf322d1144cbb
+-- oracle equivalent source sha1 291030516f2c901208415bb1d6f7bfdb44c3af19
 --
 -- Copyright (c) 2008--2015 Red Hat, Inc.
 --
@@ -586,61 +586,6 @@ as $$
 language plpgsql;
 
     -- *******************************************************************
-    -- PROCEDURE: prune_group
-    -- Unsubscribes servers consuming physical slots that over the org's
-    --   limit.
-    -- Called by: set_server_group_count, repoll_virt_guest_entitlements
-    -- *******************************************************************
-    create or replace function prune_group (
-        group_id_in in numeric,
-        quantity_in in numeric
-    ) returns void
-as $$
-    declare
-        sgrecord record;
-      type_is_base char;
-    begin
-            update      rhnServerGroup
-                set     max_members = quantity_in
-                where   id = group_id_in;
-
-            for sgrecord in (
-		   select  server_id, server_group_id, sgt.id as group_type_id, sgt.label
-		    from    rhnServerGroupType              sgt,
-				    rhnServerGroup                  sg,
-				    rhnServerGroupMembers   sgm
-		    where   1=1
-			    and sgm.server_group_id = group_id_in
-			    and sgm.server_id in (
-				    select  sep.server_id
-				    from
-					rhnServerEntitlementPhysical sep
-				    where
-					sep.server_group_id = group_id_in
-				    order by sep.modified asc
-				    offset quantity_in
-				)
-			    and sgm.server_group_id = sg.id
-			    and sg.group_type = sgt.id
-	    ) loop
-                perform rhn_entitlements.remove_server_entitlement(sgrecord.server_id, sgrecord.label);
-
-            select is_base
-            into type_is_base
-            from rhnServerGroupType sgt
-            where sgt.id = sgrecord.group_type_id;
-
-            -- if we're removing a base ent, then be sure to
-            -- remove the server's channel subscriptions.
-            if ( type_is_base = 'Y' ) then
-                   perform rhn_channel.clear_subscriptions(sgrecord.server_id, 0);
-            end if;
-
-            end loop;
-    end$$
-language plpgsql;
-
-    -- *******************************************************************
     -- PROCEDURE: assign_system_entitlement
     --
     -- Moves system entitlements from from_org_id_in to to_org_id_in.
@@ -826,11 +771,6 @@ as $$
         if not found then
             wasfound := false;
         end if;
-
-        perform rhn_entitlements.prune_group(
-            group_id,
-            quantity
-        );
 
         if not wasfound then
             insert into rhnServerGroup (
