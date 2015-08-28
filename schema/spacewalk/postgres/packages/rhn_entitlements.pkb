@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 01d4b1f4d6bcdfa9a53ca6e6e5e6e7037253e3c7
+-- oracle equivalent source sha1 79cc0c3430a7cd9cd5ce777d94fbbc0ca5dfc5a8
 --
 -- Copyright (c) 2008--2015 Red Hat, Inc.
 --
@@ -582,48 +582,6 @@ language plpgsql;
 as $$
     begin
         perform rhn_entitlements.modify_org_service(customer_id_in, 'enterprise', 'N');
-    end$$
-language plpgsql;
-
-
-    -- this expects quantity_in to be the number of available slots, not the
-    -- max_members of the server group.  If you give it too many, it'll fail
-    -- and raise servergroup_max_members.
-    -- We should NEVER run this unless we're SURE that we won't
-    -- be violating the max.
-    create or replace function entitle_last_modified_servers (
-        customer_id_in in numeric,  -- customer_id
-        type_label_in in varchar,   -- 'enterprise_entitled'
-        quantity_in in numeric      -- 3
-    ) returns void
-as $$
-    declare
-        -- find the servers that aren't currently in slots
-        servers cursor(cid_in numeric, quant_in numeric) for
-                                    select  rs.id as server_id
-                                    from    rhnServer rs
-                                    where   1=1
-                                        and rs.org_id = cid_in
-                                        and not exists (
-                                            select  1
-                                            from    rhnServerGroup sg,
-                                                    rhnServerGroupMembers rsgm
-                                            where   rsgm.server_id = rs.id
-                                                and rsgm.server_group_id = sg.id
-                                                and sg.group_type is not null
-                                        )
-                                        and not exists (
-                                            select 1
-                                            from rhnVirtualInstance vi
-                                            where vi.virtual_system_id =
-                                                  rs.id
-                                        )
-                                    order by modified desc
-                                    limit quant_in;
-    begin
-        for server in servers(customer_id_in, quantity_in) loop
-            perform rhn_entitlements.entitle_server(server.server_id, type_label_in);
-        end loop;
     end$$
 language plpgsql;
 

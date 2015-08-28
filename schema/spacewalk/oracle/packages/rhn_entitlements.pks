@@ -77,15 +77,6 @@ is
 		customer_id_in in number
 	);
 
-    -- this makes NO checks that the quantity is within max,
-    -- so we should NEVER run this unless we KNOW that we won't be
-    -- violating the max
-    procedure entitle_last_modified_servers (
-		customer_id_in in number,	-- customer_id
-		type_label_in in varchar2,	-- 'enterprise_entitled'
-		quantity_in in number		-- 3
-    );
-
 end rhn_entitlements;
 /
 show errors
