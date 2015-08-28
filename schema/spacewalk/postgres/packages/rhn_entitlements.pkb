@@ -371,15 +371,7 @@ language plpgsql;
     -- PROCEDURE: repoll_virt_guest_entitlements
     --
     --   Whenever we add/remove a virtualization_host* entitlement from
-    --   a host, we can call this procedure to update what type of slots
-    --   the guests are consuming.
-    --
-    --   If you're removing the entitlement, it's
-    --   possible the guests will become unentitled if you don't have enough
-    --   physical slots to cover them.
-    --
-    --   If you're adding the entitlement, you end up freeing up physical
-    --   slots for other systems.
+    --   a host, we can call this procedure update current_members
     --
     -- *******************************************************************
     create or replace function repoll_virt_guest_entitlements(
@@ -402,38 +394,10 @@ as $$
                 and sgm.server_group_id = sg.id
                 and sg.group_type = sgt.id;
 
-        -- Virtual servers from a certain family belonging to a specific
-        -- host that are consuming physical system slots over the limit.
-        virt_servers_sgt cursor(group_type_in numeric, quantity_in numeric) for
-                select vi.virtual_system_id
-                from
-                    rhnServerGroup sg,
-                    rhnServerGroupMembers sgm,
-                    rhnVirtualInstance vi
-                where
-                    vi.host_system_id = server_id_in
-                    and vi.virtual_system_id = sgm.server_id
-                    and sgm.server_group_id = sg.id
-                    and sg.group_type = group_type_in
-                order by sgm.modified desc
-                limit quantity_in;
-
         org_id_val numeric;
-        max_members_val numeric;
-        max_flex_val numeric;
         current_members_calc numeric;
         sg_id numeric;
-        is_virt numeric := 0;
-        free_slots numeric := 0;
     begin
-          select 1 into is_virt
-                from rhnServerEntitlementView
-           where server_id = server_id_in
-                 and label = 'virtualization_host';
-
-      if not found then
-          is_virt := 0;
-      end if;
 
         select org_id
         into org_id_val
@@ -441,34 +405,20 @@ as $$
         where id = server_id_in;
 
         for a_group_type in group_types loop
-          -- get the current *physical* members of the system entitlement type for the org...
-          --
-          -- unlike channel families, it appears the standard rhnServerGroup.max_members represents
-          -- *physical* slots, vs physical+virt ... boy that's confusing...
+          -- get the current *physical* members of the system entitlement type for the org
+          -- and update current_members
 
-          select max_members, id
-            into max_members_val, sg_id
+          select id
+            into sg_id
             from rhnServerGroup
             where group_type = a_group_type.group_type
             and org_id = a_group_type.org_id;
 
 
-      select count(sep.server_id) into current_members_calc
+          select count(sep.server_id) into current_members_calc
             from rhnServerEntitlementPhysical sep
            where sep.server_group_id = sg_id
              and sep.server_group_type_id = a_group_type.group_type;
-
-          if current_members_calc > max_members_val then
-            -- A virtualization_host* ent must have been removed, and we're over the limit, so unsubscribe guests
-            for virt_server in virt_servers_sgt(a_group_type.group_type,
-                                                current_members_calc - max_members_val) loop
-              perform rhn_entitlements.remove_server_entitlement(virt_server.virtual_system_id, a_group_type.label);
-
-              -- decrement current_members_calc, we'll use it to reset current_members for the group at the end...
-              current_members_calc := current_members_calc - 1;
-            end loop;
-
-          end if;
 
           update rhnServerGroup set current_members = current_members_calc
            where org_id = a_group_type.org_id
