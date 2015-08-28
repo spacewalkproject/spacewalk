@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 291030516f2c901208415bb1d6f7bfdb44c3af19
+-- oracle equivalent source sha1 38554036f7c291ee153a794bd2ec0a9c60e8f59a
 --
 -- Copyright (c) 2008--2015 Red Hat, Inc.
 --
@@ -655,15 +655,6 @@ as $$
                           'not_enough_entitlements_in_base_org');
         end if;
 
-
-        perform rhn_entitlements.set_server_group_count(from_org_id_in,
-                                         group_type,
-                                         new_ent_count);
-
-        perform rhn_entitlements.set_server_group_count(to_org_id_in,
-                                         group_type,
-                                         new_quantity);
-
         -- Create or delete the entries in rhnOrgEntitlementType
         if group_label_in = 'enterprise_entitled' then
             if new_quantity > 0 then
@@ -725,68 +716,9 @@ as $$
                               'invalid_server_group');
             end if;
 
-        -- If we're setting the total entitlemnt count to a lower value,
-        -- and that value is less than the allocated count in this org,
-        -- we need to raise an exception.
-        if quantity_in < prev_ent_count then
-            perform rhn_exception.raise_exception(
-                          'not_enough_entitlements_in_base_org');
-        else
-            -- don't update family counts after every server
-            -- will do bulk update afterwards
-            perform rhn_entitlements.set_server_group_count(org_id_in,
-                                             group_type,
-                                             quantity_in);
-        end if;
-
     end$$
 language plpgsql;
 
-
-    create or replace function set_server_group_count (
-        customer_id_in in numeric,  -- customer_id
-        group_type_in in numeric,   -- rhn[User|Server]GroupType.id
-        quantity_in in numeric      -- quantity
-    ) returns void
-as $$
-    declare
-        group_id numeric;
-        quantity numeric;
-        wasfound boolean;
-    begin
-        quantity := quantity_in;
-        if quantity is not null and quantity < 0 then
-            quantity := 0;
-        end if;
-
-        select  rsg.id
-        into    group_id
-        from    rhnServerGroup rsg
-        where   1=1
-            and rsg.org_id = customer_id_in
-            and rsg.group_type = group_type_in;
-
-        -- preserve the not found status across the rhn_entitlements.prune_group invocation
-        wasfound := true;
-        if not found then
-            wasfound := false;
-        end if;
-
-        if not wasfound then
-            insert into rhnServerGroup (
-                    id, name, description, max_members, current_members,
-                    group_type, org_id, created, modified
-                ) (
-                    select  nextval('rhn_server_group_id_seq'), name, name,
-                            quantity, 0, id, customer_id_in,
-                            current_timestamp, current_timestamp
-                    from    rhnServerGroupType
-                    where   id = group_type_in
-            );
-        end if;
-
-    end$$
-language plpgsql;
 
     -- this expects quantity_in to be the number of available slots, not the
     -- max_members of the server group.  If you give it too many, it'll fail
