@@ -55,44 +55,6 @@ as $$
    end$$
 language plpgsql;
 
-    -- *******************************************************************
-    -- PROCEDURE: remove_org_entitlements
-    --
-    -- Removes both system entitlements and channel subscriptions
-    -- that are currently assigned to an org and re-assigns to the
-    -- master org (org_id = 1).
-    --
-    -- When we call this we expect everything to already be unentitled
-    -- which shoul be handled by delete_org.
-    --
-    -- Called by: delete_org
-    -- *******************************************************************
-    create or replace function remove_org_entitlements (
-        org_id_in numeric
-    ) returns void
-as $$
-    declare
-        system_ents cursor for
-        select sg.id, sg.max_members, sg.group_type
-        from rhnServerGroup sg
-        where group_type is not null
-          and org_id = org_id_in;
-
-    begin
-
-        for system_ent in system_ents loop
-            update rhnServerGroup
-            set max_members = max_members + system_ent.max_members
-            where org_id = 1
-              and group_type = system_ent.group_type;
-        end loop;
-
-        update rhnServerGroup
-        set max_members = 0
-        where org_id = org_id_in;
-
-    end$$
-language plpgsql;
 
     create or replace function entitlement_grants_service (
         entitlement_in in varchar,

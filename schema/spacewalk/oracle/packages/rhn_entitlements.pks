@@ -23,11 +23,7 @@ is
 
    type ents_array is varray(10) of rhnServerGroupType.label%TYPE;
 
-    procedure remove_org_entitlements (
-        org_id_in number
-    );
-
-    function entitlement_grants_service (
+   function entitlement_grants_service (
 	    entitlement_in in varchar2,
 		service_level_in in varchar2
 	) return number;
