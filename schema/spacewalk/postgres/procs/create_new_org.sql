@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 bfdb816ee2d07c5eb59f858aac7004f0fc9ff84a
+-- oracle equivalent source sha1 fbcb68ddf8be96c248b438022ce051f8d63f355f
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -110,23 +110,23 @@ begin
         -- rhnUserServerPerms
 
         insert into rhnServerGroup
-                ( id, name, description, max_members, group_type, org_id )
+                ( id, name, description, group_type, org_id )
                 select nextval('rhn_server_group_id_seq'), sgt.name, sgt.name,
-                        200000, sgt.id, new_org_id
+                        sgt.id, new_org_id
                 from rhnServerGroupType sgt
                 where sgt.label = 'bootstrap_entitled';
 
         insert into rhnServerGroup
-                ( id, name, description, max_members, group_type, org_id )
+                ( id, name, description, group_type, org_id )
                 select nextval('rhn_server_group_id_seq'), sgt.name, sgt.name,
-                        200000, sgt.id, new_org_id
+                        sgt.id, new_org_id
                 from rhnServerGroupType sgt
                 where sgt.label = 'enterprise_entitled';
 
         insert into rhnServerGroup
-                ( id, name, description, max_members, group_type, org_id )
+                ( id, name, description, group_type, org_id )
                 select nextval('rhn_server_group_id_seq'), sgt.name, sgt.name,
-                        200000, sgt.id, new_org_id
+                        sgt.id, new_org_id
                 from rhnServerGroupType sgt
                 where sgt.label = 'virtualization_host';
 
