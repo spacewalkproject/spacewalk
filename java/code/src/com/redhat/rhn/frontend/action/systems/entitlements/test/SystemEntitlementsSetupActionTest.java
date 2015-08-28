@@ -138,6 +138,6 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
         String message = (String)request.getAttribute(
                 SystemEntitlementsSetupAction.MANAGEMENT_COUNTS_MESSAGE);
 
-        assertTrue(message.indexOf(String.valueOf(eGrp.getCurrentMembers())) > 0);
+        assertTrue(message.contains(String.valueOf(eGrp.getCurrentMembers())));
     }
 }
