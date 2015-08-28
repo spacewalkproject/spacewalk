@@ -416,96 +416,32 @@ is
 	    return 0;
     end check_user_access;
 
-    -- *******************************************************************
-    -- FUNCTION: can_server_consume_virt_slot
-    -- Returns 1 if the server id is eligible to consume a virtual slot,
-    --   else returns 0.
-    -- Called by: insert_into_servergroup, delete_from_servergroup
-    -- *******************************************************************
-    function can_server_consume_virt_slot(server_id_in in number,
-                                           group_type_in in
-                                           rhnServerGroupType.label%TYPE)
-    return number                                           
-    is
-
-        cursor server_virt_slots is
-            select vi.VIRTUAL_SYSTEM_ID
-            from
-                rhnVirtualInstance vi
-            where
-                -- server id is a virtual instance
-                vi.VIRTUAL_SYSTEM_ID = server_id_in
-                -- server id's host is virt entitled
-                and exists ( select 1
-                     from rhnServerEntitlementView sev
-                 where vi.HOST_SYSTEM_ID = sev.server_id
-                 and sev.label = 'virtualization_host' )
-                -- server id's host also has the ent we want
-                and exists ( select 1
-                     from rhnServerEntitlementView sev2
-                 where vi.HOST_SYSTEM_ID = sev2.server_id
-                 and sev2.label = group_type_in );
-
-    begin
-        for server_virt_slot in server_virt_slots loop
-            return 1;
-        end loop;
-        return 0;
-    end can_server_consume_virt_slot;
-
-
     procedure insert_into_servergroup (
 		server_id_in in number,
 		server_group_id_in in number
     ) is
-		used_slots number;
-		org_id number;
-		group_label rhnServerGroupType.label%TYPE;
 		group_type number;
 	begin
-		-- frist, group_type = null, because it's easy...
-
 		-- this will rowlock the servergroup we're trying to change;
 		-- we probably need to lock the other one, but I think the chances
 		-- of it being a real issue are very small for now...
-		select	sg.group_type, sg.org_id, sg.current_members
-		into	group_type, org_id, used_slots
+		select	sg.group_type
+		into	group_type
 		from	rhnServerGroup sg
 		where	sg.id = server_group_id_in
 		for update of sg.current_members;
 
-		if group_type is null then
-
-			insert into rhnServerGroupMembers(
-					server_id, server_group_id
-				) values (
-					server_id_in, server_group_id_in
-				);
-			update rhnServerGroup
-				set current_members = current_members + 1
-				where id = server_group_id_in;
-
-			rhn_cache.update_perms_for_server_group(server_group_id_in);
-			return;
-		end if;
-
-		-- now for group_type != null
-		-- 
-    select  label
-    into  group_label
-    from  rhnServerGroupType  sgt
-    where sgt.id = group_type;
-
 		insert into rhnServerGroupMembers(server_id, server_group_id)
 		values (server_id_in, server_group_id_in);
 
-                -- Only update current members if the system in consuming a
-                -- physical slot.
-                if can_server_consume_virt_slot(server_id_in, group_label) = 0 then
-                    update rhnServerGroup
-                    set current_members = current_members + 1
-                    where id = server_group_id_in;
-                end if;
+		update rhnServerGroup
+		set current_members = current_members + 1
+		where id = server_group_id_in;
+
+		if group_type is null then
+			rhn_cache.update_perms_for_server_group(server_group_id_in);
+		end if;
+
 		return;
 	end;
 
@@ -566,17 +502,10 @@ is
 		
     procedure delete_from_servergroup (
     	server_id_in in number,
-		server_group_id_in in number
+	server_group_id_in in number
     ) is
-        cursor server_virt_groups is
-            select 1
-            from rhnServerEntitlementVirtual sev
-            where sev.server_id = server_id_in
-            and sev.server_group_id = server_group_id_in;
 
 		oid number;
-		mgmt_sgid number;
-		label rhnServerGroupType.label%TYPE;
 		group_type number;
 	begin
 		begin
@@ -593,45 +522,16 @@ is
 				rhn_exception.raise_exception('server_not_in_group');
 		end;
 
-		-- do group_type is null first
+		delete from rhnServerGroupMembers
+		where server_group_id = server_group_id_in
+		and	server_id = server_id_in;
+
+		update rhnServerGroup
+		set current_members = current_members - 1
+		where id = server_group_id_in;
+
 		if group_type is null then
-			delete from rhnServerGroupMembers
-				where server_group_id = server_group_id_in
-				and	server_id = server_id_in;
-			update rhnServerGroup
-				set current_members = current_members - 1
-				where id = server_group_id_in;
 			rhn_cache.update_perms_for_server_group(server_group_id_in);
-			return;
-		end if;
-
-		select	sgt.label
-		into	label
-		from	rhnServerGroupType sgt
-		where	sgt.id = group_type;
-
-		if label in (
-                     'enterprise_entitled',
-                     'virtualization_host'
-                ) then
-
-            -- Only update current members if the system is consuming
-            -- a physical slot.
-            for server_virt_group in server_virt_groups loop                
-                delete from rhnServerGroupMembers
-                where server_group_id = server_group_id_in
-                and	server_id = server_id_in;
-                return;
-            end loop;                
-
-            delete from rhnServerGroupMembers
-            where server_group_id = server_group_id_in
-            and	server_id = server_id_in;
-
-            update rhnServerGroup
-            set current_members = current_members - 1
-            where id = server_group_id_in;
- 
 		end if;
 	end;
 

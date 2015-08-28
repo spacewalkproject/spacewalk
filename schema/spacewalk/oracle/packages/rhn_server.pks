@@ -80,12 +80,6 @@ is
     
     function check_user_access(server_id_in in number, user_id_in in number) return number;
 
-
-    function can_server_consume_virt_slot(server_id_in in number,
-                                              group_type_in in
-                                              rhnServerGroupType.label%TYPE)
-    return number;                                              
-
     procedure insert_into_servergroup (
 	server_id_in in number,
 	server_group_id_in in number
