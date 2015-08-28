@@ -570,50 +570,6 @@ is
         modify_org_service(customer_id_in, 'enterprise', 'N');
     end unset_customer_enterprise;
 
-    -- this expects quantity_in to be the number of available slots, not the
-    -- max_members of the server group.  If you give it too many, it'll fail
-    -- and raise servergroup_max_members.
-    -- We should NEVER run this unless we're SURE that we won't
-    -- be violating the max.
-    procedure entitle_last_modified_servers (
-        customer_id_in in number,
-        type_label_in in varchar2,
-        quantity_in in number
-    ) is
-        -- find the servers that aren't currently in slots
-        cursor servers(cid_in in number, quant_in in number) is
-            select    server_id
-            from    (
-                        select    rownum row_number,
-                                server_id
-                        from    (
-                                    select    rs.id server_iD
-                                    from    rhnServer rs
-                                    where    1=1
-                                        and rs.org_id = cid_in
-                                        and not exists (
-                                            select    1
-                                            from    rhnServerGroup sg,
-                                                    rhnServerGroupMembers rsgm
-                                            where    rsgm.server_id = rs.id
-                                                and rsgm.server_group_id = sg.id
-                                                and sg.group_type is not null
-                                        )
-                                        and not exists (
-                                            select 1
-                                            from rhnVirtualInstance vi
-                                            where vi.virtual_system_id =
-                                                  rs.id
-                                        )                                                                           order by modified desc
-                                )
-                    )
-            where    row_number <= quant_in;
-    begin
-        for server in servers(customer_id_in, quantity_in) loop
-            rhn_entitlements.entitle_server(server.server_id, type_label_in);
-        end loop;
-    end entitle_last_modified_servers;
-
 end rhn_entitlements;
 /
 show errors
