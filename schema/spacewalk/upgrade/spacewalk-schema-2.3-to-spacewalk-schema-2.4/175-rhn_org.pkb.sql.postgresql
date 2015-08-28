@@ -1,0 +1,214 @@
+-- oracle equivalent source sha1 18b26199f630d46ba7ce6fc32763078538aee3cb
+--
+-- Copyright (c) 2008--2012 Red Hat, Inc.
+--
+-- This software is licensed to you under the GNU General Public License,
+-- version 2 (GPLv2). There is NO WARRANTY for this software, express or
+-- implied, including the implied warranties of MERCHANTABILITY or FITNESS
+-- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+-- along with this software; if not, see
+-- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+-- 
+-- Red Hat trademarks are not licensed under GPLv2. No permission is
+-- granted to use or replicate Red Hat trademarks that are incorporated
+-- in this software or its documentation. 
+--
+
+-- create schema rhn_org;
+
+-- setup search_path so that these functions are created in appropriate schema.
+update pg_settings set setting = 'rhn_org,' || setting where name = 'search_path';
+
+
+create or replace function delete_org (
+        org_id_in in numeric
+    ) returns void
+    as
+    $$
+    declare
+        users cursor for
+        select id
+        from web_contact
+        where org_id = org_id_in;
+
+        servers cursor (org_id_in numeric) for
+        select  id
+        from    rhnServer
+        where   org_id = org_id_in;
+
+        config_channels cursor for
+        select id
+        from rhnConfigChannel
+        where org_id = org_id_in;
+
+        custom_channels cursor for
+        select  id
+        from    rhnChannel
+        where   org_id = org_id_in;
+
+        errata cursor for
+        select  id
+        from    rhnErrata
+        where   org_id = org_id_in;
+
+    begin
+
+        if org_id_in = 1 then
+            perform rhn_exception.raise_exception('cannot_delete_base_org');
+        end if;
+
+        -- Delete all users.
+        for u in users loop
+            perform rhn_org.delete_user(u.id, 1);
+        end loop;
+
+        -- Delete all servers.
+        for s in servers(org_id_in) loop
+            perform delete_server(s.id);
+        end loop;
+
+        -- Delete all config channels.
+        for c in config_channels loop
+            perform rhn_config.delete_channel(c.id);
+        end loop;
+
+        -- Delete all custom channels.
+        for cc in custom_channels loop
+          delete from rhnServerChannel where channel_id = cc.id;
+          delete from rhnServerProfilePackage where server_profile_id in (
+            select id from rhnServerProfile where base_channel = cc.id
+          );
+          delete from rhnServerProfile where base_channel = cc.id;
+        end loop;
+
+        -- Delete all errata packages 
+        for e in errata loop
+            delete from rhnErrataPackage where errata_id = e.id;
+        end loop;
+
+        -- Clean up tables where we don't have a cascading delete.
+        delete from rhnChannel where org_id = org_id_in;
+        delete from rhnDailySummaryQueue where org_id = org_id_in;
+        delete from rhnFileList where org_id = org_id_in;
+        delete from rhnServerGroup where org_id = org_id_in;
+        delete from rhnContentSource where org_id = org_id_in;
+
+        -- Delete the org.
+        delete from web_customer where id = org_id_in;
+
+    end;
+    $$
+    language plpgsql;
+
+create or replace function delete_user(user_id_in in numeric, deleting_org in numeric default 0) returns void 
+    as
+    $$
+    declare
+    servergroups_needing_admins cursor for
+            select    usgp.server_group_id    server_group_id
+            from    rhnUserServerGroupPerms    usgp
+            where    1=1
+                and usgp.user_id = user_id_in
+                and not exists (
+                    select    1
+                    from    rhnUserServerGroupPerms    sq_usgp
+                    where    1=1
+                        and sq_usgp.server_group_id = usgp.server_group_id
+                        and    sq_usgp.user_id != user_id_in
+                );
+        users            numeric;
+        our_org_id        numeric;
+        other_users        numeric;
+        other_org_admin    numeric;
+        other_user_id  numeric;
+        is_admin       numeric;
+    begin
+        select    wc.org_id
+        into    our_org_id
+        from    web_contact wc
+        where    id = user_id_in;
+
+        -- find any other users
+        begin
+            select    id, 1
+            into    other_user_id, other_users
+            from    web_contact
+            where    1=1
+                and org_id = our_org_id
+                and id != user_id_in
+                limit 1;
+        exception
+            when no_data_found then
+                other_users := 0;
+        end;
+
+        -- now do org admin stuff
+        if other_users != 0 then
+            -- is user admin?
+            select  count(1)
+             into   is_admin
+            from    rhnUserGroupType    ugt,
+                    rhnUserGroup        ug,
+                    rhnUserGroupMembers    ugm
+            where    ugm.user_id = user_id_in
+                and ugm.user_group_id = ug.id
+                and ug.group_type = ugt.id
+                and ugt.label = 'org_admin';
+            if is_admin > 0 then
+                begin
+                    select    new_ugm.user_id
+                    into    other_org_admin
+                    from    rhnUserGroupMembers    new_ugm,
+                            rhnUserGroupType    ugt,
+                            rhnUserGroup        ug,
+                            rhnUserGroupMembers    ugm
+                    where    ugm.user_id = user_id_in
+                        and ugm.user_group_id = ug.id
+                        and ug.group_type = ugt.id
+                        and ugt.label = 'org_admin'
+                        and ug.id = new_ugm.user_group_id
+                        and new_ugm.user_id != user_id_in
+                        limit 1;
+                exception
+                    when no_data_found then
+                        -- If we're deleting the org, we don't want to raise
+                        -- the exception.
+                        if deleting_org = 0 then
+                           perform rhn_exception.raise_exception('cannot_delete_user');
+                        end if;
+                end;
+
+                for sg in servergroups_needing_admins loop
+                   perform rhn_user.add_servergroup_perm(other_org_admin,
+                        sg.server_group_id);
+                end loop;
+            end if;
+        end if;
+
+        -- and now things for every user
+        delete from rhnUserServerPerms where user_id = user_id_in;
+        update rhnConfigRevision
+           set changed_by_id = NULL
+         where changed_by_id = user_id_in;
+        if other_users != 0 then
+            update        rhnRegToken
+                set        user_id = coalesce(other_org_admin, other_user_id)
+                where    org_id = our_org_id
+                    and user_id = user_id_in;
+        end if;
+
+        begin
+            delete from web_contact where id = user_id_in;
+        exception
+            when others then
+               perform rhn_exception.raise_exception('cannot_delete_user');
+        end;
+        return;
+
+        end;
+        $$
+        language plpgsql;
+
+
+-- restore the original setting
+update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_org')+1) ) where name = 'search_path';
