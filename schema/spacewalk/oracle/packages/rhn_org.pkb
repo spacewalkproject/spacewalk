@@ -83,9 +83,6 @@ IS
             delete from rhnErrataPackage where errata_id = e.id;
         end loop;
 
-        -- Give the org's entitlements back to the main org.
-        rhn_entitlements.remove_org_entitlements(org_id_in);
-
         -- Clean up tables where we don't have a cascading delete.
         delete from rhnChannel where org_id = org_id_in;
         delete from rhnDailySummaryQueue where org_id = org_id_in;
