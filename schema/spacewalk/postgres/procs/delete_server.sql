@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 a56504e2f17f7a108f2eb55073e6ea17152c430b
+-- oracle equivalent source sha1 7ce38e14c32f8e853a8a37e83baa0e19df573735
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -45,7 +45,6 @@ declare
                                 ('local_override','server_import')
                         and cct.id = cc.confchan_type_id;
 
-    is_virt boolean;
 begin
         -- filelists
         delete from rhnFileList where id in (
@@ -68,21 +67,11 @@ begin
 		perform rhn_config.delete_channel(configchannel.id);
 	end loop;
 
-      is_virt := exists (
-       select 1
-        from rhnServerEntitlementView
-       where server_id = server_id_in
-         and label = 'virtualization_host'
-      );
-
 	for sgm in servergroups loop
 		perform rhn_server.delete_from_servergroup(
 			sgm.server_id, sgm.server_group_id);
 	end loop;
 
-    if is_virt then
-        perform rhn_entitlements.repoll_virt_guest_entitlements(server_id_in);
-    end if;
 
         -- we're handling this instead of letting an "on delete
         -- set null" do it so that we don't run the risk

@@ -194,25 +194,8 @@ is
         type_label_in in varchar2
     ) is
       sgid  number := 0;
-      is_virt number := 0;
 
     begin
-
-          begin
-          select 1 into is_virt
-            from rhnServerEntitlementView
-           where server_id = server_id_in
-             and label = 'virtualization_host';
-      exception
-            when no_data_found then
-              is_virt := 0;
-          end;
-
-      if is_virt = 0 and type_label_in = 'virtualization_host' then
-        is_virt := 1;
-      end if;
-
-
 
       if rhn_entitlements.can_entitle_server(server_id_in,
                                              type_label_in) = 1 then
@@ -227,10 +210,6 @@ is
                       end  );
 
             rhn_server.insert_into_servergroup (server_id_in, sgid);
-
-            if is_virt = 1 then
-              rhn_entitlements.repoll_virt_guest_entitlements(server_id_in);
-            end if;
 
          else
             rhn_exception.raise_exception ('no_available_server_group');
@@ -247,21 +226,8 @@ is
     ) is
         group_id number;
       type_is_base char;
-      is_virt number := 0;
     begin
       begin
-
-
-      -- would be nice if there were a virt attribute of entitlement types, not have to specify 2 different ones...
-        begin
-          select 1 into is_virt
-            from rhnServerEntitlementView
-           where server_id = server_id_in
-             and label = 'virtualization_host';
-        exception
-          when no_data_found then
-            is_virt := 0;
-        end;
 
         select    sg.id, sgt.is_base
           into    group_id, type_is_base
@@ -291,9 +257,6 @@ is
 
          rhn_server.delete_from_servergroup(server_id_in, group_id);
 
-         if is_virt = 1 and repoll_virt_guests = 1 then
-           rhn_entitlements.repoll_virt_guest_entitlements(server_id_in);
-         end if;
       end if;
 
           exception
@@ -317,20 +280,7 @@ is
             and sg.group_type = sgt.id
             and sgm.server_group_id = sg.id
             and sgm.server_id = s.id;
-
-     is_virt number := 0;
-
    begin
-
-      begin
-        select 1 into is_virt
-          from rhnServerEntitlementView
-         where server_id = server_id_in
-           and label = 'virtualization_host';
-      exception
-        when no_data_found then
-          is_virt := 0;
-      end;
 
       for servergroup in servergroups loop
 
@@ -346,72 +296,7 @@ is
                                             servergroup.server_group_id );
       end loop;
 
-      if is_virt = 1 then
-        rhn_entitlements.repoll_virt_guest_entitlements(server_id_in);
-      end if;
-
    end unentitle_server;
-
-
-    -- *******************************************************************
-    -- PROCEDURE: repoll_virt_guest_entitlements
-    --
-    --   Whenever we add/remove a virtualization_host* entitlement from
-    --   a host, we can call this procedure to update current_members
-    --
-    -- *******************************************************************
-    procedure repoll_virt_guest_entitlements(server_id_in in number)
-    is
-
-        -- All of server group types associated with the guests of
-        -- server_id_in
-        cursor group_types is
-            select distinct sg.group_type, sgt.label, sg.org_id
-            from
-                rhnServerGroupType sgt,
-                rhnServerGroup sg,
-                rhnServerGroupMembers sgm,
-                rhnVirtualInstance vi
-            where
-                vi.host_system_id = server_id_in
-                and vi.virtual_system_id = sgm.server_id
-                and sgm.server_group_id = sg.id
-                and sg.group_type = sgt.id;
-
-        org_id_val number;
-        current_members_calc number;
-        sg_id number;
-    begin
-        select org_id
-        into org_id_val
-        from rhnServer
-        where id = server_id_in;
-
-        for a_group_type in group_types loop
-          -- get the current *physical* members of the system entitlement type for the org
-          -- and calculate and update current_members
-
-          select id
-            into sg_id
-            from rhnServerGroup
-            where group_type = a_group_type.group_type
-            and org_id = a_group_type.org_id;
-
-
-          select count(sep.server_id) into current_members_calc
-            from rhnServerEntitlementPhysical sep
-           where sep.server_group_id = sg_id
-             and sep.server_group_type_id = a_group_type.group_type;
-
-
-          update rhnServerGroup set current_members = current_members_calc
-           where org_id = a_group_type.org_id
-             and group_type = a_group_type.group_type;
-
-          -- I think that's all the house-keeping we have to do...
-        end loop;
-
-    end repoll_virt_guest_entitlements;
 
 
     function get_server_entitlement (
