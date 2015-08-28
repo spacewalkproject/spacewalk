@@ -63,20 +63,6 @@ is
 		server_id_in in number
 	) return ents_array;
 
-	procedure modify_org_service (
-		org_id_in in number,
-		service_label_in in varchar2,
-		enable_in in char
-	);
-
-    procedure set_customer_enterprise (
-		customer_id_in in number
-	);
-
-    procedure unset_customer_enterprise (
-		customer_id_in in number
-	);
-
 end rhn_entitlements;
 /
 show errors
