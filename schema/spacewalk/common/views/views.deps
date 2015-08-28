@@ -82,9 +82,6 @@ rhnServerOverview                :: rhnUserServerPerms \
                                     rhn_entitlements.pks
 rhnServerGroupOverview           :: rhnErrata rhnUserManagedServerGroups \
                                     rhnServerGroupMembers rhnServerGroup rhnServerFeaturesView
-rhnVisServerGroupOverviewLite    :: rhnVisibleServerGroup rhnServerGroupMembers \
-                                    rhnUserManagedServerGroups \
-                                    rhnServerGroupOVLiteHelper
 rhnUserChannelFamilyPerms        :: rhnPrivateChannelFamily \
                                     rhnPublicChannelFamily web_contact
 rhnWebContactEnabled             :: web_contact rhnWebContactDisabled
