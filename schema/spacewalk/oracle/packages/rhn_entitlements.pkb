@@ -570,40 +570,6 @@ is
         modify_org_service(customer_id_in, 'enterprise', 'N');
     end unset_customer_enterprise;
 
-    procedure set_server_group_count (
-        customer_id_in in number,
-        group_type_in in number,
-        quantity_in in number
-    ) is
-        group_id number;
-        quantity number;
-    begin
-        quantity := quantity_in;
-        if quantity is not null and quantity < 0 then
-            quantity := 0;
-        end if;
-
-        select    rsg.id
-        into    group_id
-        from    rhnServerGroup rsg
-        where    1=1
-            and rsg.org_id = customer_id_in
-            and rsg.group_type = group_type_in;
-
-    exception
-        when no_data_found then
-            insert into rhnServerGroup (
-                    id, name, description, max_members, current_members,
-                    group_type, org_id, created, modified
-                ) (
-                    select    rhn_server_group_id_seq.nextval, name, name,
-                            quantity, 0, id, customer_id_in,
-                            current_timestamp, current_timestamp
-                    from    rhnServerGroupType
-                    where    id = group_type_in
-            );
-    end set_server_group_count;
-
     -- *******************************************************************
     -- PROCEDURE: assign_system_entitlement
     --
@@ -676,15 +642,6 @@ is
                           'not_enough_entitlements_in_base_org');
         end if;
 
-
-        set_server_group_count(from_org_id_in,
-                                         group_type,
-                                         new_ent_count);
-
-        set_server_group_count(to_org_id_in,
-                                         group_type,
-                                         new_quantity);
-
         -- Create or delete the entries in rhnOrgEntitlementType
         if group_label_in = 'enterprise_entitled' then
             if new_quantity > 0 then
@@ -744,21 +701,6 @@ is
                 rhn_exception.raise_exception(
                               'invalid_server_group');
         end;
-
-        -- If we're setting the total entitlemnt count to a lower value,
-        -- and that value is less than the allocated count in this org,
-        -- we need to raise an exception.
-        if quantity_in < prev_ent_count then
-            rhn_exception.raise_exception(
-                          'not_enough_entitlements_in_base_org');
-        else
-            -- don't update family counts after every server
-            -- will do bulk update afterwards
-            set_server_group_count(org_id_in,
-                                             group_type,
-                                             quantity_in);
-        end if;
-
 
     end activate_system_entitlement;
 
