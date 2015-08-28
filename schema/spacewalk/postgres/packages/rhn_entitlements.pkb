@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 b274861027ce9a53a03293db5cc44ee86c4e694d
+-- oracle equivalent source sha1 01d4b1f4d6bcdfa9a53ca6e6e5e6e7037253e3c7
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -582,59 +582,6 @@ language plpgsql;
 as $$
     begin
         perform rhn_entitlements.modify_org_service(customer_id_in, 'enterprise', 'N');
-    end$$
-language plpgsql;
-
-
-    -- *******************************************************************
-    -- PROCEDURE: activate_system_entitlement
-    --
-    -- Sets the values in rhnServerGroup for a given rhnServerGroupType.
-    --
-    -- Calls: set_server_group_count to update, prune, or create the group.
-    -- Called by: the code that activates a satellite cert.
-    --
-    -- Raises not_enough_entitlements_in_base_org if all entitlements
-    -- in the org are used so the free entitlements would not cover
-    -- the difference when descreasing the number of entitlements.
-    -- *******************************************************************
-    create or replace function activate_system_entitlement(
-        org_id_in in numeric,
-        group_label_in in varchar,
-        quantity_in in numeric
-    ) returns void
-as $$
-    declare
-        prev_ent_count numeric;
-        prev_ent_count_sum numeric;
-        group_type numeric;
-    begin
-
-        -- Fetch the current entitlement count for the org
-        -- into prev_ent_count
-
-            select current_members
-            into prev_ent_count
-            from rhnServerGroupType sgt,
-                 rhnServerGroup sg
-            where sg.group_type = sgt.id
-              and sgt.label = group_label_in
-              and sg.org_id = org_id_in;
-
-            if not found then
-                prev_ent_count := 0;
-            end if;
-
-            select id
-            into group_type
-            from rhnServerGroupType
-            where label = group_label_in;
-
-            if not found then
-                perform rhn_exception.raise_exception(
-                              'invalid_server_group');
-            end if;
-
     end$$
 language plpgsql;
 
