@@ -1848,19 +1848,6 @@ public class SystemManager extends BaseManager {
      */
     public static void removeServerEntitlement(Long sid,
             Entitlement ent) {
-        removeServerEntitlement(sid, ent, true);
-    }
-
-    /**
-     * Removes a specific level of entitlement from the given Server.
-     * @param sid server id to be unentitled.
-     * @param ent Level of Entitlement.
-     * @param repoll used mainly to repoll virtual entitlements post removal
-     *               irrelevant if virtual entitlements are not found..
-     */
-    public static void removeServerEntitlement(Long sid,
-            Entitlement ent,
-            boolean repoll) {
 
         if (!hasEntitlement(sid, ent)) {
             if (log.isDebugEnabled()) {
@@ -1872,12 +1859,6 @@ public class SystemManager extends BaseManager {
         Map<String, Object> in = new HashMap<String, Object>();
         in.put("sid", sid);
         in.put("entitlement", ent.getLabel());
-        if (repoll) {
-            in.put("repoll", new Integer(1));
-        }
-        else {
-            in.put("repoll", new Integer(0));
-        }
         CallableMode m = ModeFactory.getCallableMode(
                 "System_queries", "remove_server_entitlement");
         m.execute(in, new HashMap<String, Integer>());

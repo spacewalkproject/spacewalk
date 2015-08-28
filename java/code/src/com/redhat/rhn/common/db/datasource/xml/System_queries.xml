@@ -1678,8 +1678,8 @@ SELECT 1
 </callable-mode>
 
 <callable-mode name="remove_server_entitlement">
-  <query params="sid, entitlement, repoll">
-{call rhn_entitlements.remove_server_entitlement(:sid, :entitlement, :repoll)}
+  <query params="sid, entitlement">
+{call rhn_entitlements.remove_server_entitlement(:sid, :entitlement)}
   </query>
 </callable-mode>
 
