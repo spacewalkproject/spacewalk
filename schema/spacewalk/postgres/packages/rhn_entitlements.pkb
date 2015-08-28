@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 ec75f8d69ac752c1799e7a346d24f0ae8004e7ce
+-- oracle equivalent source sha1 ac21eea4f3aad8d46b2dd03180bdf75049c2609b
 --
 -- Copyright (c) 2008--2015 Red Hat, Inc.
 --
@@ -239,8 +239,7 @@ language plpgsql;
 
     create or replace function remove_server_entitlement (
         server_id_in in numeric,
-        type_label_in in varchar,
-        repoll_virt_guests in numeric default 1
+        type_label_in in varchar
     ) returns void
 as $$
     declare
