@@ -55,10 +55,6 @@ is
 		server_id_in in number
 	);
 
-    procedure repoll_virt_guest_entitlements(
-        server_id_in in number
-    );
-
 	function get_server_entitlement (
 		server_id_in in number
 	) return ents_array;
