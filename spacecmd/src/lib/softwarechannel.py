@@ -2024,6 +2024,40 @@ def do_softwarechannel_removesyncschedule(self, args):
 
 ####################
 
+def help_softwarechannel_listsyncschedule(self):
+    print 'softwarechannel_listsyncschedule: List sync schedules for one or all software channels'
+    print 'usage:'
+    print 'softwarechannel_listsyncschedule : List all channels'
+
+
+def do_softwarechannel_listsyncschedule(self, args):
+
+    # Get a list of all channels and sync schedules
+    channels = self.client.channel.listAllChannels(self.session)
+    schedules = self.client.taskomatic.org.listActiveSchedules(self.session)
+
+    chan_name = {}
+    chan_sched = {}
+
+    # Build an array of channel names indexed by internal channel id number
+    for c in channels:
+        chan_name[ c['id'] ] = c['label']
+        chan_sched[ c['id'] ] = ''
+
+    # Build an array of schedules indexed by internal channel id number
+    for s in schedules:
+        chan_sched[int(s['data_map']['channel_id'])] = s['cron_expr']
+
+    # Print headers
+    csched_fmt = '{0:>5s}  {1:<40s} {2:<20s}'
+    print csched_fmt.format('key', 'Channel Name', 'Update Schedule')
+    print csched_fmt.format('-----', '---------------------', '---------------')
+
+    # Sort and print the channel names and associated repo-sync schedule (if any)
+    for key,value in sorted(chan_name.iteritems(), key=lambda (k,v): (v,k)):
+        print csched_fmt.format(str(key), value, chan_sched[int(key)])
+
+####################
 
 def help_softwarechannel_addrepo(self):
     print 'softwarechannel_addrepo: Add a repo to a software channel'
