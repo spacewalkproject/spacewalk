@@ -42,7 +42,6 @@ procedure delete_server (
         type filelistsid_t is table of rhnServerPreserveFileList.file_list_id%type;
         filelistsid_c filelistsid_t;
 
-    is_virt number := 0;
 begin
         -- filelists
 	select	spfl.file_list_id id bulk collect into filelistsid_c
@@ -67,20 +66,10 @@ begin
 		rhn_config.delete_channel(configchannel.id);
 	end loop;
 
-      select count(1) into is_virt
-        from rhnServerEntitlementView
-       where server_id = server_id_in
-         and label =  'virtualization_host'
-         and rownum <= 1;
-
 	for sgm in servergroups loop
 		rhn_server.delete_from_servergroup(
 			sgm.server_id, sgm.server_group_id);
 	end loop;
-
-    if is_virt = 1 then
-        rhn_entitlements.repoll_virt_guest_entitlements(server_id_in);
-    end if;
 
 	-- we're handling this instead of letting an "on delete
 	-- set null" do it so that we don't run the risk
