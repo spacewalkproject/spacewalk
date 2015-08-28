@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 394dabc4f9ce65317fad3f1ea1cb93b55f965a93
+-- oracle equivalent source sha1 3364c336a5532550a1510f8dd5c8251f562101a2
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -118,6 +118,23 @@ begin
 	) values (
 		group_val, 'Satellite Administrators',
 		'Satellite Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+
+	select nextval('rhn_user_group_id_seq') into group_val from dual;
+
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'config_admin';
+
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Configuration Administrators',
+		'Configuration Administrators for Org ' || name_in || ' (1)',
 		NULL, ug_type, 1
 	);
 
