@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.4.9
+Version:     2.4.10
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -85,6 +85,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Sun Aug 30 2015 Jan Dobes <jdobes@redhat.com> 2.4.10-1
+- Added softwarechannel_listsyncschedule to spacecmd to list all active
+  software channel sync schedules.
+
 * Wed Aug 19 2015 Jan Dobes 2.4.9-1
 - 1229427 - use default value as in WebUI
 - 1229427 - do not forget checksum
