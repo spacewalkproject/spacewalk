@@ -11,12 +11,13 @@ Usage:
 
 import git
 import os
+import re
 import simplejson
 import sys
 import urllib
 
-USER = "spacewalkproject"
-REPO = "spacewalk"
+USER = None
+REPO = None
 OAUTH_FILE = os.environ['HOME'] + "/.github-fetch-pullrequest-token"
 OAUTH = ""
 
@@ -57,9 +58,16 @@ def get_pull_request(req_num):
     return result
 
 
-def prepare_repo(req_num):
+def guess_USER_REPO():
+    """Uses convention that upstream remote is named either
+    'upstream' or 'origin'"""
+    a = dict((r.name, re.match('.*[:/](.*)/(.*)\.git', r.url).groups())
+        for r in repo.remotes)
+    return a.get('upstream') or a.get('origin')
+
+
+def prepare_repo(repo, req_num):
     """Main functionality"""
-    repo = git.Repo('.')
     if repo.is_dirty() or repo.untracked_files:
         print "Repo is dirty (uncommited changes/untracked files)."
         sys.exit(1)
@@ -89,9 +97,12 @@ def prepare_repo(req_num):
     print "\n", remote_name
 
 if __name__ == "__main__":
+    repo = git.Repo('.')
+    USER, REPO = guess_USER_REPO()
+
     if len(sys.argv) == 1:
         list_requests()
         sys.exit(0)
 
     setup_token()
-    prepare_repo(int(sys.argv[1]))
+    prepare_repo(repo, int(sys.argv[1]))
