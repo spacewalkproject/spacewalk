@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 825f594d653b7badc4c8bf4d131f3a5443b084e2
+-- oracle equivalent source sha1 ad73b94e4013d13c8abbce0a8f0988854fe019fd
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -146,6 +146,15 @@ begin
                         sgt.id, new_org_id
                 from rhnServerGroupType sgt
                 where sgt.label = 'virtualization_host';
+
+        -- set org entitlements
+        insert into rhnOrgEntitlements (org_id, entitlement_id)
+               select new_org_id, oet.id from rhnOrgEntitlementType oet
+                where oet.label = 'sw_mgr_enterprise';
+
+        insert into rhnOrgEntitlements (org_id, entitlement_id)
+               select new_org_id, oet.id from rhnOrgEntitlementType oet
+                where oet.label = 'rhn_virtualization';
 
         org_id_out := new_org_id;
 
