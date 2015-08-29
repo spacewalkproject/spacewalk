@@ -145,6 +145,15 @@ begin
                 from rhnServerGroupType sgt
                 where sgt.label = 'virtualization_host';
 
+        -- set org entitlements
+        insert into rhnOrgEntitlements (org_id, entitlement_id)
+               select new_org_id, oet.id from rhnOrgEntitlementType oet
+                where oet.label = 'sw_mgr_enterprise';
+
+        insert into rhnOrgEntitlements (org_id, entitlement_id)
+               select new_org_id, oet.id from rhnOrgEntitlementType oet
+                where oet.label = 'rhn_virtualization';
+
 	org_id_out := new_org_id;
 		
 end create_new_org;
