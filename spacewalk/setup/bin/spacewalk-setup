@@ -590,7 +590,7 @@ sub setup_ssl_certs {
 
   deploy_ca_cert("-source-dir" => $answers->{'ssl-dir'},
                  "-target-dir" => $Spacewalk::Setup::DEFAULT_DOC_ROOT."/pub",
-                 "-trust-dir" => '/etc/pki/ca-trust/source/anchors');
+                 "-trust-dir"  => $Spacewalk::Setup::CA_TRUST_DIR);
 
   print Spacewalk::Setup::loc("** SSL: Generating server certificate.\n");
 

@@ -99,6 +99,9 @@ use constant OS_RELEASE => '/etc/os-release';
 our $DEFAULT_DOC_ROOT = "/var/www/html";
 $DEFAULT_DOC_ROOT = '/srv/www/htdocs' if(isSUSE());
 
+our $CA_TRUST_DIR = '/etc/pki/ca-trust/source/anchors';
+$CA_TRUST_DIR = '/etc/pki/trust/anchors' if(isSUSE());
+
 my $DEBUG;
 $DEBUG = 0;
 
