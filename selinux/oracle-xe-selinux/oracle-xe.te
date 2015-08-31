@@ -15,6 +15,9 @@ require {
 	type lib_t;
 	type bin_t;
 	type rhnsd_conf_t;
+	type ld_so_cache_t;
+	type zero_device_t;
+	type snmp_port_t;
 }
 
 rw_files_pattern(oracle_db_t, oracle_sqlplus_log_t, oracle_sqlplus_log_t)
@@ -80,3 +83,22 @@ optional_policy(`
         ')
 	allow oracle_lsnrctl_t compat_ipv4_node_t:udp_socket node_bind;
 ')
+
+#============= oracle_db_t ==============
+allow oracle_db_t ld_so_cache_t:file execute;
+allow oracle_db_t oracle_db_log_t:file execute;
+allow oracle_db_t tmpfs_t:file execute;
+allow oracle_db_t zero_device_t:chr_file execute;
+
+#============= oracle_lsnrctl_t ==============
+allow oracle_lsnrctl_t oracle_tnslsnr_t:process { siginh rlimitinh noatsecure };
+
+#============= oracle_sqlplus_t ==============
+allow oracle_sqlplus_t oracle_db_t:process { siginh rlimitinh noatsecure };
+
+#============= oracle_tnslsnr_t ==============
+allow oracle_tnslsnr_t http_cache_port_t:tcp_socket name_bind;
+
+#!!!! This avc can be allowed using one of the these booleans:
+#     nis_enabled, oracle_snmp_support
+allow oracle_tnslsnr_t snmp_port_t:tcp_socket name_connect;
