@@ -48,7 +48,7 @@
       </c:if>
 
       <rhn:require
-        acl="org_entitlement(sw_mgr_enterprise); user_role(activation_key_admin)">
+        acl="user_role(activation_key_admin)">
         <li class="list-group-item">
         <rhn:icon type="nav-bullet" /> <a
             href="/rhn/activationkeys/List.do"> <bean:message

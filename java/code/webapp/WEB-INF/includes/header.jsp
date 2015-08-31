@@ -42,9 +42,7 @@
           <rhn:submitted />
           <div class="form-group">
             <select name="search_type" class="form-control input-sm">
-              <rhn:require acl="org_entitlement(sw_mgr_enterprise)">
-                <option value="systems"><bean:message key="header.jsp.systems" /></option>
-              </rhn:require>
+              <option value="systems"><bean:message key="header.jsp.systems" /></option>
               <option value="packages"><bean:message key="header.jsp.packages" /></option>
               <option value="errata"><bean:message key="header.jsp.errata" /></option>
               <option value="docs"><bean:message key="header.jsp.documentation" /></option>
