@@ -9,5 +9,5 @@
   </rhn-tab>
   <rhn-tab name="package.jsp.menu.newversions" url="/rhn/software/packages/NewVersions.do"/>
   <rhn-tab name="package.jsp.menu.installedsystems" url="/rhn/software/packages/InstalledSystems.do"/>
-  <rhn-tab name="package.jsp.menu.targetsystems" url="/rhn/software/packages/TargetSystems.do" acl="org_entitlement(sw_mgr_enterprise)"/>
+  <rhn-tab name="package.jsp.menu.targetsystems" url="/rhn/software/packages/TargetSystems.do"/>
 </rhn-navi-tree>
