@@ -105,7 +105,6 @@ rhnKickstartTimezone           :: rhnKSInstallType
 rhnServerNetAddress4           :: rhnServerNetInterface
 rhnServerNetAddress6           :: rhnServerNetInterface
 rhnOrgChannelSettings          :: web_customer rhnChannel rhnOrgChannelSettingsType
-rhnOrgEntitlements             :: rhnOrgEntitlementType
 rhnOrgErrataCacheQueue         :: web_customer
 rhnOrgExtGroupMapping          :: rhnUserExtGroup rhnServerGroup
 rhnPackage                     :: rhnPackageName rhnPackageEVR rhnPackageArch \
