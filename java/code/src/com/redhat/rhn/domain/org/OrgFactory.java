@@ -356,15 +356,6 @@ public class OrgFactory extends HibernateFactory {
         return lookupEntitlementByLabel("sw_mgr_enterprise");
     }
 
-    /**
-     * Get entitlement for rhn_virtualization
-     * @return OrgEntitlementType
-     */
-    public static OrgEntitlementType getEntitlementVirtualization() {
-        return lookupEntitlementByLabel("rhn_virtualization");
-    }
-
-    /**
      * Lookup orgs with servers with access to any channel that's a part of the given
      * family.
      * @param channelFamily Channel family to search for.
