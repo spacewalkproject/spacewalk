@@ -172,15 +172,6 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         assertTrue(org2.hasEntitlement(oet));
     }
 
-    public void testAddVirtualization() throws Exception {
-        Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
-        org1.getEntitlements().add(OrgFactory.getEntitlementVirtualization());
-        TestUtils.saveAndFlush(org1);
-        org1 = (Org) reload(org1);
-        assertTrue(org1.hasEntitlement(OrgFactory
-                .getEntitlementVirtualization()));
-    }
-
     public void testIllegalEntitlement() throws Exception {
         try {
             Org org1 = UserTestUtils.findNewOrg("testOrg" +

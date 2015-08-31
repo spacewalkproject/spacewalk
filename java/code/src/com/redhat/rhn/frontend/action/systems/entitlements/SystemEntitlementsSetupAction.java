@@ -106,14 +106,11 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
             log.debug("user.getOrg().getEnts: " + user.getOrg().getEntitlements());
         }
 
-        // Virt is an addon to update so just check to make sure we
-        // have virt.
-        if (user.getOrg().hasEntitlement(OrgFactory.getEntitlementVirtualization())) {
-            log.debug("Adding virt-entitled droplist entry");
-            addOnEntitlements.add(lvl10n(EntitlementManager.VIRTUALIZATION_ENTITLED,
-                    EntitlementManager.VIRTUALIZATION_ENTITLED));
-            request.setAttribute(SHOW_ADDON_ASPECTS, Boolean.TRUE);
-        }
+        log.debug("Adding virt-entitled droplist entry");
+        addOnEntitlements.add(lvl10n(EntitlementManager.VIRTUALIZATION_ENTITLED,
+                EntitlementManager.VIRTUALIZATION_ENTITLED));
+        request.setAttribute(SHOW_ADDON_ASPECTS, Boolean.TRUE);
+
 
         if (user.getOrg().hasEntitlement(OrgFactory.getEntitlementEnterprise())) {
             request.setAttribute(SHOW_MANAGEMENT_ASPECTS, Boolean.TRUE);
