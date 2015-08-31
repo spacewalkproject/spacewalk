@@ -4,10 +4,10 @@
   <rhn-tab name="Details">
     <rhn-tab-url>/rhn/channels/ChannelDetail.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Subscribers" acl="org_entitlement(sw_mgr_enterprise);org_channel_setting(not_globally_subscribable);user_role(channel_admin) or user_can_admin_channel()">
+  <rhn-tab name="Subscribers" acl="org_channel_setting(not_globally_subscribable);user_role(channel_admin) or user_can_admin_channel()">
     <rhn-tab-url>/rhn/channels/Subscribers.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Managers" acl="org_entitlement(sw_mgr_enterprise);user_role(channel_admin) or user_can_admin_channel()">
+  <rhn-tab name="Managers" acl="user_role(channel_admin) or user_can_admin_channel()">
     <rhn-tab-url>/rhn/channels/Managers.do</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Errata" acl="channel_type_capable(errata)">

@@ -29,7 +29,7 @@
     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Systems" url="/rhn/systems/Overview.do">
-    <rhn-tab name="Overview" url="/rhn/systems/Overview.do" acl="org_entitlement(sw_mgr_enterprise)"/>
+    <rhn-tab name="Overview" url="/rhn/systems/Overview.do"/>
     <rhn-tab name="Systems" url="/rhn/systems/SystemList.do">
       <rhn-tab-directory>/rhn/systems/details</rhn-tab-directory>
       <rhn-tab name="All" url="/rhn/systems/SystemList.do"/>
@@ -39,7 +39,7 @@
       <rhn-tab name="Requiring Reboot" url="/rhn/systems/RequiringReboot.do"/>
       <rhn-tab name="Extra Packages" url="/rhn/systems/ExtraPackagesSystems.do"/>
       <rhn-tab name="Unentitled" url="/rhn/systems/Unentitled.do"/>
-      <rhn-tab name="Ungrouped" url="/rhn/systems/Ungrouped.do" acl="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+      <rhn-tab name="Ungrouped" url="/rhn/systems/Ungrouped.do" acl="user_role(org_admin)"/>
       <rhn-tab name="Inactive" url="/rhn/systems/Inactive.do"/>
       <rhn-tab name="Recently Registered" url="/rhn/systems/Registered.do"/>
       <rhn-tab name="Proxy" url="/rhn/systems/ProxyList.do" acl="org_channel_family(rhn-proxy) or not is_satellite(); user_role(org_admin)"/>
@@ -52,28 +52,28 @@
       </rhn-tab>
       <rhn-tab name="System Currency" url="/rhn/systems/SystemCurrency.do"/>
     </rhn-tab>
-    <rhn-tab name="System Groups" acl="org_entitlement(sw_mgr_enterprise)">
+    <rhn-tab name="System Groups">
      <rhn-tab-directory>/rhn/groups</rhn-tab-directory>
       <rhn-tab-directory>/rhn/systems/groups</rhn-tab-directory>
       <rhn-tab-url>/rhn/systems/SystemGroupList.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="System Set Manager" url="/rhn/ssm/index.do" acl="org_entitlement(sw_mgr_enterprise)">
+    <rhn-tab name="System Set Manager" url="/rhn/ssm/index.do">
       <rhn-tab-directory>/rhn/systems/ssm</rhn-tab-directory>
       <rhn-tab-directory>/rhn/ssm</rhn-tab-directory>
-       <rhn-tab name="ssm.nav.status" url="/rhn/ssm/ViewAllLog.do" acl="org_entitlement(sw_mgr_enterprise)">
+       <rhn-tab name="ssm.nav.status" url="/rhn/ssm/ViewAllLog.do">
        <rhn-tab-url>/rhn/ssm/ViewLog.do</rhn-tab-url>
        <rhn-tab-url>/rhn/ssm/ViewCompletedLog.do</rhn-tab-url>
        </rhn-tab>
     </rhn-tab>
-    <rhn-tab name="Advanced Search" url="/rhn/systems/Search.do" acl="org_entitlement(sw_mgr_enterprise)" />
-    <rhn-tab name="Activation Keys" acl="org_entitlement(sw_mgr_enterprise); user_role(activation_key_admin)">
+    <rhn-tab name="Advanced Search" url="/rhn/systems/Search.do"/>
+    <rhn-tab name="Activation Keys" acl="user_role(activation_key_admin)">
       <rhn-tab-url>/rhn/activationkeys/List.do</rhn-tab-url>
       <rhn-tab-url>/rhn/activationkeys/Edit.do</rhn-tab-url>
       <rhn-tab-directory>/rhn/activationkeys/configuration</rhn-tab-directory>
       <rhn-tab-directory>/rhn/activationkeys/groups</rhn-tab-directory>
       <rhn-tab-directory>/rhn/activationkeys/systems</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Stored Profiles" acl="org_entitlement(sw_mgr_enterprise);">
+    <rhn-tab name="Stored Profiles">
       <rhn-tab-url>/rhn/profiles/List.do</rhn-tab-url>
       <rhn-tab-directory>/rhn/profiles</rhn-tab-directory>
     </rhn-tab>
@@ -109,7 +109,7 @@
         <rhn-tab-url>/rhn/kickstart/cobbler/DefaultSnippetView.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
-    <rhn-tab name="software.crashes" acl="org_entitlement(sw_mgr_enterprise)" url="/rhn/systems/SoftwareCrashesOverview.do">
+    <rhn-tab name="software.crashes" url="/rhn/systems/SoftwareCrashesOverview.do">
       <rhn-tab-url>/rhn/systems/SoftwareCrashesOverview.do</rhn-tab-url>
       <rhn-tab-url>/rhn/systems/SoftwareCrashUuidDetails.do</rhn-tab-url>
     </rhn-tab>
