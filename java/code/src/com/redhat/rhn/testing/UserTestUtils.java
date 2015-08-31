@@ -282,9 +282,6 @@ public class UserTestUtils extends Assert {
      * @throws Exception foo
      */
     public static void addVirtualization(Org orgIn) throws Exception {
-        Set ents = orgIn.getEntitlements();
-        ents.add(OrgFactory.getEntitlementVirtualization());
-
         EntitlementServerGroup sg =
             ServerGroupTestUtils.createEntitled(orgIn,
                     ServerConstants.getServerGroupTypeVirtualizationEntitled());
