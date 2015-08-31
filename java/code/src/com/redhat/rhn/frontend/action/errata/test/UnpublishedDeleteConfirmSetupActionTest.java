@@ -39,7 +39,6 @@ public class UnpublishedDeleteConfirmSetupActionTest extends RhnMockStrutsTestCa
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/errata/manage/UnpublishedDeleteConfirm");
-        user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         user.getOrg().addRole(RoleFactory.CHANNEL_ADMIN);
     }
 

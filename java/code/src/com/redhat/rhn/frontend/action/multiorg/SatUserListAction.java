@@ -55,9 +55,7 @@ public class SatUserListAction extends RhnAction {
 
         Long canModify =  (user.getOrg().getId().longValue() ==
             oid.longValue()) &&
-           (user.hasRole(RoleFactory.ORG_ADMIN)) &&
-           (AclManager.hasAcl("org_entitlement(sw_mgr_enterprise)", request, null)) ?
-                   new Long(1) : new Long(0);
+           (user.hasRole(RoleFactory.ORG_ADMIN)) ? new Long(1) : new Long(0);
 
         request.setAttribute("canModify", canModify);
         request.setAttribute("userOrgId", oid);

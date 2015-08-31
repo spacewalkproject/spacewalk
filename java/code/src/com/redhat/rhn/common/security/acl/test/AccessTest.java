@@ -162,25 +162,6 @@ public class AccessTest extends BaseTestCaseWithUser {
         assertFalse(rc);
     }
 
-    public void testOrgEntitlementAclTrue() throws Exception {
-        Map context = new HashMap();
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
-        UserTestUtils.addManagement(user.getOrg());
-        context.put("user", user);
-        boolean rc = acl.evalAcl(context, "org_entitlement(sw_mgr_enterprise)");
-        assertTrue(rc);
-    }
-
-    public void testOrgEntitlementAclFalse() {
-        Map context = new HashMap();
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
-        context.put("user", user);
-        boolean rc = acl.evalAcl(context, "org_entitlement(sw_mgr_enterprise)");
-        assertTrue(rc);
-    }
-
     public void testNeedsFirstUser() {
         boolean rc = acl.evalAcl(new HashMap(), "need_first_user()");
         assertFalse(rc);

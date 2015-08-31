@@ -31,7 +31,6 @@ public abstract class BaseDeleteErrataActionAbstractTest extends RhnMockStrutsTe
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo(getRequestPath());
-        user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         user.getOrg().addRole(RoleFactory.CHANNEL_ADMIN);
     }
 

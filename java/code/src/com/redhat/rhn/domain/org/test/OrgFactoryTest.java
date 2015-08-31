@@ -150,28 +150,6 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         assertNull(lookup.getToken());
     }
 
-    /**
-     * Test the addition of an entitlement to an org This code should be
-     * refactored into a business method of some sort if it becomes necessary to
-     * actually add entitlements progmatically from within the Java code. For
-     * now we need this test because new Orgs don't have any entitlements.
-     */
-    public void testAddEntitlement() throws Exception {
-        // Create a new Org and add an Entitlement
-        Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
-        Set entitlements = org1.getEntitlements();
-        OrgEntitlementType oet = OrgFactory
-        .lookupEntitlementByLabel("sw_mgr_enterprise");
-        entitlements.add(oet);
-        org1.setEntitlements(entitlements);
-        org1 = OrgFactory.save(org1);
-        Long orgId = org1.getId();
-        // Re-lookup the object and test it
-        flushAndEvict(org1);
-        Org org2 = OrgFactory.lookupById(orgId);
-        assertTrue(org2.hasEntitlement(oet));
-    }
-
     public void testIllegalEntitlement() throws Exception {
         try {
             Org org1 = UserTestUtils.findNewOrg("testOrg" +

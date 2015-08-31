@@ -71,36 +71,26 @@
                         <tr>
                           <th><bean:message key="systementitlements.jsp.baseentitlement" /></th>
                           <td class="text-right">
-                                          <c:if test="${requestScope.showManagementAspects}">
-                                                        <html:submit styleClass="btn btn-default" property="dispatch">
-                                                        <bean:message key="systementitlements.jsp.set_to_manage_entitled" />
-                                                        </html:submit>
-                                                  </c:if>
+                              <html:submit styleClass="btn btn-default" property="dispatch">
+                                  <bean:message key="systementitlements.jsp.set_to_manage_entitled" />
+                              </html:submit>
 
-                                          <c:if test="${requestScope.showUnentitled}">
-                                                        <html:submit styleClass="btn btn-default" property="dispatch">
-                                                            <bean:message key="systementitlements.jsp.set_to_unentitled" />
-                                                        </html:submit>
-                                                  </c:if>
-                                  </td>
+                              <html:submit styleClass="btn btn-default" property="dispatch">
+                                  <bean:message key="systementitlements.jsp.set_to_unentitled" />
+                              </html:submit>
+                          </td>
                         </tr>
                         <!--  Add On Entitlement Section -->
-                      <c:if test="${requestScope.showAddOnAspects}">
-                                <tr>
-                                      <th><bean:message key="systementitlements.jsp.addonentitlement" /></th>
-                                          <td class="text-right">
-                                              <html:select property="addOnEntitlement">
-                                                  <html:optionsCollection name="addOnEntitlements"/>
-                                              </html:select>
-                                                <html:submit styleClass="btn btn-default" property="dispatch">
-                                                  <bean:message key="systementitlements.jsp.add_entitlement" />
-                                                </html:submit>
-                                                <html:submit styleClass="btn btn-default" property="dispatch">
-                                                  <bean:message key="systementitlements.jsp.remove_entitlement" />
-                                                </html:submit>
-                                                  </td>
-                                </tr>
-                          </c:if>
+                        <tr>
+                            <th><bean:message key="systementitlements.jsp.addonentitlement" /></th>
+                            <td class="text-right"><html:select property="addOnEntitlement">
+                                    <html:optionsCollection name="addOnEntitlements" />
+                                </html:select> <html:submit styleClass="btn btn-default" property="dispatch">
+                                    <bean:message key="systementitlements.jsp.add_entitlement" />
+                                </html:submit> <html:submit styleClass="btn btn-default" property="dispatch">
+                                    <bean:message key="systementitlements.jsp.remove_entitlement" />
+                                </html:submit></td>
+                        </tr>
                   </table>
                 </div>
      </c:if>

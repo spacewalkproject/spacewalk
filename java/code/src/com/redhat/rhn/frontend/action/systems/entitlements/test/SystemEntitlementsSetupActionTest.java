@@ -54,10 +54,7 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
         assertNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_NO_SYSTEMS));
         assertNotNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_COMMANDS));
 
-        assertNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_ADDON_ASPECTS));
         assertNull(request.getAttribute(SystemEntitlementsSetupAction.ADDON_ENTITLEMENTS));
-        assertNull(request.getAttribute(
-                            SystemEntitlementsSetupAction.SHOW_MANAGEMENT_ASPECTS));
         assertNotNull(request.getAttribute(
                 SystemEntitlementsSetupAction.MANAGEMENT_COUNTS_MESSAGE));
     }
@@ -79,7 +76,6 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
      * @throws Exception exception if test fails
      */
     public void testManagementEntitledUser() throws Exception {
-        user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         Server server = ServerFactoryTest.createTestServer(user, true,
                         ServerConstants.getServerGroupTypeEnterpriseEntitled());
 
@@ -88,8 +84,6 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
 
 
         executeTests();
-        assertNotNull(request.getAttribute(
-                            SystemEntitlementsSetupAction.SHOW_ADDON_ASPECTS));
         assertNotNull(request.getAttribute(
                             SystemEntitlementsSetupAction.ADDON_ENTITLEMENTS));
     }
@@ -118,8 +112,6 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
      * @throws Exception exception if test fails
      */
     public void testEntitlementCountMessage() throws Exception {
-        user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
-
         Server server = ServerFactoryTest.createTestServer(user, true,
                         ServerConstants.getServerGroupTypeEnterpriseEntitled());
         assertTrue(server.getEntitlements().size() > 0);
