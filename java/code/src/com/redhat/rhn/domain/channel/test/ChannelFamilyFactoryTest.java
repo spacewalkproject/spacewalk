@@ -101,11 +101,13 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
         return createTestChannelFamily(user, true);
     }
 
-    public static ChannelFamily createTestChannelFamily(User user, boolean nullOrg) throws Exception {
+    public static ChannelFamily createTestChannelFamily(User user, boolean nullOrg)
+        throws Exception {
         return createTestChannelFamily(user, nullOrg, "ChannelFamily");
     }
 
-    public static ChannelFamily createTestChannelFamily(User user, boolean nullOrg, String prefix) throws Exception {
+    public static ChannelFamily createTestChannelFamily(User user, boolean nullOrg,
+            String prefix) throws Exception {
         String label = prefix + "Label" + TestUtils.randomString();
         String name = prefix + "Name" + TestUtils.randomString();
         String productUrl = "http://www.example.com";
