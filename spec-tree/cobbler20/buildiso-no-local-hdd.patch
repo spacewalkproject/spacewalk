@@ -1,0 +1,69 @@
+diff -rupN cobbler-2.0.11-orig/cobbler/action_buildiso.py cobbler-2.0.11/cobbler/action_buildiso.py
+--- cobbler-2.0.11-orig/cobbler/action_buildiso.py	2015-09-01 10:21:03.490403436 +0200
++++ cobbler-2.0.11/cobbler/action_buildiso.py	2015-09-01 10:29:56.817145968 +0200
+@@ -45,6 +45,9 @@ TIMEOUT 200
+ TOTALTIMEOUT 6000
+ ONTIMEOUT local
+ 
++"""
++
++LOCAL_HDD_HEADER = HEADER + """
+ LABEL local
+         MENU LABEL (local)
+         MENU DEFAULT
+@@ -375,10 +378,14 @@ class BuildIso:
+         return
+ 
+ 
+-    def run(self,iso=None,buildisodir=None,profiles=None,systems=None,distro=None,standalone=None,source=None,exclude_dns=None,force_server=None):
++    def run(self,iso=None,buildisodir=None,profiles=None,systems=None,distro=None,standalone=None,source=None,exclude_dns=None,force_server=None,no_local_hdd=None):
+ 
+         self.settings = self.config.settings()
+ 
++        if not no_local_hdd:
++            global HEADER
++            HEADER = LOCAL_HDD_HEADER
++
+         # the distro option is for stand-alone builds only
+         if not standalone and distro is not None:
+             utils.die(self.logger,"The --distro option should only be used when creating a standalone ISO")
+diff -rupN cobbler-2.0.11-orig/cobbler/api.py cobbler-2.0.11/cobbler/api.py
+--- cobbler-2.0.11-orig/cobbler/api.py	2015-09-01 10:20:20.292938313 +0200
++++ cobbler-2.0.11/cobbler/api.py	2015-09-01 10:23:39.626084609 +0200
+@@ -749,10 +749,10 @@ class BootAPI:
+ 
+     # ==========================================================================
+ 
+-    def build_iso(self,iso=None,profiles=None,systems=None,buildisodir=None,distro=None,standalone=None,source=None, exclude_dns=None, logger=None, force_server=None):
++    def build_iso(self,iso=None,profiles=None,systems=None,buildisodir=None,distro=None,standalone=None,source=None, exclude_dns=None, logger=None, force_server=None, no_local_hdd=None):
+         builder = action_buildiso.BuildIso(self._config, logger=logger)
+         return builder.run(
+-           iso=iso, profiles=profiles, systems=systems, buildisodir=buildisodir, distro=distro, standalone=standalone, source=source, exclude_dns=exclude_dns, force_server=force_server
++           iso=iso, profiles=profiles, systems=systems, buildisodir=buildisodir, distro=distro, standalone=standalone, source=source, exclude_dns=exclude_dns, force_server=force_server, no_local_hdd=no_local_hdd
+         )
+ 
+     # ==========================================================================
+diff -rupN cobbler-2.0.11-orig/cobbler/cli.py cobbler-2.0.11/cobbler/cli.py
+--- cobbler-2.0.11-orig/cobbler/cli.py	2015-09-01 10:20:20.293938324 +0200
++++ cobbler-2.0.11/cobbler/cli.py	2015-09-01 10:24:12.397437470 +0200
+@@ -322,6 +322,7 @@ class BootCLI:
+             self.parser.add_option("--source",   dest="source",   help="(OPTIONAL) used with --standalone to specify a source for the distribution files")
+             self.parser.add_option("--exclude-dns", dest="exclude_dns", action="store_true", help="(OPTIONAL) prevents addition of name server addresses to the kernel boot options")
+             self.parser.add_option("--force-server", dest="force_server", help="(OPTIONAL) get required files from the given server instead of the default (may be given as IP Address or FQDN of the server)")
++            self.parser.add_option("--no-local-hdd",   dest="no_local_hdd", action="store_true",  help="(OPTIONAL) removes option to boot from local hdd, keeps only kickstart profiles in boot menu")
+ 
+             (options, args) = self.parser.parse_args()
+             task_id = self.start_task("buildiso",options)
+diff -rupN cobbler-2.0.11-orig/cobbler/remote.py cobbler-2.0.11/cobbler/remote.py
+--- cobbler-2.0.11-orig/cobbler/remote.py	2015-09-01 10:20:20.293938324 +0200
++++ cobbler-2.0.11/cobbler/remote.py	2015-09-01 10:24:40.701742233 +0200
+@@ -153,7 +153,8 @@ class CobblerXMLRPCInterface:
+                 self.options.get("source",None),
+                 self.options.get("exclude_dns",False),
+                 self.logger,
+-                self.options.get("force_server",None)
++                self.options.get("force_server",None),
++                self.options.get("no_local_hdd",False)
+             )
+         def on_done(self):
+             if self.options.get("iso","") == "/var/www/cobbler/pub/generated.iso":
