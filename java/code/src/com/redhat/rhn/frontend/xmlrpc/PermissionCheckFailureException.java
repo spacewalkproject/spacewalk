@@ -19,7 +19,6 @@
 package com.redhat.rhn.frontend.xmlrpc;
 
 import com.redhat.rhn.FaultException;
-import com.redhat.rhn.domain.org.OrgEntitlementType;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.server.Server;
 
@@ -83,17 +82,6 @@ public class PermissionCheckFailureException extends FaultException  {
         super(-23, "permissionCheckFailure", "You do not have permissions to " +
                 "perform this action. You need to have at least a " + role1.getName() +
                 " or " + role2.getName() + " role to perform this action");
-    }
-
-    /**
-     * Constructor
-     * @param ent  Cause for the exception (bad org entitlement type)
-     */
-    public PermissionCheckFailureException(OrgEntitlementType ent) {
-        super(-23, "permissionCheckFailure" , "You do not have permissions to " +
-                "perform this action. You need to have at least a " + ent.getName() +
-                                 " entitement to perform this action");
-        // begin member variable initialization
     }
 
     /**

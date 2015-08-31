@@ -70,7 +70,6 @@ public class Org extends BaseDomainHelper {
     private Long id;
     private String name;
     private Set<UserGroup> usergroups;
-    private Set entitlements;
     private Set<Channel> ownedChannels;
     private Set<CustomDataKey> customDataKeys;
     private Set<Org> trustedOrgs;
@@ -85,7 +84,6 @@ public class Org extends BaseDomainHelper {
      */
     protected Org() {
         usergroups = new HashSet<UserGroup>();
-        entitlements = new HashSet();
     }
 
     /**
@@ -239,22 +237,6 @@ public class Org extends BaseDomainHelper {
      */
     public void setUserGroups(Set<UserGroup> ugIn) {
         usergroups = ugIn;
-    }
-
-    /**
-     * Set entitlements for this Org
-     * @param entsIn new Set of Entitlements to update
-     */
-    public void setEntitlements(Set entsIn) {
-        entitlements = entsIn;
-    }
-
-    /**
-     * Get entitlements for this Org
-     * @return Set of entitlements for this Org
-     */
-    public Set getEntitlements() {
-        return entitlements;
     }
 
     /**

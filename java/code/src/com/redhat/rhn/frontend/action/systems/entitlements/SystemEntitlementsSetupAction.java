@@ -95,9 +95,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
         }
 
         List<LabelValueBean> addOnEntitlements = new ArrayList<LabelValueBean>();
-        if (log.isDebugEnabled()) {
-            log.debug("user.getOrg().getEnts: " + user.getOrg().getEntitlements());
-        }
 
         log.debug("Adding virt-entitled droplist entry");
         addOnEntitlements.add(lvl10n(EntitlementManager.VIRTUALIZATION_ENTITLED,
