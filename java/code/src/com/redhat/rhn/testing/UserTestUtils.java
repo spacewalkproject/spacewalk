@@ -269,8 +269,6 @@ public class UserTestUtils extends Assert {
      * @throws Exception foo
      */
     public static void addManagement(Org orgIn) throws Exception {
-        Set ents = orgIn.getEntitlements();
-        ents.add(OrgFactory.getEntitlementEnterprise());
         EntitlementServerGroup sg =
             ServerGroupTestUtils.createEntitled(orgIn,
                     ServerConstants.getServerGroupTypeEnterpriseEntitled());

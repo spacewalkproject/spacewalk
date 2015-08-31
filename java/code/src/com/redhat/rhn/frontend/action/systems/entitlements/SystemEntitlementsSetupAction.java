@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.action.systems.entitlements;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.entitlement.Entitlement;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.user.User;
@@ -51,12 +50,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
     private static Logger log = Logger.getLogger(SystemEntitlementsSetupAction.class);
 
     public static final String SHOW_COMMANDS = "showCommands";
-
-    public static final String SHOW_MANAGEMENT_ASPECTS = "showManagementAspects";
-
-    public static final String SHOW_UNENTITLED = "showUnentitled";
-
-    public static final String SHOW_ADDON_ASPECTS = "showAddOnAspects";
 
     public static final String ADDON_ENTITLEMENTS = "addOnEntitlements";
     public static final String ADDON_ENTITLEMENT = "addOnEntitlement";
@@ -109,13 +102,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
         log.debug("Adding virt-entitled droplist entry");
         addOnEntitlements.add(lvl10n(EntitlementManager.VIRTUALIZATION_ENTITLED,
                 EntitlementManager.VIRTUALIZATION_ENTITLED));
-        request.setAttribute(SHOW_ADDON_ASPECTS, Boolean.TRUE);
-
-
-        if (user.getOrg().hasEntitlement(OrgFactory.getEntitlementEnterprise())) {
-            request.setAttribute(SHOW_MANAGEMENT_ASPECTS, Boolean.TRUE);
-            request.setAttribute(SHOW_UNENTITLED, Boolean.TRUE);
-        }
 
         log.debug("addonents.size(): " + addOnEntitlements.size());
         if (addOnEntitlements.size() > 0) {

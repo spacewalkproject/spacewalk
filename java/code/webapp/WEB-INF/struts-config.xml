@@ -2629,9 +2629,6 @@
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/systems/overview.jsp"/>
-        <forward name="noentitlement"
-                 path="/systems/SystemList.do"
-                 redirect="true"/>
         <forward name="YourRhn"
                  path="/YourRhn.do"
                  redirect="true" />

@@ -38,7 +38,6 @@ public class RegisteredSetupActionTest extends RhnPostMockStrutsTestCase {
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/systems/Registered");
-        user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         user.getOrg().addRole(RoleFactory.CHANNEL_ADMIN);
     }
 

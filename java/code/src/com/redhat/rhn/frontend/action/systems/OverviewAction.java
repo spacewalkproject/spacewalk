@@ -115,13 +115,6 @@ public class OverviewAction extends RhnListAction {
             return null;
         }
 
-        //There is no purpose to system overview if you don't have system groups
-        //so don't show it to people who can't
-        if (!AclManager.hasAcl("org_entitlement(sw_mgr_enterprise)", request, null)) {
-            return mapping.findForward("noentitlement");
-        }
-
-
         //If they specified systems or groups, use that and save it.
         String showGroups = request.getParameter("showgroups");
         if (showGroups != null) {

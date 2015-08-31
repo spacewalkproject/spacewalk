@@ -38,7 +38,6 @@ public class SystemSearchActionTest extends RhnMockStrutsTestCase {
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/systems/Search");
-        user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
 

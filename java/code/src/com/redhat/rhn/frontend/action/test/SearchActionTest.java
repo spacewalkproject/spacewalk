@@ -27,7 +27,6 @@ public class SearchActionTest extends RhnMockStrutsTestCase {
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/Search");
-        user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
     }
 
     public void testSystemRedirect() throws Exception {
