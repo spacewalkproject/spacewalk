@@ -2778,7 +2778,7 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
           <set-property property="acls"
-               value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+               value="user_role(org_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/ungroupedlist.jsp"/>
     </action>
@@ -2939,8 +2939,6 @@
         type="com.redhat.rhn.frontend.action.systems.SystemGroupListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
-          <set-property property="acls"
-               value="org_entitlement(sw_mgr_enterprise)"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/grouplist.jsp"/>
     </action>
@@ -2976,7 +2974,6 @@
         input="/WEB-INF/pages/systems/systemsearch.jsp"
         type="com.redhat.rhn.frontend.action.systems.SystemSearchAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="org_entitlement(sw_mgr_enterprise)"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/systemsearch.jsp"/>
         <forward name="single"

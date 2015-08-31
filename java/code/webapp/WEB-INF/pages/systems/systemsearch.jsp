@@ -132,12 +132,10 @@
                     <rl:decorator name="ElaborationDecorator"/>
                     <rl:decorator name="PageSizeDecorator"/>
 
-                    <rhn:require acl="org_entitlement(sw_mgr_enterprise)">
-                        <%-- <rhn:set value="${current.id}" disabled="${not current.selectable}"  /> --%>
-                        <rl:selectablecolumn value="${current.id}"
-                                             selected="${current.selected}"
-                                             disabled="${not current.selectable}"/>
-                    </rhn:require>
+                    <%-- <rhn:set value="${current.id}" disabled="${not current.selectable}"  /> --%>
+                    <rl:selectablecolumn value="${current.id}"
+                                         selected="${current.selected}"
+                                         disabled="${not current.selectable}"/>
 
                     <rl:column bound="false" sortable="true" sortattr="name" headerkey="systemsearch.jsp.systemname">
                         <a href="/rhn/systems/details/Overview.do?sid=${current.id}">
