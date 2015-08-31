@@ -38,8 +38,8 @@ rhn_config_channel.pkb  :: rhnConfigChannelType rhnConfigChannel \
                            rhnServerConfigChannel rhnConfigRevision rhnConfigFile \
                            rhnConfigFileName
 rhn_entitlements.pkb    :: rhnServerGroupType rhnServerGroup rhnServerGroupMembers \
-                           rhnServer rhnOrgEntitlements rhnUserGroupType \
-                           rhnOrgEntitlementType rhnUserGroupMembers \
+                           rhnServer rhnUserGroupType \
+                           rhnUserGroupMembers \
                            rhnUserGroup rhnChannelFamilyMembers rhnServerChannel \
                            rhnOrgChannelFamilyPermissions \
                            rhnServerServerGroupArchCompat rhnPrivateChannelFamily \
