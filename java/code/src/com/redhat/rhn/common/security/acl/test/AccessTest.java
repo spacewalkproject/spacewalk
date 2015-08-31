@@ -178,7 +178,7 @@ public class AccessTest extends BaseTestCaseWithUser {
                 "testOrg" + this.getClass().getSimpleName());
         context.put("user", user);
         boolean rc = acl.evalAcl(context, "org_entitlement(sw_mgr_enterprise)");
-        assertFalse(rc);
+        assertTrue(rc);
     }
 
     public void testNeedsFirstUser() {

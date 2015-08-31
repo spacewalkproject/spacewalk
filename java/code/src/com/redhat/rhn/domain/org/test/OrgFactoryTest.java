@@ -181,13 +181,6 @@ public class OrgFactoryTest extends RhnBaseTestCase {
                 .getEntitlementVirtualization()));
     }
 
-    public void testHasEntitlementFalse() throws Exception {
-        Org org1 = createTestOrg();
-        OrgEntitlementType oet = OrgFactory
-        .lookupEntitlementByLabel("sw_mgr_enterprise");
-        assertFalse(org1.hasEntitlement(oet));
-    }
-
     public void testIllegalEntitlement() throws Exception {
         try {
             Org org1 = UserTestUtils.findNewOrg("testOrg" +
