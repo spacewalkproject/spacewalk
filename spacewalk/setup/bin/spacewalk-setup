@@ -733,7 +733,7 @@ sub store_ssl_cert {
 # - adds corresponding rhnChannelFamily and rhnPrivateChannelFamily entries
 sub post_populate_db {
   my $answers = shift;
-  
+
   if($opts{"skip-db-population"}) {
       # If the DB exists, we expect orgs and entitlements are already there.
       # This should also fix bsc#900956
@@ -747,7 +747,7 @@ sub post_populate_db {
   unless ($org_id) {
     set_log_auth_login($answers);
     create_first_org($answers);
-  } 
+  }
 }
 
 sub set_log_auth_login {
@@ -757,10 +757,10 @@ SELECT id FROM web_contact_all
 WHERE login = ?
 EOQ
   my $login = 'SETUP';
-  
+
   my $dbh = Spacewalk::Setup::get_dbh($answers);
   my $sth = $dbh->prepare($query_str);
-  
+
   $sth->execute($login);
   my ($web_contact_id) = $sth->fetchrow();
 
@@ -777,7 +777,7 @@ EOQ
 sub set_log_auth {
   my $uid = shift;
   my $dbh = RHN::DB->connect; # for running SP we need RHN::DB
-  
+
   $dbh->call_procedure('logging.set_log_auth', $uid);
   $dbh->commit();
 }
@@ -807,13 +807,13 @@ FROM web_customer
 EOQ
 
   my $answers = shift;
-  
+
   my $dbh = Spacewalk::Setup::get_dbh($answers);
   my $sth = $dbh->prepare($query_str);
-  
+
   $sth->execute();
   my ($org_id) = $sth->fetchrow();
-  
+
   $sth->finish();
   $dbh->disconnect();
 
