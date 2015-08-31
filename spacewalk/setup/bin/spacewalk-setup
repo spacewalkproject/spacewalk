@@ -785,8 +785,8 @@ sub set_log_auth {
 sub create_first_org {
   my $answers = shift;
   my $dbh = RHN::DB->connect; # for running SP we need RHN::DB
-  my $owner = 'SUSE'; # todo this was pulled out of the certificate before,
-                      # make an option from this?
+  my $owner = 'Spacewalk Default Organization'; # todo this was pulled out of the certificate before,
+                                                # make an option from this?
 
   # I.e., setting their org_id password to the pid cubed.
   # That password is not used by anything.
