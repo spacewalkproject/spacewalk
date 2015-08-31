@@ -58,7 +58,7 @@ public class SearchAction extends RhnAction {
             if (searchType == null) {
                 return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
             }
-            else if (searchType.equals("systems") && systemSearchAllowed(user)) {
+            else if (searchType.equals("systems")) {
                 return doSystemSearch(mapping, request, searchString);
             }
             else if (searchType.equals("errata")) {
@@ -89,11 +89,6 @@ public class SearchAction extends RhnAction {
         params.put(BaseSearchAction.FINE_GRAINED, true);
         return StrutsDelegate.getInstance().forwardParams(
                         mapping.findForward("errata"), params);
-    }
-
-    private boolean systemSearchAllowed(User user) {
-        return user.getOrg().getEntitlements().contains(
-                OrgFactory.getEntitlementEnterprise());
     }
 
     private ActionForward doSystemSearch(ActionMapping mapping, HttpServletRequest request,

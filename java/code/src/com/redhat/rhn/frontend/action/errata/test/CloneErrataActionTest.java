@@ -37,7 +37,6 @@ public class CloneErrataActionTest extends RhnMockStrutsTestCase {
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/errata/manage/CloneErrata");
-        user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         user.getOrg().addRole(RoleFactory.CHANNEL_ADMIN);
     }
 
