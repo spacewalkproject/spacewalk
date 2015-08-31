@@ -327,19 +327,6 @@ public class Org extends BaseDomainHelper {
         return ChannelManager.getChannelsAccessibleByOrg(this.id);
     }
 
-    /**
-     * Does this org have the requested entitlement
-     * @param ent Entitlement to check
-     * @return boolean if or not the org has the Ent
-     */
-    public boolean hasEntitlement(OrgEntitlementType ent) {
-        if (!OrgFactory.isValidEntitlement(ent)) {
-            throw new IllegalArgumentException("Invalid Entitlement specified");
-        }
-
-        return entitlements.contains(ent);
-    }
-
     private void manipulateChannelPerms(String modeName, Long uid, Long cid,
             String roleLabel) {
         WriteMode mode = ModeFactory.getWriteMode("Org_queries", modeName);
