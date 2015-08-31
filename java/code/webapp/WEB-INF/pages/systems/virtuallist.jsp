@@ -21,18 +21,16 @@
   <rhn:virtuallistdisplay set="${requestScope.set}" hiddenvars="${requestScope.newset}"
                    filterBy="virtuallist.jsp.system" domainClass="systems">
 
-    <rhn:require acl="org_entitlement(sw_mgr_enterprise)">
-      <c:choose>
-        <c:when test="${current.selectable}">
-          <rhn:set value="${current.systemId}"/>
-        </c:when>
-        <c:otherwise>
-          <rhn:set value="0" disabled="true"
-                   title="virtuallist.jsp.disabled_checkbox_title"
-                   alt="virtuallist.jsp.disabled_checkbox_title"/>
-        </c:otherwise>
-      </c:choose>
-    </rhn:require>
+    <c:choose>
+      <c:when test="${current.selectable}">
+        <rhn:set value="${current.systemId}"/>
+      </c:when>
+      <c:otherwise>
+        <rhn:set value="0" disabled="true"
+                 title="virtuallist.jsp.disabled_checkbox_title"
+                 alt="virtuallist.jsp.disabled_checkbox_title"/>
+      </c:otherwise>
+    </c:choose>
 
     <c:choose>
       <c:when test="${current.isVirtualHost && current.hostSystemId != 0}">
