@@ -2012,7 +2012,6 @@ def processCommandline():
 
     log2disk(-1, _("Commandline: %s") % repr(sys.argv))
     optionsTable = [
-<<<<<<< HEAD
         Option('--batch-size',          action='store',
                help=_('DEBUG ONLY: max. batch-size for XML/database-import processing (1..%s).'
                       + '"man satellite-sync" for more information.') % SequenceServer.NEVER_MORE_THAN),
@@ -2063,9 +2062,6 @@ def processCommandline():
                help=_('org to which the sync imports data. defaults to the admin account')),
         Option('-p', '--print-configuration', action='store_true',
                help=_('print the configuration and exit')),
-        Option('--rhn-cert',            action='store',
-               help=_('satellite certificate to import ') +
-               _('(use with --mount-point only)')),
         Option('-s', '--server',        action='store',
                help=_('alternative server with which to connect (hostname)')),
         Option('--step',                action='store',
@@ -2080,70 +2076,6 @@ def processCommandline():
                help=_('the fully qualified domain name of the master Satellite. '
                       'Valid with --mount-point only. '
                       'Required if you want to import org data and channel permissions.')),
-=======
-        Option(     '--batch-size',          action='store',
-            help=_('DEBUG ONLY: max. batch-size for XML/database-import processing (1..%s).'
-                 + '"man satellite-sync" for more information.') % SequenceServer.NEVER_MORE_THAN),
-        Option(     '--ca-cert',             action='store',
-            help=_('alternative SSL CA Cert (fullpath to cert file)')),
-        Option('-c','--channel',             action='append',
-            help=_('process data for this channel only')),
-        Option(     '--consider-full',       action='store_true',
-            help=_('disk dump will be considered to be a full export; see "man satellite-sync" for more information.')),
-        Option(     '--include-custom-channels',       action='store_true',
-            help=_('existing custom channels will also be synced (unless -c is used)')),
-        Option(     '--debug-level',         action='store',
-            help=_('override debug level set in /etc/rhn/rhn.conf (which is currently set at %s).') % CFG.DEBUG),
-        Option(     '--dump-version',        action='store',
-            help=_("requested version of XML dump (default: %s)") % constants.PROTOCOL_VERSION),
-        Option(     '--email',               action='store_true',
-            help=_('e-mail a report of what was synced/imported')),
-        Option(     '--force-all-errata',  action='store_true',
-            help=_('forcibly process all (not a diff of) patch metadata')),
-        Option(     '--force-all-packages',  action='store_true',
-            help=_('forcibly process all (not a diff of) package metadata')),
-        Option(     '--http-proxy',          action='store',
-            help=_('alternative http proxy (hostname:port)')),
-        Option(     '--http-proxy-username', action='store',
-            help=_('alternative http proxy username')),
-        Option(     '--http-proxy-password', action='store',
-            help=_('alternative http proxy password')),
-        Option(     '--iss-parent',             action='store',
-            help=_('parent SUSE Manager server to import content from')),
-        Option('-l','--list-channels',       action='store_true',
-            help=_('list all available channels and exit')),
-        Option(     '--list-error-codes',         action='store_true',
-            help=_("help on all error codes mgr-inter-sync returns")),
-        Option('-m','--mount-point',         action='store',
-            help=_('source mount point for import - disk update only')),
-        Option(     '--no-errata',           action='store_true',
-            help=_('do not process patch data')),
-        Option(     '--no-kickstarts',       action='store_true',
-            help=_('do not process kickstart data (provisioning only)')),
-        Option(     '--no-packages',         action='store_true',
-            help=_('do not process full package metadata')),
-        Option(     '--no-rpms',             action='store_true',
-            help=_('do not download, or process any RPMs')),
-        Option(     '--no-ssl',              action='store_true',
-            help=_('turn off SSL (not recommended)')),
-        Option(    '--orgid',                  action='store',
-            help=_('org to which the sync imports data. defaults to the admin account')),
-        Option('-p','--print-configuration', action='store_true',
-            help=_('print the configuration and exit')),
-        Option('-s','--server',              action='store',
-            help=_('alternative server with which to connect (hostname)')),
-        Option(     '--step',                action='store',
-            help=_('synchronize to this step (man satellite-sync for more info)')),
-        Option(     '--systemid',            action='store',
-            help=_("DEBUG ONLY: alternative path to digital system id")),
-        Option(     '--traceback-mail',      action='store',
-            help=_('alternative email address(es) for sync output (--email option)')),
-        Option(     '--keep-rpms',      action='store_true',
-            help=_('do not remove rpms when importing from local dump')),
-        Option(     '--master',      action='store',
-            help=_('the fully qualified domain name of the master Satellite. '
-                 + 'Valid with --mount-point only. Required if you want to import org data and channel permissions.')),
->>>>>>> ecd929d... satellite-sync: don't sync the certificate
     ]
     optionParser = OptionParser(option_list=optionsTable)
     global OPTIONS
