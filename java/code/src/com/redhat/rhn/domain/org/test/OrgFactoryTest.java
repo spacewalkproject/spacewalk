@@ -150,21 +150,6 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         assertNull(lookup.getToken());
     }
 
-    public void testIllegalEntitlement() throws Exception {
-        try {
-            Org org1 = UserTestUtils.findNewOrg("testOrg" +
-                    this.getClass().getSimpleName());
-            OrgEntitlementType invalid = new OrgEntitlementType("invalid");
-            invalid.setLabel("ILLEGAL ENTITLEMENT");
-            invalid.setName("ILLEGAL ENTITLEMENT NAME");
-            org1.hasEntitlement(invalid);
-            fail("Checked for illegal entitlement, should have received an exception");
-        }
-        catch (IllegalArgumentException e) {
-            // Expected exception
-        }
-    }
-
     /**
      * Test to see if the Org returns list of UserGroup IDs
      */
