@@ -25,6 +25,7 @@
     <template name="scap_queries" filename="xml/scap_queries.xml" />
     <template name="Crash_queries" filename="xml/Crash_queries.xml" />
     <template name="Logging_queries" filename="xml/Logging_queries.xml" />
+    <template name="ResetPassword_queries" filename="xml/ResetPassword_queries.xml" />
 
     <!-- queries used to test the datasource system -->
     <template name="test_queries" filename="xml/test_queries.xml" />
