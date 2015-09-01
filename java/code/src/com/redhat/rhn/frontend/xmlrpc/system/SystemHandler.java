@@ -3562,11 +3562,16 @@ public class SystemHandler extends BaseHandler {
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
 
-        Action a = ActionManager.scheduleHardwareRefreshAction(loggedInUser, server,
-                earliestOccurrence);
-        Action action = ActionFactory.save(a);
+        try {
+            Action a = ActionManager.scheduleHardwareRefreshAction(loggedInUser, server,
+                    earliestOccurrence);
+            Action action = ActionFactory.save(a);
 
-        return action.getId();
+            return action.getId();
+        }
+        catch (MissingEntitlementException e) {
+            throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
+        }
     }
 
     /**
@@ -3589,11 +3594,16 @@ public class SystemHandler extends BaseHandler {
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
 
-        Action a = ActionManager.schedulePackageRefresh(loggedInUser, server,
-                earliestOccurrence);
-        ActionFactory.save(a);
+        try {
+            Action a = ActionManager.schedulePackageRefresh(loggedInUser, server,
+                    earliestOccurrence);
+            ActionFactory.save(a);
 
-        return a.getId().intValue();
+            return a.getId().intValue();
+        }
+        catch (MissingEntitlementException e) {
+            throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
+        }
     }
 
     /**
