@@ -955,9 +955,15 @@ public class ActionManager extends BaseManager {
      * @param server Server for which the action affects.
      * @param earliest The earliest time this action should be run.
      * @return The scheduled PackageAction
+     * @throws MissingEntitlementException if the server is not entitled
      */
     public static PackageAction schedulePackageRefresh(User scheduler, Server server,
             Date earliest) {
+        if (!SystemManager.hasEntitlement(server.getId(), EntitlementManager.MANAGEMENT)) {
+            throw new MissingEntitlementException(
+                    EntitlementManager.MANAGEMENT.getHumanReadableLabel());
+        }
+
         PackageAction pa = (PackageAction) schedulePackageAction(scheduler,
                 (List) null, ActionFactory.TYPE_PACKAGES_REFRESH_LIST, earliest, server);
         storeAction(pa);
@@ -1170,8 +1176,6 @@ public class ActionManager extends BaseManager {
      * @return Currently scheduled ScriptRunAction
      * @throws MissingCapabilityException if any server in the list is missing script.run;
      *             schedule fails
-     * @throws MissingEntitlementException if any server in the list is missing
-     *             Provisioning; schedule fails
      */
     public static ScriptRunAction scheduleScriptRun(User scheduler, List<Long> sids,
             String name, ScriptActionDetails script, Date earliest) {
@@ -1192,6 +1196,7 @@ public class ActionManager extends BaseManager {
      * IDs.
      * @param sids servers' ids
      * @throws MissingCapabilityException if scripts cannot be run
+     * @throws MissingEntitlementException if the server is not entitled
      */
     public static void checkScriptingOnServers(List<Long> sids)
         throws MissingCapabilityException {
@@ -1431,14 +1436,19 @@ public class ActionManager extends BaseManager {
     }
 
     /**
-     * Schedule a KickstartAction against a system
+     * Schedule a scheduleHardwareRefreshAction against a system
      * @param scheduler User scheduling the action.
      * @param srvr Server for which the action affects.
      * @param earliestAction Date run the Action
      * @return Currently scheduled KickstartAction
+     * @throws MissingCapabilityException if scripts cannot be run
      */
     public static Action scheduleHardwareRefreshAction(User scheduler, Server srvr,
             Date earliestAction) {
+        if (!SystemManager.hasEntitlement(srvr.getId(), EntitlementManager.MANAGEMENT)) {
+            throw new MissingEntitlementException(
+                    EntitlementManager.MANAGEMENT.getHumanReadableLabel());
+        }
         return scheduleAction(scheduler, srvr, ActionFactory.TYPE_HARDWARE_REFRESH_LIST,
                 ActionFactory.TYPE_HARDWARE_REFRESH_LIST.getName(), earliestAction);
     }
@@ -1449,9 +1459,19 @@ public class ActionManager extends BaseManager {
      * @param earliestAction Date run the Action
      * @param serverIds server ids meant for the action
      * @return Currently scheduled KickstartAction
+     * @throws MissingCapabilityException if scripts cannot be run
      */
     public static Action scheduleHardwareRefreshAction(User scheduler, Date earliestAction,
             Set<Long> serverIds) {
+        for(Long sid : serverIds) {
+            Server s = SystemManager.lookupByIdAndUser(sid, scheduler);
+            if (!SystemManager.hasEntitlement(sid, EntitlementManager.MANAGEMENT)) {
+                log.error("Unable to run a hardware refresh action " +
+                        "on an system without enterprise entitlement, id " + sid);
+                throw new MissingEntitlementException(
+                        EntitlementManager.MANAGEMENT.getHumanReadableLabel());
+            }
+        }
         return scheduleAction(scheduler, ActionFactory.TYPE_HARDWARE_REFRESH_LIST,
                 ActionFactory.TYPE_HARDWARE_REFRESH_LIST.getName(), earliestAction,
                 serverIds);
@@ -1667,6 +1687,7 @@ public class ActionManager extends BaseManager {
      * @param parameters Additional parameters for oscap tool.
      * @param earliestAction Date of earliest action to be executed.
      * @return scheduled Scap Action
+     * @throws MissingCapabilityException if scripts cannot be run
      */
     public static ScapAction scheduleXccdfEval(User scheduler, Set<Long> serverIds,
             String path, String parameters, Date earliestAction) {
