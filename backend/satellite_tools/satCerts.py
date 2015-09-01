@@ -18,14 +18,11 @@
 #
 
 # language imports
-from time import strftime, strptime
-import os
 import sys
 
 # other rhn imports
 from spacewalk.server import rhnSQL
 from spacewalk.common.rhnTB import fetchTraceback
-from spacewalk.common.rhnConfig import RHNOptions
 
 class NoOrgIdError(Exception):
 
@@ -52,45 +49,6 @@ _queryLookupOrgId = rhnSQL.Statement("""
     SELECT id
       FROM web_customer
 """)
-
-_queryLookupBaseOrgId = rhnSQL.Statement("""
-    SELECT min(id) as id
-      FROM web_customer
-""")
-
-
-def get_org_id():
-    """
-     Fetch base org id
-    """
-    h = rhnSQL.prepare(_queryLookupBaseOrgId)
-    h.execute()
-    row = h.fetchone_dict()
-    if not row or not row['id']:
-        raise NoOrgIdError("Unable to look up org_id")
-    return row['id']
-
-
-def create_first_org(owner):
-    """ create first org_id if needed
-        Always returns the org_id
-        Will not commit
-    """
-
-    try:
-        return get_org_id()
-    except NoOrgIdError:
-        # gotta create one first org then
-        p = rhnSQL.Procedure("create_first_org")
-        # I.e., setting their org_id password to the pid cubed.
-        #       That password is not used by anything.
-        pword = str(long(os.getpid()) ** 3)
-        # do it!
-        p(owner, pword)
-        # Now create the first private channel family
-        create_first_private_chan_family()
-        verify_family_permissions()
-    return get_org_id()
 
 #
 # SSL CA certificate section

@@ -34,7 +34,7 @@ translation = gettext.translation('spacewalk-backend-server', fallback=True)
 _ = translation.ugettext
 
 # __rhn imports__
-from spacewalk.common import rhnMail, rhnLib, rhnFlags
+from spacewalk.common import rhnMail, rhnLib
 from spacewalk.common.rhnLog import initLOG
 from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
 from spacewalk.common.rhnTB import exitWithTraceback
