@@ -172,6 +172,7 @@
         </table>
       </div>
 
+      <rhn:require acl="system_has_management_entitlement()">
       <!-- Channel subcriptions -->
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -194,6 +195,7 @@
           </c:if>
         </div>
       </div>
+      </rhn:require>
 
     </div>
 
