@@ -59,9 +59,6 @@ import java.util.Set;
 
 /**
  * OrgHandler
- *
- * @version $Rev$
- *
  * @xmlrpc.namespace org
  * @xmlrpc.doc Contains methods to access common organization management
  * functions available from the web interface.
@@ -70,12 +67,7 @@ public class OrgHandler extends BaseHandler {
 
     private static final String VALIDATION_XSD =
             "/com/redhat/rhn/frontend/action/multiorg/validation/orgCreateForm.xsd";
-    private static final String ORG_ID_KEY = "org_id";
-    private static final String ORG_NAME_KEY = "org_name";
-    private static final String ALLOCATED_KEY = "allocated";
-    private static final String UN_ALLOCATED_KEY = "unallocated";
     private static final String USED_KEY = "used";
-    private static final String FREE_KEY = "free";
     private static Logger log = Logger.getLogger(OrgHandler.class);
 
     /**
