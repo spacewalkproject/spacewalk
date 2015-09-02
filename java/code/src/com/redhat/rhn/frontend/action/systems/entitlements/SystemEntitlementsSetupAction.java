@@ -116,11 +116,8 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
         }
 
         if (user.getOrg().hasEntitlement(OrgFactory.getEntitlementEnterprise())) {
-            if (ServerGroupFactory.lookupEntitled(EntitlementManager.MANAGEMENT,
-                    user.getOrg()) != null) {
-                request.setAttribute(SHOW_MANAGEMENT_ASPECTS, Boolean.TRUE);
-                request.setAttribute(SHOW_UNENTITLED, Boolean.TRUE);
-            }
+            request.setAttribute(SHOW_MANAGEMENT_ASPECTS, Boolean.TRUE);
+            request.setAttribute(SHOW_UNENTITLED, Boolean.TRUE);
         }
 
         log.debug("addonents.size(): " + addOnEntitlements.size());
