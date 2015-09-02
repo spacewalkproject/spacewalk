@@ -259,9 +259,7 @@ public class SystemHandler extends BaseHandler {
         Entitlement entitlement = EntitlementManager.getByName(entitlementLevel);
 
         // Make sure we got a valid entitlement and the server can be entitled to it
-        if (entitlement == null) {
-            throw new InvalidEntitlementException();
-        }
+        validateEntitlements(new ArrayList() { { add(entitlement); } });
         if (!SystemManager.canEntitleServer(server, entitlement)) {
             throw new PermissionCheckFailureException();
         }
@@ -3946,6 +3944,10 @@ public class SystemHandler extends BaseHandler {
      */
     public int unentitle(String clientCert) {
         Server server = validateClientCertificate(clientCert);
+        if (server.getBaseEntitlement().isPermanent()) {
+            // a permanent entitlement is not changeable by API
+            throw new InvalidEntitlementException();
+        }
         SystemManager.removeAllServerEntitlements(server.getId());
         SystemManager.snapshotServer(server, LocalizationService
                 .getInstance().getMessage("snapshots.entitlements"));
