@@ -31,6 +31,7 @@ Patch17: whitelist.patch
 Patch18: disable_https.patch
 Patch19: buildiso-boot-options.patch
 Patch20: buildiso-no-local-hdd.patch
+Patch21: cobbler-s390-kernel-options.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -136,6 +137,7 @@ a XMLRPC API for integration with other applications.
 %patch18 -p1
 %patch19 -p1
 %patch20 -p1
+%patch21 -p1
 
 %build
 %{__python} setup.py build 
