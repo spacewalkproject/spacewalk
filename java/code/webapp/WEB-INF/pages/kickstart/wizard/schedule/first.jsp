@@ -25,7 +25,6 @@ function setStep(stepName) {
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<br />
 <h2>
   <rhn:icon type="header-kickstart" title="system.common.kickstartAlt" />
   <bean:message key="kickstart.schedule.heading1.jsp" />
