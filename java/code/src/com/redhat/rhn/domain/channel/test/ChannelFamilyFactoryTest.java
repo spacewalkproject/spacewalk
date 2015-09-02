@@ -97,10 +97,6 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
         return createTestChannelFamily(user, false);
     }
 
-    public static ChannelFamily createBaseTestChannelFamily(User user) throws Exception {
-        return createTestChannelFamily(user, true);
-    }
-
     public static ChannelFamily createTestChannelFamily(User user, boolean nullOrg)
         throws Exception {
         return createTestChannelFamily(user, nullOrg, "ChannelFamily");
