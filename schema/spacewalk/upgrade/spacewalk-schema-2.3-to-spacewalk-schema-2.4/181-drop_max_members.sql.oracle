@@ -1,0 +1,14 @@
+ALTER TABLE rhnServerGroup DROP COLUMN max_members;
+
+BEGIN
+  logging.recreate_trigger('rhnservergroup');
+END;
+/
+
+DROP VIEW rhnVisibleServerGroup;
+CREATE OR REPLACE VIEW
+rhnVisibleServerGroup
+AS
+  SELECT *
+    FROM rhnServerGroup SG
+   WHERE SG.group_type IS NULL;
