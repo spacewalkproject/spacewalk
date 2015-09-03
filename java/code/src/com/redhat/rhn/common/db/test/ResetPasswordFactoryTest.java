@@ -14,6 +14,9 @@
  */
 package com.redhat.rhn.common.db.test;
 
+import java.util.Calendar;
+
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.ResetPasswordFactory;
 import com.redhat.rhn.domain.common.ResetPassword;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
@@ -33,6 +36,31 @@ public class ResetPasswordFactoryTest extends BaseTestCaseWithUser {
         assertEquals(rp.getUserId(), user.getId());
         assertNotNull(rp.getToken());
         assertTrue(rp.isValid());
+        assertTrue(!rp.isExpired());
+    }
+
+    public void testExpired() {
+        ResetPassword rp = new ResetPassword(user.getId(),
+                        ResetPasswordFactory.generatePasswordToken(user));
+        assertNotNull(rp);
+        assertTrue(!rp.isExpired());
+
+        int expirationHours = Config.get().getInt(ResetPasswordFactory.EXPIRE_TIME, 48);
+
+        Calendar lastWeek = Calendar.getInstance();
+        lastWeek.add(Calendar.HOUR, -(expirationHours - 1));
+        rp.setCreated(lastWeek.getTime());
+        assertTrue(!rp.isExpired());
+
+        lastWeek = Calendar.getInstance();
+        lastWeek.add(Calendar.HOUR, -(expirationHours + 1));
+        rp.setCreated(lastWeek.getTime());
+        assertTrue(rp.isExpired());
+
+        lastWeek = Calendar.getInstance();
+        lastWeek.add(Calendar.YEAR, -1);
+        rp.setCreated(lastWeek.getTime());
+        assertTrue(rp.isExpired());
     }
 
     public void testFactoryCreate() {
@@ -58,6 +86,14 @@ public class ResetPasswordFactoryTest extends BaseTestCaseWithUser {
         assertEquals(rp.getToken(), found.getToken());
         int rmv = ResetPasswordFactory.deleteUserTokens(user.getId());
         assertEquals(1, rmv);
+    }
+
+    public void testInvalidateOne() {
+        ResetPassword rp = ResetPasswordFactory.createNewEntryFor(user);
+        assertNotNull(rp);
+        ResetPasswordFactory.invalidateToken(rp.getToken());
+        ResetPassword found = ResetPasswordFactory.lookupByToken(rp.getToken());
+        assertTrue(!found.isValid());
     }
 
     public void testInvalidate() {

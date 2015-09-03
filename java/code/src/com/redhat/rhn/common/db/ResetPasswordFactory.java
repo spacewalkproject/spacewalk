@@ -32,6 +32,7 @@ import com.redhat.rhn.domain.common.ResetPassword;
 import com.redhat.rhn.domain.user.User;
 
 public class ResetPasswordFactory extends HibernateFactory {
+    public static final String EXPIRE_TIME = "password_token_expiration_hours";
     private static ResetPasswordFactory singleton = new ResetPasswordFactory();
     private static Logger log = Logger.getLogger(ResetPasswordFactory.class);
 
@@ -110,5 +111,13 @@ public class ResetPasswordFactory extends HibernateFactory {
         ResetPassword rp = new ResetPassword(u.getId(), generatePasswordToken(u));
         save(rp);
         return rp;
+    }
+
+    public static void invalidateToken(String token) {
+        WriteMode wm = ModeFactory.getWriteMode("ResetPassword_queries",
+                        "invalidate_token");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("token", token);
+        wm.executeUpdate(params);
     }
 }

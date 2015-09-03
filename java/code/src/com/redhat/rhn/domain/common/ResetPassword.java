@@ -14,9 +14,13 @@
  */
 package com.redhat.rhn.domain.common;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.BaseDomainHelper;
 
 /**
@@ -25,6 +29,9 @@ import com.redhat.rhn.domain.BaseDomainHelper;
  */
 public class ResetPassword extends BaseDomainHelper {
 
+    private static final String PASSWORD_TOKEN_EXPIRATION =
+                    "password_token_expiration_hours";
+    private static final int PASSWORD_TOKEN_EXPIRATION_DEFAULT = 48;
     private Long id;
     private String token;
     private Long userId;
@@ -101,8 +108,18 @@ public class ResetPassword extends BaseDomainHelper {
         return getIsValid();
     }
 
+    public boolean isExpired() {
+        Calendar now = Calendar.getInstance();
+        Calendar expireDate = Calendar.getInstance();
+        expireDate.setTime(getCreated()==null?new Date():getCreated());
+        expireDate.add(Calendar.HOUR,
+                       Config.get().getInt(PASSWORD_TOKEN_EXPIRATION,
+                                           PASSWORD_TOKEN_EXPIRATION_DEFAULT));
+        return now.after(expireDate);
+    }
 
-    /**
+
+    /*
      * @param isValid the isValid to set
      */
     public void setIsValid(boolean isValid) {
@@ -146,13 +163,17 @@ public class ResetPassword extends BaseDomainHelper {
     @Override
     public String toString() {
         return new StringBuilder("ResetPassword [id=")
-                                .append(getId().toString())
+                                .append(getId())
                                 .append(", token=")
                                 .append(getToken())
                                 .append(", userId=")
-                                .append(userId)
+                                .append(getUserId())
                                 .append(", isValid=")
                                 .append(isValid())
+                                .append(", created=")
+                                .append(getCreated())
+                                .append(", isExpired=")
+                                .append(isExpired())
                                 .append("]")
                                 .toString();
 
