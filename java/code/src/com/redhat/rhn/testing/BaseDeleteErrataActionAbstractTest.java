@@ -15,13 +15,11 @@
 package com.redhat.rhn.testing;
 
 import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 
 /**
  * BaseDeleteActionTest
- * @version $Rev$
  */
 public abstract class BaseDeleteErrataActionAbstractTest extends RhnMockStrutsTestCase {
 

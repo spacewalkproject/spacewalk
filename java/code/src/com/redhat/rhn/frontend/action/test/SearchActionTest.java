@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.test;
 
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 

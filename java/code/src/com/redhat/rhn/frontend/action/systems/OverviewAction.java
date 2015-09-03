@@ -19,7 +19,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
-import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.user.UserManager;
 
@@ -38,7 +37,6 @@ import java.util.regex.Pattern;
 
 /**
  * OverviewAction
- * @version $Rev$
  */
 public class OverviewAction extends RhnListAction {
 
