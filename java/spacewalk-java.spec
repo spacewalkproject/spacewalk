@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.136.dev
+Version: 2.4.137.dev
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,76 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 03 2015 Silvio Moioli <smoioli@suse.de> 2.4.137.dev-1
+- java: fix entitlement-testing cases
+- java: remove repoll parameter from
+  rhn_entitlements.remove_server_entitlement()
+- i18n: unused strings removed
+- OrgHandler: remove unused constants
+- SystemEntitlementsSetupAction: remove useless check
+- ChannelFamilyFactoryTest: unused method removed
+- ChannelFamilyFactoryTest: fix checkstyle issue
+- LoginSetupActionTest: remove tests that are not relevant anymore
+- OrgFactoryTest: drop test, does not make sense anymore
+- SystemDetailsEditActionTest.testAddonEntitlemntsList: fix
+- SystemEntitlementsSetupActionTest: fix
+- SystemHandler: remove comment leftover
+- ChannelFamilyFactoryTest: remove entitlement leftovers
+- SystemManagerTest: remove test, it does not make sense in the end
+- SystemGroupOvervirew: remove unused code
+- ServerGroupTest: dead code removal
+- SummaryPopulation Taskomatic task: assume all orgs always have enterprise
+  entitlements
+- SystemHandler.listGroups: visible system groups have no max members, simplify
+  query
+- EntitlementServerGroup: remove references to max_members from the class and
+  test code
+- i18n: unused strings removed
+- EntitlementServerGroupSerializer: unused, removed
+- i18n: unused strings removed
+- EntitlementManager: remove dead code
+- SystemManager: don't check entitlement counts when changing a system's
+  entitlements
+- SystemEntitlementsSubmitAction: remove dead code - available entitlement
+  count is not shown anymore
+- System Details page: don't show entitlement counts
+- UpdateOrgSystemEntitlementsCommand: drop unused code
+- OrgHandler: drop setSystemEntitlements API endpoint
+- OrgHandler/OrgManager: dead code removed
+- OrgHandler: drop listSystemEntitlements API endpoint
+- OrgHandler: drop listSystemEntitlements API endpoint
+- SystemEntitlementsDto: drop unused class
+- EntitlementManager: dead code removed
+- OrgHandler: drop listSystemEntitlements API endpoint
+- SystemEntitlementsAction: page dropped
+- SystemEntitlementDetailsAction: page dropped
+- SystemEntitlementOrgsAction: page dropped
+- OrgEntitlementDto: dead code removed
+- OrgHandler: drop listSystemEntitlementsForOrg API endpoint
+- OrgSystemSubscriptionsAction: page dropped
+- EntitledServerGroup: unused code removed
+- NotEnoughEntitlementsException: unused exception removed
+- SystemHandler.upgradeEntitlement: remove entitlement count check
+- SystemEntitlementsSetupAction: assume all entitlements are unlimited
+- ConfigureCertificateCommand: unused, dropped
+- CertificateConfig.do: page dropped
+- editlangs.sh: generalize a bit for non-jsp files
+- i18n: unused strings removed
+- SatelliteCertificateExpiredException: unused, dropped
+- SatelliteCertificate: unused, dropped
+- SatelliteFactory: unused, dropped
+- CertificateFactory: unused, dropped
+- SatelliteHandler: getCertificateExpirationDate() dropped
+- CertificateManager: unused, dropped
+- sat-cert-check Taskomatic task dropped
+- LoginExpiredTest: dropped
+- LoginSetupAction, LoginAction: don't restrict access if the certificate is
+  expired
+- java: XMLRPC restricted whitelist dead code removal
+- BaseHandler: don't restrict XMLRPC APIs if the certificate is expired
+- java: restricted whitelist dead code removal
+- AuthFilter: don't restrict page visits if the certificate is expired
+
 * Fri Aug 21 2015 Silvio Moioli <smoioli@suse.de> 2.4.136.dev-1
 - ActivationKeyHandlerTest: avoid Java 7 constructs
 - i18n: Remove system.entitle.alreadyvirt
