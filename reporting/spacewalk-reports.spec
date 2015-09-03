@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.103.dev
+Version: 2.4.104.dev
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Thu Sep 03 2015 Silvio Moioli <smoioli@suse.de> 2.4.104.dev-1
+- audit-server-groups report: remove reporting of max_members
+- entitlements report: dropped
+
 * Fri Aug 07 2015 Silvio Moioli <smoioli@suse.de> 2.4.103.dev-1
 - report: remove channel entitlements from report
 
