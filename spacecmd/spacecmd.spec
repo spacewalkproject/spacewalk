@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.4.108.dev
+Version:     2.4.109.dev
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -85,6 +85,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Sep 03 2015 Silvio Moioli <smoioli@suse.de> 2.4.109.dev-1
+- spacecmd: remove listsystementitlements command
+
 * Fri Aug 21 2015 Silvio Moioli <smoioli@suse.de> 2.4.108.dev-1
 - spacecmd: remove virtualization host platform entitlement references
 
