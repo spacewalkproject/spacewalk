@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.4.103.dev
+Version:    2.4.104.dev
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -105,6 +105,10 @@ rm -rf %{buildroot}
 %{_var}/www/html/css/*.less
 
 %changelog
+* Thu Sep 03 2015 Silvio Moioli <smoioli@suse.de> 2.4.104.dev-1
+- Remove unused load_satellite_certificate function and satellite-cert-file
+  parameter
+
 * Fri Aug 07 2015 Silvio Moioli <smoioli@suse.de> 2.4.103.dev-1
 - branding: remove unused css classes and their dead references
 
