@@ -1288,6 +1288,50 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * Returns a count of systems without a certain entitlement in a set.
+     *
+     * @param user user making the request
+     * @param setLabel label of the set
+     * @param entitlementLabel label of the entitlement
+     * @return number of systems in the set without the entitlement
+     */
+    public static int countSystemsInSetWithoutEntitlement(User user, String setLabel,
+        String entitlementLabel) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "count_systems_in_set_without_entitlement");
+
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        params.put("entitlement_label", entitlementLabel);
+
+        DataResult dr = makeDataResult(params, null, null, m);
+        return ((Long)((HashMap)dr.get(0)).get("count")).intValue();
+    }
+
+    /**
+     * Returns a count of systems without a certain feature in a set.
+     *
+     * @param user user making the request
+     * @param setLabel label of the set
+     * @param featureLabel label of the feature
+     * @return number of systems in the set without the feature
+     */
+    public static int countSystemsInSetWithoutFeature(User user, String setLabel,
+        String featureLabel) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "count_systems_in_set_without_feature");
+
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        params.put("feature_label", featureLabel);
+
+        DataResult dr = makeDataResult(params, null, null, m);
+        return ((Long)((HashMap)dr.get(0)).get("count")).intValue();
+    }
+
+    /**
      * Returns true if server has capability.
      * @param sid Server id
      * @param capability capability

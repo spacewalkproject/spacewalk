@@ -2209,6 +2209,45 @@ select a.id
   </query>
 </mode>
 
+<mode name="count_systems_in_set_without_entitlement">
+  <query params="user_id, set_label, entitlement_label">
+    SELECT COUNT(*) as count
+      FROM rhnSet
+        LEFT JOIN rhnServerEntitlementView ON rhnSet.element = rhnServerEntitlementView.server_id
+      WHERE rhnSet.user_id = :user_id AND
+        rhnSet.label = :set_label AND
+        (rhnServerEntitlementView.is_base IS NULL OR rhnServerEntitlementView.is_base = 'Y') AND
+        (rhnServerEntitlementView.label IS NULL OR rhnServerEntitlementView.label &lt;&gt; :entitlement_label)
+  </query>
+</mode>
+
+<mode name="count_systems_in_set_without_feature">
+  <query params="user_id, set_label, feature_label">
+    SELECT COUNT(*) as count
+      FROM rhnSet
+      WHERE
+        rhnSet.user_id = :user_id AND
+        rhnSet.label = :set_label AND (
+          SELECT COUNT(*)
+            FROM rhnServerFeaturesView
+            WHERE rhnSet.element = rhnServerFeaturesView.server_id
+              AND rhnServerFeaturesView.label = :feature_label
+        ) = 0;
+  </query>
+</mode>
+
+<mode name="entitled_systems_in_set" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="user_id, set_label">
+    SELECT rhnServer.id, rhnServer.name
+      FROM rhnServerEntitlementView
+        JOIN rhnSet ON rhnServerEntitlementView.server_id = rhnSet.element
+        JOIN rhnServer ON rhnServerEntitlementView.server_id = rhnServer.id
+      WHERE rhnSet.user_id = :user_id AND
+        rhnSet.label = :set_label AND
+        rhnServerEntitlementView.label IN (%s)
+  </query>
+</mode>
+
 <mode name="systems_in_set_with_tag">
   <query params="user_id, tag_id">
 SELECT * FROM (

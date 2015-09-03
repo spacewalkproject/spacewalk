@@ -4,11 +4,11 @@
     <rhn-tab name="Systems">
         <rhn-tab-url>/rhn/systems/ssm/ListSystems.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Errata">
+    <rhn-tab name="Errata" acl="all_systems_in_set_have_entitlement(enterprise_entitled)">
         <rhn-tab-url>/rhn/systems/ssm/ListErrata.do</rhn-tab-url>
     </rhn-tab>
 
-   <rhn-tab name="Packages">
+   <rhn-tab name="Packages" acl="all_systems_in_set_have_entitlement(enterprise_entitled)">
             <rhn-tab-url>/rhn/ssm/Packages.do</rhn-tab-url>
             <rhn-tab name="Install">
                 <rhn-tab-url>/rhn/ssm/PackageInstall.do</rhn-tab-url>
@@ -24,13 +24,13 @@
             </rhn-tab>
    </rhn-tab>
 
-    <rhn-tab name="Groups" acl="user_role(org_admin)">
+    <rhn-tab name="Groups" acl="user_role(org_admin); all_systems_in_set_have_entitlement(enterprise_entitled)">
         <rhn-tab-url>/rhn/systems/ssm/groups/Manage.do</rhn-tab-url>
         <rhn-tab-url>/rhn/systems/ssm/groups/Confirm.do</rhn-tab-url>
         <rhn-tab-url>/rhn/systems/ssm/groups/Create.do</rhn-tab-url>
     </rhn-tab>
 
-        <rhn-tab name="Channels">
+        <rhn-tab name="Channels" acl="all_systems_in_set_have_entitlement(enterprise_entitled)">
             <rhn-tab-url>/rhn/channel/ssm/ChildSubscriptions.do</rhn-tab-url>
             <rhn-tab name="Base Channels">
                 <rhn-tab-url>/rhn/channel/ssm/BaseChannelSubscribe.do</rhn-tab-url>
@@ -41,7 +41,8 @@
             </rhn-tab>
         </rhn-tab>
 
-        <rhn-tab name="ssm.nav.config" url="/rhn/systems/ssm/config/Deploy.do">
+        <rhn-tab name="ssm.nav.config" url="/rhn/systems/ssm/config/Deploy.do"
+                 acl="all_systems_in_set_have_entitlement(enterprise_entitled)">
           <rhn-tab-directory>/rhn/systems/ssm/config</rhn-tab-directory>
           <rhn-tab name="ssm.nav.config.deploy" url="/rhn/systems/ssm/config/Deploy.do">
             <rhn-tab-url>/rhn/systems/ssm/config/DeploySubmit.do</rhn-tab-url>
@@ -69,16 +70,16 @@
           </rhn-tab>
         </rhn-tab>
 
-        <rhn-tab name="Provisioning" url="/rhn/systems/ssm/kickstart/KickstartableSystems.do">
+        <rhn-tab name="Provisioning" url="/rhn/systems/ssm/kickstart/KickstartableSystems.do" acl="all_systems_in_set_have_feature(ftr_kickstart)">
           <rhn-tab name="Kickstart" url="/rhn/systems/ssm/kickstart/KickstartableSystems.do" >
                 <rhn-tab-url>/rhn/systems/ssm/kickstart/ScheduleByProfile.do</rhn-tab-url>
                 <rhn-tab-url>/rhn/systems/ssm/kickstart/ScheduleByIp.do</rhn-tab-url>
           </rhn-tab>
-          <rhn-tab name="Tag Systems" url="/rhn/systems/ssm/provisioning/TagSystems.do" />
-          <rhn-tab name="Rollback" url="/rhn/systems/ssm/provisioning/Rollback.do">
+          <rhn-tab name="Tag Systems" url="/rhn/systems/ssm/provisioning/TagSystems.do" acl="all_systems_in_set_have_entitlement(enterprise_entitled)"/>
+          <rhn-tab name="Rollback" url="/rhn/systems/ssm/provisioning/Rollback.do"  acl="all_systems_in_set_have_entitlement(enterprise_entitled)">
             <rhn-tab-url>/rhn/systems/ssm/provisioning/RollbackToTag.do</rhn-tab-url>
           </rhn-tab>
-          <rhn-tab name="Remote Command" url="/rhn/systems/ssm/provisioning/RemoteCommand.do">
+          <rhn-tab name="Remote Command" url="/rhn/systems/ssm/provisioning/RemoteCommand.do" acl="all_systems_in_set_have_entitlement(enterprise_entitled)">
               <rhn-tab-url>/rhn/systems/ssm/provisioning/RemoteCommand.do</rhn-tab-url>
           </rhn-tab>
           <rhn-tab name="Power Management Configuration" url="/rhn/systems/ssm/provisioning/PowerManagementConfiguration.do">
@@ -89,12 +90,12 @@
           </rhn-tab>
         </rhn-tab>
 
-        <rhn-tab name="Audit">
+        <rhn-tab name="Audit" acl="all_systems_in_set_have_entitlement(enterprise_entitled)">
                 <rhn-tab-url>/rhn/systems/ssm/audit/ScheduleXccdf.do</rhn-tab-url>
                 <rhn-tab-url>/rhn/systems/ssm/audit/ScheduleXccdfSubmit.do</rhn-tab-url>
         </rhn-tab>
 
-        <rhn-tab name="Misc" url="/rhn/systems/ssm/misc/Index.do">
+        <rhn-tab name="Misc" url="/rhn/systems/ssm/misc/Index.do" acl="all_systems_in_set_have_entitlement(enterprise_entitled)">
             <rhn-tab name="ssm.misc.index.tabs.hardware" url="/rhn/systems/ssm/misc/HardwareRefresh.do"/>
             <rhn-tab name="ssm.misc.index.tabs.software" url="/rhn/systems/ssm/misc/SoftwareRefresh.do"/>
             <rhn-tab name="ssm.misc.index.tabs.migrate" url="/rhn/systems/ssm/MigrateSystems.do"/>
@@ -103,5 +104,10 @@
             <rhn-tab name="ssm.misc.index.tabs.delete" url="/rhn/systems/ssm/DeleteConfirm.do"/>
             <rhn-tab-url>/rhn/systems/ssm/misc/ConfirmSystemPreferences.do</rhn-tab-url>
             <rhn-tab-url>/rhn/systems/ssm/DeleteConfirm.do</rhn-tab-url>
+	</rhn-tab>
+
+        <rhn-tab name="Misc" url="/rhn/systems/ssm/MigrateSystems.do" acl="not all_systems_in_set_have_entitlement(enterprise_entitled)">
+            <rhn-tab name="ssm.misc.index.tabs.migrate" url="/rhn/systems/ssm/MigrateSystems.do"/>
+            <rhn-tab name="ssm.misc.index.tabs.delete" url="/rhn/systems/ssm/DeleteConfirm.do"/>
         </rhn-tab>
 </rhn-navi-tree>

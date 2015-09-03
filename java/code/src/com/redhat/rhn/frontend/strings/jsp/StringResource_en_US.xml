@@ -14898,6 +14898,9 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="ssm.provisioning.powermanagement.cobbler_error">
           <source>Unexpected Cobbler error, please check server and Cobbler logs.</source>
         </trans-unit>
+        <trans-unit id="ssm.overview.management.notice">
+          <source>At least one system in the set does not have the management entitlement: some actions will not be available.</source>
+        </trans-unit>
         <!-- SSM Tag Systems -->
         <trans-unit id="ssm.operations.provisioning.tagsystems.header">
           <source>Tag Systems</source>
