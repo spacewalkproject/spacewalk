@@ -7,6 +7,9 @@
 <html:html>
   <body>
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
+    <html:form method="post"
+    action="/systems/details/SystemHardware.do?sid=${sid}">
+    <rhn:require acl="system_has_management_entitlement()">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4>
@@ -15,8 +18,6 @@
       </div>
       <div class="panel-body">
         <bean:message key="sdc.details.hardware.refresh" />
-        <html:form method="post"
-        action="/systems/details/SystemHardware.do?sid=${sid}">
           <rhn:csrf />
           <html:hidden property="submitted" value="true" />
           <div class="text-right margin-bottom-sm">
@@ -24,6 +25,10 @@
               <bean:message key="sdc.details.hardware.schedule" />
             </html:submit>
           </div>
+        </div>
+      </div>
+    </rhn:require>
+
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4>
@@ -175,6 +180,8 @@
                   </th>
                   <td>${network_ip6_addr}</td>
                 </tr>
+
+                <rhn:require acl="system_has_management_entitlement()">
                 <tr>
                   <th>
                     <c:out value="Primary network interface:" />
@@ -189,10 +196,14 @@
                     </c:if>
                   </td>
                 </tr>
+                </rhn:require>
+
               </table>
             </div>
           </div>
           <rhn:csrf />
+
+          <rhn:require acl="system_has_management_entitlement()">
           <div class="text-right margin-bottom-sm">
           <c:if test="${not empty networkInterfaces}">
             <html:submit property="update_interface"
@@ -201,6 +212,8 @@
             </html:submit>
             </c:if>
           </div>
+          </rhn:require>
+
           <div class="panel panel-default">
             <div class="panel-body">
               <table class="table table-condensed" width="90%"
@@ -606,7 +619,5 @@
             </div>
           </c:if>
         </html:form>
-      </div>
-    </div>
   </body>
 </html:html>

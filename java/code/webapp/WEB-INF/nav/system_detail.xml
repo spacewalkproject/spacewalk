@@ -27,7 +27,7 @@
     </rhn-tab>
   </rhn-tab>
 
-  <rhn-tab name="Software" url="/rhn/systems/details/packages/Packages.do">
+  <rhn-tab name="Software" acl="system_has_management_entitlement()"  url="/rhn/systems/details/packages/Packages.do">
 
     <rhn-tab name="Errata" acl="system_feature(ftr_errata_updates)">
       <rhn-tab-url>/rhn/systems/details/ErrataList.do</rhn-tab-url>
@@ -70,7 +70,7 @@
       <rhn-tab-url>/rhn/systems/details/SystemChannels.do</rhn-tab-url>
     </rhn-tab>
 
-    <rhn-tab name="Software Crashes">
+    <rhn-tab name="Software Crashes" acl="system_has_management_entitlement()">
       <rhn-tab-url>/rhn/systems/details/SoftwareCrashes.do</rhn-tab-url>
       <rhn-tab-url>/rhn/systems/details/SoftwareCrashDetail.do</rhn-tab-url>
       <rhn-tab-url>/rhn/systems/details/SoftwareCrashDelete.do</rhn-tab-url>
@@ -173,7 +173,7 @@
     <rhn-tab name="Deployment" url="/rhn/systems/details/virtualization/Deployment.do"/>
   </rhn-tab>
 
-  <rhn-tab name="Audit">
+  <rhn-tab name="Audit" acl="system_has_management_entitlement()">
     <rhn-tab-url>/rhn/systems/details/audit/ListScap.do</rhn-tab-url>
     <rhn-tab name="nav.system.audit.list_scans">
       <rhn-tab-url>/rhn/systems/details/audit/ListScap.do</rhn-tab-url>
