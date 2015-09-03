@@ -28,14 +28,10 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.user.UserManager;
 
-import java.util.Set;
-
 import junit.framework.Assert;
 
 /**
  * A class that allows us to easily create test users.
- *
- * @version $Rev$
  */
 public class UserTestUtils extends Assert {
     // static class

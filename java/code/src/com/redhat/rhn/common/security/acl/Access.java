@@ -23,7 +23,6 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -45,7 +44,6 @@ import java.util.Map;
  * Access is a concrete implementation of an AclHandler.
  * This is default implementation which is always included
  * when evaluating {@link Acl Acls}.
- * @version $Rev$
  */
 public class Access extends BaseHandler {
 
