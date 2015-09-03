@@ -47,7 +47,6 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
      * @throws Exception exception if test fails
      */
     public void tesUpdateEntitledUser() throws Exception {
-        //create a user with Update  Only-> Org entitlement
         ServerFactoryTest.createTestServer(user);
         executeTests();
 
