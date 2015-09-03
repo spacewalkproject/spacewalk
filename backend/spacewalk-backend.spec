@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.113.dev
+Version: 2.4.114.dev
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -650,6 +650,34 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Thu Sep 03 2015 Silvio Moioli <smoioli@suse.de> 2.4.114.dev-1
+- backend: remove repoll parameter from
+  rhn_entitlements.remove_server_entitlement()
+- backend: do not use rhn_entitlements.repoll_virt_guest_entitlements() anymore
+- backend: errno 20220 (Server Group Membership exceeded) is not thrown anymore
+- backend: remove use of rhn_entitlements.activate_system_entitlement()
+- satCert, satsync: checkstyle fixes
+- satsync.py: fix merge error
+- backend: remove max_members from unit tests
+- remove max_member update from rhnServerGroup
+- drop rhnFault 91
+- ISS: export 10 system entitlements and import none
+- drop rhn-entitlement-report
+- remove comments
+- remove unused function entitlement_grants_service()
+- It should always work to add with enterprise_entitled
+- Removed unused exception
+- backend: dead code removal
+- rhn-satellite-activate: manual references removed
+- rhn-satellite-activate: dropped
+- satellite-sync: don't sync the certificate
+- server_class.py: remove dead code
+- rhnHandler: don't check for certificate expiry
+- satCerts.py: remove comment reference to dropped file
+- rhn_satellite_activate: remove unused validateSatCert function
+- rhn_satellite_activate: don't check certificate validity
+- rhn_satellite_activate: outdated comment removed
+
 * Fri Aug 21 2015 Silvio Moioli <smoioli@suse.de> 2.4.113.dev-1
 - import: don't import rhnVirtSubLevel
 - import: don't import from rhnSGTypeVirtSubLevel
