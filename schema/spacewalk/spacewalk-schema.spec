@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.4.120.dev
+Version:        2.4.121.dev
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,48 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Sep 03 2015 Silvio Moioli <smoioli@suse.de> 2.4.121.dev-1
+- schema: fix shas
+- schema upgrade: drop max_members from rhnServerGroupType
+- schema upgrade: delete_server proc
+- schema upgrade: views
+- schema upgrade: delete unused rhnExceptions
+- schema upgrade: rhn_server package
+- schema upgrade: rhn_org package
+- schema upgrade: rhn_enttitlements package
+- schema upgrade: create_org procs
+- schema upgrade: drop rhnSatelliteCert
+- schema upgrade: drop the sat-check Taskomatic task
+- schema: assign org entitlements when creating a new organization
+- schema: create config_admin user group while creating a new organization
+- schema: remove repoll parameter from
+  rhn_entitlements.remove_server_entitlement()
+- schema: drop rhn_entitlements.repoll_virt_guest_entitlements()
+- schema: remove rhn_server.can_server_consume_virt_slot() and count
+  current_members like normal server groups
+- schema: remove max_members from rhnServerGroupOverview view
+- schema: drop unused rhnVisServerGroupOverviewLite view
+- schema: remove use of max_members in views
+- schema: remove max_members from rhnServerGroup table
+- schema: remove unused not_enough_entitlements_in_base_org exception
+- schema: remove unused exception servergroup_max_members
+- schema: do not set max_members in create_first_org and create_new_org
+- schema: modify rhn_server.insert_into_servergroup() to not use max_members
+- schema: drop modify_org_service, set_customer_enterprise,
+  unset_customer_enterprise from rhn_entitlements
+- schema: drop rhn_entitlements.entitle_last_modified_servers()
+- schema: drop rhn_entitlements.activate_system_entitlement()
+- schema: drop rhn_entitlements.assign_system_entitlement()
+- schema: drop rhn_entitlements.set_server_group_count()
+- schema: drop rhn_entitlements.prune_group()
+- schema: remove handling of max_members from
+  rhn_entitlements.repoll_virt_guest_entitlements()
+- schema: drop rhn_entitlements.remove_org_entitlements()
+- schema: add virtualization host entitlement and enterprise entitlement to SP
+  for creating organizations
+- db: drop rhnSatelliteCert
+- sat-cert-check Taskomatic task dropped
+
 * Fri Aug 21 2015 Silvio Moioli <smoioli@suse.de> 2.4.120.dev-1
 - rhn_server migrations: drop provisioning, update,
   virtualization_host_platform entitlements
