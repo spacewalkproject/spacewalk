@@ -25,7 +25,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -35,7 +34,6 @@ import com.redhat.rhn.frontend.struts.StrutsDelegate;
 
 /**
  * SearchAction
- * @version $Rev$
  */
 public class SearchAction extends RhnAction {
 
