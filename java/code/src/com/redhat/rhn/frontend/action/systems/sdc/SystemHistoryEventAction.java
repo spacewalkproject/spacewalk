@@ -52,6 +52,9 @@ public class SystemHistoryEventAction extends RhnAction {
         Long aid = requestContext.getRequiredParam("aid");
 
         request.setAttribute("aid", aid);
+        request.setAttribute("referrerLink", "History.do");
+        request.setAttribute("linkLabel", "system.event.return");
+        request.setAttribute("headerLabel", "system.event.header");
 
         Action action;
         ServerAction serverAction;
@@ -65,9 +68,6 @@ public class SystemHistoryEventAction extends RhnAction {
             request.setAttribute("earliestaction", event.getCreated());
             request.setAttribute("actionnotes", event.getDetails());
             request.setAttribute("failed", false);
-            request.setAttribute("referrerLink", "History.do");
-            request.setAttribute("linkLabel", "system.event.return");
-            request.setAttribute("headerLabel", "system.event.header");
             return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
         ActionFormatter af = action.getFormatter();
@@ -80,9 +80,12 @@ public class SystemHistoryEventAction extends RhnAction {
         request.setAttribute("failed",
                 serverAction.getStatus().equals(ActionFactory.STATUS_FAILED));
         request.setAttribute("aid", aid);
-        request.setAttribute("referrerLink", "Pending.do");
-        request.setAttribute("linkLabel", "system.event.pendingReturn");
-        request.setAttribute("headerLabel", "system.event.pendingHeader");
+        if (!serverAction.getStatus().equals(ActionFactory.STATUS_COMPLETED) &&
+                !serverAction.getStatus().equals(ActionFactory.STATUS_FAILED)) {
+            request.setAttribute("referrerLink", "Pending.do");
+            request.setAttribute("linkLabel", "system.event.pendingReturn");
+            request.setAttribute("headerLabel", "system.event.pendingHeader");
+        }
         if (isSubmitted((DynaActionForm)formIn)) {
             createSuccessMessage(request, "system.event.rescheduled", action.getName());
             ActionFactory.rescheduleSingleServerAction(action, 5L, server.getId());
