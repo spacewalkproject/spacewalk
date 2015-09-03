@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.4.6
+Version:        2.4.101.dev
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -112,6 +112,15 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Sep 03 2015 Silvio Moioli <smoioli@suse.de> 2.4.101.dev-1
+- Use the same name for the first org as before
+- remove trailing whitespaces
+- Remove unused Cert class from spacewalk-setup
+- Remove unused load_satellite_certificate function and satellite-cert-file
+  parameter
+- Remove certificate handling from setup
+- rhn-satellite-activate: dropped
+
 * Fri Aug 07 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.6-1
 - Modified setup string to make it clearer that Oracle EZconnect requires the
   Global Database Name, not the SID. The two values are the same for XE.
