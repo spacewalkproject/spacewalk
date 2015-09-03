@@ -79,7 +79,6 @@ public class SystemHistoryEventAction extends RhnAction {
                 requestContext.getCurrentUser()));
         request.setAttribute("failed",
                 serverAction.getStatus().equals(ActionFactory.STATUS_FAILED));
-        request.setAttribute("aid", aid);
         if (!serverAction.getStatus().equals(ActionFactory.STATUS_COMPLETED) &&
                 !serverAction.getStatus().equals(ActionFactory.STATUS_FAILED)) {
             request.setAttribute("referrerLink", "Pending.do");
