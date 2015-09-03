@@ -8,7 +8,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.89
+Version:       5.5.101.dev
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -80,6 +80,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Thu Sep 03 2015 Silvio Moioli <smoioli@suse.de> 5.5.101.dev-1
+- rhn-satellite-activate: manual references removed
+
 * Wed May 27 2015 Tomas Kasparek <tkasparek@redhat.com> 5.5.89-1
 - fix pylint warning on Fedora 22
 
