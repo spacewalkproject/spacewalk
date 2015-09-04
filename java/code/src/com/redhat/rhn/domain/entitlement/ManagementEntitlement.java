@@ -18,7 +18,6 @@ import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
 /**
  * ManagementEntitlement
- * @version $Rev$
  */
 public class ManagementEntitlement extends Entitlement {
 
@@ -41,14 +40,6 @@ public class ManagementEntitlement extends Entitlement {
      */
     @Override
     public boolean isBase() {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isSatelliteEntitlement() {
         return true;
     }
 }
