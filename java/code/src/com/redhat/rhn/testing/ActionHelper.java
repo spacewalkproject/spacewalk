@@ -17,6 +17,7 @@ package com.redhat.rhn.testing;
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RequestContext.Pagination;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
@@ -215,14 +216,14 @@ public class ActionHelper extends Assert {
      * listview Actions.
      */
     public void setupProcessPagination() {
-        getRequest().setupAddParameter("First Page", "someValue");
-        getRequest().setupAddParameter("first_lower", "10");
-        getRequest().setupAddParameter("Previous Page", "0");
-        getRequest().setupAddParameter("prev_lower", "");
-        getRequest().setupAddParameter("Next Page", "20");
-        getRequest().setupAddParameter("next_lower", "");
-        getRequest().setupAddParameter("Last Page", "");
-        getRequest().setupAddParameter("last_lower", "20");
+        getRequest().setupAddParameter(Pagination.FIRST.getElementName(), "someValue");
+        getRequest().setupAddParameter(Pagination.FIRST.getLowerAttributeName(), "10");
+        getRequest().setupAddParameter(Pagination.PREV.getElementName(), "0");
+        getRequest().setupAddParameter(Pagination.PREV.getLowerAttributeName(), "");
+        getRequest().setupAddParameter(Pagination.NEXT.getElementName(), "20");
+        getRequest().setupAddParameter(Pagination.NEXT.getLowerAttributeName(), "");
+        getRequest().setupAddParameter(Pagination.LAST.getElementName(), "");
+        getRequest().setupAddParameter(Pagination.LAST.getLowerAttributeName(), "20");
         getRequest().setupAddParameter("lower", "10");
     }
 

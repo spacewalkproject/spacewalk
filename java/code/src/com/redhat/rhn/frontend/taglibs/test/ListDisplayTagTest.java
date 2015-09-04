@@ -108,10 +108,10 @@ public class ListDisplayTagTest extends MockObjectTestCase {
      * @param htmlOut the html output
      */
     private void assertPaginationControls(String htmlOut) {
-        assertTrue(htmlOut.indexOf("name=\"first_lower") > -1);
-        assertTrue(htmlOut.indexOf("name=\"prev_lower") > -1);
-        assertTrue(htmlOut.indexOf("name=\"next_lower") > -1);
-        assertTrue(htmlOut.indexOf("name=\"last_lower") > -1);
+        for (RequestContext.Pagination pagination : RequestContext.Pagination.values()) {
+            String att = pagination.getLowerAttributeName();
+            assertTrue(htmlOut.indexOf("name=\"" + att) > -1);
+        }
         assertTrue(htmlOut.indexOf("name=\"lower") > -1);
     }
 
