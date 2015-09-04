@@ -499,20 +499,16 @@ public class RequestContext {
      */
     public String processPagination() {
         String lower;
-        if (request.getParameter("First") != null ||
-                request.getParameter("First.x") != null) {
+        if (request.getParameter("First") != null) {
             lower = request.getParameter("first_lower");
         }
-        else if (request.getParameter("Prev") != null ||
-                request.getParameter("Prev.x") != null) {
+        else if (request.getParameter("Prev") != null) {
             lower = request.getParameter("prev_lower");
         }
-        else if (request.getParameter("Next") != null ||
-                request.getParameter("Next.x") != null) {
+        else if (request.getParameter("Next") != null) {
             lower = request.getParameter("next_lower");
         }
-        else if (request.getParameter("Last") != null ||
-                request.getParameter("Last.x") != null) {
+        else if (request.getParameter("Last") != null) {
             lower = request.getParameter("last_lower");
         }
         else {
