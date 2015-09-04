@@ -19,7 +19,6 @@ import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
 /**
  * VirtualizationEntitlement
- * @version $Rev$
  */
 public class VirtualizationEntitlement extends Entitlement {
 
@@ -47,13 +46,5 @@ public class VirtualizationEntitlement extends Entitlement {
     @Override
     public boolean isBase() {
         return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isSatelliteEntitlement() {
-        return true;
     }
 }

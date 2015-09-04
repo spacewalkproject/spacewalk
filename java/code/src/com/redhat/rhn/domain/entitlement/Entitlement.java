@@ -21,7 +21,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * Entitlements
- * @version $Rev$
  */
 public abstract class Entitlement implements Comparable {
     private String label;
@@ -79,10 +78,6 @@ public abstract class Entitlement implements Comparable {
      */
     public abstract boolean isBase();
 
-    /**
-     * @return true if this is a satellite entitlement.
-     */
-    public abstract boolean isSatelliteEntitlement();
 
     /**
      * Returns a human readable version of an entitlement type (base/add on)
