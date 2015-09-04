@@ -1026,7 +1026,7 @@ def sendMail():
             'Subject': 'Spacewalk Management Satellite Export report from %s' % os.uname()[1],
         }
         #sndr = CFG.get('traceback_mail', 'rhn-satellite')
-        sndr = 'rhn-satellite'
+        sndr = sndr = 'rhn-satellite@%s' % os.uname()[1]
         rhnMail.send(headers, body, sender=sndr)
     else:
         print "+++ email requested, but there is nothing to send +++"
