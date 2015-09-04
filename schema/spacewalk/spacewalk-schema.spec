@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.4.121.dev
+Version:        2.4.122.dev
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Sep 04 2015 Silvio Moioli <smoioli@suse.de> 2.4.122.dev-1
+- schema upgrade: org entitlement related tables
+- schema: remove org_entitlement(sw_mgr_enterprise) from rhnInfoPane
+- schema: drop rhnOrgEntitlements and rhnOrgEntitlementType tables
+
 * Thu Sep 03 2015 Silvio Moioli <smoioli@suse.de> 2.4.121.dev-1
 - schema: fix shas
 - schema upgrade: drop max_members from rhnServerGroupType
