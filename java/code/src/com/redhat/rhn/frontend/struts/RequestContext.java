@@ -104,6 +104,41 @@ public class RequestContext {
     public static final String MODE = "mode";
     public static final String POST = "POST";
 
+    /**
+     * Names of pagination elements (and their corresponding attributes).
+     *  - elementName - pagination control button element name
+     *  - lowerAttributeName - name of the request attribute containing index of the first
+     *    element in the paginated list
+     */
+    public enum Pagination {
+        FIRST("First Page", "first_lower"),
+        PREV("Previous Page", "prev_lower"),
+        NEXT("Next Page", "next_lower"),
+        LAST("Last Page", "last_lower");
+
+        private String elementName;
+        private String lowerAttributeName;
+
+        Pagination(String elementNameIn, String lowerAttributeNameIn) {
+            this.elementName = elementNameIn;
+            this.lowerAttributeName = lowerAttributeNameIn;
+        }
+
+        /**
+         * @return the pagination control button element name
+         */
+        public String getElementName() {
+            return elementName;
+        }
+
+        /**
+         * @return the name of the request attribute containing index of the first
+         * element in the paginated list
+         */
+        public String getLowerAttributeName() {
+            return lowerAttributeName;
+        }
+    }
 
     private final HttpServletRequest request;
     private User               currentUser;
@@ -498,23 +533,13 @@ public class RequestContext {
      * @return the lowest value to display.
      */
     public String processPagination() {
-        String lower;
-        if (request.getParameter("First") != null) {
-            lower = request.getParameter("first_lower");
+        for (Pagination pagination : Pagination.values()) {
+            if (request.getParameter(pagination.getElementName()) != null) {
+                return request.getParameter(pagination.getLowerAttributeName());
+            }
         }
-        else if (request.getParameter("Prev") != null) {
-            lower = request.getParameter("prev_lower");
-        }
-        else if (request.getParameter("Next") != null) {
-            lower = request.getParameter("next_lower");
-        }
-        else if (request.getParameter("Last") != null) {
-            lower = request.getParameter("last_lower");
-        }
-        else {
-            lower = request.getParameter("lower");
-        }
-        return lower;
+
+        return request.getParameter("lower");
     }
 
     /**

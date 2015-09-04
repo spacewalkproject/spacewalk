@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.action.common.test.RhnSetActionTest;
 import com.redhat.rhn.frontend.action.errata.AffectedSystemsAction;
+import com.redhat.rhn.frontend.struts.RequestContext.Pagination;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnMockDynaActionForm;
@@ -86,14 +87,14 @@ public class AffectedSystemsActionTest extends MockObjectTestCase {
     }
 
     private void addPagination(RhnMockHttpServletRequest r) {
-        r.setupAddParameter("First Page", "someValue");
-        r.setupAddParameter("first_lower", "10");
-        r.setupAddParameter("Previous page", "0");
-        r.setupAddParameter("prev_lower", "");
-        r.setupAddParameter("Next Page", "20");
-        r.setupAddParameter("next_lower", "");
-        r.setupAddParameter("Last Page", "");
-        r.setupAddParameter("last_lower", "20");
+        r.setupAddParameter(Pagination.FIRST.getElementName(), "someValue");
+        r.setupAddParameter(Pagination.FIRST.getLowerAttributeName(), "10");
+        r.setupAddParameter(Pagination.PREV.getElementName(), "0");
+        r.setupAddParameter(Pagination.PREV.getLowerAttributeName(), "");
+        r.setupAddParameter(Pagination.NEXT.getElementName(), "20");
+        r.setupAddParameter(Pagination.NEXT.getLowerAttributeName(), "");
+        r.setupAddParameter(Pagination.LAST.getElementName(), "");
+        r.setupAddParameter(Pagination.LAST.getLowerAttributeName(), "20");
         r.setupAddParameter("lower", "10");
     }
 

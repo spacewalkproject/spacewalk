@@ -133,14 +133,6 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
  */
 public class ListDisplayTag extends ListDisplayTagBase {
     private static final long serialVersionUID = 8952182346554627507L;
-    private static final String LAST = "Last Page";
-    private static final String NEXT = "Next Page";
-    private static final String PREV = "Previous Page";
-    private static final String FIRST = "First Page";
-    private static final String LAST_LOWER = "last_lower";
-    private static final String NEXT_LOWER = "next_lower";
-    private static final String PREV_LOWER = "prev_lower";
-    private static final String FIRST_LOWER = "first_lower";
     private static final Set<String> PAGINATION_WASH_SET = buildPaginationWashSet();
 
     /** row count determines whether we're an even or odd row */
@@ -478,10 +470,14 @@ public class ListDisplayTag extends ListDisplayTagBase {
                                     getPageList().getEnd() - getPageList().getStart() + 1,
                                     getPageList().getTotalSize());
 
-        renderHidden(target, FIRST_LOWER, putil.getFirstLower());
-        renderHidden(target, PREV_LOWER, putil.getPrevLower());
-        renderHidden(target, NEXT_LOWER, putil.getNextLower());
-        renderHidden(target, LAST_LOWER, putil.getLastLower());
+        renderHidden(target, RequestContext.Pagination.FIRST.getLowerAttributeName(),
+                putil.getFirstLower());
+        renderHidden(target, RequestContext.Pagination.PREV.getLowerAttributeName(),
+                putil.getPrevLower());
+        renderHidden(target, RequestContext.Pagination.NEXT.getLowerAttributeName(),
+                putil.getNextLower());
+        renderHidden(target, RequestContext.Pagination.LAST.getLowerAttributeName(),
+                putil.getLastLower());
         out.append(target.toString());
     }
 
@@ -580,13 +576,19 @@ public class ListDisplayTag extends ListDisplayTagBase {
         boolean canGoBack = getPageList().getStart() > 1;
 
         if (canGoForward || canGoBack) {
-            out.append(renderPaginationButton(FIRST,
+            out.append(renderPaginationButton(
+                    RequestContext.Pagination.FIRST.getElementName(),
                     DataSetManipulator.ICON_FIRST, canGoBack));
-            out.append(renderPaginationButton(PREV, DataSetManipulator.ICON_PREV,
+            out.append(renderPaginationButton(
+                    RequestContext.Pagination.PREV.getElementName(),
+                    DataSetManipulator.ICON_PREV,
                     canGoBack));
-            out.append(renderPaginationButton(NEXT, DataSetManipulator.ICON_NEXT,
+            out.append(renderPaginationButton(
+                    RequestContext.Pagination.NEXT.getElementName(),
+                    DataSetManipulator.ICON_NEXT,
                     canGoForward));
-            out.append(renderPaginationButton(LAST,
+            out.append(renderPaginationButton(
+                    RequestContext.Pagination.LAST.getElementName(),
                     DataSetManipulator.ICON_LAST, canGoForward));
         }
         out.append("</div>\n");
@@ -777,12 +779,10 @@ public class ListDisplayTag extends ListDisplayTagBase {
      * @return a set of all URL variables that are pagination-specific
      */
     private static Set<String> buildPaginationWashSet() {
-        String [] keys = new String[] {FIRST, PREV, NEXT, LAST,
-                                        FIRST_LOWER, PREV_LOWER,
-                                            NEXT_LOWER, LAST_LOWER };
         Set<String> result = new HashSet<String>();
-        for (int i = 0; i < keys.length; i++) {
-            result.add(keys[i]);
+        for (RequestContext.Pagination pagination : RequestContext.Pagination.values()) {
+            result.add(pagination.getElementName());
+            result.add(pagination.getLowerAttributeName());
         }
         return Collections.unmodifiableSet(result);
     }
