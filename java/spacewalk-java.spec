@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.137.dev
+Version: 2.4.138.dev
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Sep 04 2015 Silvio Moioli <smoioli@suse.de> 2.4.138.dev-1
+- SystemEntitlementsSetupActionTest: stale comment removed
+- java: remove unused imports
+- drop usage of rhnOrgEntitlements and rhnOrgEntitlementsType tables
+- drop OrgFactory.lookupEntitlementByLabel() and references
+- drop getEntitlementEnterprise() and references
+- drop getEntitlementVirtualization() and references
+- drop use of org_entitlements() acl checks from jsps
+- drop use of org_entitlements() acls from navigation
+
 * Thu Sep 03 2015 Silvio Moioli <smoioli@suse.de> 2.4.137.dev-1
 - java: fix entitlement-testing cases
 - java: remove repoll parameter from
