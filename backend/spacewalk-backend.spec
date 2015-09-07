@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.17
+Version: 2.4.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -655,6 +655,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Mon Sep 07 2015 Tomas Lestach <tlestach@redhat.com> 2.4.18-1
+- 1260735 - set domain name for sender address in rhn-satellite-exporter
+
 * Fri Aug 28 2015 Jan Dobes 2.4.17-1
 - Fixes orabug 20623622 spacewalk-repo-sync error: maximum recursion depth
   exceeded error when syncing to ULN via a proxy server
