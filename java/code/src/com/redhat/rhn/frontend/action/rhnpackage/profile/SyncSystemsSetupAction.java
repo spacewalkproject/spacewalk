@@ -68,8 +68,6 @@ public class SyncSystemsSetupAction extends RhnAction implements Listable {
         helper.execute();
 
         DynaActionForm dynaForm = (DynaActionForm) formIn;
-        getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
-                "date", DatePicker.YEAR_RANGE_POSITIVE);
 
         if (requestContext.wasDispatched("schedulesync.jsp.schedulesync")) {
             Date time = getStrutsDelegate().readDatePicker(dynaForm, "date",
@@ -83,6 +81,9 @@ public class SyncSystemsSetupAction extends RhnAction implements Listable {
             return getStrutsDelegate().forwardParams(mapping.findForward("sync"),
                     syncParam);
         }
+
+        getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
+                "date", DatePicker.YEAR_RANGE_POSITIVE);
 
         request.setAttribute("system", server);
         request.setAttribute("system1", server1);
