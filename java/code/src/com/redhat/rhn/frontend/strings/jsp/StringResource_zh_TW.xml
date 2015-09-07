@@ -18001,10 +18001,6 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>You may schedule configuration actions for the time below.</source>
           <target>您能夠將配置動作排程在下列的時段中。</target>
         </trans-unit>
-        <trans-unit id="sdcconfigconfirm.jsp.usedate">
-          <source>Schedule configuration actions for no sooner than:</source>
-          <target>將配置動作排程在不早於：</target>
-        </trans-unit>
       </group>
       <!-- configuration/sdc/difffile.jsp  -->
       <group>

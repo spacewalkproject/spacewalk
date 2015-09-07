@@ -17628,10 +17628,6 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>You may schedule configuration actions for the time below.</source>
           <target>아래 시간에 따라 설정 작업을 스케줄하실 수 있습니다.</target>
         </trans-unit>
-        <trans-unit id="sdcconfigconfirm.jsp.usedate">
-          <source>Schedule configuration actions for no sooner than:</source>
-          <target>최대한 빨리 설정 작업을 스케줄:</target>
-        </trans-unit>
       </group>
       <!-- configuration/sdc/difffile.jsp  -->
       <group>

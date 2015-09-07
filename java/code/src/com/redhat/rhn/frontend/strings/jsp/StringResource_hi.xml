@@ -17110,10 +17110,6 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>You may schedule configuration actions for the time below.</source>
           <target>आप विन्यास क्रिया नीचे के समय के लिये जरूर चुन सकते हैं.</target>
         </trans-unit>
-        <trans-unit id="sdcconfigconfirm.jsp.usedate">
-          <source>Schedule configuration actions for no sooner than:</source>
-          <target>इससे पहले क्रिया विन्यास क्रिया नियोजित न करें:</target>
-        </trans-unit>
       </group>
       <!-- configuration/sdc/difffile.jsp  -->
       <group>

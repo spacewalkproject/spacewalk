@@ -18004,10 +18004,6 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
           <source>You may schedule configuration actions for the time below.</source>
           <target>Vous pouvez programmer des actions de configuration à la date et à l'heure indiquées ci-dessous.</target>
         </trans-unit>
-        <trans-unit id="sdcconfigconfirm.jsp.usedate">
-          <source>Schedule configuration actions for no sooner than:</source>
-          <target>Programmer les actions de configuration pas avant :</target>
-        </trans-unit>
       </group>
       <!-- configuration/sdc/difffile.jsp  -->
       <group>

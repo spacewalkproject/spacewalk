@@ -17998,10 +17998,6 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <source>You may schedule configuration actions for the time below.</source>
           <target>Você deve agendar ações de configuração para este horário abaixo.</target>
         </trans-unit>
-        <trans-unit id="sdcconfigconfirm.jsp.usedate">
-          <source>Schedule configuration actions for no sooner than:</source>
-          <target>Agendar ações de configuração para depois de:</target>
-        </trans-unit>
       </group>
       <!-- configuration/sdc/difffile.jsp  -->
       <group>
