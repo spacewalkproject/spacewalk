@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.62
+Version: 2.4.63
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Sep 07 2015 Jan Dobes 2.4.63-1
+- 1259445 - do not overwrite selected date and time
+
 * Thu Sep 03 2015 Jan Dobes 2.4.62-1
 - add missing string
 
