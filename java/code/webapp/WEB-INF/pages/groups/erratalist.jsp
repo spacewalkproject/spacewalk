@@ -72,8 +72,7 @@
     </rl:list>
     <rl:csv
         name="errataList"
-        exportColumns="advisoryName,advisorySynopsis,affectedSystemCount,updateDate"
-        header="${system.name}"/>
+        exportColumns="advisoryName,advisorySynopsis,affectedSystemCount,updateDate" />
 </rl:listset>
 
 </body>
