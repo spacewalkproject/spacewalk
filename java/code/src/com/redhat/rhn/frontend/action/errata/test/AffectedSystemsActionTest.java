@@ -86,13 +86,13 @@ public class AffectedSystemsActionTest extends MockObjectTestCase {
     }
 
     private void addPagination(RhnMockHttpServletRequest r) {
-        r.setupAddParameter("First", "someValue");
+        r.setupAddParameter("First Page", "someValue");
         r.setupAddParameter("first_lower", "10");
-        r.setupAddParameter("Prev", "0");
+        r.setupAddParameter("Previous page", "0");
         r.setupAddParameter("prev_lower", "");
-        r.setupAddParameter("Next", "20");
+        r.setupAddParameter("Next Page", "20");
         r.setupAddParameter("next_lower", "");
-        r.setupAddParameter("Last", "");
+        r.setupAddParameter("Last Page", "");
         r.setupAddParameter("last_lower", "20");
         r.setupAddParameter("lower", "10");
     }
