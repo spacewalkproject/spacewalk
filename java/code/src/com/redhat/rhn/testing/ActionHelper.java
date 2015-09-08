@@ -215,13 +215,13 @@ public class ActionHelper extends Assert {
      * listview Actions.
      */
     public void setupProcessPagination() {
-        getRequest().setupAddParameter("First", "someValue");
+        getRequest().setupAddParameter("First Page", "someValue");
         getRequest().setupAddParameter("first_lower", "10");
-        getRequest().setupAddParameter("Prev", "0");
+        getRequest().setupAddParameter("Previous Page", "0");
         getRequest().setupAddParameter("prev_lower", "");
-        getRequest().setupAddParameter("Next", "20");
+        getRequest().setupAddParameter("Next Page", "20");
         getRequest().setupAddParameter("next_lower", "");
-        getRequest().setupAddParameter("Last", "");
+        getRequest().setupAddParameter("Last Page", "");
         getRequest().setupAddParameter("last_lower", "20");
         getRequest().setupAddParameter("lower", "10");
     }
