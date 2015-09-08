@@ -6,6 +6,7 @@ import os
 import stat
 import re
 from optparse import Option, OptionParser
+import tempfile
 
 try:
     from spacewalk.common import checksum
@@ -184,6 +185,13 @@ def restore_file_path(file, row):
         '/' + row['evr'] + '/' + row['arch'] + '/' + row['checksum'] + '/' + row['basename']
     query = "update rhnPackage set path=\'" + new_path + "\' where id=" + str(row['id'])
     new_path = prefix + new_path
+
+    if (os.path.isfile(new_path) and
+       check_disk_checksum(new_path, row['checksum_type'], row['checksum'])):
+            backup_path = tempfile.mkdtemp() + new_path
+            log(0, "Target file path exists, moving to: %s" % backup_path)
+            os.renames(new_path, backup_path)
+
     cleanup = True
     try:  # 1st, make dirs needed
         os.makedirs(new_path.rsplit('/', 1)[0])
@@ -194,7 +202,8 @@ def restore_file_path(file, row):
         else:
             cleanup = False  # dir already exists, do not cleanup
     try:  # 2nd, create hardlink; os.link and os.makedirs in 1 dir would be problem due to checking of errno 17...
-        os.link(prefix + row['path'], new_path)
+        if not os.path.isfile(new_path):
+            os.link(prefix + row['path'], new_path)
     except OSError:
         log(0, "File path restoration failed, rolling back: %s" % row['path'])
         if cleanup == True:
