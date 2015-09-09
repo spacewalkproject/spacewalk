@@ -69,6 +69,7 @@ def get_args():
    parser.add_option("-g", "--gather", action="store_true", dest="gather", default=False , help='used to gather data files, generally not useful to most people')
    parser.add_option("-b", "--bundle", action="store", dest="bundle", type='int', default='50', help='if you are getting "502 proxy" errors, try using a smaller value (default 50)')
    parser.add_option("-N", "--name", action="store", dest="dest_name", help='if specified, set the descriptive name of the destination channel, else use channel label')
+   parser.add_option("-o", "--currentState", action="store_true", default=False, dest="currentState", help='option for cloning a channel to the current state')
 
    return parser.parse_args()
 
@@ -114,7 +115,7 @@ def main():
 
    validate_options(options)
 
-   global server, user, password, filename, ssl, bundleSize, clone
+   global server, user, password, filename, ssl, bundleSize, clone, currentState
    server = idn_ascii_to_puny(options.server)
    user = options.user
    password  = options.password
@@ -148,6 +149,7 @@ def main():
 
    parent = options.parent_channel
    clone = options.clone
+   currentState = options.currentState
 
    newChannelLabel = options.dest_channel
    newChannelLabel = newChannelLabel.lower()
@@ -215,14 +217,13 @@ def populate(client, auth, srcChannel, newChannel, newChannelName, filename, par
           details_map = { 'name':newChannelName, 'label':newChannel, 'summary':newChannel }
           if parent:
              details_map['parent_label'] = parent
-          client.channel.software.clone(auth, srcChannel, details_map, True)
-
+          #we must invert currentState, because API uses "True" for default state
+          client.channel.software.clone(auth, srcChannel, details_map, not currentState)
       if parent:
          print("with parent " + parent)
    else:
       print("Reusing " + newChannel+ " as destination channel")
    existing_packs = client.channel.software.listAllPackages(auth, srcChannel)
-
 
    if clear:
       clearChannel(newChannel, existing_packs, client, auth)
