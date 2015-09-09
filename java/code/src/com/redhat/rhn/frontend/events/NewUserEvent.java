@@ -15,14 +15,14 @@
 
 package com.redhat.rhn.frontend.events;
 
+import java.util.List;
+
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
-
-import java.util.List;
 
 /**
  * An event representing an error generated from the web frontend
@@ -34,7 +34,7 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
     private static final int NO_CREATOR_INDEX = 0;
     private static final int WITH_CREATOR_INDEX = 2;
     private User accountCreator;
-    private String password;
+    private String link;
     private String domain;
     private List adminList;
 
@@ -44,6 +44,7 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
      *                  request values
      * @return Text of email.
      */
+    @Override
     public String toText() {
         LocalizationService ls = LocalizationService.getInstance();
         //gather information for the email to newUser
@@ -53,7 +54,7 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
         String retval;
         /*
          * If the user is using pam for authentication, then we don't need to confuse the
-         * poor user further by mentioning a new password. Just don't mention it.
+         * poor user further by mentioning a new link. Just don't mention it.
          */
         if (getUser().getUsePamAuthentication()) {
             retval = ls.getMessage("email.newaccount.pam.body",
@@ -137,22 +138,22 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
 
 
     /**
-     * @return Returns the password.
+     * @return Returns the link.
      */
-    public String getPassword() {
-        return password;
+    public String getLink() {
+        return link;
     }
 
 
 
     /**
-     * @param passwordIn The password to set.
+     * @param passwordIn The link to set.
      */
-    public void setPassword(String passwordIn) {
-        this.password = passwordIn;
+    public void setLink(String passwordIn) {
+        this.link = passwordIn;
     }
     /**
-     * @return Returns the password.
+     * @return Returns the link.
      */
     public List getAdmins() {
         return adminList;
@@ -182,7 +183,7 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
 
     private void fillUserInfo(Object[] bodyArgs, int index) {
         bodyArgs[index] = getUser().getLogin();
-        bodyArgs[index + 1] = getPassword(); //newUser.getPassword could return encryption
+        bodyArgs[index + 1] = link;
         bodyArgs[index + 2] = getUser().getEmail();
         bodyArgs[index + 3] = getUrl();
         bodyArgs[index + 4] = OrgFactory.EMAIL_FOOTER.getValue();
@@ -191,6 +192,7 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Long getUserId() {
         return accountCreator.getId();
     }

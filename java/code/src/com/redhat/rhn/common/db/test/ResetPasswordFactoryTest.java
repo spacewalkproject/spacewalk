@@ -110,18 +110,18 @@ public class ResetPasswordFactoryTest extends BaseTestCaseWithUser {
 
         ResetPassword found = ResetPasswordFactory.lookupByToken(rp1.getToken());
         assertNotNull(found);
-        assertTrue(!found.isValid());
+        assertTrue(found.isValid());
 
         found = ResetPasswordFactory.lookupByToken(rp2.getToken());
         assertNotNull(found);
-        assertTrue(!found.isValid());
+        assertTrue(found.isValid());
 
         found = ResetPasswordFactory.lookupByToken(rp3.getToken());
         assertNotNull(found);
         assertTrue(found.isValid());
 
         int inv = ResetPasswordFactory.invalidateUserTokens(user.getId());
-        assertEquals(1, inv);
+        assertEquals(3, inv);
 
         rmvd = ResetPasswordFactory.deleteUserTokens(user.getId());
         assertEquals(3, rmvd);

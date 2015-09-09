@@ -15,6 +15,13 @@
 
 package com.redhat.rhn.frontend.events.test;
 
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Vector;
+
+import com.mockobjects.servlet.MockHttpServletRequest;
+import com.mockobjects.servlet.MockHttpSession;
 import com.redhat.rhn.common.messaging.Mail;
 import com.redhat.rhn.common.messaging.test.MockMail;
 import com.redhat.rhn.domain.user.User;
@@ -22,14 +29,6 @@ import com.redhat.rhn.frontend.events.NewUserAction;
 import com.redhat.rhn.frontend.events.NewUserEvent;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
-
-import com.mockobjects.servlet.MockHttpServletRequest;
-import com.mockobjects.servlet.MockHttpSession;
-
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Vector;
 
 /**
  * Test for NewUserEvent
@@ -40,6 +39,7 @@ public class NewUserEventTest extends RhnBaseTestCase {
 
     private MockMail mailer;
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
         mailer = new MockMail();
@@ -51,6 +51,7 @@ public class NewUserEventTest extends RhnBaseTestCase {
     public void testToText() {
         NewUserEvent evt = createTestEvent();
         String eventText = evt.toText();
+        System.out.println(eventText);
         assertNotNull(eventText);
         assertContains(eventText, "A Red Hat login has been created for you");
         assertContains(eventText,
@@ -63,6 +64,7 @@ public class NewUserEventTest extends RhnBaseTestCase {
         NewUserEvent evt = createTestEvent();
         mailer.setExpectedSendCount(2);
         NewUserAction action = new NewUserAction() {
+            @Override
             protected Mail getMail() {
                 return mailer;
             }
@@ -86,6 +88,7 @@ public class NewUserEventTest extends RhnBaseTestCase {
         // In the implementation we use getHeaderNames so we override it with
         // one that returns an empty implementation.
         MockHttpServletRequest request = new MockHttpServletRequest() {
+            @Override
             public Enumeration<String> getHeaderNames() {
                 return new Vector<String>().elements();
             }

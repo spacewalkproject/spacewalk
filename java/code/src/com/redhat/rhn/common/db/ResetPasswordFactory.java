@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -101,13 +102,12 @@ public class ResetPasswordFactory extends HibernateFactory {
             return StringUtil.getHexString(md.digest(hash.getBytes()));
         }
         catch (NoSuchAlgorithmException e) {
-            singleton.getLogger().error("Failed to find SHA-1?!?", e);
+            log.error("Failed to find SHA-1?!?", e);
             return null;
         }
     }
 
     public static ResetPassword createNewEntryFor(User u) {
-        invalidateUserTokens(u.getId());
         ResetPassword rp = new ResetPassword(u.getId(), generatePasswordToken(u));
         save(rp);
         return rp;
@@ -119,5 +119,11 @@ public class ResetPasswordFactory extends HibernateFactory {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("token", token);
         wm.executeUpdate(params);
+    }
+
+    public static String generateLink(ResetPassword rp) {
+        String link = "https://"+ ConfigDefaults.get().getHostname() +
+                      "/rhn/ResetLink.do?token=" + rp.getToken();
+        return link;
     }
 }

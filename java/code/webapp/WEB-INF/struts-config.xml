@@ -1218,6 +1218,16 @@
       <form-property name="powerPassword" type="java.lang.String" />
       <form-property name="powerId" type="java.lang.String" />
     </form-bean>
+
+    <form-bean name="passwordResetForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+        <form-property name="token" type="java.lang.String" />
+        <form-property name="password" type="java.lang.String" />
+        <form-property name="passwordConfirm" type="java.lang.String" />
+        <form-property name="no_scrub" type="java.lang.String"
+                        initial="password, passwordConfirm"/>
+        <form-property name="submitted" type="java.lang.Boolean" />
+    </form-bean>
   </form-beans>
 
   <global-exceptions>
@@ -1312,6 +1322,36 @@
       <forward name="failure" path="/WEB-INF/pages/common/relogin.jsp" />
       <forward name="loggedin" path="/YourRhn.do" redirect="true"/>
       <forward name="error" path="/WEB-INF/pages/common/errors/loginerror.jsp" />
+    </action>
+
+    <action path="/ResetLink"
+        scope="request"
+        validate="false"
+        type="com.redhat.rhn.frontend.action.user.ResetLinkAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="valid" path="/ResetPassword.do" redirect="true" />
+      <forward name="invalid" path="/WEB-INF/pages/common/errors/invalidreset.jsp" />
+    </action>
+
+    <action path="/ResetPassword"
+        name="passwordResetForm"
+        scope="request"
+        validate="false"
+        input="/WEB-INF/pages/common/passwordreset.jsp"
+        type="com.redhat.rhn.frontend.action.user.ResetPasswordAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/common/passwordreset.jsp" />
+    </action>
+
+    <action path="/ResetPasswordSubmit"
+        name="passwordResetForm"
+        scope="request"
+        validate="false"
+        input="/WEB-INF/pages/common/passwordreset.jsp"
+        type="com.redhat.rhn.frontend.action.user.ResetPasswordSubmitAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="success" path="/YourRhn.do" redirect="true" />
+      <forward name="failure" path="/ResetPassword.do" redirect="true" />
     </action>
 
     <action path="/Logout"

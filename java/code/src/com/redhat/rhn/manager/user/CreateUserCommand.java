@@ -14,25 +14,6 @@
  */
 package com.redhat.rhn.manager.user;
 
-import com.redhat.rhn.common.conf.UserDefaults;
-import com.redhat.rhn.common.hibernate.LookupException;
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.messaging.MessageQueue;
-import com.redhat.rhn.common.validator.ParsedConstraint;
-import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.role.Role;
-import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.server.ManagedServerGroup;
-import com.redhat.rhn.domain.server.ServerGroup;
-import com.redhat.rhn.domain.server.ServerGroupFactory;
-import com.redhat.rhn.domain.user.Address;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.frontend.events.NewUserEvent;
-
-import org.apache.commons.lang.StringUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -43,6 +24,27 @@ import java.util.regex.Pattern;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.redhat.rhn.common.conf.UserDefaults;
+import com.redhat.rhn.common.db.ResetPasswordFactory;
+import com.redhat.rhn.common.hibernate.LookupException;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.messaging.MessageQueue;
+import com.redhat.rhn.common.validator.ParsedConstraint;
+import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.common.ResetPassword;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.role.Role;
+import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.ManagedServerGroup;
+import com.redhat.rhn.domain.server.ServerGroup;
+import com.redhat.rhn.domain.server.ServerGroupFactory;
+import com.redhat.rhn.domain.user.Address;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.events.NewUserEvent;
 
 /**
  * A command to create or edit users
@@ -108,7 +110,9 @@ public class CreateUserCommand {
         NewUserEvent userevt = new NewUserEvent();
         userevt.setAccountCreator(accountCreator);
         userevt.setAdmins(admins);
-        userevt.setPassword(password);
+        ResetPassword rp = ResetPasswordFactory.createNewEntryFor(this.user);
+        String link = ResetPasswordFactory.generateLink(rp);
+        userevt.setLink(link);
         userevt.setDomain(domain);
         userevt.setUser(this.user);
         MessageQueue.publish(userevt);

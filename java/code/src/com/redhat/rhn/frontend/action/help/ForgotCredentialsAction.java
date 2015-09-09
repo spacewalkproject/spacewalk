@@ -14,18 +14,13 @@
  */
 package com.redhat.rhn.frontend.action.help;
 
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.hibernate.LookupException;
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.messaging.Mail;
-import com.redhat.rhn.common.messaging.SmtpMail;
-import com.redhat.rhn.common.util.StringUtil;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.RhnHelper;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
@@ -36,13 +31,19 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.db.ResetPasswordFactory;
+import com.redhat.rhn.common.hibernate.LookupException;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.messaging.Mail;
+import com.redhat.rhn.common.messaging.SmtpMail;
+import com.redhat.rhn.domain.common.ResetPassword;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 
 
 /**
@@ -115,12 +116,11 @@ public class ForgotCredentialsAction extends RhnAction {
             // Check if email and login agrees
             if (foundUser.getEmail().toUpperCase().equals(
                     email.toUpperCase())) {
-                String newPw = StringUtil.makeRandomPassword(12);
-                foundUser.setPassword(newPw);
-                UserFactory.save(foundUser);
+                ResetPassword rp = ResetPasswordFactory.createNewEntryFor(foundUser);
+                String link = ResetPasswordFactory.generateLink(rp);
 
                 String emailBody = setupEmailBody("email.forgotten.password",
-                        email, ConfigDefaults.get().getHostname(), login, newPw);
+                        email, ConfigDefaults.get().getHostname(), login, link);
                 sendEmail(email, LocalizationService.getInstance().
                         getMessage("help.credentials.jsp.passwordreset"), emailBody);
 
