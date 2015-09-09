@@ -442,7 +442,8 @@ public class ActionManager extends BaseManager {
             //which depend on the server as well.
             addConfigurationRevisionsToAction(user, revisions, a, server);
         }
-        if (a.getServerActions().size() < 1) {
+        Set<ServerAction> sa = a.getServerActions();
+        if ((sa == null) || (sa.isEmpty())) {
             return null;
         }
         ActionFactory.save(a);
