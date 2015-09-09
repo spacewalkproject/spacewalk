@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     2.4.4
+Version:     2.4.5
 Release:     1%{?dist}
 Summary:     Utilities to interact with a Red Hat Satellite or Spacewalk server remotely.
 
@@ -58,6 +58,10 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Wed Sep 09 2015 Jiri Dostal <jdostal@redhat.com> 2.4.5-1
+- RFE 1257652 - spacewalk-create-channel added -o option to clone channel to
+  current state
+
 * Fri Aug 07 2015 Jan Dobes 2.4.4-1
 - use hostname instead of localhost for https connections
 
