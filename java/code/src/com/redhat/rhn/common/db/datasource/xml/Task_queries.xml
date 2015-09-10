@@ -318,33 +318,13 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
    </query>
 </write-mode>
 
-<!-- timings: webdev: 6m (2 records), webqa: 1m 58s (3), prod: 3m 32s (697) -->
-<!--
-<mode name="summarypop_awol_server_in_orgs"
-      class="com.redhat.rhn.frontend.dto.OrgIdWrapper">
-   <query params="checkin_threshold">
-select distinct s.org_id as id
-  from rhnServer s
-inner join rhnServerInfo si on (si.server_id = s.id)
-inner join rhnServerGroup sg on (s.org_id = sg.org_id)
-inner join rhnServerGroupType sgt on (sg.group_type = sgt.id)
-where sgt.label in ('enterprise_entitled', 'provisioning_entitled')
-  and sg.max_members > 0
-  and si.checkin between (current_timestamp + interval '1' day)
-  and (current_timestamp + numtodsinterval(1 + :checkin_threshold, 'day')
-   </query>
-</mode>
--->
-<!-- timings: webdev: 3m 36s (2), webqa: 11s (3), prod: 3m 21s(697) -->
-
 <mode name="summarypop_awol_server_in_orgs2"
       class="com.redhat.rhn.frontend.dto.OrgIdWrapper">
    <query params="checkin_threshold">
 select distinct sg.org_id as id
   from rhnServerGroup sg, rhnServerGroupType sgt
- where SGT.label IN ('enterprise_entitled', 'provisioning_entitled')
+ where SGT.label = 'enterprise_entitled'
    AND SGT.id = SG.group_type
-   AND SG.max_members > 0
    and sg.org_id in (
        select s.org_id
          from rhnServer s, rhnServerINfo si
@@ -362,9 +342,8 @@ SELECT DISTINCT S.org_id as id
        rhnServerAction SA,
        rhnServerGroup SG,
        rhnServerGroupType SGT
- WHERE SGT.label IN ('enterprise_entitled', 'provisioning_entitled')
+ WHERE SGT.label = 'enterprise_entitled'
    AND SGT.id = SG.group_type
-   AND SG.max_members > 0
    AND SG.org_id = S.org_id
    AND  S.id = SA.server_id
    AND SA.modified between current_timestamp - interval '1' day and current_timestamp

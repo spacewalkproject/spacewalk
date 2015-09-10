@@ -22,9 +22,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
-import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
-import com.redhat.rhn.domain.server.test.ServerGroupTest;
 import com.redhat.rhn.frontend.dto.ConfigFileNameDto;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.testing.ConfigTestUtils;
@@ -33,27 +31,21 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * DiffActionTest
- * @version $Rev$
  */
 public class ConfigListActionTest extends RhnMockStrutsTestCase {
 
     private void doTheTest(String path) throws Exception {
         //give the user org_admin role.
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         //create the revision, file, and channel.
         ConfigRevision revision = ConfigTestUtils.createConfigRevision(user.getOrg());
         revision.getConfigFile().setLatestConfigRevision(revision);
         ConfigurationFactory.commit(revision);
 
-        //create a server and add it to the two required server groups
-        //provisioning for config management and enterprise for server grouping
+        //create a server and add it to the enterprise entitled group for server grouping
         Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        ServerGroup group = ServerGroupTest.createTestServerGroup(user.getOrg(),
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
-        ServerFactory.addServerToGroup(server, group);
         server.subscribe(revision.getConfigFile().getConfigChannel());
         ServerFactory.save(server);
 

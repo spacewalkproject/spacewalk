@@ -46,7 +46,6 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.CPU;
-import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Network;
@@ -55,7 +54,6 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerGroup;
-import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.test.CPUTest;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
@@ -98,7 +96,6 @@ import java.util.Set;
 
 /**
  * SystemManagerTest
- * @version $Rev$
  */
 public class SystemManagerTest extends RhnBaseTestCase {
 
@@ -118,8 +115,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
         user.addPermanentRole(RoleFactory.ORG_ADMIN);
-        Server server = ServerFactoryTest.createTestServer(user, true,
-                            ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server server = ServerFactoryTest.createTestServer(user, true);
         Long id = server.getId();
 
         assertTrue(SystemManager.serverHasFeature(id, "ftr_snapshotting"));
@@ -274,8 +270,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
         user.addPermanentRole(RoleFactory.ORG_ADMIN);
         // Create a test server so we have one in the list.
-        Server s = ServerFactoryTest.createTestServer(user, true, ServerConstants
-                .getServerGroupTypeProvisioningEntitled());
+        Server s = ServerFactoryTest.createTestServer(user, true);
         ServerFactory.save(s);
 
         systems = SystemManager.systemsWithFeature(user, ServerConstants.FEATURE_KICKSTART,
@@ -398,6 +393,10 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
 
+    /**
+     * Tests adding and removing entitlement on a server
+     * @throws Exception if something goes wrong
+     */
     public void testEntitleServer() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
@@ -405,51 +404,21 @@ public class SystemManagerTest extends RhnBaseTestCase {
         Server server = ServerTestUtils.createTestSystem(user);
         ChannelTestUtils.setupBaseChannelForVirtualization(user,
                 server.getBaseChannel());
-        UserTestUtils.addProvisioning(user.getOrg());
         UserTestUtils.addVirtualization(user.getOrg());
-        UserTestUtils.addVirtualizationPlatform(user.getOrg());
         TestUtils.saveAndFlush(user.getOrg());
 
         assertTrue(SystemManager.canEntitleServer(server,
-                EntitlementManager.PROVISIONING));
-        assertTrue(SystemManager.canEntitleServer(server,
                 EntitlementManager.VIRTUALIZATION));
-        assertTrue(SystemManager.canEntitleServer(server,
-                EntitlementManager.VIRTUALIZATION_PLATFORM));
-
-        assertFalse(SystemManager.entitleServer(server,
-                EntitlementManager.VIRTUALIZATION).hasErrors());
-        assertFalse(SystemManager.entitleServer(server,
-                EntitlementManager.VIRTUALIZATION_PLATFORM).hasErrors());
-        assertFalse(SystemManager.entitleServer(server,
-                EntitlementManager.PROVISIONING).hasErrors());
-        server = (Server) reload(server);
-
-        assertTrue(server.hasEntitlement(EntitlementManager.PROVISIONING));
-        // By adding virt_platform above we swapped out virt
-        assertFalse(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
-
-        SystemManager.entitleServer(server, EntitlementManager.PROVISIONING);
-        SystemManager.entitleServer(server, EntitlementManager.VIRTUALIZATION);
-        SystemManager.entitleServer(server, EntitlementManager.VIRTUALIZATION_PLATFORM);
-
-        // One assert for kicks
-        assertTrue(server.hasEntitlement(EntitlementManager.PROVISIONING));
+        boolean hasErrors = SystemManager.entitleServer(server,
+                EntitlementManager.VIRTUALIZATION).hasErrors();
+        assertFalse(hasErrors);
+        assertTrue(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
 
         // Removal
         SystemManager.removeServerEntitlement(server.getId(),
                 EntitlementManager.VIRTUALIZATION);
-        SystemManager.removeServerEntitlement(server.getId(),
-                EntitlementManager.VIRTUALIZATION_PLATFORM);
-        SystemManager.removeServerEntitlement(server.getId(),
-                EntitlementManager.PROVISIONING);
-
         server = (Server) reload(server);
-
-        assertFalse(server.hasEntitlement(EntitlementManager.PROVISIONING));
         assertFalse(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
-        assertFalse(server.hasEntitlement(EntitlementManager.VIRTUALIZATION_PLATFORM));
-
     }
 
     public void testEntitleVirtForGuest() throws Exception {
@@ -465,47 +434,6 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertTrue(SystemManager.entitleServer(guest,
                 EntitlementManager.VIRTUALIZATION).hasErrors());
         assertFalse(guest.hasEntitlement(EntitlementManager.VIRTUALIZATION));
-    }
-
-    public void testEntitleMaxMembers() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
-        user.addPermanentRole(RoleFactory.ORG_ADMIN);
-        Server server = ServerTestUtils.createTestSystem(user);
-
-        UserTestUtils.addProvisioning(user.getOrg());
-        EntitlementServerGroup group = ServerGroupFactory.lookupEntitled(
-                                                EntitlementManager.PROVISIONING,
-                                                user.getOrg());
-        group.setMaxMembers(new Long(0));
-        TestUtils.saveAndFlush(group);
-        TestUtils.flushAndEvict(group);
-
-        ValidatorResult vr =
-            SystemManager.entitleServer(server, EntitlementManager.PROVISIONING);
-        assertTrue("we shoulda gotten an error", vr.hasErrors());
-        ValidatorError ve = vr.getErrors().get(0);
-        assertEquals("system.entitle.noslots", ve.getKey());
-
-        Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
-        Server guest = (host.getGuests().iterator().next()).getGuestSystem();
-
-        EntitlementServerGroup pgroup = ServerGroupFactory.lookupEntitled(
-                                                EntitlementManager.PROVISIONING,
-                                                user.getOrg());
-        pgroup.setMaxMembers(new Long(pgroup.getCurrentMembers().longValue() + 1));
-
-        TestUtils.saveAndFlush(pgroup);
-        TestUtils.flushAndEvict(pgroup);
-
-        assertFalse(SystemManager.entitleServer(host, EntitlementManager.PROVISIONING)
-                .hasErrors());
-        assertTrue(host.hasEntitlement(EntitlementManager.PROVISIONING));
-        assertTrue(SystemManager.entitleServer(server, EntitlementManager.PROVISIONING)
-                .hasErrors());
-        guest.setBaseEntitlement(EntitlementManager.MANAGEMENT);
-        assertFalse(SystemManager.entitleServer(guest, EntitlementManager.PROVISIONING)
-                .hasErrors());
     }
 
     public void testVirtualEntitleServer() throws Exception {
@@ -554,34 +482,6 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertFalse(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
 
     }
-
-    public void testSwapVirts() throws Exception {
-        Server host = ServerTestUtils.createVirtHostWithGuest();
-        User user = host.getCreator();
-        UserTestUtils.addVirtualization(user.getOrg());
-        UserTestUtils.addVirtualizationPlatform(user.getOrg());
-        assertTrue(SystemManager.hasEntitlement(host.getId(),
-                EntitlementManager.VIRTUALIZATION));
-        assertFalse(SystemManager.hasEntitlement(host.getId(),
-                        EntitlementManager.VIRTUALIZATION_PLATFORM));
-        ValidatorResult result = SystemManager.entitleServer(host,
-                                        EntitlementManager.VIRTUALIZATION_PLATFORM);
-        assertFalse(result.hasErrors());
-        assertTrue(SystemManager.hasEntitlement(host.getId(),
-                                EntitlementManager.VIRTUALIZATION_PLATFORM));
-        assertFalse(SystemManager.hasEntitlement(host.getId(),
-                                        EntitlementManager.VIRTUALIZATION));
-        host = (Server) reload(host);
-        result = SystemManager.entitleServer(host,
-                                        EntitlementManager.VIRTUALIZATION);
-         assertFalse(result.hasErrors());
-         assertTrue(SystemManager.hasEntitlement(host.getId(),
-                                 EntitlementManager.VIRTUALIZATION));
-         assertFalse(SystemManager.hasEntitlement(host.getId(),
-                             EntitlementManager.VIRTUALIZATION_PLATFORM));
-
-    }
-
 
     public void testGetServerEntitlement() throws Exception {
         // create a new server
@@ -754,14 +654,6 @@ public class SystemManagerTest extends RhnBaseTestCase {
         ServerFactory.save(server);
         server = (Server) reload(server);
         assertFalse(server.isProxy());
-    }
-
-    public void testCanServerSubscribeToChannel() throws Exception {
-        Server server = ServerTestUtils.createTestSystem();
-        Channel childChannel = ChannelTestUtils.createChildChannel(server.getCreator(),
-                server.getBaseChannel());
-        assertTrue(SystemManager.canServerSubscribeToChannel(server.getCreator().getOrg(),
-                server, childChannel));
     }
 
     private void addCpuToServer(Server s) {

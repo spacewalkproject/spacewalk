@@ -709,42 +709,30 @@ class DistsDumper(BaseSubelementDumper):
     tag_name = 'rhn-dists'
     subelement_dumper_class = _DistDumper
 
-
 class ChannelFamiliesDumper(BaseQueryDumper):
     tag_name = 'rhn-channel-families'
     iterator_query = 'select cf.* from rhnChannelFamily'
 
     def __init__(self, writer, data_iterator=None, ignore_subelements=0,
-                 null_max_members=1, virt_filter=0):
+                 null_max_members=1):
         BaseQueryDumper.__init__(self, writer, data_iterator=data_iterator)
         self._ignore_subelements = ignore_subelements
         self._null_max_members = null_max_members
-        self.virt_filter = virt_filter
 
     def dump_subelement(self, data):
         cf = _ChannelFamilyDumper(self._writer, data,
                                   ignore_subelements=self._ignore_subelements,
-                                  null_max_members=self._null_max_members, virt_filter=self.virt_filter)
+                                  null_max_members=self._null_max_members)
         cf.dump()
 
 
 class _ChannelFamilyDumper(BaseRowDumper):
     tag_name = 'rhn-channel-family'
 
-    def __init__(self, writer, row, ignore_subelements=0, null_max_members=1, virt_filter=0):
+    def __init__(self, writer, row, ignore_subelements=0, null_max_members=1):
         BaseRowDumper.__init__(self, writer, row)
         self._ignore_subelements = ignore_subelements
         self._null_max_members = null_max_members
-
-        self._virt_filter = virt_filter
-
-    _query_cf_virt_sublevel = """
-        select vsl.label, vsl.name
-          from rhnChannelFamilyVirtSubLevel cfvsl,
-               rhnVirtSubLevel vsl
-         where cfvsl.channel_family_id = :channel_family_id
-           and cfvsl.virt_sub_level_id = vsl.id
-    """
 
     def set_iterator(self):
         if self._ignore_subelements:
@@ -775,27 +763,11 @@ class _ChannelFamilyDumper(BaseRowDumper):
         h.execute(channel_family_id=channel_family_id)
         channels = [x['label'] for x in h.fetchall_dict() or []]
 
-        if not self._virt_filter:
-            h_virt = rhnSQL.prepare(self._query_cf_virt_sublevel)
-            h_virt.execute(channel_family_id=channel_family_id)
-
-            cf_virt_data = h_virt.fetchall_dict() or []
-            log_debug(3, cf_virt_data, channel_family_id)
-
-            vsl_label = [x['label'] for x in cf_virt_data]
-            cf_vsl_label = ' '.join(vsl_label)
-
-            vsl_name = [x['name'] for x in cf_virt_data]
-            cf_vsl_name = ','.join(vsl_name)
-
         attributes = {
             'id': "rhn-channel-family-%s" % channel_family_id,
             'label': self._row['label'],
             'channel-labels': ' '.join(channels),
         }
-        if not self._virt_filter and cf_virt_data != []:
-            attributes['virt-sub-level-label'] = cf_vsl_label
-            attributes['virt-sub-level-name'] = cf_vsl_name
 
         if self._ignore_subelements:
             return attributes
@@ -1441,12 +1413,7 @@ class ServerGroupTypeServerArchCompatDumper(RestrictedArchCompatDumper):
 
     _query_rpm_arch_type_only = """
         select sgt.label "server-group-type",
-               sa.label "server-arch",
-               (select vsl.label "virt-sub-level"
-                from rhnSGTypeVirtSubLevel sgtvsl,
-                     rhnVirtSubLevel vsl
-                where sgtvsl.server_group_type_id = sgt.id
-                  AND vsl.id = sgtvsl.virt_sub_level_id) as virt_sub_level
+               sa.label "server-arch"
           from rhnServerGroupType sgt,
                rhnServerArch sa,
                rhnArchType aas,
@@ -1461,12 +1428,7 @@ class ServerGroupTypeServerArchCompatDumper(RestrictedArchCompatDumper):
     #_query_arch_type_all = rhnSQL.Statement("""
     _query_arch_type_all = """
         select sgt.label "server-group-type",
-               sa.label "server-arch",
-               (select vsl.label "virt-sub-level"
-                from rhnSGTypeVirtSubLevel sgtvsl,
-                     rhnVirtSubLevel vsl
-                where sgtvsl.server_group_type_id = sgt.id
-                  AND vsl.id = sgtvsl.virt_sub_level_id) as virt_sub_level
+               sa.label "server-arch"
           from rhnServerGroupType sgt,
                rhnServerArch sa,
                rhnServerServerGroupArchCompat ssgac

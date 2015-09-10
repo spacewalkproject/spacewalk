@@ -3,8 +3,6 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-        <import class="com.redhat.rhn.domain.server.HostAndGuestCountView"/>
-
     <class name="com.redhat.rhn.domain.server.Server" table="rhnServer">
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -214,31 +212,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                       order by s.id asc
         ]]>
     </query>
-
-    <sql-query name="Server.findVirtPlatformHostsByOrg">
-        <![CDATA[select   s.id as id, s.name as name, count(vi.id) as count
-                                from rhnServer S
-                                        inner join rhnVirtualInstance vi on s.id = vi.host_system_id
-                                        inner join rhnServerGroupMembers sgm on s.id = sgm.server_id
-                                        inner join rhnServerGroup sg on sgm.server_group_id = sg.id
-                                    where sg.group_type = :group_type_id
-                                        and s.org_id = :org_id
-                                        and vi.virtual_system_id  is not null
-                                    group by s.id, s.name]]>
-    </sql-query>
-
-    <sql-query name="Server.findVirtHostsExceedingGuestLimitByOrg">
-        <![CDATA[select  s.id as id, s.name as name, count(vi.id) as count
-                                from rhnServer S
-                                        inner join rhnVirtualInstance vi on s.id = vi.host_system_id
-                                        inner join rhnServerGroupMembers sgm on s.id = sgm.server_id
-                                        inner join rhnServerGroup sg on sgm.server_group_id = sg.id
-                                    where sg.group_type = :group_type_id
-                                        and s.org_id = :org_id
-                                        and vi.virtual_system_id  is not null
-                                    group by s.id, s.name]]>
-    </sql-query>
-
 
     <sql-query name="Server.lookupAdministrators">
         <![CDATA[select {wc.*}

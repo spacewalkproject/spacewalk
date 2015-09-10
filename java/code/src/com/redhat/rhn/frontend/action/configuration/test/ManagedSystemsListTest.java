@@ -31,7 +31,6 @@ public class ManagedSystemsListTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         //Make a channel so it will appear in the list.
         ConfigChannel channel = ConfigTestUtils.createConfigChannel(user.getOrg(),
@@ -53,5 +52,4 @@ public class ManagedSystemsListTest extends RhnMockStrutsTestCase {
         actionPerform();
         verifyList(RequestContext.PAGE_LIST, ConfigSystemDto.class);
     }
-
 }

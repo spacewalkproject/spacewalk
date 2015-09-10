@@ -460,8 +460,6 @@ select c.id
                rhnPrivateChannelFamily pcf
          where pcf.org_id = :org_id
            and pcf.channel_family_id = cfm.channel_family_id
-           and pcf.current_members < coalesce(pcf.max_members,
-                  pcf.current_members + 1)
         union
         select cfm.channel_id
           from rhnChannelFamilyMembers cfm,
@@ -516,11 +514,7 @@ def _subscribe_server_to_capable_channels(server_id, scheduler, capability):
                 return packages
 
             # Try to subscribe to it
-            try:
-                rhnChannel._subscribe_sql(server_id, channel_id, 0)
-            except rhnChannel.SubscriptionCountExceeded:
-                # Try another one
-                continue
+            rhnChannel.subscribe_sql(server_id, channel_id, 0)
             log_debug(4, "Subscribed to", channel_id,
                       "Found packages", packages)
             # We subscribed to this channel - we're done

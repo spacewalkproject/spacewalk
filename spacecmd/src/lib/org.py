@@ -401,110 +401,6 @@ def do_org_details(self, args):
 ####################
 
 
-def help_org_listsoftwareentitlements(self):
-    print "org_listsoftwareentitlements: List an organization's software",
-    print "entitlements"
-    print 'usage: org_listsoftwareentitlements NAME'
-
-
-def complete_org_listsoftwareentitlements(self, text, line, beg, end):
-    return tab_completer(self.do_org_list('', True), text)
-
-
-def do_org_listsoftwareentitlements(self, args):
-    (args, _options) = parse_arguments(args)
-
-    if not len(args):
-        self.help_org_listsoftwareentitlements()
-        return
-
-    org_id = self.get_org_id(args[0])
-
-    entitlements = self.client.org.listSoftwareEntitlementsForOrg(self.session,
-                                                                  org_id)
-
-    for e in sorted(entitlements, key=itemgetter('label')):
-        if e.get('allocated') > 0:
-            print '%s: %i/%i' % (
-                e.get('label'),
-                e.get('used'),
-                e.get('allocated'))
-
-####################
-
-
-def help_org_setsoftwareentitlements(self):
-    print "org_setsoftwareentitlements: Sets an organization's software",
-    print "entitlements"
-    print 'usage: org_setsoftwareentitlements ORG ENTITLEMENT VALUE'
-
-
-def complete_org_setsoftwareentitlements(self, text, line, beg, end):
-    parts = shlex.split(line)
-    if line[-1] == ' ':
-        parts.append('')
-
-    if len(parts) == 2:
-        return tab_completer(self.do_org_list('', True), text)
-    elif len(parts) == 3:
-        entitlements = self.client.satellite.listEntitlements(self.session)
-        items = sorted([e.get('label') for e in entitlements.get('channel')])
-        return tab_completer(items, parts[-1])
-
-
-def do_org_setsoftwareentitlements(self, args):
-    (args, _options) = parse_arguments(args)
-
-    if not len(args):
-        self.help_org_setsoftwareentitlements()
-        return
-
-    org_id = self.get_org_id(args[0])
-    label = args[1]
-
-    try:
-        value = int(args[2])
-    except ValueError:
-        logging.error('Value must be an integer')
-        return
-
-    self.client.org.setSoftwareEntitlements(self.session, org_id, label, value)
-
-####################
-
-
-def help_org_listsystementitlements(self):
-    print "org_listsystementitlements: List an organization's system",
-    print "entitlements"
-    print 'usage: org_listsystementitlements NAME'
-
-
-def complete_org_listsystementitlements(self, text, line, beg, end):
-    return tab_completer(self.do_org_list('', True), text)
-
-
-def do_org_listsystementitlements(self, args):
-    (args, _options) = parse_arguments(args)
-
-    if not len(args):
-        self.help_org_listsystementitlements()
-        return
-
-    org_id = self.get_org_id(args[0])
-
-    entitlements = self.client.org.listSystemEntitlementsForOrg(self.session,
-                                                                org_id)
-
-    for e in sorted(entitlements, key=itemgetter('label')):
-        if e.get('allocated') > 0:
-            print '%s: %i/%i' % (
-                e.get('label'),
-                e.get('used'),
-                e.get('allocated'))
-
-####################
-
-
 def help_org_setsystementitlements(self):
     print "org_setsystementitlements: Sets an organization's system",
     print "entitlements"
@@ -518,10 +414,6 @@ def complete_org_setsystementitlements(self, text, line, beg, end):
 
     if len(parts) == 2:
         return tab_completer(self.do_org_list('', True), text)
-    elif len(parts) == 3:
-        entitlements = self.client.satellite.listEntitlements(self.session)
-        items = sorted([e.get('label') for e in entitlements.get('system')])
-        return tab_completer(items, parts[-1])
 
 
 def do_org_setsystementitlements(self, args):

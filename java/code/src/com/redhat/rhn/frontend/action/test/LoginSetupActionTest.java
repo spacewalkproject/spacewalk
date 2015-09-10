@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.action.test;
 
 import com.redhat.rhn.frontend.action.LoginSetupAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.manager.satellite.test.CertificateManagerTest;
 import com.redhat.rhn.testing.RhnMockDynaActionForm;
 import com.redhat.rhn.testing.RhnMockHttpServletRequest;
 import com.redhat.rhn.testing.RhnMockHttpServletResponse;
@@ -39,21 +38,6 @@ public class LoginSetupActionTest extends RhnMockStrutsTestCase {
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/Login");
-    }
-
-    public void testExpirationMessage() throws Exception {
-
-        CertificateManagerTest.expireSatelliteCertificate();
-        actionPerform();
-        verifyActionMessage("satellite.expired");
-        assertTrue(request.getAttribute(LoginSetupAction.HAS_EXPIRED).equals(Boolean.TRUE));
-    }
-
-    public void testGracePeriodMessage() throws Exception {
-
-        CertificateManagerTest.activateGracePeriod();
-        actionPerform();
-        verifyActionMessage("satellite.graceperiod");
     }
 
     public void testUrlBounce() {

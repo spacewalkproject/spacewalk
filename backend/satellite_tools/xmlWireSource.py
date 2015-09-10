@@ -326,23 +326,6 @@ class AuthWireSource(XMLRPCWireSource):
             sys.exit(-1)
         return authYN
 
-
-class CertWireSource(XMLRPCWireSource):
-
-    "Retrieve the satellite certificate"
-
-    def download(self):
-        self.setServer(CFG.RHN_XMLRPC_HANDLER)
-        #log(2, '   +++ Satellite synchronization tool downloading certificate.')
-        try:
-            cert = self._xmlrpc("certificate.download", (self.systemid, ))
-        except rpclib.xmlrpclib.Fault, e:
-            log(-1, '   --- Unable to download the satellite certificate')
-            log(-1, '   ERROR: %s' % e, stream=sys.stderr)
-            sys.exit(-1)
-        return cert
-
-
 class RPCGetWireSource(BaseWireSource):
 
     "Class to retrieve various files via authenticated GET requests"

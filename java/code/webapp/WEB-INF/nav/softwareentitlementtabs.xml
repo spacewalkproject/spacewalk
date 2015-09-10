@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<rhn-navi-tree label="softwareEntitlementTabs" formvar="cfid" title-depth="1">
-    <rhn-tab name="Details" acl="user_role(org_admin)" url="/rhn/admin/multiorg/SoftwareEntitlementDetails.do"/>
-    <rhn-tab name="Organizations" acl="user_role(org_admin)" url="/rhn/admin/multiorg/SoftwareEntitlementSubscriptions.do"/>
-</rhn-navi-tree>
-

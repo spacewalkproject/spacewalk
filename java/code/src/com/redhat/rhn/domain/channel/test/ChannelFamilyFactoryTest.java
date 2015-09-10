@@ -28,12 +28,8 @@ import java.util.List;
 
 /**
  * ChannelFamilyFactoryTest
- * @version $Rev$
  */
 public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
-
-    public static final long ENTITLEMENT_ALLOCATION = 10000;
-    public static final long FLEX_ALLOCATION = ENTITLEMENT_ALLOCATION;
 
     public void testChannelFamilyFactory() throws Exception {
         ChannelFamily cfam = createTestChannelFamily();
@@ -92,42 +88,22 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
         assertEquals(orgfam.getName(), orgfam2.getName());
     }
 
-    public void testPrivateChannelFamily() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
-        ChannelFamily cfam = createTestChannelFamily(user);
-        assertNotNull(cfam.getMaxMembers(user.getOrg()));
-        assertNotNull(cfam.getCurrentMembers(user.getOrg()));
-
-    }
-
     public static ChannelFamily createTestChannelFamily() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrgCreateTestChannelFamily");
-
         return createTestChannelFamily(user);
     }
 
     public static ChannelFamily createTestChannelFamily(User user) throws Exception {
-        return createTestChannelFamily(user, ENTITLEMENT_ALLOCATION, FLEX_ALLOCATION);
+        return createTestChannelFamily(user, false);
     }
 
-    public static ChannelFamily createTestChannelFamily(User user,
-            Long ents, Long flexEnts) throws Exception {
-        return createTestChannelFamily(user, ents, flexEnts, false);
+    public static ChannelFamily createTestChannelFamily(User user, boolean nullOrg)
+        throws Exception {
+        return createTestChannelFamily(user, nullOrg, "ChannelFamily");
     }
 
-    public static ChannelFamily createBaseTestChannelFamily(User user,
-            Long ents, Long flexEnts) throws Exception {
-        return createTestChannelFamily(user, ents, flexEnts, true);
-    }
-
-    public static ChannelFamily createTestChannelFamily(User user, Long ents,
-            Long flexEnts, boolean nullOrg) throws Exception {
-        return createTestChannelFamily(user, ents, flexEnts, nullOrg, "ChannelFamily");
-    }
-
-    public static ChannelFamily createTestChannelFamily(User user, Long ents,
-            Long flexEnts, boolean nullOrg, String prefix) throws Exception {
+    public static ChannelFamily createTestChannelFamily(User user, boolean nullOrg,
+            String prefix) throws Exception {
         String label = prefix + "Label" + TestUtils.randomString();
         String name = prefix + "Name" + TestUtils.randomString();
         String productUrl = "http://www.example.com";
@@ -144,15 +120,10 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
         PrivateChannelFamily pcf = new PrivateChannelFamily();
         pcf.setOrg(user.getOrg());
         pcf.setChannelFamily(cfam);
-        pcf.setCurrentMembers(new Long(0));
-        pcf.setMaxMembers(ents);
-        pcf.setCurrentFlex(0L);
-        pcf.setMaxFlex(flexEnts);
         HibernateFactory.getSession().save(pcf);
 
         cfam.addPrivateChannelFamily(pcf);
         cfam = (ChannelFamily) TestUtils.reload(cfam);
         return cfam;
     }
-
 }

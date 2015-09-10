@@ -19,11 +19,5 @@
 </rhn:column>
 
 <rhn:column header="targetsystems.jsp.action">
-  <rhn:require acl="not user_role(org_admin)">
-    <c:if test="${not current.provisioning}">
-      <p class="text-danger"><strong><bean:message key="targetsystems.jsp.orgadmin"/></strong></p><br />
-    </c:if>
-  </rhn:require>
-
   ${current.requiredActionsDisplay}
 </rhn:column>

@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.action.errata.test;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetFactory;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
@@ -32,14 +31,12 @@ import java.util.Iterator;
 
 /**
  * DeleteConfirmSetupActionTest
- * @version $Rev$
  */
 public class UnpublishedDeleteConfirmSetupActionTest extends RhnMockStrutsTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/errata/manage/UnpublishedDeleteConfirm");
-        user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         user.getOrg().addRole(RoleFactory.CHANNEL_ADMIN);
     }
 

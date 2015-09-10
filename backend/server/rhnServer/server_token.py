@@ -26,8 +26,6 @@ from spacewalk.server import rhnSQL, rhnChannel, rhnAction
 from server_lib import join_server_group
 
 VIRT_ENT_LABEL = 'virtualization_host'
-VIRT_PLATFORM_ENT_LABEL = 'virtualization_host_platform'
-
 
 def token_channels(server, server_arch, tokens_obj):
     """ Handle channel subscriptions for the registration token """
@@ -111,14 +109,7 @@ def token_channels(server, server_arch, tokens_obj):
             sbc = None  # force true on the next test
         if sbc is None:
             # no base channel subscription at this point
-            try:
-                rhnChannel._subscribe_sql(server_id, bc["id"], commit=0)
-            except rhnChannel.SubscriptionCountExceeded:
-                ret.append("System registered without a base channel: "
-                           "subscription count exceeded for channel %s (%s)" %
-                           (bc["name"], bc["label"]))
-                return ret
-
+            rhnChannel.subscribe_sql(server_id, bc["id"], commit=0)
             ret.append("Subscribed to base channel '%s' (%s)" % (
                 bc["name"], bc["label"]))
             sbc = bc
@@ -141,7 +132,7 @@ def token_channels(server, server_arch, tokens_obj):
             # don't run the EC yet
             # XXX: test return code when this one will start returning
             # a status
-            subscribe_channel(server_id, c["id"], 0, None, 0)
+            subscribe_channel(server_id, c["id"], 0, None)
             child = rhnChannel.Channel()
             child.load_by_id(c["id"])
             child._load_channel_families()
@@ -156,16 +147,6 @@ def token_channels(server, server_arch, tokens_obj):
 
     log_debug(5, "cf ids: %s" % str(channel_family_ids))
     log_debug(5, "Server org_id: %s" % str(server['org_id']))
-    #rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val)
-    update_family_counts = rhnSQL.Procedure("rhn_channel.update_family_counts")
-    for famid in channel_family_ids:
-        # Update the channel family counts separately at the end here
-        # instead of in the loop above.  If you have an activation key
-        # with lots of custom child channels you can end up repeatedly
-        # updating the same channel family counts over and over and over
-        # even thou you really only need todo it once.
-        log_debug(5, "calling update fam counts: %s" % famid)
-        update_family_counts(famid, server['org_id'])
 
     return ret
 
@@ -536,8 +517,6 @@ class ActivationTokens:
         self.user_id = user_id
         self.org_id = org_id
         self.kickstart_session_id = kickstart_session_id
-#        self.entitlement_label = entitlement_label
-#        self.entitlement_name = entitlement_name
         # Boolean
         self.deploy_configs = deploy_configs
         # entitlements is list of tuples [(name, label)]
@@ -610,28 +589,8 @@ class ActivationTokens:
 
         history["entitlement"] = ""
 
-        # Do a quick check to see if both virt entitlements are present. (i.e.
-        # activation keys stacked together) If so, give preference to the more
-        # powerful virtualization platform and remove the regular virt
-        # entitlement from the list.
-        found_virt = False
-        found_virt_platform = False
         for entitlement in self.entitlements:
-            if entitlement[0] == VIRT_ENT_LABEL:
-                found_virt = True
-            elif entitlement[0] == VIRT_PLATFORM_ENT_LABEL:
-                found_virt_platform = True
-
-        for entitlement in self.entitlements:
-            if virt_type is not None and entitlement[0] in \
-                    (VIRT_ENT_LABEL, VIRT_PLATFORM_ENT_LABEL):
-                continue
-
-            # If both virt entitlements are present, skip the least powerful:
-            if found_virt and found_virt_platform and entitlement[0] == VIRT_ENT_LABEL:
-                log_debug(1, "Virtualization and Virtualization Platform " +
-                          "entitlements both present.")
-                log_debug(1, "Skipping Virtualization.")
+            if virt_type is not None and entitlement[0] == VIRT_ENT_LABEL:
                 continue
 
             try:
@@ -646,12 +605,7 @@ class ActivationTokens:
             except rhnSQL.SQLSchemaError, e:
                 log_error("Token failed to entitle server", server_id,
                           self.get_names(), entitlement[0], e.errmsg)
-                if e.errno == 20220:
-                    # ORA-20220: (servergroup_max_members) - Server group membership
-                    # cannot exceed maximum membership
-                    raise rhnFault(91,
-                                   _("Registration failed: RHN Software service entitlements exhausted: %s") % entitlement[0]), None, sys.exc_info()[2]
-                # No idea what error may be here...
+                #No idea what error may be here...
                 raise rhnFault(90, e.errmsg), None, sys.exc_info()[2]
             except rhnSQL.SQLError, e:
                 log_error("Token failed to entitle server", server_id,
@@ -690,7 +644,7 @@ class ReRegistrationActivationToken(ReRegistrationToken):
             unentitle_server = rhnSQL.Procedure(
                 "rhn_entitlements.remove_server_entitlement")
             try:
-                unentitle_server(server_id, ent, 0)
+                unentitle_server(server_id, ent)
             except rhnSQL.SQLSchemaError, e:
                 log_error("Failed to unentitle server", server_id,
                           ent, e.errmsg)
@@ -769,31 +723,6 @@ def _validate_entitlements(token_string, rereg_ents, base_entitlements,
         raise rhnFault(63,
                        _("Stacking of re-registration tokens with different base entitlements "
                          "is not supported"), explain=0)
-
-    # Don't allow an activation key to give virt entitlement to a system
-    # that's re-activating and already has virt platform: (or vice-versa)
-    found_virt = False
-    virt_tuple = None
-    found_virt_platform = False
-    for ent_tuple in extra_entitlements.keys():
-        if ent_tuple[0] == VIRT_ENT_LABEL:
-            found_virt = True
-            virt_tuple = ent_tuple
-        elif ent_tuple[0] == VIRT_PLATFORM_ENT_LABEL:
-            found_virt_platform = True
-
-    if found_virt and found_virt_platform and len(rereg_ents) > 0:
-        # Both virt entitlements found, give preference to the most powerful.
-        # (i.e. virtualization_host_platform) This may mean we have to remove
-        # virtualization_host if a reregistration key is in use and contains
-        # this entitlement.
-        if VIRT_ENT_LABEL in rereg_ents:
-            # The system already has virt host, so it must be removed:
-            log_debug(1, "Removing Virtualization entitlement from profile.")
-            remove_entitlements.append(virt_tuple[0])
-
-        # NOTE: the call to entitle will actually skip the virtualization
-        # entitlement, so we can leave it in the list here.
 
 _query_token = rhnSQL.Statement("""
     select rt.id as token_id,
@@ -1035,11 +964,7 @@ def process_token(server, server_arch, tokens_obj, virt_type=None):
     else:
         tokens_obj.entitle(server_id, history, virt_type)
 
-    is_provisioning_entitled = None
     is_management_entitled = None
-
-    if tokens_obj.has_entitlement_label('provisioning_entitled'):
-        is_provisioning_entitled = 1
 
     if tokens_obj.has_entitlement_label('enterprise_entitled'):
         is_management_entitled = 1
@@ -1048,16 +973,16 @@ def process_token(server, server_arch, tokens_obj, virt_type=None):
         history["groups"] = ["Re-activation: keeping previous server groups"]
     else:
         # server groups - allowed for enterprise only
-        if is_management_entitled or is_provisioning_entitled:
+        if is_management_entitled:
             history["groups"] = token_server_groups(server_id, tokens_obj)
         else:
             # FIXME:  better messaging about minimum service level
             history["groups"] = [
                 "Not subscribed to any system groups: not entitled for "
-                "RHN Management or RHN Provisioning"
+                "Management"
             ]
 
-    if is_provisioning_entitled:
+    if is_management_entitled:
         history["packages"] = token_packages(server_id, tokens_obj)
         history["config_channels"] = token_config_channels(server,
                                                            tokens_obj)

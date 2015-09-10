@@ -26,13 +26,11 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * LocalRevisionDeployActionTest
- * @version $Rev: 1 $
  */
 public class LocalRevisionDeployActionTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
         cc.setConfigChannelType(ConfigChannelType.local());
@@ -48,4 +46,3 @@ public class LocalRevisionDeployActionTest extends RhnMockStrutsTestCase {
         assertEquals(srv.getName(), request.getAttribute("system"));
     }
 }
-

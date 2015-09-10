@@ -4408,115 +4408,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
         <target>システム</target>
       </trans-unit>
-      <trans-unit id="softwareentitlements.header">
-        <source>Software Channel Entitlements Across @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ 全体のソフトウェアチャンネルのエンタイトルメント</target>
-      </trans-unit>
-      <trans-unit id="softwareentitlements.description">
-        <source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>この @@PRODUCT_NAME@@ 上の組織全体のすべてのソフトウェアチャンネルエンタイトルメントとその使用の一覧を以下に示します。詳細情報についてはそれぞれのエンタイトルメント名をクリックして下さい。</target>
-      </trans-unit>
-      <trans-unit id="softwareentitlements.noentitlements">
-        <source>No entitlements found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>エンタイトルメントは見つかりませんでした</target>
-      </trans-unit>
-      <trans-unit id="softwareentitlements.header.entitlement.name">
-        <source>Entitlement Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>エンタイトルメント名</target>
-      </trans-unit>
-      <trans-unit id="Available/Total">
-        <source>Available/Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>利用可能数/合計</target>
-      </trans-unit>
-      <trans-unit id="Used/Allotted">
-        <source>Used/Allotted</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>使用数/割り当て数</target>
-      </trans-unit>
-      <trans-unit id="None Allocated">
-        <source>None Allotted</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>割り当てなし</target>
-      </trans-unit>
-      <trans-unit id="Regular Counts">
-        <source>Regular Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>通常のエンタイトルメント数</target>
-      </trans-unit>
-      <trans-unit id="Regular Usage">
-        <source>Regular Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>通常の使用</target>
-      </trans-unit>
-      <trans-unit id="Flex Counts">
-        <source>Flex Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>Flex エンタイトルメント数</target>
-      </trans-unit>
-      <trans-unit id="Flex Usage">
-        <source>Flex Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Flex の使用数</target>
-      </trans-unit>
-      <trans-unit id="softwareentitlements.usagedata">
-        <source>{0} of {1} ({2}%)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>{1} の内 {0} ({2}%)</target>
-      </trans-unit>
-      <trans-unit id="Available/Total.tip">
-        <source>'Total' refers to the total available entitlements to the @@PRODUCT_NAME@@ as reflected in this @@PRODUCT_NAME@@'s certificate. 'Available' refers to the number entitlements that are available to be allocated to various organizations.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>「合計」は、この @@PRODUCT_NAME@@ の証明書に反映されるように @@PRODUCT_NAME@@ の利用可能なエンタイトルメントの合計を示します。「利用可能数」は、各種組織に割り当てることにできるエンタイトルメントの数を示します。</target>
-      </trans-unit>
-      <trans-unit id="Used/Allotted.tip">
-        <source>'Allotted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>「割り当て数」は、この @@PRODUCT_NAME@@ の証明書に反映されるように初期プールから任意の組織に割り当てられたエンタイトルメントの合計数を示します。「使用数」は各種の組織のシステムによって使用されたエンタイトルメントの数を示します。</target>
-      </trans-unit>
       <trans-unit id="satusers.tip">
         <source>&lt;strong&gt;*Tip:&lt;/strong&gt; Organization administrator privileges can
 not be modified on this page. Instead, please visit the "Users" top-level
 navigational tab above to access the profiles of individual users in your
 organization. You may grant or remove the organization administrator role in the
 "Roles" section of the "Details" tab in individual users' profiles.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;*ヒント:&lt;/strong&gt; 組織管理者の権限は、このページ上では変更できません。
 その代わりに、最上部のナビゲーションバーの 「ユーザー」タブに行き、
 組織内の各個人ユーザーのプロファイルにアクセスして下さい。
@@ -4528,9 +4425,6 @@ organization. You may grant or remove the organization administrator role in the
 organization above, those entitlements will be added back to the default organization,
 and if you add entitlements from a non-default organization they will be
 deducted from the default organization.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;ヒント:&lt;/strong&gt; この組織はご使用の @@PRODUCT_NAME@@ のデフォルト組織です。
 この組織のエンタイトルメントはその @@PRODUCT_NAME@@ 証明書ファイルへリンクされているので修正できません。
 上記のデフォルト以外の組織からエンタイトルメントを削除すると、それらのエンタイトルメントはデフォルト組織に戻され、
@@ -4546,152 +4440,7 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.entitlementUsage">
         <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
         <target>エンタイトルメントの使用</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementDetails.header.accessGranted">
-        <source>Access Granted by this Entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-        <target>このエンタイトルメントで認可されたアクセス</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementDetails.header.accessGrantedDescription">
-        <source>A single '{0}' entitlement may be used to gain access to any one of the following &lt;a href="/rhn/software/channels/All.do"&gt;software channels&lt;/a&gt;:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-        <target>以下の &lt;a href=&quot;/rhn/software/channels/All.do&quot;&gt;ソフトウェアチャンネル&lt;/a&gt; の 1 つへアクセスできるようにするため、1 つの'{0}' エンタイトルメントを使用できます。</target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.nochannelfams">
-        <source>No channels found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>チャンネルが見つかりませんでした。</target>
-      </trans-unit>
-      <trans-unit id="No Entitlements Available">
-        <source>No Entitlements Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>利用可能なエンタイトルメントがありません</target>
-      </trans-unit>
-      <trans-unit id="Regular Proposed Total">
-        <source>Regular Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>通常の提示合計数</target>
-      </trans-unit>
-      <trans-unit id="Flex Proposed Total">
-        <source>Flex Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Flex 提示合計数</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementDetails.noChannelsFound">
-        <source>No channels found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-        <target>チャンネルが見つかりませんでした。</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementDetails.header.channelName">
-        <source>Channel Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-        <target>チャンネル名</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementDetails.header.packages">
-        <source>Packages</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-        <target>パッケージ</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.viewModifyCounts.header">
-        <source>View/Modify Entitlement Counts by Organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>組織別のエンタイトルメント数の表示/修正</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.viewModifyCounts.description">
-        <source>The current allocation of entitlements for '{0}' across the organizations on this @@PRODUCT_NAME@@ is displayed below. You may make changes to the allocation of entitlements for each organization in the 'Proposed Total' column, but your changes will not take effect until you depress the appropriate 'Update' button.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>この @@PRODUCT_NAME@@ 上の組織全体の '{0}' 用のエンタイトルメントの現在の割り当ては以下に表示されています。各組織用のエンタイトルメントの割り当ては、「提示合計数」の列で変更することができます。しかし、該当する「更新」のボタンを押すまで その変更は反映されません。</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.noOrgsFound">
-        <source>No organizations found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>組織が見つかりませんでした。</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.column.orgName">
-        <source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>組織名</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.regular">
-        <source>System-Wide Regular Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>システム全体での通常のエンタイトルメント数</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.flex">
-        <source>System-Wide Flex Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>システム全体での Flex エンタイトルメント数</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.submit">
-        <source>Update</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>更新</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.possibleValues">
-        <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>使用可能な値: &lt;strong&gt;{0}&lt;/strong&gt; から &lt;strong&gt;{1}&lt;/strong&gt;</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.total">
-        <source>Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>合計</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.Used/Allotted">
-        <source>'Allotted' refers to the total available entitlements to the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>「割り当て数」は、この @@PRODUCT_NAME@@ に対する組織 (デフォルトの @@PRODUCT_NAME@@ 組織を除く) が利用可能なエンタイトルメント総数を示します。これは @@PRODUCT_NAME@@ 証明書で利用可能な合計数と同じではありません。</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.totaltip">
-        <source> This total corresponds to your @@PRODUCT_NAME@@ certificate's
-value for this entitlement, excluding the default organization's consumption.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>この合計は @@PRODUCT_NAME@@ 証明書のこのエンタイトルメントの
-値 (デフォルト組織の使用数を除く) に対応します。</target>
       </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
@@ -4700,48 +4449,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       <trans-unit id="probedetails.jsp.end_date">
         <source>End date:</source>
         <target>終了日:</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsage">
-        <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>エンタイトルメントの使用</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsage">
-        <source>Organization Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>組織の使用</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsageData">
-        <source>{0} of {1} ({2}%)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>{1} の内の {0} ({2}%)</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsageData">
-        <source>{0} of {1} organizations ({2}%) have access to this entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>{1} 組織の内の {0} ({2}%) はこのエンタイトルメントにアクセスできます。</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.invalidInput">
-        <source>Proposed Allocation is invalid.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>提示された割り当ては無効です。</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.noEntitlementsAvailable">
-        <source>No entitlements are available for allocation.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>割り当てに使用できるエンタイトルメントはありません。</target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.start_date">
         <source>Issue Start Date: </source>
@@ -5222,111 +4929,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
         <target>ソフトウェアチャンネルのアイコン</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.header">
-        <source>Software Channel Entitlements</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>ソフトウェアチャンネルのエンタイトルメント</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.summary">
-        <source>The software channels listed below are subscription-based channels to which your organization has paid access.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>以下に表示しているソフトウェアチャンネルは、お客様の企業/組織がアクセス権を購入されているサブスクリプション形式の有料チャンネルです。</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.noentitlements">
-        <source>No Channel Entitlements</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>チャンネルのエンタイトルメントはありません。</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.channel">
-        <source>Channel Entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>チャンネルのエンタイトルメント</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.subscribed">
-        <source>Systems Subscribed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>サブスクライブされたシステム</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.consumed">
-        <source>Regular Consumed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>通常の使用数</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.subscribed_flex">
-        <source>Consumed Flex Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>使用された Flex ゲスト数</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.avaible_flex">
-        <source>Available Flex Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>利用可能な Flex ゲスト数</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.available">
-        <source>Regular Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>通常の利用可能数</target>
-      </trans-unit>
-      <trans-unit id="entitlements.tree.description1">
-        <source>The following channels are associated with your {0} channel entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>次のチャンネルがご使用の {0} チャンネルエンタイトルメントに関連付けられます。</target>
-      </trans-unit>
-      <trans-unit id="entitlements.tree.description2">
-        <source>Greyed out rows are parents of child channels in this entitlement that do not belong to the entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>グレー色の行は、このエンタイトルメントにある子チャンネルの親で、エンタイトルメントには属していないチャンネルになります。</target>
-      </trans-unit>
-      <trans-unit id="entitledsystems.jsp.header">
-        <source>Subscribed Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-        <target>サブスクライブしているシステム</target>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.regular">
-        <source>The systems listed below consume regular software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-        <target>以下に表示されているシステムは &lt;b&gt;{0}&lt;/b&gt; にある通常のソフトウェアチャンネルエンタイトルメントを使用します。</target>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.flex">
-        <source>The systems listed below consume flex guest software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-        <target>以下に表示されているシステムは&lt;b&gt;{0}&lt;/b&gt; にある  flex ゲストのソフトウェアチャンネルエンタイトルメントを使用します。</target>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.all">
-        <source>The systems listed below consume both regular and flex guest software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-        <target>以下に表示されているシステムは &lt;b&gt;{0}&lt;/b&gt; にある通常および flex ゲスト両方のソフトウェアチャンネルエンタイトルメントを使用します。</target>
       </trans-unit>
       <trans-unit id="packagesearch.jsp.toolbar">
         <source>Package Search</source>
@@ -6929,13 +6531,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
         <target>付属エンタイトルメント</target>
       </trans-unit>
-      <trans-unit id="systementitlements.jsp.set_to_update_entitled">
-        <source>Set to Update Entitled</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-        <target>Update エンタイトルメントに設定</target>
-      </trans-unit>
       <trans-unit id="systementitlements.jsp.set_to_manage_entitled">
         <source>Set to Management Entitled</source>
         <context-group name="ctx">
@@ -6975,25 +6570,9 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemEntitlements.do</context>
         </context-group>
-        <trans-unit id="systementitlements.jsp.entitlement_counts_message_unlimited">
+        <trans-unit id="systementitlements.jsp.entitlement_counts_message">
           <source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
           <target>&lt;strong&gt;{0} システム&lt;/strong&gt; にエンタイトルメントが与えられています。&lt;strong&gt;無制限に使用できる&lt;/strong&gt; エンタイトルメントがあります。</target>
-        </trans-unit>
-        <trans-unit id="systementitlements.jsp.entitlement_counts_message_1">
-          <source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
-          <target>&lt;strong&gt;{0} システム&lt;/strong&gt; にエンタイトルメントが与えられています。&lt;strong&gt;{1} 使用可能な&lt;/strong&gt;エンタイトルメントがあります (&lt;strong&gt;合計 {2} &lt;/strong&gt;)。 </target>
-        </trans-unit>
-        <trans-unit id="systementitlements.jsp.entitlement_counts_message_2">
-          <source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
-          <target>&lt;strong&gt;{0} システム&lt;/strong&gt; にエンタイトルメントが与えられています。&lt;strong&gt;{1} 使用可能な&lt;/strong&gt;エンタイトルメントがあります (&lt;strong&gt;合計 {2}&lt;/strong&gt;)。 </target>
-        </trans-unit>
-        <trans-unit id="systementitlements.jsp.entitlement_counts_message_3">
-          <source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
-          <target>&lt;strong&gt;{0} システム&lt;/strong&gt; にエンタイトルメントが与えられています。&lt;strong&gt;{1} 使用可能な&lt;/strong&gt;エンタイトルメントがあります (&lt;strong&gt;合計 {2} &lt;/strong&gt;)。 </target>
-        </trans-unit>
-        <trans-unit id="systementitlements.jsp.entitlement_counts_message_4">
-          <source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
-          <target>&lt;strong&gt;{0} システム&lt;/strong&gt; にエンタイトルメントが与えられています。&lt;strong&gt;{1} 使用可能な&lt;/strong&gt;エンタイトルメントがあります (&lt;strong&gt;合計 {2} &lt;/strong&gt;)。</target>
         </trans-unit>
       </group>
       <trans-unit id="systementitlements.jsp.base_entitlements">
@@ -7038,10 +6617,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Removed &lt;strong&gt;Provisioning&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; システムから &lt;strong&gt;Provisioning&lt;/strong&gt; が削除されました。</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.provisioning.notEnoughSlots">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Provisioning&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; システムが正しく &lt;strong&gt;Provisioning&lt;/strong&gt; エンタイトルメントに設定されましたが、残りの &lt;strong&gt;{1}&lt;/strong&gt; システムには十分な &lt;strong&gt;Provisioning&lt;/strong&gt; エンタイトルメントがありません。追加の &lt;strong&gt;Provisioning&lt;/strong&gt; エンタイトルメントは &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ ストア&lt;/strong&gt;&lt;/a&gt; で購入することができます。追加の &lt;strong&gt;Provisioning&lt;/strong&gt; エンタイトルメントを取得するとこれらのシステムをアップグレードすることができます。</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.provisioning.noManagement">
           <source>&lt;strong&gt;Provisioning&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Provisioning&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Provisioning&lt;/strong&gt; entitlement to these system(s).</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; システムに対する &lt;strong&gt;Provisioning&lt;/strong&gt; エンタイトルメントの付与が失敗しました。これらのシステムには &lt;strong&gt;Management&lt;/strong&gt; ベースエンタイトルメントがないためです。失敗したシステムはまだ以下で選択された状態になっています。最初に &lt;strong&gt;Management エンタイトルメントの設定&lt;/strong&gt;ボタンをクリックして、次に &lt;strong&gt;付属エンタイトルメントの選択&lt;/strong&gt; 内にあるドロップダウンリストのアイテム &lt;strong&gt;Provisioning&lt;/strong&gt; を選択し、以下の&lt;strong&gt;エンタイトルメントの追加&lt;/strong&gt;ボタンをクリックします。これでシステムに &lt;strong&gt;Provisioning&lt;/strong&gt; エンタイトルメントを追加することができます。</target>
@@ -7058,10 +6633,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; システムから&lt;strong&gt;仮想化&lt;/strong&gt;が削除されました。 これにより選択したホストに関連付けられるゲストはすべて物理的にチャンネル及びシステムのエンタイトルメントを使用することになります。</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host.notEnoughSlots">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements, you will be able to upgrade these systems. &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; システムに&lt;strong&gt;仮想化&lt;/strong&gt;エンタイトルメントが正常に設定されましたが、 残りの &lt;strong&gt;{1}&lt;/strong&gt; システムに対しては&lt;strong&gt;仮想化&lt;/strong&gt;エンタイトルメントが足りません。 追加の&lt;strong&gt;仮想化&lt;/strong&gt;エンタイトルメントを &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ ストア&lt;/strong&gt;&lt;/a&gt; でご購入頂くことができます。 追加の&lt;strong&gt;仮想化&lt;/strong&gt;エンタイトルメントを取得するとこれらのシステムをアップグレードすることができます。 &lt;br/&gt; &lt;strong&gt;注記: &lt;/strong&gt; このシステムが以前に仮想化プラットフォームを有していた場合、仮想化にダウングレードしたことになります。</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.virtualization_host.noManagement">
           <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization&lt;/strong&gt; entitlement to these system(s).</source>
           <target>&lt;strong&gt;Management&lt;/strong&gt;ベースのエンタイトルメントがないため、&lt;strong&gt;{0}&lt;/strong&gt; システムへ &lt;strong&gt;&lt;/strong&gt; エンタイトルメントを付与できませんでした。 付与できなかったシステムはまだ以下通り選択された状態になっています。 最初に &lt;strong&gt;Management エンタイトルメントの設定&lt;/strong&gt; ボタンを以下でクリックして、 次に &lt;strong&gt;付属エンタイトルメントの選択&lt;/strong&gt; 内にあるドロップダウンリストのアイテム &lt;strong&gt;仮想化&lt;/strong&gt;を選択し、&lt;strong&gt;エンタイトルメントの追加&lt;/strong&gt; ボタンをクリックします。 これでシステムに&lt;strong&gt;仮想化&lt;/strong&gt;エンタイトルメントを追加することができます。</target>
@@ -7070,26 +6641,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
           <target>仮想化は Solaris システムではサポートされていないため、&lt;strong&gt;{0}&lt;/strong&gt; システムの&lt;strong&gt;仮想化&lt;/strong&gt; エンタイトルメントは失敗しました。</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.success">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; システムに&lt;strong&gt;仮想化プラットフォーム&lt;/strong&gt;が設定されました。&lt;br/&gt; &lt;strong&gt;注記: &lt;/strong&gt; このシステムが以前に仮想化を有していた場合、仮想化プラットフォームにアップグレードしたことになります。</target>
-        </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
-          <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; システムから&lt;strong&gt;仮想化&lt;/strong&gt;が削除されました。これにより選択したホストに関連付けられるゲストはすべて物理的にチャンネルおよびシステムのエンタイトルメントを使用することになります。</target>
-        </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.notEnoughSlots">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements, you will be able to upgrade these systems.  &lt;br/&gt;&lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; システムに&lt;strong&gt;仮想化プラットフォーム&lt;/strong&gt;エンタイトルメントが正常に設定されましたが、残りの &lt;strong&gt;{1}&lt;/strong&gt; システムに対しては十分な &lt;strong&gt;仮想化プラットフォーム&lt;/strong&gt;エンタイトルメントがありません。追加の&lt;strong&gt;仮想化プラットフォーム&lt;/strong&gt;エンタイトルメントを &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ ストア&lt;/strong&gt;&lt;/a&gt; でご購入頂くことができます。追加の&lt;strong&gt;仮想化プラットフォーム&lt;/strong&gt;エンタイトルメントを取得すると、これらのシステムをアップグレードすることができます。&lt;br/&gt;&lt;strong&gt;注記: &lt;/strong&gt; このシステムが以前に仮想化プラットフォームを有していた場合は仮想化にダウングレーします。</target>
-        </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.noManagement">
-          <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement to these system(s).</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; システムに対する &lt;strong&gt;仮想化プラットフォーム&lt;/strong&gt; のエンタイトルメントの付与が失敗しました。これらのシステムに &lt;strong&gt;Management&lt;/strong&gt; ベースのエンタイトルメントがなかったためです。失敗したシステムは以下で選択された状態のままになっています。まず &lt;strong&gt;Management エンタイトルメントの設定&lt;/strong&gt; ボタンを以下でクリックしてから、&lt;strong&gt;付属エンタイトルメントのセクション&lt;/strong&gt; 内にあるドロップダウンリストのアイテム &lt;strong&gt;仮想化プラットフォーム&lt;/strong&gt; を選択し、次に以下の &lt;strong&gt;エンタイトルメントの追加&lt;/strong&gt; ボタンをクリックします。これでこれらのシステムに &lt;strong&gt;仮想化プラットフォーム&lt;/strong&gt; エンタイトルメントを追加することができます。</target>
-        </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
-          <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
-          <target>仮想化は Solaris システム上ではサポートがないため、&lt;strong&gt;{0}&lt;/strong&gt; システム用の &lt;strong&gt;仮想化プラットフォーム&lt;/strong&gt; エンタイトルメントの付与が失敗しました。</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; システムが &lt;strong&gt;Monitoring&lt;/strong&gt; に設定されています。</target>
@@ -7097,10 +6648,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="system_entitlements.monitoring.removed.success">
           <source>Removed &lt;strong&gt;Monitoring&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; システムから &lt;strong&gt;Monitoring&lt;/strong&gt; が削除されました。</target>
-        </trans-unit>
-        <trans-unit id="system_entitlements.monitoring.notEnoughSlots">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to&lt;strong&gt;Monitoring&lt;/strong&gt; entitled, but you not have enough &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; システムが正しく &lt;strong&gt;Monitoring&lt;/strong&gt; エンタイトルメントに設定されましたが、残りの &lt;strong&gt;{1}&lt;/strong&gt; システムには十分な &lt;strong&gt;Monitoring&lt;/strong&gt; エンタイトルメントがありません。追加の &lt;strong&gt;Monitoring&lt;/strong&gt; エンタイトルメントを &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ ストア&lt;/strong&gt;&lt;/a&gt; でご購入頂くことができます。追加の &lt;strong&gt;Monitoring&lt;/strong&gt; エンタイトルメントを取得するとこれらのシステムをアップグレードすることができます。</target>
         </trans-unit>
         <trans-unit id="system_entitlements.monitoring.noManagement">
           <source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Monitoring&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Monitoring&lt;/strong&gt; entitlement to these system(s).</source>
@@ -7120,61 +6667,9 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
       </group>
       <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">rhn/systems/entitlements/FlexGuests.do</context>
-          <context context-type="sourcefile">rhn/systems/entitlements/EligibleFlexGuests.do</context>
-        </context-group>
         <trans-unit id="Registered">
           <source>Registered</source>
           <target>登録済み</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.entitlement_counts_message_unlimited">
-          <source>{0} consumed, unlimited available entitlements</source>
-          <target>{0} が使用されています。利用可能なエンタイトルメントは無制限です</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.entitlement_counts_message">
-          <source>{0} consumed, {1} available entitlement</source>
-          <target>{0} が使用されています。利用可能なエンタイトルメントは {1} です</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.header">
-          <source>Flex Guest Entitlement Consumers</source>
-          <target>Flex ゲストエンタイトルメントコンシューマ</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.message">
-          <source>The following is a list of guest systems that are currently consuming &lt;a href="{0}"&gt; Flex Guest entitlements&lt;/a&gt;. These entitlements are used when registering virtual guests that are not associated with a registered host system or that are associated with a host system that is not Virtualization or Virtualization Platform entitled. Flex Guest Entitlement Consumers</source>
-          <target>以下に、現在 &lt;a href=&quot;{0}&quot;&gt;Flex ゲストエンタイトルメント&lt;/a&gt;を使用しているゲストシステムのリストを示します。これらのエンタイトルメントは、登録されたホストシステムに関連付けられていない仮想ゲスト、または Virtualization または Virtualization Platform のエンタイトルメントを持たないホストシステムに関連付けられた仮想ゲストを登録するときに使用されます。Flex ゲストエンタイトルメントコンシューマ</target>
-        </trans-unit>
-        <trans-unit id="floating.guests">
-          <source>Flex Guest Entitlement Consumers</source>
-          <target>Flex ゲストエンタイトルメントコンシューマ</target>
-        </trans-unit>
-        <trans-unit id="eligible.floating.guests">
-          <source>Guests Consuming Regular Entitlements</source>
-          <target>通常のエンタイトルメントを使用しているゲスト</target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.header">
-          <source>Guests Consuming Regular Entitlements</source>
-          <target>通常のエンタイトルメントを使用しているゲスト</target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.message">
-          <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in RHN or for whom there are no remaining &lt;a href="{0}"&gt; Virtualization inherited guest entitlements&lt;/a&gt;. These systems are consuming the same software and system entitlements as a physical system.</source>
-          <target>以下に、仮想エンタイトルメント (Virtualization または Virtualization Platform) を持つ RHN のホストシステムに関連付けられていないゲストシステム、または &lt;a href=&quot;{0}&quot;&gt;Virtualization 継承ゲストエンタイトルメント&lt;/a&gt;が残っていないゲストシステムのリストを示します。これらのシステムは、物理的なシステムと同じソフトウェアおよびシステムエンタイトルメントを使用しています。</target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.no-systems">
-          <source>There are no eligible flex guest systems consuming regular entitlements.</source>
-          <target>通常のエンタイトルメントを使用している適切な Flex ゲストシステムがありません。</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.no-systems">
-          <source>There are no systems consuming Flex Guest entitlements.</source>
-          <target>Flex ゲストエンタイトルメントを使用しているシステムがありません。</target>
-        </trans-unit>
-        <trans-unit id="Make Flex">
-          <source>Convert To Flex Guest Entitlement</source>
-          <target>Flex ゲストエンタイトルメントへの変換</target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.systems.confirm.message">
-          <source>Converted &lt;strong&gt;{0}&lt;/strong&gt; system(s) to use Flex Guest Entitlement.</source>
-          <target>Flex ゲストエンタイトルメントを使用するように &lt;strong&gt;{0}&lt;/strong&gt; システムが変換されました。</target>
         </trans-unit>
       </group>
       <!--  System search -->
@@ -8985,26 +8480,6 @@ the following tabs in the left navigation menu:</source>
         </context-group>
         <target>組織に関する詳細情報は、次を参照してください。</target>
       </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.header2">
-        <source>Subscriptions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>サブスクリプション</target>
-      </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.description2">
-        <source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis,
-you can allocate entitlements for any particular entitlement across all
-organizations on your @@PRODUCT_NAME@@ here as well.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>ご使用の @@PRODUCT_NAME@@ 上のサブスクリプションを管理します。また各エンタイトルメントで
-提供されているアクセスも確認します。エンタイトルメントごとに、ご使用の @@PRODUCT_NAME@@ 上の
-すべての組織で、特定のエンタイトルメントにエンタイトルメントを
-割り当てることもできます。</target>
-      </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link2">
         <source>Go to Subscriptions now</source>
         <context-group name="ctx">
@@ -9180,41 +8655,6 @@ administrator privileges.</source>
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
         <target>Monitoring が無効になっています。&lt;a href=&quot;/rhn/admin/config/GeneralConfig.do&quot;&gt;&lt;strong&gt;全般&lt;/strong&gt;&lt;/a&gt; 設定ページに移動し、「Monitoring を有効にする」のチェックボックスを選択してください。</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.toolbar">
-        <source>@@PRODUCT_NAME@@ Configuration - Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ の設定 - 証明書</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.summary">
-        <source>You must provide an @@PRODUCT_NAME@@ certificate. This certificate entitles you to the various levels of service provided by the @@PRODUCT_NAME@@.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ 証明書が必要になります。この証明書により @@PRODUCT_NAME@@ が提供する様々なサービスが利用できます。</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.header2">
-        <source>@@PRODUCT_NAME@@ Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ の証明書　</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.cert_file">
-        <source>Upload Certificate File:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>証明書ファイルのアップロード:</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.cert_text">
-        <source>-or- Certificate Text:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>または、証明書テキスト:</target>
       </trans-unit>
       <trans-unit id="bootstrap.jsp.toolbar">
         <source>@@PRODUCT_NAME@@ Configuration - Bootstrap</source>
@@ -12270,7 +11710,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>ソフトウェアアイコン</target>
       </trans-unit>
@@ -12321,7 +11760,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>チャンネルが見つかりませんでした。</target>
       </trans-unit>
@@ -12330,7 +11768,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>すべての子チャンネルを表示</target>
       </trans-unit>
@@ -12339,7 +11776,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>すべての子チャンネルを非表示</target>
       </trans-unit>
@@ -12348,7 +11784,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
         <target>親チャンネルボタン</target>
@@ -12358,7 +11793,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>子チャンネル</target>
       </trans-unit>
@@ -12407,8 +11841,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>リタイアしたソフトウェアチャンネルの一覧</target>
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
-        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>以下に表示されるソフトウェアチャンネルは、企業/組織が&lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt;エンタイトルメントを有している&lt;/a&gt;が、「終了」日に達したため Red Hat ではサポートしなくなった&lt;strong&gt;リタイアチャンネル&lt;/strong&gt;になります。</target>
+        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
+        <target>以下に表示されるソフトウェアチャンネルは、企業/組織がエンタイトルメントを有しているが、「終了」日に達したため Red Hat ではサポートしなくなった&lt;strong&gt;リタイアチャンネル&lt;/strong&gt;になります。</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
@@ -12843,10 +12277,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="activation-key.jsp.config-auto-deploy-tooltip">
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
           <target> 設定ファイルがこのアクティベーションキーで登録される際に、設定ファイルをシステムに配備します。</target>
-        </trans-unit>
-        <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
-          <source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-          <target>設定ファイルの配備は現在無効になっています。「&lt;strong&gt;{1}&lt;/strong&gt;」以下の「&lt;strong&gt;{0}&lt;/strong&gt;」を選択し、このアクティベーションキーの設定管理機能を有効にします。</target>
         </trans-unit>
       </group>
       <group>
@@ -14181,10 +13611,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Checksum</source>
           <target>チェックサム</target>
         </trans-unit>
-        <trans-unit id="system.history.snapshot.no_subscriptions">
-          <source>Insufficient channel subscriptions to complete rollback; aborted.</source>
-          <target>ロールバックを完了させるにはチャンネルサブスクリプションが足りません、ロールバックを中止します。</target>
-        </trans-unit>
         <trans-unit id="system.history.snapshot.groups_changed">
           <source>Channels and groups changed.</source>
           <target>チャンネルとグループが変更されました。</target>
@@ -14340,14 +13766,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Actions needed for configuration capabilities.</source>
           <target>設定機能に必要な動作です。</target>
         </trans-unit>
-        <trans-unit id="targetsystems.jsp.orgadmin">
-          <source>Requires organization administrator</source>
-          <target>組織管理者の権限が必要です</target>
-        </trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-          <target>Provisioning エンタイトルメントの追加</target>
-        </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to RHN Tools channel</source>
           <target>RHN ツールチャンネルにサブスクライブ</target>
@@ -14417,14 +13835,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="summary.jsp.noerror">
           <source>No Error.</source>
           <target>エラーはありません。</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.orgadmin">
-          <source>Remaining actions require organization administrator.</source>
-          <target>残りの動作には組織管理者の権限が必要です。</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.provision">
-          <source>Could not grant provisioning entitlement.</source>
-          <target>Provisioning エンタイトルメントを付与できませんでした。</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>
@@ -21827,13 +21237,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>アクセスを試行したチャンネルが存在しないか、またはユーザーはアクセスを許可されていないかのどちらかになります。使用したこのページのリンク元を再確認してください。</target>
         </trans-unit>
       </group>
-      <trans-unit id="sdc.channels.edit.available">
-        <source>available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-        <target>利用可能</target>
-      </trans-unit>
       <trans-unit id="sdc.channels.edit.unlimited">
         <source>unlimited</source>
         <context-group name="ctx">
@@ -21995,220 +21398,10 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>ベースソフトウェアチャンネルの修正</target>
       </trans-unit>
-      <trans-unit id="guestlimited.jsp.title">
-        <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Virtualization Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ - 仮想化エンタイトルメント - 仮想化ホスト</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.header2">
-        <source>Guest-Limited  Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>ゲスト制限のあるホスト</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.para1">
-        <source>The following is a list of host systems with the 'Virtualization' entitlement. You may wish to consider upgrading systems that have exceeded the 4-guest limit to an 'Unlimited Virtualization' entitlement to make the most of your subscriptions and stay in compliance with your service level agreements with Red Hat.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>以下は「仮想化」エンタイトルメントを持つホストシステムの一覧になります。4 ゲストの制限を超えているシステムを「無制限の仮想化 (Unlimited Virtualization)」エンタイトルメントにアップグレードすることで、サブスクリプションを最大限に活用しつつ Red Hat とのサービスレベルアグリーメントに準拠することを考慮されているかもしれません。</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.hostsystem">
-        <source>Host System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>ホストシステム</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.guest">
-        <source>Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>ゲスト</target>
-      </trans-unit>
-      <trans-unit id="guestslimited.jsp.hostsystem">
-        <source>Host System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>ホストシステム</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsystem">
-        <source>Guest System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>ゲストシステム</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.title">
-        <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Guests without Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ - 仮想化エンタイトルメント - ホストがないゲスト</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.header2">
-        <source>Guests of Non-Virtual Entitled Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>仮想化のエンタイトルメントがないホストのゲスト</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.para1">
-        <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in @@PRODUCT_NAME@@.  These systems are consuming the same software and system entitlements as a normal physical system.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>以下は仮想化のエンタイトルメント (仮想化または仮想化プラットフォーム) を有する @@PRODUCT_NAME@@ 内のホストシステムと関連付けられていないゲストシステムの一覧になります。これらのシステムは通常の物理システムと同様にソフトウェアおよびシステムエンタイトルメントを使用しています。</target>
-      </trans-unit>
-      <trans-unit id="virtualentitlements.toolbar">
-        <source>Virtualization Entitlements</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>仮想化エンタイトルメント</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.header3">
-        <source>Reconciling the Entitlements from Guests of Non-Virtualization Entitled Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>仮想化のエンタイトルメントがないホストのゲストからエンタイトルメントを調整する</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.para2">
-        <source>You may always delete the @@PRODUCT_NAME@@ system profile of a guest listed above to free the software and system entitlements it consumes (or you may remove system entitlements from the guest to free system entitlements).  You may be able to free the physical entitlements associated with the guest without deleting the guest's profile:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>上記に表示されているゲストの @@PRODUCT_NAME@@ システムプロファイルを削除して、そのゲストが使用しているソフトウェアおよびシステムエンタイトルメントを解放することが常に可能です (または、ゲストからシステムエンタイトルメントを削除してシステムエンタイトルメントを解放することもできます)。ゲストのプロファイルを削除せずにそのゲストに関連付けられた物理的なエンタイトルメントを解放することができます。</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofknown">
-        <source>Guests of Known Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>既知のホストのゲスト</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofunknown">
-        <source>Guests of Known Unknown Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>既知のホストおよび不明なホストのゲスト</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofnonredhat">
-        <source>Guests of Non-Red Hat Virtualization Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>Red Hat Virtualization ホストではないホストのゲスト</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.knownnote">
-        <source>If you would like to free the physical entitlements of a guest listed above and it is associated with a Host registered with @@PRODUCT_NAME@@ please add either the Virtualization or Virtualization Platform system entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>上記に表示されているゲストの物理的なエンタイトルメントを解放したい場合や、そのゲストが @@PRODUCT_NAME@@ に登録されているホストと関連付けられている場合、仮想化または仮想化プラットフォームのいずれかのシステムエンタイトルメントを追加してください。</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.unknownnote">
-        <source>If the host of a guest system above is listed as an unknown and you would like to free the physical entitlements the guest consumes please make sure that:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>上記のゲストシステムのホストが不明と表示されていて、ゲストが使用するエンタイトルメントを物理的に解放したい場合、次のことを確認してください。</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.unknownnote2">
-        <source>The host has a Virtualization or Virtualization host applied to it</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>このホストは仮想化を有しているか、または適用された仮想化ホストを有している</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.note3">
-        <source>The host is subscribed to the @@PRODUCT_NAME@@ Tools channel and has the rhn-virtualization-host package installed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>ホストは @@PRODUCT_NAME@@ ツールチャンネルにサブスクライブし、rhn-virtualization-host パッケージがインストールされています。</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.nonredhatnote">
-        <source>If the host of a guest system above is not a Red Hat Virtualization host running Red Hat Enterprise Linux, it must consume the same software and system entitlements it would if it were a physical system at this time.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>上記のゲストシステムのホストが Red Hat Enterprise Linux を稼動している Red Hat Virtualization ホストではない場合、この時点でそれが物理的なシステムであればそうであるように、同じソフトウェアおよびシステムエンタイトルメントを使用しなければなりません。</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.nosystems">
-        <source>There are no guests consuming physical entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>物理的なエンタイトルメントを使用しているゲストはありません。</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.nosystems">
-        <source>There are no systems with the Virtualization Platform entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>仮想化プラットフォームのエンタイトルメントを有しているシステムはありません。</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.nosystems">
-        <source>There are no systems with the Virtualization entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>仮想化エンタイトルメントを有しているシステムはありません。</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.para1">
-        <source>The following is a list of host systems with the 'Unlimited Virtualization' entitlement. You may wish to consider downgrading systems that have not exceeded the limited 'Virtualization' entitlement to a 'Virtualization' entitlement to make the most of your subscriptions.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>以下は、「無制限の仮想化 (Unlimited Virtualization)」エンタイトルメントを有しているホストシステムの一覧です。制限のある「仮想化」エンタイトルメントを超えていないシステムを「仮想化」エンタイトルメントにダウングレードして、サブスクリプションを最大限に活用することもできるでしょう。</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.title">
-        <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Virtualization Platform Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ - 仮想化エンタイトルメント - 仮想化プラットフォームホスト</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.header2">
-        <source>Unlimited-Guest Virtualization Platform Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>ゲスト無制限の仮想化プラットフォームホスト</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.hostsystem">
-        <source>Host System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>ホストシステム</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.guest">
-        <source>Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>ゲスト</target>
-      </trans-unit>
-      <trans-unit id="system.remotecommand.scheduled">
-        <source>Remote command &lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{2}&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>リモートコマンドが &lt;strong&gt;{2}&lt;/strong&gt; に &lt;a href=&quot;/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}&quot;&gt;スケジュールされました&lt;/a&gt;。</target>
-      </trans-unit>
       <trans-unit id="system.reboot.scheduled">
         <source>Reboot scheduled for system &lt;strong&gt;{0}&lt;/strong&gt; for {1}.  To cancel the reboot, remove &lt;strong&gt;{0}&lt;/strong&gt; from &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;the list of systems to be rebooted&lt;/strong&gt;&lt;/a&gt;.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
+          <context context-type="sourcefile">/rhn/systems/details/RebootSystem.do</context>
         </context-group>
         <target>{1} のシステム &lt;strong&gt;{0}&lt;/strong&gt; に対して再起動がスケジュールされました。再起動を取り消すには、&lt;a href=&quot;/rhn/schedule/InProgressSystems.do?aid={2}&quot;&gt;&lt;strong&gt;再起動するシステムの一覧&lt;/strong&gt;&lt;/a&gt; から &lt;strong&gt;{0}&lt;/strong&gt; を削除してください。</target>
       </trans-unit>
@@ -22289,216 +21482,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>最初の組織管理者の作成</target>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.ent_name">
-        <source>Entitlement Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>エンタイトルメント名</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.total">
-        <source>Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>合計</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.usage">
-        <source>Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>使用</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.proposed_total">
-        <source>Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>提示合計数</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.base">
-        <source>(Base)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>(ベース)</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.add_on">
-        <source>(Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>(付属)</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.man_tip">
-        <source>Required for all systems registered to the @@PRODUCT_NAME@@.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ に登録されたすべてのシステムに必須。</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.mon_tip">
-        <source>Enables the tracking of monitoring data for a system.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>システム用のデータ監視の追跡を有効にします。</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.provis_tip">
-        <source>Allows various advanced functionality such as kickstart and configuration file provisioning.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>キックスタートや設定ファイルプロビジョニングなどの各種の高度な機能を許可します。</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.virt_tip">
-        <source>Applied to a host system, enables management for up to 4 guests.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>ホストシステムに適用されると、最大４つのゲストまでの管理を有効にします。</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.virt_plat_tip">
-        <source>Applied to a host system, enables management for unlimited guests.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>ホストシステムに適用されると、無制限のゲスト用の管理を有効にします。</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.possible_vals">
-        <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>使用可能な値: &lt;strong&gt;{0}&lt;/strong&gt; から &lt;strong&gt;{1}&lt;/strong&gt;</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.description">
-        <source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements</context>
-        </context-group>
-        <target>この @@PRODUCT_NAME@@ 上の組織全体のすべてのソフトウェアチャンネルエンタイトルメントとその使用の一覧を以下に示します。詳細情報についてはそれぞれのエンタイトルメント名をクリックして下さい。</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.header">
-        <source>System Entitlements Across @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ 全体のシステムエンタイトルメント</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.ent_name">
-        <source>Entitlement Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>エンタイトルメント名</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.usage">
-        <source>Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>使用</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.usagedata">
-        <source>{0} of {1} ({2}%)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>{1} の内 {0} ({2}%)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.total">
-        <source>Total*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>合計*</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.available">
-        <source>Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>利用可能</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.tip">
-        <source>'Total' refers to the total available to the @@PRODUCT_NAME@@ as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>「合計」とは、この @@PRODUCT_NAME@@ の証明書で反映されているように、 @@PRODUCT_NAME@@ に対する利用可能な合計を示します。</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.not_allocated">
-        <source>Not Allocated*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>割り当てなし*</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.notinuse">
-        <source>Not In Use</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>未使用</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.enterprise_entitled">
-        <source> Management (Base)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>Management (ベース)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.provisioning_entitled">
-        <source> Provisioning (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>Provisioning (付属)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.monitoring_entitled">
-        <source> Monitoring (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>Monitoring (付属)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.virtualization_host">
-        <source> Virtualization (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target> 仮想化 (付属)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.virtualization_host_platform">
-        <source> Virtualization Platform (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>仮想化プラットフォーム (付属)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.add_on">
-        <source>(Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>(付属)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.noentitlements">
-        <source>No Entitlements Found</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>エンタイトルメントは見つかりませんでした</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.noentorgs">
-        <source>No organizations have this entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>このエンタイトルメントを持つ組織がありません</target>
-      </trans-unit>
       <trans-unit id="kickstart.cryptokey.description">
         <source>Description</source>
         <context-group name="ctx">
@@ -22512,187 +21495,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/rhn/keys/CrytpoKeysList</context>
         </context-group>
         <target>タイプ</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant">
-        <source>Access Granted by this Entitlement:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>このエンタイトルメントで認可されたアクセス:</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.enterprise_entitled">
-        <source>A single Management (Base) entitlement is required for all systems registered to satellite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>Satellite に登録されているシステムのすべてに、１つの Management (ベース) エンタイトルメントが必要です。</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
-        <source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>１つの Provisioning (付属) エンタイトルメントにより、キックスタートや設定ファイルプロビジョニングなどの各種の高度な機能が可能になります。</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.monitoring_entitled">
-        <source>A single Monitoring (Add-On) entitlement enables the tracking of monitoring data for a system. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>１つの Monitoring (付属) エンタイトルメントにより、システム用のデータ監視の追跡が可能になります。</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
-        <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>ホストシステムに適用された１つの仮想化 (付属) エンタイトルメントにより、最高 ４ つまでのゲスト用の管理が可能になります。</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
-        <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>ホストシステムに適用されている １ つの仮想化プラットフォーム (付属) エンタイトルメントにより、無制限のゲストの管理が有効になります。</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.orgname">
-        <source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>組織名</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.proposed_total">
-        <source>Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>提示合計数</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.description">
-        <source>The Current Allocation of entitlements for {0} across the organizations on this @@PRODUCT_NAME@@ is displayed below. You may make changes to the allocation of entitlements for each organization in the "Proposed Total" column, but your changes will not take effect until you confirm using the 'Confirm Changes' button below. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>この @@PRODUCT_NAME@@ 上の組織全体の {0} 用のエンタイトルメントの現在の割り当ては以下に表示されています。各組織用のエンタイトルメントの割り当ては、「提示合計数」列で変更することができます。しかし、以下にある「変更を確認」ボタンを使用して確認するまでその変更は反映されません。</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.jsp.possible_vals">
-        <source>Possible Values: &lt;strong&gt;0&lt;/strong&gt; to &lt;strong&gt;{0}&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>使用可能な値: &lt;strong&gt;{0}&lt;/strong&gt; から &lt;strong&gt;{1}&lt;/strong&gt; </target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.update">
-        <source>Update</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>更新</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.usage">
-        <source>@@PRODUCT_NAME@@-Wide Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ 全体のエンタイトルメント使用率</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.filterBy">
-        <source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>組織名</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.miniheader">
-        <source>View/Modify Entitlement Counts by Organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>組織別のエンタイトルメント数の表示/修正</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.total_allocated">
-        <source>Total Allocated</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>割り当てられた合計数</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.total_inuse">
-        <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>エンタイトルメントの使用</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.total_orguse">
-        <source>Organization Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>組織の使用</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.total_orgusedata">
-        <source>{0} of {1} organizations ({2}%) have access to
-this entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>{1} 組織の {0} ({2}%) がこのエンタイトルメントに
-アクセスを持ちます。 </target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.total">
-        <source>Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementOrgs</context>
-        </context-group>
-        <target>合計</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.used">
-        <source>Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementOrgs</context>
-        </context-group>
-        <target>使用</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.tip_allocated">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your @@PRODUCT_NAME@@ certificate's
-value for this entitlement, excluding the default organization's consumption.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>&lt;strong&gt;ヒント:&lt;/strong&gt; この合計は、このエンタイトルメントの @@PRODUCT_NAME@@ 証明書の値に対応します
-(デフォルトの組織の使用数を除く)。</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.tip">
-        <source>&lt;strong&gt;*Tip:&lt;/strong&gt; 'Total' refers to the total available entitlements to
-the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>&lt;strong&gt;*ヒント:&lt;/strong&gt; 「合計」とは、この @@PRODUCT_NAME@@ 上の組織群（デフォルトの @@PRODUCT_NAME@@ 組織を除く）に利用可能なエンタイトルメントの合計を示します。これは、 @@PRODUCT_NAME@@ 証明書内の利用可能な
-合計と同じではありません。</target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.header2">
-        <source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>ソフトウェアチャンネルのエンタイトルメント数</target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.description">
-        <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>以下で、&lt;strong&gt;{0}&lt;/strong&gt; 組織に利用可能なソフトウェアチャンネルエンタイトルメントの合計数をチャンネル単位で変更してください。特定のチャンネルに利用可能なエンタイトルメントの数量を変更したい場合は、そのフィールドの横に示される範囲内に制限されていることに注意して下さい。</target>
-      </trans-unit>
-      <trans-unit id="orgsysubs.jsp.header2">
-        <source>System Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>システムエンタイトルメント数</target>
       </trans-unit>
       <!-- multiorg trustedorg strings  -->
       <trans-unit id="org.trust.summary">
@@ -23684,26 +22486,6 @@ given channel.</source>
       <trans-unit id="currentMembers">
         <source>Regular Usage - Used</source>
         <target>通常の使用 - 使用中</target>
-      </trans-unit>
-      <trans-unit id="maxMembers">
-        <source>Regular Usage - Alloted</source>
-        <target>通常の使用 - 割り当て済み</target>
-      </trans-unit>
-      <trans-unit id="maxAvailable">
-        <source>Regular Proposed Total</source>
-        <target>通常の提示合計数</target>
-      </trans-unit>
-      <trans-unit id="currentFlex">
-        <source>Flex Usage - Used</source>
-        <target>Flex の使用 - 使用中</target>
-      </trans-unit>
-      <trans-unit id="maxFlex">
-        <source>Flex Usage - Allotted</source>
-        <target>Flex の使用 - 割り当て済み</target>
-      </trans-unit>
-      <trans-unit id="maxAvailableFlex">
-        <source>Flex Proposed Total</source>
-        <target>Flex の提示合計数</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>
@@ -24947,13 +23729,6 @@ given channel.</source>
         </context-group>
         <target>チャンネルのリポデータを生成する</target>
       </trans-unit>
-      <trans-unit id="bunch.jsp.description.satcert-check-bunch">
-        <source>Checks whether satellite certificate has not expired</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
-        </context-group>
-        <target>Satellite 証明書の期限が切れていないかどうかをチェックする</target>
-      </trans-unit>
       <trans-unit id="bunch.jsp.description.cleanup-data-bunch">
         <source>Cleans up orphaned and outdated data</source>
         <context-group name="ctx">
@@ -25426,10 +24201,6 @@ given channel.</source>
       <trans-unit id="task.status.channel-repodata">
         <source>Channel Repodata</source>
         <target>チャンネルリポデータ</target>
-      </trans-unit>
-      <trans-unit id="task.status.sat-cert-check">
-        <source>Certificate Check</source>
-        <target>証明書チェック</target>
       </trans-unit>
       <trans-unit id="task.status.cleanup-timeseries-data">
         <source>TimeSeries Cleanup</source>

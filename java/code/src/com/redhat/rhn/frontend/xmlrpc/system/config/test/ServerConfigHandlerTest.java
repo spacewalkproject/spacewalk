@@ -27,7 +27,6 @@ import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.dto.ConfigFileNameDto;
@@ -40,7 +39,6 @@ import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.test.SystemManagerTest;
 import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.TestUtils;
-import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,17 +49,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 /**
  * SystemConfigHandlerTest
- * @version $Rev$
  */
 public class ServerConfigHandlerTest extends BaseHandlerTestCase {
     private ServerConfigHandler handler = new ServerConfigHandler();
     public void testDeployConfiguration() throws Exception {
-
-        UserTestUtils.addProvisioning(admin.getOrg());
-
         // Create  global config channels
         ConfigChannel gcc1 = ConfigTestUtils.createConfigChannel(admin.getOrg(),
                 ConfigChannelType.global());
@@ -71,8 +64,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
         Long ver = new Long(2);
 
         // gcc1 only
-        Server srv1 = ServerFactoryTest.createTestServer(regular, true,
-                    ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(regular, true);
 
         srv1.subscribe(gcc1);
         srv1.subscribe(gcc2);
@@ -143,15 +135,13 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
 
 
     public void testConfigChannels() throws Exception {
-        UserTestUtils.addProvisioning(admin.getOrg());
         // Create  global config channels
         ConfigChannel gcc1 = ConfigTestUtils.createConfigChannel(admin.getOrg(),
                 ConfigChannelType.global());
         ConfigChannel gcc2 = ConfigTestUtils.createConfigChannel(admin.getOrg(),
                 ConfigChannelType.global());
 
-        Server srv1 = ServerFactoryTest.createTestServer(regular, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(regular, true);
 
         List<Number> serverIds = new LinkedList<Number>();
         serverIds.add(srv1.getId());
@@ -282,9 +272,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testLookupFileInfoNoData() throws Exception {
-        UserTestUtils.addProvisioning(admin.getOrg());
-        Server srv1 = ServerFactoryTest.createTestServer(regular, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(regular, true);
         List<String> paths = new LinkedList<String>();
         paths.add("/no/such/file.txt");
 
@@ -300,9 +288,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testAddPath() throws Exception {
-        UserTestUtils.addProvisioning(admin.getOrg());
-        Server srv1 = ServerFactoryTest.createTestServer(regular, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(regular, true);
 
         String path = "/tmp/foo/path" + TestUtils.randomString();
         String contents = "HAHAHAHA";
@@ -348,10 +334,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testListFiles() throws Exception {
-        UserTestUtils.addProvisioning(admin.getOrg());
-        Server srv1 = ServerFactoryTest.createTestServer(regular, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
-
+        Server srv1 = ServerFactoryTest.createTestServer(regular, true);
 
         for (int j = 0; j < 2; j++) {
             boolean local = j % 2 == 0;
@@ -370,9 +353,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
                 assertNotNull(dto.getLastModifiedDate());
             }
         }
-
     }
-
 
     /**
      * @param srv1 server
@@ -399,9 +380,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testRemovePaths() throws Exception {
-        UserTestUtils.addProvisioning(admin.getOrg());
-        Server srv1 = ServerFactoryTest.createTestServer(regular, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(regular, true);
 
         for (int i = 0; i < 2; i++) {
             boolean isLocal = i % 2 == 0;
@@ -415,6 +394,5 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
                                             srv1.getId().intValue(), isLocal);
             assertEquals(1, files.size());
         }
-
     }
 }

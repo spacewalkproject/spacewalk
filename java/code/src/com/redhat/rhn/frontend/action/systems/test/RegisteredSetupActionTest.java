@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.action.systems.test;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
@@ -31,14 +30,12 @@ import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 
 /**
  * RegisteredSetupActionTest
- * @version $Rev$
  */
 public class RegisteredSetupActionTest extends RhnPostMockStrutsTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/systems/Registered");
-        user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         user.getOrg().addRole(RoleFactory.CHANNEL_ADMIN);
     }
 

@@ -21,13 +21,11 @@ import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.common.validator.ValidatorWarning;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
-import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Location;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserServerPreferenceId;
-import com.redhat.rhn.frontend.dto.EntitlementDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -46,7 +44,6 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.util.LabelValueBean;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -59,7 +56,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * SystemDetailsEditAction
- * @version $Rev$
  */
 public class SystemDetailsEditAction extends RhnAction {
 
@@ -223,72 +219,57 @@ public class SystemDetailsEditAction extends RhnAction {
         // to be made
         boolean needsSnapshot = false;
 
-        //Check add-on entitlements for V18n
-        //Basically make sure both Virt and Virt_platform are not checked
-        //if so mention it as an error.
-        final Entitlement virt = EntitlementManager.VIRTUALIZATION;
-        final Entitlement virtPlatform = EntitlementManager.VIRTUALIZATION_PLATFORM;
-        if (validAddons.contains(virtPlatform) && validAddons.contains(virt) &&
-                 Boolean.TRUE.equals(daForm.get(virt.getLabel())) &&
-                 Boolean.TRUE.equals(daForm.get(virtPlatform.getLabel()))) {
-            ValidatorError err = new ValidatorError("system.entitle.alreadyvirt");
-            getStrutsDelegate().saveMessages(request,
-                    RhnValidationHelper.validatorErrorToActionErrors(err));
-            success = false;
-        }
-        else {
-            for (Iterator i = validAddons.iterator(); i.hasNext();) {
-                Entitlement e = (Entitlement) i.next();
-                log.debug("Entitlement: " + e.getLabel());
-                log.debug("form.get: " + daForm.get(e.getLabel()));
-                if (Boolean.TRUE.equals(daForm.get(e.getLabel())) &&
-                    SystemManager.canEntitleServer(s, e)) {
-                    log.debug("Entitling server with: " + e);
-                    ValidatorResult vr = SystemManager.entitleServer(s, e);
+        for (Iterator i = validAddons.iterator(); i.hasNext();) {
+            Entitlement e = (Entitlement) i.next();
+            log.debug("Entitlement: " + e.getLabel());
+            log.debug("form.get: " + daForm.get(e.getLabel()));
+            if (Boolean.TRUE.equals(daForm.get(e.getLabel())) &&
+                SystemManager.canEntitleServer(s, e)) {
+                log.debug("Entitling server with: " + e);
+                ValidatorResult vr = SystemManager.entitleServer(s, e);
 
-                    if (vr.getWarnings().size() > 0) {
-                        getStrutsDelegate().saveMessages(request,
-                                RhnValidationHelper.validatorWarningToActionMessages(
-                                    vr.getWarnings().toArray(new ValidatorWarning [] {})));
-                    }
-
-
-                    if (vr.getErrors().size() > 0) {
-                        ValidatorError ve = vr.getErrors().get(0);
-                        log.debug("Got error: " + ve);
-                        getStrutsDelegate().saveMessages(request,
-                                RhnValidationHelper.
-                                            validatorErrorToActionErrors(ve));
-                        success = false;
-                    }
-                    else {
-                        needsSnapshot = true;
-
-                        if (log.isDebugEnabled()) {
-                            log.debug("entitling worked?: " + s.hasEntitlement(e));
-                        }
-                        if (e instanceof VirtualizationEntitlement) {
-                            log.debug("adding virt msg");
-                            if (ConfigDefaults.get().isDocAvailable()) {
-                                createSuccessMessage(request,
-                                    "system.entitle.addedvirtualization",
-                                    "/rhn/help/reference/en-US/ch-virtualization.jsp");
-                            }
-                            else {
-                                createSuccessMessage(request,
-                                        "system.entitle.addedvirtualization.nodoc", null);
-                            }
-                        }
-                    }
+                if (vr.getWarnings().size() > 0) {
+                    getStrutsDelegate().saveMessages(request,
+                            RhnValidationHelper.validatorWarningToActionMessages(
+                                vr.getWarnings().toArray(new ValidatorWarning [] {})));
                 }
-                else if ((daForm.get(e.getLabel()) == null ||
-                         daForm.get(e.getLabel()).equals(Boolean.FALSE)) &&
-                         s.hasEntitlement(e)) {
-                    log.debug("removing entitlement: " + e);
-                    SystemManager.removeServerEntitlement(s.getId(), e);
 
+
+                if (vr.getErrors().size() > 0) {
+                    ValidatorError ve = vr.getErrors().get(0);
+                    log.debug("Got error: " + ve);
+                    getStrutsDelegate().saveMessages(request,
+                            RhnValidationHelper.
+                                        validatorErrorToActionErrors(ve));
+                    success = false;
+                }
+                else {
                     needsSnapshot = true;
+
+                    if (log.isDebugEnabled()) {
+                        log.debug("entitling worked?: " + s.hasEntitlement(e));
+                    }
+                    if (e instanceof VirtualizationEntitlement) {
+                        log.debug("adding virt msg");
+                        if (ConfigDefaults.get().isDocAvailable()) {
+                            createSuccessMessage(request,
+                                "system.entitle.addedvirtualization",
+                                "/rhn/help/reference/en-US/ch-virtualization.jsp");
+                        }
+                        else {
+                            createSuccessMessage(request,
+                                    "system.entitle.addedvirtualization.nodoc", null);
+                        }
+                    }
                 }
+            }
+            else if ((daForm.get(e.getLabel()) == null ||
+                     daForm.get(e.getLabel()).equals(Boolean.FALSE)) &&
+                     s.hasEntitlement(e)) {
+                log.debug("removing entitlement: " + e);
+                SystemManager.removeServerEntitlement(s.getId(), e);
+
+                needsSnapshot = true;
             }
         }
 
@@ -309,8 +290,7 @@ public class SystemDetailsEditAction extends RhnAction {
                 createBaseEntitlementDropDownList(user, s));
         request.setAttribute("countries", getCountries());
         request.setAttribute(ADDON_ENTITLEMENTS,
-                createAddOnEntitlementList(user.getOrg(),
-                            s.getValidAddonEntitlementsForServer()));
+                s.getValidAddonEntitlementsForServer());
 
         request.setAttribute("notifications_disabled",
                 user.getEmailNotify() == 0 ? Boolean.TRUE : Boolean.FALSE);
@@ -360,19 +340,6 @@ public class SystemDetailsEditAction extends RhnAction {
             daForm.set(ROOM, s.getLocation().getRoom());
             daForm.set(RACK, s.getLocation().getRack());
         }
-    }
-
-    private List createAddOnEntitlementList(Org orgIn,
-            Set validAddonEntitlementsForServer) {
-        List retval = new LinkedList();
-        Iterator i = validAddonEntitlementsForServer.iterator();
-        while (i.hasNext()) {
-            Entitlement e = (Entitlement) i.next();
-            retval.add(new EntitlementDto(e,
-                    EntitlementManager.getAvailableEntitlements(e, orgIn)));
-        }
-        Collections.sort(retval);
-        return retval;
     }
 
     protected List createBaseEntitlementDropDownList(User user, Server s) {

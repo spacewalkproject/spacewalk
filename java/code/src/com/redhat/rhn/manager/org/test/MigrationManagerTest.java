@@ -23,7 +23,6 @@ import com.redhat.rhn.domain.org.SystemMigrationFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerHistoryEvent;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
@@ -79,8 +78,7 @@ public class MigrationManagerTest extends RhnBaseTestCase {
         // and associate the first org's admins with them both
         server = ServerTestUtils.createVirtHostWithGuests(
                 origOrgAdmins.iterator().next(), 2);
-        server2 = ServerFactoryTest.createTestServer(origOrgAdmins.iterator().next(), true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        server2 = ServerFactoryTest.createTestServer(origOrgAdmins.iterator().next(), true);
 
         ServerFactory.save(server);
         ServerFactory.save(server2);

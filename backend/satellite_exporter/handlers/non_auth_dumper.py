@@ -235,7 +235,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
     _cleanse_channels = staticmethod(_cleanse_channels)
 
     # Dumper functions here
-    def dump_channel_families(self, virt_filter=0):
+    def dump_channel_families(self):
         log_debug(2)
 
         h = self.get_channel_families_statement()
@@ -244,7 +244,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         writer = self._get_xml_writer()
         d = dumper.SatelliteDumper(writer,
                                    exportLib.ChannelFamiliesDumper(writer,
-                                                                   data_iterator=h, null_max_members=0, virt_filter=virt_filter),)
+                                                                   data_iterator=h, null_max_members=0,),)
         d.dump()
         writer.flush()
         log_debug(4, "OK")

@@ -75,92 +75,9 @@ WHERE  org.id != :org_id
  </query>
 </mode>
 
-<mode name="get_total_entitlement_counts" class="com.redhat.rhn.frontend.dto.SystemEntitlementsDto">
-  <query> SELECT   sgt.id as id,
-                sgt.label as label,
-            SUM(sg.max_members) as total,
-            SUM(sg.current_members) as used,
-            (SELECT (sg2.max_members) - (sg2.current_members)
-             FROM rhnServerGroup sg2
-                inner join  rhnServerGroupType sgt2 on sg2.group_type = sgt2.id
-                 WHERE sg2.org_ID = 1
-                 AND sgt2.label = sgt.label) as available
-   FROM     rhnServerGroup sg
-                                inner join rhnServerGroupType sgt on sgt.id = sg.group_type
-   WHERE    sgt.label != 'sw_mgr_entitled'
-GROUP BY sgt.label, sgt.id
-ORDER BY sgt.label
-  </query>
-</mode>
-
-<mode name="get_org_entitlement_counts">
-  <query params="label">
-SELECT      wc.name as name,
-            wc.id as orgid,
-            sgt.label,
-            sg.max_members as total,
-            sg.current_members as usage,
-            (SELECT (sg2.max_members) - (sg2.current_members) + sg.max_members
-             FROM rhnServerGroup sg2, rhnServerGroupType sgt2
-             WHERE 1=1
-             AND sg2.group_type = sgt2.id
-             AND sg2.org_ID = 1
-             AND sgt2.label = sgt.label) as upper
-   FROM     web_customer wc, rhnServerGroup sg, rhnServerGroupType sgt
-   WHERE    1=1
-   AND      sgt.id = sg.group_type
-   AND      sgt.label = :label
-   AND      sg.max_members != 0
-   AND      wc.id = sg.org_id
-ORDER BY wc.name
-  </query>
-</mode>
-
-<!-- Returns the highest amount of available entitlements that may be given out for the
-     given label. This query will take into account the maximum number of entitlements for
-     the label and then subtract out the currently allocated entitlements.
--->
-<mode name="get_available_entitlements_for_label">
-   <query params="label">
-SELECT (sg.max_members) - (sg.current_members) as upper
-       FROM rhnServerGroup sg, rhnServerGroupType sgt
-       WHERE 1=1
-       AND sg.group_type = sgt.id
-       AND sg.org_ID = 1
-       AND sgt.label = :label
-   </query>
-</mode>
-
-
-<mode name="get_sat_entitlement_usage">
-  <query params="label">
-SELECT   SUM(sg.max_members) as total,
-         SUM(sg.current_members) as curr,
-         COUNT(sg.max_members) as alloc
-FROM     rhnServerGroup sg, rhnServerGroupType sgt
-WHERE    1=1
-AND      sgt.id = sg.group_type
-AND      sgt.label = :label
-AND      sg.max_members > 0
-AND      sg.org_id != 1
-  </query>
-</mode>
-
 <callable-mode name="delete_organization">
   <query params="org_id">
      {call rhn_org.delete_org(:org_id)}
-  </query>
-</callable-mode>
-
-<callable-mode name="assign_system_entitlements">
-  <query params="group_label, from_org_id, to_org_id, quantity">
-     {call rhn_entitlements.assign_system_entitlement(:group_label,:from_org_id,:to_org_id,:quantity)}
-  </query>
-</callable-mode>
-
-<callable-mode name="assign_software_entitlements">
-  <query params="channel_family_label from_org_id, to_org_id, quantity, flex_quantity">
-     {call rhn_entitlements.assign_channel_entitlement(:channel_family_label,:from_org_id,:to_org_id,:quantity, :flex_quantity)}
   </query>
 </callable-mode>
 

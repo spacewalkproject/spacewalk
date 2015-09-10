@@ -15,13 +15,11 @@
 package com.redhat.rhn.manager.org;
 
 import com.redhat.rhn.common.db.datasource.DataList;
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorException;
-import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -29,27 +27,18 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.MultiOrgUserOverview;
 import com.redhat.rhn.frontend.dto.OrgChannelDto;
 import com.redhat.rhn.frontend.dto.OrgDto;
-import com.redhat.rhn.frontend.dto.OrgEntitlementDto;
 import com.redhat.rhn.frontend.dto.OrgTrustOverview;
-import com.redhat.rhn.frontend.dto.SystemEntitlementsDto;
 import com.redhat.rhn.frontend.dto.TrustedOrgDto;
 import com.redhat.rhn.manager.BaseManager;
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * OrgManager - Manages MultiOrg tasks
- * @version $Rev$
  */
 public class OrgManager extends BaseManager {
 
@@ -184,131 +173,6 @@ public class OrgManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("User_queries",
                 "all_users_in_multiorg");
         return DataList.getDataList(m, Collections.EMPTY_MAP,
-                Collections.EMPTY_MAP);
-    }
-
-    /**
-     *
-     * @return all entitlements across all orgs on sat
-     */
-    public static DataList <SystemEntitlementsDto> allOrgsEntitlements() {
-        SelectMode m = ModeFactory.getMode("Org_queries",
-                "get_total_entitlement_counts");
-        return DataList.getDataList(m, Collections.EMPTY_MAP,
-                Collections.EMPTY_MAP);
-    }
-
-    /**
-     * @param entLabel Entitlement Label
-     * @return single entitlement, entLabel, across all orgs on sat
-     */
-    public static DataList allOrgsSingleEntitlement(String entLabel) {
-        SelectMode m = ModeFactory.getMode("Org_queries",
-                "get_org_entitlement_counts");
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("label", entLabel);
-        return DataList.getDataList(m, params,
-                Collections.EMPTY_MAP);
-    }
-
-    /**
-     * Returns a list of organziations and their entitlement numbers (usage, total) for
-     * the given entitlement. This call <strong>will include orgs that have a zero count
-     * for the given entitlement.</strong>
-     *
-     * @param entitlementLabel identifies the entitlement; cannot be <code>null</code>
-     * @return one entry for each organization in the system (including the default org)
-     *         with details on the entitlement count for that org
-     */
-    public static DataList<Map> allOrgsSingleEntitlementWithEmptyOrgs(
-        String entitlementLabel) {
-
-        /* The data model isn't conducive to doing all of the work in the query. There
-           are only mapping entries from entitlement <-> org present if that mapping has
-           been established previously (it will still exist if the mapping specifies
-           zero for the title).
-
-           This method will first load all of the mappings. For every org that does not
-           have a mapping, one will be created populating zero for the total and usage.
-           These new mappings are added to the original list pulled from the database
-           and then explicitly sorted to maintain the ordering in the query (currently
-           ordered by org name).
-
-           jdobies: May 6, 2009
-         */
-
-        // Only returns orgs that have been mapped to the entitlements
-        SelectMode m = ModeFactory.getMode("Org_queries", "get_org_entitlement_counts");
-        Map<String, String> params = new HashMap<String, String>(1);
-        params.put("label", entitlementLabel);
-        DataList<Map> result = DataList.getDataList(m, params, Collections.EMPTY_MAP);
-
-        // Stuff into a set to easily check if the org is already present in the result
-        Set<Long> mappedOrgIds = new HashSet<Long>(result.size());
-        for (Iterator it = result.iterator(); it.hasNext();) {
-            Map mappedOrgData = (Map) it.next();
-            Long orgId = (Long) mappedOrgData.get("orgid");
-            mappedOrgIds.add(orgId);
-        }
-
-        // One piece of data necessary for each manually added org is the number of
-        // available entitlements, for instance to be displayed in a "0 out of XXXX"
-        // message.
-        m = ModeFactory.getMode("Org_queries", "get_available_entitlements_for_label");
-        DataResult upperHolder = m.execute(params);
-        Map upperMap = (Map) upperHolder.get(0);
-        long upper = (Long) upperMap.get("upper");
-
-        // For each org not already mapped, add a new entry to the existing result list
-        List<Org> allOrgs = OrgFactory.lookupAllOrgs();
-        for (Org checkMe : allOrgs) {
-
-            if (!mappedOrgIds.contains(checkMe.getId())) {
-                Map<String, Object> emptyOrgData = new HashMap<String, Object>(6);
-                emptyOrgData.put("name", checkMe.getName());
-                emptyOrgData.put("orgid", checkMe.getId());
-                emptyOrgData.put("label", entitlementLabel);
-
-                // The reason we're here is because it has no entitlements, so use zero
-                emptyOrgData.put("total", 0L);
-
-                // If there were no entitlements, none are used
-                emptyOrgData.put("usage", 0L);
-
-                // Upper limit takes into account the total, so we can use the calculated
-                // value from above in all of these cases
-                emptyOrgData.put("upper", upper);
-
-                result.add(emptyOrgData);
-            }
-        }
-
-        // Resort the list. If we don't, the orgs with entitlements will appear at the top
-        // and the ones we explicitly add with zero entries appear at the bottom. This
-        // gets really confusing in the UI.
-        Comparator<Map> compareByName = new Comparator<Map>() {
-            public int compare(Map result1, Map result2) {
-                String name1 = (String) result1.get("name");
-                String name2 = (String) result2.get("name");
-
-                return name1.compareTo(name2);
-            }
-        };
-        Collections.sort(result, compareByName);
-
-        return result;
-    }
-
-    /**
-     * @param entLabel Entitlement Label
-     * @return single entitlement, entLabel, across all orgs on sat
-     */
-    public static DataList getSatEntitlementUsage(String entLabel) {
-        SelectMode m = ModeFactory.getMode("Org_queries",
-                "get_sat_entitlement_usage");
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("label", entLabel);
-        return DataList.getDataList(m, params,
                 Collections.EMPTY_MAP);
     }
 
@@ -464,24 +328,5 @@ public class OrgManager extends BaseManager {
         else if (OrgFactory.lookupByName(newOrgName) != null) {
             ValidatorException.raiseException("error.org_already_taken", newOrgName);
         }
-    }
-
-    /**
-     * Returns a list of entitlement dtos for a given org ..
-     * Basically collects a list of all entitlements and provides
-     * a DTO with information abt the entitlements
-     *  (like current members, available members etc.)
-     * @param org the org to lookup on
-     * @return List of dtos for all entitlements.
-     */
-    public static List <OrgEntitlementDto> listEntitlementsFor(Org org) {
-        List <OrgEntitlementDto> dtos = new LinkedList<OrgEntitlementDto>();
-        List <Entitlement> entitlements = new LinkedList<Entitlement>();
-        entitlements.addAll(EntitlementManager.getBaseEntitlements());
-        entitlements.addAll(EntitlementManager.getAddonEntitlements());
-        for (Entitlement ent : entitlements) {
-            dtos.add(new OrgEntitlementDto(ent, org));
-        }
-        return dtos;
     }
 }

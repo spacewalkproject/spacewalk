@@ -83,48 +83,6 @@ class Tests(unittest.TestCase):
             self._verify_new_user(u)
             self.assertEqual(org_id, u.contact['org_id'])
 
-    def test_grant_channel_family_1(self):
-        "Grant channel family entitlements"
-        org_id = misc_functions.create_new_org()
-        channel_family = 'rhel-as'
-        quantity = 19
-        misc_functions.grant_channel_family_entitlements(org_id,
-                                                         channel_family, quantity)
-
-        h = rhnSQL.prepare("""
-            select cfp.max_members
-              from rhnChannelFamily cf, rhnChannelFamilyPermissions cfp
-             where cfp.org_id = :org_id
-               and cfp.channel_family_id = cf.id
-               and cf.label = :channel_family
-        """)
-        h.execute(org_id=org_id, channel_family=channel_family)
-        row = h.fetchone_dict()
-        self.assertNotEqual(row, None)
-        self.assertEqual(row['max_members'], quantity)
-
-    def test_grant_entitlements_q(self):
-        "Grant entitlements"
-        org_id = misc_functions.create_new_org()
-        entitlement_level = 'provisioning_entitled'
-        quantity = 17
-
-        misc_functions.grant_entitlements(org_id, entitlement_level, quantity)
-
-        # Verify
-        h = rhnSQL.prepare("""
-            select sg.max_members quantity
-              from rhnServerGroupType sgt, rhnServerGroup sg
-             where sg.org_id = :org_id
-               and sg.group_type = sgt.id
-               and sgt.label = :entitlement_level
-        """)
-        h.execute(org_id=org_id, entitlement_level=entitlement_level)
-        row = h.fetchone_dict()
-
-        self.assertNotEqual(row, None)
-        self.assertEqual(row['quantity'], quantity)
-
 
 if __name__ == '__main__':
     sys.exit(unittest.main() or 0)

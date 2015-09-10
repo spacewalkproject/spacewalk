@@ -86,7 +86,7 @@ public class TagSystemsAction extends RhnAction implements Listable<SystemOvervi
         return SystemManager.entitledInSet(user, RhnSetDecl.SYSTEMS.getLabel(),
             new LinkedList<String>() {
                 {
-                    add(EntitlementManager.PROVISIONING_ENTITLED);
+                    add(EntitlementManager.ENTERPRISE_ENTITLED);
                 }
             });
     }

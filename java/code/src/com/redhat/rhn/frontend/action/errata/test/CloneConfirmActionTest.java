@@ -19,7 +19,6 @@ import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.errata.ClonedErrata;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetFactory;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
@@ -36,14 +35,12 @@ import java.util.List;
 
 /**
  * CloneConfirmActionTest
- * @version $Rev$
  */
 public class CloneConfirmActionTest extends RhnPostMockStrutsTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/errata/manage/CloneConfirmSubmit");
-        user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         user.getOrg().addRole(RoleFactory.CHANNEL_ADMIN);
     }
 

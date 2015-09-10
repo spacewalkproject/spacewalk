@@ -17,16 +17,10 @@ package com.redhat.rhn.domain.channel.test;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
-import com.redhat.rhn.domain.common.CommonConstants;
-import com.redhat.rhn.domain.common.VirtSubscriptionLevel;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * ChannelFamilyTest
- * @version $Rev$
  */
 public class ChannelFamilyTest extends BaseTestCaseWithUser {
 
@@ -52,18 +46,5 @@ public class ChannelFamilyTest extends BaseTestCaseWithUser {
         assertEquals(cfam.getName(), cfam3.getName());
         assertEquals(cfam.getProductUrl(), cfam3.getProductUrl());
         assertEquals(cfam.getOrg(), cfam3.getOrg());
-    }
-
-    public void testVirtSubType() throws Exception {
-        ChannelFamily cfam = ChannelFamilyFactory.
-                                lookupOrCreatePrivateFamily(user.getOrg());
-        Set<VirtSubscriptionLevel> levels = new HashSet<VirtSubscriptionLevel>();
-        levels.add(CommonConstants.getVirtSubscriptionLevelFree());
-        levels.add(CommonConstants.getVirtSubscriptionLevelPlatformFree());
-        cfam.setVirtSubscriptionLevels(levels);
-        ChannelFamilyFactory.save(cfam);
-        cfam = (ChannelFamily) reload(cfam);
-        assertNotNull(cfam.getVirtSubscriptionLevels());
-        assertTrue(cfam.getVirtSubscriptionLevels().size() >= 2);
     }
 }

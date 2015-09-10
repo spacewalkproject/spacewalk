@@ -162,16 +162,6 @@ class ChannelFamily(Information):
         'channels': [StringType],
     }
 
-
-class ChannelFamilyPermissions(Information):
-    attributeTypes = {
-        'channel_family': StringType,
-        'org_id': IntType,
-        'max_members': IntType,
-        'max_flex': IntType,
-    }
-
-
 class DistChannelMap(Information):
     attributeTypes = {
         'os': StringType,
@@ -180,7 +170,6 @@ class DistChannelMap(Information):
         'channel': StringType,
         'org_id': IntType,
     }
-
 
 class ReleaseChannelMap(Information):
     attributeTypes = {

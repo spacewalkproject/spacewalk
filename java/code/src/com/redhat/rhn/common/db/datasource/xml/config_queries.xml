@@ -380,12 +380,6 @@ ORDER BY  S.name
 
         <query name="non_managed_elaborator">
 SELECT  S.id,
-        case when (SELECT  DISTINCT 1
-                 FROM  rhnServerGroup SG, rhnServerGroupMembers SGM, rhnServerGroupType SGT
-                WHERE  S.id = SGM.server_id
-                  AND  SGM.server_group_id = SG.id
-                  AND  SG.group_type = SGT.id
-                  AND  SGT.label = 'provisioning_entitled') is not null then 'Y' else 'N' end AS provisioning,
 <!-- The following three items will return with a character
      Y = package installed, P = package install pending, N = no package nor install -->
         case when (SELECT  DISTINCT 1
@@ -555,7 +549,7 @@ SELECT DISTINCT CFN.id, CFN.path
           AND ST.user_id = :user_id
           AND ST.label = 'system_list'
           AND USP.server_id = ST.element
-          AND rhn_server.system_service_level(USP.server_id, 'provisioning') > 0
+          AND rhn_server.system_service_level(USP.server_id, 'management') > 0
        )
    AND SCC.config_channel_id = CF.config_channel_id
    AND CF.config_file_name_id = CFN.id
@@ -581,7 +575,7 @@ SELECT CFN.id, count(DISTINCT SCC.server_id) AS system_count
           AND ST.user_id = :user_id
           AND ST.label = 'system_list'
           AND USP.server_id = ST.element
-          AND rhn_server.system_service_level(USP.server_id, 'provisioning') > 0
+          AND rhn_server.system_service_level(USP.server_id, 'management') > 0
           AND USP.server_id = S.id
        )
    AND CFN.id IN (%s)

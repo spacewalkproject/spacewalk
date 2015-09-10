@@ -53,13 +53,12 @@ def create_new_org():
     return (org_id, org_name, org_password)
 
 
-def _create_server_group(org_id, name, description, max_members):
+def _create_server_group(org_id, name, description):
     "Create a server group; return the server group object"
     s = rhnServerGroup.ServerGroup()
     s.set_org_id(org_id)
     s.set_name(name)
     s.set_description(description)
-    s.set_max_members(max_members)
     s.save()
     rhnSQL.commit()
     return s
@@ -101,7 +100,6 @@ def build_server_group_params(**kwargs):
         'org_id':   'no such org',
         'name':   "unittest group name %.3f" % time.time(),
         'description':   "unittest group description %.3f" % time.time(),
-        'max_members':   1001,
     }
     params.update(kwargs)
     return params
@@ -274,30 +272,6 @@ class Counter:
         self._counter = val + 1
         return val
 
-# def register_product(system_id):
-#    product = {
-#        "reg_num"           : "0",
-#        "state"             : "NC",
-#        "country"           : "US",
-#        "contact-email"     : "test@email.com",
-#        "first_name"        : "testwregglej01first",
-#        "last_name"         : "testwregglej01last",
-#        "company"           : "test company",
-#        "phone"             : "555-555-5555",
-#        "fax"               : "555-555-5555",
-#        "title"             : "None",
-#        "position"          : "Test",
-#        "city"              : "Raleigh",
-#        "zip"               : "27606",
-#        "address1"          : "1111 test address dr.",
-#        "address2"          : "",
-#        "expires"           : "5555-12-12 2224:55:55"
-#    }
-#    return registration.Registration().register_product( system_id, product )
-
-# stolen from backend/server/test/unit-test/
-
-
 def build_sys_params_with_username(**kwargs):
     val = Counter().value()
     rnd_string = "%s%s" % (int(time.time()), val)
@@ -342,7 +316,7 @@ def create_activation_key(org_id=None, user_id=None, groups=None,
         channels = ['rhel-i386-as-3-beta', 'rhel-i386-as-2.1-beta']
 
     if entitlement_level is None:
-        entitlement_level = 'provisioning_entitled'
+        entitlement_level = 'enterprise_entitled'
 
     if note is None:
         note = "Test activation key %d" % int(time.time())

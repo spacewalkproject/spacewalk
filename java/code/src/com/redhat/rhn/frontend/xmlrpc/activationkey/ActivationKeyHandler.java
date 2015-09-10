@@ -28,7 +28,6 @@ import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerGroup;
-import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
@@ -38,7 +37,6 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidArgsException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidServerGroupException;
-import com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.ValidationException;
 import com.redhat.rhn.frontend.xmlrpc.configchannel.XmlRpcConfigChannelHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -115,9 +113,7 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.param #array_desc("string", "Add-on entitlement label to associate with the
      * key.")
      *   #options()
-     *     #item("provisioning_entitled")
      *     #item("virtualization_host")
-     *     #item("virtualization_host_platform")
      *   #options_end()
      * #array_desc_end()
      * @xmlrpc.param #param("boolean", "universalDefault")
@@ -245,9 +241,7 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.param #array_desc("string", "Add-on entitlement label to associate with the
      * key.")
      *   #options()
-     *     #item("provisioning_entitled")
      *     #item("virtualization_host")
-     *     #item("virtualization_host_platform")
      *   #options_end()
      * #array_desc_end()
      * @xmlrpc.param #param("boolean", "universalDefault")
@@ -397,25 +391,21 @@ public class ActivationKeyHandler extends BaseHandler {
     }
 
     /**
-     * Add entitlements to an activation key. Currently only add-on entitlements are
-     * permitted. (provisioning_entitled, virtualization_host,
-     * virtualization_host_platform)
+     * Add entitlements to an activation key. Currently only virtualization_host
+     * add-on entitlement is permitted.
      *
      * @param loggedInUser The current user
      * @param key The activation key to act upon.
      * @param entitlements List of string entitlement labels to be added.
      * @return 1 on success, exception thrown otherwise.
      *
-     * @xmlrpc.doc Add entitlements to an activation key. Currently only add-on
-     * entitlements are permitted. (provisioning_entitled,
-     * virtualization_host, virtualization_host_platform)
+     * @xmlrpc.doc Add entitlements to an activation key. Currently only
+     * virtualization_host add-on entitlement is permitted.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "key")
      * @xmlrpc.param #array_desc("string", "entitlement label")
      *   #options()
-     *     #item("provisioning_entitled")
      *     #item("virtualization_host")
-     *     #item("virtualization_host_platform")
      *   #options_end()
      * #array_desc_end()
      * @xmlrpc.returntype #return_int_success()
@@ -428,25 +418,21 @@ public class ActivationKeyHandler extends BaseHandler {
     }
 
     /**
-     * Remove entitlements from an activation key. Currently only add-on entitlements are
-     * permitted. (provisioning_entitled, virtualization_host,
-     * virtualization_host_platform)
+     * Remove entitlements from an activation key. Currently only
+     * virtualization_host add-on entitlement is permitted.
      *
      * @param loggedInUser The current user
      * @param key The activation key to act upon.
      * @param entitlements List of string entitlement labels to be removed.
      * @return 1 on success, exception thrown otherwise.
      *
-     * @xmlrpc.doc Remove entitlements (by label) from an activation key. Currently
-     * only add-on entitlements are permitted. (
-     * provisioning_entitled, virtualization_host, virtualization_host_platform)
+     * @xmlrpc.doc Remove entitlements (by label) from an activation key.
+     * Currently only virtualization_host add-on entitlement is permitted.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "key")
      * @xmlrpc.param #array_desc("string", "entitlement label")
      *   #options()
-     *     #item("provisioning_entitled")
      *     #item("virtualization_host")
-     *     #item("virtualization_host_platform")
      *   #options_end()
      * #array_desc_end()
      * @xmlrpc.returntype #return_int_success()
@@ -629,22 +615,6 @@ public class ActivationKeyHandler extends BaseHandler {
     }
 
     /**
-     * Validate that an activation key has a particular entitlement.
-     *
-     * @param key
-     * @param entitlement
-     */
-    private void validateKeyHasEntitlement(ActivationKey key, String entitlement) {
-        for (Iterator it = key.getEntitlements().iterator(); it.hasNext();) {
-            ServerGroupType type = (ServerGroupType)it.next();
-            if (type.getLabel().equals(entitlement)) {
-                return;
-            }
-        }
-        throw new MissingEntitlementException(entitlement);
-    }
-
-    /**
      * Add packages to an activation key using package name only.
      *
      * @param loggedInUser The current user
@@ -666,7 +636,6 @@ public class ActivationKeyHandler extends BaseHandler {
 
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         ActivationKey activationKey = lookupKey(key, loggedInUser);
-        validateKeyHasEntitlement(activationKey, "provisioning_entitled");
 
         for (Iterator it = packageNames.iterator(); it.hasNext();) {
             String name = (String)it.next();
@@ -698,7 +667,6 @@ public class ActivationKeyHandler extends BaseHandler {
 
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         ActivationKey activationKey = lookupKey(key, loggedInUser);
-        validateKeyHasEntitlement(activationKey, "provisioning_entitled");
 
         for (Iterator it = packageNames.iterator(); it.hasNext();) {
             String name = (String)it.next();
@@ -748,7 +716,6 @@ public class ActivationKeyHandler extends BaseHandler {
 
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         ActivationKey activationKey = lookupKey(key, loggedInUser);
-        validateKeyHasEntitlement(activationKey, "provisioning_entitled");
 
         String name = null;
         String arch = null;
@@ -802,7 +769,6 @@ public class ActivationKeyHandler extends BaseHandler {
 
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         ActivationKey activationKey = lookupKey(key, loggedInUser);
-        validateKeyHasEntitlement(activationKey, "provisioning_entitled");
 
         String name = null;
         String arch = null;

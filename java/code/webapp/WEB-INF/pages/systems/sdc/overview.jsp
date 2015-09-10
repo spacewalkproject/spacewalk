@@ -182,17 +182,11 @@
             <ul class="channel-list">
             <li>
               <a href="/rhn/channels/ChannelDetail.do?cid=${baseChannel['id']}"><c:out value="${baseChannel['name']}" /></a>
-              <c:if test="${baseChannel['is_fve'] == 'Y'}">
-                &nbsp;(Flex)
-              </c:if>
             </li>
 
             <c:forEach items="${childChannels}" var="childChannel">
             <li class="child-channel">
               <a href="/rhn/channels/ChannelDetail.do?cid=${childChannel['id']}"><c:out value="${childChannel['name']}" /></a>
-              <c:if test="${childChannel['is_fve'] == 'Y'}">
-                &nbsp;(Flex)
-              </c:if>
             </li>
             </c:forEach>
 

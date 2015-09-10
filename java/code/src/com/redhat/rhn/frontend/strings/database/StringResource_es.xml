@@ -32,13 +32,6 @@
         <target>Fallido</target>
       </trans-unit>
       <!-- System Group Types -->
-      <trans-unit id="Spacewalk Update Entitled Servers">
-        <source>Update</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-        <target>Actualizar</target>
-      </trans-unit>
       <trans-unit id="Spacewalk Management Entitled Servers">
         <source>Management</source>
         <context-group name="ctx">
@@ -52,13 +45,6 @@
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
         <target>Aprovisionamiento</target>
-      </trans-unit>
-      <trans-unit id="Non-Linux Entitled Servers">
-        <source>Non-Linux</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-        <target>No-Linux</target>
       </trans-unit>
       <trans-unit id="Spacewalk Monitoring Entitled Servers">
         <source>Monitoring</source>
@@ -78,18 +64,6 @@
           <source>Management</source>
           <target>Administración</target>
         </trans-unit>
-        <trans-unit id="monitoring_entitled">
-          <source>Monitoring</source>
-          <target>Monitorización</target>
-        </trans-unit>
-        <trans-unit id="provisioning_entitled">
-          <source>Provisioning</source>
-          <target>Aprovisionamiento</target>
-        </trans-unit>
-        <trans-unit id="sw_mgr_entitled">
-          <source>Update</source>
-          <target>Actualizar</target>
-        </trans-unit>
         <trans-unit id="unentitled">
           <source>&lt;em&gt;(none)&lt;/em&gt;</source>
           <target>&lt;em&gt;(ninguno)&lt;/em&gt;</target>
@@ -105,10 +79,6 @@
         <trans-unit id="virtualization_host">
           <source>Virtualization</source>
           <target>Virtualización</target>
-        </trans-unit>
-        <trans-unit id="virtualization_host_platform">
-          <source>Virtualization Platform</source>
-          <target>Plataforma de virtualización</target>
         </trans-unit>
       </group>
       <!-- TimeZones -->

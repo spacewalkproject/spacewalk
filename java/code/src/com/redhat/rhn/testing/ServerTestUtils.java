@@ -171,45 +171,6 @@ public class ServerTestUtils {
     }
 
     /**
-     *
-     * Create a sytem with the virtualization platform entitlement and  with 1 guest system
-     * associated with it.
-     *
-     * @param user to own system
-     * @return Server with guest.
-     * @throws Exception if error
-     */
-    public static Server createVirtPlatformHostWithGuest(User user) throws Exception {
-        Server s = createVirtPlatformHost(user);
-
-        VirtualInstance vi = new VirtualInstanceManufacturer(user).
-            newRegisteredGuestWithoutHost();
-
-        s.addGuest(vi);
-
-        return s;
-    }
-
-   /**
-    *
-    * Create a sytem with the virtualization platform entitlement.
-    *
-    * @param user to own system
-    * @return Server with guest.
-    * @throws Exception if error
-    */
-   public static Server createVirtPlatformHost(User user) throws Exception {
-       Server s = createTestSystem(user);
-       user.addPermanentRole(RoleFactory.ORG_ADMIN);
-       // Lets give the org/server virt.
-       UserTestUtils.addVirtualizationPlatform(user.getOrg());
-       ServerTestUtils.addVirtualization(user, s);
-       SystemManager.entitleServer(s, EntitlementManager.VIRTUALIZATION_PLATFORM);
-
-       return s;
-   }
-
-    /**
      * Add a new Server as a guest of the passed in Server.
      * @param user adding
      * @param server to add too

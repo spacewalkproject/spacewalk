@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.system.provisioning.snapshot;
 
-import com.redhat.rhn.common.db.WrappedSQLException;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.rhnpackage.PackageNevra;
@@ -23,14 +22,13 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerSnapshot;
 import com.redhat.rhn.domain.server.SnapshotTag;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.xmlrpc.InvalidSystemException;
-import com.redhat.rhn.frontend.xmlrpc.SnapshotLookupException;
-import com.redhat.rhn.frontend.xmlrpc.SnapshotRollbackException;
-import com.redhat.rhn.frontend.xmlrpc.SnapshotTagAlreadyExistsException;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidArgsException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidSystemException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSnapshotException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
+import com.redhat.rhn.frontend.xmlrpc.SnapshotLookupException;
+import com.redhat.rhn.frontend.xmlrpc.SnapshotTagAlreadyExistsException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -388,19 +386,10 @@ public class SnapshotHandler extends BaseHandler {
         SystemManager.ensureAvailableToUser(loggedInUser, snapshot.getServer().getId());
         ActionManager.checkConfigActionOnServer(ActionFactory.TYPE_CONFIGFILES_DEPLOY,
                 snapshot.getServer());
-        try {
-            snapshot.cancelPendingActions();
-            snapshot.rollbackChannels();
-            snapshot.rollbackGroups();
-            snapshot.rollbackPackages(loggedInUser);
-            snapshot.rollbackConfigFiles(loggedInUser);
-        }
-        catch (WrappedSQLException e) {
-            String msg = e.getMessage();
-            if (msg != null && msg.contains("channel_family_no_subscriptions")) {
-                throw new SnapshotRollbackException();
-            }
-            throw e;
-        }
+        snapshot.cancelPendingActions();
+        snapshot.rollbackChannels();
+        snapshot.rollbackGroups();
+        snapshot.rollbackPackages(loggedInUser);
+        snapshot.rollbackConfigFiles(loggedInUser);
     }
 }

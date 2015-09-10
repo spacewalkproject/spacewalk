@@ -38,7 +38,6 @@ import java.util.Set;
 
 /**
  * AccessTest
- * @version $Rev$
  */
 public class AccessTest extends BaseTestCaseWithUser {
 
@@ -163,24 +162,6 @@ public class AccessTest extends BaseTestCaseWithUser {
         assertFalse(rc);
     }
 
-    public void testOrgEntitlementAclTrue() {
-        Map context = new HashMap();
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
-        context.put("user", user);
-        boolean rc = acl.evalAcl(context, "org_entitlement(sw_mgr_personal)");
-        assertTrue(rc);
-    }
-
-    public void testOrgEntitlementAclFalse() {
-        Map context = new HashMap();
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
-        context.put("user", user);
-        boolean rc = acl.evalAcl(context, "org_entitlement(sw_mgr_enterprise)");
-        assertFalse(rc);
-    }
-
     public void testNeedsFirstUser() {
         boolean rc = acl.evalAcl(new HashMap(), "need_first_user()");
         assertFalse(rc);
@@ -191,8 +172,7 @@ public class AccessTest extends BaseTestCaseWithUser {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
         context.put("user", user);
-        Server s = ServerFactoryTest.createTestServer(user, false, ServerConstants
-                .getServerGroupTypeProvisioningEntitled());
+        Server s = ServerFactoryTest.createTestServer(user, false);
         context.put("sid", new String[] {s.getId().toString()});
         boolean rc = acl.evalAcl(context, "system_feature(ftr_kickstart)");
         assertTrue(rc);

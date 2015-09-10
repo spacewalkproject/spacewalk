@@ -1010,26 +1010,12 @@ class VirtualizationListener:
 
 class EntitlementVirtualizationListener(VirtualizationListener):
 
-    def guest_migrated(self, old_host_sid, new_host_sid, guest_sid, guest_uuid):
-        try:
-            procedure.rhn_entitlements.repoll_virt_guest_entitlements(new_host_sid)
-        except rhnSQL.SQLError, e:
-            log_error("Error adding entitlement: %s" % str(e))
-            # rhnSQL.rollback()
-            return
-
-        # rhnSQL.commit()
-
     def guest_registered(self, host_sid, guest_sid):
         host_system_slots = server_lib.check_entitlement(host_sid)
         host_system_slots = host_system_slots.keys()
 
         try:
             host_system_slots.remove("virtualization_host")
-        except ValueError:
-            pass
-        try:
-            host_system_slots.remove("virtualization_host_platform")
         except ValueError:
             pass
 

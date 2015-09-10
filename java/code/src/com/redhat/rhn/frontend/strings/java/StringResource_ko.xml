@@ -418,13 +418,6 @@
         </context-group>
         <target>소프트웨어 채널 생성     </target>
       </trans-unit>
-      <trans-unit id="Software Channel Entitlements">
-        <source>Software Channel Entitlements</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>소프트웨어 채널 인타이틀먼트</target>
-      </trans-unit>
       <trans-unit id="Audit">
         <source>Audit</source>
         <context-group name="ctx">
@@ -5884,13 +5877,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>{0} 통지 방식은 이미 사용 중입니다. 다른 프로파일 이름을 입력해주세요.</target>
       </trans-unit>
-      <trans-unit id="Certificate">
-        <source>Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>인증서</target>
-      </trans-unit>
       <trans-unit id="Bootstrap Script">
         <source>Bootstrap Script</source>
         <context-group name="ctx">
@@ -5938,147 +5924,6 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="satellite.expired">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Satellite 인증서가 만료되었습니다. 새로운 인증서를 요청하거나 생성하는 방법에 대한 자세한 내용은 다음 링크를 통해 확인하십시오: &lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</target>
-      </trans-unit>
-      <trans-unit id="satellite.expired.restricted">
-        <source>Your Satellite Certificate has expired. Your Satellite is on day {0} of {1} day restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Satellite 인증서가 만료되었습니다. Satellite 서버는 {1}일 제한 기간 중 {0}일 째이며 곧 기능이 중지됩니다. 새 인증서를 요청하거나 생성하는 방법에 대한 자세한 내용은 다음 URL에서 참조하십시오: https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
-      <trans-unit id="satellite.graceperiod">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Your satellite enters restricted period in {0} day(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-        <target>Satellite 인증서가 만료되었습니다. 새로운 인증서를 요청하거나 생성하는 방법에 대한 자세한 내용은 다음 링크를 통해 확인하십시오: &lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Satellite 서버는 {0}일 제한됩니다.</target>
-      </trans-unit>
-      <trans-unit id="restricted.forbidden">
-        <source>You are not allowed to perform this action until your Satellite Certificate is renewed. Your Satellite is on day {0} of the {1} restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>사용하는 Satellite 인증서가 갱신될 때 까지 이 동작을 수행할 수 없습니다. Satellite 서버는 {1}일 제한 기간 중 {0}일 째이며 곧 기능이 중지됩니다. 새 인증서를 요청하거나 생성하는 방법에 대한 자세한 내용은 다음 URL에서 참조하십시오: https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.nocert">
-        <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>인증서를 찾지 못했습니다. 로컬 인증서 파일을 선택하시거나 양식에 인증서 내용을 복사하여 붙이시기 바랍니다.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.success">
-        <source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>인증서를 업로드하였습니다.  @@PRODUCT_NAME@@가 다시 활성화되었습니다.  </target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.10">
-        <source>Could not parse certificate file, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>인증서 파일을 구문 분석하지 못했습니다</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.11">
-        <source>Certificate expired</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>만료된 인증서</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.12">
-        <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>알 수 없는 @@PRODUCT_NAME@@ 버전  </target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.20">
-        <source>Remote activation failure, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>원격 활성화 실패</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.30">
-        <source>Local activation failure, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>로컬 활성화 실패, 보다 자세한 내용은 로그 파일을 참조하십시오.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.40">
-        <source>Channel population failure, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>채널 채우기 실패</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.80">
-        <source>No management entitlements remaining</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>관리 인타이틀먼트가 남아있지 않음</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.82">
-        <source>@@PRODUCT_NAME@@ channel not found</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ 채널을 찾을 수 없음  </target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.83">
-        <source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ 채널 인타이틀먼트가 남아있지 않음 </target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.84">
-        <source>Invalid @@PRODUCT_NAME@@ certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>잘못된 @@PRODUCT_NAME@@ 인증서  </target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.85">
-        <source>Unknown activation error, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>알 수 없는 활성화 오류, 보다 자세한 내용은 로그 파일을 참조하십시오.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.86">
-        <source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@는 부모 서버에 아무런 기본 채널도 갖지 않음  </target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.87">
-        <source>No @@PRODUCT_NAME@@ channel available for this version</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>이 버전에는 @@PRODUCT_NAME@@ 채널을 사용할 수 없음 </target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.127">
-        <source>Unhandled error, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>처리할 수 없는 오류, 보다 자세한 내용은 로그 파일을 참조하십시오.</target>
       </trans-unit>
       <trans-unit id="hostname">
         <source>@@PRODUCT_NAME@@ server hostname</source>
@@ -8222,20 +8067,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>크기 제한 변경은 음수가 아닌 유효한 숫자를 사용해야 합니다.</target>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.invalid">
-        <source>Entitlement modification must be a valid number for {0}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubscriptions.do</context>
-        </context-group>
-        <target>인타이틀먼트 수정은 {0}에 대해 유효한 숫자이어야 합니다.  </target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.invalid">
-        <source>Entitlement modification must be a valid number for {0}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>인타이틀먼트 수정은 {0}에 대해 유효한 숫자이어야 합니다.  </target>
-      </trans-unit>
       <trans-unit id="message.ext_auth_disable">
         <source>No default organization</source>
         <context-group name="ctx">
@@ -8352,13 +8183,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>알림: 이 시스템의 @@PRODUCT_NAME@@내에서 가상화 기능을 활성화하여 사용할 경우 해당 RHN 도구 자식 채널에서 rhn-virtualization-host 패키지를 설치합니다. 호스트 시스템의 가상화를 활성화할 때 Red Hat Enterprise Linux가 주의해야 할 사항 및 요구 사항은 Red Hat 문서에서 참조하십시오.</target>
       </trans-unit>
-      <trans-unit id="system.entitle.alreadyvirt">
-        <source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>시스템이 가상화 또는 가상화 플랫폼 인타이틀먼트를 갖고 있을 수 있으나 두 가지 모두를 갖고 있을 수 없음.  </target>
-      </trans-unit>
       <trans-unit id="system.migrate.user_no_perms">
         <source>This user lacks the required permissions to migrate this system.</source>
         <context-group name="ctx">
@@ -8393,27 +8217,6 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
         <target>잘못된 애드온 인타이틀먼트 [{0}]가 있습니다. 이러한 인타이틀먼트는 존재하지 않습니다.  </target>
-      </trans-unit>
-      <trans-unit id="system.entitle.noslots">
-        <source>There were no more {0} System Entitlements available.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>{0} 시스템 인타이틀먼트가 남아있지 않음.</target>
-      </trans-unit>
-      <trans-unit id="system.channel.nochannelslots">
-        <source>There are no more channel entitlements available.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>채널 인타이틀먼트가 남아있지 않음.</target>
-      </trans-unit>
-      <trans-unit id="system.entitle.no-add.solaris-slots">
-        <source>{0} entitlements cannot be added to solaris machines</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>{0} 인타이틀먼트를 기계상에 추가할 수 없습니다. </target>
       </trans-unit>
       <trans-unit id="system.entitle.guestcantvirt">
         <source>The system cannot have a Virtualization entitlement because it is a virtual guest.</source>
@@ -8659,26 +8462,6 @@ Follow this url to see the full list of inactive systems:
         <source>A required errata attribute ({0}) was missing.</source>
         <target>필요한 에라타 속성 ({0})이 없습니다. </target>
       </trans-unit>
-      <trans-unit id="org.entitlements.system.toomany">
-        <source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
-        <target>{0}에게 너무 많은 {1} 인타이틀먼트를 할당하게 됩니다. {2} 보다 작은 값이나 동일한 값을 입력하십시오.</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.syssoft.success">
-        <source>Entitlements successfully updated.</source>
-        <target>인타이틀먼트가 성공적으로 업데이트되었습니다.  </target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.not_in_range">
-        <source>You attempted to give {0} too many {1} entitlements.  Please enter a value between {2} and {3}</source>
-        <target>{0}에게 너무 많은 {1} 인타이틀먼트를 할당하게 됩니다. {2} 와 {3} 사이의 값을 입력하십시오. </target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.not_in_range.flex">
-        <source>You attempted to give {0} too many {1} flex entitlements.  Please enter a value between {2} and {3}</source>
-        <target>{0}에게 너무 많은 {1} flex 인타이틀먼트를 할당하게 됩니다. {2} 와 {3} 사이의 값을 입력하십시오. </target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.proposedwarning">
-        <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
-        <target>경고: 제안된 {0} 할당은 현재 {1} 조직에서 사용되는 인타이틀먼트 보다 적은 수를 제공합니다. 현재 사용 중인 인타이틀먼트 수 보다 적지 않게 제안된 할당을 조정해 주십시오.    </target>
-      </trans-unit>
       <trans-unit id="api.iss.duplicatemaster">
         <source>A record for Master satellite {0} already exists</source>
         <target>마스터 Satellite {0}의 기록은 이미 존재합니다.</target>
@@ -8710,10 +8493,6 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="entitlement">
         <source>Entitlements</source>
         <target>인타이틀먼트 </target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.system.defaultorg">
-        <source>You are not allowed to update entitlements in the Default Org.  These entitlements are determined by your satellite certificate file.</source>
-        <target>기본값 조직에 있는 인타이틀먼틀 업데이트할 수 없습니다. 이러한 인타이틀먼트는 satellite 인증서 파일에 의해 결정됩니다.   </target>
       </trans-unit>
       <trans-unit id="groupAdmins">
         <source>Group Admins</source>

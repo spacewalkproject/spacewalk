@@ -28,7 +28,6 @@ import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.manager.ssm.SsmManager;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
 
 import org.apache.commons.logging.Log;
@@ -83,13 +82,8 @@ public class ChildChannelConfirmAction extends RhnAction implements Listable {
         Map<Long, ChannelActionDAO> sysSubList = ChannelManager.filterChildSubscriptions(
                 RhnSetDecl.SYSTEMS.getLabel(),  chanSubList, chanUnsubList, user);
 
-        //If we are going to go over our subscription limit,
-        //    we need to not try to subscribe as many
-        Map<Long, ChannelActionDAO> subs =
-            SsmManager.verifyChildEntitlements(user, sysSubList, chanSubList);
-
         List list = new ArrayList();
-        list.addAll(subs.values());
+        list.addAll(sysSubList.values());
         request.setAttribute("data", list);
 
 
@@ -107,7 +101,8 @@ public class ChildChannelConfirmAction extends RhnAction implements Listable {
 
             // Fire the request off asynchronously
             SsmChangeChannelSubscriptionsEvent event =
-                new SsmChangeChannelSubscriptionsEvent(user, subs.values(), operationId);
+                    new SsmChangeChannelSubscriptionsEvent(user, sysSubList.values(),
+                            operationId);
             MessageQueue.publish(event);
 
             result = mapping.findForward("success");

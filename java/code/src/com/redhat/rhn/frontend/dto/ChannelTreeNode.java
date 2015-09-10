@@ -38,8 +38,6 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
     private Long id;
     private String name;
     private Long channelArchId;
-    private Long currentMembers;
-    private Long availableMembers;
     private Long packageCount;
     private Long systemCount;
     private Long errataCount;
@@ -173,21 +171,6 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
         return this.getName().toUpperCase();
     }
 
-
-    /**
-     * @return Returns the availableMembers.
-     */
-    public Long getAvailableMembers() {
-        return availableMembers;
-    }
-
-    /**
-     * @param availableMembersIn The availableMembers to set.
-     */
-    public void setAvailableMembers(Long availableMembersIn) {
-        this.availableMembers = availableMembersIn;
-    }
-
     /**
      * @return Returns the channelArchId.
      */
@@ -214,20 +197,6 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
      */
     public void setChannelLabel(String channelLabelIn) {
         this.channelLabel = channelLabelIn;
-    }
-
-    /**
-     * @return Returns the currentMembers.
-     */
-    public Long getCurrentMembers() {
-        return currentMembers;
-    }
-
-    /**
-     * @param currentMembersIn The currentMembers to set.
-     */
-    public void setCurrentMembers(Long currentMembersIn) {
-        this.currentMembers = currentMembersIn;
     }
 
     /**

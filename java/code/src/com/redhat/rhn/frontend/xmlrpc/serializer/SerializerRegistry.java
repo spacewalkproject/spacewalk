@@ -27,8 +27,6 @@ import java.util.List;
  * existing satellite's and likely Tomcat caching. We're unsure of how stable this will be
  * in the future so resorting to an explicit method of declaring serializer classes once
  * again.
- *
- * @version $Rev$
  */
 public class SerializerRegistry {
 
@@ -42,12 +40,10 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(ActivationKeySerializer.class);
         SERIALIZER_CLASSES.add(TokenSerializer.class);
         SERIALIZER_CLASSES.add(ChannelArchSerializer.class);
-        SERIALIZER_CLASSES.add(ChannelOverviewSerializer.class);
         SERIALIZER_CLASSES.add(ChannelSerializer.class);
         SERIALIZER_CLASSES.add(CpuSerializer.class);
         SERIALIZER_CLASSES.add(DeviceSerializer.class);
         SERIALIZER_CLASSES.add(DmiSerializer.class);
-        SERIALIZER_CLASSES.add(EntitlementServerGroupSerializer.class);
         SERIALIZER_CLASSES.add(ErrataOverviewSerializer.class);
         SERIALIZER_CLASSES.add(ErrataSerializer.class);
         SERIALIZER_CLASSES.add(HistoryEventSerializer.class);
@@ -74,16 +70,10 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(ConfigFileDtoSerializer.class);
         SERIALIZER_CLASSES.add(ConfigFileNameDtoSerializer.class);
         SERIALIZER_CLASSES.add(ConfigSystemDtoSerializer.class);
-        SERIALIZER_CLASSES.add(ChannelFamilySystemGroupSerializer.class);
         SERIALIZER_CLASSES.add(OrgDtoSerializer.class);
         SERIALIZER_CLASSES.add(MultiOrgUserOverviewSerializer.class);
         SERIALIZER_CLASSES.add(VirtualSystemOverviewSerializer.class);
-        SERIALIZER_CLASSES.add(MultiOrgEntitlementsDtoSerializer.class);
-        SERIALIZER_CLASSES.add(SystemEntitlementsDtoSerializer.class);
-        SERIALIZER_CLASSES.add(OrgEntitlementDtoSerializer.class);
         SERIALIZER_CLASSES.add(EntitlementSerializer.class);
-        SERIALIZER_CLASSES.add(OrgChannelFamilySerializer.class);
-        SERIALIZER_CLASSES.add(OrgSoftwareEntitlementDtoSerializer.class);
         SERIALIZER_CLASSES.add(NetworkInterfaceSerializer.class);
         SERIALIZER_CLASSES.add(ScheduleActionSerializer.class);
         SERIALIZER_CLASSES.add(ScheduleSystemSerializer.class);

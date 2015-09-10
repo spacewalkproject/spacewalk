@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.action.configuration.test;
 
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.testing.ConfigTestUtils;
@@ -25,15 +24,12 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * CompareDeployedActionTest
- * @version $Rev$
  */
 public class CompareDeployedActionTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         //Make the user a config admin
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
-
 
         //Create the revision to copy
         ConfigRevision revision = ConfigTestUtils.createConfigRevision(user.getOrg());
@@ -41,8 +37,7 @@ public class CompareDeployedActionTest extends RhnMockStrutsTestCase {
         Long crid = revision.getId();
 
         //Create a system to appear in the list.
-        ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        ServerFactoryTest.createTestServer(user, true);
 
         setRequestPathInfo("/configuration/file/CompareDeployed");
         addRequestParameter("cfid", cfid.toString());

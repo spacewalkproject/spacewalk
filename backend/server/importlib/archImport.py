@@ -102,8 +102,6 @@ class BaseArchCompatImport(Import):
 
     def submit(self):
         getattr(self.backend, self.submit_method_name)(self.batch)
-        self.backend.processVirtSubLevel(self.batch)
-        self.backend.processSGTVirtSubLevel(self.batch)
         self.backend.commit()
 
 
@@ -145,7 +143,6 @@ class ServerGroupServerArchCompatImport(BaseArchCompatImport):
     arches1_field_name = 'server_arch_id'
     arches2_field_name = 'server_group_type'
     submit_method_name = 'processServerGroupServerArchCompatMap'
-    virt_sub_level = 'virt_sub_level'
 
     # monitoring is no longer supported, ignore any monitoring info for
     # backwards compatibility

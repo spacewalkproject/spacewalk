@@ -413,13 +413,6 @@
         </context-group>
         <target>ਸਾਫਟਵੇਅਰ ਚੈਨਲ ਬਣਾਓ</target>
       </trans-unit>
-      <trans-unit id="Software Channel Entitlements">
-        <source>Software Channel Entitlements</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>ਸਾਫਟਵੇਅਰ ਚੈਨਲ ਇੰਟਾਈਟਲਮੈਂਟ</target>
-      </trans-unit>
       <trans-unit id="Audit">
         <source>Audit</source>
         <context-group name="ctx">
@@ -5782,13 +5775,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>ਸੂਚਨਾ ਢੰਗ '{0}' ਪਹਿਲਾਂ ਹੀ ਵਰਤੋਂ ਅਧੀਨ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਵੱਖਰਾ ਨਾਂ ਦਿਓ।</target>
       </trans-unit>
-      <trans-unit id="Certificate">
-        <source>Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>ਸਰਟੀਫਿਕੇਟ</target>
-      </trans-unit>
       <trans-unit id="Bootstrap Script">
         <source>Bootstrap Script</source>
         <context-group name="ctx">
@@ -5832,140 +5818,6 @@ user before attempting to deactivate their account.</source>
         <source>You've logged as externally authenticated &lt;strong&gt;{0}&lt;/strong&gt; user. To be able to login using this account with login and password, please set your password on &lt;a href="/rhn/account/UserDetails.do"&gt;&lt;strong&gt;{0} user page&lt;/strong&gt;&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="satellite.expired">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="satellite.expired.restricted">
-        <source>Your Satellite Certificate has expired. Your Satellite is on day {0} of {1} day restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="satellite.graceperiod">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Your satellite enters restricted period in {0} day(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="restricted.forbidden">
-        <source>You are not allowed to perform this action until your Satellite Certificate is renewed. Your Satellite is on day {0} of the {1} restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.nocert">
-        <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>ਕੋਈ ਸਰਟੀਫਿਕੇਟ ਨਹੀਂ ਲੱਭਿਆ ਹੈ।  ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਲੋਕਲ ਸਰਟੀਫਿਕੇਟ ਫਾਇਲ ਦੀ ਚੋਣ ਕਰੋ ਜਾਂ ਫਾਰਮ ਵਿੱਚ ਭਾਗ ਚੇਪ ਦਿਓ।</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.success">
-        <source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>ਸਰਟੀਫਿਕੇਟ ਅੱਪਲੋਡ ਕੀਤਾ ਗਿਆ ਹੈ।  @@PRODUCT_NAME@@ ਨੂੰ ਮੁੜ-ਸਰਗਰਮ ਕੀਤਾ ਗਿਆ ਹੈ।</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.10">
-        <source>Could not parse certificate file, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>ਸਰਟੀਫਿਕੇਟ ਫਾਇਲ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.11">
-        <source>Certificate expired</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>ਸਰਟੀਫਿਕੇਟ ਦੀ ਮਿਆਦ ਖਤਮ</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.12">
-        <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>ਅਣਜਾਣ @@PRODUCT_NAME@@ ਵਰਜਨ</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.20">
-        <source>Remote activation failure, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>ਰਿਮੋਟ ਸਰਗਰਮ ਕਰਨਾ ਅਸਫ਼ਲ</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.30">
-        <source>Local activation failure, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.40">
-        <source>Channel population failure, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>ਚੈਨਲ ਤਿਆਰੀ ਅਸਫ਼ਲ</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.80">
-        <source>No management entitlements remaining</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>ਕੋਈ ਪਰਬੰਧ ਇੰਟਾਇਲਮਿੰਟ ਬਾਕੀ ਨਹੀਂ ਬਚੀ</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.82">
-        <source>@@PRODUCT_NAME@@ channel not found</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ ਚੈਨਲ ਨਹੀਂ ਲੱਭਿਆ</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.83">
-        <source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>ਕੋਈ @@PRODUCT_NAME@@ ਚੈਨਲ ਇੰਟਾਈਟਲਮੈਂਟ ਬਾਕੀ ਨਹੀਂ ਬਚੀ</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.84">
-        <source>Invalid @@PRODUCT_NAME@@ certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>ਗਲਤ @@PRODUCT_NAME@@ ਸਰਟੀਫਿਕੇਟ</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.85">
-        <source>Unknown activation error, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.86">
-        <source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ ਕੋਲ ਮੁੱਢਲੇ ਸਰਵਰ ਉੱਤੇ ਕੋਈ ਅਧਾਰ ਚੈਨਲ ਨਹੀਂ ਹੈ</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.87">
-        <source>No @@PRODUCT_NAME@@ channel available for this version</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>ਇਹ ਵਰਜਨ ਲਈ ਕੋਈ @@PRODUCT_NAME@@ ਚੈਨਲ ਉਪਲੱਬਧ ਨਹੀਂ</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.127">
-        <source>Unhandled error, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="hostname">
@@ -8008,20 +7860,6 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.invalid">
-        <source>Entitlement modification must be a valid number for {0}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubscriptions.do</context>
-        </context-group>
-        <target>ਇੰਟਾਈਟਲਮੈਂਟ ਸੋਧ {0} ਲਈ ਇੱਕ ਯੋਗ ਨੰਬਰ ਹੋਣਾ ਜਰੂਰੀ ਹੈ।</target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.invalid">
-        <source>Entitlement modification must be a valid number for {0}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>ਇੰਟਾਈਟਲਮੈਂਟ ਸੋਧ {0} ਲਈ ਇੱਕ ਯੋਗ ਨੰਬਰ ਹੋਣਾ ਜਰੂਰੀ ਹੈ।</target>
-      </trans-unit>
       <trans-unit id="message.ext_auth_disable">
         <source>No default organization</source>
         <context-group name="ctx">
@@ -8133,13 +7971,6 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="system.entitle.alreadyvirt">
-        <source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>ਸਿਸਟਮ ਉੱਪਰ ਜਾਂ ਤਾਂ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਜਾਂ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਪਲੇਟਫਾਰਮ ਹੋ ਸਕਦੇ ਹਨ ਪਰ ਦੋਨੋ ਨਹੀਂ।</target>
-      </trans-unit>
       <trans-unit id="system.migrate.user_no_perms">
         <source>This user lacks the required permissions to migrate this system.</source>
         <context-group name="ctx">
@@ -8170,27 +8001,6 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
         <target>ਗਲਤ ਐਡ-ਆਨ ਇੰਟਾਈਟਲਮੈਂਟ [{0}] ਮਨਜੂਰ ਕੀਤਾ ਗਿਆ ਹੈ। ਅਜਿਹਾ ਕੋਈ ਇੰਟਾਈਟਲਮੈਂਟ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।</target>
-      </trans-unit>
-      <trans-unit id="system.entitle.noslots">
-        <source>There were no more {0} System Entitlements available.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>ਇੱਥੇ ਹੋਰ {0} ਸਿਸਟਮ ਇੰਟਾਈਟਲਮੈਂਟ ਉਪਲੱਬਧ ਨਹੀਂ ਹਨ।</target>
-      </trans-unit>
-      <trans-unit id="system.channel.nochannelslots">
-        <source>There are no more channel entitlements available.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>ਕੋਈ ਹੋਰ ਚੈਨਲ ਇੰਟਾਈਟਲਮੈਂਟ ਉਪਲੱਬਧ ਨਹੀਂ ਹਨ।</target>
-      </trans-unit>
-      <trans-unit id="system.entitle.no-add.solaris-slots">
-        <source>{0} entitlements cannot be added to solaris machines</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>{0} ਇੰਟਾਈਟਲਮੈਂਟ ਨੂੰ ਸੋਲਾਰਸ ਮਸ਼ੀਨਾਂ ਉੱਪਰ ਸ਼ਾਮਲਿ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।</target>
       </trans-unit>
       <trans-unit id="system.entitle.guestcantvirt">
         <source>The system cannot have a Virtualization entitlement because it is a virtual guest.</source>
@@ -8424,24 +8234,6 @@ Follow this url to see the full list of inactive systems:
         <source>A required errata attribute ({0}) was missing.</source>
         <target>ਇੱਕ ਲੋੜੀਂਦਾ ਇਰੱਟਾ ਗੁਣ ({0}) ਗੁੰਮ ਹੈ।</target>
       </trans-unit>
-      <trans-unit id="org.entitlements.system.toomany">
-        <source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
-        <target>ਤੁਸੀਂ {0} ਬਹੁਤ ਸਾਰੇ {1} ਇੰਟਾਈਟਲਮੈਂਟ ਦਿੱਤੇ ਹਨ। ਕਿਰਪਾ ਕਰਕੇ {2} ਤੋਂ ਘੱਟ ਜਾਂ ਬਰਾਬਰ ਮੁੱਲ ਦਿਓ।</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.syssoft.success">
-        <source>Entitlements successfully updated.</source>
-        <target>ਇੰਟਾਈਟਲਮੈਂਟ ਸਫ਼ਲਤਾਪੂਰਕ ਅੱਪਡੇਟ ਹੋ ਗਿਆ ਹੈ।</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.not_in_range">
-        <source>You attempted to give {0} too many {1} entitlements.  Please enter a value between {2} and {3}</source>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.not_in_range.flex">
-        <source>You attempted to give {0} too many {1} flex entitlements.  Please enter a value between {2} and {3}</source>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.proposedwarning">
-        <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
-        <target>ਚੇਤਾਵਨੀ: ਤੁਹਾਡੇ ਵੱਲੋਂ ਨਿਰਧਾਰਤ {0} ਸਥਾਪਨ {1} ਸੰਗਠਨ ਲਈ ਵਰਤੇ ਇੰਟਾਈਟਲਮੈਂਟਾਂ ਤੋਂ ਘੱਟ ਦਿੰਦਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਪ੍ਰਸਤਾਵਿਤ ਨਿਰਧਾਰਨ ਮੌਜੂਦਾ ਵਰਤੋਂ ਵਿਚਲੇ ਇੰਟਾਈਟਲਮੈਂਟਾਂ ਤੋਂ ਘੱਟ ਨਿਰਧਾਰਤ ਕਰੋ।</target>
-      </trans-unit>
       <trans-unit id="api.iss.duplicatemaster">
         <source>A record for Master satellite {0} already exists</source>
       </trans-unit>
@@ -8471,10 +8263,6 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="entitlement">
         <source>Entitlements</source>
         <target>ਇੰਟਾਈਟਲਮੈਂਟ</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.system.defaultorg">
-        <source>You are not allowed to update entitlements in the Default Org.  These entitlements are determined by your satellite certificate file.</source>
-        <target>ਤੁਹਾਨੂੰ ਮੂਲ ਸੰਗਠਨ ਵਿੱਚ ਇੰਟਾਈਟਲਮੈਂਟ ਅੱਪਡੇਟ ਕਰਨ ਦੀ ਮਨਜੂਰੀ ਨਹੀਂ ਹੈ।  ਇਹ ਇੰਟਾਈਟਲਮੈਂਟ ਤੁਹਾਡੀ ਸੈਟੇਲਾਈਟ ਸਾਰਟੀਫਿਕੇਟ ਫਾਈਲ ਦੁਆਰਾ ਮਿਲਦੀਆਂ ਹਨ।</target>
       </trans-unit>
       <trans-unit id="groupAdmins">
         <source>Group Admins</source>

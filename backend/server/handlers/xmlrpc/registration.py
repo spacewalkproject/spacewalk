@@ -392,7 +392,6 @@ class Registration(rhnHandler):
             # groups, channels, etc)
 
             # bretm 02/19/2007 -- this shouldn't throw any of the following:
-            #   SubscriptionCountExceeded
             #   BaseChannelDeniedError
             #   NoBaseChannelError
             # since we have the token object, and underneath the hood, we have none_ok=have_token
@@ -403,8 +402,7 @@ class Registration(rhnHandler):
             try:
                 # don't commit
                 newserv.save(0, channel)
-            except (rhnChannel.SubscriptionCountExceeded,
-                    rhnChannel.NoBaseChannelError), channel_error:
+            except (rhnChannel.NoBaseChannelError), channel_error:
                 raise rhnFault(70), None, sys.exc_info()[2]
             except rhnChannel.BaseChannelDeniedError, channel_error:
                 raise rhnFault(71), None, sys.exc_info()[2]
@@ -433,7 +431,6 @@ class Registration(rhnHandler):
         # Commits to the db.
         #
         # bretm 02/19/2007 -- this *can* now throw any of the following:
-        #   rhnChannel.SubscriptionCountExceeded
         #   rhnChannel.BaseChannelDeniedError
         #   rhnChannel.NoBaseChannelError
         #   rhnSystemEntitlementException
@@ -441,8 +438,7 @@ class Registration(rhnHandler):
         #   +--rhnNoSystemEntitlementsException
         try:
             newserv.save(1, channel)
-        except (rhnChannel.SubscriptionCountExceeded,
-                rhnChannel.NoBaseChannelError), channel_error:
+        except (rhnChannel.NoBaseChannelError), channel_error:
             raise rhnFault(70), None, sys.exc_info()[2]
         except rhnChannel.BaseChannelDeniedError, channel_error:
             raise rhnFault(71), None, sys.exc_info()[2]
@@ -502,7 +498,6 @@ class Registration(rhnHandler):
         # bretm 02/19/2007 -- the following things get thrown underneath,
         # but we issue the faults in create_system for uniformity:
         #
-        #   rhnChannel.SubscriptionCountExceeded
         #   rhnChannel.BaseChannelDeniedError
         #   rhnChannel.NoBaseChannelError
         #   rhnSystemEntitlementException
@@ -530,11 +525,6 @@ class Registration(rhnHandler):
             other is a dict with:
             * org_id - optional. Must be a string that contains the number. If it's
             not given, the default org is used.
-            * reg_num - optional. It should be an EN. It will not be activated. It's
-            used for automatic subscription to child channels and for deciding which
-            service level to entitle the machine to (managment, provisioning, etc).
-            If not given, the machine will only be registered to a base channel and
-            entitled to the highest level possible.
 
             If a profile is created it will return a dict with:
             * system_id - the same xml as was previously returned
@@ -550,15 +540,9 @@ class Registration(rhnHandler):
               entitlements
             * universal_activation_key - a list of universal default activation keys
               (as strings) that were used while registering.
-            Allowable slots are 'enterprise_entitled' (management), 'sw_mgr_entitled'
-            (updates), 'monitoring_entitled' (monitoring add on to management), and
-            provisioning_entitled (provisioning add on to management).
             The call will try to use the highest system slot available. An entry will
             be added to failed_system_slots for each one that is tried and fails and
             system_slots will contain the one that succeeded if any.
-            Eg: Calling this on hosted with no reg num and only update entitlements
-            will result in system_slots containing 'sw_mgr_entitled' and
-            failed_system_slots containing 'enterprise_entitled'.
 
             If an error occurs which prevents the creation of a profile, a fault will
             be raised:
@@ -624,7 +608,7 @@ class Registration(rhnHandler):
         # Store any of our child channel failures
         failed_channels = failed_channels + failures
 
-        attempted_system_slots = ['enterprise_entitled', 'sw_mgr_entitled']
+        attempted_system_slots = ['enterprise_entitled']
         successful_system_slots = server_lib.check_entitlement(server_id)
         successful_system_slots = successful_system_slots.keys()
         failed_system_slots = []

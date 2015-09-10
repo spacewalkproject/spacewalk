@@ -24,7 +24,6 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * KickstartDetailsEditTest
- * @version $Rev: 1 $
  */
 public class BaseKickstartEditTestCase extends RhnPostMockStrutsTestCase {
 
@@ -33,7 +32,6 @@ public class BaseKickstartEditTestCase extends RhnPostMockStrutsTestCase {
     public void setUp() throws Exception {
         super.setUp();
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
         this.ksdata = KickstartDataTest.createKickstartWithChannel(user.getOrg());
         TestUtils.saveAndFlush(ksdata);
         addRequestParameter(RequestContext.KICKSTART_ID, this.ksdata.getId().toString());

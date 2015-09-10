@@ -35,9 +35,6 @@ rhnServerGroupTypeFeature        :: data/rhnFeature \
                                     lookup_sg_type \
                                     lookup_feature_type 
 rhnSGTypeBaseAddonCompat         :: data/rhnServerGroupType
-rhnSGTypeVirtSubLevel            :: lookup_virt_sub_level \
-                                    data/rhnServerGroupType \
-                                    data/rhnVirtSubLevel
 rhn_config_parameter             :: data/rhn_config_group \
                                     data/rhn_config_security_type
 rhnVersionInfo                   :: lookup_functions

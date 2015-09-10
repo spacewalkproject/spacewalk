@@ -28,12 +28,6 @@
         </context-group>
       </trans-unit>
       <!-- System Group Types -->
-      <trans-unit id="Spacewalk Update Entitled Servers">
-        <source>Update</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Spacewalk Management Entitled Servers">
         <source>Management</source>
         <context-group name="ctx">
@@ -42,12 +36,6 @@
       </trans-unit>
       <trans-unit id="Spacewalk Provisioning Entitled Servers">
         <source>Provisioning</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Non-Linux Entitled Servers">
-        <source>Non-Linux</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
@@ -68,15 +56,6 @@
         <trans-unit id="enterprise_entitled">
           <source>Management</source>
         </trans-unit>
-        <trans-unit id="monitoring_entitled">
-          <source>Monitoring</source>
-        </trans-unit>
-        <trans-unit id="provisioning_entitled">
-          <source>Provisioning</source>
-        </trans-unit>
-        <trans-unit id="sw_mgr_entitled">
-          <source>Update</source>
-        </trans-unit>
         <trans-unit id="unentitled">
           <source>&lt;em&gt;(none)&lt;/em&gt;</source>
         </trans-unit>
@@ -88,9 +67,6 @@
         </trans-unit>
         <trans-unit id="virtualization_host">
           <source>Virtualization</source>
-        </trans-unit>
-        <trans-unit id="virtualization_host_platform">
-          <source>Virtualization Platform</source>
         </trans-unit>
       </group>
       <!-- TimeZones -->

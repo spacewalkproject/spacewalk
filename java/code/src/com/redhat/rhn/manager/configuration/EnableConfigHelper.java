@@ -16,16 +16,12 @@ package com.redhat.rhn.manager.configuration;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.action.ActionFactory;
-import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
@@ -39,7 +35,6 @@ import java.util.Map;
 /**
  * Due to the complicated nature of enabling configuration, this class is
  * used as a way to separate out the logic.
- * @version $Rev$
  */
 public class EnableConfigHelper {
 
@@ -91,18 +86,6 @@ public class EnableConfigHelper {
     }
 
     private int enableSystem(ConfigSystemDto dto, Server current, Date earliest) {
-        boolean needOrgAdmin = false;
-
-        //give provisioning if this current doesn't have it.
-        if (!dto.isProvisioning()) {
-            if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
-                needOrgAdmin = true;
-            }
-            else if (!grantProvisioning(user.getOrg(), current)) {
-                return ConfigurationManager.ENABLE_ERROR_PROVISIONING;
-            }
-        }
-
         //subscribe the system to RhnTools child channel if they need it.
         if (!dto.isRhnTools()) {
             if (ChannelManager.subscribeToChildChannelWithPackageName(user, current,
@@ -116,79 +99,7 @@ public class EnableConfigHelper {
             return ConfigurationManager.ENABLE_ERROR_PACKAGES;
         }
 
-        //If everything went peachy, but we need an org admin to
-        //finish the job.
-        if (needOrgAdmin) {
-            return ConfigurationManager.ENABLE_NEED_ORG_ADMIN;
-        }
-
         return ConfigurationManager.ENABLE_SUCCESS;
-    }
-
-    private boolean grantProvisioning(Org org, Server current) {
-        Long sid = current.getId();
-
-        if (ServerGroupFactory.lookupEntitled(EntitlementManager.PROVISIONING, org)
-                .getAvailableSlots() < 1) {
-            return false;
-        }
-
-        /*
-         * This is more complicated than it might originally seem.
-         * If they have no entitlements, I have to give them management
-         *   and then provisioning.
-         * If they have an update entitlement, I have to switch them to
-         *   management, then give provisioning.
-         * If they have management, I need to give them provisioning.
-         *
-         * I believe the fastest way to do this for a set of systems is to
-         * assume that most of them already have management.  Therefore
-         * I will start by trying to add provisioning.
-         */
-        if (SystemManager.canEntitleServer(sid, EntitlementManager.PROVISIONING)) {
-            SystemManager.entitleServer(org, sid, EntitlementManager.PROVISIONING);
-            return true;
-        }
-
-        //darn.  But we won't give up just yet.
-        if (SystemManager.hasEntitlement(sid, EntitlementManager.MANAGEMENT)) {
-            //This means they ran out of provisioning entitlements or some other
-            //problem that we can't fix.
-            return false;
-        }
-
-        //remember what entitlements they had so we can put them back if we fail.
-        boolean hadUpdate = false;
-        if (SystemManager.hasEntitlement(sid, EntitlementManager.UPDATE)) {
-            hadUpdate = true;
-            SystemManager.removeServerEntitlement(sid, EntitlementManager.UPDATE);
-        }
-        //else they were unentitled
-
-        long manageSlots = ServerGroupFactory.lookupEntitled(
-                                EntitlementManager.MANAGEMENT, org).
-                                    getAvailableSlots();
-
-        if (SystemManager.canEntitleServer(sid, EntitlementManager.MANAGEMENT) &&
-                manageSlots > 0) {
-            SystemManager.entitleServer(org, sid, EntitlementManager.MANAGEMENT);
-
-            if (SystemManager.canEntitleServer(sid, EntitlementManager.PROVISIONING)) {
-                //Excellent, we will now grant provisioning and be happy.
-                SystemManager.entitleServer(org, sid, EntitlementManager.PROVISIONING);
-                return true;
-            }
-
-            //We added management, but we couldn't add provisioning, take back management.
-            SystemManager.removeServerEntitlement(sid, EntitlementManager.MANAGEMENT);
-        }
-
-
-        //Something went wrong,  revert changes!!
-        if (hadUpdate) {
-            SystemManager.entitleServer(org, sid, EntitlementManager.UPDATE);
-        }
-        return false;
     }
 
     private boolean installPackages(ConfigSystemDto dto, Server current, Date earliest) {

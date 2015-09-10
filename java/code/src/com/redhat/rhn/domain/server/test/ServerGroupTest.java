@@ -23,7 +23,6 @@ import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.org.UpdateOrgSystemEntitlementsCommand;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.TestUtils;
@@ -33,10 +32,8 @@ import org.hibernate.Session;
 
 /**
  * ServerGroupTest
- * @version $Rev$
  */
 public class ServerGroupTest extends RhnBaseTestCase {
-    public static final long DEFAULT_MAX_MEMBERS = 10;
 
     public void testEquals() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testorg");
@@ -54,11 +51,6 @@ public class ServerGroupTest extends RhnBaseTestCase {
 
         assertEquals(sg1, sg2);
     }
-
-    /* Commented out while we redo the virtualization entitlements
-    public void testVirtServerGroup() {
-        assertNotNull(ServerConstants.getServerGroupTypeVirtualizationEntitled());
-    }*/
 
     /**
      * @param user
@@ -79,15 +71,9 @@ public class ServerGroupTest extends RhnBaseTestCase {
             if (existingGroup != null) {
                 return existingGroup;
             }
-            assertNull(new UpdateOrgSystemEntitlementsCommand(
-                    typeIn.getAssociatedEntitlement(), org,
-                    DEFAULT_MAX_MEMBERS).store());
             EntitlementServerGroup group = ServerGroupFactory.lookupEntitled(
                                         typeIn.getAssociatedEntitlement(), org);
             assertNotNull(group);
-            assertNotNull(group.getMaxMembers());
-            assertTrue(group.getMaxMembers() > 0);
-            assertTrue(group.getMaxMembers() - group.getCurrentMembers() > 0);
             assertNotNull(group.getGroupType().getAssociatedEntitlement());
             return group;
 
@@ -107,5 +93,4 @@ public class ServerGroupTest extends RhnBaseTestCase {
         assertTrue(org1.getEntitledServerGroups().get(0).getGroupType().
                                                         getFeatures().size() > 0);
     }
-
 }

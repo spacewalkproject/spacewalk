@@ -36,19 +36,16 @@ import com.redhat.rhn.manager.entitlement.EntitlementManager;
 /**
  * ServerSerializer: Converts a Server object for representation as an XMLRPC struct.
  * Includes full server details, which may be more data than some calls would like.
- * @version $Rev$
  *
  *
  * @xmlrpc.doc
  *  #struct("server details")
  *         #prop_desc("int", "id", "System id")
  *         #prop("string", "profile_name")
- *         #prop_desc("string", "base_entitlement", "System's base entitlement label.
- *                      (enterprise_entitled or sw_mgr_entitled)")
+ *         #prop_desc("string", "base_entitlement", "System's base entitlement label")
  *
  *         #prop_array("string", "addon_entitlements","System's addon entitlements labels,
- *                       including provisioning_entitled,
- *                                 virtualization_host, virtualization_host_platform")
+ *                       currently only 'virtualization_host'")
  *          #prop_desc("boolean", "auto_update", "True if system has auto errata updates
  *                                          enabled.")
  *          #prop_desc("string", "release", "The Operating System release (i.e. 4AS,

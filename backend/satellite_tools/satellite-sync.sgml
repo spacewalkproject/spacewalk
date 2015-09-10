@@ -25,9 +25,6 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
         <arg>-m<replaceable>DIRECTORY</replaceable></arg>
         <arg>--mount-point=<replaceable>DIRECTORY</replaceable></arg>
     </cmdsynopsis>
-   <cmdsynopsis>
-        <arg>--rhn-cert</arg>
-    </cmdsynopsis>
     <cmdsynopsis>
          <arg>-l</arg> <arg>--list-channels</arg>
     </cmdsynopsis>
@@ -223,12 +220,6 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
 	    the channel dump, regardless of whether they were created by previous
             satellite-sync run or manually.
             </para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--rhn-cert</term>
-        <listitem>
-            <para>satellite certificate to import(use only with -m option)</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -511,7 +502,6 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
     <member>db-control(1) - embedded database environment only!</member>
     <member>rhn-charsets(8)</member>
     <member>rhnpush(8)</member>
-    <member>rhn-satellite-activate(8)</member>
     <member>rhn-schema-version(8)</member>
     <member>rhn-ssl-dbstore(8)</member>
 </simplelist>

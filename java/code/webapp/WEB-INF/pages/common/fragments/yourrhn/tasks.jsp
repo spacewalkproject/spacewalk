@@ -33,18 +33,6 @@
                 key="yourrhn.jsp.task.manage_subscriptions" /> <br />
               &ensp; &ensp;<a href="/rhn/systems/SystemEntitlements.do">
                 <bean:message key="header.jsp.my_organization" />
-            </a> <strong>|</strong> <a
-              href="/rhn/admin/multiorg/SoftwareEntitlements.do"><bean:message
-                  key="header.jsp.satellite_wide" /> </a>
-          </li>
-        </rhn:require>
-      </rhn:require>
-
-      <rhn:require acl="user_role(satellite_admin)">
-        <rhn:require acl="not user_role(org_admin)">
-          <li class="list-group-item"><rhn:icon type="nav-bullet" /> <a
-              href="/rhn/admin/multiorg/SoftwareEntitlements.do"> <bean:message
-                  key="yourrhn.jsp.tasks.subscriptions" />
             </a>
           </li>
         </rhn:require>
@@ -60,7 +48,7 @@
       </c:if>
 
       <rhn:require
-        acl="org_entitlement(sw_mgr_enterprise); user_role(activation_key_admin)">
+        acl="user_role(activation_key_admin)">
         <li class="list-group-item">
         <rhn:icon type="nav-bullet" /> <a
             href="/rhn/activationkeys/List.do"> <bean:message
@@ -71,7 +59,7 @@
       </rhn:require>
 
       <rhn:require
-        acl="org_entitlement(rhn_provisioning); user_role(config_admin)">
+        acl="user_role(config_admin)">
         <li class="list-group-item">
           <rhn:icon type="nav-bullet" /> <a
             href="/rhn/kickstart/KickstartOverview.do"> <bean:message

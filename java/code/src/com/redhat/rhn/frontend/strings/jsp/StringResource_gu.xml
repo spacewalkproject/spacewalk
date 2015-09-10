@@ -4293,106 +4293,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
         <target>સિસ્ટમો</target>
       </trans-unit>
-      <trans-unit id="softwareentitlements.header">
-        <source>Software Channel Entitlements Across @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ માંની સોફ્ટવેર ચેનલ ઉમેદવારીઓ</target>
-      </trans-unit>
-      <trans-unit id="softwareentitlements.description">
-        <source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>નીચે આ @@PRODUCT_NAME@@ પરની બધી સોફ્ટવેર ચેનલ ઉમેદવારીઓની યાદી છે, સંસ્થામાંના, અને તેમનો વપરાશ. તેના વિશે વધુ વિગતો માટે ઉમેદવારીના નામ પર ક્લિક કરો.</target>
-      </trans-unit>
-      <trans-unit id="softwareentitlements.noentitlements">
-        <source>No entitlements found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>કોઈ ઉમેદવારીઓ મળી નહિં.</target>
-      </trans-unit>
-      <trans-unit id="softwareentitlements.header.entitlement.name">
-        <source>Entitlement Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>ઉમેદવારી નામ</target>
-      </trans-unit>
-      <trans-unit id="Available/Total">
-        <source>Available/Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Used/Allotted">
-        <source>Used/Allotted</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="None Allocated">
-        <source>None Allotted</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Regular Counts">
-        <source>Regular Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Regular Usage">
-        <source>Regular Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Flex Counts">
-        <source>Flex Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Flex Usage">
-        <source>Flex Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="softwareentitlements.usagedata">
-        <source>{0} of {1} ({2}%)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>{0} જેટલું {1} માંથી ({2}%)</target>
-      </trans-unit>
-      <trans-unit id="Available/Total.tip">
-        <source>'Total' refers to the total available entitlements to the @@PRODUCT_NAME@@ as reflected in this @@PRODUCT_NAME@@'s certificate. 'Available' refers to the number entitlements that are available to be allocated to various organizations.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Used/Allotted.tip">
-        <source>'Allotted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="satusers.tip">
         <source>&lt;strong&gt;*Tip:&lt;/strong&gt; Organization administrator privileges can
 not be modified on this page. Instead, please visit the "Users" top-level
 navigational tab above to access the profiles of individual users in your
 organization. You may grant or remove the organization administrator role in the
 "Roles" section of the "Details" tab in individual users' profiles.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;*ટિપ્પણી:&lt;/strong&gt; સંસ્થા સંચાલક વિશેષાધિકારો
 આ પાનાં પર સુધારી શકાશે નહિં. તેની જગ્યાએ, મહેરબાની કરીને &quot;વપરાશકર્તાઓ&quot; ટોચ-સ્તર
 સંશોધનીય ટેબની મુલાકાત લો તમારી સંસ્થામાંના વ્યક્તિગત વપરાશકર્તાઓની રૂપરેખાઓના
@@ -4404,9 +4310,6 @@ organization. You may grant or remove the organization administrator role in the
 organization above, those entitlements will be added back to the default organization,
 and if you add entitlements from a non-default organization they will be
 deducted from the default organization.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;ટિપ્પણી:&lt;/strong&gt; આ સંસ્થા એ તમારા @@PRODUCT_NAME@@ ની મૂળભૂત સંસ્થા છે. આ સંસ્થા માટેની ઉમેદવારીઓ તમારી @@PRODUCT_NAME@@ પ્રમાણપત્ર ફાઈલ સાથે કડી થયેલ છે, તેથી તેઓ સુધારી શકાય તેવી નથી. જો તમે ઉપર બિન-મૂળભૂત સંસ્થામાંથી ઉમેદવારીઓ
 દૂર કરો, તો તે ઉમેદવારીઓ મૂળભૂત સંસ્થામાં પાછી ઉમેરી દેવામાં આવશે,
 અને જો તમે બિન-મૂળભૂત સંસ્થામાંથી ઉમેદવારીઓ ઉમેરો તો તેઓ
@@ -4422,144 +4325,7 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.entitlementUsage">
         <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
         <target>ઉમેદવારી વપરાશ</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementDetails.header.accessGranted">
-        <source>Access Granted by this Entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-        <target>આ ઉમેદવારી દ્વારા મંજૂર થયેલ પરવાનગી</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementDetails.header.accessGrantedDescription">
-        <source>A single '{0}' entitlement may be used to gain access to any one of the following &lt;a href="/rhn/software/channels/All.do"&gt;software channels&lt;/a&gt;:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-        <target>એક '{0}' ઉમેદવારી નીચેની &lt;a href=&quot;/rhn/software/channels/All.do&quot;&gt;સોફ્ટવેર ચેનલો&lt;/a&gt; માંની કોઈનો પણ વપરાશ મેળવવા માટે વાપરી શકાશે:</target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.nochannelfams">
-        <source>No channels found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>કોઈ ચેનલો મળી નહિં.</target>
-      </trans-unit>
-      <trans-unit id="No Entitlements Available">
-        <source>No Entitlements Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Regular Proposed Total">
-        <source>Regular Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Flex Proposed Total">
-        <source>Flex Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementDetails.noChannelsFound">
-        <source>No channels found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-        <target>કોઈ ચેનલો મળી નહિં.</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementDetails.header.channelName">
-        <source>Channel Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-        <target>ચેનલ નામ</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementDetails.header.packages">
-        <source>Packages</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-        <target>પેકેજો</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.viewModifyCounts.header">
-        <source>View/Modify Entitlement Counts by Organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>સંસ્થા પ્રમાણે ઉમેદવારી ગણતરીઓ જુઓ/સુધારો</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.viewModifyCounts.description">
-        <source>The current allocation of entitlements for '{0}' across the organizations on this @@PRODUCT_NAME@@ is displayed below. You may make changes to the allocation of entitlements for each organization in the 'Proposed Total' column, but your changes will not take effect until you depress the appropriate 'Update' button.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>આ @@PRODUCT_NAME@@ પરની સંસ્થાઓમાં '{0}' માટે ઉમેદવારીઓની વર્તમાન ફાળવણી નીચે દર્શાવવામાં આવેલ છે. તમે 'અરજી થયેલ કુલ' સ્તંભમાં દરેક સંસ્થા માટેની ઉમેદવારીઓની ફાળવણીઓમાં ફેરફારો કરી શકશો, પરંતુ તમારા ફેરફારો અસરમાં આવશે નહિં જ્યાં સુધી તમે યોગ્ય 'સુધારો' બટન દબાવો નહિં.</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.noOrgsFound">
-        <source>No organizations found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>કોઈ સંસ્થાઓ મળી નહિં.</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.column.orgName">
-        <source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>સંસ્થા નામ</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.regular">
-        <source>System-Wide Regular Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.flex">
-        <source>System-Wide Flex Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.submit">
-        <source>Update</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>સુધારો</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.possibleValues">
-        <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>શક્ય કિંમતો: &lt;strong&gt;{0}&lt;/strong&gt; થી &lt;strong&gt;{1}&lt;/strong&gt;</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.total">
-        <source>Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>કુલ</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.Used/Allotted">
-        <source>'Allotted' refers to the total available entitlements to the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.totaltip">
-        <source> This total corresponds to your @@PRODUCT_NAME@@ certificate's
-value for this entitlement, excluding the default organization's consumption.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
@@ -4568,48 +4334,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       <trans-unit id="probedetails.jsp.end_date">
         <source>End date:</source>
         <target>અંતિમ તારીખ:</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsage">
-        <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>ઉમેદવારી વપરાશ</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsage">
-        <source>Organization Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>સંસ્થા વપરાશ</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsageData">
-        <source>{0} of {1} ({2}%)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>{0} જેટલું {1} માંથી ({2}%)</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsageData">
-        <source>{0} of {1} organizations ({2}%) have access to this entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>{1} સંસ્થાઓ માંન  {0} {2}%) hને આ ઉમેદવારીનો વપરાશ છે</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.invalidInput">
-        <source>Proposed Allocation is invalid.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>અરજી થયેલ ફાળવણી અયોગ્ય છે.</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.noEntitlementsAvailable">
-        <source>No entitlements are available for allocation.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>ફાળવણી માટે કોઈ ઉમેદવારીઓ ઉપલબ્ધ નથી.</target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.start_date">
         <source>Issue Start Date: </source>
@@ -5085,102 +4809,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
         <target>સોફ્ટવેર ચેનલ ચિહ્ન</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.header">
-        <source>Software Channel Entitlements</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>સોફ્ટવેર ચેનલ ઉમેદવારીઓ</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.summary">
-        <source>The software channels listed below are subscription-based channels to which your organization has paid access.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>નીચે યાદી થયેલ સોફ્ટવેર ચેનલો ઉમેદવારી-આધારિત ચેનલો છે કે જેમાં તમારી સંસ્થાએ વપરાશ ચૂકવ્યો છે.</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.noentitlements">
-        <source>No Channel Entitlements</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>કોઈ ચેનલ ઉમેદવારીઓ નથી</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.channel">
-        <source>Channel Entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>ચેનલ ઉમેદવારી</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.subscribed">
-        <source>Systems Subscribed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.consumed">
-        <source>Regular Consumed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.subscribed_flex">
-        <source>Consumed Flex Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.avaible_flex">
-        <source>Available Flex Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.available">
-        <source>Regular Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="entitlements.tree.description1">
-        <source>The following channels are associated with your {0} channel entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>નીચેની ચેનલો તમારી {0} ચેનલ ઉમેદવારી સાથે સંકળાયેલ છે.</target>
-      </trans-unit>
-      <trans-unit id="entitlements.tree.description2">
-        <source>Greyed out rows are parents of child channels in this entitlement that do not belong to the entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>ભૂખરી કરાયેલ હરોળો એ આ ઉમેદવારીમાં બાળ ચેનલોની પિતૃ છે કે જે ઉમેદવારીને અનુસરતી નથી.</target>
-      </trans-unit>
-      <trans-unit id="entitledsystems.jsp.header">
-        <source>Subscribed Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.regular">
-        <source>The systems listed below consume regular software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.flex">
-        <source>The systems listed below consume flex guest software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.all">
-        <source>The systems listed below consume both regular and flex guest software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="packagesearch.jsp.toolbar">
         <source>Package Search</source>
@@ -6581,13 +6209,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
         <target>વધારાની ઉમેદવારી</target>
       </trans-unit>
-      <trans-unit id="systementitlements.jsp.set_to_update_entitled">
-        <source>Set to Update Entitled</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-        <target>સુધારા ઉમેદવારીમાં સુયોજિત</target>
-      </trans-unit>
       <trans-unit id="systementitlements.jsp.set_to_manage_entitled">
         <source>Set to Management Entitled</source>
         <context-group name="ctx">
@@ -6627,25 +6248,9 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemEntitlements.do</context>
         </context-group>
-        <trans-unit id="systementitlements.jsp.entitlement_counts_message_unlimited">
+        <trans-unit id="systementitlements.jsp.entitlement_counts_message">
           <source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
           <target>&lt;strong&gt;{0} સિસ્ટમ&lt;/strong&gt; ઉમેદવારી થયેલ છે, &lt;strong&gt;અમર્યાદિત ઉપલબ્ધ&lt;/strong&gt; ઉમેદવારીઓ</target>
-        </trans-unit>
-        <trans-unit id="systementitlements.jsp.entitlement_counts_message_1">
-          <source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
-          <target>&lt;strong&gt;{0} સિસ્ટમ&lt;/strong&gt; ઉમેદવારી થયેલ છે, &lt;strong&gt;{1} ઉપલબ્ધ&lt;/strong&gt; ઉમેદવારી (&lt;strong&gt;{2} કુલ&lt;/strong&gt;) </target>
-        </trans-unit>
-        <trans-unit id="systementitlements.jsp.entitlement_counts_message_2">
-          <source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
-          <target>&lt;strong&gt;{0} સિસ્ટમ&lt;/strong&gt; ઉમેદવારી થયેલ છે, &lt;strong&gt;{1} ઉપલબ્ધ&lt;/strong&gt; ઉમેદવારીઓ (&lt;strong&gt;{2} કુલ&lt;/strong&gt;) </target>
-        </trans-unit>
-        <trans-unit id="systementitlements.jsp.entitlement_counts_message_3">
-          <source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
-          <target>&lt;strong&gt;{0} સિસ્ટમો&lt;/strong&gt; ઉમેદવારી થયેલ છે, &lt;strong&gt;{1} ઉપલબ્ધ&lt;/strong&gt; ઉમેદવારી (&lt;strong&gt;{2} કુલ&lt;/strong&gt;) </target>
-        </trans-unit>
-        <trans-unit id="systementitlements.jsp.entitlement_counts_message_4">
-          <source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
-          <target>&lt;strong&gt;{0} સિસ્ટમો&lt;/strong&gt; ઉમેદવારી થયેલ છે, &lt;strong&gt;{1} ઉપલબ્ધ&lt;/strong&gt; ઉમેદવારીઓ (&lt;strong&gt;{2} કુલ&lt;/strong&gt;) </target>
         </trans-unit>
       </group>
       <trans-unit id="systementitlements.jsp.base_entitlements">
@@ -6685,10 +6290,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Removed &lt;strong&gt;Provisioning&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
           <target>&lt;strong&gt;બચાવ&lt;/strong&gt; ને &lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમોમાંથી દૂર કરાયેલ.</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.provisioning.notEnoughSlots">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Provisioning&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમ(ઓ) સફળતાપૂર્વક &lt;strong&gt;બચાવ&lt;/strong&gt; ઉમેદવારીમાં સુયોજિત થઈ ગયેલ હતી, પરંતુ તમારી પાસે બાકી રહેલ &lt;strong&gt;{1}&lt;/strong&gt; સિસ્ટમ(ઓ) માટે પૂરતી &lt;strong&gt;બચાવ&lt;/strong&gt; ઉમેદવારીઓ નથી. તમે વધારાની &lt;strong&gt;બચાવ&lt;/strong&gt;ઉમેદવારીઓ &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt; &lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt; આગળથી ખરીદી શકશો. તમારી પાસે વધારાની &lt;strong&gt;બચાવ&lt;/strong&gt; ઉમેદવારીઓ આવી જાય પછી, તમે આ સિસ્ટમો સુધારવા માટે સમર્થ હશો.</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.provisioning.noManagement">
           <source>&lt;strong&gt;Provisioning&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Provisioning&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Provisioning&lt;/strong&gt; entitlement to these system(s).</source>
           <target>&lt;strong&gt;બચાવ&lt;/strong&gt; ઉમેદવારી &lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમો માટે નિષ્ફળ ગઈ કારણ કે તેમની પાસે &lt;strong&gt;વ્યવસ્થાપન&lt;/strong&gt; આધાર ઉમેદવારીઓ હતી નહિં. નિષ્ફળ થયેલ સિસ્ટમો હજુ પણ નીચે પસંદ થયેલ છે. જો તમે પ્રથમ &lt;strong&gt;વ્યવસ્થાપન ઉમેદવારીતમાં સુયોજિત&lt;/strong&gt; બટન પર નીચે ક્લિક કરો, તો પછી &lt;strong&gt;વધારાની ઉમેદવારીઓ વિભાગ&lt;/strong&gt; માં સ્થિત થયેલ નીચે આવતી યાદીમાં સ્થિત થયેલ &lt;strong&gt;બચાવ&lt;/strong&gt; વસ્તુ પસંદ કરો અને પછી નીચે &lt;strong&gt;ઉમેદવારી ઉમેરો&lt;/strong&gt; બટન ક્લિક કરો, તો તમે આ સિસ્ટમો &lt;strong&gt;બચાવ&lt;/strong&gt; ઉમેદવારી ઉમેરવા માટે સમર્થ હશો.</target>
@@ -6705,10 +6306,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમ(ઓ)માંથી &lt;strong&gt;વર્ચ્યુઅલાઈઝેશન&lt;/strong&gt; દૂર કરાયેલ છે  આ પસંદિત યજમાન સાથે સંકળાયેલ કોઈપણ મહેમાનોને ભૌતિક ચેનલ અને સિસ્ટમ ઉમેદવારીઓ પ્રાપ્ત કરવામાં અસર કરશે.</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host.notEnoughSlots">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements, you will be able to upgrade these systems. &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમ(ઓ) સફળતાપૂર્વક &lt;strong&gt;વર્ચ્યુઅલાઈઝેશન&lt;/strong&gt; ઉમેદવારીવાળીમાં સુયોજિત થયેલ છે, પરંતુ તમારી પાસે બાકી રહેલ &lt;strong&gt;{1}&lt;/strong&gt; સિસ્ટમો માટે પૂરતી &lt;strong&gt;વર્ચ્યુઅલાઈઝેશન&lt;/strong&gt; ઉમેદવારીઓ નથી. તમે વધારાની &lt;strong&gt;વર્ચ્યુઅલાઈઝેશન&lt;/strong&gt; ઉમેદવારીઓ &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ સંગ્રહ&lt;/strong&gt;&lt;/a&gt; આગળથી ખરીદી શકશો. તમારી પાસે વધારાની &lt;strong&gt;વર્ચ્યુઅલાઈઝેશન&lt;/strong&gt; ઉમેદવારીઓ હોય, પછી તમે આ સિસ્ટમો સુધારવા માટે સમર્થ હશો. &lt;br/&gt; &lt;strong&gt;નોંધ: &lt;/strong&gt;જો સિસ્ટમ પાસે પહેલાં વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ હોય તો તે વર્ચ્યુઅલાઈઝેશનમાં નીચું કરી શકાશે. </target>
-        </trans-unit>
         <trans-unit id="system_entitlements.virtualization_host.noManagement">
           <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization&lt;/strong&gt; entitlement to these system(s).</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમો માટે &lt;strong&gt;વર્ચ્યુઅલાઝેશન&lt;/strong&gt; ઉમેદવારી નિષ્ફળ ગઈ કારણ કે તેમની પાસે &lt;strong&gt;વ્યવસ્થાપન&lt;/strong&gt; આધાર ઉમેદવારીઓ હતી નહિં. નિષ્ફળ થયેલ સિસ્ટમો હજુ પણ નીચે પસંદ થયેલ છે. જો તમે પ્રથમ &lt;strong&gt;વ્યવસ્થાપન ઉમેદવારીતમાં સુયોજિત કરો&lt;/strong&gt; બટન પર નીચે ક્લિક કરો, તો પછી &lt;strong&gt;વધારાની ઉમેદવારીઓ વિભાગ&lt;/strong&gt; માં સ્થિત થયેલ નીચે આવતી યાદીમાં સ્થિત થયેલ &lt;strong&gt;વર્ચ્યુઅલાઝેશન&lt;/strong&gt; વસ્તુ પસંદ કરો અને પછી નીચે &lt;strong&gt;ઉમેદવારી ઉમેરો&lt;/strong&gt; બટન ક્લિક કરો, તો તમે આ સિસ્ટમો &lt;strong&gt;વર્ચ્યુઅલાઝેશન&lt;/strong&gt; ઉમેદવારીમાં ઉમેરવા માટે સમર્થ હશો.</target>
@@ -6717,26 +6314,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
           <target>&lt;strong&gt;વર્ચ્યુઅલાઈઝેશન&lt;/strong&gt; ઉમેદવારી &lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમ(ઓ) માટે નિષ્ફળ ગઈ કારણ કે વર્ચ્યુઅલાઈઝેશન Solaris સિસ્ટમો પર આધારભૂત નથી.</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.success">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમ(ઓ) &lt;strong&gt;વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ&lt;/strong&gt; માં સુયોજિત થયેલ છે.  &lt;br/&gt; &lt;strong&gt;નોંધ: &lt;/strong&gt;જો સિસ્ટમ પાસે પહેલાં વર્ચ્યુઅલાઈઝેશન હોય તો તે વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મમાં સુધારાઈ ગયેલ છે. </target>
-        </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
-          <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમ(ઓ)માંથી &lt;strong&gt;વર્ચ્યુઅલાઈઝેશન&lt;/strong&gt; દૂર કરાયેલ છે  આ પસંદિત યજમાન સાથે સંકળાયેલ કોઈપણ મહેમાનોને ભૌતિક ચેનલ અને સિસ્ટમ ઉમેદવારીઓ પ્રાપ્ત કરવામાં અસર કરશે.</target>
-        </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.notEnoughSlots">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements, you will be able to upgrade these systems.  &lt;br/&gt;&lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમ(ઓ) સફળતાપૂર્વક &lt;strong&gt;વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ&lt;/strong&gt; ઉમેદવારીવાળીમાં સુયોજિત થયેલ છે, પરંતુ તમારી પાસે બાકીની &lt;strong&gt;{1}&lt;/strong&gt; સિસ્ટમ(ઓ) માટે પૂરતી &lt;strong&gt;વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ&lt;/strong&gt; ઉમેદવારીઓ નથી. તમે &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ સંગ્રહ &lt;/strong&gt;&lt;/a&gt; આગળથી વધારાની &lt;strong&gt;વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ&lt;/strong&gt; ઉમેદવારીઓ ખરીદી શકશો. તમારી પાસે વધારાની &lt;strong&gt;વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ&lt;/strong&gt; ઉમેદવારીઓ આવી જાય, પછી તમે આ સિસ્ટમો સુધારવા માટે સમર્થ હશો.  &lt;br/&gt;&lt;strong&gt;નોંધ: &lt;/strong&gt;જો સિસ્ટમ પાસે પહેલાં વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ હોય તો તે વર્ચ્યુઅલાઈઝેશનમાં નીચું કરવામાં આવે છે.</target>
-        </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.noManagement">
-          <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement to these system(s).</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમો માટે &lt;strong&gt;વર્ચ્યુઅલાઝેશન પ્લેટફોર્મ&lt;/strong&gt; ઉમેદવારી નિષ્ફળ ગઈ કારણ કે તેમની પાસે &lt;strong&gt;વ્યવસ્થાપન&lt;/strong&gt; આધાર ઉમેદવારીઓ હતી નહિં. નિષ્ફળ થયેલ સિસ્ટમો હજુ પણ નીચે પસંદ થયેલ છે. જો તમે પ્રથમ &lt;strong&gt;વ્યવસ્થાપન ઉમેદવારીતમાં સુયોજિત કરો&lt;/strong&gt; બટન પર નીચે ક્લિક કરો, તો પછી &lt;strong&gt;વધારાની ઉમેદવારીઓ વિભાગ&lt;/strong&gt; માં સ્થિત થયેલ નીચે આવતી યાદીમાં સ્થિત થયેલ &lt;strong&gt;વર્ચ્યુઅલાઝેશન પ્લેટફોર્મ&lt;/strong&gt; વસ્તુ પસંદ કરો અને પછી નીચે &lt;strong&gt;ઉમેદવારી ઉમેરો&lt;/strong&gt; બટન ક્લિક કરો, તો તમે આ સિસ્ટમો &lt;strong&gt;વર્ચ્યુઅલાઝેશન પ્લેટફોર્મ&lt;/strong&gt; ઉમેદવારીમાં ઉમેરવા માટે સમર્થ હશો.</target>
-        </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
-          <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમ(ઓ) માટે &lt;strong&gt;વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ&lt;/strong&gt; ઉમેદવારી નિષ્ફળ ગઈ કારણ કે Solaris સિસ્ટમો પર વર્ચ્યુઅલાઈઝેશન આધારભૂત નથી.</target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમો &lt;strong&gt;મોનીટરીંગ&lt;/strong&gt; માં સુયોજિત થઈ ગઈ.</target>
@@ -6744,10 +6321,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="system_entitlements.monitoring.removed.success">
           <source>Removed &lt;strong&gt;Monitoring&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
           <target>&lt;strong&gt;મોનીટરીંગ&lt;/strong&gt; ને &lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમોમાંથી દૂર કરાયેલ.</target>
-        </trans-unit>
-        <trans-unit id="system_entitlements.monitoring.notEnoughSlots">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to&lt;strong&gt;Monitoring&lt;/strong&gt; entitled, but you not have enough &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમ(ઓ) સફળતાપૂર્વક &lt;strong&gt;મોનીટરીંગ&lt;/strong&gt; ઉમેદવારીમાં સુયોજિત થઈ ગયેલ હતી, પરંતુ તમારી પાસે બાકી રહેલ &lt;strong&gt;{1}&lt;/strong&gt; સિસ્ટમ(ઓ) માટે પૂરતી &lt;strong&gt;મોનીટરીંગ&lt;/strong&gt; ઉમેદવારીઓ નથી. તમે વધારાની &lt;strong&gt;મોનીટરીંગ&lt;/strong&gt; ઉમેદવારીઓ &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ સંગ્રહ&lt;/strong&gt;&lt;/a&gt; આગળથી ખરીદી શકશો. તમારી પાસે વધારાની &lt;strong&gt;મોનીટરીંગ&lt;/strong&gt; ઉમેદવારીઓ આવી જાય પછી, તમે આ સિસ્ટમો સુધારવા માટે સમર્થ હશો.</target>
         </trans-unit>
         <trans-unit id="system_entitlements.monitoring.noManagement">
           <source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Monitoring&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Monitoring&lt;/strong&gt; entitlement to these system(s).</source>
@@ -6767,48 +6340,8 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
       </group>
       <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">rhn/systems/entitlements/FlexGuests.do</context>
-          <context context-type="sourcefile">rhn/systems/entitlements/EligibleFlexGuests.do</context>
-        </context-group>
         <trans-unit id="Registered">
           <source>Registered</source>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.entitlement_counts_message_unlimited">
-          <source>{0} consumed, unlimited available entitlements</source>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.entitlement_counts_message">
-          <source>{0} consumed, {1} available entitlement</source>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.header">
-          <source>Flex Guest Entitlement Consumers</source>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.message">
-          <source>The following is a list of guest systems that are currently consuming &lt;a href="{0}"&gt; Flex Guest entitlements&lt;/a&gt;. These entitlements are used when registering virtual guests that are not associated with a registered host system or that are associated with a host system that is not Virtualization or Virtualization Platform entitled. Flex Guest Entitlement Consumers</source>
-        </trans-unit>
-        <trans-unit id="floating.guests">
-          <source>Flex Guest Entitlement Consumers</source>
-        </trans-unit>
-        <trans-unit id="eligible.floating.guests">
-          <source>Guests Consuming Regular Entitlements</source>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.header">
-          <source>Guests Consuming Regular Entitlements</source>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.message">
-          <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in RHN or for whom there are no remaining &lt;a href="{0}"&gt; Virtualization inherited guest entitlements&lt;/a&gt;. These systems are consuming the same software and system entitlements as a physical system.</source>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.no-systems">
-          <source>There are no eligible flex guest systems consuming regular entitlements.</source>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.no-systems">
-          <source>There are no systems consuming Flex Guest entitlements.</source>
-        </trans-unit>
-        <trans-unit id="Make Flex">
-          <source>Convert To Flex Guest Entitlement</source>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.systems.confirm.message">
-          <source>Converted &lt;strong&gt;{0}&lt;/strong&gt; system(s) to use Flex Guest Entitlement.</source>
         </trans-unit>
       </group>
       <!--  System search -->
@@ -8587,26 +8120,6 @@ the following tabs in the left navigation menu:</source>
         </context-group>
         <target>સંસ્થાઓ પર વધુ વિગતો માટે, મહેરબાની કરીને આનો સંદર્ભ લો</target>
       </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.header2">
-        <source>Subscriptions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>ઉમેદવારીઓ</target>
-      </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.description2">
-        <source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis,
-you can allocate entitlements for any particular entitlement across all
-organizations on your @@PRODUCT_NAME@@ here as well.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>તમારા @@PRODUCT_NAME@@ પરની ઉમેદવારીઓની વ્યવસ્થા કરો. દરેક ઉમેદવારી દ્વારા કયા પ્રકારનો વપરાશ
-પૂરો પાડવામાં આવે છે તે પણ જોઈ શકશો. ઉમેદવારી-પ્રતિના આધાર પર,
-તમે તમારા @@PRODUCT_NAME@@ પર અંહિ બધી સંસ્થાઓમાં કોઈ વ્યક્તિગત ઉમેદવારી માટેની
-ઉમેદવારીઓ ફાળવી શકો છો.</target>
-      </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link2">
         <source>Go to Subscriptions now</source>
         <context-group name="ctx">
@@ -8782,41 +8295,6 @@ administrator privileges.</source>
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
         <target>મોનીટરીંગ નિષ્ક્રિય કરેલ છે.  મહેરબાની કરીને &lt;a href=&quot;/rhn/admin/config/GeneralConfig.do&quot;&gt;&lt;strong&gt;સામાન્ય&lt;/strong&gt;&lt;/a&gt; રૂપરેખાંકન પાનાં પર જાઓ અને મોનટરીંગ ચકાસણીબોક્સ સક્રિય કરો પસંદ કરો.</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.toolbar">
-        <source>@@PRODUCT_NAME@@ Configuration - Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ રૂપરેખાંકન - પ્રમાણપત્ર</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.summary">
-        <source>You must provide an @@PRODUCT_NAME@@ certificate. This certificate entitles you to the various levels of service provided by the @@PRODUCT_NAME@@.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>તમારે @@PRODUCT_NAME@@ સેટેલાઈટ પ્રમાણપત્ર પૂરું પાડવું જ જોઈએ. આ પ્રમાણપત્ર તમને @@PRODUCT_NAME@@ સેટેલાઈટ દ્વારા પૂરી પાડવામાં આવેલ સેવાના વિવિધ સ્તરોની ઉમેદવારી આપે છે.</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.header2">
-        <source>@@PRODUCT_NAME@@ Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ પ્રમાણપત્ર</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.cert_file">
-        <source>Upload Certificate File:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>પ્રમાણપત્ર ફાઈલ અપલોડ કરો:</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.cert_text">
-        <source>-or- Certificate Text:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>-અથવા- પ્રમાણપત્ર લખાણ:</target>
       </trans-unit>
       <trans-unit id="bootstrap.jsp.toolbar">
         <source>@@PRODUCT_NAME@@ Configuration - Bootstrap</source>
@@ -11705,7 +11183,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>સોફ્ટવેર ચિહ્ન</target>
       </trans-unit>
@@ -11755,7 +11232,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>કોઈ ચેનલો મળી નહિં.</target>
       </trans-unit>
@@ -11764,7 +11240,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>બધી બાળ ચેનલો બતાવો</target>
       </trans-unit>
@@ -11773,7 +11248,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>બધી બાળ ચેનલો છુપાવો</target>
       </trans-unit>
@@ -11782,7 +11256,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
         <target>પિતૃ ચેનલ બટન</target>
@@ -11792,7 +11265,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>બાળ ચેનલ</target>
       </trans-unit>
@@ -11839,8 +11311,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>નિવૃત્ત સોફ્ટવેર ચેનલ યાદી</target>
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
-        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>નીચે યાદી થયેલ સોફ્ટવેર ચેનલો &lt;strong&gt;નિવૃત્ત ચેનલો છે&lt;/strong&gt; કે જેમાં તમારી સંસ્થાની &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt;ઉમેદવારી નોંધાયેલ છે&lt;/a&gt; પરંતુ તેઓ લાંબા સમય સુધી Red Hat દ્વારા આધારભૂત નથી કારણ કે તેઓ તેમના 'જીવન-ની-અંતિમ' તારીખે પહોંચી ગયા છે.</target>
+        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
+        <target>નીચે યાદી થયેલ સોફ્ટવેર ચેનલો &lt;strong&gt;નિવૃત્ત ચેનલો છે&lt;/strong&gt; કે જેમાં તમારી સંસ્થાની પરંતુ તેઓ લાંબા સ Red Hat દ્વારા આધારભૂત નથી કારણ કે તેઓ તેમના 'જીવન-ની-અંતિમ' તારીખે પહોંચી ગયા છે.</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
@@ -12264,10 +11736,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="activation-key.jsp.config-auto-deploy-tooltip">
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
           <target> સિસ્ટમોમાં રૂપરેખાંકન ફાઇલોની જમાવટ કરો જ્યારે આ સક્રિયકૃત કી સાથે તેઓ રજીસ્ટર થયેલ હોય.</target>
-        </trans-unit>
-        <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
-          <source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-          <target> રૂપરેખાંકન ફાઇલ જમાવટ એ હાલમાં નિષ્ક્રિય થયેલ છે. આ સક્રિયકૃત કી માટે રૂપરેખાંકન વ્યવસ્થાપન સુધારાઓને સક્રિય કરવા માટે &quot;&lt;strong&gt;{1}&lt;/strong&gt;&quot; ની હેઠળ &quot;&lt;strong&gt;{0}&lt;/strong&gt;&quot; ને પસંદ કરો.</target>
         </trans-unit>
       </group>
       <group>
@@ -13346,9 +12814,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.history.snapshot.cfgFilesChecksum">
           <source>Checksum</source>
         </trans-unit>
-        <trans-unit id="system.history.snapshot.no_subscriptions">
-          <source>Insufficient channel subscriptions to complete rollback; aborted.</source>
-        </trans-unit>
         <trans-unit id="system.history.snapshot.groups_changed">
           <source>Channels and groups changed.</source>
         </trans-unit>
@@ -13498,14 +12963,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Actions needed for configuration capabilities.</source>
           <target>રૂપરેખાંકન ક્ષમતાઓ માટે જરૂરી ક્રિયાઓ.</target>
         </trans-unit>
-        <trans-unit id="targetsystems.jsp.orgadmin">
-          <source>Requires organization administrator</source>
-          <target>સંસ્થા સંચાલક જરૂરી છે</target>
-        </trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-          <target>બચાવ ઉમેદવારી ઉમેરો</target>
-        </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to RHN Tools channel</source>
           <target>RHN સાધનો ચેનલમાં ઉમેદવારી નોંધાવો</target>
@@ -13575,14 +13032,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="summary.jsp.noerror">
           <source>No Error.</source>
           <target>કોઈ ભૂલ નથી.</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.orgadmin">
-          <source>Remaining actions require organization administrator.</source>
-          <target>બાકીની ક્રિયાઓ માટે સંસ્થા સંચાલક જરૂરી છે.</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.provision">
-          <source>Could not grant provisioning entitlement.</source>
-          <target>બચાવ ઉમેદવારીની મંજૂરી આપી શક્યા નહિં.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>
@@ -20698,13 +20147,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>વાપરવા માટેની ચેનલ કે જે તમે પસંદ કરેલ છે તે ક્યાં તો અસ્તિત્વમાં નથી, અથવા તમને તેના વપરાશની પરવાનગી નથી.  મહેરબાની કરીને કડી પુનઃચકાસો કે જે તમને આ પાનાં સુધી લઈ આવી.</target>
         </trans-unit>
       </group>
-      <trans-unit id="sdc.channels.edit.available">
-        <source>available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-        <target>ઉપલબ્ધ</target>
-      </trans-unit>
       <trans-unit id="sdc.channels.edit.unlimited">
         <source>unlimited</source>
         <context-group name="ctx">
@@ -20866,219 +20308,10 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>આધાર સોફ્ટવેર ચેનલ સુધારો</target>
       </trans-unit>
-      <trans-unit id="guestlimited.jsp.title">
-        <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Virtualization Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ - વર્ચ્યુઅલાઇઝેશન ઉમેદારીઓ - વર્ચ્યુઅલાઇઝેશન મહેમાનો</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.header2">
-        <source>Guest-Limited  Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>મહેમાન-મર્યાદિત યજમાનો</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.para1">
-        <source>The following is a list of host systems with the 'Virtualization' entitlement. You may wish to consider upgrading systems that have exceeded the 4-guest limit to an 'Unlimited Virtualization' entitlement to make the most of your subscriptions and stay in compliance with your service level agreements with Red Hat.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>નીચે 'વર્ચ્યુઅલાઈઝેશન' ઉમેદવારી સાથેની યજમાન સિસ્ટમોની યાદી છે. તમે સિસ્ટમો સુધારવાનું ઈચ્છતા હશો કે જેઓની મર્યાદા 4-મહેમાનથી 'અમર્યાદિત વર્ચ્યુઅલાઈઝેશન' ઉમેદવારી સુધી વધી ગયેલ છે તમારી ઉમેદવારીઓમાંનુ મોટા ભાગનું કરવા માટે અને તમારા સેવા સ્તર મંજૂરીપત્રો સાથે Red Hat માં સુસંગત રહેવા માટે.</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.hostsystem">
-        <source>Host System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>યજમાન સિસ્ટમ</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.guest">
-        <source>Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>મહેમાનો</target>
-      </trans-unit>
-      <trans-unit id="guestslimited.jsp.hostsystem">
-        <source>Host System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>યજમાન સિસ્ટમ</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsystem">
-        <source>Guest System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>મહેમાન સિસ્ટમ</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.title">
-        <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Guests without Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ - વર્ચ્યુઅલાઇઝેશન ઉમેદવારીઓ - યજમાનો વગર મહેમાનો</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.header2">
-        <source>Guests of Non-Virtual Entitled Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>બિન-વર્ચ્યુઅલ ઉમેદવારીવાળા યજમાનોના મહેમાનો</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.para1">
-        <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in @@PRODUCT_NAME@@.  These systems are consuming the same software and system entitlements as a normal physical system.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>નીચે મહેમાન સિસ્ટમોની યાદી છે કે જેઓ વર્ચ્યુઅલ ઉમેદવારીત (ક્યાં તો વર્ચ્યુઅલાઈઝેશન અથવા વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ) યજમાન સિસ્ટમને @@PRODUCT_NAME@@ માં સાથે સંકળાયેલ છે.  આ સિસ્ટમો એ જ સોફ્ટવેર વાપરી રહી છે અને સિસ્ટમ ઉમેદવારીઓ સામાન્ય ભૌતિક સિસ્ટમ તરીકે.</target>
-      </trans-unit>
-      <trans-unit id="virtualentitlements.toolbar">
-        <source>Virtualization Entitlements</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>વર્ચ્યુઅલાઈઝેશન ઉમેદવારીઓ</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.header3">
-        <source>Reconciling the Entitlements from Guests of Non-Virtualization Entitled Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>બિન-વર્ચ્યુઅલાઈઝેશન ઉમેદવારીત યજમાનોના મહેમાનોમાંથી ઉમેદવારીઓ પુનઃકોન્સીલ કરી કરવાનું</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.para2">
-        <source>You may always delete the @@PRODUCT_NAME@@ system profile of a guest listed above to free the software and system entitlements it consumes (or you may remove system entitlements from the guest to free system entitlements).  You may be able to free the physical entitlements associated with the guest without deleting the guest's profile:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofknown">
-        <source>Guests of Known Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>જાણીતા યજમાનોના મહેમાનો</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofunknown">
-        <source>Guests of Known Unknown Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>જાણીતા અજ્ઞાત યજમાનોના મહેમાનો</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofnonredhat">
-        <source>Guests of Non-Red Hat Virtualization Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>બિન-Red Hat વર્ચ્યુઅલાઝેશન યજમાનોના મહેમાનો</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.knownnote">
-        <source>If you would like to free the physical entitlements of a guest listed above and it is associated with a Host registered with @@PRODUCT_NAME@@ please add either the Virtualization or Virtualization Platform system entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>જો તમે ઉપર યાદી થયેલ મહેમાનની ભૌતિક ઉમેદવારીઓ મુક્ત કરવા માંગો અને તે @@PRODUCT_NAME@@ સાથે રજીસ્ટર થયેલ યજમાન સાથે સંકળાય તો મહેરબાની કરીને ક્યાં તો વર્ચ્યુઅલાઈઝેશન અથવા વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ સિસ્ટમ ઉમેદવારી ઉમેરો.</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.unknownnote">
-        <source>If the host of a guest system above is listed as an unknown and you would like to free the physical entitlements the guest consumes please make sure that:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>જો ઉપર મહેમાન સિસ્ટમનો યજમાન અજ્ઞાત તરીકે યાદી થયેલ હોય અને તમે મહેમાન જે વાપરે છે તે ભૌતિક ઉમેદવારીઓ દૂર કરવા ઈચ્છો તો આની ખાતરી કરો:</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.unknownnote2">
-        <source>The host has a Virtualization or Virtualization host applied to it</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>યજમાનને વર્ચ્યુઅલાઈઝેશન છે અથવા વર્ચ્યુઅલાઈઝેશન યજમાન તેને લાગુ પડ્યું</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.note3">
-        <source>The host is subscribed to the @@PRODUCT_NAME@@ Tools channel and has the rhn-virtualization-host package installed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>યજમાન @@PRODUCT_NAME@@ સાધનો ચેનલમાં ઉમેદવારી થયેલ છે અને તેને rhn-virtualization-host પેકેજ સ્થાપિત થયેલ છે.</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.nonredhatnote">
-        <source>If the host of a guest system above is not a Red Hat Virtualization host running Red Hat Enterprise Linux, it must consume the same software and system entitlements it would if it were a physical system at this time.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>જો ઉપર મહેમાન સિસ્ટમનો યજમાન Red Hat Enterprise Linux ચલાવી રહેલ Red Hat વર્ચ્યુઅલાઈઝેશન યજમાન નહિં હોય, તો તે એ જ સોફ્ટવેર વાપરતું હોવું જોઈએ અને સિસ્ટમ ઉમેદવારીઓ તેણે વાપરવી જોઈએ જો તે એ જ સમયે ભૌતિક સિસ્ટમ હોય.</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.nosystems">
-        <source>There are no guests consuming physical entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>ત્યાં કોઈ મહેમાનો ભૌતિક ઉમેદવારીઓ વાપરી રહ્યા નથી.</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.nosystems">
-        <source>There are no systems with the Virtualization Platform entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>ત્યાં કોઈ સિસ્ટમો વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ ઉમેદવારી સાથે નથી.</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.nosystems">
-        <source>There are no systems with the Virtualization entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>વર્ચ્યુઅલાઈઝેશન ઉમેદવારી સાથે કોઈ સિસ્ટમો નથી.</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.para1">
-        <source>The following is a list of host systems with the 'Unlimited Virtualization' entitlement. You may wish to consider downgrading systems that have not exceeded the limited 'Virtualization' entitlement to a 'Virtualization' entitlement to make the most of your subscriptions.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>નીચે 'અમર્યાદિત વર્ચ્યુઅલાઈઝેશન' ઉમેદવારી સાથે યજમાન સિસ્ટમોની યાદી છે. તમે સિસ્ટમો નીચી કરવાનું ઈચ્છી રહ્યા હશો કે જેઓએ 'વર્ચ્યુઅલાઈઝેશન' ઉમેદવારીને 'વર્ચ્યુઅલાઈઝેશન' ઉમેદવારી સુધી મર્યાદિત રાખી નથી તમારી ઉમેદવારીઓમાંના મોટા ભાગના કરવા માટે.</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.title">
-        <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Virtualization Platform Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ - વર્ચ્યુઅલાઇઝેશન ઉમેદવારીઓ - વર્ચ્યુઅલાઇઝેશન પ્લેટફોર્મ યજમાનો</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.header2">
-        <source>Unlimited-Guest Virtualization Platform Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>અમર્યાદિત-મહેમાન વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ યજમાનો</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.hostsystem">
-        <source>Host System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>યજમાન સિસ્ટમ</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.guest">
-        <source>Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>મહેમાનો</target>
-      </trans-unit>
-      <trans-unit id="system.remotecommand.scheduled">
-        <source>Remote command &lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{2}&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>દૂરસ્થ આદેશ &lt;strong&gt;{2}&lt;/strong&gt; માટે &lt;a href=&quot;/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}&quot;&gt;સુનિશ્ચિત&lt;/a&gt; થઈ ગયેલ છે.</target>
-      </trans-unit>
       <trans-unit id="system.reboot.scheduled">
         <source>Reboot scheduled for system &lt;strong&gt;{0}&lt;/strong&gt; for {1}.  To cancel the reboot, remove &lt;strong&gt;{0}&lt;/strong&gt; from &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;the list of systems to be rebooted&lt;/strong&gt;&lt;/a&gt;.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
+          <context context-type="sourcefile">/rhn/systems/details/RebootSystem.do</context>
         </context-group>
         <target>{1} માટે સિસ્ટમ &lt;strong&gt;{0}&lt;/strong&gt; માટે રીબુટ સુનિશ્ચિત થયેલ છે.  રીબુટ રદ કરવા માટે, &lt;strong&gt;{0}&lt;/strong&gt; ને &lt;a href=&quot;/rhn/schedule/InProgressSystems.do?aid={2}&quot;&gt;&lt;strong&gt;રીબુટ કરવા માટેની સિસ્ટમોની યાદી&lt;/strong&gt;&lt;/a&gt; માંથી દૂર કરો.</target>
       </trans-unit>
@@ -21158,216 +20391,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>આરંભિક સંસ્થા સંચાલક બનાવો</target>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.ent_name">
-        <source>Entitlement Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>ઉમેદવારી નામ</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.total">
-        <source>Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>કુલ</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.usage">
-        <source>Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>વપરાશ</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.proposed_total">
-        <source>Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>માંગ થયેલ કુલ</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.base">
-        <source>(Base)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>(આધાર)</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.add_on">
-        <source>(Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>(ઉમેરો)</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.man_tip">
-        <source>Required for all systems registered to the @@PRODUCT_NAME@@.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ માં રજીસ્ટર થયેલ બધી સિસ્ટમો માટે જરૂરી છે.</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.mon_tip">
-        <source>Enables the tracking of monitoring data for a system.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>સિસ્ટમ માટે માહિતીના મોનીટરીંગને ટ્રેક કરવા માટે સક્રિય કરે છે.</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.provis_tip">
-        <source>Allows various advanced functionality such as kickstart and configuration file provisioning.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>વિવિધ અદ્યતન વિધેયોની પરવાનગી આપે છે જેમ કે કિકસ્ટાર્ટ અને રૂપરેખાંકન ફાઈલ બચાવ.</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.virt_tip">
-        <source>Applied to a host system, enables management for up to 4 guests.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>યજમાન સિસ્ટમને લાગુ પડે છચે, ૪ મહેમાનો સુધી વ્યવસ્થાપન સક્રિય કરે છે.</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.virt_plat_tip">
-        <source>Applied to a host system, enables management for unlimited guests.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>યજમાન સિસ્ટમને લાગુ પડે છચે, અમર્યાદિત મહેમાનો સુધી વ્યવસ્થાપન સક્રિય કરે છે.</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.possible_vals">
-        <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>શક્ય કિંમતો: &lt;strong&gt;{0}&lt;/strong&gt; થી &lt;strong&gt;{1}&lt;/strong&gt;.</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.description">
-        <source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements</context>
-        </context-group>
-        <target>નીચે આ @@PRODUCT_NAME@@ પરની બધી સોફ્ટવેર ચેનલ ઉમેદવારીઓની યાદી છે, સંસ્થામાંના, અને તેમનો વપરાશ. તેના વિશે વધુ વિગતો માટે ઉમેદવારીના નામ પર ક્લિક કરો.</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.header">
-        <source>System Entitlements Across @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ માં સિસ્ટમ અધિકારો</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.ent_name">
-        <source>Entitlement Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>ઉમેદવારી નામ</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.usage">
-        <source>Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>વપરાશ</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.usagedata">
-        <source>{0} of {1} ({2}%)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>{0} જેટલું {1} માંથી ({2}%)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.total">
-        <source>Total*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>કુલ*</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.available">
-        <source>Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>ઉપલબ્ધ</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.tip">
-        <source>'Total' refers to the total available to the @@PRODUCT_NAME@@ as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>*&lt;strong&gt;મદદ:&lt;/strong&gt;'કુલ' @@PRODUCT_NAME@@ માટે કુલ ઉપલબ્ધનો સંદર્ભ આપે છે
-@@PRODUCT_NAME@@ ના પ્રમાણપત્રમાં બતાવ્યા પ્રમાણે.</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.not_allocated">
-        <source>Not Allocated*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>ફાળવેલ નથી*</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.notinuse">
-        <source>Not In Use</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>વપરાશમાં નથી</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.enterprise_entitled">
-        <source> Management (Base)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target> વ્યવસ્થાપન (આધાર)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.provisioning_entitled">
-        <source> Provisioning (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target> બચાવ (ઉમેરો)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.monitoring_entitled">
-        <source> Monitoring (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target> મોનીટરીંગ (ઉમેરો)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.virtualization_host">
-        <source> Virtualization (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target> વર્ચ્યુઅલાઈઝેશન (ઉમેરો)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.virtualization_host_platform">
-        <source> Virtualization Platform (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target> વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ (ઉમેરો)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.add_on">
-        <source>(Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>(ઉમેરો)</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.noentitlements">
-        <source>No Entitlements Found</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>કોઈ ઉમેદવારીઓ મળી નહિં</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.noentorgs">
-        <source>No organizations have this entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="kickstart.cryptokey.description">
         <source>Description</source>
         <context-group name="ctx">
@@ -21381,184 +20404,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/rhn/keys/CrytpoKeysList</context>
         </context-group>
         <target>પ્રકાર</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant">
-        <source>Access Granted by this Entitlement:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>આ ઉમેદવારી દ્વારા વપરાશ મંજૂર થયો:</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.enterprise_entitled">
-        <source>A single Management (Base) entitlement is required for all systems registered to satellite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>એક વ્યવસ્થાપન (આધાર) ઉમેદવારી સેટેલાઈટમાં રજીસ્ટર થયેલ બધી સિસ્ટમો માટે જરૂરી છે</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
-        <source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>એક બચાવ (ઉમેરો) ઉમેદવારી વિવિધ અદ્યતન વિધેયો જેમ કે કિકસ્ટાર્ટ અને રૂપરેખાંકન ફાઈલ બચાવની પરવાનગી આપે છે. </target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.monitoring_entitled">
-        <source>A single Monitoring (Add-On) entitlement enables the tracking of monitoring data for a system. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>એક મોનીટરીંગ (ઉમેરો) ઉમેદવારી સિસ્ટમ માટે માહિતી મોનીટરીંગને ટ્રેક કરવાનું સક્રિય કરે છે. </target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
-        <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>એક વર્ચ્યુઅલાઈઝેશન (ઉમેરો) ઉમેદવારી યજમાન સિસ્ટમને લાગુ પડેલ છે, ૪ સુધીના મહેમાનોને સક્રિય કરે છે. </target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
-        <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.orgname">
-        <source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>સંસ્થા નામ</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.proposed_total">
-        <source>Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>માંગ થયેલ કુલ</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.description">
-        <source>The Current Allocation of entitlements for {0} across the organizations on this @@PRODUCT_NAME@@ is displayed below. You may make changes to the allocation of entitlements for each organization in the "Proposed Total" column, but your changes will not take effect until you confirm using the 'Confirm Changes' button below. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>{0} માટે આ @@PRODUCT_NAME@@ પર સંસ્થાઓમાં ઉમેદવારીઓ માટેની વર્તમાન ફાળવણી નીચે દર્શાવવામાં આવેલ છે. તમે દરેક સંસ્થા માટે &quot;અરજી થયેલ કુલ&quot; સ્તંભમાં ઉમેદવારીઓની ફાઈવણી બદલી શકશો, પરંતુ તમારા ફેરફારો અસરમાં આવશે નહિં જ્યાં સુધી તમે નીચે 'ફેરફારોની ખાતરી કરો' બટન વાપરીને ખાતરી કરો નહિં. </target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.jsp.possible_vals">
-        <source>Possible Values: &lt;strong&gt;0&lt;/strong&gt; to &lt;strong&gt;{0}&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>શક્ય કિંમતો: &lt;strong&gt;0&lt;/strong&gt; થી &lt;strong&gt;{0}&lt;/strong&gt;.</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.update">
-        <source>Update</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>સુધારો</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.usage">
-        <source>@@PRODUCT_NAME@@-Wide Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ વિશાળ ઉમેદવારી વપરાશ</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.filterBy">
-        <source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>સંસ્થા નામ</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.miniheader">
-        <source>View/Modify Entitlement Counts by Organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>સંસ્થા પ્રમાણે ઉમેદવારી ગણતરીઓ જુઓ/સુધારો</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.total_allocated">
-        <source>Total Allocated</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>કુલ ફાળવેલ</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.total_inuse">
-        <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>ઉમેદવારી વપરાશ</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.total_orguse">
-        <source>Organization Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>સંસ્થા વપરાશ</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.total_orgusedata">
-        <source>{0} of {1} organizations ({2}%) have access to
-this entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>{1} સંસ્થાઓમાંની {0} ({2}%) ને આ ઉમેદવારીનો
-વપરાશ છે.</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.total">
-        <source>Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementOrgs</context>
-        </context-group>
-        <target>કુલ</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.used">
-        <source>Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementOrgs</context>
-        </context-group>
-        <target>વપરાશ</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.tip_allocated">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your @@PRODUCT_NAME@@ certificate's
-value for this entitlement, excluding the default organization's consumption.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.tip">
-        <source>&lt;strong&gt;*Tip:&lt;/strong&gt; 'Total' refers to the total available entitlements to
-the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>&lt;strong&gt;*ટિપ્પણી:&lt;/strong&gt; 'કુલ' આ @@PRODUCT_NAME@@ પર સંસ્થાઓમાં (મૂળભૂત @@PRODUCT_NAME@@ સંસ્થાનો નહિં સમાવેશ કરીને)
-કુલ ઉપલબ્ધ ઉમેદવારીઓનો સંદર્ભ આપે છે. તે @@PRODUCT_NAME@@ પ્રમાણપત્રમાં ઉપલબ્ધ કુલને બરાબર નથી</target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.header2">
-        <source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>સોફ્ટવેર ચેનલ ઉમેદવારી ગણતરીઓ</target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.description">
-        <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>નીચે તમે ચેનલ-પ્રતિના આધાર પર &lt;strong&gt;{0}&lt;/strong&gt; સંસ્થામાં ઉપલબ્ધ સોફ્ટવેર ચેનલ ઉમેદવારીઓની કુલ સંખ્યા સુધારી શકશો.  જો તમે વ્યક્તિગત ચેનલ નોંધમાં ઉપલબ્ધ ઉમેદવારીઓની સંખ્યા બદલવા ઈચ્છો કે જેમાં તમે ક્ષેત્રની આગળ સૂચવેલ વિસ્તાર દ્વારા મર્યાદિત હોય.</target>
-      </trans-unit>
-      <trans-unit id="orgsysubs.jsp.header2">
-        <source>System Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>સિસ્ટમ ઉમેદવારી ગણતરીઓ</target>
       </trans-unit>
       <!-- multiorg trustedorg strings  -->
       <trans-unit id="org.trust.summary">
@@ -22500,21 +21345,6 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="currentMembers">
         <source>Regular Usage - Used</source>
-      </trans-unit>
-      <trans-unit id="maxMembers">
-        <source>Regular Usage - Alloted</source>
-      </trans-unit>
-      <trans-unit id="maxAvailable">
-        <source>Regular Proposed Total</source>
-      </trans-unit>
-      <trans-unit id="currentFlex">
-        <source>Flex Usage - Used</source>
-      </trans-unit>
-      <trans-unit id="maxFlex">
-        <source>Flex Usage - Allotted</source>
-      </trans-unit>
-      <trans-unit id="maxAvailableFlex">
-        <source>Flex Proposed Total</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>
@@ -23638,12 +22468,6 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="bunch.jsp.description.satcert-check-bunch">
-        <source>Checks whether satellite certificate has not expired</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="bunch.jsp.description.cleanup-data-bunch">
         <source>Cleans up orphaned and outdated data</source>
         <context-group name="ctx">
@@ -24072,9 +22896,6 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="task.status.channel-repodata">
         <source>Channel Repodata</source>
-      </trans-unit>
-      <trans-unit id="task.status.sat-cert-check">
-        <source>Certificate Check</source>
       </trans-unit>
       <trans-unit id="task.status.cleanup-timeseries-data">
         <source>TimeSeries Cleanup</source>

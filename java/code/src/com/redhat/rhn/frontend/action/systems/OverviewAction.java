@@ -19,7 +19,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
-import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.user.UserManager;
 
@@ -38,7 +37,6 @@ import java.util.regex.Pattern;
 
 /**
  * OverviewAction
- * @version $Rev$
  */
 public class OverviewAction extends RhnListAction {
 
@@ -114,13 +112,6 @@ public class OverviewAction extends RhnListAction {
             }
             return null;
         }
-
-        //There is no purpose to system overview if you don't have system groups
-        //so don't show it to people who can't
-        if (!AclManager.hasAcl("org_entitlement(sw_mgr_enterprise)", request, null)) {
-            return mapping.findForward("noentitlement");
-        }
-
 
         //If they specified systems or groups, use that and save it.
         String showGroups = request.getParameter("showgroups");

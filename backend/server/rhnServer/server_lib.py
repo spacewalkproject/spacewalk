@@ -127,7 +127,7 @@ def getServerSecret(server):
 # Server Class Helper functions
 ###############################
 
-def __create_server_group(group_label, org_id, maxnum=''):
+def __create_server_group(group_label, org_id):
     """ create the initial server groups for a new server """
     # Add this new server to the pending group
     h = rhnSQL.prepare("""
@@ -144,16 +144,16 @@ def __create_server_group(group_label, org_id, maxnum=''):
         ret_id = rhnSQL.Sequence("rhn_server_group_id_seq")()
         h = rhnSQL.prepare("""
         insert into rhnServerGroup
-        ( id, name, description, max_members,
+        ( id, name, description,
           group_type, org_id)
         select
-            :new_id, sgt.name, sgt.name, :maxnum,
+            :new_id, sgt.name, sgt.name,
             sgt.id, :org_id
         from rhnServerGroupType sgt
         where sgt.label = :group_label
         """)
         rownum = h.execute(new_id=ret_id, org_id=org_id,
-                           group_label=group_label, maxnum=str(maxnum))
+                           group_label=group_label)
         if rownum == 0:
             # No rows were created, probably invalid label
             raise rhnException("Could not create new group for org=`%s'"
@@ -177,9 +177,7 @@ def join_server_group(server_id, server_group_id):
 
 
 def create_server_setup(server_id, org_id):
-    """ This function makes sure the necessary server groups are in place
-        for a new server entry and also adds a new server to the required
-        groups and channels.
+    """ This function inserts a row in rhnServerInfo.
     """
     # create the rhnServerInfo record
     h = rhnSQL.prepare("""
@@ -187,11 +185,6 @@ def create_server_setup(server_id, org_id):
                        values (:server_id, current_timestamp, :checkin_counter)
     """)
     h.execute(server_id=server_id, checkin_counter=0)
-
-    # make sure we create the sw_mgr_entitled server group
-    # bugzilla #203973 No longer grant the free demo entitlement
-    sm_grp_id = __create_server_group('sw_mgr_entitled', org_id, 0)
-    # XXX: What other groups do we need to create?
 
     # Do not entitle the server yet
     return 1
@@ -259,11 +252,6 @@ def check_entitlement(server_id):
     # Empty dictionary - will act as False
     return ents
 
-
-def entitlement_grants_service(entitlement, service):
-    egs = rhnSQL.Function("rhn_entitlements.entitlement_grants_service",
-                          rhnSQL.types.STRING())
-    return egs(entitlement, service)
 
 # Push client related
 # XXX should be moved to a different file?

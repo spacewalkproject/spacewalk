@@ -418,13 +418,6 @@
         </context-group>
         <target>Créer les canaux logiciels</target>
       </trans-unit>
-      <trans-unit id="Software Channel Entitlements">
-        <source>Software Channel Entitlements</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Droits d'accès aux canaux logiciels</target>
-      </trans-unit>
       <trans-unit id="Audit">
         <source>Audit</source>
         <context-group name="ctx">
@@ -5889,13 +5882,6 @@ utilisateur avant de désactiver son compte.</target>
         </context-group>
         <target>La méthode de notification avec le nom &quot;{0}&quot; est déjà utilisée. Veuillez saisir un nom différent.</target>
       </trans-unit>
-      <trans-unit id="Certificate">
-        <source>Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Certificat</target>
-      </trans-unit>
       <trans-unit id="Bootstrap Script">
         <source>Bootstrap Script</source>
         <context-group name="ctx">
@@ -5944,147 +5930,6 @@ utilisateur avant de désactiver son compte.</target>
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Vous êtes connecté comme utilisateur externe &lt;strong&gt;{0}&lt;/strong&gt; authentifié. Pour pouvoir vous connecter à ce compte avec un nom d'utilisateur et mot de passe, veuillez définir votre mot de passe sur &lt;a href=&quot;/rhn/account/UserDetails.do&quot;&gt;&lt;strong&gt;page utilisateur {0}&lt;/strong&gt;&lt;/a&gt;.</target>
-      </trans-unit>
-      <trans-unit id="satellite.expired">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Votre certificat Satellite a expiré. Veuillez vous rendre sur le lien suivant afin de voir les étapes pour requérir ou générer un nouveau certificat : &lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</target>
-      </trans-unit>
-      <trans-unit id="satellite.expired.restricted">
-        <source>Your Satellite Certificate has expired. Your Satellite is on day {0} of {1} day restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Votre certificat Satellite a expiré. Votre Satellite en est au jour {0} sur {1} de la période de restriction et arrêtera bientôt de fonctionner. Veuillez vous rendre sur l'URL suivant afin de voir les étapes à suivre pour requérir ou générer un nouveau certificat : https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
-      <trans-unit id="satellite.graceperiod">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Your satellite enters restricted period in {0} day(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-        <target>Votre certificat Satellite a expiré. Veuillez vous rendre sur le lien suivant afin de voir les étapes à suivre pour requérir ou générer un nouveau certificat : &lt;a href=&quot;https://access.redhat.com/knowledge/tools/satcert&quot;&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Votre Satellite va entrer dans la période de restriction dans {0} jour(s).</target>
-      </trans-unit>
-      <trans-unit id="restricted.forbidden">
-        <source>You are not allowed to perform this action until your Satellite Certificate is renewed. Your Satellite is on day {0} of the {1} restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login.do</context>
-        </context-group>
-        <target>Vous n'êtes pas autorisé à effectuer cette action tant que votre certificat Satellite n'est pas renouvelé. Votre Satellite en est au jour {0} sur {1} de la période de restriction et arrêtera bientôt de fonctionner. Veuilez vous rendre sur l'URL suivant afin de voir comment requérir ou générer un nouveau certificat : https://access.redhat.com/knowledge/tools/satcert</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.nocert">
-        <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Aucun certificat trouvé. Veuillez sélectionner un fichier de certificat local ou coller son contenu dans le formulaire.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.success">
-        <source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Certificat téléchargé. @@PRODUCT_NAME@@ a été réactivé.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.10">
-        <source>Could not parse certificate file, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Impossible d'analyser le fichier de certificat</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.11">
-        <source>Certificate expired</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Certificat expiré</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.12">
-        <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Version de @@PRODUCT_NAME@@ inconnue</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.20">
-        <source>Remote activation failure, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Échec de l'activation à distance</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.30">
-        <source>Local activation failure, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Échec activation locale, voir fichier de journalisation pour en savoir davantage.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.40">
-        <source>Channel population failure, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Échec de la population du canal</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.80">
-        <source>No management entitlements remaining</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Il ne reste aucun droit d'accès au service de gestion</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.82">
-        <source>@@PRODUCT_NAME@@ channel not found</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>canal @@PRODUCT_NAME@@ non-trouvé</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.83">
-        <source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Il ne reste aucun droit d'accès aux canaux de @@PRODUCT_NAME@@ </target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.84">
-        <source>Invalid @@PRODUCT_NAME@@ certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Certificat de @@PRODUCT_NAME@@ invalide</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.85">
-        <source>Unknown activation error, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Erreur d'activation inconnue, voir le fichier de journalisation pour en savoir plus.</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.86">
-        <source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ n'a pas de canal de base sur le serveur parent</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.87">
-        <source>No @@PRODUCT_NAME@@ channel available for this version</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Aucun canal de @@PRODUCT_NAME@@ disponible pour cette version</target>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.127">
-        <source>Unhandled error, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>Erreur non traitée, voir le fichier de journalisation pour en savoir davantage.</target>
       </trans-unit>
       <trans-unit id="hostname">
         <source>@@PRODUCT_NAME@@ server hostname</source>
@@ -8256,20 +8101,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
         <target>La modification de la limite de taille doit être un nombre non-négatif valide.</target>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.invalid">
-        <source>Entitlement modification must be a valid number for {0}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubscriptions.do</context>
-        </context-group>
-        <target>La modification de droits doit être un nombre valide pour {0}.</target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.invalid">
-        <source>Entitlement modification must be a valid number for {0}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>La modification de droits doit être un nombre valide pour {0}.</target>
-      </trans-unit>
       <trans-unit id="message.ext_auth_disable">
         <source>No default organization</source>
         <context-group name="ctx">
@@ -8393,13 +8224,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
         <target>REMARQUE : Pour activer et utiliser les capacités de virtualisation dans @@PRODUCT_NAME@@ pour ce système, veuillez installer le paquetage rhn-virtualization-host à partir du canal enfant RHN Tools. Veuillez vous reporter à la documentation Red Hat pour toute autre considération et condition(s) préalable(s) nécessaire(s) à l'activation de la virtualisation d'un système hôte dans Red Hat Enterprise Linux.</target>
       </trans-unit>
-      <trans-unit id="system.entitle.alreadyvirt">
-        <source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>Un système peut avoir soit un droit d'accès Virtualisation, soit un droit d'accès Plateforme de Virtualisation mais pas les deux.</target>
-      </trans-unit>
       <trans-unit id="system.migrate.user_no_perms">
         <source>This user lacks the required permissions to migrate this system.</source>
         <context-group name="ctx">
@@ -8434,27 +8258,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
         <target>Le droit d'accès supplémentaire [{0}] est invalide. Aucun droit d'accès de ce type n'existe.</target>
-      </trans-unit>
-      <trans-unit id="system.entitle.noslots">
-        <source>There were no more {0} System Entitlements available.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>Il n'y avait plus de droits d'accès système {0} disponibles.</target>
-      </trans-unit>
-      <trans-unit id="system.channel.nochannelslots">
-        <source>There are no more channel entitlements available.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>Il n'y a plus de droits d'accès aux canaux disponibles.</target>
-      </trans-unit>
-      <trans-unit id="system.entitle.no-add.solaris-slots">
-        <source>{0} entitlements cannot be added to solaris machines</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-        <target>{0} droits d'accès ne peuvent pas être ajoutés aux machines solaris</target>
       </trans-unit>
       <trans-unit id="system.entitle.guestcantvirt">
         <source>The system cannot have a Virtualization entitlement because it is a virtual guest.</source>
@@ -8707,26 +8510,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <source>A required errata attribute ({0}) was missing.</source>
         <target>Un attribut d'errata ({0}) requis est manquant.</target>
       </trans-unit>
-      <trans-unit id="org.entitlements.system.toomany">
-        <source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
-        <target>Vous avez essayé de donner trop de droits d'accès {1} à {0}. Veuillez saisir une valeur inférieure ou égale à {2}</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.syssoft.success">
-        <source>Entitlements successfully updated.</source>
-        <target>Les droits d'accès ont bien été mis à jour.</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.not_in_range">
-        <source>You attempted to give {0} too many {1} entitlements.  Please enter a value between {2} and {3}</source>
-        <target>Vous avez tenté de donner à {0} trop de droits {1}.  Entrez une valeur comprise entre {2} et {3}</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.not_in_range.flex">
-        <source>You attempted to give {0} too many {1} flex entitlements.  Please enter a value between {2} and {3}</source>
-        <target>Vous avez tenté de donner à {0} trop de droits flex {1}.  Entrez une valeur comprise entre {2} et {3}</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.proposedwarning">
-        <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
-        <target>Avertissement : L'allocation que vous avez proposée pour {0} offre moins de droits d'accès utilisés pour l'organisation {1}. Veuillez ajuster l'allocation proposée au-dessus du nombre de droits d'accès actuellement utilisés.</target>
-      </trans-unit>
       <trans-unit id="api.iss.duplicatemaster">
         <source>A record for Master satellite {0} already exists</source>
         <target>Un enregistrement pour le Satellite maître {0} existe déjà</target>
@@ -8758,10 +8541,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       <trans-unit id="entitlement">
         <source>Entitlements</source>
         <target>Droits d'accès</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.system.defaultorg">
-        <source>You are not allowed to update entitlements in the Default Org.  These entitlements are determined by your satellite certificate file.</source>
-        <target>Vous n'êtes pas autorisés à mettre à jour les droits d'accès de l'organisation de base. Ces droits d'accès sont déterminés par le fichier de certificat de votre satellite.</target>
       </trans-unit>
       <trans-unit id="groupAdmins">
         <source>Group Admins</source>

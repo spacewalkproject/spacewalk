@@ -10,12 +10,11 @@ SPACEWALK_FILES	= __init__ connection constants diskImportLib messages \
             progress_bar req_channels satCerts satsync syncCache \
             sync_handlers \
             syncLib SequenceServer xmlDiskSource \
-            xmlSource xmlWireSource rhn_satellite_activate rhn_ssl_dbstore \
+            xmlSource xmlWireSource rhn_ssl_dbstore \
             satComputePkgHeaders updatePackages reposync \
 	    geniso
-
-SCRIPTS = satellite-sync spacewalk-debug rhn-entitlement-report \
-	  rhn-schema-version rhn-satellite-activate rhn-charsets \
+SCRIPTS = satellite-sync spacewalk-debug \
+	  rhn-schema-version rhn-charsets \
 	  rhn-ssl-dbstore update-packages rhn-db-stats rhn-schema-stats \
           spacewalk-repo-sync spacewalk-remove-channel \
 	  spacewalk-update-signatures spacewalk-data-fsck spacewalk-fips-tool
@@ -31,7 +30,6 @@ MANDIR	?= /usr/man
 
 EXTRA_DIRS = $(MANDIR)/man8 $(BINDIR)
 
-SAT_ACTIV       = rhn-satellite-activate
 CA_DBSTORE      = rhn-ssl-dbstore
 
 include $(TOP)/Makefile.defs
@@ -48,13 +46,7 @@ install :: $(MANS) $(PREFIX)/$(MANDIR)
 	$(INSTALL_DATA) $(MANS) $(PREFIX)/$(MANDIR)/man8
 endif
 
-install :: $(SAT_ACTIV).inst
-
 install :: $(CA_DBSTORE).inst
-
-$(SAT_ACTIV).inst : $(SAT_ACTIV) $(SAT_ACTIV).new $(PREFIX)/$(BINDIR)
-	$(INSTALL_BIN) $(SAT_ACTIV).new $(PREFIX)/$(BINDIR)/$(SAT_ACTIV)
-	rm -f $(SAT_ACTIV).new
 
 $(CA_DBSTORE).inst : $(CA_DBSTORE) $(CA_DBSTORE).new $(PREFIX)/$(BINDIR)
 	$(INSTALL_BIN) $(CA_DBSTORE).new $(PREFIX)/$(BINDIR)/$(CA_DBSTORE)

@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
-import com.redhat.rhn.common.db.WrappedSQLException;
 import com.redhat.rhn.domain.server.InvalidSnapshotReason;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerSnapshot;
@@ -45,9 +44,6 @@ public class SnapshotRollbackAction extends RhnAction {
     private static final String CHANNEL_CHANGES = "channel_changes";
     private static final String PACKAGE_CHANGES = "package_changes";
     private static final String CONFIG_CHANGES  = "config_changes";
-
-    private static final String NO_SUBSCRIPTION_MSG  =
-                                                "system.history.snapshot.no_subscriptions";
     private static final String GROUPS_CHANGED_MSG   =
                                                 "system.history.snapshot.groups_changed";
     private static final String PACKAGES_CHANGED_MSG =
@@ -101,21 +97,11 @@ public class SnapshotRollbackAction extends RhnAction {
                             ServerSnapshot snapshot) {
         boolean packagesChanged = false;
         boolean configsChanged  = false;
-        try {
-            snapshot.cancelPendingActions();
-            snapshot.rollbackChannels();
-            snapshot.rollbackGroups();
-            packagesChanged = snapshot.rollbackPackages(user);
-            configsChanged   = snapshot.rollbackConfigFiles(user);
-        }
-        catch (WrappedSQLException e) {
-            String msg = e.getMessage();
-            if (msg != null && msg.contains("channel_family_no_subscriptions")) {
-                createErrorMessage(request, NO_SUBSCRIPTION_MSG, null);
-                return RhnHelper.DEFAULT_FORWARD;
-            }
-            throw e;
-        }
+        snapshot.cancelPendingActions();
+        snapshot.rollbackChannels();
+        snapshot.rollbackGroups();
+        packagesChanged = snapshot.rollbackPackages(user);
+        configsChanged   = snapshot.rollbackConfigFiles(user);
 
         createSuccessMessage(request, GROUPS_CHANGED_MSG, null);
         if (packagesChanged) {

@@ -23,7 +23,6 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
-import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.org.OrgManager;
 
 import org.apache.struts.action.ActionForm;
@@ -35,7 +34,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * UserListSetupAction
- * @version $Rev: 101893 $
  */
 public class SatUserListAction extends RhnAction {
 
@@ -55,9 +53,7 @@ public class SatUserListAction extends RhnAction {
 
         Long canModify =  (user.getOrg().getId().longValue() ==
             oid.longValue()) &&
-           (user.hasRole(RoleFactory.ORG_ADMIN)) &&
-           (AclManager.hasAcl("org_entitlement(sw_mgr_enterprise)", request, null)) ?
-                   new Long(1) : new Long(0);
+           (user.hasRole(RoleFactory.ORG_ADMIN)) ? new Long(1) : new Long(0);
 
         request.setAttribute("canModify", canModify);
         request.setAttribute("userOrgId", oid);

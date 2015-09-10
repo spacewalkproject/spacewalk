@@ -24,9 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
  * ConfigSystemDto
- * @version $Rev$
  */
 public class ConfigSystemDto extends BaseDto {
 
@@ -40,7 +38,6 @@ public class ConfigSystemDto extends BaseDto {
     private Integer overriddenCount;
     private Integer outrankedCount;
     private boolean capable;
-    private boolean provisioning;
     private int results;
     private Integer errorCode;
     private boolean rhnTools;
@@ -193,27 +190,6 @@ public class ConfigSystemDto extends BaseDto {
         results = resultsIn;
     }
 
-
-    /**
-     * @return Returns the provisioning.
-     */
-    public boolean isProvisioning() {
-        return provisioning;
-    }
-
-
-    /**
-     * @param provisioningIn The provisioning to set. Y if true, N if false.
-     */
-    public void setProvisioning(String provisioningIn) {
-        if (provisioningIn.equalsIgnoreCase("Y")) {
-            provisioning = true;
-        }
-        else {
-            provisioning = false;
-        }
-    }
-
     /**
      * @return Returns the capable.
      */
@@ -346,7 +322,6 @@ public class ConfigSystemDto extends BaseDto {
         }
         LocalizationService ls = LocalizationService.getInstance();
         List actions = new ArrayList();
-        displayHelper(actions, provisioning, ls, "addprovisioning");
         displayHelper(actions, rhnTools, ls, "subscribetools");
         displayHelper(actions, rhncfg != NEEDED, ls, "installcfg");
         displayHelper(actions, rhncfgActions != NEEDED, ls, "installcfgactions");
@@ -397,14 +372,10 @@ public class ConfigSystemDto extends BaseDto {
         switch (errorCode.intValue()) {
             case ConfigurationManager.ENABLE_SUCCESS:
                 return ls.getMessage("summary.jsp.noerror");
-            case ConfigurationManager.ENABLE_ERROR_PROVISIONING:
-                return ls.getMessage("summary.jsp.provision");
             case ConfigurationManager.ENABLE_ERROR_RHNTOOLS:
                 return ls.getMessage("summary.jsp.rhntools");
             case ConfigurationManager.ENABLE_ERROR_PACKAGES:
                 return ls.getMessage("summary.jsp.packages");
-            case ConfigurationManager.ENABLE_NEED_ORG_ADMIN:
-                return ls.getMessage("summary.jsp.orgadmin");
             default:
                 return "";
         }

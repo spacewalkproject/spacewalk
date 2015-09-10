@@ -26,19 +26,10 @@
     </rhn-tab>
     <rhn-tab name="Subscription Management" url="/rhn/systems/SystemEntitlements.do" acl="user_role(org_admin)" >
       <rhn-tab name="System Entitlements" url="/rhn/systems/SystemEntitlements.do" acl="user_role(org_admin)" />
-      <rhn-tab name="virtualization.entitlements" url="/rhn/systems/entitlements/GuestLimitedHosts.do" acl="user_role(org_admin)">
-        <rhn-tab-url>/rhn/systems/entitlements/GuestUnlimitedHosts.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/systems/entitlements/PhysicalHosts.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/systems/entitlements/FlexGuests.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/systems/entitlements/EligibleFlexGuests.do</rhn-tab-url>
-      </rhn-tab>
-      <rhn-tab name="Software Channel Entitlements" url="/rhn/channels/software/Entitlements.do" acl="user_role(org_admin)">
-        <rhn-tab-url>/rhn/channels/software/EntitledSystems.do</rhn-tab-url>
-      </rhn-tab>
     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Systems" url="/rhn/systems/Overview.do">
-    <rhn-tab name="Overview" url="/rhn/systems/Overview.do" acl="org_entitlement(sw_mgr_enterprise)"/>
+    <rhn-tab name="Overview" url="/rhn/systems/Overview.do"/>
     <rhn-tab name="Systems" url="/rhn/systems/SystemList.do">
       <rhn-tab-directory>/rhn/systems/details</rhn-tab-directory>
       <rhn-tab name="All" url="/rhn/systems/SystemList.do"/>
@@ -48,7 +39,7 @@
       <rhn-tab name="Requiring Reboot" url="/rhn/systems/RequiringReboot.do"/>
       <rhn-tab name="Extra Packages" url="/rhn/systems/ExtraPackagesSystems.do"/>
       <rhn-tab name="Unentitled" url="/rhn/systems/Unentitled.do"/>
-      <rhn-tab name="Ungrouped" url="/rhn/systems/Ungrouped.do" acl="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+      <rhn-tab name="Ungrouped" url="/rhn/systems/Ungrouped.do" acl="user_role(org_admin)"/>
       <rhn-tab name="Inactive" url="/rhn/systems/Inactive.do"/>
       <rhn-tab name="Recently Registered" url="/rhn/systems/Registered.do"/>
       <rhn-tab name="Proxy" url="/rhn/systems/ProxyList.do" acl="org_channel_family(rhn-proxy) or not is_satellite(); user_role(org_admin)"/>
@@ -61,53 +52,53 @@
       </rhn-tab>
       <rhn-tab name="System Currency" url="/rhn/systems/SystemCurrency.do"/>
     </rhn-tab>
-    <rhn-tab name="System Groups" acl="org_entitlement(sw_mgr_enterprise)">
+    <rhn-tab name="System Groups">
      <rhn-tab-directory>/rhn/groups</rhn-tab-directory>
       <rhn-tab-directory>/rhn/systems/groups</rhn-tab-directory>
       <rhn-tab-url>/rhn/systems/SystemGroupList.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="System Set Manager" url="/rhn/ssm/index.do" acl="org_entitlement(sw_mgr_enterprise)">
+    <rhn-tab name="System Set Manager" url="/rhn/ssm/index.do">
       <rhn-tab-directory>/rhn/systems/ssm</rhn-tab-directory>
       <rhn-tab-directory>/rhn/ssm</rhn-tab-directory>
-       <rhn-tab name="ssm.nav.status" url="/rhn/ssm/ViewAllLog.do" acl="org_entitlement(sw_mgr_enterprise)">
+       <rhn-tab name="ssm.nav.status" url="/rhn/ssm/ViewAllLog.do">
        <rhn-tab-url>/rhn/ssm/ViewLog.do</rhn-tab-url>
        <rhn-tab-url>/rhn/ssm/ViewCompletedLog.do</rhn-tab-url>
        </rhn-tab>
     </rhn-tab>
-    <rhn-tab name="Advanced Search" url="/rhn/systems/Search.do" acl="org_entitlement(sw_mgr_enterprise)" />
-    <rhn-tab name="Activation Keys" acl="org_entitlement(sw_mgr_enterprise); user_role(activation_key_admin)">
+    <rhn-tab name="Advanced Search" url="/rhn/systems/Search.do"/>
+    <rhn-tab name="Activation Keys" acl="user_role(activation_key_admin)">
       <rhn-tab-url>/rhn/activationkeys/List.do</rhn-tab-url>
       <rhn-tab-url>/rhn/activationkeys/Edit.do</rhn-tab-url>
       <rhn-tab-directory>/rhn/activationkeys/configuration</rhn-tab-directory>
       <rhn-tab-directory>/rhn/activationkeys/groups</rhn-tab-directory>
       <rhn-tab-directory>/rhn/activationkeys/systems</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Stored Profiles" acl="org_entitlement(sw_mgr_enterprise);">
+    <rhn-tab name="Stored Profiles">
       <rhn-tab-url>/rhn/profiles/List.do</rhn-tab-url>
       <rhn-tab-directory>/rhn/profiles</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Custom System Info" acl="org_entitlement(rhn_provisioning)">
+    <rhn-tab name="Custom System Info">
       <rhn-tab-url>/rhn/systems/customdata/CustomDataList.do</rhn-tab-url>
       <rhn-tab-directory>/rhn/systems/customdata</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Kickstart" url="/rhn/kickstart/KickstartOverview.do" acl="org_entitlement(rhn_provisioning); user_role(config_admin)">
-      <rhn-tab name="Profiles" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/Kickstarts.do">
+    <rhn-tab name="Kickstart" url="/rhn/kickstart/KickstartOverview.do" acl="user_role(config_admin)">
+      <rhn-tab name="Profiles" acl="user_role(config_admin)" url="/rhn/kickstart/Kickstarts.do">
         <rhn-tab-url>/rhn/kickstart/Kickstarts.do</rhn-tab-url>
         <rhn-tab-directory>/rhn/kickstart</rhn-tab-directory>
       </rhn-tab>
-      <rhn-tab name="Bare Metal" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/KickstartIpRanges.do" />
-      <rhn-tab name="GPG and SSL Keys" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/keys/CryptoKeysList.do">
+      <rhn-tab name="Bare Metal" acl="user_role(config_admin)" url="/rhn/kickstart/KickstartIpRanges.do" />
+      <rhn-tab name="GPG and SSL Keys" acl="user_role(config_admin)" url="/rhn/keys/CryptoKeysList.do">
         <rhn-tab-directory>/rhn/keys</rhn-tab-directory>
       </rhn-tab>
-      <rhn-tab name="Distributions" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/ViewTrees.do">
+      <rhn-tab name="Distributions" acl="user_role(config_admin)" url="/rhn/kickstart/ViewTrees.do">
         <rhn-tab-url>/rhn/kickstart/TreeEdit.do</rhn-tab-url>
         <rhn-tab-url>/rhn/kickstart/TreeCreate.do</rhn-tab-url>
         <rhn-tab-url>/rhn/kickstart/TreeDelete.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="File Preservation" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/systems/provisioning/preservation/PreservationList.do">
+      <rhn-tab name="File Preservation" acl="user_role(config_admin)" url="/rhn/systems/provisioning/preservation/PreservationList.do">
         <rhn-tab-url>/rhn/systems/provisioning/preservation/PreservationListEdit.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="snippets.jsp.toolbar" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/cobbler/CustomSnippetList.do" >
+      <rhn-tab name="snippets.jsp.toolbar" acl="user_role(config_admin)" url="/rhn/kickstart/cobbler/CustomSnippetList.do" >
         <rhn-tab-url>/rhn/kickstart/cobbler/DefaultSnippetList.do</rhn-tab-url>
         <rhn-tab-url>/rhn/kickstart/cobbler/CobblerSnippetList.do</rhn-tab-url>
         <rhn-tab-url>/rhn/kickstart/cobbler/CustomSnippetList.do</rhn-tab-url>
@@ -118,7 +109,7 @@
         <rhn-tab-url>/rhn/kickstart/cobbler/DefaultSnippetView.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
-    <rhn-tab name="software.crashes" acl="org_entitlement(sw_mgr_enterprise)" url="/rhn/systems/SoftwareCrashesOverview.do">
+    <rhn-tab name="software.crashes" url="/rhn/systems/SoftwareCrashesOverview.do">
       <rhn-tab-url>/rhn/systems/SoftwareCrashesOverview.do</rhn-tab-url>
       <rhn-tab-url>/rhn/systems/SoftwareCrashUuidDetails.do</rhn-tab-url>
     </rhn-tab>
@@ -200,9 +191,9 @@
          <rhn-tab name="Search" url="/rhn/audit/Search.do" />
      </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="config.nav.config" url="/rhn/configuration/Overview.do" acl="org_entitlement(rhn_provisioning);user_role(config_admin)">
+  <rhn-tab name="config.nav.config" url="/rhn/configuration/Overview.do" acl="user_role(config_admin)">
     <rhn-tab-directory>/rhn/configuration</rhn-tab-directory>
-    <rhn-tab name="common.nav.overview" url="/rhn/configuration/Overview.do" acl="org_entitlement(rhn_provisioning);user_role(config_admin)" />
+    <rhn-tab name="common.nav.overview" url="/rhn/configuration/Overview.do" acl="user_role(config_admin)" />
     <rhn-tab name="config.nav.channels" url="/rhn/configuration/GlobalConfigChannelList.do" acl="user_role(config_admin)" />
     <rhn-tab name="config.nav.files" url="/rhn/configuration/file/GlobalConfigFileList.do" acl="user_role(config_admin)" >
       <rhn-tab-directory>/rhn/configuration/file</rhn-tab-directory>
@@ -250,23 +241,7 @@
         <rhn-tab-url>/rhn/admin/multiorg/OrgConfigDetails.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/OrgUsers.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/DeleteOrg.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/admin/multiorg/OrgSystemSubscriptions.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/OrgCreate.do</rhn-tab-url>
-    </rhn-tab>
-
-    <rhn-tab name="Subscriptions" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/SoftwareEntitlements.do">
-
-      <rhn-tab name="Software Channel Entitlements" acl="user_role(satellite_admin)">
-        <rhn-tab-url>/rhn/admin/multiorg/SoftwareEntitlements.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/admin/multiorg/SoftwareEntitlementDetails.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/admin/multiorg/SoftwareEntitlementSubscriptions.do</rhn-tab-url>
-      </rhn-tab>
-      <rhn-tab name="System Entitlements" acl="user_role(satellite_admin)">
-        <rhn-tab-url>/rhn/admin/multiorg/SystemEntitlements.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/admin/multiorg/EntitlementOrgs.do</rhn-tab-url>
-      </rhn-tab>
-
     </rhn-tab>
 
     <rhn-tab name="Users" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/Users.do">

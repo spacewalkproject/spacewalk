@@ -17,14 +17,6 @@
 --
 -- data for rhnServerGroupType
 
--- sw_mgr_entitled type ------------------------------------------------------
-
-insert into rhnServerGroupType (id, label, name, permanent, is_base)
-        values (sequence_nextval('rhn_servergroup_type_seq'),
-                'sw_mgr_entitled', 'Spacewalk Update Entitled Servers', 
-                'N', 'Y'
-        );
-
 -- enterprise_entitled type --------------------------------------------------
 
 insert into rhnServerGroupType (id, label, name, permanent, is_base)
@@ -33,37 +25,13 @@ insert into rhnServerGroupType (id, label, name, permanent, is_base)
                 'N', 'Y'
         );
 
--- provisioning_entitled type ------------------------------------------------
-
-insert into rhnServerGroupType (id, label, name, permanent, is_base)
-        values (sequence_nextval('rhn_servergroup_type_seq'),
-                'provisioning_entitled', 'Spacewalk Provisioning Entitled Servers', 
-                'N', 'N'
-        );
-
--- nonlinux_entitled type ----------------------------------------------------
-
-insert into rhnServerGroupType ( id, label, name, permanent, is_base)
-   values ( sequence_nextval('rhn_servergroup_type_seq'),
-      'nonlinux_entitled', 'Non-Linux Entitled Servers',
-      'N', 'Y'
-   );
-
--- virtualization_* types ----------------------------------------------------
+-- virtualization_host type ----------------------------------------------------
 
 insert into rhnServerGroupType ( id, label, name, permanent, is_base)
    values ( sequence_nextval('rhn_servergroup_type_seq'),
       'virtualization_host', 'Virtualization Host Entitled Servers',
       'N', 'N'
    );      
-
-insert into rhnServerGroupType ( id, label, name, permanent, is_base)
-   values ( sequence_nextval('rhn_servergroup_type_seq'),
-      'virtualization_host_platform', 
-      'Virtualization Host Platform Entitled Servers',
-      'N', 'N'
-   );      
-
 
 commit;
 

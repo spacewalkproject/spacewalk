@@ -20,13 +20,12 @@ rhn_cache.pkb           :: rhnUserServerPerms rhnUserServerPermsDupes \
                            rhnUserGroupMembers rhnServerGroup rhnUserGroup
 rhn_channel.pkb         :: rhnChannel rhn_exception.pks rhnServer rhnServerChannel \
                            rhnChannelFamilyPermissions queue_server \
-                           rhnChannelFamilyMembers rhnChannelFamilyServers \
+                           rhnChannelFamilyMembers \
                            rhnChannelNewestPackage rhnChannelNewestPackageView \
                            rhnPublicChannelFamily rhnOrgChannelFamilyPermissions \
                            rhnChannelPackage rhnChannelErrata rhnSnapshotChannel \
                            rhnServerUuid rhnChannelPermissions rhnServerEntitlementView \
-                           rhnChannelFamilyServerPhysical rhnSharedChannelView \
-                           rhnServerFveCapable rhnChannelFamilyServerFve \
+                           rhnSharedChannelView \
                            rhnOrgDistChannelMap \
                            rhn_user.pks
 rhn_channel.pks         :: rhnChannel rhnOrgChannelFamilyPermissions \
@@ -39,12 +38,12 @@ rhn_config_channel.pkb  :: rhnConfigChannelType rhnConfigChannel \
                            rhnServerConfigChannel rhnConfigRevision rhnConfigFile \
                            rhnConfigFileName
 rhn_entitlements.pkb    :: rhnServerGroupType rhnServerGroup rhnServerGroupMembers \
-                           rhnServer rhnOrgEntitlements rhnUserGroupType \
-                           rhnOrgEntitlementType rhnUserGroupMembers \
+                           rhnServer rhnUserGroupType \
+                           rhnUserGroupMembers \
                            rhnUserGroup rhnChannelFamilyMembers rhnServerChannel \
                            rhnOrgChannelFamilyPermissions \
                            rhnServerServerGroupArchCompat rhnPrivateChannelFamily \
-                           rhnServerEntitlementPhysical rhnServerFveCapable
+                           rhnServerEntitlementPhysical
 rhn_entitlements.pks    :: rhnServerGroupType
 rhn_exception.pkb       :: rhnException
 rhn_exception.pks       :: rhnException

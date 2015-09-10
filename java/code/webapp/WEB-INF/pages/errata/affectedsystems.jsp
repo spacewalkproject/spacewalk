@@ -20,9 +20,7 @@
   <div class="page-summary">
     <p>
     <bean:message key="affectedsystems.jsp.summary"/>
-    <rhn:require acl="org_entitlement(sw_mgr_enterprise)">
-      <bean:message key="affectedsystems.jsp.summarywithacl"/>
-    </rhn:require>
+    <bean:message key="affectedsystems.jsp.summarywithacl"/>
     </p>
   </div>
 

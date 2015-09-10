@@ -30,7 +30,6 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
@@ -54,7 +53,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author paji
  * BaseSystemPackagesAction
- * @version $Rev$
  */
 public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
     private static final String DATA_SET = RequestContext.PAGE_LIST;
@@ -84,8 +82,7 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
          *  subscribed to, then the rollback will not work, lets give the user
          *  a message telling them that.
          */
-        if (this instanceof RemoveConfirmSetupAction &&
-            server.hasEntitlement(EntitlementManager.PROVISIONING)) {
+        if (this instanceof RemoveConfirmSetupAction) {
             for (PackageListItem item : items) {
                 Map<String, Long> map = item.getKeyMap();
                 if (!SystemManager.hasPackageAvailable(server, map.get("name_id"),

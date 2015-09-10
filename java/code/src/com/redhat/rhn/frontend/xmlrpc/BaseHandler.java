@@ -51,7 +51,6 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
-import com.redhat.rhn.manager.satellite.CertificateManager;
 import com.redhat.rhn.manager.session.SessionManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -60,8 +59,6 @@ import com.redhat.rhn.manager.system.SystemManager;
  * to call the appropriate method on a subclass.  So, an xmlrpc call to
  * 'registration.privacy_message' might call
  * RegistrationHandler.privacyMessage
- *
- * @version $Rev$
  */
 public class BaseHandler implements XmlRpcInvocationHandler {
     public static final int VALID = 1;
@@ -72,10 +69,6 @@ public class BaseHandler implements XmlRpcInvocationHandler {
     private static final String KEY_REGEX = "^[1-9][0-9]*x[a-f0-9]{64}$";
 
     protected boolean providesAuthentication() {
-        return false;
-    }
-
-    protected boolean availableInRestrictedPeriod() {
         return false;
     }
 
@@ -145,30 +138,6 @@ public class BaseHandler implements XmlRpcInvocationHandler {
         }
 
         try {
-            if (!providesAuthentication()) {
-                CertificateManager cm = CertificateManager.getInstance();
-                if (cm.isSatelliteCertInRestrictedPeriod()) {
-                    // allow only selected handlers
-                    if (!availableInRestrictedPeriod()) {
-                        log.warn("Blocking " + this.getClass().getSimpleName() + "." +
-                                methodCalled + " API in restricted period.");
-                        throw new SatelliteCertificateExpiredException(
-                                "You are not allowed to perform this API until your " +
-                                "certificate is renewed. Please contact Red Hat for a " +
-                                "new certificate. Till then your satellite will have " +
-                                "restricted functionality.");
-                    }
-                }
-                else if (cm.isSatelliteCertExpired()) {
-                    // disable API at all
-                    log.warn("Blocking " + this.getClass().getSimpleName() + "." +
-                    methodCalled + " API after satellite certificate has expired.");
-                    throw new SatelliteCertificateExpiredException(
-                            "You are not allowed to perform this API until your " +
-                            "certificate is renewed. Please contact Red Hat for a " +
-                            "new certificate.");
-                }
-            }
             return foundMethod.invoke(this, converted);
         }
         catch (IllegalAccessException e) {
@@ -381,23 +350,6 @@ public class BaseHandler implements XmlRpcInvocationHandler {
             throw new PermissionCheckFailureException(role);
         }
     }
-    /**
-     * Private helper method to make sure a user's org has a
-     * provisioning role
-     * If not, this will throw a generic Permission exception.
-     * @param user The user to check
-     * @throws PermissionCheckFailureException if user's org does not
-     *                                      have provisioning
-     */
-    public static void ensureProvisioning(User user)
-        throws PermissionCheckFailureException {
-        if (!user.getOrg().hasEntitlement(
-                    OrgFactory.getEntitlementProvisioning())) {
-            throw new PermissionCheckFailureException(OrgFactory.
-                                getEntitlementProvisioning());
-        }
-    }
-
 
     /**
      * Ensure the org exists
@@ -423,11 +375,6 @@ public class BaseHandler implements XmlRpcInvocationHandler {
      */
     protected void validateEntitlements(List<String> entitlements) {
 
-        if (entitlements.contains(EntitlementManager.VIRTUALIZATION_ENTITLED) &&
-                entitlements.contains(EntitlementManager.
-                        VIRTUALIZATION_PLATFORM_ENTITLED)) {
-            throw new InvalidEntitlementException();
-        }
         for (String e : entitlements) {
             Entitlement ent = EntitlementManager.getByName(e);
             if ((ent == null) || (!ent.isSatelliteEntitlement())) {

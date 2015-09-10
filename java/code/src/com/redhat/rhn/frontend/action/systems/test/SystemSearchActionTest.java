@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.action.systems.test;
 import org.apache.struts.action.DynaActionForm;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
@@ -29,7 +28,6 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 /**
  * SystemSearchActionTest
- * @version $Rev: 1 $
  */
 public class SystemSearchActionTest extends RhnMockStrutsTestCase {
 
@@ -38,7 +36,6 @@ public class SystemSearchActionTest extends RhnMockStrutsTestCase {
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/systems/Search");
-        user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
 

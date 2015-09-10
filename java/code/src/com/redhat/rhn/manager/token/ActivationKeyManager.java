@@ -62,7 +62,6 @@ import java.util.Set;
 
 /**
  * ActivationKeyManager
- * @version $Rev$
  */
 public class ActivationKeyManager {
     private static Logger log = Logger.getLogger(ActivationKeyManager.class);
@@ -250,14 +249,6 @@ public class ActivationKeyManager {
             ServerGroupType entitlement =
                 ServerFactory.lookupServerGroupTypeByLabel(label);
             key.removeEntitlement(entitlement);
-
-            if (label.equals("provisioning_entitled")) {
-                // Special case, clear all packages and configuration channels:
-                key.clearPackages();
-                key.clearConfigChannels();
-                key.setDeployConfigs(false);
-                // TODO: clear configuration channels as well
-            }
         }
     }
 
@@ -396,16 +387,6 @@ public class ActivationKeyManager {
      * @param adding True if adding entitlements, false if removing.
      */
     public void validateAddOnEntitlements(List <String> entitlements, boolean adding) {
-
-        if (adding && entitlements.contains(
-                EntitlementManager.VIRTUALIZATION_ENTITLED) &&
-                entitlements.contains(EntitlementManager.
-                        VIRTUALIZATION_PLATFORM_ENTITLED)) {
-            ValidatorResult ve = new ValidatorResult();
-            ve.addError(new ValidatorError("system.entitle.alreadyvirt"));
-            throw new ValidatorException(ve);
-        }
-
         ValidatorResult ve = new ValidatorResult();
         for (String entitlementLabel : entitlements) {
             Entitlement ent = EntitlementManager.getByName(entitlementLabel);

@@ -14,11 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.ssm.test;
 
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.org.OrgEntitlementType;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.PowerManagementAction;
 import com.redhat.rhn.frontend.action.kickstart.test.PowerManagementActionTest;
@@ -33,7 +29,6 @@ import servletunit.HttpServletRequestSimulator;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Tests PowerManagementConfigurationAction
@@ -61,20 +56,11 @@ public class PowerManagementConfigurationActionTest extends RhnMockStrutsTestCas
      * @return the list of server
      * @throws Exception if something goes wrong
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static List<Server> setUpTestProvisionableSsmServers(User user)
             throws Exception {
-        Org org = user.getOrg();
-        Set entitlements = org.getEntitlements();
-        OrgEntitlementType type = OrgFactory.lookupEntitlementByLabel("rhn_provisioning");
-        entitlements.add(type);
-        org.setEntitlements(entitlements);
-        OrgFactory.save(org);
-
         List<Server> result = new LinkedList<Server>();
         for (int i = 0; i < 2; i++) {
-            Server server = ServerTestUtils.createTestSystem(user,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+            Server server = ServerTestUtils.createTestSystem(user);
             result.add(server);
             ServerTestUtils.addServersToSsm(user, server.getId());
         }

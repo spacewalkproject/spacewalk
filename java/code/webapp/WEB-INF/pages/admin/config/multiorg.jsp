@@ -33,18 +33,6 @@
         </td>
         </tr>
         <tr>
-                <td><rhn:icon type="header-subscriptions-big" /></td>
-                <td><bean:message key="general.jsp.org.tbl.header2"/>:</td>
-        <td>
-          <p>
-          <bean:message key="general.jsp.org.tbl.description2"/>
-          </p>
-          <p>
-          <a href="/rhn/admin/multiorg/SoftwareEntitlements.do"><bean:message key="general.jsp.org.tbl.link2"/></a>.
-          </p>
-        </td>
-        </tr>
-        <tr>
                 <td><rhn:icon type="header-users-big" /></td>
                 <td><bean:message key="general.jsp.org.tbl.header3"/>:</td>
         <td>

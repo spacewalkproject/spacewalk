@@ -1381,7 +1381,6 @@ ORDER BY CHANNEL_NAME DESC, EVR DESC
      DBD Oracle can't handle an Oracle object in the return results of a
      query.
 -->
-<!-- AC.current_members > 0 is used here. -->
 SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
   FROM (SELECT DISTINCT
                PE.evr AS EVR,
@@ -1401,7 +1400,6 @@ SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
            AND PN.id = P.name_id
            AND PE.id = P.evr_id
            AND AC.channel_id = CP.channel_id
-           AND AC.current_members > 0
            AND P.id = CP.package_id
            AND C.id = AC.channel_id
            AND PA.id = P.package_arch_id

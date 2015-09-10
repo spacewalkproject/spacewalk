@@ -1,0 +1,116 @@
+-- oracle equivalent source sha1 d130b6810a88f60d18168cf65494494f3ce00e6f
+
+-- rhnServerGroup and dependencies
+
+SELECT logging.clear_log_id();
+
+DELETE FROM rhnOrgExtGroupMapping
+  WHERE server_group_id = (
+    SELECT id
+      FROM rhnServerGroup
+      WHERE group_type = (
+        SELECT id
+          FROM rhnServerGroupType
+          WHERE label = 'provisioning_entitled'
+      )
+  );
+
+DELETE FROM rhnRegTokenGroups
+  WHERE server_group_id = (
+    SELECT id
+      FROM rhnServerGroup
+      WHERE group_type = (
+        SELECT id
+          FROM rhnServerGroupType
+          WHERE label = 'provisioning_entitled'
+      )
+  );
+
+DELETE FROM rhnServerGroupMembers
+  WHERE server_group_id = (
+    SELECT id
+      FROM rhnServerGroup
+      WHERE group_type = (
+        SELECT id
+          FROM rhnServerGroupType
+          WHERE label = 'provisioning_entitled'
+      )
+  );
+
+DELETE FROM rhnSnapshotServerGroup
+  WHERE server_group_id = (
+    SELECT id
+      FROM rhnServerGroup
+      WHERE group_type = (
+        SELECT id
+          FROM rhnServerGroupType
+          WHERE label = 'provisioning_entitled'
+      )
+  );
+
+DELETE FROM rhnUserDefaultSystemGroups
+  WHERE system_group_id = (
+    SELECT id
+      FROM rhnServerGroup
+      WHERE group_type = (
+        SELECT id
+          FROM rhnServerGroupType
+          WHERE label = 'provisioning_entitled'
+      )
+  );
+
+DELETE FROM rhnUserServerGroupPerms
+  WHERE server_group_id = (
+    SELECT id
+      FROM rhnServerGroup
+      WHERE group_type = (
+        SELECT id
+          FROM rhnServerGroupType
+          WHERE label = 'provisioning_entitled'
+      )
+  );
+
+DELETE FROM rhnServerGroup
+  WHERE group_type = (
+    SELECT id
+      FROM rhnServerGroupType
+      WHERE label = 'provisioning_entitled'
+  );
+
+-- rhnServerGroupType and dependencies
+
+DELETE FROM rhnRegTokenEntitlement
+  WHERE server_group_type_id = (
+    SELECT id
+      FROM rhnServerGroupType
+      WHERE label = 'provisioning_entitled'
+  );
+
+UPDATE rhnServerGroupTypeFeature
+  SET server_group_type_id = (
+    SELECT id
+      FROM rhnServerGroupType
+      WHERE label = 'enterprise_entitled'
+  )
+  WHERE server_group_type_id = (
+    SELECT id
+      FROM rhnServerGroupType
+      WHERE label = 'provisioning_entitled'
+  );
+
+DELETE FROM rhnServerServerGroupArchCompat
+  WHERE server_group_type = (
+    SELECT id
+      FROM rhnServerGroupType
+      WHERE label = 'provisioning_entitled'
+  );
+
+DELETE FROM rhnSGTypeBaseAddonCompat
+  WHERE addon_id = (
+    SELECT id
+      FROM rhnServerGroupType
+      WHERE label = 'provisioning_entitled'
+  );
+
+DELETE FROM rhnServerGroupType
+  WHERE label = 'provisioning_entitled';

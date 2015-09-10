@@ -4,10 +4,6 @@
   </rhn-tab>
 
   <rhn-tab name="Subscription Management" url="/rhn/systems/SystemEntitlements.do">
-      <rhn-tab-url>/rhn/systems/entitlements/GuestUnlimitedHosts.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/systems/entitlements/PhysicalHosts.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/systems/entitlements/FlexGuests.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/systems/entitlements/EligibleFlexGuests.do</rhn-tab-url>
   </rhn-tab>
 
   <rhn-tab name="About Spacewalk" url="/rhn/help/about.do" active-image="tab-about_rhn-selected.gif" inactive-image="tab-about_rhn.gif" >

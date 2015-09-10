@@ -23,7 +23,6 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -45,7 +44,6 @@ import java.util.Map;
  * Access is a concrete implementation of an AclHandler.
  * This is default implementation which is always included
  * when evaluating {@link Acl Acls}.
- * @version $Rev$
  */
 public class Access extends BaseHandler {
 
@@ -223,31 +221,6 @@ public class Access extends BaseHandler {
         User user = (User) map.get("user");
         RhnSet set = RhnSetDecl.SYSTEMS.get(user);
         return set.contains(sid);
-    }
-
-    /**
-     * Checks if their Org has the entitlement.
-     * Requires a User in the Context object
-     * @param ctx Context Map to pass in
-     * @param params Used to specify the Role label
-     * @return true if access is granted, false otherwise
-     */
-    public boolean aclOrgEntitlement(Object ctx, String[] params) {
-        Map map = (Map) ctx;
-        User user = (User)map.get("user");
-        if (user != null) {
-            Org org = user.getOrg();
-            boolean retval = org.hasEntitlement(OrgFactory.
-                    lookupEntitlementByLabel(params[0]));
-            if (LOG.isDebugEnabled()) {
-                LOG.debug(params[0] + " aclOrgEntitlement | 1 returning " + retval);
-            }
-            return retval;
-        }
-        if (LOG.isDebugEnabled()) {
-            LOG.debug(params[0] + " aclOrgEntitlement | 2 returning false... ");
-        }
-        return false;
     }
 
     /**

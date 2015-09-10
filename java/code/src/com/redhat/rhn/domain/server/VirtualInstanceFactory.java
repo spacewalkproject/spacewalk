@@ -14,27 +14,16 @@
  */
 package com.redhat.rhn.domain.server;
 
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.ChannelFamilySystem;
-import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -313,74 +302,4 @@ public class VirtualInstanceFactory extends HibernateFactory {
                 "VirtualInstanceState.findByLabel").setString("label", "unknown")
                 .uniqueResult();
     }
-
-
-    /**
-     * Returns a list of floating guests with a channel family grouping
-     * @param user the user object needed for perms checking
-     * @return a list of  ChannelFamilySystemGroups
-     */
-    public List<ChannelFamilySystemGroup> listFlexGuests(User user) {
-        return runFlexGuestsQuery(user, "flex_guests");
-    }
-
-    /**
-     * Returns a list of eligible systems who could become  floating guests
-     *  with a channel family grouping
-     * @param user the user object needed for perms checking
-     * @return a list of  ChannelFamilySystemGroups
-     */
-    public List<ChannelFamilySystemGroup> listEligibleFlexGuests(User user) {
-        return runFlexGuestsQuery(user, "eligible_flex_guests");
-    }
-
-
-    private List<ChannelFamilySystemGroup> runFlexGuestsQuery(User user, String query) {
-        List<ChannelFamilySystemGroup> ret = new LinkedList<ChannelFamilySystemGroup>();
-
-        SelectMode m = ModeFactory.getMode("System_queries", query);
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("user_id", user.getId());
-        params.put("checkin_threshold", Config.get().getInt(ConfigDefaults
-                .SYSTEM_CHECKIN_THRESHOLD));
-        DataResult<Map<String, Object>> result =  m.execute(params);
-        Map<Long, ChannelFamilySystemGroup> map = new HashMap<Long,
-                                            ChannelFamilySystemGroup>();
-
-        for (Map<String, Object> row : result) {
-            Long cfId = (Long)row.get("cf_id");
-            String cfName = (String) row.get("cf_name");
-            String cfLabel = (String) row.get("cf_label");
-            Long systemId = (Long) row.get("system_id");
-            String systemName = (String) row.get("system_name");
-            Long inactive = (Long) row.get("inactive");
-            String registered = (String) row.get("registered");
-            Long currentMembers = (Long) row.get("current_members");
-            Long maxMembers = (Long) row.get("max_members");
-
-
-            ChannelFamilySystemGroup cfg = map.get(cfId);
-            if (cfg == null) {
-                cfg = new ChannelFamilySystemGroup();
-                map.put(cfId, cfg);
-            }
-            cfg.setId(cfId);
-            cfg.setName(cfName);
-            cfg.setLabel(cfLabel);
-            cfg.setCurrentMembers(currentMembers);
-            cfg.setMaxMembers(maxMembers);
-            ChannelFamilySystem ov = new ChannelFamilySystem();
-            ov.setId(systemId);
-            ov.setName(systemName);
-            ov.setActive(1 != inactive.intValue());
-            ov.setRegistered(java.sql.Timestamp.valueOf((registered)));
-            cfg.add(ov);
-        }
-        ret.addAll(map.values());
-        return ret;
-    }
-
-
-
-
 }

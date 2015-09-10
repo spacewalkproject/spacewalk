@@ -54,6 +54,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Server - Class representation of the table rhnServer.
@@ -1436,14 +1437,13 @@ public class Server extends BaseDomainHelper implements Identifiable {
     }
 
     /**
-     * Return <code>true</code> if this system has virtualization entitlements,
+     * Return <code>true</code> if this system has virtualization entitlement,
      * <code>false</code> otherwise.
-     * @return <code>true</code> if this system has virtualization entitlements,
+     * @return <code>true</code> if this system has virtualization entitlement,
      *      <code>false</code> otherwise.
      */
     public boolean hasVirtualizationEntitlement() {
-        return hasEntitlement(EntitlementManager.VIRTUALIZATION) ||
-                hasEntitlement(EntitlementManager.VIRTUALIZATION_PLATFORM);
+        return hasEntitlement(EntitlementManager.VIRTUALIZATION);
     }
 
     /**
@@ -1736,7 +1736,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * @return Set of valid addon Entitlement instances for this server
      */
     public Set<Entitlement> getValidAddonEntitlementsForServer() {
-        Set<Entitlement> retval = new HashSet<Entitlement>();
+        Set<Entitlement> retval = new TreeSet<Entitlement>();
         Iterator<?> i = this.getOrg().getValidAddOnEntitlementsForOrg()
                 .iterator();
         while (i.hasNext()) {
@@ -1746,15 +1746,6 @@ public class Server extends BaseDomainHelper implements Identifiable {
             }
         }
         return retval;
-
-    }
-    /**
-     * An adapter method that transforms a Server into a HostAndGuestCountView.
-     *
-     * @return A HostAndGuestCountView from which the Server was transformed
-     */
-    public HostAndGuestCountView asHostAndGuestCountView() {
-        return new HostAndGuestCountView(getId(), getName(), getGuests().size());
 
     }
 

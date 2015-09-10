@@ -30,7 +30,6 @@ import com.redhat.rhn.domain.server.Network;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.session.InvalidSessionIdException;
@@ -82,9 +81,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     public void setUp() throws Exception {
         super.setUp();
 
-        // Provisioning included
-        this.server = ServerFactoryTest.createTestServer(
-                this.admin, true, ServerConstants.getServerGroupTypeProvisioningEntitled());
+        this.server = ServerFactoryTest.createTestServer(this.admin, true);
 
         // Network
         Network net = new Network();

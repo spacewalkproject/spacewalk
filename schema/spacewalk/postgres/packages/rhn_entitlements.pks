@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 cf474e5f4f51e7de9261116cf837ed9bbf2f2c2c
+-- oracle equivalent source sha1 0beb45dbb379c8fa5eb11f5c3ea974feebc37de3
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -8,10 +8,10 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 create schema rhn_entitlements;

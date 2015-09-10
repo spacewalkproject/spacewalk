@@ -80,11 +80,9 @@ SEPARATOR = '\n' + '#' * 30 + '\n'
 
 ####################
 
-ENTITLEMENTS = ['provisioning_entitled',
-                'enterprise_entitled',
-                'monitoring_entitled',
-                'virtualization_host',
-                'virtualization_host_platform']
+ENTITLEMENTS = ['enterprise_entitled',
+                'virtualization_host'
+               ]
 
 SYSTEM_SEARCH_FIELDS = ['id', 'name', 'ip', 'hostname',
                         'device', 'vendor', 'driver', 'uuid']
@@ -158,19 +156,6 @@ def help_get_certificateexpiration(self):
 def do_get_certificateexpiration(self, args):
     date = self.client.satellite.getCertificateExpirationDate(self.session)
     print date
-
-####################
-
-
-def help_is_monitoringenabled(self):
-    print 'is_monitoringenabled: Indicates if monitoring is enabled '
-    print "                      on the satellite                   "
-    print 'usage: is_monitoringenabled'
-
-
-def do_is_monitoringenabled(self, args):
-    monitoring = self.client.satellite.isMonitoringEnabled(self.session)
-    print monitoring
 
 ####################
 

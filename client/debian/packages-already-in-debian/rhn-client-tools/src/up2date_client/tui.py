@@ -1073,16 +1073,8 @@ class ReviewWindow:
             for slot in self.reg_info['system_slots']:
                 if slot == 'enterprise_entitled':
                     slot_list += MANAGEMENT + "\n"
-                elif slot == 'provisioning_entitled':
-                    slot_list += PROVISIONING + "\n"
-                elif slot == 'sw_mgr_entitled':
-                    slot_list += UPDATES + "\n"
-                elif slot == 'monitoring_entitled':
-                    slot_list += MONITORING + "\n"
                 elif slot == 'virtualization_host':
                     slot_list += VIRT + "\n"
-                elif slot == 'virtualization_host_platform':
-                    slot_list += VIRT_PLATFORM + "\n"
                 else:
                     slot_list += slot + "\n"
             review_window_text += SLOTS % slot_list + "\n\n"

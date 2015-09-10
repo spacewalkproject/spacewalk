@@ -20,13 +20,9 @@ import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.org.OrgEntitlementType;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
-import com.redhat.rhn.domain.server.ServerGroup;
-import com.redhat.rhn.domain.server.test.ServerGroupTest;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.token.TokenFactory;
@@ -37,15 +33,12 @@ import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 /**
  * JUnit test case for the Org class.
- * @version $Rev$
  */
-
 public class OrgFactoryTest extends RhnBaseTestCase {
 
     public void testOrgTrust() throws Exception {
@@ -156,65 +149,6 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         assertNull(lookup.getToken());
     }
 
-    public void testImpliedEntitlement() throws Exception {
-        Org org1 = createTestOrg();
-        assertTrue(org1
-                .hasEntitlement(OrgFactory.getEntitlementSwMgrPersonal()));
-    }
-
-    /**
-     * Test the addition of an entitlement to an org This code should be
-     * refactored into a business method of some sort if it becomes necessary to
-     * actually add entitlements progmatically from within the Java code. For
-     * now we need this test because new Orgs don't have any entitlements.
-     */
-    public void testAddEntitlement() throws Exception {
-        // Create a new Org and add an Entitlement
-        Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
-        Set entitlements = org1.getEntitlements();
-        OrgEntitlementType oet = OrgFactory
-        .lookupEntitlementByLabel("sw_mgr_enterprise");
-        entitlements.add(oet);
-        org1.setEntitlements(entitlements);
-        org1 = OrgFactory.save(org1);
-        Long orgId = org1.getId();
-        // Re-lookup the object and test it
-        flushAndEvict(org1);
-        Org org2 = OrgFactory.lookupById(orgId);
-        assertTrue(org2.hasEntitlement(oet));
-    }
-
-    public void testAddVirtualization() throws Exception {
-        Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
-        org1.getEntitlements().add(OrgFactory.getEntitlementVirtualization());
-        TestUtils.saveAndFlush(org1);
-        org1 = (Org) reload(org1);
-        assertTrue(org1.hasEntitlement(OrgFactory
-                .getEntitlementVirtualization()));
-    }
-
-    public void testHasEntitlementFalse() throws Exception {
-        Org org1 = createTestOrg();
-        OrgEntitlementType oet = OrgFactory
-        .lookupEntitlementByLabel("sw_mgr_enterprise");
-        assertFalse(org1.hasEntitlement(oet));
-    }
-
-    public void testIllegalEntitlement() throws Exception {
-        try {
-            Org org1 = UserTestUtils.findNewOrg("testOrg" +
-                    this.getClass().getSimpleName());
-            OrgEntitlementType invalid = new OrgEntitlementType("invalid");
-            invalid.setLabel("ILLEGAL ENTITLEMENT");
-            invalid.setName("ILLEGAL ENTITLEMENT NAME");
-            org1.hasEntitlement(invalid);
-            fail("Checked for illegal entitlement, should have received an exception");
-        }
-        catch (IllegalArgumentException e) {
-            // Expected exception
-        }
-    }
-
     /**
      * Test to see if the Org returns list of UserGroup IDs
      */
@@ -222,30 +156,6 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
         assertNotNull(org1.getRoles());
         assertTrue(org1.hasRole(RoleFactory.ORG_ADMIN));
-    }
-
-    public void testAddServerGroup() throws Exception {
-        Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
-        assertTrue(org1.getEntitledServerGroups().size() > 0);
-        boolean contains = false;
-        for (Iterator itr = org1.getEntitledServerGroups().iterator(); itr
-        .hasNext();) {
-            ServerGroup group = (ServerGroup) itr.next();
-            assertNotNull(group);
-            if (ServerConstants.getServerGroupTypeUpdateEntitled().equals(
-                    group.getGroupType())) {
-                contains = true;
-            }
-        }
-        assertTrue(contains);
-
-        // in hosted, the hibernate mapping files were broken so that adding a
-        // second
-        // server group would break a database constraint. This line ensures
-        // that that
-        // problem will not exist again.
-        ServerGroupTest.createTestServerGroup(org1, ServerConstants
-                .getServerGroupTypeEnterpriseEntitled());
     }
 
     public void testLookupSatOrg() {

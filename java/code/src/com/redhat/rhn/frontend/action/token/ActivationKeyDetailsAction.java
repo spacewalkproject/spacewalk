@@ -19,7 +19,6 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
@@ -201,11 +200,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
             usageLimit = Long.valueOf(form.getString(USAGE_LIMIT));
         }
 
-        if (key.getEntitlements().contains(ServerConstants.
-                getServerGroupTypeProvisioningEntitled())) {
-            key.setDeployConfigs(Boolean.TRUE.equals(form.get(AUTO_DEPLOY)));
-        }
-
+        key.setDeployConfigs(Boolean.TRUE.equals(form.get(AUTO_DEPLOY)));
 
         key.setUsageLimit(usageLimit);
         ActivationKeyFactory.save(key);
@@ -255,10 +250,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
         }
         form.set(SELECTED_ENTS, entitlements.toArray(new String[0]));
 
-        if (key.getEntitlements().contains(ServerConstants.
-                        getServerGroupTypeProvisioningEntitled())) {
-            form.set(AUTO_DEPLOY, key.getDeployConfigs());
-        }
+        form.set(AUTO_DEPLOY, key.getDeployConfigs());
     }
 
     private void setupKey(DynaActionForm form, ActivationKey key,

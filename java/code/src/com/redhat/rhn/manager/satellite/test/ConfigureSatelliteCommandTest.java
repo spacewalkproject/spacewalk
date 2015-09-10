@@ -17,8 +17,6 @@ package com.redhat.rhn.manager.satellite.test;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.domain.monitoring.config.ConfigMacro;
-import com.redhat.rhn.domain.monitoring.config.MonitoringConfigFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.manager.satellite.ConfigureSatelliteCommand;
 import com.redhat.rhn.manager.satellite.Executor;
@@ -148,10 +146,7 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
 
         cmd.updateString(ConfigDefaults.JABBER_SERVER, "test.hostname.jabber");
         ValidatorError[] verrors = cmd.storeConfiguration();
-        ConfigMacro sathostname = MonitoringConfigFactory.
-                           lookupConfigMacroByName("RHN_SAT_HOSTNAME");
         assertNull(verrors);
-        assertTrue(sathostname.getDefinition().equals("test.hostname.jabber"));
     }
 
 

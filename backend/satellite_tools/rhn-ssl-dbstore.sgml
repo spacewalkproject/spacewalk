@@ -79,7 +79,6 @@ the "db-*" settings)</para>
     <member>db-control(1) - embedded database environment only!</member>
     <member>rhn-charsets(8)</member>
     <member>rhnpush(8)</member>
-    <member>rhn-satellite-activate(8)</member>
     <member>rhn-schema-version(8)</member>
     <member>rhn-ssl-tool(1)</member>
     <member>satellite-sync(8)</member>

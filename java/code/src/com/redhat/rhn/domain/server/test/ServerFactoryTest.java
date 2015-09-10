@@ -53,7 +53,6 @@ import com.redhat.rhn.domain.server.UndefinedCustomDataKeyException;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
-import com.redhat.rhn.manager.org.UpdateOrgSystemEntitlementsCommand;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
@@ -67,8 +66,6 @@ import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import org.apache.commons.collections.CollectionUtils;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -81,7 +78,6 @@ import java.util.Set;
 
 /**
  * ServerFactoryTest
- * @version $Rev$
  */
 public class ServerFactoryTest extends BaseTestCaseWithUser {
     private Server server;
@@ -96,24 +92,16 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
         super.setUp();
         server = createTestServer(user);
         assertNotNull(server.getId());
-
-        // ensure we have sufficient entitlements
-        List<EntitlementServerGroup> ents = user.getOrg().getEntitledServerGroups();
-        for (EntitlementServerGroup entitlementServerGroup : ents) {
-            UserTestUtils.incrementSgMaxMembers(entitlementServerGroup, 30L);
-        }
     }
 
     public void testListConfigEnabledSystems() throws Exception {
         //Only Config Admins can use this manager function.
         //Making the user a config admin will also automatically
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         //That is not enough though, the user must also have a server that is
         //a member of the config channel and have access to the server as well.
-        Server s = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server s = ServerFactoryTest.createTestServer(user, true);
         ConfigTestUtils.giveConfigCapabilities(s);
         List<Server> systems = ServerFactory.listConfigEnabledSystems();
         assertNotNull(systems);
@@ -191,9 +179,9 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
     public void testServerGroupType() throws Exception {
         //let's hope nobody calls their server group this
         assertNull(ServerFactory.lookupServerGroupTypeByLabel("8dafs8320921kfgbzz"));
-        assertNotNull(ServerConstants.getServerGroupTypeUpdateEntitled());
+        assertNotNull(ServerConstants.getServerGroupTypeEnterpriseEntitled());
         assertNotNull(ServerFactory.lookupServerGroupTypeByLabel(
-                ServerConstants.getServerGroupTypeUpdateEntitled().getLabel()));
+                ServerConstants.getServerGroupTypeEnterpriseEntitled().getLabel()));
     }
 
     public void testCreateServer() throws Exception {
@@ -436,18 +424,9 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
      * @throws Exception
      */
     public void aTestServerHasSpecificEntitlement() throws Exception {
-
         Server s = createTestServer(user);
-
-        // Add two different entitlements.
-
-        SystemManager.entitleServer(s, EntitlementManager.PROVISIONING);
         SystemManager.entitleServer(s, EntitlementManager.VIRTUALIZATION);
-
-        // Check the last entitlement we added.
-
         assertTrue(s.hasEntitlement(EntitlementManager.VIRTUALIZATION));
-
     }
 
     /**
@@ -456,59 +435,10 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
      */
     public void testServerDoesNotHaveSpecificEntitlement() throws Exception {
 
-        // The default test server should not have a provisioning entitlement.
+        // The default test server should not have a virtualization entitlement.
 
         Server s = createTestServer(user);
-        assertFalse(s.hasEntitlement(EntitlementManager.PROVISIONING));
-    }
-
-    public void testFindVirtHostsExceedingGuestLimitByOrg() throws Exception {
-        HostBuilder builder = new HostBuilder(user);
-        List expectedViews = new ArrayList();
-
-        expectedViews.add(builder.createVirtHost().withGuests(10).build()
-                .asHostAndGuestCountView());
-        expectedViews.add(builder.createVirtHost().withGuests(6).build()
-                .asHostAndGuestCountView());
-        expectedViews.add(builder.createVirtHost().withGuests(1).build()
-                .asHostAndGuestCountView());
-
-        builder.createVirtHost().withUnregisteredGuests(2);
-
-        builder.createVirtPlatformHost().withGuests(5).build();
-        builder.createVirtPlatformHost().withGuests(2).build();
-
-        builder.createNonVirtHost().withGuests(2).build();
-        builder.createNonVirtHost().withGuests(5).build();
-
-        List actualViews = ServerFactory.findVirtHostsExceedingGuestLimitByOrg(
-                user.getOrg());
-
-        assertTrue(CollectionUtils.isEqualCollection(expectedViews, actualViews));
-    }
-
-    public void testFindVirtPlatformHostsByOrg() throws Exception {
-        HostBuilder builder = new HostBuilder(user);
-        List expectedViews = new ArrayList();
-
-        expectedViews.add(builder.createVirtPlatformHost().withGuests(1).build()
-                .asHostAndGuestCountView());
-        expectedViews.add(builder.createVirtPlatformHost().withGuests(3).build()
-                .asHostAndGuestCountView());
-        expectedViews.add(builder.createVirtPlatformHost().withGuests(8).build()
-                .asHostAndGuestCountView());
-
-        builder.createVirtPlatformHost().withUnregisteredGuests(2);
-
-        builder.createVirtHost().withGuests(2).build();
-        builder.createVirtHost().withGuests(6).build();
-
-        builder.createNonVirtHost().withGuests(3).build();
-        builder.createNonVirtHost().withGuests(5).build();
-
-        List actualViews = ServerFactory.findVirtPlatformHostsByOrg(user.getOrg());
-
-        assertTrue(CollectionUtils.isEqualCollection(expectedViews, actualViews));
+        assertFalse(s.hasEntitlement(EntitlementManager.VIRTUALIZATION));
     }
 
     /**
@@ -544,8 +474,6 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
             EntitlementServerGroup mgmt = ServerGroupFactory.lookupEntitled(
                     EntitlementManager.MANAGEMENT, owner.getOrg());
             if (mgmt == null) {
-                assertNull(new UpdateOrgSystemEntitlementsCommand(
-                        EntitlementManager.MANAGEMENT, owner.getOrg(), 10L).store());
                 newS = (Server)TestUtils.saveAndReload(newS);
                 mgmt = ServerGroupFactory.lookupEntitled(
                         EntitlementManager.MANAGEMENT,
@@ -553,9 +481,6 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
                 newS = ServerFactory.lookupById(newS.getId());
             }
             assertNotNull(mgmt);
-            assertNotNull(mgmt.getMaxMembers());
-            assertTrue(mgmt.getMaxMembers() > 0);
-            assertTrue(mgmt.getMaxMembers() - mgmt.getCurrentMembers() > 0);
             assertNotNull(mgmt.getGroupType().getAssociatedEntitlement());
             SystemManager.entitleServer(newS,
                     mgmt.getGroupType().getAssociatedEntitlement());
@@ -946,7 +871,8 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
     public void testListSnapshotsForServer() throws Exception {
         Server server2 = ServerFactoryTest.createTestServer(user, true);
         ServerSnapshot snap = generateSnapshot(server2);
-        ServerGroup grp = ServerGroupTestUtils.createEntitled(server2.getOrg());
+        ServerGroup grp = ServerGroupTestUtils.createEntitled(server2.getOrg(),
+         ServerConstants.getServerGroupTypeEnterpriseEntitled());
         snap.addGroup(grp);
 
         TestUtils.saveAndFlush(snap);
@@ -999,7 +925,5 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
 
         List<SnapshotTag> tags = ServerFactory.getSnapshotTags(snap);
         assertContains(tags, tag);
-
     }
-
 }

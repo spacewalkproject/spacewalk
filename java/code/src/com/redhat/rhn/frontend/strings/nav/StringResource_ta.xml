@@ -72,13 +72,6 @@
         </context-group>
         <target>மெய்நிகராக்க புரவலன்கள்</target>
       </trans-unit>
-      <trans-unit id="guest.unlimited.hosts">
-        <source>Virtualization Platform Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
-        </context-group>
-        <target>மெய்நிகராக்க தளப் புரவலன்கள்</target>
-      </trans-unit>
       <trans-unit id="guests.without.hosts">
         <source>Guests Without Hosts</source>
         <context-group name="ctx">
@@ -1133,16 +1126,6 @@
             <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
           </context-group>
           <target>அடிப்படை தடங்கள்</target>
-        </trans-unit>
-      </group>
-      <!-- Multiorg nav -->
-      <group>
-        <trans-unit id="Software Channel Entitlements">
-          <source>Software Channel Entitlements</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-          </context-group>
-          <target>மென்பொருள் தட உரிமங்கள்</target>
         </trans-unit>
       </group>
       <!-- Activation Keys nav -->

@@ -1049,7 +1049,7 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
                                                 and grp.id = sgm.server_group_id
                                                 and grp.group_type = type.id
                                                 and VI.virtual_system_id is null
-                                                and  ( type.label = 'virtualization_host' or type.label = 'virtualization_host_platform')
+                                                and type.label = 'virtualization_host'
        ) as virt_entitlement,
      COALESCE(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
          rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable
@@ -1338,8 +1338,7 @@ select distinct sgm.server_id as ID, 1 as virtual_host
             INNER JOIN rhnServerGroupType sgt ON sgt.id = sg.group_type
             where
                 sgm.server_id in (%s) and
-                    (sgt.label='virtualization_host_platform' or
-                                sgt.label='virtualization_host')
+                    sgt.label='virtualization_host'
 union
 select VI.host_system_id as ID, 1 as virtual_host
     from rhnVirtualInstance VI
@@ -1679,8 +1678,8 @@ SELECT 1
 </callable-mode>
 
 <callable-mode name="remove_server_entitlement">
-  <query params="sid, entitlement, repoll">
-{call rhn_entitlements.remove_server_entitlement(:sid, :entitlement, :repoll)}
+  <query params="sid, entitlement">
+{call rhn_entitlements.remove_server_entitlement(:sid, :entitlement)}
   </query>
 </callable-mode>
 
@@ -1895,62 +1894,6 @@ SELECT 1
     </query>
 </mode>
 
-
-<mode name="flex_guests">
-  <query params="user_id, checkin_threshold ">
-    select
-    cf.label as cf_label,
-    cf.name as cf_name,
-    cf.id as cf_id,
-    s.id as system_id,
-    s.name as system_name,
-    (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second')) as inactive,
-    TO_CHAR(s.created, 'YYYY-MM-DD HH24:MI:SS') as registered,
-    pcf.FVE_CURRENT_MEMBERS as current_members,
-    pcf.FVE_MAX_MEMBERS as max_members
-  from
-      RhnVirtualInstance vi
-      inner join rhnServer s on vi.virtual_system_id = s.id
-      inner join rhnUserServerPerms USP on s.id = USP.server_id
-      inner join rhnServerChannel sc on sc.server_id = s.id
-      inner join rhnChannelFamilyMembers cfm on cfm.channel_id = sc.channel_id
-      inner join rhnChannelFamily cf on cf.id = cfm.channel_family_id
-      inner join rhnPrivateChannelFamily pcf on pcf.channel_family_id  = cf.id and pcf.org_id = s.org_id
-  where sc.is_fve = 'Y'
-                AND USP.user_id = :user_id
-  </query>
-</mode>
-
-
-<mode name="eligible_flex_guests">
-  <query params="user_id, checkin_threshold ">
-    select distinct
-    cf.label as cf_label,
-    cf.name as cf_name,
-    cf.id as cf_id,
-    s.id as system_id,
-    s.name as system_name,
-    (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second')) as inactive,
-    TO_CHAR(s.created, 'YYYY-MM-DD HH24:MI:SS') as registered,
-    pcf.FVE_CURRENT_MEMBERS as current_members,
-    pcf.FVE_MAX_MEMBERS as max_members
-  from
-      RhnVirtualInstance vi
-      inner join rhnServer s on vi.virtual_system_id = s.id
-      inner join rhnUserServerPerms USP on s.id = USP.server_id
-      inner join rhnServerChannel sc on sc.server_id = s.id
-      inner join rhnChannelFamilyMembers cfm on cfm.channel_id = sc.channel_id
-      inner join rhnChannelFamily cf on cf.id = cfm.channel_family_id
-      inner join rhnPrivateChannelFamily pcf on pcf.channel_family_id  = cf.id and pcf.org_id = s.org_id
-  where sc.is_fve = 'N'
-                AND CF.org_id is null
-                AND USP.user_id = :user_id
-                AND (vi.host_system_id is null OR
-                    0 = (select
-            rhn_channel.can_server_consume_virt_channl(s.id, cf.id) from dual ))
-  </query>
-</mode>
-
 <mode name="server_notes">
   <query params="sid">
     select
@@ -1981,32 +1924,10 @@ SELECT 1
   </query>
 </mode>
 
-<mode name="is_server_fve_eligible">
-    <query params="sid">
-    select 1
-        from rhnVirtualInstance vi
-             inner join rhnServer s on vi.virtual_system_id = s.id
-       where s.id = :sid and (
-             vi.host_system_id is null or
-             not exists (
-                select 1
-                  from rhnServerGroupMembers sgm
-                       inner join rhnServerGroup sg on sgm.server_group_id = sg.id
-                       inner join rhnServerGroupType sgt on sgt.id = sg.group_type
-                       inner join rhnServer s2 on s2.id = sgm.server_id
-                 where s2.id = vi.host_system_id
-                 and sgt.label in
-                 ('virtualization_host', 'virtualization_host_platform')
-                )
-             )
-    </query>
-</mode>
-
 <mode name="system_channel_subscriptions">
     <query params="sid">
     select c.id,
-           c.name,
-           sc.is_fve
+           c.name
       from rhnChannel c,
            rhnServerChannel sc
      where sc.server_id = :sid and
@@ -2080,33 +2001,6 @@ select s.id as id,
        s.org_id = :orgid
  group by s.name, s.id
  order by name, id
-  </query>
-  <elaborator name="system_overview" />
-  <elaborator name="entitlements" />
-  <elaborator name="is_virtual_guest" />
-  <elaborator name="is_virtual_host" />
-</mode>
-
-<mode name="systems_in_channel_family"
-      class="com.redhat.rhn.frontend.dto.SystemOverview">
-  <query params="cfamid, userid, orgid, isfve">
-    select distinct s.id as id,
-                    s.name as name,
-                    1 as selectable
-      from rhnServer s,
-            rhnServerChannel sc,
-            rhnChannelFamilyMembers cfm
-      where s.org_id = :orgid
-        and s.id = sc.server_id
-        and sc.channel_id = cfm.channel_id
-        and (sc.is_fve = :isfve or :isfve = 'All')
-        and cfm.channel_family_id = :cfamid
-        and exists (
-            select 1
-              from rhnUserServerPerms usp
-             where usp.user_id = :userid
-               and usp.server_id = s.id)
- order by s.name, s.id
   </query>
   <elaborator name="system_overview" />
   <elaborator name="entitlements" />
@@ -2226,21 +2120,6 @@ order by scheduled_for desc, id desc
   </query>
 </mode>
 
-<mode name="host_virtual_entitlement_for_guest">
-  <query params="sid">
-select sgt.label
-  from rhnVirtualInstance vi,
-       rhnServerGroupMembers sgm,
-       rhnServerGroupType sgt,
-       rhnServerGroup sg
- where vi.virtual_system_id = :sid
-   and vi.host_system_id = sgm.server_id
-   and sgm.server_group_id = sg.id
-   and sgt.id = sg.group_type
-   and sgt.label in ('virtualization_host', 'virtualization_host_platform')
-  </query>
-</mode>
-
 <mode name="tags_for_system"
   class="com.redhat.rhn.frontend.dto.SnapshotTagDto">
   <query params="sid">
@@ -2318,7 +2197,7 @@ select a.id
   </query>
 </mode>
 
-<mode name="provisioning_systems_in_set_with_tag">
+<mode name="systems_in_set_with_tag">
   <query params="user_id, tag_id">
 SELECT * FROM (
 SELECT DISTINCT S.id,
@@ -2337,7 +2216,7 @@ SELECT DISTINCT S.id,
    AND ST.user_id = :user_id
    AND ST.label = 'system_list'
    AND USP.server_id = ST.element
-   AND rhn_server.system_service_level(USP.server_id, 'provisioning') &gt; 0
+   AND rhn_server.system_service_level(USP.server_id, 'management') &gt; 0
    AND USP.server_id = CC.server_id
    AND CC.capability_name_id = CCN.id
    AND CCN.name = 'packages.runTransaction'
@@ -2368,7 +2247,7 @@ ORDER BY UPPER(COALESCE(X.SERVER_NAME, '(none)')), X.ID
   <query params="user_id, set_label, key_id">
 DELETE FROM rhnServerCustomDataValue
       WHERE server_id IN (SELECT element FROM rhnSet WHERE user_id = :user_id AND label = :set_label)
-        AND rhn_server.system_service_level(server_id, 'provisioning') = 1
+        AND rhn_server.system_service_level(server_id, 'management') = 1
         AND key_id = :key_id
   </query>
 </write-mode>

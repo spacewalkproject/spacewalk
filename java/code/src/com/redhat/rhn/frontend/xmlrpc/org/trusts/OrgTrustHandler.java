@@ -38,18 +38,11 @@ import java.util.Map;
 
 /**
  * OrgTrustsHandler
- *
- * @version $Rev$
- *
  * @xmlrpc.namespace org.trusts
  * @xmlrpc.doc Contains methods to access common organization trust information
  * available from the web interface.
  */
 public class OrgTrustHandler extends BaseHandler {
-
-    protected boolean availableInRestrictedPeriod() {
-        return true;
-    }
 
     /**
      * Lists all organizations trusted by the user's organization.

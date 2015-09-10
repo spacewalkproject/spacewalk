@@ -219,71 +219,6 @@ ORDER BY UPPER(C.name)
   </query>
 </callable-mode>
 
-
-
-<mode name="channel_entitlements" class="com.redhat.rhn.frontend.dto.ChannelOverview">
-  <query params="org_id">
-SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url,
-                CFO.fve_current_members as current_flex, CFO.fve_max_members as max_flex,
-                (select count(distinct s.id)
-                    from rhnServerChannel sc
-                         inner join rhnChannelFamilyMembers CFM on CFM.channel_id = sc.channel_id
-                         inner join rhnServer s on s.id = sc.server_id
-                     where CFM.channel_family_id = CFO.id and s.org_id = cfo.org_id) as subscribe_count
-  FROM rhnChannelFamilyOverview CFO
- WHERE CFO.org_id = :org_id
- ORDER BY CFO.name ASC
-  </query>
-</mode>
-
-<mode name="channel_entitlements_for_all_m_orgs" class="com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto">
-  <query params="">
-SELECT MAX(cfo.id) as id,
-                cfo.label,
-       cfo.name,
-       SUM(cfo.max_members) as total,
-       SUM(cfo.current_members) as used,
-       (SELECT (cfo2.max_members) - (cfo2.current_members)
-                       FROM rhnChannelFamilyOverview cfo2
-                        WHERE cfo2.label = cfo.label
-                        AND cfo2.org_id = 1) as available,
-       SUM(cfo.fve_max_members) as total_flex,
-       SUM(cfo.fve_current_members) as used_flex,
-       (SELECT (cfo2.fve_max_members) - (cfo2.fve_current_members)
-                       FROM rhnChannelFamilyOverview cfo2
-                        WHERE cfo2.label = cfo.label AND cfo2.org_id = 1) as available_flex
-FROM rhnChannelFamilyOverview cfo
-WHERE cfo.max_members is not null
-GROUP BY cfo.label, cfo.name
-HAVING (SUM(cfo.max_members) is not null)
-ORDER by cfo.name DESC
-  </query>
-</mode>
-
-<mode name="channel_entitlement" class="com.redhat.rhn.frontend.dto.ChannelOverview">
-  <query params="org_id, entitlement_id">
-SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members,
-CFO.fve_current_members as current_flex, CFO.fve_max_members as max_flex,
- CFO.has_subscription, CFO.url
-  FROM rhnChannelFamilyOverview CFO
- WHERE CFO.org_id = :org_id
- AND CFO.id = :entitlement_id
- ORDER BY CFO.name DESC
-  </query>
-</mode>
-
-<mode name="channel_entitlement_for_all_orgs" class="com.redhat.rhn.frontend.dto.ChannelOverview">
-  <query params="entitlement_id">
-SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_members,
-                        CFO.fve_current_members as current_flex, CFO.fve_max_members as max_flex,
-                 CFO.has_subscription, CFO.url
-  FROM rhnChannelFamilyOverview CFO
- WHERE CFO.id = :entitlement_id
- AND CFO.org_id in (SELECT ID FROM WEB_CUSTOMER)
- ORDER BY CFO.name DESC
-  </query>
-</mode>
-
 <mode name="all_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
         <query params="user_id">
         select Distinct C.id,
@@ -501,7 +436,7 @@ SELECT DISTINCT C.name AS NAME,
 
 <mode name="channel_tree_ssm_install" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="org_id, user_id, set_label">
-SELECT  ACh.channel_name AS NAME, ACh.channel_id ID, ACh.channel_arch_id, ACh.current_members, ACh.available_members, (SELECT COUNT(DISTINCT CPN.name_id) FROM rhnChannelNewestPackage CPN WHERE CPN.channel_id = ACh.channel_id) AS PACKAGE_COUNT, ACh.channel_label,
+SELECT  ACh.channel_name AS NAME, ACh.channel_id ID, ACh.channel_arch_id, (SELECT COUNT(DISTINCT CPN.name_id) FROM rhnChannelNewestPackage CPN WHERE CPN.channel_id = ACh.channel_id) AS PACKAGE_COUNT, ACh.channel_label,
         CASE WHEN NOT ACh.parent_or_self_id = ACh.channel_id THEN ACh.parent_or_self_id END AS parent_id
   FROM  rhnAvailableChannels ACh
  WHERE  ACh.org_id = :org_id
@@ -776,8 +711,8 @@ ORDER BY  CF.id
 <write-mode name="insert_family_perms">
   <query params="org_id, id">
 INSERT INTO  rhnPrivateChannelFamily
-             (channel_family_id, org_id, max_members, current_members)
-     VALUES  (:id, :org_id, NULL, 0)
+             (channel_family_id, org_id)
+     VALUES  (:id, :org_id)
   </query>
 </write-mode>
 
@@ -1031,12 +966,6 @@ GROUP BY C.id, C.name
     WHERE id = :cid
     </query>
 </mode>
-
-<callable-mode name="convert_to_flex">
-    <query params="sid, cfid">
-      { call rhn_channel.convert_to_fve(:sid, :cfid) }
-    </query>
-</callable-mode>
 
 <mode name="activation_key_child_channels">
   <query params="token_id, user_id">

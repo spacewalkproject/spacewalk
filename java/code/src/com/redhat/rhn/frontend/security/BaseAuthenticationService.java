@@ -51,16 +51,7 @@ public abstract class BaseAuthenticationService implements AuthenticationService
         });
     }
 
-    protected boolean requestRestrictedWhitelist(final HttpServletRequest request) {
-        return CollectionUtils.exists(getRestrictedWhitelistURIs(), new Predicate() {
-            public boolean evaluate(Object uri) {
-                return request.getRequestURI().startsWith(uri.toString());
-            }
-        });
-    }
-
     protected abstract Set getUnprotectedURIs();
     protected abstract Set getPostUnprotectedURIs();
     protected abstract Set getLoginURIs();
-    protected abstract Set getRestrictedWhitelistURIs();
 }

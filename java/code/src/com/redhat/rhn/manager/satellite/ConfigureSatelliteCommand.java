@@ -17,8 +17,6 @@ package com.redhat.rhn.manager.satellite;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.domain.monitoring.config.ConfigMacro;
-import com.redhat.rhn.domain.monitoring.config.MonitoringConfigFactory;
 import com.redhat.rhn.domain.user.User;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -146,8 +144,6 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
         Executor e = getExecutor();
 
         if (keysToBeUpdated.contains(ConfigDefaults.JABBER_SERVER)) {
-            updateHostname();
-
             // if hostname changes, we must update
             // osa-dispatcher.server_jabber as well
             this.updateString("osa-dispatcher.jabber_server",
@@ -191,32 +187,6 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
         }
         return null;
 
-    }
-
-
-    // Util to set the ConfigMacro.definition field to a default value
-    // if its set to the **DEFAULT** value that the records start
-    // out in when the schema is initialized.
-    private void setConfigMacroDefault(ConfigMacro cm, String value) {
-        if (cm.getDefinition().startsWith("**") &&
-                cm.getDefinition().endsWith("**")) {
-            setConfigMacro(cm, value);
-        }
-    }
-
-    // Util that actually sets the definition of the ConfigMacro
-    // and stores it
-    private void setConfigMacro(ConfigMacro cm, String value) {
-        cm.setDefinition(value);
-        MonitoringConfigFactory.saveConfigMacro(cm);
-    }
-
-
-    // Update hostname when modified in the UI
-    private void updateHostname() {
-        ConfigMacro sathostname = MonitoringConfigFactory.
-                           lookupConfigMacroByName("RHN_SAT_HOSTNAME");
-        setConfigMacro(sathostname, ConfigDefaults.get().getHostname());
     }
 
     /**

@@ -45,7 +45,6 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
@@ -557,8 +556,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         user.addPermanentRole(RoleFactory.ORG_ADMIN);
         assertNotNull(user);
 
-        Server srvr = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srvr = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(srvr.getId(), "script.run", new Long(1));
         assertNotNull(srvr);
 

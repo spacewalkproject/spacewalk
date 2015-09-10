@@ -134,8 +134,7 @@ on this system."),
 
     # 70-80: channel subscription errors
     70: _("""
-     All available subscriptions for the requested channel have been exhausted.
-     Please contact a Red Hat Satellite Sales associate.
+     No matching base channel found for your system.
      """),
     71: _("""
      You do not have subscription permission to the designated channel.
@@ -150,8 +149,6 @@ on this system."),
 
     # 90-100: entitlement errors
     90: _("Unable to entitle system"),
-    91: _("Registration token unable to entitle system: \
-maximum membership exceeded"),
 
     # 100-109: e-mail and uuid related faults
     100: _("Maximum e-mail length violation."),
@@ -205,7 +202,6 @@ maximum membership exceeded"),
     3001: _("Unable to retrieve channel"),
     3003: _("Unable to retrieve package"),
     3005: _("Unable to retrieve erratum"),
-    3006: _("Invalid satellite certificate"),
     3007: _("File is missing"),
     3008: _("Function retrieval error"),
     3009: _("Function execution error"),

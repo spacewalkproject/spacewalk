@@ -41,7 +41,6 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.TokenPackage;
 import com.redhat.rhn.domain.token.test.ActivationKeyTest;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
-import com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.activationkey.ActivationKeyHandler;
 import com.redhat.rhn.frontend.xmlrpc.serializer.ActivationKeySerializer;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
@@ -61,7 +60,6 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
     private static final List<String> KEY_ENTITLEMENTS;
     static {
         KEY_ENTITLEMENTS = new LinkedList<String>();
-        KEY_ENTITLEMENTS.add(EntitlementManager.PROVISIONING_ENTITLED);
         KEY_ENTITLEMENTS.add(EntitlementManager.VIRTUALIZATION_ENTITLED);
     }
 
@@ -85,19 +83,16 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
         assertEquals(0, activationKey.getUsageLimit().longValue());
         assertEquals(KEY_DESCRIPTION, activationKey.getNote());
 
-        assertEquals(3, activationKey.getEntitlements().size());
         // Created by default:
+        assertEquals(2, activationKey.getEntitlements().size());
         assertTrue(keyHasEntitlement(activationKey,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled()));
-        assertTrue(keyHasEntitlement(activationKey,
-                ServerConstants.getServerGroupTypeProvisioningEntitled()));
         assertTrue(keyHasEntitlement(activationKey,
                 ServerConstants.getServerGroupTypeVirtualizationEntitled()));
     }
 
     public void testCreateWithBlankChannelAndUnlimitedUsageLimit() throws Exception {
         List <String> ents = new ArrayList<String>(1);
-        ents.add(EntitlementManager.PROVISIONING_ENTITLED);
         String key = keyHandler.create(admin, "", KEY_DESCRIPTION, null,
                                 ents, Boolean.TRUE);
         assertTrue(key.length() > 0);
@@ -281,16 +276,13 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
 
     public void testSetAddOnEntitlement() throws Exception {
         List<String> entitlements = new ArrayList<String>();
-        entitlements.add(EntitlementManager.PROVISIONING_ENTITLED);
         String newKey = keyHandler.create(admin, KEY, KEY_DESCRIPTION, baseChannelLabel,
                 KEY_USAGE_LIMIT, entitlements, Boolean.FALSE);
         ActivationKey activationKey = ActivationKeyManager.getInstance()
                                                     .lookupByKey(newKey, admin);
-        assertEquals(2, activationKey.getEntitlements().size());
+        assertEquals(1, activationKey.getEntitlements().size());
         assertTrue(keyHasEntitlement(activationKey,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled()));
-        assertTrue(keyHasEntitlement(activationKey,
-                ServerConstants.getServerGroupTypeProvisioningEntitled()));
         assertFalse(keyHasEntitlement(activationKey, ServerConstants
                 .getServerGroupTypeVirtualizationEntitled()));
 
@@ -298,7 +290,7 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
                 .getServerGroupTypeVirtualizationEntitled();
         keyHandler.addEntitlements(admin, newKey,
                 buildEntitlementsList(new String[] { virtualization.getLabel() }));
-        assertEquals(3, activationKey.getEntitlements().size());
+        assertEquals(2, activationKey.getEntitlements().size());
         assertTrue(keyHasEntitlement(activationKey, virtualization));
     }
 
@@ -323,20 +315,6 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
         }
     }
 
-    public void testSetNonAddOnEntitlement() throws Exception {
-        String newKey = keyHandler.create(admin, KEY, KEY_DESCRIPTION, baseChannelLabel,
-                KEY_USAGE_LIMIT, KEY_ENTITLEMENTS, Boolean.FALSE);
-        try {
-            // Not an add-on entitlement:
-            keyHandler.addEntitlements(admin, newKey,
-                    buildEntitlementsList(new String []{"sw_mgr_entitled"}));
-            fail();
-        }
-        catch (ValidatorException e) {
-            // expected
-        }
-    }
-
     /*
      * Ensure no exception is thrown when adding an entitlement the key already has.
      */
@@ -345,10 +323,10 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
                 KEY_USAGE_LIMIT, KEY_ENTITLEMENTS, Boolean.FALSE);
         ActivationKey activationKey = ActivationKeyManager.getInstance().
                                                             lookupByKey(newKey, admin);
-        assertEquals(3, activationKey.getEntitlements().size());
+        assertEquals(2, activationKey.getEntitlements().size());
         keyHandler.addEntitlements(admin, newKey,
-                buildEntitlementsList(new String []{"provisioning_entitled"}));
-        assertEquals(3, activationKey.getEntitlements().size());
+                buildEntitlementsList(new String[]{"virtualization_host"}));
+        assertEquals(2, activationKey.getEntitlements().size());
     }
 
     public void testRemoveAddOnEntitements() throws Exception {
@@ -356,7 +334,7 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
                 KEY_USAGE_LIMIT, KEY_ENTITLEMENTS, Boolean.FALSE);
         ActivationKey activationKey = ActivationKeyManager.getInstance().
                                                            lookupByKey(newKey, admin);
-        assertEquals(3, activationKey.getEntitlements().size());
+        assertEquals(2, activationKey.getEntitlements().size());
 
         keyHandler.removeEntitlements(admin, newKey, KEY_ENTITLEMENTS);
         assertEquals(1, activationKey.getEntitlements().size());
@@ -366,16 +344,17 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
      * No exception should be thrown removing an entitlement the key doesn't have:
      */
     public void testRemoveUnappliedAddOnEntitements() throws Exception {
+        List<String> noEntitlements = new ArrayList<String>();
         String newKey = keyHandler.create(admin, KEY, KEY_DESCRIPTION, baseChannelLabel,
-                KEY_USAGE_LIMIT, KEY_ENTITLEMENTS, Boolean.FALSE);
+                KEY_USAGE_LIMIT, noEntitlements, Boolean.FALSE);
         ActivationKey activationKey = ActivationKeyManager.getInstance().
                                                         lookupByKey(newKey, admin);
-        assertEquals(3, activationKey.getEntitlements().size());
+        assertEquals(1, activationKey.getEntitlements().size());
 
         List<String> entsToRemove = new LinkedList<String>();
-        entsToRemove.add("virtualization_host_platform");
+        entsToRemove.add("virtualization_host");
         keyHandler.removeEntitlements(admin, newKey, entsToRemove);
-        assertEquals(3, activationKey.getEntitlements().size());
+        assertEquals(1, activationKey.getEntitlements().size());
     }
 
     public void testRemoveNonExistentAddOnEntitlement() throws Exception {
@@ -689,36 +668,6 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
         return found;
     }
 
-    public void testAddPackageWithoutProvisioningEntitementFails() throws Exception
-    {
-        String newKey = keyHandler.create(admin, KEY, KEY_DESCRIPTION, baseChannelLabel,
-                KEY_USAGE_LIMIT, new LinkedList(), Boolean.FALSE);
-
-        PackageName newName = PackageNameTest.createTestPackageName();
-        try {
-            keyHandler.addPackageNames(admin, newKey, buildList(newName.getName()));
-            fail();
-        }
-        catch (MissingEntitlementException e) {
-            // expected
-        }
-    }
-
-    public void testRemoveProvisioningEntitementClearsPackages() throws Exception
-    {
-        String newKey = keyHandler.create(admin, KEY, KEY_DESCRIPTION, baseChannelLabel,
-                KEY_USAGE_LIMIT, KEY_ENTITLEMENTS, Boolean.FALSE);
-        ActivationKey activationKey = ActivationKeyManager.getInstance().
-                                                        lookupByKey(newKey, admin);
-
-        PackageName newName = PackageNameTest.createTestPackageName();
-        keyHandler.addPackageNames(admin, newKey, buildList(newName.getName()));
-        assertEquals(1, activationKey.getPackages().size());
-
-        keyHandler.removeEntitlements(admin, newKey, KEY_ENTITLEMENTS);
-        assertEquals(0, activationKey.getPackages().size());
-    }
-
     /**
      * Pack the given input into a list.
      * @param input Object to pack
@@ -760,7 +709,6 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
         String newKey = keyHandler.create(admin, KEY,
                         KEY_DESCRIPTION + " " + 1, baseChannelLabel,
                 KEY_USAGE_LIMIT, KEY_ENTITLEMENTS, Boolean.FALSE);
-        UserTestUtils.addProvisioning(admin.getOrg());
         UserTestUtils.addUserRole(admin, RoleFactory.CONFIG_ADMIN);
         // Create a global channel
         ConfigChannel global1 = ConfigTestUtils.createConfigChannel(admin.getOrg(),

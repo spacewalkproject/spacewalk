@@ -77,7 +77,6 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
     public static final String CURRENT_BASE_CHANNEL = "current_base_channel";
     public static final String CURRENT_BASE_CHANNEL_ID = "current_base_channel_id";
     public static final String NEW_BASE_CHANNEL = "new_base_channel";
-    public static final String SERVER_FVE_ELIGIBLE = "server_fve_eligible";
 
 
     /** {@inheritDoc} */
@@ -93,7 +92,6 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
 
         // Setup request attributes
         request.setAttribute(RequestContext.SYSTEM, s);
-        request.setAttribute(SERVER_FVE_ELIGIBLE, SystemManager.isServerFveEligible(s));
         if (s.getBaseChannel() != null) {
             Channel baseChannel = s.getBaseChannel();
             List channels = baseChannel.getAccessibleChildrenFor(user);
@@ -106,16 +104,7 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
                 Channel child = (Channel) channels.get(i);
                 childchannels[i] = new ChildChannelDto(child.getId(), child.getName(),
                         s.isSubscribed(child),
-                        ChannelManager.isChannelFreeForSubscription(s.getId(), child),
                         child.isSubscribable(user.getOrg(), s));
-
-                childchannels[i].setAvailableSubscriptions(
-                        ChannelManager.getAvailableEntitlements(
-                        user.getOrg(), child));
-
-                childchannels[i].setAvailableFveSubscriptions(
-                        ChannelManager.getAvailableFveEntitlements(
-                        user.getOrg(), child));
             }
             request.setAttribute(AVAIL_CHILD_CHANNELS, childchannels);
             form.set(NEW_BASE_CHANNEL_ID, s.getBaseChannel().getId());

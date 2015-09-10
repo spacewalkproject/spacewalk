@@ -28,14 +28,10 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.user.UserManager;
 
-import java.util.Set;
-
 import junit.framework.Assert;
 
 /**
  * A class that allows us to easily create test users.
- *
- * @version $Rev$
  */
 public class UserTestUtils extends Assert {
     // static class
@@ -269,50 +265,9 @@ public class UserTestUtils extends Assert {
      * @throws Exception foo
      */
     public static void addManagement(Org orgIn) throws Exception {
-        Set ents = orgIn.getEntitlements();
-        ents.add(OrgFactory.getEntitlementEnterprise());
         EntitlementServerGroup sg =
             ServerGroupTestUtils.createEntitled(orgIn,
                     ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        incrementSgMaxMembers(sg);
-    }
-
-
-    /**
-     * Add provisioning to an org
-     * @param orgIn to add to
-     * @throws Exception foo
-     */
-    public static void addProvisioning(Org orgIn) throws Exception {
-        Set ents = orgIn.getEntitlements();
-        ents.add(OrgFactory.getEntitlementProvisioning());
-        EntitlementServerGroup sg =
-            ServerGroupTestUtils.createEntitled(orgIn,
-                    ServerConstants.getServerGroupTypeProvisioningEntitled());
-        incrementSgMaxMembers(sg);
-    }
-
-    /**
-     * Increases a server group max members' count by 10
-     * @param sg the server group to add members to
-     */
-    public static void incrementSgMaxMembers(EntitlementServerGroup sg) {
-        incrementSgMaxMembers(sg, 10L);
-    }
-
-    /**
-     * Increases a server group max members' count
-     * @param sg the server group to add members to
-     * @param count count increment
-     */
-    public static void incrementSgMaxMembers(EntitlementServerGroup sg, long count) {
-        if (sg.getMaxMembers() != null) {
-            sg.setMaxMembers(new Long(sg.getMaxMembers().longValue() +
-                    count));
-        }
-        else {
-            sg.setMaxMembers(new Long(count));
-        }
     }
 
     /**
@@ -321,31 +276,10 @@ public class UserTestUtils extends Assert {
      * @throws Exception foo
      */
     public static void addVirtualization(Org orgIn) throws Exception {
-        Set ents = orgIn.getEntitlements();
-        ents.add(OrgFactory.getEntitlementVirtualization());
-
         EntitlementServerGroup sg =
             ServerGroupTestUtils.createEntitled(orgIn,
                     ServerConstants.getServerGroupTypeVirtualizationEntitled());
-        incrementSgMaxMembers(sg);
         TestUtils.saveAndFlush(sg);
-    }
-
-    /**
-     * Add virtualization to an org
-     * @param orgIn to add to
-     * @throws Exception foo
-     */
-    public static void addVirtualizationPlatform(Org orgIn) throws Exception {
-        Set ents = orgIn.getEntitlements();
-        ents.add(OrgFactory.getEntitlementVirtualizationPlatform());
-
-        EntitlementServerGroup sg =
-            ServerGroupTestUtils.createEntitled(orgIn,
-                    ServerConstants.getServerGroupTypeVirtualizationPlatformEntitled());
-        incrementSgMaxMembers(sg);
-        TestUtils.saveAndFlush(sg);
-
     }
 
     /**

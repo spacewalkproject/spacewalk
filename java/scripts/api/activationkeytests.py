@@ -23,7 +23,7 @@ class ActivationKeyTests(RhnTestCase):
         self.key = "xmlrpckey_python"  + str(random_int)
         self.key = client.activationkey.create(self.session_key, self.key,
             "xmlrpc test key " + str(random_int), BASE_CHANNEL_LABEL, 0,
-            ["provisioning_entitled"], False)
+            [], False)
         print "created key: %s" % self.key
         return self.key
 
@@ -33,7 +33,7 @@ class ActivationKeyTests(RhnTestCase):
         key = "xmlrpckey" + str(random_int)
         newkey = client.activationkey.create(self.session_key, key,
             "xmlrpc test key " + str(random_int), BASE_CHANNEL_LABEL, 0,
-            ["provisioning_entitled"], False)
+            [], False)
 
         new_details = {}
         new_details['description'] = "look i changed! %s" % str(random_int)
@@ -50,7 +50,7 @@ class ActivationKeyTests(RhnTestCase):
 
         # Add some new entitlements:
         client.activationkey.addEntitlements(self.session_key, newkey,
-            ['monitoring_entitled', 'virtualization_host'])
+            ['virtualization_host'])
 
         client.activationkey.addChildChannels(self.session_key, newkey,
             [CHILD_CHANNEL_LABEL])
@@ -70,10 +70,6 @@ class ActivationKeyTests(RhnTestCase):
 
         ### Teardown Related Calls ###
         client.activationkey.removePackageNames(self.session_key, newkey, ["gaim"])
-
-        # Remove the original entitlement and one of the new:
-        client.activationkey.removeEntitlements(self.session_key, newkey,
-            ['provisioning_entitled', 'monitoring_entitled'])
 
     def validateActivationKeyHash(self, keyDetails):
         self.assertTrue(keyDetails.has_key('key'))

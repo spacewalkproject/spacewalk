@@ -163,7 +163,7 @@ class Queue(rhnHandler):
         log_debug(4, self.server_id, "determining whether to snapshot...")
 
         entitlements = self.server.check_entitlement()
-        if not entitlements.has_key("provisioning_entitled"):
+        if not entitlements.has_key("enterprise_entitled"):
             return 0
 
         # ok, take the snapshot before attempting this action

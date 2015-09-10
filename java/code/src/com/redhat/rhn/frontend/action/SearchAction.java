@@ -25,7 +25,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -35,7 +34,6 @@ import com.redhat.rhn.frontend.struts.StrutsDelegate;
 
 /**
  * SearchAction
- * @version $Rev$
  */
 public class SearchAction extends RhnAction {
 
@@ -58,7 +56,7 @@ public class SearchAction extends RhnAction {
             if (searchType == null) {
                 return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
             }
-            else if (searchType.equals("systems") && systemSearchAllowed(user)) {
+            else if (searchType.equals("systems")) {
                 return doSystemSearch(mapping, request, searchString);
             }
             else if (searchType.equals("errata")) {
@@ -89,13 +87,6 @@ public class SearchAction extends RhnAction {
         params.put(BaseSearchAction.FINE_GRAINED, true);
         return StrutsDelegate.getInstance().forwardParams(
                         mapping.findForward("errata"), params);
-    }
-
-    private boolean systemSearchAllowed(User user) {
-        return user.getOrg().getEntitlements().contains(
-                OrgFactory.getEntitlementSwMgrPersonal()) ||
-        user.getOrg().getEntitlements().contains(
-                OrgFactory.getEntitlementEnterprise());
     }
 
     private ActionForward doSystemSearch(ActionMapping mapping, HttpServletRequest request,

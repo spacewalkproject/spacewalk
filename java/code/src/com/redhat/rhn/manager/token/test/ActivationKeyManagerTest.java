@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.manager.token.test;
 
-import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelListProcessor;
@@ -68,7 +67,6 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
     }
     public void testDeployConfig() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         //need a tools channel for config deploy
         Channel base = ChannelTestUtils.createBaseChannel(user);
@@ -77,7 +75,6 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         ActivationKey key = createActivationKey();
         //Create a config channel
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
-        key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
         ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
         proc.add(key.getConfigChannelsFor(user), cc);
         key.setDeployConfigs(true);
@@ -88,22 +85,12 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
     }
     public void testConfigPermissions() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
         ActivationKey key = createActivationKey();
 
         //need a tools channel for config deploy
         Channel base = ChannelTestUtils.createBaseChannel(user);
         ChannelTestUtils.setupBaseChannelForVirtualization(user, base);
 
-
-        try {
-            key.setDeployConfigs(true);
-            fail("Permission exception not raised");
-        }
-        catch (PermissionException pe) {
-            //success
-        }
-        key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
         key.setDeployConfigs(true);
         //Create a config channel
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
@@ -234,7 +221,6 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
 
     public void testVirtEnt() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
         UserTestUtils.addVirtualization(user.getOrg());
         Channel baseChannel = ChannelTestUtils.createBaseChannel(user);
         Channel [] channels =
@@ -243,9 +229,6 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         checkVirtEnt(ServerConstants.getServerGroupTypeVirtualizationEntitled(),
                         channels[ChannelTestUtils.VIRT_INDEX],
                         channels[ChannelTestUtils.TOOLS_INDEX]);
-        checkVirtEnt(ServerConstants.getServerGroupTypeVirtualizationPlatformEntitled(),
-                channels[ChannelTestUtils.VIRT_INDEX],
-                channels[ChannelTestUtils.TOOLS_INDEX]);
     }
 
     private void checkVirtEnt(ServerGroupType sgt,

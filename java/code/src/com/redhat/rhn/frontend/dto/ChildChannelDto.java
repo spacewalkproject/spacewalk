@@ -25,10 +25,7 @@ public class ChildChannelDto {
     private String name;
     private String label;
     private boolean subscribed;
-    private boolean isFreeForGuests;
     private boolean isSubscribable;
-    private Long availableSubscriptions;
-    private Long availableFveSubscriptions;
     private Long systemCount;
 
     /**
@@ -43,15 +40,13 @@ public class ChildChannelDto {
      * @param idIn id
      * @param nameIn name
      * @param subscribedIn sub
-     * @param isFreeForGuestsIn is it free?
      * @param isSubscriableIn if subscriable or not
      */
     public ChildChannelDto(Long idIn, String nameIn,
-            boolean subscribedIn, boolean isFreeForGuestsIn, boolean isSubscriableIn) {
+            boolean subscribedIn, boolean isSubscriableIn) {
         this.id = idIn;
         this.name = nameIn;
         this.subscribed = subscribedIn;
-        this.isFreeForGuests = isFreeForGuestsIn;
         this.isSubscribable = isSubscriableIn;
     }
 
@@ -133,57 +128,11 @@ public class ChildChannelDto {
         this.isSubscribable = !new Long(0).equals(isSubscribableIn);
     }
 
-
-    /**
-     * @return Returns the availableSubscriptions.
-     */
-    public Long getAvailableSubscriptions() {
-        return availableSubscriptions;
-    }
-
-
-    /**
-     * @param availableSubscriptionsIn The availableSubscriptions to set.
-     */
-    public void setAvailableSubscriptions(Long availableSubscriptionsIn) {
-        this.availableSubscriptions = availableSubscriptionsIn;
-    }
-
-    /**
-     * @return Returns the availableFveSubscriptions.
-     */
-    public Long getAvailableFveSubscriptions() {
-        return availableFveSubscriptions;
-    }
-
-
-    /**
-     * @param availableFveSubscriptionsIn The availableFveSubscriptions to set.
-     */
-    public void setAvailableFveSubscriptions(Long availableFveSubscriptionsIn) {
-        this.availableFveSubscriptions = availableFveSubscriptionsIn;
-    }
-
-
     /**
      * @return Returns the isSubscribable.
      */
     public boolean isSubscribable() {
         return isSubscribable;
-    }
-
-    /**
-     * @return the isFreeForGuests
-     */
-    public boolean getFreeForGuests() {
-        return isFreeForGuests;
-    }
-
-    /**
-     * @param isFreeForGuestsIn the isFreeForGuests to set
-     */
-    public void setFreeForGuests(boolean isFreeForGuestsIn) {
-        this.isFreeForGuests = isFreeForGuestsIn;
     }
 
     /**

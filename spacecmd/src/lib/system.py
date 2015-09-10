@@ -2499,13 +2499,13 @@ def do_system_details(self, args, short=False):
                                                      system_id)
 
         ranked_config_channels = []
-        if 'provisioning_entitled' in entitlements:
-            config_channels = \
-                self.client.system.config.listChannels(self.session,
-                                                       system_id)
 
-            for channel in config_channels:
-                ranked_config_channels.append(channel.get('label'))
+        config_channels = \
+            self.client.system.config.listChannels(self.session,
+                                                   system_id)
+
+        for channel in config_channels:
+            ranked_config_channels.append(channel.get('label'))
 
         print
         print 'Hostname:      %s' % network.get('hostname')

@@ -31,7 +31,6 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.token.ActivationKey;
@@ -96,11 +95,9 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
 
     public void testListSystemsForFileCopy() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         // Create a system
-        Server srv1 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(user, true);
 
         // Create a local for that system
         ConfigChannel local = srv1.getLocalOverride();
@@ -199,7 +196,6 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
 
     public void testListCurrentFiles() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         // Channel of interest - has rev-1 of aFile
         ConfigChannel gcc1 = ConfigTestUtils.createConfigChannel(user.getOrg(),
@@ -228,7 +224,6 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
 
     public void testGlobalFileDeployInfo() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         // Channel of interest - has rev-1 of aFile
         ConfigChannel gcc1 = ConfigTestUtils.createConfigChannel(user.getOrg(),
@@ -272,8 +267,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
 
         Long ver = new Long(2);
         // System 1 - no outranks, no overrides
-        Server srv1 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(user, true);
 
         SystemManagerTest.giveCapability(srv1.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
@@ -281,8 +275,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         ServerFactory.save(srv1);
 
         // System 2 - no outranks, an override
-        Server srv2 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv2 = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(srv2.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
         srv2.subscribe(gcc1);
@@ -290,8 +283,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         ServerFactory.save(srv2);
 
         // System 3 - 1 outrank, no override
-        Server srv3 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv3 = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(srv3.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
         srv3.subscribeAt(gcc2, 1);
@@ -299,8 +291,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         ServerFactory.save(srv3);
 
         // System 4 - 1 outrank, an override
-        Server srv4 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv4 = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(srv4.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
         srv4.subscribeAt(gcc2, 1);
@@ -309,8 +300,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         ServerFactory.save(srv4);
 
         // System 5 - 2 outranks, no override
-        Server srv5 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv5 = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(srv5.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
         srv5.subscribeAt(gcc3, 1);
@@ -381,7 +371,6 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
          */
         ConfigTestUtils.giveUserChanAccess(user, cc);  //option 2
         //UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);  //option 1
-        //UserTestUtils.addProvisioning(user.getOrg());
 
         DataResult dr = cm.listGlobalChannels(user, pc);
         assertEquals(1, dr.getTotalSize());
@@ -390,14 +379,11 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
     }
 
     public void testListGlobalChannelsForSDC() throws Exception {
-
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         //Create a config channel
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
-        Server srv = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv = ServerFactoryTest.createTestServer(user, true);
         ServerFactory.save(srv);
         DataResult <ConfigChannelDto> dr = cm.
                         listGlobalChannelsForSystemSubscriptions(srv, user, pc);
@@ -412,15 +398,12 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
     }
 
     public void testListGlobalChannelsForActivationKeys() throws Exception {
-
         UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         //Create a config channel
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
         ActivationKeyManager akManager = ActivationKeyManager.getInstance();
         ActivationKey key = akManager.createNewActivationKey(user, "Test");
-        key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
 
         DataResult <ConfigChannelDto> subscriptions = cm.
                         listGlobalChannelsForActivationKeySubscriptions(key, user);
@@ -469,12 +452,10 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         //Making the user a config admin will also automatically
         //give him access to the file and channel we just created.
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         //That is not enough though, the user must also have a server that is
         //a member of the config channel and have access to the server as well.
-        Server s = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server s = ServerFactoryTest.createTestServer(user, true);
 
         s.subscribe(cf.getConfigChannel());
         ConfigTestUtils.giveConfigCapabilities(s);
@@ -615,10 +596,8 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
      * @throws Exception
      */
     public void testAvailableChannels() throws Exception {
-        UserTestUtils.addProvisioning(user.getOrg());
         // Create a system
-        Server srv1 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(user, true);
 
         // Are we guaranteed to find local and sandbox?
         assertNotNull(srv1.getLocalOverride());
@@ -834,8 +813,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         //Create a local config channel and a server it belongs to
         ConfigChannel lcc = ConfigTestUtils.createConfigChannel(user.getOrg(),
                 ConfigChannelType.local());
-        Server srv1 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(user, true);
         srv1.setLocalOverride(lcc);
 
         // Subscribe to globals
@@ -843,8 +821,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         srv1.subscribeAt(gcc1, 2);
 
         // Create a second, subscribe to global
-        Server srv2 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv2 = ServerFactoryTest.createTestServer(user, true);
         srv2.subscribe(gcc1);
 
         ServerFactory.save(srv1);
@@ -934,7 +911,6 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
 
     public void testListSystemsNotInChannel() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         // Create  global config channels
         ConfigChannel gcc1 = ConfigTestUtils.createConfigChannel(user.getOrg(),
@@ -945,34 +921,28 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         Long ver = new Long(2);
 
         // In 'my' channel
-        Server srv1 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(srv1.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
 
         // NOT in 'mt' channel
-        Server srv2 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv2 = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(srv2.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
-        Server srv3 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv3 = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(srv3.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
-        Server srv4 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv4 = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(srv4.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
 
         // Not in ANY channel, but config-mgt-enabled
-        Server srv5 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv5 = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(srv5.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
 
         // Not in any channel, and NOT config-mgt-enabled
-        Server srv6 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv6 = ServerFactoryTest.createTestServer(user, true);
 
         srv1.subscribe(gcc1);
         srv2.subscribe(gcc2);
@@ -1007,7 +977,6 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
 
     public void testDeployConfiguration() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
         ConfigurationManager mgr = ConfigurationManager.getInstance();
 
         // Create  global config channels
@@ -1019,8 +988,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         Long ver = new Long(2);
 
         // gcc1 only
-        Server srv1 = ServerFactoryTest.createTestServer(user, true,
-                    ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(srv1.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
 
@@ -1075,7 +1043,6 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
 
     public void testDeployFiles() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         ConfigurationManager mgr = ConfigurationManager.getInstance();
 
@@ -1088,20 +1055,17 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         Long ver = new Long(2);
 
         // gcc1 only
-        Server srv1 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(srv1.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
 
         // gcc2 only
-        Server srv2 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv2 = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(srv2.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
 
         // f1 from gcc2, f2 from gcc2
-        Server srv3 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv3 = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(srv3.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
 
@@ -1158,15 +1122,13 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
 
     public void testListManagedFilePaths() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         // Create  global config channels
         ConfigChannel gcc1 = ConfigTestUtils.createConfigChannel(user.getOrg(),
                 ConfigChannelType.global());
         ConfigChannel gcc2 = ConfigTestUtils.createConfigChannel(user.getOrg(),
                 ConfigChannelType.global());
-        Server srv1 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(user, true);
         srv1.subscribe(gcc1);
         srv1.subscribe(gcc2);
 
@@ -1290,13 +1252,11 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
 
     public void testSandboxManagedFilePaths() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         // Create  Sandbox  config channel
         ConfigChannel sandbox = ConfigTestUtils.createConfigChannel(user.getOrg(),
                 ConfigChannelType.sandbox());
-        Server srv1 = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv1 = ServerFactoryTest.createTestServer(user, true);
         srv1.setSandboxOverride(sandbox);
 
 
@@ -1405,11 +1365,8 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         }
     }
     public void testChannelAccess() throws Exception {
-        UserTestUtils.addProvisioning(user.getOrg());
-
         // Create a server we DON'T own - we shouldn't have channel access
-        Server srv = ServerFactoryTest.createTestServer(user, false,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server srv = ServerFactoryTest.createTestServer(user, false);
 
         ConfigChannel cc = srv.getLocalOverride();
         assertNotNull(cc);
@@ -1420,8 +1377,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         assertFalse(cm.accessToChannel(user.getId(), cc.getId()));
 
         // Create a server we DO own - we SHOULD have channel access
-        srv = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        srv = ServerFactoryTest.createTestServer(user, true);
 
         cc = srv.getLocalOverride();
         assertNotNull(cc);

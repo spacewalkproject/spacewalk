@@ -117,14 +117,6 @@ Scheduled 16 system(s)
 .fi
 
 .P
-.B Access information on the command line without writing custom API scripts
-.nf
-[root@sat]# spacecmd get_entitlements | grep -e monitoring -e provisioning
-monitoring_entitled: 314/397
-provisioning_entitled: 322/397
-.fi
-
-.P
 .B Quickly generate reports
 .nf
 spacecmd> system_listerrata ldap03
@@ -207,7 +199,6 @@ Configuration Channels:
 
 Entitlements:
   Management
-  Monitoring
   Provisioning
 
 System Groups:

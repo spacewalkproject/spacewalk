@@ -231,7 +231,6 @@ class Tests(unittest.TestCase):
         users_unencrypted_password = "unittest-password-%.3f" % time.time()
 
         # Grant entitlements to the org
-        misc_functions.grant_entitlements(org_id, 'enterprise_entitled', 1)
         misc_functions.grant_channel_family_entitlements(
             org_id,
             "%s-%.3f" % (self._channel_family, time.time()),

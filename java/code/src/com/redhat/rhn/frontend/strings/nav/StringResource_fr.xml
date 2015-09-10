@@ -72,13 +72,6 @@
         </context-group>
         <target>Hôtes de virtualisation</target>
       </trans-unit>
-      <trans-unit id="guest.unlimited.hosts">
-        <source>Virtualization Platform Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
-        </context-group>
-        <target>Hôtes de la plateforme de virtualisation</target>
-      </trans-unit>
       <trans-unit id="guests.without.hosts">
         <source>Guests Without Hosts</source>
         <context-group name="ctx">
@@ -1159,16 +1152,6 @@
             <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
           </context-group>
           <target>Canaux de base</target>
-        </trans-unit>
-      </group>
-      <!-- Multiorg nav -->
-      <group>
-        <trans-unit id="Software Channel Entitlements">
-          <source>Software Channel Entitlements</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-          </context-group>
-          <target>Droits d'accès aux canaux logiciels</target>
         </trans-unit>
       </group>
       <!-- Activation Keys nav -->

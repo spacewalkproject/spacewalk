@@ -119,7 +119,7 @@ cat /proc/cpuinfo
         client.system.setDetails(self.session_key, SERVER_ID, details)
 
     def test_add_remove_entitlements(self):
-        ents = ['monitoring_entitled']
+        ents = ['enterprise_entitled']
         client.system.removeEntitlements(self.session_key, SERVER_ID, ents)
         details = client.system.getDetails(self.session_key, SERVER_ID)
         lookup_ents = details['addon_entitlements']

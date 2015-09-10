@@ -25,14 +25,11 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * CopyFileLocalActionTest
- * @version $Rev$
  */
 public class CopyFileLocalActionTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
-
 
         //Create the revision to copy
         ConfigRevision revision = ConfigTestUtils.createConfigRevision(user.getOrg());

@@ -72,13 +72,6 @@
         </context-group>
         <target>가상화 호스트</target>
       </trans-unit>
-      <trans-unit id="guest.unlimited.hosts">
-        <source>Virtualization Platform Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
-        </context-group>
-        <target>가상화 플랫폼 호스트</target>
-      </trans-unit>
       <trans-unit id="guests.without.hosts">
         <source>Guests Without Hosts</source>
         <context-group name="ctx">
@@ -1159,16 +1152,6 @@
             <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
           </context-group>
           <target>기본 채널 </target>
-        </trans-unit>
-      </group>
-      <!-- Multiorg nav -->
-      <group>
-        <trans-unit id="Software Channel Entitlements">
-          <source>Software Channel Entitlements</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-          </context-group>
-          <target>소프트웨어 채널 인타이틀먼트  </target>
         </trans-unit>
       </group>
       <!-- Activation Keys nav -->

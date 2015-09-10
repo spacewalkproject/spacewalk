@@ -43,10 +43,6 @@ import java.util.Set;
  */
 public class ApiHandler extends BaseHandler {
 
-    protected boolean availableInRestrictedPeriod() {
-        return true;
-    }
-
     /**
      * Returns the server version.
      * @return Returns the server version.

@@ -4,13 +4,13 @@
     <rhn-tab-url>/rhn/channels/manage/Edit.do</rhn-tab-url>
     <rhn-tab-url>/rhn/channels/manage/Clone.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Subscribers" acl="channel_exists();org_entitlement(sw_mgr_enterprise); org_channel_setting(not_globally_subscribable);user_can_admin_channel()">
+  <rhn-tab name="Subscribers" acl="channel_exists(); org_channel_setting(not_globally_subscribable);user_can_admin_channel()">
     <rhn-tab-url>/rhn/channels/manage/Subscribers.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Organizations" acl="channel_exists(); is_protected(); org_entitlement(sw_mgr_enterprise); user_role(org_admin)">
+  <rhn-tab name="Organizations" acl="channel_exists(); is_protected(); user_role(org_admin)">
     <rhn-tab-url>/rhn/multiorg/channels/OrgList.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Managers" acl="channel_exists();org_entitlement(sw_mgr_enterprise);user_role(channel_admin)">
+  <rhn-tab name="Managers" acl="channel_exists();user_role(channel_admin)">
     <rhn-tab-url>/rhn/channels/manage/Managers.do</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Errata" acl="channel_exists();user_can_admin_channel();channel_type_capable(errata)">

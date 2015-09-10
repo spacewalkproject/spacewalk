@@ -23,13 +23,11 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * FileDownloadActionTest
- * @version $Rev$
  */
 public class FileDownloadActionTest extends RhnMockStrutsTestCase {
 
         public void testPlaintextExecute() throws Exception {
             UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-            UserTestUtils.addProvisioning(user.getOrg());
 
             ConfigRevision revision = ConfigTestUtils.createConfigRevision(user.getOrg());
 
@@ -48,7 +46,6 @@ public class FileDownloadActionTest extends RhnMockStrutsTestCase {
 
         public void testBinaryExecute() throws Exception {
             UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-            UserTestUtils.addProvisioning(user.getOrg());
 
             ConfigRevision revision = ConfigTestUtils.createConfigRevision(user.getOrg());
             revision.getConfigContent().setBinary(true);

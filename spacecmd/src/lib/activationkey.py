@@ -642,8 +642,7 @@ options:
   -d DESCRIPTION
   -b BASE_CHANNEL
   -u set key as universal default
-  -e [provisioning_entitled,enterprise_entitled,monitoring_entitled,
-      virtualization_host,virtualization_host_platform]'''
+  -e [enterprise_entitled,virtualization_host]'''
 
 
 def do_activationkey_create(self, args):
@@ -827,20 +826,13 @@ def do_activationkey_details(self, args):
         try:
             details = self.client.activationkey.getDetails(self.session,
                                                            key)
+            config_channels = \
+                self.client.activationkey.listConfigChannels(
+                    self.session, key)
 
-            # an exception is thrown if provisioning is not enabled and we
-            # attempt to get configuration channel information
-            try:
-                config_channels = \
-                    self.client.activationkey.listConfigChannels(
-                        self.session, key)
-
-                config_channel_deploy = \
-                    self.client.activationkey.checkConfigDeployment(
-                        self.session, key)
-            except xmlrpclib.Fault:
-                config_channels = []
-                config_channel_deploy = 0
+            config_channel_deploy = \
+                self.client.activationkey.checkConfigDeployment(
+                    self.session, key)
 
             # API returns 0/1 instead of boolean
             if config_channel_deploy == 1:
@@ -1120,7 +1112,7 @@ def export_activationkey_getdetails(self, key):
                                                                key)
     except xmlrpclib.Fault:
         logging.debug("activationkey.listConfigChannel threw an exeception, \
-            probably not provisioning entitled, setting config_channels=False")
+            setting config_channels=False")
 
     cclist = [c['label'] for c in ccdlist]
     logging.debug("Got config channel label list of %s" % cclist)

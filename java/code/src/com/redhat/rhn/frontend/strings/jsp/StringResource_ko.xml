@@ -4342,115 +4342,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
         <target>시스템</target>
       </trans-unit>
-      <trans-unit id="softwareentitlements.header">
-        <source>Software Channel Entitlements Across @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@를 통한 소프트웨어 채널 인타이틀먼트  </target>
-      </trans-unit>
-      <trans-unit id="softwareentitlements.description">
-        <source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>다음에는 조직 및 사용자 전역에 걸쳐 @@PRODUCT_NAME@@ 상의 모든 소프트웨어 채널 인타이틀먼트 목록이 있습니다. 인타이틀먼트 이름을 클릭하시면 보다 자세한 정보를 보실 수 있습니다.       </target>
-      </trans-unit>
-      <trans-unit id="softwareentitlements.noentitlements">
-        <source>No entitlements found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>인타이틀먼트가 없음. </target>
-      </trans-unit>
-      <trans-unit id="softwareentitlements.header.entitlement.name">
-        <source>Entitlement Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>인타이틀먼트 이름 </target>
-      </trans-unit>
-      <trans-unit id="Available/Total">
-        <source>Available/Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>사용 가능 수량/합계 </target>
-      </trans-unit>
-      <trans-unit id="Used/Allotted">
-        <source>Used/Allotted</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>사용 수량/할당 수량 </target>
-      </trans-unit>
-      <trans-unit id="None Allocated">
-        <source>None Allotted</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>할당되지 않음 </target>
-      </trans-unit>
-      <trans-unit id="Regular Counts">
-        <source>Regular Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>일반적인 인타이틀먼트 수 </target>
-      </trans-unit>
-      <trans-unit id="Regular Usage">
-        <source>Regular Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>일반적인 사용 </target>
-      </trans-unit>
-      <trans-unit id="Flex Counts">
-        <source>Flex Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>Flex 인타이틀먼트 수 </target>
-      </trans-unit>
-      <trans-unit id="Flex Usage">
-        <source>Flex Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>Flex 사용 </target>
-      </trans-unit>
-      <trans-unit id="softwareentitlements.usagedata">
-        <source>{0} of {1} ({2}%)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
-        </context-group>
-        <target>{1} 중 {0} ({2}%) </target>
-      </trans-unit>
-      <trans-unit id="Available/Total.tip">
-        <source>'Total' refers to the total available entitlements to the @@PRODUCT_NAME@@ as reflected in this @@PRODUCT_NAME@@'s certificate. 'Available' refers to the number entitlements that are available to be allocated to various organizations.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>'합계'는 @@PRODUCT_NAME@@ 인증서에 반영된것으로 @@PRODUCT_NAME@@에서 사용 가능한 인타이틀먼트 합계를 말합니다. '사용 가능'은 다양한 조직에 할당된 사용 가능한 인타이틀먼트 수를 말합니다.</target>
-      </trans-unit>
-      <trans-unit id="Used/Allotted.tip">
-        <source>'Allotted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>'할당 수'는 @@PRODUCT_NAME@@ 인증서에 반영된 것으로 초기 풀에서 조직에 할당된 총 인타이틀먼트 수를 말합니다. '사용 수'는 다양한 조직에서 시스템에 의해 소비되는 인타이틀먼트를 말합니다.</target>
-      </trans-unit>
       <trans-unit id="satusers.tip">
         <source>&lt;strong&gt;*Tip:&lt;/strong&gt; Organization administrator privileges can
 not be modified on this page. Instead, please visit the "Users" top-level
 navigational tab above to access the profiles of individual users in your
 organization. You may grant or remove the organization administrator role in the
 "Roles" section of the "Details" tab in individual users' profiles.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;* 힌트:&lt;/strong&gt; 조직 관리자 권한은 이 페이지에서 수정될 수 없습니다.
 상부 네비게이션 탭에 있는 &quot;사용자&quot;로 가셔서 조직에 있는 개별 사용자의
 프로파일을 액세스하시기바랍니다. 개별 사용자 프로파일에
@@ -4462,9 +4359,6 @@ organization. You may grant or remove the organization administrator role in the
 organization above, those entitlements will be added back to the default organization,
 and if you add entitlements from a non-default organization they will be
 deducted from the default organization.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
         <target>&lt;strong&gt;힌트:&lt;/strong&gt; 이 조직은  @@PRODUCT_NAME@@에서 기본값으로 설정되어있는 조직입니다. 이 조직에 해당하는 인타이틀먼트는  @@PRODUCT_NAME@@ 인증서 파일과 링크되어 있으므로, 수정할 수 없습니다. 기본값이 아닌 조직에서 인타이틀먼트를
 삭제할 경우, 이러한 인타이틀먼트는 기본값 조직으로 다시 추가되며, 기본값이 아닌 조직에서
 인타이틀먼트를 추가할 경우, 이는 기본값 조직에서 삭제됩니다.    </target>
@@ -4479,151 +4373,7 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.entitlementUsage">
         <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
         <target>인타이틀먼트 사용: </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementDetails.header.accessGranted">
-        <source>Access Granted by this Entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-        <target>인타이틀먼트에 의해 부여된 액세스 </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementDetails.header.accessGrantedDescription">
-        <source>A single '{0}' entitlement may be used to gain access to any one of the following &lt;a href="/rhn/software/channels/All.do"&gt;software channels&lt;/a&gt;:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-        <target>단일 '{0}' 인타이틀먼트는 다음의 &lt;a href=&quot;/rhn/software/channels/All.do&quot;&gt;소프트웨어 채널&lt;/a&gt; 중 하나에 액세스 권한을 얻기 위해 사용될 수 있습니다:  </target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.nochannelfams">
-        <source>No channels found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>채널을 찾을 수 없습니다.</target>
-      </trans-unit>
-      <trans-unit id="No Entitlements Available">
-        <source>No Entitlements Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>사용 가능한 인타이틀먼트가 없음 </target>
-      </trans-unit>
-      <trans-unit id="Regular Proposed Total">
-        <source>Regular Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>일반적으로 제시된 합계 </target>
-      </trans-unit>
-      <trans-unit id="Flex Proposed Total">
-        <source>Flex Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-        <target>제시된 Flex 합계 </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementDetails.noChannelsFound">
-        <source>No channels found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-        <target>채널을 찾을 수 없습니다.</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementDetails.header.channelName">
-        <source>Channel Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-        <target>채널명</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementDetails.header.packages">
-        <source>Packages</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-        <target>패키지</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.viewModifyCounts.header">
-        <source>View/Modify Entitlement Counts by Organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>조직에 따라 인타이틀먼트 수 보기/수정  </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.viewModifyCounts.description">
-        <source>The current allocation of entitlements for '{0}' across the organizations on this @@PRODUCT_NAME@@ is displayed below. You may make changes to the allocation of entitlements for each organization in the 'Proposed Total' column, but your changes will not take effect until you depress the appropriate 'Update' button.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@에 있는 조직 전역에 걸친 '{0}'에 대한 현재 인타이틀먼트 할당을 아래에서 보여주고 있습니다. '제시된 합계' 부분에서 각각의 조직에 대한 인타이틀먼트 할당을 변경할 수 있지만, 변경된 사항은 '업데이트' 버튼을 누를때 까지 영향을 미치지 않게 됩니다.   </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.noOrgsFound">
-        <source>No organizations found.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>조직을 찾을 수 없습니다.  </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.column.orgName">
-        <source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>조직 이름 </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.regular">
-        <source>System-Wide Regular Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>시스템 전역 일반 인타이틀먼트 수 </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.flex">
-        <source>System-Wide Flex Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>시스템 전역 Flex 인타이틀먼트 수 </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.submit">
-        <source>Update</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>업데이트</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.possibleValues">
-        <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>가능한 값: &lt;strong&gt;{0}&lt;/strong&gt;에서 &lt;strong&gt;{1}&lt;/strong&gt; 까지 </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.total">
-        <source>Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>총 파일</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.Used/Allotted">
-        <source>'Allotted' refers to the total available entitlements to the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>'할당 수'는 @@PRODUCT_NAME@@ 상에 있는 조직에서 (기본값 @@PRODUCT_NAME@@ 조직 제외) 사용 가능한 인타이틀먼트 합계를 말합니다. 이는 @@PRODUCT_NAME@@ 인증서에 있는 사용 가능한 합계와 동일하지 않습니다.  </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.totaltip">
-        <source> This total corresponds to your @@PRODUCT_NAME@@ certificate's
-value for this entitlement, excluding the default organization's consumption.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>합계는 기본적인 조직의 사용 수를 제외하고 인타이틀먼트의 @@PRODUCT_NAME@@ 인증서 값에 해당합니다.</target>
       </trans-unit>
       <trans-unit id="probedetails.jsp.start_date">
         <source>Start date:</source>
@@ -4632,48 +4382,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       <trans-unit id="probedetails.jsp.end_date">
         <source>End date:</source>
         <target>마지막 날짜:</target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsage">
-        <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>인타이틀먼트 사용: </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsage">
-        <source>Organization Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>조직 사용  </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsageData">
-        <source>{0} of {1} ({2}%)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>{1} 중 {0} ({2}%) </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsageData">
-        <source>{0} of {1} organizations ({2}%) have access to this entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>{1} 중 {0} 조직 ({2}%)이 이 인타이틀먼트로 액세스함   </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.invalidInput">
-        <source>Proposed Allocation is invalid.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>제시된 할당이 부적절합니다.  </target>
-      </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.noEntitlementsAvailable">
-        <source>No entitlements are available for allocation.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-        <target>할당에 사용할 수 있는 인타이틀먼트가 없습니다. </target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.start_date">
         <source>Issue Start Date: </source>
@@ -5153,107 +4861,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
         <target>소프트웨어 채널 아이콘</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.header">
-        <source>Software Channel Entitlements</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>소프트웨어 채널 인타이틀먼트</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.summary">
-        <source>The software channels listed below are subscription-based channels to which your organization has paid access.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>다음의 소프트웨어 채널 목록은 사용자 조직에서 구매하신 서브스크립션 기반 채널입니다. </target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.noentitlements">
-        <source>No Channel Entitlements</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>채널 인타이틀먼트가 없습니다</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.channel">
-        <source>Channel Entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>채널 인타이틀먼트</target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.subscribed">
-        <source>Systems Subscribed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>등록된 시스템 </target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.consumed">
-        <source>Regular Consumed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>일반적인 사용 수 </target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.subscribed_flex">
-        <source>Consumed Flex Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>사용되는 Flex 게스트 수 </target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.avaible_flex">
-        <source>Available Flex Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>사용 가능한 Flex 게스트 수 </target>
-      </trans-unit>
-      <trans-unit id="entitlements.jsp.available">
-        <source>Regular Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>일반적인 사용 가능 수 </target>
-      </trans-unit>
-      <trans-unit id="entitlements.tree.description1">
-        <source>The following channels are associated with your {0} channel entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>다음 채널은 {0} 채널 인타이틀먼트와 연관되어 있습니다.</target>
-      </trans-unit>
-      <trans-unit id="entitlements.tree.description2">
-        <source>Greyed out rows are parents of child channels in this entitlement that do not belong to the entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
-        </context-group>
-        <target>회색 가로줄은 인타이틀먼트에 속하지 않은 자식 채널에 대한 부모 채널을 나타냅니다.</target>
-      </trans-unit>
-      <trans-unit id="entitledsystems.jsp.header">
-        <source>Subscribed Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.regular">
-        <source>The systems listed below consume regular software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.flex">
-        <source>The systems listed below consume flex guest software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="entitledsystems.summary.all">
-        <source>The systems listed below consume both regular and flex guest software channel entitlements from &lt;b&gt;{0}&lt;/b&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/EntitledSystems</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="packagesearch.jsp.toolbar">
         <source>Package Search</source>
@@ -6772,13 +6379,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
         <target>추가 인타이틀먼트</target>
       </trans-unit>
-      <trans-unit id="systementitlements.jsp.set_to_update_entitled">
-        <source>Set to Update Entitled</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-        <target>업데이트 인타이틀먼트로 설정</target>
-      </trans-unit>
       <trans-unit id="systementitlements.jsp.set_to_manage_entitled">
         <source>Set to Management Entitled</source>
         <context-group name="ctx">
@@ -6818,25 +6418,9 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemEntitlements.do</context>
         </context-group>
-        <trans-unit id="systementitlements.jsp.entitlement_counts_message_unlimited">
+        <trans-unit id="systementitlements.jsp.entitlement_counts_message">
           <source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
           <target>&lt;strong&gt;{0} 시스템&lt;/strong&gt; 인타이틀먼트, &lt;strong&gt;무제한 사용가능한&lt;/strong&gt; 인타이틀먼트</target>
-        </trans-unit>
-        <trans-unit id="systementitlements.jsp.entitlement_counts_message_1">
-          <source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
-          <target>&lt;strong&gt;{0} 시스템&lt;/strong&gt; 인타이틀먼트, &lt;strong&gt;{1} 유효한&lt;/strong&gt; 인타이틀먼트 (&lt;strong&gt;합계 {2}&lt;/strong&gt;) </target>
-        </trans-unit>
-        <trans-unit id="systementitlements.jsp.entitlement_counts_message_2">
-          <source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
-          <target>&lt;strong&gt;{0} 시스템&lt;/strong&gt; 인타이틀먼트, &lt;strong&gt;{1} 유효한&lt;/strong&gt; 인타이틀먼트 (&lt;strong&gt;합계 {2}&lt;/strong&gt;) </target>
-        </trans-unit>
-        <trans-unit id="systementitlements.jsp.entitlement_counts_message_3">
-          <source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
-          <target>&lt;strong&gt;{0} 시스템&lt;/strong&gt; 인타이틀먼트, &lt;strong&gt;{1} 유효한&lt;/strong&gt; 인타이틀먼트 (&lt;strong&gt;합계 {2}&lt;/strong&gt;) </target>
-        </trans-unit>
-        <trans-unit id="systementitlements.jsp.entitlement_counts_message_4">
-          <source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
-          <target>&lt;strong&gt;{0} 시스템&lt;/strong&gt; 인타이틀먼트, &lt;strong&gt;{1} 유효한&lt;/strong&gt; 인타이틀먼트 (&lt;strong&gt;합계 {2}&lt;/strong&gt;) </target>
         </trans-unit>
       </group>
       <trans-unit id="systementitlements.jsp.base_entitlements">
@@ -6881,10 +6465,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Removed &lt;strong&gt;Provisioning&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템에서 삭제된 &lt;strong&gt;프로비저닝(Provisioning)&lt;/strong&gt;.</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.provisioning.notEnoughSlots">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Provisioning&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템은 &lt;strong&gt;프로비저닝 (Provisioning)&lt;/strong&gt; 인타이틀먼트로 성공적으로 업그레이드되었지만, 마지막 &lt;strong&gt;{1}&lt;/strong&gt; 시스템에 대해 &lt;strong&gt;프로비저닝 (Provisioning)&lt;/strong&gt; 인타이틀먼트가 부족합니다. &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 스토어&lt;/strong&gt;&lt;/a&gt;에서 추가적인 &lt;strong&gt;프로비저닝 (Provisioning)&lt;/strong&gt; 인타이틀먼트를 구매하실 수 있습니다. 추가적인 &lt;strong&gt;프로비저닝 (Provisioning)&lt;/strong&gt; 인타이틀먼트를 가지셔야만 이 시스템들을 업그레이드할 수 있습니다. </target>
-        </trans-unit>
         <trans-unit id="system_entitlements.provisioning.noManagement">
           <source>&lt;strong&gt;Provisioning&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Provisioning&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Provisioning&lt;/strong&gt; entitlement to these system(s).</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;관리&lt;/strong&gt; 기본 인타이틀먼트를 가지고 있지 않기때문에 &lt;strong&gt;프로비저닝 (Provisioning)&lt;/strong&gt; 인타이틀먼트는 실패하였습니다. 실패한 시스템은 아직 아래에 선택되어져 있습니다. 아래의 &lt;strong&gt;관리 인타이틀먼트하도록 설정&lt;/strong&gt; 버튼을 먼저 클릭하시고, &lt;strong&gt;추가 인타이틀먼트 부분&lt;/strong&gt;에 위치한 드랍다운 리스트에서 &lt;strong&gt;프로비저닝 (Provisioning)&lt;/strong&gt; 아이템을 선택하신 다음, 아래의 &lt;strong&gt;인타이틀먼트 추가&lt;/strong&gt; 버튼을 클릭하시면, 이 시스템에 &lt;strong&gt;프로비저닝 (Provisioning)&lt;/strong&gt; 인타이틀먼트를 추가하실 수 있습니다.</target>
@@ -6901,10 +6481,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템에서 삭제된 &lt;strong&gt;가상화&lt;/strong&gt;는 선택한 호스트와 연계된 게스트가 물리적 채널 및 시스템 인타이틀먼트를 사용하게 합니다.</target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host.notEnoughSlots">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements, you will be able to upgrade these systems. &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템은 &lt;strong&gt;가상화&lt;/strong&gt;인타이틀먼트로 성공적으로 업그레이드되었지만, 마지막 &lt;strong&gt;{1}&lt;/strong&gt; 시스템에 대해 &lt;strong&gt;가상화&lt;/strong&gt; 인타이틀먼트가 부족합니다. &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 스토어&lt;/strong&gt;&lt;/a&gt;에서 추가적인 &lt;strong&gt;가상화&lt;/strong&gt; 인타이틀먼트를 구매하실 수 있습니다. 추가적인 &lt;strong&gt;가상화&lt;/strong&gt; 인타이틀먼트를 갖고계셔야 시스템을 업그레이드하실 수 있습니다. &lt;br/&gt; &lt;strong&gt;알림: &lt;/strong&gt;시스템에 가상화 플랫폼이 있을 경우 이는 가상화로 다운그레이드됩니다. </target>
-        </trans-unit>
         <trans-unit id="system_entitlements.virtualization_host.noManagement">
           <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization&lt;/strong&gt; entitlement to these system(s).</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;관리&lt;/strong&gt; 기본 인타이틀먼트를 가지고 있지 않기 때문에 &lt;strong&gt;가상화&lt;/strong&gt; 인타이틀먼트를 실패하였습니다. 실패한 시스템은 아직 아래에 선택되어져 있습니다. 먼저 아래의 &lt;strong&gt;관리 인타이틀먼트 설정 &lt;/strong&gt; 버튼을 클릭하시고, &lt;strong&gt;추가 인타이틀먼트 부분&lt;/strong&gt;에 위치한 드롭다운 목록에서 &lt;strong&gt;가상화&lt;/strong&gt; 항목을 선택하신 다음, 아래의 &lt;strong&gt;인타이틀먼트 추가&lt;/strong&gt; 버튼을 클릭하시면, 이 시스템에 &lt;strong&gt;가상화&lt;/strong&gt; 인타이틀먼트를 추가하실 수 있습니다.</target>
@@ -6913,26 +6489,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
           <target>가상화는 Solaris 시스템에서 지원되지 않기 때문에 &lt;strong&gt;{0}&lt;/strong&gt; 시스템에 대한 &lt;strong&gt;가상화&lt;/strong&gt; 인타이틀먼트를 실패했습니다.  </target>
         </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.success">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt;으로 설정되었습니다.  &lt;br/&gt; &lt;strong&gt;알림: &lt;/strong&gt;시스템에 가상화가 있을 경우 이는 가상화 플랫폼으로 업그레이드됩니다.</target>
-        </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
-          <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템에서 삭제된 &lt;strong&gt;가상화&lt;/strong&gt;는 선택한 호스트와 연계된 게스트가 물리적 채널 및 시스템 인타이틀먼트를 사용하게 합니다.</target>
-        </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.notEnoughSlots">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements, you will be able to upgrade these systems.  &lt;br/&gt;&lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템은 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt;인타이틀먼트로 성공적으로 설정되었지만, 마지막 &lt;strong&gt;{1}&lt;/strong&gt; 시스템에 대해 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 인타이틀먼트가 부족합니다. &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 스토어&lt;/strong&gt;&lt;/a&gt;에서 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 인타이틀먼트를 추가로 구매하실 수 있습니다. 추가적인 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 인타이틀먼트를 갖고 계셔야 시스템을 업그레이드하실 수 있습니다. &lt;br/&gt; &lt;strong&gt;알림: &lt;/strong&gt;시스템에 가상화 플랫폼이 있을 경우 이는 가상화로 다운그레이드됩니다.   </target>
-        </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.noManagement">
-          <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement to these system(s).</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;관리&lt;/strong&gt; 기본 인타이틀먼트를 가지고 있지 않기 때문에 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 인타이틀먼트를 실패하였습니다. 실패한 시스템은 아직 아래에 선택되어져 있습니다. 먼저 아래의 &lt;strong&gt;관리 인타이틀먼트 설정 &lt;/strong&gt; 버튼을 클릭하시고, &lt;strong&gt;애드온 인타이틀먼트 부분&lt;/strong&gt;에 위치한 드롭다운 목록에서 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 항목을 선택하신 다음, 아래의 &lt;strong&gt;인타이틀먼트 추가&lt;/strong&gt; 버튼을 클릭하시면, 이 시스템에 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 인타이틀먼트를 추가하실 수 있습니다. </target>
-        </trans-unit>
-        <trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
-          <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
-          <target>가상화는 Solaris 시스템에서 지원되지 않기 때문에 &lt;strong&gt;{0}&lt;/strong&gt; 시스템에 대한 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 인타이틀먼트를 실패하였습니다.   </target>
-        </trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;모니터링&lt;/strong&gt;으로 설정되어졌습니다.</target>
@@ -6940,10 +6496,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="system_entitlements.monitoring.removed.success">
           <source>Removed &lt;strong&gt;Monitoring&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템에서 삭제된 &lt;strong&gt;모니터링&lt;/strong&gt;.</target>
-        </trans-unit>
-        <trans-unit id="system_entitlements.monitoring.notEnoughSlots">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to&lt;strong&gt;Monitoring&lt;/strong&gt; entitled, but you not have enough &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템은 &lt;strong&gt;모니터링&lt;/strong&gt; 인타이틀먼트로 성공적으로 업그레이드되었지만, 마지막 &lt;strong&gt;{1}&lt;/strong&gt; 시스템에 대해 &lt;strong&gt;모니터링&lt;/strong&gt; 인타이틀먼트가 부족합니다. &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 스토어&lt;/strong&gt;&lt;/a&gt; 에서 추가적인 &lt;strong&gt;모니터링&lt;/strong&gt; 인타이틀먼트를 구매하실 수 있습니다. 추가적인 &lt;strong&gt;모니터링&lt;/strong&gt; 인타이틀먼트를 가지셔야만 이 시스템들을 업그레이드할 수 있습니다. </target>
         </trans-unit>
         <trans-unit id="system_entitlements.monitoring.noManagement">
           <source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Monitoring&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Monitoring&lt;/strong&gt; entitlement to these system(s).</source>
@@ -6963,61 +6515,9 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
       </group>
       <group>
-        <context-group name="ctx">
-          <context context-type="sourcefile">rhn/systems/entitlements/FlexGuests.do</context>
-          <context context-type="sourcefile">rhn/systems/entitlements/EligibleFlexGuests.do</context>
-        </context-group>
         <trans-unit id="Registered">
           <source>Registered</source>
           <target>등록됨</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.entitlement_counts_message_unlimited">
-          <source>{0} consumed, unlimited available entitlements</source>
-          <target>{0} 사용됨, 무제한 사용 가능한 인타이틀먼트 </target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.entitlement_counts_message">
-          <source>{0} consumed, {1} available entitlement</source>
-          <target>{0} 사용됨, {1} 사용 가능한 인타이틀먼트 </target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.header">
-          <source>Flex Guest Entitlement Consumers</source>
-          <target>Flex 게스트 인타이틀먼트 컨슈머 </target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.message">
-          <source>The following is a list of guest systems that are currently consuming &lt;a href="{0}"&gt; Flex Guest entitlements&lt;/a&gt;. These entitlements are used when registering virtual guests that are not associated with a registered host system or that are associated with a host system that is not Virtualization or Virtualization Platform entitled. Flex Guest Entitlement Consumers</source>
-          <target>다음은 현재 &lt;a href=&quot;{0}&quot;&gt; Flex 게스트 인타이틀먼트&lt;/a&gt;를 사용하고 있는 게스트 시스템 목록을 보여주고 있습니다. 이러한 인타이틀먼트는 등록된 호스트 시스템에 연결되지 않은 가상 게스트 또는 가상화나 가상화 플랫폼 인타이틀먼트가 없는 호스트 시스템에 연결된 가상 게스트를 등록할 때 사용됩니다.</target>
-        </trans-unit>
-        <trans-unit id="floating.guests">
-          <source>Flex Guest Entitlement Consumers</source>
-          <target>Flex 게스트 인타이틀먼트 컨슈머 </target>
-        </trans-unit>
-        <trans-unit id="eligible.floating.guests">
-          <source>Guests Consuming Regular Entitlements</source>
-          <target>일반적인 인타이틀먼트를 사용하는 게스트 </target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.header">
-          <source>Guests Consuming Regular Entitlements</source>
-          <target>일반적인 인타이틀먼트를 사용하는 게스트 </target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.message">
-          <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in RHN or for whom there are no remaining &lt;a href="{0}"&gt; Virtualization inherited guest entitlements&lt;/a&gt;. These systems are consuming the same software and system entitlements as a physical system.</source>
-          <target>다음은 가상 인타이틀먼트 (가상화 또는 가상호 플랫폼)를 갖는 RHN 호스트 시스템에 연결되지 않은 게스트 시스템 또는 &lt;a href=&quot;{0}&quot;&gt; 가상화 상속 게스트 인타이틀먼트&lt;/a&gt;에 남아 있는 게스트 시스템의 목록을 보여줍니다. 이러한 시스템은 물리적 시스템과 동일한 소프트웨어 및 시스템 인타이틀먼트를 사용하고 있습니다. </target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.jsp.no-systems">
-          <source>There are no eligible flex guest systems consuming regular entitlements.</source>
-          <target>일반적 인타이틀먼트를 사용하는 적절한 flex 게스트 시스템이 없습니다.</target>
-        </trans-unit>
-        <trans-unit id="flexguest.jsp.no-systems">
-          <source>There are no systems consuming Flex Guest entitlements.</source>
-          <target>Flex 게스트 인타이틀먼트를 사용하는 시스템이 없습니다.</target>
-        </trans-unit>
-        <trans-unit id="Make Flex">
-          <source>Convert To Flex Guest Entitlement</source>
-          <target>Flex 게스트 인타이틀먼트로 전환 </target>
-        </trans-unit>
-        <trans-unit id="eligible.flexguest.systems.confirm.message">
-          <source>Converted &lt;strong&gt;{0}&lt;/strong&gt; system(s) to use Flex Guest Entitlement.</source>
-          <target>Flex 게스트 인타이틀먼트를 사용하도록 &lt;strong&gt;{0}&lt;/strong&gt; 시스템이 전환되었습니다.</target>
         </trans-unit>
       </group>
       <!--  System search -->
@@ -8823,26 +8323,6 @@ the following tabs in the left navigation menu:</source>
         </context-group>
         <target>조직에 관한 보다 자세한 정보는, 다음에서 참조하시기 바랍니다: </target>
       </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.header2">
-        <source>Subscriptions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>서브스크립션 </target>
-      </trans-unit>
-      <trans-unit id="general.jsp.org.tbl.description2">
-        <source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis,
-you can allocate entitlements for any particular entitlement across all
-organizations on your @@PRODUCT_NAME@@ here as well.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@에 있는 서브스크립션을 관리합니다. 각각의 인타이틀먼트에서 제공하는 액세스가 무엇인지를
-살펴보실 수 도 있습니다. 각각의 인타이틀먼트에 기반하여,
-여기서 @@PRODUCT_NAME@@에 있는 모든 조직에 걸쳐 특정 인타이틀먼트에 대한 인타이틀먼트를
-할당하실 수 있습니다.      </target>
-      </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link2">
         <source>Go to Subscriptions now</source>
         <context-group name="ctx">
@@ -9017,41 +8497,6 @@ administrator privileges.</source>
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
         <target>모니터링이 비활성화되었습니다. &lt;a href=&quot;/rhn/admin/config/GeneralConfig.do&quot;&gt;&lt;strong&gt;일반&lt;/strong&gt;&lt;/a&gt; 설정 페이지로 가셔서 모니터링 활성화 체크박스를 선택하시기 바랍니다.    </target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.toolbar">
-        <source>@@PRODUCT_NAME@@ Configuration - Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ 설정 - 인증서 </target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.summary">
-        <source>You must provide an @@PRODUCT_NAME@@ certificate. This certificate entitles you to the various levels of service provided by the @@PRODUCT_NAME@@.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ 인증서를 제공해 주셔야 합니다. 이 인증서가 있어야 @@PRODUCT_NAME@@가 제공하는 다양한 수준의 서비스를 이용하실 수 있습니다.      </target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.header2">
-        <source>@@PRODUCT_NAME@@ Certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ 인증서 </target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.cert_file">
-        <source>Upload Certificate File:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>인증서 파일 업로드:</target>
-      </trans-unit>
-      <trans-unit id="certificate.jsp.cert_text">
-        <source>-or- Certificate Text:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-        <target>또는 인증서 문구 입력:</target>
       </trans-unit>
       <trans-unit id="bootstrap.jsp.toolbar">
         <source>@@PRODUCT_NAME@@ Configuration - Bootstrap</source>
@@ -12062,7 +11507,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>소프트웨어 아이콘</target>
       </trans-unit>
@@ -12112,7 +11556,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>채널을 찾을 수 없습니다.</target>
       </trans-unit>
@@ -12121,7 +11564,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>모든 자식 채널 보임</target>
       </trans-unit>
@@ -12130,7 +11572,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>모든 자식 채널 숨김</target>
       </trans-unit>
@@ -12139,7 +11580,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
         <target>부모 채널 버튼</target>
@@ -12149,7 +11589,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
         </context-group>
         <target>자식 채널</target>
       </trans-unit>
@@ -12198,8 +11637,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>더이상 사용되지 않는 소프트웨어 채널 목록</target>
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
-        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>아래에 기재된 소프트웨어 채널은 사용자 조직에 &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt; 인타이틀먼트가 있는 &lt;/a&gt; &lt;strong&gt;더이상 사용되지 않는 채널&lt;/strong&gt;이며 이는 만료되어 더 이상 Red Hat에서 지원하지 않습니다.  </target>
+        <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
+        <target>아래에 기재된 소프트웨어 채널은 사용자 조직에 인타이틀먼트가 있는 &lt;strong&gt;더이상 사용되지 않는 채널&lt;/strong&gt;이며 이는 만료되어 더 이상 Red Hat에서 지원하지 않습니다.  </target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
@@ -12631,10 +12070,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="activation-key.jsp.config-auto-deploy-tooltip">
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
           <target>설정 파일이 활성 키에 등록하였을 경우 이를 시스템에 배치합니다.     </target>
-        </trans-unit>
-        <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
-          <source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-          <target>현재 설정 파일 배치는 비활성화되어 있습니다. &quot;&lt;strong&gt;{1}&lt;/strong&gt;&quot; 하의 &quot;&lt;strong&gt;{0}&lt;/strong&gt;&quot;을 선택하여 활성키에 해당하는 설정 관리 기능을 활성화합니다.   </target>
         </trans-unit>
       </group>
       <group>
@@ -13818,9 +13253,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.history.snapshot.cfgFilesChecksum">
           <source>Checksum</source>
         </trans-unit>
-        <trans-unit id="system.history.snapshot.no_subscriptions">
-          <source>Insufficient channel subscriptions to complete rollback; aborted.</source>
-        </trans-unit>
         <trans-unit id="system.history.snapshot.groups_changed">
           <source>Channels and groups changed.</source>
         </trans-unit>
@@ -13971,14 +13403,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Actions needed for configuration capabilities.</source>
           <target>설정 기능에 필요한 작업</target>
         </trans-unit>
-        <trans-unit id="targetsystems.jsp.orgadmin">
-          <source>Requires organization administrator</source>
-          <target>조직 관리자 필요</target>
-        </trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-          <target>프로비저닝 (Provisioning) 인타이틀먼트 추가</target>
-        </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to RHN Tools channel</source>
           <target>RHN 도구 채널에 등록</target>
@@ -14048,14 +13472,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="summary.jsp.noerror">
           <source>No Error.</source>
           <target>오류 없음</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.orgadmin">
-          <source>Remaining actions require organization administrator.</source>
-          <target>나머지 작업에서는 조직 관리자가 필요합니다.</target>
-        </trans-unit>
-        <trans-unit id="summary.jsp.provision">
-          <source>Could not grant provisioning entitlement.</source>
-          <target>프로비저닝 (Provisioning) 인타이틀먼트를 승인할 수 없음</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>
@@ -21371,13 +20787,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <target>액세스하시려는 채널이 존재하지 않거나 액세스 권한이 없습니다. 이 페이지에 있는 링크를 다시 확인하시기 바랍니다.</target>
         </trans-unit>
       </group>
-      <trans-unit id="sdc.channels.edit.available">
-        <source>available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-        <target>사용 가능</target>
-      </trans-unit>
       <trans-unit id="sdc.channels.edit.unlimited">
         <source>unlimited</source>
         <context-group name="ctx">
@@ -21539,220 +20948,10 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>기본 소프트웨어 채널 수정 </target>
       </trans-unit>
-      <trans-unit id="guestlimited.jsp.title">
-        <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Virtualization Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ - 가상화 인타이틀먼트 - 가상화 호스트  </target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.header2">
-        <source>Guest-Limited  Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>게스트 제한이 있는 호스트</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.para1">
-        <source>The following is a list of host systems with the 'Virtualization' entitlement. You may wish to consider upgrading systems that have exceeded the 4-guest limit to an 'Unlimited Virtualization' entitlement to make the most of your subscriptions and stay in compliance with your service level agreements with Red Hat.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>다음은 '가상화' 인타이틀먼트를 갖고 있는 호스트 시스템의 목록입니다. 4개의 게스트 제한을 초과하는 시스템을 '무제한 가상화' 인타이틀먼트로 업그레이드하여 서브스크립션을 이용하고 Red Hat의 서비스 레벨 약관을 따릅니다.</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.hostsystem">
-        <source>Host System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>호스트 시스템</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.guest">
-        <source>Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>게스트</target>
-      </trans-unit>
-      <trans-unit id="guestslimited.jsp.hostsystem">
-        <source>Host System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>호스트 시스템</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsystem">
-        <source>Guest System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>게스트 시스템</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.title">
-        <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Guests without Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ - 가상화 인타이틀먼트 - 호스트 없는 게스트  </target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.header2">
-        <source>Guests of Non-Virtual Entitled Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>비가상화 인타이틀먼트 호스트의 게스트 </target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.para1">
-        <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in @@PRODUCT_NAME@@.  These systems are consuming the same software and system entitlements as a normal physical system.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>다음에는 @@PRODUCT_NAME@@에 있는 가상 인타이틀먼트 (가상화 또는 가상화 플랫폼) 호스트 시스템과 연계되지 않은 게스트 시스템 목록이 있습니다. 이러한 시스템은 일반적인 물리적 시스템으로서 동일한 소프트웨어 및 시스템 인타이틀먼트를 사용합니다.   </target>
-      </trans-unit>
-      <trans-unit id="virtualentitlements.toolbar">
-        <source>Virtualization Entitlements</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>가상화 인타이틀먼트</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.header3">
-        <source>Reconciling the Entitlements from Guests of Non-Virtualization Entitled Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>비가상화 인타이틀먼트 호스트의 게스트에서 인타이틀먼트를 조정</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.para2">
-        <source>You may always delete the @@PRODUCT_NAME@@ system profile of a guest listed above to free the software and system entitlements it consumes (or you may remove system entitlements from the guest to free system entitlements).  You may be able to free the physical entitlements associated with the guest without deleting the guest's profile:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>위의 목록에 있는 게스트의 @@PRODUCT_NAME@@ 시스템 프로파일을 삭제하여 사용되고 있는 소프트웨어 및 시스템 인타이틀먼트를 해제하실 수 있습니다 (또는 게스트에서 시스템 인타이틀먼트를 삭제하여 시스템 인타이틀먼트를 해제합니다).  게스트의 프로파일을 삭제하지 않고 게스트와 연계된 물리적 인타이틀먼트를 해제하실 수 있습니다: </target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofknown">
-        <source>Guests of Known Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>알려진 호스트의 게스트</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofunknown">
-        <source>Guests of Known Unknown Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>알려진 또는 알려지지 않은 호스트의 게스트</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.guestsofnonredhat">
-        <source>Guests of Non-Red Hat Virtualization Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>Red Hat 비가상화 호스트의 게스트 </target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.knownnote">
-        <source>If you would like to free the physical entitlements of a guest listed above and it is associated with a Host registered with @@PRODUCT_NAME@@ please add either the Virtualization or Virtualization Platform system entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>위에 표시된 게스트의 물리적 인타이틀먼트를 해제하고 @@PRODUCT_NAME@@에 등록된 호스트와 연계하시고자 할 경우 가상화 또는 가상화 플랫폼 시스템 인타이틀먼트를 추가하시기 바랍니다.  </target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.unknownnote">
-        <source>If the host of a guest system above is listed as an unknown and you would like to free the physical entitlements the guest consumes please make sure that:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>위의 게스트 시스템의 호스트가 알려지지 않음으로 표시되어 있고 게스트가 사용하고 있는 물리적 인타이틀먼트를 해제하시고자 할 경우 다음 사항을 확인하시기 바랍니다:</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.unknownnote2">
-        <source>The host has a Virtualization or Virtualization host applied to it</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>호스트에는 가상화 또는 적용된 가상화 호스트가 있습니다</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.note3">
-        <source>The host is subscribed to the @@PRODUCT_NAME@@ Tools channel and has the rhn-virtualization-host package installed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>호스트는 @@PRODUCT_NAME@@ 도구 채널에 등록되어 있으며 rhn-virtualization-host 패키지가 설치되어 있습니다. </target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.nonredhatnote">
-        <source>If the host of a guest system above is not a Red Hat Virtualization host running Red Hat Enterprise Linux, it must consume the same software and system entitlements it would if it were a physical system at this time.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-        <target>게스트 시스템의 호스트가 Red Hat Enterprise Linux를 실행하는 Red Hat 가상화 호스트가 아닐 경우, 이것이 물리적 시스템에 있다면 동일한 소프트웨어 및 시스템 인타이틀먼트를 사용해야 합니다.</target>
-      </trans-unit>
-      <trans-unit id="physicalhosts.jsp.nosystems">
-        <source>There are no guests consuming physical entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>물리적 인타이틀먼트를 사용하는 게스트가 없습니다.</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.nosystems">
-        <source>There are no systems with the Virtualization Platform entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>가상화 플랫폼 인타이틀먼트를 사용할 수 있는 시스템이 없습니다.</target>
-      </trans-unit>
-      <trans-unit id="guestlimited.jsp.nosystems">
-        <source>There are no systems with the Virtualization entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-        <target>가상화 인타이틀먼트를 사용할 수 있는 시스템이 없습니다.</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.para1">
-        <source>The following is a list of host systems with the 'Unlimited Virtualization' entitlement. You may wish to consider downgrading systems that have not exceeded the limited 'Virtualization' entitlement to a 'Virtualization' entitlement to make the most of your subscriptions.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>다음은 '무제한 가상화' 인타이틀먼트를 갖고 있는 호스트 시스템의 목록입니다. '가상화' 인타이틀먼트의 제한을 초과하지 않는 시스템을 '가상화' 인타이틀먼트로 다운그레이드하여 서브스크립션을 이용하실 수 있습니다.</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.title">
-        <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Virtualization Platform Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ - 가상화 인타이틀먼트 - 가상화 플랫폼 호스트  </target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.header2">
-        <source>Unlimited-Guest Virtualization Platform Hosts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>무제한 게스트 가상화 플랫폼 호스트</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.hostsystem">
-        <source>Host System</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>호스트 시스템</target>
-      </trans-unit>
-      <trans-unit id="guestunlimited.jsp.guest">
-        <source>Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>게스트</target>
-      </trans-unit>
-      <trans-unit id="system.remotecommand.scheduled">
-        <source>Remote command &lt;a href="/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{2}&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-        <target>원격 명령이 &lt;strong&gt;{2}&lt;/strong&gt;에 대해 &lt;a href=&quot;/rhn/systems/details/history/Event.do?sid={0}&amp;aid={1}&quot;&gt;스케줄되었습니다&lt;/a&gt;.</target>
-      </trans-unit>
       <trans-unit id="system.reboot.scheduled">
         <source>Reboot scheduled for system &lt;strong&gt;{0}&lt;/strong&gt; for {1}.  To cancel the reboot, remove &lt;strong&gt;{0}&lt;/strong&gt; from &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;the list of systems to be rebooted&lt;/strong&gt;&lt;/a&gt;.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
+          <context context-type="sourcefile">/rhn/systems/details/RebootSystem.do</context>
         </context-group>
         <target>{1}에 대해 스케줄된 시스템 &lt;strong&gt;{0}&lt;/strong&gt;을 재부팅합니다. 재부팅을 취소하시려면, &lt;a href=&quot;/rhn/schedule/InProgressSystems.do?aid={2}&quot;&gt;&lt;strong&gt;재부팅할 시스템 목록&lt;/strong&gt;&lt;/a&gt; 에서 &lt;strong&gt;{0}&lt;/strong&gt;을 삭제합니다.</target>
       </trans-unit>
@@ -21833,217 +21032,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>초기 조직 관리자 생성  </target>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.ent_name">
-        <source>Entitlement Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>인타이틀먼트 이름 </target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.total">
-        <source>Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>총 파일</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.usage">
-        <source>Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>사용법</target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.proposed_total">
-        <source>Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>제시된 합계 </target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.base">
-        <source>(Base)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>(기본) </target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.add_on">
-        <source>(Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>(애드온) </target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.man_tip">
-        <source>Required for all systems registered to the @@PRODUCT_NAME@@.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@에 등록된 모든 시스템에 필요  </target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.mon_tip">
-        <source>Enables the tracking of monitoring data for a system.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>시스템 용 모니터링 데이터 추적을 활성화합니다. </target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.provis_tip">
-        <source>Allows various advanced functionality such as kickstart and configuration file provisioning.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>킥스타트와 설정 파일 프로비저닝과 같은 여러 고급 기능을 허용합니다. </target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.virt_tip">
-        <source>Applied to a host system, enables management for up to 4 guests.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>호스트 시스템에 적용, 최대 게스트 4 까지 관리를 활성화합니다.  </target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.virt_plat_tip">
-        <source>Applied to a host system, enables management for unlimited guests.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>호스트 시스템에 적용, 무제한 게스트에 대한 관리를 활성화합니다. </target>
-      </trans-unit>
-      <trans-unit id="orgsystemsubs.jsp.possible_vals">
-        <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>가능한 값: &lt;strong&gt;{0}&lt;/strong&gt; 에서 &lt;strong&gt;{1}&lt;/strong&gt; 까지  </target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.description">
-        <source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements</context>
-        </context-group>
-        <target>다음에는 조직 및 사용자 전역에 걸쳐 @@PRODUCT_NAME@@ 상의 모든 소프트웨어 채널 인타이틀먼트 목록이 있습니다. 인타이틀먼트 이름을 클릭하시면 보다 자세한 정보를 보실 수 있습니다.       </target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.header">
-        <source>System Entitlements Across @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ 전역 시스템 인타이틀먼트      </target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.ent_name">
-        <source>Entitlement Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>인타이틀먼트 이름 </target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.usage">
-        <source>Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>사용법</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.usagedata">
-        <source>{0} of {1} ({2}%)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>{1} 중 {0} ({2}%) </target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.total">
-        <source>Total*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>합계*  </target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.available">
-        <source>Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>사용 가능</target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.tip">
-        <source>'Total' refers to the total available to the @@PRODUCT_NAME@@ as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>*&lt;strong&gt;힌트:&lt;/strong&gt; '합계'는 @@PRODUCT_NAME@@ 인증서에 나와있듯이 @@PRODUCT_NAME@@에서
-사용 가능한 합계를 말합니다.    </target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.not_allocated">
-        <source>Not Allocated*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>할당되지 않음* </target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.notinuse">
-        <source>Not In Use</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>사용되고 있지 않음  </target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.enterprise_entitled">
-        <source> Management (Base)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target> 관리 (기본)   </target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.provisioning_entitled">
-        <source> Provisioning (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target> 프로비저닝 (애드온)  </target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.monitoring_entitled">
-        <source> Monitoring (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target> 모니터링 (애드온)   </target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.virtualization_host">
-        <source> Virtualization (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>가상화 (애드온) </target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.virtualization_host_platform">
-        <source> Virtualization Platform (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>가상화 플랫폼 (애드온) </target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.add_on">
-        <source>(Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>(애드온) </target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.noentitlements">
-        <source>No Entitlements Found</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>인타이틀먼트를 찾을 수 없음 </target>
-      </trans-unit>
-      <trans-unit id="sys_entitlements.noentorgs">
-        <source>No organizations have this entitlement</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-        <target>이 인타이틀먼트를 갖는 조직이 없음 </target>
-      </trans-unit>
       <trans-unit id="kickstart.cryptokey.description">
         <source>Description</source>
         <context-group name="ctx">
@@ -22057,185 +21045,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/rhn/keys/CrytpoKeysList</context>
         </context-group>
         <target>유형</target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant">
-        <source>Access Granted by this Entitlement:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>이 인타이틀먼트에 의해 할당된 액세스: </target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.enterprise_entitled">
-        <source>A single Management (Base) entitlement is required for all systems registered to satellite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>단일 관리 (기본) 인타이틀먼트는 satellite에 등록된 모든 시스템에 필요합니다 </target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
-        <source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>단일 프로비저닝 (애드온) 인타이틀먼트로 킥스타트 및 설정 파일 프로비저닝과 같은 여러 고급 기능을 사용할 수 있습니다. </target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.monitoring_entitled">
-        <source>A single Monitoring (Add-On) entitlement enables the tracking of monitoring data for a system. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>단일 모니터링 (애드온) 인타이틀먼트로 시스템에 해당하는 모니터링 데이터 추적 기능을 활성화합니다.    </target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
-        <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>호스트 시스템에 적용된 단일 가상화 (애드온) 인타이틀먼트로 최대 게스트 4까지 관리를 활성화할 수 있습니다. </target>
-      </trans-unit>
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
-        <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-        <target>호스트 시스템에 적용되는 단일 가상화 플랫폼 (애드온) 인타이틀먼트로 무제한 게스트 관리를 활성화할 수 있습니다.</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.orgname">
-        <source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>조직 이름 </target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.proposed_total">
-        <source>Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>제시된 합계 </target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.description">
-        <source>The Current Allocation of entitlements for {0} across the organizations on this @@PRODUCT_NAME@@ is displayed below. You may make changes to the allocation of entitlements for each organization in the "Proposed Total" column, but your changes will not take effect until you confirm using the 'Confirm Changes' button below. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>아래에서는 @@PRODUCT_NAME@@에 있는 조직 전역에 걸쳐 {0}에 해당하는 인타이틀먼트 할당을 보여주고 있습니다.  &quot;제시된 합계&quot; 란에서 각각의 조직에 대한 인타이틀먼트 할당을 변경할 수 있지만, 변경된 사항은 아래의 '변경 확인' 버튼을 사용하여 확인하기 전 까지 적용되지 않습니다.  </target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.jsp.possible_vals">
-        <source>Possible Values: &lt;strong&gt;0&lt;/strong&gt; to &lt;strong&gt;{0}&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
-        </context-group>
-        <target>가능한 값: &lt;strong&gt;0&lt;/strong&gt;에서 &lt;strong&gt;{0}&lt;/strong&gt; 까지 </target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.update">
-        <source>Update</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>업데이트</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.usage">
-        <source>@@PRODUCT_NAME@@-Wide Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ 전역 인타이틀먼트 사용  </target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.filterBy">
-        <source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>조직 이름 </target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.miniheader">
-        <source>View/Modify Entitlement Counts by Organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>조직에 따라 인타이틀먼트 수 보기/수정  </target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.total_allocated">
-        <source>Total Allocated</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>할당 합계  </target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.total_inuse">
-        <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>인타이틀먼트 사용: </target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.total_orguse">
-        <source>Organization Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>조직 사용  </target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.total_orgusedata">
-        <source>{0} of {1} organizations ({2}%) have access to
-this entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>{1} 중 {0} 조직 ({2}%)이 이 인타이틀먼트로
-액세스합니다.   </target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.total">
-        <source>Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementOrgs</context>
-        </context-group>
-        <target>총 파일</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.used">
-        <source>Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementOrgs</context>
-        </context-group>
-        <target>사용법</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.tip_allocated">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your @@PRODUCT_NAME@@ certificate's
-value for this entitlement, excluding the default organization's consumption.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>&lt;strong&gt;힌트:&lt;/strong&gt; 합계는 기본적인 조직의 사용 수를 제외하고 인타이틀먼트의 @@PRODUCT_NAME@@ 인증서 값에 해당합니다.</target>
-      </trans-unit>
-      <trans-unit id="entitlementorgs.tip">
-        <source>&lt;strong&gt;*Tip:&lt;/strong&gt; 'Total' refers to the total available entitlements to
-the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-        <target>&lt;strong&gt;*힌트:&lt;/strong&gt; '합계'는 @@PRODUCT_NAME@@ 상에 있는 조직에서 (기본값 @@PRODUCT_NAME@@ 조직 제외) 사용 가능한 인타이틀먼트 합계를 말합니다. 이는 @@PRODUCT_NAME@@ 인증서에 있는 사용 가능한 합계와 동일하지 않습니다.  </target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.header2">
-        <source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>소프트웨어 채널 인타이틀먼트 수 </target>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.jsp.description">
-        <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>아래에서 각각의 채널에 기반한 &lt;strong&gt;{0}&lt;/strong&gt; 조직에서 사용 가능한 소프트웨어 채널 인타이틀먼트 합계를 수정하셨습니다. 특정 채널에서 사용 가능한 인타이틀먼트 수를 수정하시려면 범위에 제한이 있음에 유의하시기 바랍니다.  </target>
-      </trans-unit>
-      <trans-unit id="orgsysubs.jsp.header2">
-        <source>System Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-        <target>시스템 인타이틀먼트 수 </target>
       </trans-unit>
       <!-- multiorg trustedorg strings  -->
       <trans-unit id="org.trust.summary">
@@ -23216,26 +22025,6 @@ given channel.</source>
       <trans-unit id="currentMembers">
         <source>Regular Usage - Used</source>
         <target>일반적인 사용 - 사용됨 </target>
-      </trans-unit>
-      <trans-unit id="maxMembers">
-        <source>Regular Usage - Alloted</source>
-        <target>일반적인 사용 - 할당됨 </target>
-      </trans-unit>
-      <trans-unit id="maxAvailable">
-        <source>Regular Proposed Total</source>
-        <target>일반적으로 제시된 합계 </target>
-      </trans-unit>
-      <trans-unit id="currentFlex">
-        <source>Flex Usage - Used</source>
-        <target>Flex 사용 - 사용됨</target>
-      </trans-unit>
-      <trans-unit id="maxFlex">
-        <source>Flex Usage - Allotted</source>
-        <target>Flex 사용 - 할당됨 </target>
-      </trans-unit>
-      <trans-unit id="maxAvailableFlex">
-        <source>Flex Proposed Total</source>
-        <target>제시된 Flex 합계 </target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>
@@ -24415,13 +23204,6 @@ given channel.</source>
         </context-group>
         <target>채널 리포지터리 데이터를 생성 </target>
       </trans-unit>
-      <trans-unit id="bunch.jsp.description.satcert-check-bunch">
-        <source>Checks whether satellite certificate has not expired</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
-        </context-group>
-        <target>satellite 인증서가 만료되지 않았는지 확인 </target>
-      </trans-unit>
       <trans-unit id="bunch.jsp.description.cleanup-data-bunch">
         <source>Cleans up orphaned and outdated data</source>
         <context-group name="ctx">
@@ -24890,10 +23672,6 @@ given channel.</source>
       <trans-unit id="task.status.channel-repodata">
         <source>Channel Repodata</source>
         <target>채널 리포지터리 데이터 </target>
-      </trans-unit>
-      <trans-unit id="task.status.sat-cert-check">
-        <source>Certificate Check</source>
-        <target>인증서 확인 </target>
       </trans-unit>
       <trans-unit id="task.status.cleanup-timeseries-data">
         <source>TimeSeries Cleanup</source>

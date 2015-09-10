@@ -27,13 +27,11 @@ import java.util.TimeZone;
 
 /**
  * TargetSystemsTest
- * @version $Rev$
  */
 public class TargetSystemsTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         //Need to set the locale and timezone for the datepicker.
         Context ctxt = Context.getCurrentContext();
@@ -50,4 +48,3 @@ public class TargetSystemsTest extends RhnMockStrutsTestCase {
         verifyList(RequestContext.PAGE_LIST, ConfigSystemDto.class);
     }
 }
-

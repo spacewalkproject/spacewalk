@@ -54,14 +54,6 @@ public interface AuthenticationService {
     boolean skipCsfr(HttpServletRequest request);
 
     /**
-     * If Satellite certificate is in the restricted mode, there's just a whitelist
-     * of pages the user may visit
-     * @param request The current request
-     * @return True if the url isn't allowed in the restricted mode
-     */
-    boolean postOnRestrictedWhitelist(HttpServletRequest request);
-
-    /**
      * Redirects the request to whatever resource handles logins. This method is typically
      * invoked after a call to {@link #validate(HttpServletRequest, HttpServletResponse)}
      * fails. Note that the redirect may be client-side or server-side, and it may be to an

@@ -58,7 +58,7 @@ def main():
     #create activation key
 
     act_key = client.activationkey.create(key, uniquify(options.prefix.lower()),
-                        uniquify(options.prefix.title() + " Key"), channel, ["provisioning_entitled"], False)
+                        uniquify(options.prefix.title() + " Key"), channel, [], False)
     print act_key
     #create the distro
     distro = uniquify(options.prefix.lower())

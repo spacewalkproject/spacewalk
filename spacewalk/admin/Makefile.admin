@@ -34,8 +34,7 @@ PERL_SCRIPTS = rhn-config-satellite.pl \
                rhn-config-schema.pl \
                rhn-deploy-ca-cert.pl \
                rhn-install-ssl-cert.pl \
-               rhn-generate-pem.pl \
-               validate-sat-cert.pl
+               rhn-generate-pem.pl
 
 SBIN_SCRIPTS = rhn-sat-restart-silent spacewalk-service spacewalk-startup-helper
 

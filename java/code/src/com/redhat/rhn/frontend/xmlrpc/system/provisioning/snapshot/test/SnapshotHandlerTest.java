@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageNevra;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerSnapshot;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
@@ -33,7 +34,6 @@ import java.util.Set;
 
 /**
  * SnapshotHandlerTest
- * @version $Rev$
  */
 public class SnapshotHandlerTest extends BaseHandlerTestCase {
 
@@ -50,7 +50,8 @@ public class SnapshotHandlerTest extends BaseHandlerTestCase {
     public void testListSnapshots() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
         ServerSnapshot snap = generateSnapshot(server);
-        ServerGroup grp = ServerGroupTestUtils.createEntitled(server.getOrg());
+        ServerGroup grp = ServerGroupTestUtils.createEntitled(server.getOrg(),
+         ServerConstants.getServerGroupTypeEnterpriseEntitled());
         snap.addGroup(grp);
 
         TestUtils.saveAndFlush(snap);

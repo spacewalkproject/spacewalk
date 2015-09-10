@@ -16,7 +16,6 @@
 #
 
 # system modules
-import time
 import string
 import sys
 
@@ -61,8 +60,6 @@ class Server(ServerWrapper):
         # Also, at this point we know that this is a real server
         self.type = "REAL"
         self.default_description()
-        # Satellite certificate associated to this server
-        self.satellite_cert = None
 
         # custom info values
         self.custom_info = None
@@ -393,10 +390,7 @@ class Server(ServerWrapper):
     # Auto-entitlement: attempt to entitle this server to the highest
     # entitlement that is available
     def autoentitle(self):
-        # misa: as of 2005-05-27 nonlinux does not get a special treatment
-        # anymore (this is in connection to feature 145440 - entitlement model
-        # changes
-        entitlement_hierarchy = ['enterprise_entitled', 'sw_mgr_entitled']
+        entitlement_hierarchy = ['enterprise_entitled']
 
         any_base_entitlements = 0
 
@@ -405,14 +399,6 @@ class Server(ServerWrapper):
                 self._entitle(entitlement)
                 any_base_entitlements = 1
             except rhnSQL.SQLSchemaError, e:
-                if e.errno == 20220:
-                    # ORA-20220: (servergroup_max_members) - Server group
-                    # membership cannot excede maximum membership
-                    #
-                    # ignore for now, since any_base_entitlements will throw
-                    # an error at the end if not set
-                    continue
-
                 if e.errno == 20287:
                     # ORA-20287: (invalid_entitlement) - The server can not be
                     # entitled to the specified level
@@ -535,7 +521,7 @@ class Server(ServerWrapper):
             if channel is not None:
                 channel_info = dict(rhnChannel.channel_info(channel))
                 log_debug(4, "eus channel id %s" % str(channel_info))
-                rhnChannel._subscribe_sql(server_id, channel_info['id'])
+                rhnChannel.subscribe_sql(server_id, channel_info['id'])
             else:
                 rhnChannel.subscribe_server_channels(self,
                                                      none_ok=have_reg_token,
@@ -671,39 +657,6 @@ class Server(ServerWrapper):
         log_debug(3, self.server["id"])
 
         return server_lib.check_entitlement(self.server['id'])
-
-    def validateSatCert(self):
-        # make sure the cert is still valid
-
-        h = rhnSQL.prepare("""
-        select TO_CHAR(expires, 'YYYY-MM-DD HH24:MI:SS') expires
-          from rhnSatelliteCert
-         where label = 'rhn-satellite-cert'
-         order by version desc nulls last
-        """)
-        # Fetching just the first row will get the max version, null
-        # included
-        h.execute()
-        ret = h.fetchone_dict()
-        if not ret:
-            log_debug(2, "Satellite certificate not found")
-            return 0
-        expire_string = ret['expires']
-        expire_time = time.mktime(time.strptime(expire_string,
-                                                "%Y-%m-%d %H:%M:%S"))
-
-        now = time.time()
-        log_debug(3, "Certificate expiration: %s; now: time: %s (%s)" % (
-            expire_string, time.ctime(now), now))
-
-        # We will allow for a grace period of 7 days after the cert expires to
-        # give the user some time renew the certificate before we disable.
-        grace_period_seconds = 60 * 60 * 24 * 7
-
-        if (now > expire_time + grace_period_seconds):
-            log_debug(1, "Satellite certificate expired on %s" % expire_string)
-            return 0
-        return 1
 
     def checkin(self, commit=1):
         """ convenient wrapper for these thing until we clean the code up """

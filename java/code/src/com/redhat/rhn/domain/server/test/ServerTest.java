@@ -20,7 +20,6 @@ import com.redhat.rhn.domain.server.Capability;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerInfo;
 import com.redhat.rhn.domain.server.VirtualInstance;
@@ -70,30 +69,20 @@ public class ServerTest extends BaseTestCaseWithUser {
     }
 
     public void testIsEntitlementAllowed() throws Exception {
-        UserTestUtils.addProvisioning(user.getOrg());
-        UserTestUtils.addVirtualizationPlatform(user.getOrg());
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
         Server guest =
             host.getGuests().iterator().next().getGuestSystem();
         guest.setBaseEntitlement(EntitlementManager.MANAGEMENT);
 
         assertFalse(guest.isEntitlementAllowed(EntitlementManager.VIRTUALIZATION));
-        assertFalse(guest.isEntitlementAllowed(EntitlementManager.VIRTUALIZATION_PLATFORM));
-        assertTrue(guest.isEntitlementAllowed(EntitlementManager.PROVISIONING));
-
-        assertTrue(host.isEntitlementAllowed(EntitlementManager.PROVISIONING));
-        assertTrue(host.isEntitlementAllowed(EntitlementManager.VIRTUALIZATION_PLATFORM));
 
         assertNotNull(host.getValidAddonEntitlementsForServer());
-        assertEquals(3, host.getValidAddonEntitlementsForServer().size());
-
+        assertEquals(1, host.getValidAddonEntitlementsForServer().size());
     }
 
 
     public void testCapabilities() throws Exception {
-        UserTestUtils.addProvisioning(user.getOrg());
-        Server s = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server s = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(s.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, 1L);
         assertFalse(s.getCapabilities().isEmpty());
@@ -198,5 +187,4 @@ public class ServerTest extends BaseTestCaseWithUser {
             addGuest(vi);
         }
     }
-
 }

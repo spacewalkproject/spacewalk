@@ -47,7 +47,6 @@ rhnChannelCloned               :: rhnChannelComps
 rhnChannelErrata               :: rhnChannel rhnErrata
 rhnChannelFamily               :: web_customer 
 rhnChannelFamilyMembers        :: rhnChannel rhnChannelFamily
-rhnChannelFamilyVirtSubLevel   :: rhnChannelFamily rhnVirtSubLevel
 rhnPrivateChannelFamily        :: web_customer rhnChannelFamily 
 rhnPublicChannelFamily         :: rhnChannelFamily
 rhnChannelPackage              :: rhnChannel rhnPackage
@@ -106,7 +105,6 @@ rhnKickstartTimezone           :: rhnKSInstallType
 rhnServerNetAddress4           :: rhnServerNetInterface
 rhnServerNetAddress6           :: rhnServerNetInterface
 rhnOrgChannelSettings          :: web_customer rhnChannel rhnOrgChannelSettingsType
-rhnOrgEntitlements             :: rhnOrgEntitlementType
 rhnOrgErrataCacheQueue         :: web_customer
 rhnOrgExtGroupMapping          :: rhnUserExtGroup rhnServerGroup
 rhnPackage                     :: rhnPackageName rhnPackageEVR rhnPackageArch \
@@ -179,7 +177,6 @@ rhnServerTokenRegs             :: rhnRegToken rhnServer
 rhnServerServerGroupArchCompat :: rhnServerGroupType rhnServerArch
 rhnSet                         :: web_contact
 rhnSGTypeBaseAddonCompat       :: rhnServerGroupType
-rhnSGTypeVirtSubLevel          :: rhnServerGroupType rhnVirtSubLevel
 rhnSnapshot                    :: web_customer rhnSnapshotInvalidReason
 rhnSnapshotChannel             :: rhnSnapshot rhnChannel
 rhnSnapshotConfigChannel       :: rhnSnapshot rhnConfigChannel

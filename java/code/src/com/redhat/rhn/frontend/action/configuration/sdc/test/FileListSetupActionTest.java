@@ -20,7 +20,6 @@ import com.redhat.rhn.domain.config.ConfigFile;
 import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.dto.ConfigFileNameDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -33,8 +32,7 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 public class FileListSetupActionTest extends RhnMockStrutsTestCase {
 
     private void doTheTest(String path, String feature) throws Exception {
-        Server server = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        Server server = ServerFactoryTest.createTestServer(user, true);
         SystemManagerTest.giveCapability(server.getId(), feature, 1L);
 
         //create a normal config revision

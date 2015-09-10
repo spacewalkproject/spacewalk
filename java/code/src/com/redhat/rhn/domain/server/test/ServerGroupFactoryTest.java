@@ -26,10 +26,8 @@ import com.redhat.rhn.testing.TestUtils;
 import java.util.Collection;
 import java.util.HashSet;
 
-
 /**
  * ServerGroupFactoryTest
- * @version $Rev$
  */
 public class ServerGroupFactoryTest extends BaseTestCaseWithUser {
     private ManagedServerGroup managedGroup;
@@ -64,9 +62,10 @@ public class ServerGroupFactoryTest extends BaseTestCaseWithUser {
     }
 
     public void testSave() throws Exception {
+        ServerGroupTest.createTestServerGroup(user.getOrg(), ServerConstants
+                .getServerGroupTypeEnterpriseEntitled());
         EntitlementServerGroup sg = ServerGroupFactory.lookupEntitled(user.getOrg(),
-                    ServerConstants.getServerGroupTypeUpdateEntitled());
-        sg.setMaxMembers(new Long(10));
+                    ServerConstants.getServerGroupTypeEnterpriseEntitled());
         ServerGroupFactory.save(sg);
         TestUtils.saveAndFlush(sg);
     }

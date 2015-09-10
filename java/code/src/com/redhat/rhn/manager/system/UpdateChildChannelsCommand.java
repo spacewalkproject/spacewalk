@@ -143,29 +143,22 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
             if (log.isDebugEnabled()) {
                 log.debug("checking to see if we can sub: " + channel.getLabel());
             }
-            if (!SystemManager.canServerSubscribeToChannel(loggedInUser.getOrg(),
-                    serverIn, channel)) {
-                log.debug("we can't subscribe to the channel.");
-                failedChannels = true;
+            // do quick unsubscribe + quick subscribe... I don't know why we do the
+            // unsubscribe first... It is what the perl code does though.
+            try {
+                log.debug("unsub from channel to be sure");
+                SystemManager.unsubscribeServerFromChannel(loggedInUser,
+                        serverIn, channel);
+                log.debug("Sub to channel.");
+                SystemManager.subscribeServerToChannel(loggedInUser, serverIn, channel,
+                        false);
             }
-            else {
-                // do quick unsubscribe + quick subscribe... I don't know why we do the
-                // unsubscribe first... It is what the perl code does though.
-                try {
-                    log.debug("unsub from channel to be sure");
-                    SystemManager.unsubscribeServerFromChannel(loggedInUser,
-                            serverIn, channel);
-                    log.debug("Sub to channel.");
-                    SystemManager.subscribeServerToChannel(loggedInUser, serverIn, channel,
-                            false);
-                }
-                catch (IncompatibleArchException iae) {
-                    throw new InvalidChannelException(iae);
-                }
-                catch (PermissionException e) {
-                    //convert to FaultException
-                    throw new PermissionCheckFailureException();
-                }
+            catch (IncompatibleArchException iae) {
+                throw new InvalidChannelException(iae);
+            }
+            catch (PermissionException e) {
+                //convert to FaultException
+                throw new PermissionCheckFailureException();
             }
         }
 

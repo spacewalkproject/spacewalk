@@ -89,14 +89,13 @@ ORDER BY UPPER(NAME)
          VSGM.GROUP_NAME,
          VSGM.GROUP_TYPE,
          VSGM.CURRENT_MEMBERS,
-         VSGM.MAX_MEMBERS,
          (CASE USGP.server_group_id WHEN VSGM.group_id THEN 1 ELSE 0 END) AS USER_PERMITTED_ACCESS
     FROM rhnVisServerGroupMembership VSGM
     LEFT JOIN rhnUserServerGroupPerms USGP
       ON VSGM.group_id = USGP.server_group_id
      AND :user_id = USGP.user_id
    WHERE VSGM.ORG_ID = :org_id
-GROUP BY VSGM.group_id, VSGM.group_name, VSGM.group_type, VSGM.current_members, VSGM.max_members, USGP.server_group_id
+GROUP BY VSGM.group_id, VSGM.group_name, VSGM.group_type, VSGM.current_members, USGP.server_group_id
 ORDER BY UPPER(VSGM.group_name), VSGM.group_id
   </query>
 </mode>

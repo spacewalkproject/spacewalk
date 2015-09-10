@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.domain.token;
 
-import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.config.ConfigChannel;
@@ -178,7 +177,6 @@ public class ActivationKey extends BaseDomainHelper {
      */
     public void setDeployConfigs(boolean b) {
         if (b && b != getDeployConfigs()) {
-            checkProvisioning();
             ActivationKeyManager.getInstance().
                     setupAutoConfigDeployment(this);
         }
@@ -246,9 +244,7 @@ public class ActivationKey extends BaseDomainHelper {
     public void addEntitlement(ServerGroupType entitlementIn) {
         this.getToken().addEntitlement(entitlementIn);
         if (ServerConstants.getServerGroupTypeVirtualizationEntitled().
-                                                        equals(entitlementIn) ||
-              ServerConstants.getServerGroupTypeVirtualizationPlatformEntitled().
-                                              equals(entitlementIn)) {
+                                                        equals(entitlementIn)) {
             ActivationKeyManager.getInstance().setupVirtEntitlement(this);
         }
     }
@@ -387,18 +383,7 @@ public class ActivationKey extends BaseDomainHelper {
      * @return the config channels associated to this activation key
      */
     public List <ConfigChannel> getConfigChannelsFor(User user) {
-        checkProvisioning();
         return getToken().getConfigChannelsFor(user);
-    }
-
-    private void checkProvisioning() {
-        if (!getEntitlements().contains(ServerConstants.
-                getServerGroupTypeProvisioningEntitled())) {
-            String msg = String.format("The activation key '%s' needs" +
-                        "  provisioning capabilities to be able to facilitate " +
-                        " the config channel functionality", this);
-                throw new PermissionException(msg);
-        }
     }
 
     /**

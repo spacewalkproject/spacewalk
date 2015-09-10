@@ -25,13 +25,11 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * GlobalConfigFileList.doTest
- * @version $Rev$
  */
 public class GlobalConfigFileListTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
 
         //Make a file to appear in the list.
         ConfigFile file = ConfigTestUtils.createConfigFile(user.getOrg());

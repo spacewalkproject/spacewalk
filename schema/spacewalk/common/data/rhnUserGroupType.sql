@@ -43,12 +43,6 @@ insert into rhnUserGroupType (id, label, name) values (
 
 insert into rhnUserGroupType (id, label, name) values (
 	sequence_nextval('rhn_usergroup_type_seq'),
-	'monitoring_admin',
-	'Monitoring Administrator'
-);
-
-insert into rhnUserGroupType (id, label, name) values (
-	sequence_nextval('rhn_usergroup_type_seq'),
 	'system_group_admin',
 	'System Group Administrator'
 );

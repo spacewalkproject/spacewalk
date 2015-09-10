@@ -33,7 +33,6 @@ import com.redhat.rhn.common.validator.ValidatorWarning;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.entitlement.Entitlement;
-import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -103,7 +102,6 @@ import java.util.Set;
 
 /**
  * SystemManager
- * @version $Rev$
  */
 public class SystemManager extends BaseManager {
 
@@ -117,8 +115,6 @@ public class SystemManager extends BaseManager {
     public static final String CAP_PACKAGES_VERIFY = "packages.verify";
     public static final String CAP_CONFIGFILES_BASE64_ENC =
             "configfiles.base64_enc";
-
-    public static final String NO_SLOT_KEY = "system.entitle.noslots";
 
     private SystemManager() {
     }
@@ -273,35 +269,6 @@ public class SystemManager extends BaseManager {
         Map<String, Object> elabParams = new HashMap<String, Object>();
 
         return makeDataResult(params, elabParams, null, m, PackageListItem.class);
-    }
-
-    /**
-     * Returns a list of systems consuming given channel family entitlement
-     *
-     * @param cfId Channel family ID to list the entitled systems for
-     * @param user User to list the entitled systems for
-     * @param entitlementType regular, flex or all
-     * @param pc Page control
-     * @return list of SystemOverviews.
-     */
-    public static DataResult<SystemOverview> getEntitledSystems(Long cfId, User user,
-                                                String entitlementType, PageControl pc) {
-        SelectMode m = ModeFactory.getMode("System_queries", "systems_in_channel_family");
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("cfamid", cfId);
-        params.put("userid", user.getId());
-        params.put("orgid", user.getOrg().getId());
-        params.put("isfve", "All");
-
-        if (entitlementType.equals("regular")) {
-            params.put("isfve", "N");
-        }
-        else if (entitlementType.equals("flex")) {
-            params.put("isfve", "Y");
-        }
-
-        return makeDataResult(params, new HashMap<String, Object>(), pc, m,
-                SystemOverview.class);
     }
 
     /**
@@ -1683,30 +1650,13 @@ public class SystemManager extends BaseManager {
                     ent.getHumanReadableLabel()));
             return result;
         }
-        if (ent instanceof VirtualizationEntitlement) {
+        if (EntitlementManager.VIRTUALIZATION.equals(ent)) {
             if (server.isVirtualGuest()) {
                 result.addError(new ValidatorError("system.entitle.guestcantvirt"));
                 return result;
             }
-            //we now check if we need to swap the server's entitlement
-            // with the entitlement you are passing in.
-            // if server has virt and we want convert it to virt_platform
-            // or server has virt_platform and we want convert it to virt
-            // are the 2 instances where we want to swap the old virt
-            // with the new...
-            if ((EntitlementManager.VIRTUALIZATION.equals(ent) &&
-                    hasEntitlement(sid, EntitlementManager.VIRTUALIZATION_PLATFORM))) {
-                log.debug("removing VIRT_PLATFORM");
-                removeServerEntitlement(sid, EntitlementManager.VIRTUALIZATION_PLATFORM,
-                        false);
-            }
-            else if ((EntitlementManager.VIRTUALIZATION_PLATFORM.equals(ent) &&
-                    hasEntitlement(sid, EntitlementManager.VIRTUALIZATION))) {
-                log.debug("removing VIRT");
-                removeServerEntitlement(sid, EntitlementManager.VIRTUALIZATION,
-                        false);
-            }
-            else {
+
+            if (!hasEntitlement(sid, EntitlementManager.VIRTUALIZATION)) {
                 log.debug("setting up system for virt.");
                 ValidatorResult virtSetupResults = setupSystemForVirtualization(orgIn, sid);
                 result.append(virtSetupResults);
@@ -1715,37 +1665,6 @@ public class SystemManager extends BaseManager {
                             virtSetupResults.getMessage());
                     return result;
                 }
-            }
-        }
-
-        boolean checkCounts = true;
-        if (server.isVirtualGuest()) {
-            Server host = server.getVirtualInstance().getHostSystem();
-            if (host != null) {
-                log.debug("host isnt null, checking entitlements.");
-                if ((host.hasEntitlement(EntitlementManager.VIRTUALIZATION) ||
-                        host.hasEntitlement(EntitlementManager.VIRTUALIZATION_PLATFORM)) &&
-                        host.hasEntitlement(ent)) {
-                    log.debug("host has virt and the ent passed in. FREE entitlement");
-                    checkCounts = false;
-                }
-                else {
-                    if (log.isDebugEnabled()) {
-                        log.debug("host doesnt have virt or : " + ent.getLabel());
-                    }
-                }
-            }
-        }
-        if (checkCounts) {
-            Long availableEntitlements =
-                    EntitlementManager.getAvailableEntitlements(ent, orgIn);
-            log.debug("avail: " + availableEntitlements);
-            if (availableEntitlements != null &&
-                    availableEntitlements.longValue() < 1) {
-                log.debug("Not enough slots.  returning error");
-                result.addError(new ValidatorError(NO_SLOT_KEY,
-                        ent.getHumanReadableLabel()));
-                return result;
             }
         }
 
@@ -1929,19 +1848,6 @@ public class SystemManager extends BaseManager {
      */
     public static void removeServerEntitlement(Long sid,
             Entitlement ent) {
-        removeServerEntitlement(sid, ent, true);
-    }
-
-    /**
-     * Removes a specific level of entitlement from the given Server.
-     * @param sid server id to be unentitled.
-     * @param ent Level of Entitlement.
-     * @param repoll used mainly to repoll virtual entitlements post removal
-     *               irrelevant if virtual entitlements are not found..
-     */
-    public static void removeServerEntitlement(Long sid,
-            Entitlement ent,
-            boolean repoll) {
 
         if (!hasEntitlement(sid, ent)) {
             if (log.isDebugEnabled()) {
@@ -1953,12 +1859,6 @@ public class SystemManager extends BaseManager {
         Map<String, Object> in = new HashMap<String, Object>();
         in.put("sid", sid);
         in.put("entitlement", ent.getLabel());
-        if (repoll) {
-            in.put("repoll", new Integer(1));
-        }
-        else {
-            in.put("repoll", new Integer(0));
-        }
         CallableMode m = ModeFactory.getCallableMode(
                 "System_queries", "remove_server_entitlement");
         m.execute(in, new HashMap<String, Integer>());
@@ -2142,67 +2042,6 @@ public class SystemManager extends BaseManager {
                 reason);
 
         server.setLock(sl);
-    }
-
-
-    /**
-     * Check if a given Server is FVE eligible
-     * @param serverIn to check
-     * @return true if Server is FVE eligible, false otherwise
-     */
-    public static boolean isServerFveEligible(Server serverIn) {
-        return isServerIdFveEligible(serverIn.getId());
-    }
-
-    /**
-     * Check if a given ServerId is FVE eligible
-     * @param serverIdIn to check
-     * @return true if Server is FVE eligible, false otherwise
-     */
-    public static boolean isServerIdFveEligible(Long serverIdIn) {
-        SelectMode m = ModeFactory.getMode("System_queries", "is_server_fve_eligible");
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("sid", serverIdIn);
-
-        return (m.execute(params).size() >= 1);
-    }
-
-
-    /**
-     * Check to see if an attempt to subscribe the passed in server to the
-     * passed in channel will succeed.  Checks available slots, if the channel is
-     * 'free' and the Server is virtual.
-     *
-     * @param orgIn of caller
-     * @param serverIn to check
-     * @param channelIn to check
-     * @return boolean if it will succeed.
-     */
-    public static boolean canServerSubscribeToChannel(Org orgIn, Server serverIn,
-            Channel channelIn) {
-        if (serverIn.isSubscribed(channelIn)) {
-            return true;
-        }
-
-        // If channel is free for this guest, dont check avail subs
-        if (ChannelManager.isChannelFreeForSubscription(serverIn.getId(), channelIn)) {
-            return true;
-        }
-
-        // Not free.  Check to see if we're a guest, and there are FVEs available.
-        // Note that for FVEs, NULL == NOT FOUND
-        if (isServerFveEligible(serverIn)) {
-            Long availableFVEs = ChannelManager.getAvailableFveEntitlements(orgIn,
-                    channelIn);
-            if (availableFVEs != null && (availableFVEs.longValue() > 0)) {
-                return true;
-            }
-        }
-
-        // Finally, check available physical subs
-        // Note that for PHYS SUBS, NULL == UNLIMITED
-        Long availableSubs = ChannelManager.getAvailableEntitlements(orgIn, channelIn);
-        return ((availableSubs == null) || (availableSubs.longValue() > 0));
     }
 
     /**
@@ -3232,9 +3071,9 @@ public class SystemManager extends BaseManager {
      * @param tid tag id
      * @return ssm systems with tag
      */
-    public static DataResult provisioningSystemsInSetWithTag(Long uid, Long tid) {
+    public static DataResult systemsInSetWithTag(Long uid, Long tid) {
         SelectMode m = ModeFactory.getMode("System_queries",
-                "provisioning_systems_in_set_with_tag");
+                "systems_in_set_with_tag");
         Map params = new HashMap();
         params.put("user_id", uid);
         params.put("tag_id",  tid);
@@ -3304,7 +3143,7 @@ public class SystemManager extends BaseManager {
      */
     public static DataResult<Map<String, Object>> listTagsForSystemsInSet(User user) {
         SelectMode mode = ModeFactory.getMode("General_queries",
-                "tags_for_provisioning_entitled_in_set");
+                "tags_for_entitled_in_set");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         return mode.execute(params);

@@ -31,13 +31,6 @@
           <context context-type="sourcefile">/rhn/configuration/Overview</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Spacewalk Update Entitled Servers">
-        <source>Update</source>
-        <target>Actualització</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Spacewalk Management Entitled Servers">
         <source>Management</source>
         <target>Gestió</target>
@@ -48,13 +41,6 @@
       <trans-unit id="Spacewalk Provisioning Entitled Servers">
         <source>Provisioning</source>
         <target>Aprovisionament</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Non-Linux Entitled Servers">
-        <source>Non-Linux</source>
-        <target>No Linux</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
@@ -70,18 +56,6 @@
         <source>Management</source>
         <target>Gestió</target>
       </trans-unit>
-      <trans-unit id="monitoring_entitled">
-        <source>Monitoring</source>
-        <target>Monitorització</target>
-      </trans-unit>
-      <trans-unit id="provisioning_entitled">
-        <source>Provisioning</source>
-        <target>Aprovisionament</target>
-      </trans-unit>
-      <trans-unit id="sw_mgr_entitled">
-        <source>Update</source>
-        <target>Actualització</target>
-      </trans-unit>
       <trans-unit id="unentitled">
         <source>&lt;em&gt;(none)&lt;/em&gt;</source>
         <target>&lt;em&gt;(cap)&lt;/em&gt;</target>
@@ -93,10 +67,6 @@
       <trans-unit id="virtualization_host">
         <source>Virtualization</source>
         <target>Virtualització</target>
-      </trans-unit>
-      <trans-unit id="virtualization_host_platform">
-        <source>Virtualization Platform</source>
-        <target>Plataforma de virtualització</target>
       </trans-unit>
     </body>
   </file></xliff>

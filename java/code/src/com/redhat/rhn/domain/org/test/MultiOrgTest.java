@@ -19,10 +19,8 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
-
 /**
  * MultiOrgTest
- * @version $Rev$
  */
 public class MultiOrgTest extends RhnBaseTestCase {
 
@@ -31,14 +29,8 @@ public class MultiOrgTest extends RhnBaseTestCase {
 
         Org o = user.getOrg();
         UserTestUtils.addManagement(o);
-        UserTestUtils.addProvisioning(o);
         UserTestUtils.addVirtualization(o);
         // Check to make sure we get an org greater than 1.
         assertTrue(o.getId().longValue() > 1);
     }
-
-    public void testInitialOrgRoles() throws Exception {
-
-    }
-
 }

@@ -29,12 +29,12 @@ import com.redhat.rhn.frontend.action.systems.SystemListSetupAction;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 /**
  * SystemListSetupActionTest
- * @version $Rev$
  */
 public class SystemListSetupActionTest extends RhnMockStrutsTestCase {
     @Override
@@ -55,7 +55,8 @@ public class SystemListSetupActionTest extends RhnMockStrutsTestCase {
         SystemListSetupAction action = new SystemListSetupAction();
         user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true,
-                ServerFactory.lookupServerGroupTypeByLabel("sw_mgr_entitled"));
+                ServerFactory.lookupServerGroupTypeByLabel(
+                EntitlementManager.ENTERPRISE_ENTITLED));
         Long sid = server.getId();
 
         PageControl pc = new PageControl();

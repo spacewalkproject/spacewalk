@@ -43,7 +43,6 @@ import java.util.Map;
 /**
  * A small wrapper around hibernate files to remove some of the complexities
  * of writing to hibernate.
- * @version $Rev$
  */
 public class OrgFactory extends HibernateFactory {
 
@@ -147,42 +146,6 @@ public class OrgFactory extends HibernateFactory {
                 //Retrieve from cache if there
                 .setCacheable(true)
                 .uniqueResult();
-    }
-
-    /**
-     * Get the OrgEntitlementType represented by the passed in label
-     * @param label label to lookup Entitlement by
-     * @return OrgEntitlementType that was found, null if not.
-     */
-    public static OrgEntitlementType lookupEntitlementByLabel(String label) {
-        if (label.equals("sw_mgr_personal")) {
-            return getEntitlementSwMgrPersonal();
-        }
-
-        //hack around this for now...
-        Session session = HibernateFactory.getSession();
-        return (OrgEntitlementType) session.
-                getNamedQuery("OrgEntitlementType.findByLabel")
-                .setString("label", label)
-                //Retrieve from cache if there
-                .setCacheable(true)
-                .uniqueResult();
-    }
-
-    /**
-     * Is the specified label a valid entitlement.
-     */
-    static boolean isValidEntitlement(OrgEntitlementType type) {
-        OrgEntitlementType org = lookupEntitlementByLabel(type.getLabel());
-        try {
-            // If org is valid, this will succeed,
-            org.getLabel();
-        }
-        catch (Exception e) {
-            return false;
-        }
-        //If we're here, type is valid.
-        return true;
     }
 
     private static Org saveNewOrg(Org org) {
@@ -351,48 +314,6 @@ public class OrgFactory extends HibernateFactory {
      */
     public static Org getSatelliteOrg() {
         return lookupById(new Long(1));
-    }
-
-    /**
-     * Get entitlement for provisioning
-     * @return OrgEntitlementType
-     */
-    public static OrgEntitlementType getEntitlementProvisioning() {
-        return lookupEntitlementByLabel("rhn_provisioning");
-    }
-
-    /**
-     * Get entitlement for sw_mgr_enterprise - aka MANAGEMENT
-     * @return OrgEntitlementType
-     */
-    public static OrgEntitlementType getEntitlementEnterprise() {
-        return lookupEntitlementByLabel("sw_mgr_enterprise");
-    }
-
-    /**
-     * Get entitlement for sw_mgr_personal - aka UPDATE
-     * @return OrgEntitlementType
-     */
-    public static OrgEntitlementType getEntitlementSwMgrPersonal() {
-        return new OrgEntitlementType(
-                "sw_mgr_personal",
-                new Long(-1));
-    }
-
-    /**
-     * Get entitlement for rhn_virtualization
-     * @return OrgEntitlementType
-     */
-    public static OrgEntitlementType getEntitlementVirtualization() {
-        return lookupEntitlementByLabel("rhn_virtualization");
-    }
-
-    /**
-     * Get entitlement for rhn_virtualization_platform
-     * @return OrgEntitlementType
-     */
-    public static OrgEntitlementType getEntitlementVirtualizationPlatform() {
-        return lookupEntitlementByLabel("rhn_virtualization_platform");
     }
 
     /**
