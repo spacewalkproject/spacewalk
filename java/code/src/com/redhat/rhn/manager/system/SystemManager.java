@@ -2231,7 +2231,7 @@ public class SystemManager extends BaseManager {
         params.put("oid", oid);
         params.put("sid", sid);
         DataResult result = m.execute(params);
-        return result != null;
+        return !result.isEmpty();
     }
 
     /**
