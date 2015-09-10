@@ -479,9 +479,16 @@ def decompress_open(filename, mode='r'):
     elif filename.endswith('.bz2'):
         file_obj = bz2.BZ2File(filename, mode)
     elif filename.endswith('.xz'):
-        # pylint: disable=F0401
-        import lzma
-        file_obj = lzma.LZMAFile(filename, mode)
+        try:
+            # pylint: disable=F0401
+            import lzma
+            file_obj = lzma.LZMAFile(filename, mode)
+        except ImportError: # No LZMA lib - be sad
+            # xz uncompresses foo.xml.xz to foo.xml
+            # uncompress, keep both, return uncompressed file
+            subprocess.call(['xz', '-d', '-k', filename])
+            uncompressed_path = filename.rsplit('.', 1)[0]
+            file_obj = open(uncompressed_path, mode)
     else:
         file_obj = open(filename, mode)
     return file_obj
