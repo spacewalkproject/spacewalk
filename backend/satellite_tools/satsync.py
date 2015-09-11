@@ -947,7 +947,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 channel_label)
             self._missing_channel_packages[channel_label] = []
             self._missing_fs_packages[channel_label] = []
-            self._proces_batch(channel_label, upids[:], None,
+            self._process_batch(channel_label, upids[:], None,
                                self._diff_packages_process,
                                _('Diffing:    '),
                                [channel_label])
@@ -1108,7 +1108,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         sorted_channels = sorted(missing_packages.items(), key=lambda x: x[0])  # sort by channel
         for channel, pids in sorted_channels:
-            self._proces_batch(channel, pids[:], messages.package_parsing,
+            self._process_batch(channel, pids[:], messages.package_parsing,
                                stream_loader.process, is_slow=True)
         stream_loader.close()
 
@@ -1228,7 +1228,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             log(1, _("Diffing source package metadata (what's missing locally?): %s") % channel_label)
             self._missing_channel_src_packages[channel_label] = []
             self._missing_fs_source_packages[channel_label] = []
-            self._proces_batch(channel_label, upids[:], None,
+            self._process_batch(channel_label, upids[:], None,
                                self._diff_source_packages_process,
                                _('Diffing:    '),
                                [channel_label])
@@ -1246,7 +1246,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             self.xmlDataServer, 'getSourcePackageXmlStream')
 
         for channel, pids in missing_packages.items():
-            self._proces_batch(channel, pids[:], messages.package_parsing,
+            self._process_batch(channel, pids[:], messages.package_parsing,
                                stream_loader.process, is_slow=True)
         stream_loader.close()
 
@@ -1334,7 +1334,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             self.xmlDataServer, 'getKickstartsXmlStream')
 
         for channel, ktids in self._channel_kickstarts.items():
-            self._proces_batch(channel, ktids[:], messages.kickstart_parsing,
+            self._process_batch(channel, ktids[:], messages.kickstart_parsing,
                                stream_loader.process)
         stream_loader.close()
 
@@ -1343,7 +1343,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         log(1, ["", _("Downloading kickstartable trees files")])
         sorted_channels = sorted(missing_ks_files.items(), key=lambda x: x[0])  # sort by channel
         for channel, files in sorted_channels:
-            self._proces_batch(channel, files[:], messages.kickstart_downloading,
+            self._process_batch(channel, files[:], messages.kickstart_downloading,
                                self._download_kickstarts_file,
                                nevermorethan=1,
                                process_function_args=[channel])
@@ -1540,7 +1540,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         sorted_channels = sorted(not_cached_errata.items(), key=lambda x: x[0])  # sort by channel
         for channel, erratum_ids in sorted_channels:
-            self._proces_batch(channel, erratum_ids[:], messages.erratum_parsing,
+            self._process_batch(channel, erratum_ids[:], messages.erratum_parsing,
                                stream_loader.process)
         stream_loader.close()
         # XXX This step should go away once the channel info contains the
@@ -1570,7 +1570,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             pb.printIncrement()
         pb.printComplete()
 
-    def _proces_batch(self, channel, batch, log_msg,
+    def _process_batch(self, channel, batch, log_msg,
                       process_function,
                       prompt=_('Downloading:'),
                       process_function_args=(),
@@ -1606,7 +1606,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         sorted_channels = sorted(missing_channel_items.items(), key=lambda x: x[0])  # sort by channel
         for channel, packages in sorted_channels:
-            self._proces_batch(channel, packages[:],
+            self._process_batch(channel, packages[:],
                                messages.package_importing,
                                self._import_packages_process,
                                _('Importing:  '),
@@ -1683,7 +1683,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                     self._fix_erratum(erratum)
                     batch.append(erratum)
 
-            self._proces_batch(chn, batch, messages.errata_importing,
+            self._process_batch(chn, batch, messages.errata_importing,
                                sync_handlers.import_errata)
 
     @staticmethod
