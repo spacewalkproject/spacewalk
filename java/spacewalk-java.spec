@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.68
+Version: 2.4.69
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Sep 14 2015 Jan Dobes 2.4.69-1
+- removing old-styled icon from
+  /rhn/systems/details/virtualization/ProvisionVirtualizationWizard
+- show virtual machine status instead of name
+
 * Thu Sep 10 2015 Jan Dobes 2.4.68-1
 - render the right icon in system details header
 
