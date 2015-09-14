@@ -82,7 +82,7 @@
         </rhn:column>
 
         <rhn:column header="virtuallist.jsp.state">
-          <c:out value="${current.serverName}" escapeXml="true" />
+          <c:out value="${current.stateName}" escapeXml="true" />
         </rhn:column>
 
         <rhn:column header="virtuallist.jsp.channel">
