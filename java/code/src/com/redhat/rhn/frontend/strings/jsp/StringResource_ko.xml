@@ -19519,11 +19519,11 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <target>킥스타트 프로파일 선택 </target>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.summary1">
-        <source>Please fill out the form below to create a new virtual system to be hosted on &lt;img src="/img/rhn-listicon-system.gif"&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;</source>
+        <source>Please fill out the form below to create a new virtual system to be hosted on &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-        <target>아래 양식을 작성하여 &lt;img src=&quot;/img/rhn-listicon-system.gif&quot;&gt; &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt;에서 호스트될 새로운 가상 시스템을 생성하시기 바랍니다.</target>
+        <target>아래 양식을 작성하여 &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt;에서 호스트될 새로운 가상 시스템을 생성하시기 바랍니다.</target>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.header2">
         <source>Define the Virtual System</source>

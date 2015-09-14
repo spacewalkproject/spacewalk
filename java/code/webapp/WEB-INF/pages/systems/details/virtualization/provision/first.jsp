@@ -21,7 +21,6 @@ function setStep(stepName) {
   <body>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-   <br/>
     <div class="page-summary">
       <p>
         <bean:message key="virtualization.provision.first.jsp.summary1" arg0="${system.id}" arg1="${fn:escapeXml(system.name)}" />

@@ -19973,11 +19973,11 @@ La ruta del árbol, el RPM Kickstart, el canal base y la generación del instala
         <target>Seleccionar un perfil Kickstart</target>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.summary1">
-        <source>Please fill out the form below to create a new virtual system to be hosted on &lt;img src="/img/rhn-listicon-system.gif"&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;</source>
+        <source>Please fill out the form below to create a new virtual system to be hosted on &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-        <target>Por favor complete el formulario dado a continuación para crear un nuevo sistema virtual a ser hospedado en &lt;img src=&quot;/img/rhn-listicon-system.gif&quot;&gt; &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt;</target>
+        <target>Por favor complete el formulario dado a continuación para crear un nuevo sistema virtual a ser hospedado en &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.header2">
         <source>Define the Virtual System</source>

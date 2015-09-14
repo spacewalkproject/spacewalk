@@ -18963,11 +18963,11 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <target>Kickstart প্রোফাইল নির্বাচন করুন</target>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.summary1">
-        <source>Please fill out the form below to create a new virtual system to be hosted on &lt;img src="/img/rhn-listicon-system.gif"&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;</source>
+        <source>Please fill out the form below to create a new virtual system to be hosted on &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-        <target>&lt;img src=&quot;/img/rhn-listicon-system.gif&quot;&gt; &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt;-এ হোস্ট করার জন্য নতুন ভার্চুয়াল সিস্টেম নির্মাণের উদ্দেশ্যে অনুগ্রহ করতে নিম্নলিখিত ফর্মে তথ্য পূরণ করুন।</target>
+        <target>&lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt;-এ হোস্ট করার জন্য নতুন ভার্চুয়াল সিস্টেম নির্মাণের উদ্দেশ্যে অনুগ্রহ করতে নিম্নলিখিত ফর্মে তথ্য পূরণ করুন।</target>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.header2">
         <source>Define the Virtual System</source>
