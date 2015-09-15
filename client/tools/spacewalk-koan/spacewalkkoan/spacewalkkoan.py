@@ -228,6 +228,12 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
         else:
             if os.path.exists(disk_path):
                 raise VirtDiskPathExistsError(disk_path)
+        # Switch to KVM if possible
+        if virt_type == "qemu":
+            if os.path.exists("/dev/kvm"):
+                virt_type = "kvm"
+            else:
+                print "Warning: KVM not available, using QEMU."
         k = Koan()
         k.list_items          = 0
         k.server              = kickstart_host
