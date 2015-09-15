@@ -16,6 +16,11 @@ package com.redhat.rhn.frontend.action.user;
 
 import java.util.regex.Pattern;
 
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.conf.UserDefaults;
@@ -24,11 +29,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.SatManager;
-
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
 
 /**
  * UserEditSubmitAction, edit action submit handler for user detail page
@@ -75,21 +75,7 @@ public abstract class UserEditActionHelper extends RhnAction {
 
         //Make sure password is not empty
         if (!pw.isEmpty()) {
-            // Validate the password
-            if (pw.length() < UserDefaults.get().getMinPasswordLength()) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("error.minpassword",
-                                UserDefaults.get().getMinPasswordLength()));
-            }
-            if (Pattern.compile("[\\t\\n]").matcher(pw).find()) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("error.invalidpasswordcharacters"));
-            }
-            if (pw.length() > UserDefaults.get().getMaxPasswordLength()) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("error.maxpassword",
-                                targetUser.getPassword()));
-            }
+            validatePassword(errors, pw);
 
             //Set the password only if there are no errors at all
             if (errors.isEmpty()) {
@@ -110,6 +96,24 @@ public abstract class UserEditActionHelper extends RhnAction {
         }
 
         return errors;
+    }
+
+    protected void validatePassword(ActionErrors errors, String pw) {
+        // Validate the password
+        if (pw.length() < UserDefaults.get().getMinPasswordLength()) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("error.minpassword",
+                            UserDefaults.get().getMinPasswordLength()));
+        }
+        if (Pattern.compile("[\\t\\n]").matcher(pw).find()) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("error.invalidpasswordcharacters"));
+        }
+        if (pw.length() > UserDefaults.get().getMaxPasswordLength()) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("error.maxpassword",
+                                    UserDefaults.get().getMaxPasswordLength()));
+        }
     }
 
     /**
