@@ -738,7 +738,7 @@ public class KickstartFactory extends HibernateFactory {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", org.getId());
         return singleton.listObjectsByNamedQuery(
-                "KickstartableTree.findByOrg", params, true);
+                "KickstartableTree.findByOrg", params, false);
     }
 
     /**
