@@ -15,6 +15,11 @@
 package com.redhat.rhn.common.db.test;
 
 import java.util.Calendar;
+import java.util.Iterator;
+
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.ResetPasswordFactory;
@@ -47,19 +52,19 @@ public class ResetPasswordFactoryTest extends BaseTestCaseWithUser {
 
         int expirationHours = Config.get().getInt(ResetPasswordFactory.EXPIRE_TIME, 48);
 
-        Calendar lastWeek = Calendar.getInstance();
-        lastWeek.add(Calendar.HOUR, -(expirationHours - 1));
-        rp.setCreated(lastWeek.getTime());
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.HOUR, -(expirationHours - 1));
+        rp.setCreated(cal.getTime());
         assertTrue(!rp.isExpired());
 
-        lastWeek = Calendar.getInstance();
-        lastWeek.add(Calendar.HOUR, -(expirationHours + 1));
-        rp.setCreated(lastWeek.getTime());
+        cal = Calendar.getInstance();
+        cal.add(Calendar.HOUR, -(expirationHours + 1));
+        rp.setCreated(cal.getTime());
         assertTrue(rp.isExpired());
 
-        lastWeek = Calendar.getInstance();
-        lastWeek.add(Calendar.YEAR, -1);
-        rp.setCreated(lastWeek.getTime());
+        cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, -1);
+        rp.setCreated(cal.getTime());
         assertTrue(rp.isExpired());
     }
 
@@ -127,4 +132,46 @@ public class ResetPasswordFactoryTest extends BaseTestCaseWithUser {
         assertEquals(3, rmvd);
     }
 
+    public void testFindErrors() {
+        ResetPassword rp = ResetPasswordFactory.createNewEntryFor(user);
+        assertNotNull(rp);
+
+        // Everything OK
+        ActionErrors errors = ResetPasswordFactory.findErrors(rp);
+        assertNotNull(errors);
+        assertTrue(errors.isEmpty());
+
+        // No Token
+        errors = ResetPasswordFactory.findErrors(null);
+        assertEquals(1, errors.size());
+        Iterator<ActionMessage> iter = errors.get(ActionMessages.GLOBAL_MESSAGE);
+        while (iter.hasNext()) {
+            ActionMessage am = iter.next();
+            assertEquals("resetpassword.jsp.error.notoken", am.getKey());
+        }
+
+        // Invalid token
+        ResetPassword rp1 = ResetPasswordFactory.createNewEntryFor(user);
+        rp1.setIsValid(false);
+        errors = ResetPasswordFactory.findErrors(rp1);
+        assertEquals(1, errors.size());
+        iter = errors.get(ActionMessages.GLOBAL_MESSAGE);
+        while (iter.hasNext()) {
+            ActionMessage am = iter.next();
+            assertEquals("resetpassword.jsp.error.invalidtoken", am.getKey());
+        }
+        rp1.setIsValid(true);
+
+        // Expired token
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, -1);
+        rp1.setCreated(cal.getTime());
+        errors = ResetPasswordFactory.findErrors(rp1);
+        assertEquals(1, errors.size());
+        iter = errors.get(ActionMessages.GLOBAL_MESSAGE);
+        while (iter.hasNext()) {
+            ActionMessage am = iter.next();
+            assertEquals("resetpassword.jsp.error.expiredtoken", am.getKey());
+        }
+    }
 }

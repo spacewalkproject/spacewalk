@@ -21,6 +21,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -126,4 +129,25 @@ public class ResetPasswordFactory extends HibernateFactory {
                       "/rhn/ResetLink.do?token=" + rp.getToken();
         return link;
     }
+
+    public static ActionErrors findErrors(ResetPassword rp) {
+        log.debug("findErrors : ["+(rp==null?"null":rp.toString())+"]");
+        ActionErrors errors = new ActionErrors();
+        if (rp == null) {
+            log.debug("findErrors: no RP found");
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                       new ActionMessage("resetpassword.jsp.error.notoken"));
+        } else if (!rp.isValid()) {
+            log.debug("findErrors: invalid RP found");
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                       new ActionMessage("resetpassword.jsp.error.invalidtoken"));
+
+        } else if (rp.isExpired()) {
+            log.debug("findErrors: expired RP found");
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                       new ActionMessage("resetpassword.jsp.error.expiredtoken"));
+        }
+        return errors;
+    }
+
 }
