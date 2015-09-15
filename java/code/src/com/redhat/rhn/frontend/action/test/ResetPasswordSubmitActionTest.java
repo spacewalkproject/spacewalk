@@ -21,8 +21,7 @@ import com.mockobjects.servlet.MockHttpSession;
 import com.redhat.rhn.common.db.ResetPasswordFactory;
 import com.redhat.rhn.domain.common.ResetPassword;
 import com.redhat.rhn.domain.session.WebSession;
-import com.redhat.rhn.frontend.action.common.BadParameterException;
-import com.redhat.rhn.frontend.action.user.ResetLinkAction;
+import com.redhat.rhn.frontend.action.user.ResetPasswordSubmitAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.RhnMockDynaActionForm;
@@ -30,56 +29,56 @@ import com.redhat.rhn.testing.RhnMockHttpServletRequest;
 import com.redhat.rhn.testing.RhnMockHttpServletResponse;
 
 /**
- * ResetLinkActionTest
+ * ResetPasswordSubmitActionTest
  * @version $Rev$
  */
-public class ResetLinkActionTest extends BaseTestCaseWithUser {
+public class ResetPasswordSubmitActionTest extends BaseTestCaseWithUser {
 
-    private ActionForward valid, invalid;
+    private ActionForward mismatch, invalid;
     private ActionMapping mapping;
     private RhnMockDynaActionForm form;
     private RhnMockHttpServletRequest request;
     private RhnMockHttpServletResponse response;
-    private ResetLinkAction action;
+    private ResetPasswordSubmitAction action;
 
     public void testPerformNoToken() {
-        try {
-            ActionForward rc = action.execute(mapping, form, request, response);
-        }
-        catch (BadParameterException bpe) {
-            assertTrue("Caught BPE", true);
-            return;
-        }
-        assertTrue("Expected BadParameterException, didn't get one!", false);
+        form.set("token", null);
+        ActionForward rc = action.execute(mapping, form, request, response);
+        assertEquals(invalid, rc);
     }
 
     public void testPerformInvalidToken() {
         ResetPassword rp = ResetPasswordFactory.createNewEntryFor(user);
         ResetPasswordFactory.invalidateToken(rp.getToken());
-        request.setupAddParameter("token", rp.getToken());
+        form.set("token", rp.getToken());
         ActionForward rc = action.execute(mapping, form, request, response);
         assertEquals(invalid, rc);
     }
 
-    public void XXXtestPerformExpiredToken() {
-        // 'expired' drives off of 'created', which is in the hands of the DB
-        // so, no test here
+    public void testPerformDisabledUser() {
+        ResetPassword rp = ResetPasswordFactory.createNewEntryFor(user);
+        ResetPasswordFactory.invalidateToken(rp.getToken());
+        form.set("token", rp.getToken());
+        ActionForward rc = action.execute(mapping, form, request, response);
+        assertEquals(invalid, rc);
     }
 
-    public void testPerformValidToken() {
+    public void testPerformPasswordMismatch() {
         ResetPassword rp = ResetPasswordFactory.createNewEntryFor(user);
-        request.setupAddParameter("token", rp.getToken());
+        form.set("token", rp.getToken());
+        form.set("password", "foobar");
+        form.set("passwordConfirm", "foobarblech");
         ActionForward rc = action.execute(mapping, form, request, response);
-        assertEquals(valid, rc);
+        assertEquals(mismatch, rc);
     }
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        action = new ResetLinkAction();
+        action = new ResetPasswordSubmitAction();
 
         mapping = new ActionMapping();
-        valid = new ActionForward("valid", "path", false);
+        mismatch = new ActionForward("mismatch", "path", false);
         invalid = new ActionForward("invalid", "path", false);
         form = new RhnMockDynaActionForm("resetPasswordForm");
         request = new RhnMockHttpServletRequest();
@@ -94,7 +93,7 @@ public class ResetLinkActionTest extends BaseTestCaseWithUser {
         request.setupServerName("mymachine.rhndev.redhat.com");
         WebSession s = requestContext.getWebSession();
 
-        mapping.addForwardConfig(valid);
+        mapping.addForwardConfig(mismatch);
         mapping.addForwardConfig(invalid);
     }
 }

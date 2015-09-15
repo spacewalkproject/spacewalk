@@ -120,7 +120,7 @@ public class ForgotCredentialsAction extends RhnAction {
                 String link = ResetPasswordFactory.generateLink(rp);
 
                 String emailBody = setupEmailBody("email.forgotten.password",
-                        email, ConfigDefaults.get().getHostname(), login, link);
+                        email, link, login);
                 sendEmail(email, LocalizationService.getInstance().
                         getMessage("help.credentials.jsp.passwordreset"), emailBody);
 

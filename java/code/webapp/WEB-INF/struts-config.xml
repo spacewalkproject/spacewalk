@@ -1325,22 +1325,14 @@
     </action>
 
     <action path="/ResetLink"
-        scope="request"
-        validate="false"
-        type="com.redhat.rhn.frontend.action.user.ResetLinkAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <forward name="valid" path="/ResetPassword.do" redirect="true" />
-      <forward name="invalid" path="/WEB-INF/pages/common/errors/invalidreset.jsp" />
-    </action>
-
-    <action path="/ResetPassword"
         name="passwordResetForm"
         scope="request"
         validate="false"
         input="/WEB-INF/pages/common/passwordreset.jsp"
-        type="com.redhat.rhn.frontend.action.user.ResetPasswordAction"
+        type="com.redhat.rhn.frontend.action.user.ResetLinkAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <forward name="default" path="/WEB-INF/pages/common/passwordreset.jsp" />
+      <forward name="valid" path="/WEB-INF/pages/common/passwordreset.jsp" />
+      <forward name="invalid" path="/WEB-INF/pages/common/errors/invalidreset.jsp" />
     </action>
 
     <action path="/ResetPasswordSubmit"
@@ -1350,8 +1342,10 @@
         input="/WEB-INF/pages/common/passwordreset.jsp"
         type="com.redhat.rhn.frontend.action.user.ResetPasswordSubmitAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="invalid" path="/WEB-INF/pages/common/errors/invalidreset.jsp" />
+      <forward name="mismatch" path="/WEB-INF/pages/common/passwordreset.jsp" />
+      <forward name="badpwd" path="/WEB-INF/pages/common/passwordreset.jsp" />
       <forward name="success" path="/YourRhn.do" redirect="true" />
-      <forward name="failure" path="/ResetPassword.do" redirect="true" />
     </action>
 
     <action path="/Logout"

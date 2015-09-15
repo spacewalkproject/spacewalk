@@ -63,6 +63,7 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
         set.add("/rhn/common/DownloadFile");
         // password-reset-link destination
         set.add("/rhn/ResetLink");
+        set.add("/rhn/ResetPasswordSubmit");
 
         UNPROTECTED_URIS = UnmodifiableSet.decorate(set);
 
