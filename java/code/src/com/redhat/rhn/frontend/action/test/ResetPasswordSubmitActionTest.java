@@ -21,12 +21,15 @@ import com.mockobjects.servlet.MockHttpSession;
 import com.redhat.rhn.common.db.ResetPasswordFactory;
 import com.redhat.rhn.domain.common.ResetPassword;
 import com.redhat.rhn.domain.session.WebSession;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.action.user.ResetPasswordSubmitAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.RhnMockDynaActionForm;
 import com.redhat.rhn.testing.RhnMockHttpServletRequest;
 import com.redhat.rhn.testing.RhnMockHttpServletResponse;
+import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * ResetPasswordSubmitActionTest
@@ -34,17 +37,18 @@ import com.redhat.rhn.testing.RhnMockHttpServletResponse;
  */
 public class ResetPasswordSubmitActionTest extends BaseTestCaseWithUser {
 
-    private ActionForward mismatch, invalid;
+    private ActionForward mismatch, invalid, badpwd;
     private ActionMapping mapping;
     private RhnMockDynaActionForm form;
     private RhnMockHttpServletRequest request;
     private RhnMockHttpServletResponse response;
     private ResetPasswordSubmitAction action;
+    private User adminUser;
 
     public void testPerformNoToken() {
         form.set("token", null);
         ActionForward rc = action.execute(mapping, form, request, response);
-        assertEquals(invalid, rc);
+        assertEquals("No token", invalid.getName(), rc.getName());
     }
 
     public void testPerformInvalidToken() {
@@ -52,15 +56,15 @@ public class ResetPasswordSubmitActionTest extends BaseTestCaseWithUser {
         ResetPasswordFactory.invalidateToken(rp.getToken());
         form.set("token", rp.getToken());
         ActionForward rc = action.execute(mapping, form, request, response);
-        assertEquals(invalid, rc);
+        assertEquals("Invalid token", invalid.getName(), rc.getName());
     }
 
     public void testPerformDisabledUser() {
         ResetPassword rp = ResetPasswordFactory.createNewEntryFor(user);
-        ResetPasswordFactory.invalidateToken(rp.getToken());
+        UserFactory.getInstance().disable(user, adminUser);
         form.set("token", rp.getToken());
         ActionForward rc = action.execute(mapping, form, request, response);
-        assertEquals(invalid, rc);
+        assertEquals("Disabled user", invalid.getName(), rc.getName());
     }
 
     public void testPerformPasswordMismatch() {
@@ -69,17 +73,41 @@ public class ResetPasswordSubmitActionTest extends BaseTestCaseWithUser {
         form.set("password", "foobar");
         form.set("passwordConfirm", "foobarblech");
         ActionForward rc = action.execute(mapping, form, request, response);
-        assertEquals(mismatch, rc);
+        assertEquals (mismatch.getName(), rc.getName());
+    }
+
+    public void testPerformBadPassword() {
+        ResetPassword rp = ResetPasswordFactory.createNewEntryFor(user);
+        form.set("token", rp.getToken());
+        form.set("password", "a");
+        form.set("passwordConfirm", "a");
+        ActionForward rc = action.execute(mapping, form, request, response);
+        assertEquals("too short", badpwd.getName(), rc.getName());
+
+        form.set("password",
+        "12345678901234567890123456789012345678901234567890123456789012345678901234567890");
+        form.set("passwordConfirm",
+        "12345678901234567890123456789012345678901234567890123456789012345678901234567890");
+        rc = action.execute(mapping, form, request, response);
+        assertEquals("too long", badpwd.getName(), rc.getName());
+
+        form.set("password", "123\t\n6");
+        form.set("passwordConfirm", "123\t\n6");
+        rc = action.execute(mapping, form, request, response);
+        assertEquals("whitespace", badpwd.getName(), rc.getName());
     }
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
+        adminUser = UserTestUtils.findNewUser("testAdminUser", "testOrg" +
+                        this.getClass().getSimpleName(), true);
         action = new ResetPasswordSubmitAction();
 
         mapping = new ActionMapping();
         mismatch = new ActionForward("mismatch", "path", false);
         invalid = new ActionForward("invalid", "path", false);
+        badpwd = new ActionForward("badpwd", "path", false);
         form = new RhnMockDynaActionForm("resetPasswordForm");
         request = new RhnMockHttpServletRequest();
         response = new RhnMockHttpServletResponse();
@@ -95,5 +123,6 @@ public class ResetPasswordSubmitActionTest extends BaseTestCaseWithUser {
 
         mapping.addForwardConfig(mismatch);
         mapping.addForwardConfig(invalid);
+        mapping.addForwardConfig(badpwd);
     }
 }

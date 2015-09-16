@@ -95,7 +95,7 @@ public class ResetPassword extends BaseDomainHelper {
 
 
     /**
-     * @param inToken the user-id to set
+     * @param inUserId the user-id to set
      */
     public void setUserId(Long inUserId) {
         this.userId = inUserId;
