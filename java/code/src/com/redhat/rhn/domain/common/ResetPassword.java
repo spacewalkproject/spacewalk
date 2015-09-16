@@ -37,10 +37,18 @@ public class ResetPassword extends BaseDomainHelper {
     private Long userId;
     private boolean isValid = true;
 
+    /**
+     * Create empty ResetPassword
+     */
     public ResetPassword() {
         super();
     }
 
+    /**
+     * Create a new ResetPassword
+     * @param inUserId user whose password needs a reset
+     * @param inToken token to use to reset
+     */
     public ResetPassword(Long inUserId, String inToken) {
         super();
         userId = inUserId;
@@ -55,10 +63,10 @@ public class ResetPassword extends BaseDomainHelper {
 
 
     /**
-     * @param id the id to set
+     * @param inId the id to set
      */
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long inId) {
+        this.id = inId;
     }
 
 
@@ -71,10 +79,10 @@ public class ResetPassword extends BaseDomainHelper {
 
 
     /**
-     * @param token the token to set
+     * @param inToken the token to set
      */
-    public void setToken(String token) {
-        this.token = token;
+    public void setToken(String inToken) {
+        this.token = inToken;
     }
 
 
@@ -87,10 +95,10 @@ public class ResetPassword extends BaseDomainHelper {
 
 
     /**
-     * @param userId the user-id to set
+     * @param inToken the user-id to set
      */
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserId(Long inUserId) {
+        this.userId = inUserId;
     }
 
 
@@ -108,10 +116,13 @@ public class ResetPassword extends BaseDomainHelper {
         return getIsValid();
     }
 
+    /**
+     * @return true if CREATED < (now - expiration-hours)
+     */
     public boolean isExpired() {
         Calendar now = Calendar.getInstance();
         Calendar expireDate = Calendar.getInstance();
-        expireDate.setTime(getCreated()==null?new Date():getCreated());
+        expireDate.setTime(getCreated() == null ? new Date() : getCreated());
         expireDate.add(Calendar.HOUR,
                        Config.get().getInt(PASSWORD_TOKEN_EXPIRATION,
                                            PASSWORD_TOKEN_EXPIRATION_DEFAULT));
@@ -119,11 +130,11 @@ public class ResetPassword extends BaseDomainHelper {
     }
 
 
-    /*
-     * @param isValid the isValid to set
+    /**
+     * @param inIsValid the isValid to set
      */
-    public void setIsValid(boolean isValid) {
-        this.isValid = isValid;
+    public void setIsValid(boolean inIsValid) {
+        this.isValid = inIsValid;
     }
 
     /* (non-Javadoc)
@@ -143,12 +154,15 @@ public class ResetPassword extends BaseDomainHelper {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         ResetPassword other = (ResetPassword) obj;
         return new EqualsBuilder().append(this.getId(), other.getId())
                                   .append(this.getUserId(), other.getUserId())

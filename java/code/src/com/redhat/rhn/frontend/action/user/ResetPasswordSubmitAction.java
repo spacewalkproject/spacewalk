@@ -66,7 +66,7 @@ public class ResetPasswordSubmitAction extends UserEditActionHelper {
         DynaActionForm form = (DynaActionForm) formIn;
         Map<String, Object> params = makeParamMap(request);
 
-        String token = (form.get("token")==null?null:form.get("token").toString());
+        String token = (form.get("token") == null ? null : form.get("token").toString());
         ResetPassword rp = ResetPasswordFactory.lookupByToken(token);
         ActionErrors errors = ResetPasswordFactory.findErrors(rp);
 
@@ -122,7 +122,7 @@ public class ResetPasswordSubmitAction extends UserEditActionHelper {
         // Set up user to be logged in and sent to YourRhn
         loginAndRedirect(u, mapping, request, response);
 
-        log.debug("ResetLinkAction: user ["+u.getId()+"] is now logged in");
+        log.debug("ResetLinkAction: user [" + u.getId() + "] is now logged in");
 
         // Have to return NULL - updateWebUserId() has already redirected us,
         // and doing it again will make struts Very Angry
@@ -149,7 +149,7 @@ public class ResetPasswordSubmitAction extends UserEditActionHelper {
         // Fun!
         // Set up to redirect to the 'success' forward in the struts-cfg
         // (probably YourRhn)
-        String urlBounce = "/rhn"+ mapping.findForward(SUCCESS).getPath();
+        String urlBounce = "/rhn" + mapping.findForward(SUCCESS).getPath();
         String reqMethod = "GET";
         urlBounce = LoginAction.updateUrlBounce(urlBounce, reqMethod);
         try {
