@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 f00cc54ccbb2f6b94a62479b7eb069e50240a8ad
+-- oracle equivalent source sha1 fa27f1a2db02a80af213ee6397dd448c40dc61c0
 
 create or replace function rhn_rstpwd_mod_trig_fun() returns trigger as
 $$
