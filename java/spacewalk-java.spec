@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.69
+Version: 2.4.70
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Sep 16 2015 Jan Dobes 2.4.70-1
+- 1250351 - kickstartable trees should not be cacheable
+
 * Mon Sep 14 2015 Jan Dobes 2.4.69-1
 - removing old-styled icon from
   /rhn/systems/details/virtualization/ProvisionVirtualizationWizard
