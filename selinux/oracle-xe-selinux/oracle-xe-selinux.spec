@@ -6,7 +6,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:            oracle-xe-selinux
-Version:         10.2.0.40
+Version:         10.2.0.41
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
@@ -138,6 +138,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Sep 16 2015 Tomas Kasparek <tkasparek@redhat.com> 10.2.0.41-1
+- bz1258563 - selinux fix for fedora 21/22
+
 * Tue Jun 16 2015 Jan Dobes 10.2.0.40-1
 - glibc is still providing /sbin/ldconfig
 
