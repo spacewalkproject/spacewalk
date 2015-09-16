@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.70
+Version: 2.4.71
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Sep 16 2015 Grant Gainey 2.4.71-1
+- 608355 - More checkstyle happiness
+- 608355 - Fix some Junit
+- 608355 - checkstyle
+- 608355 - Refactor reset-pwd path to not log user in until pwd-chg accepted
+- 608355 - Add min-password-length to user_attribute_sizes.jspf
+- 608355 - Teach ResetPasswordFactory about errors
+- 608355 - Make validatePassword into its own method in UserEditActionHelper
+- 608355 - First draft, UI workflow
+- 608355 - teach model about isExpired
+- 608355 - ResetPassword domain-model/mode-queries/access/Junit
+
 * Wed Sep 16 2015 Jan Dobes 2.4.70-1
 - 1250351 - kickstartable trees should not be cacheable
 
