@@ -18,12 +18,9 @@ Red Hat login, in combination with an active Red Hat subscription,
 provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {2}
-       Password: {3}
          e-mail: {4}
 
-  {5}
-
-Important: Please change your password upon logging in.
+Please proceed to {3} to set your password and enable your account.
 
 Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
@@ -49,12 +46,9 @@ Red Hat login, in combination with an active Red Hat subscription,
 provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {0}
-       Password: {1}
          e-mail: {2}
 
-  {3}
-
-Important: Please change your password upon logging in.
+Please proceed to {1} to set your password and enable your account.
 
 Thank you for using @@PRODUCT_NAME@@.
 {4}</source>
