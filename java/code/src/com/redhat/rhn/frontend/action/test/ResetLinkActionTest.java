@@ -61,7 +61,7 @@ public class ResetLinkActionTest extends BaseTestCaseWithUser {
         assertEquals(invalid, rc);
     }
 
-    public void XXXtestPerformExpiredToken() {
+    public void xxxtestPerformExpiredToken() {
         // 'expired' drives off of 'created', which is in the hands of the DB
         // so, no test here
     }

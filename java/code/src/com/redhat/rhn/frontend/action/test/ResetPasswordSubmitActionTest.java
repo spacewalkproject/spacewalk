@@ -73,7 +73,7 @@ public class ResetPasswordSubmitActionTest extends BaseTestCaseWithUser {
         form.set("password", "foobar");
         form.set("passwordConfirm", "foobarblech");
         ActionForward rc = action.execute(mapping, form, request, response);
-        assertEquals (mismatch.getName(), rc.getName());
+        assertEquals(mismatch.getName(), rc.getName());
     }
 
     public void testPerformBadPassword() {
