@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.71
+Version: 2.4.72
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Sep 16 2015 Grant Gainey 2.4.72-1
+- 608355 - updated user-creation email template
+
 * Wed Sep 16 2015 Grant Gainey 2.4.71-1
 - 608355 - More checkstyle happiness
 - 608355 - Fix some Junit
