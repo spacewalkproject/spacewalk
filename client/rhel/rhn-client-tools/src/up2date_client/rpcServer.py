@@ -209,6 +209,7 @@ def doCall(method, *args, **kwargs):
             log.log_me("A socket error occurred: %s, attempt #%s" % (
                 sys.exc_info()[1], attempt_count))
             if attempt_count >= attempts:
+                e = sys.exc_info()[1]
                 if len(e.args) > 1:
                     raise (up2dateErrors.CommunicationError(e.args[1]), None, sys.exc_info()[2])
                 else:
