@@ -948,9 +948,9 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             self._missing_channel_packages[channel_label] = []
             self._missing_fs_packages[channel_label] = []
             self._process_batch(channel_label, upids[:], None,
-                               self._diff_packages_process,
-                               _('Diffing:    '),
-                               [channel_label])
+                                self._diff_packages_process,
+                                _('Diffing:    '),
+                                [channel_label])
 
         self._verify_missing_channel_packages(self._missing_channel_packages)
 
@@ -1109,7 +1109,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         sorted_channels = sorted(missing_packages.items(), key=lambda x: x[0])  # sort by channel
         for channel, pids in sorted_channels:
             self._process_batch(channel, pids[:], messages.package_parsing,
-                               stream_loader.process, is_slow=True)
+                                stream_loader.process, is_slow=True)
         stream_loader.close()
 
         # Double-check that we got all the packages
@@ -1229,9 +1229,9 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             self._missing_channel_src_packages[channel_label] = []
             self._missing_fs_source_packages[channel_label] = []
             self._process_batch(channel_label, upids[:], None,
-                               self._diff_source_packages_process,
-                               _('Diffing:    '),
-                               [channel_label])
+                                self._diff_source_packages_process,
+                                _('Diffing:    '),
+                                [channel_label])
 
         self._verify_missing_channel_packages(self._missing_channel_src_packages, sources=1)
 
@@ -1247,7 +1247,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         for channel, pids in missing_packages.items():
             self._process_batch(channel, pids[:], messages.package_parsing,
-                               stream_loader.process, is_slow=True)
+                                stream_loader.process, is_slow=True)
         stream_loader.close()
 
         # Double-check that we got all the packages
@@ -1335,7 +1335,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         for channel, ktids in self._channel_kickstarts.items():
             self._process_batch(channel, ktids[:], messages.kickstart_parsing,
-                               stream_loader.process)
+                                stream_loader.process)
         stream_loader.close()
 
         missing_ks_files = self._compute_missing_ks_files()
@@ -1344,9 +1344,9 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         sorted_channels = sorted(missing_ks_files.items(), key=lambda x: x[0])  # sort by channel
         for channel, files in sorted_channels:
             self._process_batch(channel, files[:], messages.kickstart_downloading,
-                               self._download_kickstarts_file,
-                               nevermorethan=1,
-                               process_function_args=[channel])
+                                self._download_kickstarts_file,
+                                nevermorethan=1,
+                                process_function_args=[channel])
 
     def _get_ks_file_stream(self, channel, kstree_label, relative_path):
         if self.mountpoint:
@@ -1541,7 +1541,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         sorted_channels = sorted(not_cached_errata.items(), key=lambda x: x[0])  # sort by channel
         for channel, erratum_ids in sorted_channels:
             self._process_batch(channel, erratum_ids[:], messages.erratum_parsing,
-                               stream_loader.process)
+                                stream_loader.process)
         stream_loader.close()
         # XXX This step should go away once the channel info contains the
         # errata timestamps and advisory names
@@ -1571,11 +1571,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         pb.printComplete()
 
     def _process_batch(self, channel, batch, log_msg,
-                      process_function,
-                      prompt=_('Downloading:'),
-                      process_function_args=(),
-                      nevermorethan=None,
-                      is_slow=False):
+                       process_function,
+                       prompt=_('Downloading:'),
+                       process_function_args=(),
+                       nevermorethan=None,
+                       is_slow=False):
         count = len(batch)
         if log_msg:
             log(1, log_msg % (channel, count or _('NONE RELEVANT')))
@@ -1607,10 +1607,10 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         sorted_channels = sorted(missing_channel_items.items(), key=lambda x: x[0])  # sort by channel
         for channel, packages in sorted_channels:
             self._process_batch(channel, packages[:],
-                               messages.package_importing,
-                               self._import_packages_process,
-                               _('Importing:  '),
-                               [sources])
+                                messages.package_importing,
+                                self._import_packages_process,
+                                _('Importing:  '),
+                                [sources])
         return self._link_channel_packages()
 
     def _link_channel_packages(self):
@@ -1684,7 +1684,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                     batch.append(erratum)
 
             self._process_batch(chn, batch, messages.errata_importing,
-                               sync_handlers.import_errata)
+                                sync_handlers.import_errata)
 
     @staticmethod
     def _fix_erratum(erratum):
