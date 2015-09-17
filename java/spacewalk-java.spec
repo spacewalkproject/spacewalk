@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.73
+Version: 2.4.74
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 17 2015 Jan Dobes 2.4.74-1
+- Make pagination attributes more consistent by putting them into enum
+- Unify paging parameter values
+- Remove unused pagination parameters checking
+
 * Thu Sep 17 2015 Jan Dobes 2.4.73-1
 - removing orphan_packages_for_channel query
 
