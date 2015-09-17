@@ -918,27 +918,6 @@ public class PackageManager extends BaseManager {
     }
 
     /**
-     * Lookup orphaned custom packages (those that belong to no channel) for insertion
-     *      into a channel.  Packages are filtered based on channel/package arch, and
-     *      if a package already exists in the channel based of it's nvrea.
-     * @param cid the channel to look at for inserting
-     * @param orgId the org who owns the packages
-     * @return list of PackageOverview objects
-     */
-    public static DataResult lookupOrphanPackagesForChannel(Long cid, Long orgId) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("cid", cid);
-        params.put("org_id", orgId);
-
-            SelectMode m = ModeFactory.getMode(
-                    "Package_queries", "orphan_packages_for_channel");
-
-            DataResult dr = m.execute(params);
-            dr.setElaborationParams(new HashMap());
-            return dr;
-    }
-
-    /**
      * Lookup package differences between thisCid and otherCid channels.
      * @param thisCid channel id we want to update
      * @param otherCid channel id which we compare to

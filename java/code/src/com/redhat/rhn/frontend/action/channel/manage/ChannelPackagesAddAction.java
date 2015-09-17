@@ -127,8 +127,7 @@ public class ChannelPackagesAddAction extends ChannelPackagesBaseAction {
             request.setAttribute(ALL_PACKAGES_SELECTED, true);
         }
         else if (ORPHAN_PACKAGES.equals(selectedChan)) {
-            result = PackageManager.lookupOrphanPackagesForChannel(cid,
-                    user.getOrg().getId());
+            result = PackageManager.listOrphanPackages(user.getOrg().getId());
             request.setAttribute(ORPHAN_PACKAGES_SELECTED, true);
         }
         else {
