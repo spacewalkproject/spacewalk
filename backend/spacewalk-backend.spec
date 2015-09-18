@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.20
+Version: 2.4.21
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -655,6 +655,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Fri Sep 18 2015 Jan Dobes 2.4.21-1
+- Realigning arguments to process_batch to conform to indentation standards -
+  see https://www.python.org/dev/peps/pep-0008/#indentation
+- Fixed spelling of _proces_batch -> _process_batch.
+
 * Thu Sep 10 2015 Tomas Lestach <tlestach@redhat.com> 2.4.20-1
 - call xz to decompress comps file directly, if pyliblzma not available
 
