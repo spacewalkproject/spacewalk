@@ -55,7 +55,7 @@
                 <bean:message key="snippetcreate.jsp.contents"/>:
             </label>
             <div class="col-sm-6">
-                <textarea style="resize:none" class="form-control col-sm-6" rows="24" data-editor="text" data-readonly="true"><c:out value="${data}" escapeXml="true"/>""</textarea>
+                <textarea class="form-control" rows="24" cols="80" readonly><c:out value="${data}" escapeXml="true"/>""</textarea>
             </div>
         </div>
 

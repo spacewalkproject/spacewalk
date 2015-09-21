@@ -2,9 +2,6 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
 <html>
-    <head>
-        <script src="/ace-editor/ace.js"></script>
-    </head>
     <body>
         <rhn:require acl="user_role(satellite_admin)"/>
         <rhn:toolbar base="h1" icon="header-list">Tomcat</rhn:toolbar>
@@ -15,7 +12,7 @@
                     <bean:message key="catalina.jsp.show"/>
                 </div>
                 <div class="panel-body">
-                    <textarea data-editor="text" data-readonly="true" rows="24" class="form-control">${contents}</textarea>
+                    <textarea readonly rows="24" class="form-control">${contents}</textarea>
                 </div>
             </div>
             <rhn:submitted/>
