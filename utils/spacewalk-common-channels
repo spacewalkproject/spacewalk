@@ -69,8 +69,8 @@ def connect(user, password, server):
     if options.verbose:
         sys.stdout.write("Connecting to %s\n" % server_url)
     client = xmlrpclib.Server(server_url, verbose=client_verbose)
-    user, password = getUsernamePassword(user, password)
-    key = xmlrpc_login(client, user, password)
+    options.user, password = getUsernamePassword(user, password)
+    key = xmlrpc_login(client, options.user, password)
     return client, key
 
 
