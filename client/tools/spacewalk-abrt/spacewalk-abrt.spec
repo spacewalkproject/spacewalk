@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        2.4.0
+Version:        2.4.1
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -41,6 +41,12 @@ service abrtd restart
 %{_mandir}/man8/*
 
 %changelog
+* Wed Sep 23 2015 Jan Dobes 2.4.1-1
+- Pulling updated *.po translations from Zanata.
+- Bumping package versions for 2.4.
+- Bumping package versions for 2.3.
+- Bumping package versions for 2.2.
+
 * Thu Oct 31 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.4-1
 - explicitely require abrt-cli
 
