@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 5.0.17
+Version: 5.0.18
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -138,6 +138,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Sep 23 2015 Jan Dobes 5.0.18-1
+- Pulling updated *.po translations from Zanata.
+
 * Tue Jun 23 2015 Jan Dobes 5.0.17-1
 - 1138939 - up2date and systemid files are managed by rhnsd itself, no need to
   break init script if they do not exist
