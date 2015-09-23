@@ -1,0 +1,17 @@
+#!/usr/bin/bash
+
+changed_files=`git status -s -uno | awk '{print $2}'`
+
+for file in $changed_files; do
+    dates=`git diff HEAD:$file $file | grep "PO-Revision-Date:"`
+    original=`echo $dates | grep -Po '\-"PO-Revision-Date: \K[^\\\\n]+'`
+    new=`echo $dates | grep -Po '\+"PO-Revision-Date: \K[^\\\\n]+'`
+    original_date=`date -d"$original" +%s`
+    new_date=`date -d"$new" +%s`
+    if [ $original_date -eq $new_date ]; then
+        echo "Removing: $file ($original = $new)"
+        git checkout $file
+    fi
+done
+
+echo "Done."
