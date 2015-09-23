@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.4.9
+Version: 2.4.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -383,6 +383,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Sep 23 2015 Jan Dobes 2.4.10-1
+- Pulling updated *.po translations from Zanata.
+
 * Wed Sep 16 2015 Jan Dobes 2.4.9-1
 - 1263707 - fixing python2.4 to python3.3 exception compatibility
 
