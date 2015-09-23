@@ -1,26 +1,49 @@
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015. #zanata
+msgid ""
+msgstr ""
+"Project-Id-Version: Spacewalk\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-02-12 09:55+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-04-02 06:00-0400\n"
+"Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
+"Language-Team: Catalan\n"
+"Language: ca\n"
+"X-Generator: Zanata 3.7.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
 #: ../src/bin/spacewalk-abrt:39
 msgid "Upload content of the specified problem directory"
-msgstr ""
+msgstr "Puja el contingut del directori del problema especificat"
 
 #: ../src/bin/spacewalk-abrt:41
 msgid "Update crash count for the specified problem directory"
 msgstr ""
+"Actualitza el comptador de les fallides per al directori del problema "
+"especificat"
 
 #: ../src/bin/spacewalk-abrt:43
 msgid "Synchronyze missing problem directories"
-msgstr ""
+msgstr "Sincronitza els directoris dels problemes restants"
 
 #: ../src/bin/spacewalk-abrt:50
 #, c-format
 msgid "Error: specified problem directory [%s] does not exist.\n"
 msgstr ""
+"Error: el directori del problema que es va especificar [%s] no existeix.\n"
 
 #: ../src/bin/spacewalk-abrt:61
 msgid "No command specified. Use --help for more information on the usage."
 msgstr ""
+"No es va especificar cap ordre. Utilitzeu --help per a més informació sobre "
+"l'ús."
 
 #: ../src/bin/spacewalk-abrt:70
 msgid ""
 "More than one command specified. Use --help for more information on the "
 "usage."
 msgstr ""
+"Es va especificar més d'una ordre. Utilitzeu --help per a més informació "
+"sobre l'ús."

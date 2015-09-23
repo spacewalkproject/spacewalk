@@ -1,30 +1,26 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
-# Xavier Conde Rueda <xaviconde@eresmas.com>, 2004, 2005.
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-10 10:36+0200\n"
-"PO-Revision-Date: 2012-10-30 10:38+0000\n"
-"Last-Translator: adelton <jpx-tx@adelton.com>\n"
-"Language-Team: Catalan <fedora@llistes.softcatala.org>\n"
-"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"PO-Revision-Date: 2015-04-02 05:50-0400\n"
+"Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
+"Language-Team: Catalan\n"
+"Language: ca\n"
+"X-Generator: Zanata 3.7.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../rhnplugin.py:52
 msgid "There was an error communicating with RHN."
-msgstr ""
+msgstr "S'ha produït un error en la comunicació amb la RHN."
 
 #: ../rhnplugin.py:67
 msgid "Red Hat Satellite or RHN Classic support will be disabled."
-msgstr ""
+msgstr "S'inhabilitarà el suport de Red Hat Satellite o RHN Classic."
 
 #. If non-root notify user Spacewalk repo not accessible
 #: ../rhnplugin.py:74
@@ -32,62 +28,72 @@ msgid ""
 "*Note* Spacewalk repositories are not listed below. You must run this "
 "command as root to access Spacewalk repositories."
 msgstr ""
+"*Nota* A continuació no es mostren els dipòsits de l'Spacewalk. Heu "
+"d'executar aquesta comanda com a  root per accedir als dipòsits de "
+"l'Spacewalk."
 
 #: ../rhnplugin.py:90
 msgid "There was an error parsing the Red Hat Satellite Proxy settings."
 msgstr ""
+"S'ha produït un error en l'anàlisi sintàctic dels ajustos del Red Hat "
+"Satellite Proxy."
 
 #: ../rhnplugin.py:102
 msgid "Either --version, --help or no commands entered"
-msgstr ""
+msgstr "No s'ha introduït cap ordre, o bé --version o --help"
 
 #: ../rhnplugin.py:107
 msgid "Cleaning"
-msgstr ""
+msgstr "S'està netejant"
 
 #: ../rhnplugin.py:116
 msgid "Using list of RHN repos from cache"
-msgstr ""
+msgstr "S'està utilitzant els dipòsits de la RHN des de la memòria cau"
 
 #: ../rhnplugin.py:132
 msgid "This system is not registered with RHN Classic or Red Hat Satellite."
-msgstr ""
+msgstr "Aquest sistema no està registrat amb RHN Classic o Red Hat Satellite."
 
 #: ../rhnplugin.py:133 ../rhnplugin.py:149
 msgid "You can use rhn_register to register."
-msgstr ""
+msgstr "Podeu utilitzar rhn_register per a registrar-ho."
 
 #: ../rhnplugin.py:139
 msgid "RHN channel support will be disabled."
-msgstr ""
+msgstr "S'inhabilitarà el suport al canal de la RHN."
 
 #: ../rhnplugin.py:143
 msgid "This system is not subscribed to any channels."
-msgstr ""
+msgstr "Aquest sistema no està subscrit a cap canal."
 
 #: ../rhnplugin.py:148
 msgid ""
 "This system may not be registered to RHN Classic or Red Hat Satellite. "
 "SystemId could not be acquired."
 msgstr ""
+"Aquest sistema pot no estar registrat a RHN Classic o Red Hat Satellite. No "
+"s'ha pogut adquirir el SystemId."
 
 #: ../rhnplugin.py:161
-msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
+msgid ""
+"This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
+"Aquest sistema està rebent actualitzacions des de RHN Classic o Red Hat "
+"Satellite."
 
 #: ../rhnplugin.py:286
 msgid "Package profile information could not be sent."
-msgstr ""
+msgstr "No s'ha pogut enviar la informació del perfil del paquet."
 
 #: ../rhnplugin.py:294
 msgid "Error Message:"
-msgstr ""
+msgstr "Missatge d'error:"
 
 #: ../rhnplugin.py:295
 msgid "Please run rhn_register as root on this client"
-msgstr ""
+msgstr "Si us plau, executeu rhn_register com a root sobre aquest client"
 
 #: ../rhnplugin.py:374
 #, python-format
 msgid "Missing required login information for RHN: %s"
-msgstr ""
+msgstr "Falta la informació necessària per iniciar la sessió a la RHN: %s"

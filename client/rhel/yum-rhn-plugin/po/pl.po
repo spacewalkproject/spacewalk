@@ -1,50 +1,50 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Piotr Drąg <piotrdrag@gmail.com>, 2006,2011-2012.
 # Tom Berner <tom@lodz.pl>, 2005.
 # Tom Berner <tom@man.lodz.pl>, 2004.
+# Piotr Drąg <piotrdrag@gmail.com>, 2015. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-10 10:36+0200\n"
-"PO-Revision-Date: 2012-10-30 14:23+0000\n"
-"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
-"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-09-02 08:47-0400\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
+"Language: pl\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Zanata 3.7.1\n"
 
 #: ../rhnplugin.py:52
 msgid "There was an error communicating with RHN."
 msgstr "Wystąpił błąd podczas komunikowania się z usługą RHN."
 
 #: ../rhnplugin.py:67
-#, fuzzy
 msgid "Red Hat Satellite or RHN Classic support will be disabled."
-msgstr "Obsługa RHN Satellite lub RHN Classic zostanie wyłączona."
+msgstr "Obsługa Red Hat Satellite lub RHN Classic zostanie wyłączona."
 
 #. If non-root notify user Spacewalk repo not accessible
 #: ../rhnplugin.py:74
-#, fuzzy
 msgid ""
 "*Note* Spacewalk repositories are not listed below. You must run this "
 "command as root to access Spacewalk repositories."
 msgstr ""
-"*Uwaga* repozytoria usługi Red Hat Network nie są na liście poniżej. Należy "
-"wykonać to polecenie jako root, aby uzyskać dostęp do repozytoriów RHN."
+"*Uwaga* repozytoria Spacewalk nie są na liście poniżej. Należy wykonać to "
+"polecenie jako root, aby uzyskać dostęp do repozytoriów Spacewalk."
 
 #: ../rhnplugin.py:90
-#, fuzzy
 msgid "There was an error parsing the Red Hat Satellite Proxy settings."
-msgstr "Wystąpił błąd podczas przetwarzania ustawień pośrednika RHN."
+msgstr ""
+"Wystąpił błąd podczas przetwarzania ustawień pośrednika Red Hat Satellite."
 
 #: ../rhnplugin.py:102
 msgid "Either --version, --help or no commands entered"
@@ -59,10 +59,10 @@ msgid "Using list of RHN repos from cache"
 msgstr "Używanie listy repozytoriów RHN z pamięci podręcznej"
 
 #: ../rhnplugin.py:132
-#, fuzzy
 msgid "This system is not registered with RHN Classic or Red Hat Satellite."
 msgstr ""
-"Ten system nie jest zarejestrowany w usłudze RHN Classic lub RHN Satellite."
+"Ten system nie jest zarejestrowany w usłudze RHN Classic lub Red Hat "
+"Satellite."
 
 #: ../rhnplugin.py:133 ../rhnplugin.py:149
 msgid "You can use rhn_register to register."
@@ -77,19 +77,19 @@ msgid "This system is not subscribed to any channels."
 msgstr "Ten system nie jest subskrybowany do żadnego kanału."
 
 #: ../rhnplugin.py:148
-#, fuzzy
 msgid ""
 "This system may not be registered to RHN Classic or Red Hat Satellite. "
 "SystemId could not be acquired."
 msgstr ""
-"Ten system może nie być zarejestrowany w usłudze RHN Classic lub RHN "
+"Ten system może nie być zarejestrowany w usłudze RHN Classic lub Red Hat "
 "Satellite. Nie można uzyskać identyfikatora systemu."
 
 #: ../rhnplugin.py:161
-#, fuzzy
-msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
+msgid ""
+"This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
-"Ten system utrzymuje aktualizacje z usługi RHN Classic lub RHN Satellite."
+"Ten system utrzymuje aktualizacje z usługi RHN Classic lub Red Hat Satellite."
+""
 
 #: ../rhnplugin.py:286
 msgid "Package profile information could not be sent."

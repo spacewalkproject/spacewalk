@@ -1,22 +1,18 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
-# Xavier Conde Rueda <xaviconde@eresmas.com>, 2004, 2005.
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-21 12:18+0100\n"
-"PO-Revision-Date: 2011-03-04 16:08+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Catalan <fedora@llistes.softcatala.org>\n"
-"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"PO-Revision-Date: 2015-09-07 06:18-0400\n"
+"Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
+"Language-Team: Catalan\n"
+"Language: ca\n"
+"X-Generator: Zanata 3.7.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../server/rhnPackage.py:45 ../server/rhnPackage.py:80
 #: ../server/rhnPackage.py:99 ../server/rhnPackage.py:181
@@ -27,12 +23,12 @@ msgstr ""
 
 #: ../server/rhnPackage.py:104 ../server/rhnPackage.py:293
 msgid "Package not found"
-msgstr ""
+msgstr "Paquet no trobat"
 
 #: ../server/apacheAuth.py:58
 #, python-format
 msgid "incomplete proxy authentication token: %s"
-msgstr ""
+msgstr "testimoni incomplet del servidor intermediari: %s"
 
 #: ../server/apacheAuth.py:74
 #, python-format
@@ -46,31 +42,31 @@ msgstr ""
 #: ../server/apacheRequest.py:50
 #, python-format
 msgid "Invalid request received (%s)."
-msgstr ""
+msgstr "Es va rebre una petició no vàlida (%s)."
 
 #: ../server/apacheRequest.py:107
 #, python-format
-msgid ""
-"IMPORTANT MESSAGE FOLLOWS:\n"
+msgid "IMPORTANT MESSAGE FOLLOWS:\n"
 "%s"
-msgstr ""
+msgstr "MISSATGE IMPORTANT SEGÜENT:\n"
+"%s"
 
 #: ../server/apacheRequest.py:132
 #, python-format
-msgid ""
-"While running '%s': caught\n"
+msgid "While running '%s': caught\n"
 "%s : %s\n"
-msgstr ""
+msgstr "Mentre s'executava '%s': es va capturar\n"
+"%s : %s\n"
 
 #: ../server/apacheRequest.py:558
 #, python-format
 msgid "Invalid URI %s"
-msgstr ""
+msgstr "L'URI %s no és vàlid"
 
 #: ../server/rhnServer/server_token.py:80
 #, python-format
 msgid "Token `%s' has more than one base channel assigned"
-msgstr ""
+msgstr "El testimoni `%s' té més d'un canal base assignat"
 
 #: ../server/rhnServer/server_token.py:82
 msgid "Conflicting base channels"
@@ -100,7 +96,7 @@ msgstr ""
 #: ../server/rhnServer/server_token.py:839
 #, python-format
 msgid "Could not find token '%s'"
-msgstr ""
+msgstr "No es va poder tovar el testimoni '%s'"
 
 #. Cannot use activation keys from different orgs
 #: ../server/rhnServer/server_token.py:871
@@ -195,8 +191,8 @@ msgstr ""
 #: ../server/rhnChannel.py:1707
 #, python-format
 msgid ""
-"Your account does not have access to any channels matching "
-"(release='%(release)s', arch='%(arch)s')%(www_activation)s"
+"Your account does not have access to any channels matching (release="
+"'%(release)s', arch='%(arch)s')%(www_activation)s"
 msgstr ""
 
 #: ../server/rhnChannel.py:1717
@@ -213,7 +209,7 @@ msgid "Insufficient subscription permissions for release (%s, %s"
 msgstr ""
 
 #. Various messages that can be reused
-#.
+#. 
 #. bretm 02/07/2007 -- when we have better old-client documentation, probably
 #. will be safe to get rid of all this crap
 #: ../server/rhnChannel.py:1974 ../server/rhnChannel.py:1985
@@ -289,12 +285,12 @@ msgstr ""
 
 #: ../server/handlers/sat/auth.py:45
 msgid "ISS is disabled on this satellite."
-msgstr ""
+msgstr "ISS està inhabilitat en aquest satellite."
 
 #: ../server/handlers/sat/auth.py:57
 #, python-format
 msgid "Server \"%s\" is not enabled for ISS."
-msgstr ""
+msgstr "El servidor \"%s\" no està habilitat per a l'ISS."
 
 #: ../server/handlers/xmlrpc/proxy.py:60
 #, python-format
@@ -303,11 +299,11 @@ msgstr ""
 
 #: ../server/handlers/xmlrpc/proxy.py:80
 msgid "Invalid session key"
-msgstr ""
+msgstr "la clau de sessió no és vàlida"
 
 #: ../server/handlers/xmlrpc/proxy.py:88
 msgid "This server ID no longer exists"
-msgstr ""
+msgstr "Aquest id. de servidor ja no existeix"
 
 #: ../server/handlers/xmlrpc/registration.py:183
 msgid "Required data missing"
@@ -335,11 +331,11 @@ msgstr ""
 
 #: ../server/handlers/xmlrpc/registration.py:1005
 msgid "Red Hat Network Welcome Message"
-msgstr ""
+msgstr "Missatge de benvinguda a la Red Hat Network"
 
 #: ../server/handlers/xmlrpc/registration.py:1015
 msgid "Red Hat Network Privacy Statement"
-msgstr ""
+msgstr "Declaració de privacitat de la Red Hat Network"
 
 #: ../server/handlers/xmlrpc/registration.py:1036
 msgid "Expected a dictionary as a product argument"
@@ -349,7 +345,7 @@ msgstr ""
 #: ../server/handlers/xmlrpc/registration.py:1126
 #, python-format
 msgid "Not a valid Country: %s"
-msgstr ""
+msgstr "No és un país vàlid: %s"
 
 #: ../server/handlers/xmlrpc/registration.py:1349
 #, python-format
@@ -369,7 +365,7 @@ msgstr ""
 #: ../server/handlers/xmlrpc/errata.py:109
 #, python-format
 msgid "Expected a package, not: %s"
-msgstr ""
+msgstr "S'esperava un paquet, no: %s"
 
 #: ../server/handlers/xmlrpc/queue.py:399
 #, python-format
@@ -379,12 +375,12 @@ msgstr ""
 #: ../server/handlers/xmlrpc/queue.py:424
 #, python-format
 msgid "Action %s does not belong to server %s"
-msgstr ""
+msgstr "L'acció %s no pertany al servidor %s"
 
 #: ../server/handlers/xmlrpc/up2date.py:232
 #, python-format
 msgid "Invalid value %s (type %s)"
-msgstr ""
+msgstr "Valor no vàlid %s (tipus %s)"
 
 #: ../server/handlers/xmlrpc/up2date.py:260
 #, python-format
@@ -394,41 +390,43 @@ msgstr ""
 #: ../server/handlers/xmlrpc/up2date.py:407
 #, python-format
 msgid "Invalid value %s (%s)"
-msgstr ""
+msgstr "Valor no vàlid %s (%s)"
 
 #: ../server/handlers/xmlrpc/up2date.py:479
 #, python-format
 msgid "Invalid value for %s in package tuple: %s (%s)"
-msgstr ""
+msgstr "Valor no vàlid per %s a la tupla del paquet: %s (%s)"
 
 #: ../server/handlers/xmlrpc/up2date.py:491
 #, python-format
 msgid "Invalid package parameter %s (%s)"
-msgstr ""
+msgstr "El paràmetre del paquet no és vàlid %s (%s)"
 
 #: ../server/importlib/userAuth.py:108 ../server/importlib/userAuth.py:112
 msgid "You are not authorized to manage packages in the null org"
 msgstr ""
+"No esteu autoritzat per gestionar els paquets de l'organització nul·la"
 
 #: ../server/importlib/userAuth.py:119
 #, python-format
 msgid "You are not allowed to manage packages in the %s org"
-msgstr ""
+msgstr "No esteu autoritzat per gestionar els paquets de l'organització %s"
 
 #: ../server/importlib/userAuth.py:137
 msgid "You are not allowed to perform administrative tasks"
-msgstr ""
+msgstr "No esteu autoritzat per realitzar les tasques administratives"
 
 #: ../server/importlib/userAuth.py:164
 #, python-format
 msgid ""
 "You are not allowed to manage channel %s, or that channel does not exist"
 msgstr ""
+"No esteu autoritzat per gestionar el canal %s, o no exeisteix aquest canal"
 
 #: ../common/rhnTB.py:199
 #, python-format
 msgid "ERROR: %s %s: %s"
-msgstr ""
+msgstr "ERROR: %s %s: %s"
 
 #: ../common/rhnTB.py:201
 #, python-format
@@ -454,15 +452,15 @@ msgstr ""
 
 #: ../common/rhnException.py:47
 msgid "Permission denied."
-msgstr ""
+msgstr "Permís denegat."
 
 #: ../common/rhnException.py:48
 msgid "Can not create new entry."
-msgstr ""
+msgstr "No es pot crear una nova entrada."
 
 #: ../common/rhnException.py:49
 msgid "Object not found."
-msgstr ""
+msgstr "Objecte no trobat."
 
 #: ../common/rhnException.py:50
 msgid "Account limits exceeded."
@@ -482,11 +480,11 @@ msgstr ""
 
 #: ../common/rhnException.py:54
 msgid "Valid username required."
-msgstr ""
+msgstr "Es requereix un nom d'usuari vàlid."
 
 #: ../common/rhnException.py:55
 msgid "Valid password required."
-msgstr ""
+msgstr "Es requereix una contrasenya vàlida."
 
 #: ../common/rhnException.py:56
 msgid "Minimum username length violation."
@@ -498,15 +496,15 @@ msgstr ""
 
 #: ../common/rhnException.py:58
 msgid "The username contains invalid characters."
-msgstr ""
+msgstr "El nom d'usuari conté caràcters no vàlids."
 
 #: ../common/rhnException.py:59
 msgid "Invalid product registration code."
-msgstr ""
+msgstr "El codi de registrament del producte no és vàlid."
 
 #: ../common/rhnException.py:60
 msgid "File not found."
-msgstr ""
+msgstr "Fitxer no trobat."
 
 #: ../common/rhnException.py:61
 msgid "Invalid Architecture and OS release combination."
@@ -530,15 +528,15 @@ msgstr ""
 
 #: ../common/rhnException.py:66
 msgid "Could not update database entry."
-msgstr ""
+msgstr "No s'ha pogut actualitzar l'entrada de la base de dades."
 
 #: ../common/rhnException.py:67
 msgid "Unsupported server architecture."
-msgstr ""
+msgstr "L'arquitectura del servidor no està admesa."
 
 #: ../common/rhnException.py:68
 msgid "LDAP operation failed."
-msgstr ""
+msgstr "L'operació LDAP ha fallat."
 
 #: ../common/rhnException.py:69
 msgid "Backend RPM database failure: can not retrieve requested information."
@@ -569,7 +567,7 @@ msgstr ""
 
 #: ../common/rhnException.py:82
 msgid "Invalid value for entry."
-msgstr ""
+msgstr "Valor no vàlid per a l'entrada."
 
 #: ../common/rhnException.py:83
 #, python-format
@@ -585,15 +583,15 @@ msgstr ""
 
 #: ../common/rhnException.py:89
 msgid "Channel error"
-msgstr ""
+msgstr "Error del canal"
 
 #: ../common/rhnException.py:90
 msgid "Client session token is invalid."
-msgstr ""
+msgstr "El testimoni de la sessió del client no és vàlid."
 
 #: ../common/rhnException.py:91
 msgid "Client session token has expired."
-msgstr ""
+msgstr "El testimoni de la sessió del client ha vençut."
 
 #: ../common/rhnException.py:92
 msgid "You are not authorized to retrieve the requested object."
@@ -601,27 +599,29 @@ msgstr ""
 
 #: ../common/rhnException.py:93
 msgid "Invalid action"
-msgstr ""
+msgstr "Acció no vàlida"
 
 #: ../common/rhnException.py:94
 msgid "You are not allowed to perform administrative tasks on this system."
 msgstr ""
+"No esteu autoritzat per realitzar les tasques administratives en aquest "
+"sistema."
 
 #: ../common/rhnException.py:96
 msgid "The system is already subscribed to the specified channel."
-msgstr ""
+msgstr "El sistema ja està subscrit al canal especificat."
 
 #: ../common/rhnException.py:97
 msgid "The system is not currently subscribed to the specified channel."
-msgstr ""
+msgstr "El sistema actualment no està subscrit al canal especificat."
 
 #: ../common/rhnException.py:98
 msgid "The specified channel does not exist."
-msgstr ""
+msgstr "El canal especificat no  existeix."
 
 #: ../common/rhnException.py:99
 msgid "Invalid channel version."
-msgstr ""
+msgstr "La versió del canal no és vàlida."
 
 #: ../common/rhnException.py:100
 msgid "Invalid ORG_ID requested"
@@ -633,8 +633,7 @@ msgid ""
 "     User group membership limits exceeded.\n"
 "\n"
 "     The current settings for your account do not allow you to add another\n"
-"     user account. Please check with the organization administrator for "
-"your\n"
+"     user account. Please check with the organization administrator for your\n"
 "     account if the maximum number of users allowed to subscribe to RHN "
 "needs\n"
 "     to be changed.\n"
@@ -649,8 +648,7 @@ msgid ""
 "     The current settings for your account do not allow you to add another\n"
 "     system profile. Please check with the organization administrator for "
 "your\n"
-"     account for modifying the maximum number of system profiles that can "
-"be\n"
+"     account for modifying the maximum number of system profiles that can be\n"
 "     subscribed to your RHN account.\n"
 "     "
 msgstr ""
@@ -663,6 +661,11 @@ msgid ""
 "     The architecture of the package is not supported by Red Hat Network\n"
 "     "
 msgstr ""
+"\n"
+"     Arquitectura no vàlida.\n"
+"\n"
+"     L'arquitectura del paquet no està admesa per la Red Hat Network\n"
+"     "
 
 #: ../common/rhnException.py:122
 msgid ""
@@ -676,7 +679,7 @@ msgstr ""
 
 #: ../common/rhnException.py:128
 msgid "Invalid RPM header"
-msgstr ""
+msgstr "Capçalera RPM no vàlida"
 
 #: ../common/rhnException.py:129
 msgid ""
@@ -686,6 +689,11 @@ msgid ""
 "     The channel you have specified does not exist.\n"
 "     "
 msgstr ""
+"\n"
+"     Canal no vàlid.\n"
+"\n"
+"     El canal que heu especificat no existeix.\n"
+"     "
 
 #: ../common/rhnException.py:134
 #, python-format
@@ -710,7 +718,7 @@ msgstr ""
 #. For the uploading tools
 #: ../common/rhnException.py:150
 msgid "Invalid information uploaded to the server"
-msgstr ""
+msgstr "Informació no vàlida pujada al servidor"
 
 #: ../common/rhnException.py:151
 #, python-format
@@ -738,6 +746,7 @@ msgstr ""
 #: ../common/rhnException.py:163
 msgid "Error uploading network interfaces configuration."
 msgstr ""
+"S'ha produït un error en pujar la configuració de les interfícies de xarxa."
 
 #: ../common/rhnException.py:164
 msgid ""
@@ -768,14 +777,16 @@ msgstr ""
 #: ../common/rhnException.py:179
 msgid "Too many systems registered using this registration token"
 msgstr ""
+"Hi ha massa sistemes registrats que utilitzen aquest testimoni de "
+"registrament"
 
 #: ../common/rhnException.py:180
 msgid "Token contains invalid, obsoleted or insufficient settings"
-msgstr ""
+msgstr "El testimoni conté ajustos no vàlids, en desús i insuficients"
 
 #: ../common/rhnException.py:181
 msgid "Conflicting activation tokens"
-msgstr ""
+msgstr "Conflicte en els testimonis d'activació"
 
 #. 70-80: channel subscription errors
 #: ../common/rhnException.py:184
@@ -798,7 +809,7 @@ msgstr ""
 
 #: ../common/rhnException.py:193
 msgid "You can not unsubscribe from base channel."
-msgstr ""
+msgstr "No us podeu de-subscriure del canal base."
 
 #. 80-90: server group errors
 #: ../common/rhnException.py:196
@@ -808,12 +819,14 @@ msgstr ""
 #. 90-100: entitlement errors
 #: ../common/rhnException.py:199
 msgid "Unable to entitle system"
-msgstr ""
+msgstr "No es pot donar el dret al sistema"
 
 #: ../common/rhnException.py:200
 msgid ""
 "Registration token unable to entitle system: maximum membership exceeded"
 msgstr ""
+"El testimoni de registrament va ser incapaç de donar  el dret del sistema: "
+"es va superar la màxima afiliació"
 
 #. 100-109: e-mail and uuid related faults
 #: ../common/rhnException.py:204
@@ -830,7 +843,7 @@ msgstr ""
 
 #: ../common/rhnException.py:207
 msgid "Invalid username"
-msgstr ""
+msgstr "El nom d'usuari no és vàlid"
 
 #. 110-129: disabled org errors
 #: ../common/rhnException.py:210
@@ -879,11 +892,11 @@ msgstr ""
 
 #: ../common/rhnException.py:228
 msgid "Not an RPM package"
-msgstr ""
+msgstr "No és un paquet RPM"
 
 #: ../common/rhnException.py:229
 msgid "Unsigned RPM package"
-msgstr ""
+msgstr "Paquet RPM sense signar"
 
 #: ../common/rhnException.py:230
 msgid "Incompatible package and channel architectures"
@@ -891,7 +904,7 @@ msgstr ""
 
 #: ../common/rhnException.py:231
 msgid "Incompatible checksum type"
-msgstr ""
+msgstr "Tipus de checksum incompatible"
 
 #. 600-699: RHEL5+ EN errors
 #: ../common/rhnException.py:234
@@ -927,7 +940,7 @@ msgstr ""
 
 #: ../common/rhnException.py:247
 msgid "RHN Proxy unable to login."
-msgstr ""
+msgstr "RHN Proxy va ser incapaç d'iniciar la sessió."
 
 #. issued by an RHN Server/Satellite to the proxy
 #: ../common/rhnException.py:249
@@ -943,11 +956,11 @@ msgstr ""
 
 #: ../common/rhnException.py:256
 msgid "RHN Proxy session token is invalid."
-msgstr ""
+msgstr "El testimoni de la sessió del RHN Proxy no és vàlid."
 
 #: ../common/rhnException.py:257
 msgid "RHN Proxy session token has expired."
-msgstr ""
+msgstr "El testimoni de la sessió del RHN Proxy ha vençut."
 
 #. 2000-2999: RHN Satellite specific errors:
 #: ../common/rhnException.py:261
@@ -957,6 +970,12 @@ msgid ""
 "     please contact your sysadmin to have your account created.\n"
 "     "
 msgstr ""
+"\n"
+"     La creació de l'usuari del RHN Satellite no està permesa a través de "
+"rhn_register;\n"
+"     poseu-vos en contacte amb l'administrador del sistema per a què es crei "
+"el vostre compte.\n"
+"     "
 
 #: ../common/rhnException.py:265
 msgid ""
@@ -975,6 +994,9 @@ msgid ""
 "     This satellite server is not allowed to access the specified channel\n"
 "     "
 msgstr ""
+"\n"
+"     Aquest servidor de satellite no pot accedir al canal especificat\n"
+"     "
 
 #: ../common/rhnException.py:275
 msgid ""
@@ -983,22 +1005,29 @@ msgid ""
 "this satellite\n"
 "     "
 msgstr ""
+"\n"
+"     Aquest servidor de satellite no pot utilitzar la sincronització interna "
+"entre els satellite en aquest satellite\n"
+"     "
 
 #: ../common/rhnException.py:278
-msgid ""
-"\n"
+msgid "\n"
 "     Inter Satellite Sync is disabled on this satellite.\n"
 "     "
 msgstr ""
+"\n"
+"     La sincronització interna entre els satellite està inhabilitada en "
+"aquest satellite.\n"
+"     "
 
 #. Kickstart errors
 #: ../common/rhnException.py:283
 msgid "Access denied to kickstart tree"
-msgstr ""
+msgstr "Es va denegar l'accés a l'arbre de kickstart"
 
 #: ../common/rhnException.py:284
 msgid "Could not find kickstart file"
-msgstr ""
+msgstr "No es va poder trobar el fitxer de kickstart"
 
 #: ../common/rhnException.py:285
 msgid ""
@@ -1011,96 +1040,96 @@ msgstr ""
 #. 3000-3999: XML dumper errors:
 #: ../common/rhnException.py:291
 msgid "Invalid datatype passed"
-msgstr ""
+msgstr "Es va passar un tipus de dades no vàlid"
 
 #: ../common/rhnException.py:292
 msgid "Unable to retrieve channel"
-msgstr ""
+msgstr "No es pot recuperar el canal"
 
 #: ../common/rhnException.py:293
 msgid "Invalid package name"
-msgstr ""
+msgstr "El nom del paquet no és vàlid"
 
 #: ../common/rhnException.py:294
 msgid "Unable to retrieve package"
-msgstr ""
+msgstr "No es pot recuperar el paquet"
 
 #: ../common/rhnException.py:295
 msgid "Invalid erratum name"
-msgstr ""
+msgstr "El nom de l'errata no és vàlid"
 
 #: ../common/rhnException.py:296
 msgid "Unable to retrieve erratum"
-msgstr ""
+msgstr "No es pot recuperar l'errata"
 
 #: ../common/rhnException.py:297
 msgid "Invalid satellite certificate"
-msgstr ""
+msgstr "El certificat del satellite no és vàlid"
 
 #: ../common/rhnException.py:298
 msgid "File is missing"
-msgstr ""
+msgstr "Falta el fitxer"
 
 #: ../common/rhnException.py:299
 msgid "Function retrieval error"
-msgstr ""
+msgstr "Error en la recuperació de la funció"
 
 #: ../common/rhnException.py:300
 msgid "Function execution error"
-msgstr ""
+msgstr "Error en l'execució de la funció"
 
 #: ../common/rhnException.py:301
 msgid "Missing version string"
-msgstr ""
+msgstr "Falta la cadena de la versió"
 
 #: ../common/rhnException.py:302
 msgid "Invalid version string"
-msgstr ""
+msgstr "La cadena de la versió no és vàlida"
 
 #: ../common/rhnException.py:303
 msgid "Mismatching versions"
-msgstr ""
+msgstr "Les versions no coincideixen"
 
 #: ../common/rhnException.py:304
 msgid "Invalid channel version"
-msgstr ""
+msgstr "La versió del canal no és vàlida"
 
 #: ../common/rhnException.py:305
 msgid "Missing snapshot for channels"
-msgstr ""
+msgstr "Falta la instantània per al canal"
 
 #: ../common/rhnException.py:306
 msgid "No comps file for channel"
-msgstr ""
+msgstr "No hi ha el fitxer comps per al canal"
 
 #: ../common/rhnException.py:307
 msgid "Unable to retrieve comps file"
-msgstr ""
+msgstr "No es pot recuperar el fitxer comps"
 
 #. 4000 - 4999: config management errors
 #: ../common/rhnException.py:310
 msgid "Configuration action missing"
-msgstr ""
+msgstr "Falta l'acció de configuració"
 
 #: ../common/rhnException.py:311
 msgid "File too large"
-msgstr ""
+msgstr "El fitxer és massa gran"
 
 #: ../common/rhnException.py:312
 msgid "File contains binary data"
-msgstr ""
+msgstr "El fitxer conté dades binàries"
 
 #: ../common/rhnException.py:313
 msgid "Configuration channel is not empty"
-msgstr ""
+msgstr "El canal de configuració no està buit"
 
 #: ../common/rhnException.py:314
 msgid "Permission error"
-msgstr ""
+msgstr "Error de permís"
 
 #: ../common/rhnException.py:315
 msgid "Content missing for configuration file"
-msgstr ""
+msgstr "Falta contingut per al fitxer de confguració"
 
 #: ../common/rhnException.py:316
 msgid "Template delimiters not specified"
@@ -1108,11 +1137,11 @@ msgstr ""
 
 #: ../common/rhnException.py:317
 msgid "Configuration channel does not exist"
-msgstr ""
+msgstr "El canal de configuració no existeix"
 
 #: ../common/rhnException.py:318
 msgid "Configuration channel already exists"
-msgstr ""
+msgstr "El canal de configuració ja existeix"
 
 #: ../common/rhnException.py:319
 msgid "File missing from configuration channel"
@@ -1136,11 +1165,11 @@ msgstr ""
 
 #: ../common/rhnException.py:324
 msgid "Invalid revision number"
-msgstr ""
+msgstr "El número de revisió no és vàlid"
 
 #: ../common/rhnException.py:325
 msgid "Cannot compare files of different file type"
-msgstr ""
+msgstr "No es poden comparar els fitxers de diferent tipus de fitxer"
 
 #. 5000 - 5099: entitlement mapper errors
 #: ../common/rhnException.py:328
@@ -1149,19 +1178,19 @@ msgstr ""
 
 #: ../common/rhnException.py:329
 msgid "Invalid item code"
-msgstr ""
+msgstr "El codi de l'element no és vàlid"
 
 #: ../common/rhnException.py:330
 msgid "Invalid user role"
-msgstr ""
+msgstr "El rol de l'usuari no és vàlid"
 
 #: ../common/rhnException.py:331
 msgid "Invalid server group"
-msgstr ""
+msgstr "El grup del servidor no és vàlid"
 
 #: ../common/rhnException.py:332
 msgid "Invalid channel family"
-msgstr ""
+msgstr "La família del canal no és vàlida"
 
 #: ../common/rhnException.py:376
 msgid ""
@@ -1175,22 +1204,22 @@ msgstr ""
 
 #: ../common/rhnException.py:430
 #, python-format
-msgid ""
-"Error Message:\n"
+msgid "Error Message:\n"
 "    %s\n"
-msgstr ""
+msgstr "Missatge d'error:\n"
+"    %s\n"
 
 #: ../common/rhnException.py:432
 #, python-format
 msgid "Error Class Code: %s\n"
-msgstr ""
+msgstr "Codi de la classe d'error: %s\n"
 
 #: ../common/rhnException.py:435
 #, python-format
 msgid "Error Class Info: %s\n"
-msgstr ""
+msgstr "Informació de la classe d'error: %s\n"
 
 #: ../common/rhnException.py:437
 #, python-format
 msgid "Explanation: %s"
-msgstr ""
+msgstr "Explicació: %s"

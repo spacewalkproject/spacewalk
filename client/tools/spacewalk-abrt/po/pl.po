@@ -1,26 +1,44 @@
+# Piotr Drąg <piotrdrag@gmail.com>, 2015. #zanata
+msgid ""
+msgstr ""
+"Project-Id-Version: Spacewalk\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-02-12 09:55+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-09-02 08:46-0400\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"Language-Team: Polish\n"
+"Language: pl\n"
+"X-Generator: Zanata 3.7.1\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2)\n"
+
 #: ../src/bin/spacewalk-abrt:39
 msgid "Upload content of the specified problem directory"
-msgstr ""
+msgstr "Wysyła zawartość podanego katalogu problemu"
 
 #: ../src/bin/spacewalk-abrt:41
 msgid "Update crash count for the specified problem directory"
-msgstr ""
+msgstr "Aktualizuje liczbę awarii podanego katalogu problemu"
 
 #: ../src/bin/spacewalk-abrt:43
 msgid "Synchronyze missing problem directories"
-msgstr ""
+msgstr "Synchronizuje brakujące katalogi problemów"
 
 #: ../src/bin/spacewalk-abrt:50
 #, c-format
 msgid "Error: specified problem directory [%s] does not exist.\n"
-msgstr ""
+msgstr "Błąd: podany katalog problemu [%s] nie istnieje.\n"
 
 #: ../src/bin/spacewalk-abrt:61
 msgid "No command specified. Use --help for more information on the usage."
-msgstr ""
+msgstr "Nie podano polecenia. Opcja --help wyświetli więcej informacji."
 
 #: ../src/bin/spacewalk-abrt:70
 msgid ""
 "More than one command specified. Use --help for more information on the "
 "usage."
 msgstr ""
+"Podano więcej niż jedno polecenie. Opcja --help wyświetli więcej informacji."
