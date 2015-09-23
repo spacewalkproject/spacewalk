@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.4.4
+Version: 2.4.5
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed Sep 23 2015 Jan Dobes 2.4.5-1
+- Pulling updated *.po translations from Zanata.
+
 * Fri May 08 2015 Stephen Herr <sherr@redhat.com> 2.4.4-1
 - 1172288 - bug in yum api; PackageEVR.__eq__ not correctly defined for    evrs
   with None values
