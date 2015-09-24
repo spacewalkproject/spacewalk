@@ -117,7 +117,7 @@ public class ErrataTestUtils {
         ChannelProduct product = new ChannelProduct();
         product.setProduct("ChannelProduct" + TestUtils.randomString());
         product.setVersion("11.3");
-        product.setBeta("N");
+        product.setBeta(false);
         TestUtils.saveAndFlush(product);
         return product;
     }

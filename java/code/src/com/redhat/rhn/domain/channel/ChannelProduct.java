@@ -25,7 +25,7 @@ public class ChannelProduct {
     private Long id;
     private String product;
     private String version;
-    private String beta;
+    private String betaMarker;
     private Date created;
     private Date modified;
     /**
@@ -77,40 +77,40 @@ public class ChannelProduct {
     }
 
     /**
-     * Getter for beta
+     * Getter for betaMarker
      * @return String to get
     */
-    public String getBeta() {
-        return this.beta;
+    public String getBetaMarker() {
+        return this.betaMarker;
     }
 
     /**
-     * Setter for beta
+     * Setter for betaMarker
      * @param betaIn to set
     */
-    public void setBeta(String betaIn) {
-        this.beta = betaIn;
+    public void setBetaMarker(String betaIn) {
+        this.betaMarker = betaIn;
     }
 
     /**
-     * Whether the channel product is a beta product
-     * @return true if product is a beta product, false otherwise
+     * Whether the channel product is a betaMarker product
+     * @return true if product is a betaMarker product, false otherwise
      */
     public boolean isBeta() {
-        return this.beta.equals("Y");
+        return this.betaMarker.equals("Y");
     }
 
     /**
-     * Setter for whether the channel product is a beta product or not
-     * Can't be named setBeta or hibernate wigs out
-     * @param isBeta true if the product is a beta product, false otherwise
+     * Setter for whether the channel product is a betaMarker product or not
+     * Can't be named setBetaMarker or hibernate wigs out
+     * @param isBeta true if the product is a betaMarker product, false otherwise
      */
-    public void setMyBeta(boolean isBeta) {
+    public void setBeta(boolean isBeta) {
         if (isBeta) {
-            this.setBeta("Y");
+            this.setBetaMarker("Y");
         }
         else {
-            this.setBeta("N");
+            this.setBetaMarker("N");
         }
     }
 

@@ -14,7 +14,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
         <property name="product" column="PRODUCT" not-null="true" type="string" length="256" />
         <property name="version" column="VERSION" not-null="true" type="string" length="64" />
-        <property name="beta" column="BETA" not-null="true" type="string" length="1" />
+        <property name="betaMarker" column="BETA" not-null="true" type="string" length="1" />
         <property name="created" column="CREATED" not-null="true" type="timestamp" insert="false" update="false"/>
         <property name="modified" column="MODIFIED" not-null="true" type="timestamp" insert="false" update="false"/>
     </class>
