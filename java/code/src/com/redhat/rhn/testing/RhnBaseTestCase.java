@@ -67,13 +67,7 @@ public abstract class RhnBaseTestCase extends TestCase {
      */
     protected void setUp() throws Exception {
         super.setUp();
-        try {
-            LoggingFactory.clearLogId();
-        }
-        catch (Exception se) {
-            TestCaseHelper.tearDownHelper();
-            LoggingFactory.clearLogId();
-        }
+        TestCaseHelper.setUpHelper();
     }
 
     /**
