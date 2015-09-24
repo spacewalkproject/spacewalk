@@ -1303,6 +1303,12 @@
         </context-group>
         <target>Ihre Präferenzen</target>
       </trans-unit>
+      <trans-unit id="Your Organization">
+        <source>Your Organization</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Organization Applicants">
         <source>Organization Applicants</source>
         <context-group name="ctx">
@@ -1484,7 +1490,7 @@
         <target>Passwörter dürfen keine Tabulatur- oder Zeilenvorschubzeichen beinhalten.</target>
       </trans-unit>
       <trans-unit id="error.maxpassword">
-        <source>The password you requested is too long. Please enter a shorter password and try again.</source>
+        <source>Passwords cannot be more than {0} characters.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
@@ -2246,6 +2252,12 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
         <target>Die Kickstart-Details wurden erfolgreich aktualisiert.</target>
+      </trans-unit>
+      <trans-unit id="kickstart.details.duplicatefile">
+        <source>Please specify only file contents or a file to upload but not both.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="kickstart.details.nolabel">
         <source>Kickstart profile label is required.</source>
@@ -5551,6 +5563,12 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
         </context-group>
         <target>Surinam</target>
       </trans-unit>
+      <trans-unit id="SS">
+        <source>South Sudan</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="ST">
         <source>Saint Tome (Sao Tome) and Principe</source>
         <context-group name="ctx">
@@ -5958,7 +5976,7 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
         <target>Ihr Satellite-Zertifikat ist abgelaufen. Ihr Satellite ist auf Tag {0} von {1} Tag(en) der eingeschränkten Periode und wird in Kürze aufhören zu funktionieren. Bitte besuchen Sie den folgenden URL für Schritte, wie ein neues Zertifikat zu beantragen oder generieren ist: https://access.redhat.com/knowledge/tools/satcert</target>
       </trans-unit>
       <trans-unit id="satellite.graceperiod">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Your satellite enters restricted period in {0} day(s).</source>
+        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt; Your satellite enters restricted period in {0} day(s).</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login.do</context>
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
@@ -9344,6 +9362,9 @@ Folgen Sie dieser URL für die vollständige Liste inaktiver Systeme:
         <source>Repository sync scheduled for {0}.</source>
         <target>Repository-Synchronisation geplant für {0}.</target>
       </trans-unit>
+      <trans-unit id="message.syncinprogress">
+        <source>Repository sync is running.</source>
+      </trans-unit>
       <trans-unit id="message.channelsubscribers">
         <source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
         <target>Einschränkungen der Subskriptionen pro Benutzer können im Subskriptionen-Tab auferlegt werden</target>
@@ -9597,7 +9618,7 @@ Kickstart-Tree für Kickstart's unbrauchbar sein.
         <target>Eine E-Mail wurde bereits verschickt. Sie können diese Aktion alle {0} Sekunden anfordern.</target>
       </trans-unit>
       <trans-unit id="help.credentials.passwordsent">
-        <source>New password sent to {0}.</source>
+        <source>Password reset information sent to {0}.</source>
         <target>Neues Passwort an {0} geschickt.</target>
       </trans-unit>
       <trans-unit id="help.credentials.invalidemail">

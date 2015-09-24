@@ -19,12 +19,9 @@ Red Hat login, in combination with an active Red Hat subscription,
 provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {2}
-       Password: {3}
          e-mail: {4}
 
-  {5}
-
-Important: Please change your password upon logging in.
+Please proceed to {3} to set your password and enable your account.
 
 Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
@@ -66,12 +63,9 @@ Red Hat login, in combination with an active Red Hat subscription,
 provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {0}
-       Password: {1}
          e-mail: {2}
 
-  {3}
-
-Important: Please change your password upon logging in.
+Please proceed to {1} to set your password and enable your account.
 
 Thank you for using @@PRODUCT_NAME@@.
 {4}</source>
@@ -539,27 +533,26 @@ até que seu certificado seja renovado. </target>
         <source>
 [ This is an automated email sent to {0} at your request. ]
 
-Your @@PRODUCT_NAME@@ password has been reset.  To sign in, go to:
+A request to reset the @@PRODUCT_NAME@@ password for login {2} has been made.
 
-https://{1}/
+To continue the reset process, please proceed to:
 
-And use the following username and password:
+{1}
 
-Username: {2}
-Password: {3}
+If you don't want your password reset, you can ignore this email.
 
-Once you have logged in, you may then change your password.
-
-If you continue to have difficulties logging in, please contact
-your @@PRODUCT_NAME@@ administrator for further assistance.
+If you experience any further difficulties with the reset process,
+please contact your @@PRODUCT_NAME@@ administrator for further assistance.
 
 Thank you for using @@PRODUCT_NAME@@.
         </source>
-        <context-group name="ctx"><context context-type="sourcefile">ForgotCredentials</context><context context-type="paramnotes">
+        <context-group name="ctx">
+            <context context-type="sourcefile">ForgotCredentials</context>
+            <context context-type="paramnotes">
             {0} - Email address
-            {1} - Hostname of the @@PRODUCT_NAME@@</context>
+            {1} - Password-reset link
             {2} - Username
-            {3} - Password
+            </context>
         </context-group>
         <target>
 [ Este é um email automatizado enviado para {0} por sua requisição. ]
@@ -627,6 +620,27 @@ Caso não tenha requisitado este email, por favor ignore esta mensagem.
 
 Obrigado por usar  @@PRODUCT_NAME@@.
    </target>
+      </trans-unit>
+      <trans-unit id="email.reset.password">
+        <source>
+[ This is an automated email sent to {0}. ]
+
+The @@PRODUCT_NAME@@ password for login {1} has been reset in response to a reset-request
+made at {2}
+
+If you did not initiate this password reset, please IMMEDIATELY contact the @@PRODUCT_NAME@@
+administrator at {2} for further assistance.
+
+Thank you for using @@PRODUCT_NAME@@.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">ResetPasswordSubmit</context>
+          <context context-type="paramnotes">
+            {0} - Email address
+            {1} - Associated login
+            {2} - Hostname of the @@PRODUCT_NAME@@
+          </context>
+        </context-group>
       </trans-unit>
     </body>
   </file>

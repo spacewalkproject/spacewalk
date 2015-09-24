@@ -2890,6 +2890,12 @@ drücken und &lt;b&gt;können sich nicht wieder einloggen&lt;/b&gt;.</target>
         </context-group>
         <target>{0} deployen zu</target>
       </trans-unit>
+      <trans-unit id="actionchain.jsp.configfiles.diff">
+        <source>Compare {0} on</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="actionchain.jsp.modaltitle">
         <source>Delete Action Chain?</source>
         <context-group name="ctx">
@@ -4190,12 +4196,37 @@ drücken und &lt;b&gt;können sich nicht wieder einloggen&lt;/b&gt;.</target>
         </context-group>
         <target>Organisationsdetails</target>
       </trans-unit>
+      <trans-unit id="satconfig.jsp.header">
+        <source>@@PRODUCT_NAME@@ Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="satconfig.jsp.description">
+        <source>As @@PRODUCT_NAME@@ Admin you can configure, whether Organization Administrators may configure Organization Configuration. Organizaton Configuration settings may have huge impact on the @@PRODUCT_NAME@@ performance.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="orgconfig.jsp.header">
         <source>Organization Configuration</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
         </context-group>
         <target>Organizations-Konfiguration</target>
+      </trans-unit>
+      <trans-unit id="orgconfig.jsp.description">
+        <source>Below you configure your organization to use staging content, errata e-mail notifications, software crash reporting (Crash file upload limit is a non negative number, zero means no limit) and SCAP settings.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
+        </context-group>
+        <target>Im Folgenden konfigurieren Sie Ihre Organisation um Inhalts-Vorbereitungen zu verwenden und Software Crash-Reporting einzurichten. Das Upload-Limit der Absturz-Datei ist eine nicht negative Zahl, Null bedeutet keine Grenzen.</target>
+      </trans-unit>
+      <trans-unit id="orgconfig.jsp.description.noteditable">
+        <source>Below is your organization configuration listed. See, how staging content, errata e-mail notifications, software crash reporting and SCAP settings are configured.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="org.name.jsp">
         <source>Organization Name</source>
@@ -4225,12 +4256,24 @@ drücken und &lt;b&gt;können sich nicht wieder einloggen&lt;/b&gt;.</target>
         </context-group>
         <target>Systemgruppen</target>
       </trans-unit>
+      <trans-unit id="org-config.orgadm-mgmt.jsp">
+        <source>Allow Organization Admin to manage Organization Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="org-config.staging-content.jsp">
         <source>Enable Staging Contents</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
         </context-group>
         <target>Staging-Inhalte aktivieren</target>
+      </trans-unit>
+      <trans-unit id="org-config.errata-emails.jsp">
+        <source>Enable Errata E-mail Notifications (for users belonging to this organization)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="org-config.crash-reporting.jsp">
         <source>Enable Software Crash Reporting</source>
@@ -9506,6 +9549,9 @@ Bitte beachten Sie, dass möglicherweise noch einige manuelle Konfigurationen di
         <source>Repository</source>
         <target>Repository</target>
       </trans-unit>
+      <trans-unit id="repos.jsp.channel.status">
+        <source>Sync Status</source>
+      </trans-unit>
       <trans-unit id="repos.jsp.channel.repos">
         <source>Channel Repositories</source>
         <target>Channel-Repositorien</target>
@@ -13175,6 +13221,9 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
           <source>Xccdf Test Result</source>
           <target>Xccdf-Testergebnis</target>
         </trans-unit>
+        <trans-unit id="system.audit.listscap.jsp.diff">
+          <source>Diff</source>
+        </trans-unit>
         <trans-unit id="system.audit.listscap.jsp.completed">
           <source>Completed</source>
           <target>Abgeschlossen</target>
@@ -13634,6 +13683,9 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
           <source>System History Event</source>
           <target>Systemverlaufsereignisse</target>
         </trans-unit>
+        <trans-unit id="system.event.pendingHeader">
+          <source>System Pending Event</source>
+        </trans-unit>
         <trans-unit id="system.event.summary">
           <source>Summary:</source>
           <target>Zusammenfassung:</target>
@@ -13709,6 +13761,9 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
         <trans-unit id="system.event.return">
           <source>Return to history list for {0}</source>
           <target>Zurück zur Verlaufsliste für {0}</target>
+        </trans-unit>
+        <trans-unit id="system.event.pendingReturn">
+          <source>Return to pending list for {0}</source>
         </trans-unit>
         <trans-unit id="system.event.returnIcon">
           <source>Return to history list</source>
@@ -23940,6 +23995,12 @@ für einen angegebenen Channel aufgelistet wird.</target>
         <source>Update Key</source>
         <target>Schlüssel aktualisieren</target>
       </trans-unit>
+      <trans-unit id="system.jsp.customdata.createtitle">
+        <source>Create Custom Value</source>
+      </trans-unit>
+      <trans-unit id="system.jsp.customdata.updatetitle">
+        <source>Edit Custom Value</source>
+      </trans-unit>
       <trans-unit id="system.jsp.customdata.deletetitle">
         <source>Remove Custom Value</source>
         <target>Benutzerdefinierten Wert entfernen</target>
@@ -24757,6 +24818,12 @@ für einen angegebenen Channel aufgelistet wird.</target>
         </context-group>
         <target>Errata nicht synchronisieren</target>
       </trans-unit>
+      <trans-unit id="channel.manage.sync.latestonly.jsp">
+        <source>Sync only latest packages</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Sync.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="channel.manage.sync.synckickstart.jsp">
         <source>Create kickstartable tree</source>
         <context-group name="ctx">
@@ -24966,6 +25033,12 @@ für einen angegebenen Channel aufgelistet wird.</target>
           <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
         </context-group>
         <target>Neustart-Aktionen, die nie abgeschlossen werden, invalidieren</target>
+      </trans-unit>
+      <trans-unit id="bunch.jsp.description.auto-errata-bunch">
+        <source>Schedule auto errata updates as necessary</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="schedule.jsp.noschedules">
         <source>There're no schedules available.</source>
@@ -25441,6 +25514,9 @@ für einen angegebenen Channel aufgelistet wird.</target>
       <trans-unit id="task.status.reboot-action-cleanup">
         <source>Failed reboots cleanup</source>
         <target>Bereinigung fehlgeschlagener Neustarts</target>
+      </trans-unit>
+      <trans-unit id="task.status.auto-errata">
+        <source>Auto Errata Updates</source>
       </trans-unit>
       <trans-unit id="task.status.message">
         <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
@@ -26046,11 +26122,56 @@ für einen angegebenen Channel aufgelistet wird.</target>
       </group>
       <group>
         <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/ResetLink</context>
+        </context-group>
+        <trans-unit id="resetpassword.jsp.error.header">
+          <source>Reset Password Link Error</source>
+        </trans-unit>
+        <trans-unit id="resetpassword.jsp.error.message">
+          <source>
+          The reset-password link used is invalid.
+          Please contact your @@PRODUCT_NAME@@ administrator for assistance.
+          </source>
+        </trans-unit>
+        <trans-unit id="resetpassword.jsp.error.invalidtoken">
+          <source>Reset token has been invalidated.</source>
+        </trans-unit>
+        <trans-unit id="resetpassword.jsp.error.disabled_user">
+          <source>User has been disabled.</source>
+        </trans-unit>
+        <trans-unit id="resetpassword.jsp.error.notoken">
+          <source>Reset token not found.</source>
+        </trans-unit>
+        <trans-unit id="resetpassword.jsp.error.expiredtoken">
+          <source>Reset token has expired.</source>
+        </trans-unit>
+      </group>
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/ResetPasswordSubmit</context>
+        </context-group>
+        <trans-unit id="passwordreset.jsp.header">
+          <source>Reset Password</source>
+        </trans-unit>
+        <trans-unit id="passwordreset.jsp.passwordtip">
+          <source>
+          Passwords can be between {0} and {1} characters,
+          and cannot contain tabs or newlines.</source>
+        </trans-unit>
+        <trans-unit id="passwordreset.jsp.update">
+          <source>Update Password</source>
+        </trans-unit>
+      </group>
+      <group>
+        <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/ForgotCredentials.do</context>
         </context-group>
         <trans-unit id="help.credentials.jsp.passwordreset">
           <source>Password Reset</source>
           <target>Passwort zurücksetzen</target>
+        </trans-unit>
+        <trans-unit id="help.credentials.jsp.passwordreset.confirmation">
+          <source>Password Reset Confirmation</source>
         </trans-unit>
         <trans-unit id="help.credentials.jsp.passwordstrength">
           <source>Password Strength</source>

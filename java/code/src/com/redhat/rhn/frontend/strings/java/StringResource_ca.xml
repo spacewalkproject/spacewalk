@@ -3,6 +3,1231 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.1" xmlns:xyz="urn:appInfo:Items" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1 http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd" version="1.1">
   <file source-language="en-US" datatype="plaintext" original="" target-language="ca">
     <body>
+      <trans-unit id="0">
+        <source>0</source>
+        <target>0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1">
+        <source>1</source>
+        <target>1</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2.0.0">
+        <source>2.0.0</source>
+        <target>2.0.0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2.0.1">
+        <source>2.0.1</source>
+        <target>2.0.1</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>2</source>
+        <target>2</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2.4.0">
+        <source>2.4.0</source>
+        <target>2.4.0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2.5.0">
+        <source>2.5.0</source>
+        <target>2.5.0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2.6.0">
+        <source>2.6.0</source>
+        <target>2.6.0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2.7.0">
+        <source>2.7.0</source>
+        <target>2.7.0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2.8.0">
+        <source>2.8.0</source>
+        <target>2.8.0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2.9.0">
+        <source>2.9.0</source>
+        <target>2.9.0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3.0.0">
+        <source>3.0.0</source>
+        <target>3.0.0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3.1.0">
+        <source>3.1.0</source>
+        <target>3.1.0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3.1.5">
+        <source>3.1.5</source>
+        <target>3.1.5</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3.2.0">
+        <source>3.2.0</source>
+        <target>3.2.0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3.3.0">
+        <source>3.3.0</source>
+        <target>3.3.0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>3</source>
+        <target>3</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3.4.0">
+        <source>3.4.0</source>
+        <target>3.4.0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3.5.0">
+        <source>3.5.0</source>
+        <target>3.5.0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3.6.0">
+        <source>3.6.0</source>
+        <target>3.6.0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3.6.5">
+        <source>3.6.5</source>
+        <target>3.6.5</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3.7.0">
+        <source>3.7.0</source>
+        <target>3.7.0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>4</source>
+        <target>4</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4.0.0">
+        <source>4.0.0</source>
+        <target>4.0.0</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>5</source>
+        <target>5</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>6</source>
+        <target>6</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>7</source>
+        <target>7</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>8</source>
+        <target>8</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>9</source>
+        <target>9</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="yes">
+        <source>Yes</source>
+        <target>Si</target>
+      </trans-unit>
+      <trans-unit id="no">
+        <source>No</source>
+        <target>No</target>
+      </trans-unit>
+      <trans-unit id="Enabled">
+        <source>Enabled</source>
+        <target>Habilitat</target>
+      </trans-unit>
+      <trans-unit id="Disabled">
+        <source>Disabled</source>
+        <target>Inhabilitat</target>
+      </trans-unit>
+      <trans-unit id="Tip">
+        <source>Tip</source>
+        <target>Consell</target>
+      </trans-unit>
+      <trans-unit id="Note">
+        <source>Note</source>
+        <target>Nota</target>
+      </trans-unit>
+      <trans-unit id="Warning">
+        <source>Warning</source>
+        <target>Advertència</target>
+      </trans-unit>
+      <trans-unit id="Custom">
+        <source>Custom</source>
+        <target>Personalitzat</target>
+      </trans-unit>
+      <trans-unit id="Examples">
+        <source>Examples</source>
+        <target>Exemples</target>
+      </trans-unit>
+      <trans-unit id="none specified">
+        <source>none specified</source>
+        <target>cap especificat</target>
+      </trans-unit>
+      <trans-unit id="About Spacewalk">
+        <source>About</source>
+        <target>Sobre</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Account">
+        <source>Account</source>
+        <target>Compte</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Account Deactivation">
+        <source>Account Deactivation</source>
+        <target>Desactivació del compte</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Activation Keys">
+        <source>Activation Keys</source>
+        <target>Claus d'activació</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Addresses">
+        <source>Addresses</source>
+        <target>Adreces</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Advanced Search">
+        <source>Advanced Search</source>
+        <target>Cerca avançada</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Affected Systems">
+        <source>Affected Systems</source>
+        <target>Sistemes afectats</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Errata Details Navigation Tabs</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="All">
+        <source>All</source>
+        <target>Tots</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="url">
+        <source>url</source>
+        <target>url</target>
+      </trans-unit>
+      <trans-unit id="alphabet">
+        <source>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</source>
+        <target>A B C Ç D E F G H I J K L L·L M N O P Q R S T U V W X Y Z</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">On List pages with an alpha filter bar.
+                                        Used to generate the list of links based on
+                                        the alphabet.
+          </context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="API">
+        <source>API</source>
+        <target>API</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="FAQs">
+        <source>FAQs</source>
+        <target>PMF</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Sample Scripts">
+        <source>Sample Scripts</source>
+        <target>Scripts d'exemple</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Archived Actions">
+        <source>Archived Actions</source>
+        <target>Accions arxivades</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="list delimiter">
+        <source>, </source>
+        <target>, </target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Anywhere a list of words is delimited</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Change Email">
+        <source>Change Email</source>
+        <target>Canvia el correu electrònic</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="frontend.actions.channels.manager.create">
+        <source>Create Software Channel</source>
+        <target>Crea un canal de programari</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Software Channel Entitlements">
+        <source>Software Channel Entitlements</source>
+        <target>Drets del canal de programari</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="OpenSCAP">
+        <source>OpenSCAP</source>
+        <target>OpenSCAP</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="All Scans">
+        <source>All Scans</source>
+        <target>Tots els escaneigs</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="XCCDF Diff">
+        <source>XCCDF Diff</source>
+        <target>Diferències XCCDF</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="audit.nav.logreview">
+        <source>Log Review</source>
+        <target>Revisió del registre</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Channel Management">
+        <source>Channel Management</source>
+        <target>Gestió del canal</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Channel Permissions">
+        <source>Channel Permissions</source>
+        <target>Permisos del canal</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Channels">
+        <source>Channels</source>
+        <target>Canals</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Client Configuration">
+        <source>Client Configuration</source>
+        <target>Configuració del client</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="User Guide">
+        <source>User Guide</source>
+        <target>Guia d'usuari</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Getting Started Guide">
+        <source>Getting Started Guide</source>
+        <target>Guia de com començar</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Completed Actions">
+        <source>Completed Actions</source>
+        <target>Accions completades</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Config Channels">
+        <source>Config Channels</source>
+        <target>Canals de configuració</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Create Account">
+        <source>Create Account</source>
+        <target>Crea un compte</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Custom System Info">
+        <source>Custom System Info</source>
+        <target>Informació personalitzada del sistema</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="date">
+        <source>Date</source>
+        <target>Data</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Traceback Emails</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Details">
+        <source>Details</source>
+        <target>Detalls</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="digits">
+        <source>0 1 2 3 4 5 6 7 8 9</source>
+        <target>0 1 2 3 4 5 6 7 8 9</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">On List pages with an alpha filter bar.
+                                        Used to generate the list of links based on
+                                        the set of digits.</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Distributions">
+        <source>Distributions</source>
+        <target>Distribucions</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Edit this address">
+        <source>Edit this address</source>
+        <target>Edita aquesta adreça</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/Addresses</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Errata">
+        <source>Errata</source>
+        <target>Errata</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="exception">
+        <source>Exception</source>
+        <target>Escepció</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Failed Actions">
+        <source>Failed Actions</source>
+        <target>Accions fallides</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="FAQ">
+        <source>FAQ</source>
+        <target>PMF</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fax">
+        <source>Fax</source>
+        <target>Fax</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="File Preservation">
+        <source>File Preservation</source>
+        <target>Preservació del fitxer</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Go">
+        <source>Go</source>
+        <target>Ves</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Used in filters as the "do it" button</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="GPG and SSL Keys">
+        <source>GPG and SSL Keys</source>
+        <target>Claus GPG i SSL</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Help">
+        <source>Help</source>
+        <target>Ajuda</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Inactive">
+        <source>Inactive</source>
+        <target>Inactiu</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Active">
+        <source>Active</source>
+        <target>Actiu</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="IP Ranges">
+        <source>IP Ranges</source>
+        <target>Rangs IP</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Kickstart">
+        <source>Kickstart</source>
+        <target>Kickstart</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Power Management">
+        <source>Power Management</source>
+        <target>Gestió energètica</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Management">
+        <source>Management</source>
+        <target>Gestió</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Manage Software Channels">
+        <source>Manage Software Channels</source>
+        <target>Gestiona els canals de programari</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Manage Software Packages">
+        <source>Manage Software Packages</source>
+        <target>Gestiona els paquets de programari</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Manage Repositories">
+        <source>Manage Repositories</source>
+        <target>Gestiona els dipòsits</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Monitoring">
+        <source>Monitoring</source>
+        <target>Monitorització</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="name">
+        <source>name</source>
+        <target>nom</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="arch">
+        <source>architecture</source>
+        <target>arquitectura</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="system.evr">
+        <source>this system</source>
+        <target>aquest sistema</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="other.evr">
+        <source>profile</source>
+        <target>perfil</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="comparison">
+        <source>difference</source>
+        <target>diferència</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Notification Methods">
+        <source>Notification Methods</source>
+        <target>Mètodes de notificació</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Notification">
+        <source>Notification</source>
+        <target>Notificació</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Overview">
+        <source>Overview</source>
+        <target>Visió de conjunt</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Migrate">
+        <source>Migrate</source>
+        <target>Migra</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Packages">
+        <source>Packages</source>
+        <target>Paquets</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Errata Details Navigation Tabs</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Package Search">
+        <source>Package Search</source>
+        <target>Cerca del paquet</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Pending Actions">
+        <source>Pending Actions</source>
+        <target>Accions pendents</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Preferences">
+        <source>Preferences</source>
+        <target>Preferències</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Profiles">
+        <source>Profiles</source>
+        <target>Perfils</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Proxy">
+        <source>Proxy</source>
+        <target>Servidor intermediari</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Published">
+        <source>Published</source>
+        <target>Publicat</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Subscription Management">
+        <source>Subscription Management</source>
+        <target>Gestió de la subscripció</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Reference Guide">
+        <source>Reference Guide</source>
+        <target>Guia de referència</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Release Notes">
+        <source>Release Notes</source>
+        <target>Notes del llançament</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Schedule">
+        <source>Schedule</source>
+        <target>Planificació</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Search">
+        <source>Search</source>
+        <target>Cerca</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Sessions">
+        <source>Sessions</source>
+        <target>Sessions</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Sign In">
+        <source>Sign In</source>
+        <target>Inicia la sessió</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Create First User">
+        <source>Create First User</source>
+        <target>Crea el primer usuari</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Software Channels">
+        <source>Software Channels</source>
+        <target>Canals de programari</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Software Crashes">
+        <source>Software Crashes</source>
+        <target>Fallides del programari</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Status">
+        <source>Status</source>
+        <target>Estat</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Stored Profiles">
+        <source>Stored Profiles</source>
+        <target>Perfils emmagatzemats</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Subscription">
+        <source>Subscription</source>
+        <target>Subscripció</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="System Entitlements">
+        <source>System Entitlements</source>
+        <target>Drets del sistema</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="System Groups">
+        <source>System Groups</source>
+        <target>Grups del sistema</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Systems">
+        <source>Systems</source>
+        <target>Sistemes</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Task Schedules">
+        <source>Task Schedules</source>
+        <target>Planificació de tasques</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="User List">
+        <source>User List</source>
+        <target>Llista d'usuaris</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user prefix Dr.">
+        <source>Dr.</source>
+        <target>Dr.</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user prefix Hr.">
+        <source>Hr.</source>
+        <target>RH</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user prefix Miss">
+        <source>Miss</source>
+        <target>Senyoreta</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user prefix Mr.">
+        <source>Mr.</source>
+        <target>Sr.</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user prefix Mrs.">
+        <source>Mrs.</source>
+        <target>Sra.</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user prefix Ms.">
+        <source>Ms.</source>
+        <target>Srta.</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user prefix Sr.">
+        <source>Sr.</source>
+        <target>Exc.</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user prefix  ">
+        <source> </source>
+        <target> </target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="account.disabled">
+        <source>Your account has been deactivated.</source>
+        <target>El vostre compte ha estat desactivat.</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Login or Logout</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="account.user.disabled">
+        <source>Account {0} has been deactivated.</source>
+        <target>El compte {0} ha estat desactivat.</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Login or Logout</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Users">
+        <source>Users</source>
+        <target>Usuaris</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user info">
+        <source>User Information</source>
+        <target>Informació de l'usuari</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Traceback Email Notifications</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user">
+        <source>User</source>
+        <target>Usuari</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="value">
+        <source>value</source>
+        <target>valor</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Your Account">
+        <source>Your Account</source>
+        <target>El vostre compte</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Your Preferences">
+        <source>Your Preferences</source>
+        <target>Les vostres preferències</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Activation Key Administrators">
+        <source>Activation Key Administrators</source>
+        <target>Administradors de la clau d'activació</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserDetails</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Channel Administrators">
+        <source>Channel Administrators</source>
+        <target>Administradors del canal</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserDetails</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Organization Administrators">
+        <source>Organization Administrators</source>
+        <target>Administradors de l'organització</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserDetails</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Satellite Administrators">
+        <source>@@PRODUCT_NAME@@ Administrators</source>
+        <target>Administradors de @@PRODUCT_NAME@@</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserDetails</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="System Group Administrators">
+        <source>System Group Administrators</source>
+        <target>Administradors del grup del sistema</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserDetails</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="username">
+        <source>Username</source>
+        <target>Nom d'usuari</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="password">
+        <source>Password</source>
+        <target>Contrasenya</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmpass">
+        <source>Confirm Password</source>
+        <target>Confirmació de la contrasenya</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="passwordConfirm">
+        <source>Confirm Password</source>
+        <target>Confirmació de la contrasenya</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/newlogin/CreateUserSubmit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirm">
+        <source>Confirm</source>
+        <target>Confirmació</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="firstNames">
+        <source>First Name</source>
+        <target>Nom</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/newlogin/CreateUserSubmit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="lastName">
+        <source>Last Name</source>
+        <target>Cognom</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/newlogin/CreateUserSubmit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="email">
+        <source>Email</source>
+        <target>Correu electrònic</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/newlogin/CreateUserSubmit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desiredpasswordConfirm">
+        <source>Confirm Password</source>
+        <target>Confirmació de la contrasenya</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/newlogin/CreateUserSubmit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="city">
+        <source>City</source>
+        <target>Ciutat</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="country">
+        <source>Country</source>
+        <target>País</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="rack">
+        <source>Rack</source>
+        <target>Rack</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="system_name">
+        <source>System Name</source>
+        <target>Nom del sistema</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="phone">
+        <source>Phone</source>
+        <target>Telèfon</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/EditAddress</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sid">
+        <source>System ID</source>
+        <target>Id. del sistema</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/SystemMigrate</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="prefix">
+        <source>Prefix</source>
+        <target>Prefix</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/newlogin/CreateUserSubmit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="position">
+        <source>Position</source>
+        <target>Posició</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="usertype">
+        <source>User Type</source>
+        <target>Tipus d'usuari</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="created">
+        <source>Created</source>
+        <target>Creat</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="last_sign_in">
+        <source>Last Sign In</source>
+        <target>Darrer inici de sessió</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="message.filterby">
+        <source>Filter by {0}: </source>
+        <target>Filtra per {0}: </target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="message.filterby.multiple">
+        <source>Filter by: </source>
+        <target>Filtra per:</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="message.range">
+        <source>{0} - {1} of {2}</source>
+        <target>{0} - {1} de {2}</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">on any listview page with a set.  1 - 5 of 120</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="show.all">
+        <source>Show All</source>
+        <target>Mostra'ls tots</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">on any listview page with a set.  1 - 5 of 120</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hide.all">
+        <source>Hide All</source>
+        <target>Oculta'ls tots</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">on any listview page with a set.  1 - 5 of 120</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="no notes">
+        <source>(none)</source>
+        <target>(cap)</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packages.update">
+        <source>Package Install</source>
+        <target>Instal·lació del paquet</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packages.remove">
+        <source>Package Removal</source>
+        <target>Eliminació del paquet</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="errata.update">
+        <source>Errata Update</source>
+        <target>Actualització de l'errata</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="serverName">
         <source>Server Name</source>
         <target>Nom del servidor</target>

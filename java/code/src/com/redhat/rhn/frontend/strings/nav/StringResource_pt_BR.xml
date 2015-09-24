@@ -685,12 +685,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
+        <target>Autenticação externa</target>
       </trans-unit>
       <trans-unit id="Group Role Mapping">
         <source>Group Role Mapping</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
+        <target>Grupo de mapeamento de função</target>
       </trans-unit>
       <trans-unit id="System Group Configuration">
         <source>System Group Configuration</source>
@@ -724,12 +726,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
+        <target>Configuração de gerenciamento de energia</target>
       </trans-unit>
       <trans-unit id="Power Management Operations">
         <source>Power Management Operations</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
+        <target>Operações de gerenciamento de energia</target>
       </trans-unit>
       <trans-unit id="Tag Systems">
         <source>Tag Systems</source>
@@ -1198,9 +1202,11 @@
       <!-- SUSE Studio -->
       <trans-unit id="Credentials">
         <source>Credentials</source>
+        <target>Credenciais</target>
       </trans-unit>
       <trans-unit id="Images">
         <source>Images</source>
+        <target>Imagens</target>
       </trans-unit>
     </body>
   </file>

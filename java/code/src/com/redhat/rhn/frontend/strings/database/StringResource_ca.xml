@@ -5,7 +5,7 @@
     <body>
       <trans-unit id="Queued">
         <source>Queued</source>
-        <target>Ficat a la cua</target>
+        <target>S'ha ficat a la cua</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/Overview</context>
         </context-group>
@@ -90,6 +90,10 @@
         <source>Base</source>
         <target>Base</target>
       </trans-unit>
+      <trans-unit id="add-on">
+        <source>Add-On</source>
+        <target>Complement</target>
+      </trans-unit>
       <trans-unit id="virtualization_host">
         <source>Virtualization</source>
         <target>Virtualització</target>
@@ -97,6 +101,20 @@
       <trans-unit id="virtualization_host_platform">
         <source>Virtualization Platform</source>
         <target>Plataforma de virtualització</target>
+      </trans-unit>
+      <trans-unit id="Europe/Paris">
+        <source>(GMT+0100) Europe (Central)</source>
+        <target>(GMT+0100) Europa (Central)</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="America/Sao_Paulo">
+        <source>(GMT-0300) Brazil</source>
+        <target>(GMT-0300) Brasil</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
       </trans-unit>
     </body>
   </file></xliff>

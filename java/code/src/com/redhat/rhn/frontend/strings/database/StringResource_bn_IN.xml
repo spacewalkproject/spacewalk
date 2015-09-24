@@ -123,6 +123,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
+        <target>(GMT+১০০০) অস্ট্রেলিয়া (পূর্বাঞ্চল)</target>
       </trans-unit>
       <trans-unit id="Asia/Tokyo">
         <source>(GMT+0900) Japan</source>

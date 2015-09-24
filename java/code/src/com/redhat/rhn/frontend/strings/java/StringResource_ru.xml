@@ -1303,6 +1303,12 @@
         </context-group>
         <target>Ваши настройки</target>
       </trans-unit>
+      <trans-unit id="Your Organization">
+        <source>Your Organization</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Organization Applicants">
         <source>Organization Applicants</source>
         <context-group name="ctx">
@@ -1484,7 +1490,7 @@
         <target>Пароль содержит символы начала строки или Tab.</target>
       </trans-unit>
       <trans-unit id="error.maxpassword">
-        <source>The password you requested is too long. Please enter a shorter password and try again.</source>
+        <source>Passwords cannot be more than {0} characters.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
@@ -2242,6 +2248,12 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
         <target>Свойства кикстарта обновлены.</target>
+      </trans-unit>
+      <trans-unit id="kickstart.details.duplicatefile">
+        <source>Please specify only file contents or a file to upload but not both.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="kickstart.details.nolabel">
         <source>Kickstart profile label is required.</source>
@@ -5547,6 +5559,12 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>Суринам</target>
       </trans-unit>
+      <trans-unit id="SS">
+        <source>South Sudan</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="ST">
         <source>Saint Tome (Sao Tome) and Principe</source>
         <context-group name="ctx">
@@ -5954,7 +5972,7 @@ user before attempting to deactivate their account.</source>
         <target>Срок действия сертификата Satellite подошел к концу. В данный момент сертификат работает в ограниченном режиме (день {0} из {1}).  Для получения нового сертификата перейдите на  https://access.redhat.com/knowledge/tools/satcert</target>
       </trans-unit>
       <trans-unit id="satellite.graceperiod">
-        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Your satellite enters restricted period in {0} day(s).</source>
+        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt; Your satellite enters restricted period in {0} day(s).</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login.do</context>
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
@@ -9339,6 +9357,9 @@ Follow this url to see the full list of inactive systems:
         <source>Repository sync scheduled for {0}.</source>
         <target>Назначена синхронизация репозитория для  {0}.</target>
       </trans-unit>
+      <trans-unit id="message.syncinprogress">
+        <source>Repository sync is running.</source>
+      </trans-unit>
       <trans-unit id="message.channelsubscribers">
         <source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
         <target>На вкладке «Подписчики» можно определить ограничения подписки для отдельных пользователей.</target>
@@ -9589,7 +9610,7 @@ tree will not be usable for kickstarting.
         <target>Письмо уже отправлено. Действие можно будет повторить через {0} сек.</target>
       </trans-unit>
       <trans-unit id="help.credentials.passwordsent">
-        <source>New password sent to {0}.</source>
+        <source>Password reset information sent to {0}.</source>
         <target>Новый пароль отправлен {0}.</target>
       </trans-unit>
       <trans-unit id="help.credentials.invalidemail">
