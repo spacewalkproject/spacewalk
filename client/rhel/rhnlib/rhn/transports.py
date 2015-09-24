@@ -1,7 +1,7 @@
 #
 # Helper transport objects
 #
-# Copyright (c) 2002--2013 Red Hat, Inc.
+# Copyright (c) 2002--2015 Red Hat, Inc.
 #
 # Author: Mihai Ibanescu <misa@redhat.com>
 # Based on what was previously shipped as cgiwrap:

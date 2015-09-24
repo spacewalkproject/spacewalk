@@ -1,7 +1,7 @@
 #
 # Higher-level SSL objects used by rpclib
 #
-# Copyright (c) 2002--2012 Red Hat, Inc.
+# Copyright (c) 2002--2015 Red Hat, Inc.
 #
 # Author: Mihai Ibanescu <misa@redhat.com>
 #

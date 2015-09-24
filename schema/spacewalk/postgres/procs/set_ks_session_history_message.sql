@@ -1,7 +1,7 @@
--- oracle equivalent source sha1 42eea09794b253b4a399132963d52ab426da3cc9
+-- oracle equivalent source sha1 e833bbe6da70cb068d20a4180f37f095dd4e30c9
 -- retrieved from ./1241128047/984a347f2afbd47756e90584364799dd670b62db/schema/spacewalk/oracle/procs/set_ks_session_history_message.sql
 --
--- Copyright (c) 2008--2011 Red Hat, Inc.
+-- Copyright (c) 2008--2015 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or

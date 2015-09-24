@@ -1,7 +1,7 @@
 #!/usr/bin/python -u
 """ activate an Spacewalk Proxy Server v3.6+
 
-    Copyright (c) 2004--2013 Red Hat, Inc.
+    Copyright (c) 2004--2015 Red Hat, Inc.
     All rights reserved.
 
     Author: Todd Warner <taw@redhat.com>

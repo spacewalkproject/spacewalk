@@ -1,7 +1,7 @@
--- oracle equivalent source sha1 c4c870680a11a54d87f389327aa9eab875be79ad
+-- oracle equivalent source sha1 9ab6626fe584e046eb4b9633f8a5e35f0e9f914d
 -- retrieved from ./1235561447/a7740e6945947b753ef3359998c3a103d464f765/schema/spacewalk/rhnsat/procs/delete_channel.sql
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2015 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or

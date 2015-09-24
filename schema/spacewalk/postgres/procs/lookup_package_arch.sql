@@ -1,7 +1,7 @@
--- oracle equivalent source sha1 089ea50e24e4a5577533e19faa9cfe3de053e33c
+-- oracle equivalent source sha1 f449f76cf3efbbb9ead0b50fc4b6154936a87856
 -- retrieved from ./1235730481/28a92ec2f6056ccc56e0bc4b0da3630def22548f/schema/spacewalk/rhnsat/procs/lookup_package_arch.sql
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2015 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or

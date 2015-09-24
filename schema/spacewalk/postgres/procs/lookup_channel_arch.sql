@@ -1,7 +1,7 @@
--- oracle equivalent source sha1 bf86d4323be849f6a8ba063302c61de0961ad702
+-- oracle equivalent source sha1 afa60e5424b69a0d10f6b7060b87ba10d667dd68
 -- retrieved from ./1241057068/d2f16725f65bddae85cd4782cd82e0c84c0a776d/schema/spacewalk/oracle/procs/lookup_channel_arch.sql
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2015 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
