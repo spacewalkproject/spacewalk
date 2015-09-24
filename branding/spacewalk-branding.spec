@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.4.5
+Version:    2.4.6
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -105,6 +105,9 @@ rm -rf %{buildroot}
 %{_var}/www/html/css/*.less
 
 %changelog
+* Thu Sep 24 2015 Jan Dobes 2.4.6-1
+- deleting language images
+
 * Wed Aug 26 2015 Jan Dobes 2.4.5-1
 - fixing floating problem
 
