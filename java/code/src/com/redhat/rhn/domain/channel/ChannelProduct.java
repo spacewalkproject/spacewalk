@@ -80,7 +80,7 @@ public class ChannelProduct {
      * Getter for betaMarker
      * @return String to get
     */
-    public String getBetaMarker() {
+    private String getBetaMarker() {
         return this.betaMarker;
     }
 
@@ -88,7 +88,7 @@ public class ChannelProduct {
      * Setter for betaMarker
      * @param betaIn to set
     */
-    public void setBetaMarker(String betaIn) {
+    private void setBetaMarker(String betaIn) {
         this.betaMarker = betaIn;
     }
 
