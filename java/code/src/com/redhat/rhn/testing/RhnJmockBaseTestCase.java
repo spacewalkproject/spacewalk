@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.testing;
 
-import com.redhat.rhn.domain.common.LoggingFactory;
-
 import org.jmock.cglib.MockObjectTestCase;
 
 /**
@@ -31,13 +29,7 @@ public abstract class RhnJmockBaseTestCase extends MockObjectTestCase {
      */
     protected void setUp() throws Exception {
         super.setUp();
-        try {
-            LoggingFactory.clearLogId();
-        }
-        catch (Exception se) {
-            TestCaseHelper.tearDownHelper();
-            LoggingFactory.clearLogId();
-        }
+        TestCaseHelper.setUpHelper();
     }
 
     /**
