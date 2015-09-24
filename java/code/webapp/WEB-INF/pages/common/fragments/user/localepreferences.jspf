@@ -53,7 +53,7 @@
           <c:if test="${item.key == currentLocale}">
             checked="checked"
           </c:if>/>
-         <img src="<c:out value="${item.value.imageUri}" />" alt="<c:out value="${item.value.localizedName}" />" />&nbsp;(<c:out value="${item.value.localizedName}" />)
+        <span class="text-info"><strong><c:out value="${item.value.localizedName}" /></strong></span>
       </td>
       <c:if test="${counter == 1}">
         </tr>

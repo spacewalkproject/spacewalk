@@ -43,7 +43,6 @@ public class BaseUserSetupAction extends RhnAction {
         LocalizationService ls =
             LocalizationService.getInstance();
         LangDisplayBean ldb = new LangDisplayBean();
-        ldb.setImageUri("");
         ldb.setLanguageCode("none");
         ldb.setLocalizedName(ls.getMessage("preferences.jsp.lang.none"));
         return ldb;
@@ -76,11 +75,7 @@ public class BaseUserSetupAction extends RhnAction {
         List locales = ls.getConfiguredLocales();
         for (Iterator iter = locales.iterator(); iter.hasNext();) {
             String locale = (String) iter.next();
-            StringBuilder buf = new StringBuilder();
-            buf.append("/img/i18n/").append(locale);
-            buf.append(".gif");
             LangDisplayBean ldb = new LangDisplayBean();
-            ldb.setImageUri(buf.toString());
             ldb.setLanguageCode(locale);
             ldb.setLocalizedName(ls.getMessage("preferences.jsp.lang." + locale));
             retval.put(locale, ldb);

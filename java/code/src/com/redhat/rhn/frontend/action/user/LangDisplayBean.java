@@ -24,24 +24,6 @@ public class LangDisplayBean {
 
     private String languageCode;
     private String localizedName;
-    private String imageUri;
-
-    /**
-     * Returns relative uri pointing to the
-     * language example image
-     * @return string uri
-     */
-    public String getImageUri() {
-        return imageUri;
-    }
-
-    /**
-     * Sets the langauge example image uri
-     * @param uri relative uri
-     */
-    public void setImageUri(String uri) {
-        this.imageUri = uri;
-    }
 
     /**
      * Returns lang code
