@@ -6,7 +6,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.4.5
+Version: 2.4.6
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -98,6 +98,9 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Thu Sep 24 2015 Jan Dobes 2.4.6-1
+- Bumping copyright year.
+
 * Tue Jul 14 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.5-1
 - remove Except KeyboardInterrupt from imports
 
