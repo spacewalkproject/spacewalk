@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        2.4.1
+Version:        2.4.2
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -43,6 +43,9 @@ service abrtd restart
 %{_mandir}/man8/*
 
 %changelog
+* Fri Sep 25 2015 Jan Dobes 2.4.2-1
+- support translations in spacewalk-abrt
+
 * Wed Sep 23 2015 Jan Dobes 2.4.1-1
 - Pulling updated *.po translations from Zanata.
 - Bumping package versions for 2.4.
