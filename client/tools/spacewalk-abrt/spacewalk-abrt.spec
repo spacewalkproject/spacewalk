@@ -27,13 +27,15 @@ make -f Makefile.spacewalk-abrt
 rm -rf $RPM_BUILD_ROOT
 make -f Makefile.spacewalk-abrt install PREFIX=$RPM_BUILD_ROOT
 
+%find_lang %{name}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
 service abrtd restart
 
-%files
+%files -f %{name}.lang
 %config  /etc/sysconfig/rhn/clientCaps.d/abrt
 %config  /etc/libreport/events.d/spacewalk.conf
 %{_bindir}/spacewalk-abrt
