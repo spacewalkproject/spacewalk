@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.4.18
+Version:	2.4.19
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,12 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Sep 29 2015 Jan Dobes 2.4.19-1
+- adding Spacewalk 2.4 entries
+- adding F22
+- update spacewalk nightly entries
+- no nightly for all F20 and EL5 server
+
 * Fri Sep 25 2015 Jan Dobes 2.4.18-1
 - have version in name
 - updating gpg
