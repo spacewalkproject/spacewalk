@@ -96,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
+* Tue Sep 29 2015 Jan Dobes 2.5-3
+- Bumping spacewalk-repo version to 2.5.
+
 * Wed May 06 2015 Tomas Lestach <tlestach@redhat.com> 2.4-3
 - Update spacewalk-repo to use 2015 RPM-GPG-KEY
 
