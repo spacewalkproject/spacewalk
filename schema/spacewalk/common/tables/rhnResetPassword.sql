@@ -19,7 +19,8 @@ CREATE TABLE rhnResetPassword
     id            NUMBER NOT NULL
                       CONSTRAINT rhn_rstpwd_id_pk primary key,
     user_id       NUMBER NOT NULL
-                      CONSTRAINT rhn_rstpwd_uid_fk REFERENCES web_contact (id),
+                      CONSTRAINT rhn_rstpwd_uid_fk REFERENCES web_contact (id)
+                      ON DELETE CASCADE,
     token         VARCHAR(64) NOT NULL
                       CONSTRAINT rhn_rstpwd_token_uq UNIQUE,
     is_valid      char(1) DEFAULT 'Y' NOT NULL
