@@ -210,6 +210,9 @@ class Database(sql_base.Database):
         try:
             c = self.prepare("select 1")
             c.execute()
+            # Paul Wayper - 2015-10-01 - this normally leaves a statement
+			# open, so fetch all its results so it can be closed.
+            junk = c.fetchall_hash()
         except:  # try to reconnect, that one MUST WORK always
             log_error("DATABASE CONNECTION TO '%s' LOST" % self.database,
                       "Exception information: %s" % sys.exc_info()[1])
