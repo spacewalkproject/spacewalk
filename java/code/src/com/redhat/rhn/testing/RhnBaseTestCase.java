@@ -34,7 +34,6 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.Asserts;
-import com.redhat.rhn.domain.common.LoggingFactory;
 
 /**
  * RhnBaseTestCase is the base class for all RHN TestCases.
