@@ -768,7 +768,7 @@ def file_is_binary(self, path):
         if output.startswith("text/"):
             return False
     except OSError:
-        return True
-    return False
+        pass
+    return True
 
 
