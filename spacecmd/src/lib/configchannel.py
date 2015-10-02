@@ -966,7 +966,7 @@ def export_configchannel_getdetails(self, channel):
     # int "permissions"               Y (as string!)  N
     # string "permissions_mode"       N               N
     # string "selinux_ctx"            Y               Y
-    # boolean "binary"                N               N
+    # boolean "binary"                Y               N
     # string "md5"                    N               N
     # string "macro-start-delimiter"  Y               N
     # string "macro-end-delimiter"    Y               N
@@ -1000,7 +1000,7 @@ def export_configchannel_getdetails(self, channel):
 
         for k in ['channel', 'revision', 'creation', 'modified',
                   'permissions_mode', 'binary', 'md5']:
-            if f.has_key(k):
+            if k in f:
                 del f[k]
 
     details['files'] = fileinfo
@@ -1133,26 +1133,23 @@ def import_configchannel_fromdetails(self, ccdetails):
                     # I guess the best thing to do here flag an error and
                     # import everything else
                     if not filedetails.has_key('contents'):
-                        logging.error("Failed trying to import file %s" % path)
-                        logging.error("if it is a binary file, or contains" +
-                                      " characters not valid in XML these can't be" +
-                                      " exported correctly via the API")
+                        logging.error(
+                            "Failed trying to import file %s (empty content)"
+                            % path)
+                        logging.error("Older APIs can't export encoded files")
                         continue
-                    # Now we check if the file needs base64 encoding
-                    # This will be because of trailing newlines (which get
-                    # eaten by the API)
-                    elif self.file_needs_b64_enc(filedetails['contents']):
-                        logging.debug("Detected file needs base64 encoding")
+
+                    if not filedetails['contents_enc64']:
+                        logging.debug("base64 encoding file")
                         filedetails['contents'] = \
-                            base64.b64encode(filedetails['contents'])
+                            base64.b64encode(filedetails['contents'].encode('utf8'))
                         filedetails['contents_enc64'] = True
 
                 logging.debug("Creating %s %s" %
                               (filedetails['type'], filedetails))
                 if filedetails.has_key('type'):
                     del filedetails['type']
-                if filedetails.has_key('binary'):
-                    del filedetails['binary']
+
                 ret = self.client.configchannel.createOrUpdatePath(
                     self.session, ccdetails['label'], path, isdir, filedetails)
             if ret != None:
