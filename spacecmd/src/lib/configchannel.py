@@ -559,7 +559,15 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
                 if self.user_confirm('Read an existing file [y/N]:',
                                      nospacer=True, ignore_yes=True):
                     options.file = prompt_user('File:')
+
                     contents = read_file(options.file)
+
+                    if options.binary is None:
+                        options.binary = self.file_is_binary(options.file)
+                        if options.binary:
+                            logging.debug("Binary detected")
+                    elif options.binary:
+                        logging.debug("Binary selected")
                 else:
                     if contents:
                         template = contents
@@ -575,16 +583,13 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
         if not options.symlink and not options.directory:
             if options.file:
                 contents = read_file(options.file)
-                # If binary mode explicitly specified, we always base64 encode
-                # we also check the file contents to see if we detect a file
-                # which needs encoding
-                if options.binary:
-                    logging.debug("Binary selected, base64 encoding contents")
-                    contents = base64.b64encode(contents)
-                elif self.file_needs_b64_enc(contents):
-                    logging.debug("Detected file needs base64 encoding")
-                    contents = base64.b64encode(contents)
-                    options.binary = True
+
+                if options.binary is None:
+                    options.binary = self.file_is_binary(options.file)
+                    if options.binary:
+                        logging.debug("Binary detected")
+                elif options.binary:
+                    logging.debug("Binary selected")
             else:
                 logging.error('You must provide the file contents')
                 return
@@ -619,14 +624,19 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
             else:
                 options.mode = '0644'
 
+        logging.debug("base64 encoding contents")
+        contents = base64.b64encode(contents)
+
         file_info = {'contents': ''.join(contents),
                      'owner': options.owner,
                      'group': options.group,
                      'selinux_ctx': options.selinux_ctx,
-                     'permissions': options.mode}
+                     'permissions': options.mode,
+                     'contents_enc64': True,
+                     'binary': options.binary}
 
+        # Binary set or detected
         if options.binary:
-            file_info['contents_enc64'] = True
             file_info['binary'] = True
 
         print 'Path:            %s' % options.path
@@ -634,6 +644,7 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
         print 'Owner:           %s' % file_info['owner']
         print 'Group:           %s' % file_info['group']
         print 'Mode:            %s' % file_info['permissions']
+        print 'Binary:          %s' % file_info['binary']
         print 'SELinux Context: %s' % file_info['selinux_ctx']
 
         # only add the revision field if the user supplied it
@@ -648,7 +659,10 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
             else:
                 print 'Contents'
                 print '--------'
-                print file_info['contents']
+                if file_info['contents_enc64']:
+                    print base64.b64decode(file_info['contents'])
+                else:
+                    print file_info['contents']
 
     return file_info
 

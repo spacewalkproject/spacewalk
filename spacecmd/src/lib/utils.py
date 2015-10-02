@@ -46,6 +46,7 @@ from tempfile import mkstemp
 from textwrap import wrap
 import rpm
 from spacecmd.optionparser import SpacecmdOptionParser
+from subprocess import Popen, PIPE
 
 try:
     import json
@@ -754,14 +755,20 @@ def diff(source_data, target_data, source_channel, target_channel):
     return list(unified_diff(source_data, target_data, source_channel, target_channel))
 
 
-def file_needs_b64_enc(self, contents):
-    """Used to check if files (config files primarily) need base64 encoding
-    in order to work properly via the API"""
+def file_is_binary(self, path):
+    """Tries to determine whether the file is a binary.
+       Assumes binary if it can't categorize the file as plaintext"""
+    try:
+        process = Popen(["file", "-b", "--mime-type", path], stdout=PIPE)
+        (output, err) = process.communicate()
+        exit_code = process.wait()
+        if exit_code != 0:
+            return True
 
-    if "\0" in contents:
+        if output.startswith("text/"):
+            return False
+    except OSError:
         return True
+    return False
 
-    if not contents:  # zero length
-        return False
 
-    return True # always base64 encode, prevents stripping of whitespace
