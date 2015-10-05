@@ -19,6 +19,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
@@ -123,19 +124,17 @@ public class ResetPasswordFactory extends HibernateFactory {
      */
     public static String generatePasswordToken(User u) {
         try {
-            int retryCounter = 0;
             MessageDigest md = MessageDigest.getInstance("SHA-1");
-            String input = retryCounter++ +
-                            ":" + u.getId().toString() +
-                            ":" + System.currentTimeMillis();
-            String hash = StringUtil.getHexString(md.digest(input.getBytes()));
+            // What matters is that the token cannot be guessed from publically-available
+            // info (like timestamp or login or uid). A random UUID is 'something only
+            // the server knows'
+            UUID uuid = UUID.randomUUID();
+            String hash = StringUtil.getHexString(md.digest(uuid.toString().getBytes()));
             while (lookupByToken(hash) != null) {
-                input = retryCounter++ +
-                        ":" + u.getId().toString() +
-                        ":" + System.currentTimeMillis();
-                hash = StringUtil.getHexString(md.digest(input.getBytes()));
+                uuid = UUID.randomUUID();
+                hash = StringUtil.getHexString(md.digest(uuid.toString().getBytes()));
             }
-            return StringUtil.getHexString(md.digest(hash.getBytes()));
+            return hash;
         }
         catch (NoSuchAlgorithmException e) {
             log.error("Failed to find SHA-1?!?", e);
