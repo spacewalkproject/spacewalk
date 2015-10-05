@@ -393,7 +393,7 @@ public abstract class CobblerObject {
 
         String[] options = StringUtils.split(kernelOpts);
         for (String option : options) {
-            String[] split = option.split("=");
+            String[] split = option.split("=", 1);
             if (split.length == 1) {
                 toRet.put(split[0], new ArrayList<String>());
             }
