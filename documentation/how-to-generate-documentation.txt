@@ -83,9 +83,9 @@ schema-docs
   Back to <MACHINE-WITH-YOUR-SVN-CHECKOUT>:
   ----------------------------------------
     # Move to SVN repo
-    cp -fr /tmp/db-schema $SVN/schema-doc
+    rm -rf $SVN/schema-doc; cp -r /tmp/db-schema $SVN/schema-doc
     # Check your work
-    cd $SVN; diff -rb --context=1 --exclude=.svn schema-doc | less
+    cd $SVN; svn diff --diff-cmd diff -x -b -x --context=1 schema-doc | less
     # Check it in
     cd $SVN; svn ci -m "Updating Schema documentation for $VERS" schema-doc
 
