@@ -760,7 +760,7 @@ def file_is_binary(self, path):
        Assumes binary if it can't categorize the file as plaintext"""
     try:
         process = Popen(["file", "-b", "--mime-type", path], stdout=PIPE)
-        (output, err) = process.communicate()
+        output = process.communicate()[0]
         exit_code = process.wait()
         if exit_code != 0:
             return True
@@ -770,5 +770,3 @@ def file_is_binary(self, path):
     except OSError:
         pass
     return True
-
-
