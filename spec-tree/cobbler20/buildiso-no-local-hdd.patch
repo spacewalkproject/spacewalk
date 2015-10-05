@@ -11,7 +11,40 @@ diff -rupN cobbler-2.0.11-orig/cobbler/action_buildiso.py cobbler-2.0.11/cobbler
  LABEL local
          MENU LABEL (local)
          MENU DEFAULT
-@@ -375,10 +378,14 @@ class BuildIso:
+@@ -86,7 +89,7 @@ class BuildIso:
+             return str(self.distctr)
+ 
+   
+-    def generate_netboot_iso(self,imagesdir,isolinuxdir,profiles=None,systems=None,exclude_dns=None,force_server=None):
++    def generate_netboot_iso(self,imagesdir,isolinuxdir,profiles=None,systems=None,exclude_dns=None,force_server=None,no_local_hdd=None):
+         self.logger.info("copying kernels and initrds for profiles")
+         # copy all images in included profiles to images dir
+         for profile in self.api.profiles():
+@@ -131,7 +134,11 @@ class BuildIso:
+         self.logger.info("generating a isolinux.cfg")
+         isolinuxcfg = os.path.join(isolinuxdir, "isolinux.cfg")
+         cfg = open(isolinuxcfg, "w+")
+-        cfg.write(HEADER) # fixme, use template
++        header_written = True
++        if not no_local_hdd:
++            cfg.write(LOCAL_HDD_HEADER) # fixme, use template
++        else:
++            header_written = False
+ 
+         self.logger.info("generating profile list")
+        #sort the profiles
+@@ -156,6 +163,10 @@ class BuildIso:
+                     data["server"] = force_server
+                 distname = self.make_shorter(dist.name)
+ 
++                if not header_written:
++                    cfg.write(HEADER.replace('local', profile.name))
++                    header_written = True
++
+                 cfg.write("\n")
+                 cfg.write("LABEL %s\n" % profile.name)
+                 cfg.write("  MENU LABEL %s\n" % profile.name)
+@@ -375,7 +386,7 @@ class BuildIso:
          return
  
  
@@ -20,13 +53,16 @@ diff -rupN cobbler-2.0.11-orig/cobbler/action_buildiso.py cobbler-2.0.11/cobbler
  
          self.settings = self.config.settings()
  
-+        if not no_local_hdd:
-+            global HEADER
-+            HEADER = LOCAL_HDD_HEADER
-+
-         # the distro option is for stand-alone builds only
-         if not standalone and distro is not None:
-             utils.die(self.logger,"The --distro option should only be used when creating a standalone ISO")
+@@ -447,7 +458,7 @@ class BuildIso:
+         if standalone:
+             self.generate_standalone_iso(imagesdir,isolinuxdir,distro,source)
+         else:
+-            self.generate_netboot_iso(imagesdir,isolinuxdir,profiles,systems,exclude_dns,force_server)
++            self.generate_netboot_iso(imagesdir,isolinuxdir,profiles,systems,exclude_dns,force_server, no_local_hdd)
+ 
+         # removed --quiet
+         cmd = "mkisofs -o %s -r -b isolinux/isolinux.bin -c isolinux/boot.cat" % iso
+
 diff -rupN cobbler-2.0.11-orig/cobbler/api.py cobbler-2.0.11/cobbler/api.py
 --- cobbler-2.0.11-orig/cobbler/api.py	2015-09-01 10:20:20.292938313 +0200
 +++ cobbler-2.0.11/cobbler/api.py	2015-09-01 10:23:39.626084609 +0200
