@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 52%{?dist}
+Release: 53%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -487,6 +487,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Mon Oct 05 2015 Tomas Kasparek <tkasparek@redhat.com> 2.0.11-53
+- 
+
 * Wed Sep 02 2015 Jan Dobes 2.0.11-52
 - 1199214 - removing kernel options for s390 systems
 
