@@ -136,8 +136,7 @@ public class ActionChainHandler extends BaseHandler {
      * @param loggedInUser The current user
      * @param chainLabel The label of the Action Chain.
      * @param actionId Action ID.
-     * @return State of the action result. Negative is false. Positive: number
-     * of successfully deleted entries.
+     * @return 1 if successful, exception otherwise
      *
      * @xmlrpc.doc Remove an action from an Action Chain.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
@@ -165,8 +164,7 @@ public class ActionChainHandler extends BaseHandler {
      *
      * @param loggedInUser The current user
      * @param chainLabel Action Chain label.
-     * @return State of the action result. Negative is false. Positive: number
-     * of successfully deleted entries.
+     * @return 1 if successful, exception otherwise
      *
      * @xmlrpc.doc Delete action chain by label.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
@@ -406,7 +404,7 @@ public class ActionChainHandler extends BaseHandler {
      * @param loggedInUser The current user
      * @param chainLabel Label of the action chain
      * @param date Earliest date
-     * @return True in XML-RPC representation
+     * @return 1 if successful, exception otherwise
      *
      * @xmlrpc.doc Schedule the Action Chain so that its actions will actually occur.
      * @xmlrpc.param #param_desc("string", "sessionKey",
@@ -429,7 +427,7 @@ public class ActionChainHandler extends BaseHandler {
      * @param chainLabel Label of the action chain
      * @param serverId System ID
      * @param revisions List of configuration revisions.
-     * @return True in XML-RPC representation
+     * @return 1 if successful, exception otherwise
      *
      * @xmlrpc.doc Adds an action to deploy a configuration file to an Action Chain.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
@@ -465,7 +463,7 @@ public class ActionChainHandler extends BaseHandler {
      * @param loggedInUser The current user
      * @param previousLabel Previous (existing) label of the Action Chain
      * @param newLabel New (desired) label of the Action Chain
-     * @return list of action ids, exception thrown otherwise
+     * @return 1 if successful, exception otherwise
      *
      * @xmlrpc.doc Rename an Action Chain.
      * @xmlrpc.param #param_desc("string", "sessionKey", "Session token, issued at login")
