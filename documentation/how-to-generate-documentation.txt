@@ -32,6 +32,8 @@ Javadoc
 
 Python
 ======
+    # Note: in last version of epydoc (epydoc-3.0.1-15) is missing fix introduced in upstream r1728,
+    # if it's not applied next step will probably end up with exception
     # Build
     cd $GIT/documentation; make python
     # Move to SVN repo
