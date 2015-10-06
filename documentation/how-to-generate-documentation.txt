@@ -28,7 +28,7 @@ Javadoc
     # Check your work
     cd $SVN; svn diff --diff-cmd diff -x -b -x --context=1 javadoc | less
     # Check it in
-    cd $SVN; svn ci -m "Updating javadoc documentation for $VERS" javadoc
+    cd $SVN; svn add --force javadoc; svn ci -m "Updating javadoc documentation for $VERS" javadoc
 
 Python
 ======
@@ -87,5 +87,5 @@ schema-docs
     # Check your work
     cd $SVN; svn diff --diff-cmd diff -x -b -x --context=1 schema-doc | less
     # Check it in
-    cd $SVN; svn ci -m "Updating Schema documentation for $VERS" schema-doc
+    cd $SVN; svn add --force schema-doc; svn ci -m "Updating Schema documentation for $VERS" schema-doc
 
