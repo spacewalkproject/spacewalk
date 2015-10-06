@@ -192,7 +192,7 @@ def list_channels(only_base_channels=False):
         systemExit(1, _('Unable to locate SystemId file. Is this system registered?'))
 
     for channel in sorted(channels):
-        if not (only_base_channels and channel.get('parent_channel')):
+        if not (only_base_channels and channel['parent_channel']):
             print channel['label']
 
 
