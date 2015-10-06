@@ -14,8 +14,8 @@ Setup
     * Checkout docs from SVN
     * export SVN=<wherever you checked out documentation>
     * export GIT=<wherever your spacewalk.github checkout is>
-    * export VERS=2.3 # SW-version you're generating docs for
-    * export PREV_VERS=2.2 # SW-version prior to $VERS
+    * export VERS=2.4 # SW-version you're generating docs for
+    * export PREV_VERS=2.3 # SW-version prior to $VERS
     * yum install epydoc graphviz # for python
     * javadoc needs to be installed, it needs java-1.6.0-openjdk-devel # for java
 
@@ -69,7 +69,7 @@ schema-docs
     # Setup source from git
     git clone https://github.com/spacewalkproject/spacewalk.git
     cd spacewalk/documentation
-    git checkout SPACEWALK-2.3 # SPACEWALK-$VERS
+    git checkout SPACEWALK-2.4 # SPACEWALK-$VERS
     # Get schema-vsiualization tools
     wget http://sourceforge.net/projects/oraschemadoc/files/oraschemadoc/0.31/oraschemadoc-0.31.tar.gz/download -O oraschemadoc-0.31.tar.gz
     tar xvzf oraschemadoc-0.31.tar.gz
