@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.0
+Version: 2.5.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -655,6 +655,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Wed Oct 07 2015 Aron Parsons <aronparsons@gmail.com> 2.5.1-1
+- recognize RDO OpenStack instances as virtual systems
+- Bumping package versions for 2.5.
+
 * Wed Sep 23 2015 Jan Dobes 2.4.23-1
 - Pulling updated *.po translations from Zanata.
 
