@@ -15,6 +15,13 @@
 package com.redhat.rhn.frontend.security;
 
 
+import com.redhat.rhn.common.util.ServletUtils;
+import com.redhat.rhn.frontend.action.LoginAction;
+import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
+
+import org.apache.commons.collections.set.UnmodifiableSet;
+import org.apache.commons.lang.StringUtils;
+
 import java.io.IOException;
 import java.util.Set;
 import java.util.TreeSet;
@@ -22,13 +29,6 @@ import java.util.TreeSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.collections.set.UnmodifiableSet;
-import org.apache.commons.lang.StringUtils;
-
-import com.redhat.rhn.common.util.ServletUtils;
-import com.redhat.rhn.frontend.action.LoginAction;
-import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
 
 /**
  * PxtAuthenticationService
@@ -168,7 +168,6 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
     /**
      * {@inheritDoc}
      */
-    @Override
     public boolean skipCsfr(HttpServletRequest request) {
         return requestURIdoesLogin(request) || requestPostCsfrWhitelist(request);
     }
@@ -176,7 +175,6 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
     /**
      * {@inheritDoc}
      */
-    @Override
     public boolean postOnRestrictedWhitelist(HttpServletRequest request) {
         return requestRestrictedWhitelist(request);
     }
@@ -184,7 +182,6 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
     /**
      * {@inheritDoc}
      */
-    @Override
     public boolean validate(HttpServletRequest request, HttpServletResponse response) {
         if (requestURIRequiresAuthentication(request)) {
             if (isAuthenticationRequired(request)) {
@@ -208,7 +205,6 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
     /**
      * {@inheritDoc}
      */
-    @Override
     public void redirectToLogin(HttpServletRequest request, HttpServletResponse response)
         throws ServletException {
 
@@ -242,7 +238,6 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
     /**
      * {@inheritDoc}
      */
-    @Override
     public void redirectTo(HttpServletRequest request, HttpServletResponse response,
             String path)
         throws ServletException {
@@ -253,7 +248,6 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
     /**
      * {@inheritDoc}
      */
-    @Override
     public void invalidate(HttpServletRequest request, HttpServletResponse response) {
         pxtDelegate.invalidatePxtSession(request, response);
     }

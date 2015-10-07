@@ -15,14 +15,14 @@
 
 package com.redhat.rhn.frontend.events;
 
-import java.util.List;
-
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
+
+import java.util.List;
 
 /**
  * An event representing an error generated from the web frontend
@@ -44,7 +44,6 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
      *                  request values
      * @return Text of email.
      */
-    @Override
     public String toText() {
         LocalizationService ls = LocalizationService.getInstance();
         //gather information for the email to newUser
