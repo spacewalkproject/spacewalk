@@ -72,9 +72,9 @@ def main():
                       help='List the custom channels with the assosiated repositories.')
     parser.add_option('-u', '--url', action='append', dest='url',
                       default=[], help='The url of the repository. Can be used multiple times.')
-    parser.add_option('-c', '--channel', action='store',
+    parser.add_option('-c', '--channel', action='append',
                       dest='channel_label',
-                      help='The label of the channel to sync packages to. In order to specify more than one channel see option --config.')
+                      help='The label of the channel to sync packages to. Can be used multiple times.')
     parser.add_option('-p', '--parent-channel', action='append',
                       dest='parent_label', default=[],
                       help='The label of the channel to sync packages to')
@@ -158,8 +158,9 @@ def main():
         if config.has_key('parent_channel'):
             options.parent_label+=config['parent_channel']
 
-    if options.channel_label:
-        d_ch_repo_sync[options.channel_label]=options.url
+    if len(options.channel_label)>0:
+        for channel in options.channel_label:
+            d_ch_repo_sync[channel]=options.url
 
     if options.parent_label:
         for pch in options.parent_label:
