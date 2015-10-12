@@ -13,7 +13,7 @@ my %options;
 local *FILE;
 Spacewalk::Setup::read_config($config_file, \%options);
 my @supported_backends = qw( oracle postgresql );
-my ($db, $user, $password, $from_backend, $to_backend, $raw, $host, $port, $dump_dir);
+my ($db, $user, $password, $from_backend, $to_backend, $raw, $host, $port, $dump_dir, $upgrade);
 
 sub usage {
         print "Usage:\n\n";
@@ -39,7 +39,13 @@ Getopt::Long::GetOptions (
         'raw' => \$raw,
         'dump-dir=s' => \$dump_dir,
         'help' => \&usage,
+        'upgrade' => \$upgrade,
 ) or exit 1;
+
+if (!system(qq'rpm -q rhn-upgrade > /dev/null') and !$upgrade) {
+        print "Package rhn-upgrade detected, which may lead to errors during dump process. Please remove rhn-upgrade package and proceed with dump.\n";
+        exit 1;
+}
 
 if (grep { defined $_ } $db, $user, $password, $host, $port) {
         # Some connect parameter was specified, let's use it as new connect info
