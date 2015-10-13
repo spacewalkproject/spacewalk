@@ -1280,6 +1280,7 @@ sub migrate_ora2pg {
   log_rotate(DB_MIGRATION_LOG_FILE);
   system_or_exit(["/bin/bash", "-c",
         "(set -o pipefail; /usr/bin/spacewalk-dump-schema" .
+        "--upgrade" .
         " --db=" . $oracle_creds->{'db-name'} .
         " --user=" . $oracle_creds->{'db-user'} .
         " --password=" . $oracle_creds->{'db-password'} . " | spacewalk-sql" .
