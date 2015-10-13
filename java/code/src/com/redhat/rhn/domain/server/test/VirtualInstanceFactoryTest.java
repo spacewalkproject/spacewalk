@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.server.test;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.VirtualInstance;
@@ -114,6 +115,7 @@ public class VirtualInstanceFactoryTest extends RhnBaseTestCase {
                 .withVirtHost().build();
         virtualInstanceDAO.saveVirtualInstance(guest);
         flushAndEvictGuest(guest);
+        HibernateFactory.getSession().clear();
 
         // step 2 - fetch the guest from the database so that it is attached to the session
         VirtualInstance retrievedGuest = virtualInstanceDAO.lookupById(guest

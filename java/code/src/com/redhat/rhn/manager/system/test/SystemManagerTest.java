@@ -203,6 +203,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
         // Delete the host first:
         SystemManager.deleteServer(user, host.getId());
+        HibernateFactory.getSession().clear();
         TestUtils.flushAndEvict(host);
 
         SystemManager.deleteServer(user, sid);

@@ -16,7 +16,6 @@ package com.redhat.rhn.domain.server;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.BaseDomainHelper;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -338,8 +337,10 @@ public class VirtualInstance extends BaseDomainHelper {
 
         VirtualInstance that = (VirtualInstance) object;
 
-        return new EqualsBuilder().append(this.getId(), that.getId()).
-            append(this.getUuid(), that.getUuid()).isEquals();
+        return new EqualsBuilder()
+                .append(this.getUuid(), that.getUuid())
+                .append(this.getHostSystem(), that.getHostSystem())
+                .isEquals();
     }
 
     /**
@@ -347,7 +348,10 @@ public class VirtualInstance extends BaseDomainHelper {
      * {@inheritDoc}
      */
     public int hashCode() {
-        return new HashCodeBuilder().append(getId()).append(getUuid()).toHashCode();
+        return new HashCodeBuilder()
+                .append(getUuid())
+                .append(getHostSystem())
+                .toHashCode();
     }
 
     /**
