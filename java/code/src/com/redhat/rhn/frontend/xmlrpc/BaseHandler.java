@@ -103,11 +103,13 @@ public class BaseHandler implements XmlRpcInvocationHandler {
 
         String[] byNamespace = methodCalled.split("\\.");
         String beanifiedMethod = StringUtil.beanify(byNamespace[byNamespace.length - 1]);
+        WebSession session = null;
 
         if (params.size() > 0 && params.get(0) instanceof String &&
                 isSessionKey((String)params.get(0))) {
             if (!myClass.getName().endsWith("AuthHandler") &&
                 !myClass.getName().endsWith("SearchHandler")) {
+                session = SessionManager.loadSession((String)params.get(0));
                 params.set(0, getLoggedInUser((String)params.get(0)));
                 if (((User)params.get(0)).isReadOnly()) {
                     if (!beanifiedMethod.matches(RO_REGEX)) {
@@ -210,6 +212,11 @@ public class BaseHandler implements XmlRpcInvocationHandler {
             }
             // Otherwise, throw the generic unhandled internal exception
             throw new XmlRpcFault(-1, "unhandled internal exception");
+        }
+        finally {
+            if (session != null) {
+                SessionManager.extendSessionLifetime(session);
+            }
         }
     }
 

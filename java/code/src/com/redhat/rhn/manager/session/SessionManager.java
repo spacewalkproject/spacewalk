@@ -401,5 +401,14 @@ public class SessionManager extends BaseManager {
     public static void purgeUserSessions(User user) {
         WebSessionFactory.purgeUserSessions(user);
     }
+
+    /**
+     * @param session session which lifetime should be extended
+     */
+    public static void extendSessionLifetime(WebSession session) {
+        session.setExpires(TimeUtils.currentTimeSeconds() +
+                SessionManager.lifetimeValue());
+        WebSessionFactory.save(session);
+    }
 }
 
