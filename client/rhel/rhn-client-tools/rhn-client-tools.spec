@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.5.0
+Version: 2.5.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -383,6 +383,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Oct 15 2015 Tomas Lestach <tlestach@redhat.com> 2.5.1-1
+- fix rhnChannel instance has no attribute 'get'
+- Bumping package versions for 2.5.
+
 * Thu Sep 24 2015 Jan Dobes 2.4.11-1
 - Bumping copyright year.
 
