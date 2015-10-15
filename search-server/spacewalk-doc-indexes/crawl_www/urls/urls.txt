@@ -1,8 +1,7 @@
-https://fedorahosted.org/spacewalk/wiki/ReleaseNotes23
-https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.6/html/Reference_Guide/index.html
-https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.7/html/Installation_Guide/index.html
-https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.7/html/Proxy_Installation_Guide/index.html
-https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.7/html/Client_Configuration_Guide/index.html
-https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.7/html/User_Guide/index.html
-https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.7/html/Getting_Started_Guide/index.html
-https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.6/html/API_Overview/index.html
+https://fedorahosted.org/spacewalk/wiki/ReleaseNotes24
+https://access.redhat.com/documentation/en-US/Red_Hat_Satellite/5.7/html/Installation_Guide/index.html
+https://access.redhat.com/documentation/en-US/Red_Hat_Satellite/5.7/html/Proxy_Installation_Guide/index.html
+https://access.redhat.com/documentation/en-US/Red_Hat_Satellite/5.7/html/Client_Configuration_Guide/index.html
+https://access.redhat.com/documentation/en-US/Red_Hat_Satellite/5.7/html/User_Guide/index.html
+https://access.redhat.com/documentation/en-US/Red_Hat_Satellite/5.7/html/Getting_Started_Guide/index.html
+https://access.redhat.com/documentation/en-US/Red_Hat_Satellite/5.7/html/API_Guide/index.html
