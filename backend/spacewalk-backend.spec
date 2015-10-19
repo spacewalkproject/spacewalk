@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.2
+Version: 2.5.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -655,6 +655,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Sun Oct 18 2015 Aron Parsons <aronparsons@gmail.com> 2.5.3-1
+- don't print python object details in reposync.py
+
 * Mon Oct 12 2015 Jiri Dostal <jdostal@redhat.com> 2.5.2-1
 - [RFE] spacewalk-repo-sync: support multiple '-c channel' as in satellite-sync
 
