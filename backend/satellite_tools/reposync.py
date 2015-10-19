@@ -264,7 +264,6 @@ class RepoSync(object):
                     abspath = abspath.rstrip(suffix)
                     relativepath = relativepath.rstrip(suffix)
             src = fileutils.decompress_open(groupsfile)
-            print src
             dst = open(abspath, "w")
             shutil.copyfileobj(src, dst)
             dst.close()
