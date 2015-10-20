@@ -33,16 +33,21 @@
                             <c:choose>
                                 <c:when test="${!base_entitlement_permanent}">
                                     <rhn:require acl="user_role(org_admin)">
-                                        <html:select property="base_entitlement" styleId="baseentitlement" styleClass="form-control">
-                                            <html:options collection="base_entitlement_options" property="value" labelProperty="label"/>
-                                        </html:select>
+                                        <select name="base_entitlement" id="baseentitlement" class="form-control">
+                                            <c:forEach items="${base_entitlement_options}" var="option">
+                                                <option value="<c:out value="${option.value}"/>"
+                                                    <c:if test="${option.value == base_entitlement}">selected="1"</c:if>>
+                                                    <c:out value="${option.label}"/>
+                                                </option>
+                                            </c:forEach>
+                                        </select>
                                     </rhn:require>
                                     <rhn:require acl="not user_role(org_admin)">
-                                        <c:out value="${base_entitlement}"/>
+                                        <c:out value="${rhn:localize(base_entitlement)}"/>
                                     </rhn:require>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:out value="${base_entitlement}"/>
+                                    <c:out value="${rhn:localize(base_entitlement)}"/>
                                 </c:otherwise>
                             </c:choose>
                         </div>

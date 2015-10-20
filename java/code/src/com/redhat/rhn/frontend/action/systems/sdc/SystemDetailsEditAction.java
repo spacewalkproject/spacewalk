@@ -298,12 +298,12 @@ public class SystemDetailsEditAction extends RhnAction {
         daForm.set(NAME, s.getName());
 
         if (s.getBaseEntitlement() != null) {
-            daForm.set(BASE_ENTITLEMENT, s.getBaseEntitlement().getLabel());
+            request.setAttribute(BASE_ENTITLEMENT, s.getBaseEntitlement().getLabel());
             request.setAttribute(BASE_ENTITLEMENT_PERMANENT,
                                  Boolean.valueOf(s.getBaseEntitlement().isPermanent()));
         }
         else {
-            daForm.set(BASE_ENTITLEMENT, "none");
+            request.setAttribute(BASE_ENTITLEMENT, "none");
         }
 
         Iterator i = s.getAddOnEntitlements().iterator();
