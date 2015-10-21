@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.4
+Version: 2.5.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Oct 21 2015 Jan Dobes 2.5.5-1
+- support listing errata by last_modified date
+
 * Thu Oct 15 2015 Tomas Lestach <tlestach@redhat.com> 2.5.4-1
 - Make the betaMarker string accessors private
 - rename ChannelProduct#beta to ChannelProduct#betaMarker
