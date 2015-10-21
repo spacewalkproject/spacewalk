@@ -307,7 +307,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
         e = (Errata) TestUtils.saveAndReload(e);
 
-        List<ErrataOverview> errata = ChannelManager.listErrata(c, null, null, user);
+        List<ErrataOverview> errata = ChannelManager.listErrata(c, null, null, false, user);
         boolean found = false;
         for (ErrataOverview eo : errata) {
             if (eo.getId().equals(e.getId())) {
@@ -320,7 +320,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         found = false;
         Date date = new Date();
         errata = ChannelManager.listErrata(c, new Date(date.getTime() - 100000),
-                null, user);
+                null, false, user);
         for (ErrataOverview eo : errata) {
             if (eo.getId().equals(e.getId())) {
                 found = true;
@@ -330,7 +330,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
         found = false;
         errata = ChannelManager.listErrata(c, new Date(date.getTime() - 100000),
-                                    new Date(date.getTime() + 5000000), user);
+                                    new Date(date.getTime() + 5000000), false, user);
         for (ErrataOverview eo : errata) {
             if (eo.getId().equals(e.getId())) {
                 found = true;

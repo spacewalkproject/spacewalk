@@ -111,7 +111,7 @@ public class ListErrataAction extends RhnListAction implements Listable<ErrataOv
         User user = context.getCurrentUser();
         Channel currentChan = ChannelFactory.lookupByIdAndUser(cid,
                 context.getCurrentUser());
-        return ChannelManager.listErrata(currentChan, null, null, user);
+        return ChannelManager.listErrata(currentChan, null, null, false, user);
     }
 
 

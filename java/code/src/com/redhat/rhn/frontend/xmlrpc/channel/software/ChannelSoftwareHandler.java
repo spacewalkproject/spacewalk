@@ -1527,12 +1527,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public List<ErrataOverview> listErrata(User loggedInUser, String channelLabel,
             Date startDate) throws NoSuchChannelException {
-        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
-
-        DataResult<ErrataOverview> dr = ChannelManager.listErrata(channel, startDate, null,
-                loggedInUser);
-        dr.elaborate();
-        return dr;
+        return listErrata(loggedInUser, channelLabel, startDate, null);
     }
 
     /**
@@ -1558,18 +1553,45 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     public List<ErrataOverview> listErrata(User loggedInUser, String channelLabel,
             Date startDate, Date endDate) throws NoSuchChannelException {
+        return listErrata(loggedInUser, channelLabel, startDate, endDate, false);
+    }
+
+    /**
+     * List the errata applicable to a channel between startDate and endDate.
+     * Allow to select errata by last modified date.
+     * @param loggedInUser The current user
+     * @param channelLabel The label for the channel
+     * @param startDate begin date
+     * @param endDate end date
+     * @param lastModified select by last modified timestamp or not
+     * @return the errata applicable to a channel
+     * @throws NoSuchChannelException thrown if there is no channel matching
+     * channelLabel.
+     *
+     * @xmlrpc.doc List the errata applicable to a channel between startDate and endDate.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.param #param($date, "startDate")
+     * @xmlrpc.param #param($date, "endDate")
+     * @xmlrpc.param #param_desc("boolean", "lastModified",
+     *     "select by last modified or not")
+     * @xmlrpc.returntype
+     *      #array()
+     *          $ErrataOverviewSerializer
+     *      #array_end()
+     */
+
+    public List<ErrataOverview> listErrata(User loggedInUser,
+            String channelLabel, Date startDate, Date endDate,
+            boolean lastModified) throws NoSuchChannelException {
 
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
 
         DataResult<ErrataOverview> errata = ChannelManager.listErrata(channel, startDate,
-                endDate,
-                loggedInUser);
+                endDate, lastModified, loggedInUser);
         errata.elaborate();
         return errata;
     }
-
-
-
 
     /**
      * List the errata applicable to a channel

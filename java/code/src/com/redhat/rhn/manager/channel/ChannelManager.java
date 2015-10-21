@@ -1261,10 +1261,11 @@ public class ChannelManager extends BaseManager {
      * @param start start date
      * @param end end date
      * @param user the user doing the list
+     * @param lastModified use query selecting by last_modified timestamp or not
      * @return the errata applicable to a channel
      */
     public static DataResult<ErrataOverview> listErrata(Channel channel, Date start,
-                                                                    Date end, User user) {
+            Date end, boolean lastModified, User user) {
         String mode = "in_channel";
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("cid", channel.getId());
@@ -1276,6 +1277,10 @@ public class ChannelManager extends BaseManager {
             if (end != null) {
                 params.put("end_date", new Timestamp(end.getTime()));
                 mode = "in_channel_between";
+            }
+
+            if (lastModified) {
+                mode += "_last_modified";
             }
         }
         SelectMode m = ModeFactory.getMode(
