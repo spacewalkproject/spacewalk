@@ -738,7 +738,7 @@ ORDER BY UPPER(C.name)
 
 <callable-mode name="unsubscribe_server_from_channel">
   <query params="server_id, channel_id">
-      {call rhn_channel.unsubscribe_server(:server_id, :channel_id)}
+      {call rhn_channel.unsubscribe_server(:server_id, :channel_id, 0)}
   </query>
 </callable-mode>
 
