@@ -1559,6 +1559,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     /**
      * List the errata applicable to a channel between startDate and endDate.
      * Allow to select errata by last modified date.
+     * Support behaviour available in old versions. (needed for Dumper)
      * @param loggedInUser The current user
      * @param channelLabel The label for the channel
      * @param startDate begin date
