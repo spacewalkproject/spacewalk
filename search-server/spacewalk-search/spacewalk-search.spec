@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.0
+Version: 2.5.1
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -205,6 +205,10 @@ fi
 %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
+* Thu Oct 22 2015 Tomas Kasparek <tkasparek@redhat.com> 2.5.1-1
+- run indexing tasks only after previous one finishes
+- Bumping package versions for 2.5.
+
 * Thu Sep 24 2015 Jan Dobes 2.4.2-1
 - Bumping copyright year.
 
