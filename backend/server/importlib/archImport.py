@@ -144,9 +144,12 @@ class ServerGroupServerArchCompatImport(BaseArchCompatImport):
     arches2_field_name = 'server_group_type'
     submit_method_name = 'processServerGroupServerArchCompatMap'
 
-    # monitoring is no longer supported, ignore any monitoring info for
+    # some entitlements are no longer supported, ignore any of them for
     # backwards compatibility
     def _postprocess(self):
-        self.batch[:] = [entry for entry in self.batch if not
-                         entry[self.arches2_name] == 'monitoring_entitled']
+        self.batch[:] = [entry for entry in self.batch if
+                         entry[self.arches2_name] not in [
+                             'monitoring_entitled', 'sw_mgr_entitled',
+                             'provisioning_entitled', 'nonlinux_entitled',
+                             'virtualization_host_platform']]
         BaseArchCompatImport._postprocess(self)
