@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.6
+Version: 2.5.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 23 2015 Tomas Lestach <tlestach@redhat.com> 2.5.7-1
+- 1154548 - allowing RHEL7 kickstart repositories
+
 * Thu Oct 22 2015 Jan Dobes 2.5.6-1
 - adding useful comment
 
