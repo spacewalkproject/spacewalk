@@ -149,7 +149,8 @@ public class RepoInfo {
         ArrayList<RepoInfo> repoList = new ArrayList<RepoInfo>();
         String[] repos = {"Cluster", "ClusterStorage", "HighAvailability",
                         "LoadBalancer", "ResilientStorage", "VT", "Workstation",
-                        "ScalableFileSystem"};
+                        "ScalableFileSystem",
+                        "addons/HighAvailability", "addons/ResilientStorage"};
 
         for (String repo : repos) {
             File file = new File(StringUtil.addPath(tree.getAbsolutePath(), repo));
@@ -157,7 +158,7 @@ public class RepoInfo {
                 File repodata = new File(file.getPath() +
                     File.separator + "repodata" +
                     File.separator + "repomd.xml");
-                repoList.add(create(repo, repo, repodata.exists()));
+                repoList.add(create(repo.replace("addons/", ""), repo, repodata.exists()));
             }
         }
         return repoList;
