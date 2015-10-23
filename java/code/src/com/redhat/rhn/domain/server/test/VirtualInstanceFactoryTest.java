@@ -108,24 +108,6 @@ public class VirtualInstanceFactoryTest extends RhnBaseTestCase {
         assertEquals(guestSystem, retrievedGuest.getGuestSystem());
     }
 
-    public void testDeleteUnregisteredGuest() throws Exception {
-        // step 1 - create a guest in the database
-        VirtualInstance guest = builder.createUnregisteredGuest()
-                .withVirtHost().build();
-        virtualInstanceDAO.saveVirtualInstance(guest);
-        flushAndEvictGuest(guest);
-
-        // step 2 - fetch the guest from the database so that it is attached to the session
-        VirtualInstance retrievedGuest = virtualInstanceDAO.lookupById(guest
-                .getId());
-
-        // step 3 - delete the guest
-        virtualInstanceDAO.deleteVirtualInstance(retrievedGuest);
-        flushAndEvictGuest(retrievedGuest);
-
-        assertGuestDeleted(guest);
-    }
-
     public void testGetGuestsAndNotHost() throws Exception {
 
         VirtualInstance vi = builder.createUnregisteredGuest()
@@ -143,43 +125,6 @@ public class VirtualInstanceFactoryTest extends RhnBaseTestCase {
         Server s = ServerFactory.lookupById(sid);
         assertEquals(1, s.getGuests().size());
 
-    }
-
-    public void testDeleteRegisteredGuestWithVirtHost() throws Exception {
-        // step 1 - create a guest in the database
-        VirtualInstance guest = builder.createGuest().withVirtHost().build();
-        //Server guestSystem = guest.getGuestSystem();
-        virtualInstanceDAO.saveVirtualInstance(guest);
-        flushAndEvictGuest(guest);
-        flushAndEvict(guest.getHostSystem());
-
-        // step 2 - fetch the guest so that it is attached to the session
-        VirtualInstance retrievedGuest = virtualInstanceDAO.lookupById(guest
-                .getId());
-        Server guestSystem = retrievedGuest.getGuestSystem();
-
-        // step 3 - delete the guest
-        virtualInstanceDAO.deleteVirtualInstance(retrievedGuest);
-        flushAndEvictGuest(retrievedGuest);
-        flushAndEvict(retrievedGuest.getHostSystem());
-
-        assertGuestDeleted(guest, guestSystem);
-    }
-
-    public void testDeleteGuestWithoutAHost() throws Exception {
-        // step 1 - create a guest in the database
-        VirtualInstance guest = builder.createGuest().withPersistence().build();
-
-        // step 2 - fetch the guest so it is attached to the session
-        VirtualInstance retrievedGuest = virtualInstanceDAO.lookupById(guest
-                .getId());
-        Server guestSystem = retrievedGuest.getGuestSystem();
-
-        // step 3 - delete the guest
-        virtualInstanceDAO.deleteVirtualInstance(retrievedGuest);
-        flushAndEvict(guest);
-
-        assertGuestDeleted(guest, guestSystem);
     }
 
     public void testSaveAndRetrieveInfo() throws Exception {
