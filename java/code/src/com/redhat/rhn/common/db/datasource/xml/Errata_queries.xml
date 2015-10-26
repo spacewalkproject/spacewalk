@@ -601,21 +601,16 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory_name,
                 E.update_date AS UPDATE_DATE,
                 E.synopsis as ADVISORY_SYNOPSIS,
                 E.advisory_type as ADVISORY_TYPE
-  FROM rhnErrata E inner join
-       rhnChannelErrata CE on E.id = CE.errata_id inner join
-       rhnUserChannel UC on CE.channel_id = UC.channel_id left join
+  FROM rhnErrata E left join
        rhnErrataCloned EC on EC.id = E.id left join
     ( select EC3.original_id as id from rhnChannelErrata CE3 inner join
             rhnErrataCloned EC3 on CE3.errata_id = EC3.id
             where CE3.channel_id = :custom_cid
-    ) temp2 on temp2.id = EC.original_id left join
-    (SELECT errata_id from rhnChannelErrata where channel_id = :custom_cid) errata_exists on errata_exists.errata_id = E.id
- WHERE
-   CE.channel_id != :custom_cid
+    ) temp2 on temp2.id = EC.original_id
+ WHERE E.org_id = :org_id
+   and E.id not in (SELECT CE.errata_id from rhnChannelErrata CE where CE.channel_id = :custom_cid)
+   and E.id in (SELECT CE.errata_id from rhnChannelErrata CE where CE.channel_id != :custom_cid)
    and temp2.id is null
-   and errata_exists.errata_id is null
-   and E.org_id is not null
-   and UC.org_id = :org_id
   </query>
 </mode>
 
@@ -628,19 +623,15 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory_name,
                 Errata1.advisory_type as ADVISORY_TYPE
   from
   (  SELECT distinct E.id, E.synopsis, E.update_date, E.advisory_type, E.advisory_name, EC.original_id
-      FROM rhnErrata E inner join
-    rhnChannelErrata CE on E.id = CE.errata_id inner join
-    rhnUserChannel UC on CE.channel_id = UC.channel_id inner join
-    rhnErrataPackage EP on EP.errata_id = E.id inner join
-    rhnPackage P on p.id = EP.package_id inner join
-    rhnPackage P2 on P.name_id = P2.name_id inner join
-    rhnChannelPackage CP on P2.id = CP.package_id and CP.channel_id = :custom_cid left join
-    rhnErrataCloned EC on EC.id = E.id left join
-    (SELECT errata_id from rhnChannelErrata where channel_id = :custom_cid) errata_exists on errata_exists.errata_id = E.id
-    where CE.channel_id != :custom_cid
-    and E.org_id is not null
-    and UC.org_id = :org_id
-    and errata_exists.errata_id is null
+      FROM rhnErrata E left join
+           rhnErrataCloned EC on EC.id = E.id
+    where E.org_id = :org_id
+      and E.id not in (SELECT CE.errata_id from rhnChannelErrata CE where CE.channel_id = :custom_cid)
+      and E.id in (SELECT CE.errata_id from rhnChannelErrata CE where CE.channel_id != :custom_cid)
+      and E.id in (SELECT EP.errata_id from rhnErrataPackage EP inner join
+                                            rhnPackage P on P.id = EP.package_id inner join
+                                            rhnPackage P2 on P.name_id = P2.name_id inner join
+                                            rhnChannelPackage CP on P2.id = CP.package_id and CP.channel_id = :custom_cid)
      )  Errata1 left join
     (   select EC3.original_id as id from rhnChannelErrata CE3 inner join
             rhnErrataCloned EC3 on CE3.errata_id = EC3.id
