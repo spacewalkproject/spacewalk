@@ -159,7 +159,7 @@ Generate reports from Spacewalk server in csv format
       are specified, all of them have to meet the condition. Regular
       expressions for like clause are described by SQL standard. Most
       common wildcards are _ for any single character and % for multiple
-      occurances of any character.</para>
+      occurrences of any character.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
