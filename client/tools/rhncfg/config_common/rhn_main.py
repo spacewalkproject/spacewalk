@@ -209,5 +209,6 @@ class BaseMain:
             rhn_log.die(1, "Authentication failed: %s" % e)
         except Exception, e:
             raise
-        repo.cleanup()
+        finally:
+            repo.cleanup()
         return 0
