@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.8
+Version: 2.5.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 29 2015 Jiri Dostal <jdostal@redhat.com> 2.5.9-1
+- added ability to filter out only synchronised channels when adding
+  entitlements to org in multi org satellite
+
 * Mon Oct 26 2015 Jan Dobes 2.5.8-1
 - 1257281 - optimize queries
 
