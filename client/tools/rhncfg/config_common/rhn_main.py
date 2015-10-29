@@ -203,12 +203,13 @@ class BaseMain:
 
         handler = module.Handler(args, repo, mode=mode, exec_name=execname)
         try:
-            handler.authenticate(username,password)
-            handler.run()
-        except cfg_exceptions.AuthenticationError, e:
-            rhn_log.die(1, "Authentication failed: %s" % e)
-        except Exception, e:
-            raise
+            try:
+                handler.authenticate(username,password)
+                handler.run()
+            except cfg_exceptions.AuthenticationError, e:
+                rhn_log.die(1, "Authentication failed: %s" % e)
+            except Exception, e:
+                raise
         finally:
             repo.cleanup()
         return 0
