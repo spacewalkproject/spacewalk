@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.9
+Version: 2.5.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 30 2015 Tomas Kasparek <tkasparek@redhat.com> 2.5.10-1
+- use xmlrpc_visible_to_user instead of visible_to_user query for searchByName
+
 * Thu Oct 29 2015 Jiri Dostal <jdostal@redhat.com> 2.5.9-1
 - added ability to filter out only synchronised channels when adding
   entitlements to org in multi org satellite
