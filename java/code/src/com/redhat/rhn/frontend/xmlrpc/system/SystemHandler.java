@@ -2702,7 +2702,7 @@ public class SystemHandler extends BaseHandler {
      *
      */
     public List<SystemOverview> searchByName(User loggedInUser, String regexp) {
-        List<SystemOverview>  systems =  getUserSystemsList(loggedInUser);
+        List<SystemOverview> systems =  SystemManager.systemListShort(loggedInUser, null);
         List<SystemOverview> returnList = new ArrayList<SystemOverview>();
 
         Pattern pattern = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE);
