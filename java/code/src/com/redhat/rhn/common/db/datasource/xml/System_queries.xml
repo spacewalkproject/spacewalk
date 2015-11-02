@@ -1051,7 +1051,7 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
                                                 and VI.virtual_system_id is null
                                                 and type.label = 'virtualization_host'
        ) as virt_entitlement,
-     COALESCE(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
+     COALESCE(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND ((USP.server_id = VI.virtual_system_id) OR (USP.server_id = VI.host_system_id AND VI.uuid IS NULL)))), 0 ) as accessible,
          rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable
      FROM rhnVirtualInstance VI
          LEFT OUTER JOIN rhnVirtualInstanceInfo VII ON VI.id = VII.instance_id
