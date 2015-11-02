@@ -1023,52 +1023,64 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
 
 <mode name="virtual_servers" class="com.redhat.rhn.frontend.dto.VirtualSystemOverview">
   <query params="user_id">
-  SELECT
- DISTINCT VI.id,
-          VI.host_system_id,
-          VI.virtual_system_id,
-          VI.uuid,
-         COALESCE(VII.name, '(none)') AS NAME,
-         COALESCE(VIS.name, '(unknown)') AS STATE_NAME,
-         (SELECT 1
-            FROM rhnServerFeaturesView SFV
-            WHERE (   SFV.server_id = VI.virtual_system_id
-                  OR (VI.uuid IS NULL AND SFV.server_id = VI.host_system_id))
-              AND SFV.label = 'ftr_system_grouping') AS selectable,
-     ( select S.name from rhnServer S
-            where
-                 (VI.uuid IS NULL
-                   AND S.id = VI.host_system_id)
-               OR S.id = VI.virtual_system_id
-       ) as SERVER_NAME,
-       ( select TYPE.label
-                from rhnServerGroupMembers SGM,
-                                rhnServerGroup GRP,
-                                rhnServerGroupType TYPE
-                where sgm.server_id = VI.host_system_id
-                                                and grp.id = sgm.server_group_id
-                                                and grp.group_type = type.id
-                                                and VI.virtual_system_id is null
-                                                and type.label = 'virtualization_host'
-       ) as virt_entitlement,
-     COALESCE(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND ((USP.server_id = VI.virtual_system_id) OR (USP.server_id = VI.host_system_id AND VI.uuid IS NULL)))), 0 ) as accessible,
-         rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable
-     FROM rhnVirtualInstance VI
-         LEFT OUTER JOIN rhnVirtualInstanceInfo VII ON VI.id = VII.instance_id
-         LEFT OUTER JOIN rhnVirtualInstanceState VIS ON VII.state = VIS.id
+SELECT DISTINCT VI.id,
+    VI.host_system_id,
+    VI.virtual_system_id,
+    VI.uuid,
+    COALESCE(VII.NAME, '(none)') AS NAME,
+    COALESCE(VIS.NAME, '(unknown)') AS STATE_NAME,
+    (SELECT 1
+        FROM rhnServerFeaturesView SFV
+        WHERE (SFV.server_id = VI.virtual_system_id OR (VI.uuid IS NULL AND SFV.server_id = VI.host_system_id))
+            AND SFV.label = 'ftr_system_grouping'
+    ) AS selectable,
+    (SELECT S.NAME
+        FROM rhnServer S
+        WHERE (VI.uuid IS NULL AND S.id = VI.host_system_id) OR S.id = VI.virtual_system_id
+    ) AS server_name,
+    (SELECT TYPE.label
+        FROM rhnServerGroupMembers SGM,
+            rhnServerGroup GRP,
+            rhnServerGroupType TYPE
+        WHERE sgm.server_id = VI.host_system_id
+            AND grp.id = sgm.server_group_id
+            AND grp.group_type = type.id
+            AND VI.virtual_system_id IS NULL
+            AND type.label = 'virtualization_host'
+    ) AS virt_entitlement,
+    COALESCE(
+        (SELECT 1
+            FROM rhnUserServerPerms USP
+            WHERE USP.user_id = :user_id
+                AND ((USP.server_id = VI.virtual_system_id) OR (USP.server_id = VI.host_system_id AND VI.uuid IS NULL))
+    ), 0) AS accessible,
+    rhn_channel.user_role_check(
+        (SELECT channel_id
+            FROM rhnServerOverview
+            WHERE server_id = VI.virtual_system_id
+        ), :user_id, 'subscribe'
+    ) AS subscribable
+
+    FROM rhnVirtualInstance VI
+        LEFT OUTER JOIN rhnVirtualInstanceInfo VII ON VI.id = VII.instance_id
+        LEFT OUTER JOIN rhnVirtualInstanceState VIS ON VII.STATE = VIS.id
+
     WHERE EXISTS (SELECT 1
-                  FROM rhnUserServerPerms USP
-                  WHERE USP.user_id = :user_id
-                        AND (USP.server_id = VI.host_system_id
-                        OR USP.server_id = VI.virtual_system_id)) OR
-        (VI.uuid IS NULL AND VI.host_system_id IN (
+        FROM rhnUserServerPerms USP
+        WHERE USP.user_id = :user_id
+            AND (USP.server_id = VI.host_system_id OR USP.server_id = VI.virtual_system_id)
+        )
+        OR (VI.uuid IS NULL AND VI.host_system_id IN (
             SELECT VI2.host_system_id
-                FROM rhnVirtualInstance VI2
-                WHERE VI2.virtual_system_id IN (
-                    SELECT server_id FROM rhnUserServerPerms WHERE rhnUserServerPerms.user_id = :user_id
-                )
+            FROM rhnVirtualInstance VI2
+            WHERE VI2.virtual_system_id IN (
+                SELECT server_id
+                FROM rhnUserServerPerms
+                WHERE rhnUserServerPerms.user_id = :user_id
+            )
         ))
-  ORDER BY VI.host_system_id, VI.uuid DESC
+
+    ORDER BY VI.host_system_id,VI.uuid DESC
   </query>
   <elaborator name="virtual_system_overview"/>
   <elaborator name="system_config_files_with_diffs" />
