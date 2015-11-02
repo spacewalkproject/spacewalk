@@ -136,7 +136,6 @@ import com.redhat.rhn.manager.system.UpdateChildChannelsCommand;
 import com.redhat.rhn.manager.system.VirtualizationActionCommand;
 import com.redhat.rhn.manager.system.VirtualizationEntitlementsManager;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
-import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -1704,17 +1703,6 @@ public class SystemHandler extends BaseHandler {
     public List<SystemOverview> listUserSystems(User loggedInUser) {
         // Get the logged in user
         return SystemManager.systemListShort(loggedInUser, null);
-    }
-
-    /**
-     * Private helper method to get a list of systems for a particular user
-     *   The query used is very inefficient.  Only use it when you need a lot
-     *   of information about the systems.
-     * @param user The user to lookup
-     * @return An array of SystemOverview objects representing a system
-     */
-    private List<SystemOverview> getUserSystemsList(User user) {
-        return  UserManager.visibleSystemsAsDto(user);
     }
 
     /**

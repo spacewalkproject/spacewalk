@@ -38,7 +38,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.domain.user.UserServerPreference;
 import com.redhat.rhn.frontend.dto.SystemGroupOverview;
-import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.dto.UserOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
@@ -561,7 +560,6 @@ public class UserManager extends BaseManager {
      * can't be looked up.
      */
     public static User lookupUser(User user, Long uid) {
-        User returnedUser = null;
         if (uid == null) {
             return null;
         }
@@ -816,20 +814,6 @@ public class UserManager extends BaseManager {
      */
     public static DataResult visibleSystems(User user) {
         return visibleSystems(user, null);
-    }
-
-    /**
-     * Returns visible Systems as a SystemOverview Object
-     * @param user the user we want
-     * @return list of systems
-     */
-    public static List<SystemOverview> visibleSystemsAsDto(User user) {
-        SelectMode m = ModeFactory.getMode("System_queries", "visible_to_user");
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("user_id", user.getId());
-        DataResult<SystemOverview>  list = m.execute(params);
-        list.elaborate();
-        return list;
     }
 
     /**
