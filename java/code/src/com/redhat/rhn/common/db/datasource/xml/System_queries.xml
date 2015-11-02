@@ -1060,7 +1060,14 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
                   FROM rhnUserServerPerms USP
                   WHERE USP.user_id = :user_id
                         AND (USP.server_id = VI.host_system_id
-                        OR USP.server_id = VI.virtual_system_id))
+                        OR USP.server_id = VI.virtual_system_id)) OR
+        (VI.uuid IS NULL AND VI.host_system_id IN (
+            SELECT VI2.host_system_id
+                FROM rhnVirtualInstance VI2
+                WHERE VI2.virtual_system_id IN (
+                    SELECT server_id FROM rhnUserServerPerms WHERE rhnUserServerPerms.user_id = :user_id
+                )
+        ))
   ORDER BY VI.host_system_id, VI.uuid DESC
   </query>
   <elaborator name="virtual_system_overview"/>
