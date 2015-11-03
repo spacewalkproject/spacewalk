@@ -30,7 +30,6 @@ import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.VirtualizationActionCommand;
-
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -42,7 +41,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -110,7 +108,17 @@ public class VirtualGuestsConfirmAction extends BaseSystemListAction {
                 Long vid = new Long(next.getId().longValue());
                 VirtualInstance virtualInstance =
                     VirtualInstanceFactory.getInstance().lookupById(vid);
-                VirtualInstanceFactory.getInstance().deleteVirtualInstance(virtualInstance);
+                Server guestSystem = virtualInstance.getGuestSystem();
+
+                if (guestSystem != null) {
+                    SystemManager.deleteServer(user, guestSystem.getId());
+                }
+                else {
+                    // if a system is not registered, delete at least the VirtualInstance
+                    VirtualInstanceFactory.getInstance()
+                            .deleteVirtualInstanceOnly(virtualInstance);
+                }
+
                 actionCount++;
                 key = "virt.deleted";
             }
