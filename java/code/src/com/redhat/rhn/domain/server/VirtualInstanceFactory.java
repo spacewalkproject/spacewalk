@@ -140,6 +140,29 @@ public class VirtualInstanceFactory extends HibernateFactory {
     }
 
     /**
+     * Deletes the virtual instance from the database.
+     * If the virtual instance has an association to a guest system (i.e. it is
+     * a registered guest), remove this association.
+     * If the virtual instance has an association to a host system, remove this
+     * association.
+     *
+     * @param virtualInstance The virtual instance to delete
+     */
+    public void deleteVirtualInstanceOnly(VirtualInstance virtualInstance) {
+        log.debug("Deleting virtual instance without removing associated objects " +
+                virtualInstance);
+        Server hostSystem = virtualInstance.getHostSystem();
+        if (hostSystem != null) {
+            hostSystem.removeGuest(virtualInstance);
+        }
+        Server guestSystem = virtualInstance.getGuestSystem();
+        if (guestSystem != null) {
+            guestSystem.setVirtualInstance(null);
+        }
+        removeObject(virtualInstance);
+    }
+
+    /**
      * Finds all registered guests, within a particular org, whose hosts do not have any
      * virtualization entitlements.
      *
