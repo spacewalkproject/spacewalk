@@ -1573,7 +1573,7 @@ def do_softwarechannel_getorgaccesstree(self, args):
         logging.error("Can't call softwarechannel_getorgaccesstree on child channel!")
         self.help_softwarechannel_getorgaccesstree()
         return
-        
+
     for channel in channels:
         do_softwarechannel_getorgaccess(self, channel)
         for child in self.list_child_channels(parent=channel):
@@ -1594,7 +1594,7 @@ def complete_softwarechannel_setorgaccesstree(self, text, line, beg, end):
 
 def do_softwarechannel_setorgaccesstree(self, args):
     if not len(args):
-        self.help_softwarechannel_setorgaccess()
+        self.help_softwarechannel_setorgaccesstree()
         return
     options = [Option('-e', '--enable', action='store_true'),
                Option('-d', '--disable', action='store_true'),
