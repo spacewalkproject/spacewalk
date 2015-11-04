@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 54%{?dist}
+Release: 55%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -487,6 +487,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Wed Nov 04 2015 Tomas Kasparek <tkasparek@redhat.com> 2.0.11-55
+- add system support to --no-local-hdd option without need of profiles
+
 * Mon Oct 05 2015 Tomas Kasparek <tkasparek@redhat.com> 2.0.11-54
 - timeout to 1st available profile with --no-local-hdd instead of local hdd
 
