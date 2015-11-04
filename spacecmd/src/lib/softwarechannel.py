@@ -1593,16 +1593,13 @@ def complete_softwarechannel_setorgaccesstree(self, text, line, beg, end):
     return tab_completer(self.list_base_channels(), text)
 
 def do_softwarechannel_setorgaccesstree(self, args):
-    if not len(args):
-        self.help_softwarechannel_setorgaccesstree()
-        return
     options = [Option('-e', '--enable', action='store_true'),
                Option('-d', '--disable', action='store_true'),
                Option('-p', '--protected', action='append')]
     (args, options) = parse_arguments(args, options)
 
-    if not len(args):
-        self.help_softwarechannel_setorgaccesstree
+    if not len(args) or not (options.enable or options.disable or options.protected):
+        self.help_softwarechannel_setorgaccesstree()
         return
 
     # allow globbing of software channel names
