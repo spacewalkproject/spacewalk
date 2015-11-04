@@ -32,41 +32,7 @@ sub apache_child_init_handler {
   $class->connect();
 }
 
-
-# called after every request.  necessary to cleanup uncommitted
-# transactions and such
-
 my $dbh;
-sub connection_cleanup {
-  my $class = shift;
-
-  if (defined $dbh) {
-
-    if ($dbh->{ActiveKids}) {
-      warn "Database handle has active children after request completion.";
-    }
-
-    while($dbh->in_nested_transaction) {
-      warn "Performing nested rollback...";
-      $dbh->nested_rollback;
-    }
-
-    # in case someone forgot... wish we could detect if a rollback was pending.
-    $dbh->rollback
-      if $dbh->{Active};
-    $dbh->call_procedure('logging.clear_log_id') if $dbh->{Active};
-  }
-}
-
-# soft connect -- if connect fails, return undef instead of raising exception
-
-sub soft_connect {
-  my $class = shift;
-
-  my $ret = eval { $class->connect(@_) };
-
-  return $ret;
-}
 
 sub connect {
   my $class = shift;
@@ -126,31 +92,6 @@ sub handle_error {
 package RHN::DB::db;
 our @ISA = qw/DBI::db/;
 
-# use encode_blob to properly pass the ora_type and ora_field
-# attributes for BLOBs when executing.
-# The second parameter should be the name of the column, and is only
-# required if you are inserting or updating more than one BLOB column.
-# example:
-# my $sth = $dbh->prepare('INSERT (id, first_blob, second_blob) VALUES (:id, :blob1, :blob2) INTO blob_test');
-# $sth->execute_h(id => :id, blob1 => $dbh->encode_blob($val1, 'first_blob'), blob2 => $dbh->encode_blob($val2, 'second_blob'));
-# see also: perldoc DBD::Oracle
-sub encode_blob {
-  my $class = shift;
-  my $val = shift;
-  my $ora_field = shift;
-
-  return bless {value => $val, ora_field => $ora_field}, "RHN::DB::Type::BLOB";
-}
-
-sub nest_transactions {
-  my $self = shift;
-  my $current_tx = $self->{private_rhndb_transaction_level} || 0;
-
-  $self->{private_rhndb_transaction_level} = $current_tx + 1;
-
-  $self->do("SAVEPOINT " . $self->current_savepoint_name);
-}
-
 sub in_nested_transaction {
   my $self = shift;
 
@@ -189,56 +130,6 @@ sub rollback {
   else {
     $self->SUPER::rollback(@_);
   }
-}
-
-sub nested_rollback {
-  my $self = shift;
-
-  $self->assert_nested_transaction;
-  if ($self->{private_rhndb_transaction_level} > 0) {
-    $self->{private_rhndb_transaction_level}--;
-  }
-  $self->rollback;
-}
-
-sub nested_commit {
-  my $self = shift;
-
-  $self->assert_nested_transaction;
-  if ($self->{private_rhndb_transaction_level} > 0) {
-    $self->{private_rhndb_transaction_level}--;
-  }
-  $self->commit;
-}
-
-sub enable_profile {
-  my $self = shift;
-
-  DBI->trace(0, "/dev/null");
-  $self->{Profile} = 2;
-}
-
-sub profile_format {
-  my $self = shift;
-
-  my @ret;
-  my %timings;
-  my %calls;
-
-  for my $query (keys %{$self->{Profile}->{Data}}) {
-    next unless $query;
-
-    $timings{$query} = $self->{Profile}->{Data}->{$query}->[1];
-    $calls{$query} = $self->{Profile}->{Data}->{$query}->[0];
-  }
-
-  for my $query (sort { $timings{$b} <=> $timings{$a} } keys %timings) {
-    my $query_text = $query;
-    $query_text =~ s/\s+/ /g;
-    push @ret, sprintf("%3.5f (%4d calls) %s\n", $timings{$query}, $calls{$query}, $query_text);
-  }
-
-  return @ret;
 }
 
 sub init_db_handle {
@@ -314,97 +205,6 @@ sub ping {
   }
 }
 
-# some extension functions
-sub call_procedure {
-  my $self = shift;
-  if ($self->{Driver}->{Name} eq 'Pg') {
-    return $self->call_function(@_);
-  }
-  my $procname = shift;
-  my @params = @_;
-  my @placeholders = map { ":p$_" } 1 .. scalar @params;
-
-  my $q = "BEGIN\n  $procname";
-
-  $q .= "(" . join(", ", @placeholders) . ");";
-  $q .= "\nEND;";
-
-  my $sth = $self->prepare($q);
-
-  my $i = 0;
-  foreach my $param (@params) {
-    $sth->bind_param($placeholders[$i], $param);
-
-    $i++;
-  }
-
-  $sth->execute();
-
-  return;
-}
-
-sub call_function {
-  my $self = shift;
-  my $procname = shift;
-  my @params = @_;
-  if ($self->{Driver}->{Name} eq 'Pg') {
-    my $q = "select $procname";
-
-    $q .= "(" . join(", ", map { '?' } @params ) . ")";
-
-    my $sth = $self->prepare($q);
-    $sth->execute(@params);
-    my ($ret) = $sth->fetchrow_array();
-    $sth->finish();
-
-    return $ret;
-  } else {
-    my @placeholders = map { ":p$_" } 1 .. scalar @params;
-    my $q = "BEGIN\n  :ret := $procname";
-
-    $q .= "(" . join(", ", @placeholders) . ");";
-    $q .= "\nEND;";
-
-    my $ret;
-    my $sth = $self->prepare($q);
-    $sth->bind_param_inout(":ret" => \$ret, 4096);
-
-    $sth->bind_param($placeholders[$_ - 1] => $params[$_ - 1]) foreach 1 .. scalar @params;
-
-    $sth->execute();
-
-    return $ret;
-  }
-}
-
-sub sequence_nextval {
-  my $self = shift;
-  my $sequence = shift;
-
-  my $sth;
-  if ($self->{Driver}->{Name} eq 'Pg') {
-    $sth = $self->prepare('select nextval(?)');
-    $sth->execute($sequence);
-  } else {
-    $sth = $self->prepare("SELECT $sequence.nextval FROM DUAL");
-    $sth->execute;
-  }
-
-  my ($ret) = $sth->fetchrow;
-  $sth->finish;
-
-  return $ret;
-}
-
-sub do_h {
-  my $self = shift;
-  my $query = shift;
-  my @params = @_;
-
-  my $sth = $self->prepare($query);
-  $sth->execute_h(@params);
-}
-
 # another package
 package RHN::DB::st;
 our @ISA = qw/DBI::st/;
@@ -478,12 +278,6 @@ sub fullfetch_hashref {
   }
 
   return @ret;
-}
-
-sub column_names {
-  my $self = shift;
-
-  return @{$self->{NAME}};
 }
 
 1;
