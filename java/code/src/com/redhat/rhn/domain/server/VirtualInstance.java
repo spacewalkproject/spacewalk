@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.domain.server;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -123,31 +122,6 @@ public class VirtualInstance extends BaseDomainHelper {
 
         if (guest != null) {
             guest.setVirtualInstance(this);
-        }
-    }
-
-    /**
-     * Deletes the guest server when the virtual instance is a registered guest.
-     */
-    public void deleteGuestSystem() {
-        if (isRegisteredGuest()) {
-            guest.setVirtualInstance(null);
-
-            // If outdated, the stored procedure will be deleting *THIS* virtual instance:
-            boolean isOutdated = VirtualInstanceFactory.getInstance().isOutdated(this);
-
-            ServerFactory.delete(guest);
-
-            // Tricky situation here, the stored procedure the above delete call ends up
-            // using will delete from rhnVirtualInstance if it needs to. If that's the
-            // case, we need to make sure to evict ourselves from the session, otherwise
-            // Hibernate gets confused.
-            if (getHostSystem() == null || isOutdated) {
-                HibernateFactory.getSession().evict(this);
-            }
-            else {
-                setGuestSystem(null);
-            }
         }
     }
 

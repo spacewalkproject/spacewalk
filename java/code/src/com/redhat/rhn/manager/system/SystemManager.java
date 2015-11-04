@@ -355,9 +355,13 @@ public class SystemManager extends BaseManager {
     }
 
     /**
-     * Deletes a server
+     * Deletes a Server and associated VirtualInstances:
+     *  - If the server was a virtual guest, remove the VirtualInstance that links it to its
+     *  host server.
+     *  - If the server was a virtual host, remove all its entitlements and all
+     *  VirtualInstances that link it to the guest servers.
      * @param user The user doing the deleting.
-     * @param sid The id of the system to be deleted
+     * @param sid The id of the Server to be deleted
      */
     public static void deleteServer(User user, Long sid) {
         /*
@@ -370,22 +374,21 @@ public class SystemManager extends BaseManager {
         CobblerSystemRemoveCommand rc = new CobblerSystemRemoveCommand(user, server);
         rc.store();
 
+        // remove associated VirtualInstances
+        Set<VirtualInstance> toRemove = new HashSet<VirtualInstance>();
         if (server.isVirtualGuest()) {
-            VirtualInstance virtInstance = server.getVirtualInstance();
-            virtInstance.deleteGuestSystem();
+            toRemove.add(server.getVirtualInstance());
         }
         else {
-            if (server.getGuests() != null) {
-                removeAllServerEntitlements(server.getId());
-                // Remove guest associations to the host system we're now deleting:
-                for (Iterator<VirtualInstance> it = server.getGuests().iterator(); it
-                        .hasNext();) {
-                    VirtualInstance vi = it.next();
-                    server.removeGuest(vi);
-                }
-            }
-            ServerFactory.delete(server);
+            removeAllServerEntitlements(server.getId());
+            toRemove.addAll(server.getGuests());
         }
+        for (VirtualInstance virtualInstance : toRemove) {
+            VirtualInstanceFactory.getInstance().deleteVirtualInstanceOnly(virtualInstance);
+        }
+
+        // remove server itself
+        ServerFactory.delete(server);
     }
 
     /**
