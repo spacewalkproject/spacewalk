@@ -39,7 +39,6 @@ Requires: spacewalk-backend >= 1.7.24
 # python-hashlib is optional for spacewalk-backend-libs
 # but we need made it mandatory here
 Requires: python-hashlib
-Requires: spacewalk-base-minimal-config
 Requires: %{name}-broker = %{version}
 Requires: %{name}-redirect = %{version}
 Requires: %{name}-common >= %{version}
