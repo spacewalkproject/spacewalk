@@ -208,6 +208,7 @@ Summary: Configuration files for RHN Java
 Group: Applications/Internet
 Obsoletes: rhn-java-config < 5.3.0
 Obsoletes: rhn-java-config-sat < 5.3.0
+Obsoletes: spacewalk-base-minimal-config
 Provides: rhn-java-config = %{version}-%{release}
 Provides: rhn-java-config-sat = %{version}-%{release}
 
@@ -520,6 +521,7 @@ install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT%{_prefix}/share/r
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
 install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
 install -m 644 conf/rhn_java.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
+install -m 644 conf/rhn_web.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
 install -m 755 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
 # LOGROTATE >= 3.8 requires extra permission config
 %if 0%{?fedora} || 0%{?rhel} > 6
@@ -753,6 +755,7 @@ fi
 %{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
 %{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
 %{_prefix}/share/rhn/config-defaults/rhn_java.conf
+%attr(644,root,apache) %{_prefix}/share/rhn/config-defaults/rhn_web.conf
 %config %{_sysconfdir}/logrotate.d/rhn_web_api
 
 %files lib

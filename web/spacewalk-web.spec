@@ -65,23 +65,11 @@ Obsoletes: rhn-base-minimal < 5.3.0
 Provides: rhn-base-minimal = 5.3.0
 Requires: perl(DBI)
 Requires: perl(Params::Validate)
-Requires: spacewalk-base-minimal-config
 
 %description -n spacewalk-base-minimal
 Independent Perl modules in the RHN:: name-space.
 This are very basic modules need to handle configuration files, database,
 sessions and exceptions.
-
-%package -n spacewalk-base-minimal-config
-Summary: Configuration for %{name} package
-Group: Applications/Internet
-Provides: spacewalk(spacewalk-base-minimal-config) = %{version}-%{release}
-Requires: httpd
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Requires: spacewalk-base-minimal = %{version}-%{release}
-
-%description -n spacewalk-base-minimal-config
-Configuration file for spacewalk-base-minimal package.
 
 
 %package -n spacewalk-dobby
@@ -117,7 +105,6 @@ mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/init.d
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/httpd/conf
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily
 
-install -m 644 conf/rhn_web.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
 install -m 644 conf/rhn_dobby.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
 install -m 755 modules/dobby/scripts/check-database-space-usage.sh $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/check-database-space-usage.sh
 
@@ -140,9 +127,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/DBI.pm
 %{perl_vendorlib}/PXT/Config.pm
 %doc LICENSE
-
-%files -n spacewalk-base-minimal-config
-%attr(644,root,apache) %{_prefix}/share/rhn/config-defaults/rhn_web.conf
 
 %files -n spacewalk-dobby
 %attr(755,root,root) %{_bindir}/db-control
