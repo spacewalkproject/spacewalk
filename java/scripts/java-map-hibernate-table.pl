@@ -8,7 +8,8 @@
 use lib '/var/www/lib';
 
 use strict;
-use RHN::DB;
+use Spacewalk::Setup ();
+use DBI;
 
 my $tablename = $ARGV[0];
 my $classname = $ARGV[1];
@@ -44,14 +45,23 @@ my @desc = print_desc($tablename);
 
 sub print_desc {
   my $tablename = shift;
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
+  my $config_file = Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION;
+  my %options = ();
+  Spacewalk::Setup::read_config($config_file, \%options);
+  my %dbOptions = ();
+  for my $option ('db_backend', 'db_name', 'db_user', 'db_password', 'db_host', 'db_port') {
+    (my $db_option = $option) =~ s!_!-!;
+    $dbOptions{$db_option} = $options{$option} if (exists $options{$option});
+  }
+  my $dbh = Spacewalk::Setup::get_dbh(\%dbOptions);
+  my $sth;
+  if ($dbOptions{'db-backend'} eq "oracle") {
+    $sth = $dbh->prepare("SELECT column_name, data_type, data_length, nullable FROM all_tab_columns WHERE table_name = '$tablename' ORDER BY column_id");
+  } else {
+    die "$dbOptions{'db-backend'} database not supported!"
+  }
 
-SELECT column_name, data_type, data_length, nullable FROM all_tab_columns WHERE table_name = :tab_name ORDER BY column_id
-
-EOQ
-
-  $sth->execute_h(tab_name => $tablename);
+  $sth->execute();
 
   # print "------CUT HERE------\n\n";
   # loop through the row types and
