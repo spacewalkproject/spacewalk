@@ -73,7 +73,7 @@ sessions and exceptions.
 
 
 %package -n spacewalk-dobby
-Summary: Perl modules and scripts to administer an Oracle database
+Summary: Perl modules and scripts to administer an embedded database
 Group: Applications/Internet
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Obsoletes: rhn-dobby < 5.3.0
