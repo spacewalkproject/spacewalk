@@ -75,7 +75,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0750,root,apache) %dir %{_var}/lib/rhn/rhn-satellite-prep/etc/rhn
 %attr(0640,root,apache) %{_var}/lib/rhn/rhn-satellite-prep/etc/rhn/rhn.conf
 %dir %{_prefix}/share/rhn
-%attr(0755,root,root) %{_prefix}/share/rhn/startup.pl
 %doc LICENSE
 %doc %{_mandir}/man5/rhn.conf.5*
 

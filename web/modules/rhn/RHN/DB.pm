@@ -22,16 +22,6 @@ use RHN::Exception;
 
 our @ISA = qw/DBI/;
 
-# this forces connection immediately after form, before first request
-# is served.  can cause a bit of a rush to the db as a bunch of
-# httpd's connect, but should be manageable.  typically called in
-# startup.pl.
-
-sub apache_child_init_handler {
-  my $class = shift;
-  $class->connect();
-}
-
 my $dbh;
 
 sub connect {
