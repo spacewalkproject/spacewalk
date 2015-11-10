@@ -13,6 +13,8 @@ URL:            https://fedorahosted.org/spacewalk
 Source0:	https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 
+%define debug_package %{nil}
+
 %ifarch s390 s390x
 %define icversion 10.2.0.4
 %define icdir %{icversion}
