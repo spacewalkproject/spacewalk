@@ -23776,7 +23776,7 @@ fois pour un canal donné.</target>
         <target>Confirmer l'ajout</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
-        <source>No packages found for this critera.</source>
+        <source>No packages found for this criteria.</source>
         <target>Aucun paquetage correspondant à votre critère n'a été trouvé.</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">

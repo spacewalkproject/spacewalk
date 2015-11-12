@@ -22581,7 +22581,7 @@ given channel.</source>
         <target>সংযোজন নিশ্চায়ণ</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
-        <source>No packages found for this critera.</source>
+        <source>No packages found for this criteria.</source>
         <target>আপনার উল্লিখিত মান অনুযায়ী কোনো প্যাকেজ পাওয়া যায়নি।</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">

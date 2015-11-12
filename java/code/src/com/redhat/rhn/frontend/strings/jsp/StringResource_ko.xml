@@ -23311,7 +23311,7 @@ given channel.</source>
         <target>추가 확인 </target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
-        <source>No packages found for this critera.</source>
+        <source>No packages found for this criteria.</source>
         <target>기준과 일치하는 패키지를 찾을 수 없음.  </target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">

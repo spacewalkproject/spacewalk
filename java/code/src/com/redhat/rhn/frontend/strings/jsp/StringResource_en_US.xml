@@ -19914,7 +19914,7 @@ given channel.</source>
         <source>Confirm Addition</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
-        <source>No packages found for this critera.</source>
+        <source>No packages found for this criteria.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">
         <source>Below is the list of packages you can add to this channel. The "Channel" select box allows you to restrict the set of available packages. To add a package to this channel, select it here, and click 'Add Packages' below.

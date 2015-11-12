@@ -23771,7 +23771,7 @@ given channel.</source>
         <target>確認新增</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
-        <source>No packages found for this critera.</source>
+        <source>No packages found for this criteria.</source>
         <target>沒發現與您的搜尋準則相符的套件。</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">

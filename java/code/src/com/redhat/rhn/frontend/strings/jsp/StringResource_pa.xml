@@ -22583,7 +22583,7 @@ given channel.</source>
         <target>ਜੋੜਨ ਪੁਸ਼ਟੀ</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
-        <source>No packages found for this critera.</source>
+        <source>No packages found for this criteria.</source>
         <target>ਇਸ ਸ਼ਰਤ ਲਈ ਕੋਈ ਪੈਕੇਜ ਨਹੀਂ ਲੱਭਿਆ।</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">

@@ -23778,7 +23778,7 @@ für einen angegebenen Channel aufgelistet wird.</target>
         <target>Hinzufügen bestätigen</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
-        <source>No packages found for this critera.</source>
+        <source>No packages found for this criteria.</source>
         <target>Keine Pakete für diese Kriterien gefunden.</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">

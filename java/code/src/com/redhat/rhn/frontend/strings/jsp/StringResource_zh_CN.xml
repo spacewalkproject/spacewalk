@@ -23767,7 +23767,7 @@ given channel.</source>
         <target>确认添加</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
-        <source>No packages found for this critera.</source>
+        <source>No packages found for this criteria.</source>
         <target>没有找到符合这个标准的软件包。</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">

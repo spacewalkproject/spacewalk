@@ -145,7 +145,6 @@ Configs
 Cpus
 CreateCorporate
 CreateProfileWizard
-critera
 Cron
 crypto
 cryptokey

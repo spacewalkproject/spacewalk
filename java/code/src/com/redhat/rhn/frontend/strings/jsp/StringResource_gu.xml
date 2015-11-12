@@ -22584,7 +22584,7 @@ given channel.</source>
         <target>ઉમેરવાની ખાતરી કરો</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
-        <source>No packages found for this critera.</source>
+        <source>No packages found for this criteria.</source>
         <target>આ વિચારધારા માટે પેકેજો મળ્યા નહિં.</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">

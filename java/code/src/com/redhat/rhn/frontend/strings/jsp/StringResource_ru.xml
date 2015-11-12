@@ -23751,7 +23751,7 @@ given channel.</source>
         <target>Подтвердить добавление</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
-        <source>No packages found for this critera.</source>
+        <source>No packages found for this criteria.</source>
         <target>Нет пакетов, удовлетворяющих заданным критериям.</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">

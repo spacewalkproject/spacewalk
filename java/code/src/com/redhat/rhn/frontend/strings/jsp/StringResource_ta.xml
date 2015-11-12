@@ -22582,7 +22582,7 @@ given channel.</source>
         <target>சேர்த்தலை உறுதிப்படுத்தவும்</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
-        <source>No packages found for this critera.</source>
+        <source>No packages found for this criteria.</source>
         <target>இந்த தகவல்க்கு தொகுப்புகள் எதுவும் காணப்படவில்லை.</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">

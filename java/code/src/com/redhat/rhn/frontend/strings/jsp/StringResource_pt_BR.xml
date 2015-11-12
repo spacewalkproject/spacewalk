@@ -23772,7 +23772,7 @@ of @@PRODUCT_NAME@@.</target>
         <target>Confirmar Adição</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
-        <source>No packages found for this critera.</source>
+        <source>No packages found for this criteria.</source>
         <target>Não foi encontrado nenhum pacote para este critério.</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">

@@ -23779,7 +23779,7 @@ given channel.</source>
         <target>追加の確認</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
-        <source>No packages found for this critera.</source>
+        <source>No packages found for this criteria.</source>
         <target>この条件に一致するパッケージは見つかりませんでした。</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">

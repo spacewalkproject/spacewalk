@@ -23737,7 +23737,7 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
         <target>Conferma aggiunta</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
-        <source>No packages found for this critera.</source>
+        <source>No packages found for this criteria.</source>
         <target>Nessun pacchetto trovato per questo criterio.</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">

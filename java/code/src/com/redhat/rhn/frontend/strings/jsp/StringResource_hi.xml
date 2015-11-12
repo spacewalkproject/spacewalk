@@ -22584,7 +22584,7 @@ given channel.</source>
         <target>जोड़ने की पुष्टि करें</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
-        <source>No packages found for this critera.</source>
+        <source>No packages found for this criteria.</source>
         <target>इस इरेटा के लिए कोई संकुल नहीं मिला.</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">
