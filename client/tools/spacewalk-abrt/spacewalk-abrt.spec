@@ -10,6 +10,7 @@ Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{versio
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  gettext
+BuildRequires:  python
 Requires:       abrt
 Requires:       abrt-cli
 Requires:       rhnlib
