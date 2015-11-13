@@ -139,7 +139,8 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
             KickstartableTree tree = KickstartFactory.
                     lookupKickstartTreeByCobblerIdOrXenId((String)distro.get("uid"));
             if (tree == null) {
-                //TODO Throw ERRROR/LOG
+                log.error("Kickstartable tree was not found for Cobbler id:" +
+                        (String)distro.get("uid"));
             }
             else {
                 profile.setTree(tree);
