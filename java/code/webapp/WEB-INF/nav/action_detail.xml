@@ -13,10 +13,7 @@
   <rhn-tab name="Failed Systems">
     <rhn-tab-url>/rhn/schedule/FailedSystems.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Remove Packages" acl="generic_action_type(remove)">
-    <rhn-tab-url>/rhn/schedule/PackageList.do</rhn-tab-url>
-  </rhn-tab>
-  <rhn-tab name="Update Packages" acl="generic_action_type(install)">
+  <rhn-tab name="Package List" acl="generic_action_type(remove) or generic_action_type(install)">
     <rhn-tab-url>/rhn/schedule/PackageList.do</rhn-tab-url>
   </rhn-tab>
 </rhn-navi-tree>
