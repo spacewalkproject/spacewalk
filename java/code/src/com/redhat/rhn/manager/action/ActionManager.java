@@ -1602,7 +1602,7 @@ public class ActionManager extends BaseManager {
             name = "Package Removal";
         }
         else if (type.equals(ActionFactory.TYPE_PACKAGES_UPDATE)) {
-            name = "Package Install";
+            name = "Package Install/Upgrade";
         }
         else if (type.equals(ActionFactory.TYPE_PACKAGES_VERIFY)) {
             name = "Package Verify";
