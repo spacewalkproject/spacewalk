@@ -14,6 +14,20 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.channel.software;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.StopWatch;
+import org.apache.log4j.Logger;
+
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -42,7 +56,6 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.PackageDto;
-import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.DuplicateChannelLabelException;
@@ -76,20 +89,6 @@ import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.taskomatic.TaskomaticApi;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 import com.redhat.rhn.taskomatic.task.errata.ErrataCacheWorker;
-
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.StopWatch;
-import org.apache.log4j.Logger;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * ChannelSoftwareHandler
@@ -168,19 +167,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
             throw new PermissionCheckFailureException();
         }
 
-        List<ErrataOverview> errata = ChannelManager.listErrataNeedingResync(channel,
+        List<Long> eids = ChannelManager.listErrataIdsNeedingResync(channel,
                 loggedInUser);
-        List<Long> eids = new ArrayList<Long>();
-        for (ErrataOverview e : errata) {
-            eids.add(e.getId());
-        }
 
-        List<PackageOverview> packages = ChannelManager
-                .listErrataPackagesForResync(channel, loggedInUser);
-        List<Long> pids = new ArrayList<Long>();
-        for (PackageOverview p : packages) {
-            pids.add(p.getId());
-        }
+        List<Long> pids = ChannelManager
+                .listErrataPackageIdsForResync(channel, loggedInUser);
 
         ChannelEditor.getInstance().addPackages(loggedInUser, channel, pids);
 

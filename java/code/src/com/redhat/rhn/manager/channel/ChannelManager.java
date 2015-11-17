@@ -2715,6 +2715,34 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
+     * List ids of errata packages that need to be resynced
+     * @param c the channel to look for packages in
+     * @param user the user doing it
+     * @return list of ids of packages
+     */
+    public static List<Long> listErrataPackageIdsForResync(Channel c, User user) {
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+            throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
+        }
+
+        List packageIds = new ArrayList<Long>();
+        if (c.isCloned()) {
+            Map<String, Long> params = new HashMap<String, Long>();
+            params.put("cid", c.getId());
+            params.put("ocid", c.getOriginal().getId());
+            SelectMode m = ModeFactory.getMode("Errata_queries",
+                    "list_packages_ids_needing_sync");
+            DataResult result =  m.execute(params);
+            for (Iterator iter = result.iterator(); iter.hasNext();) {
+                Map row = (Map) iter.next();
+                Long packageId = (Long) row.get("id");
+                packageIds.add(packageId);
+            }
+        }
+        return packageIds;
+    }
+
+    /**
      * List errata packages that need to be resynced
      * @param c the channel to look for packages in
      * @param user the user doing it
@@ -2734,6 +2762,37 @@ public class ChannelManager extends BaseManager {
             return m.execute(params);
         }
         return new ArrayList<PackageOverview>();
+    }
+
+    /**
+     * List errata that is within a channel that needs to be resynced
+     *  This is determined by the packages in the channel
+     *
+     * @param c the channel
+     * @param user the user
+     * @return list of ids of errata that need to be resynced
+     */
+    public static List<Long> listErrataIdsNeedingResync(Channel c, User user) {
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+            throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
+        }
+
+        List errataIds = new ArrayList<Long>();
+        if (c.isCloned()) {
+            Map<String, Long> params = new HashMap<String, Long>();
+            params.put("cid", c.getId());
+            params.put("ocid", c.getOriginal().getId());
+            SelectMode m = ModeFactory.getMode("Errata_queries",
+                                        "list_errata_ids_needing_sync");
+
+            DataResult result =  m.execute(params);
+            for (Iterator iter = result.iterator(); iter.hasNext();) {
+                Map row = (Map) iter.next();
+                Long errataId = (Long) row.get("id");
+                errataIds.add(errataId);
+            }
+        }
+        return errataIds;
     }
 
     /**

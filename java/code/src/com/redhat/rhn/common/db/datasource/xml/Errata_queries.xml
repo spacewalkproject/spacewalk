@@ -1426,6 +1426,34 @@ WHERE C.package_id IS NULL
   </query>
 </mode>
 
+<mode name="list_errata_ids_needing_sync">
+  <query params="cid, ocid">
+SELECT
+    DISTINCT C.errata_id as id
+FROM
+(
+    SELECT
+        oep.package_id, ec.id AS clone_errata_id
+    FROM rhnChannelPackage ocp
+        JOIN rhnChannelErrata oce ON oce.channel_id = ocp.channel_id
+        JOIN rhnErrataPackage oep ON oep.errata_id = oce.errata_id
+            AND oep.package_id = ocp.package_id
+        JOIN rhnErrataCloned ec ON ec.original_id = oep.errata_id
+    WHERE   ocp.channel_id = :ocid
+) O
+LEFT JOIN (
+    SELECT
+        cep.package_id, cep.errata_id
+    FROM rhnChannelPackage ccp
+        JOIN rhnChannelErrata cce ON cce.channel_id = ccp.channel_id
+        JOIN rhnErrataPackage cep ON cep.errata_id = cce.errata_id AND cep.package_id = ccp.package_id
+WHERE ccp.channel_id = :cid
+) C ON C.errata_id = O.clone_errata_id AND C.package_id = O.package_id
+-- the errata clone is already published in the cloned channel, but the package is not
+WHERE C.errata_id is not NULL and C.package_id is NULL
+  </query>
+</mode>
+
 <mode name="list_packages_needing_sync" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="ocid, cid">
 SELECT p.id, pn.name AS package_name,
@@ -1459,6 +1487,35 @@ JOIN rhnPackageName pn ON pn.id = p.name_id
 JOIN rhnPackageEVR pevr ON pevr.id = p.evr_id
 JOIN rhnPackageArch pa ON pa.id = p.package_arch_id
 WHERE C.package_id IS NULL
+  </query>
+</mode>
+
+
+<mode name="list_packages_ids_needing_sync">
+  <query params="ocid, cid">
+SELECT DISTINCT O.package_id as id
+FROM
+(
+    SELECT
+        oep.package_id, ec.id AS clone_errata_id
+    FROM rhnChannelPackage ocp
+    JOIN rhnChannelErrata oce ON oce.channel_id = ocp.channel_id
+    JOIN rhnErrataPackage oep ON oep.errata_id = oce.errata_id
+        AND oep.package_id = ocp.package_id
+    JOIN rhnErrataCloned ec ON ec.original_id = oep.errata_id
+WHERE ocp.channel_id = :ocid
+) O
+LEFT JOIN (
+    SELECT
+        cep.package_id, cep.errata_id
+    FROM rhnChannelPackage ccp
+        JOIN rhnChannelErrata cce ON cce.channel_id = ccp.channel_id
+        JOIN rhnErrataPackage cep ON cep.errata_id = cce.errata_id
+            AND cep.package_id = ccp.package_id
+WHERE ccp.channel_id = :cid
+) C ON C.errata_id = O.clone_errata_id AND C.package_id = O.package_id
+-- the errata clone is already published in the cloned channel, but the package is not
+WHERE C.errata_id is not NULL and C.package_id is NULL
   </query>
 </mode>
 
