@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.114.dev
+Version: 2.4.115.dev
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -650,6 +650,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Wed Nov 18 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.115.dev-1
+- ignore all not any longer supported entitlements
+
 * Thu Sep 03 2015 Silvio Moioli <smoioli@suse.de> 2.4.114.dev-1
 - backend: remove repoll parameter from
   rhn_entitlements.remove_server_entitlement()
