@@ -1202,7 +1202,7 @@ public class ErrataFactory extends HibernateFactory {
     public static Set<String> listAdvisoriesEndingWith(String ending) {
         SelectMode mode = ModeFactory.getMode("Errata_queries", "advisories_ending_with");
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("ending", "'%" + ending + "'");
+        params.put("ending", "%" + ending);
         List<Map<String, Object>> results = mode.execute(params);
         Set<String> ret = new HashSet<String>();
         for (Map<String, Object> result : results) {
@@ -1221,7 +1221,7 @@ public class ErrataFactory extends HibernateFactory {
         SelectMode mode = ModeFactory.getMode("Errata_queries",
                 "advisory_names_ending_with");
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("ending", "'%" + ending + "'");
+        params.put("ending", "%" + ending);
         List<Map<String, Object>> results = mode.execute(params);
         Set<String> ret = new HashSet<String>();
         for (Map<String, Object> result : results) {
