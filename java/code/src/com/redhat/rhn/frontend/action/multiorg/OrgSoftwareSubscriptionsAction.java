@@ -35,7 +35,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,13 +64,11 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
 
         RequestContext ctx = new RequestContext(request);
         Long oid = ctx.getParamAsLong(RequestContext.ORG_ID);
-        String synced = ctx.getParam("syncedonly", false);
         Org org = OrgFactory.lookupById(oid);
         request.setAttribute("org", org);
-        request.setAttribute("syncedonly", synced);
+
         Map<String, Object> params = new HashMap<String, Object>();
         params.put(RequestContext.ORG_ID, oid);
-        params.put("syncedonly", synced);
         ListHelper helper = new ListHelper(this, request, params);
         helper.execute();
 
@@ -118,7 +115,9 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
                 request.getSession().removeAttribute(makeLabel(request));
             }
         }
+
         request.setAttribute(RequestContext.PAGE_LIST, helper.getDataSet());
+
         return retval;
     }
 
@@ -186,23 +185,9 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
      * {@inheritDoc}
      */
     public List<OrgChannelFamily> getResult(RequestContext contextIn) {
-        Boolean check = false;
-        String param = contextIn.getRequest().getParameter("syncedonly");
-        if (param != null && param.equals("true")) {
-            check = true;
-        }
         Org org = (Org)contextIn.getRequest().getAttribute("org");
         List<OrgChannelFamily> subs =  ChannelManager.
                 listChannelFamilySubscriptionsFor(org);
-        if (check) {
-            List<OrgChannelFamily> filtered = new ArrayList<OrgChannelFamily>();
-           for (OrgChannelFamily sub : subs) {
-                if (sub.getCurrentFlex() > 0 || sub.getCurrentMembers() > 0) {
-                    filtered.add(sub);
-                }
-            }
-            subs = filtered;
-        }
         return subs;
     }
 

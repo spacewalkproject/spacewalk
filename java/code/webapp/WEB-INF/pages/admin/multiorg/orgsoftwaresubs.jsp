@@ -38,19 +38,10 @@
 <h2><bean:message key="orgsoftwaresubs.jsp.header2"/></h2>
 
 <p class="margin-bottom-md"><bean:message key="orgsoftwaresubs.jsp.description" arg0="${org.name}"/></p>
-<form method="POST" action="/rhn/admin/multiorg/OrgSoftwareSubscriptions.do?oid=${param.oid}">
-<rhn:csrf />
-<div class="checkbox">
-            <input name="syncedonly" id="syncedonly" value="true" onchange="this.form.submit()" type="checkbox" ${param.syncedonly == 'true' ? 'checked' : ''}>
-            <label>
-		<bean:message key="orgsoftwaresubs.jsp.syncedonly"/>
-            </label>
-            </div>
-</form>
+
 <rl:listset name="entitlementSet">
     <rhn:csrf />
         <rhn:submitted/>
-
         <input type="hidden" name="oid" value="${param.oid}"/>
 
     <rl:list dataset="pageList"
