@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.14
+Version: 2.5.15
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,308 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 24 2015 Jan Dobes 2.5.15-1
+- SystemEntitlementsSetupActionTest: stale comment removed
+- java: remove unused imports
+- drop usage of rhnOrgEntitlements and rhnOrgEntitlementsType tables
+- drop OrgFactory.lookupEntitlementByLabel() and references
+- drop getEntitlementEnterprise() and references
+- drop getEntitlementVirtualization() and references
+- drop use of org_entitlements() acl checks from jsps
+- drop use of org_entitlements() acls from navigation
+- java: fix entitlement-testing cases
+- java: remove repoll parameter from
+  rhn_entitlements.remove_server_entitlement()
+- i18n: unused strings removed
+- OrgHandler: remove unused constants
+- SystemEntitlementsSetupAction: remove useless check
+- ChannelFamilyFactoryTest: unused method removed
+- ChannelFamilyFactoryTest: fix checkstyle issue
+- LoginSetupActionTest: remove tests that are not relevant anymore
+- OrgFactoryTest: drop test, does not make sense anymore
+- SystemDetailsEditActionTest.testAddonEntitlemntsList: fix
+- SystemEntitlementsSetupActionTest: fix
+- SystemHandler: remove comment leftover
+- ChannelFamilyFactoryTest: remove entitlement leftovers
+- SystemManagerTest: remove test, it does not make sense in the end
+- SystemGroupOvervirew: remove unused code
+- ServerGroupTest: dead code removal
+- SummaryPopulation Taskomatic task: assume all orgs always have enterprise
+  entitlements
+- SystemHandler.listGroups: visible system groups have no max members, simplify
+  query
+- EntitlementServerGroup: remove references to max_members from the class and
+  test code
+- i18n: unused strings removed
+- EntitlementServerGroupSerializer: unused, removed
+- i18n: unused strings removed
+- EntitlementManager: remove dead code
+- SystemManager: don't check entitlement counts when changing a system's
+  entitlements
+- SystemEntitlementsSubmitAction: remove dead code - available entitlement
+  count is not shown anymore
+- System Details page: don't show entitlement counts
+- UpdateOrgSystemEntitlementsCommand: drop unused code
+- OrgHandler: drop setSystemEntitlements API endpoint
+- OrgHandler/OrgManager: dead code removed
+- OrgHandler: drop listSystemEntitlements API endpoint
+- OrgHandler: drop listSystemEntitlements API endpoint
+- SystemEntitlementsDto: drop unused class
+- EntitlementManager: dead code removed
+- OrgHandler: drop listSystemEntitlements API endpoint
+- SystemEntitlementsAction: page dropped
+- SystemEntitlementDetailsAction: page dropped
+- SystemEntitlementOrgsAction: page dropped
+- OrgEntitlementDto: dead code removed
+- OrgHandler: drop listSystemEntitlementsForOrg API endpoint
+- OrgSystemSubscriptionsAction: page dropped
+- EntitledServerGroup: unused code removed
+- NotEnoughEntitlementsException: unused exception removed
+- SystemHandler.upgradeEntitlement: remove entitlement count check
+- SystemEntitlementsSetupAction: assume all entitlements are unlimited
+- ConfigureCertificateCommand: unused, dropped
+- CertificateConfig.do: page dropped
+- editlangs.sh: generalize a bit for non-jsp files
+- i18n: unused strings removed
+- SatelliteCertificateExpiredException: unused, dropped
+- SatelliteCertificate: unused, dropped
+- SatelliteFactory: unused, dropped
+- CertificateFactory: unused, dropped
+- SatelliteHandler: getCertificateExpirationDate() dropped
+- CertificateManager: unused, dropped
+- sat-cert-check Taskomatic task dropped
+- LoginExpiredTest: dropped
+- LoginSetupAction, LoginAction: don't restrict access if the certificate is
+  expired
+- java: XMLRPC restricted whitelist dead code removal
+- BaseHandler: don't restrict XMLRPC APIs if the certificate is expired
+- java: restricted whitelist dead code removal
+- AuthFilter: don't restrict page visits if the certificate is expired
+- ActivationKeyHandlerTest: avoid Java 7 constructs
+- i18n: Remove system.entitle.alreadyvirt
+- i18n: Remove virtualization_host_platform
+- i18n: Remove
+  system_entitlement_details.access_grant_desc.virtualization_host_platform
+- i18n: Remove sys_entitlements.virtualization_host_platform
+- i18n: Remove system_entitlements.virtualization_host_platform.success
+- i18n: Remove system_entitlements.virtualization_host_platform.removed.success
+- i18n: Remove system_entitlements.virtualization_host_platform.notEnoughSlots
+- i18n: Remove system_entitlements.virtualization_host_platform.noManagement
+- i18n: Remove
+  system_entitlements.virtualization_host_platform.noSolarisSupport
+- java: remove references to rhnVirtSubLevel which is not used anymore
+- java: delete class and methods not used anymore
+- java: remove test code referencing rhnVirtSublevel
+- SystemChannelsActionTest: remove commented out dead test
+- SystemManager: unused import removed
+- Removed dead localization key (virt_plat_tip)
+- Remove Virtualization Platform from hibernate
+- Remove Virtualization Platform from CommonConstants and tests
+- Remove Virtualization Platform from some tests
+- Remove Virtualization Platform checking when adding entitlement to an
+  activation key, adjust the test
+- Drop EntitlementManager.VIRTUALIZATION_PLATFORM ent and
+  EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED and their usages
+- Remove Virtualization Platform test from EntitlementManagerTest
+- Remove Virtualization Platform from Server and ServerTest
+- api: Remove Virtualization Platform from SystemHandler, remove Virtualization
+  Platform and Virtualization exclusivity check, adjust the test
+- api(doc): Remove Virtualization Platform from ServerSerializer
+- api: Remove Virtualization Platform from OrgHandlerTest
+- api(doc): Remove Virtualization Platform from OrgHandler
+- api: Remove Virtualization Platform from ActivationKeyHandlerTest
+- api(doc): Remove Virtualization Platform from documentation of
+  ActivationKeyHandler
+- api: Remove checking for Virtualization Platform and Virtualization
+  entitlements exclusivity from the API validation
+- Remove Virtualization Platform from SystemManagerTest, cleaned up unused
+  methods.
+- Remove handling Virtualization Platform when entitling a server in
+  SystemManager
+- Remove unused methods from tests
+- Remove checking for Virtualization Platform when checking and updating server
+  entitlements in SystemDetailsEditAction
+- Remove Virtualization Platform from Overview -> Subscription Management ->
+  System Entitlements view
+- Remove Virtualization Platform from Admin -> Organizations view
+- translation strings: remove unused non-linux entitlement string
+- java: remove update entitlement references from test code
+- Org: remove unused fake update org entitlement
+- SearchAction: don't check for update org entitlement
+- EntitlementManager: remove references to update entitlements
+- translation strings: remove unused references
+- translation strings: remove reference to update entitlements
+- SystemDetailsEditAction: don't show update entitlement counts
+- SystemDetailsEditAction: don't filter update entitlements
+- ServerConstants: remove unused method getServerGroupTypeUpdateEntitled
+- System entitlements page: don't handle update entitlements
+- SystemEntitlementsAction: don't check for update entitlements
+- SystemHandler: update entitlement removed from documentation
+- ServerSerializer: update entitlement removed from documentation
+- java: more unused imports removed
+- java: fix checkstyle warnings
+- Task_queries: remove provisioning entitlement
+- EnableListAction: don't show provisioning entitlement
+- Unused translation strings removed
+- navigation menus: remove rhn_provisioning ACL checks
+- jsps: remove rhn_provisioning ACL checks
+- struts-config.xml: removed all rhn_provisioning references
+- PackageAclHandler: fix javadoc
+- OrgFactory: remove unused method
+- BaseHandler: remove unused method
+- Drop provisioning entitlement code from Java test classes
+- SystemDetailsEditAction: don't expect provisioning parameter
+- ConfigList actions: don't require provisioning entitlement
+- CustomValueSetAction: don't require provisioning for custom data setting
+- SystemManager: don't require provisioning in rollback to tag
+- ActivationKeyManager: don't handle special provisioning entitlement case
+- ServerConstants: getServerGroupTypeProvisioningEntitled dropped
+- ProvisioningEntitlement: dropped
+- EntitlementManager: don't expect provisioning entitlement
+- EnableConfigHelper: don't add provisioning entitlement
+- ActionManager: don't require provisioning entitlement to run scripts
+- SystemEntitlementsSubmitAction: don't expect provisioning entitlement in form
+  data
+- ProvisioningRemoteCommand: don't require provisioning for remote command
+- BaseSystemPackagesConfirmAction: don't require provisioning for rollback
+- KickstartScheduleCommand: avoid adding provisioning entitlement to activation
+  key
+- ActivationKeyDetailsAction: remove provisioning entitlement check
+- SystemHandler: drop provisioning entitlement checks
+- SystemHandler: drop provisioning entitlement from documentation
+- OrgHandler: drop provisioning entitlement from documentation
+- ActivationKeyHandler: drop provisioning entitlement checks
+- ActivationKeyHandler: drop provisioning entitlement from documentation
+- ServerSerializer: remove provisioning entitlement documentation
+- Drop Activation Key checks on config file deployments on provisioning
+  entitlement
+- ActivationKeyAclHandler: drop
+- Activation Key page: remove check on provisioning entitlement
+- System Details page: don't show provisioning entitlement
+- ProxyHandler: require enterprise entitlement instead of provisioning
+- System Entitlement Counts page: removal of the provisioning entitlement
+- Allow system tagging actions even without the provisioning entitlement in UI
+- Allow power management actions even without the provisioning entitlement in
+  UI
+- Drop provisioning-related Python tests
+- Unused translation strings removed: monitoring entitlement
+- Remove references to rhn_config_macro from Java code
+- Remove 'monitoring_entitled' from Python tests
+- refactor: Rename monitoring package
+- branding: remove unused css classes and their dead references
+- java: ServerFactoryTest imports organized
+- java: context references to removed page removed
+- Unused translation removed
+- Unused translation removed
+- java: remove unused constant and import
+- java: remove unused class SnapshotRollbackException
+- java: context references to removed page removed
+- Unused translation removed
+- Unused translation removed
+- java: remove HostAndGuestCountView and related methods
+- Unused translation removed
+- java: fixed context in StringResource
+- Unused translation removed
+- Unused translation removed
+- Unused translation removed
+- java: remove ChannelFamilySystem
+- Unused translation removed
+- java: remove ChannelFamilySystemGroup
+- java python tests: remove tests for dropped API setSoftwareEntitlements
+- java: remove example script which uses obsolete satellite.listEntitlements
+  API
+- java python tests: remove tests for dropped APIs
+- java: remove MultiOrgEntitlementsDto
+- Unused translation removed
+- java: remove page from authentication service whitelist
+- Unused translation removed
+- java: remove SoftwareEntitlementDto
+- Unused translation removed
+- java: remove SoftwareEntitlement StringResources
+- java: remove unused members from ChannelOverview
+- java: remove OrgChannelFamily
+- java: remove OrgChannelFamilySerializer
+- java: remove ChannelOverviewSerializer
+- java: remove is_fve from system_channel_subscriptions query
+- VirtualInstanceFactory: imports organized
+- java: remove maxMembers, currentMembers, maxFlex and currentFlex from
+  PrivateChannelFamily
+- java: removed unused package_search query files
+- java: modify insert_family_perms - not set members explicitly
+- java: remove unused methods listFlexGuests and runFlexGuestsQuery
+- java: remove channel_entitlement and channel_entitlement_for_all_orgs queries
+- SnapshotHandler: imports organized
+- SatelliteHandlerTest: imports organized
+- SatelliteHandler: imports organized
+- SnapshotRollbackAction: imports organized
+- java: remove handling for channel_family_no_subscriptions exception
+- java: remove entitlements() and getEntitlement() from ChannelManager
+- java: change ChannelFamily product URL
+- java: remove ChannelFamilyTree page
+- java XMLRPC: remove listEntitlements from SatelliteHandler
+- remove current_members and available_members from rhnAvailableChannels view
+- ChannelManagerTest: imports organized
+- SsmManager: imports organized
+- ChannelManager: imports organized
+- ChildChannelDto: checkstyle fixes
+- ChildChannelConfirmAction: checkstyle fixes
+- java: remove SystemManager.isServerIdFveEligible()
+- java: remove ChannelManager.isChannelFreeForSubscription()
+- java: remove all getAvailableFveEntitlements() methods and
+  ChannelEntitlementCounter
+- java: remove getAvailableEntitlements() methods
+- java: remove SsmManager.verifyChildEntitlements()
+- java: remove SystemManager.canServerSubscribeToChannel()
+- java: cleanup ChildChanneDto; remove available(Fve)Subscriptions and
+  isFreeForGuest
+- java XMLRPC: remove ChannelSoftwareHandler.availableEntitlements()
+- java: remove OrgSoftwareEntitlementDto
+- java: remove unused assign_software_entitlements query
+- java: remove unused VirtualInstanceFactory.listEligibleFlexGuests() method
+- java: remove unused UpdateOrgSoftwareEntitlementsCommand and test
+- java: SystemHandler imports organized
+- java: remove unused VirtualizationEntitlementsManager class and tests
+- java: remove GuetsLimitedHosts StringResources
+- java: remove GuestLimitedHosts page
+- java: remove GuestUnlimitedHosts StringResources
+- java: remove GuestUnlimitedHosts page
+- java: update NavTest not to rely on removed page
+- java: remove PhysicalHosts StringResources
+- java: remove PhysicalHosts page
+- java: remove unused methods VirtEntManager listFlexGuests,
+  listEligibleFlexGuests
+- java: remove unused convertToFlex method
+- java XMLRPC: remove SystemHandler.listEligibleFlexGuests()
+- java XMLRPC: remove SystemHandler.listFlexGuests()
+- java XMLRPC: remove SystemHandler.convertToFlexEntitlement()
+- java: remove softwareentitlements from StringResource
+- java: remove SoftwareEntitlements from PxtAuth
+- java: remove an unused SoftwareEntitlementSubscriptions StringResource
+- java: remove SoftwareEntitlementSubscriptions from PxtAuth
+- java: remove unused SystemManager.getEntitledSystems() method
+- java: remove link to dropped software entitlemet page
+- java: remove software Entitlements pages
+- java: remove EntitledSystems StringResources
+- java: remove EntitledSystems page
+- java: remove EligibleFlexGuests StringResources
+- java: remove EligibleFlexGuests page
+- java: remove FlexGuest from StringResources
+- java: remove FlexGuest page
+- OrgHandlerTest: imports organized
+- ChannelManager: imports organized
+- OrgHandler: imports organized
+- java: remove unused software entitlement backend methods
+- java XMLRPC: remove SoftwareEntitlement functions
+- java: remove OrgSoftwareSubscription StringResources
+- java: remove OrgSoftwareSubscriptions page
+- java: remove SoftwareEntitlements page
+- java: remove SoftwareEntitlementDetails StringResources
+- java: remove SoftwareEntitlementDetails page
+- java: remove softwareEntitlementSubscriptions StringResources
+- java: remove SoftwareEntitlementSubscriptions page
+- Revert "added ability to filter out only synchronised channels when adding
+  entitlements to org in multi org satellite"
+
 * Thu Nov 19 2015 Jan Dobes 2.5.14-1
 - BugFix: remove inconsistency and make more general the action description for
   package page title and tab-title in Schedule
