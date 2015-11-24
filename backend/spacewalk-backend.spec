@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.3
+Version: 2.5.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -650,6 +650,73 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Tue Nov 24 2015 Jan Dobes 2.5.4-1
+- ignore all not any longer supported entitlements
+- backend: remove repoll parameter from
+  rhn_entitlements.remove_server_entitlement()
+- backend: do not use rhn_entitlements.repoll_virt_guest_entitlements() anymore
+- backend: errno 20220 (Server Group Membership exceeded) is not thrown anymore
+- backend: remove use of rhn_entitlements.activate_system_entitlement()
+- satCert, satsync: checkstyle fixes
+- satsync.py: fix merge error
+- backend: remove max_members from unit tests
+- remove max_member update from rhnServerGroup
+- drop rhnFault 91
+- ISS: export 10 system entitlements and import none
+- drop rhn-entitlement-report
+- remove comments
+- remove unused function entitlement_grants_service()
+- It should always work to add with enterprise_entitled
+- Removed unused exception
+- backend: dead code removal
+- rhn-satellite-activate: manual references removed
+- rhn-satellite-activate: dropped
+- satellite-sync: don't sync the certificate
+- server_class.py: remove dead code
+- rhnHandler: don't check for certificate expiry
+- satCerts.py: remove comment reference to dropped file
+- rhn_satellite_activate: remove unused validateSatCert function
+- rhn_satellite_activate: don't check certificate validity
+- rhn_satellite_activate: outdated comment removed
+- import: don't import rhnVirtSubLevel
+- import: don't import from rhnSGTypeVirtSubLevel
+- import: don't import table rhnChannelFamilyVirtSubLevel
+- export refactoring: remove unused parameters/fields
+- export refactoring: remove unused query
+- export: don't export rhnChannelFamilyVirtSubLevel
+- export refactoring: unused attributes removed
+- import refactoring: unused attribute removed
+- backend: remove virtualization host platform entitlement references
+- backend: remove references to nonlinux entitlements
+- backend: remove comments that are not relevant anymore
+- backend: remove references to the update entitlement
+- rhn-entitlement-report: don't filter update entitlements
+- python backend unit tests: remove references to provisioning_entitled
+- registration.py: remove references to provisioning_entitled in documentation
+- backend: remove references to provisioning_entitled
+- backend: commented code removed
+- backend: unused reg_num parameter removed from documentation
+- Change error message for NoBaseChannel Exception
+- Remove monitoring from cert tools
+- Remove traces of monitoring from registration.py doc
+- backend: do not set max_members of rhnChannelFamily
+- backend: do not set values for max_members and current_members
+- backend: remove unused ChannelFamilyPermissions class
+- backend: remove special handling for SubscriptionCountExceeded
+- backend: remove unused imports
+- entitlement-report: remove channel entitlement views
+- backend: remove unused ChannelFamilyPermissionsImport() and
+  processChannelFamilyPermissions
+- backend: remove populate_channel_family_permissions and
+  purge_extra_channel_families from sync_handler
+- backend: remove local handling of channel family members from satsync
+- backend: remove channel subscription checks from rhn-satellite-activate
+- backend: update rhn_channel.subscribe_server signature
+- backend: remove usage of update_family_counts
+- backend: remove available_subscriptions from channel object
+- backend: remove family count handling from server_kickstart
+- backend: remove family count handling from server_token
+
 * Sun Oct 18 2015 Aron Parsons <aronparsons@gmail.com> 2.5.3-1
 - don't print python object details in reposync.py
 
