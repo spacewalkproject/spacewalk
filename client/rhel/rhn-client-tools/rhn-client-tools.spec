@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.5.1
+Version: 2.5.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -383,6 +383,14 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Nov 24 2015 Jan Dobes 2.5.2-1
+- rhel client tools: po files updated
+- rhel client tools: remove virtualization host platform entitlement references
+- rhel client tools: drop references to update entitlements
+- client-tools: Remove 'provisioning_entitled' slot from RHEL and Debian
+- backend: unused reg_num parameter removed from documentation
+- client-tools: Remove 'monitoring_entitled' slot from RHEL and Debian
+
 * Thu Oct 15 2015 Tomas Lestach <tlestach@redhat.com> 2.5.1-1
 - fix rhnChannel instance has no attribute 'get'
 - Bumping package versions for 2.5.
