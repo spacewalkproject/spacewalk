@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.5.1
+Version:        2.5.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,161 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Nov 24 2015 Jan Dobes 2.5.2-1
+- fixing sha
+- schema upgrade: org entitlement related tables
+- schema: remove org_entitlement(sw_mgr_enterprise) from rhnInfoPane
+- schema: drop rhnOrgEntitlements and rhnOrgEntitlementType tables
+- schema: fix shas
+- schema upgrade: drop max_members from rhnServerGroupType
+- schema upgrade: delete_server proc
+- schema upgrade: views
+- schema upgrade: delete unused rhnExceptions
+- schema upgrade: rhn_server package
+- schema upgrade: rhn_org package
+- schema upgrade: rhn_enttitlements package
+- schema upgrade: create_org procs
+- schema upgrade: drop rhnSatelliteCert
+- schema upgrade: drop the sat-check Taskomatic task
+- schema: assign org entitlements when creating a new organization
+- schema: create config_admin user group while creating a new organization
+- schema: remove repoll parameter from
+  rhn_entitlements.remove_server_entitlement()
+- schema: drop rhn_entitlements.repoll_virt_guest_entitlements()
+- schema: remove rhn_server.can_server_consume_virt_slot() and count
+  current_members like normal server groups
+- schema: remove max_members from rhnServerGroupOverview view
+- schema: drop unused rhnVisServerGroupOverviewLite view
+- schema: remove use of max_members in views
+- schema: remove max_members from rhnServerGroup table
+- schema: remove unused not_enough_entitlements_in_base_org exception
+- schema: remove unused exception servergroup_max_members
+- schema: do not set max_members in create_first_org and create_new_org
+- schema: modify rhn_server.insert_into_servergroup() to not use max_members
+- schema: drop modify_org_service, set_customer_enterprise,
+  unset_customer_enterprise from rhn_entitlements
+- schema: drop rhn_entitlements.entitle_last_modified_servers()
+- schema: drop rhn_entitlements.activate_system_entitlement()
+- schema: drop rhn_entitlements.assign_system_entitlement()
+- schema: drop rhn_entitlements.set_server_group_count()
+- schema: drop rhn_entitlements.prune_group()
+- schema: remove handling of max_members from
+  rhn_entitlements.repoll_virt_guest_entitlements()
+- schema: drop rhn_entitlements.remove_org_entitlements()
+- schema: add virtualization host entitlement and enterprise entitlement to SP
+  for creating organizations
+- db: drop rhnSatelliteCert
+- sat-cert-check Taskomatic task dropped
+- rhn_server migrations: drop provisioning, update,
+  virtualization_host_platform entitlements
+- rhn_entitlements migrations: drop provisioning, update, nonlinux and
+  virtualization_host_platform entitlements
+- migration for create_first_org and create_new_org SP: don't add update
+  entitlement for new orgs
+- rhnEntitledServers view migration: remove reference to update entitlements
+- db migration: remove references to rhnVirtSubLevel, rhnSGTypeVirtSubLevel and
+  rhnChannelFamilyVirtSubLevel
+- delete_server stored procedure migration: remove references to virtualization
+  host platform entitlements
+- data migration: remove references to virtualization host platform
+  entitlements
+- data migration: remove references to nonlinux entitlements
+- data migration: remove references to update entitlements
+- db: remove references to rhnVirtSubLevel, rhnSGTypeVirtSubLevel and
+  rhnChannelFamilyVirtSubLevel
+- data: remove references to virtualization host platform entitlements
+- rhn_server: remove references to virtualization host platform entitlements
+- rhn_entitlements: remove references to virtualization host platform
+  entitlements
+- delete_server: remove references to virtualization host platform entitlements
+- data: remove references to nonlinux entitlements
+- rhn_entitlements: remove references to nonlinux entitlements
+- rhnEntitledServers: remove reference to update entitlements
+- data: remove references to update entitlements
+- rhn_server: don't expect update entitlement
+- rhn_entitlements: update shas
+- rhn_entitlements.entitle_server: remove update entitlement references
+- rhn_entitlements.remove_server_entitlement: delete default function value,
+  callers always specify it
+- rhn_entitlements.entitle_server: delete default function value, callers
+  always specify it
+- rhn_entitlements: drop unused create_entitlement_group function
+- rhn_entitlements: drop unused lookup_entitlement_group function
+- create_new_org and create_first_org: remove automatically added update
+  entitlement server group
+- schema upgrades: fix to the dropping of provisioning entitlements
+- db: upgrade scripts
+- rhnEntitledServers view: remove references to provisioning
+- db data: remove references to provisioning
+- rhn_server: remove provisioning references
+- create_new_org and create_first_org: remove outdated comment
+- rhn_entitlements: remove provisioning references
+- Remove unused rhn_host_monitoring and its oracle synonym
+- Remove unused rhn_customer_monitoring view and its oracle synonym
+- Removed unused rhn_contact_monitoring and its oracle synonym
+- Remove monitoring_admin role from users, remove monitoring_admin row from
+  rhnUserGroupType
+- Remove populating rhn_config_macro table as it doesn't exist anymore
+- Drop the rhn_config_macro table
+- db: Remove monitoring entitlement from insert/delete to/from server group
+- db: Remove rhn_monitoring from the database
+- schema: drop parameter from clear_subscriptions in delete_server
+- schema migration: drop not_enough_flex_entitlements exception
+- schema migration: drop not_enough_flex_entitlements_in_base_org exception
+- schema migration: remove server_cannot_convert_to_flex exception
+- schema: drop not_enough_flex_entitlements exception
+- schema: drop not_enough_flex_entitlements_in_base_org exception
+- schema: remove server_cannot_convert_to_flex exception
+- schema migration: remove unused invalid_channel_family exception
+- schema: remove unused invalid_channel_family exception
+- schema migration: drop software channel subscription counting
+- schema: drop unused rhnChannelFamilyServerPhysical view
+- schema: drop is_fve column from rhnServerChannel
+- schema: remove unused rhn_entitlements.subscribe_newest_servers()
+- schema: fix syntax error in rhn_channel
+- schema: remove member columns from rhnPrivateChannelFamily
+- schema: remove channel entitlement setting from remove_org_entitlements in
+  rhn_entitlements
+- schema: remove maxMembers, currentMembers, maxFlex and currentFlex from
+  rhnChannelFamilyPermissions view
+- schema: remove member check from rhn_channel.get_org_access()
+- schema: remove members from rhnOrgChannelFamilyPermissions and
+  rhnUserChannelFamilyPerms views
+- schema: drop rhnChannelFamilyServerVirtual view
+- schema: drop unused view rhnChannelFamilyServers
+- schema: drop rhnChannelFamilyServerFve view
+- schema: remove unused vars from [un]subscribe_server in rhn_channel
+- schema: remove unused virt_guest_orgs from repoll_virt_guest_entitlements in
+  rhn_entitlements
+- schema: remove delete_server_channels from rhn_channel and delete_server
+  proceedure
+- schema: remove rhnChannelFamilyOverview view
+- schema: remove channel_family_no_subscriptions exception
+- schema: drop unused view rhnServerFveCapable
+- schema: drop channel_family_no_subscriptions exception
+- schema: remove channel_family_current_members from rhn_channel
+- schema: remove prune_family from rhn_entitlements
+- schema: remove set_family_count from rhn_entitlements
+- schema: remove channel entitlement handling from
+  repoll_virt_guest_entitlements in rhn_entitlements
+- schema: remove assign_channel_entitlement from rhn_entitlements
+- schema: remove available_family_subscriptions from rhn_channel
+- schema: remove available_fve_family_subs from rhn_channel
+- schema: remove unused available_fve_chan_subs from rhn_channel
+- schema: remove unused available_chan_subscriptions from rhn_channel
+- schema: remove unused rhnUserAvailableChannels view
+- remove current_members and available_members from rhnAvailableChannels view
+- schema: remove unused can_server_consume_fve from rhn_channel
+- schema: remove unused can_server_consume_virt_channl from rhn_channel
+- schema: remove channel entitlement checks on subscribe_server
+- schema: drop convert_to_fve and can_convert_to_fve from rhn_channel
+- schema: whitespace fixes
+- schema: remove unused activate_channel_entitlement from rhn_entitlements
+- schema: remove unused function cfam_curr_fve_members from rhn_channel
+- schema: remove usage of update_group_family_counts from rhn_entitlements
+- schema: remove update_family_counts from rhn_entitlements
+- schema: remove update_family_counts and update_group_family_counts
+
 * Wed Sep 30 2015 Tomas Kasparek <tkasparek@redhat.com> 2.5.1-1
 - fix delete user by deleting the reference to rhnResetPassword
 - Bumping package versions for 2.5.
