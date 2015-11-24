@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.2
+Version: 2.5.3
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -155,6 +155,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Nov 24 2015 Jan Dobes 2.5.3-1
+- spacewalk-web.spec: remove leftovers
+- rhn-satellite-activate: manual references removed
+- perl modules: drop unused Cert.pm
+- perl modules: drop unused SatelliteCert.pm
+
 * Wed Nov 04 2015 Jan Dobes 2.5.2-1
 - removing unused code in RHN::DB package
 
