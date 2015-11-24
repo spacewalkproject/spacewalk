@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.5.1
+Version:        2.5.2
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -112,6 +112,15 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Nov 24 2015 Jan Dobes 2.5.2-1
+- Use the same name for the first org as before
+- remove trailing whitespaces
+- Remove unused Cert class from spacewalk-setup
+- Remove unused load_satellite_certificate function and satellite-cert-file
+  parameter
+- Remove certificate handling from setup
+- rhn-satellite-activate: dropped
+
 * Tue Oct 13 2015 Tomas Kasparek <tkasparek@redhat.com> 2.5.1-1
 - use --upgrade option for sw-dump-schema during migrations
 - Bumping package versions for 2.5.
