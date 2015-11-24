@@ -11,9 +11,11 @@
       <rhn-tab-url>/rhn/systems/details/SystemRemoteCommand.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Connection" url="/rhn/systems/details/Connection.do" acl="org_has_proxies()"/>
-    <rhn-tab name="Proxy" url="/rhn/systems/details/Proxy.do" acl="user_role(org_admin); system_feature(ftr_proxy_capable) or system_is_proxy(); org_channel_family(rhn-proxy) or system_is_proxy(); child_channel_candidate(rhn-proxy) or system_is_proxy(); not system_is_satellite();system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)">
+    <rhn-tab name="Proxy" url="/rhn/systems/details/ProxyClients.do" acl="user_role(org_admin); system_feature(ftr_proxy_capable) or system_is_proxy(); org_channel_family(SMP) or system_is_proxy(); child_channel_candidate(SMP) or system_is_proxy(); not system_is_satellite();system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)">
+<!--
       <rhn-tab name="Activation" url="/rhn/systems/details/Proxy.do" />
       <rhn-tab name="Systems Using Proxy" url="/rhn/systems/details/ProxyClients.do" acl="system_is_proxy()"/>
+-->
     </rhn-tab>
     <rhn-tab name="Reactivation" url="/rhn/systems/details/Activation.do" acl="system_feature(ftr_agent_smith)"/>
     <rhn-tab name="Hardware">
