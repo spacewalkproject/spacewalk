@@ -281,7 +281,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                      LEFT OUTER JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
                  WHERE uc.user_id = :user_id
                      AND uc.role = 'subscribe'
-                     AND c.parent_channel is null]]>
+                     AND c.parent_channel is null
+                     ORDER BY c.name]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
     <sql-query name="Channel.findAllBaseChannels">
