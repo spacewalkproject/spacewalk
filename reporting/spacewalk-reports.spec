@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.0
+Version: 2.5.1
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Tue Nov 24 2015 Jan Dobes 2.5.1-1
+- audit-server-groups report: remove reporting of max_members
+- entitlements report: dropped
+- report: remove channel entitlements from report
+- fix typo
+- Bumping package versions for 2.5.
+
 * Thu Sep 24 2015 Jan Dobes 2.4.5-1
 - Bumping copyright year.
 
