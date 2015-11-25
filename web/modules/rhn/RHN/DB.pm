@@ -234,6 +234,40 @@ sub call_procedure {
   return;
 }
 
+sub call_function {
+  my $self = shift;
+  my $procname = shift;
+  my @params = @_;
+  if ($self->{Driver}->{Name} eq 'Pg') {
+    my $q = "select $procname";
+
+    $q .= "(" . join(", ", map { '?' } @params ) . ")";
+
+    my $sth = $self->prepare($q);
+    $sth->execute(@params);
+    my ($ret) = $sth->fetchrow_array();
+    $sth->finish();
+
+    return $ret;
+  } else {
+    my @placeholders = map { ":p$_" } 1 .. scalar @params;
+    my $q = "BEGIN\n  :ret := $procname";
+
+    $q .= "(" . join(", ", @placeholders) . ");";
+    $q .= "\nEND;";
+
+    my $ret;
+    my $sth = $self->prepare($q);
+    $sth->bind_param_inout(":ret" => \$ret, 4096);
+
+    $sth->bind_param($placeholders[$_ - 1] => $params[$_ - 1]) foreach 1 .. scalar @params;
+
+    $sth->execute();
+
+    return $ret;
+  }
+}
+
 # another package
 package RHN::DB::st;
 our @ISA = qw/DBI::st/;
