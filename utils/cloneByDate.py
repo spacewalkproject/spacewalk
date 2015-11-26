@@ -26,6 +26,7 @@ import pprint
 import subprocess
 import datetime
 import re
+import time
 
 from yum.Errors import RepoError
 
@@ -640,7 +641,8 @@ class ChannelCloner:
                 for erratum in errata_list:
                     if erratum['advisory'] in self.original_errata:
                         if not self.to_date or (self.to_date and \
-    datetime.datetime.strptime(erratum[self.use_update_date], '%Y-%m-%d %H:%M:%S').date() <= self.to_date.date()):
+    datetime.datetime(*time.strptime(erratum[self.use_update_date], '%Y-%m-%d %H:%M:%S')[0:6]).date() <= \
+    self.to_date.date()):
                             self.original_pid_errata_map[pid] = erratum['advisory']
                             break
                 else:  # no match found, store so we don't repeat search
