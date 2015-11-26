@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.16
+Version: 2.5.17
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 26 2015 Jan Dobes 2.5.17-1
+- removing link to removed page
+- ActionChainHandler: javadoc fixes
+- replace html:select with simple select to fix plain text printing
+
 * Wed Nov 25 2015 Tomas Kasparek <tkasparek@redhat.com> 2.5.16-1
 - BZ-1284101 Incorrect query parameters cause unique constraint violations when
   cloning errata
