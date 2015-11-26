@@ -160,6 +160,7 @@ class ChannelFamily(Information):
         'label': StringType,
         'product_url': StringType,
         'channels': [StringType],
+        'org_id': IntType,
     }
 
 class DistChannelMap(Information):

@@ -252,6 +252,7 @@ class ChannelFamilyImport(Import):
         try:
             self.backend.processChannelFamilies(self.batch)
             self.backend.processChannelFamilyMembers(self.batch)
+            self.backend.processChannelFamilyPermissions(self.batch)
         except:
             self.backend.rollback()
             raise

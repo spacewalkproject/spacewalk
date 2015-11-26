@@ -960,6 +960,28 @@ class Backend:
         hdel.executemany(channel_id=c_ids)
         hins.executemany(channel_family_id=cf_ids, channel_id=c_ids)
 
+    def processChannelFamilyPermissions(self, channel_families):
+        # Since this is not evaluated in rhn_entitlements anymore,
+        # make channel families without org globally visible
+
+        cf_ids = []
+
+        for cf in channel_families:
+            if not cf['org_id']:
+                cf_ids.append(cf.id)
+
+        h_private_del = self.dbmodule.prepare("""
+            delete from rhnPublicChannelFamily
+             where channel_family_id = :channel_family_id
+        """)
+        h_private_ins = self.dbmodule.prepare("""
+            insert into rhnPublicChannelFamily (channel_family_id)
+            values (:channel_family_id)
+        """)
+
+        h_private_del.executemany(channel_family_id=cf_ids)
+        h_private_ins.executemany(channel_family_id=cf_ids)
+
     def processDistChannelMap(self, dcms):
         dcmTable = self.tables['rhnDistChannelMap']
         lookup = TableLookup(dcmTable, self.dbmodule)
