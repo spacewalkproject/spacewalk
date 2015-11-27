@@ -38,9 +38,6 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1029 $
  */
 public class CreateUserSetupAction extends BaseUserSetupAction {
-    /** placeholder string, package protected; so we don't transmit
-     * the actual pw but the form doesn't look empty */
-    static final String PLACEHOLDER_PASSWORD = "******";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
