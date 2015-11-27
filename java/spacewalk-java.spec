@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.17
+Version: 2.5.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 27 2015 Tomas Lestach <tlestach@redhat.com> 2.5.18-1
+- BugFix: skip similar tasks only if task is 'single threaded'
+- 1076490 - prefer the package from the given channel
+
 * Thu Nov 26 2015 Jan Dobes 2.5.17-1
 - removing link to removed page
 - ActionChainHandler: javadoc fixes
