@@ -27,7 +27,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.4.78
+Version: 2.4.79
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -769,6 +769,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 27 2015 Jan Dobes 2.4.79-1
+- BugFix: skip similar tasks only if task is 'single threaded'
+
 * Thu Sep 24 2015 Jan Dobes 2.4.78-1
 - Bumping copyright year.
 
