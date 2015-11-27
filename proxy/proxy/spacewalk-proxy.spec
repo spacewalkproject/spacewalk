@@ -8,7 +8,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.0
+Version: 2.5.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python
@@ -316,6 +316,10 @@ fi
 
 
 %changelog
+* Fri Nov 27 2015 Jan Dobes 2.5.1-1
+- removing old dependency
+- Bumping package versions for 2.5.
+
 * Wed May 27 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.3-1
 - fix pylint warning on Fedora 22
 
