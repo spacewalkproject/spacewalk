@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -223,6 +223,9 @@ fi
 %endif
 
 %changelog
+* Mon Nov 30 2015 Tomas Kasparek <tkasparek@redhat.com> 3.2.3-15
+- require openjdk-devel for building on F23
+
 * Tue Jun 24 2014 Michael Mraka <michael.mraka@redhat.com> 3.2.3-14
 - no gcj on RHEL7
 
