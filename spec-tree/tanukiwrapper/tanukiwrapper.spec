@@ -63,6 +63,9 @@ BuildRequires:	ant-nodeps >= 0:1.6.1
 BuildRequires:  jpackage-utils >= 0:1.6
 Requires:       jpackage-utils >= 0:1.6
 %endif
+%if 0%{?fedora} >= 23
+BuildRequires: java-1.8.0-openjdk-devel
+%endif
 BuildRequires:	glibc-devel
 BuildRequires:	ant >= 0:1.6.1
 BuildRequires:	ant-junit
