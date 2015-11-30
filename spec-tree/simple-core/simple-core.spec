@@ -13,6 +13,9 @@ BuildRequires:  ant
 %if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 BuildRequires: javapackages-tools
 %endif
+%if 0%{?fedora} >= 23
+BuildRequires: java-devel
+%endif
 BuildRequires:  java >= 1.5
 Requires:       java >= 1.5
 
