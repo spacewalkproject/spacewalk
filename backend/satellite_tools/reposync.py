@@ -114,7 +114,7 @@ def getCustomChannels():
     return l_custom_ch
 
 def latest_packages(packages):
-    #allows to download only lastest packages
+    #allows to download only latest packages
     packages.sort(reverse=True)
     seen = set()
     latest = []

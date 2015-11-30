@@ -83,7 +83,7 @@ def main():
                       help='Test run. No sync takes place.')
     parser.add_option('-n', '--latest', action='store_true',
                       dest='latest',
-                      help='Sync lastest packages only. Use carefully - you might need to fix some dependencies on your own.')
+                      help='Sync latest packages only. Use carefully - you might need to fix some dependencies on your own.')
     parser.add_option('-g', '--config', action='store', dest='config',
                help='Configuration file')
     parser.add_option('-t', '--type', action='store', dest='repo_type',
