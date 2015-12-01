@@ -1,4 +1,3 @@
-%{!?__redhat_release:%define __redhat_release UNKNOWN}
 %define cobprofdir      %{_localstatedir}/lib/rhn/kickstarts
 %define cobprofdirup    %{_localstatedir}/lib/rhn/kickstarts/upload
 %define cobprofdirwiz   %{_localstatedir}/lib/rhn/kickstarts/wizard
