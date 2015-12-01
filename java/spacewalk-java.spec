@@ -4,10 +4,6 @@
 %define cobdirsnippets  %{_localstatedir}/lib/rhn/kickstarts/snippets
 %define realcobsnippetsdir  %{_localstatedir}/lib/cobbler/snippets
 
-%if  0%{?rhel} && 0%{?rhel} < 6
-%define appdir          %{_localstatedir}/lib/tomcat5/webapps
-%define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
-%else
 %if 0%{?fedora} || 0%{?rhel} >= 7
 %define appdir          %{_localstatedir}/lib/tomcat/webapps
 %define jardir          %{_localstatedir}/lib/tomcat/webapps/rhn/WEB-INF/lib
@@ -15,12 +11,8 @@
 %define appdir          %{_localstatedir}/lib/tomcat6/webapps
 %define jardir          %{_localstatedir}/lib/tomcat6/webapps/rhn/WEB-INF/lib
 %endif
-%endif
 
-%if 0%{?fedora} || 0%{?rhel} >= 6
-# RHEL5 checkstyle4 is incompatible with checkstyle5
 %define run_checkstyle  1
-%endif
 
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
@@ -79,15 +71,6 @@ Requires: hibernate3 = 0:3.2.4
 BuildRequires: hibernate3 = 0:3.2.4
 %endif
 # EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
-%if 0%{?rhel} && 0%{?rhel} < 6
-Requires: jasper5
-Requires: struts >= 0:1.2.9
-Requires: tomcat5
-Requires: tomcat5-servlet-2.4-api
-BuildRequires: jasper5
-BuildRequires: jsp
-BuildRequires: struts >= 0:1.2.9
-%else
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: struts >= 0:1.3.0
 Requires: tomcat >= 7
@@ -106,7 +89,6 @@ BuildRequires: struts >= 0:1.3.0
 BuildRequires: struts-taglib >= 0:1.3.0
 BuildRequires: tomcat6
 BuildRequires: tomcat6-lib
-%endif
 %endif
 %if 0%{?fedora} || 0%{?rhel} >=7
 Requires:      apache-commons-cli
@@ -231,14 +213,10 @@ and taskomatic process.
 Summary: Oracle database backend support files for Spacewalk Java
 Group: Applications/Internet
 Requires: ojdbc14
-%if  0%{?rhel} && 0%{?rhel} < 6
-Requires: tomcat5
-%else
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: tomcat >= 7
 %else
 Requires: tomcat6
-%endif
 %endif
 Provides: spacewalk-java-jdbc = %{version}-%{release}
 
@@ -249,14 +227,10 @@ This package contains Oracle database backend files for the Spacewalk Java.
 Summary: PostgreSQL database backend support files for Spacewalk Java
 Group: Applications/Internet
 Requires: postgresql-jdbc
-%if  0%{?rhel} && 0%{?rhel} < 6
-Requires: tomcat5
-%else
 %if 0%{?fedora} || 0%{?rhel} >=7
 Requires: tomcat >= 7
 %else
 Requires: tomcat6
-%endif
 %endif
 Provides: spacewalk-java-jdbc = %{version}-%{release}
 
@@ -454,11 +428,6 @@ ln -s -f %{_javadir}/jboss-logging/jboss-logging.jar $RPM_BUILD_ROOT%{_javadir}/
 
 %endif
 
-%if  0%{?rhel} && 0%{?rhel} < 6
-ant -Dprefix=$RPM_BUILD_ROOT install-tomcat5
-install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat5/Catalina/localhost/
-install -m 755 conf/rhn.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
-%else
 %if 0%{?fedora} || 0%{?rhel} >= 7
 ant -Dprefix=$RPM_BUILD_ROOT install-tomcat7
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat/Catalina/localhost/
@@ -467,7 +436,6 @@ install -m 755 conf/rhn.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat/Catalina/localh
 ant -Dprefix=$RPM_BUILD_ROOT install-tomcat6
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/
 install -m 755 conf/rhn.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
-%endif
 %endif
 
 # check spelling errors in all resources for English if aspell installed
@@ -695,13 +663,8 @@ fi
 
 %{jardir}/asm_asm.jar
 
-# EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
-%if 0%{?rhel} && 0%{?rhel} < 6
-%{jardir}/struts.jar
-%else
 %{jardir}/struts*.jar
 %{jardir}/commons-chain.jar
-%endif
 
 %dir %{cobprofdir}
 %dir %{cobprofdirup}
@@ -712,14 +675,10 @@ fi
 %config %{cobdirsnippets}/post_reactivation_key
 %config %{cobdirsnippets}/post_delete_system
 %config %{cobdirsnippets}/redhat_register
-%if  0%{?rhel} && 0%{?rhel} < 6
-%config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
-%else
 %if 0%{?fedora} || 0%{?rhel} >= 7
 %config(noreplace) %{_sysconfdir}/tomcat/Catalina/localhost/rhn.xml
 %else
 %config(noreplace) %{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
-%endif
 %endif
 %{realcobsnippetsdir}/spacewalk
 %dir %attr(755, tomcat, root) %{_var}/spacewalk/systemlogs
