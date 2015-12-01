@@ -693,16 +693,7 @@ fi
 %{jardir}/xerces-j2.jar
 %{jardir}/xml-commons-apis.jar
 
-# asm-1.5.3-7.jpp5.noarch (F14, F13, EL6)
-# asm-1.5.3-1jpp.ep1.1.el5.2.noarch (EL5)
 %{jardir}/asm_asm.jar
-#%{jardir}/asmasm.jar
-#%{jardir}/asmasm-analysis.jar
-#%{jardir}/asmasm-attrs.jar
-#%{jardir}/asmasm-tree.jar
-#%{jardir}/asmasm-util.jar
-#%{jardir}/asmasm-xml.jar
-#%{jardir}/asmkasm.jar
 
 # EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
 %if 0%{?rhel} && 0%{?rhel} < 6
