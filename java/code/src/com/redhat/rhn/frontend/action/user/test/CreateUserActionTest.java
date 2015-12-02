@@ -51,7 +51,7 @@ public class CreateUserActionTest extends RhnPostMockStrutsTestCase {
     public void testNewUserIntoOrgSatellite() throws Exception {
 
 
-        setRequestPathInfo("/newlogin/CreateSatelliteSubmit");
+        setRequestPathInfo("/newlogin/CreateUserSubmit");
         RhnMockDynaActionForm form =
             fillOutForm("createSatelliteForm", CreateUserAction.TYPE_INTO_ORG);
         setActionForm(form);

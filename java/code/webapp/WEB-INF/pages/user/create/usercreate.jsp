@@ -24,7 +24,7 @@
 
 
   <c:if test="${empty param.action_path}">
-    <c:set var="action_path" value="/newlogin/CreateSatelliteSubmit" scope="page" />
+    <c:set var="action_path" value="/newlogin/CreateUserSubmit" scope="page" />
   </c:if>
   <c:if test="${!empty param.action_path}">
     <c:set var="action_path" value="${param.action_path}" scope="page"/>

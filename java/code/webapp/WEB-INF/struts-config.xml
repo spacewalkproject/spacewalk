@@ -107,6 +107,9 @@
             <form-property name="usepam" type="java.lang.Boolean"/>
             <form-property name="no_scrub" type="java.lang.String"
                             initial="desiredpassword, desiredpasswordConfirm"/>
+            <form-property name="preferredLocale" type="java.lang.String" />
+            <form-property name="timezone" type="java.lang.Integer"/>
+            <form-property name="readonly" type="java.lang.Boolean"/>
         </form-bean>
         <form-bean name="userDetailsForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
@@ -1360,8 +1363,8 @@
       <forward name="fail-sat" path="/newlogin/CreateFirstUser.do"/>
     </action>
 
-    <action path="/newlogin/CreateSatelliteSubmit"
-        name="createSatelliteForm"
+    <action path="/newlogin/CreateUserSubmit"
+        name="userCreateForm"
         scope="request"
         validate="false"
         input="/WEB-INF/pages/user/create/usercreate.jsp"
