@@ -72,7 +72,6 @@ def main():
     """ main routine
         10  CA certificate not found
         11  DB initialization failure
-        12  no Organization ID. Something very bad is going on.
         13  Couldn't insert the certificate for whatever reason.
     """
 
@@ -83,11 +82,8 @@ def main():
 
     try:
         satCerts.store_rhnCryptoKey(values.label, values.ca_cert, verbosity=values.verbose)
-    except satCerts.NoOrgIdError:
-        writeError("no organization ID!?!\n\n%s\n" % rhnTB.fetchTraceback())
-        sys.exit(12)
     except satCerts.CaCertInsertionError:
-        writeError("no organization ID!?!\n\n%s\n" % rhnTB.fetchTraceback())
+        writeError("Cannot insert certificate into DB!\n\n%s\n" % rhnTB.fetchTraceback())
         sys.exit(13)
     return 0
 

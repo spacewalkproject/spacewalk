@@ -24,10 +24,6 @@ import sys
 from spacewalk.server import rhnSQL
 from spacewalk.common.rhnTB import fetchTraceback
 
-class NoOrgIdError(Exception):
-
-    "missing org id error"
-
 def get_all_orgs():
     """ Fetch org_id. Create first org_id if needed.
         owner only needed if no org_id present
@@ -40,8 +36,6 @@ def get_all_orgs():
     h = rhnSQL.prepare(_queryLookupOrgId)
     h.execute()
     rows = h.fetchall_dict()
-    if not rows:
-        raise NoOrgIdError("Unable to look up org_id")
     return rows
 
 
@@ -74,8 +68,13 @@ def _checkCertMatch_rhnCryptoKey(caCert, description, org_id, deleteRowYN=0,
 
     cert = open(caCert, 'rb').read().strip()
 
-    h = rhnSQL.prepare(_querySelectCryptoCertInfo)
-    h.execute(description=description, org_id=org_id)
+    if org_id:
+        h = rhnSQL.prepare(_querySelectCryptoCertInfo)
+        h.execute(description=description, org_id=org_id)
+    else:
+        h = rhnSQL.prepare(_querySelectCryptoCertInfoNullOrg)
+        h.execute(description=description)
+
     row = h.fetchone_dict()
     rhn_cryptokey_id = -1
     if row:
@@ -144,6 +143,7 @@ def store_rhnCryptoKey(description, caCert, verbosity=0):
     """
 
     org_ids = get_all_orgs()
+    org_ids.append({'id': None})
     for org_id in org_ids:
         org_id = org_id['id']
         try:
@@ -174,6 +174,16 @@ _querySelectCryptoCertInfo = rhnSQL.Statement("""
        AND ckt.id = ck.crypto_key_type_id
        AND ck.description = :description
        AND ck.org_id = :org_id
+""")
+
+_querySelectCryptoCertInfoNullOrg = rhnSQL.Statement("""
+    SELECT ck.id, ck.description, ckt.label as type_label, ck.key
+      FROM rhnCryptoKeyType ckt,
+           rhnCryptoKey ck
+     WHERE ckt.label = 'SSL'
+       AND ckt.id = ck.crypto_key_type_id
+       AND ck.description = :description
+       AND ck.org_id is NULL
 """)
 
 _queryInsertCryptoCertInfo = rhnSQL.Statement("""

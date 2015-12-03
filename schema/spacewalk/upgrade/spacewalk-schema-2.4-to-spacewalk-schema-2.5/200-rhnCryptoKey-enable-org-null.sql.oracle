@@ -1,0 +1,2 @@
+ALTER TABLE rhnCryptoKey MODIFY org_id NUMBER NULL;
+

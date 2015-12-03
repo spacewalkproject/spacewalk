@@ -19,7 +19,7 @@ CREATE TABLE rhnCryptoKey
     id                  NUMBER NOT NULL
                             CONSTRAINT rhn_cryptokey_id_pk PRIMARY KEY
                             USING INDEX TABLESPACE [[2m_tbs]],
-    org_id              NUMBER NOT NULL
+    org_id              NUMBER
                             CONSTRAINT rhn_cryptokey_oid_fk
                                 REFERENCES web_customer (id)
                                 ON DELETE CASCADE,
