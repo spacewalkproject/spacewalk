@@ -18,7 +18,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.18
+Version: 2.5.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -718,6 +718,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Dec 03 2015 Jan Dobes 2.5.19-1
+- fixing confusing name and making difference between create first user form
+  and create normal user form
+- restyle page for creating users
+- remove RHEL 5 related things - we don't build on el5 anymore
+- remove remnants of old Fedora/RHEL versions
+- remove unused macro
+- removing unused code
+
 * Fri Nov 27 2015 Tomas Lestach <tlestach@redhat.com> 2.5.18-1
 - BugFix: skip similar tasks only if task is 'single threaded'
 - 1076490 - prefer the package from the given channel
