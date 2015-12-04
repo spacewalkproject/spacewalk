@@ -18,10 +18,12 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
+import com.redhat.rhn.domain.common.LoggingFactory;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.crypto.CreateCryptoKeyCommand;
 import com.redhat.rhn.manager.user.CreateUserCommand;
 
@@ -39,6 +41,8 @@ public class CreateOrgCommand {
     private String email;
     private Org newOrg;
     private String prefix;
+    private boolean firstOrg;
+    private User newUser;
 
     // first user name info
     private String fname;
@@ -53,13 +57,15 @@ public class CreateOrgCommand {
      * @param loginIn to use for 1st user in org
      * @param passwordIn to set for first user
      * @param emailIn to set for first user
+     * @param firstOrgIn will be this org first?
      */
     public CreateOrgCommand(String nameIn, String loginIn,
-            String passwordIn, String emailIn) {
+            String passwordIn, String emailIn, boolean firstOrgIn) {
         this.name = nameIn;
         this.login = loginIn;
         this.password = passwordIn;
         this.email = emailIn;
+        this.firstOrg = firstOrgIn;
     }
 
     /**
@@ -113,6 +119,7 @@ public class CreateOrgCommand {
         CreateUserCommand cmd = new CreateUserCommand();
         cmd.setLogin(this.login);
         cmd.setMakeOrgAdmin(true);
+        cmd.setMakeSatAdmin(firstOrg);
         cmd.setPassword(this.password);
         cmd.setEmail(email);
         cmd.setUsePamAuthentication(this.usePam);
@@ -140,8 +147,14 @@ public class CreateOrgCommand {
         }
         createdOrg = OrgFactory.save(createdOrg);
         cmd.setOrg(createdOrg);
+
+        if (firstOrg) {
+            LoggingFactory.setLogAuthLogin(LoggingFactory.SETUP_LOG_USER);
+        }
+
         cmd.storeNewUser();
         this.newOrg = createdOrg;
+        this.newUser = cmd.getUser();
 
         // Lookup the SSL crypto key for the default org and copy it to the new:
         Org defaultOrg = OrgFactory.getSatelliteOrg();
@@ -170,6 +183,14 @@ public class CreateOrgCommand {
      */
     public Org getNewOrg() {
         return this.newOrg;
+    }
+
+    /**
+     * Get the newly created user.
+     * @return User that was stored to DB
+     */
+    public User getNewUser() {
+        return this.newUser;
     }
 
     /**

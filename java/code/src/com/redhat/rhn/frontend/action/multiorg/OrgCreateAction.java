@@ -19,12 +19,17 @@ import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.conf.UserDefaults;
 import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.frontend.action.LoginHelper;
 import com.redhat.rhn.frontend.action.user.UserActionHelper;
+import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
+import com.redhat.rhn.frontend.servlets.PxtSessionDelegateFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.org.CreateOrgCommand;
+import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionErrors;
@@ -52,6 +57,11 @@ public class OrgCreateAction extends RhnAction {
 
         ActionForward retval = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         DynaActionForm dynaForm = (DynaActionForm) formIn;
+
+        if (AclManager.hasAcl("need_first_user()", request, null)) {
+            request.setAttribute("schemaUpgradeRequired",
+                    LoginHelper.isSchemaUpgradeRequired().toString());
+        }
 
         /*
          * If we are a sat and we have setup pam authentication already, display the
@@ -108,7 +118,12 @@ public class OrgCreateAction extends RhnAction {
                     createErrorMessage(request, "error.password_mismatch", null);
                 }
                 else {
-                    CreateOrgCommand cmd = new CreateOrgCommand(name, login, pass, email);
+                    boolean firstOrgMode = false;
+                    if (!UserManager.satelliteHasUsers()) {
+                        firstOrgMode = true;
+                    }
+                    CreateOrgCommand cmd = new CreateOrgCommand(name, login, pass, email,
+                            firstOrgMode);
 
                     //Should this user use pam authentication?
                     if (dynaForm.get("usepam") != null &&
@@ -131,6 +146,16 @@ public class OrgCreateAction extends RhnAction {
                     else {
                         createSuccessMessage(request, "org.create.success",
                                 cmd.getNewOrg().getName());
+                        if (firstOrgMode) {
+                            createSuccessMessage(request, "message.firstusercreated", null);
+                            // Creating first org - login as user
+                            PxtSessionDelegateFactory pxtDelegateFactory =
+                                    PxtSessionDelegateFactory.getInstance();
+                            PxtSessionDelegate pxtDelegate =
+                                    pxtDelegateFactory.newPxtSessionDelegate();
+                            pxtDelegate.updateWebUserId(request, response,
+                                    cmd.getNewUser().getId());
+                        }
                         retval = getStrutsDelegate().
                                  forwardParam(mapping.findForward("success"),
                                  RequestContext.ORG_ID, cmd.getNewOrg().getId().toString());

@@ -29,7 +29,8 @@ public class CreateOrgCommandTest extends BaseTestCaseWithUser {
                 "newOrg" + TestUtils.randomString(),
                 "login" + TestUtils.randomString(),
                 "password",
-                "test@redhat.com");
+                "test@redhat.com",
+                false);
         assertNull(cmd.store());
         assertNotNull(cmd.getNewOrg());
         assertNotNull(cmd.getNewOrg().getId());
@@ -40,7 +41,8 @@ public class CreateOrgCommandTest extends BaseTestCaseWithUser {
                 "newOrg" + TestUtils.randomString(),
                 user.getLogin(),
                 "password",
-                "test@redhat.com");
+                "test@redhat.com",
+                false);
         assertNotNull(cmd.store());
         assertNull(cmd.getNewOrg());
     }

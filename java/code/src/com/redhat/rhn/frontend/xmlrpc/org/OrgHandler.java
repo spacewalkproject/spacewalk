@@ -108,7 +108,7 @@ public class OrgHandler extends BaseHandler {
                 usePamAuth);
 
         CreateOrgCommand cmd = new CreateOrgCommand(orgName, adminLogin, adminPassword,
-                email);
+                email, false);
         cmd.setFirstName(firstName);
         cmd.setLastName(lastName);
         cmd.setPrefix(prefix);
