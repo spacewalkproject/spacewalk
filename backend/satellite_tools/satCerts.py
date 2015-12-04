@@ -36,7 +36,7 @@ def get_all_orgs():
     h = rhnSQL.prepare(_queryLookupOrgId)
     h.execute()
     rows = h.fetchall_dict()
-    return rows
+    return rows or []
 
 
 _queryLookupOrgId = rhnSQL.Statement("""
