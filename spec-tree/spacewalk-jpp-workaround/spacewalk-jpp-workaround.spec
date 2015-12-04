@@ -1,5 +1,5 @@
 Name:		spacewalk-jpp-workaround
-Version:	2.3.4
+Version:	2.3.5
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -101,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Dec 04 2015 Tomas Kasparek <tkasparek@redhat.com> 2.3.5-1
+- provide mvn(org.apache.taglibs:taglibs-standard-jstlel) on F23
+
 * Fri May 29 2015 Tomas Kasparek <tkasparek@redhat.com> 2.3.4-1
 - add epoch for jakarta-commons-fileupload
 
