@@ -30,6 +30,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         discriminator-value="GPG">
         </subclass>
     </class>
+    <query name="CryptoKey.findByDescAndNullOrg">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.crypto.CryptoKey as c
+                where c.description = :description and c.org is null]]>
+    </query>
     <query name="CryptoKey.findByDescAndOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.crypto.CryptoKey as c
                 where c.description = :description and c.org = :org_id]]>
