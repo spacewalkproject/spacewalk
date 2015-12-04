@@ -13,12 +13,8 @@
     </div>
 </c:if>
 
-<h1><bean:message key="usercreate.createFirstLogin" /></h1>
-
-<p><bean:message key="usercreate.satSummary" /></p>
-
-<jsp:include page="usercreate.jsp">
-  <jsp:param name="action_path" value="/newlogin/CreateFirstUserSubmit"/>
+<jsp:include page="orgcreate.jsp">
+  <jsp:param name="action_path" value="/newlogin/CreateFirstUser"/>
   <jsp:param name="account_type" value="create_sat"/>
 </jsp:include>
 

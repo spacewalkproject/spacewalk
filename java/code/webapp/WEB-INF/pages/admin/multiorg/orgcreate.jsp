@@ -3,13 +3,20 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
+<c:if test="${empty param.action_path}">
+    <c:set var="action_path" value="/admin/multiorg/OrgCreate" scope="page" />
+</c:if>
+<c:if test="${!empty param.action_path}">
+    <c:set var="action_path" value="${param.action_path}" scope="page"/>
+</c:if>
+
 <html>
     <body>
         <rhn:toolbar base="h1" icon="header-organisation">
             <bean:message key="orgcreate.jsp.title"/>
         </rhn:toolbar>
 
-        <html:form action="/admin/multiorg/OrgCreate" styleClass="form-horizontal">
+        <html:form action="${action_path}" styleClass="form-horizontal">
             <rhn:csrf />
             <html:hidden property="submitted" value="true"/>
             <h4><bean:message key="orgdetails.jsp.header"/></h4>
@@ -29,8 +36,14 @@
                     </span>
                 </div>
             </div>
-            <h4><bean:message key="orgcreate.jsp.adminheader"/></h4>
-            <p><bean:message key="orgcreate.header2"/></p>
+            <c:if test="${param.account_type == 'create_sat'}">
+                <h4><bean:message key="usercreate.createFirstLogin"/></h4>
+                <p><bean:message key="usercreate.satSummary"/></p>
+            </c:if>
+            <c:if test="${empty param.account_type}">
+                <h4><bean:message key="orgcreate.jsp.adminheader"/></h4>
+                <p><bean:message key="orgcreate.header2"/></p>
+            </c:if>
             <div class="form-group">
                 <label class="col-lg-3 control-label" for="login">
                     <rhn:required-field key="desiredlogin"/>:
@@ -42,7 +55,9 @@
                     <span class="help-block">
                         <strong><bean:message key="tip" /></strong>
                         <bean:message key="org.login.tip" arg0="${rhn:getConfig('java.min_user_len')}" /><br/>
-                        <bean:message key="org.login.examples" />
+                        <c:if test="${empty param.account_type}">
+                            <bean:message key="org.login.examples" />
+                        </c:if>
                     </span>
                 </div>
             </div>
@@ -98,27 +113,29 @@ function toggleAsterisk() {
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="pam" class="col-lg-3 control-label">
-                    <bean:message key="usercreate.jsp.pam"/>
-                </label>
-                <div class="col-lg-6">
-                    <c:choose>
-                        <c:when test="${displaypamcheckbox == 'true'}">
-                            <label for="pam">
-                                <html:checkbox property="usepam" onclick="toggleAsterisk()" styleId="pam"/>
-                                <bean:message key="usercreate.jsp.pam.instructions"/>
-                            </label>
-                            <span class="help-block">
-                                <bean:message key="usercreate.jsp.pam.instructions.note"/>
-                            </span>
-                        </c:when>
-                            <c:otherwise>
-                                <bean:message key="usercreate.jsp.pam.reference"/>
-                            </c:otherwise>
-                    </c:choose>
+            <c:if test="${empty param.account_type}">
+                <div class="form-group">
+                    <label for="pam" class="col-lg-3 control-label">
+                        <bean:message key="usercreate.jsp.pam"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:choose>
+                            <c:when test="${displaypamcheckbox == 'true'}">
+                                <label for="pam">
+                                    <html:checkbox property="usepam" onclick="toggleAsterisk()" styleId="pam"/>
+                                    <bean:message key="usercreate.jsp.pam.instructions"/>
+                                </label>
+                                <span class="help-block">
+                                    <bean:message key="usercreate.jsp.pam.instructions.note"/>
+                                </span>
+                            </c:when>
+                                <c:otherwise>
+                                    <bean:message key="usercreate.jsp.pam.reference"/>
+                                </c:otherwise>
+                        </c:choose>
+                    </div>
                 </div>
-            </div>
+            </c:if>
 
             <div class="form-group">
                 <label for="email" class="col-lg-3 control-label">
