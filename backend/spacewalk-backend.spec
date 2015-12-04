@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.5
+Version: 2.5.6
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -650,6 +650,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Fri Dec 04 2015 Jan Dobes 2.5.6-1
+- when installing insert default SSL crypto key with null org
+
 * Mon Nov 30 2015 Tomas Lestach <tlestach@redhat.com> 2.5.5-1
 - fix typo: lastest -> latest
 
