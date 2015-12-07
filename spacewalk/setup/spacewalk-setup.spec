@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.5.2
+Version:        2.5.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -112,6 +112,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Dec 07 2015 Jan Dobes 2.5.3-1
+- removing create first org code from installer
+
 * Tue Nov 24 2015 Jan Dobes 2.5.2-1
 - Use the same name for the first org as before
 - remove trailing whitespaces
