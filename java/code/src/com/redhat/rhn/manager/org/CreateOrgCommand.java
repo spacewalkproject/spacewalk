@@ -112,6 +112,10 @@ public class CreateOrgCommand {
             return ve.getResult().getErrors().toArray(new ValidatorError[0]);
         }
 
+        if (firstOrg) {
+            LoggingFactory.setLogAuthLogin(LoggingFactory.SETUP_LOG_USER);
+        }
+
         // Create org
         Org createdOrg = OrgFactory.createOrg();
         createdOrg.setName(this.name);
@@ -147,11 +151,6 @@ public class CreateOrgCommand {
         }
         createdOrg = OrgFactory.save(createdOrg);
         cmd.setOrg(createdOrg);
-
-        if (firstOrg) {
-            LoggingFactory.setLogAuthLogin(LoggingFactory.SETUP_LOG_USER);
-        }
-
         cmd.storeNewUser();
         this.newOrg = createdOrg;
         this.newUser = cmd.getUser();
