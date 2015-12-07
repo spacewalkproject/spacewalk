@@ -18,7 +18,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.23
+Version: 2.5.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -718,6 +718,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Dec 07 2015 Jan Dobes 2.5.24-1
+- cleanup create user page since we don't create first user there anymore
+
 * Mon Dec 07 2015 Jan Dobes 2.5.23-1
 - better set logging user earlier
 - removing entitlements info
