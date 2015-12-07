@@ -47,41 +47,8 @@
            <form-property name="description" type="java.lang.String"/>
            <form-property name="submitted" type="java.lang.Boolean"/>
        </form-bean>
-        <form-bean name="createSatelliteForm"
-            type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="account_type" type="java.lang.String"/>
-            <form-property name="address1" type="java.lang.String"/>
-            <form-property name="address2" type="java.lang.String"/>
-            <form-property name="city" type="java.lang.String"/>
-            <form-property name="contact_email" type="java.lang.Boolean"/>
-            <form-property name="contact_mail" type="java.lang.Boolean"/>
-            <form-property name="contact_call" type="java.lang.Boolean"/>
-            <form-property name="contact_fax" type="java.lang.Boolean"/>
-            <form-property name="contact_partner" type="java.lang.Boolean"/>
-            <form-property name="company" type="java.lang.String"/>
-            <form-property name="country" type="java.lang.String"/>
-            <form-property name="email" type="java.lang.String"/>
-            <form-property name="fax" type="java.lang.String"/>
-            <form-property name="firstNames" type="java.lang.String"/>
-            <form-property name="lastName" type="java.lang.String"/>
-            <form-property name="login" type="java.lang.String"/>
-            <form-property name="desiredpassword" type="java.lang.String"/>
-            <form-property name="desiredpasswordConfirm" type="java.lang.String"/>
-            <form-property name="phone" type="java.lang.String"/>
-            <form-property name="prefix" type="java.lang.String"/>
-            <form-property name="state" type="java.lang.String"/>
-            <form-property name="title" type="java.lang.String"/>
-            <form-property name="zip" type="java.lang.String"/>
-            <form-property name="usepam" type="java.lang.Boolean"/>
-            <form-property name="no_scrub" type="java.lang.String"
-                             initial="desiredpassword, desiredpasswordConfirm"/>
-            <form-property name="preferredLocale" type="java.lang.String" />
-            <form-property name="timezone" type="java.lang.Integer"/>
-            <form-property name="readonly" type="java.lang.Boolean"/>
-        </form-bean>
         <form-bean name="userCreateForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="account_type" type="java.lang.String"/>
             <form-property name="address1" type="java.lang.String"/>
             <form-property name="address2" type="java.lang.String"/>
             <form-property name="city" type="java.lang.String"/>

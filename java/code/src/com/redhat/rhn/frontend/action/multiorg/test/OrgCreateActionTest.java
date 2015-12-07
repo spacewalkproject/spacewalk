@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.multiorg.test;
 
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.testing.RhnMockDynaActionForm;
 import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
@@ -70,6 +71,23 @@ public class OrgCreateActionTest extends RhnPostMockStrutsTestCase {
         setRequestPathInfo("/admin/multiorg/OrgCreate");
         actionPerform();
         verifyActionErrors(new String[]{"error.login_already_taken"});
+    }
+
+    // This had better fail if there are any organizations already!
+    public void testCreateFirstSatUser() {
+        setRequestPathInfo("/newlogin/CreateFirstUser");
+        RhnMockDynaActionForm f = new RhnMockDynaActionForm("orgCreateForm");
+        f.set("orgName", "testOrg" + TestUtils.randomString());
+        f.set("login", "testUser" + TestUtils.randomString());
+        f.set("email", "foobar@redhat.com");
+        f.set("firstNames", "Test fname");
+        f.set("lastName", "Test lname");
+        f.set("desiredpassword", "password");
+        f.set("desiredpasswordConfirm", "password");
+        f.set("prefix", "Mr.");
+        setActionForm(f);
+        actionPerform();
+        assertTrue(getActualForward().startsWith("/errors/Permission.do"));
     }
 
 }

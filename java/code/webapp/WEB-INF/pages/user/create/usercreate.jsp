@@ -7,29 +7,12 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/user/user_attribute_sizes.jspf"%>
 
-<!-- Setup the account_type variable, which is used throughout this page -->
-<c:if test="${empty param.account_type}">
-  <c:set var="account_type" value="create_corporate" scope="page" />
-</c:if>
-<c:if test="${!empty param.account_type}">
-  <c:set var="account_type" value="${param.account_type}" scope="page"/>
-</c:if>
-
-<c:if test="${account_type == 'into_org'}" >
   <rhn:toolbar base="h1" icon="header-user" imgAlt="user.common.userAlt"
        helpUrl="">
   <bean:message key="usercreate.toolbar" />
   </rhn:toolbar>
-</c:if>
 
-
-  <c:if test="${empty param.action_path}">
-    <c:set var="action_path" value="/newlogin/CreateUserSubmit" scope="page" />
-  </c:if>
-  <c:if test="${!empty param.action_path}">
-    <c:set var="action_path" value="${param.action_path}" scope="page"/>
-  </c:if>
-<html:form action="${action_path}" styleClass="form-horizontal">
+<html:form action="/newlogin/CreateUserSubmit" styleClass="form-horizontal">
 
   <rhn:csrf />
       <div class="panel panel-default">
@@ -82,7 +65,7 @@ function toggleAsterisk() {
                     </div>
                 </div>
               </div>
-              <c:if test="${displaypam == 'true' && account_type != 'create_sat'}">
+              <c:if test="${displaypam == 'true'}">
                 <div class="form-group">
                   <label class="col-sm-3 control-label" for="pam"><bean:message key="usercreate.jsp.pam"/></label>
                   <div class="col-sm-6">
@@ -128,16 +111,13 @@ function toggleAsterisk() {
                    <html:text property="email" styleClass="form-control" maxlength="${emailLength}" styleId="email"/>
                </div>
             </div>
-            <c:if test="${!firstUserMode}">
-              <div class="form-group">
-                 <label class="col-sm-3 control-label" for="readonly"><bean:message key="usercreate.jsp.api.readOnly" /></label>
-                 <div class="col-sm-6">
-                    <html:checkbox property="readonly" />
-                    <br/><small><bean:message key="usercreate.jsp.api.readOnlyHelp"/></small>
-                 </div>
-              </div>
-            </c:if>
-            <html:hidden property="account_type" value="${account_type}" />
+            <div class="form-group">
+               <label class="col-sm-3 control-label" for="readonly"><bean:message key="usercreate.jsp.api.readOnly" /></label>
+               <div class="col-sm-6">
+                   <html:checkbox property="readonly" />
+                   <br/><small><bean:message key="usercreate.jsp.api.readOnlyHelp"/></small>
+               </div>
+            </div>
             <hr />
             <p>
               <span class="required-form-field">*</span> - <bean:message key="usercreate.requiredField" />
@@ -145,7 +125,6 @@ function toggleAsterisk() {
         </div>
       </div>
 
-<c:if test="${account_type == 'into_org'}">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4><bean:message key="preferences.jsp.tz"/></h4>
@@ -213,7 +192,6 @@ function toggleAsterisk() {
     </div>
   </div>
 
-</c:if>
 
 <div class="text-center">
   <html:submit styleClass="btn btn-success">

@@ -16,14 +16,10 @@ package com.redhat.rhn.frontend.action.user;
 
 import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.domain.common.LoggingFactory;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.Address;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
-import com.redhat.rhn.frontend.servlets.PxtSessionDelegateFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
@@ -31,7 +27,6 @@ import com.redhat.rhn.manager.user.CreateUserCommand;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -49,35 +44,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CreateUserAction extends RhnAction {
 
-    public static final String FAILURE_SATELLITE = "fail-sat";
     public static final String FAILURE = "failure";
-
-    // Success
     public static final String SUCCESS_INTO_ORG = "existorgsuccess";
-    public static final String SUCCESS_SAT = "success_sat";
-
-    // The different account type
-    public static final String TYPE_CREATE_SAT = "create_sat";
-    public static final String TYPE_INTO_ORG = "into_org";
-
-    public static final String ACCOUNT_TYPE = "account_type";
-
-    // Where we should end up if we're told "you're not allowed to do that"
-    public static final String PERMISSION_ERROR = "/errors/Permission.do";
-
-    // It is ok to maintain an instance because PxtSessionDelegate does not maintain client
-    // state.
-    private PxtSessionDelegate pxtDelegate;
-
-    /**
-     * Initialize the action.
-     */
-    public CreateUserAction() {
-        PxtSessionDelegateFactory pxtDelegateFactory =
-            PxtSessionDelegateFactory.getInstance();
-
-        pxtDelegate = pxtDelegateFactory.newPxtSessionDelegate();
-    }
 
     private ActionErrors populateCommand(DynaActionForm form, CreateUserCommand command) {
         ActionErrors errors = new ActionErrors();
@@ -181,46 +149,29 @@ public class CreateUserAction extends RhnAction {
             return returnError(mapping, request, errors);
         }
 
-        String accountType = (String)form.get(ACCOUNT_TYPE);
-        if (!validateAccountType(accountType)) {
-            return returnError(mapping, request, errors);
-        }
-
         ActionMessages msgs = new ActionMessages();
 
-        if (accountType.equals(TYPE_INTO_ORG)) {
-            User user = createIntoOrg(requestContext, command,
-                    (String) form.get(UserActionHelper.DESIRED_PASS),
-                    msgs);
-            User orgAdmin = requestContext.getCurrentUser();
-            saveMessages(request, msgs);
-            command.publishNewUserEvent(orgAdmin, orgAdmin.getOrg().getActiveOrgAdmins(),
-                    request.getServerName(),
-                    (String) form.get(UserActionHelper.DESIRED_PASS));
+        User user = createIntoOrg(requestContext, command,
+                (String) form.get(UserActionHelper.DESIRED_PASS),
+                msgs);
+        User orgAdmin = requestContext.getCurrentUser();
+        saveMessages(request, msgs);
+        command.publishNewUserEvent(orgAdmin, orgAdmin.getOrg().getActiveOrgAdmins(),
+                request.getServerName(),
+                (String) form.get(UserActionHelper.DESIRED_PASS));
 
-            user.setTimeZone(UserManager.getTimeZone(((Integer) form.get("timezone"))
-                .intValue()));
-            String preferredLocale = form.getString("preferredLocale");
-            if (preferredLocale != null && preferredLocale.equals("none")) {
-                preferredLocale = null;
-            }
-            user.setPreferredLocale(preferredLocale);
-            user.setReadOnly(form.get("readonly") != null ? true : false);
-            UserManager.storeUser(user);
-
-            return getStrutsDelegate().forwardParam(mapping.findForward(SUCCESS_INTO_ORG),
-                    "uid", String.valueOf(user.getId()));
-
+        user.setTimeZone(UserManager.getTimeZone(((Integer) form.get("timezone"))
+            .intValue()));
+        String preferredLocale = form.getString("preferredLocale");
+        if (preferredLocale != null && preferredLocale.equals("none")) {
+            preferredLocale = null;
         }
-        else if (accountType.equals(TYPE_CREATE_SAT)) {
-            User user = createSatUser(requestContext, command, msgs);
-            saveMessages(request, msgs);
-            pxtDelegate.updateWebUserId(request, response, user.getId());
-            return mapping.findForward(SUCCESS_SAT);
-        }
+        user.setPreferredLocale(preferredLocale);
+        user.setReadOnly(form.get("readonly") != null ? true : false);
+        UserManager.storeUser(user);
 
-        // we're screwed if we get this far
-        return mapping.findForward(FAILURE);
+        return getStrutsDelegate().forwardParam(mapping.findForward(SUCCESS_INTO_ORG),
+                "uid", String.valueOf(user.getId()));
     }
 
     private User createIntoOrg(RequestContext requestContext,
@@ -248,53 +199,14 @@ public class CreateUserAction extends RhnAction {
         return newUser;
     }
 
-    /**
-     *
-     * @param requestContext request coming in
-     * @param command user command to modify
-     * @param msgs any messages we want to display back to user
-     * @return modified message that indicates first user created
-     */
-    private User createSatUser(RequestContext requestContext,
-                               CreateUserCommand command,
-                               ActionMessages msgs) {
-
-        command.setOrg(OrgFactory.getSatelliteOrg());
-        command.setMakeOrgAdmin(true);
-        command.setMakeSatAdmin(true);
-        LoggingFactory.setLogAuthLogin(LoggingFactory.SETUP_LOG_USER);
-        command.storeNewUser();
-
-        User newUser = command.getUser();
-
-        msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                new ActionMessage("message.firstusercreated",
-                                    StringEscapeUtils.escapeHtml(newUser.getLogin()),
-                                    newUser.getEmail()));
-        return newUser;
-    }
-
     private ActionForward returnError(ActionMapping mapping,
                                       HttpServletRequest request,
                                       ActionErrors errors) {
         addErrors(request, errors);
-        String accountType = request.getParameter(ACCOUNT_TYPE);
-
-        if (accountType != null && accountType.equals(TYPE_CREATE_SAT)) {
-            return getStrutsDelegate().forwardParam(mapping.findForward(FAILURE_SATELLITE),
-                             ACCOUNT_TYPE, TYPE_CREATE_SAT);
-        }
         return mapping.findForward(FAILURE);
     }
 
     protected CreateUserCommand getCommand() {
         return new CreateUserCommand();
-    }
-
-    private boolean validateAccountType(String type) {
-
-        return !StringUtils.isEmpty(type) &&
-                (TYPE_CREATE_SAT.equals(type) ||
-                  TYPE_INTO_ORG.equals(type));
     }
 }

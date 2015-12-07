@@ -18,11 +18,9 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.LoginHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
-import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.ActionForm;
@@ -54,16 +52,6 @@ public class CreateUserSetupAction extends BaseUserSetupAction {
                                   UserActionHelper.getPrefixes());
         request.setAttribute("countries",
                                   UserActionHelper.getCountries());
-        if (AclManager.hasAcl("need_first_user()", request, null)) {
-            request.setAttribute("schemaUpgradeRequired",
-                    LoginHelper.isSchemaUpgradeRequired().toString());
-        }
-        if (UserManager.satelliteHasUsers()) {
-            request.setAttribute("firstUserMode", Boolean.FALSE);
-        }
-        else {
-            request.setAttribute("firstUserMode", Boolean.TRUE);
-        }
 
         if (!RhnValidationHelper.getFailedValidation(request)) {
             form.set("country", "US");
@@ -91,9 +79,7 @@ public class CreateUserSetupAction extends BaseUserSetupAction {
         }
 
         request.setAttribute("timezones", getTimeZones());
-
-        // There's no currentUser when creating the very first user
-        if (currentUser != null && currentUser.getTimeZone() != null) {
+        if (currentUser.getTimeZone() != null) {
             request.setAttribute("default_tz", new Integer(currentUser.getTimeZone()
                 .getTimeZoneId()));
         }
@@ -101,13 +87,9 @@ public class CreateUserSetupAction extends BaseUserSetupAction {
             request.setAttribute("default_tz", new Integer(UserManager
                 .getDefaultTimeZone().getTimeZoneId()));
         }
-
         request.setAttribute("noLocale", buildNoneLocale());
         request.setAttribute("supportedLocales", buildImageMap());
-        // There's no currentUser when creating the very first user
-        if (currentUser != null) {
-            setCurrentLocale(ctx, currentUser);
-        }
+        setCurrentLocale(ctx, currentUser);
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
