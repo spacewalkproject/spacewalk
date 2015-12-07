@@ -33,5 +33,5 @@ CREATE UNIQUE INDEX web_customer_name_uq_idx
     ON web_customer (name)
     TABLESPACE [[web_tablespace_2]];
 
-CREATE SEQUENCE web_customer_id_seq START WITH 2;
+CREATE SEQUENCE web_customer_id_seq;
 
