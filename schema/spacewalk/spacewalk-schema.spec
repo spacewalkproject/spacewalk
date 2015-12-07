@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.5.3
+Version:        2.5.4
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Dec 07 2015 Jan Dobes 2.5.4-1
+- first org needs id = 1
+
 * Fri Dec 04 2015 Jan Dobes 2.5.3-1
 - when installing insert default SSL crypto key with null org
 
