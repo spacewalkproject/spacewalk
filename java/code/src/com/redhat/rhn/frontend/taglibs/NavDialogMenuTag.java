@@ -18,6 +18,7 @@ import com.redhat.rhn.frontend.nav.NavTreeIndex;
 import com.redhat.rhn.frontend.nav.RenderGuard;
 import com.redhat.rhn.frontend.nav.Renderable;
 import com.redhat.rhn.frontend.nav.TitleRenderer;
+import com.redhat.rhn.frontend.taglibs.helpers.RenderUtils;
 
 import java.util.Map;
 
@@ -43,12 +44,13 @@ public class NavDialogMenuTag extends NavMenuTag {
     }
 
     /** {@inheritDoc} */
-    protected String renderNav(NavTreeIndex nti, Renderable r,
-                               RenderGuard guard, Map params) {
-        String body = super.renderNav(nti, r, guard, params);
-        String title = super.renderNav(nti, new TitleRenderer(), guard, params);
-        HttpServletRequest req =
-            (HttpServletRequest) pageContext.getRequest();
+    protected String renderNav(NavTreeIndex navTreeIndex, Renderable renderable,
+            RenderGuard guard, Map<String, String[]> params) {
+        String body = RenderUtils.getInstance().render(
+                navTreeIndex, renderable, guard, params);
+        String title = RenderUtils.getInstance().render(
+                navTreeIndex, new TitleRenderer(), guard, params);
+        HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
         req.setAttribute("innernavtitle", title);
         return body;
     }
