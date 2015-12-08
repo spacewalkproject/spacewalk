@@ -42,7 +42,7 @@
 
     <!-- =================== Jspc Tasks ======================= -->
     <taskdef name="jasper2"
-        classname="com.redhat.rhn.internal.jasper2.JspfC">
+        classname="org.apache.jasper.JspC">
              <classpath>
                  <path refid="buildjars" />
                  <!-- this configures commons logging properly for Jasper2 -->

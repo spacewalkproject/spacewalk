@@ -637,9 +637,15 @@ delete from rhnChannel where label like 'ChannelLabel%';
     <mkdir dir="${build.dir}/jsp-temp" />
     <mkdir dir="${build.dir}/apidoc-temp" />
     <mkdir dir="${build.dir}/webapp/rhnjava/WEB-INF/classes" />
+    <fileset id="jspffiles" dir="${build.dir}/webapp/rhnjava">
+      <include name="**/*.jspf"/>
+      <include name="**/*.jsp"/>
+    </fileset>
+    <pathconvert targetos="unix" pathsep="," property="jspflist" refid="jspffiles"/>
     <jasper2
         verbose="2"
         uriroot="${build.dir}/webapp/rhnjava"
+        jspfiles="${jspflist}"
         webXmlFragment="${build.dir}/webapp/generated_web.xml"
         outputDir="${build.dir}/jsp-temp" />
     <jasper2
