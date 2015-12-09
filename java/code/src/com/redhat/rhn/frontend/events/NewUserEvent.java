@@ -87,15 +87,16 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
         else {
             url.append("http://");
         }
-        if (c.getString("base_domain") != null) {
-            url.append(c.getString("base_domain"));
+        if (c.getString("java.base_domain") != null) {
+            url.append(c.getString("java.base_domain"));
         }
         else {
             url.append(domain);
         }
-        if (c.getString("base_port") != null && !ConfigDefaults.get().isSSLAvailable()) {
+        if (c.getString("java.base_port") != null &&
+                !ConfigDefaults.get().isSSLAvailable()) {
             url.append(":");
-            url.append(c.getString("base_port"));
+            url.append(c.getString("java.base_port"));
         }
         url.append("/");
         return url.toString();
