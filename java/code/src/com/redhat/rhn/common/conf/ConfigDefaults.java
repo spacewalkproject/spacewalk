@@ -95,7 +95,7 @@ public class ConfigDefaults {
 
     public static final String TAKE_SNAPSHOTS = "enable_snapshots";
 
-    public static final String ACTIONS_DISPLAY_LIMIT = "web.actions_display_limit";
+    public static final String ACTIONS_DISPLAY_LIMIT = "java.actions_display_limit";
 
     public static final String CONFIG_FILE_EDIT_SIZE = "java.config_file_edit_size";
 
