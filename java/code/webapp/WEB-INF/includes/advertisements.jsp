@@ -2,7 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 
 <!-- TODO make this more generic -->
-<rhn:require acl="is(web.chat_enabled);">
+<rhn:require acl="is(java.chat_enabled);">
   <jsp:include page="/WEB-INF/includes/advertisements/chat-advertisement.jsp"/>
 </rhn:require>
 
