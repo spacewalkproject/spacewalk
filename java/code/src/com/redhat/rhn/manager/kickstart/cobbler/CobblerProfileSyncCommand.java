@@ -15,17 +15,19 @@
 
 package com.redhat.rhn.manager.kickstart.cobbler;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 
-import org.apache.log4j.Logger;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import redstone.xmlrpc.XmlRpcFault;
 
 
 /**
@@ -148,6 +150,7 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
         }
 
         //Now re-set the filename in case someone set it incorrectly
+        try {
         String handle = (String) invokeXMLRPC("get_profile_handle",
                 cobblerProfile.get("name"), xmlRpcToken);
         invokeXMLRPC("modify_profile", handle, "kickstart", profile.buildCobblerFileName(),
@@ -156,6 +159,18 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
 
         //Lets update the modified date just to make sure
         profile.setModified(new Date());
+        }
+        catch (RuntimeException re) {
+            if (re.getCause() instanceof XmlRpcFault) {
+                XmlRpcFault xrf = (XmlRpcFault)re.getCause();
+                if (xrf.getMessage().contains("unknown profile name")) {
+                    log.error("Cobbler doesn't know about this profile any more!");
+                }
+            }
+            else {
+                throw re;
+            }
+        }
     }
 
 }
