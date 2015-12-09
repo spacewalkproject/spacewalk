@@ -205,35 +205,6 @@ sub ping {
   }
 }
 
-# some extension functions
-sub call_procedure {
-  my $self = shift;
-  if ($self->{Driver}->{Name} eq 'Pg') {
-    return $self->call_function(@_);
-  }
-  my $procname = shift;
-  my @params = @_;
-  my @placeholders = map { ":p$_" } 1 .. scalar @params;
-
-  my $q = "BEGIN\n  $procname";
-
-  $q .= "(" . join(", ", @placeholders) . ");";
-  $q .= "\nEND;";
-
-  my $sth = $self->prepare($q);
-
-  my $i = 0;
-  foreach my $param (@params) {
-    $sth->bind_param($placeholders[$i], $param);
-
-    $i++;
-  }
-
-  $sth->execute();
-
-  return;
-}
-
 # another package
 package RHN::DB::st;
 our @ISA = qw/DBI::st/;
