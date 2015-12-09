@@ -18,7 +18,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.24
+Version: 2.5.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -718,6 +718,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Dec 09 2015 Jan Dobes 2.5.25-1
+- moving smtp_server parameter to java
+- making chat icon visible and better placed
+- moving chat_enabled parameter to java
+- moving actions_display_limit parameter to java
+- moving base_domain and base_port parameters to java
+- compile jspf files differently to avoid problems with Tomcat 8
+- fix jar versions on fedora23
+
 * Mon Dec 07 2015 Jan Dobes 2.5.24-1
 - cleanup create user page since we don't create first user there anymore
 
