@@ -55,7 +55,7 @@ public class ConfigDefaults {
     public static final String WEB_SESSION_SWAP_SECRET_3 = "web.session_swap_secret_3";
     public static final String WEB_SESSION_SWAP_SECRET_4 = "web.session_swap_secret_4";
 
-    public static final String WEB_SMTP_SERVER = "web.smtp_server";
+    public static final String WEB_SMTP_SERVER = "java.smtp_server";
     public static final String ERRATA_CACHE_COMPUTE_THRESHOLD
     = "errata_cache_compute_threshold";
 
