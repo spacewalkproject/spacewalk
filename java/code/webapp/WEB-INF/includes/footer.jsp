@@ -3,6 +3,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 
 <div>
+  <jsp:include page="/WEB-INF/includes/advertisements.jsp" />
   <bean:message key="footer.jsp.copyright" />
   <a href="https://www.redhat.com/legal/privacy_statement.html"><bean:message key="footer.jsp.privacyStatement" /></a>
   : <a href="http://www.redhat.com/legal/legal_statement.html"><bean:message key="footer.jsp.legalStatement" /></a>

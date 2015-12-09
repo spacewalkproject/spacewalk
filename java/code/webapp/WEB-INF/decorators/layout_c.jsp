@@ -21,7 +21,6 @@
         <aside id="spacewalk-aside" class="navbar-collapse collapse">
           <jsp:include page="/WEB-INF/includes/leftnav.jsp" />
           <jsp:include page="/WEB-INF/includes/legends.jsp" />
-          <jsp:include page="/WEB-INF/includes/advertisements.jsp" />
         </aside>
         <section id="spacewalk-content">
           <!-- Alerts and messages -->
