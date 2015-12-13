@@ -161,7 +161,7 @@ ORDER BY KSIPR.min
 SELECT CK.ID, CK.ORG_ID, CKT.LABEL, CK.DESCRIPTION
   FROM rhnCryptoKeyType CKT,
        rhnCryptoKey CK
- WHERE CK.org_id = :org_id
+ WHERE (CK.org_id IS NULL OR CK.org_id = :org_id)
    AND CK.crypto_key_type_id = CKT.id
 ORDER BY CK.DESCRIPTION, CK.id
   </query>
