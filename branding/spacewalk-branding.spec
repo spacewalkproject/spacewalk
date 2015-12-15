@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.5.1
+Version:    2.5.2
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -105,6 +105,9 @@ rm -rf %{buildroot}
 %{_var}/www/html/css/*.less
 
 %changelog
+* Tue Dec 15 2015 Jan Dobes 2.5.2-1
+- fix %%tomcat in spacewalk-branding.spec for EL7
+
 * Tue Nov 24 2015 Jan Dobes 2.5.1-1
 - Remove unused load_satellite_certificate function and satellite-cert-file
   parameter
