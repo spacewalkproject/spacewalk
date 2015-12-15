@@ -1,7 +1,7 @@
 %if  0%{?rhel} && 0%{?rhel} < 6
 %global tomcat tomcat5
 %else
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %global tomcat tomcat
 %else
 %global tomcat tomcat6
