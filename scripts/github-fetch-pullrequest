@@ -73,6 +73,12 @@ def prepare_repo(repo, req_num):
         sys.exit(1)
 
     pull_request = get_pull_request(req_num)
+
+    message = pull_request.get("message")
+    if message:
+        print message
+        sys.exit(2)
+
     remote_url = pull_request.get("head").get("repo").get("clone_url")
     from_who = pull_request.get("user").get("login")
     remote_branch = pull_request.get("head").get("ref")
