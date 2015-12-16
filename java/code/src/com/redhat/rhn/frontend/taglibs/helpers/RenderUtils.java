@@ -32,8 +32,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.PageContext;
 
 /**
  * Utility methods for rendering navigation menus that are defined in XML files.
@@ -55,9 +55,27 @@ public enum RenderUtils {
     }
 
     /**
-     * Render the navigation menu given by the menu definition using the given renderer
-     * class. Therefore find the NavTree by looking it up in the smart cache first, then
-     * create a new NavTreeIndex passing in NavTree.
+     * Render the navigation menu for a given page context and menu definition using the
+     * given renderer class.
+     *
+     * @param pageContext the JSP page context
+     * @param menuDefinition the menu definition XML file
+     * @param rendererClass the renderer class to use
+     * @param minDepth minimal depth
+     * @param maxDepth maximal depth
+     * @return the rendered navigation menu as string
+     * @throws Exception in case of an error
+     */
+    public String renderNavigationMenu(PageContext pageContext, String menuDefinition,
+            String rendererClass, int minDepth, int maxDepth) throws Exception {
+        URL url = pageContext.getServletContext().getResource(menuDefinition);
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+        return renderNavigationMenu(url, request, rendererClass, minDepth, maxDepth);
+    }
+
+    /**
+     * Render the navigation menu for a given request and menu definition using the given
+     * renderer class.
      *
      * @param request the request object
      * @param menuDefinition the menu definition XML file
@@ -67,13 +85,18 @@ public enum RenderUtils {
      * @return the rendered navigation menu as string
      * @throws Exception in case of an error
      */
-    public String renderNavigationMenu(ServletRequest request, String menuDefinition,
+    public String renderNavigationMenu(HttpServletRequest request, String menuDefinition,
             String rendererClass, int minDepth, int maxDepth) throws Exception {
         URL url = request.getServletContext().getResource(menuDefinition);
+        return renderNavigationMenu(url, request, rendererClass, minDepth, maxDepth);
+    }
+
+    private String renderNavigationMenu(URL url, HttpServletRequest req,
+            String rendererClass, int minDepth, int maxDepth) throws Exception {
+        // Try to find the NavTree in the cache and index it
         NavTree navTree = NavCache.getTree(url);
         NavTreeIndex navTreeIndex = new NavTreeIndex(navTree);
 
-        HttpServletRequest req = (HttpServletRequest) request;
         User user = new RequestContext(req).getCurrentUser();
         Map<String, Object> aclContext = new HashMap<>();
         aclContext.put("user", user);
