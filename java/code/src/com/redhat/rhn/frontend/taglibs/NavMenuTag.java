@@ -50,7 +50,7 @@ public class NavMenuTag extends TagSupport {
     public int doStartTag() throws JspException {
         try {
             pageContext.getOut().print(RenderUtils.getInstance().renderNavigationMenu(
-                    pageContext.getRequest(), definition, renderer, mindepth, maxdepth));
+                    pageContext, definition, renderer, mindepth, maxdepth));
         }
         catch (Exception e) {
             throw new JspException("Error writing to JSP file:", e);
