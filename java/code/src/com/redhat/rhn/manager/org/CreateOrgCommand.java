@@ -115,6 +115,7 @@ public class CreateOrgCommand {
         if (firstOrg) {
             LoggingFactory.setLogAuthLogin(LoggingFactory.SETUP_LOG_USER);
         }
+        Org defaultOrg = OrgFactory.getSatelliteOrg();
 
         // Create org
         Org createdOrg = OrgFactory.createOrg();
@@ -156,7 +157,6 @@ public class CreateOrgCommand {
         this.newUser = cmd.getUser();
 
         // Lookup the SSL crypto key for the default org and copy it to the new:
-        Org defaultOrg = OrgFactory.getSatelliteOrg();
         CryptoKey ssl = KickstartFactory.lookupCryptoKey("RHN-ORG-TRUSTED-SSL-CERT",
             defaultOrg);
         if (ssl != null && ssl.isSSL()) {
