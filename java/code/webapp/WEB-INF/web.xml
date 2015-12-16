@@ -73,6 +73,12 @@
     </init-param>
   </filter>
 
+  <!-- Set the status code for error pages -->
+  <filter>
+    <filter-name>ErrorStatusFilter</filter-name>
+    <filter-class>com.redhat.rhn.frontend.servlets.ErrorStatusFilter</filter-class>
+  </filter>
+
   <!--
    =======================================
               FILTER MAPPINGS
@@ -139,6 +145,11 @@
   <filter-mapping>
     <filter-name>RedirectFilter</filter-name>
     <url-pattern>/Redirect/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>ErrorStatusFilter</filter-name>
+    <url-pattern>/errors/*</url-pattern>
   </filter-mapping>
 
   <!--
