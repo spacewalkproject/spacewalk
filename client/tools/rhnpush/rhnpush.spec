@@ -8,7 +8,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.90
+Version:       5.5.91
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -80,6 +80,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Thu Dec 17 2015 Jan Dobes 5.5.91-1
+- 1262780 - alow to use existing rpcServer when creating RhnServer
+
 * Tue Nov 24 2015 Jan Dobes 5.5.90-1
 - rhn-satellite-activate: manual references removed
 
