@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.5.2
+Version: 2.5.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -383,6 +383,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Dec 17 2015 Jan Dobes 2.5.3-1
+- 1262780 - alow to use existing rpcServer when creating RhnServer
+
 * Tue Nov 24 2015 Jan Dobes 2.5.2-1
 - rhel client tools: po files updated
 - rhel client tools: remove virtualization host platform entitlement references
