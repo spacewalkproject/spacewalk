@@ -14,6 +14,25 @@
  */
 package com.redhat.rhn.manager.channel;
 
+import java.io.File;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.CallableMode;
@@ -67,25 +86,6 @@ import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.taskomatic.TaskomaticApi;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import java.io.File;
-import java.sql.Timestamp;
-import java.sql.Types;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * ChannelManager
@@ -1667,7 +1667,7 @@ public class ChannelManager extends BaseManager {
         List<EssentialChannelDto> channelDtos = new LinkedList<EssentialChannelDto>();
         PackageEvr releaseEvr = PackageManager.lookupReleasePackageEvrFor(s);
         if (releaseEvr != null) {
-            String rhelVersion = releaseEvr.getVersion();
+            String rhelVersion = PackageManager.lookupSystemReleaseReleaseVersionFor(s, releaseEvr);
 
             List<EssentialChannelDto> baseEusChans = new LinkedList<EssentialChannelDto>();
             if (isDefaultBaseChannel(usr.getOrg(), s.getBaseChannel(), rhelVersion)) {
