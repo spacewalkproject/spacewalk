@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.6
+Version: 2.5.7
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -155,6 +155,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Dec 17 2015 Jan Dobes 2.5.7-1
+- moving non_expirable_package_urls parameter to java
+- moving download_url_lifetime parameter to java
+
 * Wed Dec 09 2015 Jan Dobes 2.5.6-1
 - Revert "reintroduce call_procedure function"
 - Revert "reintroduce call_function function"
