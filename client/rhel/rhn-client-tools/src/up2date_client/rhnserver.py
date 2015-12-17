@@ -166,9 +166,12 @@ class RhnServer(object):
     level exceptions
     """
 
-    def __init__(self, serverOverride=None, timeout=None):
-        self._server = rpcServer.getServer(serverOverride=serverOverride,
-                timeout=timeout)
+    def __init__(self, serverOverride=None, timeout=None, rpcServerOverride=None):
+        if rpcServerOverride is None:
+            self._server = rpcServer.getServer(serverOverride=serverOverride,
+                    timeout=timeout)
+        else:
+            self._server = rpcServerOverride
         self._capabilities = None
 
     def __get_capabilities(self):
