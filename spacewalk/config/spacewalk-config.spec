@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.5.1
+Version: 2.5.2
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -97,6 +97,10 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Thu Dec 17 2015 Jan Dobes 2.5.2-1
+- removing unused enable_solaris_support configuration parameter
+- removing unused force_unentitlement configuration parameter
+
 * Tue Nov 24 2015 Jan Dobes 2.5.1-1
 - rhn-satellite-activate: manual references removed
 - Bumping package versions for 2.5.
