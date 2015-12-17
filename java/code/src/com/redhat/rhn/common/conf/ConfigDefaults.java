@@ -77,8 +77,6 @@ public class ConfigDefaults {
 
     public static final String DEFAULT_SAT_PARENT = "satellite.rhn.redhat.com";
 
-    public static final String FORCE_UNENTITLEMENT = "web.force_unentitlement";
-
     public static final String PRODUCT_NAME = "web.product_name";
 
     public static final String COBBLER_AUTOMATED_USER = "java.taskomatic_cobbler_user";
@@ -387,15 +385,6 @@ public class ConfigDefaults {
      */
     public boolean isSSLAvailable() {
         return Config.get().getBoolean(SSL_AVAILABLE);
-    }
-
-    /**
-     *
-     * @return if we should force unentitlement of systems
-     * when setting entitlements below current usage for multiorg
-     */
-    public boolean forceUnentitlement() {
-        return Config.get().getBoolean(FORCE_UNENTITLEMENT);
     }
 
     /**
