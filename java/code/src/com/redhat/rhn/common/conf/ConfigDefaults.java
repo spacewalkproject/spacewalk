@@ -61,7 +61,7 @@ public class ConfigDefaults {
 
     public static final String DOWNLOAD_URL_LIFETIME = "java.download_url_lifetime";
 
-    public static final String NON_EXPIRABLE_PACKAGE_URLS = "non_expirable_package_urls";
+    public static final String NON_EXPIRABLE_PACKAGE_URLS = "java.non_expirable_package_urls";
 
     public static final String SATELLITE_PARENT = "server.satellite.rhn_parent";
 
