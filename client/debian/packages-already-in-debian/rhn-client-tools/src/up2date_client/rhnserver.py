@@ -161,8 +161,8 @@ class RhnServer(object):
     level exceptions
     """
 
-    def __init__(self):
-        self._server = rpcServer.getServer()
+    def __init__(self, caChain=None):
+        self._server = rpcServer.getServer(caChain=caChain)
         self._capabilities = None
 
     def __get_capabilities(self):

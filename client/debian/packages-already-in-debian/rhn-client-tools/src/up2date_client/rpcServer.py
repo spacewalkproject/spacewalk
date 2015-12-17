@@ -105,18 +105,21 @@ class ServerList:
         self.index = 0
 
 
-def getServer(refreshCallback=None):
+def getServer(refreshCallback=None, caChain=None):
     log = up2dateLog.initLog()
     cfg = config.initUp2dateConfig()
 
-    # Where do we keep the CA certificate for RHNS?
-    # The servers we're talking to need to have their certs
-    # signed by one of these CA.
-    ca = cfg["sslCACert"]
+    if caChain:
+        ca = caChain
+    else:
+        # Where do we keep the CA certificate for RHNS?
+        # The servers we're talking to need to have their certs
+        # signed by one of these CA.
+        ca = cfg["sslCACert"]
     if isinstance(ca, basestring):
         ca = [ca]
-
     rhns_ca_certs = ca or ["/usr/share/rhn/RHNS-CA-CERT"]
+
     if cfg["enableProxy"]:
         proxyHost = config.getProxySetting()
     else:
