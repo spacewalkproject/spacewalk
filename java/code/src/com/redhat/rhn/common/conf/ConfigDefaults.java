@@ -59,7 +59,7 @@ public class ConfigDefaults {
     public static final String ERRATA_CACHE_COMPUTE_THRESHOLD
     = "errata_cache_compute_threshold";
 
-    public static final String DOWNLOAD_URL_LIFETIME = "download_url_lifetime";
+    public static final String DOWNLOAD_URL_LIFETIME = "java.download_url_lifetime";
 
     public static final String NON_EXPIRABLE_PACKAGE_URLS = "non_expirable_package_urls";
 
