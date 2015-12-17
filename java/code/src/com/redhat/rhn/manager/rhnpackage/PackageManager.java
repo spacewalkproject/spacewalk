@@ -14,6 +14,22 @@
  */
 package com.redhat.rhn.manager.rhnpackage;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -53,22 +69,6 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
 import com.redhat.rhn.manager.system.IncompatibleArchException;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * PackageManager
@@ -793,6 +793,43 @@ public class PackageManager extends BaseManager {
 
          Long evrId = ret.get(0).get("id");
          return PackageEvrFactory.lookupPackageEvrById(evrId);
+    }
+
+    /**
+     * Given a Server and a PackageEvr, return the OS-version ("6Workstation", "7Server",
+     * etc) for that Server
+     * @param s Server we care about
+     * @param pevr Package-evr of the redhat-release package on that server
+     * @return
+     */
+    public static String lookupSystemReleaseReleaseVersionFor(Server s, PackageEvr pevr) {
+        String vers = pevr.getVersion();
+
+        // RHEL7 broke the protocol Sat5 relies on - special case to find what we need
+        if (vers.startsWith("7")) {
+            vers = PackageManager.lookupSystemReleaseReleaseVersionFor(s);
+        }
+        return vers;
+    }
+
+    /** Given an assumed-RHEL7-Server, get the OS_version the rest of Sat5 code relies on
+     * ("7Server", "7Workstation", etc)
+     *
+     * @param s Server we care about
+     * @return system-release(releasever) of the redhat-release-% on this system
+     */
+    public static String lookupSystemReleaseReleaseVersionFor(Server s) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("sid", s.getId());
+        SelectMode m = ModeFactory.getMode("Package_queries",
+                        "lookup_system_release_releasever");
+         DataResult<Map<String, String>> ret = m.execute(params);
+         if (ret.isEmpty()) {
+             return null;
+         }
+         else {
+             return ret.get(0).get("version");
+         }
     }
 
     /**

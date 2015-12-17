@@ -1751,6 +1751,19 @@ select distinct p.evr_id as id
   </query>
 </mode>
 
+<mode name="lookup_system_release_releasever">
+    <query params="sid">
+select distinct pc.version
+  from rhnPackageProvides pp
+       inner join rhnPackageCapability pc on pc.id= pp.CAPABILITY_ID
+       inner join rhnPackage p on p.id = pp.package_id
+       inner join rhnServerPackage sp on sp.name_id = p.name_id and sp.evr_id = p.evr_id
+ where 1=1
+   and pc.name='system-release(releasever)' 
+   and sp.server_id= :sid
+    </query>
+</mode>
+
 <mode name="channel_arch_and_org_access">
     <query params="channel_id, org_id">
 SELECT p.id, comp.package_arch_id, p.org_id org_package, octv.package_id org_access, sctv.package_id shared_access
