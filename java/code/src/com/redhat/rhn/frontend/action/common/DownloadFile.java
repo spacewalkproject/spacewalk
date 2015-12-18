@@ -282,7 +282,8 @@ public class DownloadFile extends DownloadAction {
             tree = KickstartFactory.lookupKickstartTreeByLabel(label);
         }
 
-        if (tree != null && tree.getChannel().getLabel() != label) {
+        if (tree != null && ChannelFactory.lookupByLabel(label) != null &&
+                tree.getChannel().getLabel() != label) {
             map.put(CHILD, label);
         }
 
