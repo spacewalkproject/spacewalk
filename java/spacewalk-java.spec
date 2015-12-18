@@ -18,7 +18,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.28
+Version: 2.5.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -718,6 +718,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Dec 18 2015 Tomas Lestach <tlestach@redhat.com> 2.5.29-1
+- 1287829 - make sure we can find the child channel
+- fix checkstyle issue
+
 * Thu Dec 17 2015 Jan Dobes 2.5.28-1
 - moving non_expirable_package_urls parameter to java
 - moving download_url_lifetime parameter to java
