@@ -73,7 +73,8 @@ public class MessageQueue {
      */
     private static Logger logger = Logger.getLogger(MessageQueue.class);
 
-    private static final Map ACTIONS = new HashMap();
+    private static final Map<Class, List<MessageAction>> ACTIONS =
+            new HashMap<Class, List<MessageAction>>();
     private static Channel messages = new LinkedQueue();
     private static Thread dispatcherThread = null;
     private static MessageDispatcher dispatcher = null;
@@ -99,7 +100,7 @@ public class MessageQueue {
         }
         if (msg != null) {
             synchronized (ACTIONS) {
-                List handlers = (List) ACTIONS.get(msg.getClass());
+                List<MessageAction> handlers = ACTIONS.get(msg.getClass());
                 if (handlers != null && handlers.size() > 0) {
                     logger.debug("creating ActionExecutor");
                     ActionExecutor executor = new ActionExecutor(handlers, msg);
@@ -184,9 +185,9 @@ public class MessageQueue {
                     " class: " + eventType.getName());
         }
         synchronized (ACTIONS) {
-            List handlers = (List) ACTIONS.get(eventType);
+            List<MessageAction> handlers = ACTIONS.get(eventType);
             if (handlers == null) {
-                handlers = new ArrayList();
+                handlers = new ArrayList<MessageAction>();
                 ACTIONS.put(eventType, handlers);
             }
             handlers.add(act);
@@ -203,7 +204,7 @@ public class MessageQueue {
             logger.debug("deRegisterAction(MessageAction, Class) - start");
         }
         synchronized (ACTIONS) {
-            List handlers = (List) ACTIONS.get(eventType);
+            List<MessageAction> handlers = ACTIONS.get(eventType);
             handlers.remove(act);
         }
         if (logger.isDebugEnabled()) {
@@ -225,8 +226,8 @@ public class MessageQueue {
             if (ACTIONS.keySet().size() > 0) {
                 retval = new String[ACTIONS.keySet().size()];
                 int index = 0;
-                for (Iterator iter = ACTIONS.keySet().iterator(); iter.hasNext();) {
-                    Class klazz = (Class) iter.next();
+                for (Iterator<Class> iter = ACTIONS.keySet().iterator(); iter.hasNext();) {
+                    Class klazz = iter.next();
                     retval[index] = klazz.getName();
                     index++;
                 }
