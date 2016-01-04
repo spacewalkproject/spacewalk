@@ -98,7 +98,7 @@ public enum RenderUtils {
         NavTreeIndex navTreeIndex = new NavTreeIndex(navTree);
 
         User user = new RequestContext(req).getCurrentUser();
-        Map<String, Object> aclContext = new HashMap<>();
+        Map<String, Object> aclContext = new HashMap<String, Object>();
         aclContext.put("user", user);
         // Add the formvar(s) to the context as well
         if (navTree.getFormvar() != null) {
