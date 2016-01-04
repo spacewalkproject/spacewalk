@@ -800,7 +800,7 @@ public class PackageManager extends BaseManager {
      * etc) for that Server
      * @param s Server we care about
      * @param pevr Package-evr of the redhat-release package on that server
-     * @return
+     * @return os-version string
      */
     public static String lookupSystemReleaseReleaseVersionFor(Server s, PackageEvr pevr) {
         String vers = pevr.getVersion();

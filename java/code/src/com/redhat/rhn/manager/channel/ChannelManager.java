@@ -1667,7 +1667,8 @@ public class ChannelManager extends BaseManager {
         List<EssentialChannelDto> channelDtos = new LinkedList<EssentialChannelDto>();
         PackageEvr releaseEvr = PackageManager.lookupReleasePackageEvrFor(s);
         if (releaseEvr != null) {
-            String rhelVersion = PackageManager.lookupSystemReleaseReleaseVersionFor(s, releaseEvr);
+            String rhelVersion =
+                PackageManager.lookupSystemReleaseReleaseVersionFor(s, releaseEvr);
 
             List<EssentialChannelDto> baseEusChans = new LinkedList<EssentialChannelDto>();
             if (isDefaultBaseChannel(usr.getOrg(), s.getBaseChannel(), rhelVersion)) {
