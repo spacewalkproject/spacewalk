@@ -15,18 +15,18 @@
 
 package com.redhat.rhn.frontend.taglibs.list;
 
+import com.redhat.rhn.frontend.servlets.LegacyServletOutputStream;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
-import javax.servlet.ServletOutputStream;
 
 /**
  * Buffers servlet output rather than streaming it to the client
  *
  * @version $Rev $
  */
-class BufferedServletOutputStream extends ServletOutputStream {
+class BufferedServletOutputStream extends LegacyServletOutputStream {
 
     private ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
