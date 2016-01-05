@@ -631,9 +631,15 @@ def do_system_listhardware(self, args):
 
 def help_system_installpackage(self):
     print 'system_installpackage: Install a package on a system'
-    print 'usage: system_installpackage <SYSTEMS> <PACKAGE ...>'
+    print '''usage: system_installpackage <SYSTEMS> <PACKAGE ...> [options]
+
+options:
+    -s START_TIME'''
+
     print
     print self.HELP_SYSTEM_OPTS
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_system_installpackage(self, text, line, beg, end):
@@ -646,11 +652,23 @@ def complete_system_installpackage(self, text, line, beg, end):
 
 
 def do_system_installpackage(self, args):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+
+    (args, options) = parse_arguments(args, options)
 
     if len(args) < 2:
         self.help_system_installpackage()
         return
+
+    # get the start time option
+    if is_interactive(options):
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
 
     # use the systems listed in the SSM
     if re.match('ssm', args[0], re.I):
@@ -734,18 +752,19 @@ def do_system_installpackage(self, args):
         logging.warning('%s does not have access to all requested packages' %
                         self.get_system_name(system_id))
 
+    print
+    print 'Start Time: %s' % options.start_time
+
     if not self.user_confirm('Install these packages [y/N]:'):
         return
 
     scheduled = 0
     for system_id in jobs:
-        action_time = parse_time_input('now')
-
         try:
             self.client.system.schedulePackageInstall(self.session,
                                                       system_id,
                                                       jobs[system_id],
-                                                      action_time)
+                                                      options.start_time)
 
             scheduled += 1
         except xmlrpclib.Fault:
