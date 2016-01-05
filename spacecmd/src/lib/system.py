@@ -895,9 +895,15 @@ def do_system_removepackage(self, args):
 
 def help_system_upgradepackage(self):
     print 'system_upgradepackage: Upgrade a package on a system'
-    print 'usage: system_upgradepackage <SYSTEMS> <PACKAGE ...>|*'
+    print '''usage: system_upgradepackage <SYSTEMS> <PACKAGE ...>|* [options]'
+
+options:
+    -s START_TIME'''
+
     print
     print self.HELP_SYSTEM_OPTS
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_system_upgradepackage(self, text, line, beg, end):
@@ -910,7 +916,13 @@ def complete_system_upgradepackage(self, text, line, beg, end):
 
 
 def do_system_upgradepackage(self, args):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+
+    # this will come handy for individual packages, as we call
+    # self.do_system_installpackage anyway
+    orig_args = args
+
+    (args, options) = parse_arguments(args, options)
 
     if len(args) < 2:
         self.help_system_upgradepackage()
@@ -918,7 +930,17 @@ def do_system_upgradepackage(self, args):
 
     # install and upgrade for individual packages are the same
     if not '.*' in args[1:]:
-        return self.do_system_installpackage(' '.join(args))
+        return self.do_system_installpackage(orig_args)
+
+    # get the start time option
+    if is_interactive(options):
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
 
     # use the systems listed in the SSM
     if re.match('ssm', args[0], re.I):
@@ -971,10 +993,11 @@ def do_system_upgradepackage(self, args):
 
         print '\n'.join(sorted(package_names))
 
+    print
+    print 'Start Time: %s' % options.start_time
+
     if not self.user_confirm('Upgrade these packages [y/N]:'):
         return
-
-    action_time = parse_time_input('now')
 
     scheduled = 0
     for system in jobs:
@@ -984,7 +1007,7 @@ def do_system_upgradepackage(self, args):
             self.client.system.schedulePackageInstall(self.session,
                                                       system_id,
                                                       jobs[system],
-                                                      action_time)
+                                                      options.start_time)
 
             scheduled += 1
         except xmlrpclib.Fault:
