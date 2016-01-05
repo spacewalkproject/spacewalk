@@ -777,9 +777,15 @@ def do_system_installpackage(self, args):
 
 def help_system_removepackage(self):
     print 'system_removepackage: Remove a package from a system'
-    print 'usage: system_removepackage <SYSTEMS> <PACKAGE ...>'
+    print '''usage: system_removepackage <SYSTEMS> <PACKAGE ...> [options]
+
+options:
+    -s START_TIME'''
+
     print
     print self.HELP_SYSTEM_OPTS
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_system_removepackage(self, text, line, beg, end):
@@ -792,11 +798,23 @@ def complete_system_removepackage(self, text, line, beg, end):
 
 
 def do_system_removepackage(self, args):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+
+    (args, options) = parse_arguments(args, options)
 
     if len(args) < 2:
         self.help_system_removepackage()
         return
+
+    # get the start time option
+    if is_interactive(options):
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
 
     # use the systems listed in the SSM
     if re.match('ssm', args[0], re.I):
@@ -846,10 +864,12 @@ def do_system_removepackage(self, args):
 
     if not len(jobs):
         return
+
+    print
+    print 'Start Time: %s' % options.start_time
+
     if not self.user_confirm('Remove these packages [y/N]:'):
         return
-
-    action_time = parse_time_input('now')
 
     scheduled = 0
     for system in jobs:
@@ -861,7 +881,7 @@ def do_system_removepackage(self, args):
             action_id = self.client.system.schedulePackageRemove(self.session,
                                                                  system_id,
                                                                  jobs[system],
-                                                                 action_time)
+                                                                 options.start_time)
 
             logging.info('Action ID: %i' % action_id)
             scheduled += 1
