@@ -166,9 +166,15 @@ def do_system_list(self, args, doreturn=False):
 
 def help_system_reboot(self):
     print 'system_reboot: Reboot a system'
-    print 'usage: system_reboot <SYSTEMS>'
+    print '''usage: system_reboot <SYSTEMS> [options]
+
+options:
+  -s START_TIME'''
+
     print
     print self.HELP_SYSTEM_OPTS
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_system_reboot(self, text, line, beg, end):
@@ -176,7 +182,9 @@ def complete_system_reboot(self, text, line, beg, end):
 
 
 def do_system_reboot(self, args):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+
+    (args, options) = parse_arguments(args, options)
 
     if not len(args):
         self.help_system_reboot()
@@ -188,8 +196,20 @@ def do_system_reboot(self, args):
     else:
         systems = self.expand_systems(args)
 
+    # get the start time option
+    if is_interactive(options):
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
+
     print
 
+    print 'Start Time: %s' % options.start_time
+    print
     print 'Systems'
     print '-------'
     print '\n'.join(sorted(systems))
@@ -197,14 +217,12 @@ def do_system_reboot(self, args):
     if not self.user_confirm('Reboot these systems [y/N]:'):
         return
 
-    action_time = parse_time_input('now')
-
     for system in systems:
         system_id = self.get_system_id(system)
         if not system_id:
             continue
 
-        self.client.system.scheduleReboot(self.session, system_id, action_time)
+        self.client.system.scheduleReboot(self.session, system_id, options.start_time)
 
 ####################
 
