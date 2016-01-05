@@ -695,6 +695,7 @@ class OSReleaseWindow:
     def saveResults(self):
         # if limited updates save the channel and selction
         # for future use
+        self.tui.other.pop('channel', None)
         if self.limited_updates_button.selected():
             log.log_debug("Selected Channel %s" % self.channelList.current())
             self.tui.other['channel'] = self.channelList.current()
