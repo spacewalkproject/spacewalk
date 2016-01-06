@@ -23,7 +23,7 @@ t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
 
 def stdoutMsgCallback(msg):
-    print msg
+    print(msg)
 
 
 class RetryServer(rpclib.Server):
@@ -217,7 +217,7 @@ def doCall(method, *args, **kwargs):
             else:
                 failure = 1
         except httplib.IncompleteRead:
-            print "httplib.IncompleteRead"
+            print("httplib.IncompleteRead")
             raise (up2dateErrors.CommunicationError("httplib.IncompleteRead"), None, sys.exc_info()[2])
 
         except urllib2.HTTPError:

@@ -70,7 +70,7 @@ VERBOSE = False
 
 def info(text):
     if VERBOSE:
-        print text
+        print(text)
 
 
 def systemExit(code, msgs=None):
@@ -193,13 +193,13 @@ def list_channels(only_base_channels=False):
 
     for channel in sorted(channels):
         if not (only_base_channels and channel['parent_channel']):
-            print channel['label']
+            print(channel['label'])
 
 
 def list_available_channels(credentials):
     channels = get_available_channels(credentials.user, credentials.password)
     channels.sort()
-    print '\n'.join(channels)
+    print('\n'.join(channels))
 
 
 def main():

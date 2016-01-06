@@ -35,7 +35,7 @@ class Log:
                 i = unicode(str(i), 'utf-8')
             s += i
         if self.cfg["debug"] > 1:
-            print s
+            print(s)
         self.write_log(s)
 
     def trace_me(self):

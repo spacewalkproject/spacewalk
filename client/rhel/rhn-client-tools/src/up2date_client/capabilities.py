@@ -37,7 +37,7 @@ def parseCap(capstring):
 
         # just to be paranoid
         if version[-1] != ")":
-            print "something broke in parsing the capabilited headers"
+            print("something broke in parsing the capabilited headers")
         #FIXME: raise an approriate exception here...
 
         # trim off the trailing paren

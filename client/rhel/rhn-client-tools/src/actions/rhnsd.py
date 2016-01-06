@@ -59,12 +59,12 @@ def configure(interval=None, restart=None, cache_only=None):
 
 
 if __name__ == "__main__":
-    print configure("240")
+    print(configure("240"))
 
-    print configure("361", 1)
+    print(configure("361", 1))
 
-    print configure("127", restart=1)
+    print(configure("127", restart=1))
 
-    print configure(restart=1)
+    print(configure(restart=1))
 
-    print configure("192")
+    print(configure("192"))

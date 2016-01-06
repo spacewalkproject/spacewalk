@@ -80,12 +80,12 @@ class RegisterKsCli(rhncli.RhnCli):
 
         if not (self.options.activationkey or
                 (self.options.username and self.options.password)):
-            print _("A username and password are required "\
-                    "to register a system.")
+            print(_("A username and password are required "\
+                    "to register a system."))
             sys.exit(-1)
 
         if rhnreg.registered() and not self.options.force:
-            print _("This system is already registered. Use --force to override")
+            print(_("This system is already registered. Use --force to override"))
             sys.exit(-1)
 
         rhnreg.getCaps()
@@ -119,10 +119,10 @@ class RegisterKsCli(rhncli.RhnCli):
         # If specified, send up the EUS channel label for subscription.
         if self.options.use_eus_channel:
             if self.options.activationkey:
-                print _("Usage of --use-eus-channel option with --activationkey is not supported. Please use username and password instead.")
+                print(_("Usage of --use-eus-channel option with --activationkey is not supported. Please use username and password instead."))
                 sys.exit(-1)
             if not rhnreg.server_supports_eus():
-                print _("The server you are registering against does not support EUS.")
+                print(_("The server you are registering against does not support EUS."))
                 sys.exit(-1)
 
             channels = rhnreg.getAvailableChannels(self.options.username,
@@ -137,7 +137,7 @@ class RegisterKsCli(rhncli.RhnCli):
                 up2dateErrors.CommunicationError,
                 up2dateErrors.AuthenticationOrAccountCreationError):
             e = sys.exc_info()[1]
-            print "%s" % e.errmsg
+            print("%s" % e.errmsg)
             sys.exit(1)
 
         # collect hardware info, inluding hostname
@@ -148,7 +148,7 @@ class RegisterKsCli(rhncli.RhnCli):
             rhnreg.sendPackages(systemId, packageList)
 
         if self.options.contactinfo:
-            print _("Warning: --contactinfo option has been deprecated. Please login to the server web user Interface and update your contactinfo. ")
+            print(_("Warning: --contactinfo option has been deprecated. Please login to the server web user Interface and update your contactinfo. "))
 
         # write out the new id
         if isinstance(systemId, unicode):
@@ -197,9 +197,9 @@ class RegisterKsCli(rhncli.RhnCli):
             profileName = ip6addr
 
         if not profileName:
-            print _("A profilename was not specified, "\
+            print(_("A profilename was not specified, "\
                     "and hostname and IP address could not be determined "\
-                    "to use as a profilename, please specify one.")
+                    "to use as a profilename, please specify one."))
             sys.exit(-1)
 
         return profileName

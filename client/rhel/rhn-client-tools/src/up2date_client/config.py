@@ -76,7 +76,7 @@ class ConfigFile:
         if self.fileName == None:
             return
         if not os.access(self.fileName, os.R_OK):
-#            print "warning: can't access %s" % self.fileName
+#            print("warning: can't access %s" % self.fileName)
             return
 
         f = open(self.fileName, "r")

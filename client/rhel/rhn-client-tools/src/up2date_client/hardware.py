@@ -456,7 +456,7 @@ def read_memory_2_6():
         key = blobs[0]
         if len(blobs) == 1:
             continue
-        #print blobs
+        #print(blobs)
         value = blobs[1].strip()
         meminfo_dict[key] = value
 
@@ -816,14 +816,14 @@ def Hardware():
         ret = read_cpuinfo()
         if ret: allhw.append(ret)
     except:
-        print _("Error reading cpu information:"), sys.exc_type
+        print(_("Error reading cpu information:"), sys.exc_type)
 
     # memory size info
     try:
         ret = read_memory()
         if ret: allhw.append(ret)
     except:
-        print _("Error reading system memory information:"), sys.exc_type
+        print(_("Error reading system memory information:"), sys.exc_type)
 
     cfg = config.initUp2dateConfig()
     if not cfg["skipNetwork"]:
@@ -833,7 +833,7 @@ def Hardware():
             if ret:
                 allhw.append(ret)
         except:
-            print _("Error reading networking information:"), sys.exc_type
+            print(_("Error reading networking information:"), sys.exc_type)
     # dont like catchall exceptions but theres not
     # really anything useful we could do at this point
     # and its been trouble prone enough
@@ -854,7 +854,7 @@ def Hardware():
         if ret:
             allhw.append(ret)
     except:
-        print _("Error reading install method information:"), sys.exc_type
+        print(_("Error reading install method information:"), sys.exc_type)
 
     if not cfg["skipNetwork"]:
         try:
@@ -862,7 +862,7 @@ def Hardware():
             if ret:
                 allhw.append(ret)
         except:
-            print _("Error reading network interface information:"), sys.exc_type
+            print(_("Error reading network interface information:"), sys.exc_type)
 
     # all Done.
     return allhw
@@ -878,5 +878,5 @@ def Hardware():
 if __name__ == '__main__':
     for hw in Hardware():
         for k in hw.keys():
-            print "'%s' : '%s'" % (k, hw[k])
+            print("'%s' : '%s'" % (k, hw[k]))
         print

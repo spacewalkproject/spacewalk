@@ -56,13 +56,13 @@ def startRhnsd():
                 os.system("/usr/bin/systemctl enable rhnsd > /dev/null");
                 os.system("/usr/bin/systemctl start rhnsd > /dev/null");
             else:
-                print _("Warning: unable to enable rhnsd with systemd")
+                print(_("Warning: unable to enable rhnsd with systemd"))
         else:
             # SysV init scripts
             if os.access("/sbin/chkconfig", os.R_OK|os.X_OK):
                 os.system("/sbin/chkconfig rhnsd on > /dev/null");
             else:
-                print _("Warning: unable to enable rhnsd with chkconfig")
+                print(_("Warning: unable to enable rhnsd with chkconfig"))
 
             service_path = "/sbin/service"
             if not os.access(service_path, os.R_OK|os.X_OK):
@@ -477,7 +477,7 @@ def sendVirtInfo(systemId):
 
 def listPackages(systemId):
     s = rhnserver.RhnServer()
-    print s.registration.list_packages,systemId()
+    print(s.registration.list_packages,systemId())
 
 def makeNiceServerUrl(server):
     """Raises up2dateErrors.InvalidProtocolError if the server url has a

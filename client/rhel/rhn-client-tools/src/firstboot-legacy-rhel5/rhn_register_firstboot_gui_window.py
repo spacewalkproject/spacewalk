@@ -43,7 +43,7 @@ class RhnRegisterFirstbootGuiWindow(FirstbootModuleWindow):
         """
         self.doDebug = doDebug
         if self.doDebug:
-            print self.__class__.__name__, "launch called."
+            print(self.__class__.__name__, "launch called.")
 
         self.icon = functions.imageFromPath("/usr/share/system-config-display/pixmaps/system-config-display.png")
         self.mainVBox = gtk.VBox()
@@ -87,7 +87,7 @@ class RhnRegisterFirstbootGuiWindow(FirstbootModuleWindow):
 
     def grabFocus(self):
         if self.doDebug:
-            print self.__class__.__name__, "grabFocus called."
+            print(self.__class__.__name__, "grabFocus called.")
         pass
 
     def fatalError(self, error, wrap=1):
@@ -102,7 +102,7 @@ class RhnRegisterFirstbootGuiWindow(FirstbootModuleWindow):
     def _goImmediatelyToFinish(self):
         self.parent.setPage("rhn_finish_gui")
         def dummyApply(self, *args):
-            print "dummy"
+            print("dummy")
             return True
         self.apply = dummyApply
         self.parent.nextClicked()

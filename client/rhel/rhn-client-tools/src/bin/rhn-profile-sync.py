@@ -34,20 +34,20 @@ class ProfileCli(rhncli.RhnCli):
             needToRegister = \
                 _("You need to register this system by running " \
                 "`rhn_register` before using this option")
-            print needToRegister
+            print(needToRegister)
             sys.exit(1)
 
         if not self._testRhnLogin():
             sys.exit(1)
 
-        print _("Updating package profile...")
+        print(_("Updating package profile..."))
         rhnPackageInfo.updatePackageProfile()
 
-        print _("Updating hardware profile...")
+        print(_("Updating hardware profile..."))
         rhnHardware.updateHardware()
 
         if support is not None:
-            print _("Updating virtualization profile...")
+            print(_("Updating virtualization profile..."))
             support.refresh(True)
 
 

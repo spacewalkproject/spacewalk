@@ -56,7 +56,7 @@ def loadLocalCaps(capsDir = "/etc/sysconfig/rhn/clientCaps.d"):
             for (cap,data) in caplist:
                 caps.data[cap] = data
 
-#    print caps.data
+#    print(caps.data)
 
 loadLocalCaps()
 

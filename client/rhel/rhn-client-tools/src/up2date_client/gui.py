@@ -346,7 +346,7 @@ if __name__ == "__main__":
     try:
         main()
     except xmlrpclib.ResponseError:
-        print sys.exc_info()[1]
+        print(sys.exc_info()[1])
     except IOError:
         e = sys.exc_info()[1]
-        print _("There was some sort of I/O error: %s") % e.errmsg
+        print(_("There was some sort of I/O error: %s") % e.errmsg)

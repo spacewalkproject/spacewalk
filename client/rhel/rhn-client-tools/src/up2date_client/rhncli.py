@@ -152,7 +152,7 @@ class RhnCli(object):
             up2dateAuth.updateLoginInfo()
             return True
         except up2dateErrors.ServerCapabilityError:
-            print sys.exc_info()[1]
+            print(sys.exc_info()[1])
             return False
         except up2dateErrors.AuthenticationError:
             return False
@@ -168,10 +168,10 @@ class RhnCli(object):
                 from up2date_client import gui
                 gui.errorWindow(message)
             except:
-                print _("Unable to open gui. Try `up2date --nox`")
-                print message
+                print(_("Unable to open gui. Try `up2date --nox`"))
+                print(message)
         else:
-            print message
+            print(message)
 
     def __updateProxyConfig(self):
         """Update potential proxy configuration.
@@ -203,10 +203,10 @@ class RhnCli(object):
                 from up2date_client import gui
                 gui.errorWindow(errMsg)
             except:
-                print _("Unable to open gui. Try `up2date --nox`")
-                print errMsg
+                print(_("Unable to open gui. Try `up2date --nox`"))
+                print(errMsg)
         else:
-            print errMsg
+            print(errMsg)
 
     @staticmethod
     def __versionString():

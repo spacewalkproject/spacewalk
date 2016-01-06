@@ -76,7 +76,7 @@ class RhnLoginWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.LoginPage):
 
         """
         if self.doDebug:
-            print "applying rhn_login_gui"
+            print("applying rhn_login_gui")
 
         # This is a hack. This function will get called if they click next on
         # the login page (the else) or when they create an account (the if). In

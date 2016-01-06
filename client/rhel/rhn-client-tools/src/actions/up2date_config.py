@@ -24,7 +24,7 @@ def update(configdict, cache_only=None):
     if cache_only:
         return (0, "no-ops for caching", {})
     if argVerbose > 1:
-        print "called update_up2date_config"
+        print("called update_up2date_config")
 
     if type(configdict) != type({}):
         return (13, "Invalid arguments passed to function", {})
@@ -54,7 +54,7 @@ def get(cache_only=None):
     if cache_only:
         return (0, "no-ops for caching", {})
     if argVerbose > 1:
-        print "called get_up2date_config"
+        print("called get_up2date_config")
 
     ret = {}
     for k in cfg.keys():
@@ -71,7 +71,7 @@ def main():
     timestamp = time.time()
 
     configdata['timeStampTest'] = timestamp
-    print configdata
+    print(configdata)
     import pprint
 
     pprint.pprint(update(configdata))

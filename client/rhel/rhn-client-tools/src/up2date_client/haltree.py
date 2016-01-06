@@ -42,9 +42,9 @@ class HalDevice:
         self.parent = None
 
     def print_properties(self):
-        print self.udi, ":"
+        print(self.udi, ":")
         for property, value in self.properties.items():
-            print "    ", property," ==> ",  value
+            print("    ", property," ==> ",  value)
 
 
 
@@ -110,18 +110,18 @@ class HalTree:
         self.__print_dev_tree(self.head, "")
 
     def __print_dev_tree(self, node, indent):
-        print indent, node.udi
-        print indent, "CLASS:", node.classification
+        print(indent, node.udi)
+        print(indent, "CLASS:", node.classification)
         for name, property in node.properties.items():
             if (type(property) == types.StringType):
                 if property.isdigit():
-                    print indent + "    ", "%-20s ==> %s" % (name, hex(int(property)))
+                    print(indent + "    ", "%-20s ==> %s" % (name, hex(int(property))))
                 else:
-                    print indent + "    ", "%-20s ==> %s" % (name, property)
+                    print(indent + "    ", "%-20s ==> %s" % (name, property))
             elif (type(property) == types.IntType):
-                print indent + "    ", "%-20s ==> %s" % (name, hex(int(property)))
+                print(indent + "    ", "%-20s ==> %s" % (name, hex(int(property))))
             else:
-                print indent + "    ", "%-20s ==> %s" % (name, property)
+                print(indent + "    ", "%-20s ==> %s" % (name, property))
         print
         for child in node.children:
             self.__print_dev_tree(child, indent + "    ")

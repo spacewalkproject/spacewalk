@@ -108,28 +108,28 @@ class CheckCli(rhncli.RhnCli):
             if f.faultCode == -31:
                 raise up2dateErrors.InsuffMgmntEntsError(f.faultString), None, sys.exc_info()[2]
             else:
-                print "Could not retrieve action item from server %s" % self.server
-                print "Error code: %d%s" % (f.faultCode, f.faultString)
+                print("Could not retrieve action item from server %s" % self.server)
+                print("Error code: %d%s" % (f.faultCode, f.faultString))
             sys.exit(-1)
         # XXX: what if no SSL in socket?
         except socket.sslerror:
-            print "ERROR: SSL handshake to %s failed" % self.server
-            print """
+            print("ERROR: SSL handshake to %s failed" % self.server)
+            print("""
             This could signal that you are *NOT* talking to a server
             whose certificate was signed by a Certificate Authority
             listed in the %s file or that the
-            RHNS-CA-CERT file is invalid.""" % self.rhns_ca_cert
+            RHNS-CA-CERT file is invalid.""" % self.rhns_ca_cert)
             sys.exit(-1)
         except socket.error:
-            print "Could not retrieve action from %s.\n"\
-                  "Possible networking problem?" % str(self.server)
+            print("Could not retrieve action from %s.\n"\
+                  "Possible networking problem?" % str(self.server))
             sys.exit(-1)
         except up2dateErrors.ServerCapabilityError:
-            print sys.exc_info()[1]
+            print(sys.exc_info()[1])
             sys.exit(1)
         except SSL.Error:
-            print "ERROR: SSL errors detected"
-            print "%s" % sys.exc_info()[1]
+            print("ERROR: SSL errors detected")
+            print("%s" % sys.exc_info()[1])
             sys.exit(-1)
 
     def __query_future_actions(self, time_window):
@@ -142,28 +142,28 @@ class CheckCli(rhncli.RhnCli):
             if f.faultCode == -31:
                 raise up2dateErrors.InsuffMgmntEntsError(f.faultString), None, sys.exc_info()[2]
             else:
-                print "Could not retrieve action item from server %s" % self.server
-                print "Error code: %d%s" % (f.faultCode, f.faultString)
+                print("Could not retrieve action item from server %s" % self.server)
+                print("Error code: %d%s" % (f.faultCode, f.faultString))
             sys.exit(-1)
         # XXX: what if no SSL in socket?
         except socket.sslerror:
-            print "ERROR: SSL handshake to %s failed" % self.server
-            print """
+            print("ERROR: SSL handshake to %s failed" % self.server)
+            print("""
             This could signal that you are *NOT* talking to a server
             whose certificate was signed by a Certificate Authority
             listed in the %s file or that the
-            RHNS-CA-CERT file is invalid.""" % self.rhns_ca_cert
+            RHNS-CA-CERT file is invalid.""" % self.rhns_ca_cert)
             sys.exit(-1)
         except socket.error:
-            print "Could not retrieve action from %s.\n"\
-                  "Possible networking problem?" % str(self.server)
+            print("Could not retrieve action from %s.\n"\
+                  "Possible networking problem?" % str(self.server))
             sys.exit(-1)
         except up2dateErrors.ServerCapabilityError:
-            print sys.exc_info()[1]
+            print(sys.exc_info()[1])
             sys.exit(1)
         except SSL.Error:
-            print "ERROR: SSL errors detected"
-            print "%s" % sys.exc_info()[1]
+            print("ERROR: SSL errors detected")
+            print("%s" % sys.exc_info()[1])
             sys.exit(-1)
 
     def __fetch_future_action(self, action):
@@ -192,7 +192,7 @@ class CheckCli(rhncli.RhnCli):
                 try:
                     up2dateAuth.updateLoginInfo()
                 except up2dateErrors.ServerCapabilityError:
-                    print sys.exc_info()[1]
+                    print(sys.exc_info()[1])
                     sys.exit(1)
                 self.handle_action(action)
 
@@ -205,7 +205,7 @@ class CheckCli(rhncli.RhnCli):
         try:
             caps.validate()
         except up2dateErrors.ServerCapabilityError:
-            print sys.exc_info()[1]
+            print(sys.exc_info()[1])
             sys.exit(1)
 
     def __parse_action_data(self, action):
@@ -229,21 +229,21 @@ class CheckCli(rhncli.RhnCli):
                                       action_id, status, message, data)
         except xmlrpclib.Fault:
             f = sys.exc_info()[1]
-            print "Could not submit results to server %s" % self.server
-            print "Error code: %d%s" % (f.faultCode, f.faultString)
+            print("Could not submit results to server %s" % self.server)
+            print("Error code: %d%s" % (f.faultCode, f.faultString))
             sys.exit(-1)
         # XXX: what if no SSL in socket?
         except socket.sslerror:
-            print "ERROR: SSL handshake to %s failed" % self.server
-            print """
+            print("ERROR: SSL handshake to %s failed" % self.server)
+            print("""
             This could signal that you are *NOT* talking to a server
             whose certificate was signed by a Certificate Authority
             listed in the %s file or that the
-            RHNS-CA-CERT file is invalid.""" % self.rhns_ca_cert
+            RHNS-CA-CERT file is invalid.""" % self.rhns_ca_cert)
             sys.exit(-1)
         except socket.error:
-            print "Could not submit to %s.\n"\
-                  "Possible networking problem?" % str(self.server)
+            print("Could not submit to %s.\n"\
+                  "Possible networking problem?" % str(self.server))
             sys.exit(-1)
         return ret
 
@@ -267,20 +267,20 @@ class CheckCli(rhncli.RhnCli):
 
         # be very paranoid of what we get back
         if type(action) != type({}):
-            print "Got unparseable action response from server"
+            print("Got unparseable action response from server")
             sys.exit(-1)
 
         for key in ['id', 'version', 'action']:
             if not action.has_key(key):
-                print "Got invalid response - missing '%s'" % key
+                print("Got invalid response - missing '%s'" % key)
                 sys.exit(-1)
         try:
             ver = int(action['version'])
         except ValueError:
             ver = -1
         if ver > ACTION_VERSION or ver < 0:
-            print "Got unknown action version %d" % ver
-            print action
+            print("Got unknown action version %d" % ver)
+            print(action)
             # the -99 here is kind of magic
             self.submit_response(action["id"],
                             xmlrpclib.Fault(-99, "Can not handle this version"))
@@ -306,7 +306,7 @@ class CheckCli(rhncli.RhnCli):
         try:
             up2dateAuth.maybeUpdateVersion()
         except up2dateErrors.CommunicationError:
-            print sys.exc_info()[1]
+            print(sys.exc_info()[1])
             sys.exit(1)
 
     @staticmethod
@@ -375,14 +375,14 @@ class CheckCli(rhncli.RhnCli):
     def __check_rhn_disabled():
         """ If we're disabled, go down (almost) quietly. """
         if os.path.exists(DISABLE_FILE):
-            print "RHN service is disabled. Check %s" % DISABLE_FILE
+            print("RHN service is disabled. Check %s" % DISABLE_FILE)
             sys.exit(0)
 
     @staticmethod
     def __check_has_system_id():
         """ Retrieve the system_id. This is required. """
         if not up2dateAuth.getSystemId():
-            print "ERROR: unable to read system id."
+            print("ERROR: unable to read system id.")
             sys.exit(-1)
 
     @staticmethod

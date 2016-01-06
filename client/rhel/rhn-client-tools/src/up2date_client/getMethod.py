@@ -91,7 +91,7 @@ def getMethod(methodName, abspath, baseClass):
                 raise GetMethodException("Class %s has no attribute %s" % (
                     string.join(methodNameComps[:index], '.'), comp))
             className = getattr(className, comp)
-            #print type(className)
+            #print(type(className))
             continue
         # A file or method
         # We look for the special __rhnexport__ array
@@ -106,7 +106,7 @@ def getMethod(methodName, abspath, baseClass):
         if type(className) is ClassType:
             # Try to instantiate it
             className = className()
-        #print type(className)
+        #print(type(className))
 
     return className
 
@@ -126,13 +126,13 @@ if __name__ == '__main__':
     ]
 
     for m in methods:
-        print "----Running method %s: " % m
+        print("----Running method %s: " % m)
         try:
             method = getMethod(m, '.', 'Actions')
         except GetMethodException:
             e = sys.exc_info()[1]
-            print "Error getting the method %s: %s" % (m,
-                string.join(map(str, e.args)))
+            print("Error getting the method %s: %s" % (m,
+                string.join(map(str, e.args))))
         else:
             method()
 #-----------------------------------------------------------------------------

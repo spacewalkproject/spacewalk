@@ -457,7 +457,7 @@ class LoginPage:
         except up2dateErrors.CommunicationError:
             e = sys.exc_info()[1]
             setArrowCursor()
-            print e.errmsg
+            print(e.errmsg)
             self.fatalError(_("There was an error communicating with the registration server.  The message was:\n") + e.errmsg)
             return True # fatalError in firstboot will return to here
 
@@ -617,7 +617,7 @@ class CreateProfilePage:
         try:
             self.hardware = hardware.Hardware()
         except:
-            print _("Error running hardware profile")
+            print(_("Error running hardware profile"))
 
     def populateProfile(self):
         try:
@@ -806,7 +806,7 @@ class CreateProfilePage:
 ##                rowData = self.regPackageArea.get_row_data(row)
 ##                if rowData[0] == 1:
 ##                    selection.append(rowData[1])
-##            print "gh270"
+##            print("gh270")
 ##            selectedPackages = []
 ##            for pkg in packageList:
 ##                if pkg[0] in selection:

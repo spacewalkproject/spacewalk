@@ -49,7 +49,7 @@ def reboot(test=None, cache_only=None):
 
 
 def main():
-    print reboot(test=1)
+    print(reboot(test=1))
 
 if __name__ == "__main__":
     main()
