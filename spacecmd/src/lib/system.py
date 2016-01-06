@@ -3126,7 +3126,12 @@ def do_system_comparepackages(self, args):
 
 def help_system_syncpackages(self):
     print 'system_syncpackages: Sync packages between two systems'
-    print 'usage: system_syncpackages SOURCE TARGET'
+    print '''usage: system_syncpackages SOURCE TARGET [options]
+
+options:
+    -s START_TIME'''
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_system_syncpackages(self, text, line, beg, end):
@@ -3134,7 +3139,9 @@ def complete_system_syncpackages(self, text, line, beg, end):
 
 
 def do_system_syncpackages(self, args):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+
+    (args, options) = parse_arguments(args, options)
 
     if len(args) != 2:
         self.help_system_syncpackages()
@@ -3148,13 +3155,24 @@ def do_system_syncpackages(self, args):
     if not source_id or not target_id:
         return
 
+    # get the start time option
+    if is_interactive(options):
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
+
     # show a comparison and ask for confirmation
     self.do_system_comparepackages('%s %s' % (source_id, target_id))
 
+    print
+    print 'Start Time: %s' % options.start_time
+
     if not self.user_confirm('Sync packages [y/N]:'):
         return
-
-    start_time = parse_time_input('now')
 
     # get package IDs
     packages = self.client.system.listPackages(self.session, source_id)
@@ -3174,7 +3192,7 @@ def do_system_syncpackages(self, args):
                                                       target_id,
                                                       source_id,
                                                       package_ids,
-                                                      start_time)
+                                                      options.start_time)
 ####################
 
 
