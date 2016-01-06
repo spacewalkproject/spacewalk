@@ -779,6 +779,13 @@ public class KickstartFormatter {
             retval.append("/etc/init.d/haldaemon restart" + NEWLINE);
         }
         retval.append("# begin cobbler snippet" + NEWLINE);
+        retval.append(NEWLINE);
+        // Work around for bug #522251
+        if (!this.ksdata.getKickstartDefaults().getKstree().getChannel().
+             getChannelArch().getName().startsWith("s390")) {
+            addCobblerSnippet(retval, "post_install_network_config");
+        }
+
         addCobblerSnippet(retval, DEFAULT_MOTD);
         addCobblerSnippet(retval, REDHAT_REGISTER_SNIPPET);
         retval.append("# end cobbler snippet" + NEWLINE);
@@ -787,12 +794,6 @@ public class KickstartFormatter {
         retval.append(RHNCHECK + NEWLINE);
         addLogEnd(retval, RHN_LOG_FILE, "");
 
-        retval.append(NEWLINE);
-        // Work around for bug #522251
-        if (!this.ksdata.getKickstartDefaults().getKstree().getChannel().
-             getChannelArch().getName().startsWith("s390")) {
-            addCobblerSnippet(retval, "post_install_network_config");
-        }
         addEnd(retval);
         return retval.toString();
     }
