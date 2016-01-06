@@ -34,6 +34,9 @@ import socket
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
+# Python 3 translations don't have a ugettext method
+if not hasattr(t, 'ugettext'):
+    t.ugettext = t.gettext
 _ = t.ugettext
 
 from OpenSSL import SSL

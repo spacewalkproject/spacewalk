@@ -26,6 +26,9 @@ from rhn.connections import idn_puny_to_unicode
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
+# Python 3 translations don't have a ugettext method
+if not hasattr(t, 'ugettext'):
+    t.ugettext = t.gettext
 _ = t.ugettext
 
 sys.path.append("/usr/share/rhn/")
