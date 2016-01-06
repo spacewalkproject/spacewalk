@@ -98,7 +98,7 @@ class Up2dateTransaction:
         if attr in self._methods:
             return self.getMethod(attr)
         else:
-            raise AttributeError, attr
+            raise AttributeError(attr)
 
     def getMethod(self, method):
         # in theory, we can override this with
