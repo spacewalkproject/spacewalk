@@ -3430,9 +3430,15 @@ def do_system_comparewithchannel(self, args):
 def help_system_schedulehardwarerefresh(self):
     print 'system_schedulehardwarerefresh: Schedule a hardware refresh ' + \
           'for a system'
-    print 'usage: system_schedulehardwarerefresh <SYSTEMS>'
+    print '''usage: system_schedulehardwarerefresh <SYSTEMS> [options]
+
+options:
+  -s START_TIME'''
+
     print
     print self.HELP_SYSTEM_OPTS
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_system_schedulehardwarerefresh(self, text, line, beg, end):
@@ -3440,19 +3446,29 @@ def complete_system_schedulehardwarerefresh(self, text, line, beg, end):
 
 
 def do_system_schedulehardwarerefresh(self, args):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+
+    (args, options) = parse_arguments(args, options)
 
     if not len(args):
         self.help_system_schedulehardwarerefresh()
         return
+
+    # get the start time option
+    if is_interactive(options):
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
 
     # use the systems listed in the SSM
     if re.match('ssm', args[0], re.I):
         systems = self.ssm.keys()
     else:
         systems = self.expand_systems(args)
-
-    action_time = parse_time_input('now')
 
     for system in systems:
         system_id = self.get_system_id(system)
@@ -3461,7 +3477,7 @@ def do_system_schedulehardwarerefresh(self, args):
 
         self.client.system.scheduleHardwareRefresh(self.session,
                                                    system_id,
-                                                   action_time)
+                                                   options.start_time)
 
 ####################
 
