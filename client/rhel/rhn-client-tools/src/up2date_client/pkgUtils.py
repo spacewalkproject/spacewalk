@@ -3,10 +3,10 @@
 #
 # Author: Simon Lukasik
 
-from pkgplatform import getPlatform
+from up2date_client.pkgplatform import getPlatform
 
 if getPlatform() == 'deb':
-    from debUtils import *
+    from up2date_client.debUtils import *
 else:
-    from rpmUtils import *
+    from up2date_client.rpmUtils import *
 

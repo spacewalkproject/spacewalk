@@ -10,7 +10,10 @@ sys.path.append('..')
 from rhn.rpclib import transports
 
 import time
-from cStringIO import StringIO
+try: # python2
+    from cStringIO import StringIO
+except ImportError: # python3
+    from io import StringIO
 
 class SlowSocket:
     def __init__(self):

@@ -21,18 +21,22 @@ gtk.glade.bindtextdomain("rhn-client-tools", "/usr/share/locale")
 import gnome.ui
 
 import signal
-import xmlrpclib
+
+try: # python2
+    import xmlrpclib
+except ImportError: # python3
+    import xmlrpc.client as xmlrpclib
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
 
-import up2dateErrors
-import config
-import rhnreg
-import messageWindow
+from up2date_client import up2dateErrors
+from up2date_client import config
+from up2date_client import rhnreg
+from up2date_client import messageWindow
 
-import rhnregGui
+from up2date_client import rhnregGui
 
 
 

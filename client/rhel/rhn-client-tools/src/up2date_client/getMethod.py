@@ -10,8 +10,11 @@
 import os
 import string
 import sys
-from types import ClassType
 
+try: # python2
+    from types import ClassType
+except ImportError: # python3
+    ClassType = type
 
 class GetMethodException(Exception):
     """Exception class"""

@@ -16,7 +16,7 @@
 
 import os
 import rpm
-import transaction
+from up2date_client import transaction
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)

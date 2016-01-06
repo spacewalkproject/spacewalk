@@ -17,8 +17,14 @@
 # UserDict standard python class
 #
 
-from types import StringType
-from UserDict import UserDict
+
+try: # python2
+    from UserDict import UserDict
+    from types import StringType
+except ImportError: # python3
+    from collections import UserDict
+    StringType = bytes
+    from functools import reduce
 
 # A dictionary with case insensitive keys
 class UserDictCase(UserDict):

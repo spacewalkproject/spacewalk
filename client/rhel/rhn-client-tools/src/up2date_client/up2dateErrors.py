@@ -20,14 +20,15 @@
 # version.  If you delete this exception statement from all source
 # files in the program, then also delete it here.
 
-import up2dateLog
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
 import OpenSSL
-import config
-from pkgplatform import getPlatform
 from platform import dist
+from up2date_client import config
+from up2date_client import up2dateLog
+from up2date_client.pkgplatform import getPlatform
+
 import sys
 sys.path = sys.path[1:] + sys.path[:1]
 

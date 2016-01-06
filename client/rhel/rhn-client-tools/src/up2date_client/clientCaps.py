@@ -2,12 +2,16 @@
 # a dict with "capability name" as the key, and the version
 # as the value.
 
-import UserDict
 import glob
 import os
 import string
 
-from capabilities import parseCap
+from up2date_client.capabilities import parseCap
+
+try: # python2
+    import UserDict
+except ImportError: # python3
+    import collections as UserDict
 
 class ClientCapabilities(UserDict.UserDict):
     def __init__(self):

@@ -6,7 +6,10 @@
 import sys
 sys.path.append('..')
 from rhn import transports
-from cStringIO import StringIO
+try: # python2
+    from cStringIO import StringIO
+except ImportError: # python3
+    from io import StringIO
 
 REFERENCE = "the quick brown fox jumps over the lazy dog" * 1024
 

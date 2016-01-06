@@ -1,8 +1,8 @@
 #
 
 import time
-import config
 import traceback
+from up2date_client import config
 
 class Log:
     """

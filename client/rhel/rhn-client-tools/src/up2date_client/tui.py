@@ -25,18 +25,18 @@ _ = t.ugettext
 import snack
 import signal
 
-import rhnreg, hardware
-import up2dateErrors
-import up2dateUtils
-import pkgUtils
-import up2dateLog
-import config
-from config import convert_url_from_puny
-import up2dateAuth
+from up2date_client import rhnreg, hardware
+from up2date_client import up2dateErrors
+from up2date_client import up2dateUtils
+from up2date_client import pkgUtils
+from up2date_client import up2dateLog
+from up2date_client import config
+from up2date_client.config import convert_url_from_puny
+from up2date_client import up2dateAuth
 from rhn import rpclib
 from rhn.connections import idn_puny_to_unicode
-from pmPlugin import PM_PLUGIN_NAME, PM_PLUGIN_CONF
-from rhnreg_constants import *
+from up2date_client.pmPlugin import PM_PLUGIN_NAME, PM_PLUGIN_CONF
+from up2date_client.rhnreg_constants import *
 
 log = up2dateLog.initLog()
 cfg = config.initUp2dateConfig()

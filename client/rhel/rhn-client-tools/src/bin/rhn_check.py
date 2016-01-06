@@ -54,7 +54,11 @@ from up2date_client import capabilities
 from up2date_client import rhncli, rhnserver
 
 from rhn import rhnLockfile
-import xmlrpclib
+try: # python2
+    import xmlrpclib
+except ImportError: # python3
+    import xmlrpc.client as xmlrpclib
+
 del sys.modules['sgmlop']
 
 cfg = config.initUp2dateConfig()

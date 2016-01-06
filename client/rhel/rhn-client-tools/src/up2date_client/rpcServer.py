@@ -2,21 +2,28 @@
 
 import os
 import sys
-import config
 import socket
 import time
-import httplib
-import urllib2
 
-import clientCaps
-import up2dateLog
-import up2dateErrors
-import up2dateUtils
-import up2dateAuth
-import urlparse
+from up2date_client import config
+from up2date_client import clientCaps
+from up2date_client import up2dateLog
+from up2date_client import up2dateErrors
+from up2date_client import up2dateUtils
+from up2date_client import up2dateAuth
 
-import xmlrpclib
 from rhn import rpclib
+
+try: # python2
+     import httplib
+     import urllib2
+     import urlparse
+     import xmlrpclib
+except ImportError: # python3
+     import http.client as httplib
+     import urllib.request as urllib2
+     import urllib.parse as urlparse
+     import xmlrpc.client as xmlrpclib
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)

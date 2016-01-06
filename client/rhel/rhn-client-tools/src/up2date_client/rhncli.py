@@ -33,7 +33,6 @@
 
 import sys
 import os
-import xmlrpclib
 import socket
 
 from optparse import Option
@@ -43,6 +42,11 @@ from OpenSSL import SSL
 from OpenSSL import crypto
 
 from rhn import rpclib
+
+try: # python2
+    import xmlrpclib
+except ImportError: # python3
+    import xmlrpc.client as xmlrpclib
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)

@@ -20,8 +20,8 @@ import socket
 import re
 import os
 import sys
-import config
-import rhnserver
+from up2date_client import config
+from up2date_client import rhnserver
 
 try:
     import ethtool
@@ -36,7 +36,7 @@ _ = t.ugettext
 
 import dbus
 import dmidecode
-import up2dateLog
+from up2date_client import up2dateLog
 
 try: # F13 and EL6
     from hardware_gudev import get_devices, get_computer_info

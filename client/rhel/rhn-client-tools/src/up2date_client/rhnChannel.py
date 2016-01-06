@@ -2,10 +2,10 @@
 # all the crap that is stored on the rhn side of stuff
 # updating/fetching package lists, channels, etc
 
-import up2dateAuth
-import up2dateErrors
-import config
-import rhnserver
+from up2date_client import up2dateAuth
+from up2date_client import up2dateErrors
+from up2date_client import config
+from up2date_client import rhnserver
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)

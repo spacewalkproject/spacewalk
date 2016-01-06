@@ -1,7 +1,7 @@
 
-import up2dateAuth
-import rpcServer
-import hardware
+from up2date_client import up2dateAuth
+from up2date_client import rpcServer
+from up2date_client import hardware
 
 def updateHardware():
     s = rpcServer.getServer()

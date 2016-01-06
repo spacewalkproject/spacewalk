@@ -13,13 +13,18 @@
 import os
 import sys
 import time
-from types import IntType, StringType, ListType
-from SmartIO import SmartIO
+from rhn import connections
+from rhn.SmartIO import SmartIO
+from rhn.UserDictCase import UserDictCase
 
-from UserDictCase import UserDictCase
-
-import connections
-import xmlrpclib
+try: # python2
+    import xmlrpclib
+    from types import IntType, StringType, ListType
+except ImportError: # python3
+    import xmlrpc.client as xmlrpclib
+    IntType = int
+    StringType = bytes
+    ListType = list
 
 __version__ = "$Revision$"
 

@@ -17,17 +17,26 @@
 
 __version__ = "$Revision$"
 
-import transports
-import urllib
 import socket
 import re
 import sys
 
-from types import ListType, TupleType, StringType, UnicodeType, DictType, DictionaryType
+from rhn import transports
+from rhn.UserDictCase import UserDictCase
 
-from UserDictCase import UserDictCase
-
-import xmlrpclib
+try: # python2
+    import xmlrpclib
+    from types import ListType, TupleType, StringType, UnicodeType, DictType, DictionaryType
+    from urllib import splittype, splithost
+except ImportError: # python3
+    import xmlrpc.client as xmlrpclib
+    ListType = list
+    TupleType = tuple
+    StringType = bytes
+    UnicodeType = str
+    DictType = dict
+    DictionaryType = dict
+    from urllib.parse import splittype, splithost
 
 # Redirection handling
 
@@ -298,7 +307,7 @@ class Server:
             according the value of self._uri.
         """
         # get the url
-        type, uri = urllib.splittype(self._uri)
+        type, uri = splittype(self._uri)
         if type is None:
             raise MalformedURIError("missing protocol in uri")
         # with a real uri passed in, uri will now contain "//hostname..." so we
@@ -311,7 +320,7 @@ class Server:
             self._type = type
         if self._type not in ("http", "https"):
             raise IOError("unsupported XML-RPC protocol")
-        self._host, self._handler = urllib.splithost(uri)
+        self._host, self._handler = splithost(uri)
         if not self._handler:
             self._handler = "/RPC2"
 
@@ -409,7 +418,7 @@ class Server:
             if self._verbose:
                 print("%s redirected to %s" % (self._uri, self._redirected))
 
-            typ, uri = urllib.splittype(self._redirected)
+            typ, uri = splittype(self._redirected)
 
             if typ != None:
                 typ = typ.lower()
@@ -426,7 +435,7 @@ class Server:
                 raise InvalidRedirectionError(
                     "HTTPS redirected to HTTP is not supported")
 
-            self._host, self._handler = urllib.splithost(uri)
+            self._host, self._handler = splithost(uri)
             if not self._handler:
                 self._handler = "/RPC2"
 
@@ -585,8 +594,8 @@ class GETServer(Server):
         return ""
 
     def _new_req_body(self):
-        type, tmpuri = urllib.splittype(self._redirected)
-        site, handler = urllib.splithost(tmpuri)
+        type, tmpuri = splittype(self._redirected)
+        site, handler = splithost(tmpuri)
         return handler
 
     def set_range(self, offset=None, amount=None):

@@ -11,19 +11,29 @@ import os
 import sys
 import dbus
 
-import up2dateUtils
-import up2dateErrors
-import rhnserver
-import pkgUtils
-import up2dateLog
-import urlparse
-import rhnreg_constants
-import hardware
+from up2date_client import up2dateUtils
+from up2date_client import up2dateErrors
+from up2date_client import rhnserver
+from up2date_client import pkgUtils
+from up2date_client import up2dateLog
+from up2date_client import rhnreg_constants
+from up2date_client import hardware
 from rhnPackageInfo import convertPackagesFromHashToList
-from types import ListType, TupleType, StringType, UnicodeType, DictType, DictionaryType
 from pkgplatform import getPlatform
 
-import xmlrpclib
+try: # python2
+    import urlparse
+    import xmlrpclib
+    from types import ListType, TupleType, StringType, UnicodeType, DictType, DictionaryType
+except ImportError: # python3
+    import urllib.parse as urlparse
+    import xmlrpc.client as xmlrpclib
+    ListType = list
+    TupleType = tuple
+    StringType = bytes
+    UnicodeType = str
+    DictType = dict
+    DictionaryType = dict
 
 try:
     from virtualization import support
@@ -42,7 +52,7 @@ REMIND_FILE = "%s/rhn_register_remind" % SYSID_DIR
 HW_CODE_FILE = "%s/hw-activation-code" % SYSID_DIR
 RHSM_FILE = "/etc/pki/consumer/cert.pem"
 
-import config
+from up2date_client import config
 cfg = config.initUp2dateConfig()
 log = up2dateLog.initLog()
 

@@ -22,7 +22,11 @@
 # When a device gets added, it is no longer a plain dict.  It is stored in a
 # HalDevice.  The original dict can be found in HalDevice.properties.
 
-import types
+try: # python2
+    from types import StringType, IntType
+except ImportError: # python3
+    StringType = bytes
+    IntType = int
 
 
 class HalDevice:
@@ -113,12 +117,12 @@ class HalTree:
         print(indent, node.udi)
         print(indent, "CLASS:", node.classification)
         for name, property in node.properties.items():
-            if (type(property) == types.StringType):
+            if (type(property) == StringType):
                 if property.isdigit():
                     print(indent + "    ", "%-20s ==> %s" % (name, hex(int(property))))
                 else:
                     print(indent + "    ", "%-20s ==> %s" % (name, property))
-            elif (type(property) == types.IntType):
+            elif (type(property) == IntType):
                 print(indent + "    ", "%-20s ==> %s" % (name, hex(int(property))))
             else:
                 print(indent + "    ", "%-20s ==> %s" % (name, property))

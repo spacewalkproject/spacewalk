@@ -1,8 +1,12 @@
 
-import UserDict
-import config
-import up2dateErrors
+from up2date_client import config
+from up2date_client import up2dateErrors
 import string
+
+try: # python2
+    import UserDict
+except ImportError: # python3
+    import collections as UserDict
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)

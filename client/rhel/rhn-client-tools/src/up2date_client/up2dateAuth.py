@@ -1,19 +1,22 @@
 #
 
-import rhnserver
-import config
 import os
-import up2dateErrors
-import up2dateUtils
 import string
-import up2dateLog
-import clientCaps
 import pickle
 import time
 
-from types import DictType
+try: # python2
+    from types import DictType
+except ImportError: # python3
+    DictType = dict
 
 from rhn import rpclib
+from up2date_client import clientCaps
+from up2date_client import config
+from up2date_client import rhnserver
+from up2date_client import up2dateErrors
+from up2date_client import up2dateLog
+from up2date_client import up2dateUtils
 
 loginInfo = None
 pcklAuthFileName = "/var/spool/up2date/loginAuth.pkl"

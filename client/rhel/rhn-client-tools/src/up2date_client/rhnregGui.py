@@ -44,7 +44,6 @@ wrapper just to present the firstboot style api's. (Each "page" in firstboot is
 a module with a class that inherits FirstBootGuiWindow.)
 """
 
-import urlparse
 import gtk
 # Need to import gtk.glade to make this file work alone even though we always
 # access it as gtk.glade. Not sure why. Maybe gtk's got weird hackish stuff
@@ -58,22 +57,27 @@ t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
 gtk.glade.bindtextdomain("rhn-client-tools")
 
-import rhnreg
-from rhnreg import ActivationResult
-import up2dateErrors
-import hardware
-import messageWindow
-import progress
+from up2date_client import rhnreg
+from up2date_client.rhnreg import ActivationResult
+from up2date_client import up2dateErrors
+from up2date_client import hardware
+from up2date_client import messageWindow
+from up2date_client import progress
 from up2date_client import pkgUtils
-import up2dateAuth
-import up2dateUtils
-import config
+from up2date_client import up2dateAuth
+from up2date_client import up2dateUtils
+from up2date_client import config
 import OpenSSL
-import up2dateLog
+from up2date_client import up2dateLog
 from rhn import rpclib
 from rhn.connections import idn_puny_to_unicode
-import rhnreg_constants
-from pmPlugin import PM_PLUGIN_NAME, PM_PLUGIN_CONF
+from up2date_client import rhnreg_constants
+from up2date_client.pmPlugin import PM_PLUGIN_NAME, PM_PLUGIN_CONF
+
+try: # python2
+    import urlparse
+except ImportError: # python3
+    import urllib.parse as urlparse
 
 cfg = config.initUp2dateConfig()
 log = up2dateLog.initLog()

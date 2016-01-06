@@ -3,10 +3,10 @@
 # updating/fetching package lists, channels, etc
 
 
-import up2dateAuth
-import up2dateLog
-import rhnserver
-import pkgUtils
+from up2date_client import up2dateAuth
+from up2date_client import up2dateLog
+from up2date_client import rhnserver
+from up2date_client import pkgUtils
 
 
 def logDeltaPackages(pkgs):

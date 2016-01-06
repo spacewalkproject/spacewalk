@@ -10,7 +10,10 @@ import sys
 sys.path.append('..')
 from rhn import transports
 import xmlrpclib
-from cStringIO import StringIO
+try: # python2
+    from cStringIO import StringIO
+except ImportError: # python3
+    from io import StringIO
 
 REFERENCE_XML = {
     'a'     : [1, 'b', '3'],

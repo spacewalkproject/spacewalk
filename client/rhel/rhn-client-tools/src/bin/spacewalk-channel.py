@@ -17,11 +17,16 @@ import getpass
 import os
 import re
 import sys
-import urlparse
-import xmlrpclib
 from rhn import rpclib
 
 from optparse import Option, OptionParser
+
+try: # python2
+    import urlparse
+    import xmlrpclib
+except ImportError: # python3
+    import urllib.parse as urlparse
+    import xmlrpc.client as xmlrpclib
 
 import gettext
 _ = gettext.translation('rhn-client-tools', fallback=True).ugettext

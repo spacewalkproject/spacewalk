@@ -31,13 +31,16 @@
 # files in the program, then also delete it here.
 
 
-import rpcServer
-import up2dateErrors
-import capabilities
+from up2date_client import rpcServer
+from up2date_client import up2dateErrors
+from up2date_client import capabilities
 import sys
-import xmlrpclib
 import OpenSSL
 
+try: # python2
+    import xmlrpclib
+except ImportError: # python3
+    import xmlrpc.client as xmlrpclib
 
 class _DoCallWrapper(object):
 
