@@ -107,6 +107,29 @@ Scheduled 1 system(s)
 .fi
 
 .P
+.B Schedule reboots from the commandline
+.nf
+[user@sat]$ spacecmd -y -- system_reboot ldap* -s +6h
+
+Start Time: 20160106T07:01:00
+
+Systems
+-------
+ldap01
+ldap02
+ldap03
+
+[user@sat]$ spacecmd -y system_reboot www01
+
+Start Time: 20160106T02:01:00
+
+Systems
+-------
+www01
+
+.fi
+
+.P
 .B Apply errata from the command line
 .nf
 [user@sat]$ spacecmd -y errata_apply RHSA-2010:0423
