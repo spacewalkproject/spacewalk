@@ -12,7 +12,9 @@
 %define jardir          %{_localstatedir}/lib/tomcat6/webapps/rhn/WEB-INF/lib
 %endif
 
+%if 0%{?rhel} || 0%{?fedora} <= 22
 %define run_checkstyle  1
+%endif
 
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
