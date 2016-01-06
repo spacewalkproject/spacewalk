@@ -37,8 +37,7 @@ Requires: dwr >= 3
 Requires: jakarta-commons-el
 Requires: jakarta-commons-fileupload
 Requires: jakarta-taglibs-standard
-Requires: java >= 1:1.6.0
-Requires: java-devel >= 1:1.6.0
+Requires: java >= 1:1.7.0
 Requires: jcommon
 Requires: jdom
 Requires: jpam
@@ -63,14 +62,18 @@ Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
 Requires: hibernate3-ehcache >= 3.6.10
 Requires: javassist
+Requires: java-devel >= 1:1.7.0
 BuildRequires: ehcache-core
 BuildRequires: hibernate3 >= 0:3.6.10
 BuildRequires: hibernate3-c3p0 >= 3.6.10
 BuildRequires: hibernate3-ehcache >= 3.6.10
 BuildRequires: javassist
+BuildRequires: java-devel >= 1:1.7.0
 %else
 Requires: hibernate3 = 0:3.2.4
+Requires: java-1.7.0-openjdk-devel
 BuildRequires: hibernate3 = 0:3.2.4
+BuildRequires: java-1.7.0-openjdk-devel
 %endif
 # EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
 %if 0%{?fedora} || 0%{?rhel} >= 7
@@ -155,7 +158,6 @@ BuildRequires: jaf
 BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-commons-fileupload
 BuildRequires: jakarta-taglibs-standard
-BuildRequires: java-devel >= 1:1.6.0
 BuildRequires: jcommon
 BuildRequires: jdom
 BuildRequires: jpam
@@ -278,8 +280,7 @@ Requires: c3p0 >= 0.9.1
 Requires: cobbler20
 Requires: concurrent
 Requires: jakarta-taglibs-standard
-Requires: java >= 0:1.6.0
-Requires: java-devel >= 0:1.6.0
+Requires: java >= 0:1.7.0
 Requires: jcommon
 Requires: jpam
 Requires: log4j
@@ -297,8 +298,10 @@ Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
 Requires: hibernate3-ehcache >= 3.6.10
 Requires: javassist
+Requires: java-devel >= 0:1.7.0
 %else
 Requires: hibernate3 >= 0:3.2.4
+Requires: java-1.7.0-openjdk-devel
 %endif
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: apache-commons-cli
