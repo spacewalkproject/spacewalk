@@ -1592,9 +1592,15 @@ def do_system_setconfigchannelorder(self, args):
 def help_system_deployconfigfiles(self):
     print 'system_deployconfigfiles: Deploy all configuration files for ' \
           'a system'
-    print 'usage: system_deployconfigfiles <SYSTEMS>'
+    print '''usage: system_deployconfigfiles <SYSTEMS> [options]
+
+options:
+    -s START_TIME'''
+
     print
     print self.HELP_SYSTEM_OPTS
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_system_deployconfigfiles(self, text, line, beg, end):
@@ -1602,11 +1608,23 @@ def complete_system_deployconfigfiles(self, text, line, beg, end):
 
 
 def do_system_deployconfigfiles(self, args):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+
+    (args, options) = parse_arguments(args, options)
 
     if not len(args):
         self.help_system_deployconfigfiles()
         return
+
+    # get the start time option
+    if is_interactive(options):
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
 
     # use the systems listed in the SSM
     if re.match('ssm', args[0], re.I):
@@ -1617,6 +1635,9 @@ def do_system_deployconfigfiles(self, args):
     if not len(systems):
         return
 
+    print
+    print 'Start Time: %s' % options.start_time
+    print
     print 'Systems'
     print '-------'
     print '\n'.join(sorted(systems))
@@ -1627,11 +1648,9 @@ def do_system_deployconfigfiles(self, args):
 
     system_ids = [self.get_system_id(s) for s in systems]
 
-    action_time = parse_time_input('now')
-
     self.client.system.config.deployAll(self.session,
                                         system_ids,
-                                        action_time)
+                                        options.start_time)
 
     logging.info('Scheduled deployment for %i system(s)' % len(system_ids))
 
