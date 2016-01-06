@@ -197,7 +197,9 @@ def do_system_reboot(self, args):
         systems = self.expand_systems(args)
 
     # get the start time option
-    if is_interactive(options):
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
         options.start_time = prompt_user('Start Time [now]:')
         options.start_time = parse_time_input(options.start_time)
     else:
@@ -661,7 +663,9 @@ def do_system_installpackage(self, args):
         return
 
     # get the start time option
-    if is_interactive(options):
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
         options.start_time = prompt_user('Start Time [now]:')
         options.start_time = parse_time_input(options.start_time)
     else:
@@ -807,7 +811,9 @@ def do_system_removepackage(self, args):
         return
 
     # get the start time option
-    if is_interactive(options):
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
         options.start_time = prompt_user('Start Time [now]:')
         options.start_time = parse_time_input(options.start_time)
     else:
@@ -933,7 +939,9 @@ def do_system_upgradepackage(self, args):
         return self.do_system_installpackage(orig_args)
 
     # get the start time option
-    if is_interactive(options):
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
         options.start_time = prompt_user('Start Time [now]:')
         options.start_time = parse_time_input(options.start_time)
     else:
@@ -1617,7 +1625,9 @@ def do_system_deployconfigfiles(self, args):
         return
 
     # get the start time option
-    if is_interactive(options):
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
         options.start_time = prompt_user('Start Time [now]:')
         options.start_time = parse_time_input(options.start_time)
     else:
@@ -3156,7 +3166,9 @@ def do_system_syncpackages(self, args):
         return
 
     # get the start time option
-    if is_interactive(options):
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
         options.start_time = prompt_user('Start Time [now]:')
         options.start_time = parse_time_input(options.start_time)
     else:
@@ -3455,7 +3467,9 @@ def do_system_schedulehardwarerefresh(self, args):
         return
 
     # get the start time option
-    if is_interactive(options):
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
         options.start_time = prompt_user('Start Time [now]:')
         options.start_time = parse_time_input(options.start_time)
     else:
@@ -3509,7 +3523,9 @@ def do_system_schedulepackagerefresh(self, args):
         return
 
     # get the start time option
-    if is_interactive(options):
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
         options.start_time = prompt_user('Start Time [now]:')
         options.start_time = parse_time_input(options.start_time)
     else:
