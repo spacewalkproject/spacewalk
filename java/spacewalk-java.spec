@@ -18,7 +18,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.31
+Version: 2.5.32
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -718,6 +718,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 06 2016 Grant Gainey 2.5.32-1
+- 1296234 - Fix edge-case in kickstart-profile-gen-ordering and
+  post_install_network_config
+- we have new year
+
 * Mon Jan 04 2016 Grant Gainey 2.5.31-1
 - 1282474 - checkstyle fixes
 
