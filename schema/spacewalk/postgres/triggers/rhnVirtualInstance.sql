@@ -1,7 +1,7 @@
--- oracle equivalent source sha1 b066ac6547b6c6edc1b434903d84dd366e40e32f
+-- oracle equivalent source sha1 d9a9ec3e6346fd141fcd5a0a641eacf5ecc01b32
 
 --
--- Copyright (c) 2008--2012 Red Hat, Inc.
+-- Copyright (c) 2008--2015 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -36,3 +36,18 @@ before insert or update on rhnVirtualInstance
 for each row
 execute procedure rhn_virtinst_mod_trig_fun();
 
+create or replace function rhn_virtinst_del_trig_fun() returns trigger
+as
+$$
+begin
+  delete from rhnVirtualInstance where virtual_system_id is NULL and host_system_id is NULL and uiid is not NULL;
+  return null;
+end;
+$$
+language plpgsql;
+
+create trigger
+rhn_virtinst_del_trig
+after update on rhnVirtualInstance
+for each row
+execute procedure rhn_virtinst_del_trig_fun();

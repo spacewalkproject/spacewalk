@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2012 Red Hat, Inc.
+-- Copyright (c) 2008--2015 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -26,3 +26,12 @@ end;
 /
 show errors;
 
+create or replace trigger
+rhn_virtinst_del_trig
+after update on rhnVirtualInstance
+for each row
+begin
+  delete from rhnVirtualInstance where virtual_system_id is NULL and host_system_id is NULL and uiid is not NULL;
+end;
+/
+show errors;
