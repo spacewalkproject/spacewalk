@@ -14,7 +14,7 @@ import os
 import sys
 import locale
 from rhn.connections import idn_ascii_to_puny, idn_puny_to_unicode
-from rhn.i18n import ustr, bstr
+from rhn.i18n import ustr, bstr, sstr
 
 try: # python2
     from urlparse import urlsplit, urlunsplit
@@ -171,12 +171,12 @@ class ConfigFile:
         f.write("")
         for key in self.dict.keys():
             (comment, value) = self.dict[key]
-            f.write(bstr(u"%s[comment]=%s\n" % (key, comment)))
+            f.write(sstr(u"%s[comment]=%s\n" % (key, comment)))
             if type(value) != type([]):
                 value = [ value ]
             if key in FileOptions:
                 value = map(os.path.abspath, value)
-            f.write(bstr(u"%s=%s\n" % (key, ';'.join(map(str, value)))))
+            f.write(sstr(u"%s=%s\n" % (key, ';'.join(map(str, value)))))
             f.write("\n")
         f.close()
         os.rename(self.fileName+'.new', self.fileName)
