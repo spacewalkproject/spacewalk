@@ -80,7 +80,7 @@ BuildRequires: java-1.7.0-openjdk-devel
 Requires: struts >= 0:1.3.0
 Requires: tomcat >= 7
 Requires: tomcat-lib >= 7
-Requires: tomcat-servlet-3.0-api >= 7
+Requires: servlet >= 3.0
 BuildRequires: struts >= 0:1.3.0
 BuildRequires: tomcat >= 7
 BuildRequires: tomcat-lib >= 7
