@@ -14,7 +14,7 @@ import os
 import sys
 import locale
 from rhn.connections import idn_ascii_to_puny, idn_puny_to_unicode
-from rhn.i18n import ustr, bstr, sstr
+from rhn.i18n import ustr, sstr
 
 try: # python2
     from urlparse import urlsplit, urlunsplit
@@ -320,7 +320,7 @@ def getProxySetting():
 def convert_url_to_puny(url):
     """ returns url where hostname is converted to Punycode (RFC3492) """
     s = urlsplit(url)
-    return bstr(urlunsplit((s[0], ustr(idn_ascii_to_puny(s[1])), s[2], s[3], s[4])))
+    return sstr(urlunsplit((s[0], ustr(idn_ascii_to_puny(s[1])), s[2], s[3], s[4])))
 
 def convert_url_from_puny(url):
     """ returns url where hostname is converted from Punycode (RFC3492). Returns unicode string. """
