@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.33
+Version: 2.5.34
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jan 07 2016 Jan Dobes 2.5.34-1
+- Tomcat 8 requires different syntax of rhn.xml
+- change dependency to match Tomcat 8 Servlet API 3.1
+
 * Thu Jan 07 2016 Jan Dobes 2.5.33-1
 - start to compile with Java 1.7 because Jasper in Tomcat 8 generates 1.5
   incompatible code
