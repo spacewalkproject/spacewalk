@@ -2,7 +2,7 @@
 
 import time
 import traceback
-from rhn.i18n import ustr, bstr
+from rhn.i18n import ustr, sstr
 from up2date_client import config
 
 class Log:
@@ -57,7 +57,7 @@ class Log:
         log_name = self.cfg["logFile"] or "/var/log/up2date"
         log_file = open(log_name, 'a')
         msg = u"%s %s\n" % (self.log_info, s)
-        log_file.write(bstr(msg))
+        log_file.write(sstr(msg))
         log_file.flush()
         log_file.close()
 
