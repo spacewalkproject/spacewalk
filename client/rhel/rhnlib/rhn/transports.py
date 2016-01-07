@@ -14,6 +14,7 @@ import os
 import sys
 import time
 from rhn import connections
+from rhn.i18n import sstr
 from rhn.SmartIO import SmartIO
 from rhn.UserDictCase import UserDictCase
 
@@ -465,7 +466,7 @@ class Input:
             del obj
             self.length = len(data)
             self.io = SmartIO(max_mem_size=self.max_mem_size)
-            self.io.write(data)
+            self.io.write(sstr(data))
         elif self.encoding in ("x-gzip", "gzip"):
             import gzip
             self.io.seek(0, 0)
@@ -474,7 +475,7 @@ class Input:
             data = gz.read()
             self.length = len(data)
             self.io = SmartIO(max_mem_size=self.max_mem_size)
-            self.io.write(data)
+            self.io.write(sstr(data))
         elif self.encoding == "x-gpg":
             # XXX: should be written
             raise NotImplementedError(self.transfer, self.encoding)
@@ -503,7 +504,7 @@ def _smart_total_read(fd, bufferSize=1024, max_mem_size=16384):
         if not chunk:
             # EOF reached
             break
-        io.write(chunk)
+        io.write(sstr(chunk))
 
     return io
 
@@ -538,7 +539,7 @@ def _smart_read(fd, amt, bufferSize=1024, progressCallback=None,
 
         # And since the original l was smaller than amt, we know amt >= 0
         amt = amt - l
-        buf.write(chunk)
+        buf.write(sstr(chunk))
         if progressCallback is None:
             # No progress callback, so don't do fancy computations
             continue
@@ -668,7 +669,7 @@ class BaseOutput:
             f = SmartIO(force_mem=1)
             gz = gzip.GzipFile(mode="wb", compresslevel=COMPRESS_LEVEL,
                                fileobj = f)
-            gz.write(data)
+            gz.write(sstr(data))
             gz.close()
             self.data = f.getvalue()
             f.close()
@@ -827,7 +828,7 @@ class File:
             buf = fd.read(self.bufferSize)
             if not buf:
                 break
-            file.write(buf)
+            file.write(sstr(buf))
         return file
 
     def _get_file(self):
