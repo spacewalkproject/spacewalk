@@ -160,7 +160,7 @@ class Transport(xmlrpclib.Transport):
 
         # Add the extra headers
         req.set_header('User-Agent', self.user_agent)
-        for header, value in self._headers.items() + extra_headers:
+        for header, value in list(self._headers.items()) + extra_headers:
             # Output.set_header correctly deals with multivalued headers now
             req.set_header(header, value)
 
