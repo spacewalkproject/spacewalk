@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.32
+Version: 2.5.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -723,6 +723,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jan 07 2016 Jan Dobes 2.5.33-1
+- start to compile with Java 1.7 because Jasper in Tomcat 8 generates 1.5
+  incompatible code
+- disable checkstyle on Fedora 23 for now due to regression
+- implement methods needed by Tomcat 8 Servlet API 3.1
+
 * Wed Jan 06 2016 Grant Gainey 2.5.32-1
 - 1296234 - Fix edge-case in kickstart-profile-gen-ordering and
   post_install_network_config
