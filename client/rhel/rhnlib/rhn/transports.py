@@ -156,7 +156,7 @@ class Transport(xmlrpclib.Transport):
             connection.set_debuglevel(self.verbose - 1)
         # Get the output object to push data with
         req = Output(connection=connection, method=self.method)
-        apply(req.set_transport_flags, (), self._transport_flags)
+        req.set_transport_flags(**self._transport_flags)
 
         # Add the extra headers
         req.set_header('User-Agent', self.user_agent)

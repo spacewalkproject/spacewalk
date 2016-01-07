@@ -489,7 +489,7 @@ class Server:
             'transfer'  : transfer,
             'encoding'  : encoding,
         })
-        apply(self._transport.set_transport_flags, (), kwargs)
+        self._transport.set_transport_flags(**kwargs)
 
     def get_transport_flags(self):
         if not self._transport:
