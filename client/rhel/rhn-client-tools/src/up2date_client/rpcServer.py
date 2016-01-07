@@ -10,7 +10,6 @@ from up2date_client import clientCaps
 from up2date_client import up2dateLog
 from up2date_client import up2dateErrors
 from up2date_client import up2dateUtils
-from up2date_client import up2dateAuth
 
 from rhn import rpclib
 
@@ -255,6 +254,7 @@ def doCall(method, *args, **kwargs):
                 # this function) but login should never get a 34, so
                 # should be safe from recursion
 
+                from up2date_client import up2dateAuth
                 up2dateAuth.updateLoginInfo()
 
             # the servers are being throttle to pay users only, catch the
