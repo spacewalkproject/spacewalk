@@ -634,7 +634,7 @@ class CreateProfilePage:
                 ipaddr = None
                 if self.hardware:
                     for hw in self.hardware:
-                        if hw.has_key('class'):
+                        if 'class' in hw:
                             if hw['class'] == 'NETINFO':
                                 hostname = hw.get('hostname')
                                 ipaddr = hw.get('ipaddr')

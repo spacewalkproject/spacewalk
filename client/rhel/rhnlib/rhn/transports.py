@@ -116,7 +116,7 @@ class Transport(xmlrpclib.Transport):
             self._headers[name] = str(arg)
 
     def add_header(self, name, arg):
-        if self._headers.has_key(name):
+        if name in self._headers:
             vlist = self._headers[name]
             if not isinstance(vlist, ListType):
                 vlist = [ vlist ]
@@ -369,17 +369,17 @@ class Input:
 
         if not headers:
             # we need to get them from environment
-            if os.environ.has_key("HTTP_CONTENT_TRANSFER_ENCODING"):
+            if "HTTP_CONTENT_TRANSFER_ENCODING" in os.environ:
                 self.transfer = os.environ["HTTP_CONTENT_TRANSFER_ENCODING"].lower()
-            if os.environ.has_key("HTTP_CONTENT_ENCODING"):
+            if "HTTP_CONTENT_ENCODING" in os.environ:
                 self.encoding = os.environ["HTTP_CONTENT_ENCODING"].lower()
-            if os.environ.has_key("CONTENT-TYPE"):
+            if "CONTENT-TYPE" in os.environ:
                 self.type = os.environ["CONTENT-TYPE"].lower()
-            if os.environ.has_key("CONTENT_LENGTH"):
+            if "CONTENT_LENGTH" in os.environ:
                 self.length = int(os.environ["CONTENT_LENGTH"])
-            if os.environ.has_key("HTTP_ACCEPT_LANGUAGE"):
+            if "HTTP_ACCEPT_LANGUAGE" in os.environ:
                 self.lang = os.environ["HTTP_ACCEPT_LANGUAGE"]
-            if os.environ.has_key("HTTP_X_PACKAGE_FILENAME"):
+            if "HTTP_X_PACKAGE_FILENAME" in os.environ:
                 self.name = os.environ["HTTP_X_PACKAGE_FILENAME"]
         else:
             # The stupid httplib screws up the headers from the HTTP repsonse
@@ -653,7 +653,7 @@ class BaseOutput:
             self.headers[name] = str(arg)
 
     def clear_header(self, name):
-        if self.headers.has_key(name):
+        if name in self.headers:
             del self.headers[name]
 
     def process(self, data):

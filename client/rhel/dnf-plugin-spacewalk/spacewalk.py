@@ -246,7 +246,7 @@ class  SpacewalkRepo(dnf.repo.Repo):
     def add_http_headers(self, handle):
         http_headers = []
         for header in self.needed_headers:
-            if not self.login_info.has_key(header):
+            if not header in self.login_info:
                 error = MISSING_HEADER % header
                 raise dnf.Error.RepoError(error)
             if self.login_info[header] in (None, ''):
@@ -303,7 +303,7 @@ def is_valid_gpg_key_url(key_url):
     return True
 
 def get_ssl_ca_cert(up2date_cfg):
-    if not (up2date_cfg.has_key('sslCACert') and up2date_cfg['sslCACert']):
+    if not ('sslCACert' in up2date_cfg and up2date_cfg['sslCACert']):
         raise BadSslCaCertConfig
 
     ca_certs = up2date_cfg['sslCACert']

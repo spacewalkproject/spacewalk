@@ -101,7 +101,7 @@ def getChannels(force=None, label_whitelist=None, timeout=None):
         up2dateChannels = s.up2date.listChannels(up2dateAuth.getSystemId())
 
         for chan in up2dateChannels:
-            if label_whitelist and not label_whitelist.has_key(chan['label']):
+            if label_whitelist and not chan['label'] in label_whitelist:
                 continue
 
             channel = rhnChannel(type = 'up2date', url = config.getServerlURL())

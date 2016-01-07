@@ -38,7 +38,7 @@ class HalDevice:
         self.children = []
         self.classification = None
 
-        if properties.has_key('info.parent'):
+        if 'info.parent' in properties:
             self.parent_udi = properties['info.parent']
         else:
             self.parent_udi = None

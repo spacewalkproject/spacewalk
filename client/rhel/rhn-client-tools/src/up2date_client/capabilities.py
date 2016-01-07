@@ -91,7 +91,7 @@ class Capabilities(UserDict.UserDict):
         return [int(versionString)]
 
     def validateCap(self, cap, capvalue):
-        if not self.data.has_key(cap):
+        if not cap in self.data:
             errstr = _("This client requires the server to support %s, which the current " \
                        "server does not support") % cap
             self.missingCaps[cap] = None
@@ -109,7 +109,7 @@ class Capabilities(UserDict.UserDict):
         self.workaroundMissingCaps()
 
     def setConfig(self, key, configItem):
-        if self.tmpCaps.has_key(key):
+        if key in self.tmpCaps:
             self.cfg[configItem] = 0
             del self.tmpCaps[key]
         else:
@@ -123,7 +123,7 @@ class Capabilities(UserDict.UserDict):
 
         # this is an example of how to work around it
         key = 'caneatCheese'
-        if self.tmpCaps.has_key(key):
+        if key in self.tmpCaps:
             # do whatevers needed to workaround
             del self.tmpCaps[key]
         else:
@@ -192,7 +192,7 @@ class Capabilities(UserDict.UserDict):
         """
         assert version is None or str(version).isdigit()
 
-        if not self.data.has_key(capability):
+        if not capability in self.data:
             return False
         if version:
             data = self.data[capability]

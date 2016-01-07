@@ -12,7 +12,7 @@ import gettext
 from up2date_client import up2dateErrors
 from up2date_client import config
 from up2date_client.pkgplatform import getPlatform
-from pkgplatform import getPlatform
+
 t = gettext.translation('rhn-client-tools', fallback=True)
 # Python 3 translations don't have a ugettext method
 if not hasattr(t, 'ugettext'):
@@ -89,7 +89,7 @@ def getArch():
         #bz 216225
         #handle some replacements..
         replace = {"ia32e-redhat-linux": "x86_64-redhat-linux"}
-        if replace.has_key(platform):
+        if platform in replace:
             platform = replace[platform]
         return platform
     arch = os.uname()[4]

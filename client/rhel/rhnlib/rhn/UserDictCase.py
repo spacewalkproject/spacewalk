@@ -56,6 +56,10 @@ class UserDictCase(UserDict):
         del self.data[key]
         del self.kcase[key]
 
+    def __contains__(self, key):
+        key = self.__lower_string(key)
+        return key in self.data
+
     def keys(self):
         return self.kcase.values()
 
@@ -63,8 +67,8 @@ class UserDictCase(UserDict):
         return self.get_hash().items()
 
     def has_key(self, key):
-        key = self.__lower_string(key)
-        return self.data.has_key(key)
+        # obsoleted, left for compatibility with older python
+        return key in self
 
     def clear(self):
         self.data.clear()

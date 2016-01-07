@@ -229,7 +229,7 @@ def __get_number_sockets():
 def read_cpuinfo():
     def get_entry(a, entry):
         e = entry.lower()
-        if not a.has_key(e):
+        if not e in a:
             return ""
         return a[e]
 

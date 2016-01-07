@@ -146,7 +146,7 @@ def getServer(refreshCallback=None, serverOverride=None, timeout=None):
 
     lang = None
     for env in 'LANGUAGE', 'LC_ALL', 'LC_MESSAGES', 'LANG':
-        if os.environ.has_key(env):
+        if env in os.environ:
             if not os.environ[env]:
                 # sometimes unset
                 continue

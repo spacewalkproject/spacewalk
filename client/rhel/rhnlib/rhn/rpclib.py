@@ -298,7 +298,7 @@ class Server:
         headers = self.get_response_headers()
         if not headers:
             return None
-        if headers.has_key('Accept-Ranges'):
+        if 'Accept-Ranges' in headers:
             return headers['Accept-Ranges']
         return None
 
@@ -510,7 +510,7 @@ class Server:
             self._headers[name] = str(arg)
 
     def add_header(self, name, arg):
-        if self._headers.has_key(name):
+        if name in self._headers:
             vlist = self._headers[name]
             if not isinstance(vlist, ListType):
                 vlist = [ vlist ]
@@ -642,7 +642,7 @@ class InvalidRedirectionError(Exception):
 def getHeaderValues(headers, name):
     import mimetools
     if not isinstance(headers, mimetools.Message):
-        if headers.has_key(name):
+        if name in headers:
             return [headers[name]]
         return []
 
@@ -704,10 +704,10 @@ def reportError(headers):
     errcode = 0
     errmsg = ""
     s = "X-RHN-Fault-Code"
-    if headers.has_key(s):
+    if s in headers:
         errcode = int(headers[s])
     s = "X-RHN-Fault-String"
-    if headers.has_key(s):
+    if s in headers:
         _sList = getHeaderValues(headers, s)
         if _sList:
             _s = ''.join(_sList)

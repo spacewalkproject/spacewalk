@@ -280,7 +280,7 @@ class CheckCli(rhncli.RhnCli):
             sys.exit(-1)
 
         for key in ['id', 'version', 'action']:
-            if not action.has_key(key):
+            if not key in action:
                 print("Got invalid response - missing '%s'" % key)
                 sys.exit(-1)
         try:

@@ -125,13 +125,13 @@ def process_hal_nodes(node):
 
         #get scsi info
         if dev['bus'] == 'scsi':
-            if parent.properties.has_key('scsi.host'):
+            if 'scsi.host' in parent.properties:
                 dev['prop1'] = parent.properties['scsi.host']
-            if parent.properties.has_key('scsi.target'):
+            if 'scsi.target' in parent.properties:
                 dev['prop2'] = parent.properties['scsi.target']
-            if parent.properties.has_key('scsi.bus'):
+            if 'scsi.bus' in parent.properties:
                 dev['prop3'] = parent.properties['scsi.bus']
-            if parent.properties.has_key('scsi.lun'):
+            if 'scsi.lun' in parent.properties:
                 dev['prop4'] = parent.properties['scsi.lun']
 
 
@@ -156,10 +156,10 @@ def process_hal_nodes(node):
 
 def classify_hal(node):
     # NETWORK
-    if node.properties.has_key('net.interface'):
+    if 'net.interface' in node.properties:
         return 'NETWORK'
 
-    if node.properties.has_key('info.product') and node.properties.has_key('info.category'):
+    if 'info.product' in node.properties and 'info.category' in node.properties:
         if node.properties['info.category'] == 'input':
             # KEYBOARD <-- do this before mouse, some keyboards have built-in mice
             if 'keyboard' in node.properties['info.product'].lower():
@@ -168,7 +168,7 @@ def classify_hal(node):
             if 'mouse' in node.properties['info.product'].lower():
                 return 'MOUSE'
 
-    if node.properties.has_key('pci.device_class'):
+    if 'pci.device_class' in node.properties:
         #VIDEO
         if node.properties['pci.device_class'] == PCI_BASE_CLASS_DISPLAY:
             return 'VIDEO'
@@ -214,7 +214,7 @@ def classify_hal(node):
                 or node.properties['pci.device_subclass'] == PCI_CLASS_BRIDGE_CARDBUS)):
             return 'SOCKET'
 
-    if node.properties.has_key('storage.drive_type'):
+    if 'storage.drive_type' in node.properties:
         #CDROM
         if node.properties['storage.drive_type'] == 'cdrom':
             return 'CDROM'
@@ -233,21 +233,21 @@ def classify_hal(node):
             return 'HD'
 
     #PRINTER
-    if node.properties.has_key('printer.product'):
+    if 'printer.product' in node.properties:
         return 'PRINTER'
 
     #Catchall for specific devices, only do this after all the others
-    if (node.properties.has_key('pci.product_id') or
-            node.properties.has_key('usb.product_id')):
+    if ('pci.product_id' in node.properties or
+            'usb.product_id' in node.properties):
         return 'OTHER'
 
     # No class found
     return None
 
 def get_device_bus(node):
-    if node.properties.has_key('storage.bus'):
+    if 'storage.bus' in node.properties:
         bus = node.properties['storage.bus']
-    elif node.properties.has_key('info.bus'):
+    elif 'info.bus' in node.properties:
         if node.properties['info.bus'] == 'platform':
             bus = 'MISC'
         else:
@@ -258,9 +258,9 @@ def get_device_bus(node):
     return bus
 
 def get_device_driver(node):
-    if node.properties.has_key('info.linux.driver'):
+    if 'info.linux.driver' in node.properties:
         driver = node.properties['info.linux.driver']
-    elif node.properties.has_key('net.linux.driver'):
+    elif 'net.linux.driver' in node.properties:
         driver = node.properties['net.linux.driver']
     else:
         driver = 'unknown'
@@ -279,12 +279,12 @@ def get_device_path(node):
     """
     dev = None
 
-    if node.properties.has_key('block.device'):
+    if 'block.device' in node.properties:
         dev = node.properties['block.device']
-    elif node.properties.has_key('linux.device_file'):
+    elif 'linux.device_file' in node.properties:
         dev = node.properties['linux.device_file']
     elif (node.classification == 'NETWORK'
-            and node.properties.has_key('net.interface')):
+            and 'net.interface' in node.properties):
         dev = node.properties['net.interface']
 
     if dev:
@@ -296,12 +296,12 @@ def get_device_path(node):
     return dev
 
 def get_device_description(node):
-    if (node.properties.has_key('info.vendor')
-            and node.properties.has_key('info.product')):
+    if ('info.vendor' in node.properties
+            and 'info.product' in node.properties):
         desc = node.properties['info.vendor'] + '|' +  node.properties['info.product']
-    elif (node.properties.has_key('info.vendor')):
+    elif ('info.vendor' in node.properties):
         desc = node.properties['info.vendor']
-    elif node.properties.has_key('info.product'):
+    elif 'info.product' in node.properties:
         desc =  node.properties['info.product']
     else:
         desc = ""
@@ -313,10 +313,10 @@ def get_device_pcitype(node):
     PCI_TYPE_PCI = 1
     PCI_TYPE_NOT_PCI = -1
 
-    if (node.properties.has_key('info.bus')
+    if 'info.bus' in (node.properties
             and node.properties['info.bus'] == 'pci'):
         parent = node.parent
-        if (parent.properties.has_key('pci.device_class')
+        if ('pci.device_class' in parent.properties
                 and (parent.properties['pci.device_class'] == 6
                 and (parent.properties['pci.device_subclass'] == 5
                 or parent.properties['pci.device_subclass'] == 7))):

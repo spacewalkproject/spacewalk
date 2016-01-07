@@ -137,7 +137,7 @@ class ConfigFile:
 
             # now insert the (comment, value) in the dictionary
             newval = (comment, value)
-            if self.dict.has_key(key): # do we need to update
+            if key in self.dict: # do we need to update
                 newval = self.dict[key]
                 if comment is not None: # override comment
                     newval = (comment, newval[1])
@@ -182,8 +182,12 @@ class ConfigFile:
         os.rename(self.fileName+'.new', self.fileName)
 
     # dictionary interface
+    def __contains__(self, name):
+        return name in self.dict
+
     def has_key(self, name):
-        return self.dict.has_key(name)
+        # obsoleted, left for compatibility with older python
+        return name in self
 
     def keys(self):
         return self.dict.keys()
@@ -197,12 +201,12 @@ class ConfigFile:
     # we return None when we reference an invalid key instead of
     # raising an exception
     def __getitem__(self, name):
-        if self.dict.has_key(name):
+        if name in self.dict:
             return self.dict[name][1]
         return None
 
     def __setitem__(self, name, value):
-        if self.dict.has_key(name):
+        if name in self.dict:
             val = self.dict[name]
         else:
             val = (None, None)
@@ -210,7 +214,7 @@ class ConfigFile:
 
     # we might need to expose the comments...
     def info(self, name):
-        if self.dict.has_key(name):
+        if name in self.dict:
             return self.dict[name][0]
         return ""
 
@@ -227,12 +231,16 @@ class Config:
 
     # classic dictionary interface: we prefer values from the runtime
     # dictionary over the ones from the stored config
-    def has_key(self, name):
-        if self.runtime.has_key(name):
+    def __contains__(self, name):
+        if name in self.runtime:
             return True
-        if self.stored.has_key(name):
+        if name in self.stored:
             return True
         return False
+
+    def has_key(self, name):
+        # obsoleted, left for compatibility with older python
+        return name in self
 
     def keys(self):
         ret = self.runtime.keys()
@@ -261,9 +269,9 @@ class Config:
 
     # we return None when nothing is found instead of raising and exception
     def __getitem__(self, name):
-        if self.runtime.has_key(name):
+        if name in self.runtime:
             return self.runtime[name]
-        if self.stored.has_key(name):
+        if name in self.stored:
             return self.stored[name]
         return None
 
@@ -279,7 +287,7 @@ class Config:
         self.stored.load(filename)
         # make sure the runtime cache is not polluted
         for k in self.stored.keys():
-            if not self.runtime.has_key(k):
+            if not k in self.runtime:
                 continue
             # allow this one to pass through
             del self.runtime[k]
@@ -288,7 +296,7 @@ class Config:
     def set(self, name, value):
         self.stored[name] = value
         # clean up the runtime cache
-        if self.runtime.has_key(name):
+        if name in self.runtime:
             del self.runtime[name]
 
 
