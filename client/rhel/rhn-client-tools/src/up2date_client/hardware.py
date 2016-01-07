@@ -23,6 +23,8 @@ import sys
 from up2date_client import config
 from up2date_client import rhnserver
 
+from rhn.i18n import ustr
+
 try:
     import ethtool
     ethtool_present = True
@@ -757,7 +759,7 @@ def get_hal_system_and_smbios():
 
     for key in props:
         if key.startswith('system'):
-            system_and_smbios[unicode(key)] = unicode(props[key])
+            system_and_smbios[ustr(key)] = ustr(props[key])
 
     system_and_smbios.update(get_smbios())
     return system_and_smbios

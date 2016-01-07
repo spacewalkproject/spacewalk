@@ -33,7 +33,7 @@ class TestConfig(unittest.TestCase):
     def testConfigString(self):
         "Verify that Config loads a string as a string"
         cfg = config.initUp2dateConfig(test_up2date)
-        assert isinstance(cfg['systemIdPath'], basestring)
+        assert isinstance(cfg['systemIdPath'], str)
 
     def testConfigListSingleItem(self):
         "Verify that Config loads a list of one as a list"

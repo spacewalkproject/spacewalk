@@ -20,6 +20,7 @@ from up2date_client import rhnreg_constants
 from up2date_client import hardware
 from rhnPackageInfo import convertPackagesFromHashToList
 from pkgplatform import getPlatform
+from rhn.i18n import ustr
 
 try: # python2
     import urlparse
@@ -558,7 +559,7 @@ def _encode_characters(*args):
         for item in args:
             item_type = type(item)
             if item_type == StringType:
-                item = unicode(item, 'utf-8')
+                item = ustr(item)
             elif item_type == TupleType:
                 item = tuple(map(_encode_characters, item))
             elif item_type == ListType:

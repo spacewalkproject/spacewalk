@@ -14,6 +14,7 @@ import os
 import sys
 import locale
 from rhn.connections import idn_ascii_to_puny, idn_puny_to_unicode
+from rhn.i18n import ustr, bstr
 
 try: # python2
     from urlparse import urlsplit, urlunsplit
@@ -106,7 +107,7 @@ class ConfigFile:
                 # or maybe error.
                 continue
             key = split[0].strip()
-            value = unicode(split[1].strip(), 'utf-8')
+            value = ustr(split[1].strip())
 
             # decode a comment line
             comment = None
@@ -170,12 +171,12 @@ class ConfigFile:
         f.write("")
         for key in self.dict.keys():
             (comment, value) = self.dict[key]
-            f.write((u"%s[comment]=%s\n" % (key, comment)).encode('utf-8'))
+            f.write(bstr(u"%s[comment]=%s\n" % (key, comment)))
             if type(value) != type([]):
                 value = [ value ]
             if key in FileOptions:
                 value = map(os.path.abspath, value)
-            f.write((u"%s=%s\n" % (key, ';'.join(map(str, value)))).encode('utf-8'))
+            f.write(bstr(u"%s=%s\n" % (key, ';'.join(map(str, value)))))
             f.write("\n")
         f.close()
         os.rename(self.fileName+'.new', self.fileName)
@@ -311,12 +312,12 @@ def getProxySetting():
 def convert_url_to_puny(url):
     """ returns url where hostname is converted to Punycode (RFC3492) """
     s = urlsplit(url)
-    return urlunsplit((s[0], idn_ascii_to_puny(s[1]), s[2], s[3], s[4])).encode('utf-8')
+    return bstr(urlunsplit((s[0], ustr(idn_ascii_to_puny(s[1])), s[2], s[3], s[4])))
 
 def convert_url_from_puny(url):
     """ returns url where hostname is converted from Punycode (RFC3492). Returns unicode string. """
     s = urlsplit(url)
-    return unicode(urlunsplit((s[0], idn_puny_to_unicode(s[1]), s[2], s[3], s[4])))
+    return ustr(urlunsplit((s[0], idn_puny_to_unicode(s[1]), s[2], s[3], s[4])))
 
 def getServerlURL():
     """ return list of serverURL from config

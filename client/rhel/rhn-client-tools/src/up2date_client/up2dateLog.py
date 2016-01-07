@@ -2,6 +2,7 @@
 
 import time
 import traceback
+from rhn.i18n import ustr, bstr
 from up2date_client import config
 
 class Log:
@@ -29,10 +30,9 @@ class Log:
         self.log_info = "[%s] %s" % (time.ctime(time.time()), self.app)
         s = u""
         for i in args:
-            if not isinstance(i, unicode):
-                # we really need unicode(str(i)) here, because i can be anything
-                # from string or int to list, dict or even class
-                i = unicode(str(i), 'utf-8')
+            # we really need unicode(str(i)) here, because i can be anything
+            # from string or int to list, dict or even class
+            i = ustr(str(i))
             s += i
         if self.cfg["debug"] > 1:
             print(s)
@@ -57,7 +57,7 @@ class Log:
         log_name = self.cfg["logFile"] or "/var/log/up2date"
         log_file = open(log_name, 'a')
         msg = u"%s %s\n" % (self.log_info, s)
-        log_file.write(msg.encode('utf-8'))
+        log_file.write(bstr(msg))
         log_file.flush()
         log_file.close()
 

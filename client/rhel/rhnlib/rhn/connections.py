@@ -13,6 +13,7 @@ import socket
 from platform import python_version
 from rhn import SSL
 from rhn import nonblocking
+from rhn import i18n
 
 try: # python2
     import httplib
@@ -258,6 +259,5 @@ def idn_ascii_to_puny(hostname):
     if hostname is None:
         return None
     else:
-        if not isinstance(hostname, unicode):
-            hostname = unicode(hostname, 'utf-8')
+        hostname = i18n.ustr(hostname)
         return hostname.encode('idna')

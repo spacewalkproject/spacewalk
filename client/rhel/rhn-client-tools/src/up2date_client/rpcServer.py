@@ -123,7 +123,7 @@ def getServer(refreshCallback=None, serverOverride=None, timeout=None):
     # The servers we're talking to need to have their certs
     # signed by one of these CA.
     ca = cfg["sslCACert"]
-    if isinstance(ca, basestring):
+    if not isinstance(ca, list):
         ca = [ca]
 
     rhns_ca_certs = ca or ["/usr/share/rhn/RHNS-CA-CERT"]

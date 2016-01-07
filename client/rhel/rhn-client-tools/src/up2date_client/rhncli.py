@@ -41,6 +41,7 @@ from optparse import OptionParser
 from OpenSSL import SSL
 from OpenSSL import crypto
 
+from rhn import i18n
 from rhn import rpclib
 
 try: # python2
@@ -68,9 +69,7 @@ def utf8_encode(msg):
     """ python 2.6- (i.e. RHEL6 and older) could not write unicode to stderr,
         encode it to utf-8.
     """
-    if isinstance(msg, unicode):
-        msg = msg.encode('utf-8')
-    return(msg)
+    return(i18n.bstr(msg))
 
 _optionsTable = [
     Option("-v", "--verbose", action="count", default=0,

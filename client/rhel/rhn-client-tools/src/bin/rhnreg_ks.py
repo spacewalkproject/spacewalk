@@ -23,6 +23,7 @@
 import sys
 import os
 from rhn.connections import idn_puny_to_unicode
+from rhn.i18n import bstr
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
@@ -154,10 +155,7 @@ class RegisterKsCli(rhncli.RhnCli):
             print(_("Warning: --contactinfo option has been deprecated. Please login to the server web user Interface and update your contactinfo. "))
 
         # write out the new id
-        if isinstance(systemId, unicode):
-            rhnreg.writeSystemId(unicode.encode(systemId, 'utf-8'))
-        else:
-            rhnreg.writeSystemId(systemId)
+        rhnreg.writeSystemId(bstr(systemId))
 
         # assume successful communication with server
         # remember to save the config options

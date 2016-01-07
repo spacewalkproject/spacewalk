@@ -57,6 +57,8 @@ from up2date_client import capabilities
 from up2date_client import rhncli, rhnserver
 
 from rhn import rhnLockfile
+from rhn.i18n import bstr
+
 try: # python2
     import xmlrpclib
 except ImportError: # python3
@@ -219,7 +221,7 @@ class CheckCli(rhncli.RhnCli):
         """ Parse action data and returns (method, params) """
         data = action['action']
         parser, decoder = xmlrpclib.getparser()
-        parser.feed(data.encode("utf-8"))
+        parser.feed(bstr(data))
         parser.close()
         params = decoder.close()
         method = decoder.getmethodname()

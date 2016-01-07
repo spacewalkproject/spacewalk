@@ -28,6 +28,7 @@ if not hasattr(t, 'ugettext'):
 _ = t.ugettext
 import OpenSSL
 from platform import dist
+from rhn.i18n import ustr
 from up2date_client import config
 from up2date_client import up2dateLog
 from up2date_client.pkgplatform import getPlatform
@@ -57,8 +58,7 @@ class Error(PmBaseError):
     """base class for errors"""
     premsg = ''
     def __init__(self, errmsg):
-        if not isinstance(errmsg, unicode):
-            errmsg = unicode(errmsg, 'utf-8')
+        errmsg = ustr(errmsg)
         PmBaseError.__init__(self, errmsg)
         self.value = 'rhn-plugin: ' + self.premsg + errmsg
         self.log = up2dateLog.initLog()
@@ -150,8 +150,7 @@ class RpmRemoveError(Error):
         Error.__init__(self, "")
         self.args = args
         for key in self.args.keys():
-            if not isinstance(self.args[key], unicode):
-                self.args[key] = unicode(self.args[key], 'utf-8')
+            self.args[key] = ustr(self.args[key])
             self.value = self.value + "%s failed because of %s\n" % (
                 key, self.args[key])
         self.data = self.args
@@ -160,8 +159,7 @@ class RpmRemoveError(Error):
 
 class NoLogError(Error):
     def __init__(self, msg):
-        if not isinstance(msg, unicode):
-            msg = unicode(msg, 'utf-8')
+        msg = ustr(msg)
         self.value = self.premsg + msg
 
     def __repr__(self):
