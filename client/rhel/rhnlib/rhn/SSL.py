@@ -212,6 +212,10 @@ class SSLSocket:
         self._pos = self._pos + len(ret)
         return ret
 
+    def readinto(self, buf):
+        buf[:] = self.read(len(buf))
+        return len(buf)
+
     def _poll(self, filter_type, caller_name):
         poller = select.poll()
         poller.register(self._sock, filter_type)
