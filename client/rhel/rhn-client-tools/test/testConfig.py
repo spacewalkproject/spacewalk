@@ -35,11 +35,6 @@ class TestConfig(unittest.TestCase):
         cfg = config.initUp2dateConfig(test_up2date)
         assert isinstance(cfg['systemIdPath'], str)
 
-    def testConfigListSingleItem(self):
-        "Verify that Config loads a list of one as a list"
-        cfg = config.initUp2dateConfig(test_up2date)
-        assert type(cfg['pkgSkipList']) == type([])
-
     def testConfigList(self):
         "Verify that Config loads a list as a list"
         cfg = config.initUp2dateConfig(test_up2date)
@@ -144,31 +139,6 @@ class TestConfig(unittest.TestCase):
         "Verify that Config.load() works without exception"
         cfg = config.initUp2dateConfig(test_up2date)
         cfg.load("/etc/sysconfig/rhn/up2date")
-
-
-    def testNetworkConfig(self):
-        "Verify that the NetworkConfig class can be created"
-        nc = config.NetworkConfig()
-
-    def testNetworkConfigLoad(self):
-        "Verify that NetworkConfig.load() runs without error"
-        nc = config.NetworkConfig()
-        nc.load()
-
-
-    def testNetworkConfigLoadCorrectness(self):
-        "Verify that NetworkConfig.load() runs and gets the right info"
-        testutils.setupConfig("fc2-rpmmd-sources-1")
-        nc = config.NetworkConfig()
-        nc.load()
-        assert nc['blargh'] == "blippyfoo"
-
-    def testNetworkConfigLoadCorrectnessOverrides(self):
-        "Verify that NetworkConfig.load() runs and overrides the default value"
-        testutils.setupConfig("fc2-rpmmd-sources-1")
-        nc = config.NetworkConfig()
-        nc.load()
-        assert nc['serverURL'] == "http://www.hokeypokeyland.com/XMLRPC"
 
 class TestGetProxySetting(unittest.TestCase):
     def setUp(self):

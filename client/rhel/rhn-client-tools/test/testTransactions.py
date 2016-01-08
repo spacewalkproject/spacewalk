@@ -134,49 +134,9 @@ class TestGenTransactionSat1(unittest.TestCase):
 #        foo = up2date.runTransaction(res, rpmCallback.callback)
 #        write(foo)
 
-class TestActionsTransactions(unittest.TestCase):
-    setupflag = 0
-    def _realSetup(self, testname):
-        rpm.addMacro("_dbpath",testutils.DBPATH)
-        repackagedir =  "/tmp/testrepackage"
-        rpm.addMacro("_repackage_dir", repackagedir)
-
-        if TestGenTransactionSat1.setupflag != 0:
-            return
-
-        testutils.createDataDirs()
-        testutils.rebuildRpmDatabase(testname)
-        testutils.rebuildRepackageDir(testname)
-        TestGenTransactionSat1.setupflag = 1
-
-    def setUp(self):
-        up2dateAuth.updateLoginInfo()
-        print up2dateAuth.loginInfo
-        self.__setupData()
-        self._realSetup("8.0-workstation-i386-1")
-#        testutils.setupConfig("8.0-workstation-i386-1")
-
-    def __setupData(self):
-        self.packages1 = [(('wget', '1.8.2', '5', ''), 'u'),
-                          (('cvs', '1.11.2', '8', ''), 'u')]
-
-
-    def tearDown(self):
-        pass
-
-    def testAction1(self):
-        from actions import packages
-
-        data = {}
-        data['packages'] = self.packages1
-
-        res = packages.runTransaction(data)
-        write(res)
-
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestActionsTransactions))
     suite.addTest(unittest.makeSuite(TestGenTransactionSat1))
     suite.addTest(unittest.makeSuite(TestGenTransaction))
     suite.addTest(unittest.makeSuite(TestTransactionData))
