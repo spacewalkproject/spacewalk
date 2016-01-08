@@ -12,7 +12,11 @@ BuildArch: noarch
 BuildRequires: update-desktop-files
 %endif
 
-Requires: rhnlib >= 2.5.74
+%if 0%{?fedora} >= 23
+Requires: python3-rhnlib >= 2.5.78
+%else
+Requires: rhnlib >= 2.5.78
+%endif
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
 Requires: python-ethtool >= 0.4
@@ -81,8 +85,12 @@ BuildRequires: redhat-logos
 # The following BuildRequires are for check only
 %if 0%{?fedora}
 BuildRequires: python-coverage
-BuildRequires: rhnlib
 BuildRequires: rpm-python
+%endif
+%if 0%{?fedora} >= 23
+Requires: python3-rhnlib >= 2.5.78
+%else
+Requires: rhnlib >= 2.5.78
 %endif
 
 %description

@@ -15,7 +15,7 @@ BuildRequires: python3-devel
 Requires: dnf >= 0.5.3
 Requires: dnf-plugins-core
 Requires: librepo >= 1.7.15
-Requires: rhn-client-tools >= 1.10.3-1
+Requires: rhn-client-tools >= 2.5.5
 Conflicts: yum-rhn-plugin
 
 %description
