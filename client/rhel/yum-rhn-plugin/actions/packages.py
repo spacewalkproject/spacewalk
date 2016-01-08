@@ -77,11 +77,14 @@ class YumAction(yum.YumBase):
 
         # Check which packages have to be downloaded
         downloadpkgs = []
+        do_erase = False;
         for txmbr in self.tsInfo.getMembers():
             if txmbr.ts_state in ['i', 'u']:
                 po = txmbr.po
                 if po:
                     downloadpkgs.append(po)
+            elif txmbr.ts_state in ['e']:
+                do_erase = True;
 
         log.log_debug('Downloading Packages:')
         problems = self.downloadPkgs(downloadpkgs)
@@ -96,10 +99,27 @@ class YumAction(yum.YumBase):
             raise yum.Errors.YumBaseError, errstring
 
         if self.cfg['retrieveOnly']:
-            # We are configured to only download packages, so
-            # skip rest of transaction work and return now.
-            log.log_debug('Configured to "retrieveOnly" so skipping package install')
-            return 0
+            # We are configured to only download packages (rather than install/update)
+            #
+            # If all we were asked to do was install/update, skip rest of transaction
+            # and return now.
+            #
+            # If all we were asked to do was remove packages, process the transaction.
+            #
+            # If we were asked to do a mixture of install/erase - then we can't do a
+            # complete transaction, and we have to FAIL, rather than execute or show a
+            # success.
+            #
+            if downloadpkgs and do_erase: # FAIL
+                err = 'Mix of install/erase and "retrieveOnly" set - transaction FAILS'
+                log.log_debug(err)
+                raise yumErrors.YumBaseError, err
+            elif downloadpkgs and not do_erase: # download and exit
+                log.log_debug('Configured to "retrieveOnly" so skipping package install')
+                return 0
+            else: # erase-only, continue
+                log.log_debug('Configured to "retrieveOnly" but only erase-commands - continuing')
+
         if self.cache_only:
             log.log_debug('Just pre-caching packages, skipping package install')
             return 0
