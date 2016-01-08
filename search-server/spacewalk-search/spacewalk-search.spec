@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.1
+Version: 2.5.2
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -213,6 +213,9 @@ fi
 %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
+* Fri Jan 08 2016 Jan Dobes 2.5.2-1
+- require log4j12, it will not download in build time on Fedora 23 otherwise
+
 * Thu Oct 22 2015 Tomas Kasparek <tkasparek@redhat.com> 2.5.1-1
 - run indexing tasks only after previous one finishes
 - Bumping package versions for 2.5.
