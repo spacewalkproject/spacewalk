@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.5.4
+Version: 2.5.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -383,6 +383,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Jan 08 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.5-1
+- 1259884, 1286555 - updated to work in python3
+
 * Fri Jan 08 2016 Tomas Lestach <tlestach@redhat.com> 2.5.4-1
 - 1260454 - clean up channels to subscribe before processing results
 
