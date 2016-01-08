@@ -10,7 +10,7 @@ import unittest
 #Import the modules you need to test...
 from up2date_client import up2dateAuth
 
-test_up2date = "etc-sysconfig-rhn/up2date"
+test_up2date = "../etc-conf/up2date.config"
 
 class TestGetSystemID(unittest.TestCase):
     def setUp(self):

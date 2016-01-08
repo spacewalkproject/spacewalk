@@ -12,7 +12,7 @@ from up2date_client import rpcServer
 import unittest
 from rhn import rpclib
 
-test_up2date = "etc-sysconfig-rhn/up2date"
+test_up2date = "../etc-conf/up2date.config"
 
 def write(blip):
     sys.stdout.write("\n%s\n" % blip)

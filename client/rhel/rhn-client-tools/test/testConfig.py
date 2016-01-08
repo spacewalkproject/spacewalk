@@ -10,7 +10,7 @@ from up2date_client import config
 
 import unittest
 
-test_up2date = "etc-sysconfig-rhn/up2date"
+test_up2date = "../etc-conf/up2date.config"
 
 class TestConfig(unittest.TestCase):
     def setUp(self):
