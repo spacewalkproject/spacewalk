@@ -35,6 +35,7 @@ import up2date_client.up2dateAuth
 import up2date_client.config
 import up2date_client.rhnChannel
 import up2date_client.rhnPackageInfo
+from rhn.i18n import ustr
 from up2date_client import up2dateErrors
 
 STORED_CHANNELS_NAME = '_spacewalk.json'
@@ -101,7 +102,7 @@ class Spacewalk(dnf.Plugin):
                 login_info = up2date_client.up2dateAuth.getLoginInfo(timeout=self.conf.timeout)
             except up2dateErrors.RhnServerException as e:
                 logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, RHN_DISABLED,
-                                           unicode(e))
+                                           ustr(e))
                 return
 
             if not login_info:
@@ -114,7 +115,7 @@ class Spacewalk(dnf.Plugin):
                                                               timeout=self.conf.timeout)
             except up2dateErrors.CommunicationError as e:
                 logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, RHN_DISABLED,
-                                           unicode(e))
+                                           ustr(e))
                 return
             except up2dateErrors.NoChannelsError:
                 logger.error("%s\n%s", NOT_SUBSCRIBED_ERROR, CHANNELS_DISABLED)
@@ -175,7 +176,7 @@ class Spacewalk(dnf.Plugin):
                                                         timeout=self.conf.timeout)
         except up2dateErrors.RhnServerException as e:
             logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, PROFILE_NOT_SENT,
-                                       unicode(e))
+                                       ustr(e))
 
 
     def _read_channels_file(self):
@@ -213,10 +214,10 @@ class  SpacewalkRepo(dnf.repo.Repo):
                       'X-RHN-Auth-Expire-Offset']
 
     def __init__(self, channel, opts):
-        super(SpacewalkRepo, self).__init__(unicode(channel['label']),
+        super(SpacewalkRepo, self).__init__(ustr(channel['label']),
                                             opts.get('cachedir'))
         # dnf stuff
-        self.name = unicode(channel['name'])
+        self.name = ustr(channel['name'])
         self.baseurl = [ url + '/GET-REQ/' + self.id for url in channel['url']]
         self.sslcacert = opts.get('sslcacert')
         self.proxy = opts.get('proxy')
