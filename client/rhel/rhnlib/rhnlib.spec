@@ -4,7 +4,7 @@ Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.77
+Version: 2.5.78
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jan 08 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.78-1
+- 1259884, 1286555 - updated to work in python3
+
 * Thu Sep 24 2015 Jan Dobes 2.5.77-1
 - Bumping copyright year.
 
