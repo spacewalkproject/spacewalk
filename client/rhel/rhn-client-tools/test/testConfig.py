@@ -6,6 +6,7 @@ import settestpath
 # test enviroments...
 import testutils
 
+from rhn.i18n import ustr
 from up2date_client import config
 
 import unittest
@@ -33,7 +34,7 @@ class TestConfig(unittest.TestCase):
     def testConfigString(self):
         "Verify that Config loads a string as a string"
         cfg = config.initUp2dateConfig(test_up2date)
-        assert isinstance(cfg['systemIdPath'], str)
+        assert type(cfg['systemIdPath']) == type(ustr(''))
 
     def testConfigList(self):
         "Verify that Config loads a list as a list"
