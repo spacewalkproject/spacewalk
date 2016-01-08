@@ -134,7 +134,7 @@ class Spacewalk(dnf.Plugin):
 
         repos = self.base.repos
 
-        for (channel_id, channel_dict) in enabled_channels.iteritems():
+        for (channel_id, channel_dict) in enabled_channels.items():
             cached_channel = cached_channels.get(channel_id)
             cached_version = None
             if cached_channel:
