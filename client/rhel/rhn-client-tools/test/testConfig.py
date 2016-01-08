@@ -149,13 +149,13 @@ class TestGetProxySetting(unittest.TestCase):
     def testHttpSpecified(self):
         "Verify that http:// gets stripped from proxy settings"
         self.cfg['httpProxy'] = self.proxy1
-        res = up2dateUtils.getProxySetting()
+        res = config.getProxySetting()
         assert res == "proxy.company.com:8080"
 
     def testHttpUnSpecified(self):
         "Verify that proxies with no http:// work correctly"
         self.cfg['httpProxy'] = self.proxy2
-        res = up2dateUtils.getProxySetting()
+        res = config.getProxySetting()
         assert res == "proxy.company.com:8080"
 
 def suite():
