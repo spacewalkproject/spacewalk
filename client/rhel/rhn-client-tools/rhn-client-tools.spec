@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.5.3
+Version: 2.5.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -383,6 +383,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Jan 08 2016 Tomas Lestach <tlestach@redhat.com> 2.5.4-1
+- 1260454 - clean up channels to subscribe before processing results
+
 * Thu Dec 17 2015 Jan Dobes 2.5.3-1
 - 1262780 - alow to use existing rpcServer when creating RhnServer
 
