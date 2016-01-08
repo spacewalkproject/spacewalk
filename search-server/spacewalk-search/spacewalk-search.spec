@@ -38,7 +38,11 @@ Requires: javapackages-tools
 %else
 Requires: jpackage-utils >= 0:1.5
 %endif
+%if 0%{?fedora} && 0%{?fedora} >= 21
+Requires: log4j12
+%else
 Requires: log4j
+%endif
 %if 0%{?fedora} || 0%{?rhel} >=7
 Requires: jakarta-oro
 %else
@@ -74,7 +78,11 @@ BuildRequires: jakarta-commons-lang >= 0:2.1
 BuildRequires: jakarta-commons-logging
 %endif
 BuildRequires: java-devel >= 1.6.0
+%if 0%{?fedora} && 0%{?fedora} >= 21
+BuildRequires: log4j12
+%else
 BuildRequires: log4j
+%endif
 %if 0%{?fedora} || 0%{?rhel} >=7
 BuildRequires: jakarta-oro
 %else
