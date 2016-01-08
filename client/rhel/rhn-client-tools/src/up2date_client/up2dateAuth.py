@@ -123,7 +123,7 @@ def readCachedLogin():
     pcklAuth = open(pcklAuthFileName, 'rb')
     try:
         data = pickle.load(pcklAuth)
-    except EOFError:
+    except (EOFError, ValueError):
         log.log_debug("Unexpected EOF. Probably an empty file, \
                        regenerate auth file")
         pcklAuth.close()
