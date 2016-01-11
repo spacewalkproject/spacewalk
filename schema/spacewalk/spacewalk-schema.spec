@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.5.5
+Version:        2.5.6
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Jan 11 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.6-1
+- purge duplicate uuid records during upgrade process
+
 * Fri Jan 08 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.5-1
 - purge uuid records after deleting a system
 
