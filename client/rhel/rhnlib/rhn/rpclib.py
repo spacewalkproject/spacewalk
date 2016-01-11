@@ -22,7 +22,7 @@ import re
 import sys
 
 from rhn import transports
-from rhn.i18n import ustr
+from rhn.i18n import sstr
 from rhn.UserDictCase import UserDictCase
 
 try: # python2
@@ -160,7 +160,7 @@ class Server:
                 if pw is not None and password is None:
                     password = pw
 
-        self._uri = ustr(uri)
+        self._uri = sstr(uri)
         self._refreshCallback = None
         self._progressCallback = None
         self._bufferSize = None
