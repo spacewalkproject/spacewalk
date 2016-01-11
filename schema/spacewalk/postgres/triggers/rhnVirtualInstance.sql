@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 d9a9ec3e6346fd141fcd5a0a641eacf5ecc01b32
+-- oracle equivalent source sha1 4dc3bef26b1701f5e6a67cd87e1f9df1abdec922
 
 --
 -- Copyright (c) 2008--2015 Red Hat, Inc.
@@ -40,7 +40,7 @@ create or replace function rhn_virtinst_del_trig_fun() returns trigger
 as
 $$
 begin
-  delete from rhnVirtualInstance where virtual_system_id is NULL and host_system_id is NULL and uiid is not NULL;
+  delete from rhnVirtualInstance where virtual_system_id is NULL and host_system_id is NULL and uuid is not NULL;
   return null;
 end;
 $$

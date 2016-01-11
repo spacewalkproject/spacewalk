@@ -31,7 +31,7 @@ rhn_virtinst_del_trig
 after update on rhnVirtualInstance
 for each row
 begin
-  delete from rhnVirtualInstance where virtual_system_id is NULL and host_system_id is NULL and uiid is not NULL;
+  delete from rhnVirtualInstance where virtual_system_id is NULL and host_system_id is NULL and uuid is not NULL;
 end;
 /
 show errors;
