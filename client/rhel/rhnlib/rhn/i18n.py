@@ -17,7 +17,10 @@
 
 from sys import version_info
 
-PY3 = version_info.major >= 3
+try:
+    PY3 = version_info.major >= 3
+except AttributeError:
+    PY3 = False
 
 
 def ustr(obj):
