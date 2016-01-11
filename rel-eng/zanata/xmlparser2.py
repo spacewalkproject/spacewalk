@@ -1,8 +1,5 @@
 #!/usr/bin/python
 #
-# Utility for archiving information from a running Spacewalk/Satellite5 system
-# prior to a final shutdown.
-#
 # Copyright (c) 2015 Red Hat, Inc.
 #
 #
