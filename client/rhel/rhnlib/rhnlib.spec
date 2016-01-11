@@ -33,6 +33,7 @@ rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk
 %package -n python3-rhnlib
 Summary: Python libraries for the Spacewalk project
 Group: Development/Libraries
+BuildRequires: python3-devel
 Requires: python3-pyOpenSSL
 Conflicts: rhncfg < 5.10.45
 Conflicts: spacewalk-proxy-installer < 1.3.2

@@ -13,8 +13,10 @@ BuildRequires: update-desktop-files
 %endif
 
 %if 0%{?fedora} >= 23
+BuildRequires: python3-devel
 Requires: python3-rhnlib >= 2.5.78
 %else
+BuildRequires: python-devel
 Requires: rhnlib >= 2.5.78
 %endif
 Requires: rpm >= 4.2.3-24_nonptl
@@ -65,7 +67,6 @@ Conflicts: spacewalk-koan < 0.2.7-1
 Conflicts: rhn-kickstart < 5.4.3-1
 Conflicts: rhn-virtualization-host < 5.4.36-2
 
-BuildRequires: python-devel
 BuildRequires: gettext
 BuildRequires: intltool
 BuildRequires: desktop-file-utils
