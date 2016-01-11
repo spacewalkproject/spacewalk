@@ -29,6 +29,7 @@ Conflicts: spacewalk-proxy < 1.3.6
 rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk.redhat.com) software.
 
 
+%if 0%{?fedora}
 %package -n python3-rhnlib
 Summary: Python libraries for the Spacewalk project
 Group: Development/Libraries
@@ -43,6 +44,7 @@ Conflicts: spacewalk-proxy < 1.3.6
 
 %description -n python3-rhnlib
 rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk.redhat.com) software.
+%endif
 
 %prep
 %setup -q
@@ -62,7 +64,9 @@ make -f Makefile.rhnlib
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
+%if 0%{?fedora}
 %{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
+%endif
 
 
 %clean
@@ -73,9 +77,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog COPYING README TODO
 %{python_sitelib}/*
 
+%if 0%{?fedora}
 %files -n python3-rhnlib
 %doc ChangeLog COPYING README TODO
 %{python3_sitelib}/*
+%endif
 
 %changelog
 * Fri Jan 08 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.78-1
