@@ -1463,7 +1463,7 @@ public class ActionManager extends BaseManager {
      */
     public static Action scheduleHardwareRefreshAction(User scheduler, Date earliestAction,
             Set<Long> serverIds) {
-        for(Long sid : serverIds) {
+        for (Long sid : serverIds) {
             Server s = SystemManager.lookupByIdAndUser(sid, scheduler);
             if (!SystemManager.hasEntitlement(sid, EntitlementManager.MANAGEMENT)) {
                 log.error("Unable to run a hardware refresh action " +
