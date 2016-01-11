@@ -256,7 +256,7 @@ public class SystemHandler extends BaseHandler {
         //Get the logged in user and server
         Server server = lookupServer(loggedInUser, sid);
 
-        Entitlement entitlement = EntitlementManager.getByName(entitlementLevel);
+        final Entitlement entitlement = EntitlementManager.getByName(entitlementLevel);
 
         // Make sure we got a valid entitlement and the server can be entitled to it
         validateEntitlements(new ArrayList() { { add(entitlement); } });
