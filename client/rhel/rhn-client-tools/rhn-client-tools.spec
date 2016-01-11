@@ -12,23 +12,22 @@ BuildArch: noarch
 BuildRequires: update-desktop-files
 %endif
 
-%if 0%{?fedora} >= 23
-BuildRequires: python3-devel
-Requires: python3-rhnlib >= 2.5.78
-%else
-BuildRequires: python-devel
-Requires: rhnlib >= 2.5.78
-%endif
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
 Requires: python-ethtool >= 0.4
 Requires: gnupg
 Requires: sh-utils
-%if 0%{?suse_version}
-Requires: dbus-1-python
+%if 0%{?fedora} >= 23
+BuildRequires: python3-devel
+Requires: libgudev
+Requires: python3-gobject-base
+Requires: python3-dmidecode
+Requires: python3-hwdata
+Requires: python3-rhnlib >= 2.5.78
 %else
-Requires: dbus-python
-%endif
+BuildRequires: python-devel
+Requires: python-dmidecode
+Requires: rhnlib >= 2.5.78
 %if 0%{?fedora}
 Requires: pygobject3-base libgudev1
 Requires: python-hwdata
@@ -38,7 +37,13 @@ Requires: python-gudev
 Requires: python-hwdata
 %else
 Requires: hal >= 0.5.8.1-52
-%endif
+%endif # 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
+%endif # 0%{?fedora}
+%endif # 0%{?fedora} >= 23
+%if 0%{?suse_version}
+Requires: dbus-1-python
+%else
+Requires: dbus-python
 %endif
 %if 0%{?suse_version}
 Requires: python-newt
@@ -49,7 +54,6 @@ Requires: newt
 %if 0%{?fedora} || 0%{?rhel} > 5
 Requires: newt-python
 %endif
-Requires: python-dmidecode
 %if 0%{?suse_version}
 Requires: zypper
 %else
@@ -57,8 +61,8 @@ Requires: zypper
 Requires: dnf
 %else
 Requires: yum
-%endif
-%endif
+%endif # 0%{?fedora} >= 22
+%endif # 0%{?suse_version}
 
 Conflicts: up2date < 5.0.0
 Conflicts: yum-rhn-plugin < 1.6.4-1
