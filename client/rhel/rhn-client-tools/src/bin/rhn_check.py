@@ -56,6 +56,7 @@ from up2date_client import clientCaps
 from up2date_client import capabilities
 from up2date_client import rhncli, rhnserver
 
+from rhn import SSL
 from rhn import rhnLockfile
 from rhn.i18n import bstr
 
@@ -121,7 +122,7 @@ class CheckCli(rhncli.RhnCli):
                 print("Error code: %d%s" % (f.faultCode, f.faultString))
             sys.exit(-1)
         # XXX: what if no SSL in socket?
-        except socket.sslerror:
+        except SSL.socket_error:
             print("ERROR: SSL handshake to %s failed" % self.server)
             print("""
             This could signal that you are *NOT* talking to a server
@@ -155,7 +156,7 @@ class CheckCli(rhncli.RhnCli):
                 print("Error code: %d%s" % (f.faultCode, f.faultString))
             sys.exit(-1)
         # XXX: what if no SSL in socket?
-        except socket.sslerror:
+        except SSL.socket_error:
             print("ERROR: SSL handshake to %s failed" % self.server)
             print("""
             This could signal that you are *NOT* talking to a server
@@ -242,7 +243,7 @@ class CheckCli(rhncli.RhnCli):
             print("Error code: %d%s" % (f.faultCode, f.faultString))
             sys.exit(-1)
         # XXX: what if no SSL in socket?
-        except socket.sslerror:
+        except SSL.socket_error:
             print("ERROR: SSL handshake to %s failed" % self.server)
             print("""
             This could signal that you are *NOT* talking to a server

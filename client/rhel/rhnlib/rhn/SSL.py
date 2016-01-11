@@ -35,6 +35,10 @@ import sys
 
 DEFAULT_TIMEOUT = 120
 
+if hasattr(socket, 'sslerror'):
+    socket_error = socket.sslerror
+else:
+    from ssl import socket_error
 
 class SSLSocket:
     """

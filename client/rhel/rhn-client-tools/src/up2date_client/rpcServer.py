@@ -11,6 +11,7 @@ from up2date_client import up2dateLog
 from up2date_client import up2dateErrors
 from up2date_client import up2dateUtils
 
+from rhn import SSL
 from rhn import rpclib
 
 try: # python2
@@ -214,7 +215,7 @@ def doCall(method, *args, **kwargs):
             raise (up2dateErrors.CommunicationError(_(
                 "Connection aborted by the user")), None, sys.exc_info()[2])
         # if we get a socket error, keep tryingx2
-        except (socket.error, socket.sslerror):
+        except (socket.error, SSL.socket_error):
             log.log_me("A socket error occurred: %s, attempt #%s" % (
                 sys.exc_info()[1], attempt_count))
             if attempt_count >= attempts:
