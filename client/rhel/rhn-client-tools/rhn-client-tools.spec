@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.5.7
+Version: 2.5.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -396,6 +396,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Jan 12 2016 Grant Gainey 2.5.8-1
+- 875728 - Clarify useNoSSLForPackages comment to match reality
+
 * Tue Jan 12 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.7-1
 - 1259884, 1286555 - more python3 fixes
 
