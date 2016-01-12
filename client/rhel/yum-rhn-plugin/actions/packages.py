@@ -541,23 +541,23 @@ def _run_yum_action(command, cache_only=None):
         data['version'] = "1"
         data['name'] = "package_install_failure"
 
-        return (32, "Failed: Packages failed to install "\
-                "properly: %s" % str(e), data)
+        return (32, u"Failed: Packages failed to install "\
+                "properly: %s" % unicode(e), data)
     except yum.Errors.RemoveError, e:
         data = {}
         data['version'] = 0
         data['name'] = "rpmremoveerrors"
 
-        return (15, "%s" % str(e), data)
+        return (15, u"%s" % unicode(e), data)
     except yum.Errors.DepError, e:
         data = {}
         data["version"] = "1"
         data["name"] = "failed_deps"
-        return (18, "Failed: packages requested raised "\
-                "dependency problems: %s" % str(e), data)
+        return (18, u"Failed: packages requested raised "\
+                "dependency problems: %s" % unicode(e), data)
     except (yum.Errors.YumBaseError, PluginYumExit), e:
         status = 6,
-        message = "Error while executing packages action: %s" % str(e)
+        message = u"Error while executing packages action: %s" % unicode(e)
         data = {}
         return (status, message, data)
 
