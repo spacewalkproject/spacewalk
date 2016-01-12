@@ -505,7 +505,7 @@ class Server:
     def set_header(self, name, arg):
         if type(arg) in [ type([]), type(()) ]:
             # Multivalued header
-            self._headers[name] = map(str, arg)
+            self._headers[name] = [str(a) for a in arg]
         else:
             self._headers[name] = str(arg)
 
@@ -646,8 +646,8 @@ def getHeaderValues(headers, name):
             return [headers[name]]
         return []
 
-    return map(lambda x: x.split(':', 1)[1].strip(),
-            headers.getallmatchingheaders(name))
+    return [x.split(':', 1)[1].strip() for x in
+            headers.getallmatchingheaders(name)]
 
 class _Method:
     """ some magic to bind an XML-RPC method to an RPC server.

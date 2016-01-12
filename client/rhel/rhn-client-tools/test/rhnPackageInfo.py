@@ -13,7 +13,7 @@ class TestPprint_pkglist(unittest.TestCase):
                          ["bar", "2.0", "2", "9", "i686", "34234234234234", "some-channel"]]
 
         self.pkgList2 = []
-        self.pkgList3 = map(lambda a: a+["othercruft", "morecruft"], self.pkgList1)
+        self.pkgList3 = [a+["othercruft", "morecruft"] for a in self.pkgList1]
 
         # send it a tuple
         self.pkgList4 = ("foo", "1.0", "1", "", "i386", "234234234", "some-channel")

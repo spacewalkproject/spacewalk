@@ -296,10 +296,10 @@ class RegistrationResult:
         return self._systemSlots
 
     def getSystemSlotDescriptions(self):
-        return map(self._getSlotDescription, self._systemSlots)
+        return [self._getSlotDescription(s) for s in self._systemSlots]
 
     def getFailedSystemSlotDescriptions(self):
-        return map(self._getFailedSlotDescription, self._failedSystemSlots)
+        return [self._getFailedSlotDescription(s) for s in self._failedSystemSlots]
 
     def getUniversalActivationKey(self):
         """Returns None if no universal activation key was used."""
@@ -477,7 +477,7 @@ def sendHardware(systemId, hardwareList):
         return x
     s = rhnserver.RhnServer()
     if not s.capabilities.hasCapability('ipv6', 1):
-        hardwareList = map(remove_ip6addr, hardwareList)
+        hardwareList = [remove_ip6addr(i) for i in hardwareList]
     s.registration.add_hw_profile(systemId, _encode_characters(hardwareList))
 
 def sendPackages(systemId, packageList):
@@ -563,9 +563,9 @@ def _encode_characters(*args):
             if item_type == StringType:
                 item = ustr(item)
             elif item_type == TupleType:
-                item = tuple(map(_encode_characters, item))
+                item = tuple(_encode_characters(i) for i in item)
             elif item_type == ListType:
-                item = map(_encode_characters, item)
+                item = [_encode_characters(i) for i in item]
             elif item_type == DictType or item_type == DictionaryType:
                 item = dict([(_encode_characters(name, val)) for name, val in item.items()])
             # else: numbers or UnicodeType - are safe

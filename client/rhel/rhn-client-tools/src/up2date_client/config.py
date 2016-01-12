@@ -193,7 +193,7 @@ class ConfigFile:
         return self.dict.keys()
 
     def values(self):
-        return map(lambda a: a[1], self.dict.values())
+        return [a[1] for a in self.dict.values()]
 
     def update(self, dict):
         self.dict.update(dict)
@@ -336,7 +336,7 @@ def getServerlURL():
     # serverURL may be a list in the config file, so by default, grab the
     # first element.
     if type(cfg['serverURL']) == type([]):
-        return map(convert_url_to_puny, cfg['serverURL'])
+        return [convert_url_to_puny(i) for i in cfg['serverURL']]
     else:
         return [convert_url_to_puny(cfg['serverURL'])]
 

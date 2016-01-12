@@ -113,7 +113,7 @@ class Transport(xmlrpclib.Transport):
     def set_header(self, name, arg):
         if type(arg) in [ type([]), type(()) ]:
             # Multivalued header
-            self._headers[name] = map(str, arg)
+            self._headers[name] = [str(a) for a in arg]
         else:
             self._headers[name] = str(arg)
 

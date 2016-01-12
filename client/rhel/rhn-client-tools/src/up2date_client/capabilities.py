@@ -84,7 +84,7 @@ class Capabilities(UserDict.UserDict):
 
         vers = versionString.split(':')
         if len(vers) > 1:
-            versions = map(lambda a:int(a), vers)
+            versions = [int(a) for a in vers]
             return versions
 
         return [int(versionString)]

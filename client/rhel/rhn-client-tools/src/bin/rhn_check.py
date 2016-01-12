@@ -329,9 +329,9 @@ class CheckCli(rhncli.RhnCli):
         if os.access("/proc/uptime", os.R_OK):
             uptime = open("/proc/uptime", "r").read().split()
             try:
-                status_report["uptime"] = map(int, map(float, uptime))
+                status_report["uptime"] = [int(float(a)) for a in uptime]
             except (TypeError, ValueError):
-                status_report["uptime"] = map(lambda a: a[:-3], uptime)
+                status_report["uptime"] = [a[:-3] for a in uptime]
             except:
                 pass
 
