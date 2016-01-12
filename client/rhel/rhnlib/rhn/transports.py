@@ -467,7 +467,7 @@ class Input:
             del obj
             self.length = len(data)
             self.io = SmartIO(max_mem_size=self.max_mem_size)
-            self.io.write(sstr(data))
+            self.io.write(data)
         elif self.encoding in ("x-gzip", "gzip"):
             import gzip
             self.io.seek(0, 0)
@@ -476,7 +476,7 @@ class Input:
             data = gz.read()
             self.length = len(data)
             self.io = SmartIO(max_mem_size=self.max_mem_size)
-            self.io.write(sstr(data))
+            self.io.write(data)
         elif self.encoding == "x-gpg":
             # XXX: should be written
             raise NotImplementedError(self.transfer, self.encoding)
@@ -505,7 +505,7 @@ def _smart_total_read(fd, bufferSize=1024, max_mem_size=16384):
         if not chunk:
             # EOF reached
             break
-        io.write(sstr(chunk))
+        io.write(chunk)
 
     return io
 
@@ -540,7 +540,7 @@ def _smart_read(fd, amt, bufferSize=1024, progressCallback=None,
 
         # And since the original l was smaller than amt, we know amt >= 0
         amt = amt - l
-        buf.write(sstr(chunk))
+        buf.write(chunk)
         if progressCallback is None:
             # No progress callback, so don't do fancy computations
             continue

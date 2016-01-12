@@ -13,7 +13,7 @@ import os
 try: # python2
     from cStringIO import StringIO
 except ImportError: # python3
-    from io import StringIO
+    from io import BytesIO as StringIO
 
 class SmartIO:
     """
