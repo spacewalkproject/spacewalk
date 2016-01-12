@@ -29,7 +29,7 @@ def updatePackageProfile(timeout=None):
 
 def pprint_pkglist(pkglist):
     if type(pkglist) == type([]):
-        output = map(lambda a : "%s-%s-%s" % (a[0],a[1],a[2]), pkglist)
+        output = ["%s-%s-%s" % (a[0],a[1],a[2]) for a in pkglist]
     else:
         output = "%s-%s-%s" % (pkglist[0], pkglist[1], pkglist[2])
     return output

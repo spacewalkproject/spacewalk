@@ -338,9 +338,9 @@ class Server:
             if item_type == StringType or item_type == UnicodeType:
                 item = re.sub(regexp, '', item)
             elif item_type == TupleType:
-                item = tuple(map(self._strip_characters, item))
+                item = tuple(self._strip_characters(i) for i in item)
             elif item_type == ListType:
-                item = map(self._strip_characters, item)
+                item = [self._strip_characters(i) for i in item]
             elif item_type == DictType or item_type == DictionaryType:
                 item = dict([(self._strip_characters(name, val)) for name, val in item.iteritems()])
             # else: some object - should take care of himself
