@@ -336,7 +336,7 @@ class Server:
         for item in args:
             item_type = type(item)
             if item_type == StringType or item_type == UnicodeType:
-                item = re.sub(regexp, '', item)
+                item = re.sub(regexp, '', sstr(item))
             elif item_type == TupleType:
                 item = tuple(self._strip_characters(i) for i in item)
             elif item_type == ListType:
