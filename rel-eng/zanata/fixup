@@ -27,6 +27,7 @@ from optparse import OptionParser
 from xml.dom.minidom import parseString
 
 import xmlparser2
+import poparser
 
 
 def setupOptions():
@@ -94,7 +95,9 @@ if __name__ == '__main__':
         print "Fixing other (*.po) translations..."
         languages = getLanguages("zanata-other.xml")
         found = findFiles(".*\.pot")
-        print found
+        for item in found:
+            for language in languages:
+                poparser.parse(language, item[0], item[0])
 
     sys.exit(0)
 
