@@ -154,25 +154,28 @@ def write_new_file(newfile, dta):
     f_new.write(dta)
     f_new.close()
 
+def parse(lang, in_dir, new_dir):
+    # fn_en   - StringResource_en_US.xml
+    # fn_lang - StringResource_de.xml - translated strings from zanata
+    # fn_new  - StringResource_de.xml.new - newly created file using fn_en
+    #           as a template with translated strings added from fn_lang
+    fn_lang = "%s/StringResource_%s.xml" % (in_dir, lang)
+    if not os.path.isfile(fn_lang):
+      print "No file %s - exiting..." % fn_lang
+      return
+
+    fn_en   = "%s/StringResource_en_US.xml" % in_dir
+    fn_new  = "%s/StringResource_%s.xml.new" % (new_dir, lang)
+
+    print "EN vs. %s:"  % lang
+    outstr = process_one_lang_file(lang, fn_en, fn_lang)
+    write_new_file(fn_new, outstr)
+
 if __name__ == '__main__':
     parser = setupOptions()
     (options, args) = parser.parse_args()
     check_required(options, parser)
 
-    # fn_en   - StringResource_en_US.xml
-    # fn_lang - StringResource_de.xml - translated strings from zanata
-    # fn_new  - StringResource_de.xml.new - newly created file using fn_en
-    #           as a template with translated strings added from fn_lang
-    fn_lang = "%s/StringResource_%s.xml" % (options.in_dir, options.lang)
-    if not os.path.isfile(fn_lang):
-      print "No file %s - exiting..." % fn_lang
-      sys.exit(0)
-
-    fn_en   = "%s/StringResource_en_US.xml" % options.in_dir
-    fn_new  = "%s/StringResource_%s.xml.new" % (options.new_dir, options.lang)
-
-    print "EN vs. %s:"  % options.lang
-    outstr = process_one_lang_file(options.lang, fn_en, fn_lang)
-    write_new_file(fn_new, outstr)
+    parse(options.lang, options.in_dir, options.new_dir)
 
     sys.exit(0)

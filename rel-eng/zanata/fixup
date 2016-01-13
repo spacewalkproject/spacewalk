@@ -1,10 +1,100 @@
-#!/bin/bash
-for a_dir in `find . -name StringResource_en_US.xml | xargs dirname`; do
-  for a_lang in 'bn_IN' 'ca' 'de' 'es' 'fr' 'gu' 'hi' 'it' 'ja' 'ko' 'pa' 'pt' 'pt_BR' 'ru' 'ta' 'zh_CN' 'zh_TW'; do
-    xmlparser2.py -l $a_lang -i $a_dir -o $a_dir;
-  done;
-done;
+#!/usr/bin/python
+#
+# Copyright (c) 2016 Red Hat, Inc.
+#
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
 
-for f in `find . -name StringResource*.xml.new`; do
-  echo $f | awk -F.new '{print $1}' | xargs cp $f;
-done;
+"""
+fixup - a tool for massaging zanata output to minimize diffs to
+existing localization files in the spacewalk codebase
+"""
+
+import os
+import sys
+import re
+from optparse import OptionParser
+from xml.dom.minidom import parseString
+
+import xmlparser2
+
+
+def setupOptions():
+    usage = 'usage: %prog [options]'
+    parser = OptionParser(usage=usage)
+    parser.add_option('-f', '--frontend', action='store_true', dest='frontend',
+                      metavar='FRONTEND',
+                      help='We will fix frontend files in this run')
+    parser.add_option('-o', '--other', action='store_true', dest='other',
+                      metavar='OTHER',
+                      help='We will fix other files in this run')
+    return parser
+
+def getLanguages(fn):
+    """Load XML to string, parse and extract locale names."""
+
+    languages = []
+
+    fn = "%s/%s" % (os.path.dirname(sys.argv[0]), fn)
+    f = open(fn, 'r')
+    data = f.read()
+    f.close()
+
+    dom = parseString(data)
+    locales = dom.getElementsByTagName('locale')
+
+    for locale in locales:
+        languages.append(locale.firstChild.nodeValue.replace("-","_"))
+
+    return languages
+
+def findFiles(fn):
+    """List (directory, file) tuples of files with name matching given regex."""
+
+    found = []
+
+    fn = re.compile(fn)
+
+    for root, dirs, files in os.walk('.'):
+        for name in files:
+            if fn.match(name):
+                found.append((root, name))
+
+    return found
+
+if __name__ == '__main__':
+    parser = setupOptions()
+    (options, args) = parser.parse_args()
+
+    if options.frontend:
+        print "Fixing frontend (*.xml) translations..."
+        languages = getLanguages("zanata-frontend.xml")
+        found = findFiles("StringResource_en_US\.xml")
+        for item in found:
+            for language in languages:
+                xmlparser2.parse(language, item[0], item[0])
+
+        found = findFiles("StringResource.*\.xml\.new")
+        for item in found:
+            sourceFilePath = "%s/%s" % (item[0], item[1])
+            targetFilePath = "%s/%s" % (item[0], item[1].replace(".new", ""))
+            os.rename(sourceFilePath, targetFilePath)
+
+    if options.other:
+        print "Fixing other (*.po) translations..."
+        languages = getLanguages("zanata-other.xml")
+        found = findFiles(".*\.pot")
+        print found
+
+    sys.exit(0)
+
