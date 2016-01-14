@@ -21,6 +21,7 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 import com.redhat.rhn.domain.channel.ContentSource;
+import com.redhat.rhn.domain.channel.SslContentSource;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
@@ -34,6 +35,9 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *      #prop("string", "label")
  *      #prop("string", "sourceUrl")
  *      #prop("string", "type")
+ *      #prop("string", "sslCaDesc")
+ *      #prop("string", "sslCertDesc")
+ *      #prop("string", "sslKeyDesc")
  *  #struct_end()
  *
  */
@@ -53,11 +57,26 @@ public class ContentSourceSerializer extends RhnXmlRpcCustomSerializer {
         throws XmlRpcException, IOException {
         SerializerHelper helper = new SerializerHelper(serializer);
         ContentSource repo = (ContentSource) value;
+        SslContentSource sslRepo = null;
+        if (repo.isSsl()) {
+            sslRepo = (SslContentSource) repo;
+        }
 
         helper.add("id", repo.getId());
         helper.add("label", repo.getLabel());
         helper.add("sourceUrl", repo.getSourceUrl());
         helper.add("type", repo.getType().getLabel());
+
+        if (sslRepo != null) {
+            helper.add("sslCaDesc", sslRepo.getCaCert().getDescription());
+            helper.add("sslCertDesc", sslRepo.getClientCert().getDescription());
+            helper.add("sslKeyDesc", sslRepo.getClientKey().getDescription());
+        }
+        else {
+            helper.add("sslCaDesc", "None");
+            helper.add("sslCertDesc", "None");
+            helper.add("sslKeyDesc", "None");
+        }
 
         helper.writeTo(output);
     }
