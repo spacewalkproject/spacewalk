@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.5.3
+Version:	2.5.4
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Jan 14 2016 Jan Dobes 2.5.4-1
+- fixing typo in 'archs'
+
 * Wed Dec 09 2015 Jan Dobes 2.5.3-1
 - Updated Oracle yum repo URLs and added new repositories for OL6 and OL7.
 
