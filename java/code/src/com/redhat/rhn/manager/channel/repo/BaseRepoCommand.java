@@ -196,14 +196,14 @@ public class BaseRepoCommand {
         repo.setOrg(org);
         repo.setType(ChannelFactory.CONTENT_SOURCE_TYPE_YUM);
 
-        if (!this.label.equals(repo.getLabel())) {
+        if (this.label != null && !this.label.equals(repo.getLabel())) {
             if (ChannelFactory.lookupContentSourceByOrgAndLabel(org, label) != null) {
                 throw new InvalidRepoLabelException(label);
             }
             repo.setLabel(this.label);
         }
 
-        if (!this.url.equals(repo.getSourceUrl())) {
+        if (this.url != null && !this.url.equals(repo.getSourceUrl())) {
             if (!ChannelFactory.lookupContentSourceByOrgAndRepo(org,
                     ChannelFactory.CONTENT_SOURCE_TYPE_YUM, url).isEmpty()) {
                 throw new InvalidRepoUrlException(url);
