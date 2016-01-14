@@ -1272,12 +1272,3 @@ msgstr ""
 #, python-format
 msgid "Explanation: %s"
 msgstr ""
-
-#~ msgid ""
-#~ "Please run rhn_register (or up2date --register on Red Hat Enterprise "
-#~ "Linux 3 or later)\n"
-#~ "as root on this client"
-#~ msgstr ""
-#~ "Jako správce pusťte rhn_register (nebo up2date --register na Red Hat "
-#~ "Enterprise Linux 3 a starších)\n"
-#~ "na tomto klientovi"

@@ -1431,12 +1431,3 @@ msgstr "エラークラス情報: %s\n"
 #, python-format
 msgid "Explanation: %s"
 msgstr "説明: %s"
-
-#~ msgid ""
-#~ "Please run rhn_register (or up2date --register on Red Hat Enterprise "
-#~ "Linux 3 or later)\n"
-#~ "as root on this client"
-#~ msgstr ""
-#~ "このクライアント上で root になり、 rhn_register (Red Hat Enterprise Linux "
-#~ "3 または\n"
-#~ "それ以降の場合は up2date --register) を実行してください"

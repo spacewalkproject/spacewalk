@@ -1272,12 +1272,3 @@ msgstr "Fehlerklasse-Information: %s\n"
 #, python-format
 msgid "Explanation: %s"
 msgstr "Erklärung: %s"
-
-#~ msgid ""
-#~ "Please run rhn_register (or up2date --register on Red Hat Enterprise "
-#~ "Linux 3 or later)\n"
-#~ "as root on this client"
-#~ msgstr ""
-#~ "Bitte führen Sie den Befehl rhn_register (oder up2date --register unter "
-#~ "Red Hat\n"
-#~ "Enterprise Linux 3 oder später) als Benutzer root auf diesem Rechner aus"

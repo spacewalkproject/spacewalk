@@ -1401,12 +1401,3 @@ msgstr "Felklassinformation: %s\n"
 #, python-format
 msgid "Explanation: %s"
 msgstr "Förklaring: %s"
-
-#~ msgid ""
-#~ "Please run rhn_register (or up2date --register on Red Hat Enterprise "
-#~ "Linux 3 or later)\n"
-#~ "as root on this client"
-#~ msgstr ""
-#~ "Kör rhn_register (eller up2date --register på Red Hat Enterprise Linux 3 "
-#~ "eller senare)\n"
-#~ "som root på denna klient"
