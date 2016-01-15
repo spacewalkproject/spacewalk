@@ -18,8 +18,8 @@ from up2date_client import pkgUtils
 from up2date_client import up2dateLog
 from up2date_client import rhnreg_constants
 from up2date_client import hardware
-from rhnPackageInfo import convertPackagesFromHashToList
-from pkgplatform import getPlatform
+from up2date_client.rhnPackageInfo import convertPackagesFromHashToList
+from up2date_client.pkgplatform import getPlatform
 from rhn.i18n import ustr
 from rhn.tb import raise_with_tb
 
@@ -652,5 +652,5 @@ if getPlatform() == 'deb':
         """On Debian no extra action for plugin is needed"""
         return 1, 0
 else:
-    from pmPlugin import pluginEnable
+    from up2date_client.pmPlugin import pluginEnable
 

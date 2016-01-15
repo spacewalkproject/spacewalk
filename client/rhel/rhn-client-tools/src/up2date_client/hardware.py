@@ -49,10 +49,10 @@ import dmidecode
 from up2date_client import up2dateLog
 
 try: # F13 and EL6
-    from hardware_gudev import get_devices, get_computer_info
+    from up2date_client.hardware_gudev import get_devices, get_computer_info
     using_gudev = 1
 except ImportError:
-    from hardware_hal import check_hal_dbus_status, get_hal_computer, read_hal
+    from up2date_client.hardware_hal import check_hal_dbus_status, get_hal_computer, read_hal
     using_gudev = 0
 
 # Some systems don't have the _locale module installed
