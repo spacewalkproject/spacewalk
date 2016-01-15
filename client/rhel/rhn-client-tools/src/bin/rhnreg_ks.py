@@ -23,7 +23,7 @@
 import sys
 import os
 from rhn.connections import idn_puny_to_unicode
-from rhn.i18n import bstr
+from rhn.i18n import bstr, sstr
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
@@ -173,10 +173,10 @@ class RegisterKsCli(rhncli.RhnCli):
         try:
             present, conf_changed = rhnreg.pluginEnable()
             if not present:
-                sys.stderr.write(rhncli.utf8_encode(_("Warning: %s is not present, could not enable it.") % PM_PLUGIN_NAME))
+                sys.stderr.write(sstr(_("Warning: %s is not present, could not enable it.") % PM_PLUGIN_NAME))
         except IOError:
             e = sys.exc_info()[1]
-            sys.stderr.write(rhncli.utf8_encode(_("Warning: Could not open %s\n%s is not enabled.\n") % (PM_PLUGIN_CONF, PM_PLUGIN_NAME) + e.errmsg))
+            sys.stderr.write(sstr(_("Warning: Could not open %s\n%s is not enabled.\n") % (PM_PLUGIN_CONF, PM_PLUGIN_NAME) + e.errmsg))
         RegisterKsCli.__runRhnCheck(self.options.verbose)
 
     @staticmethod

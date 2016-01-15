@@ -20,7 +20,7 @@ from up2date_client import rhnreg_constants
 from up2date_client import hardware
 from up2date_client.rhnPackageInfo import convertPackagesFromHashToList
 from up2date_client.pkgplatform import getPlatform
-from rhn.i18n import ustr
+from rhn.i18n import ustr, sstr
 from rhn.tb import raise_with_tb
 
 try: # python2
@@ -150,7 +150,7 @@ def _write_secure_file(secure_file, file_contents):
     fd = os.open(secure_file, os.O_WRONLY | os.O_CREAT, int('0o600', 8))
     fd_file = os.fdopen(fd, 'w')
     try:
-        fd_file.write(file_contents)
+        fd_file.write(sstr(file_contents))
     finally:
         fd_file.close()
 

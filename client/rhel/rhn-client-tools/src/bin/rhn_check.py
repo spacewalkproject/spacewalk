@@ -58,7 +58,7 @@ from up2date_client import rhncli, rhnserver
 
 from rhn import SSL
 from rhn import rhnLockfile
-from rhn.i18n import bstr
+from rhn.i18n import bstr, sstr
 from rhn.tb import raise_with_tb
 
 try: # python2
@@ -403,7 +403,7 @@ class CheckCli(rhncli.RhnCli):
         try:
             lock = rhnLockfile.Lockfile('/var/run/rhn_check.pid')
         except rhnLockfile.LockfileLockedException:
-            sys.stderr.write(rhncli.utf8_encode(_("Attempting to run more than one instance of rhn_check. Exiting.\n")))
+            sys.stderr.write(sstr(_("Attempting to run more than one instance of rhn_check. Exiting.\n")))
             sys.exit(0)
 
 if __name__ == "__main__":
