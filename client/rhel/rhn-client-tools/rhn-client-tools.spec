@@ -20,6 +20,7 @@ Requires: sh-utils
 %if 0%{?fedora} >= 23
 BuildRequires: python3-devel
 Requires: libgudev
+Requires: newt-python3
 Requires: python3-gobject-base
 Requires: python3-dmidecode
 Requires: python3-hwdata
@@ -29,6 +30,7 @@ BuildRequires: python-devel
 Requires: python-dmidecode
 Requires: rhnlib >= 2.5.78
 %if 0%{?fedora}
+Requires: newt-python
 Requires: pygobject3-base libgudev1
 Requires: python-hwdata
 %else
@@ -38,21 +40,21 @@ Requires: python-hwdata
 %else
 Requires: hal >= 0.5.8.1-52
 %endif # 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
-%endif # 0%{?fedora}
-%endif # 0%{?fedora} >= 23
-%if 0%{?suse_version}
-Requires: dbus-1-python
-%else
-Requires: dbus-python
-%endif
 %if 0%{?suse_version}
 Requires: python-newt
 %endif
 %if 0%{?rhel} == 5
 Requires: newt
 %endif
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?rhel} > 5
 Requires: newt-python
+%endif
+%endif # 0%{?fedora}
+%endif # 0%{?fedora} >= 23
+%if 0%{?suse_version}
+Requires: dbus-1-python
+%else
+Requires: dbus-python
 %endif
 %if 0%{?suse_version}
 Requires: zypper
