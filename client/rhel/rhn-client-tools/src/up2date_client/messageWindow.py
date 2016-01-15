@@ -1,5 +1,4 @@
 
-import string
 
 import gtk
 import gettext
@@ -15,7 +14,7 @@ def wrap_line(line, max_line_size = 100):
         return line
     ret = []
     l = ""
-    for w in string.split(line):
+    for w in line.split():
         if not len(l):
             l = w
             continue
@@ -26,11 +25,11 @@ def wrap_line(line, max_line_size = 100):
             l = "%s %s" % (l, w)
     if len(l):
         ret.append(l)
-    return string.join(ret, '\n')
+    return '\n'.join(ret)
 
 # wrap an entire piece of text
 def wrap_text(txt):
-    return string.join(map(wrap_line, string.split(txt, '\n')), '\n')
+    return '\n'.join(map(wrap_line, txt.split('\n')))
 
 def addFrame(dialog):
     contents = dialog.get_children()[0]

@@ -4,7 +4,6 @@
 
 import glob
 import os
-import string
 
 from up2date_client.capabilities import parseCap
 

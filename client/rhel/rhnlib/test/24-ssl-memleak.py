@@ -7,7 +7,6 @@ Tests a memory leak in the applet
 """
 
 import sys
-import string
 from rhn import rpclib
 
 def main():
@@ -61,7 +60,7 @@ def mem_usage():
         line = f.readline()
         if not line:
             break
-        arr = map(string.strip, string.split(line, ':', 1))
+        arr = [s.strip() for s in line.split(':', 1)]
         if len(arr) == 1:
             continue
         dct[arr[0]] = arr[1]
@@ -72,7 +71,7 @@ def mem_usage_int():
     ret = [memusage[0]]
     for val in memusage[1:4]:
         # Split it
-        arr = string.split(val)
+        arr = val.split()
         try:
             v = int(arr[0])
         except ValueError:
@@ -81,10 +80,10 @@ def mem_usage_int():
     return tuple(ret)
 
 def _line_value(line):
-    arr = string.split(line, ':', 1)
+    arr = line.split(':', 1)
     if len(arr) == 1:
         return None
-    return string.strip(arr[1])
+    return arr[1].strip()
 
 if __name__ == '__main__':
     sys.exit(main() or 0)

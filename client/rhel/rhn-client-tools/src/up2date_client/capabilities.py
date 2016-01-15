@@ -1,7 +1,6 @@
 
 from up2date_client import config
 from up2date_client import up2dateErrors
-import string
 
 try: # python2
     import UserDict
@@ -28,19 +27,19 @@ neededCaps = {"caneatCheese": {'version':"21"},
 
 def parseCap(capstring):
     value = None
-    caps = string.split(capstring, ',')
+    caps = capstring.split(',')
 
     capslist = []
     for cap in caps:
         try:
-            (key_version, value) = map(string.strip, string.split(cap, "=", 1))
+            (key_version, value) = [i.strip() for i in cap.split("=", 1)]
         except ValueError:
             # Bad directive: not in 'a = b' format
             continue
 
         # parse out the version
         # lets give it a shot sans regex's first...
-        (key,version) = string.split(key_version, "(", 1)
+        (key,version) = key_version.split("(", 1)
 
         # just to be paranoid
         if version[-1] != ")":
@@ -74,16 +73,16 @@ class Capabilities(UserDict.UserDict):
                     self.data[cap] = data
 
     def parseCapVersion(self, versionString):
-        index = string.find(versionString, '-')
+        index = versionString.find('-')
         # version of "-" is bogus, ditto for "1-"
         if index > 0:
-            rng = string.split(versionString, "-")
+            rng = versionString.split("-")
             start = rng[0]
             end = rng[1]
             versions = range(int(start), int(end)+1)
             return versions
 
-        vers = string.split(versionString, ':')
+        vers = versionString.split(':')
         if len(vers) > 1:
             versions = map(lambda a:int(a), vers)
             return versions

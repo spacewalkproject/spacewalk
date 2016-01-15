@@ -16,7 +16,6 @@
 
 from os import geteuid
 import sys
-import string
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
@@ -77,7 +76,7 @@ def ConfirmQuitWindow(screen):
                              [bstr(CONTINUE_REGISTERING), bstr(REGISTER_LATER2)],
                              width = 70)
 
-    if button == string.lower(bstr(REGISTER_LATER2)):
+    if button == bstr(REGISTER_LATER2).lower():
         screen.finish()
         return 1
     else:
