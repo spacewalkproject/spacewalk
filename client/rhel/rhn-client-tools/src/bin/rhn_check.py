@@ -59,6 +59,7 @@ from up2date_client import rhncli, rhnserver
 from rhn import SSL
 from rhn import rhnLockfile
 from rhn.i18n import bstr
+from rhn.tb import raise_with_tb
 
 try: # python2
     import xmlrpclib
@@ -116,7 +117,7 @@ class CheckCli(rhncli.RhnCli):
         except xmlrpclib.Fault:
             f = sys.exc_info()[1]
             if f.faultCode == -31:
-                raise up2dateErrors.InsuffMgmntEntsError(f.faultString), None, sys.exc_info()[2]
+                raise_with_tb(up2dateErrors.InsuffMgmntEntsError(f.faultString))
             else:
                 print("Could not retrieve action item from server %s" % self.server)
                 print("Error code: %d%s" % (f.faultCode, f.faultString))
@@ -150,7 +151,7 @@ class CheckCli(rhncli.RhnCli):
         except xmlrpclib.Fault:
             f = sys.exc_info()[1]
             if f.faultCode == -31:
-                raise up2dateErrors.InsuffMgmntEntsError(f.faultString), None, sys.exc_info()[2]
+                raise_with_tb(up2dateErrors.InsuffMgmntEntsError(f.faultString))
             else:
                 print("Could not retrieve action item from server %s" % self.server)
                 print("Error code: %d%s" % (f.faultCode, f.faultString))

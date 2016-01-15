@@ -11,6 +11,8 @@ import os
 import string
 import sys
 
+from rhn.tb import raise_with_tb
+
 try: # python2
     from types import ClassType
 except ImportError: # python3
@@ -80,7 +82,7 @@ def getMethod(methodName, abspath, baseClass):
     try:
         actions = __import__(modulename)
     except ImportError:
-        raise GetMethodException("Could not import module %s" % modulename), None, sys.exc_info()[2]
+        raise_with_tb(GetMethodException("Could not import module %s" % modulename))
 
     className = actions
     # Iterate through the list of components and try to load that specific

@@ -21,6 +21,7 @@ from up2date_client import hardware
 from rhnPackageInfo import convertPackagesFromHashToList
 from pkgplatform import getPlatform
 from rhn.i18n import ustr
+from rhn.tb import raise_with_tb
 
 try: # python2
     import urlparse
@@ -104,7 +105,7 @@ def getOemInfo():
         try:
             (key, value) = i.split(':')
         except ValueError:
-            raise up2dateErrors.OemInfoFileError(i), None, sys.exc_info()[2]
+            raise_with_tb(up2dateErrors.OemInfoFileError(i))
 
         info[key] = value.strip()
 
@@ -395,7 +396,7 @@ def getAvailableChannels(username, password):
     except xmlrpclib.Fault:
         f = sys.exc_info()[1]
         if f.faultCode == 99:
-            raise up2dateErrors.DelayError(f.faultString), None, sys.exc_info()[2]
+            raise_with_tb(up2dateErrors.DelayError(f.faultString))
         else:
             raise
 
