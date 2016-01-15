@@ -26,6 +26,11 @@ from up2date_client import rhnserver
 from rhn.i18n import ustr
 
 try:
+    long
+except NameError: # long is not defined in python3
+    long = int
+
+try:
     import ethtool
     ethtool_present = True
 except ImportError:

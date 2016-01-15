@@ -36,6 +36,7 @@ except ImportError: # python3
     UnicodeType = str
     DictType = dict
     DictionaryType = dict
+    long = int
 
 try:
     from virtualization import support
@@ -249,7 +250,7 @@ def get_fully_virt_info():
 
 def _is_host_uuid(uuid):
     uuid = eval('0x%s' % uuid)
-    return long(uuid) == 0L
+    return long(uuid) == long(0)
 
 def welcomeText():
     s = rhnserver.RhnServer()

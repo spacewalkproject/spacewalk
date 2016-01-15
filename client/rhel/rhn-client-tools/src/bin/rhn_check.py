@@ -65,6 +65,7 @@ try: # python2
     import xmlrpclib
 except ImportError: # python3
     import xmlrpc.client as xmlrpclib
+    long = int
 
 del sys.modules['sgmlop']
 
@@ -335,7 +336,7 @@ class CheckCli(rhncli.RhnCli):
                 pass
 
         # We need to fit into xmlrpc's integer limits
-        if status_report['uptime'][1] > 2L**31-1:
+        if status_report['uptime'][1] > long(2)**31-1:
             status_report['uptime'][1] = -1
 
         return status_report
