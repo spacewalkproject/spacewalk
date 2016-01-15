@@ -37,7 +37,7 @@ from up2date_client.config import convert_url_from_puny
 from up2date_client import up2dateAuth
 from rhn import rpclib
 from rhn.connections import idn_puny_to_unicode
-from rhn.i18n import bstr
+from rhn.i18n import bstr, sstr
 from up2date_client.pmPlugin import PM_PLUGIN_NAME, PM_PLUGIN_CONF
 from up2date_client.rhnreg_constants import *
 
@@ -107,9 +107,7 @@ def tui_call_wrapper(screen, func, *params):
 
     return results
 
-class WindowSkipException:
-
-    def __init__(self):
+class WindowSkipException(BaseException):
         pass
 
 class AlreadyRegisteredWindow:
@@ -1242,8 +1240,8 @@ class Tui:
 
     def drawFrame(self):
         self.welcomeText = COPYRIGHT_TEXT
-        self.screen.drawRootText(0, 0, bstr(self.welcomeText))
-        self.screen.pushHelpLine(bstr(_("  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen")))
+        self.screen.drawRootText(0, 0, sstr(self.welcomeText))
+        self.screen.pushHelpLine(sstr(_("  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen")))
 
 
     def initResults(self):
