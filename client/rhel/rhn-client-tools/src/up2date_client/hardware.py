@@ -816,7 +816,7 @@ def Hardware():
             except:
                 # bz253596 : Logging Dbus Error messages instead of printing on stdout
                 log = up2dateLog.initLog()
-                msg = "Error reading hardware information: %s\n" % (sys.exc_type)
+                msg = "Error reading hardware information: %s\n" % (sys.exc_info()[0])
                 log.log_me(msg)
 
     # all others return individual arrays
@@ -826,14 +826,14 @@ def Hardware():
         ret = read_cpuinfo()
         if ret: allhw.append(ret)
     except:
-        print(_("Error reading cpu information:"), sys.exc_type)
+        print(_("Error reading cpu information:"), sys.exc_info()[0])
 
     # memory size info
     try:
         ret = read_memory()
         if ret: allhw.append(ret)
     except:
-        print(_("Error reading system memory information:"), sys.exc_type)
+        print(_("Error reading system memory information:"), sys.exc_info()[0])
 
     cfg = config.initUp2dateConfig()
     if not cfg["skipNetwork"]:
@@ -843,7 +843,7 @@ def Hardware():
             if ret:
                 allhw.append(ret)
         except:
-            print(_("Error reading networking information:"), sys.exc_type)
+            print(_("Error reading networking information:"), sys.exc_info()[0])
     # dont like catchall exceptions but theres not
     # really anything useful we could do at this point
     # and its been trouble prone enough
@@ -856,7 +856,7 @@ def Hardware():
     except:
         # bz253596 : Logging Dbus Error messages instead of printing on stdout
         log = up2dateLog.initLog()
-        msg = "Error reading DMI information: %s\n" % (sys.exc_type)
+        msg = "Error reading DMI information: %s\n" % (sys.exc_info()[0])
         log.log_me(msg)
 
     try:
@@ -864,7 +864,7 @@ def Hardware():
         if ret:
             allhw.append(ret)
     except:
-        print(_("Error reading install method information:"), sys.exc_type)
+        print(_("Error reading install method information:"), sys.exc_info()[0])
 
     if not cfg["skipNetwork"]:
         try:
@@ -872,7 +872,7 @@ def Hardware():
             if ret:
                 allhw.append(ret)
         except:
-            print(_("Error reading network interface information:"), sys.exc_type)
+            print(_("Error reading network interface information:"), sys.exc_info()[0])
 
     # all Done.
     return allhw
