@@ -166,6 +166,9 @@ registering a system with a Red Hat Satellite or Spacewalk server.
 
 %build
 make -f Makefile.rhn-client-tools
+%if 0%{?fedora} >= 23
+    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' src/actions/*.py src/bin/*.py test/*.py
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
