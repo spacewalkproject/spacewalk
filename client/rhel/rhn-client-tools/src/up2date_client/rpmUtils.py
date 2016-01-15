@@ -16,6 +16,7 @@
 
 import os
 import rpm
+from rhn.i18n import sstr
 from up2date_client import transaction
 
 import gettext
@@ -130,10 +131,10 @@ def getInstalledPackageList(msgCallback = None, progressCallback = None,
         if h == None:
             break
         package = {
-            'name': h['name'],
+            'name': sstr(h['name']),
             'epoch': h['epoch'],
-            'version': h['version'],
-            'release': h['release'],
+            'version': sstr(h['version']),
+            'release': sstr(h['release']),
             'installtime': h['installtime']
         }
         if package['epoch'] == None:
@@ -144,12 +145,13 @@ def getInstalledPackageList(msgCallback = None, progressCallback = None,
             package['arch'] = h['arch']
             # the arch on gpg-pubkeys is "None"...
             if package['arch']:
+                package['arch'] = sstr(package['arch'])
                 pkg_list.append(package)
         elif getInfo:
             if h['arch']:
-                package['arch'] = h['arch']
+                package['arch'] = sstr(h['arch'])
             if h['cookie']:
-                package['cookie'] = h['cookie']
+                package['cookie'] = sstr(h['cookie'])
             pkg_list.append(package)
         else:
             pkg_list.append(package)

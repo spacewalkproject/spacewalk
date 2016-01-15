@@ -37,7 +37,7 @@ from up2date_client.config import convert_url_from_puny
 from up2date_client import up2dateAuth
 from rhn import rpclib
 from rhn.connections import idn_puny_to_unicode
-from rhn.i18n import bstr, sstr
+from rhn.i18n import sstr
 from up2date_client.pmPlugin import PM_PLUGIN_NAME, PM_PLUGIN_CONF
 from up2date_client.rhnreg_constants import *
 
@@ -45,38 +45,38 @@ log = up2dateLog.initLog()
 cfg = config.initUp2dateConfig()
 
 def ErrorWindow(screen, errmsg):
-    snack.ButtonChoiceWindow(screen, bstr(ERROR), bstr(u"%s" % errmsg),
-                             [bstr(BACK)])
+    snack.ButtonChoiceWindow(screen, sstr(ERROR), sstr(u"%s" % errmsg),
+                             [sstr(BACK)])
 
 def FatalErrorWindow(screen, errmsg):
-    snack.ButtonChoiceWindow(screen, bstr(FATAL_ERROR), bstr(u"%s" % errmsg),
-                             [bstr(OK)])
+    snack.ButtonChoiceWindow(screen, sstr(FATAL_ERROR), sstr(u"%s" % errmsg),
+                             [sstr(OK)])
     screen.finish()
     sys.exit(1)
 
 def WarningWindow(screen, errmsg):
-    snack.ButtonChoiceWindow(screen, bstr(WARNING), bstr("%s" % errmsg),
-                             [bstr(OK)])
+    snack.ButtonChoiceWindow(screen, sstr(WARNING), sstr("%s" % errmsg),
+                             [sstr(OK)])
     screen.finish()
 
 
 def ConfirmQuitWindow(screen):
-    button = snack.ButtonChoiceWindow(screen, bstr(CONFIRM_QUIT),
-                             bstr(CONFIRM_QUIT_SURE) + "\n" + \
-                             bstr(WHY_REGISTER_SEC)  + "\n" + \
-                             bstr(WHY_REGISTER_SEC_TXT) + "\n\n" + \
-                             bstr(WHY_REGISTER_DLD) + "\n" + \
-                             bstr(WHY_REGISTER_DLD_TXT) + "\n\n" + \
-                             bstr(WHY_REGISTER_SUPP) + "\n" + \
-                             bstr(WHY_REGISTER_SUPP_TXT) + "\n\n" + \
-                             bstr(WHY_REGISTER_COMP) + "\n" + \
-                             bstr(WHY_REGISTER_COMP_TXT) + "\n\n" + \
-                             bstr(CONFIRM_QUIT_WILLNOT) + "\n" + \
-                             bstr(WHY_REGISTER_TIP),
-                             [bstr(CONTINUE_REGISTERING), bstr(REGISTER_LATER2)],
+    button = snack.ButtonChoiceWindow(screen, sstr(CONFIRM_QUIT),
+                             sstr(CONFIRM_QUIT_SURE) + "\n" + \
+                             sstr(WHY_REGISTER_SEC)  + "\n" + \
+                             sstr(WHY_REGISTER_SEC_TXT) + "\n\n" + \
+                             sstr(WHY_REGISTER_DLD) + "\n" + \
+                             sstr(WHY_REGISTER_DLD_TXT) + "\n\n" + \
+                             sstr(WHY_REGISTER_SUPP) + "\n" + \
+                             sstr(WHY_REGISTER_SUPP_TXT) + "\n\n" + \
+                             sstr(WHY_REGISTER_COMP) + "\n" + \
+                             sstr(WHY_REGISTER_COMP_TXT) + "\n\n" + \
+                             sstr(CONFIRM_QUIT_WILLNOT) + "\n" + \
+                             sstr(WHY_REGISTER_TIP),
+                             [sstr(CONTINUE_REGISTERING), sstr(REGISTER_LATER2)],
                              width = 70)
 
-    if button == bstr(REGISTER_LATER2).lower():
+    if button == sstr(REGISTER_LATER2).lower():
         screen.finish()
         return 1
     else:
@@ -126,14 +126,14 @@ class AlreadyRegisteredWindow:
         oldUsername = systemIdXml[0][0]['username']
         oldsystemId = systemIdXml[0][0]['system_id']
 
-        toplevel = snack.GridForm(self.screen, bstr(SYSTEM_ALREADY_SETUP), 1, 2)
+        toplevel = snack.GridForm(self.screen, sstr(SYSTEM_ALREADY_SETUP), 1, 2)
         self.bb = snack.ButtonBar(self.screen,
-                                  [(bstr(YES_CONT), "next"),
-                                   (bstr(NO_CANCEL), "exit")])
+                                  [(sstr(YES_CONT), "next"),
+                                   (sstr(NO_CANCEL), "exit")])
         toplevel.add(self.bb, 0, 1, growx = 1)
 
         tb = snack.Textbox(size[0]-30, size[1]-20,
-                            bstr(SYSTEM_ALREADY_REGISTERED + "\n\n"
+                            sstr(SYSTEM_ALREADY_REGISTERED + "\n\n"
                             + _("Spacewalk Location:") + " " + convert_url_from_puny(self.tui.serverURL) + "\n"
                             + _("Login:") + " " + oldUsername + "\n"
                             + _("System ID:") + " " + oldsystemId + "\n\n"
@@ -176,7 +176,7 @@ class SatelliteUrlWindow:
 
         size = snack._snack.size()
 
-        toplevel = snack.GridForm(screen, bstr(SATELLITE_URL_WINDOW),
+        toplevel = snack.GridForm(screen, sstr(SATELLITE_URL_WINDOW),
                 1, 4)
 
         prompt_text = SATELLITE_URL_TEXT
@@ -184,18 +184,18 @@ class SatelliteUrlWindow:
         ssl_label = SATELLITE_URL_PROMPT2
 
         label = snack.Textbox(size[0]-10, 3,
-                                  bstr(prompt_text),
+                                  sstr(prompt_text),
                                   scroll = 0, wrap = 1)
 
         toplevel.add(label, 0, 0, anchorLeft = 1)
 
         # spacer
-        label = snack.Label(bstr(""))
+        label = snack.Label(sstr(""))
         toplevel.add(label, 0, 1)
 
         grid = snack.Grid(2, 3)
 
-        label = snack.Label(bstr(url_label))
+        label = snack.Label(sstr(url_label))
         grid.setField(label, 0, 0, padding = (0, 0, 1, 0),
                           anchorRight = 1)
 
@@ -203,7 +203,7 @@ class SatelliteUrlWindow:
         self.urlEntry.set(self.server)
         grid.setField(self.urlEntry, 1, 0, anchorLeft = 1)
 
-        label = snack.Label(bstr(ssl_label))
+        label = snack.Label(sstr(ssl_label))
         grid.setField(label, 0, 1, padding = (0, 0, 1, 0),
                           anchorRight = 1)
 
@@ -215,9 +215,9 @@ class SatelliteUrlWindow:
 
         # BUTTON BAR
         self.bb = snack.ButtonBar(screen,
-                                   [(bstr(NEXT), "next"),
-                                   (bstr(BACK), "back"),
-                                   (bstr(CANCEL), "cancel")])
+                                   [(sstr(NEXT), "next"),
+                                   (sstr(BACK), "back"),
+                                   (sstr(CANCEL), "cancel")])
 
         toplevel.add(self.bb, 0, 3, padding = (0, 1, 0, 0),
                  growx = 1)
@@ -227,17 +227,17 @@ class SatelliteUrlWindow:
 
     def validateFields(self):
         if self.urlEntry.value() == "":
-            snack.ButtonChoiceWindow(self.screen, bstr(ERROR),
-                                     bstr(SATELLITE_REQUIRED),
-                                     buttons = [bstr(OK)])
+            snack.ButtonChoiceWindow(self.screen, sstr(ERROR),
+                                     sstr(SATELLITE_REQUIRED),
+                                     buttons = [sstr(OK)])
             self.g.setCurrent(self.urlEntry)
             return 0
 
         if (self.urlEntry.value()[:5] == 'https' and
                 self.sslEntry.value() == ""):
-            snack.ButtonChoiceWindow(self.screen, bstr(ERROR),
-                                     bstr(SSL_REQUIRED),
-                                     buttons = [bstr(OK)])
+            snack.ButtonChoiceWindow(self.screen, sstr(ERROR),
+                                     sstr(SSL_REQUIRED),
+                                     buttons = [sstr(OK)])
             self.g.setCurrent(self.sslEntry)
             return 0
         return 1
@@ -288,14 +288,14 @@ class AlreadyRegisteredSubscriptionManagerWindow:
         self.tui = tui
         size = snack._snack.size()
 
-        toplevel = snack.GridForm(self.screen, bstr(SYSTEM_ALREADY_SETUP), 1, 2)
+        toplevel = snack.GridForm(self.screen, sstr(SYSTEM_ALREADY_SETUP), 1, 2)
         self.bb = snack.ButtonBar(self.screen,
-                                  [(bstr(YES_CONT), "next"),
-                                   (bstr(NO_CANCEL), "exit")])
+                                  [(sstr(YES_CONT), "next"),
+                                   (sstr(NO_CANCEL), "exit")])
         toplevel.add(self.bb, 0, 1, growx = 1)
 
         tb = snack.Textbox(size[0]-30, size[1]-20,
-                            bstr(WARNING + "\n\n"
+                            sstr(WARNING + "\n\n"
                             + RHSM_SYSTEM_ALREADY_REGISTERED + "\n\n"
                             + SYSTEM_ALREADY_REGISTERED_CONT + "\n"),
                             1, 1)
@@ -329,7 +329,7 @@ class ConnectWindow:
 
         self.proxy = cfg['httpProxy']
 
-        toplevel = snack.GridForm(self.screen, bstr(CONNECT_WINDOW), 1, 1)
+        toplevel = snack.GridForm(self.screen, sstr(CONNECT_WINDOW), 1, 1)
 
         text = CONNECT_WINDOW_TEXT % self.server + "\n\n"
 
@@ -337,7 +337,7 @@ class ConnectWindow:
             text += CONNECT_WINDOW_TEXT2 % self.proxy
 
         tb = snack.Textbox(size[0]-30, size[1]-20,
-                           bstr(text),
+                           sstr(text),
                            1, 1)
 
         toplevel.add(tb, 0, 0, padding = (0, 0, 0, 1))
@@ -376,18 +376,18 @@ class StartWindow:
         self.screen = screen
         self.tui = tui
         size = snack._snack.size()
-        toplevel = snack.GridForm(self.screen, bstr(START_REGISTER_WINDOW),
+        toplevel = snack.GridForm(self.screen, sstr(START_REGISTER_WINDOW),
                                   1, 2)
 
-        start_register_text = bstr(START_REGISTER_TEXT)
+        start_register_text = sstr(START_REGISTER_TEXT)
 
         tb = snack.Textbox(size[0]-10, size[1]-14, start_register_text, 1, 1)
         toplevel.add(tb, 0, 0, padding = (0, 0, 0, 1))
 
         self.bb = snack.ButtonBar(self.screen,
-                                  [(bstr(WHY_REGISTER), "why_register"),
-                                   (bstr(NEXT), "next"),
-                                   (bstr(CANCEL), "cancel")])
+                                  [(sstr(WHY_REGISTER), "why_register"),
+                                   (sstr(NEXT), "next"),
+                                   (sstr(CANCEL), "cancel")])
         toplevel.add(self.bb, 0, 1, growx = 1)
 
         self.g = toplevel
@@ -417,7 +417,7 @@ class WhyRegisterWindow:
         self.screen = screen
         self.tui = tui
         size = snack._snack.size()
-        toplevel = snack.GridForm(self.screen, bstr(WHY_REGISTER_WINDOW),
+        toplevel = snack.GridForm(self.screen, sstr(WHY_REGISTER_WINDOW),
                                   1, 2)
 
 
@@ -432,13 +432,13 @@ class WhyRegisterWindow:
                             WHY_REGISTER_COMP_TXT + "\n\n" + \
                             WHY_REGISTER_TIP
 
-        tb = snack.Textbox(size[0]-10, size[1]-14, bstr(why_register_text), 1, 1)
+        tb = snack.Textbox(size[0]-10, size[1]-14, sstr(why_register_text), 1, 1)
 
         toplevel.add(tb, 0, 0, padding = (0, 0, 0, 1))
 
 
         self.bb = snack.ButtonBar(self.screen,
-                                  [(bstr(BACK_REGISTER), "back")])
+                                  [(sstr(BACK_REGISTER), "back")])
         toplevel.add(self.bb, 0, 1, growx = 1)
 
         self.g = toplevel
@@ -463,7 +463,7 @@ class InfoWindow:
 
         size = snack._snack.size()
 
-        toplevel = snack.GridForm(screen, bstr(REGISTER_WINDOW), 1, 4)
+        toplevel = snack.GridForm(screen, sstr(REGISTER_WINDOW), 1, 4)
 
         decoded_server = convert_url_from_puny(self.server)
         url = self.server
@@ -474,14 +474,14 @@ class InfoWindow:
         login_tip = LOGIN_TIP
 
         label = snack.Textbox(size[0]-10, 3,
-                                  bstr(login_prompt),
+                                  sstr(login_prompt),
                                   scroll = 0, wrap = 1)
 
         toplevel.add(label, 0, 0, anchorLeft = 1)
 
         grid = snack.Grid(2, 3)
 
-        label = snack.Label(bstr(login_label))
+        label = snack.Label(sstr(login_label))
         grid.setField(label, 0, 0, padding = (0, 0, 1, 0),
                           anchorRight = 1)
 
@@ -489,7 +489,7 @@ class InfoWindow:
         self.userNameEntry.set(tui.userName)
         grid.setField(self.userNameEntry, 1, 0, anchorLeft = 1)
 
-        label = snack.Label(bstr(PASSWORD))
+        label = snack.Label(sstr(PASSWORD))
         grid.setField(label, 0, 1, padding = (0, 0, 1, 0),
                           anchorRight = 1)
 
@@ -502,14 +502,14 @@ class InfoWindow:
 
         toplevel.add(grid, 0, 1)
 
-        label = snack.TextboxReflowed(size[0]-10, bstr(login_tip))
+        label = snack.TextboxReflowed(size[0]-10, sstr(login_tip))
         toplevel.add(label, 0, 2, anchorLeft=1)
 
         # BUTTON BAR
         self.bb = snack.ButtonBar(screen,
-                                   [(bstr(NEXT), "next"),
-                                   (bstr(BACK), "back"),
-                                   (bstr(CANCEL), "cancel")])
+                                   [(sstr(NEXT), "next"),
+                                   (sstr(BACK), "back"),
+                                   (sstr(CANCEL), "cancel")])
 
         toplevel.add(self.bb, 0, 3, padding = (0, 1, 0, 0),
                  growx = 1)
@@ -520,15 +520,15 @@ class InfoWindow:
 
     def validateFields(self):
         if self.userNameEntry.value() == "":
-            snack.ButtonChoiceWindow(self.screen, bstr(ERROR),
-                                     bstr(USER_REQUIRED),
-                                     buttons = [bstr(OK)])
+            snack.ButtonChoiceWindow(self.screen, sstr(ERROR),
+                                     sstr(USER_REQUIRED),
+                                     buttons = [sstr(OK)])
             self.g.setCurrent(self.userNameEntry)
             return 0
         if self.passwordEntry.value() == "":
-            snack.ButtonChoiceWindow(self.screen, bstr(ERROR),
-                                     bstr(PASSWORD_REQUIRED),
-                                     buttons = [bstr(OK)])
+            snack.ButtonChoiceWindow(self.screen, sstr(ERROR),
+                                     sstr(PASSWORD_REQUIRED),
+                                     buttons = [sstr(OK)])
             self.g.setCurrent(self.passwordEntry)
             return 0
 
@@ -537,7 +537,7 @@ class InfoWindow:
             self.tui.alreadyRegistered = rhnreg.reserveUser(self.userNameEntry.value(), self.passwordEntry.value())
         except up2dateErrors.ValidationError:
             e = sys.exc_info()[1]
-            snack.ButtonChoiceWindow(self.screen, bstr(_("Error")), bstr(_("The server indicated an error:\n")) + bstr(e.errmsg), buttons = [bstr(_("OK"))])
+            snack.ButtonChoiceWindow(self.screen, sstr(_("Error")), sstr(_("The server indicated an error:\n")) + sstr(e.errmsg), buttons = [sstr(_("OK"))])
             self.g.setCurrent(self.userNameEntry)
             return 0
         except up2dateErrors.CommunicationError:
@@ -591,12 +591,12 @@ class OSReleaseWindow:
 
         self.selectChannel = False
 
-        toplevel = snack.GridForm(self.screen, bstr(SELECT_OSRELEASE), 1, 7)
+        toplevel = snack.GridForm(self.screen, sstr(SELECT_OSRELEASE), 1, 7)
         self.g = toplevel
 
-        self.ostext = snack.TextboxReflowed(self.size[0]-10, bstr(OS_VERSION))
+        self.ostext = snack.TextboxReflowed(self.size[0]-10, sstr(OS_VERSION))
         toplevel.add(self.ostext, 0, 0, anchorLeft = 1)
-        optiontext1 = bstr(LIMITED_UPDATES)
+        optiontext1 = sstr(LIMITED_UPDATES)
 
         if self.tui.limited_updates_button:
             self.limited_updates_button = snack.SingleRadioButton(optiontext1,
@@ -608,7 +608,7 @@ class OSReleaseWindow:
         toplevel.add(self.limited_updates_button, 0, 1, padding = (0, 1, 0, 1),
                      anchorLeft = 1)
 
-        self.sublabel = snack.Label(bstr(MINOR_RELEASE))
+        self.sublabel = snack.Label(sstr(MINOR_RELEASE))
         toplevel.add(self.sublabel, 0, 2, anchorLeft = 1)
 
         self.channelList = snack.Listbox(self.size[1]-22, 1,
@@ -620,10 +620,10 @@ class OSReleaseWindow:
                 value = value + "*"
             self.channelList.append(" " + value, key)
 
-        self.tip = snack.TextboxReflowed(self.size[0]-10, bstr(CHANNEL_PAGE_TIP))
+        self.tip = snack.TextboxReflowed(self.size[0]-10, sstr(CHANNEL_PAGE_TIP))
         toplevel.add(self.tip, 0, 4, anchorLeft = 1)
 
-        optiontext2 = bstr(ALL_UPDATES)
+        optiontext2 = sstr(ALL_UPDATES)
 
         if self.tui.all_updates_button:
             self.all_updates_button = snack.SingleRadioButton(optiontext2,
@@ -636,14 +636,14 @@ class OSReleaseWindow:
                      anchorLeft = 1)
 
         #self.warning = snack.TextboxReflowed(self.size[0]-10,
-        #                     bstr(CHANNEL_PAGE_WARNING))
+        #                     sstr(CHANNEL_PAGE_WARNING))
         #toplevel.add(self.warning, 0, 9, anchorLeft = 1)
 
 
         self.bb = snack.ButtonBar(screen,
-                          [(bstr(NEXT), "next"),
-                           (bstr(BACK), "back"),
-                           (bstr(CANCEL), "cancel")])
+                          [(sstr(NEXT), "next"),
+                           (sstr(BACK), "back"),
+                           (sstr(CANCEL), "cancel")])
         toplevel.add(self.bb, 0, 6, growx = 1)
 
         self.screen.refresh()
@@ -676,16 +676,16 @@ class OSReleaseWindow:
             later_release = self.channelList.current() != \
                                  self.available_channels['default_channel']
 
-        title = bstr(CONFIRM_OS_RELEASE_SELECTION)
+        title = sstr(CONFIRM_OS_RELEASE_SELECTION)
         if later_release:
             msgbox = snack.ButtonChoiceWindow(self.screen, title,
-                           bstr(CONFIRM_OS_WARNING) % self.channelList.current(),
-                           buttons =[bstr(OK), bstr(CANCEL)])
+                           sstr(CONFIRM_OS_WARNING) % self.channelList.current(),
+                           buttons =[sstr(OK), sstr(CANCEL)])
             return msgbox
 
         if self.all_updates_button.selected() or later_release:
             msgbox = snack.ButtonChoiceWindow(self.screen, title,
-                                  bstr(CONFIRM_OS_ALL), buttons =[bstr(OK), bstr(CANCEL)])
+                                  sstr(CONFIRM_OS_ALL), buttons =[sstr(OK), sstr(CANCEL)])
             return msgbox
         return msgbox
 
@@ -726,15 +726,15 @@ class HardwareWindow:
         # read all hardware in
         tui.hardware = hardware.Hardware()
 
-        toplevel = snack.GridForm(screen, bstr(HARDWARE_WINDOW), 1, 7)
+        toplevel = snack.GridForm(screen, sstr(HARDWARE_WINDOW), 1, 7)
 
-        text = snack.TextboxReflowed(70, bstr(HARDWARE_WINDOW_DESC1))
+        text = snack.TextboxReflowed(70, sstr(HARDWARE_WINDOW_DESC1))
 
         toplevel.add(text, 0, 0, anchorLeft = 1)
 
         grid = snack.Grid(2, 2)
 
-        label = snack.Label(bstr(_("Profile name:")))
+        label = snack.Label(sstr(_("Profile name:")))
         grid.setField(label, 0, 0, padding = (0, 0, 1, 0), anchorRight = 1)
 
         self.profileEntry = snack.Entry(40)
@@ -743,24 +743,24 @@ class HardwareWindow:
         toplevel.add(grid, 0, 1, anchorLeft = 1)
 
         if tui.includeHardware:
-            self.hardwareButton = snack.Checkbox(bstr(HARDWARE_WINDOW_CHECKBOX), isOn = 1)
+            self.hardwareButton = snack.Checkbox(sstr(HARDWARE_WINDOW_CHECKBOX), isOn = 1)
         else:
-            self.hardwareButton = snack.Checkbox(bstr(HARDWARE_WINDOW_CHECKBOX))
+            self.hardwareButton = snack.Checkbox(sstr(HARDWARE_WINDOW_CHECKBOX))
 
         toplevel.add(self.hardwareButton, 0, 2, padding = (0, 1, 0, 0),
                      anchorLeft = 1)
 
-        label = snack.Label(bstr(DESELECT))
+        label = snack.Label(sstr(DESELECT))
         toplevel.add(label, 0, 3, anchorLeft = 1, padding = (0, 0, 0, 1))
 
         grid = snack.Grid(4, 3)
         hardware_text = ''
 
-        hardware_text += _("Version: ") + up2dateUtils.getVersion() + "  "
-        self.versionLabel = snack.Label(bstr(_("Version: ")))
+        hardware_text += _("Version: ") + sstr(up2dateUtils.getVersion()) + "  "
+        self.versionLabel = snack.Label(sstr(_("Version: ")))
         grid.setField(self.versionLabel, 0, 0, padding = (0, 0, 1, 0), anchorLeft = 1)
 
-        self.versionLabel2 = snack.Label(up2dateUtils.getVersion())
+        self.versionLabel2 = snack.Label(sstr(up2dateUtils.getVersion()))
         grid.setField(self.versionLabel2, 1, 0, anchorLeft = 1)
 
         hardware_text += _("CPU model: ")
@@ -779,7 +779,7 @@ class HardwareWindow:
                 if tui.profileName != "":
                     self.profileEntry.set(tui.profileName)
                 else:
-                    self.profileEntry.set(bstr(unicode_hostname))
+                    self.profileEntry.set(sstr(unicode_hostname))
 
         hardware_text += _("CPU speed: ")
 
@@ -802,19 +802,19 @@ class HardwareWindow:
             if hw['class'] == 'MEMORY':
                 hardware_text += _("%s megabytes") % hw['ram']
 
-        tb = snack.TextboxReflowed(80, bstr(hardware_text))
+        tb = snack.TextboxReflowed(80, sstr(hardware_text))
         toplevel.add(tb, 0, 4)
 
-        self.additionalHWLabel = snack.TextboxReflowed(size[0]-10, bstr(HARDWARE_WINDOW_DESC2))
+        self.additionalHWLabel = snack.TextboxReflowed(size[0]-10, sstr(HARDWARE_WINDOW_DESC2))
 
         toplevel.add(self.additionalHWLabel, 0, 5, padding = (0, 1, 0, 0),
                      anchorLeft = 1)
 
         # BUTTON BAR
         self.bb = snack.ButtonBar(screen,
-                                  [(bstr(NEXT), "next"),
-                                   (bstr(BACK), "back"),
-                                   (bstr(CANCEL), "cancel")])
+                                  [(sstr(NEXT), "next"),
+                                   (sstr(BACK), "back"),
+                                   (sstr(CANCEL), "cancel")])
         toplevel.add(self.bb, 0, 6, padding = (0, 1, 0, 0),
                      growx = 1)
 
@@ -842,19 +842,19 @@ class PackagesWindow:
         self.screen = screen
         self.tui = tui
         size = snack._snack.size()
-        toplevel = snack.GridForm(screen, bstr(PACKAGES_WINDOW), 1, 5)
+        toplevel = snack.GridForm(screen, sstr(PACKAGES_WINDOW), 1, 5)
         self.g = toplevel
 
 
-        text = snack.TextboxReflowed(size[0]-10, bstr(PACKAGES_WINDOW_DESC1))
+        text = snack.TextboxReflowed(size[0]-10, sstr(PACKAGES_WINDOW_DESC1))
 
         toplevel.add(text, 0, 0, anchorLeft = 1)
 
-        self.packagesButton = snack.Checkbox(bstr(PACKAGES_WINDOW_DESC2), 1)
+        self.packagesButton = snack.Checkbox(sstr(PACKAGES_WINDOW_DESC2), 1)
         toplevel.add(self.packagesButton, 0, 1, padding = (0, 1, 0, 1),
                      anchorLeft = 1)
 
-        label = snack.Label(bstr(PACKAGES_WINDOW_UNCHECK))
+        label = snack.Label(sstr(PACKAGES_WINDOW_UNCHECK))
         toplevel.add(label, 0, 2, anchorLeft = 1)
 
         #self.packageList = snack.Listbox(size[1]-18, 1, width = size[0]-10)
@@ -863,7 +863,7 @@ class PackagesWindow:
 
         # do we need to read the packages from disk?
         if tui.packageList == []:
-            self.pwin = snack.GridForm(screen, bstr(PACKAGES_WINDOW_PKGLIST), 1, 1)
+            self.pwin = snack.GridForm(screen, sstr(PACKAGES_WINDOW_PKGLIST), 1, 1)
 
             self.scale = snack.Scale(40, 100)
             self.pwin.add(self.scale, 0, 0)
@@ -876,17 +876,17 @@ class PackagesWindow:
             self.screen.popWindow()
 
         for package in tui.packageList:
-            self.packageList.append("%s-%s-%s" % (package['name'],
-                                                  package['version'],
-                                                  package['release']),
-                                                  item = package['name'],
+            self.packageList.append("%s-%s-%s" % (sstr(package['name']),
+                                                  sstr(package['version']),
+                                                  sstr(package['release'])),
+                                                  item = sstr(package['name']),
                                                   selected = 1)
 
         # BUTTON BAR
         self.bb = snack.ButtonBar(screen,
-                                  [(bstr(NEXT), "next"),
-                                   (bstr(BACK), "back"),
-                                   (bstr(CANCEL), "cancel")])
+                                  [(sstr(NEXT), "next"),
+                                   (sstr(BACK), "back"),
+                                   (sstr(CANCEL), "cancel")])
         toplevel.add(self.bb, 0, 4, padding = (0, 1, 0, 0),
                      growx = 1)
 
@@ -923,16 +923,16 @@ class SendWindow:
         self.tui = tui
         size = snack._snack.size()
 
-        toplevel = snack.GridForm(screen, bstr(SEND_WINDOW), 1, 2)
+        toplevel = snack.GridForm(screen, sstr(SEND_WINDOW), 1, 2)
 
-        text = snack.TextboxReflowed(size[0]-15, bstr(SEND_WINDOW_DESC))
+        text = snack.TextboxReflowed(size[0]-15, sstr(SEND_WINDOW_DESC))
         toplevel.add(text, 0, 0)
 
         # BUTTON BAR
         self.bb = snack.ButtonBar(screen,
-                                  [(bstr(NEXT), "next"),
-                                   (bstr(BACK), "back"),
-                                   (bstr(CANCEL), "cancel")])
+                                  [(sstr(NEXT), "next"),
+                                   (sstr(BACK), "back"),
+                                   (sstr(CANCEL), "cancel")])
         toplevel.add(self.bb, 0, 1, padding = (0, 1, 0, 0),
                      growx = 1)
 
@@ -959,7 +959,7 @@ class SendingWindow:
         self.tui = tui
         size = snack._snack.size()
 
-        self.pwin = snack.GridForm(screen, bstr(SENDING_WINDOW), 1, 1)
+        self.pwin = snack.GridForm(screen, sstr(SENDING_WINDOW), 1, 1)
 
         self.scale = snack.Scale(40, 100)
         self.pwin.add(self.scale, 0, 0)
@@ -981,7 +981,7 @@ class SendingWindow:
                                              other = self.tui.other)
             reg_info = reg_info.rawDict
 
-            systemId = bstr(reg_info['system_id'])
+            systemId = sstr(reg_info['system_id'])
 
         except up2dateErrors.CommunicationError:
             e = sys.exc_info()[1]
@@ -1088,15 +1088,15 @@ class FinishWindow:
         self.tui = tui
         size = snack._snack.size()
 
-        toplevel = snack.GridForm(screen, bstr(FINISH_WINDOW),
+        toplevel = snack.GridForm(screen, sstr(FINISH_WINDOW),
                                   1, 2)
 
-        text = snack.TextboxReflowed(size[0]-11, bstr(FINISH_WINDOW_TEXT_TUI))
+        text = snack.TextboxReflowed(size[0]-11, sstr(FINISH_WINDOW_TEXT_TUI))
         toplevel.add(text, 0, 0)
 
         # BUTTON BAR
         self.bb = snack.ButtonBar(screen,
-                                  [(bstr(_("Finish")), "next")])
+                                  [(sstr(_("Finish")), "next")])
         toplevel.add(self.bb, 0, 1, padding = (0, 1, 0, 0),
                      growx = 1)
 
@@ -1124,7 +1124,7 @@ class ReviewWindow:
         self.reg_info = tui.reg_info
         size = snack._snack.size()
 
-        toplevel = snack.GridForm(screen, bstr(REVIEW_WINDOW), 1, 2)
+        toplevel = snack.GridForm(screen, sstr(REVIEW_WINDOW), 1, 2)
         review_window_text = ''
 
         if not self.tui.pm_plugin_present:
@@ -1170,12 +1170,12 @@ class ReviewWindow:
                 act_key_list += act_key
             review_window_text += ACTIVATION_KEY % (act_key_list)
 
-        self.review_window = snack.Textbox(size[0]-10, size[1]-14, bstr(review_window_text), 1, 1)
+        self.review_window = snack.Textbox(size[0]-10, size[1]-14, sstr(review_window_text), 1, 1)
 
         toplevel.add(self.review_window, 0, 0, padding = (0, 1, 0, 0))
 
         # BUTTON BAR
-        self.bb = snack.ButtonBar(screen, [(bstr(OK), "next")])
+        self.bb = snack.ButtonBar(screen, [(sstr(OK), "next")])
         toplevel.add(self.bb, 0, 1, padding = (0, 1, 0, 0),
                      growx = 1)
 
