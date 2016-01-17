@@ -83,9 +83,12 @@ def do_repo_details(self, args):
             print self.SEPARATOR
         add_separator = True
 
-        print 'Repository Label:   %s' % details.get('label')
-        print 'Repository URL:     %s' % details.get('sourceUrl')
-        print 'Repository Type:    %s' % details.get('type')
+        print 'Repository Label:                  %s' % details.get('label')
+        print 'Repository URL:                    %s' % details.get('sourceUrl')
+        print 'Repository Type:                   %s' % details.get('type')
+        print 'Repository SSL Ca Certificate:     %s' % details.get('sslCaDesc')
+        print 'Repository SSL Client Certificate: %s' % details.get('sslCertDesc')
+        print 'Repository SSL Client Key:         %s' % details.get('sslKeyDesc')
 
 ####################
 
@@ -280,22 +283,32 @@ def do_repo_delete(self, args):
 
 def help_repo_create(self):
     print 'repo_create: Create a user repository'
-    print '''usage: repo_create [options]
+    print '''usage: repo_create <options>
 
 options:
-  -n NAME
-  -u URL'''
+  -n, --name   name of repository
+  -u, --url    url of repository
+
+  --ca         SSL CA certificate (not required)
+  --cert       SSL Client certificate (not required)
+  --key        SSL Client key (not required)'''
 
 
 def do_repo_create(self, args):
     options = [Option('-n', '--name', action='store'),
-               Option('-u', '--url', action='store')]
+               Option('-u', '--url', action='store'),
+               Option('--ca', default='', action='store'),
+               Option('--cert', default='', action='store'),
+               Option('--key', default='', action='store')]
 
     (args, options) = parse_arguments(args, options)
 
     if is_interactive(options):
         options.name = prompt_user('Name:', noblank=True)
         options.url = prompt_user('URL:', noblank=True)
+        options.ca = prompt_user('SSL CA cert:')
+        options.cert = prompt_user('SSL Client cert:')
+        options.key = prompt_user('SSL Client key:')
     else:
         if not options.name:
             logging.error('A name is required')
@@ -308,7 +321,10 @@ def do_repo_create(self, args):
     self.client.channel.software.createRepo(self.session,
                                             options.name,
                                             'yum',
-                                            options.url)
+                                            options.url,
+                                            options.ca,
+                                            options.cert,
+                                            options.key)
 
 ####################
 
@@ -367,3 +383,37 @@ def do_repo_updateurl(self, args):
     url = args[1]
 
     self.client.channel.software.updateRepoUrl(self.session, name, url)
+
+
+def help_repo_updatessl(self):
+    print 'repo_updatessl: Change the SSL certificates of a user repository'
+    print '''usage: repo_updatessl <options>
+options:
+  --ca         SSL CA certificate (not required)
+  --cert       SSL Client certificate (not required)
+  --key        SSL Client key (not required)'''
+
+
+def do_repo_updatessl(self, args):
+    options = [Option('-n', '--name', action='store'),
+               Option('--ca', default='', action='store'),
+               Option('--cert', default='', action='store'),
+               Option('--key', default='', action='store')]
+
+    (args, options) = parse_arguments(args, options)
+
+    if is_interactive(options):
+        options.name = prompt_user('Name:', noblank=True)
+        options.ca = prompt_user('SSL CA cert:')
+        options.cert = prompt_user('SSL Client cert:')
+        options.key = prompt_user('SSL Client key:')
+    else:
+        if not options.name:
+            logging.error('A name is required')
+            return
+
+    self.client.channel.software.updateRepoSsl(self.session,
+                                               options.name,
+                                               options.ca,
+                                               options.cert,
+                                               options.key)
