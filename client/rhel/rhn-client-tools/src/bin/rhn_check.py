@@ -39,7 +39,7 @@ if not hasattr(t, 'ugettext'):
     t.ugettext = t.gettext
 _ = t.ugettext
 
-from OpenSSL import SSL
+import OpenSSL
 sys.path.append("/usr/share/rhn/")
 
 # disable sgmlop module
@@ -139,7 +139,7 @@ class CheckCli(rhncli.RhnCli):
         except up2dateErrors.ServerCapabilityError:
             print(sys.exc_info()[1])
             sys.exit(1)
-        except SSL.Error:
+        except OpenSSL.SSL.Error:
             print("ERROR: SSL errors detected")
             print("%s" % sys.exc_info()[1])
             sys.exit(-1)
