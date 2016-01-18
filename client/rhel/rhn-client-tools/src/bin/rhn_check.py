@@ -324,7 +324,7 @@ class CheckCli(rhncli.RhnCli):
     @staticmethod
     def __build_status_report():
         status_report = {}
-        status_report["uname"] = os.uname()
+        status_report["uname"] = list(os.uname())
 
         if os.access("/proc/uptime", os.R_OK):
             uptime = open("/proc/uptime", "r").read().split()
