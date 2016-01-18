@@ -567,7 +567,7 @@ def _encode_characters(*args):
             elif item_type == ListType:
                 item = map(_encode_characters, item)
             elif item_type == DictType or item_type == DictionaryType:
-                item = dict([(_encode_characters(name, val)) for name, val in item.iteritems()])
+                item = dict([(_encode_characters(name, val)) for name, val in item.items()])
             # else: numbers or UnicodeType - are safe
             result.append(item)
         if len(result) == 1:

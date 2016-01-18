@@ -342,7 +342,7 @@ class Server:
             elif item_type == ListType:
                 item = [self._strip_characters(i) for i in item]
             elif item_type == DictType or item_type == DictionaryType:
-                item = dict([(self._strip_characters(name, val)) for name, val in item.iteritems()])
+                item = dict([(self._strip_characters(name, val)) for name, val in item.items()])
             # else: some object - should take care of himself
             #        numbers - are safe
             result.append(item)
