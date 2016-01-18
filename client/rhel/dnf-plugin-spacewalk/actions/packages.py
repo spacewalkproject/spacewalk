@@ -217,7 +217,7 @@ def refresh_list(rhnsd=None, cache_only=None):
     try:
         rhnPackageInfo.updatePackageProfile()
     except:
-        print "ERROR: refreshing remote package list for System Profile"
+        print("ERROR: refreshing remote package list for System Profile")
         return (20, "Error refreshing package list", {})
 
     touch_time_stamp()
