@@ -29,7 +29,11 @@ except ImportError: # python3
     import xmlrpc.client as xmlrpclib
 
 import gettext
-_ = gettext.translation('rhn-client-tools', fallback=True).ugettext
+t = gettext.translation('rhn-client-tools', fallback=True)
+# Python 3 translations don't have a ugettext method
+if not hasattr(t, 'ugettext'):
+    t.ugettext = t.gettext
+_ = t.ugettext
 
 _LIBPATH = "/usr/share/rhn"
 # add to the path if need be
