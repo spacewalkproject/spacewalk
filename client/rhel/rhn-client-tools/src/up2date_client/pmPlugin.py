@@ -7,14 +7,14 @@ import rpm
 
 # global variables
 try:
-   from yum import __version__
-   PM_PLUGIN_CONF = '/etc/yum/pluginconf.d/rhnplugin.conf'
-   PM_PLUGIN_NAME = 'yum-rhn-plugin'
-   PM_NAME        = 'yum'
-except ImportError:
+   from dnf import __version__
    PM_PLUGIN_CONF = '/etc/dnf/plugins/spacewalk.conf'
    PM_PLUGIN_NAME = 'dnf-plugin-spacewalk'
    PM_NAME        = 'dnf'
+except ImportError:
+   PM_PLUGIN_CONF = '/etc/yum/pluginconf.d/rhnplugin.conf'
+   PM_PLUGIN_NAME = 'yum-rhn-plugin'
+   PM_NAME        = 'yum'
 
 def pluginEnable():
     """Enables plugin, may throw IOError"""
