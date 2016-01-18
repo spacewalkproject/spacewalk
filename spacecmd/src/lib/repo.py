@@ -86,9 +86,9 @@ def do_repo_details(self, args):
         print 'Repository Label:                  %s' % details.get('label')
         print 'Repository URL:                    %s' % details.get('sourceUrl')
         print 'Repository Type:                   %s' % details.get('type')
-        print 'Repository SSL Ca Certificate:     %s' % details.get('sslCaDesc')
-        print 'Repository SSL Client Certificate: %s' % details.get('sslCertDesc')
-        print 'Repository SSL Client Key:         %s' % details.get('sslKeyDesc')
+        print 'Repository SSL Ca Certificate:     %s' % (details.get('sslCaDesc') or "None")
+        print 'Repository SSL Client Certificate: %s' % (details.get('sslCertDesc') or "None")
+        print 'Repository SSL Client Key:         %s' % (details.get('sslKeyDesc') or "None")
 
 ####################
 
