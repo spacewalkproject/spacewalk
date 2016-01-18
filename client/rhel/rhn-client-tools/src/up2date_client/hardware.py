@@ -741,7 +741,7 @@ def read_dmi():
                                                      "system", system_serial)
 
     # Clean up empty entries
-    for k in dmidict.keys()[:]:
+    for k in list(dmidict.keys()):
         if dmidict[k] is None:
             del dmidict[k]
             # Finished

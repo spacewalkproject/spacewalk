@@ -243,7 +243,7 @@ class Config:
         return name in self
 
     def keys(self):
-        ret = self.runtime.keys()
+        ret = list(self.runtime.keys())
         for k in self.stored.keys():
             if k not in ret:
                 ret.append(k)
