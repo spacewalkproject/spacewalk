@@ -17,6 +17,7 @@ import os
 import sys
 import fcntl
 from errno import EWOULDBLOCK, EEXIST
+from rhn.i18n import bstr
 import fcntl
 
 class LockfileLockedException(Exception):
@@ -80,7 +81,7 @@ class Lockfile:
         fcntl.fcntl(self.f, fcntl.F_SETFD, 1)
         # truncate and write the pid
         os.ftruncate(self.f, 0)
-        os.write(self.f, str(self.pid) + '\n')
+        os.write(self.f, bstr(str(self.pid) + '\n'))
 
     def release(self):
         # Remove the lock file
