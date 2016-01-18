@@ -65,9 +65,9 @@ class Capabilities(UserDict.UserDict):
 
 
     def populate(self, headers):
-        for key in headers.keys():
-            if key == "x-rhn-server-capability":
-                capslist = parseCap(headers[key])
+        for key, val in headers.items():
+            if key.lower() == "x-rhn-server-capability":
+                capslist = parseCap(val)
 
                 for (cap,data) in capslist:
                     self.data[cap] = data
