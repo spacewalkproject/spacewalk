@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.10
+Version: 2.5.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -650,6 +650,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Tue Jan 19 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.11-1
+- local variable 'primif' referenced before assignment
+
 * Thu Jan 14 2016 Jan Dobes 2.5.10-1
 - cleaning few old translations
 - removing old duplicate template file
