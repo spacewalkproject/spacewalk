@@ -25,7 +25,9 @@ import sys
 import re
 from optparse import OptionParser
 import polib
+import git
 
+repo = git.Repo('.')
 
 def setupOptions():
     usage = 'usage: %prog [options]'
@@ -74,10 +76,10 @@ def checkSourceMatch(source, target, targetFn):
             missingTarget.append(entry)
 
     for entry in target:
-        if not entry in source:
+        if not entry in source and not entry in target.obsolete_entries():
             missingSource.append(entry)
 
-    if len(missingTarget) > 0 or len(missingSource) > 0:
+    if missingTarget or missingSource:
         print "ERROR - %s:" % targetFn
         print "  ENTRIES IN SOURCE:"
         print "    %d" % len(source)
@@ -85,26 +87,46 @@ def checkSourceMatch(source, target, targetFn):
         print "  ENTRIES IN TARGET:"
         print "    %d, %d untranslated" % (len(target), len(target.untranslated_entries()))
 
-        print "  MISSING KEYS IN SOURCE:"
+        print "  MISSING KEYS IN SOURCE: %d" % len(missingSource)
         for i in missingSource:
             msgid = i.msgid.encode("utf-8").encode('string_escape')[:90]
             print "    %s" % msgid
             print "  --"
 
-        print "  MISSING KEYS IN TARGET:"
+        print "  MISSING KEYS IN TARGET: %d" % len(missingTarget)
         for i in missingTarget:
             msgid = i.msgid.encode("utf-8").encode('string_escape')[:90]
             print "    %s" % msgid
             print "  --"
+        return False
     else:
         print "OK - %s" % targetFn
-
+        return True
 
 # Create a new version of localized file based on src en_US template and dest <LANG>
-def processOneLangFile(templateFn, langFn):
+def processOneLangFile(templateFn, langFn, newFn):
     templatePo = parseFile(templateFn)
     langPo = parseFile(langFn)
-    checkSourceMatch(templatePo, langPo, langFn)
+    if not checkSourceMatch(templatePo, langPo, langFn):
+        sys.exit(2)
+
+    langPo.metadata['Project-Id-Version'] = "Spacewalk"
+
+    # Get original version
+    try:
+        repo.index.checkout(langFn, force=True)
+    except git.exc.CheckoutError as e:
+        print "%s: git.exc.CheckoutError" % langFn
+        return
+
+    # Load currend HEAD version of translation file
+    oldLangPo = parseFile(langFn)
+    # Files from Zanata have missing obsoletes, fix it
+    for item in oldLangPo.obsolete_entries():
+        if item not in langPo.obsolete_entries():
+            langPo.append(item)
+
+    langPo.save(newFn)
 
 def getTemplateFilename(directory):
     for f in os.listdir(directory):
@@ -119,8 +141,8 @@ def parse(lang, inDir, newDir):
       print "OK - %s - not found." % langFn
       return
 
-    #newFn = "%s/%s.po.new" % (newDir, lang)
-    processOneLangFile(templateFn, langFn)
+    newFn = "%s/%s.po.new" % (newDir, lang)
+    processOneLangFile(templateFn, langFn, newFn)
 
 if __name__ == '__main__':
     parser = setupOptions()

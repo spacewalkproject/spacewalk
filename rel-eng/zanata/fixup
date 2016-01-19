@@ -25,6 +25,7 @@ import sys
 import re
 from optparse import OptionParser
 from xml.dom.minidom import parseString
+import subprocess
 
 import xmlparser2
 import poparser
@@ -55,7 +56,10 @@ def getLanguages(fn):
     locales = dom.getElementsByTagName('locale')
 
     for locale in locales:
-        languages.append(locale.firstChild.nodeValue.replace("-","_"))
+        mapping = locale.getAttribute('map-from')
+        if mapping:
+            languages.append(mapping)
+        languages.append(locale.firstChild.nodeValue)
 
     return languages
 
@@ -94,10 +98,19 @@ if __name__ == '__main__':
     if options.other:
         print "Fixing other (*.po) translations..."
         languages = getLanguages("zanata-other.xml")
-        found = findFiles(".*\.pot")
-        for item in found:
+        templatesFound = findFiles(".*\.pot")
+        for item in templatesFound:
             for language in languages:
                 poparser.parse(language, item[0], item[0])
+                outFilePath = "%s/%s.po" % (item[0], language)
+                newFilePath = "%s/%s.po.new" % (item[0], language)
+                templateFilePath = "%s/%s" % (item[0], poparser.getTemplateFilename(item[0]))
+                # .new file was created in poparser
+                if os.path.isfile(newFilePath):
+                    p = subprocess.Popen(["/usr/bin/msgmerge", "-v", "-N", "-o", outFilePath, newFilePath, templateFilePath], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                    out, err = p.communicate()
+                    print err
+                    os.remove(newFilePath)
 
     sys.exit(0)
 
