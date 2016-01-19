@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.5.1
+Version:     2.5.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -85,6 +85,12 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Jan 19 2016 Gennadii Altukhov <galt@redhat.com> 2.5.2-1
+- 1287246 - spacecmd: repo_details show 'None' if repository doesn't have SSL
+  Certtificate
+- 1287246 - spacecmd: Added functions to add/edit SSL certificates for
+  repositories
+
 * Tue Nov 24 2015 Jan Dobes 2.5.1-1
 - spacecmd: remove listsystementitlements command
 - spacecmd: remove virtualization host platform entitlement references
