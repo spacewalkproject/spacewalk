@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.5.4
+Version:	2.5.5
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,11 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Jan 21 2016 Tomas Lestach <tlestach@redhat.com> 2.5.5-1
+- add openSUSE Leap 42.1
+- remove outdated openSUSE distribution 13.1
+- Added UEK4 channels for Oracle Linux 6 and 7.
+
 * Thu Jan 14 2016 Jan Dobes 2.5.4-1
 - fixing typo in 'archs'
 
