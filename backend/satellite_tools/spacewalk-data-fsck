@@ -145,14 +145,19 @@ def check_disk_size(abs_path, size):
 
 def check_disk_nevrao(abs_path, row, restore=None):
     file = {}
-    (_redhat_,
-     file['org_id'],
-     file['checksum_prefix'],
-     file['name'],
-     file['evr'],
-     file['arch'],
-     file['checksum'],
-     file['basename']) = row['path'].split('/')
+    try:
+        (_redhat_,
+        file['org_id'],
+        file['checksum_prefix'],
+        file['name'],
+        file['evr'],
+        file['arch'],
+        file['checksum'],
+        file['basename']) = row['path'].split('/')
+    except ValueError:
+        log(0, "File path %s mismatch structure" % row['path'])
+        return 1
+
     if not row['org_id']:
         row['org_id'] = 'NULL'
     else:
@@ -173,7 +178,7 @@ def check_disk_nevrao(abs_path, row, restore=None):
             log(0, "File path mismatch: %s (%s: %s vs. %s)" % (abs_path, key, row[key],
                                                                file[key]))
             if restore:
-                log(2, "Begining file path restoration: %s" % abs_path)
+                log(2, "Beginning file path restoration: %s" % abs_path)
                 return restore_file_path(file, row)
             ret = 1
     return ret
