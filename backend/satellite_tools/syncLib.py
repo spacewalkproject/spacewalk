@@ -238,8 +238,8 @@ class FileManip:
 
         if self.file_size is not None and self.file_size != l_file_size:
             # Something bad happened
-            msg = "Error: expected %s bytes, got %s bytes" % (self.file_size,
-                                                              l_file_size)
+            msg = "Error: file %s has wrong size. Expected %s bytes, got %s bytes" % (
+                self.full_path, self.file_size, l_file_size)
             log(-1, msg, stream=sys.stderr)
             # Try not to leave garbage around
             try:
