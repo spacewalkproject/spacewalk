@@ -52,7 +52,7 @@ def loadLocalCaps(capsDir = "/etc/sysconfig/rhn/clientCaps.d"):
         fd = open(capsFile, "r")
         for line in fd.readlines():
             line = line.strip()
-            if line[0] == "#":
+            if not line or line[0] == "#":
                 continue
             caplist = parseCap(line)
 
