@@ -506,12 +506,6 @@ class Server(ServerWrapper):
 
             have_reg_token = rhnFlags.test("registration_token")
 
-            # Handle virtualization specific bits
-            if self.virt_uuid is not None and \
-               self.virt_type is not None:
-                rhnVirtualization._notify_guest(self.getid(),
-                                                self.virt_uuid, self.virt_type)
-
             # if we're using a token, then the following channel
             # subscription request can allow no matches since the
             # token code will fix up or fail miserably later.
@@ -542,6 +536,12 @@ class Server(ServerWrapper):
                 self.join_groups()
 
             server_lib.join_rhn(org_id)
+
+        # Handle virtualization specific bits
+        if self.virt_uuid is not None and \
+           self.virt_type is not None:
+            rhnVirtualization._notify_guest(self.getid(),
+                                            self.virt_uuid, self.virt_type)
         # Update the uuid - but don't commit yet
         self.update_uuid(self.uuid, commit=0)
 
