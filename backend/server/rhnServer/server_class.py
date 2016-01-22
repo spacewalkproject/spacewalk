@@ -170,7 +170,7 @@ class Server(ServerWrapper):
 
         # bz 442355
         # Leave custom base channels alone, don't alter any of the channel subscriptions
-        if not CFG.RESET_BASE_CHANNEL and rhnChannel.isCustomChannel(old_base["id"]):
+        if not CFG.RESET_BASE_CHANNEL and old_base and rhnChannel.isCustomChannel(old_base["id"]):
             log_debug(3,
                       "Custom base channel detected, will not alter channel subscriptions")
             self.server["release"] = new_rel
@@ -190,13 +190,16 @@ class Server(ServerWrapper):
         s.release = new_rel
         s.arch = self.archname
         # Let get_server_channels deal with the errors and raise rhnFault
-        target_channels = rhnChannel.guess_channels_for_server(s)
-        target_base = filter(lambda x: not x['parent_channel'],
-                             target_channels)[0]
+        target_channels = rhnChannel.guess_channels_for_server(s, none_ok=True)
+        if target_channels:
+            target_base = filter(lambda x: not x['parent_channel'],
+                                 target_channels)[0]
+        else:
+            target_base = None
 
         channels_to_subscribe = []
         channels_to_unsubscribe = []
-        if old_base and old_base['id'] == target_base['id']:
+        if old_base and target_base and old_base['id'] == target_base['id']:
             # Same base channel. Preserve the currently subscribed child
             # channels, just add the ones that are missing
             hash = {}
