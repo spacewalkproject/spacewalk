@@ -330,16 +330,6 @@ class VirtualizationEventHandler:
                 vi.uuid=:uuid
                 AND (vi.virtual_system_id is null or
                      vi.virtual_system_id = :system_id)
-                and exists (
-                    select 1
-                    from
-                        rhnServer sguest,
-                        rhnServer shost
-                    where
-                        shost.id is not null
-                        and shost.id = vi.host_system_id
-                        and sguest.id = :system_id
-                        and shost.org_id = sguest.org_id )
             """
         else:
             raise VirtualizationEventError(
