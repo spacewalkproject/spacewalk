@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.12
+Version: 2.5.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -650,6 +650,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Fri Jan 22 2016 Jan Dobes 2.5.13-1
+- 1301137 - update guest also on re-registration
+- 1301137 - allow to change uuid of already registered guests
+- 1301137 - there can be guests without hypervisor registered
+- fixing exception when reactivating system without base channel and without
+  any available
+
 * Thu Jan 21 2016 Gennadii Altukhov <galt@redhat.com> 2.5.12-1
 - 1051018 - Added filename in the error message of satellite-sync, in case file
   has wrong size
