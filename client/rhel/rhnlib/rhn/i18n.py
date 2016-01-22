@@ -29,11 +29,11 @@ def ustr(obj):
         if isinstance(obj, str):
             return obj
         else:
-            return str(obj, 'utf8', errors='ignore')
+            return str(obj, 'utf8', 'ignore')
     else: # python2
         if isinstance(obj, unicode):
             return obj
-        return unicode(obj, 'utf8', errors='ignore')
+        return unicode(obj, 'utf8', 'ignore')
 
 def bstr(obj):
     # converts object to bytes like object
@@ -41,11 +41,11 @@ def bstr(obj):
         if isinstance(obj, bytes):
             return obj
         else:
-            return bytes(obj, 'utf8', errors='ignore')
+            return bytes(obj, 'utf8', 'ignore')
     else: # python2
         if isinstance(obj, str):
             return obj
-        return str(obj.encode('utf8', errors='ignore'))
+        return str(obj.encode('utf8', 'ignore'))
 
 def sstr(obj):
     # converts object to string
@@ -53,8 +53,8 @@ def sstr(obj):
         if isinstance(obj, str):
             return obj
         else:
-            return str(obj, 'utf8', errors='ignore')
+            return str(obj, 'utf8', 'ignore')
     else: # python2
         if isinstance(obj, str):
             return obj
-        return str(obj.encode('utf8', errors='ignore'))
+        return str(obj.encode('utf8', 'ignore'))
