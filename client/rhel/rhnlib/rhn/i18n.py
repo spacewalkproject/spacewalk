@@ -29,7 +29,7 @@ def ustr(obj):
         if isinstance(obj, str):
             return obj
         else:
-            return str(obj, 'utf8', 'ignore')
+            return str(obj, 'utf8', errors='ignore')
     else: # python2
         if isinstance(obj, unicode):
             return obj
@@ -41,7 +41,7 @@ def bstr(obj):
         if isinstance(obj, bytes):
             return obj
         else:
-            return bytes(obj, 'utf8', 'ignore')
+            return bytes(obj, 'utf8', errors='ignore')
     else: # python2
         if isinstance(obj, str):
             return obj
@@ -53,7 +53,7 @@ def sstr(obj):
         if isinstance(obj, str):
             return obj
         else:
-            return str(obj, 'utf8', 'ignore')
+            return str(obj, 'utf8', errors='ignore')
     else: # python2
         if isinstance(obj, str):
             return obj
