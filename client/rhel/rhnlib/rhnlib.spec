@@ -4,7 +4,7 @@ Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.82
+Version: 2.5.83
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -85,6 +85,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Jan 23 2016 Grant Gainey 2.5.83-1
+- revert contruction errors='ignore' for python3
+- python <2.7 fix 'TypeError: encode() takes no keyword arguments'
+
 * Tue Jan 19 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.82-1
 - yet another python3 fixes
 
