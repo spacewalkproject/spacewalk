@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.36
+Version: 2.5.37
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sat Jan 23 2016 Grant Gainey 2.5.37-1
+- log error instead of printStackTrace()
+
 * Tue Jan 19 2016 Gennadii Altukhov <galt@redhat.com> 2.5.36-1
 - 1287246 - Added fixes to API methods
 
