@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.40
+Version: 2.5.41
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sun Jan 24 2016 Grant Gainey 2.5.41-1
+- Remove unused import
+- Share logic to setup unit tests
+- Rewrite RhnJmockBaseTestCase to support setUp() as well
+
 * Sun Jan 24 2016 Grant Gainey 2.5.40-1
 - SystemHandler: fix JDK7 compatibility
 - Entitlement refactory: remove unused isSatelliteEntitlement() method and fix
