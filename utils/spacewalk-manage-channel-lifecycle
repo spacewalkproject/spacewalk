@@ -306,12 +306,13 @@ def get_current_phase(source):
 
 
 def build_channel_labels(source):
+    destination = None
     if options.archive:
         # prefix the existing channel with 'archive-YYYYMMDD-'
         date_string = time.strftime('%Y%m%d', time.gmtime())
-        destination = 'archive-%s-%s' % (date_string, source)
+        destination = 'archive{dlm}{date}{dlm}{src}'.format(dlm=options.delimiter, date=date_string, src=source)
     elif options.init:
-        destination = '%s-%s' % (phases[0], source)
+        destination = '{phase}{dlm}{src}'.format(phase=phases[0], dlm=options.delimiter, src=source)
 
         if channel_exists(destination, quiet=True):
             logging.error('%s already exists.  Use --promote instead.'
@@ -324,16 +325,14 @@ def build_channel_labels(source):
             next_phase = get_next_phase(current_phase)
 
             # replace the name of the phase in the destination label
-            destination = re.sub('^%s' % current_phase,
-                                 '%s' % next_phase,
-                                 source)
+            destination = re.sub('^%s' % current_phase, next_phase, source)
         else:
-            destination = '%s-%s' % (phases[0], source)
+            destination = '{phase}{dlm}{src}'.format(phase=phases[0], dlm=options.delimiter, src=source)
     elif options.rollback:
         # strip off the archive prefix when rolling back
-        destination = re.sub('archive-\d{8}-', '', source)
+        destination = re.sub('archive{dlm}\d{{8}}{dlm}'.format(dlm=options.delimiter), '', source)
 
-    return (source, destination)
+    return source, destination
 
 ##############################################################################
 
@@ -361,6 +360,8 @@ option_list = [
     Option('', '--init', help='initialize a development channel',
            action='store_true'),
     Option('-w', '--workflow', help='use configured workflow', default=""),
+    Option('-D', '--delimiter', type='choice', choices=['-', '_',],
+           help='delimiter used between workflow and channel name', default="-"),
     Option('-f', '--list-workflows', help='list configured workflows', default=False,
            action='store_true'),
     Option('', '--promote', help='promote a channel to the next phase',
