@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.39
+Version: 2.5.40
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sun Jan 24 2016 Grant Gainey 2.5.40-1
+- SystemHandler: fix JDK7 compatibility
+- Entitlement refactory: remove unused isSatelliteEntitlement() method and fix
+  BaseHandler.validateEntitlements() to check for isPermanent() instead
+- SystemHandler: throw exception when permanent/nonSatellite entitlements are
+  changed via API
+
 * Sun Jan 24 2016 Grant Gainey 2.5.39-1
 - Set HTTP status code for error pages
 - Allow error pages to be requested via HTTP
