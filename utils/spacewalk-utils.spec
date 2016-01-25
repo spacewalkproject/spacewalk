@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.5.5
+Version:	2.5.6
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Jan 25 2016 Grant Gainey 2.5.6-1
+- Extended allowed delimiters to include '.'
+- Add delimiter option for spacewalk-manage-channel-lifecycle
+
 * Thu Jan 21 2016 Tomas Lestach <tlestach@redhat.com> 2.5.5-1
 - add openSUSE Leap 42.1
 - remove outdated openSUSE distribution 13.1
