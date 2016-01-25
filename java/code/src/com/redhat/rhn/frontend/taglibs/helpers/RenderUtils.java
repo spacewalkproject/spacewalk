@@ -87,7 +87,7 @@ public enum RenderUtils {
      */
     public String renderNavigationMenu(HttpServletRequest request, String menuDefinition,
             String rendererClass, int minDepth, int maxDepth) throws Exception {
-        URL url = request.getServletContext().getResource(menuDefinition);
+        URL url = request.getSession().getServletContext().getResource(menuDefinition);
         return renderNavigationMenu(url, request, rendererClass, minDepth, maxDepth);
     }
 
