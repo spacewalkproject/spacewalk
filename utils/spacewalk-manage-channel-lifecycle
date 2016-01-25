@@ -360,7 +360,7 @@ option_list = [
     Option('', '--init', help='initialize a development channel',
            action='store_true'),
     Option('-w', '--workflow', help='use configured workflow', default=""),
-    Option('-D', '--delimiter', type='choice', choices=['-', '_',],
+    Option('-D', '--delimiter', type='choice', choices=['-', '_', '.'],
            help='delimiter used between workflow and channel name', default="-"),
     Option('-f', '--list-workflows', help='list configured workflows', default=False,
            action='store_true'),
