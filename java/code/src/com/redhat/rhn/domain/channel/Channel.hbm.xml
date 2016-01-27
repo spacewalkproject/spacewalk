@@ -455,7 +455,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                AND (CP.channel_id = C.id  OR CP.channel_id = C.parent_channel)
                AND CP.package_id = P.id
                AND P.path LIKE :pathlike
-               ORDER BY CASE WHEN C.id = :channel_id THEN 1 ELSE 2 END
+               ORDER BY CASE WHEN C.id = :channel_id THEN 1 ELSE 2 END, p.build_time
         ]]>
     <return alias="p" class="com.redhat.rhn.domain.rhnpackage.Package" />
     </sql-query>
