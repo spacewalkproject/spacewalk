@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.43
+Version: 2.5.44
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 27 2016 Tomas Lestach <tlestach@redhat.com> 2.5.44-1
+- additionaly sort results according to build_time, when searching for packages
+  by filename
+- 1287829 - reverting original changes
+
 * Mon Jan 25 2016 Grant Gainey 2.5.43-1
 - Make it compile against servlet API < 3.0
 - Avoid the diamond operator
