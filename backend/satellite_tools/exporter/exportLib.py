@@ -423,7 +423,6 @@ class _ChannelDumper(BaseRowDumper):
           from rhnChannelPackage rcp, rhnPackage rp
             left join rhnErrataPackage rep on rp.id = rep.package_id
             left join rhnErrata re on rep.errata_id = re.id
-          rhnErrataPackage rep, rhnErrata re
          where rcp.channel_id = :channel_id
            and rcp.package_id = rp.id
            and ((re.modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
