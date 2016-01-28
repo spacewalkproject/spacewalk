@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.13
+Version: 2.5.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -650,6 +650,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Thu Jan 28 2016 Jan Dobes 2.5.14-1
+- 1302817 - making sure packages without errata are included
+- 1302817 - fixing invalid query
+
 * Fri Jan 22 2016 Jan Dobes 2.5.13-1
 - 1301137 - update guest also on re-registration
 - 1301137 - allow to change uuid of already registered guests
