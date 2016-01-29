@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.5.8
+Version:        2.5.9
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jan 29 2016 Jan Dobes 2.5.9-1
+- 1301611 - no need to lock table since we don't update entitlements
+
 * Fri Jan 22 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.8-1
 - fix oracle sha1 for 017-drop_monitoring_tables.sql
 
