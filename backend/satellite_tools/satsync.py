@@ -240,11 +240,11 @@ class Runner:
             except RhnSyncException:
                 rhnSQL.rollback()
                 raise
-            except (psycopg2.IntegrityError, cx_Oracle.IntegrityError), e:
+            except (psycopg2.IntegrityError, cx_Oracle.IntegrityError), e: #pylint: disable=undefined-variable
                 msg = _("ERROR: Encountered IntegrityError: \n"
-                      + str(e)
-                      + "\nconsider removing satellite-sync cache at /var/cache/rhn/satsync/*."
-                      + "If this error persits after removing cache, please contact Red Hat support.")
+                        + str(e)
+                        + "\nconsider removing satellite-sync cache at /var/cache/rhn/satsync/*."
+                        + "If this error persits after removing cache, please contact Red Hat support.")
                 log2stderr(-1, msg, cleanYN=1)
                 return 1
         else:
