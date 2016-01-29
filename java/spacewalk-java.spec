@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.44
+Version: 2.5.45
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 29 2016 Gennadii Altukhov <galt@redhat.com> 2.5.45-1
+- 1302996 Added/changed API-methods to work with package installation/removing
+  using it's nevra
+- 1302996 Added additional information to package metadata, returned by
+  serializer
+
 * Wed Jan 27 2016 Tomas Lestach <tlestach@redhat.com> 2.5.44-1
 - additionaly sort results according to build_time, when searching for packages
   by filename
