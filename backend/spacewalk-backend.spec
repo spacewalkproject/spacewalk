@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.15
+Version: 2.5.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -650,6 +650,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Mon Feb 01 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.16-1
+- 1276569 - fix pylint
+
 * Fri Jan 29 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.15-1
 - 1276569 - advise users to purge satsync cache on IntegrityError
 
