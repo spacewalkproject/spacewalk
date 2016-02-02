@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.5.9
+Version:        2.5.10
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -70,6 +70,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Feb 02 2016 Grant Gainey 2.5.10-1
+- When deleting a server, delete all associated rhnSet entries
+- 1303886 - update %%description of spacewalk-schema package
+
 * Fri Jan 29 2016 Jan Dobes 2.5.9-1
 - 1301611 - no need to lock table since we don't update entitlements
 
