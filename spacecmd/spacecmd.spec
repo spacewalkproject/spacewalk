@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.5.2
+Version:     2.5.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -85,6 +85,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Feb 02 2016 Jiri Dostal <jdostal@redhat.com> 2.5.3-1
+- 1250572 - Text description missing for remote command by Spacecmd
+
 * Tue Jan 19 2016 Gennadii Altukhov <galt@redhat.com> 2.5.2-1
 - 1287246 - spacecmd: repo_details show 'None' if repository doesn't have SSL
   Certtificate
