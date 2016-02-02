@@ -1629,11 +1629,17 @@ class Syncer:
         if erratum['org_id'] is not None:
             erratum['org_id'] = OPTIONS.orgid or DEFAULT_ORG
 
-        # Associate errata to only channels that are being synced
-        # or are synced already
-        imported_channels = _getImportedChannels()
         if OPTIONS.channel:
+            # If we are syncing only selected channels, do not link
+            # to channels that do not have this erratum, they may not
+            # have all related packages synced
+            imported_channels = _getImportedChannels(withAdvisory=erratum["advisory_name"])
+            # Import erratum to channels that are being synced
             imported_channels += OPTIONS.channel
+        else:
+            # Associate errata to channels that are synced already
+            imported_channels = _getImportedChannels()
+
         erratum['channels'] = [c for c in erratum['channels']
                                if c['label'] in imported_channels]
 
@@ -1979,15 +1985,24 @@ def _validate_package_org(batch):
             pkg['org_id'] = DEFAULT_ORG
 
 
-def _getImportedChannels():
+def _getImportedChannels(withAdvisory=None):
     "Retrieves the channels already imported in the satellite's database"
 
+    query = "select distinct c.label from rhnChannel c"
+
+    if withAdvisory:
+        query += """
+            inner join rhnChannelErrata ce on c.id = ce.channel_id
+            inner join rhnErrata e on ce.errata_id = e.id and
+                                      e.advisory_name = :advisory
+        """
+
+    if not OPTIONS.include_custom_channels:
+        query += " where c.org_id is null"
+
     try:
-        if OPTIONS.include_custom_channels:
-            h = rhnSQL.prepare("""select label from rhnChannel""")
-        else:
-            h = rhnSQL.prepare("""select label from rhnChannel where org_id is null""")
-        h.execute()
+        h = rhnSQL.prepare(query)
+        h.execute(advisory=withAdvisory)
         return [x['label'] for x in h.fetchall_dict() or []]
     except (SQLError, SQLSchemaError, SQLConnectError), e:
         # An SQL error is fatal... crash and burn
