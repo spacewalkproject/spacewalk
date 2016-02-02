@@ -398,7 +398,7 @@ def do_system_runscript(self, args):
         if not options.group:
             options.group = 'root'
         if not options.label:
-            option.label = None
+            options.label = None
         if not options.timeout:
             options.timeout = 600
         else:
