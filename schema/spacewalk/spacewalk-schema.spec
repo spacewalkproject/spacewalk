@@ -25,8 +25,7 @@ Obsoletes:      rhn-satellite-schema <= 5.1.0
 %define postgres %{rhnroot}/postgres
 
 %description
-rhn-satellite-schema is the Oracle SQL schema for the Spacewalk server.
-Oracle tablespace name conversions have NOT been applied.
+spacewalk-schema is the SQL schema for the Spacewalk server.
 
 %prep
 
