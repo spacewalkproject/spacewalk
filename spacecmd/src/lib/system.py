@@ -314,6 +314,7 @@ options:
   -g GROUP
   -t TIMEOUT
   -s START_TIME
+  -l LABEL
   -f FILE'''
     print
     print self.HELP_SYSTEM_OPTS
@@ -330,6 +331,7 @@ def do_system_runscript(self, args):
                Option('-g', '--group', action='store'),
                Option('-t', '--timeout', action='store'),
                Option('-s', '--start-time', action='store'),
+               Option('-l', '--label', action='store'),
                Option('-f', '--file', action='store')]
 
     (args, options) = parse_arguments(args, options)
@@ -371,6 +373,10 @@ def do_system_runscript(self, args):
         options.start_time = prompt_user('Start Time [now]:')
         options.start_time = parse_time_input(options.start_time)
 
+        options.label = prompt_user('Label/Short Description [default]:')
+        if options.label == "":
+            options.label = None
+
         options.file = prompt_user('Script File [create]:')
 
         # read the script provided by the user
@@ -391,6 +397,8 @@ def do_system_runscript(self, args):
             options.user = 'root'
         if not options.group:
             options.group = 'root'
+        if not options.label:
+            option.label = None
         if not options.timeout:
             options.timeout = 600
         else:
@@ -414,6 +422,8 @@ def do_system_runscript(self, args):
     print 'Timeout:    %i seconds' % options.timeout
     print 'Start Time: %s' % options.start_time
     print
+    if options.label:
+        print 'Label:      %s' % options.label
     print 'Script Contents'
     print '---------------'
     print script_contents
@@ -433,14 +443,24 @@ def do_system_runscript(self, args):
 
         # schedule all systems for the same action
         system_ids = [self.get_system_id(s) for s in systems]
+        if not options.label:
+            action_id = self.client.system.scheduleScriptRun(self.session,
+                                                             system_ids,
+                                                             options.user,
+                                                             options.group,
+                                                             options.timeout,
+                                                             script_contents,
+                                                             options.start_time)
+        else:
+            action_id = self.client.system.scheduleLabelScriptRun(self.session,
+                                                                  options.label,
+                                                                  system_ids,
+                                                                  options.user,
+                                                                  options.group,
+                                                                  options.timeout,
+                                                                  script_contents,
+                                                                  options.start_time)
 
-        action_id = self.client.system.scheduleScriptRun(self.session,
-                                                         system_ids,
-                                                         options.user,
-                                                         options.group,
-                                                         options.timeout,
-                                                         script_contents,
-                                                         options.start_time)
 
         logging.info('Action ID: %i' % action_id)
         scheduled = len(system_ids)
