@@ -175,9 +175,9 @@ class ContentSource(object):
         pkglist = ListPackageSack(self.sack.returnPackages())
         self.num_packages = len(pkglist)
         if latest:
-             pkglist = pkglist.returnNewestByNameArch()
+            pkglist = pkglist.returnNewestByNameArch()
         pkglist = yum.misc.unique(pkglist)
-        pkglist.sort(self.sortPkgObj)
+        pkglist.sort(self._sort_packages)
 
         if not filters:
             # if there's no include/exclude filter on command line or in database
@@ -208,7 +208,8 @@ class ContentSource(object):
             to_return.append(new_pack)
         return to_return
 
-    def sortPkgObj(self, pkg1 ,pkg2):
+    @staticmethod
+    def _sort_packages(self, pkg1 ,pkg2):
         """sorts a list of yum package objects by name"""
         if pkg1.name > pkg2.name:
             return 1
