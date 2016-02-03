@@ -24,6 +24,11 @@ CERT_DIR=/usr/share/rhn
 CERT_FILE=RHN-ORG-TRUSTED-SSL-CERT
 TRUST_DIR=/etc/pki/ca-trust/source/anchors
 
+# Not on EL5
+if [ ! -d $TRUST_DIR ]; then
+    exit 0
+fi
+
 if [ -f $CERT_DIR/$CERT_FILE ]; then
     ln -sf $CERT_DIR/$CERT_FILE $TRUST_DIR
 else
