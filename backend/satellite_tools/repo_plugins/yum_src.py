@@ -209,7 +209,7 @@ class ContentSource(object):
         return to_return
 
     @staticmethod
-    def _sort_packages(self, pkg1 ,pkg2):
+    def _sort_packages(pkg1 ,pkg2):
         """sorts a list of yum package objects by name"""
         if pkg1.name > pkg2.name:
             return 1
