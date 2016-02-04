@@ -27,11 +27,11 @@ class Handler(handler_base.HandlerBase):
 
         channel = self.args[0]
 
-        print "Files in config channel '%s':" % channel
+        print("Files in config channel '%s':" % channel)
 
         files = r.list_files(channel)
         if not files:
-            print "(no files in config channel)"
+            print("(no files in config channel)")
         else:
             for file in files:
-                print "  %s" % file
+                print("  %s" % file)

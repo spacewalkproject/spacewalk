@@ -26,7 +26,7 @@ class Handler(handler_base.HandlerBase):
             die(5, "No config channels specified")
 
         for config_channel in self.args:
-            print "Removing config channel %s" % config_channel
+            print("Removing config channel %s" % config_channel)
             try:
                 r.remove_config_channel(config_channel)
             except cfg_exceptions.ConfigChannelNotInRepo:
@@ -34,4 +34,4 @@ class Handler(handler_base.HandlerBase):
             except cfg_exceptions.ConfigChannelNotEmptyError:
                 die("Could not remove non-empty config channel %s" %
                     config_channel)
-            print "Config channel %s removed" % config_channel
+            print("Config channel %s removed" % config_channel)

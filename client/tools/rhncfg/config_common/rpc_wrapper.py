@@ -146,7 +146,7 @@ class Server(rpclib.Server):
             failover_uri = self._get_uri()  #Grab the uri of the new server to use.
         msg = msg + "Trying the next serverURL: %s\n" % failover_uri
 
-        print msg
+        print(msg)
 
         #Set up rpclib.Server to use the new uri.
         self.init_server(failover_uri)

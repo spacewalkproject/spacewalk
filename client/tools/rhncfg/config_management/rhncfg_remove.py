@@ -64,14 +64,14 @@ class Handler(handler_base.HandlerBase):
             for f in files:
                 files_to_remove.append((f, f))
 
-        print "Removing from config channel %s" % channel
+        print("Removing from config channel %s" % channel)
         for (local_file, remote_file) in files_to_remove:
             try:
                 r.remove_file(channel, remote_file)
             except xmlrpclib.Fault, e:
                 if e.faultCode == -4011:
-                    print "%s does not exist" % remote_file
+                    print("%s does not exist" % remote_file)
                     continue
                 raise
             else:
-                print "%s removed" % remote_file
+                print("%s removed" % remote_file)

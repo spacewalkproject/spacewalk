@@ -42,10 +42,10 @@ class BaseMain:
     config_section = None
 
     def usage(self, exit_code):
-        print "Usage: %s MODE [ --server-name name ] [ params ]" % sys.argv[0]
-        print "Valid modes are:"
+        print("Usage: %s MODE [ --server-name name ] [ params ]" % sys.argv[0])
+        print("Valid modes are:")
         for mode in self.modes:
-            print "\t%s" % mode
+            print("\t%s" % mode)
         sys.exit(exit_code)
 
     def main(self):
@@ -62,7 +62,7 @@ class BaseMain:
             if param:
                 if arg.startswith('-') or arg in self.modes:
                   # not perfect, but at least a little bit better
-                  print "Option %s requires an argument" % dict_name_opt[param[0][0]]
+                  print("Option %s requires an argument" % dict_name_opt[param[0][0]])
                   return 1
                 dict_name_opt[param[0][0]] = arg
                 continue
@@ -77,17 +77,17 @@ class BaseMain:
                 if not rarg:
                     dict_name_opt[param[0]] = 0
                     if index == len(sys.argv) - 1:
-                       print "Option %s requires an argument" % param[0]
+                       print("Option %s requires an argument" % param[0])
                        return 1
                     continue
                 if rarg[0] == '=':
                    if len(rarg) == 1:
-                      print "Option %s requires an argument" % param[0]
+                      print("Option %s requires an argument" % param[0])
                       return 1
 
                    dict_name_opt[param[0]] = rarg[1:]
                    continue
-                print "Unknown option %s" % arg
+                print("Unknown option %s" % arg)
                 return 1
 
             if mode is None:
@@ -102,7 +102,7 @@ class BaseMain:
                     self.usage(1)
 
                 if mode not in self.modes:
-                    print "Unknown mode %s" % mode
+                    print("Unknown mode %s" % mode)
                     self.usage(1)
 
                 continue
@@ -162,7 +162,7 @@ class BaseMain:
                     server_name = (up2date_cfg['server_list'])[0]
                     local_config.init(self.config_section, defaults=up2date_cfg, server_name=server_name)
 
-        print "Using server name", server_name
+        print("Using server name", server_name)
 
         # set the debug level through the config
         rhn_log.set_debug_level(int(local_config.get('debug_level') or 0))
@@ -198,7 +198,7 @@ class BaseMain:
         except cfg_exceptions.ConfigurationError, e:
             rhn_log.die(e)
         except gaierror, e:
-            print "Socket Error: %s" % (e.args[1],)
+            print("Socket Error: %s" % (e.args[1],))
             sys.exit(1)
 
         handler = module.Handler(args, repo, mode=mode, exec_name=execname)
@@ -206,7 +206,7 @@ class BaseMain:
             try:
                 handler.authenticate(username,password)
                 handler.run()
-            except cfg_exceptions.AuthenticationError, e:
+            except cfg_exceptions.AuthenticationError as e:
                 rhn_log.die(1, "Authentication failed: %s" % e)
             except Exception, e:
                 raise

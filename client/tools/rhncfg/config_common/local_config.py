@@ -42,8 +42,8 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
         try:
             self.read(self._get_config_files())
         except ConfigParser.MissingSectionHeaderError, e:
-            print "Config error: line %s, file %s: %s" % (e.lineno,
-                e.filename, e)
+            print("Config error: line %s, file %s: %s" % (e.lineno,
+                e.filename, e))
             sys.exit(1)
 
     def _get_config_files(self):
@@ -118,9 +118,9 @@ def keys():
 
 def main():
     init('rhncfgcli')
-    print "repository: %s" % get("repository")
-    print "useGPG: %s" % get("useGPG")
-    print "serverURL: %s" % get("serverURL")
+    print("repository: %s" % get("repository"))
+    print("useGPG: %s" % get("useGPG"))
+    print("serverURL: %s" % get("serverURL"))
 
 if __name__ == '__main__':
     main()

@@ -35,18 +35,18 @@ class Handler(handler_base.HandlerBase):
 
         if type == 'symlink':
             if not os.path.exists(dst):
-                print "Symbolic link '%s' is missing" % dst
+                print("Symbolic link '%s' is missing" % dst)
                 return
 
             if not os.path.islink(dst):
-                print "Path '%s' is not a symbolic link" % dst
+                print("Path '%s' is not a symbolic link" % dst)
                 return
 
             #dst is a symlink, so just tell the user we're skipping the entry
             srclink = os.readlink(src)
             destlink = os.readlink(dst)
             if srclink != destlink:
-                print "Symbolic links differ. Channel: '%s' -> '%s'   System: '%s' -> '%s' " % (dst,srclink, dst, destlink)
+                print("Symbolic links differ. Channel: '%s' -> '%s'   System: '%s' -> '%s' " % (dst,srclink, dst, destlink))
         elif type == 'file':
             sys.stdout.write(''.join(diff(src, dst, srcname=dst, dstname=dst,
                 display_diff=

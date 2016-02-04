@@ -287,7 +287,7 @@ def deploy(params, topdir=None, cache_only=None):
                 return (47, "Failed deployment, %s already exists as a file" % (e[0], ), {})
 
     except Exception, e:
-        print e
+        print(e)
         try:
             dep_trans.rollback()
         except FailedRollback, e2:

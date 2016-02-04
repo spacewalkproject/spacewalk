@@ -25,6 +25,6 @@ class Handler(handler_base.HandlerBase):
         if len(self.args):
             die(5, "No arguments required")
 
-        print "Available config channels:"
+        print("Available config channels:")
         for ns in r.list_config_channels():
-            print "  %s" % ns
+            print("  %s" % ns)

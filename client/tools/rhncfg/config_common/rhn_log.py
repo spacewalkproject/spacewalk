@@ -63,7 +63,7 @@ class Logger:
                 logname.write(logstr)
                 logname.close()
             except:
-                print "does not have permissions to create file  %s" % (self.logfile)
+                print("does not have permissions to create file  %s" % (self.logfile))
                 sys.exit(1)
 
     def set_logfile(self, filename):

@@ -20,7 +20,7 @@ import file_utils
 import cfg_exceptions
 
 def deploy_msg_callback(path):
-    print "Deploying %s" % path
+    print("Deploying %s" % path)
 
 def deploy_files(topdir, repository, files, excludes = None, config_channel = None):
     topdir = topdir or os.sep
@@ -31,7 +31,7 @@ def deploy_files(topdir, repository, files, excludes = None, config_channel = No
 
     for path in files:
         if path in excludes:
-            print "Excluding %s" % path
+            print("Excluding %s" % path)
         else:
             try:
                 if config_channel:
@@ -41,7 +41,7 @@ def deploy_files(topdir, repository, files, excludes = None, config_channel = No
                 kwargs = {'auto_delete': 0, 'dest_directory': topdir}
                 finfo = repository.get_file_info(*args, **kwargs)
             except cfg_exceptions.DirectoryEntryIsFile, e:
-                print "Error: unable to deploy directory %s, as it is already a file on disk" % e[0]
+                print("Error: unable to deploy directory %s, as it is already a file on disk" % e[0])
                 continue
 
             if finfo is None:
@@ -52,10 +52,10 @@ def deploy_files(topdir, repository, files, excludes = None, config_channel = No
             try:
                 dep_trans.add_preprocessed(path, processed_path, file_info, dirs_created)
             except cfg_exceptions.UserNotFound, e:
-                print "Error: unable to deploy file %s, information on user '%s' could not be found." % (path,e[0])
+                print("Error: unable to deploy file %s, information on user '%s' could not be found." % (path,e[0]))
                 continue
             except cfg_exceptions.GroupNotFound, e:
-                print "Error: unable to deploy file %s, information on group '%s' could not be found." % (path, e[0])
+                print("Error: unable to deploy file %s, information on group '%s' could not be found." % (path, e[0]))
                 continue
 
     try:
@@ -73,7 +73,7 @@ def deploy_files(topdir, repository, files, excludes = None, config_channel = No
         try:
             try_rollback(dep_trans, "Deploy failed, rollback successful")
         except:
-            print "Failed rollback"
+            print("Failed rollback")
             raise
 
 def try_rollback(dep_trans, msg):
@@ -83,4 +83,4 @@ def try_rollback(dep_trans, msg):
             cfg_exceptions.UserNotFound,
             cfg_exceptions.GroupNotFound), f:
         pass
-    print msg
+    print(msg)

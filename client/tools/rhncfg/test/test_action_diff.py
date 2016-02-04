@@ -15,7 +15,7 @@
 
 from actions import configfiles
 
-print configfiles.diff([
+print(configfiles.diff([
     {
         'path'          : "/etc/googah",
         'namespace'     : "foo1",
@@ -40,4 +40,4 @@ print configfiles.diff([
         'delim_start'   : "[|",
         'delim_end'     : "|]",
     },
-])
+]))
