@@ -32,7 +32,7 @@ class Handler(handler_base.HandlerBase):
         maxlen = max(map(lambda s: len(s[0]), files))
         maxlen = max(maxlen, len(label)) + 2
 
-        print "DoFoS %*s   %s" % (maxlen, label, "File")
+        print("DoFoS %*s   %s" % (maxlen, label, "File"))
         arg_files = []
         if len(sys.argv) > 2:
             arg_files = sys.argv[2:len(sys.argv)]
@@ -45,9 +45,9 @@ class Handler(handler_base.HandlerBase):
             # checking to see if the filetype is in the 'file' entry,
             # and if it is and that type is '1', it is a file
             if (len(file) < 3) or file[2] == 1:
-                print "F %*s     %s" % (maxlen, file[0], file[1])
+                print("F %*s     %s" % (maxlen, file[0], file[1]))
             elif file[2] == 2 :
                 # the filetype is a directory
-                print "D %*s     %s" % (maxlen, file[0], file[1])
+                print("D %*s     %s" % (maxlen, file[0], file[1]))
             else:
-                print "S %*s     %s" % (maxlen, file[0], file[1])
+                print("S %*s     %s" % (maxlen, file[0], file[1]))

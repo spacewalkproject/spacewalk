@@ -96,7 +96,7 @@ def main():
             status = "disabled"
             if controller.is_on(m):
                 status = "enabled"
-            print rstring % (m, status)
+            print(rstring % (m, status))
 
         status = "disabled"
         if runcontroller.is_on('all'):
@@ -105,7 +105,7 @@ def main():
 
         if runcontroller.is_on('run'):
             status = "enabled"
-        print rstring % ('run', status)
+        print(rstring % ('run', status))
 
 
 if __name__ == "__main__":

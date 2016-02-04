@@ -71,7 +71,7 @@ class Handler(handler_base.HandlerBase):
             #specified that each directory is it's own channel.
             channels = os.listdir(topdir)
             dirs = None
-            print "No config channels specified, using %s" % channels
+            print("No config channels specified, using %s" % channels)
         else:
             #At this point, --channel wasn't used but there was something included as an argument.
             #The name of the channel is assumed to be the same as the name of the directory.
@@ -97,7 +97,7 @@ class Handler(handler_base.HandlerBase):
         else:
             selinux_ctx = None
 
-        print "Using config channel %s" % channel
+        print("Using config channel %s" % channel)
 
         channel_dir = utils.join_path(topdir, directory_name)
 
@@ -114,7 +114,7 @@ class Handler(handler_base.HandlerBase):
                 local_file = utils.join_path(dirname, f)
                 remote_file = utils.join_path(remote_dirname, f)
 
-                print "Uploading %s from %s" % (remote_file, local_file)
+                print("Uploading %s from %s" % (remote_file, local_file))
                 try:
                     self.r.put_file(channel, remote_file, local_file, is_first_revision=0,
                                     selinux_ctx = selinux_ctx)

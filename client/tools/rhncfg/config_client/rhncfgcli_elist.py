@@ -15,7 +15,7 @@ class Handler(handler_base.HandlerBase):
         label = "Config Channel"
         maxlen = max(map(lambda s: len(s[0]), files))
         maxlen = max(maxlen, len(label)) + 2
-        print "%-10s %8s %-8s %10s %+3s    %*s    %s" % ('Mode', 'Owner', 'Group', 'Size', 'Rev', maxlen, label, "File")
+        print("%-10s %8s %-8s %10s %+3s    %*s    %s" % ('Mode', 'Owner', 'Group', 'Size', 'Rev', maxlen, label, "File"))
 
         arg_files = []
         if len(sys.argv) > 2:
@@ -44,5 +44,5 @@ class Handler(handler_base.HandlerBase):
             else:
                 permstr = ostr_to_sym(finfo['filemode'], finfo['filetype']) or ''
                 dest = file[1]
-            print "%10s %8s %-8s %10s %+3s    %*s    %s" % (permstr, finfo['username'], finfo['groupname'], fsize, finfo['revision'], maxlen, file[0], dest)
+            print("%10s %8s %-8s %10s %+3s    %*s    %s" % (permstr, finfo['username'], finfo['groupname'], fsize, finfo['revision'], maxlen, file[0], dest))
 

@@ -111,7 +111,7 @@ class Repository:
             try:
                 pw_name = pwd.getpwuid(uid)[0]
             except KeyError:
-                print "Error looking up user id %s" % (uid, )
+                print("Error looking up user id %s" % (uid, ))
 
         if pw_name:
             ret['user'] = pw_name
@@ -122,7 +122,7 @@ class Repository:
             try:
                 gr_name = grp.getgrgid(gid)[0]
             except KeyError:
-                print "Error looking up group id %s" % (gid, )
+                print("Error looking up group id %s" % (gid, ))
 
         if gr_name:
             ret['group'] = gr_name

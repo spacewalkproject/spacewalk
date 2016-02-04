@@ -38,7 +38,7 @@ class Handler(handler_base.HandlerBase):
         if not self.args:
             die(7, "No files specified")
 
-        print "Analyzing files in config channel %s" % channel
+        print("Analyzing files in config channel %s" % channel)
         for f in self.args:
             if not r.has_file(channel, f):
                 die(8, "Config channel %s does not contain file %s" %
@@ -46,6 +46,6 @@ class Handler(handler_base.HandlerBase):
             try:
                 revisions = r.get_file_revisions(channel, f)
             except cfg_exceptions.RepositoryFileMissingError:
-                print "%s: not in config channel" % f
+                print("%s: not in config channel" % f)
                 continue
-            print "%s: %s" % (f, string.join(map(str, revisions)))
+            print("%s: %s" % (f, string.join(map(str, revisions))))

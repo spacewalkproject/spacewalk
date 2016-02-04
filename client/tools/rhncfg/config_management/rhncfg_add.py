@@ -106,11 +106,11 @@ class Handler(handler_base.HandlerBase):
             if not os.path.exists(local_file):
                 if self.options.ignore_missing:
                     files_to_push.remove((local_file,remote_file))
-                    print "Local file %s does not exist. Ignoring file..." %(local_file)
+                    print("Local file %s does not exist. Ignoring file..." %(local_file))
                 else:
                     die(9, "No such file `%s'" % local_file)
 
-        print "Pushing to channel %s:" % (channel, )
+        print("Pushing to channel %s:" % (channel, ))
 
         delim_start = self.options.delim_start
         delim_end = self.options.delim_end
@@ -132,4 +132,4 @@ class Handler(handler_base.HandlerBase):
             except cfg_exceptions.RepositoryFilePushError, e:
                 log_error("Error pushing file:  %s" % e)
             else:
-                print "Local file %s -> remote file %s" % (local_file, remote_file)
+                print("Local file %s -> remote file %s" % (local_file, remote_file))

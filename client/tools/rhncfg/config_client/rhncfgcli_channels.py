@@ -24,13 +24,13 @@ class Handler(handler_base.HandlerBase):
 
         config_channels = r.load_config_channels()
         if not config_channels:
-            print "(no config channels associated with this system)"
+            print("(no config channels associated with this system)")
             return
-        print "Config channels:"
+        print("Config channels:")
         templ = "%-32s%s"
         label = "Label"
         name = "Name"
-        print templ % (label, name)
-        print templ % ('-' * len(label), '-' * len(name))
+        print(templ % (label, name))
+        print(templ % ('-' * len(label), '-' * len(name)))
         for c in config_channels:
-            print templ % (c['label'], c['name'])
+            print(templ % (c['label'], c['name']))

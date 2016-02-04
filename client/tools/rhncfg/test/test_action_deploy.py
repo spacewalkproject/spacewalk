@@ -27,7 +27,7 @@ def test(msg, test):
     if test:
         ok_str = 'ok'
 
-    print "%s: %s" % (msg, ok_str)
+    print("%s: %s" % (msg, ok_str))
 
 def stray_files(path):
     (directory, filename) = os.path.split(path)

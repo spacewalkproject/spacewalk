@@ -22,7 +22,7 @@ from config_common.rhn_log import log_debug, die
 from config_common.transactions import DeployTransaction, FailedRollback
 
 def deploying_mesg_callback(path):
-    print "Deploying %s" % path
+    print("Deploying %s" % path)
 
 
 class Handler(handler_base.HandlerBase):
@@ -92,13 +92,13 @@ class Handler(handler_base.HandlerBase):
                 dep_trans.add_preprocessed(f, temp_file, info, dirs_created, strict_ownership=0)
                 continue
             elif info.get('filetype') == 'symlink':
-                print "%s -> %s" % (info['path'], info['symlink'])
+                print("%s -> %s" % (info['path'], info['symlink']))
                 continue
             elif info.get('filetype') == 'directory':
-                print "%s is a directory entry, nothing to get" % info['path']
+                print("%s is a directory entry, nothing to get" % info['path'])
                 continue
             else:
-                print open(temp_file).read()
+                print(open(temp_file).read())
                 os.unlink(temp_file)
 
         if topdir:

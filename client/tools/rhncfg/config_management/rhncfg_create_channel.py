@@ -26,9 +26,9 @@ class Handler(handler_base.HandlerBase):
             die(5, "No config channels specified")
 
         for channel in self.args:
-            print "Creating config channel %s" % channel
+            print("Creating config channel %s" % channel)
             try:
                 r.create_config_channel(channel)
             except cfg_exceptions.ConfigChannelAlreadyExistsError:
                 die("Config channel %s already exists" % channel)
-            print "Config channel %s created" % channel
+            print("Config channel %s created" % channel)
