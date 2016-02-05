@@ -71,7 +71,7 @@ class Transport(rpclib.transports.Transport):
             return f
 
         connection.close()
-        raise Exception, "Unknown response type", content_type
+        raise Exception, "Unknown response type: " + content_type
 
 
 class SafeTransport(rpclib.transports.SafeTransport, Transport):
