@@ -27,6 +27,7 @@ try: # python2
 except ImportError: # python3
     import urllib.parse as urlparse
     import xmlrpc.client as xmlrpclib
+    raw_input = input
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
@@ -53,10 +54,7 @@ class Credentials(object):
 
     def __getattr__(self, attr):
         if attr == 'user':
-            tty = open("/dev/tty", "r+")
-            tty.write('Username: ')
-            tty.close()
-            setattr(self, 'user', sys.stdin.readline().rstrip('\n'))
+            self.user = raw_input('Username: ')
             return self.user
         elif attr == 'password':
             # force user population
