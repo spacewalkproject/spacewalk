@@ -13,6 +13,7 @@ end;
 $$
 language plpgsql;
 
+drop trigger if exists rhn_virtinst_del_trig on rhnVirtualInstance;
 create trigger
 rhn_virtinst_del_trig
 after update on rhnVirtualInstance
