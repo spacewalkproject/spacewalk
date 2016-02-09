@@ -29,6 +29,12 @@ class rhnChannel:
     def __setitem__(self, item, value):
         self.dict[item] = value
 
+    def __lt__(self, other):
+        if self.dict["name"] < other.dict["name"]:
+            return True
+        else:
+            return False
+
     def keys(self):
         return self.dict.keys()
 
