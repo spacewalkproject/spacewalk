@@ -540,32 +540,26 @@ public  class UserFactory extends HibernateFactory {
                     public int compare(Object o1, Object o2) {
                         RhnTimeZone t1 = (RhnTimeZone) o1;
                         RhnTimeZone t2 = (RhnTimeZone) o2;
-                        int offSet1 = t1.getTimeZone().getRawOffset();
-                        int offSet2 = t2.getTimeZone().getRawOffset();
+                        Integer offSet1 = t1.getTimeZone().getRawOffset();
+                        Integer offSet2 = t2.getTimeZone().getRawOffset();
 
-                        if (offSet2 - offSet1 == 0) {
-                            return t2.getOlsonName().compareTo(t1.getOlsonName());
-                        }
-
-                        if (offSet1 <= -18000000 && offSet1 >= -36000000 &&
-                                offSet2 <= -18000000 && offSet2 >= -36000000) {
-                            //both in America
-                            return offSet2 - offSet1;
-                        }
-
-                        if (offSet1 <= -18000000 && offSet1 >= -36000000) {
-                            //first timezone in America
+                        if (offSet1 == 0 && offSet2 != 0) {
+                            // first one GMT
                             return -1;
                         }
-                        if (offSet2 <= -18000000 && offSet2 >= -36000000) {
-                            //second timezone in America
+
+                        if (offSet1 != 0 && offSet2 == 0) {
+                            // second one GMT
                             return 1;
                         }
 
-                        return offSet1 - offSet2;
+                        if (offSet2.equals(offSet1)) {
+                            return t2.getOlsonName().compareTo(t1.getOlsonName());
+                        }
+
+                        return offSet2.compareTo(offSet1);
                     }
-                }
-                        );
+                });
             }
 
             timeZoneList = timeZones;
