@@ -348,7 +348,7 @@ public class UserManagerTest extends RhnBaseTestCase {
         usr.setEmail("something@changed.redhat.com");
         UserManager.storeUser(usr);
         User u2 = UserFactory.lookupById(id);
-        assertEquals(u2.getEmail(), "something@changed.redhat.com");
+        assertEquals("something@changed.redhat.com", u2.getEmail());
     }
 
     public void testGetSystemGroups() {
@@ -365,7 +365,7 @@ public class UserManagerTest extends RhnBaseTestCase {
         RhnTimeZone tz = UserManager.getTimeZone(UserManager
                 .getTimeZone("Indian/Maldives").getTimeZoneId());
         assertEquals(UserManager.getTimeZone("Indian/Maldives"), tz);
-        assertEquals(tz.getOlsonName(), "Indian/Maldives");
+        assertEquals("Indian/Maldives", tz.getOlsonName());
 
         RhnTimeZone tz2 = UserManager.getTimeZone(-23);
         assertNull(tz2);
@@ -393,13 +393,11 @@ public class UserManagerTest extends RhnBaseTestCase {
         assertTrue(lst.get(5) instanceof RhnTimeZone);
         assertTrue(lst.get(34) instanceof RhnTimeZone);
 
-        assertEquals(lst.get(0), UserManager
-                .getTimeZone("GMT"));
-        assertEquals(lst.get(0).getOlsonName(), "GMT");
+        assertEquals(UserManager.getTimeZone("GMT"), lst.get(0));
+        assertEquals("GMT", lst.get(0).getOlsonName());
 
-        assertEquals(lst.get(5).getOlsonName(), "Pacific/Auckland");
-        assertEquals(lst.get(5), UserManager
-                .getTimeZone("Pacific/Auckland"));
+        assertEquals("Pacific/Auckland", lst.get(5).getOlsonName());
+        assertEquals(UserManager.getTimeZone("Pacific/Auckland"), lst.get(5));
     }
 
    public void testUsersInSet() throws Exception {
