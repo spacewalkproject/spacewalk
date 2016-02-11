@@ -117,8 +117,7 @@ class Runner(jabber_lib.Runner):
         self._password = auth_info['password']
         self._resource = auth_info['resource']
 
-        params = self.build_rpclib_params(config)
-        server_url = params.get('uri')
+        server_url = config.get('server_url')
 
         self._jabber_servers = []
         if self.options.jabber_server:
@@ -133,59 +132,8 @@ class Runner(jabber_lib.Runner):
             if upstream_jabber_server not in self._jabber_servers:
                 self._jabber_servers.append(upstream_jabber_server)
 
-        if type(server_url) != type([]):
-            server_url = [server_url]
-
-        for su in server_url:
-            try:
-                params['uri'] = su
-                self._xmlrpc_server = s = apply(rpclib.Server, (), params)
-                if osa_ssl_cert:
-                    s.add_trusted_cert(osa_ssl_cert)
-                s.registration.welcome_message()
-
-                server_capabilities = get_server_capability(s)
-                if not server_capabilities.has_key('registration.register_osad'):
-                    die("Server does not support OSAD registration")
-
-                self._systemid_file = systemid_file = config['systemid']
-                self._systemid = systemid = open(systemid_file).read()
-
-                current_timestamp = int(time.time())
-                ret = s.registration.register_osad(systemid, {'client-timestamp' :
-                    current_timestamp})
-                break
-            except:
-                continue
-        else: #for
-            ret = {}
-
-        #Bugzilla: 142067
-        #If the server doesn't have push support. 'ret' won't have anything in it.
-        if len(ret.keys()) < 1:
-            raise jabber_lib.JabberConnectionError
-
-        server_timestamp = ret.get('server-timestamp')
-        # Compute the time drift between the client and the server
-        self._time_drift = server_timestamp - current_timestamp
-        log_debug(2, "Time drift", self._time_drift)
-
-        js = ret.get('jabber-server')
-        if js not in self._jabber_servers:
-            self._jabber_servers.append(js)
-
-        if not self._jabber_servers:
-            die("Missing jabber server")
-
         if not config.has_key('enable_failover') or config['enable_failover'] != '1':
             self._jabber_servers = [self._jabber_servers[0]]
-
-        self._dispatchers = ret.get('dispatchers')
-
-        self._client_name = ret.get('client-name')
-        self._shared_key = ret.get('shared-key')
-        log_debug(2, "Client name", self._client_name)
-        log_debug(2, "Shared key", self._shared_key)
 
         # Load the config
         self._config_options.clear()
@@ -211,6 +159,60 @@ class Runner(jabber_lib.Runner):
 
     def fix_connection(self, c):
         "After setting up the connection, do whatever else is necessary"
+
+        # Setup XMLRPC server
+        xmlrpc_params = self.build_rpclib_params(self._config_options)
+
+        # Looking for a server we connected to jabberd on
+        server_urls = self._config_options['server_url']
+        for url in server_urls:
+            if self._connected_jabber_server in url:
+                xmlrpc_params['uri'] = url
+                break
+
+        server = apply(rpclib.Server, (), xmlrpc_params)
+        self._xmlrpc_server = server
+
+        client_ssl_cert = self._config_options['ssl_ca_cert']
+        osa_ssl_cert = self._config_options['osa_ssl_cert'] or client_ssl_cert
+        if osa_ssl_cert:
+            server.add_trusted_cert(osa_ssl_cert)
+
+        server.registration.welcome_message()
+
+        server_capabilities = get_server_capability(server)
+        if not server_capabilities.has_key('registration.register_osad'):
+            raise Exception("Server does not support OSAD registration")
+
+        self._systemid_file = self._config_options['systemid']
+        self._systemid = open(self._systemid_file).read()
+
+        current_timestamp = int(time.time())
+        ret = server.registration.register_osad(self._systemid,
+                                                {'client-timestamp': current_timestamp})
+
+        #Bugzilla: 142067
+        #If the server doesn't have push support. 'ret' won't have anything in it.
+        if len(ret.keys()) < 1:
+            raise jabber_lib.JabberConnectionError
+
+        js = ret.get('jabber-server')
+        if js not in self._jabber_servers:
+            self._jabber_servers.append(js)
+
+
+        server_timestamp = ret.get('server-timestamp')
+        # Compute the time drift between the client and the server
+        self._time_drift = server_timestamp - current_timestamp
+        log_debug(2, "Time drift", self._time_drift)
+
+        self._dispatchers = ret.get('dispatchers')
+        self._client_name = ret.get('client-name')
+        self._shared_key = ret.get('shared-key')
+        log_debug(2, "Client name", self._client_name)
+        log_debug(2, "Shared key", self._shared_key)
+
+
         c.set_config_options(self._config_options)
         c.client_id = self._client_name
         c.shared_key = self._shared_key
@@ -271,10 +273,21 @@ class Runner(jabber_lib.Runner):
         try:
             server_url = osad_config.get('server_url')
         except osad_config.InterpolationError, e:
-            server_url = config.getServerlURL()[0]
+            server_url = config.getServerlURL()
         else:
-            if server_url is None:
-                server_url = config.getServerlURL()[0]
+            if not server_url:
+                server_url = config.getServerlURL()
+            else:
+                server_url = [config.convert_url_to_puny(i.strip()) for i in server_url.split(';')]
+
+        # Remove empty URLs
+        for url in server_url:
+            if not url:
+                server_url.remove(url)
+
+        # Real unusual case if there is no server URL both in up2date and osad config files
+        if not server_url:
+            die("Missing server URL in config file")
 
         ret['server_url'] = server_url
 

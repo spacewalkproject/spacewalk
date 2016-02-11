@@ -76,6 +76,7 @@ class Runner:
         self.ssl_cert = None
         self.debug_level = 0
         self._jabber_servers = []
+        self._connected_jabber_server = None
         self._username = None
         self._password = None
         self._resource = None
@@ -248,10 +249,13 @@ class Runner:
         have a traceback though.
         """
         for js in self._jabber_servers:
+
             log_debug(3, "Connecting to", js)
+
             try:
                 c = self._get_jabber_client(js)
                 log_debug(1, "Connected to jabber server", js)
+                self._connected_jabber_server = js
                 break
             except SSLHandshakeError:
                 # Error doing the handshake - this is a permanent error
@@ -590,7 +594,7 @@ class JabberClient(jabber.Client, object):
                 jabber.Client.connect(self)
             except socket.error, e:
                 log_error("Error connecting to jabber server: %s" % e)
-                raise JabberConnectionError(e)
+                raise socket.error(e)
 
             log_debug(5, "Connected")
 
