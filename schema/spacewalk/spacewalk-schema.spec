@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.5.11
+Version:        2.5.12
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -70,6 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Feb 12 2016 Jan Dobes 2.5.12-1
+- fixing missing upgrade
+
 * Tue Feb 09 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.11-1
 - delete trigger if does exist before creating it
 
