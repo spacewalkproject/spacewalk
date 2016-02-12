@@ -15,7 +15,13 @@
 
 import os
 import sys
-import ConfigParser
+
+# python2
+try:
+    import ConfigParser
+except: #python3
+    import configparser as ConfigParser
+
 
 from config_common import utils
 

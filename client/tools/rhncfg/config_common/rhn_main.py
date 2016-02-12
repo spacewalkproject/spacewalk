@@ -24,16 +24,16 @@ from config_common import cfg_exceptions
 try:
     # python3
     from urllib.parse import urlsplit
+    from configparser import InterpolationError
 except ImportError: #python2
     from urlparse import urlsplit
+    from ConfigParser import InterpolationError
 
 try:
     from socket import gaierror
 except:
     from socket import error
     gaierror = error
-
-from ConfigParser import InterpolationError
 
 sys.path.append('/usr/share/rhn')
 from up2date_client import config
