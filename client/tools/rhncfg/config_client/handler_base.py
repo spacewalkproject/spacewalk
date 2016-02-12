@@ -32,7 +32,7 @@ class HandlerBase(handler_base.HandlerBase):
 
         if not self.args:
             # No file specified; use all of them
-            files = files_hash.keys()
+            files = list(files_hash.keys())
             files.sort()
             return files
 

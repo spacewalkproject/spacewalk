@@ -363,7 +363,7 @@ class DeployTransaction:
 
 
             #paths = map(lambda x: x['path'], self.files)
-            paths = self.newtemp_by_path.keys()
+            paths = list(self.newtemp_by_path.keys())
 
             # 2.
             for path in paths:

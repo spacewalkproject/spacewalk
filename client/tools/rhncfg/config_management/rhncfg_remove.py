@@ -52,7 +52,7 @@ class Handler(handler_base.HandlerBase):
         if not r.config_channel_exists(channel):
             die(6, "Error: config channel %s does not exist" % channel)
 
-        files = map(utils.normalize_path, self.args)
+        files = [utils.normalize_path(x) for x in self.args]
 
         files_to_remove = []
         if self.options.topdir:

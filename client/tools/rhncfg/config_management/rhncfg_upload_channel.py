@@ -61,7 +61,7 @@ class Handler(handler_base.HandlerBase):
         #5/12/05 wregglej - 149034 allowing the channel name and the directory name to vary independently.
         if not self.options.channel is None:
             #Get the list of channels with leading and trailing whitespace removed.
-            channels = map(string.strip, string.split(self.options.channel,','))
+            channels = [x.strip() for x in self.options.channel.split(',') if x]
 
             #Get the list of directories to upload. At this point it's the list of arguments.
             dirs = self.args

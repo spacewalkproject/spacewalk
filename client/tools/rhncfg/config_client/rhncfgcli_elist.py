@@ -13,7 +13,7 @@ class Handler(handler_base.HandlerBase):
             die(1, "No managed files.")
 
         label = "Config Channel"
-        maxlen = max(map(lambda s: len(s[0]), files))
+        maxlen = max([len(s[0]) for s in files])
         maxlen = max(maxlen, len(label)) + 2
         print("%-10s %8s %-8s %10s %+3s    %*s    %s" % ('Mode', 'Owner', 'Group', 'Size', 'Rev', maxlen, label, "File"))
 

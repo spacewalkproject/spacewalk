@@ -67,7 +67,7 @@ class Handler(handler_base.HandlerBase):
 
         files_to_diff = []
 
-        files = map(utils.normalize_path, self.args)
+        files = [utils.normalize_path(x) for x in self.arg]
         files_count = len(files)
 
         if files_count != 1 and revision is not None:
