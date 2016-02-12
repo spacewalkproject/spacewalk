@@ -116,7 +116,7 @@ class Handler(handler_base.HandlerBase):
         r = self.repository
         try:
             info = r.get_raw_file_info(channel, path, revision)
-            if info.has_key('encoding') and info['file_contents']:
+            if 'encoding' in info and info['file_contents']:
                 if info['encoding'] == 'base64':
                     info['file_contents'] = base64.decodestring(info['file_contents'])
                 else:
@@ -154,7 +154,7 @@ class Handler(handler_base.HandlerBase):
             return ""
         else:
             template = "--- %s\t%s\tattributes: %s %s %s %s\tconfig channel: %s\trevision: %s"
-            if not info.has_key('modified'):
+            if 'modified' not in info:
                 info['modified'] = ''
             first_row = template % (path, str(info['modified']), ostr_to_sym(info['filemode'], info['filetype']),
                         info['username'], info['groupname'], info['selinux_ctx'], channel,

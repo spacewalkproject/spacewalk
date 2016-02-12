@@ -56,11 +56,11 @@ def _local_permission_check(action_type):
         if os.path.exists(os.path.join(_permission_root_dir, "script/all")) and action_type == "script.run":
             os.rename(os.path.join(_permission_root_dir, "script/all"),os.path.join(_permission_root_dir, "script/run"))
 
-        potential_all_path = apply(os.path.join, all_structure)
+        potential_all_path = os.path.join(*all_structure)
         if os.path.exists(os.path.join(_permission_root_dir, potential_all_path)):
             return 1
 
-    action_path = apply(os.path.join, atype_structure)
+    action_path = os.path.join(*atype_structure)
     return os.path.exists(os.path.join(_permission_root_dir, action_path))
 
 def _perm_error(action_type):
@@ -80,7 +80,7 @@ def _visit_dir(params, dirname, names):
         is_dir = os.path.isdir(full_path)
 
         if is_dir:
-            if ignore_dirs.has_key(full_path):
+            if full_path in ignore_dirs:
                 # don't consider the entire subtree on subsequent runs of
                 # visit
                 del names[i]

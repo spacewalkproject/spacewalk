@@ -20,7 +20,6 @@ import grp
 import sys
 import errno
 import shutil
-import string
 
 from config_common import file_utils, utils, cfg_exceptions
 from config_common.rhn_log import log_debug
@@ -164,7 +163,7 @@ class DeployTransaction:
                     else:
                         mode = file_info['filemode']
 
-                mode = string.atoi(str(mode), 8)
+                mode = int(str(mode), 8)
                 os.chmod(temp_file_path, mode)
 
             if file_info.has_key('selinux_ctx'):
@@ -375,7 +374,7 @@ class DeployTransaction:
                         log_debug(9, "backup file %s written" % self.backup_by_path[path])
 
             # 3.
-            paths.sort(key = lambda s: string.count(s, os.path.sep))
+            paths.sort(key = lambda s: s.count(os.path.sep))
             for path in paths:
                 if self.deployment_cb:
                     self.deployment_cb(path)

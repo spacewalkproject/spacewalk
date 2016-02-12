@@ -17,7 +17,6 @@ import os
 import stat
 import sys
 import time
-import string
 import traceback
 
 class Logger:
@@ -29,7 +28,7 @@ class Logger:
             outstr = "%s %s: %s\n" % (
                 time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time())),
                 self.get_caller(),
-                string.join(map(str, args)))
+                " ".join([str(it) for it in args]))
             sys.stdout.write(outstr)
 
             if not self.logfile is None:
@@ -40,7 +39,7 @@ class Logger:
             outstr = "%s %s: %s\n" % (
                 time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time())),
                 self.get_caller(),
-                string.join(map(str, args)))
+                " ".join([str(it) for it in args]))
             if not self.logfile is None:
                 self.write_to_logfile(outstr)
 
@@ -80,12 +79,11 @@ class Logger:
         callid = len(tbStack) - caller_offset
         module = tbStack[callid]
         module_file = os.path.basename(module[0])
-        module_file = string.split(module_file, '.', 1)[0]
+        module_file = module_file.split('.', 1)[0]
         return "%s.%s" % (module_file, module[2])
 
     def log_error(self, *args):
-        line = map(str, args)
-        outstr = string.join(line)
+        outstr = " ".join([str(it) for it in args])
         sys.stderr.write(outstr)
         sys.stderr.write("\n")
         if not self.logfile is None:

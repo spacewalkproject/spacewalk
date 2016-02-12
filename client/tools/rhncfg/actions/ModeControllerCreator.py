@@ -14,7 +14,6 @@
 #
 
 import sys
-import string
 import ModeController
 import Modes
 
@@ -45,7 +44,7 @@ class ModeControllerCreator:
         return controller
 
 def get_controller_creator():
-    if string.find(sys.platform, 'sunos') > -1:
+    if sys.platform.find('sunos') > -1:
         mode_list = [Modes.SolarisDeployMode(), Modes.SolarisDiffMode(), Modes.SolarisUploadMode(), Modes.SolarisMTimeUploadMode(), Modes.SolarisAllMode()]
     else:
         mode_list = [Modes.DeployMode(), Modes.DiffMode(), Modes.UploadMode(), Modes.MTimeUploadMode(), Modes.AllMode()]
@@ -55,7 +54,7 @@ def get_controller_creator():
     return controller
 
 def get_run_controller_creator():
-    if string.find(sys.platform, 'sunos') > -1:
+    if sys.platform.find('sunos') > -1:
         mode_list = [Modes.SolarisRunMode(), Modes.SolarisRunAllMode()]
     else:
         mode_list = [Modes.RunMode(), Modes.RunAllMode()]

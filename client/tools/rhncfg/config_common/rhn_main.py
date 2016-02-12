@@ -15,7 +15,6 @@
 
 import os
 import sys
-import string
 
 from config_common import local_config
 from config_common import rhn_log
@@ -126,9 +125,9 @@ class BaseMain:
 
         execname = os.path.basename(sys.argv[0])
         # Class names cannot have dot in them, so strip the extension
-        execname = string.split(execname, '.', 1)[0]
+        execname = execname.split('.', 1)[0]
 
-        mode_module = string.replace(mode, '-', '_')
+        mode_module = mode.replace('-', '_')
         module_name = "%s_%s" % (self.mode_prefix, mode_module)
         full_module_name = "%s.%s" % (self.plugins_dir, module_name)
 
