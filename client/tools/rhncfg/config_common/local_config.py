@@ -18,7 +18,7 @@ import sys
 import string
 import ConfigParser
 
-import utils
+from config_common import utils
 
 class rhncfgConfigParser(ConfigParser.ConfigParser):
     _local_config_file_name = '.rhncfgrc'
