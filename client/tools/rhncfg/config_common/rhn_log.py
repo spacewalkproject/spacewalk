@@ -94,23 +94,23 @@ class Logger:
         sys.exit(error_code)
 
 def set_debug_level(*args):
-    return apply(Logger().set_debug_level, args)
+    return Logger().set_debug_level(*args)
 
 def get_debug_level(*args):
-    return apply(Logger().get_debug_level, args)
+    return Logger().get_debug_level(*args)
 
 def set_logfile(*args):
-    return apply(Logger().set_logfile, args)
+    return Logger().set_logfile(*args)
 
 def log_debug(*args):
-    return apply(Logger().log_debug, args)
+    return Logger().log_debug(*args)
 
 def log_to_file(*args):
-    return apply(Logger().log_to_file, args)
+    return Logger().log_to_file(*args)
 
 def log_error(*args):
-    return apply(Logger().log_error, args)
+    return Logger().log_error(*args)
 
 def die(error_code, *args):
-    apply(Logger().log_error, args)
+    Logger().log_error(*args)
     sys.exit(error_code)
