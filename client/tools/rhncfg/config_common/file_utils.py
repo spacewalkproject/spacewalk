@@ -14,6 +14,7 @@
 #
 
 import os
+import sys
 import stat
 import time
 import tempfile
@@ -62,7 +63,7 @@ class FileProcessor:
         for k in self.file_struct_fields.keys():
             if not file_struct.has_key(k):
                 # XXX
-                raise Exception, "Missing key %s" % k
+                raise Exception("Missing key %s" % k)
 
         encoding = ''
 
@@ -83,15 +84,15 @@ class FileProcessor:
                 and file_struct['verify_contents']):
             if file_struct['checksum'] != utils.getContentChecksum(
                     file_struct['checksum_type'], contents):
-                raise Exception, "Corrupt file received: Content checksums do not match!"
+                raise Exception("Corrupt file received: Content checksums do not match!")
         elif ('md5sum' in file_struct and 'verify_contents' in file_struct
                 and file_struct['verify_contents']):
             if file_struct['md5sum'] != utils.getContentChecksum(
                     'md5', contents):
-                raise Exception, "Corrupt file received: Content checksums do not match!"
+                raise Exception("Corrupt file received: Content checksums do not match!")
         elif ('verify_contents' in file_struct
                 and file_struct['verify_contents']):
-            raise Exception, "Corrupt file received: missing checksum information!"
+            raise Exception("Corrupt file received: missing checksum information!")
 
 
         fh = None
@@ -215,7 +216,7 @@ class FileProcessor:
                     result = ''
                 else:
                     result = "Link targets differ for [%s]: actual: [%s], expected: [%s]\n" % (path, curlink, newlink)
-            except OSError, e:
+            except OSError as e:
                 if e.errno == 22:
                     result = "Deployed symlink is no longer a symlink!"
                 else:
@@ -232,7 +233,7 @@ class FileProcessor:
         for k in self.file_struct_fields.keys():
             if not file_struct.has_key(k):
                 # XXX
-                raise Exception, "Missing key %s" % k
+                raise Exception("Missing key %s" % k)
 
 
 def diff(src, dst, srcname=None, dstname=None, display_diff=False):

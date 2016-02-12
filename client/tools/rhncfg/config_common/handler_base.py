@@ -65,7 +65,7 @@ class HandlerBase:
 
             try:
                 self.repository.login(username=username, password=password)
-            except cfg_exceptions.InvalidSession, e:
+            except cfg_exceptions.InvalidSession as e:
                 rhn_log.die(1, "Session error: %s\n" % e)
 
     def get_auth_info(self, username=None):
