@@ -104,16 +104,16 @@ class Handler(handler_base.HandlerBase):
         if topdir:
             try:
                 dep_trans.deploy()
-            except Exception, e:
+            except Exception as e:
                 try:
                     dep_trans.rollback()
-                except FailedRollback, e2:
+                except FailedRollback as e2:
                     raise e2, "FAILED ROLLBACK:  ", sys.exc_info()[2]
                 #5/3/05 wregglej - 136415 Added exception stuff for missing user info.
-                except cfg_exceptions.UserNotFound, f:
+                except cfg_exceptions.UserNotFound as f:
                     raise
                 #5/5/05 wregglej - 136415 Added exception handling for unknown group.
-                except cfg_exceptions.GroupNotFound, f:
+                except cfg_exceptions.GroupNotFound as f:
                     raise
                 else:
                     raise e, "Deploy failed, rollback successful:  ", sys.exc_info()[2]

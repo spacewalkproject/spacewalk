@@ -14,9 +14,9 @@
 #
 
 import sys
-import string
 from rhn import rpclib
-import xmlrpclib
+from rhn.tb import raise_with_tb
+
 try:
     from socket import error, sslerror, herror, gaierror, timeout
 except ImportError:
@@ -25,6 +25,11 @@ except ImportError:
     herror = error
     gaierror = error
     timeout = error
+
+try: # python2
+    import xmlrpclib
+except ImportError: # python3
+    import xmlrpc.client as xmlrpclib
 
 #This is raised when the failover stuff has gone through every server in the server list
 #and the error is still occurring.
@@ -106,7 +111,7 @@ class Server(rpclib.Server):
         import urllib
         self._uri = myuri
         typ, uri = urllib.splittype(self._uri)
-        typ = string.lower(typ)
+        typ = typ.lower()
         if typ not in ("http", "https"):
             raise InvalidRedirectionError(
                 "Redirected to unsupported protocol %s" % typ)
@@ -158,22 +163,22 @@ class Server(rpclib.Server):
         succeed = 0
         while succeed == 0:
             try:
-                ret = apply(function, arglist, kwargs)
+                ret = function(*arglist, **kwargs)
             except rpclib.InvalidRedirectionError:
                 raise
-            except xmlrpclib.Fault, e:
+            except xmlrpclib.Fault as e:
                 save_traceback = sys.exc_info()[2]
                 try:
                     self._failover()
-                except NoMoreServers, f:
-                    raise e, None, save_traceback  #Don't raise the NoMoreServers error, raise the error that triggered the failover.
+                except NoMoreServers as f:
+                    raise_with_tb(e, None, save_traceback)  #Don't raise the NoMoreServers error, raise the error that triggered the failover.
                 continue
-            except (error, sslerror, herror, gaierror, timeout), e:
+            except (error, sslerror, herror, gaierror, timeout) as e:
                 save_traceback = sys.exc_info()[2]
                 try:
                     self._failover()
-                except NoMoreServers, f:
-                    raise e, None, save_traceback
+                except NoMoreServers as f:
+                    raise_with_tb(e, None, save_traceback)
                 continue
             succeed = 1 #If we get here then the function call eventually succeeded and we don't need to try again.
         return ret

@@ -40,7 +40,7 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
 
         try:
             self.read(self._get_config_files())
-        except ConfigParser.MissingSectionHeaderError, e:
+        except ConfigParser.MissingSectionHeaderError as e:
             print("Config error: line %s, file %s: %s" % (e.lineno,
                 e.filename, e))
             sys.exit(1)
@@ -81,7 +81,7 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
             except ValueError:
                 pass
             return ret
-        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError), e:
+        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError) as e:
             pass
 
         defaults = self.defaults()
@@ -106,7 +106,7 @@ def get(var):
 
 def _get_config():
     if rhncfgConfigParser._instance is None:
-        raise ValueError, "Configuration not initialized"
+        raise ValueError("Configuration not initialized")
     return rhncfgConfigParser._instance
 
 def instance():

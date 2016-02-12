@@ -118,7 +118,7 @@ class Handler(handler_base.HandlerBase):
                 try:
                     self.r.put_file(channel, remote_file, local_file, is_first_revision=0,
                                     selinux_ctx = selinux_ctx)
-                except cfg_exceptions.RepositoryFilePushError, e:
+                except cfg_exceptions.RepositoryFilePushError as e:
                     log_error(e)
 
 

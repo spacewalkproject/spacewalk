@@ -23,6 +23,7 @@ import shutil
 
 from config_common import file_utils, utils, cfg_exceptions
 from config_common.rhn_log import log_debug
+from rhn.tb import raise_with_tb
 
 class TargetNotFile(Exception): pass
 class DuplicateDeployment(Exception): pass
@@ -83,7 +84,7 @@ class DeployTransaction:
                     oumask = os.umask(022)
                     os.renames(path, new_path)
                     os.umask(oumask)
-                except OSError, e:
+                except OSError as e:
                     if e.errno == 18:
                         log_debug(9, "os.renames failed, using shutil functions")
                         path_dir, path_file = os.path.split(path)
@@ -125,12 +126,12 @@ class DeployTransaction:
                     try:
                         user_record = pwd.getpwnam(file_info['username'])
                         uid = user_record[2]
-                    except Exception, e:
+                    except Exception as e:
                         #Check if username is an int
                         try:
                             uid = int(file_info['username'])
                         except ValueError:
-                            raise cfg_exceptions.UserNotFound(file_info['username']), None, sys.exc_info()[2]
+                            raise_with_tb(cfg_exceptions.UserNotFound(file_info['username']))
                 else:
                     #default to root (3.2 sats)
                     uid = 0
@@ -142,11 +143,11 @@ class DeployTransaction:
                     try:
                         group_record = grp.getgrnam(file_info['groupname'])
                         gid = group_record[2]
-                    except Exception, e:
+                    except Exception as e:
                         try:
                             gid = int(file_info['groupname'])
                         except ValueError:
-                            raise cfg_exceptions.GroupNotFound(file_info['groupname']), None, sys.exc_info()[2]
+                            raise_with_tb(cfg_exceptions.GroupNotFound(file_info['groupname']))
 
                 else:
                     #default to root (3.2 sats)
@@ -173,10 +174,10 @@ class DeployTransaction:
                     try:
                         if lsetfilecon(temp_file_path, sectx) < 0:
                             raise Exception("failed to set selinux context on %s" % dest_path)
-                    except OSError, e:
-                        raise Exception("failed to set selinux context on %s" % dest_path, e), None, sys.exc_info()[2]
+                    except OSError as e:
+                        raise_with_tb(Exception("failed to set selinux context on %s" % dest_path, e))
 
-        except OSError, e:
+        except OSError as e:
             if e.errno == errno.EPERM and not strict_ownership:
                 sys.stderr.write("cannonical file ownership and permissions lost on %s\n" % dest_path)
             else:
@@ -238,7 +239,7 @@ class DeployTransaction:
             # need to make sure to handle it if we catch a 'OSError: [Errno 18] Invalid cross-device link'
             try:
                 os.rename(self.backup_by_path[path], path)
-            except OSError, e:
+            except OSError as e:
                 if e.errno == 18:
                     log_debug(9, "os.rename failed, using shutil.copy")
                     shutil.copy(self.backup_by_path[path], path)

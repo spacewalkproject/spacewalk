@@ -14,6 +14,7 @@
 #
 
 import os
+import sys
 
 from config_common.transactions import DeployTransaction, FailedRollback
 from config_common import file_utils
@@ -40,7 +41,7 @@ def deploy_files(topdir, repository, files, excludes = None, config_channel = No
                     args = (path, )
                 kwargs = {'auto_delete': 0, 'dest_directory': topdir}
                 finfo = repository.get_file_info(*args, **kwargs)
-            except cfg_exceptions.DirectoryEntryIsFile, e:
+            except cfg_exceptions.DirectoryEntryIsFile as e:
                 print("Error: unable to deploy directory %s, as it is already a file on disk" % e[0])
                 continue
 
@@ -51,23 +52,23 @@ def deploy_files(topdir, repository, files, excludes = None, config_channel = No
             (processed_path, file_info, dirs_created) = finfo
             try:
                 dep_trans.add_preprocessed(path, processed_path, file_info, dirs_created)
-            except cfg_exceptions.UserNotFound, e:
+            except cfg_exceptions.UserNotFound as e:
                 print("Error: unable to deploy file %s, information on user '%s' could not be found." % (path,e[0]))
                 continue
-            except cfg_exceptions.GroupNotFound, e:
+            except cfg_exceptions.GroupNotFound as e:
                 print("Error: unable to deploy file %s, information on group '%s' could not be found." % (path, e[0]))
                 continue
 
     try:
         dep_trans.deploy()
     #5/3/05 wregglej - 136415 added missing user exception stuff.
-    except cfg_exceptions.UserNotFound, e:
+    except cfg_exceptions.UserNotFound as e:
         try_rollback(dep_trans, "Error unable to deploy file, information on user '%s' could not be found" % e[0])
-    except cfg_exceptions.GroupNotFound, e:
+    except cfg_exceptions.GroupNotFound as e:
         try_rollback(dep_trans, "Error: unable to deploy file, information on group '%s' could not be found" % e[0])
-    except cfg_exceptions.FileEntryIsDirectory, e:
+    except cfg_exceptions.FileEntryIsDirectory as e:
         try_rollback(dep_trans, "Error: unable to deploy file %s, as it is already a directory on disk" % e[0])
-    except cfg_exceptions.DirectoryEntryIsFile, e:
+    except cfg_exceptions.DirectoryEntryIsFile as e:
         try_rollback(dep_trans, "Error: unable to deploy directory %s, as it is already a file on disk" % e[0])
     except Exception:
         try:
@@ -81,6 +82,6 @@ def try_rollback(dep_trans, msg):
         dep_trans.rollback()
     except (FailedRollback,
             cfg_exceptions.UserNotFound,
-            cfg_exceptions.GroupNotFound), f:
+            cfg_exceptions.GroupNotFound) as f:
         pass
     print(msg)

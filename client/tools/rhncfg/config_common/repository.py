@@ -26,6 +26,7 @@ from config_common import utils
 import xmlrpclib
 
 from rhn_log import log_debug
+from rhn.tb import raise_with_tb
 
 try:
     from selinux import lgetfilecon
@@ -149,9 +150,9 @@ class Repository:
 
         try:
             file_stat = os.lstat(local_path)
-        except OSError, e:
-            raise cfg_exceptions.RepositoryLocalFileError(
-                "Error lstat()-ing local file: %s" % e), None, sys.exc_info()[2]
+        except OSError as e:
+            raise_with_tb(cfg_exceptions.RepositoryLocalFileError(
+                "Error lstat()-ing local file: %s" % e))
 
         # Dlimiters
         if delim_start or delim_end:
@@ -183,9 +184,9 @@ class Repository:
         if load_contents:
             try:
                 file_contents = open(local_path, "r").read()
-            except IOError, e:
-                raise cfg_exceptions.RepositoryLocalFileError(
-                    "Error opening local file: %s" % e), None, sys.exc_info()[2]
+            except IOError as e:
+                raise_with_tb(cfg_exceptions.RepositoryLocalFileError(
+                    "Error opening local file: %s" % e))
 
             self._add_content(file_contents, params)
 
@@ -290,7 +291,7 @@ class RPC_Repository(Repository):
             # without setting any state on the server side
             try:
                 x_server.registration.welcome_message()
-            except xmlrpclib.Fault, e:
+            except xmlrpclib.Fault as e:
                 sys.stderr.write("XML-RPC error while talking to %s:\n %s\n" % (self.__server_url, e))
                 sys.exit(2)
 
@@ -361,13 +362,13 @@ class RPC_Repository(Repository):
         method = getattr(self.server, method_name)
         try:
             result = apply(method, params)
-        except xmlrpclib.ProtocolError, e:
+        except xmlrpclib.ProtocolError as e:
             sys.stderr.write("XML-RPC call error: %s\n" % e)
             sys.exit(1)
         except xmlrpclib.Fault:
             # Re-raise them
             raise
-        except Exception, e:
+        except Exception as e:
             sys.stderr.write("XML-RPC error while talking to %s: %s\n" % (
                 self.__server_url, e))
             sys.exit(2)
