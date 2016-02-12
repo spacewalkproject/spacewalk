@@ -62,7 +62,7 @@ class BaseMain:
         dict_name_opt={'--server-name': None,'--password': None,'--username': None,}
         for index in range(1,len(sys.argv)):
             arg=sys.argv[index]
-            param = filter(lambda x: x[1] == 0,dict_name_opt.items())
+            param = [x for x in dict_name_opt.items() if x[1] == 0]
             if param:
                 if arg.startswith('-') or arg in self.modes:
                   # not perfect, but at least a little bit better
@@ -160,9 +160,9 @@ class BaseMain:
                     up2date_cfg['proto'] = urlsplit(server_name[0])[0]
                     if up2date_cfg['proto'] == '':
                         up2date_cfg['proto'] = 'https'
-                        up2date_cfg['server_list'] = map(lambda x: urlsplit(x)[2], server_name)
+                        up2date_cfg['server_list'] = [urlsplit(x)[2] for x in server_name]
                     else:
-                        up2date_cfg['server_list'] = map(lambda x: urlsplit(x)[1], server_name)
+                        up2date_cfg['server_list'] = [urlsplit(x)[1] for x in server_name]
                     server_name = (up2date_cfg['server_list'])[0]
                     local_config.init(self.config_section, defaults=up2date_cfg, server_name=server_name)
 

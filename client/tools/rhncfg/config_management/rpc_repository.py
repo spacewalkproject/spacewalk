@@ -206,7 +206,7 @@ class Repository(repository.RPC_Repository):
         files = self.rpc_call('config.management.list_files',
             {'session' : self.session, 'config_channel' : config_channel})
 
-        return map(lambda p: p['path'], files)
+        return [p['path'] for p in files]
 
     def get_file_revisions(self, config_channel, repopath):
         """

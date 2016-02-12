@@ -29,6 +29,7 @@ try: # python2
     import xmlrpclib
 except ImportError: # python3
     import xmlrpc.client as xmlrpclib
+    basestring = str
 
 from rhn.tb import raise_with_tb
 

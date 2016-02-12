@@ -48,4 +48,4 @@ class Handler(handler_base.HandlerBase):
             except cfg_exceptions.RepositoryFileMissingError:
                 print("%s: not in config channel" % f)
                 continue
-            print("%s: %s" % (f, string.join(map(str, revisions))))
+            print("%s: %s" % (f, string.join([str(x) for x in revisions])))
