@@ -361,7 +361,7 @@ class RPC_Repository(Repository):
     def rpc_call(self, method_name, *params):
         method = getattr(self.server, method_name)
         try:
-            result = apply(method, params)
+            result = method(*params)
         except xmlrpclib.ProtocolError as e:
             sys.stderr.write("XML-RPC call error: %s\n" % e)
             sys.exit(1)
