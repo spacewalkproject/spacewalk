@@ -217,88 +217,104 @@ def deploy(params, topdir=None, cache_only=None):
     try:
         dep_trans.deploy()
     #5/3/05 wregglej - 135415 Adding stuff for missing user info
-    except cfg_exceptions.UserNotFound as e:
+    except cfg_exceptions.UserNotFound:
+            e = sys.exc_info()[1]
             try:
                 dep_trans.rollback()
             except FailedRollback:
                 log_to_file(0, "Failed deployment and rollback, information on user '%s' could not be found" % (e[0], ))
                 return (44, "Failed deployment and rollback, information on user '%s' could not be found" % (e[0], ), {})
             #5/3/05 wregglej - 136415 Adding some more exceptions to handle
-            except cfg_exceptions.UserNotFound as f:
+            except cfg_exceptions.UserNotFound:
+                f = sys.exc_info()[1]
                 log_to_file(0, "Failed deployment and rollback, information on user '%s' could not be found" % (f[0], ))
                 return (50, "Failed deployment and rollback, information on user '%s' could not be found" % (f[0], ), {})
             #5/5/05 wregglej - 136415 Adding exception handling for unknown group,
-            except cfg_exceptions.GroupNotFound as f:
+            except cfg_exceptions.GroupNotFound:
+                f = sys.exc_info()[1]
                 log_to_file(0, "Failed deployment and rollback, group '%s' could not be found" % (f[0],))
                 return (51, "Failed deployment and rollback, group '%s' could not be found" % (f[0],), {})
             else:
                 log_to_file(0, "Failed deployment and rollback, information on user '%s' could not be found" % (e[0], ))
                 return (50, "Failed deployment and rollback, information on user '%s' could not be found" % (e[0], ), {})
-    except cfg_exceptions.GroupNotFound as e:
+    except cfg_exceptions.GroupNotFound:
+            e = sys.exc_info()[1]
             try:
                 dep_trans.rollback()
             except FailedRollback:
                 log_to_file(0, "Failed deployment and rollback, information on user '%s' could not be found" % (e[0], ))
                 return (44, "Failed deployment and rollback, information on user '%s' could not be found" % (e[0], ), {})
             #5/3/05 wregglej - 136415 Adding some more exceptions to handle
-            except cfg_exceptions.UserNotFound as f:
+            except cfg_exceptions.UserNotFound:
+                f = sys.exc_info()[1]
                 log_to_file(0, "Failed deployment and rollback, information on user '%s' could not be found" % (f[0], ) )
                 return (50, "Failed deployment and rollback, information on user '%s' could not be found" % (f[0], ), {})
             #5/5/05 wregglej - 136415 Adding exception handling for unknown group,
-            except cfg_exceptions.GroupNotFound as f:
+            except cfg_exceptions.GroupNotFound:
+                f = sys.exc_info()[1]
                 log_to_file(0, "Failed deployment and rollback, group '%s' could not be found" % (f[0],))
                 return (51, "Failed deployment and rollback, group '%s' could not be found" % (f[0],), {})
             else:
                 log_to_file(0, "Failed deployment and rollback, group '%s' could not be found" % (e[0], ))
                 return (51, "Failed deployment and rollback, group '%s' could not be found" % (e[0], ), {})
-    except cfg_exceptions.FileEntryIsDirectory as e:
+    except cfg_exceptions.FileEntryIsDirectory:
+            e = sys.exc_info()[1]
             try:
                 dep_trans.rollback()
             except FailedRollback:
                 log_to_file(0, "Failed deployment and rollback, %s already exists as a directory" % (e[0], ))
                 return (44, "Failed deployment and rollback, %s already exists as a directory" % (e[0], ), {})
             #5/3/05 wregglej - 136415 Adding some more exceptions to handle
-            except cfg_exceptions.UserNotFound as f:
+            except cfg_exceptions.UserNotFound:
+                f = sys.exc_info()[1]
                 log_to_file(0, "Failed deployment and rollback, information on user '%s' could not be found" % (f[0], ))
                 return (50, "Failed deployment and rollback, information on user '%s' could not be found" % (f[0], ), {})
             #5/5/05 wregglej - 136415 Adding exception handling for unknown group,
-            except cfg_exceptions.GroupNotFound as f:
+            except cfg_exceptions.GroupNotFound:
+                f = sys.exc_info()[1]
                 log_to_file(0, "Failed deployment and rollback, group '%s' could not be found" % (f[0],))
                 return (51, "Failed deployment and rollback, group '%s' could not be found" % (f[0],), {})
             else:
                 log_to_file(0, "Failed deployment, %s already exists as a directory" % (e[0], ))
                 return (45, "Failed deployment, %s already exists as a directory" % (e[0], ), {})
-    except cfg_exceptions.DirectoryEntryIsFile as e:
+    except cfg_exceptions.DirectoryEntryIsFile:
+            e = sys.exc_info()[1]
             try:
                 dep_trans.rollback()
             except FailedRollback:
                 log_to_file(0, "Failed deployment and rollback, %s already exists as a file" % (e[0], ))
                 return (46, "Failed deployment and rollback, %s already exists as a file" % (e[0], ), {})
             #5/3/05 wregglej - 136415 Adding exceptions for missing user
-            except cfg_exceptions.UserNotFound as f:
+            except cfg_exceptions.UserNotFound:
+                f = sys.exc_info()[1]
                 log_to_file(0, "Failed deployment and rollback, information on user '%s' could not be found" % (f[0], ))
                 return (50, "Failed deployment and rollback, information on user '%s' could not be found" % (f[0], ), {})
             #5/5/05 wregglej - 136415 Adding exception handling for unknown group,
-            except cfg_exceptions.GroupNotFound as f:
+            except cfg_exceptions.GroupNotFound:
+                f = sys.exc_info()[1]
                 log_to_file(0, "Failed deployment and rollback, group '%s' could not be found" % (f[0],))
                 return (51, "Failed deployment and rollback, group '%s' could not be found" % (f[0],), {})
             else:
                 log_to_file(0, "Failed deployment, %s already exists as a file" % (e[0], ))
                 return (47, "Failed deployment, %s already exists as a file" % (e[0], ), {})
 
-    except Exception as e:
+    except Exception:
+        e = sys.exc_info()[1]
         print(e)
         try:
             dep_trans.rollback()
-        except FailedRollback as e2:
+        except FailedRollback:
+            e2 = sys.exc_info()[1]
             log_to_file(0, "Failed deployment, failed rollback:  %s" % e2)
             return (48, "Failed deployment, failed rollback:  %s" % e2, {})
         #5/3/05 wregglej - 135415 Add exception handling for missing user.
-        except cfg_exceptions.UserNotFound as f:
+        except cfg_exceptions.UserNotFound:
+            f = sys.exc_info()[1]
             log_to_file(0, "Failed deployment and rollback, information on user '%s' could not be found" % (f[0]))
             return (50, "Failed deployment and rollback, information on user '%s' could not be found" % (f[0]), {})
         #5/5/05 wregglej - 136415 Adding exception handling for unknown group,
-        except cfg_exceptions.GroupNotFound as f:
+        except cfg_exceptions.GroupNotFound:
+            f = sys.exc_info()[1]
             log_to_file(0, "Failed deployment and rollback, group '%s' could not be found" % (f[0],))
             return (51, "Failed deployment and rollback, group '%s' could not be found" % (f[0],), {})
         else:

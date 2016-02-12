@@ -133,7 +133,8 @@ class BaseMain:
 
         try:
             module = __import__(full_module_name)
-        except ImportError as e:
+        except ImportError:
+            e = sys.exc_info()[1]
             rhn_log.die(1, "Unable to load plugin for mode '%s': %s" % (mode, e))
 
         module = getattr(module, module_name)
@@ -154,7 +155,8 @@ class BaseMain:
 
             try:
                 server_name = local_config.get('server_url')
-            except InterpolationError as e:
+            except InterpolationError:
+                e = sys.exc_info()[1]
                 if e.option == 'server_url':
                     server_name = config.getServerlURL()
                     up2date_cfg['proto'] = urlsplit(server_name[0])[0]
@@ -182,7 +184,8 @@ class BaseMain:
         repo_module_name = "%s.%s" % (self.plugins_dir, repo_class)
         try:
             repo_module = __import__(repo_module_name)
-        except ImportError as e:
+        except ImportError:
+            e = sys.exc_info()[1]
             rhn_log.die(1, "Unable to load repository module:  %s" % e)
 
         try:
@@ -194,14 +197,17 @@ class BaseMain:
             repo = getattr(repo_module, self.repository_class_name)()
         except AttributeError:
             rhn_log.die(1, "Missing repository class")
-        except InterpolationError as e:
+        except InterpolationError:
+            e = sys.exc_info()[1]
             if e.option == 'server_url':
                 #pkilambi: bug#179367# backtic is replaced with single quote
                 rhn_log.die(1, "Missing 'server_url' configuration variable; please refer to the config file")
             raise
-        except cfg_exceptions.ConfigurationError as e:
+        except cfg_exceptions.ConfigurationError:
+            e = sys.exc_info()[1]
             rhn_log.die(e)
-        except gaierror as e:
+        except gaierror:
+            e = sys.exc_info()[1]
             print("Socket Error: %s" % (e.args[1],))
             sys.exit(1)
 
@@ -210,9 +216,10 @@ class BaseMain:
             try:
                 handler.authenticate(username, password)
                 handler.run()
-            except cfg_exceptions.AuthenticationError as e:
+            except cfg_exceptions.AuthenticationError:
+                e = sys.exc_info()[1]
                 rhn_log.die(1, "Authentication failed: %s" % e)
-            except Exception as e:
+            except Exception:
                 raise
         finally:
             repo.cleanup()

@@ -17,8 +17,10 @@ BuildRequires: python
 Requires: python
 %if 0%{?fedora} >= 23
 Requires: python3-rhnlib
+Requires: python3-spacewalk-backend-usix
 %else
 Requires: rhnlib
+Requires: spacewalk-backend-usix
 %endif
 %if 0%{?rhel} && 0%{?rhel} < 6
 Requires: rhn-client-tools >= 0.4.20-86

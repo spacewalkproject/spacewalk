@@ -126,10 +126,12 @@ class Handler(handler_base.HandlerBase):
                     delim_start=delim_start,
                     delim_end=delim_end,
                     selinux_ctx=selinux_ctx)
-            except cfg_exceptions.RepositoryFileExistsError as e:
+            except cfg_exceptions.RepositoryFileExistsError:
+                e = sys.exc_info()[1]
                 log_error("Error: %s is already in channel %s" %
                           (remote_file, channel))
-            except cfg_exceptions.RepositoryFilePushError as e:
+            except cfg_exceptions.RepositoryFilePushError:
+                e = sys.exc_info()[1]
                 log_error("Error pushing file:  %s" % e)
             else:
                 print("Local file %s -> remote file %s" % (local_file, remote_file))

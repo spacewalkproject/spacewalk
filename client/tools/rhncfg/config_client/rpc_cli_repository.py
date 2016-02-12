@@ -38,7 +38,8 @@ class ClientRepository(repository.RPC_Repository):
         systemid_file = local_config.get("systemid") or self.default_systemid
         try:
             f = open(systemid_file, "r")
-        except IOError as e:
+        except IOError:
+            e = sys.exc_info()[1]
             sys.stderr.write("Cannot open %s: %s\n" % (systemid_file, e))
             sys.exit(1)
 
@@ -52,11 +53,12 @@ class ClientRepository(repository.RPC_Repository):
     def rpc_call(self, method_name, *params):
         try:
             result = repository.RPC_Repository.rpc_call(self, method_name, *params)
-        except xmlrpclib.Fault as e:
+        except xmlrpclib.Fault:
+            e = sys.exc_info()[1]
             if e.faultCode == -9:
                 # System not subscribed
                 raise_with_tb(cfg_exceptions.AuthenticationError(
-                    "Invalid digital server certificate%s" % e.faultString))
+                    "Invalid digital server certificate%s" % e.faultString), sys.exc_info()[2])
             raise
         return result
 
@@ -123,7 +125,8 @@ class ClientRepository(repository.RPC_Repository):
             try:
                 self.rpc_call('config.client.upload_file',
                     self.system_id, action_id, params)
-            except xmlrpclib.Fault as e:
+            except xmlrpclib.Fault:
+                e = sys.exc_info()[1]
                 fault_code, fault_string = e.faultCode, e.faultString
                 # deal with particular faults
                 if fault_code == -4003:
@@ -134,7 +137,7 @@ class ClientRepository(repository.RPC_Repository):
                     failed_due_to_quota.append(file)
                 else:
                     raise_with_tb(cfg_exceptions.RepositoryFilePushError(fault_code,
-                        fault_string))
+                        fault_string), sys.exc_info()[2])
             except Exception:
                 traceback.print_exc()
                 raise

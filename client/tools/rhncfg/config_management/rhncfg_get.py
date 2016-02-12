@@ -20,6 +20,8 @@ import tempfile
 from config_common import handler_base, utils, cfg_exceptions
 from config_common.rhn_log import log_debug, die
 from config_common.transactions import DeployTransaction, FailedRollback
+from spacewalk.common.usix import raise_with_tb
+
 
 def deploying_mesg_callback(path):
     print("Deploying %s" % path)
@@ -104,18 +106,18 @@ class Handler(handler_base.HandlerBase):
         if topdir:
             try:
                 dep_trans.deploy()
-            except Exception as e:
+            except Exception:
                 try:
                     dep_trans.rollback()
-                except FailedRollback as e2:
-                    raise e2, "FAILED ROLLBACK:  ", sys.exc_info()[2]
+                except FailedRollback:
+                    raise_with_tb(FailedRollback("FAILED ROLLBACK:  "), sys.exc_info()[2])
                 #5/3/05 wregglej - 136415 Added exception stuff for missing user info.
-                except cfg_exceptions.UserNotFound as f:
+                except cfg_exceptions.UserNotFound:
                     raise
                 #5/5/05 wregglej - 136415 Added exception handling for unknown group.
-                except cfg_exceptions.GroupNotFound as f:
+                except cfg_exceptions.GroupNotFound:
                     raise
                 else:
-                    raise e, "Deploy failed, rollback successful:  ", sys.exc_info()[2]
+                    raise_with_tb(Exception("Deploy failed, rollback successful:  "), sys.exc_info()[2])
 
 

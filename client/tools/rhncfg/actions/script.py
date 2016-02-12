@@ -58,13 +58,15 @@ def _create_script_file(script, uid=None, gid=None):
             fd = os.open(script_path, os.O_RDWR | os.O_CREAT | os.O_EXCL, int("0700", 8))
             # If this succeeds, break out the loop
             break
-        except OSError, e:
+        except OSError:
+            e = sys.exc_info()[1]
             if e.errno != 17: # File exists
                 raise
             # File does exist, try to remove it
             try:
                 os.unlink(script_path)
-            except OSError, e:
+            except OSError:
+                e = sys.exc_info()[1]
                 if e.errno != 2: # No such file or directory
                     raise
     else:
@@ -156,7 +158,8 @@ def run(action_id, params, cache_only=None):
     # create the script on disk
     try:
         script_path = _create_script_file(script, uid=uid, gid=ugid)
-    except OSError, e:
+    except OSError:
+        e = sys.exc_info()[1]
         return 1, "Problem creating script file:  %s" % e, extras
 
     # determine gid to run script as

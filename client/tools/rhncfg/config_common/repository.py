@@ -31,7 +31,8 @@ except ImportError: # python3
     import xmlrpc.client as xmlrpclib
     basestring = str
 
-from rhn.tb import raise_with_tb
+from spacewalk.common.usix import raise_with_tb
+from rhn.i18n import sstr
 
 try:
     from selinux import lgetfilecon
@@ -155,9 +156,10 @@ class Repository:
 
         try:
             file_stat = os.lstat(local_path)
-        except OSError as e:
+        except OSError:
+            e = sys.exc_info()[1]
             raise_with_tb(cfg_exceptions.RepositoryLocalFileError(
-                "Error lstat()-ing local file: %s" % e))
+                "Error lstat()-ing local file: %s" % e), sys.exc_info()[2])
 
         # Dlimiters
         if delim_start or delim_end:
@@ -189,9 +191,10 @@ class Repository:
         if load_contents:
             try:
                 file_contents = open(local_path, "r").read()
-            except IOError as e:
+            except IOError:
+                e = sys.exc_info()[1]
                 raise_with_tb(cfg_exceptions.RepositoryLocalFileError(
-                    "Error opening local file: %s" % e))
+                    "Error opening local file: %s" % e), sys.exc_info()[2])
 
             self._add_content(file_contents, params)
 
@@ -296,7 +299,8 @@ class RPC_Repository(Repository):
             # without setting any state on the server side
             try:
                 x_server.registration.welcome_message()
-            except xmlrpclib.Fault as e:
+            except xmlrpclib.Fault:
+                e = sys.exc_info()[1]
                 sys.stderr.write("XML-RPC error while talking to %s:\n %s\n" % (self.__server_url, e))
                 sys.exit(2)
 
@@ -367,13 +371,15 @@ class RPC_Repository(Repository):
         method = getattr(self.server, method_name)
         try:
             result = method(*params)
-        except xmlrpclib.ProtocolError as e:
+        except xmlrpclib.ProtocolError:
+            e = sys.exc_info()[1]
             sys.stderr.write("XML-RPC call error: %s\n" % e)
             sys.exit(1)
         except xmlrpclib.Fault:
             # Re-raise them
             raise
-        except Exception as e:
+        except Exception:
+            e = sys.exc_info()[1]
             sys.stderr.write("XML-RPC error while talking to %s: %s\n" % (
                 self.__server_url, e))
             sys.exit(2)
@@ -388,7 +394,7 @@ class RPC_Repository(Repository):
 
         # check for the rhncfg.content.base64_decode capability and encode the
         # data if the server is capable of descoding it
-        if 'rhncfg.content.base64_decode' in self._server_capabilities):
+        if 'rhncfg.content.base64_decode' in self._server_capabilities:
             params['enc64'] = 1
             params['file_contents'] = base64.encodestring(file_contents)
         else:
