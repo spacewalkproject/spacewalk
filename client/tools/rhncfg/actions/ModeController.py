@@ -14,7 +14,6 @@
 #
 
 import sys
-import string
 
 class ModeMissingException(Exception):
     pass
@@ -156,7 +155,7 @@ def ask_before_continuing(question=None):
 
     while answer != 'y' and answer != 'n':
         answer = raw_input(the_question)
-        answer = string.lower(answer)[0]
+        answer = answer.lower()[0]
 
     if answer == 'n':
         sys.exit(0)

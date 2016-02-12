@@ -15,7 +15,6 @@
 
 import os
 import sys
-import string
 import ConfigParser
 
 from config_common import utils
@@ -47,7 +46,7 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
             sys.exit(1)
 
     def _get_config_files(self):
-        if string.find(sys.platform, 'sunos') > -1:
+        if sys.platform.find('sunos') > -1:
             return [
                 "/opt/redhat/rhn/solaris/etc/sysconfig/rhn/%s.conf" % self.section,
                 os.path.join(utils.get_home_dir(), self._local_config_file_name),

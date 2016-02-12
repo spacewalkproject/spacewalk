@@ -43,7 +43,7 @@ class HandlerBase:
 
     def _parse_args(self, args):
         # Parses the arguments and returns a tuple (options, args)
-        usage = string.join(["%prog", self.mode, self._usage_options])
+        usage = " ".join(["%prog", self.mode, self._usage_options])
         self._parser = self._option_parser_class(
             option_list=self._options_table,
             usage=usage)
@@ -88,5 +88,5 @@ class HandlerBase:
             # EOF
             tty.write("\n")
             sys.exit(0)
-        return string.strip(username)
+        return username.strip()
 

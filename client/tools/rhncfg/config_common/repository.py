@@ -19,7 +19,6 @@ import pwd
 import grp
 import sys
 import stat
-import string
 import base64
 from config_common import cfg_exceptions
 from config_common import local_config
@@ -260,8 +259,8 @@ class RPC_Repository(Repository):
                 if not os.environ[env]:
                     # sometimes unset
                     continue
-                lang = string.split(os.environ[env], ':')[0]
-                lang = string.split(lang, '.')[0]
+                lang = os.environ[env].split(':')[0]
+                lang = lang.split('.')[0]
                 break
 
         if setup_network:
@@ -403,9 +402,9 @@ def get_server_capability(s):
             r"^(?P<name>[^(]*)\((?P<version>[^)]*)\)\s*=\s*(?P<value>.*)$")
     vals = {}
     for h in cap_headers:
-        arr = string.split(h, ':', 1)
+        arr = h.split(':', 1)
         assert len(arr) == 2
-        val = string.strip(arr[1])
+        val = arr[1].strip()
         if not val:
             continue
 
@@ -415,7 +414,7 @@ def get_server_capability(s):
             continue
         vdict = mo.groupdict()
         for k, v in vdict.items():
-            vdict[k] = string.strip(v)
+            vdict[k] = v.strip()
 
         vals[vdict['name']] = vdict
     return vals
