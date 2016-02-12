@@ -70,7 +70,7 @@ class ClientRepository(repository.RPC_Repository):
         log_debug(4, file)
         result = self.rpc_call('config.client.get_file', self.system_id, file)
 
-        if result.has_key('missing'):
+        if 'missing' in result:
             return None
 
         dirs_created = None

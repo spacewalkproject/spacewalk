@@ -64,7 +64,7 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
         # server_list is always in the defaults, never in the rhncfg config file. It's formed when there
         # are more than one server in up2date's serverURL setting.
         if option == 'server_list':
-            if self.mydefaults.has_key('server_list'):
+            if 'server_list' in self.mydefaults:
                 if type(self.mydefaults['server_list']) is type([]):
                     return self.mydefaults['server_list']
 
@@ -86,10 +86,7 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
 
         defaults = self.defaults()
 
-        if defaults.has_key(option):
-            return defaults[option]
-        else:
-            return None
+        return defaults.get(option)
 
     def keys(self):
         return self.options(self.section)
