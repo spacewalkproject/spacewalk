@@ -46,7 +46,8 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
 
         try:
             self.read(self._get_config_files())
-        except ConfigParser.MissingSectionHeaderError as e:
+        except ConfigParser.MissingSectionHeaderError:
+            e = sys.exc_info()[1]
             print("Config error: line %s, file %s: %s" % (e.lineno,
                 e.filename, e))
             sys.exit(1)
@@ -87,7 +88,7 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
             except ValueError:
                 pass
             return ret
-        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError) as e:
+        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError):
             pass
 
         defaults = self.defaults()

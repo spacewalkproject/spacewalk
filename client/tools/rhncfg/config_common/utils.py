@@ -75,7 +75,8 @@ def copyfile_p(src, dst):
     directory = os.path.split(dst)[0]
     try:
         os.makedirs(directory)
-    except OSError as e:
+    except OSError:
+        e = sys.exc_info()[1]
         if e.errno != 17:
             # not File exists
             raise
@@ -118,7 +119,8 @@ def mkdir_p(path, mode=None, symlinks=None, allfiles=None):
             os.mkdir(d, mode)
             dirs_created.append(d)
             log_debug(8, "created", d)
-        except OSError as e:
+        except OSError:
+            e = sys.exc_info()[1]
             if e.errno != 17:
                 raise
             else:

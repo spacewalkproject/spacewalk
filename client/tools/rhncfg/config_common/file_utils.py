@@ -216,7 +216,8 @@ class FileProcessor:
                     result = ''
                 else:
                     result = "Link targets differ for [%s]: actual: [%s], expected: [%s]\n" % (path, curlink, newlink)
-            except OSError as e:
+            except OSError:
+                e = sys.exc_info()[1]
                 if e.errno == 22:
                     result = "Deployed symlink is no longer a symlink!"
                 else:

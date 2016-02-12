@@ -72,9 +72,11 @@ class Handler(handler_base.HandlerBase):
         try:
             result = r.diff_file_revisions(path, channel_src,
                 revision_src, channel_dst, revision_dst)
-        except cfg_exceptions.RepositoryFileMissingError as e:
+        except cfg_exceptions.RepositoryFileMissingError:
+            e = sys.exc_info()[1]
             die(2, e[0])
-        except cfg_exceptions.BinaryFileDiffError as e:
+        except cfg_exceptions.BinaryFileDiffError:
+            e = sys.exc_info()[1]
             die(3, e[0])
 
         sys.stdout.write(result)

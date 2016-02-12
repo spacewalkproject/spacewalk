@@ -72,7 +72,8 @@ class Handler(handler_base.HandlerBase):
         for (local_file, remote_file) in files_to_remove:
             try:
                 r.remove_file(channel, remote_file)
-            except xmlrpclib.Fault as e:
+            except xmlrpclib.Fault:
+                e = sys.exc_info()[1]
                 if e.faultCode == -4011:
                     print("%s does not exist" % remote_file)
                     continue
