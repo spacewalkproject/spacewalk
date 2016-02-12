@@ -26,14 +26,14 @@ class ModeController:
 
     #Enable the mode.
     def on(self, mode_name):
-        if self.mode_list.has_key(mode_name):
+        if mode_name in self.mode_list:
             self.mode_list[mode_name].on()
         else:
             raise ModeMissingException()
 
     #Disable the mode
     def off(self, mode_name):
-        if self.mode_list.has_key(mode_name):
+        if mode_name in self.mode_list:
             self.mode_list[mode_name].off()
         else:
             raise ModeMissingException()
@@ -53,14 +53,14 @@ class ModeController:
 
     #Check to see if the mode is on.
     def is_on(self, mode_name):
-        if self.mode_list.has_key(mode_name):
+        if mode_name in self.mode_list:
             return self.mode_list[mode_name].is_on()
         else:
             return 0
 
     #Check to see if the mode is off.
     def is_off(self, mode_name):
-        if self.mode_list.has_key(mode_name):
+        if mode_name in self.mode_list:
             return self.mode_list[mode_name].is_off()
         else:
             return 0
@@ -69,13 +69,13 @@ class ModeController:
     def add_mode(self, mode_obj):
         mode_name = mode_obj.get_name()
 
-        if not self.mode_list.has_key(mode_name):
+        if not mode_name in self.mode_list:
             self.mode_list[mode_name] = mode_obj
 
     #Remove a mode from the batch.
     def del_mode(self, mode_obj):
         mode_name = mode_obj.get_name()
-        if self.mode_list.has_key(mode_name):
+        if mode_name in self.mode_list:
             del self.mode_list[mode_name]
 
     #set the value of force

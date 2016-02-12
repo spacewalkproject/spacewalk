@@ -55,7 +55,7 @@ class ClientRepository:
         if not self.cfg_files:
             raise "never did a list_files"
 
-        if not self.cfg_files.has_key(file):
+        if file not in self.cfg_files:
             raise cfg_exceptions.ConfigNotManaged(file)
 
         return self.server_repository.get_file(self.cfg_files[file][0], self.cfg_files[file][1])

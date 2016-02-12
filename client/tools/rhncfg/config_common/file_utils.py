@@ -53,21 +53,21 @@ class FileProcessor:
         if directory:
             directory += os.path.split(file_struct['path'])[0]
         if file_struct.get('filetype') == 'symlink':
-            if not file_struct.has_key('symlink'):
-                raise Exception, "Missing key symlink"
+            if 'symlink' not in file_struct:
+                raise Exception("Missing key symlink")
 
             (fullpath, dirs_created, fh) = maketemp(prefix=".rhn-cfg-tmp",
                                   directory=directory, symlink=file_struct['symlink'])
             return fullpath, dirs_created
 
         for k in self.file_struct_fields.keys():
-            if not file_struct.has_key(k):
+            if k not in file_struct:
                 # XXX
                 raise Exception("Missing key %s" % k)
 
         encoding = ''
 
-        if file_struct.has_key('encoding'):
+        if 'encoding' in file_struct:
             encoding = file_struct['encoding']
 
         contents = file_struct['file_contents']
@@ -111,7 +111,7 @@ class FileProcessor:
 
         # try to set mtime and ctime of the file to
         # the last modified time on the server
-        if file_struct.has_key('modified'):
+        if 'modified' in file_struct:
             try:
                 modified = xmlrpc_time(file_struct['modified'].value)
                 epoch_time = time.mktime(modified)
@@ -199,7 +199,7 @@ class FileProcessor:
         if cur_sectx == None:
             cur_sectx = ''
 
-        if file_struct.has_key('selinux_ctx') and file_struct['selinux_ctx']:
+        if 'selinux_ctx' in file_struct and file_struct['selinux_ctx']:
             if cur_sectx != file_struct['selinux_ctx']:
                 sectx_result = "SELinux contexts differ:  actual: [%s], expected: [%s]\n" % (cur_sectx, file_struct['selinux_ctx'])
 
@@ -231,7 +231,7 @@ class FileProcessor:
 
     def _validate_struct(self, file_struct):
         for k in self.file_struct_fields.keys():
-            if not file_struct.has_key(k):
+            if k not in file_struct:
                 # XXX
                 raise Exception("Missing key %s" % k)
 

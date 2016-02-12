@@ -256,7 +256,7 @@ class RPC_Repository(Repository):
         # not sure if we need this or not...
         lang = None
         for env in 'LANGUAGE', 'LC_ALL', 'LC_MESSAGES', 'LANG':
-            if os.environ.has_key(env):
+            if env in os.environ:
                 if not os.environ[env]:
                     # sometimes unset
                     continue
@@ -383,7 +383,7 @@ class RPC_Repository(Repository):
 
         # check for the rhncfg.content.base64_decode capability and encode the
         # data if the server is capable of descoding it
-        if self._server_capabilities.has_key('rhncfg.content.base64_decode'):
+        if 'rhncfg.content.base64_decode' in self._server_capabilities):
             params['enc64'] = 1
             params['file_contents'] = base64.encodestring(file_contents)
         else:

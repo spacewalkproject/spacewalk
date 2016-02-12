@@ -66,7 +66,7 @@ class DeployTransaction:
         """renames a file to it's new backup name"""
         # ensure we haven't attempted to back this file up before
         # (protect against odd logic coming from the server)
-        if self.backup_by_path.has_key(path):
+        if path in self.backup_by_path:
             raise DuplicateDeployment("Error: attempted to backup %s twice" % path)
 
 
@@ -120,7 +120,7 @@ class DeployTransaction:
         if file_info['filetype'] != 'symlink':
             uid = file_info.get('uid')
             if uid is None:
-                if file_info.has_key('username'):
+                if 'username' in file_info:
                     # determine uid
 
                     try:
@@ -138,7 +138,7 @@ class DeployTransaction:
 
             gid = file_info.get('gid')
             if gid is None:
-                if file_info.has_key('groupname'):
+                if 'groupname' in file_info:
                     # determine gid
                     try:
                         group_record = grp.getgrnam(file_info['groupname'])
@@ -158,7 +158,7 @@ class DeployTransaction:
                 os.chown(temp_file_path, uid, gid)
 
                 mode = '600'
-                if file_info.has_key('filemode'):
+                if 'filemode' in file_info:
                     if file_info['filemode'] is "":
                         mode='000'
                     else:
@@ -167,7 +167,7 @@ class DeployTransaction:
                 mode = int(str(mode), 8)
                 os.chmod(temp_file_path, mode)
 
-            if file_info.has_key('selinux_ctx'):
+            if 'selinux_ctx' in file_info:
                 sectx = file_info.get('selinux_ctx')
                 if sectx is not None and sectx is not "":
                     log_debug(1, "selinux context: " + sectx);
@@ -205,15 +205,15 @@ class DeployTransaction:
         if file_info.get('filetype') == 'directory':
             self.dirs.append(file_info)
         else:
-            if self.newtemp_by_path.has_key(dest_path):
+            if "dest_path" in self.newtemp_by_path:
                 raise DuplicateDeployment("Error:  %s already added to transaction" % dest_path)
             self.newtemp_by_path[dest_path] = processed_file_path
             self._chown_chmod_chcon(processed_file_path, dest_path, file_info, strict_ownership=strict_ownership)
 
     def add(self, file_info):
         """add a file to the deploy transaction"""
-        for k in file_utils.FileProcessor.file_struct_fields.keys():
-            if not file_info.has_key(k):
+        for k in file_utils.FileProcessor.file_struct_fields:
+            if k not in file_info:
                 raise Exception("needed key %s mising from file structure" % k)
 
         file_info['path'] = self._normalize_path_to_root(file_info['path'])
@@ -371,7 +371,7 @@ class DeployTransaction:
                     raise cfg_exceptions.FileEntryIsDirectory(path)
                 else:
                     self._rename_to_backup(path)
-                    if self.backup_by_path.has_key(path):
+                    if path in self.backup_by_path:
                         log_debug(9, "backup file %s written" % self.backup_by_path[path])
 
             # 3.

@@ -243,7 +243,7 @@ class Handler(handler_base.HandlerBase):
                 status.append('mode')
 
         # compare selinux contexts
-        if info.has_key('selinux_ctx'):
+        if 'selinux_ctx' in info:
             src_selinux = info['selinux_ctx']
             if src_selinux:
                 if not stat_err:

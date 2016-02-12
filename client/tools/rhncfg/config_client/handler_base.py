@@ -43,7 +43,7 @@ class HandlerBase(handler_base.HandlerBase):
                 if file[-1] == "/":
                     file = file[0:-1]
 
-            if not files_hash.has_key(file):
+            if file not in files_hash:
                 print("Not found on server: %s" % file)
                 continue
             files.append(file)
