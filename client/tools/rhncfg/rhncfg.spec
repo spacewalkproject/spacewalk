@@ -15,7 +15,11 @@ BuildArch: noarch
 BuildRequires: docbook-utils
 BuildRequires: python
 Requires: python
+%if 0%{?fedora} >= 23
+Requires: python3-rhnlib
+%else
 Requires: rhnlib
+%endif
 %if 0%{?rhel} && 0%{?rhel} < 6
 Requires: rhn-client-tools >= 0.4.20-86
 %else
@@ -71,6 +75,9 @@ The code required to run configuration actions scheduled via the RHN Classic web
 
 %build
 make -f Makefile.rhncfg all
+%if 0%{?fedora} >= 23
+    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' config_*/*.py actions/*.py
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
