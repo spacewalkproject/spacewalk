@@ -17,7 +17,7 @@
 import os
 from config_common import file_utils
 
-filepath, f = file_utils.maketemp("/tmp/my-file-", mode=0700)
+filepath, f = file_utils.maketemp("/tmp/my-file-", mode=int("0700", 8))
 
 buf = "0123456789" * 100
 

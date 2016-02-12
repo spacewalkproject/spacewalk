@@ -31,7 +31,7 @@ files = [
        'delim_end'      : '|}',
        'file_stat'      : {
             'size'  : 1234,
-            'mode'  : 0755,
+            'mode'  : int("0755", 8),
             'user'  : 'misa',
             'group' : 'misa',
        },
@@ -43,7 +43,7 @@ files = [
        'delim_end'      : '|}',
        'file_stat'      : {
             'size'  : 1234,
-            'mode'  : 0755,
+            'mode'  : int("0755", 8),
             'user'  : 'misa',
             'group' : 'misa',
        },

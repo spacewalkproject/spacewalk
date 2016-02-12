@@ -55,7 +55,7 @@ def _create_script_file(script, uid=None, gid=None):
     # Loop a couple of times to try to get rid of race conditions
     for i in range(2):
         try:
-            fd = os.open(script_path, os.O_RDWR | os.O_CREAT | os.O_EXCL, 0700)
+            fd = os.open(script_path, os.O_RDWR | os.O_CREAT | os.O_EXCL, int("0700", 8))
             # If this succeeds, break out the loop
             break
         except OSError, e:
@@ -83,7 +83,7 @@ def _create_script_file(script, uid=None, gid=None):
 def _create_path(fpath):
     d = os.path.dirname(fpath)
     if d and not os.path.exists(d):
-        os.makedirs(d, 0700)
+        os.makedirs(d, int("0700", 8))
     return os.path.exists(d)
 
 def run(action_id, params, cache_only=None):
@@ -206,7 +206,7 @@ def run(action_id, params, cache_only=None):
 
         # Finally, exec the script
         try:
-            os.umask(022)
+            os.umask(int("022", 8))
             os.execv(script_path, [script_path, ])
         finally:
             # This code can be reached only when script_path can not be
