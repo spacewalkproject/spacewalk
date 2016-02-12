@@ -32,7 +32,7 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
     def __init__(self, section, defaults=None):
         """defaults is either None, or a dictionary of default values which can be overridden"""
         if defaults:
-            for (k, v) in defaults.iteritems():
+            for (k, v) in defaults.items():
               if type(v) == int:
                     defaults[k] = str(v)
         ConfigParser.ConfigParser.__init__(self, defaults)
@@ -116,7 +116,7 @@ def instance():
     return _get_config()
 
 def keys():
-    return _get_config().keys()
+    return list(_get_config().keys())
 
 def main():
     init('rhncfgcli')
