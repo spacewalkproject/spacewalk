@@ -29,6 +29,9 @@ class rhnChannel:
     def __setitem__(self, item, value):
         self.dict[item] = value
 
+    def __lt__(self, other):
+        return (self.dict["name"] > other.dict["name"])
+
     def keys(self):
         return self.dict.keys()
 
