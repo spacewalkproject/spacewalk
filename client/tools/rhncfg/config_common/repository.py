@@ -20,10 +20,10 @@ import grp
 import sys
 import stat
 import string
-import cfg_exceptions
-import local_config
 import base64
-import utils
+from config_common import cfg_exceptions
+from config_common import local_config
+from config_common import utils
 import xmlrpclib
 
 from rhn_log import log_debug
@@ -36,7 +36,7 @@ except:
         return [0, '']
 
 #6/29/05 rpc_wrapper implements the failover logic.
-import rpc_wrapper
+from config_common import rpc_wrapper
 rpclib = rpc_wrapper
 
 

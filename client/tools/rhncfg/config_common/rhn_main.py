@@ -17,11 +17,16 @@ import os
 import sys
 import string
 
-import local_config
-import rhn_log
-import utils
-import cfg_exceptions
-from urlparse import urlsplit
+from config_common import local_config
+from config_common import rhn_log
+from config_common import utils
+from config_common import cfg_exceptions
+
+try:
+    # python3
+    from urllib.parse import urlsplit
+except ImportError: #python2
+    from urlparse import urlsplit
 
 try:
     from socket import gaierror

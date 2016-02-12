@@ -14,13 +14,12 @@
 #
 
 import sys
-import string
 import getpass
 from optparse import OptionParser, Option
 
-import rhn_log
-import cfg_exceptions
-import local_config
+from config_common import rhn_log
+from config_common import cfg_exceptions
+from config_common import local_config
 
 class HandlerBase:
     _options_table = []

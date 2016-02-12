@@ -15,9 +15,9 @@
 
 import os
 
-from transactions import DeployTransaction, FailedRollback
-import file_utils
-import cfg_exceptions
+from config_common.transactions import DeployTransaction, FailedRollback
+from config_common import file_utils
+from config_common import cfg_exceptions
 
 def deploy_msg_callback(path):
     print("Deploying %s" % path)
