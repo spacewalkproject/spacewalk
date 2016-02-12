@@ -62,7 +62,7 @@ class BaseMain:
         dict_name_opt={'--server-name': None,'--password': None,'--username': None,}
         for index in range(1,len(sys.argv)):
             arg=sys.argv[index]
-            param = filter(lambda x: x[1] == 0,dict_name_opt.iteritems())
+            param = filter(lambda x: x[1] == 0,dict_name_opt.items())
             if param:
                 if arg.startswith('-') or arg in self.modes:
                   # not perfect, but at least a little bit better
