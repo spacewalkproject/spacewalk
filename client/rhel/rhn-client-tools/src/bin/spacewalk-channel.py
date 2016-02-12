@@ -53,7 +53,7 @@ class Credentials(object):
 
     def __getattr__(self, attr):
         if attr == 'user':
-            tty = open("/dev/tty", "r+")
+            tty = open("/dev/tty", "w")
             tty.write('Username: ')
             tty.close()
             setattr(self, 'user', sys.stdin.readline().rstrip('\n'))
