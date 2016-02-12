@@ -23,9 +23,9 @@ import base64
 from config_common import cfg_exceptions
 from config_common import local_config
 from config_common import utils
+from config_common.rhn_log import log_debug
 import xmlrpclib
 
-from rhn_log import log_debug
 from rhn.tb import raise_with_tb
 
 try:
@@ -96,7 +96,7 @@ class Repository:
             ret[label] = file_stat[st]
 
         # server expects things like 644, 700, etc.
-        ret['mode'] = deci_to_octal(ret['mode'] & 07777)
+        ret['mode'] = deci_to_octal(ret['mode'] & int('07777', 8))
 
         #print ret['size']
         #if ret['size'] > self.get_maximum_file_size():

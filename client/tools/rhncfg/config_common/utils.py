@@ -98,7 +98,7 @@ def mkdir_p(path, mode=None, symlinks=None, allfiles=None):
     made as a result
     """
     if mode is None:
-        mode = int('0o700', 8)
+        mode = int('0700', 8)
     dirs_created = []
 
     components = path_full_split(path)

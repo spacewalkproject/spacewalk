@@ -81,7 +81,7 @@ class DeployTransaction:
                 # need to make sure to handle it if we catch a 'OSError: [Errno 18] Invalid cross-device link'
                 try:
                     log_debug(9, "trying to use os.renames")
-                    oumask = os.umask(022)
+                    oumask = os.umask(int('022', 8))
                     os.renames(path, new_path)
                     os.umask(oumask)
                 except OSError as e:
@@ -307,7 +307,7 @@ class DeployTransaction:
                         raise cfg_exceptions.DirectoryEntryIsFile(dirname)
                     if os.path.isdir(dirname):
                         s = os.stat(dirname)
-                        entry = { 'filemode': "%o" % (s[0] & 07777),
+                        entry = { 'filemode': "%o" % (s[0] & int('07777', 8)),
                                   'uid': s[4],
                                   'gid': s[5],
                                   'filetype': 'directory',

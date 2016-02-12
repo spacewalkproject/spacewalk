@@ -57,7 +57,7 @@ class PathHandler:
     #Creates the self.rhn_root directories if they don't already exist. This allows subclasses to implement modes in different locations.
     def _create_rhnconfig_path(self):
         if not os.path.exists(self.rhn_root):
-            os.makedirs(self.rhn_root, 0770)
+            os.makedirs(self.rhn_root, int('0770', 8))
 
     #Create the file if it doesn't already exist.
     def add_file(self, filename):
