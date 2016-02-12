@@ -24,7 +24,11 @@ from config_common import cfg_exceptions
 from config_common import local_config
 from config_common import utils
 from config_common.rhn_log import log_debug
-import xmlrpclib
+
+try: # python2
+    import xmlrpclib
+except ImportError: # python3
+    import xmlrpc.client as xmlrpclib
 
 from rhn.tb import raise_with_tb
 

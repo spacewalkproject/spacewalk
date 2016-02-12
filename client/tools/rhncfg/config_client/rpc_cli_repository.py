@@ -15,7 +15,11 @@
 
 import os
 import sys
-import xmlrpclib
+
+try: # python2
+    import xmlrpclib
+except ImportError: # python3
+    import xmlrpc.client as xmlrpclib
 
 from config_common import local_config, cfg_exceptions, file_utils, \
     repository
