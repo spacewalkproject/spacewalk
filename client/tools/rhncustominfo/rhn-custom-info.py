@@ -19,7 +19,12 @@ import sys
 import os
 import string
 import getpass
-import xmlrpclib
+
+try:
+    import xmlrpclib
+except ImportError:
+    import xmlrpc.client as xmlrpclib
+    basestring = str
 
 from re import search
 from optparse import OptionParser
@@ -55,13 +60,12 @@ def create_server_obj(server_url):
 
     lang = None
     for env in 'LANGUAGE', 'LC_ALL', 'LC_MESSAGES', 'LANG':
-        if os.environ.has_key(env):
-            if not os.environ[env]:
-                # sometimes unset
-                continue
-            lang = string.split(os.environ[env], ':')[0]
-            lang = string.split(lang, '.')[0]
+        if env in os.environ:
+            lang = os.environ[env].split(':')[0]
+            lang = lang.split('.')[0]
             break
+        else:
+            continue
 
 
     server = rpclib.Server(server_url,
@@ -82,18 +86,18 @@ def create_server_obj(server_url):
 
 
 def read_username():
-    tty = open("/dev/tty", "r+")
+    tty = open("/dev/tty", "w")
     tty.write('Username: ')
     tty.close()
 
     try:
         username = sys.stdin.readline().rstrip('\n')
     except KeyboardInterrupt:
-        print
+        print()
         sys.exit(0)
     if username is None:
         # EOF
-        print
+        print()
         sys.exit(0)
     return username.strip()
 
@@ -154,7 +158,7 @@ def verify_command_line():
     if not args and not options.list_values and not options.delete_values:
         system_exit(1, "You must provide key/value pairs to store")
 
-    if '' in map(lambda e : e.strip(), args):
+    if '' in [x.strip() for x in args]:
         system_exit(1, "Not valid value is provided for key/value pairs")
 
     if not args and options.delete_values:
@@ -222,7 +226,8 @@ def main():
         else:
             ret = s.system.set_custom_values(session, int(sid), values)
 
-    except xmlrpclib.Fault, e:
+    except xmlrpclib.Fault:
+        t, e = sys.exc_info()[:2]
         if e.faultCode == -1:
             system_exit(1, "Error code:  %s\nInvalid login information.\n" % e.faultCode)
         else:
@@ -235,8 +240,8 @@ def main():
         if not ret:
             system_exit(0, "No custom values set for this system.\n")
 
-        for key in ret.keys():
-            print "%s\t%s" % (key, ret[key])
+        for key in ret:
+            print ("%s\t%s" % (key, ret[key]))
 
         system_exit(0, None)
 
