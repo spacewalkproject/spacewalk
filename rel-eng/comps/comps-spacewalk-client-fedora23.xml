@@ -22,6 +22,7 @@
        <packagereq type="default">rhn-client-tools</packagereq>
        <packagereq type="default">rhn-custom-info</packagereq>
        <packagereq type="default">python3-rhnlib</packagereq>
+       <packagereq type="default">rhnpush</packagereq>
        <packagereq type="default">rhnsd</packagereq>
        <packagereq type="default">rhn-setup-gnome</packagereq>
        <packagereq type="default">rhn-setup</packagereq>

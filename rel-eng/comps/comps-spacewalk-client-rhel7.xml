@@ -23,6 +23,7 @@
        <packagereq type="default">rhn-virtualization-host</packagereq>
        <packagereq type="default">spacewalk-koan</packagereq>
        <packagereq type="default">rhnlib</packagereq>
+       <packagereq type="default">rhnpush</packagereq>
        <packagereq type="default">rhnsd</packagereq>
        <packagereq type="default">rhn-check</packagereq>
        <packagereq type="default">rhn-setup</packagereq>
