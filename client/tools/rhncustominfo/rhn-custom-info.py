@@ -17,7 +17,6 @@
 
 import sys
 import os
-import string
 import getpass
 
 try:
