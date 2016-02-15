@@ -9,7 +9,11 @@ Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
 BuildRequires: python-devel
+%if 0%{?fedora} >= 23
+Requires: python3-rhnlib
+%else
 Requires: rhnlib
+%endif
 
 %if 0%{?rhel} >= 5 || 0%{?fedora} < 22
 Requires: yum-rhn-plugin
@@ -37,6 +41,9 @@ an RHN-enabled system.
 
 %build
 make -f Makefile.rhn-custom-info all
+%if 0%{?fedora} >= 23
+    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' *.py
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
