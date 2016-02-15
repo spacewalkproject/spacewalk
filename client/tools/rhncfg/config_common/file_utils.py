@@ -31,6 +31,8 @@ except:
 
 from config_common import utils
 from config_common.local_config import get as get_config
+from rhn.i18n import bstr, sstr
+
 
 class FileProcessor:
     file_struct_fields = {
@@ -73,7 +75,7 @@ class FileProcessor:
         contents = file_struct['file_contents']
 
         if contents and (encoding == 'base64'):
-            contents = base64.decodestring(contents)
+            contents = base64.decodestring(bstr(contents))
 
         delim_start = file_struct['delim_start']
         delim_end = file_struct['delim_end']
@@ -101,7 +103,7 @@ class FileProcessor:
                                   directory=directory)
 
         try:
-            fh.write(contents)
+            fh.write(sstr(contents))
         except Exception:
             if fh:
                 fh.close()  # don't leak fds...
