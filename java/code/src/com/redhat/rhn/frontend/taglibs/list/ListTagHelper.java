@@ -14,13 +14,15 @@
  */
 package com.redhat.rhn.frontend.taglibs.list;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringEscapeUtils;
+
 import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.frontend.struts.Selectable;
 import com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Static helper class for the "new-style" list tag
@@ -214,11 +216,11 @@ public class ListTagHelper {
 
         if (clicked == null) {
             if (oldValue  != null && !oldValue.equals("null")) {
-                return oldValue;
+                return StringEscapeUtils.escapeHtml(oldValue);
             }
             return "";
         }
-        return newValue;
+        return StringEscapeUtils.escapeHtml(newValue);
     }
 
     /**
