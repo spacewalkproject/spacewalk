@@ -12,6 +12,7 @@
     <tag>
         <name>formatDate</name>
         <tag-class>com.redhat.rhn.frontend.taglibs.FormatDateTag</tag-class>
+        <body-content>JSP</body-content>
         <attribute>
             <name>value</name>
             <required>true</required>
@@ -56,6 +57,7 @@
     <tag>
         <name>datepicker</name>
         <tag-class>com.redhat.rhn.frontend.taglibs.DateTimePickerTag</tag-class>
+        <body-content>JSP</body-content>
         <attribute>
             <name>data</name>
             <required>true</required>
@@ -763,6 +765,22 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+
+    <tag>
+     <name>hidden</name>
+     <tag-class>com.redhat.rhn.frontend.taglibs.RhnHiddenTag</tag-class>
+     <body-content>JSP</body-content>
+     <attribute>
+      <name>name</name>
+      <required>true</required>
+     </attribute>
+     <attribute>
+      <name>value</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+     </attribute>
+    </tag>
+
     <function>
           <name>localize</name>
           <function-class>com.redhat.rhn.frontend.taglibs.RhnTagFunctions</function-class>
