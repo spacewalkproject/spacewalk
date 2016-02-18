@@ -147,7 +147,7 @@ def _write_secure_file(secure_file, file_contents):
         except:
             return False
 
-    fd = os.open(secure_file, os.O_WRONLY | os.O_CREAT, int('0o600', 8))
+    fd = os.open(secure_file, os.O_WRONLY | os.O_CREAT, int('0600', 8))
     fd_file = os.fdopen(fd, 'w')
     try:
         fd_file.write(sstr(file_contents))
