@@ -12,7 +12,7 @@ INSTALL_DIR     = $(INSTALL) -m 755 -d
 
 MSGMERGE	= msgmerge -v
 XGETTEXT	= xgettext --default-domain=$(NLSPACKAGE) --from-code utf-8 \
-		  --add-comments
+		  --add-comments --language=Python
 MSGFMT		= msgfmt --statistics --verbose
 
 POFILES		= $(wildcard *.po)
