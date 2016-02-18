@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        2.5.1
+Version:        2.5.2
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -44,6 +44,13 @@ service abrtd restart
 %{_mandir}/man8/*
 
 %changelog
+* Thu Feb 18 2016 Jan Dobes 2.5.2-1
+- fixing warning
+- do not evaluate Makefile
+- do not keep this file in git
+- pulling *.po translations from Zanata
+- fixing current *.po translations
+
 * Fri Nov 13 2015 Tomas Kasparek <tkasparek@redhat.com> 2.5.1-1
 - python is not part of basic Fedora installation anymore
 - Bumping package versions for 2.5.
