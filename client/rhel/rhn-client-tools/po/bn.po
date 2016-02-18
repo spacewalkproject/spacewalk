@@ -59,7 +59,9 @@ msgstr ""
 msgid "_Exit"
 msgstr "বাহির (_E)"
 
-# msgstr "  <Tab>/<Alt-Tab> বস্তুর মধ্যে  |  <Space> বাছাই করে  |  <F12> পরবর্তী পর্দা"-->tranlsated in this format in a few recent files (suggestion)
+# msgstr "  <Tab>/<Alt-Tab> বস্তুর মধ্যে  |  <Space> বাছাই করে  |  <F12>
+# পরবর্তী পর্দা"-->tranlsated in this format in a few recent files
+# (suggestion)
 # modfied for RHEL
 #: ../src/up2date_client/gui.py:317
 msgid "Software Updates Not Set Up"
@@ -344,7 +346,9 @@ msgstr ""
 msgid "Take me back to the registration"
 msgstr "আমাকে নিবন্ধনে ফিরিয়ে নিয়ে যান"
 
-# msgstr "  <Tab>/<Alt-Tab> বস্তুর মধ্যে  |  <Space> বাছাই করে  |  <F12> পরবর্তী পর্দা"-->tranlsated in this format in a few recent files (suggestion)
+# msgstr "  <Tab>/<Alt-Tab> বস্তুর মধ্যে  |  <Space> বাছাই করে  |  <F12>
+# পরবর্তী পর্দা"-->tranlsated in this format in a few recent files
+# (suggestion)
 # modfied for RHEL
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:73
@@ -2433,7 +2437,9 @@ msgstr ""
 #~ msgstr "নিবন্ধনকারী সার্ভারের সাথে যোগাযোগে সমস্যা হয়েছে:"
 
 # #-#-#-#-#  bn.po (up2date)  #-#-#-#-#
-# msgstr "  <Tab>/<Alt-Tab> বস্তুর মধ্যে  |  <Space> বাছাই করে  |  <F12> পরবর্তী পর্দা"-->tranlsated in this format in a few recent files (suggestion)
+# msgstr "  <Tab>/<Alt-Tab> বস্তুর মধ্যে  |  <Space> বাছাই করে  |  <F12>
+# পরবর্তী পর্দা"-->tranlsated in this format in a few recent files
+# (suggestion)
 # modfied for RHEL
 #, fuzzy
 #~ msgctxt "yes"
@@ -2455,7 +2461,9 @@ msgstr ""
 #~ msgid "Software updates setup unsuccessful"
 #~ msgstr "নিবন্ধন প্রক্রিয়া সম্পন্ন হয়েছে"
 
-# msgstr "  <Tab>/<Alt-Tab> বস্তুর মধ্যে  |  <Space> বাছাই করে  |  <F12> পরবর্তী পর্দা"-->tranlsated in this format in a few recent files (suggestion)
+# msgstr "  <Tab>/<Alt-Tab> বস্তুর মধ্যে  |  <Space> বাছাই করে  |  <F12>
+# পরবর্তী পর্দা"-->tranlsated in this format in a few recent files
+# (suggestion)
 # modfied for RHEL
 #~ msgid "Registering for software updates"
 #~ msgstr "up2date পুনরায় চালু করা হচ্ছে"
@@ -4428,7 +4436,8 @@ msgstr ""
 #~ msgid "Up2date - Finish Page"
 #~ msgstr "Up2date - শেষ পৃষ্ঠা"
 
-# FIXME:  এটা কি কোন বাক্যের প্রথম অংশ নাকি নিজেই একটা পূর্ণ বাক্য সেটা বোঝা যাচ্ছে না।  আপাতত পূর্ণ বাক্য হিসাবেই অনুবাদ করলাম।
+# FIXME:  এটা কি কোন বাক্যের প্রথম অংশ নাকি নিজেই একটা পূর্ণ বাক্য সেটা বোঝা
+# যাচ্ছে না।  আপাতত পূর্ণ বাক্য হিসাবেই অনুবাদ করলাম।
 # modified for RHEL
 #~ msgid "The Red Hat Update Agent has finished "
 #~ msgstr "Red Hat আপডেট এজেন্ট সম্পন্ন হয়েছে "

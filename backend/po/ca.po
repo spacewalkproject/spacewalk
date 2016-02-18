@@ -4,15 +4,15 @@ msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-21 12:18+0100\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2015-09-07 06:18-0400\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan\n"
 "Language: ca\n"
-"X-Generator: Zanata 3.7.1\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Generator: Zanata 3.7.1\n"
 
 #: ../server/rhnPackage.py:45 ../server/rhnPackage.py:80
 #: ../server/rhnPackage.py:99 ../server/rhnPackage.py:181
@@ -46,16 +46,20 @@ msgstr "Es va rebre una petició no vàlida (%s)."
 
 #: ../server/apacheRequest.py:107
 #, python-format
-msgid "IMPORTANT MESSAGE FOLLOWS:\n"
+msgid ""
+"IMPORTANT MESSAGE FOLLOWS:\n"
 "%s"
-msgstr "MISSATGE IMPORTANT SEGÜENT:\n"
+msgstr ""
+"MISSATGE IMPORTANT SEGÜENT:\n"
 "%s"
 
 #: ../server/apacheRequest.py:132
 #, python-format
-msgid "While running '%s': caught\n"
+msgid ""
+"While running '%s': caught\n"
 "%s : %s\n"
-msgstr "Mentre s'executava '%s': es va capturar\n"
+msgstr ""
+"Mentre s'executava '%s': es va capturar\n"
 "%s : %s\n"
 
 #: ../server/apacheRequest.py:558
@@ -191,8 +195,8 @@ msgstr ""
 #: ../server/rhnChannel.py:1707
 #, python-format
 msgid ""
-"Your account does not have access to any channels matching (release="
-"'%(release)s', arch='%(arch)s')%(www_activation)s"
+"Your account does not have access to any channels matching "
+"(release='%(release)s', arch='%(arch)s')%(www_activation)s"
 msgstr ""
 
 #: ../server/rhnChannel.py:1717
@@ -209,7 +213,7 @@ msgid "Insufficient subscription permissions for release (%s, %s"
 msgstr ""
 
 #. Various messages that can be reused
-#. 
+#.
 #. bretm 02/07/2007 -- when we have better old-client documentation, probably
 #. will be safe to get rid of all this crap
 #: ../server/rhnChannel.py:1974 ../server/rhnChannel.py:1985
@@ -404,8 +408,7 @@ msgstr "El paràmetre del paquet no és vàlid %s (%s)"
 
 #: ../server/importlib/userAuth.py:108 ../server/importlib/userAuth.py:112
 msgid "You are not authorized to manage packages in the null org"
-msgstr ""
-"No esteu autoritzat per gestionar els paquets de l'organització nul·la"
+msgstr "No esteu autoritzat per gestionar els paquets de l'organització nul·la"
 
 #: ../server/importlib/userAuth.py:119
 #, python-format
@@ -633,7 +636,8 @@ msgid ""
 "     User group membership limits exceeded.\n"
 "\n"
 "     The current settings for your account do not allow you to add another\n"
-"     user account. Please check with the organization administrator for your\n"
+"     user account. Please check with the organization administrator for "
+"your\n"
 "     account if the maximum number of users allowed to subscribe to RHN "
 "needs\n"
 "     to be changed.\n"
@@ -648,7 +652,8 @@ msgid ""
 "     The current settings for your account do not allow you to add another\n"
 "     system profile. Please check with the organization administrator for "
 "your\n"
-"     account for modifying the maximum number of system profiles that can be\n"
+"     account for modifying the maximum number of system profiles that can "
+"be\n"
 "     subscribed to your RHN account.\n"
 "     "
 msgstr ""
@@ -1011,7 +1016,8 @@ msgstr ""
 "     "
 
 #: ../common/rhnException.py:278
-msgid "\n"
+msgid ""
+"\n"
 "     Inter Satellite Sync is disabled on this satellite.\n"
 "     "
 msgstr ""
@@ -1204,9 +1210,11 @@ msgstr ""
 
 #: ../common/rhnException.py:430
 #, python-format
-msgid "Error Message:\n"
+msgid ""
+"Error Message:\n"
 "    %s\n"
-msgstr "Missatge d'error:\n"
+msgstr ""
+"Missatge d'error:\n"
 "    %s\n"
 
 #: ../common/rhnException.py:432

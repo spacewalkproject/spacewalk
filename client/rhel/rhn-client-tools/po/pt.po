@@ -3601,7 +3601,6 @@ msgstr ""
 #~ msgid "You must enter and verify a password."
 #~ msgstr "Tem que indicar e confirmar uma senha."
 
-#
 #~ msgid ""
 #~ "Problem registering login:\n"
 #~ "%s"
