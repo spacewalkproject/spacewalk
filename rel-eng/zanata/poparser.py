@@ -121,10 +121,15 @@ def processOneLangFile(templateFn, langFn, newFn):
 
     # Load currend HEAD version of translation file
     oldLangPo = parseFile(langFn)
-    # Files from Zanata have missing obsoletes, fix it
+
+    # First, filter all obsolete entries in new file if there are any
+    for item in langPo.obsolete_entries():
+        langPo.remove(item)
+
+    # And now copy obsoletes from old file
+    # Zanata files do not have them
     for item in oldLangPo.obsolete_entries():
-        if item not in langPo.obsolete_entries():
-            langPo.append(item)
+        langPo.append(item)
 
     langPo.save(newFn)
 
