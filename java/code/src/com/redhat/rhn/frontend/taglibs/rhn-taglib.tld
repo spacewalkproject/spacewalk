@@ -775,6 +775,9 @@
       <required>true</required>
      </attribute>
      <attribute>
+      <name>id</name>
+     </attribute>
+     <attribute>
       <name>value</name>
       <rtexprvalue>true</rtexprvalue>
      </attribute>
