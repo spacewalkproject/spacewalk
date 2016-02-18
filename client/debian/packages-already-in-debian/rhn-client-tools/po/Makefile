@@ -88,6 +88,7 @@ POTFILES.in:
 
 $(srcdir)/$(PACKAGE).pot: $(POTFILES) POTFILES.in
 	/usr/bin/intltool-update --gettext-package=$(PACKAGE) --pot
+	rm -f POTFILES.in
 
 install: install-exec install-data
 install-exec:
