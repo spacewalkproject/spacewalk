@@ -44,11 +44,11 @@ GMOFILES = $(patsubst %.po,%.gmo,$(POFILES))
 DISTFILES = POTFILES.in $(PACKAGE).pot $(POFILES) $(GMOFILES)
 
 POTFILES = \
-	$(wildcard ../src/up2date_client/*.py) \
-	$(wildcard ../src/firstboot/*.py) \
-	$(wildcard ../src/bin/*.py) \
-	$(wildcard ../src/actions/*.py) \
-	$(wildcard ../data/*.glade) \
+	$(shell find ../src/up2date_client/ -name \*.py | sort) \
+	$(shell find ../src/firstboot/ -name \*.py | sort) \
+	$(shell find ../src/bin/ -name \*.py | sort) \
+	$(shell find ../src/actions/ -name \*.py | sort) \
+	$(shell find ../data/ -name \*.glade | sort) \
 	../rhn_register.desktop.in
 
 CATALOGS = $(GMOFILES)
