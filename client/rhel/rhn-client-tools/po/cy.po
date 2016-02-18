@@ -3,16 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dafydd Walters <dwalters@dragontechnology.com>, 2004.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Rhys Jones <rhys@sgwarnog.com>, 2005.
+# Translation by Owain Green <owaing@oceanfree.net>, 2004,2012.
 # Dafydd Walters <dwalters@dragontechnology.com>, 2004
 # Miroslav Suchý <msuchy@redhat.com>, 2011
 # Rhys Jones <rhys@sgwarnog.com>, 2005
 # Translation by Owain Green <owaing@oceanfree.net>, 2004,2012
+# Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:59+0200\n"
-"PO-Revision-Date: 2014-01-14 09:23+0000\n"
+"PO-Revision-Date: 2014-01-14 04:23-0500\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/spacewalk/language/"
 "cy/)\n"
@@ -22,6 +27,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -433,11 +439,15 @@ msgid "Create Profile - Hardware"
 msgstr "Cysylltu eich system"
 
 #: ../src/up2date_client/rhnreg_constants.py:106
+#, fuzzy
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Satellite web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
+"Mae Enw Proffil yn enw disgrifiadol rydych yn ei ddewis i ddynodi'r Proffil "
+"System yma ar dudalennau gwe y Red Hat Network. Yn ddewisol, gall gynnwys "
+"rhif cyfresol neu ddynodiad cyfrifiadur."
 
 #: ../src/up2date_client/rhnreg_constants.py:110
 msgid ""
@@ -514,8 +524,9 @@ msgstr ""
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:141
+#, fuzzy
 msgid "Send Profile Information to Red Hat Satellite"
-msgstr ""
+msgstr "Anfon Gwybodaeth Broffil at Rwydwaith Red Hat"
 
 #: ../src/up2date_client/rhnreg_constants.py:142
 msgid ""
@@ -528,8 +539,9 @@ msgstr ""
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:149
+#, fuzzy
 msgid "Sending Profile to Red Hat Satellite"
-msgstr ""
+msgstr "Anfon Gwybodaeth Broffil at Red Hat Network"
 
 #: ../src/up2date_client/rhnreg_constants.py:153
 #, python-format
@@ -860,8 +872,9 @@ msgid "Make sure the network connection on this system is operational."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:340
+#, fuzzy
 msgid "There was an error communicating with Spacewalk server."
-msgstr ""
+msgstr "Bu gwall wrth gyfathrebu â'r gweinydd cofrestru.  Dyma oedd y neges:\n"
 
 #: ../src/up2date_client/rhnregGui.py:341
 msgid "The server may be in outage mode. You may have to try connecting later."

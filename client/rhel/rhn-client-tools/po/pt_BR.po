@@ -3,6 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Danilo Garcia <danilo.fgarcia@gmail.com>, 2012.
+# David Barzilay <barzilay@redhat.com>, 2004-2005.
+# Igor Pires Soares <igor@projetofedora.org>, 2007.
+# Lucas Lopes Costa <k17k47@gmail.com>, 2012.
+# Marcos Lauande <marcoslauande@gmail.com>, 2012.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Pedro Fernandes Macedo <webmaster@margo.bijoux.nom.br>, 2004.
+# Pedro Macedo <pmacedo@intel.dcc.ufmg.br>, 2005.
+# Valnir Ferreira Jr. <vferreir@redhat.com>, 2006-2007.
 # Carlos Adean <carlosadean@gmail.com>, 2013
 # Cleiton Lima <cleitoncfl@yahoo.com.br>, 2013
 # Danilo Garcia <danilo.fgarcia@gmail.com>, 2012
@@ -18,20 +27,22 @@
 # Teseu <tuliomac@gmail.com>, 2013
 # Teseu <tuliomac@gmail.com>, 2013
 # Valnir Ferreira Jr. <vferreir@redhat.com>, 2006-2007
+# Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:59+0200\n"
-"PO-Revision-Date: 2014-07-04 15:21+0000\n"
+"PO-Revision-Date: 2014-07-04 11:21-0400\n"
 "Last-Translator: Marcelo Barbosa <firemanxbr@fedoraproject.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
 "spacewalk/language/pt_BR/)\n"
-"Language: pt_BR\n"
+"Language: pt-BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format

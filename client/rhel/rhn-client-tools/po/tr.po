@@ -3,18 +3,24 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ismail ASCI <ismail.asci@gmail.com>, 2006.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Nilgün Belma Bugüner <nilgun@fide.org>, 2002.
+# Onuralp SEZER <thunderbirdtr@gmail.com>, 2012.
+# YILDIZ KARDEŞLER <turkishprogram@xposta.com>, 2004.
 # Irmak Bıçakçıgil <red.nihi@gmail.com>, 2013
 # Ismail ASCI <ismail.asci@gmail.com>, 2006
 # Miroslav Suchý <msuchy@redhat.com>, 2011
 # Nilgün Belma Bugüner <nilgun@fide.org>, 2002
 # Onuralp SEZER <thunderbirdtr@gmail.com>, 2012
 # YILDIZ KARDEŞLER <turkishprogram@xposta.com>, 2004
+# Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:59+0200\n"
-"PO-Revision-Date: 2014-01-14 09:23+0000\n"
+"PO-Revision-Date: 2014-01-14 04:23-0500\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/spacewalk/"
 "language/tr/)\n"
@@ -23,6 +29,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -235,8 +242,9 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:31
+#, fuzzy
 msgid "Attempting to contact the Spacewalk server."
-msgstr ""
+msgstr "Red Hat Ağ Sunucusuna bağlanmayı çalışıyor."
 
 #: ../src/up2date_client/rhnreg_constants.py:32
 #, python-format
@@ -435,11 +443,15 @@ msgid "Create Profile - Hardware"
 msgstr "Up2date - Doanım Profili"
 
 #: ../src/up2date_client/rhnreg_constants.py:106
+#, fuzzy
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Satellite web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
+"Bir profil adı sisteminizi Red Hat Ağı web sayfalarında tanıyabilmeniz için "
+"kullanacağınız bir isimdir. İsteğe bağlı olarak bir bilgisayar seri numarası "
+"veya kimlik numarası olabilir."
 
 #: ../src/up2date_client/rhnreg_constants.py:110
 msgid ""
@@ -516,8 +528,9 @@ msgstr ""
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:141
+#, fuzzy
 msgid "Send Profile Information to Red Hat Satellite"
-msgstr ""
+msgstr "Profil Bilgisini Red Hat Ağına Gönder"
 
 #: ../src/up2date_client/rhnreg_constants.py:142
 msgid ""
@@ -530,8 +543,9 @@ msgstr ""
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:149
+#, fuzzy
 msgid "Sending Profile to Red Hat Satellite"
-msgstr ""
+msgstr "Profil Bilgisini Red Hat Ağına Gönder"
 
 #: ../src/up2date_client/rhnreg_constants.py:153
 #, python-format
@@ -862,8 +876,10 @@ msgid "Make sure the network connection on this system is operational."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:340
+#, fuzzy
 msgid "There was an error communicating with Spacewalk server."
 msgstr ""
+"Kayıt sunucusu ile haberleşilirken ölümcül bir hata oluştu.  Hata iletisi:\n"
 
 #: ../src/up2date_client/rhnregGui.py:341
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -1071,8 +1087,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg.py:59
+#, fuzzy
 msgid "Warning: unable to enable rhnsd with systemd"
-msgstr ""
+msgstr "Uyarı: rhnsd chkconfig ile etkinleştirilemedi"
 
 #: ../src/up2date_client/rhnreg.py:65
 msgid "Warning: unable to enable rhnsd with chkconfig"

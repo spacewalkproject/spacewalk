@@ -3,6 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Alain PORTAL <aportal@univ-montp2.fr>, 2006.
+# Audrey Simons <asimons@redhat.com>, 2004-2005.
+# Bettina De Monti <bdemonti@redhat.it>, 2001.
+# Damien Durand <splinux@fedoraproject.org>, 2006.
+# Decroux Fabien <fdecroux@redhat.com>, 2006-2007.
+# Jérôme Fenal <jfenal@gmail.com>, 2012-2013.
+# jfenal <jfenal@gmail.com>, 2011.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Myriam Malga <mmalga@redhat.com>, 2007.
+# Stephane Raimbault <stephane.raimbault@free.fr>, 2004.
 # Alain PORTAL <aportal@univ-montp2.fr>, 2006
 # Audrey Simons <asimons@redhat.com>, 2004-2005
 # Bettina De Monti <bdemonti@redhat.it>, 2001
@@ -13,12 +23,13 @@
 # Miroslav Suchý <msuchy@redhat.com>, 2011
 # Myriam Malga <mmalga@redhat.com>, 2007
 # Stephane Raimbault <stephane.raimbault@free.fr>, 2004
+# Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:59+0200\n"
-"PO-Revision-Date: 2014-09-23 18:00+0000\n"
+"PO-Revision-Date: 2014-09-23 02:00-0400\n"
 "Last-Translator: Jérôme Fenal <jfenal@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/spacewalk/"
 "language/fr/)\n"
@@ -27,6 +38,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format

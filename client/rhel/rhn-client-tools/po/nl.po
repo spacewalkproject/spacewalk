@@ -3,18 +3,24 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Bart Couvreur <bercie23@yahoo.com>, 2005.
+#   <meyskens@me.com>, 2012.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Peter van Egdom <p.van.egdom@gmail.com>, 2003-2007.
+# Petit Gregory <thunderbirds@pandora.be>, 2003.
 # Bart Couvreur <bercie23@yahoo.com>, 2005
 # Jaap Schouwenburg <jaapschouwenburg.rh@xs4all.nl>, 2014
 # Maarten Eyskens <meyskens@me.com>, 2012
 # Miroslav Suchý <msuchy@redhat.com>, 2011
 # Peter van Egdom <p.van.egdom@gmail.com>, 2003-2007
 # Petit Gregory <thunderbirds@pandora.be>, 2003
+# Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:59+0200\n"
-"PO-Revision-Date: 2014-03-14 13:30+0000\n"
+"PO-Revision-Date: 2014-03-14 09:30-0400\n"
 "Last-Translator: Jaap Schouwenburg <jaapschouwenburg.rh@xs4all.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/spacewalk/language/"
 "nl/)\n"
@@ -23,6 +29,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -1197,8 +1204,9 @@ msgstr ""
 "relevante delen van '%s' zou zeer nuttig zijn. Bedankt!"
 
 #: ../src/up2date_client/rhnreg.py:59
+#, fuzzy
 msgid "Warning: unable to enable rhnsd with systemd"
-msgstr ""
+msgstr "Waarschuwing: kon rhnsd niet opstarten met chkconfig"
 
 #: ../src/up2date_client/rhnreg.py:65
 msgid "Warning: unable to enable rhnsd with chkconfig"

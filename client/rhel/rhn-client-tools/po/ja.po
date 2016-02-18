@@ -3,6 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Hirofumi Saito <hi_saito@yk.rim.or.jp>, 2004.
+# kiyoto james hashida <khashida@brisbane.redhat.com>, 2007.
+# Kiyoto James Hashida <khashida@redhat.com>, 2006.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Noriko Mizumoto <noriko@fedoraproject.org>, 2011.
+# Noriko Mizumoto <noriko@redhat.com>, 2004-2007.
+# noriko <noriko@fedoraproject.org>, 2011.
+# Tadashi Jokagi <fedora@elf.no-ip.org>, 2005.
+# Yukihiro Nakai <ynakai@redhat.com>, 2001,2012.
 # Hajime Taira <htaira@redhat.com>, 2013
 # Hirofumi Saito <hi_saito@yk.rim.or.jp>, 2004
 # kiyoto james hashida <khashida@brisbane.redhat.com>, 2007
@@ -13,12 +22,13 @@
 # noriko <noriko@fedoraproject.org>, 2011
 # Tadashi Jokagi <fedora@elf.no-ip.org>, 2005
 # Yukihiro Nakai <ynakai@redhat.com>, 2001,2012
+# Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:59+0200\n"
-"PO-Revision-Date: 2014-01-14 09:23+0000\n"
+"PO-Revision-Date: 2014-01-14 04:23-0500\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/spacewalk/"
 "language/ja/)\n"
@@ -27,6 +37,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -255,6 +266,7 @@ msgid "System Registration"
 msgstr "システムの登録"
 
 #: ../src/up2date_client/rhnreg_constants.py:38
+#, fuzzy
 msgid ""
 "This assistant will guide you through connecting your system to Red Hat "
 "Satellite to receive software updates, including security updates, to keep "
@@ -266,6 +278,14 @@ msgid ""
 " * The location of a Red Hat Satellite or Proxy\n"
 "\n"
 msgstr ""
+"本アシスタントでは、セキュリティ更新などのソフトウェア更新を取得してご使用の"
+"システムが常にサポートされるようシステムを Red Hat Network (RHN) に接続する方"
+"法を案内していきます。 ここでは、次の事項が必要になります。\n"
+"\n"
+" * ネットワーク接続\n"
+" * Red Hat ログインとパスワード\n"
+" * Red Hat Network Satellite または Proxy の場所(オプション)\n"
+"\n"
 
 #. Why Register Window
 #: ../src/up2date_client/rhnreg_constants.py:51 ../data/rh_register.glade.h:5
@@ -277,10 +297,13 @@ msgid "Why Register"
 msgstr "なぜ登録が必要か"
 
 #: ../src/up2date_client/rhnreg_constants.py:53
+#, fuzzy
 msgid ""
 "Connecting your system to Red Hat Satellite allows you to take full "
 "advantage of the benefits of a paid subscription, including:"
 msgstr ""
+"ご使用のシステムを Red Hat Network に接続すると、 有料サブスクリプションで得"
+"られる次のようなさまざまな利点をすべてお受け頂くことができます。"
 
 #: ../src/up2date_client/rhnreg_constants.py:55
 msgid "Security & Updates:"
@@ -346,16 +369,22 @@ msgid "Software Update Not Set Up"
 msgstr "ソフトウェア更新の設定がされていません"
 
 #: ../src/up2date_client/rhnreg_constants.py:74
+#, fuzzy
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Satellite? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
+"本当にシステムを Red Hat Network に接続しなくてよいですか? Red Hat "
+"Enterprise Linux のサブスクリプションの特典を逃すことになります:\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:76
+#, fuzzy
 msgid ""
 "You will not be able to take advantage of these subscription privileges "
 "without connecting your system to Red Hat Satellite.\n"
 msgstr ""
+"システムを Red Hat Network に接続しないとこれらサブスクリプションの特権を ご"
+"利用頂くことができません。\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:78
 msgid "Take me back to the setup process."
@@ -450,11 +479,15 @@ msgid "Create Profile - Hardware"
 msgstr "プロファイルの作成 - ハードウェア"
 
 #: ../src/up2date_client/rhnreg_constants.py:106
+#, fuzzy
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Satellite web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
+"プロファイル名とは、 Red Hat Network の web ページでこのシステムプロファイル"
+"を識別するために選択する説明的な名前です。 オプションとしてコンピュータのシリ"
+"アル番号や識別番号を含みます。"
 
 #: ../src/up2date_client/rhnreg_constants.py:110
 msgid ""
@@ -533,6 +566,7 @@ msgid "Send Profile Information to Red Hat Satellite"
 msgstr "プロファイル情報を Red Hat Satellite へ送ります"
 
 #: ../src/up2date_client/rhnreg_constants.py:142
+#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -540,6 +574,11 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
+"システムプロファイルに関する情報収集が完了しました。\n"
+"\n"
+"「次へ」を押してこのシステムプロファイルを red Hat Network に送信してくださ"
+"い。 「取り消し」をクリックすると情報は送信されません。 登録プログラムは後で"
+"実行することもできます。コマンドラインで「rhn_register」と入力します。"
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:149
@@ -577,11 +616,13 @@ msgid "Please review the subscription details below:"
 msgstr "以下のサブスクリプション詳細を確認してください。"
 
 #: ../src/up2date_client/rhnreg_constants.py:166
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Satellite."
 msgstr ""
+"インストール番号 %s はこのシステムが初めて Red Hat Network に接続した際にアク"
+"ティブにされました。"
 
 #: ../src/up2date_client/rhnreg_constants.py:168
 msgid ""
@@ -748,7 +789,7 @@ msgid "Warning"
 msgstr "警告"
 
 #: ../src/up2date_client/rhnreg_constants.py:243
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "We can't contact the Red Hat Satellite.\n"
 "\n"
@@ -760,6 +801,15 @@ msgid ""
 "This system will not be able to successfully receive software updates from "
 "Red Hat without connecting to a Red Hat Satellite server"
 msgstr ""
+"Red Hat Network サーバーにコンタクトできません。\n"
+"\n"
+"入力した場所を再度確認してください、 「%s」は正しいですか?\n"
+"正しくない場合は、 修正してからやりなおしてください。\n"
+"\n"
+"このシステムのネットワーク接続が使用可能な状態であるか確認してください。\n"
+"\n"
+"このシステムは、 Red Hat Network サーバーに接続しないと Red Hat からのソフト"
+"ウェア更新を正しく受信できません。"
 
 #: ../src/up2date_client/rhnreg_constants.py:250
 #, python-format
@@ -775,7 +825,7 @@ msgstr ""
 "される機能をサポートしていません。 新しいサーバーでやりなおしてください。"
 
 #: ../src/up2date_client/rhnreg_constants.py:258
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
@@ -786,6 +836,14 @@ msgid ""
 "\n"
 "Please try again with a different certificate file."
 msgstr ""
+"<b><span size=\"16000\">非互換の証明書ファイル</span></b>\n"
+"\n"
+"入力された証明書 <b>%s</b> は <b>%s</b> にある Red Hat Network サーバーと互換"
+"性がありません。 正しい証明書ファイルを入力したか再確認した方が良いでしょ"
+"う。 本当に正しい証明書を入力していて、その証明書ファイルは壊れていません"
+"か?\n"
+"\n"
+"別の証明書ファイルでやり直してください。"
 
 #: ../src/up2date_client/rhnreg_constants.py:266
 msgid ""
@@ -912,10 +970,13 @@ msgstr ""
 "無効なプロトコルを指定しました。 https または http しか使用できません。"
 
 #: ../src/up2date_client/rhnregGui.py:304
+#, fuzzy
 msgid ""
 "You will not be able to successfully register this system without contacting "
 "a Spacewalk server."
 msgstr ""
+"Red Hat Network サーバーに接続しないと、このシステムを正しく登録することは で"
+"きません。"
 
 #: ../src/up2date_client/rhnregGui.py:324
 msgid "Cannot contact selected server"
@@ -1325,6 +1386,7 @@ msgid "Network error: "
 msgstr "ネットワークエラー: "
 
 #: ../src/up2date_client/up2dateErrors.py:299
+#, fuzzy
 msgid ""
 "\n"
 "    Your organization does not have enough Management entitlements to "
@@ -1346,6 +1408,27 @@ msgid ""
 "retry to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
+"\n"
+"     ユーザーの組織は Red Hat Network にこのシステムを登録する為に十分な マネ"
+"ジメントエンタイトルメントを\n"
+"           所持していません。このエラーについて組織の管理者に報告して下さ"
+"い。 組織が既存の\n"
+"           エンタイトルメントを開放するか、又は追加のエンタイトルメントを 購"
+"入した後に\n"
+"          このシステムが登録可能になります。組織管理者は Red Hat Network に "
+"ログインして、\n"
+"          RHN の「ユーザーの RHN」セクションにある「サブスクリプションの管"
+"理」 ページを開くと、\n"
+"         そこで追加のエンタイトルメントを購入することができます。このエラー"
+"コードの \n"
+"         一般的な原因は、汎用（universal）デフォルトとして設定されているアク"
+"ティベーションキーの\n"
+" 間違えた\n"
+"           セットアップによるものです。アクティベーションキーがアカウント用に"
+"汎用デフォルトとして設定\n"
+"  されている場合は、\n"
+"         このキーを無効にして再試行することでマネージメントエンタイトルメント"
+"の催促を回避できます。 "
 
 #: ../src/bin/rhn_check.py:394
 msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
@@ -1611,6 +1694,7 @@ msgstr ""
 "ムはソフトウェア更新の設定ができません。</b>"
 
 #: ../data/rh_register.glade.h:2
+#, fuzzy
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
 "updates, including security updates, from Red Hat without connecting to a "
@@ -1619,6 +1703,11 @@ msgid ""
 "To keep your system updated, secure, and supported, please register this "
 "system at your earliest convenience."
 msgstr ""
+"このシステムは、 Red Hat Network サーバーに接続しないと Red Hat からセキュリ"
+"ティ更新などのソフトウェア更新を正しく受信することが<b>できません</b>。\n"
+"\n"
+"システムが安全且つ最新の状態でサポートされているよう維持するため、なるべく早"
+"くこのシステムを登録するようにしてください。 "
 
 #: ../data/rh_register.glade.h:7
 msgid ""

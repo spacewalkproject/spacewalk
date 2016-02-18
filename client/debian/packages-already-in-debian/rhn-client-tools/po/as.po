@@ -6,13 +6,14 @@
 # Amitakhya Phukan <amitakhya.phukan@gmail.com>, 2006.
 # Amitakhya Phukan <aphukan@redhat.com>, 2006, 2007.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:57+0200\n"
-"PO-Revision-Date: 2012-02-14 13:00+0000\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"PO-Revision-Date: 2016-02-17 09:34-0500\n"
+"Last-Translator: Jan Dobes <jdobes@redhat.com>\n"
 "Language-Team: Assamese (http://www.transifex.net/projects/p/fedora/language/"
 "as/)\n"
 "Language: as\n"
@@ -20,6 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format

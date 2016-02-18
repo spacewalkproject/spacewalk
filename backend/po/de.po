@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-21 12:18+0100\n"
-"PO-Revision-Date: 2012-05-19 11:59+0000\n"
+"PO-Revision-Date: 2012-05-19 07:59-0400\n"
 "Last-Translator: Gerd Koenig <koenig.ulm@googlemail.com>\n"
 "Language-Team: German <trans-de@lists.fedoraproject.org>\n"
 "Language: de\n"
@@ -22,6 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../server/rhnPackage.py:45 ../server/rhnPackage.py:80
 #: ../server/rhnPackage.py:99 ../server/rhnPackage.py:181

@@ -3,18 +3,24 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Bettina De Monti <bdemonti@redhat.it>, 2001.
+# Francesco Valente <fvalen@redhat.com>, 2003-2004.
+# Lorenzo Stobbione <lorenzo.stobbione@clsengineering.it>, 2004-2007.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Valentina Besi <valentina@redhat.it>, 2001,2012.
 # Bettina De Monti <bdemonti@redhat.it>, 2001
 # fvalen <fvalen@redhat.com>, 2003-2004
 # Lorenzo Stobbione <lorenzo.stobbione@clsengineering.it>, 2004-2007
 # Miroslav Suchý <msuchy@redhat.com>, 2011
 # tavanofabio <tavano.fabio@gmail.com>, 2013
 # Valentina Besi <valentina@redhat.it>, 2001,2012
+# Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:59+0200\n"
-"PO-Revision-Date: 2014-01-14 09:23+0000\n"
+"PO-Revision-Date: 2014-01-14 04:23-0500\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/spacewalk/"
 "language/it/)\n"
@@ -23,6 +29,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -207,8 +214,12 @@ msgstr "Copyright © 2006--2014 Red Hat, Inc. Tutti diritti riservati."
 
 #. Satellite URL Window
 #: ../src/up2date_client/rhnreg_constants.py:19
+#, fuzzy
 msgid "Enter your Red Hat Satellite URL."
 msgstr ""
+"Vi preghiamo di inserire le vostre informazioni di login per il %s Red Hat "
+"Network Satellite:\n"
+"\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 msgid ""
@@ -226,8 +237,9 @@ msgid "SSL certificate:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:26
+#, fuzzy
 msgid "You must enter a valid Satellite URL."
-msgstr ""
+msgstr "Inserite il vostro login."
 
 #: ../src/up2date_client/rhnreg_constants.py:27
 msgid ""
@@ -237,8 +249,9 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:31
+#, fuzzy
 msgid "Attempting to contact the Spacewalk server."
-msgstr ""
+msgstr "Impossibile contattare il server del Red Hat Network."
 
 #: ../src/up2date_client/rhnreg_constants.py:32
 #, python-format
@@ -256,6 +269,7 @@ msgid "System Registration"
 msgstr "Registrazione del sistema"
 
 #: ../src/up2date_client/rhnreg_constants.py:38
+#, fuzzy
 msgid ""
 "This assistant will guide you through connecting your system to Red Hat "
 "Satellite to receive software updates, including security updates, to keep "
@@ -267,6 +281,16 @@ msgid ""
 " * The location of a Red Hat Satellite or Proxy\n"
 "\n"
 msgstr ""
+"Qui verrete guidati attraverso il processo di collegamento del vostro "
+"sistema al Red Hat Network (RHN) per ottenere gli aggiornamenti software, "
+"incluso i security updates, per mantenere il vostro sistema sicuro, "
+"aggiornato e supportato.  Atale scopo sarà necessario essere in possesso di "
+"quanto segue:\n"
+"\n"
+" * Un collegamento di rete\n"
+" * Il login di Red Hat e relativa password\n"
+" * La posizione di un Red Hat Network Satellite o Proxy (facoltativo)\n"
+"\n"
 
 #. Why Register Window
 #: ../src/up2date_client/rhnreg_constants.py:51 ../data/rh_register.glade.h:5
@@ -278,10 +302,14 @@ msgid "Why Register"
 msgstr "Perchè registrarsi"
 
 #: ../src/up2date_client/rhnreg_constants.py:53
+#, fuzzy
 msgid ""
 "Connecting your system to Red Hat Satellite allows you to take full "
 "advantage of the benefits of a paid subscription, including:"
 msgstr ""
+"Il collegamento del vostro sistema a Red Hat Network vi permetterà di "
+"usufruire dei vantaggi offerti da una sottoscrizione a pagamento, essi "
+"includono:"
 
 #: ../src/up2date_client/rhnreg_constants.py:55
 msgid "Security & Updates:"
@@ -349,16 +377,23 @@ msgid "Software Update Not Set Up"
 msgstr "Aggiornamenti non impostati"
 
 #: ../src/up2date_client/rhnreg_constants.py:74
+#, fuzzy
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Satellite? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
+"Siete sicuri di non voler collegare il sistema a Red Hat Network? Così "
+"facendo non potrete usufruire dei benefici offerti dalla sottoscrizione a "
+"Red Hat Enterprise Linux:\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:76
+#, fuzzy
 msgid ""
 "You will not be able to take advantage of these subscription privileges "
 "without connecting your system to Red Hat Satellite.\n"
 msgstr ""
+"Non sarete in grado di usufruire dei vantaggi offerti da queste "
+"sottoscrizioni se non collegate prima il vostro sistema a Red Hat Network.\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:78
 msgid "Take me back to the setup process."
@@ -454,11 +489,15 @@ msgid "Create Profile - Hardware"
 msgstr "Crea il profilo del sistema - Hardware"
 
 #: ../src/up2date_client/rhnreg_constants.py:106
+#, fuzzy
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Satellite web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
+"Il nome del profilo è un nome descrittivo che consente di identificare il "
+"profilo del sistema nelle pagine web Red Hat Network. Eventualmente, "
+"includere il numero seriale o di identificazione del computer."
 
 #: ../src/up2date_client/rhnreg_constants.py:110
 msgid ""
@@ -536,10 +575,12 @@ msgstr ""
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:141
+#, fuzzy
 msgid "Send Profile Information to Red Hat Satellite"
-msgstr ""
+msgstr "Inviare le informazioni del profilo a Red Hat Network"
 
 #: ../src/up2date_client/rhnreg_constants.py:142
+#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -547,11 +588,18 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
+"Il processo di raccolta dati per il profilo del sistema è terminato.\n"
+"\n"
+"Premete \"Successivo\" per inviare questo profilo del sistema al Red Hat "
+"Network.  Cliccate \"Cancella\" per non inviare alcuna informazione.  Potete "
+"eseguire più avanti il programma di registrazione digitando `rhn_register` "
+"sulla linea di comando."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:149
+#, fuzzy
 msgid "Sending Profile to Red Hat Satellite"
-msgstr ""
+msgstr "Inviare le informazioni del profilo a Red Hat Network"
 
 #: ../src/up2date_client/rhnreg_constants.py:153
 #, fuzzy, python-format
@@ -587,11 +635,13 @@ msgstr ""
 "sottoscrizione:"
 
 #: ../src/up2date_client/rhnreg_constants.py:166
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Satellite."
 msgstr ""
+"Il numero d'installazione %s è stato attivato durante il collegamento "
+"iniziale di questo sistema a Red Hat Network."
 
 #: ../src/up2date_client/rhnreg_constants.py:168
 msgid ""
@@ -763,7 +813,7 @@ msgid "Warning"
 msgstr "Avvertenza"
 
 #: ../src/up2date_client/rhnreg_constants.py:243
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "We can't contact the Red Hat Satellite.\n"
 "\n"
@@ -775,6 +825,16 @@ msgid ""
 "This system will not be able to successfully receive software updates from "
 "Red Hat without connecting to a Red Hat Satellite server"
 msgstr ""
+"Impossibile contattare il server di Red Hat Network.\n"
+"\n"
+"Controllo posizione fornita - '%s' risulta essere corretto?\n"
+"In caso contrario, correggetelo e riprovate.\n"
+"\n"
+"Accertatevi che il collegamento di rete su questo sistema risulti "
+"operativo.\n"
+"\n"
+"Questo sistema non riceverà alcun aggiornamento software da Red Hat, senza "
+"collegarsi prima al server di Red Hat Network"
 
 #: ../src/up2date_client/rhnreg_constants.py:250
 #, python-format
@@ -791,7 +851,7 @@ msgstr ""
 "server più recente."
 
 #: ../src/up2date_client/rhnreg_constants.py:258
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
@@ -802,6 +862,14 @@ msgid ""
 "\n"
 "Please try again with a different certificate file."
 msgstr ""
+"<b><span size=\"16000\">File Incompatibile del Certificato</span></b>\n"
+"\n"
+"Il certificato fornito, <b>%s</b>, non risulta compatibile con il server di "
+"Red Hat Network su <b>%s</b>. Vi consigliamo di controllare la validità del "
+"file del certificato. Siete sicuri di aver fornito un certificato corretto, "
+"e che il file del certificato non è stato corrotto?\n"
+"\n"
+"Si prega di riprovare con un file diverso."
 
 #: ../src/up2date_client/rhnreg_constants.py:266
 msgid ""
@@ -934,10 +1002,13 @@ msgstr ""
 "http."
 
 #: ../src/up2date_client/rhnregGui.py:304
+#, fuzzy
 msgid ""
 "You will not be able to successfully register this system without contacting "
 "a Spacewalk server."
 msgstr ""
+"Non sarà possibile registrare questo sistema senza contattare un server di "
+"Red Hat Network."
 
 #: ../src/up2date_client/rhnregGui.py:324
 msgid "Cannot contact selected server"
@@ -963,8 +1034,9 @@ msgstr ""
 "Assicurtevi che il collegamento di rete su questo sistema sia operativo."
 
 #: ../src/up2date_client/rhnregGui.py:340
+#, fuzzy
 msgid "There was an error communicating with Spacewalk server."
-msgstr ""
+msgstr "Si è verificato un errore di comunicazione con Red Hat Network."
 
 #: ../src/up2date_client/rhnregGui.py:341
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -978,10 +1050,12 @@ msgstr ""
 "Molto probabilmente state eseguendo un client incompatibile con il server."
 
 #: ../src/up2date_client/rhnregGui.py:376
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Spacewalk server:"
 msgstr ""
+"Inserire le informazioni sull'account per il <b>%s</b> Red Hat Network "
+"Satellite:"
 
 #: ../src/up2date_client/rhnregGui.py:415
 msgid "You must enter a login."
@@ -1191,8 +1265,9 @@ msgstr ""
 "di '%s'. Grazie!"
 
 #: ../src/up2date_client/rhnreg.py:59
+#, fuzzy
 msgid "Warning: unable to enable rhnsd with systemd"
-msgstr ""
+msgstr "Avvertenza: impossibile attivare rhnsd con chkconfig"
 
 #: ../src/up2date_client/rhnreg.py:65
 msgid "Warning: unable to enable rhnsd with chkconfig"
@@ -1215,8 +1290,9 @@ msgid "Server has refused connection due to high load"
 msgstr "Il server ha rifiutato la connessione a causa del traffico intenso"
 
 #: ../src/up2date_client/tui.py:136
+#, fuzzy
 msgid "Spacewalk Location:"
-msgstr ""
+msgstr "Posizione di Red Hat Network:"
 
 #: ../src/up2date_client/tui.py:138
 msgid "System ID:"
@@ -1361,6 +1437,7 @@ msgid "Network error: "
 msgstr "Errore di rete:"
 
 #: ../src/up2date_client/up2dateErrors.py:299
+#, fuzzy
 msgid ""
 "\n"
 "    Your organization does not have enough Management entitlements to "
@@ -1382,6 +1459,25 @@ msgid ""
 "retry to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
+"\n"
+"    L'organizzazione non ha un numero sufficiente di entitlement di Gestione "
+"per registrare questo sistema\n"
+"    con il Red Hat Network. Notificare questo errore all'amministratore "
+"dell'organizzazione.\n"
+"    Sarà possibile registrare questo sistema solo se l'organizzazione rende "
+"disponibile o acquista entitlement aggiuntivi\n"
+"    Gli entitlement aggiuntivi possono essere acquistati dall'amministratore "
+"dell'organizzazione eseguendo un log in nel Red Hat Network\n"
+"visitando la pagina 'Gestione sottoscrizioni' nella sezione 'Il tuo RHN di "
+"RHN.\n"
+"    \n"
+"    Una causa comune per questo codice d'errore è l'impostazione errata di "
+"una\n"
+"    chiave di attivazione la quale viene impostata come default universale. "
+"Se una chiave di attivazione è stata\n"
+"    impostata per un account come default universale, sarà possibile "
+"disabilitare la suddetta chiave\n"
+"    evitando cosi la necessità di acquisire un entitlement di Gestione."
 
 #: ../src/bin/rhn_check.py:394
 msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
@@ -1650,6 +1746,7 @@ msgstr ""
 "aggiornamenti software.</b>"
 
 #: ../data/rh_register.glade.h:2
+#, fuzzy
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
 "updates, including security updates, from Red Hat without connecting to a "
@@ -1658,6 +1755,12 @@ msgid ""
 "To keep your system updated, secure, and supported, please register this "
 "system at your earliest convenience."
 msgstr ""
+"Questo sistema <b>non</b> sarà in grado di ricevere aggiornamenti software, "
+"incluso gli aggiornamenti sulla sicurezza, da Red Hat senza collegarsi prima "
+"ad un server di Red Hat Network.\n"
+"\n"
+"Per mantenere il sistema aggiornato, sicuro e supportato, vi preghiamo di "
+"registrarlo quanto prima."
 
 #: ../data/rh_register.glade.h:7
 msgid ""
@@ -2064,8 +2167,9 @@ msgid "I would like to connect via an _HTTP proxy."
 msgstr "Desidero collegarmi tramite un proxy _HTTP."
 
 #: ../data/rh_register.glade.h:97
+#, fuzzy
 msgid "I would like to connect to Spacewalk via an _HTTP proxy."
-msgstr ""
+msgstr "Desidero collegarmi a Red Hat Network tramite un proxy _HTTP."
 
 #: ../data/rh_register.glade.h:98
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
@@ -2377,14 +2481,18 @@ msgid "RHN Registration"
 msgstr "Registrazione RHN"
 
 #: ../rhn_register.desktop.in.h:2
+#, fuzzy
 msgid ""
 "Register for software updates from Spacewalk/Red Hat Satellite/Red Hat "
 "Network Classic"
 msgstr ""
+"Registrazione per aggiornamenti software da Spacewalk/Satellite/Red Hat "
+"Network"
 
 #: ../rhn_register.desktop.in.h:3
+#, fuzzy
 msgid "Register to Spacewalk/Red Hat Satellite/Red Hat Network Classic."
-msgstr ""
+msgstr "Registrazione a Spacewalk/Satellite/Red Hat Network."
 
 #~ msgid ""
 #~ "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"

@@ -3,13 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Miroslav Suchý <msuchy@redhat.com>, 2011-2012.
 # Miroslav Suchý <msuchy@redhat.com>, 2011-2012
+# Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:59+0200\n"
-"PO-Revision-Date: 2014-01-14 09:23+0000\n"
+"PO-Revision-Date: 2014-01-14 04:23-0500\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Croatian (http://www.transifex.com/projects/p/spacewalk/"
 "language/hr/)\n"
@@ -19,6 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -199,8 +202,11 @@ msgstr ""
 
 #. Satellite URL Window
 #: ../src/up2date_client/rhnreg_constants.py:19
+#, fuzzy
 msgid "Enter your Red Hat Satellite URL."
 msgstr ""
+"Unesite svoje podatke o prijavi pri %s Red Hat Mrežnom Satelitu:\n"
+"\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 msgid ""
@@ -218,8 +224,9 @@ msgid "SSL certificate:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:26
+#, fuzzy
 msgid "You must enter a valid Satellite URL."
-msgstr ""
+msgstr "Potrebno je unijeti prijavu."
 
 #: ../src/up2date_client/rhnreg_constants.py:27
 msgid ""
@@ -229,8 +236,9 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:31
+#, fuzzy
 msgid "Attempting to contact the Spacewalk server."
-msgstr ""
+msgstr "Pokušaj kontaktiranja poslužitelja Red Hat Mreže"
 
 #: ../src/up2date_client/rhnreg_constants.py:32
 #, python-format
@@ -248,6 +256,7 @@ msgid "System Registration"
 msgstr "registracijski_broj"
 
 #: ../src/up2date_client/rhnreg_constants.py:38
+#, fuzzy
 msgid ""
 "This assistant will guide you through connecting your system to Red Hat "
 "Satellite to receive software updates, including security updates, to keep "
@@ -259,6 +268,15 @@ msgid ""
 " * The location of a Red Hat Satellite or Proxy\n"
 "\n"
 msgstr ""
+"Ovaj će vas pomoćnik voditi kroz postupak povezivanja vašeg sustava s Red "
+"Hat mrežom (RHN) radi primanja ažuriranja softvera, uključujući i "
+"sigurnosnih nadogradnja, da bi vaš sustav bio podržan i usklađen. Bit će vam "
+"potrebno sljedeće:\n"
+"\n"
+" * Mrežna povezanost\n"
+" * Vaše Red Hat korisničko ime i lozinka\n"
+" * Lokacija Red Hat Mrežnog Satelita ili Proxyja (opcionalno)\n"
+"\n"
 
 #. Why Register Window
 #: ../src/up2date_client/rhnreg_constants.py:51 ../data/rh_register.glade.h:5
@@ -270,10 +288,13 @@ msgid "Why Register"
 msgstr "Zašto se registrirati"
 
 #: ../src/up2date_client/rhnreg_constants.py:53
+#, fuzzy
 msgid ""
 "Connecting your system to Red Hat Satellite allows you to take full "
 "advantage of the benefits of a paid subscription, including:"
 msgstr ""
+"Povezivanje vašeg sustava na Red Hat mrežu omogućuje vam stjecanje svih "
+"prednosti plaćene pretplate, poput:"
 
 #: ../src/up2date_client/rhnreg_constants.py:55
 msgid "Security & Updates:"
@@ -341,10 +362,13 @@ msgid "Software Update Not Set Up"
 msgstr "_Izlazak iz postavljanja ažuriranja softvera"
 
 #: ../src/up2date_client/rhnreg_constants.py:74
+#, fuzzy
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Satellite? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
+"Povezivanje vašeg sustava na Red Hat mrežu omogućuje vam stjecanje svih "
+"prednosti plaćene pretplate, poput:"
 
 #: ../src/up2date_client/rhnreg_constants.py:76
 msgid ""
@@ -443,11 +467,15 @@ msgid "Create Profile - Hardware"
 msgstr "Izradite profil vašeg sustava"
 
 #: ../src/up2date_client/rhnreg_constants.py:106
+#, fuzzy
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Satellite web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
+"Naziv profila je opisni naziv koji odabirete radi identificiranja profila "
+"ovog sustava na web stranicama Red Hat Mreže. Dodatno možete unijeti i naziv "
+"računa ili identifikacijski broj."
 
 #: ../src/up2date_client/rhnreg_constants.py:110
 msgid ""
@@ -523,10 +551,12 @@ msgstr ""
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:141
+#, fuzzy
 msgid "Send Profile Information to Red Hat Satellite"
-msgstr ""
+msgstr "Pošalji podatke o profilu Red Hat Mreži"
 
 #: ../src/up2date_client/rhnreg_constants.py:142
+#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -534,11 +564,18 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
+"Prikupljanje podataka o sustavu je dovršeno.\n"
+"\n"
+"Kliknite \"Sljedeće\" da biste ovaj profil sustava poslali Red Hat Mreži. "
+"Kliknite \"Odustani\" i nikakvi podaci neće biti poslani. Registracijski "
+"program možete pokrenuti kasnije unosom naredbe 'rhn_register' u naredbeni "
+"redak."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:149
+#, fuzzy
 msgid "Sending Profile to Red Hat Satellite"
-msgstr ""
+msgstr "Slanje profila prema Red Hat Mreži"
 
 #: ../src/up2date_client/rhnreg_constants.py:153
 #, fuzzy, python-format
@@ -571,11 +608,13 @@ msgid "Please review the subscription details below:"
 msgstr "Pregledajte sljedeće detalje o pretplati:"
 
 #: ../src/up2date_client/rhnreg_constants.py:166
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Satellite."
 msgstr ""
+"Instalacijski broj %s aktiviran je tijekom početnog povezivanja ovog sustava "
+"s Red Hat Mrežom."
 
 #: ../src/up2date_client/rhnreg_constants.py:168
 msgid ""
@@ -729,7 +768,7 @@ msgid "Warning"
 msgstr "Upozorenje"
 
 #: ../src/up2date_client/rhnreg_constants.py:243
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "We can't contact the Red Hat Satellite.\n"
 "\n"
@@ -741,6 +780,15 @@ msgid ""
 "This system will not be able to successfully receive software updates from "
 "Red Hat without connecting to a Red Hat Satellite server"
 msgstr ""
+"Kontaktiranje poslužitelja Red Hat Mreže nije moguće.\n"
+"\n"
+"Još jednom provjerite pruženu lokaciju. Je li adresa '%s' ispravna?\n"
+"Ako nije, ispravite ju i pokušajte ponovno.\n"
+"\n"
+"Provjerite funkcionira li mrežna povezanost ovog sustava.\n"
+"\n"
+"Ovaj sustav neće imati mogućnost uspješnog primanja ažuriranja softvera od "
+"Red Hata bez povezivanja s poslužiteljem Red Hat Mreže."
 
 #: ../src/up2date_client/rhnreg_constants.py:250
 #, python-format
@@ -909,8 +957,9 @@ msgid "Make sure the network connection on this system is operational."
 msgstr "Provjerite funkcionira li mrežna povezanost ovog sustava."
 
 #: ../src/up2date_client/rhnregGui.py:340
+#, fuzzy
 msgid "There was an error communicating with Spacewalk server."
-msgstr ""
+msgstr "Došlo je do pogreške u komuniciranju s Red Hat Mrežom."
 
 #: ../src/up2date_client/rhnregGui.py:341
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -921,10 +970,12 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr "Možda imate pokrenut klijent koji nije kompatibilan s poslužiteljem."
 
 #: ../src/up2date_client/rhnregGui.py:376
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Spacewalk server:"
 msgstr ""
+"Unesite svoje podatke o prijavi pri %s Red Hat Mrežnom Satelitu:\n"
+"\n"
 
 #: ../src/up2date_client/rhnregGui.py:415
 msgid "You must enter a login."
@@ -1126,8 +1177,10 @@ msgstr ""
 "bi od velike pomoći. Zahvaljujemo!"
 
 #: ../src/up2date_client/rhnreg.py:59
+#, fuzzy
 msgid "Warning: unable to enable rhnsd with systemd"
 msgstr ""
+"Upozorenje: Omogućavanje rhnsd putem programa chkconfig nije bilo moguće."
 
 #: ../src/up2date_client/rhnreg.py:65
 msgid "Warning: unable to enable rhnsd with chkconfig"
@@ -1968,8 +2021,9 @@ msgid "I would like to connect via an _HTTP proxy."
 msgstr ""
 
 #: ../data/rh_register.glade.h:97
+#, fuzzy
 msgid "I would like to connect to Spacewalk via an _HTTP proxy."
-msgstr ""
+msgstr "Želio bih se povezati na Red Hat Mrežu putem _HTTP proxyja."
 
 #: ../data/rh_register.glade.h:98
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"

@@ -3,6 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Esa Aaltonen <esa.aaltonen@pp.sonera.net>, 2004.
+# Juhani Numminen <juhaninumminen0@gmail.com>, 2012.
+# Lauri Nurmi <lanurmi@iki.fi>, 2003,2005.
+# Mikko Ikola <ikola@iki.fi>, 2004.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Pekka Harjamäki <pekka@mcfish.org>, 2005.
 # Esa Aaltonen <esa.aaltonen@pp.sonera.net>, 2004
 # Juhani Numminen <juhaninumminen0@gmail.com>, 2012
 # Lauri Nurmi <lanurmi@iki.fi>, 2003,2005
@@ -10,12 +16,13 @@
 # Miroslav Suchý <msuchy@redhat.com>, 2011
 # Pekka Harjamäki <pekka@mcfish.org>, 2005
 # Toni Willberg, 2014
+# Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:59+0200\n"
-"PO-Revision-Date: 2014-07-14 17:08+0000\n"
+"PO-Revision-Date: 2014-07-14 01:08-0400\n"
 "Last-Translator: Toni Willberg\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/spacewalk/"
 "language/fi/)\n"
@@ -24,6 +31,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -233,8 +241,9 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:31
+#, fuzzy
 msgid "Attempting to contact the Spacewalk server."
-msgstr ""
+msgstr "Yritetään yhdistää Red Hatin verkkopalvelimeen."
 
 #: ../src/up2date_client/rhnreg_constants.py:32
 #, python-format
@@ -252,6 +261,7 @@ msgid "System Registration"
 msgstr "rekisteröintiNumero"
 
 #: ../src/up2date_client/rhnreg_constants.py:38
+#, fuzzy
 msgid ""
 "This assistant will guide you through connecting your system to Red Hat "
 "Satellite to receive software updates, including security updates, to keep "
@@ -263,6 +273,14 @@ msgid ""
 " * The location of a Red Hat Satellite or Proxy\n"
 "\n"
 msgstr ""
+"Tämä avustaja opastaa sinua järjestelmäsi yhdistämisessä Red Hat Networkiin "
+"(RHN) saadaksesi ohjelmapäivityksiä, sisältäen turvallisuuspäivityksiä, "
+"pitääksesi järjestelmäsi tuettuna ja yhteensopivana.  Tarvitset seuraavia:\n"
+"\n"
+" * Verkkoyhteys\n"
+" * Red Hat -käyttäjätunnuksesi ja -salasanasi\n"
+" * Red Hat Networkin satelliitin tai välityspalvelimen sijainti "
+"(valinnainen)\n"
 
 #. Why Register Window
 #: ../src/up2date_client/rhnreg_constants.py:51 ../data/rh_register.glade.h:5
@@ -443,11 +461,15 @@ msgid "Create Profile - Hardware"
 msgstr "Laitteistoprofiili"
 
 #: ../src/up2date_client/rhnreg_constants.py:106
+#, fuzzy
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Satellite web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
+"Profiilin nimi on kuvainnollinen nimi, jota käytetään tunnistettaessa tämä "
+"järjestelmä Red Hat Networkin sivuilla. Valinnan mukaan sisällytä nimeen "
+"tietokoneen sarja- tai identifiointinumero."
 
 #: ../src/up2date_client/rhnreg_constants.py:110
 msgid ""
@@ -522,8 +544,9 @@ msgstr ""
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:141
+#, fuzzy
 msgid "Send Profile Information to Red Hat Satellite"
-msgstr ""
+msgstr "Lähetä profiilin tiedot Red Hat Networkiin"
 
 #: ../src/up2date_client/rhnreg_constants.py:142
 msgid ""
@@ -536,8 +559,9 @@ msgstr ""
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:149
+#, fuzzy
 msgid "Sending Profile to Red Hat Satellite"
-msgstr ""
+msgstr "Lähetetään profiilia Red Hat Networkiin"
 
 #: ../src/up2date_client/rhnreg_constants.py:153
 #, python-format
@@ -899,8 +923,9 @@ msgid "Make sure the network connection on this system is operational."
 msgstr "Varmista että järjestelmän verkkoyhteydet toimivat."
 
 #: ../src/up2date_client/rhnregGui.py:340
+#, fuzzy
 msgid "There was an error communicating with Spacewalk server."
-msgstr ""
+msgstr "Virhe kommunikoitaessa rekisteröintipalvelimen kanssa:\n"
 
 #: ../src/up2date_client/rhnregGui.py:341
 msgid "The server may be in outage mode. You may have to try connecting later."

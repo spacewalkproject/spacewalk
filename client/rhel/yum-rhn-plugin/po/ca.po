@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-10 10:36+0200\n"
-"PO-Revision-Date: 2015-04-02 05:50-0400\n"
+"PO-Revision-Date: 2015-10-18 03:18-0400\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan\n"
 "Language: ca\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.7.1\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../rhnplugin.py:52
 msgid "There was an error communicating with RHN."
@@ -29,7 +29,7 @@ msgid ""
 "command as root to access Spacewalk repositories."
 msgstr ""
 "*Nota* A continuació no es mostren els dipòsits de l'Spacewalk. Heu "
-"d'executar aquesta comanda com a  root per accedir als dipòsits de "
+"d'executar aquesta comanda com a root per accedir als dipòsits de "
 "l'Spacewalk."
 
 #: ../rhnplugin.py:90
@@ -48,7 +48,7 @@ msgstr "S'està netejant"
 
 #: ../rhnplugin.py:116
 msgid "Using list of RHN repos from cache"
-msgstr "S'està utilitzant els dipòsits de la RHN des de la memòria cau"
+msgstr "S'estan utilitzant els dipòsits de la RHN des de la memòria cau"
 
 #: ../rhnplugin.py:132
 msgid "This system is not registered with RHN Classic or Red Hat Satellite."

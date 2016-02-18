@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-21 12:18+0100\n"
-"PO-Revision-Date: 2012-02-14 13:08+0000\n"
+"PO-Revision-Date: 2012-02-14 08:08-0500\n"
 "Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/fedora/language/"
 "cs/)\n"
@@ -21,6 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../server/rhnPackage.py:45 ../server/rhnPackage.py:80
 #: ../server/rhnPackage.py:99 ../server/rhnPackage.py:181

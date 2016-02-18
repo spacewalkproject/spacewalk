@@ -6,12 +6,13 @@
 #   <jonny_nut@hotmail.com>, 2012.
 # Maxim Dziumanenko <dziumanenko@gmail.com>, 2003.
 # Yuri Chornoivan <yurchor@ukr.net>, 2012.
+# Yuri Chornoivan <yurchor@ukr.net>, 2015. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-21 12:18+0100\n"
-"PO-Revision-Date: 2012-03-11 19:41+0000\n"
+"PO-Revision-Date: 2015-09-26 02:25-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -20,6 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../server/rhnPackage.py:45 ../server/rhnPackage.py:80
 #: ../server/rhnPackage.py:99 ../server/rhnPackage.py:181
@@ -35,7 +37,7 @@ msgstr "Пакунок не знайдено"
 #: ../server/apacheAuth.py:58
 #, python-format
 msgid "incomplete proxy authentication token: %s"
-msgstr ""
+msgstr "неповний ключ розпізнавання на проксі: %s"
 
 #: ../server/apacheAuth.py:74
 #, python-format
@@ -94,11 +96,11 @@ msgid "Maximum usage count of %s reached"
 msgstr "Перевищено максимальну кількість використано %s"
 
 #: ../server/rhnServer/server_token.py:645
-#, fuzzy, python-format
+#, python-format
 msgid "Registration failed: RHN Software service entitlements exhausted: %s"
 msgstr ""
 "Не вдалося зареєструвати: у програмному забезпеченні RHN вичерпано записи "
-"для реєстрації"
+"для реєстрації: %s"
 
 #: ../server/rhnServer/server_token.py:761
 msgid ""
@@ -123,7 +125,7 @@ msgstr "Невідповідність сеансів kickstart"
 
 #: ../server/rhnServer/server_token.py:901
 msgid "Stacking of re-registration tokens is not supported"
-msgstr ""
+msgstr "Підтримки стосування повторних реєстраційних ключів не передбачено"
 
 #: ../server/rhnServer/server_class.py:95
 #, python-format
@@ -138,7 +140,7 @@ msgstr "Неприпустима комбінація ім'я/пароль"
 #: ../server/rhnUser.py:539
 #, python-format
 msgid "Username `%s' has not been reserved"
-msgstr ""
+msgstr "Ім’я користувача «%s» не було зарезервовано"
 
 #. New accounts have to specify an e-mail address
 #: ../server/rhnUser.py:545
@@ -288,11 +290,13 @@ msgstr ""
 #: ../server/rhnHandler.py:61
 msgid "Please run rhn_register as root on this client"
 msgstr ""
+"Будь ласка, запустіть для цієї клієнтської системи rhn_register від імені "
+"адміністратора (root)"
 
 #: ../server/rhnHandler.py:78
 #, python-format
 msgid "Service not enabled for system profile: \"%s\""
-msgstr ""
+msgstr "Службу не увімкнено для профілю системи: «%s»"
 
 #: ../server/handlers/applet/applet.py:68
 msgid "Your system was not found in the RHN database"
@@ -300,12 +304,12 @@ msgstr "Вашої системи не знайдено у базі даних R
 
 #: ../server/handlers/sat/auth.py:45
 msgid "ISS is disabled on this satellite."
-msgstr ""
+msgstr "ISS вимкнено для цього satellite."
 
 #: ../server/handlers/sat/auth.py:57
 #, python-format
 msgid "Server \"%s\" is not enabled for ISS."
-msgstr ""
+msgstr "Сервер «%s» не увімкнено для ISS."
 
 #: ../server/handlers/xmlrpc/proxy.py:60
 #, python-format
@@ -365,7 +369,7 @@ msgstr "Некоректна країна: %s"
 #: ../server/handlers/xmlrpc/registration.py:1349
 #, python-format
 msgid "Insufficient subscription permissions for release, arch (%s, %s)"
-msgstr ""
+msgstr "Недостані права передплати на випуск, архітектура (%s, %s)"
 
 #: ../server/handlers/xmlrpc/registration.py:1366
 #, python-format
@@ -428,7 +432,7 @@ msgstr ""
 
 #: ../server/importlib/userAuth.py:137
 msgid "You are not allowed to perform administrative tasks"
-msgstr ""
+msgstr "Ви не маєте права виконувати завдання з адміністрування"
 
 #: ../server/importlib/userAuth.py:164
 #, python-format
@@ -439,12 +443,12 @@ msgstr ""
 #: ../common/rhnTB.py:199
 #, python-format
 msgid "ERROR: %s %s: %s"
-msgstr ""
+msgstr "ПОМИЛКА: %s %s: %s"
 
 #: ../common/rhnTB.py:201
 #, python-format
 msgid "TRACEBACK: %s"
-msgstr ""
+msgstr "ТРАСУВАННЯ: %s"
 
 #: ../common/rhnException.py:42
 msgid "Outage mode"
@@ -481,39 +485,39 @@ msgstr "Перевищено обмеження облікового запис�
 
 #: ../common/rhnException.py:51
 msgid "Invalid System Digital ID."
-msgstr ""
+msgstr "Некоректний цифровий ідентифікатор системи."
 
 #: ../common/rhnException.py:52
 msgid "Invalid System Credentials."
-msgstr ""
+msgstr "Некоректні реєстраційні дані системи."
 
 #: ../common/rhnException.py:53
 msgid "Could not retrieve user data from database."
-msgstr ""
+msgstr "Не вдалося отримати дані користувача з бази даних."
 
 #: ../common/rhnException.py:54
 msgid "Valid username required."
-msgstr ""
+msgstr "Потрібне коректне ім’я користувача."
 
 #: ../common/rhnException.py:55
 msgid "Valid password required."
-msgstr ""
+msgstr "Потрібен коректний пароль."
 
 #: ../common/rhnException.py:56
 msgid "Minimum username length violation."
-msgstr ""
+msgstr "Порушено обмеження на мінімальну довжину імені користувача."
 
 #: ../common/rhnException.py:57
 msgid "Minimum password length violation."
-msgstr ""
+msgstr "Порушення обмеження на мінімальну довжину пароля."
 
 #: ../common/rhnException.py:58
 msgid "The username contains invalid characters."
-msgstr ""
+msgstr "У імені користувача містяться некоректні символи."
 
 #: ../common/rhnException.py:59
 msgid "Invalid product registration code."
-msgstr ""
+msgstr "Некоректний код реєстрації продукту."
 
 #: ../common/rhnException.py:60
 msgid "File not found."
@@ -521,35 +525,37 @@ msgstr "Файл не знайдено."
 
 #: ../common/rhnException.py:61
 msgid "Invalid Architecture and OS release combination."
-msgstr ""
+msgstr "Некоректне поєднання архітектури і випуску операційної системи."
 
 #: ../common/rhnException.py:62
 msgid "Architecture and OS version combination is not supported."
 msgstr ""
+"Підтримки такої комбінації архітектури і версії операційної системи не "
+"передбачено."
 
 #: ../common/rhnException.py:63
 msgid "Could not retrieve system data from database."
-msgstr ""
+msgstr "Не вдалося отримати дані щодо системи із бази даних."
 
 #: ../common/rhnException.py:64
 msgid "Invalid arguments passed to function."
-msgstr ""
+msgstr "Функції передано некоректні аргументи."
 
 #: ../common/rhnException.py:65
 msgid "Unable to retrieve requested entry."
-msgstr ""
+msgstr "Не вдалося отримати потрібний запис."
 
 #: ../common/rhnException.py:66
 msgid "Could not update database entry."
-msgstr ""
+msgstr "Не вдалося оновити запис у базі даних."
 
 #: ../common/rhnException.py:67
 msgid "Unsupported server architecture."
-msgstr ""
+msgstr "Непідтримувана архітектура сервера."
 
 #: ../common/rhnException.py:68
 msgid "LDAP operation failed."
-msgstr ""
+msgstr "Не вдалося виконати дію LDAP."
 
 #: ../common/rhnException.py:69
 msgid "Backend RPM database failure: can not retrieve requested information."
@@ -557,7 +563,7 @@ msgstr ""
 
 #: ../common/rhnException.py:71
 msgid "Server Entry is busy."
-msgstr ""
+msgstr "Запис сервера зайнято."
 
 #: ../common/rhnException.py:72
 #, python-format
@@ -576,11 +582,11 @@ msgstr ""
 
 #: ../common/rhnException.py:81
 msgid "Record not available in the database."
-msgstr ""
+msgstr "Запис у базі даних є недоступним."
 
 #: ../common/rhnException.py:82
 msgid "Invalid value for entry."
-msgstr ""
+msgstr "Некоректне значення для запису."
 
 #: ../common/rhnException.py:83
 #, python-format
@@ -596,15 +602,15 @@ msgstr ""
 
 #: ../common/rhnException.py:89
 msgid "Channel error"
-msgstr ""
+msgstr "Помилка каналу"
 
 #: ../common/rhnException.py:90
 msgid "Client session token is invalid."
-msgstr ""
+msgstr "Ключ сеансу клієнта є некоректним."
 
 #: ../common/rhnException.py:91
 msgid "Client session token has expired."
-msgstr ""
+msgstr "Строк дії ключа сеансу клієнта вичерпано."
 
 #: ../common/rhnException.py:92
 msgid "You are not authorized to retrieve the requested object."
@@ -927,9 +933,8 @@ msgid "Maximum password length violation"
 msgstr "Перевищення максимальної довжини пароля"
 
 #: ../common/rhnException.py:242
-#, fuzzy
 msgid "System Name cannot be less than 3 characters"
-msgstr "довжина імені користувача не повинна перевищувати %d символів"
+msgstr "Назва системи має складатися із принаймні 3 символів"
 
 #. 1000-1999: RHN Proxy specific errors:
 #. issued by an RHN Proxy to the client

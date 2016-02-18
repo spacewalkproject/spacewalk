@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-21 12:18+0100\n"
-"PO-Revision-Date: 2015-09-07 06:18-0400\n"
+"PO-Revision-Date: 2015-10-18 04:09-0400\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan\n"
 "Language: ca\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.7.1\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../server/rhnPackage.py:45 ../server/rhnPackage.py:80
 #: ../server/rhnPackage.py:99 ../server/rhnPackage.py:181
@@ -620,7 +620,7 @@ msgstr "El sistema actualment no està subscrit al canal especificat."
 
 #: ../common/rhnException.py:98
 msgid "The specified channel does not exist."
-msgstr "El canal especificat no  existeix."
+msgstr "El canal especificat no existeix."
 
 #: ../common/rhnException.py:99
 msgid "Invalid channel version."
@@ -830,8 +830,8 @@ msgstr "No es pot donar el dret al sistema"
 msgid ""
 "Registration token unable to entitle system: maximum membership exceeded"
 msgstr ""
-"El testimoni de registrament va ser incapaç de donar  el dret del sistema: "
-"es va superar la màxima afiliació"
+"El testimoni de registrament va ser incapaç de donar el dret del sistema: es "
+"va superar la màxima afiliació"
 
 #. 100-109: e-mail and uuid related faults
 #: ../common/rhnException.py:204
@@ -978,8 +978,8 @@ msgstr ""
 "\n"
 "     La creació de l'usuari del RHN Satellite no està permesa a través de "
 "rhn_register;\n"
-"     poseu-vos en contacte amb l'administrador del sistema per a què es crei "
-"el vostre compte.\n"
+"     poseu-vos en contacte amb l'administrador del sistema perquè creï el "
+"vostre compte.\n"
 "     "
 
 #: ../common/rhnException.py:265

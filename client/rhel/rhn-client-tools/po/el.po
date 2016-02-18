@@ -3,14 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Nikos Charonitakis <charosn@her.forthnet.gr>, 2002,2004,2012.
 # Miroslav Suchý <msuchy@redhat.com>, 2011
 # Nikos Charonitakis <charosn@her.forthnet.gr>, 2002,2004,2012
+# Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:59+0200\n"
-"PO-Revision-Date: 2014-01-14 09:23+0000\n"
+"PO-Revision-Date: 2014-01-14 04:23-0500\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/spacewalk/language/"
 "el/)\n"
@@ -19,6 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -503,8 +507,9 @@ msgstr ""
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:141
+#, fuzzy
 msgid "Send Profile Information to Red Hat Satellite"
-msgstr ""
+msgstr "Αποστολή Πληροφοριών Προφίλ στο Δίκτυο Red Hat"
 
 #: ../src/up2date_client/rhnreg_constants.py:142
 msgid ""
@@ -517,8 +522,9 @@ msgstr ""
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:149
+#, fuzzy
 msgid "Sending Profile to Red Hat Satellite"
-msgstr ""
+msgstr "Αποστολή Πληροφοριών Προφίλ στο Δίκτυο Red Hat"
 
 #: ../src/up2date_client/rhnreg_constants.py:153
 #, python-format

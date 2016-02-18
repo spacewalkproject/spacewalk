@@ -3,6 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Alexandru Szasz <alexxed@gmail.com>, 2006.
+# Cristian Gafton <gafton@redhat.com>, 2000-2001.
+# Mihai Ibanescu <misa@redhat.com>, 2005.
+# Mircea Daniel <daniel@reywind.tranceaddict>, 2006.
+# Miroslav Suchý <msuchy@redhat.com>, 2011-2012.
 # Alexandru Szasz <alexxed@gmail.com>, 2006
 # Cristian Gafton <gafton@redhat.com>, 2000-2001
 # Mihai Ibanescu <misa@redhat.com>, 2005
@@ -13,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:59+0200\n"
-"PO-Revision-Date: 2014-01-14 09:23+0000\n"
+"PO-Revision-Date: 2014-01-14 04:23-0500\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/spacewalk/"
 "language/ro/)\n"
@@ -23,6 +28,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format

@@ -3,17 +3,23 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Eunju Kim <eukim@redhat.com>, 2006-2007.
+# Michelle Ji Yeen Kim <mkim@redhat.com>, 2005.
+# Michelle J Kim <mkim@redhat.com>, 2003-2004.
+# Michelle Kim <mkim@redhat.com>, 2002.
+# Miroslav Suchý <msuchy@redhat.com>, 2011-2012.
 # eukim <eukim@redhat.com>, 2006-2007
 # Michelle Ji Yeen Kim <mkim@redhat.com>, 2005
 # Michelle J Kim <mkim@redhat.com>, 2003-2004
 # Michelle Kim <mkim@redhat.com>, 2002
 # Miroslav Suchý <msuchy@redhat.com>, 2011-2012
+# Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:59+0200\n"
-"PO-Revision-Date: 2014-01-14 09:23+0000\n"
+"PO-Revision-Date: 2014-01-14 04:23-0500\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/spacewalk/"
 "language/ko/)\n"
@@ -22,6 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -200,8 +207,11 @@ msgstr "저작권  2006--2014  Red Hat, Inc. 저작권법에 의해 보호받습
 
 #. Satellite URL Window
 #: ../src/up2date_client/rhnreg_constants.py:19
+#, fuzzy
 msgid "Enter your Red Hat Satellite URL."
 msgstr ""
+"%s Red Hat Network Satellite에 대한 사용자 로그인 정보를 입력합니다:\n"
+"\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 msgid ""
@@ -219,8 +229,9 @@ msgid "SSL certificate:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:26
+#, fuzzy
 msgid "You must enter a valid Satellite URL."
-msgstr ""
+msgstr "로그인 계정을 입력해 주십시오."
 
 #: ../src/up2date_client/rhnreg_constants.py:27
 msgid ""
@@ -230,8 +241,9 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:31
+#, fuzzy
 msgid "Attempting to contact the Spacewalk server."
-msgstr ""
+msgstr "Red Hat Network 서버에 연결합니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:32
 #, python-format
@@ -249,6 +261,7 @@ msgid "System Registration"
 msgstr "RHN 등록"
 
 #: ../src/up2date_client/rhnreg_constants.py:38
+#, fuzzy
 msgid ""
 "This assistant will guide you through connecting your system to Red Hat "
 "Satellite to receive software updates, including security updates, to keep "
@@ -260,6 +273,14 @@ msgid ""
 " * The location of a Red Hat Satellite or Proxy\n"
 "\n"
 msgstr ""
+"지속적으로 시스템을 지원하고 호환되게 하기 위해 보안 업데이트를 포함하여 소프"
+"트웨어를 업데이트 하는 방법에 대해 시스템을 Red Hat Network (RHN)에 연결하여 "
+"안내해 드립니다. 다음과 같은 정보가 필요합니다:\n"
+"\n"
+" * 네트워크 연결\n"
+" * Red Hat 로그인 & 암호\n"
+" * Red Hat Network Satellite 또는 Proxy의 위치 (선택 사항)\n"
+"\n"
 
 #. Why Register Window
 #: ../src/up2date_client/rhnreg_constants.py:51 ../data/rh_register.glade.h:5
@@ -271,10 +292,11 @@ msgid "Why Register"
 msgstr "등록해야 하는 이유"
 
 #: ../src/up2date_client/rhnreg_constants.py:53
+#, fuzzy
 msgid ""
 "Connecting your system to Red Hat Satellite allows you to take full "
 "advantage of the benefits of a paid subscription, including:"
-msgstr ""
+msgstr "유료 등록 서비스의 혜택을 받기 위해 시스템을 Red Hat Network에 연결함:"
 
 #: ../src/up2date_client/rhnreg_constants.py:55
 msgid "Security & Updates:"
@@ -340,16 +362,22 @@ msgid "Software Update Not Set Up"
 msgstr "소프트웨어 업데이트 설정"
 
 #: ../src/up2date_client/rhnreg_constants.py:74
+#, fuzzy
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Satellite? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
+"정말로 시스템을 Red Hat Network에 연결하지 않으시겠습니다? Red Hat "
+"Enterprise Linux 등록 혜택을 놓치게 됩니다:\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:76
+#, fuzzy
 msgid ""
 "You will not be able to take advantage of these subscription privileges "
 "without connecting your system to Red Hat Satellite.\n"
 msgstr ""
+"시스템을 Red Hat Network에 연결하지 않고 이러한 등록 권한의 혜택을 받으실 수 "
+"없습니다.\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:78
 msgid "Take me back to the setup process."
@@ -444,11 +472,15 @@ msgid "Create Profile - Hardware"
 msgstr "시스템 프로파일 생성 - 하드웨어 "
 
 #: ../src/up2date_client/rhnreg_constants.py:106
+#, fuzzy
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Satellite web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
+"프로파일 이름이란 Red Hat Network 웹 페이지에서 이 시스템 프로파일을 쉽게 식"
+"별할 수 있도록 해주는 설명적인 이름을 말합니다. 원하신다면, 컴퓨터 서비스 번"
+"호나 식별 번호를 사용하실 수 도 있습니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:110
 msgid ""
@@ -523,10 +555,12 @@ msgstr ""
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:141
+#, fuzzy
 msgid "Send Profile Information to Red Hat Satellite"
-msgstr ""
+msgstr "프로파일 정보를 Red Hat Network로 보내기"
 
 #: ../src/up2date_client/rhnreg_constants.py:142
+#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -534,11 +568,17 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
+"시스템 프로파일에 해당하는 정보 수집을 완료했습니다.\n"
+"\n"
+"\"다음\" 버튼을 눌러 이 시스템 프로파일을 Red Hat Network로 보내시기 바랍니"
+"다. \"취소\" 버튼을 클릭하시면 어떤 정보도 전송되지 않습니다. 명령행에 "
+"`rhn_register`를 입력하여 나중에 등록 프로그램을 실행하실 수 있습니다."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:149
+#, fuzzy
 msgid "Sending Profile to Red Hat Satellite"
-msgstr ""
+msgstr "프로파일을 Red Hat Network로 보내기"
 
 #: ../src/up2date_client/rhnreg_constants.py:153
 #, fuzzy, python-format
@@ -570,11 +610,13 @@ msgid "Please review the subscription details below:"
 msgstr "아래의 등록 정보를 다시 확인하시기 바랍니다:"
 
 #: ../src/up2date_client/rhnreg_constants.py:166
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Satellite."
 msgstr ""
+"시스템을 Red Hat Network로 초기 연결하는 동안 설치 번호 %s가 활성화되었습니"
+"다."
 
 #: ../src/up2date_client/rhnreg_constants.py:168
 msgid ""
@@ -736,7 +778,7 @@ msgid "Warning"
 msgstr "경고"
 
 #: ../src/up2date_client/rhnreg_constants.py:243
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "We can't contact the Red Hat Satellite.\n"
 "\n"
@@ -748,6 +790,15 @@ msgid ""
 "This system will not be able to successfully receive software updates from "
 "Red Hat without connecting to a Red Hat Satellite server"
 msgstr ""
+"Red Hat Network 서버에 연결할 수 없습니다.\n"
+"\n"
+"알려주신 위치를 다시한번 확인합니다 - '%s'이 맞습니까?\n"
+"맞지않다면, 위치를 수정하여 다시 시도해 보시기 바랍니다.\n"
+"\n"
+"시스템의 네트워크 연결이 작동하는 지를 확인합니다.\n"
+"\n"
+"시스템을 Red Hat Network 서버에 연결하지 않고 Red Hat에서 성공적으로 소프트웨"
+"어를 업데이트하실 수 없습니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:250
 #, python-format
@@ -763,7 +814,7 @@ msgstr ""
 "하지 않습니다. 새로운 서버에서 다시 한번 시도해 보시기 바랍니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:258
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
@@ -774,6 +825,13 @@ msgid ""
 "\n"
 "Please try again with a different certificate file."
 msgstr ""
+"<b><span size=\"16000\">부적합한 인증서 파일</span></b>\n"
+"\n"
+"제공해 주신 인증서 <b>%s</b>가 <b>%s</b>에 있는 Red Hat Network 서버에 맞지 "
+"않습니다. 유효한 인증서 파일을 제공해 주셨는지를 다시 한번 확인하시기 바랍니"
+"다. 손상되지 않은 올바른 인증서 파일을 제공해 주셨습니까?\n"
+"\n"
+"다른 인증서 파일을 다시 한번 시도해 보시기 바랍니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:266
 msgid ""
@@ -899,10 +957,11 @@ msgid "You specified an invalid protocol. Only https and http are allowed."
 msgstr "잘못된 프로토콜을 지정하셨습니다. https와 http만이 허용됩니다."
 
 #: ../src/up2date_client/rhnregGui.py:304
+#, fuzzy
 msgid ""
 "You will not be able to successfully register this system without contacting "
 "a Spacewalk server."
-msgstr ""
+msgstr "Red Hat Network 서버에 접속하지 않고 이 시스템을 등록할 수 없습니다. "
 
 #: ../src/up2date_client/rhnregGui.py:324
 msgid "Cannot contact selected server"
@@ -927,8 +986,9 @@ msgid "Make sure the network connection on this system is operational."
 msgstr "시스템에 연결된 네트워크가 작동하는지 확인하시기 바랍니다."
 
 #: ../src/up2date_client/rhnregGui.py:340
+#, fuzzy
 msgid "There was an error communicating with Spacewalk server."
-msgstr ""
+msgstr "Red Hat Network와 통신하는 동안 오류가 발생했습니다."
 
 #: ../src/up2date_client/rhnregGui.py:341
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -939,10 +999,12 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr "서버에 맞지않는 클라이언트를 실행하고 있습니다."
 
 #: ../src/up2date_client/rhnregGui.py:376
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Spacewalk server:"
 msgstr ""
+"<b>%s</b> Red Hat Network Satellite에 대한 사용자 로그인 정보를 입력하십시"
+"오: "
 
 #: ../src/up2date_client/rhnregGui.py:415
 msgid "You must enter a login."
@@ -1143,8 +1205,9 @@ msgstr ""
 "더욱 감사드리겠습니다. 감사합니다!"
 
 #: ../src/up2date_client/rhnreg.py:59
+#, fuzzy
 msgid "Warning: unable to enable rhnsd with systemd"
-msgstr ""
+msgstr "경고: chkconfig를 사용하여 rhnsd를 활성화하는데 실패"
 
 #: ../src/up2date_client/rhnreg.py:65
 msgid "Warning: unable to enable rhnsd with chkconfig"
@@ -1167,8 +1230,9 @@ msgid "Server has refused connection due to high load"
 msgstr "네트워크 부하로 인해 서버 연결 실패"
 
 #: ../src/up2date_client/tui.py:136
+#, fuzzy
 msgid "Spacewalk Location:"
-msgstr ""
+msgstr "Red Hat Network 위치:"
 
 #: ../src/up2date_client/tui.py:138
 msgid "System ID:"
@@ -1308,6 +1372,7 @@ msgid "Network error: "
 msgstr "네트워크 오류: "
 
 #: ../src/up2date_client/up2dateErrors.py:299
+#, fuzzy
 msgid ""
 "\n"
 "    Your organization does not have enough Management entitlements to "
@@ -1329,6 +1394,22 @@ msgid ""
 "retry to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
+"\n"
+"    귀하의 조직은 이 시스템을 Red Hat Network에 등록할 만큼 충분한 관리 인타"
+"이틀먼트를 가지고있지\n"
+"    않습니다. 조직 관리자에게 이 오류에 대해 알려주십시오.\n"
+"    조직의 기존 인타이틀먼트를 정지시키거나 추가로 인타이틀먼트를 구매하기 전"
+"에는 이 시스템을 등록\n"
+"    할 수 없습니다. 관리자가 추가로 인타이틀먼트를 구매하기 위해서는 Red Hat "
+"Network에 로그인해서\n"
+"    RHN의 '사용자 RHN' 섹션 아래의 '서브스크립션 관리' 페이지로 가셔야 합니"
+"다.\n"
+"     \n"
+"    이런 코드의 오류가 발생하는 일반적인 원인은 실수로 활성화 키를 전체 \n"
+"     디폴트로 설정했기 때문일 수도 있습니다. 만약 이 계정에 대해 설정된 활성"
+"화 키가\n"
+"    전체 디폴트 상태라면, 이 키를 비활성화시키고 다시 시도하면, 추가로 관리\n"
+"    인타이틀먼트를 요청하지 않아도 될 수 있습니다. "
 
 #: ../src/bin/rhn_check.py:394
 msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
@@ -1592,6 +1673,7 @@ msgstr ""
 "를 위해 시스템을 설정하실 수 없습니다.</b>"
 
 #: ../data/rh_register.glade.h:2
+#, fuzzy
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
 "updates, including security updates, from Red Hat without connecting to a "
@@ -1600,6 +1682,11 @@ msgid ""
 "To keep your system updated, secure, and supported, please register this "
 "system at your earliest convenience."
 msgstr ""
+"Red Hat Network 서버에 연결하지 않고 Red Hat에서 시스템으로 보안 업데이트를 "
+"포함한 소프트웨어를 성공적으로 업데이트할 수 <b>없습니다.</b>\n"
+"\n"
+"시스템을 지속적으로 업데이트, 보안, 및 지원하시려면 가능한 빠른 시일내에 시스"
+"템을 등록하시기 바랍니다."
 
 #: ../data/rh_register.glade.h:7
 msgid ""
@@ -1996,8 +2083,9 @@ msgid "I would like to connect via an _HTTP proxy."
 msgstr "HTTP 프록시를 통해 연결하고자 합니다.(_H)"
 
 #: ../data/rh_register.glade.h:97
+#, fuzzy
 msgid "I would like to connect to Spacewalk via an _HTTP proxy."
-msgstr ""
+msgstr "HTTP proxy를 통해 Red Hat Network에 연결하고자 합니다(_H)."
 
 #: ../data/rh_register.glade.h:98
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
@@ -2292,14 +2380,17 @@ msgid "RHN Registration"
 msgstr "RHN 등록"
 
 #: ../rhn_register.desktop.in.h:2
+#, fuzzy
 msgid ""
 "Register for software updates from Spacewalk/Red Hat Satellite/Red Hat "
 "Network Classic"
 msgstr ""
+"Spacewalk/Satellite/Red Hat Network에서 받는 소프트웨어 업데이트를 등록 "
 
 #: ../rhn_register.desktop.in.h:3
+#, fuzzy
 msgid "Register to Spacewalk/Red Hat Satellite/Red Hat Network Classic."
-msgstr ""
+msgstr "Spacewalk/Satellite/Red Hat Network에 등록."
 
 #~ msgid ""
 #~ "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"

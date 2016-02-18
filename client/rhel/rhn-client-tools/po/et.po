@@ -3,13 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Miroslav Suchý <msuchy@redhat.com>, 2011-2012.
 # Miroslav Suchý <msuchy@redhat.com>, 2011-2012
+# Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:59+0200\n"
-"PO-Revision-Date: 2014-01-14 09:23+0000\n"
+"PO-Revision-Date: 2014-01-14 04:23-0500\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/spacewalk/"
 "language/et/)\n"
@@ -18,6 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -425,11 +428,15 @@ msgid "Create Profile - Hardware"
 msgstr "Oma süsteemi ühendamine "
 
 #: ../src/up2date_client/rhnreg_constants.py:106
+#, fuzzy
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Satellite web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
+"Profiilinimi on kirjeldav nimi eraldamaks seda süsteemi profiili Red Hat "
+"Network veebilehel. Valikuliselt hõlmab arvuti jada või identifitseerimise "
+"numbrit."
 
 #: ../src/up2date_client/rhnreg_constants.py:110
 msgid ""
@@ -506,8 +513,9 @@ msgstr ""
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:141
+#, fuzzy
 msgid "Send Profile Information to Red Hat Satellite"
-msgstr ""
+msgstr "Profiili informatsioon saatmine Red Hat Network-i"
 
 #: ../src/up2date_client/rhnreg_constants.py:142
 msgid ""
@@ -520,8 +528,9 @@ msgstr ""
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:149
+#, fuzzy
 msgid "Sending Profile to Red Hat Satellite"
-msgstr ""
+msgstr "Profiili saatmine Red Hat Network-i"
 
 #: ../src/up2date_client/rhnreg_constants.py:153
 #, python-format
@@ -852,8 +861,9 @@ msgid "Make sure the network connection on this system is operational."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:340
+#, fuzzy
 msgid "There was an error communicating with Spacewalk server."
-msgstr ""
+msgstr "Registreerimisserveriga ühendamisel juhtus viga. Teade oli järgmine:\n"
 
 #: ../src/up2date_client/rhnregGui.py:341
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -1059,8 +1069,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg.py:59
+#, fuzzy
 msgid "Warning: unable to enable rhnsd with systemd"
-msgstr ""
+msgstr "Hoiatus: ei suudeta lubada rhnsd chkconfig-iga"
 
 #: ../src/up2date_client/rhnreg.py:65
 msgid "Warning: unable to enable rhnsd with chkconfig"

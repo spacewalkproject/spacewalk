@@ -3,16 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Maxim Dziumanenko <dziumanenko@gmail.com>, 2003.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Yuri Chornoivan <yurchor@ukr.net>, 2012-2013.
+# Євген <djsmentya@gmail.com>, 2013.
 # Maxim Dziumanenko <dziumanenko@gmail.com>, 2003
 # Miroslav Suchý <msuchy@redhat.com>, 2011
 # Yuri Chornoivan <yurchor@ukr.net>, 2012-2014
 # Євген <djsmentya@gmail.com>, 2013
+# Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:59+0200\n"
-"PO-Revision-Date: 2014-01-14 14:12+0000\n"
+"PO-Revision-Date: 2014-01-14 09:12-0500\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/spacewalk/"
 "language/uk/)\n"
@@ -22,6 +27,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Zanata 3.8.2\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
