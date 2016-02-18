@@ -22,7 +22,7 @@
             <label for="schedule-by-action-chain"><bean:message key="schedule-options.action-chain"/></label>
         </div>
         <div class="col-sm-6">
-            <rhn:hidden id="action-chain" name="action_chain"
+            <input type="hidden" id="action-chain" name="action_chain"
                 data-existing-action-chains='${existingActionChains}'
             />
         </div>
