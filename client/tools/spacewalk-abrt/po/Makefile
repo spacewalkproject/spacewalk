@@ -19,7 +19,7 @@ POFILES		= $(wildcard *.po)
 MOFILES		= $(patsubst %.po,%.mo,$(POFILES))
 SRCFILES = \
         $(wildcard ../src/spacewalk_abrt/*.py) \
-        $(wildcard ../src/bin/*) \
+        ../src/bin/spacewalk-abrt \
         $(wildcard ../src/actions/*.py)
 
 all:: $(MOFILES)
