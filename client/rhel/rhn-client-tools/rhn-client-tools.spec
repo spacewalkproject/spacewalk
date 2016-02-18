@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.5.11
+Version: 2.5.12
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -401,6 +401,12 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Feb 18 2016 Jan Dobes 2.5.12-1
+- delete file with input files after template is created
+- try to generate more similar order of entries in template
+- pulling *.po translations from Zanata
+- fixing current *.po translations
+
 * Fri Feb 12 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.11-1
 - 1259884 - fixed missing method for sorting of rhnChannels
 - 1259884 - open terminal for write only
