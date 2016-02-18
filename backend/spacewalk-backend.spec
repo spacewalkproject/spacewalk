@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.18
+Version: 2.5.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -650,6 +650,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Thu Feb 18 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.19-1
+- Remove self from staticmethod
+- Fix Python errors from CI build and rename sort function for consistency.
+- Remove custom latest RPM handling in spacewalk-repo-sync and use the same
+  logic as reposync from yum-utils instead.
+
 * Fri Feb 05 2016 Grant Gainey 2.5.18-1
 - 1305051 - fix broken 'raise' on error
 
