@@ -30,7 +30,7 @@ import os
 
 import socket
 import select
-
+from rhn.i18n import bstr
 import sys
 
 DEFAULT_TIMEOUT = 120
@@ -66,7 +66,7 @@ class SSLSocket:
         # Position, for tell()
         self._pos = 0
         # Buffer
-        self._buffer = b""
+        self._buffer = bstr("")
 
         # Flag to show if makefile() was called
         self._makefile_called = 0
@@ -211,7 +211,7 @@ class SSLSocket:
             self._buffer = self._buffer[amt:]
         else:
             ret = self._buffer
-            self._buffer = b""
+            self._buffer = bstr("")
 
         self._pos = self._pos + len(ret)
         return ret
@@ -266,7 +266,7 @@ class SSLSocket:
             # charcount contains the number of chars to be outputted (or None
             # if none to be outputted at this time)
             charcount = None
-            i = self._buffer.find(b'\n')
+            i = self._buffer.find(bstr('\n'))
             if i >= 0:
                 # Go one char past newline
                 charcount = i + 1
