@@ -142,6 +142,11 @@ values
   (sequence_nextval('rhn_timezone_id_seq'),
    'America/Anchorage', 'United States (Alaska)');
 
+insert into rhnTimezone
+  (id, olson_name, display_name)
+values
+  (sequence_nextval('rhn_timezone_id_seq'),
+   'America/Santiago', 'Chile (Continental)');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
@@ -256,6 +261,12 @@ insert into rhnTimezone
 values
   (sequence_nextval('rhn_timezone_id_seq'),
    'Atlantic/South_Georgia', 'Sandwich Islands');
+
+insert into rhnTimezone
+  (id, olson_name, display_name)
+values
+  (sequence_nextval('rhn_timezone_id_seq'),
+   'Pacific/Easter', 'Chile (Easter Island)');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
