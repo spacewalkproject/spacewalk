@@ -14,6 +14,23 @@
  */
 package com.redhat.rhn.domain.user;
 
+import java.sql.Types;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -28,23 +45,6 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.legacy.UserImpl;
 import com.redhat.rhn.manager.session.SessionManager;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.hibernate.Query;
-import org.hibernate.Session;
-
-import java.sql.Types;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
 
 /**
  * UserFactory  - the singleton class used to fetch and store
@@ -531,18 +531,17 @@ public  class UserFactory extends HibernateFactory {
             Session session = HibernateFactory.getSession();
             timeZones = session.getNamedQuery("RhnTimeZone.loadAll").list();
 
-            //Now sort the timezones. American timezones come first as they are 'preferred'
-            //All other timezones are sorted and placed after American ones.
-            //American timezones are sorted East to West based on raw off-set.
-            //All other timezones are sorted West to East based on raw off-set.
+            //Now sort the timezones, GMT+0000 at top, then East-to-West
             if (timeZones != null) {
                 Collections.sort(timeZones, new Comparator() {
+                    @Override
                     public int compare(Object o1, Object o2) {
                         RhnTimeZone t1 = (RhnTimeZone) o1;
                         RhnTimeZone t2 = (RhnTimeZone) o2;
                         Integer offSet1 = t1.getTimeZone().getRawOffset();
                         Integer offSet2 = t2.getTimeZone().getRawOffset();
 
+                        // Make sure GMT+0000 is first
                         if (offSet1 == 0 && offSet2 != 0) {
                             // first one GMT
                             return -1;
@@ -550,6 +549,15 @@ public  class UserFactory extends HibernateFactory {
 
                         if (offSet1 != 0 && offSet2 == 0) {
                             // second one GMT
+                            return 1;
+                        }
+
+                        // Make sure negative offsets 'win' over positive
+                        if (offSet1 < 0 && offSet2 > 0) {
+                            return -1;
+                        }
+
+                        if (offSet1 > 0 && offSet2 < 0) {
                             return 1;
                         }
 

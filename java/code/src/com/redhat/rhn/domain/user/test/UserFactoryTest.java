@@ -15,6 +15,15 @@
 
 package com.redhat.rhn.domain.user.test;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TimeZone;
+
+import org.hibernate.Session;
+
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.org.Org;
@@ -34,15 +43,6 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestStatics;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
-
-import org.hibernate.Session;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TimeZone;
 
 /** JUnit test case for the User
  *  class.
@@ -124,16 +124,16 @@ public class UserFactoryTest extends RhnBaseTestCase {
     }
 
     public void testLookupByIds() throws Exception {
-        List idList = new ArrayList();
-        List userList = new ArrayList();
+        List<Long> idList = new ArrayList<Long>();
+        List<User> userList = new ArrayList<User>();
         Long firstId = UserTestUtils.createUser("testUserOne", "testOrgOne");
         Long secondId = UserTestUtils.createUser("testUserSecond", "testOrgSecond");
         idList.add(firstId);
         idList.add(secondId);
         userList = UserFactory.lookupByIds(idList);
         assertNotNull(userList);
-        assertNotNull(((User)userList.get(1)).getFirstNames());
-        assertContains(((User)userList.get(1)).getLogin(), "testUserSecond");
+        assertNotNull(userList.get(1).getFirstNames());
+        assertContains(userList.get(1).getLogin(), "testUserSecond");
     }
 
     public void testLookupByLogin() throws Exception {
@@ -191,7 +191,15 @@ public class UserFactoryTest extends RhnBaseTestCase {
         // Total seems to fluctuate, check for 30+:
         assertTrue(tzList.size() > 30);
         assertTrue(tzList.get(2) instanceof RhnTimeZone);
-        assertTrue(((RhnTimeZone)tzList.get(0)).getOlsonName().equals("America/New_York"));
+        // Order-test:
+        // 1) Start at GMT
+        // 2) Then E-to-W from GMT (ie, all negative offsets followed by pos offsets)
+        // Note: There are several GMT-equivalent TZs at the beginning of all this -
+        //       skip past them
+        assertEquals("GMT", ((RhnTimeZone)tzList.get(0)).getOlsonName());
+        assertTrue(((RhnTimeZone)tzList.get(4)).getTimeZone().getRawOffset() < 0);
+        assertTrue(((RhnTimeZone)tzList.get(tzList.size() - 1)).
+                        getTimeZone().getRawOffset() > 0);
     }
 
     public void testCommitUser() throws Exception {
