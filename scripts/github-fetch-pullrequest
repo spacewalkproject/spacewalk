@@ -66,7 +66,7 @@ def guess_USER_REPO():
     return a.get('upstream') or a.get('origin')
 
 
-def prepare_repo(repo, req_num):
+def prepare_repo(repo, req_num, master):
     """Main functionality"""
     if repo.is_dirty() or repo.untracked_files:
         print "Repo is dirty (uncommited changes/untracked files)."
@@ -100,15 +100,32 @@ def prepare_repo(repo, req_num):
     except git.exc.GitCommandError:
         print ("Rebase failed. You can either resolve it and run "
                "`git rebase --continue` or ask author to do the rebase.")
-    print "\n", remote_name
+
+    if master:
+        repo.git.checkout("master")
+        repo.git.merge(remote_name, "--ff-only")
+        repo.git.branch("-d", remote_name)
+
+    print ("\nIn branch '%s'." % ("master" if master else remote_name))
 
 if __name__ == "__main__":
     repo = git.Repo('.')
     USER, REPO = guess_USER_REPO()
+    master = False
+    req_num = None
 
-    if len(sys.argv) == 1:
+    for arg in sys.argv:
+        if arg in ("--master", "-m"):
+            master = True
+        else:
+            try:
+                req_num = int(arg)
+            except ValueError:
+                pass
+
+    if not req_num:
         list_requests()
         sys.exit(0)
 
     setup_token()
-    prepare_repo(repo, int(sys.argv[1]))
+    prepare_repo(repo, req_num, master)
