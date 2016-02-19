@@ -33,6 +33,7 @@ from up2date_client import rpmUtils
 from up2date_client import rhnPackageInfo
 
 from rpm import RPMPROB_FILTER_OLDPACKAGE
+from rpm import labelCompare
 
 log = up2dateLog.initLog()
 
@@ -364,13 +365,17 @@ def update(package_list, cache_only=None):
 
         found = False
         for pkg in pkgs:
-            if pkg.returnEVR().compare(evr) == 0:
+            current = pkg.returnEVR()
+            currentEVR = (current.epoch, current.version, current.release)
+            candidateEVR = (evr.epoch, evr.version, evr.release)
+            compare = labelCompare(currentEVR, candidateEVR)
+            if compare == 0:
                 log.log_debug('Package %s already installed' \
                     % _yum_package_tup(package))
                 package_list.remove(package)
                 found = True
                 break
-            elif pkg.returnEVR().compare(evr) > 0:
+            elif compare > 0:
                 log.log_debug('More recent version of package %s is already installed' \
                     % _yum_package_tup(package))
                 package_list.remove(package)
