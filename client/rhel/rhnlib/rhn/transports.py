@@ -41,7 +41,7 @@ class Transport(xmlrpclib.Transport):
 
     def __init__(self, transfer=0, encoding=0, refreshCallback=None,
             progressCallback=None, use_datetime=None, timeout=None):
-        xmlrpclib.Transport.__init__(self)
+        self._use_builtin_types = False
         self._transport_flags = {'transfer' : 0, 'encoding' : 0}
         self.set_transport_flags(transfer=transfer, encoding=encoding)
         self._headers = UserDictCase()
