@@ -374,10 +374,13 @@ def sendMail(forceEmail=0):
         body = dumpEMAIL_LOG()
         if body:
             print _("+++ sending log as an email +++")
+            host_label = idn_puny_to_unicode(os.uname()[1])
             headers = {
-                'Subject': _('RHN Management Satellite sync. report from %s') % idn_puny_to_unicode(os.uname()[1]),
+                'Subject' : _('RHN Management Satellite sync. report from %s') % host_label,
             }
-            sndr = "root@%s" % idn_puny_to_unicode(os.uname()[1])
+            sndr = "root@%s" % host_label
+            if CFG.has_key("default_mail_from"):
+                sndr = CFG.default_mail_from
             rhnMail.send(headers, body, sender=sndr)
         else:
             print _("+++ email requested, but there is nothing to send +++")
