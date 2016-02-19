@@ -15,15 +15,16 @@
 
 package com.redhat.rhn.common.util.test;
 
-import com.redhat.rhn.common.util.StringUtil;
-import com.redhat.rhn.testing.RhnBaseTestCase;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class StringUtilTest extends RhnBaseTestCase {
+import com.redhat.rhn.common.util.StringUtil;
+
+import junit.framework.TestCase;
+
+public class StringUtilTest extends TestCase {
     public StringUtilTest(final String name) {
         super(name);
     }
@@ -45,7 +46,7 @@ public class StringUtilTest extends RhnBaseTestCase {
     }
 
     public void testMapReplace() {
-        Map replace = new HashMap();
+        Map<String, String> replace = new HashMap<String, String>();
         replace.put("k0", "v0");
         replace.put("k1", "v1");
 
@@ -56,7 +57,7 @@ public class StringUtilTest extends RhnBaseTestCase {
 
     public void testStringToList() {
         String listme = "A B C D E F G";
-        List testme = StringUtil.stringToList(listme);
+        List<String> testme = StringUtil.stringToList(listme);
         assertTrue(testme.contains("A"));
         assertTrue(testme.contains("G"));
     }
@@ -159,16 +160,16 @@ public class StringUtilTest extends RhnBaseTestCase {
     public void testJoin() {
         String testString;
 
-        List testEmpty = new LinkedList();
+        List<String> testEmpty = new LinkedList<String>();
         testString = StringUtil.join(", ", testEmpty);
         assertNull(testString);
 
-        List testOne = new LinkedList();
+        List<String> testOne = new LinkedList<String>();
         testOne.add("One");
         testString = StringUtil.join(", ", testOne);
         assertEquals("One", testString);
 
-        List testMany = new LinkedList();
+        List<String> testMany = new LinkedList<String>();
         testMany.add("One");
         testMany.add("Two");
         testMany.add("Three");
@@ -386,5 +387,16 @@ public class StringUtilTest extends RhnBaseTestCase {
         String expected = "You donot have enough entitlements for" +
                                     " xyz system (http://www.redhat.com).";
         assertEquals(expected, StringUtil.toPlainText(inp));
+    }
+
+    public void testAddPath() {
+        String expected = "/tmp/foo/bar.txt";
+        assertEquals(expected, StringUtil.addPath("/tmp/foo", "bar.txt"));
+        assertEquals(expected, StringUtil.addPath("/tmp/foo/", "bar.txt"));
+        assertEquals(expected, StringUtil.addPath("/tmp/foo", "/bar.txt"));
+        assertEquals(expected, StringUtil.addPath("/tmp/foo/", "/bar.txt"));
+        assertEquals(expected, StringUtil.addPath("//tmp/foo/", "/bar.txt"));
+        assertEquals(expected, StringUtil.addPath("//tmp/foo//", "/bar.txt"));
+        assertEquals(expected, StringUtil.addPath("//tmp/foo//", "//bar.txt"));
     }
 }
