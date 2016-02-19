@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.52
+Version: 2.5.53
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,20 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 19 2016 Grant Gainey 2.5.53-1
+- Tweaked TZ-ordering - goes E-to-W starting with GMT. Also cleaned up the
+  associated junit
+- order is assertEquals(expected, actual)
+- use generics
+- Sort timezones: GMT first and then east to west
+- UserManagerTest: use the proper assert methods in order to get useful
+  information on failures
+- add Chile to the list of timezones (bsc#959055)
+- Add junit for 2f19c70e, clean up StringUtilTest.java * Doesn't need the
+  extras of RhnBaseTestCase * Cleaned up generics-warnings
+- Fix: prevent return null on merging path slices
+- 1244512 - deprecating useless method
+
 * Fri Feb 19 2016 Grant Gainey 2.5.52-1
 - 1309892 - on cancel, only delete actions that haven't been picked up yet
 
