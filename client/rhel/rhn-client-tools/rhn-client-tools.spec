@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.5.12
+Version: 2.5.13
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -401,6 +401,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Feb 19 2016 Jan Dobes 2.5.13-1
+- fixed 'exceptions.ValueError: invalid literal for int(): 0oxxx' to work in
+  python 2.4 (RHEL5)
+
 * Thu Feb 18 2016 Jan Dobes 2.5.12-1
 - delete file with input files after template is created
 - try to generate more similar order of entries in template
