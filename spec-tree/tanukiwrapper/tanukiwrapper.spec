@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -225,6 +225,9 @@ fi
 %endif
 
 %changelog
+* Sun Feb 21 2016 Jan Dobes <jdobes@redhat.com> 3.2.3-16
+- adding arm Makefile
+
 * Mon Nov 30 2015 Tomas Kasparek <tkasparek@redhat.com> 3.2.3-15
 - require openjdk-devel for building on F23
 
