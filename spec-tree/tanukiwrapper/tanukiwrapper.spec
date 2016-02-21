@@ -54,6 +54,7 @@ Patch5:         %{name}-Makefile-sparc-sparc64.patch
 # The following patch is only needed for GCJ.
 Patch6:		%{name}-nosun-jvm-64.patch
 Patch7:     %{name}-compilewithfpic.patch
+Patch8:         %{name}-Makefile-linux-arm-32.patch
 Group:		Development/Java
 %if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 BuildRequires: javapackages-tools
@@ -125,6 +126,7 @@ Group:          Development/Documentation
 %patch6
 %endif
 %patch7
+%patch8
 find . -name "*.jar" -exec %__rm -f {} \;
 %__perl -p -i -e 's|-O3|%optflags|' src/c/Makefile*
 
