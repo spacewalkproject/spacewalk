@@ -21,7 +21,7 @@ Patch3: jpam-0.4-no_checkstyle.patch
 Patch4: jpam-0.4-no-password-prompt.patch
 Patch5: jpam-0.4-arm.patch
 Version: 0.4
-Release: 27%{?dist}
+Release: 28%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 Requires: %jpackage_run_jars
@@ -109,6 +109,9 @@ fi
 %{_javadocdir}/%{name}-%{version}
 
 %changelog
+* Sun Feb 21 2016 Jan Dobes <jdobes@redhat.com> 0.4-28
+- adding arm Makefile
+
 * Tue Jun 24 2014 Michael Mraka <michael.mraka@redhat.com> 0.4-27
 - update jpam deps for RHEL7
 
