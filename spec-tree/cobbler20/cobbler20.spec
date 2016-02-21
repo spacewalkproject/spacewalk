@@ -49,7 +49,10 @@ Requires: tftp-server
 %endif
 
 Requires: mod_wsgi
+# syslinux is only available on x86
+%ifarch %{ix86} x86_64
 Requires: syslinux
+%endif
 
 Requires: createrepo
 %if 0%{?fedora}
