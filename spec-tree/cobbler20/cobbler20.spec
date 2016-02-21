@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 55%{?dist}
+Release: 56%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -490,6 +490,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Sun Feb 21 2016 Jan Dobes <jdobes@redhat.com> 2.0.11-56
+- only require syslinux on x86 as in upstream cobbler
+
 * Wed Nov 04 2015 Tomas Kasparek <tkasparek@redhat.com> 2.0.11-55
 - add system support to --no-local-hdd option without need of profiles
 
