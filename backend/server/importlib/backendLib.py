@@ -492,7 +492,19 @@ def sanitizeValue(value, datatype):
             # does not do this
         elif isinstance(value, unicode):
             value = unicode.encode(value, 'utf-8')
-        return value[:datatype.limit]
+        value = value[:datatype.limit]
+        x = 0
+        # UTF-8 can have up to 4 bytes
+        # take care that we split after full character
+        while x < 4:
+            try:
+                value.decode('utf-8')
+            except UnicodeDecodeError:
+                value = value[:len(value)-1]
+                x += 1
+            else:
+                break
+        return value
     if isinstance(datatype, DBblob):
         if value is None:
             value = ''
