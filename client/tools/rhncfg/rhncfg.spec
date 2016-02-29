@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.87
+Version: 5.10.88
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -122,6 +122,11 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Mon Feb 29 2016 Gennadii Altukhov <galt@redhat.com> 5.10.88-1
+- 1309003 fixing removing of temporary files during transaction rollback for
+  rhncfg-manager.
+- 1309006 fixing removing directories which rhncfg-manager didn't create.
+
 * Thu Oct 29 2015 Jan Dobes 5.10.87-1
 - 518128 - python 2.4 compatibility
 
