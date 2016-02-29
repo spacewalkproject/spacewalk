@@ -203,14 +203,12 @@ class DeployTransaction:
         # Older servers will not return directories; if filetype is missing,
         # assume file
         if file_info.get('filetype') == 'directory':
-                self.dirs.append(file_info)
+            self.dirs.append(file_info)
         else:
-                self._chown_chmod_chcon(processed_file_path, dest_path, file_info, strict_ownership=strict_ownership)
-
-                if self.newtemp_by_path.has_key(dest_path):
-                    raise DuplicateDeployment("Error:  %s already added to transaction" % dest_path)
-
-                self.newtemp_by_path[dest_path] = processed_file_path
+            if self.newtemp_by_path.has_key(dest_path):
+                raise DuplicateDeployment("Error:  %s already added to transaction" % dest_path)
+            self.newtemp_by_path[dest_path] = processed_file_path
+            self._chown_chmod_chcon(processed_file_path, dest_path, file_info, strict_ownership=strict_ownership)
 
     def add(self, file_info):
         """add a file to the deploy transaction"""
