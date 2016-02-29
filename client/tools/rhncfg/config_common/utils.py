@@ -107,17 +107,18 @@ def mkdir_p(path, mode=None, symlinks=None, allfiles=None):
                     allfiles.remove(symlink)
                     dirs_created.append(symlink)
                     continue
-        log_debug(8, "testing",d)
+        log_debug(8, "testing", d)
         try:
             os.mkdir(d, mode)
+            dirs_created.append(d)
+            log_debug(8, "created", d)
         except OSError, e:
             if e.errno != 17:
                 raise
             else:
-                log_debug(8, "created",d)
-        dirs_created.append(d)
+                log_debug(8, "already exists", d)
 
-    log_debug(6, "dirs_created:",dirs_created)
+    log_debug(6, "dirs_created:", dirs_created)
 
     return dirs_created
 
