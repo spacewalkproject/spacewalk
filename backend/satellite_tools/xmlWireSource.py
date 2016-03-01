@@ -105,7 +105,7 @@ class BaseWireSource:
     def _set_connection(self, url):
         "Instantiates a connection object"
 
-        serverObj = connection.StreamConnection(url, proxy=CFG.HTTP_PROXY,
+        serverObj = connection.StreamConnection(url, proxy=CFG.HTTP_PROXY, debug=CFG.DEBUG,
                                                 username=CFG.HTTP_PROXY_USERNAME, password=CFG.HTTP_PROXY_PASSWORD,
                                                 xml_dump_version=self.xml_dump_version, timeout=CFG.timeout)
         BaseWireSource.serverObj = serverObj
@@ -144,6 +144,7 @@ class BaseWireSource:
         wait = 0.33
         lastErrorMsg = ''
         cfg = config.initUp2dateConfig()
+        log(2, "Requesting '%s' from server with params (%s)" % (method, params)
         for i in range(cfg['networkRetries']):
             server = self.getServer(retryYN)
             if server is None:
