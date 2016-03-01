@@ -1,7 +1,7 @@
 Summary: An xmlrpc library
 Name: redstone-xmlrpc
 Version: 1.1_20071120 
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: LGPL
 Group: Development/Library
 URL: http://xmlrpc.sourceforge.net
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}
 
 %changelog
+* Tue Mar 01 2016 Gennadii Altukhov <galt@redhat.com> 1.1_20071120-16
+- 1313425 Adding patch for redstone XMLRPC to escape '>'
+
 * Mon Jun 23 2014 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-15
 - use javapackages-tools instead of jpackage-utils on RHEL7
 
