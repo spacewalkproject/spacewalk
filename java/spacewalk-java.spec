@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.53
+Version: 2.5.54
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 01 2016 Grant Gainey 2.5.54-1
+- 1313515 - action-chain CSS wants a dynamic attribute-name - revert to 'stock'
+  <input type='hidden'
+- 1313515 - we use 'id' in some of out hidden-inputs
+- 1313515 - 'value' is (apparently) optional for some of our hidden-tag-use
+- 1313515 - One more jspf to teach rhn:hidden
+- 1313515 - Teach many JSPs to use rhn:hidden instead of <input type='hidden'>
+- 1313515 - Add new rhn:hidden tag and its test
+- 1313517 - Teach ListTagHelper to be less trusting of filter-values
+- remove monitoring from the help text
+
 * Fri Feb 19 2016 Grant Gainey 2.5.53-1
 - Tweaked TZ-ordering - goes E-to-W starting with GMT. Also cleaned up the
   associated junit
