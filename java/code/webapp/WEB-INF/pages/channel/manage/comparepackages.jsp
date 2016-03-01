@@ -14,7 +14,7 @@
 
     <rl:listset name="packageSet">
     <rhn:csrf />
-    <rhn:hidden name="cid" value="${cid}">
+    <rhn:hidden name="cid" value="${cid}" />
     <bean:message key="channel.jsp.package.comparemessage" />
     <h2>
         <rhn:icon type="header-package" />

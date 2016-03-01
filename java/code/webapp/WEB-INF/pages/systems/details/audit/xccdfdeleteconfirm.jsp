@@ -16,7 +16,7 @@
 
 <rl:listset name="xccdfScans">
         <rhn:csrf/>
-        <rhn:hidden name="sid" value="${param.sid}">
+        <rhn:hidden name="sid" value="${param.sid}" />
 
         <rl:list dataset="pageList" name="xccdfScans">
                 <rl:decorator name="ElaborationDecorator"/>

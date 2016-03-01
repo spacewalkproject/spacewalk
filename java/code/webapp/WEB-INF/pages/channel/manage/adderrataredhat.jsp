@@ -15,7 +15,7 @@
 <rl:listset name="errataSet">
 <rhn:csrf />
 <rhn:submitted />
-<rhn:hidden name="cid" value="${cid}">
+<rhn:hidden name="cid" value="${cid}"/>
 
 
 <table class="details" width="80%">
@@ -33,7 +33,7 @@
         <td width="40%">
 
 <c:if test="${selected_version != null}">
-        <rhn:hidden name="selected_version_old"  value="${selected_version}">
+        <rhn:hidden name="selected_version_old"  value="${selected_version}"/>
 </c:if>
 
 
@@ -52,7 +52,7 @@
 </tr>
 
 <c:if test="${selected_channel != null}">
-<rhn:hidden name="selected_channel_old"  value="${selected_channel}">
+<rhn:hidden name="selected_channel_old"  value="${selected_channel}"/>
 </c:if>
 
                 <c:if test="${channel_list != null}">

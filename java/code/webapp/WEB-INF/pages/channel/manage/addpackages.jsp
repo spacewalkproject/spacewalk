@@ -14,7 +14,7 @@
 
 <rl:listset name="packageSet">
 <rhn:csrf />
-<rhn:hidden name="cid" value="${cid}">
+<rhn:hidden name="cid" value="${cid}"/>
 <bean:message key="channel.jsp.package.addmessage"/>
 <h2><rhn:icon type="header-package" /> <bean:message key="channel.jsp.package.addtitle"/></h2>
 

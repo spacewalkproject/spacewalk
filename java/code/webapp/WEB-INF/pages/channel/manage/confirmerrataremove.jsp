@@ -69,7 +69,7 @@
                         <input class="btn btn-danger" type="submit" name="dispatch"  value="<bean:message key='channel.jsp.errata.confirmremove'/>">
                         </div>
      <rhn:submitted/>
-     <rhn:hidden name="cid" value="${cid}">
+     <rhn:hidden name="cid" value="${cid}" />
 
 </rl:listset>
 

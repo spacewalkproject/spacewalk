@@ -1,6 +1,6 @@
 <rl:listset name="xccdfScans" legend="xccdf">
         <rhn:csrf />
-        <rhn:hidden name="sid" value="${param.sid}">
+        <rhn:hidden name="sid" value="${param.sid}" />
 
         <rl:list emptykey="system.audit.listscap.jsp.noscans" dataset="pageList" name="xccdfScans">
                 <rl:decorator name="ElaborationDecorator"/>

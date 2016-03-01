@@ -34,7 +34,7 @@
 
   </rl:list>
 
-  <rhn:hidden name="aid" value="${aid}">
+  <rhn:hidden name="aid" value="${aid}" />
 
   </rl:listset>
 

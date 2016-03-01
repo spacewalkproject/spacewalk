@@ -50,7 +50,7 @@
                 </div>
             </div>
             <html:hidden property="sid" value="${param.sid}" />
-            <rhn:hidden name="use_date" value="true">
+            <rhn:hidden name="use_date" value="true" />
         </rl:listset>
     </body>
 </html>
