@@ -40,6 +40,6 @@
             </html:submit>
         </div>
     </div>
-    <rhn:hidden name="${param.name}" value="${param.value}" />
+    <input type=hidden name="${param.name}" value="${param.value}" />
     <html:hidden property="submitted" value="true"/>
 </html:form>
