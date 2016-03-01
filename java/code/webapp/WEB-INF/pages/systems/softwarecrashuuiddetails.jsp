@@ -48,7 +48,7 @@
     <rl:listset name="crashServers">
         <rhn:csrf />
         <rhn:submitted />
-        <input type="hidden" name="uuid" value="${crashesSummary.uuid}"/>
+        <rhn:hidden name="uuid" value="${crashesSummary.uuid}"/>
 
         <div class="full-width-wrapper" style="clear: both;">
             <rl:list emptykey="nosystems.message"

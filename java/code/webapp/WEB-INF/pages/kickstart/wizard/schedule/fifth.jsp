@@ -39,43 +39,43 @@ function setContinue() {
     <rhn:submitted />
     <!-- Store form variables obtained from previous page -->
     <%@ include file="/WEB-INF/pages/common/fragments/date-picker-hidden.jspf" %>
-    <input type="hidden" name="scheduleAsap" value="${form.scheduleAsap}" />
-    <input type="hidden" name="cobbler_id" value="${form.cobbler_id}" />
-    <input type="hidden" name="sid" value="${form.sid}" />
-    <input type="hidden" name="guestName" value="${form.guestName}" />
-    <input type="hidden" name="proxyHost" value="${form.proxyHost}" />
-    <input type="hidden" name="targetProfileType" value="${form.targetProfileType}" />
-    <input type="hidden" name="targetProfile" value="${form.targetProfile}" />
-    <input type="hidden" name="targetServerProfile" value="${form.targetServerProfile}" />
+    <rhn:hidden name="scheduleAsap" value="${form.scheduleAsap}" />
+    <rhn:hidden name="cobbler_id" value="${form.cobbler_id}" />
+    <rhn:hidden name="sid" value="${form.sid}" />
+    <rhn:hidden name="guestName" value="${form.guestName}" />
+    <rhn:hidden name="proxyHost" value="${form.proxyHost}" />
+    <rhn:hidden name="targetProfileType" value="${form.targetProfileType}" />
+    <rhn:hidden name="targetProfile" value="${form.targetProfile}" />
+    <rhn:hidden name="targetServerProfile" value="${form.targetServerProfile}" />
 
-    <input type="hidden" name="postKernelParamsType" value="${form.postKernelParamsType}" />
-    <input type="hidden" name="postKernelParams" value="${form.postKernelParams}" />
-    <input type="hidden" name="kernelParamsType" value="${form.kernelParamsType}" />
-    <input type="hidden" name="kernelParams" value="${form.kernelParams}" />
+    <rhn:hidden name="postKernelParamsType" value="${form.postKernelParamsType}" />
+    <rhn:hidden name="postKernelParams" value="${form.postKernelParams}" />
+    <rhn:hidden name="kernelParamsType" value="${form.kernelParamsType}" />
+    <rhn:hidden name="kernelParams" value="${form.kernelParams}" />
 
-    <input type="hidden" name="networkType" value="${form.networkType}" />
-    <input type="hidden" name="networkInterface" value="${form.networkInterface}" />
-    <input type="hidden" name="bondType" value="${form.bondType}" />
-    <input type="hidden" name="bondInterface" value="${form.bondInterface}" />
-    <input type="hidden" name="bondOptions" value="${form.bondOptions}" />
-    <input type="hidden" name="hiddenBondSlaveInterfaces" value="${rhn:arrayToString(form.bondSlaveInterfaces)}" />
-    <input type="hidden" name="bondStatic" value="${form.bondStatic}" />
-    <input type="hidden" name="bondAddress" value="${form.bondAddress}" />
-    <input type="hidden" name="bondNetmask" value="${form.bondNetmask}" />
-    <input type="hidden" name="bondGateway" value="${form.bondGateway}" />
+    <rhn:hidden name="networkType" value="${form.networkType}" />
+    <rhn:hidden name="networkInterface" value="${form.networkInterface}" />
+    <rhn:hidden name="bondType" value="${form.bondType}" />
+    <rhn:hidden name="bondInterface" value="${form.bondInterface}" />
+    <rhn:hidden name="bondOptions" value="${form.bondOptions}" />
+    <rhn:hidden name="hiddenBondSlaveInterfaces" value="${rhn:arrayToString(form.bondSlaveInterfaces)}" />
+    <rhn:hidden name="bondStatic" value="${form.bondStatic}" />
+    <rhn:hidden name="bondAddress" value="${form.bondAddress}" />
+    <rhn:hidden name="bondNetmask" value="${form.bondNetmask}" />
+    <rhn:hidden name="bondGateway" value="${form.bondGateway}" />
 
     <!-- Store useful id fields -->
-    <input type="hidden" name="wizardStep" value="${form.wizardStep}" id="wizard-step" />
+    <rhn:hidden name="wizardStep" value="${form.wizardStep}" id="wizard-step" />
 
     <c:if test="${empty regularKS}">
         <!-- Store guest provisioning info  -->
-            <input type="hidden" name="memoryAllocation" value="${form.memoryAllocation}" />
-            <input type="hidden" name="virtualCpus" value="${form.virtualCpus}" />
-            <input type="hidden" name="localStorageGigabytes" value="${form.localStorageGigabytes}" />
-            <input type="hidden" name="diskPath" value="${form.diskPath}" />
-        <input type="hidden" name="macAddress" value="${form.macAddress}" />
+            <rhn:hidden name="memoryAllocation" value="${form.memoryAllocation}" />
+            <rhn:hidden name="virtualCpus" value="${form.virtualCpus}" />
+            <rhn:hidden name="localStorageGigabytes" value="${form.localStorageGigabytes}" />
+            <rhn:hidden name="diskPath" value="${form.diskPath}" />
+        <rhn:hidden name="macAddress" value="${form.macAddress}" />
     </c:if>
-    <input type="hidden" name="destroyDisks" value="${form.destoryDisks}" id="destroyDisks" />
+    <rhn:hidden name="destroyDisks" value="${form.destoryDisks}" id="destroyDisks" />
 
     <p>
         <bean:message key="kickstarts.jsp.diskwarning" />

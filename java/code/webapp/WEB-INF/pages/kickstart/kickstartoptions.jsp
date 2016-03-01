@@ -78,8 +78,8 @@
           </tr>
 
       </table>
-      <input type="hidden" name="ksid" value="${ksdata.id}"/>
-      <input type="hidden" name="submitted" value="true"/>
+      <rhn:hidden name="ksid" value="${ksdata.id}"/>
+      <rhn:hidden name="submitted" value="true"/>
     </form>
 </div>
 

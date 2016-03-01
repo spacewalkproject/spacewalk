@@ -57,9 +57,9 @@
 <form action="/rhn/systems/ssm/misc/ConfirmSystemPreferences.do" method="post">
   <rhn:csrf />
   <rhn:submitted />
-  <input type="hidden" name="notify" value="${notify}" />
-  <input type="hidden" name="summary" value="${summary}" />
-  <input type="hidden" name="update" value="${update}" />
+  <rhn:hidden name="notify" value="${notify}" />
+  <rhn:hidden name="summary" value="${summary}" />
+  <rhn:hidden name="update" value="${update}" />
 
   <div class="text-right">
     <input class="btn btn-default" type="submit" name="confirm" value="<bean:message key='ssm.misc.index.syspref.changepreferences'/>" />

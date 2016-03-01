@@ -37,8 +37,8 @@
       </rhn:list>
 
 <hr />
-<input type="hidden" name="ksid" value="<c:out value="${param.ksid}"/>" />
-<input type="hidden" name="returnvisit" value="<c:out value="${param.returnvisit}"/>"/>
+<rhn:hidden name="ksid" value="<c:out value="${param.ksid}"/>" />
+<rhn:hidden name="returnvisit" value="<c:out value="${param.returnvisit}"/>"/>
 <div class="text-right">
   <html:submit styleClass="btn btn-default" property="dispatch">
     <bean:message key="kickstart.cryptokeys.jsp.submit"/>

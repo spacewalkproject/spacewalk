@@ -76,7 +76,7 @@
 <c:if test="${requestScope.failed == true}">
   <div align="right">
     <hr/>
-    <input type="hidden" name="aid" value="${requestScope.aid}" />
+    <rhn:hidden name="aid" value="${requestScope.aid}" />
     <html:submit styleClass="btn btn-default">
       <bean:message key="system.event.rescheduleButton"/>
     </html:submit>

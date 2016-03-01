@@ -38,7 +38,7 @@ function modifyUploadCheckbox(checkbox) {
           action="/rhn/multiorg/OrgConfigDetails.do">
             <rhn:csrf />
             <rhn:submitted/>
-            <input type="hidden" name="oid" value="${param.oid}"/>
+            <rhn:hidden name="oid" value="${param.oid}"/>
 	    <%@ include file="/WEB-INF/pages/common/fragments/org-config.jspf" %>
             <div class="form-group">
                 <div class="col-lg-offset-3 col-lg-6">

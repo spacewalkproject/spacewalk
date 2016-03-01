@@ -243,16 +243,16 @@
     </rl:list>
 
     <c:if test="${unreviewable == 'true'}">
-        <input type="hidden" name="unreviewable" value="${unreviewable}" />
+        <rhn:hidden name="unreviewable" value="${unreviewable}" />
     </c:if>
 
-    <input type="hidden" name="machine" value="${machine}" />
-    <input type="hidden" name="startMilli" value="${startMilli}" />
-    <input type="hidden" name="endMilli" value="${endMilli}" />
-    <input type="hidden" name="seqno" value="${seqno}" />
+    <rhn:hidden name="machine" value="${machine}" />
+    <rhn:hidden name="startMilli" value="${startMilli}" />
+    <rhn:hidden name="endMilli" value="${endMilli}" />
+    <rhn:hidden name="seqno" value="${seqno}" />
 
     <c:forEach var="saved_type" items="${autypes}">
-        <input type="hidden" name="autypes" value="${saved_type}" />
+        <rhn:hidden name="autypes" value="${saved_type}" />
     </c:forEach>
 </rl:listset>
 
@@ -271,9 +271,9 @@
         <form action="/rhn/audit/Machine.do" method="post">
             <rhn:csrf />
             <rhn:submitted />
-            <input type="hidden" name="machine" value="${machine}" />
-            <input type="hidden" name="startMilli" value="${startMilli}" />
-            <input type="hidden" name="endMilli" value="${endMilli}" />
+            <rhn:hidden name="machine" value="${machine}" />
+            <rhn:hidden name="startMilli" value="${startMilli}" />
+            <rhn:hidden name="endMilli" value="${endMilli}" />
 
             <div style="text-align: center;">
                 <input type="checkbox" name="reviewed" />

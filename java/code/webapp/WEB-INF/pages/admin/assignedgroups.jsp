@@ -58,8 +58,8 @@
     </div>
   </c:if>
 
-  <input type="hidden" name="uid" value="${user.id}" />
-  <input type="hidden" name="formvars" value="uid" />
+  <rhn:hidden name="uid" value="${user.id}" />
+  <rhn:hidden name="formvars" value="uid" />
 
         <rhn:submitted/>
 </rl:listset>

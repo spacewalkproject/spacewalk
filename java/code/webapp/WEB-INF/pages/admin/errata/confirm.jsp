@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <html:hidden property="eid" value="${param.eid}" />
-                <input type="hidden" name="use_date" value="true" />
+                <rhn:hidden name="use_date" value="true" />
             </rhn:list>
         </html:form>
     </body>

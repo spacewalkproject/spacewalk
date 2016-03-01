@@ -21,5 +21,5 @@
               <jsp:param name="widget" value="date" />
               <jsp:param name="label_text" value="kickstart.schedule.heading3.option2.jsp" />
           </jsp:include>
-          <input type="hidden" name="scheduleAsap" value="false" />
+          <rhn:hidden name="scheduleAsap" value="false" />
           <hr />

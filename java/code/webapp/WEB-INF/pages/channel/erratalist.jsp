@@ -16,7 +16,7 @@
     <rhn:csrf />
     <rhn:submitted />
 
-    <input type="hidden" name="cid" value="${cid}" />
+    <rhn:hidden name="cid" value="${cid}" />
 
         <rl:list dataset="pageList"
                  name="errataList"

@@ -14,9 +14,9 @@
 
     <rl:listset name="packageSet">
     <rhn:csrf />
-    <input type="hidden" name="cid" value="${cid}">
-    <input type="hidden" name="other_id" value="${other_id}">
-    <input type="hidden" name="sync_type" value="${sync_type}">
+    <rhn:hidden name="cid" value="${cid}">
+    <rhn:hidden name="other_id" value="${other_id}">
+    <rhn:hidden name="sync_type" value="${sync_type}">
     <p><bean:message key="channel.jsp.package.comparemergemessage1" arg0="<strong>${channel_name}</strong>"/></p>
     <p><bean:message key="channel.jsp.package.comparemergemessage2" /></p>
     <h2>

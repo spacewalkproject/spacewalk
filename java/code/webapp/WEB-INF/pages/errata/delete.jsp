@@ -41,7 +41,7 @@
     <form action="/rhn/errata/manage/Delete.do" method="POST">
     <rhn:csrf />
     <rhn:submitted />
-    <input type="hidden" name="eid" value="<c:out value="${param.eid}"/>" />
+    <rhn:hidden name="eid" value="<c:out value="${param.eid}"/>" />
       <html:submit styleClass="btn btn-default" property="dispatch">
         <bean:message key="delete.jsp.delete"/>
       </html:submit>

@@ -20,7 +20,7 @@
 
 <rl:listset name="eventSet" legend="system-history-type">
   <rhn:csrf />
-  <input type="hidden" name="sid" value="${param.sid}" />
+  <rhn:hidden name="sid" value="${param.sid}" />
   <rl:list dataset="pageList" name="eventList" emptykey="system.event.pending.noevent">
     <rl:decorator name="PageSizeDecorator" />
     <rl:column headerkey="system.event.history.type">
@@ -49,7 +49,7 @@
 
   <div align="right">
     <hr/>
-    <input type="hidden" name="sid" value="${sid}" />
+    <rhn:hidden name="sid" value="${sid}" />
     <input type="submit" name="dispatch" class="btn btn-danger"
       value='<bean:message key="system.event.pending.confirm"/>'/>
   </div>

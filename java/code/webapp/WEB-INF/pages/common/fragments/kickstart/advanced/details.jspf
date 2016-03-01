@@ -143,7 +143,7 @@
     </div>
     <rhn:submitted/>
     <c:if test="${not empty param.ksid}">
-        <input type="hidden" name="ksid" value="${param.ksid}"/>
+        <rhn:hidden name="ksid" value="${param.ksid}"/>
     </c:if>
 </html:form>
 </c:when>
@@ -189,7 +189,7 @@
                 </div>
             </div>
             <rhn:submitted/>
-            <input type="hidden" name="ksid" value="${param.ksid}"/>
+            <rhn:hidden name="ksid" value="${param.ksid}"/>
         </c:if>
     </html:form>
 </c:when>

@@ -34,7 +34,7 @@
       ${current.created}
     </rl:column>
   </rl:list>
-  <input type="hidden" name="sid" value="${param.sid}" />
+  <rhn:hidden name="sid" value="${param.sid}" />
   <input type="submit" name="dispatch" class="btn btn-default pull-right"
     value='<bean:message key="system.history.snapshot.tagRemove"/>'/>
   <rhn:submitted />

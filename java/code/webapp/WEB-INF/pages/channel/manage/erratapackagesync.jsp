@@ -21,7 +21,7 @@
 
 <rhn:csrf />
 
-<input type="hidden" name="cid" value="${cid}" />
+<rhn:hidden name="cid" value="${cid}" />
 
         <rl:list
                         decorator="SelectableDecorator"

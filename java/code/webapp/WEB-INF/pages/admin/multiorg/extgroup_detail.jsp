@@ -101,7 +101,7 @@
                             </c:forEach>
                     </div>
                 </div>
-                <input type="hidden" id="selected_regular_roles" name="selected_regular_roles"/>
+                <rhn:hidden id="selected_regular_roles" name="selected_regular_roles"/>
 
                 <div class="form-group">
                     <div class="col-lg-offset-3 col-lg-6">

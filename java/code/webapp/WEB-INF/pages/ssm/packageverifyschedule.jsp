@@ -61,9 +61,9 @@
        </div>
     </div>
 
-    <input type="hidden" name="packagesDecl" value="${requestScope.packagesDecl}" />
-    <input type="hidden" name="cid" value="${param.cid}" />
-    <input type="hidden" name="use_date" value="true" />
+    <rhn:hidden name="packagesDecl" value="${requestScope.packagesDecl}" />
+    <rhn:hidden name="cid" value="${param.cid}" />
+    <rhn:hidden name="use_date" value="true" />
 
 </rl:listset>
 

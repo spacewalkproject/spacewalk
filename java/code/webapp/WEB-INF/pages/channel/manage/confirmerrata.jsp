@@ -16,7 +16,7 @@
 <rl:listset name="packageConfirm">
   <rhn:csrf />
   <rhn:submitted />
-  <input type="hidden" name="cid" value="${cid}">
+  <rhn:hidden name="cid" value="${cid}">
 
   <div class="row-0">
     <div class="col-md-6">

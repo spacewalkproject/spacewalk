@@ -118,7 +118,7 @@
         </html:submit>
     </div>
 
-  <input type="hidden" name="sid" value="${param.sid}" />
+  <rhn:hidden name="sid" value="${param.sid}" />
   <rhn:submitted/>
 
 </html:form>

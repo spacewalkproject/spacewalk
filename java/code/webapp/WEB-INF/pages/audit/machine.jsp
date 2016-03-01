@@ -62,7 +62,7 @@
         </rl:column>
     </rl:list>
 
-    <input type="hidden" name="machine" value="${machine}" />
+    <rhn:hidden name="machine" value="${machine}" />
 </rl:listset>
 
 </body>

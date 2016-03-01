@@ -34,7 +34,7 @@
 
   </rl:list>
 
-  <input type="hidden" name="aid" value="${aid}">
+  <rhn:hidden name="aid" value="${aid}">
 
   </rl:listset>
 

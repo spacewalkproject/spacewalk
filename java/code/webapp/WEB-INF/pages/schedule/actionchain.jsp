@@ -105,8 +105,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="hidden" name="use_date" value="true"/>
-                    <input type="hidden" name="dispatch" value='<bean:message key="actionchain.jsp.saveandschedule"/>'/>
+                    <rhn:hidden name="use_date" value="true"/>
+                    <rhn:hidden name="dispatch" value='<bean:message key="actionchain.jsp.saveandschedule"/>'/>
                     <rhn:csrf/>
                     <rhn:submitted/>
                     <div class="col-md-offset-3 col-md-6">

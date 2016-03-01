@@ -20,7 +20,7 @@
 
 <rl:listset name="eventSet" legend="system-history">
   <rhn:csrf />
-  <input type="hidden" name="sid" value="${param.sid}" />
+  <rhn:hidden name="sid" value="${param.sid}" />
   <rl:list emptykey="system.history.snapshot.nosnapshot">
     <rl:decorator name="PageSizeDecorator" />
     <rl:decorator name="ElaborationDecorator" />

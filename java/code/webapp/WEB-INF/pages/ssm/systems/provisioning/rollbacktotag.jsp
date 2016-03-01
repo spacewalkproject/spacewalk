@@ -20,7 +20,7 @@
 
   <rl:listset name="rollbackSet" legend="system-history">
     <rhn:csrf />
-    <input type="hidden" name="tag_id" value="${param.tag_id}" />
+    <rhn:hidden name="tag_id" value="${param.tag_id}" />
 
     <rl:list styleclass="list" alphabarcolumn="server_name">
       <rl:decorator name="PageSizeDecorator" />

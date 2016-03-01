@@ -18,7 +18,7 @@
 
   <rl:listset name="errata_list_set">
           <rhn:csrf />
-                  <input type="hidden" name="cid" value="${cid}">
+                  <rhn:hidden name="cid" value="${cid}">
 
                   <%@ include file="/WEB-INF/pages/common/fragments/errata/selectableerratalist.jspf" %>
 

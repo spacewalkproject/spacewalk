@@ -33,7 +33,7 @@ function showFiltered() {
   <rhn:csrf />
   <rhn:submitted />
   <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree.jspf" %>
-  <input type="hidden" name="oid" value="${param.oid}"/>
+  <rhn:hidden name="oid" value="${param.oid}"/>
 </form>
 
 </body>

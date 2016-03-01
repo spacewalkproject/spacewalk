@@ -20,7 +20,7 @@
             </h2>
             <c:if test="${not empty param.wizardMode}">
                 <h3><bean:message key="ssm.config.rank.jsp.step"/></h3>
-                <input type="hidden" name="wizardMode" value="true"/>
+                <rhn:hidden name="wizardMode" value="true"/>
             </c:if>
             <p>
                 <bean:message key="activation-keys.config.rank.jsp.para1"/>
