@@ -53,10 +53,10 @@ public class RhnHiddenTag extends TagSupport {
     }
 
     /**
-     * @param name the name to set
+     * @param inName the name to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String inName) {
+        this.name = inName;
     }
 
     /**
@@ -67,10 +67,10 @@ public class RhnHiddenTag extends TagSupport {
     }
 
     /**
-     * @param value the value to set
+     * @param inValue the value to set
      */
-    public void setValue(String value) {
-        this.value = value;
+    public void setValue(String inValue) {
+        this.value = inValue;
     }
 
     /**
