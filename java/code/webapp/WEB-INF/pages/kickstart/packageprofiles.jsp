@@ -35,7 +35,7 @@
                 <bean:message key="kickstart.packageprofiles.jsp.tip" arg0="${ksdata.id}"/>
                 </p>
                 <hr />
-                <rhn:hidden name="ksid" value="<c:out value="${param.ksid}"/>" />
+                <rhn:hidden name="ksid" value="${param.ksid}" />
                 <div class="text-right">
                   <html:submit styleClass="btn btn-default" property="dispatch">
                     <bean:message key="kickstart.packageprofile.jsp.clear"/>

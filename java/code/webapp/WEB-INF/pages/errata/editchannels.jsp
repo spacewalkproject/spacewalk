@@ -42,8 +42,8 @@
   </rhn:listdisplay>
 </rhn:list>
 <hr />
-<rhn:hidden name="eid" value="<c:out value="${param.eid}"/>" />
-<rhn:hidden name="returnvisit" value="<c:out value="${param.returnvisit}"/>"/>
+<rhn:hidden name="eid" value="${param.eid}" />
+<rhn:hidden name="returnvisit" value="${param.returnvisit}"/>
 <div class="text-right">
   <html:submit styleClass="btn btn-default" property="dispatch">
     <bean:message key="errata.channels.updatechannels"/>

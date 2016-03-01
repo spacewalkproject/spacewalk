@@ -39,8 +39,8 @@
 
   </rhn:listdisplay>
 </rhn:list>
-<rhn:hidden name="eid" value="<c:out value="${param.eid}"/>" />
-<rhn:hidden name="returnvisit" value="<c:out value="${param.returnvisit}"/>"/>
+<rhn:hidden name="eid" value="${param.eid}" />
+<rhn:hidden name="returnvisit" value="${param.returnvisit}"/>
 </form>
 </body>
 </html>

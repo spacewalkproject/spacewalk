@@ -34,7 +34,7 @@
   </rhn:listdisplay>
 </rhn:list>
 <rhn:submitted/>
-<rhn:hidden name="eid" value="<c:out value="${param.eid}"/>" />
+<rhn:hidden name="eid" value="${param.eid}" />
 </form>
 
 </body>

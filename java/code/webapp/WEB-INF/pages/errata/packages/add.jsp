@@ -47,7 +47,7 @@
         </div>
         </p>
 
-        <rhn:hidden name="eid" value="<c:out value="${param.eid}"/>" />
+        <rhn:hidden name="eid" value="${param.eid}" />
 
         <rl:list dataset="pageList"
                  width="100%"

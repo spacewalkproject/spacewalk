@@ -26,7 +26,7 @@
 
   <%@ include file="/WEB-INF/pages/common/fragments/errata/package-confirm-list.jspf" %>
 
-<rhn:hidden name="eid" value="<c:out value="${param.eid}"/>" />
+<rhn:hidden name="eid" value="${param.eid}" />
 </form>
 
 </body>

@@ -16,5 +16,5 @@
 
   </rhn:listdisplay>
 </rhn:list>
-<rhn:hidden name="cid" value="<c:out value="${requestScope.cid}"/>" />
-<rhn:hidden name="eid" value="<c:out value="${param.eid}"/>" />
+<rhn:hidden name="cid" value="${requestScope.cid}" />
+<rhn:hidden name="eid" value="${param.eid}" />

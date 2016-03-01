@@ -23,7 +23,7 @@
         <html:form action="/errata/manage/Edit" styleClass="form-horizontal">
             <rhn:csrf />
             <rhn:submitted />
-            <rhn:hidden name="eid" value="<c:out value="${param.eid}"/>" />
+            <rhn:hidden name="eid" value="${param.eid}" />
 
             <c:if test="${isPublished == true}">
                 <h2><bean:message key="errata.edit.senderratamail"/></h2>
@@ -245,7 +245,7 @@
                     <html:textarea property="notes" cols="40" rows="6" styleClass="form-control"/>
                 </div>
             </div>
-            <rhn:hidden name="eid" value="<c:out value="${param.eid}"/>" />
+            <rhn:hidden name="eid" value="${param.eid}" />
             <div class="form-group">
                 <div class="col-lg-offset-3 col-lg-6">
                     <html:submit property="dispatch" styleClass="btn btn-success">
