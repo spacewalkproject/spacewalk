@@ -967,7 +967,7 @@ class Backend:
         cf_ids = []
 
         for cf in channel_families:
-            if not cf['org_id']:
+            if 'private-channel-family' not in cf['label']:
                 cf_ids.append(cf.id)
 
         h_private_del = self.dbmodule.prepare("""
