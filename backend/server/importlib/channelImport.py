@@ -227,9 +227,7 @@ class ChannelImport(Import):
 class ChannelFamilyImport(Import):
 
     def preprocess(self):
-        if CFG.ISS_PARENT:
-            # Filter out private channel families from ISS syncs
-            self.__filterCustomChannelFamilies()
+        self.__filterCustomChannelFamilies()
         # We have to look up the channels for this channel family first
         self.channels = {}
         for cf in self.batch:
