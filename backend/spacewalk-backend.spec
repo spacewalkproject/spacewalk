@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.23
+Version: 2.5.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -650,6 +650,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Thu Mar 03 2016 Jan Dobes <jdobes@redhat.com> 2.5.24-1
+- 1308486 - better never import foreign private channel families, custom
+  channels will be synced into your org anyway
+- 1308486 - org_id of channel family is probably never filled, just not make
+  private channel families public
+
 * Wed Mar 02 2016 Jan Dobes 2.5.23-1
 - all strings should be truncated, not only unicode instances
 
