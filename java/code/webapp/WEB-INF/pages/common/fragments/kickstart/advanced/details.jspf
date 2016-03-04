@@ -2,6 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
 <c:choose>
     <c:when test="${empty requestScope.invalid}">
@@ -10,8 +11,8 @@
                    action="${param.url}?csrf_token=${csrfToken}"
                    enctype="multipart/form-data">
             <rhn:csrf />
-            <h2><bean:message key="${param.title_key}"/></h2>
-            <p><bean:message key="${param.summary_key}"/></p>
+            <h2><bean:message key="${fn:escapeXml(param.title_key)}"/></h2>
+            <p><bean:message key="${fn:escapeXml(param.summary_key)}"/></p>
             <div class="form-group">
                 <label class="col-lg-3 control-label">
                     <rhn:required-field key="kickstart.jsp.create.wizard.kickstart.profile.label"/>:
@@ -104,7 +105,7 @@
                     </label>
                 </div>
                 <span class="help-block">
-                    <bean:message key="kickstartdetails.jsp.summary2" arg0="${param.ksurl}" />
+                    <bean:message key="kickstartdetails.jsp.summary2" arg0="${fn:escapeXml(param.ksurl)}" />
                 </span>
             </div>
         </div>
@@ -151,7 +152,7 @@
     <p>
         <bean:message key="kickstartdetails.invalid.jsp.summary"/>
         <bean:message key="kickstartdetails.invalid.jsp.summary-option1"
-                      arg0="${ksdata.tree.label}"
+                      arg0="${fn:escapeXml(ksdata.tree.label)}"
                       arg1="/rhn/kickstart/TreeEdit.do?kstid=${ksdata.tree.id}"/>
     </p>
     <p>
