@@ -3,6 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 <html>
@@ -12,7 +13,7 @@
 <rhn:toolbar base="h2" icon="header-package"
     deletionUrl="/rhn/systems/details/packages/profiles/DeleteProfile.do?sid=${param.sid}&prid=${param.prid}"
     deletionType="profile">
-  <bean:message key="compare.jsp.compareto" arg0="${requestScope.profilename}" />
+  <bean:message key="compare.jsp.compareto" arg0="${fn:escapeXml(requestScope.profilename)}" />
 </rhn:toolbar>
 
     <div class="page-summary">
@@ -64,7 +65,7 @@
                     <rhn:submitted/>
                     <hr />
                     <input class="btn btn-default" type="submit" name="dispatch" class="btn btn-primary"
-                        value="<bean:message key="compare.jsp.syncpackageto" arg0="${requestScope.profilename}"/>" />
+                        value="<bean:message key="compare.jsp.syncpackageto" arg0="${fn:escapeXml(requestScope.profilename)}"/>" />
                 </div>
             </rhn:require>
 

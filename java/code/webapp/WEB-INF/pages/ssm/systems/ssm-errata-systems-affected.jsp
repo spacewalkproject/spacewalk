@@ -5,11 +5,12 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <body>
   <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
-  <h2><bean:message key="ssm.errata-relevant-systems.title" arg0="${erratum.advisoryName}" arg1="${erratum.synopsis}" /></h2>
+  <h2><bean:message key="ssm.errata-relevant-systems.title" arg0="${fn:escapeXml(erratum.advisoryName)}" arg1="${fn:escapeXml(erratum.synopsis)}" /></h2>
   <p class="page-summary"><bean:message key="ssm.errata-relevant-systems.summary" /></p>
 
   <rl:listset name="systemSet" legend="system">

@@ -3,6 +3,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html:html>
     <body>
         <c:choose>
@@ -30,7 +31,7 @@
             <h2>
                 <c:choose>
                     <c:when test="${requestScope.id > 0}">
-                        <bean:message key="iss.editmaster.jsp.details.header" arg0="${requestScope.master}" />
+                        <bean:message key="iss.editmaster.jsp.details.header" arg0="${fn:escapeXml(requestScope.master)}" />
                     </c:when>
                     <c:otherwise>
                         <bean:message key="iss.editmaster.jsp.newmaster.details.header" />
@@ -78,7 +79,7 @@
 
             <c:choose>
                 <c:when test="${requestScope.id > 0}">
-                    <h2><bean:message key="iss.editmaster.jsp.maporgs.header" arg0="${requestScope.master}" /></h2>
+                    <h2><bean:message key="iss.editmaster.jsp.maporgs.header" arg0="${fn:escapeXml(requestScope.master)}" /></h2>
                     <p><bean:message key="iss.editmaster.jsp.maporgs.explanation" /></p>
                     <rl:listset name="issMasterListSet">
                         <rl:list dataset="all" name="issMasterList"

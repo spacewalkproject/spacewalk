@@ -16,7 +16,7 @@
 </c:if>
 
 <rhn:toolbar base="h1" icon="header-kickstart" imgAlt="system.common.kickstartAlt">
-  <bean:message key="distro-delete.jsp.header1" arg0="${kstree.label}"/>
+  <bean:message key="distro-delete.jsp.header1" arg0="${fn:escapeXml(kstree.label)}"/>
 </rhn:toolbar>
 
 <h2><bean:message key="distro-delete.jsp.header2"/></h2>

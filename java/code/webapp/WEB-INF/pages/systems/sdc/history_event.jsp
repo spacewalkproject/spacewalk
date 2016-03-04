@@ -2,6 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 <html>
@@ -11,7 +12,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <rhn:toolbar base="h2" icon="header-event-history">
-  <bean:message key="${headerLabel}" />
+  <bean:message key="${fn:escapeXml(headerLabel)}" />
 </rhn:toolbar>
 
 <html:form method="post" action="/systems/details/history/Event.do?sid=${system.id}&aid=${requestScope.aid}">
@@ -29,7 +30,7 @@
         <div class="col-sm-10">
           <c:choose>
             <c:when test="${requestScope.scheduler != null}">
-          <bean:message key="system.event.summaryText" arg0="${requestScope.actiontype}" arg1="${requestScope.scheduler}" />
+          <bean:message key="system.event.summaryText" arg0="${fn:escapeXml(requestScope.actiontype)}" arg1="${fn:escapeXml(requestScope.scheduler)}" />
             </c:when>
             <c:otherwise>
               <c:out value="${requestScope.actiontype}" />

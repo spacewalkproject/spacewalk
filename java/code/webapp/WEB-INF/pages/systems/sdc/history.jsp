@@ -2,6 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 <html>
@@ -19,10 +20,10 @@
   <br/>
   <c:choose>
     <c:when test="${param.pendingActions != 0}">
-      <bean:message key="system.event.history.headerPending" arg0="/rhn/systems/details/history/Pending.do?sid=${param.sid}" arg1="${param.pendingActions}" />
+      <bean:message key="system.event.history.headerPending" arg0="/rhn/systems/details/history/Pending.do?sid=${fn:escapeXml(param.sid)}" arg1="${fn:escapeXml(param.pendingActions)}" />
       <c:if test="${param.isLocked == true}">
         <br/>
-        <bean:message key="system.event.history.locked" arg0="/rhn/systems/details/Overview.do?sid=${param.sid}" />
+        <bean:message key="system.event.history.locked" arg0="/rhn/systems/details/Overview.do?sid=${fn:escapeXml(param.sid)}" />
       </c:if>
     </c:when>
     <c:otherwise>

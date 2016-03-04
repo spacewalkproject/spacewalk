@@ -2,6 +2,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 
@@ -26,7 +27,7 @@ function showFiltered() {
                     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <p>
-        <bean:message key="orgtrust.jsp.channelprovide.summary" arg0="${trustorg}" />
+        <bean:message key="orgtrust.jsp.channelprovide.summary" arg0="${fn:escapeXml(trustorg)}" />
 </p>
 
 <form method="post" name="rhn_list" action="/rhn/multiorg/channels/Provided.do">

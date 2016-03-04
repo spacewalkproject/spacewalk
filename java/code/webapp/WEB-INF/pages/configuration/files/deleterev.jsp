@@ -4,6 +4,7 @@
         prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-html"
         prefix="html"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 <html>
@@ -18,7 +19,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <h2><bean:message key="deleterev.jsp.header2" /></h2>
-        <bean:message key="deleterev.jsp.info" arg0="${channel.displayName}" arg1="/rhn/configuration/ChannelOverview.do?ccid=${ccid}"/>
+        <bean:message key="deleterev.jsp.info" arg0="${fn:escapeXml(channel.displayName)}" arg1="/rhn/configuration/ChannelOverview.do?ccid=${fn:escapeXml(ccid)}"/>
       </div>
       <ul class="list-group">
         <li class="list-group-item">

@@ -4,13 +4,13 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <body>
 
 <rhn:toolbar base="h1" icon="header-taskomatic">
-    <bean:message key="bunch.edit.jsp.toolbar" arg0="${label}"/>
+    <bean:message key="bunch.edit.jsp.toolbar" arg0="${fn:escapeXml(label)}"/>
 </rhn:toolbar>
 
 <rl:listset name="runList">

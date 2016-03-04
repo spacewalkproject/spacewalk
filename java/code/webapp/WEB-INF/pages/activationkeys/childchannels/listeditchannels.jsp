@@ -2,6 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
     <head>
@@ -13,7 +14,7 @@
             <rhn:csrf />
             <p><bean:message key="activation-key.childchannels.jsp.summary"/></p>
             <c:if test='${not empty baseChannel}'>
-                <p><bean:message key="activation-key.childchannels.jsp.blurb" arg0="${baseChannel}"/></p>
+                <p><bean:message key="activation-key.childchannels.jsp.blurb" arg0="${fn:escapeXml(baseChannel)}"/></p>
             </c:if>
             <div class="form-group">
                 <div class="col-md-6">

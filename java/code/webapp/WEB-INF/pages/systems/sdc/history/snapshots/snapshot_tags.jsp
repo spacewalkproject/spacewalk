@@ -2,6 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <body>
@@ -13,7 +14,7 @@
 </rhn:toolbar>
 
 <div class="page-summary">
-  <bean:message key="system.history.snapshot.tagSingleSummary" arg0="${param.ss_name}"/>
+  <bean:message key="system.history.snapshot.tagSingleSummary" arg0="${fn:escapeXml(param.ss_name)}"/>
 </div>
 
 <rl:listset name="SnapshotSet">
