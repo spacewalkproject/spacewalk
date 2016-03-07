@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.5.12
+Version:        2.5.13
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -70,6 +70,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Mar 07 2016 Jan Dobes 2.5.13-1
+- fixing upgrade on Oracle - it's function
+- fixing upgrade on Oracle - invalid end of file
+- fixing upgrade on Oracle
+- add Chile to the list of timezones (bsc#959055)
+
 * Fri Feb 12 2016 Jan Dobes 2.5.12-1
 - fixing missing upgrade
 
