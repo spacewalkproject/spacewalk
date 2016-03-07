@@ -17,10 +17,10 @@
 -- tricky view.  it explodes to a full cartesian product when
 -- not queried via org_id, so DO NOT DO THAT :)
 
-drop view if exists rhnOrgErrata;
-drop view if exists rhnAvailableChannels;
-drop view if exists rhnOrgChannelTreeView;
-drop view if exists rhnOrgChannelFamilyPermissions;
+drop view rhnOrgErrata;
+drop view rhnAvailableChannels;
+drop view rhnOrgChannelTreeView;
+drop view rhnOrgChannelFamilyPermissions;
 
 create or replace view rhnOrgChannelFamilyPermissions as
         select  pcf.channel_family_id,
