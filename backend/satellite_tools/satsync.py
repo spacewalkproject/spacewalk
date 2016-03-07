@@ -216,6 +216,13 @@ class Runner:
             self._xml_file_dir_error_message = messages.file_dir_error % \
                 OPTIONS.mount_point
 
+        if CFG.DB_BACKEND == 'oracle':
+            import cx_Oracle #pylint: disable=F0401
+            exception = cx_Oracle.IntegrityError
+        if CFG.DB_BACKEND == 'postgresql':
+            import psycopg2 #pylint: disable=F0401
+            exception = psycopg2.IntegrityError
+
         for _try in range(2):
             try:
                 for step in self.step_hierarchy:
@@ -240,7 +247,7 @@ class Runner:
             except RhnSyncException:
                 rhnSQL.rollback()
                 raise
-            except (psycopg2.IntegrityError, cx_Oracle.IntegrityError), e: #pylint: disable=undefined-variable
+            except exception, e:
                 msg = _("ERROR: Encountered IntegrityError: \n"
                         + str(e)
                         + "\nconsider removing satellite-sync cache at /var/cache/rhn/satsync/*"
