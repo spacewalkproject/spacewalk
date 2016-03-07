@@ -83,4 +83,22 @@ public class RhnHiddenTagTest extends RhnBaseTestCase {
           fail(je.toString());
       }
     }
+
+    public void testTagWithId() {
+        String expected = "<input type=\"hidden\"" +
+                          " id=\"tid\"" +
+                          " name=\"test\"" +
+                          " value=\"foo\"" +
+                          " />";
+        ht.setName("test");
+        ht.setId("tid");
+        ht.setValue("foo\"><script>alert(1);</script>");
+        ht.setValue("foo");
+        try {
+            verifyTag(expected);
+        }
+        catch (JspException je) {
+            fail(je.toString());
+        }
+    }
 }
