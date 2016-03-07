@@ -20,6 +20,7 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.redhat.rhn.frontend.html.HiddenInputTag;
 import com.redhat.rhn.frontend.html.HtmlTag;
@@ -35,6 +36,7 @@ public class RhnHiddenTag extends TagSupport {
 
     private static final long serialVersionUID = -8385317358288103720L;
 
+    private String id;
     private String name;
     private String value;
 
@@ -50,6 +52,20 @@ public class RhnHiddenTag extends TagSupport {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * @param inId the id to set
+     */
+    public void setId(String inId) {
+        this.id = inId;
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
     }
 
     /**
@@ -84,6 +100,9 @@ public class RhnHiddenTag extends TagSupport {
             out = pageContext.getOut();
 
             HtmlTag baseTag = new HiddenInputTag();
+            if (!StringUtils.isBlank(getId())) {
+                baseTag.setAttribute("id", getId());
+            }
             baseTag.setAttribute("name", getName());
             baseTag.setAttribute("value", StringEscapeUtils.escapeHtml(getValue()));
             buf.append(baseTag.render());
