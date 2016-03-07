@@ -43,11 +43,15 @@
                                         </select>
                                     </rhn:require>
                                     <rhn:require acl="not user_role(org_admin)">
-                                        <c:out value="${rhn:localize(base_entitlement)}"/>
+                                        <div class="form-control-static">
+                                            <c:out value="${rhn:localize(base_entitlement)}"/>
+                                        </div>
                                     </rhn:require>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:out value="${rhn:localize(base_entitlement)}"/>
+                                    <div class="form-control-static">
+                                        <c:out value="${rhn:localize(base_entitlement)}"/>
+                                    </div>
                                 </c:otherwise>
                             </c:choose>
                         </div>
