@@ -65,4 +65,3 @@ drop table rhn_schedule_days purge;
 drop table rhn_schedule_weeks purge;
 drop table rhn_schedules purge;
 drop table rhn_schedule_types purge;
-drop table rhn_command_queue_sessions purge;

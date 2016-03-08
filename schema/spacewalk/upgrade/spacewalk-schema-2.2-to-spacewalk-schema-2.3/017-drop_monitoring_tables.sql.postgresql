@@ -67,4 +67,3 @@ drop table rhn_schedule_days;
 drop table rhn_schedule_weeks;
 drop table rhn_schedules;
 drop table rhn_schedule_types;
-drop table rhn_command_queue_sessions;
