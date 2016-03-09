@@ -174,5 +174,8 @@ public class TaskConstants {
     public static final String TASK_QUERY_LOOKUP_KICKSTART_SESSION_ID =
         "lookup_kickstart_session_id";
 
+    public static final String TASK_QUERY_UUID_CLEANUP =
+        "taskomatic_uuid_cleanup";
+
     private TaskConstants() { }
 }
