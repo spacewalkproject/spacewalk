@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.5.13
+Version:        2.5.14
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -70,6 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Mar 09 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.14-1
+- remove uuid cleanup from database level
+
 * Mon Mar 07 2016 Jan Dobes 2.5.13-1
 - fixing upgrade on Oracle - it's function
 - fixing upgrade on Oracle - invalid end of file
