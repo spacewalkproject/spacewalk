@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.24
+Version: 2.5.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -650,6 +650,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Wed Mar 09 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.25-1
+- 1276569 - we need to import either cx_Oracle or psycopg2
+
 * Thu Mar 03 2016 Jan Dobes <jdobes@redhat.com> 2.5.24-1
 - 1308486 - better never import foreign private channel families, custom
   channels will be synced into your org anyway
