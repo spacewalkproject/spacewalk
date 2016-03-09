@@ -35,19 +35,3 @@ rhn_virtinst_mod_trig
 before insert or update on rhnVirtualInstance
 for each row
 execute procedure rhn_virtinst_mod_trig_fun();
-
-create or replace function rhn_virtinst_del_trig_fun() returns trigger
-as
-$$
-begin
-  delete from rhnVirtualInstance where virtual_system_id is NULL and host_system_id is NULL and uuid is not NULL;
-  return null;
-end;
-$$
-language plpgsql;
-
-create trigger
-rhn_virtinst_del_trig
-after update on rhnVirtualInstance
-for each row
-execute procedure rhn_virtinst_del_trig_fun();
