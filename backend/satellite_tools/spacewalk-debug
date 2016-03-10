@@ -229,6 +229,11 @@ if [ -d /var/log/spacewalk/schema-upgrade ] ; then
 	cp -pr /var/log/spacewalk/schema-upgrade/* $DIR/schema-upgrade-logs
 fi
 
+if [ -d $PGSQL_ROOT/var/lib/pgsql ] ; then
+    echo "    * copying Postgresql procedures information"
+    echo "select proname, prosrc from pg_catalog.pg_proc;" | /usr/bin/spacewalk-sql --select-mode - &> $DIR/database/pg_catalog.pg_proc.log
+fi
+
 if [ -f /var/log/audit/audit.log ] ; then
 	echo "    * copying audit.log"
 	mkdir -p $DIR/audit-log
