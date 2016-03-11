@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.5.15
+Version:        2.5.16
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -70,6 +70,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Mar 11 2016 Jan Dobes 2.5.16-1
+- make sure people already on 2.4 will get missed 2.2 -> 2.3 upgrades
+- fixing missing 2.2 -> 2.3 upgrades
+- Revert "delete one more table"
+
 * Wed Mar 09 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.15-1
 - fixing oracle sha1
 - taskomatic records for uuid cleanup
