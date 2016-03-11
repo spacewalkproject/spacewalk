@@ -6,8 +6,8 @@ branches:
 notifications:
   email: false
 sudo: required
+dist: trusty
 before_install:
-- echo "deb http://us.archive.ubuntu.com/ubuntu trusty main universe" | sudo tee -a /etc/apt/sources.list
 - sudo apt-get update
 - wget https://fedorahosted.org/released/koji/koji-1.9.0.tar.bz2 -O /tmp/koji-1.9.0.tar.bz2
 - tar -xjf /tmp/koji-1.9.0.tar.bz2 -C /tmp
