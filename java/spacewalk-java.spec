@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.60
+Version: 2.5.61
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 11 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.61-1
+- add missing string (UUID cleanup description)
+
 * Wed Mar 09 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.60-1
 - move uuid cleanup logic into taskomatic
 
