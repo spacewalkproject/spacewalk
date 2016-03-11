@@ -19905,7 +19905,7 @@ given channel.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="bunch.jsp.description.uuid-cleanup-bunch">
-        <source>Cleanup invalid UUID records</source>
+        <source>Cleanup outdated UUID records</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
         </context-group>
@@ -20297,6 +20297,9 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="task.status.auto-errata">
         <source>Auto Errata Updates</source>
+      </trans-unit>
+      <trans-unit id="task.status.uuid-cleanup">
+        <source>UUID cleanup</source>
       </trans-unit>
       <trans-unit id="task.status.message">
         <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
