@@ -1,0 +1,122 @@
+-- Helping procedure to delete if exists
+create or replace procedure tmp_drop_if_exists(type_in varchar2, name_in varchar2)
+is
+  cnt number := 0;
+begin
+  select count(*) into cnt from user_objects where object_type = upper(type_in) and object_name = upper(name_in);
+  if cnt > 0 then
+    if upper(type_in) = 'TABLE' then
+      execute immediate 'drop ' || type_in || ' ' || name_in || ' purge';
+    else
+      execute immediate 'drop ' || type_in || ' ' || name_in;
+    end if;
+  end if;
+end;
+/
+
+-- Dropping tables
+execute tmp_drop_if_exists('table', 'rhn_command_queue_sessions')
+
+-- Dropping sequences
+execute tmp_drop_if_exists('sequence', 'rhn_check_suites_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_command_q_comm_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_command_q_inst_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_commands_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_command_target_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_contact_groups_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_contact_methods_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_host_probes_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_ntfmt_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_pager_types_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_physical_loc_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_probes_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_redirect_crit_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_redirects_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_redirect_types_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_schedule_days_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_schedules_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_schedule_types_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_schedule_weeks_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_snmp_alert_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_solaris_ps_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_solaris_pt_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_strategies_recid_seq')
+execute tmp_drop_if_exists('sequence', 'rhn_url_probe_step_recid_seq')
+
+-- Dropping Oracle synonyms
+execute tmp_drop_if_exists('synonym', 'check_probe')
+execute tmp_drop_if_exists('synonym', 'check_suites')
+execute tmp_drop_if_exists('synonym', 'check_suites_recid_seq')
+execute tmp_drop_if_exists('synonym', 'check_suite_probe')
+execute tmp_drop_if_exists('synonym', 'command')
+execute tmp_drop_if_exists('synonym', 'commands_recid_seq')
+execute tmp_drop_if_exists('synonym', 'command_class')
+execute tmp_drop_if_exists('synonym', 'command_groups')
+execute tmp_drop_if_exists('synonym', 'command_parameter')
+execute tmp_drop_if_exists('synonym', 'command_queue_execs')
+execute tmp_drop_if_exists('synonym', 'command_queue_params')
+execute tmp_drop_if_exists('synonym', 'command_queue_sessions')
+execute tmp_drop_if_exists('synonym', 'command_requirements')
+execute tmp_drop_if_exists('synonym', 'command_target')
+execute tmp_drop_if_exists('synonym', 'command_target_recid_seq')
+execute tmp_drop_if_exists('synonym', 'contact_groups')
+execute tmp_drop_if_exists('synonym', 'contact_groups_recid_seq')
+execute tmp_drop_if_exists('synonym', 'contact_group_members')
+execute tmp_drop_if_exists('synonym', 'contact_methods')
+execute tmp_drop_if_exists('synonym', 'contact_methods_recid_seq')
+execute tmp_drop_if_exists('synonym', 'current_state_summaries')
+execute tmp_drop_if_exists('synonym', 'deployed_probe')
+execute tmp_drop_if_exists('synonym', 'host_probe')
+execute tmp_drop_if_exists('synonym', 'host_probes_recid_seq')
+execute tmp_drop_if_exists('synonym', 'll_netsaint')
+execute tmp_drop_if_exists('synonym', 'method_types')
+execute tmp_drop_if_exists('synonym', 'metrics')
+execute tmp_drop_if_exists('synonym', 'multi_scout_threshold')
+execute tmp_drop_if_exists('synonym', 'notifservers')
+execute tmp_drop_if_exists('synonym', 'os')
+execute tmp_drop_if_exists('synonym', 'os_commands_xref')
+execute tmp_drop_if_exists('synonym', 'pager_types')
+execute tmp_drop_if_exists('synonym', 'pager_types_recid_seq')
+execute tmp_drop_if_exists('synonym', 'physical_location')
+execute tmp_drop_if_exists('synonym', 'physical_location_recid_seq')
+execute tmp_drop_if_exists('synonym', 'probe')
+execute tmp_drop_if_exists('synonym', 'probes_recid_seq')
+execute tmp_drop_if_exists('synonym', 'probe_param_value')
+execute tmp_drop_if_exists('synonym', 'probe_state')
+execute tmp_drop_if_exists('synonym', 'probe_types')
+execute tmp_drop_if_exists('synonym', 'quanta')
+execute tmp_drop_if_exists('synonym', 'redirects')
+execute tmp_drop_if_exists('synonym', 'redirects_recid_seq')
+execute tmp_drop_if_exists('synonym', 'redirect_criteria')
+execute tmp_drop_if_exists('synonym', 'redirect_criteria_recid_seq')
+execute tmp_drop_if_exists('synonym', 'redirect_email_targets')
+execute tmp_drop_if_exists('synonym', 'redirect_group_targets')
+execute tmp_drop_if_exists('synonym', 'redirect_match_types')
+execute tmp_drop_if_exists('synonym', 'redirect_method_targets')
+execute tmp_drop_if_exists('synonym', 'redirect_types')
+execute tmp_drop_if_exists('synonym', 'redirect_types_recid_seq')
+execute tmp_drop_if_exists('synonym', 'satellite_state')
+execute tmp_drop_if_exists('synonym', 'sat_cluster')
+execute tmp_drop_if_exists('synonym', 'sat_cluster_probe')
+execute tmp_drop_if_exists('synonym', 'sat_node')
+execute tmp_drop_if_exists('synonym', 'schedules')
+execute tmp_drop_if_exists('synonym', 'schedules_recid_seq')
+execute tmp_drop_if_exists('synonym', 'schedule_days')
+execute tmp_drop_if_exists('synonym', 'schedule_days_recid_seq')
+execute tmp_drop_if_exists('synonym', 'schedule_types')
+execute tmp_drop_if_exists('synonym', 'schedule_types_recid_seq')
+execute tmp_drop_if_exists('synonym', 'schedule_weeks')
+execute tmp_drop_if_exists('synonym', 'schedule_weeks_recid_seq')
+execute tmp_drop_if_exists('synonym', 'semantic_data_type')
+execute tmp_drop_if_exists('synonym', 'service_probe_origins')
+execute tmp_drop_if_exists('synonym', 'snmp_alert')
+execute tmp_drop_if_exists('synonym', 'snmp_alert_recid_seq')
+execute tmp_drop_if_exists('synonym', 'threshold_type')
+execute tmp_drop_if_exists('synonym', 'units')
+execute tmp_drop_if_exists('synonym', 'url_probe')
+execute tmp_drop_if_exists('synonym', 'url_probe_step')
+execute tmp_drop_if_exists('synonym', 'url_probe_step_recid_seq')
+execute tmp_drop_if_exists('synonym', 'widget')
+
+-- Dropping helping procedure
+drop procedure tmp_drop_if_exists;
