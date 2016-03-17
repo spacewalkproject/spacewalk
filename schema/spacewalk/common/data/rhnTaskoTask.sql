@@ -71,4 +71,7 @@ INSERT INTO rhnTaskoTask (id, name, class)
 INSERT INTO rhnTaskoTask (id, name, class)
          VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'auto-errata', 'com.redhat.rhn.taskomatic.task.AutoErrataTask');
 
+INSERT INTO rhnTaskoTask (id, name, class)
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'uuid-cleanup', 'com.redhat.rhn.taskomatic.task.UuidCleanup');
+
 commit;
