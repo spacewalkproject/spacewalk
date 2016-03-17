@@ -67,7 +67,6 @@
 <rl:list
         emptykey="nosystems.message"
         parentiselement = "false"
-        searchchild="false"
         >
 
         <rl:rowrenderer name="DuplicateSystemsRowRenderer" />

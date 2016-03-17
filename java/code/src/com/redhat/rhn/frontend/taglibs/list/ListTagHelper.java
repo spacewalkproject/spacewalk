@@ -224,31 +224,6 @@ public class ListTagHelper {
     }
 
     /**
-     * returns true if the list that is being filtered upon
-     * is allowed to search on the parent object
-     *  (always true for normal list)
-     * @param request the request to look in
-     * @param uniqueName the unique (hashed) name for the list
-     * @return true if the parent is allowed to search
-     */
-    public static boolean canSearchByParent(ServletRequest request, String uniqueName) {
-        return ListTagUtil.toBoolean(request.getParameter(
-                ListTagUtil.makeFilterSearchParentLabel(uniqueName)));
-    }
-
-    /**
-     * returns true if the list that is being filtered upon is allowed to
-     * search on the child object (always false for normal list)
-     * @param request the request to look in
-     * @param uniqueName the unique (hashed) name for the list
-     * @return true if the child is allowed to search
-     */
-    public static boolean canSearchByChild(ServletRequest request, String uniqueName) {
-        return ListTagUtil.toBoolean(request.getParameter(
-                ListTagUtil.makeFilterSearchChildLabel(uniqueName)));
-    }
-
-    /**
      * returns true if the list that is being filtered upon is allowed to
      * to treat the parent as an element (always true for normal list)
      * @param request the request to look in

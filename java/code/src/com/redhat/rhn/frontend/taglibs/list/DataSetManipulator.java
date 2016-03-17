@@ -15,16 +15,6 @@
 
 package com.redhat.rhn.frontend.taglibs.list;
 
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.util.DynamicComparator;
-import com.redhat.rhn.common.util.MethodUtil;
-import com.redhat.rhn.common.util.StringUtil;
-import com.redhat.rhn.frontend.html.HtmlTag;
-import com.redhat.rhn.frontend.struts.RequestContext;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,6 +27,16 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.DynamicComparator;
+import com.redhat.rhn.common.util.MethodUtil;
+import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.frontend.html.HtmlTag;
+import com.redhat.rhn.frontend.struts.RequestContext;
 
 /**
  * Provides a bunch of helper methods to make working with lists easier from a
@@ -64,9 +64,6 @@ public class DataSetManipulator {
     private final int unfilteredDataSize;
     private final boolean parentIsAnElement;
 
-    private final boolean searchParent;
-    private final boolean searchChild;
-
     private String defaultSortAttribute;
     public static final String ICON_FIRST = "fa fa-angle-double-left";
     public static final String ICON_PREV = "fa fa-angle-left";
@@ -83,15 +80,10 @@ public class DataSetManipulator {
      * @param parentIsElement true of the parent value
      *          in the list should be considered as an element
      *          this is useful for tree like data
-     * @param doSearchParent true if we want to search the parent value
-     *          in the list when filtering.
-     * @param doSearchChild true if we want to search the child value
-     *          in the list when filtering.
      */
     public DataSetManipulator(int pageSizeIn, List datasetIn,
             HttpServletRequest requestIn, String listNameIn,
-            boolean parentIsElement, boolean doSearchParent,
-            boolean doSearchChild) {
+            boolean parentIsElement) {
         pageSize = pageSizeIn;
         dataset = datasetIn;
         request = requestIn;
@@ -99,13 +91,11 @@ public class DataSetManipulator {
         totalDataSetSize = dataset.size();
         unfilteredDataSize = dataset.size();
         parentIsAnElement = parentIsElement;
-        searchParent = doSearchParent;
-        searchChild = doSearchChild;
     }
 
     private List expand(List data) {
-        return ListFilterHelper.filterChildren(data,
-                filter, filterBy, filterValue, searchParent, searchChild);
+        return ListFilterHelper.filter(data,
+                filter, filterBy, filterValue);
     }
     /**
      * Get the total (non-filtered, non-paginated) dataset size
@@ -405,8 +395,7 @@ public class DataSetManipulator {
         filterClass.setAttribute("value", f.getClass().getCanonicalName());
         ListTagUtil.write(context, filterClass.render());
 
-        dataset = ListFilterHelper.filter(dataset, f, filterBy, filterValue,
-                                                    searchParent, searchChild);
+        dataset = ListFilterHelper.filter(dataset, f, filterBy, filterValue);
         totalDataSetSize = dataset.size();
     }
 

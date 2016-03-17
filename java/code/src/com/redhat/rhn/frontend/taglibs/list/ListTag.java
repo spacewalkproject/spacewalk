@@ -93,23 +93,6 @@ public class ListTag extends BodyTagSupport {
     private String title;
     private boolean sortable;
     private boolean parentIsElement = true;
-    private boolean searchParent = true;
-    private boolean searchChild;
-
-    /**
-     * @param searchParentIn The searchParent to set.
-     */
-    public void setSearchparent(String searchParentIn) {
-        searchParent = ListTagUtil.toBoolean(searchParentIn);
-    }
-
-
-    /**
-     * @param searchChildIn The searchChild to set.
-     */
-    public void setSearchchild(String searchChildIn) {
-        searchChild = ListTagUtil.toBoolean(searchChildIn);
-    }
 
     /**
      * method to let the list tag know
@@ -405,13 +388,6 @@ public class ListTag extends BodyTagSupport {
         // print the hidden fields after the list widget is printed
         // but before the form of the listset is closed.
         ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
-                ListTagUtil.makeFilterSearchParentLabel(getUniqueName()),
-                searchParent));
-        ListTagUtil.write(pageContext,
-                String.format(HIDDEN_TEXT,
-                        ListTagUtil.makeFilterSearchChildLabel(getUniqueName()),
-                        searchChild));
-        ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
                 ListTagUtil.makeParentIsAnElementLabel(getUniqueName()),
                 parentIsElement));
 
@@ -507,8 +483,7 @@ public class ListTag extends BodyTagSupport {
         pageContext.pushBody(headFilterContent);
         if (filter != null && manip.getUnfilteredDataSize() !=  0) {
             ListTagUtil.renderFilterUI(pageContext, filter,
-                        getUniqueName(), width, columnCount,
-                        searchParent, searchChild);
+                        getUniqueName(), width, columnCount);
         }
         pageContext.popBody();
 
@@ -874,7 +849,7 @@ public class ListTag extends BodyTagSupport {
         setPageSize();
         manip = new DataSetManipulator(pageSize, pageData,
                 (HttpServletRequest) pageContext.getRequest(),
-                getUniqueName(), isParentAnElement(), searchParent, searchChild);
+                getUniqueName(), isParentAnElement());
         ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
                     ListCommand.ENUMERATE);
         return BodyTagSupport.EVAL_BODY_INCLUDE;
@@ -907,9 +882,6 @@ public class ListTag extends BodyTagSupport {
                 excludeParams.add(ListTagUtil.makeFilterByLabel(getUniqueName()));
                 excludeParams.add(ListTagUtil.makeFilterValueByLabel(getUniqueName()));
                 excludeParams.add(ListTagUtil.makeOldFilterValueByLabel(getUniqueName()));
-                excludeParams.add(ListTagUtil.makeFilterSearchChildLabel(getUniqueName()));
-                excludeParams.add(ListTagUtil.
-                        makeFilterSearchParentLabel(getUniqueName()));
                 excludeParams.add(ListTagUtil.
                         makeParentIsAnElementLabel(getUniqueName()));
                 excludeParams.add("submitted");
@@ -965,8 +937,6 @@ public class ListTag extends BodyTagSupport {
         title = null;
         sortable = false;
         parentIsElement = true;
-        searchParent = true;
-        searchChild = false;
         super.release();
     }
 

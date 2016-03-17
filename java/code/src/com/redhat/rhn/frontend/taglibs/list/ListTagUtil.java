@@ -294,25 +294,6 @@ public class ListTagUtil {
     }
 
     /**
-     * provides the filter label on the boolean search parent
-     * @param listName the list name
-     * @return the url key for filter value label
-     */
-    public static String makeFilterSearchParentLabel(String listName) {
-        return "list_" + listName + "_search_parent";
-    }
-
-    /**
-     * provides the filter label on the boolean search child
-     * @param listName the list name
-     * @return the url key for filter value label
-     */
-    public static String makeFilterSearchChildLabel(String listName) {
-        return "list_" + listName + "_search_child";
-    }
-
-
-    /**
      * provides the filter label (what to sort by) url key
      * @param listName the list name
      * @return the url key for filter value label
@@ -608,13 +589,10 @@ public class ListTagUtil {
      * @param uniqueName name of the list
      * @param width width of the list
      * @param columnCount list's column count
-     * @param searchParent true if list tag allows searching of parent
-     * @param searchChild true if the list tag allows searching of child
      * @throws JspException if something bad happens writing to the page
      */
     public static void renderFilterUI(PageContext pageContext, ListFilter filter,
-            String uniqueName, String width, int columnCount,
-             boolean searchParent, boolean searchChild) throws JspException {
+            String uniqueName, String width, int columnCount) throws JspException {
         LocalizationService ls = LocalizationService.getInstance();
         HttpServletRequest request = (HttpServletRequest) pageContext
                 .getRequest();
