@@ -37,6 +37,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.download.DownloadManager;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -47,7 +48,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 /**
  * Simple class to reduce dependencies between Struts and database layers
@@ -340,7 +340,6 @@ public class KickstartFormatter {
     }
 
     private void addCobblerSnippet(StringBuilder buf, String contents) {
-        CobblerSnippet.makeFragment(contents);
         buf.append(CobblerSnippet.makeFragment(contents));
         buf.append(NEWLINE);
     }
