@@ -130,5 +130,10 @@ DELETE FROM rhnOrgEntitlements
 DELETE FROM rhnOrgEntitlementType
   WHERE label = 'rhn_nonlinux';
 
+-- rhnFeature
+
+DELETE FROM rhnFeature
+  WHERE label = 'ftr_nonlinux_support';
+
 END;
 /
