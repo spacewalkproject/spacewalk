@@ -1,10 +1,11 @@
--- oracle equivalent source sha1 25e005f8a44df66109e92e51797d385c6b62129a
+-- oracle equivalent source sha1 1261ad1915b1a8d7b154fbc117eb15b5f90a9b10
 
 DROP VIEW rhnVisServerGroupMembership;
 DROP VIEW rhnUsersInOrgOverview;
 DROP VIEW rhnVisibleServerGroup;
 
 ALTER TABLE rhnServerGroup DROP COLUMN max_members;
+ALTER TABLE rhnservergroup_log DROP COLUMN max_members;
 SELECT logging.recreate_trigger('rhnservergroup');
 
 CREATE OR REPLACE VIEW
