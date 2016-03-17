@@ -64,6 +64,7 @@ public class ManagersSetupAction extends RhnAction implements Listable {
         }
 
         request.setAttribute("channel_name", currentChan.getName());
+        request.setAttribute("is_custom", currentChan.isCustom());
         request.setAttribute(RequestContext.CID, cid);
 
         Map params = makeParamMap(request);

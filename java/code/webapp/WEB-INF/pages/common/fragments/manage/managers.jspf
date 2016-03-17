@@ -9,14 +9,22 @@
     <rhn:csrf />
 
     <rl:list>
-
-        <rl:decorator name="SelectableDecorator"/>
+        <c:if test="${is_custom}">
+            <rl:decorator name="SelectableDecorator"/>
+        </c:if>
         <rl:decorator name="PageSizeDecorator"/>
 
         <c:if test='${not current.disabled}'>
-        <rl:selectablecolumn value="${current.id}"
-            selected="${current.selected}">
-        </rl:selectablecolumn>
+            <c:if test="${is_custom}">
+                <rl:selectablecolumn value="${current.id}"
+                    selected="${current.selected}">
+                </rl:selectablecolumn>
+            </c:if>
+            <c:if test="${not is_custom}">
+                <rl:column>
+                    <input type="checkbox" disabled="1" />
+                </rl:column>
+            </c:if>
         </c:if>
         <c:if test='${current.disabled}'>
             <rl:column>
@@ -58,11 +66,12 @@
     </rl:list>
 
     <hr />
-    <div class="text-right">
-        <html:submit styleClass="btn btn-default" property="dispatch">
-                <bean:message key="message.Update" />
-        </html:submit>
-    </div>
-    <rhn:submitted/>
-
+    <c:if test="${is_custom}">
+        <div class="text-right">
+            <html:submit styleClass="btn btn-default" property="dispatch">
+                    <bean:message key="message.Update" />
+            </html:submit>
+        </div>
+        <rhn:submitted/>
+    </c:if>
 </rl:listset>
