@@ -66,6 +66,7 @@ class Server(ServerWrapper):
 
         # uuid
         self.uuid = None
+        self.virt_uuid = None
         self.registration_number = None
 
     _query_lookup_arch = rhnSQL.Statement("""
