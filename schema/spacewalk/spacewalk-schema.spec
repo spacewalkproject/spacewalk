@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.5.17
+Version:        2.5.18
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -70,6 +70,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Mar 17 2016 Jan Dobes 2.5.18-1
+- adding missing Oracle upgrade
+- delete sync probe task
+- populate uuid cleanup task on clean installation
+- drop column from _log table too
+- sequnce rhn_org_entitlement_type_seq should be dropped
+- dropping functions after entitlements removal in upgrade
+
 * Fri Mar 11 2016 Jan Dobes 2.5.17-1
 - Revert "fix oracle sha1 for 017-drop_monitoring_tables.sql"
 
