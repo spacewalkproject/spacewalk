@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.5.18
+Version:        2.5.19
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -70,6 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Mar 18 2016 Jan Dobes 2.5.19-1
+- add missing database commit
+
 * Thu Mar 17 2016 Jan Dobes 2.5.18-1
 - adding missing Oracle upgrade
 - delete sync probe task
