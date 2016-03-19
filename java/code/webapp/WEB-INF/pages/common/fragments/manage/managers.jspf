@@ -65,8 +65,8 @@
 
     </rl:list>
 
-    <hr />
     <c:if test="${is_custom}">
+        <hr />
         <div class="text-right">
             <html:submit styleClass="btn btn-default" property="dispatch">
                     <bean:message key="message.Update" />
