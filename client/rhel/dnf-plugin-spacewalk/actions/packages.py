@@ -152,7 +152,7 @@ def runTransaction(transaction_data, cache_only=None):
         elif action == 'i' and not pkg:
             new = _package_tup2obj(available, package)
             to_install.append(new)
-        
+
     # Don't proceed further with empty package lists
     if not to_install and not to_remove:
         return (0, "Requested package actions have already been performed.", {})
@@ -338,10 +338,16 @@ def _dnf_transaction(base, install=[], remove=[], full_update=False,
 def _package_tup2obj(q, tup):
     (name, version, release, epoch) = tup[:4]
     arch = tup[4] if len(tup) > 4 else None
-    if epoch == '':
-        epoch = 0
-    pkgs = q.filter(name=name, arch=arch, epoch=int(epoch),
-                    version=version, release=release).run()
+    query = {'name': name}
+    if version is not None and len(version) > 0:
+        query['version'] = version
+    if release is not None and len(release) > 0:
+        query['release'] = release
+    if epoch is not None and len(epoch) > 0:
+        query['epoch'] = int(epoch)
+    if arch is not None and len(arch) > 0:
+        query['arch'] = arch
+    pkgs = q.filter(**query).run()
     if pkgs:
         return pkgs[0]
     return None
