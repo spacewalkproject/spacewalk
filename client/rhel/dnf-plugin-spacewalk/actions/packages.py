@@ -31,7 +31,7 @@ log = up2dateLog.initLog()
 
 # file used to keep track of the next time rhn_check
 # is allowed to update the package list on the server
-LAST_UPDATE_FILE="/var/lib/up2date/dbtimestamp"
+LAST_UPDATE_FILE = "/var/lib/up2date/dbtimestamp"
 
 # mark this module as acceptable
 __rhnexport__ = [
@@ -44,12 +44,13 @@ __rhnexport__ = [
     'verify'
 ]
 
+
 def remove(package_list, cache_only=None):
     """We have been told that we should remove packages"""
     if cache_only:
         return (0, "no-ops for caching", {})
 
-    if type(package_list) != type([]):
+    if not isinstance(package_list, list):
         return (13, "Invalid arguments passed to function", {})
 
     log.log_debug("Called remove_packages", package_list)
@@ -61,9 +62,10 @@ def remove(package_list, cache_only=None):
     return _dnf_transaction(base, remove=to_remove, allow_erasing=True,
                             cache_only=cache_only)
 
+
 def update(package_list, cache_only=None):
     """We have been told that we should retrieve/install packages"""
-    if type(package_list) != type([]):
+    if not isinstance(package_list, list):
         return (13, "Invalid arguments passed to function", {})
 
     log.log_debug("Called update", package_list)
@@ -82,9 +84,9 @@ def update(package_list, cache_only=None):
             package.append('')
 
         (name, version, release, epoch, arch) = package
-        if (version == '' and release == ''
-            and epoch == '' and arch == ''
-            and installed.filter(name=name)):
+        if version == '' and release == '' \
+           and epoch == '' and arch == '' \
+           and installed.filter(name=name):
             log.log_debug('Package %s is already installed' % name)
             continue
 
@@ -96,20 +98,20 @@ def update(package_list, cache_only=None):
 
         if not requested_pkg:
                 err = 'Package %s is not available for installation' \
-                          % _package_tup2str(package)
-                log.log_me('E: ', err )
+                      % _package_tup2str(package)
+                log.log_me('E: ', err)
                 errmsgs.append(err)
                 continue
 
         for pkg in pkgs:
             pkg_cmp = pkg.evr_cmp(requested_pkg)
             if pkg_cmp == 0:
-                log.log_debug('Package %s already installed' \
-                    % _package_tup2str(package))
+                log.log_debug('Package %s already installed'
+                              % _package_tup2str(package))
                 break
             elif pkg_cmp > 0:
-                log.log_debug('More recent version of package %s is already installed' \
-                    % _package_tup2str(package))
+                log.log_debug('More recent version of package %s is already installed'
+                              % _package_tup2str(package))
                 break
         else:
             to_install.append(requested_pkg)
@@ -118,16 +120,17 @@ def update(package_list, cache_only=None):
     # since this would result into an empty yum transaction
     if not to_install:
         if err:
-           ret = (32, "Failed: Packages failed to install properly:\n" + '\n'.join(errmsgs),
-                      {'version': '1', 'name': "package_install_failure"})
+            ret = (32, "Failed: Packages failed to install properly:\n" + '\n'.join(errmsgs),
+                   {'version': '1', 'name': "package_install_failure"})
         else:
-           ret = (0, "Requested packages already installed", {})
+            ret = (0, "Requested packages already installed", {})
         # workaround for RhBug:1218071
         base.plugins.unload()
         base.close()
         return ret
 
     return _dnf_transaction(base, install=to_install, cache_only=cache_only)
+
 
 def runTransaction(transaction_data, cache_only=None):
     """ Run a transaction on a group of packages.
@@ -160,10 +163,12 @@ def runTransaction(transaction_data, cache_only=None):
     return _dnf_transaction(base, install=to_install, remove=to_remove,
                             allow_erasing=True, cache_only=cache_only)
 
+
 def fullUpdate(force=0, cache_only=None):
     """ Update all packages on the system. """
     base = _dnf_base(load_system_repo=True, load_available_repos=True)
     return _dnf_transaction(base, full_update=True, cache_only=cache_only)
+
 
 # The following functions are the same as the old up2date ones.
 def checkNeedUpdate(rhnsd=None, cache_only=None):
@@ -179,21 +184,21 @@ def checkNeedUpdate(rhnsd=None, cache_only=None):
     cfg = config.initUp2dateConfig()
     if cfg['dbpath']:
         dbpath = cfg['dbpath']
-    RPM_PACKAGE_FILE="%s/Packages" % dbpath
+    RPM_PACKAGE_FILE = "%s/Packages" % dbpath
 
     try:
-        dbtime = os.stat(RPM_PACKAGE_FILE)[8] # 8 is st_mtime
+        dbtime = os.stat(RPM_PACKAGE_FILE)[8]  # 8 is st_mtime
     except:
         return (0, "unable to stat the rpm database", data)
     try:
         last = os.stat(LAST_UPDATE_FILE)[8]
     except:
-        last = 0;
+        last = 0
 
     # Never update the package list more than once every 1/2 hour
     if last >= (dbtime - 10):
         return (0, "rpm database not modified since last update (or package "
-            "list recently updated)", data)
+                "list recently updated)", data)
 
     if last == 0:
         try:
@@ -205,6 +210,7 @@ def checkNeedUpdate(rhnsd=None, cache_only=None):
     # call the refresh_list action with a argument so we know it's
     # from rhnsd
     return refresh_list(rhnsd=1)
+
 
 def refresh_list(rhnsd=None, cache_only=None):
     """ push again the list of rpm packages to the server """
@@ -239,6 +245,7 @@ def touch_time_stamp():
         return (0, "unable to set the time stamp on the time stamp file %s"
                 % LAST_UPDATE_FILE, {})
 
+
 def verify(packages, cache_only=None):
     log.log_debug("Called packages.verify")
     if cache_only:
@@ -259,6 +266,7 @@ def verify(packages, cache_only=None):
 
     return (0, "packages verified", data)
 
+
 def _dnf_base(load_system_repo=True, load_available_repos=True):
     # initialize dnf
     base = dnf.Base()
@@ -273,6 +281,7 @@ def _dnf_base(load_system_repo=True, load_available_repos=True):
         base.read_all_repos()
     base.fill_sack(load_system_repo=True, load_available_repos=True)
     return base
+
 
 def _dnf_transaction(base, install=[], remove=[], full_update=False,
                      allow_erasing=False, cache_only=None):
@@ -296,11 +305,11 @@ def _dnf_transaction(base, install=[], remove=[], full_update=False,
             raise dnf.exceptions.Error('empty transaction')
         if base.transaction.install_set:
             log.log_debug("Downloading and installing: ",
-                           [str(p) for p in base.transaction.install_set])
+                          [str(p) for p in base.transaction.install_set])
             base.download_packages(base.transaction.install_set)
         if base.transaction.remove_set:
             log.log_debug("Removing: ",
-                           [str(p) for p in base.transaction.remove_set])
+                          [str(p) for p in base.transaction.remove_set])
         if not cache_only:
             base.do_transaction()
 
@@ -309,7 +318,7 @@ def _dnf_transaction(base, install=[], remove=[], full_update=False,
         data['version'] = "1"
         data['name'] = "package_install_failure"
 
-        return (32, "Failed: Packages failed to install "\
+        return (32, "Failed: Packages failed to install "
                 "properly: %s" % str(e), data)
     except dnf.exceptions.MarkingError as e:
         data = {}
@@ -321,9 +330,9 @@ def _dnf_transaction(base, install=[], remove=[], full_update=False,
         data = {}
         data["version"] = "1"
         data["name"] = "failed_deps"
-        return (18, "Failed: packages requested raised "\
+        return (18, "Failed: packages requested raised "
                 "dependency problems: %s" % str(e), data)
-    except dnf.exceptions.Error as  e:
+    except dnf.exceptions.Error as e:
         status = 6,
         message = "Error while executing packages action: %s" % str(e)
         data = {}
@@ -334,6 +343,7 @@ def _dnf_transaction(base, install=[], remove=[], full_update=False,
         base.close()
 
     return (0, "Update Succeeded", {})
+
 
 def _package_tup2obj(q, tup):
     (name, version, release, epoch) = tup[:4]
@@ -352,6 +362,7 @@ def _package_tup2obj(q, tup):
         return pkgs[0]
     return None
 
+
 def _package_tup2str(package_tup):
     """ Create a package name from an rhn package tuple.
     """
@@ -362,3 +373,4 @@ def _package_tup2str(package_tup):
     if a:
         pkginfo += '.%s' % (a)
     return (pkginfo,)
+
