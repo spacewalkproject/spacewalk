@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.4.24
+Version:        2.4.25
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Mar 21 2016 Jan Dobes 2.4.25-1
+- make sure people already on 2.4 will get missed 2.2 -> 2.3 upgrades
+- fixing missing 2.2 -> 2.3 upgrades
+
 * Wed Sep 30 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.24-1
 - fix delete user by deleting the reference to rhnResetPassword
 
