@@ -106,7 +106,7 @@
                 </div>
                 <div class="form-group">
                     <rhn:hidden name="use_date" value="true"/>
-                    <rhn:hidden name="dispatch" value='<bean:message key="actionchain.jsp.saveandschedule"/>'/>
+                    <html:hidden property="dispatch" value="${rhn:localize('actionchain.jsp.saveandschedule')}"/>
                     <rhn:csrf/>
                     <rhn:submitted/>
                     <div class="col-md-offset-3 col-md-6">
