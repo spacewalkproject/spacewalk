@@ -54,7 +54,7 @@ public abstract class AbstractDatabaseAction implements MessageAction {
         }
         catch (Exception e) {
             commit = false;
-            log.error("Error executing action " + getClass().getName() , e);
+            log.error("Error executing action " + getClass().getName(), e);
         }
         finally {
             handleTransactions(commit);
