@@ -480,8 +480,17 @@ class Server(ServerWrapper):
         if commit:
             rhnSQL.commit()
 
+    def handle_virtual_guest(self):
+        # Handle virtualization specific bits
+        if self.virt_uuid is not None and \
+           self.virt_type is not None:
+            rhnVirtualization._notify_guest(self.getid(),
+                                            self.virt_uuid, self.virt_type)
+
     # Save this record in the database
     def __save(self, channel):
+        tokens_obj = rhnFlags.get("registration_token")
+
         if self.server.real:
             server_id = self.server["id"]
             self.server.save()
@@ -505,7 +514,7 @@ class Server(ServerWrapper):
             self.server.create(server_id)
             server_lib.create_server_setup(server_id, org_id)
 
-            have_reg_token = rhnFlags.test("registration_token")
+            self.handle_virtual_guest()
 
             # if we're using a token, then the following channel
             # subscription request can allow no matches since the
@@ -522,10 +531,10 @@ class Server(ServerWrapper):
                 rhnChannel.subscribe_sql(server_id, channel_info['id'])
             else:
                 rhnChannel.subscribe_server_channels(self,
-                                                     none_ok=have_reg_token,
+                                                     none_ok=tokens_obj,
                                                      user_id=user_id)
 
-            if not have_reg_token:
+            if not tokens_obj:
                 # Attempt to auto-entitle, can throw the following exceptions:
                 #   rhnSystemEntitlementException
                 #   rhnNoSystemEntitlementsException
@@ -538,11 +547,10 @@ class Server(ServerWrapper):
 
             server_lib.join_rhn(org_id)
 
-        # Handle virtualization specific bits
-        if self.virt_uuid is not None and \
-           self.virt_type is not None:
-            rhnVirtualization._notify_guest(self.getid(),
-                                            self.virt_uuid, self.virt_type)
+        # Update virtual guest attributes on re-registration
+        if tokens_obj and tokens_obj.is_rereg_token:
+            self.handle_virtual_guest()
+
         # Update the uuid - but don't commit yet
         self.update_uuid(self.uuid, commit=0)
 
