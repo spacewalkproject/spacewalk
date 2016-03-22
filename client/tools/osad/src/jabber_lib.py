@@ -268,6 +268,10 @@ class Runner:
                 self.print_message(js, "SSLError")
                 log_error(extract_traceback())
                 continue
+            except JabberConnectionError, e:
+                self.print_message(js, "JabberConnectionError")
+                log_error(extract_traceback())
+                continue
         else:
             # Ran out of Jabber servers to try
             # Could not connect to any servers

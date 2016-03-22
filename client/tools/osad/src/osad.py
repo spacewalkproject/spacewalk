@@ -264,12 +264,12 @@ class Runner(jabber_lib.Runner):
             ret[key] = osad_config.get(key)
 
         try:
-            server_url = osad_config.get('server_url')
+            server_url = osad_config.get('server_url').split(';')
         except osad_config.InterpolationError, e:
-            server_url = config.getServerlURL()[0]
+            server_url = config.getServerlURL()
         else:
             if server_url is None:
-                server_url = config.getServerlURL()[0]
+                server_url = config.getServerlURL()
 
         ret['server_url'] = server_url
 
