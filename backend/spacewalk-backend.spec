@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.26
+Version: 2.5.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -650,6 +650,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Tue Mar 22 2016 Jan Dobes 2.5.27-1
+- 1320025 - call notify guest before subscribing to channels too and refactor
+  code
+
 * Fri Mar 18 2016 Jan Dobes 2.5.26-1
 - Fix for bz1309337 'rhnreg_ks doesn't work with activation key'
 
