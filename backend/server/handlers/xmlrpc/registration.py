@@ -60,6 +60,8 @@ def parse_smbios(smbios):
 
     if vendor == "QEMU" and uuid is not None:
         return (rhnVirtualization.VirtualizationType.QEMU, uuid)
+    elif manufacturer == 'QEMU' and uuid is not None:
+        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
     elif manufacturer == 'Bochs' and product == 'Bochs' and uuid is not None:
         # Bochs, Bochs is a virtual SUSE KVM machine
         return (rhnVirtualization.VirtualizationType.QEMU, uuid)
