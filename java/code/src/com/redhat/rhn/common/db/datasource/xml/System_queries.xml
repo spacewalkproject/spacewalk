@@ -1599,24 +1599,15 @@ SELECT id, name
 
 
 <mode name="compatible_with_server">
-  <query params="sid, user_id, org_id">
+  <query params="sid, user_id">
    SELECT S.id, S.name
   FROM rhnServer S,
        rhnServer SBase
  WHERE S.org_id = SBase.org_id
    AND SBase.id = :sid
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms WHERE user_id = :user_id AND server_id = S.id)
-   AND (EXISTS (SELECT 1
-                 FROM rhnServerChannel SC, rhnServerChannel SCBase
-                WHERE SCBase.server_id = SBase.id
-                  AND SC.channel_id = SCBase.channel_id
-                  AND SC.server_id = S.id)
-       OR EXISTS (SELECT 1
-                    FROM rhnChannel C, rhnServerChannel SC
-                   WHERE SC.server_id = S.id
-                     AND SC.channel_id = C.id
-                     AND C.org_id = :org_id
-                     AND C.parent_channel IS NULL) )
+   AND S.server_arch_id = SBase.server_arch_id
+   AND SUBSTRING(S.release, '^[0-9]+') = SUBSTRING(SBase.release, '^[0-9]+')
    AND S.id != :sid
    AND EXISTS(SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.id AND SFV.label = 'ftr_profile_compare')
 ORDER BY UPPER(S.name)

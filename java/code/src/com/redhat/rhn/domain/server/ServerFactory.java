@@ -456,7 +456,6 @@ public class ServerFactory extends HibernateFactory {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", server.getId());
         params.put("user_id", user.getId());
-        params.put("org_id", user.getOrg().getId());
         return m.execute(params);
     }
 
