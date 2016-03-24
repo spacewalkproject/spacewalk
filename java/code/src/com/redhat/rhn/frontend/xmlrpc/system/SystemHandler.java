@@ -1803,6 +1803,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param  #array_single("string", "customInfoLabel")
      * @xmlrpc.returntype #return_int_success()
+     * (Note: Attempt to delete values of non-existing keys throws exception. Attempt to
+     * delete value of existing key which has assigned no values doesn't throw exception.)
      */
     public int deleteCustomValues(User loggedInUser, Integer sid, List<String> keys)
             throws FaultException {
@@ -1836,7 +1838,7 @@ public class SystemHandler extends BaseHandler {
             // We need to throw an exception. Append each undefined key to the
             // exception message.
             StringBuilder msg = new StringBuilder("One or more of the following " +
-                    "custom info fields was not defined: ");
+                "custom info keys was not defined: ");
 
             for (String label : skippedKeys) {
                 msg.append("\n" + label);
