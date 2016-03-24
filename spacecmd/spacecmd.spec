@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.5.5
+Version:     2.5.6
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -86,6 +86,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Mar 24 2016 Jan Dobes 2.5.6-1
+- 1277994 - Add option to softwarechannel_setorgaccess for protected sharing of
+  channels.
+
 * Tue Feb 02 2016 Grant Gainey 2.5.5-1
 - unused variable
 - mimetype detection to set the binary flag requires 'file' tool
