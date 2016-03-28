@@ -47,7 +47,9 @@
                                    bound="false"
                            headerkey="grouplist.jsp.name"
                            sortattr="name" defaultsort="asc" filterattr="name" styleclass="${nameStyle}">
-                                <a href="/rhn/groups/GroupDetail.do?sgid=${current.id}">${current.name}</a>
+                                <a href="/rhn/groups/GroupDetail.do?sgid=${current.id}">
+                                  <c:out value="${current.name}"/>
+                                </a>
                 </rl:column>
         </rl:list>
 
