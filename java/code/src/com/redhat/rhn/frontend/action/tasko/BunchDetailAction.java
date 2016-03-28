@@ -14,6 +14,21 @@
  */
 package com.redhat.rhn.frontend.action.tasko;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -23,20 +38,6 @@ import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.taskomatic.TaskomaticApi;
 import com.redhat.rhn.taskomatic.TaskomaticApiException;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -48,6 +49,7 @@ public class BunchDetailAction extends RhnAction implements Listable {
     public static final String LIST_NAME = "runList";
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
@@ -76,12 +78,14 @@ public class BunchDetailAction extends RhnAction implements Listable {
         }
         ListHelper helper = new ListHelper(this, request);
         helper.setListName(LIST_NAME);
-        helper.setParentUrl(request.getRequestURI() + "?label=" + bunchLabel);
+        helper.setParentUrl(request.getRequestURI() + "?label=" +
+                        StringEscapeUtils.escapeHtml(bunchLabel));
         helper.execute();
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /** {@inheritDoc} */
+    @Override
     public List getResult(RequestContext contextIn) {
         User user =  contextIn.getCurrentUser();
         String bunchName = contextIn.getParam("label", true);
