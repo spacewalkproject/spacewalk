@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.70
+Version: 2.5.71
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 28 2016 Grant Gainey 2.5.71-1
+- 1291031 - Fix SelectAll in the presence of filtering
+
 * Mon Mar 28 2016 Grant Gainey 2.5.70-1
 - 1320452 - <c:out> is your friend
 
