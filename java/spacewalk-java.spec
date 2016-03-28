@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.68
+Version: 2.5.69
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 28 2016 Grant Gainey 2.5.69-1
+- 1313515 - found/fixed another in BunchDetails. QE++
+
 * Thu Mar 24 2016 Jiri Precechtel <jprecech@redhat.com> 2.5.68-1
 - 1063839 - added comment to deleteCustomValues API method's "returns" section
 
