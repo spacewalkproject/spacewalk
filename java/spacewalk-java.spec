@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.73
+Version: 2.5.74
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 29 2016 Grant Gainey 2.5.74-1
+- 1320444 - typo slipped past. Ugh.
+
 * Tue Mar 29 2016 Grant Gainey 2.5.73-1
 - 1320444 - Bad bean-message ids and navbar-vars can lead to XSS issues
 
