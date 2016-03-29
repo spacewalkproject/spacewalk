@@ -150,6 +150,13 @@ int main (int argc, char **argv)
 	for (i = 0; i < getdtablesize(); i++)
 	    close (i);
 
+	/* read from /dev/null */
+	int devnull = open("/dev/null", O_RDONLY);
+	if (devnull != STDIN_FILENO) {
+	    dup2(devnull, STDIN_FILENO);
+	    close(devnull);
+	}
+
 	if (fork ())
 	    exit (0);
 
@@ -372,6 +379,7 @@ static int rhn_do_action(void)
 
 	/* close the read end of the pipe */
 	close(fds[0]);
+
 	/* redirect stdout */
 	if (fds[1] != STDOUT_FILENO) {
 	    dup2(fds[1], STDOUT_FILENO);
