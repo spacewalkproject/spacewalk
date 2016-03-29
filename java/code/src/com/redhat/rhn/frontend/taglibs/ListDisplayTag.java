@@ -341,6 +341,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
      * Sets the type of the list
      * @param stringIn desired alignment for the list
      */
+    @Override
     public void setType(String stringIn) {
         type = stringIn;
     }
@@ -349,6 +350,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
      * Gets the type of the list
      * @return String alignment of the list
      */
+    @Override
     public String getType() {
         return type;
     }
@@ -720,7 +722,8 @@ public class ListDisplayTag extends ListDisplayTagBase {
                 }
                 if (!PAGINATION_WASH_SET.contains(keys[j])) {
                     String encodedParam = StringUtil.urlEncode(rq.getParameter(keys[j]));
-                    enabled.append("&amp;" + keys[j] + "=" + encodedParam);
+                    enabled.append("&amp;" +
+                                   StringUtil.urlEncode(keys[j]) + "=" + encodedParam);
                 }
             }
         }
@@ -735,7 +738,8 @@ public class ListDisplayTag extends ListDisplayTagBase {
                 }
                 if (!PAGINATION_WASH_SET.contains(key)) {
                     String encodedParam = StringUtil.urlEncode(rq.getParameter(key));
-                    enabled.append("&amp;" + key + "=" + encodedParam);
+                    enabled.append("&amp;" +
+                                   StringUtil.urlEncode(key) + "=" + encodedParam);
                 }
             }
         }
