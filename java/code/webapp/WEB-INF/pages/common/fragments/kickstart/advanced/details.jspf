@@ -11,8 +11,8 @@
                    action="${param.url}?csrf_token=${csrfToken}"
                    enctype="multipart/form-data">
             <rhn:csrf />
-            <h2><bean:message key="${fn:escapeXml(param.title_key)}"/></h2>
-            <p><bean:message key="${fn:escapeXml(param.summary_key)}"/></p>
+            <h2><bean:message key="${param.title_key)}"/></h2>
+            <p><bean:message key="${param.summary_key}"/></p>
             <div class="form-group">
                 <label class="col-lg-3 control-label">
                     <rhn:required-field key="kickstart.jsp.create.wizard.kickstart.profile.label"/>:

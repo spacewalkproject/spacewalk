@@ -12,7 +12,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <rhn:toolbar base="h2" icon="header-event-history">
-  <bean:message key="${fn:escapeXml(headerLabel)}" />
+  <bean:message key="${headerLabel}" />
 </rhn:toolbar>
 
 <html:form method="post" action="/systems/details/history/Event.do?sid=${system.id}&aid=${requestScope.aid}">

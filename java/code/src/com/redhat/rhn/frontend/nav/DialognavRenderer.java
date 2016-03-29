@@ -15,10 +15,12 @@
 
 package com.redhat.rhn.frontend.nav;
 
-import com.redhat.rhn.frontend.html.HtmlTag;
-
 import java.util.Map;
 import java.util.StringTokenizer;
+
+import org.apache.commons.lang.StringEscapeUtils;
+
+import com.redhat.rhn.frontend.html.HtmlTag;
 
 /**
  * DialognavRenderer - renders a navigation bar
@@ -135,7 +137,8 @@ public class DialognavRenderer extends Renderable {
                 // if currentVar is null, values will be null too, so we can
                 // just check values.
                 if (values != null) {
-                    formVars.append(currentVar + "=" + values[0]);
+                    formVars.append(currentVar + "=" +
+                             StringEscapeUtils.escapeHtml(values[0]));
                 }
             }
             href += formVars.toString();
