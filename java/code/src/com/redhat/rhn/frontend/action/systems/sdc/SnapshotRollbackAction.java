@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.server.InvalidSnapshotReason;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerSnapshot;
@@ -85,7 +86,9 @@ public class SnapshotRollbackAction extends RhnAction {
         params.put(CHANNEL_CHANGES, snapshot.channelDiffs(sid));
         params.put(PACKAGE_CHANGES, snapshot.packageDiffs(sid));
         params.put(CONFIG_CHANGES,  snapshot.configChannelsDiffs(sid));
-        if (snapshot.getUnservablePackages() != null) {
+
+        DataResult<Map<String, Object>> up = snapshot.getUnservablePackages();
+        if (up != null && up.getTotalSize() > 0) {
             params.put("snapshot_unservable_packages", true);
         }
 
