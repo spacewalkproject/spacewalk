@@ -757,8 +757,7 @@ def exists_getPackageChecksumBySession(rpc_server):
         server = rhnserver.RhnServer()
         # pylint: disable=W0212
         server._server = rpc_server
-    result = server.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2)
-    return result
+    return server.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2)
 
 # compare two package [n,v,r,e] tuples
 
