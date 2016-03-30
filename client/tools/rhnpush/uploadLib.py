@@ -20,6 +20,7 @@ import fnmatch
 import getpass
 import rhnpush_cache
 import xmlrpclib
+import inspect
 from spacewalk.common import rhn_mpm
 from spacewalk.common.rhn_pkg import package_from_filename, get_package_header
 from up2date_client import rhnserver
@@ -736,7 +737,12 @@ def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):
 
 def hasChannelChecksumCapability(rpc_server):
     """ check whether server supports getPackageChecksumBySession function"""
-    server = rhnserver.RhnServer(rpcServerOverride=rpc_server)
+    if 'rpcServerOverride' in inspect.getargspec(rhnserver.RhnServer.__init__).args:
+        server = rhnserver.RhnServer(rpcServerOverride=rpc_server)
+    else:
+        server = rhnserver.RhnServer()
+        # pylint: disable=W0212
+        server._server = rpc_server
     return server.capabilities.hasCapability('xmlrpc.packages.checksums')
 
 
@@ -745,7 +751,12 @@ def exists_getPackageChecksumBySession(rpc_server):
     # unfortunatelly we do not have capability for getPackageChecksumBySession function,
     # but extended_profile in version 2 has been created just 2 months before
     # getPackageChecksumBySession lets use it instead
-    server = rhnserver.RhnServer(rpcServerOverride=rpc_server)
+    if 'rpcServerOverride' in inspect.getargspec(rhnserver.RhnServer.__init__).args:
+        server = rhnserver.RhnServer(rpcServerOverride=rpc_server)
+    else:
+        server = rhnserver.RhnServer()
+        # pylint: disable=W0212
+        server._server = rpc_server
     result = server.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2)
     return result
 
