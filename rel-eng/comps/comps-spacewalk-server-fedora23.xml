@@ -12,13 +12,13 @@
     <uservisible>true</uservisible>
     <packagelist>
 <!--  client libs - needed till it get propagated to distribuitions -->
+       <packagereq type="default">dnf-plugin-spacewalk</packagereq>
        <packagereq type="default">python3-rhnlib</packagereq>
-       <packagereq type="default">rhnlib</packagereq>
        <packagereq type="default">rhn-check</packagereq>
+       <packagereq type="default">rhn-client-tools</packagereq>
        <packagereq type="default">rhn-setup</packagereq>
        <packagereq type="default">rhn-setup-gnome</packagereq>
-       <packagereq type="default">rhn-client-tools</packagereq>
-       <packagereq type="default">dnf-plugin-spacewalk</packagereq>
+       <packagereq type="default">rhnlib</packagereq>
 
        <packagereq type="default">ace-editor</packagereq>
        <packagereq type="default">bootstrap</packagereq>
