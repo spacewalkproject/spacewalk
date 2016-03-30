@@ -18,55 +18,42 @@
     <p><bean:message key="assignedgroups.jsp.asadmin"/></p>
   </rhn:require>
 </div>
+ <rl:listset name="groupSet">
+  <rhn:csrf />
 
+  <rl:list dataset="pageList" name="groupList"
+           decorator="SelectableDecorator" emptykey="grouplist.jsp.nogroups"
+           filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemGroupFilter">
 
-<rl:listset name="groupSet">
-    <rhn:csrf />
+   <rl:selectablecolumn value="${current.id}" selected="${current.selected}" />
 
-        <rl:list dataset="pageList" name="groupList" decorator="SelectableDecorator"
-             emptykey="grouplist.jsp.nogroups"
-                         filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemGroupFilter">
-
-
- <rl:selectablecolumn value="${current.id}"
-                                        selected="${current.selected}"/>
-
-                <rl:column sortable="true"
-                                        headerkey="assignedgroups.jsp.group"
-                                        sortattr="name">
-
-                <c:out value="<a href=\"/rhn/groups/GroupDetail.do?sgid=${current.id}\">${current.name}</a>" escapeXml="false" />
-            </rl:column>
-
-                <rl:column sortable="true"
-                                        headerkey="grouplist.jsp.systems"
-                                        sortattr="serverCount">
-
-                                                <c:out value="<a href=\"/rhn/groups/ListRemoveSystems.do?sgid=${current.id}\">${current.serverCount}</a>" escapeXml="false" />
-            </rl:column>
-
-
-
-
-</rl:list>
+   <rl:column sortable="true" headerkey="assignedgroups.jsp.group" sortattr="name">
+    <a href="/rhn/groups/GroupDetail.do?sgid=${current.id}">
+      <c:out value="${current.name}" />
+    </a>
+   </rl:column>
+   <rl:column sortable="true" headerkey="grouplist.jsp.systems" sortattr="serverCount">
+    <a href="/rhn/groups/ListRemoveSystems.do?sgid=${current.id}">
+     <c:out value="${current.serverCount}" />
+    </a>
+   </rl:column>
+  </rl:list>
   <c:if test="${not (userIsOrgAdmin)}">
-    <div class="text-right">
-      <hr />
-      <html:submit styleClass="btn btn-success" property="submit">
-        <bean:message key="assignedgroups.jsp.submitpermissions"/>
-      </html:submit>
-    </div>
+   <div class="text-right">
+    <hr />
+    <html:submit styleClass="btn btn-success" property="submit">
+     <bean:message key="assignedgroups.jsp.submitpermissions" />
+    </html:submit>
+   </div>
   </c:if>
 
   <rhn:hidden name="uid" value="${user.id}" />
   <rhn:hidden name="formvars" value="uid" />
 
-        <rhn:submitted/>
-</rl:listset>
+  <rhn:submitted />
+ </rl:listset>
 
-
-
-<html:form action="/users/AssignedSystemGroups">
+ <html:form action="/users/AssignedSystemGroups">
 <rhn:csrf />
 <rhn:submitted />
 <div class="page-summary">
@@ -103,10 +90,6 @@
   </c:if>
 
 </html:form>
-
-
-
-
 
 </body>
 </html>

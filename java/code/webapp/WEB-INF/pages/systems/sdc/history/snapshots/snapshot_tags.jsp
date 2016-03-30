@@ -24,7 +24,9 @@
     <rl:decorator name="PageSizeDecorator" />
     <rl:decorator name="ElaborationDecorator" />
     <rl:column headerkey="system.history.snapshot.tagName">
-      <a href="/rhn/systems/details/history/snapshots/Rollback.do?sid=${param.sid}&ss_id=${current.ssId}">${current.name}</a>
+      <a href="/rhn/systems/details/history/snapshots/Rollback.do?sid=${param.sid}&ss_id=${current.ssId}">
+        <c:out value="${current.name}"/>
+      </a>
     </rl:column>
     <rl:column headerkey="system.history.snapshot.tagAppliedToSnapshot">
       ${current.created}

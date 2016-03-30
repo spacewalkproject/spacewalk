@@ -15,18 +15,19 @@
 
 package com.redhat.rhn.frontend.action.groups;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.system.ServerGroupManager;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -36,6 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteGroupAction extends RhnAction {
     private static final String DELETED_MESSAGE_KEY = "systemgroup.delete.deleted";
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
@@ -43,9 +45,9 @@ public class DeleteGroupAction extends RhnAction {
         RequestContext context = new RequestContext(request);
         ManagedServerGroup serverGroup = context.lookupAndBindServerGroup();
         if (context.isSubmitted()) {
-            String [] params = {serverGroup.getName()};
             ServerGroupManager manager = ServerGroupManager.getInstance();
             manager.remove(context.getCurrentUser(), serverGroup);
+            String [] params = {StringEscapeUtils.escapeHtml(serverGroup.getName())};
             getStrutsDelegate().saveMessage(DELETED_MESSAGE_KEY, params, request);
             return mapping.findForward("success");
         }

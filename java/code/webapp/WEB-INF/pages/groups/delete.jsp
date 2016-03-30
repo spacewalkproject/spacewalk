@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
@@ -13,7 +14,7 @@
 
     <div class="page-summary">
     <p><bean:message key="systemgroup.delete.subtitle"
-                  arg0="${systemgroup.name}"
+                  arg0="${fn:escapeXml(systemgroup.name)}"
                   arg1="<strong>"
                   arg2="</strong>"/></p>
     <bean:message key="systemgroup.delete.summary"
