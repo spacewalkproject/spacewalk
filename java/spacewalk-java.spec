@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.74
+Version: 2.5.75
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 30 2016 Jiri Precechtel <jprecech@redhat.com> 2.5.75-1
+- 1158981 - Warning "Unservable packages" is not shown when such packages don't
+  exist now
+
 * Tue Mar 29 2016 Grant Gainey 2.5.74-1
 - 1320444 - typo slipped past. Ugh.
 
