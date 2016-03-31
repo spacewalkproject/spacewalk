@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.76
+Version: 2.5.77
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 31 2016 Gennadii Altukhov <galt@redhat.com> 2.5.77-1
+- 1322890 - Fix Content-Length in HTTP-header of response
+
 * Wed Mar 30 2016 Grant Gainey 2.5.76-1
 - 1320452 - Cleaning up some remaining Tag/Group XSS issues
 
