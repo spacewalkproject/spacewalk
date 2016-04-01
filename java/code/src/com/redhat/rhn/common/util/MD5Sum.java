@@ -15,6 +15,7 @@
 package com.redhat.rhn.common.util;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -26,8 +27,12 @@ import java.security.NoSuchAlgorithmException;
  */
 public class MD5Sum {
 
-    // 2,147,483,647 bytes OR 2.1GB
+    // limit for byte array in memory - 2,147,483,647 bytes OR 2.1GB
     public static final int SCOUR_MD5_BYTE_LIMIT = Integer.MAX_VALUE;
+
+    // buffer size to read file by chunks - 4 MB
+    public static final int MD5_BUFFER_SIZE = 1024 * 1024 * 4;
+
     private static MessageDigest md = null;
 
     private MD5Sum() {
@@ -130,21 +135,46 @@ public class MD5Sum {
     }
 
     /**
-     * Method: getFileMD5Sum Purpose: get the MD5 sum of a file. Scour exchange
-     * only counts the first SCOUR_MD5_BYTE_LIMIT bytes of a file for
-     * caclulating checksums (probably for efficiency or better comaprison
-     * counts against unfinished downloads).
+     * Method: getFileMD5Sum Purpose: get the MD5 sum of a file.
      * @param f the file to read
      * @return the MD5 sum string
      * @throws IOException on IO error
+     * @throws MD5CryptException on getting MD5 MessageDigest instance
      */
-    public static String getFileMD5Sum(File f) throws IOException {
-        String sum = null;
+    public static String getFileMD5Sum(File f) throws IOException, MD5CryptException {
+        try {
+            if (md == null) {
+                md = MessageDigest.getInstance("MD5");
+            }
+        }
+        catch (NoSuchAlgorithmException e) {
+            throw new MD5CryptException(
+                    "Problem getting MD5 message digest " + "(NoSuchAlgorithm Exception).");
+        }
 
-        byte[] barray = FileUtils.readByteArrayFromFile(f, 0, f.length());
-        sum = md5Sum(barray, SCOUR_MD5_BYTE_LIMIT);
+        md.reset();
+        FileInputStream fis = new FileInputStream(f);
 
-        return sum;
+        byte[] dataBuffer = new byte[MD5_BUFFER_SIZE];
+
+        int nread = 0;
+
+        while ((nread = fis.read(dataBuffer)) != -1) {
+            md.update(dataBuffer, 0, nread);
+        }
+
+        fis.close();
+
+        byte[] digest = md.digest();
+
+        StringBuilder hexString = new StringBuilder();
+
+        for (int i = 0; i < digest.length; i++) {
+            hexString.append(hexDigit(digest[i]));
+        }
+
+        return hexString.toString();
+
     }
 
 }
