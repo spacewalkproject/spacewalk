@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 5.0.19
+Version: 5.0.20
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -138,6 +138,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Apr 04 2016 Jan Dobes 5.0.20-1
+- 1306994 - use /dev/null as stdin
+
 * Thu Feb 18 2016 Jan Dobes 5.0.19-1
 - do not keep this file in git
 - delete file with input files after template is created
