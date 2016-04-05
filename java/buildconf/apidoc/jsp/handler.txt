@@ -14,13 +14,17 @@ ul.apidoc {
 </head>
 <body>
 <div class="spacewalk-toolbar-h1">
-<h1><i class="fa fa-gears"></i>API Overview:<h1>
-
-$handler.desc
-<br />
-
+<h1><i class="fa fa-gears"></i>API Overview</h1>
 </div>
+
+<h2>Description</h2>
+<p><strong>Namespace</strong>:
+$handler.name
+</p>
+<p>$handler.desc</p>
 <span class="small-text">( <a href="/rhn/apidoc/index.jsp">Return to API Overview</a> )</span>
+<hr />
+
 <div class="rounded-box">
 <h2><a name="top">Available methods</a></h2>
 <ul class="apidoc">
@@ -30,13 +34,6 @@ $handler.desc
 #end
 </ul>
 </div>
-<h2>Description</h2>
-$handler.desc
-<p>
-</p>
-<p><strong>Namespace</strong>:
-$handler.name
-</p>
 <hr />
 #foreach( $call in $handler.calls )
 
