@@ -15,8 +15,16 @@
 
 import sys
 
+try:
+    PY3 = sys.version_info.major >= 3
+    raw_input = input
+except AttributeError:
+    PY3 = False
+
+
 class ModeMissingException(Exception):
     pass
+
 
 #Handles operations on a group of Modes.
 class ModeController:
