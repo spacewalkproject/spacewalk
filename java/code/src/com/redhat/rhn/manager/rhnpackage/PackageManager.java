@@ -1172,12 +1172,6 @@ public class PackageManager extends BaseManager {
 
         mode.executeUpdate(params);
 
-        // Delete package sources for all packages
-        mode = ModeFactory.getWriteMode("Package_queries",
-            "delete_package_sources_from_set");
-
-        mode.executeUpdate(params);
-
         // Delete link between channel and package
         mode = ModeFactory.getWriteMode("Package_queries",
             "cleanup_package_channels_from_set");
