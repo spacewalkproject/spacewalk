@@ -14,6 +14,7 @@ java/buildconf/tempjars/*
 java/.checkstyle
 java/.classpath
 java/.externalToolBuilders
+java/.idea
 java/.pmd
 java/.project
 java/.settings/*
@@ -24,6 +25,7 @@ java/velocity.log*
 java/*.jar
 java/*.txt
 java/*.out
+java/**/*.iml
 thrift/gen-*
 search-server/spacewalk-search/.classpath
 search-server/spacewalk-search/.project
