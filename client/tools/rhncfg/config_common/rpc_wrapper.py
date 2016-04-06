@@ -28,8 +28,11 @@ except ImportError:
 
 try: # python2
     import xmlrpclib
+    import urllib
 except ImportError: # python3
     import xmlrpc.client as xmlrpclib
+    import urllib.parse as urllib
+
 
 #This is raised when the failover stuff has gone through every server in the server list
 #and the error is still occurring.
@@ -108,7 +111,6 @@ class Server(rpclib.Server):
         #                              proxy=self.rpc_args['proxy'], username=self.rpc_args['username'],\
         #                              password=self.rpc_args['password'], refreshCallback=self.rpc_args['refreshCallback'],\
         #                              progressCallback=self.rpc_args['progressCallback'])
-        import urllib
         self._uri = myuri
         typ, uri = urllib.splittype(self._uri)
         typ = typ.lower()
