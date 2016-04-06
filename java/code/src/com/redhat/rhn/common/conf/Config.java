@@ -15,13 +15,13 @@
 
 package com.redhat.rhn.common.conf;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -429,7 +429,8 @@ public class Config {
 
             Properties props = new Properties();
             try {
-                props.load(new InputStreamReader(new FileInputStream(curr), "UTF-8"));
+                String configString = FileUtils.readFileToString(curr, "UTF-8");
+                props.load(new StringReader(configString.replace("\\", "\\\\")));
             }
             catch (IOException e) {
                 logger.error("Could not parse file " + curr, e);
