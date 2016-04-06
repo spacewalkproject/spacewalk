@@ -353,4 +353,23 @@ public class ConfigTest extends RhnBaseTestCase {
         assertNull(c.getStringArray(null));
     }
 
+    /**
+     * Commenting using '#' aren't supported currently by the config parser.
+     * This test is here to document this behavior.
+     */
+    public void testComment() {
+        assertEquals(
+                "#this will NOT be a comment!",
+                c.getString("server.satellite.key_with_seeming_comment"));
+    }
+
+    /**
+     * Verify that we treat the backslash as a normal character
+     * (normally the Properties.load() would require them escaped).
+     */
+    public void testBackSlashes() {
+        assertEquals(
+                "we\\have\\backslashes", // we\have\backslashes
+                c.getString("server.satellite.key_with_backslash"));
+    }
 }
