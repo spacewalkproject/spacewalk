@@ -88,7 +88,7 @@ public class DeleteChannelAction extends RhnAction {
                 DataResult dr;
                 try {
                     dr = PackageManager.listCustomPackageForChannel(channelId,
-                            user.getOrg().getId());
+                            user.getOrg().getId(), false);
                     ChannelManager.deleteChannel(user, channelLabel);
                 }
                 catch (PermissionException e) {

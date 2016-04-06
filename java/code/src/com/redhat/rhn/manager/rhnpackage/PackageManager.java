@@ -1057,14 +1057,22 @@ public class PackageManager extends BaseManager {
     /**
      * List orphaned custom packages for an org
      * @param orgId the org
+     * @param source list source packages instead of regular
      * @return list of package overview objects
      */
-    public static DataResult listOrphanPackages(Long orgId) {
+    public static DataResult listOrphanPackages(Long orgId, boolean source) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgId);
 
-            SelectMode m = ModeFactory.getMode(
+        SelectMode m;
+        if (!source) {
+            m = ModeFactory.getMode(
                     "Package_queries", "orphan_packages");
+        }
+        else {
+            m = ModeFactory.getMode(
+                    "Package_queries", "orphan_source_packages");
+        }
 
             DataResult dr = m.execute(params);
             dr.setElaborationParams(new HashMap());
@@ -1074,14 +1082,22 @@ public class PackageManager extends BaseManager {
     /**
      * List all custom  packages for an org
      * @param orgId the org
+     * @param source list source packages instead of regular
      * @return List of custom package (PackageOverview)
      */
-    public static DataResult listCustomPackages(Long orgId) {
+    public static DataResult listCustomPackages(Long orgId, boolean source) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgId);
 
-            SelectMode m = ModeFactory.getMode(
+        SelectMode m;
+        if (!source) {
+            m = ModeFactory.getMode(
                     "Package_queries", "all_custom_packages");
+        }
+        else {
+            m = ModeFactory.getMode(
+                    "Package_queries", "all_custom_source_packages");
+        }
 
             DataResult dr = m.execute(params);
             Map elabs = new HashMap();
@@ -1094,14 +1110,24 @@ public class PackageManager extends BaseManager {
      * list custom packages contained in a channel
      * @param cid the channel id
      * @param orgId the org id
+     * @param source list source packages instead of regular
      * @return the list of custom package (package overview)
      */
-    public static DataResult listCustomPackageForChannel(Long cid, Long orgId) {
+    public static DataResult listCustomPackageForChannel(Long cid, Long orgId,
+                                                         boolean source) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgId);
         params.put("cid", cid);
-            SelectMode m = ModeFactory.getMode(
+
+        SelectMode m;
+        if (!source) {
+            m = ModeFactory.getMode(
                     "Package_queries", "custom_package_in_channel");
+        }
+        else {
+            m = ModeFactory.getMode(
+                    "Package_queries", "custom_source_package_in_channel");
+        }
 
             DataResult dr = m.execute(params);
             Map elabs = new HashMap();

@@ -1542,6 +1542,19 @@ SELECT distinct P.id AS ID,
     <elaborator name="package_details" />
 </mode>
 
+<mode name="orphan_source_packages" class="com.redhat.rhn.frontend.dto.PackageSourceOverview">
+  <query params="org_id">
+SELECT distinct PS.id AS ID,
+       SRPM.name AS NVREA,
+       PS.path as PATH
+FROM rhnPackageSource PS inner join
+     rhnSourceRPM SRPM on PS.source_rpm_id = SRPM.id left join
+     rhnPackage P on SRPM.id = P.source_rpm_id left join
+     rhnChannelPackage CP on CP.package_id = P.id
+WHERE  PS.org_id = :org_id and
+       CP.package_id is null
+  </query>
+</mode>
 
 <mode name="all_custom_packages" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="org_id">
@@ -1557,6 +1570,16 @@ SELECT distinct P.id AS ID,
     <elaborator name="package_channels" />
 </mode>
 
+<mode name="all_custom_source_packages" class="com.redhat.rhn.frontend.dto.PackageSourceOverview">
+  <query params="org_id">
+SELECT distinct PS.id AS ID,
+       SRPM.name AS NVREA,
+       PS.path as PATH
+FROM rhnPackageSource PS inner join
+     rhnSourceRPM SRPM on PS.source_rpm_id = SRPM.id
+WHERE  PS.org_id = :org_id
+  </query>
+</mode>
 
 <mode name="custom_package_in_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="cid, org_id">
@@ -1572,6 +1595,20 @@ SELECT distinct P.id AS ID,
   </query>
     <elaborator name="package_details" />
     <elaborator name="package_channels" />
+</mode>
+
+<mode name="custom_source_package_in_channel" class="com.redhat.rhn.frontend.dto.PackageSourceOverview">
+  <query params="cid, org_id">
+SELECT distinct PS.id AS ID,
+       SRPM.name AS NVREA,
+       PS.path as PATH
+FROM rhnPackageSource PS inner join
+     rhnSourceRPM SRPM on PS.source_rpm_id = SRPM.id left join
+     rhnPackage P on SRPM.id = P.source_rpm_id left join
+     rhnChannelPackage CP on CP.package_id = P.id
+WHERE  PS.org_id = :org_id and
+       CP.channel_id = :cid
+  </query>
 </mode>
 
 <!-- Runs the cache cleanup for all packages in an RhnSet. The package ID must be in

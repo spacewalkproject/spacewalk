@@ -562,18 +562,18 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
     public void testListOrphanPackages() throws Exception {
         Channel channel1 = ChannelFactoryTest.createTestChannel(user);
         Package pack = PackageTest.createTestPackage(user.getOrg());
-        List test = PackageManager.listOrphanPackages(user.getOrg().getId());
+        List test = PackageManager.listOrphanPackages(user.getOrg().getId(), false);
 
         assertTrue(test.size() == 1);
         PackageOverview packOver = (PackageOverview) test.get(0);
         assertEquals(pack.getId(), packOver.getId());
 
         channel1.addPackage(pack);
-        test = PackageManager.listOrphanPackages(user.getOrg().getId());
+        test = PackageManager.listOrphanPackages(user.getOrg().getId(), false);
 
         assertTrue(test.size() == 0);
         Package pack2 = PackageTest.createTestPackage(user.getOrg());
-        test = PackageManager.listOrphanPackages(user.getOrg().getId());
+        test = PackageManager.listOrphanPackages(user.getOrg().getId(), false);
 
         assertTrue(test.size() == 1);
 

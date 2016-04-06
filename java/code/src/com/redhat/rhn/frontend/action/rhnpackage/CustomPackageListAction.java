@@ -109,17 +109,17 @@ public class CustomPackageListAction extends RhnAction {
 
 
         if (ALL_PACKAGES.equals(selectedChan)) {
-            result = PackageManager.listCustomPackages(user.getOrg().getId());
+            result = PackageManager.listCustomPackages(user.getOrg().getId(), false);
             request.setAttribute(ALL_PACKAGES_SELECTED, true);
         }
         else if (ORPHAN_PACKAGES.equals(selectedChan)) {
-            result = PackageManager.listOrphanPackages(user.getOrg().getId());
+            result = PackageManager.listOrphanPackages(user.getOrg().getId(), false);
             request.setAttribute(ORPHAN_PACKAGES_SELECTED, true);
         }
         else {
             scid = Long.parseLong(selectedChan);
             result = PackageManager.listCustomPackageForChannel(scid,
-                    user.getOrg().getId());
+                    user.getOrg().getId(), false);
         }
 
 
