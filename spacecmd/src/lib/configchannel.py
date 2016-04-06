@@ -237,7 +237,7 @@ def do_configchannel_filedetails(self, args):
     result.append('SELinux Context: %s' % details.get('selinux_ctx'))
 
     if details.get('type') == 'file':
-        result.append('MD5:             %s' % details.get('md5'))
+        result.append('SHA256:          %s' % details.get('sha256'))
         result.append('Binary:          %s' % details.get('binary'))
 
         if not details.get('binary'):
@@ -331,7 +331,7 @@ def do_configchannel_backup(self, args):
             os.makedirs(dumpdir)
 
         if details.get('type') == 'file':
-            fh.write('md5 = %s\n' % details.get('md5'))
+            fh.write('sha256 = %s\n' % details.get('sha256'))
             fh.write('binary = %s\n' % details.get('binary'))
             of = open(dumpfile, 'w')
             of.write(details.get('contents') or '')
@@ -967,7 +967,7 @@ def export_configchannel_getdetails(self, channel):
     # string "permissions_mode"       N               N
     # string "selinux_ctx"            Y               Y
     # boolean "binary"                Y               N
-    # string "md5"                    N               N
+    # string "sha256"                 N               N
     # string "macro-start-delimiter"  Y               N
     # string "macro-end-delimiter"    Y               N
     for f in fileinfo:
@@ -999,7 +999,7 @@ def export_configchannel_getdetails(self, channel):
                         f['contents_enc64'] = b64f['contents_enc64']
 
         for k in ['channel', 'revision', 'creation', 'modified',
-                  'permissions_mode', 'binary', 'md5']:
+                  'permissions_mode', 'binary', 'sha256']:
             if k in f:
                 del f[k]
 

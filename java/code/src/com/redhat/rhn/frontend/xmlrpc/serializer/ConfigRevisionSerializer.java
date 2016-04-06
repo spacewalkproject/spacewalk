@@ -61,7 +61,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *                                      Present for files or directories only.")
  *   #prop_desc("string", "selinux_ctx", "SELinux Context (optional).")
  *   #prop_desc("boolean", "binary", "true/false , Present for files only.")
- *   #prop_desc("string", "md5", "File's md5 signature. Present for files only.")
+ *   #prop_desc("string", "sha256", "File's sha256 signature. Present for files only.")
  *   #prop_desc("string", "macro-start-delimiter",
  *          "Macro start delimiter for a config file. Present for text files only.")
  *   #prop_desc("string", "macro-end-delimiter",
@@ -123,7 +123,7 @@ public class ConfigRevisionSerializer extends RhnXmlRpcCustomSerializer {
 
         if (rev.isFile()) {
             helper.add(BINARY, rev.getConfigContent().isBinary());
-            helper.add("md5", rev.getConfigContent().getChecksum().getChecksum());
+            helper.add("sha256", rev.getConfigContent().getChecksum().getChecksum());
             if (rev instanceof EncodedConfigRevision || rev.getConfigContent().isBinary()) {
                 addEncodedFileContent(rev, helper);
             }
