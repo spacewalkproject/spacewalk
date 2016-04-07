@@ -18867,6 +18867,9 @@ given channel.</source>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>
       </trans-unit>
+      <trans-unit id="channel.jsp.package.viewsourcepackages">
+        <source>Source Packages</source>
+      </trans-unit>
       <trans-unit id="channel.jsp.package.addsuccess">
         <source>{0} package(s) added to channel {1}
         </source>

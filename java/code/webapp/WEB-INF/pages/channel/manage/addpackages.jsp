@@ -23,6 +23,7 @@
     <jsp:param name="option_no_packages" value="false"/>
     <jsp:param name="option_all_packages" value="true"/>
     <jsp:param name="option_orphan_packages" value="true"/>
+    <jsp:param name="option_source_packages" value="false"/>
 </jsp:include>
 
                   <rl:list dataset="pageList" name="packageList"
