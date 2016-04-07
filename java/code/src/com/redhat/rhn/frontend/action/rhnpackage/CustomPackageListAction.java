@@ -88,8 +88,6 @@ public class CustomPackageListAction extends RhnAction {
         }
 
 
-
-
         String selectedChan = request.getParameter(SELECTED_CHANNEL);
         DataResult result = null;
 
@@ -107,19 +105,23 @@ public class CustomPackageListAction extends RhnAction {
                 selectedChan = ORPHAN_PACKAGES;
         }
 
+        boolean sourcePackagesChecked =
+                (request.getParameter("source_checked") != null) ? true : false;
 
         if (ALL_PACKAGES.equals(selectedChan)) {
-            result = PackageManager.listCustomPackages(user.getOrg().getId(), false);
+            result = PackageManager.listCustomPackages(user.getOrg().getId(),
+                    sourcePackagesChecked);
             request.setAttribute(ALL_PACKAGES_SELECTED, true);
         }
         else if (ORPHAN_PACKAGES.equals(selectedChan)) {
-            result = PackageManager.listOrphanPackages(user.getOrg().getId(), false);
+            result = PackageManager.listOrphanPackages(user.getOrg().getId(),
+                    sourcePackagesChecked);
             request.setAttribute(ORPHAN_PACKAGES_SELECTED, true);
         }
         else {
             scid = Long.parseLong(selectedChan);
             result = PackageManager.listCustomPackageForChannel(scid,
-                    user.getOrg().getId(), false);
+                    user.getOrg().getId(), sourcePackagesChecked);
         }
 
 
@@ -127,15 +129,10 @@ public class CustomPackageListAction extends RhnAction {
         //      is selected, select it
         List<SelectableChannel> chanList = findChannels(user, scid);
 
-
-
-
-
         RhnListSetHelper helper = new RhnListSetHelper(request);
 
-
         //true if they clicked view packages
-        boolean viewPackagesPressed =  LocalizationService.getInstance().getMessage(
+        boolean viewPackagesPressed = LocalizationService.getInstance().getMessage(
             "channel.jsp.package.viewpackages").equals(request.getParameter("view"));
         boolean forwarded =  request.getParameter("forwarded") != null;
 
@@ -151,8 +148,6 @@ public class CustomPackageListAction extends RhnAction {
             helper.execute(set, listName, result);
         }
 
-
-
         if (!set.isEmpty()) {
             helper.syncSelections(set, result);
             ListTagHelper.setSelectedAmount(listName, set.size(), request);
@@ -162,8 +157,7 @@ public class CustomPackageListAction extends RhnAction {
                 request);
         TagHelper.bindElaboratorTo(listName, result.getElaborator(), request);
 
-
-
+        request.setAttribute("source_checked", sourcePackagesChecked);
         request.setAttribute("channel_list", chanList);
 
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
