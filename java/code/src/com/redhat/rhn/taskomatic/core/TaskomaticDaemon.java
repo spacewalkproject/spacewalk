@@ -18,7 +18,6 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
-import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -76,21 +75,23 @@ public class TaskomaticDaemon  extends BaseDaemon {
     }
 
     protected int onStartup(CommandLine commandLine) {
-        Logger log = Logger.getLogger(this.getClass());
         Map overrides = null;
         int retval = BaseDaemon.SUCCESS;
 
         //since the cobbler sync tasks rely on tomcat to be up
         //   let sleep until it is up
+        logMessage(BaseDaemon.LOG_STATUS, "Waiting for tomcat...", null);
         while (!isTomcatUp()) {
             try {
-                log.info("Tomcat is not up yet, sleeping 4 seconds");
+                logMessage(BaseDaemon.LOG_STATUS, "Tomcat is not up yet, sleeping 4 seconds", null);
                 Thread.sleep(4000);
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        logMessage(BaseDaemon.LOG_STATUS, "Tomcat up...", null);
+
         if (commandLine != null) {
             overrides = parseOverrides(commandLine);
         }
