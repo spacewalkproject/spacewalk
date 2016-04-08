@@ -23,8 +23,15 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: python-devel
 Requires: python
+%if 0%{?fedora} >= 23
+Requires: python3-rhnlib
+Requires: python3-spacewalk-backend-usix
+Requires: python3-jabberpy
+%else
 Requires: rhnlib >= 1.8-3
+Requires: spacewalk-backend-usix
 Requires: jabberpy
+%endif
 Requires: osa-common = %{version}
 %if 0%{?rhel} && 0%{?rhel} < 6
 Requires: rhn-client-tools >= 0.4.20-66
@@ -156,6 +163,9 @@ sed -i 's@^#!/usr/bin/python$@#!/usr/bin/python -s@' invocation.py
 
 %build
 make -f Makefile.osad all
+%if 0%{?fedora} >= 23
+    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' src/*.py invocation.py
+%endif
 
 %if 0%{?include_selinux_package}
 %{__perl} -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' osa-dispatcher-selinux/%{modulename}.te

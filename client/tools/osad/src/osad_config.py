@@ -15,9 +15,14 @@
 
 import os
 import sys
-import ConfigParser
+
+try: # python 3
+    import configparser as ConfigParser
+except ImportError: # python 2
+    import ConfigParser
 
 InterpolationError = ConfigParser.InterpolationError
+
 
 class ClientConfigParser(ConfigParser.ConfigParser):
     _instance = None
@@ -35,9 +40,10 @@ class ClientConfigParser(ConfigParser.ConfigParser):
 
         try:
             self.read(self._get_config_files())
-        except ConfigParser.MissingSectionHeaderError, e:
-            print "Config error: line %s, file %s: %s" % (e.lineno,
-                e.filename, e)
+        except ConfigParser.MissingSectionHeaderError:
+            e = sys.exc_info()[1]
+            print("Config error: line %s, file %s: %s" % (e.lineno,
+                e.filename, e))
             sys.exit(1)
 
     def _get_config_files(self):
@@ -48,12 +54,13 @@ class ClientConfigParser(ConfigParser.ConfigParser):
     def get_option(self, option, defval=None):
         try:
             return self.get(self.section, option, vars=self.overrides)
-        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError), e:
+        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError):
+            e = sys.exc_info()[1]
             pass
 
         defaults = self.defaults()
 
-        if defaults.has_key(option):
+        if option in defaults:
             return defaults[option]
 
         return defval
@@ -83,7 +90,7 @@ def get(var, defval=None):
 
 def _get_config():
     if ClientConfigParser._instance is None:
-        raise ValueError, "Configuration not initialized"
+        raise ValueError("Configuration not initialized")
     return ClientConfigParser._instance
 
 def instance():
@@ -107,7 +114,7 @@ def get_auth_info(auth_file, section, force, **defaults):
             _modified = 1
     if _modified:
         fd = os.open(c._global_config_file,
-            os.O_CREAT | os.O_TRUNC | os.O_WRONLY, 0600)
+            os.O_CREAT | os.O_TRUNC | os.O_WRONLY, int("0600", 8))
         f = os.fdopen(fd, "w")
         f.write("# Automatically generated. Do not edit!\n\n")
         c.write(f)
@@ -116,12 +123,12 @@ def get_auth_info(auth_file, section, force, **defaults):
 
 def main():
     init('osad')
-    print "server_url: %s" % get("server_url")
+    print("server_url: %s" % get("server_url"))
 
     auth_file = "/tmp/osad-auth.conf"
     section = "osad-auth"
     c = get_auth_info(auth_file, section, username="aaa", password="bbb")
-    print c.keys()
+    print(c.keys())
 
 if __name__ == '__main__':
     main()

@@ -20,14 +20,20 @@ import time
 import select
 import socket
 import random
-import string
 import fnmatch
 from optparse import OptionParser, Option
 import traceback
-from cStringIO import StringIO
 from rhn import SSL
 
-from rhn_log import log_debug, log_error
+try: # python 3
+    from io import StringIO
+    from osad.rhn_log import log_debug, log_error
+except ImportError: # python 2
+    from cStringIO import StringIO
+    from rhn_log import log_debug, log_error
+
+from spacewalk.common.usix import raise_with_tb
+from rhn.i18n import bstr
 
 import warnings
 try:
@@ -128,12 +134,14 @@ class Runner:
                 sys.exit(0)
             except SystemExit:
                 raise
-            except RestartRequested, e:
+            except RestartRequested:
+                e = sys.exc_info()[1]
                 log_error("Restart requested", e)
                 if not self.is_in_background():
                     self.push_to_background()
                 continue
-            except NeedRestart, e:
+            except NeedRestart:
+                e = sys.exc_info()[1]
                 log_debug(3, "Need Restart")
                 force_setup = 1
                 continue
@@ -147,7 +155,8 @@ class Runner:
                     time.sleep(time_to_sleep)
                 except KeyboardInterrupt:
                     sys.exit(0)
-            except InvalidCertError, e:
+            except InvalidCertError:
+                e = sys.exc_info()[1]
                 log_error("Invalid Cert Error:")
                 raise
             except:
@@ -212,14 +221,15 @@ class Runner:
         if pid_file:
             try:
                 os.unlink(pid_file)
-            except OSError, e:
+            except OSError:
+                e = sys.exc_info()[1]
                 if e.errno != 2:
                     raise
             try:
                 # Make sure we don't create the file world-writable (#162619)
-                fd = os.open(pid_file, os.O_WRONLY| os.O_APPEND | os.O_CREAT, 0644)
-                os.write(fd, str(os.getpid()))
-                os.write(fd, "\n")
+                fd = os.open(pid_file, os.O_WRONLY| os.O_APPEND | os.O_CREAT, int("0644", 8))
+                os.write(fd, bstr("%d" % os.getpid()))
+                os.write(fd, bstr("\n"))
                 os.close(fd)
             except OSError:
                 pass
@@ -260,15 +270,18 @@ class Runner:
             except SSLHandshakeError:
                 # Error doing the handshake - this is a permanent error
                 sys.exit(1)
-            except socket.error, e:
+            except socket.error:
+                e = sys.exc_info()[1]
                 self.print_message(js, "socket error")
                 log_error(extract_traceback())
                 continue
-            except JabberError, e:
+            except JabberError:
+                e = sys.exc_info()[1]
                 self.print_message(js, "JabberError")
                 log_error(extract_traceback())
                 continue
-            except SSLError, e:
+            except SSLError:
+                e = sys.exc_info()[1]
                 self.print_message(js, "SSLError")
                 log_error(extract_traceback())
                 continue
@@ -300,12 +313,12 @@ class Runner:
         """Returns a connected Jabber client, or raises an exception if it was
         unable to connect"""
         log_debug(3)
-        arr = string.split(jabber_server, ':', 1)
+        arr = jabber_server.split(':', 1)
         jabber_server = arr[0]
         cf = self.read_config()
 
         jabberpy_proxy_dict = None
-        if self._use_proxy and cf.has_key('proxy_url'):
+        if self._use_proxy and 'proxy_url' in cf:
             jabberpy_proxy_dict = {'host': cf['proxy_url'].split(':')[0],
                                    'port': int(cf['proxy_url'].split(':')[1])}
             if cf['enable_proxy_auth']:
@@ -335,7 +348,7 @@ class Runner:
 
 class InvalidCertError(SSL.SSL.Error):
     def __str__(self):
-        return string.join(self.args, " ")
+        return " ".join(self.args)
     __repr__ = __str__
 
 def check_cert(cert_path):
@@ -344,19 +357,19 @@ def check_cert(cert_path):
     try:
         cert = open(cert_path).read()
     except IOError:
-        raise InvalidCertError("Unable to read file", cert_path), None, sys.exc_info()[2]
+        raise_with_tb(InvalidCertError("Unable to read file", cert_path), sys.exc_info()[2])
     try:
         x509 = SSL.crypto.load_certificate(SSL.crypto.FILETYPE_PEM, cert)
     except SSL.crypto.Error:
-        raise InvalidCertError("Unable to open certificate", cert_path), None, sys.exc_info()[2]
+        raise_with_tb(InvalidCertError("Unable to open certificate", cert_path), sys.exc_info()[2])
     log_debug(4, "Loading cert", x509.get_subject())
     if x509.has_expired():
         raise InvalidCertError("Expired certificate", cert_path)
 
 def sign(secret_key, *values):
-    h = hashlib.new('sha1', secret_key).hexdigest()
+    h = hashlib.new('sha1', bstr(secret_key)).hexdigest()
     for v in values:
-        h = hashlib.new('sha1', h + str(v)).hexdigest()
+        h = hashlib.new('sha1', bstr("%s%s" % (h, v))).hexdigest()
     return h
 
 # getAttr is braindead, rewrite it
@@ -395,7 +408,7 @@ class Handlers:
     def _get_callbacks(self, stanza):
         log_debug(5, stanza)
         stanza_name = stanza.getName()
-        if not self._handlers.has_key(stanza_name):
+        if stanza_name not in self._handlers:
             return []
         stanza_id = stanza.getID()
         stanza_ns = stanza.getNamespace()
@@ -412,7 +425,7 @@ class Handlers:
             cbs = h_ns.get(stanza_ns, [])
             self._get_callbacks_from_list(cbs, result)
         self._get_callbacks_from_list(l_def, result)
-        return result.keys()
+        return list(result.keys())
 
     def _get_callbacks_from_list(self, l, result_hash):
         for ent in l:
@@ -463,7 +476,7 @@ class Handlers:
         l_def.append(callback_entry)
 
     def _get_from_hash(self, h, key, default_value):
-        if h.has_key(key):
+        if key in h:
             val = h[key]
         else:
             val = h[key] = default_value
@@ -496,7 +509,7 @@ class Handlers:
             vals.remove(val)
 
 def my_debug(*args):
-    print "Debugging:", args
+    print("Debugging:", args)
 
 class RestartRequested(Exception):
     pass
@@ -530,7 +543,7 @@ class JabberQualifiedError(JabberError):
     def __init__(self, errcode, err, *args):
         self.errcode = errcode
         self.err = err
-        apply(JabberError.__init__, (self, ) + args)
+        JabberError.__init__(self, *args)
 
     def __repr__(self):
         return "<%s instance at %s; errcode=%s; err=%s>" % (
@@ -544,7 +557,7 @@ class JabberClient(jabber.Client, object):
 
     def __init__(self, *args, **kwargs):
         log_debug(1)
-        apply(jabber.Client.__init__, (self, ) + args, kwargs)
+        jabber.Client.__init__(self, *args, **kwargs)
         self.jid = None
         # Lots of magic to add the nodes into a queue
         self._incoming_node_queue = []
@@ -592,7 +605,8 @@ class JabberClient(jabber.Client, object):
         for retry in range(0,3):
             try:
                 jabber.Client.connect(self)
-            except socket.error, e:
+            except socket.error:
+                e = sys.exc_info()[1]
                 log_error("Error connecting to jabber server: %s. "
                       "See https://access.redhat.com/solutions/327903 for more information. " % e)
                 raise socket.error(e)
@@ -650,7 +664,7 @@ class JabberClient(jabber.Client, object):
             # Error in the SSL handshake - most likely mismatching CA cert
             log_error("Traceback caught:")
             log_error(extract_traceback())
-            raise SSLHandshakeError, None, sys.exc_info()[2]
+            raise_with_tb(SSLHandshakeError, sys.exc_info()[2])
 
         # Re-init the parsers
         jabber.xmlstream.Stream.connect(self)
@@ -751,7 +765,7 @@ class JabberClient(jabber.Client, object):
 
         # All entries of type "from" and ask="subscribe" should be answered to
         for k, v in self._roster.get_subscribed_from().items():
-            if v.has_key('ask') and v['ask'] == 'subscribe':
+            if 'ask' in v and v['ask'] == 'subscribe':
                 self.send_presence(k, type="subscribed")
             else:
                 # Ask for a subscription
@@ -825,7 +839,7 @@ class JabberClient(jabber.Client, object):
         """Builds one stanza according to the handlers we have registered via
         registerHandler or registerProtocol"""
         name = stanza.getName()
-        if not self.handlers.has_key(name):
+        if name not in self.handlers:
             name = 'unknown'
         # XXX This is weird - why is jabbberpy using type which is a type?
         stanza = self.handlers[name][type](node=stanza)
@@ -872,7 +886,8 @@ class JabberClient(jabber.Client, object):
 
         try:
             auth_response = self.waitForResponse(auth_iq_id, timeout=60)
-        except JabberQualifiedError, e:
+        except JabberQualifiedError:
+            e = sys.exc_info()[1]
             if not register:
                 raise
             if e.errcode == '401':
@@ -904,14 +919,15 @@ class JabberClient(jabber.Client, object):
         elif auth_ret_query.getTag('digest'):
             digest = q.insertTag('digest')
             digest.insertData(hashlib.new('sha1',
-                self.getIncomingID() + password).hexdigest() )
+                bstr(self.getIncomingID() + password)).hexdigest() )
         else:
             q.insertTag('password').insertData(password)
 
         log_debug(4, "Sending auth info", auth_set_iq)
         try:
             self.SendAndWaitForResponse(auth_set_iq)
-        except JabberQualifiedError, e:
+        except JabberQualifiedError:
+            e = sys.exc_info()[1]
             if e.errcode == '401':
                 # Need to reserve the user if possible
                 log_debug(4, "Need to register")
@@ -957,24 +973,24 @@ class JabberClient(jabber.Client, object):
         for full_jid in jids:
             jid = self._strip_resource(full_jid)
             jid = str(jid)
-            if subscribed_both.has_key(jid):
+            if jid in subscribed_both:
                 log_debug(4, "Already subscribed to the presence of node", jid)
                 continue
             # If to or from subscription for this node, we still send the
             # subscription request, but we shouldn't drop the subscription, so
             # we take the jid out of the respective hash
-            if subscribed_to.has_key(jid):
+            if jid in subscribed_to:
                 log_debug(4, "Subscribed to")
                 continue
-            if subscribed_none.has_key(jid):
+            if jid in subscribed_none:
                 ent = subscribed_none[jid]
-                if ent.has_key('ask') and ent['ask'] == 'subscribe':
+                if 'ask' in ent and ent['ask'] == 'subscribe':
                     log_debug(4, "Subscribed none + ask=subscribe")
                     # We already asked for a subscription
                     continue
-            if subscribed_from.has_key(jid):
+            if jid in subscribed_from:
                 ent = subscribed_from[jid]
-                if ent.has_key('ask') and ent['ask'] == 'subscribe':
+                if 'ask' in ent and ent['ask'] == 'subscribe':
                     log_debug(4, "Subscribed from + ask=subscribe")
                     # We already asked for a subscription
                     continue
@@ -983,7 +999,7 @@ class JabberClient(jabber.Client, object):
             # presence subscriptions twice
             # At this point we should only have 2 cases left: either from or
             # none.
-            if self._roster._subscribed_from.has_key(jid):
+            if jid in self._roster._subscribed_from:
                 subscription = "from"
                 hashd = self._roster._subscribed_from
             else:
@@ -1079,10 +1095,11 @@ class JabberClient(jabber.Client, object):
                 log_debug(5, "Reading %s bytes from ssl socket" % self.BLOCK_SIZE)
                 try:
                     data = self._read(self.BLOCK_SIZE)
-                except SSL.SSL.SysCallError, e:
+                except SSL.SSL.SysCallError:
+                    e = sys.exc_info()[1]
                     log_debug(5, "Closing socket")
                     self._non_ssl_sock.close()
-                    raise SSLError("OpenSSL error; will retry", str(e)), None, sys.exc_info()[2]
+                    raise_with_tb(SSLError("OpenSSL error; will retry", str(e)), sys.exc_info()[2])
                 log_debug(5, "Read %s bytes" % len(data))
                 if not data:
                     raise JabberError("Premature EOF")
@@ -1117,13 +1134,14 @@ class JabberClient(jabber.Client, object):
         log_debug(2, username, password)
         self.requestRegInfo()
         d = self.getRegInfo()
-        if d.has_key('username'):
+        if 'username' in d:
             self.setRegInfo('username', username)
-        if d.has_key('password'):
+        if 'password' in d:
             self.setRegInfo('password', password)
         try:
             self.sendRegInfo()
-        except JabberQualifiedError, e:
+        except JabberQualifiedError:
+            e = sys.exc_info()[1]
             if e.errcode == '409':
                 # Need to register the user if possible
                 log_error("Invalid password")
@@ -1221,7 +1239,7 @@ class JabberClient(jabber.Client, object):
         addition = []
         for k, v in attrs.items():
             addition.append("%s='%s'" % (k, v))
-        addition = string.join(addition, " ")
+        addition = " ".join(addition)
         return templ % addition
 
     def header(self):
@@ -1266,7 +1284,7 @@ class JabberClient(jabber.Client, object):
 
             #sig = self._check_signature(stanza)
             #if not sig:
-            #    print "KKKKKK", stanza
+            #    print("KKKKKK", stanza)
             #    log_debug(1, "Invalid signature", jid)
             #    return
 
@@ -1313,8 +1331,7 @@ class JabberClient(jabber.Client, object):
         if namespace is None:
             # Nothing more to look for
             return tags
-        return filter(lambda x, ns=namespace: x.getNamespace() == ns,
-            tags)
+        return [x for x in tags if x.getNamespace() == namespace]
 
     def _check_signature_from_message(self, stanza, actions):
         log_debug(4, stanza)
@@ -1358,9 +1375,9 @@ def generate_random_string(length=20):
     random_bytes = 16
     length = int(length)
     s = hashlib.new('sha1')
-    s.update("%.8f" % time.time())
-    s.update(str(os.getpid()))
-    devrandom = open('/dev/urandom')
+    s.update(bstr("%.8f" % time.time()))
+    s.update(bstr("%s" % os.getpid()))
+    devrandom = open('/dev/urandom', "rb+")
     result = []
     cur_length = 0
     while 1:
@@ -1373,8 +1390,8 @@ def generate_random_string(length=20):
 
     devrandom.close()
 
-    result = string.join(result, '')[:length]
-    return string.lower(result)
+    return ''.join(result)[:length].lower()
+    
 
 def push_to_background():
     log_debug(3, "Pushing process into background")
@@ -1401,8 +1418,8 @@ def push_to_background():
 
     #files we want stdin,stdout and stderr to point to.
     si = open("/dev/null", 'r')
-    so = open("/dev/null", 'a+')
-    se = open("/dev/null", 'a+', 0)
+    so = open("/dev/null", 'ab+')
+    se = open("/dev/null", 'ab+', 0)
 
     os.dup2(si.fileno(), sys.stdin.fileno())
     os.dup2(so.fileno(), sys.stdout.fileno())
@@ -1446,7 +1463,7 @@ class Roster:
                 if subscr == a:
                     # Set it
                     d[jid] = entry
-                elif d.has_key(jid):
+                elif jid in d:
                     # Remove it
                     del d[jid]
 
@@ -1481,11 +1498,11 @@ class Roster:
 
     def set_unavailable(self, jid):
         jid = str(jid)
-        if self._available_nodes.has_key(jid):
+        if jid in self._available_nodes:
             del self._available_nodes[jid]
 
     def jid_available(self, jid):
-        return self._available_nodes.has_key(jid)
+        return jid in self._available_nodes
 
     def clear(self):
         self._subscribed_to.clear()

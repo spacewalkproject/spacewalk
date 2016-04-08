@@ -24,8 +24,10 @@ from spacewalk.common.rhnLog import initLOG, log_debug, log_error
 from spacewalk.common.rhnConfig import initCFG, CFG
 from spacewalk.server import rhnSQL
 
-import jabber_lib
-import dispatcher_client
+try: # python 3
+    from osad import jabber_lib, dispatcher_client
+except ImportError: # python 2
+    import jabber_lib, dispatcher_client
 
 # Override the log functions
 jabber_lib.log_debug = log_debug
@@ -103,7 +105,8 @@ class Runner(jabber_lib.Runner):
         ssl_cert = CFG.osa_ssl_cert
         try:
             self.check_cert(ssl_cert)
-        except jabber_lib.InvalidCertError, e:
+        except jabber_lib.InvalidCertError:
+            e = sys.exc_info()[1]
             log_error("Invalid SSL certificate:", e)
             return 1
 
@@ -147,7 +150,7 @@ class Runner(jabber_lib.Runner):
         log_debug(4, "Subscribed both", c._roster.get_subscribed_both())
 
         client_jids = self._get_client_jids()
-        client_jids = map(lambda x: x[0], client_jids)
+        client_jids = [x[0] for x in client_jids]
 
         # self-healing no longer works correctly since we blow away jabberd's
         # db on restart. Instead try to resubscribe jabberd to active jids manually.
@@ -175,7 +178,7 @@ class Runner(jabber_lib.Runner):
         for jid in roster_jids.keys():
             stripped_jid = jabber_lib.strip_resource(jid)
             stripped_jid = str(stripped_jid)
-            if not active_stripped_jids.has_key(stripped_jid):
+            if stripped_jid not in active_stripped_jids:
                 to_remove.append(stripped_jid)
 
         client.cancel_subscription(to_remove)
@@ -255,7 +258,7 @@ class Runner(jabber_lib.Runner):
         # XXX Need config option
         delta = 20
 
-        client_ids = map(lambda x: x['id'], clients)
+        client_ids = [x['id'] for x in clients]
         deltas = [ delta ] * len(client_ids)
         h = rhnSQL.prepare(self._query_update_clients_to_be_pinged)
         h.executemany(client_id=client_ids, delta=deltas)
@@ -263,7 +266,7 @@ class Runner(jabber_lib.Runner):
         return clients
 
     def _get_push_state_id(self, state):
-        if self._state_ids.has_key(state):
+        if state in self._state_ids:
             return self._state_ids[state]
 
         t = rhnSQL.Table('rhnPushClientState', 'label')
@@ -442,7 +445,8 @@ def bind_server(start_port=1290):
         server_addr = ('', port)
         try:
             return UpstreamServer(server_addr)
-        except SocketServer.socket.error, e:
+        except SocketServer.socket.error:
+            e = sys.exc_info()[1]
             if e[0] != 98:
                 # address already in use
                 raise

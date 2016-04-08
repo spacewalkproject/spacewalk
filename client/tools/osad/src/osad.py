@@ -16,8 +16,7 @@
 import re
 import sys
 import time
-import types
-import string
+from spacewalk.common.usix import ListType
 from rhn import rpclib
 import random
 import socket
@@ -25,11 +24,21 @@ import socket
 from up2date_client.config import initUp2dateConfig
 from up2date_client import config
 
-from rhn_log import set_debug_level, log_debug, die, set_logfile
+try: # python 3
+    PY3 = sys.version_info.major >= 3
+except AttributeError: # python 2
+    PY3 = False
 
-import jabber_lib
-import osad_config
-import osad_client
+if PY3:
+    import urllib.parse as urlparse
+    from osad.rhn_log import set_debug_level, log_debug, die, set_logfile
+    from osad import jabber_lib, osad_config, osad_client
+else:
+    import urlparse
+    from rhn_log import set_debug_level, log_debug, die, set_logfile
+    import jabber_lib
+    import osad_config
+    import osad_client
 
 def main():
     return Runner().main()
@@ -132,7 +141,7 @@ class Runner(jabber_lib.Runner):
             if upstream_jabber_server not in self._jabber_servers:
                 self._jabber_servers.append(upstream_jabber_server)
 
-        if not config.has_key('enable_failover') or config['enable_failover'] != '1':
+        if 'enable_failover' not in config or config['enable_failover'] != '1':
             self._jabber_servers = [self._jabber_servers[0]]
 
         # Load the config
@@ -149,7 +158,6 @@ class Runner(jabber_lib.Runner):
 
 
     def _parse_url(self, url, scheme="http"):
-        import urlparse
         sch, netloc, path, params, query, fragment = urlparse.urlparse(url)
         if not netloc:
             # No schema - trying to patch it up ourselves?
@@ -170,7 +178,7 @@ class Runner(jabber_lib.Runner):
                 xmlrpc_params['uri'] = url
                 break
 
-        server = apply(rpclib.Server, (), xmlrpc_params)
+        server = rpclib.Server(**xmlrpc_params)
         self._xmlrpc_server = server
 
         client_ssl_cert = self._config_options['ssl_ca_cert']
@@ -181,7 +189,7 @@ class Runner(jabber_lib.Runner):
         server.registration.welcome_message()
 
         server_capabilities = get_server_capability(server)
-        if not server_capabilities.has_key('registration.register_osad'):
+        if 'registration.register_osad' not in server_capabilities:
             raise Exception("Server does not support OSAD registration")
 
         self._systemid_file = self._config_options['systemid']
@@ -272,7 +280,8 @@ class Runner(jabber_lib.Runner):
 
         try:
             server_url = osad_config.get('server_url')
-        except osad_config.InterpolationError, e:
+        except osad_config.InterpolationError:
+            e = sys.exc_info()[1]
             server_url = config.getServerlURL()
         else:
             if not server_url:
@@ -342,7 +351,7 @@ class Runner(jabber_lib.Runner):
         osa_ssl_cert = self._config.get_option('osa_ssl_cert')
         # The up2date ssl cert - we get it from up2daate's config file
         client_ca_cert = self.get_up2date_config()['sslCACert']
-        if isinstance(client_ca_cert, types.ListType):
+        if isinstance(client_ca_cert, ListType):
             if client_ca_cert:
                 client_ca_cert = client_ca_cert[0]
             else:
@@ -372,7 +381,7 @@ class Runner(jabber_lib.Runner):
             'proxy_url'         : 'proxy',
         }
         for k, v in kmap.items():
-            if config.has_key(k):
+            if k in config:
                 val = config[k]
                 if val is not None:
                     ret[v] = val
@@ -381,7 +390,7 @@ class Runner(jabber_lib.Runner):
     def read_auth_info(self, force):
         # generate some defaults
         resource = 'osad'
-        username = 'osad-' + jabber_lib.generate_random_string(10)
+        username = 'osad-%s' % jabber_lib.generate_random_string(10)
         password = jabber_lib.generate_random_string(20)
 
         # Get the path to the auth info file - may be None
@@ -395,16 +404,20 @@ def get_server_capability(s):
     if headers is None:
         # No request done yet
         return {}
-    cap_headers = headers.getallmatchingheaders("X-RHN-Server-Capability")
+    if PY3:
+        cap_headers = ["X-RHN-Server-Capability: %s" % val for val in headers.get_all("X-RHN-Server-Capability")]
+    else:
+        cap_headers = headers.getallmatchingheaders("X-RHN-Server-Capability")
+
     if not cap_headers:
         return {}
     regexp = re.compile(
             r"^(?P<name>[^(]*)\((?P<version>[^)]*)\)\s*=\s*(?P<value>.*)$")
     vals = {}
     for h in cap_headers:
-        arr = string.split(h, ':', 1)
+        arr = h.split(':', 1)
         assert len(arr) == 2
-        val = string.strip(arr[1])
+        val = arr[1].strip()
         if not val:
             continue
 
@@ -414,7 +427,7 @@ def get_server_capability(s):
             continue
         vdict = mo.groupdict()
         for k, v in vdict.items():
-            vdict[k] = string.strip(v)
+            vdict[k] = v.strip()
 
         vals[vdict['name']] = vdict
     return vals
