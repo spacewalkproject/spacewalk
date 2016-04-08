@@ -23,7 +23,7 @@ class SimpleClient(jabber_lib.JabberClient):
         t0 = time.time()
         self.auth(username, password, resource)
         t1 = time.time()
-        print "TIMING: auth: %.3f" % (t1 - t0)
+        print("TIMING: auth: %.3f" % (t1 - t0))
         self.username = username
         self.resource = resource
         self.jid = "%s@%s/%s" % (self.username, self._host, self.resource)
@@ -74,20 +74,20 @@ class SimpleRunner(jabber_lib.Runner):
         self._username = self.options.username
         self._password = self.options.password
         if not self._username:
-            print "Missing username"
+            print("Missing username")
             sys.exit(0)
         if not self._password:
-            print "Missing password"
+            print("Missing password")
             sys.exit(0)
         if self.options.resource:
             self._resource = self.options.resource
 
         if not self.options.jabberd:
-            print "Missing jabber servers"
+            print("Missing jabber servers")
             sys.exit(0)
 
         if not self.options.trusted_cert:
-            print "Missing trusted cert"
+            print("Missing trusted cert")
             sys.exit(0)
         self.ssl_cert = self.options.trusted_cert
 

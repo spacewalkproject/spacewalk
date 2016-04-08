@@ -16,8 +16,8 @@
 import os
 import sys
 import time
-import string
 import traceback
+from rhn.i18n import bstr
 
 class Logger:
     debug_level = 1
@@ -31,7 +31,7 @@ class Logger:
             info_out =  (
                 time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time())),
                 self.get_caller(),
-                string.join(map(str, args))
+                " ".join([str(x) for x in args])
             )
 
             outstring = "%s %s: %s\n" % info_out
@@ -39,8 +39,8 @@ class Logger:
 
             if not Logger.logfile is None:
                 try:
-                    fd = os.open(Logger.logfile, os.O_APPEND | os.O_RDWR | os.O_CREAT, 0600)
-                    os.write(fd, outstring)
+                    fd = os.open(Logger.logfile, os.O_APPEND | os.O_RDWR | os.O_CREAT, int("0600", 8))
+                    os.write(fd, bstr(outstring))
                     os.close(fd)
                 except IOError:
                     raise
@@ -53,13 +53,13 @@ class Logger:
         callid = len(tbStack) - caller_offset
         module = tbStack[callid]
         module_file = os.path.basename(module[0])
-        module_file = string.split(module_file, '.', 1)[0]
+        module_file = module_file.split('.', 1)[0]
         return "%s.%s" % (module_file, module[2])
 
     def log_error(self, *args):
-        log_debug(self, 0, *args)
-        line = map(str, args)
-        sys.stderr.write(string.join(line))
+        self.log_debug(0, *args)
+        line = [str(x) for x in args]
+        sys.stderr.write(" ".join(line))
         sys.stderr.write("\n")
 
     def die(self, error_code, *args):
@@ -67,20 +67,20 @@ class Logger:
         sys.exit(error_code)
 
 def set_logfile(*args):
-    return apply( Logger().set_logfile, args )
+    return Logger().set_logfile(*args)
 
 def set_debug_level(*args):
-    return apply(Logger().set_debug_level, args)
+    return Logger().set_debug_level(*args)
 
 def get_debug_level():
     return Logger().debug_level
 
 def log_debug(*args):
-    return apply(Logger().log_debug, args)
+    return Logger().log_debug(*args)
 
 def log_error(*args):
-    return apply(Logger().log_error, args)
+    return Logger().log_error(*args)
 
 def die(error_code, *args):
-    apply(Logger().log_error, args)
+    Logger().log_error(*args)
     sys.exit(error_code)

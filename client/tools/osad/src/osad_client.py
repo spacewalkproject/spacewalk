@@ -15,17 +15,27 @@
 
 import os
 import time
-import string
+import sys
 from subprocess import Popen
-import jabber_lib
-from rhn_log import log_debug
+
+try: # python 3
+    PY3 = sys.version_info.major >= 3
+except AttributeError: # python 2
+    PY3 = False
+
+if PY3:
+    from osad.rhn_log import log_debug
+    from osad import jabber_lib
+else:
+    from rhn_log import log_debug
+    import jabber_lib
 
 class Client(jabber_lib.JabberClient):
 
     RHN_CHECK_CMD = '/usr/sbin/rhn_check'
 
     def __init__(self, *args, **kwargs):
-        apply(jabber_lib.JabberClient.__init__, (self, ) + args, kwargs)
+        jabber_lib.JabberClient.__init__(self, *args, **kwargs)
         self.username = None
         self.resource = None
         self.client_id = None
@@ -73,7 +83,7 @@ class Client(jabber_lib.JabberClient):
             args.append(attrs[sc])
 
         log_debug(4, "Signature args", args)
-        attrs['signature'] = apply(jabber_lib.sign, args)
+        attrs['signature'] = jabber_lib.sign(*args)
 
         x = jabber_lib.jabber.xmlstream.Node('x')
         x.setNamespace(jabber_lib.NS_RHN_SIGNED)
@@ -154,7 +164,7 @@ class Client(jabber_lib.JabberClient):
             args.append(attrs[sc])
 
         log_debug(4, "Signature args", args)
-        signature = apply(jabber_lib.sign, args)
+        signature = jabber_lib.sign(*args)
         x_signature = x.getAttr('signature')
         if signature != x_signature:
             log_debug(1, "Signatures do not match", signature, x_signature)
@@ -231,7 +241,7 @@ class Client(jabber_lib.JabberClient):
             args = [self.RHN_CHECK_CMD]
         else:
             # XXX should find a better way to get the list of args
-            args = string.split(command)
+            args = command.split()
 
         # if rhn_check process already exists
         if self._rhn_check_process is not None:
@@ -244,8 +254,8 @@ class Client(jabber_lib.JabberClient):
             log_debug(3, "rhn_check failed last time (fail count %d)" % self._rhn_check_fail_count)
 
         log_debug(3, "About to execute:", args)
-        oldumask = os.umask(0077)
-        os.umask(oldumask | 0022)
+        oldumask = os.umask(int("0077", 8))
+        os.umask(oldumask | int("0022", 8))
         self._rhn_check_process = Popen(args)
         os.umask(oldumask)
         log_debug(0, "executed %s with pid %d" % (args[0], self._rhn_check_process.pid))
@@ -267,14 +277,14 @@ class Client(jabber_lib.JabberClient):
         contact = None
 
         subscribed_none = self._roster.get_subscribed_none()
-        if subscribed_none.has_key(jid):
+        if jid in subscribed_none:
             contact = subscribed_none[jid]
 
         subscribed_from = self._roster.get_subscribed_from()
-        if subscribed_from.has_key(jid):
+        if jid in subscribed_from:
             contact = subscribed_from[jid]
 
         if contact is not None:
-            return contact.has_key('ask') and contact['ask'] == 'subscribe'
+            return 'ask' in contact and contact['ask'] == 'subscribe'
 
         return False

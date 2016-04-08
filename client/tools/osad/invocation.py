@@ -16,17 +16,17 @@
 
 import os
 import sys
-import string
 
 _path = "@@ROOT@@"
 if _path not in sys.path:
     sys.path.append(_path)
 
 mod_name = os.path.basename(sys.argv[0])
-mod_name = string.replace(mod_name, '-', '_')
+mod_name = mod_name.replace('-', '_')
 try:
     mod = __import__("osad." + mod_name)
-except ImportError, e:
+except ImportError:
+    e = sys.exc_info()[1]
     sys.stderr.write("Unable to load module %s\n" % mod_name)
     sys.stderr.write(str(e) + "\n")
     sys.exit(1)
@@ -35,12 +35,15 @@ mod = getattr(mod, mod_name)
 if __name__ == '__main__':
     try:
         sys.exit(mod.main() or 0)
-    except KeyboardInterrupt, e:
+    except KeyboardInterrupt:
+        e = sys.exc_info()[1]
         sys.stderr.write("\nUser interrupted process.\n")
         sys.exit(0)
-    except SystemExit, e:
+    except SystemExit:
+        e = sys.exc_info()[1]
         sys.exit(e.code)
-    except Exception, e:
+    except Exception:
+        e = sys.exc_info()[1]
         sys.stderr.write("\nERROR: unhandled exception occurred: (%s).\n" % e)
         sys.exit(-1)
 
