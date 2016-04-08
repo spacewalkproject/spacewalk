@@ -20,12 +20,9 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import redstone.xmlrpc.XmlRpcClient;
 
 /**
  * Implementation of the Taskomatic schedule task execution system.
@@ -77,20 +74,6 @@ public class TaskomaticDaemon  extends BaseDaemon {
     protected int onStartup(CommandLine commandLine) {
         Map overrides = null;
         int retval = BaseDaemon.SUCCESS;
-
-        //since the cobbler sync tasks rely on tomcat to be up
-        //   let sleep until it is up
-        logMessage(BaseDaemon.LOG_STATUS, "Waiting for tomcat...", null);
-        while (!isTomcatUp()) {
-            try {
-                logMessage(BaseDaemon.LOG_STATUS, "Tomcat is not up yet, sleeping 4 seconds", null);
-                Thread.sleep(4000);
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        logMessage(BaseDaemon.LOG_STATUS, "Tomcat up...", null);
 
         if (commandLine != null) {
             overrides = parseOverrides(commandLine);
@@ -173,20 +156,5 @@ public class TaskomaticDaemon  extends BaseDaemon {
         if (this.masterOptionsMap.get(longopt) == null) {
             this.masterOptionsMap.put(longopt, option);
         }
-    }
-
-    private boolean isTomcatUp() {
-        boolean toRet = false;
-        try {
-            XmlRpcClient client = new XmlRpcClient("http://localhost/rpc/api", false);
-            Object obj = client.invoke("api.getVersion", Collections.EMPTY_LIST);
-            if (obj instanceof String) {
-                toRet = true;
-            }
-        }
-        catch (Exception e) {
-            toRet = false;
-        }
-        return toRet;
     }
 }
