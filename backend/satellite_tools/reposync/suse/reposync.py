@@ -675,6 +675,21 @@ class RepoSync(object):
 
         backend.commit()
 
+    def disassociate_package(self, pack):
+        h = rhnSQL.prepare("""
+            delete from rhnChannelPackage cp
+             where cp.channel_id = :channel_id
+               and cp.package_id in (select p.id
+                                       from rhnPackage p
+                                       join rhnChecksumView c
+                                         on p.checksum_id = c.id
+                                      where c.checksum = :checksum
+                                        and c.checksum_type = :checksum_type
+                                    )
+        """)
+        h.execute(channel_id=int(self.channel['id']),
+                  checksum_type=pack['checksum_type'], checksum=pack['checksum'])
+
     def upload_patches(self, notices):
         """Insert the information from patches into the database
 
@@ -1169,21 +1184,6 @@ class RepoSync(object):
 
         package['package_id'] = cs['id']
         return package
-
-    def disassociate_package(self, pack):
-        h = rhnSQL.prepare("""
-            delete from rhnChannelPackage cp
-             where cp.channel_id = :channel_id
-               and cp.package_id in (select p.id
-                                       from rhnPackage p
-                                       join rhnChecksumView c
-                                         on p.checksum_id = c.id
-                                      where c.checksum = :checksum
-                                        and c.checksum_type = :checksum_type
-                                    )
-        """)
-        h.execute(channel_id=int(self.channel['id']),
-                  checksum_type=pack['checksum_type'], checksum=pack['checksum'])
 
     def _importer_run(self, package, caller, backend):
         importer = ChannelPackageSubscription(
