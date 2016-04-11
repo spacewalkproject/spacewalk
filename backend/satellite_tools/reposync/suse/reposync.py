@@ -40,12 +40,11 @@ PATCH = "{http://novell.com/package/metadata/suse/patch}"
 
 
 def set_filter_opt(option, opt_str, value, parser):
-
-    if opt_str in [ '--include', '-i']:
+    if opt_str in ['--include', '-i']:
         f_type = '+'
     else:
         f_type = '-'
-    parser.values.filters.append((f_type, re.split('[,\s]+', value)))
+    parser.values.filters.append((f_type, re.split(r'[,\s]+', value)))
 
 
 class ChannelException(Exception):
