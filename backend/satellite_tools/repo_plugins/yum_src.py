@@ -299,7 +299,7 @@ class ContentSource(object):
     def set_ssl_options(self, ca_cert, client_cert, client_key):
         repo = self.repo
         ssldir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
-        mkdir(ssldir, 0750)
+        mkdir(ssldir, int('0750', 8))
         repo.sslcacert = os.path.join(ssldir, 'ca.pem')
         f = open(repo.sslcacert, "w")
         f.write(str(ca_cert))
@@ -329,7 +329,7 @@ class ContentSource(object):
                 target_file = os.path.join(local_base, path)
                 target_dir = os.path.dirname(target_file)
                 if not os.path.exists(target_dir):
-                    os.makedirs(target_dir, 0755)
+                    os.makedirs(target_dir, int('0755', 8))
                 temp_file = target_file + '..download'
                 if os.path.exists(temp_file):
                     os.unlink(temp_file)

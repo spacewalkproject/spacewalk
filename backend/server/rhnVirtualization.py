@@ -855,7 +855,7 @@ def _make_virt_action(event, target, properties):
 
 def is_host_uuid(uuid):
     uuid = eval('0x%s' % uuid)
-    return long(uuid) == 0L
+    return long(uuid) == 0
 
 
 ###############################################################################

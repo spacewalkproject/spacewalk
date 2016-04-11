@@ -72,7 +72,7 @@ def get(name, modified=None, raw=None, compressed=None, missing_is_null=1):
 
 
 def set(name, value, modified=None, raw=None, compressed=None,
-        user='root', group='root', mode=0755):
+        user='root', group='root', mode=int('0755', 8)):
     # pylint: disable=W0622
     cache = __get_cache(raw, compressed)
 
@@ -150,7 +150,7 @@ def _safe_create(fname, user, group, mode):
         # file does not exist, attempt to create it
         # we pass most of the exceptions through
         try:
-            fd = os.open(fname, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0644)
+            fd = os.open(fname, os.O_WRONLY | os.O_CREAT | os.O_EXCL, int('0644', 8))
         except OSError:
             e = sys.exc_info()[1]
             # The file may be already there
@@ -172,7 +172,7 @@ def _safe_create(fname, user, group, mode):
 class LockedFile(object):
 
     def __init__(self, name, modified=None, user='root', group='root',
-                 mode=0755):
+                 mode=int('0755', 8)):
         if modified:
             self.modified = timestamp(modified)
         else:
@@ -255,7 +255,7 @@ class Cache:
         return s
 
     def set(self, name, value, modified=None, user='root', group='root',
-            mode=0755):
+            mode=int('0755', 8)):
         fd = self.set_file(name, modified, user, group, mode)
 
         fd.write(value)
@@ -292,7 +292,7 @@ class Cache:
 
     @staticmethod
     def set_file(name, modified=None, user='root', group='root',
-                 mode=0755):
+                 mode=int('0755', 8)):
         fd = WriteLockedFile(name, modified, user, group, mode)
         return fd
 
@@ -332,7 +332,7 @@ class CompressedCache:
         return value
 
     def set(self, name, value, modified=None, user='root', group='root',
-            mode=0755):
+            mode=int('0755', 8)):
         # Since most of the data is kept in memory anyway, don't bother to
         # write it to a temp file at this point
         f = self.set_file(name, modified, user, group, mode)
@@ -350,7 +350,7 @@ class CompressedCache:
         return ClosingZipFile('r', compressed_file)
 
     def set_file(self, name, modified=None, user='root', group='root',
-                 mode=0755):
+                 mode=int('0755', 8)):
         io = self.cache.set_file(name, modified, user, group, mode)
 
         f = ClosingZipFile('w', io)
@@ -371,7 +371,7 @@ class ObjectCache:
             raise_with_tb(KeyError(name), sys.exc_info()[2])
 
     def set(self, name, value, modified=None, user='root', group='root',
-            mode=0755):
+            mode=int('0755', 8)):
         pickled = cPickle.dumps(value, -1)
         self.cache.set(name, pickled, modified, user, group, mode)
 
@@ -400,7 +400,7 @@ class NullCache:
             return None
 
     def set(self, name, value, modified=None, user='root', group='root',
-            mode=0755):
+            mode=int('0755', 8)):
         self.cache.set(name, value, modified, user, group, mode)
 
     def has_key(self, name, modified=None):
@@ -416,5 +416,5 @@ class NullCache:
             return None
 
     def set_file(self, name, modified=None, user='root', group='root',
-                 mode=0755):
+                 mode=int('0755', 8)):
         return self.cache.set_file(name, modified, user, group, mode)

@@ -230,7 +230,7 @@ def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
     return exitcode, child_out, child_err
 
 
-def makedirs(path,  mode=0755, user=None, group=None):
+def makedirs(path,  mode=int('0755', 8), user=None, group=None):
     "makedirs function that also changes the owners"
 
     dirs_to_create = []
@@ -266,7 +266,7 @@ def makedirs(path,  mode=0755, user=None, group=None):
             sys.stderr.write("Changing owner for %s failed\n" % dirname)
 
 
-def createPath(path, user='apache', group='apache', chmod=0755):
+def createPath(path, user='apache', group='apache', chmod=int('0755', 8)):
     """advanced makedirs
 
     Will create the path if necessary.
@@ -290,7 +290,7 @@ def createPath(path, user='apache', group='apache', chmod=0755):
             sys.stderr.write("Changing owner for %s failed\n" % path)
 
 
-def setPermsPath(path, user='apache', group='root', chmod=0750):
+def setPermsPath(path, user='apache', group='root', chmod=int('0750', 8)):
     """chown user.group and set permissions to chmod"""
     if not os.path.exists(path):
         raise OSError("*** ERROR: Path doesn't exist (can't set permissions): %s" % path)

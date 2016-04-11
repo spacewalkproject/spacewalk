@@ -673,7 +673,7 @@ class CachedDumper(exportLib.BaseDumper):
         last_modified = self._get_last_modified(params)
         key = self._get_key(params)
         return rhnCache.set(key, value, modified=last_modified,
-                            raw=1, user='apache', group='apache', mode=0755)
+                            raw=1, user='apache', group='apache', mode=int('0755', 8))
 
     def dump_subelement(self, data):
         log_debug(2)

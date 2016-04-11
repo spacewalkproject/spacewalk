@@ -190,7 +190,7 @@ class rhnLog:
                     os.chown(self.file, apache_uid, 0)
                 else:
                     os.chown(self.file, apache_uid, apache_gid)
-                os.chmod(self.file, 0660)
+                os.chmod(self.file, int('0660', 8))
         except:
             log_stderr("ERROR LOG FILE: Couldn't open log file %s" % self.file,
                        sys.exc_info()[:2])

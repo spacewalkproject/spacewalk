@@ -216,7 +216,7 @@ def process_package_data():
             # Clean up left overs
             os.removedirs(os.path.dirname(old_abs_path))
             # make the path readable
-            os.chmod(new_abs_path, 0644)
+            os.chmod(new_abs_path, int('0644', 8))
 
         # Update the db paths
         _update_package_path.execute(the_id=path['id'],
@@ -246,7 +246,7 @@ def process_package_data():
 def process_kickstart_trees():
     for root, _dirs, files in os.walk(CFG.MOUNT_POINT + "/rhn/"):
         for name in files:
-            os.chmod(root + '/' + name, 0644)
+            os.chmod(root + '/' + name, int('0644', 8))
 
 _get_sha256_packages_query = """
 select p.id, p.path
@@ -363,7 +363,7 @@ def process_sha256_packages():
                     log.writeMessage("File %s already exists" % new_abs_path)
 
                 # Make the new path readable
-                os.chmod(new_abs_path, 0644)
+                os.chmod(new_abs_path, int('0644', 8))
         except OSError:
             e = sys.exc_info()[1]
             message = "Error when relocating %s to %s on filer: %s" % \

@@ -854,7 +854,7 @@ def move_package(filename, basedir, relpath, checksum_type, checksum, force=None
         shutil.copy(filename, packagePath)
 
     # set the path perms readable by all users
-    os.chmod(packagePath, 0644)
+    os.chmod(packagePath, int('0644', 8))
 
 
 # Returns a list of containing nevra for the given RPM header
