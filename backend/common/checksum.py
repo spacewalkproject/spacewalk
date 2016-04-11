@@ -38,8 +38,7 @@ except ImportError:
             elif checksum == 'sha256':
                 return sha256.new()
             else:
-                raise ValueError, "Incompatible checksum type"
-
+                raise ValueError("Incompatible checksum type")
 
 def getHashlibInstance(hash_type, used_for_security):
     """Get an instance of a hashlib object.

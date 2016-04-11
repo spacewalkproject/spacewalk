@@ -17,6 +17,7 @@
 
 import sys
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.rhnException import rhnException
@@ -205,7 +206,7 @@ def __test_DB():
     try:
         return __DB
     except NameError:
-        raise SystemError("Not connected to any database!"), None, sys.exc_info()[2]
+        raise_with_tb(SystemError("Not connected to any database!"), sys.exc_info()[2])
 
 
 def __test_DB2():
@@ -218,7 +219,7 @@ def __test_DB2():
             initDB(initsecond=True)
             return __DB2
         except NameError:
-            raise SystemError("Not connected to secondary database!"), None, sys.exc_info()[2]
+            raise_with_tb(SystemError("Not connected to secondary database!"), sys.exc_info()[2])
 
 # wrapper for a Procedure callable class
 

@@ -22,6 +22,7 @@ import sys
 from rhn import rpclib
 
 # common modules imports
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnRepository, rhnFlags, rhnCache
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnConfig import CFG
@@ -256,7 +257,7 @@ class Repository(rhnRepository.Repository):
                                                  "repodata request", file_name, bypass_filters=True)
                 rhnSQL.commit()
                 # This returns 404 to the client
-                raise rhnFault(6), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(6), sys.exc_info()[2])
             raise
 
     def repodata(self, file_name):
@@ -369,8 +370,8 @@ class Repository(rhnRepository.Repository):
         try:
             stat_info = os.stat(filePath)
         except:
-            raise rhnFault(17, "Unable to read package %s"
-                               % os.path.basename(filePath)), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(17, "Unable to read package %s"
+                               % os.path.basename(filePath)), sys.exc_info()[2])
         lastModified = stat_info[stat.ST_MTIME]
 
         # OK, file exists, check the cache

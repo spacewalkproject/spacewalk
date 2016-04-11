@@ -21,6 +21,7 @@
 import sys
 
 # other rhn imports
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.server import rhnSQL
 from spacewalk.common.rhnTB import fetchTraceback
 
@@ -129,8 +130,8 @@ def _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, caCert):
                       cert, rhn_cryptokey_id=rhn_cryptokey_id)
     except:
         # didn't go in!
-        raise CaCertInsertionError("ERROR: CA certificate failed to be "
-                                   "inserted into the database"), None, sys.exc_info()[2]
+        raise_with_tb(CaCertInsertionError("ERROR: CA certificate failed to be "
+                                   "inserted into the database"), sys.exc_info()[2])
 
 
 def store_rhnCryptoKey(description, caCert, verbosity=0):
@@ -162,8 +163,8 @@ def store_rhnCryptoKey(description, caCert, verbosity=0):
             _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, caCert)
             rhnSQL.commit()
         except rhnSQL.sql_base.SQLError:
-            raise CaCertInsertionError(
-                "...the traceback: %s" % fetchTraceback()), None, sys.exc_info()[2]
+            raise_with_tb(CaCertInsertionError(
+                "...the traceback: %s" % fetchTraceback()), sys.exc_info()[2])
 
 
 _querySelectCryptoCertInfo = rhnSQL.Statement("""

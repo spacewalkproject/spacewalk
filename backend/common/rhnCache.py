@@ -26,6 +26,7 @@ from errno import EEXIST
 
 from rhnLib import timestamp
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common.fileutils import makedirs, setPermsPath
 
 # this is a constant I'm not too happy about but one way or another we have
@@ -165,7 +166,7 @@ def _safe_create(fname, user, group, mode):
     # Ran out of tries; something is fishy
     # (if we manage to create or truncate the file, we've returned from the
     # function already)
-    raise RuntimeError, "Attempt to create file %s failed" % fname
+    raise RuntimeError("Attempt to create file %s failed" % fname)
 
 
 class LockedFile(object):
@@ -226,8 +227,8 @@ class WriteLockedFile(LockedFile):
         try:
             fd = _safe_create(self.fname, user, group, mode)
         except UnreadableFileError:
-            raise OSError, "cache entry exists, but is not accessible: %s" % \
-                name, sys.exc_info()[2]
+            raise_with_tb(OSError("cache entry exists, but is not accessible: %s" % \
+                name), sys.exc_info()[2])
 
         # now we have the fd open, lock it
         fcntl.lockf(fd, fcntl.LOCK_EX)
@@ -278,10 +279,10 @@ class Cache:
         fname = _fname(name)
         # test for valid entry
         if not os.access(fname, os.R_OK):
-            raise KeyError, "Invalid cache key for delete: %s" % name
+            raise KeyError("Invalid cache key for delete: %s" % name)
         # now can we delete it?
         if not os.access(fname, os.W_OK):
-            raise OSError, "Read-Only access for cache entry: %s" % name
+            raise OSError("Read-Only access for cache entry: %s" % name)
         os.unlink(fname)
 
     @staticmethod
@@ -325,7 +326,7 @@ class CompressedCache:
             # Some gzip error
             # poking at gzip.zlib may not be such a good idea
             fd.close()
-            raise KeyError(name), None, sys.exc_info()[2]
+            raise_with_tb(KeyError(name), sys.exc_info()[2])
         fd.close()
 
         return value
@@ -367,7 +368,7 @@ class ObjectCache:
         try:
             return cPickle.loads(pickled)
         except cPickle.UnpicklingError:
-            raise KeyError(name), None, sys.exc_info()[2]
+            raise_with_tb(KeyError(name), sys.exc_info()[2])
 
     def set(self, name, value, modified=None, user='root', group='root',
             mode=0755):

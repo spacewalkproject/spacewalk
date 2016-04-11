@@ -23,6 +23,8 @@ import sys
 import tempfile
 from types import TupleType
 
+from spacewalk.common.usix import raise_with_tb
+
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
@@ -360,10 +362,10 @@ class Packages(RPC_Base):
             importer.run()
         except IncompatibleArchError:
             e = sys.exc_info()[1]
-            raise rhnFault(50, string.join(e.args), explain=0), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(50, string.join(e.args), explain=0), sys.exc_info()[2])
         except InvalidChannelError:
             e = sys.exc_info()[1]
-            raise rhnFault(50, str(e), explain=0), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(50, str(e), explain=0), sys.exc_info()[2])
 
         affected_channels = importer.affected_channels
 
@@ -401,9 +403,9 @@ class Packages(RPC_Base):
                 org_id, force = rhnPackageUpload.authenticate_session(
                     session, channels=channels, null_org=null_org, force=force)
             except rhnSession.InvalidSessionError:
-                raise rhnFault(33), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(33), sys.exc_info()[2])
             except rhnSession.ExpiredSessionError:
-                raise rhnFault(34), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(34), sys.exc_info()[2])
 
         if is_source:
             ret = self._getSourcePackageChecksum(org_id, pkg_infos)

@@ -20,6 +20,7 @@ import tempfile
 from types import ListType
 from cStringIO import StringIO
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnCache, rhnLib, rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
@@ -288,7 +289,7 @@ class XML_Dumper:
             except IOError:
                 log_error("Client disconnected prematurely")
                 self.close()
-                raise ClosedConnectionError, None, sys.exc_info()[2]
+                raise_with_tb(ClosedConnectionError, sys.exc_info()[2])
         # We're done
         if open_stream:
             self._raw_stream.close()
@@ -368,7 +369,7 @@ class XML_Dumper:
         try:
             uuid = int(name[prefix_len:])
         except ValueError:
-            raise rhnFault(errnum, errmsg % name), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(errnum, errmsg % name), sys.exc_info()[2])
         return uuid
 
     def _packages(self, packages, prefix, dump_class, sources=0,

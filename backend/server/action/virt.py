@@ -17,6 +17,7 @@ import sys
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnLib import InvalidAction
+from spacewalk.common.usix import raise_with_tb
 
 __rhnexport__ = ['refresh',
                  'shutdown',
@@ -170,10 +171,10 @@ def action(action_name, query, server_id, action_id, dry_run=0):
     try:
         uuid = _get_uuid(query, action_id)
     except NoRowFoundException:
-        raise InvalidAction("No %s actions found." % action_name.lower()), None, sys.exc_info()[2]
+        raise_with_tb(InvalidAction("No %s actions found." % action_name.lower()), sys.exc_info()[2])
     except NoUUIDException:
-        raise InvalidAction("%s action %s has no uuid associated with it." %
-                            (action_name, str(action_id))), None, sys.exc_info()[2]
+        raise_with_tb(InvalidAction("%s action %s has no uuid associated with it." %
+                            (action_name, str(action_id))), sys.exc_info()[2])
     return (uuid,)
 
 

@@ -17,6 +17,7 @@ import os
 import sys
 import tempfile
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhn_mpm, rhn_deb, rhn_pkg
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnConfig import CFG
@@ -124,11 +125,11 @@ def push_package(a_pkg, org_id=None, force=None, channels=[], relative_path=None
                                checksum_type=a_pkg.checksum_type, checksum=a_pkg.checksum, force=1)
     except OSError:
         e = sys.exc_info()[1]
-        raise rhnFault(50, "Package upload failed: %s" % e), None, sys.exc_info()[2]
+        raise_with_tb(rhnFault(50, "Package upload failed: %s" % e), sys.exc_info()[2])
     except importLib.FileConflictError:
-        raise rhnFault(50, "File already exists"), None, sys.exc_info()[2]
+        raise_with_tb(rhnFault(50, "File already exists"), sys.exc_info()[2])
     except:
-        raise rhnFault(50, "File error"), None, sys.exc_info()[2]
+        raise_with_tb(rhnFault(50, "File error"), sys.exc_info()[2])
 
     pkg = mpmSource.create_package(a_pkg.header, size=a_pkg.payload_size,
                                    checksum_type=a_pkg.checksum_type, checksum=a_pkg.checksum,
@@ -298,12 +299,12 @@ def load_package(package_stream):
         try:
             header, payload_stream = rhn_deb.load(filename=package_stream.name)
         except:
-            raise rhnFault(50, "Unable to load package", explain=0), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(50, "Unable to load package", explain=0), sys.exc_info()[2])
     else:
         try:
             header, payload_stream = rhn_mpm.load(file=package_stream)
         except:
-            raise rhnFault(50, "Unable to load package", explain=0), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(50, "Unable to load package", explain=0), sys.exc_info()[2])
 
     payload_stream.seek(0, 0)
     if header.packaging == "mpm" or header.packaging == "deb":

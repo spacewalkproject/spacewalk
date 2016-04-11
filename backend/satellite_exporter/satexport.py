@@ -19,6 +19,7 @@ import sys
 import xmlrpclib
 from spacewalk.common import apache
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error, log_setreq, initLOG
 from spacewalk.common.rhnConfig import CFG, initCFG
@@ -260,14 +261,14 @@ class ApacheServer(BaseApacheServer):
             client_major = int(client_major)
             client_minor = int(client_minor)
         except ValueError:
-            raise rhnFault(3011, "Invalid version string %s" % client_version), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(3011, "Invalid version string %s" % client_version), sys.exc_info()[2])
 
         try:
             server_major = int(server_major)
             server_minor = int(server_minor)
         except ValueError:
-            raise rhnException("Invalid server version string %s"
-                               % server_version), None, sys.exc_info()[2]
+            raise_with_tb(rhnException("Invalid server version string %s"
+                               % server_version), sys.exc_info()[2])
 
         if client_major != server_major:
             raise rhnFault(3012, "Client version %s does not match"

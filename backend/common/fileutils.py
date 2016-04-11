@@ -279,7 +279,7 @@ def createPath(path, user='apache', group='apache', chmod=0755):
     if not os.path.exists(path):
         makedirs(path, mode=chmod, user=user, group=group)
     elif not os.path.isdir(path):
-        raise ValueError, "ERROR: createPath('%s'): path doesn't lead to a directory" % str(path)
+        raise ValueError("ERROR: createPath('%s'): path doesn't lead to a directory" % str(path))
     else:
         os.chmod(path, chmod)
         uid, gid = getUidGid(user, group)
@@ -293,7 +293,7 @@ def createPath(path, user='apache', group='apache', chmod=0755):
 def setPermsPath(path, user='apache', group='root', chmod=0750):
     """chown user.group and set permissions to chmod"""
     if not os.path.exists(path):
-        raise OSError, "*** ERROR: Path doesn't exist (can't set permissions): %s" % path
+        raise OSError("*** ERROR: Path doesn't exist (can't set permissions): %s" % path)
 
     # If non-root, don't bother to change owners
     if os.getuid() != 0:
@@ -302,11 +302,11 @@ def setPermsPath(path, user='apache', group='root', chmod=0750):
     gc = GecosCache()
     uid = gc.getuid(user)
     if uid is None:
-        raise OSError, "*** ERROR: user '%s' doesn't exist. Cannot set permissions properly." % user
+        raise OSError("*** ERROR: user '%s' doesn't exist. Cannot set permissions properly." % user)
 
     gid = gc.getgid(group)
     if gid is None:
-        raise OSError, "*** ERROR: group '%s' doesn't exist. Cannot set permissions properly." % group
+        raise OSError("*** ERROR: group '%s' doesn't exist. Cannot set permissions properly." % group)
 
     uid_, gid_ = os.stat(path)[4:6]
     if uid_ != uid or gid_ != gid:

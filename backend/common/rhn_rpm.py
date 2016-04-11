@@ -19,6 +19,7 @@ import rpm
 import struct
 import tempfile
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import checksum
 from rhn_pkg import A_Package, InvalidPackageError
 
@@ -164,12 +165,12 @@ class RPM_Package(A_Package):
             self.header = get_package_header(file_obj=self.header_data)
         except InvalidPackageError:
             e = sys.exc_info()[1]
-            raise InvalidPackageError(*e.args), None, sys.exc_info()[2]
+            raise_with_tb(InvalidPackageError(*e.args), sys.exc_info()[2])
         except error:
             e = sys.exc_info()[1]
-            raise InvalidPackageError(e), None, sys.exc_info()[2]
+            raise_with_tb(InvalidPackageError(e), sys.exc_info()[2])
         except:
-            raise InvalidPackageError, None, sys.exc_info()[2]
+            raise_with_tb(InvalidPackageError, sys.exc_info()[2])
         self.checksum_type = self.header.checksum_type()
 
     def _get_header_byte_range(self):
@@ -309,7 +310,7 @@ def get_package_header(filename=None, file_obj=None, fd=None):
     global SHARED_TS
     # XXX Deal with exceptions better
     if (filename is None and file_obj is None and fd is None):
-        raise ValueError, "No parameters passed"
+        raise ValueError("No parameters passed")
 
     if filename is not None:
         f = open(filename)

@@ -82,13 +82,13 @@ class XMLWriter:
         if it's been closed already.
         """
         if not self.tag_stack:
-            raise Exception, "Could not close tag %s: empty tag stack" % name
+            raise Exception("Could not close tag %s: empty tag stack" % name)
         if namespace:
             name = "%s:%s" % (namespace, name)
 
         if self.tag_stack[-1] != name:
-            raise Exception, "Could not close tag %s if not opened before" \
-                % name
+            raise Exception("Could not close tag %s if not opened before" \
+                % name)
         self.tag_stack.pop()
 
         self.stream.write("</")

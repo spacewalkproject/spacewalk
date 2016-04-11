@@ -68,7 +68,7 @@ class BaseDumper:
 
     def dump(self):
         if not hasattr(self, "tag_name"):
-            raise Exception, "Programmer error: subclass did not set tag_name"
+            raise Exception("Programmer error: subclass did not set tag_name")
         tag_name = getattr(self, "tag_name")
         self._attributes = self.set_attributes() or {}
         self._iterator = self.timer(5, "set_iterator", self.set_iterator)
@@ -600,7 +600,7 @@ class ChannelsDumper(BaseSubelementDumper):
             # Nothing to do
             return
 
-        raise NotImplementedError, "To be overridden in a child class"
+        raise NotImplementedError("To be overridden in a child class")
 
 
 class ChannelDumper(_ChannelDumper):
@@ -1124,7 +1124,7 @@ class ErrataDumper(BaseSubelementDumper):
     def set_iterator(self):
         if self._iterator:
             return self._iterator
-        raise NotImplementedError, "To be overridden in a child class"
+        raise NotImplementedError("To be overridden in a child class")
 
 
 class _ErratumKeywordDumper(BaseDumper):

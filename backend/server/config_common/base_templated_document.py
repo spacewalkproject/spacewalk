@@ -38,7 +38,7 @@ class BaseTemplatedDocument:
 
     def set_delims(self, start_delim=None, end_delim=None):
         if '%' in (start_delim, end_delim):
-            raise ValueError, "Cannot use `%' as a delimiter"
+            raise ValueError("Cannot use `%' as a delimiter")
         if self.start_delim is None and start_delim is None:
             start_delim = '{{'
         if self.start_delim is None or start_delim is not None:
@@ -113,7 +113,7 @@ class TemplatedDocument(BaseTemplatedDocument):
             # Params are present
             i = string.rfind(fname, '(')
             if i < 0:
-                raise ValueError, "Missing ("
+                raise ValueError("Missing (")
 
             params = fname[i + 1:-1]
             fname = string.strip(fname[:i])
@@ -123,7 +123,7 @@ class TemplatedDocument(BaseTemplatedDocument):
 
         # Validate the function name
         if not self.funcname_regex.match(fname):
-            raise ValueError, "Invalid function name %s" % fname
+            raise ValueError("Invalid function name %s" % fname)
 
         return fname, params, defval
 

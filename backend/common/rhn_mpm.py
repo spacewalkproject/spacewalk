@@ -24,6 +24,7 @@ import fileutils
 
 from types import ListType, TupleType
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import checksum
 from rhn_pkg import A_Package, InvalidPackageError
 
@@ -46,7 +47,7 @@ def get_package_header(filename=None, file_obj=None, fd=None):
 def load(filename=None, file_obj=None, fd=None):
     """ Loads an MPM and returns its header and its payload """
     if (filename is None and file_obj is None and fd is None):
-        raise ValueError, "No parameters passed"
+        raise ValueError("No parameters passed")
 
     if filename is not None:
         f = open(filename)
@@ -65,9 +66,9 @@ def load(filename=None, file_obj=None, fd=None):
         try:
             return load_rpm(f)
         except InvalidPackageError:
-            raise e, None, sys.exc_info()[2]
+            raise_with_tb(e, sys.exc_info()[2])
         except:
-            raise e, None, sys.exc_info()[2]
+            raise_with_tb(e, sys.exc_info()[2])
 
     return p.header, p.payload_stream
 
@@ -78,7 +79,7 @@ def load_rpm(stream):
     try:
         import rhn_rpm
     except ImportError:
-        raise InvalidPackageError, None, sys.exc_info()[2]
+        raise_with_tb(InvalidPackageError, sys.exc_info()[2])
 
     # Dup the file descriptor, we don't want it to get closed before we read
     # the payload
@@ -92,12 +93,12 @@ def load_rpm(stream):
         header = rhn_rpm.get_package_header(file_obj=stream)
     except InvalidPackageError:
         e = sys.exc_info()[1]
-        raise InvalidPackageError(*e.args), None, sys.exc_info()[2]
+        raise_with_tb(InvalidPackageError(*e.args), sys.exc_info()[2])
     except rhn_rpm.error:
         e = sys.exc_info()[1]
-        raise InvalidPackageError(e), None, sys.exc_info()[2]
+        raise_with_tb(InvalidPackageError(e), sys.exc_info()[2])
     except:
-        raise InvalidPackageError, None, sys.exc_info()[2]
+        raise_with_tb(InvalidPackageError, sys.exc_info()[2])
     stream.seek(0, 0)
 
     return header, stream

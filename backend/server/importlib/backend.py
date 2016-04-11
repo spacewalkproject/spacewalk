@@ -20,6 +20,7 @@ import copy
 import string
 import sys
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhn_rpm
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
@@ -235,7 +236,7 @@ class Backend:
         h.execute()
         rows = h.fetchall_dict()
         if not rows:
-            raise ValueError, "No user is created"
+            raise ValueError("No user is created")
         return rows[0]['id']
 
     def lookupOrg(self, org_name=None):
@@ -600,7 +601,7 @@ class Backend:
                     not_found = (e, sys.exc_info()[2])
             if not_found and not ignore_missing:
                 # package is not in database at all
-                raise not_found[0], None, not_found[1]
+                raise not_found[0].with_traceback(not_found[1])
 
     def lookupChannelFamilies(self, hash):
         if not hash:
@@ -1234,7 +1235,7 @@ class Backend:
                     refresh_newest_package(channel_id, caller, None)
             except rhnSQL.SQLError:
                 e = sys.exc_info()[1]
-                raise rhnFault(23, str(e[1]), explain=0), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(23, str(e[1]), explain=0), sys.exc_info()[2])
             if deleted_packages_list:
                 invalidate_ss = 1
             else:
@@ -1585,7 +1586,7 @@ class Backend:
                 self.__doInsertTable(tname, dict)
             except rhnSQL.SQLError:
                 e = sys.exc_info()[1]
-                raise rhnFault(54, str(e[1]), explain=0), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(54, str(e[1]), explain=0), sys.exc_info()[2])
 
     def __doInsertTable(self, table, hash):
         if not hash:
@@ -1733,7 +1734,7 @@ class Backend:
         for entry in data:
             for f in all_fields:
                 if f not in entry:
-                    raise Exception, "Missing field %s" % f
+                    raise Exception("Missing field %s" % f)
             val = entry[first_uq_col]
             if val not in uq_col_values:
                 valhash = {}

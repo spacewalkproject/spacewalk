@@ -22,6 +22,7 @@ import xmlrpclib
 import sys
 import hashlib
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnConfig import CFG
@@ -251,33 +252,33 @@ class ConfigFilesHandler(rhnHandler):
             e = sys.exc_info()[1]
             raise rhnFault(4015,
                            "Full path of file '%s' must be specified" % e.file.get('path'),
-                           explain=0), None, sys.exc_info()[2]
+                           explain=0).with_traceback(sys.exc_info()[2])
         except ConfigFileExistsError:
             e = sys.exc_info()[1]
             raise rhnFault(4013,
                            "File %s already uploaded" % e.file.get('path'),
-                           explain=0), None, sys.exc_info()[2]
+                           explain=0).with_traceback(sys.exc_info()[2])
         except ConfigFileVersionMismatchError:
             e = sys.exc_info()[1]
-            raise rhnFault(4012, "File %s uploaded with a different "
-                           "version" % e.file.get('path'), explain=0), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(4012, "File %s uploaded with a different "
+                           "version" % e.file.get('path'), explain=0), sys.exc_info()[2])
         except ConfigFileMissingDelimError:
             e = sys.exc_info()[1]
-            raise rhnFault(4008, "Delimiter not specified for file %s" %
-                           e.file.get('path'), explain=0), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(4008, "Delimiter not specified for file %s" %
+                           e.file.get('path'), explain=0), sys.exc_info()[2])
         except ConfigFileMissingContentError:
             e = sys.exc_info()[1]
-            raise rhnFault(4007, "No content sent for file %s" %
-                           e.file.get('path'), explain=0), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(4007, "No content sent for file %s" %
+                           e.file.get('path'), explain=0), sys.exc_info()[2])
         except ConfigFileExceedsQuota:
             e = sys.exc_info()[1]
-            raise rhnFault(4014, "File size of %s exceeds free quota space" %
-                           e.file.get('path'), explain=0), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(4014, "File size of %s exceeds free quota space" %
+                           e.file.get('path'), explain=0), sys.exc_info()[2])
         except ConfigFileTooLargeError:
             e = sys.exc_info()[1]
             raise rhnFault(4003, "File size of %s larger than %s bytes" %
                            (e.file.get('path'), self._get_maximum_file_size()),
-                           explain=0), None, sys.exc_info()[2]
+                           explain=0).with_traceback(sys.exc_info()[2])
 
         rhnSQL.commit()
         return result

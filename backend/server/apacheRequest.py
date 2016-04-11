@@ -23,6 +23,7 @@ import xmlrpclib
 from rhn.rpclib import transports
 
 # common modules
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import apache, rhnFlags
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common import byterange
@@ -418,7 +419,7 @@ class apachePOST(apacheRequest):
             self.parser.feed(data)
         except IndexError:
             # malformed XML data
-            raise xmlrpclib.ResponseError, None, sys.exc_info()[2]
+            raise_with_tb(xmlrpclib.ResponseError, sys.exc_info()[2])
 
         self.parser.close()
         # extract the method and arguments; we pass the exceptions through
@@ -447,8 +448,8 @@ class apachePOST(apacheRequest):
         try:
             classname, funcname = string.split(method, '.', 1)
         except:
-            raise UnknownXML("method '%s' doesn't have a class and function" %
-                             (method,)), None, sys.exc_info()[2]
+            raise_with_tb(UnknownXML("method '%s' doesn't have a class and function" %
+                             (method,)), sys.exc_info()[2])
         if not classname or not funcname:
             raise UnknownXML(method)
 
@@ -638,7 +639,7 @@ class GetHandler(apacheRequest):
     def redirect(self, req, url, temporary=1):
         log_debug(3, "url input to redirect is ", url)
         if req.sent_bodyct:
-            raise IOError, "Cannot redirect after headers have already been sent."
+            raise IOError("Cannot redirect after headers have already been sent.")
 
         # akamize the url with the new tokengen before sending the redirect response
         import tokengen.Generator

@@ -22,6 +22,7 @@ import tempfile
 
 from debian import debfile
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import checksum
 from rhn_pkg import A_Package, InvalidPackageError
 
@@ -42,7 +43,7 @@ class deb_Header:
             self.deb = debfile.DebFile(stream.name)
         except Exception:
             e = sys.exc_info()[1]
-            raise InvalidPackageError(e), None, sys.exc_info()[2]
+            raise_with_tb(InvalidPackageError(e), sys.exc_info()[2])
 
         try:
             # Fill info about package
@@ -83,7 +84,7 @@ class deb_Header:
                 self.hdr['release'] = version_tmpArr[1]
         except Exception:
             e = sys.exc_info()[1]
-            raise InvalidPackageError(e), None, sys.exc_info()[2]
+            raise_with_tb(InvalidPackageError(e), sys.exc_info()[2])
 
     @staticmethod
     def checksum_type():
@@ -122,7 +123,7 @@ class DEB_Package(A_Package):
             self.header_data.seek(0, 0)
             self.header = deb_Header(self.header_data)
         except:
-            raise InvalidPackageError, None, sys.exc_info()[2]
+            raise_with_tb(InvalidPackageError, sys.exc_info()[2])
 
     def save_payload(self, output_stream):
         c_hash = checksum.getHashlibInstance(self.checksum_type, False)

@@ -21,6 +21,7 @@ import time
 from StringIO import StringIO
 
 # rhn imports:
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnLib
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnLog import log_time, log_clean
@@ -234,7 +235,7 @@ class FileManip:
                 os.unlink(self.full_path)
             except (OSError, IOError):
                 pass
-            raise FileCreationError(msg), None, sys.exc_info()[2]
+            raise_with_tb(FileCreationError(msg), sys.exc_info()[2])
         l_file_size = fout.tell()
         fout.close()
 

@@ -21,6 +21,7 @@ import xmlrpclib
 from types import IntType, TupleType
 
 # Global modules
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
@@ -83,8 +84,8 @@ class Queue(rhnHandler):
                                          'server.action')
         except getMethod.GetMethodException:
             Traceback("queue.get V2")
-            raise EmptyAction("Could not get a valid method for %s" % (
-                action['method'],)), None, sys.exc_info()[2]
+            raise_with_tb(EmptyAction("Could not get a valid method for %s" % (
+                action['method'],)), sys.exc_info()[2])
         # Call the method
         result = method(self.server_id, action['id'], dry_run)
         if result is None:
@@ -425,8 +426,8 @@ class Queue(rhnHandler):
                 action_id = int(action_id)
             except ValueError:
                 log_error("Invalid action_id", action_id)
-                raise rhnFault(30, _("Invalid action value type %s (%s)") %
-                               (action_id, type(action_id))), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(30, _("Invalid action value type %s (%s)") %
+                               (action_id, type(action_id))), sys.exc_info()[2])
         # Authenticate the system certificate
         self.auth_system(system_id)
         log_debug(1, self.server_id, action_id, result)
@@ -542,8 +543,8 @@ class Queue(rhnHandler):
                                          'server.action_extra_data')
         except getMethod.GetMethodException:
             Traceback("queue.get V2")
-            raise EmptyAction("Could not get a valid method for %s" %
-                              action_type), None, sys.exc_info()[2]
+            raise_with_tb(EmptyAction("Could not get a valid method for %s" %
+                              action_type), sys.exc_info()[2])
         # Call the method
         result = method(self.server_id, action_id, data=data)
         return result

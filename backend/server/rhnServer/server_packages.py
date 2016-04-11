@@ -22,6 +22,7 @@ import sys
 import time
 from types import DictType
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhn_rpm
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnException import rhnFault
@@ -242,7 +243,7 @@ class Packages:
                 # LOOKUP_PACKAGE_ARCH failed
                 if e.errno == 20243:
                     log_debug(2, "Unknown package arch found", e)
-                    raise rhnFault(45, "Unknown package arch found"), None, sys.exc_info()[2]
+                    raise_with_tb(rhnFault(45, "Unknown package arch found"), sys.exc_info()[2])
 
             commits = commits + len(alist)
             del alist

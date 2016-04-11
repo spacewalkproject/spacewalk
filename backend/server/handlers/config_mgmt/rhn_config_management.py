@@ -19,6 +19,7 @@
 import sys
 import difflib
 from spacewalk.common.rhnLog import log_debug
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.server import rhnSQL, configFilesHandler
 from spacewalk.common.fileutils import f_date, ostr_to_sym
@@ -131,8 +132,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             e = sys.exc_info()[1]
             errno = e.args[0]
             if errno == 2292:
-                raise rhnFault(4005, "Cannot remove non-empty channel %s" %
-                               config_channel, explain=0), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(4005, "Cannot remove non-empty channel %s" %
+                               config_channel, explain=0), sys.exc_info()[2])
             raise
 
         log_debug(5, "Removed:", config_channel)

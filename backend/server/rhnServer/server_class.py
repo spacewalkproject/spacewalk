@@ -19,6 +19,7 @@
 import string
 import sys
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnLog import log_debug, log_error
@@ -415,18 +416,18 @@ class Server(ServerWrapper):
                 # Should not normally happen
                 log_error("Failed to entitle", self.server["id"], entitlement,
                           e.errmsg)
-                raise server_lib.rhnSystemEntitlementException("Unable to entitle"), None, sys.exc_info()[2]
+                raise_with_tb(server_lib.rhnSystemEntitlementException("Unable to entitle"), sys.exc_info()[2])
             except rhnSQL.SQLError:
                 e = sys.exc_info()[1]
                 log_error("Failed to entitle", self.server["id"], entitlement,
                           str(e))
-                raise server_lib.rhnSystemEntitlementException("Unable to entitle"), None, sys.exc_info()[2]
+                raise_with_tb(server_lib.rhnSystemEntitlementException("Unable to entitle"), sys.exc_info()[2])
             else:
                 if any_base_entitlements:
                     # All is fine
                     return
                 else:
-                    raise server_lib.rhnNoSystemEntitlementsException, None, sys.exc_info()[2]
+                    raise_with_tb(server_lib.rhnNoSystemEntitlementsException, sys.exc_info()[2])
 
     def _entitle(self, entitlement):
         system_entitlements = server_lib.check_entitlement(self.server["id"])

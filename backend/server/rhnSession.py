@@ -23,6 +23,7 @@ import string
 import sys
 
 from spacewalk.common.rhnConfig import CFG
+from spacewalk.common.usix import raise_with_tb
 
 import rhnSQL
 
@@ -60,12 +61,12 @@ class Session:
         secrets = self._get_secrets()
         if len(secrets) != len(filter(None, secrets)):
             # the list of secrets has unset items
-            raise Exception, "Secrets not set in the config file"
+            raise Exception("Secrets not set in the config file")
         return secrets
 
     def digest(self):
         if self.session_id is None:
-            raise ValueError, "session id not supplied"
+            raise ValueError("session id not supplied")
 
         secrets = self.get_secrets()
 
@@ -95,7 +96,7 @@ class Session:
         try:
             self.session_id = int(arr[0])
         except ValueError:
-            raise InvalidSessionError("Invalid session identifier"), None, sys.exc_info()[2]
+            raise_with_tb(InvalidSessionError("Invalid session identifier"), sys.exc_info()[2])
 
         if digest != self.digest():
             raise InvalidSessionError("Bad session checksum")

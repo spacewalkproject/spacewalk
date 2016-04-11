@@ -34,6 +34,7 @@ translation = gettext.translation('spacewalk-backend-server', fallback=True)
 _ = translation.ugettext
 
 # __rhn imports__
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnMail, rhnLib
 from spacewalk.common.rhnLog import initLOG
 from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
@@ -496,7 +497,7 @@ class Syncer:
                         and os.access(self._systemidPath, os.R_OK)):
                     self.systemid = open(self._systemidPath, 'rb').read()
                 else:
-                    raise RhnSyncException, _('ERROR: this server must be registered with RHN.'), sys.exc_info()[2]
+                    raise_with_tb(RhnSyncException(_('ERROR: this server must be registered with RHN.')), sys.exc_info()[2])
             # authorization check of the satellite
             auth = xmlWireSource.AuthWireSource(self.systemid, self.sslYN,
                                                 self.xml_dump_version)
@@ -633,8 +634,8 @@ class Syncer:
                     self._process_comps(importer.backend, label, sync_handlers._to_timestamp(ch['comps_last_modified']))
 
         except InvalidChannelFamilyError:
-            raise RhnSyncException(messages.invalid_channel_family_error %
-                                   ''.join(requested_channels)), None, sys.exc_info()[2]
+            raise_with_tb(RhnSyncException(messages.invalid_channel_family_error %
+                                   ''.join(requested_channels)), sys.exc_info()[2])
         except MissingParentChannelError:
             raise
 
@@ -904,7 +905,7 @@ class Syncer:
                 avail_pids = self._avail_channel_packages[channel_label]
 
             if set(pids or []) > set(avail_pids or []):
-                raise RhnSyncException, _('ERROR: incremental dump skipped')
+                raise RhnSyncException(_('ERROR: incremental dump skipped'))
 
     @staticmethod
     def _get_rel_package_path(nevra, org_id, source, checksum_type, checksum):
@@ -2170,7 +2171,7 @@ def processCommandline():
         try:
             debugLevel = int(OPTIONS.debug_level)
             if not (0 <= debugLevel <= debugRange):
-                raise RhnSyncException, "exception will be caught", sys.exc_info()[2]
+                raise_with_tb(RhnSyncException("exception will be caught"), sys.exc_info()[2])
         except KeyboardInterrupt:
             e = sys.exc_info()[1]
             raise
@@ -2316,8 +2317,7 @@ def processCommandline():
         except (ValueError, TypeError):
             # int(None) --> TypeError
             # int('a')  --> ValueError
-            raise ValueError(_("ERROR: --batch-size must have a value within the range: 1..50")), \
-                None, sys.exc_info()[2]
+            raise_with_tb(ValueError(_("ERROR: --batch-size must have a value within the range: 1..50")), sys.exc_info()[2])
 
     OPTIONS.mount_point = fileutils.cleanupAbsPath(OPTIONS.mount_point)
     OPTIONS.systemid = fileutils.cleanupAbsPath(OPTIONS.systemid)

@@ -19,6 +19,7 @@ import sys
 
 from spacewalk.server.importlib import channelImport, packageImport, errataImport, \
     kickstartImport
+from spacewalk.common.usix import raise_with_tb
 import diskImportLib
 import xmlSource
 import string  # pylint: disable=W0402
@@ -156,7 +157,7 @@ class ChannelCollection:
         """Return a list of (channel label, channel timestamp) for this parent
         channel"""
         if channel_label not in self._parent_channels:
-            raise Exception, "Channel %s is not a parent" % channel_label
+            raise Exception("Channel %s is not a parent" % channel_label)
         return self._parent_channels[channel_label]
 
     def reset(self):
@@ -215,10 +216,10 @@ def import_channels(channels, orgid=None, master=None):
         try:
             timestamp = collection.get_channel_timestamp(c)
         except KeyError:
-            raise Exception, "Could not find channel %s" % c, sys.exc_info()[2]
+            raise_with_tb(Exception("Could not find channel %s" % c), sys.exc_info()[2])
         c_obj = collection.get_channel(c, timestamp)
         if c_obj is None:
-            raise Exception, "Channel not found in cache: %s" % c
+            raise Exception("Channel not found in cache: %s" % c)
 
         # Check to see if we're asked to sync to an orgid,
         # make sure the org from the export is not null org,

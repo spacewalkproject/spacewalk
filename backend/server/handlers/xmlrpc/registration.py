@@ -17,6 +17,7 @@
 import string
 import sys
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnFlags, rhnMail
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
@@ -185,7 +186,7 @@ class Registration(rhnHandler):
             try:
                 org_id = int(str(org_id))
             except ValueError:
-                raise rhnFault(30, _faultValueString(org_id, "org_id")), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(30, _faultValueString(org_id, "org_id")), sys.exc_info()[2])
         else:
             org_id = org_password = None
         username, password = rhnUser.check_user_password(username, password)
@@ -409,12 +410,12 @@ class Registration(rhnHandler):
                 # don't commit
                 newserv.save(0, channel)
             except (rhnChannel.NoBaseChannelError), channel_error:
-                raise rhnFault(70), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(70), sys.exc_info()[2])
             except rhnChannel.BaseChannelDeniedError, channel_error:
-                raise rhnFault(71), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(71), sys.exc_info()[2])
             except server_lib.rhnSystemEntitlementException:
                 e = sys.exc_info()[1]
-                raise rhnFault(90), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(90), sys.exc_info()[2])
 
             # Process any kickstart data associated with this server
             # Do this before using/processing the token, as the
@@ -446,13 +447,13 @@ class Registration(rhnHandler):
         try:
             newserv.save(1, channel)
         except (rhnChannel.NoBaseChannelError), channel_error:
-            raise rhnFault(70), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(70), sys.exc_info()[2])
         except rhnChannel.BaseChannelDeniedError, channel_error:
-            raise rhnFault(71), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(71), sys.exc_info()[2])
         except server_lib.rhnSystemEntitlementException:
             e = sys.exc_info()[1]
             # right now, don't differentiate between general ent issues & rhnNoSystemEntitlementsException
-            raise rhnFault(90), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(90), sys.exc_info()[2])
 
         if CFG.SEND_EOL_MAIL and user and newserv.base_channel_is_eol():
             self.attempt_eol_mailing(user, newserv)

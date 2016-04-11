@@ -21,6 +21,7 @@ import string
 import sys
 
 from rhn.UserDictCase import UserDictCase
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnTB import Traceback
@@ -314,8 +315,8 @@ class Device(GenericDevice):
                     if self.data[k][0] == '"' and self.data[k][-1] == '"':
                         self.data[k] = self.data[k][1:-1]
         except IndexError:
-            raise IndexError, "Can not process data = %s, key = %s" % (
-                repr(self.data), k), sys.exc_info()[2]
+            raise_with_tb(IndexError("Can not process data = %s, key = %s" % (
+                repr(self.data), k)), sys.exc_info()[2])
 
 
 class HardwareDevice(Device):
@@ -372,13 +373,13 @@ class CPUDevice(Device):
         # if we don't have an architecture, guess it
         if not self.data.has_key("architecture"):
             log_error("hash does not have a platform member: %s" % dict)
-            raise AttributeError, "Expected a hash value for member `platform'"
+            raise AttributeError("Expected a hash value for member `platform'")
         # now extract the arch field, which has to come out of rhnCpuArch
         arch = self.data["architecture"]
         row = rhnSQL.Table("rhnCpuArch", "label")[arch]
         if row is None or not row.has_key("id"):
             log_error("Can not find arch %s in rhnCpuArch" % arch)
-            raise AttributeError, "Invalid architecture for CPU: `%s'" % arch
+            raise AttributeError("Invalid architecture for CPU: `%s'" % arch)
         self.data["cpu_arch_id"] = row["id"]
         del self.data["architecture"]
         if self.data.has_key("nrcpu"):  # make sure this is a number
@@ -905,7 +906,7 @@ class Hardware:
             hardware = UserDictCase(hardware)
         if not isinstance(hardware, UserDictCase):
             log_error("argument type is not  hash: %s" % hardware)
-            raise TypeError, "This function requires a hash as an argument"
+            raise TypeError("This function requires a hash as an argument")
         # validation is important
         hw_class = hardware.get("class")
         if hw_class is None:
@@ -936,8 +937,8 @@ class Hardware:
             # Same trick: try-except and raise the exception so that Traceback
             # can send the e-mail
             try:
-                raise KeyError, "Unknwon class type `%s' for hardware '%s'" % (
-                    hw_class, hardware)
+                raise KeyError("Unknwon class type `%s' for hardware '%s'" % (
+                    hw_class, hardware))
             except:
                 Traceback(mail=1)
                 return

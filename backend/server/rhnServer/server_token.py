@@ -18,6 +18,7 @@
 import sys
 
 from spacewalk.common import rhnFlags
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault, rhnException
 from spacewalk.common.rhnTranslate import _
@@ -185,8 +186,8 @@ def token_server_groups(server_id, tokens_obj):
             e = sys.exc_info()[1]
             log_error("Failed to add server to group", server_id,
                       server_group_id, sg["name"])
-            raise rhnFault(80, _("Failed to add server to group %s") %
-                           sg["name"]), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(80, _("Failed to add server to group %s") %
+                           sg["name"]), sys.exc_info()[2])
         else:
             ret.append("Subscribed to server group '%s'" % sg["name"])
     return ret
@@ -610,12 +611,12 @@ class ActivationTokens:
                 log_error("Token failed to entitle server", server_id,
                           self.get_names(), entitlement[0], e.errmsg)
                 #No idea what error may be here...
-                raise rhnFault(90, e.errmsg), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(90, e.errmsg), sys.exc_info()[2])
             except rhnSQL.SQLError:
                 e = sys.exc_info()[1]
                 log_error("Token failed to entitle server", server_id,
                           self.get_names(), entitlement[0], e.args)
-                raise rhnFault(90, str(e)), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(90, str(e)), sys.exc_info()[2])
             else:
                 history["entitlement"] = "Entitled as a %s member" % entitlement[1]
 
@@ -654,12 +655,12 @@ class ReRegistrationActivationToken(ReRegistrationToken):
                 e = sys.exc_info()[1]
                 log_error("Failed to unentitle server", server_id,
                           ent, e.errmsg)
-                raise rhnFault(90, e.errmsg), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(90, e.errmsg), sys.exc_info()[2])
             except rhnSQL.SQLError:
                 e = sys.exc_info()[1]
                 log_error("Failed to unentitle server", server_id,
                           ent, e.args)
-                raise rhnFault(90, str(e)), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(90, str(e)), sys.exc_info()[2])
 
         # Call parent method:
         ReRegistrationToken.entitle(self, server_id, history, virt_type)

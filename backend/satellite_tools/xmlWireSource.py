@@ -21,6 +21,7 @@ import time
 import connection
 
 # rhn imports
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnLib
 from spacewalk.common.rhnConfig import CFG
 sys.path.append("/usr/share/rhn")
@@ -177,7 +178,7 @@ class BaseWireSource:
                 break
                 # do not reraise this exception!
         if lastErrorMsg:
-            raise RhnSyncException, lastErrorMsg, sys.exc_info()[2]
+            raise_with_tb(RhnSyncException(lastErrorMsg), sys.exc_info()[2])
         # Returns a stream
         # Should never be reached
         return stream

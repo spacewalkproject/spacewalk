@@ -47,7 +47,7 @@ class Certificate(Authentication):
         row = h.fetchone_dict()
         if not row:
             # This should not happen - we're already authenticated
-            raise rhnException, "Satellite cert went away after auth?"
+            raise rhnException("Satellite cert went away after auth?")
 
         # Bugzilla #219625
         # cert is now a blob
