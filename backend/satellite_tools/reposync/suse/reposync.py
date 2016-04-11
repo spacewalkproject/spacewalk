@@ -415,16 +415,17 @@ class RepoSync(object):
             hi.execute(cid=self.channel['id'], relpath=relativepath)
 
     def upload_updates(self, notices):
-        skipped_updates = 0
         batch = []
+        skipped_updates = 0
+
         typemap = {
-                  'security'    : 'Security Advisory',
-                  'recommended' : 'Bug Fix Advisory',
-                  'bugfix'      : 'Bug Fix Advisory',
-                  'optional'    : 'Product Enhancement Advisory',
-                  'feature'     : 'Product Enhancement Advisory',
-                  'enhancement' : 'Product Enhancement Advisory'
-                  }
+            'security': 'Security Advisory',
+            'recommended': 'Bug Fix Advisory',
+            'bugfix': 'Bug Fix Advisory',
+            'optional': 'Product Enhancement Advisory',
+            'feature': 'Product Enhancement Advisory',
+            'enhancement': 'Product Enhancement Advisory'
+        }
         backend = SQLBackend()
 
         for notice in notices:
