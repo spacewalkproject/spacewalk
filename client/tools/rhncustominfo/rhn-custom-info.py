@@ -23,7 +23,7 @@ try:
     import xmlrpclib
 except ImportError:
     import xmlrpc.client as xmlrpclib
-    basestring = str
+    basestring = (str, bytes)
 
 from re import search
 from optparse import OptionParser
