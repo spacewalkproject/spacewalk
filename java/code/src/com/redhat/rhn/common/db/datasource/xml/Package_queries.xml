@@ -1332,6 +1332,20 @@ SELECT P.id, PE.epoch, PE.version, PE.release
   </query>
 </write-mode>
 
+<write-mode name="schedule_source_pkg_for_delete_from_set">
+  <query params="set_label, uid">
+    INSERT INTO rhnPackageFileDeleteQueue (path)
+      (SELECT distinct(ps.path)
+         FROM rhnPackageSource ps, rhnSet s
+        WHERE ps.id = s.element
+          AND s.label = :set_label
+          AND s.user_id = :uid
+          AND not exists
+          (select path from rhnPackageFileDeleteQueue Q where Q.path = ps.path)
+      )
+  </query>
+</write-mode>
+
 <!-- Deletes packages found in the given RhnSet. The set must contain the package ID in
      the "element" of the set. -->
 <write-mode name="delete_packages_from_set">
@@ -1723,10 +1737,10 @@ ORDER BY P.package_arch_id DESC
 <write-mode name="delete_package_sources_from_set">
    <query params="set_label, uid">
       DELETE FROM rhnPackageSource ps
-       WHERE ps.source_rpm_id IN (
-             SELECT p.source_rpm_id
-               FROM rhnPackage p, rhnSet s
-              WHERE p.id = s.element
+       WHERE ps.id IN (
+             SELECT ps.id
+               FROM rhnPackageSource ps, rhnSet s
+              WHERE ps.id = s.element
                 AND s.label = :set_label
                 AND S.user_id = :uid
              )

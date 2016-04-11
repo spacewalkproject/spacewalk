@@ -1245,6 +1245,50 @@ public class PackageManager extends BaseManager {
     }
 
     /**
+     * This deletes a source packages completely including the
+     *      physical rpm on the disk
+     * @param ids the set of source package ids
+     * @param user the user doing the deleting
+     */
+    public static void deleteSourcePackages(Set<Long> ids, User user) {
+
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+            throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
+        }
+
+        long start = System.currentTimeMillis();
+
+        // Stuff the package IDs into an RhnSet that the rest of the queries
+        // will work on
+        RhnSet set = RhnSetDecl.PACKAGES_TO_REMOVE.create(user);
+
+        for (Long id : ids) {
+            set.addElement(id);
+        }
+
+        RhnSetManager.store(set);
+
+        // Needed for subsequent queries
+        WriteMode mode;
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("set_label", set.getLabel());
+        params.put("uid", user.getId());
+
+        // Delete RPMS
+        mode = ModeFactory.getWriteMode("Package_queries",
+                "schedule_source_pkg_for_delete_from_set");
+        mode.executeUpdate(params);
+
+        // Delete source packages
+        mode = ModeFactory.getWriteMode("Package_queries",
+                "delete_package_sources_from_set");
+        mode.executeUpdate(params);
+
+        LOG.debug("Time to delete [" + ids.size() + "] packages [" +
+                (System.currentTimeMillis() - start) + "] ms");
+    }
+
+    /**
      * guestimate a package based on channel id, name and evr
      * @param channelId the channel
      * @param nameId the name
