@@ -414,6 +414,105 @@ class RepoSync(object):
                                                        where channel_id = :cid))""")
             hi.execute(cid=self.channel['id'], relpath=relativepath)
 
+    def upload_updates(self, notices):
+        skipped_updates = 0
+        batch = []
+        typemap = {
+                  'security'    : 'Security Advisory',
+                  'recommended' : 'Bug Fix Advisory',
+                  'bugfix'      : 'Bug Fix Advisory',
+                  'optional'    : 'Product Enhancement Advisory',
+                  'feature'     : 'Product Enhancement Advisory',
+                  'enhancement' : 'Product Enhancement Advisory'
+                  }
+        backend = SQLBackend()
+
+        for notice in notices:
+            notice = _fix_notice(notice)
+            patch_name = self._patch_naming(notice)
+            existing_errata = get_errata(patch_name)
+            if existing_errata and not _is_old_suse_style(notice):
+                if int(existing_errata['advisory_rel']) < int(notice['version']):
+                    # A disaster happens
+                    #
+                    # re-releasing an errata with a higher release number
+                    # only happens in case of a disaster.
+                    # This should force mirrored repos to remove the old
+                    # errata and take care that the new one is the only
+                    # available.
+                    # This mean a hard overwrite
+                    _delete_invalid_errata(existing_errata['id'])
+                elif int(existing_errata['advisory_rel']) > int(notice['version']):
+                    # the existing errata has a higher release than the now
+                    # parsed one. We need to skip the current errata
+                    continue
+                # else: release match, so we update the errata
+
+            if notice['updated']:
+                updated_date = _to_db_date(notice['updated'])
+            else:
+                updated_date = _to_db_date(notice['issued'])
+            if (existing_errata and
+                not self.errata_needs_update(existing_errata, notice['version'], updated_date)):
+                continue
+            self.print_msg("Add Patch %s" % patch_name)
+            e = Erratum()
+            e['errata_from']   = notice['from']
+            e['advisory'] = e['advisory_name'] = patch_name
+            e['advisory_rel']  = notice['version']
+            e['advisory_type'] = typemap.get(notice['type'], 'Product Enhancement Advisory')
+            e['product']       = notice['release'] or 'Unknown'
+            e['description']   = notice['description'] or 'not set'
+            e['synopsis']      = notice['title'] or notice['update_id']
+            if (notice['type'] == 'security' and notice['severity'] and
+                not e['synopsis'].startswith(notice['severity'] + ': ')):
+                e['synopsis'] = notice['severity'] + ': ' + e['synopsis']
+            e['topic']         = ' '
+            e['solution']      = ' '
+            e['issue_date']    = _to_db_date(notice['issued'])
+            e['update_date']   = updated_date
+            e['org_id']        = self.channel['org_id']
+            e['notes']         = ''
+            e['refers_to']     = ''
+            e['channels']      = [{'label':self.channel_label}]
+            e['packages']      = []
+            e['files']         = []
+            if existing_errata:
+                e['channels'].extend(existing_errata['channels'])
+                e['packages'] = existing_errata['packages']
+
+            e['packages'] = self._updates_process_packages(
+                notice['pkglist'][0]['packages'], e['advisory_name'], e['packages'])
+            # One or more package references could not be found in the Database.
+            # To not provide incomplete patches we skip this update
+            if not e['packages']:
+                skipped_updates = skipped_updates + 1
+                continue
+
+            e['keywords'] = _update_keywords(notice)
+            e['bugs'] = _update_bugs(notice)
+            e['cve'] = _update_cve(notice)
+            if notice['severity']:
+                e['security_impact'] = notice['severity']
+            else:
+                # 'severity' not available in older yum versions
+                # set default to Low to get a correct currency rating
+                e['security_impact'] = "Low"
+            e['locally_modified'] = None
+            batch.append(e)
+            if self.deep_verify:
+                # import step by step
+                importer = ErrataImport(batch, backend)
+                importer.run()
+                batch = []
+
+        if skipped_updates > 0:
+            self.print_msg("%d patches skipped because of empty package list." % skipped_updates)
+        if len(batch) > 0:
+            importer = ErrataImport(batch, backend)
+            importer.run()
+        self.regen = True
+
     def upload_patches(self, notices):
         """Insert the information from patches into the database
 
@@ -522,105 +621,6 @@ class RepoSync(object):
 
         if skipped_updates > 0:
             self.print_msg("%d patches skipped because of incomplete package list." % skipped_updates)
-        if len(batch) > 0:
-            importer = ErrataImport(batch, backend)
-            importer.run()
-        self.regen = True
-
-    def upload_updates(self, notices):
-        skipped_updates = 0
-        batch = []
-        typemap = {
-                  'security'    : 'Security Advisory',
-                  'recommended' : 'Bug Fix Advisory',
-                  'bugfix'      : 'Bug Fix Advisory',
-                  'optional'    : 'Product Enhancement Advisory',
-                  'feature'     : 'Product Enhancement Advisory',
-                  'enhancement' : 'Product Enhancement Advisory'
-                  }
-        backend = SQLBackend()
-
-        for notice in notices:
-            notice = _fix_notice(notice)
-            patch_name = self._patch_naming(notice)
-            existing_errata = get_errata(patch_name)
-            if existing_errata and not _is_old_suse_style(notice):
-                if int(existing_errata['advisory_rel']) < int(notice['version']):
-                    # A disaster happens
-                    #
-                    # re-releasing an errata with a higher release number
-                    # only happens in case of a disaster.
-                    # This should force mirrored repos to remove the old
-                    # errata and take care that the new one is the only
-                    # available.
-                    # This mean a hard overwrite
-                    _delete_invalid_errata(existing_errata['id'])
-                elif int(existing_errata['advisory_rel']) > int(notice['version']):
-                    # the existing errata has a higher release than the now
-                    # parsed one. We need to skip the current errata
-                    continue
-                # else: release match, so we update the errata
-
-            if notice['updated']:
-                updated_date = _to_db_date(notice['updated'])
-            else:
-                updated_date = _to_db_date(notice['issued'])
-            if (existing_errata and
-                not self.errata_needs_update(existing_errata, notice['version'], updated_date)):
-                continue
-            self.print_msg("Add Patch %s" % patch_name)
-            e = Erratum()
-            e['errata_from']   = notice['from']
-            e['advisory'] = e['advisory_name'] = patch_name
-            e['advisory_rel']  = notice['version']
-            e['advisory_type'] = typemap.get(notice['type'], 'Product Enhancement Advisory')
-            e['product']       = notice['release'] or 'Unknown'
-            e['description']   = notice['description'] or 'not set'
-            e['synopsis']      = notice['title'] or notice['update_id']
-            if (notice['type'] == 'security' and notice['severity'] and
-                not e['synopsis'].startswith(notice['severity'] + ': ')):
-                e['synopsis'] = notice['severity'] + ': ' + e['synopsis']
-            e['topic']         = ' '
-            e['solution']      = ' '
-            e['issue_date']    = _to_db_date(notice['issued'])
-            e['update_date']   = updated_date
-            e['org_id']        = self.channel['org_id']
-            e['notes']         = ''
-            e['refers_to']     = ''
-            e['channels']      = [{'label':self.channel_label}]
-            e['packages']      = []
-            e['files']         = []
-            if existing_errata:
-                e['channels'].extend(existing_errata['channels'])
-                e['packages'] = existing_errata['packages']
-
-            e['packages'] = self._updates_process_packages(
-                notice['pkglist'][0]['packages'], e['advisory_name'], e['packages'])
-            # One or more package references could not be found in the Database.
-            # To not provide incomplete patches we skip this update
-            if not e['packages']:
-                skipped_updates = skipped_updates + 1
-                continue
-
-            e['keywords'] = _update_keywords(notice)
-            e['bugs'] = _update_bugs(notice)
-            e['cve'] = _update_cve(notice)
-            if notice['severity']:
-                e['security_impact'] = notice['severity']
-            else:
-                # 'severity' not available in older yum versions
-                # set default to Low to get a correct currency rating
-                e['security_impact'] = "Low"
-            e['locally_modified'] = None
-            batch.append(e)
-            if self.deep_verify:
-                # import step by step
-                importer = ErrataImport(batch, backend)
-                importer.run()
-                batch = []
-
-        if skipped_updates > 0:
-            self.print_msg("%d patches skipped because of empty package list." % skipped_updates)
         if len(batch) > 0:
             importer = ErrataImport(batch, backend)
             importer.run()
