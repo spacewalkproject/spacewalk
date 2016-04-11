@@ -33,4 +33,4 @@ if __name__ == '__main__':
     """Test code.
     """
     rhnSQL.initDB()
-    print check_package_arch('i386')
+    print(check_package_arch('i386'))

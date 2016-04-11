@@ -380,7 +380,7 @@ def sendMail(forceEmail=0):
     if forceEmail or (OPTIONS is not None and OPTIONS.email):
         body = dumpEMAIL_LOG()
         if body:
-            print _("+++ sending log as an email +++")
+            print(_("+++ sending log as an email +++"))
             host_label = idn_puny_to_unicode(os.uname()[1])
             headers = {
                 'Subject' : _('RHN Management Satellite sync. report from %s') % host_label,
@@ -390,7 +390,7 @@ def sendMail(forceEmail=0):
                 sndr = CFG.default_mail_from
             rhnMail.send(headers, body, sender=sndr)
         else:
-            print _("+++ email requested, but there is nothing to send +++")
+            print(_("+++ email requested, but there is nothing to send +++"))
         # mail was sent. Let's not allow it to be sent twice...
         OPTIONS.email = None
 

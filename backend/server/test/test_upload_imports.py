@@ -17,5 +17,5 @@ from spacewalk.server import rhnImport
 
 root_dir = "/var/www/rhns"
 
-print rhnImport.load("upload_server/handlers",
-                     interface_signature='upload_class')
+print(rhnImport.load("upload_server/handlers",
+                     interface_signature='upload_class'))

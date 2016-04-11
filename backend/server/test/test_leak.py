@@ -18,7 +18,7 @@ import sys
 import time
 from spacewalk.server import rhnSQL
 
-print os.getpid()
+print(os.getpid())
 rhnSQL.initDB('rhnuser/rhnuser@webdev')
 
 h = rhnSQL.prepare("select 1 from dual")

@@ -98,10 +98,10 @@ class Runner:
             raise
 
         if self.options.commit:
-            print "Commiting work"
+            print("Commiting work")
             rhnSQL.commit()
         else:
-            print "Rolling back"
+            print("Rolling back")
             rhnSQL.rollback()
 
     def _get_packages(self):
@@ -138,10 +138,10 @@ class Runner:
                     orphaned_packages[package_id] = None
 
         if orphaned_packages:
-            print "Bailing out because of packages shared with other channels"
+            print("Bailing out because of packages shared with other channels")
             for package_id in orphaned_packages.keys():
                 channels = self._channel_packages[package_id]
-                print package_id, channels
+                print(package_id, channels)
             return None
 
         return package_ids
@@ -195,13 +195,13 @@ class Runner:
             try:
                 p_file = file(self.options.prefix + "/" + path, 'r')
             except IOError:
-                print "Error opening file %s" % path
+                print("Error opening file %s" % path)
                 continue
 
             try:
                 (header_start, header_end) = rhn_rpm.get_header_byte_range(p_file)
             except InvalidPackageError, e:
-                print "Error reading header size from file %s: %s" % (path, e)
+                print("Error reading header size from file %s: %s" % (path, e))
 
             try:
                 h.execute(package_id=package_id, header_start=header_start, header_end=header_end)

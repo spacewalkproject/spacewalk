@@ -36,7 +36,7 @@ class TestServer:
             self.filesuploaded = False
 
             self.options = rhnConfig.initCFG('server')
-            print self.options
+            print(self.options)
 
             mytime = time.time()
             self.test_username = username or ("test_username_%.3f" % mytime)
@@ -201,12 +201,12 @@ if __name__ == "__main__":
         myserver.getServerId(), "packages.update", action_name="Testing", delta_time=9999, org_id=myserver.org_id)
     fake_token = rhnServer.search_token(fake_key._token)
 
-    print look_at_actions(myserver.getServerId())
+    print(look_at_actions(myserver.getServerId()))
 
     rhnFlags.set("registration_token", fake_token)
     myserver.testserver.use_token()
 
-    print look_at_actions(myserver.getServerId())
+    print(look_at_actions(myserver.getServerId()))
 
     rhnAction.invalidate_action(myserver.getServerId(), fake_action)
     rhnSQL.rollback()

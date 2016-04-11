@@ -205,7 +205,7 @@ class RHNOptions:
         for k, v in vals:
             if v is None:
                 v = ""
-            print "%-20s = %s" % (k, v)
+            print("%-20s = %s" % (k, v))
 
     # polymorphic methods
 
@@ -304,13 +304,13 @@ class RHNOptions:
 
     def showall(self):
         from pprint import pprint
-        print "__defaults: dictionary of parsed defaults."
+        print("__defaults: dictionary of parsed defaults.")
         pprint(self.__defaults)
-        print
-        print "__parsedConfig: dictionary of parsed /etc/rhn/rhn.conf file."
+        print()
+        print("__parsedConfig: dictionary of parsed /etc/rhn/rhn.conf file.")
         pprint(self.__parsedConfig)
-        print
-        print "__configs: dictionary of the merged options keyed by component."
+        print()
+        print("__configs: dictionary of the merged options keyed by component.")
         pprint(self.__configs)
 
 
@@ -531,11 +531,11 @@ PRODUCT_NAME = ALL_CFG.PRODUCT_NAME
 
 
 def runTest():
-    print "Test script:"
+    print("Test script:")
     import pprint
-    print "Component tree of all installed components:"
+    print("Component tree of all installed components:")
     pprint.pprint(getAllComponents_tree())
-    print
+    print()
     test_cfg = RHNOptions(sys.argv[1])
 #    test_cfg = RHNOptions('server.app')
 #    test_cfg = RHNOptions('proxy.broker')
@@ -543,22 +543,22 @@ def runTest():
 #    test_cfg = RHNOptions('proxy.redirect', '/tmp')
 #    test_cfg.filename = 'empty.conf'
     test_cfg.parse()
-    print "=============== the object's repr ================================"
-    print test_cfg
-    print "=============== the object's defaults ============================"
+    print("=============== the object's repr ================================")
+    print(test_cfg)
+    print("=============== the object's defaults ============================")
     pprint.pprint(test_cfg.getDefaults())
-    print "=============== an erronous lookup example ======================="
-    print "testing __getattr__"
+    print("=============== an erronous lookup example =======================")
+    print("testing __getattr__")
     try:
-        print test_cfg.lkasjdfxxxxxxxxxxxxxx
+        print(test_cfg.lkasjdfxxxxxxxxxxxxxx)
     except AttributeError, e:
-        print 'Testing: "AttributeError: %s"' % e
-    print
-    print "=============== the object's merged settings ======================"
+        print('Testing: "AttributeError: %s"' % e)
+    print()
+    print("=============== the object's merged settings ======================")
     test_cfg.show()
-    print "=============== dump of all relevant dictionaries ================="
+    print("=============== dump of all relevant dictionaries =================")
     test_cfg.showall()
-    print "==================================================================="
+    print("===================================================================")
 
 
 #------------------------------------------------------------------------------
@@ -588,4 +588,4 @@ if __name__ == "__main__":
     if do_list:
         cfg.show()
     else:
-        print cfg.get(key_arg)
+        print(cfg.get(key_arg))

@@ -24,8 +24,8 @@ session = u.create_session()
 
 s = session.get_session()
 
-print "Checking with session", s
+print("Checking with session", s)
 
 u = rhnUser.session_reload(s)
-print u
-print u.username
+print(u)
+print(u.username)

@@ -37,4 +37,4 @@ class SearchNotify:
 if __name__ == "__main__":
     search = SearchNotify()
     result = search.notify()
-    print "search.notify() = %s" % (result)
+    print("search.notify() = %s" % (result))

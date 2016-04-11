@@ -18,7 +18,7 @@ import sys
 import time
 from DCOracle import Connect
 
-print os.getpid()
+print(os.getpid())
 dbh = Connect('rhnuser/rhnuser@webdev')
 
 h = dbh.prepare("select 1 from dual")

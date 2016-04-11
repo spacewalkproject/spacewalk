@@ -192,7 +192,7 @@ def _listChannels(channelList, is_source, include_checksums):
                 for pkg in range(len(p)):
                     if p[pkg] is None:
                         p[pkg] = ""
-                print p
+                print(p)
                 rez.append([p[0], p[1], p[2], p[3], channel])
             else:
                 if include_checksums:

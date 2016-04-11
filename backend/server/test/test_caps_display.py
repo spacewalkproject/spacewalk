@@ -16,4 +16,4 @@ from rhn import rpclib
 
 s = rpclib.Server("http://coyote.devel.redhat.com/REDHAT-XMLRPC")
 
-print s.actions.system_capabilities(1003485542)
+print(s.actions.system_capabilities(1003485542))

@@ -62,7 +62,7 @@ def xmlrpc_login(client, username, password, verbose=0):
      Authenticate Session call
     """
     if verbose:
-        print "...logging in to server..."
+        print("...logging in to server...")
 
     try:
         sessionkey = client.auth.login(username, password)
@@ -78,6 +78,6 @@ def xmlrpc_logout(client, session_key, verbose=0):
      End Authentication call
     """
     if verbose:
-        print "...logging out of server..."
+        print("...logging out of server...")
 
     client.auth.logout(session_key)

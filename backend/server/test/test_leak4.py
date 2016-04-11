@@ -17,7 +17,7 @@ import sys
 import time
 from DCOracle2 import connect
 
-print 'PID', os.getpid()
+print('PID', os.getpid())
 db = connect('rhnuser/rhnuser@webdev')
 
 #c = db.prepare("select 1, 'z', 2, 3, 4, 't' from dual")

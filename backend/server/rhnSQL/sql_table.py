@@ -260,5 +260,5 @@ class Table:
         return self.__db.rollback()
 
     def printcache(self):
-        print self.__cache
+        print(self.__cache)
         return

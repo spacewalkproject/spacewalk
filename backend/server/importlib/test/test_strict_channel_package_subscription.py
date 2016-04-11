@@ -65,7 +65,7 @@ def main():
     cps = packageImport.ChannelPackageSubscription(batch, backend,
                                                    caller="misa.testing", strict=1)
     cps.run()
-    print cps.affected_channel_packages
+    print(cps.affected_channel_packages)
 
 if __name__ == '__main__':
     sys.exit(main() or 0)

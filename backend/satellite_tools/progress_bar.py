@@ -111,7 +111,7 @@ class ProgressBar:
 if __name__ == '__main__':
     import time
 
-    print "An example:"
+    print("An example:")
     bar_length = 40
     items = 200
     pb = ProgressBar('standby: ', ' - all done!', items, bar_length, 'o')

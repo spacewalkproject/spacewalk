@@ -105,4 +105,4 @@ if __name__ == '__main__':
     c = PackageCache()
     pid = 'package-12345'
     c.cache_set(pid, {'a': 1, 'b': 2})
-    print c.cache_get(pid)
+    print(c.cache_get(pid))

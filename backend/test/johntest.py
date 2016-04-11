@@ -275,34 +275,34 @@ class LoginInfo:
 if __name__ == "__main__":
     t = Test()
     lg = t.login()
-    print "Server ID: " + lg.get_server_id()
-    print "User ID: " + lg.get_user_id()
-    print "Server Time: " + lg.get_server_time()
-    print "Auth: " + lg.get_signature()
-    print "Expire Offset: " + lg.get_expire_offset()
+    print("Server ID: " + lg.get_server_id())
+    print("User ID: " + lg.get_user_id())
+    print("Server Time: " + lg.get_server_time())
+    print("Auth: " + lg.get_signature())
+    print("Expire Offset: " + lg.get_expire_offset())
 
     list = t.list_channels()
-    print "\n"
+    print("\n")
     for i in range(list.get_num_channels()):
-        print "Channel Name: " + list.get_name(i)
-        print "Channel Last Modified: " + list.get_last_modified(i)
-        print "Channel Description: " + list.get_description(i)
-        print "Channel Local Channel: " + list.get_local_channel(i)
-        print "Channel Arch: " + list.get_arch(i)
-        print "Channel Parent Channel: " + list.get_parent_channel(i)
-        print "Channel Summary: " + list.get_summary(i)
-        print "Channel org_id: " + list.get_org_id(i)
-        print "Channel id: " + list.get_id(i)
-        print "Channel label: " + list.get_label(i)
+        print("Channel Name: " + list.get_name(i))
+        print("Channel Last Modified: " + list.get_last_modified(i))
+        print("Channel Description: " + list.get_description(i))
+        print("Channel Local Channel: " + list.get_local_channel(i))
+        print("Channel Arch: " + list.get_arch(i))
+        print("Channel Parent Channel: " + list.get_parent_channel(i))
+        print("Channel Summary: " + list.get_summary(i))
+        print("Channel org_id: " + list.get_org_id(i))
+        print("Channel id: " + list.get_id(i))
+        print("Channel label: " + list.get_label(i))
 
-    print ""
+    print("")
     plist = t.list_packages()
     for j in range(plist.get_num_packages()):
-        print "Package Name: " + plist.get_name(j)
-        print "Package Version: " + plist.get_version(j)
-        print "Package Release: " + plist.get_release(j)
-        print "Package Epoch: " + plist.get_epoch(j)
-        print ""
+        print("Package Name: " + plist.get_name(j))
+        print("Package Version: " + plist.get_version(j))
+        print("Package Release: " + plist.get_release(j))
+        print("Package Epoch: " + plist.get_epoch(j))
+        print("")
 
     #package = t.package([plist.get_name(0), plist.get_version(0), plist.get_release(0), plist.get_epoch(j)])
     # print package
@@ -312,5 +312,5 @@ if __name__ == "__main__":
     org_id = raw_input("ord_id:")
     org_password = raw_input("org_password:")
 
-    print t.reserve_user(uname, password)
-    print t.new_user(uname, password, email, org_id, org_password)
+    print(t.reserve_user(uname, password))
+    print(t.new_user(uname, password, email, org_id, org_password))

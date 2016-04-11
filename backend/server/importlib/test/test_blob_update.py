@@ -80,7 +80,7 @@ def main():
 
     fields = ['id1', 'id2', 'val1', 'val2', 'nval']
     setup(test_blob_update, blob_values1, fields)
-    print "Insert test"
+    print("Insert test")
     verify(blob_values1)
 
     t = TableUpdate(test_blob_update, rhnSQL)
@@ -91,7 +91,7 @@ def main():
     t.query(values)
     rhnSQL.commit()
 
-    print "Updates test"
+    print("Updates test")
     verify(blob_values2)
 
 
@@ -150,7 +150,7 @@ def verify(blob_values):
         val2_val = rhnSQL.read_lob(val2)
         assert v1 == val1_val, "Not equal: %s, %s" % (repr(v1), repr(val1_val))
         assert v2 == val2_val, "Not equal: %s, %s" % (repr(v2), repr(val2_val))
-    print "Verification passes"
+    print("Verification passes")
 
 if __name__ == '__main__':
     sys.exit(main() or 0)

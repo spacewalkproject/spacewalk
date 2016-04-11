@@ -17,7 +17,7 @@ import os
 import time
 from DCOracle2 import connect
 
-print os.getpid()
+print(os.getpid())
 dbh = connect('rhnuser/rhnuser@webdev')
 
 h = dbh.prepare("select 1 from dual")
@@ -27,8 +27,8 @@ i = 0
 while 1:
     h.execute()
     if 0:
-        print h.fetchone_dict()
+        print(h.fetchone_dict())
     else:
-        print i, "%.3f" % (time.time() - start)
+        print(i, "%.3f" % (time.time() - start))
     i = i + 1
     time.sleep(.01)

@@ -100,7 +100,7 @@ class RequestedChannels:
 
     def _print_values(self):
         for name in self.__lists:
-            print "Contents of %s: %s" % (name, getattr(self, name))
+            print("Contents of %s: %s" % (name, getattr(self, name)))
         return self
 
     def compute(self):
@@ -174,10 +174,10 @@ def _verify_expectations(c, expectations):
         method_name = 'get' + k
         val = getattr(c, method_name)()
         if val == expected:
-            print "ok: %s = %s" % (method_name, expected)
+            print("ok: %s = %s" % (method_name, expected))
         else:
-            print "FAILED: %s: expected %s, got %s" % (method_name, expected,
-                                                       val)
+            print("FAILED: %s: expected %s, got %s" % (method_name, expected,
+                                                       val))
 
 
 def test1(requested, available, imported, expectations):
@@ -216,9 +216,9 @@ def test():
         '_typos': ['b', 'c'],
         '_requested_channels': ['a', 'd'],
     }
-    print "Running test1"
+    print("Running test1")
     test1(requested, available, imported, expectations)
-    print "Running test2"
+    print("Running test2")
     test2(requested, available, imported, expectations)
 
 if __name__ == '__main__':

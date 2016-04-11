@@ -54,9 +54,9 @@ class ActionDeps:
         self.action_dict = {'blacklists': 0}
 
     def list_steps(self):
-        print "LIST OF STEPS:"
+        print("LIST OF STEPS:")
         for step in self.step_hierarchy:
-            print step
+            print(step)
         sys.exit(0)
 
     # Contains the logic for the --step option
@@ -133,4 +133,4 @@ if __name__ == "__main__":
     import iss_ui
     a = iss_ui.UI()
     b = ActionDeps(a)
-    print b.get_actions()
+    print(b.get_actions())

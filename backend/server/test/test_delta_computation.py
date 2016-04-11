@@ -55,10 +55,10 @@ list2 = [
 ]
 
 i, r = server_packages.package_delta(list1, list2)
-print "Install set:  ", i
-print "Remove set:   ", r
+print("Install set:  ", i)
+print("Remove set:   ", r)
 
 assert i == [aalib1, kernel3, unzip1, unzip2], "Invalid install set %s" % i
 assert r == [aalib2, abiword1, abiword2, kernel1, kernel2, quota], "Invalid remove set %s" % r
 
-print "All assertions passed"
+print("All assertions passed")

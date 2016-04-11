@@ -18,7 +18,7 @@ import string
 import cx_Oracle
 
 if len(sys.argv) == 1:
-    print "Usage: %s <connection_string>" % sys.argv[0]
+    print("Usage: %s <connection_string>" % sys.argv[0])
     sys.exit(0)
 
 
@@ -41,4 +41,4 @@ h.execute('select 1 from dual')
 for i in range(10000):
     d = h.description
     if not (i % 100):
-        print mem_usage()
+        print(mem_usage())

@@ -97,5 +97,5 @@ if __name__ == "__main__":
         import testoob
         testoob.main(defaultTest="suite")
     except ImportError:
-        print "These tests would run prettier if you installed testoob. :)"
+        print("These tests would run prettier if you installed testoob. :)")
         unittest.main(defaultTest="suite")

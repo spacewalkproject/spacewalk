@@ -245,7 +245,7 @@ class Dumper(dumper.XML_Dumper):
             # "incremental" dumps. So we will gather list of channel ids for channels already
             # in dump.
             channel_labels_for_families = self.fm.filemap['channels'].list()
-            print "Appending channels %s" % (channel_labels_for_families)
+            print("Appending channels %s" % (channel_labels_for_families))
             for ids in channel_labels_for_families:
                 ch_data.execute(label=ids)
                 ch_info = ch_data.fetchall_dict()
@@ -614,7 +614,7 @@ class Dumper(dumper.XML_Dumper):
     # method to do the actual dumping.
     def _dump_simple(self, filename, dump_func, startmsg, endmsg, exceptmsg):
         try:
-            print "\n"
+            print("\n")
             log2stdout(1, startmsg)
             pb = progress_bar.ProgressBar(self.pb_label,
                                           self.pb_complete,
@@ -674,7 +674,7 @@ class Dumper(dumper.XML_Dumper):
     def dump_channels(self, channel_labels=None, start_date=None, end_date=None,
                       use_rhn_date=True, whole_errata=False):
         try:
-            print "\n"
+            print("\n")
             log2stdout(1, "Exporting channel info...")
             pb = progress_bar.ProgressBar(self.pb_label,
                                           self.pb_complete,
@@ -719,7 +719,7 @@ class Dumper(dumper.XML_Dumper):
                                     validate_channels=False, send_headers=False,
                                     open_stream=True):
         try:
-            print "\n"
+            print("\n")
             for ch_id in self.channel_ids:
                 filepath = self.fm.getChannelPackageShortFile(ch_id['channel_id'])
                 self.set_filename(filepath)
@@ -734,7 +734,7 @@ class Dumper(dumper.XML_Dumper):
 
     def dump_packages(self, packages=None):
         try:
-            print "\n"
+            print("\n")
             log2stdout(1, "Exporting packages...")
             pb = progress_bar.ProgressBar(self.pb_label,
                                           self.pb_complete,
@@ -764,7 +764,7 @@ class Dumper(dumper.XML_Dumper):
 
     def dump_packages_short(self, packages=None):
         try:
-            print "\n"
+            print("\n")
             log2stdout(1, "Exporting short packages...")
             pb = progress_bar.ProgressBar(self.pb_label,
                                           self.pb_complete,
@@ -793,7 +793,7 @@ class Dumper(dumper.XML_Dumper):
 
     def dump_source_packages(self, packages=None):
         try:
-            print "\n"
+            print("\n")
             for pkg_info in self.src_pkg_info:
                 self.set_filename(self.fm.getSourcePackagesFile("rhn-source-package-" + str(pkg_info['package_id'])))
                 dumper.XML_Dumper.dump_source_packages(self, [pkg_info])
@@ -807,7 +807,7 @@ class Dumper(dumper.XML_Dumper):
 
     def dump_errata(self, errata=None, verify_errata=False):
         try:
-            print "\n"
+            print("\n")
             log2stdout(1, "Exporting errata...")
             pb = progress_bar.ProgressBar(self.pb_label,
                                           self.pb_complete,
@@ -837,7 +837,7 @@ class Dumper(dumper.XML_Dumper):
 
     def dump_kickstart_data(self):
         try:
-            print "\n"
+            print("\n")
             log2stdout(1, "Exporting kickstart data...")
             pb = progress_bar.ProgressBar(self.pb_label,
                                           self.pb_complete,
@@ -865,7 +865,7 @@ class Dumper(dumper.XML_Dumper):
 
     def dump_kickstart_files(self):
         try:
-            print "\n"
+            print("\n")
             log2stdout(1, "Exporting kickstart files...")
             pb = progress_bar.ProgressBar(self.pb_label,
                                           self.pb_complete,
@@ -935,7 +935,7 @@ class Dumper(dumper.XML_Dumper):
     # RPM and SRPM dumping code
     def dump_rpms(self):
         try:
-            print "\n"
+            print("\n")
             log2stdout(1, "Exporting binary RPMs...")
             pb = progress_bar.ProgressBar(self.pb_label,
                                           self.pb_complete,
@@ -1010,8 +1010,8 @@ def get_report():
 
 
 def print_report():
-    print ""
-    print "REPORT:"
+    print("")
+    print("REPORT:")
     report_string = get_report()
     sys.stdout.write(str(report_string))
 
@@ -1021,7 +1021,7 @@ def sendMail():
     # Send email summary
     body = dumpEMAIL_LOG()
     if body:
-        print "+++ sending log as an email +++"
+        print("+++ sending log as an email +++")
         headers = {
             'Subject': 'Spacewalk Management Satellite Export report from %s' % os.uname()[1],
         }
@@ -1029,7 +1029,7 @@ def sendMail():
         sndr = 'rhn-satellite@%s' % os.uname()[1]
         rhnMail.send(headers, body, sender=sndr)
     else:
-        print "+++ email requested, but there is nothing to send +++"
+        print("+++ email requested, but there is nothing to send +++")
 
 
 def handle_error(message, traceback):
@@ -1062,7 +1062,7 @@ class ExporterMain:
         try:
             rhnSQL.initDB()
         except SQLConnectError:
-            print 'SQLERROR: There was an error connecting to the Database.'
+            print('SQLERROR: There was an error connecting to the Database.')
             sys.exit(-1)
         except (SQLError, SQLSchemaError), e:
             # An SQL error is fatal... crash and burn
@@ -1159,8 +1159,8 @@ class ExporterMain:
                 self.end_date = self.options.end_date.ljust(14, '0')
 
             self.start_date = self.options.start_date.ljust(14, '0')
-            print "start date limit: %s" % self.start_date
-            print "end date limit: %s" % self.end_date
+            print("start date limit: %s" % self.start_date)
+            print("end date limit: %s" % self.end_date)
         else:
             self.start_date = None
             self.end_date = None
@@ -1196,10 +1196,10 @@ class ExporterMain:
                     'orgs':   {'dump': self.dumper.dump_orgs},
                 }
             else:
-                print "The output directory is not a directory"
+                print("The output directory is not a directory")
                 sys.exit(-1)
         else:
-            print "can't access output directory"
+            print("can't access output directory")
             sys.exit(-1)
 
     @staticmethod
@@ -1264,22 +1264,22 @@ class ExporterMain:
         """
         if channel_dict:
             # Print the legend.
-            print "Channel List:"
-            print "B = Base Channel"
-            print "C = Child Channel"
-            print ""
+            print("Channel List:")
+            print("B = Base Channel")
+            print("C = Child Channel")
+            print("")
 
             base_template = "B %s"
             child_template = "C\t%s"
 
             # Print channel information.
             for pc in channel_dict.keys():
-                print base_template % (pc,)
+                print(base_template % (pc,))
                 for cc in channel_dict[pc]:
-                    print child_template % (cc,)
-                print " "
+                    print(child_template % (cc,))
+                print(" ")
         else:
-            print "No Channels available for listing."
+            print("No Channels available for listing.")
 
     @staticmethod
     def list_orgs():
@@ -1297,11 +1297,11 @@ class ExporterMain:
     @staticmethod
     def print_orgs(orgs):
         if orgs and len(orgs) > 0:
-            print "Orgs available for export:"
+            print("Orgs available for export:")
             for org in orgs:
-                print "Id: %s, Name: \'%s\'" % (org['id'], org['name'])
+                print("Id: %s, Name: \'%s\'" % (org['id'], org['name']))
         else:
-            print "No Orgs available for listing."
+            print("No Orgs available for listing.")
 
     def main(self):
         # pylint: disable=E1101

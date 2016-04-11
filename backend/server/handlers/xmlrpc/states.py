@@ -94,7 +94,7 @@ states_to_abbr = {
 
 #-----------------------------------------------------------------------------
 if __name__ == "__main__":
-    print "You can not run this module by itself"
+    print("You can not run this module by itself")
     import sys
     sys.exit(-1)
 #-----------------------------------------------------------------------------

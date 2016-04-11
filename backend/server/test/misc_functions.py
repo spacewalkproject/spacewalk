@@ -179,10 +179,10 @@ class InvalidRoleError(Exception):
 def listdir(directory):
     directory = os.path.abspath(os.path.normpath(directory))
     if not os.access(directory, os.R_OK | os.X_OK):
-        print "Can't access %s." % (directory)
+        print("Can't access %s." % (directory))
         sys.exit(1)
     if not os.path.isdir(directory):
-        print "%s not valid." % (directory)
+        print("%s not valid." % (directory))
         sys.exit(1)
     packageList = []
     for f in os.listdir(directory):

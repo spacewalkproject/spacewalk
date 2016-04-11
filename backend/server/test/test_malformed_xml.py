@@ -53,6 +53,6 @@ h.endheaders()
 h.send(data)
 
 r = h.getresponse()
-print r.msg.headers
+print(r.msg.headers)
 
-print r.read()
+print(r.read())

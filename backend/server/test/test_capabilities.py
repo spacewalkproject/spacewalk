@@ -48,7 +48,7 @@ def main():
         rhnSQL.initDB(db_name)
     except ConfigParserError:
         # database is not available when running in rpmbuild time
-        print "Test skipped"
+        print("Test skipped")
         return 0
 
     uri = "http://%s/XMLRPC" % (server_name, )
@@ -87,7 +87,7 @@ def main():
 
     sobj = rhnServer.get(systemid)
     server_id = sobj.getid()
-    print "Registered server", server_id
+    print("Registered server", server_id)
 
     return 0
 

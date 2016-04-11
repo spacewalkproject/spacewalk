@@ -16,7 +16,7 @@ import sys
 from spacewalk.server import rhnSQL
 
 if len(sys.argv) != 2:
-    print "Error: no connection string"
+    print("Error: no connection string")
     sys.exit(1)
 
 rhnSQL.initDB(sys.argv[1])

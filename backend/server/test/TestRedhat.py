@@ -97,6 +97,6 @@ if __name__ == "__main__":
 #    print rpc_downloads.add_downloadable_files(info)
     server = SimpleXMLRPCServer.SimpleXMLRPCServer(addr=('', 8000))
     for func in rpc_downloads.functions:
-        print func
+        print(func)
         server.register_function(getattr(rpc_downloads, func), name="downloads.%s" % (func))
     server.serve_forever()

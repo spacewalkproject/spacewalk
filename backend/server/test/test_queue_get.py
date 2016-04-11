@@ -24,7 +24,7 @@ rhnSQL.initDB('rhnuser/rhnuser@webdev')
 q = queue.Queue()
 if 1:
     systemid = open("../../test/backend/checks/systemid-farm06").read()
-    print q.get(systemid, version=2)
+    print(q.get(systemid, version=2))
 else:
     q.server_id = 1003485791
 

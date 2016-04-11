@@ -95,4 +95,4 @@ class UI:
 if __name__ == "__main__":
     # pylint: disable=E1101
     a = UI()
-    print str(a.no_errata)
+    print(str(a.no_errata))

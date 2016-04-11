@@ -160,7 +160,7 @@ class TemplatedDocument(BaseTemplatedDocument):
 
     def test(self):
         escaped = self.regex.sub(self.repl_func, 'abc @@ aa @@ def')
-        print escaped
+        print(escaped)
 
     def strip(self, s):
         if s is None:

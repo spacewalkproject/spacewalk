@@ -735,7 +735,7 @@ class Queue(rhnHandler):
 
 #-----------------------------------------------------------------------------
 if __name__ == "__main__":
-    print "You can not run this module by itself"
+    print("You can not run this module by itself")
     q = Queue()
     sys.exit(-1)
 #-----------------------------------------------------------------------------

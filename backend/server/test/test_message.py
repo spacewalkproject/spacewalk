@@ -19,6 +19,6 @@ from spacewalk.server import rhnSQL, rhnServer
 initCFG("server.xmlrpc")
 rhnSQL.initDB("rhnuser/rhnuser@webdev")
 
-print rhnServer.search(1003485567).fetch_registration_message()
-print rhnServer.search(1003485558).fetch_registration_message()
-print rhnServer.search(1003485584).fetch_registration_message()
+print(rhnServer.search(1003485567).fetch_registration_message())
+print(rhnServer.search(1003485558).fetch_registration_message())
+print(rhnServer.search(1003485584).fetch_registration_message())

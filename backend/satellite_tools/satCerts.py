@@ -81,7 +81,7 @@ def _checkCertMatch_rhnCryptoKey(caCert, description, org_id, deleteRowYN=0,
         if cert == rhnSQL.read_lob(row['key']):
             # match found, nothing to do
             if verbosity:
-                print "Nothing to do: certificate to be pushed matches certificate in database."
+                print("Nothing to do: certificate to be pushed matches certificate in database.")
             return
         # there can only be one (bugzilla: 120297)
         rhn_cryptokey_id = int(row['id'])
@@ -206,6 +206,6 @@ if __name__ == '__main__':
     # NOTE!!! This has be seg-faulting on exit, specifically upon closeDB()
     #         Bugzilla: 127324
 
-    print "end of __main__"
+    print("end of __main__")
     rhnSQL.closeDB()
-    print "we have closed the database"
+    print("we have closed the database")

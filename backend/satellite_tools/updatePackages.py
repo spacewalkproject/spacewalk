@@ -141,7 +141,7 @@ def process_package_data():
         # Nothing to change
         return
     if verbose:
-        print "Processing %s packages" % len(paths)
+        print("Processing %s packages" % len(paths))
     pb = ProgressBar(prompt='standby: ', endTag=' - Complete!',
                      finalSize=len(paths), finalBarLength=40, stream=sys.stdout)
     pb.printAll(1)
@@ -197,7 +197,7 @@ def process_package_data():
         except Exception, e:
             msg = "Exception occurred when reading package header %s: %s" % \
                 (old_abs_path, str(e))
-            print msg
+            print(msg)
             if debug:
                 log.writeMessage(msg)
             rhnSQL.commit()
@@ -236,9 +236,9 @@ def process_package_data():
     rhnSQL.commit()
     sys.stderr.write("Transaction Committed! \n")
     if verbose:
-        print " Skipping %s packages, paths not found" % len(skip_list)
+        print(" Skipping %s packages, paths not found" % len(skip_list))
     if len(new_ok_list) > 0 and verbose:
-        print " There were %s packages found in the correct location" % len(new_ok_list)
+        print(" There were %s packages found in the correct location" % len(new_ok_list))
     return
 
 
@@ -310,14 +310,14 @@ def process_sha256_packages():
     packages = _get_sha256_packages_sql.fetchall_dict()
 
     if not packages:
-        print "No SHA256 capable packages to process."
+        print("No SHA256 capable packages to process.")
         if debug:
             log.writeMessage("No SHA256 capable packages to process.")
 
         return
 
     if verbose:
-        print "Processing %s SHA256 capable packages" % len(packages)
+        print("Processing %s SHA256 capable packages" % len(packages))
 
     pb = ProgressBar(prompt='standby: ', endTag=' - Complete!',
                      finalSize=len(packages), finalBarLength=40, stream=sys.stdout)
@@ -366,7 +366,7 @@ def process_sha256_packages():
         except OSError, e:
             message = "Error when relocating %s to %s on filer: %s" % \
                       (old_abs_path, new_abs_path, str(e))
-            print message
+            print(message)
             if debug:
                 log.writeMessage(message)
             sys.exit(1)
@@ -399,7 +399,7 @@ def process_sha256_packages():
                 os.removedirs(os.path.dirname(old_abs_path))
         except OSError, e:
             message = "Error when removing %s: %s" % (old_abs_path, str(e))
-            print message
+            print(message)
             if debug:
                 log.writeMessage(message)
 
@@ -620,13 +620,13 @@ def process_changelog():
 
     if nrows == 0:
         msg = "No non-ASCII changelog entries to process."
-        print msg
+        print(msg)
         if debug:
             log.writeMessage(msg)
         return
 
     if verbose:
-        print "Processing %s non-ASCII changelog entries" % nrows
+        print("Processing %s non-ASCII changelog entries" % nrows)
 
     pb = ProgressBar(prompt='standby: ', endTag=' - Complete!',
                      finalSize=nrows, finalBarLength=40, stream=sys.stdout)
