@@ -377,8 +377,8 @@ class RepoSync(object):
             elif notices_type == 'patches':
                 self.upload_patches(notices)
 
-    def import_groups(self, repo, url):
-        groupsfile = repo.get_groups()
+    def import_groups(self, plug, url):
+        groupsfile = plug.get_groups()
         if groupsfile:
             basename = os.path.basename(groupsfile)
             self.print_msg("Repo %s has comps file %s." % (url, basename))
