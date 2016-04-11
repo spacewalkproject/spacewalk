@@ -295,7 +295,7 @@ def __single_query_with_arch_and_id(server_id, deps, query):
     for dep in deps:
         h.execute(server_id=server_id, dep=dep)
         data = h.fetchall() or []
-        ret[dep] = map(lambda a: a[:6], data)
+        ret[dep] = [a[:6] for a in data]
     return ret
 
 #
@@ -396,7 +396,7 @@ def solve_dependencies_with_limits(server_id, deps, version, all=0, limit_operat
 
             entry = []
 
-            map(lambda f, e=entry, p=p: e.append(p[f]), nvre)
+            list(map(lambda f, e=entry, p=p: e.append(p[f]), nvre))
 
             # Added for readability
             name_key = entry[0]
@@ -432,7 +432,7 @@ def solve_dependencies_with_limits(server_id, deps, version, all=0, limit_operat
                 list_of_tuples = tup_keep
 
             list_of_tuples.sort(lambda a, b: cmp(a[1], b[1]))
-            packages[dep] = map(lambda x: x[0], list_of_tuples)
+            packages[dep] = [x[0] for x in list_of_tuples]
 
     # v2 clients are done
     if version > 1:
@@ -517,7 +517,7 @@ def solve_dependencies(server_id, deps, version, nvre=None):
             if p['epoch'] is None:
                 p['epoch'] = ""
             entry = []
-            map(lambda f, e=entry, p=p: e.append(p[f]), nvre)
+            list(map(lambda f, e=entry, p=p: e.append(p[f]), nvre))
 
             name_key = entry[0]
             if name_key in dict and dict[name_key][1] < p['preference']:
@@ -550,7 +550,7 @@ def _avoid_compat_packages(dict):
     # and now return these final results ordered by preferece
     l = dict.values()
     l.sort(lambda a, b: cmp(a[1], b[1]))
-    return map(lambda x: x[0], l)
+    return [x[0] for x in l]
 
 
 def cmp_evr(pkg1, pkg2):

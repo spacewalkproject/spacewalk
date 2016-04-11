@@ -70,7 +70,7 @@ def get_package_path(server_id, pkg_spec, channel):
             and p.package_arch_id = pa.id
     """
     h = rhnSQL.prepare(statement)
-    pkg = map(str, pkg)
+    pkg = list(map(str, pkg))
     h.execute(name=pkg[0], ver=pkg[2], rel=pkg[3], arch=pkg[4],
               channel=channel, server_id=server_id)
     rs = h.fetchall_dict()
@@ -195,7 +195,7 @@ def __query_source_package_path_by_name(server_id, pkgFilename, channel):
 
 def get_info_for_package(pkg, channel_id, org_id):
     log_debug(3, pkg)
-    pkg = map(str, pkg)
+    pkg = list(map(str, pkg))
     params = {'name': pkg[0],
               'ver': pkg[1],
               'rel': pkg[2],

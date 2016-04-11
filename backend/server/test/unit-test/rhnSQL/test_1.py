@@ -128,8 +128,8 @@ class Tests1(unittest.TestCase):
     def _list_tables(self):
         h = rhnSQL.prepare("select table_name from user_tables")
         h.execute()
-        return map(lambda x: string.upper(x['table_name']), h.fetchall_dict()
-                   or [])
+        return [string.upper(x['table_name']) for x in h.fetchall_dict()
+                   or []]
 
 if __name__ == '__main__':
     unittest.main()

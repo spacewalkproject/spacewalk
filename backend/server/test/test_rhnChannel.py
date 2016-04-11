@@ -74,6 +74,6 @@ if __name__ == "__main__":
 
     s = rhnServer.search(server_id)
     s.change_base_channel("2.1AS-foobar")
-    print(map(lambda x: x['label'], channels))
-    print(map(lambda x: x['label'], rhnChannel.channels_for_server(server_id)))
+    print([x['label'] for x in channels])
+    print([x['label'] for x in rhnChannel.channels_for_server(server_id)])
     rhnSQL.commit()

@@ -115,8 +115,7 @@ class Row(UserDictCase):
         if self.hashname not in self.data:
             raise AttributeError("Table does not have a hash `%s' key" % self.hashname)
         # get a list of fields to be set
-        items = map(lambda a: (a[0], a[1][0]),
-                    filter(lambda b: b[1][1] == 1, self.data.items()))
+        items = [(a[0], a[1][0]) for a in filter(lambda b: b[1][1] == 1, self.data.items())]
         if not items:  # if there is nothing for us to do, avoid doing it.
             return
         # and now build the SQL statements

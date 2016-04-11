@@ -53,8 +53,8 @@ class Session:
 
     def _get_secrets(self):
         # Reads the four secrets from the config file
-        return map(lambda x, cfg=CFG: getattr(cfg, 'session_secret_%s' % x),
-                   range(1, 5))
+        return list(map(lambda x, cfg=CFG: getattr(cfg, 'session_secret_%s' % x),
+                    range(1, 5)))
 
     def get_secrets(self):
         # Validates the secrets from the config file
@@ -74,7 +74,7 @@ class Session:
         ctx.update(string.join(secrets[:2] + [str(self.session_id)] +
                                secrets[2:], ':'))
 
-        return string.join(map(lambda a: "%02x" % ord(a), ctx.digest()), '')
+        return string.join(["%02x" % ord(a) for a in ctx.digest()], '')
 
     def get_session(self):
         return "%sx%s" % (self.session_id, self.digest())

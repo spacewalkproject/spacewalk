@@ -336,7 +336,7 @@ class Procedure(sql_base.Procedure):
         return self._call_proc_ret(args, ret_type=None)
 
     def _call_proc_ret(self, args, ret_type=None):
-        args = map(to_string, self._munge_args(args))
+        args = list(map(to_string, self._munge_args(args)))
         if ret_type:
             ret_type_mapped = False
             for sqltype, db_type in self._type_mapping:
@@ -468,9 +468,8 @@ class Database(sql_base.Database):
     def prepare(self, sql, force=0, blob_map=None):
         # Abuse the map calls to get rid of SQL comments and extra spaces
         sql = string.join(filter(lambda a: len(a),
-                                 map(string.strip,
-                                     map(lambda a: (a + " ")[:string.find(a, '--')],
-                                         string.split(sql, "\n")))),
+                                 list(map(string.strip,
+                                     [(a + " ")[:string.find(a, '--')] for a in string.split(sql, "\n")]))),
                           " ")
         if blob_map:
             col_list = []

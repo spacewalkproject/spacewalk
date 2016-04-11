@@ -30,10 +30,10 @@ def build_sql_insert(table, hash_name, items):
     """
     sql = "insert into %s ( %s, %s ) values ( :p0, %s )" % (
         table, hash_name,
-        string.join(map(lambda a: a[0], items), ", "),
-        string.join(map(lambda a: ":p_%s" % a[0], items), ", "))
+        string.join([a[0] for a in items], ", "),
+        string.join([":p_%s" % a[0] for a in items], ", "))
     pdict = {"p0": None}  # This must be reset after we return from this call
-    map(pdict.update, map(lambda a: {"p_%s" % a[0]: a[1]}, items))
+    list(map(pdict.update, [{"p_%s" % a[0]: a[1]} for a in items]))
     return sql, pdict
 
 
@@ -43,10 +43,9 @@ def build_sql_update(table, hash_name, items):
     """
     sql = "update %s set %s where %s = :p0" % (
         table,
-        string.join(map(lambda a: "%s = :p_%s" % (a, a),
-                        map(lambda a: a[0], items)),
+        string.join(["%s = :p_%s" % (a, a) for a in [a[0] for a in items]],
                     ", "),
         hash_name)
     pdict = {"p0": None}  # This must be reset after we return from this call
-    map(pdict.update, map(lambda a: {"p_%s" % a[0]: a[1]}, items))
+    list(map(pdict.update, [{"p_%s" % a[0]: a[1]} for a in items]))
     return sql, pdict

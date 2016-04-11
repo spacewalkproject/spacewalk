@@ -23,7 +23,7 @@ def mem_usage():
         line = f.readline()
         if not line:
             break
-        arr = map(string.strip, string.split(line, ':', 1))
+        arr = list(map(string.strip, string.split(line, ':', 1)))
         if len(arr) == 1:
             continue
         dict[arr[0]] = arr[1]

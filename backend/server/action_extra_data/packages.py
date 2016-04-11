@@ -393,7 +393,7 @@ def _check_dep(server_id, action_id, failed_dep):
                   "failed dep: bad package spec %s (type %s, len %s)" % (
                       server_id, action_id, pkg, type(pkg), len(pkg)))
         raise InvalidDep
-    pkg = map(str, pkg[:3])
+    pkg = list(map(str, pkg[:3]))
 
     if not isinstance(needs_pkg, ListType) or len(needs_pkg) < 2:
         log_error("action_extra_data.packages.remove: server %s, action %s: "
@@ -401,7 +401,7 @@ def _check_dep(server_id, action_id, failed_dep):
                       server_id, action_id, needs_pkg, type(needs_pkg),
                       len(needs_pkg)))
         raise InvalidDep
-    needs_pkg = map(str, needs_pkg[:2])
+    needs_pkg = list(map(str, needs_pkg[:2]))
 
     if not isinstance(flags, IntType):
         log_error("action_extra_data.packages.remove: server %s, action %s: "

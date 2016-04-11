@@ -167,7 +167,7 @@ class Packages:
 
     def get_packages(self):
         """ produce a list of packages """
-        return map(lambda a: a.nvrea, filter(lambda a: a.status != DELETED, self.__p.values()))
+        return [a.nvrea for a in filter(lambda a: a.status != DELETED, self.__p.values())]
 
     def __expand_installtime(self, installtime):
         """ Simulating the ternary operator, one liner is ugly """
@@ -200,9 +200,9 @@ class Packages:
             """)
             h.execute_bulk({
                 'sysid': [sysid] * len(dlist),
-                'name_id': map(lambda a: a.name_id, dlist),
-                'evr_id': map(lambda a: a.evr_id, dlist),
-                'package_arch_id': map(lambda a: a.package_arch_id, dlist),
+                'name_id': [a.name_id for a in dlist],
+                'evr_id': [a.evr_id for a in dlist],
+                'package_arch_id': [a.package_arch_id for a in dlist],
             })
             commits = commits + len(dlist)
             del dlist
@@ -227,13 +227,12 @@ class Packages:
                     return a.e
             package_data = {
                 'sysid': [sysid] * len(alist),
-                'n': map(lambda a: a.n, alist),
-                'v': map(lambda a: a.v, alist),
-                'r': map(lambda a: a.r, alist),
-                'e': map(lambdaae, alist),
-                'a': map(lambda a: a.a, alist),
-                'instime': map(lambda a: self.__expand_installtime(a.installtime),
-                               alist),
+                'n': [a.n for a in alist],
+                'v': [a.v for a in alist],
+                'r': [a.r for a in alist],
+                'e': list(map(lambdaae, alist)),
+                'a': [a.a for a in alist],
+                'instime': [self.__expand_installtime(a.installtime) for a in alist],
             }
             try:
                 h.execute_bulk(package_data)

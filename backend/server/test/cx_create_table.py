@@ -67,7 +67,7 @@ def drop_table(dbh, table_name):
 def list_tables(dbh):
     h = dbh.cursor()
     h.execute("select table_name from user_tables")
-    return map(lambda x: x[0].upper(), h.fetchall())
+    return [x[0].upper() for x in h.fetchall()]
 
 if __name__ == '__main__':
     sys.exit(main() or 0)

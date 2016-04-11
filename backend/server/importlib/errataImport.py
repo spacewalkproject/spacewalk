@@ -219,8 +219,7 @@ class ErrataImport(GenericPackageImport):
 
             channels[channel['id']] = None
 
-        erratum['channels'] = map(lambda x: {'channel_id': x},
-                                  channels.keys())
+        erratum['channels'] = [{'channel_id': x} for x in channels.keys()]
 
     def _fix_erratum_packages_lookup(self, erratum):
         # To make the packages unique
@@ -334,8 +333,8 @@ class ErrataImport(GenericPackageImport):
 
 
 def get_nevrao(package):
-    return map(lambda x, d=package: d[x],
-               ['name', 'epoch', 'version', 'release', 'arch', 'org_id'])
+    return list(map(lambda x, d=package: d[x],
+               ['name', 'epoch', 'version', 'release', 'arch', 'org_id']))
 
 
 def has_suffix(s, suffix):

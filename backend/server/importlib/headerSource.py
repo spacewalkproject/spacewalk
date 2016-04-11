@@ -321,7 +321,7 @@ class rpmSourcePackage(SourcePackage, rpmPackage):
         # Convert sigchecksum to ASCII
         self['sigchecksum_type'] = 'md5'
         self['sigchecksum'] = string.join(
-            map(lambda x: "%02x" % ord(x), self['sigchecksum']), '')
+            ["%02x" % ord(x) for x in self['sigchecksum']], '')
 
 
 class rpmFile(File, ChangeLog):

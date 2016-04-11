@@ -96,7 +96,7 @@ class apacheHandler(apacheSession):
         if client_cap_header in req.headers_in:
             client_caps = req.headers_in[client_cap_header]
             client_caps = filter(None,
-                                 map(string.strip, string.split(client_caps, ","))
+                                 list(map(string.strip, string.split(client_caps, ",")))
                                  )
             rhnCapability.set_client_capabilities(client_caps)
 

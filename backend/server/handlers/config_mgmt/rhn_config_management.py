@@ -66,9 +66,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     def management_list_channels(self, dict):
         log_debug(1)
         self._get_and_validate_session(dict)
-        return map(lambda x: x['label'],
-                   rhnSQL.fetchall_dict(self._query_list_config_channels,
-                                        org_id=self.org_id) or [])
+        return [x['label'] for x in rhnSQL.fetchall_dict(self._query_list_config_channels,
+                                        org_id=self.org_id) or []]
 
     _query_lookup_config_channel = rhnSQL.Statement("""
         select id
@@ -220,9 +219,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         # XXX Validate the namespace
         path = dict.get('path')
 
-        retval = map(lambda x: x['revision'],
-                     rhnSQL.fetchall_dict(self._query_list_file_revisions,
-                                          org_id=self.org_id, config_channel=config_channel, path=path) or [])
+        retval = [x['revision'] for x in rhnSQL.fetchall_dict(self._query_list_file_revisions,
+                                          org_id=self.org_id, config_channel=config_channel, path=path) or []]
         if not retval:
             raise rhnFault(4011, "File %s does not exist in channel %s" %
                            (path, config_channel), explain=0)

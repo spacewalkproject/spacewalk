@@ -61,7 +61,7 @@ def initiate(server_id, action_id, dry_run=0):
 
     h = rhnSQL.prepare(_query_file_list_initiate)
     h.execute(action_id=action_id)
-    files = map(lambda x: x['path'], h.fetchall_dict() or [])
+    files = [x['path'] for x in h.fetchall_dict() or []]
 
     return (kickstart_host, boot_image, append_string, static_device, system_record, files)
 

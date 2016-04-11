@@ -129,7 +129,7 @@ class Table:
         if self.__cache is not None:
             for row in rows:
                 self.__cache[row[self.__hashid]] = row
-        return map(lambda a: UserDictCase(a), rows)
+        return [UserDictCase(a) for a in rows]
 
     # print it out
     def __repr__(self):
@@ -223,7 +223,7 @@ class Table:
         data = h.fetchall_dict()
         if data is None:
             return []
-        return map(lambda a: a["name"], data)
+        return [a["name"] for a in data]
 
     # has_key
     # if we're caching, fetch the row and cache it; else, fetch the

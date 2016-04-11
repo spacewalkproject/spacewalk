@@ -389,8 +389,8 @@ def parse_line(line):
         keys = keys.split(varSeparator)
         return (keys, None)
     # split and sanitize
-    vals = map(sanitize_value, [keys] * len(vals.split(optSeparator)),
-               vals.split(optSeparator))
+    vals = list(map(sanitize_value, [keys] * len(vals.split(optSeparator)),
+               vals.split(optSeparator)))
     if len(vals) == 1:
         # Single value
         vals = vals[0]

@@ -290,8 +290,8 @@ class SatelliteDispatchHandler(BaseDispatchHandler):
         rhnFlags.set("stream-generation", generation)
         if not version:
             version = "0"
-        stream_version = map(int, version.split('.'))
-        allowed_version = map(int, self.version.split("."))
+        stream_version = list(map(int, version.split('.')))
+        allowed_version = list(map(int, self.version.split(".")))
         if (stream_version[0] != allowed_version[0] or
                 stream_version[1] < allowed_version[1]):
             raise IncompatibleVersionError(version, self.version,
@@ -1076,14 +1076,14 @@ def _normalizeSubelements(objtype, subelements):
     expectedType = objtype[0]
     if expectedType is types.StringType:
         # List of strings
-        return map(_stringify, subelements)
+        return list(map(_stringify, subelements))
 
     if expectedType is types.IntType:
         # list of ints
-        return map(int, subelements)
+        return list(map(int, subelements))
 
     if expectedType is importLib.DateType:
-        return map(_normalizeDateType, subelements)
+        return list(map(_normalizeDateType, subelements))
 
     # A subelement
     result = []

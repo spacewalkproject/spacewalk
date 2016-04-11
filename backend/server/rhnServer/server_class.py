@@ -246,7 +246,7 @@ class Server(ServerWrapper):
         # Make a history note
         sub_channels = rhnChannel.channels_for_server(self.server["id"])
         if sub_channels:
-            channel_list = map(lambda a: a["name"], sub_channels)
+            channel_list = [a["name"] for a in sub_channels]
             msg = """The Red Hat Satellite Update Agent has detected a
             change in the base version of the operating system running
             on your system and has updated your channel subscriptions

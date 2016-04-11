@@ -115,7 +115,7 @@ class Up2date(rhnHandler):
             # Special case for channels
             if string.lower(k) == string.lower('X-RHN-Auth-Channels'):
                 # Concatenate the channel information column-separated
-                transport[k] = map(lambda x: string.join(x, ':'), v)
+                transport[k] = [string.join(x, ':') for x in v]
             else:
                 transport[k] = v
         log_debug(5, "loginDict", loginDict, transport)

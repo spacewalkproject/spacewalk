@@ -392,7 +392,7 @@ def labelCompare(t1, t2):
 def nvre_compare(t1, t2):
     def build_evr(p):
         evr = [p[3], p[1], p[2]]
-        evr = map(str, evr)
+        evr = list(map(str, evr))
         if evr[0] == "":
             evr[0] = None
         return evr

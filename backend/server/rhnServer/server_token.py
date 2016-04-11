@@ -414,9 +414,8 @@ def token_config_channels(server, tokens_obj):
 
         h.execute_bulk({
             'server_id': [server_id] * len(config_channels),
-            'config_channel_id': map(lambda c: c['config_channel_id'],
-                                     config_channels),
-            'position': map(lambda c: c['position'], config_channels),
+            'config_channel_id': [c['config_channel_id'] for c in config_channels],
+            'position': [c['position'] for c in config_channels],
         })
 
         for channel in config_channels:
@@ -552,7 +551,7 @@ class ActivationTokens:
         return self.entitlements
 
     def has_entitlement_label(self, entitlement):
-        if entitlement in map(lambda x: x[0], self.entitlements):
+        if entitlement in [x[0] for x in self.entitlements]:
             return 1
         return 0
 
@@ -563,7 +562,7 @@ class ActivationTokens:
         """ Returns a string of the entitlement names that the token grants.
             This function is poorly named.
         """
-        token_names = map(lambda x: x[0], self.entitlements)
+        token_names = [x[0] for x in self.entitlements]
         if not token_names:
             return None
         return ",".join(token_names)

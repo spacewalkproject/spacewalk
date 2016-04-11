@@ -89,7 +89,7 @@ def fetch_server_groups(server_id):
     "Return a server's groups"
     h = rhnSQL.prepare(_query_fetch_server_groups)
     h.execute(server_id=server_id)
-    groups = map(lambda x: x['server_group_id'], h.fetchall_dict() or [])
+    groups = [x['server_group_id'] for x in h.fetchall_dict() or []]
     groups.sort()
     return groups
 

@@ -801,7 +801,7 @@ class Backend:
             h.execute(errata_id=errata_id)
 
             channel_ids = h.fetchall_dict() or []
-            channel_ids = map(lambda x: x['channel_id'], channel_ids)
+            channel_ids = [x['channel_id'] for x in channel_ids]
             for channel_id in channel_ids:
                 affected_channel_ids[channel_id] = errata_id
 
@@ -863,8 +863,8 @@ class Backend:
             insert into rhnErrataQueue (errata_id, channel_id, next_action)
             values (:errata_id, :channel_id, current_timestamp + numtodsinterval(:timeout, 'second'))
         """)
-        errata_ids = map(lambda x: x[0], errata_channel_ids)
-        channel_ids = map(lambda x: x[1], errata_channel_ids)
+        errata_ids = [x[0] for x in errata_channel_ids]
+        channel_ids = [x[1] for x in errata_channel_ids]
         timeouts = [timeout] * len(errata_ids)
         hdel.executemany(errata_id=errata_ids)
         return h.executemany(errata_id=errata_ids, channel_id=channel_ids,
@@ -1777,13 +1777,13 @@ class Backend:
                 updates.append(entry)
 
         inserts = []
-        map(inserts.extend, map(lambda x: x.values(), uq_col_values.values()))
+        list(map(inserts.extend, [x.values() for x in uq_col_values.values()]))
 
         if deletes:
             params = transpose(deletes, uq_fields)
             query = "delete from %s where %s" % (
                 table_name,
-                string.join(map(lambda x: "%s = :%s" % (x, x), uq_fields),
+                string.join(["%s = :%s" % (x, x) for x in uq_fields],
                             ' and '),
             )
             h = self.dbmodule.prepare(query)
@@ -1793,7 +1793,7 @@ class Backend:
             query = "insert into %s (%s) values (%s)" % (
                 table_name,
                 string.join(all_fields, ', '),
-                string.join(map(lambda x: ":" + x, all_fields), ', '),
+                string.join([":" + x for x in all_fields], ', '),
             )
             h = self.dbmodule.prepare(query)
             h.executemany(**params)
@@ -1801,9 +1801,9 @@ class Backend:
             params = transpose(updates, all_fields)
             query = "update % set %s where %s" % (
                 table_name,
-                string.join(map(lambda x: "%s = :s" + (x, x), fields),
+                string.join(["%s = :s" + (x, x) for x in fields],
                             ', '),
-                string.join(map(lambda x: "%s = :%s" % (x, x), uq_fields),
+                string.join(["%s = :%s" % (x, x) for x in uq_fields],
                             ' and '),
             )
             h = self.dbmodule.prepare(query)

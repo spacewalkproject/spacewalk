@@ -301,7 +301,7 @@ _query_delete_old_diffs = rhnSQL.Statement("""
 def _disable_old_diffs(server_id):
     h = rhnSQL.prepare(_query_lookup_old_diffs)
     h.execute(server_id=server_id)
-    old_acr_ids = map(lambda x: x['id'], h.fetchall_dict() or [])
+    old_acr_ids = [x['id'] for x in h.fetchall_dict() or []]
     if not old_acr_ids:
         # Nothing to do here
         return

@@ -47,7 +47,7 @@ def parse_byteranges(byterange_header, file_size=None):
         # Invalid byterange
         raise InvalidByteRangeException
     try:
-        start, end = map(_str2int, mo.groups())
+        start, end = list(map(_str2int, mo.groups()))
     except ValueError:
         # Invalid
         raise_with_tb(InvalidByteRangeException, sys.exc_info()[2])

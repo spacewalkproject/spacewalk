@@ -124,7 +124,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             config_channels = [config_channel]
         else:
             config_channels = self._get_client_config_channels(self.server.getid())
-            config_channels = map(lambda x: x['label'], config_channels)
+            config_channels = [x['label'] for x in config_channels]
 
         if not config_channels:
             # No config channels

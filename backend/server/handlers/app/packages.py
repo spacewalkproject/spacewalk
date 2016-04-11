@@ -295,8 +295,7 @@ class Packages(RPC_Base):
         authobj.authzChannels(channelList)
 
         # Have to turn the channel list into a list of Channel objects
-        channelList = map(lambda x: Channel().populate({'label': x}),
-                          channelList)
+        channelList = [Channel().populate({'label': x}) for x in channelList]
 
         # Since we're dealing with superusers, we allow them to change the org
         # id

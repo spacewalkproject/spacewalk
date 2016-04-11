@@ -167,7 +167,7 @@ def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
 
     cmd_is_list = isinstance(cmd, (types.ListType, types.TupleType))
     if cmd_is_list:
-        cmd = map(str, cmd)
+        cmd = list(map(str, cmd))
     # pylint: disable=E1101
     c = subprocess.Popen(cmd, bufsize=0, stdin=subprocess.PIPE,
                          stdout=subprocess.PIPE, stderr=subprocess.PIPE,

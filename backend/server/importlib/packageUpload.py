@@ -143,7 +143,7 @@ def _dump(object):
         return object
     from types import ListType
     if isinstance(object, ListType):
-        return map(_dump, object)
+        return list(map(_dump, object))
     from types import TupleType
     if isinstance(object, TupleType):
         return tuple(map(_dump, object))

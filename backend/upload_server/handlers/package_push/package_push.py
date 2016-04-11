@@ -153,6 +153,6 @@ class PackagePush(basePackageUpload.BasePackageUpload):
 
     @staticmethod
     def get_auth_token(value):
-        s = ''.join(map(lambda x: x.strip(), value.split(',')))
-        arr = map(base64.decodestring, s.split(':'))
+        s = ''.join([x.strip() for x in value.split(',')])
+        arr = list(map(base64.decodestring, s.split(':')))
         return arr

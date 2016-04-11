@@ -286,7 +286,7 @@ def _replace_null(obj):
     if obj is None:
         return ''
     if isinstance(obj, ListType):
-        return map(_replace_null, obj)
+        return list(map(_replace_null, obj))
     if isinstance(obj, TupleType):
         return tuple(_replace_null(list(obj)))
     if hasattr(obj, 'items'):

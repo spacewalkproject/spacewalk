@@ -501,7 +501,7 @@ def _subscribe_server_to_capable_channels(server_id, scheduler, capability):
     h = rhnSQL.prepare(_query_lookup_unsubscribed_server_channels)
     h.execute(server_id=server_id, org_id=org_id,
               base_channel_id=base_channel_id)
-    l = map(lambda x: (x['id'], 0), h.fetchall_dict() or [])
+    l = [(x['id'], 0) for x in h.fetchall_dict() or []]
     channels.extend(l)
     # We now have a list of channels; look for one that provides the
     # capability

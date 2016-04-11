@@ -247,7 +247,7 @@ class User:
                and ug.group_type = ugt.id
         """)
         h.execute(user_id=user_id)
-        return map(lambda x: x['role'], h.fetchall_dict() or [])
+        return [x['role'] for x in h.fetchall_dict() or []]
 
     def reload(self, user_id):
         """ Reload the current data from the SQL database using the given id """

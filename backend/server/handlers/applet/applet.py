@@ -130,7 +130,7 @@ class Applet(rhnHandler):
                 release, server_arch, uuid))
             return {'last_modified': 0, 'contents': []}
 
-        last_channel_changed_ts = max(map(lambda a: a["last_modified"], channel_list))
+        last_channel_changed_ts = max([a["last_modified"] for a in channel_list])
 
         # make satellite content override a cache caused by hosted
         last_channel_changed_ts = str(long(last_channel_changed_ts) + 1)
@@ -160,7 +160,7 @@ class Applet(rhnHandler):
         rhnFlags.set("XMLRPC-Encoded-Response", 1)
 
         # next, check the cache if we have something with this timestamp
-        label_list = map(lambda a: str(a["id"]), channel_list)
+        label_list = [str(a["id"]) for a in channel_list]
         label_list.sort()
         log_debug(4, "label_list", label_list)
         cache_key = "applet-poll-%s" % string.join(label_list, "-")

@@ -276,7 +276,7 @@ class TableUpdate(BaseTableLookup):
             else:
                 self.otherfields.append(field)
         self.updateclause = string.join(
-            map(lambda x: "%s = :%s" % (x, x), self.otherfields), ', ')
+            ["%s = :%s" % (x, x) for x in self.otherfields], ', ')
         # key
         self.firstkey = None
         for pk in self.pks:
@@ -432,7 +432,7 @@ class TableInsert(TableUpdate):
         self.count = 1000
 
         self.insert_fields = self.pks + self.otherfields + self.blob_fields
-        self.insert_values = map(lambda x: ':%s' % x, self.pks + self.otherfields + self.blob_fields)
+        self.insert_values = [':%s' % x for x in self.pks + self.otherfields + self.blob_fields]
 
     def _buildQuery(self, key):
         q = self.queryTemplate % (self.table.name,

@@ -52,8 +52,8 @@ class History:
                  :summary,
                  :details)
         """)
-        summaries = map(lambda x: x[0], self.__h)
-        details = map(lambda x: x[1], self.__h)
+        summaries = [x[0] for x in self.__h]
+        details = [x[1] for x in self.__h]
         server_ids = [server_id] * len(self.__h)
         hist.executemany(server_id=server_ids, summary=summaries,
                          details=details)

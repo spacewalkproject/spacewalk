@@ -1177,7 +1177,7 @@ class Registration(rhnHandler):
     def _get_dispatchers(self):
         h = rhnSQL.prepare(self._query_get_dispatchers)
         h.execute()
-        return map(lambda x: x['jabber_id'], h.fetchall_dict() or [])
+        return [x['jabber_id'] for x in h.fetchall_dict() or []]
 
     def register_osad(self, system_id, args={}):
         log_debug(1)

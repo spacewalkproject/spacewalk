@@ -254,7 +254,7 @@ class Channel(BaseChannelObject):
             return []
         h = rhnSQL.prepare(self._query_get_db_channel_families)
         h.execute(channel_id=channel_id)
-        return map(lambda x: x['channel_family_id'], h.fetchall_dict() or [])
+        return [x['channel_family_id'] for x in h.fetchall_dict() or []]
 
     def _load_channel_families(self):
         channel_id = self._row.get('id')
@@ -572,7 +572,7 @@ def __stringify(object):
     if object is None:
         return ''
     if type(object) == type([]):
-        return map(__stringify, object)
+        return list(map(__stringify, object))
     # We need to know __stringify converts immutable types into immutable
     # types
     if type(object) == type(()):
@@ -1119,10 +1119,9 @@ def list_all_packages_checksum_sql(channel_id):
     if not ret:
         return []
     # process the results
-    ret = map(lambda a: (a["name"], a["version"], a["release"], a["epoch"],
+    ret = [(a["name"], a["version"], a["release"], a["epoch"],
                          a["arch"], a["package_size"], a['checksum_type'],
-                         a['checksum']),
-              __stringify(ret))
+                         a['checksum']) for a in __stringify(ret)]
     return ret
 
 # This function executes the SQL call for listing latest packages with
@@ -1201,10 +1200,9 @@ def list_packages_checksum_sql(channel_id):
     if not ret:
         return []
     # process the results
-    ret = map(lambda a: (a["name"], a["version"], a["release"], a["epoch"],
+    ret = [(a["name"], a["version"], a["release"], a["epoch"],
                          a["arch"], a["package_size"], a['checksum_type'],
-                         a['checksum']),
-              __stringify(ret))
+                         a['checksum']) for a in __stringify(ret)]
     return ret
 
 # This function executes the SQL call for listing packages
@@ -1217,9 +1215,8 @@ def _list_packages_sql(query, channel_id):
     if not ret:
         return []
     # process the results
-    ret = map(lambda a: (a["name"], a["version"], a["release"], a["epoch"],
-                         a["arch"], a["package_size"]),
-              __stringify(ret))
+    ret = [(a["name"], a["version"], a["release"], a["epoch"],
+                         a["arch"], a["package_size"]) for a in __stringify(ret)]
     return ret
 
 
@@ -1505,10 +1502,9 @@ def list_all_packages_complete_sql(channel_id):
             dep = item['name'] + relation + version
             pkgi[item['capability_type']].append(dep)
     # process the results
-    ret = map(lambda a: (a["name"], a["version"], a["release"], a["epoch"],
+    ret = [(a["name"], a["version"], a["release"], a["epoch"],
                          a["arch"], a["package_size"], a['provides'],
-                         a['requires'], a['conflicts'], a['obsoletes'], a['recommends'], a['suggests'], a['supplements'], a['enhances'], a['breaks'], a['predepends']),
-              __stringify(ret))
+                         a['requires'], a['conflicts'], a['obsoletes'], a['recommends'], a['suggests'], a['supplements'], a['enhances'], a['breaks'], a['predepends']) for a in __stringify(ret)]
     return ret
 
 
@@ -1589,7 +1585,7 @@ def _list_packages(channel, cache_prefix, function):
                   c_info["id"], c_info["label"])
         return []
     # we need to append the channel label to the list
-    ret = map(lambda a, c=channel: a + (c,), ret)
+    ret = list(map(lambda a, c=channel: a + (c,), ret))
     ret = xmlrpclib.dumps((ret, ), methodresponse=1)
     # Mark the response as being already XMLRPC-encoded
     rhnFlags.set("XMLRPC-Encoded-Response", 1)

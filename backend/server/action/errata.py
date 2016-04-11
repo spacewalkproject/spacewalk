@@ -38,4 +38,4 @@ def update(serverId, actionId, dry_run=0):
         raise InvalidAction("errata.update: Unknown action id "
                             "%s for server %s" % (actionId, serverId))
 
-    return map(lambda x: x['errata_id'], ret)
+    return [x['errata_id'] for x in ret]

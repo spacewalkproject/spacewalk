@@ -85,7 +85,7 @@ def getServerID(server, fields=[]):
     archdb = ""
     archjoin = ""
     # look at the fields
-    fields = map(string.lower, fields)
+    fields = list(map(string.lower, fields))
     for k in fields:
         if k == "id":  # already there
             continue

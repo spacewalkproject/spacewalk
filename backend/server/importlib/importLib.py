@@ -815,7 +815,7 @@ class Diff(UserList):
 
 # Replaces all occurences of None with the empty string
 def removeNone(list):
-    return map(lambda x: (x is not None and x) or '', list)
+    return [(x is not None and x) or '' for x in list]
 
 
 # Assorted functions for various things
