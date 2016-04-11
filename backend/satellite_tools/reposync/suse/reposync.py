@@ -690,6 +690,9 @@ class RepoSync(object):
         h.execute(channel_id=int(self.channel['id']),
                   checksum_type=pack['checksum_type'], checksum=pack['checksum'])
 
+    def load_channel(self):
+        return rhnChannel.channel_info(self.channel_label)
+
     def upload_patches(self, notices):
         """Insert the information from patches into the database
 
@@ -1190,9 +1193,6 @@ class RepoSync(object):
             [IncompletePackage().populate(package)],
             backend, caller=caller, repogen=False)
         importer.run()
-
-    def load_channel(self):
-        return rhnChannel.channel_info(self.channel_label)
 
     def print_msg(self, message):
         rhnLog.log_clean(0, message)
