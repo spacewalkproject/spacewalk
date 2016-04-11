@@ -514,6 +514,120 @@ class RepoSync(object):
             importer.run()
         self.regen = True
 
+    def import_packages(self, plug, source_id, url):
+        if (not self.filters) and source_id:
+            h = rhnSQL.prepare("""
+                    select flag, filter
+                      from rhnContentSourceFilter
+                     where source_id = :source_id
+                     order by sort_order """)
+            h.execute(source_id=source_id)
+            filter_data = h.fetchall_dict() or []
+            filters = [(row['flag'], re.split(r'[,\s]+', row['filter']))
+                       for row in filter_data]
+        else:
+            filters = self.filters
+
+        packages = plug.list_packages(filters, self.latest)
+        to_process = []
+        skipped = 0
+        saveurl = suseLib.URL(url)
+        if saveurl.password:
+            saveurl.password = "*******"
+        num_passed = len(packages)
+        self.print_msg("Repo URL: %s" % saveurl.getURL())
+        self.print_msg("Packages in repo:             %5d" % plug.num_packages)
+        if plug.num_excluded:
+            self.print_msg("Packages passed filter rules: %5d" % num_passed)
+        channel_id = int(self.channel['id'])
+        if self.channel['org_id']:
+            self.channel['org_id'] = int(self.channel['org_id'])
+        else:
+            self.channel['org_id'] = None
+        for pack in packages:
+            if pack.arch in ['src', 'nosrc']:
+                # skip source packages
+                skipped += 1
+                continue
+            if pack.arch not in self.arches:
+                # skip packages with incompatible architecture
+                skipped += 1
+                continue
+            epoch = ''
+            if pack.epoch and pack.epoch != '0':
+                epoch = "%s:" % pack.epoch
+            ident = "%s-%s%s-%s.%s" % (pack.name, epoch, pack.version, pack.release, pack.arch)
+            self.available_packages[ident] = 1
+
+            db_pack = rhnPackage.get_info_for_package(
+                [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
+                channel_id, self.channel['org_id'])
+
+            to_download = True
+            to_link = True
+            if db_pack['path']:
+                # if the package exists, but under a different org_id we have to download it again
+                if self.match_package_checksum(pack, db_pack):
+                    # package is already on disk
+                    to_download = False
+                    pack.set_checksum(db_pack['checksum_type'], db_pack['checksum'])
+                    if db_pack['channel_id'] == channel_id:
+                        # package is already in the channel
+                        to_link = False
+                elif db_pack['channel_id'] == channel_id:
+                    # different package with SAME NVREA
+                    self.disassociate_package(db_pack)
+
+            if to_download or to_link:
+                to_process.append((pack, to_download, to_link))
+
+        num_to_process = len(to_process)
+        if num_to_process == 0:
+            self.print_msg("No new packages to sync.")
+            if plug.num_packages == 0:
+                self.regen = True
+            return
+        else:
+            self.print_msg("Packages already synced:      %5d" %
+                           (num_passed - num_to_process))
+            self.print_msg("Packages to sync:             %5d" % num_to_process)
+
+        self.regen = True
+        is_non_local_repo = (url.find("file://") < 0)
+
+        def finally_remove(path):
+            if is_non_local_repo and path and os.path.exists(path):
+                os.remove(path)
+
+        # try/except/finally doesn't work in python 2.4 (RHEL5), so here's a hack
+        for (index, what) in enumerate(to_process):
+            pack, to_download, to_link = what
+            localpath = None
+            # pylint: disable=W0703
+            try:
+                self.print_msg("%d/%d : %s" % (index + 1, num_to_process, pack.getNVREA()))
+                if to_download:
+                    pack.path = localpath = plug.get_package(pack)
+                pack.load_checksum_from_header()
+                if to_download:
+                    pack.upload_package(self.channel)
+                    finally_remove(localpath)
+                if to_link:
+                    self.associate_package(pack)
+            except KeyboardInterrupt:
+                finally_remove(localpath)
+                raise
+            except Exception, e:
+                self.error_msg(e)
+                finally_remove(localpath)
+                pack.clear_header()
+                if self.fail:
+                    raise
+                else:
+                    self.error_messages.append(str(e))
+                continue
+            pack.clear_header()
+
     def upload_patches(self, notices):
         """Insert the information from patches into the database
 
@@ -1008,120 +1122,6 @@ class RepoSync(object):
 
         package['package_id'] = cs['id']
         return package
-
-    def import_packages(self, plug, source_id, url):
-        if (not self.filters) and source_id:
-            h = rhnSQL.prepare("""
-                    select flag, filter
-                      from rhnContentSourceFilter
-                     where source_id = :source_id
-                     order by sort_order """)
-            h.execute(source_id=source_id)
-            filter_data = h.fetchall_dict() or []
-            filters = [(row['flag'], re.split(r'[,\s]+', row['filter']))
-                       for row in filter_data]
-        else:
-            filters = self.filters
-
-        packages = plug.list_packages(filters, self.latest)
-        to_process = []
-        skipped = 0
-        saveurl = suseLib.URL(url)
-        if saveurl.password:
-            saveurl.password = "*******"
-        num_passed = len(packages)
-        self.print_msg("Repo URL: %s" % saveurl.getURL())
-        self.print_msg("Packages in repo:             %5d" % plug.num_packages)
-        if plug.num_excluded:
-            self.print_msg("Packages passed filter rules: %5d" % num_passed)
-        channel_id = int(self.channel['id'])
-        if self.channel['org_id']:
-            self.channel['org_id'] = int(self.channel['org_id'])
-        else:
-            self.channel['org_id'] = None
-        for pack in packages:
-            if pack.arch in ['src', 'nosrc']:
-                # skip source packages
-                skipped += 1
-                continue
-            if pack.arch not in self.arches:
-                # skip packages with incompatible architecture
-                skipped += 1
-                continue
-            epoch = ''
-            if pack.epoch and pack.epoch != '0':
-                epoch = "%s:" % pack.epoch
-            ident = "%s-%s%s-%s.%s" % (pack.name, epoch, pack.version, pack.release, pack.arch)
-            self.available_packages[ident] = 1
-
-            db_pack = rhnPackage.get_info_for_package(
-                [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
-                channel_id, self.channel['org_id'])
-
-            to_download = True
-            to_link = True
-            if db_pack['path']:
-                # if the package exists, but under a different org_id we have to download it again
-                if self.match_package_checksum(pack, db_pack):
-                    # package is already on disk
-                    to_download = False
-                    pack.set_checksum(db_pack['checksum_type'], db_pack['checksum'])
-                    if db_pack['channel_id'] == channel_id:
-                        # package is already in the channel
-                        to_link = False
-                elif db_pack['channel_id'] == channel_id:
-                    # different package with SAME NVREA
-                    self.disassociate_package(db_pack)
-
-            if to_download or to_link:
-                to_process.append((pack, to_download, to_link))
-
-        num_to_process = len(to_process)
-        if num_to_process == 0:
-            self.print_msg("No new packages to sync.")
-            if plug.num_packages == 0:
-                self.regen = True
-            return
-        else:
-            self.print_msg("Packages already synced:      %5d" %
-                           (num_passed - num_to_process))
-            self.print_msg("Packages to sync:             %5d" % num_to_process)
-
-        self.regen = True
-        is_non_local_repo = (url.find("file://") < 0)
-
-        def finally_remove(path):
-            if is_non_local_repo and path and os.path.exists(path):
-                os.remove(path)
-
-        # try/except/finally doesn't work in python 2.4 (RHEL5), so here's a hack
-        for (index, what) in enumerate(to_process):
-            pack, to_download, to_link = what
-            localpath = None
-            # pylint: disable=W0703
-            try:
-                self.print_msg("%d/%d : %s" % (index + 1, num_to_process, pack.getNVREA()))
-                if to_download:
-                    pack.path = localpath = plug.get_package(pack)
-                pack.load_checksum_from_header()
-                if to_download:
-                    pack.upload_package(self.channel)
-                    finally_remove(localpath)
-                if to_link:
-                    self.associate_package(pack)
-            except KeyboardInterrupt:
-                finally_remove(localpath)
-                raise
-            except Exception, e:
-                self.error_msg(e)
-                finally_remove(localpath)
-                pack.clear_header()
-                if self.fail:
-                    raise
-                else:
-                    self.error_messages.append(str(e))
-                continue
-            pack.clear_header()
 
     def match_package_checksum(self, md_pack, db_pack):
         """compare package checksum"""
