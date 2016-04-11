@@ -132,6 +132,7 @@ def getCustomChannels():
 
     return l_custom_ch
 
+
 class RepoSync(object):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,
@@ -200,25 +201,6 @@ class RepoSync(object):
             self.urls = [{'id': None, 'source_url': url, 'metadata_signed' : 'N', 'label': None}]
 
         self.arches = get_compatible_arches(int(self.channel['id']))
-
-    def load_plugin(self, repo_type):
-        """Try to import the repository plugin required to sync the repository
-
-        :repo_type: type of the repository; only 'yum' is currently supported
-
-        """
-        name = repo_type + "_src"
-        mod = __import__('spacewalk.satellite_tools.repo_plugins',
-                         globals(), locals(), [name])
-        try:
-            submod = getattr(mod, name)
-        except AttributeError:
-            self.error_msg("Repository type %s is not supported. "
-                           "Could not import "
-                           "spacewalk.satellite_tools.repo_plugins.%s."
-                           % (repo_type, name))
-            sys.exit(1)
-        return getattr(submod, "ContentSource")
 
     def sync(self):
         """Trigger a reposync"""
@@ -360,6 +342,25 @@ class RepoSync(object):
         h = rhnSQL.prepare("""update rhnChannel set LAST_SYNCED = current_timestamp
                              where label = :channel""")
         h.execute(channel=self.channel['label'])
+
+    def load_plugin(self, repo_type):
+        """Try to import the repository plugin required to sync the repository
+
+        :repo_type: type of the repository; only 'yum' is currently supported
+
+        """
+        name = repo_type + "_src"
+        mod = __import__('spacewalk.satellite_tools.repo_plugins',
+                         globals(), locals(), [name])
+        try:
+            submod = getattr(mod, name)
+        except AttributeError:
+            self.error_msg("Repository type %s is not supported. "
+                           "Could not import "
+                           "spacewalk.satellite_tools.repo_plugins.%s."
+                           % (repo_type, name))
+            sys.exit(1)
+        return getattr(submod, "ContentSource")
 
     def import_groups(self, repo, url):
         groupsfile = repo.get_groups()
