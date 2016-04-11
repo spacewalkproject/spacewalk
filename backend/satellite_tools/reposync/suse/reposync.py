@@ -32,15 +32,21 @@ hostname = socket.gethostname()
 if '.' not in hostname:
     hostname = socket.getfqdn()
 
-default_log_location = '/var/log/rhn/reposync/'
-relative_comps_dir = 'rhn/comps'
-default_hash = 'sha256'
-
 # namespace prefixes for parsing SUSE patches XML files
 YUM = "{http://linux.duke.edu/metadata/common}"
 RPM = "{http://linux.duke.edu/metadata/rpm}"
 SUSE = "{http://novell.com/package/metadata/suse/common}"
 PATCH = "{http://novell.com/package/metadata/suse/patch}"
+
+
+def set_filter_opt(option, opt_str, value, parser):
+
+    if opt_str in [ '--include', '-i']:
+        f_type = '+'
+    else:
+        f_type = '-'
+    parser.values.filters.append((f_type, re.split('[,\s]+', value)))
+
 
 class ChannelException(Exception):
     """Channel Error"""
@@ -1537,11 +1543,6 @@ def find_cves(text):
     cves = list()
     cves.extend([cve[:20] for cve in set(re.findall('CVE-\d{4}-\d+', text))])
     return cves
-
-def set_filter_opt(option, opt_str, value, parser):
-    if opt_str in [ '--include', '-i']: f_type = '+'
-    else:                               f_type = '-'
-    parser.values.filters.append((f_type, re.split('[,\s]+', value)))
 
 def _delete_invalid_errata(errata_id):
     """
