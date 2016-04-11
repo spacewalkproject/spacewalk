@@ -157,8 +157,7 @@ class Server(ServerWrapper):
         old_rel = self.server["release"]
         current_channels = rhnChannel.channels_for_server(self.server["id"])
         # Extract the base channel off of
-        old_base = filter(lambda x: not x['parent_channel'],
-                          current_channels)
+        old_base = [x for x in current_channels if not x['parent_channel']]
 
         # Quick sanity check
         base_channels_count = len(old_base)

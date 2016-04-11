@@ -971,9 +971,7 @@ class Hardware:
 
             # filter out the hardware that was just added and then
             # deleted before saving
-            hardware[device_type] = filter(lambda a:
-                                           not (a.status == 2 and hasattr(a, "id") and a.id == 0),
-                                           hardware[device_type])
+            hardware[device_type] = [a for a in hardware[device_type] if not (a.status == 2 and hasattr(a, "id") and a.id == 0)]
         return 0
 
     def save_hardware_byid(self, sysid):

@@ -542,7 +542,7 @@ def _avoid_compat_packages(dict):
     if len(dict) > 1:
         matches = dict.keys()
         # check we have at least one non- "compat-*" package name
-        compats = filter(lambda a: a[:7] == "compat-", matches)
+        compats = [a for a in matches if a[:7] == "compat-"]
         if len(compats) > 0 and len(compats) < len(matches):  # compats and other things
             for p in compats:  # delete all references to a compat package for this dependency
                 del dict[p]

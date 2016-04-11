@@ -127,7 +127,7 @@ def auth_proxy():
     #     proxy hit.
 
     tokens = string.split(rhnFlags.get('X-RHN-Proxy-Auth'), ',')
-    tokens = filter(lambda token: token, tokens)
+    tokens = [token for token in tokens if token]
 
     for auth_token in tokens:
         _verifyProxyAuthToken(auth_token)

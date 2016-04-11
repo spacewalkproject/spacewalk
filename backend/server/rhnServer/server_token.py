@@ -122,7 +122,7 @@ def token_channels(server, server_arch, tokens_obj):
     # channel family ids used in the loop below.
     channel_family_ids = set()
 
-    for c in filter(lambda a: a["parent_channel"], chash.values()):
+    for c in [a for a in chash.values() if a["parent_channel"]]:
         # make sure this channel has the right parent
         if str(c["parent_channel"]) != str(sbc["id"]):
             ret.append("NOT subscribed to channel '%s' "

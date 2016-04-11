@@ -95,9 +95,7 @@ class apacheHandler(apacheSession):
         client_cap_header = 'X-RHN-Client-Capability'
         if client_cap_header in req.headers_in:
             client_caps = req.headers_in[client_cap_header]
-            client_caps = filter(None,
-                                 list(map(string.strip, string.split(client_caps, ",")))
-                                 )
+            client_caps = [_f for _f in list(map(string.strip, string.split(client_caps, ","))) if _f]
             rhnCapability.set_client_capabilities(client_caps)
 
         # Enabling the input header flags associated with the redirects/newer clients

@@ -467,9 +467,8 @@ class Database(sql_base.Database):
     # pass-through functions for when you want to do SQL yourself
     def prepare(self, sql, force=0, blob_map=None):
         # Abuse the map calls to get rid of SQL comments and extra spaces
-        sql = string.join(filter(lambda a: len(a),
-                                 list(map(string.strip,
-                                     [(a + " ")[:string.find(a, '--')] for a in string.split(sql, "\n")]))),
+        sql = string.join([a for a in list(map(string.strip,
+                                     [(a + " ")[:string.find(a, '--')] for a in string.split(sql, "\n")])) if len(a)],
                           " ")
         if blob_map:
             col_list = []

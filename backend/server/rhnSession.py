@@ -59,7 +59,7 @@ class Session:
     def get_secrets(self):
         # Validates the secrets from the config file
         secrets = self._get_secrets()
-        if len(secrets) != len(filter(None, secrets)):
+        if len(secrets) != len([_f for _f in secrets if _f]):
             # the list of secrets has unset items
             raise Exception("Secrets not set in the config file")
         return secrets

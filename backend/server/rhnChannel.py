@@ -2058,8 +2058,8 @@ def unsubscribe_channels(server_id, channels):
     # We need to unsubscribe the children channels before the base ones.
     rhnSQL.transaction("unsub_channels")
 
-    base_channels = filter(lambda x: not x['parent_channel'], channels)
-    child_channels = filter(lambda x: x['parent_channel'], channels)
+    base_channels = [x for x in channels if not x['parent_channel']]
+    child_channels = [x for x in channels if x['parent_channel']]
 
     for channel in child_channels + base_channels:
         ret = unsubscribe_sql(server_id, channel["id"], 0)
@@ -2083,8 +2083,8 @@ def subscribe_channels(server_id, channels):
         return 1
 
     # We need to subscribe the base channel before the child ones.
-    base_channels = filter(lambda x: not x['parent_channel'], channels)
-    child_channels = filter(lambda x: x['parent_channel'], channels)
+    base_channels = [x for x in channels if not x['parent_channel']]
+    child_channels = [x for x in channels if x['parent_channel']]
 
     for channel in base_channels + child_channels:
         subscribe_sql(server_id, channel["id"], 0)

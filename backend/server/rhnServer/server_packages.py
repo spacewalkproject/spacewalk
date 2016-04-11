@@ -167,7 +167,7 @@ class Packages:
 
     def get_packages(self):
         """ produce a list of packages """
-        return [a.nvrea for a in filter(lambda a: a.status != DELETED, self.__p.values())]
+        return [a.nvrea for a in [a for a in self.__p.values() if a.status != DELETED]]
 
     def __expand_installtime(self, installtime):
         """ Simulating the ternary operator, one liner is ugly """
@@ -187,7 +187,7 @@ class Packages:
         commits = 0
 
         # get rid of the deleted packages
-        dlist = filter(lambda a: a.real and a.status in (DELETED, UPDATED), self.__p.values())
+        dlist = [a for a in self.__p.values() if a.real and a.status in (DELETED, UPDATED)]
         if dlist:
             log_debug(4, sysid, len(dlist), "deleted packages")
             h = rhnSQL.prepare("""
@@ -208,7 +208,7 @@ class Packages:
             del dlist
 
         # And now add packages
-        alist = filter(lambda a: a.status in (ADDED, UPDATED), self.__p.values())
+        alist = [a for a in self.__p.values() if a.status in (ADDED, UPDATED)]
         if alist:
             log_debug(4, sysid, len(alist), "added packages")
             h = rhnSQL.prepare("""

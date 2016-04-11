@@ -242,7 +242,7 @@ class Up2date(rhnHandler):
                 log_error("Invalid dependency member", type(dep))
                 raise rhnFault(30, faultString % (dep, type(dep)))
         # Ignore empty strings
-        deps = filter(len, deps)
+        deps = list(filter(len, deps))
         # anything left to do?
         if not deps:
             return []

@@ -119,7 +119,7 @@ class TemplatedDocument(BaseTemplatedDocument):
             fname = string.strip(fname[:i])
 
             # Parse the params
-            params = list(map(self.unquote, filter(None, string.split(params, ','))))
+            params = list(map(self.unquote, [_f for _f in string.split(params, ',') if _f]))
 
         # Validate the function name
         if not self.funcname_regex.match(fname):

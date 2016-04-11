@@ -52,7 +52,7 @@ def store_client_route(server_id):
     # NOTE: X-RHN-Proxy-Auth described in proxy/broker/rhnProxyAuth.py
     if rhnFlags.test('X-RHN-Proxy-Auth'):
         tokens = string.split(rhnFlags.get('X-RHN-Proxy-Auth'), ',')
-        tokens = filter(lambda token: token, tokens)
+        tokens = [token for token in tokens if token]
 
         log_debug(4, "route tokens", tokens)
         # newRoute in this format: [(id0, hostname0),  (id1, hostname1),  ...]
