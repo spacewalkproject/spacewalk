@@ -29,7 +29,7 @@ try: # python2
     import xmlrpclib
 except ImportError: # python3
     import xmlrpc.client as xmlrpclib
-    basestring = str
+    basestring = (str, bytes)
 
 from spacewalk.common.usix import raise_with_tb
 from rhn.i18n import sstr
