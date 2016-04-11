@@ -427,19 +427,10 @@ public class PackageManager extends BaseManager {
         return makeDataResult(params, elabParams, null, m);
     }
 
-    /**
-     * Returns a DataResult containing PackageOverview dto's representing the
-     * package_ids_in_set query
-     * @param user The User
-     * @param label The label of the set we want
-     * @param pc The page control for the user
-     * @return Returns the list of packages whose id's are in the given set
-     */
-    public static DataResult packageIdsInSet(User user, String label,
-                                             PageControl pc) {
-
+    private static DataResult getPackageIdsInSet(User user, String label,
+                                                 PageControl pc, String query) {
         SelectMode m = ModeFactory.getMode("Package_queries",
-                "package_ids_in_set");
+                query);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("set_label", label);
@@ -457,7 +448,32 @@ public class PackageManager extends BaseManager {
             dr.setElaborationParams(elabs);
         }
         return dr;
+    }
 
+    /**
+     * Returns a DataResult containing PackageOverview dto's representing the
+     * package_ids_in_set query
+     * @param user The User
+     * @param label The label of the set we want
+     * @param pc The page control for the user
+     * @return Returns the list of packages whose id's are in the given set
+     */
+    public static DataResult packageIdsInSet(User user, String label,
+                                             PageControl pc) {
+        return getPackageIdsInSet(user, label, pc, "package_ids_in_set");
+    }
+
+    /**
+     * Returns a DataResult containing PackageSourceOverview dto's representing the
+     * source_package_ids_in_set query
+     * @param user The User
+     * @param label The label of the set we want
+     * @param pc The page control for the user
+     * @return Returns the list of packages whose id's are in the given set
+     */
+    public static DataResult sourcePackageIdsInSet(User user, String label,
+                                             PageControl pc) {
+        return getPackageIdsInSet(user, label, pc, "source_package_ids_in_set");
     }
 
     /**

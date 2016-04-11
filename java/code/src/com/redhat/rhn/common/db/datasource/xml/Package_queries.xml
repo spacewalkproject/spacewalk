@@ -660,6 +660,19 @@ ORDER BY  UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr)), UPPER(PA.label), P
   <elaborator name="package_channels" />
 </mode>
 
+<mode name="source_package_ids_in_set" class="com.redhat.rhn.frontend.dto.PackageSourceOverview">
+  <query params="set_label, user_id">
+  SELECT  PS.id AS ID,
+          SRPM.name AS NVREA
+      FROM rhnPackageSource PS inner join
+      rhnSourceRPM SRPM on PS.source_rpm_id = SRPM.id inner join
+      rhnSet S on PS.id = S.element
+   WHERE  S.label = :set_label
+     AND  S.user_id = :user_id
+ORDER BY  UPPER(SRPM.name), PS.id
+  </query>
+</mode>
+
 <mode name="packages_available_to_errata" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="org_id, eid">
 select * from (
