@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.81
+Version: 2.5.82
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Apr 11 2016 Jan Dobes 2.5.82-1
+- 1192879 - updating confirm page
+- 1192879 - adding delete queries for database and filesystem
+- 1192879 - adding queries for listing source package ids in set
+- 1192879 - make possible to list source packages + other minor fixes on page
+- 1192879 - adding checkbox for listing source packages
+- 1192879 - adding queries for listing source packages
+- 1192879 - cannot automatically delete source package as other packages may
+  still use it
+
 * Fri Apr 08 2016 Tomas Lestach <tlestach@redhat.com> 2.5.81-1
 - Fix the string representation of PackageEvr
 
