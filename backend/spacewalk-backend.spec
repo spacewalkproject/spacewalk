@@ -203,6 +203,14 @@ BuildRequires: python-hashlib
 %description libs
 Libraries required by both Spacewalk server and Spacewalk client tools.
 
+%package usix
+Summary: Spacewalk server and client nano six library
+Group: Applications/Internet
+Provides: %{name}-usix = %{version}-%{release}
+
+%description usix
+Library for writing code that runs on Python 2 and 3
+
 %package config-files-common
 Summary: Common files for the Configuration Management project
 Group: Applications/Internet
@@ -535,6 +543,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/rhn_pkg.py*
 %{pythonrhnroot}/common/rhn_rpm.py*
 %{pythonrhnroot}/common/stringutils.py*
+
+%files usix
+%doc LICENSE
+%dir %{pythonrhnroot}
+%{pythonrhnroot}/__init__.py*
+%dir %{pythonrhnroot}/common
+%{pythonrhnroot}/common/__init__.py*
+%{pythonrhnroot}/common/usix.py*
 
 %files config-files-common
 %doc LICENSE

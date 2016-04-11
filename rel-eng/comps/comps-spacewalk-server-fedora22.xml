@@ -71,6 +71,7 @@
        <packagereq type="default">spacewalk-backend-iss</packagereq>
        <packagereq type="default">spacewalk-backend-iss-export</packagereq>
        <packagereq type="default">spacewalk-backend-libs</packagereq>
+       <packagereq type="default">spacewalk-backend-usix</packagereq>
        <packagereq type="default">spacewalk-backend-package-push-server</packagereq>
        <packagereq type="default">spacewalk-backend-server</packagereq>
        <packagereq type="default">spacewalk-backend-sql</packagereq>
