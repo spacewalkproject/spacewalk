@@ -693,6 +693,20 @@ class RepoSync(object):
     def load_channel(self):
         return rhnChannel.channel_info(self.channel_label)
 
+    def print_msg(self, message):
+        rhnLog.log_clean(0, message)
+        if not self.quiet:
+            print message
+
+    def error_msg(self, message):
+        rhnLog.log_clean(0, message)
+        if not self.quiet:
+            sys.stderr.write(str(message) + "\n")
+
+    @staticmethod
+    def log_msg(message):
+        rhnLog.log_clean(0, message)
+
     def upload_patches(self, notices):
         """Insert the information from patches into the database
 
@@ -1193,20 +1207,6 @@ class RepoSync(object):
             [IncompletePackage().populate(package)],
             backend, caller=caller, repogen=False)
         importer.run()
-
-    def print_msg(self, message):
-        rhnLog.log_clean(0, message)
-        if not self.quiet:
-            print message
-
-    def error_msg(self, message):
-        rhnLog.log_clean(0, message)
-        if not self.quiet:
-            sys.stderr.write(str(message) + "\n")
-
-    @staticmethod
-    def log_msg(message):
-        rhnLog.log_clean(0, message)
 
     def sendErrorMail(self, body):
         to = CFG.TRACEBACK_MAIL
