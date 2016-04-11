@@ -628,6 +628,22 @@ class RepoSync(object):
                 continue
             pack.clear_header()
 
+    def match_package_checksum(self, md_pack, db_pack):
+        """compare package checksum"""
+
+        md_pack.path = abspath = os.path.join(CFG.MOUNT_POINT, db_pack['path'])
+        if (self.deep_verify or
+            md_pack.checksum_type != db_pack['checksum_type'] or
+            md_pack.checksum != db_pack['checksum']):
+
+            if (os.path.exists(abspath) and
+                getFileChecksum(md_pack.checksum_type, filename=abspath) == md_pack.checksum):
+
+                return True
+            else:
+                return False
+        return True
+
     def upload_patches(self, notices):
         """Insert the information from patches into the database
 
@@ -1122,22 +1138,6 @@ class RepoSync(object):
 
         package['package_id'] = cs['id']
         return package
-
-    def match_package_checksum(self, md_pack, db_pack):
-        """compare package checksum"""
-
-        md_pack.path = abspath = os.path.join(CFG.MOUNT_POINT, db_pack['path'])
-        if (self.deep_verify or
-            md_pack.checksum_type != db_pack['checksum_type'] or
-            md_pack.checksum != db_pack['checksum']):
-
-            if (os.path.exists(abspath) and
-                getFileChecksum(md_pack.checksum_type, filename=abspath) == md_pack.checksum):
-
-                return True
-            else:
-                return False
-        return True
 
     def associate_package(self, pack):
         caller = "server.app.yumreposync"
