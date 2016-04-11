@@ -118,7 +118,8 @@ class apacheHandler(apacheSession):
         if req.method == "GET":
             try:
                 self._req_processor = apacheGET(self.clientVersion, req)
-            except HandlerNotFoundError, e:
+            except HandlerNotFoundError:
+                e = sys.exc_info()[1]
                 log_error("Unable to handle GET request for server %s" %
                           (e.args[0], ))
                 return apache.HTTP_METHOD_NOT_ALLOWED
@@ -178,7 +179,8 @@ class apacheHandler(apacheSession):
         if self.proxyVersion:
             try:
                 ret = self._req_processor.auth_proxy()
-            except rhnFault, f:
+            except rhnFault:
+                f = sys.exc_info()[1]
                 return self._req_processor.response(f.getxml())
 
         # Decide what to do with the request: try to authenticate the client.
@@ -188,7 +190,8 @@ class apacheHandler(apacheSession):
         if req.method == "GET":
             try:
                 ret = self._req_processor.auth_client()
-            except rhnFault, f:
+            except rhnFault:
+                f = sys.exc_info()[1]
                 return self._req_processor.response(f.getxml())
             # be safe rather than sorry
             if not ret:

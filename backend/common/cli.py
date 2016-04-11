@@ -66,7 +66,8 @@ def xmlrpc_login(client, username, password, verbose=0):
 
     try:
         sessionkey = client.auth.login(username, password)
-    except xmlrpclib.Fault, e:
+    except xmlrpclib.Fault:
+        e = sys.exc_info()[1]
         sys.stderr.write("Error: %s\n" % e.faultString)
         sys.exit(-1)
 

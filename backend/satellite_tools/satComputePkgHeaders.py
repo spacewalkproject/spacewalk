@@ -200,12 +200,14 @@ class Runner:
 
             try:
                 (header_start, header_end) = rhn_rpm.get_header_byte_range(p_file)
-            except InvalidPackageError, e:
+            except InvalidPackageError:
+                e = sys.exc_info()[1]
                 print("Error reading header size from file %s: %s" % (path, e))
 
             try:
                 h.execute(package_id=package_id, header_start=header_start, header_end=header_end)
-            except rhnSQL.SQLError, e:
+            except rhnSQL.SQLError:
+                e = sys.exc_info()[1]
                 pass
 
     @staticmethod

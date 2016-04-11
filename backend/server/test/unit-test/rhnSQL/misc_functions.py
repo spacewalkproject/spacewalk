@@ -391,7 +391,8 @@ def grant_channel_family_entitlements(org_id, channel_family, quantity):
             org=org_id,
             url='%s url' % channel_family
         )
-    except rhnSQL.SQLError, e:
+    except rhnSQL.SQLError:
+        e = sys.exc_info()[1]
         # if we're here that means we're voilating something
         raise
 
@@ -420,7 +421,8 @@ def find_or_create_arch_type(name, label):
             name=name
         )
         rhnSQL.commit()
-    except rhnSQL.SQLError, e:
+    except rhnSQL.SQLError:
+        e = sys.exc_info()[1]
         # if we're here that means we're voilating something
         raise
 
@@ -453,7 +455,8 @@ def find_or_create_channel_arch(name, label):
             name=name
         )
         rhnSQL.commit()
-    except rhnSQL.SQLError, e:
+    except rhnSQL.SQLError:
+        e = sys.exc_info()[1]
         # if we're here that means we're voilating something
         raise
 
@@ -501,7 +504,8 @@ def add_channel(label, org_id, channel_arch_id):
         h = rhnSQL.prepare(lookup)
         h.execute(label=label)
         return h.fetchone_dict()
-    except rhnSQL.SQLError, e:
+    except rhnSQL.SQLError:
+        e = sys.exc_info()[1]
         # if we're here that means we're voilating something
         raise
 

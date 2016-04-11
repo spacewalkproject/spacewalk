@@ -40,7 +40,8 @@ class deb_Header:
 
         try:
             self.deb = debfile.DebFile(stream.name)
-        except Exception, e:
+        except Exception:
+            e = sys.exc_info()[1]
             raise InvalidPackageError(e), None, sys.exc_info()[2]
 
         try:
@@ -80,7 +81,8 @@ class deb_Header:
             else:
                 self.hdr['version'] = version_tmpArr[0]
                 self.hdr['release'] = version_tmpArr[1]
-        except Exception, e:
+        except Exception:
+            e = sys.exc_info()[1]
             raise InvalidPackageError(e), None, sys.exc_info()[2]
 
     @staticmethod

@@ -106,7 +106,8 @@ def log2disk(level, msg, cleanYN=0, notimeYN=0):
             log_clean(level=level, msg=_prepLogMsg(m, cleanYN, notimeYN))
         except (KeyboardInterrupt, SystemExit):
             raise
-        except Exception, e:  # pylint: disable=E0012, W0703
+        except Exception:  # pylint: disable=E0012, W0703
+            e = sys.exc_info()[1]
             sys.stderr.write('ERROR: upon attempt to write to log file: %s' % e)
 
 
@@ -224,7 +225,8 @@ class FileManip:
                 buf_len = len(buf)
                 fout.write(buf)
                 size = size + buf_len
-        except IOError, e:
+        except IOError:
+            e = sys.exc_info()[1]
             msg = "IOError: %s" % e
             log(-1, msg, stream=sys.stderr)
             # Try not to leave garbage around

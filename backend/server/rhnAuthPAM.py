@@ -59,7 +59,8 @@ def check_password(username, password, service):
         finally:
             # Something to be always executed - cleanup
             __username = __password = None
-    except PAM.error, e:
+    except PAM.error:
+        e = sys.exc_info()[1]
         resp, code = e.args[:2]
         log_error("Password check failed (%s): %s" % (code, resp))
         return 0

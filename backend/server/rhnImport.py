@@ -69,7 +69,8 @@ class Loader:
             # Try to import the module
             try:
                 m = __import__(fromclause, {}, {}, [module])
-            except ImportError, e:
+            except ImportError:
+                e = sys.exc_info()[1]
                 log_error("Error importing %s: %s" % (module, e))
                 log_debug(6, "Details: sys.path: %s" % (sys.path, ))
                 continue

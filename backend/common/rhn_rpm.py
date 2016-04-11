@@ -162,9 +162,11 @@ class RPM_Package(A_Package):
         self._get_header_byte_range()
         try:
             self.header = get_package_header(file_obj=self.header_data)
-        except InvalidPackageError, e:
+        except InvalidPackageError:
+            e = sys.exc_info()[1]
             raise InvalidPackageError(*e.args), None, sys.exc_info()[2]
-        except error, e:
+        except error:
+            e = sys.exc_info()[1]
             raise InvalidPackageError(e), None, sys.exc_info()[2]
         except:
             raise InvalidPackageError, None, sys.exc_info()[2]

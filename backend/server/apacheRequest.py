@@ -140,16 +140,20 @@ class apacheRequest:
                       extra="Response sent back to the caller:\n%s\n" % (
                           response.faultString,),
                       severity="notification")
-        except rhnNotFound, e:
+        except rhnNotFound:
+            e = sys.exc_info()[1]
             return apache.HTTP_NOT_FOUND
         # pkilambi:catch exception if redirect
-        except redirectException, re:
+        except redirectException:
+            re = sys.exc_info()[1]
             log_debug(3, "redirect exception caught", re.path)
             response = re.path
 
-        except rhnFault, f:
+        except rhnFault:
+            f = sys.exc_info()[1]
             response = f.getxml()
-        except rhnSQL.SQLSchemaError, e:
+        except rhnSQL.SQLSchemaError:
+            e = sys.exc_info()[1]
             f = None
             if e.errno == 20200:
                 log_debug(2, "User Group Membership EXCEEDED")
@@ -163,14 +167,16 @@ class apacheRequest:
                           severity="schema")
                 return apache.HTTP_INTERNAL_SERVER_ERROR
             response = f.getxml()
-        except rhnSQL.SQLError, e:
+        except rhnSQL.SQLError:
+            e = sys.exc_info()[1]
             log_error("rhnSQL.SQLError caught", e)
             rhnSQL.rollback()
             Traceback(method, self.req,
                       extra="SQL Error generated: %s" % e,
                       severity="schema")
             return apache.HTTP_INTERNAL_SERVER_ERROR
-        except Exception, e:
+        except Exception:
+            e = sys.exc_info()[1]
             log_error("Unhandled exception", e)
             rhnSQL.rollback()
             # otherwise we do a full stop
@@ -352,7 +358,8 @@ class apacheRequest:
             response = self.normalize(response)
             try:
                 response = xmlrpclib.dumps(response, methodresponse=1)
-            except TypeError, e:
+            except TypeError:
+                e = sys.exc_info()[1]
                 log_debug(4, "Error \"%s\" encoding response = %s" % (e, response))
                 Traceback("apacheHandler.response", self.req,
                           extra="Error \"%s\" encoding response = %s" % (e, response),
@@ -558,12 +565,14 @@ class GetHandler(apacheRequest):
 
         try:
             method, params = self._get_method_params()
-        except rhnFault, f:
+        except rhnFault:
+            f = sys.exc_info()[1]
             log_debug(2, "Fault caught")
             response = f.getxml()
             self.response(response)
             return apache.HTTP_NOT_FOUND
-        except Exception, e:
+        except Exception:
+            e = sys.exc_info()[1]
             rhnSQL.rollback()
             # otherwise we do a full stop
             Traceback(method, self.req, severity="unhandled")

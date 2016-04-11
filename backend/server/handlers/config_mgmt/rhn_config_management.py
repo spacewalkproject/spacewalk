@@ -127,7 +127,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
         try:
             delete_call(row['id'])
-        except rhnSQL.SQLError, e:
+        except rhnSQL.SQLError:
+            e = sys.exc_info()[1]
             errno = e.args[0]
             if errno == 2292:
                 raise rhnFault(4005, "Cannot remove non-empty channel %s" %

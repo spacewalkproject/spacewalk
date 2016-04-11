@@ -28,7 +28,8 @@ class SearchNotify:
         try:
             client = xmlrpclib.ServerProxy(self.addr)
             result = client.admin.updateIndex(indexName)
-        except Exception, e:
+        except Exception:
+            e = sys.exc_info()[1]
             log_error("Failed to notify search service located at %s to update %s indexes"
                       % (self.addr, indexName), e)
             return False

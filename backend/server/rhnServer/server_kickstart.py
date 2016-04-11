@@ -111,7 +111,8 @@ def delete_guests(server_id):
     # Commit all changes:
     try:
         rhnSQL.commit()
-    except rhnSQL.SQLError, e:
+    except rhnSQL.SQLError:
+        e = sys.exc_info()[1]
         log_error("Error committing transaction: %s" % e)
         rhnSQL.rollback()
 

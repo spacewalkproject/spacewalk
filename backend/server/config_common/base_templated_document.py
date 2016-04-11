@@ -74,7 +74,8 @@ class BaseTemplatedDocument:
     def repl_func(self, match_object):
         try:
             return self._repl_func(match_object)
-        except ValueError, e:
+        except ValueError:
+            e = sys.exc_info()[1]
             log_error("cfg variable interpolation error", e)
             return match_object.group()
 

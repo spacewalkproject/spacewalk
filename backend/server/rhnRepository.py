@@ -248,7 +248,8 @@ class Repository(rhnRepository.Repository):
         try:
             rhnFlags.set('Download-Accelerator-Path', file_path)
             return self._getFile(CFG.REPOMD_CACHE_MOUNT_POINT + "/" + file_path)
-        except IOError, e:
+        except IOError:
+            e = sys.exc_info()[1]
             # For file not found, queue up a regen, and return 404
             if e.errno == 2 and file_name != "comps.xml":
                 taskomatic.add_to_repodata_queue(self.channelName,

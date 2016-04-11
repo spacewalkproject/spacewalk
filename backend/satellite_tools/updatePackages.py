@@ -194,7 +194,8 @@ def process_package_data():
         # pylint: disable=W0703
         try:
             hdr = rhn_rpm.get_package_header(filename=old_abs_path)
-        except Exception, e:
+        except Exception:
+            e = sys.exc_info()[1]
             msg = "Exception occurred when reading package header %s: %s" % \
                 (old_abs_path, str(e))
             print(msg)
@@ -363,7 +364,8 @@ def process_sha256_packages():
 
                 # Make the new path readable
                 os.chmod(new_abs_path, 0644)
-        except OSError, e:
+        except OSError:
+            e = sys.exc_info()[1]
             message = "Error when relocating %s to %s on filer: %s" % \
                       (old_abs_path, new_abs_path, str(e))
             print(message)
@@ -397,7 +399,8 @@ def process_sha256_packages():
                 os.unlink(old_abs_path)
             if os.path.exists(os.path.dirname(old_abs_path)):
                 os.removedirs(os.path.dirname(old_abs_path))
-        except OSError, e:
+        except OSError:
+            e = sys.exc_info()[1]
             message = "Error when removing %s: %s" % (old_abs_path, str(e))
             print(message)
             if debug:
@@ -516,7 +519,8 @@ def process_package_files():
         # pylint: disable=W0703
         try:
             hdr = rhn_rpm.get_package_header(filename=package_path)
-        except Exception, e:
+        except Exception:
+            e = sys.exc_info()[1]
             message = "Error when reading package %s header: %s" % (package_path, e)
             if debug:
                 log.writeMessage(message)
@@ -584,7 +588,8 @@ def process_changelog():
             last = u
             try:
                 u = last.encode('iso8859-1').decode('utf8')
-            except (UnicodeDecodeError, UnicodeEncodeError), e:
+            except (UnicodeDecodeError, UnicodeEncodeError):
+                e = sys.exc_info()[1]
                 if e.reason == 'unexpected end of data':
                     u = u[:-1]
                     continue

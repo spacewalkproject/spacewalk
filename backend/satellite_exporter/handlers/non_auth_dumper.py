@@ -155,7 +155,8 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
             log_debug(5, "Closing a compressed stream")
             try:
                 self._compressed_stream.close()
-            except IOError, e:
+            except IOError:
+                e = sys.exc_info()[1]
                 # Remote end has closed connection already
                 log_error("Error closing the stream", str(e))
 
@@ -430,11 +431,13 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         except InvalidPackageError:
             log_debug(4, "Error", "Non-existent package requested", fileName)
             raise rhnFault(17, _("Invalid RPM package %s requested") % fileName), None, sys.exc_info()[2]
-        except NullPathPackageError, e:
+        except NullPathPackageError:
+            e = sys.exc_info()[1]
             package_id = e[0]
             log_error("Package path null for package id", package_id)
             raise rhnFault(17, _("Invalid RPM package %s requested") % fileName), None, sys.exc_info()[2]
-        except MissingPackageError, e:
+        except MissingPackageError:
+            e = sys.exc_info()[1]
             filePath = e[0]
             log_error("Package not found", filePath)
             raise rhnFault(17, _("Package not found")), None, sys.exc_info()[2]
@@ -443,7 +446,8 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
     def _send_stream(self, path):
         try:
             stream = open(path)
-        except IOError, e:
+        except IOError:
+            e = sys.exc_info()[1]
             if e.errno == 2:
                 raise rhnFault(3007, "Missing file %s" % path), None, sys.exc_info()[2]
             # Let it flow so we can find it later

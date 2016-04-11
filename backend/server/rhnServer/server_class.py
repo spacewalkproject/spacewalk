@@ -402,7 +402,8 @@ class Server(ServerWrapper):
             try:
                 self._entitle(entitlement)
                 any_base_entitlements = 1
-            except rhnSQL.SQLSchemaError, e:
+            except rhnSQL.SQLSchemaError:
+                e = sys.exc_info()[1]
                 if e.errno == 20287:
                     # ORA-20287: (invalid_entitlement) - The server can not be
                     # entitled to the specified level
@@ -415,7 +416,8 @@ class Server(ServerWrapper):
                 log_error("Failed to entitle", self.server["id"], entitlement,
                           e.errmsg)
                 raise server_lib.rhnSystemEntitlementException("Unable to entitle"), None, sys.exc_info()[2]
-            except rhnSQL.SQLError, e:
+            except rhnSQL.SQLError:
+                e = sys.exc_info()[1]
                 log_error("Failed to entitle", self.server["id"], entitlement,
                           str(e))
                 raise server_lib.rhnSystemEntitlementException("Unable to entitle"), None, sys.exc_info()[2]
@@ -580,7 +582,8 @@ class Server(ServerWrapper):
                 try:
                     search = SearchNotify()
                     search.notify()
-                except Exception, e:
+                except Exception:
+                    e = sys.exc_info()[1]
                     log_error("Exception caught from SearchNotify.notify().", e)
         return 0
 

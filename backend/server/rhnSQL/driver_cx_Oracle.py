@@ -60,7 +60,8 @@ class Cursor(sql_base.Cursor):
                                      force=force)
             self._type_mapping = ORACLE_TYPE_MAPPING
             self.blob_map = blob_map
-        except sql_base.SQLSchemaError, e:
+        except sql_base.SQLSchemaError:
+            e = sys.exc_info()[1]
             (errno, errmsg) = e.errno, e.errmsg
             if 900 <= errno <= 999:
                 # Per Oracle's documentation, SQL parsing error
@@ -78,7 +79,8 @@ class Cursor(sql_base.Cursor):
     def _prepare(self, force=None):
         try:
             return sql_base.Cursor._prepare(self, force)
-        except self.OracleError, e:
+        except self.OracleError:
+            e = sys.exc_info()[1]
             raise self._build_exception(e), None, sys.exc_info()[2]
 
     def _prepare_sql(self):
@@ -108,7 +110,8 @@ class Cursor(sql_base.Cursor):
 
         try:
             retval = function(*p, **kw)
-        except self.OracleError, e:
+        except self.OracleError:
+            e = sys.exc_info()[1]
             ret = self._get_oracle_error_info(e)
             if isinstance(ret, types.StringType):
                 raise sql_base.SQLError(self.sql, p, kw, ret), None, sys.exc_info()[2]
@@ -292,14 +295,16 @@ class Procedure(sql_base.Procedure):
         retval = None
         try:
             retval = self._call_proc(args)
-        except cx_Oracle.DatabaseError, e:
+        except cx_Oracle.DatabaseError:
+            e = sys.exc_info()[1]
             if not hasattr(e, "args"):
                 raise sql_base.SQLError(self.name, args), None, sys.exc_info()[2]
             elif 20000 <= e[0].code <= 20999:  # error codes we know we raise as schema errors
 
                 raise sql_base.SQLSchemaError(e[0].code, str(e[0])), None, sys.exc_info()[2]
             raise sql_base.SQLError(e[0].code, str(e[0])), None, sys.exc_info()[2]
-        except cx_Oracle.NotSupportedError, error:
+        except cx_Oracle.NotSupportedError:
+            error = sys.exc_info()[1]
             raise sql_base.SQLError(*error.args), None, sys.exc_info()[2]
         return retval
 
@@ -393,7 +398,8 @@ class Database(sql_base.Database):
         self._fix_environment_vars()
         try:
             self.dbh = self._connect()
-        except self.OracleError, e:
+        except self.OracleError:
+            e = sys.exc_info()[1]
             ret = self._get_oracle_error_info(e)
             if isinstance(ret, types.StringType):
                 raise sql_base.SQLConnectError(self.dbtxt, -1,
@@ -479,7 +485,8 @@ class Database(sql_base.Database):
     def procedure(self, name):
         try:
             c = self.dbh.cursor()
-        except cx_Oracle.DatabaseError, error:
+        except cx_Oracle.DatabaseError:
+            error = sys.exc_info()[1]
             e = error[0]
             raise sql_base.SQLSchemaError(e.code, e.message, e.context), None, sys.exc_info()[2]
         # Pass the cursor in so we can close it after execute()
@@ -488,7 +495,8 @@ class Database(sql_base.Database):
     def _function(self, name, ret_type):
         try:
             c = self.dbh.cursor()
-        except cx_Oracle.DatabaseError, error:
+        except cx_Oracle.DatabaseError:
+            error = sys.exc_info()[1]
             e = error[0]
             raise sql_base.SQLSchemaError(e.code, e.message, e.context), None, sys.exc_info()[2]
         return Function(name, c, ret_type)

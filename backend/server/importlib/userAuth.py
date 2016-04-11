@@ -36,7 +36,8 @@ class UserAuth:
         add_to_seclist(password)
         try:
             self.groups, self.org_id, self.user_id = getUserGroups(login, password)
-        except rhnFault, e:
+        except rhnFault:
+            e = sys.exc_info()[1]
             if e.code == 2:
                 # invalid login/password; set timeout to baffle
                 # brute force password guessing attacks (BZ 672163)
@@ -50,7 +51,8 @@ class UserAuth:
         user_instance = rhnUser.session_reload(session_string)
         try:
             self.groups, self.org_id, self.user_id = getUserGroupsFromUserInstance(user_instance)
-        except rhnFault, e:
+        except rhnFault:
+            e = sys.exc_info()[1]
             if e.code == 2:
                 # invalid login/password; set timeout to baffle
                 # brute force password guessing attacks (BZ 672163)

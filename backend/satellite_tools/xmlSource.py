@@ -170,7 +170,8 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
                 self.__container.batch = []
             except (KeyboardInterrupt, SystemExit):
                 raise
-            except Exception, e:
+            except Exception:
+                e = sys.exc_info()[1]
                 log_debug(-1, 'ERROR (odd) upon container.batch=[] cleanup: %s' % e)
                 raise
 

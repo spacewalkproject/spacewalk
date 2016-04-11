@@ -412,7 +412,8 @@ class Registration(rhnHandler):
                 raise rhnFault(70), None, sys.exc_info()[2]
             except rhnChannel.BaseChannelDeniedError, channel_error:
                 raise rhnFault(71), None, sys.exc_info()[2]
-            except server_lib.rhnSystemEntitlementException, e:
+            except server_lib.rhnSystemEntitlementException:
+                e = sys.exc_info()[1]
                 raise rhnFault(90), None, sys.exc_info()[2]
 
             # Process any kickstart data associated with this server
@@ -448,7 +449,8 @@ class Registration(rhnHandler):
             raise rhnFault(70), None, sys.exc_info()[2]
         except rhnChannel.BaseChannelDeniedError, channel_error:
             raise rhnFault(71), None, sys.exc_info()[2]
-        except server_lib.rhnSystemEntitlementException, e:
+        except server_lib.rhnSystemEntitlementException:
+            e = sys.exc_info()[1]
             # right now, don't differentiate between general ent issues & rhnNoSystemEntitlementsException
             raise rhnFault(90), None, sys.exc_info()[2]
 
@@ -1160,7 +1162,8 @@ class Registration(rhnHandler):
         text_file = CFG.REG_FINISH_MESSAGE_TEXT_FILE
         try:
             text_message = open(text_file).read()
-        except IOError, e:
+        except IOError:
+            e = sys.exc_info()[1]
             log_error("reg_fishish_message_return_code is set, but file "
                       "%s invalid: %s" % (text_file, e))
             return (0, "", "")

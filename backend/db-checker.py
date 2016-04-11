@@ -44,7 +44,8 @@ def main():
         try:
             m = __import__(pmn)
             g[module_name] = m
-        except ImportError, e:
+        except ImportError:
+            e = sys.exc_info()[1]
             print("Unable to import module %s: %s" % (module_name, e))
             continue
 
@@ -55,7 +56,8 @@ def main():
         for mod, name, statement in get_class_instances(m, rhnSQL.Statement):
             try:
                 rhnSQL.prepare(statement)
-            except rhnSQL.SQLStatementPrepareError, e:
+            except rhnSQL.SQLStatementPrepareError:
+                e = sys.exc_info()[1]
                 print("Error: %s.%s: %s" % (mod.__name__, name, e))
 
 

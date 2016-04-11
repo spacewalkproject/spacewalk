@@ -237,7 +237,8 @@ class Packages:
             try:
                 h.execute_bulk(package_data)
                 rhnSQL.commit()
-            except rhnSQL.SQLSchemaError, e:
+            except rhnSQL.SQLSchemaError:
+                e = sys.exc_info()[1]
                 # LOOKUP_PACKAGE_ARCH failed
                 if e.errno == 20243:
                     log_debug(2, "Unknown package arch found", e)

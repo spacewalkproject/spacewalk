@@ -82,7 +82,8 @@ class Function(sql_base.Procedure):
         log_debug(2, query, args)
         try:
             ret = self.cursor.execute(query, args)
-        except psycopg2.Error, e:
+        except psycopg2.Error:
+            e = sys.exc_info()[1]
             error_code = 99999
             m = re.match('ERROR: +-([0-9]+)', e.pgerror)
             if m:
@@ -184,7 +185,8 @@ class Database(sql_base.Database):
             DEC2INTFLOAT = psycopg2.extensions.new_type(psycopg2._psycopg.DECIMAL.values,
                                                         'DEC2INTFLOAT', decimal2intfloat)
             psycopg2.extensions.register_type(DEC2INTFLOAT)
-        except psycopg2.Error, e:
+        except psycopg2.Error:
+            e = sys.exc_info()[1]
             if reconnect > 0:
                 # Try one more time:
                 return self.connect(reconnect=reconnect - 1)
@@ -288,15 +290,18 @@ class Cursor(sql_base.Cursor):
 
         try:
             retval = function(*p, **kw)
-        except psycopg2.InternalError, e:
+        except psycopg2.InternalError:
+            e = sys.exc_info()[1]
             error_code = 99999
             m = re.match('ERROR: +-([0-9]+)', e.pgerror)
             if m:
                 error_code = int(m.group(1))
             raise sql_base.SQLSchemaError(error_code, e.pgerror, e)
-        except psycopg2.ProgrammingError, e:
+        except psycopg2.ProgrammingError:
+            e = sys.exc_info()[1]
             raise sql_base.SQLStatementPrepareError(self.dbh, e.pgerror, self.sql)
-        except KeyError, e:
+        except KeyError:
+            e = sys.exc_info()[1]
             raise sql_base.SQLError("Unable to bound the following variable(s): %s"
                                     % (string.join(e.args, " ")))
         return retval

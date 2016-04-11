@@ -200,7 +200,8 @@ class VirtualizationEventHandler:
         handler = None
         try:
             handler = getattr(self, self.HANDLERS[event])
-        except KeyError, ke:
+        except KeyError:
+            ke = sys.exc_info()[1]
             raise VirtualizationEventError(
                 "Don't know how to handle virt event:", event), None, sys.exc_info()[2]
 
@@ -622,7 +623,8 @@ class VirtualizationEventHandler:
 
             try:
                 query.execute(**bindings)
-            except rhnSQL.SQLError, e:
+            except rhnSQL.SQLError:
+                e = sys.exc_info()[1]
                 log_error(str(e))
                 raise VirtualizationEventError, str(e), sys.exc_info()[2]
 
@@ -818,7 +820,8 @@ def _virt_notify(server_id, actions):
 
         try:
             handler.handle(server_id, action)
-        except VirtualizationEventError, vee:
+        except VirtualizationEventError:
+            vee = sys.exc_info()[1]
             log_error(
                 "An error occurred while handling a virtualization event:",
                 vee,
@@ -1028,7 +1031,8 @@ class EntitlementVirtualizationListener(VirtualizationListener):
                     rhnSQL.transaction(entitlement)
                     procedure.rhn_entitlements.entitle_server(guest_sid,
                                                               entitlement)
-                except rhnSQL.SQLError, e:
+                except rhnSQL.SQLError:
+                    e = sys.exc_info()[1]
                     rhnSQL.rollback(entitlement)
                     log_error("Error adding entitlement %s to host ID-%s: %s"
                               % (entitlement, guest_sid, str(e)))

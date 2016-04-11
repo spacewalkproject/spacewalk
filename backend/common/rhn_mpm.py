@@ -60,7 +60,8 @@ def load(filename=None, file_obj=None, fd=None):
     p = MPM_Package()
     try:
         p.load(f)
-    except InvalidPackageError, e:
+    except InvalidPackageError:
+        e = sys.exc_info()[1]
         try:
             return load_rpm(f)
         except InvalidPackageError:
@@ -89,9 +90,11 @@ def load_rpm(stream):
 
     try:
         header = rhn_rpm.get_package_header(file_obj=stream)
-    except InvalidPackageError, e:
+    except InvalidPackageError:
+        e = sys.exc_info()[1]
         raise InvalidPackageError(*e.args), None, sys.exc_info()[2]
-    except rhn_rpm.error, e:
+    except rhn_rpm.error:
+        e = sys.exc_info()[1]
         raise InvalidPackageError(e), None, sys.exc_info()[2]
     except:
         raise InvalidPackageError, None, sys.exc_info()[2]

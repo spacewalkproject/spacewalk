@@ -122,7 +122,8 @@ def push_package(a_pkg, org_id=None, force=None, channels=[], relative_path=None
         importLib.move_package(a_pkg.payload_stream.name, basedir=CFG.MOUNT_POINT,
                                relpath=relative_path,
                                checksum_type=a_pkg.checksum_type, checksum=a_pkg.checksum, force=1)
-    except OSError, e:
+    except OSError:
+        e = sys.exc_info()[1]
         raise rhnFault(50, "Package upload failed: %s" % e), None, sys.exc_info()[2]
     except importLib.FileConflictError:
         raise rhnFault(50, "File already exists"), None, sys.exc_info()[2]

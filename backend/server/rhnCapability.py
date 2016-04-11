@@ -146,7 +146,8 @@ def update_client_capabilities(server_id):
 def set_server_capabilities():
     try:
         _set_server_capabilities()
-    except rhnSQL.SQLError, e:
+    except rhnSQL.SQLError:
+        e = sys.exc_info()[1]
         if e.args[0] != 1:
             # Not a unique constraint violation
             raise

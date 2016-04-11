@@ -595,7 +595,8 @@ class Backend:
                     self.__lookupObjectCollection([package], 'rhnPackage')
                     not_found = None
                     break
-                except InvalidPackageError, e:
+                except InvalidPackageError:
+                    e = sys.exc_info()[1]
                     not_found = (e, sys.exc_info()[2])
             if not_found and not ignore_missing:
                 # package is not in database at all
@@ -1231,7 +1232,8 @@ class Backend:
                         refresh_newest_package(channel_id, caller, id)
                 else:
                     refresh_newest_package(channel_id, caller, None)
-            except rhnSQL.SQLError, e:
+            except rhnSQL.SQLError:
+                e = sys.exc_info()[1]
                 raise rhnFault(23, str(e[1]), explain=0), None, sys.exc_info()[2]
             if deleted_packages_list:
                 invalidate_ss = 1
@@ -1581,7 +1583,8 @@ class Backend:
             dict = hash[tname]
             try:
                 self.__doInsertTable(tname, dict)
-            except rhnSQL.SQLError, e:
+            except rhnSQL.SQLError:
+                e = sys.exc_info()[1]
                 raise rhnFault(54, str(e[1]), explain=0), None, sys.exc_info()[2]
 
     def __doInsertTable(self, table, hash):

@@ -268,7 +268,8 @@ def update(server_id, action_id, data={}):
         # actions code, which we don't have time to do for the 500 beta. --wregglej
         try:
             ks_session_type = server_kickstart.get_kickstart_session_type(server_id, action_id)
-        except rhnException, re:
+        except rhnException:
+            re = sys.exc_info()[1]
             ks_session_type = None
 
         if ks_session_type is None:

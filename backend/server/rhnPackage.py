@@ -117,7 +117,8 @@ def unlink_package_file(path):
     while dirname not in base_dirs:
         try:
             os.rmdir(dirname)
-        except OSError, e:
+        except OSError:
+            e = sys.exc_info()[1]
             if e.errno == 39:  # OSError: [Errno 39] Directory not empty
                 break
             else:

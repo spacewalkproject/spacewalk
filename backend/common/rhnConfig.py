@@ -99,7 +99,8 @@ class RHNOptions:
 
         try:
             si = os.stat(self.filename)
-        except OSError, e:
+        except OSError:
+            e = sys.exc_info()[1]
             raise ConfigParserError("config file read error",
                                     self.filename, e.args[1]), None, sys.exc_info()[2]
         lm = si[stat.ST_MTIME]
@@ -453,7 +454,8 @@ def read_file(filename):
             else:
                 combined = combined + line.replace('\\\n', ' ')
         return new_lines
-    except (IOError, OSError), e:
+    except (IOError, OSError):
+        e = sys.exc_info()[1]
         raise ConfigParserError("Can not read config file", filename, e.args[1]), None, sys.exc_info()[2]
 
 
@@ -551,7 +553,8 @@ def runTest():
     print("testing __getattr__")
     try:
         print(test_cfg.lkasjdfxxxxxxxxxxxxxx)
-    except AttributeError, e:
+    except AttributeError:
+        e = sys.exc_info()[1]
         print('Testing: "AttributeError: %s"' % e)
     print()
     print("=============== the object's merged settings ======================")

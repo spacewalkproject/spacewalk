@@ -123,7 +123,8 @@ class Certificate:
         dump["fields"] = self.__fields
         try:
             x = xmlrpclib.dumps((dump,))
-        except TypeError, e:
+        except TypeError:
+            e = sys.exc_info()[1]
             log_error("Could not marshall certificate for %s" % dump)
             e.args = e.args + (dump,)  # Carry on the information for the exception reporting
             raise

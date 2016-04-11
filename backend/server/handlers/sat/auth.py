@@ -58,7 +58,8 @@ class Authentication(rhnHandler):
         # Authenticate server
         try:
             self.auth_system()
-        except rhnFault, e:
+        except rhnFault:
+            e = sys.exc_info()[1]
             if e.code == 2002:
                 # Return an error code
                 return 0

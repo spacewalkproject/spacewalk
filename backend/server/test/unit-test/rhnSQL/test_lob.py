@@ -36,7 +36,8 @@ class ExceptionsTest(unittest.TestCase):
             rhnSQL.execute("drop sequence misatestlob_id_seq")
         except rhnSQL.SQLStatementPrepareError:
             pass
-        except rhnSQL.SQLError, e:
+        except rhnSQL.SQLError:
+            e = sys.exc_info()[1]
             if e.args[0] != 2289:
                 raise
 

@@ -777,7 +777,8 @@ def base_channel_for_rel_arch(release, server_arch, org_id=-1,
     try:
         h.execute(release=str(release), server_arch=str(server_arch),
                   org_id=org_id, user_id=user_id)
-    except rhnSQL.SQLSchemaError, e:
+    except rhnSQL.SQLSchemaError:
+        e = sys.exc_info()[1]
         rhnSQL.rollback("base_channel_for_rel_arch")
         if e.errno == 20263:
             # Insufficient permissions for subscription
@@ -1780,7 +1781,8 @@ def subscribe_sql(server_id, channel_id, commit=1):
     try:
         # don't run the EC yet
         subscribe_channel(server_id, channel_id, 0)
-    except rhnSQL.SQLSchemaError, e:
+    except rhnSQL.SQLSchemaError:
+        e = sys.exc_info()[1]
         if e.errno == 20102:  # channel_server_one_base
             log_error("Channel subscribe failed, "
                       "%s already subscribed to %s (?)" % (server_id, channel_id))
@@ -1788,7 +1790,8 @@ def subscribe_sql(server_id, channel_id, commit=1):
         # If we got here, it's an unknown error; ISE (for now)
         log_error("SQLSchemaError", e)
         raise rhnException(e), None, sys.exc_info()[2]
-    except rhnSQL.SQLError, e:
+    except rhnSQL.SQLError:
+        e = sys.exc_info()[1]
         # If we got here, it's an unknown error; ISE (for now)
         log_error("SQLError", e)
         raise rhnException(e), None, sys.exc_info()[2]

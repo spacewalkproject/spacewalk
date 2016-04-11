@@ -622,7 +622,8 @@ class PostgresqlBackend(OracleBackend):
                 row = h.fetchone_dict()
                 capabilityHash[(name, version)] = row['id']
             self.dbmodule.commit_secondary()  # commit also unlocks the table
-        except Exception, e:
+        except Exception:
+            e = sys.exc_info()[1]
             self.dbmodule.execute_secondary("rollback")
             raise e
 
@@ -647,7 +648,8 @@ class PostgresqlBackend(OracleBackend):
                     if row:
                         checksumHash[k] = row['id']
             self.dbmodule.commit_secondary()  # commit also unlocks the table
-        except Exception, e:
+        except Exception:
+            e = sys.exc_info()[1]
             self.dbmodule.execute_secondary("rollback")
             raise e
 

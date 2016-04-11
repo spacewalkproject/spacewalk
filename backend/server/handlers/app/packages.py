@@ -358,9 +358,11 @@ class Packages(RPC_Base):
         importer = ChannelPackageSubscription(batch, backend, caller=caller)
         try:
             importer.run()
-        except IncompatibleArchError, e:
+        except IncompatibleArchError:
+            e = sys.exc_info()[1]
             raise rhnFault(50, string.join(e.args), explain=0), None, sys.exc_info()[2]
-        except InvalidChannelError, e:
+        except InvalidChannelError:
+            e = sys.exc_info()[1]
             raise rhnFault(50, str(e), explain=0), None, sys.exc_info()[2]
 
         affected_channels = importer.affected_channels

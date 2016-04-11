@@ -100,7 +100,8 @@ class UploadHandler:
         try:
             log_debug(5, "Calling", function)
             ret = function(req)
-        except rhnFault, e:
+        except rhnFault:
+            e = sys.exc_info()[1]
             log_debug(4, "rhnFault caught: %s" % (e, ))
             error_string = self._exception_to_text(e)
             error_code = e.code
@@ -111,7 +112,8 @@ class UploadHandler:
             req.status = ret
             log_debug(4, "_wrapper %s exited with apache code %s" %
                       (function_name, ret))
-        except rhnSession.ExpiredSessionError, e:
+        except rhnSession.ExpiredSessionError:
+            e = sys.exc_info()[1]
             # if session expires we catch here and return a forbidden
             # abd make it re-authenticate
             log_debug(4, "Expire Session Error Caught: %s" % (e, ))

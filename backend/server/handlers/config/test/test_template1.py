@@ -32,7 +32,8 @@ data = open("test/template1.tmpl").read()
 
 try:
     print("interpolated:  ", t.interpolate(data))
-except Exception, e:
+except Exception:
+    e = sys.exc_info()[1]
     print(e)
     tb = sys.exc_info()[2]
     stack = []

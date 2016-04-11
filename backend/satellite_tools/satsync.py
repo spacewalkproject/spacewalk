@@ -191,7 +191,8 @@ class Runner:
             self.syncer.initialize()
         except (KeyboardInterrupt, SystemExit):
             raise
-        except xmlWireSource.rpclib.xmlrpclib.Fault, e:
+        except xmlWireSource.rpclib.xmlrpclib.Fault:
+            e = sys.exc_info()[1]
             if CFG.ISS_PARENT:
                 if CFG.PRODUCT_NAME == 'Spacewalk':
                     log(-1, ['', messages.sw_iss_not_available % e.faultString], )
@@ -202,7 +203,8 @@ class Runner:
                 log(-1, ['', messages.syncer_error % e.faultString], )
                 sys.exit(9)
 
-        except Exception, e:  # pylint: disable=E0012, W0703
+        except Exception:  # pylint: disable=E0012, W0703
+            e = sys.exc_info()[1]
             log(-1, ['', messages.syncer_error % e], )
             sys.exit(10)
 
@@ -247,7 +249,8 @@ class Runner:
             except RhnSyncException:
                 rhnSQL.rollback()
                 raise
-            except exception, e:
+            except exception:
+                e = sys.exc_info()[1]
                 msg = _("ERROR: Encountered IntegrityError: \n"
                         + str(e)
                         + "\nconsider removing satellite-sync cache at /var/cache/rhn/satsync/*"
@@ -297,10 +300,12 @@ class Runner:
             return 1
         except (KeyboardInterrupt, SystemExit):
             raise
-        except xmlWireSource.rpclib.xmlrpclib.Fault, e:
+        except xmlWireSource.rpclib.xmlrpclib.Fault:
+            e = sys.exc_info()[1]
             log(-1, messages.failed_step % (step_name, e.faultString))
             return 1
-        except Exception, e:  # pylint: disable=E0012, W0703
+        except Exception:  # pylint: disable=E0012, W0703
+            e = sys.exc_info()[1]
             log(-1, messages.failed_step % (step_name, e))
             return 1
         return ret
@@ -314,7 +319,8 @@ class Runner:
     def _step_channels(self):
         try:
             self.syncer.process_channels()
-        except MissingParentChannelError, e:
+        except MissingParentChannelError:
+            e = sys.exc_info()[1]
             msg = messages.parent_channel_error % repr(e.channel)
             log(-1, msg)
             # log2email(-1, msg) # redundant
@@ -523,7 +529,8 @@ class Syncer:
         except KeyboardInterrupt:
             log(-1, _('*** SYSTEM INTERRUPT CALLED ***'), stream=sys.stderr)
             raise
-        except (FatalParseException, ParseException, Exception), e:  # pylint: disable=E0012, W0703
+        except (FatalParseException, ParseException, Exception):  # pylint: disable=E0012, W0703
+            e = sys.exc_info()[1]
             # nuke the container batch upon error!
             self.containerHandler.clear()
             msg = ''
@@ -1242,7 +1249,8 @@ class Syncer:
             try:
                 f.write_file(stream)
                 break  # inner for
-            except FileCreationError, e:
+            except FileCreationError:
+                e = sys.exc_info()[1]
                 msg = e.args[0]
                 log2disk(-1, _("Unable to save file %s: %s") % (path,
                                                                 msg))
@@ -1523,7 +1531,8 @@ class Syncer:
         _validate_package_org(batch)
         try:
             sync_handlers.import_packages(batch, sources)
-        except (SQLError, SQLSchemaError, SQLConnectError), e:
+        except (SQLError, SQLSchemaError, SQLConnectError):
+            e = sys.exc_info()[1]
             # an SQL error is fatal... crash and burn
             exitWithTraceback(e, 'Exception caught during import', 13)
 
@@ -1572,7 +1581,8 @@ class Syncer:
                 importer = sync_handlers.link_channel_packages(uq_pkg_data, strict=OPTIONS.consider_full)
             else:
                 importer = sync_handlers.link_channel_packages(uq_pkg_data)
-        except (SQLError, SQLSchemaError, SQLConnectError), e:
+        except (SQLError, SQLSchemaError, SQLConnectError):
+            e = sys.exc_info()[1]
             # an SQL error is fatal... crash and burn
             exitWithTraceback(e, 'Exception caught during import', 14)
         return importer.affected_channels
@@ -1783,7 +1793,8 @@ class Syncer:
             rpmFile = rpmsPath(package_id, self.mountpoint, sources)
             try:
                 stream = open(rpmFile)
-            except IOError, e:
+            except IOError:
+                e = sys.exc_info()[1]
                 if e.errno != 2:  # No such file or directory
                     raise
                 return (rpmFile, None)
@@ -1874,7 +1885,8 @@ class ThreadDownload(threading.Thread):
                 try:
                     rpmManip.write_file(stream)
                     break  # inner for
-                except FileCreationError, e:
+                except FileCreationError:
+                    e = sys.exc_info()[1]
                     msg = e.args[0]
                     log2disk(-1, _("Unable to save file %s: %s") % (
                         rpmManip.full_path, msg))
@@ -2014,7 +2026,8 @@ def _getImportedChannels(withAdvisory=None):
         h = rhnSQL.prepare(query)
         h.execute(advisory=withAdvisory)
         return [x['label'] for x in h.fetchall_dict() or []]
-    except (SQLError, SQLSchemaError, SQLConnectError), e:
+    except (SQLError, SQLSchemaError, SQLConnectError):
+        e = sys.exc_info()[1]
         # An SQL error is fatal... crash and burn
         exitWithTraceback(e, 'SQL ERROR during xml processing', 17)
     return []
@@ -2127,7 +2140,8 @@ def processCommandline():
         rhnSQL.initDB()
         rhnSQL.clear_log_id()
         rhnSQL.set_log_auth_login('SETUP')
-    except (SQLError, SQLSchemaError, SQLConnectError), e:
+    except (SQLError, SQLSchemaError, SQLConnectError):
+        e = sys.exc_info()[1]
         # An SQL error is fatal... crash and burn
         log(-1, _("ERROR: Can't connect to the database: %s") % e, stream=sys.stderr)
         log(-1, _("ERROR: Check if your database is running."), stream=sys.stderr)
@@ -2157,7 +2171,8 @@ def processCommandline():
             debugLevel = int(OPTIONS.debug_level)
             if not (0 <= debugLevel <= debugRange):
                 raise RhnSyncException, "exception will be caught", sys.exc_info()[2]
-        except KeyboardInterrupt, e:
+        except KeyboardInterrupt:
+            e = sys.exc_info()[1]
             raise
         # pylint: disable=E0012, W0703
         except Exception:
@@ -2371,7 +2386,8 @@ if __name__ == '__main__':
                      " purposes !!!\n")
     try:
         sys.exit(Runner().main() or 0)
-    except (KeyboardInterrupt, SystemExit), ex:
+    except (KeyboardInterrupt, SystemExit):
+        ex = sys.exc_info()[1]
         sys.exit(ex)
     except Exception:  # pylint: disable=E0012, W0703
         from spacewalk.common.rhnTB import fetchTraceback

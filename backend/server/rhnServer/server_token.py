@@ -138,7 +138,8 @@ def token_channels(server, server_arch, tokens_obj):
             child._load_channel_families()
             cfamid = child._channel_families[0]
             channel_family_ids.add(cfamid)
-        except rhnSQL.SQLError, e:
+        except rhnSQL.SQLError:
+            e = sys.exc_info()[1]
             log_error("Failed channel subscription", server_id,
                       c["id"], c["label"], c["name"])
             ret.append("FAILED to subscribe to channel '%s'" % c["name"])
@@ -180,7 +181,8 @@ def token_server_groups(server_id, tokens_obj):
 
         try:
             join_server_group(server_id, server_group_id)
-        except rhnSQL.SQLError, e:
+        except rhnSQL.SQLError:
+            e = sys.exc_info()[1]
             log_error("Failed to add server to group", server_id,
                       server_group_id, sg["name"])
             raise rhnFault(80, _("Failed to add server to group %s") %
@@ -595,19 +597,22 @@ class ActivationTokens:
 
             try:
                 can_ent = can_entitle_server(server_id, entitlement[0])
-            except rhnSQL.SQLSchemaError, e:
+            except rhnSQL.SQLSchemaError:
+                e = sys.exc_info()[1]
                 can_ent = 0
 
             try:
                 # bugzilla #160077, skip attempting to entitle if we cant
                 if can_ent:
                     entitle_server(server_id, entitlement[0])
-            except rhnSQL.SQLSchemaError, e:
+            except rhnSQL.SQLSchemaError:
+                e = sys.exc_info()[1]
                 log_error("Token failed to entitle server", server_id,
                           self.get_names(), entitlement[0], e.errmsg)
                 #No idea what error may be here...
                 raise rhnFault(90, e.errmsg), None, sys.exc_info()[2]
-            except rhnSQL.SQLError, e:
+            except rhnSQL.SQLError:
+                e = sys.exc_info()[1]
                 log_error("Token failed to entitle server", server_id,
                           self.get_names(), entitlement[0], e.args)
                 raise rhnFault(90, str(e)), None, sys.exc_info()[2]
@@ -645,11 +650,13 @@ class ReRegistrationActivationToken(ReRegistrationToken):
                 "rhn_entitlements.remove_server_entitlement")
             try:
                 unentitle_server(server_id, ent)
-            except rhnSQL.SQLSchemaError, e:
+            except rhnSQL.SQLSchemaError:
+                e = sys.exc_info()[1]
                 log_error("Failed to unentitle server", server_id,
                           ent, e.errmsg)
                 raise rhnFault(90, e.errmsg), None, sys.exc_info()[2]
-            except rhnSQL.SQLError, e:
+            except rhnSQL.SQLError:
+                e = sys.exc_info()[1]
                 log_error("Failed to unentitle server", server_id,
                           ent, e.args)
                 raise rhnFault(90, str(e)), None, sys.exc_info()[2]

@@ -231,7 +231,8 @@ class ConfigFilesHandler(rhnHandler):
         try:
             self._push_config_file(file)
             self._push_revision(file)
-        except rhnSQL.SQLSchemaError, e:
+        except rhnSQL.SQLSchemaError:
+            e = sys.exc_info()[1]
             log_debug(4, "schema error", e)
             rhnSQL.rollback()  # blow away the contents that got inserted
             if e.errno == 20267:
@@ -246,27 +247,34 @@ class ConfigFilesHandler(rhnHandler):
     def push_file(self, config_channel_id, file):
         try:
             result = self._push_file(config_channel_id, file)
-        except ConfigFilePathIncomplete, e:
+        except ConfigFilePathIncomplete:
+            e = sys.exc_info()[1]
             raise rhnFault(4015,
                            "Full path of file '%s' must be specified" % e.file.get('path'),
                            explain=0), None, sys.exc_info()[2]
-        except ConfigFileExistsError, e:
+        except ConfigFileExistsError:
+            e = sys.exc_info()[1]
             raise rhnFault(4013,
                            "File %s already uploaded" % e.file.get('path'),
                            explain=0), None, sys.exc_info()[2]
-        except ConfigFileVersionMismatchError, e:
+        except ConfigFileVersionMismatchError:
+            e = sys.exc_info()[1]
             raise rhnFault(4012, "File %s uploaded with a different "
                            "version" % e.file.get('path'), explain=0), None, sys.exc_info()[2]
-        except ConfigFileMissingDelimError, e:
+        except ConfigFileMissingDelimError:
+            e = sys.exc_info()[1]
             raise rhnFault(4008, "Delimiter not specified for file %s" %
                            e.file.get('path'), explain=0), None, sys.exc_info()[2]
-        except ConfigFileMissingContentError, e:
+        except ConfigFileMissingContentError:
+            e = sys.exc_info()[1]
             raise rhnFault(4007, "No content sent for file %s" %
                            e.file.get('path'), explain=0), None, sys.exc_info()[2]
-        except ConfigFileExceedsQuota, e:
+        except ConfigFileExceedsQuota:
+            e = sys.exc_info()[1]
             raise rhnFault(4014, "File size of %s exceeds free quota space" %
                            e.file.get('path'), explain=0), None, sys.exc_info()[2]
-        except ConfigFileTooLargeError, e:
+        except ConfigFileTooLargeError:
+            e = sys.exc_info()[1]
             raise rhnFault(4003, "File size of %s larger than %s bytes" %
                            (e.file.get('path'), self._get_maximum_file_size()),
                            explain=0), None, sys.exc_info()[2]

@@ -111,7 +111,8 @@ class BaseApacheServer:
     def _wrapper(self, req, function):
         try:
             ret = function(req)
-        except rhnFault, e:
+        except rhnFault:
+            e = sys.exc_info()[1]
             return self._send_xmlrpc(req, e)
         except ClosedConnectionError:
             # The error code most likely doesn't matter, the client won't see
@@ -169,7 +170,8 @@ class ApacheServer(BaseApacheServer):
 
         try:
             f = self.get_function(methodname, req)
-        except FunctionRetrievalError, e:
+        except FunctionRetrievalError:
+            e = sys.exc_info()[1]
             Traceback(methodname, req)
             return self._send_xmlrpc(req, rhnFault(3008, str(e), explain=0))
 

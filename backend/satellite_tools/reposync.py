@@ -204,7 +204,8 @@ class RepoSync(object):
                     except:
                         rhnSQL.rollback()
                         raise
-            except Exception, e:
+            except Exception:
+                e = sys.exc_info()[1]
                 self.error_msg("ERROR: %s" % e)
             if plugin is not None:
                 plugin.clear_ssl_cache()
@@ -528,7 +529,8 @@ class RepoSync(object):
             except KeyboardInterrupt:
                 finally_remove(localpath)
                 raise
-            except Exception, e:
+            except Exception:
+                e = sys.exc_info()[1]
                 self.error_msg(e)
                 finally_remove(localpath)
                 if self.fail:

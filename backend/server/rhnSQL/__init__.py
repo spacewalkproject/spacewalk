@@ -148,7 +148,8 @@ def initDB(backend=None, host=None, port=None, username=None,
 #        raise  # pass on, we know those ones
 #    except (KeyboardInterrupt, SystemExit):
 #        raise
-    except SQLConnectError, e:
+    except SQLConnectError:
+        e = sys.exc_info()[1]
         try:
             closeDB()
         except NameError:

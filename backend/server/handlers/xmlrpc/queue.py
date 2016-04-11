@@ -353,7 +353,8 @@ class Queue(rhnHandler):
                     ret = self.__getV1(action)
                 else:
                     ret = self.__getV2(action)
-            except ShadowAction, e:  # Action the client should not see
+            except ShadowAction:  # Action the client should not see
+                e = sys.exc_info()[1]
                 # Make sure we re-execute the query, so we pick up whatever
                 # extra actions were added
                 should_execute = 1
@@ -361,13 +362,15 @@ class Queue(rhnHandler):
                 log_debug(4, "Shadow Action", text)
                 self.__update_action(action['id'], 2, 0, text)
                 continue
-            except InvalidAction, e:  # This is an invalid action
+            except InvalidAction:  # This is an invalid action
+                e = sys.exc_info()[1]
                 # Update its status so it won't bother us again
                 text = e.args[0]
                 log_debug(4, "Invalid Action", text)
                 self.__update_action(action['id'], 3, -99, text)
                 continue
-            except EmptyAction, e:
+            except EmptyAction:
+                e = sys.exc_info()[1]
                 # this means that we have some sort of internal error
                 # which gets reported in the logs. We don't touch the
                 # action because this should get fixed on our side.

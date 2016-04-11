@@ -155,7 +155,8 @@ class BaseWireSource:
             try:
                 stream = func(*params)
                 return stream
-            except rpclib.xmlrpclib.ProtocolError, e:
+            except rpclib.xmlrpclib.ProtocolError:
+                e = sys.exc_info()[1]
                 p = tuple(['<the systemid>'] + list(params[1:]))
                 lastErrorMsg = 'ERROR: server.%s%s: %s' % (method, p, e)
                 log2(-1, 2, lastErrorMsg, stream=sys.stderr)
@@ -164,10 +165,12 @@ class BaseWireSource:
                 # do not reraise this exception!
             except (KeyboardInterrupt, SystemExit):
                 raise
-            except rpclib.xmlrpclib.Fault, e:
+            except rpclib.xmlrpclib.Fault:
+                e = sys.exc_info()[1]
                 lastErrorMsg = e.faultString
                 break
-            except Exception, e:  # pylint: disable=E0012, W0703
+            except Exception:  # pylint: disable=E0012, W0703
+                e = sys.exc_info()[1]
                 p = tuple(['<the systemid>'] + list(params[1:]))
                 lastErrorMsg = 'ERROR: server.%s%s: %s' % (method, p, e)
                 log2(-1, 2, lastErrorMsg, stream=sys.stderr)
@@ -293,10 +296,12 @@ class XMLRPCWireSource(BaseWireSource):
     def _xmlrpc(function, params):
         try:
             retval = getattr(BaseWireSource.serverObj, function)(*params)
-        except TypeError, e:
+        except TypeError:
+            e = sys.exc_info()[1]
             log(-1, 'ERROR: during "getattr(BaseWireSource.serverObj, %s)(*(%s))"' % (function, params))
             raise
-        except rpclib.xmlrpclib.ProtocolError, e:
+        except rpclib.xmlrpclib.ProtocolError:
+            e = sys.exc_info()[1]
             log2(-1, 2, 'ERROR: ProtocolError: %s' % e, stream=sys.stderr)
             raise
         return retval
@@ -371,7 +376,8 @@ class RPCGetWireSource(BaseWireSource):
 
         try:
             login_token = self.getServer().authentication.login(self.systemid)
-        except rpclib.xmlrpclib.ProtocolError, e:
+        except rpclib.xmlrpclib.ProtocolError:
+            e = sys.exc_info()[1]
             log2(-1, 2, 'ERROR: ProtocolError: %s' % e, stream=sys.stderr)
             raise
         return login_token
@@ -393,7 +399,8 @@ class RPCGetWireSource(BaseWireSource):
         while fault_count - expired_token < cfg['networkRetries']:
             try:
                 ret = getattr(get_server_obj, function_name)(*params)
-            except rpclib.xmlrpclib.ProtocolError, e:
+            except rpclib.xmlrpclib.ProtocolError:
+                e = sys.exc_info()[1]
                 # We have two codes to check: the HTTP error code, and the
                 # combination (failtCode, faultString) encoded in the headers
                 # of the request.

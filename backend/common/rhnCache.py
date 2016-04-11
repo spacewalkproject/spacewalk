@@ -129,7 +129,8 @@ def _safe_create(fname, user, group, mode):
             try:
                 #os.makedirs(dirname, 0755)
                 makedirs(dirname, mode, user, group)
-            except OSError, e:
+            except OSError:
+                e = sys.exc_info()[1]
                 # There is a window between the moment we check the disk and
                 # the one we try to create the directory
                 # We double-check the file existance here
@@ -149,7 +150,8 @@ def _safe_create(fname, user, group, mode):
         # we pass most of the exceptions through
         try:
             fd = os.open(fname, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0644)
-        except OSError, e:
+        except OSError:
+            e = sys.exc_info()[1]
             # The file may be already there
             if e.errno == EEXIST and os.access(fname, os.F_OK):
                 # Retry
