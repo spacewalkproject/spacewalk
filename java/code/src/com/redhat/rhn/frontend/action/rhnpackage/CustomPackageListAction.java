@@ -53,6 +53,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CustomPackageListAction extends RhnAction {
 
+
     private final String listName = "packageList";
     private final String SELECTED_CHANNEL = "selected_channel";
     private final String ALL_PACKAGES = "all_managed_packages";
@@ -83,6 +84,8 @@ public class CustomPackageListAction extends RhnAction {
         if (button.equals(request.getParameter(RhnHelper.CONFIRM_FORWARD)) &&
             set.size() > 0) {
             Map<String, Object> params = new HashMap<String, Object>();
+            // Forward type of the list
+            params.put("source_checked", request.getParameter("source_checked"));
             return getStrutsDelegate().forwardParams(
                                 mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
         }

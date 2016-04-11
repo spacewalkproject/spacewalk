@@ -38,7 +38,7 @@
 
                         <rl:decorator name="PageSizeDecorator"/>
 
-
+            <c:if test="${not source_checked}">
                  <rl:column sortable="true"
                                    bound="false"
                            headerkey="download.jsp.package"
@@ -72,11 +72,26 @@
                           >
                         ${current.provider}
                 </rl:column>
+            </c:if>
+            <c:if test="${source_checked}">
+                <rl:column sortable="true"
+                           bound="false"
+                           headerkey="download.jsp.package"
+                           sortattr="nvrea"
+                           defaultsort="asc"
+                >
+                    ${current.nvrea}
+                </rl:column>
+                <rhn:hidden name="source_checked" value="${source_checked}"/>
+            </c:if>
 
         </rl:list>
-        <rl:csv dataset="pageList"
-                        name="packageList"
-                        exportColumns="id, nvrea, summary, provider" />
+        <c:if test="${not source_checked}">
+            <rl:csv dataset="pageList"
+                    name="packageList"
+                    exportColumns="id, nvrea, summary, provider" />
+        </c:if>
+    
         <div class="text-right">
           <hr />
                 <input type="submit" name="confirm" value="<bean:message key='channel.jsp.manage.package.confirmbutton'/>" class="btn btn-danger" />
