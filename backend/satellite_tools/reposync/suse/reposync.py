@@ -362,6 +362,21 @@ class RepoSync(object):
             sys.exit(1)
         return getattr(submod, "ContentSource")
 
+    def import_updates(self, plug, url):
+        if self.no_errata:
+            return
+        (notices_type, notices) = plug.get_updates()
+        saveurl = suseLib.URL(url)
+        if saveurl.password:
+            saveurl.password = "*******"
+        self.print_msg("Repo %s has %s patches." % (saveurl.getURL(),
+                                                    len(notices)))
+        if notices:
+            if notices_type == 'updateinfo':
+                self.upload_updates(notices)
+            elif notices_type == 'patches':
+                self.upload_patches(notices)
+
     def import_groups(self, repo, url):
         groupsfile = repo.get_groups()
         if groupsfile:
@@ -398,21 +413,6 @@ class RepoSync(object):
                                     where not exists (select 1 from rhnChannelComps
                                                        where channel_id = :cid))""")
             hi.execute(cid=self.channel['id'], relpath=relativepath)
-
-    def import_updates(self, plug, url):
-        if self.no_errata:
-            return
-        (notices_type, notices) = plug.get_updates()
-        saveurl = suseLib.URL(url)
-        if saveurl.password:
-            saveurl.password = "*******"
-        self.print_msg("Repo %s has %s patches." % (saveurl.getURL(),
-                                                    len(notices)))
-        if notices:
-            if notices_type == 'updateinfo':
-                self.upload_updates(notices)
-            elif notices_type == 'patches':
-                self.upload_patches(notices)
 
     def upload_patches(self, notices):
         """Insert the information from patches into the database
