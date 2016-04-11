@@ -185,7 +185,7 @@ class Cursor(sql_base.Cursor):
         for k in kwargs.iterkeys():
             pdict[k] = None
         arr = []
-        for i in xrange(chunk_size):
+        for i in range(chunk_size):
             arr.append(pdict.copy())
 
         # Now arr is an array of the desired size
@@ -197,7 +197,7 @@ class Cursor(sql_base.Cursor):
             if item_count != chunk_size:
                 arr = arr[:item_count]
 
-            for i in xrange(item_count):
+            for i in range(item_count):
                 pdict = arr[i]
                 for k, v in kwargs.iteritems():
                     pdict[k] = to_string(v[start + i])
