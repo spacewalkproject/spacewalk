@@ -13,32 +13,21 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
-import os
-import re
-import shutil
+
+from ..common import *
+
+# SUSE imports
 import socket
-import sys
-import time
 import traceback
 import base64
-from datetime import datetime
 from optparse import OptionParser
 
 from yum import Errors
 from yum.i18n import to_unicode
-
-from spacewalk.server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload, suseEula
-from spacewalk.common import fileutils, rhnMail, rhnLog, suseLib, rhn_pkg
+from spacewalk.server import rhnPackageUpload, suseEula
+from spacewalk.common import rhnMail, suseLib, rhn_pkg
 from spacewalk.common.rhnTB import fetchTraceback
-from spacewalk.common.rhnLog import log_debug
-from spacewalk.common.checksum import getFileChecksum
-from spacewalk.common.rhnConfig import CFG, initCFG
-from spacewalk.server.importlib.importLib import IncompletePackage, Erratum, Bug, Keyword
-from spacewalk.server.importlib.packageImport import ChannelPackageSubscription
-from spacewalk.server.importlib.backendOracle import SQLBackend
-from spacewalk.server.importlib.errataImport import ErrataImport
-from spacewalk.server import taskomatic
-
+# ------------
 hostname = socket.gethostname()
 if '.' not in hostname:
     hostname = socket.getfqdn()
