@@ -644,6 +644,37 @@ class RepoSync(object):
                 return False
         return True
 
+    def associate_package(self, pack):
+        caller = "server.app.yumreposync"
+        backend = SQLBackend()
+        package = {}
+        package['name'] = pack.name
+        package['version'] = pack.version
+        package['release'] = pack.release
+        package['arch'] = pack.arch
+        package['checksum'] = pack.a_pkg.checksum
+        package['checksum_type'] = pack.a_pkg.checksum_type
+        package['channels'] = [{'label': self.channel_label,
+                                'id': self.channel['id']}]
+        package['org_id'] = self.channel['org_id']
+
+        imported = False
+        # yum's createrepo puts epoch="0" to primary.xml even for packages
+        # with epoch='' so we have to check empty epoch first because it's
+        # more common situation
+        if pack.epoch == '0':
+            package['epoch'] = ''
+            try:
+                self._importer_run(package, caller, backend)
+                imported = True
+            except:
+                pass
+        if not imported:
+            package['epoch'] = pack.epoch
+            self._importer_run(package, caller, backend)
+
+        backend.commit()
+
     def upload_patches(self, notices):
         """Insert the information from patches into the database
 
@@ -1138,37 +1169,6 @@ class RepoSync(object):
 
         package['package_id'] = cs['id']
         return package
-
-    def associate_package(self, pack):
-        caller = "server.app.yumreposync"
-        backend = SQLBackend()
-        package = {}
-        package['name'] = pack.name
-        package['version'] = pack.version
-        package['release'] = pack.release
-        package['arch'] = pack.arch
-        package['checksum'] = pack.a_pkg.checksum
-        package['checksum_type'] = pack.a_pkg.checksum_type
-        package['channels'] = [{'label': self.channel_label,
-                                'id': self.channel['id']}]
-        package['org_id'] = self.channel['org_id']
-
-        imported = False
-        # yum's createrepo puts epoch="0" to primary.xml even for packages
-        # with epoch='' so we have to check empty epoch first because it's
-        # more common situation
-        if pack.epoch == '0':
-            package['epoch'] = ''
-            try:
-                self._importer_run(package, caller, backend)
-                imported = True
-            except:
-                pass
-        if not imported:
-            package['epoch'] = pack.epoch
-            self._importer_run(package, caller, backend)
-
-        backend.commit()
 
     def disassociate_package(self, pack):
         h = rhnSQL.prepare("""
