@@ -39,14 +39,6 @@ SUSE = "{http://novell.com/package/metadata/suse/common}"
 PATCH = "{http://novell.com/package/metadata/suse/patch}"
 
 
-def set_filter_opt(option, opt_str, value, parser):
-    if opt_str in ['--include', '-i']:
-        f_type = '+'
-    else:
-        f_type = '-'
-    parser.values.filters.append((f_type, re.split(r'[,\s]+', value)))
-
-
 class ChannelException(Exception):
     """Channel Error"""
     def __init__(self, value=None):
@@ -61,6 +53,15 @@ class ChannelException(Exception):
 class ChannelTimeoutException(ChannelException):
     """Channel timeout error e.g. a remote repository is not responding"""
     pass
+
+
+def set_filter_opt(option, opt_str, value, parser):
+    if opt_str in ['--include', '-i']:
+        f_type = '+'
+    else:
+        f_type = '-'
+    parser.values.filters.append((f_type, re.split(r'[,\s]+', value)))
+
 
 def getChannelRepo():
 
