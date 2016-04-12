@@ -23,11 +23,11 @@ import base64
 from optparse import OptionParser
 
 from yum import Errors
-from yum.i18n import to_unicode
 from spacewalk.server import rhnPackageUpload, suseEula
 from spacewalk.common import rhnMail, suseLib, rhn_pkg
 from spacewalk.common.rhnTB import fetchTraceback
 from ..reposync import RepoSync as UpstreamRepoSync
+from exceptions import ChannelException, ChannelTimeoutException
 # ------------
 hostname = socket.gethostname()
 if '.' not in hostname:
@@ -38,23 +38,6 @@ YUM = "{http://linux.duke.edu/metadata/common}"
 RPM = "{http://linux.duke.edu/metadata/rpm}"
 SUSE = "{http://novell.com/package/metadata/suse/common}"
 PATCH = "{http://novell.com/package/metadata/suse/patch}"
-
-
-class ChannelException(Exception):
-    """Channel Error"""
-    def __init__(self, value=None):
-        Exception.__init__(self)
-        self.value = value
-    def __str__(self):
-        return "%s" %(self.value,)
-
-    def __unicode__(self):
-        return '%s' % to_unicode(self.value)
-
-
-class ChannelTimeoutException(ChannelException):
-    """Channel timeout error e.g. a remote repository is not responding"""
-    pass
 
 
 def getCustomChannels():
