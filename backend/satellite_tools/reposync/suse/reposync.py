@@ -429,7 +429,7 @@ class RepoSync(object):
         backend = SQLBackend()
 
         for notice in notices:
-            notice = _fix_notice(notice)
+            notice = self.fix_notice(notice)
             patch_name = self._patch_naming(notice)
             existing_errata = get_errata(patch_name)
             if existing_errata and not _is_old_suse_style(notice):
@@ -723,6 +723,26 @@ class RepoSync(object):
                 except ValueError:
                     raise ValueError("Not a valid date")
         return ret[:19] #return 1st 19 letters of date, therefore preventing ORA-01830 caused by fractions of seconds
+
+    # Has no test coverage
+    @staticmethod
+    def fix_notice(notice):
+        if "." in notice['version']:
+            new_version = 0
+            for n in notice['version'].split('.'):
+                new_version = (new_version + int(n)) * 100
+            try:
+                notice['version'] = new_version / 100
+            except TypeError: # yum in RHEL5 does not have __setitem__
+                notice._md['version'] = new_version / 100
+        if _is_old_suse_style(notice):
+            # old suse style; we need to append the version to id
+            # to get a seperate patch for every issue
+            try:
+                notice['update_id'] = notice['update_id'] + '-' + notice['version']
+            except TypeError: # yum in RHEL5 does not have __setitem__
+                notice._md['update_id'] = notice['update_id'] + '-' + notice['version']
+        return notice
 
     def upload_patches(self, notices):
         """Insert the information from patches into the database
@@ -1483,24 +1503,6 @@ def _update_cve(notice):
     cves = list(set(cves))
 
     return cves
-
-def _fix_notice(notice):
-    if "." in notice['version']:
-        new_version = 0
-        for n in notice['version'].split('.'):
-            new_version = (new_version + int(n)) * 100
-        try:
-            notice['version'] = new_version / 100
-        except TypeError: # yum in RHEL5 does not have __setitem__
-            notice._md['version'] = new_version / 100
-    if _is_old_suse_style(notice):
-        # old suse style; we need to append the version to id
-        # to get a seperate patch for every issue
-        try:
-            notice['update_id'] = notice['update_id'] + '-' + notice['version']
-        except TypeError: # yum in RHEL5 does not have __setitem__
-            notice._md['update_id'] = notice['update_id'] + '-' + notice['version']
-    return notice
 
 def _is_old_suse_style(notice):
     if((notice['from'] and "suse" in notice['from'].lower() and
