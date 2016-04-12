@@ -431,7 +431,7 @@ class RepoSync(object):
         for notice in notices:
             notice = self.fix_notice(notice)
             patch_name = self._patch_naming(notice)
-            existing_errata = get_errata(patch_name)
+            existing_errata = self.get_errata(patch_name)
             if existing_errata and not _is_old_suse_style(notice):
                 if int(existing_errata['advisory_rel']) < int(notice['version']):
                     # A disaster happens
@@ -744,6 +744,68 @@ class RepoSync(object):
                 notice._md['update_id'] = notice['update_id'] + '-' + notice['version']
         return notice
 
+    @staticmethod
+    def get_errata(update_id):
+        """ Return an Errata dict
+
+        search in the database for the given advisory and
+        return a dict with important values.
+        If the advisory was not found it returns None
+
+        :update_id - the advisory (name)
+        """
+        h = rhnSQL.prepare("""
+            select e.id, e.advisory,
+                   e.advisory_name, e.advisory_rel,
+                   TO_CHAR(e.update_date, 'YYYY-MM-DD HH24:MI:SS') as update_date
+              from rhnerrata e
+             where e.advisory = :name
+        """)
+        h.execute(name=update_id)
+        ret = h.fetchone_dict()
+        if not ret:
+            return None
+
+        h = rhnSQL.prepare("""
+            select distinct c.label
+              from rhnchannelerrata ce
+              join rhnchannel c on c.id = ce.channel_id
+             where ce.errata_id = :eid
+        """)
+        h.execute(eid=ret['id'])
+        ret['channels'] = h.fetchall_dict() or []
+
+        ret['packages'] = []
+
+        h = rhnSQL.prepare("""
+            select p.id as package_id,
+                   pn.name,
+                   pevr.epoch,
+                   pevr.version,
+                   pevr.release,
+                   pa.label as arch,
+                   p.org_id,
+                   cv.checksum,
+                   cv.checksum_type
+              from rhnerratapackage ep
+              join rhnpackage p on p.id = ep.package_id
+              join rhnpackagename pn on pn.id = p.name_id
+              join rhnpackageevr pevr on pevr.id = p.evr_id
+              join rhnpackagearch pa on pa.id = p.package_arch_id
+              join rhnchecksumview cv on cv.id = p.checksum_id
+             where ep.errata_id = :eid
+        """)
+        h.execute(eid=ret['id'])
+        packages = h.fetchall_dict() or []
+        for pkg in packages:
+            ipackage = IncompletePackage().populate(pkg)
+            ipackage['epoch'] = pkg.get('epoch', '')
+
+            ipackage['checksums'] = {ipackage['checksum_type'] : ipackage['checksum']}
+            ret['packages'].append(ipackage)
+
+        return ret
+
     def upload_patches(self, notices):
         """Insert the information from patches into the database
 
@@ -773,7 +835,7 @@ class RepoSync(object):
             e['advisory_type'] = typemap.get(category,
                                              'Product Enhancement Advisory')
 
-            existing_errata = get_errata(e['advisory'])
+            existing_errata = self.get_errata(e['advisory'])
 
             if (existing_errata and
                 not self.errata_needs_update(existing_errata, version,
@@ -1362,68 +1424,6 @@ class RepoSync(object):
                                  SET checksum_type_id = :ctid
                                WHERE id = :cid""")
         h.execute(ctid=d['id'], cid=self.channel['id'])
-
-
-def get_errata(update_id):
-    """ Return an Errata dict
-
-    search in the database for the given advisory and
-    return a dict with important values.
-    If the advisory was not found it returns None
-
-    :update_id - the advisory (name)
-    """
-    h = rhnSQL.prepare("""
-        select e.id, e.advisory,
-               e.advisory_name, e.advisory_rel,
-               TO_CHAR(e.update_date, 'YYYY-MM-DD HH24:MI:SS') as update_date
-          from rhnerrata e
-         where e.advisory = :name
-    """)
-    h.execute(name=update_id)
-    ret = h.fetchone_dict()
-    if not ret:
-        return None
-
-    h = rhnSQL.prepare("""
-        select distinct c.label
-          from rhnchannelerrata ce
-          join rhnchannel c on c.id = ce.channel_id
-         where ce.errata_id = :eid
-    """)
-    h.execute(eid=ret['id'])
-    ret['channels'] = h.fetchall_dict() or []
-
-    ret['packages'] = []
-
-    h = rhnSQL.prepare("""
-        select p.id as package_id,
-               pn.name,
-               pevr.epoch,
-               pevr.version,
-               pevr.release,
-               pa.label as arch,
-               p.org_id,
-               cv.checksum,
-               cv.checksum_type
-          from rhnerratapackage ep
-          join rhnpackage p on p.id = ep.package_id
-          join rhnpackagename pn on pn.id = p.name_id
-          join rhnpackageevr pevr on pevr.id = p.evr_id
-          join rhnpackagearch pa on pa.id = p.package_arch_id
-          join rhnchecksumview cv on cv.id = p.checksum_id
-         where ep.errata_id = :eid
-    """)
-    h.execute(eid=ret['id'])
-    packages = h.fetchall_dict() or []
-    for pkg in packages:
-        ipackage = IncompletePackage().populate(pkg)
-        ipackage['epoch'] = pkg.get('epoch', '')
-
-        ipackage['checksums'] = {ipackage['checksum_type'] : ipackage['checksum']}
-        ret['packages'].append(ipackage)
-
-    return ret
 
 def get_compatible_arches(channel_id):
     """Return a list of compatible package arch labels for this channel"""
