@@ -265,7 +265,12 @@ def _exit(lastExitfunc=_exitfuncChain):
         LOG = None
     if lastExitfunc:
         lastExitfunc()
-sys.exitfunc = _exit
+
+if sys.version_info[0] == 3:
+    import atexit
+    atexit.register(_exit)
+else:
+    sys.exitfunc = _exit
 
 
 #------------------------------------------------------------------------------
