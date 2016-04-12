@@ -26,7 +26,7 @@ import stat
 import tempfile
 from checksum import getFileChecksum
 
-from spacewalk.common.usix import ListType, TupleType
+from spacewalk.common.usix import ListType, TupleType, MaxInt
 
 def cleanupAbsPath(path):
     """ take ~taw/../some/path/$MOUNT_POINT/blah and make it sensible.
@@ -84,14 +84,14 @@ def rotateFile(filepath, depth=5, suffix='.', verbosity=0):
     if not filepath or not isinstance(filepath, type('')):
         raise ValueError("filepath '%s' is not a valid arguement" % filepath)
     if not isinstance(depth, type(0)) or depth < -1 \
-            or depth > sys.maxint - 1 or depth == 0:
+            or depth > MaxInt - 1 or depth == 0:
         raise ValueError("depth must fall within range "
-                         "[-1, 1...%s]" % (sys.maxint - 1))
+                         "[-1, 1...%s]" % (MaxInt - 1))
 
     # force verbosity to be a numeric value
     verbosity = verbosity or 0
     if not isinstance(verbosity, type(0)) or verbosity < -1 \
-            or verbosity > sys.maxint - 1:
+            or verbosity > MaxInt - 1:
         raise ValueError('invalid verbosity value: %s' % (verbosity))
 
     filepath = cleanupAbsPath(filepath)
