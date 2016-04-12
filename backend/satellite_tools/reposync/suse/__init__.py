@@ -1,1 +1,1 @@
-from reposync import RepoSync, ChannelException, ChannelTimeoutException
+from reposync import SuseRepoSync as RepoSync, ChannelException, ChannelTimeoutException

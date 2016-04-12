@@ -1,7 +1,7 @@
 import os
 
 if os.environ.get('AS_SUSE', False):
-    from suse.reposync import (
+    from suse import (
         RepoSync, ChannelException, ChannelTimeoutException
     )
 else:

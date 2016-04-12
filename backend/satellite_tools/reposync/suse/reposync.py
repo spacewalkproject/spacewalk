@@ -27,6 +27,7 @@ from yum.i18n import to_unicode
 from spacewalk.server import rhnPackageUpload, suseEula
 from spacewalk.common import rhnMail, suseLib, rhn_pkg
 from spacewalk.common.rhnTB import fetchTraceback
+from ..reposync import RepoSync as UpstreamRepoSync
 # ------------
 hostname = socket.gethostname()
 if '.' not in hostname:
@@ -49,6 +50,7 @@ class ChannelException(Exception):
 
     def __unicode__(self):
         return '%s' % to_unicode(self.value)
+
 
 class ChannelTimeoutException(ChannelException):
     """Channel timeout error e.g. a remote repository is not responding"""
@@ -133,7 +135,7 @@ def getCustomChannels():
     return l_custom_ch
 
 
-class RepoSync(object):
+class SuseRepoSync(UpstreamRepoSync):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,
                  quiet=False, noninteractive=False, filters=None,
