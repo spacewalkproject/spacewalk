@@ -96,3 +96,7 @@ def getParentsChilds(b_only_custom=False):
                     d_parents[parent_channel].append(row['label'])
 
     return d_parents
+
+
+class BaseRepoSync(object):
+    """ Base class that all RepoSync classes need to inherit. """

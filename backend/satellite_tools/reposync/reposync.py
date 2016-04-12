@@ -17,7 +17,7 @@
 from common import *
 
 
-class RepoSync(object):
+class RepoSync(BaseRepoSync):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,
                  quiet=False, filters=None, no_errata=False, sync_kickstart=False, latest=False):

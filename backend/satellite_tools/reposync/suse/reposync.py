@@ -31,7 +31,7 @@ from global_vars import hostname, YUM, RPM, SUSE, PATCH
 # ------------
 
 
-class SuseRepoSync(UpstreamRepoSync):
+class SuseRepoSync(BaseRepoSync):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,
                  quiet=False, noninteractive=False, filters=None,
