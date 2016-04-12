@@ -32,6 +32,7 @@ from rhn.UserDictCase import UserDictCase
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnSQL import sql_types
 
+from spacewalk.common.usix import BufferType
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnException
 from const import POSTGRESQL
@@ -286,7 +287,7 @@ class Cursor(sql_base.Cursor):
             raise rhnException("Cannot execute empty cursor")
         if self.blob_map:
             for blob_var in list(self.blob_map.keys()):
-                kw[blob_var] = buffer(kw[blob_var])
+                kw[blob_var] = BufferType(kw[blob_var])
 
         try:
             retval = function(*p, **kw)

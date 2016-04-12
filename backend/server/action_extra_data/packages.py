@@ -16,7 +16,7 @@
 
 import re
 
-from types import ListType, IntType
+from spacewalk.common.usix import ListType, IntType
 
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error

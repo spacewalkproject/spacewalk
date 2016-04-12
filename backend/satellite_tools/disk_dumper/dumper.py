@@ -17,7 +17,7 @@ import time
 import gzip
 import sys
 import tempfile
-from types import ListType
+from spacewalk.common.usix import ListType
 from cStringIO import StringIO
 
 from spacewalk.common.usix import raise_with_tb

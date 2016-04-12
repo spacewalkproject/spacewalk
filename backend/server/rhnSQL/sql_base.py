@@ -26,7 +26,7 @@
 import string
 import sys
 import sql_types
-import types
+import spacewalk.common.usix as usix
 
 
 def ociDict(names=None, row=None):
@@ -249,7 +249,7 @@ class Cursor:
         return ret
 
     def _is_sequence_type(self, val):
-        if type(val) in (types.ListType, types.TupleType):
+        if type(val) in (usix.ListType, usix.TupleType):
             return 1
         return 0
 

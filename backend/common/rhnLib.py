@@ -15,9 +15,8 @@
 
 import re
 import time
-import types
+import spacewalk.common.usix as usix
 import urlparse
-
 
 def setHeaderValue(mp_table, name, values):
     """
@@ -27,7 +26,7 @@ def setHeaderValue(mp_table, name, values):
     """
     # mp_table is an Apache mp_table (like headers_in or headers_out)
     # Sets the header name to the values
-    if isinstance(values, (types.ListType, types.TupleType)):
+    if isinstance(values, (usix.ListType, usix.TupleType)):
         for v in values:
             mp_table.add(name, str(v))
     else:
@@ -56,7 +55,7 @@ def rfc822time(arg):
            be translated to GMT in the return value.
     """
 
-    if isinstance(arg, (types.ListType, types.TupleType)):
+    if isinstance(arg, (usix.ListType, usix.TupleType)):
         # Convert to float.
         arg = time.mktime(arg)
 
@@ -75,7 +74,7 @@ def timestamp(s):
     """
     Converts the string in format YYYYMMDDHHMISS to seconds from the epoch
     """
-    if isinstance(s, (types.IntType, types.FloatType)):
+    if isinstance(s, (usix.IntType, usix.FloatType)):
         # Presumably already a timestamp
         return s
     if len(s) == 14:
@@ -97,7 +96,7 @@ def checkValue(val, *args):
     """
 
     for a in args:
-        if isinstance(a, types.TypeType):
+        if isinstance(a, usix.TypeType):
             # Is val of type a?
             if isinstance(val, a):
                 return 1

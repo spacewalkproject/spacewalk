@@ -8,7 +8,7 @@ import os
 import string
 import unittest
 import time
-import types
+import spacewalk.common.usix as usix
 from spacewalk.server import rhnSQL
 
 import misc_functions
@@ -54,7 +54,7 @@ class Tests1(unittest.TestCase):
         p = rhnSQL.Function("logging.get_log_id",
                             rhnSQL.types.NUMBER())
         ret = p()
-        self.failUnless(isinstance(ret, types.FloatType))
+        self.failUnless(isinstance(ret, usix.FloatType))
 
     def _run_stproc(self):
         p = rhnSQL.Procedure("create_new_org")
@@ -68,7 +68,7 @@ class Tests1(unittest.TestCase):
         self.assertEqual(len(args), len(ret))
         self.assertEqual(args[0], ret[0])
         self.assertEqual(args[1], ret[1])
-        self.failUnless(isinstance(ret[2], types.FloatType))
+        self.failUnless(isinstance(ret[2], usix.FloatType))
 
     def test_procedure_2(self):
         """Run the same stored procedure twice. This should excerise the

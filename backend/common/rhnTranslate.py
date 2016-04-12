@@ -14,9 +14,9 @@
 #
 
 import os
-import types
 import gettext
 
+from spacewalk.common.usix import StringType
 
 class RHN_Translations(gettext.GNUTranslations):
     # Defining our own class, since we'd like to save the language we use
@@ -70,7 +70,7 @@ class i18n:
         return self.cat.getlangs()
 
     def setlangs(self, langs):
-        if isinstance(langs, types.StringType):
+        if isinstance(langs, StringType):
             langs = [langs]
         # Filter "C" - we will add it ourselves later anyway
         langs = [l for l in langs if l != 'C']

@@ -18,7 +18,7 @@
 import os
 import hashlib
 import time
-import types
+import spacewalk.common.usix as usix
 
 from spacewalk.server import rhnSQL
 
@@ -112,7 +112,7 @@ class ActivationKey:
         self._set('entitlement_level', entitlements)
 
     def set_server_groups(self, groups):
-        assert(isinstance(groups, types.ListType))
+        assert(isinstance(groups, usix.ListType))
 
         ret = {}
         for g in groups:
@@ -122,7 +122,7 @@ class ActivationKey:
         self._server_groups.update(ret)
 
     def set_channels(self, channels):
-        assert(isinstance(channels, types.ListType))
+        assert(isinstance(channels, usix.ListType))
 
         t = rhnSQL.Table('rhnChannel', 'label')
 

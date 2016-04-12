@@ -20,7 +20,7 @@ import rpm
 import sys
 import xmlrpclib
 
-from types import IntType, ListType, DictType
+from spacewalk.common.usix import IntType, ListType, DictType
 
 # common module
 from spacewalk.common.usix import raise_with_tb

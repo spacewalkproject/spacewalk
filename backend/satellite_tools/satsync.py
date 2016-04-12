@@ -22,7 +22,7 @@ import os
 import sys
 import stat
 import time
-import types
+import spacewalk.common.usix as usix
 import exceptions
 import Queue
 import threading
@@ -1097,7 +1097,7 @@ class Syncer:
                 continue
             ret_sps = []
             for sp in sps:
-                if isinstance(sp, types.StringType):
+                if isinstance(sp, usix.StringType):
                     # Old style
                     ret_sps.append((sp, None))
                 else:

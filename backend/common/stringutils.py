@@ -13,7 +13,7 @@
 # in this software or its documentation.
 #
 
-from types import StringType, UnicodeType
+from spacewalk.common.usix import StringType, UnicodeType
 
 
 def to_unicode(obj):

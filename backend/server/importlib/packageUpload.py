@@ -138,16 +138,16 @@ def _formatStatus(status):
 def _dump(object):
     if object is None:
         return ''
-    from types import IntType, StringType, FloatType
+    from spacewalk.common.usix import IntType, StringType, FloatType
     if type(object) in (IntType, StringType, FloatType):
         return object
-    from types import ListType
+    from spacewalk.common.usix import ListType
     if isinstance(object, ListType):
         return list(map(_dump, object))
-    from types import TupleType
+    from spacewalk.common.usix import TupleType
     if isinstance(object, TupleType):
         return tuple(map(_dump, object))
-    from types import DictType
+    from spacewalk.common.usix import DictType
     if isinstance(object, DictType):
         dict = {}
         for h, v in object.items():

@@ -16,7 +16,7 @@
 #
 
 import sys
-import types
+import spacewalk.common.usix as usix
 from xml.sax import make_parser, SAXParseException, ContentHandler, \
     ErrorHandler
 
@@ -359,18 +359,18 @@ class BaseItem:
 
 
 def _is_string(obj):
-    if isinstance(obj, types.StringType):
+    if isinstance(obj, usix.StringType):
         return 1
-    if isinstance(obj, types.UnicodeType):
+    if isinstance(obj, usix.UnicodeType):
         return 1
     return 0
 
 
 def _stringify(data):
     # Accelerate the most common cases
-    if isinstance(data, types.StringType):
+    if isinstance(data, usix.StringType):
         return data
-    elif isinstance(data, types.UnicodeType):
+    elif isinstance(data, usix.UnicodeType):
         return data.encode('UTF8')
     return str(data)
 
@@ -379,9 +379,9 @@ def _dict_to_utf8(d):
     # Convert the dictionary to have non-unocide key-value pairs
     ret = {}
     for k, v in d.items():
-        if isinstance(k, types.UnicodeType):
+        if isinstance(k, usix.UnicodeType):
             k = k.encode('UTF8')
-        if isinstance(v, types.UnicodeType):
+        if isinstance(v, usix.UnicodeType):
             v = v.encode('UTF8')
         ret[k] = v
     return ret
@@ -1023,7 +1023,7 @@ def _normalizeSubelements(objtype, subelements):
 
     if not subelements:
         # No subelements available
-        if isinstance(objtype, types.ListType):
+        if isinstance(objtype, usix.ListType):
             # Expect a list of things - return the empty list
             return []
         # Expected a scalar type
@@ -1048,7 +1048,7 @@ def _normalizeSubelements(objtype, subelements):
         # Ignore whitespaces around elements
         subelements = _s
 
-    if not isinstance(objtype, types.ListType):
+    if not isinstance(objtype, usix.ListType):
         if len(subelements) > 1:
             raise Exception("Expected a scalar, got back a list")
         subelement = subelements[0]
@@ -1058,10 +1058,10 @@ def _normalizeSubelements(objtype, subelements):
                 return None
             raise Exception("Expected a scalar, got back an element '%s'" % subelement.name)
 
-        if objtype is types.StringType:
+        if objtype is usix.StringType:
             return _stringify(subelement)
 
-        if objtype is types.IntType:
+        if objtype is usix.IntType:
             if subelement == '':
                 # Treat it as NULL
                 return None
@@ -1074,11 +1074,11 @@ def _normalizeSubelements(objtype, subelements):
 
     # Expecting a list of things
     expectedType = objtype[0]
-    if expectedType is types.StringType:
+    if expectedType is usix.StringType:
         # List of strings
         return list(map(_stringify, subelements))
 
-    if expectedType is types.IntType:
+    if expectedType is usix.IntType:
         # list of ints
         return list(map(int, subelements))
 
@@ -1102,10 +1102,10 @@ def _normalizeSubelements(objtype, subelements):
 
 def _normalizeAttribute(objtype, attribute):
     # Deal with simple cases first
-    if (objtype is None) or (objtype is types.StringType):
+    if (objtype is None) or (objtype is usix.StringType):
         # (Don't know how to handle it) or (Expecting a scalar)
         return attribute
-    elif objtype is types.IntType:
+    elif objtype is usix.IntType:
         if attribute == '' or attribute == 'None':
             # Treat it as NULL
             return None
@@ -1113,7 +1113,7 @@ def _normalizeAttribute(objtype, attribute):
             return int(attribute)
     elif objtype is importLib.DateType:
         return _normalizeDateType(attribute)
-    elif isinstance(objtype, types.ListType):
+    elif isinstance(objtype, usix.ListType):
         # List type - split stuff
         return attribute.split()
     else:

@@ -27,7 +27,7 @@ import sys
 import string
 import os
 import re
-import types
+import spacewalk.common.usix as usix
 
 from rhn.UserDictCase import UserDictCase
 from spacewalk.common.usix import raise_with_tb
@@ -114,7 +114,7 @@ class Cursor(sql_base.Cursor):
         except self.OracleError:
             e = sys.exc_info()[1]
             ret = self._get_oracle_error_info(e)
-            if isinstance(ret, types.StringType):
+            if isinstance(ret, usix.StringType):
                 raise_with_tb(sql_base.SQLError(self.sql, p, kw, ret), sys.exc_info()[2])
             (errno, errmsg) = ret[:2]
             if 900 <= errno <= 999:
@@ -239,7 +239,7 @@ class Cursor(sql_base.Cursor):
 
     def _build_exception(self, error):
         ret = self._get_oracle_error_info(error)
-        if isinstance(ret, types.StringType):
+        if isinstance(ret, usix.StringType):
             return sql_base.SQLError(ret)
         return sql_base.SQLSchemaError(ret[0], ret[1])
 
@@ -403,7 +403,7 @@ class Database(sql_base.Database):
         except self.OracleError:
             e = sys.exc_info()[1]
             ret = self._get_oracle_error_info(e)
-            if isinstance(ret, types.StringType):
+            if isinstance(ret, usix.StringType):
                 raise_with_tb(sql_base.SQLConnectError(self.dbtxt, -1,
                                                "Unable to connect to database", ret), sys.exc_info()[2])
             (errno, errmsg) = ret[:2]

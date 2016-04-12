@@ -20,7 +20,7 @@ import time
 import string
 
 from UserDict import UserDict
-from types import ListType, StringType, DictType, IntType
+from spacewalk.common.usix import ListType, StringType, DictType, IntType
 
 # A function that formats a UNIX timestamp to the session's format
 

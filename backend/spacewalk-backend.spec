@@ -91,6 +91,7 @@ modules.
 Summary: Postgresql backend for Spacewalk
 Group: Applications/Internet
 Requires: python-psycopg2 >= 2.0.14-2
+Requires: %{name}-usix
 Provides: %{name}-sql-virtual = %{version}-%{release}
 
 %description sql-postgresql
@@ -141,6 +142,7 @@ and the up2date clients.
 Summary: Handler for /APPLET
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
+Requires: %{name}-usix
 Obsoletes: rhns-applet < 5.3.0
 Provides: rhns-applet = 1:%{version}-%{release}
 

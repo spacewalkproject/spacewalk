@@ -44,6 +44,8 @@ SliceType = (types.SliceType, slice)[PY3 == True]
 TupleType = (types.TupleType, tuple)[PY3 == True]
 TypeType = (types.TypeType, type)[PY3 == True]
 XRangeType = (types.XRangeType, range)[PY3 == True]
+InstanceType = (types.InstanceType, object)[PY3 == True]
+
 
 if PY3:
         BufferType = memoryview

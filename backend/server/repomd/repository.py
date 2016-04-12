@@ -24,6 +24,7 @@ import os.path
 from gzip import GzipFile
 from gzip import write32u
 
+from spacewalk.common.usix import LongType
 from spacewalk.common import checksum
 from spacewalk.common import rhnCache
 from spacewalk.common.rhnLog import log_debug
@@ -420,6 +421,6 @@ class NoTimeStampGzipFile(GzipFile):
         self.fileobj.write('\010')
         # no flags
         self.fileobj.write('\x00')
-        write32u(self.fileobj, long(0))
+        write32u(self.fileobj, LongType(0))
         self.fileobj.write('\002')
         self.fileobj.write('\377')

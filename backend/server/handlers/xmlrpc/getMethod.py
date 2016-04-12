@@ -23,7 +23,7 @@
 import os
 import string
 import sys
-from types import ClassType
+from spacewalk.common.usix import ClassType
 from distutils.sysconfig import get_python_lib
 
 from spacewalk.common.usix import raise_with_tb

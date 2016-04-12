@@ -15,7 +15,7 @@
 
 import os
 
-from types import ListType
+from spacewalk.common.usix import ListType
 
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error

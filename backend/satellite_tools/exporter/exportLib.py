@@ -14,7 +14,7 @@
 #
 
 import time
-from types import StringType
+from spacewalk.common.usix import StringType
 
 from spacewalk.common import rhnLib
 from spacewalk.common.rhnLog import log_debug

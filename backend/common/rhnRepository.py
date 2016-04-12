@@ -16,7 +16,7 @@
 
 import os
 import stat
-import types
+import spacewalk.common.usix as usix
 import cStringIO
 import sys
 from rhn import rpclib
@@ -223,7 +223,7 @@ class Repository(RPC_Base):
         transport = rhnFlags.get('outputTransportOptions')
         if last_modified:
             # Put the last-modified info too
-            if isinstance(last_modified, (types.IntType, types.FloatType)):
+            if isinstance(last_modified, (usix.IntType, usix.FloatType)):
                 last_modified = rfc822time(last_modified)
             transport['Last-Modified'] = last_modified
         if extra_headers:

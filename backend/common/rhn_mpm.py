@@ -22,7 +22,7 @@ import struct
 import sys
 import fileutils
 
-from types import ListType, TupleType
+from spacewalk.common.usix import ListType, TupleType
 
 from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import checksum

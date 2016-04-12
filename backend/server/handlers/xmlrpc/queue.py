@@ -18,7 +18,7 @@ import sys
 import time
 import xmlrpclib
 
-from types import IntType, TupleType
+from spacewalk.common.usix import IntType, TupleType
 
 # Global modules
 from spacewalk.common.usix import raise_with_tb

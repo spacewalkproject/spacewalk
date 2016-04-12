@@ -22,7 +22,7 @@ import string
 import time
 import sys
 
-from spacewalk.common.usix import raise_with_tb
+from spacewalk.common.usix import raise_with_tb, LongType
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnServer import server_lib
@@ -773,7 +773,7 @@ class VirtualizationEventHandler:
         # days.
         if PropertyType.MEMORY in properties:
             memory = properties[PropertyType.MEMORY]
-            properties[PropertyType.MEMORY] = long(memory)
+            properties[PropertyType.MEMORY] = LongType(memory)
 
     def __notify_listeners(self, *args):
         for listener in Listeners.listeners:
@@ -855,7 +855,7 @@ def _make_virt_action(event, target, properties):
 
 def is_host_uuid(uuid):
     uuid = eval('0x%s' % uuid)
-    return long(uuid) == 0
+    return LongType(uuid) == 0
 
 
 ###############################################################################

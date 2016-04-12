@@ -20,7 +20,7 @@
 import os
 import sys
 import time
-import types
+import spacewalk.common.usix as usix
 
 from ConfigParser import ConfigParser
 from spacewalk.common.rhnConfig import CFG
@@ -204,7 +204,7 @@ def create_new_user(org_id=None, username=None, password=None, roles=None, encry
 
 def lookup_org_id(org_id):
     "Look up the org id by user name"
-    if isinstance(org_id, types.StringType):
+    if isinstance(org_id, usix.StringType):
         # Is it a user?
         u = rhnUser.search(org_id)
 

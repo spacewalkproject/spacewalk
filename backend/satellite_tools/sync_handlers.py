@@ -14,7 +14,7 @@
 #
 
 
-import types
+import spacewalk.common.usix as usix
 import sys
 
 from spacewalk.server.importlib import channelImport, packageImport, errataImport, \
@@ -445,7 +445,7 @@ def import_kickstarts(batch):
 
 
 def _to_timestamp(t):
-    if isinstance(t, types.IntType):
+    if isinstance(t, usix.IntType):
         # Already an int
         return t
     # last_modified is YYYY-MM-DD HH24:MI:SS

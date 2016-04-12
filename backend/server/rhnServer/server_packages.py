@@ -20,7 +20,7 @@
 import string
 import sys
 import time
-from types import DictType
+from spacewalk.common.usix import DictType
 
 from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhn_rpm

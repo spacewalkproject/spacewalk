@@ -16,7 +16,7 @@
 
 import os
 import sys
-import types
+import spacewalk.common.usix as usix
 from optparse import OptionParser, Option
 
 _topdir = os.path.abspath(os.path.dirname(sys.argv[0]))
@@ -82,7 +82,7 @@ def get_class_instances(obj, class_obj):
     for k, v in obj.__dict__.items():
         if isinstance(v, class_obj):
             result.append((obj, k, v))
-        elif isinstance(v, types.ClassType):
+        elif isinstance(v, usix.ClassType):
             result.extend(get_class_instances(v, class_obj))
     return result
 

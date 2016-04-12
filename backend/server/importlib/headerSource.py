@@ -22,9 +22,10 @@ import string
 from importLib import File, Dependency, ChangeLog, Channel, \
     IncompletePackage, Package, SourcePackage
 from backendLib import gmtime, localtime
-from types import ListType, TupleType, IntType, LongType, StringType
+from spacewalk.common.usix import ListType, TupleType, IntType, LongType, StringType
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.stringutils import to_string
+from spacewalk.common.usix import LongType
 
 
 class rpmPackage(IncompletePackage):
@@ -67,7 +68,7 @@ class rpmPackage(IncompletePackage):
                 elif val < 0:
                     # workaround for older rpms where signed
                     # attributes go negative for size > 2G
-                    val = long(val) + 2 ** 32
+                    val = LongType(val) + 2 ** 32
             elif val:
                 # Convert to strings
                 if isinstance(val, unicode):

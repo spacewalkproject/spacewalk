@@ -19,6 +19,7 @@ import xmlrpclib
 import random
 
 # common modules imports
+from spacewalk.common.usix import LongType
 from spacewalk.common import rhnCache, rhnFlags, rhn_rpm
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnConfig import CFG
@@ -133,7 +134,7 @@ class Applet(rhnHandler):
         last_channel_changed_ts = max([a["last_modified"] for a in channel_list])
 
         # make satellite content override a cache caused by hosted
-        last_channel_changed_ts = str(long(last_channel_changed_ts) + 1)
+        last_channel_changed_ts = str(LongType(last_channel_changed_ts) + 1)
 
         # gotta be careful about channel unsubscriptions...
         client_cache_invalidated = None

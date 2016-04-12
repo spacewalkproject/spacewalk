@@ -21,7 +21,7 @@ import string
 
 from spacewalk.server.rhnServer import server_lib
 from rhn import rpclib
-from types import ListType, TupleType, StringType, IntType
+from spacewalk.common.usix import ListType, TupleType, StringType, IntType
 from spacewalk.common import rhnFlags, rhn_rpm
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG

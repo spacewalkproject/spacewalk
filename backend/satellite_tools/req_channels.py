@@ -14,7 +14,7 @@
 #
 #
 
-import types
+import spacewalk.common.usix as usix
 
 
 class RequestedChannels:
@@ -52,13 +52,13 @@ class RequestedChannels:
 
         for l in self.__lists:
             assert hasattr(self, l), "Class does not initialize %s" % l
-            assert isinstance(getattr(self, l), types.ListType)
+            assert isinstance(getattr(self, l), usix.ListType)
 
         # Initialize the requested channels
         self.request(requested)
 
     def request(self, requested):
-        assert isinstance(requested, types.ListType)
+        assert isinstance(requested, usix.ListType)
 
         self._requested.clear()
         for c in requested:
@@ -74,7 +74,7 @@ class RequestedChannels:
     def _set(self, name, channel_list):
         if name not in ['_available', '_imported']:
             raise AttributeError('set' + name)
-        assert isinstance(channel_list, types.ListType)
+        assert isinstance(channel_list, usix.ListType)
         h = getattr(self, name)
         h.clear()
         for c in channel_list:

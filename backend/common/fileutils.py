@@ -19,7 +19,6 @@ import bz2
 import gzip
 import pwd
 import grp
-import types
 import shutil
 import subprocess
 import select
@@ -27,6 +26,7 @@ import stat
 import tempfile
 from checksum import getFileChecksum
 
+from spacewalk.common.usix import ListType, TupleType
 
 def cleanupAbsPath(path):
     """ take ~taw/../some/path/$MOUNT_POINT/blah and make it sensible.
@@ -165,7 +165,7 @@ def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
         outputLog --> optional log file file object write method
     """
 
-    cmd_is_list = isinstance(cmd, (types.ListType, types.TupleType))
+    cmd_is_list = isinstance(cmd, (ListType, TupleType))
     if cmd_is_list:
         cmd = list(map(str, cmd))
     # pylint: disable=E1101

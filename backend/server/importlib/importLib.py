@@ -18,7 +18,7 @@
 
 import os
 import shutil
-from types import IntType, StringType, InstanceType
+from spacewalk.common.usix import IntType, StringType, InstanceType
 from UserDict import UserDict
 from UserList import UserList
 

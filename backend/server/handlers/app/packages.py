@@ -21,7 +21,7 @@ import os
 import string
 import sys
 import tempfile
-from types import TupleType
+from spacewalk.common.usix import TupleType
 
 from spacewalk.common.usix import raise_with_tb
 
