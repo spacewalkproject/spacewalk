@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.28
+Version: 5.4.29
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -64,6 +64,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Tue Apr 12 2016 Gennadii Altukhov <galt@redhat.com> 5.4.29-1
+- Wrong dependency for building on Fedora 23
+- basestring is str and bytes in python3
+- removed unused module string in  rhn-custom-info
+- modified rhn-custom-info to work in python 2/3
+
 * Mon Jun 08 2015 Michael Mraka <michael.mraka@redhat.com> 5.4.28-1
 - switch to dnf on Fedora 22
 
