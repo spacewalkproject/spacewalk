@@ -806,6 +806,77 @@ class RepoSync(object):
 
         return ret
 
+    def import_kickstart(self, plug, url, repo_label):
+        ks_tree_label = re.sub(r'[^-_0-9A-Za-z@.]', '', repo_label.replace(' ', '_'))
+        if len(ks_tree_label) < 4:
+            ks_tree_label += "_repo"
+        pxeboot_path = 'images/pxeboot/'
+        pxeboot = plug.get_file(pxeboot_path)
+        if pxeboot is None:
+            if not re.search(r'/$', url):
+                url = url + '/'
+            self.error_msg("ERROR: kickstartable tree not detected (no %s%s)" % (url, pxeboot_path))
+            return
+        channel_id = int(self.channel['id'])
+
+        if rhnSQL.fetchone_dict("""
+                select id
+                from rhnKickstartableTree
+                where org_id = :org_id and channel_id = :channel_id and label = :label
+                """, org_id=self.channel['org_id'], channel_id=self.channel['id'], label=ks_tree_label):
+            print "Kickstartable tree %s already synced." % ks_tree_label
+            return
+
+        row = rhnSQL.fetchone_dict("""
+            select sequence_nextval('rhn_kstree_id_seq') as id from dual
+            """)
+        ks_id = row['id']
+        ks_path = 'rhn/kickstart/%s/%s' % (self.channel['org_id'], ks_tree_label)
+
+        row = rhnSQL.execute("""
+            insert into rhnKickstartableTree (id, org_id, label, base_path, channel_id,
+                        kstree_type, install_type, last_modified, created, modified)
+            values (:id, :org_id, :label, :base_path, :channel_id,
+                        ( select id from rhnKSTreeType where label = 'externally-managed'),
+                        ( select id from rhnKSInstallType where label = 'generic_rpm'),
+                        current_timestamp, current_timestamp, current_timestamp)
+            """, id=ks_id, org_id=self.channel['org_id'], label=ks_tree_label,
+                             base_path=os.path.join(CFG.MOUNT_POINT, ks_path), channel_id=self.channel['id'])
+
+        insert_h = rhnSQL.prepare("""
+            insert into rhnKSTreeFile (kstree_id, relative_filename, checksum_id, file_size, last_modified, created, modified)
+            values (:id, :path, lookup_checksum('sha256', :checksum), :st_size, epoch_seconds_to_timestamp_tz(:st_time), current_timestamp, current_timestamp)
+            """)
+        dirs = ['']
+        while len(dirs) > 0:
+            d = dirs.pop(0)
+            v = None
+            if d == pxeboot_path:
+                v = pxeboot
+            else:
+                v = plug.get_file(d)
+            if v is None:
+                continue
+
+            for s in (m.group(1) for m in re.finditer(r'(?i)<a href="(.+?)"', v)):
+                if (re.match(r'/', s) or re.search(r'\?', s) or re.search(r'\.\.', s)
+                        or re.match(r'[a-zA-Z]+:', s) or re.search(r'\.rpm$', s)):
+                    continue
+                if re.search(r'/$', s):
+                    dirs.append(d + s)
+                    continue
+                local_path = os.path.join(CFG.MOUNT_POINT, ks_path, d, s)
+                if os.path.exists(local_path):
+                    print "File %s%s already present locally" % (d, s)
+                else:
+                    print "Retrieving %s" % d + s
+                    plug.get_file(d + s, os.path.join(CFG.MOUNT_POINT, ks_path))
+                st = os.stat(local_path)
+                insert_h.execute(id=ks_id, path=d + s, checksum=getFileChecksum('sha256', local_path),
+                                 st_size=st.st_size, st_time=st.st_mtime)
+
+        rhnSQL.commit()
+
     def upload_patches(self, notices):
         """Insert the information from patches into the database
 
@@ -1322,77 +1393,6 @@ class RepoSync(object):
         extra = "Syncing Channel '%s' failed:\n\n" % self.channel_label
         rhnMail.send(headers, extra + body)
 
-    def import_kickstart(self, plug, url, repo_label):
-        ks_tree_label = re.sub(r'[^-_0-9A-Za-z@.]', '', repo_label.replace(' ', '_'))
-        if len(ks_tree_label) < 4:
-            ks_tree_label += "_repo"
-        pxeboot_path = 'images/pxeboot/'
-        pxeboot = plug.get_file(pxeboot_path)
-        if pxeboot is None:
-            if not re.search(r'/$', url):
-                url = url + '/'
-            self.error_msg("ERROR: kickstartable tree not detected (no %s%s)" % (url, pxeboot_path))
-            return
-        channel_id = int(self.channel['id'])
-
-        if rhnSQL.fetchone_dict("""
-                select id
-                from rhnKickstartableTree
-                where org_id = :org_id and channel_id = :channel_id and label = :label
-                """, org_id=self.channel['org_id'], channel_id=self.channel['id'], label=ks_tree_label):
-            print "Kickstartable tree %s already synced." % ks_tree_label
-            return
-
-        row = rhnSQL.fetchone_dict("""
-            select sequence_nextval('rhn_kstree_id_seq') as id from dual
-            """)
-        ks_id = row['id']
-        ks_path = 'rhn/kickstart/%s/%s' % (self.channel['org_id'], ks_tree_label)
-
-        row = rhnSQL.execute("""
-            insert into rhnKickstartableTree (id, org_id, label, base_path, channel_id,
-                        kstree_type, install_type, last_modified, created, modified)
-            values (:id, :org_id, :label, :base_path, :channel_id,
-                        ( select id from rhnKSTreeType where label = 'externally-managed'),
-                        ( select id from rhnKSInstallType where label = 'generic_rpm'),
-                        current_timestamp, current_timestamp, current_timestamp)
-            """, id=ks_id, org_id=self.channel['org_id'], label=ks_tree_label,
-                             base_path=os.path.join(CFG.MOUNT_POINT, ks_path), channel_id=self.channel['id'])
-
-        insert_h = rhnSQL.prepare("""
-            insert into rhnKSTreeFile (kstree_id, relative_filename, checksum_id, file_size, last_modified, created, modified)
-            values (:id, :path, lookup_checksum('sha256', :checksum), :st_size, epoch_seconds_to_timestamp_tz(:st_time), current_timestamp, current_timestamp)
-            """)
-        dirs = ['']
-        while len(dirs) > 0:
-            d = dirs.pop(0)
-            v = None
-            if d == pxeboot_path:
-                v = pxeboot
-            else:
-                v = plug.get_file(d)
-            if v is None:
-                continue
-
-            for s in (m.group(1) for m in re.finditer(r'(?i)<a href="(.+?)"', v)):
-                if (re.match(r'/', s) or re.search(r'\?', s) or re.search(r'\.\.', s)
-                        or re.match(r'[a-zA-Z]+:', s) or re.search(r'\.rpm$', s)):
-                    continue
-                if re.search(r'/$', s):
-                    dirs.append(d + s)
-                    continue
-                local_path = os.path.join(CFG.MOUNT_POINT, ks_path, d, s)
-                if os.path.exists(local_path):
-                    print "File %s%s already present locally" % (d, s)
-                else:
-                    print "Retrieving %s" % d + s
-                    plug.get_file(d + s, os.path.join(CFG.MOUNT_POINT, ks_path))
-                st = os.stat(local_path)
-                insert_h.execute(id=ks_id, path=d + s, checksum=getFileChecksum('sha256', local_path),
-                                 st_size=st.st_size, st_time=st.st_mtime)
-
-        rhnSQL.commit()
-
     def updateChannelChecksumType(self, repo_checksum_type):
         """
         check, if the checksum_type of the channel matches the one of the repo
@@ -1425,6 +1425,7 @@ class RepoSync(object):
                                WHERE id = :cid""")
         h.execute(ctid=d['id'], cid=self.channel['id'])
 
+
 def get_compatible_arches(channel_id):
     """Return a list of compatible package arch labels for this channel"""
     h = rhnSQL.prepare("""select pa.label
@@ -1439,6 +1440,7 @@ def get_compatible_arches(channel_id):
     # we need to know, that it is safe to skip them
     arches = [k['label'] for k in  h.fetchall_dict() if k['label'] not in ['src', 'nosrc']]
     return arches
+
 
 def _best_checksum_item(checksums):
     if checksums.has_key('sha256'):
@@ -1463,6 +1465,7 @@ def _best_checksum_item(checksums):
         checksum = None
     return (checksum_type, checksum_type_orig, checksum)
 
+
 def _update_keywords(notice):
     """Return a list of Keyword objects for the notice"""
     keywords = []
@@ -1475,6 +1478,7 @@ def _update_keywords(notice):
         kw.populate({'keyword':'restart_suggested'})
         keywords.append(kw)
     return keywords
+
 
 def _update_bugs(notice):
     """Return a list of Bug objects from the notice's references"""
@@ -1490,6 +1494,7 @@ def _update_bugs(notice):
             bugs[bz['id']] = bug
     return bugs.values()
 
+
 def _update_cve(notice):
     """Return a list of unique ids from notice references of type 'cve'"""
     cves = []
@@ -1503,6 +1508,7 @@ def _update_cve(notice):
     cves = list(set(cves))
 
     return cves
+
 
 def _is_old_suse_style(notice):
     if((notice['from'] and "suse" in notice['from'].lower() and
@@ -1536,6 +1542,7 @@ def find_bugs(text):
         bugs.append(bug)
     return bugs
 
+
 def find_cves(text):
     """Find and return a list of CVE ids
 
@@ -1548,6 +1555,7 @@ def find_cves(text):
     cves = list()
     cves.extend([cve[:20] for cve in set(re.findall('CVE-\d{4}-\d+', text))])
     return cves
+
 
 def _delete_invalid_errata(errata_id):
     """
@@ -1605,4 +1613,3 @@ def _delete_invalid_errata(errata_id):
     for cid in channels:
         update_needed_cache(cid)
     rhnSQL.commit()
-
