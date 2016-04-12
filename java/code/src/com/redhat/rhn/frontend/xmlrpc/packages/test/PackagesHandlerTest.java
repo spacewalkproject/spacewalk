@@ -15,8 +15,12 @@
 package com.redhat.rhn.frontend.xmlrpc.packages.test;
 
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
+import com.redhat.rhn.domain.rpm.SourceRpm;
+import com.redhat.rhn.domain.rpm.test.SourceRpmTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.packages.PackagesHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
@@ -98,6 +102,14 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
         User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
         Package pkg = PackageTest.createTestPackage(user.getOrg());
         handler.removePackage(admin, new Integer(pkg.getId().intValue()));
+    }
+
+    public void testRemovePackageSource() throws Exception {
+        User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
+        SourceRpm srpm = SourceRpmTest.createTestSourceRpm();
+        PackageSource pkg = PackageTest.createTestPackageSource(srpm, user.getOrg());
+        HibernateFactory.getSession().save(pkg);
+        handler.removeSourcePackage(admin, new Integer(pkg.getId().intValue()));
     }
 
 

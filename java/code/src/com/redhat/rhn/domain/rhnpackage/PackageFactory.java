@@ -426,6 +426,20 @@ public class PackageFactory extends HibernateFactory {
     }
 
     /**
+     * Lookup package source by it's ID
+     * @param psid id of the source package
+     * @param org the org with access to the source package
+     * @return the package source
+     */
+    public static PackageSource lookupPackageSourceByIdAndOrg(Long psid, Org org) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("id", psid);
+        params.put("org", org);
+        return (PackageSource) singleton.lookupObjectByNamedQuery(
+                "PackageSource.findByIdAndOrg", params);
+    }
+
+    /**
      * Find other packages with the same NVRE but with different arches
      * @param pack the package
      * @return List of package objects

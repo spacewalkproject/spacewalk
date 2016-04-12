@@ -49,6 +49,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     </class>
 
+        <query name="PackageSource.findByIdAndOrg">
+            <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageSource as ps where ps.id = :id and ps.org = :org]]>
+        </query>
+
         <query name="PackageSource.findByPackage">
             <![CDATA[select ps
                        from com.redhat.rhn.domain.rhnpackage.Package as p,

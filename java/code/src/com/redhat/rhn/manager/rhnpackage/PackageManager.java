@@ -53,6 +53,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
+import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -686,6 +687,25 @@ public class PackageManager extends BaseManager {
                     pkg.getPackageName().getName());
         }
         session.delete(pkg);
+    }
+
+    /**
+     * Deletes a source package from the system
+     * @param user calling user
+     * @param pkg source package to delete
+     * @throws PermissionCheckFailureException - caller is not an org admin,
+     * the package is in one of the RH owned channels, or is in different org
+     */
+    public static void schedulePackageSourceRemoval(User user, PackageSource pkg)
+        throws PermissionCheckFailureException {
+        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
+            throw new PermissionCheckFailureException();
+        }
+        if (pkg.getOrg() == null || user.getOrg() != pkg.getOrg()) {
+            throw new PermissionCheckFailureException();
+        }
+        schedulePackageFileForDeletion(pkg.getPath());
+        PackageFactory.deletePackageSource(pkg);
     }
 
     private static void cleanupFileEntries(Long pid) {
