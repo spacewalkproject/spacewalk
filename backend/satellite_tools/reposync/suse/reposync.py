@@ -237,43 +237,6 @@ class SuseRepoSync(UpstreamRepoSync):
             self.sendErrorMail("Repo Sync Errors: %s" % '\n'.join(self.error_messages))
             sys.exit(1)
 
-    def set_repo_credentials(self, url_dict):
-        """Set the credentials in the url_dict['source_url'] from the config file
-
-        We look for the `credentials` query argument and use its value
-        as the location of the username and password in the current
-        configuration file.
-
-        Examples:
-        ?credentials=mirrcred - read 'mirrcred_user' and 'mirrcred_pass'
-        ?credeentials=mirrcred_5 - read 'mirrcred_user_5' and 'mirrcred_pass_5'
-
-        """
-        url = suseLib.URL(url_dict['source_url'])
-        creds = url.get_query_param('credentials')
-        if creds:
-            namespace = creds.split("_")[0]
-            creds_no = 0
-            try:
-                creds_no = int(creds.split("_")[1])
-            except (ValueError, IndexError):
-                self.error_msg("Could not figure out which credentials to use "
-                               "for this URL: "+url.getURL())
-                sys.exit(1)
-            # SCC - read credentials from DB
-            h = rhnSQL.prepare("""SELECT username, password FROM suseCredentials WHERE id = :id""");
-            h.execute(id=creds_no);
-            credentials = h.fetchone_dict() or None;
-            if not credentials:
-                self.error_msg("Could not figure out which credentials to use "
-                               "for this URL: "+url.getURL())
-                sys.exit(1)
-            url.username = credentials['username']
-            url.password = base64.decodestring(credentials['password'])
-            # remove query parameter from url
-            url.query = ""
-        url_dict['source_url'] = url.getURL()
-
     def update_date(self):
         """ Updates the last sync time"""
         h = rhnSQL.prepare("""update rhnChannel set LAST_SYNCED = current_timestamp
@@ -813,6 +776,43 @@ class SuseRepoSync(UpstreamRepoSync):
                                  st_size=st.st_size, st_time=st.st_mtime)
 
         rhnSQL.commit()
+
+    def set_repo_credentials(self, url_dict):
+        """Set the credentials in the url_dict['source_url'] from the config file
+
+        We look for the `credentials` query argument and use its value
+        as the location of the username and password in the current
+        configuration file.
+
+        Examples:
+        ?credentials=mirrcred - read 'mirrcred_user' and 'mirrcred_pass'
+        ?credeentials=mirrcred_5 - read 'mirrcred_user_5' and 'mirrcred_pass_5'
+
+        """
+        url = suseLib.URL(url_dict['source_url'])
+        creds = url.get_query_param('credentials')
+        if creds:
+            namespace = creds.split("_")[0]
+            creds_no = 0
+            try:
+                creds_no = int(creds.split("_")[1])
+            except (ValueError, IndexError):
+                self.error_msg("Could not figure out which credentials to use "
+                               "for this URL: "+url.getURL())
+                sys.exit(1)
+            # SCC - read credentials from DB
+            h = rhnSQL.prepare("""SELECT username, password FROM suseCredentials WHERE id = :id""");
+            h.execute(id=creds_no);
+            credentials = h.fetchone_dict() or None;
+            if not credentials:
+                self.error_msg("Could not figure out which credentials to use "
+                               "for this URL: "+url.getURL())
+                sys.exit(1)
+            url.username = credentials['username']
+            url.password = base64.decodestring(credentials['password'])
+            # remove query parameter from url
+            url.query = ""
+        url_dict['source_url'] = url.getURL()
 
     def upload_patches(self, notices):
         """Insert the information from patches into the database
