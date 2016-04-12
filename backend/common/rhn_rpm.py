@@ -95,6 +95,8 @@ class RPM_Header:
         else:
             return False
 
+    __bool__ = __nonzero__
+
     def checksum_type(self):
         if self.hdr[rpm.RPMTAG_FILEDIGESTALGO] \
                 and self.hdr[rpm.RPMTAG_FILEDIGESTALGO] in PGPHASHALGO:

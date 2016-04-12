@@ -527,6 +527,8 @@ class ActivationTokens:
     def __nonzero__(self):
         return (len(self.tokens) > 0)
 
+    __bool__ = __nonzero__
+
     def get_server_id(self):
         if not self:
             return None
