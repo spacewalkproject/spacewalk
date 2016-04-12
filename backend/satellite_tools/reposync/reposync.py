@@ -17,9 +17,9 @@
 from common import *
 
 
-def getCustomChannels():
+def getCustomChannels(exclude_vendor_channels=True):
 
-    d_parents = getParentsChilds(True)
+    d_parents = getParentsChilds(exclude_vendor_channels)
     l_custom_ch = []
 
     for ch in d_parents:
