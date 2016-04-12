@@ -31,11 +31,9 @@ from global_vars import hostname, YUM, RPM, SUSE, PATCH
 # ------------
 
 
-def getCustomChannels():
+def getCustomChannels(exclude_vendor_channels=True):
 
-    # with SUSE we sync also Vendor channels with reposync
-    # change parameter to False to get not only Custom Channels
-    d_parents = getParentsChilds(False)
+    d_parents = getParentsChilds(exclude_vendor_channels)
     l_custom_ch = []
 
     for ch in d_parents:
