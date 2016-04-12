@@ -17,7 +17,6 @@
 from ..common import *
 
 # SUSE imports
-import socket
 import traceback
 import base64
 from optparse import OptionParser
@@ -28,16 +27,8 @@ from spacewalk.common import rhnMail, suseLib, rhn_pkg
 from spacewalk.common.rhnTB import fetchTraceback
 from ..reposync import RepoSync as UpstreamRepoSync
 from exceptions import ChannelException, ChannelTimeoutException
+from global_vars import hostname, YUM, RPM, SUSE, PATCH
 # ------------
-hostname = socket.gethostname()
-if '.' not in hostname:
-    hostname = socket.getfqdn()
-
-# namespace prefixes for parsing SUSE patches XML files
-YUM = "{http://linux.duke.edu/metadata/common}"
-RPM = "{http://linux.duke.edu/metadata/rpm}"
-SUSE = "{http://novell.com/package/metadata/suse/common}"
-PATCH = "{http://novell.com/package/metadata/suse/patch}"
 
 
 def getCustomChannels():
