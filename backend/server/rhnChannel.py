@@ -432,7 +432,7 @@ class Channel(BaseChannelObject):
                 del h[cfid]
                 continue
             to_add.append(cfid)
-        to_delete = h.keys()
+        to_delete = list(h.keys())
         if to_delete:
             h = rhnSQL.prepare(self._query_remove_channel_families)
             cids = [channel_id] * len(to_delete)
@@ -464,7 +464,7 @@ class Channel(BaseChannelObject):
             to_update[0].append(release)
             to_update[1].append(os)
         # Everything else should be added
-        for release, os in d.items():
+        for release, os in list(d.items()):
             to_add[0].append(release)
             to_add[1].append(os)
         self._remove_dists(to_remove)

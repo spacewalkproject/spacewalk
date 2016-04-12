@@ -43,7 +43,7 @@ def print_env(fd=sys.stderr):
     """ Dump the environment. """
     dct = os.environ
     fd.write("\nEnvironment for PID=%d on exception:\n" % os.getpid())
-    el = dct.keys()
+    el = list(dct.keys())
     el.sort()
     for k in el:
         fd.write("%s = %s\n" % (to_string(k), to_string(dct[k])))
@@ -97,7 +97,7 @@ def print_req(req, fd=sys.stderr):
     fd.write("Remote Host: %s\nServer Name: %s:%d\n" % (
         req.get_remote_host(), req.server.server_hostname, req.server.port))
     fd.write("Headers passed in:\n")
-    kl = req.headers_in.keys()
+    kl = list(req.headers_in.keys())
     kl.sort()
     for k in kl:
         fd.write("\t%s: %s\n" % (to_string(k), to_string(req.headers_in[k])))

@@ -282,7 +282,7 @@ class VirtualizationEventHandler:
         uuid = properties[PropertyType.UUID]
 
         row = self.__db_get_domain(system_id, uuid)
-        if len(row.keys()) == 0:
+        if len(list(row.keys())) == 0:
             log_debug(1, "Guest already deleted in satellite: ", properties)
             return
         new_properties = {PropertyType.STATE: ServerStateType.STOPPED}
@@ -1016,7 +1016,7 @@ class EntitlementVirtualizationListener(VirtualizationListener):
 
     def guest_registered(self, host_sid, guest_sid):
         host_system_slots = server_lib.check_entitlement(host_sid)
-        host_system_slots = host_system_slots.keys()
+        host_system_slots = list(host_system_slots.keys())
 
         try:
             host_system_slots.remove("virtualization_host")
@@ -1024,7 +1024,7 @@ class EntitlementVirtualizationListener(VirtualizationListener):
             pass
 
         guest_system_slots = server_lib.check_entitlement(guest_sid)
-        guest_system_slots = guest_system_slots.keys()
+        guest_system_slots = list(guest_system_slots.keys())
 
         for entitlement in host_system_slots:
             if entitlement not in guest_system_slots:

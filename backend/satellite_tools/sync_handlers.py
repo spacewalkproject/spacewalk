@@ -36,7 +36,7 @@ class BaseCollection:
 
     def __init__(self):
         self.__dict__ = self._shared_state
-        if not self._shared_state.keys():
+        if not list(self._shared_state.keys()):
             self._items = []
             self._cache = None
             self._items_hash = {}
@@ -91,7 +91,7 @@ class ChannelCollection:
 
     def __init__(self):
         self.__dict__ = self._shared_state
-        if not self._shared_state.keys():
+        if not list(self._shared_state.keys()):
             self._channels = []
             self._parent_channels = {}
             self._channels_hash = {}
@@ -149,7 +149,7 @@ class ChannelCollection:
 
     def get_parent_channel_labels(self):
         """Return a list of channel labels for parent channels"""
-        l = self._parent_channels.keys()
+        l = list(self._parent_channels.keys())
         l.sort()
         return l
 
@@ -234,7 +234,7 @@ def import_channels(channels, orgid=None, master=None):
             # If we know the master this is coming from and the master org
             # has been mapped to a local org, transform org_id to the local
             # org_id. Otherwise just put it in the default org.
-            if (org_map and c_obj['org_id'] in org_map.keys()
+            if (org_map and c_obj['org_id'] in list(org_map.keys())
                     and org_map[c_obj['org_id']]):
                 c_obj['org_id'] = org_map[c_obj['org_id']]
             else:
@@ -271,7 +271,7 @@ class ShortPackageCollection:
 
     def __init__(self):
         self.__dict__ = self._shared_state
-        if not self._shared_state.keys():
+        if not list(self._shared_state.keys()):
             self._cache = None
             self._init_cache()
 
@@ -345,7 +345,7 @@ class ErrataCollection:
 
     def __init__(self):
         self.__dict__ = self._shared_state
-        if not self._shared_state.keys():
+        if not list(self._shared_state.keys()):
             self._errata_hash = {}
             self._cache = None
             self._init_cache()
@@ -553,7 +553,7 @@ class ChannelPackageArchCompatContainer(diskImportLib.ChannelPackageArchCompatCo
         self.arches[self.batch[-1]['package-arch']] = 1
 
     def endContainerCallback(self):
-        arches = self.arches.keys()
+        arches = list(self.arches.keys())
         arches.sort()
         if arches:
             for arch in arches:

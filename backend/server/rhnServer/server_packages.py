@@ -160,14 +160,14 @@ class Packages:
         log_debug(4, sysid)
         if not self.__loaded:
             self.reload_packages_byid(sysid)
-        for k in self.__p.keys():
+        for k in list(self.__p.keys()):
             self.__p[k].delete()
             self.__changed = 1
         return 0
 
     def get_packages(self):
         """ produce a list of packages """
-        return [a.nvrea for a in [a for a in self.__p.values() if a.status != DELETED]]
+        return [a.nvrea for a in [a for a in list(self.__p.values()) if a.status != DELETED]]
 
     def __expand_installtime(self, installtime):
         """ Simulating the ternary operator, one liner is ugly """
@@ -187,7 +187,7 @@ class Packages:
         commits = 0
 
         # get rid of the deleted packages
-        dlist = [a for a in self.__p.values() if a.real and a.status in (DELETED, UPDATED)]
+        dlist = [a for a in list(self.__p.values()) if a.real and a.status in (DELETED, UPDATED)]
         if dlist:
             log_debug(4, sysid, len(dlist), "deleted packages")
             h = rhnSQL.prepare("""
@@ -208,7 +208,7 @@ class Packages:
             del dlist
 
         # And now add packages
-        alist = [a for a in self.__p.values() if a.status in (ADDED, UPDATED)]
+        alist = [a for a in list(self.__p.values()) if a.status in (ADDED, UPDATED)]
         if alist:
             log_debug(4, sysid, len(alist), "added packages")
             h = rhnSQL.prepare("""
@@ -425,27 +425,27 @@ def package_delta(list1, list2):
 
     installs = []
     removes = []
-    for pn, ph1 in hash1.items():
+    for pn, ph1 in list(hash1.items()):
         if pn not in hash2:
-            removes.extend(ph1.keys())
+            removes.extend(list(ph1.keys()))
             continue
 
         ph2 = hash2[pn]
         del hash2[pn]
 
         # Now, compute the differences between ph1 and ph2
-        for p in ph1.keys():
+        for p in list(ph1.keys()):
             if p not in ph2:
                 # We have to remove it
                 removes.append(p)
             else:
                 del ph2[p]
         # Everything else left in ph2 has to be installed
-        installs.extend(ph2.keys())
+        installs.extend(list(ph2.keys()))
 
     # Whatever else is left in hash2 should be installed
-    for ph2 in hash2.values():
-        installs.extend(ph2.keys())
+    for ph2 in list(hash2.values()):
+        installs.extend(list(ph2.keys()))
 
     installs.sort()
     removes.sort()
@@ -472,7 +472,7 @@ def _package_list_to_hash(package_list, package_registry):
             continue
 
         # Look for a match for this package name in the registry
-        plist = package_registry[pn].keys()
+        plist = list(package_registry[pn].keys())
         for p in plist:
             if rhn_rpm.nvre_compare(p, e) == 0:
                 # Packages are identical

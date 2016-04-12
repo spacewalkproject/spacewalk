@@ -1113,9 +1113,9 @@ class ExporterMain:
             using_orgs = []
             for org in self.options.org:
                 # User might have specified org name or org id, try both
-                if org in orgs.values():  # ids
+                if org in list(orgs.values()):  # ids
                     using_orgs.append(org)
-                elif org in orgs.keys():  # names
+                elif org in list(orgs.keys()):  # names
                     using_orgs.append(orgs[org])
                 else:
                     sys.stdout.write("Org not found: %s\n" % org)

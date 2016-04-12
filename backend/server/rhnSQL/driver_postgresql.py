@@ -179,7 +179,7 @@ class Database(sql_base.Database):
             if self.sslmode is not None and self.sslrootcert is None:
                 raise AttributeError("Attribute sslrootcert needs to be set if sslmode is set.")
 
-            self.dbh = psycopg2.connect(" ".join("%s=%s" % (k, re.escape(str(v))) for k, v in dsndata.iteritems()))
+            self.dbh = psycopg2.connect(" ".join("%s=%s" % (k, re.escape(str(v))) for k, v in dsndata.items()))
 
             # convert all DECIMAL types to float (let Python to choose one)
             DEC2INTFLOAT = psycopg2.extensions.new_type(psycopg2._psycopg.DECIMAL.values,
@@ -279,13 +279,13 @@ class Cursor(sql_base.Cursor):
 
     def _execute_wrapper(self, function, *p, **kw):
         params = ','.join(["%s: %s" % (key, value) for key, value
-                           in kw.items()])
+                           in list(kw.items())])
         log_debug(5, "Executing SQL: \"%s\" with bind params: {%s}"
                   % (self.sql, params))
         if self.sql is None:
             raise rhnException("Cannot execute empty cursor")
         if self.blob_map:
-            for blob_var in self.blob_map.keys():
+            for blob_var in list(self.blob_map.keys()):
                 kw[blob_var] = buffer(kw[blob_var])
 
         try:

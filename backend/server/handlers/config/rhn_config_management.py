@@ -153,7 +153,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                 if config_channel == str(self.server.getid()):
                     result_hash[path] = (config_channel, path, row['config_file_type_id'])
 
-        result = result_hash.values()
+        result = list(result_hash.values())
         # Sort by path first since that's what the web site does
         result.sort(lambda x, y: cmp(x[1], y[1]))
         return result

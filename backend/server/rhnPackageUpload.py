@@ -75,7 +75,7 @@ def relative_path_from_header(header, org_id, checksum_type=None, checksum=None)
     nevra = importLib.get_nevra(header)
     if header.is_source:
         # 4/18/05 wregglej. if 1051 is in the header's keys, then it's a nosrc package.
-        if 1051 in header.keys():
+        if 1051 in list(header.keys()):
             nevra[4] = 'nosrc'
         else:
             nevra[4] = 'src'
@@ -84,7 +84,7 @@ def relative_path_from_header(header, org_id, checksum_type=None, checksum=None)
 
     # if the package isn't an rpm and the package name is spelled out in the
     # header, use it
-    if header.packaging == "mpm" and "package_name" in header.keys() and \
+    if header.packaging == "mpm" and "package_name" in list(header.keys()) and \
        header["package_name"]:
 
         rel_path = relative_path_from_nevra_without_package_name(nevra, org_id,
@@ -263,7 +263,7 @@ def _key_ids(sigs):
     for sig in sigs:
         h[sig['key_id']] = None
 
-    l = h.keys()
+    l = list(h.keys())
     l.sort()
     return l
 

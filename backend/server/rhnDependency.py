@@ -540,7 +540,7 @@ def _avoid_compat_packages(dict):
         if there are other candidates
     """
     if len(dict) > 1:
-        matches = dict.keys()
+        matches = list(dict.keys())
         # check we have at least one non- "compat-*" package name
         compats = [a for a in matches if a[:7] == "compat-"]
         if len(compats) > 0 and len(compats) < len(matches):  # compats and other things
@@ -548,7 +548,7 @@ def _avoid_compat_packages(dict):
                 del dict[p]
         # otherwise there's nothing much we can do (no compats or only compats)
     # and now return these final results ordered by preferece
-    l = dict.values()
+    l = list(dict.values())
     l.sort(lambda a, b: cmp(a[1], b[1]))
     return [x[0] for x in l]
 

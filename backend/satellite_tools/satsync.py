@@ -211,7 +211,7 @@ class Runner:
 
         log(1, '   db:  %s/<password>@%s' % (CFG.DB_USER, CFG.DB_NAME))
 
-        selected = [action for action in actionDict.keys() if actionDict[action]]
+        selected = [action for action in list(actionDict.keys()) if actionDict[action]]
         log2(-1, 3, "Action list/commandline toggles: %s" % repr(selected),
              stream=sys.stderr)
 
@@ -819,7 +819,7 @@ class Syncer:
             sync_handlers.get_short_package_handler(),
             self.xmlDataServer, 'getChannelShortPackagesXmlStream')
 
-        sorted_channels = sorted(self._channel_packages.items(), key=lambda x: x[0])  # sort by channel_label
+        sorted_channels = sorted(list(self._channel_packages.items()), key=lambda x: x[0])  # sort by channel_label
         for channel_label, package_ids in sorted_channels:
             log(1, _("   Retrieving / parsing short package metadata: %s (%s)") %
                 (channel_label, len(package_ids)))
@@ -880,7 +880,7 @@ class Syncer:
         self._missing_channel_packages = {}
         self._missing_fs_packages = {}
 
-        sorted_channels = sorted(self._channel_packages.items(), key=lambda x: x[0])  # sort by channel_label
+        sorted_channels = sorted(list(self._channel_packages.items()), key=lambda x: x[0])  # sort by channel_label
         for channel_label, upids in sorted_channels:
             log(1, _("Diffing package metadata (what's missing locally?): %s") %
                 channel_label)
@@ -998,7 +998,7 @@ class Syncer:
     def download_rpms(self):
         log(1, ["", _("Downloading rpm packages")])
         # Lets go fetch the packages and push them to their proper location:
-        sorted_channels = sorted(self._missing_fs_packages.items(), key=lambda x: x[0])  # sort by channel
+        sorted_channels = sorted(list(self._missing_fs_packages.items()), key=lambda x: x[0])  # sort by channel
         for channel, missing_fs_packages in sorted_channels:
             missing_packages_count = len(missing_fs_packages)
             log(1, _("   Fetching any missing RPMs: %s (%s)") %
@@ -1045,7 +1045,7 @@ class Syncer:
             sync_handlers.get_package_handler(),
             self.xmlDataServer, 'getPackageXmlStream')
 
-        sorted_channels = sorted(missing_packages.items(), key=lambda x: x[0])  # sort by channel
+        sorted_channels = sorted(list(missing_packages.items()), key=lambda x: x[0])  # sort by channel
         for channel, pids in sorted_channels:
             self._process_batch(channel, pids[:], messages.package_parsing,
                                 stream_loader.process, is_slow=True)
@@ -1064,7 +1064,7 @@ class Syncer:
         self._diff_source_packages()
         log(1, ["", _("Downloading srpm packages")])
         # Lets go fetch the source packages and push them to their proper location:
-        sorted_channels = sorted(self._missing_fs_source_packages.items(), key=lambda x: x[0])  # sort by channel_label
+        sorted_channels = sorted(list(self._missing_fs_source_packages.items()), key=lambda x: x[0])  # sort by channel_label
         for channel, missing_fs_source_packages in sorted_channels:
             missing_source_packages_count = len(missing_fs_source_packages)
             log(1, _("   Fetching any missing SRPMs: %s (%s)") %
@@ -1233,7 +1233,7 @@ class Syncer:
                 # diffs
                 missing_kickstarts[kt_label] = None
 
-        ret = missing_kickstarts.items()
+        ret = list(missing_kickstarts.items())
         ret.sort()
         return ret
 
@@ -1281,7 +1281,7 @@ class Syncer:
         missing_ks_files = self._compute_missing_ks_files()
 
         log(1, ["", _("Downloading kickstartable trees files")])
-        sorted_channels = sorted(missing_ks_files.items(), key=lambda x: x[0])  # sort by channel
+        sorted_channels = sorted(list(missing_ks_files.items()), key=lambda x: x[0])  # sort by channel
         for channel, files in sorted_channels:
             self._process_batch(channel, files[:], messages.kickstart_downloading,
                                 self._download_kickstarts_file,
@@ -1478,7 +1478,7 @@ class Syncer:
             sync_handlers.get_errata_handler(),
             self.xmlDataServer, 'getErrataXmlStream')
 
-        sorted_channels = sorted(not_cached_errata.items(), key=lambda x: x[0])  # sort by channel
+        sorted_channels = sorted(list(not_cached_errata.items()), key=lambda x: x[0])  # sort by channel
         for channel, erratum_ids in sorted_channels:
             self._process_batch(channel, erratum_ids[:], messages.erratum_parsing,
                                 stream_loader.process)
@@ -1545,7 +1545,7 @@ class Syncer:
             log(1, ["", _("Importing package metadata")])
             missing_channel_items = self._missing_channel_packages
 
-        sorted_channels = sorted(missing_channel_items.items(), key=lambda x: x[0])  # sort by channel
+        sorted_channels = sorted(list(missing_channel_items.items()), key=lambda x: x[0])  # sort by channel
         for channel, packages in sorted_channels:
             self._process_batch(channel, packages[:],
                                 messages.package_importing,
@@ -1574,7 +1574,7 @@ class Syncer:
                     package['channels'] = [channel_obj]
                     uq_packages[pid] = package
 
-        uq_pkg_data = uq_packages.values()
+        uq_pkg_data = list(uq_packages.values())
         # check to make sure the orgs exported are valid
         _validate_package_org(uq_pkg_data)
         try:
@@ -1613,7 +1613,7 @@ class Syncer:
     def import_errata(self):
         log(1, ["", _("Importing channel errata")])
         errata_collection = sync_handlers.ErrataCollection()
-        sorted_channels = sorted(self._missing_channel_errata.items(), key=lambda x: x[0])  # sort by channel_label
+        sorted_channels = sorted(list(self._missing_channel_errata.items()), key=lambda x: x[0])  # sort by channel_label
         for chn, errata in sorted_channels:
             log(2, _("Importing %s errata for channel %s.") % (len(errata), chn))
             batch = []

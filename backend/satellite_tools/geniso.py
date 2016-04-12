@@ -135,7 +135,7 @@ def main(arglist):
             'volid': "RHNSAT_%s/%s" % (i + 1, cdcount),
             'path-list': pathfiles,
         }
-        opts = ['-%s "%s"' % x for x in opts.items()]
+        opts = ['-%s "%s"' % x for x in list(opts.items())]
 
         # Generate the file list that will go into the CD
         # See the man page for mkisofs to better understand how graft points

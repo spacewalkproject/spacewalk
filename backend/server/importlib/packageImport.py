@@ -149,11 +149,11 @@ class ChannelPackageSubscription(GenericPackageImport):
         # Fill the list of affected channels
         self.affected_channel_packages.clear()
         self.affected_channel_packages.update(affected_channels)
-        for channel_label, channel_row in self.channels.items():
+        for channel_label, channel_row in list(self.channels.items()):
             channel_id = channel_row['id']
             if channel_id in affected_channels:
                 affected_channels[channel_id] = channel_label
-        self.affected_channels = affected_channels.values()
+        self.affected_channels = list(affected_channels.values())
 
     def _processPackage(self, package):
         GenericPackageImport._processPackage(self, package)
@@ -200,7 +200,7 @@ class ChannelPackageSubscription(GenericPackageImport):
 
             dpHash[channel['id']] = schannelName
 
-        destPackage.channels = dpHash.values()
+        destPackage.channels = list(dpHash.values())
 
 
 class PackageImport(ChannelPackageSubscription):

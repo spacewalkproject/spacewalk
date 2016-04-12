@@ -95,14 +95,14 @@ class Cursor(sql_base.Cursor):
 
     def _execute_wrapper(self, function, *p, **kw):
         params = ','.join(["%s: %s" % (repr(key), repr(value)) for key, value
-                           in kw.items()])
+                           in list(kw.items())])
         log_debug(5, "Executing SQL: \"%s\" with bind params: {%s}"
                   % (self.sql, params))
         if self.sql is None:
             raise rhnException("Cannot execute empty cursor")
         if self.blob_map:
             blob_content = {}
-            for orig_blob_var in self.blob_map.keys():
+            for orig_blob_var in list(self.blob_map.keys()):
                 new_blob_var = orig_blob_var + '_blob'
                 blob_content[new_blob_var] = kw[orig_blob_var]
                 kw[new_blob_var] = self.var(cx_Oracle.BLOB)
@@ -174,7 +174,7 @@ class Cursor(sql_base.Cursor):
             return 0
         # Compute number of values
         max_array_size = 25
-        i = kwargs.itervalues()
+        i = iter(list(kwargs.values()))
         firstval = i.next()
         array_size = len(firstval)
         if array_size == 0:

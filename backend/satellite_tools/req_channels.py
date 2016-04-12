@@ -134,7 +134,7 @@ class RequestedChannels:
 
         # The rest are channels that were once imported, but now are
         # unavailable
-        self._end_of_service.extend(imported.keys())
+        self._end_of_service.extend(list(imported.keys()))
 
         self._requested_channels.extend(self._requested_new)
         self._requested_channels.extend(self._requested_imported)

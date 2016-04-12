@@ -534,7 +534,7 @@ class NetIfaceInformation(Device):
             (%s) values (%s)"""
         self._null_columns(params, self._autonull)
 
-        columns = self.key_mapping.values() + ['server_id', 'name']
+        columns = list(self.key_mapping.values()) + ['server_id', 'name']
         columns.sort()
         bind_params = string.join([':' + x for x in columns], ", ")
         h = rhnSQL.prepare(q % (string.join(columns, ", "), bind_params))
@@ -559,7 +559,7 @@ class NetIfaceInformation(Device):
         wheres = ['%s = :%s' % (x, x) for x in wheres]
         wheres = string.join(wheres, " and ")
 
-        updates = self.key_mapping.values()
+        updates = list(self.key_mapping.values())
         updates.sort()
         updates = ['%s = :%s' % (x, x) for x in updates]
         updates = string.join(updates, ", ")
@@ -690,7 +690,7 @@ class NetIfaceAddress(Device):
             (%s) values (%s)"""
         self._null_columns(params, self._autonull)
 
-        columns = self.key_mapping.values() + ['interface_id']
+        columns = list(self.key_mapping.values()) + ['interface_id']
         columns.sort()
         bind_params = string.join([':' + x for x in columns], ", ")
         h = rhnSQL.prepare(q % (self.table, string.join(columns, ", "), bind_params))
@@ -715,7 +715,7 @@ class NetIfaceAddress(Device):
         wheres = ['%s = :%s' % (x, x) for x in wheres]
         wheres = string.join(wheres, " and ")
 
-        updates = self.key_mapping.values()
+        updates = list(self.key_mapping.values())
         updates.sort()
         updates = ['%s = :%s' % (x, x) for x in updates]
         updates = string.join(updates, ", ")
@@ -805,7 +805,7 @@ def _transpose(hasharr):
     """ Transpose the array of hashes into a hash of arrays """
     if not hasharr:
         return {}
-    keys = hasharr[0].keys()
+    keys = list(hasharr[0].keys())
     result = {}
     for k in keys:
         result[k] = []

@@ -619,7 +619,7 @@ class Registration(rhnHandler):
 
         attempted_system_slots = ['enterprise_entitled']
         successful_system_slots = server_lib.check_entitlement(server_id)
-        successful_system_slots = successful_system_slots.keys()
+        successful_system_slots = list(successful_system_slots.keys())
         failed_system_slots = []
 
         # Check which entitlement level we got, starting with the highest.

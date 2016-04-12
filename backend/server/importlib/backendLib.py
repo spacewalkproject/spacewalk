@@ -261,7 +261,7 @@ class TableUpdate(BaseTableLookup):
     def __init__(self, table, dbmodule):
         BaseTableLookup.__init__(self, table, dbmodule)
         self.queryTemplate = "update %s set %s where %s"
-        self.fields = self.table.getFields().keys()
+        self.fields = list(self.table.getFields().keys())
         self.count = 1000
         # Fields minus pks
         self.otherfields = []

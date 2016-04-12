@@ -176,7 +176,7 @@ class User:
         changed = 0
 
         # translation
-        if name in mapping.keys():
+        if name in list(mapping.keys()):
             name = mapping[name]
         # Some fields can not have null string values
         if name in ["first_names", "last_name", "prefix",  # personal_info

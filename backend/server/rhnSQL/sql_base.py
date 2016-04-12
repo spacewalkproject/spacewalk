@@ -199,7 +199,7 @@ class Cursor:
 
     def _execute(self, *args, **kwargs):
         if kwargs:
-            val = kwargs.values()[0]
+            val = list(kwargs.values())[0]
             if self._is_sequence_type(val):
                 sys.stderr.write("WARNING: calling execute with named bound arrays\n")
         return self._execute_(args, kwargs)

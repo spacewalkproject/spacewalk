@@ -227,7 +227,7 @@ def token_packages(server_id, tokens_obj):
     if not package_names:
         return ret
 
-    package_arch_ids = package_names.keys()
+    package_arch_ids = list(package_names.keys())
     # Get the latest action scheduled for this token
     last_action_id = rhnFlags.get('token_last_action_id')
 
@@ -726,7 +726,7 @@ def _validate_entitlements(token_string, rereg_ents, base_entitlements,
     Remove entitlements being maintained as just a list of labels.
     """
     # Check for exactly one base entitlement:
-    if len(base_entitlements.keys()) != 1:
+    if len(list(base_entitlements.keys())) != 1:
         log_error("Tokens with different base entitlements", token_string,
                   base_entitlements)
         raise rhnFault(63,
@@ -864,7 +864,7 @@ def fetch_token(token_string):
         'user_id': user_id,
         'org_id': org_id,
         'kickstart_session_id': ks_session_id,
-        'entitlements': entitlements_base.keys() + entitlements_extra.keys(),
+        'entitlements': list(entitlements_base.keys()) + list(entitlements_extra.keys()),
         'deploy_configs': deploy_configs,
     }
     log_debug(4, "Values", kwargs)
@@ -925,7 +925,7 @@ def fetch_org_token(org_id):
             'user_id': token_entry['user_id'],
             'org_id': token_entry['org_id'],
             'kickstart_session_id': token_entry['kickstart_session_id'],
-            'entitlements': entitlements_base.keys() + entitlements_extra.keys(),
+            'entitlements': list(entitlements_base.keys()) + list(entitlements_extra.keys()),
             'deploy_configs': token_entry['deploy_configs'] == 'Y',
         }
         tokens.append(token_entry)

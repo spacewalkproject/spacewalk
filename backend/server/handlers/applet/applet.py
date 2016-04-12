@@ -272,7 +272,7 @@ class Applet(rhnHandler):
                 log_debug(7, "initial store for %s" % pkg_name)
                 contents[pkg_name] = p
 
-        ret["contents"] = contents.values()
+        ret["contents"] = list(contents.values())
 
         # save it in the cache
         # We've set XMLRPC-Encoded-Response above

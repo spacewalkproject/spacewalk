@@ -109,7 +109,7 @@ class Table:
                                row)
         if row == {}:
             raise rhnException("The hash argument is empty", row)
-        keys = row.keys()
+        keys = list(row.keys())
         # Sort the list of keys, to always get the same list of arguments
         keys.sort()
         args = []
@@ -177,7 +177,7 @@ class Table:
 
         if key is None:
             raise KeyError("Can not insert entry with NULL key")
-        items = value.items()
+        items = list(value.items())
         if items == []:  # quick check for noop
             return
         sql = None

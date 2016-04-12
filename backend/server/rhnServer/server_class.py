@@ -430,7 +430,7 @@ class Server(ServerWrapper):
 
     def _entitle(self, entitlement):
         system_entitlements = server_lib.check_entitlement(self.server["id"])
-        system_entitlements = system_entitlements.keys()
+        system_entitlements = list(system_entitlements.keys())
 
         if entitlement not in system_entitlements:
             entitle_server = rhnSQL.Procedure("rhn_entitlements.entitle_server")

@@ -333,7 +333,7 @@ class BaseItem:
 
     def populateFromElements(self, obj, elements):
         # Populates obj with `elements' as subelements
-        keys = obj.keys()
+        keys = list(obj.keys())
         keys_len = len(keys)
         for element in elements:
             if _is_string(element):

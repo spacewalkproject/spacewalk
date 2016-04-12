@@ -313,7 +313,7 @@ class rpmSourcePackage(SourcePackage, rpmPackage):
 
         # 5/13/05 wregglej - 154248 If 1051 is in the list of keys in the header,
         # the package is a nosrc package and needs to be saved as such.
-        if 1051 in header.keys():
+        if 1051 in list(header.keys()):
             self['source_rpm'] = "%s-%s-%s.nosrc.rpm" % tuple(nvr)
         else:
             self['source_rpm'] = "%s-%s-%s.src.rpm" % tuple(nvr)

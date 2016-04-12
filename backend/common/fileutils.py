@@ -321,7 +321,7 @@ class GecosCache:
 
     def __init__(self):
         self.__dict__ = self.__shared_data
-        if len(self.__shared_data.keys()) == 0:
+        if len(list(self.__shared_data.keys())) == 0:
             # Not initialized
             self._users = {}
             self._groups = {}

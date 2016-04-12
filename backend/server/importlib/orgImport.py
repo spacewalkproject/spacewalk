@@ -57,7 +57,7 @@ class OrgImport(Import):
             # create master org record.
             missing_master_orgs = []
             for org in self.batch:
-                if org['name'] not in self.mn_to_mi.keys():
+                if org['name'] not in list(self.mn_to_mi.keys()):
                     missing_master_orgs.append(org)
             if len(missing_master_orgs) > 0:
                 self.backend.createMasterOrgs(self.master_label,
@@ -72,7 +72,7 @@ class OrgImport(Import):
                 orgs_to_link = []
                 update_master_orgs = []
                 for org in self.batch:
-                    if (org['id'] not in self.mi_to_li.keys()
+                    if (org['id'] not in list(self.mi_to_li.keys())
                             or not self.mi_to_li[org['id']]):
                         local_id = self.backend.lookupOrg(org['name'])
                         if local_id:
@@ -101,8 +101,8 @@ class OrgImport(Import):
             trusts_to_create = set([])
             for org in self.batch:
                 for trust in org['org_trust_ids']:
-                    if (org['id'] in self.mi_to_li.keys()
-                            and trust['org_id'] in self.mi_to_li.keys()):
+                    if (org['id'] in list(self.mi_to_li.keys())
+                            and trust['org_id'] in list(self.mi_to_li.keys())):
                         my_org_id = self.mi_to_li[org['id']]
                         self.backend.clearOrgTrusts(my_org_id)
                         my_trust_id = self.mi_to_li[trust['org_id']]

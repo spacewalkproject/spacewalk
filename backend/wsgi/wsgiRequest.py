@@ -79,7 +79,7 @@ class WsgiRequest:
         if not self.headers_out.has_key('Content-Type'):
             self.headers_out['Content-Type'] = 'text/xml'
 
-        self.start_response(self.status, self.headers_out.items())
+        self.start_response(self.status, list(self.headers_out.items()))
         return
 
     def get_remote_host(self, _rev=""):
@@ -157,7 +157,7 @@ class WsgiMPtable:
         return key in self.dict
 
     def keys(self):
-        return self.dict.keys()
+        return list(self.dict.keys())
 
     def __str__(self):
         return str(self.items())

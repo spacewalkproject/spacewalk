@@ -398,7 +398,7 @@ class XML_Dumper:
             for package in packages:
                 packages_hash[package['package_id']] = package
 
-        self._write_dump(dump_class, params=packages_hash.values())
+        self._write_dump(dump_class, params=list(packages_hash.values()))
         return 0
 
     def dump_errata(self, errata, verify_errata=False):
@@ -424,7 +424,7 @@ class XML_Dumper:
             for erratum in errata:
                 errata_hash[erratum['errata_id']] = erratum
 
-        self._write_dump(ErrataDumper, params=errata_hash.values())
+        self._write_dump(ErrataDumper, params=list(errata_hash.values()))
         return 0
 
     def dump_kickstartable_trees(self, kickstart_labels=None,
@@ -514,7 +514,7 @@ class XML_Dumper:
                 all_ks_hash[row['kickstart_label']] = row
 
         if not kickstart_labels:
-            return all_ks_hash.values()
+            return list(all_ks_hash.values())
 
         result = []
         for l in kickstart_labels:

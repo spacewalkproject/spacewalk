@@ -458,4 +458,4 @@ if __name__ == '__main__':
     hdrX = get_package_header(filename="/tmp/python-1.5.2-42.72.src.rpm")
     hdrY = headerLoad(hdrX.unload())
     print(hdrY)
-    print(len(hdrY.keys()))
+    print(len(list(hdrY.keys())))

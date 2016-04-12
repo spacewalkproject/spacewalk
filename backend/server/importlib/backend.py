@@ -324,7 +324,7 @@ class Backend:
         ret = {}
         if rows:
             for row in rows:
-                if row['org_id'] not in ret.keys():
+                if row['org_id'] not in list(ret.keys()):
                     ret[row['org_id']] = []
                 ret[row['org_id']].append(row['org_trust_id'])
         return ret
@@ -371,13 +371,13 @@ class Backend:
         mn_to_mi = {}  # master org name to master org id map
         mi_to_li = {}  # master org id to local org id map
         for org in rows:
-            if ('master_org_id' in org.keys()
-                    and 'master_org_name' in org.keys()
+            if ('master_org_id' in list(org.keys())
+                    and 'master_org_name' in list(org.keys())
                     and org['master_org_id']
                     and org['master_org_name']):
                 mn_to_mi[org['master_org_name']] = org['master_org_id']
-            if ('master_org_id' in org.keys()
-                    and 'local_org_id' in org.keys()
+            if ('master_org_id' in list(org.keys())
+                    and 'local_org_id' in list(org.keys())
                     and org['master_org_id']
                     and org['local_org_id']):
                 mi_to_li[org['master_org_id']] = org['local_org_id']
@@ -1341,7 +1341,7 @@ class Backend:
         forceVerify = kwparams['forceVerify']
 
         # All the tables affected
-        tables = [parentTable] + childTables.keys()
+        tables = [parentTable] + list(childTables.keys())
 
         # Build the hash for the operations on the tables
         dml = DML(tables, self.tables)
@@ -1479,7 +1479,7 @@ class Backend:
         }
 
         # Grab the rest of the information
-        childTablesInfo = self.__getChildTablesInfo(objid, childTables.keys(),
+        childTablesInfo = self.__getChildTablesInfo(objid, list(childTables.keys()),
                                                     childTableLookups)
 
         # Start computing deltas
@@ -1592,7 +1592,7 @@ class Backend:
         if not hash:
             return
         tab = self.tables[table]
-        k = hash.keys()[0]
+        k = list(hash.keys())[0]
         if not hash[k]:
             # Nothing to do
             return
@@ -1777,7 +1777,7 @@ class Backend:
                 updates.append(entry)
 
         inserts = []
-        list(map(inserts.extend, [x.values() for x in uq_col_values.values()]))
+        list(map(inserts.extend, [list(x.values()) for x in list(uq_col_values.values())]))
 
         if deletes:
             params = transpose(deletes, uq_fields)

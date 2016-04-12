@@ -180,7 +180,7 @@ class RHNOptions:
 
     def keys(self):
         self.__check()
-        return self.__configs[self.__component].keys()
+        return list(self.__configs[self.__component].keys())
 
     def has_key(self, key):
         self.__check()
@@ -188,11 +188,11 @@ class RHNOptions:
 
     def values(self):
         self.__check()
-        return self.__configs[self.__component].values()
+        return list(self.__configs[self.__component].values())
 
     def items(self):
         self.__check()
-        return self.__configs[self.__component].items()
+        return list(self.__configs[self.__component].items())
 
     def set(self, key, value):
         self.__check()
@@ -202,7 +202,7 @@ class RHNOptions:
     def show(self):
         self.__check()
         # display the configuration read from the file(s) and exit
-        vals = self.__configs[self.__component].items()
+        vals = list(self.__configs[self.__component].items())
         vals.sort(lambda a, b: cmp(a[0], b[0]))
         for k, v in vals:
             if v is None:
@@ -514,7 +514,7 @@ def getAllComponents_tuples(defaultDir=None):
     for comp in comps:
         for c in parse_comps(comp):
             d[c] = None
-    return d.keys()
+    return list(d.keys())
 
 
 CFG = RHNOptions()

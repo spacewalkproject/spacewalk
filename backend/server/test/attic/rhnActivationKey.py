@@ -169,10 +169,10 @@ class ActivationKey:
         return ret
 
     def get_server_groups(self):
-        return self._server_groups.keys()
+        return list(self._server_groups.keys())
 
     def get_channels(self):
-        return self._channels.values()
+        return list(self._channels.values())
 
     def get_token(self):
         return self._token
@@ -246,7 +246,7 @@ class ActivationKey:
         # entitlements: hash keyed on the entitlement id
         if not entitlements:
             return
-        entitlements = entitlements.keys()
+        entitlements = list(entitlements.keys())
 
         reg_token_id = self._row_reg_token['id']
         reg_token_ids = [reg_token_id] * len(entitlements)
@@ -319,7 +319,7 @@ class ActivationKey:
                 inserts.append(k)
                 continue
             del h1[k]
-        deletes = h1.keys()
+        deletes = list(h1.keys())
         return inserts, deletes
 
     def __getattr__(self, name):
