@@ -21,7 +21,7 @@ relative_comps_dir = 'rhn/comps'
 default_hash = 'sha256'
 
 
-def getCustomChannels(exclude_vendor_channels=True):
+def getChannels(exclude_vendor_channels=True):
 
     d_parents = getParentsChilds(exclude_vendor_channels)
     l_custom_ch = []
