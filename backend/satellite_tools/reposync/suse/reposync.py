@@ -450,9 +450,9 @@ class RepoSync(object):
                 # else: release match, so we update the errata
 
             if notice['updated']:
-                updated_date = _to_db_date(notice['updated'])
+                updated_date = self._to_db_date(notice['updated'])
             else:
-                updated_date = _to_db_date(notice['issued'])
+                updated_date = self._to_db_date(notice['issued'])
             if (existing_errata and
                 not self.errata_needs_update(existing_errata, notice['version'], updated_date)):
                 continue
@@ -470,7 +470,7 @@ class RepoSync(object):
                 e['synopsis'] = notice['severity'] + ': ' + e['synopsis']
             e['topic']         = ' '
             e['solution']      = ' '
-            e['issue_date']    = _to_db_date(notice['issued'])
+            e['issue_date']    = self._to_db_date(notice['issued'])
             e['update_date']   = updated_date
             e['org_id']        = self.channel['org_id']
             e['notes']         = ''
@@ -707,6 +707,23 @@ class RepoSync(object):
     def log_msg(message):
         rhnLog.log_clean(0, message)
 
+    @staticmethod
+    def _to_db_date(date):
+        if not date:
+            return datetime.utcnow().isoformat(' ')
+        if date.isdigit():
+            ret = datetime.fromtimestamp(float(date)).isoformat(' ')
+        else:
+            # we expect to get ISO formated date
+            try:
+                ret = datetime.strptime(date, '%Y-%m-%d %H:%M:%S').isoformat(' ')
+            except ValueError:
+                try:
+                    ret = datetime.strptime(date, '%Y-%m-%d').isoformat(' ')
+                except ValueError:
+                    raise ValueError("Not a valid date")
+        return ret[:19] #return 1st 19 letters of date, therefore preventing ORA-01830 caused by fractions of seconds
+
     def upload_patches(self, notices):
         """Insert the information from patches into the database
 
@@ -740,7 +757,7 @@ class RepoSync(object):
 
             if (existing_errata and
                 not self.errata_needs_update(existing_errata, version,
-                                             _to_db_date(notice.get('timestamp')))):
+                                             self._to_db_date(notice.get('timestamp')))):
                 continue
             self.print_msg("Add Patch %s" % e['advisory'])
 
@@ -767,7 +784,7 @@ class RepoSync(object):
                     break
             e['topic']       = ' '
             e['solution']    = ' '
-            e['issue_date']  = _to_db_date(notice.get('timestamp'))
+            e['issue_date']  = self._to_db_date(notice.get('timestamp'))
             e['update_date'] = e['issue_date']
             e['notes']       = ''
             e['org_id']      = self.channel['org_id']
@@ -1425,22 +1442,6 @@ def _best_checksum_item(checksums):
         checksum_type_orig = None
         checksum = None
     return (checksum_type, checksum_type_orig, checksum)
-
-def _to_db_date(date):
-    if not date:
-        return datetime.utcnow().isoformat(' ')
-    if date.isdigit():
-        ret = datetime.fromtimestamp(float(date)).isoformat(' ')
-    else:
-        # we expect to get ISO formated date
-        try:
-            ret = datetime.strptime(date, '%Y-%m-%d %H:%M:%S').isoformat(' ')
-        except ValueError:
-            try:
-                ret = datetime.strptime(date, '%Y-%m-%d').isoformat(' ')
-            except ValueError:
-                raise ValueError("Not a valid date")
-    return ret[:19] #return 1st 19 letters of date, therefore preventing ORA-01830 caused by fractions of seconds
 
 def _update_keywords(notice):
     """Return a list of Keyword objects for the notice"""
