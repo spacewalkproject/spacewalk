@@ -17,17 +17,6 @@
 from common import *
 
 
-def getCustomChannels(exclude_vendor_channels=True):
-
-    d_parents = getParentsChilds(exclude_vendor_channels)
-    l_custom_ch = []
-
-    for ch in d_parents:
-        l_custom_ch += [ch] + d_parents[ch]
-
-    return l_custom_ch
-
-
 class RepoSync(object):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,

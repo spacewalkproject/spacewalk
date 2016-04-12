@@ -31,17 +31,6 @@ from global_vars import hostname, YUM, RPM, SUSE, PATCH
 # ------------
 
 
-def getCustomChannels(exclude_vendor_channels=True):
-
-    d_parents = getParentsChilds(exclude_vendor_channels)
-    l_custom_ch = []
-
-    for ch in d_parents:
-        l_custom_ch += [ch] + d_parents[ch]
-
-    return l_custom_ch
-
-
 class SuseRepoSync(UpstreamRepoSync):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,

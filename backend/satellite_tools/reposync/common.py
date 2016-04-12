@@ -21,6 +21,17 @@ relative_comps_dir = 'rhn/comps'
 default_hash = 'sha256'
 
 
+def getCustomChannels(exclude_vendor_channels=True):
+
+    d_parents = getParentsChilds(exclude_vendor_channels)
+    l_custom_ch = []
+
+    for ch in d_parents:
+        l_custom_ch += [ch] + d_parents[ch]
+
+    return l_custom_ch
+
+
 def set_filter_opt(option, opt_str, value, parser):
     # pylint: disable=W0613
     if opt_str in ['--include', '-i']:
