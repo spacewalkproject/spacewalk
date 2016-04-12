@@ -18,7 +18,12 @@ import gzip
 import sys
 import tempfile
 from spacewalk.common.usix import ListType
-from cStringIO import StringIO
+try:
+    #  python 2
+    from cStringIO import StringIO
+except ImportError:
+    #  python3
+    from io import StringIO
 
 from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnCache, rhnLib, rhnFlags

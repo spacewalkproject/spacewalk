@@ -14,7 +14,12 @@
 # in this software or its documentation.
 #
 
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib
 import unittest
 
 SERVER = 'scripts.back-webqa.redhat.com'

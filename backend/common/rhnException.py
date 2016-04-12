@@ -14,10 +14,20 @@
 #
 
 import sys
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib
 
 from spacewalk.common.rhnConfig import PRODUCT_NAME
-from cStringIO import StringIO
+try:
+    #  python 2
+    from cStringIO import StringIO
+except ImportError:
+    #  python3
+    from io import StringIO
 
 
 # What other rhn modules we need

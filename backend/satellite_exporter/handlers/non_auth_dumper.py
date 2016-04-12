@@ -17,7 +17,12 @@ Non-authenticated dumper
 """
 
 import os
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib
 import gzip
 import sys
 

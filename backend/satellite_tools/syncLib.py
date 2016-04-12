@@ -18,7 +18,12 @@ import os
 import sys
 import time
 
-from StringIO import StringIO
+try:
+    #  python 2
+    from StringIO import StringIO
+except ImportError:
+    #  python3
+    from io import StringIO
 
 # rhn imports:
 from spacewalk.common.usix import raise_with_tb

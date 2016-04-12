@@ -16,7 +16,12 @@
 
 import sys
 import time
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib
 
 from spacewalk.common.usix import IntType, TupleType
 

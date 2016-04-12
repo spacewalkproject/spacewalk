@@ -19,7 +19,12 @@
 import sys
 import base64
 import string
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib
 from rhn.rpclib import transports
 
 # common modules

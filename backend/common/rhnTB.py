@@ -18,7 +18,12 @@ import os
 import sys
 import time
 import traceback
-from StringIO import StringIO
+try:
+    #  python 2
+    from StringIO import StringIO
+except ImportError:
+    #  python3
+    from io import StringIO
 from rhn.connections import idn_puny_to_unicode
 
 from rhnConfig import CFG, PRODUCT_NAME

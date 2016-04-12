@@ -15,7 +15,12 @@
 
 import sys
 import getpass
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib
 
 
 def getUsernamePassword(cmdlineUsername, cmdlinePassword):

@@ -17,7 +17,12 @@
 #
 
 import time
-import StringIO
+try:
+    #  python 2
+    import StringIO
+except ImportError:
+    #  python3
+    import io as StringIO
 import shutil
 import os.path
 

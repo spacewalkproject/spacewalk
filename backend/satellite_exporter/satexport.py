@@ -16,7 +16,12 @@
 
 import time
 import sys
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib
 from spacewalk.common import apache
 
 from spacewalk.common.usix import raise_with_tb

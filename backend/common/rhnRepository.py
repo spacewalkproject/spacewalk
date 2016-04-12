@@ -17,7 +17,12 @@
 import os
 import stat
 import spacewalk.common.usix as usix
-import cStringIO
+try:
+    #  python 2
+    import cStringIO
+except ImportError:
+    #  python3
+    import io as cStringIO
 import sys
 from rhn import rpclib
 

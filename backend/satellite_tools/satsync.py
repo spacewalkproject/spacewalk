@@ -24,7 +24,12 @@ import stat
 import time
 import spacewalk.common.usix as usix
 import exceptions
-import Queue
+try:
+    #  python 2
+    import Queue
+except ImportError:
+    #  python3
+    import queue as Queue
 import threading
 from optparse import Option, OptionParser
 from rhn.connections import idn_ascii_to_puny, idn_puny_to_unicode

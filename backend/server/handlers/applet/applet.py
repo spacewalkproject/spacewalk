@@ -15,7 +15,12 @@
 
 # system module imports
 import string
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib
 import random
 
 # common modules imports

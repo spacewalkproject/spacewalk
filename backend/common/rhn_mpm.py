@@ -15,9 +15,19 @@
 
 import os
 import gzip
-import cStringIO
+try:
+    #  python 2
+    import cStringIO
+except ImportError:
+    #  python3
+    import io as cStringIO
 import tempfile
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib
 import struct
 import sys
 import fileutils

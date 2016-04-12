@@ -16,7 +16,12 @@
 import re
 import time
 import spacewalk.common.usix as usix
-import urlparse
+try:
+    #  python 2
+    import urlparse
+except ImportError:
+    #  python3
+    import urllib.parse as urlparse
 
 def setHeaderValue(mp_table, name, values):
     """

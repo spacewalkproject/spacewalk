@@ -19,7 +19,12 @@ import sys
 import time
 import gzip
 import dumper
-import cStringIO
+try:
+    #  python 2
+    import cStringIO
+except ImportError:
+    #  python3
+    import io as cStringIO
 from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnMail
 from spacewalk.common.rhnConfig import CFG, initCFG

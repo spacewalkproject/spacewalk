@@ -22,7 +22,12 @@ import sys
 import time
 import spacewalk.common.usix as usix
 
-from ConfigParser import ConfigParser
+try:
+    #  python 2
+    from ConfigParser import ConfigParser
+except ImportError:
+    #  python3
+    from configparser import ConfigParser
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.server import rhnSQL, rhnUser
 

@@ -20,7 +20,12 @@ import os
 import shutil
 from spacewalk.common.usix import IntType, StringType, InstanceType
 from UserDict import UserDict
-from UserList import UserList
+try:
+    #  python 2
+    from UserList import UserList
+except ImportError:
+    #  python3
+    from collections import UserList
 
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.fileutils import createPath, setPermsPath

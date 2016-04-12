@@ -16,7 +16,12 @@
 
 
 import socket
-import httplib
+try:
+    #  python 2
+    import httplib
+except ImportError:
+    #  python3
+    import http.client as httplib
 
 
 class WsgiRequest:

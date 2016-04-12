@@ -18,7 +18,12 @@
 
 import os
 import gzip
-import cPickle
+try:
+    #  python 2
+    import cPickle
+except ImportError:
+    #  python3
+    import pickle as cPickle
 import fcntl
 import sys
 from stat import ST_MTIME

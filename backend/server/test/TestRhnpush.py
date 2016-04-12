@@ -14,7 +14,12 @@
 #
 import TestServer
 import server.app.packages
-import SimpleXMLRPCServer
+try:
+    #  python 2
+    import SimpleXMLRPCServer
+except ImportError:
+    #  python3
+    import xmlrpc.server as SimpleXMLRPCServer
 
 
 class TestRhnpush(TestServer.TestServer):

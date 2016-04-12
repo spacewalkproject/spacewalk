@@ -31,7 +31,12 @@
 # Modify the values in data to reflect your set up.
 import TestServer
 import server.redhat_xmlrpc
-import SimpleXMLRPCServer
+try:
+    #  python 2
+    import SimpleXMLRPCServer
+except ImportError:
+    #  python3
+    import xmlrpc.server as SimpleXMLRPCServer
 from spacewalk.common import rhnConfig
 
 
