@@ -14,6 +14,7 @@
 # in this software or its documentation.
 #
 
+import sys
 from rhn import rpclib
 
 
@@ -306,6 +307,8 @@ if __name__ == "__main__":
 
     #package = t.package([plist.get_name(0), plist.get_version(0), plist.get_release(0), plist.get_epoch(j)])
     # print package
+    if sys.version_info[0] == 3:
+        raw_input = input
     uname = raw_input("username:")
     password = raw_input("password:")
     email = raw_input("email:")
