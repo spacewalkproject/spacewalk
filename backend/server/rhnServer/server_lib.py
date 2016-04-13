@@ -19,6 +19,10 @@ import os
 import hashlib
 import time
 import string
+import sys
+
+if sys.version_info[0] == 3:
+    from functools import reduce
 
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault, rhnException
