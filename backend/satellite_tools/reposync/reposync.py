@@ -449,23 +449,6 @@ class RepoSync(BaseRepoSync):
         h.execute(channel_id=self.channel['id'],
                   checksum_type=pack['checksum_type'], checksum=pack['checksum'])
 
-    def load_channel(self):
-        return rhnChannel.channel_info(self.channel_label)
-
-    def print_msg(self, message):
-        rhnLog.log_clean(0, message)
-        if not self.quiet:
-            print(message)
-
-    def error_msg(self, message):
-        rhnLog.log_clean(0, message)
-        if not self.quiet:
-            sys.stderr.write(str(message) + "\n")
-
-    @staticmethod
-    def log_msg(message):
-        rhnLog.log_clean(0, message)
-
     @staticmethod
     def _to_db_date(date):
         ret = ""

@@ -143,3 +143,20 @@ class BaseRepoSync(object):
                                     where not exists (select 1 from rhnChannelComps
                                                        where channel_id = :cid))""")
             hi.execute(cid=self.channel['id'], relpath=relativepath)
+
+    def load_channel(self):
+        return rhnChannel.channel_info(self.channel_label)
+
+    def print_msg(self, message):
+        rhnLog.log_clean(0, message)
+        if not self.quiet:
+            print(message)
+
+    def error_msg(self, message):
+        rhnLog.log_clean(0, message)
+        if not self.quiet:
+            sys.stderr.write(str(message) + "\n")
+
+    @staticmethod
+    def log_msg(message):
+        rhnLog.log_clean(0, message)
