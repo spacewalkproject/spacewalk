@@ -22,6 +22,20 @@
   <rhn:csrf />
   <rhn:submitted />
 
+  <div class="form-group">
+    <div class="col-lg-12">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="filter" styleId="filterLabel" <c:if test="${filter}">checked</c:if>/>
+          <bean:message key="managedsystems.jsp.managedonly"/>
+          <html:submit styleClass="btn btn-default">
+            <bean:message key="managedsystems.jsp.managedonly.btn"/>
+          </html:submit>
+        </label>
+      </div>
+    </div>
+  </div>
+
   <rhn:list pageList="${requestScope.pageList}" noDataText="managedsystems.jsp.noSystems">
     <rhn:listdisplay filterBy="system.common.systemName">
       <rhn:column header="system.common.systemName"
@@ -91,7 +105,6 @@
       </rhn:column>
     </rhn:listdisplay>
   </rhn:list>
-
 </form>
 
 </body>

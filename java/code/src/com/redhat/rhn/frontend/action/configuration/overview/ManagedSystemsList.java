@@ -21,6 +21,8 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
+import com.redhat.rhn.frontend.dto.ConfigSystemDto;
+import java.util.List;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -28,6 +30,7 @@ import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * ManagedSystemsList
@@ -51,7 +54,39 @@ public class ManagedSystemsList extends RhnListAction {
         pc.setFilter(true);
 
         clampListBounds(pc, request, user);
-        request.setAttribute(RequestContext.PAGE_LIST, getDataResult(user, pc));
+
+        DataResult dr = getDataResult(user, pc);
+        String checkboxName = "filter";
+
+        // set default for checkbox
+        Boolean managedSystemsOnly = true;
+        Integer total = dr.getTotalSize();
+
+        // if submitted get checkbox status
+        if (requestContext.isSubmitted()) {
+            managedSystemsOnly = request.getParameter(checkboxName) != null ? true : false;
+        }
+        // if checkbox is "on", filter data to show systems containing
+        // at least one locally or centrally managed file only
+        if (managedSystemsOnly) {
+            // clone list
+            List<ConfigSystemDto> dtos = (List<ConfigSystemDto>)dr.clone();
+            // iterate through list
+            for (ConfigSystemDto o : dtos) {
+                // if there is no local and no global file
+                if ((o.getGlobalFileCount() + o.getLocalFileCount()) <= 0) {
+                    // delete system from list
+                    dr.remove(o);
+                    total--;
+                }
+            }
+        }
+        // set checkbox value
+        request.setAttribute(checkboxName, managedSystemsOnly);
+        dr.setTotalSize(total);
+
+        //request.setAttribute(RequestContext.PAGE_LIST, getDataResult(user, pc));
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         return getStrutsDelegate().forwardParams(mapping.findForward(
                 RhnHelper.DEFAULT_FORWARD), request.getParameterMap());
     }
