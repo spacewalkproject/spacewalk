@@ -232,43 +232,6 @@ class SuseRepoSync(BaseRepoSync):
             elif notices_type == 'patches':
                 self.upload_patches(notices)
 
-    def import_groups(self, plug, url):
-        groupsfile = plug.get_groups()
-        if groupsfile:
-            basename = os.path.basename(groupsfile)
-            self.print_msg("Repo %s has comps file %s." % (url, basename))
-            relativedir = os.path.join(relative_comps_dir, self.channel_label)
-            absdir = os.path.join(CFG.MOUNT_POINT, relativedir)
-            if not os.path.exists(absdir):
-                os.makedirs(absdir)
-            relativepath = os.path.join(relativedir, basename)
-            abspath = os.path.join(absdir, basename)
-            for suffix in ['.gz', '.bz', '.xz']:
-                if basename.endswith(suffix):
-                    abspath = abspath.rstrip(suffix)
-                    relativepath = relativepath.rstrip(suffix)
-            src = fileutils.decompress_open(groupsfile)
-            dst = open(abspath, "w")
-            shutil.copyfileobj(src, dst)
-            dst.close()
-            src.close()
-            # update or insert
-            hu = rhnSQL.prepare("""update rhnChannelComps
-                                      set relative_filename = :relpath,
-                                          modified = current_timestamp
-                                    where channel_id = :cid""")
-            hu.execute(cid=self.channel['id'], relpath=relativepath)
-
-            hi = rhnSQL.prepare("""insert into rhnChannelComps
-                                  (id, channel_id, relative_filename)
-                                  (select sequence_nextval('rhn_channelcomps_id_seq'),
-                                          :cid,
-                                          :relpath
-                                     from dual
-                                    where not exists (select 1 from rhnChannelComps
-                                                       where channel_id = :cid))""")
-            hi.execute(cid=self.channel['id'], relpath=relativepath)
-
     def upload_updates(self, notices):
         batch = []
         skipped_updates = 0
