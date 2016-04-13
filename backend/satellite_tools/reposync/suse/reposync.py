@@ -198,12 +198,6 @@ class SuseRepoSync(BaseRepoSync):
             self.sendErrorMail("Repo Sync Errors: %s" % '\n'.join(self.error_messages))
             sys.exit(1)
 
-    def update_date(self):
-        """ Updates the last sync time"""
-        h = rhnSQL.prepare("""update rhnChannel set LAST_SYNCED = current_timestamp
-                             where label = :channel""")
-        h.execute(channel=self.channel['label'])
-
     def load_plugin(self, repo_type):
         """Try to import the repository plugin required to sync the repository
 

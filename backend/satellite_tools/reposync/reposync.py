@@ -123,12 +123,6 @@ class RepoSync(BaseRepoSync):
         self.print_msg("Sync completed.")
         self.print_msg("Total time: %s" % str(total_time).split('.')[0])
 
-    def update_date(self):
-        """ Updates the last sync time"""
-        h = rhnSQL.prepare("""update rhnChannel set LAST_SYNCED = current_timestamp
-                             where label = :channel""")
-        h.execute(channel=self.channel['label'])
-
     @staticmethod
     def load_plugin(repo_type):
         name = repo_type + "_src"

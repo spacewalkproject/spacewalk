@@ -100,3 +100,9 @@ def getParentsChilds(b_only_custom=False):
 
 class BaseRepoSync(object):
     """ Base class that all RepoSync classes need to inherit. """
+
+    def update_date(self):
+        """ Updates the last sync time"""
+        h = rhnSQL.prepare("""update rhnChannel set LAST_SYNCED = current_timestamp
+                             where label = :channel""")
+        h.execute(channel=self.channel['label'])
