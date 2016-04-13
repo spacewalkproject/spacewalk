@@ -136,7 +136,13 @@ class apacheRequest:
         except (TypeError, ValueError, KeyError, IndexError, UnknownXML):
             # report exception back to server
             fault = 1
-            if sys.exc_type == UnknownXML:
+
+            if sys.version_info[0] == 3:
+                exctype = sys.exc_info()[0]
+            else:
+                exctype = sys.exc_type
+
+            if exctype == UnknownXML:
                 fault = -1
             e_type, e_value = sys.exc_info()[:2]
             response = xmlrpclib.Fault(fault, _(
