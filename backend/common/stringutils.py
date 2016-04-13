@@ -18,7 +18,7 @@ from spacewalk.common.usix import StringType, UnicodeType
 
 def to_unicode(obj):
     if isinstance(obj, StringType):
-        return unicode(obj, 'utf8')
+        return UnicodeType(obj, 'utf8')
     else:
         return obj
 

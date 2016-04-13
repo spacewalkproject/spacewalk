@@ -22,7 +22,7 @@ import string
 from importLib import File, Dependency, ChangeLog, Channel, \
     IncompletePackage, Package, SourcePackage
 from backendLib import gmtime, localtime
-from spacewalk.common.usix import ListType, TupleType, IntType, LongType, StringType
+from spacewalk.common.usix import ListType, TupleType, IntType, LongType, StringType, UnicodeType
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.stringutils import to_string
 from spacewalk.common.usix import LongType
@@ -71,7 +71,7 @@ class rpmPackage(IncompletePackage):
                     val = LongType(val) + 2 ** 32
             elif val:
                 # Convert to strings
-                if isinstance(val, unicode):
+                if isinstance(val, UnicodeType):
                     val = to_string(val)
                 else:
                     val = str(val)
@@ -492,9 +492,9 @@ class rpmChangeLog(ChangeLog):
         # undetermined encoding. Assume ISO-Latin-1 if not UTF-8.
         for i in ('text', 'name'):
             try:
-                self[i] = unicode(self[i], "utf-8")
+                self[i] = UnicodeType(self[i], "utf-8")
             except UnicodeDecodeError:
-                self[i] = unicode(self[i], "iso-8859-1")
+                self[i] = UnicodeType(self[i], "iso-8859-1")
 
 
 def sanitizeList(l):

@@ -20,7 +20,7 @@ import time
 import string
 
 from UserDict import UserDict
-from spacewalk.common.usix import ListType, StringType, DictType, IntType
+from spacewalk.common.usix import ListType, StringType, DictType, IntType, UnicodeType
 
 # A function that formats a UNIX timestamp to the session's format
 
@@ -490,8 +490,8 @@ def sanitizeValue(value, datatype):
             # and not depend on Oracle converting
             # empty strings to NULLs -- PostgreSQL
             # does not do this
-        elif isinstance(value, unicode):
-            value = unicode.encode(value, 'utf-8')
+        elif isinstance(value, UnicodeType):
+            value = UnicodeType.encode(value, 'utf-8')
         if len(value) > datatype.limit:
             value = value[:datatype.limit]
             # ignore incomplete characters created after truncating
@@ -501,8 +501,8 @@ def sanitizeValue(value, datatype):
     if isinstance(datatype, DBblob):
         if value is None:
             value = ''
-        if isinstance(value, unicode):
-            value = unicode.encode(value, 'utf-8')
+        if isinstance(value, UnicodeType):
+            value = UnicodeType.encode(value, 'utf-8')
         return str(value)
     if value in [None, '']:
         return None

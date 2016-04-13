@@ -23,7 +23,7 @@ except ImportError:
     #  python3
     import xmlrpc.client as xmlrpclib
 
-from spacewalk.common.usix import IntType, TupleType
+from spacewalk.common.usix import IntType, TupleType, UnicodeType
 
 # Global modules
 from spacewalk.common.usix import raise_with_tb
@@ -482,7 +482,7 @@ class Queue(rhnHandler):
                 rmsg = result["faultString"] + str(data)
         if type(rcode) in [type({}), type(()), type([])] \
                 or type(rcode) is not IntType:
-            rmsg = u"%s [%s]" % (unicode(message), unicode(rcode))
+            rmsg = u"%s [%s]" % (UnicodeType(message), UnicodeType(rcode))
             rcode = -1
         # map to db codes.
         status = self.status_for_action_type_code(action_type, rcode)

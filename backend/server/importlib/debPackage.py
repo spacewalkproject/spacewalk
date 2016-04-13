@@ -62,7 +62,7 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
                     val = gmtime(val)
             elif val:
                 # Convert to strings
-                if isinstance(val, unicode):
+                if isinstance(val, UnicodeType):
                     val = to_string(val)
                 else:
                     val = str(val)
