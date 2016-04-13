@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.82
+Version: 2.5.83
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 13 2016 Jiri Precechtel <jprecech@redhat.com> 2.5.83-1
+- Added switch to show Systems with Managed cfg files only
+
 * Mon Apr 11 2016 Jan Dobes 2.5.82-1
 - 1192879 - updating confirm page
 - 1192879 - adding delete queries for database and filesystem
