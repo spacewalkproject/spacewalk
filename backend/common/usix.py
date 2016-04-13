@@ -68,3 +68,12 @@ def raise_with_tb(exc, tb):
         raise exc.with_traceback(tb)
     else:
         raise exc, None, tb
+
+# code from original 'six' module
+# added for compatibility with Python 2.4
+try:
+    advance_iterator = next
+except NameError:
+    def advance_iterator(it):
+        return it.next()
+next = advance_iterator

@@ -19,7 +19,7 @@
 import sys
 import difflib
 from spacewalk.common.rhnLog import log_debug
-from spacewalk.common.usix import raise_with_tb
+from spacewalk.common.usix import raise_with_tb, next
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.server import rhnSQL, configFilesHandler
 from spacewalk.common.fileutils import f_date, ostr_to_sym
@@ -453,7 +453,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         diff = difflib.unified_diff(
             fsrc['file_content'], fdst['file_content'], path, path, fsrc['modified'], fdst['modified'], lineterm='')
         try:
-            first_row = diff.next()
+            first_row = next(diff)
         except StopIteration:
             return ""
 
@@ -462,7 +462,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             return first_row + '\n'.join(list(diff))
 
         try:
-            second_row = diff.next()
+            second_row = next(diff)
         except StopIteration:
             second_row = ''
 

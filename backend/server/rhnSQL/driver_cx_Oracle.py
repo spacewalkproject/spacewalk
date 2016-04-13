@@ -30,7 +30,7 @@ import re
 import spacewalk.common.usix as usix
 
 from rhn.UserDictCase import UserDictCase
-from spacewalk.common.usix import raise_with_tb
+from spacewalk.common.usix import raise_with_tb, next
 from spacewalk.server import rhnSQL
 from spacewalk.common import rhnConfig
 from spacewalk.common.rhnLog import log_debug, log_error
@@ -175,7 +175,7 @@ class Cursor(sql_base.Cursor):
         # Compute number of values
         max_array_size = 25
         i = iter(list(kwargs.values()))
-        firstval = i.next()
+        firstval = next(i)
         array_size = len(firstval)
         if array_size == 0:
             return 0
