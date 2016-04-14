@@ -14,6 +14,7 @@ Patch1:  0001-fixed-building-third-party-packages.patch
 Patch2:  0001-fixed-changelog-formating.patch
 Patch3:  0002-fixed-no-source-spec-issue.patch
 Patch4:  git-quick-build.patch
+Patch5:  fixing-unescaped-left-brace-in-newer-perl.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch: noarch
@@ -44,6 +45,7 @@ git.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %{__python} setup.py build
