@@ -14,48 +14,44 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
- * Repo Sync
- *  Used for syncing repos (like yum repos) to a channel
- *  This really just calls a python script
- *
- * @version $Rev$
+ * Used for syncing repos (like yum repos) to a channel.
+ * This really just calls a python script.
  */
 public class RepoSyncTask extends RhnJavaJob {
 
     /**
-     *
      * {@inheritDoc}
      */
+    @Override
+    @SuppressWarnings("unchecked")
     public void execute(JobExecutionContext context)
         throws JobExecutionException {
 
-        String channelIdString = (String)
-                    context.getJobDetail().getJobDataMap().get("channel_id");
-        String [] lparams = {"no-errata", "latest", "sync-kickstart", "fail"};
+        String channelIdString =
+            (String) context.getJobDetail().getJobDataMap().get("channel_id");
+        String[] lparams = {"no-errata", "latest", "sync-kickstart", "fail"};
         List<String> ltrue = Arrays.asList("true", "1");
         List<String> params = new ArrayList<String>();
         for (String p : lparams) {
             if (context.getJobDetail().getJobDataMap().containsKey(p)) {
-                if (ltrue.contains(context.getJobDetail().getJobDataMap()
-                        .get(p).toString().toLowerCase().trim())) {
+                if (ltrue.contains(context.getJobDetail().getJobDataMap().get(p).toString()
+                        .toLowerCase().trim())) {
                     params.add("--" + p);
-               }
+                }
             }
         }
         Long channelId;
