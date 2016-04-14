@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.5.7
+Version:	2.5.8
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Apr 14 2016 Jiri Precechtel <jprecech@redhat.com> 2.5.8-1
+- 1103960 - removed escape of regular expressions, updated man page
+
 * Fri Apr 01 2016 Jiri Precechtel <jprecech@redhat.com> 2.5.7-1
 - 1103960 - spacewalk-clone-by-date - package names may contain special regexp
   chars now
