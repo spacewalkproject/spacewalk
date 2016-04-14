@@ -588,7 +588,7 @@ class Backend:
         for package in packages:
             # here we need to figure out which checksum we have in the database
             not_found = None
-            for type, chksum in package['checksums'].iteritems():
+            for type, chksum in package['checksums'].items():
                 package['checksum_type'] = type
                 package['checksum'] = chksum
                 package['checksum_id'] = checksums[(type, chksum)]

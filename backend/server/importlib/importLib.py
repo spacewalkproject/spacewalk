@@ -694,7 +694,7 @@ class GenericPackageImport(Import):
         if package.arch not in self.package_arches:
             self.package_arches[package.arch] = None
 
-        for type, chksum in package['checksums'].iteritems():
+        for type, chksum in package['checksums'].items():
             checksumTuple = (type, chksum)
             if not checksumTuple in self.checksums:
                 self.checksums[checksumTuple] = None

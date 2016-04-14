@@ -10,7 +10,7 @@ tabs = OracleBackend.tables
 utabs = {}
 
 # convert table names to uppercase
-for k, v in tabs.iteritems():
+for k, v in tabs.items():
     utabs[k.upper()] = v
 
 

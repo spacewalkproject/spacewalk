@@ -199,7 +199,7 @@ class Cursor(sql_base.Cursor):
 
             for i in range(item_count):
                 pdict = arr[i]
-                for k, v in kwargs.iteritems():
+                for k, v in kwargs.items():
                     pdict[k] = to_string(v[start + i])
 
             # We clear self->bindVariables so that list of all nulls
