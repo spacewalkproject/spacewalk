@@ -149,8 +149,7 @@ public class TaskomaticApi {
      * @throws TaskomaticApiException if there was an error
      */
     public Date scheduleRepoSync(Channel chan, User user, String cron,
-                                                     Map <String, String>params)
-                                        throws TaskomaticApiException {
+            Map<String, String> params) throws TaskomaticApiException {
         String jobLabel = createRepoSyncScheduleName(chan, user);
 
         Map task = findScheduleByBunchAndLabel("repo-sync-bunch", jobLabel, user);
@@ -162,8 +161,7 @@ public class TaskomaticApi {
         scheduleParams.putAll(params);
 
         return (Date) invoke("tasko.scheduleBunch", user.getOrg().getId(),
-                "repo-sync-bunch", jobLabel , cron,
-                scheduleParams);
+                "repo-sync-bunch", jobLabel, cron, scheduleParams);
     }
 
     /**
