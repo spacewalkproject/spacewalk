@@ -203,7 +203,7 @@ Utility for cloning errata by date (For RHEL5 and above).
     <varlistentry>
         <term>-b <replaceable>PKG1,PKG2,PKG3</replaceable>, --blacklist=<replaceable>PKG1,PKG2,PKG3</replaceable></term>
         <listitem>
-            <para>Comma separated list of package names to be removed after cloning. Perl-style regular expressions also supported.  Only newly added packages will removed if they are on the blacklist.  <emphasis>Dependency resolution is not ensured on resulting repository.</emphasis>
+            <para>Comma separated list of Perl-style regular expressions used to match package names to be removed after cloning.  Only newly added packages will removed if they are on the blacklist.  <emphasis>Dependency resolution is not ensured on resulting repository.</emphasis>
             </para>
             <para>
                 Note:  This option is global across all destination channels.  To specify per channel blacklists, you must use a configuration file.  See --sample-config for an example.
@@ -213,7 +213,7 @@ Utility for cloning errata by date (For RHEL5 and above).
     <varlistentry>
         <term>-r <replaceable>PKG1,PKG2,PKG3</replaceable>, --removelist=<replaceable>PKG1,PKG2,PKG3</replaceable></term>
         <listitem>
-            <para>Comma separated list of package names to be removed after cloning.  Perl-style regular expressions are also supported.  All packages are considered for removal, even those not added by errata/channel cloning.  <emphasis>Dependency resolution is not ensured on resulting repository.</emphasis>
+            <para>Comma separated list of Perl-style regular expressions used to match package names to be removed after cloning.  All packages are considered for removal, even those not added by errata/channel cloning.  <emphasis>Dependency resolution is not ensured on resulting repository.</emphasis>
             </para>
             <para>
                 Note:  This option is global across all destination channels. To specify per channel removelists, you must use a configuration file.  See --sample-config for an example.
@@ -249,7 +249,7 @@ Utility for cloning errata by date (For RHEL5 and above).
 <RefSect1><Title>Examples</Title>
 <example>
     <title>Clone a base channel and child channel to 2008-12-20 with a blacklist excluding all versions of squid, and all versions of any package that starts with 'sendmail'.</title>
-    <para>spacewalk-clone-by-date  --channels=rhel-x86_64-server-5 clone-rhel --channels=rhn-tools-rhel-x86_64-server-5 clone-tools 'Clone Tools Name' 'Clone Tools Summary' 'Clone Tools Description'  --username admin --password redhat --to_date=2008-12-20 --blacklist=sendmail.*,squid</para>
+    <para>spacewalk-clone-by-date  --channels=rhel-x86_64-server-5 clone-rhel --channels=rhn-tools-rhel-x86_64-server-5 clone-tools 'Clone Tools Name' 'Clone Tools Summary' 'Clone Tools Description'  --username admin --password redhat --to_date=2008-12-20 --blacklist='sendmail.*,squid,compat-libstdc\+\+'</para>
 </example>
 <example>
     <title>Clone with options completely from a config file.</title>

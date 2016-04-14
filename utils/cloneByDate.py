@@ -762,12 +762,6 @@ class ChannelCloner:
         if names_dict.has_key(self.dest_label()):
             full_pkgs += names_dict[self.dest_label()]
 
-        # Escape all regexp special characters, such as '+', '.', etc. to
-        # prevent regexp compilation to fault when the package name
-        # contains such special characters
-        for i, s in enumerate(full_pkgs):
-            full_pkgs[i] = re.escape(s)
-
         #add dollar signs to each one, other wise  foo would match foobar
         reg_ex = re.compile("$|".join(full_pkgs) + '$')
         for pkg in pkg_list:
