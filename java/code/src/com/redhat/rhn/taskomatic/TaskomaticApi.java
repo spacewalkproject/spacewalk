@@ -135,8 +135,7 @@ public class TaskomaticApi {
         Map scheduleParams = new HashMap();
         scheduleParams.put("channel_id", chan.getId().toString());
         return (Date) invoke("tasko.scheduleBunch", user.getOrg().getId(),
-                "repo-sync-bunch", jobLabel , cron,
-                scheduleParams);
+                "repo-sync-bunch", jobLabel, cron, scheduleParams);
     }
 
     /**
