@@ -66,10 +66,10 @@ class deb_Header:
                                  ('breaks', 'Breaks'),
                                  ('predepends', 'Pre-Depends'),
                                  ('payload_size', 'Installed-Size')]:
-                if debcontrol.has_key(deb_k):
+                if deb_k in debcontrol:
                     self.hdr[hdr_k] = debcontrol.get_as_string(deb_k)
             for k in debcontrol.keys():
-                if not self.hdr.has_key(k):
+                if k not in self.hdr:
                     self.hdr[k] = debcontrol.get_as_string(k)
 
             version = debcontrol.get_as_string('Version')

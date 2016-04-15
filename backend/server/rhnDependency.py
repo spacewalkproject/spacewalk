@@ -357,7 +357,7 @@ def solve_dependencies_with_limits(server_id, deps, version, all=0, limit_operat
 
         # Each package gets a list that may contain multiple versions of a package
         for record in rs:
-            if packages_all.has_key(record['name']):
+            if record['name'] in packages_all:
                 packages_all[record['name']].append(record)
             else:
                 packages_all[record['name']] = [record]
@@ -408,7 +408,7 @@ def solve_dependencies_with_limits(server_id, deps, version, all=0, limit_operat
                 # The changes I made above make it so that at this point the packages are sorted from highest nvre
                 # to lowest nvre. Selecting the second package was causing the earlier package to be
                 # returned, which is bad.
-                if dict.has_key(name_key) and dict[name_key][1] <= p['preference']:
+                if name_key in dict and dict[name_key][1] <= p['preference']:
                     # Already have it with a lower preference
                     continue
                 # The first time we see this package.
@@ -520,7 +520,7 @@ def solve_dependencies(server_id, deps, version, nvre=None):
             map(lambda f, e=entry, p=p: e.append(p[f]), nvre)
 
             name_key = entry[0]
-            if dict.has_key(name_key) and dict[name_key][1] < p['preference']:
+            if name_key in dict and dict[name_key][1] < p['preference']:
                 # Already have it with a lower preference
                 continue
             # The first time we see this package.

@@ -204,7 +204,7 @@ def _mark_missing_diff_files(server_id, action_id, missing_files):
         if not row:
             break
         action_config_revision_id, path = row['id'], row['path']
-        if hash.has_key(path):
+        if path in hash:
             # This shouldn't really happen
             log_error("Duplicate path for diff "
                       "(scheduler did not resolve config files? %s, %s" %
@@ -214,7 +214,7 @@ def _mark_missing_diff_files(server_id, action_id, missing_files):
 
     ids = []
     for path in missing_files:
-        if not hash.has_key(path):
+        if path not in hash:
             log_error("Client reports missing a file "
                       "that was not scheduled for diff? %s" % path)
             continue

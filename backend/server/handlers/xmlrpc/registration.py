@@ -35,7 +35,7 @@ from spacewalk.common.rhnTB import add_to_seclist
 def hash_validate(data, *keylist):
     """ verify that a hash has all the keys and those have actual values """
     for k in keylist:
-        if not data.has_key(k):
+        if k not in data:
             return 0
         l = data[k]
         if l is None:
@@ -54,7 +54,7 @@ def parse_smbios(smbios):
     # XXX need to worry about uuid being none for other virt types and
     # available subs check
     uuid = None
-    if smbios.has_key('smbios.system.uuid'):
+    if 'smbios.system.uuid' in smbios:
         uuid = smbios['smbios.system.uuid']
         uuid = uuid.replace('-', '')
 
@@ -243,7 +243,7 @@ class Registration(rhnHandler):
             raise rhnFault(800)
 
         # log entry point
-        if data.has_key("token"):
+        if "token" in data:
             log_item = "token = '%s'" % data["token"]
         else:
             log_item = "username = '%s'" % user.username
@@ -251,14 +251,14 @@ class Registration(rhnHandler):
         log_debug(1, log_item, release_version, architecture)
 
         # Fetch the applet's UUID
-        if data.has_key("uuid"):
+        if "uuid" in data:
             applet_uuid = data['uuid']
             log_debug(3, "applet uuid", applet_uuid)
         else:
             applet_uuid = None
 
         # Fetch the up2date UUID
-        if data.has_key("rhnuuid"):
+        if "rhnuuid" in data:
             up2date_uuid = data['rhnuuid']
             log_debug(3, "up2date uuid", up2date_uuid)
             # XXX Should somehow check the uuid uniqueness
@@ -268,7 +268,7 @@ class Registration(rhnHandler):
 
         release = str(release_version)
 
-        if data.has_key('token'):
+        if 'token' in data:
             token_string = data['token']
             # Look the token up; if the token does not exist or is invalid,
             # stop right here (search_token raises the appropriate rhnFault)
@@ -282,7 +282,7 @@ class Registration(rhnHandler):
                       str(tokens_obj.get_tokens()))
             rhnFlags.set("universal_registration_token", tokens_obj)
 
-        if data.has_key('channel') and len(data['channel']) > 0:
+        if 'channel' in data and len(data['channel']) > 0:
             channel = data['channel']
             log_debug(3, "requested EUS channel: %s" % str(channel))
         else:
@@ -326,37 +326,37 @@ class Registration(rhnHandler):
 
         # Proceed with using the rest of the data
         newserv.server["release"] = release
-        if data.has_key('release_name'):
+        if 'release_name' in data:
             newserv.server["os"] = data['release_name']
 
         # add the package list
-        if data.has_key('packages'):
+        if 'packages' in data:
             for package in data['packages']:
                 newserv.add_package(package)
         # add the hardware profile
-        if data.has_key('hardware_profile'):
+        if 'hardware_profile' in data:
             for hw in data['hardware_profile']:
                 newserv.add_hardware(hw)
         # fill in the other details from the data dictionary
         if profile_name is not None and not \
            rhnFlags.test("re_registration_token"):
             newserv.server["name"] = profile_name[:128]
-        if data.has_key("os"):
+        if 'os' in data:
             newserv.server["os"] = data["os"][:64]
-        if data.has_key("description"):
+        if 'description' in data:
             newserv.server["description"] = data["description"][:256]
         else:
             newserv.default_description()
 
         # Check for virt params
         # Get the uuid, if there is one.
-        if data.has_key('virt_uuid'):
+        if 'virt_uuid' in data:
             virt_uuid = data['virt_uuid']
             if virt_uuid is not None \
                and not rhnVirtualization.is_host_uuid(virt_uuid):
                 # If we don't have a virt_type key, we'll assume PARA.
                 virt_type = None
-                if data.has_key('virt_type'):
+                if 'virt_type' in data:
                     virt_type = data['virt_type']
                     if virt_type == 'para':
                         virt_type = rhnVirtualization.VirtualizationType.PARA
@@ -377,7 +377,7 @@ class Registration(rhnHandler):
             newserv.virt_type = None
 
         # If we didn't find virt info from xen, check smbios
-        if data.has_key('smbios') and newserv.virt_uuid is None:
+        if 'smbios' in data and newserv.virt_uuid is None:
             (newserv.virt_type, newserv.virt_uuid) = \
                 parse_smbios(data['smbios'])
 
@@ -482,7 +482,7 @@ class Registration(rhnHandler):
         activate_registration_number
         """
 
-        if data.has_key("password"):
+        if "password" in data:
             add_to_seclist(data["password"])
 
         # Validate we got the minimum necessary input.
@@ -491,7 +491,7 @@ class Registration(rhnHandler):
         # Authorize username and password, if used.
         # Store the user object in user.
         user = None
-        if not data.has_key('token'):
+        if 'token' not in data:
             user = self.validate_system_user(data["username"],
                                              data["password"])
 
@@ -743,11 +743,11 @@ class Registration(rhnHandler):
             hardware_info
         """
 
-        if self.vendor_tags.has_key(vendor):
+        if vendor in self.vendor_tags:
             asset_value = ""
             key = self.vendor_tags[vendor]
             log_debug(5, "key: " + str(key))
-            if hardware_info.has_key(key):
+            if key in hardware_info:
                 return hardware_info[key]
 
         # nothing found
@@ -794,7 +794,7 @@ class Registration(rhnHandler):
         if not user:
             raise Exception("user required to attempt eol mailing")
 
-        if user.info.has_key("email"):
+        if "email" in user.info:
             log_debug(4, "sending eol mail...")
             body = EOL_EMAIL % {'server': server.server['name']}
             headers = {}
@@ -946,7 +946,7 @@ class Registration(rhnHandler):
         client_caps = rhnCapability.get_client_capabilities()
         package_is_dict = 0
         packagesV2 = []
-        if client_caps and client_caps.has_key('packages.extended_profile'):
+        if client_caps and 'packages.extended_profile' in client_caps:
             cap_info = client_caps['packages.extended_profile']
             if cap_info and int(cap_info['version']) >= 2:
                 package_is_dict = 1
@@ -1206,7 +1206,7 @@ class Registration(rhnHandler):
         # Authenticate
         server = self.auth_system(system_id)
 
-        if not args.has_key('jabber-id'):
+        if 'jabber-id' not in args:
             raise rhnFault(160, "No jabber-id specified", explain=0)
 
         jid = args['jabber-id']

@@ -68,7 +68,7 @@ class apacheHandler(apacheSession):
         options = req.get_options()
         # if we are initializing out of a <Location> handler don't
         # freak out
-        if not options.has_key("RHNComponentType"):
+        if "RHNComponentType" not in options:
             # clearly nothing to do
             return apache.OK
         initCFG(options["RHNComponentType"])
@@ -93,7 +93,7 @@ class apacheHandler(apacheSession):
 
         # Store client capabilities
         client_cap_header = 'X-RHN-Client-Capability'
-        if req.headers_in.has_key(client_cap_header):
+        if client_cap_header in req.headers_in:
             client_caps = req.headers_in[client_cap_header]
             client_caps = filter(None,
                                  map(string.strip, string.split(client_caps, ","))
@@ -103,7 +103,7 @@ class apacheHandler(apacheSession):
         # Enabling the input header flags associated with the redirects/newer clients
         redirect_support_flags = ['X-RHN-Redirect', 'X-RHN-Transport-Capability']
         for flag in redirect_support_flags:
-            if req.headers_in.has_key(flag):
+            if flag in req.headers_in:
                 rhnFlags.set(flag, str(req.headers_in[flag]))
 
         return apache.OK

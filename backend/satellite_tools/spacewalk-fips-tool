@@ -193,7 +193,7 @@ if __name__ == '__main__':
         if i['id'] in broken_systems:
             broken_systems.remove(i['id'])
 
-        if installed_packages.has_key(i['id']):
+        if i['id'] in installed_packages:
 
             if installed_packages[i['id']]['epoch'] == ' ':
                 installed_packages[i['id']]['epoch'] = ''

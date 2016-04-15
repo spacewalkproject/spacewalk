@@ -140,7 +140,7 @@ class Applet(rhnHandler):
 
         # we return rhnServer.channels_changed for each row
         # in the satellite case, pluck it off the first...
-        if channel_list[0].has_key("server_channels_changed"):
+        if "server_channels_changed" in channel_list[0]:
             sc_ts = channel_list[0]["server_channels_changed"]
 
             if sc_ts and (sc_ts >= last_channel_changed_ts):
@@ -248,7 +248,7 @@ class Applet(rhnHandler):
 
             pkg_name = p["name"]
 
-            if contents.has_key(pkg_name):
+            if pkg_name in contents:
                 stored_pkg = contents[pkg_name]
 
                 s = [stored_pkg["name"],

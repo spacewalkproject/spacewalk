@@ -50,7 +50,7 @@ class BaseCollection:
 
     def get_item_timestamp(self, item_id):
         "Returns this item's timestamp"
-        if not self._items_hash.has_key(item_id):
+        if item_id not in self._items_hash:
             raise KeyError("Item %s not found in collection" % item_id)
         return self._items_hash[item_id]
 
@@ -120,7 +120,7 @@ class ChannelCollection:
     def _get_list_from_dict(diction, key):
         # Returns the dictionary's key if present (assumed to be a list), or
         # sets the value to an empty list and returns it
-        if diction.has_key(key):
+        if key in diction:
             l = diction[key]
         else:
             l = diction[key] = []
@@ -142,7 +142,7 @@ class ChannelCollection:
 
     def get_channel_timestamp(self, channel_label):
         """Returns the channel's timestamp"""
-        if not self._channels_hash.has_key(channel_label):
+        if channel_label not in self._channels_hash:
             raise KeyError("Channel %s could not be found" % channel_label)
         return self._channels_hash[channel_label]
 
@@ -155,7 +155,7 @@ class ChannelCollection:
     def get_child_channels(self, channel_label):
         """Return a list of (channel label, channel timestamp) for this parent
         channel"""
-        if not self._parent_channels.has_key(channel_label):
+        if channel_label not in self._parent_channels:
             raise Exception, "Channel %s is not a parent" % channel_label
         return self._parent_channels[channel_label]
 
@@ -248,7 +248,7 @@ def import_channels(channels, orgid=None, master=None):
         if c_obj.has_key('trust_list') and c_obj['trust_list']:
             trusts = []
             for trust in c_obj['trust_list']:
-                if org_map.has_key(trust['org_trust_id']):
+                if trust['org_trust_id'] in org_map:
                     trust['org_trust_id'] = org_map[trust['org_trust_id']]
                     trusts.append(trust)
             c_obj['trust_list'] = trusts
@@ -361,7 +361,7 @@ class ErrataCollection:
 
     def get_erratum_timestamp(self, erratum_id):
         """Returns the erratum's timestamp"""
-        if not self._errata_hash.has_key(erratum_id):
+        if erratum_id not in self._errata_hash:
             raise KeyError("Erratum %s could not be found" % erratum_id)
         return self._errata_hash[erratum_id]
 

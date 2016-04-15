@@ -159,12 +159,12 @@ class Certificate:
         else:
             s = sysid[0]
             del junk
-        if not s.has_key("system_id") or not s.has_key("fields"):
+        if "system_id" not in s or not s.has_key("fields"):
             log_error("Got certificate with missing entries: %s" % s)
             return -1
         # check the certificate some more
         for k in s["fields"]:
-            if not s.has_key(k):
+            if k not in s:
                 log_error("Certificate lists unknown %s as a checksum field" % k,
                           "cert data: %s" % s)
                 return -1
@@ -203,7 +203,7 @@ class Certificate:
     def valid(self):
         log_debug(4)
         # check for anonymous
-        if self.attrs.has_key('type') and self.attrs['type'] \
+        if 'type' in self.attrs and self.attrs['type'] \
                 and string.upper(self.attrs['type']) == "ANONYMOUS":
             raise rhnFault(28, """
             You need to re-register your system with Red Hat Satellite.

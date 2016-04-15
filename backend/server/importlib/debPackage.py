@@ -41,14 +41,14 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
         ]
 
         for t in self._already_mapped:
-            if self.tagMap.has_key(t):
+            if t in self.tagMap:
                 del self.tagMap[t]
 
         # XXX is seems to me that this is the place that 'source_rpm' is getting
         # set
         for f in self.keys():
             field = f
-            if self.tagMap.has_key(f):
+            if f in self.tagMap:
                 field = self.tagMap[f]
                 if not field:
                     # Unsupported

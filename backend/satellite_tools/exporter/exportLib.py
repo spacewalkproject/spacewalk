@@ -771,7 +771,7 @@ class _ChannelFamilyDumper(BaseRowDumper):
         if self._row['label'] != 'rh-public':
             if self._null_max_members:
                 attributes['max-members'] = 0
-            elif self._row.has_key('max_members') and self._row['max_members']:
+            elif ('max_members' in self._row) and self._row['max_members']:
                 attributes['max-members'] = self._row['max_members']
         return attributes
 

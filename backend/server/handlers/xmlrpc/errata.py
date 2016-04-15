@@ -186,7 +186,7 @@ class Errata(rhnHandler):
         log_debug(3, "Client Capabilities", client_caps)
         multiarch = 0
         cap_info = None
-        if client_caps and client_caps.has_key('packages.update'):
+        if client_caps and 'packages.update' in client_caps:
             cap_info = client_caps['packages.update']
         if cap_info and cap_info['version'] > 1:
             multiarch = 1

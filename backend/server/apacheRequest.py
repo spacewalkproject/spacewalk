@@ -221,13 +221,13 @@ class apacheRequest:
         response_size = file_size
 
         # Respond to if-modified-since requests
-        if (self.req.headers_in.has_key("If-Modified-Since") and
-                rhnFlags.get("outputTransportOptions").has_key("Last-Modified") and
+        if ("If-Modified-Since" in self.req.headers_in and
+                "Last-Modified" in rhnFlags.get("outputTransportOptions") and
                 rhnFlags.get("outputTransportOptions")['Last-Modified'] == self.req.headers_in['If-Modified-Since']):
             return apache.HTTP_NOT_MODIFIED
 
         # Serve up the requested byte range
-        if self.req.headers_in.has_key("Range"):
+        if "Range" in self.req.headers_in:
             try:
                 range_start, range_end = \
                     byterange.parse_byteranges(self.req.headers_in["Range"],
@@ -259,7 +259,7 @@ class apacheRequest:
         if response.name:
             self.req.headers_out["X-Package-FileName"] = response.name
 
-        xrepcon = self.req.headers_in.has_key("X-Replace-Content-Active") \
+        xrepcon = "X-Replace-Content-Active" in self.req.headers_in \
             and rhnFlags.test("Download-Accelerator-Path")
         if xrepcon:
             fpath = rhnFlags.get("Download-Accelerator-Path")
@@ -273,7 +273,7 @@ class apacheRequest:
         # send the headers
         self.req.send_http_header()
 
-        if self.req.headers_in.has_key("Range"):
+        if "Range" in self.req.headers_in:
             # and the file
             read = 0
             while read < response_size:
@@ -508,7 +508,7 @@ class apacheGET:
         log_debug(3, "Handler classes", self.handler_classes)
 
         self.handler = None
-        if not self.handler_classes.has_key(self.server):
+        if self.server not in self.handler_classes:
             raise HandlerNotFoundError(self.server)
 
         handler_class = self.handler_classes[self.server]

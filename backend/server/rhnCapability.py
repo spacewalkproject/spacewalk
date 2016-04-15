@@ -87,7 +87,7 @@ def update_client_capabilities(server_id):
         version = row['version']
         capability_name_id = row['capability_name_id']
 
-        if caps.has_key(name):
+        if name in caps:
             local_ver = caps[name]['version']
             del caps[name]
             if local_ver == version:

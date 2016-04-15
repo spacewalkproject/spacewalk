@@ -30,7 +30,7 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
         'package_group', 'build_time', 'build_host'
     ]
     for t in _already_mapped:
-        if tagMap.has_key(t):
+        if t in tagMap:
             del tagMap[t]
 
     def populate(self, header, size, checksum_type, checksum, path=None, org_id=None,

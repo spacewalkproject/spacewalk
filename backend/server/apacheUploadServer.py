@@ -39,7 +39,7 @@ class UploadHandler:
         options = req.get_options()
         # if we are initializing out of a <Location> handler don't
         # freak out
-        if not options.has_key("RHNComponentType"):
+        if "RHNComponentType" not in options:
             # clearly nothing to do
             return apache.OK
         initCFG(options["RHNComponentType"])
@@ -49,11 +49,11 @@ class UploadHandler:
             return apache.OK
         self.servers = rhnImport.load("upload_server/handlers",
                                       interface_signature='upload_class')
-        if not options.has_key('SERVER'):
+        if 'SERVER' not in options:
             log_error("SERVER not set in the apache config files!")
             return apache.HTTP_INTERNAL_SERVER_ERROR
         server_name = options['SERVER']
-        if not self.servers.has_key(server_name):
+        if server_name not in self.servers:
             log_error("Unable to load server %s from available servers %s" %
                       (server_name, self.servers))
             return apache.HTTP_INTERNAL_SERVER_ERROR

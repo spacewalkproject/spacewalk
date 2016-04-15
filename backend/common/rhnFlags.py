@@ -48,7 +48,7 @@ def test(name):
     if not name:
         return 0
     name = name.lower()
-    return __F.has_key(name) and __F[name]
+    return (name in __F) and __F[name]
 
 
 def reset():

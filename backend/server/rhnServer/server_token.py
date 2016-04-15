@@ -291,7 +291,7 @@ def deploy_configs_if_needed(server):
 
         # only care about the 1st revision of a particular path due to
         # sql ordering...
-        if not revisions.has_key(row['path']):
+        if row['path'] not in revisions:
             revisions[row['path']] = row['revision_id']
 
     if not len(revisions):
@@ -398,7 +398,7 @@ def token_config_channels(server, tokens_obj):
         for c in channels:
             config_channel_id = c['config_channel_id']
             if not c['config_channel_id'] in current_channels and\
-                    not config_channels_hash.has_key(config_channel_id):
+                    config_channel_id not in config_channels_hash:
                 position = len(current_channels) + len(config_channels) + 1
                 # Update the position in the queue
                 c['position'] = position
@@ -1024,7 +1024,7 @@ def history_report(history):
 
 
 def history_subreport(history, key, title, emptymsg):
-    if history.has_key(key):
+    if key in history:
         subreport = title + "\n"
         subreport += "<ul>\n"
 

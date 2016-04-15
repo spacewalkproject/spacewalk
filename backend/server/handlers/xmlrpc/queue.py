@@ -115,7 +115,7 @@ class Queue(rhnHandler):
         """
 
         rhnSQL.set_log_auth_login('CLIENT')
-        if status.has_key('uname'):
+        if 'uname' in status:
             kernelver = status['uname'][2]
             if kernelver != self.server.server["running_kernel"]:
                 self.server.server["running_kernel"] = kernelver
@@ -123,7 +123,7 @@ class Queue(rhnHandler):
         # XXX:We should be using Oracle's sysdate() for this management
         # In the case of multiple app servers in mutiple time zones all the
         # results are skewed.
-        if status.has_key('uptime'):
+        if 'uptime' in status:
             uptime = status['uptime']
             if isinstance(uptime, type([])) and len(uptime):
                 # Toss the other values. For now
@@ -163,7 +163,7 @@ class Queue(rhnHandler):
         log_debug(4, self.server_id, "determining whether to snapshot...")
 
         entitlements = self.server.check_entitlement()
-        if not entitlements.has_key("enterprise_entitled"):
+        if "enterprise_entitled" not in entitlements:
             return 0
 
         # ok, take the snapshot before attempting this action
@@ -453,11 +453,11 @@ class Queue(rhnHandler):
         action_type = row['action_type']
         trigger_snapshot = (row['trigger_snapshot'] == 'Y')
 
-        if data.has_key('missing_packages'):
+        if 'missing_packages' in data:
             missing_packages = "Missing-Packages: %s" % str(
                 data['missing_packages'])
             rmsg = "%s %s" % (message, missing_packages)
-        elif data.has_key('koan'):
+        elif 'koan' in data:
             rmsg = "%s: %s" % (message, data['koan'])
         else:
             rmsg = message
@@ -467,9 +467,9 @@ class Queue(rhnHandler):
         # and this processing is required for compatibility with old
         # rhn_check clients
         if type(rcode) == type({}):
-            if result.has_key("faultCode"):
+            if "faultCode" in result:
                 rcode = result["faultCode"]
-            if result.has_key("faultString"):
+            if "faultString" in result:
                 rmsg = result["faultString"] + str(data)
         if type(rcode) in [type({}), type(()), type([])] \
                 or type(rcode) is not IntType:
@@ -514,12 +514,12 @@ class Queue(rhnHandler):
             # Completed
             return 2
 
-        if not self.action_type_completed_codes.has_key(action_type):
+        if action_type not in self.action_type_completed_codes:
             # Failed
             return 3
 
         hash = self.action_type_completed_codes[action_type]
-        if not hash.has_key(rcode):
+        if rcode not in hash:
             # Failed
             return 3
 

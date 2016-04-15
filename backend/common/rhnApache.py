@@ -106,7 +106,7 @@ class rhnApache:
     def _set_client_info(self, req):
         # Figure out the client version
         clientVersionHeader = 'X-RHN-Client-Version'
-        if req.headers_in.has_key(clientVersionHeader):
+        if clientVersionHeader in req.headers_in:
             # Useful to have it as a separate variable, to see it in a
             # traceback report
             clientVersion = req.headers_in[clientVersionHeader]
@@ -114,7 +114,7 @@ class rhnApache:
         # NOTE: x-client-version is really the cgiwrap xmlrpc API version
         #       NOT the RHN client version... but it works if nothing else
         #       does.
-        elif req.headers_in.has_key('X-Client-Version'):
+        elif 'X-Client-Version' in req.headers_in:
             clientVersion = req.headers_in['X-Client-Version']
             self.clientVersion = int(clientVersion)
         else:
@@ -128,20 +128,20 @@ class rhnApache:
     def _set_proxy_info(self, req):
         """ Spacewalk Proxy stuff. """
         proxyVersion = 'X-RHN-Proxy-Version'
-        if req.headers_in.has_key(proxyVersion):
+        if proxyVersion in req.headers_in:
             self.proxyVersion = req.headers_in[proxyVersion]
         # Make sure the proxy version gets set in the headers.
         rhnFlags.get('outputTransportOptions')[proxyVersion] = str(
             self.proxyVersion)
         # Make sure the proxy auth-token gets set in global flags.
-        if req.headers_in.has_key('X-RHN-Proxy-Auth'):
+        if 'X-RHN-Proxy-Auth' in req.headers_in:
             rhnFlags.set('X-RHN-Proxy-Auth',
                          req.headers_in['X-RHN-Proxy-Auth'])
         return apache.OK
 
     def _set_lang(self, req):
         """ determine what language the client prefers """
-        if req.headers_in.has_key("Accept-Language"):
+        if "Accept-Language" in req.headers_in:
             # RFC 2616 #3.10: case insensitive
             lang = req.headers_in["Accept-Language"].lower()
         else:
@@ -242,7 +242,7 @@ class rhnApache:
         """
         log_debug(3)
         token = UserDictCase()
-        if headers.has_key('X-RHN-Server-Id'):
+        if 'X-RHN-Server-Id' in headers:
             token['X-RHN-Server-Id'] = headers['X-RHN-Server-Id']
         else:
             # This has to be here, or else we blow-up.

@@ -431,11 +431,11 @@ class NetIfaceInformation(Device):
             vdict = {}
             for key, mapping in self.key_mapping.items():
                 # Look at the mapping first; if not found, look for the key
-                if info.has_key(mapping):
+                if mapping in info:
                     k = mapping
                 else:
                     k = key
-                if not info.has_key(k):
+                if k not in info:
                     raise rhnFault(53, "Unable to find required field %s"
                                    % key)
                 val = info[k]
@@ -469,7 +469,7 @@ class NetIfaceInformation(Device):
         ifaces = self.ifaces.copy()
         for iface in self.db_ifaces:
             name = iface['name']
-            if not self.ifaces.has_key(name):
+            if name not in self.ifaces:
                 # To be deleted
                 deletes.append({'server_id': server_id, 'name': name})
                 continue
@@ -615,11 +615,11 @@ class NetIfaceAddress(Device):
             vdict = {}
             for key, mapping in self.key_mapping.items():
                 # Look at the mapping first; if not found, look for the key
-                if info.has_key(mapping):
+                if mapping in info:
                     k = mapping
                 else:
                     k = key
-                if not info.has_key(k):
+                if k not in info:
                     raise rhnFault(53, "Unable to find required field %s"
                                    % (key))
                 val = info[k]
@@ -655,7 +655,7 @@ class NetIfaceAddress(Device):
         ifaces = self.ifaces.copy()
         for iface in self.db_ifaces:
             address = iface['address']
-            if not self.ifaces.has_key(iface['address']):
+            if iface['address'] not in self.ifaces:
                 # To be deleted
                 # filter out params, which are not used in query
                 iface = dict((column, iface[column]) for column in self.unique)
@@ -783,7 +783,7 @@ def _hash_eq(h1, h2):
     """ Compares two hashes and return 1 if the first is a subset of the second """
     log_debug(5, h1, h2)
     for k, v in h1.items():
-        if not h2.has_key(k):
+        if k not in h2:
             return 0
         if h2[k] != v:
             return 0
@@ -811,7 +811,7 @@ def _transpose(hasharr):
 
     for hval in hasharr:
         for k in keys:
-            if hval.has_key(k):
+            if k in hval:
                 result[k].append(hval[k])
             else:
                 result[k].append(None)
@@ -945,7 +945,7 @@ class Hardware:
         # create the new device
         new_dev = class_type(hardware)
 
-        if self.__hardware.has_key(class_type):
+        if class_type in self.__hardware:
             _l = self.__hardware[class_type]
         else:
             _l = self.__hardware[class_type] = []
@@ -991,7 +991,7 @@ class Hardware:
 
     def __load_from_db(self, DevClass, sysid):
         """ Load a certain hardware class from the database """
-        if not self.__hardware.has_key(DevClass):
+        if DevClass not in self.__hardware:
             self.__hardware[DevClass] = []
 
         h = rhnSQL.prepare("select id from %s where server_id = :sysid" % DevClass.table)

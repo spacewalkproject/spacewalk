@@ -431,7 +431,7 @@ def schedule_rhncfg_install(server_id, action_id, scheduler,
     packages_to_install = []
     for p in packages:
         key = (p['name'], p['version'], p['release'], p['epoch'])
-        if not sphash.has_key(key):
+        if key not in sphash:
             packages_to_install.append(p['package_id'])
 
     if not packages_to_install:

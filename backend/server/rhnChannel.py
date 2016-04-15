@@ -427,7 +427,7 @@ class Channel(BaseChannelObject):
             h[db_cfid] = None
         to_add = []
         for cfid in self._channel_families:
-            if h.has_key(cfid):
+            if cfid in h:
                 del h[cfid]
                 continue
             to_add.append(cfid)
@@ -451,7 +451,7 @@ class Channel(BaseChannelObject):
         for h in db_dists:
             release = h['release']
             os = h['os']
-            if not d.has_key(release):
+            if release not in d:
                 to_remove.append(release)
                 continue
             # Need to update?
@@ -702,7 +702,7 @@ def getSubscribedChannels(server_id):
     channelList = channels_for_server(server_id)
     channels = []
     for each in channelList:
-        if not each.has_key('last_modified'):
+        if 'last_modified' not in each:
             # No last_modified attribute
             # Probably an empty channel, so ignore
             continue
@@ -1735,7 +1735,7 @@ def list_obsoletes(channel):
                row["epoch"], row['arch'])
         value = key + (row['obsolete_name'], row['obsolete_version'],
                        row['sense'])
-        if not hash.has_key(key):
+        if key not in hash:
             hash[key] = []
         hash[key].append(value)
 
@@ -1744,7 +1744,7 @@ def list_obsoletes(channel):
     result = []
     for pkg in pkglist:
         key = tuple(pkg[:5])
-        if hash.has_key(key):
+        if key in hash:
             for p in hash[key]:
                 result.append(p)
     # we can cache this now
@@ -2140,7 +2140,7 @@ def system_reg_message(server):
         # We don't have an autoentitle preference for now, so display just one
         # message
         templates = rhnFlags.get('templateOverrides')
-        if templates and templates.has_key('hostname'):
+        if templates and 'hostname' in templates:
             hostname = templates['hostname']
         else:
             # Default to www
@@ -2180,7 +2180,7 @@ def subscribe_to_tools_channel(server_id):
 
     tools_channel = None
     for channel in child_channels:
-        if channel.has_key('label'):
+        if 'label' in channel:
             if 'rhn-tools' in channel['label']:
                 tools_channel = channel
 
@@ -2188,11 +2188,11 @@ def subscribe_to_tools_channel(server_id):
         raise NoToolsChannel("Base channel id %s does not have a RHN Tools channel as a child channel." %
                              base_channel_dict['id'])
     else:
-        if not tools_channel.has_key('id'):
+        if 'id' not in tools_channel:
             raise InvalidChannel("RHN Tools channel has no id.")
-        if not tools_channel.has_key('label'):
+        if 'label' not in tools_channel:
             raise InvalidChannel("RHN Tools channel has no label.")
-        if not tools_channel.has_key('parent_channel'):
+        if 'parent_channel' not in tools_channel:
             raise InvalidChannel("RHN Tools channel has no parent_channel.")
 
         subscribe_channels(server_id, [tools_channel])

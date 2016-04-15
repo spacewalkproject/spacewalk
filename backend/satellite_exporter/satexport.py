@@ -48,7 +48,7 @@ class BaseApacheServer:
         options = req.get_options()
         # if we are initializing out of a <Location> handler don't
         # freak out
-        if not options.has_key("RHNComponentType"):
+        if "RHNComponentType" not in options:
             # clearly nothing to do
             return apache.OK
         initCFG(options["RHNComponentType"])
@@ -73,7 +73,7 @@ class BaseApacheServer:
 
         self.server_classes = rhnImport.load("satellite_exporter/handlers")
 
-        if not self.server_classes.has_key(self.server):
+        if self.server not in self.server_classes:
             # XXX do something interesting here
             log_error("Missing server", self.server)
             return apache.HTTP_NOT_FOUND
@@ -197,7 +197,7 @@ class ApacheServer(BaseApacheServer):
         log_debug(5, module_name, function_name)
 
         handler_classes = self.server_classes[self.server]
-        if not handler_classes.has_key(module_name):
+        if module_name not in handler_classes:
             raise FunctionRetrievalError("Module %s not found" % module_name)
 
         mod = handler_classes[module_name](req)
@@ -233,7 +233,7 @@ class ApacheServer(BaseApacheServer):
     def _validate_version(req):
         server_version = constants.PROTOCOL_VERSION
         vstr = 'X-RHN-Satellite-XML-Dump-Version'
-        if not req.headers_in.has_key(vstr):
+        if vstr not in req.headers_in:
             raise rhnFault(3010, "Missing version string")
         client_version = req.headers_in[vstr]
 

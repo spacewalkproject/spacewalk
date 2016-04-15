@@ -209,7 +209,7 @@ class Server(ServerWrapper):
 
             for c in target_channels:
                 channel_id = c['id']
-                if hash.has_key(channel_id):
+                if channel_id in hash:
                     # Already subscribed to this one
                     del hash[channel_id]
                     continue

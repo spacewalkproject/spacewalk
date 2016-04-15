@@ -133,7 +133,7 @@ class WsgiMPtable:
         self.dict = {}
 
     def add(self, key, value):
-        if self.dict.has_key(key):
+        if key in self.dict:
             self.dict[key].append(str(value))
         else:
             self.dict[key] = [str(value)]
@@ -154,7 +154,7 @@ class WsgiMPtable:
         return ilist
 
     def has_key(self, key):
-        return self.dict.has_key(key)
+        return key in self.dict
 
     def keys(self):
         return self.dict.keys()

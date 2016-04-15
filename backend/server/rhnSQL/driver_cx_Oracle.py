@@ -442,7 +442,7 @@ class Database(sql_base.Database):
         log_debug(1, "Closed DB database connection to %s" % self.dbtxt)
         dbh_id = id(self.dbh)
         _cursor_cache = self._cursor_class._cursor_cache
-        if _cursor_cache.has_key(dbh_id):
+        if dbh_id in _cursor_cache:
             _cache = _cursor_cache[dbh_id]
             for sql, cursor in _cache.items():
                 # Close cursors

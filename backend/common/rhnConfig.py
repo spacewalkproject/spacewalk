@@ -92,7 +92,7 @@ class RHNOptions:
 
     def is_initialized(self):
         return (self.__component is not None) and \
-            self.__configs.has_key(self.__component)
+            self.__component in self.__configs
 
     def modifiedYN(self):
         """returns last modified time diff if rhn.conf has changed."""
@@ -149,7 +149,7 @@ class RHNOptions:
         if allCompsYN:
             comps = getAllComponents_tuples()
         for comp in comps:
-            if self.__defaults.has_key(comp):
+            if comp in self.__defaults:
                 # We already have it loaded
                 # XXX: Should we do timestamp checking for this one too?
                 continue
@@ -182,7 +182,7 @@ class RHNOptions:
 
     def has_key(self, key):
         self.__check()
-        return self.__configs[self.__component].has_key(key)
+        return key in self.__configs[self.__component]
 
     def values(self):
         self.__check()
@@ -221,20 +221,20 @@ class RHNOptions:
                print cfg.DEBUG ---> yields 5
         """
         self.__check()
-        if not self.__configs[self.__component].has_key(key):
+        if key not in self.__configs[self.__component]:
             raise AttributeError(key)
         return self.__configs[self.__component][key]
     __getitem__ = __getattr__
 
     def get(self, key, default=None):
         ret = default
-        if self.__configs[self.__component].has_key(key):
+        if key in self.__configs[self.__component]:
             ret = self.__configs[self.__component][key]
         return ret
 
     def __str__(self):
         s = "Uninitialized"
-        if self.__component and self.__configs.has_key(self.__component):
+        if self.__component and self.__component in self.__configs:
             s = str(self.__configs[self.__component])
         return "<RHNOptions instance at %s: %s>" % (id(self), s)
     __repr__ = __str__
@@ -258,14 +258,14 @@ class RHNOptions:
         opts = UserDictCase()
         comps = parse_comps(component)
         for comp in comps:
-            if not self.__defaults.has_key(comp):
+            if comp not in self.__defaults:
                 warn('key not found in config default dict', comp)
                 continue
             opts.update(self.__defaults[comp])
 
         # Now load the specific stuff, and perform syntax checking too
         for comp in comps:
-            if not self.__parsedConfig.has_key(comp):
+            if comp not in self.__parsedConfig:
                 # No such entry in the config file
                 continue
             for key, (values, _lineno_) in self.__parsedConfig[comp].items():
@@ -428,7 +428,7 @@ def parse_file(filename, single_key=0):
         # Store this line in a dictionary filled by component
         comp = tuple(keys[:-1])
         key = keys[-1]
-        if not ret.has_key(comp):
+        if comp not in ret:
             # Don't make it a UserDictCase since we know exactly we
             # already used string.lower
             ret[comp] = {}
@@ -483,7 +483,7 @@ def getAllComponents_tree(defaultDir=None):
         d = compTree
         for i in range(len(parts)):
             key = '.'.join(parts[:i + 1])
-            if not d.has_key(key):
+            if key not in d:
                 d[key] = {}
             d = d[key]
     return compTree

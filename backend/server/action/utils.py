@@ -144,7 +144,7 @@ class ChannelPackage:
         # may be returned by find_by_packages. If that's the case, we only
         # want the info about package_name.
         package_info = None
-        if possible_packages.has_key(self.package_name):
+        if self.package_name in possible_packages:
             for package in possible_packages[self.package_name]:
                 if package[self.name_index] == self.package_name:
                     self.package_info = package

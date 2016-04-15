@@ -73,7 +73,7 @@ def get_class_instances(obj, class_obj):
     if not hasattr(obj, "__dict__"):
         return []
     id_obj = id(obj)
-    if _objs_seen.has_key(id_obj):
+    if id_obj in _objs_seen:
         return []
     _objs_seen[id_obj] = None
     result = []

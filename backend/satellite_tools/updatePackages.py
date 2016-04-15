@@ -532,7 +532,7 @@ def process_package_files():
                 pkg_caps[cap['name']] = cap
 
             for f in parse_header(hdr)['files']:
-                if pkg_caps.has_key(f['name']):
+                if f['name'] in pkg_caps:
                     continue  # The package files exists in the DB
 
                 # Insert the missing package file into DB

@@ -47,7 +47,7 @@ class rpmPackage(IncompletePackage):
         # set
         for f in self.keys():
             field = f
-            if self.tagMap.has_key(f):
+            if f in self.tagMap:
                 field = self.tagMap[f]
                 if not field:
                     # Unsupported

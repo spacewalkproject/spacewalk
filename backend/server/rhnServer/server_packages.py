@@ -45,7 +45,7 @@ class dbPackage:
                  package_arch_id=None):
         if type(pdict) != DictType:
             return None
-        if not pdict.has_key('arch') or pdict['arch'] is None:
+        if ('arch' not in pdict) or (pdict['arch'] is None):
             pdict['arch'] = ""
         if string.lower(str(pdict['epoch'])) == "(none)" or pdict['epoch'] == "" or pdict['epoch'] is None:
             pdict['epoch'] = None
@@ -59,7 +59,7 @@ class dbPackage:
         self.r = str(pdict['release'])
         self.e = pdict['epoch']
         self.a = str(pdict['arch'])
-        if pdict.has_key('installtime'):
+        if 'installtime' in pdict:
             self.installtime = pdict['installtime']
         else:
             self.installtime = None
@@ -126,7 +126,7 @@ class Packages:
             return -1
         if not self.__loaded:
             self.reload_packages_byid(sysid)
-        if self.__p.has_key(p.nvrea):
+        if p.nvrea in self.__p:
             if self.__p[p.nvrea].installtime != p.installtime:
                 self.__p[p.nvrea].installtime = p.installtime
                 self.__p[p.nvrea].status = UPDATED
@@ -147,7 +147,7 @@ class Packages:
             return -1
         if not self.__loaded:
             self.reload_packages_byid(sysid)
-        if self.__p.has_key(p.nvrea):
+        if p.nvrea in self.__p:
             log_debug(4, "  Package deleted")
             self.__p[p.nvrea].delete()
             self.__changed = 1
@@ -252,7 +252,7 @@ class Packages:
 
         # if provisioning box, and there was an actual delta, snapshot
         ents = check_entitlement(sysid)
-        if commits and ents.has_key("enterprise_entitled"):
+        if commits and "enterprise_entitled" in ents:
             snapshot_server(sysid, "Package profile changed")
 
         # Our new state does not reflect what's on the database anymore
@@ -310,7 +310,7 @@ class Packages:
             if not t:
                 break
             t['arch'] = package_arches_hash[t['package_arch_id']]
-            if t.has_key('installtime') and t['installtime'] is not None:
+            if 'installtime' in t and t['installtime'] is not None:
                 t['installtime'] = time.mktime(time.strptime(t['installtime'],
                                                              "%Y-%m-%d %H:%M:%S"))
             p = dbPackage(t, real=1, name_id=t['name_id'], evr_id=t['evr_id'],
@@ -425,7 +425,7 @@ def package_delta(list1, list2):
     installs = []
     removes = []
     for pn, ph1 in hash1.items():
-        if not hash2.has_key(pn):
+        if pn not in hash2:
             removes.extend(ph1.keys())
             continue
 
@@ -434,7 +434,7 @@ def package_delta(list1, list2):
 
         # Now, compute the differences between ph1 and ph2
         for p in ph1.keys():
-            if not ph2.has_key(p):
+            if p not in ph2:
                 # We have to remove it
                 removes.append(p)
             else:
@@ -464,7 +464,7 @@ def _package_list_to_hash(package_list, package_registry):
     for e in package_list:
         e = tuple(e)
         pn = e[0]
-        if not package_registry.has_key(pn):
+        if pn not in package_registry:
             # Definitely new equivalence class
             _add_to_hash(package_registry, pn, e)
             _add_to_hash(hash, pn, e)
@@ -488,7 +488,7 @@ def _package_list_to_hash(package_list, package_registry):
 
 
 def _add_to_hash(hash, key, value):
-    if not hash.has_key(key):
+    if key not in hash:
         hash[key] = {value: None}
     else:
         hash[key][value] = None

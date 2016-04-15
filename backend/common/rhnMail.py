@@ -29,10 +29,10 @@ def __check_headers(h):
     if not isinstance(h, type({})) or not hasattr(h, "has_key"):
         # does not look like a dictionary
         h = {}
-    if not h.has_key("Subject"):
+    if "Subject" not in h:
         h["Subject"] = "%s System Mail From %s" % (PRODUCT_NAME,
                                                    idn_puny_to_unicode(os.uname()[1]))
-    if not h.has_key("To"):
+    if "To" not in h:
         to = CFG.TRACEBACK_MAIL
     else:
         to = h["To"]

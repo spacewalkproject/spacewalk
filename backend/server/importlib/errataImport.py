@@ -41,7 +41,7 @@ class ErrataImport(GenericPackageImport):
         for errata in self.batch:
             advisory = errata['advisory_name']
             release = errata['advisory_rel']
-            if advisories.has_key(advisory):
+            if advisory in advisories:
                 if release < advisories[advisory]:
                     # Seen a newer one already
                     errata.ignored = 1
@@ -78,7 +78,7 @@ class ErrataImport(GenericPackageImport):
     def _preprocessErratumFiles(self, erratum):
         for f in (erratum['files'] or []):
             checksumTuple = (f['checksum_type'], f['checksum'])
-            if not self.checksums.has_key(checksumTuple):
+            if checksumTuple not in self.checksums:
                 self.checksums[checksumTuple] = None
 
             if f['file_type'] == 'RPM':
@@ -107,7 +107,7 @@ class ErrataImport(GenericPackageImport):
         for erratum in self.batch:
             for ef in erratum['files']:
                 eft = ef['file_type']
-                if not self.file_types.has_key(eft):
+                if eft not in self.file_types:
                     raise Exception("Unknown file type %s" % eft)
                 ef['type'] = self.file_types[eft]
 
@@ -235,7 +235,7 @@ class ErrataImport(GenericPackageImport):
             # Check the uniqueness
             nevrao = tuple(get_nevrao(package))
 
-            if packageHash.has_key(nevrao):
+            if nevrao in packageHash:
                 # Been there already
                 package.ignored = 1
                 continue
@@ -296,7 +296,7 @@ class ErrataImport(GenericPackageImport):
         # Re-check for severity, it could be a RHBA or RHEA
         # If RHBA/RHEA severity is irrelevant and posibly
         # not included or it could not be hosted
-        if erratum.has_key('security_impact'):
+        if 'security_impact' in erratum:
             erratum['severity_id'] = self.backend.lookupErrataSeverityId(erratum)
 
     def _fix_erratum_oval_info(self, erratum):
@@ -307,13 +307,13 @@ class ErrataImport(GenericPackageImport):
         """
         import os
 
-        if not erratum.has_key('oval_info'):
+        if 'oval_info' not in erratum:
             return
 
         for oval_file in erratum['oval_info']:
             if has_suffix(oval_file['filename'], '.xml'):
                 eft = oval_file['file_type'] = 'OVAL'
-                if not self.file_types.has_key(eft):
+                if eft not in self.file_types:
                     raise Exception("Unknown file type %s" % eft)
                 oval_file['type'] = self.file_types[eft]
 

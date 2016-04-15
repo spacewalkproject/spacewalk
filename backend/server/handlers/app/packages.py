@@ -111,7 +111,7 @@ class Packages(RPC_Base):
         if channels:
             authobj.authzChannels(channels)
         force = 0
-        if info.has_key('force'):
+        if 'force' in info:
             force = info['force']
         return uploadPackages(info, force=force,
                               caller="server.app.uploadPackageInfo")
@@ -131,7 +131,7 @@ class Packages(RPC_Base):
         # Authorize the org id passed
         authobj.authzOrg(info)
         force = 0
-        if info.has_key('force'):
+        if 'force' in info:
             force = info['force']
         return uploadPackages(info, source=1, force=force,
                               caller="server.app.uploadSourcePackageInfo")
@@ -285,7 +285,7 @@ class Packages(RPC_Base):
             log_debug(1, "No packages found; done")
             return 0
 
-        if not info.has_key('channels') or not info['channels']:
+        if 'channels' not in info or not info['channels']:
             log_debug(1, "No channels found; done")
             return 0
 
@@ -307,7 +307,7 @@ class Packages(RPC_Base):
         package_keys = ['name', 'version', 'release', 'epoch', 'arch']
         for package in packageList:
             for k in package_keys:
-                if not package.has_key(k):
+                if k not in package:
                     raise Exception("Missing key %s" % k)
                 if k == 'epoch':
                     if package[k] is not None:
@@ -335,7 +335,7 @@ class Packages(RPC_Base):
                 'orgid':       org_id
             }
 
-            if package.has_key('checksum') and CFG.ENABLE_NVREA:
+            if 'checksum' in package and CFG.ENABLE_NVREA:
                 _checksum_sql_filter = """and c.checksum = :checksum
                                           and c.checksum_type = :checksum_type"""
                 exec_args.update({'checksum_type': package['checksum_type'],
@@ -485,7 +485,7 @@ class Packages(RPC_Base):
             }
 
             _checksum_sql_filter = ""
-            if pkg_info.has_key('checksum') and CFG.ENABLE_NVREA:
+            if 'checksum' in pkg_info and CFG.ENABLE_NVREA:
                 _checksum_sql_filter = """and c.checksum = :checksum
                                           and c.checksum_type = :checksum_type"""
                 query_args.update({
@@ -506,7 +506,7 @@ class Packages(RPC_Base):
         elif row.get('path'):
             filePath = os.path.join(CFG.MOUNT_POINT, row['path'])
             if os.access(filePath, os.R_OK):
-                if row.has_key('checksum'):
+                if 'checksum' in row:
                     ret = (row['checksum_type'], row['checksum'])
                 else:
                     ret = 'on-disk'
@@ -523,7 +523,7 @@ class Packages(RPC_Base):
         log_debug(5)
         pkg_infos = info.get('packages')
         for pkg in pkg_infos.keys():
-            if pkg_infos[pkg].has_key('md5sum'):
+            if 'md5sum' in pkg_infos[pkg]:
                 pkg_infos[pkg]['checksum_type'] = 'md5'
                 pkg_infos[pkg]['checksum'] = pkg_infos[pkg]['md5sum']
                 del(pkg_infos[pkg]['md5sum'])

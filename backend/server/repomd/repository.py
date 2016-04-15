@@ -160,7 +160,7 @@ class Repository(object):
         if self.channel.comps:
             comps_view = view.CompsView(self.channel.comps)
             return comps_view.get_file()
-        elif comps_mapping.has_key(self.channel.label):
+        elif self.channel.label in comps_mapping:
             comps_view = view.CompsView(Comps(None,
                                               os.path.join(CFG.mount_point, comps_mapping[self.channel.label])))
             return comps_view.get_file()

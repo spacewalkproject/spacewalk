@@ -94,7 +94,7 @@ _query_delete_verify_missing = rhnSQL.Statement("""
 def verify(server_id, action_id, data={}):
     log_debug(3, action_id)
 
-    if not data or not data.has_key('verify_info'):
+    if (not data) or ('verify_info' not in data):
         # some data should have been passed back...
         log_error("Insufficient package verify information returned",
                   server_id, action_id, data)
@@ -132,7 +132,7 @@ def verify(server_id, action_id, data={}):
         if package_spec[3] == '':
             package_spec[3] = None
         package_spec = tuple(package_spec)
-        if uq_packages.has_key(package_spec):
+        if package_spec in uq_packages:
             # Been here already
             continue
 
@@ -159,7 +159,7 @@ def verify(server_id, action_id, data={}):
             dict['epoch'] = package_spec[3]
             dict['arch'] = package_spec[4]
 
-            if not dict.has_key('missing'):
+            if 'missing' not in dict:
                 _hash_append(verify_attribs, dict)
             else:
                 _hash_append(missing_files, dict)

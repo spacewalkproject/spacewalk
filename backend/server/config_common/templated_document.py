@@ -99,7 +99,7 @@ class ServerTemplatedDocument(TemplatedDocument):
             log_debug(4, "no custom info", self.server)
             raise "didn't load custom info"
 
-        if self.server.custom_info.has_key(key):
+        if key in self.server.custom_info:
             return self.server.custom_info[key]
 
         return None

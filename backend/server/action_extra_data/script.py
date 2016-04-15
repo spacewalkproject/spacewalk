@@ -67,7 +67,7 @@ def run(server_id, action_id, data={}):
     # newer clients should always be setting
     # this flag and encoding the results,
     # otherwise xmlrpc isn't very happy on certain characters
-    if data.has_key('base64enc'):
+    if 'base64enc' in data:
         output = base64.decodestring(output)
 
     return_code = data.get('return_code')

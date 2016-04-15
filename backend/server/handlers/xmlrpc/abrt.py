@@ -150,7 +150,7 @@ class Abrt(rhnHandler):
     def _update_package_data(self, crash_id, pkg_data):
         log_debug(1, "_update_package_data: %s, %s" % (crash_id, pkg_data))
         # Older versions of abrt used to store the package info in a single 'package' file
-        if pkg_data and pkg_data.has_key('package'):
+        if pkg_data and 'package' in pkg_data:
             (n, e, v, r) = parseRPMName(pkg_data['package'])
             if not all((n, e, v, r)):
                 return 0
@@ -167,7 +167,7 @@ class Abrt(rhnHandler):
             return r
 
         for item in ['pkg_name', 'pkg_epoch', 'pkg_version', 'pkg_release', 'pkg_arch']:
-            if not (pkg_data.has_key(item) and pkg_data[item]):
+            if not (item in pkg_data and pkg_data[item]):
                 return 0
 
         h = rhnSQL.prepare(_query_update_pkg_data2)
@@ -230,7 +230,7 @@ class Abrt(rhnHandler):
 
         self._check_crash_reporting_setting()
 
-        if not (crash_data.has_key('crash') and crash_data.has_key('path')) or \
+        if not ('crash' in crash_data and 'path' in crash_data) or \
            not (crash_data['crash'] and crash_data['path']):
             log_debug(1, self.server_id, "The crash information is invalid or incomplete: %s" % str(crash_data))
             raise rhnFault(5000)
@@ -245,7 +245,7 @@ class Abrt(rhnHandler):
         log_debug(1, "crash_id: %s" % crash_id)
 
         if (crash_id is None):
-            if not crash_data.has_key('count'):
+            if 'count' not in crash_data:
                 crash_data['count'] = 1
 
             h = rhnSQL.prepare(_query_create_crash)
@@ -267,7 +267,7 @@ class Abrt(rhnHandler):
 
         required_keys = ['filename', 'path', 'filesize', 'filecontent', 'content-encoding']
         for k in required_keys:
-            if not (crash_file.has_key(k)):
+            if k not in crash_file:
                 log_debug(1, self.server_id, "The crash file data is invalid or incomplete: %s" % crash_file)
                 raise rhnFault(5001, "Missing or invalid key: %s" % k)
 

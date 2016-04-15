@@ -189,7 +189,7 @@ class RepoSync(object):
                                 on rhncontentsourcessl.ssl_client_key_id = k3.id
                         where rhncontentsourcessl.content_source_id = :repo_id
                         """, repo_id=int(repo_id))
-                    if keys and keys.has_key('ca_cert'):
+                    if keys and ('ca_cert' in keys):
                         plugin.set_ssl_options(keys['ca_cert'], keys['client_cert'], keys['client_key'])
                 self.import_packages(plugin, repo_id, url)
                 self.import_groups(plugin, url)
@@ -367,7 +367,7 @@ class RepoSync(object):
                 cs = h.fetchone_dict() or None
 
                 if not cs:
-                    if param_dict.has_key('epoch'):
+                    if 'epoch' in param_dict:
                         epoch = param_dict['epoch'] + ":"
                     else:
                         epoch = ""

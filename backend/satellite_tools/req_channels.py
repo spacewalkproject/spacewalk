@@ -108,17 +108,17 @@ class RequestedChannels:
         available = self._available.copy()
         imported = self._imported.copy()
         for c in self._requested.keys():
-            if self._available.has_key(c):
+            if c in self._available:
                 del available[c]
                 # Channel exists
-                if self._imported.has_key(c):
+                if c in self._imported:
                     del imported[c]
                     self._requested_imported.append(c)
                     continue
                 self._requested_new.append(c)
                 continue
             # Requested channel not available
-            if self._imported.has_key(c):
+            if c in self._imported:
                 del imported[c]
                 self._end_of_service.append(c)
                 continue
@@ -126,7 +126,7 @@ class RequestedChannels:
             self._typos.append(c)
 
         for c in available.keys():
-            if imported.has_key(c):
+            if c in imported:
                 # Available, already imported
                 del imported[c]
             # Available, not imported

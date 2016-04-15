@@ -83,7 +83,7 @@ class Table:
     def __init__(self, name, **kwargs):
         self.name = name
         for k in kwargs.keys():
-            if not self.keywords.has_key(k):
+            if k not in self.keywords:
                 raise TypeError("Unknown keyword attribute '%s'" % k)
         # Initialize stuff
         # Fields
@@ -114,14 +114,14 @@ class Table:
         self.nullable = {}
         if nullable:
             for field in nullable:
-                if not self.fields.has_key(field):
+                if field not in self.fields:
                     raise TypeError("Unknown nullable field %s in table %s" % (
                         field, name))
                 self.nullable[field] = None
 
         # Now analyze pk
         for field in self.pk:
-            if not self.fields.has_key(field):
+            if field not in self.fields:
                 raise TypeError("Unknown primary key field %s" % field)
 
     def __str__(self):
@@ -130,9 +130,9 @@ class Table:
     __repr__ = __str__
 
     def isNullable(self, field):
-        if not self.fields.has_key(field):
+        if field not in self.fields:
             raise TypeError("Unknown field %s" % field)
-        return self.nullable.has_key(field)
+        return field in self.nullable
 
     def getPK(self):
         return self.pk
@@ -144,13 +144,13 @@ class Table:
         return self.attribute
 
     def getObjectAttribute(self, attribute):
-        if self.map.has_key(attribute):
+        if attribute in self.map:
             return self.map[attribute]
         return attribute
 
     def getSeverityHash(self):
         for field in self.fields.keys():
-            if not self.severityHash.has_key(field):
+            if field not in self.severityHash:
                 self.severityHash[field] = self.defaultSeverity
         return self.severityHash
 
@@ -230,7 +230,7 @@ class BaseTableLookup:
         return None
 
     def _getCachedQuery(self, key, blob_map=None):
-        if self.queries.has_key(key):
+        if key in self.queries:
             # Serve it from the pool
             return self.queries[key]
 
@@ -523,5 +523,5 @@ def addHash(hasharray, hash):
     # hasharray is a hash of arrays
     # add hash's values to hasharray
     for k, v in hash.items():
-        if hasharray.has_key(k):
+        if k in hasharray:
             hasharray[k].append(v)

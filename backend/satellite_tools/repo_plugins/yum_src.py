@@ -88,7 +88,7 @@ class YumUpdateMetadata(UpdateMetadata):
                 key = un['update_id']
                 if all_versions:
                     key = "%s-%s" % (un['update_id'], un['version'])
-                if not self._notices.has_key(key):
+                if key not in self._notices:
                     self._notices[key] = un
                     for pkg in un['pkglist']:
                         for pkgfile in pkg['packages']:
@@ -283,7 +283,7 @@ class ContentSource(object):
         rmtree(directory, True)
 
     def get_updates(self):
-        if not self.repo.repoXML.repoData.has_key('updateinfo'):
+        if 'updateinfo' not in self.repo.repoXML.repoData:
             return []
         um = YumUpdateMetadata()
         um.add(self.repo, all_versions=True)

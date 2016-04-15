@@ -83,7 +83,7 @@ class UserAuth:
         # users the ability to push to their org.
 
         # If the org id is not specified, default to the user's org id
-        if not info.has_key('orgId'):
+        if 'orgId' not in info:
             info['orgId'] = self.org_id
         log_debug(4, "info[orgId]", info['orgId'], "org id", self.org_id)
 

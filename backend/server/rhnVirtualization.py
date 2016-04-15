@@ -206,10 +206,10 @@ class VirtualizationEventHandler:
 
         # Ensure that the event has any required properties before calling the
         # handler.
-        if self.REQUIRED_PROPERTIES.has_key(event):
+        if event in self.REQUIRED_PROPERTIES:
             required_properties = self.REQUIRED_PROPERTIES[event]
             for required_property in required_properties:
-                if not properties.has_key(required_property):
+                if required_property not in properties:
                     raise VirtualizationEventError(
                         "Event does not have required property:",
                         required_property,
@@ -231,7 +231,7 @@ class VirtualizationEventHandler:
         identity = properties[PropertyType.IDENTITY]
         virt_type = None
 
-        if properties.has_key(PropertyType.TYPE):
+        if PropertyType.TYPE in properties:
             virt_type = properties[PropertyType.TYPE]
         else:
             # presume paravirt if not specified, probably a host
@@ -263,7 +263,7 @@ class VirtualizationEventHandler:
 
             # We'll attempt to detect migration by checking if the host system
             # ID has changed.
-            if row.has_key('host_system_id') and \
+            if 'host_system_id' in row and \
                     row['host_system_id'] != system_id:
 
                 self.__notify_listeners(ListenerEvent.GUEST_MIGRATED,
@@ -411,7 +411,7 @@ class VirtualizationEventHandler:
         query.execute()
         row = query.fetchone_dict() or {}
 
-        if not row or not row.has_key('id'):
+        if not row or 'id' not in row:
             raise VirtualizationEventError('unable to get virt instance id')
 
         insert_sql = """
@@ -538,7 +538,7 @@ class VirtualizationEventHandler:
         query.execute()
         row = query.fetchone_dict() or {}
 
-        if not row or not row.has_key('id'):
+        if not row or 'id' not in row:
             raise VirtualizationEventError('unable to get virt instance id')
         id = row['id']
 
@@ -631,22 +631,22 @@ class VirtualizationEventHandler:
         new_values_array = []
         bindings = {}
 
-        if properties.has_key(PropertyType.NAME) and \
+        if PropertyType.NAME in properties and \
            existing_row['name'] != properties[PropertyType.NAME]:
             new_values_array.append('name=:name')
             bindings['name'] = properties[PropertyType.NAME]
 
-        if properties.has_key(PropertyType.VCPUS) and \
+        if PropertyType.VCPUS in properties and \
            existing_row['vcpus'] != properties[PropertyType.VCPUS]:
             new_values_array.append('vcpus=:vcpus')
             bindings['vcpus'] = properties[PropertyType.VCPUS]
 
-        if properties.has_key(PropertyType.MEMORY) and \
+        if PropertyType.MEMORY in properties and \
            existing_row['memory_size_k'] != properties[PropertyType.MEMORY]:
             new_values_array.append('memory_size_k=:memory')
             bindings['memory'] = properties[PropertyType.MEMORY]
 
-        if properties.has_key(PropertyType.TYPE) and \
+        if PropertyType.TYPE in properties and \
            existing_row['instance_type'] != properties[PropertyType.TYPE]:
             new_values_array.append("""
                 instance_type = (
@@ -656,7 +656,7 @@ class VirtualizationEventHandler:
             """)
             bindings['virt_type'] = properties[PropertyType.TYPE]
 
-        if properties.has_key(PropertyType.STATE) and \
+        if PropertyType.STATE in properties and \
            existing_row['state'] != properties[PropertyType.STATE]:
             new_values_array.append("""
                 state = (
@@ -740,7 +740,7 @@ class VirtualizationEventHandler:
             format consumable by the server.
         """
         # Attempt to normalize the UUID.
-        if properties.has_key(PropertyType.UUID):
+        if PropertyType.UUID in properties:
             uuid = properties[PropertyType.UUID]
             if uuid:
                 uuid_as_number = string.atol(uuid, 16)
@@ -761,14 +761,14 @@ class VirtualizationEventHandler:
                 properties[PropertyType.UUID] = None
 
         # The server only cares about certain types of states.
-        if properties.has_key(PropertyType.STATE):
+        if PropertyType.STATE in properties:
             state = properties[PropertyType.STATE]
             properties[PropertyType.STATE] = CLIENT_SERVER_STATE_MAP[state]
 
         # We must send the memory across as a string because XMLRPC can only
         # handle up to 32 bit numbers.  RAM can easily exceed that limit these
         # days.
-        if properties.has_key(PropertyType.MEMORY):
+        if PropertyType.MEMORY in properties:
             memory = properties[PropertyType.MEMORY]
             properties[PropertyType.MEMORY] = long(memory)
 

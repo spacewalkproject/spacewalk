@@ -87,7 +87,7 @@ def __processPackage(package, org_id, channels, source):
 
     if 'checksum' not in package:
         raise rhnFault(50, "The package's checksum digest has not been specified")
-    if not package.has_key('packageSize'):
+    if 'packageSize' not in package:
         raise rhnFault(50, "The package size has not been specified")
 
     header = rhn_rpm.headerLoad(package['header'].data)
@@ -96,11 +96,11 @@ def __processPackage(package, org_id, channels, source):
     packageSize = package['packageSize']
     relpath = package.get('relativePath')
 
-    if package.has_key('header_start'):
+    if 'header_start' in package:
         header_start = package['header_start']
     else:
         header_start = 0
-    if package.has_key('header_end'):
+    if 'header_end' in package:
         header_end = package['header_end']
     else:
         # Just say the whole package

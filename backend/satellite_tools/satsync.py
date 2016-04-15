@@ -136,7 +136,7 @@ class Runner:
     def _handle_step_dependents(self, actionDict, step):
         ad = actionDict
 
-        if ad.has_key(step):
+        if step in ad:
             # if the step is turned off, then the steps that are dependent on it have to be turned
             # off as well.
             if ad[step] == 0:
@@ -152,7 +152,7 @@ class Runner:
     def _turn_off_dependents(self, actionDict, step):
         ad = actionDict
         for dependent in self.step_precedence[step]:
-            if ad.has_key(dependent):
+            if dependent in ad:
                 ad[dependent] = 0
         return ad
 
@@ -171,7 +171,7 @@ class Runner:
         self._actions = actionDict
 
         # 5/26/05 wregglej - 156079 have to handle the list-channels special case.
-        if actionDict.has_key('list-channels'):
+        if 'list-channels' in actionDict:
             if actionDict['list-channels'] == 1:
                 actionDict['channels'] = 1
                 actionDict['arches'] = 0
@@ -1419,7 +1419,7 @@ class Syncer:
                     last_modified = erratum['last_modified']
                     last_modified = rhnLib.timestamp(last_modified)
                     advisory_name = erratum['advisory_name']
-                    if db_ce.has_key(advisory_name):
+                    if advisory_name in db_ce:
                         _foo, db_last_modified = db_ce[advisory_name]
                         if last_modified == db_last_modified:
                             # We already have this erratum
@@ -1556,7 +1556,7 @@ class Syncer:
                     continue
                 assert package is not None
                 channel_obj = {'label': chn}
-                if uq_packages.has_key(pid):
+                if pid in uq_packages:
                     # We've seen this package before - just add this channel
                     # to it
                     uq_packages[pid]['channels'].append(channel_obj)
@@ -2229,7 +2229,7 @@ def processCommandline():
 
     # make sure *all* steps in the actionDict are handled.
     for step in stepHierarchy:
-        actionDict[step] = actionDict.has_key(step)
+        actionDict[step] = step in actionDict
 
     channels = OPTIONS.channel or []
     if OPTIONS.list_channels:

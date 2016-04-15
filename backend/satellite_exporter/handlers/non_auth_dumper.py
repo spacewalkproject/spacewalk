@@ -213,7 +213,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
             }
             # Now look for package sources
             for tag_name, dummy, celem in child_elements:
-                if not maps.has_key(tag_name):
+                if tag_name not in maps:
                     continue
                 field, prefix = maps[tag_name]
                 prefix_len = len(prefix)

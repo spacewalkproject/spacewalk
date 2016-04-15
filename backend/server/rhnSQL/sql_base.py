@@ -119,7 +119,7 @@ class Cursor:
         if self.sql:
             # Check the cache
             _h = self._cursor_cache[self._dbh_id]
-            if not force and _h.has_key(self.sql):
+            if not force and self.sql in _h:
                 return _h[self.sql]
         cursor = self._prepare_sql()
         if self.sql:

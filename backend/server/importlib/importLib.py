@@ -680,13 +680,13 @@ class GenericPackageImport(Import):
         Import._processPackage(self, package)
 
         # Save the fields in the local hashes
-        if not self.evrs.has_key(package.evr):
+        if package.evr not in self.evrs:
             self.evrs[package.evr] = None
 
-        if not self.names.has_key(package.name):
+        if package.name not in self.names:
             self.names[package.name] = None
 
-        if not self.package_arches.has_key(package.arch):
+        if package.arch not in self.package_arches:
             self.package_arches[package.arch] = None
 
         for type, chksum in package['checksums'].iteritems():

@@ -137,7 +137,7 @@ def _get_uuid(query_str, action_id):
     if not row:
         raise NoRowFoundException()
 
-    if not row.has_key('uuid'):
+    if 'uuid' not in row:
         raise NoUUIDException()
 
     uuid = row['uuid']
@@ -213,10 +213,10 @@ def setMemory(server_id, action_id, dry_run=0):
     if not row:
         raise InvalidAction("No setMemory actions found.")
 
-    if not row.has_key('uuid'):
+    if 'uuid' not in row:
         raise InvalidAction("Set Memory action %s has no uuid." % str(action_id))
 
-    if not row.has_key('memory'):
+    if 'memory' not in row:
         raise InvalidAction("setMemory action %s has no memory set." % str(action_id))
 
     uuid = row['uuid']
@@ -251,19 +251,19 @@ def schedulePoller(server_id, action_id, dry_run=0):
     if not row:
         raise InvalidAction("No schedulePoller actions found.")
 
-    if not row.has_key('minute'):
+    if 'minute' not in row:
         raise InvalidAction("schedulePoller action %s has no minute associated with it." % str(action_id))
 
-    if not row.has_key('hour'):
+    if 'hour' not in row:
         raise InvalidAction("schedulePoller action %s has no hour associated with it." % str(action_id))
 
-    if not row.has_key('dom'):
+    if 'dom' not in row:
         raise InvalidAction("schedulePoller action %s has no day of the month associated with it." % str(action_id))
 
-    if not row.has_key('month'):
+    if 'month' not in row:
         raise InvalidAction("schedulePoller action %s has no month associated with it." % str(action_id))
 
-    if not row.has_key('dow'):
+    if 'dow' not in row:
         raise InvalidAction("schedulePoller action %s has no day of the week associated with it." % str(action_id))
 
     return (row['minute'], row['hour'], row['dom'], row['month'], row['dow'])

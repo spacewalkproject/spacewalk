@@ -58,7 +58,7 @@ class BaseTemplatedDocument:
         regex_key = (self.start_delim, self.end_delim)
 
         # At this point, self.start_delim and self.end_delim are non-null
-        if self.compiled_regexes.has_key(regex_key):
+        if regex_key in self.compiled_regexes:
             # We already have the regex compiled
             self.regex = self.compiled_regexes[regex_key]
             return

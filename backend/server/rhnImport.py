@@ -29,7 +29,7 @@ class Loader:
         root_dir = "/usr/share/rhn"
         key = (dir, root_dir, interface_signature)
 
-        if self._imports.has_key(key):
+        if key in self._imports:
             return self._imports[key]
 
         dirname = "%s/%s" % (root_dir, dir)

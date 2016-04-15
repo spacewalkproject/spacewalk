@@ -147,15 +147,15 @@ def main():
             systemExit(1, "Configuration file is invalid, please check syntax. Error [%s]" % e )
 
         for key in l_params:
-            if config.has_key(key) and not getattr(options, key):
+            if key in config and not getattr(options, key):
                 setattr(options, key, config[key])
 
         # Channels
-        if config.has_key('channel'):
+        if 'channel' in config:
             for ch,repo in config['channel'].iteritems():
                  d_ch_repo_sync[ch]=repo
 
-        if config.has_key('parent_channel'):
+        if 'parent_channel' in config:
             options.parent_label+=config['parent_channel']
 
     if len(options.channel_label)>0:

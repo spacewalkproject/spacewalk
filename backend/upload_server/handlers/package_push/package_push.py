@@ -52,7 +52,7 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         maps = [['Null-Org', 'null_org'], ['Packaging', 'packaging']]
         for hn, sn in maps:
             header_name = "%s-%s" % (self.header_prefix, hn)
-            if req.headers_in.has_key(header_name):
+            if header_name in req.headers_in:
                 setattr(self, sn, req.headers_in[header_name])
 
         if ret != apache.OK:

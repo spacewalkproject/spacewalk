@@ -128,13 +128,13 @@ class Runner:
                 if not row:
                     break
                 channel_label = row['label']
-                if self._channel_packages.has_key(package_id):
+                if package_id in self._channel_packages:
                     l = self._channel_packages[package_id]
                 else:
                     l = self._channel_packages[package_id] = []
                 l.append(channel_label)
 
-                if not self._channels_hash.has_key(channel_label):
+                if channel_label not in self._channels_hash:
                     orphaned_packages[package_id] = None
 
         if orphaned_packages:

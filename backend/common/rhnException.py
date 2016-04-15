@@ -315,7 +315,7 @@ class rhnFault(Exception):
         self.text = err_text
         self.explain = explain
         self.arrayText = ''
-        if self.code and FaultArray.has_key(self.code):
+        if self.code and self.code in FaultArray:
             self.arrayText = FaultArray[self.code]
         Exception.__init__(self, self.code, self.text, self.arrayText)
 
@@ -336,7 +336,7 @@ class rhnFault(Exception):
         if templateOverrides:
             for label in templateOverrides.keys():
                 # only care about values we've defined defaults for...
-                if templateValues.has_key(label):
+                if label in templateValues:
                     templateValues[label] = templateOverrides[label]
 
         s = StringIO()

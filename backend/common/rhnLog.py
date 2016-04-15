@@ -241,7 +241,7 @@ class rhnLog:
     def set_req(self, req=None):
         remoteAddr = '0.0.0.0'
         if req:
-            if req.headers_in.has_key("X-Forwarded-For"):
+            if "X-Forwarded-For" in req.headers_in:
                 remoteAddr = req.headers_in["X-Forwarded-For"]
             else:
                 remoteAddr = req.connection.remote_ip

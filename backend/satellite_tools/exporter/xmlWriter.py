@@ -114,7 +114,7 @@ class XMLWriter:
     # Substitution function for re
     def _sub_function(self, match_object):
         c = match_object.group()
-        if self._escaped_chars.has_key(c):
+        if c in self._escaped_chars:
             return self._escaped_chars[c]
         # return "&#%d;" % ord(c)
         return '?'

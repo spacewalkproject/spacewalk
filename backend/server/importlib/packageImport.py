@@ -52,7 +52,7 @@ class ChannelPackageSubscription(GenericPackageImport):
         for package in self.batch:
             # if package object doesn't have multiple checksums (like satellite-sync objects)
             #   then let's fake it
-            if not package.has_key('checksums'):
+            if 'checksums' not in package:
                 package['checksums'] = {package['checksum_type']: package['checksum']}
             if not isinstance(package, IncompletePackage):
                 raise TypeError("Expected an IncompletePackage instance, "
@@ -97,7 +97,7 @@ class ChannelPackageSubscription(GenericPackageImport):
                     package['org_id'],
                     package['checksum_id'])
 
-            if not uniqdict.has_key(nevrao):
+            if nevrao not in uniqdict:
                 # Uniquify the channel names
                 package['channels'] = {}
                 # Initialize the channels
@@ -151,7 +151,7 @@ class ChannelPackageSubscription(GenericPackageImport):
         self.affected_channel_packages.update(affected_channels)
         for channel_label, channel_row in self.channels.items():
             channel_id = channel_row['id']
-            if affected_channels.has_key(channel_id):
+            if channel_id in affected_channels:
                 affected_channels[channel_id] = channel_label
         self.affected_channels = affected_channels.values()
 
@@ -163,7 +163,7 @@ class ChannelPackageSubscription(GenericPackageImport):
         channelHash = {}
         for channel in package['channels']:
             channelName = channel['label']
-            if not channelHash.has_key(channelName):
+            if channelName not in channelHash:
                 channels.append(channelName)
                 channelHash[channelName] = None
             self.channels[channelName] = None
@@ -192,7 +192,7 @@ class ChannelPackageSubscription(GenericPackageImport):
 
             # Now check if the source package's arch is compatible with the
             # current channel
-            if not archCompat.has_key(sourcePackage['package_arch_id']):
+            if sourcePackage['package_arch_id'] not in archCompat:
                 sourcePackage.ignored = 1
                 raise IncompatibleArchError(sourcePackage.arch, charch,
                                             "Package arch %s incompatible with channel %s" %
@@ -220,17 +220,17 @@ class PackageImport(ChannelPackageSubscription):
 
         # Process package groups
         group = package['package_group']
-        if not self.groups.has_key(group):
+        if group not in self.groups:
             self.groups[group] = None
         sourceRPM = package['source_rpm']
-        if sourceRPM is not None and not self.sourceRPMs.has_key(sourceRPM):
+        if (sourceRPM is not None) and (sourceRPM not in self.sourceRPMs):
             self.sourceRPMs[sourceRPM] = None
         # Change copyright to license
         # XXX
         package['copyright'] = self._fix_encoding(package['license'])
 
         for tag in ('recommends', 'suggests', 'supplements', 'enhances', 'breaks', 'predepends'):
-            if not package.has_key(tag) or type(package[tag]) != type([]):
+            if tag not in package or type(package[tag]) != type([]):
                 # older spacewalk server do not export weak deps.
                 # lets create an empty list
                 package[tag] = []
@@ -249,7 +249,7 @@ class PackageImport(ChannelPackageSubscription):
                     del dep[f]
                 nv = tuple(nv)
                 dep['capability'] = nv
-                if not self.capabilities.has_key(nv):
+                if nv not in self.capabilities:
                     self.capabilities[nv] = None
         # Process files too
         fileList = package['files']
@@ -258,10 +258,10 @@ class PackageImport(ChannelPackageSubscription):
             nv = (filename, '')
             del f['name']
             f['capability'] = nv
-            if not self.capabilities.has_key(nv):
+            if nv not in self.capabilities:
                 self.capabilities[nv] = None
             fchecksumTuple = (f['checksum_type'], f['checksum'])
-            if not self.checksums.has_key(fchecksumTuple):
+            if fchecksumTuple not in self.checksums:
                 self.checksums[fchecksumTuple] = None
 
         # Uniquify changelog entries
@@ -269,7 +269,7 @@ class PackageImport(ChannelPackageSubscription):
         unique_package_changelog = []
         for changelog in package['changelog']:
             key = (changelog['name'], changelog['time'], changelog['text'])
-            if not unique_package_changelog_hash.has_key(key):
+            if key not in unique_package_changelog_hash:
                 self.changelog_data[key] = None
                 unique_package_changelog.append(changelog)
                 unique_package_changelog_hash[key] = 1
@@ -425,7 +425,7 @@ class SourcePackageImport(Import):
         for package in self.batch:
             # Unique key
             key = (package['org_id'], package['source_rpm_id'])
-            if not uniqdict.has_key(key):
+            if key not in uniqdict:
                 uniqdict[key] = package
                 continue
             else:

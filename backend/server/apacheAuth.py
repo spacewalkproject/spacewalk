@@ -155,7 +155,7 @@ def auth_client():
               'X-RHN-Auth',
               'X-RHN-Auth-Server-Time',
               'X-RHN-Auth-Expire-Offset'):
-        if not token.has_key(k):
+        if k not in token:
             # No auth information; decline any action
             log_debug(4, "Declined auth of client for GET requests; "
                          "incomplete header info.")

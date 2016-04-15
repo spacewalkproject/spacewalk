@@ -383,7 +383,7 @@ class XML_Dumper:
             for package in packages:
                 package_id = self._get_item_id(prefix, str(package),
                                                3002, 'Invalid package name %s')
-                if packages_hash.has_key(package_id):
+                if package_id in packages_hash:
                     # Already verified
                     continue
                 h.execute(package_id=package_id)
@@ -409,7 +409,7 @@ class XML_Dumper:
             for erratum in errata:
                 errata_id = self._get_item_id('rhn-erratum-', str(erratum),
                                               3004, "Wrong erratum name %s")
-                if errata_hash.has_key(errata_id):
+                if errata_id in errata_hash:
                     # Already verified
                     continue
                 h.execute(errata_id=errata_id)
@@ -463,7 +463,7 @@ class XML_Dumper:
         else:
             channels = {}
             for label in channel_labels:
-                if not all_channels_hash.has_key(label):
+                if label not in all_channels_hash:
                     raise rhnFault(3001, "Could not retrieve channel %s" %
                                    label)
                 if not (iss_slave_sha256_capable
@@ -517,7 +517,7 @@ class XML_Dumper:
 
         result = []
         for l in kickstart_labels:
-            if all_ks_hash.has_key(l):
+            if l in all_ks_hash:
                 result.append(all_ks_hash[l])
 
         return result

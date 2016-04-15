@@ -327,7 +327,7 @@ class GecosCache:
 
     def getuid(self, name):
         "Return the UID of the user by name"
-        if self._users.has_key(name):
+        if name in self._users:
             return self._users[name]
         try:
             uid = pwd.getpwnam(name)[2]
@@ -340,7 +340,7 @@ class GecosCache:
 
     def getgid(self, name):
         "Return the GID of the group by name"
-        if self._groups.has_key(name):
+        if name in self._groups:
             return self._groups[name]
         try:
             gid = grp.getgrnam(name)[2]

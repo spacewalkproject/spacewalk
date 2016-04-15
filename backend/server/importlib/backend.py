@@ -781,7 +781,7 @@ class Backend:
             for table_name, values_hash in op_values.items():
                 if table_name == 'rhnErrata':
                     field = 'id'
-                elif values_hash.has_key('errata_id'):
+                elif 'errata_id' in values_hash:
                     field = 'errata_id'
 
                 # Now we know in which field to look for changes
@@ -1146,20 +1146,20 @@ class Backend:
 
             for channelId in package['channels'].keys():
                 # Build the channel-package list
-                if channel_packages.has_key(channelId):
+                if channelId in channel_packages:
                     cp = channel_packages[channelId]
                 else:
                     channel_packages[channelId] = cp = {}
                 cp[package.id] = None
 
-                if channels.has_key(channelId):
+                if channelId in channels:
                     # Already subscribed
                     continue
                 dict = {
                     'package_id': package.id,
                     'channel_id': channelId,
                 }
-                if not affected_channels.has_key(channelId):
+                if channelId not in affected_channels:
                     modified_packages = ([], [])
                     affected_channels[channelId] = modified_packages
                 else:
@@ -1201,12 +1201,12 @@ class Backend:
                 if not row:
                     break
                 package_id = row['package_id']
-                if not pid_hash.has_key(package_id):
+                if package_id not in pid_hash:
                     # Have to remove it
                     extra_cp['package_id'].append(package_id)
                     extra_cp['channel_id'].append(channel_id)
                     # And mark this channel as being affected
-                    if not affected_channels.has_key(channel_id):
+                    if channel_id not in affected_channels:
                         modified_packages = ([], [])
                         affected_channels[channel_id] = modified_packages
                     else:
@@ -1325,7 +1325,7 @@ class Backend:
         }
 
         for k, v in kwargs.items():
-            if not kwparams.has_key(k):
+            if k not in kwparams:
                 raise TypeError("Unknown keyword parameter %s" % k)
             if v is not None:
                 # Leave the default values in case of a None
@@ -1519,7 +1519,7 @@ class Backend:
                 _buildExternalValue(val, ent, childTableObj)
 
                 # Look this value up
-                if not dbside.has_key(key):
+                if key not in dbside:
                     if childTableObj.sequenceColumn:
                         # Initialize the sequence column too
                         sc = childTableObj.sequenceColumn
@@ -1708,7 +1708,7 @@ class Backend:
                 break
 
             t = hash2tuple(row, fields)
-            if incoming.has_key(t):
+            if t in incoming:
                 # we already have this value uploaded
                 del incoming[t]
                 continue
@@ -1729,10 +1729,10 @@ class Backend:
         all_fields = uq_fields + fields
         for entry in data:
             for f in all_fields:
-                if not entry.has_key(f):
+                if f not in entry:
                     raise Exception, "Missing field %s" % f
             val = entry[first_uq_col]
-            if not uq_col_values.has_key(val):
+            if val not in uq_col_values:
                 valhash = {}
                 uq_col_values[val] = valhash
             else:
@@ -1756,7 +1756,7 @@ class Backend:
                 if not row:
                     break
                 key = build_key(row, uq_fields)
-                if not valhash.has_key(key):
+                if key not in valhash:
                     # Need to delete this one
                     deletes.append(row)
                     continue
@@ -1869,13 +1869,13 @@ def _buildExternalValue(dict, entry, tableObj):
     # updates dict with values from entry
     # entry is a hash-like object (non-db)
     for f, datatype in tableObj.getFields().items():
-        if dict.has_key(f):
+        if f in dict:
             # initialized somewhere else
             continue
         # Get the attribute's name
         attr = tableObj.getObjectAttribute(f)
         # Sanitize the value according to its datatype
-        if not entry.has_key(attr):
+        if attr not in entry:
             entry[attr] = None
         dict[f] = sanitizeValue(entry[attr], datatype)
 
@@ -1897,7 +1897,7 @@ def computeDiff(hash1, hash2, diffHash, diffobj, prefix=None):
         if k == 'installed_size' and v is not None and hash2[k] is None:
             # Skip installed_size which might not have been populated
             continue
-        if diffHash.has_key(k):
+        if k in diffHash:
             diffval = diffHash[k]
             if diffval == 0:
                 # Completely ignore this key

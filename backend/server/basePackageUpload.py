@@ -52,21 +52,21 @@ class BasePackageUpload:
 
         # legacy rhnpush sends File-MD5sum; translate it into File-Checksum
         md5sum_header = "%s-%s" % (self.header_prefix, "File-MD5sum")
-        if req.headers_in.has_key(md5sum_header):
+        if md5sum_header in req.headers_in:
             req.headers_in["%s-%s" % (self.header_prefix, "File-Checksum-Type")] = 'md5'
             req.headers_in["%s-%s" % (self.header_prefix, "File-Checksum")] = \
                 req.headers_in[md5sum_header]
 
         for f in self.required_fields:
             hf = "%s-%s" % (self.header_prefix, f)
-            if not req.headers_in.has_key(hf):
+            if hf not in req.headers_in:
                 # If the current field is Auth and Auth-Session field isn't present, something is wrong.
-                if f == "Auth" and not req.headers_in.has_key(session_header):
+                if f == "Auth" and (session_header not in req.headers_in):
                     log_debug(4, "Required field %s missing" % f)
                     raise rhnFault(500, f)
 
                 # The current field is Auth and the Auth-Session field is present, so everything is good.
-                elif f == "Auth" and req.headers_in.has_key(session_header):
+                elif f == "Auth" and (session_header in req.headers_in):
                     self.field_data["Auth-Session"] = req.headers_in[session_header]
                     continue
 
@@ -75,10 +75,10 @@ class BasePackageUpload:
                     log_debug(4, "Required field %s missing" % f)
                     raise rhnFault(500, f)
 
-            if not (f == "Auth" and not req.headers_in.has_key(hf)):
+            if not (f == "Auth" and (hf not in req.headers_in)):
                 self.field_data[f] = req.headers_in[hf]
             else:
-                if req.headers_in.has_key(session_header):
+                if session_header in req.headers_in:
                     self.field_data[f] = req.headers_in[hf]
 
         self.package_name = self.field_data["Package-Name"]
