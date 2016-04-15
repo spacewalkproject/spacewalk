@@ -52,7 +52,6 @@ Requires:       spacewalk-backend-libs
 Requires:       spacewalk-backend-tools >= 2.2.27
 Requires:       spacewalk-reports
 Requires:       yum-utils
-Requires:       python-curses
 
 %description
 Generic utilities that may be run against a Spacewalk server.
