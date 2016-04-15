@@ -2,7 +2,7 @@
 
 Name: tito
 Version: 0.4.18
-Release: 1.7%{?dist}
+Release: 1.8%{?dist}
 Summary: A tool for managing rpm based git projects
 
 Group: Development/Tools
@@ -90,6 +90,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Apr 15 2016 Jan Dobes 0.4.18-1.8
+- fixing creating srpm on Fedora 23
+
 * Fri Jun 26 2015 Tomas Kasparek <tkasparek@redhat.com> 0.4.18-1.7
 - enable building without prompting with git builders
 
