@@ -19,7 +19,8 @@ import rpm
 import struct
 import tempfile
 
-from spacewalk.common.usix import raise_with_tb, next
+from spacewalk.common.usix import raise_with_tb
+from spacewalk.common.usix import next as usix_next
 from spacewalk.common import checksum
 from rhn_pkg import A_Package, InvalidPackageError
 
@@ -371,7 +372,7 @@ class MatchIterator:
 
     def next(self):
         try:
-            hdr = next(self.mi)
+            hdr = usix_next(self.mi)
         except StopIteration:
             hdr = None
 
