@@ -15,7 +15,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.28
+Version: 2.5.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -680,6 +680,30 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Mon Apr 18 2016 Gennadii Altukhov <galt@redhat.com> 2.5.29-1
+- Fix 'iteritems' in backend Python 2/3 compatibility
+- Fix '.next()' in backend Python 2/3 compatibility
+- Add import of 'reduce' function in backend for Python 3 compatibility
+- Fix 'exc_type' in backend code for Python 2/3 compatibility
+- Fix 'unicode' in backend code for Python 2/3 compatibility
+- Fix 'apply' in backend code for Python 2/3 compatibility
+- Fix 'maxint' in backend code for Python 2/3 compatibility
+- Fix 'exitfunc' in backend code for Python 2/3 compatibility
+- Fix 'raw_input' in backend code for Python 2/3 compatibility
+- Fix imports in backend code for Python 2/3 compatibility
+- Fix data types in backend code for Python 2/3 compatibility
+- Fix 'dict' in backend code for Python 2/3 compatibility
+- Add __bool__ in backend code for Python 2/3 compatibility
+- Fix 'filter' in backend code for Python 2/3 compatibility
+- Fix 'map' in backend code for Python 2/3 compatibility
+- Fix 'xrange' in backend code for Python 2/3 compatibility
+- Fix 'octal' format of number in backend code for Python 2/3 compatibility
+- Fix 'raise' in backend code for Python 2/3 compatibility
+- Fix 'except' in backend code for Python 2/3 compatibility
+- Fix 'has_key' in backend code for Python 2/3 compatibility
+- Fix 'print' in backend code for Python 2/3 compatibility
+- Add micro-six python module to write code that runs on Python 2 and 3
+
 * Wed Mar 23 2016 Jan Dobes 2.5.28-1
 - qemu-kvm guests created on my Fedora 22 have following signature, mark them
   as virtual
