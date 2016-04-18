@@ -481,7 +481,7 @@ def decompress_open(filename, mode='r'):
         file_obj = bz2.BZ2File(filename, mode)
     elif filename.endswith('.xz'):
         try:
-            # pylint: disable=F0401
+            # pylint: disable=F0401,E1101
             import lzma
             file_obj = lzma.LZMAFile(filename, mode)
         except ImportError: # No LZMA lib - be sad

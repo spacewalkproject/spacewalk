@@ -24,10 +24,14 @@ from spacewalk.common.usix import next as usix_next
 from spacewalk.common import checksum
 from rhn_pkg import A_Package, InvalidPackageError
 
+# bare-except and broad-except
+# pylint: disable=W0702,W0703
+
 if not hasattr(tempfile, 'SpooledTemporaryFile'):
     # RHEL5
     tempfile.SpooledTemporaryFile = tempfile.NamedTemporaryFile
 
+# pylint: disable=E1101
 # Expose a bunch of useful constants from rpm
 error = rpm.error
 

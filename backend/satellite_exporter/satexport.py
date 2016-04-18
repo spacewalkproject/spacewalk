@@ -21,7 +21,8 @@ try:
     import xmlrpclib
 except ImportError:
     #  python3
-    import xmlrpc.client as xmlrpclib
+    import xmlrpc.client as xmlrpclib  # pylint: disable=F0401
+
 from spacewalk.common import apache
 
 from spacewalk.common.usix import raise_with_tb
@@ -273,7 +274,7 @@ class ApacheServer(BaseApacheServer):
             server_minor = int(server_minor)
         except ValueError:
             raise_with_tb(rhnException("Invalid server version string %s"
-                               % server_version), sys.exc_info()[2])
+                                       % server_version), sys.exc_info()[2])
 
         if client_major != server_major:
             raise rhnFault(3012, "Client version %s does not match"

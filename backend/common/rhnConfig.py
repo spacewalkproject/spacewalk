@@ -22,6 +22,8 @@ import re
 from spacewalk.common.usix import raise_with_tb
 from rhn.UserDictCase import UserDictCase
 
+# bare-except and broad-except
+# pylint: disable=W0702,W0703
 
 _CONFIG_ROOT = '/etc/rhn'
 _CONFIG_FILE = '%s/rhn.conf' % _CONFIG_ROOT
@@ -103,7 +105,7 @@ class RHNOptions:
         except OSError:
             e = sys.exc_info()[1]
             raise_with_tb(ConfigParserError("config file read error",
-                                    self.filename, e.args[1]), sys.exc_info()[2])
+                                            self.filename, e.args[1]), sys.exc_info()[2])
         lm = si[stat.ST_MTIME]
         # should always be positive, but a non-zero result is still
         # indication that the file has changed.
@@ -390,7 +392,7 @@ def parse_line(line):
         return (keys, None)
     # split and sanitize
     vals = list(map(sanitize_value, [keys] * len(vals.split(optSeparator)),
-               vals.split(optSeparator)))
+                    vals.split(optSeparator)))
     if len(vals) == 1:
         # Single value
         vals = vals[0]

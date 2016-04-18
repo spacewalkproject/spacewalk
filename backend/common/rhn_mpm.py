@@ -27,7 +27,7 @@ try:
     import xmlrpclib
 except ImportError:
     #  python3
-    import xmlrpc.client as xmlrpclib
+    import xmlrpc.client as xmlrpclib # pylint: disable=F0401
 import struct
 import sys
 import fileutils
@@ -37,6 +37,9 @@ from spacewalk.common.usix import ListType, TupleType
 from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import checksum
 from rhn_pkg import A_Package, InvalidPackageError
+
+# bare-except and broad-except
+# pylint: disable=W0702,W0703
 
 MPM_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
 

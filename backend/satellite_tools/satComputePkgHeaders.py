@@ -207,7 +207,6 @@ class Runner:
             try:
                 h.execute(package_id=package_id, header_start=header_start, header_end=header_end)
             except rhnSQL.SQLError:
-                e = sys.exc_info()[1]
                 pass
 
     @staticmethod

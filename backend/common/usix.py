@@ -48,9 +48,9 @@ InstanceType = (types.InstanceType, object)[PY3 == True]
 
 
 if PY3:
-        BufferType = memoryview
+    BufferType = memoryview
 else:
-        BufferType = types.BufferType
+    BufferType = types.BufferType
 
 # Common limits
 
@@ -76,4 +76,4 @@ try:
 except NameError:
     def advance_iterator(it):
         return it.next()
-next = advance_iterator
+next = advance_iterator  # pylint: disable=W0622

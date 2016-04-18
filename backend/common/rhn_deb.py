@@ -26,6 +26,9 @@ from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import checksum
 from rhn_pkg import A_Package, InvalidPackageError
 
+# bare-except and broad-except
+# pylint: disable=W0702,W0703
+
 DEB_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
 
 

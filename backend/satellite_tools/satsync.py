@@ -29,7 +29,7 @@ try:
     import Queue
 except ImportError:
     #  python3
-    import queue as Queue
+    import queue as Queue # pylint: disable=F0401
 import threading
 from optparse import Option, OptionParser
 from rhn.connections import idn_ascii_to_puny, idn_puny_to_unicode
@@ -502,7 +502,8 @@ class Syncer:
                         and os.access(self._systemidPath, os.R_OK)):
                     self.systemid = open(self._systemidPath, 'rb').read()
                 else:
-                    raise_with_tb(RhnSyncException(_('ERROR: this server must be registered with RHN.')), sys.exc_info()[2])
+                    raise_with_tb(RhnSyncException(_('ERROR: this server must be registered with RHN.')),
+                                  sys.exc_info()[2])
             # authorization check of the satellite
             auth = xmlWireSource.AuthWireSource(self.systemid, self.sslYN,
                                                 self.xml_dump_version)
@@ -640,7 +641,7 @@ class Syncer:
 
         except InvalidChannelFamilyError:
             raise_with_tb(RhnSyncException(messages.invalid_channel_family_error %
-                                   ''.join(requested_channels)), sys.exc_info()[2])
+                                           ''.join(requested_channels)), sys.exc_info()[2])
         except MissingParentChannelError:
             raise
 
@@ -1069,7 +1070,8 @@ class Syncer:
         self._diff_source_packages()
         log(1, ["", _("Downloading srpm packages")])
         # Lets go fetch the source packages and push them to their proper location:
-        sorted_channels = sorted(list(self._missing_fs_source_packages.items()), key=lambda x: x[0])  # sort by channel_label
+        # sort by channel_label
+        sorted_channels = sorted(list(self._missing_fs_source_packages.items()), key=lambda x: x[0])
         for channel, missing_fs_source_packages in sorted_channels:
             missing_source_packages_count = len(missing_fs_source_packages)
             log(1, _("   Fetching any missing SRPMs: %s (%s)") %
@@ -1618,7 +1620,8 @@ class Syncer:
     def import_errata(self):
         log(1, ["", _("Importing channel errata")])
         errata_collection = sync_handlers.ErrataCollection()
-        sorted_channels = sorted(list(self._missing_channel_errata.items()), key=lambda x: x[0])  # sort by channel_label
+        # sort by channel_label
+        sorted_channels = sorted(list(self._missing_channel_errata.items()), key=lambda x: x[0])
         for chn, errata in sorted_channels:
             log(2, _("Importing %s errata for channel %s.") % (len(errata), chn))
             batch = []
@@ -2322,7 +2325,8 @@ def processCommandline():
         except (ValueError, TypeError):
             # int(None) --> TypeError
             # int('a')  --> ValueError
-            raise_with_tb(ValueError(_("ERROR: --batch-size must have a value within the range: 1..50")), sys.exc_info()[2])
+            raise_with_tb(ValueError(_("ERROR: --batch-size must have a value within the range: 1..50")),
+                          sys.exc_info()[2])
 
     OPTIONS.mount_point = fileutils.cleanupAbsPath(OPTIONS.mount_point)
     OPTIONS.systemid = fileutils.cleanupAbsPath(OPTIONS.systemid)

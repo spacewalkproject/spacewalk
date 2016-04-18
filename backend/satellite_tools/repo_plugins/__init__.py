@@ -42,6 +42,7 @@ class ContentPackage:
     def __cmp__(self,other):
         relSelf = re.split(r".",self.release)[0]
         relOther = re.split(r".",other.release)[0]
+        # pylint: disable=E1101
         return rpm.labelCompare((self.epoch,self.version,relSelf),\
                                 (other.epoch,other.version,relOther))
 

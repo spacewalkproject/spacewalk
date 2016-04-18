@@ -25,6 +25,9 @@ from spacewalk.common.usix import raise_with_tb
 from spacewalk.server import rhnSQL
 from spacewalk.common.rhnTB import fetchTraceback
 
+# bare-except and broad-except
+# pylint: disable=W0702,W0703
+
 def get_all_orgs():
     """ Fetch org_id. Create first org_id if needed.
         owner only needed if no org_id present
@@ -131,7 +134,7 @@ def _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, caCert):
     except:
         # didn't go in!
         raise_with_tb(CaCertInsertionError("ERROR: CA certificate failed to be "
-                                   "inserted into the database"), sys.exc_info()[2])
+                                           "inserted into the database"), sys.exc_info()[2])
 
 
 def store_rhnCryptoKey(description, caCert, verbosity=0):

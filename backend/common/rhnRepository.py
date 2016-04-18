@@ -36,6 +36,8 @@ from rhnLib import rfc822time
 from rhnException import rhnException, rhnFault, rhnNotFound
 from RPC_Base import RPC_Base
 
+# bare-except and broad-except
+# pylint: disable=W0702,W0703
 
 class Repository(RPC_Base):
 
@@ -190,7 +192,7 @@ class Repository(RPC_Base):
                 s = os.stat(filePath)
             except:
                 raise_with_tb(rhnFault(17, "Unable to read package %s"
-                               % os.path.basename(filePath)), sys.exc_info()[2])
+                                       % os.path.basename(filePath)), sys.exc_info()[2])
 
         lastModified = s[stat.ST_MTIME]
         del s  # XXX: not neccessary?

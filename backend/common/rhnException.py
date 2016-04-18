@@ -19,7 +19,7 @@ try:
     import xmlrpclib
 except ImportError:
     #  python3
-    import xmlrpc.client as xmlrpclib
+    import xmlrpc.client as xmlrpclib  # pylint: disable=F0401
 
 from spacewalk.common.rhnConfig import PRODUCT_NAME
 try:
