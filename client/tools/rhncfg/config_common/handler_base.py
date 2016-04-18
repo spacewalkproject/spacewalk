@@ -20,6 +20,7 @@ from optparse import OptionParser, Option
 from config_common import rhn_log
 from config_common import cfg_exceptions
 from config_common import local_config
+from rhn.i18n import bstr
 
 class HandlerBase:
     _options_table = []
@@ -78,8 +79,8 @@ class HandlerBase:
         return (username, password)
 
     def _read_username(self):
-        tty = open("/dev/tty", "r+")
-        tty.write("Username: ")
+        tty = open("/dev/tty", "rb+", buffering=0)
+        tty.write(bstr("Username: "))
         try:
             username = tty.readline()
         except KeyboardInterrupt:
