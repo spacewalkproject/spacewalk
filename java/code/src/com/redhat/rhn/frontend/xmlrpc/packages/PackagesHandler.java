@@ -415,6 +415,29 @@ public class PackagesHandler extends BaseHandler {
     }
 
     /**
+     * List all source packages
+     * @param loggedInUser The current user
+     * @return Returns an array of source packages
+     * @throws FaultException A FaultException is thrown
+     * when user does not have permissions.
+     * @xmlrpc.doc List all source packages in user's organization.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype
+     * #array()
+     *   #struct("source_package")
+     *     #prop("int", "id")
+     *     #prop("string", "name")
+     *   #struct_end()
+     * #array_end()
+     */
+    public Object[] listSourcePackages(User loggedInUser) throws FaultException {
+
+        DataResult dr =
+                PackageManager.listCustomPackages(loggedInUser.getOrg().getId(), true);
+        return dr.toArray();
+    }
+
+    /**
      * Private helper method to get a DataResult object for a given dependency type
      * @param type The type in question
      * @param pkg The package in question

@@ -128,4 +128,16 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
         assertEquals(p, newP.get(0));
     }
 
+    public void testListSourcePackages() throws Exception {
+        User user = UserTestUtils.createUser("testUser", regular.getOrg().getId());
+        Object[] result1 = handler.listSourcePackages(user);
+        for (int i = 0; i < 3; i++) {
+            SourceRpm srpm = SourceRpmTest.createTestSourceRpm();
+            PackageSource pkg = PackageTest.createTestPackageSource(srpm, user.getOrg());
+            HibernateFactory.getSession().save(pkg);
+        }
+        Object[] result2 = handler.listSourcePackages(user);
+        assertEquals(3, result2.length - result1.length);
+    }
+
 }
