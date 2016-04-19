@@ -30,6 +30,7 @@
        <packagereq type="default">rhn-virtualization-host</packagereq>
        <packagereq type="default">spacewalk-abrt</packagereq>
        <packagereq type="default">spacewalk-backend-libs</packagereq>
+       <packagereq type="default">spacewalk-backend-usix</packagereq>
        <packagereq type="default">spacewalk-certs-tools</packagereq>
        <packagereq type="default">spacewalk-client-cert</packagereq>
        <packagereq type="default">spacewalk-client-repo</packagereq>
