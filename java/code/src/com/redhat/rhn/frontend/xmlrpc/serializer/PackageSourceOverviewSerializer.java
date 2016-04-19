@@ -38,7 +38,9 @@ public class PackageSourceOverviewSerializer extends RhnXmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public Class getSupportedClass() { return PackageSourceOverview.class; }
+    public Class getSupportedClass() {
+        return PackageSourceOverview.class;
+    }
 
     /** {@inheritDoc} */
     protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
