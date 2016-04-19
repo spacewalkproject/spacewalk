@@ -546,9 +546,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files libs
 %doc LICENSE
-%{pythonrhnroot}/__init__.py*
-%dir %{pythonrhnroot}/common
-%{pythonrhnroot}/common/__init__.py*
 %{pythonrhnroot}/common/checksum.py*
 %{pythonrhnroot}/common/cli.py*
 %{pythonrhnroot}/common/fileutils.py*
