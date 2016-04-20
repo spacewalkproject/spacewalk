@@ -15,13 +15,7 @@
 
 import os
 import sys
-if hasattr(sys, 'version_info'):
-    # Python 2 - Use the platform-wide ConfigParser
-    import ConfigParser
-else:
-    # Python 1.5.2 - use the internal copy
-    import _ConfigParser
-    ConfigParser = _ConfigParser
+import ConfigParser
 
 InterpolationError = ConfigParser.InterpolationError
 

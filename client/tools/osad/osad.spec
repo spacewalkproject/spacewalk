@@ -347,7 +347,6 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %files
 %dir %{rhnroot}/osad
 %attr(755,root,root) %{_sbindir}/osad
-%{rhnroot}/osad/_ConfigParser.py*
 %{rhnroot}/osad/osad.py*
 %{rhnroot}/osad/osad_client.py*
 %{rhnroot}/osad/osad_config.py*
