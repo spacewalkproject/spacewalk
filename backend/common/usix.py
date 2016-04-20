@@ -21,36 +21,33 @@ PY3 = sys.version_info[0] == 3
 
 
 # Common data types
-
-# we cannot use ternary operator 'a if test else b'
-# because this code is Python 2.4 compatible, will use
-# (falseValue, trueValue)[test]
-
-UnicodeType = (types.UnicodeType, str)[PY3 == True]
-StringType = (types.StringType, bytes)[PY3 == True]
-DictType = (types.DictType, dict)[PY3 == True]
-IntType = (types.IntType, int)[PY3 == True]
-LongType = (types.LongType, int)[PY3 == True]
-ListType = (types.ListType, list)[PY3 == True]
-NoneType = (types.NoneType, type(None))[PY3 == True]
-BooleanType = (types.BooleanType, bool)[PY3 == True]
-ClassType = (types.BufferType, type)[PY3 == True]
-ComplexType = (types.ComplexType, complex)[PY3 == True]
-EllipsisType = (types.EllipsisType, type(Ellipsis))[PY3 == True]
-FloatType = (types.FloatType, float)[PY3 == True]
-ObjectType = (types.ObjectType, object)[PY3 == True]
-NotImplementedType = (types.NotImplementedType, type(NotImplemented))[PY3 == True]
-SliceType = (types.SliceType, slice)[PY3 == True]
-TupleType = (types.TupleType, tuple)[PY3 == True]
-TypeType = (types.TypeType, type)[PY3 == True]
-XRangeType = (types.XRangeType, range)[PY3 == True]
-InstanceType = (types.InstanceType, object)[PY3 == True]
-
-
+# Common data types
 if PY3:
     BufferType = memoryview
+    UnicodeType = str
+    StringType = bytes
+    DictType = dict
+    IntType = int
+    LongType = int
+    ListType = list
+    ClassType = type
+    FloatType = float
+    TupleType = tuple
+    TypeType = type
+    InstanceType = object
 else:
     BufferType = types.BufferType
+    UnicodeType = unicode
+    StringType = types.StringType
+    DictType = types.DictType
+    IntType = types.IntType
+    LongType = types.LongType
+    ListType = types.ListType
+    ClassType = types.BufferType
+    FloatType = types.FloatType
+    TupleType = types.TupleType
+    TypeType = types.TypeType
+    InstanceType = types.InstanceType
 
 # Common limits
 
@@ -63,11 +60,25 @@ else:
 # Common methods
 
 # raise exception with traceback
-def raise_with_tb(exc, tb):
-    if PY3:
-        raise exc.with_traceback(tb)
-    else:
-        raise exc, None, tb
+# pylint: disable=W0122
+if PY3:
+    def raise_with_tb(value, tb=None):
+        try:
+            if value.__traceback__ is not tb:
+                raise value.with_traceback(tb)
+            raise value
+        finally:
+            value = None
+            tb = None
+else:
+    exec("""
+def raise_with_tb(value, tb=None):
+    try:
+        raise value, None, tb
+    finally:
+        tb = None
+""")
+
 
 # code from original 'six' module
 # added for compatibility with Python 2.4
