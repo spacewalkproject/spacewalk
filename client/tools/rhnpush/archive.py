@@ -69,7 +69,7 @@ class ArchiveParser(object):
         # bug: 171086: support for older versions of tempfile (ie python 2.2)
         tempfile.tempdir = tempdir
         self._temp_dir = tempfile.mktemp()
-        os.mkdir(self._temp_dir, 0700)
+        os.mkdir(self._temp_dir, int('0700', 8))
 
         self._explode()
 
@@ -258,7 +258,8 @@ class ZipParser(ArchiveParser):
 
         try:
             self.zip_file.extractall(self._temp_dir)
-        except Exception, e:
+        except Exception:
+            e = sys.exc_info()[1]
             raise InvalidArchiveError("Archive did not expand to %s: %s" %
                                       (self._archive_dir, str(e)))
         return
@@ -284,7 +285,8 @@ class TarParser(ArchiveParser):
 
         try:
             self.tar_file.extractall(path=self._temp_dir)
-        except Exception, e:
+        except Exception:
+            e = sys.exc_info()[1]
             raise InvalidArchiveError("Archive did not expand to %s: %s" %
                                       (self._archive_dir, str(e)))
         return
@@ -391,7 +393,7 @@ def _decompress(archive):
         if not _has_executable(cmd):
             raise ArchiveException("Cannot decompress %s, '%s' not found" % (archive, cmd))
 
-        print "Decompressing archive"
+        print("Decompressing archive")
 
         _my_popen("%s %s" % (cmd, archive))
 

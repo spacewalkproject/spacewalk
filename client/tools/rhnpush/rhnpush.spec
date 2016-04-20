@@ -14,8 +14,21 @@ Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:     noarch
 Requires:      rpm-python
+
+%if 0%{?fedora} >= 23
+Requires:      python3-rhnlib
+Requires:      python3-spacewalk-backend-libs
+Requires:      python3-spacewalk-backend-usix
+BuildRequires: python3-spacewalk-backend-libs
+BuildRequires: python3-devel
+%else
 Requires:      rhnlib >= 2.5.74
 Requires:      spacewalk-backend-libs >= 1.7.17
+Requires:      spacewalk-backend-usix
+BuildRequires: spacewalk-backend-libs > 1.8.33
+BuildRequires: python-devel
+%endif
+
 Requires:      rhn-client-tools
 %if 0%{?pylint_check}
 BuildRequires:  spacewalk-pylint >= 0.6
@@ -25,10 +38,10 @@ BuildRequires:  spacewalk-pylint >= 0.6
 BuildRequires:      rhn-client-tools
 %endif
 BuildRequires: docbook-utils, gettext
-BuildRequires: python-devel
+
 %if 0%{?fedora} || 0%{?rhel} > 5
 BuildRequires:  rhn-client-tools
-BuildRequires:  spacewalk-backend-libs > 1.8.33
+
 %endif
 
 Summary: Package uploader for the Spacewalk or Red Hat Satellite Server
@@ -54,6 +67,10 @@ make -f Makefile.rhnpush install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
 rm -fv $RPM_BUILD_ROOT%{_bindir}/solaris2mpm
 rm -fv $RPM_BUILD_ROOT%{rhnroot}/rhnpush/solaris2mpm.py*
 rm -fv $RPM_BUILD_ROOT%{_mandir}/man8/solaris2mpm.8*
+%endif
+
+%if 0%{?fedora} >= 23
+sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' $RPM_BUILD_ROOT%{_bindir}/rhnpush
 %endif
 
 %clean

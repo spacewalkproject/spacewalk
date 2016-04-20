@@ -20,7 +20,12 @@
 #
 
 import sys
-import ConfigParser
+
+# pylint: disable=F0401
+if sys.version_info[0] == 3:
+    import configparser as ConfigParser
+else:
+    import ConfigParser
 
 # Class that contains the options read in from the config file.
 # Uses a ConfigParser to create a dictionary of the configuration options.
@@ -86,15 +91,17 @@ class rhnpushConfigParser:
     def _read_config_files(self):
         try:
             self.settings.read([self.filename])
-        except IOError, e:
-            print "Config File Error: line %s, file %s: %s" % (e.lineno, e.filename, e)
+        except IOError:
+            e = sys.exc_info()[1]
+            print(("Config File Error: line %s, file %s: %s" % (e.lineno, e.filename, e)))
             sys.exit(1)
 
     def write(self, fileobj):
         try:
             self.settings.write(fileobj)
-        except IOError, e:
-            print "Config File Error: line %s, file %s: %s" % (e.lineno, e.filename, e)
+        except IOError:
+            e = sys.exc_info()[1]
+            print(("Config File Error: line %s, file %s: %s" % (e.lineno, e.filename, e)))
             sys.exit(1)
 
     # Returns an option read in from the configuration files and specified by the string variable option.
@@ -103,13 +110,14 @@ class rhnpushConfigParser:
     def get_option(self, option):
         try:
             return self.settings.get(self.section, option)
-        except(ConfigParser.NoOptionError, ConfigParser.NoSectionError), e:
-            print "Option/Section Error: line %s, file %s: %s" % (e.lineno, e.filename, e)
+        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError):
+            e = sys.exc_info()[1]
+            print("Option/Section Error: line %s, file %s: %s" % (e.lineno, e.filename, e))
             sys.exit(1)
 
     # Returns the keys of the attributes of the object.
     def keys(self):
-        return self.__dict__.keys()
+        return list(self.__dict__.keys())
 
     # Returns the keys of the options read in from the configuration files.
     def _keys(self):
@@ -139,5 +147,5 @@ class rhnpushConfigParser:
         # ensuring consistency only checks for missing configuration option.
         if ensure_consistency:
             for thiskey in self.options_defaults.keys():
-                if not self.__dict__.has_key(thiskey):
+                if thiskey not in self.__dict__:
                     self.__dict__[thiskey] = self.options_defaults[thiskey]

@@ -16,14 +16,20 @@
 import socket
 import base64
 import sys
-import urllib
-import urlparse
+# pylint: disable=F0401,E0611
+if sys.version_info[0] == 3:
+    from urllib.parse import splitport
+    from urllib.parse import urlparse
+else:
+    from urllib import splitport
+    from urlparse import urlparse
 
 from types import ListType, TupleType, IntType
 
 from rhn import connections, rpclib
 
 from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
+from spacewalk.common.usix import raise_with_tb
 from utils import tupleify_urlparse
 
 
@@ -112,7 +118,7 @@ class PackageUpload:
         self._response = None
 
     def set_header(self, name, value):
-        if not self.headers.has_key(name):
+        if name not in self.headers:
             vlist = self.headers[name] = []
         else:
             vlist = self.headers[name]
@@ -123,11 +129,12 @@ class PackageUpload:
     def send_http_headers(self, method, content_length=None):
         try:
             self.connection.connect()
-        except socket.error, e:
-            raise ConnectionError("Error connecting", str(e)), None, sys.exc_info()[2]
+        except socket.error:
+            e = sys.exc_info()[1]
+            raise_with_tb(ConnectionError("Error connecting", str(e)), sys.exc_info()[2])
 
         # Add content_length
-        if not self.headers.has_key('Content-Length') and \
+        if 'Content-Length' not in self.headers and \
                 content_length is not None:
             self.set_header('Content-Length', content_length)
         self.connection.putrequest(method)
@@ -153,8 +160,9 @@ class PackageUpload:
                 break
             try:
                 self.connection.send(buf)
-            except IOError, e:
-                raise ConnectionError("Error sending body", str(e)), None, sys.exc_info()[2]
+            except IOError:
+                e = sys.exc_info()[1]
+                raise_with_tb(ConnectionError("Error sending body", str(e)), sys.exc_info()[2])
 
     def send_http(self, method, stream_body=None):
         if stream_body is None:
@@ -259,7 +267,7 @@ class PackageUpload:
             errstring = self.get_error_message(self._resp_headers)
             return status, errstring
         if status == 500:
-            print "Internal server error", status, reason
+            print("Internal server error", status, reason)
             errstring = self.get_error_message(self._resp_headers)
             return status, data + errstring
 
@@ -276,18 +284,18 @@ class PackageUpload:
 
 def parse_url(url, scheme="http", path='/'):
     _scheme, netloc, _path, params, query, fragment = tupleify_urlparse(
-        urlparse.urlparse(url))
+        urlparse(url))
     if not netloc:
         # No scheme - trying to patch it up ourselves?
         url = scheme + "://" + url
         _scheme, netloc, _path, params, query, fragment = tupleify_urlparse(
-            urlparse.urlparse(url))
+            urlparse(url))
 
     if not netloc:
         # XXX
         raise Exception()
 
-    (host, port) = urllib.splitport(netloc)
+    (host, port) = splitport(netloc)
 
     if not _path:
         _path = path

@@ -32,13 +32,20 @@ import os
 import random
 import sys
 import time
-import urlparse
+
+# pylint: disable=F0401,E0611
+if sys.version_info[0] == 3:
+    import urllib.parse as urlparse
+else:
+    import urlparse
+
 import rhnpush_confmanager
 from rhn.connections import idn_ascii_to_puny
 
 from optparse import Option, OptionParser
 from rhn import rpclib
 from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
+from spacewalk.common.usix import raise_with_tb
 import uploadLib
 import rhnpush_v2
 from utils import tupleify_urlparse
@@ -151,9 +158,9 @@ def main():
 
     if not upload.files:
         if upload.newest:
-            print "No new files to upload; exiting"
+            print("No new files to upload; exiting")
         else:
-            print "Nothing to do (try --help for more options)"
+            print("Nothing to do (try --help for more options)")
         sys.exit(0)
 
     if options.test:
@@ -233,7 +240,7 @@ class UploadClass(uploadLib.UploadClass):
             self.setForce()
         except:
             test_force = "Failed"
-        print test_force_str % test_force
+        print(test_force_str % test_force)
 
     def _test_set_org(self):
         test_set_org_str = "Setting the org:    %s"
@@ -242,7 +249,7 @@ class UploadClass(uploadLib.UploadClass):
             self.setOrg()
         except:
             test_set_org = "Failed"
-        print test_set_org_str % test_set_org
+        print(test_set_org_str % test_set_org)
 
     def _test_set_url(self):
         test_set_url_str = "Setting the URL:    %s"
@@ -251,7 +258,7 @@ class UploadClass(uploadLib.UploadClass):
             self.setURL()
         except:
             test_set_url = "Failed"
-        print test_set_url_str % test_set_url
+        print(test_set_url_str % test_set_url)
 
     def _test_set_channels(self):
         test_set_channels_str = "Setting the channels:  %s"
@@ -260,7 +267,7 @@ class UploadClass(uploadLib.UploadClass):
             self.setChannels()
         except:
             test_set_channels = "Failed"
-        print test_set_channels_str % test_set_channels
+        print(test_set_channels_str % test_set_channels)
 
     def _test_username_password(self):
         test_user_pass_str = "Setting the username and password:    %s"
@@ -269,7 +276,7 @@ class UploadClass(uploadLib.UploadClass):
             self.setUsernamePassword()
         except:
             test_user_pass = "Failed"
-        print test_user_pass_str % test_user_pass
+        print(test_user_pass_str % test_user_pass)
 
     def _test_set_server(self):
         test_set_server_str = "Setting the server:  %s"
@@ -278,7 +285,7 @@ class UploadClass(uploadLib.UploadClass):
             self.setServer()
         except:
             test_set_server = "Failed"
-        print test_set_server_str % test_set_server
+        print(test_set_server_str % test_set_server)
 
     def _test_connect(self):
         auth_ret = uploadLib.call(self.server.packages.test_login,
@@ -287,7 +294,7 @@ class UploadClass(uploadLib.UploadClass):
             test_auth = "Passed"
         else:
             test_auth = "Failed"
-        print "Testing connection and authentication:   %s" % test_auth
+        print("Testing connection and authentication:   %s" % test_auth)
 
     def _test_access(self):
         access_ret = callable(self.server.packages.channelPackageSubscriptionBySession)
@@ -296,7 +303,7 @@ class UploadClass(uploadLib.UploadClass):
             test_access = "Passed"
         else:
             test_access = "Failed"
-        print "Testing access to upload functionality on server:    %s" % test_access
+        print("Testing access to upload functionality on server:    %s" % test_access)
 
     # 12/22/05 wregglej 173287  Added a this funtion to test the new session authentication stuff.
     # It still needs work.
@@ -312,7 +319,7 @@ class UploadClass(uploadLib.UploadClass):
         self._test_set_server()
         self._test_connect()
         self._test_access()
-        print "The files that would have been pushed:"
+        print("The files that would have been pushed:")
         self.test()
 
     def packages(self):
@@ -366,7 +373,7 @@ class UploadClass(uploadLib.UploadClass):
             # temporary fix for picking pkgs instead of full paths
             pkg_key = (pkg.strip()).split('/')[-1]
 
-            if not server_digest_hash.has_key(pkg_key):
+            if pkg_key not in server_digest_hash:
                 continue
 
             checksum_type, checksum = digest = digest_hash[pkg_key]
@@ -415,7 +422,8 @@ class UploadClass(uploadLib.UploadClass):
 
                 # FIX: it checks for tolerant flag and aborts only if the flag is
                 #not specified
-                except uploadLib.UploadError, ue:
+                except uploadLib.UploadError:
+                    ue = sys.exc_info()[1]
                     if not self.options.tolerant:
                         self.die(1, ue)
                     self.warn(2, ue)
@@ -443,7 +451,7 @@ class UploadClass(uploadLib.UploadClass):
                     # pkilambi:bug#176358:this exits with a error code of 1
                     self.die(1, "Giving up after %d attempts" % tries)
                 else:
-                    print "Giving up after %d attempts and continuing on..." % (tries,)
+                    print("Giving up after %d attempts and continuing on..." % (tries,))
 
             # 5/13/05 wregglej - 154248 ?? we still want to add the packages if they're source.
             if ret and self.channels:  # and ret['arch'] != 'src':
@@ -564,9 +572,10 @@ class UploadClass(uploadLib.UploadClass):
 
         try:
             h = uploadLib.get_header(package, source=self.options.source)
-        except uploadLib.UploadError, e:
+        except uploadLib.UploadError:
+            e = sys.exc_info()[1]
             # GS: MALFORMED PACKAGE
-            print "Unable to load package", package, ":", e
+            print("Unable to load package", package, ":", e)
             return None
 
         if hasattr(h, 'packaging'):
@@ -580,7 +589,8 @@ class UploadClass(uploadLib.UploadClass):
 
         try:
             ret = self._push_package_v2(package, fileChecksumType, fileChecksum)
-        except uploadLib.UploadError, e:
+        except uploadLib.UploadError:
+            e = sys.exc_info()[1]
             ret, diff_level, pdict = e.args[:3]
             severities = {
                 1: 'path changed',
@@ -588,7 +598,7 @@ class UploadClass(uploadLib.UploadClass):
                 3: 'differing build times or hosts',
                 4: 'package recompiled',
             }
-            if severities.has_key(diff_level):
+            if diff_level in severities:
                 strmsg = \
                     "Error: Package with same name already exists on " + \
                     "server but contents differ ("                     + \
@@ -633,8 +643,8 @@ class UploadClass(uploadLib.UploadClass):
                 data = rpclib.xmlrpclib.loads(msgstr)
             except:
                 # Raise the exception instead of silently dying
-                raise uploadLib.UploadError("Error pushing %s: %s (%s)" %
-                                            (package, msgstr, status)), None, sys.exc_info()[2]
+                raise_with_tb(uploadLib.UploadError("Error pushing %s: %s (%s)" %
+                                                    (package, msgstr, status)), sys.exc_info()[2])
             (diff_dict, ), methodname = data
             del methodname
             diff_level = diff_dict['level']

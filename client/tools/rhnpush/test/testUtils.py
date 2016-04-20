@@ -28,11 +28,11 @@ class TestObj1:
 
     @staticmethod
     def _private_function():
-        print "This is privatei to TestObj1 instances"
+        print("This is privatei to TestObj1 instances")
 
     @staticmethod
     def public_function():
-        print "This is public and belongs to TestObj1"
+        print("This is public and belongs to TestObj1")
 
 
 class TestObj2:
@@ -47,11 +47,11 @@ class TestObj2:
 
     @staticmethod
     def _private_function():
-        print "This is private to TestObj2 instances"
+        print("This is private to TestObj2 instances")
 
     @staticmethod
     def public_function():
-        print "This is public and belongs to TestObj2"
+        print("This is public and belongs to TestObj2")
 
 
 class UtilsTestCase(unittest.TestCase):

@@ -19,10 +19,21 @@ import sys
 import fnmatch
 import getpass
 import rhnpush_cache
-import xmlrpclib
+
+# imports
+# pylint: disable=F0401,E0611
+
+# exceptions
+# pylint: disable=W0702,W0703
+
+if sys.version_info[0] == 3:
+    import xmlrpc.client as xmlrpclib
+else:
+    import xmlrpclib
 import inspect
 from spacewalk.common import rhn_mpm
 from spacewalk.common.rhn_pkg import package_from_filename, get_package_header
+from spacewalk.common.usix import raise_with_tb
 from up2date_client import rhnserver
 
 try:
@@ -228,7 +239,7 @@ class UploadClass:
             channel_list = self._listChannel()
 
         for p in channel_list:
-            print p[:6]
+            print(p[:6])
 
     def newest(self):
         # set the URL
@@ -253,13 +264,13 @@ class UploadClass:
         for filename in self.files:
             nvrea = self._processFile(filename, nosig=1)['nvrea']
             name = nvrea[0]
-            if not localPackagesHash.has_key(name):
+            if name not in localPackagesHash:
                 localPackagesHash[name] = {nvrea: filename}
                 continue
 
             same_names_hash = localPackagesHash[name]
             # Already saw this name
-            if same_names_hash.has_key(nvrea):
+            if nvrea in same_names_hash:
                 # Already seen this nvrea
                 continue
             skip_rpm = 0
@@ -294,12 +305,12 @@ class UploadClass:
 
         for p in pkglist:
             name = p[0]
-            if not localPackagesHash.has_key(name):
+            if name not in localPackagesHash:
                 # Not in the local list
                 continue
             same_names_hash = localPackagesHash[name]
             remote_nvrea = tuple(p[:5])
-            if same_names_hash.has_key(remote_nvrea):
+            if remote_nvrea in same_names_hash:
                 # The same package is already uploaded
                 del same_names_hash[remote_nvrea]
                 continue
@@ -345,7 +356,7 @@ class UploadClass:
         to_push = []
         for pkg in pkglist:
             pkg_name, _pkg_channel = pkg[:2]
-            if not localPackagesHash.has_key(pkg_name):
+            if pkg_name not in localPackagesHash:
                 # We don't have it
                 continue
             to_push.append(localPackagesHash[pkg_name])
@@ -357,7 +368,7 @@ class UploadClass:
     def test(self):
         # Test only
         for p in self.files:
-            print p
+            print(p)
 
     def _get_files(self):
         return self.files[:]
@@ -443,7 +454,7 @@ class UploadClass:
             for idx in range(len(pkglists)):
                 for p in pkglists[idx]:
                     key = tuple(p[:5])
-                    if not uploadedPackages.has_key(key):
+                    if key not in uploadedPackages:
                         # XXX Hmm
                         self.warn("XXX XXX %s" % str(p))
                     filename, checksum = uploadedPackages[key]
@@ -453,7 +464,7 @@ class UploadClass:
                             pattern = "Already uploaded: %s"
                         else:
                             pattern = "Uploaded: %s"
-                        print pattern % filename
+                        print(pattern % filename)
                     # Per-package post actions
                     # For backwards-compatibility with old spacewalk-proxy
                     try:
@@ -526,7 +537,7 @@ class UploadClass:
             a_pkg.payload_checksum()
             assert a_pkg.header
         except:
-            raise UploadError("%s is not a valid package" % filename), None, sys.exc_info()[2]
+            raise_with_tb(UploadError("%s is not a valid package" % filename), sys.exc_info()[2])
 
         if nosig is None and not a_pkg.header.is_signed():
             raise UploadError("ERROR: %s: unsigned rpm (use --nosig to force)"
@@ -566,7 +577,7 @@ class UploadClass:
         headersList = []
         for filename in batch:
             if verbose:
-                print "Uploading %s" % filename
+                print("Uploading %s" % filename)
             info = self._processFile(filename, relativeDir=relativeDir, source=source,
                                      nosig=nosig)
             # Get nvrea
@@ -645,17 +656,19 @@ def call(function, *params, **kwargs):
     # Wrapper function
     try:
         ret = function(*params)
-    except xmlrpclib.Fault, e:
+    except xmlrpclib.Fault:
+        e = sys.exc_info()[1]
         x = parseXMLRPCfault(e)
         if x.faultString:
-            print x.faultString
+            print(x.faultString)
         if x.faultExplanation:
-            print x.faultExplanation
+            print(x.faultExplanation)
         sys.exit(-1)
-    except xmlrpclib.ProtocolError, e:
+    except xmlrpclib.ProtocolError:
+        e = sys.exc_info()[1]
         if kwargs.get('raise_protocol_error'):
             raise
-        print e.errmsg
+        print(e.errmsg)
         sys.exit(-1)
 
     return ret
@@ -734,7 +747,7 @@ def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):
         s.add_trusted_cert(ca_chain)
     return s
 
-
+# pylint: disable=E1123
 def hasChannelChecksumCapability(rpc_server):
     """ check whether server supports getPackageChecksumBySession function"""
     if 'rpcServerOverride' in inspect.getargspec(rhnserver.RhnServer.__init__).args:
@@ -787,7 +800,7 @@ def get_header(filename, fildes=None, source=None):
     try:
         h = get_package_header(filename=filename, fd=fildes)
     except:
-        raise UploadError("Package is invalid"), None, sys.exc_info()[2]
+        raise_with_tb(UploadError("Package is invalid"), sys.exc_info()[2])
 
     # Verify that this is indeed a binary/source. xor magic
     # xor doesn't work with None values, so compare the negated values - the

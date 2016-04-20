@@ -22,7 +22,9 @@ import socket
 import sys
 import time
 
+# pylint: disable=F0401,E0611
 from spacewalk.common import rhn_mpm, checksum
+from spacewalk.common.usix import raise_with_tb
 
 from archive import get_archive_parser
 
@@ -155,26 +157,26 @@ def _parse_options():
     options, args = oparser.parse_args()
 
     if options.USAGE:
-        print usage
+        print(usage)
         sys.exit(0)
 
     # bug 164756: allow an optional temporary directory to work from
     if options.TEMPDIR is not None:
         if not os.path.isdir(options.TEMPDIR):
-            print "no such directory: %s" % options.TEMPDIR
+            print("no such directory: %s" % options.TEMPDIR)
             sys.exit(2)
         if not os.access(options.TEMPDIR, os.W_OK):
-            print "permission denied: %s" % options.TEMPDIR
+            print("permission denied: %s" % options.TEMPDIR)
             sys.exit(2)
 
     # sanity check on arch selection
     if options.ARCH and options.ARCH not in ("i386", "sparc"):
-        print "unknown arch selection '%s'\n" % options.ARCH
+        print("unknown arch selection '%s'\n" % options.ARCH)
         sys.exit(2)
 
     if not args:
-        print "no archives specified"
-        print usage
+        print("no archives specified")
+        print(usage)
         sys.exit(1)
 
     return args
@@ -189,7 +191,7 @@ def _run(archives=sys.argv[1:]):
         archive = os.path.abspath(archive)
 
         try:
-            print "Opening archive, this may take a while"
+            print("Opening archive, this may take a while")
             archive_parser = get_archive_parser(archive, tempdir=options.TEMPDIR)
 
             # patch set
@@ -225,8 +227,9 @@ def _run(archives=sys.argv[1:]):
                 raise MPMInputError("'%s' does not appear to contain Solaris content")
 
         # pylint: disable=W0703
-        except Exception, e:
-            print "Error creating mpm for %s: %s" % (archive, repr(e))
+        except Exception:
+            e = sys.exc_info()[1]
+            print("Error creating mpm for %s: %s" % (archive, repr(e)))
 
         # cleanup as we go
         if options.CLEANUP:
@@ -517,11 +520,11 @@ def parse_pkginfo(pkginfo_str):
 def compose_pstamp_and_release(header):
 
     release_part = ''
-    if header.has_key('release'):
+    if 'release' in header:
         release_part = str(header['release'])
 
     pstamp_part = ''
-    if header.has_key('pstamp'):
+    if 'pstamp' in header:
         delimiter = '_PSTAMP_'
         try:
             pstamp = _extract_pstamp_as_release(header['pstamp'])
@@ -655,11 +658,12 @@ def provide_self(header):
     dct['name'] = header['name']
     dct['version'] = header['version']
 
-    if not header.has_key('provides'):
+    if 'provides' not in header:
         header['provides'] = []
     header['provides'].insert(0, dct)
 
-    if header.has_key('release'):
+
+    if 'release' in header:
         header['provides'].insert(1, {'name': dct['name'], 'flags': 8,
                                       'version': "%s-%s" % (header['version'], header['release'])})
 
@@ -829,7 +833,7 @@ def patch_list(patch_str, sense):
     """
 
     if patch_str.find('(') >= 0:
-        print "Unsupported patch list expression:", patch_str
+        print("Unsupported patch list expression:", patch_str)
         return []
 
     dct = {'name': None,
@@ -886,7 +890,7 @@ def write_mpm(mpm):
         return
 
     dest = _compute_filename(mpm.header)
-    print "Writing %s" % dest
+    print("Writing %s" % dest)
 
     outstream = open(dest, "w+")
     mpm.write(outstream)
@@ -977,7 +981,7 @@ def _compute_pkg_name_extension(arch):
 
     # We shouldn't get here.  Print a warning.
 
-    print "Unknown architecture: " + str(arch)
+    print("Unknown architecture: " + str(arch))
     return None
 
 
@@ -1008,8 +1012,9 @@ def _extract_pstamp_as_release(pstamp):
     date_time_struct = None
     try:
         date_time_struct = time.strptime(date_time_stamp, "%y%m%d%H%M%S")
-    except ValueError, ve:
-        raise PStampParseException("Error parsing date/time: %s" % str(ve)), None, sys.exc_info()[2]
+    except ValueError:
+        ve = sys.exc_info()[1]
+        raise_with_tb(PStampParseException("Error parsing date/time: %s" % str(ve)), sys.exc_info()[2])
 
     # Convert the structure into a string in the release number format.
     release_number = time.strftime("%Y.%m.%d.%H.%M", date_time_struct)
@@ -1039,7 +1044,8 @@ def _to_db_timestamp(s):
             if m == _months[i]:
                 break
             else:
-                raise Exception("unknown month %s" % arr[0]), None, sys.exc_info()[2]
+
+                raise_with_tb(Exception("unknown month %s" % arr[0]), sys.exc_info()[2])
             m = i + 1
 
     d = int(d)

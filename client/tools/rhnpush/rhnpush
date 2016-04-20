@@ -10,7 +10,8 @@ sys.path.append("/usr/share/rhn/")
 mod_name = os.path.basename(sys.argv[0])
 try:
     mod = __import__("rhnpush." + mod_name)
-except ImportError, e:
+except ImportError:
+    e = sys.exc_info()[1]
     sys.stderr.write("Unable to load module %s\n" % mod_name)
     sys.stderr.write(str(e) + "\n")
     sys.exit(1)
@@ -19,11 +20,16 @@ mod = getattr(mod, mod_name)
 if __name__ == '__main__':
     try:
         sys.exit(mod.main() or 0)
-    except KeyboardInterrupt, e:
+    except KeyboardInterrupt:
+        e = sys.exc_info()[1]
         sys.stderr.write("\nUser interrupted process.\n")
         sys.exit(0)
-    except SystemExit, e:
+    except SystemExit:
+        e = sys.exc_info()[1]
         sys.exit(e.code)
-    except Exception, e:
+
+    # pylint: disable=W0703
+    except Exception:
+        e = sys.exc_info()[1]
         sys.stderr.write("\nERROR: unhandled exception occurred: (%s).\n" % e)
         sys.exit(-1)

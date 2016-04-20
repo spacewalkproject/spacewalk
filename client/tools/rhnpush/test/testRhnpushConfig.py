@@ -39,8 +39,8 @@ class RhnConfigTestCase(unittest.TestCase):
         assert a != None and b != None and a == '0' and b == '0'
 
     def testKeys(self):
-        a = self.userconfig.keys()
-        b = self.defaultconfig.keys()
+        a = list(self.userconfig.keys())
+        b = list(self.defaultconfig.keys())
         assert a != None and b != None
 
     def test_keys(self):

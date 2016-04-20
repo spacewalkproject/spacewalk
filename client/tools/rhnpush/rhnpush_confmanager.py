@@ -41,13 +41,13 @@ class ConfManager:
     # Change the exclude options of the self.userconfig
     def _files_to_list(self):
         # Change the files options to lists.
-        if (self.defaultconfig.__dict__.has_key('files') and
+        if ('files' in self.defaultconfig.__dict__ and
                 not isinstance(self.defaultconfig.files, type([]))):
             self.defaultconfig.files = [x.strip() for x in
                                         self.defaultconfig.files.split(',')]
 
         # Change the exclude options to list.
-        if (self.defaultconfig.__dict__.has_key('exclude') and
+        if ('exclude' in self.defaultconfig.__dict__ and
                 not isinstance(self.defaultconfig.__dict__['exclude'], type([]))):
             self.defaultconfig.exclude = [x.strip() for x in
                                           self.defaultconfig.exclude.split(',')]
@@ -56,7 +56,7 @@ class ConfManager:
         for f in self.cfgFileList:
             if os.access(f, os.F_OK):
                 if not os.access(f, os.R_OK):
-                    print "rhnpush does not have read permission on %s" % f
+                    print(("rhnpush does not have read permission on %s" % f))
                     sys.exit(1)
                 config2 = rhnpush_config.rhnpushConfigParser(f)
                 self.defaultconfig, config2 = utils.make_common_attr_equal(self.defaultconfig, config2)

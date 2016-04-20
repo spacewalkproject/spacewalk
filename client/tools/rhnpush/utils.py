@@ -35,7 +35,7 @@ def make_common_attr_equal(object1, object2):
             continue
 
         # Make sure that object2 has the attribute as well. and that it's not equal to ''.
-        if not object2.__dict__.has_key(attr) or object2.__dict__[attr] == '':
+        if attr not in object2.__dict__ or object2.__dict__[attr] == '':
             continue
 
         # Make sure the attributes are the same type OR that the attribute in object1 is None.
@@ -89,5 +89,5 @@ if __name__ == "__main__":
 
     obj1, obj2 = make_common_attr_equal(obj1, obj2)
 
-    print obj1.a
-    print obj2.a
+    print(obj1.a)
+    print(obj2.a)

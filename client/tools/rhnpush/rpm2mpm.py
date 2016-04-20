@@ -17,6 +17,7 @@ import sys
 import time
 from types import ListType, TupleType
 
+# pylint: disable=F0401
 from spacewalk.common import rhn_rpm, rhn_mpm
 
 
@@ -33,7 +34,7 @@ def main():
             header = rhn_rpm.get_package_header(file_obj=f)
             p = rpm_to_mpm(header, f)
             dest_filename = _compute_filename(p.header)
-            print "Writing out the package to %s" % dest_filename
+            print("Writing out the package to %s" % dest_filename)
             dest_file = open(dest_filename, "w+")
             p.write(dest_file)
             dest_file.close()
@@ -192,7 +193,7 @@ def _extract_rpm_changelog(header):
 
 def _extract_array_fields(header, tag_maps):
     # First determine the number of entries
-    key = tag_maps.keys()[0]
+    key = list(tag_maps.keys())[0]
     rpmtag = tag_maps.get(key)
     arr = header[rpmtag]
     if arr is None:
