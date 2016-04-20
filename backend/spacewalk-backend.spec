@@ -2,10 +2,13 @@
 %global rhnconfigdefaults %{rhnroot}/config-defaults
 %global rhnconf %{_sysconfdir}/rhn
 %global apacheconfd %{_sysconfdir}/httpd/conf.d
-%if 0%{?rhel} && 0%{?rhel} < 6
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
-%endif
 %global pythonrhnroot %{python_sitelib}/spacewalk
+
+%if 0%{?fedora} && 0%{?fedora} >= 23
+%{!?python3_sitelib: %global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
+%global python3rhnroot %{python3_sitelib}/spacewalk
+%endif
 
 %if 0%{?fedora}
 %{!?pylint_check: %global pylint_check 1}
@@ -16,9 +19,9 @@ Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
 Version: 2.5.30
-Release: 1%{?dist}
+Release: 1.git.3.151aa47%{?dist}
 URL:       https://fedorahosted.org/spacewalk
-Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Source0: spacewalk-backend-git-3.151aa47.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: python, rpm-python
@@ -221,6 +224,31 @@ Provides: %{name}-usix = %{version}-%{release}
 %description usix
 Library for writing code that runs on Python 2 and 3
 
+
+%if 0%{?fedora} && 0%{?fedora} >= 23
+
+%package -n python3-%{name}-libs
+Summary: Spacewalk client tools libraries for Fedora 23
+Group: Applications/Internet
+BuildRequires: python3-devel
+BuildRequires: python3-libs
+Conflicts: %{name} < 1.7.0
+Requires: python3-libs
+Requires: python3-%{name}-usix
+
+%description -n python3-%{name}-libs
+Libraries required by Spacewalk client tools on Fedora 23.
+
+%package -n python3-%{name}-usix
+Summary: Spacewalk client micro six library
+Group: Applications/Internet
+Provides: python3-%{name}-usix = %{version}-%{release}
+
+%description -n python3-%{name}-usix
+Library for writing code that runs on Python 2 and 3
+
+%endif
+
 %package config-files-common
 Summary: Common files for the Configuration Management project
 Group: Applications/Internet
@@ -301,7 +329,7 @@ Provides: rhns-xml-export-libs = 1:%{version}-%{release}
 Libraries required by various exporting tools
 
 %prep
-%setup -q
+%setup -q -n spacewalk-backend-git-3.151aa47
 
 %build
 make -f Makefile.backend all
@@ -312,9 +340,18 @@ install -d $RPM_BUILD_ROOT%{rhnroot}
 install -d $RPM_BUILD_ROOT%{pythonrhnroot}
 make -f Makefile.backend install PREFIX=$RPM_BUILD_ROOT \
     MANDIR=%{_mandir}
+
+%if 0%{?fedora} && 0%{?fedora} >= 23
+install -d $RPM_BUILD_ROOT%{python3rhnroot}/common
+cp $RPM_BUILD_ROOT%{pythonrhnroot}/__init__.py \
+    $RPM_BUILD_ROOT%{python3rhnroot}/
+cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/{__init__.py,usix.py} \
+    $RPM_BUILD_ROOT%{python3rhnroot}/common
+cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/{checksum.py,cli.py,rhn_deb.py,rhn_mpm.py,rhn_pkg.py,rhn_rpm.py,stringutils.py,fileutils.py} \
+    $RPM_BUILD_ROOT%{python3rhnroot}/common
+%endif
 export PYTHON_MODULE_NAME=%{name}
 export PYTHON_MODULE_VERSION=%{version}
-
 %find_lang %{name}-server
 
 %if 0%{?fedora} || 0%{?rhel} > 6
@@ -335,6 +372,11 @@ spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_tools \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/upload_server \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/wsgi
+%endif
+
+%if 0%{?fedora} && 0%{?fedora} >= 23
+rm -r $RPM_BUILD_ROOT%{python3rhnroot}/__pycache__
+rm -r $RPM_BUILD_ROOT%{python3rhnroot}/common/__pycache__
 %endif
 
 %pre server
@@ -562,6 +604,27 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{pythonrhnroot}/common
 %{pythonrhnroot}/common/__init__.py*
 %{pythonrhnroot}/common/usix.py*
+
+%if 0%{?fedora} && 0%{?fedora} >= 23
+%files -n python3-%{name}-libs
+%doc LICENSE
+%{python3rhnroot}/common/checksum.py
+%{python3rhnroot}/common/cli.py
+%{python3rhnroot}/common/fileutils.py
+%{python3rhnroot}/common/rhn_deb.py
+%{python3rhnroot}/common/rhn_mpm.py
+%{python3rhnroot}/common/rhn_pkg.py
+%{python3rhnroot}/common/rhn_rpm.py
+%{python3rhnroot}/common/stringutils.py
+
+%files -n python3-%{name}-usix
+%doc LICENSE
+%dir %{python3rhnroot}
+%{python3rhnroot}/__init__.py
+%dir %{python3rhnroot}/common
+%{python3rhnroot}/common/__init__.py
+%{python3rhnroot}/common/usix.py
+%endif
 
 %files config-files-common
 %doc LICENSE
