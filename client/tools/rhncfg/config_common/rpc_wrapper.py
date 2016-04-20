@@ -141,7 +141,7 @@ class Server(rpclib.Server):
     def _failover(self):
         #The print statements are from alikins rpcServer.py.
         msg = "An error occurred talking to %s:\n" % self._get_uri()
-        msg = msg + "%s\n%s\n" % (sys.exc_type, sys.exc_value)
+        msg = msg + "%s\n%s\n" % (sys.exc_info()[0], sys.exc_info()[1])
 
         #Increments the index to point to the next server in self.list_of_uris
         self.current_index = self.current_index + 1
