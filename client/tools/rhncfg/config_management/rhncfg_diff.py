@@ -22,6 +22,7 @@ import sys
 from config_common import handler_base, utils, cfg_exceptions
 from config_common.rhn_log import log_debug, die
 from config_common.file_utils import f_date, ostr_to_sym
+from spacewalk.common.usix import next
 
 
 class Handler(handler_base.HandlerBase):
@@ -139,8 +140,8 @@ class Handler(handler_base.HandlerBase):
         diff_output = difflib.unified_diff(fromlines, tolines, info['path'], local_file)
         first_row = second_row = ''
         try:
-            first_row = diff_output.next()
-            second_row = diff_output.next()
+            first_row = next(diff_output)
+            second_row = next(diff_output)
         except StopIteration:
             pass
         file_stat = os.lstat(local_file)
