@@ -14,6 +14,7 @@
 #
 
 import os
+import sys
 
 from spacewalk.common.usix import ListType
 
