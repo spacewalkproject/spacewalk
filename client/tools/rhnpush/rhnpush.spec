@@ -8,7 +8,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.92
+Version:       5.5.93
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -97,6 +97,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Thu Apr 21 2016 Gennadii Altukhov <galt@redhat.com> 5.5.93-1
+- rhnpush is adapted for Python3
+
 * Wed Mar 30 2016 Tomas Kasparek <tkasparek@redhat.com> 5.5.92-1
 - simplify expression
 - don't count on having newest rhn-client-tools
