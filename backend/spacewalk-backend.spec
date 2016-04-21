@@ -18,8 +18,8 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.32
-Release: 1.git.1.151aa47%{?dist}
+Version: 2.5.33
+Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: spacewalk-backend-git-3.151aa47.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -740,6 +740,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Thu Apr 21 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.33-1
+- 
+
 * Thu Apr 21 2016 Gennadii Altukhov <galt@redhat.com> 2.5.32-1.git.1.151aa47
 - Add missing import 'sys'
 
