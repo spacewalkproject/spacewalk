@@ -31,8 +31,8 @@ except ImportError:
 
 
 # What other rhn modules we need
-from rhnTranslate import _
-import rhnFlags
+from spacewalk.common.rhnTranslate import _
+from spacewalk.common import rhnFlags
 
 
 # default template values for error messages

@@ -30,11 +30,11 @@ from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhn_rpm
 
 # local imports
-import rhnFlags
-from rhnLog import log_debug
-from rhnLib import rfc822time
-from rhnException import rhnException, rhnFault, rhnNotFound
-from RPC_Base import RPC_Base
+from spacewalk.common import rhnFlags
+from spacewalk.common.rhnLog import log_debug
+from spacewalk.common.rhnLib import rfc822time
+from spacewalk.common.rhnException import rhnException, rhnFault, rhnNotFound
+from spacewalk.common.RPC_Base import RPC_Base
 
 # bare-except and broad-except
 # pylint: disable=W0702,W0703

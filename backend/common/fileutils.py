@@ -24,7 +24,7 @@ import subprocess
 import select
 import stat
 import tempfile
-from checksum import getFileChecksum
+from spacewalk.common.checksum import getFileChecksum
 
 from spacewalk.common.usix import ListType, TupleType, MaxInt
 

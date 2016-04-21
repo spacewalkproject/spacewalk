@@ -26,12 +26,12 @@ except ImportError:
     from io import StringIO
 from rhn.connections import idn_puny_to_unicode
 
-from rhnConfig import CFG, PRODUCT_NAME
-from rhnLog import log_error
-from rhnTranslate import _
-from stringutils import to_string
-import rhnMail
-import rhnFlags
+from spacewalk.common.rhnConfig import CFG, PRODUCT_NAME
+from spacewalk.common.rhnLog import log_error
+from spacewalk.common.rhnTranslate import _
+from spacewalk.common.stringutils import to_string
+from spacewalk.common import rhnMail
+from spacewalk.common import rhnFlags
 
 # Get the hostname for traceback use
 import socket

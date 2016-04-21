@@ -44,13 +44,13 @@ def get_package_header(filename=None, file_obj=None, fd=None):
 
 def package_from_stream(stream, packaging):
     if packaging == 'deb':
-        import rhn_deb
+        from spacewalk.common import rhn_deb
         a_pkg = rhn_deb.DEB_Package(stream)
     elif packaging == 'rpm':
-        import rhn_rpm
+        from spacewalk.common import rhn_rpm
         a_pkg = rhn_rpm.RPM_Package(stream)
     elif packaging == 'mpm':
-        import rhn_mpm
+        from spacewalk.common import rhn_mpm
         a_pkg = rhn_mpm.MPM_Package(stream)
     else:
         a_pkg = None

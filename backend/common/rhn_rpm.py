@@ -22,7 +22,7 @@ import tempfile
 from spacewalk.common.usix import raise_with_tb
 from spacewalk.common.usix import next as usix_next
 from spacewalk.common import checksum
-from rhn_pkg import A_Package, InvalidPackageError
+from spacewalk.common.rhn_pkg import A_Package, InvalidPackageError
 
 # bare-except and broad-except
 # pylint: disable=W0702,W0703
@@ -164,7 +164,14 @@ class RPM_Package(A_Package):
 
     def __init__(self, input_stream=None):
         A_Package.__init__(self, input_stream)
+        self.header = None
         self.header_data = tempfile.SpooledTemporaryFile()
+        self.header_start = None
+        self.header_end = None
+        self.checksum_type = None
+        self.checksum = None
+        self.payload_stream = None
+        self.payload_size = None
 
     def read_header(self):
         self._get_header_byte_range()

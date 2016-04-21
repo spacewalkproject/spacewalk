@@ -29,7 +29,7 @@ import sys
 from stat import ST_MTIME
 from errno import EEXIST
 
-from rhnLib import timestamp
+from spacewalk.common.rhnLib import timestamp
 
 from spacewalk.common.usix import raise_with_tb
 from spacewalk.common.fileutils import makedirs, setPermsPath

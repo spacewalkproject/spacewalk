@@ -25,10 +25,10 @@ from spacewalk.common import apache
 
 
 # Now local module imports
-import rhnFlags
+from spacewalk.common import rhnFlags
 from rhn.UserDictCase import UserDictCase
-from rhnLog import log_debug, log_error, log_setreq
-from rhnTranslate import cat
+from spacewalk.common.rhnLog import log_debug, log_error, log_setreq
+from spacewalk.common.rhnTranslate import cat
 
 
 class rhnApache:
