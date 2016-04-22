@@ -182,7 +182,7 @@ def main():
 
 
 class UploadClass(uploadLib.UploadClass):
-    # pylint: disable=E1101,W0201
+    # pylint: disable=E1101,W0201,W0632
 
     def __init__(self, options, files=None):
         uploadLib.UploadClass.__init__(self, options, files)
@@ -363,7 +363,11 @@ class UploadClass(uploadLib.UploadClass):
         tries = 3
 
         # satellites < 4.1.0 are no more supported
-        if not headerinfo.getheader('X-RHN-Check-Package-Exists'):
+        if sys.version_info[0] == 3:
+            pack_exist_check = headerinfo.get('X-RHN-Check-Package-Exists')
+        else:
+            pack_exist_check = headerinfo.getheader('X-RHN-Check-Package-Exists')
+        if not pack_exist_check:
             self.die(-1, "Pushing to Satellite < 4.1.0 is not supported.")
 
         (server_digest_hash, pkgs_info, digest_hash) = self.check_package_exists()

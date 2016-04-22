@@ -612,9 +612,12 @@ def getUsernamePassword(cmdlineUsername, cmdlinePassword):
     password = cmdlinePassword
 
     # Read the username, if not already specified
-    tty = open("/dev/tty", "r+")
+    tty = open("/dev/tty", "w")
+    tty.write("Username: ")
+    tty.close()
+    tty = open("/dev/tty", "r")
+
     while not username:
-        tty.write("Username: ")
         try:
             username = tty.readline()
         except KeyboardInterrupt:

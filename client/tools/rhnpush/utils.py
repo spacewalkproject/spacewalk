@@ -15,7 +15,7 @@
 
 import os
 import pwd
-
+import sys
 
 def get_home_dir():
     userid = os.getuid()
@@ -54,22 +54,22 @@ def make_common_attr_equal(object1, object2):
 # Pylint is too stupid to understand subclasses of tuples apparently.
 # This is just to make it shut up.
 def tupleify_urlparse(urlparse_object):
+    ret = []
     if hasattr(urlparse_object, 'scheme'):
-        scheme = urlparse_object.scheme
-        netloc = urlparse_object.netloc
-        path = urlparse_object.path
-        params = urlparse_object.params
-        query = urlparse_object.query
-        fragment = urlparse_object.fragment
+        ret.append(urlparse_object.scheme)
+        ret.append(urlparse_object.netloc)
+        ret.append(urlparse_object.path)
+        ret.append(urlparse_object.params)
+        ret.append(urlparse_object.query)
+        ret.append(urlparse_object.fragment)
     else:
-        scheme = urlparse_object[0]
-        netloc = urlparse_object[1]
-        path = urlparse_object[2]
-        params = urlparse_object[3]
-        query = urlparse_object[4]
-        fragment = urlparse_object[5]
+        ret = [urlparse_object[i] for i in range(0, 6)]
 
-    return scheme, netloc, path, params, query, fragment
+    if sys.version_info[0] == 3:
+        for i in range(0, 6):
+            if not isinstance(ret[i], str):
+                ret[i] = ret[i].decode('ascii')
+    return tuple(ret)
 
 if __name__ == "__main__":
     # This is just for testing purposes.

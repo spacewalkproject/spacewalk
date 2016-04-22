@@ -16,7 +16,7 @@
 import socket
 import base64
 import sys
-# pylint: disable=F0401,E0611
+# pylint: disable=F0401,E0611,W0632
 if sys.version_info[0] == 3:
     from urllib.parse import splitport
     from urllib.parse import urlparse
