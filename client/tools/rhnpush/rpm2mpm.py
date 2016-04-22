@@ -15,10 +15,10 @@
 
 import sys
 import time
-from types import ListType, TupleType
 
 # pylint: disable=F0401
 from spacewalk.common import rhn_rpm, rhn_mpm
+from spacewalk.common.usix import ListType, TupleType
 
 
 def main():

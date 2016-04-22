@@ -24,7 +24,7 @@ else:
     from urllib import splitport
     from urlparse import urlparse
 
-from types import ListType, TupleType, IntType
+from spacewalk.common.usix import ListType, TupleType, IntType
 
 from rhn import connections, rpclib
 
