@@ -4,7 +4,7 @@ Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.84
+Version: 2.5.85
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -85,6 +85,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Apr 22 2016 Gennadii Altukhov <galt@redhat.com> 2.5.85-1
+- Add binary mode for file copying for Python 3
+
 * Fri Feb 19 2016 Jan Dobes 2.5.84-1
 - just set one required attribute to be compatible with all xmlrpclib versions
 - fixed SyntaxError: invalid syntax ' .. = b ' to work in python 2.4
