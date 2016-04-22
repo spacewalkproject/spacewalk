@@ -16,11 +16,10 @@
 import os
 from spacewalk.common import checksum
 
-
 def get_package_header(filename=None, file_obj=None, fd=None):
     # pylint: disable=E1103
     if filename is not None:
-        stream = open(filename)
+        stream = open(filename, mode='rb')
         need_close = True
     elif file_obj is not None:
         stream = file_obj
@@ -64,7 +63,7 @@ def package_from_filename(filename):
         packaging = 'rpm'
     else:
         packaging = 'mpm'
-    stream = open(filename)
+    stream = open(filename, mode='rb')
     return package_from_stream(stream, packaging)
 
 BUFFER_SIZE = 16384
@@ -122,7 +121,7 @@ class A_Package:
 
     @staticmethod
     def _read_bytes(stream, amt):
-        ret = ""
+        ret = b''
         while amt:
             buf = stream.read(min(amt, BUFFER_SIZE))
             if not buf:
