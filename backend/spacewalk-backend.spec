@@ -21,7 +21,7 @@ License: GPLv2
 Version: 2.5.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
-Source0: spacewalk-backend-git-3.151aa47.tar.gz
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: python, rpm-python
@@ -329,7 +329,7 @@ Provides: rhns-xml-export-libs = 1:%{version}-%{release}
 Libraries required by various exporting tools
 
 %prep
-%setup -q -n spacewalk-backend-git-3.151aa47
+%setup -q
 
 %build
 make -f Makefile.backend all
