@@ -670,10 +670,10 @@ class BaseOutput:
             f = SmartIO(force_mem=1)
             gz = gzip.GzipFile(mode="wb", compresslevel=COMPRESS_LEVEL,
                                fileobj = f)
-	    if sys.version_info[0] == 3:
-	        gz.write(bstr(data))
+            if sys.version_info[0] == 3:
+                gz.write(bstr(data))
             else:
-	        gz.write(sstr(data))
+                gz.write(sstr(data))
             gz.close()
             self.data = f.getvalue()
             f.close()
@@ -833,7 +833,7 @@ class File:
             if not buf:
                 break
             if sys.version_info[0] == 3:
-	        file.write(bstr(buf))
+                file.write(bstr(buf))
             else:
                 file.write(sstr(buf))
         return file
