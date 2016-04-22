@@ -4,7 +4,7 @@ Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.85
+Version: 2.5.86
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -85,6 +85,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Apr 22 2016 Gennadii Altukhov <galt@redhat.com> 2.5.86-1
+- Fix indentation error
+
 * Fri Apr 22 2016 Gennadii Altukhov <galt@redhat.com> 2.5.85-1
 - Add binary mode for file copying for Python 3
 
