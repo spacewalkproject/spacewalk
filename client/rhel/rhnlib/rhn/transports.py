@@ -14,7 +14,7 @@ import os
 import sys
 import time
 from rhn import connections
-from rhn.i18n import sstr
+from rhn.i18n import sstr, bstr
 from rhn.SmartIO import SmartIO
 from rhn.UserDictCase import UserDictCase
 
@@ -670,7 +670,10 @@ class BaseOutput:
             f = SmartIO(force_mem=1)
             gz = gzip.GzipFile(mode="wb", compresslevel=COMPRESS_LEVEL,
                                fileobj = f)
-            gz.write(sstr(data))
+	    if sys.version_info[0] == 3:
+	        gz.write(bstr(data))
+            else:
+	        gz.write(sstr(data))
             gz.close()
             self.data = f.getvalue()
             f.close()
@@ -829,7 +832,10 @@ class File:
             buf = fd.read(self.bufferSize)
             if not buf:
                 break
-            file.write(sstr(buf))
+            if sys.version_info[0] == 3:
+	        file.write(bstr(buf))
+            else:
+                file.write(sstr(buf))
         return file
 
     def _get_file(self):
