@@ -19,7 +19,7 @@
 
 import base64
 
-import connection
+from rhnpush import connection
 
 
 class PackageUpload(connection.PackageUpload):

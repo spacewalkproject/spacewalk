@@ -7,7 +7,7 @@ INSTALL_DIR     = $(INSTALL) -m 755 -d
 INSTALL_DATA    = $(INSTALL) -m 644
 
 SUBDIR		= rhnpush
-FILES		= rhnpush rhnpush_v2 uploadLib __init__ connection \
+FILES		= rhnpush_main rhnpush_v2 uploadLib __init__ connection \
               rpm2mpm solaris2mpm utils rhnpush_cache \
 			  rhnpush_config rhnpush_confmanager archive
 

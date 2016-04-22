@@ -1,25 +1,21 @@
 #!/usr/bin/python
 #
-# Wrapper for rhnpush.py
+# Wrapper for rhnpush_main.py
 #
-
-import os
 import sys
 sys.path.append("/usr/share/rhn/")
 
-mod_name = os.path.basename(sys.argv[0])
 try:
-    mod = __import__("rhnpush." + mod_name)
+    from rhnpush import rhnpush_main
 except ImportError:
     e = sys.exc_info()[1]
-    sys.stderr.write("Unable to load module %s\n" % mod_name)
+    sys.stderr.write("Unable to load module rhnpush_main\n")
     sys.stderr.write(str(e) + "\n")
     sys.exit(1)
-mod = getattr(mod, mod_name)
 
 if __name__ == '__main__':
     try:
-        sys.exit(mod.main() or 0)
+        sys.exit(rhnpush_main.main() or 0)
     except KeyboardInterrupt:
         e = sys.exc_info()[1]
         sys.stderr.write("\nUser interrupted process.\n")

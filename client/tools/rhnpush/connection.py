@@ -30,7 +30,7 @@ from rhn import connections, rpclib
 
 from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
 from spacewalk.common.usix import raise_with_tb
-from utils import tupleify_urlparse
+from rhnpush.utils import tupleify_urlparse
 
 
 class ConnectionError(Exception):

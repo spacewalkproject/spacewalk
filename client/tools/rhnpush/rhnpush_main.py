@@ -39,16 +39,17 @@ if sys.version_info[0] == 3:
 else:
     import urlparse
 
-import rhnpush_confmanager
+
+from rhnpush import rhnpush_confmanager
 from rhn.connections import idn_ascii_to_puny
 
 from optparse import Option, OptionParser
 from rhn import rpclib
 from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
 from spacewalk.common.usix import raise_with_tb
-import uploadLib
-import rhnpush_v2
-from utils import tupleify_urlparse
+from rhnpush import uploadLib
+from rhnpush import rhnpush_v2
+from rhnpush.utils import tupleify_urlparse
 
 # Global settings
 BUFFER_SIZE = 65536

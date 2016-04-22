@@ -18,7 +18,7 @@ import os
 import sys
 import fnmatch
 import getpass
-import rhnpush_cache
+from rhnpush import rhnpush_cache
 
 # imports
 # pylint: disable=F0401,E0611
