@@ -24,6 +24,8 @@ from config_common import cfg_exceptions
 from config_common import local_config
 from config_common import utils
 from config_common.rhn_log import log_debug
+from rhn import rpclib
+Output = rpclib.transports.Output
 
 try: # python2
     import xmlrpclib
@@ -326,7 +328,10 @@ class RPC_Repository(Repository):
                                     rpc_handler=handler)
 
         self._set_capabilities()
-        self.server.set_transport_flags(encoding="gzip", transfer="binary")
+        self.server.set_transport_flags(
+            transfer=Output.TRANSFER_BINARY,
+            encoding=Output.ENCODE_GZIP
+        )
 
         if lang:
             self.server.setlang(lang)
