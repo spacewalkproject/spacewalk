@@ -16,6 +16,7 @@
 
 import re
 import string
+import sys
 
 # common module
 from spacewalk.common import rhnFlags

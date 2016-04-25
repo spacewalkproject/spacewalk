@@ -15,6 +15,7 @@
 #
 
 import string
+import sys
 from spacewalk.common import apache
 
 import rhnSession

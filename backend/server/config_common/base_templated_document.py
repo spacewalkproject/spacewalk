@@ -17,6 +17,7 @@
 #
 
 import re
+import sys
 import string
 
 from spacewalk.common.rhnLog import log_error

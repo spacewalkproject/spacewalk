@@ -15,6 +15,7 @@
 #
 
 import re
+import sys
 
 from spacewalk.common.usix import ListType, IntType
 

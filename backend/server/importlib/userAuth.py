@@ -17,6 +17,7 @@
 #
 
 import time
+import sys
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnTranslate import _

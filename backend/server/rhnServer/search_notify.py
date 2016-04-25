@@ -15,6 +15,8 @@
 # Sends notification to search-server that it should update server index
 #
 
+import sys
+
 try:
     #  python 2
     import xmlrpclib

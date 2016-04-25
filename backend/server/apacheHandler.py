@@ -13,6 +13,7 @@
 # in this software or its documentation.
 #
 
+import sys
 import os
 import time
 import string

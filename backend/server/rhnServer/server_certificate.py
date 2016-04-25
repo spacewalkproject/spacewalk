@@ -17,6 +17,7 @@
 # The only really exportable item is the Certificate class
 #
 
+import sys
 import hashlib
 import time
 import random

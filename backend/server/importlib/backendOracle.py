@@ -18,6 +18,7 @@
 # FIXME: need more documentation
 #
 
+import sys
 from backend import Backend
 from backendLib import DBint, DBstring, DBdateTime, DBblob, Table, \
     TableCollection

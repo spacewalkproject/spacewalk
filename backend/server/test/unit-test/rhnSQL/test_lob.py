@@ -4,6 +4,7 @@
 #
 #
 
+import sys
 import unittest
 from spacewalk.server import rhnSQL
 

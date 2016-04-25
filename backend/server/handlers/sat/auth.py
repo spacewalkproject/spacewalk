@@ -15,6 +15,7 @@
 # Satellite specific authentication xmlrpc method.
 
 import time
+import sys
 from rhn.connections import idn_puny_to_unicode
 
 from spacewalk.common.rhnLog import log_debug

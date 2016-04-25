@@ -16,6 +16,8 @@
 # Kickstart-related operations
 #
 
+import sys
+
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnException
