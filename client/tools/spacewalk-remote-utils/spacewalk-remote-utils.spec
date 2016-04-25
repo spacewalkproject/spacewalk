@@ -15,8 +15,14 @@ Source:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.
 BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 
-Requires: rhnlib >= 2.5.74
+%if 0%{?fedora} >= 23
+BuildRequires: python3-devel
+Requires: python3-rhnlib
+%else
 BuildRequires: python-devel
+Requires: rhnlib >= 2.5.74
+%endif
+
 BuildRequires: docbook-utils
 %if 0%{?suse_version}
 # provide directories for filelist check in OBS
@@ -31,6 +37,10 @@ Utilities to interact with a Red Hat Satellite or Spacewalk server remotely over
 
 %build
 docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./spacewalk-create-channel/doc/
+%if 0%{?fedora} >= 23
+    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' ./spacewalk-create-channel/spacewalk-create-channel
+    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' ./spacewalk-add-providers/spacewalk-add-providers
+%endif
 
 %install
 %{__rm} -rf %{buildroot}

@@ -11,8 +11,12 @@
 import getopt
 import sys
 import getpass
-from xmlrpclib import Server
-from xmlrpclib import Fault
+if sys.version_info[0] == 3:
+    from xmlrpc.client import Server
+    from xmlrpc.client import Fault
+else:
+    from xmlrpclib import Server
+    from xmlrpclib import Fault
 import string
 import os
 from os import path
@@ -24,14 +28,14 @@ DATA_DIR = "./data/"
 DATA_DIR_RHN = "/usr/share/rhn/channel-data/"
 GATHER_DIR = "/mnt/engarchive2/released/"
 
-versions = ( "7", "6", "5", "4", "3", "2.1" );
+versions = ( "7", "6", "5", "4", "3", "2.1" )
 releases = ( "AS", "ES", "WS", "Server", "Client", "Desktop", "Appliance",
-             "ComputeNode", "WebServer", "Workstation");
-arches = ( "i386",  "ia64",  "ppc",  "s390",  "s390x",  "x86_64", "ppc64");
-updates = ("GOLD", "U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9", "U10", "U11" );
+             "ComputeNode", "WebServer", "Workstation")
+arches = ( "i386",  "ia64",  "ppc",  "s390",  "s390x",  "x86_64", "ppc64")
+updates = ("GOLD", "U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9", "U10", "U11" )
 subrepos = ("VT", "Cluster", "ClusterStorage", "Workstation", "ResilientStorage",
-            "ScalableFileSystem", "LoadBalancer", "HighAvailability"); #RHEL 5 yum repos on the discs
-extras = ("Extras", "Supplementary"); #things shipped on other cds
+            "ScalableFileSystem", "LoadBalancer", "HighAvailability") #RHEL 5 yum repos on the discs
+extras = ("Extras", "Supplementary") #things shipped on other cds
 
 
 bundleSize = None
@@ -73,41 +77,38 @@ def get_args():
 
     return parser.parse_args()
 
+
 def validate_options(options):
     error = False
 
     if not options.user:
         error = True
-        print "--user must be specified"
-
+        print("--user must be specified")
 
     if not options.data:
         if not options.version:
             error = True
-            print "--version must be specified"
+            print("--version must be specified")
         if not options.release:
             error = True
-            print "--release must be specified"
+            print("--release must be specified")
         if not options.arch:
             error = True
-            print "--arch must be specified"
+            print("--arch must be specified")
         if not options.update_level:
             error = True
-            print "--update must be specified"
+            print("--update must be specified")
 
-
-    if  not options.dest_channel:
+    if not options.dest_channel:
         error = True
-        print "--destChannel must be specified"
+        print("--destChannel must be specified")
 
     if error:
         sys.exit(1)
 
+
 def main():
-
-
     (options, args) = get_args()
-
 
     if options.gather:
         gather(False)
@@ -144,7 +145,7 @@ def main():
     clear = options.clear_channel
 
     if not os.path.exists(fullpath):
-        print "Error: data file '" + filename + "' does not exist"
+        print("Error: data file '" + filename + "' does not exist")
         sys.exit(1)
 
     parent = options.parent_channel
@@ -161,24 +162,24 @@ def main():
         newChannelName = options.dest_name
 
     if (srcChanLabel == None):
-        print "You have not specified a source channel, we will try to determine it from inputs"
+        print("You have not specified a source channel, we will try to determine it from inputs")
         srcChanLabel = findSrcChan(version, release, arch, extra)
     srcChanLabel = srcChanLabel.lower()
 
     print("Trying with source channel: " + srcChanLabel)
 
-    #now lets login to the server
+    # now lets login to the server
     proto = "http"
     if ssl:
         proto = proto + "s"
     client = Server(proto + "://" + server + "/rpc/api")
     if clone and client.api.getVersion() < 5.1:
-        print "--clone cannot be used with a Satellite version older than 5.1"
+        print("--clone cannot be used with a Satellite version older than 5.1")
     try:
         auth = client.auth.login(user, password)
     except Fault:
         excInfo = sys.exc_info()[1]
-        print "\n %s " % excInfo.faultString
+        print("\n %s " % excInfo.faultString)
         sys.exit(1)
 
     skiplist = []
@@ -210,10 +211,10 @@ def populate(client, auth, srcChannel, newChannel, newChannelName, filename, par
         sys.exit(1)
     if new_label == None:
         if not clone:
-            print("Creating channel, " + newChannel + ", with arch " + arch_label),
+            print("Creating channel, " + newChannel + ", with arch " + arch_label)
             client.channel.software.create(auth, newChannel, newChannelName, newChannel, getArchLabel(arch_label, client, auth), parent)
         if clone:
-            print("Cloning channel " + srcChannel + " to " + newChannel),
+            print("Cloning channel " + srcChannel + " to " + newChannel)
             details_map = { 'name':newChannelName, 'label':newChannel, 'summary':newChannel }
             if parent:
                 details_map['parent_label'] = parent
@@ -222,14 +223,14 @@ def populate(client, auth, srcChannel, newChannel, newChannelName, filename, par
         if parent:
             print("with parent " + parent)
     else:
-        print("Reusing " + newChannel+ " as destination channel")
+        print("Reusing " + newChannel + " as destination channel")
     existing_packs = client.channel.software.listAllPackages(auth, srcChannel)
 
     if clear:
         clearChannel(newChannel, existing_packs, client, auth)
 
-    #strip new lines
-    fileList = map(str.strip, open(DATA_DIR_RHN + filename).readlines())
+    # strip new lines
+    fileList = list(map(str.strip, open(DATA_DIR_RHN + filename).readlines()))
     fileList.sort()
     pack_num = 0
     skip_num = 0
@@ -271,9 +272,10 @@ def read_skip_list(filename):
     if not os.path.exists(filename):
         print("Specified skip list " + filename + " does not exist!")
         sys.exit(1)
-    nameList = map(str.strip, open(filename).readlines())
-    print nameList
+    nameList = list(map(str.strip, open(filename).readlines()))
+    print(nameList)
     return nameList
+
 
 def clearChannel(label, packages, client, auth):
     ids_to_remove = []
@@ -282,11 +284,11 @@ def clearChannel(label, packages, client, auth):
         ids_to_remove.append(getPackageAttr(pack, 'id'))
     num_to_remove = len(ids_to_remove)
     while len(ids_to_remove) > 0:
-        print '%d of %d' % (num_to_remove-len(ids_to_remove), num_to_remove),
+        print('%d of %d' % (num_to_remove-len(ids_to_remove), num_to_remove))
         sys.stdout.flush()
         client.channel.software.removePackages(auth, label, ids_to_remove[:bundleSize])
         del ids_to_remove[:bundleSize]
-        print '%s\r' % ' '*20,
+        print('%s\r' % ' '*20)
         sys.stdout.flush()
     print("Finished clearing channel")
 
@@ -443,7 +445,7 @@ def gather(clear):
 
 def saveRpmList(source, filename):
     if path.exists(source) and not path.exists(filename):
-        print source
+        print(source)
         if path.isfile(source):
             os.system("cp %s %s" % (source, filename))
         else: # isdir
@@ -460,8 +462,7 @@ def getFileName(version, update, release, arch, additional=None):
 
 
 def help():
-    usage()
-    print """
+    print("""
 Examples
 -------
 
@@ -476,10 +477,11 @@ spacewalk-create-channel  -l admin -s myserver.example.com -v 6 -u u1 -r server 
 
 Add the Supplementary channel as a child channel of 'my-stable-channel':
 spacewalk-create-channel  -l admin -s myserver.example.com -v 6 -u u1 -r server -a x86_64 -e supplementary -P my-stable-channel
-"""
+""")
+
 
 def error(msg):
-    print msg
+    print(msg)
     sys.exit(-1)
 
 

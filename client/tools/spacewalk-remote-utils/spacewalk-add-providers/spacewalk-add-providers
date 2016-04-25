@@ -4,7 +4,12 @@
 #
 
 from optparse import Option, OptionParser
-import logging, os, shutil, sys, tempfile, xmlrpclib
+import logging, os, shutil, sys, tempfile
+
+if sys.version_info[0] == 3:
+    import xmlrpc.client as xmlrpclib
+else:
+    import xmlrpclib
 import gpgme
 from socket import gethostname
 
@@ -45,8 +50,10 @@ if not len(args):
 try:
     client = xmlrpclib.Server('https://%s/rpc/api' % options.server)
     session = client.auth.login(options.username, options.password)
-except Exception, e:
-    if options.debug: logging.exception(e)
+except Exception:
+    e = sys.exc_info()[1]
+    if options.debug:
+        logging.exception(e)
     logging.error('Failed to login to the server')
     sys.exit(1)
 
@@ -74,8 +81,10 @@ for key_file in args:
 
         # remove our temporary GPG home
         shutil.rmtree(gpg_home)
-    except Exception, e:
-        if options.debug: logging.exception(e)
+    except Exception:
+        e = sys.exc_info()[1]
+        if options.debug:
+            logging.exception(e)
         logging.error('Failed to read the key: %s' % key_file)
         continue
 
@@ -89,6 +98,7 @@ for key_file in args:
                                               key_id,
                                               'gpg')
     except Exception, e:
-        if options.debug: logging.exception(e)
+        if options.debug:
+            logging.exception(e)
         logging.error('Failed to add the key to the server: %s' % key_file)
         continue
