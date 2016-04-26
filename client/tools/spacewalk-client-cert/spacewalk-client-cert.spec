@@ -10,8 +10,7 @@ Source0:	https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
 BuildRequires:  python-devel
-Requires:       rhnlib
-Requires:       rhn-check
+Requires:       rhn-client-tools
 Requires:       rhn-setup
 %description
 spacewalk-client-cert contains client side functionality allowing manipulation
