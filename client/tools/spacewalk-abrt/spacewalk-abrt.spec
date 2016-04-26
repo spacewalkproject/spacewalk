@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        2.5.2
+Version:        2.5.3
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -47,6 +47,9 @@ service abrtd restart
 %{_mandir}/man8/*
 
 %changelog
+* Tue Apr 26 2016 Gennadii Altukhov <galt@redhat.com> 2.5.3-1
+- Adapt spacewalk-abrt to Python 2/3
+
 * Thu Feb 18 2016 Jan Dobes 2.5.2-1
 - fixing warning
 - do not evaluate Makefile
