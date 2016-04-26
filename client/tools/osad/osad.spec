@@ -17,7 +17,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.64
+Version: 5.11.65
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -413,6 +413,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Apr 26 2016 Tomas Kasparek <tkasparek@redhat.com> 5.11.65-1
+- provide Knowledgebase article hint in case of connection fails
+
 * Fri Feb 12 2016 Gennadii Altukhov <galt@redhat.com> 5.11.64-1
 - 1306541 - Add possibility for OSAD to work in failover mode
 
