@@ -1,5 +1,5 @@
 Name:		spacewalk-client-cert
-Version:	2.5.0
+Version:	2.5.1
 Release:	1%{?dist}
 Summary:	Package allowing manipulation with Spacewalk client certificates
 
@@ -38,6 +38,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Apr 26 2016 Gennadii Altukhov <galt@redhat.com> 2.5.1-1
+- Adapt spacewalk-client-cert for Python 2/3 compatibility
+- Bumping package versions for 2.5.
+- Bumping package versions for 2.4.
+
 * Thu Mar 19 2015 Grant Gainey 2.3.2-1
 - Updating copyright info for 2015
 
