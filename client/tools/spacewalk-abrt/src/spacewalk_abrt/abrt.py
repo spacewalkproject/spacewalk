@@ -39,7 +39,8 @@ def _readline(filepath):
         f = open(filepath, 'r')
         firstline = f.readline().strip()
         f.close()
-    except IOError, e:
+    except IOError:
+        e = sys.exc_info()[1]
         if e.errno == errno.ENOENT:
             pass
         else:

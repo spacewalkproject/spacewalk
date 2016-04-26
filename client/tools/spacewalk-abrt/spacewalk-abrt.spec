@@ -13,7 +13,7 @@ BuildRequires:  gettext
 BuildRequires:  python
 Requires:       abrt
 Requires:       abrt-cli
-Requires:       rhnlib
+Requires:       rhn-client-tools
 Requires:       rhn-check
 %description
 spacewalk-abrt - rhn-check plug-in for collecting information about crashes handled by ABRT.
@@ -23,6 +23,9 @@ spacewalk-abrt - rhn-check plug-in for collecting information about crashes hand
 
 %build
 make -f Makefile.spacewalk-abrt
+%if 0%{?fedora} >= 23
+sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' src/bin/spacewalk-abrt
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT

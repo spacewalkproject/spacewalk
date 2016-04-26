@@ -23,7 +23,11 @@ if RHNROOT not in sys.path:
 
 import gettext
 t = gettext.translation('spacewalk-abrt', fallback=True)
-_ = t.ugettext
+
+if sys.version_info[0] == 3:
+    _ = t.gettext
+else:
+    _ = t.ugettext
 
 from optparse import OptionGroup
 from up2date_client import rhncli
@@ -43,16 +47,14 @@ class AbrtCli(rhncli.RhnCli):
             help=_("Synchronize missing problem directories")),
         self.optparser.add_option_group(group)
 
-
     def check_problem_dir(self, path):
         if not os.path.exists(path):
-            sys.stderr.write(rhncli.utf8_encode( \
-                _("Error: specified problem directory [%s] does not exist.\n" % path)))
+            sys.stderr.write(rhncli.utf8_encode(_("Error: specified problem directory [%s] does not exist.\n" % path)))
             sys.exit(1)
 
     def main(self):
         if not (self.options.report or self.options.update_count or self.options.sync):
-            print _("No command specified. Use --help for more information on the usage.")
+            print(_("No command specified. Use --help for more information on the usage."))
             sys.exit(1)
 
         commands = 0
@@ -61,10 +63,10 @@ class AbrtCli(rhncli.RhnCli):
                 commands += 1
 
         if commands > 1:
-            print _("More than one command specified. Use --help for more information on the usage.")
+            print(_("More than one command specified. Use --help for more information on the usage."))
 
         if not up2dateAuth.getSystemId():
-            print _("This system does not seem to be registered, use `rhn_register` before using this command.")
+            print(_("This system does not seem to be registered, use `rhn_register` before using this command."))
             sys.exit(0)
 
         if self.options.report:
