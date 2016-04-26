@@ -20,12 +20,15 @@ import stat
 import string
 import shutil
 import sys
-import types
 import os
 import os.path
 import tempfile
-import xmlrpclib
-import pprint
+
+if sys.version_info[0] == 3:
+    import xmlrpc.client as xmlrpclib
+else:
+    import xmlrpclib
+
 from koan.app import Koan
 
 SHADOW      = "/tmp/ks-tree-shadow"
@@ -39,8 +42,7 @@ def execute(cmd):
         ret.append(string.strip(l))
     if status == 0:
         return ret
-    msg = """Error executing command:\n %s\noutput:\n%s"""
-    raise Exception(msg % (cmd, string.join(response,"\n")))
+    raise Exception('Error executing command:\n %s\noutput:\n%s' % (cmd, string.join(ret, '\n')))
 
 def find_host_name():
     return execute("hostname")[0]
@@ -138,7 +140,7 @@ def initiate(kickstart_host, base, extra_append, static_device=None, system_reco
     rm_rf(SHADOW)
     os.mkdir(SHADOW)
 
-    print "Preserve files! : %s"  % preserve_files
+    print("Preserve files! : %s"  % preserve_files)
 
     try:
         if static_device:
@@ -175,16 +177,16 @@ def initiate(kickstart_host, base, extra_append, static_device=None, system_reco
             k.embed_kickstart = 1
         k.run()
 
-    except Exception, e:
+    except Exception:
         (xa, xb, tb) = sys.exc_info()
         try:
-            getattr(e,"from_koan")
-            error_messages['koan'] = str(e)[1:-1]
-            print str(e)[1:-1] # nice exception, no traceback needed
+            getattr(xb, "from_koan")
+            error_messages['koan'] = str(xb)[1:-1]
+            print(str(xb)[1:-1])  # nice exception, no traceback needed
         except:
-            print xa
-            print xb
-            print string.join(traceback.format_list(traceback.extract_tb(tb)))
+            print(xa)
+            print(xb)
+            print(string.join(traceback.format_list(traceback.extract_tb(tb))))
             error_messages['koan'] = string.join(traceback.format_list(traceback.extract_tb(tb)))
         return (1, "Kickstart failed. Koan error.", error_messages)
 
@@ -233,7 +235,7 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
             if os.path.exists("/dev/kvm"):
                 virt_type = "kvm"
             else:
-                print "Warning: KVM not available, using QEMU."
+                print("Warning: KVM not available, using QEMU.")
         k = Koan()
         k.list_items          = 0
         k.server              = kickstart_host
@@ -265,19 +267,19 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
         # refresh current virtualization state on the server
         import virtualization.support
         virtualization.support.refresh()
-    except Exception, e:
+    except Exception:
         (xa, xb, tb) = sys.exc_info()
         if str(xb).startswith("The MAC address you entered is already in use"):
             # I really wish there was a better way to check for this
             error_messages['koan'] = str(xb)
-            print str(xb)
-        elif  hasattr(e,"from_koan") and len(str(e)) > 1:
-            error_messages['koan'] = str(e)[1:-1]
-            print str(e)[1:-1] # nice exception, no traceback needed
+            print(str(xb))
+        elif hasattr(xb, "from_koan") and len(str(xb)) > 1:
+            error_messages['koan'] = str(xb)[1:-1]
+            print(str(xb)[1:-1])  # nice exception, no traceback needed
         else:
-            print xa
-            print xb
-            print string.join(traceback.format_list(traceback.extract_tb(tb)))
+            print(xa)
+            print(xb)
+            print(string.join(traceback.format_list(traceback.extract_tb(tb))))
             error_messages['koan'] = str(xb) + ' ' + string.join(traceback.format_list(traceback.extract_tb(tb)))
         return (1, "Virtual kickstart failed. Koan error.", error_messages)
 
@@ -337,7 +339,7 @@ def _remove_func(path):
     # It's a directory!
     files = os.listdir(path)
     # We need to add the path since listdir only returns a relative path
-    files = map(lambda x, p=path: os.path.join(p, x), files)
+    files = list(map(lambda x, p=path: os.path.join(p, x), files))
     # Recursive call
     map(_remove_func, files)
     # After we remove everything from this directory we can also remove
@@ -346,7 +348,7 @@ def _remove_func(path):
     return
 
 def my_popen(cmd):
-    print "CMD: %s " % cmd
+    print("CMD: %s " % cmd)
 
     subproc = 1
     try:
@@ -396,13 +398,11 @@ class FileCopier:
         self.quota = quota
         self.current_quota = 0
 
-
     def copy(self):
         return self._copy(self.files)
 
-
     def _copy(self, files):
-        assert(isinstance(files, types.ListType))
+        assert(isinstance(files, list))
         for f in files:
             try:
                 st = os.lstat(f)
@@ -458,7 +458,7 @@ class FileCopier:
 
 
     def _copy_dir(self, f, st):
-        files = map(lambda x, d=f: os.path.join(d, x), os.listdir(f))
+        files = list(map(lambda x, d=f: os.path.join(d, x), os.listdir(f)))
         # Create this directory since it may be empty
         self._copy_dir_modes(f, self.dest)
         return self._copy(files)
