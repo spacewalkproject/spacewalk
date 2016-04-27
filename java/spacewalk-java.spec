@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.86
+Version: 2.5.87
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 27 2016 Grant Gainey 2.5.87-1
+- 1291031 - Remove OldTag junits (which weren't very useful to begin with)
+- 1291031 - Refactor errata-mgt pages to use NewListTag  * Collapse actions to
+  one each for List/Remove  * Rework JSPs for new tag  * Tweak nav.xml to match
+  action-changes
+- make checkstyle on Fedora22 happy
+
 * Tue Apr 19 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.86-1
 - TaskomaticApi refactoring: method code formatted
 - TaskomaticApi refactoring: method code formatted
