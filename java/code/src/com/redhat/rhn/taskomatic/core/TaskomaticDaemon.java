@@ -85,9 +85,9 @@ public class TaskomaticDaemon  extends BaseDaemon {
                     try {
                         kernel.startup();
                     }
-                    catch (TaskomaticException e) {
+                    catch (Throwable e) {
                         logMessage(BaseDaemon.LOG_FATAL, e.getMessage(), e);
-
+                        System.exit(-1);
                     }
                 }
             };
