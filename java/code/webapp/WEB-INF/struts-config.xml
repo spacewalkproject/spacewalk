@@ -2466,7 +2466,7 @@
              className="com.redhat.rhn.frontend.struts.RhnActionMapping">
          <set-property property="acls" value="user_role(channel_admin)"/>
          <forward name="default" path="/WEB-INF/pages/errata/addpackagepackagepush.jsp"/>
-         <forward name="finished" path="/errata/manage/ListPackages.do" />
+         <forward name="finished" path="/errata/manage/AddPackages.do" />
      </action>
 
      <action path="/errata/manage/AddPackagePackagePushSubmit"
@@ -2483,48 +2483,26 @@
      </action>
 
     <action path="/errata/manage/ListPackages"
-            scope="request"
-            type="com.redhat.rhn.frontend.action.errata.ListPackagesSetupAction"
-            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(channel_admin)"/>
-        <forward name="default"
-            path="/WEB-INF/pages/errata/packages/list.jsp"/>
-    </action>
-
-    <action path="/errata/manage/ListPackagesSubmit"
         scope="request"
         input="/WEB-INF/pages/errata/packages/list.jsp"
         type="com.redhat.rhn.frontend.action.errata.ListPackagesAction"
-        parameter="dispatch"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequired" value="true" />
         <set-property property="acls" value="user_role(channel_admin)"/>
-        <forward name="default"
-            path="/errata/manage/ListPackages.do" />
-        <forward name="confirm"
-            path="/errata/manage/RemovePackages.do" redirect="true"/>
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default" path="/WEB-INF/pages/errata/packages/list.jsp" />
+        <forward name="confirm" path="/errata/manage/RemovePackages.do" redirect="true"/>
     </action>
 
     <action path="/errata/manage/RemovePackages"
         scope="request"
-        type="com.redhat.rhn.frontend.action.errata.RemovePackagesSetupAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(channel_admin)"/>
-        <forward name="default"
-            path="/WEB-INF/pages/errata/packages/remove.jsp"/>
-    </action>
-
-    <action path="/errata/manage/RemovePackagesSubmit"
-        scope="request"
         input="/WEB-INF/pages/errata/packages/remove.jsp"
         type="com.redhat.rhn.frontend.action.errata.RemovePackagesAction"
-        parameter="dispatch"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequired" value="true" />
         <set-property property="acls" value="user_role(channel_admin)"/>
+        <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
-            path="/errata/manage/RemovePackages.do" redirect="true"/>
-        <forward name="success"
+            path="/WEB-INF/pages/errata/packages/remove.jsp"/>
+        <forward name="confirm"
             path="/errata/manage/ListPackages.do" redirect="true"/>
     </action>
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,91 +14,69 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.common.RhnSetAction;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.manager.rhnpackage.PackageManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.StrutsDelegate;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 /**
  * ListPackagesAction
- * @version $Rev$
  */
-public class ListPackagesAction extends RhnSetAction {
+public class ListPackagesAction extends RhnAction implements Listable {
+
+    public static final String LIST_NAME = "packageList";
+    public static final String DATASET_NAME = "packages";
+    public static final String EID_PARAM = "eid";
 
     /**
-     * confirm handles updating the set and forwarding the user to the confirmation
-     * screen.
-     * @param mapping ActionMapping
-     * @param formIn ActionForm
-     * @param request Request
-     * @param response Response
-     * @return Returns the action forward for the confirm mapping.
+     * {@inheritDoc}
      */
-    public ActionForward confirm(ActionMapping mapping,
-                                 ActionForm formIn,
-                                 HttpServletRequest request,
-                                 HttpServletResponse response) {
+    @Override
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
+                    HttpServletRequest request, HttpServletResponse response) {
+        RequestContext ctxt = new RequestContext(request);
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+       //put advisory in request for the toolbar
+        request.setAttribute("advisory", ctxt.lookupErratum().getAdvisory());
 
-        RequestContext requestContext = new RequestContext(request);
-        StrutsDelegate strutsDelegate = getStrutsDelegate();
+        ListRhnSetHelper helper = new ListRhnSetHelper(this, request,
+                                                       RhnSetDecl.PACKAGES_TO_REMOVE);
+        helper.setListName(LIST_NAME);
+        helper.setDataSetName(DATASET_NAME);
+        helper.execute();
 
-        //update the set
-        updateSet(request);
-
-        //forward to the confirm mapping
-        Long eid = requestContext.getRequiredParam("eid");
-        return strutsDelegate.forwardParam(mapping.findForward(RhnHelper.CONFIRM_FORWARD),
-                                      "eid", eid.toString());
+        if (helper.isDispatched()) {
+            StrutsDelegate delegate = getStrutsDelegate();
+            Long eid = ctxt.getRequiredParam(EID_PARAM);
+            ActionForward af = mapping.findForward(RhnHelper.CONFIRM_FORWARD);
+            return delegate.forwardParam(af, EID_PARAM, eid.toString());
+        }
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User user,
-                                       ActionForm formIn,
-                                       HttpServletRequest request) {
-        RequestContext requestContext = new RequestContext(request);
-
+    @Override
+    public List getResult(RequestContext context) {
         //Get the errata from the eid in the request
-        Errata errata = requestContext.lookupErratum();
+        Errata errata = context.lookupErratum();
         return PackageManager.packagesInErrata(errata, null);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected void processMethodKeys(Map<String, String> map) {
-        map.put("errata.edit.packages.list.removepackages", RhnHelper.CONFIRM_FORWARD);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected void processParamMap(ActionForm formIn,
-                                   HttpServletRequest request,
-                                   Map<String, Object> params) {
-        params.put("eid", request.getParameter("eid"));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.PACKAGES_TO_REMOVE;
     }
 
 }
