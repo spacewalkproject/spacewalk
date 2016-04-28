@@ -260,7 +260,7 @@ class Runner:
                 msg = _("ERROR: Encountered IntegrityError: \n"
                         + str(e)
                         + "\nconsider removing satellite-sync cache at /var/cache/rhn/satsync/*"
-                        * " and re-run satellite-sync with same options.\n"
+                        + " and re-run satellite-sync with same options.\n"
                         + "If this error persits after removing cache, please contact Red Hat support.")
                 log2stderr(-1, msg, cleanYN=1)
                 return 1
