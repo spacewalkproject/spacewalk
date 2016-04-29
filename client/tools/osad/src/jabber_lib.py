@@ -594,7 +594,7 @@ class JabberClient(jabber.Client, object):
                 jabber.Client.connect(self)
             except socket.error, e:
                 log_error("Error connecting to jabber server: %s. "
-                      "See https://access.redhat.com/solutions/327903 for more in. " % e)
+                      "See https://access.redhat.com/solutions/327903 for more information. " % e)
                 raise socket.error(e)
 
             log_debug(5, "Connected")
