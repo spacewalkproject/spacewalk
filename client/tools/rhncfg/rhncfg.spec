@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.88
+Version: 5.10.89
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -131,6 +131,29 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Fri Apr 29 2016 Gennadii Altukhov <galt@redhat.com> 5.10.89-1
+- used defined values from rpclib
+- Fix: 'generator' object has no attribute 'next' in Python 3
+- sys.exc_type and sys.exc_value is deprecated since version 1.5
+- open /dev/tty to work in python 3
+- basestring contains type str and bytes in python3
+- urllib compatibility in python 2/3
+- function raw_input doesn't exist in python 3
+- fixed TypeError: expected bytes-like object, not str
+- modified raise to work in python 2/3
+- rewrite function map and filter to clause 'for'
+- method iteritems was renamed to items
+- fix module ConfigParser was moved in python3
+- fix library xmlrpc was moved in python3
+- compatibility for octal format of number
+- replaced method has_key to work with python 2/3
+- replaced call apply to work in python 3
+- modified exception and raise to work in python 2/3
+- build package for fedora 23+ with default python 3
+- replaced string module calls to work in python 2/3
+- modified imports to compatibility with python 2/3
+- function print compatibility for python 2 and 3
+
 * Mon Feb 29 2016 Gennadii Altukhov <galt@redhat.com> 5.10.88-1
 - 1309003 fixing removing of temporary files during transaction rollback for
   rhncfg-manager.
