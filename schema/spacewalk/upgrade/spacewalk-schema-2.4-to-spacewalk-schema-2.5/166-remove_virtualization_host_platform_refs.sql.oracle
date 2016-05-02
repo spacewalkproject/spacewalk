@@ -4,7 +4,7 @@ BEGIN
 logging.clear_log_id();
 
 DELETE FROM rhnOrgExtGroupMapping
-  WHERE server_group_id = (
+  WHERE server_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (
@@ -15,7 +15,7 @@ DELETE FROM rhnOrgExtGroupMapping
   );
 
 DELETE FROM rhnRegTokenGroups
-  WHERE server_group_id = (
+  WHERE server_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (
@@ -25,17 +25,42 @@ DELETE FROM rhnRegTokenGroups
       )
   );
 
-UPDATE rhnServerGroupMembers
-  SET server_group_id = (
-    SELECT id
-      FROM rhnServerGroup
-      WHERE group_type = (
-        SELECT id
-          FROM rhnServerGroupType
-          WHERE label = 'virtualization_host'
-      )
-  )
-  WHERE server_group_id = (
+-- create server group for 'virtualization_host' everywhere
+insert into rhnServerGroup ( id, name, description, group_type, org_id )
+  select nextval('rhn_server_group_id_seq'), sgt.name, sgt.name, sgt.id, X.org_id
+  from rhnServerGroupType sgt,
+     (select distinct msg.org_id
+        from rhnServerGroup msg
+       where msg.org_id not in (select org_id
+                                  from rhnServerGroup sg
+                                  join rhnServerGroupType sgt ON sgt.id = sg.group_type
+                                 where sgt.label = 'virtualization_host')
+     ) X
+  where sgt.label = 'virtualization_host';
+
+-- add membership to 'virtualization_host' for all server which
+-- are currently in the group 'virtualization_host_platform'
+  insert into rhnServerGroupMembers (server_id, server_group_id)
+    select * from (
+      select sgm.server_id,
+        (select nsg.id
+           from rhnServerGroup nsg
+           join rhnServerGroupType nsgt on nsg.group_type = nsgt.id
+          where nsgt.label = 'virtualization_host'
+            and nsg.org_id = sg.org_id) new_group_id
+        from rhnServerGroupMembers sgm
+        join rhnServerGroup sg on sgm.server_group_id = sg.id
+        join rhnServerGroupType sgt on sg.group_type = sgt.id
+       where sgt.label = 'virtualization_host_platform'
+    ) X
+    where not exists (select 1
+                       from rhnServerGroupMembers csgm
+                      where csgm.server_id = X.server_id
+                        and csgm.server_group_id = X.new_group_id);
+
+-- remove 'virtualization_host_platform'
+DELETE FROM rhnServerGroupMembers
+  WHERE server_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (
@@ -46,7 +71,7 @@ UPDATE rhnServerGroupMembers
   );
 
 DELETE FROM rhnSnapshotServerGroup
-  WHERE server_group_id = (
+  WHERE server_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (
@@ -57,7 +82,7 @@ DELETE FROM rhnSnapshotServerGroup
   );
 
 DELETE FROM rhnUserDefaultSystemGroups
-  WHERE system_group_id = (
+  WHERE system_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (
@@ -68,7 +93,7 @@ DELETE FROM rhnUserDefaultSystemGroups
   );
 
 DELETE FROM rhnUserServerGroupPerms
-  WHERE server_group_id = (
+  WHERE server_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (
