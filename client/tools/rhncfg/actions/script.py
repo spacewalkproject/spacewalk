@@ -30,7 +30,7 @@ except ImportError:
 
 
 # this is ugly, hopefully it will be natively supported in up2date
-from configfiles import _local_permission_check, _perm_error
+from actions.configfiles import _local_permission_check, _perm_error
 from config_common import local_config
 from config_common.rhn_log import set_logfile, log_to_file
 
@@ -72,7 +72,7 @@ def _create_script_file(script, uid=None, gid=None):
     else:
         # Tried a couple of times, failed; bail out raising the latest error
         raise
-    sf = os.fdopen(fd, 'w')
+    sf = os.fdopen(fd, 'wb')
     sf.write(script.encode("utf-8"))
     sf.close()
 

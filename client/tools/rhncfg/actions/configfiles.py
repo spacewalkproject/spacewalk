@@ -23,8 +23,6 @@ from config_common.transactions import DeployTransaction, FailedRollback
 
 from config_client import rpc_cli_repository
 
-from string import split
-
 sys.path.append('/usr/share/rhn')
 from up2date_client import config
 
@@ -47,7 +45,7 @@ ACTION_VERSION = 2
 _permission_root_dir = '/etc/sysconfig/rhn/allowed-actions'
 def _local_permission_check(action_type):
     # action_type ala configfiles.deploy
-    atype_structure = split(action_type, '.')
+    atype_structure = action_type.split('.')
 
     for i in range(len(atype_structure)):
         all_structure = atype_structure[:i]
