@@ -1377,7 +1377,7 @@ def generate_random_string(length=20):
     s = hashlib.new('sha1')
     s.update(bstr("%.8f" % time.time()))
     s.update(bstr("%s" % os.getpid()))
-    devrandom = open('/dev/urandom', "rb+")
+    devrandom = open('/dev/urandom', "rb")
     result = []
     cur_length = 0
     while 1:
