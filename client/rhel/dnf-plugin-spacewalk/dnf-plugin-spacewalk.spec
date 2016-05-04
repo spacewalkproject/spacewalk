@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.5.3
+Version: 2.5.4
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -62,6 +62,10 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %dir /var/lib/up2date
 
 %changelog
+* Wed May 04 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.4-1
+- Fix code via PEP8
+- AK does not install packages via dnf-client
+
 * Tue Jan 19 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.3-1
 - yet another python3 fixes
 
