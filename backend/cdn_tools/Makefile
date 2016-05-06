@@ -4,8 +4,8 @@ TOP	= ..
 SUBDIR	= cdn_tools
 SUBDIRS = 
 SPACEWALK_FILES	= __init__  constants  manifest \
-            activation
-SCRIPTS = cdn-activate
+            activation cdnsync
+SCRIPTS = cdn-activate cdn-sync
 
 # check if we can build man pages
 DOCBOOK = $(wildcard /usr/bin/docbook2man)

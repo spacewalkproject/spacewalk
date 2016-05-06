@@ -1,0 +1,11 @@
+#!/usr/bin/python
+
+import sys
+
+from spacewalk.cdn_tools import activation
+from spacewalk.cdn_tools.manifest import Manifest
+
+m = Manifest(sys.argv[1])
+
+print("Updating certificates...")
+activation.update_certificates(m)
