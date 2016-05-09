@@ -358,6 +358,16 @@ Provides: rhns-xml-export-libs = 1:%{version}-%{release}
 %description xml-export-libs
 Libraries required by various exporting tools
 
+%package cdn
+Summary: CDN tools
+Group: Applications/Internet
+Requires: %{name}-server = %{version}-%{release}
+Requires: %{name}-usix
+Requires: subscription-manager
+
+%description cdn
+Tools for syncing content from Red Hat CDN
+
 %prep
 %setup -q
 
@@ -408,6 +418,7 @@ export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}:/usr/lib/rhn:/usr/share/rhn
 spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_exporter \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_tools \
+                 $RPM_BUILD_ROOT%{pythonrhnroot}/cdn_tools \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/upload_server \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/wsgi
 %endif
@@ -786,6 +797,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/__init__.py*
 %{pythonrhnroot}/satellite_tools/exporter/exportLib.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
+
+%files cdn
+%attr(755,root,root) %{_bindir}/cdn-activate
+%attr(755,root,root) %{_bindir}/cdn-sync
+%{pythonrhnroot}/cdn_tools/*.py*
 
 %changelog
 * Tue Jun 07 2016 Jan Dobes 2.6.1-1
