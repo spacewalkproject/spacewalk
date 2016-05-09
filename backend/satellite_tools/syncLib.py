@@ -221,7 +221,10 @@ class FileManip:
         fout = open(self.full_path, 'wb')
         # setting file permissions; NOTE: rhnpush uses apache to write to disk,
         # hence the 6 setting.
-        setPermsPath(self.full_path, user='apache', group='apache', chmod=int('0644', 8))
+        if rhnLib.isSUSE():
+            setPermsPath(self.full_path, user='wwwrun', group='www', chmod=int('0644', 8))
+        else:
+            setPermsPath(self.full_path, user='apache', group='apache', chmod=int('0644', 8))
         size = 0
         try:
             while 1:

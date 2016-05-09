@@ -13,6 +13,7 @@
 # in this software or its documentation.
 #
 
+import os
 import re
 import time
 import spacewalk.common.usix as usix
@@ -174,3 +175,32 @@ def parseRPMName(pkgName):
         e = r[ind + 1:]
         r = r[0:ind]
     return str(n), e, str(v), str(r)
+
+def isSUSE():
+    """Return true if this is a SUSE system, otherwise false"""
+
+    if not os.path.exists('/etc/os-release'):
+        return False
+
+    cpe_name = ''
+    try:
+        lines = open('/etc/os-release', 'rb').readlines()
+        for line in lines:
+            # Skip empty and comment-only lines
+            if re.match(r'[ \t]*(#|$)', line):
+                continue
+
+            # now split it into keys and values. We allow for max one
+            # split/cut (the first one)
+            (key, val) = [c.strip() for c in line.split('=', 1)]
+            if key == 'CPE_NAME':
+                cpe_name = val
+                break
+    except (IOError, OSError):
+        pass
+
+    if cpe_name.startswith('cpe:/o:opensuse:') or \
+       cpe_name.startswith('cpe:/o:suse:'):
+        return True
+    return False
+

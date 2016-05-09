@@ -96,7 +96,12 @@ mkdir -p $DIR/cobbler-lib
 mkdir -p $DIR/tasko
 
 echo "    * copying configuration information"
-cp -fapRd /etc/httpd/conf* $DIR/conf/httpd
+if [ -d /etc/httpd ]; then
+    cp -fapRd /etc/httpd/conf* $DIR/conf/httpd
+elif [ -d /etc/apache2 ]; then
+    cp -fapRd /etc/apache2/conf* $DIR/conf/httpd
+    cp -fapRd /etc/apache2/vhosts* $DIR/conf/httpd
+fi
 cp -fapRd /etc/rhn $DIR/conf/rhn
 cp -fapRd /etc/sysconfig/rhn $DIR/conf/rhn/sysconfig
 if [ -f /etc/tnsnames.ora ] ; then
@@ -104,7 +109,11 @@ if [ -f /etc/tnsnames.ora ] ; then
 fi
 
 echo "    * copying logs"
-cp -fapRd /var/log/httpd $DIR/httpd-logs
+if [ -d /var/log/httpd ]; then
+    cp -fapRd /var/log/httpd $DIR/httpd-logs
+elif [ -d /var/log/apache2 ]; then
+    cp -fapRd /var/log/apache2 $DIR/httpd-logs
+fi
 cp -fapRd /var/log/rhn* $DIR/rhn-logs
 DB_INSTALL_LOG=/var/log/rhn/rhn-database-installation.log
 if [ -f "$DB_INSTALL_LOG" ] ; then
@@ -169,13 +178,13 @@ fi
 # /etc/passwd
 if [ -f /etc/passwd ] ; then
 	echo "    * copying apache, postgres, tomcat entries from /etc/passwd"
-	getent passwd apache tomcat postgres > $DIR/conf/passwd
+	getent passwd apache wwwrun tomcat postgres > $DIR/conf/passwd
 fi
 
 # /etc/group
 if [ -f /etc/group ] ; then
 	echo "    * copying apache, postgres, tomcat entries from /etc/group"
-	getent group apache tomcat postgres > $DIR/conf/group
+	getent group apache www tomcat postgres > $DIR/conf/group
 fi
 
 echo "    * querying RPM database (versioning of Spacewalk, etc.)"
@@ -214,6 +223,10 @@ fi
 if [ -f $PGSQL_ROOT/var/lib/pgsql/pgstartup.log ] ; then
 	echo "    * copying pgstartup.log"
 	cp -fa $PGSQL_ROOT/var/lib/pgsql/pgstartup.log $DIR/database
+fi
+if [ -f /var/lib/pgsql/initlog ] ; then
+       echo "    * copying initlog"
+       cp -fa /var/lib/pgsql/initlog $DIR/database
 fi
 
 ls $PGSQL_ROOT/var/lib/pgsql/data/*.conf $PGSQL_ROOT/var/lib/pgsql/data/pg_log/* 2>/dev/null | xargs -I file cp -fa file $DIR/database

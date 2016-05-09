@@ -1,9 +1,14 @@
 %global rhnroot %{_prefix}/share/rhn
 %global rhnconfigdefaults %{rhnroot}/config-defaults
 %global rhnconf %{_sysconfdir}/rhn
-%global apacheconfd %{_sysconfdir}/httpd/conf.d
+
+%if 0%{?rhel} && 0%{?rhel} < 6
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
-%global pythonrhnroot %{python_sitelib}/spacewalk
+%global apacheconfd %{_sysconfdir}/httpd/conf.d
+%global apache_user apache
+%global apache_group apache
+%global apache_pkg httpd
+%endif
 
 %if 0%{?fedora} && 0%{?fedora} >= 23
 %{!?python3_sitelib: %global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
@@ -12,7 +17,26 @@
 
 %if 0%{?fedora}
 %{!?pylint_check: %global pylint_check 1}
+%global apacheconfd %{_sysconfdir}/httpd/conf.d
+%global apache_user apache
+%global apache_group apache
+%global apache_pkg httpd
+
+%if 0%{?fedora} >= 23
+%{!?python3_sitelib: %global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
+%global python3rhnroot %{python3_sitelib}/spacewalk
 %endif
+%endif
+
+%if 0%{?suse_version}
+%{!?pylint_check: %global pylint_check 1}
+%global apacheconfd %{_sysconfdir}/apache2/conf.d
+%global apache_user wwwrun
+%global apache_group www
+%global apache_pkg apache2
+%endif
+
+%global pythonrhnroot %{python_sitelib}/spacewalk
 
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
@@ -40,7 +64,7 @@ BuildRequires: spacewalk-pylint >= 2.2
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version} > 1310
 BuildRequires: rhnlib >= 2.5.74
 BuildRequires: rhn-client-tools
 BuildRequires: rpm-python
@@ -49,8 +73,7 @@ BuildRequires: python-debian
 BuildRequires: python-gzipstream
 BuildRequires: yum
 %endif
-Requires(pre): httpd
-Requires: httpd
+Requires(pre): %{apache_pkg}
 Requires: %{name}-usix
 # we don't really want to require this redhat-release, so we protect
 # against installations on other releases using conflicts...
@@ -207,11 +230,15 @@ This package contains listener for the Server XML dumper.
 %package libs
 Summary: Spacewalk server and client tools libraries
 Group: Applications/Internet
+%if 0%{?suse_version}
+BuildRequires: python-devel
+%else
 BuildRequires: python2-devel
 Conflicts: %{name} < 1.7.0
 Requires: python-hashlib
 Requires: %{name}-usix
 BuildRequires: python-hashlib
+%endif
 
 %description libs
 Libraries required by both Spacewalk server and Spacewalk client tools.
@@ -300,11 +327,13 @@ Requires: %{name}
 Requires: spacewalk-certs-tools
 Requires: spacewalk-admin >= 0.1.1-0
 Requires: python-gzipstream
-Requires: python-hashlib
 %if 0%{?fedora} || 0%{?rhel} > 6
 Requires: pyliblzma
 %endif
+%if 0%{?fedora} || 0%{?rhel}
+Requires: python-hashlib
 Requires: mod_ssl
+%endif
 Requires: %{name}-xml-export-libs
 Requires: cobbler20
 Requires: rhnlib  >= 2.5.57
@@ -339,7 +368,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{rhnroot}
 install -d $RPM_BUILD_ROOT%{pythonrhnroot}
 make -f Makefile.backend install PREFIX=$RPM_BUILD_ROOT \
-    MANDIR=%{_mandir}
+    MANDIR=%{_mandir} APACHECONFDIR=%{apacheconfd}
 
 %if 0%{?fedora} && 0%{?fedora} >= 23
 install -d $RPM_BUILD_ROOT%{python3rhnroot}/common
@@ -356,6 +385,14 @@ export PYTHON_MODULE_VERSION=%{version}
 
 %if 0%{?fedora} || 0%{?rhel} > 6
 sed -i 's/#LOGROTATE-3.8#//' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/spacewalk-backend-*
+sed -i 's/#DOCUMENTROOT#/\/var\/www\/html/' $RPM_BUILD_ROOT%{rhnconfigdefaults}/rhn.conf
+%endif
+%if 0%{?suse_version}
+sed -i 's/#LOGROTATE-3.8#.*/    su root www/' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/spacewalk-backend-*
+sed -i 's/#DOCUMENTROOT#/\/srv\/www\/htdocs/' $RPM_BUILD_ROOT%{rhnconfigdefaults}/rhn.conf
+pushd $RPM_BUILD_ROOT
+find -name '*.py' -print0 | xargs -0 python %py_libdir/py_compile.py
+popd
 %endif
 
 %clean
@@ -382,11 +419,15 @@ rm -r $RPM_BUILD_ROOT%{python3rhnroot}/common/__pycache__
 %pre server
 OLD_SECRET_FILE=%{_var}/www/rhns/server/secret/rhnSecret.py
 if [ -f $OLD_SECRET_FILE ]; then
-    install -d -m 750 -o root -g apache %{rhnconf}
+    install -d -m 750 -o root -g %{apache_group} %{rhnconf}
     mv ${OLD_SECRET_FILE}*  %{rhnconf}
 fi
 
 %post server
+if [ ! -e %{rhnconf}/rhn.conf ]; then
+    exit 0
+fi
+
 # Is secret key in our config file?
 regex="^[[:space:]]*(server\.|)secret_key[[:space:]]*=.*$"
 
@@ -426,10 +467,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/rhnRepository.py*
 %{pythonrhnroot}/common/rhnTranslate.py*
 %{pythonrhnroot}/common/RPC_Base.py*
-%attr(770,root,apache) %dir %{_var}/log/rhn
+%attr(770,root,%{apache_group}) %dir %{_var}/log/rhn
 # config files
-%attr(755,root,apache) %dir %{rhnconfigdefaults}
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn.conf
+%attr(755,root,%{apache_group}) %dir %{rhnconfigdefaults}
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn.conf
 %attr(755,root,root) %{_bindir}/spacewalk-cfg-get
 %{_mandir}/man8/spacewalk-cfg-get.8.gz
 # wsgi stuff
@@ -516,15 +557,15 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/server/repomd/view.py*
 
 # the cache
-%attr(755,apache,apache) %dir %{_var}/cache/rhn
+%attr(755,%{apache_user},%{apache_group}) %dir %{_var}/cache/rhn
 %attr(755,root,root) %dir %{_var}/cache/rhn/satsync
 # config files
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server.conf
 # main httpd config
-%attr(644,root,apache) %config %{apacheconfd}/zz-spacewalk-server.conf
+%attr(644,root,%{apache_group}) %config %{apacheconfd}/zz-spacewalk-server.conf
 
 # wsgi stuff
-%attr(644,root,apache) %config %{apacheconfd}/zz-spacewalk-server-wsgi.conf
+%attr(644,root,%{apache_group}) %config %{apacheconfd}/zz-spacewalk-server-wsgi.conf
 %{rhnroot}/wsgi/app.py*
 %{rhnroot}/wsgi/applet.py*
 %{rhnroot}/wsgi/config.py*
@@ -537,6 +578,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 # logs and other stuff
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-server
 
+%if 0%{?suse_version}
+%dir %{rhnroot}/server
+%dir %{rhnroot}/server/handlers
+%endif
+
 %files xmlrpc
 %doc LICENSE
 %dir %{rhnroot}/server/handlers/xmlrpc
@@ -546,7 +592,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{pythonrhnroot}/server/action_extra_data
 %{pythonrhnroot}/server/action_extra_data/*
 # config files
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_xmlrpc.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_xmlrpc.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-xmlrpc
 
 %files applet
@@ -554,7 +600,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/server/handlers/applet
 %{rhnroot}/server/handlers/applet/*
 # config files
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_applet.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_applet.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-applet
 
 %files app
@@ -562,7 +608,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/server/handlers/app
 %{rhnroot}/server/handlers/app/*
 # config files
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_app.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_app.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-app
 
 %files iss
@@ -636,14 +682,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 %doc LICENSE
 %dir %{rhnroot}/server/handlers/config
 %{rhnroot}/server/handlers/config/*
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_config-management.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_config-management.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-config-files
 
 %files config-files-tool
 %doc LICENSE
 %dir %{rhnroot}/server/handlers/config_mgmt
 %{rhnroot}/server/handlers/config_mgmt/*
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_config-management-tool.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_config-management-tool.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-config-files-tool
 
 %files package-push-server
@@ -653,14 +699,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/upload_server/handlers
 %{rhnroot}/upload_server/handlers/__init__.py*
 %{rhnroot}/upload_server/handlers/package_push
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_upload.conf
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_upload_package-push.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_upload.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_upload_package-push.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-package-push-server
 
 %files tools
 %doc LICENSE
 %doc README.ULN
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_satellite.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_satellite.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-tools
 %attr(755,root,root) %{_bindir}/rhn-charsets
 %attr(755,root,root) %{_bindir}/rhn-schema-version
@@ -701,11 +747,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/disk_dumper/dumper.py*
 %{pythonrhnroot}/satellite_tools/disk_dumper/string_buffer.py*
 %dir %{pythonrhnroot}/satellite_tools/repo_plugins
-%attr(755,root,apache) %dir %{_var}/log/rhn/reposync
+%attr(755,root,%{apache_group}) %dir %{_var}/log/rhn/reposync
 %{pythonrhnroot}/satellite_tools/repo_plugins/__init__.py*
 %{pythonrhnroot}/satellite_tools/repo_plugins/yum_src.py*
 %{pythonrhnroot}/satellite_tools/repo_plugins/uln_src.py*
-%config %attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_iss.conf
+%config %attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_iss.conf
 %{_mandir}/man8/rhn-satellite-exporter.8*
 %{_mandir}/man8/rhn-charsets.8*
 %{_mandir}/man8/rhn-schema-version.8*
