@@ -22,7 +22,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletRequest;
@@ -728,12 +727,10 @@ public class ListDisplayTag extends ListDisplayTagBase {
             }
         }
         else { //get vars from url
-            Map qvars = rq.getParameterMap();
-            qvars.remove("lower"); //don't repeat lower
-            Iterator iter = qvars.keySet().iterator();
+            Iterator iter = rq.getParameterMap().keySet().iterator();
             while (iter.hasNext()) {
                 String key = (String) iter.next();
-                if (key.equals("submitted")) {
+                if (key.equals("submitted") || key.equals("lower")) {
                     continue;
                 }
                 if (!PAGINATION_WASH_SET.contains(key)) {
