@@ -2,12 +2,15 @@
 %global rhnconfigdefaults %{rhnroot}/config-defaults
 %global rhnconf %{_sysconfdir}/rhn
 
-%if 0%{?rhel} && 0%{?rhel} < 6
-%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%if 0%{?rhel}
 %global apacheconfd %{_sysconfdir}/httpd/conf.d
 %global apache_user apache
 %global apache_group apache
 %global apache_pkg httpd
+%endif
+
+%if 0%{?rhel} && 0%{?rhel} < 6
+%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 %endif
 
 %if 0%{?fedora} && 0%{?fedora} >= 23
@@ -74,6 +77,7 @@ BuildRequires: python-gzipstream
 BuildRequires: yum
 %endif
 Requires(pre): %{apache_pkg}
+Requires: %{apache_pkg}
 Requires: %{name}-usix
 # we don't really want to require this redhat-release, so we protect
 # against installations on other releases using conflicts...
@@ -799,7 +803,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 - fix building of spacewalk-backend
 
 * Thu Apr 21 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.33-1
-- 
+-
 
 * Thu Apr 21 2016 Gennadii Altukhov <galt@redhat.com> 2.5.32-1.git.1.151aa47
 - Add missing import 'sys'
