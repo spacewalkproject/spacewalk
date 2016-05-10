@@ -6,7 +6,7 @@
 
 Name:           jquery-timepicker
 Version:        1.3.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A lightweight, customizable jQuery timepicker plugin inspired by Google Calendar.
 
 Group:          Applications/Internet
@@ -47,6 +47,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue May 10 2016 Grant Gainey 1.3.3-2
+- jquery-timepicker: build on openSUSE
+
 * Fri Feb 14 2014 Michael Mraka <michael.mraka@redhat.com> 1.3.3-1
 - initial build of jquery-timepicker
 
