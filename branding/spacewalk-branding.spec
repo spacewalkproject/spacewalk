@@ -17,7 +17,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.5.2
+Version:    2.5.3
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -124,6 +124,9 @@ rm -rf %{buildroot}
 %{wwwdocroot}/css/*.less
 
 %changelog
+* Tue May 10 2016 Grant Gainey 2.5.3-1
+- spacewalk-branding: build on openSUSE
+
 * Tue Dec 15 2015 Jan Dobes 2.5.2-1
 - fix %%tomcat in spacewalk-branding.spec for EL7
 
