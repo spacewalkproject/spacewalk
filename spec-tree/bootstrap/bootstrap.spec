@@ -8,7 +8,7 @@
 
 Name:           bootstrap
 Version:        3.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.
 
 Group:          Applications/Internet
@@ -83,6 +83,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue May 10 2016 Grant Gainey 3.0.0-5
+- bootstrap: build on openSUSE
+
 * Thu Jan 16 2014 Michael Mraka <michael.mraka@redhat.com> 3.0.0-4
 - Fix to use .less files in development mode (2)
 
