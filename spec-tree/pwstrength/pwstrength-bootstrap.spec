@@ -6,7 +6,7 @@
 
 Name:           pwstrength-bootstrap
 Version:        1.0.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        MIT or GPLv3
 Summary:        Password quality Twitter Bootstrap Plugin
 Url:            https://github.com/ablanco/jquery.pwstrength.bootstrap
@@ -42,6 +42,9 @@ rm -rf %{buildroot}
 %{apachedocroot}/javascript
 
 %changelog
+* Tue May 10 2016 Grant Gainey 1.0.2-5
+- pwstrength-bootstrap: build on openSUSE
+
 * Wed Nov 04 2015 Jan Dobes 1.0.2-4
 - Fix license
 
