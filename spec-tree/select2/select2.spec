@@ -6,7 +6,7 @@
 
 Name:           select2
 Version:        3.4.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Select2 is a jQuery based replacement for select boxes.
 
 Group:          Applications/Internet
@@ -45,6 +45,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Tue May 10 2016 Grant Gainey 3.4.5-3
+- select2: build on openSUSE
+
 * Fri May 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 3.4.5-2
 - fix packaging warnings
 
