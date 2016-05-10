@@ -9,7 +9,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.1
+Version: 2.5.2
 Release: 1%{?dist}
 URL:      https://fedorahosted.org/spacewalk 
 Source0:  https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue May 10 2016 Grant Gainey 2.5.2-1
+- spacewalk-certs-tools: build on openSUSE
+
 * Wed Feb 03 2016 Jan Dobes 2.5.1-1
 - 1302900 - not run on EL5 systems
 - Bumping package versions for 2.5.
