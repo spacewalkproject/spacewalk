@@ -10,7 +10,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.5.2
+Version: 2.5.3
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -136,6 +136,9 @@ sysconf_addword /etc/sysconfig/apache2 APACHE_SERVER_FLAGS ISSUSE
 %endif
 
 %changelog
+* Tue May 10 2016 Grant Gainey 2.5.3-1
+- spacewalk-config: build on openSUSE
+
 * Thu Dec 17 2015 Jan Dobes 2.5.2-1
 - removing unused enable_solaris_support configuration parameter
 - removing unused force_unentitlement configuration parameter
