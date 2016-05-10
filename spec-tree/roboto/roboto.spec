@@ -6,7 +6,7 @@
 
 Name:           roboto
 Version:        1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Roboto font
 
 Group:          Application/Internet
@@ -75,6 +75,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Tue May 10 2016 Grant Gainey 1.2-3
+- roboto: build on openSUSE
+
 * Fri Jan 17 2014 Michael Mraka <michael.mraka@redhat.com> 1.2-2
 - koji build needs Group specified
 
