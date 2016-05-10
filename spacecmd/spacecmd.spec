@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.5.6
+Version:     2.5.7
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -92,6 +92,11 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue May 10 2016 Grant Gainey 2.5.7-1
+- spacecmd: build on openSUSE
+- 1274484 - changed name of key in ConfigRevision structure + updated API doc +
+  configchannel.py
+
 * Thu Mar 24 2016 Jan Dobes 2.5.6-1
 - 1277994 - Add option to softwarechannel_setorgaccess for protected sharing of
   channels.
