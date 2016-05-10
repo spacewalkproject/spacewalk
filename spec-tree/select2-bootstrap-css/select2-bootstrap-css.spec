@@ -6,7 +6,7 @@
 
 Name:           select2-bootstrap-css
 Version:        1.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        CSS to make Select2 fit in with Bootstrap 3.
 
 Group:          Applications/Internet
@@ -42,6 +42,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Tue May 10 2016 Grant Gainey 1.3.0-5
+- select2-bootstrap-css: build on openSUSE
+
 * Fri May 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 1.3.0-4
 - fix file path
 
