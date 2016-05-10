@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for Red Hat Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 2.5.1
+Version: 2.5.2
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -89,6 +89,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue May 10 2016 Grant Gainey 2.5.2-1
+- spacewalk-admin: build on openSUSE
+
 * Tue Nov 24 2015 Jan Dobes 2.5.1-1
 - spacewalk-admin.spec: incorrect cd removed
 - spacewalk-admin: drop validate-sat-cert.pl
