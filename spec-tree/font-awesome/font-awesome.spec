@@ -6,7 +6,7 @@
 
 Name:           font-awesome
 Version:        4.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The iconic font designed for Bootstrap
 
 Group:          Application/Internet
@@ -73,6 +73,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue May 10 2016 Grant Gainey 4.0.3-2
+- font-awesome: build on openSUSE
+
 * Fri Jan 17 2014 Michael Mraka <michael.mraka@redhat.com> 4.0.3-1
 - initial build of font-awesome package
 
