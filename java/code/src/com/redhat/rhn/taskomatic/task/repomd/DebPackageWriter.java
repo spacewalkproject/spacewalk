@@ -22,12 +22,12 @@ import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.log4j.Logger;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.File;
 import java.io.FileWriter;
-import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.zip.GZIPOutputStream;
 
@@ -208,6 +208,7 @@ public class DebPackageWriter {
         int icapcount = capabilities.size();
         String[] names = new String[icapcount];
         String[] versions = new String[icapcount];
+        String[] senses = new String[icapcount];
         try {
             for (PackageCapabilityDto capability : capabilities) {
                 if (count == 0) {
@@ -220,6 +221,7 @@ public class DebPackageWriter {
                 names[iordernumber] = capability.getName().substring(
                                                 0, capability.getName().indexOf("_"));
                 versions[iordernumber] = capability.getVersion();
+                senses[iordernumber] = getSenseAsString(capability.getSense());
             }
 
             for (int iIndex = 0; iIndex < names.length; iIndex++) {
@@ -228,7 +230,12 @@ public class DebPackageWriter {
                 }
                 out.write(names[iIndex]);
                 if (versions[iIndex] != null && !versions[iIndex].isEmpty()) {
-                    out.write(" (" + versions[iIndex] + ")");
+                    out.write(" (");
+                    if (senses[iIndex] != null) {
+                        out.write(senses[iIndex] + " ");
+                    }
+                    out.write(versions[iIndex]);
+                    out.write(")");
                 }
             }
         }
@@ -244,6 +251,32 @@ public class DebPackageWriter {
             log.debug("failed to write new line " + e.toString());
         }
 
+    }
+
+    /**
+     * @param senseIn package sense
+     * @return a human readable representation of the sense
+     */
+    private String getSenseAsString(long senseIn) {
+        long sense = senseIn & 0xf;
+        if (sense == 2) {
+            return "<<";
+        }
+        else if (sense == 4) {
+            return ">>";
+        }
+        else if (sense == 8) {
+            return "=";
+        }
+        else if (sense == 10) {
+            return "<=";
+        }
+        else if (sense == 12) {
+            return ">=";
+        }
+        else { // 0
+            return null;
+        }
     }
 
     /**
