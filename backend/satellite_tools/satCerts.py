@@ -57,7 +57,7 @@ class CaCertInsertionError(Exception):
     pass
 
 
-def _checkCertMatch_rhnCryptoKey(caCert, description, org_id, deleteRowYN=0,
+def _checkCertMatch_rhnCryptoKey(cert, description, org_id, deleteRowYN=0,
                                  verbosity=0):
     """ is there an CA SSL certificate already in the database?
         If yes:
@@ -69,8 +69,6 @@ def _checkCertMatch_rhnCryptoKey(caCert, description, org_id, deleteRowYN=0,
         if found, optionally deletes the row and returns -1
         Used ONLY by: store_rhnCryptoKey(...)
     """
-
-    cert = open(caCert, 'rb').read().strip()
 
     if org_id:
         h = rhnSQL.prepare(_querySelectCryptoCertInfo)
@@ -120,10 +118,8 @@ def _insertPrep_rhnCryptoKey(rhn_cryptokey_id, description, org_id):
     return rhn_cryptokey_id
 
 
-def _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, caCert):
+def _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, cert):
     """ writes/updates the cert as a lob """
-
-    cert = open(caCert, 'rb').read().strip()
 
     # Use our update blob wrapper to accomodate differences between Oracle
     # and PostgreSQL:
@@ -137,37 +133,41 @@ def _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, caCert):
                                            "inserted into the database"), sys.exc_info()[2])
 
 
-def store_rhnCryptoKey(description, caCert, verbosity=0):
-    """ stores CA cert in rhnCryptoKey
+def store_CaCert(description, caCert, verbosity=0):
+    org_ids = get_all_orgs()
+    org_ids.append({'id': None})
+    with open(caCert, 'rb') as f:
+        cert = f.read().strip()
+    for org_id in org_ids:
+        org_id = org_id['id']
+        store_rhnCryptoKey(description, cert, org_id, verbosity)
+
+def store_rhnCryptoKey(description, cert, org_id, verbosity=0):
+    """ stores cert in rhnCryptoKey
         uses:
             _checkCertMatch_rhnCryptoKey
             _delete_rhnCryptoKey - not currently used
             _insertPrep_rhnCryptoKey
             _lobUpdate_rhnCryptoKey
     """
-
-    org_ids = get_all_orgs()
-    org_ids.append({'id': None})
-    for org_id in org_ids:
-        org_id = org_id['id']
-        try:
-            # look for a cert match in the database
-            rhn_cryptokey_id = _checkCertMatch_rhnCryptoKey(caCert, description,
-                                                            org_id, deleteRowYN=1,
-                                                            verbosity=verbosity)
-            if rhn_cryptokey_id is None:
-                # nothing to do - cert matches
-                continue
-            # insert into the database
-            if rhn_cryptokey_id == -1:
-                rhn_cryptokey_id = _insertPrep_rhnCryptoKey(rhn_cryptokey_id,
-                                                            description, org_id)
-            # write/update
-            _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, caCert)
-            rhnSQL.commit()
-        except rhnSQL.sql_base.SQLError:
-            raise_with_tb(CaCertInsertionError(
-                "...the traceback: %s" % fetchTraceback()), sys.exc_info()[2])
+    try:
+        # look for a cert match in the database
+        rhn_cryptokey_id = _checkCertMatch_rhnCryptoKey(cert, description,
+                                                        org_id, deleteRowYN=1,
+                                                        verbosity=verbosity)
+        if rhn_cryptokey_id is None:
+            # nothing to do - cert matches
+            return
+        # insert into the database
+        if rhn_cryptokey_id == -1:
+            rhn_cryptokey_id = _insertPrep_rhnCryptoKey(rhn_cryptokey_id,
+                                                        description, org_id)
+        # write/update
+        _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, cert)
+        rhnSQL.commit()
+    except rhnSQL.sql_base.SQLError:
+        raise_with_tb(CaCertInsertionError(
+            "...the traceback: %s" % fetchTraceback()), sys.exc_info()[2])
 
 
 _querySelectCryptoCertInfo = rhnSQL.Statement("""
@@ -200,7 +200,7 @@ _queryInsertCryptoCertInfo = rhnSQL.Statement("""
 
 def _test_store_rhnCryptoKey(caCert):
     description = 'RHN-ORG-TRUSTED-SSL-CERT'
-    store_rhnCryptoKey(description, caCert)
+    store_CaCert(description, caCert)
 
 if __name__ == '__main__':
     rhnSQL.initDB()
