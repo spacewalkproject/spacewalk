@@ -14,7 +14,6 @@ BuildRequires: update-desktop-files
 
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
-Requires: python-ethtool >= 0.4
 Requires: gnupg
 Requires: sh-utils
 %if 0%{?fedora} >= 23
@@ -23,11 +22,13 @@ Requires: libgudev
 Requires: newt-python3
 Requires: python3-gobject-base
 Requires: python3-dmidecode
+Requires: python3-netifaces
 Requires: python3-hwdata
 Requires: python3-rhnlib >= 2.5.78
 %else
 BuildRequires: python-devel
 Requires: python-dmidecode
+Requires: python-ethtool >= 0.4
 Requires: rhnlib >= 2.5.78
 %if 0%{?fedora}
 Requires: newt-python

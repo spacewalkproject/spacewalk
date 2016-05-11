@@ -30,12 +30,21 @@ try:
 except NameError: # long is not defined in python3
     long = int
 
+
+# network module for python 2
 try:
     import ethtool
     ethtool_present = True
 except ImportError:
-    sys.stderr.write("Warning: information about network interfaces could not be retrieved on this platform.\n")
     ethtool_present = False
+
+# network module for python3 (Fedora >= 23)
+try:
+    import netifaces
+    import ipaddress
+    netifaces_present = True
+except ImportError:
+    netifaces_present = False
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
@@ -623,14 +632,22 @@ def read_network_interfaces():
     intDict = {}
     intDict['class'] = "NETINTERFACES"
 
-    if not ethtool_present:
+    if not ethtool_present and not netifaces_present:
         # ethtool is not available on non-linux platforms (as kfreebsd), skip it
+        sys.stderr.write("Warning: information about network interfaces could not be retrieved on this platform.\n")
         return intDict
 
-    interfaces = list(set(ethtool.get_devices() + ethtool.get_active_devices()))
+    if ethtool_present:
+        interfaces = list(set(ethtool.get_devices() + ethtool.get_active_devices()))
+    else:
+        interfaces = netifaces.interfaces()
+
     for interface in interfaces:
         try:
-            hwaddr = ethtool.get_hwaddr(interface)
+            if ethtool_present:
+                hwaddr = ethtool.get_hwaddr(interface)
+            else:
+                hwaddr = netifaces.ifaddresses(interface)[netifaces.AF_LINK][0]['addr']
         except:
             hwaddr = ""
 
@@ -645,44 +662,96 @@ def read_network_interfaces():
             hwaddr = get_slave_hwaddr(master_interface, interface)
 
         try:
-            module = ethtool.get_module(interface)
+            if ethtool_present:
+                module = ethtool.get_module(interface)
+            else:
+                driver_file = open('/sys/class/net/%s/device/uevent' % interface, 'r')
+                module = driver_file.readline().split('=')[1].strip()
+                driver_file.close()
         except:
             if interface == 'lo':
                 module = "loopback"
             else:
                 module = "Unknown"
+
         try:
-            ipaddr = ethtool.get_ipaddr(interface)
+            if ethtool_present:
+                ipaddr = ethtool.get_ipaddr(interface)
+            else:
+                ipaddr = netifaces.ifaddresses(interface)[netifaces.AF_INET][0]['addr']
         except:
             ipaddr = ""
 
         try:
-            netmask = ethtool.get_netmask(interface)
+            if ethtool_present:
+                netmask = ethtool.get_netmask(interface)
+            else:
+                netmask = netifaces.ifaddresses(interface)[netifaces.AF_INET][0]['netmask']
         except:
             netmask = ""
 
         try:
-            broadcast = ethtool.get_broadcast(interface)
+            if ethtool_present:
+                broadcast = ethtool.get_broadcast(interface)
+            else:
+                broadcast = netifaces.ifaddresses(interface)[netifaces.AF_INET][0]['broadcast']
         except:
             broadcast = ""
 
         ip6_list = []
-        dev_info = ethtool.get_interfaces_info(interface)
-        for info in dev_info:
-            # one interface may have more IPv6 addresses
-            for ip6 in info.get_ipv6_addresses():
-                scope = ip6.scope
-                if scope == 'global':
-                    scope = 'universe'
-                ip6_list.append({
-                    'scope':   scope,
-                    'addr':    ip6.address,
-                    'netmask': ip6.netmask
-                })
-        intDict[interface] = {'hwaddr':hwaddr,
-                              'ipaddr':ipaddr,
-                              'netmask':netmask,
-                              'broadcast':broadcast,
+        if ethtool_present:
+            dev_info = ethtool.get_interfaces_info(interface)
+            for info in dev_info:
+                # one interface may have more IPv6 addresses
+                for ip6 in info.get_ipv6_addresses():
+                    scope = ip6.scope
+                    if scope == 'global':
+                        scope = 'universe'
+                    ip6_list.append({
+                        'scope':   scope,
+                        'addr':    ip6.address,
+                        'netmask': ip6.netmask
+                    })
+
+        else:
+            try:
+                for dev_info in netifaces.ifaddresses(interface)[netifaces.AF_INET6]:
+                    ip6_addr = dev_info['addr'].split('%')[0]
+
+                    scope_info = ipaddress.IPv6Address(ip6_addr)
+                    if scope_info.is_global:
+                        scope = 'universe'
+                    elif scope_info.is_link_local:
+                        scope = 'link'
+                    elif scope_info.is_loopback:
+                        scope = 'host'
+                    elif scope_info.is_site_local:
+                        scope = 'site'
+
+                    # count number of '1' bits in netmask returned by netifaces
+                    ip6_netmask = dev_info['netmask']
+                    netmask_bits = 0
+                    for two_octets in ip6_netmask.split(':'):
+                        if not two_octets:
+                            break
+                        elif two_octets.lower() == 'ffff':
+                            netmask_bits += 16
+                        else:
+                            # remove '0b' from begin and find last '1' in the string
+                            netmask_bits += 16 - 1 - bin(int(two_octets, 16))[2:].rindex('1')
+
+                    ip6_list.append({
+                            'scope':   scope,
+                            'addr':    ip6_addr,
+                            'netmask': netmask_bits
+                    })
+            except KeyError:
+                pass  # no ipv6 for this interface
+
+        intDict[interface] = {'hwaddr': hwaddr,
+                              'ipaddr': ipaddr,
+                              'netmask': netmask,
+                              'broadcast': broadcast,
                               'module': module,
                               'ipv6': ip6_list}
 
