@@ -8,7 +8,7 @@ import os
 import string
 import unittest
 import time
-import spacewalk.common.usix as usix
+from spacewalk.common import usix
 from spacewalk.server import rhnSQL
 
 import misc_functions

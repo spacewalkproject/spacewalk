@@ -16,7 +16,7 @@
 #
 
 import sys
-import spacewalk.common.usix as usix
+from spacewalk.common import usix
 from xml.sax import make_parser, SAXParseException, ContentHandler, \
     ErrorHandler
 

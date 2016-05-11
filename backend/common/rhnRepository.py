@@ -16,7 +16,7 @@
 
 import os
 import stat
-import spacewalk.common.usix as usix
+from spacewalk.common import usix
 try:
     #  python 2
     import cStringIO

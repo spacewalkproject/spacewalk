@@ -27,7 +27,7 @@ import sys
 import string
 import os
 import re
-import spacewalk.common.usix as usix
+from spacewalk.common import usix
 
 from rhn.UserDictCase import UserDictCase
 from spacewalk.common.usix import raise_with_tb, next

@@ -26,7 +26,7 @@
 import string
 import sys
 import sql_types
-import spacewalk.common.usix as usix
+from spacewalk.common import usix
 
 
 def ociDict(names=None, row=None):

@@ -22,7 +22,7 @@ import os
 import sys
 import stat
 import time
-import spacewalk.common.usix as usix
+from spacewalk.common import usix
 import exceptions
 try:
     #  python 2

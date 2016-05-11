@@ -14,7 +14,7 @@
 #
 #
 
-import spacewalk.common.usix as usix
+from spacewalk.common import usix
 
 
 class RequestedChannels:

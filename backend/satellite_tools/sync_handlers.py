@@ -14,7 +14,7 @@
 #
 
 
-import spacewalk.common.usix as usix
+from spacewalk.common import usix
 import sys
 
 from spacewalk.server.importlib import channelImport, packageImport, errataImport, \
