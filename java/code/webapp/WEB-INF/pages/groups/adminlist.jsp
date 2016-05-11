@@ -39,7 +39,7 @@
             bound="false"
             headerkey="username.nopunc.displayname"
             sortattr="login"
-            filterattr="name"
+            filterattr="login"
             defaultsort="asc" >
 
             <a href="/rhn/users/UserDetails.do?uid=${current.id}">
