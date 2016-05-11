@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.5.5
+Version: 2.5.6
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -64,6 +64,9 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %dir /var/lib/up2date
 
 %changelog
+* Wed May 11 2016 Gennadii Altukhov <galt@redhat.com> 2.5.6-1
+- replace has_key to work in python 3
+
 * Mon May 09 2016 Gennadii Altukhov <galt@redhat.com> 2.5.5-1
 - 1323028 - fix upgrade from Fedora 21 to 22
 
