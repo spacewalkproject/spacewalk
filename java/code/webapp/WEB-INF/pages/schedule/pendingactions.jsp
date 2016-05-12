@@ -16,6 +16,9 @@
   <p>
     <bean:message key="pendingactions.jsp.summary"/>
   </p>
+  <p>
+    <span class="small-text"><bean:message key="actions.jsp.totalnote"/></span>
+  </p>
 
         <rl:listset name="pendingList">
   <rhn:csrf />

@@ -2219,6 +2219,18 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/InProgressSystems</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="actions.jsp.totalnote">
+        <source>
+          Note: For multi-system scheduled actions, the ability to cancel individual 
+          systems means that the number of clients mentioned in the Action column may not match the number in Total.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/PendingActions</context>
+          <context context-type="sourcefile">/rhn/schedule/FailedActions</context>
+          <context context-type="sourcefile">/rhn/schedule/CompletedActions</context>
+          <context context-type="sourcefile">/rhn/schedule/ArchiveActions</context>
+        </context-group>
+      </trans-unit>
       <!-- pendingactions.jsp -->
       <trans-unit id="pendingactions.jsp.pending_actions">
         <source>Pending Actions</source>
