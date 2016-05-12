@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.5.6
+Version: 2.5.7
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -64,6 +64,9 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %dir /var/lib/up2date
 
 %changelog
+* Thu May 12 2016 Gennadii Altukhov <galt@redhat.com> 2.5.7-1
+- fix: wrong converting of exception to string
+
 * Wed May 11 2016 Gennadii Altukhov <galt@redhat.com> 2.5.6-1
 - replace has_key to work in python 3
 
