@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.88
+Version: 2.5.89
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu May 12 2016 Grant Gainey 2.5.89-1
+- 1333443 - Added note to explain potential discrepancy between Total and num-
+  clients
+
 * Wed May 11 2016 Tomas Lestach <tlestach@redhat.com> 2.5.88-1
 - 1335104 - fix user filtering on /rhn/groups/AdminList.do page
 - Exit if there are exceptions on startup to let tanuki restart taskomatic
