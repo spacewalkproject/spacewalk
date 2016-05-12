@@ -8,11 +8,10 @@ Version: 5.4.29
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
+BuildRequires: python-devel
 %if 0%{?fedora} >= 23
-BuildRequires: python3-devel
 Requires: python3-rhnlib
 %else
-BuildRequires: python-devel
 Requires: rhnlib
 %endif
 
