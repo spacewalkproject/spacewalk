@@ -15,11 +15,10 @@ Source:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.
 BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 
+BuildRequires: python-devel
 %if 0%{?fedora} >= 23
-BuildRequires: python3-devel
 Requires: python3-rhnlib
 %else
-BuildRequires: python-devel
 Requires: rhnlib >= 2.5.74
 %endif
 

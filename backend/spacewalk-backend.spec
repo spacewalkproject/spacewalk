@@ -13,7 +13,7 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 %endif
 
-%if 0%{?fedora} && 0%{?fedora} >= 23
+%if 0%{?fedora} >= 23
 %{!?python3_sitelib: %global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 %global python3rhnroot %{python3_sitelib}/spacewalk
 %endif
@@ -24,11 +24,6 @@
 %global apache_user apache
 %global apache_group apache
 %global apache_pkg httpd
-
-%if 0%{?fedora} >= 23
-%{!?python3_sitelib: %global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
-%global python3rhnroot %{python3_sitelib}/spacewalk
-%endif
 %endif
 
 %if 0%{?suse_version}
@@ -256,13 +251,14 @@ Provides: %{name}-usix = %{version}-%{release}
 Library for writing code that runs on Python 2 and 3
 
 
-%if 0%{?fedora} && 0%{?fedora} >= 23
+%if 0%{?fedora} >= 23
 
 %package -n python3-%{name}-libs
 Summary: Spacewalk client tools libraries for Fedora 23
 Group: Applications/Internet
+BuildRequires: python2-devel
+BuildRequires: python-hashlib
 BuildRequires: python3-devel
-BuildRequires: python3-libs
 Conflicts: %{name} < 1.7.0
 Requires: python3-libs
 Requires: python3-%{name}-usix
@@ -274,6 +270,7 @@ Libraries required by Spacewalk client tools on Fedora 23.
 Summary: Spacewalk client micro six library
 Group: Applications/Internet
 Provides: python3-%{name}-usix = %{version}-%{release}
+BuildRequires: python2-devel
 
 %description -n python3-%{name}-usix
 Library for writing code that runs on Python 2 and 3

@@ -16,8 +16,8 @@ Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
 Requires: gnupg
 Requires: sh-utils
+BuildRequires: python-devel
 %if 0%{?fedora} >= 23
-BuildRequires: python3-devel
 Requires: libgudev
 Requires: newt-python3
 Requires: python3-gobject-base
@@ -26,7 +26,6 @@ Requires: python3-netifaces
 Requires: python3-hwdata
 Requires: python3-rhnlib >= 2.5.78
 %else
-BuildRequires: python-devel
 Requires: python-dmidecode
 Requires: python-ethtool >= 0.4
 Requires: rhnlib >= 2.5.78
