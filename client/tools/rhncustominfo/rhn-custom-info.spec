@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.29
+Version: 5.4.30
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -63,6 +63,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Thu May 12 2016 Tomas Kasparek <tkasparek@redhat.com> 5.4.30-1
+- use python-devel in buildtime on all OS
+
 * Tue Apr 12 2016 Gennadii Altukhov <galt@redhat.com> 5.4.29-1
 - Wrong dependency for building on Fedora 23
 - basestring is str and bytes in python3
