@@ -41,6 +41,9 @@ import com.redhat.rhn.frontend.struts.RequestContext;
  */
 public class ListDisplayTagBase extends BodyTagSupport {
     public static final String FILTER_DISPATCH = "filter.dispatch";
+    // Limit the amount of text we're willing to filter on
+    // See BZ#1334296 for the kind of 'fun' this helps us avoid...
+    public static final String FILTER_MAXLENGTH = "4096";
 
     /** iterates through the page list */
     private Iterator iterator;
@@ -313,6 +316,7 @@ public class ListDisplayTagBase extends BodyTagSupport {
         String placeHolder = StringEscapeUtils.escapeHtml(
                 ls.getMessage("message.filterby", ls.getMessage(filterBy)));
         input.setAttribute("placeholder", placeHolder);
+        input.setAttribute("maxlength", FILTER_MAXLENGTH);
 
         buf.append(input.render());
 
@@ -343,6 +347,7 @@ public class ListDisplayTagBase extends BodyTagSupport {
     }
 
     /** {@inheritDoc} */
+    @Override
     public void release() {
         iterator = null;
         filterBy = null;
