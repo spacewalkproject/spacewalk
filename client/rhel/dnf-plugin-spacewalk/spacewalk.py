@@ -101,8 +101,7 @@ class Spacewalk(dnf.Plugin):
             try:
                 login_info = up2date_client.up2dateAuth.getLoginInfo(timeout=self.conf.timeout)
             except up2dateErrors.RhnServerException as e:
-                logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, RHN_DISABLED,
-                                           ustr(e))
+                logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, RHN_DISABLED, e)
                 return
 
             if not login_info:
@@ -114,8 +113,7 @@ class Spacewalk(dnf.Plugin):
                 svrChannels = up2date_client.rhnChannel.getChannelDetails(
                                                               timeout=self.conf.timeout)
             except up2dateErrors.CommunicationError as e:
-                logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, RHN_DISABLED,
-                                           ustr(e))
+                logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, RHN_DISABLED, e)
                 return
             except up2dateErrors.NoChannelsError:
                 logger.error("%s\n%s", NOT_SUBSCRIBED_ERROR, CHANNELS_DISABLED)
@@ -175,8 +173,7 @@ class Spacewalk(dnf.Plugin):
             up2date_client.rhnPackageInfo.updatePackageProfile(
                                                         timeout=self.conf.timeout)
         except up2dateErrors.RhnServerException as e:
-            logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, PROFILE_NOT_SENT,
-                                       ustr(e))
+            logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, PROFILE_NOT_SENT, e)
 
 
     def _read_channels_file(self):
