@@ -5272,6 +5272,8 @@
                path="/admin/multiorg/OrgDetails.do" redirect="true" />
       <forward name="error"
                path="/WEB-INF/pages/admin/multiorg/orgdetails.jsp" />
+      <forward name="nosuchorg"
+               path="/admin/multiorg/Organizations.do" redirect="true" />
     </action>
 
     <action path="/admin/multiorg/OrgConfigDetails"

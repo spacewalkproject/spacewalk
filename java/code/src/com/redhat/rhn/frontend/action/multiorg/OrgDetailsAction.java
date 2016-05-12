@@ -14,6 +14,16 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorException;
@@ -25,16 +35,6 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.org.OrgManager;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -61,25 +61,40 @@ public class OrgDetailsAction extends RhnAction {
 
         ActionForward retval = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         DynaActionForm dynaForm = (DynaActionForm) formIn;
+
+        // Let's try to limit the number of times we hydrate Org from the DB, shall we?
+        RequestContext ctxt = new RequestContext(request);
+        Long oid = ctxt.getRequiredParam(RequestContext.ORG_ID);
+        Org theOrg = getOrgFor(oid);
+
+        // Bolt if someone handed us a garbage OID
+        if (theOrg == null) {
+            getStrutsDelegate().saveMessage("api.org.nosuchorg",
+                            new String[] {oid.toString()}, request);
+            return mapping.findForward("nosuchorg");
+        }
+
         if (isSubmitted(dynaForm)) {
-            Long oid = updateOrgDetails(mapping, dynaForm, request, response);
+            updateOrgDetails(mapping, dynaForm, request, response, oid, theOrg);
             retval = mapping.findForward("success");
             retval = getStrutsDelegate().forwardParam(retval, "oid", oid.toString());
         }
         else {
-            setupFormValues(request, dynaForm);
+            setupFormValues(request, dynaForm, oid, theOrg);
         }
         return retval;
     }
 
+    private Org getOrgFor(Long oid) {
+        Org org = OrgFactory.lookupById(oid);
+        return org;
+    }
     private void setupFormValues(HttpServletRequest request,
-            DynaActionForm daForm) {
+            DynaActionForm daForm,
+            Long oid,
+            Org org) {
 
-        RequestContext requestContext = new RequestContext(request);
-        Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
-        Org org = requestContext.lookupAndBindOrg();
         OrgDto dto = OrgManager.toDetailsDto(org);
-
         daForm.set("submitted", Boolean.TRUE);
         daForm.set("orgName", dto.getName());
         daForm.set("id", dto.getId().toString());
@@ -100,18 +115,19 @@ public class OrgDetailsAction extends RhnAction {
      * @param dynaForm form for org details
      * @param request coming in
      * @param response going out
-     * @return ActionFoward
+     * @param oid ID of Org we're operating on
+     * @param org Org object for oid
      * @throws Exception to parent
      */
-    private Long updateOrgDetails(ActionMapping mapping,
+    private void updateOrgDetails(ActionMapping mapping,
             DynaActionForm dynaForm,
             HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+            HttpServletResponse response,
+            Long oid,
+            Org org) throws Exception {
 
         RequestContext requestContext = new RequestContext(request);
-        Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
-        if (validateForm(request, dynaForm)) {
-            Org org = OrgFactory.lookupById(oid);
+        if (validateForm(request, dynaForm, oid, org)) {
             String name = dynaForm.getString("orgName");
             org.setName(name);
             ActionMessages msg = new ActionMessages();
@@ -119,22 +135,22 @@ public class OrgDetailsAction extends RhnAction {
                     new ActionMessage("message.org_name_updated", name));
             getStrutsDelegate().saveMessages(request, msg);
         }
-        return oid;
     }
 
     /**
      *
      * @param request coming in
      * @param form to validate against
+     * @param oid ID of Org we're operating on
+     * @param currOrg Org object for oid
      * @return if it passed
      */
-    private boolean validateForm(HttpServletRequest request, DynaActionForm form) {
+    private boolean validateForm(HttpServletRequest request, DynaActionForm form,
+                    Long oid, Org currOrg) {
         boolean retval = true;
 
         String orgName = form.getString("orgName");
         RequestContext requestContext = new RequestContext(request);
-        Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
-        Org currOrg = OrgFactory.lookupById(oid);
 
         if (currOrg.getName().equals(orgName)) {
             getStrutsDelegate().saveMessage("message.org_name_not_updated",
