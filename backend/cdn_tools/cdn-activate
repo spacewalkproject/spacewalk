@@ -9,3 +9,8 @@ m = Manifest(sys.argv[1])
 
 print("Updating certificates...")
 activation.update_certificates(m)
+
+print("Updating channel families...")
+# WORKAROUND: Filename of certificate xml as parameter
+# Until cert is not part of manifest
+activation.update_channel_families(sys.argv[2])
