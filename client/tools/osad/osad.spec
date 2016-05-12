@@ -19,7 +19,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.69
+Version: 5.11.70
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -424,6 +424,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Thu May 12 2016 Gennadii Altukhov <galt@redhat.com> 5.11.70-1
+- change interpreter on python2 for osa-dispatcher
+
 * Tue May 10 2016 Grant Gainey 5.11.69-1
 - osad: fix permissions on directories
 
