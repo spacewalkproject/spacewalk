@@ -50,7 +50,9 @@ rpclib = rpc_wrapper
 
 def deci_to_octal(number):
     """convert a normal decimal int to another int representing the octal value"""
-    return int(oct(number))
+    # python 2.4/2.6: oct(420) -> '0644'
+    # python 3.4: oct(420) -> '0o644'
+    return int(oct(number).replace("o", ""))
 
 
 class Repository:
