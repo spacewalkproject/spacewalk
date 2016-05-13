@@ -377,7 +377,7 @@ cp $RPM_BUILD_ROOT%{pythonrhnroot}/__init__.py \
     $RPM_BUILD_ROOT%{python3rhnroot}/
 cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/{__init__.py,usix.py} \
     $RPM_BUILD_ROOT%{python3rhnroot}/common
-cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/{checksum.py,cli.py,rhn_deb.py,rhn_mpm.py,rhn_pkg.py,rhn_rpm.py,stringutils.py,fileutils.py} \
+cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/{checksum.py,cli.py,rhn_deb.py,rhn_mpm.py,rhn_pkg.py,rhn_rpm.py,stringutils.py,fileutils.py,rhnLib.py} \
     $RPM_BUILD_ROOT%{python3rhnroot}/common
 %endif
 export PYTHON_MODULE_NAME=%{name}
@@ -461,7 +461,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/rhnConfig.py*
 %{pythonrhnroot}/common/rhnException.py*
 %{pythonrhnroot}/common/rhnFlags.py*
-%{pythonrhnroot}/common/rhnLib.py*
 %{pythonrhnroot}/common/rhnLog.py*
 %{pythonrhnroot}/common/rhnMail.py*
 %{pythonrhnroot}/common/rhnTB.py*
@@ -643,6 +642,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/rhn_pkg.py*
 %{pythonrhnroot}/common/rhn_rpm.py*
 %{pythonrhnroot}/common/stringutils.py*
+%{pythonrhnroot}/common/rhnLib.py*
 
 %files usix
 %doc LICENSE
@@ -663,6 +663,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{python3rhnroot}/common/rhn_pkg.py
 %{python3rhnroot}/common/rhn_rpm.py
 %{python3rhnroot}/common/stringutils.py
+%{python3rhnroot}/common/rhnLib.py*
 
 %files -n python3-%{name}-usix
 %doc LICENSE
