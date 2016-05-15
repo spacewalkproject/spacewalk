@@ -61,12 +61,15 @@ tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc \
 
 echo "" > $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/rhn.conf
 
-find $RPM_BUILD_ROOT -name '*.symlink' | \
-	while read filename ; do linkname=${filename%.symlink} ; \
-		target=`sed -s 's/^Link to //' $filename` ; \
-		ln -sf $target $linkname ; \
-		rm -f $filename ; \
-	done
+mkdir -p $RPM_BUILD_ROOT/etc/pki/tls/certs/
+mkdir -p $RPM_BUILD_ROOT/etc/pki/tls/private/
+%if 0%{?suse_version}
+ln -sf  %{apacheconfdir}/ssl.key/server.key $RPM_BUILD_ROOT/etc/pki/tls/private/spacewalk.key
+ln -sf  %{apacheconfdir}/ssl.crt/server.crt $RPM_BUILD_ROOT/etc/pki/tls/certs/spacewalk.crt
+%else
+ln -sf  %{apacheconfdir}/conf/ssl.key/server.key $RPM_BUILD_ROOT/etc/pki/tls/private/spacewalk.key
+ln -sf  %{apacheconfdir}/conf/ssl.crt/server.crt $RPM_BUILD_ROOT/etc/pki/tls/certs/spacewalk.crt
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
