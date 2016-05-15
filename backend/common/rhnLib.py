@@ -199,7 +199,6 @@ def isSUSE():
     except (IOError, OSError):
         pass
 
-    if cpe_name.startswith('cpe:/o:opensuse:') or \
-       cpe_name.startswith('cpe:/o:suse:'):
+    if 'cpe:/o:opensuse:' in cpe_name or 'cpe:/o:suse:' in cpe_name:
         return True
     return False
