@@ -44,7 +44,14 @@ rm -rf $RPM_BUILD_ROOT
 %config  /etc/sysconfig/rhn/clientCaps.d/scap
 %{_datadir}/rhn/actions/scap.*
 %{_datadir}/openscap/xsl/xccdf-resume.xslt
-
+%if 0%{?suse_version}
+%dir /etc/sysconfig/rhn
+%dir /etc/sysconfig/rhn/clientCaps.d
+%dir %{_datadir}/openscap
+%dir %{_datadir}/openscap/xsl
+%dir %{_datadir}/rhn
+%dir %{_datadir}/rhn/actions
+%endif
 
 %changelog
 * Fri Jan 22 2016 Tomas Lestach <tlestach@redhat.com> 2.5.1-1
