@@ -97,7 +97,8 @@ for key_file in args:
                                               provider_name,
                                               key_id,
                                               'gpg')
-    except Exception, e:
+    except Exception:
+        e = sys.exc_info()[1]
         if options.debug:
             logging.exception(e)
         logging.error('Failed to add the key to the server: %s' % key_file)
