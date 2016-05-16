@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.5.3
+Version:        2.5.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -112,6 +112,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon May 16 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.4-1
+- try to reuse values from rhn.conf
+
 * Mon Dec 07 2015 Jan Dobes 2.5.3-1
 - removing create first org code from installer
 
