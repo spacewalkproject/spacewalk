@@ -35,6 +35,7 @@ from spacewalk.common import rhn_mpm
 from spacewalk.common.rhn_pkg import package_from_filename, get_package_header
 from spacewalk.common.usix import raise_with_tb
 from up2date_client import rhnserver
+from rhn.i18n import sstr
 
 try:
     from rhn import rpclib
@@ -436,7 +437,7 @@ class UploadClass:
             # Some feedback
             if self.options.verbose:
                 ReportError("Uploading batch:")
-                for p in uploadedPackages.values()[0]:
+                for p in list(uploadedPackages.values())[0]:
                     ReportError("\t\t%s" % p)
 
             if source:
@@ -456,7 +457,7 @@ class UploadClass:
                     key = tuple(p[:5])
                     if key not in uploadedPackages:
                         # XXX Hmm
-                        self.warn("XXX XXX %s" % str(p))
+                        self.warn(1, "XXX XXX %s" % str(p))
                     filename, checksum = uploadedPackages[key]
                     # Some debugging
                     if self.options.verbose:
@@ -546,17 +547,16 @@ class UploadClass:
         # Get the name, version, release, epoch, arch
         lh = []
         for k in ['name', 'version', 'release', 'epoch']:
-            lh.append(a_pkg.header[k])
-        # Fix the epoch
-        if lh[3] is None:
-            lh[3] = ""
-        else:
-            lh[3] = str(lh[3])
+            if k == 'epoch' and not a_pkg.header[k]:
+            # Fix the epoch
+                lh.append(sstr(""))
+            else:
+                lh.append(sstr(a_pkg.header[k]))
 
         if source:
             lh.append('src')
         else:
-            lh.append(a_pkg.header['arch'])
+            lh.append(sstr(a_pkg.header['arch']))
 
         # Build the header hash to be sent
         info = {'header': Binary(a_pkg.header.unload()),
