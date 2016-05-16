@@ -630,8 +630,8 @@ public class ErrataManager extends BaseManager {
         RhnSetManager.store(bulk);
 
         for (ChannelOverview chan : cList) {
-            ChannelManager.queueChannelChange(chan.getLabel(),
-                    "java::deleteErrata", "errata deletion");
+            ChannelManager.refreshWithNewestPackages(chan.getId(),
+                    "channel_errata_remove");
         }
 
     }
