@@ -17,12 +17,12 @@ if sys.version_info[0] == 3:
 else:
     from xmlrpclib import Server
     from xmlrpclib import Fault
-import string
 import os
 from os import path
 from optparse import OptionParser
 from rhn.connections import idn_ascii_to_puny
 from socket import gethostname
+from rhn.i18n import ustr
 
 DATA_DIR = "./data/"
 DATA_DIR_RHN = "/usr/share/rhn/channel-data/"
@@ -59,11 +59,11 @@ def get_args():
     parser.add_option("-s", "--server", action="store", dest="server", default=gethostname(), help="the server to connect to (i.e. hostname.domain.com) [default: %default]")
     parser.add_option("-l", "--user", action="store", dest="user", help="the user to connect as")
     parser.add_option("-p", "--password", action="store", dest="password", help="the password to use for the connection (if not specified, will be prompted for)")
-    parser.add_option("-v", "--version", action="store", dest="version", help='the version to use (i.e.' + string.join(versions, ', ') +')')
-    parser.add_option("-r", "--release", action="store", dest="release", help='the release to use (i.e. ' + string.join(releases, ', ') + ')')
-    parser.add_option("-a", "--arch", action="store", dest="arch", help='the arch to use (i.e. ' + string.join(arches, ', ') + ')')
-    parser.add_option("-u", "--update", action="store", dest="update_level", help='the update level to use (i.e. ' + string.join(updates, ', ')  + ')')
-    parser.add_option("-e", "--extra", action="store", dest="extra", help='the child channel/repo to use (i.e. ' + string.join(extras, ', ') + ')')
+    parser.add_option("-v", "--version", action="store", dest="version", help='the version to use (i.e.' + ', '.join(versions) +')')
+    parser.add_option("-r", "--release", action="store", dest="release", help='the release to use (i.e. ' + ', '.join(releases) + ')')
+    parser.add_option("-a", "--arch", action="store", dest="arch", help='the arch to use (i.e. ' + ', '.join(arches) + ')')
+    parser.add_option("-u", "--update", action="store", dest="update_level", help='the update level to use (i.e. ' + ', '.join(updates)  + ')')
+    parser.add_option("-e", "--extra", action="store", dest="extra", help='the child channel/repo to use (i.e. ' + ', '.join(extras) + ')')
     parser.add_option("-D", "--data", action="store", dest="data", help='a data file to use, may use this instead of version, release, update, arch,  and extra')
     parser.add_option("-c", "--sourceChannel", action="store", dest="source_channel", help=' the channel to pull packages from (will be auto detected if not provided)')
     parser.add_option("-d", "--destChannel", action="store", dest="dest_channel", help='the label of the destintation channel to push the packages to (will be created if not existing)')
@@ -145,7 +145,7 @@ def main():
     clear = options.clear_channel
 
     if not os.path.exists(fullpath):
-        print("Error: data file '" + filename + "' does not exist")
+        print("Error: data file %s does not exist" % filename)
         sys.exit(1)
 
     parent = options.parent_channel
@@ -166,13 +166,13 @@ def main():
         srcChanLabel = findSrcChan(version, release, arch, extra)
     srcChanLabel = srcChanLabel.lower()
 
-    print("Trying with source channel: " + srcChanLabel)
+    print("Trying with source channel: %s" % srcChanLabel)
 
     # now lets login to the server
     proto = "http"
     if ssl:
         proto = proto + "s"
-    client = Server(proto + "://" + server + "/rpc/api")
+    client = Server("%s://%s/rpc/api" % (proto, ustr(server)))
     if clone and client.api.getVersion() < 5.1:
         print("--clone cannot be used with a Satellite version older than 5.1")
     try:
@@ -207,23 +207,23 @@ def populate(client, auth, srcChannel, newChannel, newChannelName, filename, par
             new_label = getChannelAttr(chan, 'label')
 
     if src_label == None:
-        print("Error: Source Channel '" + srcChannel + "' could not be found.")
+        print("Error: Source Channel '%s' could not be found." % srcChannel)
         sys.exit(1)
     if new_label == None:
         if not clone:
-            print("Creating channel, " + newChannel + ", with arch " + arch_label)
+            print("Creating channel, %s, with arch %s" % (newChannel, arch_label))
             client.channel.software.create(auth, newChannel, newChannelName, newChannel, getArchLabel(arch_label, client, auth), parent)
         if clone:
-            print("Cloning channel " + srcChannel + " to " + newChannel)
-            details_map = { 'name':newChannelName, 'label':newChannel, 'summary':newChannel }
+            print("Cloning channel %s to %s" % (srcChannel, newChannel))
+            details_map = { 'name': newChannelName, 'label': newChannel, 'summary': newChannel }
             if parent:
                 details_map['parent_label'] = parent
             #we must invert currentState, because API uses "True" for default state
             client.channel.software.clone(auth, srcChannel, details_map, not currentState)
         if parent:
-            print("with parent " + parent)
+            print("with parent %s" % parent)
     else:
-        print("Reusing " + newChannel + " as destination channel")
+        print("Reusing %s as destination channel" % newChannel)
     existing_packs = client.channel.software.listAllPackages(auth, srcChannel)
 
     if clear:
@@ -236,7 +236,7 @@ def populate(client, auth, srcChannel, newChannel, newChannelName, filename, par
     skip_num = 0
     ids_to_add = []
 
-    print(str(len(fileList)) + " packages in source file to push.")
+    print("%d packages in source file to push." % len(fileList))
 
     #for each filename, go through the src package list and find the package id
     for rpm in fileList:
@@ -252,25 +252,24 @@ def populate(client, auth, srcChannel, newChannel, newChannelName, filename, par
                 pack_num = pack_num + 1
                 ids_to_add.append(getPackageAttr(src_pack, 'id'))
                 break
-    print("Pushing " + str(pack_num) + " packages, please wait.")
+    print("Pushing %s packages, please wait." % str(pack_num))
     if len(skiplist) > 0:
-        print("Skipping " + str(skip_num) + " packages based off of skip list")
+        print("Skipping %s packages based off of skip list" % str(skip_num))
 
     while len(ids_to_add) > 0:
-        print '%d of %d' % (pack_num-len(ids_to_add), pack_num),
-        sys.stdout.flush()
+        print('%d of %d' % (pack_num-len(ids_to_add), pack_num),
+              sys.stdout.flush())
         client.channel.software.addPackages(auth, newChannel, ids_to_add[:bundleSize])
         del ids_to_add[:bundleSize]
-        print '%s\r' % ' '*20,
-        sys.stdout.flush()
+        print('%s\r' % ' '*20, sys.stdout.flush())
 
 
-    print("Successfully pushed " + str(pack_num) + " packages out of "+ str(len(fileList)))
+    print("Successfully pushed %s packages out of %d" % (str(pack_num), len(fileList)))
 
 
 def read_skip_list(filename):
     if not os.path.exists(filename):
-        print("Specified skip list " + filename + " does not exist!")
+        print("Specified skip list %s does not exist!" % filename)
         sys.exit(1)
     nameList = list(map(str.strip, open(filename).readlines()))
     print(nameList)
@@ -331,7 +330,7 @@ def getArchAttr(map, attribute):
 #returns tuple (version, release, update, arch, extra)
 def parseDataFilename(file):
     file = file.lower()
-    split = string.split(file, '-')
+    split = file.split('-')
     if len(split) == 4:
         return (split[0], split[2], split[1], split[3], None)
     else:
@@ -449,7 +448,7 @@ def saveRpmList(source, filename):
         if path.isfile(source):
             os.system("cp %s %s" % (source, filename))
         else: # isdir
-            os.system("ls " + source + " | grep rpm | sort > " + filename);
+            os.system("ls %s | grep rpm | sort > %s " % (source, filename));
         return True
     else:
         return False
