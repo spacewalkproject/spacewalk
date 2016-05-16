@@ -316,7 +316,7 @@ class UploadClass:
                 del same_names_hash[remote_nvrea]
                 continue
 
-            for local_nvrea in same_names_hash.keys():
+            for local_nvrea in list(same_names_hash.keys()):
                 # XXX is_mpm sould be set accordingly
                 ret = packageCompare(local_nvrea, remote_nvrea,
                                      is_mpm=0)
