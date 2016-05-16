@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.91
+Version: 2.5.92
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon May 16 2016 Tomas Lestach <tlestach@redhat.com> 2.5.92-1
+- 1330610 - fix repodata regeneration after errata removal
+
 * Thu May 12 2016 Grant Gainey 2.5.91-1
 - 1334296 - Limit filter-by to a slightly less-ridiculous number of characters
 
