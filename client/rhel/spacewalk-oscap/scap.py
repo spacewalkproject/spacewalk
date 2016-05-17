@@ -11,6 +11,7 @@ from up2date_client import up2dateLog
 from up2date_client import rhnserver
 from up2date_client import up2dateAuth
 from up2date_client import up2dateErrors
+from rhn.i18n import sstr, bstr
 
 __rhnexport__ = [ 'xccdf_eval' ]
 
@@ -54,15 +55,15 @@ def xccdf_eval(args, cache_only=None):
     _cleanup_temp(results_dir)
     return (0, 'openscap scan completed', {
         'resume': encodestring(resume),
-        'errors': encodestring(oscap_err + xslt_err + up_err)
+        'errors': encodestring(bstr(oscap_err) + bstr(xslt_err) + bstr(up_err))
         })
 
 def _run_oscap(arguments):
-    dev_null = open('/dev/null')
+    dev_null = open('/dev/null', mode="ab+")
     c = _popen(['/usr/bin/oscap'] + arguments, stdout=dev_null.fileno())
     ret = c.wait()
     dev_null.close()
-    errors = c.stderr.read()
+    errors = sstr(c.stderr.read())
     if ret != 0:
         errors += 'xccdf_eval: oscap tool returned %i\n' % ret
     log.log_debug('The oscap tool completed\n%s' % errors)
@@ -71,14 +72,14 @@ def _run_oscap(arguments):
 def _xccdf_resume(results_file, temp_dir=None):
     xslt = '/usr/share/openscap/xsl/xccdf-resume.xslt'
 
-    dev_null = open('/dev/null')
+    dev_null = open('/dev/null', mode="ab+")
     resume_file = tempfile.NamedTemporaryFile(dir=temp_dir)
     c = _popen(['/usr/bin/xsltproc', '--output', resume_file.name,
             xslt, results_file], stdout=dev_null.fileno())
     ret = c.wait()
     dev_null.close()
 
-    errors = c.stderr.read()
+    errors = sstr(c.stderr.read())
     if ret != 0:
         errors += 'xccdf_eval: xsltproc tool returned %i\n' % ret
     log.log_debug('The xsltproc tool completed:\n%s' % errors)
@@ -137,7 +138,7 @@ def _upload_results(xccdf_result, results_dir, args):
                 f = xccdf_result.file
                 filename = "xccdf-results.xml"
             else:
-                f = open(path, 'r')
+                f = open(path, 'rb')
             errors += _upload_file(server, systemid, args, path, filename, f)
             if path != xccdf_result.name:
                 f.close()
@@ -159,7 +160,8 @@ def _upload_file(server, systemid, args, path, filename, f):
             if ret and ret['result']:
                 log.log_debug('The file %s uploaded successfully.' % filename)
             return ''
-        except up2dateErrors.Error, e:
+        except up2dateErrors.Error:
+            e = sys.exc_info()[1]
             log.log_exception(*sys.exc_info())
             return '\nxccdf_eval: File "%s" not uploaded. %s' % (filename, e)
     else:
@@ -173,9 +175,10 @@ def _cleanup_temp(results_dir):
 def _assert_xml(f):
     try:
         try:
-            xml.sax.parse(f, xml.sax.ContentHandler())
+            content = f.read()
+            xml.sax.parseString(content, xml.sax.ContentHandler())
             return True
-        except Exception, e:
+        except Exception:
             log.log_exception(*sys.exc_info())
             return False
     finally:
