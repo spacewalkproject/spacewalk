@@ -8,7 +8,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.95
+Version:       5.5.96
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -95,6 +95,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Tue May 17 2016 Tomas Kasparek <tkasparek@redhat.com> 5.5.96-1
+- fixed RuntimeError: dictionary changed size during iteration
+- convert binary data to string to possible compare data in Python 3
+
 * Thu May 12 2016 Gennadii Altukhov <galt@redhat.com> 5.5.95-1
 - change build dependency on python-devel, because we don't use Python3 during
   package building
