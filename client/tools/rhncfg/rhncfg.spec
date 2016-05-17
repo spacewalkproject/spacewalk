@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.90
+Version: 5.10.91
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -131,6 +131,9 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Tue May 17 2016 Tomas Kasparek <tkasparek@redhat.com> 5.10.91-1
+- fix 'ValueError: invalid literal for int() with base 10' in python 3
+
 * Tue May 03 2016 Gennadii Altukhov <galt@redhat.com> 5.10.90-1
 - fix remote command doesn't work in Python 3
 - Fix typo
