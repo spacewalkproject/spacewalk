@@ -1,0 +1,11 @@
+diff -rupN cobbler-2.0.11.old/snippets/post_install_network_config cobbler-2.0.11/snippets/post_install_network_config
+--- cobbler-2.0.11.old/snippets/post_install_network_config	2016-05-17 13:47:50.000000000 +0200
++++ cobbler-2.0.11/snippets/post_install_network_config	2016-05-17 13:58:06.909740307 +0200
+@@ -14,6 +14,7 @@
+     #set $configbymac = True
+     #set $numbondingdevs = 0
+     #set $enableipv6 = False
++    #set $ipv6_autoconfiguration = $getVar("ipv6_autoconfiguration", False)
+     ## =============================================================================
+     #for $iname in $ikeys
+         ## look at the interface hash data for the specific interface
