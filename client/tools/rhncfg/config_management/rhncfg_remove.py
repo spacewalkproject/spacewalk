@@ -14,6 +14,7 @@
 #
 
 import os
+import sys
 from config_common import handler_base, utils
 from config_common.rhn_log import log_debug, die
 

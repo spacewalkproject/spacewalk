@@ -34,7 +34,6 @@ except ImportError: # python3
     basestring = (str, bytes)
 
 from spacewalk.common.usix import raise_with_tb
-from rhn.i18n import sstr
 
 try:
     from selinux import lgetfilecon
