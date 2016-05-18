@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.91
+Version: 5.10.92
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -131,6 +131,10 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Wed May 18 2016 Tomas Kasparek <tkasparek@redhat.com> 5.10.92-1
+- convert string to work in python 3
+- method os.path.walk doesn't exist in Python 3
+
 * Tue May 17 2016 Tomas Kasparek <tkasparek@redhat.com> 5.10.91-1
 - fix 'ValueError: invalid literal for int() with base 10' in python 3
 
