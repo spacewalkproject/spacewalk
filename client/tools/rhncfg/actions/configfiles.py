@@ -156,12 +156,13 @@ def mtime_upload(action_id, params, cache_only=None):
         ignore_dirs[utils.normalize_path(to_ignore)] = 1
 
     for search_path in params['search']:
-        os.path.walk(utils.normalize_path(search_path), _visit_dir, {
-            'matches' : file_matches,
-            'info' : params['info'],
-            'ignore' : ignore_dirs,
-            'now' : now,
-            })
+        for dirname, dirs, names in os.walk(utils.normalize_path(search_path)):
+             _visit_dir({
+                'matches' : file_matches,
+                'info' : params['info'],
+                'ignore' : ignore_dirs,
+                'now' : now,
+                }, dirname, names)
 
     if not file_matches:
         return 0, "No files found", {}
