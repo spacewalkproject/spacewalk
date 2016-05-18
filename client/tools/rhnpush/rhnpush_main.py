@@ -50,6 +50,7 @@ from spacewalk.common.usix import raise_with_tb
 from rhnpush import uploadLib
 from rhnpush import rhnpush_v2
 from rhnpush.utils import tupleify_urlparse
+from rhn.i18n import sstr
 
 # Global settings
 BUFFER_SIZE = 65536
@@ -189,14 +190,14 @@ class UploadClass(uploadLib.UploadClass):
         self.url_v2 = None
 
     def setURL(self):
-        server = idn_ascii_to_puny(self.options.server)
+        server = sstr(idn_ascii_to_puny(self.options.server))
         if server is None:
             self.die(1, "Required parameter --server not supplied")
         scheme, netloc, path, params, query, fragment = tupleify_urlparse(
             urlparse.urlparse(server))
         if not netloc:
             # No schema - trying to patch it up ourselves?
-            server = "http://" + server
+            server = "http://%s" % server
             scheme, netloc, path, params, query, fragment = tupleify_urlparse(
                 urlparse.urlparse(server))
 
