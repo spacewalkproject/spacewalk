@@ -15,7 +15,6 @@
 #
 
 import os
-import string
 
 from config_common import cfg_exceptions, repository
 
@@ -33,7 +32,7 @@ class ClientRepository:
 
         # listed in order of losers first, ie, entry 2 overrides entry
         # 1, etc
-        self.config_channels = string.split(tmp_channels, ":")
+        self.config_channels = tmp_channels.split(":")
         self.cfg_files = {}
 
     def list_files(self):

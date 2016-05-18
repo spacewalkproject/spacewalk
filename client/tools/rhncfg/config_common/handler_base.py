@@ -84,11 +84,11 @@ class HandlerBase:
         try:
             username = tty.readline()
         except KeyboardInterrupt:
-            tty.write("\n")
+            tty.write(bstr("\n"))
             sys.exit(0)
         if username is None:
             # EOF
-            tty.write("\n")
+            tty.write(bstr("\n"))
             sys.exit(0)
         return username.strip()
 
