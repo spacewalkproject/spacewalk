@@ -207,17 +207,14 @@ public class BaseSetHelper {
 
         // Mark the data-objects as not-selected
         for (Object obj : dataSet) {
-            if (obj instanceof Selectable) {
-                Selectable next = (Selectable) obj;
-                next.setSelected(false);
-                keys.add(next.getSelectionKey());
-            }
-            else if (obj instanceof Map) {
-                Map next = (Map) obj;
-                next.remove(SELECTED);
+            if (RhnListTagFunctions.isExpandable(obj)) {
+                List children = ((Expandable)obj).expand();
+                for (Object child : children) {
+                    removeObjectFromSet(keys, child);
+                }
             }
             else {
-                break;
+                removeObjectFromSet(keys, obj);
             }
         }
 
@@ -237,6 +234,22 @@ public class BaseSetHelper {
     }
 
 
+    private void removeObjectFromSet(List<String> keys, Object obj) {
+        if (obj instanceof Selectable) {
+            Selectable next = (Selectable) obj;
+            next.setSelected(false);
+            keys.add(next.getSelectionKey());
+        }
+        else if (obj instanceof Map) {
+            Map next = (Map) obj;
+            next.remove(SELECTED);
+        }
+        else if (obj instanceof Identifiable) {
+            Identifiable next = (Identifiable) obj;
+            keys.add(next.getId().toString());
+         }
+    }
+
     /**
      * Syncs the selections provided by the rhnset to dataset.
      *  This is useful when you want to pre select check boxes
@@ -248,22 +261,40 @@ public class BaseSetHelper {
      */
     public void syncSelections(Set set, List dataSet) {
         for (Object obj : dataSet) {
-            if (obj instanceof Selectable) {
-                Selectable next = (Selectable) obj;
-                if (next.isSelectable()) {
-                    if (set.contains(next.getSelectionKey())) {
-                        next.setSelected(true);
-                    }
+            if (RhnListTagFunctions.isExpandable(obj)) {
+                List children = ((Expandable)obj).expand();
+                for (Object child : children) {
+                    syncObjectToSet(set, child);
                 }
             }
-            else if (obj instanceof Map) {
-                Map next = (Map) obj;
-                if (next.containsKey(SELECTABLE) &&
-                        set.contains(next.get(KEY))) {
-                    next.put(SELECTED, true);
+            else {
+                syncObjectToSet(set, obj);
+            }
+        }
+    }
+
+    private void syncObjectToSet(Set set, Object obj) {
+        if (obj instanceof Selectable) {
+            Selectable next = (Selectable) obj;
+            if (next.isSelectable()) {
+                if (set.contains(next.getSelectionKey())) {
+                    next.setSelected(true);
                 }
             }
         }
+        else if (obj instanceof Map) {
+            Map next = (Map) obj;
+            if (next.containsKey(SELECTABLE) &&
+                    set.contains(next.get(KEY))) {
+                next.put(SELECTED, true);
+            }
+        }
+        else if (obj instanceof Identifiable) {
+            Identifiable next = (Identifiable) obj;
+            if (set.contains(next.getId())) {
+                set.add(next.getId().toString());
+            }
+         }
     }
 
 
@@ -281,29 +312,37 @@ public class BaseSetHelper {
                                 String listName,
                                  List dataSet) {
 
-        boolean everyThingIsAnElement = ListTagHelper.
-                            isParentAnElement(request,
-                                    TagHelper.generateUniqueName(listName));
         for (Object obj : dataSet) {
-            if (everyThingIsAnElement || !RhnListTagFunctions.isExpandable(obj)) {
-                if (obj instanceof Selectable) {
-                    Selectable next = (Selectable) obj;
-                    if (next.isSelectable()) {
-                        set.add(next.getSelectionKey());
-                    }
+            if (RhnListTagFunctions.isExpandable(obj)) {
+                List children = ((Expandable)obj).expand();
+                for (Object child : children) {
+                    addObjectToSet(set, child);
                 }
-                else if (obj instanceof Map) {
-                    Map next = (Map) obj;
-                    set.add(next.get(SessionSetHelper.KEY));
-                }
-                else {
-                   Identifiable next = (Identifiable) obj;
-                   set.add(next.getId().toString());
-                }
+            }
+            else {
+                addObjectToSet(set, obj);
             }
         }
         storeSet(set);
         ListTagHelper.setSelectedAmount(listName, set.size(), request);
+    }
+
+
+    private void addObjectToSet(Set set, Object obj) {
+        if (obj instanceof Selectable) {
+            Selectable next = (Selectable) obj;
+            if (next.isSelectable()) {
+                set.add(next.getSelectionKey());
+            }
+        }
+        else if (obj instanceof Map) {
+            Map next = (Map) obj;
+            set.add(next.get(SessionSetHelper.KEY));
+        }
+        else if (obj instanceof Identifiable) {
+           Identifiable next = (Identifiable) obj;
+           set.add(next.getId().toString());
+        }
     }
 
     protected void storeSet(Set set) {

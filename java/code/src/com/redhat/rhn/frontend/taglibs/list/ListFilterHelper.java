@@ -82,6 +82,4 @@ public class ListFilterHelper {
         }
         return filteredData;
     }
-
-
 }

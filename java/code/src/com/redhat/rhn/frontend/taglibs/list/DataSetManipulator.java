@@ -36,6 +36,7 @@ import com.redhat.rhn.common.util.DynamicComparator;
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.frontend.html.HtmlTag;
+import com.redhat.rhn.frontend.struts.Expandable;
 import com.redhat.rhn.frontend.struts.RequestContext;
 
 /**
@@ -94,8 +95,17 @@ public class DataSetManipulator {
     }
 
     private List expand(List data) {
-        return ListFilterHelper.filter(data,
-                filter, filterBy, filterValue);
+        List expanded = new LinkedList();
+        for (Object obj : data) {
+            expanded.add(obj);
+            if (obj instanceof Expandable) {
+                Expandable ex = (Expandable) obj;
+                List children = ex.expand();
+                expanded.addAll(children);
+
+            }
+        }
+        return expanded;
     }
     /**
      * Get the total (non-filtered, non-paginated) dataset size
