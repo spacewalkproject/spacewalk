@@ -59,7 +59,7 @@ public class VirtualSystemOverviewSerializer extends RhnXmlRpcCustomSerializer {
         VirtualSystemOverview system = (VirtualSystemOverview) value;
         SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("uuid", system.getUuid());
-        helper.add("id", system.getSystemId());
+        helper.add("id", system.getVirtualSystemId());
         helper.add("guest_name", system.getName());
         helper.add("name", system.getServerName());
         helper.add("last_checkin", system.getLastCheckinDate());
