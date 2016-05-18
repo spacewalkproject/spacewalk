@@ -18,6 +18,7 @@ import base64
 import os
 import sys
 import errno
+from rhn.i18n import bstr
 
 RHNROOT = '/usr/share/rhn'
 if RHNROOT not in sys.path:
@@ -117,7 +118,7 @@ def report(problem_dir):
         crash_file_data = {'filename': os.path.basename(i),
                            'path': path,
                            'filesize': filesize,
-                           'filecontent': base64.encodestring(""),
+                           'filecontent': base64.encodestring(bstr("")),
                            'content-encoding': 'base64'}
         if server.abrt.is_crashfile_upload_enabled(systemid) and filesize <= server.abrt.get_crashfile_uploadlimit(systemid):
             f = open(path, 'r')
