@@ -8,7 +8,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.96
+Version:       5.5.97
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -95,6 +95,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Wed May 18 2016 Tomas Kasparek <tkasparek@redhat.com> 5.5.97-1
+- convert binary data to string to work correctly in Python 3
+
 * Tue May 17 2016 Tomas Kasparek <tkasparek@redhat.com> 5.5.96-1
 - fixed RuntimeError: dictionary changed size during iteration
 - convert binary data to string to possible compare data in Python 3
