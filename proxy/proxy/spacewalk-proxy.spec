@@ -8,7 +8,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.1
+Version: 2.5.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python
@@ -372,6 +372,9 @@ fi
 
 
 %changelog
+* Fri May 20 2016 Grant Gainey 2.5.2-1
+- spacewalk-proxy: build on openSUSE
+
 * Fri Nov 27 2015 Jan Dobes 2.5.1-1
 - removing old dependency
 - Bumping package versions for 2.5.
