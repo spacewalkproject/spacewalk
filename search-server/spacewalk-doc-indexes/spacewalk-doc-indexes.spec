@@ -1,5 +1,5 @@
 Name: spacewalk-doc-indexes
-Version: 2.5.1
+Version: 2.5.2
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk
 
@@ -48,6 +48,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri May 20 2016 Grant Gainey 2.5.2-1
+- spacewalk-doc-indexes: build on openSUSE
+
 * Thu Oct 15 2015 Jan Dobes 2.5.1-1
 - updating doc indexes
 - updating doc URLs
