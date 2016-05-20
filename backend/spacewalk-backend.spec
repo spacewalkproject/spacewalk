@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.41
+Version: 2.5.42
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -788,6 +788,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Fri May 20 2016 Grant Gainey 2.5.42-1
+- fix isSUSE check
+
 * Wed May 18 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.41-1
 - Only trigger virtualization notification on server save when the
   virtualization data is not falsy
