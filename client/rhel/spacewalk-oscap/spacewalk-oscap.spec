@@ -1,5 +1,5 @@
 Name:		spacewalk-oscap
-Version:	2.5.1
+Version:	2.5.2
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -54,6 +54,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri May 20 2016 Grant Gainey 2.5.2-1
+- spacewalk-oscap: build on openSUSE
+
 * Fri Jan 22 2016 Tomas Lestach <tlestach@redhat.com> 2.5.1-1
 - 1232596 - still require openscap-utils on RHEL5
 - Bumping package versions for 2.5.
