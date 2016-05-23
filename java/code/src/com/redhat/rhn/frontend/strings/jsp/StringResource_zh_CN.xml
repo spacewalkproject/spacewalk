@@ -86,12 +86,14 @@
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/ssm/provisioning/Rollback.do</context>
           </context-group>
+          <target>已标记系统</target>
         </trans-unit>
         <trans-unit id="column.tag-created">
           <source>Tag Created</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/ssm/provisioning/Rollback.do</context>
           </context-group>
+          <target>已创建标签</target>
         </trans-unit>
       </group>
       <!-- Generic row labels. The intent is that these can be reused across multiple pages.-->
@@ -1444,7 +1446,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
-        <target>版权 &amp;#169; 2002&amp;#x2012;15 Red Hat, Inc. 版权所有。</target>
+        <target>版权 &amp;#169; 2002&amp;#x2012;14 Red Hat, Inc. 版权所有。</target>
       </trans-unit>
       <trans-unit id="footer.jsp.legalStatement">
         <source>Legal statement</source>
@@ -2604,6 +2606,18 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/InProgressSystems</context>
         </context-group>
         <target>动作图标</target>
+      </trans-unit>
+      <trans-unit id="actions.jsp.totalnote">
+        <source>
+          Note: For multi-system scheduled actions, the ability to cancel individual 
+          systems means that the number of clients mentioned in the Action column may not match the number in Total.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/PendingActions</context>
+          <context context-type="sourcefile">/rhn/schedule/FailedActions</context>
+          <context context-type="sourcefile">/rhn/schedule/CompletedActions</context>
+          <context context-type="sourcefile">/rhn/schedule/ArchiveActions</context>
+        </context-group>
       </trans-unit>
       <!-- pendingactions.jsp -->
       <trans-unit id="pendingactions.jsp.pending_actions">
@@ -4462,10 +4476,7 @@ organization. You may grant or remove the organization administrator role in the
 可能会赋予您删除机构管理员角色的权利。</target>
       </trans-unit>
       <trans-unit id="organizations.tip">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your @@PRODUCT_NAME@@'s default organization. Entitlements for this organization are linked to your @@PRODUCT_NAME@@ certificate file, so they are not modifiable. If you remove entitlements from a non-default
-organization above, those entitlements will be added back to the default organization,
-and if you add entitlements from a non-default organization they will be
-deducted from the default organization.</source>
+        <source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your @@PRODUCT_NAME@@'s default organization.</source>
         <target>&lt;strong&gt;窍门：&lt;/strong&gt;这个机构是您的 @@PRODUCT_NAME@@ 默认机构。该机构的权利与您的 @@PRODUCT_NAME@@ 证书文件关联，因此无法进行修改。如果您从以上列出的一个非默认机构中删除权利，
 那些权利会被添加回默认机构中，
 同时如果您从非默认机构中添加权利，
@@ -4956,12 +4967,14 @@ deducted from the default organization.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/ErrataChannelIntersection.do</context>
         </context-group>
+        <target>频道版本</target>
       </trans-unit>
       <trans-unit id="errata.channel.intersection.errata_version">
         <source>Errata Version</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/ErrataChannelIntersection.do</context>
         </context-group>
+        <target>勘误版本</target>
       </trans-unit>
       <!-- == Channels == -->
       <trans-unit id="channels.jsp.alt">
@@ -5452,6 +5465,7 @@ deducted from the default organization.</source>
         </trans-unit>
         <trans-unit id="ssm.misc.sysprefconfirm.header">
           <source>Confirm System Preferences Changes</source>
+          <target>确认系统首选项更改</target>
         </trans-unit>
         <trans-unit id="ssm.misc.sysprefconfirm.summary">
           <source>You have chosen to alter the following preferences for your selected systems.</source>
@@ -5540,6 +5554,7 @@ deducted from the default organization.</source>
         </trans-unit>
         <trans-unit id="ssm.misc.setcustom.title">
           <source>Set or Remove value for Custom Info Key</source>
+          <target>为自定义信息密钥设置或删除值</target>
         </trans-unit>
         <trans-unit id="ssm.misc.setcustom.summary">
           <source>Enter the value you wish to be applied or remove any set values for this key on selected systems.</source>
@@ -5549,9 +5564,11 @@ deducted from the default organization.</source>
         </trans-unit>
         <trans-unit id="ssm.misc.setcustom.setvalues">
           <source>Set Values</source>
+          <target>设置值</target>
         </trans-unit>
         <trans-unit id="ssm.misc.setcustom.removevalues">
           <source>Remove Values</source>
+          <target>删除值</target>
         </trans-unit>
         <trans-unit id="ssm.misc.reboot.header">
           <source>Reboot of the Systems</source>
@@ -6217,6 +6234,7 @@ deducted from the default organization.</source>
         </trans-unit>
         <trans-unit id="System Content">
           <source>System Content</source>
+          <target>系统内容</target>
         </trans-unit>
         <trans-unit id="Extended System Identity Properties">
           <source>Extended System Identity Properties</source>
@@ -6538,7 +6556,7 @@ deducted from the default organization.</source>
         <target>系统权利</target>
       </trans-unit>
       <trans-unit id="systementitlements.jsp.para1">
-        <source>In order to get the most out of @@PRODUCT_NAME@@, each system must be &lt;strong&gt;entitled&lt;/strong&gt; to service. If a system is not entitled, you will not be allowed to perform key software management tasks for that system, such as package installs or errata updates.</source>
+        <source>Entitlements define the set of functionalities available for each system in @@PRODUCT_NAME@@ such as the ability of installing software or creating guest virtual machines.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SystemEntitlements</context>
         </context-group>
@@ -6612,8 +6630,7 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/systems/SystemEntitlements.do</context>
         </context-group>
         <trans-unit id="systementitlements.jsp.entitlement_counts_message">
-          <source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
-          <target>&lt;strong&gt;{0} 个系统&lt;/strong&gt;有权利，&lt;strong&gt;无限个可用的&lt;/strong&gt;权利</target>
+          <source>{0} entitled system(s).</source>
         </trans-unit>
       </group>
       <trans-unit id="systementitlements.jsp.base_entitlements">
@@ -6637,7 +6654,7 @@ deducted from the default organization.</source>
           <target>将 &lt;strong&gt;{0}&lt;/strong&gt; 个系统设为 &lt;strong&gt;管理&lt;/strong&gt;。</target>
         </trans-unit>
         <trans-unit id="system_entitlements.setToManagementEntitled.failure">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may free up &lt;strong&gt;Management&lt;/strong&gt; entitlements by downgrading &lt;strong&gt;Management&lt;/strong&gt; entitled machines to an Update entitlement, or you may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.
+          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.
     </source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 系统被成功地设置为具有 &lt;strong&gt;Management&lt;/strong&gt; 权利，但您不具有足够的 &lt;strong&gt;Management&lt;/strong&gt; 权利来保持  &lt;strong&gt;{1}&lt;/strong&gt; 个系统。您可以通过降级具有具有 &lt;strong&gt;Management&lt;/strong&gt; 权利的机器到 Update 权利来释放 &lt;strong&gt;Management&lt;/strong&gt; 权利，或者您可以在 &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 商店&lt;/strong&gt;&lt;/a&gt;购买其他的管理权利。在您购买了其他 &lt;strong&gt;Management&lt;/strong&gt; 权利后，您就可以升级这些系统了。
     </target>
@@ -6722,14 +6739,14 @@ deducted from the default organization.</source>
         <target>搜索图标</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.toolbar">
-        <source>System Search</source>
+        <source>Advanced Search</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
         <target>系统搜索</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.summary">
-        <source>System Search will return results from all systems to which you have administrative access.</source>
+        <source>Advanced Search will return results from all systems to which you have administrative access.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
@@ -11882,7 +11899,7 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>下面列出的软件频道是您的机构  有权利的，但是因为它们已经过了产品“生命周期”而不再被红帽支持的 &lt;strong&gt;过期的频道&lt;/strong&gt;。</target>
+        <target>下面列出的软件频道是您的机构 &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt; 有权利的&lt;/a&gt;，但是因为它们已经过了产品“生命周期”而不再被红帽支持的 &lt;strong&gt;过期的频道&lt;/strong&gt;。</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
@@ -15897,6 +15914,18 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
         <target>下列系统目前有 &lt;strong&gt;@@PRODUCT_NAME@@ 管理的配置文件&lt;/strong&gt;。这意味着每个系统都可以通过它的 @@PRODUCT_NAME@@ 系统侧写&lt;strong&gt;本地管理&lt;/strong&gt; 配置文件，也可以过它的集中管理频道&lt;strong&gt;本地管理&lt;/strong&gt; 配置文件，或者两者皆有。覆盖集中管理文件的本地管理的文件的数量可以在下面“本地管理的文件”行中看到。</target>
       </trans-unit>
+      <trans-unit id="managedsystems.jsp.managedonly">
+        <source>Show systems with at least one locally or centrally managed files only</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="managedsystems.jsp.managedonly.btn">
+        <source>Show</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="managedsystems.jsp.noSystems">
         <source>No configuration managed systems.</source>
         <context-group name="ctx">
@@ -18842,6 +18871,12 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
         <target>孟加拉语</target>
       </trans-unit>
+      <trans-unit id="preferences.jsp.lang.ca">
+        <source>Catalan</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="preferences.jsp.lang.de">
         <source>German</source>
         <context-group name="ctx">
@@ -18911,6 +18946,12 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
           <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
         <target>旁遮普语</target>
+      </trans-unit>
+      <trans-unit id="preferences.jsp.lang.pt">
+        <source>Portuguese</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="preferences.jsp.lang.pt_BR">
         <source>Brazilian Portuguese</source>
@@ -19433,7 +19474,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-        <target>请填写下面的表格来创建位于 &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt; 中的新虚拟系统</target>
+        <target>请填写下面的表格来创建位于 &lt;img src=&quot;/img/rhn-listicon-system.gif&quot;/&gt; &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt; 中的新虚拟系统</target>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.header2">
         <source>Define the Virtual System</source>
@@ -20873,22 +20914,16 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/systems/details/Connection.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="sdc.details.proxy.header">
-        <source>Proxy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/details/Proxy.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="sdc.details.proxy.unlicensed">
         <source>The WebUI @@PRODUCT_NAME@@ Proxy installer is obsolete. Please use the command line installer from package spacewalk-proxy-installer.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/systems/details/Proxy.do</context>
+          <context context-type="sourcefile">/systems/details/ProxyClients.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="sdc.details.proxy.licensed">
         <source>This machine is currently a licensed @@PRODUCT_NAME@@ Proxy (v{0}).</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/systems/details/Proxy.do</context>
+          <context context-type="sourcefile">/systems/details/ProxyClients.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="sdc.details.proxyclients.header">
@@ -22535,6 +22570,9 @@ given channel.</source>
         <source>View Packages</source>
         <target>查看软件包</target>
       </trans-unit>
+      <trans-unit id="channel.jsp.package.viewsourcepackages">
+        <source>Source Packages</source>
+      </trans-unit>
       <trans-unit id="channel.jsp.package.addsuccess">
         <source>{0} package(s) added to channel {1}
         </source>
@@ -23800,6 +23838,12 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="bunch.jsp.description.uuid-cleanup-bunch">
+        <source>Cleanup outdated UUID records</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="schedule.jsp.noschedules">
         <source>There're no schedules available.</source>
         <context-group name="ctx">
@@ -24272,6 +24316,9 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="task.status.auto-errata">
         <source>Auto Errata Updates</source>
+      </trans-unit>
+      <trans-unit id="task.status.uuid-cleanup">
+        <source>UUID cleanup</source>
       </trans-unit>
       <trans-unit id="task.status.message">
         <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>

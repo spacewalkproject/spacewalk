@@ -1265,6 +1265,12 @@
         </context-group>
         <target>உங்கள் முன்னுரிமைகள்</target>
       </trans-unit>
+      <trans-unit id="Your Organization">
+        <source>Your Organization</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Organization Applicants">
         <source>Organization Applicants</source>
         <context-group name="ctx">
@@ -1443,7 +1449,7 @@
         <target>கடவுச்சொல் தத்தல் அல்லது புதிய வரி எழுத்துக்களை கொண்டுள்ளது.</target>
       </trans-unit>
       <trans-unit id="error.maxpassword">
-        <source>The password you requested is too long. Please enter a shorter password and try again.</source>
+        <source>Passwords cannot be more than {0} characters.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
@@ -2160,6 +2166,12 @@ available for this kickstart profile to function properly.
         </context-group>
         <target>கிக்ஸ்டார்ட் விவரங்கள் வெற்றிகரமாக மேம்படுத்தப்பட்டது.</target>
       </trans-unit>
+      <trans-unit id="kickstart.details.duplicatefile">
+        <source>Please specify only file contents or a file to upload but not both.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.details.nolabel">
         <source>Kickstart profile label is required.</source>
         <context-group name="ctx">
@@ -2538,19 +2550,11 @@ available for this kickstart profile to function properly.
         </context-group>
         <target>செயலிழக்கப்பட்ட கணினிகள்</target>
       </trans-unit>
-      <trans-unit id="Remove Packages">
-        <source>Remove Packages</source>
+      <trans-unit id="Package List">
+        <source>Package List</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>தொகுப்புகள் நீக்கவும்</target>
-      </trans-unit>
-      <trans-unit id="Update Packages">
-        <source>Update Packages</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>தொகுப்புகளை மேம்படுத்தவும்</target>
       </trans-unit>
       <trans-unit id="message.actionrescheduled">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; successfully rescheduled.</source>
@@ -5438,6 +5442,12 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>சுரினேம்</target>
       </trans-unit>
+      <trans-unit id="SS">
+        <source>South Sudan</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="ST">
         <source>Saint Tome (Sao Tome) and Principe</source>
         <context-group name="ctx">
@@ -6920,6 +6930,12 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
           <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
         </context-group>
         <target>கட்டமைப்பு கோப்பு ஒப்பீடு செயலை திட்டமிட முடியவில்லை</target>
+      </trans-unit>
+      <trans-unit id="configdiff.schedule.selection_error">
+        <source>No system was selected.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="channel">
         <source>Channel</source>
@@ -8805,6 +8821,9 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
       <trans-unit id="message.syncscheduled">
         <source>Repository sync scheduled for {0}.</source>
       </trans-unit>
+      <trans-unit id="message.syncinprogress">
+        <source>Repository sync is running.</source>
+      </trans-unit>
       <trans-unit id="message.channelsubscribers">
         <source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
         <target>சந்தாதாரர்கள் தத்தலில் பயனருக்கான சந்தா தடைகள் செயல்படுத்தப்படும்</target>
@@ -9003,7 +9022,7 @@ tree will not be usable for kickstarting.
         <source>An email has already been sent. You may request this action only every {0} seconds.</source>
       </trans-unit>
       <trans-unit id="help.credentials.passwordsent">
-        <source>New password sent to {0}.</source>
+        <source>Password reset information sent to {0}.</source>
       </trans-unit>
       <trans-unit id="help.credentials.invalidemail">
         <source>Supplied email address and login do not match.</source>

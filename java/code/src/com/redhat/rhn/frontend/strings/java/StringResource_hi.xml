@@ -1265,6 +1265,12 @@
         </context-group>
         <target>आपकी वरीयता</target>
       </trans-unit>
+      <trans-unit id="Your Organization">
+        <source>Your Organization</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Organization Applicants">
         <source>Organization Applicants</source>
         <context-group name="ctx">
@@ -1443,7 +1449,7 @@
         <target>शब्दकूट में टैब या न्यूलाइन संप्रतीक समाहित है.</target>
       </trans-unit>
       <trans-unit id="error.maxpassword">
-        <source>The password you requested is too long. Please enter a shorter password and try again.</source>
+        <source>Passwords cannot be more than {0} characters.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
@@ -2160,6 +2166,12 @@ available for this kickstart profile to function properly.
         </context-group>
         <target>किकस्टार्ट विवरण को सफलतापूर्वक बनाया गया</target>
       </trans-unit>
+      <trans-unit id="kickstart.details.duplicatefile">
+        <source>Please specify only file contents or a file to upload but not both.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.details.nolabel">
         <source>Kickstart profile label is required.</source>
         <context-group name="ctx">
@@ -2538,19 +2550,11 @@ available for this kickstart profile to function properly.
         </context-group>
         <target>विफल सिस्टम</target>
       </trans-unit>
-      <trans-unit id="Remove Packages">
-        <source>Remove Packages</source>
+      <trans-unit id="Package List">
+        <source>Package List</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>संकुल हटाएँ</target>
-      </trans-unit>
-      <trans-unit id="Update Packages">
-        <source>Update Packages</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>संकुल अद्यतन करें</target>
       </trans-unit>
       <trans-unit id="message.actionrescheduled">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; successfully rescheduled.</source>
@@ -5438,6 +5442,12 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>सूरीनाम</target>
       </trans-unit>
+      <trans-unit id="SS">
+        <source>South Sudan</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="ST">
         <source>Saint Tome (Sao Tome) and Principe</source>
         <context-group name="ctx">
@@ -6920,6 +6930,12 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
         </context-group>
         <target>विन्यास फाइल तुलना क्रिया में विफल</target>
+      </trans-unit>
+      <trans-unit id="configdiff.schedule.selection_error">
+        <source>No system was selected.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="channel">
         <source>Channel</source>
@@ -8805,6 +8821,9 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="message.syncscheduled">
         <source>Repository sync scheduled for {0}.</source>
       </trans-unit>
+      <trans-unit id="message.syncinprogress">
+        <source>Repository sync is running.</source>
+      </trans-unit>
       <trans-unit id="message.channelsubscribers">
         <source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
         <target>उपयोक्ता पूर्व सदस्यता प्रतिबंध को सदस्यता टैब में लागू किया गया</target>
@@ -9003,7 +9022,7 @@ tree will not be usable for kickstarting.
         <source>An email has already been sent. You may request this action only every {0} seconds.</source>
       </trans-unit>
       <trans-unit id="help.credentials.passwordsent">
-        <source>New password sent to {0}.</source>
+        <source>Password reset information sent to {0}.</source>
       </trans-unit>
       <trans-unit id="help.credentials.invalidemail">
         <source>Supplied email address and login do not match.</source>

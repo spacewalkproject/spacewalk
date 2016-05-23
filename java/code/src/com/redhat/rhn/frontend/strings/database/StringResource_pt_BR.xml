@@ -208,6 +208,12 @@
         </context-group>
         <target>(GMT-0900) Estados Unidos (Alaska)</target>
       </trans-unit>
+      <trans-unit id="Pacific/Easter">
+        <source>(GMT-0500) Chile (Easter Island)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Pacific/Honolulu">
         <source>(GMT-1000) United States (Hawaii)</source>
         <context-group name="ctx">
@@ -333,6 +339,12 @@
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
         <target>(GMT-1100) Midway</target>
+      </trans-unit>
+      <trans-unit id="America/Santiago">
+        <source>(GMT-0300) Chile (Continental)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="America/Sao_Paulo">
         <source>(GMT-0300) Brazil</source>

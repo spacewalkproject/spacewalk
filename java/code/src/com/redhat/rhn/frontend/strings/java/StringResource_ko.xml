@@ -1296,6 +1296,12 @@
         </context-group>
         <target>사용자 환경 설정</target>
       </trans-unit>
+      <trans-unit id="Your Organization">
+        <source>Your Organization</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Organization Applicants">
         <source>Organization Applicants</source>
         <context-group name="ctx">
@@ -1477,7 +1483,7 @@
         <target>암호에 탭이나 개행 문자가 포함되어 있습니다. </target>
       </trans-unit>
       <trans-unit id="error.maxpassword">
-        <source>The password you requested is too long. Please enter a shorter password and try again.</source>
+        <source>Passwords cannot be more than {0} characters.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
@@ -2240,6 +2246,12 @@ rhn-tools 채널의 satellite 동기화를 요청하고 다시 시도해야
         </context-group>
         <target>킥스타트 정보가 성공적으로 업데이트되었습니다.</target>
       </trans-unit>
+      <trans-unit id="kickstart.details.duplicatefile">
+        <source>Please specify only file contents or a file to upload but not both.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.details.nolabel">
         <source>Kickstart profile label is required.</source>
         <context-group name="ctx">
@@ -2619,19 +2631,11 @@ rhn-tools 채널의 satellite 동기화를 요청하고 다시 시도해야
         </context-group>
         <target>실패한 시스템</target>
       </trans-unit>
-      <trans-unit id="Remove Packages">
-        <source>Remove Packages</source>
+      <trans-unit id="Package List">
+        <source>Package List</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>패키지 삭제</target>
-      </trans-unit>
-      <trans-unit id="Update Packages">
-        <source>Update Packages</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>패키지 업데이트</target>
       </trans-unit>
       <trans-unit id="message.actionrescheduled">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; successfully rescheduled.</source>
@@ -5541,6 +5545,12 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>수리남</target>
       </trans-unit>
+      <trans-unit id="SS">
+        <source>South Sudan</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="ST">
         <source>Saint Tome (Sao Tome) and Principe</source>
         <context-group name="ctx">
@@ -7044,6 +7054,12 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
         </context-group>
         <target>설정 파일 비교 작업을 스케줄하지 못함</target>
+      </trans-unit>
+      <trans-unit id="configdiff.schedule.selection_error">
+        <source>No system was selected.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="channel">
         <source>Channel</source>
@@ -9075,6 +9091,9 @@ Follow this url to see the full list of inactive systems:
         <source>Repository sync scheduled for {0}.</source>
         <target>{0}에 대해 리포지터리 동기화가 스케줄되었습니다.</target>
       </trans-unit>
+      <trans-unit id="message.syncinprogress">
+        <source>Repository sync is running.</source>
+      </trans-unit>
       <trans-unit id="message.channelsubscribers">
         <source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
         <target>등록자 탭에서 사용자마다 서브스크립션 제한이 적용될 수 있습니다.  </target>
@@ -9325,7 +9344,7 @@ Spacewalk이 킥스타트 배포판을 Spacewalk에서 Cobbler로
         <source>An email has already been sent. You may request this action only every {0} seconds.</source>
       </trans-unit>
       <trans-unit id="help.credentials.passwordsent">
-        <source>New password sent to {0}.</source>
+        <source>Password reset information sent to {0}.</source>
       </trans-unit>
       <trans-unit id="help.credentials.invalidemail">
         <source>Supplied email address and login do not match.</source>

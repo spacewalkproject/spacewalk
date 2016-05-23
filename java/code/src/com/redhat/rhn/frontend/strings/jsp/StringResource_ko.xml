@@ -1424,7 +1424,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
-        <target>Copyright &amp;#169; 2002&amp;#x2012;15 Red Hat, Inc. All rights reserved.</target>
+        <target>Copyright &amp;#169; 2002&amp;#x2012;14 Red Hat, Inc. All rights reserved.</target>
       </trans-unit>
       <trans-unit id="footer.jsp.legalStatement">
         <source>Legal statement</source>
@@ -2580,6 +2580,18 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/InProgressSystems</context>
         </context-group>
         <target>작업 아이콘</target>
+      </trans-unit>
+      <trans-unit id="actions.jsp.totalnote">
+        <source>
+          Note: For multi-system scheduled actions, the ability to cancel individual 
+          systems means that the number of clients mentioned in the Action column may not match the number in Total.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/PendingActions</context>
+          <context context-type="sourcefile">/rhn/schedule/FailedActions</context>
+          <context context-type="sourcefile">/rhn/schedule/CompletedActions</context>
+          <context context-type="sourcefile">/rhn/schedule/ArchiveActions</context>
+        </context-group>
       </trans-unit>
       <!-- pendingactions.jsp -->
       <trans-unit id="pendingactions.jsp.pending_actions">
@@ -4398,10 +4410,7 @@ organization. You may grant or remove the organization administrator role in the
 할당 또는 삭제할 수 있습니다.   </target>
       </trans-unit>
       <trans-unit id="organizations.tip">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your @@PRODUCT_NAME@@'s default organization. Entitlements for this organization are linked to your @@PRODUCT_NAME@@ certificate file, so they are not modifiable. If you remove entitlements from a non-default
-organization above, those entitlements will be added back to the default organization,
-and if you add entitlements from a non-default organization they will be
-deducted from the default organization.</source>
+        <source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your @@PRODUCT_NAME@@'s default organization.</source>
         <target>&lt;strong&gt;힌트:&lt;/strong&gt; 이 조직은  @@PRODUCT_NAME@@에서 기본값으로 설정되어있는 조직입니다. 이 조직에 해당하는 인타이틀먼트는  @@PRODUCT_NAME@@ 인증서 파일과 링크되어 있으므로, 수정할 수 없습니다. 기본값이 아닌 조직에서 인타이틀먼트를
 삭제할 경우, 이러한 인타이틀먼트는 기본값 조직으로 다시 추가되며, 기본값이 아닌 조직에서
 인타이틀먼트를 추가할 경우, 이는 기본값 조직에서 삭제됩니다.    </target>
@@ -6388,7 +6397,7 @@ deducted from the default organization.</source>
         <target>시스템 인타이틀먼트</target>
       </trans-unit>
       <trans-unit id="systementitlements.jsp.para1">
-        <source>In order to get the most out of @@PRODUCT_NAME@@, each system must be &lt;strong&gt;entitled&lt;/strong&gt; to service. If a system is not entitled, you will not be allowed to perform key software management tasks for that system, such as package installs or errata updates.</source>
+        <source>Entitlements define the set of functionalities available for each system in @@PRODUCT_NAME@@ such as the ability of installing software or creating guest virtual machines.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SystemEntitlements</context>
         </context-group>
@@ -6462,8 +6471,7 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/systems/SystemEntitlements.do</context>
         </context-group>
         <trans-unit id="systementitlements.jsp.entitlement_counts_message">
-          <source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
-          <target>&lt;strong&gt;{0} 시스템&lt;/strong&gt; 인타이틀먼트, &lt;strong&gt;무제한 사용가능한&lt;/strong&gt; 인타이틀먼트</target>
+          <source>{0} entitled system(s).</source>
         </trans-unit>
       </group>
       <trans-unit id="systementitlements.jsp.base_entitlements">
@@ -6487,7 +6495,7 @@ deducted from the default organization.</source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;관리&lt;/strong&gt;로 설정되었습니다.</target>
         </trans-unit>
         <trans-unit id="system_entitlements.setToManagementEntitled.failure">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may free up &lt;strong&gt;Management&lt;/strong&gt; entitlements by downgrading &lt;strong&gt;Management&lt;/strong&gt; entitled machines to an Update entitlement, or you may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.
+          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.
     </source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;관리&lt;/strong&gt; 인타이틀먼트로 성공적으로 설정되었지만 나머지 &lt;strong&gt;{1}&lt;/strong&gt; 시스템에 대해 &lt;strong&gt;관리&lt;/strong&gt; 인타이틀먼트가 부족합니다. &lt;strong&gt;관리&lt;/strong&gt; 인타이틀먼트가 있는 시스템을 업데이트 인타이틀먼트로 다운그레이드하여 &lt;strong&gt;관리&lt;/strong&gt; 인타이틀먼트를 확보할 수 있습니다. 또는 &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;에서 추가로 관리 인타이틀먼트를 구매할 수 있습니다. &lt;strong&gt;관리&lt;/strong&gt; 인타이틀먼트를 추가하면 이 시스템을 업그레이드할 수 있습니다.
     </target>
@@ -6572,14 +6580,14 @@ deducted from the default organization.</source>
         <target>검색 아이콘:</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.toolbar">
-        <source>System Search</source>
+        <source>Advanced Search</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
         <target>시스템 검색</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.summary">
-        <source>System Search will return results from all systems to which you have administrative access.</source>
+        <source>Advanced Search will return results from all systems to which you have administrative access.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
@@ -11684,7 +11692,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>아래에 기재된 소프트웨어 채널은 사용자 조직에 인타이틀먼트가 있는 &lt;strong&gt;더이상 사용되지 않는 채널&lt;/strong&gt;이며 이는 만료되어 더 이상 Red Hat에서 지원하지 않습니다.  </target>
+        <target>아래에 기재된 소프트웨어 채널은 사용자 조직에 &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt; 인타이틀먼트가 있는 &lt;/a&gt; &lt;strong&gt;더이상 사용되지 않는 채널&lt;/strong&gt;이며 이는 만료되어 더 이상 Red Hat에서 지원하지 않습니다.  </target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
@@ -15533,6 +15541,18 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
         <target>아래의 목록에 있는 시스템에는 현재 &lt;strong&gt;@@PRODUCT_NAME@@ 관리 설정 파일&lt;/strong&gt;이 있습니다. 이는 각각의 시스템에 @@PRODUCT_NAME@@ 시스템 프로파일을 통해 &lt;strong&gt;로컬로 관리되는&lt;/strong&gt; 설정 파일이나 중앙 관리 채널을 통해 &lt;strong&gt;중앙 관리되는&lt;/strong&gt; 설정 파일이 또는 이 두가지 모두가 있음을 의미합니다. 중앙 관리 파일을 덮어쓰는 로컬 관리 파일의 수는 아래의 '로컬 관리 파일' 부분에서 확인하실 수 있습니다.    </target>
       </trans-unit>
+      <trans-unit id="managedsystems.jsp.managedonly">
+        <source>Show systems with at least one locally or centrally managed files only</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="managedsystems.jsp.managedonly.btn">
+        <source>Show</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="managedsystems.jsp.noSystems">
         <source>No configuration managed systems.</source>
         <context-group name="ctx">
@@ -18403,6 +18423,12 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
         <target>벵골어</target>
       </trans-unit>
+      <trans-unit id="preferences.jsp.lang.ca">
+        <source>Catalan</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="preferences.jsp.lang.de">
         <source>German</source>
         <context-group name="ctx">
@@ -18472,6 +18498,12 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
           <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
         <target>펀자브어</target>
+      </trans-unit>
+      <trans-unit id="preferences.jsp.lang.pt">
+        <source>Portuguese</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="preferences.jsp.lang.pt_BR">
         <source>Brazilian Portuguese</source>
@@ -18994,7 +19026,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-        <target>아래 양식을 작성하여 &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt;에서 호스트될 새로운 가상 시스템을 생성하시기 바랍니다.</target>
+        <target>아래 양식을 작성하여 &lt;img src=&quot;/img/rhn-listicon-system.gif&quot;&gt; &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt;에서 호스트될 새로운 가상 시스템을 생성하시기 바랍니다.</target>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.header2">
         <source>Define the Virtual System</source>
@@ -20431,22 +20463,16 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/systems/details/Connection.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="sdc.details.proxy.header">
-        <source>Proxy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/details/Proxy.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="sdc.details.proxy.unlicensed">
         <source>The WebUI @@PRODUCT_NAME@@ Proxy installer is obsolete. Please use the command line installer from package spacewalk-proxy-installer.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/systems/details/Proxy.do</context>
+          <context context-type="sourcefile">/systems/details/ProxyClients.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="sdc.details.proxy.licensed">
         <source>This machine is currently a licensed @@PRODUCT_NAME@@ Proxy (v{0}).</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/systems/details/Proxy.do</context>
+          <context context-type="sourcefile">/systems/details/ProxyClients.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="sdc.details.proxyclients.header">
@@ -22085,6 +22111,9 @@ given channel.</source>
         <source>View Packages</source>
         <target>패키지 보기 </target>
       </trans-unit>
+      <trans-unit id="channel.jsp.package.viewsourcepackages">
+        <source>Source Packages</source>
+      </trans-unit>
       <trans-unit id="channel.jsp.package.addsuccess">
         <source>{0} package(s) added to channel {1}
         </source>
@@ -23290,6 +23319,12 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="bunch.jsp.description.uuid-cleanup-bunch">
+        <source>Cleanup outdated UUID records</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="schedule.jsp.noschedules">
         <source>There're no schedules available.</source>
         <context-group name="ctx">
@@ -23759,6 +23794,9 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="task.status.auto-errata">
         <source>Auto Errata Updates</source>
+      </trans-unit>
+      <trans-unit id="task.status.uuid-cleanup">
+        <source>UUID cleanup</source>
       </trans-unit>
       <trans-unit id="task.status.message">
         <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>

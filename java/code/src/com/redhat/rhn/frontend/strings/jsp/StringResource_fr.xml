@@ -1444,7 +1444,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
-        <target>Copyright &amp;#169; 2002&amp;#x2012;15 Red Hat, Inc. Tous droits réservés.</target>
+        <target>Copyright &amp;#169; 2002&amp;#x2012;14 Red Hat, Inc. Tous droits réservés.</target>
       </trans-unit>
       <trans-unit id="footer.jsp.legalStatement">
         <source>Legal statement</source>
@@ -2604,6 +2604,18 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/InProgressSystems</context>
         </context-group>
         <target>Icône Action</target>
+      </trans-unit>
+      <trans-unit id="actions.jsp.totalnote">
+        <source>
+          Note: For multi-system scheduled actions, the ability to cancel individual 
+          systems means that the number of clients mentioned in the Action column may not match the number in Total.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/PendingActions</context>
+          <context context-type="sourcefile">/rhn/schedule/FailedActions</context>
+          <context context-type="sourcefile">/rhn/schedule/CompletedActions</context>
+          <context context-type="sourcefile">/rhn/schedule/ArchiveActions</context>
+        </context-group>
       </trans-unit>
       <!-- pendingactions.jsp -->
       <trans-unit id="pendingactions.jsp.pending_actions">
@@ -4463,10 +4475,7 @@ organisation. Vous pouvez accorder ou retirer le rôle d'administrateur d'organi
 &quot;Rôles&quot; de l'onglet &quot;Détails&quot; du profil des utilisateurs individuels.</target>
       </trans-unit>
       <trans-unit id="organizations.tip">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your @@PRODUCT_NAME@@'s default organization. Entitlements for this organization are linked to your @@PRODUCT_NAME@@ certificate file, so they are not modifiable. If you remove entitlements from a non-default
-organization above, those entitlements will be added back to the default organization,
-and if you add entitlements from a non-default organization they will be
-deducted from the default organization.</source>
+        <source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your @@PRODUCT_NAME@@'s default organization.</source>
         <target>&lt;strong&gt;Astuce :&lt;/strong&gt; Cette organisation est l'organisation par défaut de @@PRODUCT_NAME@@. Les droits d'accès pour cette organisation sont liés au certificat de @@PRODUCT_NAME@@, ils ne peuvent donc pas être modifiés. Si vous retirez les droits d'accès
 d'une autre organisation que celle par défaut, ces droits d'accès seront réattribués à l'organisation par défaut. Si vous ajoutez des droits d'accès à une autre organisation
 que celle par défaut, ces droits d'accès seront déduits de l'organisation
@@ -6539,7 +6548,7 @@ que celle par défaut, ces droits d'accès seront déduits de l'organisation
         <target>Droits d'accès aux systèmes</target>
       </trans-unit>
       <trans-unit id="systementitlements.jsp.para1">
-        <source>In order to get the most out of @@PRODUCT_NAME@@, each system must be &lt;strong&gt;entitled&lt;/strong&gt; to service. If a system is not entitled, you will not be allowed to perform key software management tasks for that system, such as package installs or errata updates.</source>
+        <source>Entitlements define the set of functionalities available for each system in @@PRODUCT_NAME@@ such as the ability of installing software or creating guest virtual machines.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SystemEntitlements</context>
         </context-group>
@@ -6613,8 +6622,7 @@ que celle par défaut, ces droits d'accès seront déduits de l'organisation
           <context context-type="sourcefile">/rhn/systems/SystemEntitlements.do</context>
         </context-group>
         <trans-unit id="systementitlements.jsp.entitlement_counts_message">
-          <source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
-          <target>&lt;strong&gt;{0} système&lt;/strong&gt; à droits d'accès, &lt;strong&gt;droits d'accès&lt;/strong&gt; disponibles de façon illimitée</target>
+          <source>{0} entitled system(s).</source>
         </trans-unit>
       </group>
       <trans-unit id="systementitlements.jsp.base_entitlements">
@@ -6638,7 +6646,7 @@ que celle par défaut, ces droits d'accès seront déduits de l'organisation
           <target>&lt;strong&gt;{0}&lt;/strong&gt; système(s) ayant droit d'accès à la &lt;strong&gt;Gestion&lt;/strong&gt;.</target>
         </trans-unit>
         <trans-unit id="system_entitlements.setToManagementEntitled.failure">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may free up &lt;strong&gt;Management&lt;/strong&gt; entitlements by downgrading &lt;strong&gt;Management&lt;/strong&gt; entitled machines to an Update entitlement, or you may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.
+          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.
     </source>
           <target>&lt;strong&gt;{0}&lt;/strong&gt; systèmes ont été correctement définis au niveau du droit d'accès &lt;strong&gt;Management&lt;/strong&gt;, mais vous n'avez pas suffisamment droits d'accès niveau &lt;strong&gt;Management&lt;/strong&gt; pour les autres systèmes &lt;strong&gt;{1}&lt;/strong&gt;. Vous pouvez libérer des droits de &lt;strong&gt;Management&lt;/strong&gt; par rétrogradation de vos droits sur des machines &lt;strong&gt;Management&lt;/strong&gt;, pour un droit de Mise à jour (Update entitlement), ou vous pouvez acheter des droits de management supplémentaires à &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt; &lt;strong&gt;@@PRODUCT_NAME@@ stocker&lt;/strong&gt;&lt;/a&gt;. Après avoir des droits d'accès niveau &lt;strong&gt;Management&lt;/strong&gt; supplémentaires, vous pourrez mettre à jour ces systèmes.
     </target>
@@ -6723,14 +6731,14 @@ que celle par défaut, ces droits d'accès seront déduits de l'organisation
         <target>Icône Recherche</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.toolbar">
-        <source>System Search</source>
+        <source>Advanced Search</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
         <target>Recherche de systèmes</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.summary">
-        <source>System Search will return results from all systems to which you have administrative access.</source>
+        <source>Advanced Search will return results from all systems to which you have administrative access.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
@@ -11886,7 +11894,7 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>Les canaux logiciels listés ci-dessous sont &lt;strong&gt;les canaux retirés&lt;/strong&gt; auxquels votre organisation des droits d'accès mais ne sont plus pris en charge par Red Hat vu qu'ils ont atteint leur date de fin de vie.</target>
+        <target>Les canaux logiciels listés ci-dessous sont &lt;strong&gt;les canaux retirés&lt;/strong&gt; auxquels votre organisation &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt;a des droits d'accès&lt;/a&gt; mais ne sont plus pris en charge par Red Hat vu qu'ils ont atteint leur date de fin de vie.</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
@@ -15901,6 +15909,18 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
         </context-group>
         <target>Les systèmes affichés ci-dessous ont actuellement &lt;strong&gt;des fichiers de configuration gérés par @@PRODUCT_NAME@@&lt;/strong&gt;. Cela signifie que chaque système peut avoir des fichiers de configuration &lt;strong&gt;gérés localement&lt;/strong&gt; via son profil système @@PRODUCT_NAME@@, des fichiers de configuration &lt;strong&gt;gérés centralement&lt;/strong&gt; via un canal/des canaux de configuration, ou les deux. Le nombre de fichiers gérés localement qui surchargent les fichiers gérés centralement est visible dans la colonne &quot;Fichiers gérés localement&quot; ci-dessous.</target>
       </trans-unit>
+      <trans-unit id="managedsystems.jsp.managedonly">
+        <source>Show systems with at least one locally or centrally managed files only</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="managedsystems.jsp.managedonly.btn">
+        <source>Show</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="managedsystems.jsp.noSystems">
         <source>No configuration managed systems.</source>
         <context-group name="ctx">
@@ -18847,6 +18867,12 @@ pour abonner des systèmes aux canaux de logiciels durant le kickstart.&lt;/span
         </context-group>
         <target>Bengali</target>
       </trans-unit>
+      <trans-unit id="preferences.jsp.lang.ca">
+        <source>Catalan</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="preferences.jsp.lang.de">
         <source>German</source>
         <context-group name="ctx">
@@ -18916,6 +18942,12 @@ pour abonner des systèmes aux canaux de logiciels durant le kickstart.&lt;/span
           <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
         <target>Punjabi</target>
+      </trans-unit>
+      <trans-unit id="preferences.jsp.lang.pt">
+        <source>Portuguese</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="preferences.jsp.lang.pt_BR">
         <source>Brazilian Portuguese</source>
@@ -19438,7 +19470,7 @@ Le chemin d'arborescence, le RPM Kickstart, le canal de base, et la génération
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-        <target>Veuillez compléter le formulaire ci-dessous afin de créer un nouveau système virtuel hébergé sur &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt;</target>
+        <target>Veuillez compléter le formulaire ci-dessous afin de créer un nouveau système virtuel hébergé sur &lt;img src=&quot;/img/rhn-listicon-system.gif&quot;&gt; &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.header2">
         <source>Define the Virtual System</source>
@@ -20878,22 +20910,16 @@ Le chemin d'arborescence, le RPM Kickstart, le canal de base, et la génération
           <context context-type="sourcefile">/systems/details/Connection.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="sdc.details.proxy.header">
-        <source>Proxy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/details/Proxy.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="sdc.details.proxy.unlicensed">
         <source>The WebUI @@PRODUCT_NAME@@ Proxy installer is obsolete. Please use the command line installer from package spacewalk-proxy-installer.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/systems/details/Proxy.do</context>
+          <context context-type="sourcefile">/systems/details/ProxyClients.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="sdc.details.proxy.licensed">
         <source>This machine is currently a licensed @@PRODUCT_NAME@@ Proxy (v{0}).</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/systems/details/Proxy.do</context>
+          <context context-type="sourcefile">/systems/details/ProxyClients.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="sdc.details.proxyclients.header">
@@ -22542,6 +22568,9 @@ fois pour un canal donné.</target>
         <source>View Packages</source>
         <target>Afficher Paquetages</target>
       </trans-unit>
+      <trans-unit id="channel.jsp.package.viewsourcepackages">
+        <source>Source Packages</source>
+      </trans-unit>
       <trans-unit id="channel.jsp.package.addsuccess">
         <source>{0} package(s) added to channel {1}
         </source>
@@ -23812,6 +23841,12 @@ canal  {0}. Les systèmes abonnés vont perdre leur accès aux paquetages spéci
           <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="bunch.jsp.description.uuid-cleanup-bunch">
+        <source>Cleanup outdated UUID records</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="schedule.jsp.noschedules">
         <source>There're no schedules available.</source>
         <context-group name="ctx">
@@ -24285,6 +24320,9 @@ canal  {0}. Les systèmes abonnés vont perdre leur accès aux paquetages spéci
       </trans-unit>
       <trans-unit id="task.status.auto-errata">
         <source>Auto Errata Updates</source>
+      </trans-unit>
+      <trans-unit id="task.status.uuid-cleanup">
+        <source>UUID cleanup</source>
       </trans-unit>
       <trans-unit id="task.status.message">
         <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>

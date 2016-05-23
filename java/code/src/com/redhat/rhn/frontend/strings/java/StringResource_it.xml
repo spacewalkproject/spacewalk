@@ -1296,6 +1296,12 @@
         </context-group>
         <target>Le tue preferenze</target>
       </trans-unit>
+      <trans-unit id="Your Organization">
+        <source>Your Organization</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Organization Applicants">
         <source>Organization Applicants</source>
         <context-group name="ctx">
@@ -1477,7 +1483,7 @@
         <target>La password contiene un tab o nuovi caratteri.</target>
       </trans-unit>
       <trans-unit id="error.maxpassword">
-        <source>The password you requested is too long. Please enter a shorter password and try again.</source>
+        <source>Passwords cannot be more than {0} characters.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
@@ -2239,6 +2245,12 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
         </context-group>
         <target>Informazioni kickstart aggiornate con successo.</target>
       </trans-unit>
+      <trans-unit id="kickstart.details.duplicatefile">
+        <source>Please specify only file contents or a file to upload but not both.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.details.nolabel">
         <source>Kickstart profile label is required.</source>
         <context-group name="ctx">
@@ -2620,19 +2632,11 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
         </context-group>
         <target>Sistemi falliti</target>
       </trans-unit>
-      <trans-unit id="Remove Packages">
-        <source>Remove Packages</source>
+      <trans-unit id="Package List">
+        <source>Package List</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Rimuovi pacchetti</target>
-      </trans-unit>
-      <trans-unit id="Update Packages">
-        <source>Update Packages</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Aggiorna pacchetti</target>
       </trans-unit>
       <trans-unit id="message.actionrescheduled">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; successfully rescheduled.</source>
@@ -5543,6 +5547,12 @@ utente prima di disabilitare l'account in questione.</target>
         </context-group>
         <target>Suriname</target>
       </trans-unit>
+      <trans-unit id="SS">
+        <source>South Sudan</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="ST">
         <source>Saint Tome (Sao Tome) and Principe</source>
         <context-group name="ctx">
@@ -7054,6 +7064,12 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
           <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
         </context-group>
         <target>Impossibile programmare un'azione di confronto del file di configurazione</target>
+      </trans-unit>
+      <trans-unit id="configdiff.schedule.selection_error">
+        <source>No system was selected.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="channel">
         <source>Channel</source>
@@ -9122,6 +9138,9 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         <source>Repository sync scheduled for {0}.</source>
         <target>Sincronizzazione repositorio programmato per {0}.</target>
       </trans-unit>
+      <trans-unit id="message.syncinprogress">
+        <source>Repository sync is running.</source>
+      </trans-unit>
       <trans-unit id="message.channelsubscribers">
         <source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
         <target>Le restrizioni della sottoscrizione Per-Utente possono essere applicate nella scheda Iscritti</target>
@@ -9372,7 +9391,7 @@ tree will not be usable for kickstarting.
         <target>L'email è già stata inviata. Questa azione può essere richiesta ogni {0} secondi.</target>
       </trans-unit>
       <trans-unit id="help.credentials.passwordsent">
-        <source>New password sent to {0}.</source>
+        <source>Password reset information sent to {0}.</source>
         <target>Nuova password inviata a {0}.</target>
       </trans-unit>
       <trans-unit id="help.credentials.invalidemail">

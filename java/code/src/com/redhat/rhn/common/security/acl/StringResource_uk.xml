@@ -4,19 +4,18 @@
     <body>
       <trans-unit id="bad-class">
         <source>Class does not implement AclHandler: {0}</source>
-        <target>La classe no implementa AclHandler: {0}</target>
+        <target>У класі не реалізовано AclHandler: {0}</target>
       </trans-unit>
       <trans-unit id="bad-signature">
         <source>Bad ACL handler method [{0}]. ACL handler methods must have the following signature (may be static or non-static), with no declared exceptions: public aclXXXX(Object, String[])</source>
-        <target>El mètode de retroacció ACL és dolent [{0}]. Els mètodes de retroacció ACL han de tenir la següent signatura (poden ser estàtics o no), sense excepcions declarades: public aclXXXX(Object, String[])</target>
       </trans-unit>
       <trans-unit id="bad-syntax">
         <source>Could not parse ACL statement: "{0}"</source>
-        <target>No es pot analitzar sintàcticament la sentència ACL: &quot;{0}&quot;</target>
+        <target>Не вдалося обробити інструкцію ACL: «{0}»</target>
       </trans-unit>
       <trans-unit id="bad-handler">
         <source>Could not find ACL handler {0} in statement: "{1}". Available ACL handlers: {2}</source>
-        <target>No es pot trobar el mètode de retroacció ACL {0} en la sentència: &quot;{1}&quot;. Mètodes disponibles de retroacció ACL: {2}</target>
+        <target>Не вдалося знайти обробник ACL {0} у інструкції: «{1}». Доступні обробники ACL: {2}</target>
       </trans-unit>
     </body>
   </file>

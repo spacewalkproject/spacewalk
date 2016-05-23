@@ -1296,6 +1296,12 @@
         </context-group>
         <target>Suas Preferências</target>
       </trans-unit>
+      <trans-unit id="Your Organization">
+        <source>Your Organization</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Organization Applicants">
         <source>Organization Applicants</source>
         <context-group name="ctx">
@@ -1477,7 +1483,7 @@
         <target>As senhas contém o caractere tab ou nova linha.</target>
       </trans-unit>
       <trans-unit id="error.maxpassword">
-        <source>The password you requested is too long. Please enter a shorter password and try again.</source>
+        <source>Passwords cannot be more than {0} characters.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
@@ -2229,6 +2235,12 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         </context-group>
         <target>Detalhes do kickstart atualizados com sucesso.</target>
       </trans-unit>
+      <trans-unit id="kickstart.details.duplicatefile">
+        <source>Please specify only file contents or a file to upload but not both.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.details.nolabel">
         <source>Kickstart profile label is required.</source>
         <context-group name="ctx">
@@ -2610,19 +2622,11 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         </context-group>
         <target>Sistemas Falhos</target>
       </trans-unit>
-      <trans-unit id="Remove Packages">
-        <source>Remove Packages</source>
+      <trans-unit id="Package List">
+        <source>Package List</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Remover Pacotes</target>
-      </trans-unit>
-      <trans-unit id="Update Packages">
-        <source>Update Packages</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Atualizar Pacotes</target>
       </trans-unit>
       <trans-unit id="message.actionrescheduled">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; successfully rescheduled.</source>
@@ -2783,7 +2787,7 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeyEdit</context>
         </context-group>
-        
+        <target>Excluir chave</target>
       </trans-unit>
       <trans-unit id="toolbar.create.user">
         <source>Create User</source>
@@ -2826,28 +2830,28 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         <context-group name="ctx">
           <context context-type="sourcefile">User details pages</context>
         </context-group>
-        
+        <target>Excluir usuário</target>
       </trans-unit>
       <trans-unit id="toolbar.delete.erratum">
         <source>Delete Erratum</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Errata details pages</context>
         </context-group>
-        
+        <target>Excluir errata</target>
       </trans-unit>
       <trans-unit id="toolbar.delete.system">
         <source>Delete System</source>
         <context-group name="ctx">
           <context context-type="sourcefile">System Details Package list pages</context>
         </context-group>
-        
+        <target>Excluir sistema</target>
       </trans-unit>
       <trans-unit id="toolbar.delete.systemgroup">
         <source>Delete Group</source>
         <context-group name="ctx">
           <context context-type="sourcefile">System Group pages</context>
         </context-group>
-        
+        <target>Excluir grupo</target>
       </trans-unit>
       <trans-unit id="toolbar.work.with.group">
         <source>Work With Group</source>
@@ -2861,35 +2865,35 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         <context-group name="ctx">
           <context context-type="sourcefile">Errata edit page</context>
         </context-group>
-        
+        <target>Excluir errata</target>
       </trans-unit>
       <trans-unit id="toolbar.delete.kickstart">
         <source>Delete Kickstart</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Kickstart profile pages</context>
         </context-group>
-        
+        <target>Excluir kickstart</target>
       </trans-unit>
       <trans-unit id="toolbar.delete.deleteTree">
         <source>Delete Distribution</source>
         <context-group name="ctx">
           <context context-type="sourcefile">rhn/Kickstart/TreeEdit.do</context>
         </context-group>
-        
+        <target>Excluir distribuição</target>
       </trans-unit>
       <trans-unit id="toolbar.delete.profile">
         <source>Delete Profile</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles/CompareProfiles.do</context>
         </context-group>
-        
+        <target>Excluir perfil</target>
       </trans-unit>
       <trans-unit id="toolbar.delete.crash">
         <source>Delete Software Crash</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SoftwareCrashDetail.do</context>
         </context-group>
-        
+        <target>Excluir travamento de software</target>
       </trans-unit>
       <trans-unit id="message.unscheduled.system">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; unscheduled for &lt;strong&gt;{1}&lt;/strong&gt; system.</source>
@@ -5531,6 +5535,12 @@ user before attempting to deactivate their account.</source>
         </context-group>
         <target>Suriname</target>
       </trans-unit>
+      <trans-unit id="SS">
+        <source>South Sudan</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="ST">
         <source>Saint Tome (Sao Tome) and Principe</source>
         <context-group name="ctx">
@@ -7042,6 +7052,12 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
         </context-group>
         <target>Falha ao agendar ação de comparação de arquivo de configuração</target>
+      </trans-unit>
+      <trans-unit id="configdiff.schedule.selection_error">
+        <source>No system was selected.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="channel">
         <source>Channel</source>
@@ -9110,6 +9126,9 @@ você não poderá retornar este sistema à este snapshot ou à qualquer outro.<
         <source>Repository sync scheduled for {0}.</source>
         <target>Sync do repositório programado para {0}.</target>
       </trans-unit>
+      <trans-unit id="message.syncinprogress">
+        <source>Repository sync is running.</source>
+      </trans-unit>
       <trans-unit id="message.channelsubscribers">
         <source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
         <target>As restrições de subscrições por usuário podem ser aplicadas na aba de Associados.</target>
@@ -9360,7 +9379,7 @@ do kickstart não será usada para o kickstarting.
         <target>Um email já foi enviado. Você pode solicitar esta ação somente a cada {0} segundos.</target>
       </trans-unit>
       <trans-unit id="help.credentials.passwordsent">
-        <source>New password sent to {0}.</source>
+        <source>Password reset information sent to {0}.</source>
         <target>Foi enviada uma nova senha para  {0}.</target>
       </trans-unit>
       <trans-unit id="help.credentials.invalidemail">

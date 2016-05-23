@@ -692,6 +692,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
+        <target>Configuração do grupo do sistema</target>
       </trans-unit>
       <trans-unit id="Master Setup">
         <source>Master Setup</source>
