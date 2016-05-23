@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-21 12:22+0100\n"
+"POT-Creation-Date: 2016-05-23 13:39+0200\n"
 "PO-Revision-Date: 2012-11-20 03:41-0500\n"
 "Last-Translator: Robin Mehdee <robin@ankur.org.bd>\n"
 "Language-Team: Bengali <info@ankur.org.bd>\n"
@@ -27,42 +27,44 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 3.8.4\n"
 
-#: ../rhnsd.c:55
+#: ../rhnsd.c:54
 msgid "MINS"
 msgstr "MINS"
 
-#: ../rhnsd.c:56
-msgid "Connect to Red Hat Network every MINS minutes"
+#: ../rhnsd.c:55
+#, fuzzy
+msgid "Connect to Spacewalk every MINS minutes"
 msgstr "প্রতি MINS মিনিটে রেড হ্যাট নেটওয়ার্কের বিষয়বস্তু"
 
-#: ../rhnsd.c:58
+#: ../rhnsd.c:57
 msgid "Run in foreground"
 msgstr "উপরিভাগে চালনা করুন"
 
 #. Short description of program.
-#: ../rhnsd.c:63
-msgid "Red Hat Network Services Daemon"
+#: ../rhnsd.c:62
+#, fuzzy
+msgid "Spacewalk Services Daemon"
 msgstr "রেড হ্যাট নেটওয়ার্ক পরিসেবা ডেমন"
 
-#: ../rhnsd.c:116
+#: ../rhnsd.c:115
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "এই প্রোগ্রাম শুধুমাত্র root দ্বারা সঞ্চালন করা সম্ভব হবে\n"
 
-#: ../rhnsd.c:136
+#: ../rhnsd.c:135
 msgid "wrong number of arguments"
 msgstr "আর্গুমেন্টের সংখ্যা সঠিক নয়"
 
-#: ../rhnsd.c:143
+#: ../rhnsd.c:142
 msgid "already running"
 msgstr "বর্তমানে চলছে"
 
-#: ../rhnsd.c:243
+#: ../rhnsd.c:249
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "স্বত্বাধিকার (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:246
+#: ../rhnsd.c:252
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s দ্বারা রচিত।\n"
