@@ -1,7 +1,7 @@
 #
 # Connection objects
 #
-# Copyright (c) 2002--2015 Red Hat, Inc.
+# Copyright (c) 2002--2016 Red Hat, Inc.
 #
 # Author: Mihai Ibanescu <misa@redhat.com>
 

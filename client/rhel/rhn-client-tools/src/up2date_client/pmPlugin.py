@@ -1,5 +1,5 @@
 # Client code for enabling plugin
-# Copyright (c) 2000--2015 Red Hat, Inc.
+# Copyright (c) 2000--2016 Red Hat, Inc.
 
 import os
 import re

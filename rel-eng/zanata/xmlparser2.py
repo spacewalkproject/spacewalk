@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2015 Red Hat, Inc.
+# Copyright (c) 2015--2016 Red Hat, Inc.
 #
 #
 # This software is licensed to you under the GNU General Public License,
