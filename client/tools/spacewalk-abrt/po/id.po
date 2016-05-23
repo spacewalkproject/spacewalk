@@ -3,31 +3,37 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-12 09:55+0100\n"
+"POT-Creation-Date: 2016-05-23 13:41+0200\n"
 
-#: ../src/bin/spacewalk-abrt:39
+#: ../src/bin/spacewalk-abrt:43
 msgid "Upload content of the specified problem directory"
 msgstr ""
 
-#: ../src/bin/spacewalk-abrt:41
+#: ../src/bin/spacewalk-abrt:45
 msgid "Update crash count for the specified problem directory"
 msgstr ""
 
-#: ../src/bin/spacewalk-abrt:43
-msgid "Synchronyze missing problem directories"
+#: ../src/bin/spacewalk-abrt:47
+msgid "Synchronize missing problem directories"
 msgstr ""
 
-#: ../src/bin/spacewalk-abrt:50
-#, c-format
+#: ../src/bin/spacewalk-abrt:52
+#, python-format
 msgid "Error: specified problem directory [%s] does not exist.\n"
 msgstr ""
 
-#: ../src/bin/spacewalk-abrt:61
+#: ../src/bin/spacewalk-abrt:57
 msgid "No command specified. Use --help for more information on the usage."
 msgstr ""
 
-#: ../src/bin/spacewalk-abrt:70
+#: ../src/bin/spacewalk-abrt:66
 msgid ""
 "More than one command specified. Use --help for more information on the "
 "usage."
+msgstr ""
+
+#: ../src/bin/spacewalk-abrt:69
+msgid ""
+"This system does not seem to be registered, use `rhn_register` before using "
+"this command."
 msgstr ""
