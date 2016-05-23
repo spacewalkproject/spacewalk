@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2128,14 +2128,12 @@ msgstr ""
 msgid "Register to Spacewalk/Red Hat Satellite/Red Hat Network Classic."
 msgstr ""
 
-#, fuzzy
 #~ msgid "We could not contact Red Hat Network (%s)."
 #~ msgstr "Send Profile Information to Red Hat Network"
 
 #~ msgid "There was an error communicating with Red Hat Network."
 #~ msgstr "Send Profile Information to Red Hat Network"
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter your account information for the <b>%s</b> Red Hat Network "
 #~ "Satellite:"
@@ -2191,7 +2189,6 @@ msgstr ""
 #~ msgid "Sending Profile to Red Hat Network"
 #~ msgstr "Send Profile Information to Red Hat Network"
 
-#, fuzzy
 #~ msgid ""
 #~ "The installation number %s was activated during this system's initial "
 #~ "connection to Red Hat Network."
@@ -2200,7 +2197,6 @@ msgstr ""
 #~ msgid "There was a communication error with the server:"
 #~ msgstr "Send Profile Information to Red Hat Network"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Privacy Statement"
@@ -2208,7 +2204,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Privacy Statement"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Red Hat Network Configuration"
@@ -2216,38 +2211,31 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Red Hat Network Configuration"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "Position:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Account Info"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Package Information"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "Create a new Red Hat Network account"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Red Hat Login"
 
 #~ msgid "Your Red Hat account login"
 #~ msgstr "Red Hat Login"
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr "Send Profile Information to Red Hat Network"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "Red Hat Network Configuration"
 

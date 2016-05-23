@@ -23,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2167,14 +2167,12 @@ msgstr ""
 #~ msgid "Subscription Activation"
 #~ msgstr "Up2date - Ustvarjanje novega računa"
 
-#, fuzzy
 #~ msgid "We could not contact Red Hat Network (%s)."
 #~ msgstr "Pošlji profil sistema v RHN (angl. Red Hat Network)."
 
 #~ msgid "There was an error communicating with Red Hat Network."
 #~ msgstr "Napaka pri komunikaciji z registracijskim strežnikom:"
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter your account information for the <b>%s</b> Red Hat Network "
 #~ "Satellite:"
@@ -2247,7 +2245,6 @@ msgstr ""
 #~ msgid "Sending Profile to Red Hat Network"
 #~ msgstr "Pošlji profil sistema v RHN (angl. Red Hat Network)."
 
-#, fuzzy
 #~ msgid ""
 #~ "The installation number %s was activated during this system's initial "
 #~ "connection to Red Hat Network."
@@ -2265,7 +2262,6 @@ msgstr ""
 #~ msgid "There was a communication error with the server:"
 #~ msgstr "Prišlo je do komunikacijske napake s strežnikom: %s"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Opis"
@@ -2273,7 +2269,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Opis"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Nastavitev RHN (angl. Red Hat Network)"
@@ -2281,26 +2276,21 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Nastavitev RHN (angl. Red Hat Network)"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "Položaj:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Podatki računa"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Podatki o paketih"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "Up2date - Registracijski podatki"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Različica Red Hat Linux:"
 
@@ -2313,17 +2303,14 @@ msgstr ""
 #~ msgid "More Info"
 #~ msgstr "Up2date - Profil strojne opreme"
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr "Napaka pri komunikaciji z registracijskim strežnikom:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "It appears this system has already been set up for software updates:"
 #~ msgstr "Restavriram up2date"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "Nastavitev RHN (angl. Red Hat Network)"
 
@@ -3760,8 +3747,6 @@ msgstr ""
 #~ msgid "%-40.40s %s %s\n"
 #~ msgstr "%-40.40s potrebuje %s\n"
 
-# OK.. prevod je bullsh**.. ampak originalni stavek je tudi
-# odpulj.
 #~ msgid "Don't know how to handle dependency sense \"%s\""
 #~ msgstr "Ne znam rokovati z zaznavo odvisnosti \"%s\""
 

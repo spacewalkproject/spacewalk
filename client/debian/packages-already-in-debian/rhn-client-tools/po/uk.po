@@ -6,14 +6,14 @@
 # Maxim Dziumanenko <dziumanenko@gmail.com>, 2003.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Yuri Chornoivan <yurchor@ukr.net>, 2015. #zanata
-# Jan Dobes <jdobes@redhat.com>, 2016. #zanata
+# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:57+0200\n"
-"PO-Revision-Date: 2016-02-17 10:35-0500\n"
-"Last-Translator: Jan Dobes <jdobes@redhat.com>\n"
+"PO-Revision-Date: 2016-02-20 09:08-0500\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -188,6 +188,9 @@ msgid ""
 "Copyright (C) 1999--2012 Red Hat, Inc.\n"
 "Licensed under the terms of the GPLv2."
 msgstr ""
+"%%prog (клієнтські інструменти Red Hat Network) %s\n"
+"© Red Hat, Inc., 1999—2012\n"
+"Поширюється за умов дотримання GPLv2."
 
 #: ../src/up2date_client/rhncli.py:227
 msgid "An error has occurred:"
@@ -727,14 +730,14 @@ msgstr ""
 "відсутність достатньої передплати:"
 
 #: ../src/up2date_client/rhnreg_constants.py:217
-#, fuzzy
 msgid ""
 "Management module: automatic updates, systems grouping, systems permissions, "
 "system package profiling, bare-metal provisioning, existing state "
 "provisioning, rollbacks, configuration management"
 msgstr ""
 "Модуль керування: автоматичні оновлення, групування систем, права систем, "
-"профілі системних пакетів"
+"профілі системних пакетів, визначення апаратного забезпечення, визначення "
+"наявного стану, повернення до початкового стану, керування налаштуваннями"
 
 #: ../src/up2date_client/rhnreg_constants.py:222
 msgid ""
@@ -745,7 +748,6 @@ msgstr ""
 "системи."
 
 #: ../src/up2date_client/rhnreg_constants.py:225
-#, fuzzy
 msgid ""
 "<b>Warning:</b> Any guest systems you create on this system and register to "
 "RHN will consume Red Hat Enterprise Linux subscriptions beyond this host "
@@ -757,8 +759,7 @@ msgstr ""
 "<b>Попередження:</b> Будь-які гостьові системи, які ви створите та "
 "зареєструєте у RHN, будуть використані додаткові передплати Red Hat "
 "Enterprise Linux. Потрібно:\n"
-"1) створити системне повноваження віртуалізації або платформи "
-"віртуалізації;\n"
+"1) створити системне повноваження віртуалізації;\n"
 "2) застосувати це повноваження до системи через веб-інтерфейс RHN, якщо не "
 "бажаєте, щоб віртуальні гості використовували додаткові передплати."
 
@@ -1010,7 +1011,7 @@ msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:344
 msgid "Cannot contact selected server"
-msgstr ""
+msgstr "Не вдалося встановити зв’язок з вибраним сервером"
 
 #: ../src/up2date_client/rhnregGui.py:346
 #, python-format
@@ -1363,9 +1364,8 @@ msgid "Finish"
 msgstr "Завершити"
 
 #: ../src/up2date_client/tui.py:1127
-#, fuzzy
 msgid "You specified an invalid protocol.Only https and http are allowed."
-msgstr "Вказаний неправильний протокол. Можна вказувати лише https та http."
+msgstr "Вказано неправильний протокол. Можна вказувати лише https та http."
 
 #: ../src/up2date_client/tui.py:1161
 msgid ""
@@ -1444,6 +1444,19 @@ msgid ""
 "retry to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
+"\n"
+"    Недостатньо повноважень управління для реєстрації системи в Red Hat "
+"Network.\n"
+"    Повідомте  про це адміністратора вашої організації. Після звільнення\n"
+"    організацією наявних або додавання нових повноважень ви матимете\n"
+"    змогу зареєструвати систему. Нові повноваження адміністратор зможе\n"
+"    отримати після авторизації в Red Hat Network на сторінці  «Ваша RHN\n"
+"    — Керування передплатами».\n"
+"\n"
+"   Звичайно ця помилка виникає при помилковому налаштовуванні ключа\n"
+"    активації, який вказують як універсальний типовий ключ. В цьому випадку\n"
+"    можна вимкнути  ключ і повторити спробу уникнути потреби у реєстрації\n"
+"    для керування."
 
 #: ../src/firstboot/rhn_choose_server_gui.py:41
 #: ../src/firstboot/rhn_choose_server_gui.py:42 ../data/rh_register.glade.h:9
@@ -1500,6 +1513,8 @@ msgstr "Перегляд передплати"
 #: ../src/bin/rhn_check.py:378
 msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
 msgstr ""
+"Виконано спробу запуску декількох екземплярів rhn_check. Завершуємо роботу "
+"програми.\n"
 
 #: ../src/bin/rhn-profile-sync.py:35
 msgid ""
@@ -1799,6 +1814,8 @@ msgid ""
 "I'd like to receive updates from <b>Red Hat Network</b> or <b>Subscription "
 "Asset Manager</b> (using next-generation of entitlement management)."
 msgstr ""
+"Хочу отримувати оновлення з <b>Red Hat Network</b> або <b>Subscription Asset "
+"Manager</b> (з використанням керування уповноваженням наступного покоління)."
 
 #: ../data/rh_register.glade.h:12
 msgctxt "yes"
@@ -1806,6 +1823,8 @@ msgid ""
 "I'd like to receive updates from <b>Red Hat Network Classic</b>. (I don't "
 "have access to a Red Hat Network Satellite or Proxy.)"
 msgstr ""
+"Хочу отримувати оновлення з <b>Red Hat Network Classic</b>. (Не маю доступу "
+"до Red Hat Network Satellite або Proxy.)"
 
 #: ../data/rh_register.glade.h:13
 msgctxt "yes"
@@ -2250,6 +2269,11 @@ msgid ""
 "data communicated between this system and Red Hat Network (including your "
 "login and password) is secure."
 msgstr ""
+"У цій системі не виявлено сертифіката захисту, сумісного з <b>%s</b>.\n"
+"\n"
+"Сертифікат захисту, у якому використано технологію SSL, потрібен для "
+"забезпечення захисту даних, якими обмінюється ваша система із Red Hat "
+"Network (зокрема даних щодо імені користувача і пароля)."
 
 #: ../data/rh_register.glade.h:94
 msgctxt "yes"
@@ -2291,6 +2315,15 @@ msgid ""
 "You may access the software update tool by running <b>Software Update</b> in "
 "the <b>System > Administration</b> menu."
 msgstr ""
+"Ви не зможете отримувати оновлення програмного забезпечення, зокрема "
+"оновлення захисту, для цієї системи.\n"
+"\n"
+"Отримати доступ до засобу реєстрації у RHN можна за допомогою пункту "
+"<b>Реєстрація у RHN</b> або <b>Керування передплатою Red Hat</b> у меню "
+"<b>Система > Адміністрування</b>.\n"
+"Доступ до засобу оновлення програмного забезпечення можна отримати за "
+"допомогою пункту <b>Оновлення програмного забезпечення</b> у меню <b>Система "
+"> Адміністрування</b>."
 
 #: ../data/rh_register.glade.h:103
 msgid "Advanced Network Configuration"
@@ -2495,6 +2528,9 @@ msgid ""
 "Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
 "DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
+"Щоб дізнатися більше про реєстрацію на RHN та використані технології, будь "
+"ласка, ознайомтеся з цієї статтею: <a href=\"https://access.redhat.com/kb/"
+"docs/DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 
 #: ../data/rh_register.glade.h:146
 msgctxt "yes"
@@ -2513,6 +2549,13 @@ msgid ""
 "circled below.) Clicking on this icon, when available, will guide you "
 "through applying any updates that are available:"
 msgstr ""
+"Тепер ця система готова до отримання оновлень програмного забезпечення, які "
+"підтримуватимуть її безпечний та актуальний стан.\n"
+"\n"
+"Про появу оновлень програмного забезпечення ви дізнаєтеся за допомогою "
+"піктограми у області сповіщень вашої стільниці (зазвичай, цю піктограму "
+"розташовано у верхньому правому куті, її обведено колом). Натисніть цю "
+"піктограму, якщо ви її побачите, щоб встановити доступні оновлення:"
 
 #: ../data/rh_register.glade.h:150
 msgid "Aplet screenshot"
@@ -2599,6 +2642,13 @@ msgid ""
 "circled below.) Clicking on this icon, when available, will guide you "
 "through applying any updates that are available:"
 msgstr ""
+"Ця система готова до отримання оновлень програмного забезпечення, які "
+"підтримуватимуть її безпечний та актуальний стан.\n"
+"\n"
+"Про появу оновлень програмного забезпечення ви дізнаєтеся за допомогою "
+"піктограми у області сповіщень вашої стільниці (зазвичай, цю піктограму "
+"розташовано у верхньому правому куті, її обведено колом). Натисніть цю "
+"піктограму, якщо ви її побачите, щоб встановити доступні оновлення:"
 
 #: ../data/rh_register.glade.h:166
 msgid "icon of aplet"

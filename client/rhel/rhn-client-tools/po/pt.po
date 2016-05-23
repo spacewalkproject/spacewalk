@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2712,7 +2712,6 @@ msgstr ""
 #~ "esta ferramenta de registo com o <b>Actualizador de 'Software'</b> do "
 #~ "menu <b>Aplicações > Ferramentas do Sistema</b>."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "I'd like to register with:"
 #~ msgstr "_Sim, desejo registar-me agora."
@@ -2720,7 +2719,6 @@ msgstr ""
 #~ msgid "I'd like to register with:"
 #~ msgstr "_Sim, desejo registar-me agora."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr " página 'Aceder a uma Inscrição'."
@@ -2728,7 +2726,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr " página 'Aceder a uma Inscrição'."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "_Localização da Red Hat Network"
@@ -2736,12 +2733,10 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "_Localização da Red Hat Network"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "Localização do '_Proxy':"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Indique a informação da sua conta"
@@ -2762,12 +2757,10 @@ msgstr ""
 #~ "Descubra-o em http://www.redhat.com/wapps/sso/rhn/lostPassword.html</"
 #~ "small>"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Informação do Pacote"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "This assistant will guide you through the process of registering your "
@@ -2777,11 +2770,9 @@ msgstr ""
 #~ "Este assistente guiá-lo-á na ligação do seu sistema à Red Hat Network, "
 #~ "para obter as actualizações de 'software', como por exemplo:"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "• O seu utilizador da Red Hat Network ou do seu Satélite "
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "'Login' Red Hat"
 
@@ -2794,12 +2785,10 @@ msgstr ""
 #~ msgid "More Info"
 #~ msgstr "Informações de Hardware"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please review the subscription details below:"
 #~ msgstr "Reveja por favor os detalhes de inscrição abaixo:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Send us a profile of your current hardware and packages so we can "
@@ -2808,7 +2797,6 @@ msgstr ""
 #~ "Terá de nos enviar um perfil dos pacotes e 'hardware' instalado no seu "
 #~ "sistema, para que se possam determinar as actualizações disponíveis."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Registering your system with Red Hat allows you to take full advantage of "
@@ -2817,7 +2805,6 @@ msgstr ""
 #~ "A ligação do seu sistema à Red Hat Network permite-lhe tirar grandes "
 #~ "benefícios de uma subscrição paga, incluindo:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Download installation images for Red Hat Enterprise Linux releases, "
@@ -2826,7 +2813,6 @@ msgstr ""
 #~ "Transfira as imagens dos CDs de instalação das versões do Red Hat "
 #~ "Enterprise Linux, incluindo as versões novas."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Access to the technical support experts at Red Hat or Red Hat's partners "
@@ -2835,7 +2821,6 @@ msgstr ""
 #~ "O acesso aos peritos de suporte técnico da Red Hat e seus parceiros, para "
 #~ "obter a ajuda sobre alguns problemas que possa encontrar com este sistema."
 
-#, fuzzy
 #~ msgid ""
 #~ "A security certificate compatible with <b>%s</b> was not found on this "
 #~ "system.\n"
@@ -2851,13 +2836,11 @@ msgstr ""
 #~ "garantir que os dados comunicados entre este sistema e a Red Hat Network "
 #~ "(incluindo o seu utilizador e senha) estão seguros."
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr ""
 #~ "Tenho um <b>certificado de _SSL</b> para comunicar com a Red Hat Network:"
 
-#, fuzzy
 #~ msgid ""
 #~ "You won't be able to receive software updates, including security "
 #~ "updates, for this system.\n"
@@ -2880,7 +2863,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Gostaria de me ligar à Red Hat Network através de um 'proxy' de _HTTP."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Are you sure you don't want to register your system with Red Hat? You'll "
@@ -2889,7 +2871,6 @@ msgstr ""
 #~ "Tem a certeza que não deseja ligar o seu sistema à Red Hat Network? Irá "
 #~ "perder alguns dos benefícios de uma inscrição da Red Hat Enterprise Linux:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "You will not be able to take advantage of these benefits without "
@@ -2898,18 +2879,15 @@ msgstr ""
 #~ "Você não será capaz de tirar partido das vantagens destes privilégios de "
 #~ "inscrição sem ligar "
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "It appears this system has already been set up for software updates:"
 #~ msgstr ""
 #~ "O sistema já deve ter sido configurado para as actualizações de "
 #~ "'software':"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "<b>Localização da Red Hat Network:</b>"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Are you sure you would like to continue?"
 #~ msgstr "Tem a certeza que deseja continuar?"

@@ -27,7 +27,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2175,14 +2175,12 @@ msgstr ""
 #~ msgid "Subscription Activation"
 #~ msgstr "Up2date - Gweithredu"
 
-#, fuzzy
 #~ msgid "We could not contact Red Hat Network (%s)."
 #~ msgstr "Anfon Gwybodaeth Broffil at Rwydwaith Red Hat"
 
 #~ msgid "There was an error communicating with Red Hat Network."
 #~ msgstr "Bu gwall wrth gyfathrebu â'r gweinydd cofrestru:"
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter your account information for the <b>%s</b> Red Hat Network "
 #~ "Satellite:"
@@ -2263,7 +2261,6 @@ msgstr ""
 #~ msgid "Sending Profile to Red Hat Network"
 #~ msgstr "Anfon Gwybodaeth Broffil at Red Hat Network"
 
-#, fuzzy
 #~ msgid ""
 #~ "The installation number %s was activated during this system's initial "
 #~ "connection to Red Hat Network."
@@ -2285,7 +2282,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Hoffech chi geisio newid cyfluniad y rhwydwaith a rhoi cynnig arall arni?"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Gwneud eich tanysgrifiad yn weithredol"
@@ -2293,7 +2289,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Gwneud eich tanysgrifiad yn weithredol"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Mewngofnodiad Rhwydwaith Red Hat"
@@ -2301,12 +2296,10 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Mewngofnodiad Rhwydwaith Red Hat"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "Swydd:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Gwybodaeth Cyfrif"
@@ -2327,16 +2320,13 @@ msgstr ""
 #~ "fan hyn: http://www.redhat.com/software/rhn/\n"
 #~ " "
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Gwybodaeth Becynnau"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "Creu cyfrif Red Hat Network newydd"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Mewngofnod Red Hat"
 
@@ -2349,17 +2339,14 @@ msgstr ""
 #~ msgid "More Info"
 #~ msgstr "Gwybodaeth Caledwedd"
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr "Bu gwall wrth gyfathrebu â'r gweinydd cofrestru:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "It appears this system has already been set up for software updates:"
 #~ msgstr "Yn ailddechrau up2date"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "Mewngofnodiad Rhwydwaith Red Hat"
 

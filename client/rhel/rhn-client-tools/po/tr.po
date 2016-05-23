@@ -29,7 +29,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2180,14 +2180,12 @@ msgstr ""
 #~ msgid "Subscription Activation"
 #~ msgstr "Up2date - Yeni Hesap Oluşturma"
 
-#, fuzzy
 #~ msgid "We could not contact Red Hat Network (%s)."
 #~ msgstr "Profil Bilgisini Red Hat Ağına Gönder"
 
 #~ msgid "There was an error communicating with Red Hat Network."
 #~ msgstr "Kayıt sunucusu ile haberleşilirken bir hata oluştu:"
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter your account information for the <b>%s</b> Red Hat Network "
 #~ "Satellite:"
@@ -2260,7 +2258,6 @@ msgstr ""
 #~ msgid "Sending Profile to Red Hat Network"
 #~ msgstr "Profil Bilgisini Red Hat Ağına Gönder"
 
-#, fuzzy
 #~ msgid ""
 #~ "The installation number %s was activated during this system's initial "
 #~ "connection to Red Hat Network."
@@ -2278,7 +2275,6 @@ msgstr ""
 #~ msgid "There was a communication error with the server:"
 #~ msgstr "Sunucu ile haberleşilirken ölümcül bir hata oluştu:%s"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Açıklama"
@@ -2286,7 +2282,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Açıklama"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Red Hat Ağı Yapılandırması"
@@ -2294,26 +2289,21 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Red Hat Ağı Yapılandırması"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "Yer:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Hesap Bilgisi"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Paket Bilgileri"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "Up2date - Kayıt Bilgisi"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Red Hat Linux sürümü:"
 
@@ -2326,17 +2316,14 @@ msgstr ""
 #~ msgid "More Info"
 #~ msgstr "Up2date - Doanım Profili"
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr "Kayıt sunucusu ile haberleşilirken bir hata oluştu:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "It appears this system has already been set up for software updates:"
 #~ msgstr "Up2date yeniden başlatılıyor"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "Red Hat Ağı Yapılandırması"
 

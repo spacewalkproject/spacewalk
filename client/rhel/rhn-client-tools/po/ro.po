@@ -28,7 +28,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2143,14 +2143,12 @@ msgstr ""
 #~ msgid "Subscription Activation"
 #~ msgstr "Informaţii despre Pachet"
 
-#, fuzzy
 #~ msgid "We could not contact Red Hat Network (%s)."
 #~ msgstr "Configurare Red Hat Network"
 
 #~ msgid "There was an error communicating with Red Hat Network."
 #~ msgstr "Eroare fatală la comunicaţia cu serverul RHN:"
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter your account information for the <b>%s</b> Red Hat Network "
 #~ "Satellite:"
@@ -2180,7 +2178,6 @@ msgstr ""
 #~ msgid "Sending Profile to Red Hat Network"
 #~ msgstr "Configurare Red Hat Network"
 
-#, fuzzy
 #~ msgid ""
 #~ "The installation number %s was activated during this system's initial "
 #~ "connection to Red Hat Network."
@@ -2198,7 +2195,6 @@ msgstr ""
 #~ msgid "There was a communication error with the server:"
 #~ msgstr "Eroare fatală la comunicaţia cu serverul RHN:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Descriere"
@@ -2206,7 +2202,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Descriere"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Configurare Red Hat Network"
@@ -2214,21 +2209,17 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Configurare Red Hat Network"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Buletin de Informaţie"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Informaţii despre Pachet"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "arată versiunea programului"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Red Hat Update Agent"
 
@@ -2241,12 +2232,10 @@ msgstr ""
 #~ msgid "More Info"
 #~ msgstr "Se actualizează profilul acestui sistem pe RHN..."
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr "Eroare fatală la comunicaţia cu serverul RHN:"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "Configurare Red Hat Network"
 

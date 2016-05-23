@@ -31,7 +31,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2236,14 +2236,12 @@ msgstr ""
 #~ msgid "Subscription Activation"
 #~ msgstr "Up2date - Aktivoiminen"
 
-#, fuzzy
 #~ msgid "We could not contact Red Hat Network (%s)."
 #~ msgstr "Lähetä profiilin tiedot Red Hat Networkiin"
 
 #~ msgid "There was an error communicating with Red Hat Network."
 #~ msgstr "Virhe kommunikoitaessa rekisteröintipalvelimen kanssa:"
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter your account information for the <b>%s</b> Red Hat Network "
 #~ "Satellite:"
@@ -2324,7 +2322,6 @@ msgstr ""
 #~ msgid "Sending Profile to Red Hat Network"
 #~ msgstr "Lähetetään profiilia Red Hat Networkiin"
 
-#, fuzzy
 #~ msgid ""
 #~ "The installation number %s was activated during this system's initial "
 #~ "connection to Red Hat Network."
@@ -2345,7 +2342,6 @@ msgstr ""
 #~ msgid "Would you like to go back and try again?"
 #~ msgstr "Haluatko vaihtaa verkkoasetuksia, ja yrittää uudelleen?"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Aktivoi kirjautuminen"
@@ -2353,7 +2349,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Aktivoi kirjautuminen"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Red Hatin verkkokirjautuminen"
@@ -2361,12 +2356,10 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Red Hatin verkkokirjautuminen"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "Asema:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Tunnustiedot"
@@ -2387,16 +2380,13 @@ msgstr ""
 #~ "http://www.redhat.com/software/rhn/\n"
 #~ " "
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Pakettitiedot"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "Luo uusi Red Hat Network tili"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Red Hat Sisäänkirjautuminen"
 
@@ -2409,17 +2399,14 @@ msgstr ""
 #~ msgid "More Info"
 #~ msgstr "Laitteistotieto"
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr "Virhe kommunikoitaessa rekisteröintipalvelimen kanssa:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "It appears this system has already been set up for software updates:"
 #~ msgstr "Käynnistetään up2date päivitysohjelma uudelleen"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "Red Hatin verkkokirjautuminen"
 

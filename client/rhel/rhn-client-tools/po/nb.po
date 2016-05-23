@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2177,14 +2177,12 @@ msgstr ""
 #~ msgid "Subscription Activation"
 #~ msgstr "Up2date - Aktivering"
 
-#, fuzzy
 #~ msgid "We could not contact Red Hat Network (%s)."
 #~ msgstr "Send systemprofilen til Red Hat Network"
 
 #~ msgid "There was an error communicating with Red Hat Network."
 #~ msgstr "Det oppstod en feil under kommunikasjon med registreringstjeneren:"
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter your account information for the <b>%s</b> Red Hat Network "
 #~ "Satellite:"
@@ -2259,7 +2257,6 @@ msgstr ""
 #~ msgid "Sending Profile to Red Hat Network"
 #~ msgstr "Sender profilen til Red Hat Network"
 
-#, fuzzy
 #~ msgid ""
 #~ "The installation number %s was activated during this system's initial "
 #~ "connection to Red Hat Network."
@@ -2277,7 +2274,6 @@ msgstr ""
 #~ msgid "There was a communication error with the server:"
 #~ msgstr "Det oppstod en feil under kommunikasjon med tjeneren: %s"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Aktiver ditt abonnement"
@@ -2285,7 +2281,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Aktiver ditt abonnement"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Brukernavn for Red Hat Network"
@@ -2293,26 +2288,21 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Brukernavn for Red Hat Network"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "Yrke:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Pakkeinformasjon"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Pakkeinformasjon"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "Lag en ny konto for Red Hat Network"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Red Hat innlogging"
 
@@ -2325,17 +2315,14 @@ msgstr ""
 #~ msgid "More Info"
 #~ msgstr "Maskinvareinformasjon"
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr "Det oppstod en feil under kommunikasjon med registreringstjeneren:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "It appears this system has already been set up for software updates:"
 #~ msgstr "Starter up2date på nytt"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "Brukernavn for Red Hat Network"
 

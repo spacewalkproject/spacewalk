@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2717,7 +2717,6 @@ msgstr ""
 #~ "registracijskom alatu možete pristupiti pokretanjem <b>Ažuriranja "
 #~ "softvera</b> na izborniku <b>Aplikacije > Alati sustava</b>."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "I'd like to register with:"
 #~ msgstr "_Da, želim se odmah registrirati."
@@ -2725,7 +2724,6 @@ msgstr ""
 #~ msgid "I'd like to register with:"
 #~ msgstr "_Da, želim se odmah registrirati."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Red Hat izjava o privatnosti"
@@ -2733,7 +2731,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Red Hat izjava o privatnosti"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "_Lokacija Red Hat Mreže:"
@@ -2741,12 +2738,10 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "_Lokacija Red Hat Mreže:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "Lokacija _proxyja:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Unesite podatke o vašem nalogu"
@@ -2767,12 +2762,10 @@ msgstr ""
 #~ "adrese:\n"
 #~ "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Podaci o paketu"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "This assistant will guide you through the process of registering your "
@@ -2782,12 +2775,10 @@ msgstr ""
 #~ "Ovaj će vas pomoćnik voditi kroz postupak povezivanja vašeg sustava s Red "
 #~ "Hat mrežom (RHN) radi primanja ažuriranja softvera, kao što su:"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr ""
 #~ "• Vaše korisničko ime pri Red Hat Mreži ili Red Hat Mrežnom Satelitu"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Red Hat prijava"
 
@@ -2800,12 +2791,10 @@ msgstr ""
 #~ msgid "More Info"
 #~ msgstr "Hardverski podaci"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please review the subscription details below:"
 #~ msgstr "Pregledajte sljedeće detalje o pretplati:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Send us a profile of your current hardware and packages so we can "
@@ -2815,7 +2804,6 @@ msgstr ""
 #~ "poslati profil s podacima o paketima i hardveru instaliranom na vašem "
 #~ "sustavu."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Registering your system with Red Hat allows you to take full advantage of "
@@ -2824,7 +2812,6 @@ msgstr ""
 #~ "Povezivanje vašeg sustava na Red Hat mrežu omogućuje vam stjecanje svih "
 #~ "prednosti plaćene pretplate, poput:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Download installation images for Red Hat Enterprise Linux releases, "
@@ -2833,7 +2820,6 @@ msgstr ""
 #~ "Preuzmite instalacijske preslike izdanja Red Hat Enterprise Linuxa, "
 #~ "uključujući i najnovija izdanja."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Access to the technical support experts at Red Hat or Red Hat's partners "
@@ -2843,7 +2829,6 @@ msgstr ""
 #~ "partnerima i zatražite pomoć u vezi bilo kojeg problema s kojim biste se "
 #~ "mogli suočiti na ovom sustavu"
 
-#, fuzzy
 #~ msgid ""
 #~ "A security certificate compatible with <b>%s</b> was not found on this "
 #~ "system.\n"
@@ -2859,12 +2844,10 @@ msgstr ""
 #~ "osiguravanje podataka koji se razmjenjuju između ovog sustava i Red Hat "
 #~ "Mreže, uključujući i podatke iz vaše prijave i lozinke."
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr "Imam <b>_SSL potvrdu</b> za komuniciranje s Red Hat Mrežom:"
 
-#, fuzzy
 #~ msgid ""
 #~ "You won't be able to receive software updates, including security "
 #~ "updates, for this system.\n"
@@ -2887,7 +2870,6 @@ msgstr ""
 #~ msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 #~ msgstr "Želio bih se povezati na Red Hat Mrežu putem _HTTP proxyja."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Are you sure you don't want to register your system with Red Hat? You'll "
@@ -2896,7 +2878,6 @@ msgstr ""
 #~ "Jeste li sigurni da svoj sustav ne želite povezani na Red Hat Mrežu? "
 #~ "Propustit ćete sve prednosti Red Hat Enterprise Linux pretplate:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "You will not be able to take advantage of these benefits without "
@@ -2905,16 +2886,13 @@ msgstr ""
 #~ "Ovaj sustav <b>neće</b> imati mogućnost uspješnog primanja ažuriranja "
 #~ "softvera od Red Hata bez povezivanja s poslužiteljem Red Hat Mreže."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "It appears this system has already been set up for software updates:"
 #~ msgstr "Izgleda da je sustav već podešen za ažuriranja softvera:"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "<b>Lokacija Red Hat Mreže:</b>"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Are you sure you would like to continue?"
 #~ msgstr "Jeste li sigurni da želite nastaviti?"

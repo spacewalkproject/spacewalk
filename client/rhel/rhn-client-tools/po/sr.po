@@ -23,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2165,14 +2165,12 @@ msgstr ""
 #~ msgid "Subscription Activation"
 #~ msgstr "Up2date - Активација"
 
-#, fuzzy
 #~ msgid "We could not contact Red Hat Network (%s)."
 #~ msgstr "Пошаљи податке о профилу на Red Hat Network"
 
 #~ msgid "There was an error communicating with Red Hat Network."
 #~ msgstr "Јавила се грешка у повезивању са сервером за регистрацију:"
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter your account information for the <b>%s</b> Red Hat Network "
 #~ "Satellite:"
@@ -2253,7 +2251,6 @@ msgstr ""
 #~ msgid "Sending Profile to Red Hat Network"
 #~ msgstr "Слање профила на Red Hat Network"
 
-#, fuzzy
 #~ msgid ""
 #~ "The installation number %s was activated during this system's initial "
 #~ "connection to Red Hat Network."
@@ -2274,7 +2271,6 @@ msgstr ""
 #~ msgid "Would you like to go back and try again?"
 #~ msgstr "Желите ли поново да покушате уз измењена подешавања мреже?"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Активирајте пријаву"
@@ -2282,7 +2278,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Активирајте пријаву"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Пријава на Red Hat Network"
@@ -2290,12 +2285,10 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Пријава на Red Hat Network"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "Радно место:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Подаци о пакету"
@@ -2316,16 +2309,13 @@ msgstr ""
 #~ "http://www.redhat.com/software/rhn/\n"
 #~ " "
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Подаци о пакету"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "Стварање новог Red Hat Network налога"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Пријава за Red Hat"
 
@@ -2338,17 +2328,14 @@ msgstr ""
 #~ msgid "More Info"
 #~ msgstr "Подаци о хардверу"
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr "Јавила се грешка у повезивању са сервером за регистрацију:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "It appears this system has already been set up for software updates:"
 #~ msgstr "Поновно покретање up2date"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "Пријава на Red Hat Network"
 

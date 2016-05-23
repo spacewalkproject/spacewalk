@@ -7,6 +7,7 @@
 # Maxim Dziumanenko <dziumanenko@gmail.com>, 2003.
 # Yuri Chornoivan <yurchor@ukr.net>, 2012.
 # Yuri Chornoivan <yurchor@ukr.net>, 2015. #zanata
+# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../server/rhnPackage.py:45 ../server/rhnPackage.py:80
 #: ../server/rhnPackage.py:99 ../server/rhnPackage.py:181
@@ -79,7 +80,7 @@ msgstr "Некоректна адреса %s"
 #: ../server/rhnServer/server_token.py:80
 #, python-format
 msgid "Token `%s' has more than one base channel assigned"
-msgstr ""
+msgstr "Із ключем «%s» пов’язано декілька базових каналів"
 
 #: ../server/rhnServer/server_token.py:82
 msgid "Conflicting base channels"
@@ -107,6 +108,8 @@ msgid ""
 "Stacking of re-registration tokens with different base entitlements is not "
 "supported"
 msgstr ""
+"Підтримки стосування повторних реєстраційних ключів із різними базовими "
+"прив’язками не передбачено"
 
 #: ../server/rhnServer/server_token.py:839
 #, python-format
@@ -211,6 +214,8 @@ msgid ""
 "Your account does not have access to any channels matching "
 "(release='%(release)s', arch='%(arch)s')%(www_activation)s"
 msgstr ""
+"Ваш обліковий запис не має доступу до жодного із відповідних каналів "
+"(випуск=«%(release)s», архітектура=«%(arch)s»)%(www_activation)s"
 
 #: ../server/rhnChannel.py:1717
 msgid ""
@@ -219,6 +224,10 @@ msgid ""
 "www.redhat.com/apps/activate/ and then try again.\n"
 "\n"
 msgstr ""
+"\n"
+"Якщо у вас є реєстраційний номер, будь ласка, спершу зареєструйте його на "
+"http://www.redhat.com/apps/activate/, а потім повторіть спробу.\n"
+"\n"
 
 #: ../server/rhnChannel.py:1727
 #, python-format
@@ -247,6 +256,15 @@ msgid ""
 "\n"
 "...to activate your product."
 msgstr ""
+"\n"
+"Некоректна комбінація архітектури і випуску операційної системи (%s, %s).\n"
+"Вашу систему зареєстровано, але вона не отримуватиме оновлень, оскільки\n"
+"її не підписано на канал. Якщо ви ще не активували ваш продукт\n"
+"для обслуговування, будь ласка, відвідайте наш сайт за адресою:\n"
+"  \n"
+"     http://www.redhat.com/apps/activate/\n"
+"\n"
+"...щоб активувати ваш продукт."
 
 #: ../server/rhnChannel.py:1986
 #, python-format
@@ -257,6 +275,12 @@ msgid ""
 "because it could not be subscribed to a base channel.\n"
 "Please contact your organization administrator for assistance.\n"
 msgstr ""
+"\n"
+"Некоректна комбінація архітектури і випуску операційної системи (%s, %s).\n"
+"Вашу систему зареєстровано, але вона не отримуватиме оновлень, оскільки\n"
+"її не вдалося підписати на базовий канал.\n"
+"Будь ласка, зв’яжіться із адміністратором вашої організації, щоб\n"
+"отримати допомогу."
 
 #: ../server/rhnChannel.py:1993
 #, python-format
@@ -267,6 +291,12 @@ msgid ""
 "\n"
 "  %(entitlement_url)s\n"
 msgstr ""
+"\n"
+"  Цю систему успішно зареєстровано, але її ще не допущено до\n"
+"  обслуговування. Щоб допустити цю систему до обслуговування, увійдіть до "
+"системи на цьому сайті:\n"
+"\n"
+"  %(entitlement_url)s\n"
 
 #: ../server/rhnChannel.py:2001
 #, python-format
@@ -278,6 +308,13 @@ msgid ""
 "\n"
 "  %(entitlement_url)s\n"
 msgstr ""
+"\n"
+"  Цю систему успішно зареєстровано, але не виявлено допусків до "
+"обслуговування.\n"
+"  Щоб допустити цю систему до обслуговування, увійдіть до системи на цьому "
+"сайті:\n"
+"\n"
+"  %(entitlement_url)s\n"
 
 #: ../server/rhnChannel.py:2009
 msgid ""
@@ -286,6 +323,9 @@ msgid ""
 "subscriptions\n"
 "  were exhausted\n"
 msgstr ""
+"\n"
+"  Цю систему було успішно зареєстровано, але вичерпано можливості\n"
+"  передплати на канал\n"
 
 #: ../server/rhnHandler.py:61
 msgid "Please run rhn_register as root on this client"
@@ -343,6 +383,10 @@ msgid ""
 "                   %s Account has been deactivated on this server.\n"
 "                   Please contact your Org administrator for more help."
 msgstr ""
+"\n"
+"                   На цьому сервері вимкнено обліковий запис %s.\n"
+"                   Щоб дізнатися більше, будь ласка, зверніться до "
+"адміністратора вашої організації."
 
 #: ../server/handlers/xmlrpc/registration.py:819
 msgid "Invalid system release version requested"
@@ -424,11 +468,13 @@ msgstr "Некоректний параметр пакунка %s (%s)"
 #: ../server/importlib/userAuth.py:108 ../server/importlib/userAuth.py:112
 msgid "You are not authorized to manage packages in the null org"
 msgstr ""
+"У вас немає уповноважень на керування пакунками у організації із порожньою "
+"назвою"
 
 #: ../server/importlib/userAuth.py:119
 #, python-format
 msgid "You are not allowed to manage packages in the %s org"
-msgstr ""
+msgstr "У вас немає прав на керування пакунками у організації %s"
 
 #: ../server/importlib/userAuth.py:137
 msgid "You are not allowed to perform administrative tasks"
@@ -438,7 +484,7 @@ msgstr "Ви не маєте права виконувати завдання з
 #, python-format
 msgid ""
 "You are not allowed to manage channel %s, or that channel does not exist"
-msgstr ""
+msgstr "У вас немає права керувати каналом %s або цього каналу не існує"
 
 #: ../common/rhnTB.py:199
 #, python-format
@@ -452,7 +498,7 @@ msgstr "ТРАСУВАННЯ: %s"
 
 #: ../common/rhnException.py:42
 msgid "Outage mode"
-msgstr ""
+msgstr "Режим відсутності"
 
 #. 0-999: RHN client/client-like interaction errors:
 #: ../common/rhnException.py:44
@@ -560,6 +606,7 @@ msgstr "Не вдалося виконати дію LDAP."
 #: ../common/rhnException.py:69
 msgid "Backend RPM database failure: can not retrieve requested information."
 msgstr ""
+"Помилка бази даних модуля обробки RPM: не вдалося отримати потрібні дані."
 
 #: ../common/rhnException.py:71
 msgid "Server Entry is busy."
@@ -614,7 +661,7 @@ msgstr "Строк дії ключа сеансу клієнта вичерпа�
 
 #: ../common/rhnException.py:92
 msgid "You are not authorized to retrieve the requested object."
-msgstr ""
+msgstr "У вас немає прав для отримання запитаного об’єкта."
 
 #: ../common/rhnException.py:93
 msgid "Invalid action"
@@ -622,27 +669,27 @@ msgstr "Некоректна дія"
 
 #: ../common/rhnException.py:94
 msgid "You are not allowed to perform administrative tasks on this system."
-msgstr ""
+msgstr "Ви не маєте права виконувати завдання з адміністрування у цій системі."
 
 #: ../common/rhnException.py:96
 msgid "The system is already subscribed to the specified channel."
-msgstr ""
+msgstr "Систему вже підписано на вказаний канал."
 
 #: ../common/rhnException.py:97
 msgid "The system is not currently subscribed to the specified channel."
-msgstr ""
+msgstr "Систему зараз не підписано на вказаний канал."
 
 #: ../common/rhnException.py:98
 msgid "The specified channel does not exist."
-msgstr ""
+msgstr "Вказаного каналу не існує."
 
 #: ../common/rhnException.py:99
 msgid "Invalid channel version."
-msgstr ""
+msgstr "Некоректна версія каналу."
 
 #: ../common/rhnException.py:100
 msgid "Invalid ORG_ID requested"
-msgstr ""
+msgstr "Надіслано запит на некоректний ORG_ID"
 
 #: ../common/rhnException.py:101
 msgid ""
@@ -680,6 +727,11 @@ msgid ""
 "     The architecture of the package is not supported by Red Hat Network\n"
 "     "
 msgstr ""
+"\n"
+"     Некоректна архітектура.\n"
+"\n"
+"     Підтримки архітектури пакунка не передбачено у Red Hat Network\n"
+"     "
 
 #: ../common/rhnException.py:122
 msgid ""
@@ -690,10 +742,16 @@ msgid ""
 "     compatible with the channel architecture.\n"
 "     "
 msgstr ""
+"\n"
+"     Несумісні архітектури.\n"
+"\n"
+"     Архітектура пакунка, який ви намагаєтеся вивантажити, є\n"
+"     несумісною із архітектурою каналу.\n"
+"     "
 
 #: ../common/rhnException.py:128
 msgid "Invalid RPM header"
-msgstr ""
+msgstr "Некоректний заголовок RPM"
 
 #: ../common/rhnException.py:129
 msgid ""
@@ -703,6 +761,11 @@ msgid ""
 "     The channel you have specified does not exist.\n"
 "     "
 msgstr ""
+"\n"
+"     Некоректний канал.\n"
+"\n"
+"     Каналу, який ви вказали, не існує.\n"
+"     "
 
 #: ../common/rhnException.py:134
 #, python-format
@@ -727,7 +790,7 @@ msgstr ""
 #. For the uploading tools
 #: ../common/rhnException.py:150
 msgid "Invalid information uploaded to the server"
-msgstr ""
+msgstr "На сервер вивантажено некоректні дані"
 
 #: ../common/rhnException.py:151
 #, python-format
@@ -751,10 +814,17 @@ msgid ""
 "     more information.\n"
 "     "
 msgstr ""
+"\n"
+"     Доступ до Red Hat Network зараз обмежено користувачами передплати.\n"
+"     Будь ласка, повторіть спробу пізніше. Якщо ви хочете стати "
+"користувачем\n"
+"     передплати, ознайомтеся із відомостями, які викладено у\n"
+"     https://%(hostname)s/preview/priority_service.pxt\n"
+"     "
 
 #: ../common/rhnException.py:163
 msgid "Error uploading network interfaces configuration."
-msgstr ""
+msgstr "Помилка під час спроби вивантажити налаштування інтерфейсів мережі."
 
 #: ../common/rhnException.py:164
 msgid ""
@@ -772,6 +842,11 @@ msgid ""
 "     Please contact your Satellite administrator for more help.\n"
 "     "
 msgstr ""
+"\n"
+"     На цьому сервері вимкнено можливість використання --force rhnpush. \n"
+"     Будь ласка, зв’яжіться із вашим адміністратором Satellite, щоб отримати "
+"додаткові відомості.\n"
+"     "
 
 #. 60-70: token errors
 #: ../common/rhnException.py:175
@@ -781,18 +856,23 @@ msgid ""
 "     Please retry with a valid key.\n"
 "     "
 msgstr ""
+"\n"
+"     Не вдалося знайти вказаний ключ активації на сервері.\n"
+"     Будь ласка, повторіть спробу із коректним ключем.\n"
+"     "
 
 #: ../common/rhnException.py:179
 msgid "Too many systems registered using this registration token"
 msgstr ""
+"За допомогою цього реєстраційного ключа зареєстровано надто багато систем"
 
 #: ../common/rhnException.py:180
 msgid "Token contains invalid, obsoleted or insufficient settings"
-msgstr ""
+msgstr "У ключі містяться некоректні, застарілі або недостатні параметри"
 
 #: ../common/rhnException.py:181
 msgid "Conflicting activation tokens"
-msgstr ""
+msgstr "Конфлікт ключів активації"
 
 #. 70-80: channel subscription errors
 #: ../common/rhnException.py:184
@@ -803,6 +883,10 @@ msgid ""
 "     Please contact a Red Hat Network Sales associate.\n"
 "     "
 msgstr ""
+"\n"
+"     Усі доступні передплати на запитаний канал вичерпано.\n"
+"     Будь ласка, зв’яжіться зі співробітниками Red Hat Network Sales.\n"
+"     "
 
 #: ../common/rhnException.py:188
 msgid ""
@@ -812,38 +896,45 @@ msgid ""
 "     administrators for further details.\n"
 "     "
 msgstr ""
+"\n"
+"     У вас немає права підписуватися на вказаний канал.\n"
+"     Будь ласка, зверніться до опису каналу вашої організації або\n"
+"     до адміністраторів організації, щоб дізнатися більше.\n"
+"     "
 
 #: ../common/rhnException.py:193
 msgid "You can not unsubscribe from base channel."
-msgstr ""
+msgstr "Не можна відписатися від базового каналу."
 
 #. 80-90: server group errors
 #: ../common/rhnException.py:196
 msgid "There was an error while trying to join the system to its groups"
-msgstr ""
+msgstr "Під час спроби долучити систему до її груп сталася помилка"
 
 #. 90-100: entitlement errors
 #: ../common/rhnException.py:199
 msgid "Unable to entitle system"
-msgstr ""
+msgstr "Не вдалося прив’язати систему"
 
 #: ../common/rhnException.py:200
 msgid ""
 "Registration token unable to entitle system: maximum membership exceeded"
 msgstr ""
+"Не вдалося прив’язати систему реєстраційним ключем: перевищено максимальну "
+"кількість прив’язок"
 
 #. 100-109: e-mail and uuid related faults
 #: ../common/rhnException.py:204
 msgid "Maximum e-mail length violation."
-msgstr ""
+msgstr "Перевищення обмеження на максимальний розмір поштового повідомлення."
 
 #: ../common/rhnException.py:205
 msgid "Changing e-mail address is not supported."
-msgstr ""
+msgstr "Підтримки зміни адреси електронної пошти не передбачено."
 
 #: ../common/rhnException.py:206
 msgid "This system has been previously registered."
-msgstr ""
+msgstr "Цю систему вже було зареєстровано."
 
 #: ../common/rhnException.py:207
 msgid "Invalid username"
@@ -852,47 +943,48 @@ msgstr "Некоректне ім’я користувача"
 #. 110-129: disabled org errors
 #: ../common/rhnException.py:210
 msgid "Service for your account has been disabled."
-msgstr ""
+msgstr "Обслуговування вашого облікового запису припинено."
 
 #: ../common/rhnException.py:211
 msgid "Email address not validated; service disabled"
 msgstr ""
+"Адреса електронної пошти не пройшла перевірку; обслуговування припинено"
 
 #: ../common/rhnException.py:212
 msgid "Survey not filled out; service disabled"
-msgstr ""
+msgstr "Не заповнено оглядову анкету; обслуговування припинено"
 
 #. 130-140: bugzilla errata import errors
 #: ../common/rhnException.py:215
 msgid "Bugzilla erratum import error"
-msgstr ""
+msgstr "Помилка під час спроби імпортування помилок із Bugzilla"
 
 #. 140-159 applet errors
 #: ../common/rhnException.py:218
 msgid "Unable to look up server"
-msgstr ""
+msgstr "Не вдалося знайти сервер"
 
 #. 160-179: OSAD errors
 #: ../common/rhnException.py:221
 msgid "Required argument is missing"
-msgstr ""
+msgstr "Пропущено обов’язковий аргумент"
 
 #. 500-599: Package Uploader errors
 #: ../common/rhnException.py:224
 msgid "Missing HTTP header information"
-msgstr ""
+msgstr "Не вистачає даних заголовка HTTP"
 
 #: ../common/rhnException.py:225
 msgid "The package's checksum signature does not match the header one"
-msgstr ""
+msgstr "Підпис пакунка контрольною сумою не збігається із вказаним у заголовку"
 
 #: ../common/rhnException.py:226
 msgid "Header information does not match package metainformation"
-msgstr ""
+msgstr "Дані із заголовка не збігаються із метаінформацією пакунка"
 
 #: ../common/rhnException.py:227
 msgid "Package with a different signature already uploaded"
-msgstr ""
+msgstr "Пакунок із іншим підписом уже вивантажено"
 
 #: ../common/rhnException.py:228
 msgid "Not an RPM package"
@@ -900,15 +992,15 @@ msgstr "Не є пакунком RPM"
 
 #: ../common/rhnException.py:229
 msgid "Unsigned RPM package"
-msgstr ""
+msgstr "Непідписаний пакунок RPM"
 
 #: ../common/rhnException.py:230
 msgid "Incompatible package and channel architectures"
-msgstr ""
+msgstr "Несумісність архітектур пакунка і каналу"
 
 #: ../common/rhnException.py:231
 msgid "Incompatible checksum type"
-msgstr ""
+msgstr "Несумісний тип контрольної суми"
 
 #. 600-699: RHEL5+ EN errors
 #: ../common/rhnException.py:234
@@ -921,7 +1013,7 @@ msgstr "З обладнанням не пов’язано реєстрацій�
 
 #: ../common/rhnException.py:236
 msgid "Installation number is not entitling"
-msgstr ""
+msgstr "Кількість встановлень не допускає до обслуговування"
 
 #. 700-799: Additional user input verification errors.
 #: ../common/rhnException.py:239
@@ -960,11 +1052,11 @@ msgstr ""
 
 #: ../common/rhnException.py:256
 msgid "RHN Proxy session token is invalid."
-msgstr ""
+msgstr "Некоректний ключ сеансу RHN Proxy."
 
 #: ../common/rhnException.py:257
 msgid "RHN Proxy session token has expired."
-msgstr ""
+msgstr "Строк дії ключа сеансу RHN Proxy вичерпано."
 
 #. 2000-2999: RHN Satellite specific errors:
 #: ../common/rhnException.py:261
@@ -974,6 +1066,12 @@ msgid ""
 "     please contact your sysadmin to have your account created.\n"
 "     "
 msgstr ""
+"\n"
+"     Створення записів користувачів RHN Satellite за допомогою rhn_register "
+"заборонено;\n"
+"     будь ласка, зв’яжіться із вашим системним адміністратором для створення "
+"вашого облікового запису.\n"
+"     "
 
 #: ../common/rhnException.py:265
 msgid ""
@@ -992,6 +1090,9 @@ msgid ""
 "     This satellite server is not allowed to access the specified channel\n"
 "     "
 msgstr ""
+"\n"
+"     Цьому серверу satellite заборонено доступ до вказаного каналу\n"
+"     "
 
 #: ../common/rhnException.py:275
 msgid ""
@@ -1000,6 +1101,10 @@ msgid ""
 "this satellite\n"
 "     "
 msgstr ""
+"\n"
+"     Цьому серверу satellite заборонено використання синхронізації Inter "
+"Satellite на цьому satellite\n"
+"     "
 
 #: ../common/rhnException.py:278
 msgid ""
@@ -1007,6 +1112,9 @@ msgid ""
 "     Inter Satellite Sync is disabled on this satellite.\n"
 "     "
 msgstr ""
+"\n"
+"     Синхронізацію Inter Satellite вимкнено на цьому satellite.\n"
+"     "
 
 #. Kickstart errors
 #: ../common/rhnException.py:283
@@ -1024,6 +1132,10 @@ msgid ""
 "     missing in the channel\n"
 "     "
 msgstr ""
+"\n"
+"     Ієрархія Kickstart не пройшла перевірки: виявлено\n"
+"     пакунки, яких немає на каналі\n"
+"     "
 
 #. 3000-3999: XML dumper errors:
 #: ../common/rhnException.py:291
@@ -1052,7 +1164,7 @@ msgstr "Не вдалося отримати список помилок"
 
 #: ../common/rhnException.py:297
 msgid "Invalid satellite certificate"
-msgstr ""
+msgstr "Некоректний сертифікат satellite"
 
 #: ../common/rhnException.py:298
 msgid "File is missing"
@@ -1162,7 +1274,7 @@ msgstr "Не можна порівнювати файли різних типі�
 #. 5000 - 5099: entitlement mapper errors
 #: ../common/rhnException.py:328
 msgid "The speicified item is not present in the input"
-msgstr ""
+msgstr "Вказаного запису немає у вхідних даних"
 
 #: ../common/rhnException.py:329
 msgid "Invalid item code"

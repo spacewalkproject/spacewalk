@@ -29,7 +29,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2155,7 +2155,6 @@ msgstr ""
 msgid "Register to Spacewalk/Red Hat Satellite/Red Hat Network Classic."
 msgstr ""
 
-#, fuzzy
 #~ msgid "Software updates setup unsuccessful"
 #~ msgstr "انتهى التّسجيل"
 
@@ -2168,19 +2167,15 @@ msgstr ""
 #~ msgid "Question dialog:"
 #~ msgstr "حوار سؤال:"
 
-#, fuzzy
 #~ msgid "Attempting to contact the Red Hat Network server."
 #~ msgstr "اختر خادم شبكة ردهات لاستخدامه"
 
-#, fuzzy
 #~ msgid "Registering for software updates"
 #~ msgstr "إعادة تشغيل up2date"
 
-#, fuzzy
 #~ msgid "Enter you account information"
 #~ msgstr "معلومات الحزمة"
 
-#, fuzzy
 #~ msgid "Create your system profile - Hardware"
 #~ msgstr "وصل نظامك"
 
@@ -2192,22 +2187,18 @@ msgstr ""
 #~ "اسم السّجلّ الشّخصيّ هو اسم تختاره لتعريف سجلّ النّظام الشّخصي هذا على صفحات "
 #~ "شبكة ردهات. اختيارياً، حدد رقم الحاسوب التّسلسلي أو رقم الهويّة."
 
-#, fuzzy
 #~ msgid "Create your system profile - Packages"
 #~ msgstr "وصل نظامك"
 
-#, fuzzy
 #~ msgid "You may deselect individua\tl packages by unchecking them below."
 #~ msgstr "يمكن إزالة تحديد الحزم فرديّاً أدناه."
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter your login information for Red Hat Network (http://rhn."
 #~ "redhat.com/):\n"
 #~ "\n"
 #~ msgstr "https://rhn.redhat.com"
 
-#, fuzzy
 #~ msgid ""
 #~ "Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/"
 #~ "sales/LoginInfo.do"
@@ -2216,14 +2207,12 @@ msgstr ""
 #~ "هذه البيانات من http://www.redhat.com/software/rhn/\n"
 #~ " "
 
-#, fuzzy
 #~ msgid "System already registered"
 #~ msgstr "    --force                    - سجّل النّظام حتّى إن تم تسجيله مسبقاً"
 
 #~ msgid "Send Profile Information to Red Hat Network"
 #~ msgstr "أرسل السجلّ الشّخصيّ إلى شبكة ردهات"
 
-#, fuzzy
 #~ msgid ""
 #~ "We are finished collecting information for the System Profile.\n"
 #~ "\n"
@@ -2240,29 +2229,23 @@ msgstr ""
 #~ msgid "Sending Profile to Red Hat Network"
 #~ msgstr "جاري إرسال السجلّ الشّخصيّ إلى شبكة ردهات"
 
-#, fuzzy
 #~ msgid ""
 #~ "The installation number %s was activated during this system's initial "
 #~ "connection to Red Hat Network."
 #~ msgstr "جاري الاتصال بشبكة ردهات"
 
-#, fuzzy
 #~ msgid "Software channel subscriptions:"
 #~ msgstr "بيانات القناة"
 
-#, fuzzy
 #~ msgid "Subscription Activation"
 #~ msgstr "Up2date - تفعيل"
 
-#, fuzzy
 #~ msgid "We could not contact Red Hat Network (%s)."
 #~ msgstr "أرسل السجلّ الشّخصيّ إلى شبكة ردهات"
 
-#, fuzzy
 #~ msgid "There was an error communicating with Red Hat Network."
 #~ msgstr "كان هناك خطأ في الاتّصال مع خادم التّسجيل:\n"
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter your account information for the <b>%s</b> Red Hat Network "
 #~ "Satellite:"
@@ -2277,11 +2260,9 @@ msgstr ""
 #~ msgid "Problem registering personal information"
 #~ msgstr "خطأ في تسجيل المعلومات الشّخصيّة"
 
-#, fuzzy
 #~ msgid "Warning: unable to run rhn_check"
 #~ msgstr "تحذير: لم يمكن تمكين rhnsd باستخدام chkconfig"
 
-#, fuzzy
 #~ msgid "Red Hat Network Location:"
 #~ msgstr "اسم المشترك لدى شبكة ردهات"
 
@@ -2297,38 +2278,30 @@ msgstr ""
 #~ msgid "Red Hat Login"
 #~ msgstr "اسم المسخدم لدى ردهات:"
 
-#, fuzzy
 #~ msgid "There was a communication error with the server:"
 #~ msgstr "حدث خطأ في الاتصال بالخادم: %s"
 
-#, fuzzy
 #~ msgid "Would you like to go back and try again?"
 #~ msgstr "هل ترغب في محاولة تغيير إعدادات الشبكة والمحاولة مرّة أخرى؟"
 
-#, fuzzy
 #~ msgid "Create your system profile"
 #~ msgstr "وصل نظامك"
 
-#, fuzzy
 #~ msgid "Enter your account information"
 #~ msgstr "معلومات الحزمة"
 
 #~ msgid "Progress Dialog"
 #~ msgstr "مربّع حوار التقدّم"
 
-#, fuzzy
 #~ msgid "<b>Compliance:</b>"
 #~ msgstr "الشركة:"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "اسم المشترك لدى شبكة ردهات"
 
-#, fuzzy
 #~ msgid "<small><b>Example:</b> https://satellite.example.com</small>"
 #~ msgstr "مثال: XXXX-XXXX-XXXX-XXXX )الشرطات ليست إلزامية("
 
-#, fuzzy
 #~ msgid ""
 #~ "<small>Tip: Forgot your login or password? Look it up at \n"
 #~ "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
@@ -2337,62 +2310,48 @@ msgstr ""
 #~ "هذه البيانات من http://www.redhat.com/software/rhn/\n"
 #~ " "
 
-#, fuzzy
 #~ msgid "Advanced Network Configuration"
 #~ msgstr "إعداد شبكة ردهات"
 
-#, fuzzy
 #~ msgid "Advanced Network Configuration button"
 #~ msgstr "إعداد شبكة ردهات"
 
-#, fuzzy
 #~ msgid "Advanced _Network Configuration ..."
 #~ msgstr "إعداد شبكة ردهات"
 
-#, fuzzy
 #~ msgid "Choose Channel"
 #~ msgstr "القناة"
 
-#, fuzzy
 #~ msgid "Enter Your Account Information"
 #~ msgstr "معلومات الحزمة"
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr "كان هناك خطأ في الاتّصال مع خادم التّسجيل:\n"
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter your account information for <b>Red Hat Network</b> (http://"
 #~ "rhn.redhat.com/)"
 #~ msgstr "https://rhn.redhat.com"
 
-#, fuzzy
 #~ msgid "Red Hat Network _Location:"
 #~ msgstr "اسم المشترك لدى شبكة ردهات"
 
-#, fuzzy
 #~ msgid "_Take me back to the registration"
 #~ msgstr "Up2date - لائحة الحزم (التّسجيل)"
 
-#, fuzzy
 #~ msgid "_Take me back to the setup process."
 #~ msgstr "Up2date - لائحة الحزم (التّسجيل)"
 
-#, fuzzy
 #~ msgid "_Why Should I Connect to RHN? ..."
 #~ msgstr "ما فائدة الاشتراك؟"
 
-#, fuzzy
 #~ msgid "• A name for your system's Red Hat Network profile"
 #~ msgstr "جاري الاتصال بشبكة ردهات"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "أنشئ حساباً لدى شبكة ردهات"
 
-#, fuzzy
 #~ msgid "Register to Spacewalk/Satellite/Red Hat Network."
 #~ msgstr "سجّل نفسك في شبكة ردهات"
 
@@ -2436,84 +2395,64 @@ msgstr ""
 #~ msgid "Package %s has a unknown GPG signature.\n"
 #~ msgstr "الحزمة %s تحتوي على توقيع GPG مجهول.\n"
 
-#, fuzzy
 #~ msgid "yes|CPU Model:"
 #~ msgstr "طراز وحدة المعالجة المركزية:"
 
-#, fuzzy
 #~ msgid "yes|CPU Speed:"
 #~ msgstr "سرعة وحدة المعالجة المركزية:"
 
-#, fuzzy
 #~ msgid "yes|Hostname:"
 #~ msgstr "اسم المضيف:"
 
-#, fuzzy
 #~ msgid "yes|IP Address:"
 #~ msgstr "عنوان IP:"
 
-#, fuzzy
 #~ msgid "yes|Installation _Number:"
 #~ msgstr "رقم الاشتراك"
 
-#, fuzzy
 #~ msgid ""
 #~ "yes|It appears this system has already been set up for software updates:"
 #~ msgstr "إعادة تشغيل up2date"
 
-#, fuzzy
 #~ msgid "yes|Memory:"
 #~ msgstr "الذاكرة:"
 
-#, fuzzy
 #~ msgid "yes|Package Information"
 #~ msgstr "معلومات الحزمة"
 
-#, fuzzy
 #~ msgid "yes|Red Hat Linux Version:"
 #~ msgstr "إصدار ردهات لينكس:"
 
-#, fuzzy
 #~ msgid "yes|Red Hat Network _Location:"
 #~ msgstr "اسم المشترك لدى شبكة ردهات"
 
-#, fuzzy
 #~ msgid "yes|Use Au_thentication with HTTP Proxy:"
 #~ msgstr "استخدم التّوثيق"
 
-#, fuzzy
 #~ msgid "yes|_Login:"
 #~ msgstr "_اسم الدّخول:"
 
-#, fuzzy
 #~ msgid "yes|_No, Cancel"
 #~ msgstr "إلغاء"
 
-#, fuzzy
 #~ msgid "yes|_Password:"
 #~ msgstr "كلمة السّر:"
 
-#, fuzzy
 #~ msgid "yes|_Take me back to the registration"
 #~ msgstr "Up2date - لائحة الحزم (التّسجيل)"
 
-#, fuzzy
 #~ msgid "Why connect to Red Hat Network?"
 #~ msgstr "جاري الاتصال بشبكة ردهات"
 
-#, fuzzy
 #~ msgid "Register a System Profile - Hardware"
 #~ msgstr "الخطوة 3: قم بتسجيل سجلّ شخصيّ للنّظام - العتاد"
 
-#, fuzzy
 #~ msgid "Register a System Profile - Packages"
 #~ msgstr "الخطوة 3: قم بتسجيل سجلّ النظام الخاص - الحزم"
 
-#, fuzzy
 #~ msgid "_Exit software update setup"
 #~ msgstr "إعادة تشغيل up2date"
 
-#, fuzzy
 #~ msgid ""
 #~ "If you do not have a Red Hat Login, this assistant will allow you to "
 #~ "create one."
@@ -2525,150 +2464,117 @@ msgstr ""
 #~ msgid "Review the Red Hat Network Terms And Conditions"
 #~ msgstr "راجع بنود وشروط شبكة ردهات"
 
-#, fuzzy
 #~ msgid "Create a New Login ..."
 #~ msgstr "أنشئ حساباً"
 
-#, fuzzy
 #~ msgid ""
 #~ "The two passwords you entered don't match.  Please re-type your passwords."
 #~ msgstr ""
 #~ "كلمتا المرور اللّتان أدخلتهما ليستا متطابقتين.\n"
 #~ "رجاء أعد إدخال كلمتي المرور."
 
-#, fuzzy
 #~ msgid "Create a new Red Hat login"
 #~ msgstr "أنشئ حساباً لدى شبكة ردهات"
 
-#, fuzzy
 #~ msgid "*Desired Password:"
 #~ msgstr "*_كلمة المرور:"
 
-#, fuzzy
 #~ msgid "*Confirm Password:"
 #~ msgstr "*_تأكيد كلمة المرور: "
 
-#, fuzzy
 #~ msgid ""
 #~ "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
 #~ msgstr "يهمنا أن نحافظ على خصوصيتك:"
 
-#, fuzzy
 #~ msgid "Please enter your first name."
 #~ msgstr "يجب عليك إدخال اسمك الفردي."
 
-#, fuzzy
 #~ msgid "Please enter your last name."
 #~ msgstr "يجب عليك إدخال اسم العائلة."
 
-#, fuzzy
 #~ msgid "Please enter your email address."
 #~ msgstr "يجب أن تدخل عنوان بريد الكتروني."
 
-#, fuzzy
 #~ msgid "Please enter a valid email address."
 #~ msgstr "يجب أن تدخل عنوان بريد الكتروني صالحا."
 
-#, fuzzy
 #~ msgid "Please enter your country."
 #~ msgstr "بيانات الاشتراك لحساب: "
 
-#, fuzzy
 #~ msgid "Please enter a longer password."
 #~ msgstr "يجب أن تدخل كلمة مرور وتؤكّدها."
 
-#, fuzzy
 #~ msgid "Please enter a shorter password."
 #~ msgstr "يجب أن تدخل كلمة مرور وتؤكّدها."
 
-#, fuzzy
 #~ msgid "You must select an organization."
 #~ msgstr "يجب عليك إدخال رقم مستخدم."
 
-#, fuzzy
 #~ msgid "Access a subscription"
 #~ msgstr "فعل اشتراكك"
 
-#, fuzzy
 #~ msgid "Example: XXXX-XXXX-XXXX-XXXX"
 #~ msgstr "مثال: XXXX-XXXX-XXXX-XXXX )الشرطات ليست إلزامية("
 
-#, fuzzy
 #~ msgid "A installation number was found on disk, but we "
 #~ msgstr "رقم الاشتراك غير صالح"
 
-#, fuzzy
 #~ msgid ""
 #~ "There was a problem logging in:\n"
 #~ "%s"
 #~ msgstr "حدث خطأ في تسجيل هذا النّظام."
 
-#, fuzzy
 #~ msgid "There was problem logging in."
 #~ msgstr "حدث خطأ في تسجيل هذا النّظام."
 
-#, fuzzy
 #~ msgid "There was an error while getting the list of organizations."
 #~ msgstr "كان هناك خطأ حرج في تثبيت هذه الحزمة:\n"
 
-#, fuzzy
 #~ msgid "You must enter an installation number."
 #~ msgstr "يجب عليك إدخال رقم مستخدم."
 
-#, fuzzy
 #~ msgid "There was an error activating your number."
 #~ msgstr "كان هناك خطأ في الاتّصال مع خادم التّسجيل:\n"
 
-#, fuzzy
 #~ msgid "There was an error retrieving the privacy statement."
 #~ msgstr "خطأ حرج خلال جلب بيان الخصوصيّة:\n"
 
-#, fuzzy
 #~ msgid "You must enter an Installation Number that "
 #~ msgstr "يجب عليك إدخال رقم مستخدم."
 
-#, fuzzy
 #~ msgid "Problem registering login name:\n"
 #~ msgstr "خطأ في تسجيل اسم المستخدم:\n"
 
-#, fuzzy
 #~ msgid "Problem registering login name."
 #~ msgstr "خطأ في تسجيل اسم المستخدم."
 
-#, fuzzy
 #~ msgid ""
 #~ "\n"
 #~ "\n"
 #~ "Red Hat Network Location: "
 #~ msgstr "اسم المشترك لدى شبكة ردهات"
 
-#, fuzzy
 #~ msgid "Access Subscription"
 #~ msgstr "فعل اشتراكك"
 
 #~ msgid "Connect to Red Hat Network"
 #~ msgstr "جاري الاتصال بشبكة ردهات"
 
-#, fuzzy
 #~ msgid "Choose a Red Hat Network server"
 #~ msgstr "اختر خادم شبكة ردهات لاستخدامه"
 
-#, fuzzy
 #~ msgid "Specify an email address"
 #~ msgstr "يجب أن تدخل عنوان بريد الكتروني."
 
-#, fuzzy
 #~ msgid "Specify a installation number to use"
 #~ msgstr "لدي رقم حساب أريد تفعيله"
 
 #~ msgid "Important Registration Info"
 #~ msgstr "معلومات هامة  تخص الاشتراك"
 
-#, fuzzy
 #~ msgid "Registration information"
 #~ msgstr "Up2date - بيانات التّسجيل"
 
-#, fuzzy
 #~ msgid "Select organization"
 #~ msgstr "يجب عليك إدخال رقم مستخدم."
 
@@ -2678,11 +2584,9 @@ msgstr ""
 #~ msgid "Red Hat Privacy Statement"
 #~ msgstr "بيان الخصوصيّة الخلص بردهات"
 
-#, fuzzy
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "https://rhn.redhat.com"
 
-#, fuzzy
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "فعل اشتراكك"
 
@@ -2701,24 +2605,20 @@ msgstr ""
 #~ msgid "You must enter and verify a password."
 #~ msgstr "يجب أن تدخل كلمة مرور وتؤكّدها."
 
-#, fuzzy
 #~ msgid ""
 #~ "Problem registering login:\n"
 #~ "%s"
 #~ msgstr "خطأ في تسجيل اسم المستخدم:\n"
 
-#, fuzzy
 #~ msgid "Problem registering login."
 #~ msgstr "خطأ في تسجيل اسم المستخدم."
 
 #~ msgid "Canada"
 #~ msgstr "كندا"
 
-#, fuzzy
 #~ msgid "Login Information:"
 #~ msgstr "بيانات الاشتراك: "
 
-#, fuzzy
 #~ msgid "Account Information:"
 #~ msgstr "معلومات الحزمة"
 
@@ -2728,18 +2628,15 @@ msgstr ""
 #~ msgid "*Last Name:"
 #~ msgstr "*اسم العائلة:"
 
-#, fuzzy
 #~ msgid "*Company Name:"
 #~ msgstr "الشركة:"
 
-#, fuzzy
 #~ msgid "Street Address:"
 #~ msgstr "*العنوان:"
 
 #~ msgid "City:"
 #~ msgstr "المدينة:"
 
-#, fuzzy
 #~ msgid "State/Province:"
 #~ msgstr "الولاية / المحافظة:"
 
@@ -2752,59 +2649,45 @@ msgstr ""
 #~ msgid "  Address 2:"
 #~ msgstr "  العنوان 2:"
 
-#, fuzzy
 #~ msgid "  Address:"
 #~ msgstr "  العنوان 2:"
 
-#, fuzzy
 #~ msgid "  C_ity:"
 #~ msgstr "*المدينة:"
 
-#, fuzzy
 #~ msgid "  Co_mpany Name:"
 #~ msgstr "  الشركة:"
 
-#, fuzzy
 #~ msgid "  _State/Province:"
 #~ msgstr "*الولاية / المحافظة:"
 
-#, fuzzy
 #~ msgid "  _Zip/Postal code:"
 #~ msgstr "*الرّمز البريدي:"
 
-#, fuzzy
 #~ msgid "* C_onfirm password:  "
 #~ msgstr "*_تأكيد كلمة المرور: "
 
-#, fuzzy
 #~ msgid "* Co_untry:"
 #~ msgstr "*الدولة:"
 
-#, fuzzy
 #~ msgid "* Desired _Login:"
 #~ msgstr "*اسم مشترك ردهات لينكس:"
 
-#, fuzzy
 #~ msgid "* Desired _Password:"
 #~ msgstr "*_كلمة المرور:"
 
-#, fuzzy
 #~ msgid "* Last _Name:"
 #~ msgstr "*اسم العائلة:"
 
-#, fuzzy
 #~ msgid "* _Email Address: "
 #~ msgstr "*_عنوان البريد الالكتروني:"
 
-#, fuzzy
 #~ msgid "* _First Name:"
 #~ msgstr "*الاسم الفردي:"
 
-#, fuzzy
 #~ msgid "<b>Account Information:</b>"
 #~ msgstr "معلومات الحزمة"
 
-#, fuzzy
 #~ msgid "<b>Login Information:</b>"
 #~ msgstr "بيانات الاشتراك: "
 
@@ -2913,7 +2796,6 @@ msgstr ""
 #~ msgid "Burundi"
 #~ msgstr "بوروندي"
 
-#, fuzzy
 #~ msgid "C_reate new login"
 #~ msgstr "أنشئ حساباً"
 
@@ -2965,7 +2847,6 @@ msgstr ""
 #~ msgid "Cote d'Ivoire"
 #~ msgstr "ساحل العاج"
 
-#, fuzzy
 #~ msgid "Create a _New Login"
 #~ msgstr "أنشئ حساباً"
 
@@ -3534,7 +3415,6 @@ msgstr ""
 #~ msgid "Zimbabwe"
 #~ msgstr "زمبابوي"
 
-#, fuzzy
 #~ msgid ""
 #~ "\n"
 #~ "        Your system libraries do not support SSL (secure) connections.\n"
@@ -3551,97 +3431,76 @@ msgstr ""
 #~ msgid "Continue anyway?"
 #~ msgstr "هل أستمرّ على كلّ حال؟"
 
-#, fuzzy
 #~ msgid "reserved."
 #~ msgstr "أُحضر."
 
-#, fuzzy
 #~ msgid "We are attempting to contact the Red Hat "
 #~ msgstr "اختر خادم شبكة ردهات لاستخدامه"
 
-#, fuzzy
 #~ msgid "and manage subscriptions "
 #~ msgstr "بيانات القناة"
 
-#, fuzzy
 #~ msgid "http://www.rhn.redhat.com/"
 #~ msgstr "https://rhn.redhat.com"
 
-#, fuzzy
 #~ msgid "Compliance:\n"
 #~ msgstr "الشركة:"
 
-#, fuzzy
 #~ msgid ""
 #~ "your system to Red Hat Network.\n"
 #~ "\n"
 #~ msgstr "جاري الاتصال بشبكة ردهات"
 
-#, fuzzy
 #~ msgid ""
 #~ "Hat Network (http://rhn.redhat.com):\n"
 #~ "\n"
 #~ msgstr "https://rhn.redhat.com"
 
-#, fuzzy
 #~ msgid "You have no active subscriptions available in your "
 #~ msgstr "فعل اشتراكك"
 
-#, fuzzy
 #~ msgid "Red Hat Network:"
 #~ msgstr "اسم المشترك لدى شبكة ردهات"
 
-#, fuzzy
 #~ msgid "http://www.redhat.com/store/."
 #~ msgstr "https://rhn.redhat.com"
 
-#, fuzzy
 #~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
 #~ msgstr "قم بتحديث الحزم المرتبطة بسجلّ النّظام الشّخصي هذا على شبكة ردهات"
 
-#, fuzzy
 #~ msgid "You can run the registration program later by "
 #~ msgstr "يجب أن تقوم بتشغيل برنامج تسجيل RHN كمستخدم root."
 
-#, fuzzy
 #~ msgid "subscriptions available in your account:"
 #~ msgstr "فعل اشتراكك"
 
-#, fuzzy
 #~ msgid ""
 #~ "http://www.redhat.com/store/.\n"
 #~ "(3) Activate a new "
 #~ msgstr "https://rhn.redhat.com"
 
-#, fuzzy
 #~ msgid ""
 #~ "appropriate active subscriptions available in your account, you may "
 #~ "browse "
 #~ msgstr "فعل اشتراكك"
 
-#, fuzzy
 #~ msgid "This system was unable to be associated with the "
 #~ msgstr "لا يمكن تحديث النّظام حتّى يتمّ ضمّه إلى قناة."
 
-#, fuzzy
 #~ msgid "insufficient subscriptions available in your account:"
 #~ msgstr "فعل اشتراكك"
 
-#, fuzzy
 #~ msgid "This system was unable to be associated with "
 #~ msgstr "لا يمكن تحديث النّظام حتّى يتمّ ضمّه إلى قناة."
 
-#, fuzzy
 #~ msgid "re-connect this system to Red Hat Network."
 #~ msgstr "جاري الاتصال بشبكة ردهات"
 
-#, fuzzy
 #~ msgid ""
 #~ "We can't contact the Red Hat Network Server.\n"
 #~ "\n"
 #~ msgstr "اختر خادم شبكة ردهات لاستخدامه"
 
-#, fuzzy
 #~ msgid ""
 #~ "If not, you can correct it and try again.\n"
 #~ "\n"
@@ -3649,15 +3508,12 @@ msgstr ""
 #~ "\n"
 #~ "رجاءً عدّل اختيارات الحزم وحاول مرّة أخرى."
 
-#, fuzzy
 #~ msgid "Version: %s"
 #~ msgstr "الإصدار:"
 
-#, fuzzy
 #~ msgid "'Access a Subscription' screen."
 #~ msgstr "فعل اشتراكك"
 
-#, fuzzy
 #~ msgid "associated with any subscriptions."
 #~ msgstr "فعل اشتراكك"
 
@@ -3698,15 +3554,12 @@ msgstr ""
 #~ msgid "rpm was unable to load a header"
 #~ msgstr "لم يتمكن rpm من تحميل ترويسة"
 
-#, fuzzy
 #~ msgid "You must enter a first name."
 #~ msgstr "يجب عليك إدخال اسمك الفردي."
 
-#, fuzzy
 #~ msgid "You must a company name."
 #~ msgstr "يجب عليك إدخال اسم العائلة."
 
-#, fuzzy
 #~ msgid "You must a country."
 #~ msgstr "يجب عليك إدخال اسم مدينتك."
 
@@ -3721,7 +3574,6 @@ msgstr ""
 #~ "مكتبات نظامك لا تدعم اتّصالات SSL (مؤمّنة). أي معلومات ترسلها أو تستقبلها "
 #~ "من شبكة ردهات سوف ترسل بلا تشفير. هل استمر على كلّ حال؟"
 
-#, fuzzy
 #~ msgid ""
 #~ "\n"
 #~ "RHN Username: "
@@ -3844,38 +3696,30 @@ msgstr ""
 #~ "الاسم                                    النّسخة        الإصدار  \n"
 #~ "--------------------------------------------------------------"
 
-#, fuzzy
 #~ msgid "Specify a url for a non ssl server"
 #~ msgstr "    --noSSLServerURL=<url>     - حدّد عنوان مزود لا يستخدمssl"
 
-#, fuzzy
 #~ msgid "Don't use ssl to download packages"
 #~ msgstr "    --useNoSSLForPackages      - لا تستخدم ssl لتنزيل الحزم"
 
-#, fuzzy
 #~ msgid "<b>RHN Username:</b>"
 #~ msgstr "اسم المستخدم:"
 
-#, fuzzy
 #~ msgid "Activate a new installation number:"
 #~ msgstr "رقم الاشتراك"
 
-#, fuzzy
 #~ msgid "Create a _New Account"
 #~ msgstr "Up2date - أنشئ حساباً جديداً"
 
-#, fuzzy
 #~ msgid "_Cancel"
 #~ msgstr "إلغاء"
 
-#, fuzzy
 #~ msgid "_Username:"
 #~ msgstr "اسم المستخدم:"
 
 #~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
 #~ msgstr "تسجيل شبكة ردهات (c) 2000-2001 ردهات، Inc."
 
-#, fuzzy
 #~ msgid "Provide a Red Hat login."
 #~ msgstr "*اسم مشترك ردهات لينكس:"
 
@@ -4338,7 +4182,6 @@ msgstr ""
 #~ msgid "Error reading header"
 #~ msgstr "خطأ في قراءة التّرويسة"
 
-#, fuzzy
 #~ msgid "Error parsing %s"
 #~ msgstr "خطأ في فتح %s"
 

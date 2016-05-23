@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2164,14 +2164,12 @@ msgstr ""
 #~ msgid "Subscription Activation"
 #~ msgstr "Up2date - Virkjun"
 
-#, fuzzy
 #~ msgid "We could not contact Red Hat Network (%s)."
 #~ msgstr "Senda kerfislýsinguna til Red Hat Network"
 
 #~ msgid "There was an error communicating with Red Hat Network."
 #~ msgstr "Það kom upp villa í samskiptum skráningarþjón:"
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter your account information for the <b>%s</b> Red Hat Network "
 #~ "Satellite:"
@@ -2254,7 +2252,6 @@ msgstr ""
 #~ msgid "Sending Profile to Red Hat Network"
 #~ msgstr "Sendi kerfislýsinguna til Red Hat Network"
 
-#, fuzzy
 #~ msgid ""
 #~ "The installation number %s was activated during this system's initial "
 #~ "connection to Red Hat Network."
@@ -2275,7 +2272,6 @@ msgstr ""
 #~ msgid "Would you like to go back and try again?"
 #~ msgstr "Viltu reyna að breyta netstillingunum og reyna aftur?"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Virkja áskriftina"
@@ -2283,7 +2279,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Virkja áskriftina"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Stillingar Red Hat Network notanda"
@@ -2291,12 +2286,10 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Stillingar Red Hat Network notanda"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "Staða:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Upplýsingar um pakka"
@@ -2317,16 +2310,13 @@ msgstr ""
 #~ "Þá finnur þú það aftur á http://www.redhat.com/software/rhn/\n"
 #~ " "
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Upplýsingar um pakka"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "Búa til nýjan Red Hat Network notanda"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Tengjast Red Hat"
 
@@ -2339,17 +2329,14 @@ msgstr ""
 #~ msgid "More Info"
 #~ msgstr "Vélbúnaðarupplýsingar"
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr "Það kom upp villa í samskiptum skráningarþjón:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "It appears this system has already been set up for software updates:"
 #~ msgstr "Endurræsi up2date"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "Stillingar Red Hat Network notanda"
 

@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2149,7 +2149,6 @@ msgstr ""
 #~ msgid "Subscription Activation"
 #~ msgstr "Up2date - Δημιουργία Νέου Λογαριασμού"
 
-#, fuzzy
 #~ msgid "We could not contact Red Hat Network (%s)."
 #~ msgstr "Αποστολή Πληροφοριών Προφίλ στο Δίκτυο Red Hat"
 
@@ -2158,7 +2157,6 @@ msgstr ""
 #~ "Υπήρξε μοιραίο σφάλμα κατά την επικοινωνία με τον εξυπηρετητή.  Το μήνυμα "
 #~ "ήταν:"
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter your account information for the <b>%s</b> Red Hat Network "
 #~ "Satellite:"
@@ -2219,7 +2217,6 @@ msgstr ""
 #~ msgid "Sending Profile to Red Hat Network"
 #~ msgstr "Αποστολή Πληροφοριών Προφίλ στο Δίκτυο Red Hat"
 
-#, fuzzy
 #~ msgid ""
 #~ "The installation number %s was activated during this system's initial "
 #~ "connection to Red Hat Network."
@@ -2237,7 +2234,6 @@ msgstr ""
 #~ msgid "There was a communication error with the server:"
 #~ msgstr "Υπήρξε σφάλμα εποικοινωνίας με τον εξυπηρετητή: %s"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Περιγραφή"
@@ -2245,7 +2241,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Περιγραφή"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Ρύθμιση Δικτύου Red Hat"
@@ -2253,26 +2248,21 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Ρύθμιση Δικτύου Red Hat"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "Θέση:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Πληροφορίες Λογαριασμού"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Πληροφορίες Πακέτου"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "Up2date - Πληροφορίες Εγγραφής"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Έκδοση Red Hat Linux:"
 
@@ -2285,19 +2275,16 @@ msgstr ""
 #~ msgid "More Info"
 #~ msgstr "Up2date - Προφίλ Υλικού"
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr ""
 #~ "Υπήρξε μοιραίο σφάλμα κατά την επικοινωνία με τον εξυπηρετητή.  Το μήνυμα "
 #~ "ήταν:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "It appears this system has already been set up for software updates:"
 #~ msgstr "Γίνεται επαννεκίνηση του up2date"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "Ρύθμιση Δικτύου Red Hat"
 

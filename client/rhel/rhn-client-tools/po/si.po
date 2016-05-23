@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2676,7 +2676,6 @@ msgstr ""
 #~ "<b>Applications > System Tools</b> යන ඉහත සඳහන් මෙනූ මාර්ගයෙන් ලියාපදිංචි කිරීමේ "
 #~ "මෙවලම භාවිතා කර ඔබට මෙය සිදු කල හැක."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "I'd like to register with:"
 #~ msgstr "ඔව්,මම අවස්ථාවේදී ලියාපදිංචි වීමට කැමතියි(_Y)"
@@ -2684,7 +2683,6 @@ msgstr ""
 #~ msgid "I'd like to register with:"
 #~ msgstr "ඔව්,මම අවස්ථාවේදී ලියාපදිංචි වීමට කැමතියි(_Y)"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "අපගේ පුද්ගලික නිවේදනය කියවන්න(_P)"
@@ -2692,7 +2690,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "අපගේ පුද්ගලික නිවේදනය කියවන්න(_P)"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Red Hat Network ස්ථානය(_L):"
@@ -2700,12 +2697,10 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Red Hat Network ස්ථානය(_L):"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "_Proxy ස්ථානය:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "ඔබේ ගිණුමේ තොරතුරු ඇතුල්කරන්න"
@@ -2724,12 +2719,10 @@ msgstr ""
 #~ "<small>ඉඟිය: ඔබේ පිවිසුම හෝ රහස්පදය අමතකවීද? පහත සඳහන් වියුණ වෙත යොමුවන්න \n"
 #~ "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "ඇසුරුම් තොරතුරු"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "This assistant will guide you through the process of registering your "
@@ -2739,11 +2732,9 @@ msgstr ""
 #~ "මෘදුකාංග නවීකරණයන් ලබා ගැනීම සඳහා පද්ධතිය ලියාපදිංචි කිරීමට මෙම සහයක විසින් ඔබට මඟ "
 #~ "පෙන්වනු ඇත.ඒ සදගහා පහත දැක්වෙන ආකාරයේ තොරතුරු අවශ්‍ය වේ:"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "• ඔබේ Red Hat Network හෝ Red Hat Network Satellite සඳහා වන පිවිසුම"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Red Hat පිවිසුම"
 
@@ -2756,12 +2747,10 @@ msgstr ""
 #~ msgid "More Info"
 #~ msgstr "දෘඪාංග තොරතුරු"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please review the subscription details below:"
 #~ msgstr "කරුනාකර පහත දැක්වෙන ග්‍රාහක විස්තර සමාලෝචනය කරන්න:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Send us a profile of your current hardware and packages so we can "
@@ -2770,7 +2759,6 @@ msgstr ""
 #~ "ඔබේ පද්ධතිය සඳහා යෝග්‍ය නවීකරණ ඇසුරුම් තීරණය කිරීම පහසු වන පිණිස ඔබේ පද්ධතිය තුල ස්ථාපනය කර "
 #~ "තිබෙන දෘඪාංග සහ ඇසුරුම් ඇතුලත් පැතිකඩක් එවිය යුතු වේ."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Registering your system with Red Hat allows you to take full advantage of "
@@ -2779,7 +2767,6 @@ msgstr ""
 #~ "ඔබේ පද්ධතිය Red Hat Network වෙත සම්බන්ධ කිරීමෙන් ඔබ මුදල් ගෙවා ලබාගන්නා සාමාජිකත්වයට "
 #~ "හිමි සියළු ප්‍රතිලාභ ලබාගත හැකි වේ, මීට පහත සඳහන් දෑ ඇතුලත්ය"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Download installation images for Red Hat Enterprise Linux releases, "
@@ -2788,7 +2775,6 @@ msgstr ""
 #~ "නව නිකුතුවන්ද ඇතුලත්ව Red Hat Enterprise Linux නිකුතුවන් සඳහා වන ස්ථාපන පිළිඹුවන් බාගත "
 #~ "කරන්න"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Access to the technical support experts at Red Hat or Red Hat's partners "
@@ -2797,7 +2783,6 @@ msgstr ""
 #~ "Red Hat හෝ Red Hat හී කොටස් කරුවන් සමඟ ඔබේ පද්ධතියේ තිබෙන ඕනෑම ගැටළුවක් සම්බන්ධයෙන් "
 #~ "ඔබට ඔවුන් වෙත ලඟා විය හැක."
 
-#, fuzzy
 #~ msgid ""
 #~ "A security certificate compatible with <b>%s</b> was not found on this "
 #~ "system.\n"
@@ -2812,13 +2797,11 @@ msgstr ""
 #~ "(ඔබේ පරිශීලක නාමය සහ රහස්පදය ඇතුළුව) සමඟ සිදුකෙරෙන දත්ත හුවමාරුව සඳහා භාවිත කිරීමට "
 #~ "අවශ්‍ය වේ."
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr ""
 #~ "Red Hat Network සමඟ සම්බන්ධ වීම සඳහා මා සතුව <b>_SSL සහතික පත්‍රයක්</b> ඇත :"
 
-#, fuzzy
 #~ msgid ""
 #~ "You won't be able to receive software updates, including security "
 #~ "updates, for this system.\n"
@@ -2838,7 +2821,6 @@ msgstr ""
 #~ msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 #~ msgstr "_HTTP ප්‍රොක්සියක් භාවිතා කරමින් Red Hat Network වෙත සම්බන්ධ වීමට කැමැත්තෙමි."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Are you sure you don't want to register your system with Red Hat? You'll "
@@ -2847,7 +2829,6 @@ msgstr ""
 #~ "ඔබේ පද්ධතිය Red Hat Network සමඟ සම්බන්ධ වීමට අනවශ්‍ය බව ඔබට හොඳටම විශ්වාසද? Red "
 #~ "Hat Enterprise Linux ග්‍රාහකත්වය සමඟ ලැබෙන වරප්‍රසාදයන් ඔබට අහිමි වනු ඇත:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "You will not be able to take advantage of these benefits without "
@@ -2857,17 +2838,14 @@ msgstr ""
 #~ "<b>නොහැක</b>. එම වරප්‍රසාද   ලබාගැනීම සඳහා    Red Hat Network.  වෙත පිවිසීමට "
 #~ "ඔබේ පද්ධතිය මානකරගත යුතුය"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "It appears this system has already been set up for software updates:"
 #~ msgstr ""
 #~ "ඔබේ පද්ධතිය මීට පෙර මෘදුකාංග නවීකරණයන් සිදුකර ගත හැකි ලෙස සකසා තිබෙන බව පෙනී යයි:"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "<b>Red Hat Network ස්ථානය:</b>"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Are you sure you would like to continue?"
 #~ msgstr "නිශ්චිතවම ඔබට දිගටම කරගෙන යාමට අවශ්‍යද ?"

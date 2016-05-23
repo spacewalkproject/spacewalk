@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2168,7 +2168,6 @@ msgstr ""
 #~ msgid "Subscription Activation"
 #~ msgstr "Up2date - Pengaktifan"
 
-#, fuzzy
 #~ msgid "We could not contact Red Hat Network (%s)."
 #~ msgstr "Kirim Maklumat kepada Merah"
 
@@ -2176,7 +2175,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya ialah:"
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter your account information for the <b>%s</b> Red Hat Network "
 #~ "Satellite:"
@@ -2242,7 +2240,6 @@ msgstr ""
 #~ msgid "Sending Profile to Red Hat Network"
 #~ msgstr "Kirim Maklumat kepada Merah"
 
-#, fuzzy
 #~ msgid ""
 #~ "The installation number %s was activated during this system's initial "
 #~ "connection to Red Hat Network."
@@ -2266,7 +2263,6 @@ msgstr ""
 #~ msgid "There was a communication error with the server:"
 #~ msgstr "Terdapat ralat komunikasi dengan pelayan: %s"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Mempartisyen Sistem Anda"
@@ -2274,7 +2270,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Mempartisyen Sistem Anda"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Logmasuk Red Hat Network"
@@ -2282,26 +2277,21 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Logmasuk Red Hat Network"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "Posisi:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Maklumat Pakej"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Maklumat Pakej"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "Merah Rangkaian"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Saya mempunyai logmasuk Red Hat sedia ada."
 
@@ -2314,18 +2304,15 @@ msgstr ""
 #~ msgid "More Info"
 #~ msgstr "<i>info_label</i>"
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr ""
 #~ "Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya ialah:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "It appears this system has already been set up for software updates:"
 #~ msgstr "_Laksana up2date..."
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "Logmasuk Red Hat Network"
 

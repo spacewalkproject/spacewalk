@@ -29,7 +29,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2472,7 +2472,6 @@ msgstr ""
 #~ msgid "Would you like to go back and try again?"
 #~ msgstr "Wilt u de netwerkconfiguratie aanpassen en het opnieuw proberen?"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Activeer uw inschrijving"
@@ -2480,7 +2479,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Activeer uw inschrijving"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Red Hat Network _locatie:"
@@ -2488,12 +2486,10 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Red Hat Network _locatie:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "_Proxy locatie:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Fout bij het inlezen van de processor-informatie:"
@@ -2512,16 +2508,13 @@ msgstr ""
 #~ "<small>Tip: Bent u uw login of password vergeten? Zoek deze op \n"
 #~ "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Pakketinformatie"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "• Uw Red Hat Network of Red Hat Network Satellite login "
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Red Hat Login"
 
@@ -2534,17 +2527,14 @@ msgstr ""
 #~ msgid "More Info"
 #~ msgstr "Hardware-informatie"
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr "Er trad een fout op tijdens het communiceren met Red Hat Network."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "It appears this system has already been set up for software updates:"
 #~ msgstr "Registreren voor software updates"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "<b>Red Hat Network locatie:</b>"
 

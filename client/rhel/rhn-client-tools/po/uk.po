@@ -11,13 +11,13 @@
 # Miroslav Suchý <msuchy@redhat.com>, 2011
 # Yuri Chornoivan <yurchor@ukr.net>, 2012-2014
 # Євген <djsmentya@gmail.com>, 2013
-# Jan Dobes <jdobes@redhat.com>, 2016. #zanata
+# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:59+0200\n"
-"PO-Revision-Date: 2014-01-14 09:12-0500\n"
+"PO-Revision-Date: 2016-02-20 09:01-0500\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/spacewalk/"
 "language/uk/)\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -593,7 +593,7 @@ msgid "Sending Profile to Red Hat Satellite"
 msgstr "Надсилання профілю до Red Hat Satellite"
 
 #: ../src/up2date_client/rhnreg_constants.py:153
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You may now run '%s update' from this system's command line to get the "
 "latest software updates from Red Hat Satellite. You will need to run this "
@@ -603,7 +603,7 @@ msgid ""
 "are in chapter 6 of the RHN Reference Guide, available from the 'Help' "
 "button in the main Red Hat Network Satellite web interface.)"
 msgstr ""
-"Ви можете виконати 'yum update' у командному рядку для отримання останніх "
+"Ви можете виконати «%s update» у командному рядку для отримання останніх "
 "оновлень ПЗ з Red Hat Network Satellite. Виконуйте команду регулярно для "
 "підтримки системи у оновленому стані. Також можна налаштувати автоматичне "
 "виконання оновлення ('auto errata update') за допомогою інтерфейсу Red Hat "
@@ -659,28 +659,28 @@ msgstr ""
 "redhat.com/faq/docs/DOC-11313)"
 
 #: ../src/up2date_client/rhnreg_constants.py:181
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Warning: %s is not present, could not enable it.\n"
 "Automatic updates will not work."
 msgstr ""
-"Попередження: не виявлено yum-rhn-plugin, увімкнути його неможливо.\n"
+"Попередження: не виявлено %s, увімкнути його неможливо.\n"
 "Оновлення у автоматичному режимі не працюватиме."
 
 #: ../src/up2date_client/rhnreg_constants.py:183
-#, fuzzy, python-format
+#, python-format
 msgid "Note: %s has been enabled."
-msgstr "Зауваження: було увімкнено yum-rhn-plugin."
+msgstr "Зауваження: було увімкнено %s."
 
 #: ../src/up2date_client/rhnreg_constants.py:184
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Warning: An error occurred during enabling %s.\n"
 "%s is not enabled.\n"
 "Automatic updates will not work."
 msgstr ""
-"Попередження: під час спроби увімкнути yum-rhn-plugin сталася помилка.\n"
-"yum-rhn-plugin не увімкнено.\n"
+"Попередження: під час спроби увімкнути %s сталася помилка.\n"
+"%s не увімкнено.\n"
 "Автоматичне оновлення не працюватиме."
 
 #: ../src/up2date_client/rhnreg_constants.py:187
@@ -733,14 +733,14 @@ msgstr ""
 "відсутність достатньої передплати:"
 
 #: ../src/up2date_client/rhnreg_constants.py:205
-#, fuzzy
 msgid ""
 "Management module: automatic updates, systems grouping, systems permissions, "
 "system package profiling, bare-metal provisioning, existing state "
 "provisioning, rollbacks, configuration management"
 msgstr ""
 "Модуль керування: автоматичні оновлення, групування систем, права систем, "
-"профілі системних пакетів"
+"профілі системних пакетів, визначення апаратного забезпечення, визначення "
+"наявного стану, повернення до початкового стану, керування налаштуваннями"
 
 #: ../src/up2date_client/rhnreg_constants.py:210
 msgid ""
@@ -751,7 +751,6 @@ msgstr ""
 "системи."
 
 #: ../src/up2date_client/rhnreg_constants.py:214
-#, fuzzy
 msgid ""
 "<b>Warning:</b> Any guest systems you create on this system and register to "
 "RHN will consume Red Hat Enterprise Linux subscriptions beyond this host "
@@ -763,8 +762,7 @@ msgstr ""
 "<b>Попередження:</b> Будь-які гостьові системи, які ви створите та "
 "зареєструєте у RHN, будуть використані додаткові передплати Red Hat "
 "Enterprise Linux. Потрібно:\n"
-"1) створити системне повноваження віртуалізації або платформи "
-"віртуалізації;\n"
+"1) створити системне повноваження віртуалізації;\n"
 "2) застосувати це повноваження до системи через веб-інтерфейс RHN, якщо не "
 "бажаєте, щоб віртуальні гості використовували додаткові передплати."
 
@@ -1163,6 +1161,8 @@ msgid ""
 "Could not open %s\n"
 "%s is not enabled.\n"
 msgstr ""
+"Не вдалося відкрити %s\n"
+"%s не увімкнено.\n"
 
 #: ../src/up2date_client/rhnregGui.py:905
 msgid "There was an error while installing the certificate."
@@ -1345,9 +1345,8 @@ msgid "Finish"
 msgstr "Завершити"
 
 #: ../src/up2date_client/tui.py:1214
-#, fuzzy
 msgid "You specified an invalid protocol.Only https and http are allowed."
-msgstr "Вказаний неправильний протокол. Можна вказувати лише https та http."
+msgstr "Вказано неправильний протокол. Можна вказувати лише https та http."
 
 #: ../src/up2date_client/tui.py:1245
 msgid ""
@@ -1583,18 +1582,18 @@ msgstr ""
 "скористайтеся вебінтерфейсом сервера для оновлення ваших контактних даних. "
 
 #: ../src/bin/rhnreg_ks.py:175
-#, fuzzy, python-format
+#, python-format
 msgid "Warning: %s is not present, could not enable it."
-msgstr "Попередження: не виявлено yum-rhn-plugin, додаток неможливо увімкнути."
+msgstr "Попередження: не виявлено %s, додаток неможливо увімкнути."
 
 #: ../src/bin/rhnreg_ks.py:178
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Warning: Could not open %s\n"
 "%s is not enabled.\n"
 msgstr ""
-"Попередження: не вдалося відкрити /etc/yum/pluginconf.d/rhnplugin.conf\n"
-"yum-rhn-plugin не увімкнено.\n"
+"Попередження: не вдалося відкрити %s\n"
+"%s не увімкнено.\n"
 
 #: ../src/bin/rhnreg_ks.py:200
 msgid ""
@@ -1652,7 +1651,7 @@ msgstr "ПОМИЛКА: вам слід було вказати принаймн
 
 #: ../src/bin/spacewalk-channel.py:165
 msgid "ERROR: this action does not require channel"
-msgstr ""
+msgstr "ПОМИЛКА: для виконання цієї дії не потрібен канал"
 
 #: ../src/bin/spacewalk-channel.py:172
 #, python-format
@@ -2917,7 +2916,6 @@ msgstr "Реєстрація у Spacewalk/Red Hat Satellite/Red Hat Network Clas
 #~ "якомога раніше. Доступ до програми реєстрації можливий через запуск "
 #~ "<b>Оновлення ПЗ</b> у меню <b>Програми > Системні параметри</b>. "
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "I'd like to register with:"
 #~ msgstr "_Так, зареєструватись зараз."
@@ -2925,7 +2923,6 @@ msgstr "Реєстрація у Spacewalk/Red Hat Satellite/Red Hat Network Clas
 #~ msgid "I'd like to register with:"
 #~ msgstr "_Так, зареєструватись зараз."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Заява про конфіденційність Red Hat"
@@ -2933,7 +2930,6 @@ msgstr "Реєстрація у Spacewalk/Red Hat Satellite/Red Hat Network Clas
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Заява про конфіденційність Red Hat"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "_Розташування Red Hat Network:"
@@ -2941,12 +2937,10 @@ msgstr "Реєстрація у Spacewalk/Red Hat Satellite/Red Hat Network Clas
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "_Розташування Red Hat Network:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "Розташування _Proxy:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Введіть інформацію про обліковий запис"
@@ -2967,12 +2961,10 @@ msgstr "Реєстрація у Spacewalk/Red Hat Satellite/Red Hat Network Clas
 #~ "Знайдіть їх у\n"
 #~ "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small> "
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Інформація про пакет"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "This assistant will guide you through the process of registering your "
@@ -2982,12 +2974,10 @@ msgstr "Реєстрація у Spacewalk/Red Hat Satellite/Red Hat Network Clas
 #~ "Помічник допоможе виконати покрокове підключення системи до Red Hat "
 #~ "Network (RHN) для отримання оновлень ПЗ:"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr ""
 #~ "• Ваше реєстраційне ім'я Red Hat Network чи Red Hat Network Satellite"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Обліковий запис Red Hat"
 
@@ -3000,12 +2990,10 @@ msgstr "Реєстрація у Spacewalk/Red Hat Satellite/Red Hat Network Clas
 #~ msgid "More Info"
 #~ msgstr "Інформація про обладнання"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please review the subscription details below:"
 #~ msgstr "Нижче перегляньте подробиці системної передплати:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Send us a profile of your current hardware and packages so we can "
@@ -3014,7 +3002,6 @@ msgstr "Реєстрація у Spacewalk/Red Hat Satellite/Red Hat Network Clas
 #~ "Щоб ми могли визначити оновлення, що відповідають вашій системі, ви маєте "
 #~ "надати інформацію про обладнання та встановлені у системі пакети."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Registering your system with Red Hat allows you to take full advantage of "
@@ -3023,7 +3010,6 @@ msgstr "Реєстрація у Spacewalk/Red Hat Satellite/Red Hat Network Clas
 #~ "Підключення системи до Red Hat Network дозволяє скористатись усіма "
 #~ "перевагами передплати, включаючи:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Download installation images for Red Hat Enterprise Linux releases, "
@@ -3032,7 +3018,6 @@ msgstr "Реєстрація у Spacewalk/Red Hat Satellite/Red Hat Network Clas
 #~ "Завантаження образів встановлення для Red Hat Enterprise Linux, включаючи "
 #~ "останні випуски."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Access to the technical support experts at Red Hat or Red Hat's partners "
@@ -3041,7 +3026,6 @@ msgstr "Реєстрація у Spacewalk/Red Hat Satellite/Red Hat Network Clas
 #~ "Доступ до технічної підтримки Red Hat та партнерів за допомогою у "
 #~ "вирішенні потенційних проблем у системі."
 
-#, fuzzy
 #~ msgid ""
 #~ "A security certificate compatible with <b>%s</b> was not found on this "
 #~ "system.\n"
@@ -3056,12 +3040,10 @@ msgstr "Реєстрація у Spacewalk/Red Hat Satellite/Red Hat Network Clas
 #~ "забезпечення захисту даних, що передаються між системою та Red Hat "
 #~ "Network (включаючи реєстраційне ім'я та пароль)."
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr "В мене є <b>сертифікат _SSL</b> для з'єднання з Red Hat Network:"
 
-#, fuzzy
 #~ msgid ""
 #~ "You won't be able to receive software updates, including security "
 #~ "updates, for this system.\n"
@@ -3079,7 +3061,6 @@ msgstr "Реєстрація у Spacewalk/Red Hat Satellite/Red Hat Network Clas
 #~ "RHN якомога раніше. Доступ до програми реєстрації можливий через запуск "
 #~ "Оновлення ПЗ в меню Програми > Системні параметри."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "Are you sure you don't want to register your system with Red Hat? You'll "
@@ -3088,7 +3069,6 @@ msgstr "Реєстрація у Spacewalk/Red Hat Satellite/Red Hat Network Clas
 #~ "Ви справді не бажаєте підключать систему до Red Hat Network? Ви не "
 #~ "зможете скористатись перевагами передплати Red Hat Enterprise Linux."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid ""
 #~ "You will not be able to take advantage of these benefits without "
@@ -3097,16 +3077,13 @@ msgstr "Реєстрація у Spacewalk/Red Hat Satellite/Red Hat Network Clas
 #~ "Ви <b>не</b> зможете скористатись усіма перевагами передплати без "
 #~ "підключення вашої системи до Red Hat Network."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "It appears this system has already been set up for software updates:"
 #~ msgstr "Можливо, ваша система вже налаштована для отримання оновлень ПЗ:"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "<b>Розташування Red Hat Network:</b>"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Are you sure you would like to continue?"
 #~ msgstr "Ви дійсно бажаєте продовжити?"

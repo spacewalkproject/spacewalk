@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2222,14 +2222,12 @@ msgstr ""
 #~ msgid "Subscription Activation"
 #~ msgstr "Up2date - aktiválás"
 
-#, fuzzy
 #~ msgid "We could not contact Red Hat Network (%s)."
 #~ msgstr "A profilinformáció elküldése a Red Hat Networkre"
 
 #~ msgid "There was an error communicating with Red Hat Network."
 #~ msgstr "Hiba lépett fel a regisztrációs kiszolgálóval való kommunikációban:"
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter your account information for the <b>%s</b> Red Hat Network "
 #~ "Satellite:"
@@ -2314,7 +2312,6 @@ msgstr ""
 #~ msgid "Sending Profile to Red Hat Network"
 #~ msgstr "A profilinformáció elküldése a Red Hat Networkre"
 
-#, fuzzy
 #~ msgid ""
 #~ "The installation number %s was activated during this system's initial "
 #~ "connection to Red Hat Network."
@@ -2336,7 +2333,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Szeretné módosítani a hálózati beállításokat és ismételten próbálkozni?"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Az előfizetés aktiválása"
@@ -2344,7 +2340,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Az előfizetés aktiválása"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Red Hat Network-azonosító"
@@ -2352,12 +2347,10 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Red Hat Network-azonosító"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "Pozíció:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Információ az azonosítóról"
@@ -2378,16 +2371,13 @@ msgstr ""
 #~ "látogassa meg a http://www.redhat.com/software/rhn/ weblapot.\n"
 #~ " "
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Csomaginformáció"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "Új Red Hat Network-felhasználóazonosító létrehozása"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Red Hat-bejelentkezés"
 
@@ -2400,17 +2390,14 @@ msgstr ""
 #~ msgid "More Info"
 #~ msgstr "Hardverinformáció"
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr "Hiba lépett fel a regisztrációs kiszolgálóval való kommunikációban:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "It appears this system has already been set up for software updates:"
 #~ msgstr "Az Up2date újraindítása"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "Red Hat Network-azonosító"
 

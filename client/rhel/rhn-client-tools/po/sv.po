@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2393,7 +2393,6 @@ msgstr "Registrera i Spacewalk/satellit/Red Hat Network"
 #~ msgid "There was an error communicating with Red Hat Network."
 #~ msgstr "Det uppstod ett fel vid kommunikation med Red Hat Netwok."
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter your account information for the <b>%s</b> Red Hat Network "
 #~ "Satellite:"
@@ -2478,7 +2477,6 @@ msgstr "Registrera i Spacewalk/satellit/Red Hat Network"
 #~ msgid "Sending Profile to Red Hat Network"
 #~ msgstr "Skickar profilen till Red Hat Network"
 
-#, fuzzy
 #~ msgid ""
 #~ "The installation number %s was activated during this system's initial "
 #~ "connection to Red Hat Network."
@@ -2517,7 +2515,6 @@ msgstr "Registrera i Spacewalk/satellit/Red Hat Network"
 #~ msgid "Would you like to go back and try again?"
 #~ msgstr "Vill du prova att ändra nätverkskonfigurationen och försöka igen?"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "I'd like to register with:"
 #~ msgstr "_Ja, jag skulle vilja registrera nu."
@@ -2525,7 +2522,6 @@ msgstr "Registrera i Spacewalk/satellit/Red Hat Network"
 #~ msgid "I'd like to register with:"
 #~ msgstr "_Ja, jag skulle vilja registrera nu."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Aktivera din prenumeration"
@@ -2533,7 +2529,6 @@ msgstr "Registrera i Spacewalk/satellit/Red Hat Network"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Aktivera din prenumeration"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Red Hat Network-inloggning"
@@ -2541,12 +2536,10 @@ msgstr "Registrera i Spacewalk/satellit/Red Hat Network"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Red Hat Network-inloggning"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Location:"
 #~ msgstr "Position:"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Ange din kontoinformation"
@@ -2567,16 +2560,13 @@ msgstr "Registrera i Spacewalk/satellit/Red Hat Network"
 #~ "http://www.redhat.com/software/rhn/\n"
 #~ " "
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Paketinformation"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "Skapa ett nytt Red Hat Network-konto"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Red Hat-inloggning:"
 
@@ -2589,26 +2579,21 @@ msgstr "Registrera i Spacewalk/satellit/Red Hat Network"
 #~ msgid "More Info"
 #~ msgstr "Hårdvaruinformation"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please review the subscription details below:"
 #~ msgstr "Vänligen inspektera prenumerationsdetaljer nedan:"
 
-#, fuzzy
 #~ msgid ""
 #~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 #~ msgstr "Det uppstod ett fel vid kommunikation med Red Hat Netwok."
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "It appears this system has already been set up for software updates:"
 #~ msgstr "Startar om up2date"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "Red Hat Network-inloggning"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Are you sure you would like to continue?"
 #~ msgstr "Är du säker på att du vill fortsätta?"
@@ -4292,7 +4277,6 @@ msgstr "Registrera i Spacewalk/satellit/Red Hat Network"
 #~ msgid "%-40.40s %s %s\n"
 #~ msgstr "%-40.40s %s %s\n"
 
-# Hmm... dependency sense?
 #~ msgid "Don't know how to handle dependency sense \"%s\""
 #~ msgstr "Vet inte hur man hanterar beroendet \"%s\""
 
@@ -4755,15 +4739,9 @@ msgstr "Registrera i Spacewalk/satellit/Red Hat Network"
 #~ msgid "Error reading header"
 #~ msgstr "Fel vid läsning av huvud"
 
-# FIXME: Split messages should be bug reported...
-# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=171585
-#
 #~ msgid "Error parsing %s"
 #~ msgstr "Fel vid tolkning av %s"
 
-# FIXME: Split messages should be bug reported...
-# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=171585
-#
 #~ msgid "at line: %s"
 #~ msgstr "på rad: %s"
 
@@ -5534,7 +5512,6 @@ msgstr "Registrera i Spacewalk/satellit/Red Hat Network"
 #~ msgid "Package Verification Options"
 #~ msgstr "Alternativ för verifiering av paket"
 
-# src/main.c:167
 #~ msgid "Package storage directory:"
 #~ msgstr "Paketlagringskatalog:"
 

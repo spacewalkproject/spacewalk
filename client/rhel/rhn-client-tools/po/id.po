@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Zanata 3.8.2\n"
+"X-Generator: Zanata 3.8.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -2132,7 +2132,6 @@ msgstr ""
 #~ msgid "Red Hat Network Location:"
 #~ msgstr "Buat Login"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Diskripsi"
@@ -2140,7 +2139,6 @@ msgstr ""
 #~ msgid "Red Hat Subscription Management"
 #~ msgstr "Diskripsi"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Buat Login"
@@ -2148,28 +2146,23 @@ msgstr ""
 #~ msgid "Red Hat Network (RHN) Classic"
 #~ msgstr "Buat Login"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Please enter your Red Hat account information:"
 #~ msgstr "Buat Login"
 
-#, fuzzy
 #~ msgctxt "yes"
 #~ msgid "Package Information"
 #~ msgstr "Up2date - Informasi Rahasia"
 
-#, fuzzy
 #~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 #~ msgstr "Buat Login"
 
-#, fuzzy
 #~ msgid "• Your Red Hat account login"
 #~ msgstr "Buat Login"
 
 #~ msgid "Your Red Hat account login"
 #~ msgstr "Buat Login"
 
-#, fuzzy
 #~ msgid "<b>Red Hat Network Location:</b>"
 #~ msgstr "Buat Login"
 
