@@ -32,8 +32,7 @@ Patch18: disable_https.patch
 Patch19: buildiso-boot-options.patch
 Patch20: buildiso-no-local-hdd.patch
 Patch21: cobbler-s390-kernel-options.patch
-Patch22: cobbler-ipv6-autoconfig.patch
-Patch23: cobbler-ipv6.patch
+Patch22: cobbler-ipv6.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -144,7 +143,6 @@ a XMLRPC API for integration with other applications.
 %patch20 -p1
 %patch21 -p1
 %patch22 -p1
-%patch23 -p1
 
 %build
 %{__python} setup.py build 
