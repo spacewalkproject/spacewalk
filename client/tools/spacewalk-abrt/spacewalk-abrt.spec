@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        2.5.4
+Version:        2.5.5
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -47,6 +47,11 @@ service abrtd restart
 %{_mandir}/man8/*
 
 %changelog
+* Tue May 24 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.5-1
+- updating copyright years
+- Regenerating .po and .pot files for spacewalk-abrt.
+- Updating .po translations from Zanata
+
 * Wed May 18 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.4-1
 - encodestring expected bytes, not string
 
