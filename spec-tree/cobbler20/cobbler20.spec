@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 57%{?dist}
+Release: 58%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -494,6 +494,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Tue May 24 2016 Jiri Precechtel <jprecech@redhat.com> 2.0.11-58
+- 784912 - applying ipv6 support Sat. patch to SW
+
 * Wed May 18 2016 Jiri Precechtel <jprecech@redhat.com> 2.0.11-57
 - 1302323 - fix usage of not initiated variable in snippet
   post_install_network_config
