@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.5.7
+Version: 2.5.8
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -64,6 +64,9 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %dir /var/lib/up2date
 
 %changelog
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.8-1
+- updating copyright years
+
 * Thu May 12 2016 Gennadii Altukhov <galt@redhat.com> 2.5.7-1
 - fix: wrong converting of exception to string
 
