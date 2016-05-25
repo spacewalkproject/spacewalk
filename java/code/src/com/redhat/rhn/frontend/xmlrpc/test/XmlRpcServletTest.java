@@ -24,8 +24,8 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import com.mockobjects.servlet.MockServletInputStream;
 
-import org.jmock.Mock;
-import org.jmock.cglib.MockObjectTestCase;
+import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -61,30 +61,29 @@ public class XmlRpcServletTest extends MockObjectTestCase {
         MockServletInputStream input = new MockServletInputStream();
         input.setupRead(request.getBytes());
 
-        Mock mockreq = this.mock(HttpServletRequest.class);
-        mockreq.expects(atLeastOnce()).method("getHeader")
-               .with(eq("SOAPAction")).will(returnValue(null));
-        mockreq.expects(atLeastOnce()).method("getInputStream")
-               .will(returnValue(input));
-        mockreq.expects(atLeastOnce()).method("getRemoteAddr")
-               .will(returnValue("porsche.devel.redhat.com"));
+        HttpServletRequest mockreq = this.mock(HttpServletRequest.class);
+        HttpServletResponse mockresp = this.mock(HttpServletResponse.class);
 
-        mockreq.expects(atLeastOnce()).method("getLocalName")
-                .will(returnValue("foo.devel.redhat.com"));
-        mockreq.expects(atLeastOnce()).method("getProtocol")
-                    .will(returnValue("http"));
-
-        Mock mockresp = this.mock(HttpServletResponse.class);
-        mockresp.expects(atLeastOnce()).method("getWriter")
-                .will(returnValue(pw));
-        mockresp.expects(atLeastOnce()).method("setContentType")
-                .with(eq("text/xml"));
+        context().checking(new Expectations() { {
+            atLeast(1).of(mockreq).getHeader("SOAPAction");
+            will(returnValue(null));
+            atLeast(1).of(mockreq).getInputStream();
+            will(returnValue(input));
+            atLeast(1).of(mockreq).getRemoteAddr();
+            will(returnValue("porsche.devel.redhat.com"));
+            atLeast(1).of(mockreq).getLocalName();
+            will(returnValue("foo.devel.redhat.com"));
+            atLeast(1).of(mockreq).getProtocol();
+            will(returnValue("http"));
+            atLeast(1).of(mockresp).getWriter();
+            will(returnValue(pw));
+            atLeast(1).of(mockresp).setContentType("text/xml");
+        } });
 
         // ok run servlet
         XmlRpcServlet xrs = new XmlRpcServlet(new MockHandlerFactory(), null);
         xrs.init();
-        xrs.doPost((HttpServletRequest) mockreq.proxy(),
-                   (HttpServletResponse) mockresp.proxy());
+        xrs.doPost(mockreq, mockresp);
 
         assertEquals(expectedResponse, sw.toString());
     }

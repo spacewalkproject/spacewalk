@@ -24,15 +24,19 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.RhnMockJspWriter;
 import java.io.Writer;
 
-import org.jmock.Mock;
-import org.jmock.cglib.MockObjectTestCase;
-import org.jmock.core.Stub;
+import org.jmock.Expectations;
+import org.jmock.api.Action;
+import org.jmock.integration.junit3.MockObjectTestCase;
+import org.jmock.lib.legacy.ClassImposteriser;
 
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+
+import static org.hamcrest.Matchers.containsString;
+import static org.jmock.Expectations.returnValue;
 
 
 public class ListTagTest extends MockObjectTestCase {
@@ -41,40 +45,34 @@ public class ListTagTest extends MockObjectTestCase {
 
     private HttpServletRequest req;
     private WebSession webSess;
-    private PageContext context;
+    private PageContext pageContext;
     private RhnMockJspWriter writer;
 
-    private Mock mreq;
-    private Mock mwebSess;
-    private Mock mcontext;
     private String listName = "testDataListName";
-
-
 
     public void setUp() throws Exception {
         super.setUp();
+        setImposteriser(ClassImposteriser.INSTANCE);
         RhnBaseTestCase.disableLocalizationServiceLogging();
         List dataList = CSVWriterTest.getTestListOfMaps();
 
-        mreq = mock(HttpServletRequest.class);
-        mcontext = mock(PageContext.class);
-        mwebSess = mock(WebSession.class);
-
-        req = (HttpServletRequest) mreq.proxy();
-        context = (PageContext) mcontext.proxy();
-        webSess = (WebSession) mwebSess.proxy();
+        req = mock(HttpServletRequest.class);
+        pageContext = mock(PageContext.class);
+        webSess = mock(WebSession.class);
 
         writer = new RhnMockJspWriter();
 
-        mcontext.expects(atLeastOnce()).method("getAttribute").
-            with(eq(listName)).will(returnValue(dataList));
-        mcontext.expects(atLeastOnce()).method("getRequest").
-            withNoArguments().will(returnValue(req));
+        context().checking(new Expectations() { {
+            atLeast(1).of(pageContext).getAttribute(listName);
+            will(returnValue(dataList));
+            atLeast(1).of(pageContext).getRequest();
+            will(returnValue(req));
+        } });
 
         lt = new ListTag();
         lt.setName("testIsMyName");
         lst = new ListSetTag();
-        lt.setPageContext(context);
+        lt.setPageContext(pageContext);
         lt.setParent(lst);
         lt.setDataset(listName);
     }
@@ -84,33 +82,51 @@ public class ListTagTest extends MockObjectTestCase {
      * @throws Exception
      */
     public void testRegularRun() throws Exception {
-        mreq.expects(atLeastOnce()).method("getRequestURI")
-            .withNoArguments().will(returnValue("UTF-8"));
-        mreq.expects(atLeastOnce()).method("getAttribute")
-            .with(eq("session")).will(returnValue(webSess));
-        mwebSess.expects(atLeastOnce()).method("getWebUserId")
-        .withNoArguments().will(returnValue(null));
-        mreq.expects(atLeastOnce()).method("getParameter")
-            .with(stringContains("list_")).will(returnValue(null));
-        mreq.expects(atLeastOnce()).method("setAttribute")
-            .with(eq("pageNum"), isA(String.class));
-        mreq.expects(atLeastOnce()).method("setAttribute")
-            .with(eq("dataSize"), isA(String.class));
-        mcontext.expects(atLeastOnce()).method("getOut")
-            .withNoArguments().will(returnValue(writer));
-        mcontext.expects(atLeastOnce()).method("setAttribute")
-            .with(stringContains("_cmd"), isA(Object.class));
-        mcontext.expects(atLeastOnce()).method("setAttribute")
-            .with(eq("current"), isA(Object.class));
-        mcontext.expects(atLeastOnce()).method("getAttribute")
-            .with(eq("current")).will(returnValue(null));
-        mcontext.expects(atLeastOnce()).method("pushBody")
-            .with(isA(Writer.class));
-        mcontext.expects(atLeastOnce()).method("popBody")
-            .withNoArguments();
-        mreq.expects(atLeastOnce()).method("getParameter")
-            .with(stringContains("PAGE_SIZE_LABEL_SELECTED")).will(returnValue(null));
-        Stub[] cmdValues = {
+        context().checking(new Expectations() { {
+            atLeast(1).of(req).getRequestURI();
+            will(returnValue("UTF-8"));
+
+            atLeast(1).of(req).getAttribute("session");
+            will(returnValue(webSess));
+
+            atLeast(1).of(webSess).getWebUserId();
+            will(returnValue(null));
+
+            atLeast(1).of(req).getParameter(with(containsString("list_")));
+            will(returnValue(null));
+
+            atLeast(1).of(req).setAttribute(
+                    with(equal("pageNum")),
+                    with(any(String.class)));
+
+            atLeast(1).of(req).setAttribute(
+                    with(equal("dataSize")),
+                    with(any(String.class)));
+
+            atLeast(1).of(pageContext).getOut();
+            will(returnValue(writer));
+
+            atLeast(1).of(pageContext).setAttribute(
+                    with(containsString("_cmd")),
+                    with(any(Object.class)));
+
+            atLeast(1).of(pageContext).setAttribute(
+                    with(equal("current")),
+                    with(any(Object.class)));
+
+            atLeast(1).of(pageContext).getAttribute("current");
+            will(returnValue(null));
+
+            atLeast(1).of(pageContext).pushBody(with(any(Writer.class)));
+
+            atLeast(1).of(pageContext).popBody();
+
+            atLeast(1).of(req)
+                    .getParameter(with(containsString("PAGE_SIZE_LABEL_SELECTED")));
+            will(returnValue(null));
+        } });
+
+        Action[] cmdValues = {
                 returnValue(ListCommand.ENUMERATE), // listtag asking
                 returnValue(ListCommand.ENUMERATE), // columntag asking
                 returnValue(ListCommand.TBL_HEADING), // listtag asking
@@ -127,9 +143,12 @@ public class ListTagTest extends MockObjectTestCase {
                 returnValue(ListCommand.AFTER_RENDER), // columntag asking
                 returnValue(ListCommand.TBL_FOOTER), // listtag asking
                 returnValue(ListCommand.TBL_FOOTER) // columntag asking
-                };
-        mcontext.expects(atLeastOnce()).method("getAttribute")
-            .with(stringContains("_cmd")).will(onConsecutiveCalls(cmdValues));
+        };
+
+        context().checking(new Expectations() { {
+            atLeast(1).of(pageContext).getAttribute(with(containsString("_cmd")));
+            will(onConsecutiveCalls(cmdValues));
+        } });
 
         int tagval = lt.doStartTag();
 

@@ -19,7 +19,7 @@ import com.redhat.rhn.testing.RhnMockHttpServletRequest;
 
 import com.mockobjects.servlet.MockHttpSession;
 
-import org.jmock.MockObjectTestCase;
+import org.jmock.integration.junit3.MockObjectTestCase;
 
 /**
  * RhnHttpServletRequestTest

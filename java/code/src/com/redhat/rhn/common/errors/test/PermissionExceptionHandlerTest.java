@@ -30,8 +30,9 @@ import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.config.ExceptionConfig;
-import org.jmock.Mock;
-import org.jmock.cglib.MockObjectTestCase;
+import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
+import org.jmock.lib.legacy.ClassImposteriser;
 
 import java.util.Vector;
 
@@ -44,6 +45,7 @@ public class PermissionExceptionHandlerTest extends MockObjectTestCase {
     private TraceBackAction tba;
 
     public void setUp() {
+        setImposteriser(ClassImposteriser.INSTANCE);
         tba = new TraceBackAction();
         MessageQueue.registerAction(tba, TraceBackEvent.class);
         MessageQueue.startMessaging();
@@ -65,9 +67,11 @@ public class PermissionExceptionHandlerTest extends MockObjectTestCase {
 
             PermissionException ex = new PermissionException("Simply a test");
 
-            Mock mapping = mock(ActionMapping.class, "mapping");
-            mapping.expects(once()).method("getInputForward").withNoArguments()
-                    .will(returnValue(new ActionForward()));
+            ActionMapping mapping = mock(ActionMapping.class, "mapping");
+            context().checking(new Expectations() { {
+                oneOf(mapping).getInputForward();
+                will(returnValue(new ActionForward()));
+            } });
 
             RhnMockHttpServletRequest request = TestUtils
                     .getRequestWithSessionAndUser();
@@ -82,10 +86,8 @@ public class PermissionExceptionHandlerTest extends MockObjectTestCase {
 
             PermissionExceptionHandler peh = new PermissionExceptionHandler();
 
-            peh.execute(ex, new ExceptionConfig(), (ActionMapping) mapping
-                    .proxy(), form, request, response);
+            peh.execute(ex, new ExceptionConfig(), mapping, form, request, response);
             assertEquals(ex, request.getAttribute("error"));
-            mapping.verify();
             response.verify();
         }
         finally {

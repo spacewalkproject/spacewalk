@@ -30,8 +30,9 @@ import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.config.ExceptionConfig;
-import org.jmock.Mock;
-import org.jmock.cglib.MockObjectTestCase;
+import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
+import org.jmock.lib.legacy.ClassImposteriser;
 
 import java.util.Vector;
 
@@ -45,6 +46,7 @@ public class LookupExceptionHandlerTest extends MockObjectTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
+        setImposteriser(ClassImposteriser.INSTANCE);
         tba = new TraceBackAction();
         MessageQueue.registerAction(tba, TraceBackEvent.class);
         MessageQueue.startMessaging();
@@ -67,9 +69,11 @@ public class LookupExceptionHandlerTest extends MockObjectTestCase {
 
             LookupException ex = new LookupException("Simply a test");
 
-            Mock mapping = mock(ActionMapping.class, "mapping");
-            mapping.expects(once()).method("getInputForward").withNoArguments()
-                    .will(returnValue(new ActionForward()));
+            ActionMapping mapping = mock(ActionMapping.class, "mapping");
+            context().checking(new Expectations() { {
+                oneOf(mapping).getInputForward();
+                will(returnValue(new ActionForward()));
+            } });
 
             RhnMockHttpServletRequest request = TestUtils
                     .getRequestWithSessionAndUser();
@@ -83,10 +87,8 @@ public class LookupExceptionHandlerTest extends MockObjectTestCase {
 
             LookupExceptionHandler leh = new LookupExceptionHandler();
 
-            leh.execute(ex, new ExceptionConfig(), (ActionMapping) mapping
-                    .proxy(), form, request, response);
+            leh.execute(ex, new ExceptionConfig(), mapping, form, request, response);
             assertEquals(ex, request.getAttribute("error"));
-            mapping.verify();
         }
         finally {
             //Turn tracebacks and logging back on

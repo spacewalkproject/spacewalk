@@ -19,8 +19,10 @@ import com.redhat.rhn.frontend.servlets.ResourceReloadServlet;
 
 import com.mockobjects.servlet.MockServletOutputStream;
 
-import org.jmock.Mock;
-import org.jmock.MockObjectTestCase;
+import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
+
+import java.io.IOException;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -35,27 +37,18 @@ public class ResourceReloadServletTest extends MockObjectTestCase {
     private HttpServletRequest request;
     private HttpServletResponse response;
     private ServletOutputStream output;
-    private Mock mreq;
-    private Mock mresp;
 
-    public void setUp() {
-        mreq = mock(HttpServletRequest.class);
-        mresp = mock(HttpServletResponse.class);
-
-        request = (HttpServletRequest) mreq.proxy();
-        response = (HttpServletResponse) mresp.proxy();
+    public void setUp() throws IOException {
+        request = mock(HttpServletRequest.class);
+        response = mock(HttpServletResponse.class);
         output = new MockServletOutputStream();
 
-        mresp.expects(atLeastOnce())
-        .method("setContentLength").with(eq(31));
-
-        mresp.expects(atLeastOnce())
-        .method("getOutputStream").will(returnValue(output));
-
-        mresp.expects(atLeastOnce())
-        .method("setContentType")
-        .with(eq("text/plain"));
-
+        context().checking(new Expectations() { {
+            atLeast(1).of(response).setContentLength(31);
+            atLeast(1).of(response).getOutputStream();
+            will(returnValue(output));
+            atLeast(1).of(response).setContentType("text/plain");
+        } });
     }
 
     public void testDoGet() throws Exception {

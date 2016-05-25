@@ -18,8 +18,9 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.frontend.xmlrpc.serializer.ManagedServerGroupSerializer;
 
-import org.jmock.Mock;
-import org.jmock.cglib.MockObjectTestCase;
+import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
+import org.jmock.lib.legacy.ClassImposteriser;
 
 import java.io.StringWriter;
 import java.io.Writer;
@@ -33,6 +34,7 @@ public class ManagedServerGroupSerializerTest extends MockObjectTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
+        setImposteriser(ClassImposteriser.INSTANCE);
         serializer = new XmlRpcSerializer();
     }
 
@@ -44,15 +46,24 @@ public class ManagedServerGroupSerializerTest extends MockObjectTestCase {
         Long currentMembers = new Long(20);
         Long orgId = new Long(122);
         Writer output = new StringWriter();
-        Mock mockOrg = mock(Org.class);
-        mockMethod(mockOrg, "getId", orgId);
-        Mock mock = mock(ManagedServerGroup.class);
-        mockMethod(mock, "getId", id);
-        mockMethod(mock, "getName", name);
-        mockMethod(mock, "getDescription", description);
-        mockMethod(mock, "getCurrentMembers", currentMembers);
-        mockMethod(mock, "getOrg", mockOrg.proxy());
-        ManagedServerGroup sg = (ManagedServerGroup) mock.proxy();
+        Org mockOrg = mock(Org.class);
+        ManagedServerGroup mock = mock(ManagedServerGroup.class);
+        ManagedServerGroup sg = mock;
+        context().checking(new Expectations() { {
+            oneOf(mockOrg).getId();
+            will(returnValue(orgId));
+            oneOf(mock).getId();
+            will(returnValue(id));
+            oneOf(mock).getName();
+            will(returnValue(name));
+            oneOf(mock).getDescription();
+            will(returnValue(description));
+            oneOf(mock).getCurrentMembers();
+            will(returnValue(currentMembers));
+            oneOf(mock).getOrg();
+            will(returnValue(mockOrg));
+
+        } });
 
         sgs.serialize(sg, output, serializer);
         String out = output.toString();
@@ -86,12 +97,5 @@ public class ManagedServerGroupSerializerTest extends MockObjectTestCase {
                                                    " in bean [" + beanOut + "]";
         assertTrue(msg, beanOut.indexOf(valueTag) > -1);
 
-    }
-
-    private void mockMethod(Mock mock, String method, Object value) {
-        mock.expects(once())
-            .method(method)
-            .withNoArguments()
-            .will(returnValue(value));
     }
 }

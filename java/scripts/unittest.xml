@@ -38,8 +38,10 @@
           <include name="webapps/rhn/WEB-INF/lib/*.jar" />
           <include name="**/lib/*.jar" />
         </fileset>
-        <path location="/usr/share/java/jmock.jar"/>
-        <path location="/usr/share/java/jmock-cglib.jar"/>
+        <path location="/usr/share/java/jmock/jmock.jar"/>
+        <path location="/usr/share/java/jmock/jmock-junit3.jar"/>
+        <path location="/usr/share/java/objenesis/objenesis.jar"/>
+        <path location="/usr/share/java/jmock/jmock-legacy.jar"/>
         <path location="/usr/share/java/struts.jar"/>
         <path location="/usr/share/java/struts*.jar"/>
         <path location="/usr/share/java/slf4j/api.jar"/>

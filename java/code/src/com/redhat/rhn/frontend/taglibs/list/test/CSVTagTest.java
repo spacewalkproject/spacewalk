@@ -21,13 +21,13 @@ import com.redhat.rhn.frontend.taglibs.list.ListSetTag;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.RhnMockJspWriter;
 
-import org.jmock.Mock;
-import org.jmock.cglib.MockObjectTestCase;
+import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
+import org.jmock.lib.legacy.ClassImposteriser;
 
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
@@ -41,37 +41,18 @@ public class CSVTagTest extends MockObjectTestCase {
     private PageContext context;
     private RhnMockJspWriter writer;
 
-
-    private Mock mreq;
-    private Mock mresp;
-    private Mock msess;
-    private Mock mcontext;
     private String listName = "testDataListName";
 
     public void setUp() throws Exception {
         super.setUp();
+        setImposteriser(ClassImposteriser.INSTANCE);
         RhnBaseTestCase.disableLocalizationServiceLogging();
-        List dataList = CSVWriterTest.getTestListOfMaps();
 
-        mreq = mock(HttpServletRequest.class);
-        mresp = mock(HttpServletResponse.class);
-        msess = mock(HttpSession.class);
-        mcontext = mock(PageContext.class);
-
-        req = (HttpServletRequest) mreq.proxy();
-        session = (HttpSession) msess.proxy();
-        context = (PageContext) mcontext.proxy();
+        req = mock(HttpServletRequest.class);
+        session = mock(HttpSession.class);
+        context = mock(PageContext.class);
 
         writer = new RhnMockJspWriter();
-
-        mcontext.expects(atLeastOnce()).method("getAttribute").
-            with(eq(listName)).will(returnValue(dataList));
-        mcontext.expects(atLeastOnce()).method("getRequest").
-            withNoArguments().will(returnValue(req));
-
-
-        mreq.expects(atLeastOnce()).method("getSession").
-            with(eq(true)).will(returnValue(session));
 
         csv = new CSVTag();
         csv.setName("testIsMyName");
@@ -80,12 +61,22 @@ public class CSVTagTest extends MockObjectTestCase {
         csv.setParent(lst);
         csv.setDataset(listName);
 
-        msess.expects(atLeastOnce()).method("setAttribute").
-            with(eq("exportColumns_" + csv.getUniqueName()), isA(String.class));
-        msess.expects(atLeastOnce()).method("setAttribute").
-            with(eq("pageList_" + csv.getUniqueName()), isA(List.class));
+        context().checking(new Expectations() { {
+            List dataList = CSVWriterTest.getTestListOfMaps();
+            atLeast(1).of(context).getAttribute(listName);
+            will(returnValue(dataList));
+            atLeast(1).of(context).getRequest();
+            will(returnValue(req));
+            atLeast(1).of(req).getSession(true);
+            will(returnValue(session));
+            atLeast(1).of(session).setAttribute(
+                    with(equal("exportColumns_" + csv.getUniqueName())),
+                    with(any(String.class)));
+            atLeast(1).of(session).setAttribute(
+                    with(equal("pageList_" + csv.getUniqueName())),
+                    with(any(List.class)));
+        } });
     }
-
 
     public void testCreateRequestParameters() throws Exception {
         boolean stat = false;
@@ -108,19 +99,17 @@ public class CSVTagTest extends MockObjectTestCase {
      * @throws Exception
      */
     public void testExport() throws Exception {
+        context().checking(new Expectations() { {
+            atLeast(1).of(context).getOut();
+            will(returnValue(writer));
+        } });
 
-        mcontext.expects(atLeastOnce()).method("getOut").
-            withNoArguments().will(returnValue(writer));
         csv.setExportColumns("column1,column2,column3");
 
         int tagval = csv.doStartTag();
         assertEquals(Tag.EVAL_BODY_INCLUDE, tagval);
         tagval = csv.doEndTag();
         assertEquals(Tag.EVAL_PAGE, tagval);
-
-        mresp.verify();
-        mreq.verify();
-        mcontext.verify();
     }
 
     /**

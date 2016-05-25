@@ -16,7 +16,7 @@ package com.redhat.rhn.frontend.struts.test;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.jmock.MockObjectTestCase;
+import org.jmock.integration.junit3.MockObjectTestCase;
 
 import com.redhat.rhn.domain.common.LoggingFactory;
 import com.redhat.rhn.frontend.action.test.LoginActionTest;

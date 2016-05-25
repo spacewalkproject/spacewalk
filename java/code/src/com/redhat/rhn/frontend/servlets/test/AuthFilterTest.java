@@ -17,12 +17,10 @@ package com.redhat.rhn.frontend.servlets.test;
 import com.redhat.rhn.frontend.security.AuthenticationService;
 import com.redhat.rhn.frontend.servlets.AuthFilter;
 
-import org.jmock.Mock;
-import org.jmock.MockObjectTestCase;
-import org.jmock.core.Constraint;
+import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
 
 import java.util.Vector;
-
 import javax.servlet.FilterChain;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,14 +41,12 @@ public class AuthFilterTest extends MockObjectTestCase {
 
     private AuthFilterStub filter;
 
-    private Mock mockRequest;
-    private Mock mockResponse;
-    private Mock mockFilterChain;
-    private Mock mockDispatcher;
+    private HttpServletRequest mockRequest;
+    private HttpServletResponse mockResponse;
+    private FilterChain mockFilterChain;
+    private RequestDispatcher mockDispatcher;
 
-    private Constraint[] requestResponseArgs;
-
-    private Mock mockAuthService;
+    private AuthenticationService mockAuthService;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -60,77 +56,82 @@ public class AuthFilterTest extends MockObjectTestCase {
         mockRequest = mock(HttpServletRequest.class);
         mockResponse = mock(HttpServletResponse.class);
         mockFilterChain = mock(FilterChain.class);
-
-        requestResponseArgs = new Constraint[] {
-                isA(HttpServletRequest.class),
-                isA(HttpServletResponse.class)
-        };
-
         mockAuthService = mock(AuthenticationService.class);
-
         mockDispatcher = mock(RequestDispatcher.class);
-
-        filter.setAuthenticationService((AuthenticationService)mockAuthService.proxy());
 
         setDefaultStubs();
     }
 
     private void setDefaultStubs() {
-        mockRequest.stubs().method("getRequestURI").will(returnValue("/rhn/YourRhn.do"));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getRequestURI();
+            will(returnValue("/rhn/YourRhn.do"));
+            allowing(mockRequest).getRequestDispatcher(with(any(String.class)));
+            will(returnValue(mockDispatcher));
+            allowing(mockRequest).getHeaders(with(any(String.class)));
+            returnValue(new Vector<String>().elements());
+            allowing(mockRequest).getRemoteAddr();
+            returnValue("aaa.bbb.ccc.ddd");
+            allowing(mockRequest).getMethod();
+            will(returnValue("GET"));
+            allowing(mockRequest).getContentType();
+            will(returnValue(null));
+            allowing(mockRequest).getAttribute("session");
+            will(returnValue(null));
+            allowing(mockRequest).setAttribute(
+                    with(any(String.class)),
+                    with(any(Object.class)));
+            allowing(mockRequest).getCookies();
+            will(returnValue(null));
+        } });
 
-        mockRequest.stubs().method("getRequestDispatcher").withAnyArguments().will(
-                returnValue(mockDispatcher.proxy()));
-        mockRequest.stubs().method("getHeaders")
-                .will(returnValue(new Vector<String>().elements()));
-
-        mockRequest.stubs().method("getRemoteAddr")
-                .will(returnValue(new String("aaa.bbb.ccc.ddd")));
-
-        mockRequest.stubs().method("getMethod")
-                .will(returnValue(new String("GET")));
-
-        mockRequest.stubs().method("getAttribute").with(eq("session"))
-            .will(returnValue(null));
-        mockRequest.stubs().method("setAttribute").withAnyArguments();
-        mockRequest.stubs().method("getCookies")
-            .will(returnValue(null));
-
-        filter.setAuthenticationService((AuthenticationService)mockAuthService.proxy());
+        filter.setAuthenticationService(mockAuthService);
     }
 
     private HttpServletRequest getRequest() {
-        return (HttpServletRequest)mockRequest.proxy();
+        return mockRequest;
     }
 
     private HttpServletResponse getResponse() {
-        return (HttpServletResponse)mockResponse.proxy();
+        return mockResponse;
     }
 
     private FilterChain getFilterChain() {
-        return (FilterChain)mockFilterChain.proxy();
+        return mockFilterChain;
     }
 
     public final void testDoFilterWhenAuthenticationSucceeds() throws Exception {
-        mockAuthService.expects(atLeastOnce()).method("validate").with(requestResponseArgs)
-            .will(returnValue(true));
-
-        mockFilterChain.expects(once()).method("doFilter").with(requestResponseArgs);
+        context().checking(new Expectations() { {
+            allowing(mockRequest).setAttribute(with("session"),
+                    with(aNull(String.class)));
+            atLeast(1).of(mockAuthService).validate(with(any(HttpServletRequest.class)),
+                    with(any(HttpServletResponse.class)));
+            will(returnValue(true));
+            oneOf(mockFilterChain).doFilter(with(any(HttpServletRequest.class)),
+                    with(any(HttpServletResponse.class)));
+        } });
 
         filter.doFilter(getRequest(), getResponse(), getFilterChain());
     }
 
     public final void testDoFilterWhenAuthenticationFails() throws Exception {
-        mockAuthService.expects(atLeastOnce()).method("validate").with(requestResponseArgs)
-            .will(returnValue(false));
-
-        mockAuthService.expects(once()).method("redirectToLogin").with(requestResponseArgs);
+        context().checking(new Expectations() { {
+            atLeast(1).of(mockAuthService).validate(with(any(HttpServletRequest.class)),
+                    with(any(HttpServletResponse.class)));
+            will(returnValue(false));
+            oneOf(mockAuthService).redirectToLogin(with(any(HttpServletRequest.class)),
+                    with(any(HttpServletResponse.class)));
+        } });
 
         filter.doFilter(getRequest(), getResponse(), getFilterChain());
     }
 
     public final void testDoFilterWhenAuthServiceThrowsException() throws Exception {
-        mockAuthService.expects(atLeastOnce()).method("validate").with(requestResponseArgs)
-            .will(throwException(new ServletException()));
+        context().checking(new Expectations() { {
+            atLeast(1).of(mockAuthService).validate(with(any(HttpServletRequest.class)),
+                    with(any(HttpServletResponse.class)));
+            will(throwException(new ServletException()));
+        } });
 
         try {
             filter.doFilter(getRequest(), getResponse(), getFilterChain());

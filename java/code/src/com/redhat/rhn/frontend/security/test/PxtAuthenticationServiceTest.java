@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.security.test;
 
-import com.redhat.rhn.common.util.ServletUtils;
 import com.redhat.rhn.frontend.security.PxtAuthenticationService;
 
-import org.jmock.core.Constraint;
+import org.jmock.Expectations;
 
 import java.util.Vector;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * PxtAuthenticationServiceTest
@@ -42,78 +41,90 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
 
     protected void setUp() throws Exception {
         super.setUp();
-
-        mock(RequestDispatcher.class);
-
-        mockRequest.stubs().method("getRequestURI").will(returnValue("/rhn/YourRhn.do"));
-
         service = new PxtAuthenticationServiceStub();
         service.setPxtSessionDelegate(getPxtDelegate());
-
-        setUpValidate();
     }
 
-    private void setUpValidate() {
-        mockPxtDelegate.stubs().method("isPxtSessionKeyValid").with(
-                isA(HttpServletRequest.class)).will(returnValue(true));
+    private void setupPxtDelegate(boolean sessionKeyValid, boolean sessionExpired,
+            Long webUserId) {
+        context().checking(new Expectations() { {
+            allowing(mockPxtDelegate)
+                    .isPxtSessionKeyValid(with(any(HttpServletRequest.class)));
+            will(returnValue(sessionKeyValid));
+            allowing(mockPxtDelegate)
+                    .isPxtSessionExpired(with(any(HttpServletRequest.class)));
+            will(returnValue(sessionExpired));
+            allowing(mockPxtDelegate).getWebUserId(with(any(HttpServletRequest.class)));
+            will(returnValue(webUserId));
+        } });
+    }
 
-        mockPxtDelegate.stubs().method("isPxtSessionExpired").with(
-                isA(HttpServletRequest.class)).will(returnValue(false));
-
-        mockPxtDelegate.stubs().method("getWebUserId").with(
-                isA(HttpServletRequest.class)).will(returnValue(new Long(1234)));
+    private void setupGetRequestURI(String requestUri) {
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getRequestURI();
+            will(returnValue(requestUri));
+        } });
     }
 
     private void runValidateFailsTest() {
-        mockPxtDelegate.expects(atLeastOnce()).method("invalidatePxtSession").with(
-                requestResponseArgs);
+        context().checking(new Expectations() { {
+            atLeast(1).of(mockPxtDelegate).invalidatePxtSession(
+                    with(any(HttpServletRequest.class)),
+                    with(any(HttpServletResponse.class)));
+        } });
 
         assertFalse(service.validate(getRequest(), getResponse()));
     }
 
     private void runValidateSucceedsTest() {
-        mockPxtDelegate.expects(atLeastOnce()).method("refreshPxtSession").with(
-                requestResponseArgs);
+        context().checking(new Expectations() { {
+            atLeast(1).of(mockPxtDelegate).refreshPxtSession(
+                    with(any(HttpServletRequest.class)),
+                    with(any(HttpServletResponse.class)));
+        } });
 
         assertTrue(service.validate(getRequest(), getResponse()));
     }
 
     public final void testValidateFailsWhenPxtSessionKeyIsInvalid() {
-        mockPxtDelegate.stubs().method("isPxtSessionKeyValid").with(
-                isA(HttpServletRequest.class)).will(returnValue(false));
-
+        setupPxtDelegate(false, false, 1234L);
+        setupGetRequestURI("/rhn/YourRhn.do");
         runValidateFailsTest();
     }
 
     public final void testValidateFailsWhenPxtSessionExpired() {
-        mockPxtDelegate.stubs().method("isPxtSessionExpired").with(
-                isA(HttpServletRequest.class)).will(returnValue(true));
-
+        setupPxtDelegate(true, true, 1234L);
+        setupGetRequestURI("/rhn/YourRhn.do");
         runValidateFailsTest();
     }
 
     public final void testValidateFailsWhenWebUserIdIsNull() {
-        mockPxtDelegate.stubs().method("getWebUserId").with(
-                isA(HttpServletRequest.class)).will(returnValue(null));
-
+        setupPxtDelegate(true, false, null);
+        setupGetRequestURI("/rhn/YourRhn.do");
         runValidateFailsTest();
     }
 
     public final void testValidateSucceedsWhenRequestURIUnprotected() {
-        mockPxtDelegate.stubs().method("isPxtSessionKeyValid").with(
-                isA(HttpServletRequest.class)).will(returnValue(false));
-
-        mockRequest.stubs().method("getRequestURI").will(returnValue("/rhn/Login"));
+        setupPxtDelegate(false, false, 1234L);
+        setupGetRequestURI("/rhn/Login");
         assertTrue(service.validate(getRequest(), getResponse()));
     }
 
     public final void testValidateSucceeds() {
+        setupPxtDelegate(true, false, 1234L);
+        setupGetRequestURI("/rhn/YourRhn.do");
         runValidateSucceedsTest();
     }
 
     public final void testInvalidate() {
-        mockPxtDelegate.expects(atLeastOnce()).method("invalidatePxtSession").with(
-                requestResponseArgs);
+        setupPxtDelegate(true, false, 1234L);
+        setupGetRequestURI("/rhn/YourRhn.do");
+
+        context().checking(new Expectations() { {
+            atLeast(1).of(mockPxtDelegate).invalidatePxtSession(
+                    with(any(HttpServletRequest.class)),
+                    with(any(HttpServletResponse.class)));
+        } });
 
         service.invalidate(getRequest(), getResponse());
     }
@@ -122,27 +133,53 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
         service.redirectToLogin(getRequest(), getResponse());
     }
 
-    protected void setUpRedirectToLogin() {
-        super.setUpRedirectToLogin();
-
-        mockResponse.stubs().method("sendRedirect").will(returnValue(null));
+    private void setUpRedirectToLogin() {
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getParameterNames();
+            will(returnValue(getParameterNames()));
+            allowing(mockRequest).getParameter(requestParamNames[0]);
+            will(returnValue(requestParamValues[0]));
+            allowing(mockRequest).getParameter(requestParamNames[1]);
+            will(returnValue(requestParamValues[1]));
+            allowing(mockRequest).getRequestURL();
+            will(returnValue(new StringBuffer(getRequestURL())));
+            allowing(mockRequest).getQueryString();
+            will(returnValue(null));
+            allowing(mockRequest).getMethod();
+            will(returnValue("POST"));
+            allowing(mockRequest).getSession();
+            will(returnValue(null));
+            allowing(mockRequest).setAttribute(with(any(String.class)),
+                    with(any(Object.class)));
+        } });
     }
 
-    /**
-     *
-     */
     public final void testRedirectoToLoginForwardsRequest() throws Exception {
-        setUpRedirectToLogin();
+        setupPxtDelegate(true, false, 1234L);
+        setupGetRequestURI("/rhn/YourRhn.do");
 
-        mockResponse.expects(once()).method("sendRedirect").with(new Constraint[] {
-            eq("/rhn/Login.do?url_bounce=/rhn/YourRhn.do&request_method=POST") }
-        ).will(returnValue(null));
-
-        mockRequest.stubs().method("getParameterNames").will(
-returnValue(new Vector<String>().elements()));
-
-        mockRequest.stubs().method("setAttribute").with(
-                new Constraint[] {eq("url_bounce"), eq(getRequest().getRequestURI())});
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getParameterNames();
+            will(returnValue(new Vector<String>().elements()));
+            allowing(mockRequest).getRequestURL();
+            will(returnValue(new StringBuffer(getRequestURL())));
+            allowing(mockRequest).getQueryString();
+            will(returnValue(null));
+            allowing(mockRequest).getMethod();
+            will(returnValue("POST"));
+            allowing(mockRequest).getSession();
+            will(returnValue(null));
+            String uri = "/rhn/YourRhn.do";
+            allowing(mockRequest).getRequestURI();
+            will(returnValue(uri));
+            allowing(mockPxtDelegate)
+                    .isPxtSessionKeyValid(with(any(HttpServletRequest.class)));
+            will(returnValue(false));
+            oneOf(mockResponse).sendRedirect("/rhn/Login.do?url_bounce=" +
+                    "/rhn/YourRhn.do&request_method=POST");
+            will(returnValue(null));
+            allowing(mockRequest).setAttribute("url_bounce", uri);
+        } });
 
         runRedirectToLoginTest();
     }
@@ -151,27 +188,21 @@ returnValue(new Vector<String>().elements()));
      * @throws Exception
      */
     public final void testRedirectToLoginSetsURLBounceRequestAttribute() throws Exception {
+        setupPxtDelegate(true, false, 1234L);
+        setupGetRequestURI("/rhn/YourRhn.do");
         setUpRedirectToLogin();
 
-        createRequestURIWithParams(requestParamNames,
-                requestParamValues);
-
-        mockResponse.expects(once()).method("sendRedirect").with(new Constraint[] {
-            eq("/rhn/Login.do?url_bounce=/rhn/YourRhn.do?question=param+1+%3D+%27" +
-               "Who+is+the+one%3F%27&answer=param+2+%3D+%27Neo+is+the+one%21%27&" +
-               "request_method=POST")}
-        ).will(returnValue(null));
+        context().checking(new Expectations() { {
+            allowing(mockResponse).sendRedirect(
+                    "/rhn/Login.do?url_bounce=/rhn/YourRhn.do?" +
+                            "question=param+1+%3D+%27Who+is+the+one%3F%27&" +
+                            "answer=param+2+%3D+%27Neo+is+the+one%21%27&"
+                            + "request_method=POST");
+            will(returnValue(null));
+            allowing(mockRequest).getRequestURI();
+            will(returnValue("/rhn/YourRhn.do"));
+        } });
 
         runRedirectToLoginTest();
-    }
-
-    private String createRequestURIWithParams(String[] paramNames, String[] paramValues)
-        throws Exception {
-
-        StringBuffer uri = new StringBuffer(getRequest().getRequestURI()).append("?");
-
-        uri.append(ServletUtils.requestParamsToQueryString(getRequest()));
-
-        return uri.toString();
     }
 }

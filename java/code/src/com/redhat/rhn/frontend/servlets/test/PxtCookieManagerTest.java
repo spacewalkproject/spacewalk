@@ -18,8 +18,8 @@ import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.frontend.servlets.PxtCookieManager;
 import com.redhat.rhn.manager.session.SessionManager;
 
-import org.jmock.Mock;
-import org.jmock.MockObjectTestCase;
+import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +33,7 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
 
     private static final int TIMEOUT = 3600;
 
-    private Mock mockRequest;
+    private HttpServletRequest mockRequest;
 
     private PxtCookieManager manager;
 
@@ -51,7 +51,7 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
     }
 
     private HttpServletRequest getRequest() {
-        return (HttpServletRequest)mockRequest.proxy();
+        return mockRequest;
     }
 
     /**
@@ -69,8 +69,12 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
         host = "somehost";
         domain = "redhat.com";
 
-        mockRequest.stubs().method("getServerName").will(returnValue(host + "." + domain));
-        mockRequest.stubs().method("getHeader").withAnyArguments().will(returnValue(null));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getServerName();
+            will(returnValue(host + "." + domain));
+            allowing(mockRequest).getHeader(with(any(String.class)));
+            will(returnValue(null));
+        } });
     }
 
     protected void tearDown() throws Exception {
@@ -83,13 +87,19 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
                 new Cookie("cookie-2", "two")
         };
 
-        mockRequest.stubs().method("getCookies").will(returnValue(cookies));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getCookies();
+            will(returnValue(cookies));
+        } });
 
         assertNull(manager.getPxtCookie(getRequest()));
     }
 
     public final void testGetPxtCookieWhenNoCookiesPresent() {
-        mockRequest.stubs().method("getCookies").will(returnValue(null));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getCookies();
+            will(returnValue(null));
+        } });
 
         assertNull(manager.getPxtCookie(getRequest()));
     }
@@ -102,7 +112,10 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
                 new Cookie("cookie-2", "two")
         };
 
-        mockRequest.stubs().method("getCookies").will(returnValue(cookies));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getCookies();
+            will(returnValue(cookies));
+        } });
 
         assertEquals(cookies[1], manager.getPxtCookie(getRequest()));
     }

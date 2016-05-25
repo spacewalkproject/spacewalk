@@ -19,14 +19,14 @@ import com.redhat.rhn.common.util.test.CSVWriterTest;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.taglibs.ListDisplayTag;
 import com.redhat.rhn.frontend.taglibs.ListTag;
-import com.redhat.rhn.testing.JMockTestUtils;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.RhnMockJspWriter;
 import com.redhat.rhn.testing.RhnMockServletOutputStream;
+import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
+import org.jmock.lib.legacy.ClassImposteriser;
 
-import org.jmock.Mock;
-import org.jmock.cglib.MockObjectTestCase;
-
+import java.io.Writer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
@@ -44,52 +44,48 @@ public class ListDisplayTagTest extends MockObjectTestCase {
 
     private HttpServletRequest request;
     private HttpServletResponse response;
-    private PageContext context;
+    private PageContext pageContext;
     private RhnMockJspWriter writer;
-    private Mock mreq;
-    private Mock mresp;
-    private Mock mcontext;
 
     public void setUp() throws Exception {
         super.setUp();
+        setImposteriser(ClassImposteriser.INSTANCE);
         RhnBaseTestCase.disableLocalizationServiceLogging();
-        mreq = mock(HttpServletRequest.class);
-        mresp = mock(HttpServletResponse.class);
-        mcontext = mock(PageContext.class);
-
-        request = (HttpServletRequest) mreq.proxy();
-        response = (HttpServletResponse) mresp.proxy();
-        context = (PageContext) mcontext.proxy();
+        request = mock(HttpServletRequest.class);
+        response = mock(HttpServletResponse.class);
+        pageContext = mock(PageContext.class);
         writer = new RhnMockJspWriter();
 
         ldt = new ListDisplayTag();
         lt = new ListTag();
-        ldt.setPageContext(context);
+        ldt.setPageContext(pageContext);
         ldt.setParent(lt);
 
         lt.setPageList(new DataResult(CSVWriterTest.getTestListOfMaps()));
 
-        mcontext.expects(atLeastOnce()).method("getOut").
-            withNoArguments().will(returnValue(writer));
-        mcontext.expects(atLeastOnce()).method("getRequest").
-            withNoArguments().will(returnValue(request));
-        mcontext.expects(atLeastOnce()).method("setAttribute")
-        .with(eq("current"), NULL);
+        context().checking(new Expectations() { {
+            atLeast(1).of(pageContext).getOut();
+            will(returnValue(writer));
+
+            atLeast(1).of(pageContext).getRequest();
+            will(returnValue(request));
+
+            atLeast(1).of(pageContext).setAttribute("current", null);
+        } });
     }
 
     public void testTitle() throws JspException {
-        mcontext.expects(atLeastOnce()).method("popBody")
-                .withNoArguments();
-        mcontext.expects(atLeastOnce()).method("pushBody")
-                .withAnyArguments();
-        mreq.expects(atLeastOnce()).method("getParameter")
-            .with(eq(RequestContext.LIST_DISPLAY_EXPORT)).will(returnValue(null));
-        mreq.stubs().method("getParameter").with(eq(RequestContext.LIST_SORT)).will(
-                returnValue(null));
-        mreq.stubs().method("getParameter").with(eq(RequestContext.SORT_DESC)).will(
-                returnValue(null));
-        mreq.stubs().method("getParameter").with(eq(RequestContext.SORT_ASC)).will(
-                returnValue(null));
+        context().checking(new Expectations() { {
+            atLeast(1).of(pageContext).popBody();
+            atLeast(1).of(pageContext).pushBody();
+            atLeast(1).of(pageContext).pushBody(with(any(Writer.class)));
+
+            atLeast(1).of(request).getParameter(RequestContext.LIST_DISPLAY_EXPORT);
+            will(returnValue(null));
+
+            atLeast(1).of(request).getParameter(RequestContext.LIST_SORT);
+            will(returnValue(null));
+        } });
 
         ldt.setTitle("Inactive Systems");
         int tagval = ldt.doStartTag();
@@ -98,8 +94,6 @@ public class ListDisplayTagTest extends MockObjectTestCase {
         ldt.release();
         assertEquals(Tag.EVAL_PAGE, tagval);
         writer.verify();
-        mcontext.verify();
-        mreq.verify();
         String htmlOut = writer.toString();
         assertPaginationControls(htmlOut);
     }
@@ -115,8 +109,6 @@ public class ListDisplayTagTest extends MockObjectTestCase {
         assertTrue(htmlOut.indexOf("name=\"lower") > -1);
     }
 
-
-
     /**
      * {@inheritDoc}
      */
@@ -125,31 +117,35 @@ public class ListDisplayTagTest extends MockObjectTestCase {
         RhnBaseTestCase.enableLocalizationServiceLogging();
     }
 
-
     public void testTag() throws Exception {
         ldt.setExportColumns("column1,column2,column3");
-        mcontext.expects(atLeastOnce()).method("popBody").
-            withNoArguments();
-        mcontext.expects(atLeastOnce()).method("pushBody").
-            withAnyArguments();
-        mreq.expects(atLeastOnce()).method("getAttribute").
-            with(eq("requestedUri")).will(returnValue("/rhn/somePage.do"));
-        mreq.expects(atLeastOnce()).method("getQueryString").
-            withNoArguments().will(returnValue("sid=12355345"));
-        mreq.expects(atLeastOnce()).method("getParameter").
-            with(eq(RequestContext.LIST_DISPLAY_EXPORT)).will(returnValue("2"));
-        mreq.stubs().method("getParameter").with(eq(RequestContext.LIST_SORT)).will(
-                returnValue("column2"));
-        mreq.expects(atLeastOnce()).method("getParameter").with(
-                eq(RequestContext.SORT_ORDER)).will(returnValue(RequestContext.SORT_ASC));
+        context().checking(new Expectations() { {
+            atLeast(1).of(pageContext).popBody();
+            atLeast(1).of(pageContext).pushBody();
+            atLeast(1).of(pageContext).pushBody(with(any(Writer.class)));
+
+            atLeast(1).of(request).getAttribute("requestedUri");
+            will(returnValue("/rhn/somePage.do"));
+
+            atLeast(1).of(request).getQueryString();
+            will(returnValue("sid=12355345"));
+
+            atLeast(1).of(request).getParameter(RequestContext.LIST_DISPLAY_EXPORT);
+            will(returnValue("2"));
+
+            atLeast(1).of(request).getParameter(RequestContext.LIST_SORT);
+            will(returnValue("column2"));
+
+            atLeast(1).of(request).getParameter(RequestContext.SORT_ORDER);
+            will(returnValue(RequestContext.SORT_ASC));
+        } });
+
         int tagval = ldt.doStartTag();
         assertEquals(tagval, Tag.EVAL_BODY_INCLUDE);
         tagval = ldt.doEndTag();
         ldt.release();
         assertEquals(tagval, Tag.EVAL_PAGE);
         writer.verify();
-        mcontext.verify();
-        mreq.verify();
         String htmlOut = writer.toString();
         assertPaginationControls(htmlOut);
         assertTrue(htmlOut.indexOf("Download CSV") > -1);
@@ -158,21 +154,27 @@ public class ListDisplayTagTest extends MockObjectTestCase {
     public void testExport() throws Exception {
         RhnMockServletOutputStream out = new RhnMockServletOutputStream();
         ldt.setExportColumns("column1,column2,column3");
-        mreq.expects(atLeastOnce()).method("getParameter").
-            with(eq(RequestContext.LIST_DISPLAY_EXPORT)).will(returnValue("1"));
-        mcontext.expects(atLeastOnce()).method("getResponse").
-            withNoArguments().will(returnValue(response));
-        JMockTestUtils.setupExportParameters(mresp, out);
-        mresp.expects(atLeastOnce()).method("reset").withNoArguments();
+
+        context().checking(new Expectations() { {
+            atLeast(1).of(request).getParameter(RequestContext.LIST_DISPLAY_EXPORT);
+            will(returnValue("1"));
+
+            atLeast(1).of(pageContext).getResponse();
+            will(returnValue(response));
+        } });
+
+        context().checking(CSVMockTestHelper.getCsvExportParameterExpectations(response,
+                out));
+
+        context().checking(new Expectations() { {
+            atLeast(1).of(response).reset();
+        } });
         int tagval = ldt.doStartTag();
         assertEquals(tagval, Tag.SKIP_PAGE);
         tagval = ldt.doEndTag();
         ldt.release();
         assertEquals(tagval, Tag.SKIP_PAGE);
         assertEquals(EXPECTED_CSV_OUT, out.getContents());
-        mresp.verify();
-        mreq.verify();
-        mcontext.verify();
     }
 
     private static final String EXPECTED_CSV_OUT =

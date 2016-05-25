@@ -16,8 +16,8 @@ package com.redhat.rhn.frontend.servlets.test;
 
 import com.redhat.rhn.frontend.security.RedirectServlet;
 
-import org.jmock.Mock;
-import org.jmock.MockObjectTestCase;
+import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -40,8 +40,8 @@ public class RedirectServletTest extends MockObjectTestCase {
         }
     }
 
-    private Mock mockRequest;
-    private Mock mockResponse;
+    private HttpServletRequest mockRequest;
+    private HttpServletResponse mockResponse;
 
     private RedirectServletStub redirect;
 
@@ -61,29 +61,32 @@ public class RedirectServletTest extends MockObjectTestCase {
         redirectURI = "/rhn/systems/Overview.do";
         serverName = "somehost.redhat.com";
 
-        mockRequest.stubs().method("getServerName").will(returnValue(serverName));
-
-        mockRequest.stubs().method("getScheme").will(returnValue("https"));
-
-        mockRequest.stubs().method("getRequestURI").will(returnValue(requestURI));
-
-        mockRequest.stubs().method("getRequestURL").will(returnValue(new StringBuffer(
-                "https://" + serverName + requestURI)));
-
-        mockRequest.stubs().method("getQueryString").will(returnValue(null));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getServerName();
+            will(returnValue(serverName));
+            allowing(mockRequest).getScheme();
+            will(returnValue("https"));
+            allowing(mockRequest).getRequestURI();
+            will(returnValue(redirectURI));
+            allowing(mockRequest).getRequestURL();
+            will(returnValue(new StringBuffer("https://" + serverName + requestURI)));
+        } });
     }
 
     private HttpServletRequest getRequest() {
-        return (HttpServletRequest)mockRequest.proxy();
+        return mockRequest;
     }
 
     private HttpServletResponse getResponse() {
-        return (HttpServletResponse)mockResponse.proxy();
+        return mockResponse;
     }
 
     public final void testDoGet() throws Exception {
-        mockResponse.expects(once()).method("sendRedirect").with(eq(
-                "https://" + serverName + redirectURI));
+        context().checking(new Expectations() { {
+           oneOf(mockResponse).sendRedirect("https://" + serverName + redirectURI);
+           allowing(mockRequest).getQueryString();
+           will(returnValue(null));
+        } });
 
         redirect.doGet(getRequest(), getResponse());
     }
@@ -91,10 +94,12 @@ public class RedirectServletTest extends MockObjectTestCase {
     public final void testDoGetWithQueryString() throws Exception {
         String queryString = encode("myparam") + "=" + encode("neo is the one!");
 
-        mockRequest.stubs().method("getQueryString").will(returnValue(queryString));
-
-        mockResponse.expects(once()).method("sendRedirect").with(eq(
-                "https://" + serverName + redirectURI + "?" + queryString));
+        context().checking(new Expectations() { {
+                allowing(mockRequest).getQueryString();
+                will(returnValue(queryString));
+                oneOf(mockResponse).sendRedirect(
+                        "https://" + serverName + redirectURI + "?" + queryString);
+        } });
 
         redirect.doGet(getRequest(), getResponse());
     }

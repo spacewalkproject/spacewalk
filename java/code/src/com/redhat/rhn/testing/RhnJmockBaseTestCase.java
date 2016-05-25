@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.testing;
 
-import org.jmock.cglib.MockObjectTestCase;
+import org.jmock.integration.junit3.MockObjectTestCase;
 
 /**
  * RhnJmockBaseTestCase - This is the same thing as {@link RhnBaseTestCase}

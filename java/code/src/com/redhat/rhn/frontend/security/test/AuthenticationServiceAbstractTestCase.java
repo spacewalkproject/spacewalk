@@ -16,11 +16,7 @@ package com.redhat.rhn.frontend.security.test;
 
 import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
 
-import org.jmock.Mock;
-import org.jmock.MockObjectTestCase;
-import org.jmock.core.Constraint;
-import org.jmock.core.Invocation;
-import org.jmock.core.stub.CustomStub;
+import org.jmock.integration.junit3.MockObjectTestCase;
 
 import java.util.Enumeration;
 import java.util.Vector;
@@ -36,10 +32,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class AuthenticationServiceAbstractTestCase extends MockObjectTestCase {
 
-    protected Mock mockRequest;
-    protected Mock mockResponse;
-    protected Constraint[] requestResponseArgs;
-    protected Mock mockPxtDelegate;
+    protected HttpServletRequest mockRequest;
+    protected HttpServletResponse mockResponse;
+    protected PxtSessionDelegate mockPxtDelegate;
     protected String[] requestParamNames;
     protected String[] requestParamValues;
     private String requestUrl;
@@ -65,11 +60,6 @@ public abstract class AuthenticationServiceAbstractTestCase extends MockObjectTe
         mockResponse = mock(HttpServletResponse.class);
         mockPxtDelegate = mock(PxtSessionDelegate.class);
 
-        requestResponseArgs = new Constraint[] {
-                isA(HttpServletRequest.class),
-                isA(HttpServletResponse.class)
-        };
-
         requestParamNames = new String[] {"question", "answer"};
         requestParamValues = new String[] {
                 "param 1 = 'Who is the one?'",
@@ -81,16 +71,16 @@ public abstract class AuthenticationServiceAbstractTestCase extends MockObjectTe
 
 
     protected HttpServletRequest getRequest() {
-        return (HttpServletRequest)mockRequest.proxy();
+        return mockRequest;
     }
 
 
     protected HttpServletResponse getResponse() {
-        return (HttpServletResponse)mockResponse.proxy();
+        return mockResponse;
     }
 
     protected PxtSessionDelegate getPxtDelegate() {
-        return (PxtSessionDelegate)mockPxtDelegate.proxy();
+        return mockPxtDelegate;
     }
 
     protected Enumeration<String> getParameterNames() {
@@ -103,35 +93,6 @@ public abstract class AuthenticationServiceAbstractTestCase extends MockObjectTe
 
     protected String getRequestURL() {
         return requestUrl;
-    }
-
-
-    protected void setUpRedirectToLogin() {
-        mockRequest.stubs().method("getParameterNames").will(
-                new CustomStub("Returns parameter names enumeration.") {
-                    public Object invoke(Invocation arg0) throws Throwable {
-                        return getParameterNames();
-                    }
-                });
-
-        mockRequest.stubs().method("getParameter").with(eq(requestParamNames[0])).will(
-                returnValue(requestParamValues[0]));
-
-        mockRequest.stubs().method("getParameter").with(eq(requestParamNames[1])).will(
-                returnValue(requestParamValues[1]));
-
-        mockRequest.stubs().method("getRequestURL").will(returnValue(
-                new StringBuffer(getRequestURL())));
-
-        mockRequest.stubs().method("getQueryString").will(returnValue(null));
-
-        mockRequest.stubs().method("getMethod")
-                .will(returnValue(new String("POST")));
-
-        mockRequest.stubs().method("getSession")
-        .will(returnValue(null));
-
-        mockRequest.stubs().method("setAttribute");
     }
 
 }

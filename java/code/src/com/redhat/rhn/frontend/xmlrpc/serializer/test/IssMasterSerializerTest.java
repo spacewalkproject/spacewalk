@@ -21,7 +21,7 @@ import java.io.Writer;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.jmock.MockObjectTestCase;
+import org.jmock.integration.junit3.MockObjectTestCase;
 
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
