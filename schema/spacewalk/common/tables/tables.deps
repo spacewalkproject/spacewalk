@@ -54,7 +54,7 @@ rhnChannelPackageArchCompat    :: rhnPackageArch rhnChannelArch
 rhnChannelPermission           :: rhnChannelPermissionRole rhnChannel web_contact
 rhnChannelTrust                :: rhnChannel
 rhnChannelContentSource        :: rhnChannel rhnContentSourceType rhnContentSource
-rhnContentSourceSsl            :: rhnContentSource rhnCryptoKey
+rhnContentSsl                  :: rhnContentSource rhnCryptoKey rhnChannelFamily
 rhnChecksum                    :: rhnChecksumType
 rhnClientCapability            :: rhnClientCapabilityName
 rhnConfigContent               :: rhnChecksum

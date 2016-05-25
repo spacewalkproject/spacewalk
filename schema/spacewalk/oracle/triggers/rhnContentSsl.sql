@@ -14,8 +14,8 @@
 --
 
 create or replace trigger
-rhn_cont_source_ssl_mod_trig
-before insert or update on rhnContentSourceSsl
+rhn_cont_ssl_mod_trig
+before insert or update on rhnContentSsl
 for each row
 begin
 	:new.modified := current_timestamp;
@@ -24,12 +24,12 @@ end;
 show errors
 
 create or replace trigger
-rhn_csssl_ins_trig
-before insert on rhnContentSourceSsl
+rhn_cssl_ins_trig
+before insert on rhnContentSsl
 for each row
 when (new.id is null)
 begin
-    select sequence_nextval('rhn_contentsourcessl_seq') into :new.id from dual;
+    select sequence_nextval('rhn_contentssl_seq') into :new.id from dual;
 end;
 /
 show errors
