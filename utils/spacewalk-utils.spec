@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.5.9
+Version:	2.5.10
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.10-1
+- updating copyright years
+
 * Wed May 04 2016 Gennadii Altukhov <galt@redhat.com> 2.5.9-1
 - Add Fedora 23 repositories into spacewalk-common-channels config
 - taskotop: a utility to monitor what Taskomatic is doing
