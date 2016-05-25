@@ -19,8 +19,8 @@ import com.redhat.rhn.common.util.ServletUtils;
 import com.redhat.rhn.testing.RhnMockHttpServletRequest;
 import com.redhat.rhn.testing.ServletTestUtils;
 
-import org.jmock.Mock;
-import org.jmock.MockObjectTestCase;
+import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -39,7 +39,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class ServletUtilsTest extends MockObjectTestCase {
 
-    private Mock mockRequest;
+    private HttpServletRequest mockRequest;
 
     private String param1Name;
     private String param1Value;
@@ -60,7 +60,7 @@ public class ServletUtilsTest extends MockObjectTestCase {
     }
 
     private HttpServletRequest getRequest() {
-        return (HttpServletRequest)mockRequest.proxy();
+        return mockRequest;
     }
 
     private Hashtable<String, String> createParameterMap() {
@@ -72,28 +72,8 @@ public class ServletUtilsTest extends MockObjectTestCase {
         return parameterMap;
     }
 
-    private String createQueryString() throws UnsupportedEncodingException {
-        return encode(param1Name) + "=" + encode(param1Value) + "&" + encode(param2Name) +
-                "=" + encode(param2Value);
-    }
-
     private String encode(String string) throws UnsupportedEncodingException {
         return URLEncoder.encode(string, "UTF-8");
-    }
-
-    private void setUpRequestParams() {
-        Hashtable<String, String> parameterMap = createParameterMap();
-
-        mockRequest.stubs().method("getParameterMap").will(returnValue(parameterMap));
-
-        mockRequest.stubs().method("getParameterNames").will(returnValue(
-                parameterMap.keys()));
-
-        mockRequest.stubs().method("getParameter").with(eq(param1Name)).will(returnValue(
-                param1Value));
-
-        mockRequest.stubs().method("getParameter").with(eq(param2Name)).will(returnValue(
-                param2Value));
     }
 
     public void testRequestPath() {
@@ -169,25 +149,36 @@ public class ServletUtilsTest extends MockObjectTestCase {
     }
 
     public final void testRequestParamsToQueryStringWithNoParams() throws Exception {
-        mockRequest.stubs().method("getParameterNames").will(returnValue(
-new Vector<String>().elements()));
-
-        mockRequest.stubs().method("getParameterMap").will(returnValue(new TreeMap()));
-
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getParameterNames();
+            will(returnValue(new Vector<String>().elements()));
+            allowing(mockRequest).getParameterMap();
+            will(returnValue(new TreeMap<>()));
+        } });
         String queryString = ServletUtils.requestParamsToQueryString(getRequest());
-
         assertNotNull(queryString);
         assertEquals(0, queryString.length());
     }
 
     public final void testRequestParamsToQueryStringWithParams() throws Exception {
-        setUpRequestParams();
+        Hashtable<String, String> parameterMap = createParameterMap();
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getParameterMap();
+            will(returnValue(parameterMap));
+            allowing(mockRequest).getParameterNames();
+            will(returnValue(parameterMap.keys()));
+            allowing(mockRequest).getParameter(param1Name);
+            will(returnValue(param1Value));
+            allowing(mockRequest).getParameter(param2Name);
+            will(returnValue(param2Value));
+        } });
 
-        String expectedQueryString = createQueryString();
+        String expectedQueryString = encode(param1Name) + "=" + encode(param1Value) +
+                "&" + encode(param2Name) + "=" + encode(param2Value);
+
         String actualQueryString = ServletUtils.requestParamsToQueryString(
                 getRequest()).toString();
 
         ServletTestUtils.assertQueryStringEquals(expectedQueryString, actualQueryString);
     }
-
 }

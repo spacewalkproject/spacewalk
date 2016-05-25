@@ -33,14 +33,21 @@ import com.redhat.rhn.testing.TestUtils;
 
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.jmock.Mock;
-import org.jmock.cglib.MockObjectTestCase;
+import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
+import org.jmock.lib.legacy.ClassImposteriser;
 
 /**
  * AffectedSystemsActionTest
  * @version $Rev$
  */
 public class AffectedSystemsActionTest extends MockObjectTestCase {
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        setImposteriser(ClassImposteriser.INSTANCE);
+    }
 
     public void testApply() throws Exception {
         AffectedSystemsAction action = new AffectedSystemsAction();
@@ -49,41 +56,38 @@ public class AffectedSystemsActionTest extends MockObjectTestCase {
         RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
         RhnMockDynaActionForm form = new RhnMockDynaActionForm();
 
-        //No systems selected
-        Mock mapping = mock(ActionMapping.class, "mapping");
-        mapping.expects(once())
-               .method("findForward")
-               .with(eq(RhnHelper.DEFAULT_FORWARD))
-               .will(returnValue(forward));
+        // No systems selected
+        ActionMapping mapping = mock(ActionMapping.class, "mapping");
+        context().checking(new Expectations() { {
+            oneOf(mapping).findForward(RhnHelper.DEFAULT_FORWARD);
+            will(returnValue(forward));
+        } });
 
-        request.setupAddParameter("items_selected", (String[])null);
-        request.setupAddParameter("items_on_page", (String[])null);
+        request.setupAddParameter("items_selected", (String[]) null);
+        request.setupAddParameter("items_on_page", (String[]) null);
         addPagination(request);
         request.setupAddParameter("filter_string", "");
         request.setupAddParameter("eid", "12345");
 
-        ActionForward sameForward = action.applyErrata((ActionMapping)mapping.proxy(),
-                form, request, response);
+        ActionForward sameForward = action.applyErrata(mapping, form, request, response);
         assertTrue(sameForward.getPath().startsWith("path?"));
         assertTrue(sameForward.getPath().contains("eid=12345"));
         assertTrue(sameForward.getPath().contains("lower=10"));
 
-        mapping.verify();
+        verify();
 
-        //With systems selected
-        mapping.expects(once())
-               .method("findForward")
-               .with(eq("confirm"))
-               .will(returnValue(forward));
+        // With systems selected
+        context().checking(new Expectations() { {
+            oneOf(mapping).findForward("confirm");
+            will(returnValue(forward));
+        } });
 
         request.setupAddParameter("items_selected", "123456");
-        request.setupAddParameter("items_on_page", (String[])null);
+        request.setupAddParameter("items_on_page", (String[]) null);
         request.setupAddParameter("eid", "54321");
 
-        sameForward = action.applyErrata((ActionMapping)mapping.proxy(),
-                form, request, response);
+        sameForward = action.applyErrata(mapping, form, request, response);
         assertEquals("path?eid=54321", sameForward.getPath());
-        mapping.verify();
     }
 
     private void addPagination(RhnMockHttpServletRequest r) {
@@ -117,9 +121,9 @@ public class AffectedSystemsActionTest extends MockObjectTestCase {
         }
 
         ah.getRequest().setupAddParameter("eid", errata.getId().toString());
-        ah.getRequest().setupAddParameter("eid", errata.getId().toString()); //stupid mock
-        ah.getRequest().setupAddParameter("items_on_page", (String[])null);
-        ah.getRequest().setupAddParameter("items_selected", (String[])null);
+        ah.getRequest().setupAddParameter("eid", errata.getId().toString()); // stupid mock
+        ah.getRequest().setupAddParameter("items_on_page", (String[]) null);
+        ah.getRequest().setupAddParameter("items_selected", (String[]) null);
         ah.executeAction("selectall");
 
         RhnSetActionTest.verifyRhnSetData(ah.getUser().getId(),

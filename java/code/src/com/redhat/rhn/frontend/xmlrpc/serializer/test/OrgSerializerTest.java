@@ -20,7 +20,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.OrgSerializer;
 import com.redhat.rhn.testing.TestCaseHelper;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import org.jmock.MockObjectTestCase;
+import org.jmock.integration.junit3.MockObjectTestCase;
 
 import java.io.IOException;
 import java.io.StringWriter;

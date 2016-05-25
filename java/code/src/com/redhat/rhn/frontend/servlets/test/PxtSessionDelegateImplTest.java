@@ -21,9 +21,12 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.collections.TransformerUtils;
-import org.jmock.Mock;
-import org.jmock.MockObjectTestCase;
-import org.jmock.core.Constraint;
+import org.hamcrest.Description;
+import org.hamcrest.Factory;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
+import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
 
 import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.frontend.servlets.PxtCookieManager;
@@ -89,10 +92,10 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
 
     private static final Long PXT_SESSION_ID = new Long(2658447890L);
 
-    private Mock mockRequest;
-    private Mock mockResponse;
-    private Mock mockPxtSession;
-    private Mock mockHttpSession;
+    private HttpServletRequest mockRequest;
+    private HttpServletResponse mockResponse;
+    private WebSession mockPxtSession;
+    private HttpSession mockHttpSession;
 
     private PxtSessionDelegateImplStub pxtSessionDelegate;
 
@@ -106,19 +109,19 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
     }
 
     private HttpServletRequest getRequest() {
-        return (HttpServletRequest)mockRequest.proxy();
+        return mockRequest;
     }
 
     private HttpServletResponse getResponse() {
-        return (HttpServletResponse)mockResponse.proxy();
+        return mockResponse;
     }
 
     private WebSession getPxtSession() {
-        return (WebSession)mockPxtSession.proxy();
+        return mockPxtSession;
     }
 
     private HttpSession getSession() {
-        return (HttpSession) mockHttpSession.proxy();
+        return mockHttpSession;
     }
 
     private Cookie getPxtCookie() {
@@ -149,27 +152,30 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
         pxtSessionDelegate = new PxtSessionDelegateImplStub();
         pxtCookieManager = new PxtCookieManager();
 
-        mockRequest.stubs().method("getServerName").will(
-                returnValue("somehost.redhat.com"));
-        mockRequest.stubs().method("getHeader").withAnyArguments().will(returnValue(null));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getServerName();
+            will(returnValue("somehost.redhat.com"));
+            allowing(mockRequest).getHeader("User-Agent");
+            will(returnValue(null));
+        } });
     }
 
     private void setUpLoadPxtSession() {
-        mockRequest.stubs().method("getAttribute").with(eq("session")).will(
-                returnValue(null));
-
-        Constraint[] setAttributeArgs = new Constraint[] {
-                eq("session"),
-                isA(WebSession.class)
-        };
-
-        mockRequest.expects(atLeastOnce()).method("setAttribute").with(setAttributeArgs);
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getAttribute("session");
+            will(returnValue(null));
+            atLeast(1).of(mockRequest).setAttribute(with(equal("session")),
+                    with(any(WebSession.class)));
+        } });
     }
 
     public final void testLoadPxtSessionWhenPxtSessionIdIsNull() {
         setUpLoadPxtSession();
 
-        mockRequest.stubs().method("getCookies").will(returnValue(null));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getCookies();
+            will(returnValue(null));
+        } });
 
         pxtSessionDelegate.setCreatePxtSessionCallback(
                 TransformerUtils.constantTransformer(getPxtSession()));
@@ -180,8 +186,10 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
     public final void testLoadPxtSessionWhenPxtSessionIdIsNotNull() {
         setUpLoadPxtSession();
 
-        mockRequest.stubs().method("getCookies").will(returnValue(
-                new Cookie[] {getPxtCookie()}));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getCookies();
+            will(returnValue(new Cookie[] {getPxtCookie()}));
+        } });
 
         pxtSessionDelegate.setFindPxtSessionByIdCallback(new Transformer() {
             public Object transform(Object arg) {
@@ -198,8 +206,10 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
     public final void testLoadPxtSessionWhenPxtSessionIdIsInvalid() {
         setUpLoadPxtSession();
 
-        mockRequest.stubs().method("getCookies").will(returnValue(
-                new Cookie[] {getPxtCookie()}));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getCookies();
+            will(returnValue(new Cookie[] {getPxtCookie()}));
+        } });
 
         pxtSessionDelegate.setCreatePxtSessionCallback(
                 TransformerUtils.constantTransformer(getPxtSession()));
@@ -208,33 +218,38 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
     }
 
     public final void testIsPxtSessionKeyValidWhenPxtCookieNotFound() {
-        mockRequest.stubs().method("getCookies").will(returnValue(null));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getCookies();
+            will(returnValue(null));
+        } });
 
         assertFalse(pxtSessionDelegate.isPxtSessionKeyValid(getRequest()));
     }
 
     public final void testIsPxtSessionKeyVaidWhenSessionKeyInvalid() {
-        mockRequest.stubs().method("getCookies").will(returnValue(
-                new Cookie[] {getPxtCookieWithInvalidSessionKey()}));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getCookies();
+            will(returnValue(new Cookie[] {getPxtCookieWithInvalidSessionKey()}));
+        } });
 
         assertFalse(pxtSessionDelegate.isPxtSessionKeyValid(getRequest()));
     }
 
     public final void testIsPxtSessionKeyValidWhenPxtCookieFound() {
-        mockRequest.stubs().method("getCookies").will(returnValue(
-                new Cookie[] {getPxtCookie()}));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getCookies();
+            will(returnValue(new Cookie[] {getPxtCookie()}));
+        } });
 
         assertTrue(pxtSessionDelegate.isPxtSessionKeyValid(getRequest()));
     }
 
-    public final void testRefreshPxtSessionSetsExpires() {
-        //TODO Write unit test
-    }
-
     public final void testGetPxtSessionId() {
         Cookie[] cookies = new Cookie[] {getPxtCookie()};
-
-        mockRequest.stubs().method("getCookies").will(returnValue(cookies));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getCookies();
+            will(returnValue(cookies));
+        } });
 
         assertEquals(PXT_SESSION_ID, pxtSessionDelegate.getPxtSessionId(getRequest()));
     }
@@ -242,7 +257,10 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
     public final void testGetPxtSessionIdWhenPxtCookieIsInvalid() {
         Cookie[] cookies = new Cookie[] {getPxtCookieWithInvalidSessionKey()};
 
-        mockRequest.stubs().method("getCookies").will(returnValue(cookies));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getCookies();
+            will(returnValue(cookies));
+        } });
 
         assertNull(pxtSessionDelegate.getPxtSessionId(getRequest()));
     }
@@ -250,27 +268,28 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
     private void setUpInvalidatePxtSession() {
         pxtSessionDelegate.stubLoadPxtSession(true);
 
-        mockRequest.stubs().method("getAttribute").with(eq("session")).will(
-                returnValue(getPxtSession()));
-
-        mockRequest.stubs().method("getSession").will(returnValue(getSession()));
-
-        mockPxtSession.stubs().method("getId").will(returnValue(PXT_SESSION_ID));
-
-        mockPxtSession.stubs().method("setExpires");
-
-        mockPxtSession.stubs().method("setWebUserId");
-
-        mockHttpSession.stubs().method("setAttribute");
-
-        mockResponse.stubs().method("addCookie");
-
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getAttribute("session");
+            will(returnValue(getPxtSession()));
+            allowing(mockRequest).getSession();
+            will(returnValue(getSession()));
+            allowing(mockPxtSession).getId();
+            will(returnValue(PXT_SESSION_ID));
+            allowing(mockPxtSession).setExpires(with(any(Long.class)));
+            allowing(mockHttpSession).setAttribute(with(any(String.class)),
+                    with(any(Object.class)));
+            allowing(mockHttpSession).setAttribute(with(any(String.class)),
+                    with(aNull(Object.class)));
+        } });
     }
 
     public final void testInvalidatePxtSessionSetsWebUserIdToNull() {
         setUpInvalidatePxtSession();
 
-        mockPxtSession.expects(once()).method("setWebUserId").with(NULL);
+        context().checking(new Expectations() { {
+            oneOf(mockPxtSession).setWebUserId(null);
+            allowing(mockResponse).addCookie(with(any(Cookie.class)));
+        } });
 
         pxtSessionDelegate.invalidatePxtSession(getRequest(), getResponse());
     }
@@ -278,27 +297,41 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
     public final void testInvalidatePxtSessionSavesPxtSession() {
         setUpInvalidatePxtSession();
 
+        context().checking(new Expectations() { {
+            allowing(mockPxtSession).setWebUserId(null);
+            allowing(mockResponse).addCookie(with(any(Cookie.class)));
+        } });
+
         pxtSessionDelegate.invalidatePxtSession(getRequest(), getResponse());
 
         assertEquals(1, pxtSessionDelegate.getSavePxtSessionCounter());
     }
 
+    private static class ZeroMaxAgeCookieMatcher extends TypeSafeMatcher<Cookie> {
+
+        @Override
+        protected boolean matchesSafely(Cookie cookie) {
+            return cookie.getMaxAge() == 0;
+        }
+
+        @Override
+        public void describeTo(Description description) {
+            description.appendText("a cookie with max age = 0");
+        }
+    }
+
+    @Factory
+    private static Matcher<Cookie> zeroMaxAgeCookieMatcher() {
+        return new ZeroMaxAgeCookieMatcher();
+    }
+
     public final void testInvalidatePxtSessionDeletesPxtCookie() {
         setUpInvalidatePxtSession();
 
-        Constraint deletePxtCookie = new Constraint() {
-            public StringBuffer describeTo(StringBuffer description) {
-                return description.append("cookie ").append("max age must = 0");
-            }
-
-            public boolean eval(Object arg) {
-                Cookie pxtCookie = (Cookie)arg;
-
-                return pxtCookie.getMaxAge() == 0;
-            }
-        };
-
-        mockResponse.expects(once()).method("addCookie").with(deletePxtCookie);
+        context().checking(new Expectations() { {
+            allowing(mockPxtSession).setWebUserId(null);
+            oneOf(mockResponse).addCookie(with(zeroMaxAgeCookieMatcher()));
+        } });
 
         pxtSessionDelegate.invalidatePxtSession(getRequest(), getResponse());
     }

@@ -18,12 +18,13 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.frontend.servlets.SessionFilter;
 
 import org.hibernate.Session;
-import org.jmock.Mock;
-import org.jmock.MockObjectTestCase;
+import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
 
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -36,22 +37,15 @@ public class SessionFilterTest extends MockObjectTestCase {
     private HttpServletRequest request;
     private HttpServletResponse response;
     private FilterChain chain;
-    private Mock mreq;
-    private Mock mresp;
-    private Mock mchain;
 
-    public void setUp() {
-        mreq = mock(HttpServletRequest.class);
-        mresp = mock(HttpServletResponse.class);
-        mchain = mock(FilterChain.class);
+    public void setUp() throws IOException, ServletException {
+        request = mock(HttpServletRequest.class);
+        response = mock(HttpServletResponse.class);
+        chain = mock(FilterChain.class);
 
-        request = (HttpServletRequest) mreq.proxy();
-        response = (HttpServletResponse) mresp.proxy();
-        chain = (FilterChain) mchain.proxy();
-
-        mchain.expects(atLeastOnce())
-              .method("doFilter")
-              .with(eq(request), eq(response));
+        context().checking(new Expectations() { {
+            atLeast(1).of(chain).doFilter(request, response);
+        } });
     }
 
     public void testDoFilter() throws Exception {
@@ -68,17 +62,5 @@ public class SessionFilterTest extends MockObjectTestCase {
             // This should never happen ..
             throw new Exception("doFilter() failed ..");
         }
-        mchain.verify();
-        mresp.verify();
-        mreq.verify();
-    }
-
-    public void tearDown() {
-        request = null;
-        response = null;
-        chain = null;
-        mreq = null;
-        mresp = null;
-        mchain = null;
     }
 }

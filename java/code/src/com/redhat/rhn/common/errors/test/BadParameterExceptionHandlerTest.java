@@ -30,8 +30,9 @@ import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.config.ExceptionConfig;
-import org.jmock.Mock;
-import org.jmock.cglib.MockObjectTestCase;
+import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
+import org.jmock.lib.legacy.ClassImposteriser;
 
 import java.util.Vector;
 
@@ -44,6 +45,7 @@ public class BadParameterExceptionHandlerTest extends MockObjectTestCase {
     private TraceBackAction tba;
 
     public void setUp() throws Exception {
+        setImposteriser(ClassImposteriser.INSTANCE);
         tba = new TraceBackAction();
         MessageQueue.registerAction(tba, TraceBackEvent.class);
         MessageQueue.startMessaging();
@@ -68,9 +70,11 @@ public class BadParameterExceptionHandlerTest extends MockObjectTestCase {
             BadParameterException ex =
                 new BadParameterException("Invalid test parameter");
 
-            Mock mapping = mock(ActionMapping.class, "mapping");
-            mapping.expects(once()).method("getInputForward").withNoArguments()
-                    .will(returnValue(new ActionForward()));
+            ActionMapping mapping = mock(ActionMapping.class, "mapping");
+            context().checking(new Expectations() { {
+                oneOf(mapping).getInputForward();
+                will(returnValue(new ActionForward()));
+            } });
 
             // mockup a dumb ass Enumeration class for the Mock request
             // jmock RULES!
@@ -85,9 +89,7 @@ public class BadParameterExceptionHandlerTest extends MockObjectTestCase {
 
             BadParameterExceptionHandler bpeh = new BadParameterExceptionHandler();
 
-            bpeh.execute(ex, new ExceptionConfig(), (ActionMapping) mapping
-                    .proxy(), form, request, response);
-            mapping.verify();
+            bpeh.execute(ex, new ExceptionConfig(), mapping, form, request, response);
         }
         finally {
             // Turn tracebacks and logging back on

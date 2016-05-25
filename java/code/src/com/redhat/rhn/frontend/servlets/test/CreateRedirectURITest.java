@@ -18,8 +18,8 @@ import com.redhat.rhn.frontend.action.LoginAction;
 import com.redhat.rhn.frontend.servlets.CreateRedirectURI;
 
 import org.apache.commons.lang.StringUtils;
-import org.jmock.Mock;
-import org.jmock.MockObjectTestCase;
+import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
 
 import java.net.URLEncoder;
 import java.util.Vector;
@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class CreateRedirectURITest extends MockObjectTestCase {
 
-    private Mock mockRequest;
+    private HttpServletRequest mockRequest;
 
     /**
      *
@@ -46,22 +46,23 @@ public class CreateRedirectURITest extends MockObjectTestCase {
         super.setUp();
 
         mockRequest = mock(HttpServletRequest.class);
-
-        mockRequest.stubs().method("getParameterNames").will(returnValue(
-new Vector<String>().elements()));
-        mockRequest.stubs().method("getRequestURI").will(returnValue("/YourRhn.do"));
     }
 
     private HttpServletRequest getMockRequest() {
-        return (HttpServletRequest)mockRequest.proxy();
+        return mockRequest;
     }
 
     /**
      *
      */
     public final void testExecuteWhenRequestHasNoParams() throws Exception {
-        mockRequest.stubs().method("getParameterNames")
-                .will(returnValue(new Vector<String>().elements()));
+
+      context().checking(new Expectations() { {
+          allowing(mockRequest).getParameterNames();
+          will(returnValue(new Vector<String>().elements()));
+          allowing(mockRequest).getRequestURI();
+          will(returnValue("/YourRhn.do"));
+      } });
 
         CreateRedirectURI command = new CreateRedirectURI();
         String redirectUrl = command.execute(getMockRequest());
@@ -81,10 +82,15 @@ new Vector<String>().elements()));
         Vector<String> paramNames = new Vector<String>();
         paramNames.add(paramName);
 
-        mockRequest.stubs().method("getParameterNames").will(
-                returnValue(paramNames.elements()));
-        mockRequest.stubs().method("getParameter").with(eq(paramName)).will(
-                returnValue(paramValue));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getParameterNames();
+            will(returnValue(paramNames.elements()));
+            allowing(mockRequest).getParameter(paramName);
+            will(returnValue(paramValue));
+            allowing(mockRequest).getRequestURI();
+            will(returnValue("/YourRhn.do"));
+
+        } });
 
         CreateRedirectURI command = new CreateRedirectURI();
         String redirectURI = command.execute(getMockRequest());
@@ -96,7 +102,12 @@ new Vector<String>().elements()));
         String url = StringUtils.rightPad("/YourRhn.do",
                 (int)CreateRedirectURI.MAX_URL_LENGTH + 1, "x");
 
-        mockRequest.stubs().method("getRequestURI").will(returnValue(url));
+        context().checking(new Expectations() { {
+            allowing(mockRequest).getParameterNames();
+            will(returnValue(new Vector<String>().elements()));
+            allowing(mockRequest).getRequestURI();
+            will(returnValue(url));
+        } });
 
         CreateRedirectURI command = new CreateRedirectURI();
         String redirectUrl = command.execute(getMockRequest());
