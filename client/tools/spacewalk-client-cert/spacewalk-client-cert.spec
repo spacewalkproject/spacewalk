@@ -1,5 +1,5 @@
 Name:		spacewalk-client-cert
-Version:	2.5.2
+Version:	2.5.3
 Release:	1%{?dist}
 Summary:	Package allowing manipulation with Spacewalk client certificates
 
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.3-1
+- updating copyright years
+
 * Tue May 10 2016 Grant Gainey 2.5.2-1
 - spacewalk-client-cert: build on openSUSE
 
