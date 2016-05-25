@@ -22,15 +22,19 @@ if [ -f \"\$SRPM\" ]; then
    service taskomatic stop
    service httpd stop
    for t in \$TOMCAT; do service \$t stop; done
+   DIST=\$(rpm -q kernel --qf %{release} | awk -F . '{print \$NF}')
+   echo "DIST: \$DIST"
    # yum-builddep \"\$SRPM\" >/dev/null
    # echo "YUM-BUILDDEP: \$?"
-   yum install -y jmock ant-apache-regexp ant-contrib ant-junit ant-nodeps checkstyle postgresql-jdbc 'perl(XML::XPath)'
+   if [ \$DIST == 'el6' ]; then
+       yum install -y jmock ant-apache-regexp ant-contrib ant-junit ant-nodeps checkstyle
+   else
+       yum install -y aspell-en jmock ant-apache-regexp ant-junit 'mvn(ant-contrib:ant-contrib)' checkstyle
+   fi
    rm -rf /usr/src/redhat/SOURCES/*
    rm -rf /usr/src/redhat/BUILD/*
    rm -f /usr/src/redhat/RPMS/*/*rpm
    rm -f /root/rpmbuild/RPMS/*/*rpm
-   DIST=\$(rpm -q kernel --qf %{release} | awk -F . '{print \$NF}')
-   echo "DIST: \$DIST"
    RPMMACRO=\$(echo \$DIST | sed 's/el/rhel /' | sed 's/fc/fedora /')
    echo "RPMMACRO: \$RPMMACRO"
    OMIT="postgresql"
