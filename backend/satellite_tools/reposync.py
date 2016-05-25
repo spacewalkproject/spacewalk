@@ -184,14 +184,14 @@ class RepoSync(object):
                 if repo_id is not None:
                     keys = rhnSQL.fetchone_dict("""
                         select k1.key as ca_cert, k2.key as client_cert, k3.key as client_key
-                        from rhncontentsourcessl
+                        from rhncontentssl
                                 join rhncryptokey k1
-                                on rhncontentsourcessl.ssl_ca_cert_id = k1.id
+                                on rhncontentssl.ssl_ca_cert_id = k1.id
                                 left outer join rhncryptokey k2
-                                on rhncontentsourcessl.ssl_client_cert_id = k2.id
+                                on rhncontentssl.ssl_client_cert_id = k2.id
                                 left outer join rhncryptokey k3
-                                on rhncontentsourcessl.ssl_client_key_id = k3.id
-                        where rhncontentsourcessl.content_source_id = :repo_id
+                                on rhncontentssl.ssl_client_key_id = k3.id
+                        where rhncontentssl.content_source_id = :repo_id
                         """, repo_id=int(repo_id))
                     if keys and ('ca_cert' in keys):
                         plugin.set_ssl_options(keys['ca_cert'], keys['client_cert'], keys['client_key'])

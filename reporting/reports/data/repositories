@@ -37,7 +37,7 @@ sql:
               ck_cert.description as client_cert_descr, ck_cert.crypto_key_type_id as client_cert_type, ck_cert.key as client_cert,
               ck_ca.description as ca_descr, ck_ca.crypto_key_type_id as ca_type, ck_ca.key as ca_key
        from rhncontentsource cs
-            left outer join rhncontentsourcessl css on css.content_source_id = cs.id
+            left outer join rhncontentssl css on css.content_source_id = cs.id
             left outer join rhncryptokey ck_key on ck_key.id = css.ssl_client_key_id
             left outer join rhncryptokey ck_cert on ck_cert.id = css.ssl_client_cert_id
             left outer join rhncryptokey ck_ca on ck_ca.id = css.ssl_ca_cert_id
