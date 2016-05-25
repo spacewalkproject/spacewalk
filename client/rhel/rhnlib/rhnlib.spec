@@ -4,7 +4,7 @@ Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.86
+Version: 2.5.87
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -85,6 +85,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.87-1
+- updating copyright years
+
 * Fri Apr 22 2016 Gennadii Altukhov <galt@redhat.com> 2.5.86-1
 - Fix indentation error
 
