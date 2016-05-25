@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.5.7
+Version:     2.5.8
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -92,6 +92,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.8-1
+- updating copyright years
+
 * Tue May 10 2016 Grant Gainey 2.5.7-1
 - spacecmd: build on openSUSE
 - 1274484 - changed name of key in ConfigRevision structure + updated API doc +
