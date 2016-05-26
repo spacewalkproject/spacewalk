@@ -34,7 +34,7 @@ class Manifest(object):
                 # Open the inner zip file
                 try:
                     inner_zip = zipfile.ZipFile(inner_file_data)
-                    self._load_certificates(inner_zip)
+                    self._load_entitlements(inner_zip)
                 finally:
                     inner_zip.close()
             finally:
@@ -42,7 +42,7 @@ class Manifest(object):
         finally:
             top_zip.close()
 
-    def _load_certificates(self, zip_file):
+    def _load_entitlements(self, zip_file):
         files = zip_file.namelist()
         entitlements_files = []
         for f in files:
@@ -50,33 +50,60 @@ class Manifest(object):
                 entitlements_files.append(f)
 
         if len(entitlements_files) >= 1:
-            self.all_credentials = []
+            self.all_entitlements = []
             for entitlement_file in entitlements_files:
                 try:
                     entitlements = zip_file.open(entitlement_file)
                     data = json.load(entitlements)
+
+                    # Extract credentials
                     certs = data['certificates']
                     if len(certs) != 1:
-                        raise EntitlementsSearchError(
+                        raise IncorrectEntitlementsFileFormatError(
                             "ERROR: Single certificate in entitlements file is expected, found: %d"
                             % len(certs))
                     cert = certs[0]
+                    credentials = Credentials(data['id'], cert['cert'], cert['key'])
 
-                    creds = Credentials(data['id'], cert['cert'], cert['key'])
-                    self.all_credentials.append(creds)
+                    # Extract product IDs
+                    product_ids = []
+                    provided_products = data['pool']['providedProducts']
+                    for product in provided_products:
+                        product_ids.append(product['productId'])
+
+                    entitlement = Entitlement(product_ids, credentials)
+                    self.all_entitlements.append(entitlement)
+                except KeyError:
+                    print("ERROR: Cannot access required field in file '%s'" % entitlement_file)
+                    raise
                 finally:
                     entitlements.close()
         else:
-            raise EntitlementsSearchError(
+            raise IncorrectEntitlementsFileFormatError(
                 "ERROR: There has to be at least one entitlements file")
 
-    def get_all_credentials(self):
-        return self.all_credentials
+    def get_all_entitlements(self):
+        return self.all_entitlements
+
+
+class Entitlement(object):
+    def __init__(self, product_ids, credentials):
+        if product_ids and credentials:
+            self.product_ids = product_ids
+            self.credentials = credentials
+        else:
+            raise IncorrectEntitlementError()
+
+    def get_product_ids(self):
+        return self.product_ids
+
+    def get_credentials(self):
+        return self.credentials
 
 
 class Credentials(object):
     def __init__(self, identifier, cert, key):
-        if id:
+        if identifier:
             self.id = identifier
         else:
             raise IncorrectCredentialsError(
@@ -102,9 +129,13 @@ class Credentials(object):
         return self.key
 
 
+class IncorrectEntitlementError(Exception):
+    pass
+
+
 class IncorrectCredentialsError(Exception):
     pass
 
 
-class EntitlementsSearchError(Exception):
+class IncorrectEntitlementsFileFormatError(Exception):
     pass

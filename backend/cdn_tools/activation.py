@@ -38,13 +38,15 @@ def update_certificates(manifest):
     satCerts.store_rhnCryptoKey(
         constants.CA_CERT_NAME, ca_cert, None)
 
-    for creds in manifest.get_all_credentials():
+    for entitlement in manifest.get_all_entitlements():
+        creds = entitlement.get_credentials()
         satCerts.store_rhnCryptoKey(
             constants.CLIENT_CERT_PREFIX + creds.get_id(), creds.get_cert(), None)
         satCerts.store_rhnCryptoKey(
             constants.CLIENT_KEY_PREFIX + creds.get_id(), creds.get_key(), None)
 
-def update_channel_families(cert_path):
+
+def update_channel_families(manifest, cert_path):
     """Insert channel family data into DB"""
 
     # Satellite 5 certificate
@@ -55,12 +57,35 @@ def update_channel_families(cert_path):
     with open(constants.CHANNEL_FAMILY_MAPPING_PATH, 'r') as f:
         families = json.load(f)
 
+    with open(constants.PRODUCT_FAMILY_MAPPING_PATH, 'r') as f:
+        products = json.load(f)
+
+    mapped_channel_families = []
+    for entitlement in manifest.get_all_entitlements():
+        for product_id in entitlement.get_product_ids():
+            try:
+                product = products[product_id]
+                mapped_channel_families.extend(product['families'])
+            # Some product cannot be mapped into channel families
+            except KeyError:
+                print("Cannot map product '%s' into channel families" % product_id)
+                pass
+
+    mapped_channel_families = set(mapped_channel_families)
+
     cert = SatelliteCert()
     cert.load(cert_content)
+
+    # Debug
+    print("Channel families mapped from products: %d" % len(mapped_channel_families))
+    print("Channel families in cert: %d" % len(cert.channel_families))
 
     batch = []
     for cf in cert.channel_families:
         label = cf.name
+        if label not in mapped_channel_families:
+            print("Skipping channel family from certificate, not in the mapping: %s" % label)
+            continue
         try:
             family = families[label]
             family_object = ChannelFamily()
@@ -69,15 +94,15 @@ def update_channel_families(cert_path):
             family_object['label'] = label
             batch.append(family_object)
         except KeyError:
-            raise InvalidChannelFamilyError(
-                "ERROR: Channel family '%s' was not found in mapping"
-                % label
-            )
+            print("ERROR: Channel family '%s' was not found in mapping" % label)
+            raise
 
     # Perform import
     backend = SQLBackend()
     importer = ChannelFamilyImport(batch, backend)
     importer.run()
     backend.commit()
+
+
 
 
