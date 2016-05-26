@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.5.10
+Version:	2.5.11
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu May 26 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.11-1
+- updating spacewalk-common-channels with Spacewalk 2.5
+
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.10-1
 - updating copyright years
 
