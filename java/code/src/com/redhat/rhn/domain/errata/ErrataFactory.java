@@ -336,7 +336,8 @@ public class ErrataFactory extends HibernateFactory {
 
 
     private static void postPublishActions(Channel chan, User user) {
-        ChannelManager.refreshWithNewestPackages(chan, "java::publishErrataPackagesToChannel");
+        ChannelManager.refreshWithNewestPackages(chan,
+            "java::publishErrataPackagesToChannel");
     }
 
 
