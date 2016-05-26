@@ -49,6 +49,12 @@ rm -rf %{buildroot}
 %attr(755,root,root) %{_bindir}/spacewalk-setup-postgresql
 #%{_mandir}/man1/*
 %{_datadir}/spacewalk/setup/defaults.d/*
+%if 0%{?suse_version}
+%dir %{_datadir}/spacewalk
+%dir %{_datadir}/spacewalk/setup
+%dir %{_datadir}/spacewalk/setup/defaults.d
+%endif
+
 
 %changelog
 * Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.1-1

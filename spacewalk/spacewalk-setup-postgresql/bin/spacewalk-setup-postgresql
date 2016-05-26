@@ -83,10 +83,22 @@ PG_IDENT="$PG_DATA/pg_ident.conf"
 POSTGRESQL="$PG_DATA/postgresql.conf"
 PORT=5432
 PG_PIDFILE="/var/run/postmaster.$PORT.pid"
+if isSUSE ; then
+    PG_PIDFILE="$PG_DATA/postmaster.pid"
+fi
 PG_SOCKET="/tmp/.s.PGSQL.$PORT"
 SPACEWALK_TARGET="/usr/lib/systemd/system/spacewalk.target"
 SERVICE_LIST="/etc/rhn/service-list"
 RHN_CONF="/etc/rhn/rhn.conf"
+
+LSOF="/usr/sbin/lsof"
+if [ -x /usr/bin/lsof ]; then
+    LSOF="/usr/bin/lsof"
+fi
+RUNUSER=runuser
+if isSUSE ; then
+    RUNUSER=/usr/bin/su
+fi
 
 create() {
     [ -z "$PGNAME" ] && ask true "Database name: " PGNAME
@@ -200,26 +212,26 @@ EOF
     postgresql_service status >& /dev/null && postgresql_service stop
     postgresql_service start
 
-    if /usr/sbin/lsof /proc > /dev/null ; then
+    if $LSOF /proc > /dev/null ; then
         while [ -f "$PG_PIDFILE" ] ; do
             # wait for postmaster to be ready
-            /usr/sbin/lsof -t -p $(cat "$PG_PIDFILE" 2>/dev/null) -a "$PG_SOCKET" > /dev/null  \
+            $LSOF -t -p $(cat "$PG_PIDFILE" 2>/dev/null) -a "$PG_SOCKET" > /dev/null  \
                 && break
             sleep 1
         done
     fi
 
     if ! exists_db ; then
-            runuser - postgres -c "createdb -E UTF8 '$PGNAME'"
+            $RUNUSER - postgres -c "createdb -E UTF8 '$PGNAME'"
     fi
     if ! exists_plpgsql ; then
-            runuser - postgres -c "createlang plpgsql '$PGNAME'"
+            $RUNUSER - postgres -c "createlang plpgsql '$PGNAME'"
     fi
     if ! exists_pltclu ; then
-            runuser - postgres -c "createlang pltclu '$PGNAME'"
+            $RUNUSER - postgres -c "createlang pltclu '$PGNAME'"
     fi
     if ! exists_user ; then
-            runuser - postgres -c "yes '$PGPASSWORD' | createuser -P -sDR '$PGUSER'" 2>/dev/null
+            $RUNUSER - postgres -c "yes '$PGPASSWORD' | createuser -P -sDR '$PGUSER'" 2>/dev/null
     fi
 
     postgresql_service reload
@@ -243,10 +255,10 @@ remove() {
         exit 1
     fi
     if exists_db ; then
-            runuser - postgres -c "dropdb '$PGNAME'"
+            $RUNUSER - postgres -c "dropdb '$PGNAME'"
     fi
     if exists_user ; then
-            runuser - postgres -c "dropuser '$PGUSER'"
+            $RUNUSER - postgres -c "dropuser '$PGUSER'"
     fi
 }
 
@@ -278,8 +290,19 @@ check() {
     exit $RET
 }
 
+isSUSE() {
+    if [ ! -e '/etc/os-release' ]; then
+        return 1
+    fi
+    source /etc/os-release
+    if echo $CPE_NAME | grep -E 'cpe:/o:(open)*suse:' >/dev/null ; then
+        return 0
+    fi
+    return 1
+}
+
 exists_db() {
-    EXISTS=$(runuser - postgres -c 'psql -t -c "select datname from pg_database where datname='"'$PGNAME'"';"')
+    EXISTS=$($RUNUSER - postgres -c 'psql -t -c "select datname from pg_database where datname='"'$PGNAME'"';"')
     if [ "x$EXISTS" == "x $PGNAME" ] ; then
         return 0
     else
@@ -288,7 +311,7 @@ exists_db() {
 }
 
 exists_plpgsql() {
-    EXISTS=$(runuser - postgres -c 'psql -At -c "select lanname from pg_catalog.pg_language where lanname='"'plpgsql'"';"'" $PGNAME")
+    EXISTS=$($RUNUSER - postgres -c 'psql -At -c "select lanname from pg_catalog.pg_language where lanname='"'plpgsql'"';"'" $PGNAME")
     if [ "x$EXISTS" == "xplpgsql" ] ; then
         return 0
     else
@@ -297,7 +320,7 @@ exists_plpgsql() {
 }
 
 exists_pltclu() {
-    EXISTS=$(runuser - postgres -c 'psql -At -c "select lanname from pg_catalog.pg_language where lanname='"'pltclu'"';"'" $PGNAME")
+    EXISTS=$($RUNUSER - postgres -c 'psql -At -c "select lanname from pg_catalog.pg_language where lanname='"'pltclu'"';"'" $PGNAME")
     if [ "x$EXISTS" == "xpltclu" ] ; then
         return 0
     else
@@ -306,7 +329,7 @@ exists_pltclu() {
 }
 
 exists_user() {
-    EXISTS=$(runuser - postgres -c 'psql -t -c "select usename from pg_user where usename='"'$PGUSER'"';"')
+    EXISTS=$($RUNUSER - postgres -c 'psql -t -c "select usename from pg_user where usename='"'$PGUSER'"';"')
     if [ "x$EXISTS" == "x $PGUSER" ] ; then
         return 0
     else
