@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.1
+Version: 2.6.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri May 27 2016 Jiri Precechtel <jprecech@redhat.com> 2.6.2-1
+- 1116426 - "Delete Group" and "Work With Group" buttons are not be displayed
+  on the Delete Group confirmation page now
+
 * Fri May 27 2016 Jiri Precechtel <jprecech@redhat.com> 2.6.1-1
 - 1304093 - remove migrated systems from SSM if they are selected
 - Bumping package versions for 2.6.
