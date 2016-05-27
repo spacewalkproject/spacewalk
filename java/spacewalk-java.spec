@@ -439,15 +439,15 @@ install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat/Catalina/localhost/
 
 # Need to use 2 versions of rhn.xml, Tomcat 8 changed syntax
 %if 0%{?fedora} >= 23
-install -m 755 conf/rhn-tomcat8.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat/Catalina/localhost/rhn.xml
+install -m 644 conf/rhn-tomcat8.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat/Catalina/localhost/rhn.xml
 %else
-install -m 755 conf/rhn-tomcat5.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat/Catalina/localhost/rhn.xml
+install -m 644 conf/rhn-tomcat5.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat/Catalina/localhost/rhn.xml
 %endif
 
 %else
 ant -Dprefix=$RPM_BUILD_ROOT install-tomcat6
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/
-install -m 755 conf/rhn-tomcat5.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
+install -m 644 conf/rhn-tomcat5.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
 %endif
 
 # check spelling errors in all resources for English if aspell installed
@@ -499,18 +499,18 @@ install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT%{_prefix}/share/r
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
 install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
 install -m 644 conf/rhn_java.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
-install -m 755 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
+install -m 644 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
 # LOGROTATE >= 3.8 requires extra permission config
 %if 0%{?fedora} || 0%{?rhel} > 6
 sed -i 's/#LOGROTATE-3.8#//' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
 %endif
 %if 0%{?fedora} || 0%{?rhel} >= 7
 install -m 755 scripts/taskomatic $RPM_BUILD_ROOT%{_sbindir}
-install -m 755 scripts/taskomatic.service $RPM_BUILD_ROOT%{_unitdir}
+install -m 644 scripts/taskomatic.service $RPM_BUILD_ROOT%{_unitdir}
 %else
 install -m 755 scripts/taskomatic $RPM_BUILD_ROOT%{_initrddir}
 %endif
-install -m 755 scripts/unittest.xml $RPM_BUILD_ROOT/%{_datadir}/rhn/
+install -m 644 scripts/unittest.xml $RPM_BUILD_ROOT/%{_datadir}/rhn/
 install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib
 %if ! 0%{?omit_tests} > 0
 install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn-test.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib
@@ -700,7 +700,7 @@ fi
 %defattr(644,root,root,775)
 %if 0%{?fedora} || 0%{?rhel} >= 7
 %attr(755, root, root) %{_sbindir}/taskomatic
-%attr(755, root, root) %{_unitdir}/taskomatic.service
+%attr(644, root, root) %{_unitdir}/taskomatic.service
 %else
 %attr(755, root, root) %{_initrddir}/taskomatic
 %endif
