@@ -46,7 +46,7 @@ elif [ "$DB_BACKEND" = "postgresql" ]; then
     DBSHELL_QUIET="
 \set QUIET on
 \t"
-    if [ -x /etc/init.d/postgresql ]; then
+    if [ -x /etc/init.d/postgresql -o -f /usr/lib/systemd/system/postgresql.service ]; then
         DB_SERVICE="postgresql"
     fi
     if [ -x /etc/init.d/postgresql92-postgresql ]; then
