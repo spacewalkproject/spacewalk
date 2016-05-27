@@ -6,6 +6,7 @@
 
 <html>
 <body>
+    <c:set var="delgrp" value="True"/>
 <%@ include file="/WEB-INF/pages/common/fragments/groups/header.jspf" %>
 
     <h2>
