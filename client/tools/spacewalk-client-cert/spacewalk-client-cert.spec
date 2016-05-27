@@ -1,5 +1,5 @@
 Name:		spacewalk-client-cert
-Version:	2.5.3
+Version:	2.6.0
 Release:	1%{?dist}
 Summary:	Package allowing manipulation with Spacewalk client certificates
 
