@@ -23,6 +23,7 @@ from datetime import datetime
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel
 from spacewalk.common import fileutils, rhnLog
 from spacewalk.common.rhnLog import log_debug
+from spacewalk.common.rhnLib import isSUSE
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.server.importlib.importLib import IncompletePackage, Erratum, Bug, Keyword
@@ -132,7 +133,10 @@ class RepoSync(object):
         log_filename = channel_label + '.log'
         rhnLog.initLOG(default_log_location + log_filename)
         # os.fchown isn't in 2.4 :/
-        os.system("chgrp apache " + default_log_location + log_filename)
+        if isSUSE():
+            os.system("chgrp www " + default_log_location + log_filename)
+        else:
+            os.system("chgrp apache " + default_log_location + log_filename)
 
         self.log_msg("\nSync started: %s" % (time.asctime(time.localtime())))
         self.log_msg(str(sys.argv))
