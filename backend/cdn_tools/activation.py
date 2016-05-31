@@ -70,17 +70,18 @@ class Activation(object):
     def _update_channel_families(self):
         """Insert channel family data into DB"""
 
+        families_in_mapping = []
         for entitlement in self.manifest.get_all_entitlements():
             for product_id in entitlement.get_product_ids():
                 try:
                     product = self.products[product_id]
-                    self.families_to_import.extend(product['families'])
+                    families_in_mapping.extend(product['families'])
                 # Some product cannot be mapped into channel families
                 except KeyError:
                     print("Cannot map product '%s' into channel families" % product_id)
                     pass
 
-        self.families_to_import = set(self.families_to_import)
+        families_in_mapping = set(families_in_mapping)
 
         # Debug
         print("Channel families mapped from products: %d" % len(self.families_to_import))
@@ -89,7 +90,7 @@ class Activation(object):
         batch = []
         for cf in self.sat5_cert.channel_families:
             label = cf.name
-            if label not in self.families_to_import:
+            if label not in families_in_mapping:
                 print("Skipping channel family from certificate, not in the mapping: %s" % label)
                 continue
             try:
@@ -99,6 +100,7 @@ class Activation(object):
                     family_object[k] = family[k]
                 family_object['label'] = label
                 batch.append(family_object)
+                self.families_to_import.append(label)
             except KeyError:
                 print("ERROR: Channel family '%s' was not found in mapping" % label)
                 raise
@@ -109,8 +111,61 @@ class Activation(object):
         importer.run()
         backend.commit()
 
+    def _update_families_ssl(self):
+        """Link channel families with certificates inserted in _update_certificates method"""
+        family_ids = {}
+        for family in self.families_to_import:
+            family_ids[family] = None
+
+        # Populate with IDs
+        backend = SQLBackend()
+        backend.lookupChannelFamilies(family_ids)
+
+        # Lookup CA cert
+        ca_cert = satCerts.lookup_cert(constants.CA_CERT_NAME, None)
+        ca_cert_id = int(ca_cert['id'])
+
+        # Queries for updating relation between channel families and certificates
+        hdel = rhnSQL.prepare("""
+            delete from rhnContentSsl where
+            channel_family_id = :cfid
+        """)
+        hins = rhnSQL.prepare("""
+            insert into rhnContentSsl
+            (channel_family_id, ssl_ca_cert_id, ssl_client_cert_id, ssl_client_key_id)
+            values (:cfid, :ca_cert_id, :client_cert_id, :client_key_id)
+        """)
+
+        for entitlement in self.manifest.get_all_entitlements():
+            creds = entitlement.get_credentials()
+            client_cert = satCerts.lookup_cert(constants.CLIENT_CERT_PREFIX +
+                                               creds.get_id(), None)
+            client_key = satCerts.lookup_cert(constants.CLIENT_KEY_PREFIX +
+                                              creds.get_id(), None)
+            client_cert_id = int(client_cert['id'])
+            client_key_id = int(client_key['id'])
+            family_ids_to_link = []
+            for product_id in entitlement.get_product_ids():
+                try:
+                    product = self.products[product_id]
+                    for family in product['families']:
+                        family_ids_to_link.append(family_ids[family])
+                except KeyError:
+                    print("Cannot map product '%s' into channel families" % product_id)
+                    pass
+            family_ids_to_link = set(family_ids_to_link)
+
+            for cfid in family_ids_to_link:
+                hdel.execute(cfid=cfid)
+                hins.execute(cfid=cfid, ca_cert_id=ca_cert_id,
+                             client_cert_id=client_cert_id, client_key_id=client_key_id)
+
+        rhnSQL.commit()
+
     def run(self):
         print("Updating certificates...")
         self._update_certificates()
         print("Updating channel families...")
         self._update_channel_families()
+        print("Updating certificates for channel families...")
+        self._update_families_ssl()
