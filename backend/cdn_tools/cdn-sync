@@ -1,15 +1,15 @@
 #!/usr/bin/python
 
-import sys
-
 import argparse
 
-from spacewalk.cdn_tools import cdnsync
+from spacewalk.cdn_tools.cdnsync import CdnSync
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-l", "--list-channels", action="store_true", help="List channels available to sync.")
 args = parser.parse_args()
 
+cdnsync = CdnSync()
+
 if args.list_channels:
-    cdnsync.list_available_channels()
+    cdnsync.print_channel_tree()
 
