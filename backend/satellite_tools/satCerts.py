@@ -57,6 +57,17 @@ class CaCertInsertionError(Exception):
     pass
 
 
+def lookup_cert(description, org_id):
+    if org_id:
+        h = rhnSQL.prepare(_querySelectCryptoCertInfo)
+        h.execute(description=description, org_id=org_id)
+    else:
+        h = rhnSQL.prepare(_querySelectCryptoCertInfoNullOrg)
+        h.execute(description=description)
+
+    row = h.fetchone_dict()
+    return row
+
 def _checkCertMatch_rhnCryptoKey(cert, description, org_id, deleteRowYN=0,
                                  verbosity=0):
     """ is there an CA SSL certificate already in the database?
@@ -70,14 +81,7 @@ def _checkCertMatch_rhnCryptoKey(cert, description, org_id, deleteRowYN=0,
         Used ONLY by: store_rhnCryptoKey(...)
     """
 
-    if org_id:
-        h = rhnSQL.prepare(_querySelectCryptoCertInfo)
-        h.execute(description=description, org_id=org_id)
-    else:
-        h = rhnSQL.prepare(_querySelectCryptoCertInfoNullOrg)
-        h.execute(description=description)
-
-    row = h.fetchone_dict()
+    row = lookup_cert(description, org_id)
     rhn_cryptokey_id = -1
     if row:
         if cert == rhnSQL.read_lob(row['key']):
