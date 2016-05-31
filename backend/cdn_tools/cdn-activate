@@ -2,15 +2,8 @@
 
 import sys
 
-from spacewalk.cdn_tools import activation
-from spacewalk.cdn_tools.manifest import Manifest
+from spacewalk.cdn_tools.activation import Activation
 
-m = Manifest(sys.argv[1])
+a = Activation(sys.argv[1], sys.argv[2])
+a.run()
 
-print("Updating certificates...")
-activation.update_certificates(m)
-
-print("Updating channel families...")
-# WORKAROUND: Filename of certificate xml as parameter
-# Until cert is not part of manifest
-activation.update_channel_families(m, sys.argv[2])
