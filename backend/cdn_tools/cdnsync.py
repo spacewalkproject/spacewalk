@@ -16,6 +16,10 @@ import json
 
 import constants
 from spacewalk.server import rhnSQL
+from spacewalk.server.importlib.backendOracle import SQLBackend
+from spacewalk.server.importlib.channelImport import ChannelImport
+from spacewalk.server.importlib.productNamesImport import ProductNamesImport
+from spacewalk.server.importlib.importLib import Channel, ChannelFamily, ProductName
 
 
 class CdnSync(object):
@@ -26,6 +30,12 @@ class CdnSync(object):
         # Channel families mapping to channels
         with open(constants.CHANNEL_FAMILY_MAPPING_PATH, 'r') as f:
             self.families = json.load(f)
+
+        # Map channels to their channel family
+        self.channel_to_family = {}
+        for family in self.families:
+            for channel in self.families[family]['channels']:
+                self.channel_to_family[channel] = family
 
         # Channel metadata
         with open(constants.CHANNEL_DEFINITIONS_PATH, 'r') as f:
@@ -83,3 +93,65 @@ class CdnSync(object):
                 for child in sorted(available_channel_tree[channel]):
                     status = 'p' if channel in synced_channels else '.'
                     print("    %s %s" % (status, child))
+
+    def _update_product_names(self, channels):
+        backend = SQLBackend()
+        batch = []
+
+        for label in channels:
+            channel = self.channel_metadata[label]
+            if channel['product_label'] and channel['product_name']:
+                product_name = ProductName()
+                product_name['label'] = channel['product_label']
+                product_name['name'] = channel['product_name']
+                batch.append(product_name)
+
+        importer = ProductNamesImport(batch, backend)
+        importer.run()
+
+    def _update_channels_metadata(self, channels):
+
+        # First populate rhnProductName table
+        self._update_product_names(channels)
+
+        backend = SQLBackend()
+        batch = []
+
+        for label in channels:
+            channel = self.channel_metadata[label]
+            channel_object = Channel()
+            for k in channel.keys():
+                channel_object[k] = channel[k]
+
+            family_object = ChannelFamily()
+            family_object['label'] = self.channel_to_family[label]
+
+            channel_object['families'] = [family_object]
+            channel_object['label'] = label
+            channel_object['basedir'] = '/'
+
+            # Backend expects product_label named as product_name
+            # To have correct value in rhnChannelProduct and reference
+            # to rhnProductName in rhnChannel
+            channel_object['product_name'] = channel['product_label']
+
+            batch.append(channel_object)
+
+        importer = ChannelImport(batch, backend)
+        importer.run()
+
+    def _sync_channel(self, channel):
+        pass
+
+    def sync(self, channels=None):
+        synced_channels = self._list_synced_channels()
+        # If no channels specified, sync already synced channels
+        if channels is None:
+            channels = synced_channels
+
+        # Need to update channel metadata
+        self._update_channels_metadata(channels)
+
+        # Finally, sync channel content
+        for channel in channels:
+            self._sync_channel(channel)

@@ -109,7 +109,6 @@ class Activation(object):
         backend = SQLBackend()
         importer = ChannelFamilyImport(batch, backend)
         importer.run()
-        backend.commit()
 
     def _update_families_ssl(self):
         """Link channel families with certificates inserted in _update_certificates method"""
