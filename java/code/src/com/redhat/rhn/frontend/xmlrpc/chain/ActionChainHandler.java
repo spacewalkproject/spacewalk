@@ -230,6 +230,37 @@ public class ActionChainHandler extends BaseHandler {
     }
 
     /**
+     * Schedule Errata update.
+     *
+     * @param loggedInUser The current user
+     * @param serverId Server ID.
+     * @param errataIds a list of erratas IDs
+     * @param chainLabel Label of the action chain
+     * @return action id if successful, exception otherwise
+     *
+     * @xmlrpc.doc Adds Errata update to an Action Chain.
+     * @xmlrpc.param #param_desc("string", "sessionKey",
+     * "Session token, issued at login")
+     * @xmlrpc.param #param_desc("int", "serverId", "System ID")
+     * @xmlrpc.param #array_single("int", "Errata ID")
+     * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
+     * @xmlrpc.returntype int actionId - The action id of the scheduled action
+     */
+    public Integer addErrataUpdate(User loggedInUser,
+                                   Integer serverId,
+                                   List<Integer> errataIds,
+                                   String chainLabel) {
+        if (errataIds.isEmpty()) {
+            throw new InvalidParameterException("No specified Erratas.");
+        }
+
+        return ActionChainManager.scheduleErrataUpdate(
+                loggedInUser, this.acUtil.getServerById(serverId, loggedInUser), errataIds,
+                new Date(), this.acUtil.getActionChainByLabel(loggedInUser, chainLabel)
+        ).getId().intValue();
+    }
+
+    /**
      * Adds an action to remove installed packages on the system.
      *
      * @param loggedInUser The current user
@@ -340,7 +371,7 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "serverId", "System ID")
      * @xmlrpc.param #array_single("int", "packageId")
      * @xmlrpc.param #param_desc("string", "chainLabel", "Label of the chain")
-     * @xmlrpc.returntype - actionID or throw an exception
+     * @xmlrpc.returntype int actionId - The id of the action or throw an exception
      */
     public int addPackageUpgrade(User loggedInUser,
                                  Integer serverId,

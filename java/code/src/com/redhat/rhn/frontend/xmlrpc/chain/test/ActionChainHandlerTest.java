@@ -24,7 +24,9 @@ import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
+import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
+import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.server.Network;
 import com.redhat.rhn.domain.rhnpackage.Package;
@@ -68,6 +70,7 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
     private Server server;
     private Package pkg;
     private Package channelPackage;
+    private Errata errata;
     private ActionChain actionChain;
     private static final String UNAUTHORIZED_EXCEPTION_EXPECTED =
             "Expected an exception of type " +
@@ -102,6 +105,10 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
         this.channelPackage = PackageTest.createTestPackage(this.admin.getOrg());
         channel.addPackage(this.channelPackage);
         this.server.addChannel(channel);
+
+        // Add errata available to the installation
+        this.errata = ErrataFactoryTest.createTestPublishedErrata(
+                this.admin.getOrg().getId());
 
         // Install one package on the server
         InstalledPackage ipkg = new InstalledPackage();
@@ -166,6 +173,24 @@ public class ActionChainHandlerTest extends BaseHandlerTestCase {
 
         assertEquals(1, actionChain.getEntries().size());
         assertEquals(ActionFactory.TYPE_REBOOT,
+                     actionChain.getEntries().iterator().next()
+                             .getAction().getActionType());
+    }
+
+    /**
+     * Test Errata update command schedule.
+     * @throws Exception if something bad happens
+     */
+    public void testAcAddErrataUpdate() throws Exception {
+        List<Integer> errataIds = new ArrayList<Integer>();
+        errataIds.add(this.errata.getId().intValue());
+        assertEquals(true, this.ach.addErrataUpdate(this.admin,
+                                                    this.server.getId().intValue(),
+                                                    errataIds,
+                                                    CHAIN_LABEL) > 0);
+
+        assertEquals(1, actionChain.getEntries().size());
+        assertEquals(ActionFactory.TYPE_ERRATA,
                      actionChain.getEntries().iterator().next()
                              .getAction().getActionType());
     }
