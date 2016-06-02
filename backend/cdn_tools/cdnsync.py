@@ -19,7 +19,7 @@ from spacewalk.server import rhnSQL
 from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.channelImport import ChannelImport
 from spacewalk.server.importlib.productNamesImport import ProductNamesImport
-from spacewalk.server.importlib.importLib import Channel, ChannelFamily, ProductName
+from spacewalk.server.importlib.importLib import Channel, ChannelFamily, ProductName, DistChannelMap
 
 
 class CdnSync(object):
@@ -40,6 +40,10 @@ class CdnSync(object):
         # Channel metadata
         with open(constants.CHANNEL_DEFINITIONS_PATH, 'r') as f:
             self.channel_metadata = json.load(f)
+
+        # Dist/Release channel mapping
+        with open(constants.CHANNEL_DIST_MAPPING_PATH, 'r') as f:
+            self.channel_dist_mapping = json.load(f)
 
     def _list_synced_channels(self):
         h = rhnSQL.prepare("""
@@ -134,6 +138,22 @@ class CdnSync(object):
             # To have correct value in rhnChannelProduct and reference
             # to rhnProductName in rhnChannel
             channel_object['product_name'] = channel['product_label']
+
+            dists = []
+            releases = []
+            try:
+                dist_map = self.channel_dist_mapping[label]
+                for item in dist_map:
+                    d = DistChannelMap()
+                    for k in item:
+                        d[k] = item[k]
+                    d['channel'] = label
+                    dists.append(d)
+            except KeyError:
+                pass
+                
+            channel_object['dists'] = dists
+            channel_object['release'] = releases
 
             batch.append(channel_object)
 
