@@ -102,7 +102,7 @@ class CdnSync(object):
             if len(available_channel_tree[channel]) > 0:
                 print("%s:" % channel)
                 for child in sorted(available_channel_tree[channel]):
-                    status = 'p' if channel in synced_channels else '.'
+                    status = 'p' if child in synced_channels else '.'
                     print("    %s %s" % (status, child))
 
     def _update_product_names(self, channels):
