@@ -285,7 +285,7 @@ class RepoSync(object):
 
     def upload_updates(self, notices):
         batch = []
-        skipped_updates = 0
+        skipped_updates = []
         typemap = {
             'security': 'Security Advisory',
             'recommended': 'Bug Fix Advisory',
@@ -407,7 +407,7 @@ class RepoSync(object):
                 e['packages'] = newpkgs
 
             if len(e['packages']) == 0:
-                skipped_updates = skipped_updates + 1
+                skipped_updates.append(e['advisory_name'])
                 continue
 
             e['keywords'] = []
@@ -450,8 +450,11 @@ class RepoSync(object):
             e['locally_modified'] = None
             batch.append(e)
 
-        if skipped_updates > 0:
-            self.print_msg("%d errata skipped because of empty package list." % skipped_updates)
+        if skipped_updates:
+            self.print_msg("%d errata skipped because of empty package list:" % len(skipped_updates))
+            for update in skipped_updates:
+                self.print_msg(" %s" % update)
+
         backend = SQLBackend()
         importer = ErrataImport(batch, backend)
         importer.run()
