@@ -149,27 +149,30 @@ class RepoSync(object):
 
         if not url:
             # TODO:need to look at user security across orgs
-            h = rhnSQL.prepare("""select s.id, s.source_url, s.label
+            h = rhnSQL.prepare("""select s.id, s.source_url, s.label, fm.channel_family_id
                                   from rhnContentSource s,
-                                       rhnChannelContentSource cs
+                                       rhnChannelContentSource cs,
+                                       rhnChannelFamilyMembers fm
                                  where s.id = cs.source_id
+                                   and cs.channel_id = fm.channel_id
                                    and cs.channel_id = :channel_id""")
             h.execute(channel_id=int(self.channel['id']))
             source_data = h.fetchall_dict()
             if source_data:
-                self.urls = [(row['id'], row['source_url'], row['label']) for row in source_data]
+                self.urls = [(row['id'], row['source_url'], row['label'],
+                              row['channel_family_id']) for row in source_data]
             else:
                 self.error_msg("Channel has no URL associated")
                 sys.exit(1)
         else:
-            self.urls = [(None, u, None) for u in url]
+            self.urls = [(None, u, None, None) for u in url]
 
         self.repo_plugin = self.load_plugin(repo_type)
 
     def sync(self):
         """Trigger a reposync"""
         start_time = datetime.now()
-        for (repo_id, url, repo_label) in self.urls:
+        for (repo_id, url, repo_label, channel_family_id) in self.urls:
             print("")
             self.print_msg("Repo URL: %s" % url)
             plugin = None
@@ -192,7 +195,8 @@ class RepoSync(object):
                                 left outer join rhncryptokey k3
                                 on rhncontentssl.ssl_client_key_id = k3.id
                         where rhncontentssl.content_source_id = :repo_id
-                        """, repo_id=int(repo_id))
+                        or rhncontentssl.channel_family_id = :channel_family_id
+                        """, repo_id=int(repo_id), channel_family_id=int(channel_family_id))
                     if keys and ('ca_cert' in keys):
                         plugin.set_ssl_options(keys['ca_cert'], keys['client_cert'], keys['client_key'])
                 self.import_packages(plugin, repo_id, url)
