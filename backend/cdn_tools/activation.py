@@ -148,7 +148,8 @@ class Activation(object):
                 try:
                     product = self.products[product_id]
                     for family in product['families']:
-                        family_ids_to_link.append(family_ids[family])
+                        if family in family_ids:
+                            family_ids_to_link.append(family_ids[family])
                 except KeyError:
                     print("Cannot map product '%s' into channel families" % product_id)
                     pass
