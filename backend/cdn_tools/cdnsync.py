@@ -22,6 +22,7 @@ from spacewalk.server.importlib.channelImport import ChannelImport
 from spacewalk.server.importlib.productNamesImport import ProductNamesImport
 from spacewalk.server.importlib.importLib import Channel, ChannelFamily, \
     ProductName, DistChannelMap, ContentSource
+from spacewalk.satellite_tools import reposync
 
 
 class CdnSync(object):
@@ -186,7 +187,16 @@ class CdnSync(object):
         importer.run()
 
     def _sync_channel(self, channel):
-        pass
+        sync = reposync.RepoSync(channel,
+                                 "yum",
+                                 url=None,
+                                 fail=True,
+                                 quiet=False,
+                                 filters=False,
+                                 no_errata=False,
+                                 sync_kickstart=True,
+                                 latest=False)
+        sync.sync()
 
     def sync(self, channels=None):
         synced_channels = self._list_synced_channels()
