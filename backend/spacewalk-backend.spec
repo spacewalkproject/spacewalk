@@ -651,6 +651,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/rhn_rpm.py*
 %{pythonrhnroot}/common/stringutils.py*
 %{pythonrhnroot}/common/rhnLib.py*
+%{pythonrhnroot}/common/timezone_utils.py*
 %{pythonrhnroot}/__init__.py*
 %{pythonrhnroot}/common/__init__.py*
 
@@ -796,6 +797,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Mon Mar 20 2017 Laurence Rochfort <laurence.rochfort@oracle.com> 2.7.57-1
+- Add timezone_utils.py to libs files for BZ 1342977
+
 * Mon Mar 20 2017 Gennadii Altukhov <galt@redhat.com> 2.7.57-1
 - 1418025 - fix package downloading for Kickstart addons. Add parsing repodata
   for addons repository and download all packages according to its location.

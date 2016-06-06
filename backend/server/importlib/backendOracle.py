@@ -25,6 +25,7 @@ from backendLib import DBint, DBstring, DBdateTime, DBblob, Table, \
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnSQL.const import ORACLE, POSTGRESQL
 from spacewalk.common.rhnConfig import CFG
+from spacewalk.common import timezone_utils
 
 
 class OracleBackend(Backend):
@@ -595,12 +596,18 @@ class OracleBackend(Backend):
     def __init__(self):
         Backend.__init__(self, rhnSQL)
 
+    def setSessionTimeZoneToLocalTimeZone(self):
+        sth = self.dbmodule.prepare("alter session set time_zone = '%s'"
+                                    % timezone_utils.get_utc_offset())
+        sth.execute()
+
     def init(self):
         """
         Override parent to do explicit setting of the date format. (Oracle
         specific)
         """
         # Set date format
+        self.setSessionTimeZoneToLocalTimeZone()
         self.setDateFormat("YYYY-MM-DD HH24:MI:SS")
         return Backend.init(self)
 
@@ -613,10 +620,16 @@ class PostgresqlBackend(OracleBackend):
     avoid the few bits that are.
     """
 
+    def setSessionTimeZoneToLocalTimeZone(self):
+        sth = self.dbmodule.prepare("set session time zone '%s'"
+                                    % timezone_utils.get_utc_offset())
+        sth.execute()
+
     def init(self):
         """
         Avoid the Oracle specific stuff here in parent method.
         """
+        self.setSessionTimeZoneToLocalTimeZone()
         return Backend.init(self)
 
     # Postgres doesn't support autonomous transactions. We could use
