@@ -143,8 +143,8 @@ class RepoSync(object):
 
         self.channel_label = channel_label
         self.channel = self.load_channel()
-        if not self.channel or not rhnChannel.isCustomChannel(self.channel['id']):
-            self.print_msg("Channel does not exist or is not custom.")
+        if not self.channel:
+            self.print_msg("Channel does not exist.")
             sys.exit(1)
 
         if not url:
