@@ -703,7 +703,7 @@ class RepoSync(object):
         if pxeboot is None:
             if not re.search(r'/$', url):
                 url = url + '/'
-            self.error_msg("ERROR: kickstartable tree not detected (no %s%s)" % (url, pxeboot_path))
+            self.print_msg("Kickstartable tree not detected (no %s%s)" % (url, pxeboot_path))
             return
 
         if rhnSQL.fetchone_dict("""
