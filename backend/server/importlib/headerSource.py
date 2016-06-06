@@ -58,7 +58,7 @@ class rpmPackage(IncompletePackage):
             if f == 'build_time':
                 if type(val) in (IntType, LongType):
                     # A UNIX timestamp
-                    val = gmtime(val)
+                    val = localtime(val)
             if f == 'payload_size':
                 if val is None:
                     # use longarchivesize header field for rpms with archive > 4GB
@@ -350,7 +350,7 @@ class rpmFile(File, ChangeLog):
         tm = self['mtime']
         if type(tm) in (IntType, LongType):
             # A UNIX timestamp
-            self['mtime'] = gmtime(tm)
+            self['mtime'] = localtime(tm)
         if type(self['filedigest']) == StringType:
             self['checksum'] = self['filedigest']
             del(self['filedigest'])
@@ -486,7 +486,7 @@ class rpmChangeLog(ChangeLog):
         tm = self['time']
         if type(tm) in (IntType, LongType):
             # A UNIX timestamp
-            self['time'] = gmtime(tm)
+            self['time'] = localtime(tm)
         # In changelog, data is either in UTF-8, or in any other
         # undetermined encoding. Assume ISO-Latin-1 if not UTF-8.
         for i in ('text', 'name'):

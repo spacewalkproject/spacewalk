@@ -651,6 +651,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/rhn_rpm.py*
 %{pythonrhnroot}/common/stringutils.py*
 %{pythonrhnroot}/common/rhnLib.py*
+%{pythonrhnroot}/common/timezone_utils.py*
 %{pythonrhnroot}/__init__.py*
 %{pythonrhnroot}/common/__init__.py*
 
