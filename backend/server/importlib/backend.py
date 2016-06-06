@@ -1043,6 +1043,43 @@ class Backend:
                 statement.execute(product_label=channel['label'],
                                   product_name=channel['name'])
 
+    def processContentSources(self, batch):
+        """ Insert content source into DB, delete existing label-org combination. """
+
+        delete_sql = self.dbmodule.prepare("""
+            delete from rhnContentSource
+            where label = :label and
+                  org_id is null
+        """)
+
+        insert_sql = self.dbmodule.prepare("""
+            insert into rhnContentSource
+                (id, label, source_url, type_id)
+            values (sequence_nextval('rhn_chan_content_src_id_seq'),
+                    :label, :source_url, :type_id)
+        """)
+
+        for cs in batch:
+            delete_sql.execute(label=cs['label'])
+            insert_sql.execute(label=cs['label'], source_url=cs['source_url'],
+                               type_id=self.lookupContentSourceType('yum'))
+
+    def lookupContentSourceType(self, label):
+        """ Get id for given content type label """
+
+        sql = self.dbmodule.prepare("""
+            select id from rhnContentSourceType where label = :label
+        """)
+
+        sql.execute(label=label)
+
+        source_type = sql.fetchone_dict()
+
+        if source_type:
+            return source_type['id']
+
+        return
+
     def lookupProductNames(self, label):
         """ For given label of product return its id.
                  If product do not exist return None

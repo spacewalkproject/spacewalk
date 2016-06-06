@@ -209,6 +209,13 @@ class ChannelTrust(Information):
     }
 
 
+class ContentSource(Information):
+    attributeTypes = {
+        'label': StringType,
+        'source_url': StringType,
+    }
+
+
 class Channel(Information):
     attributeTypes = {
         'label': StringType,
