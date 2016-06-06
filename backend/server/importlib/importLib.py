@@ -252,6 +252,7 @@ class Channel(Information):
         'export-type': StringType,
         'export-end-date': StringType,
         'export-start-date': StringType,
+        'content-sources': [ContentSource],
     }
 
 

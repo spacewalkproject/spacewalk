@@ -209,7 +209,7 @@ class ChannelImport(Import):
         if len(channel_trusts) > 0:
             self.backend.processChannelTrusts(channel_trusts)
 
-        # Finally go back and add the products, if any
+        # Finally go back and add the products and content sources, if any
         for channel in self.batch:
             if channel.ignored:
                 continue
@@ -217,6 +217,10 @@ class ChannelImport(Import):
             if ('channel_product' in channel and channel['channel_product']) \
                     or ('product_name' in channel and channel['product_name']):
                 self.backend.processChannelProduct(channel)
+
+            if 'content-sources' in channel:
+                self.backend.processChannelContentSources(channel)
+
 
         # Sometimes we may want to turn commits off
         if self.will_commit:

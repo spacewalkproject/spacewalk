@@ -1027,6 +1027,27 @@ class Backend:
         statement.execute(id=channel.id,
                           channel_product_id=channel['channel_product_id'])
 
+    def processChannelContentSources(self, channel):
+        """ Associate content sources with channel """
+
+        delete_sql = self.dbmodule.prepare("""
+            delete from rhnChannelContentSource
+            where channel_id = :channel_id
+        """)
+
+        insert_sql = self.dbmodule.prepare("""
+           insert into rhnChannelContentSource
+               (source_id, channel_id)
+           values (:source_id, :channel_id)
+        """)
+
+        delete_sql.execute(channel_id=channel.id)
+        for source in channel['content-sources']:
+            insert_sql.execute(source_id=self.lookupContentSource(source['label']),
+                               channel_id=channel.id)
+
+
+
     def processProductNames(self, batch):
         """ Check if ProductName for channel in batch is already in DB.
             If not add it there.
@@ -1063,6 +1084,22 @@ class Backend:
             delete_sql.execute(label=cs['label'])
             insert_sql.execute(label=cs['label'], source_url=cs['source_url'],
                                type_id=self.lookupContentSourceType('yum'))
+
+    def lookupContentSource(self, label):
+        """ Get id for given content source """
+
+        sql = self.dbmodule.prepare("""
+            select id from rhnContentSource where label = :label and org_id is null
+        """)
+
+        sql.execute(label=label)
+
+        content_source = sql.fetchone_dict()
+
+        if content_source:
+            return content_source['id']
+
+        return
 
     def lookupContentSourceType(self, label):
         """ Get id for given content type label """

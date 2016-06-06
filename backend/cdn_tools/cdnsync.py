@@ -17,9 +17,11 @@ import json
 import constants
 from spacewalk.server import rhnSQL
 from spacewalk.server.importlib.backendOracle import SQLBackend
+from spacewalk.server.importlib.contentSourcesImport import ContentSourcesImport
 from spacewalk.server.importlib.channelImport import ChannelImport
 from spacewalk.server.importlib.productNamesImport import ProductNamesImport
-from spacewalk.server.importlib.importLib import Channel, ChannelFamily, ProductName, DistChannelMap
+from spacewalk.server.importlib.importLib import Channel, ChannelFamily, \
+    ProductName, DistChannelMap, ContentSource
 
 
 class CdnSync(object):
@@ -31,12 +33,6 @@ class CdnSync(object):
         with open(constants.CHANNEL_FAMILY_MAPPING_PATH, 'r') as f:
             self.families = json.load(f)
 
-        # Map channels to their channel family
-        self.channel_to_family = {}
-        for family in self.families:
-            for channel in self.families[family]['channels']:
-                self.channel_to_family[channel] = family
-
         # Channel metadata
         with open(constants.CHANNEL_DEFINITIONS_PATH, 'r') as f:
             self.channel_metadata = json.load(f)
@@ -44,6 +40,16 @@ class CdnSync(object):
         # Dist/Release channel mapping
         with open(constants.CHANNEL_DIST_MAPPING_PATH, 'r') as f:
             self.channel_dist_mapping = json.load(f)
+
+        # Channel to repositories mapping
+        with open(constants.CONTENT_SOURCE_MAPPING_PATH, 'r') as f:
+            self.content_source_mapping = json.load(f)
+
+        # Map channels to their channel family
+        self.channel_to_family = {}
+        for family in self.families:
+            for channel in self.families[family]['channels']:
+                self.channel_to_family[channel] = family
 
     def _list_synced_channels(self):
         h = rhnSQL.prepare("""
@@ -113,13 +119,25 @@ class CdnSync(object):
         importer = ProductNamesImport(batch, backend)
         importer.run()
 
+    def _get_content_sources(self, channel):
+        batch = []
+        sources = self.content_source_mapping[channel]
+        for source in sources:
+            if not source['pulp_content_category'] == "source":
+                content_source = ContentSource()
+                content_source['label'] = source['pulp_repo_label_v2']
+                content_source['source_url'] = constants.CDN_URL + source['relative_url']
+                batch.append(content_source)
+        return batch
+
     def _update_channels_metadata(self, channels):
 
         # First populate rhnProductName table
         self._update_product_names(channels)
 
         backend = SQLBackend()
-        batch = []
+        channels_batch = []
+        content_sources_batch = []
 
         for label in channels:
             channel = self.channel_metadata[label]
@@ -155,9 +173,16 @@ class CdnSync(object):
             channel_object['dists'] = dists
             channel_object['release'] = releases
 
-            batch.append(channel_object)
+            sources = self._get_content_sources(label)
+            content_sources_batch.extend(sources)
+            channel_object['content-sources'] = sources
 
-        importer = ChannelImport(batch, backend)
+            channels_batch.append(channel_object)
+
+        importer = ContentSourcesImport(content_sources_batch, backend)
+        importer.run()
+
+        importer = ChannelImport(channels_batch, backend)
         importer.run()
 
     def _sync_channel(self, channel):
