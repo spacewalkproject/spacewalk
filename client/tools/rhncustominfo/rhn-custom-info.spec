@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.31
+Version: 5.4.32
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -63,6 +63,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Tue Jun 07 2016 Jan Dobes 5.4.32-1
+- print() prints '()' in python 2 instead of expected empty line
+- fix fedora macro usage
+
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 5.4.31-1
 - updating copyright years
 
