@@ -92,11 +92,11 @@ def read_username():
     try:
         username = sys.stdin.readline().rstrip('\n')
     except KeyboardInterrupt:
-        print()
+        print("")
         sys.exit(0)
     if username is None:
         # EOF
-        print()
+        print("")
         sys.exit(0)
     return username.strip()
 

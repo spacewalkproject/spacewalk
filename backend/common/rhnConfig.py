@@ -310,10 +310,10 @@ class RHNOptions:
         from pprint import pprint
         print("__defaults: dictionary of parsed defaults.")
         pprint(self.__defaults)
-        print()
+        print("")
         print("__parsedConfig: dictionary of parsed /etc/rhn/rhn.conf file.")
         pprint(self.__parsedConfig)
-        print()
+        print("")
         print("__configs: dictionary of the merged options keyed by component.")
         pprint(self.__configs)
 
@@ -540,7 +540,7 @@ def runTest():
     import pprint
     print("Component tree of all installed components:")
     pprint.pprint(getAllComponents_tree())
-    print()
+    print("")
     test_cfg = RHNOptions(sys.argv[1])
 #    test_cfg = RHNOptions('server.app')
 #    test_cfg = RHNOptions('proxy.broker')
@@ -559,7 +559,7 @@ def runTest():
     except AttributeError:
         e = sys.exc_info()[1]
         print('Testing: "AttributeError: %s"' % e)
-    print()
+    print("")
     print("=============== the object's merged settings ======================")
     test_cfg.show()
     print("=============== dump of all relevant dictionaries =================")
