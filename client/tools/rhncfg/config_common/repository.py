@@ -193,7 +193,7 @@ class Repository:
 
         if load_contents:
             try:
-                file_contents = open(local_path, "r").read()
+                file_contents = open(local_path, "rb").read()
             except IOError:
                 e = sys.exc_info()[1]
                 raise_with_tb(cfg_exceptions.RepositoryLocalFileError(
@@ -413,7 +413,8 @@ def get_server_capability(s):
     if headers is None:
         # No request done yet
         return {}
-    cap_headers = headers.getallmatchingheaders("X-RHN-Server-Capability")
+    cap_headers = ["X-RHN-Server-Capability: %s" % val for val in headers.get_all("X-RHN-Server-Capability")]
+
     if not cap_headers:
         return {}
     regexp = re.compile(
