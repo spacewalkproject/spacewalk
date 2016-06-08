@@ -186,19 +186,19 @@ class CdnSync(object):
         importer = ChannelImport(channels_batch, backend)
         importer.run()
 
-    def _sync_channel(self, channel):
+    def _sync_channel(self, channel, no_errata=False):
         sync = reposync.RepoSync(channel,
                                  "yum",
                                  url=None,
                                  fail=True,
                                  quiet=False,
                                  filters=False,
-                                 no_errata=False,
+                                 no_errata=no_errata,
                                  sync_kickstart=True,
                                  latest=False)
         sync.sync()
 
-    def sync(self, channels=None, no_packages=False):
+    def sync(self, channels=None, no_packages=False, no_errata=False):
         synced_channels = self._list_synced_channels()
         # If no channels specified, sync already synced channels
         if channels is None:
@@ -213,4 +213,4 @@ class CdnSync(object):
 
         # Finally, sync channel content
         for channel in channels:
-            self._sync_channel(channel)
+            self._sync_channel(channel, no_errata=no_errata)
