@@ -187,6 +187,9 @@ class CdnSync(object):
         importer.run()
 
     def _sync_channel(self, channel, no_errata=False):
+        print "======================================"
+        print "| Channel: %s" % channel
+        print "======================================"
         sync = reposync.RepoSync(channel,
                                  "yum",
                                  url=None,
