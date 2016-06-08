@@ -117,7 +117,8 @@ def getCustomChannels():
 class RepoSync(object):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,
-                 quiet=False, filters=None, no_errata=False, sync_kickstart=False, latest=False):
+                 quiet=False, filters=None, no_errata=False, sync_kickstart=False, latest=False,
+                 strict=0):
         self.regen = False
         self.fail = fail
         self.quiet = quiet
@@ -168,6 +169,7 @@ class RepoSync(object):
             self.urls = [(None, u, None, None) for u in url]
 
         self.repo_plugin = self.load_plugin(repo_type)
+        self.strict = strict
 
     def sync(self):
         """Trigger a reposync"""
@@ -556,7 +558,8 @@ class RepoSync(object):
         backend = SQLBackend()
         caller = "server.app.yumreposync"
         importer = ChannelPackageSubscription(import_batch,
-                                              backend, caller=caller, repogen=False)
+                                              backend, caller=caller, repogen=False,
+                                              strict=self.strict)
         importer.run()
         backend.commit()
 
