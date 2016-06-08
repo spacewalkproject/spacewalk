@@ -738,6 +738,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/spacewalk-update-signatures
 %attr(755,root,root) %{_bindir}/spacewalk-data-fsck
 %attr(755,root,root) %{_bindir}/spacewalk-fips-tool
+%{pythonrhnroot}/satellite_tools/contentRemove.py*
 %{pythonrhnroot}/satellite_tools/SequenceServer.py*
 %{pythonrhnroot}/satellite_tools/messages.py*
 %{pythonrhnroot}/satellite_tools/progress_bar.py*
