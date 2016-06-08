@@ -198,7 +198,7 @@ class CdnSync(object):
                                  latest=False)
         sync.sync()
 
-    def sync(self, channels=None):
+    def sync(self, channels=None, no_packages=False):
         synced_channels = self._list_synced_channels()
         # If no channels specified, sync already synced channels
         if channels is None:
@@ -206,6 +206,10 @@ class CdnSync(object):
 
         # Need to update channel metadata
         self._update_channels_metadata(channels)
+
+        # Not going to sync anything
+        if no_packages:
+            return
 
         # Finally, sync channel content
         for channel in channels:
