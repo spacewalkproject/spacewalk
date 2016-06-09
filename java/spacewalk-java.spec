@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.4
+Version: 2.6.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jun 09 2016 Grant Gainey 2.6.5-1
+- 1322710 - <c:out> is your friend
+
 * Fri Jun 03 2016 Jiri Precechtel <jprecech@redhat.com> 2.6.4-1
 - 1288818 - added API method actionchain.addErrataUpdate()
 
