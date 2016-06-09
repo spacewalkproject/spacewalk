@@ -182,7 +182,7 @@ def getContentChecksum(checksum_type, contents):
 def sha256_file(filename):
     engine = hashlib.new('sha256')
 
-    fh = open(filename, "r")
+    fh = open(filename, "rb")
     while 1:
         buf = fh.read(4096)
         if not buf:
