@@ -9,12 +9,15 @@ parser.add_argument("-l", "--list-channels", action="store_true", help="List cha
 parser.add_argument("-c", "--channel", action="append", help="Sync this channel only.")
 parser.add_argument("--no-packages", action="store_true", help="Do not sync packages.")
 parser.add_argument("--no-errata", action="store_true", help="Do not sync errata.")
+parser.add_argument("--clear-cache", action="store_true", help="Delete partially synced channels.")
 args = parser.parse_args()
 
 cdnsync = CdnSync()
 
 if args.list_channels:
     cdnsync.print_channel_tree()
+elif args.clear_cache:
+    cdnsync.clear_cache()
 elif args.channel:
     cdnsync.sync(channels=args.channel, no_packages=args.no_packages, no_errata=args.no_errata)
 else:

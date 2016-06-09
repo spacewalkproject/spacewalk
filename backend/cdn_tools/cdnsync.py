@@ -23,6 +23,7 @@ from spacewalk.server.importlib.productNamesImport import ProductNamesImport
 from spacewalk.server.importlib.importLib import Channel, ChannelFamily, \
     ProductName, DistChannelMap, ContentSource
 from spacewalk.satellite_tools import reposync
+from spacewalk.satellite_tools import contentRemove
 
 
 class CdnSync(object):
@@ -218,3 +219,8 @@ class CdnSync(object):
         # Finally, sync channel content
         for channel in channels:
             self._sync_channel(channel, no_errata=no_errata)
+
+    @staticmethod
+    def clear_cache():
+        # Clear packages outside channels from DB and disk
+        contentRemove.delete_outside_channels(None)
