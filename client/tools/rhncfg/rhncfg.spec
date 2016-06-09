@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.93
+Version: 5.10.94
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -131,6 +131,9 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Thu Jun 09 2016 Gennadii Altukhov <galt@redhat.com> 5.10.94-1
+- 1343653 - Uploading binary file by rhncfg-manager doesn't work in Fedora 23
+
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 5.10.93-1
 - updating copyright years
 
