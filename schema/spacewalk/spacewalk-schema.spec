@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.6.0
+Version:        2.6.1
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -70,6 +70,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Jun 09 2016 Jan Dobes 2.6.1-1
+- fix dropping unused entitlements when multiple orgs are available
+- Bumping package versions for 2.6.
+
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.21-1
 - updating copyright years
 - 1303886 - remove Oracle from summary
