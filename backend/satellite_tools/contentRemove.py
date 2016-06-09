@@ -150,6 +150,18 @@ def __listChannels():
     return labels, parents
 
 
+def delete_outside_channels(org):
+    rpms_ids = list_packages_without_channels(org, sources=0)
+    rpms_paths = _get_package_paths(rpms_ids, sources=0)
+    srpms_ids = list_packages_without_channels(org, sources=1)
+    srpms_paths = _get_package_paths(srpms_ids, sources=1)
+
+    _delete_srpms(srpms_ids)
+    _delete_rpms(rpms_ids)
+
+    _delete_files(rpms_paths + srpms_paths)
+
+
 def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_channels=0,
                     skip_kickstart_trees=0, just_kickstart_trees=0):
     # Get the package ids
@@ -249,6 +261,46 @@ def __deleteRepoData(labels):
     for label in labels:
         if os.path.isdir(dir + '/' + label):
             shutil.rmtree(dir + '/' + label)
+
+
+def list_packages_without_channels(org_id, sources=0):
+    """List packages in given org outside any channel"""
+
+    if sources:
+        query = """
+            select ps.id from rhnPackage p inner join
+                              rhnPackageSource ps on p.source_rpm_id = ps.source_rpm_id left join
+                              rhnChannelPackage cp on cp.package_id = p.id
+            where cp.channel_id is null
+        """
+    else:
+        query = """
+            select p.id from rhnPackage p left join
+                             rhnChannelPackage cp on cp.package_id = p.id
+            where cp.channel_id is null
+        """
+
+    if org_id:
+        query += """
+            and p.org_id = :org_id
+        """
+        if sources:
+            query += """
+                and p.org_id = ps.org_id
+            """
+    else:
+        query += """
+            and p.org_id is null
+        """
+        if sources:
+            query += """
+                and ps.org_id is null
+            """
+
+    h = rhnSQL.prepare(query)
+    h.execute(org_id=org_id)
+
+    return map(lambda x: x['id'], h.fetchall_dict() or [])
 
 
 def list_packages(channelLabels, sources=0, force=0):
