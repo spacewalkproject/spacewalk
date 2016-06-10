@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.1
+Version: 2.6.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -806,6 +806,40 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/cdn_tools/*.py*
 
 %changelog
+* Fri Jun 10 2016 Jan Dobes 2.6.2-1
+- make possible to clear packages in null-org outside channels (partially
+  synced channels)
+- add functions to remove content outside channels
+- move spacewalk-remove-channel code into new module
+- sync content strictly - only packages from batch will be in channel
+- allow reposync to subscribe packages to channel strictly
+- show which channel is processed
+- support --no-errata
+- support --no-packages
+- fixing synced channel indicator
+- list skipped errata
+- it's not an error
+- channel families may not be in filtered list
+- find ssl keys for families
+- unlock null org channels
+- run sync
+- import content sources for channels
+- teach backend to insert content sources
+- dist channel mapping
+- insert channel metadata
+- adding available channel listing
+- add linking channel families with certificates
+- refactor to class
+- insert families matching product data only
+- old families should not be visible after reactivation
+- lookup in separate function
+- fix rhnContentSourceSsl -> rhnContentSsl in code
+- import channel families
+- reusing previously dropped satellite certificate class
+- insert SSL credentials from file and manifest into DB
+- start to build -cdn package
+- refactoring satCerts to make possible insert into single org/null org
+
 * Tue Jun 07 2016 Jan Dobes 2.6.1-1
 - print() prints '()' in python 2 instead of expected empty line
 - fix chgrp call on openSUSE
