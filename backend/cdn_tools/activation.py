@@ -22,10 +22,6 @@ import constants
 from manifest import Manifest
 import json
 
-"""
-Functions handling activation from RHSM manifest.
-"""
-
 
 class Activation(object):
     """Class inserting channel families and SSL metadata into DB."""
@@ -79,16 +75,15 @@ class Activation(object):
                 # Some product cannot be mapped into channel families
                 except KeyError:
                     print("Cannot map product '%s' into channel families" % product_id)
-                    pass
 
         families_in_mapping = set(families_in_mapping)
 
         # Debug
         print("Channel families mapped from products: %d" % len(self.families_to_import))
-        print("Channel families in cert: %d" % len(self.sat5_cert.channel_families))
+        print("Channel families in cert: %d" % len(self.sat5_cert.channel_families)) # pylint: disable=E1101
 
         batch = []
-        for cf in self.sat5_cert.channel_families:
+        for cf in self.sat5_cert.channel_families: # pylint: disable=E1101
             label = cf.name
             if label not in families_in_mapping:
                 print("Skipping channel family from certificate, not in the mapping: %s" % label)
@@ -152,7 +147,7 @@ class Activation(object):
                             family_ids_to_link.append(family_ids[family])
                 except KeyError:
                     print("Cannot map product '%s' into channel families" % product_id)
-                    pass
+
             family_ids_to_link = set(family_ids_to_link)
 
             for cfid in family_ids_to_link:
