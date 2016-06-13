@@ -27,7 +27,7 @@ DELETE FROM rhnRegTokenGroups
 
 -- create server group for 'enterprise_entitled' everywhere
 insert into rhnServerGroup ( id, name, description, group_type, org_id )
-  select nextval('rhn_server_group_id_seq'), sgt.name, sgt.name, sgt.id, X.org_id
+  select rhn_server_group_id_seq.nextval, sgt.name, sgt.name, sgt.id, X.org_id
   from rhnServerGroupType sgt,
      (select distinct msg.org_id
         from rhnServerGroup msg
