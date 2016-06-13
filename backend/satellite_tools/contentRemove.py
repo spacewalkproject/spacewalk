@@ -34,8 +34,8 @@ def __serverCheck(labels, unsubscribe):
     bind_params = string.join(bind_params, ', ')
     h = rhnSQL.prepare(sql % (bind_params))
     h.execute(**params)
-    list = h.fetchall_dict()
-    if not list:
+    server_list = h.fetchall_dict()
+    if not server_list:
         return 0
 
     if unsubscribe:
@@ -49,12 +49,12 @@ def __serverCheck(labels, unsubscribe):
     print 'id'.ljust(14),
     print('name')
     print ("-" * 32)
-    for map in list:
-        print str(map['org_id']).ljust(8),
-        print str(map['id']).ljust(14),
-        print(map['name'])
+    for server in server_list:
+        print str(server['org_id']).ljust(8),
+        print str(server['id']).ljust(14),
+        print(server['name'])
 
-    return len(list)
+    return len(server_list)
 
 
 def __unsubscribeServers(labels):
@@ -68,10 +68,10 @@ def __unsubscribeServers(labels):
     bind_params = string.join(bind_params, ', ')
     h = rhnSQL.prepare(sql % (bind_params))
     h.execute(**params)
-    list = h.fetchall_dict()
+    server_channel_list = h.fetchall_dict()
 
     channel_counts = {}
-    for i in list:
+    for i in server_channel_list:
         if i['label'] in channel_counts:
             channel_counts[i['label']] = channel_counts[i['label']] + 1
         else:
@@ -108,9 +108,9 @@ def __kickstartCheck(labels):
     bind_params = string.join(bind_params, ', ')
     h = rhnSQL.prepare(sql % (bind_params))
     h.execute(**params)
-    list = h.fetchall_dict()
+    kickstart_list = h.fetchall_dict()
 
-    if not list:
+    if not kickstart_list:
         return 0
 
     print("The following kickstarts are associated with one of the specified channels. " +
@@ -118,11 +118,11 @@ def __kickstartCheck(labels):
     print('org_id'.ljust(8)),
     print('label')
     print("-" * 20)
-    for map in list:
-        print str(map['org_id']).ljust(8),
-        print(map['label'])
+    for kickstart in kickstart_list:
+        print str(kickstart['org_id']).ljust(8),
+        print(kickstart['label'])
 
-    return len(list)
+    return len(kickstart_list)
 
 
 def __listChannels():
@@ -257,10 +257,10 @@ def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_chan
 
 
 def __deleteRepoData(labels):
-    dir = '/var/cache/' + CFG.repomd_path_prefix
+    directory = '/var/cache/' + CFG.repomd_path_prefix
     for label in labels:
-        if os.path.isdir(dir + '/' + label):
-            shutil.rmtree(dir + '/' + label)
+        if os.path.isdir(directory + '/' + label):
+            shutil.rmtree(directory + '/' + label)
 
 
 def list_packages_without_channels(org_id, sources=0):
@@ -300,7 +300,7 @@ def list_packages_without_channels(org_id, sources=0):
     h = rhnSQL.prepare(query)
     h.execute(org_id=org_id)
 
-    return map(lambda x: x['id'], h.fetchall_dict() or [])
+    return [x['id'] for x in h.fetchall_dict() or []]
 
 
 def list_packages(channelLabels, sources=0, force=0):
@@ -333,13 +333,13 @@ def list_packages(channelLabels, sources=0, force=0):
             %s
             %s
         """ % (
-                templ % ("", bind_params),
-                minus_op,
-                templ % ("not", bind_params),
+            templ % ("", bind_params),
+            minus_op,
+            templ % ("not", bind_params),
         )
     h = rhnSQL.prepare(query)
     h.execute(**params)
-    return map(lambda x: x['id'], h.fetchall_dict() or [])
+    return [x['id'] for x in h.fetchall_dict() or []]
 
 
 def _templ_rpms():
@@ -497,10 +497,10 @@ def _delete_ks_files(channel_labels):
     bind_params = string.join(bind_params, ', ')
     h = rhnSQL.prepare(sql % (bind_params, bind_params))
     h.execute(**params)
-    list = h.fetchall_dict() or []
+    kickstart_list = h.fetchall_dict() or []
 
-    for map in list:
-        path = os.path.join(CFG.MOUNT_POINT, str(map['base_path']))
+    for kickstart in kickstart_list:
+        path = os.path.join(CFG.MOUNT_POINT, str(kickstart['base_path']))
         if not os.path.exists(path):
             log_debug(1, "Not removing %s: no such file" % path)
             continue
