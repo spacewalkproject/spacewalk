@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.0
+Version: 2.6.1
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -243,6 +243,11 @@ fi
 %endif
 
 %changelog
+* Mon Jun 13 2016 Grant Gainey 2.6.1-1
+- spacewalk-search: use apache-nutch 1.9
+- spacewalk-search: build on openSUSE
+- Bumping package versions for 2.6.
+
 * Fri Jan 08 2016 Jan Dobes 2.5.2-1
 - require log4j12, it will not download in build time on Fedora 23 otherwise
 
