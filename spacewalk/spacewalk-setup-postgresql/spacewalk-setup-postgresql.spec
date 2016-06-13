@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-postgresql
-Version:        2.6.0
+Version:        2.6.1
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 Group:          Applications/System
@@ -57,6 +57,12 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Jun 13 2016 Grant Gainey 2.6.1-1
+- spacewalk-setup-postgresql: build and setup on openSUSE
+- Bumping package versions for 2.6.
+- Bumping package versions for 2.5.
+- Bumping package versions for 2.4.
+
 * Mon Jan 12 2015 Matej Kollar <mkollar@redhat.com> 2.3.1-1
 - Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
 - Bumping package versions for 2.3.
