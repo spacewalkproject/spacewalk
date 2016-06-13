@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.6.4
+Version:        2.6.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jun 13 2016 Grant Gainey 2.6.5-1
+- spacewalk-schema: build on openSUSE
+
 * Mon Jun 13 2016 Jan Dobes 2.6.4-1
 - sequence is still there
 
