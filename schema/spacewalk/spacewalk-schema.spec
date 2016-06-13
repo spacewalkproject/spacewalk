@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.6.2
+Version:        2.6.3
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -70,6 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Jun 13 2016 Jan Dobes 2.6.3-1
+- fixing invalid syntax
+
 * Fri Jun 10 2016 Jan Dobes 2.6.2-1
 - change rhnContentSourceSsl table to possibly connect to channel family
   (instead of content source) and rename to rhnContentSsl
