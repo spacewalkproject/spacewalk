@@ -168,7 +168,7 @@ class BaseMain:
                     server_name = (up2date_cfg['server_list'])[0]
                     local_config.init(self.config_section, defaults=up2date_cfg, server_name=server_name)
 
-        print("Using server name", server_name)
+        print("Using server name %s" % server_name)
 
         # set the debug level through the config
         rhn_log.set_debug_level(int(local_config.get('debug_level') or 0))
