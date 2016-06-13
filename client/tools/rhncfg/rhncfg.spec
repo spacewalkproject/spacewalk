@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.94
+Version: 5.10.95
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -131,6 +131,11 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Mon Jun 13 2016 Tomas Kasparek <tkasparek@redhat.com> 5.10.95-1
+- Show info message as string - not array
+- headers.get_all exists only in python 3
+- verify doesn't work with binary files
+
 * Thu Jun 09 2016 Gennadii Altukhov <galt@redhat.com> 5.10.94-1
 - 1343653 - Uploading binary file by rhncfg-manager doesn't work in Fedora 23
 
