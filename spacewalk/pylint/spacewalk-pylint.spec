@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	2.6.0
+Version:	2.6.1
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -72,6 +72,12 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Jun 13 2016 Grant Gainey 2.6.1-1
+- spacewalk-pylint: require pylint > 1.1 for openSUSE
+- Bumping package versions for 2.6.
+- Bumping package versions for 2.5.
+- Bumping package versions for 2.4.
+
 * Wed Jan 14 2015 Matej Kollar <mkollar@redhat.com> 2.3.2-1
 - Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
 
