@@ -41,7 +41,9 @@
                 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/proxy-options.jspf" %>
 
         <c:if test="${requestScope.hasProfiles == 'true'}">
+          <rhn:require acl="system_has_management_entitlement()">
                 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/schedule-options.jspf" %>
+          </rhn:require>
           <table width="100%">
             <tr>
               <td align="right">
@@ -50,8 +52,10 @@
                         value="<bean:message key='kickstart.schedule.button0.jsp'/>"
                         onclick="setStep('fourth');this.form.submit();" />
                           </c:if>
+                <rhn:require acl="system_has_management_entitlement()">
                 <input type="button" class="btn btn-default" value="<bean:message key='kickstart.schedule.button1.jsp'/>" onclick="setStep('second');this.form.submit();" />
                 <input type="button" class="btn btn-default" value="<bean:message key='kickstart.schedule.button2.jsp'/>" onclick="setStep('third');this.form.submit();" />
+                </rhn:require>
               </td>
             </tr>
           </table>

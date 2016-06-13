@@ -2,6 +2,12 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<rhn:require acl="not all_systems_in_set_have_entitlement(enterprise_entitled)">
+  <div class="alert alert-warning">
+    <bean:message key="ssm.overview.management.notice" />
+  </div>
+</rhn:require>
+
 <rhn:toolbar base="h1"
     icon="header-system-groups"
         imgAlt="ssm.jsp.imgAlt"
