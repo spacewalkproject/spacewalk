@@ -84,11 +84,11 @@ def __unsubscribeServers(labels):
         print(str(channel_counts[i]).ljust(8))
 
     pb = ProgressBar(prompt='Unsubscribing:    ', endTag=' - complete',
-                     finalSize=len(list), finalBarLength=40, stream=sys.stdout)
+                     finalSize=len(server_channel_list), finalBarLength=40, stream=sys.stdout)
     pb.printAll(1)
 
     unsubscribe_server_proc = rhnSQL.Procedure("rhn_channel.unsubscribe_server")
-    for i in list:
+    for i in server_channel_list:
         unsubscribe_server_proc(i['server_id'], i['channel_id'])
         pb.addTo(1)
         pb.printIncrement()
