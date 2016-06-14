@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.3
+Version: 2.6.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -806,6 +806,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/cdn_tools/*.py*
 
 %changelog
+* Tue Jun 14 2016 Jan Dobes 2.6.4-1
+- fix satellite-sync and do not delete and insert on every cdn-sync
+- simlify content sources import and do not delete and insert on every cdn-sync
+- fixing incorrect name of variable
+
 * Mon Jun 13 2016 Jan Dobes 2.6.3-1
 - fixing pylint in cdnsync module and little refactoring
 - fixing pylint in activation module
