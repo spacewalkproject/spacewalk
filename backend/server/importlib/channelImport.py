@@ -218,8 +218,7 @@ class ChannelImport(Import):
                     or ('product_name' in channel and channel['product_name']):
                 self.backend.processChannelProduct(channel)
 
-            if 'content-sources' in channel:
-                self.backend.processChannelContentSources(channel)
+            self.backend.processChannelContentSources(channel)
 
 
         # Sometimes we may want to turn commits off

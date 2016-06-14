@@ -1031,23 +1031,42 @@ class Backend:
     def processChannelContentSources(self, channel):
         """ Associate content sources with channel """
 
+        # Which content sources are assigned to this channel
+        select_sql = self.dbmodule.prepare("""
+            select source_id from rhnChannelContentSource
+            where channel_id = :channel_id
+        """)
+
+        select_sql.execute(channel_id=channel.id)
+        sources_in_db = [x['source_id'] for x in select_sql.fetchall_dict() or []]
+
+        # Which content sources should be assigned to this channel
+        sources_needed = []
+        if 'content-sources' in channel and channel['content-sources']:
+            for source in channel['content-sources']:
+                sources_needed.append(self.lookupContentSource(source['label']))
+
+        # What to delete and insert
+        sources_to_delete = [x for x in sources_in_db if x not in sources_needed]
+        sources_to_insert = [x for x in sources_needed if x not in sources_in_db]
+
         delete_sql = self.dbmodule.prepare("""
             delete from rhnChannelContentSource
-            where channel_id = :channel_id
+            where source_id = :source_id
+            and channel_id = :channel_id
         """)
 
         insert_sql = self.dbmodule.prepare("""
            insert into rhnChannelContentSource
-               (source_id, channel_id)
+           (source_id, channel_id)
            values (:source_id, :channel_id)
         """)
 
-        delete_sql.execute(channel_id=channel.id)
-        for source in channel['content-sources']:
-            insert_sql.execute(source_id=self.lookupContentSource(source['label']),
-                               channel_id=channel.id)
+        for source_id in sources_to_delete:
+            delete_sql.execute(source_id=source_id, channel_id=channel.id)
 
-
+        for source_id in sources_to_insert:
+            insert_sql.execute(source_id=source_id, channel_id=channel.id)
 
     def processProductNames(self, batch):
         """ Check if ProductName for channel in batch is already in DB.
