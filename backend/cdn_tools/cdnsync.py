@@ -119,14 +119,17 @@ class CdnSync(object):
         importer = ProductNamesImport(batch, backend)
         importer.run()
 
-    def _get_content_sources(self, channel):
+    def _get_content_sources(self, channel, backend):
         batch = []
+        type_id = backend.lookupContentSourceType('yum')
         sources = self.content_source_mapping[channel]
         for source in sources:
             if not source['pulp_content_category'] == "source":
                 content_source = ContentSource()
                 content_source['label'] = source['pulp_repo_label_v2']
                 content_source['source_url'] = constants.CDN_URL + source['relative_url']
+                content_source['org_id'] = None
+                content_source['type_id'] = type_id
                 batch.append(content_source)
         return batch
 
@@ -173,7 +176,7 @@ class CdnSync(object):
             channel_object['dists'] = dists
             channel_object['release'] = releases
 
-            sources = self._get_content_sources(label)
+            sources = self._get_content_sources(label, backend)
             content_sources_batch.extend(sources)
             channel_object['content-sources'] = sources
 

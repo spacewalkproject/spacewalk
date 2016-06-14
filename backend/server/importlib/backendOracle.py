@@ -568,7 +568,17 @@ class OracleBackend(Backend):
               },
               pk=['id', 'label', 'name'],
               ),
-
+        Table('rhnContentSource',
+              fields={
+                  'id': DBint(),
+                  'org_id': DBint(),
+                  'label': DBstring(128),
+                  'source_url': DBstring(2048),
+                  'type_id': DBint()
+              },
+              pk=['label', 'org_id', 'type_id'],
+              nullable=['org_id'],
+              ),
     )
 
     def __init__(self):

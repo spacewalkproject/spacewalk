@@ -51,6 +51,7 @@ sequences = {
     'rhnArchType': 'rhn_archtype_id_seq',
     'rhnPackageChangeLogRec': 'rhn_pkg_cl_id_seq',
     'rhnPackageChangeLogData': 'rhn_pkg_cld_id_seq',
+    'rhnContentSource': 'rhn_chan_content_src_id_seq',
 }
 
 
@@ -1065,25 +1066,12 @@ class Backend:
                                   product_name=channel['name'])
 
     def processContentSources(self, batch):
-        """ Insert content source into DB, delete existing label-org combination. """
+        """ Insert content source into DB """
 
-        delete_sql = self.dbmodule.prepare("""
-            delete from rhnContentSource
-            where label = :label and
-                  org_id is null
-        """)
-
-        insert_sql = self.dbmodule.prepare("""
-            insert into rhnContentSource
-                (id, label, source_url, type_id)
-            values (sequence_nextval('rhn_chan_content_src_id_seq'),
-                    :label, :source_url, :type_id)
-        """)
-
-        for cs in batch:
-            delete_sql.execute(label=cs['label'])
-            insert_sql.execute(label=cs['label'], source_url=cs['source_url'],
-                               type_id=self.lookupContentSourceType('yum'))
+        childTables = []
+        self.__processObjectCollection(batch, 'rhnContentSource',
+                                       childTables, 'content_source_id', uploadForce=4, ignoreUploaded=1,
+                                       forceVerify=1)
 
     def lookupContentSource(self, label):
         """ Get id for given content source """
