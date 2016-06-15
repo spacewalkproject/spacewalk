@@ -24,7 +24,16 @@ public class TreeCreateOperationTest extends TreeOperationTestBase {
 
     public void testCreate() throws Exception {
         TreeCreateOperation cmd = new TreeCreateOperation(user);
-        setTreeParamsAndStore(cmd);
+        setTestTreeParams(cmd);
+        assertNull(cmd.store());
+        assertNotNull(cmd.getUser());
+        assertNotNull(cmd.getTree());
+        assertNotNull(cmd.getTree().getInstallType());
+        assertNotNull(cmd.getTree().getBasePath());
+        assertNotNull(cmd.getTree().getChannel());
+        assertNotNull(cmd.getTree().getLabel());
+        assertNotNull(cmd.getTree().getTreeType());
+        assertNotNull(cmd.getTree().getOrgId());
     }
 
 }

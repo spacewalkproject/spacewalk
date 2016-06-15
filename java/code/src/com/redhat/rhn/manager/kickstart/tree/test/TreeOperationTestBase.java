@@ -27,21 +27,11 @@ import com.redhat.rhn.testing.TestUtils;
  */
 public abstract class TreeOperationTestBase extends BaseTestCaseWithUser {
 
-    protected void setTreeParamsAndStore(BaseTreeEditOperation cmd) throws Exception {
-        cmd.setInstallType(KickstartFactory.
-                      lookupKickstartInstallTypeByLabel("rhel_4"));
+    protected void setTestTreeParams(BaseTreeEditOperation cmd) throws Exception {
+        cmd.setInstallType(KickstartFactory.lookupKickstartInstallTypeByLabel("rhel_4"));
         cmd.setBasePath(KickstartableTreeTest.KICKSTART_TREE_PATH.getAbsolutePath());
         cmd.setChannel(ChannelFactoryTest.createTestChannel(user));
         cmd.setLabel("some_label" + TestUtils.randomString());
-        assertNotNull(cmd.getUser());
-        assertNotNull(cmd.getTree());
-        assertNotNull(cmd.getTree().getInstallType());
-        assertNotNull(cmd.getTree().getBasePath());
-        assertNotNull(cmd.getTree().getChannel());
-        assertNotNull(cmd.getTree().getLabel());
-        assertNotNull(cmd.getTree().getTreeType());
-        assertNotNull(cmd.getTree().getOrgId());
-        assertNull(cmd.store());
     }
 
 }
