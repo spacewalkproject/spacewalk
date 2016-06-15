@@ -26,7 +26,8 @@ public class TreeDeleteOperationTest extends TreeOperationTestBase {
 
     public void testDelete() throws Exception {
         TreeCreateOperation cmd = new TreeCreateOperation(user);
-        setTreeParamsAndStore(cmd);
+        setTestTreeParams(cmd);
+        cmd.store();
         TreeDeleteOperation deleteCmd = new TreeDeleteOperation(
                                                      cmd.getTree().getId(), user);
         assertNotNull(deleteCmd);
