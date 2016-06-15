@@ -967,23 +967,21 @@ class Backend:
         # Since this is not evaluated in rhn_entitlements anymore,
         # make channel families without org globally visible
 
-        cf_ids = []
+        cf_ids = [cf.id for cf in channel_families if 'private-channel-family' not in cf['label']]
 
-        for cf in channel_families:
-            if 'private-channel-family' not in cf['label']:
-                cf_ids.append(cf.id)
-
-        h_private_del = self.dbmodule.prepare("""
-            delete from rhnPublicChannelFamily
-             where channel_family_id = :channel_family_id
+        h_public_sel = self.dbmodule.prepare("""
+            select channel_family_id from rhnPublicChannelFamily
         """)
-        h_private_ins = self.dbmodule.prepare("""
+        h_public_sel.execute()
+        
+        public_cf_in_db = [x['channel_family_id'] for x in h_public_sel.fetchall_dict() or []]
+        public_cf_to_insert = [x for x in cf_ids if x not in public_cf_in_db]
+
+        h_public_ins = self.dbmodule.prepare("""
             insert into rhnPublicChannelFamily (channel_family_id)
             values (:channel_family_id)
         """)
-
-        h_private_del.executemany(channel_family_id=cf_ids)
-        h_private_ins.executemany(channel_family_id=cf_ids)
+        h_public_ins.executemany(channel_family_id=public_cf_to_insert)
 
     def processDistChannelMap(self, dcms):
         dcmTable = self.tables['rhnDistChannelMap']
