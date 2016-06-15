@@ -16,9 +16,6 @@
 Constant values for Satellite CDN sync.
 """
 
-
-CDN_URL = "https://cdn.redhat.com"
-
 # How are CDN SSL items named in rhnCryptoKey table.
 CA_CERT_NAME = "CDN-CA-CERT"
 CLIENT_CERT_PREFIX = "CDN-CLIENT-CERT-"

@@ -15,6 +15,7 @@
 import json
 
 import constants
+from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.server import rhnSQL
 from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.contentSourcesImport import ContentSourcesImport
@@ -31,6 +32,8 @@ class CdnSync(object):
 
     def __init__(self):
         rhnSQL.initDB()
+        initCFG('server.satellite')
+
         # Channel families mapping to channels
         with open(constants.CHANNEL_FAMILY_MAPPING_PATH, 'r') as f:
             self.families = json.load(f)
@@ -127,7 +130,7 @@ class CdnSync(object):
             if not source['pulp_content_category'] == "source":
                 content_source = ContentSource()
                 content_source['label'] = source['pulp_repo_label_v2']
-                content_source['source_url'] = constants.CDN_URL + source['relative_url']
+                content_source['source_url'] = CFG.CDN_ROOT + source['relative_url']
                 content_source['org_id'] = None
                 content_source['type_id'] = type_id
                 batch.append(content_source)
