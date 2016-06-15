@@ -974,16 +974,15 @@ class Backend:
                 cf_ids.append(cf.id)
 
         h_private_del = self.dbmodule.prepare("""
-            delete from rhnPublicChannelFamily pcf
-             where (select org_id from rhnChannelFamily cf
-                    where pcf.channel_family_id = cf.id) is null
+            delete from rhnPublicChannelFamily
+             where channel_family_id = :channel_family_id
         """)
         h_private_ins = self.dbmodule.prepare("""
             insert into rhnPublicChannelFamily (channel_family_id)
             values (:channel_family_id)
         """)
 
-        h_private_del.execute()
+        h_private_del.executemany(channel_family_id=cf_ids)
         h_private_ins.executemany(channel_family_id=cf_ids)
 
     def processDistChannelMap(self, dcms):
