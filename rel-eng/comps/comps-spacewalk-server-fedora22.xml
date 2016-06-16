@@ -65,6 +65,7 @@
        <packagereq type="default">spacewalk-backend</packagereq>
        <packagereq type="default">spacewalk-backend-app</packagereq>
        <packagereq type="default">spacewalk-backend-applet</packagereq>
+       <packagereq type="optional">spacewalk-backend-cdn</packagereq>
        <packagereq type="default">spacewalk-backend-config-files</packagereq>
        <packagereq type="default">spacewalk-backend-config-files-common</packagereq>
        <packagereq type="default">spacewalk-backend-config-files-tool</packagereq>
