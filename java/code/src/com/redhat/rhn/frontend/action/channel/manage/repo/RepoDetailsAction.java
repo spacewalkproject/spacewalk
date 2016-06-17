@@ -23,6 +23,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.redhat.rhn.domain.channel.ContentSourceType;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -66,6 +67,7 @@ public class RepoDetailsAction extends RhnAction {
     public static final String REPO = "repo";
     public static final String URL = "url";
     public static final String LABEL = "label";
+    public static final String TYPE = "contenttype";
     public static final String SSL_CA_CERT = "sslcacert";
     public static final String SSL_CLIENT_CERT = "sslclientcert";
     public static final String SSL_CLIENT_KEY = "sslclientkey";
@@ -101,7 +103,7 @@ public class RepoDetailsAction extends RhnAction {
                     ContentSource repo = submit(request, errors, form);
                     if (!errors.isEmpty()) {
                         addErrors(request, errors);
-                        setupPopup(ctx);
+                        setupCryptoKeys(ctx);
                         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
                     }
                     if (isCreateMode(request)) {
@@ -144,7 +146,8 @@ public class RepoDetailsAction extends RhnAction {
     private void setup(HttpServletRequest request, DynaActionForm form,
             boolean createMode) {
         RequestContext context = new RequestContext(request);
-        setupPopup(context);
+        setupContentTypes(context);
+        setupCryptoKeys(context);
         if (!createMode) {
             request.setAttribute("id", context.getParamAsLong("id"));
             setupRepo(request, form, ChannelFactory.lookupContentSource(
@@ -152,7 +155,15 @@ public class RepoDetailsAction extends RhnAction {
         }
     }
 
-    private void setupPopup(RequestContext context) {
+    private void setupContentTypes(RequestContext context) {
+        List<LabelValueBean> contentTypes = new ArrayList<LabelValueBean>();
+        for (ContentSourceType ct : ChannelFactory.listContentSourceTypes()) {
+            contentTypes.add(lv(ct.getLabel(), ct.getId().toString()));
+        }
+        context.getRequest().setAttribute("contenttypes", contentTypes);
+    }
+
+    private void setupCryptoKeys(RequestContext context) {
         List<LabelValueBean> sslCrytpoKeyOptions = new ArrayList<LabelValueBean>();
         sslCrytpoKeyOptions.add(lv(LocalizationService.getInstance().
                 getMessage("generic.jsp.none"), ""));
@@ -170,6 +181,7 @@ public class RepoDetailsAction extends RhnAction {
         form.set(LABEL, repo.getLabel());
         form.set(URL, repo.getSourceUrl());
         form.set(SOURCEID, repo.getId());
+        form.set(TYPE, repo.getType().getId().toString());
         if (repo.isSsl()) {
             SslContentSource sslRepo = (SslContentSource) repo;
             form.set(SSL_CA_CERT, getStringId(sslRepo.getCaCert()));
@@ -272,6 +284,7 @@ public class RepoDetailsAction extends RhnAction {
 
         repoCmd.setLabel(label);
         repoCmd.setUrl(url);
+        repoCmd.setType(parseIdFromForm(form, TYPE));
         repoCmd.setSslCaCertId(parseIdFromForm(form, SSL_CA_CERT));
         repoCmd.setSslClientCertId(parseIdFromForm(form, SSL_CLIENT_CERT));
         repoCmd.setSslClientKeyId(parseIdFromForm(form, SSL_CLIENT_KEY));

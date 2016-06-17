@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
+import com.redhat.rhn.domain.channel.ContentSourceType;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
@@ -34,6 +35,7 @@ import com.redhat.rhn.testing.TestUtils;
 import org.apache.log4j.Logger;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -182,7 +184,8 @@ public class ChannelTest extends BaseTestCaseWithUser {
         ContentSource cs = new ContentSource();
         cs.setLabel("repo_label-" + c.getLabel());
         cs.setSourceUrl("fake url");
-        cs.setType(ChannelFactory.CONTENT_SOURCE_TYPE_YUM);
+        List<ContentSourceType> cst = ChannelFactory.listContentSourceTypes();
+        cs.setType(cst.get(0));
         cs.setOrg(user.getOrg());
         cs = (ContentSource) TestUtils.saveAndReload(cs);
         c.getSources().add(cs);

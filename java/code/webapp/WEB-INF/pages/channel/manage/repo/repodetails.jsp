@@ -56,6 +56,16 @@
             </div>
             <div class="form-group">
                 <label class="col-lg-3 control-label">
+                    <rhn:required-field key = "repos.jsp.create.type"/>:
+                </label>
+                <div class="col-lg-6">
+                    <html:select property="contenttype" styleClass="form-control">
+                        <html:options collection="contenttypes" labelProperty="label" property="value" />
+                    </html:select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">
                     <bean:message key = "repos.jsp.ssl.ca"/>:
                 </label>
                 <div class="col-lg-6">

@@ -7584,6 +7584,9 @@ Please note that some manual configuration of these scripts may still be require
       <trans-unit id="repos.jsp.create.url">
         <source>Repository URL</source>
       </trans-unit>
+      <trans-unit id="repos.jsp.create.type">
+        <source>Repository Type</source>
+      </trans-unit>
       <trans-unit id="repos.jsp.create.submit">
         <source>Create Repository</source>
       </trans-unit>

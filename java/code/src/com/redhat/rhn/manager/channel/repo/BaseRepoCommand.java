@@ -35,6 +35,7 @@ public class BaseRepoCommand {
 
     private String label;
     private String url;
+    private Long type;
     private Long sslCaCertId = null;
     private Long sslClientCertId = null;
     private Long sslClientKeyId = null;
@@ -91,6 +92,22 @@ public class BaseRepoCommand {
      */
     public void setUrl(String urlIn) {
         this.url = urlIn;
+    }
+
+    /**
+     *
+     * @return type of repo
+     */
+    public Long getType() {
+        return type;
+    }
+
+    /**
+     *
+     * @param typeIn to set type of repo
+     */
+    public void setType(Long typeIn) {
+        this.type = typeIn;
     }
 
 
@@ -198,7 +215,7 @@ public class BaseRepoCommand {
         }
 
         repo.setOrg(org);
-        repo.setType(ChannelFactory.CONTENT_SOURCE_TYPE_YUM);
+        repo.setType(ChannelFactory.lookupContentSourceType(this.type));
 
         if (this.label != null && !this.label.equals(repo.getLabel())) {
             if (ChannelFactory.lookupContentSourceByOrgAndLabel(org, label) != null) {
@@ -209,7 +226,7 @@ public class BaseRepoCommand {
 
         if (this.url != null && !this.url.equals(repo.getSourceUrl())) {
             if (!ChannelFactory.lookupContentSourceByOrgAndRepo(org,
-                    ChannelFactory.CONTENT_SOURCE_TYPE_YUM, url).isEmpty()) {
+                    ChannelFactory.lookupContentSourceType(this.type), url).isEmpty()) {
                 throw new InvalidRepoUrlException(url);
             }
             repo.setSourceUrl(this.url);

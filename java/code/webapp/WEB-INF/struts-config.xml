@@ -727,6 +727,8 @@
             <form-property name="url" type="java.lang.String"/>
             <form-property name="sourceid" type="java.lang.Long" />
             <form-property name="label" type="java.lang.String"/>
+            <form-property name="contenttypes" type="java.util.List"/>
+            <form-property name="contenttype" type="java.lang.String"/>
             <form-property name="sslcryptokeys" type="java.util.List"/>
             <form-property name="sslcacert" type="java.lang.String"/>
             <form-property name="sslclientcert" type="java.lang.String"/>

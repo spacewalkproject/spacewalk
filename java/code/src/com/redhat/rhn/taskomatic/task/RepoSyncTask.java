@@ -78,7 +78,8 @@ public class RepoSyncTask extends RhnJavaJob {
         cmd.add("--channel");
         cmd.add(c.getLabel());
         cmd.add("--type");
-        cmd.add(ChannelFactory.CONTENT_SOURCE_TYPE_YUM.getLabel());
+        cmd.add(ChannelFactory.lookupContentSources(c.getOrg(), c).get(0)
+                .getType().getLabel());
         cmd.addAll(params);
         return cmd;
     }

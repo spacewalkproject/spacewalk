@@ -20,7 +20,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
 
 
-    <query name="ContentSourceType.findByLabel">
-        <![CDATA[from com.redhat.rhn.domain.channel.ContentSourceType as c where c.label = :label]]>
+    <query name="ContentSourceType.findById">
+        <![CDATA[from com.redhat.rhn.domain.channel.ContentSourceType as c where c.id = :id]]>
+    </query>
+    <query name="ContentSourceType.listAllTypes">
+        <![CDATA[from com.redhat.rhn.domain.channel.ContentSourceType]]>
     </query>
 </hibernate-mapping>

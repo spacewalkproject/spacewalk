@@ -3188,7 +3188,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
             throw new InvalidParameterException("url might not be empty");
         }
         if (!ChannelFactory.lookupContentSourceByOrgAndRepo(cs.getOrg(),
-                ChannelFactory.CONTENT_SOURCE_TYPE_YUM, repoUrl).isEmpty()) {
+                cs.getType(), repoUrl).isEmpty()) {
             throw new InvalidRepoUrlException(repoUrl);
         }
         cs.setSourceUrl(repoUrl);
