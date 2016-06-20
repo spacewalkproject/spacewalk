@@ -204,8 +204,7 @@ class CdnSync(object):
                                  filters=False,
                                  no_errata=no_errata,
                                  sync_kickstart=True,
-                                 latest=False,
-                                 strict=1)
+                                 latest=False)
         sync.sync()
 
     def sync(self, channels=None, no_packages=False, no_errata=False):
