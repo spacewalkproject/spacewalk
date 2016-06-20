@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.6
+Version: 2.6.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -806,6 +806,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/cdn_tools/*.py*
 
 %changelog
+* Mon Jun 20 2016 Jan Dobes 2.6.7-1
+- Revert "sync content strictly - only packages from batch will be in channel"
+
 * Wed Jun 15 2016 Jan Dobes 2.6.6-1
 - make CDN root configurable
 
