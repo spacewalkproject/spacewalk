@@ -27,6 +27,8 @@ class ParseException(Exception):
 
 # Generic class to represent items (like channel families)
 class Item:
+    # pylint: disable=R0903
+
     # Name to be displayed by repr()
     pretty_name = None
     # Attribute name in the parent class
@@ -43,15 +45,15 @@ class Item:
 
     def __repr__(self):
         return "<%s; %s>" % (self.pretty_name,
-            string.join(
-                map(lambda x, s=self: '%s="%s"' % (x, getattr(s, x)),
-                    self.attributes.values()),
-                ', '
-            )
-        )
+                             string.join(
+                                 ['%s="%s"' % (x, getattr(self, x)) for x in self.attributes.values()],
+                                 ', '
+                             ))
 
 
 class ChannelFamily(Item):
+    # pylint: disable=R0903
+
     pretty_name = "channel family"
     attribute_name = 'channel_families'
     attributes = {'family' : 'name', 'quantity' : 'quantity', 'flex' : 'flex' }
@@ -125,6 +127,7 @@ class SatelliteCert:
             setattr(self, f.attribute_name, [])
         self.signature = None
         self._slots = {}
+        self._root = None
 
     def load(self, s):
         try:
@@ -192,18 +195,11 @@ class SatelliteCert:
 
     def lookup_slot_by_db_label(self, db_label):
         # Given a string like 'sw_mgr_entitled', returns a string 'management'
-        for label, (slot_name, slot_class) in self._slot_maps.items():
-            if slot_class._db_label == db_label:
+        for label, (_, slot_class) in self._slot_maps.items():
+            if slot_class.get_db_label() == db_label:
                 return label
         return None
 
 def get_text(node):
-    return string.join(
-        map(lambda x: x.data,
-            filter(lambda x: x.nodeType == x.TEXT_NODE, node.childNodes)
-        ), "")
+    return string.join([x.data for x in node.childNodes if x.nodeType == x.TEXT_NODE], "")
 
-if __name__ == '__main__':
-    c = SatelliteCert()
-    c.load(open("cert").read())
-    print c.issued
