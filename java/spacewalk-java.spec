@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.7
+Version: 2.6.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jun 20 2016 Jiri Dostal <jdostal@redhat.com> 2.6.8-1
+- 1332880 - Updating of network properties does not work without HW profile
+
 * Fri Jun 17 2016 Jan Dobes 2.6.7-1
 - make possible to select content type for repo
 
