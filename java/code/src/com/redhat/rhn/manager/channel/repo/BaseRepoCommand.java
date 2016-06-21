@@ -17,11 +17,13 @@ package com.redhat.rhn.manager.channel.repo;
 import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
+import com.redhat.rhn.domain.channel.ContentSourceType;
 import com.redhat.rhn.domain.channel.SslContentSource;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoLabelException;
+import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoTypeException;
 import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoUrlException;
 
 
@@ -215,7 +217,11 @@ public class BaseRepoCommand {
         }
 
         repo.setOrg(org);
-        repo.setType(ChannelFactory.lookupContentSourceType(this.type));
+        ContentSourceType cst = ChannelFactory.lookupContentSourceType(this.type);
+        if (cst == null) {
+            throw new InvalidRepoTypeException(this.type);
+        }
+        repo.setType(cst);
 
         if (this.label != null && !this.label.equals(repo.getLabel())) {
             if (ChannelFactory.lookupContentSourceByOrgAndLabel(org, label) != null) {
