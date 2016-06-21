@@ -104,7 +104,8 @@ public abstract class BaseKickstartEditAction extends RhnAction {
         boolean isRhel5OrLess = cmd.getKickstartData().isRHEL5OrLess();
 
         if ((isRhel5OrLess && !password.startsWith("$1")) ||
-                (!isRhel5OrLess && !password.startsWith("$5"))) {
+                (!isRhel5OrLess &&
+                      !(password.startsWith("$5") || password.startsWith("$6")))) {
             ValidatorWarning[] vws =
                     { new ValidatorWarning("kickstart.software.changeencryption") };
             strutsDelegate.saveMessages(request,

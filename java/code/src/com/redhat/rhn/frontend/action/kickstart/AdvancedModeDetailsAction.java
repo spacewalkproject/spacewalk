@@ -24,6 +24,7 @@ import com.redhat.rhn.domain.kickstart.KickstartRawData;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
+import com.redhat.rhn.domain.kickstart.builder.KickstartParser;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -171,13 +172,21 @@ public class AdvancedModeDetailsAction extends RhnAction {
             KickstartBuilder builder = new KickstartBuilder(user);
             KickstartRawData ks;
             String fileData = getData(context, form);
+
+            // Add info about all commands from fileData to KickstartData, since we use it
+            // to determine type of password encryption, see Bug 1122422
+            KickstartParser parser = new KickstartParser(fileData);
+
             if (isCreateMode(context.getRequest())) {
                 ks = builder.createRawData(label, tree, fileData, virtType,
                         KickstartTreeUpdateType.NONE);
+                builder.buildCommands(ks, parser.getOptionLines(), tree);
             }
             else {
                 ks = getKsData(context);
                 ks.setData(fileData);
+                ks.removeCommand("rootpw", Boolean.TRUE);
+                builder.buildCommands(ks, parser.getOptionLines(), tree);
                 builder.update(ks, label, tree, virtType);
                 ks.setActive(Boolean.TRUE.equals(form.get(ACTIVE)));
                 ks.setOrgDefault(Boolean.TRUE.equals(form.get(ORG_DEFAULT)));
