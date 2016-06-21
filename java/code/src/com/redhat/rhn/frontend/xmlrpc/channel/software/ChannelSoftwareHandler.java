@@ -2460,6 +2460,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
          repoCmd.setLabel(label);
          repoCmd.setUrl(url);
 
+         repoCmd.setType(ChannelFactory.lookupContentSourceType(type).getId());
+
          // check SSL-certificates parameters
          if (!StringUtils.isEmpty(sslCaCert)) {
              repoCmd.setSslCaCertId(getKeyId(loggedInUser, sslCaCert));

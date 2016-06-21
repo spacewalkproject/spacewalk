@@ -115,6 +115,18 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
+     * Lookup a content source type by label
+     * @param label the label to lookup
+     * @return the ContentSourceType
+     */
+    public static ContentSourceType lookupContentSourceType(String label) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("label", label);
+        return (ContentSourceType) singleton.lookupObjectByNamedQuery(
+                "ContentSourceType.findByLabel", params);
+    }
+
+    /**
      * List all available content source types
      * @return list of ContentSourceType
      */
