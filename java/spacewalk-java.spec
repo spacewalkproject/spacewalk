@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.8
+Version: 2.6.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 21 2016 Jan Dobes 2.6.9-1
+- fixing api documentation
+- adding exception for invalid repo type
+- rewriting code to use lookup by label only
+- redundant statement
+- need to have lookup by label method because of API
+
 * Mon Jun 20 2016 Jiri Dostal <jdostal@redhat.com> 2.6.8-1
 - 1332880 - Updating of network properties does not work without HW profile
 
