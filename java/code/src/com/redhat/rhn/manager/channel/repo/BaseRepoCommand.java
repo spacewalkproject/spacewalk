@@ -35,7 +35,7 @@ public class BaseRepoCommand {
 
     private String label;
     private String url;
-    private Long type;
+    private String type;
     private Long sslCaCertId = null;
     private Long sslClientCertId = null;
     private Long sslClientKeyId = null;
@@ -98,7 +98,7 @@ public class BaseRepoCommand {
      *
      * @return type of repo
      */
-    public Long getType() {
+    public String getType() {
         return type;
     }
 
@@ -106,7 +106,7 @@ public class BaseRepoCommand {
      *
      * @param typeIn to set type of repo
      */
-    public void setType(Long typeIn) {
+    public void setType(String typeIn) {
         this.type = typeIn;
     }
 
