@@ -2454,8 +2454,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
              throw new InvalidParameterException("url might not be empty");
          }
 
-         BaseRepoCommand repoCmd = null;
-         repoCmd = new CreateRepoCommand(loggedInUser.getOrg());
+         BaseRepoCommand repoCmd = new CreateRepoCommand(loggedInUser.getOrg());
 
          repoCmd.setLabel(label);
          repoCmd.setUrl(url);
