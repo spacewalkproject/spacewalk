@@ -104,8 +104,11 @@ class RHNOptions:
             si = os.stat(self.filename)
         except OSError:
             e = sys.exc_info()[1]
-            raise_with_tb(ConfigParserError("config file read error",
-                                            self.filename, e.args[1]), sys.exc_info()[2])
+            if e[0] == 13: #Error code 13 - Permission denied
+                sys.stderr.write("ERROR: must be root to execute\n")
+            else:
+                sys.stderr.write("ERROR: " + self.filename + " is not accesible\n")
+            sys.exit(e[0])
         lm = si[stat.ST_MTIME]
         # should always be positive, but a non-zero result is still
         # indication that the file has changed.
