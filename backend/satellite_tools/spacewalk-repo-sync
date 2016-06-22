@@ -118,7 +118,7 @@ def main():
         print "======================================"
         print "|   Channel Label   |   Repository   |"
         print "======================================"
-        for ch in d_chan_repo:
+        for ch in list(set(l_ch_custom) & set(d_chan_repo)):
             for repo in d_chan_repo[ch]:
                 print "%s | %s" %(ch,repo)
         for ch in list(set(l_ch_custom)-set(d_chan_repo)):
