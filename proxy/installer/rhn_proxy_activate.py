@@ -32,8 +32,8 @@ import urlparse
 import xmlrpclib
 
 # lib imports
-from rhn import rpclib, SSL
 from optparse import Option, OptionParser
+from rhn import rpclib, SSL
 
 sys.path.append('/usr/share/rhn')
 from up2date_client import config
