@@ -503,10 +503,7 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
         # if this is a new file, ask if it's a symlink
         if not options.symlink:
             userinput = prompt_user('Symlink [y/N]:')
-            if re.match('y', userinput, re.I):
-                options.symlink = True
-            else:
-                options.symlink = False
+            options.symlink = re.match('y', userinput, re.I)
 
         if options.symlink:
             target_input = prompt_user('Target Path:', noblank=True)
@@ -519,10 +516,7 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
                 options.selinux_ctx = selinux_input
         else:
             userinput = prompt_user('Directory [y/N]:')
-            if re.match('y', userinput, re.I):
-                options.directory = True
-            else:
-                options.directory = False
+            options.directory = re.match('y', userinput, re.I)
 
             if not options.mode:
                 if options.directory:

@@ -983,10 +983,7 @@ def load_config_section(self, section):
 
     # handle the nossl boolean
     if self.config.has_key('nossl') and isinstance(self.config['nossl'], str):
-        if re.match('^1|y|true$', self.config['nossl'], re.I):
-            self.config['nossl'] = True
-        else:
-            self.config['nossl'] = False
+        self.config['nossl'] = re.match('^1|y|true$', self.config['nossl'], re.I)
 
     # Obfuscate the password with asterisks
     config_debug = self.config.copy()
