@@ -34,9 +34,9 @@ from getpass import getpass
 from operator import itemgetter
 from optparse import Option
 from urllib2 import urlopen, HTTPError
-from spacecmd.utils import *
 import re
 import xmlrpclib
+from spacecmd.utils import *
 
 KICKSTART_OPTIONS = ['autostep', 'interactive', 'install', 'upgrade',
                      'text', 'network', 'cdrom', 'harddrive', 'nfs',

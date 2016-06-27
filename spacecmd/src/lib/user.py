@@ -33,8 +33,8 @@
 import shlex
 from getpass import getpass
 from optparse import Option
-from spacecmd.utils import *
 import xmlrpclib
+from spacecmd.utils import *
 
 
 def help_user_create(self):

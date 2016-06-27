@@ -44,9 +44,9 @@ from datetime import datetime, timedelta
 from difflib import unified_diff
 from tempfile import mkstemp
 from textwrap import wrap
+from subprocess import Popen, PIPE
 import rpm
 from spacecmd.optionparser import SpacecmdOptionParser
-from subprocess import Popen, PIPE
 
 try:
     import json

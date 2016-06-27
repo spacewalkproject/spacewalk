@@ -32,9 +32,9 @@
 
 from optparse import Option
 from datetime import datetime
-from spacecmd.utils import *
 import base64
 import xmlrpclib
+from spacecmd.utils import *
 
 
 def help_configchannel_list(self):

@@ -35,9 +35,9 @@ import readline
 import shlex
 from getpass import getpass
 from ConfigParser import NoOptionError
-from spacecmd.utils import *
 from time import sleep
 import xmlrpclib
+from spacecmd.utils import *
 
 # list of system selection options for the help output
 HELP_SYSTEM_OPTS = '''<SYSTEMS> can be any of the following:

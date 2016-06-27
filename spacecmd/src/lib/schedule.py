@@ -31,8 +31,8 @@
 
 import base64
 from operator import itemgetter
-from spacecmd.utils import *
 import xmlrpclib
+from spacecmd.utils import *
 
 
 def print_schedule_summary(self, action_type, args):

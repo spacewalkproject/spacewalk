@@ -30,10 +30,10 @@
 # pylint: disable=C0103
 
 from optparse import Option
-from spacecmd.utils import *
-
 import shlex
 import xmlrpclib
+from spacecmd.utils import *
+
 
 
 def help_repo_list(self):

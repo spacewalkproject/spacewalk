@@ -32,8 +32,8 @@
 import os
 import re
 import shlex
-from spacecmd.utils import *
 import xmlrpclib
+from spacecmd.utils import *
 
 
 def help_group_addsystems(self):

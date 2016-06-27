@@ -31,9 +31,9 @@
 # pylint: disable=C0103
 
 from optparse import Option
-from spacecmd.utils import *
 import urllib
 import xmlrpclib
+from spacecmd.utils import *
 
 ARCH_LABELS = ['ia32', 'ia64', 'x86_64', 'ppc',
                'i386-sun-solaris', 'sparc-sun-solaris']
