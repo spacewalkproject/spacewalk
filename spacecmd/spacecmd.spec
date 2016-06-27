@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.6.0
+Version:     2.6.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -92,6 +92,13 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Jun 27 2016 Tomas Lestach <tlestach@redhat.com> 2.6.1-1
+- simplyfication of comparison
+- simplify if statements
+- replacing 'expr == None' with 'expr is None'
+- fix import order in spacecmd
+- Bumping package versions for 2.6.
+
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.8-1
 - updating copyright years
 
