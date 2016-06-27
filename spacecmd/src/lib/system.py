@@ -619,7 +619,7 @@ def do_system_listhardware(self, args):
                     print
                 count += 1
 
-                if device.get('description') == None:
+                if device.get('description') is None:
                     print 'Description: None'
                 else:
                     print 'Description: %s' % (

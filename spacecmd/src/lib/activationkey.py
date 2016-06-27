@@ -1286,7 +1286,7 @@ def import_activationkey_fromdetails(self, keydetails):
         gids = []
         for grp in keydetails['server_groups']:
             grpdetails = self.client.systemgroup.getDetails(self.session, grp)
-            if grpdetails == None:
+            if grpdetails is None:
                 logging.info("System group %s doesn't exist, creating" % grp)
                 grpdetails = self.client.systemgroup.create(self.session, grp,
                                                             grp)

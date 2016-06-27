@@ -634,7 +634,7 @@ def json_dump(obj, fp, indent=4, **kwargs):
 def json_dump_to_file(obj, filename):
     json_data = json.dumps(obj, indent=4, sort_keys=True)
 
-    if json_data == None:
+    if json_data is None:
         logging.error("Could not generate json data object!")
         return False
 
