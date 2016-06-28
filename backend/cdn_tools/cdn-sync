@@ -34,10 +34,14 @@ def process_commandline():
     parser.add_argument('--http-proxy', action='store', help="alternative http proxy (hostname:port)")
     parser.add_argument('--http-proxy-username', action='store', help="alternative http proxy username")
     parser.add_argument('--http-proxy-password', action='store', help="alternative http proxy password")
-
     parser.add_argument('--debug-level', action='store',
                         help='override debug level in /etc/rhn/rhn.conf (which is currently set at %s).' % CFG.DEBUG)
+    parser.add_argument('-p', '--print-configuration', action='store_true', help='print the configuration and exit')
     cmd_args = parser.parse_args()
+
+    if cmd_args.print_configuration:
+        CFG.show()
+        sys.exit(0)
 
     if cmd_args.http_proxy:
         CFG.set("HTTP_PROXY", cmd_args.http_proxy)
