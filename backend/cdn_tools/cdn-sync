@@ -24,6 +24,7 @@ def system_exit(code, msgs=None):
 def process_commandline():
     """process the commandline, setting the CFG object"""
 
+    initCFG('server.satellite')
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--list-channels", action="store_true", help="List channels available to sync.")
     parser.add_argument("-c", "--channel", action="append", help="Sync this channel only.")
@@ -34,14 +35,30 @@ def process_commandline():
     parser.add_argument('--http-proxy-username', action='store', help="alternative http proxy username")
     parser.add_argument('--http-proxy-password', action='store', help="alternative http proxy password")
 
+    parser.add_argument('--debug-level', action='store',
+                        help='override debug level in /etc/rhn/rhn.conf (which is currently set at %s).' % CFG.DEBUG)
     cmd_args = parser.parse_args()
-
-    initCFG('server.satellite')
 
     if cmd_args.http_proxy:
         CFG.set("HTTP_PROXY", cmd_args.http_proxy)
         CFG.set("HTTP_PROXY_USERNAME", cmd_args.http_proxy_username)
         CFG.set("HTTP_PROXY_PASSWORD", cmd_args.http_proxy_password)
+
+    # check the validity of the debug level
+    if cmd_args.debug_level:
+        debug_level = int(cmd_args.debug_level)
+        if not (0 <= debug_level <= 6):
+            msg = ["ERROR: --debug-level takes an in integer value within the range [0 - 6]:",
+                   "  0  - little logging/messaging.",
+                   "  1  - minimal logging/messaging.",
+                   "  2  - normal level of logging/messaging.",
+                   "  3  - lots of logging/messaging.",
+                   "  4+ - excessive logging/messaging."]
+            system_exit(1, msg)
+        else:
+            CFG.set('DEBUG', debug_level)
+
+            print("DEBUG = %d" % CFG.DEBUG)
 
     return cmd_args
 

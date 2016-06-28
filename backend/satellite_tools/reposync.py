@@ -132,7 +132,10 @@ class RepoSync(object):
 
         # setup logging
         log_filename = channel_label + '.log'
-        rhnLog.initLOG(default_log_location + log_filename)
+        if CFG.DEBUG is not None:
+            log_level = CFG.DEBUG
+
+        rhnLog.initLOG(default_log_location + log_filename, log_level)
         # os.fchown isn't in 2.4 :/
         if isSUSE():
             os.system("chgrp www " + default_log_location + log_filename)
