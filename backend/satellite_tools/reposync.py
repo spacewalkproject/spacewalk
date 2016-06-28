@@ -49,7 +49,7 @@ def set_filter_opt(option, opt_str, value, parser):
 
 def getChannelRepo():
 
-    initCFG('server')
+    initCFG('server.satellite')
     rhnSQL.initDB()
     items = {}
     sql = """
@@ -74,7 +74,7 @@ def getChannelRepo():
 
 def getParentsChilds(b_only_custom=False):
 
-    initCFG('server')
+    initCFG('server.satellite')
     rhnSQL.initDB()
 
     sql = """
@@ -127,7 +127,7 @@ class RepoSync(object):
         self.sync_kickstart = sync_kickstart
         self.latest = latest
 
-        initCFG('server')
+        initCFG('server.satellite')
         rhnSQL.initDB()
 
         # setup logging
