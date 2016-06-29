@@ -8,7 +8,8 @@ from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.cdn_tools.cdnsync import CdnSync
 from spacewalk.common.usix import raise_with_tb
 from rhn import rhnLockfile
-
+from spacewalk.server.importlib.importLib import InvalidArchError, \
+    InvalidChannelError, InvalidChannelFamilyError, MissingParentChannelError
 
 def system_exit(code, msgs=None):
     """Exit with a code and optional message(s). Saved a few lines of code."""
@@ -100,6 +101,10 @@ if __name__ == '__main__':
         sys.exit(e.code)
     except rhnLockfile.LockfileLockedException:
         system_exit(1, "SYNC ERROR: attempting to run more than one instance of satellite-sync. Exiting.")
+    except (MissingParentChannelError, InvalidChannelFamilyError,
+            InvalidChannelError, InvalidArchError):
+        e = sys.exc_info()[1]
+        system_exit(1, "SYNC ERROR: %s. Exiting." % str(e))
     except Exception:
         e = sys.exc_info()[1]
         if LOCK:
