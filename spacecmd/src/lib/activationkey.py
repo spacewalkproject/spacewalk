@@ -993,8 +993,8 @@ def do_activationkey_setbasechannel(self, args):
 def help_activationkey_setusagelimit(self):
     print 'activationkey_setusagelimit: Set the usage limit of an ' + \
           'activation key, can be a number or \"unlimited\"'
-    print 'usage: activationkey_setbasechannel KEY <usage limit>'
-    print 'usage: activationkey_setbasechannel KEY unlimited '
+    print 'usage: activationkey_setusagelimit KEY <usage limit>'
+    print 'usage: activationkey_setusagelimit KEY unlimited '
 
 
 def complete_activationkey_setusagelimit(self, text, line, beg, end):
@@ -1495,9 +1495,9 @@ def dump_activationkey(self, name, replacedict=None, excludes=None):
 
 
 def help_activationkey_diff(self):
-    print 'activationkeyt_diff: diff activationkeys'
+    print 'activationkey_diff: Diff activation keys'
     print ''
-    print 'usage: activationkey_diff SOURCE_ACTIVATIONKEY TARGET_ACTIVATIONKEY'
+    print 'usage: activationkey_diff SOURCE_KEY TARGET_KEY'
 
 
 def complete_activationkey_diff(self, text, line, beg, end):

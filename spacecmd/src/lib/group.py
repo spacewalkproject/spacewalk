@@ -247,8 +247,8 @@ def do_group_backup(self, args):
 
 
 def help_group_restore(self):
-    print 'group_backup: restore a system group'
-    print 'usage: group_backup INPUTDIR [NAME] ...'
+    print 'group_restore: restore a system group'
+    print 'usage: group_restore INPUTDIR [NAME] ...'
 
 
 def complete_group_restore(self, text, line, beg, end):

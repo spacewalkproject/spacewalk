@@ -34,7 +34,7 @@ from spacecmd.utils import *
 
 def help_ssm(self):
     print 'The System Set Manager (SSM) is a group of systems that you '
-    print 'can perform tasks on as a group.'
+    print 'can perform tasks on as a whole.'
     print
     print 'Adding Systems:'
     print '> ssm_add group:rhel5-x86_64'

@@ -816,8 +816,8 @@ def do_configchannel_updatefile(self, args):
 
 
 def help_configchannel_removefiles(self):
-    print 'configchannel_removefile: Remove configuration files'
-    print 'usage: configchannel_removefile CHANNEL <FILE ...>'
+    print 'configchannel_removefiles: Remove configuration files'
+    print 'usage: configchannel_removefiles CHANNEL <FILE ...>'
 
 
 def complete_configchannel_removefiles(self, text, line, beg, end):

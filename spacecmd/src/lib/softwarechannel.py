@@ -783,7 +783,7 @@ def do_softwarechannel_clone(self, args):
 
 def help_softwarechannel_clonetree(self):
     print 'softwarechannel_clonetree: Clone a software channel and its child channels'
-    print '''usage: softwarechannel_clonetree [options]A
+    print '''usage: softwarechannel_clonetree [options]
              e.g    softwarechannel_clonetree foobasechannel -p "my_"
                     softwarechannel_clonetree foobasechannel -x "s/foo/bar"
                     softwarechannel_clonetree foobasechannel -x "s/^/my_"
@@ -1419,9 +1419,8 @@ def do_softwarechannel_adderrata(self, args):
 
 
 def help_softwarechannel_getorgaccess(self):
-    print 'Get the org-access for the software channel'
-    print 'usage : softwarechannel_getorgaccess : get org access for all channels'
-    print 'usage : softwarechannel_getorgaccess <channel_label(s)> : get org access for specific channel(s)'
+    print 'softwarechannel_getorgaccess: Get the org-access for the software channel'
+    print 'usage: softwarechannel_getorgaccess [CHANNEL ...]'
 
 
 def complete_softwarechannel_getorgaccess(self, text, line, beg, end):
@@ -1454,8 +1453,8 @@ def do_softwarechannel_getorgaccess(self, args):
 
 
 def help_softwarechannel_setorgaccess(self):
-    print 'Set the org-access for the software channel'
-    print '''usage : softwarechannel_setorgaccess <channel_label> [options]
+    print 'softwarechannel_setorgaccess: Set the org-access for the software channel'
+    print '''usage : softwarechannel_setorgaccess <CHANNEL> [options]
 -d,--disable : disable org access (private, no org sharing)
 -e,--enable : enable org access (public access to all trusted orgs)
 -p,--protected ORG : protected org access for ORG only (multiple instances of -p ORG are allowed)'''
@@ -1523,9 +1522,8 @@ def do_softwarechannel_setorgaccess(self, args, options=None):
 
 
 def help_softwarechannel_getorgaccesstree(self):
-    print 'Get the org-access for a software base channel and its children'
-    print 'usage : softwarechannel_getorgaccesstree : get org access for all base channels'
-    print 'usage : softwarechannel_getorgaccesstree <channel_label(s)> : get org access for specific base channel(s)'
+    print 'softwarechannel_getorgaccesstree: Get the org-access for a software base channel and its children'
+    print 'usage: softwarechannel_getorgaccesstree [CHANNEL]'
 
 def complete_softwarechannel_getorgaccesstree(self, text, line, beg, end):
     return tab_completer(self.list_base_channels(), text)
@@ -1555,8 +1553,8 @@ def do_softwarechannel_getorgaccesstree(self, args):
 
 
 def help_softwarechannel_setorgaccesstree(self):
-    print 'Set the org-access for a software base channel and its children'
-    print '''usage : softwarechannel_setorgaccesstree <channel_label> [options]
+    print 'softwarechannel_setorgaccesstree: set the org-access for a software base channel and its children'
+    print '''usage: softwarechannel_setorgaccesstree <CHANNEL> [options]
 -d,--disable : disable org access (private, no org sharing)
 -e,--enable : enable org access (public access to all trusted orgs)
 -p,--protected ORG : protected org access for ORG only (multiple instances of -p ORG are allowed)'''
@@ -2072,7 +2070,7 @@ def help_softwarechannel_removesyncschedule(self):
     print 'softwarechannel_removesyncschedule: '
     print 'Removes the repo sync schedule for a software channel'
     print
-    print 'usage: softwarechannel_setsyncschedule <CHANNEL>'
+    print 'usage: softwarechannel_removesyncschedule <CHANNEL>'
 
 
 def complete_softwarechannel_removesyncschedule(self, text, line, beg, end):

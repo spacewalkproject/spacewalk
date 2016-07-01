@@ -122,7 +122,7 @@ def print_schedule_summary(self, action_type, args):
 
 
 def help_schedule_cancel(self):
-    print 'schedule_cancel: Cancel a scheduled action'
+    print 'schedule_cancel: Cancel scheduled actions'
     print 'usage: schedule_cancel ID|* ...'
 
 
