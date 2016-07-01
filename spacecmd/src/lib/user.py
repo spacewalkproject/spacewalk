@@ -212,7 +212,7 @@ def do_user_list(self, args, doreturn=False):
 
 
 def help_user_listavailableroles(self):
-    print 'user_list: List all available roles for users'
+    print 'user_listavailableroles: List all available roles for users'
     print 'usage: user_listavailableroles'
 
 

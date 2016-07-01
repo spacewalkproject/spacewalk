@@ -156,7 +156,7 @@ def do_repo_addfilters(self, args):
 
 
 def help_repo_removefilters(self):
-    print 'repo_removefilters: Add filters for a user repo'
+    print 'repo_removefilters: Remove filters from a user repo'
     print 'usage: repo_removefilters repo <filter ...>'
 
 

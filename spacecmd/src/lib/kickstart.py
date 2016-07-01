@@ -1897,7 +1897,7 @@ def do_kickstart_addscript(self, args):
 
 
 def help_kickstart_removescript(self):
-    print 'kickstart_removescript: Add a script to a Kickstart profile'
+    print 'kickstart_removescript: Remove a script from a Kickstart profile'
     print 'usage: kickstart_removescript PROFILE [ID]'
 
 
