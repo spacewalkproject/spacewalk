@@ -3427,6 +3427,10 @@ def complete_system_show_packageversion(self, text, line, beg, end):
 def do_system_show_packageversion(self, args):
     (args, _options) = parse_arguments(args)
 
+    if len(args) != 2:
+        self.help_system_show_packageversion()
+        return
+
     if re.match('ssm', args[0], re.I):
         systems = self.ssm.keys()
     else:
