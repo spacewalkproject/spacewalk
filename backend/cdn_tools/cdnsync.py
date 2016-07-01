@@ -72,21 +72,27 @@ class CdnSync(object):
         """)
         h.execute()
         families = h.fetchall_dict() or []
-        channels = {}
+
+        # collect all channel from available families
+        all_channels = []
+        base_channels = {}
         for family in families:
             label = family['label']
             family = self.families[label]
-            for channel_label in family['channels']:
-                try:
-                    # Only base channels as key in dictionary
-                    if self.channel_metadata[channel_label]['parent_channel'] is None:
-                        channels[channel_label] = [k for k in self.channel_metadata
-                                                   if self.channel_metadata[k]['parent_channel'] == channel_label]
-                except KeyError:
-                    print("Channel %s not found in channel metadata" % channel_label)
-                    continue
+            all_channels.extend(family['channels'])
 
-        return channels
+        # fill base_channel
+        for channel in all_channels:
+            try:
+                # Only base channels as key in dictionary
+                if self.channel_metadata[channel]['parent_channel'] is None:
+                    base_channels[channel] = [k for k in all_channels
+                                              if self.channel_metadata[k]['parent_channel'] == channel]
+            except KeyError:
+                print("Channel %s not found in channel metadata" % channel)
+                continue
+
+        return base_channels
 
     def print_channel_tree(self):
         available_channel_tree = self._list_available_channels()
