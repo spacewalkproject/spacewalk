@@ -34,10 +34,13 @@ public class ConfigChannelSetComparator implements Comparator {
         Long second = ((RhnSetElement)o2).getElementTwo();
 
         //Nulls always come last.
+        if (first == null && second == null) {
+            return 0;
+        }
         if (first == null) {
             return 1;
         }
-        else if (second == null) {
+        if (second == null) {
             return -1;
         }
 

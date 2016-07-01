@@ -84,14 +84,16 @@ public class DynamicComparator implements Comparator  {
                 return order * getCollator().compare(val1, val2);
             }
             // a < b = -1, a > b = 1 , a== b =0
-
+            if (val1 == null && val2 == null) {
+                return 0;
+            }
             if (val1 == null && val2 != null) {
                 return order * -1;
             }
-            else if (val1 != null && val2 == null) {
+            if (val1 != null && val2 == null) {
                 return order * 1;
             }
-            else if (val1 == val2) {
+            if (val1 == val2) {
                 return 0;
             }
             return order * val1.compareTo(val2);

@@ -33,15 +33,15 @@ public class ConfigFileTypeComparator implements Comparator {
     public int compare(Object arg0, Object arg1) {
         ConfigFile one = (ConfigFile) arg0;
         ConfigFile other = (ConfigFile) arg1;
-
-        if (one == null) {
+        if (one == null && other == null) {
+            return 0;
+        }
+        if (one == null && other != null) {
             return -1;
         }
-
-        if (other == null) {
+        if (one != null && other == null) {
             return 1;
         }
-
         if (one.equals(other)) {
             return 0;
         }
