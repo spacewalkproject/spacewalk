@@ -124,8 +124,10 @@ class CdnSync(object):
 
     def _get_content_sources(self, channel, backend):
         batch = []
+        sources = []
         type_id = backend.lookupContentSourceType('yum')
-        sources = self.content_source_mapping[channel]
+        if channel in self.content_source_mapping:
+            sources = self.content_source_mapping[channel]
         for source in sources:
             if not source['pulp_content_category'] == "source":
                 content_source = ContentSource()
@@ -211,6 +213,22 @@ class CdnSync(object):
         # If no channels specified, sync already synced channels
         if channels is None:
             channels = self.synced_channels
+
+        # workaround for RCM-4559
+        # if we do not have source for channel, skip it!
+        backend = SQLBackend()
+        channels_with_sources = []
+        for label in channels:
+            sources = self._get_content_sources(label, backend)
+            if sources:
+                channels_with_sources.append(label)
+            else:
+                print("There is no CDN source provided for channel: %s" % label)
+        if not channels_with_sources:
+            print("No channels with CDN sources provided.")
+            return
+        else:
+            channels = channels_with_sources
 
         # Need to update channel metadata
         self._update_channels_metadata(channels)
