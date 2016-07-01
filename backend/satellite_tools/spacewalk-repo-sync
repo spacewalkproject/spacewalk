@@ -158,7 +158,7 @@ def main():
         if 'parent_channel' in config:
             options.parent_label+=config['parent_channel']
 
-    if len(options.channel_label)>0:
+    if options.channel_label and len(options.channel_label)>0:
         for channel in options.channel_label:
             d_ch_repo_sync[channel]=options.url
 
