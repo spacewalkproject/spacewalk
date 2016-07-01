@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.9
+Version: 2.6.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -806,6 +806,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/cdn_tools/*.py*
 
 %changelog
+* Fri Jul 01 2016 Jiri Dostal <jdostal@redhat.com> 2.6.10-1
+- spacewalk-repo-sync fix for missing -c parameter
+
 * Wed Jun 22 2016 Jiri Dostal <jdostal@redhat.com> 2.6.9-1
 - 1348575 - Many tools from spacewalk-backend-tools package returning Python
   tracebacks when run under non-root user
