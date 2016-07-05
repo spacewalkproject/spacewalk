@@ -978,15 +978,26 @@ public class SystemSearchHelper {
             }
             Map sMap1 = (Map)results.get(serverId1);
             Map sMap2 = (Map)results.get(serverId2);
-            if ((sMap1 == null) || (sMap2 == null)) {
+            if ((sMap1 == null) && (sMap2 == null)) {
                 return 0;
             }
-            if ((!sMap1.containsKey("matchingFieldValue")) ||
-                    (!sMap2.containsKey("matchingFieldValue"))) {
-                return 0;
+            if ((sMap1 == null) && (sMap2 != null)) {
+                return -1;
+            }
+            if ((sMap1 != null) && (sMap2 == null)) {
+                return 1;
             }
             String val1 = (String)sMap1.get("matchingFieldValue");
             String val2 = (String)sMap2.get("matchingFieldValue");
+            if ((val1 == null) && (val2 == null)) {
+                return 0;
+            }
+            if ((val1 == null) && (val2 != null)) {
+                return -1;
+            }
+            if ((val1 != null) && (val2 == null)) {
+                return 1;
+            }
             try {
                 Long lng1 = Long.parseLong(val1);
                 Long lng2 = Long.parseLong(val2);
