@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.12
+Version: 2.6.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 05 2016 Grant Gainey 2.6.13-1
+- 1351695 - Traceback: comparison method violates its general contract Cleanup
+  of a few more suboptimal compare() methods
+
 * Tue Jul 05 2016 Grant Gainey 2.6.12-1
 - 1351695 - Fix SystemSearchHelper score-comparator This should fix the TimSort
   issue, in addition to fixing a variety of broken edge-case behavior in this
