@@ -1607,7 +1607,7 @@ SELECT id, name
    AND SBase.id = :sid
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms WHERE user_id = :user_id AND server_id = S.id)
    AND S.server_arch_id = SBase.server_arch_id
-   AND SUBSTRING(S.release, '^[0-9]+') = SUBSTRING(SBase.release, '^[0-9]+')
+   AND REGEXP_REPLACE(S.release, '([^0-9]).*', '') = REGEXP_REPLACE(SBase.release, '([^0-9]).*', '')
    AND S.id != :sid
    AND EXISTS(SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.id AND SFV.label = 'ftr_profile_compare')
 ORDER BY UPPER(S.name)
