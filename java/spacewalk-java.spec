@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.13
+Version: 2.6.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 07 2016 Gennadii Altukhov <galt@redhat.com> 2.6.14-1
+- 1353210 - use Oracle and PostgreSQL compatible 'REGEXP_REPLACE' function
+  instead of 'SUBSTRING'
+
 * Tue Jul 05 2016 Grant Gainey 2.6.13-1
 - 1351695 - Traceback: comparison method violates its general contract Cleanup
   of a few more suboptimal compare() methods
