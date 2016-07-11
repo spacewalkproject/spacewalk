@@ -2121,6 +2121,8 @@ def processCommandline():
                help=_('alternative server with which to connect (hostname)')),
         Option('--step',                action='store',
                help=_('synchronize to this step (man satellite-sync for more info)')),
+        Option('--sync-to-temp',        action='store_true',
+               help=_('write complete data to tempfile before streaming to remainder of app')),
         Option('--systemid',            action='store',
                help=_("DEBUG ONLY: alternative path to digital system id")),
         Option('--traceback-mail',      action='store',
@@ -2172,6 +2174,8 @@ def processCommandline():
     CFG.set("HTTP_PROXY_USERNAME", OPTIONS.http_proxy_username or CFG.HTTP_PROXY_USERNAME)
     CFG.set("HTTP_PROXY_PASSWORD", OPTIONS.http_proxy_password or CFG.HTTP_PROXY_PASSWORD)
     CFG.set("CA_CHAIN", OPTIONS.ca_cert or CFG.CA_CHAIN)
+
+    CFG.set("SYNC_TO_TEMP", OPTIONS.sync_to_temp or CFG.SYNC_TO_TEMP)
 
     # check the validity of the debug level
     if OPTIONS.debug_level:

@@ -155,7 +155,14 @@ class BaseWireSource:
             func = getattr(server, method)
             try:
                 stream = func(*params)
-                return stream
+                if CFG.SYNC_TO_TEMP:
+                    import tempfile
+                    cached = tempfile.NamedTemporaryFile()
+                    stream.read_to_file(cached)
+                    cached.seek(0)
+                    return cached
+                else:
+                    return stream
             except rpclib.xmlrpclib.ProtocolError:
                 e = sys.exc_info()[1]
                 p = tuple(['<the systemid>'] + list(params[1:]))
