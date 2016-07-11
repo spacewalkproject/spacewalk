@@ -5737,4 +5737,16 @@ public class SystemHandler extends BaseHandler {
         }
         return map;
     }
+    /**
+     * Method to list systems that require reboot
+     * @param loggedInUser the session key
+     * @return List of systems that require reboot
+     *
+     * @xmlrpc.doc list systems that require reboot
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.return List of systems that require reboot
+     */
+    public Object[] listSuggestedReboot(User loggedInUser) {
+            return SystemManager.requiringRebootList(loggedInUser, null).toArray();
+    }
 }
