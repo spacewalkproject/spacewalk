@@ -94,25 +94,6 @@ class CdnSync(object):
 
         return base_channels
 
-    def print_channel_tree(self):
-        available_channel_tree = self._list_available_channels()
-
-        print("p = previously imported/synced channel")
-        print(". = channel not yet imported/synced")
-
-        print("Base channels:")
-        for channel in sorted(available_channel_tree):
-            status = 'p' if channel in self.synced_channels else '.'
-            print("    %s %s" % (status, channel))
-
-        for channel in sorted(available_channel_tree):
-            # Print only if there are any child channels
-            if len(available_channel_tree[channel]) > 0:
-                print("%s:" % channel)
-                for child in sorted(available_channel_tree[channel]):
-                    status = 'p' if child in self.synced_channels else '.'
-                    print("    %s %s" % (status, child))
-
     def _update_product_names(self, channels):
         backend = SQLBackend()
         batch = []
@@ -246,6 +227,39 @@ class CdnSync(object):
         # Finally, sync channel content
         for channel in channels:
             self._sync_channel(channel, no_errata=no_errata)
+
+    def print_channel_tree(self, repos=False):
+        available_channel_tree = self._list_available_channels()
+        backend = SQLBackend()
+
+        print("p = previously imported/synced channel")
+        print(". = channel not yet imported/synced")
+
+        print("Base channels:")
+        for channel in sorted(available_channel_tree):
+            status = 'p' if channel in self.synced_channels else '.'
+            print("    %s %s" % (status, channel))
+            if repos:
+                sources = self._get_content_sources(channel, backend)
+                if sources:
+                    for source in sources:
+                        print("        %s" % source['source_url'])
+                else:
+                    print("        No CDN source provided!")
+        for channel in sorted(available_channel_tree):
+            # Print only if there are any child channels
+            if len(available_channel_tree[channel]) > 0:
+                print("%s:" % channel)
+                for child in sorted(available_channel_tree[channel]):
+                    status = 'p' if child in self.synced_channels else '.'
+                    print("    %s %s" % (status, child))
+                    if repos:
+                        sources = self._get_content_sources(child, backend)
+                        if sources:
+                            for source in sources:
+                                print("        %s" % source['source_url'])
+                        else:
+                            print("        No CDN source provided!")
 
     @staticmethod
     def clear_cache():

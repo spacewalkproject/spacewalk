@@ -28,6 +28,8 @@ def process_commandline():
     initCFG('server.satellite')
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--list-channels", action="store_true", help="List channels available to sync.")
+    parser.add_argument("-r", "--list-repos", action="store_true", help="List all repositories assigned on channels for"
+                                                                        "debug purpose only.")
     parser.add_argument("-c", "--channel", action="append", help="Sync this channel only.")
     parser.add_argument("--no-packages", action="store_true", help="Do not sync packages.")
     parser.add_argument("--no-errata", action="store_true", help="Do not sync errata.")
@@ -85,6 +87,8 @@ if __name__ == '__main__':
 
         if args.list_channels:
             cdnsync.print_channel_tree()
+        elif args.list_repos:
+            cdnsync.print_channel_tree(repos=True)
         elif args.clear_cache:
             cdnsync.clear_cache()
         elif args.channel:
