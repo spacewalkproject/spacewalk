@@ -13,6 +13,16 @@
 #
 
 import json
+import libxml2
+import requests
+import gzip
+import errno
+import time
+import os
+try:
+    from cStringIO import StringIO
+except:
+    from StringIO import StringIO
 
 import constants
 from spacewalk.common.rhnConfig import CFG, initCFG
@@ -63,6 +73,30 @@ class CdnSync(object):
         h.execute()
         channels = h.fetchall_dict() or []
         self.synced_channels = [ch['label'] for ch in channels]
+
+        # Set SSL-keys for channel family
+        self.family_keys = {}
+
+    def _get_family_keys(self, family_label):
+        if family_label not in self.family_keys:
+            # get ssl keys from database
+            ssl_query = rhnSQL.prepare("""
+                                select k1.key as ca_cert, k2.key as client_cert, k3.key as client_key
+                                from rhncontentssl join
+                                     rhncryptokey k1 on rhncontentssl.ssl_ca_cert_id = k1.id left outer join
+                                     rhncryptokey k2 on rhncontentssl.ssl_client_cert_id = k2.id left outer join
+                                     rhncryptokey k3 on rhncontentssl.ssl_client_key_id = k3.id inner join
+                                     rhnchannelfamily cf on rhncontentssl.channel_family_id = cf.id
+                                where cf.label = :channel_family
+                            """)
+            ssl_query.execute(channel_family=family_label)
+            keys = ssl_query.fetchone_dict()
+            if 'client_key' not in keys or 'client_cert' not in keys or 'ca_cert' not in keys:
+                raise Exception("Cannot get SSL keys for channel family %s" % family_label)
+            else:
+                self.family_keys[family_label] = keys
+
+        return self.family_keys[family_label]
 
     def _list_available_channels(self):
         h = rhnSQL.prepare("""
@@ -181,6 +215,68 @@ class CdnSync(object):
         importer.run()
 
     @staticmethod
+    def _download_repodata(repository, cert, key, ca):
+        """Download repomd.xml and primary.xml for given repository"""
+        download_repomd = True
+        download_primary = True
+        retries = 3
+        retry_delay = 1  # in seconds
+
+        # create directory for repo data if it doesn't exist
+        path = constants.CDN_REPODATA_ROOT + repository.split('cdn.redhat.com')[1] + "/repodata/"
+        try:
+            os.makedirs(path)
+        except OSError as exc:
+            if exc.errno == errno.EEXIST and os.path.isdir(path):
+                pass
+            else:
+                raise
+
+        for i in range(0, retries):
+            try:
+                # download repomd.xml
+                if download_repomd:
+                    repomd = requests.get(repository + '/repodata/repomd.xml', cert=(cert, key), verify=ca)
+                    if repomd.status_code == 200:
+                        download_repomd = False
+                        with open(path + "repomd.xml", 'w') as f_out:
+                            f_out.write(repomd.content)
+                        context = libxml2.parseDoc(repomd.content).xpathNewContext()
+                        context.xpathRegisterNs("repo", "http://linux.duke.edu/metadata/repo")
+                        primary_checksum = context.xpathEval("string(//repo:data[@type = 'primary']/repo:checksum)")
+                        primary_filename = context.xpathEval("string(//repo:data[@type = 'primary']/repo:location/@href)")
+                    else:
+                        print("Cannot download repomd.xml, status %d" % repomd.status_code)
+
+                # download primary.xml only if it doesn't exist on filesystem
+                if not download_repomd and download_primary \
+                        and not os.path.isfile(path + primary_checksum + "-primary.xml"):
+
+                    primary = requests.get(repository + '/' + primary_filename, cert=(cert, key), verify=ca)
+                    if primary.status_code == 200:
+                        download_primary = False
+                        decompressed_data = gzip.GzipFile(fileobj=StringIO(primary.content)).read()
+                        doc = libxml2.parseDoc(decompressed_data)
+                        packages_num = doc.children.properties.content
+
+                        with open(path + primary_checksum + "-primary.xml", 'w') as f_out:
+                            f_out.write(decompressed_data)
+
+                        with open(path + "packages_num", 'w') as f_out:
+                            f_out.write(packages_num)
+                    else:
+                        print("Cannot download primary.xml, status %d" % primary.status_code)
+
+                # if all staff are downloaded
+                if not download_primary and not download_repomd:
+                    return
+                else:
+                    time.sleep(retry_delay)
+
+            except requests.exceptions.RequestException:
+                pass
+
+    @staticmethod
     def _sync_channel(channel, no_errata=False):
         print "======================================"
         print "| Channel: %s" % channel
@@ -227,6 +323,36 @@ class CdnSync(object):
         # Finally, sync channel content
         for channel in channels:
             self._sync_channel(channel, no_errata=no_errata)
+
+    def update_repodata(self):
+        base_channels = self._list_available_channels()
+
+        for base_channel in sorted(base_channels):
+            for child in sorted(base_channels[base_channel]):
+                family_label = self.channel_to_family[child]
+                cert_prefix = "/tmp/" + family_label
+                keys = self._get_family_keys(family_label)
+
+                if not os.path.isfile(cert_prefix + "_client.key"):
+                    with open(cert_prefix + "_client.key", "w") as key:
+                        key.write(str(keys['client_key']))
+
+                if not os.path.isfile(cert_prefix + "_client.cert"):
+                    with open(cert_prefix + "_client.cert", "w") as cert:
+                        cert.write(str(keys['client_cert']))
+
+                if not os.path.isfile(cert_prefix + "_ca.cert"):
+                    with open(cert_prefix + "_ca.cert", "w") as ca:
+                        ca.write(str(keys['ca_cert']))
+
+                backend = SQLBackend()
+                sources = self._get_content_sources(child, backend)
+                for source in sources:
+                    print("Downloading repodata for repository %s" % source['source_url'])
+                    self._download_repodata(str(source['source_url']),
+                                            cert=cert_prefix + "_client.cert",
+                                            key=cert_prefix + "_client.key",
+                                            ca=cert_prefix + "_ca.cert")
 
     def print_channel_tree(self, repos=False):
         available_channel_tree = self._list_available_channels()

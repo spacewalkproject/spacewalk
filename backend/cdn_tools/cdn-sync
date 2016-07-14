@@ -4,6 +4,7 @@ import argparse
 import sys
 import os
 
+from spacewalk.cdn_tools.constants import CDN_REPODATA_ROOT
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.cdn_tools.cdnsync import CdnSync
 from spacewalk.common.usix import raise_with_tb
@@ -40,6 +41,9 @@ def process_commandline():
     parser.add_argument('--debug-level', action='store',
                         help='override debug level in /etc/rhn/rhn.conf (which is currently set at %s).' % CFG.DEBUG)
     parser.add_argument('-p', '--print-configuration', action='store_true', help='print the configuration and exit')
+    parser.add_argument('-u', '--update-repodata', action='store_true', help="Download fresh repodata for all "
+                        "repositories in every channel and save it to %s" % CDN_REPODATA_ROOT)
+
     cmd_args = parser.parse_args()
 
     if cmd_args.print_configuration:
@@ -89,6 +93,8 @@ if __name__ == '__main__':
             cdnsync.print_channel_tree()
         elif args.list_repos:
             cdnsync.print_channel_tree(repos=True)
+        elif args.update_repodata:
+            cdnsync.update_repodata()
         elif args.clear_cache:
             cdnsync.clear_cache()
         elif args.channel:
