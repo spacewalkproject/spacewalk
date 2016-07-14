@@ -19,6 +19,7 @@ import gzip
 import errno
 import time
 import os
+import sys
 try:
     from cStringIO import StringIO
 except:
@@ -246,8 +247,9 @@ class CdnSync(object):
                         primary_checksum = context.xpathEval("string(//repo:data[@type = 'primary']/repo:checksum)")
                         primary_filename = context.xpathEval("string(//repo:data[@type = 'primary']/repo:location/@href)")
                     else:
-                        print("Cannot download repomd.xml, status %d" % repomd.status_code)
-
+                        # FIXME: should log error
+                        # print("Cannot download repomd.xml, status %d" % repomd.status_code)
+                        pass
                 # download primary.xml only if it doesn't exist on filesystem
                 if not download_repomd and download_primary \
                         and not os.path.isfile(path + primary_checksum + "-primary.xml"):
@@ -265,7 +267,9 @@ class CdnSync(object):
                         with open(path + "packages_num", 'w') as f_out:
                             f_out.write(packages_num)
                     else:
-                        print("Cannot download primary.xml, status %d" % primary.status_code)
+                        # FIXME: should log error
+                        # print("Cannot download primary.xml, status %d" % primary.status_code)
+                        pass
 
                 # if all staff are downloaded
                 if not download_primary and not download_repomd:
@@ -325,7 +329,18 @@ class CdnSync(object):
             self._sync_channel(channel, no_errata=no_errata)
 
     def update_repodata(self):
+        backend = SQLBackend()
         base_channels = self._list_available_channels()
+
+        repo_list = []
+        for base_channel in sorted(base_channels):
+            for child in sorted(base_channels[base_channel]):
+                repo_list.extend(self._get_content_sources(child, backend))
+
+        print("Number of repositories: %d" % len(repo_list))
+        already_downloaded = 0
+        print_progress_bar(already_downloaded, len(repo_list), prefix='Downloading repodata:',
+                           suffix='Complete', bar_length=50)
 
         for base_channel in sorted(base_channels):
             for child in sorted(base_channels[base_channel]):
@@ -345,14 +360,15 @@ class CdnSync(object):
                     with open(cert_prefix + "_ca.cert", "w") as ca:
                         ca.write(str(keys['ca_cert']))
 
-                backend = SQLBackend()
                 sources = self._get_content_sources(child, backend)
                 for source in sources:
-                    print("Downloading repodata for repository %s" % source['source_url'])
                     self._download_repodata(str(source['source_url']),
                                             cert=cert_prefix + "_client.cert",
                                             key=cert_prefix + "_client.key",
                                             ca=cert_prefix + "_ca.cert")
+                    already_downloaded += 1
+                    print_progress_bar(already_downloaded, len(repo_list), prefix='Downloading repodata:',
+                                       suffix='Complete', bar_length=50)
 
     def print_channel_tree(self, repos=False):
         available_channel_tree = self._list_available_channels()
@@ -404,3 +420,26 @@ class CdnSync(object):
     def clear_cache():
         # Clear packages outside channels from DB and disk
         contentRemove.delete_outside_channels(None)
+
+
+# from here http://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console
+# Print iterations progress
+def print_progress_bar(iteration, total, prefix='', suffix='', decimals=2, bar_length=100):
+    """
+    Call in a loop to create terminal progress bar
+    @params:
+        iteration   - Required  : current iteration (Int)
+        total       - Required  : total iterations (Int)
+        prefix      - Optional  : prefix string (Str)
+        suffix      - Optional  : suffix string (Str)
+        decimals    - Optional  : number of decimals in percent complete (Int)
+        bar_length   - Optional  : character length of bar (Int)
+    """
+    filled_length = int(round(bar_length * iteration / float(total)))
+    percents = round(100.00 * (iteration / float(total)), decimals)
+    bar = '#' * filled_length + '-' * (bar_length - filled_length)
+    sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar, percents, '%', suffix)),
+    sys.stdout.flush()
+    if iteration == total:
+        sys.stdout.write('\n')
+        sys.stdout.flush()
