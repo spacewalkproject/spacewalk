@@ -360,6 +360,7 @@ class CdnSync(object):
 
         print("p = previously imported/synced channel")
         print(". = channel not yet imported/synced")
+        print("? = No CDN source provided to count number of packages")
 
         print("Base channels:")
         for channel in sorted(available_channel_tree):
@@ -378,9 +379,21 @@ class CdnSync(object):
                 print("%s:" % channel)
                 for child in sorted(available_channel_tree[channel]):
                     status = 'p' if child in self.synced_channels else '.'
-                    print("    %s %s" % (status, child))
+                    packages_number = '?'
+                    sources = self._get_content_sources(child, backend)
+                    if sources:
+                        packages_number = 0
+                        for source in sources:
+                            pn_file = constants.CDN_REPODATA_ROOT + source['source_url'].split('cdn.redhat.com')[1] +\
+                                          "/repodata/packages_num"
+                            try:
+                                packages_number += int(open(pn_file, 'r').read())
+                            except Exception:
+                                pass
+
+                    print("    %s %s %s" % (status, child, str(packages_number)))
                     if repos:
-                        sources = self._get_content_sources(child, backend)
+
                         if sources:
                             for source in sources:
                                 print("        %s" % source['source_url'])
