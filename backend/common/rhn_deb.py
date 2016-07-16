@@ -29,7 +29,7 @@ from spacewalk.common.rhn_pkg import A_Package, InvalidPackageError
 # bare-except and broad-except
 # pylint: disable=W0702,W0703
 
-DEB_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
+DEB_CHECKSUM_TYPE = 'sha256'       # FIXME: this should be a configuration option
 
 
 class deb_Header:
