@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.6.1
+Version:	2.6.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Jul 18 2016 Tomas Lestach <tlestach@redhat.com> 2.6.2-1
+- fix typo in spacwalk-clone-by-date man page
+
 * Fri May 27 2016 Jan Dobes 2.6.1-1
 - talk about spacewalk
 - adding postgresql systemd path
