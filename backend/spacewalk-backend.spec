@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.11
+Version: 2.6.12
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -806,6 +806,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/cdn_tools/*.py*
 
 %changelog
+* Mon Jul 18 2016 Jiri Dostal <jdostal@redhat.com> 2.6.12-1
+- 1357480 - get_possible_orgs function never called? -> removed
+
 * Tue Jul 12 2016 Grant Gainey 2.6.11-1
 - 1355884 - teach xmlWireSource to be able to write to tempfile
 
