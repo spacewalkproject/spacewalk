@@ -380,8 +380,10 @@ public class KickstartFormatter {
                         command.getArguments() + NEWLINE);
             }
             else if (cname.matches("url")) {
-                String argVal = adjustUrlHost(command);
-                commands.append(cname + SPACE + argVal + NEWLINE);
+                if (command.getArguments() != null) {
+                    String argVal = adjustUrlHost(command);
+                    commands.append(cname + SPACE + argVal + NEWLINE);
+                }
             }
             else if (cname.matches("repo")) {
                 RepoInfo repo = RepoInfo.parse(command);
