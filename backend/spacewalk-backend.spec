@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.12
+Version: 2.6.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -806,6 +806,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/cdn_tools/*.py*
 
 %changelog
+* Tue Jul 19 2016 Grant Gainey 2.6.13-1
+- change default checksum type to sha256 for debían packages. Usage of SHA256
+  is recommended in https://wiki.debian.org/RepositoryFormat#Size.2C_MD5sum.2C_
+  SHA1.2C_SHA256.2C_SHA512 This should also fix RH BZ 1348321
+- Fixes unnecessary removal of whitespaces in package dependencies. Needed for
+  correct creation of Packages.gz
+- 1226329 - sense support for debian packages
+
 * Mon Jul 18 2016 Jiri Dostal <jdostal@redhat.com> 2.6.12-1
 - 1357480 - get_possible_orgs function never called? -> removed
 
