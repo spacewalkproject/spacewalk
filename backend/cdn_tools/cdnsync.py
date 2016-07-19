@@ -20,6 +20,8 @@ import errno
 import time
 import os
 import sys
+import time
+
 try:
     from cStringIO import StringIO
 except:
@@ -36,7 +38,7 @@ from spacewalk.server.importlib.importLib import Channel, ChannelFamily, \
     ProductName, DistChannelMap, ContentSource
 from spacewalk.satellite_tools import reposync
 from spacewalk.satellite_tools import contentRemove
-
+from spacewalk.satellite_tools.repo_plugins.yum_src import CACHE_DIR as YUM_CACHE_DIR
 
 class CdnSync(object):
     """Main class of CDN sync run."""
@@ -216,15 +218,18 @@ class CdnSync(object):
         importer.run()
 
     @staticmethod
-    def _download_repodata(repository, cert, key, ca):
-        """Download repomd.xml and primary.xml for given repository"""
+    def _count_packages_in_repo(repo_source, cert, key, ca):
+        """
+        Download repomd.xml and primary.xml for given repository if they are absent
+        and count number of packages
+        """
         download_repomd = True
         download_primary = True
         retries = 3
         retry_delay = 1  # in seconds
 
         # create directory for repo data if it doesn't exist
-        path = constants.CDN_REPODATA_ROOT + repository.split('cdn.redhat.com')[1] + "/repodata/"
+        path = constants.CDN_REPODATA_ROOT + '/' + (repo_source.split(CFG.CDN_ROOT)[1])[1:].replace('/', '_')
         try:
             os.makedirs(path)
         except OSError as exc:
@@ -237,34 +242,26 @@ class CdnSync(object):
             try:
                 # download repomd.xml
                 if download_repomd:
-                    repomd = requests.get(repository + '/repodata/repomd.xml', cert=(cert, key), verify=ca)
+                    repomd = requests.get(repo_source + '/repodata/repomd.xml', cert=(cert, key), verify=ca)
                     if repomd.status_code == 200:
                         download_repomd = False
-                        with open(path + "repomd.xml", 'w') as f_out:
-                            f_out.write(repomd.content)
                         context = libxml2.parseDoc(repomd.content).xpathNewContext()
                         context.xpathRegisterNs("repo", "http://linux.duke.edu/metadata/repo")
-                        primary_checksum = context.xpathEval("string(//repo:data[@type = 'primary']/repo:checksum)")
                         primary_filename = context.xpathEval("string(//repo:data[@type = 'primary']/repo:location/@href)")
                     else:
                         # FIXME: should log error
                         # print("Cannot download repomd.xml, status %d" % repomd.status_code)
                         pass
                 # download primary.xml only if it doesn't exist on filesystem
-                if not download_repomd and download_primary \
-                        and not os.path.isfile(path + primary_checksum + "-primary.xml"):
+                if not download_repomd and download_primary:
 
-                    primary = requests.get(repository + '/' + primary_filename, cert=(cert, key), verify=ca)
+                    primary = requests.get(repo_source + '/' + primary_filename, cert=(cert, key), verify=ca)
                     if primary.status_code == 200:
                         download_primary = False
                         decompressed_data = gzip.GzipFile(fileobj=StringIO(primary.content)).read()
                         doc = libxml2.parseDoc(decompressed_data)
                         packages_num = doc.children.properties.content
-
-                        with open(path + primary_checksum + "-primary.xml", 'w') as f_out:
-                            f_out.write(decompressed_data)
-
-                        with open(path + "packages_num", 'w') as f_out:
+                        with open(path + '/' + "packages_num", 'w') as f_out:
                             f_out.write(packages_num)
                     else:
                         # FIXME: should log error
@@ -328,7 +325,9 @@ class CdnSync(object):
         for channel in channels:
             self._sync_channel(channel, no_errata=no_errata)
 
-    def update_repodata(self):
+    def count_packages(self):
+        start_time = int(time.time())
+
         backend = SQLBackend()
         base_channels = self._list_available_channels()
 
@@ -362,13 +361,15 @@ class CdnSync(object):
 
                 sources = self._get_content_sources(child, backend)
                 for source in sources:
-                    self._download_repodata(str(source['source_url']),
-                                            cert=cert_prefix + "_client.cert",
-                                            key=cert_prefix + "_client.key",
-                                            ca=cert_prefix + "_ca.cert")
+                    self._count_packages_in_repo(source['source_url'],
+                                                 cert=cert_prefix + "_client.cert",
+                                                 key=cert_prefix + "_client.key",
+                                                 ca=cert_prefix + "_ca.cert")
                     already_downloaded += 1
                     print_progress_bar(already_downloaded, len(repo_list), prefix='Downloading repodata:',
                                        suffix='Complete', bar_length=50)
+        elapsed_time = int(time.time())
+        print("Elapsed time: %d seconds" % (elapsed_time - start_time))
 
     def print_channel_tree(self, repos=False):
         available_channel_tree = self._list_available_channels()
@@ -400,8 +401,9 @@ class CdnSync(object):
                     if sources:
                         packages_number = 0
                         for source in sources:
-                            pn_file = constants.CDN_REPODATA_ROOT + source['source_url'].split('cdn.redhat.com')[1] +\
-                                          "/repodata/packages_num"
+                            pn_file = constants.CDN_REPODATA_ROOT + '/' +\
+                                      (source['source_url'].split(CFG.CDN_ROOT)[1])[1:].replace('/', '_') +\
+                                      "/packages_num"
                             try:
                                 packages_number += int(open(pn_file, 'r').read())
                             except Exception:

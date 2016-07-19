@@ -41,8 +41,8 @@ def process_commandline():
     parser.add_argument('--debug-level', action='store',
                         help='override debug level in /etc/rhn/rhn.conf (which is currently set at %s).' % CFG.DEBUG)
     parser.add_argument('-p', '--print-configuration', action='store_true', help='print the configuration and exit')
-    parser.add_argument('-u', '--update-repodata', action='store_true', help="Download fresh repodata for all "
-                        "repositories in every channel and save it to %s" % CDN_REPODATA_ROOT)
+    parser.add_argument('--count-packages', action='store_true', help="Count number of packages in all"
+                        "repositories for every channel")
 
     cmd_args = parser.parse_args()
 
@@ -90,11 +90,13 @@ if __name__ == '__main__':
         cdnsync = CdnSync()
 
         if args.list_channels:
+            if args.count_packages:
+                cdnsync.count_packages()
             cdnsync.print_channel_tree()
         elif args.list_repos:
             cdnsync.print_channel_tree(repos=True)
-        elif args.update_repodata:
-            cdnsync.update_repodata()
+        elif args.count_packages:
+            cdnsync.count_packages()
         elif args.clear_cache:
             cdnsync.clear_cache()
         elif args.channel:
