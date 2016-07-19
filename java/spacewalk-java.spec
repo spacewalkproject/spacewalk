@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.16
+Version: 2.6.17
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 19 2016 Grant Gainey 2.6.17-1
+- 1226329 - sense support for debian packages
+
 * Tue Jul 19 2016 Jiri Dostal <jdostal@redhat.com> 2.6.16-1
 - ISE kickstart AdvancedOptions with "url" field checked but not set
 
