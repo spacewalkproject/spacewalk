@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.15
+Version: 2.6.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 19 2016 Jiri Dostal <jdostal@redhat.com> 2.6.16-1
+- ISE kickstart AdvancedOptions with "url" field checked but not set
+
 * Mon Jul 11 2016 Jiri Dostal <jdostal@redhat.com> 2.6.15-1
 - 1324737 - API call to get list of Systems Requiring Reboot
 
