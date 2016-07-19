@@ -188,7 +188,11 @@ class RepoSync(object):
 
             # pylint: disable=W0703
             try:
-                plugin = self.repo_plugin(url, self.channel_label)
+                # use modified relative_url as name of repo plugin, because
+                # it used as name of cache directory
+                plugin_name = '_'.join(url.split('://')[1].split('/')[1:])
+
+                plugin = self.repo_plugin(url, plugin_name)
                 if repo_id is not None:
                     keys = rhnSQL.fetchone_dict("""
                         select k1.key as ca_cert, k2.key as client_cert, k3.key as client_key
