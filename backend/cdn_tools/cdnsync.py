@@ -17,14 +17,13 @@ import libxml2
 import requests
 import gzip
 import errno
-import time
 import os
 import sys
 import time
 
 try:
     from cStringIO import StringIO
-except:
+except ImportError:
     from StringIO import StringIO
 
 import constants
@@ -38,7 +37,7 @@ from spacewalk.server.importlib.importLib import Channel, ChannelFamily, \
     ProductName, DistChannelMap, ContentSource
 from spacewalk.satellite_tools import reposync
 from spacewalk.satellite_tools import contentRemove
-from spacewalk.satellite_tools.repo_plugins.yum_src import CACHE_DIR as YUM_CACHE_DIR
+
 
 class CdnSync(object):
     """Main class of CDN sync run."""
@@ -238,7 +237,7 @@ class CdnSync(object):
             else:
                 raise
 
-        for i in range(0, retries):
+        for dummy_index in range(0, retries):
             try:
                 # download repomd.xml
                 if download_repomd:
@@ -247,7 +246,8 @@ class CdnSync(object):
                         download_repomd = False
                         context = libxml2.parseDoc(repomd.content).xpathNewContext()
                         context.xpathRegisterNs("repo", "http://linux.duke.edu/metadata/repo")
-                        primary_filename = context.xpathEval("string(//repo:data[@type = 'primary']/repo:location/@href)")
+                        primary_filename = context.xpathEval("string("
+                                                             "//repo:data[@type = 'primary']/repo:location/@href)")
                     else:
                         # FIXME: should log error
                         # print("Cannot download repomd.xml, status %d" % repomd.status_code)
@@ -406,6 +406,7 @@ class CdnSync(object):
                                       "/packages_num"
                             try:
                                 packages_number += int(open(pn_file, 'r').read())
+                            # pylint: disable=W0703
                             except Exception:
                                 pass
 
@@ -439,8 +440,8 @@ def print_progress_bar(iteration, total, prefix='', suffix='', decimals=2, bar_l
     """
     filled_length = int(round(bar_length * iteration / float(total)))
     percents = round(100.00 * (iteration / float(total)), decimals)
-    bar = '#' * filled_length + '-' * (bar_length - filled_length)
-    sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar, percents, '%', suffix)),
+    bar_char = '#' * filled_length + '-' * (bar_length - filled_length)
+    sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar_char, percents, '%', suffix))
     sys.stdout.flush()
     if iteration == total:
         sys.stdout.write('\n')

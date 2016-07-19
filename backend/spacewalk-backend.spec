@@ -364,6 +364,10 @@ Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Requires: %{name}-usix
 Requires: subscription-manager
+Requires: libxml2-python
+Requires: python-requests
+BuildRequires: libxml2-python
+BuildRequires: python-requests
 
 %description cdn
 Tools for syncing content from Red Hat CDN
