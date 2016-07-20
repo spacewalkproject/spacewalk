@@ -37,6 +37,7 @@ in a browser to interact and call each other as simply as possible.
 %patch2 -p0
 
 %build
+export JAVA_TOOL_OPTIONS=-Dfile.encoding=ISO-8859-1
 LC_CTYPE=en_US.iso-8859-1 ant jar
 
 %install
