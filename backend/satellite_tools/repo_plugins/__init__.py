@@ -79,10 +79,10 @@ class ContentPackage:
         self.a_pkg.payload_checksum()
         self.file.close()
 
-    def upload_package(self, channel):
+    def upload_package(self, channel, metadata_only=False):
         rel_package_path = rhnPackageUpload.relative_path_from_header(
             self.a_pkg.header, channel['org_id'],
-            self.a_pkg.checksum_type, self.a_pkg.checksum)
+            self.a_pkg.checksum_type, self.a_pkg.checksum) if not metadata_only else None
         _unused = rhnPackageUpload.push_package(self.a_pkg,
                                                 force=False,
                                                 relative_path=rel_package_path,

@@ -278,7 +278,7 @@ class CdnSync(object):
                 pass
 
     @staticmethod
-    def _sync_channel(channel, no_errata=False):
+    def _sync_channel(channel, no_errata=False, no_rpms=False):
         print "======================================"
         print "| Channel: %s" % channel
         print "======================================"
@@ -290,10 +290,11 @@ class CdnSync(object):
                                  filters=False,
                                  no_errata=no_errata,
                                  sync_kickstart=True,
-                                 latest=False)
+                                 latest=False,
+                                 metadata_only=no_rpms)
         sync.sync()
 
-    def sync(self, channels=None, no_packages=False, no_errata=False):
+    def sync(self, channels=None, no_packages=False, no_errata=False, no_rpms=False):
         # If no channels specified, sync already synced channels
         if channels is None:
             channels = self.synced_channels
@@ -323,7 +324,7 @@ class CdnSync(object):
 
         # Finally, sync channel content
         for channel in channels:
-            self._sync_channel(channel, no_errata=no_errata)
+            self._sync_channel(channel, no_errata=no_errata, no_rpms=no_rpms)
 
     def count_packages(self):
         start_time = int(time.time())

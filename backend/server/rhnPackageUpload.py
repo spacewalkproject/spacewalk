@@ -118,18 +118,25 @@ def relative_path_from_nevra_without_package_name(nevra, org_id, checksum_type, 
 def push_package(a_pkg, org_id=None, force=None, channels=[], relative_path=None):
     """Uploads a package"""
 
-    # First write the package to the filesystem to final location
-    try:
-        importLib.move_package(a_pkg.payload_stream.name, basedir=CFG.MOUNT_POINT,
-                               relpath=relative_path,
-                               checksum_type=a_pkg.checksum_type, checksum=a_pkg.checksum, force=1)
-    except OSError:
-        e = sys.exc_info()[1]
-        raise_with_tb(rhnFault(50, "Package upload failed: %s" % e), sys.exc_info()[2])
-    except importLib.FileConflictError:
-        raise_with_tb(rhnFault(50, "File already exists"), sys.exc_info()[2])
-    except:
-        raise_with_tb(rhnFault(50, "File error"), sys.exc_info()[2])
+    if relative_path:
+        # First write the package to the filesystem to final location
+        try:
+            importLib.move_package(a_pkg.payload_stream.name, basedir=CFG.MOUNT_POINT,
+                                   relpath=relative_path,
+                                   checksum_type=a_pkg.checksum_type, checksum=a_pkg.checksum, force=1)
+        except OSError:
+            e = sys.exc_info()[1]
+            raise_with_tb(rhnFault(50, "Package upload failed: %s" % e), sys.exc_info()[2])
+        except importLib.FileConflictError:
+            raise_with_tb(rhnFault(50, "File already exists"), sys.exc_info()[2])
+        except:
+            raise_with_tb(rhnFault(50, "File error"), sys.exc_info()[2])
+
+        # Remove any pending scheduled file deletion for this package
+        h = rhnSQL.prepare("""
+            delete from rhnPackageFileDeleteQueue where path = :path
+        """)
+        h.execute(path=relative_path)
 
     pkg = mpmSource.create_package(a_pkg.header, size=a_pkg.payload_size,
                                    checksum_type=a_pkg.checksum_type, checksum=a_pkg.checksum,
@@ -170,12 +177,6 @@ def push_package(a_pkg, org_id=None, force=None, channels=[], relative_path=None
             _diff_header_sigs(a_pkg.header, oh, pdict['diff']['diff'])
 
         return pdict, package.diff.level
-
-    # Remove any pending scheduled file deletion for this package
-    h = rhnSQL.prepare("""
-        delete from rhnPackageFileDeleteQueue where path = :path
-    """)
-    h.execute(path=relative_path)
 
     if package.diff and not force and package.diff.level:
         # No need to copy it - just the path is modified

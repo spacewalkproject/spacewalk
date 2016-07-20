@@ -269,10 +269,17 @@ class ContentSource(object):
                 packages.extend(dep_packages)
         return yum.misc.unique(packages)
 
-    def get_package(self, package):
+    def get_package(self, package, metadata_only=False):
         """ get package """
-        check = (self.verify_pkg, (package.unique_id, 1), {})
-        return self.repo.getPackage(package.unique_id, checkfunc=check)
+        pack = package.unique_id
+        check = (self.verify_pkg, (pack, 1), {})
+        if metadata_only:
+            # Include also data before header section
+            pack.hdrstart = 0
+            data = self.repo.getHeader(pack, checkfunc=check)
+        else:
+            data = self.repo.getPackage(pack, checkfunc=check)
+        return data
 
     @staticmethod
     def verify_pkg(_fo, pkg, _fail):

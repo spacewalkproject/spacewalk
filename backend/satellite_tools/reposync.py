@@ -118,7 +118,7 @@ class RepoSync(object):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,
                  quiet=False, filters=None, no_errata=False, sync_kickstart=False, latest=False,
-                 strict=0):
+                 metadata_only=False, strict=0):
         self.regen = False
         self.fail = fail
         self.quiet = quiet
@@ -126,6 +126,7 @@ class RepoSync(object):
         self.no_errata = no_errata
         self.sync_kickstart = sync_kickstart
         self.latest = latest
+        self.metadata_only = metadata_only
 
         initCFG('server.satellite')
         rhnSQL.initDB()
@@ -501,18 +502,30 @@ class RepoSync(object):
 
             to_download = True
             to_link = True
-            if db_pack['path']:
-                pack.path = os.path.join(CFG.MOUNT_POINT, db_pack['path'])
-                if self.match_package_checksum(pack.path,
-                                               pack.checksum_type, pack.checksum):
-                    # package is already on disk
+            # Package exists in DB
+            if db_pack:
+                # Path in filesystem is defined
+                if db_pack['path']:
+                    pack.path = os.path.join(CFG.MOUNT_POINT, db_pack['path'])
+                else:
+                    pack.path = ""
+
+                if self.metadata_only or self.match_package_checksum(pack.path,
+                                                                     pack.checksum_type, pack.checksum):
+                    # package is already on disk or not required
                     to_download = False
                     if db_pack['channel_id'] == channel_id:
                         # package is already in the channel
                         to_link = False
+
                 elif db_pack['channel_id'] == channel_id:
                     # different package with SAME NVREA
                     self.disassociate_package(db_pack)
+
+                # just pass data from DB, they will be used if there is no RPM available
+                pack.checksum = db_pack['checksum']
+                pack.checksum_type = db_pack['checksum_type']
+                pack.epoch = db_pack['epoch']
 
             if to_download or to_link:
                 to_process.append((pack, to_download, to_link))
@@ -541,10 +554,9 @@ class RepoSync(object):
             try:
                 self.print_msg("%d/%d : %s" % (index + 1, num_to_process, pack.getNVREA()))
                 if to_download:
-                    pack.path = localpath = plug.get_package(pack)
-                pack.load_checksum_from_header()
-                if to_download:
-                    pack.upload_package(self.channel)
+                    pack.path = localpath = plug.get_package(pack, metadata_only=self.metadata_only)
+                    pack.load_checksum_from_header()
+                    pack.upload_package(self.channel, metadata_only=self.metadata_only)
                     finally_remove(localpath)
             except KeyboardInterrupt:
                 finally_remove(localpath)
@@ -583,14 +595,20 @@ class RepoSync(object):
         package['version'] = pack.version
         package['release'] = pack.release
         package['arch'] = pack.arch
-        package['checksum'] = pack.a_pkg.checksum
-        package['checksum_type'] = pack.a_pkg.checksum_type
+        if pack.a_pkg:
+            package['checksum'] = pack.a_pkg.checksum
+            package['checksum_type'] = pack.a_pkg.checksum_type
+            # use epoch from file header because createrepo puts epoch="0" to
+            # primary.xml even for packages with epoch=''
+            package['epoch'] = pack.a_pkg.header['epoch']
+        else:
+            # RPM not available but package metadata are in DB, reuse these values
+            package['checksum'] = pack.checksum
+            package['checksum_type'] = pack.checksum_type
+            package['epoch'] = pack.epoch
         package['channels'] = [{'label': self.channel_label,
                                 'id': self.channel['id']}]
         package['org_id'] = self.channel['org_id']
-        # use epoch from file header because createrepo puts epoch="0" to
-        # primary.xml even for packages with epoch=''
-        package['epoch'] = pack.a_pkg.header['epoch']
 
         return IncompletePackage().populate(package)
 

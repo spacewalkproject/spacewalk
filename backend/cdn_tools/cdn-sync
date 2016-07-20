@@ -43,6 +43,7 @@ def process_commandline():
     parser.add_argument('-p', '--print-configuration', action='store_true', help='print the configuration and exit')
     parser.add_argument('--count-packages', action='store_true', help="Count number of packages in all"
                         "repositories for every channel")
+    parser.add_argument("--no-rpms", action="store_true", help="Do not sync RPMs (debug only)")
 
     cmd_args = parser.parse_args()
 
@@ -100,7 +101,8 @@ if __name__ == '__main__':
         elif args.clear_cache:
             cdnsync.clear_cache()
         elif args.channel:
-            cdnsync.sync(channels=args.channel, no_packages=args.no_packages, no_errata=args.no_errata)
+            cdnsync.sync(channels=args.channel, no_packages=args.no_packages, no_errata=args.no_errata,
+                         no_rpms=args.no_rpms)
         else:
             cdnsync.sync()
 
