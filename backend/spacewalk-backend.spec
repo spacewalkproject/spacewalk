@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.13
+Version: 2.6.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -810,6 +810,29 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/cdn_tools/*.py*
 
 %changelog
+* Wed Jul 20 2016 Gennadii Altukhov <galt@redhat.com> 2.6.14-1
+- cdn-sync -  fix pylint warnings and errors
+- bug fix in cache of reposync when several repos assigned on channel
+- cdn-sync - change path for cache repodata, do not save primary.xml and
+  repomd.xml on disk
+- cdn-sync - show progress bar during updating repodata
+- cdn-sync - add number of packages to channel listing output
+- cdn-sync - Implement cdn-sync parameter for repodata updating
+- cdn-sync - Implement cdn-sync parameter for just listing assigned
+  repositories for channels
+- cdn-sync - bugfix in listing child channels. Show only those of child
+  channels which belong to channel families from manifest.
+- cdn-sync - add workaroud for missing RHN to CDN source matching * checking
+  that we have mapping in config json * if channel doesn't have at least one
+  source, skip it during syncing
+- cdn-sync - add exceptions to handling during channel import
+- cdn-sync - add parameter to print current configuration file
+- cdn-sync - add support of different debug levels for cdn-sync and reposync
+- cdn-sync - use the same config (CFG object) for cdn-sync, reposync and yum-
+  repo-plugin
+- cdn-sync - add parameters for http proxy and blocking of concurrent runs of
+  cdn-sync
+
 * Tue Jul 19 2016 Grant Gainey 2.6.13-1
 - change default checksum type to sha256 for debían packages. Usage of SHA256
   is recommended in https://wiki.debian.org/RepositoryFormat#Size.2C_MD5sum.2C_
