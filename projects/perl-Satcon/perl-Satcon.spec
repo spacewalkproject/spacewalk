@@ -12,6 +12,9 @@ BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRequires:  perl(ExtUtils::MakeMaker)
+%if 0%{?fedora} && 0%{?fedora} >= 24
+BuildRequires: perl-Test
+%endif
 Requires:       %{sbinpath}/restorecon
 
 %description
