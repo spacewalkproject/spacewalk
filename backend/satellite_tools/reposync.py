@@ -118,7 +118,7 @@ class RepoSync(object):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,
                  quiet=False, filters=None, no_errata=False, sync_kickstart=False, latest=False,
-                 metadata_only=False, strict=0):
+                 metadata_only=False, strict=0, excluded_urls=None):
         self.regen = False
         self.fail = fail
         self.quiet = quiet
@@ -149,8 +149,7 @@ class RepoSync(object):
         self.channel_label = channel_label
         self.channel = self.load_channel()
         if not self.channel:
-            self.print_msg("Channel does not exist.")
-            sys.exit(1)
+            self.print_msg("Channel %s does not exist." % channel_label)
 
         if not url:
             # TODO:need to look at user security across orgs
@@ -163,14 +162,18 @@ class RepoSync(object):
                                    and cs.channel_id = :channel_id""")
             h.execute(channel_id=int(self.channel['id']))
             source_data = h.fetchall_dict()
+            self.urls = []
+            if excluded_urls is None:
+                excluded_urls = []
             if source_data:
-                self.urls = [(row['id'], row['source_url'], row['label'],
-                              row['channel_family_id']) for row in source_data]
-            else:
-                self.error_msg("Channel has no URL associated")
-                sys.exit(1)
+                for row in source_data:
+                    if row['source_url'] not in excluded_urls:
+                        self.urls.append((row['id'], row['source_url'], row['label'], row['channel_family_id']))
         else:
             self.urls = [(None, u, None, None) for u in url]
+
+        if not self.urls:
+            self.error_msg("Channel %s has no URL associated" % channel_label)
 
         self.repo_plugin = self.load_plugin(repo_type)
         self.strict = strict
@@ -749,17 +752,21 @@ class RepoSync(object):
             select sequence_nextval('rhn_kstree_id_seq') as id from dual
             """)
         ks_id = row['id']
-        ks_path = 'rhn/kickstart/%s/%s' % (self.channel['org_id'], ks_tree_label)
+        ks_path = 'rhn/kickstart/'
+        if 'org_id' in self.channel and self.channel['org_id']:
+            ks_path += str(self.channel['org_id']) + '/' + CFG.MOUNT_POINT + ks_tree_label
+        else:
+            ks_path += ks_tree_label
 
         row = rhnSQL.execute("""
-            insert into rhnKickstartableTree (id, org_id, label, base_path, channel_id,
-                        kstree_type, install_type, last_modified, created, modified)
-            values (:id, :org_id, :label, :base_path, :channel_id,
-                        ( select id from rhnKSTreeType where label = 'externally-managed'),
-                        ( select id from rhnKSInstallType where label = 'generic_rpm'),
-                        current_timestamp, current_timestamp, current_timestamp)
-            """, id=ks_id, org_id=self.channel['org_id'], label=ks_tree_label,
-                             base_path=os.path.join(CFG.MOUNT_POINT, ks_path), channel_id=self.channel['id'])
+                   insert into rhnKickstartableTree (id, org_id, label, base_path, channel_id, kstree_type,
+                                                     install_type, last_modified, created, modified)
+                   values (:id, :org_id, :label, :base_path, :channel_id,
+                             ( select id from rhnKSTreeType where label = 'externally-managed'),
+                             ( select id from rhnKSInstallType where label = 'generic_rpm'),
+                             current_timestamp, current_timestamp, current_timestamp)""", id=ks_id,
+                             org_id=self.channel['org_id'], label=ks_tree_label, base_path=ks_path,
+                             channel_id=self.channel['id'])
 
         insert_h = rhnSQL.prepare("""
             insert into rhnKSTreeFile (kstree_id, relative_filename, checksum_id, file_size, last_modified, created, modified)

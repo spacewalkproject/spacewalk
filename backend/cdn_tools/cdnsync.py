@@ -63,6 +63,10 @@ class CdnSync(object):
         with open(constants.CONTENT_SOURCE_MAPPING_PATH, 'r') as f:
             self.content_source_mapping = json.load(f)
 
+        # Channel to kickstart repositories mapping
+        with open(constants.KICKSTART_SOURCE_MAPPING_PATH, 'r') as f:
+            self.kickstart_source_mapping = json.load(f)
+
         # Map channels to their channel family
         self.channel_to_family = {}
         for family in self.families:
@@ -151,8 +155,13 @@ class CdnSync(object):
         sources = []
         type_id = backend.lookupContentSourceType('yum')
         if channel in self.content_source_mapping:
-            sources = self.content_source_mapping[channel]
+            sources.extend(self.content_source_mapping[channel])
+
+        if channel in self.kickstart_source_mapping:
+            sources.extend(self.kickstart_source_mapping[channel])
+
         for source in sources:
+
             if not source['pulp_content_category'] == "source":
                 content_source = ContentSource()
                 content_source['label'] = source['pulp_repo_label_v2']
@@ -278,8 +287,13 @@ class CdnSync(object):
             except requests.exceptions.RequestException:
                 pass
 
-    @staticmethod
-    def _sync_channel(channel, no_errata=False, no_rpms=False):
+    def _sync_channel(self, channel, no_errata=False, no_rpms=False, no_kickstart=False):
+        excluded_urls = []
+        sync_kickstart = True
+        if no_kickstart:
+            excluded_urls = [CFG.CDN_ROOT + s['relative_url'] for s in self.kickstart_source_mapping[channel]]
+            sync_kickstart = False
+
         print "======================================"
         print "| Channel: %s" % channel
         print "======================================"
@@ -290,31 +304,16 @@ class CdnSync(object):
                                  quiet=False,
                                  filters=False,
                                  no_errata=no_errata,
-                                 sync_kickstart=True,
+                                 sync_kickstart=sync_kickstart,
                                  latest=False,
-                                 metadata_only=no_rpms)
+                                 metadata_only=no_rpms,
+                                 excluded_urls=excluded_urls)
         return sync.sync()
 
-    def sync(self, channels=None, no_packages=False, no_errata=False, no_rpms=False):
+    def sync(self, channels=None, no_packages=False, no_errata=False, no_rpms=False, no_kickstart=False):
         # If no channels specified, sync already synced channels
         if channels is None:
             channels = self.synced_channels
-
-        # workaround for RCM-4559
-        # if we do not have source for channel, skip it!
-        backend = SQLBackend()
-        channels_with_sources = []
-        for label in channels:
-            sources = self._get_content_sources(label, backend)
-            if sources:
-                channels_with_sources.append(label)
-            else:
-                print("There is no CDN source provided for channel: %s" % label)
-        if not channels_with_sources:
-            print("No channels with CDN sources provided.")
-            return
-        else:
-            channels = channels_with_sources
 
         # Need to update channel metadata
         self._update_channels_metadata(channels)
@@ -326,7 +325,7 @@ class CdnSync(object):
         # Finally, sync channel content
         total_time = datetime.timedelta()
         for channel in channels:
-            elapsed_time = self._sync_channel(channel, no_errata=no_errata, no_rpms=no_rpms)
+            elapsed_time = self._sync_channel(channel, no_errata=no_errata, no_rpms=no_rpms, no_kickstart=no_kickstart)
             total_time += elapsed_time
 
         print("Total time: %s" % str(total_time).split('.')[0])
