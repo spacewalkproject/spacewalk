@@ -555,4 +555,5 @@ def format_file_results(row, server=None):
         'filetype': row['label'],
         'selinux_ctx': row['selinux_ctx'] or '',
         'modified': m_date,
+        'is_binary': row['is_binary'] or '',
     }
