@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.6.1
+Version:     2.6.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -92,6 +92,11 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Jul 21 2016 Tomas Lestach <tlestach@redhat.com> 2.6.2-1
+- spacecmd: Check number of arguments in system_show_packageversion
+- Fix help/usage messages
+- spacecmd: user: allow more than one group at a time
+
 * Mon Jun 27 2016 Tomas Lestach <tlestach@redhat.com> 2.6.1-1
 - simplyfication of comparison
 - simplify if statements
