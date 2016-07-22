@@ -782,6 +782,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/repo_plugins/__init__.py*
 %{pythonrhnroot}/satellite_tools/repo_plugins/yum_src.py*
 %{pythonrhnroot}/satellite_tools/repo_plugins/uln_src.py*
+%{pythonrhnroot}/satellite_tools/repo_plugins/deb_src.py*
 %config %attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_iss.conf
 %{_mandir}/man8/rhn-satellite-exporter.8*
 %{_mandir}/man8/rhn-charsets.8*
