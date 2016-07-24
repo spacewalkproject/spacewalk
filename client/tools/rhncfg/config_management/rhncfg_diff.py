@@ -155,14 +155,14 @@ class Handler(handler_base.HandlerBase):
         if not first_row and not self.__attributes_differ(info, local_info):
             return ""
         else:
-            template = "--- %s\t%s\tattributes: %s %s %s %s\tconfig channel: %s\trevision: %s"
+            template = "%s %s\t%s\tattributes: %s %s %s %s\tconfig channel: %s\trevision: %s"
             if 'modified' not in info:
                 info['modified'] = ''
-            first_row = template % (path, str(info['modified']), ostr_to_sym(info['filemode'], info['filetype']),
+            first_row = template % ('---', path, str(info['modified']), ostr_to_sym(info['filemode'], info['filetype']),
                         info['username'], info['groupname'], info['selinux_ctx'], channel,
                         info['revision'],
             )
-            second_row = template % (local_file, f_date(datetime.fromtimestamp(local_info['mtime'])), ostr_to_sym(local_info['mode'], 'file'),
+            second_row = template % ('+++', local_file, f_date(datetime.fromtimestamp(local_info['mtime'])), ostr_to_sym(local_info['mode'], 'file'),
                         local_info['user'], local_info['group'], local_info['selinux_ctx'], 'local file', None
             )
         return first_row + '\n' + second_row + '\n' + ''.join(list(diff_output))
