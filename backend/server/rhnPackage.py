@@ -235,7 +235,8 @@ def get_info_for_package(pkg, channel_id, org_id):
        and %s
        and pa.label = :arch
        and %s
-     order by cp.channel_id nulls last
+     order by cp.channel_id nulls last,
+              p.id desc
     """ % (epochStatement, orgStatement)
 
     h = rhnSQL.prepare(statement)
