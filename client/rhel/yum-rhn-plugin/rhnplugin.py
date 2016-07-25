@@ -382,7 +382,7 @@ class RhnRepo(YumRepository):
     # Override the 'private' __get method so we can do our auth stuff.
     def _getFile(self, url=None, relative=None, local=None,
         start=None, end=None, copy_local=0, checkfunc=None, text=None,
-        reget='simple', cache=True, size=None):
+        reget='simple', cache=True, size=None, **kwargs):
         try:
             try:
                 return self._noExceptionWrappingGet(url, relative, local,
