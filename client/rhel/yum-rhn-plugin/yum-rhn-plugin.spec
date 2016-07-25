@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.6.0
+Version: 2.6.1
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,10 @@ fi
 %doc LICENSE
 
 %changelog
+* Mon Jul 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.6.1-1
+- 1359087 - expect additional arguments
+- Bumping package versions for 2.6.
+
 * Tue May 24 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.5-1
 - updating copyright years
 - Regenerating .po and .pot files for rhn-client-tools.
