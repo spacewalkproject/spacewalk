@@ -2514,7 +2514,7 @@ def help_kickstart_getsoftwaredetails(self):
 
 
 def complete_kickstart_getsoftwaredetails(self, text, line, beg, end):
-    if len(line.split(' ')) <= 1:
+    if len(line.split(' ')) >= 2:
         return tab_completer(self.do_kickstart_list('', True), text)
 
 
