@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.15
+Version: 2.6.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -810,6 +810,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/cdn_tools/*.py*
 
 %changelog
+* Tue Jul 26 2016 Jan Dobes 2.6.16-1
+- distinct by checksum to connect multiple packages with same nevrao to
+  erratum, not only one of them
+- fixing multiple packages in null org without channel - pick the last one
+- support syncing only RPMs metadata
+
 * Tue Jul 26 2016 Eric Herget <eherget@redhat.com> 2.6.15-1
 - 1345843 - sane output when diff of binary config files
 
