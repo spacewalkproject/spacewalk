@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.14
+Version: 2.6.15
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -810,6 +810,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/cdn_tools/*.py*
 
 %changelog
+* Tue Jul 26 2016 Eric Herget <eherget@redhat.com> 2.6.15-1
+- 1345843 - sane output when diff of binary config files
+
 * Wed Jul 20 2016 Gennadii Altukhov <galt@redhat.com> 2.6.14-1
 - cdn-sync -  fix pylint warnings and errors
 - bug fix in cache of reposync when several repos assigned on channel
