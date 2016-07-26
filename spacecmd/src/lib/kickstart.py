@@ -2550,3 +2550,75 @@ def do_kickstart_getsoftwaredetails(self, args):
             print "noBase:          %s" % software_details.get("noBase")
             print "ignoreMissing:   %s" % software_details.get("ignoreMissing")
             print
+
+####################
+
+
+def help_kickstart_setsoftwaredetails(self):
+    print 'kickstart_setsoftwaredetails: Sets kickstart profile software details.'
+    print 'usage: kickstart_setsoftwaredetails PROFILE KICKSTART_PACKAGES_INFO VALUE'
+    print 'usage: kickstart_setsoftwaredetails PROFILE KICKSTART_PACKAGES_INFO VALUE KICKSTART_PACKAGES_INFO VALUE'
+
+def complete_kickstart_setsoftwaredetails(self, text, line, beg, end):
+    parts = line.split(' ')
+    length = len(parts)
+
+    if length == 2:
+        return tab_completer(self.do_kickstart_list('', True), text)
+    elif length in [3, 5]:
+        if 'noBase' in parts:
+            return tab_completer(['ignoreMissing'], text)
+        elif 'ignoreMissing' in parts:
+            return tab_completer(['noBase'], text)
+        else:
+            kspkginfo = ['noBase', 'ignoreMissing']
+            return tab_completer(kspkginfo, text)
+    elif length in [4, 6]:
+        mode= ['True', 'False']
+        return tab_completer(mode, text)
+
+
+def do_kickstart_setsoftwaredetails(self, args):
+    (args, _options) = parse_arguments(args)
+    length = len(args)
+    kspkginfo = ['noBase', 'ignoreMissing']
+    mode = ['True', 'False']
+
+    if length < 1 or length not in [3, 5]:
+        self.help_kickstart_setsoftwaredetails()
+        return
+
+    if args[0] not in self.do_kickstart_list('', True):
+        print "Selected profile does not exist"
+        return
+    if args[1] not in kspkginfo or args[2] not in mode:
+        print "Enter valid input"
+        self.help_kickstart_setsoftwaredetails()
+        return
+    if length==5:
+        if (args[3] not in kspkginfo or args[4] not in mode) or args[1] == args[3]:
+            print "Enter valid input"
+            self.help_kickstart_setsoftwaredetails()
+            return
+
+    args[2] = string_to_bool(args[2])
+    if length == 5:
+        args[4] = string_to_bool(args[4])
+
+    profile = args[0]
+    if length == 3:
+        software_details = self.client.kickstart.profile.software.getSoftwareDetails(self.session, profile)
+
+        if args[1] == 'noBase':
+            kspkginfo= {'noBase': args[2], 'ignoreMissing': string_to_bool(software_details.get("ignoreMissing"))}
+        elif args[1] == 'ignoreMissing':
+            kspkginfo= {'noBase': string_to_bool(software_details.get("noBase")), 'ignoreMissing':args[2]}
+    else:
+        if args[3] == 'noBase':
+            kspkginfo= {'noBase': args[4], 'ignoreMissing': args[2]}
+        elif args[3] == 'ignoreMissing':
+            kspkginfo= {'noBase': args[2], 'ignoreMissing':args[4]}
+
+    self.client.kickstart.profile.software.setSoftwareDetails(self.session,
+                                                            profile,
+                                                            kspkginfo)

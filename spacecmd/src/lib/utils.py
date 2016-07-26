@@ -770,3 +770,9 @@ def file_is_binary(self, path):
     except OSError:
         pass
     return True
+
+
+def string_to_bool(input_string):
+  if type(input_string) != type(True):
+    return input_string.lower().rstrip(' ') == 'true'
+  return input_string
