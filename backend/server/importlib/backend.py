@@ -602,7 +602,7 @@ class Backend:
                     not_found = (e, sys.exc_info()[2])
             if not_found and not ignore_missing:
                 # package is not in database at all
-                raise not_found[0].with_traceback(not_found[1])
+                raise_with_tb(not_found[0], not_found[1])
 
     def lookupChannelFamilies(self, hash):
         if not hash:

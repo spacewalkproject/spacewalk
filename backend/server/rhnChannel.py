@@ -1942,9 +1942,9 @@ def guess_channels_for_server(server, user_id=None, none_ok=0,
         if none_ok:
             return []
 
-        raise rhnFault(71,
-                       _("Insufficient subscription permissions for release (%s, %s")
-                       % (server.release, server.arch)).with_traceback(sys.exc_info()[2])
+        raise raise_with_tb(rhnFault(71,
+                                     _("Insufficient subscription permissions for release (%s, %s")
+                                     % (server.release, server.arch)), sys.exc_info()[2])
 
 # Subscribes the server to channels
 # can raise BaseChannelDeniedError, NoBaseChannelError
