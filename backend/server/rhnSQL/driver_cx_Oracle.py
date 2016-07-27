@@ -515,7 +515,8 @@ class Database(sql_base.Database):
 
     def commit(self):
         log_debug(3, self.dbtxt)
-        return self.dbh.commit()
+        if self.dbh is not None:
+            return self.dbh.commit()
 
     def rollback(self, name=None):
         log_debug(3, self.dbtxt, name)

@@ -161,6 +161,8 @@ class Database(sql_base.Database):
         if not self.port:
             self.port = -1
 
+        self.dbh = None
+
         sql_base.Database.__init__(self)
 
     def connect(self, reconnect=1):
@@ -195,7 +197,7 @@ class Database(sql_base.Database):
             # Failed reconnect, time to error out:
             raise_with_tb(sql_base.SQLConnectError(
                 self.database, e.pgcode, e.pgerror,
-                "Attempting Re-Connect to the database failed"), sys.exc_info()[2])
+                "All attempts to connect to the database failed"), sys.exc_info()[2])
 
     def is_connected_to(self, backend, host, port, username, password,
                         database, sslmode, sslrootcert):
@@ -233,7 +235,8 @@ class Database(sql_base.Database):
         return c.execute()
 
     def commit(self):
-        self.dbh.commit()
+        if self.dbh is not None:
+            self.dbh.commit()
 
     def rollback(self, name=None):
         if name:

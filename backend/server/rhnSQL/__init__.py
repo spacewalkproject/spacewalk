@@ -155,7 +155,7 @@ def initDB(backend=None, host=None, port=None, username=None,
             closeDB()
         except NameError:
             pass
-        raise e
+        raise_with_tb(e, sys.exc_info()[2])
     except:
         raise
         #e_type, e_value = sys.exc_info()[:2]
