@@ -114,7 +114,7 @@ if __name__ == '__main__':
             LOCK.release()
         sys.exit(e.code)
     except rhnLockfile.LockfileLockedException:
-        system_exit(1, "SYNC ERROR: attempting to run more than one instance of satellite-sync. Exiting.")
+        system_exit(1, "SYNC ERROR: attempting to run more than one instance of cdn-sync. Exiting.")
     except (MissingParentChannelError, InvalidChannelFamilyError,
             InvalidChannelError, InvalidArchError):
         e = sys.exc_info()[1]
