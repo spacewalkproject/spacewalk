@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.17
+Version: 2.6.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -824,6 +824,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Wed Jul 27 2016 Gennadii Altukhov <galt@redhat.com> 2.6.18-1
+- build cdn-sync only for RHEL > 5 and Fedora
+- cdn-sync - add syncing of kickstart repositories - reposync now doesn't
+  terminate a program if one of channels doesn't exist - add posibility to
+  exclude some repos from syncing
+
 * Wed Jul 27 2016 Jan Dobes 2.6.17-1
 - fixing typo
 - count total time of sync
