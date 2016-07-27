@@ -20,6 +20,7 @@ import errno
 import os
 import sys
 import time
+import datetime
 
 try:
     from cStringIO import StringIO
@@ -292,7 +293,7 @@ class CdnSync(object):
                                  sync_kickstart=True,
                                  latest=False,
                                  metadata_only=no_rpms)
-        sync.sync()
+        return sync.sync()
 
     def sync(self, channels=None, no_packages=False, no_errata=False, no_rpms=False):
         # If no channels specified, sync already synced channels
@@ -323,8 +324,12 @@ class CdnSync(object):
             return
 
         # Finally, sync channel content
+        total_time = datetime.timedelta()
         for channel in channels:
-            self._sync_channel(channel, no_errata=no_errata, no_rpms=no_rpms)
+            elapsed_time = self._sync_channel(channel, no_errata=no_errata, no_rpms=no_rpms)
+            total_time += elapsed_time
+
+        print("Total time: %s" % str(total_time).split('.')[0])
 
     def count_packages(self):
         start_time = int(time.time())

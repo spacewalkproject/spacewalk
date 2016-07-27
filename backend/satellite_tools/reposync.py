@@ -233,9 +233,9 @@ class RepoSync(object):
             taskomatic.add_to_erratacache_queue(self.channel_label)
         self.update_date()
         rhnSQL.commit()
-        total_time = datetime.now() - start_time
-        self.print_msg("Sync completed.")
-        self.print_msg("Total time: %s" % str(total_time).split('.')[0])
+        elapsed_time = datetime.now() - start_time
+        self.print_msg("Sync of channel completed in %s." % str(elapsed_time).split('.')[0])
+        return elapsed_time
 
     def update_date(self):
         """ Updates the last sync time"""

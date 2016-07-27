@@ -24,6 +24,7 @@ import sys
 import os
 import socket
 from optparse import OptionParser
+import datetime
 
 
 def systemExit(code, msg=None):
@@ -195,6 +196,7 @@ def main():
              print " %s: %s" % (key,str(getattr(options, key)))
          return 0
 
+    total_time = datetime.timedelta()
     for ch,repo in d_ch_repo_sync.items():
 
         print "======================================"
@@ -209,7 +211,10 @@ def main():
                       no_errata=options.no_errata,
                       sync_kickstart=options.sync_kickstart,
                       latest=options.latest)
-        sync.sync()
+        elapsed_time = sync.sync()
+        total_time += elapsed_time
+
+    print("Total time: %s" % str(total_time).split('.')[0])
     releaseLOCK()
     return 0
 
