@@ -627,7 +627,7 @@ class PostgresqlBackend(OracleBackend):
             h = self.dbmodule.prepare_secondary(sql)
             for name, version in capabilityHash.keys():
                 ver = version
-                if version is None or version == '':
+                if version == '':
                     ver = None
                 h.execute(name=name, version=ver)
                 row = h.fetchone_dict()
