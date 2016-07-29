@@ -287,10 +287,10 @@ class CdnSync(object):
             except requests.exceptions.RequestException:
                 pass
 
-    def _sync_channel(self, channel, no_errata=False, no_rpms=False, no_kickstart=False):
+    def _sync_channel(self, channel, no_errata=False, no_rpms=False, no_kickstarts=False):
         excluded_urls = []
         sync_kickstart = True
-        if no_kickstart:
+        if no_kickstarts:
             excluded_urls = [CFG.CDN_ROOT + s['relative_url'] for s in self.kickstart_source_mapping[channel]]
             sync_kickstart = False
 
@@ -310,7 +310,7 @@ class CdnSync(object):
                                  excluded_urls=excluded_urls)
         return sync.sync()
 
-    def sync(self, channels=None, no_packages=False, no_errata=False, no_rpms=False, no_kickstart=False):
+    def sync(self, channels=None, no_packages=False, no_errata=False, no_rpms=False, no_kickstarts=False):
         # If no channels specified, sync already synced channels
         if channels is None:
             channels = self.synced_channels
@@ -325,7 +325,7 @@ class CdnSync(object):
         # Finally, sync channel content
         total_time = datetime.timedelta()
         for channel in channels:
-            elapsed_time = self._sync_channel(channel, no_errata=no_errata, no_rpms=no_rpms, no_kickstart=no_kickstart)
+            elapsed_time = self._sync_channel(channel, no_errata=no_errata, no_rpms=no_rpms, no_kickstarts=no_kickstarts)
             total_time += elapsed_time
 
         print("Total time: %s" % str(total_time).split('.')[0])

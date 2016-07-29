@@ -35,7 +35,7 @@ def process_commandline():
     parser.add_argument("-c", "--channel", action="append", help="Sync this channel only.")
     parser.add_argument("--no-packages", action="store_true", help="Do not sync packages.")
     parser.add_argument("--no-errata", action="store_true", help="Do not sync errata.")
-    parser.add_argument("--no-kickstart", action="store_true", help="Do not sync kickstart repositories.")
+    parser.add_argument("--no-kickstarts", action="store_true", help="Do not sync kickstart repositories.")
     parser.add_argument("--clear-cache", action="store_true", help="Delete partially synced channels.")
     parser.add_argument('--http-proxy', action='store', help="alternative http proxy (hostname:port)")
     parser.add_argument('--http-proxy-username', action='store', help="alternative http proxy username")
@@ -104,7 +104,7 @@ if __name__ == '__main__':
             cdnsync.clear_cache()
         elif args.channel:
             cdnsync.sync(channels=args.channel, no_packages=args.no_packages, no_errata=args.no_errata,
-                         no_rpms=args.no_rpms, no_kickstart=args.no_kickstart)
+                         no_rpms=args.no_rpms, no_kickstarts=args.no_kickstarts)
         else:
             cdnsync.sync()
 
