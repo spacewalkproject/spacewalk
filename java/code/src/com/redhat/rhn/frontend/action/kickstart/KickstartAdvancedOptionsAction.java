@@ -36,10 +36,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -140,7 +142,7 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
 
                 //set custom options
                 String customOps = request.getParameter(CUSTOM_OPTIONS);
-                Set customSet = new HashSet();
+                LinkedHashSet customSet = new LinkedHashSet<>();
                 log.debug("Adding custom options");
                 if (customOps != null) {
                     for (StringTokenizer strtok = new StringTokenizer(
@@ -148,12 +150,15 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
                         KickstartCommand custom = new KickstartCommand();
                         custom.setCommandName(KickstartFactory
                                 .lookupKickstartCommandName("custom"));
-                        custom.setArguments(strtok.nextToken());
-                        custom.setKickstartData(cmd.getKickstartData());
-                        custom.setCustomPosition(customSet.size());
-                        custom.setCreated(new Date());
-                        custom.setModified(new Date());
-                        customSet.add(custom);
+                        String args = strtok.nextToken().trim();
+                        if (!args.isEmpty()) {
+                            custom.setArguments(args);
+                            custom.setKickstartData(cmd.getKickstartData());
+                            custom.setCustomPosition(customSet.size());
+                            custom.setCreated(new Date());
+                            custom.setModified(new Date());
+                            customSet.add(custom);
+                        }
                     }
                     log.debug("Clearing custom options");
                     cmd.getKickstartData().setCustomOptions(customSet);
@@ -174,11 +179,18 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
         else {
             displayList = cmd.getDisplayOptions();
         }
-
         Collections.sort(displayList);
+        LinkedHashSet<KickstartCommand> displaySet = new LinkedHashSet<>();
+        Iterator<KickstartCommand> iter;
+        iter = cmd.getKickstartData().getCustomOptions().iterator();
+        while (iter.hasNext()) {
+            KickstartCommand displayCommand = new KickstartCommand();
+            displayCommand.setArguments(iter.next().getArguments().concat("\n"));
+            displaySet.add(displayCommand);
+        }
         request.setAttribute(RequestContext.KICKSTART, cmd.getKickstartData());
         request.setAttribute(OPTIONS, displayList);
-        request.setAttribute(CUSTOM_OPTIONS, cmd.getKickstartData().getCustomOptions());
+        request.setAttribute(CUSTOM_OPTIONS, displaySet);
 
         return getStrutsDelegate().forwardParams(
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD),
