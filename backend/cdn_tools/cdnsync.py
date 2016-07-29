@@ -312,7 +312,7 @@ class CdnSync(object):
 
     def sync(self, channels=None, no_packages=False, no_errata=False, no_rpms=False, no_kickstarts=False):
         # If no channels specified, sync already synced channels
-        if channels is None:
+        if not channels:
             channels = self.synced_channels
 
         # Need to update channel metadata

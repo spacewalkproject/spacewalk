@@ -102,11 +102,9 @@ if __name__ == '__main__':
             cdnsync.count_packages()
         elif args.clear_cache:
             cdnsync.clear_cache()
-        elif args.channel:
+        else:
             cdnsync.sync(channels=args.channel, no_packages=args.no_packages, no_errata=args.no_errata,
                          no_rpms=args.no_rpms, no_kickstarts=args.no_kickstarts)
-        else:
-            cdnsync.sync()
 
     except KeyboardInterrupt:
         system_exit(0, "\nUser interrupted process.")
