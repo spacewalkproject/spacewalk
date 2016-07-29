@@ -38,19 +38,13 @@ from spacewalk.server.importlib.importLib import Channel, ChannelFamily, \
     ProductName, DistChannelMap, ContentSource
 from spacewalk.satellite_tools import reposync
 from spacewalk.satellite_tools import contentRemove
-from spacewalk.server.rhnSQL import SQLConnectError
 
 
 class CdnSync(object):
     """Main class of CDN sync run."""
 
     def __init__(self):
-        try:
-            rhnSQL.initDB()
-        except SQLConnectError:
-            print("Can't connect to the database: %s" % sys.exc_info()[1])
-            print("Check if your database is running.")
-            sys.exit(20)
+        rhnSQL.initDB()
         initCFG('server.satellite')
 
         # Channel families mapping to channels
