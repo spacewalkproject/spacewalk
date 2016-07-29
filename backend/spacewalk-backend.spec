@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.20
+Version: 2.6.21
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -824,6 +824,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Fri Jul 29 2016 Jan Dobes 2.6.21-1
+- simplify and allow to use other parameters without channel parameter
+- rename to plural to have same parameter as in satsync
+- show more info like in satsync
+- Revert "check if DB is running"
+
 * Fri Jul 29 2016 Jan Dobes 2.6.20-1
 - check if DB is running
 
