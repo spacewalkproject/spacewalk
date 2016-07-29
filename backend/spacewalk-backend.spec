@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.19
+Version: 2.6.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -824,6 +824,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Fri Jul 29 2016 Jan Dobes 2.6.20-1
+- check if DB is running
+
 * Thu Jul 28 2016 Gennadii Altukhov <galt@redhat.com> 2.6.19-1
 - cdn-sync - add handling of database connection error
 - bugfix - Check connection to a DB is open before make commit()
