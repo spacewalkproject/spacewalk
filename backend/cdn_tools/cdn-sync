@@ -123,7 +123,7 @@ if __name__ == '__main__':
         system_exit(1, "SYNC ERROR: %s. Exiting." % str(e))
     except rhnSQL.SQLConnectError:
         e = sys.exc_info()[1]
-        system_exit(1, "SYNC ERROR: %s. Exiting." % str(e))
+        system_exit(20, ["ERROR: Can't connect to the database: %s" % str(e), "Check if your database is running."])
     except Exception:
         e = sys.exc_info()[1]
         if LOCK:
