@@ -81,11 +81,15 @@ public class CustomPackageListAction extends RhnAction {
         //actually do anything else, so lets go ahead and forward and save some time
         String button = LocalizationService.getInstance().getMessage(
         "channel.jsp.manage.package.delete");
+
+        boolean sourcePackagesChecked =
+                "source".equals(request.getParameter("package_type")) ? true : false;
+
         if (button.equals(request.getParameter(RhnHelper.CONFIRM_FORWARD)) &&
             set.size() > 0) {
             Map<String, Object> params = new HashMap<String, Object>();
             // Forward type of the list
-            params.put("source_checked", request.getParameter("source_checked"));
+            params.put("source_checked", sourcePackagesChecked);
             return getStrutsDelegate().forwardParams(
                                 mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
         }
@@ -107,9 +111,6 @@ public class CustomPackageListAction extends RhnAction {
         if (selectedChan == null) {
                 selectedChan = ORPHAN_PACKAGES;
         }
-
-        boolean sourcePackagesChecked =
-                (request.getParameter("source_checked") != null) ? true : false;
 
         if (ALL_PACKAGES.equals(selectedChan)) {
             result = PackageManager.listCustomPackages(user.getOrg().getId(),

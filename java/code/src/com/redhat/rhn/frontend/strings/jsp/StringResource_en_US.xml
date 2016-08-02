@@ -18888,6 +18888,9 @@ given channel.</source>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>
       </trans-unit>
+      <trans-unit id="channel.jsp.package.viewbinarypackages">
+        <source>Binary Packages</source>
+      </trans-unit>
       <trans-unit id="channel.jsp.package.viewsourcepackages">
         <source>Source Packages</source>
       </trans-unit>

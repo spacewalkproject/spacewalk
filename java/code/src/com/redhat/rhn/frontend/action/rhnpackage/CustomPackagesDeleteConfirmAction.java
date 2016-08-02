@@ -64,7 +64,7 @@ public class CustomPackagesDeleteConfirmAction extends RhnAction {
         }
 
         boolean sourcePackagesChecked =
-                (request.getParameter("source_checked") != null) ? true : false;
+                Boolean.parseBoolean(request.getParameter("source_checked"));
 
         RhnSet set =  RhnSetDecl.DELETABLE_PACKAGE_LIST.get(user);
         DataResult result;
