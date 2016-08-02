@@ -12,6 +12,7 @@ from rhn import rhnLockfile
 from spacewalk.server.importlib.importLib import InvalidArchError, \
     InvalidChannelError, InvalidChannelFamilyError, MissingParentChannelError
 
+
 def system_exit(code, msgs=None):
     """Exit with a code and optional message(s). Saved a few lines of code."""
 

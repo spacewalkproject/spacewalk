@@ -15,7 +15,6 @@
 # in this software or its documentation.
 #
 
-LOCK = None
 import re
 import StringIO
 import simplejson as json
@@ -24,6 +23,8 @@ import sys
 import os
 from optparse import OptionParser
 import datetime
+
+LOCK = None
 
 
 def systemExit(code, msg=None):
@@ -42,17 +43,20 @@ except ImportError:
     systemExit(1, "Unable to find code tree.\n"
                "Path not correct? " + sys.path)
 
+
 def releaseLOCK():
     global LOCK
     if LOCK:
         LOCK.release()
         LOCK = None
 
+
 def clear_interrupted_downloads():
     initCFG('server.satellite')
     pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1', 'stage')
     if os.path.exists(pkgdir):
         shutil.rmtree(pkgdir)
+
 
 def main():
 

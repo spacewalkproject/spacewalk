@@ -114,6 +114,7 @@ def getCustomChannels():
 
     return l_custom_ch
 
+
 class RepoSync(object):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,
