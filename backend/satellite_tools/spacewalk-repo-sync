@@ -22,7 +22,6 @@ import simplejson as json
 import shutil
 import sys
 import os
-import socket
 from optparse import OptionParser
 import datetime
 

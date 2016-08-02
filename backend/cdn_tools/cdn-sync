@@ -4,7 +4,6 @@ import argparse
 import sys
 import os
 
-from spacewalk.cdn_tools.constants import CDN_REPODATA_ROOT
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.cdn_tools.cdnsync import CdnSync
 from spacewalk.server import rhnSQL
