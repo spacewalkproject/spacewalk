@@ -292,7 +292,8 @@ class CdnSync(object):
         excluded_urls = []
         sync_kickstart = True
         if no_kickstarts:
-            excluded_urls = [CFG.CDN_ROOT + s['relative_url'] for s in self.kickstart_source_mapping[channel]]
+            if channel in self.kickstart_source_mapping:
+                excluded_urls = [CFG.CDN_ROOT + s['relative_url'] for s in self.kickstart_source_mapping[channel]]
             sync_kickstart = False
 
         print "======================================"
