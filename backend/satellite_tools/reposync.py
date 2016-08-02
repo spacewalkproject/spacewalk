@@ -758,7 +758,7 @@ class RepoSync(object):
         else:
             ks_path += ks_tree_label
 
-        row = rhnSQL.execute("""
+        rhnSQL.execute("""
                    insert into rhnKickstartableTree (id, org_id, label, base_path, channel_id, kstree_type,
                                                      install_type, last_modified, created, modified)
                    values (:id, :org_id, :label, :base_path, :channel_id,
