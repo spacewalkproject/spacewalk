@@ -311,11 +311,12 @@ class RepoSync(object):
         }
         for notice in notices:
             notice = self.fix_notice(notice)
-            existing_errata = self.get_errata(notice['update_id'])
+            advisory = notice['update_id'] + '-' + notice['version']
+            existing_errata = self.get_errata(advisory)
 
             e = Erratum()
             e['errata_from'] = notice['from']
-            e['advisory'] = notice['update_id']
+            e['advisory'] = advisory
             e['advisory_name'] = notice['update_id']
             e['advisory_rel'] = notice['version']
             e['advisory_type'] = typemap.get(notice['type'], 'Product Enhancement Advisory')
@@ -677,12 +678,6 @@ class RepoSync(object):
                 notice['version'] = new_version / 100
             except TypeError:  # yum in RHEL5 does not have __setitem__
                 notice._md['version'] = new_version / 100
-        if notice['from'] and "suse" in notice['from'].lower():
-            # suse style; we need to append the version to id
-            try:
-                notice['update_id'] = notice['update_id'] + '-' + notice['version']
-            except TypeError:  # yum in RHEL5 does not have __setitem__
-                notice._md['update_id'] = notice['update_id'] + '-' + notice['version']
         return notice
 
     @staticmethod
