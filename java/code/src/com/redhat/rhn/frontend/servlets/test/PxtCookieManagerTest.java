@@ -82,7 +82,7 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
     }
 
     public final void testGetPxtCookieWhenPxtCookieIsNotPresent() {
-        Cookie[] cookies = new Cookie[] {
+        final Cookie[] cookies = new Cookie[] {
                 new Cookie("cookie-1", "one"),
                 new Cookie("cookie-2", "two")
         };
@@ -105,7 +105,7 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
     }
 
     public final void testGetPxtCookieWhenPxtCookieIsPresentWithoutPxtPersonalities() {
-        Cookie[] cookies = new Cookie[] {
+        final Cookie[] cookies = new Cookie[] {
                 new Cookie("cookie-1", "one"),
                 new Cookie(PxtCookieManager.PXT_SESSION_COOKIE_NAME,
                         "we don't care about the value for this test"),

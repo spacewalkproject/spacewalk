@@ -161,7 +161,7 @@ public class ServletUtilsTest extends MockObjectTestCase {
     }
 
     public final void testRequestParamsToQueryStringWithParams() throws Exception {
-        Hashtable<String, String> parameterMap = createParameterMap();
+        final Hashtable<String, String> parameterMap = createParameterMap();
         context().checking(new Expectations() { {
             allowing(mockRequest).getParameterMap();
             will(returnValue(parameterMap));

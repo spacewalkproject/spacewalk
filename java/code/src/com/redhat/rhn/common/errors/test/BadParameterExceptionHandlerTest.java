@@ -70,7 +70,7 @@ public class BadParameterExceptionHandlerTest extends MockObjectTestCase {
             BadParameterException ex =
                 new BadParameterException("Invalid test parameter");
 
-            ActionMapping mapping = mock(ActionMapping.class, "mapping");
+            final ActionMapping mapping = mock(ActionMapping.class, "mapping");
             context().checking(new Expectations() { {
                 oneOf(mapping).getInputForward();
                 will(returnValue(new ActionForward()));

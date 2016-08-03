@@ -34,8 +34,8 @@ public class CSVMockTestHelper {
      * @throws IOException if something goes wrong
      */
     public static Expectations getCsvExportParameterExpectations(
-            HttpServletResponse response,
-            RhnMockServletOutputStream out) throws IOException {
+            final HttpServletResponse response,
+            final RhnMockServletOutputStream out) throws IOException {
         return new Expectations() { {
             atLeast(1).of(response).getCharacterEncoding();
             will(returnValue("UTF-8"));

@@ -45,8 +45,9 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
         service.setPxtSessionDelegate(getPxtDelegate());
     }
 
-    private void setupPxtDelegate(boolean sessionKeyValid, boolean sessionExpired,
-            Long webUserId) {
+    private void setupPxtDelegate(final boolean sessionKeyValid,
+            final boolean sessionExpired,
+            final Long webUserId) {
         context().checking(new Expectations() { {
             allowing(mockPxtDelegate)
                     .isPxtSessionKeyValid(with(any(HttpServletRequest.class)));
@@ -59,7 +60,7 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
         } });
     }
 
-    private void setupGetRequestURI(String requestUri) {
+    private void setupGetRequestURI(final String requestUri) {
         context().checking(new Expectations() { {
             allowing(mockRequest).getRequestURI();
             will(returnValue(requestUri));

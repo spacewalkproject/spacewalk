@@ -245,7 +245,7 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
     }
 
     public final void testGetPxtSessionId() {
-        Cookie[] cookies = new Cookie[] {getPxtCookie()};
+        final Cookie[] cookies = new Cookie[] {getPxtCookie()};
         context().checking(new Expectations() { {
             allowing(mockRequest).getCookies();
             will(returnValue(cookies));
@@ -255,7 +255,7 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
     }
 
     public final void testGetPxtSessionIdWhenPxtCookieIsInvalid() {
-        Cookie[] cookies = new Cookie[] {getPxtCookieWithInvalidSessionKey()};
+        final Cookie[] cookies = new Cookie[] {getPxtCookieWithInvalidSessionKey()};
 
         context().checking(new Expectations() { {
             allowing(mockRequest).getCookies();
