@@ -312,7 +312,7 @@ class RepoSync(object):
         for notice in notices:
             notice = self.fix_notice(notice)
             advisory = notice['update_id'] + '-' + notice['version']
-            existing_errata = self.get_errata(advisory)
+            existing_errata = self.get_errata(notice['update_id'])
 
             e = Erratum()
             e['errata_from'] = notice['from']
@@ -685,7 +685,7 @@ class RepoSync(object):
         h = rhnSQL.prepare("""select
             e.id, e.advisory, e.advisory_name, e.advisory_rel
             from rhnerrata e
-            where e.advisory = :name
+            where e.advisory_name = :name
         """)
         h.execute(name=update_id)
         ret = h.fetchone_dict() or None
