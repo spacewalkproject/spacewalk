@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.21
+Version: 2.6.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -824,6 +824,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Wed Aug 03 2016 Jan Dobes 2.6.22-1
+- support strict package subscription to channel
+- fixing pep8
+- unused import
+- unused variable
+
 * Fri Jul 29 2016 Jan Dobes 2.6.21-1
 - simplify and allow to use other parameters without channel parameter
 - rename to plural to have same parameter as in satsync
