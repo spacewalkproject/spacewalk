@@ -119,7 +119,7 @@ Requires: yum-rhn-plugin >= 1.6.4-1
 %endif
 
 %description -n rhn-check
-rhn-check polls a Red Hat Satelliteor Spacewalk server to find and execute 
+rhn-check polls a Red Hat Satellite or Spacewalk server to find and execute
 scheduled actions.
 
 %package -n rhn-setup
