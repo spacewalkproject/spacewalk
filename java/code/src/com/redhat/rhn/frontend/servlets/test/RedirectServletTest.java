@@ -92,7 +92,7 @@ public class RedirectServletTest extends MockObjectTestCase {
     }
 
     public final void testDoGetWithQueryString() throws Exception {
-        String queryString = encode("myparam") + "=" + encode("neo is the one!");
+        final String queryString = encode("myparam") + "=" + encode("neo is the one!");
 
         context().checking(new Expectations() { {
                 allowing(mockRequest).getQueryString();

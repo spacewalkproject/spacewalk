@@ -74,12 +74,12 @@ public class CreateRedirectURITest extends MockObjectTestCase {
      *
      */
     public final void testExecuteWhenRequestHasParams() throws Exception {
-        String paramName = "foo";
-        String paramValue = "param value = bar#$%!";
+        final String paramName = "foo";
+        final String paramValue = "param value = bar#$%!";
 
         String expected = "/YourRhn.do?foo=" + URLEncoder.encode(paramValue, "UTF-8") + "&";
 
-        Vector<String> paramNames = new Vector<String>();
+        final Vector<String> paramNames = new Vector<String>();
         paramNames.add(paramName);
 
         context().checking(new Expectations() { {
@@ -99,7 +99,7 @@ public class CreateRedirectURITest extends MockObjectTestCase {
     }
 
     public final void testExecuteWhenRedirectURIExceedsMaxLength() throws Exception {
-        String url = StringUtils.rightPad("/YourRhn.do",
+        final String url = StringUtils.rightPad("/YourRhn.do",
                 (int)CreateRedirectURI.MAX_URL_LENGTH + 1, "x");
 
         context().checking(new Expectations() { {

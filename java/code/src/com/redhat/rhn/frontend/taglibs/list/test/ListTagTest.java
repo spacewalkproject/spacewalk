@@ -54,7 +54,7 @@ public class ListTagTest extends MockObjectTestCase {
         super.setUp();
         setImposteriser(ClassImposteriser.INSTANCE);
         RhnBaseTestCase.disableLocalizationServiceLogging();
-        List dataList = CSVWriterTest.getTestListOfMaps();
+        final List dataList = CSVWriterTest.getTestListOfMaps();
 
         req = mock(HttpServletRequest.class);
         pageContext = mock(PageContext.class);
@@ -126,7 +126,7 @@ public class ListTagTest extends MockObjectTestCase {
             will(returnValue(null));
         } });
 
-        Action[] cmdValues = {
+        final Action[] cmdValues = {
                 returnValue(ListCommand.ENUMERATE), // listtag asking
                 returnValue(ListCommand.ENUMERATE), // columntag asking
                 returnValue(ListCommand.TBL_HEADING), // listtag asking

@@ -69,7 +69,7 @@ public class LookupExceptionHandlerTest extends MockObjectTestCase {
 
             LookupException ex = new LookupException("Simply a test");
 
-            ActionMapping mapping = mock(ActionMapping.class, "mapping");
+            final ActionMapping mapping = mock(ActionMapping.class, "mapping");
             context().checking(new Expectations() { {
                 oneOf(mapping).getInputForward();
                 will(returnValue(new ActionForward()));

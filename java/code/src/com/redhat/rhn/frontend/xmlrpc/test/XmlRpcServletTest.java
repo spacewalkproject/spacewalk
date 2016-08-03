@@ -56,13 +56,13 @@ public class XmlRpcServletTest extends MockObjectTestCase {
         throws Exception {
 
         StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
+        final PrintWriter pw = new PrintWriter(sw);
 
-        MockServletInputStream input = new MockServletInputStream();
+        final MockServletInputStream input = new MockServletInputStream();
         input.setupRead(request.getBytes());
 
-        HttpServletRequest mockreq = this.mock(HttpServletRequest.class);
-        HttpServletResponse mockresp = this.mock(HttpServletResponse.class);
+        final HttpServletRequest mockreq = this.mock(HttpServletRequest.class);
+        final HttpServletResponse mockresp = this.mock(HttpServletResponse.class);
 
         context().checking(new Expectations() { {
             atLeast(1).of(mockreq).getHeader("SOAPAction");

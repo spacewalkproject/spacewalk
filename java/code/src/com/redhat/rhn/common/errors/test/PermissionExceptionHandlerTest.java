@@ -67,7 +67,7 @@ public class PermissionExceptionHandlerTest extends MockObjectTestCase {
 
             PermissionException ex = new PermissionException("Simply a test");
 
-            ActionMapping mapping = mock(ActionMapping.class, "mapping");
+            final ActionMapping mapping = mock(ActionMapping.class, "mapping");
             context().checking(new Expectations() { {
                 oneOf(mapping).getInputForward();
                 will(returnValue(new ActionForward()));

@@ -51,13 +51,13 @@ public class AffectedSystemsActionTest extends MockObjectTestCase {
 
     public void testApply() throws Exception {
         AffectedSystemsAction action = new AffectedSystemsAction();
-        ActionForward forward = new ActionForward("test", "path", true);
+        final ActionForward forward = new ActionForward("test", "path", true);
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
         RhnMockDynaActionForm form = new RhnMockDynaActionForm();
 
         // No systems selected
-        ActionMapping mapping = mock(ActionMapping.class, "mapping");
+        final ActionMapping mapping = mock(ActionMapping.class, "mapping");
         context().checking(new Expectations() { {
             oneOf(mapping).findForward(RhnHelper.DEFAULT_FORWARD);
             will(returnValue(forward));
