@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.19
+Version: 2.6.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 03 2016 Jiri Dostal <jdostal@redhat.com> 2.6.20-1
+- 1332805 - The problematic editing of kickstart profile
+
 * Tue Aug 02 2016 Jan Dobes 2.6.19-1
 - 1192879 - refresh list on click
 - 1192879 - use radio box instead of checkbox
