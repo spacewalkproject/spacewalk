@@ -180,7 +180,7 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
             displayList = cmd.getDisplayOptions();
         }
         Collections.sort(displayList);
-        LinkedHashSet<KickstartCommand> displaySet = new LinkedHashSet<>();
+        LinkedHashSet displaySet = new LinkedHashSet();
         Iterator<KickstartCommand> iter;
         iter = cmd.getKickstartData().getCustomOptions().iterator();
         while (iter.hasNext()) {

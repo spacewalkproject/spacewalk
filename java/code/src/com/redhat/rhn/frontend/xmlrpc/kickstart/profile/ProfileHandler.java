@@ -73,6 +73,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -935,7 +936,7 @@ public class ProfileHandler extends BaseHandler {
             throw new FaultException(-3, "kickstartProfileNotFound",
             "No Kickstart Profile found with label: " + ksLabel);
         }
-        SortedSet options = ksdata.getCustomOptions();
+        LinkedHashSet options = ksdata.getCustomOptions();
         return options.toArray();
     }
 
