@@ -307,7 +307,8 @@ class CdnSync(object):
                                  sync_kickstart=sync_kickstart,
                                  latest=False,
                                  metadata_only=no_rpms,
-                                 excluded_urls=excluded_urls)
+                                 excluded_urls=excluded_urls,
+                                 strict=1)
         return sync.sync()
 
     def sync(self, channels=None, no_packages=False, no_errata=False, no_rpms=False, no_kickstarts=False):

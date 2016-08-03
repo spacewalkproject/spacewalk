@@ -178,6 +178,7 @@ class RepoSync(object):
 
         self.repo_plugin = self.load_plugin(repo_type)
         self.strict = strict
+        self.all_packages = []
 
     def sync(self):
         """Trigger a reposync"""
@@ -489,6 +490,7 @@ class RepoSync(object):
             filters = self.filters
 
         packages = plug.list_packages(filters, self.latest)
+        self.all_packages.extend(packages)
         to_process = []
         num_passed = len(packages)
         self.print_msg("Packages in repo:             %5d" % plug.num_packages)
@@ -537,7 +539,9 @@ class RepoSync(object):
         num_to_process = len(to_process)
         if num_to_process == 0:
             self.print_msg("No new packages to sync.")
-            return
+            # If we are just appending, we can exit
+            if not self.strict:
+                return
         else:
             self.print_msg("Packages already synced:      %5d" %
                            (num_passed - num_to_process))
@@ -575,9 +579,13 @@ class RepoSync(object):
                 continue
 
         self.print_msg("Linking packages to channel.")
-        import_batch = [self.associate_package(pack)
-                        for (pack, to_download, to_link) in to_process
-                        if to_link]
+        if self.strict:
+            import_batch = [self.associate_package(pack)
+                            for pack in self.all_packages]
+        else:
+            import_batch = [self.associate_package(pack)
+                            for (pack, to_download, to_link) in to_process
+                            if to_link]
         backend = SQLBackend()
         caller = "server.app.yumreposync"
         importer = ChannelPackageSubscription(import_batch,
