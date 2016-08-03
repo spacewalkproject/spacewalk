@@ -98,7 +98,6 @@ class Activation(object):
                 self.families_to_import.append(label)
             except KeyError:
                 print("ERROR: Channel family '%s' was not found in mapping" % label)
-                raise
 
         # Perform import
         backend = SQLBackend()
