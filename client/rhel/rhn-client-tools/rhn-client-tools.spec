@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.6.0
+Version: 2.6.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -401,6 +401,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Aug 03 2016 Tomas Lestach <tlestach@redhat.com> 2.6.1-1
+- fix typo/missing space in rhn_check rpm description
+- Bumping package versions for 2.6.
+
 * Tue May 24 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.16-1
 - updating copyright years
 - Regenerating .po and .pot files for rhn-client-tools.
