@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.22
+Version: 2.6.23
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 04 2016 Grant Gainey 2.6.23-1
+- 1351785 - getInputStream() reached from multiple places
+
 * Wed Aug 03 2016 Jiri Dostal <jdostal@redhat.com> 2.6.22-1
 - 1332805 - The problematic editing of kickstart profile
 
