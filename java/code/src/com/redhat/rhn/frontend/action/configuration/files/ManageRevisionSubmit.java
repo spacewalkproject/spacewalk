@@ -14,6 +14,23 @@
  */
 package com.redhat.rhn.frontend.action.configuration.files;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.upload.FormFile;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.security.PermissionException;
@@ -33,22 +50,6 @@ import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.upload.FormFile;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * ManageRevisionSubmit struts action.
  * @version $Rev: 101893 $
@@ -62,6 +63,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected DataResult getDataResult(User userIn,
                                        ActionForm formIn,
                                        HttpServletRequest requestIn) {
@@ -72,6 +74,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.CONFIG_REVISIONS;
     }
@@ -79,6 +82,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected void processMethodKeys(Map<String, String> mapIn) {
         mapIn.put("manage.jsp.delete", "delete");
         mapIn.put("manage.jsp.uploadbutton", "upload");
@@ -87,6 +91,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected void processParamMap(ActionForm formIn,
                                    HttpServletRequest requestIn,
                                    Map<String, Object> paramsIn) {
@@ -163,7 +168,8 @@ public class ManageRevisionSubmit extends RhnSetAction {
         //The file is there and small enough, make a new revision!
         FormFile file = (FormFile)cff.get(ConfigFileForm.REV_UPLOAD);
         ConfigRevision rev = ConfigurationManager.getInstance()
-                .createNewRevision(user, file.getInputStream(),
+                .createNewRevision(user,
+                                   new BufferedInputStream(file.getInputStream()),
                                    cfid, new Long(file.getFileSize()));
 
         //create the success message
