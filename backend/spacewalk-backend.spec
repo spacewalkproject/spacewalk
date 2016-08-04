@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.23
+Version: 2.6.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -824,6 +824,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Thu Aug 04 2016 Jan Dobes 2.6.24-1
+- handle not existing channels
+- we don't support RHEL 5 already
+
 * Wed Aug 03 2016 Jan Dobes 2.6.23-1
 - better look for existing erratum by advisory name now
 - always set advisory with version number and be different than advisory_name
