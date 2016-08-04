@@ -30,6 +30,7 @@ except ImportError:
 import constants
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.server import rhnSQL
+from spacewalk.server.rhnChannel import ChannelNotFoundError
 from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.contentSourcesImport import ContentSourcesImport
 from spacewalk.server.importlib.channelImport import ChannelImport
@@ -315,6 +316,16 @@ class CdnSync(object):
         # If no channels specified, sync already synced channels
         if not channels:
             channels = self.synced_channels
+
+        # Check channel availability before doing anything
+        not_available = []
+        for channel in channels:
+            if any(channel not in d for d in
+                   [self.channel_metadata, self.channel_to_family,  self.content_source_mapping]):
+                not_available.append(channel)
+
+        if not_available:
+            raise ChannelNotFoundError("  " + "\n  ".join(not_available))
 
         # Need to update channel metadata
         self._update_channels_metadata(channels)
