@@ -551,11 +551,6 @@ class RepoSync(object):
         self.regen = True
         is_non_local_repo = (url.find("file:/") < 0)
 
-        def finally_remove(path):
-            if is_non_local_repo and path and os.path.exists(path):
-                os.remove(path)
-
-        # try/except/finally doesn't work in python 2.4 (RHEL5), so here's a hack
         for (index, what) in enumerate(to_process):
             pack, to_download, to_link = what
             localpath = None
@@ -566,18 +561,18 @@ class RepoSync(object):
                     pack.path = localpath = plug.get_package(pack, metadata_only=self.metadata_only)
                     pack.load_checksum_from_header()
                     pack.upload_package(self.channel, metadata_only=self.metadata_only)
-                    finally_remove(localpath)
             except KeyboardInterrupt:
-                finally_remove(localpath)
                 raise
             except Exception:
                 e = sys.exc_info()[1]
                 self.error_msg(e)
-                finally_remove(localpath)
                 if self.fail:
                     raise
                 to_process[index] = (pack, False, False)
                 continue
+            finally:
+                if is_non_local_repo and path and os.path.exists(localpath):
+                    os.remove(localpath)
 
         self.print_msg("Linking packages to channel.")
         if self.strict:
@@ -674,10 +669,7 @@ class RepoSync(object):
             new_version = 0
             for n in notice['version'].split('.'):
                 new_version = (new_version + int(n)) * 100
-            try:
-                notice['version'] = new_version / 100
-            except TypeError:  # yum in RHEL5 does not have __setitem__
-                notice._md['version'] = new_version / 100
+            notice['version'] = new_version / 100
         return notice
 
     @staticmethod
