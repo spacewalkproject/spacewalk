@@ -617,7 +617,7 @@ class RepoSync(object):
                 to_process[index] = (pack, False, False)
                 continue
             finally:
-                if is_non_local_repo and path and os.path.exists(localpath):
+                if is_non_local_repo and localpath and os.path.exists(localpath):
                     os.remove(localpath)
 
         self.print_msg("Linking packages to channel.")
