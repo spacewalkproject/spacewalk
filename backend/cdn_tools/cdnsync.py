@@ -339,8 +339,8 @@ class CdnSync(object):
         # Finally, sync channel content
         total_time = datetime.timedelta()
         for channel in channels:
-            elapsed_time = self._sync_channel(channel, no_errata=no_errata, no_rpms=no_rpms, no_kickstarts=no_kickstarts)
-            total_time += elapsed_time
+            cur_time = self._sync_channel(channel, no_errata=no_errata, no_rpms=no_rpms, no_kickstarts=no_kickstarts)
+            total_time += cur_time
 
         print("Total time: %s" % str(total_time).split('.')[0])
 
