@@ -389,6 +389,10 @@ class CdnSync(object):
                                        suffix='Complete', bar_length=50)
         elapsed_time = int(time.time())
         print("Elapsed time: %d seconds" % (elapsed_time - start_time))
+        # remove temporary certificates
+        os.unlink(cert_prefix + "_client.cert")
+        os.unlink(cert_prefix + "_client.key")
+        os.unlink(cert_prefix + "_ca.cert")
 
     def print_channel_tree(self, repos=False):
         available_channel_tree = self._list_available_channels()
