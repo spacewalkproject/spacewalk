@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.25
+Version: 2.6.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -824,6 +824,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Fri Aug 05 2016 Gennadii Altukhov <galt@redhat.com> 2.6.26-1
+- Impove error message about missing parent channels
+- cdn-sync - add debug-level verification
+- cdn-sync - add proxy url convertor from ascii to puny
+- cdn-sync - remove temporary certificates
+
 * Fri Aug 05 2016 Gennadii Altukhov <galt@redhat.com> 2.6.25-1
 - fix pep8 'Line too long'
 - bugfix - typo in variable name
