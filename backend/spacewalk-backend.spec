@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.24
+Version: 2.6.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -824,6 +824,16 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Fri Aug 05 2016 Gennadii Altukhov <galt@redhat.com> 2.6.25-1
+- fix pep8 'Line too long'
+- bugfix - typo in variable name
+- cdn-sync - add to syncing kickstartable trees: - parameterized values for
+  rhnKSTreeType and rhnKSInstallType - possibility to select kickstartable
+  trees with NULL organisation id
+- bugfix - remove temporary file if there is an error during downloading by
+  yum-wrapper
+- cdn-sync - exclude kickstart repositories only if we have them in config file
+
 * Thu Aug 04 2016 Jan Dobes 2.6.24-1
 - handle not existing channels
 - we don't support RHEL 5 already
