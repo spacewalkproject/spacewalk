@@ -19,6 +19,7 @@ import shutil
 import sys
 import time
 from datetime import datetime
+from HTMLParser import HTMLParser
 
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel
 from spacewalk.common import fileutils, rhnLog
@@ -36,6 +37,43 @@ from spacewalk.server import taskomatic
 default_log_location = '/var/log/rhn/reposync/'
 relative_comps_dir = 'rhn/comps'
 default_hash = 'sha256'
+
+
+class KSDirParser(HTMLParser):
+    def __init__(self):
+        HTMLParser.__init__(self)
+        self.tmp_type = ""
+        self.tmp_datetime = ""
+        self.tmp_name = ""
+        self.current_tag = "dummy_tag"  # this tag doesn't exist in document
+        self.dir_content = []
+
+    def get_content(self):
+        return self.dir_content
+
+    def handle_starttag(self, tag, attributes):
+        self.current_tag = tag
+        if tag == 'img':
+            for name, value in attributes:
+                if name == 'alt':
+                    self.tmp_type = value.strip('[]')
+
+        elif tag == 'a':
+            for name, value in attributes:
+                if name == 'href':
+                    self.tmp_name = value
+
+    def handle_data(self, data):
+        if self.current_tag == "":
+            # data without tag is the last modification date
+            self.tmp_datetime = data.strip().split()[0] + " " + data.strip().split()[1]
+            self.dir_content.append({
+                'name': self.tmp_name,
+                'type': self.tmp_type,
+                'datetime': self.tmp_datetime,
+            })
+        else:
+            self.current_tag = ""
 
 
 def set_filter_opt(option, opt_str, value, parser):
@@ -128,6 +166,8 @@ class RepoSync(object):
         self.sync_kickstart = sync_kickstart
         self.latest = latest
         self.metadata_only = metadata_only
+        self.ks_tree_type = 'externally-managed'
+        self.ks_install_type = 'generic_rpm'
 
         initCFG('server.satellite')
         rhnSQL.initDB()
@@ -241,6 +281,12 @@ class RepoSync(object):
         elapsed_time = datetime.now() - start_time
         self.print_msg("Sync of channel completed in %s." % str(elapsed_time).split('.')[0])
         return elapsed_time
+
+    def set_ks_tree_type(self, tree_type='externally-managed'):
+        self.ks_tree_type = tree_type
+
+    def set_ks_install_type(self, install_type='generic_rpm'):
+        self.ks_install_type = install_type
 
     def update_date(self):
         """ Updates the last sync time"""
@@ -725,75 +771,121 @@ class RepoSync(object):
         return ret
 
     def import_kickstart(self, plug, url, repo_label):
-        ks_tree_label = re.sub(r'[^-_0-9A-Za-z@.]', '', repo_label.replace(' ', '_'))
-        if len(ks_tree_label) < 4:
-            ks_tree_label += "_repo"
         pxeboot_path = 'images/pxeboot/'
         pxeboot = plug.get_file(pxeboot_path)
         if pxeboot is None:
             if not re.search(r'/$', url):
-                url = url + '/'
+                url += '/'
             self.print_msg("Kickstartable tree not detected (no %s%s)" % (url, pxeboot_path))
             return
 
-        if rhnSQL.fetchone_dict("""
+        ks_path = 'rhn/kickstart/'
+        ks_tree_label = re.sub(r'[^-_0-9A-Za-z@.]', '', repo_label.replace(' ', '_'))
+
+        if len(ks_tree_label) < 4:
+            ks_tree_label += "_repo"
+
+        id_request = """
                 select id
                 from rhnKickstartableTree
-                where org_id = :org_id and channel_id = :channel_id and label = :label
-                """, org_id=self.channel['org_id'], channel_id=self.channel['id'], label=ks_tree_label):
-            print("Kickstartable tree %s already synced." % ks_tree_label)
-            return
+                where channel_id = :channel_id and label = :label
+                """
 
-        row = rhnSQL.fetchone_dict("""
-            select sequence_nextval('rhn_kstree_id_seq') as id from dual
-            """)
-        ks_id = row['id']
-        ks_path = 'rhn/kickstart/'
         if 'org_id' in self.channel and self.channel['org_id']:
             ks_path += str(self.channel['org_id']) + '/' + CFG.MOUNT_POINT + ks_tree_label
+            row = rhnSQL.fetchone_dict(id_request + " and org_id = :org_id", channel_id=self.channel['id'],
+                                       label=ks_tree_label, org_id=self.channel['org_id'])
         else:
             ks_path += ks_tree_label
+            row = rhnSQL.fetchone_dict(id_request + " and org_id is NULL", channel_id=self.channel['id'],
+                                       label=ks_tree_label)
 
-        rhnSQL.execute("""
-                   insert into rhnKickstartableTree (id, org_id, label, base_path, channel_id, kstree_type,
-                                                     install_type, last_modified, created, modified)
-                   values (:id, :org_id, :label, :base_path, :channel_id,
-                             ( select id from rhnKSTreeType where label = 'externally-managed'),
-                             ( select id from rhnKSInstallType where label = 'generic_rpm'),
-                             current_timestamp, current_timestamp, current_timestamp)""", id=ks_id,
-                             org_id=self.channel['org_id'], label=ks_tree_label, base_path=ks_path,
-                             channel_id=self.channel['id'])
+        if row:
+            print("Kickstartable tree %s already synced with id = %d. Updating content..." % (ks_tree_label, row['id']))
+            ks_id = row['id']
+        else:
+            row = rhnSQL.fetchone_dict("""
+                select sequence_nextval('rhn_kstree_id_seq') as id from dual
+                """)
+            ks_id = row['id']
+
+            rhnSQL.execute("""
+                       insert into rhnKickstartableTree (id, org_id, label, base_path, channel_id, kstree_type,
+                                                         install_type, last_modified, created, modified)
+                       values (:id, :org_id, :label, :base_path, :channel_id,
+                                 ( select id from rhnKSTreeType where label = :ks_tree_type),
+                                 ( select id from rhnKSInstallType where label = :ks_install_type),
+                                 current_timestamp, current_timestamp, current_timestamp)""", id=ks_id,
+                           org_id=self.channel['org_id'], label=ks_tree_label, base_path=ks_path,
+                           channel_id=self.channel['id'], ks_tree_type=self.ks_tree_type,
+                           ks_install_type=self.ks_install_type)
+
+            print("Added new kickstartable tree %s with id = %d. Downloading content..." % (ks_tree_label, row['id']))
 
         insert_h = rhnSQL.prepare("""
-            insert into rhnKSTreeFile (kstree_id, relative_filename, checksum_id, file_size, last_modified, created, modified)
-            values (:id, :path, lookup_checksum('sha256', :checksum), :st_size, epoch_seconds_to_timestamp_tz(:st_time), current_timestamp, current_timestamp)
-            """)
-        dirs = ['']
-        while len(dirs) > 0:
-            d = dirs.pop(0)
-            v = None
-            if d == pxeboot_path:
-                v = pxeboot
+                insert into rhnKSTreeFile (kstree_id, relative_filename, checksum_id, file_size, last_modified, created,
+                 modified) values (:id, :path, lookup_checksum('sha256', :checksum), :st_size,
+                 epoch_seconds_to_timestamp_tz(:st_time), current_timestamp, current_timestamp)
+        """)
+
+        delete_h = rhnSQL.prepare("""
+                delete from rhnKSTreeFile where kstree_id = :id and relative_filename = :path
+        """)
+
+        # Downloading/Updating content of KS Tree
+        # start from root dir
+        dirs_queue = ['']
+        while len(dirs_queue) > 0:
+            cur_dir_name = dirs_queue.pop(0)
+            cur_dir_html = None
+            if cur_dir_name == pxeboot_path:
+                cur_dir_html = pxeboot
             else:
-                v = plug.get_file(d)
-            if v is None:
+                cur_dir_html = plug.get_file(cur_dir_name)
+            if cur_dir_html is None:
                 continue
 
-            for s in (m.group(1) for m in re.finditer(r'(?i)<a href="(.+?)"', v)):
-                if (re.match(r'/', s) or re.search(r'\?', s) or re.search(r'\.\.', s)
-                        or re.match(r'[a-zA-Z]+:', s) or re.search(r'\.rpm$', s)):
-                    continue
-                if re.search(r'/$', s):
-                    dirs.append(d + s)
-                    continue
-                local_path = os.path.join(CFG.MOUNT_POINT, ks_path, d, s)
-                if os.path.exists(local_path):
-                    print("File %s%s already present locally" % (d, s))
-                else:
-                    print("Retrieving %s" % d + s)
-                    plug.get_file(d + s, os.path.join(CFG.MOUNT_POINT, ks_path))
-                st = os.stat(local_path)
-                insert_h.execute(id=ks_id, path=d + s, checksum=getFileChecksum('sha256', local_path),
-                                 st_size=st.st_size, st_time=st.st_mtime)
+            parser = KSDirParser()
+            parser.feed(cur_dir_html.split('<HR>')[1])
 
+            for ks_file in parser.get_content():
+                # do not download rpms, they are already downloaded by self.import_packages()
+                if re.search(r'\.rpm$', ks_file['name']) or re.search(r'\.\.', ks_file['name']):
+                    continue
+
+                # if this is a directory, just add a name into queue (like BFS algorithm)
+                if ks_file['type'] == 'DIR':
+                    dirs_queue.append(cur_dir_name + ks_file['name'])
+                    continue
+                else:
+                    local_path = os.path.join(CFG.MOUNT_POINT, ks_path, cur_dir_name, ks_file['name'])
+                    need_download = True
+
+                    if os.path.exists(local_path):
+                        t = os.path.getmtime(local_path)
+                        if ks_file['datetime'] == datetime.utcfromtimestamp(t).strftime('%d-%b-%Y %H:%M'):
+                            print("File %s%s already present locally" % (cur_dir_name, ks_file['name']))
+                            need_download = False
+                            st = os.stat(local_path)
+                        else:
+                            os.unlink(os.path.join(CFG.MOUNT_POINT, ks_path, cur_dir_name + ks_file['name']))
+
+                    if need_download:
+                        for retry in range(3):
+                            try:
+                                print("Retrieving %s" % cur_dir_name + ks_file['name'])
+                                plug.get_file(cur_dir_name + ks_file['name'], os.path.join(CFG.MOUNT_POINT, ks_path))
+                                st = os.stat(local_path)
+                                break
+                            except OSError:  # os.stat if the file wasn't downloaded
+                                if retry < 3:
+                                    print("Retry download %s: attempt #%d" % (cur_dir_name + ks_file['name'], retry+1))
+                                else:
+                                    raise
+
+                    # update entity about current file in a database
+                    delete_h.execute(id=ks_id, path=(cur_dir_name + ks_file['name']))
+                    insert_h.execute(id=ks_id, path=(cur_dir_name + ks_file['name']),
+                                     checksum=getFileChecksum('sha256', local_path),
+                                     st_size=st.st_size, st_time=st.st_mtime)
         rhnSQL.commit()

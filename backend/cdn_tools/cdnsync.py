@@ -311,6 +311,7 @@ class CdnSync(object):
                                  metadata_only=no_rpms,
                                  excluded_urls=excluded_urls,
                                  strict=1)
+        sync.set_ks_tree_type('rhn-managed')
         return sync.sync()
 
     def sync(self, channels=None, no_packages=False, no_errata=False, no_rpms=False, no_kickstarts=False):
