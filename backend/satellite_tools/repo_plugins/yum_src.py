@@ -332,6 +332,7 @@ class ContentSource(object):
 
     def get_file(self, path, local_base=None):
         try:
+            temp_file = ""
             if local_base is not None:
                 target_file = os.path.join(local_base, path)
                 target_dir = os.path.dirname(target_file)
@@ -347,3 +348,6 @@ class ContentSource(object):
                 return self.repo.grab.urlread(path)
         except URLGrabError:
             return
+        finally:
+            if os.path.exists(temp_file):
+                os.unlink(temp_file)
