@@ -62,7 +62,10 @@ def process_commandline():
 
     # check the validity of the debug level
     if cmd_args.debug_level:
-        debug_level = int(cmd_args.debug_level)
+        try:
+            debug_level = int(cmd_args.debug_level)
+        except (ValueError, TypeError):
+            system_exit(1, "Incorrect debug-level value: %s" % str(cmd_args.debug_level))
         if not (0 <= debug_level <= 6):
             msg = ["ERROR: --debug-level takes an in integer value within the range [0 - 6]:",
                    "  0  - little logging/messaging.",
