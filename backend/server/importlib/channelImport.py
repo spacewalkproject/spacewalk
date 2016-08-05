@@ -186,7 +186,7 @@ class ChannelImport(Import):
                 parentChannels[k] = v['id']
         if missingParents:
             raise MissingParentChannelError(
-                missingParents, "Invalid import (this parent needs to be imported?) %s" % missingParents)
+                missingParents, "Invalid import, this parents need to be imported: %s" % str(", ".join(missingParents)))
 
         # Fix up the parent channels
         for channel in nonNullParentBatch:
