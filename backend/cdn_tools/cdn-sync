@@ -5,7 +5,7 @@ import sys
 import os
 
 from spacewalk.common.rhnConfig import CFG, initCFG
-from spacewalk.cdn_tools.cdnsync import CdnSync
+from spacewalk.cdn_tools.cdnsync import CdnSync, CdnMappingsLoadError
 from spacewalk.server import rhnSQL
 from spacewalk.common.usix import raise_with_tb
 from rhn import rhnLockfile
@@ -132,6 +132,8 @@ if __name__ == '__main__':
     except rhnSQL.SQLConnectError:
         e = sys.exc_info()[1]
         system_exit(20, ["ERROR: Can't connect to the database: %s" % str(e), "Check if your database is running."])
+    except CdnMappingsLoadError:
+        system_exit(30, ["ERROR: Cannot load CDN mapping files.", "Make sure package '?' is installed."])
     except Exception:
         e = sys.exc_info()[1]
         if LOCK:

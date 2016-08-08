@@ -54,25 +54,31 @@ class CdnSync(object):
         rhnSQL.initDB()
         initCFG('server.satellite')
 
-        # Channel families mapping to channels
-        with open(constants.CHANNEL_FAMILY_MAPPING_PATH, 'r') as f:
-            self.families = json.load(f)
+        try:
+            # Channel families mapping to channels
+            with open(constants.CHANNEL_FAMILY_MAPPING_PATH, 'r') as f:
+                self.families = json.load(f)
 
-        # Channel metadata
-        with open(constants.CHANNEL_DEFINITIONS_PATH, 'r') as f:
-            self.channel_metadata = json.load(f)
+            # Channel metadata
+            with open(constants.CHANNEL_DEFINITIONS_PATH, 'r') as f:
+                self.channel_metadata = json.load(f)
 
-        # Dist/Release channel mapping
-        with open(constants.CHANNEL_DIST_MAPPING_PATH, 'r') as f:
-            self.channel_dist_mapping = json.load(f)
+            # Dist/Release channel mapping
+            with open(constants.CHANNEL_DIST_MAPPING_PATH, 'r') as f:
+                self.channel_dist_mapping = json.load(f)
 
-        # Channel to repositories mapping
-        with open(constants.CONTENT_SOURCE_MAPPING_PATH, 'r') as f:
-            self.content_source_mapping = json.load(f)
+            # Channel to repositories mapping
+            with open(constants.CONTENT_SOURCE_MAPPING_PATH, 'r') as f:
+                self.content_source_mapping = json.load(f)
 
-        # Channel to kickstart repositories mapping
-        with open(constants.KICKSTART_SOURCE_MAPPING_PATH, 'r') as f:
-            self.kickstart_source_mapping = json.load(f)
+            # Channel to kickstart repositories mapping
+            with open(constants.KICKSTART_SOURCE_MAPPING_PATH, 'r') as f:
+                self.kickstart_source_mapping = json.load(f)
+        except IOError:
+            e = sys.exc_info()[1]
+            # TODO: print only on bigger debug level
+            print("ERROR: Problem with loading file: %s" % e)
+            raise CdnMappingsLoadError()
 
         # Map channels to their channel family
         self.channel_to_family = {}
@@ -472,3 +478,7 @@ def print_progress_bar(iteration, total, prefix='', suffix='', decimals=2, bar_l
     if iteration == total:
         sys.stdout.write('\n')
         sys.stdout.flush()
+
+
+class CdnMappingsLoadError(Exception):
+    pass
