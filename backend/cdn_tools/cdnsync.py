@@ -44,7 +44,13 @@ from spacewalk.satellite_tools import contentRemove
 class CdnSync(object):
     """Main class of CDN sync run."""
 
-    def __init__(self):
+    def __init__(self, no_packages=False, no_errata=False, no_rpms=False, no_kickstarts=False):
+
+        self.no_packages = no_packages
+        self.no_errata = no_errata
+        self.no_rpms = no_rpms
+        self.no_kickstarts = no_kickstarts
+
         rhnSQL.initDB()
         initCFG('server.satellite')
 
@@ -288,11 +294,10 @@ class CdnSync(object):
             except requests.exceptions.RequestException:
                 pass
 
-    def _sync_channel(self, channel, no_packages=False, no_errata=False, no_rpms=False,
-                      no_kickstarts=False):
+    def _sync_channel(self, channel):
         excluded_urls = []
         sync_kickstart = True
-        if no_kickstarts:
+        if self.no_kickstarts:
             if channel in self.kickstart_source_mapping:
                 excluded_urls = [CFG.CDN_ROOT + s['relative_url'] for s in self.kickstart_source_mapping[channel]]
             sync_kickstart = False
@@ -306,17 +311,17 @@ class CdnSync(object):
                                  fail=True,
                                  quiet=False,
                                  filters=False,
-                                 no_packages=no_packages,
-                                 no_errata=no_errata,
+                                 no_packages=self.no_packages,
+                                 no_errata=self.no_errata,
                                  sync_kickstart=sync_kickstart,
                                  latest=False,
-                                 metadata_only=no_rpms,
+                                 metadata_only=self.no_rpms,
                                  excluded_urls=excluded_urls,
                                  strict=1)
         sync.set_ks_tree_type('rhn-managed')
         return sync.sync()
 
-    def sync(self, channels=None, no_packages=False, no_errata=False, no_rpms=False, no_kickstarts=False):
+    def sync(self, channels=None):
         # If no channels specified, sync already synced channels
         if not channels:
             channels = self.synced_channels
@@ -337,8 +342,7 @@ class CdnSync(object):
         # Finally, sync channel content
         total_time = datetime.timedelta()
         for channel in channels:
-            cur_time = self._sync_channel(channel, no_packages=no_packages, no_errata=no_errata,
-                                          no_rpms=no_rpms, no_kickstarts=no_kickstarts)
+            cur_time = self._sync_channel(channel)
             total_time += cur_time
 
         print("Total time: %s" % str(total_time).split('.')[0])
