@@ -42,6 +42,8 @@ class Manifest(object):
         finally:
             top_zip.close()
 
+        self.all_entitlements = []
+
     def _load_entitlements(self, zip_file):
         files = zip_file.namelist()
         entitlements_files = []
