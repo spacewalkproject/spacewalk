@@ -15,6 +15,7 @@
 
 import os
 from spacewalk.common import checksum
+from rhn.i18n import bstr
 
 def get_package_header(filename=None, file_obj=None, fd=None):
     # pylint: disable=E1103
@@ -121,7 +122,7 @@ class A_Package:
 
     @staticmethod
     def _read_bytes(stream, amt):
-        ret = b''
+        ret = bstr('')
         while amt:
             buf = stream.read(min(amt, BUFFER_SIZE))
             if not buf:
