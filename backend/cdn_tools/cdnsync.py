@@ -288,7 +288,8 @@ class CdnSync(object):
             except requests.exceptions.RequestException:
                 pass
 
-    def _sync_channel(self, channel, no_errata=False, no_rpms=False, no_kickstarts=False):
+    def _sync_channel(self, channel, no_packages=False, no_errata=False, no_rpms=False,
+                      no_kickstarts=False):
         excluded_urls = []
         sync_kickstart = True
         if no_kickstarts:
@@ -305,6 +306,7 @@ class CdnSync(object):
                                  fail=True,
                                  quiet=False,
                                  filters=False,
+                                 no_packages=no_packages,
                                  no_errata=no_errata,
                                  sync_kickstart=sync_kickstart,
                                  latest=False,
@@ -332,14 +334,11 @@ class CdnSync(object):
         # Need to update channel metadata
         self._update_channels_metadata(channels)
 
-        # Not going to sync anything
-        if no_packages:
-            return
-
         # Finally, sync channel content
         total_time = datetime.timedelta()
         for channel in channels:
-            cur_time = self._sync_channel(channel, no_errata=no_errata, no_rpms=no_rpms, no_kickstarts=no_kickstarts)
+            cur_time = self._sync_channel(channel, no_packages=no_packages, no_errata=no_errata,
+                                          no_rpms=no_rpms, no_kickstarts=no_kickstarts)
             total_time += cur_time
 
         print("Total time: %s" % str(total_time).split('.')[0])

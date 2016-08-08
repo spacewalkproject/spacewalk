@@ -157,11 +157,12 @@ class RepoSync(object):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,
                  quiet=False, filters=None, no_errata=False, sync_kickstart=False, latest=False,
-                 metadata_only=False, strict=0, excluded_urls=None):
+                 metadata_only=False, strict=0, excluded_urls=None, no_packages=False):
         self.regen = False
         self.fail = fail
         self.quiet = quiet
         self.filters = filters or []
+        self.no_packages = no_packages
         self.no_errata = no_errata
         self.sync_kickstart = sync_kickstart
         self.latest = latest
@@ -254,7 +255,10 @@ class RepoSync(object):
                         """, repo_id=int(repo_id), channel_family_id=int(channel_family_id))
                     if keys and ('ca_cert' in keys):
                         plugin.set_ssl_options(keys['ca_cert'], keys['client_cert'], keys['client_key'])
-                self.import_packages(plugin, repo_id, url)
+
+                if not self.no_packages:
+                    self.import_packages(plugin, repo_id, url)
+
                 self.import_groups(plugin, url)
 
                 if not self.no_errata:
