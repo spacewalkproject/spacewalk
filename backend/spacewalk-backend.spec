@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.26
+Version: 2.6.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -824,6 +824,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Mon Aug 08 2016 Jan Dobes 2.6.27-1
+- do not download comps if not downloading packages
+- pass less parameters inside class
+- fixing --no-packages
+
 * Fri Aug 05 2016 Gennadii Altukhov <galt@redhat.com> 2.6.26-1
 - Impove error message about missing parent channels
 - cdn-sync - add debug-level verification
