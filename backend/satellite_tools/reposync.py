@@ -258,8 +258,7 @@ class RepoSync(object):
 
                 if not self.no_packages:
                     self.import_packages(plugin, repo_id, url)
-
-                self.import_groups(plugin, url)
+                    self.import_groups(plugin, url)
 
                 if not self.no_errata:
                     self.import_updates(plugin, url)
