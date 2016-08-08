@@ -111,6 +111,10 @@ public class PackagePushSetupAction extends RhnListAction {
                 request.setAttribute("channel_name", c.getName());
                 return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
             }
+            else {
+                // publishing just erratum without any new packages
+                ChannelManager.refreshWithNewestPackages(cid, "web.errata_push");
+            }
         }
 
         request.setAttribute("eid", eid);
