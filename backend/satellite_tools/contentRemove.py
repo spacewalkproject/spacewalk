@@ -13,7 +13,6 @@
 #
 
 import os
-import string
 import shutil
 import sys
 from spacewalk.common.rhnConfig import CFG
@@ -31,7 +30,7 @@ def __serverCheck(labels, unsubscribe):
         where c.label in (%s)
     """
     params, bind_params = _bind_many(labels)
-    bind_params = string.join(bind_params, ', ')
+    bind_params = ', '.join(bind_params)
     h = rhnSQL.prepare(sql % (bind_params))
     h.execute(**params)
     server_list = h.fetchall_dict()
@@ -65,7 +64,7 @@ def __unsubscribeServers(labels):
         where c.label in (%s) order by C.parent_channel
     """
     params, bind_params = _bind_many(labels)
-    bind_params = string.join(bind_params, ', ')
+    bind_params = ', '.join(bind_params)
     h = rhnSQL.prepare(sql % (bind_params))
     h.execute(**params)
     server_channel_list = h.fetchall_dict()
@@ -105,7 +104,7 @@ def __kickstartCheck(labels):
         where c.label in (%s)
     """
     params, bind_params = _bind_many(labels)
-    bind_params = string.join(bind_params, ', ')
+    bind_params = ', '.join(bind_params)
     h = rhnSQL.prepare(sql % (bind_params))
     h.execute(**params)
     kickstart_list = h.fetchall_dict()
@@ -314,7 +313,7 @@ def list_packages(channelLabels, sources=0, force=0):
         return []
 
     params, bind_params = _bind_many(channelLabels)
-    bind_params = string.join(bind_params, ', ')
+    bind_params = ', '.join(bind_params)
 
     if sources:
         templ = _templ_srpms()
@@ -494,7 +493,7 @@ def _delete_ks_files(channel_labels):
 
     params, bind_params = _bind_many(channel_labels)
     params['mnt_point'] = CFG.MOUNT_POINT + '/'
-    bind_params = string.join(bind_params, ', ')
+    bind_params = ', '.join(bind_params)
     h = rhnSQL.prepare(sql % (bind_params, bind_params))
     h.execute(**params)
     kickstart_list = h.fetchall_dict() or []
