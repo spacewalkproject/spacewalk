@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.27
+Version: 2.6.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -824,6 +824,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Mon Aug 08 2016 Jan Dobes 2.6.28-1
+- handle missing cdn mappings
+- W0201: attribute defined outside init
+- string.join is deprecated
+
 * Mon Aug 08 2016 Jan Dobes 2.6.27-1
 - do not download comps if not downloading packages
 - pass less parameters inside class
