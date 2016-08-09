@@ -133,7 +133,8 @@ class CdnSync(object):
         for family in families:
             label = family['label']
             family = self.families[label]
-            all_channels.extend(family['channels'])
+            channels = [c for c in family['channels'] if c is not None]
+            all_channels.extend(channels)
 
         # fill base_channel
         for channel in all_channels:
