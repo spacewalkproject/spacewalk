@@ -24,6 +24,7 @@ class Manifest(object):
     ENTITLEMENTS_PATH = "export/entitlements"
 
     def __init__(self, zip_path):
+        self.all_entitlements = []
         # Open manifest from path
         try:
             top_zip = zipfile.ZipFile(zip_path, 'r')
@@ -41,8 +42,6 @@ class Manifest(object):
                 inner_file.close()
         finally:
             top_zip.close()
-
-        self.all_entitlements = []
 
     def _load_entitlements(self, zip_file):
         files = zip_file.namelist()
