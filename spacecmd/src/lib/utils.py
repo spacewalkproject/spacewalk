@@ -773,6 +773,6 @@ def file_is_binary(self, path):
 
 
 def string_to_bool(input_string):
-  if type(input_string) != type(True):
-    return input_string.lower().rstrip(' ') == 'true'
-  return input_string
+    if not isinstance(input_string, bool):
+        return input_string.lower().rstrip(' ') == 'true'
+    return input_string

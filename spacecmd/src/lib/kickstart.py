@@ -2620,5 +2620,5 @@ def do_kickstart_setsoftwaredetails(self, args):
             kspkginfo= {'noBase': args[2], 'ignoreMissing':args[4]}
 
     self.client.kickstart.profile.software.setSoftwareDetails(self.session,
-                                                            profile,
-                                                            kspkginfo)
+                                                              profile,
+                                                              kspkginfo)
