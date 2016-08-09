@@ -119,9 +119,11 @@ class CdnSync(object):
         return self.family_keys[family_label]
 
     def _list_available_channels(self):
+        # Select from rhnContentSsl to filter cdn-activated channel families
         h = rhnSQL.prepare("""
             select label from rhnChannelFamilyPermissions cfp inner join
-                              rhnChannelFamily cf on cfp.channel_family_id = cf.id
+                              rhnChannelFamily cf on cfp.channel_family_id = cf.id inner join
+                              rhnContentSsl cs on cf.id = cs.channel_family_id
             where cf.org_id is null
         """)
         h.execute()
