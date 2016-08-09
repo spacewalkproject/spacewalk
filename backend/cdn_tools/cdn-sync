@@ -56,6 +56,10 @@ def process_commandline():
         sys.exit(0)
 
     if cmd_args.http_proxy:
+        try:
+            int(cmd_args.http_proxy.split(':')[1])
+        except ValueError:
+            system_exit(1, "Incorrect proxy port number: %s" % cmd_args.http_proxy.split(':')[1])
         CFG.set("HTTP_PROXY", idn_ascii_to_puny(cmd_args.http_proxy))
         CFG.set("HTTP_PROXY_USERNAME", cmd_args.http_proxy_username)
         CFG.set("HTTP_PROXY_PASSWORD", cmd_args.http_proxy_password)
