@@ -727,8 +727,9 @@ public class KickstartData {
      */
     public String getUrl() {
         for (KickstartCommand c : getOptions()) {
-            if (c.getCommandName().getName().equals("url")) {
-                Matcher match = URL_REGEX.matcher(c.getArguments());
+            String a = c.getArguments();
+            if (c.getCommandName().getName().equals("url") && a != null) {
+                Matcher match = URL_REGEX.matcher(a);
                 if (match.find()) {
                     return match.group(1);
                 }

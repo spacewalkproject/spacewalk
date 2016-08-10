@@ -382,6 +382,7 @@ public class KickstartFormatter {
             else if (cname.matches("url")) {
                 if (command.getArguments() != null) {
                     String argVal = adjustUrlHost(command);
+
                     commands.append(cname + SPACE + argVal + NEWLINE);
                 }
             }
