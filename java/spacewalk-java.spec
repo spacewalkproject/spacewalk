@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.24
+Version: 2.6.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 10 2016 Jiri Dostal <jdostal@redhat.com> 2.6.25-1
+- 1357824 - Kickstart advanced options accept required options without argument
+- Kickstart AdvancedOptions ISE without URL
+
 * Wed Aug 10 2016 Eric Herget <eherget@redhat.com> 2.6.24-1
 - 1365530 - add system data to downloaded csv on Advanced Search page
 
