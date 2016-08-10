@@ -18,6 +18,7 @@ import sys
 import os.path
 from shutil import rmtree
 from os import mkdir
+import errno
 
 import yum
 from spacewalk.common import fileutils
@@ -26,6 +27,7 @@ from yum.config import ConfigParser
 from yum.packageSack import ListPackageSack
 from yum.update_md import UpdateMetadata, UpdateNoticeException, UpdateNotice
 from yum.yumRepo import YumRepository
+from yum.yumRepo import Errors as YumErrors
 from urlgrabber.grabber import URLGrabError
 
 try:
@@ -42,7 +44,7 @@ from spacewalk.common.rhnConfig import CFG, initCFG
 
 CACHE_DIR = '/var/cache/rhn/reposync/'
 YUMSRC_CONF = '/etc/rhn/spacewalk-repo-sync/yum.conf'
-
+METADATA_EXPIRE = 24*60*60  # Time (in seconds) after which the metadata will expire
 
 class YumWarnings:
 
@@ -109,7 +111,6 @@ class ContentSource(object):
         if not os.path.exists(yumsrc_conf):
             self.yumbase.preconf.fn = '/dev/null'
         self.configparser = ConfigParser()
-        self._clean_cache(CACHE_DIR + name)
 
         # read the proxy configuration in /etc/rhn/rhn.conf
         initCFG('server.satellite')
@@ -135,7 +136,7 @@ class ContentSource(object):
     def setup_repo(self, repo):
         """Fetch repository metadata"""
         repo.cache = 0
-        repo.metadata_expire = 0
+        repo.metadata_expire = METADATA_EXPIRE
         repo.mirrorlist = self.url
         repo.baseurl = [self.url]
         repo.basecachedir = CACHE_DIR
@@ -168,6 +169,15 @@ class ContentSource(object):
         warnings.restore()
         repo.setup(False)
         self.sack = self.repo.getPackageSack()
+
+    def number_of_packages(self):
+        for dummy_index in range(3):
+            try:
+                self.sack.populate(self.repo, 'metadata', None, 0)
+                break
+            except YumErrors.RepoError:
+                pass
+        return len(self.sack.returnPackages())
 
     def list_packages(self, filters, latest):
         """ list packages"""
@@ -286,7 +296,7 @@ class ContentSource(object):
         return pkg.verifyLocalPkg()
 
     @staticmethod
-    def _clean_cache(directory):
+    def clear_cache(directory=CACHE_DIR):
         rmtree(directory, True)
 
     def get_updates(self):
@@ -306,7 +316,14 @@ class ContentSource(object):
     def set_ssl_options(self, ca_cert, client_cert, client_key):
         repo = self.repo
         ssldir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
-        mkdir(ssldir, int('0750', 8))
+        try:
+            mkdir(ssldir, int('0750', 8))
+        except OSError as exc:
+            if exc.errno == errno.EEXIST and os.path.isdir(ssldir):
+                pass
+            else:
+                raise
+
         repo.sslcacert = os.path.join(ssldir, 'ca.pem')
         f = open(repo.sslcacert, "w")
         f.write(str(ca_cert))
@@ -326,7 +343,7 @@ class ContentSource(object):
         repo = self.repo
         ssldir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
         try:
-            self._clean_cache(ssldir)
+            self.clear_cache(ssldir)
         except (OSError, IOError):
             pass
 

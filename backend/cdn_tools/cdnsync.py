@@ -13,19 +13,11 @@
 #
 
 import json
-import libxml2
-import requests
-import gzip
 import errno
 import os
 import sys
 import time
 import datetime
-
-try:
-    from cStringIO import StringIO
-except ImportError:
-    from StringIO import StringIO
 
 import constants
 from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
@@ -39,6 +31,7 @@ from spacewalk.server.importlib.importLib import Channel, ChannelFamily, \
     ProductName, DistChannelMap, ContentSource
 from spacewalk.satellite_tools import reposync
 from spacewalk.satellite_tools import contentRemove
+from spacewalk.satellite_tools.repo_plugins import yum_src
 
 
 class CdnSync(object):
@@ -243,65 +236,25 @@ class CdnSync(object):
         importer.run()
 
     @staticmethod
-    def _count_packages_in_repo(repo_source, cert, key, ca):
-        """
-        Download repomd.xml and primary.xml for given repository if they are absent
-        and count number of packages
-        """
-        download_repomd = True
-        download_primary = True
-        retries = 3
-        retry_delay = 1  # in seconds
+    def _count_packages_in_repo(repo_source, keys):
+        repo_label = (repo_source.split(CFG.CDN_ROOT)[1])[1:].replace('/', '_')
+        repo_plugin = yum_src.ContentSource(str(repo_source), str(repo_label))
+        repo_plugin.set_ssl_options(str(keys['ca_cert']), str(keys['client_cert']), str(keys['client_key']))
+
+        cdn_repodata_path = constants.CDN_REPODATA_ROOT + '/' +\
+                            (repo_source.split(CFG.CDN_ROOT)[1])[1:].replace('/', '_')
 
         # create directory for repo data if it doesn't exist
-        path = constants.CDN_REPODATA_ROOT + '/' + (repo_source.split(CFG.CDN_ROOT)[1])[1:].replace('/', '_')
         try:
-            os.makedirs(path)
+            os.makedirs(cdn_repodata_path)
         except OSError as exc:
-            if exc.errno == errno.EEXIST and os.path.isdir(path):
+            if exc.errno == errno.EEXIST and os.path.isdir(cdn_repodata_path):
                 pass
             else:
                 raise
 
-        for dummy_index in range(0, retries):
-            try:
-                # download repomd.xml
-                if download_repomd:
-                    repomd = requests.get(repo_source + '/repodata/repomd.xml', cert=(cert, key), verify=ca)
-                    if repomd.status_code == 200:
-                        download_repomd = False
-                        context = libxml2.parseDoc(repomd.content).xpathNewContext()
-                        context.xpathRegisterNs("repo", "http://linux.duke.edu/metadata/repo")
-                        primary_filename = context.xpathEval("string("
-                                                             "//repo:data[@type = 'primary']/repo:location/@href)")
-                    else:
-                        # FIXME: should log error
-                        # print("Cannot download repomd.xml, status %d" % repomd.status_code)
-                        pass
-                # download primary.xml only if it doesn't exist on filesystem
-                if not download_repomd and download_primary:
-
-                    primary = requests.get(repo_source + '/' + primary_filename, cert=(cert, key), verify=ca)
-                    if primary.status_code == 200:
-                        download_primary = False
-                        decompressed_data = gzip.GzipFile(fileobj=StringIO(primary.content)).read()
-                        doc = libxml2.parseDoc(decompressed_data)
-                        packages_num = doc.children.properties.content
-                        with open(path + '/' + "packages_num", 'w') as f_out:
-                            f_out.write(packages_num)
-                    else:
-                        # FIXME: should log error
-                        # print("Cannot download primary.xml, status %d" % primary.status_code)
-                        pass
-
-                # if all staff are downloaded
-                if not download_primary and not download_repomd:
-                    return
-                else:
-                    time.sleep(retry_delay)
-
-            except requests.exceptions.RequestException:
-                pass
+        with open(cdn_repodata_path + '/' + "packages_num", 'w') as f_out:
+            f_out.write(str(repo_plugin.number_of_packages()))
 
     def _sync_channel(self, channel):
         excluded_urls = []
@@ -375,36 +328,16 @@ class CdnSync(object):
         for base_channel in sorted(base_channels):
             for child in sorted(base_channels[base_channel]):
                 family_label = self.channel_to_family[child]
-                cert_prefix = "/tmp/" + family_label
                 keys = self._get_family_keys(family_label)
-
-                if not os.path.isfile(cert_prefix + "_client.key"):
-                    with open(cert_prefix + "_client.key", "w") as key:
-                        key.write(str(keys['client_key']))
-
-                if not os.path.isfile(cert_prefix + "_client.cert"):
-                    with open(cert_prefix + "_client.cert", "w") as cert:
-                        cert.write(str(keys['client_cert']))
-
-                if not os.path.isfile(cert_prefix + "_ca.cert"):
-                    with open(cert_prefix + "_ca.cert", "w") as ca:
-                        ca.write(str(keys['ca_cert']))
 
                 sources = self._get_content_sources(child, backend)
                 for source in sources:
-                    self._count_packages_in_repo(source['source_url'],
-                                                 cert=cert_prefix + "_client.cert",
-                                                 key=cert_prefix + "_client.key",
-                                                 ca=cert_prefix + "_ca.cert")
+                    self._count_packages_in_repo(source['source_url'], keys)
                     already_downloaded += 1
                     print_progress_bar(already_downloaded, len(repo_list), prefix='Downloading repodata:',
                                        suffix='Complete', bar_length=50)
         elapsed_time = int(time.time())
         print("Elapsed time: %d seconds" % (elapsed_time - start_time))
-        # remove temporary certificates
-        os.unlink(cert_prefix + "_client.cert")
-        os.unlink(cert_prefix + "_client.key")
-        os.unlink(cert_prefix + "_ca.cert")
 
     def print_channel_tree(self, repos=False):
         available_channel_tree = self._list_available_channels()
