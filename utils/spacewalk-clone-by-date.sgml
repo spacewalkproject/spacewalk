@@ -101,10 +101,7 @@ Utility for cloning errata by date (For RHEL5 and above).
         All options can either be specified in the configuration file or via command line.  Any option specified via command line will override a configuration file value with the exception of channels. If a configuration file is specified, --channels is not a valid command line argument.
     </para>
     <para>
-        Please keep in mind that not all packages are associated with an erratum. This means that since spacewalk-clone-by-date will grab only packages associated with an erratum, not all packages available as of the specified date will get cloned.
-    </para>
-    <para>
-        Also note that spacewalk-clone-by-date will pull in any packages or errata needed to resolve dependencies for any errata being cloned. Since dependency-resolution selects the "best" package to resolve dependencies, it is possible for the cloned channel(s) to end up with packages that are not directly associated with any errata, and which are newer than the specified date. This is expected behavior.
+        Please note that spacewalk-clone-by-date will pull in any packages or errata needed to resolve dependencies for any errata being cloned. Since dependency-resolution selects the "best" package to resolve dependencies, it is possible for the cloned channel(s) to end up with packages that are not directly associated with any errata, and which are newer than the specified date. This is expected behavior.
     </para>
     <para>
         Spacewalk-clone-by-date is tool that provides a best-effort attempt at cloning valid and dependency-complete channels. However, there is not enough information available to guarantee that the results will always be completely dependency-complete, espcecially if used with the --errata, --security_only, --blacklist, or --removelist options. This is a tool to assist Administrators with channel creation, it cannot replace them. Cases that spacewalk-clone-by-date cannot completely resolve all potential dependencies include but are not limited to: if the original channel is not dependency-complete, if the original channel does not have or contains incomplete errata information, or if packages are not strictly dependent on each other but conflict with specific versions.
@@ -113,7 +110,7 @@ Utility for cloning errata by date (For RHEL5 and above).
 	Note: Unlike previous versions spacewalk-clone-by-date now clones entire errata that are determined to be required when doing dependency resolution, not just single packages. This solves a number of dependency-completeness problems but is still not a perfect solution. This may mean that errata end up being cloned that do not meet you specifications (for example, that were added after the --to_date or are not security errata when used with --security_only). This is expected behavior. The only way to avoid this is to run with --skip_depsolve and manually resolve any dependency cloning that may be required.
     </para>
     <para>
-	Note: spacewalk-clone-by-date does not support RHEL4 and earlier versions. It's a limitation of this tool. Spacewalk-clone-by-date is intented for use with Red Hat channels. There is no guarantee that it will work properly with channels populated with content from third party sources.
+	Note: spacewalk-clone-by-date does not support RHEL4 and earlier versions. It's a limitation of this tool. Spacewalk-clone-by-date is intended for use with Red Hat channels. There is no guarantee that it will work properly with channels populated with content from third party sources.
     </para>
 
 </RefSect1>
@@ -223,9 +220,9 @@ Utility for cloning errata by date (For RHEL5 and above).
     <varlistentry>
         <term>-n --no-errata-sync</term>
         <listitem>
-            <para>Do not automatically sychronize the package list of cloned errata with their originals. This may make spacewalk-clone-by-date have unexpected results if the original errata have been updated (e.g.: syncing another architecture for a channel) since the cloned errata were created. If omitted we will synchronize the cloned errata with the originals to ensure the expected packages are included (default).
+            <para>Do not automatically sychronize the package list of cloned errata with their originals. This may make spacewalk-clone-by-date have unexpected results if the original errata has been updated (e.g.: syncing another architecture for a channel) since the cloned errata were created. If omitted we will synchronize the cloned errata with the originals to ensure the expected packages are included (default).
             </para>
-	    <para>Errata clones do not necessarily get out-of-sync by satellite-syncing new architectures of existing channels. Another example would be if the errata contains some packages in one channel (say the base channel) and additional packages in another channel (say a child channel). Or it may be due to simply adding or removing packages from a custom errata that you have already created a clone of. Since cloned errata are not automatically updated when the original errata are, over time they may become out-of-sync are require synchronization in order for associating the cloned errata with a cloned channel to have the normally expected effect.
+	    <para>Errata clones do not necessarily get updated by satellite-syncing new architectures of existing channels. Another example would be if the errata contains some packages in one channel (say the base channel) and additional packages in another channel (say a child channel). Or it may be due to simply adding or removing packages from a custom errata that you have already created a clone of. Since cloned errata are not automatically updated when the original errata are, over time they may become out-of-sync and require synchronization in order for associating the cloned errata with a cloned channel to have the normally expected effect.
             </para>
         </listitem>
     </varlistentry>
@@ -259,6 +256,18 @@ Utility for cloning errata by date (For RHEL5 and above).
     <title>Clone while overriding some options from the command line.</title>
     <para>spacewalk-clone-by-date  --config=/etc/clone.conf --username rocky --password squirrel --to_date=2010-10-09</para>
 </example>
+</RefSect1>
+
+<RefSect1><Title>Log Output</Title>
+    <para>
+        In addition to writing to stdout, spacewalk-clone-by-date writes a detailed description of every run to a log file. This file can be found at <emphasis>/var/log/rhn/errata_clone.log</emphasis>
+        Log output includes:
+    </para>
+    <itemizedlist>
+        <listitem><para>The command-line arguments or config-file contents used for the run</para></listitem>
+        <listitem><para>The output of each round of dependency-checking that adds RPMs/errata</para></listitem>
+        <listitem><para>The complete list of all errata and RPMs cloned into each channel</para></listitem>
+    </itemizedlist>
 </RefSect1>
 
 <RefSect1><Title>Authors</Title>
