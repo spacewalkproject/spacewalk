@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.30
+Version: 2.6.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -824,6 +824,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Thu Aug 11 2016 Gennadii Altukhov <galt@redhat.com> 2.6.31-1
+- share repodata between yum_src and cdnsync
+
 * Tue Aug 09 2016 Gennadii Altukhov <galt@redhat.com> 2.6.30-1
 - cdn-sync - check proxy port number
 
