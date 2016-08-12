@@ -78,7 +78,7 @@ class deb_Header:
                     self.hdr[k] = debcontrol.get_as_string(k)
 
             version = debcontrol.get_as_string('Version')
-            version_tmpArr = version.split('-')
+            version_tmpArr = version.split('-', 1)
             if len(version_tmpArr) == 1:
                 self.hdr['version'] = version
                 self.hdr['release'] = "X"
