@@ -20,6 +20,7 @@ import time
 from spacewalk.common import fileutils
 from spacewalk.satellite_tools.repo_plugins import ContentPackage
 from spacewalk.common.rhnConfig import CFG, initCFG
+from spacewalk.common.checksum import getFileChecksum
 
 CACHE_DIR = '/var/cache/rhn/reposync/'
 RETRIES = 10
@@ -125,6 +126,8 @@ class DebRepo(object):
     def get_package(self, pack):
         url = self.base_url + '/' + pack['path']
         file_path = self._download(url)
+        if getFileChecksum(pack['checksum_type'], filename=file_path) != pack['checksum']:
+            raise IOError("Package file does not match intended download.")
         return file_path
 
 
