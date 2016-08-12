@@ -565,7 +565,8 @@ class ChannelTreeCloner:
         for cloner in self.cloners:
             if cloner.total_added_nevras > 0:
                 reported = 1
-                print '%s RPM(s) added to %s to resolve dependencies.' % (cloner.total_added_nevras, cloner.dest_label())
+                print '%s RPM(s) added to %s to resolve dependencies.' \
+                       % (cloner.total_added_nevras, cloner.dest_label())
                 cloner.total_added_nevras = 0
 
         if reported:
@@ -576,7 +577,7 @@ class ChannelCloner:
 
     def __init__(self, from_label, to_label, to_date, remote_api, db_api,
                  security_only, use_update_date, no_errata_sync, errata):
-        self.total_added_nevras = 0;
+        self.total_added_nevras = 0
         self.remote_api = remote_api
         self.db_api = db_api
         self.from_label = from_label
