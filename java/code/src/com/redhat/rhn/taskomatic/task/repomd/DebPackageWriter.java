@@ -135,7 +135,7 @@ public class DebPackageWriter {
                     pkgDto.getId(), "Breaks");
 
             out.write("Filename: XMLRPC/GET-REQ/" + channelLabel + "/getPackage/" +
-                    pkgDto.getName() + "-" + pkgDto.getVersion() + "-" +
+                    pkgDto.getName() + "_" + pkgDto.getVersion() + "-" +
                     pkgDto.getRelease() + "." + pkgDto.getArchLabel() + ".deb");
             out.newLine();
 

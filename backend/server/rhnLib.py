@@ -20,7 +20,7 @@ import string
 import base64
 import posixpath
 
-from spacewalk.common.rhnLib import parseRPMName
+from spacewalk.common.rhnLib import parseRPMName, parseDEBName
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnException import rhnFault
 
@@ -64,6 +64,8 @@ def parseRPMFilename(pkgFilename):
     if string.lower(pkg[-1]) not in ['rpm', 'deb']:
         raise rhnFault(21, 'neither an rpm nor a deb package name: %s' % pkgFilename)
 
+    dist = string.lower(pkg[-1])
+
     # Valid architecture next?
     if check_package_arch(pkg[-2]) is None:
         raise rhnFault(21, 'Incompatible architecture found: %s' % pkg[-2])
@@ -72,7 +74,12 @@ def parseRPMFilename(pkgFilename):
 
     # Nuke that arch.rpm.
     pkg = string.join(pkg[:-2], '.')
-    ret = list(parseRPMName(pkg))
+
+    if dist == "deb":
+        ret = list(parseDEBName(pkg))
+    else:
+        ret = list(parseRPMName(pkg))
+
     if ret:
         ret.append(_arch)
     return ret

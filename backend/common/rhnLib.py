@@ -157,7 +157,7 @@ def hash_object_id(object_id, factor):
     return num_id.rjust(factor, '0')
 
 
-# reg exp for splitting package names.
+# reg exp for splitting rpm package names.
 re_rpmName = re.compile("^(.*)-([^-]*)-([^-]*)$")
 
 
@@ -166,6 +166,25 @@ def parseRPMName(pkgName):
         OUT: Four strings (in a tuple): name, epoch, version, release.
     """
     reg = re_rpmName.match(pkgName)
+    if reg is None:
+        return None, None, None, None
+    n, v, r = reg.group(1, 2, 3)
+    e = None
+    ind = r.find(':')
+    if ind >= 0:  # epoch found
+        e = r[ind + 1:]
+        r = r[0:ind]
+    return str(n), e, str(v), str(r)
+
+# reg exp for splitting deb package names.
+re_debName = re.compile("^(.*)_([^-]+)-(.*)$")
+
+
+def parseDEBName(pkgName):
+    """ IN:  Package string in, n_v.v-r.r-r, format.
+        OUT: Four strings (in a tuple): name, epoch, version, release.
+    """
+    reg = re_debName.match(pkgName)
     if reg is None:
         return None, None, None, None
     n, v, r = reg.group(1, 2, 3)

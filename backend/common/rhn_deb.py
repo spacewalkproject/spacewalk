@@ -84,7 +84,7 @@ class deb_Header:
                 self.hdr['release'] = "X"
             else:
                 self.hdr['version'] = version_tmpArr[0]
-                self.hdr['release'] = version_tmpArr[1]
+                self.hdr['release'] = "-".join (version_tmpArr[1:])
         except Exception:
             e = sys.exc_info()[1]
             raise_with_tb(InvalidPackageError(e), sys.exc_info()[2])
