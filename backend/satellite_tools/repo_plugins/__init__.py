@@ -74,7 +74,7 @@ class ContentPackage:
         if self.path is None:
             raise rhnFault(50, "Unable to load package", explain=0)
         self.file = open(self.path, 'rb')
-        self.a_pkg = rhn_pkg.package_from_filename(self.file, self.path)
+        self.a_pkg = rhn_pkg.package_from_filename(self.path, stream=self.file)
         self.a_pkg.read_header()
         self.a_pkg.payload_checksum()
         self.file.close()

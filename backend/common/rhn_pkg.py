@@ -56,13 +56,15 @@ def package_from_stream(stream, packaging):
     return a_pkg
 
 
-def package_from_filename(stream, filename):
+def package_from_filename(filename, stream=None):
     if filename.endswith('.deb'):
         packaging = 'deb'
     elif filename.endswith('.rpm'):
         packaging = 'rpm'
     else:
         packaging = 'mpm'
+    if not stream:
+        stream = open(filename, mode='rb')
     return package_from_stream(stream, packaging)
 
 BUFFER_SIZE = 16384
