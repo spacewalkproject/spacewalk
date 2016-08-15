@@ -102,6 +102,36 @@ def getXmlrpcServer(server, handler, proxy, proxyUser, proxyPass,
 class RHNCertGeneralSanityException(Exception):
     "general failure"
 
+def getCertChecksumString(sat_cert):
+    result = ""
+    tree = {}
+
+    # Scalar attributes of sat_cert
+    for field in sat_cert.fields_scalar:
+        tree[field] = getattr(sat_cert, field)
+    # List attributes of sat_cert
+    for name, value in sat_cert.fields_list.items():
+        field = value.attribute_name
+        tree[name] = []
+        for item in getattr(sat_cert, field):
+            attributes = {}
+            for k, v in item.attributes.items():
+                attributes[k] = getattr(item, v)
+            tree[name].append(attributes)
+
+    # Create string from tree
+    for key in sorted(tree):
+        if isinstance(tree[key], list):
+            for item in tree[key]:
+                line = "%s" % key
+                for attribute in sorted(item):
+                    line += "-%s-%s" % (attribute, item[attribute])
+                result += "%s\n" % line
+        else:
+            if tree[key] is not None:
+                result += "%s-%s\n" % (key, tree[key])
+
+    return result
 
 def validateSatCert(certFilename, verbosity=0):
     """ validating (i.e., verifing sanity of) this product. Calls
@@ -109,16 +139,34 @@ def validateSatCert(certFilename, verbosity=0):
         I.e., makes sure the product Certificate is a sane certificate
     """
 
-    # copy cert to temp location (it may be gzipped which validate-sat-cert.pl
-    # doesn't like).
+    cert = openGzippedFile(certFilename).read().strip()
+
+    sat_cert = satellite_cert.SatelliteCert()
+    sat_cert.load(cert)
+
+    for key in ['generation', 'product', 'owner', 'issued', 'expires', 'slots']:
+        if not getattr(sat_cert, key):
+            sys.stderr.write("Error: Your satellite certificate is not valid. Field %s is not defined.\n Please contact your support representative.\n" % key)
+            raise RHNCertGeneralSanityException("RHN Entitlement Certificate failed "
+                                            "to validate.")
+
+    signature = sat_cert.signature
+
+    # copy cert to temp location (it may be gzipped).
     fd, certTmpFile = tempfile.mkstemp(prefix = DEFAULT_RHN_CERT_LOCATION + '-')
     fo = os.fdopen(fd, 'wb')
-    fo.write(openGzippedFile(certFilename).read().strip())
+    fo.write(getCertChecksumString(sat_cert))
     fo.flush()
     fo.close()
 
-    args = ['/usr/bin/validate-sat-cert.pl', '--keyring',
-            DEFAULT_WEBAPP_GPG_KEY_RING, certTmpFile]
+    fd, signatureTmpFile = tempfile.mkstemp(prefix = DEFAULT_RHN_CERT_LOCATION + '-signature-')
+    fo = os.fdopen(fd, 'wb')
+    fo.write(signature)
+    fo.flush()
+    fo.close()
+
+    args = ['gpg', '--verify', '-q', '--keyring',
+            DEFAULT_WEBAPP_GPG_KEY_RING, signatureTmpFile, certTmpFile]
 
     if verbosity:
         print "Checking cert XML sanity and GPG signature:", repr(' '.join(args))
@@ -129,6 +177,7 @@ def validateSatCert(certFilename, verbosity=0):
 
     # nuke temp cert
     os.unlink(certTmpFile)
+    os.unlink(signatureTmpFile)
 
     if err.find('Ohhhh jeeee: ... this is a bug') != -1 or err.find('verify err') != -1 or ret:
         msg = "%s Entitlement Certificate failed to validate.\n" % PRODUCT_NAME
