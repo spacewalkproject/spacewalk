@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.32
+Version: 2.6.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -825,6 +825,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Mon Aug 15 2016 Jan Dobes 2.6.33-1
+- do not change package_from_filename header
+
 * Fri Aug 12 2016 Jan Dobes 2.6.32-1
 - set header_end to value where we stop reading
 - split maximally once or we lost part of the release sometimes
