@@ -10,11 +10,11 @@ SPACEWALK_FILES	= __init__ connection constants diskImportLib messages \
             progress_bar req_channels satCerts satsync syncCache \
             sync_handlers \
             syncLib SequenceServer xmlDiskSource \
-            xmlSource xmlWireSource rhn_ssl_dbstore \
+            xmlSource xmlWireSource rhn_satellite_activate rhn_ssl_dbstore \
             satComputePkgHeaders updatePackages reposync \
 	    geniso contentRemove
 SCRIPTS = satellite-sync spacewalk-debug \
-	  rhn-schema-version rhn-charsets \
+	  rhn-schema-version rhn-satellite-activate rhn-charsets \
 	  rhn-ssl-dbstore update-packages rhn-db-stats rhn-schema-stats \
           spacewalk-repo-sync spacewalk-remove-channel \
 	  spacewalk-update-signatures spacewalk-data-fsck spacewalk-fips-tool
