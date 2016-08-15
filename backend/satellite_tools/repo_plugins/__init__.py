@@ -35,7 +35,6 @@ class ContentPackage:
         self.arch = None
 
         self.path = None
-        self.file = None
 
         self.a_pkg = None
 
@@ -73,11 +72,10 @@ class ContentPackage:
     def load_checksum_from_header(self):
         if self.path is None:
             raise rhnFault(50, "Unable to load package", explain=0)
-        self.file = open(self.path, 'rb')
-        self.a_pkg = rhn_pkg.package_from_filename(self.file, self.path)
+        self.a_pkg = rhn_pkg.package_from_filename(self.path)
         self.a_pkg.read_header()
         self.a_pkg.payload_checksum()
-        self.file.close()
+        self.a_pkg.input_stream.close()
 
     def upload_package(self, channel, metadata_only=False):
         rel_package_path = rhnPackageUpload.relative_path_from_header(
