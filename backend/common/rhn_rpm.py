@@ -95,10 +95,7 @@ class RPM_Header:
         return len(self.hdr)
 
     def __nonzero__(self):
-        if self.hdr:
-            return True
-        else:
-            return False
+        return bool(self.hdr)
 
     __bool__ = __nonzero__
 
