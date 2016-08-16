@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.34
+Version: 2.6.35
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -828,6 +828,21 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Tue Aug 16 2016 Jan Dobes 2.6.35-1
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: simplifiable-if-statement
+- fixing pylint: unneeded-not
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-position
+- sys.exitfunc is deprecated since Python 2.4
+- more pylint and pep8 fixes
+
 * Tue Aug 16 2016 Jan Dobes 2.6.34-1
 - fixing pylint issues
 - drop disconnected activation on spacewalk, there is not much to insert and
