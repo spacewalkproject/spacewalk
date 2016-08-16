@@ -16,7 +16,6 @@
 
 import os
 import stat
-from spacewalk.common import usix
 try:
     #  python 2
     import cStringIO
@@ -26,7 +25,7 @@ except ImportError:
 import sys
 from rhn import rpclib
 
-from spacewalk.common.usix import raise_with_tb
+from spacewalk.common import usix
 from spacewalk.common import rhn_rpm
 
 # local imports
@@ -191,8 +190,8 @@ class Repository(RPC_Base):
             try:
                 s = os.stat(filePath)
             except:
-                raise_with_tb(rhnFault(17, "Unable to read package %s"
-                                       % os.path.basename(filePath)), sys.exc_info()[2])
+                usix.raise_with_tb(rhnFault(17, "Unable to read package %s"
+                                            % os.path.basename(filePath)), sys.exc_info()[2])
 
         lastModified = s[stat.ST_MTIME]
         del s  # XXX: not neccessary?
