@@ -18,6 +18,7 @@ import os
 import sys
 import time
 import traceback
+import socket
 try:
     #  python 2
     from StringIO import StringIO
@@ -34,7 +35,6 @@ from spacewalk.common import rhnMail
 from spacewalk.common import rhnFlags
 
 # Get the hostname for traceback use
-import socket
 hostname = socket.gethostname()
 
 # Keep QUIET_MAIL in a global variable that is initialized from CFG
