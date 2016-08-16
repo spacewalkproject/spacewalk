@@ -21,12 +21,12 @@ import time
 
 
 # global module imports
-from spacewalk.common import apache
+from rhn.UserDictCase import UserDictCase
 
 
 # Now local module imports
 from spacewalk.common import rhnFlags
-from rhn.UserDictCase import UserDictCase
+from spacewalk.common import apache
 from spacewalk.common.rhnLog import log_debug, log_error, log_setreq
 from spacewalk.common.rhnTranslate import cat
 
