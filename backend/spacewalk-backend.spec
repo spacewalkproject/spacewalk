@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.33
+Version: 2.6.34
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -828,6 +828,15 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Tue Aug 16 2016 Jan Dobes 2.6.34-1
+- fixing pylint issues
+- drop disconnected activation on spacewalk, there is not much to insert and
+  not possible to update counts
+- call signature check directly instead of calling external (also dropped) perl
+  script
+- include files in packages
+- bringing back tool for activation
+
 * Mon Aug 15 2016 Jan Dobes 2.6.33-1
 - do not change package_from_filename header
 
