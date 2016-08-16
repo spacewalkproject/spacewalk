@@ -33,15 +33,9 @@ except ImportError:
 from spacewalk.common import rhnTB, rhnLib, fileutils
 from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
 from spacewalk.common.rhnTranslate import _
-from spacewalk.server import rhnSQL
 from spacewalk.server.rhnServer import satellite_cert
 
 import tempfile
-
-## local imports
-import sync_handlers
-import satCerts
-
 
 DEFAULT_SYSTEMID_LOCATION = '/etc/sysconfig/rhn/systemid'
 DEFAULT_RHN_CERT_LOCATION = '/etc/sysconfig/rhn/rhn-entitlement-cert.xml'
@@ -228,59 +222,6 @@ def prepRhnCert(options):
 
 class RHNCertLocalActivationException(Exception):
     "general local activate failure exception"
-
-def activateSatellite_local(options):
-    """ o validate (i.e., verify) an Red Hat Satellite
-        o pushes that cert into the local database
-
-        Assumptions:
-          o cert has already been written to DEFAULT_RHN_CERT_LOCATION
-          o rhn.conf is written, to include db_* setting
-          o database is setup and populated
-    """
-
-    if options.verbose:
-        print "Attempting local RHN Certificate push (and therefore activation)"
-
-    try:
-        cert = open(DEFAULT_RHN_CERT_LOCATION).read()
-
-        satCerts.storeRhnCert(cert, check_generation=1, check_version=not(options.ignore_version_mismatch))
-    except satellite_cert.ParseException:
-        raise RHNCertLocalActivationException(
-          'RHN Entitlement Certificate failed to validate - '
-          'failed sanity parse.'), None, sys.exc_info()[2]
-    except satCerts.CertGenerationMismatchError:
-        raise RHNCertLocalActivationException(
-            'RHN Entitlement Certificate cannot be imported - '
-            'mismatching generation.'), None, sys.exc_info()[2]
-    except satCerts.CertVersionMismatchError, e:
-        raise RHNCertLocalActivationException(
-            'RHN Entitlement Certificate cannot be imported - ' + str(e) \
-            + '\nIf you are trying to upgrade the Satellite server, please see the upgrade documentation ' \
-            + 'located here /etc/sysconfig/rhn/satellite-upgrade/README  (as part of the rhn-upgrade package).  ' \
-            + 'WARNING: If you want to skip this check, please use --ignore-version-mismatch, ' \
-            + 'but doing so may cause issues (including malfunction of the Satellite software).  ' \
-            + 'Only skip the test if instructed to do so by a support technician.'), None, sys.exc_info()[2]
-    except satCerts.NoFreeEntitlementsError, e:
-        sys.stderr.write(e.message + '\n')
-        sys.exit(1)
-    except Exception:
-        raise RHNCertLocalActivationException(
-          'RHN Entitlement Certificate failed to validate: \n'
-          '%s' % rhnTB.fetchTraceback()), None, sys.exc_info()[2]
-
-    return 0
-
-def localUpdateChannels():
-    cert = open(DEFAULT_RHN_CERT_LOCATION).read()
-
-    sat_cert = satellite_cert.SatelliteCert()
-    sat_cert.load(cert)
-
-    sync_handlers.populate_channel_family_permissions(sat_cert)
-    sync_handlers.purge_extra_channel_families()
-    sync_handlers.update_channel_family_counts()
 
 
 class RHNCertRemoteActivationException(Exception):
@@ -514,7 +455,6 @@ def processCommandline():
         Option('--no-ssl',       action='store_true', help='(FOR TESTING ONLY) disables SSL'),
         Option('--sanity-only',  action='store_true', help="confirm certificate sanity. Does not activate"
                                                          + "the Red Hat Satellite locally or remotely."),
-        Option('--disconnected', action='store_true', help="activate locally, but not on remote RHN servers,"),
         Option('--ignore-expiration', action='store_true', help='execute regardless of the expiration'
                                                          + 'of the RHN Certificate (not recommended).'),
         Option('--ignore-version-mismatch', action='store_true', help='execute regardless of version '
@@ -546,18 +486,14 @@ def processCommandline():
         sys.stderr.write("ERROR: RHN Cert (%s) does not exist\n" % options.rhn_cert)
         sys.exit(1)
 
-    if options.sanity_only:
-        options.disconnected = 1
-
-    if CFG.DISCONNECTED and not options.disconnected:
+    if not options.sanity_only and CFG.DISCONNECTED:
         sys.stderr.write("""ERROR: Satellite server has been setup to run in disconnected mode.
-       Either correct server configuration in /etc/rhn/rhn.conf
-       or use --disconnected to activate it locally.
+       Correct server configuration in /etc/rhn/rhn.conf.
 """)
         sys.exit(1)
 
     options.server = ''
-    if not options.disconnected:
+    if not options.sanity_only:
         if not CFG.RHN_PARENT:
             sys.stderr.write("ERROR: rhn_parent is not set in /etc/rhn/rhn.conf\n")
             sys.exit(1)
@@ -631,67 +567,49 @@ def main():
 
     if not options.sanity_only:
         prepRhnCert(options)
-        # local activation
-        try:
-
-            rhnSQL.initDB()
-            rhnSQL.clear_log_id()
-            rhnSQL.set_log_auth_login('SETUP')
-            if options.verbose:
-                print ("Database connectioned initialized: refer to %s" %
-                       CFG.filename)
-            activateSatellite_local(options)
-        except RHNCertLocalActivationException, e:
-            writeError(e)
-            return 30
 
         # remote activation
-        if not options.disconnected:
-            try:
-                activateSatellite_remote(options)
-            except RHNCertRemoteActivationException, e:
-                writeError(e)
-                return 20
-            except RHNCertRemoteNoManagementSlotsException, e:
-                writeError(e)
-                return 80
-            except RHNCertRemoteSatelliteAlreadyActivatedException, e:
-                # note, this is normally a 1021 fault, but it's what we want
-                # so let's return 0
-                return 0
-            except RHNCertRemoteNoAccessToSatChannelException, e:
-                writeError(e)
-                return 82
-            except RHNCertRemoteInsufficientChannelEntitlementsException, e:
-                writeError(e)
-                return 83
-            except RHNCertRemoteInvalidSatCertificateException, e:
-                writeError(e)
-                return 84
-            except RHNCertRemoteSatelliteNotActivatedException, e:
-                writeError(e)
-                return 85
-            except RHNCertRemoteSatelliteNoBaseChannelException, e:
-                writeError(e)
-                return 86
-            except RHNCertNoSatChanForVersion, e:
-                writeError(e)
-                return 87
-            except TimeoutException, e:
-                writeError(e)
-                return 89
+        try:
+            activateSatellite_remote(options)
+        except RHNCertRemoteActivationException, e:
+            writeError(e)
+            return 20
+        except RHNCertRemoteNoManagementSlotsException, e:
+            writeError(e)
+            return 80
+        except RHNCertRemoteSatelliteAlreadyActivatedException, e:
+            # note, this is normally a 1021 fault, but it's what we want
+            # so let's return 0
+            return 0
+        except RHNCertRemoteNoAccessToSatChannelException, e:
+            writeError(e)
+            return 82
+        except RHNCertRemoteInsufficientChannelEntitlementsException, e:
+            writeError(e)
+            return 83
+        except RHNCertRemoteInvalidSatCertificateException, e:
+            writeError(e)
+            return 84
+        except RHNCertRemoteSatelliteNotActivatedException, e:
+            writeError(e)
+            return 85
+        except RHNCertRemoteSatelliteNoBaseChannelException, e:
+            writeError(e)
+            return 86
+        except RHNCertNoSatChanForVersion, e:
+            writeError(e)
+            return 87
+        except TimeoutException, e:
+            writeError(e)
+            return 89
 
         # channel family stuff
-        if not options.disconnected and CFG.RHN_PARENT and not CFG.ISS_PARENT:
+        if CFG.RHN_PARENT and not CFG.ISS_PARENT:
             try:
                 populateChannelFamilies(options)
             except PopulateChannelFamiliesException, e:
                 writeError(e)
                 return 40
-        else:
-            # We're disconnected so we'll only update the channels we
-            # already know about.
-            localUpdateChannels()
 
     return 0
 

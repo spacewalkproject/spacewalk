@@ -22,7 +22,7 @@
     <cmdsynopsis>
         <command>&RHNSATACT; [ options <replaceable>...</replaceable> ] \
   [ --systemid<replaceable>PATH</replaceable> ] [ --rhn-cert <replaceable>PATH</replaceable> ] \
-  [ --no-ssl ] [ --sanity-only ] [ --disconnected ] [ -h|--help ]</command>
+  [ --no-ssl ] [ --sanity-only ] [ -h|--help ]</command>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -68,12 +68,6 @@
         <term>--sanity-only</term>
         <listitem>
             <para>confirm certificate sanity. Does not activate the Red Hat Satellite locally or remotely.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--disconnected</term>
-        <listitem>
-            <para>activate locally, but not on remote RHN servers,</para>
         </listitem>
     </varlistentry>
     <varlistentry>
