@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	2.6.1
+Version:	2.6.2
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -72,6 +72,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Aug 16 2016 Jan Dobes 2.6.2-1
+- redefined-variable-type check is broken in pylint-1.5.6-1.fc24.noarch
+
 * Mon Jun 13 2016 Grant Gainey 2.6.1-1
 - spacewalk-pylint: require pylint > 1.1 for openSUSE
 - Bumping package versions for 2.6.
