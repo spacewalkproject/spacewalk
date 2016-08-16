@@ -16,13 +16,15 @@
 import os
 import re
 import time
-from spacewalk.common import usix
 try:
     #  python 2
     import urlparse
 except ImportError:
     #  python3
     import urllib.parse as urlparse # pylint: disable=F0401,E0611
+
+from spacewalk.common import usix
+
 
 def setHeaderValue(mp_table, name, values):
     """
