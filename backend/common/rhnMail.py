@@ -18,8 +18,9 @@
 import os
 import smtplib
 
-from spacewalk.common.rhnConfig import CFG, PRODUCT_NAME
 from rhn.connections import idn_puny_to_unicode
+
+from spacewalk.common.rhnConfig import CFG, PRODUCT_NAME
 from spacewalk.common.stringutils import to_string
 
 # check if the headers have the minimum required fields
