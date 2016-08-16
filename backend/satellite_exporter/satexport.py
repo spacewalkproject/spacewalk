@@ -23,6 +23,8 @@ except ImportError:
     #  python3
     import xmlrpc.client as xmlrpclib  # pylint: disable=F0401
 
+from rhn.connections import idn_puny_to_unicode
+
 from spacewalk.common import apache
 
 from spacewalk.common.usix import raise_with_tb
@@ -35,8 +37,6 @@ from spacewalk.common.rhnException import rhnException, rhnFault
 from spacewalk.server import rhnSQL, rhnImport
 from spacewalk.satellite_tools.disk_dumper.dumper import ClosedConnectionError
 from spacewalk.satellite_tools import constants
-
-from rhn.connections import idn_puny_to_unicode
 
 
 class BaseApacheServer:
