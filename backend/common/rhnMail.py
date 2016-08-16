@@ -37,7 +37,7 @@ def __check_headers(h):
         to = CFG.TRACEBACK_MAIL
     else:
         to = h["To"]
-    if not ("Content-Type" in h):
+    if "Content-Type" not in h:
         h["Content-Type"] = "text/plain; charset=utf-8"
     if isinstance(to, (type([]), type(()))):
         toaddrs = to
