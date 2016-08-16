@@ -13,7 +13,7 @@
 # in this software or its documentation.
 #
 
-## language imports
+# language imports
 import os
 import sys
 import time
@@ -29,8 +29,8 @@ except ImportError:
     class TimeoutException(Exception):
         pass
 
-## common, server imports
-from spacewalk.common import rhnTB, rhnLib, fileutils
+# common, server imports
+from spacewalk.common import rhnLib, fileutils
 from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
 from spacewalk.common.rhnTranslate import _
 from spacewalk.server.rhnServer import satellite_cert
@@ -46,6 +46,7 @@ DEFAULT_CONFIG_FILE = "/etc/rhn/rhn.conf"
 
 class CaCertInsertionError(Exception):
     "raise when fail to insert CA cert into the local database"
+
 
 def openGzippedFile(filename):
     """ Open a file for reading. File may or may not be a gzipped file.
@@ -82,8 +83,8 @@ def getXmlrpcServer(server, handler, proxy, proxyUser, proxyPass,
         uri = 'http://' + _uri
 
     s = rpclib.Server(uri, refreshCallback=None,
-                         proxy=proxy, username=proxyUser, password=proxyPass,
-                         timeout=CFG.timeout)
+                      proxy=proxy, username=proxyUser, password=proxyPass,
+                      timeout=CFG.timeout)
     if sslYN and sslCertPath:
         if not os.access(sslCertPath, os.R_OK):
             sys.stderr.write("SSL CA Cert inaccessible: '%s'\n" % sslCertPath)
@@ -95,6 +96,7 @@ def getXmlrpcServer(server, handler, proxy, proxyUser, proxyPass,
 
 class RHNCertGeneralSanityException(Exception):
     "general failure"
+
 
 def getCertChecksumString(sat_cert):
     result = ""
@@ -127,6 +129,7 @@ def getCertChecksumString(sat_cert):
 
     return result
 
+
 def validateSatCert(certFilename, verbosity=0):
     """ validating (i.e., verifing sanity of) this product. Calls
         validate-sat-cert.pl
@@ -140,9 +143,10 @@ def validateSatCert(certFilename, verbosity=0):
 
     for key in ['generation', 'product', 'owner', 'issued', 'expires', 'slots']:
         if not getattr(sat_cert, key):
-            sys.stderr.write("Error: Your satellite certificate is not valid. Field %s is not defined.\n Please contact your support representative.\n" % key)
+            sys.stderr.write("Error: Your satellite certificate is not valid. Field %s is not defined.\n"
+                             "Please contact your support representative.\n" % key)
             raise RHNCertGeneralSanityException("RHN Entitlement Certificate failed "
-                                            "to validate.")
+                                                "to validate.")
 
     signature = sat_cert.signature
 
@@ -227,21 +231,36 @@ class RHNCertLocalActivationException(Exception):
 class RHNCertRemoteActivationException(Exception):
     "general remote activate failure exception"
 
+
 class RHNCertRemoteNoManagementSlotsException(Exception):
     "no_management_slots fault 1020"
+
+
 class RHNCertRemoteSatelliteAlreadyActivatedException(Exception):
     "satellite_already_activated fault 1021 - we exit with code 0 if this happens"
+
+
 class RHNCertRemoteNoAccessToSatChannelException(Exception):
     "no_access_to_sat_channel fault 1022"
+
+
 class RHNCertRemoteInsufficientChannelEntitlementsException(Exception):
     "insufficient_channel_entitlements fault 1023"
+
+
 class RHNCertRemoteInvalidSatCertificateException(Exception):
     "invalid_sat_certificate fault 1024"
+
+
 class RHNCertRemoteSatelliteNotActivatedException(Exception):
     """ satellite_not_activated fault 1025 - if we get this as a final result,
         something bad happened """
+
+
 class RHNCertRemoteSatelliteNoBaseChannelException(Exception):
     "satellite_no_base_channel fault 1026"
+
+
 class RHNCertNoSatChanForVersion(Exception):
     "no_sat_chan_for_version fault 2"
 
@@ -384,7 +403,7 @@ def populateChannelFamilies(options):
             args.extend(['--http-proxy-username', options.http_proxy_username])
             if options.http_proxy_password:
                 args.extend(['--http-proxy-password',
-                    options.http_proxy_password])
+                             options.http_proxy_password])
 
     # use a ca cert with satellite-sync
     if options.ca_cert:
@@ -425,7 +444,7 @@ def expiredYN(certPath):
     cert = fo.read().strip()
     fo.close()
 
-    ## parse it and snag "expires"
+    # parse it and snag "expires"
     sc = satellite_cert.SatelliteCert()
     sc.load(cert)
     # note the correction for timezone
@@ -449,20 +468,20 @@ ERROR: can't seem to parse the expires field in the RHN Certificate.
 def processCommandline():
     options = [
         Option('--systemid',     action='store',      help='(FOR TESTING ONLY) alternative systemid path/filename. '
-                                                         + 'The system default is used if not specified.'),
+               + 'The system default is used if not specified.'),
         Option('--rhn-cert',     action='store',      help='new RHN certificate path/filename (default is'
-                                                         + ' %s - the saved RHN cert).' % DEFAULT_RHN_CERT_LOCATION),
+               + ' %s - the saved RHN cert).' % DEFAULT_RHN_CERT_LOCATION),
         Option('--no-ssl',       action='store_true', help='(FOR TESTING ONLY) disables SSL'),
         Option('--sanity-only',  action='store_true', help="confirm certificate sanity. Does not activate"
-                                                         + "the Red Hat Satellite locally or remotely."),
+               + "the Red Hat Satellite locally or remotely."),
         Option('--ignore-expiration', action='store_true', help='execute regardless of the expiration'
-                                                         + 'of the RHN Certificate (not recommended).'),
+               + 'of the RHN Certificate (not recommended).'),
         Option('--ignore-version-mismatch', action='store_true', help='execute regardless of version '
-                                                         + 'mismatch of existing and new certificate.'),
-        Option('-v','--verbose', action='count',      help='be verbose '
-                                                         + '(accumulable: -vvv means "be *really* verbose").'),
-        Option(     '--dump-version', action='store', help="requested version of XML dump"),
-              ]
+               + 'mismatch of existing and new certificate.'),
+        Option('-v', '--verbose', action='count',      help='be verbose '
+               + '(accumulable: -vvv means "be *really* verbose").'),
+        Option('--dump-version', action='store', help="requested version of XML dump"),
+    ]
 
     options, args = OptionParser(option_list=options).parse_args()
 
