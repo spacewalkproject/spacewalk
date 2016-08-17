@@ -986,16 +986,15 @@ class Dumper(dumper.XML_Dumper):
                     tbout = cStringIO.StringIO()
                     Traceback(mail=0, ostream=tbout, with_locals=1)
                     raise_with_tb(ISSError("Error: Error copying file %s: %s" %
-                                           (os.path.join(CFG.MOUNT_POINT, rpm['path']), e.__class__.__name__)),
-                                  sys.exc_info()[2])
+                                           (os.path.join(CFG.MOUNT_POINT, rpm['path']), e.__class__.__name__),
+                                           tbout.getvalue()), sys.exc_info()[2])
                 except OSError:
                     e = sys.exc_info()[1]
                     tbout = cStringIO.StringIO()
                     Traceback(mail=0, ostream=tbout, with_locals=1)
-
                     raise_with_tb(ISSError("Error: Could not make hard link %s: %s (different filesystems?)" %
-                                           (os.path.join(CFG.MOUNT_POINT, rpm['path']), e.__class__.__name__)),
-                                  sys.exc_info()[2])
+                                           (os.path.join(CFG.MOUNT_POINT, rpm['path']), e.__class__.__name__),
+                                           tbout.getvalue()), sys.exc_info()[2])
 
                 log2email(5, "RPM: %s" % rpm['path'])
 
