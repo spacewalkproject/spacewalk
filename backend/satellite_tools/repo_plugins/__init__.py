@@ -13,11 +13,13 @@
 # in this software or its documentation.
 #
 
+import re
+import rpm
 from spacewalk.common import rhn_pkg
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.server import rhnPackageUpload
-import re
-import rpm
+
+
 class ContentPackage:
 
     def __init__(self):
