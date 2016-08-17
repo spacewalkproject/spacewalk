@@ -15,9 +15,10 @@
 
 import os
 import sys
-import rpm
 import struct
 import tempfile
+
+import rpm
 
 from spacewalk.common.usix import raise_with_tb
 from spacewalk.common.usix import next as usix_next
