@@ -15,8 +15,8 @@
 
 import os.path
 from shutil import rmtree
-import requests
 import time
+import requests
 from spacewalk.common import fileutils
 from spacewalk.satellite_tools.repo_plugins import ContentPackage
 from spacewalk.common.rhnConfig import CFG, initCFG
