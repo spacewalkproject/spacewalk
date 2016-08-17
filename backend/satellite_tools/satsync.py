@@ -22,7 +22,6 @@ import os
 import sys
 import stat
 import time
-from spacewalk.common import usix
 import exceptions
 try:
     #  python 2
@@ -32,29 +31,23 @@ except ImportError:
     import queue as Queue # pylint: disable=F0401
 import threading
 from optparse import Option, OptionParser
+import gettext
 from rhn.connections import idn_ascii_to_puny, idn_puny_to_unicode
 
-import gettext
-translation = gettext.translation('spacewalk-backend-server', fallback=True)
-_ = translation.ugettext
+sys.path.append("/usr/share/rhn")
+from up2date_client import config
 
 # __rhn imports__
-from spacewalk.common.usix import raise_with_tb
+from spacewalk.common import usix
 from spacewalk.common import rhnMail, rhnLib
 from spacewalk.common.rhnLog import initLOG
 from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
-from spacewalk.common.rhnTB import exitWithTraceback
-sys.path.append("/usr/share/rhn")
-from up2date_client import config
+from spacewalk.common.rhnTB import exitWithTraceback, fetchTraceback
 from spacewalk.common.checksum import getFileChecksum
-
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
 from spacewalk.server.rhnLib import get_package_path
 from spacewalk.common import fileutils
-
-initCFG('server.satellite')
-initLOG(CFG.LOG_FILE, CFG.DEBUG)
 
 # __rhn sync/import imports__
 import xmlWireSource
@@ -80,6 +73,11 @@ import req_channels
 import messages
 import sync_handlers
 import constants
+
+translation = gettext.translation('spacewalk-backend-server', fallback=True)
+_ = translation.ugettext
+initCFG('server.satellite')
+initLOG(CFG.LOG_FILE, CFG.DEBUG)
 
 _DEFAULT_SYSTEMID_PATH = '/etc/sysconfig/rhn/systemid'
 DEFAULT_ORG = 1
@@ -502,8 +500,8 @@ class Syncer:
                         and os.access(self._systemidPath, os.R_OK)):
                     self.systemid = open(self._systemidPath, 'rb').read()
                 else:
-                    raise_with_tb(RhnSyncException(_('ERROR: this server must be registered with RHN.')),
-                                  sys.exc_info()[2])
+                    usix.raise_with_tb(RhnSyncException(_('ERROR: this server must be registered with RHN.')),
+                                       sys.exc_info()[2])
             # authorization check of the satellite
             auth = xmlWireSource.AuthWireSource(self.systemid, self.sslYN,
                                                 self.xml_dump_version)
@@ -640,8 +638,8 @@ class Syncer:
                     self._process_comps(importer.backend, label, sync_handlers._to_timestamp(ch['comps_last_modified']))
 
         except InvalidChannelFamilyError:
-            raise_with_tb(RhnSyncException(messages.invalid_channel_family_error %
-                                           ''.join(requested_channels)), sys.exc_info()[2])
+            usix.raise_with_tb(RhnSyncException(messages.invalid_channel_family_error %
+                                                ''.join(requested_channels)), sys.exc_info()[2])
         except MissingParentChannelError:
             raise
 
@@ -2183,7 +2181,7 @@ def processCommandline():
         try:
             debugLevel = int(OPTIONS.debug_level)
             if not (0 <= debugLevel <= debugRange):
-                raise_with_tb(RhnSyncException("exception will be caught"), sys.exc_info()[2])
+                usix.raise_with_tb(RhnSyncException("exception will be caught"), sys.exc_info()[2])
         except KeyboardInterrupt:
             e = sys.exc_info()[1]
             raise
@@ -2329,8 +2327,8 @@ def processCommandline():
         except (ValueError, TypeError):
             # int(None) --> TypeError
             # int('a')  --> ValueError
-            raise_with_tb(ValueError(_("ERROR: --batch-size must have a value within the range: 1..50")),
-                          sys.exc_info()[2])
+            usix.raise_with_tb(ValueError(_("ERROR: --batch-size must have a value within the range: 1..50")),
+                               sys.exc_info()[2])
 
     OPTIONS.mount_point = fileutils.cleanupAbsPath(OPTIONS.mount_point)
     OPTIONS.systemid = fileutils.cleanupAbsPath(OPTIONS.systemid)
@@ -2403,7 +2401,6 @@ if __name__ == '__main__':
         ex = sys.exc_info()[1]
         sys.exit(ex)
     except Exception:  # pylint: disable=E0012, W0703
-        from spacewalk.common.rhnTB import fetchTraceback
         tb = 'TRACEBACK: ' + fetchTraceback(with_locals=1)
         log2disk(-1, tb)
         log2email(-1, tb)
