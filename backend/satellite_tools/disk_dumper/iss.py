@@ -18,13 +18,15 @@ import os.path
 import sys
 import time
 import gzip
-import dumper
+import shutil
+import gettext
 try:
     #  python 2
     import cStringIO
 except ImportError:
     #  python3
     import io as cStringIO
+import dumper
 from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnMail
 from spacewalk.common.rhnConfig import CFG, initCFG
@@ -36,11 +38,9 @@ from spacewalk.satellite_tools import xmlDiskSource, diskImportLib, progress_bar
 from spacewalk.satellite_tools.syncLib import initEMAIL_LOG, dumpEMAIL_LOG, log2email, log2stderr, log2stdout
 from iss_ui import UI
 from iss_actions import ActionDeps
-import shutil
 import iss_isos
 from spacewalk.common.checksum import getFileChecksum
 
-import gettext
 t = gettext.translation('spacewalk-backend-server', fallback=True)
 _ = t.ugettext
 
