@@ -13339,7 +13339,7 @@ any of these revisions.  Are you sure you want to do this?</source>
       </trans-unit>
       <!-- managedsystems.jsp -->
       <trans-unit id="managedsystems.jsp.toolbar">
-        <source>Systems</source>
+        <source>Managed Systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
         </context-group>
