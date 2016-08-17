@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.35
+Version: 2.6.36
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -828,6 +828,29 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Wed Aug 17 2016 Jan Dobes <jdobes@redhat.com> 2.6.36-1
+- fixing pylint: wrong-import-position, wrong-import-order
+- fixing pylint: wrong-import-position
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-position
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order,ungrouped-imports
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-position
+- fixing pylint: consider-using-enumerate
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-position
+- fixing pylint: wrong-import-position
+- fixing pylint: wrong-import-order
+- fixing pylint: No value for argument 'tb' in constructor call (no-value-for-
+  parameter)
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixed SyntaxError " b'' " for RHEL5
+
 * Tue Aug 16 2016 Jan Dobes 2.6.35-1
 - fixing pylint: wrong-import-order
 - fixing pylint: wrong-import-order
