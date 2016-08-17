@@ -16,11 +16,11 @@
 
 import os
 import sys
+import tempfile
 import time
 from stat import ST_SIZE
 from optparse import Option, OptionParser
 from spacewalk.common.rhnConfig import PRODUCT_NAME
-import tempfile
 
 MOUNT_POINT = '/tmp'
 IMAGE_SIZE = "630M"
