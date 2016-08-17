@@ -16,20 +16,17 @@
 
 import sys
 import os.path
-from shutil import rmtree
 from os import mkdir
+from shutil import rmtree
 import errno
 
 import yum
-from spacewalk.common import fileutils
 from yum.Errors import RepoMDError
 from yum.config import ConfigParser
 from yum.packageSack import ListPackageSack
 from yum.update_md import UpdateMetadata, UpdateNoticeException, UpdateNotice
 from yum.yumRepo import YumRepository
 from yum.yumRepo import Errors as YumErrors
-from urlgrabber.grabber import URLGrabError
-
 try:
     from yum.misc import cElementTree_iterparse as iterparse
 except ImportError:
@@ -39,6 +36,9 @@ except ImportError:
         # pylint: disable=F0401
         import cElementTree
     iterparse = cElementTree.iterparse
+from urlgrabber.grabber import URLGrabError
+
+from spacewalk.common import fileutils
 from spacewalk.satellite_tools.repo_plugins import ContentPackage
 from spacewalk.common.rhnConfig import CFG, initCFG
 
