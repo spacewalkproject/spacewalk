@@ -538,7 +538,8 @@ class ChannelTreeCloner:
             needed_str = list_to_set(needed)
             for needed_pkg in needed_str:
                 if needed_pkg in self.visited[cloner.dest_label()]:
-                    needed.remove(list(needed_pkg))
+                    while list(needed_pkg) in needed:
+                        needed.remove(list(needed_pkg))
             self.visited[cloner.dest_label()] |= needed_str
             if len(needed) > 0:
                 next_added = set(cloner.process_deps(needed))
