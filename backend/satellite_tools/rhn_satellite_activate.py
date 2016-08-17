@@ -18,6 +18,7 @@ import os
 import sys
 import time
 import gzip
+import tempfile
 from optparse import Option, OptionParser
 from rhn import rpclib
 from rhn.connections import idn_ascii_to_puny
@@ -35,7 +36,6 @@ from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
 from spacewalk.common.rhnTranslate import _
 from spacewalk.server.rhnServer import satellite_cert
 
-import tempfile
 
 DEFAULT_SYSTEMID_LOCATION = '/etc/sysconfig/rhn/systemid'
 DEFAULT_RHN_CERT_LOCATION = '/etc/sysconfig/rhn/rhn-entitlement-cert.xml'
