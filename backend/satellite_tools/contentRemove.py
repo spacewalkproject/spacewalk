@@ -451,9 +451,9 @@ def _delete_files(relpaths):
 def _bind_many(l):
     h = {}
     lr = []
-    for i in range(len(l)):
+    for i, item in enumerate(l):
         key = 'p_%s' % i
-        h[key] = l[i]
+        h[key] = item
         lr.append(':' + key)
     return h, lr
 
