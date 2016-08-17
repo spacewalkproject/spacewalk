@@ -16,17 +16,17 @@
 #
 
 import sys
-from spacewalk.common import usix
+import re
 from xml.sax import make_parser, SAXParseException, ContentHandler, \
     ErrorHandler
 
+from spacewalk.common import usix
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnTB import Traceback
 from spacewalk.server.importlib import importLib, backendLib
 
-import re
 RHEL234_REGEX = re.compile("rhel-[^-]*-[aew]s-(4|3|2.1)")
 
 # Terminology used throughout this file:
