@@ -854,35 +854,35 @@ class RepoSync(object):
                 if ks_file['type'] == 'DIR':
                     dirs_queue.append(cur_dir_name + ks_file['name'])
                     continue
-                else:
-                    local_path = os.path.join(CFG.MOUNT_POINT, ks_path, cur_dir_name, ks_file['name'])
-                    need_download = True
 
-                    if os.path.exists(local_path):
-                        t = os.path.getmtime(local_path)
-                        if ks_file['datetime'] == datetime.utcfromtimestamp(t).strftime('%d-%b-%Y %H:%M'):
-                            print("File %s%s already present locally" % (cur_dir_name, ks_file['name']))
-                            need_download = False
+                local_path = os.path.join(CFG.MOUNT_POINT, ks_path, cur_dir_name, ks_file['name'])
+                need_download = True
+
+                if os.path.exists(local_path):
+                    t = os.path.getmtime(local_path)
+                    if ks_file['datetime'] == datetime.utcfromtimestamp(t).strftime('%d-%b-%Y %H:%M'):
+                        print("File %s%s already present locally" % (cur_dir_name, ks_file['name']))
+                        need_download = False
+                        st = os.stat(local_path)
+                    else:
+                        os.unlink(os.path.join(CFG.MOUNT_POINT, ks_path, cur_dir_name + ks_file['name']))
+
+                if need_download:
+                    for retry in range(3):
+                        try:
+                            print("Retrieving %s" % cur_dir_name + ks_file['name'])
+                            plug.get_file(cur_dir_name + ks_file['name'], os.path.join(CFG.MOUNT_POINT, ks_path))
                             st = os.stat(local_path)
-                        else:
-                            os.unlink(os.path.join(CFG.MOUNT_POINT, ks_path, cur_dir_name + ks_file['name']))
+                            break
+                        except OSError:  # os.stat if the file wasn't downloaded
+                            if retry < 3:
+                                print("Retry download %s: attempt #%d" % (cur_dir_name + ks_file['name'], retry+1))
+                            else:
+                                raise
 
-                    if need_download:
-                        for retry in range(3):
-                            try:
-                                print("Retrieving %s" % cur_dir_name + ks_file['name'])
-                                plug.get_file(cur_dir_name + ks_file['name'], os.path.join(CFG.MOUNT_POINT, ks_path))
-                                st = os.stat(local_path)
-                                break
-                            except OSError:  # os.stat if the file wasn't downloaded
-                                if retry < 3:
-                                    print("Retry download %s: attempt #%d" % (cur_dir_name + ks_file['name'], retry+1))
-                                else:
-                                    raise
-
-                    # update entity about current file in a database
-                    delete_h.execute(id=ks_id, path=(cur_dir_name + ks_file['name']))
-                    insert_h.execute(id=ks_id, path=(cur_dir_name + ks_file['name']),
-                                     checksum=getFileChecksum('sha256', local_path),
-                                     st_size=st.st_size, st_time=st.st_mtime)
+                # update entity about current file in a database
+                delete_h.execute(id=ks_id, path=(cur_dir_name + ks_file['name']))
+                insert_h.execute(id=ks_id, path=(cur_dir_name + ks_file['name']),
+                                 checksum=getFileChecksum('sha256', local_path),
+                                 st_size=st.st_size, st_time=st.st_mtime)
         rhnSQL.commit()
