@@ -255,7 +255,7 @@ def parse_time_input(userinput=''):
 
     # handle YYYMMDDHHMM times
     if not timestamp:
-        match = re.match(r'^(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?$', userinput)
+        match = re.match(r'^(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?(\d{2})?$', userinput)
 
         if match:
             date_format = '%Y%m%d'
@@ -276,7 +276,7 @@ def parse_time_input(userinput=''):
                                                         match.group(4)),
                                           date_format)
             # YYYYMMDDHHMM
-            else:
+            elif not match.group(6):
                 date_format += '%H%M'
 
                 timestamp = time.strptime('%s%s%s%s%s' % (match.group(1),
@@ -285,7 +285,17 @@ def parse_time_input(userinput=''):
                                                           match.group(4),
                                                           match.group(5)),
                                           date_format)
+            # YYYYMMDDHHMMSS
+            else:
+                date_format += '%H%M%S'
 
+                timestamp = time.strptime('%s%s%s%s%s%s' % (match.group(1),
+                                                            match.group(2),
+                                                            match.group(3),
+                                                            match.group(4),
+                                                            match.group(5),
+                                                            match.group(6)),
+                                          date_format)
             if timestamp:
                 # 2.5 has a nice little datetime.strptime() function...
                 timestamp = datetime(*(timestamp)[0:7])
