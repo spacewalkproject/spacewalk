@@ -17,7 +17,7 @@ from spacewalk.server import rhnSQL
 from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.channelImport import ChannelFamilyImport
 from spacewalk.server.importlib.importLib import ChannelFamily
-from satellite_cert import SatelliteCert
+from spacewalk.server.rhnServer.satellite_cert import SatelliteCert
 import constants
 from manifest import Manifest
 import json
