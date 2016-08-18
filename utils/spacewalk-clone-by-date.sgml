@@ -260,7 +260,7 @@ Utility for cloning errata by date (For RHEL5 and above).
 
 <RefSect1><Title>Log Output</Title>
     <para>
-        In addition to writing to stdout, spacewalk-clone-by-date writes a detailed description of every run to a log file. This file can be found at <emphasis>/var/log/rhn/errata_clone.log</emphasis>
+        In addition to writing to stdout, spacewalk-clone-by-date writes a detailed description of every run to a log file. This file can be found at <emphasis>/var/log/rhn/errata-clone.log</emphasis>
         Log output includes:
     </para>
     <itemizedlist>
