@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.6.4
+Version:     2.6.5
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -92,6 +92,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Aug 18 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.5-1
+- Repaired package listing.
+- Added seconds to timeparse func.
+
 * Tue Aug 09 2016 Tomas Lestach <tlestach@redhat.com> 2.6.4-1
 - addressing pylint issues
 
