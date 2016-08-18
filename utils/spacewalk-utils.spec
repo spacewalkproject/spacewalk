@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.6.5
+Version:	2.6.6
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Aug 18 2016 Grant Gainey 2.6.6-1
+- 1366343 - correct typo in name of errata-clone.log file
+
 * Wed Aug 17 2016 Grant Gainey 2.6.5-1
 - 1367911 - fix recursion by removing *all* copies of a 'visited' rpm when
   doing dep-checking
