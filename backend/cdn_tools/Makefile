@@ -4,7 +4,7 @@ TOP	= ..
 SUBDIR	= cdn_tools
 SUBDIRS = 
 SPACEWALK_FILES	= __init__  constants  manifest \
-            activation cdnsync satellite_cert
+            activation cdnsync
 SCRIPTS = cdn-activate cdn-sync
 
 # check if we can build man pages
