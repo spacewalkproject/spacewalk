@@ -1317,36 +1317,43 @@ class ExporterMain:
         # pylint: disable=E1101
         try:
             for action in self.action_order:
-                if self.actions[action] == 1:
-                    if not action in self.actionmap:
-                        # If we get here there's a programming error. It means that self.action_order
-                        # contains a action that isn't defined in self.actionmap.
-                        sys.stderr.write("List of actions doesn't have %s.\n" % (action,))
-                    else:
-                        if isinstance(self.actionmap[action]['dump'], type([])):
-                            for dmp in self.actionmap[action]['dump']:
-                                dmp()
-                        else:
-                            self.actionmap[action]['dump']()
+                if self.actions[action] != 1:
+                    continue
 
-                        # Now Compress the dump data
-                        if action != 'rpms':
-                            if action == 'arches-extra':
-                                action = 'arches'
-                            if action == 'short':
-                                action = 'packages_short'
-                            if action == 'channel-families':
-                                action = 'channel_families'
-                            if action == 'kickstarts':
-                                action = 'kickstart_trees'
-                            os_data_dir = os.path.join(self.outputdir, action)
-                            if os.path.exists(os_data_dir):
-                                for fpath, _dirs, files in \
-                                        os.walk(os_data_dir):
-                                    for f in files:
-                                        if f.endswith(".xml"):
-                                            filepath = os.path.join(fpath, f)
-                                            compress_file(filepath)
+                if not action in self.actionmap:
+                    # If we get here there's a programming error. It means that self.action_order
+                    # contains a action that isn't defined in self.actionmap.
+                    sys.stderr.write("List of actions doesn't have %s.\n" % (action,))
+                    continue
+
+                if isinstance(self.actionmap[action]['dump'], type([])):
+                    for dmp in self.actionmap[action]['dump']:
+                        dmp()
+                else:
+                    self.actionmap[action]['dump']()
+
+                # Now Compress the dump data
+                if action == 'rpms':
+                    continue
+                elif action == 'arches-extra':
+                    action = 'arches'
+                elif action == 'short':
+                    action = 'packages_short'
+                elif action == 'channel-families':
+                    action = 'channel_families'
+                elif action == 'kickstarts':
+                    action = 'kickstart_trees'
+
+                os_data_dir = os.path.join(self.outputdir, action)
+                if not os.path.exists(os_data_dir):
+                    continue
+
+                for fpath, _dirs, files in os.walk(os_data_dir):
+                    for f in files:
+                        if f.endswith(".xml"):
+                            filepath = os.path.join(fpath, f)
+                            compress_file(filepath)
+
             if self.options.make_isos:
                 #iso_output = os.path.join(self.isos_dir, self.dump_dir)
                 iso_output = self.isos_dir
@@ -1361,11 +1368,10 @@ class ExporterMain:
                 if os.path.exists(iso_output):
                     f = open(os.path.join(iso_output, 'MD5SUM'), 'w')
                     for iso_file in os.listdir(iso_output):
-                        if self.options.make_isos != "dvds":
-                            if iso_file != "MD5SUM":
-                                md5_val = getFileChecksum('md5', (os.path.join(iso_output, iso_file)))
-                                md5str = "%s  %s\n" % (md5_val, iso_file)
-                                f.write(md5str)
+                        if self.options.make_isos != "dvds" and iso_file != "MD5SUM":
+                            md5_val = getFileChecksum('md5', (os.path.join(iso_output, iso_file)))
+                            md5str = "%s  %s\n" % (md5_val, iso_file)
+                            f.write(md5str)
                     f.close()
 
             if self.options.email:
