@@ -28,7 +28,7 @@ from spacewalk.server.importlib.contentSourcesImport import ContentSourcesImport
 from spacewalk.server.importlib.channelImport import ChannelImport
 from spacewalk.server.importlib.productNamesImport import ProductNamesImport
 from spacewalk.server.importlib.importLib import Channel, ChannelFamily, \
-    ProductName, DistChannelMap, ContentSource
+    ProductName, DistChannelMap, ContentSource, ReleaseChannelMap
 from spacewalk.satellite_tools import reposync
 from spacewalk.satellite_tools import contentRemove
 from spacewalk.satellite_tools.repo_plugins import yum_src
@@ -209,16 +209,23 @@ class CdnSync(object):
 
             dists = []
             releases = []
-            try:
+
+            # Distribution/Release channel mapping available
+            if label in self.channel_dist_mapping:
                 dist_map = self.channel_dist_mapping[label]
                 for item in dist_map:
-                    d = DistChannelMap()
-                    for k in item:
-                        d[k] = item[k]
-                    d['channel'] = label
-                    dists.append(d)
-            except KeyError:
-                pass
+                    if item['eus_release']:
+                        r = ReleaseChannelMap()
+                        r['product'] = item['os']
+                        r['version'] = item['release']
+                        r['release'] = item['eus_release']
+                        r['channel_arch'] = item['channel_arch']
+                        releases.append(r)
+                    else:
+                        d = DistChannelMap()
+                        for k in item:
+                            d[k] = item[k]
+                        dists.append(d)
 
             channel_object['dists'] = dists
             channel_object['release'] = releases
