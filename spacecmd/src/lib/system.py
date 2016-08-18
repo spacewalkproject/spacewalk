@@ -795,7 +795,7 @@ def do_system_removepackage(self, args):
     # get all matching package names
     logging.debug('Finding matching packages')
     matching_packages = \
-        filter_results(self.get_package_names(True), package_list)
+        filter_results(self.get_package_names(True), package_list, True)
 
     jobs = {}
     for package_name in matching_packages:
