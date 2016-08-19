@@ -84,7 +84,7 @@ def complete_errata_apply(self, text, line, beg, end):
 
 def do_errata_apply(self, args, only_systems=None):
     options = [Option('-s', '--start-time', action='store')]
-    (args, options) = parse_arguments(args)
+    (args, options) = parse_arguments(args, options)
     only_systems = only_systems or []
 
     if not len(args):
