@@ -64,6 +64,10 @@ class CdnSync(object):
             with open(constants.CONTENT_SOURCE_MAPPING_PATH, 'r') as f:
                 self.content_source_mapping = json.load(f)
 
+            # Kickstart metadata
+            with open(constants.KICKSTART_DEFINITIONS_PATH, 'r') as f:
+                self.kickstart_metadata = json.load(f)
+
             # Channel to kickstart repositories mapping
             with open(constants.KICKSTART_SOURCE_MAPPING_PATH, 'r') as f:
                 self.kickstart_source_mapping = json.load(f)
@@ -163,14 +167,10 @@ class CdnSync(object):
         batch = []
         sources = []
         type_id = backend.lookupContentSourceType('yum')
+
         if channel in self.content_source_mapping:
             sources.extend(self.content_source_mapping[channel])
-
-        if channel in self.kickstart_source_mapping:
-            sources.extend(self.kickstart_source_mapping[channel])
-
         for source in sources:
-
             if not source['pulp_content_category'] == "source":
                 content_source = ContentSource()
                 content_source['label'] = source['pulp_repo_label_v2']
@@ -178,6 +178,22 @@ class CdnSync(object):
                 content_source['org_id'] = None
                 content_source['type_id'] = type_id
                 batch.append(content_source)
+
+        if channel in self.kickstart_metadata:
+            for tree in self.kickstart_metadata[channel]:
+                tree_label = tree['ks_tree_label']
+                sources = self.kickstart_source_mapping[tree_label]
+                # One tree comes from one repo, one repo for each tree is in the mapping,
+                # in future there may be multiple repos for one tree and we will need to select
+                # correct repo
+                source = sources[0]
+                content_source = ContentSource()
+                content_source['label'] = tree_label
+                content_source['source_url'] = CFG.CDN_ROOT + source['relative_url']
+                content_source['org_id'] = None
+                content_source['type_id'] = type_id
+                batch.append(content_source)
+
         return batch
 
     def _update_channels_metadata(self, channels):
@@ -265,11 +281,17 @@ class CdnSync(object):
 
     def _sync_channel(self, channel):
         excluded_urls = []
-        sync_kickstart = True
+        kickstart_trees = []
+
+        if channel in self.kickstart_metadata:
+            kickstart_trees = self.kickstart_metadata[channel]
+
         if self.no_kickstarts:
-            if channel in self.kickstart_source_mapping:
-                excluded_urls = [CFG.CDN_ROOT + s['relative_url'] for s in self.kickstart_source_mapping[channel]]
-            sync_kickstart = False
+            for tree in kickstart_trees:
+                tree_label = tree['ks_tree_label']
+                source = self.kickstart_source_mapping[tree_label][0]
+                excluded_urls.append(CFG.CDN_ROOT + source['relative_url'])
+
 
         print "======================================"
         print "| Channel: %s" % channel
@@ -282,12 +304,15 @@ class CdnSync(object):
                                  filters=False,
                                  no_packages=self.no_packages,
                                  no_errata=self.no_errata,
-                                 sync_kickstart=sync_kickstart,
+                                 sync_kickstart=(not self.no_kickstarts),
                                  latest=False,
                                  metadata_only=self.no_rpms,
                                  excluded_urls=excluded_urls,
                                  strict=1)
         sync.set_ks_tree_type('rhn-managed')
+        if kickstart_trees:
+            # Assuming all trees have same install type
+            sync.set_ks_install_type(kickstart_trees[0]['ks_install_type'])
         return sync.sync()
 
     def sync(self, channels=None):
