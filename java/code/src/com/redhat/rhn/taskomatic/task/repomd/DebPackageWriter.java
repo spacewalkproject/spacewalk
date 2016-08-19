@@ -266,7 +266,8 @@ public class DebPackageWriter {
             return ">>";
         }
         else if (sense == 8) {
-            return "=";
+            // Workaround for apt parsing issue with single-number versions - i.e; (=1) (breaks) vs (= 1) (works)
+            return "= ";
         }
         else if (sense == 10) {
             return "<=";
