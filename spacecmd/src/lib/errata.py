@@ -32,6 +32,7 @@
 
 from operator import itemgetter
 import xmlrpclib
+from optparse import Option
 
 from spacecmd.utils import *
 
@@ -69,7 +70,12 @@ def do_errata_summary(self, args):
 
 def help_errata_apply(self):
     print 'errata_apply: Apply an erratum to all affected systems'
-    print 'usage: errata_apply ERRATA|search:XXX ...'
+    print '''usage: errata_apply [options] ERRATA|search:XXX ...
+
+options:
+  -s START_TIME'''
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_errata_apply(self, text, line, beg, end):
@@ -77,12 +83,25 @@ def complete_errata_apply(self, text, line, beg, end):
 
 
 def do_errata_apply(self, args, only_systems=None):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+    (args, options) = parse_arguments(args)
     only_systems = only_systems or []
 
     if not len(args):
         self.help_errata_apply()
         return
+
+    # get the start time option
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
 
     # allow globbing and searching via arguments
     errata_list = self.expand_errata(args)
@@ -127,6 +146,8 @@ def do_errata_apply(self, args, only_systems=None):
     print 'Errata             Systems'
     print '--------------     -------'
     print '\n'.join(sorted(summary))
+    print
+    print 'Start Time: %s' % options.start_time
 
     if not self.user_confirm('Apply these errata [y/N]:'):
         return
@@ -157,7 +178,8 @@ def do_errata_apply(self, args, only_systems=None):
         for erratum in to_apply:
             self.client.system.scheduleApplyErrata(self.session,
                                                    to_apply[erratum],
-                                                   [erratum])
+                                                   [erratum],
+                                                   options.start_time)
 
             logging.info('Scheduled %i system(s) for %s' %
                          (len(to_apply[erratum]),
@@ -186,7 +208,8 @@ def do_errata_apply(self, args, only_systems=None):
             # this results in one action per erratum for each server
             self.client.system.scheduleApplyErrata(self.session,
                                                    system_id,
-                                                   errata_to_apply)
+                                                   errata_to_apply,
+                                                   options.start_time)
 
             logging.info('Scheduled %i errata for %s' %
                          (len(errata_to_apply), system))
