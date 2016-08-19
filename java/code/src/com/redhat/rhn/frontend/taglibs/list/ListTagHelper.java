@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,13 +14,15 @@
  */
 package com.redhat.rhn.frontend.taglibs.list;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringEscapeUtils;
+
 import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.frontend.struts.Selectable;
 import com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Static helper class for the "new-style" list tag
@@ -214,36 +216,11 @@ public class ListTagHelper {
 
         if (clicked == null) {
             if (oldValue  != null && !oldValue.equals("null")) {
-                return oldValue;
+                return StringEscapeUtils.escapeHtml(oldValue);
             }
             return "";
         }
-        return newValue;
-    }
-
-    /**
-     * returns true if the list that is being filtered upon
-     * is allowed to search on the parent object
-     *  (always true for normal list)
-     * @param request the request to look in
-     * @param uniqueName the unique (hashed) name for the list
-     * @return true if the parent is allowed to search
-     */
-    public static boolean canSearchByParent(ServletRequest request, String uniqueName) {
-        return ListTagUtil.toBoolean(request.getParameter(
-                ListTagUtil.makeFilterSearchParentLabel(uniqueName)));
-    }
-
-    /**
-     * returns true if the list that is being filtered upon is allowed to
-     * search on the child object (always false for normal list)
-     * @param request the request to look in
-     * @param uniqueName the unique (hashed) name for the list
-     * @return true if the child is allowed to search
-     */
-    public static boolean canSearchByChild(ServletRequest request, String uniqueName) {
-        return ListTagUtil.toBoolean(request.getParameter(
-                ListTagUtil.makeFilterSearchChildLabel(uniqueName)));
+        return StringEscapeUtils.escapeHtml(newValue);
     }
 
     /**

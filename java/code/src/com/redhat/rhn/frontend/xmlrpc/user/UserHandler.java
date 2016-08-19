@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -905,12 +905,14 @@ public class UserHandler extends BaseHandler {
      * @param login The login of the user.
      * @return last logged in time
      * @throws UserNeverLoggedInException if the given user has never logged in.
+     * @deprecated Never returned usable value.
      *
      * @xmlrpc.doc Returns the time user last logged in.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("string", "login", "User's login name.")
      * @xmlrpc.returntype dateTime.iso8601
      */
+    @Deprecated
     public Date getLoggedInTime(User loggedInUser, String login)
         throws UserNeverLoggedInException {
 

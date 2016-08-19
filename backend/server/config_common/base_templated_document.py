@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,6 +17,7 @@
 #
 
 import re
+import sys
 import string
 
 from spacewalk.common.rhnLog import log_error
@@ -38,7 +39,7 @@ class BaseTemplatedDocument:
 
     def set_delims(self, start_delim=None, end_delim=None):
         if '%' in (start_delim, end_delim):
-            raise ValueError, "Cannot use `%' as a delimiter"
+            raise ValueError("Cannot use `%' as a delimiter")
         if self.start_delim is None and start_delim is None:
             start_delim = '{{'
         if self.start_delim is None or start_delim is not None:
@@ -58,7 +59,7 @@ class BaseTemplatedDocument:
         regex_key = (self.start_delim, self.end_delim)
 
         # At this point, self.start_delim and self.end_delim are non-null
-        if self.compiled_regexes.has_key(regex_key):
+        if regex_key in self.compiled_regexes:
             # We already have the regex compiled
             self.regex = self.compiled_regexes[regex_key]
             return
@@ -74,7 +75,8 @@ class BaseTemplatedDocument:
     def repl_func(self, match_object):
         try:
             return self._repl_func(match_object)
-        except ValueError, e:
+        except ValueError:
+            e = sys.exc_info()[1]
             log_error("cfg variable interpolation error", e)
             return match_object.group()
 
@@ -112,17 +114,17 @@ class TemplatedDocument(BaseTemplatedDocument):
             # Params are present
             i = string.rfind(fname, '(')
             if i < 0:
-                raise ValueError, "Missing ("
+                raise ValueError("Missing (")
 
             params = fname[i + 1:-1]
             fname = string.strip(fname[:i])
 
             # Parse the params
-            params = map(self.unquote, filter(None, string.split(params, ',')))
+            params = list(map(self.unquote, [_f for _f in string.split(params, ',') if _f]))
 
         # Validate the function name
         if not self.funcname_regex.match(fname):
-            raise ValueError, "Invalid function name %s" % fname
+            raise ValueError("Invalid function name %s" % fname)
 
         return fname, params, defval
 
@@ -160,7 +162,7 @@ class TemplatedDocument(BaseTemplatedDocument):
 
     def test(self):
         escaped = self.regex.sub(self.repl_func, 'abc @@ aa @@ def')
-        print escaped
+        print(escaped)
 
     def strip(self, s):
         if s is None:

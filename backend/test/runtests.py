@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -44,5 +44,5 @@ if __name__ == "__main__":
         import testoob
         testoob.main(defaultTest="suite")
     except ImportError:
-        print "These tests would run prettier if you install testoob. :)"
+        print("These tests would run prettier if you install testoob. :)")
         unittest.main(defaultTest="suite")

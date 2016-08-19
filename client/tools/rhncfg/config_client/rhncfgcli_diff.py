@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,22 +32,43 @@ class Handler(handler_base.HandlerBase):
     def _process_file(self, *args):
         src, dst= args [:2]
         type = args[3]
+        file_info = args[4]
 
         if type == 'symlink':
             if not os.path.exists(dst):
-                print "Symbolic link '%s' is missing" % dst
+                print("Symbolic link '%s' is missing" % dst)
                 return
 
             if not os.path.islink(dst):
-                print "Path '%s' is not a symbolic link" % dst
+                print("Path '%s' is not a symbolic link" % dst)
                 return
 
             #dst is a symlink, so just tell the user we're skipping the entry
             srclink = os.readlink(src)
             destlink = os.readlink(dst)
             if srclink != destlink:
-                print "Symbolic links differ. Channel: '%s' -> '%s'   System: '%s' -> '%s' " % (dst,srclink, dst, destlink)
+                print("Symbolic links differ. Channel: '%s' -> '%s'   System: '%s' -> '%s' " % (dst,srclink, dst, destlink))
         elif type == 'file':
-            sys.stdout.write(''.join(diff(src, dst, srcname=dst, dstname=dst,
-                display_diff=
-                (self.options.display_diff or get_config('display_diff')))))
+            if 'is_binary' in file_info and file_info['is_binary'] == 'Y':
+                src_content = dst_content = None
+                content_differs = False
+                src_file = open(src, 'rb')
+                src_content = src_file.read()
+                src_file.close()
+                if os.access(dst, os.R_OK):
+                    dst_file = open(dst, 'rb')
+                    dst_content = dst_file.read()
+                    dst_file.close()
+                if not dst_content or len(src_content) != len(dst_content):
+                    content_differs = True
+                else:
+                    for i in range(len(src_content)):
+                        if src_content[i] != dst_content[i]:
+                            content_differs = True
+                            break
+                if content_differs:
+                    sys.stdout.write("Binary file content differs.\n")
+            else:
+                sys.stdout.write(''.join(diff(src, dst, srcname=dst, dstname=dst,
+                    display_diff=
+                    (self.options.display_diff or get_config('display_diff')))))

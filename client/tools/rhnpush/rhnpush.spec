@@ -8,14 +8,25 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.91
+Version:       5.5.98
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:     noarch
 Requires:      rpm-python
+BuildRequires: spacewalk-backend-libs > 1.8.33
+BuildRequires: python-devel
+
+%if 0%{?fedora} >= 23
+Requires:      python3-rhnlib
+Requires:      python3-spacewalk-backend-libs
+Requires:      python3-spacewalk-backend-usix
+%else
 Requires:      rhnlib >= 2.5.74
 Requires:      spacewalk-backend-libs >= 1.7.17
+Requires:      spacewalk-backend-usix
+%endif
+
 Requires:      rhn-client-tools
 %if 0%{?pylint_check}
 BuildRequires:  spacewalk-pylint >= 0.6
@@ -25,10 +36,10 @@ BuildRequires:  spacewalk-pylint >= 0.6
 BuildRequires:      rhn-client-tools
 %endif
 BuildRequires: docbook-utils, gettext
-BuildRequires: python-devel
+
 %if 0%{?fedora} || 0%{?rhel} > 5
 BuildRequires:  rhn-client-tools
-BuildRequires:  spacewalk-backend-libs > 1.8.33
+
 %endif
 
 Summary: Package uploader for the Spacewalk or Red Hat Satellite Server
@@ -56,6 +67,10 @@ rm -fv $RPM_BUILD_ROOT%{rhnroot}/rhnpush/solaris2mpm.py*
 rm -fv $RPM_BUILD_ROOT%{_mandir}/man8/solaris2mpm.8*
 %endif
 
+%if 0%{?fedora} >= 23
+sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' $RPM_BUILD_ROOT%{_bindir}/rhnpush
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -80,6 +95,34 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 5.5.98-1
+- updating copyright years
+
+* Wed May 18 2016 Tomas Kasparek <tkasparek@redhat.com> 5.5.97-1
+- convert binary data to string to work correctly in Python 3
+
+* Tue May 17 2016 Tomas Kasparek <tkasparek@redhat.com> 5.5.96-1
+- fixed RuntimeError: dictionary changed size during iteration
+- convert binary data to string to possible compare data in Python 3
+
+* Thu May 12 2016 Gennadii Altukhov <galt@redhat.com> 5.5.95-1
+- change build dependency on python-devel, because we don't use Python3 during
+  package building
+
+* Fri Apr 22 2016 Gennadii Altukhov <galt@redhat.com> 5.5.94-1
+- Add some fixes to rhnpush for Python 3 compatibility - change mode for open()
+  function - HTTPResponse getheaders() was renamed to get() - fix binary string
+  decoding
+- Fix types in rhnpush utility
+- Fix relative imports in rhnpush utility
+
+* Thu Apr 21 2016 Gennadii Altukhov <galt@redhat.com> 5.5.93-1
+- rhnpush is adapted for Python3
+
+* Wed Mar 30 2016 Tomas Kasparek <tkasparek@redhat.com> 5.5.92-1
+- simplify expression
+- don't count on having newest rhn-client-tools
+
 * Thu Dec 17 2015 Jan Dobes 5.5.91-1
 - 1262780 - alow to use existing rpcServer when creating RhnServer
 

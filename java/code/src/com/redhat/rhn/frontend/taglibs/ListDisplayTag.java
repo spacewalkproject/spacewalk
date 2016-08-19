@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,7 +22,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletRequest;
@@ -341,6 +340,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
      * Sets the type of the list
      * @param stringIn desired alignment for the list
      */
+    @Override
     public void setType(String stringIn) {
         type = stringIn;
     }
@@ -349,6 +349,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
      * Gets the type of the list
      * @return String alignment of the list
      */
+    @Override
     public String getType() {
         return type;
     }
@@ -720,22 +721,22 @@ public class ListDisplayTag extends ListDisplayTagBase {
                 }
                 if (!PAGINATION_WASH_SET.contains(keys[j])) {
                     String encodedParam = StringUtil.urlEncode(rq.getParameter(keys[j]));
-                    enabled.append("&amp;" + keys[j] + "=" + encodedParam);
+                    enabled.append("&amp;" +
+                                   StringUtil.urlEncode(keys[j]) + "=" + encodedParam);
                 }
             }
         }
         else { //get vars from url
-            Map qvars = rq.getParameterMap();
-            qvars.remove("lower"); //don't repeat lower
-            Iterator iter = qvars.keySet().iterator();
+            Iterator iter = rq.getParameterMap().keySet().iterator();
             while (iter.hasNext()) {
                 String key = (String) iter.next();
-                if (key.equals("submitted")) {
+                if (key.equals("submitted") || key.equals("lower")) {
                     continue;
                 }
                 if (!PAGINATION_WASH_SET.contains(key)) {
                     String encodedParam = StringUtil.urlEncode(rq.getParameter(key));
-                    enabled.append("&amp;" + key + "=" + encodedParam);
+                    enabled.append("&amp;" +
+                                   StringUtil.urlEncode(key) + "=" + encodedParam);
                 }
             }
         }

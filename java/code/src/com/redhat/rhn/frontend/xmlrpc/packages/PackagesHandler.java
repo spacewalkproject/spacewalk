@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,6 +21,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageFileDto;
@@ -371,6 +372,69 @@ public class PackagesHandler extends BaseHandler {
         }
 
         return 1;
+    }
+
+    /**
+     * Removes a source package based on source package id
+     * @param loggedInUser The current user
+     * @param psid package source id
+     * @throws FaultException something bad happens
+     * @return 1 on success.
+     *
+     * @xmlrpc.doc Remove a source package.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "packageSourceId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int removeSourcePackage(User loggedInUser, Integer psid) throws FaultException {
+        if (!loggedInUser.hasRole(RoleFactory.ORG_ADMIN)) {
+            throw new PermissionCheckFailureException();
+        }
+        PackageSource pkg = PackageFactory.lookupPackageSourceByIdAndOrg(
+                new Long(psid.longValue()), loggedInUser.getOrg());
+        if (pkg == null) {
+            throw new NoSuchPackageException();
+        }
+        try {
+            PackageManager.schedulePackageSourceRemoval(loggedInUser, pkg);
+        }
+        catch (FaultException e) {
+            logger.error(e.getMessage(), e);
+            throw e;
+        }
+        catch (RuntimeException e) {
+            logger.error(e.getMessage(), e);
+            throw e;
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
+        }
+
+        return 1;
+    }
+
+    /**
+     * List all source packages
+     * @param loggedInUser The current user
+     * @return Returns an array of source packages
+     * @throws FaultException A FaultException is thrown
+     * when user does not have permissions.
+     * @xmlrpc.doc List all source packages in user's organization.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype
+     * #array()
+     *   #struct("source_package")
+     *     #prop("int", "id")
+     *     #prop("string", "name")
+     *   #struct_end()
+     * #array_end()
+     */
+    public Object[] listSourcePackages(User loggedInUser) throws FaultException {
+
+        DataResult dr =
+                PackageManager.listCustomPackages(loggedInUser.getOrg().getId(), true);
+        return dr.toArray();
     }
 
     /**

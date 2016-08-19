@@ -1,0 +1,148 @@
+#!/usr/bin/python
+
+import argparse
+import sys
+import os
+
+from spacewalk.common.rhnConfig import CFG, initCFG
+from spacewalk.cdn_tools.cdnsync import CdnSync, CdnMappingsLoadError
+from spacewalk.server import rhnSQL
+from spacewalk.common.usix import raise_with_tb
+from rhn import rhnLockfile
+from rhn.connections import idn_ascii_to_puny
+from spacewalk.server.rhnChannel import ChannelNotFoundError
+from spacewalk.server.importlib.importLib import InvalidArchError, \
+    InvalidChannelError, InvalidChannelFamilyError, MissingParentChannelError
+
+
+def system_exit(code, msgs=None):
+    """Exit with a code and optional message(s). Saved a few lines of code."""
+
+    if msgs:
+        if type(msgs) not in [type([]), type(())]:
+            msgs = (msgs, )
+        for msg in msgs:
+            sys.stderr.write(str(msg) + '\n')
+    sys.exit(code)
+
+
+def process_commandline():
+    """process the commandline, setting the CFG object"""
+
+    initCFG('server.satellite')
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-l", "--list-channels", action="store_true", help="List channels available to sync.")
+    parser.add_argument("-r", "--list-repos", action="store_true", help="List all repositories assigned on channels for"
+                                                                        "debug purpose only.")
+    parser.add_argument("-c", "--channel", action="append", help="Sync this channel only.")
+    parser.add_argument("--no-packages", action="store_true", help="Do not sync packages.")
+    parser.add_argument("--no-errata", action="store_true", help="Do not sync errata.")
+    parser.add_argument("--no-kickstarts", action="store_true", help="Do not sync kickstart repositories.")
+    parser.add_argument("--clear-cache", action="store_true", help="Delete partially synced channels.")
+    parser.add_argument('--http-proxy', action='store', help="alternative http proxy (hostname:port)")
+    parser.add_argument('--http-proxy-username', action='store', help="alternative http proxy username")
+    parser.add_argument('--http-proxy-password', action='store', help="alternative http proxy password")
+    parser.add_argument('--debug-level', action='store',
+                        help='override debug level in /etc/rhn/rhn.conf (which is currently set at %s).' % CFG.DEBUG)
+    parser.add_argument('-p', '--print-configuration', action='store_true', help='print the configuration and exit')
+    parser.add_argument('--count-packages', action='store_true', help="Count number of packages in all"
+                        "repositories for every channel")
+    parser.add_argument("--no-rpms", action="store_true", help="Do not sync RPMs (debug only)")
+
+    cmd_args = parser.parse_args()
+
+    if cmd_args.print_configuration:
+        CFG.show()
+        sys.exit(0)
+
+    if cmd_args.http_proxy:
+        try:
+            int(cmd_args.http_proxy.split(':')[1])
+        except ValueError:
+            system_exit(1, "Incorrect proxy port number: %s" % cmd_args.http_proxy.split(':')[1])
+        CFG.set("HTTP_PROXY", idn_ascii_to_puny(cmd_args.http_proxy))
+        CFG.set("HTTP_PROXY_USERNAME", cmd_args.http_proxy_username)
+        CFG.set("HTTP_PROXY_PASSWORD", cmd_args.http_proxy_password)
+
+    # check the validity of the debug level
+    if cmd_args.debug_level:
+        try:
+            debug_level = int(cmd_args.debug_level)
+        except (ValueError, TypeError):
+            system_exit(1, "Incorrect debug-level value: %s" % str(cmd_args.debug_level))
+        if not (0 <= debug_level <= 6):
+            msg = ["ERROR: --debug-level takes an in integer value within the range [0 - 6]:",
+                   "  0  - little logging/messaging.",
+                   "  1  - minimal logging/messaging.",
+                   "  2  - normal level of logging/messaging.",
+                   "  3  - lots of logging/messaging.",
+                   "  4+ - excessive logging/messaging."]
+            system_exit(1, msg)
+        else:
+            CFG.set('DEBUG', debug_level)
+
+            print("DEBUG = %d" % CFG.DEBUG)
+
+    return cmd_args
+
+
+if __name__ == '__main__':
+    LOCK = None
+    try:
+        # quick check to see if you are a super-user.
+        if os.getuid() != 0:
+            sys.stderr.write("ERROR: must be root to execute\n")
+            sys.exit(8)
+
+        # acquire lock/check for other instances of cdn-sync
+        #   i.e., lock against multiple instances of cdn-sync
+        LOCK = rhnLockfile.Lockfile('/var/run/cdn-sync.pid')
+
+        args = process_commandline()
+        cdnsync = CdnSync(no_packages=args.no_packages, no_errata=args.no_errata,
+                          no_rpms=args.no_rpms, no_kickstarts=args.no_kickstarts)
+
+        if args.list_channels:
+            if args.count_packages:
+                cdnsync.count_packages()
+            cdnsync.print_channel_tree()
+        elif args.list_repos:
+            cdnsync.print_channel_tree(repos=True)
+        elif args.count_packages:
+            cdnsync.count_packages()
+        elif args.clear_cache:
+            cdnsync.clear_cache()
+        else:
+            cdnsync.sync(channels=args.channel)
+
+    except KeyboardInterrupt:
+        system_exit(0, "\nUser interrupted process.")
+    except SystemExit:
+        e = sys.exc_info()[1]
+        if LOCK:
+            LOCK.release()
+        sys.exit(e.code)
+    except rhnLockfile.LockfileLockedException:
+        system_exit(1, "SYNC ERROR: attempting to run more than one instance of cdn-sync. Exiting.")
+    except ChannelNotFoundError:
+        e = sys.exc_info()[1]
+        system_exit(12, ["ERROR: these channels either do not exist or are not available:",
+                         e,
+                         "(to see a list of channel labels: /usr/bin/cdn-sync --list-channels)"])
+    except (MissingParentChannelError, InvalidChannelFamilyError,
+            InvalidChannelError, InvalidArchError):
+        e = sys.exc_info()[1]
+        system_exit(1, "SYNC ERROR: %s. Exiting." % str(e))
+    except rhnSQL.SQLConnectError:
+        e = sys.exc_info()[1]
+        system_exit(20, ["ERROR: Can't connect to the database: %s" % str(e), "Check if your database is running."])
+    except CdnMappingsLoadError:
+        system_exit(30, ["ERROR: Cannot load CDN mapping files.", "Make sure package '?' is installed."])
+    except Exception:
+        e = sys.exc_info()[1]
+        if LOCK:
+            LOCK.release()
+        raise_with_tb(Exception("SYNC ERROR: attempting to display as much information as possible\n %s" % str(e)),
+                      sys.exc_info()[2])
+else:
+    raise ImportError("module cannot be imported")

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -27,7 +27,6 @@ import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.ActionType;
-import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.action.script.ScriptAction;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptResult;
@@ -46,6 +45,7 @@ import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.profile.DuplicateProfileNameException;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
@@ -86,6 +86,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelListException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidPackageArchException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidParameterException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProfileLabelException;
@@ -256,12 +257,10 @@ public class SystemHandler extends BaseHandler {
         //Get the logged in user and server
         Server server = lookupServer(loggedInUser, sid);
 
-        Entitlement entitlement = EntitlementManager.getByName(entitlementLevel);
+        final Entitlement entitlement = EntitlementManager.getByName(entitlementLevel);
 
         // Make sure we got a valid entitlement and the server can be entitled to it
-        if (entitlement == null) {
-            throw new InvalidEntitlementException();
-        }
+        validateEntitlements(new ArrayList() { { add(entitlement); } });
         if (!SystemManager.canEntitleServer(server, entitlement)) {
             throw new PermissionCheckFailureException();
         }
@@ -1804,6 +1803,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param  #array_single("string", "customInfoLabel")
      * @xmlrpc.returntype #return_int_success()
+     * (Note: Attempt to delete values of non-existing keys throws exception. Attempt to
+     * delete value of existing key which has assigned no values doesn't throw exception.)
      */
     public int deleteCustomValues(User loggedInUser, Integer sid, List<String> keys)
             throws FaultException {
@@ -1837,7 +1838,7 @@ public class SystemHandler extends BaseHandler {
             // We need to throw an exception. Append each undefined key to the
             // exception message.
             StringBuilder msg = new StringBuilder("One or more of the following " +
-                    "custom info fields was not defined: ");
+                "custom info keys was not defined: ");
 
             for (String label : skippedKeys) {
                 msg.append("\n" + label);
@@ -3082,7 +3083,6 @@ public class SystemHandler extends BaseHandler {
         return memory;
     }
 
-
     /**
      * Provides an array of devices for a system
      *
@@ -3104,25 +3104,21 @@ public class SystemHandler extends BaseHandler {
         return devices.toArray();
     }
 
+
     /**
-     * Schedule package installation for a system.
+     * Private helper method is called by other methods to perform package action.
      *
      * @param loggedInUser The current user
      * @param sids IDs of the servers
-     * @param packageIds List of package IDs to install (as Integers)
+     * @param packageMaps List of maps with packages metadata "name_id", "evr_id", "arch_id"
      * @param earliestOccurrence Earliest occurrence of the package install
      * @return package action id
-     *
-     * @xmlrpc.doc Schedule package installation for a system.
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #array_single("int", "serverId")
-     * @xmlrpc.param #array_single("int", "packageId")
-     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
-     * @xmlrpc.returntype #array_single("int", "actionId")
      */
-    public Long[] schedulePackageInstall(User loggedInUser, List<Integer> sids,
-            List<Integer> packageIds, Date earliestOccurrence) {
+    private Long[] schedulePackagesAction(User loggedInUser, List<Integer> sids,
+            List<Map<String, Long>> packageMaps, Date earliestOccurrence, ActionType acT) {
+
         List<Long> actionIds = new ArrayList<Long>();
+
         for (Integer sid : sids) {
             Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                     loggedInUser);
@@ -3135,32 +3131,11 @@ public class SystemHandler extends BaseHandler {
                         EntitlementManager.MANAGEMENT.getHumanReadableLabel());
             }
 
-            // Build a list of maps in the format the ActionManager wants:
-            List<Map<String, Long>> packageMaps = new LinkedList<Map<String, Long>>();
-            for (Iterator<Integer> it = packageIds.iterator(); it.hasNext();) {
-                Integer pkgId = it.next();
-                Map<String, Long> pkgMap = new HashMap<String, Long>();
-
-                Package p = PackageManager.lookupByIdAndUser(new Long(pkgId.longValue()),
-                        loggedInUser);
-                if (p == null) {
-                    throw new InvalidPackageException(pkgId.toString());
-                }
-
-                pkgMap.put("name_id", p.getPackageName().getId());
-                pkgMap.put("evr_id", p.getPackageEvr().getId());
-                pkgMap.put("arch_id", p.getPackageArch().getId());
-                packageMaps.add(pkgMap);
-            }
-
-            if (packageMaps.isEmpty()) {
-                throw new InvalidParameterException("No packages to install.");
-            }
-
             Action action = null;
             try {
-                action = ActionManager.schedulePackageInstall(loggedInUser, server,
-                        packageMaps, earliestOccurrence);
+
+                action = ActionManager.schedulePackageAction(loggedInUser, packageMaps, acT,
+                        earliestOccurrence, server);
             }
             catch (MissingEntitlementException e) {
                 throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
@@ -3169,6 +3144,115 @@ public class SystemHandler extends BaseHandler {
             actionIds.add(action.getId());
         }
         return actionIds.toArray(new Long[actionIds.size()]);
+    }
+
+
+    /**
+     * Private helper method to build a list of maps in the format the ActionManager wants.
+     *
+     * @param loggedInUser The current user
+     * @param packageIds List of package IDs to install (as Integers)
+     * @return list of maps with packages metadata in format ActionManager wants
+     */
+    private List<Map<String, Long>> packageIdsToMaps(User user, List<Integer> packageIds) {
+
+        List<Map<String, Long>> packageMaps = new LinkedList<Map<String, Long>>();
+
+        for (Integer pkgId : packageIds) {
+
+            Map<String, Long> pkgMap = new HashMap<String, Long>();
+
+            Package p = PackageManager.lookupByIdAndUser(new Long(pkgId.longValue()), user);
+
+            if (p == null) {
+                throw new InvalidPackageException("cannot find package with name " +
+                        pkgId.toString() + " in Satellite database");
+            }
+
+            pkgMap.put("name_id", p.getPackageName().getId());
+            pkgMap.put("evr_id", p.getPackageEvr().getId());
+            pkgMap.put("arch_id", p.getPackageArch().getId());
+            packageMaps.add(pkgMap);
+        }
+
+        if (packageMaps.isEmpty()) {
+            throw new InvalidParameterException("No packages to install.");
+        }
+
+        return packageMaps;
+    }
+
+    /**
+     * Private helper method to build a list of maps in the format the ActionManager wants.
+     *
+     * @param loggedInUser The current user
+     * @param packageNevraList array of dictionaries with package nevra
+     * @return list of maps with packages metadata in format ActionManager wants
+     */
+    private List<Map<String, Long>> packageNevrasToMaps(User user,
+            List<Map<String, String>> packageNevraList) {
+
+        List<Map<String, Long>> packageMaps = new LinkedList<Map<String, Long>>();
+
+        for (Map<String, String> packageNevra : packageNevraList) {
+
+            Map<String, Long> pkgMap = new HashMap<String, Long>();
+            PackageArch arch = PackageFactory
+                    .lookupPackageArchByLabel(packageNevra.get("package_arch"));
+
+            String epoch = packageNevra.get("package_epoch");
+
+            if (arch == null) {
+                throw new InvalidPackageArchException(packageNevra.get("package_arch"));
+            }
+            if (epoch != null && epoch.equals("")) {
+                epoch = null;
+            }
+
+            List<Package> pl = PackageFactory.lookupByNevra(user.getOrg(),
+                    packageNevra.get("package_name"), packageNevra.get("package_version"),
+                    packageNevra.get("package_release"), epoch, arch);
+
+            if (pl == null || pl.size() == 0) {
+                throw new InvalidPackageException(packageNevra.get("package_name"));
+            }
+
+            // in case if we have more than one package with
+            // the same nevra we pick up the first one
+            pkgMap.put("name_id", pl.get(0).getPackageName().getId());
+            pkgMap.put("evr_id", pl.get(0).getPackageEvr().getId());
+            pkgMap.put("arch_id", pl.get(0).getPackageArch().getId());
+            packageMaps.add(pkgMap);
+        }
+
+        if (packageMaps.isEmpty()) {
+            throw new InvalidParameterException("No packages to install.");
+        }
+        return packageMaps;
+    }
+
+    /**
+     * Schedule package installation for several systems.
+     *
+     * @param loggedInUser The current user
+     * @param sids IDs of the servers
+     * @param packageIds List of package IDs to install (as Integers)
+     * @param earliestOccurrence Earliest occurrence of the package install
+     * @return package action id
+     *
+     * @xmlrpc.doc Schedule package installation for several systems.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #array_single("int", "serverId")
+     * @xmlrpc.param #array_single("int", "packageId")
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.returntype #array_single("int", "actionId")
+     */
+    public Long[] schedulePackageInstall(User loggedInUser, List<Integer> sids,
+            List<Integer> packageIds, Date earliestOccurrence) {
+
+        return schedulePackagesAction(loggedInUser, sids,
+                packageIdsToMaps(loggedInUser, packageIds), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_UPDATE);
     }
 
     /**
@@ -3190,9 +3274,109 @@ public class SystemHandler extends BaseHandler {
      */
     public Long schedulePackageInstall(User loggedInUser, final Integer sid,
             List<Integer> packageIds, Date earliestOccurrence) {
-        return schedulePackageInstall(loggedInUser,
-                new ArrayList<Integer>() { { add(sid); } }, packageIds,
-                earliestOccurrence)[0];
+
+        List<Integer> sids = new ArrayList<Integer>();
+        sids.add(sid);
+
+        return schedulePackagesAction(loggedInUser, sids,
+                packageIdsToMaps(loggedInUser, packageIds), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_UPDATE)[0];
+    }
+
+    /**
+    * Schedule package installation for several systems.
+    *
+    * @param loggedInUser The current user
+    * @param sids IDs of the servers
+    * @param packageNevraList array of dictionaries with package nevra
+    * @param earliestOccurrence Earliest occurrence of the package install
+    * @return package action id
+    *
+    * @xmlrpc.doc Schedule package installation for several systems.
+    * @xmlrpc.param #param("string", "sessionKey")
+    * @xmlrpc.param #array_single("int", "serverId")
+    * @xmlrpc.param #array()
+    *                   #struct("Package nevra")
+    *                          #prop("string", "package_name")
+    *                          #prop("string", "package_epoch")
+    *                          #prop("string", "package_version")
+    *                          #prop("string", "package_release")
+    *                          #prop("string", "package_arch")
+    *
+    *                   #struct_end()
+    *               #array_end()
+    * @xmlrpc.param #array_single("int", "packageId")
+    * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+    * @xmlrpc.returntype #array_single("int", "actionId")
+    */
+    public Long[] schedulePackageInstallByNevra(User loggedInUser, List<Integer> sids,
+            List<Map<String, String>> packageNevraList, Date earliestOccurrence) {
+
+        return schedulePackagesAction(loggedInUser, sids,
+                packageNevrasToMaps(loggedInUser, packageNevraList), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_UPDATE);
+    }
+
+    /**
+    * Schedule package installation for a system.
+    *
+    * @param loggedInUser The current user
+    * @param sid ID of the server
+    * @param packageNevraList array of dictionaries with package nevra
+    * @param earliestOccurrence Earliest occurrence of the package install
+    * @return package action id
+    *
+    * @xmlrpc.doc Schedule package installation for a system.
+    * @xmlrpc.param #param("string", "sessionKey")
+    * @xmlrpc.param #param("int", "serverId")
+    * @xmlrpc.param #array()
+    *                   #struct("Package nevra")
+    *                          #prop("string", "package_name")
+    *                          #prop("string", "package_epoch")
+    *                          #prop("string", "package_version")
+    *                          #prop("string", "package_release")
+    *                          #prop("string", "package_arch")
+    *
+    *                   #struct_end()
+    *               #array_end()
+    * @xmlrpc.param #array_single("int", "packageId")
+    * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+    * @xmlrpc.returntype int actionId - The action id of the scheduled action
+    */
+    public Long schedulePackageInstallByNevra(User loggedInUser, final Integer sid,
+            List<Map<String, String>> packageNevraList, Date earliestOccurrence) {
+
+        List<Integer> sids = new ArrayList<Integer>();
+        sids.add(sid);
+
+        return schedulePackagesAction(loggedInUser, sids,
+                packageNevrasToMaps(loggedInUser, packageNevraList), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_UPDATE)[0];
+    }
+
+
+    /**
+     * Schedule package remove for several systems.
+     *
+     * @param loggedInUser The current user
+     * @param sids IDs of the servers
+     * @param packageIds List of package IDs to install (as Integers)
+     * @param earliestOccurrence Earliest occurrence of the package install
+     * @return package action id
+     *
+     * @xmlrpc.doc Schedule package installation for several systems.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #array_single("int", "serverId")
+     * @xmlrpc.param #array_single("int", "packageId")
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.returntype #array_single("int", "actionId")
+     */
+    public Long[] schedulePackageRemove(User loggedInUser, List<Integer> sids,
+            List<Integer> packageIds, Date earliestOccurrence) {
+
+        return schedulePackagesAction(loggedInUser, sids,
+                packageIdsToMaps(loggedInUser, packageIds), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_REMOVE);
     }
 
     /**
@@ -3209,55 +3393,90 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #array_single("int", "packageId")
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
-     * @xmlrpc.returntype int - ID of the action scheduled, otherwise exception thrown
-     * on error
+     * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
     public int schedulePackageRemove(User loggedInUser, Integer sid,
             List<Integer> packageIds, Date earliestOccurrence) {
 
-        Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
-                loggedInUser);
+        List<Integer> sids = new ArrayList<Integer>();
+        sids.add(sid);
 
-        // Would be nice to do this check at the Manager layer but upset many tests,
-        // some of which were not cooperative when being fixed. Placing here for now.
-        if (!SystemManager.hasEntitlement(server.getId(), EntitlementManager.MANAGEMENT)) {
-            throw new MissingEntitlementException(
-                    EntitlementManager.MANAGEMENT.getHumanReadableLabel());
-        }
-
-        // Build a list of maps in the format the ActionManager wants:
-        List<Map<String, Long>> packageMaps = new LinkedList<Map<String, Long>>();
-        for (Iterator<Integer> it = packageIds.iterator(); it.hasNext();) {
-            Integer pkgId = it.next();
-            Map<String, Long> pkgMap = new HashMap<String, Long>();
-
-            Package p = PackageManager.lookupByIdAndUser(new Long(pkgId.longValue()),
-                    loggedInUser);
-            if (p == null) {
-                throw new InvalidPackageException(pkgId.toString());
-            }
-
-            pkgMap.put("name_id", p.getPackageName().getId());
-            pkgMap.put("evr_id", p.getPackageEvr().getId());
-            pkgMap.put("arch_id", p.getPackageArch().getId());
-            packageMaps.add(pkgMap);
-        }
-
-        if (packageMaps.isEmpty()) {
-            throw new InvalidParameterException("No packages to remove.");
-        }
-
-        PackageAction action = null;
-        try {
-            action = ActionManager.schedulePackageRemoval(loggedInUser, server,
-                    packageMaps, earliestOccurrence);
-        }
-        catch (MissingEntitlementException e) {
-            throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
-        }
-
-        return action.getId().intValue();
+        return schedulePackagesAction(loggedInUser, sids,
+                packageIdsToMaps(loggedInUser, packageIds), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_REMOVE)[0].intValue();
     }
+
+    /**
+     * Schedule package remove for several systems using it's nerva.
+     *
+     * @param loggedInUser The current user
+     * @param sids IDs of the servers
+     * @param packageNevraList array of dictionaries with package nevra
+     * @param earliestOccurrence Earliest occurrence of the package install
+     * @return package action id
+     *
+     * @xmlrpc.doc Schedule package installation for a system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #array_single("int", "serverId")
+     * @xmlrpc.param #array()
+     *                   #struct("Package nevra")
+     *                          #prop("string", "package_name")
+     *                          #prop("string", "package_epoch")
+     *                          #prop("string", "package_version")
+     *                          #prop("string", "package_release")
+     *                          #prop("string", "package_arch")
+     *
+     *                   #struct_end()
+     *               #array_end()
+     * @xmlrpc.param #array_single("int", "packageId")
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.returntype #array_single("int", "actionId")
+     */
+    public Long[] schedulePackageRemoveByNevra(User loggedInUser, List<Integer> sids,
+            List<Map<String, String>> packageNevraList, Date earliestOccurrence) {
+
+        return schedulePackagesAction(loggedInUser, sids,
+                packageNevrasToMaps(loggedInUser, packageNevraList), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_REMOVE);
+    }
+
+    /**
+    * Schedule package remove for a system using it's nerva.
+    *
+    * @param loggedInUser The current user
+    * @param sid ID of the server
+    * @param packageNevraList array of dictionaries with package nevra
+    * @param earliestOccurrence Earliest occurrence of the package install
+    * @return package action id
+    *
+    * @xmlrpc.doc Schedule package installation for a system.
+    * @xmlrpc.param #param("string", "sessionKey")
+    * @xmlrpc.param #param("int", "serverId")
+    * @xmlrpc.param #array()
+    *                   #struct("Package nevra")
+    *                          #prop("string", "package_name")
+    *                          #prop("string", "package_epoch")
+    *                          #prop("string", "package_version")
+    *                          #prop("string", "package_release")
+    *                          #prop("string", "package_arch")
+    *
+    *                   #struct_end()
+    *               #array_end()
+    * @xmlrpc.param #array_single("int", "packageId")
+    * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+    * @xmlrpc.returntype #array_single("int", "actionId")
+    */
+    public int schedulePackageRemoveByNevra(User loggedInUser, final Integer sid,
+            List<Map<String, String>> packageNevraList, Date earliestOccurrence) {
+
+        List<Integer> sids = new ArrayList<Integer>();
+        sids.add(sid);
+
+        return schedulePackagesAction(loggedInUser, sids,
+                packageNevrasToMaps(loggedInUser, packageNevraList), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_REMOVE)[0].intValue();
+    }
+
 
     /**
      * Lists all of the notes that are associated with a system.
@@ -3468,7 +3687,112 @@ public class SystemHandler extends BaseHandler {
         return scheduleScriptRun(loggedInUser, systemIds, username, groupname, timeout,
                 script, earliest);
     }
+    /**
+     * Schedule a script with label to run.
+     *
+     * @param loggedInUser The current user
+     * @param label Description/label for script
+     * @param systemIds IDs of the servers to run the script on.
+     * @param username User to run script as.
+     * @param groupname Group to run script as.
+     * @param timeout Seconds to allow the script to run before timing out.
+     * @param script Contents of the script to run.
+     * @param earliest Earliest the script can run.
+     * @return ID of the new script action.
+     *
+     * @xmlrpc.doc Schedule a script to run.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "label","Label or short description of script.")
+     * @xmlrpc.param #array_single("int", "System IDs of the servers to run the script on.")
+     * @xmlrpc.param #param_desc("string", "username", "User to run script as.")
+     * @xmlrpc.param #param_desc("string", "groupname", "Group to run script as.")
+     * @xmlrpc.param #param_desc("int", "timeout", "Seconds to allow the script to run
+     *                                      before timing out.")
+     * @xmlrpc.param #param_desc("string", "script", "Contents of the script to run.")
+     * @xmlrpc.param #param_desc("dateTime.iso8601", "earliestOccurrence",
+     *                  "Earliest the script can run.")
+     * @xmlrpc.returntype int - ID of the script run action created. Can be used to fetch
+     * results with system.getScriptResults.
+     */
+    public Integer scheduleLabelScriptRun(User loggedInUser, String label,
+            List<Integer> systemIds,
+            String username, String groupname,
+            Integer timeout, String script,
+            Date earliest) {
 
+        ScriptActionDetails scriptDetails = ActionManager.createScript(username, groupname,
+                new Long(timeout.longValue()), script);
+        ScriptAction action = null;
+
+        List<Long> servers = new ArrayList<Long>();
+
+        for (Iterator<Integer> sysIter = systemIds.iterator(); sysIter.hasNext();) {
+            Integer sidAsInt = sysIter.next();
+            Long sid = new Long(sidAsInt.longValue());
+            try {
+                SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
+                        loggedInUser);
+                servers.add(sid);
+            }
+            catch (LookupException e) {
+                throw new NoSuchSystemException();
+            }
+        }
+
+        try {
+            action = ActionManager.scheduleScriptRun(loggedInUser, servers,
+                    label, scriptDetails, earliest);
+        }
+        catch (MissingCapabilityException e) {
+            throw new com.redhat.rhn.frontend.xmlrpc.MissingCapabilityException();
+        }
+        catch (MissingEntitlementException e) {
+            throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
+        }
+
+        return new Integer(action.getId().intValue());
+    }
+
+    /**
+     * Schedule a script with label to run.
+     *
+     * @param loggedInUser The current user
+     * @param label Description/label for script
+     * @param sid ID of the server to run the script on.
+     * @param username User to run script as.
+     * @param groupname Group to run script as.
+     * @param timeout Seconds to allow the script to run before timing out.
+     * @param script Contents of the script to run.
+     * @param earliest Earliest the script can run.
+     * @return ID of the new script action.
+     *
+     * @xmlrpc.doc Schedule a script to run.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "label","Label or short description of script.")
+     * @xmlrpc.param #param_desc("int", "serverId",
+     *          "ID of the server to run the script on.")
+     * @xmlrpc.param #param_desc("string", "username", "User to run script as.")
+     * @xmlrpc.param #param_desc("string", "groupname", "Group to run script as.")
+     * @xmlrpc.param #param_desc("int", "timeout", "Seconds to allow the script to run
+     *                                      before timing out.")
+     * @xmlrpc.param #param_desc("string", "script", "Contents of the script to run.")
+     * @xmlrpc.param #param_desc("dateTime.iso8601", "earliestOccurrence",
+     *                  "Earliest the script can run.")
+     * @xmlrpc.returntype int - ID of the script run action created. Can be used to fetch
+     * results with system.getScriptResults.
+     */
+    public Integer scheduleLabelScriptRun(User loggedInUser, String label,
+            Integer sid, String username,
+            String groupname, Integer timeout,
+            String script, Date earliest) {
+
+        List<Integer> systemIds = new ArrayList<Integer>();
+        systemIds.add(sid);
+
+        return scheduleLabelScriptRun(loggedInUser, label, systemIds,
+                username, groupname, timeout,
+                script, earliest);
+    }
     /**
      * Fetch results from a script execution. Returns an empty array if no results are
      * yet available.
@@ -3946,6 +4270,10 @@ public class SystemHandler extends BaseHandler {
      */
     public int unentitle(String clientCert) {
         Server server = validateClientCertificate(clientCert);
+        if (server.getBaseEntitlement().isPermanent()) {
+            // a permanent entitlement is not changeable by API
+            throw new InvalidEntitlementException();
+        }
         SystemManager.removeAllServerEntitlements(server.getId());
         SystemManager.snapshotServer(server, LocalizationService
                 .getInstance().getMessage("snapshots.entitlements"));
@@ -5408,5 +5736,17 @@ public class SystemHandler extends BaseHandler {
             map.put("lastPingTime", new Date(0));
         }
         return map;
+    }
+    /**
+     * Method to list systems that require reboot
+     * @param loggedInUser the session key
+     * @return List of systems that require reboot
+     *
+     * @xmlrpc.doc list systems that require reboot
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.return List of systems that require reboot
+     */
+    public Object[] listSuggestedReboot(User loggedInUser) {
+            return SystemManager.requiringRebootList(loggedInUser, null).toArray();
     }
 }

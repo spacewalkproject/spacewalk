@@ -2219,6 +2219,18 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/InProgressSystems</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="actions.jsp.totalnote">
+        <source>
+          Note: For multi-system scheduled actions, the ability to cancel individual 
+          systems means that the number of clients mentioned in the Action column may not match the number in Total.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/PendingActions</context>
+          <context context-type="sourcefile">/rhn/schedule/FailedActions</context>
+          <context context-type="sourcefile">/rhn/schedule/CompletedActions</context>
+          <context context-type="sourcefile">/rhn/schedule/ArchiveActions</context>
+        </context-group>
+      </trans-unit>
       <!-- pendingactions.jsp -->
       <trans-unit id="pendingactions.jsp.pending_actions">
         <source>Pending Actions</source>
@@ -5700,13 +5712,13 @@ organization. You may grant or remove the organization administrator role in the
         </context-group>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.toolbar">
-        <source>System Search</source>
+        <source>Advanced Search</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.summary">
-        <source>System Search will return results from all systems to which you have administrative access.</source>
+        <source>Advanced Search will return results from all systems to which you have administrative access.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
@@ -7184,7 +7196,7 @@ organization management tools if you choose to remove this role from your login.
         </context-group>
       </trans-unit>
       <trans-unit id="general.jsp.summary">
-        <source>Configure your @@PRODUCT_NAME@@ below. The HTTP proxy settings are for the @@PRODUCT_NAME@@ server's communication with the parent @@PRODUCT_NAME@@ server, if any. The http proxy should be of the form: hostname:port, but a default port of 8080 will be used if none is provided. HTTP proxy settings for clients' systems to connect to this @@PRODUCT_NAME@@ can be different, and will be configured later. If you enable the Monitoring Backend, you should also enable Monitoring Scout, or configure the Monitoring Scout as a separate server. If you enable the Monitoring Scout, you must also enable the Monitoring Backend.</source>
+        <source>Configure your @@PRODUCT_NAME@@ below. The HTTP proxy settings are for the @@PRODUCT_NAME@@ server's communication with the parent @@PRODUCT_NAME@@ server, if any. The http proxy should be of the form: hostname:port, but a default port of 8080 will be used if none is provided. HTTP proxy settings for clients' systems to connect to this @@PRODUCT_NAME@@ can be different, and will be configured later.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
@@ -7571,6 +7583,9 @@ Please note that some manual configuration of these scripts may still be require
       </trans-unit>
       <trans-unit id="repos.jsp.create.url">
         <source>Repository URL</source>
+      </trans-unit>
+      <trans-unit id="repos.jsp.create.type">
+        <source>Repository Type</source>
       </trans-unit>
       <trans-unit id="repos.jsp.create.submit">
         <source>Create Repository</source>
@@ -13335,6 +13350,18 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="managedsystems.jsp.managedonly">
+        <source>Show systems with at least one locally or centrally managed files only</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="managedsystems.jsp.managedonly.btn">
+        <source>Show</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="managedsystems.jsp.noSystems">
         <source>No configuration managed systems.</source>
         <context-group name="ctx">
@@ -17464,22 +17491,16 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/systems/details/Connection.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="sdc.details.proxy.header">
-        <source>Proxy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/details/Proxy.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="sdc.details.proxy.unlicensed">
         <source>The WebUI @@PRODUCT_NAME@@ Proxy installer is obsolete. Please use the command line installer from package spacewalk-proxy-installer.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/systems/details/Proxy.do</context>
+          <context context-type="sourcefile">/systems/details/ProxyClients.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="sdc.details.proxy.licensed">
         <source>This machine is currently a licensed @@PRODUCT_NAME@@ Proxy (v{0}).</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/systems/details/Proxy.do</context>
+          <context context-type="sourcefile">/systems/details/ProxyClients.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="sdc.details.proxyclients.header">
@@ -18867,6 +18888,12 @@ given channel.</source>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>
       </trans-unit>
+      <trans-unit id="channel.jsp.package.viewbinarypackages">
+        <source>Binary Packages</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.package.viewsourcepackages">
+        <source>Source Packages</source>
+      </trans-unit>
       <trans-unit id="channel.jsp.package.addsuccess">
         <source>{0} package(s) added to channel {1}
         </source>
@@ -19904,6 +19931,12 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="bunch.jsp.description.uuid-cleanup-bunch">
+        <source>Cleanup outdated UUID records</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="schedule.jsp.noschedules">
         <source>There're no schedules available.</source>
         <context-group name="ctx">
@@ -20291,6 +20324,9 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="task.status.auto-errata">
         <source>Auto Errata Updates</source>
+      </trans-unit>
+      <trans-unit id="task.status.uuid-cleanup">
+        <source>UUID cleanup</source>
       </trans-unit>
       <trans-unit id="task.status.message">
         <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>

@@ -1,5 +1,0 @@
-[encoding: UTF-8]
-src/spacewalk_abrt/abrt.py
-src/spacewalk_abrt/__init__.py
-src/bin/spacewalk-abrt
-src/actions/abrt.py

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,6 +18,7 @@
 # FIXME: need more documentation
 #
 
+import sys
 from backend import Backend
 from backendLib import DBint, DBstring, DBdateTime, DBblob, Table, \
     TableCollection
@@ -567,7 +568,17 @@ class OracleBackend(Backend):
               },
               pk=['id', 'label', 'name'],
               ),
-
+        Table('rhnContentSource',
+              fields={
+                  'id': DBint(),
+                  'org_id': DBint(),
+                  'label': DBstring(128),
+                  'source_url': DBstring(2048),
+                  'type_id': DBint()
+              },
+              pk=['label', 'org_id', 'type_id'],
+              nullable=['org_id'],
+              ),
     )
 
     def __init__(self):
@@ -616,13 +627,14 @@ class PostgresqlBackend(OracleBackend):
             h = self.dbmodule.prepare_secondary(sql)
             for name, version in capabilityHash.keys():
                 ver = version
-                if version is None or version == '':
+                if version == '':
                     ver = None
                 h.execute(name=name, version=ver)
                 row = h.fetchone_dict()
                 capabilityHash[(name, version)] = row['id']
             self.dbmodule.commit_secondary()  # commit also unlocks the table
-        except Exception, e:
+        except Exception:
+            e = sys.exc_info()[1]
             self.dbmodule.execute_secondary("rollback")
             raise e
 
@@ -647,7 +659,8 @@ class PostgresqlBackend(OracleBackend):
                     if row:
                         checksumHash[k] = row['id']
             self.dbmodule.commit_secondary()  # commit also unlocks the table
-        except Exception, e:
+        except Exception:
+            e = sys.exc_info()[1]
             self.dbmodule.execute_secondary("rollback")
             raise e
 

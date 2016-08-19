@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.5.1
+Version:     2.6.5
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -34,6 +34,13 @@ BuildRequires: python-json
 Requires:    python-simplejson
 %endif
 Requires:    python
+Requires:    file
+
+%if 0%{?suse_version}
+BuildRequires: python-xml
+Requires:      python-xml
+Requires:      python-simplejson
+%endif
 
 %description
 spacecmd is a command-line interface to Spacewalk and Satellite servers
@@ -85,6 +92,60 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Aug 18 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.5-1
+- Repaired package listing.
+- Added seconds to timeparse func.
+
+* Tue Aug 09 2016 Tomas Lestach <tlestach@redhat.com> 2.6.4-1
+- addressing pylint issues
+
+* Tue Aug 09 2016 Tomas Lestach <tlestach@redhat.com> 2.6.3-1
+- 1309710 - Adding kickstart_setsoftwaredetails feature.
+- Fixing kickstart_getsoftware autocompletion.
+
+* Thu Jul 21 2016 Tomas Lestach <tlestach@redhat.com> 2.6.2-1
+- spacecmd: Check number of arguments in system_show_packageversion
+- Fix help/usage messages
+- spacecmd: user: allow more than one group at a time
+
+* Mon Jun 27 2016 Tomas Lestach <tlestach@redhat.com> 2.6.1-1
+- simplyfication of comparison
+- simplify if statements
+- replacing 'expr == None' with 'expr is None'
+- fix import order in spacecmd
+- Bumping package versions for 2.6.
+
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.8-1
+- updating copyright years
+
+* Tue May 10 2016 Grant Gainey 2.5.7-1
+- spacecmd: build on openSUSE
+- 1274484 - changed name of key in ConfigRevision structure + updated API doc +
+  configchannel.py
+
+* Thu Mar 24 2016 Jan Dobes 2.5.6-1
+- 1277994 - Add option to softwarechannel_setorgaccess for protected sharing of
+  channels.
+
+* Tue Feb 02 2016 Grant Gainey 2.5.5-1
+- unused variable
+- mimetype detection to set the binary flag requires 'file' tool
+- fix export/cloning: always base64
+- default is binary
+- Always base64 encode to avoid trim() bugs in the XML-RPC library.
+
+* Tue Feb 02 2016 Jiri Dostal <jdostal@redhat.com> 2.5.4-1
+- 1250572 fix pylint
+
+* Tue Feb 02 2016 Jiri Dostal <jdostal@redhat.com> 2.5.3-1
+- 1250572 - Text description missing for remote command by Spacecmd
+
+* Tue Jan 19 2016 Gennadii Altukhov <galt@redhat.com> 2.5.2-1
+- 1287246 - spacecmd: repo_details show 'None' if repository doesn't have SSL
+  Certtificate
+- 1287246 - spacecmd: Added functions to add/edit SSL certificates for
+  repositories
+
 * Tue Nov 24 2015 Jan Dobes 2.5.1-1
 - spacecmd: remove listsystementitlements command
 - spacecmd: remove virtualization host platform entitlement references

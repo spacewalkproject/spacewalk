@@ -1,7 +1,7 @@
 #
 # Higher-level SSL objects used by rpclib
 #
-# Copyright (c) 2002--2015 Red Hat, Inc.
+# Copyright (c) 2002--2016 Red Hat, Inc.
 #
 # Author: Mihai Ibanescu <misa@redhat.com>
 #
@@ -30,11 +30,15 @@ import os
 
 import socket
 import select
-
+from rhn.i18n import bstr
 import sys
 
 DEFAULT_TIMEOUT = 120
 
+if hasattr(socket, 'sslerror'):
+    socket_error = socket.sslerror
+else:
+    from ssl import socket_error
 
 class SSLSocket:
     """
@@ -62,7 +66,7 @@ class SSLSocket:
         # Position, for tell()
         self._pos = 0
         # Buffer
-        self._buffer = ""
+        self._buffer = bstr("")
 
         # Flag to show if makefile() was called
         self._makefile_called = 0
@@ -207,10 +211,14 @@ class SSLSocket:
             self._buffer = self._buffer[amt:]
         else:
             ret = self._buffer
-            self._buffer = ""
+            self._buffer = bstr("")
 
         self._pos = self._pos + len(ret)
         return ret
+
+    def readinto(self, buf):
+        buf[:] = self.read(len(buf))
+        return len(buf)
 
     def _poll(self, filter_type, caller_name):
         poller = select.poll()
@@ -258,7 +266,7 @@ class SSLSocket:
             # charcount contains the number of chars to be outputted (or None
             # if none to be outputted at this time)
             charcount = None
-            i = self._buffer.find('\n')
+            i = self._buffer.find(bstr('\n'))
             if i >= 0:
                 # Go one char past newline
                 charcount = i + 1

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,6 +22,7 @@ import string
 import time
 import sys
 
+from spacewalk.common.usix import raise_with_tb, LongType
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnServer import server_lib
@@ -200,16 +201,17 @@ class VirtualizationEventHandler:
         handler = None
         try:
             handler = getattr(self, self.HANDLERS[event])
-        except KeyError, ke:
-            raise VirtualizationEventError(
-                "Don't know how to handle virt event:", event), None, sys.exc_info()[2]
+        except KeyError:
+            ke = sys.exc_info()[1]
+            raise_with_tb(VirtualizationEventError(
+                "Don't know how to handle virt event:", event), sys.exc_info()[2])
 
         # Ensure that the event has any required properties before calling the
         # handler.
-        if self.REQUIRED_PROPERTIES.has_key(event):
+        if event in self.REQUIRED_PROPERTIES:
             required_properties = self.REQUIRED_PROPERTIES[event]
             for required_property in required_properties:
-                if not properties.has_key(required_property):
+                if required_property not in properties:
                     raise VirtualizationEventError(
                         "Event does not have required property:",
                         required_property,
@@ -231,7 +233,7 @@ class VirtualizationEventHandler:
         identity = properties[PropertyType.IDENTITY]
         virt_type = None
 
-        if properties.has_key(PropertyType.TYPE):
+        if PropertyType.TYPE in properties:
             virt_type = properties[PropertyType.TYPE]
         else:
             # presume paravirt if not specified, probably a host
@@ -241,7 +243,7 @@ class VirtualizationEventHandler:
         if not row:
             self.__db_insert_system(identity, system_id, uuid, virt_type)
         else:
-            self.__db_update_system(identity, system_id, row)
+            self.__db_update_system(identity, system_id, uuid, row)
 
             self.__notify_listeners(ListenerEvent.GUEST_REGISTERED,
                                     row['host_system_id'],
@@ -263,7 +265,7 @@ class VirtualizationEventHandler:
 
             # We'll attempt to detect migration by checking if the host system
             # ID has changed.
-            if row.has_key('host_system_id') and \
+            if 'host_system_id' in row and \
                     row['host_system_id'] != system_id:
 
                 self.__notify_listeners(ListenerEvent.GUEST_MIGRATED,
@@ -280,7 +282,7 @@ class VirtualizationEventHandler:
         uuid = properties[PropertyType.UUID]
 
         row = self.__db_get_domain(system_id, uuid)
-        if len(row.keys()) == 0:
+        if len(list(row.keys())) == 0:
             log_debug(1, "Guest already deleted in satellite: ", properties)
             return
         new_properties = {PropertyType.STATE: ServerStateType.STOPPED}
@@ -327,19 +329,16 @@ class VirtualizationEventHandler:
             """
         elif identity == IdentityType.GUEST:
             condition = """
-                vi.uuid=:uuid
-                AND (vi.virtual_system_id is null or
-                     vi.virtual_system_id = :system_id)
-                and exists (
-                    select 1
-                    from
-                        rhnServer sguest,
-                        rhnServer shost
-                    where
-                        shost.id is not null
-                        and shost.id = vi.host_system_id
-                        and sguest.id = :system_id
-                        and shost.org_id = sguest.org_id )
+                (
+                  vi.uuid=:uuid
+                  AND (vi.virtual_system_id is null or
+                       vi.virtual_system_id = :system_id)
+                )
+                OR
+                (
+                  vi.uuid is not null and
+                  vi.virtual_system_id = :system_id
+                )
             """
         else:
             raise VirtualizationEventError(
@@ -414,7 +413,7 @@ class VirtualizationEventHandler:
         query.execute()
         row = query.fetchone_dict() or {}
 
-        if not row or not row.has_key('id'):
+        if not row or 'id' not in row:
             raise VirtualizationEventError('unable to get virt instance id')
 
         insert_sql = """
@@ -451,7 +450,7 @@ class VirtualizationEventHandler:
                       state=ServerStateType.UNKNOWN,
                       virt_type=virt_type)
 
-    def __db_update_system(self, identity, system_id, existing_row):
+    def __db_update_system(self, identity, system_id, uuid, existing_row):
         """ Updates a system in the database. """
 
         # since __db_get_system protects us against crossing the org
@@ -475,6 +474,9 @@ class VirtualizationEventHandler:
                 # note, at this point, it's still possible to have
                 # an entry in rhnVirtualInstance for this uuid w/out
                 # a virtual_system_id; it'd be for a different org
+            if existing_row['uuid'] != uuid:
+                new_values_array.append("uuid=:uuid")
+                bindings['uuid'] = uuid
 
         # Only touch the database if something changed.
         if new_values_array:
@@ -538,7 +540,7 @@ class VirtualizationEventHandler:
         query.execute()
         row = query.fetchone_dict() or {}
 
-        if not row or not row.has_key('id'):
+        if not row or 'id' not in row:
             raise VirtualizationEventError('unable to get virt instance id')
         id = row['id']
 
@@ -622,31 +624,32 @@ class VirtualizationEventHandler:
 
             try:
                 query.execute(**bindings)
-            except rhnSQL.SQLError, e:
+            except rhnSQL.SQLError:
+                e = sys.exc_info()[1]
                 log_error(str(e))
-                raise VirtualizationEventError, str(e), sys.exc_info()[2]
+                raise_with_tb(VirtualizationEventError(str(e)), sys.exc_info()[2])
 
         # Now update the rhnVirtualInstanceInfo table.
 
         new_values_array = []
         bindings = {}
 
-        if properties.has_key(PropertyType.NAME) and \
+        if PropertyType.NAME in properties and \
            existing_row['name'] != properties[PropertyType.NAME]:
             new_values_array.append('name=:name')
             bindings['name'] = properties[PropertyType.NAME]
 
-        if properties.has_key(PropertyType.VCPUS) and \
+        if PropertyType.VCPUS in properties and \
            existing_row['vcpus'] != properties[PropertyType.VCPUS]:
             new_values_array.append('vcpus=:vcpus')
             bindings['vcpus'] = properties[PropertyType.VCPUS]
 
-        if properties.has_key(PropertyType.MEMORY) and \
+        if PropertyType.MEMORY in properties and \
            existing_row['memory_size_k'] != properties[PropertyType.MEMORY]:
             new_values_array.append('memory_size_k=:memory')
             bindings['memory'] = properties[PropertyType.MEMORY]
 
-        if properties.has_key(PropertyType.TYPE) and \
+        if PropertyType.TYPE in properties and \
            existing_row['instance_type'] != properties[PropertyType.TYPE]:
             new_values_array.append("""
                 instance_type = (
@@ -656,7 +659,7 @@ class VirtualizationEventHandler:
             """)
             bindings['virt_type'] = properties[PropertyType.TYPE]
 
-        if properties.has_key(PropertyType.STATE) and \
+        if PropertyType.STATE in properties and \
            existing_row['state'] != properties[PropertyType.STATE]:
             new_values_array.append("""
                 state = (
@@ -740,7 +743,7 @@ class VirtualizationEventHandler:
             format consumable by the server.
         """
         # Attempt to normalize the UUID.
-        if properties.has_key(PropertyType.UUID):
+        if PropertyType.UUID in properties:
             uuid = properties[PropertyType.UUID]
             if uuid:
                 uuid_as_number = string.atol(uuid, 16)
@@ -761,16 +764,16 @@ class VirtualizationEventHandler:
                 properties[PropertyType.UUID] = None
 
         # The server only cares about certain types of states.
-        if properties.has_key(PropertyType.STATE):
+        if PropertyType.STATE in properties:
             state = properties[PropertyType.STATE]
             properties[PropertyType.STATE] = CLIENT_SERVER_STATE_MAP[state]
 
         # We must send the memory across as a string because XMLRPC can only
         # handle up to 32 bit numbers.  RAM can easily exceed that limit these
         # days.
-        if properties.has_key(PropertyType.MEMORY):
+        if PropertyType.MEMORY in properties:
             memory = properties[PropertyType.MEMORY]
-            properties[PropertyType.MEMORY] = long(memory)
+            properties[PropertyType.MEMORY] = LongType(memory)
 
     def __notify_listeners(self, *args):
         for listener in Listeners.listeners:
@@ -818,7 +821,8 @@ def _virt_notify(server_id, actions):
 
         try:
             handler.handle(server_id, action)
-        except VirtualizationEventError, vee:
+        except VirtualizationEventError:
+            vee = sys.exc_info()[1]
             log_error(
                 "An error occurred while handling a virtualization event:",
                 vee,
@@ -851,7 +855,7 @@ def _make_virt_action(event, target, properties):
 
 def is_host_uuid(uuid):
     uuid = eval('0x%s' % uuid)
-    return long(uuid) == 0L
+    return LongType(uuid) == 0
 
 
 ###############################################################################
@@ -1012,7 +1016,7 @@ class EntitlementVirtualizationListener(VirtualizationListener):
 
     def guest_registered(self, host_sid, guest_sid):
         host_system_slots = server_lib.check_entitlement(host_sid)
-        host_system_slots = host_system_slots.keys()
+        host_system_slots = list(host_system_slots.keys())
 
         try:
             host_system_slots.remove("virtualization_host")
@@ -1020,7 +1024,7 @@ class EntitlementVirtualizationListener(VirtualizationListener):
             pass
 
         guest_system_slots = server_lib.check_entitlement(guest_sid)
-        guest_system_slots = guest_system_slots.keys()
+        guest_system_slots = list(guest_system_slots.keys())
 
         for entitlement in host_system_slots:
             if entitlement not in guest_system_slots:
@@ -1028,7 +1032,8 @@ class EntitlementVirtualizationListener(VirtualizationListener):
                     rhnSQL.transaction(entitlement)
                     procedure.rhn_entitlements.entitle_server(guest_sid,
                                                               entitlement)
-                except rhnSQL.SQLError, e:
+                except rhnSQL.SQLError:
+                    e = sys.exc_info()[1]
                     rhnSQL.rollback(entitlement)
                     log_error("Error adding entitlement %s to host ID-%s: %s"
                               % (entitlement, guest_sid, str(e)))

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.1" version="1.1">
+  <file source-language="en" datatype="plaintext" original="" xml:space="preserve">
+    <body>
+      <trans-unit id="bad-class">
+        <source>Class does not implement AclHandler: {0}</source>
+        <target>У класі не реалізовано AclHandler: {0}</target>
+      </trans-unit>
+      <trans-unit id="bad-signature">
+        <source>Bad ACL handler method [{0}]. ACL handler methods must have the following signature (may be static or non-static), with no declared exceptions: public aclXXXX(Object, String[])</source>
+      </trans-unit>
+      <trans-unit id="bad-syntax">
+        <source>Could not parse ACL statement: "{0}"</source>
+        <target>Не вдалося обробити інструкцію ACL: «{0}»</target>
+      </trans-unit>
+      <trans-unit id="bad-handler">
+        <source>Could not find ACL handler {0} in statement: "{1}". Available ACL handlers: {2}</source>
+        <target>Не вдалося знайти обробник ACL {0} у інструкції: «{1}». Доступні обробники ACL: {2}</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -2,6 +2,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 <html>
@@ -10,7 +11,7 @@
     <h2><bean:message key="system.audit.schedulexccdf.jsp.schedule"/></h2>
     <c:choose>
         <c:when test="${not requestScope.scapEnabled}">
-            <p><bean:message key="system.audit.listscap.jsp.missing" arg0="${requiredPackage}"/></p>
+            <p><bean:message key="system.audit.listscap.jsp.missing" arg0="${fn:escapeXml(requiredPackage)}"/></p>
         </c:when>
         <c:otherwise>
             <html:form method="post" styleClass="form-horizontal" action="/systems/details/audit/ScheduleXccdf.do">

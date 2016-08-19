@@ -2,11 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div class="row-0">
-  <div class="col-md-1">
+  <label class="col-md-2">
     <bean:message key="${param.title}"/>:
-  </div>
-  <div class="col-md-4">
-    <select name="selected_channel" class="form-control input-sm">
+  </label>
+  <div class="col-md-6">
+  <div class="input-group">
+    <select name="selected_channel" class="form-control">
         <c:if test="${param.option_no_packages}">
             <option value="no_packages"><bean:message key="channel.jsp.manage.package.nopackages"/></option>
         </c:if>
@@ -30,10 +31,29 @@
           <c:if test="${isOptgroup}">
                 </optgroup>
           </c:if>
-      </select>
+    </select>
+    <span class="input-group-btn">
+      <input type="submit" name="view" class="btn btn-default" value="<bean:message key='channel.jsp.package.viewpackages'/>">
+    </span>
   </div>
-  <div class="col-md-7 text-left">
-    <input type="submit" name="view" class="btn btn-default" value="<bean:message key='channel.jsp.package.viewpackages'/>">
   </div>
 </div>
+<c:if test="${param.option_source_packages}">
+  <div class="row-0">
+    <div class="col-md-offset-2 col-md-6">
+      <div class="radio">
+        <label>
+          <input type="radio" name="package_type" value="binary" onclick="this.form.submit();" <c:if test="${not source_checked}">checked </c:if>>
+           <bean:message key="channel.jsp.package.viewbinarypackages"/>
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="package_type" value="source" onclick="this.form.submit();" <c:if test="${source_checked}">checked </c:if>>
+          <bean:message key="channel.jsp.package.viewsourcepackages"/>
+        </label>
+      </div>
+    </div>
+  </div>
+</c:if>
 <hr/>

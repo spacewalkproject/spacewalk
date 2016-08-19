@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,9 +16,18 @@
 
 import time
 import sys
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib  # pylint: disable=F0401
+
+from rhn.connections import idn_puny_to_unicode
+
 from spacewalk.common import apache
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error, log_setreq, initLOG
 from spacewalk.common.rhnConfig import CFG, initCFG
@@ -28,8 +37,6 @@ from spacewalk.common.rhnException import rhnException, rhnFault
 from spacewalk.server import rhnSQL, rhnImport
 from spacewalk.satellite_tools.disk_dumper.dumper import ClosedConnectionError
 from spacewalk.satellite_tools import constants
-
-from rhn.connections import idn_puny_to_unicode
 
 
 class BaseApacheServer:
@@ -48,7 +55,7 @@ class BaseApacheServer:
         options = req.get_options()
         # if we are initializing out of a <Location> handler don't
         # freak out
-        if not options.has_key("RHNComponentType"):
+        if "RHNComponentType" not in options:
             # clearly nothing to do
             return apache.OK
         initCFG(options["RHNComponentType"])
@@ -73,7 +80,7 @@ class BaseApacheServer:
 
         self.server_classes = rhnImport.load("satellite_exporter/handlers")
 
-        if not self.server_classes.has_key(self.server):
+        if self.server not in self.server_classes:
             # XXX do something interesting here
             log_error("Missing server", self.server)
             return apache.HTTP_NOT_FOUND
@@ -111,7 +118,8 @@ class BaseApacheServer:
     def _wrapper(self, req, function):
         try:
             ret = function(req)
-        except rhnFault, e:
+        except rhnFault:
+            e = sys.exc_info()[1]
             return self._send_xmlrpc(req, e)
         except ClosedConnectionError:
             # The error code most likely doesn't matter, the client won't see
@@ -169,7 +177,8 @@ class ApacheServer(BaseApacheServer):
 
         try:
             f = self.get_function(methodname, req)
-        except FunctionRetrievalError, e:
+        except FunctionRetrievalError:
+            e = sys.exc_info()[1]
             Traceback(methodname, req)
             return self._send_xmlrpc(req, rhnFault(3008, str(e), explain=0))
 
@@ -197,7 +206,7 @@ class ApacheServer(BaseApacheServer):
         log_debug(5, module_name, function_name)
 
         handler_classes = self.server_classes[self.server]
-        if not handler_classes.has_key(module_name):
+        if module_name not in handler_classes:
             raise FunctionRetrievalError("Module %s not found" % module_name)
 
         mod = handler_classes[module_name](req)
@@ -233,7 +242,7 @@ class ApacheServer(BaseApacheServer):
     def _validate_version(req):
         server_version = constants.PROTOCOL_VERSION
         vstr = 'X-RHN-Satellite-XML-Dump-Version'
-        if not req.headers_in.has_key(vstr):
+        if vstr not in req.headers_in:
             raise rhnFault(3010, "Missing version string")
         client_version = req.headers_in[vstr]
 
@@ -258,14 +267,14 @@ class ApacheServer(BaseApacheServer):
             client_major = int(client_major)
             client_minor = int(client_minor)
         except ValueError:
-            raise rhnFault(3011, "Invalid version string %s" % client_version), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(3011, "Invalid version string %s" % client_version), sys.exc_info()[2])
 
         try:
             server_major = int(server_major)
             server_minor = int(server_minor)
         except ValueError:
-            raise rhnException("Invalid server version string %s"
-                               % server_version), None, sys.exc_info()[2]
+            raise_with_tb(rhnException("Invalid server version string %s"
+                                       % server_version), sys.exc_info()[2])
 
         if client_major != server_major:
             raise rhnFault(3012, "Client version %s does not match"

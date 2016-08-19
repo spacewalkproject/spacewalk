@@ -1,6 +1,6 @@
 # Queue functions on the server side.
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,11 +16,17 @@
 
 import sys
 import time
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib
 
-from types import IntType, TupleType
+from spacewalk.common.usix import IntType, TupleType, UnicodeType
 
 # Global modules
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
@@ -83,8 +89,8 @@ class Queue(rhnHandler):
                                          'server.action')
         except getMethod.GetMethodException:
             Traceback("queue.get V2")
-            raise EmptyAction("Could not get a valid method for %s" % (
-                action['method'],)), None, sys.exc_info()[2]
+            raise_with_tb(EmptyAction("Could not get a valid method for %s" % (
+                action['method'],)), sys.exc_info()[2])
         # Call the method
         result = method(self.server_id, action['id'], dry_run)
         if result is None:
@@ -115,7 +121,7 @@ class Queue(rhnHandler):
         """
 
         rhnSQL.set_log_auth_login('CLIENT')
-        if status.has_key('uname'):
+        if 'uname' in status:
             kernelver = status['uname'][2]
             if kernelver != self.server.server["running_kernel"]:
                 self.server.server["running_kernel"] = kernelver
@@ -123,7 +129,7 @@ class Queue(rhnHandler):
         # XXX:We should be using Oracle's sysdate() for this management
         # In the case of multiple app servers in mutiple time zones all the
         # results are skewed.
-        if status.has_key('uptime'):
+        if 'uptime' in status:
             uptime = status['uptime']
             if isinstance(uptime, type([])) and len(uptime):
                 # Toss the other values. For now
@@ -163,7 +169,7 @@ class Queue(rhnHandler):
         log_debug(4, self.server_id, "determining whether to snapshot...")
 
         entitlements = self.server.check_entitlement()
-        if not entitlements.has_key("enterprise_entitled"):
+        if "enterprise_entitled" not in entitlements:
             return 0
 
         # ok, take the snapshot before attempting this action
@@ -353,7 +359,8 @@ class Queue(rhnHandler):
                     ret = self.__getV1(action)
                 else:
                     ret = self.__getV2(action)
-            except ShadowAction, e:  # Action the client should not see
+            except ShadowAction:  # Action the client should not see
+                e = sys.exc_info()[1]
                 # Make sure we re-execute the query, so we pick up whatever
                 # extra actions were added
                 should_execute = 1
@@ -361,13 +368,15 @@ class Queue(rhnHandler):
                 log_debug(4, "Shadow Action", text)
                 self.__update_action(action['id'], 2, 0, text)
                 continue
-            except InvalidAction, e:  # This is an invalid action
+            except InvalidAction:  # This is an invalid action
+                e = sys.exc_info()[1]
                 # Update its status so it won't bother us again
                 text = e.args[0]
                 log_debug(4, "Invalid Action", text)
                 self.__update_action(action['id'], 3, -99, text)
                 continue
-            except EmptyAction, e:
+            except EmptyAction:
+                e = sys.exc_info()[1]
                 # this means that we have some sort of internal error
                 # which gets reported in the logs. We don't touch the
                 # action because this should get fixed on our side.
@@ -422,8 +431,8 @@ class Queue(rhnHandler):
                 action_id = int(action_id)
             except ValueError:
                 log_error("Invalid action_id", action_id)
-                raise rhnFault(30, _("Invalid action value type %s (%s)") %
-                               (action_id, type(action_id))), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(30, _("Invalid action value type %s (%s)") %
+                               (action_id, type(action_id))), sys.exc_info()[2])
         # Authenticate the system certificate
         self.auth_system(system_id)
         log_debug(1, self.server_id, action_id, result)
@@ -453,11 +462,11 @@ class Queue(rhnHandler):
         action_type = row['action_type']
         trigger_snapshot = (row['trigger_snapshot'] == 'Y')
 
-        if data.has_key('missing_packages'):
+        if 'missing_packages' in data:
             missing_packages = "Missing-Packages: %s" % str(
                 data['missing_packages'])
             rmsg = "%s %s" % (message, missing_packages)
-        elif data.has_key('koan'):
+        elif 'koan' in data:
             rmsg = "%s: %s" % (message, data['koan'])
         else:
             rmsg = message
@@ -467,13 +476,13 @@ class Queue(rhnHandler):
         # and this processing is required for compatibility with old
         # rhn_check clients
         if type(rcode) == type({}):
-            if result.has_key("faultCode"):
+            if "faultCode" in result:
                 rcode = result["faultCode"]
-            if result.has_key("faultString"):
+            if "faultString" in result:
                 rmsg = result["faultString"] + str(data)
         if type(rcode) in [type({}), type(()), type([])] \
                 or type(rcode) is not IntType:
-            rmsg = "%s [%s]" % (str(message), str(rcode))
+            rmsg = u"%s [%s]" % (UnicodeType(message), UnicodeType(rcode))
             rcode = -1
         # map to db codes.
         status = self.status_for_action_type_code(action_type, rcode)
@@ -514,12 +523,12 @@ class Queue(rhnHandler):
             # Completed
             return 2
 
-        if not self.action_type_completed_codes.has_key(action_type):
+        if action_type not in self.action_type_completed_codes:
             # Failed
             return 3
 
         hash = self.action_type_completed_codes[action_type]
-        if not hash.has_key(rcode):
+        if rcode not in hash:
             # Failed
             return 3
 
@@ -539,8 +548,8 @@ class Queue(rhnHandler):
                                          'server.action_extra_data')
         except getMethod.GetMethodException:
             Traceback("queue.get V2")
-            raise EmptyAction("Could not get a valid method for %s" %
-                              action_type), None, sys.exc_info()[2]
+            raise_with_tb(EmptyAction("Could not get a valid method for %s" %
+                              action_type), sys.exc_info()[2])
         # Call the method
         result = method(self.server_id, action_id, data=data)
         return result
@@ -735,7 +744,7 @@ class Queue(rhnHandler):
 
 #-----------------------------------------------------------------------------
 if __name__ == "__main__":
-    print "You can not run this module by itself"
+    print("You can not run this module by itself")
     q = Queue()
     sys.exit(-1)
 #-----------------------------------------------------------------------------

@@ -3,24 +3,25 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <body>
   <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
   <rhn:toolbar base="h2" icon="header-snapshot-rollback">
-    <bean:message key="ssm.provisioning.rollbacktotag.header" arg0="${param.tag_name}" />
+    <bean:message key="ssm.provisioning.rollbacktotag.header" arg0="${fn:escapeXml(param.tag_name)}" />
   </rhn:toolbar>
 
   <div class="page-summary">
     <p><bean:message key="ssm.provisioning.rollbacktotag.summary1"
-                   arg0="<strong>${param.tag_name}</strong>" /></p>
+                   arg0="<strong>${fn:escapeXml(param.tag_name)}</strong>" /></p>
     <p><bean:message key="ssm.provisioning.rollbacktotag.summary2" /></p>
     <p><bean:message key="ssm.provisioning.rollbacktotag.note" /></p>
   </div>
 
   <rl:listset name="rollbackSet" legend="system-history">
     <rhn:csrf />
-    <input type="hidden" name="tag_id" value="${param.tag_id}" />
+    <rhn:hidden name="tag_id" value="${param.tag_id}" />
 
     <rl:list styleclass="list" alphabarcolumn="server_name">
       <rl:decorator name="PageSizeDecorator" />

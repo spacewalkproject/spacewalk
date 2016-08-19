@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2009--2015 Red Hat, Inc.
+# Copyright (c) 2009--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -61,7 +61,7 @@ ERROR: there was a problem trying to initialize the database:
         sys.exit(11)
 
     if values.verbose:
-        print 'Public CA SSL certificate:  %s' % values.ca_cert
+        print('Public CA SSL certificate:  %s' % values.ca_cert)
 
     return values
 
@@ -81,7 +81,7 @@ def main():
         sys.stderr.write('\nERROR: %s\n' % e)
 
     try:
-        satCerts.store_rhnCryptoKey(values.label, values.ca_cert, verbosity=values.verbose)
+        satCerts.store_CaCert(values.label, values.ca_cert, verbosity=values.verbose)
     except satCerts.CaCertInsertionError:
         writeError("Cannot insert certificate into DB!\n\n%s\n" % rhnTB.fetchTraceback())
         sys.exit(13)

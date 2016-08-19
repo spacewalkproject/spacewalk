@@ -27,7 +27,7 @@
                 <html:submit styleClass="btn btn-default" property="dispatch">
                     <bean:message key="targetsystems.jsp.enable" />
                 </html:submit>
-                <input type="hidden" name="use_date" value="true" />
+                <rhn:hidden name="use_date" value="true" />
             </div>
        </div>
     </div>

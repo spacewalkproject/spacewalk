@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,10 +15,12 @@
 
 package com.redhat.rhn.frontend.nav;
 
-import com.redhat.rhn.frontend.html.HtmlTag;
-
 import java.util.Map;
 import java.util.StringTokenizer;
+
+import org.apache.commons.lang.StringEscapeUtils;
+
+import com.redhat.rhn.frontend.html.HtmlTag;
 
 /**
  * DialognavRenderer - renders a navigation bar
@@ -135,7 +137,8 @@ public class DialognavRenderer extends Renderable {
                 // if currentVar is null, values will be null too, so we can
                 // just check values.
                 if (values != null) {
-                    formVars.append(currentVar + "=" + values[0]);
+                    formVars.append(currentVar + "=" +
+                             StringEscapeUtils.escapeHtml(values[0]));
                 }
             }
             href += formVars.toString();

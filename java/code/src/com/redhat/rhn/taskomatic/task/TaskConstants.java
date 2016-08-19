@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -173,6 +173,9 @@ public class TaskConstants {
 
     public static final String TASK_QUERY_LOOKUP_KICKSTART_SESSION_ID =
         "lookup_kickstart_session_id";
+
+    public static final String TASK_QUERY_UUID_CLEANUP =
+        "taskomatic_uuid_cleanup";
 
     private TaskConstants() { }
 }

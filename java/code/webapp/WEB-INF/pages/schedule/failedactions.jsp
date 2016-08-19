@@ -15,6 +15,9 @@
     <p>
     <bean:message key="failedactions.jsp.summary"/>
     </p>
+    <p>
+      <span class="small-text"><bean:message key="actions.jsp.totalnote"/></span>
+    </p>
         <rl:listset name="failedList">
         <rhn:csrf />
                 <rl:list emptykey="failedactions.jsp.nogroups" styleclass="list">

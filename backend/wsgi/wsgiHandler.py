@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2010--2015 Red Hat, Inc.
+# Copyright (c) 2010--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -24,7 +24,7 @@ def handle(environ, start_response, server, component_type, servertype="spacewal
     for key in environ.keys():
         if key[:5] == "HTTP_":
             new_key = key[5:].title()
-            for k, v in replacements.iteritems():
+            for k, v in replacements.items():
                 new_key = new_key.replace(k, v)
             environ[new_key] = environ[key]
 

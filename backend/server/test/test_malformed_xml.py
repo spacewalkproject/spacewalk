@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -53,6 +53,6 @@ h.endheaders()
 h.send(data)
 
 r = h.getresponse()
-print r.msg.headers
+print(r.msg.headers)
 
-print r.read()
+print(r.read())

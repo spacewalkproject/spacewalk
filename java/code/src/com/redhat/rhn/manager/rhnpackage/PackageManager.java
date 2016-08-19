@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -53,6 +53,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
+import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -427,19 +428,10 @@ public class PackageManager extends BaseManager {
         return makeDataResult(params, elabParams, null, m);
     }
 
-    /**
-     * Returns a DataResult containing PackageOverview dto's representing the
-     * package_ids_in_set query
-     * @param user The User
-     * @param label The label of the set we want
-     * @param pc The page control for the user
-     * @return Returns the list of packages whose id's are in the given set
-     */
-    public static DataResult packageIdsInSet(User user, String label,
-                                             PageControl pc) {
-
+    private static DataResult getPackageIdsInSet(User user, String label,
+                                                 PageControl pc, String query) {
         SelectMode m = ModeFactory.getMode("Package_queries",
-                "package_ids_in_set");
+                query);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("set_label", label);
@@ -457,7 +449,32 @@ public class PackageManager extends BaseManager {
             dr.setElaborationParams(elabs);
         }
         return dr;
+    }
 
+    /**
+     * Returns a DataResult containing PackageOverview dto's representing the
+     * package_ids_in_set query
+     * @param user The User
+     * @param label The label of the set we want
+     * @param pc The page control for the user
+     * @return Returns the list of packages whose id's are in the given set
+     */
+    public static DataResult packageIdsInSet(User user, String label,
+                                             PageControl pc) {
+        return getPackageIdsInSet(user, label, pc, "package_ids_in_set");
+    }
+
+    /**
+     * Returns a DataResult containing PackageSourceOverview dto's representing the
+     * source_package_ids_in_set query
+     * @param user The User
+     * @param label The label of the set we want
+     * @param pc The page control for the user
+     * @return Returns the list of packages whose id's are in the given set
+     */
+    public static DataResult sourcePackageIdsInSet(User user, String label,
+                                             PageControl pc) {
+        return getPackageIdsInSet(user, label, pc, "source_package_ids_in_set");
     }
 
     /**
@@ -670,6 +687,25 @@ public class PackageManager extends BaseManager {
                     pkg.getPackageName().getName());
         }
         session.delete(pkg);
+    }
+
+    /**
+     * Deletes a source package from the system
+     * @param user calling user
+     * @param pkg source package to delete
+     * @throws PermissionCheckFailureException - caller is not an org admin,
+     * the package is in one of the RH owned channels, or is in different org
+     */
+    public static void schedulePackageSourceRemoval(User user, PackageSource pkg)
+        throws PermissionCheckFailureException {
+        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
+            throw new PermissionCheckFailureException();
+        }
+        if (pkg.getOrg() == null || user.getOrg() != pkg.getOrg()) {
+            throw new PermissionCheckFailureException();
+        }
+        schedulePackageFileForDeletion(pkg.getPath());
+        PackageFactory.deletePackageSource(pkg);
     }
 
     private static void cleanupFileEntries(Long pid) {
@@ -1057,14 +1093,22 @@ public class PackageManager extends BaseManager {
     /**
      * List orphaned custom packages for an org
      * @param orgId the org
+     * @param source list source packages instead of regular
      * @return list of package overview objects
      */
-    public static DataResult listOrphanPackages(Long orgId) {
+    public static DataResult listOrphanPackages(Long orgId, boolean source) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgId);
 
-            SelectMode m = ModeFactory.getMode(
+        SelectMode m;
+        if (!source) {
+            m = ModeFactory.getMode(
                     "Package_queries", "orphan_packages");
+        }
+        else {
+            m = ModeFactory.getMode(
+                    "Package_queries", "orphan_source_packages");
+        }
 
             DataResult dr = m.execute(params);
             dr.setElaborationParams(new HashMap());
@@ -1074,14 +1118,22 @@ public class PackageManager extends BaseManager {
     /**
      * List all custom  packages for an org
      * @param orgId the org
+     * @param source list source packages instead of regular
      * @return List of custom package (PackageOverview)
      */
-    public static DataResult listCustomPackages(Long orgId) {
+    public static DataResult listCustomPackages(Long orgId, boolean source) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgId);
 
-            SelectMode m = ModeFactory.getMode(
+        SelectMode m;
+        if (!source) {
+            m = ModeFactory.getMode(
                     "Package_queries", "all_custom_packages");
+        }
+        else {
+            m = ModeFactory.getMode(
+                    "Package_queries", "all_custom_source_packages");
+        }
 
             DataResult dr = m.execute(params);
             Map elabs = new HashMap();
@@ -1094,14 +1146,24 @@ public class PackageManager extends BaseManager {
      * list custom packages contained in a channel
      * @param cid the channel id
      * @param orgId the org id
+     * @param source list source packages instead of regular
      * @return the list of custom package (package overview)
      */
-    public static DataResult listCustomPackageForChannel(Long cid, Long orgId) {
+    public static DataResult listCustomPackageForChannel(Long cid, Long orgId,
+                                                         boolean source) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgId);
         params.put("cid", cid);
-            SelectMode m = ModeFactory.getMode(
+
+        SelectMode m;
+        if (!source) {
+            m = ModeFactory.getMode(
                     "Package_queries", "custom_package_in_channel");
+        }
+        else {
+            m = ModeFactory.getMode(
+                    "Package_queries", "custom_source_package_in_channel");
+        }
 
             DataResult dr = m.execute(params);
             Map elabs = new HashMap();
@@ -1172,12 +1234,6 @@ public class PackageManager extends BaseManager {
 
         mode.executeUpdate(params);
 
-        // Delete package sources for all packages
-        mode = ModeFactory.getWriteMode("Package_queries",
-            "delete_package_sources_from_set");
-
-        mode.executeUpdate(params);
-
         // Delete link between channel and package
         mode = ModeFactory.getWriteMode("Package_queries",
             "cleanup_package_channels_from_set");
@@ -1206,6 +1262,50 @@ public class PackageManager extends BaseManager {
 
         LOG.debug("Time to update [" + channelIds.size() + "] channels [" +
             (System.currentTimeMillis() - start) + "] ms");
+    }
+
+    /**
+     * This deletes a source packages completely including the
+     *      physical rpm on the disk
+     * @param ids the set of source package ids
+     * @param user the user doing the deleting
+     */
+    public static void deleteSourcePackages(Set<Long> ids, User user) {
+
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+            throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
+        }
+
+        long start = System.currentTimeMillis();
+
+        // Stuff the package IDs into an RhnSet that the rest of the queries
+        // will work on
+        RhnSet set = RhnSetDecl.PACKAGES_TO_REMOVE.create(user);
+
+        for (Long id : ids) {
+            set.addElement(id);
+        }
+
+        RhnSetManager.store(set);
+
+        // Needed for subsequent queries
+        WriteMode mode;
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("set_label", set.getLabel());
+        params.put("uid", user.getId());
+
+        // Delete RPMS
+        mode = ModeFactory.getWriteMode("Package_queries",
+                "schedule_source_pkg_for_delete_from_set");
+        mode.executeUpdate(params);
+
+        // Delete source packages
+        mode = ModeFactory.getWriteMode("Package_queries",
+                "delete_package_sources_from_set");
+        mode.executeUpdate(params);
+
+        LOG.debug("Time to delete [" + ids.size() + "] packages [" +
+                (System.currentTimeMillis() - start) + "] ms");
     }
 
     /**

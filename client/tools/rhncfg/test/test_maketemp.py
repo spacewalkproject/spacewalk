@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,11 +17,11 @@
 import os
 from config_common import file_utils
 
-filepath, f = file_utils.maketemp("/tmp/my-file-", mode=0700)
+filepath, f = file_utils.maketemp("/tmp/my-file-", mode=int("0700", 8))
 
 buf = "0123456789" * 100
 
-print "Writing", len(buf), "to", filepath
+print("Writing", len(buf), "to", filepath)
 f.write(buf)
 assert(len(buf) == f.tell())
 

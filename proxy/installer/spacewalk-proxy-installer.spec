@@ -6,7 +6,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.5.1
+Version: 2.6.1
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -98,6 +98,13 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Mon Jun 27 2016 Tomas Lestach <tlestach@redhat.com> 2.6.1-1
+- fix import order
+- Bumping package versions for 2.6.
+
+* Thu Feb 25 2016 Jan Dobes 2.5.2-1
+- 647105 - filter only existing config files
+
 * Tue Nov 24 2015 Jan Dobes 2.5.1-1
 - rhn_proxy_activate: remove error conditions linked to provisioning
   entitlements

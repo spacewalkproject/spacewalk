@@ -19,7 +19,7 @@
 <rl:listset name="systemSet" legend="system-group">
 <rhn:csrf />
 
-<input type="hidden" name="cid" value="${cid}" />
+<rhn:hidden name="cid" value="${cid}" />
 
         <rl:list dataset="pageList"
                         name="systemList"

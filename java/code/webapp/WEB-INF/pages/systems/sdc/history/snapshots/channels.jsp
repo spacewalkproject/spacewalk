@@ -18,8 +18,8 @@
 
 <rl:listset name="eventSet" legend="system-history">
     <rhn:csrf />
-    <input type="hidden" name="sid" value="${param.sid}" />
-    <input type="hidden" name="ss_id" value="${param.ss_id}" />
+    <rhn:hidden name="sid" value="${param.sid}" />
+    <rhn:hidden name="ss_id" value="${param.ss_id}" />
     <rl:list emptykey="system.history.snapshot.nochanneldiff">
 
         <rl:decorator name="PageSizeDecorator" />

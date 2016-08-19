@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -295,7 +295,7 @@ def __single_query_with_arch_and_id(server_id, deps, query):
     for dep in deps:
         h.execute(server_id=server_id, dep=dep)
         data = h.fetchall() or []
-        ret[dep] = map(lambda a: a[:6], data)
+        ret[dep] = [a[:6] for a in data]
     return ret
 
 #
@@ -357,7 +357,7 @@ def solve_dependencies_with_limits(server_id, deps, version, all=0, limit_operat
 
         # Each package gets a list that may contain multiple versions of a package
         for record in rs:
-            if packages_all.has_key(record['name']):
+            if record['name'] in packages_all:
                 packages_all[record['name']].append(record)
             else:
                 packages_all[record['name']] = [record]
@@ -396,7 +396,7 @@ def solve_dependencies_with_limits(server_id, deps, version, all=0, limit_operat
 
             entry = []
 
-            map(lambda f, e=entry, p=p: e.append(p[f]), nvre)
+            list(map(lambda f, e=entry, p=p: e.append(p[f]), nvre))
 
             # Added for readability
             name_key = entry[0]
@@ -408,7 +408,7 @@ def solve_dependencies_with_limits(server_id, deps, version, all=0, limit_operat
                 # The changes I made above make it so that at this point the packages are sorted from highest nvre
                 # to lowest nvre. Selecting the second package was causing the earlier package to be
                 # returned, which is bad.
-                if dict.has_key(name_key) and dict[name_key][1] <= p['preference']:
+                if name_key in dict and dict[name_key][1] <= p['preference']:
                     # Already have it with a lower preference
                     continue
                 # The first time we see this package.
@@ -432,7 +432,7 @@ def solve_dependencies_with_limits(server_id, deps, version, all=0, limit_operat
                 list_of_tuples = tup_keep
 
             list_of_tuples.sort(lambda a, b: cmp(a[1], b[1]))
-            packages[dep] = map(lambda x: x[0], list_of_tuples)
+            packages[dep] = [x[0] for x in list_of_tuples]
 
     # v2 clients are done
     if version > 1:
@@ -517,10 +517,10 @@ def solve_dependencies(server_id, deps, version, nvre=None):
             if p['epoch'] is None:
                 p['epoch'] = ""
             entry = []
-            map(lambda f, e=entry, p=p: e.append(p[f]), nvre)
+            list(map(lambda f, e=entry, p=p: e.append(p[f]), nvre))
 
             name_key = entry[0]
-            if dict.has_key(name_key) and dict[name_key][1] < p['preference']:
+            if name_key in dict and dict[name_key][1] < p['preference']:
                 # Already have it with a lower preference
                 continue
             # The first time we see this package.
@@ -540,17 +540,17 @@ def _avoid_compat_packages(dict):
         if there are other candidates
     """
     if len(dict) > 1:
-        matches = dict.keys()
+        matches = list(dict.keys())
         # check we have at least one non- "compat-*" package name
-        compats = filter(lambda a: a[:7] == "compat-", matches)
+        compats = [a for a in matches if a[:7] == "compat-"]
         if len(compats) > 0 and len(compats) < len(matches):  # compats and other things
             for p in compats:  # delete all references to a compat package for this dependency
                 del dict[p]
         # otherwise there's nothing much we can do (no compats or only compats)
     # and now return these final results ordered by preferece
-    l = dict.values()
+    l = list(dict.values())
     l.sort(lambda a, b: cmp(a[1], b[1]))
-    return map(lambda x: x[0], l)
+    return [x[0] for x in l]
 
 
 def cmp_evr(pkg1, pkg2):

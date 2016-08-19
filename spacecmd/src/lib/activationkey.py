@@ -835,10 +835,7 @@ def do_activationkey_details(self, args):
                     self.session, key)
 
             # API returns 0/1 instead of boolean
-            if config_channel_deploy == 1:
-                config_channel_deploy = True
-            else:
-                config_channel_deploy = False
+            config_channel_deploy = config_channel_deploy == 1
         except xmlrpclib.Fault:
             logging.warning('%s is not a valid activation key' % key)
             return
@@ -996,8 +993,8 @@ def do_activationkey_setbasechannel(self, args):
 def help_activationkey_setusagelimit(self):
     print 'activationkey_setusagelimit: Set the usage limit of an ' + \
           'activation key, can be a number or \"unlimited\"'
-    print 'usage: activationkey_setbasechannel KEY <usage limit>'
-    print 'usage: activationkey_setbasechannel KEY unlimited '
+    print 'usage: activationkey_setusagelimit KEY <usage limit>'
+    print 'usage: activationkey_setusagelimit KEY unlimited '
 
 
 def complete_activationkey_setusagelimit(self, text, line, beg, end):
@@ -1286,7 +1283,7 @@ def import_activationkey_fromdetails(self, keydetails):
         gids = []
         for grp in keydetails['server_groups']:
             grpdetails = self.client.systemgroup.getDetails(self.session, grp)
-            if grpdetails == None:
+            if grpdetails is None:
                 logging.info("System group %s doesn't exist, creating" % grp)
                 grpdetails = self.client.systemgroup.create(self.session, grp,
                                                             grp)
@@ -1498,9 +1495,9 @@ def dump_activationkey(self, name, replacedict=None, excludes=None):
 
 
 def help_activationkey_diff(self):
-    print 'activationkeyt_diff: diff activationkeys'
+    print 'activationkey_diff: Diff activation keys'
     print ''
-    print 'usage: activationkey_diff SOURCE_ACTIVATIONKEY TARGET_ACTIVATIONKEY'
+    print 'usage: activationkey_diff SOURCE_KEY TARGET_KEY'
 
 
 def complete_activationkey_diff(self, text, line, beg, end):

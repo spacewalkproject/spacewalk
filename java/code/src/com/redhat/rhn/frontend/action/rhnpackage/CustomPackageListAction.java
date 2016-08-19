@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -53,6 +53,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CustomPackageListAction extends RhnAction {
 
+
     private final String listName = "packageList";
     private final String SELECTED_CHANNEL = "selected_channel";
     private final String ALL_PACKAGES = "all_managed_packages";
@@ -80,14 +81,18 @@ public class CustomPackageListAction extends RhnAction {
         //actually do anything else, so lets go ahead and forward and save some time
         String button = LocalizationService.getInstance().getMessage(
         "channel.jsp.manage.package.delete");
+
+        boolean sourcePackagesChecked =
+                "source".equals(request.getParameter("package_type")) ? true : false;
+
         if (button.equals(request.getParameter(RhnHelper.CONFIRM_FORWARD)) &&
             set.size() > 0) {
             Map<String, Object> params = new HashMap<String, Object>();
+            // Forward type of the list
+            params.put("source_checked", sourcePackagesChecked);
             return getStrutsDelegate().forwardParams(
                                 mapping.findForward(RhnHelper.CONFIRM_FORWARD), params);
         }
-
-
 
 
         String selectedChan = request.getParameter(SELECTED_CHANNEL);
@@ -107,19 +112,20 @@ public class CustomPackageListAction extends RhnAction {
                 selectedChan = ORPHAN_PACKAGES;
         }
 
-
         if (ALL_PACKAGES.equals(selectedChan)) {
-            result = PackageManager.listCustomPackages(user.getOrg().getId());
+            result = PackageManager.listCustomPackages(user.getOrg().getId(),
+                    sourcePackagesChecked);
             request.setAttribute(ALL_PACKAGES_SELECTED, true);
         }
         else if (ORPHAN_PACKAGES.equals(selectedChan)) {
-            result = PackageManager.listOrphanPackages(user.getOrg().getId());
+            result = PackageManager.listOrphanPackages(user.getOrg().getId(),
+                    sourcePackagesChecked);
             request.setAttribute(ORPHAN_PACKAGES_SELECTED, true);
         }
         else {
             scid = Long.parseLong(selectedChan);
             result = PackageManager.listCustomPackageForChannel(scid,
-                    user.getOrg().getId());
+                    user.getOrg().getId(), sourcePackagesChecked);
         }
 
 
@@ -127,15 +133,10 @@ public class CustomPackageListAction extends RhnAction {
         //      is selected, select it
         List<SelectableChannel> chanList = findChannels(user, scid);
 
-
-
-
-
         RhnListSetHelper helper = new RhnListSetHelper(request);
 
-
         //true if they clicked view packages
-        boolean viewPackagesPressed =  LocalizationService.getInstance().getMessage(
+        boolean viewPackagesPressed = LocalizationService.getInstance().getMessage(
             "channel.jsp.package.viewpackages").equals(request.getParameter("view"));
         boolean forwarded =  request.getParameter("forwarded") != null;
 
@@ -151,8 +152,6 @@ public class CustomPackageListAction extends RhnAction {
             helper.execute(set, listName, result);
         }
 
-
-
         if (!set.isEmpty()) {
             helper.syncSelections(set, result);
             ListTagHelper.setSelectedAmount(listName, set.size(), request);
@@ -162,8 +161,7 @@ public class CustomPackageListAction extends RhnAction {
                 request);
         TagHelper.bindElaboratorTo(listName, result.getElaborator(), request);
 
-
-
+        request.setAttribute("source_checked", sourcePackagesChecked);
         request.setAttribute("channel_list", chanList);
 
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());

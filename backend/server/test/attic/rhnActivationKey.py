@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,7 +18,7 @@
 import os
 import hashlib
 import time
-import types
+from spacewalk.common import usix
 
 from spacewalk.server import rhnSQL
 
@@ -112,7 +112,7 @@ class ActivationKey:
         self._set('entitlement_level', entitlements)
 
     def set_server_groups(self, groups):
-        assert(isinstance(groups, types.ListType))
+        assert(isinstance(groups, usix.ListType))
 
         ret = {}
         for g in groups:
@@ -122,7 +122,7 @@ class ActivationKey:
         self._server_groups.update(ret)
 
     def set_channels(self, channels):
-        assert(isinstance(channels, types.ListType))
+        assert(isinstance(channels, usix.ListType))
 
         t = rhnSQL.Table('rhnChannel', 'label')
 
@@ -169,10 +169,10 @@ class ActivationKey:
         return ret
 
     def get_server_groups(self):
-        return self._server_groups.keys()
+        return list(self._server_groups.keys())
 
     def get_channels(self):
-        return self._channels.values()
+        return list(self._channels.values())
 
     def get_token(self):
         return self._token
@@ -246,7 +246,7 @@ class ActivationKey:
         # entitlements: hash keyed on the entitlement id
         if not entitlements:
             return
-        entitlements = entitlements.keys()
+        entitlements = list(entitlements.keys())
 
         reg_token_id = self._row_reg_token['id']
         reg_token_ids = [reg_token_id] * len(entitlements)
@@ -319,7 +319,7 @@ class ActivationKey:
                 inserts.append(k)
                 continue
             del h1[k]
-        deletes = h1.keys()
+        deletes = list(h1.keys())
         return inserts, deletes
 
     def __getattr__(self, name):

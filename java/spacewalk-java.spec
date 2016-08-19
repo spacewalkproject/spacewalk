@@ -12,13 +12,15 @@
 %define jardir          %{_localstatedir}/lib/tomcat6/webapps/rhn/WEB-INF/lib
 %endif
 
+%if 0%{?rhel} || 0%{?fedora} <= 22
 %define run_checkstyle  1
+%endif
 
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.31
+Version: 2.6.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -35,8 +37,7 @@ Requires: dwr >= 3
 Requires: jakarta-commons-el
 Requires: jakarta-commons-fileupload
 Requires: jakarta-taglibs-standard
-Requires: java >= 1:1.6.0
-Requires: java-devel >= 1:1.6.0
+Requires: java >= 1:1.7.0
 Requires: jcommon
 Requires: jdom
 Requires: jpam
@@ -61,21 +62,25 @@ Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
 Requires: hibernate3-ehcache >= 3.6.10
 Requires: javassist
+Requires: java-devel >= 1:1.7.0
 BuildRequires: ehcache-core
 BuildRequires: hibernate3 >= 0:3.6.10
 BuildRequires: hibernate3-c3p0 >= 3.6.10
 BuildRequires: hibernate3-ehcache >= 3.6.10
 BuildRequires: javassist
+BuildRequires: java-devel >= 1:1.7.0
 %else
 Requires: hibernate3 = 0:3.2.4
+Requires: java-1.7.0-openjdk-devel
 BuildRequires: hibernate3 = 0:3.2.4
+BuildRequires: java-1.7.0-openjdk-devel
 %endif
 # EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: struts >= 0:1.3.0
 Requires: tomcat >= 7
 Requires: tomcat-lib >= 7
-Requires: tomcat-servlet-3.0-api >= 7
+Requires: servlet >= 3.0
 BuildRequires: struts >= 0:1.3.0
 BuildRequires: tomcat >= 7
 BuildRequires: tomcat-lib >= 7
@@ -153,7 +158,6 @@ BuildRequires: jaf
 BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-commons-fileupload
 BuildRequires: jakarta-taglibs-standard
-BuildRequires: java-devel >= 1:1.6.0
 BuildRequires: jcommon
 BuildRequires: jdom
 BuildRequires: jpam
@@ -276,8 +280,7 @@ Requires: c3p0 >= 0.9.1
 Requires: cobbler20
 Requires: concurrent
 Requires: jakarta-taglibs-standard
-Requires: java >= 0:1.6.0
-Requires: java-devel >= 0:1.6.0
+Requires: java >= 0:1.7.0
 Requires: jcommon
 Requires: jpam
 Requires: log4j
@@ -295,8 +298,10 @@ Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
 Requires: hibernate3-ehcache >= 3.6.10
 Requires: javassist
+Requires: java-devel >= 0:1.7.0
 %else
 Requires: hibernate3 >= 0:3.2.4
+Requires: java-1.7.0-openjdk-devel
 %endif
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: apache-commons-cli
@@ -429,19 +434,26 @@ ln -s -f %{_javadir}/jboss-logging/jboss-logging.jar $RPM_BUILD_ROOT%{_javadir}/
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} >= 7
-ant -Dprefix=$RPM_BUILD_ROOT install-tomcat7
+ant -Dprefix=$RPM_BUILD_ROOT install-tomcat
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat/Catalina/localhost/
-install -m 755 conf/rhn.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat/Catalina/localhost/rhn.xml
+
+# Need to use 2 versions of rhn.xml, Tomcat 8 changed syntax
+%if 0%{?fedora} >= 23
+install -m 644 conf/rhn-tomcat8.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat/Catalina/localhost/rhn.xml
+%else
+install -m 644 conf/rhn-tomcat5.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat/Catalina/localhost/rhn.xml
+%endif
+
 %else
 ant -Dprefix=$RPM_BUILD_ROOT install-tomcat6
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/
-install -m 755 conf/rhn.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
+install -m 644 conf/rhn-tomcat5.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
 %endif
 
 # check spelling errors in all resources for English if aspell installed
 [ -x "$(which aspell)" ] && scripts/spelling/check_java.sh .. en_US
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 install -d -m 755 $RPM_BUILD_ROOT%{_sbindir}
 install -d -m 755 $RPM_BUILD_ROOT%{_unitdir}
 %else
@@ -487,18 +499,18 @@ install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT%{_prefix}/share/r
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
 install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
 install -m 644 conf/rhn_java.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
-install -m 755 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
+install -m 644 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
 # LOGROTATE >= 3.8 requires extra permission config
 %if 0%{?fedora} || 0%{?rhel} > 6
 sed -i 's/#LOGROTATE-3.8#//' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
 %endif
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 install -m 755 scripts/taskomatic $RPM_BUILD_ROOT%{_sbindir}
-install -m 755 scripts/taskomatic.service $RPM_BUILD_ROOT%{_unitdir}
+install -m 644 scripts/taskomatic.service $RPM_BUILD_ROOT%{_unitdir}
 %else
 install -m 755 scripts/taskomatic $RPM_BUILD_ROOT%{_initrddir}
 %endif
-install -m 755 scripts/unittest.xml $RPM_BUILD_ROOT/%{_datadir}/rhn/
+install -m 644 scripts/unittest.xml $RPM_BUILD_ROOT/%{_datadir}/rhn/
 install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib
 %if ! 0%{?omit_tests} > 0
 install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn-test.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib
@@ -686,9 +698,9 @@ fi
 
 %files -n spacewalk-taskomatic
 %defattr(644,root,root,775)
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %attr(755, root, root) %{_sbindir}/taskomatic
-%attr(755, root, root) %{_unitdir}/taskomatic.service
+%attr(644, root, root) %{_unitdir}/taskomatic.service
 %else
 %attr(755, root, root) %{_initrddir}/taskomatic
 %endif
@@ -718,6 +730,390 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 10 2016 Jiri Dostal <jdostal@redhat.com> 2.6.25-1
+- 1357824 - Kickstart advanced options accept required options without argument
+- Kickstart AdvancedOptions ISE without URL
+
+* Wed Aug 10 2016 Eric Herget <eherget@redhat.com> 2.6.24-1
+- 1365530 - add system data to downloaded csv on Advanced Search page
+
+* Thu Aug 04 2016 Grant Gainey 2.6.23-1
+- 1351785 - getInputStream() reached from multiple places
+
+* Wed Aug 03 2016 Jiri Dostal <jdostal@redhat.com> 2.6.22-1
+- 1332805 - The problematic editing of kickstart profile
+
+* Wed Aug 03 2016 Jiri Dostal <jdostal@redhat.com> 2.6.21-1
+- 1332805 - The problematic editing of kickstart profile
+
+* Wed Aug 03 2016 Jiri Dostal <jdostal@redhat.com> 2.6.20-1
+- 1332805 - The problematic editing of kickstart profile
+
+* Tue Aug 02 2016 Jan Dobes 2.6.19-1
+- 1192879 - refresh list on click
+- 1192879 - use radio box instead of checkbox
+- Fixing typo "with the past year" > "within the past year""
+
+* Wed Jul 27 2016 Jiri Dostal <jdostal@redhat.com> 2.6.18-1
+- 1356173 - kickstart.profile.set_advanced_options does not update kickstart
+  file
+
+* Tue Jul 19 2016 Grant Gainey 2.6.17-1
+- 1226329 - sense support for debian packages
+
+* Tue Jul 19 2016 Jiri Dostal <jdostal@redhat.com> 2.6.16-1
+- ISE kickstart AdvancedOptions with "url" field checked but not set
+
+* Mon Jul 11 2016 Jiri Dostal <jdostal@redhat.com> 2.6.15-1
+- 1324737 - API call to get list of Systems Requiring Reboot
+
+* Thu Jul 07 2016 Gennadii Altukhov <galt@redhat.com> 2.6.14-1
+- 1353210 - use Oracle and PostgreSQL compatible 'REGEXP_REPLACE' function
+  instead of 'SUBSTRING'
+
+* Tue Jul 05 2016 Grant Gainey 2.6.13-1
+- 1351695 - Traceback: comparison method violates its general contract Cleanup
+  of a few more suboptimal compare() methods
+
+* Tue Jul 05 2016 Grant Gainey 2.6.12-1
+- 1351695 - Fix SystemSearchHelper score-comparator This should fix the TimSort
+  issue, in addition to fixing a variety of broken edge-case behavior in this
+  comparator. Also adds a Junit for
+  SystemSearchHelper.SearchResultScoreComparator
+
+* Wed Jun 29 2016 Tomas Lestach <tlestach@redhat.com> 2.6.11-1
+- 1124809 - fix system sorting by last checkin
+
+* Tue Jun 21 2016 Gennadii Altukhov <galt@redhat.com> 2.6.10-1
+- 1348522 - add sha512 support for password encryption in kickstart profile
+
+* Tue Jun 21 2016 Jan Dobes 2.6.9-1
+- fixing api documentation
+- adding exception for invalid repo type
+- rewriting code to use lookup by label only
+- redundant statement
+- need to have lookup by label method because of API
+
+* Mon Jun 20 2016 Jiri Dostal <jdostal@redhat.com> 2.6.8-1
+- 1332880 - Updating of network properties does not work without HW profile
+
+* Fri Jun 17 2016 Jan Dobes 2.6.7-1
+- make possible to select content type for repo
+
+* Fri Jun 10 2016 Jan Dobes 2.6.6-1
+- fix rhnContentSourceSsl -> rhnContentSsl in code
+
+* Thu Jun 09 2016 Grant Gainey 2.6.5-1
+- 1322710 - <c:out> is your friend
+
+* Fri Jun 03 2016 Jiri Precechtel <jprecech@redhat.com> 2.6.4-1
+- 1288818 - added API method actionchain.addErrataUpdate()
+
+* Fri May 27 2016 Jan Dobes 2.6.3-1
+- removing couple of execute permissions in spacewalk-java
+- control taskomatic by systemd on rhel 7
+
+* Fri May 27 2016 Jiri Precechtel <jprecech@redhat.com> 2.6.2-1
+- 1116426 - "Delete Group" and "Work With Group" buttons are not be displayed
+  on the Delete Group confirmation page now
+
+* Fri May 27 2016 Jiri Precechtel <jprecech@redhat.com> 2.6.1-1
+- 1304093 - remove migrated systems from SSM if they are selected
+- Bumping package versions for 2.6.
+
+* Thu May 26 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.99-1
+- bumping java.apiversion for 2.5
+
+* Thu May 26 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.98-1
+- fix checkstyle
+
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.97-1
+- call 'queue channel change' only once per channel change
+- removing unused code
+- updating copyright years
+- Merging frontend L10N from Zanata
+
+* Fri May 20 2016 Grant Gainey 2.5.96-1
+- Don't modify request map when rendering alphabar, since it may fail depending
+  on the implementation of ServletRequest
+
+* Thu May 19 2016 Jiri Precechtel <jprecech@redhat.com> 2.5.95-1
+- 1302323 - listVirtualGuests(): returned structures contain virtual system Id
+  in "id" key now
+
+* Wed May 18 2016 Grant Gainey 2.5.94-1
+- 1291031 - Tweaks for the tree-structures on the Duplicate*.do pages
+
+* Tue May 17 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.93-1
+- don't rely on postgresql service
+
+* Mon May 16 2016 Tomas Lestach <tlestach@redhat.com> 2.5.92-1
+- 1330610 - fix repodata regeneration after errata removal
+
+* Thu May 12 2016 Grant Gainey 2.5.91-1
+- 1334296 - Limit filter-by to a slightly less-ridiculous number of characters
+
+* Thu May 12 2016 Grant Gainey 2.5.90-1
+- 1334308 - better error/oid/org handling
+
+* Thu May 12 2016 Grant Gainey 2.5.89-1
+- 1333443 - Added note to explain potential discrepancy between Total and num-
+  clients
+
+* Wed May 11 2016 Tomas Lestach <tlestach@redhat.com> 2.5.88-1
+- 1335104 - fix user filtering on /rhn/groups/AdminList.do page
+- Exit if there are exceptions on startup to let tanuki restart taskomatic
+- Revert addition of tomcat as requirement for taskomatic systemd service.
+- Remove pointless check for tomcat being up.
+- log to the service wrapper so that we can see the messages during onStartUp()
+- Under high load, the service wrapper may incorrectly interpret the inability
+  to get a response in time from taskomatic and kill it (bsc#962253).
+
+* Wed Apr 27 2016 Grant Gainey 2.5.87-1
+- 1291031 - Remove OldTag junits (which weren't very useful to begin with)
+- 1291031 - Refactor errata-mgt pages to use NewListTag  * Collapse actions to
+  one each for List/Remove  * Rework JSPs for new tag  * Tweak nav.xml to match
+  action-changes
+- make checkstyle on Fedora22 happy
+
+* Tue Apr 19 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.86-1
+- TaskomaticApi refactoring: method code formatted
+- TaskomaticApi refactoring: method code formatted
+- RepoSyncTask refactoring: spacing and comments
+- ChannelFactory.getChannelIds refactoring: never return null
+
+* Mon Apr 18 2016 Jan Dobes 2.5.85-1
+- 1192879 - support basic listing of source packages with API
+- 1192879 - support remove source package with API
+
+* Fri Apr 15 2016 Jan Dobes 2.5.84-1
+- clean unused pages
+- acl fixes
+- update strings
+- remove proxy.jsp, action and struts config
+- add proxy version info to proxyclients page
+- change details->proxy tab to point to proxyclients
+
+* Wed Apr 13 2016 Jiri Precechtel <jprecech@redhat.com> 2.5.83-1
+- Added switch to show Systems with Managed cfg files only
+
+* Mon Apr 11 2016 Jan Dobes 2.5.82-1
+- 1192879 - updating confirm page
+- 1192879 - adding delete queries for database and filesystem
+- 1192879 - adding queries for listing source package ids in set
+- 1192879 - make possible to list source packages + other minor fixes on page
+- 1192879 - adding checkbox for listing source packages
+- 1192879 - adding queries for listing source packages
+- 1192879 - cannot automatically delete source package as other packages may
+  still use it
+
+* Fri Apr 08 2016 Tomas Lestach <tlestach@redhat.com> 2.5.81-1
+- Fix the string representation of PackageEvr
+
+* Wed Apr 06 2016 Jiri Precechtel <jprecech@redhat.com> 2.5.80-1
+- 1274484 - changed name of key in ConfigRevision structure + updated API doc +
+  configchannel.py
+
+* Tue Apr 05 2016 Jan Dobes 2.5.79-1
+- improving apidoc appearance
+
+* Fri Apr 01 2016 Gennadii Altukhov <galt@redhat.com> 2.5.78-1
+- 1323126 - Fix getting MD5 for file
+- fix scheduling an action chain
+- Fix: 'Systems > Advanced Search' title and description consistency
+- fix splitting kernel options
+
+* Thu Mar 31 2016 Gennadii Altukhov <galt@redhat.com> 2.5.77-1
+- 1322890 - Fix Content-Length in HTTP-header of response
+
+* Wed Mar 30 2016 Grant Gainey 2.5.76-1
+- 1320452 - Cleaning up some remaining Tag/Group XSS issues
+
+* Wed Mar 30 2016 Jiri Precechtel <jprecech@redhat.com> 2.5.75-1
+- 1158981 - Warning "Unservable packages" is not shown when such packages don't
+  exist now
+
+* Tue Mar 29 2016 Grant Gainey 2.5.74-1
+- 1320444 - typo slipped past. Ugh.
+
+* Tue Mar 29 2016 Grant Gainey 2.5.73-1
+- 1320444 - Bad bean-message ids and navbar-vars can lead to XSS issues
+
+* Tue Mar 29 2016 Grant Gainey 2.5.72-1
+- 1313517 - AlphaBar had an 'interesting' XSS exploit available
+- Whitespace fixes
+
+* Mon Mar 28 2016 Grant Gainey 2.5.71-1
+- 1291031 - Fix SelectAll in the presence of filtering
+
+* Mon Mar 28 2016 Grant Gainey 2.5.70-1
+- 1320452 - <c:out> is your friend
+
+* Mon Mar 28 2016 Grant Gainey 2.5.69-1
+- 1313515 - found/fixed another in BunchDetails. QE++
+
+* Thu Mar 24 2016 Jiri Precechtel <jprecech@redhat.com> 2.5.68-1
+- 1063839 - added comment to deleteCustomValues API method's "returns" section
+
+* Thu Mar 24 2016 Gennadii Altukhov <galt@redhat.com> 2.5.67-1
+- 1320236 - Change mechanism of selecting compatible systems
+
+* Wed Mar 23 2016 Jan Dobes 2.5.66-1
+- Fix: add a missing url mapping for kickstart/tree/EditVariables
+- Whitespace fix
+
+* Mon Mar 21 2016 Jan Dobes 2.5.65-1
+- Make read-only entitlements show up aligned in the UI
+
+* Sun Mar 20 2016 Jan Dobes 2.5.64-1
+- Disable changing Managers for Vendor Channels
+
+* Fri Mar 18 2016 Jan Dobes 2.5.63-1
+- Fix case statements to correctly check for NULL
+
+* Thu Mar 17 2016 Tomas Lestach <tlestach@redhat.com> 2.5.62-1
+- remove redundant line
+- add missing string
+
+* Fri Mar 11 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.61-1
+- add missing string (UUID cleanup description)
+
+* Wed Mar 09 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.60-1
+- move uuid cleanup logic into taskomatic
+
+* Mon Mar 07 2016 Grant Gainey 2.5.59-1
+- 1313515 - add unittest for id in hidden fields
+- 1313515 - hidden taglib provide id field if given
+
+* Fri Mar 04 2016 Grant Gainey 2.5.58-1
+- 1313515 - adding fn:escapeXml to <bean:message arg="${}"/> issues in JSPF
+- 1313515 - adding fn:escapeXml to a number of <bean:message arg="${}"/> issues
+  in JSPs
+
+* Tue Mar 01 2016 Grant Gainey 2.5.57-1
+- 1313515 - value=<c:out may have worked for <input>, but not for rhn:hidden
+- 1313515 - cobbler-variables.jspf has a 'special' use of <input type='hidden'>
+
+* Tue Mar 01 2016 Grant Gainey 2.5.56-1
+- 1313515 - <input...> is ok, <rhn:hidden > is not - close your tags!
+
+* Tue Mar 01 2016 Grant Gainey 2.5.55-1
+- 1313515 - checkstyle is a Harsh Mistress
+
+* Tue Mar 01 2016 Grant Gainey 2.5.54-1
+- 1313515 - action-chain CSS wants a dynamic attribute-name - revert to 'stock'
+  <input type='hidden'
+- 1313515 - we use 'id' in some of out hidden-inputs
+- 1313515 - 'value' is (apparently) optional for some of our hidden-tag-use
+- 1313515 - One more jspf to teach rhn:hidden
+- 1313515 - Teach many JSPs to use rhn:hidden instead of <input type='hidden'>
+- 1313515 - Add new rhn:hidden tag and its test
+- 1313517 - Teach ListTagHelper to be less trusting of filter-values
+- remove monitoring from the help text
+
+* Fri Feb 19 2016 Grant Gainey 2.5.53-1
+- Tweaked TZ-ordering - goes E-to-W starting with GMT. Also cleaned up the
+  associated junit
+- order is assertEquals(expected, actual)
+- use generics
+- Sort timezones: GMT first and then east to west
+- UserManagerTest: use the proper assert methods in order to get useful
+  information on failures
+- add Chile to the list of timezones (bsc#959055)
+- Add junit for 2f19c70e, clean up StringUtilTest.java * Doesn't need the
+  extras of RhnBaseTestCase * Cleaned up generics-warnings
+- Fix: prevent return null on merging path slices
+- 1244512 - deprecating useless method
+
+* Fri Feb 19 2016 Grant Gainey 2.5.52-1
+- 1309892 - on cancel, only delete actions that haven't been picked up yet
+
+* Fri Feb 19 2016 Jan Dobes 2.5.51-1
+- Fix option names to correspond with rhn_server.conf
+
+* Thu Feb 18 2016 Grant Gainey 2.5.50-1
+- 1304863 - previous overzealous fix, 'fixed' one query too many
+
+* Thu Feb 04 2016 Grant Gainey 2.5.49-1
+- 1304863 - add scheduled-by to SSM action-history-list
+
+* Thu Feb 04 2016 Grant Gainey 2.5.48-1
+- 1122974 - ISE in case no system is selected
+
+* Wed Feb 03 2016 Tomas Lestach <tlestach@redhat.com> 2.5.47-1
+- for Channel.packageByFileName query prefer packages from the actual channel,
+  sort the rest accoring to build_time
+
+* Tue Feb 02 2016 Jiri Dostal <jdostal@redhat.com> 2.5.46-1
+- 1250572 - Text description missing for remote command by API -> function
+  scheduleLabelScriptRun()
+
+* Fri Jan 29 2016 Gennadii Altukhov <galt@redhat.com> 2.5.45-1
+- 1302996 Added/changed API-methods to work with package installation/removing
+  using it's nevra
+- 1302996 Added additional information to package metadata, returned by
+  serializer
+
+* Wed Jan 27 2016 Tomas Lestach <tlestach@redhat.com> 2.5.44-1
+- additionaly sort results according to build_time, when searching for packages
+  by filename
+- 1287829 - reverting original changes
+
+* Mon Jan 25 2016 Grant Gainey 2.5.43-1
+- Make it compile against servlet API < 3.0
+- Avoid the diamond operator
+- Render nav menu by either request or page context
+- Create RenderUtils as a helper for rendering menus
+
+* Sun Jan 24 2016 Grant Gainey 2.5.42-1
+- Fix: sort channel list by name
+
+* Sun Jan 24 2016 Grant Gainey 2.5.41-1
+- Remove unused import
+- Share logic to setup unit tests
+- Rewrite RhnJmockBaseTestCase to support setUp() as well
+
+* Sun Jan 24 2016 Grant Gainey 2.5.40-1
+- SystemHandler: fix JDK7 compatibility
+- Entitlement refactory: remove unused isSatelliteEntitlement() method and fix
+  BaseHandler.validateEntitlements() to check for isPermanent() instead
+- SystemHandler: throw exception when permanent/nonSatellite entitlements are
+  changed via API
+
+* Sun Jan 24 2016 Grant Gainey 2.5.39-1
+- Set HTTP status code for error pages
+- Allow error pages to be requested via HTTP
+- Add error pages to UNPROTECTED_URIS
+
+* Sat Jan 23 2016 Grant Gainey 2.5.38-1
+- MessageQueue/ActionExecutor: use generics
+
+* Sat Jan 23 2016 Grant Gainey 2.5.37-1
+- log error instead of printStackTrace()
+
+* Tue Jan 19 2016 Gennadii Altukhov <galt@redhat.com> 2.5.36-1
+- 1287246 - Added fixes to API methods
+
+* Mon Jan 18 2016 Gennadii Altukhov <galt@redhat.com> 2.5.35-1
+- 1287246 - Added new API methods to add new repository with SSL certificates
+  or update existing one
+- BugFix: fixed comparison with null pointer
+
+* Thu Jan 07 2016 Jan Dobes 2.5.34-1
+- Tomcat 8 requires different syntax of rhn.xml
+- change dependency to match Tomcat 8 Servlet API 3.1
+
+* Thu Jan 07 2016 Jan Dobes 2.5.33-1
+- start to compile with Java 1.7 because Jasper in Tomcat 8 generates 1.5
+  incompatible code
+- disable checkstyle on Fedora 23 for now due to regression
+- implement methods needed by Tomcat 8 Servlet API 3.1
+
+* Wed Jan 06 2016 Grant Gainey 2.5.32-1
+- 1296234 - Fix edge-case in kickstart-profile-gen-ordering and
+  post_install_network_config
+- we have new year
+
 * Mon Jan 04 2016 Grant Gainey 2.5.31-1
 - 1282474 - checkstyle fixes
 

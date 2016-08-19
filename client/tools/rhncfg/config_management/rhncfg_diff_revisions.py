@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -72,9 +72,11 @@ class Handler(handler_base.HandlerBase):
         try:
             result = r.diff_file_revisions(path, channel_src,
                 revision_src, channel_dst, revision_dst)
-        except cfg_exceptions.RepositoryFileMissingError, e:
+        except cfg_exceptions.RepositoryFileMissingError:
+            e = sys.exc_info()[1]
             die(2, e[0])
-        except cfg_exceptions.BinaryFileDiffError, e:
+        except cfg_exceptions.BinaryFileDiffError:
+            e = sys.exc_info()[1]
             die(3, e[0])
 
         sys.stdout.write(result)

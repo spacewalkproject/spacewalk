@@ -1,13 +1,14 @@
 Summary: An xmlrpc library
 Name: redstone-xmlrpc
 Version: 1.1_20071120 
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: LGPL
 Group: Development/Library
 URL: http://xmlrpc.sourceforge.net
 Source0: %{name}-%{version}.tar.gz
 Patch0: build-classpath.patch
 Patch1: fault_serialization.patch
+Patch2: escaping_string_serialization.path
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 %if 0%{?fedora} >= 20 || 0%{?rhel} >=7
 BuildRequires: javapackages-tools
@@ -35,6 +36,7 @@ a simple xmlrpc library for java
 %setup -n xmlrpc
 %patch0 -p1
 %patch1 -p0
+%patch2 -p0
 rm lib/javax.servlet.jar
 build-jar-repository -p lib/ %third_party_jars
 
@@ -58,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}
 
 %changelog
+* Tue Mar 01 2016 Gennadii Altukhov <galt@redhat.com> 1.1_20071120-16
+- 1313425 Adding patch for redstone XMLRPC to escape '>'
+
 * Mon Jun 23 2014 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-15
 - use javapackages-tools instead of jpackage-utils on RHEL7
 

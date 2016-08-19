@@ -1,7 +1,7 @@
 #
 # Module that provides the client-side functionality for an XML importer
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -71,7 +71,7 @@ class Transport(rpclib.transports.Transport):
             return f
 
         connection.close()
-        raise Exception, "Unknown response type", content_type
+        raise Exception("Unknown response type: " + content_type)
 
 
 class SafeTransport(rpclib.transports.SafeTransport, Transport):

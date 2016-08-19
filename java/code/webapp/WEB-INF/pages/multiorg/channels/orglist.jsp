@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <head>
@@ -13,7 +14,7 @@
              deletionUrl="/rhn/channels/manage/Delete.do?cid=${param.cid}"
              deletionAcl="user_role(channel_admin); formvar_exists(cid)"
              deletionType="software.channel">
-  <bean:message key="channel.edit.jsp.toolbar" arg0="${channel_name}"/>
+  <bean:message key="channel.edit.jsp.toolbar" arg0="${fn:escapeXml(channel_name)}"/>
 </rhn:toolbar>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1"
@@ -24,7 +25,7 @@
 <h2><bean:message key="channel.edit.jsp.orgaccess.header"/></h2>
 </p>
 <p>
-        <bean:message key="channel.edit.jsp.orgaccess.summary" arg0="${channel_name}"/>
+        <bean:message key="channel.edit.jsp.orgaccess.summary" arg0="${fn:escapeXml(channel_name)}"/>
 </p>
 
 <rl:listset name="orgChannelProtectionSet">

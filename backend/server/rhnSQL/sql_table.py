@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -109,7 +109,7 @@ class Table:
                                row)
         if row == {}:
             raise rhnException("The hash argument is empty", row)
-        keys = row.keys()
+        keys = list(row.keys())
         # Sort the list of keys, to always get the same list of arguments
         keys.sort()
         args = []
@@ -129,7 +129,7 @@ class Table:
         if self.__cache is not None:
             for row in rows:
                 self.__cache[row[self.__hashid]] = row
-        return map(lambda a: UserDictCase(a), rows)
+        return [UserDictCase(a) for a in rows]
 
     # print it out
     def __repr__(self):
@@ -177,7 +177,7 @@ class Table:
 
         if key is None:
             raise KeyError("Can not insert entry with NULL key")
-        items = value.items()
+        items = list(value.items())
         if items == []:  # quick check for noop
             return
         sql = None
@@ -223,7 +223,7 @@ class Table:
         data = h.fetchall_dict()
         if data is None:
             return []
-        return map(lambda a: a["name"], data)
+        return [a["name"] for a in data]
 
     # has_key
     # if we're caching, fetch the row and cache it; else, fetch the
@@ -260,5 +260,5 @@ class Table:
         return self.__db.rollback()
 
     def printcache(self):
-        print self.__cache
+        print(self.__cache)
         return

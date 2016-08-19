@@ -79,9 +79,9 @@
 
   </div>
 
-  <input type="hidden" name="actionName" value="${param.actionName}" />
-  <input type="hidden" name="sid" value="${param.sid}" />
-  <input type="hidden" name="guestSettingValue" value="${param.guestSettingValue}" />
+  <rhn:hidden name="actionName" value="${param.actionName}" />
+  <rhn:hidden name="sid" value="${param.sid}" />
+  <rhn:hidden name="guestSettingValue" value="${param.guestSettingValue}" />
 
 </form>
 

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,6 +23,7 @@ import string
 import sys
 
 from spacewalk.common.rhnConfig import CFG
+from spacewalk.common.usix import raise_with_tb
 
 import rhnSQL
 
@@ -52,20 +53,20 @@ class Session:
 
     def _get_secrets(self):
         # Reads the four secrets from the config file
-        return map(lambda x, cfg=CFG: getattr(cfg, 'session_secret_%s' % x),
-                   range(1, 5))
+        return list(map(lambda x, cfg=CFG: getattr(cfg, 'session_secret_%s' % x),
+                    range(1, 5)))
 
     def get_secrets(self):
         # Validates the secrets from the config file
         secrets = self._get_secrets()
-        if len(secrets) != len(filter(None, secrets)):
+        if len(secrets) != len([_f for _f in secrets if _f]):
             # the list of secrets has unset items
-            raise Exception, "Secrets not set in the config file"
+            raise Exception("Secrets not set in the config file")
         return secrets
 
     def digest(self):
         if self.session_id is None:
-            raise ValueError, "session id not supplied"
+            raise ValueError("session id not supplied")
 
         secrets = self.get_secrets()
 
@@ -73,7 +74,7 @@ class Session:
         ctx.update(string.join(secrets[:2] + [str(self.session_id)] +
                                secrets[2:], ':'))
 
-        return string.join(map(lambda a: "%02x" % ord(a), ctx.digest()), '')
+        return string.join(["%02x" % ord(a) for a in ctx.digest()], '')
 
     def get_session(self):
         return "%sx%s" % (self.session_id, self.digest())
@@ -95,7 +96,7 @@ class Session:
         try:
             self.session_id = int(arr[0])
         except ValueError:
-            raise InvalidSessionError("Invalid session identifier"), None, sys.exc_info()[2]
+            raise_with_tb(InvalidSessionError("Invalid session identifier"), sys.exc_info()[2])
 
         if digest != self.digest():
             raise InvalidSessionError("Bad session checksum")

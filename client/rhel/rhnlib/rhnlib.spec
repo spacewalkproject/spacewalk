@@ -4,7 +4,7 @@ Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.77
+Version: 2.6.0
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -29,6 +29,24 @@ Conflicts: spacewalk-proxy < 1.3.6
 rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk.redhat.com) software.
 
 
+%if 0%{?fedora}
+%package -n python3-rhnlib
+Summary: Python libraries for the Spacewalk project
+Group: Development/Libraries
+BuildRequires: python3-devel
+Requires: python3-pyOpenSSL
+Conflicts: rhncfg < 5.10.45
+Conflicts: spacewalk-proxy-installer < 1.3.2
+Conflicts: rhn-client-tools < 1.3.3
+Conflicts: rhn-custom-info < 5.4.7
+Conflicts: rhnpush < 5.5.10
+Conflicts: rhnclient < 0.10
+Conflicts: spacewalk-proxy < 1.3.6
+
+%description -n python3-rhnlib
+rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk.redhat.com) software.
+%endif
+
 %prep
 %setup -q
 if [ ! -e setup.py ]; then
@@ -47,6 +65,9 @@ make -f Makefile.rhnlib
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
+%if 0%{?fedora}
+%{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
+%endif
 
 
 %clean
@@ -55,10 +76,47 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %doc ChangeLog COPYING README TODO
-
 %{python_sitelib}/*
 
+%if 0%{?fedora}
+%files -n python3-rhnlib
+%doc ChangeLog COPYING README TODO
+%{python3_sitelib}/*
+%endif
+
 %changelog
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.87-1
+- updating copyright years
+
+* Fri Apr 22 2016 Gennadii Altukhov <galt@redhat.com> 2.5.86-1
+- Fix indentation error
+
+* Fri Apr 22 2016 Gennadii Altukhov <galt@redhat.com> 2.5.85-1
+- Add binary mode for file copying for Python 3
+
+* Fri Feb 19 2016 Jan Dobes 2.5.84-1
+- just set one required attribute to be compatible with all xmlrpclib versions
+- fixed SyntaxError: invalid syntax ' .. = b ' to work in python 2.4
+
+* Sat Jan 23 2016 Grant Gainey 2.5.83-1
+- revert contruction errors='ignore' for python3
+- python <2.7 fix 'TypeError: encode() takes no keyword arguments'
+
+* Tue Jan 19 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.82-1
+- yet another python3 fixes
+
+* Tue Jan 12 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.81-1
+- 1259884, 1286555 - more python3 fixes
+
+* Mon Jan 11 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.80-1
+- 1259884, 1286555 - fixed python3 BuildRequires
+
+* Mon Jan 11 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.79-1
+- 1259884 - build python3-rhnlib only on fedora
+
+* Fri Jan 08 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.78-1
+- 1259884, 1286555 - updated to work in python3
+
 * Thu Sep 24 2015 Jan Dobes 2.5.77-1
 - Bumping copyright year.
 

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2014--2015 Red Hat, Inc.
+# Copyright (c) 2014--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -193,7 +193,7 @@ if __name__ == '__main__':
         if i['id'] in broken_systems:
             broken_systems.remove(i['id'])
 
-        if installed_packages.has_key(i['id']):
+        if i['id'] in installed_packages:
 
             if installed_packages[i['id']]['epoch'] == ' ':
                 installed_packages[i['id']]['epoch'] = ''

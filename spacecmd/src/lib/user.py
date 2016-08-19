@@ -33,8 +33,8 @@
 import shlex
 from getpass import getpass
 from optparse import Option
-from spacecmd.utils import *
 import xmlrpclib
+from spacecmd.utils import *
 
 
 def help_user_create(self):
@@ -212,7 +212,7 @@ def do_user_list(self, args, doreturn=False):
 
 
 def help_user_listavailableroles(self):
-    print 'user_list: List all available roles for users'
+    print 'user_listavailableroles: List all available roles for users'
     print 'usage: user_listavailableroles'
 
 
@@ -381,7 +381,7 @@ def complete_user_addgroup(self, text, line, beg, end):
 def do_user_addgroup(self, args):
     (args, _options) = parse_arguments(args)
 
-    if len(args) != 2:
+    if len(args) < 2:
         self.help_user_addgroup()
         return
 
@@ -415,7 +415,7 @@ def complete_user_adddefaultgroup(self, text, line, beg, end):
 def do_user_adddefaultgroup(self, args):
     (args, _options) = parse_arguments(args)
 
-    if len(args) != 2:
+    if len(args) < 2:
         self.help_user_adddefaultgroup()
         return
 
@@ -451,7 +451,7 @@ def complete_user_removegroup(self, text, line, beg, end):
 def do_user_removegroup(self, args):
     (args, _options) = parse_arguments(args)
 
-    if len(args) != 2:
+    if len(args) < 2:
         self.help_user_removegroup()
         return
 
@@ -489,7 +489,7 @@ def complete_user_removedefaultgroup(self, text, line, beg, end):
 def do_user_removedefaultgroup(self, args):
     (args, _options) = parse_arguments(args)
 
-    if len(args) != 2:
+    if len(args) < 2:
         self.help_user_removedefaultgroup()
         return
 

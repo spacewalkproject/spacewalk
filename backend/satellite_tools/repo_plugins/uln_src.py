@@ -53,9 +53,9 @@ class ContentSource(yum_ContentSource):
         self.uln_user = self.yumbase.conf.username
         self.uln_pass = self.yumbase.conf.password
         self.url = self.uln_url + "/XMLRPC/GET-REQ/" + label
-        print "The download URL is: " + self.url
+        print("The download URL is: " + self.url)
         if self.proxy_addr:
-            print "Trying proxy " + self.proxy_addr
+            print("Trying proxy " + self.proxy_addr)
         slist = ServerList([self.uln_url+"/rpc/api",])
         s = RetryServer(slist.server(),
                         refreshCallback=None,

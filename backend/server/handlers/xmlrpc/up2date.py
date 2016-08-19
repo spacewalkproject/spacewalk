@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,7 +21,7 @@ import string
 
 from spacewalk.server.rhnServer import server_lib
 from rhn import rpclib
-from types import ListType, TupleType, StringType, IntType
+from spacewalk.common.usix import ListType, TupleType, StringType, IntType
 from spacewalk.common import rhnFlags, rhn_rpm
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
@@ -115,7 +115,7 @@ class Up2date(rhnHandler):
             # Special case for channels
             if string.lower(k) == string.lower('X-RHN-Auth-Channels'):
                 # Concatenate the channel information column-separated
-                transport[k] = map(lambda x: string.join(x, ':'), v)
+                transport[k] = [string.join(x, ':') for x in v]
             else:
                 transport[k] = v
         log_debug(5, "loginDict", loginDict, transport)
@@ -242,7 +242,7 @@ class Up2date(rhnHandler):
                 log_error("Invalid dependency member", type(dep))
                 raise rhnFault(30, faultString % (dep, type(dep)))
         # Ignore empty strings
-        deps = filter(len, deps)
+        deps = list(filter(len, deps))
         # anything left to do?
         if not deps:
             return []

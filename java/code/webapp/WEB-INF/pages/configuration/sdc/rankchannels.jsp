@@ -19,7 +19,7 @@
             </rhn:toolbar>
             <c:if test="${not empty param.wizard_mode}">
                 <h3><bean:message key="ssm.config.rank.jsp.step"/></h3>
-                <input type="hidden" name="wizard_mode" value="true"/>
+                <rhn:hidden name="wizard_mode" value="true"/>
             </c:if>
             <p><bean:message key="sdc.config.rank.jsp.para1"/></p>
             <p><bean:message key="sdc.config.rank.jsp.para2"

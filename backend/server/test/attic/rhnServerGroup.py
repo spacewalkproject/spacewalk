@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,7 +15,7 @@
 #
 
 
-import types
+from spacewalk.common import usix
 
 from spacewalk.server import rhnSQL, rhnUser
 
@@ -74,7 +74,7 @@ class ServerGroup:
         return self._row_server_group[name]
 
     def _lookup_org_id(self, org_id):
-        if isinstance(org_id, types.StringType):
+        if isinstance(org_id, usix.StringType):
             # Is it a user?
             u = rhnUser.search(org_id)
 

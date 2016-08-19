@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2012--2015 Red Hat, Inc.
+# Copyright (c) 2012--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,7 +15,12 @@
 
 import sys
 import getpass
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib  # pylint: disable=F0401
 
 
 def getUsernamePassword(cmdlineUsername, cmdlinePassword):
@@ -62,11 +67,12 @@ def xmlrpc_login(client, username, password, verbose=0):
      Authenticate Session call
     """
     if verbose:
-        print "...logging in to server..."
+        print("...logging in to server...")
 
     try:
         sessionkey = client.auth.login(username, password)
-    except xmlrpclib.Fault, e:
+    except xmlrpclib.Fault:
+        e = sys.exc_info()[1]
         sys.stderr.write("Error: %s\n" % e.faultString)
         sys.exit(-1)
 
@@ -78,6 +84,6 @@ def xmlrpc_logout(client, session_key, verbose=0):
      End Authentication call
     """
     if verbose:
-        print "...logging out of server..."
+        print("...logging out of server...")
 
     client.auth.logout(session_key)

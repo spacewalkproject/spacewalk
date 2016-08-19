@@ -1395,7 +1395,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
-        <target>Copyright &amp;#169; 2002&amp;#x2012;15 Red Hat, Inc. All rights reserved.</target>
+        <target>Copyright &amp;#169; 2002&amp;#x2012;14 Red Hat, Inc. All rights reserved.</target>
       </trans-unit>
       <trans-unit id="footer.jsp.legalStatement">
         <source>Legal statement</source>
@@ -2550,6 +2550,18 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/InProgressSystems</context>
         </context-group>
         <target>ક્રિયા ચિહ્ન</target>
+      </trans-unit>
+      <trans-unit id="actions.jsp.totalnote">
+        <source>
+          Note: For multi-system scheduled actions, the ability to cancel individual 
+          systems means that the number of clients mentioned in the Action column may not match the number in Total.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/PendingActions</context>
+          <context context-type="sourcefile">/rhn/schedule/FailedActions</context>
+          <context context-type="sourcefile">/rhn/schedule/CompletedActions</context>
+          <context context-type="sourcefile">/rhn/schedule/ArchiveActions</context>
+        </context-group>
       </trans-unit>
       <!-- pendingactions.jsp -->
       <trans-unit id="pendingactions.jsp.pending_actions">
@@ -4348,10 +4360,7 @@ organization. You may grant or remove the organization administrator role in the
 વિભાગમાં સંસ્થા સંચાક ભૂમિકા મંજૂર અથવા દૂર કરી શકશો.</target>
       </trans-unit>
       <trans-unit id="organizations.tip">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your @@PRODUCT_NAME@@'s default organization. Entitlements for this organization are linked to your @@PRODUCT_NAME@@ certificate file, so they are not modifiable. If you remove entitlements from a non-default
-organization above, those entitlements will be added back to the default organization,
-and if you add entitlements from a non-default organization they will be
-deducted from the default organization.</source>
+        <source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your @@PRODUCT_NAME@@'s default organization.</source>
         <target>&lt;strong&gt;ટિપ્પણી:&lt;/strong&gt; આ સંસ્થા એ તમારા @@PRODUCT_NAME@@ ની મૂળભૂત સંસ્થા છે. આ સંસ્થા માટેની ઉમેદવારીઓ તમારી @@PRODUCT_NAME@@ પ્રમાણપત્ર ફાઈલ સાથે કડી થયેલ છે, તેથી તેઓ સુધારી શકાય તેવી નથી. જો તમે ઉપર બિન-મૂળભૂત સંસ્થામાંથી ઉમેદવારીઓ
 દૂર કરો, તો તે ઉમેદવારીઓ મૂળભૂત સંસ્થામાં પાછી ઉમેરી દેવામાં આવશે,
 અને જો તમે બિન-મૂળભૂત સંસ્થામાંથી ઉમેદવારીઓ ઉમેરો તો તેઓ
@@ -6217,7 +6226,7 @@ deducted from the default organization.</source>
         <target>સિસ્ટમ ઉમેદવારીઓ</target>
       </trans-unit>
       <trans-unit id="systementitlements.jsp.para1">
-        <source>In order to get the most out of @@PRODUCT_NAME@@, each system must be &lt;strong&gt;entitled&lt;/strong&gt; to service. If a system is not entitled, you will not be allowed to perform key software management tasks for that system, such as package installs or errata updates.</source>
+        <source>Entitlements define the set of functionalities available for each system in @@PRODUCT_NAME@@ such as the ability of installing software or creating guest virtual machines.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SystemEntitlements</context>
         </context-group>
@@ -6291,8 +6300,7 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/systems/SystemEntitlements.do</context>
         </context-group>
         <trans-unit id="systementitlements.jsp.entitlement_counts_message">
-          <source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
-          <target>&lt;strong&gt;{0} સિસ્ટમ&lt;/strong&gt; ઉમેદવારી થયેલ છે, &lt;strong&gt;અમર્યાદિત ઉપલબ્ધ&lt;/strong&gt; ઉમેદવારીઓ</target>
+          <source>{0} entitled system(s).</source>
         </trans-unit>
       </group>
       <trans-unit id="systementitlements.jsp.base_entitlements">
@@ -6315,7 +6323,7 @@ deducted from the default organization.</source>
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Management&lt;/strong&gt;.</source>
         </trans-unit>
         <trans-unit id="system_entitlements.setToManagementEntitled.failure">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may free up &lt;strong&gt;Management&lt;/strong&gt; entitlements by downgrading &lt;strong&gt;Management&lt;/strong&gt; entitled machines to an Update entitlement, or you may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.
+          <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.
     </source>
         </trans-unit>
         <trans-unit id="system_entitlements.unentitle.success">
@@ -6395,14 +6403,14 @@ deducted from the default organization.</source>
         <target>શોધ ચિહ્ન</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.toolbar">
-        <source>System Search</source>
+        <source>Advanced Search</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
         <target>સિસ્ટમ શોધ</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.summary">
-        <source>System Search will return results from all systems to which you have administrative access.</source>
+        <source>Advanced Search will return results from all systems to which you have administrative access.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
@@ -8110,7 +8118,7 @@ organization management tools if you choose to remove this role from your login.
         <target>@@PRODUCT_NAME@@ રૂપરેખાંકન</target>
       </trans-unit>
       <trans-unit id="general.jsp.summary">
-        <source>Configure your @@PRODUCT_NAME@@ below. The HTTP proxy settings are for the @@PRODUCT_NAME@@ server's communication with the parent @@PRODUCT_NAME@@ server, if any. The http proxy should be of the form: hostname:port, but a default port of 8080 will be used if none is provided. HTTP proxy settings for clients' systems to connect to this @@PRODUCT_NAME@@ can be different, and will be configured later. If you enable the Monitoring Backend, you should also enable Monitoring Scout, or configure the Monitoring Scout as a separate server. If you enable the Monitoring Scout, you must also enable the Monitoring Backend.</source>
+        <source>Configure your @@PRODUCT_NAME@@ below. The HTTP proxy settings are for the @@PRODUCT_NAME@@ server's communication with the parent @@PRODUCT_NAME@@ server, if any. The http proxy should be of the form: hostname:port, but a default port of 8080 will be used if none is provided. HTTP proxy settings for clients' systems to connect to this @@PRODUCT_NAME@@ can be different, and will be configured later.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
@@ -11357,7 +11365,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>નીચે યાદી થયેલ સોફ્ટવેર ચેનલો &lt;strong&gt;નિવૃત્ત ચેનલો છે&lt;/strong&gt; કે જેમાં તમારી સંસ્થાની પરંતુ તેઓ લાંબા સ Red Hat દ્વારા આધારભૂત નથી કારણ કે તેઓ તેમના 'જીવન-ની-અંતિમ' તારીખે પહોંચી ગયા છે.</target>
+        <target>નીચે યાદી થયેલ સોફ્ટવેર ચેનલો &lt;strong&gt;નિવૃત્ત ચેનલો છે&lt;/strong&gt; કે જેમાં તમારી સંસ્થાની &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt;ઉમેદવારી નોંધાયેલ છે&lt;/a&gt; પરંતુ તેઓ લાંબા સમય સુધી Red Hat દ્વારા આધારભૂત નથી કારણ કે તેઓ તેમના 'જીવન-ની-અંતિમ' તારીખે પહોંચી ગયા છે.</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
@@ -15050,6 +15058,18 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
         <target>નીચે યાદી થયેલ સિસ્ટમોને વર્તમાનમાં &lt;strong&gt;@@PRODUCT_NAME@@ વ્યવસ્થાપિત રૂપરેખાંકન ફાઈલો&lt;/strong&gt; છે. આનો અર્થ એ થાય કે દરેક સિસ્ટમ પાસે તેની @@PRODUCT_NAME@@ સિસ્ટમ રૂપરેખા મારફતે &lt;strong&gt;સ્થાનિક રીતે વ્યવસ્થાપિત&lt;/strong&gt; રૂપરેખાંકન ફાઈલો હોઈ શકે, પાસે કેન્દ્રિય રૂપરેખાંકન ચેનલ(ઓ), અથવા બંને મારફતે &lt;strong&gt;કેન્દ્રિય રીતે-વ્યવસ્થતાપિત&lt;/strong&gt; રૂપરેખાંકન ફાઈલો હોઈ શકે. સ્થાનિક રીતે-વ્યવસ્થાપિત ફાઈલોની સંખ્યા કે જે કેન્દ્રિય રીતે-વ્યવસ્થતાપિત ફાઈલો પર ફરીથી લખી નાંખશે તે 'કેન્દ્રિય રીતે-વ્યવસ્થતાપિત ફાઈલો' સ્તંભમાં નીચે દૃશ્યમાન છે.</target>
       </trans-unit>
+      <trans-unit id="managedsystems.jsp.managedonly">
+        <source>Show systems with at least one locally or centrally managed files only</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="managedsystems.jsp.managedonly.btn">
+        <source>Show</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="managedsystems.jsp.noSystems">
         <source>No configuration managed systems.</source>
         <context-group name="ctx">
@@ -17894,6 +17914,12 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
         <target>બંગાલી</target>
       </trans-unit>
+      <trans-unit id="preferences.jsp.lang.ca">
+        <source>Catalan</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="preferences.jsp.lang.de">
         <source>German</source>
         <context-group name="ctx">
@@ -17963,6 +17989,12 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
           <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
         <target>પંજાબી</target>
+      </trans-unit>
+      <trans-unit id="preferences.jsp.lang.pt">
+        <source>Portuguese</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="preferences.jsp.lang.pt_BR">
         <source>Brazilian Portuguese</source>
@@ -18472,7 +18504,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-        <target>નવી વર્ચ્યુઅલ સિસ્ટમ બનાવવા માટે અને તેને &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt; પર યજમાનિત કરવા માટે નીચેનું ફોર્મ મહેરબાની કરીને ભરો</target>
+        <target>નવી વર્ચ્યુઅલ સિસ્ટમ બનાવવા માટે અને તેને &lt;img src=&quot;/img/rhn-listicon-system.gif&quot;&gt; &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt; પર યજમાનિત કરવા માટે નીચેનું ફોર્મ મહેરબાની કરીને ભરો</target>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.header2">
         <source>Define the Virtual System</source>
@@ -19827,22 +19859,16 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/systems/details/Connection.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="sdc.details.proxy.header">
-        <source>Proxy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/details/Proxy.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="sdc.details.proxy.unlicensed">
         <source>The WebUI @@PRODUCT_NAME@@ Proxy installer is obsolete. Please use the command line installer from package spacewalk-proxy-installer.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/systems/details/Proxy.do</context>
+          <context context-type="sourcefile">/systems/details/ProxyClients.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="sdc.details.proxy.licensed">
         <source>This machine is currently a licensed @@PRODUCT_NAME@@ Proxy (v{0}).</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/systems/details/Proxy.do</context>
+          <context context-type="sourcefile">/systems/details/ProxyClients.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="sdc.details.proxyclients.header">
@@ -21401,6 +21427,9 @@ given channel.</source>
         <source>View Packages</source>
         <target>પેકેજોને દેખાડો</target>
       </trans-unit>
+      <trans-unit id="channel.jsp.package.viewsourcepackages">
+        <source>Source Packages</source>
+      </trans-unit>
       <trans-unit id="channel.jsp.package.addsuccess">
         <source>{0} package(s) added to channel {1}
         </source>
@@ -22549,6 +22578,12 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="bunch.jsp.description.uuid-cleanup-bunch">
+        <source>Cleanup outdated UUID records</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="schedule.jsp.noschedules">
         <source>There're no schedules available.</source>
         <context-group name="ctx">
@@ -22977,6 +23012,9 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="task.status.auto-errata">
         <source>Auto Errata Updates</source>
+      </trans-unit>
+      <trans-unit id="task.status.uuid-cleanup">
+        <source>UUID cleanup</source>
       </trans-unit>
       <trans-unit id="task.status.message">
         <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,7 +18,7 @@ import string
 import cx_Oracle
 
 if len(sys.argv) == 1:
-    print "Usage: %s <connection_string>" % sys.argv[0]
+    print("Usage: %s <connection_string>" % sys.argv[0])
     sys.exit(0)
 
 
@@ -29,7 +29,7 @@ def mem_usage():
         line = f.readline()
         if not line:
             break
-        arr = map(string.strip, string.split(line, ':', 1))
+        arr = list(map(string.strip, string.split(line, ':', 1)))
         if len(arr) == 1:
             continue
         dict[arr[0]] = arr[1]
@@ -41,4 +41,4 @@ h.execute('select 1 from dual')
 for i in range(10000):
     d = h.description
     if not (i % 100):
-        print mem_usage()
+        print(mem_usage())

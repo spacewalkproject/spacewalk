@@ -1,11 +1,10 @@
 #!/usr/bin/python
 
-# Copyright (c) 1999--2012 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Author: Adrian Likins <alikins@redhat.com>
 #
 
-import string
 import os
 
 # mark this module as acceptable
@@ -21,9 +20,9 @@ def __configRhnsd(interval, cache_only=None):
     index = None
     tmplines = []
     for line in lines:
-        tmp = string.strip(line)
+        tmp = line.strip()
         tmplines.append(tmp)
-        comps = string.split(tmp, "=", 1)
+        comps = tmp.split("=", 1)
         if comps[0] == "INTERVAL":
             index = count
         count = count + 1
@@ -33,7 +32,7 @@ def __configRhnsd(interval, cache_only=None):
 
     fd.close()
     fd = open(rhnsdconfig, "w")
-    contents = string.join(tmplines, "\n")
+    contents = "\n".join(tmplines)
     fd.write(contents)
     fd.close()
 
@@ -59,12 +58,12 @@ def configure(interval=None, restart=None, cache_only=None):
 
 
 if __name__ == "__main__":
-    print configure("240")
+    print(configure("240"))
 
-    print configure("361", 1)
+    print(configure("361", 1))
 
-    print configure("127", restart=1)
+    print(configure("127", restart=1))
 
-    print configure(restart=1)
+    print(configure(restart=1))
 
-    print configure("192")
+    print(configure("192"))

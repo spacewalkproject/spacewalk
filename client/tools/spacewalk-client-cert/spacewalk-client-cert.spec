@@ -1,5 +1,5 @@
 Name:		spacewalk-client-cert
-Version:	2.5.0
+Version:	2.6.0
 Release:	1%{?dist}
 Summary:	Package allowing manipulation with Spacewalk client certificates
 
@@ -10,8 +10,7 @@ Source0:	https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
 BuildRequires:  python-devel
-Requires:       rhnlib
-Requires:       rhn-check
+Requires:       rhn-client-tools
 Requires:       rhn-setup
 %description
 spacewalk-client-cert contains client side functionality allowing manipulation
@@ -36,9 +35,25 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %config  /etc/sysconfig/rhn/clientCaps.d/client-cert
 %{_datadir}/rhn/actions/clientcert.*
-
+%if 0%{?suse_version}
+%dir /etc/sysconfig/rhn
+%dir /etc/sysconfig/rhn/clientCaps.d
+%dir %{_datadir}/rhn
+%dir %{_datadir}/rhn/actions
+%endif
 
 %changelog
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.3-1
+- updating copyright years
+
+* Tue May 10 2016 Grant Gainey 2.5.2-1
+- spacewalk-client-cert: build on openSUSE
+
+* Tue Apr 26 2016 Gennadii Altukhov <galt@redhat.com> 2.5.1-1
+- Adapt spacewalk-client-cert for Python 2/3 compatibility
+- Bumping package versions for 2.5.
+- Bumping package versions for 2.4.
+
 * Thu Mar 19 2015 Grant Gainey 2.3.2-1
 - Updating copyright info for 2015
 

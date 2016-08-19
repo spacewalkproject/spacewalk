@@ -22,6 +22,7 @@
        <packagereq type="default">rhn-client-tools</packagereq>
        <packagereq type="default">rhn-custom-info</packagereq>
        <packagereq type="default">rhnlib</packagereq>
+       <packagereq type="default">rhnpush</packagereq>
        <packagereq type="default">rhnsd</packagereq>
        <packagereq type="default">rhn-setup-gnome</packagereq>
        <packagereq type="default">rhn-setup</packagereq>
@@ -29,6 +30,7 @@
        <packagereq type="default">rhn-virtualization-host</packagereq>
        <packagereq type="default">spacewalk-abrt</packagereq>
        <packagereq type="default">spacewalk-backend-libs</packagereq>
+       <packagereq type="default">spacewalk-backend-usix</packagereq>
        <packagereq type="default">spacewalk-certs-tools</packagereq>
        <packagereq type="default">spacewalk-client-cert</packagereq>
        <packagereq type="default">spacewalk-client-repo</packagereq>

@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2010--2015 Red Hat, Inc.
+-- Copyright (c) 2010--2016 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -98,3 +98,10 @@ INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
     VALUES(sequence_nextval('rhn_tasko_schedule_id_seq'), 'cleanup-data-default',
         (SELECT id FROM rhnTaskoBunch WHERE name='cleanup-data-bunch'),
         current_timestamp, '0 0 23 ? * *');
+
+INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
+    VALUES(sequence_nextval('rhn_tasko_schedule_id_seq'), 'uuid-cleanup-default',
+        (SELECT id FROM rhnTaskoBunch WHERE name='uuid-cleanup-bunch'),
+        current_timestamp, '0 0 * * * ?');
+
+commit;

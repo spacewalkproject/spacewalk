@@ -4,14 +4,18 @@ Group: Applications/System
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.28
+Version: 5.4.32
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
 BuildRequires: python-devel
+%if 0%{?fedora} >= 23
+Requires: python3-rhnlib
+%else
 Requires: rhnlib
+%endif
 
-%if 0%{?rhel} >= 5 || 0%{?fedora} < 22
+%if 0%{?rhel} >= 5 || 0%{?fedora} && 0%{?fedora} < 22
 Requires: yum-rhn-plugin
 %else
 # rpm do not support elif
@@ -37,6 +41,9 @@ an RHN-enabled system.
 
 %build
 make -f Makefile.rhn-custom-info all
+%if 0%{?fedora} >= 23
+    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' *.py
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -56,6 +63,22 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Tue Jun 07 2016 Jan Dobes 5.4.32-1
+- print() prints '()' in python 2 instead of expected empty line
+- fix fedora macro usage
+
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 5.4.31-1
+- updating copyright years
+
+* Thu May 12 2016 Tomas Kasparek <tkasparek@redhat.com> 5.4.30-1
+- use python-devel in buildtime on all OS
+
+* Tue Apr 12 2016 Gennadii Altukhov <galt@redhat.com> 5.4.29-1
+- Wrong dependency for building on Fedora 23
+- basestring is str and bytes in python3
+- removed unused module string in  rhn-custom-info
+- modified rhn-custom-info to work in python 2/3
+
 * Mon Jun 08 2015 Michael Mraka <michael.mraka@redhat.com> 5.4.28-1
 - switch to dnf on Fedora 22
 

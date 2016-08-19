@@ -50,7 +50,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </query>
 
     <query name="ServerAction.deleteByParentActions"><![CDATA[
-                delete ServerAction sa where sa.parentAction in (:actions)
+        delete ServerAction sa where sa.parentAction in (:actions) and sa.pickupTime is null
     ]]></query>
 
 </hibernate-mapping>

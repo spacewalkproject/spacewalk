@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -55,7 +55,7 @@ class SolveDependenciesTestCase(unittest.TestCase):
         assert type(self.solve_deps_arch(self.serv_id, [], 2)) == type({})
 
     def testKeyType(self):
-        assert type(self.solve_deps_arch(self.serv_id, [self.filename], 2).keys()[0]) == type('a')
+        assert type(list(self.solve_deps_arch(self.serv_id, [self.filename], 2).keys())[0]) == type('a')
 
     def testValueType(self):
         assert type(self.solve_deps_arch(self.serv_id, [self.filename], 2)[self.filename]) == type([])
@@ -91,7 +91,7 @@ class SolveDependenciesTestCase(unittest.TestCase):
         assert type(self.solve_deps_with_limits(self.serv_id, [], 2)) == type({})
 
     def testKeyTypeLimit(self):
-        assert type(self.solve_deps_with_limits(self.serv_id, [self.filename], 2).keys()[0]) == type('a')
+        assert type(list(self.solve_deps_with_limits(self.serv_id, [self.filename], 2).keys())[0]) == type('a')
 
     def testValueTypeLimit(self):
         assert type(self.solve_deps_with_limits(self.serv_id, [self.filename], 2)[self.filename]) == type([])

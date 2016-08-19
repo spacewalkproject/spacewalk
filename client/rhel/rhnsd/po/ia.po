@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-21 12:22+0100\n"
-"PO-Revision-Date: 2012-11-22 14:20+0000\n"
+"POT-Creation-Date: 2016-05-23 13:39+0200\n"
+"PO-Revision-Date: 2012-11-22 09:20-0500\n"
 "Last-Translator: Nik Kalach <nik.kalach@inbox.ru>\n"
 "Language-Team: Interlingua <trans-ia@lists.fedoraproject.org>\n"
 "Language: ia\n"
@@ -17,43 +17,46 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.8.4\n"
 
-#: ../rhnsd.c:55
+#: ../rhnsd.c:54
 msgid "MINS"
 msgstr "MINS"
 
-#: ../rhnsd.c:56
-msgid "Connect to Red Hat Network every MINS minutes"
+#: ../rhnsd.c:55
+#, fuzzy
+msgid "Connect to Spacewalk every MINS minutes"
 msgstr "Connecter al Red Hat Network omne MINS minutas"
 
-#: ../rhnsd.c:58
+#: ../rhnsd.c:57
 msgid "Run in foreground"
 msgstr "Exequer in prime plano"
 
 #. Short description of program.
-#: ../rhnsd.c:63
-msgid "Red Hat Network Services Daemon"
+#: ../rhnsd.c:62
+#, fuzzy
+msgid "Spacewalk Services Daemon"
 msgstr "Demone de servicios Red Hat Network"
 
-#: ../rhnsd.c:116
+#: ../rhnsd.c:115
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "Solo superusator root pote exequer iste programma\n"
 
-#: ../rhnsd.c:136
+#: ../rhnsd.c:135
 msgid "wrong number of arguments"
 msgstr "Numero de argumentos incorrecte"
 
-#: ../rhnsd.c:143
+#: ../rhnsd.c:142
 msgid "already running"
 msgstr "jam es in execution"
 
-#: ../rhnsd.c:243
+#: ../rhnsd.c:249
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:246
+#: ../rhnsd.c:252
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Scribite per %s.\n"

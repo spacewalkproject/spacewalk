@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,9 +19,16 @@ import hashlib
 import re
 import shutil
 import pwd
-import urlparse
+import sys
+
+try: # python2
+    import urlparse
+except ImportError: # python3
+    import urllib.parse as urlparse
+
 import inspect
 from config_common.rhn_log import log_debug
+from rhn.i18n import bstr
 
 hashlib_has_usedforsecurity = False
 
@@ -69,7 +76,8 @@ def copyfile_p(src, dst):
     directory = os.path.split(dst)[0]
     try:
         os.makedirs(directory)
-    except OSError, e:
+    except OSError:
+        e = sys.exc_info()[1]
         if e.errno != 17:
             # not File exists
             raise
@@ -92,7 +100,7 @@ def mkdir_p(path, mode=None, symlinks=None, allfiles=None):
     made as a result
     """
     if mode is None:
-        mode = 0700
+        mode = int('0700', 8)
     dirs_created = []
 
     components = path_full_split(path)
@@ -107,17 +115,19 @@ def mkdir_p(path, mode=None, symlinks=None, allfiles=None):
                     allfiles.remove(symlink)
                     dirs_created.append(symlink)
                     continue
-        log_debug(8, "testing",d)
+        log_debug(8, "testing", d)
         try:
             os.mkdir(d, mode)
-        except OSError, e:
+            dirs_created.append(d)
+            log_debug(8, "created", d)
+        except OSError:
+            e = sys.exc_info()[1]
             if e.errno != 17:
                 raise
             else:
-                log_debug(8, "created",d)
-        dirs_created.append(d)
+                log_debug(8, "already exists", d)
 
-    log_debug(6, "dirs_created:",dirs_created)
+    log_debug(6, "dirs_created:", dirs_created)
 
     return dirs_created
 
@@ -135,8 +145,8 @@ def rmdir_p(path, stoppath):
 
     # stoppath has to be a prefix of path
     if path[:len(stoppath)] != stoppath:
-        raise OSError, "Could not remove %s: %s is not a prefix" % (
-            path, stoppath)
+        raise OSError("Could not remove %s: %s is not a prefix" % (
+            path, stoppath))
 
     while 1:
         if stoppath == path:
@@ -172,13 +182,13 @@ def getContentChecksum(checksum_type, contents):
 def sha256_file(filename):
     engine = hashlib.new('sha256')
 
-    fh = open(filename, "r")
+    fh = open(filename, "rb")
     while 1:
         buf = fh.read(4096)
         if not buf:
             break
 
-        engine.update(buf)
+        engine.update(bstr(buf))
 
     return engine.hexdigest()
 

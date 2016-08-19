@@ -107,7 +107,7 @@
                                 <jsp:param name="widget" value="end" />
                             </jsp:include>
 
-                            <input type="hidden" name="parseDates" value="true" />
+                            <rhn:hidden name="parseDates" value="true" />
                         </c:when>
 
                         <c:otherwise>

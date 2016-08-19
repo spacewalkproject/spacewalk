@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.systems.sdc;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -26,6 +27,8 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.org.MigrationManager;
 import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -170,9 +173,17 @@ public class SystemMigrateAction extends RhnAction {
                 toOrg, serverList);
 
         Iterator it = serversMigrated.iterator();
-        Long value = (Long)it.next();
 
-        if (value != null) {
+        if (it.hasNext()) {
+            // get systems selected in SSM
+            RhnSet set = RhnSetDecl.SYSTEMS.get(user);
+            // remove migrated servers from SSM
+            do {
+                Long value = (Long)it.next();
+                set.removeElement(value);
+            } while (it.hasNext());
+            // save result to database
+            RhnSetManager.store(set);
             return success;
         }
         return failure;

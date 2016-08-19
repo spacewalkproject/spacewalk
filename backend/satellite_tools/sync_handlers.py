@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,15 +13,15 @@
 # in this software or its documentation.
 #
 
-
-import types
 import sys
+import string  # pylint: disable=W0402
 
+from spacewalk.common import usix
 from spacewalk.server.importlib import channelImport, packageImport, errataImport, \
     kickstartImport
+from spacewalk.common.usix import raise_with_tb
 import diskImportLib
 import xmlSource
-import string  # pylint: disable=W0402
 import syncCache
 import syncLib
 
@@ -35,7 +35,7 @@ class BaseCollection:
 
     def __init__(self):
         self.__dict__ = self._shared_state
-        if not self._shared_state.keys():
+        if not list(self._shared_state.keys()):
             self._items = []
             self._cache = None
             self._items_hash = {}
@@ -50,7 +50,7 @@ class BaseCollection:
 
     def get_item_timestamp(self, item_id):
         "Returns this item's timestamp"
-        if not self._items_hash.has_key(item_id):
+        if item_id not in self._items_hash:
             raise KeyError("Item %s not found in collection" % item_id)
         return self._items_hash[item_id]
 
@@ -90,7 +90,7 @@ class ChannelCollection:
 
     def __init__(self):
         self.__dict__ = self._shared_state
-        if not self._shared_state.keys():
+        if not list(self._shared_state.keys()):
             self._channels = []
             self._parent_channels = {}
             self._channels_hash = {}
@@ -120,7 +120,7 @@ class ChannelCollection:
     def _get_list_from_dict(diction, key):
         # Returns the dictionary's key if present (assumed to be a list), or
         # sets the value to an empty list and returns it
-        if diction.has_key(key):
+        if key in diction:
             l = diction[key]
         else:
             l = diction[key] = []
@@ -142,21 +142,21 @@ class ChannelCollection:
 
     def get_channel_timestamp(self, channel_label):
         """Returns the channel's timestamp"""
-        if not self._channels_hash.has_key(channel_label):
+        if channel_label not in self._channels_hash:
             raise KeyError("Channel %s could not be found" % channel_label)
         return self._channels_hash[channel_label]
 
     def get_parent_channel_labels(self):
         """Return a list of channel labels for parent channels"""
-        l = self._parent_channels.keys()
+        l = list(self._parent_channels.keys())
         l.sort()
         return l
 
     def get_child_channels(self, channel_label):
         """Return a list of (channel label, channel timestamp) for this parent
         channel"""
-        if not self._parent_channels.has_key(channel_label):
-            raise Exception, "Channel %s is not a parent" % channel_label
+        if channel_label not in self._parent_channels:
+            raise Exception("Channel %s is not a parent" % channel_label)
         return self._parent_channels[channel_label]
 
     def reset(self):
@@ -215,10 +215,10 @@ def import_channels(channels, orgid=None, master=None):
         try:
             timestamp = collection.get_channel_timestamp(c)
         except KeyError:
-            raise Exception, "Could not find channel %s" % c, sys.exc_info()[2]
+            raise_with_tb(Exception("Could not find channel %s" % c), sys.exc_info()[2])
         c_obj = collection.get_channel(c, timestamp)
         if c_obj is None:
-            raise Exception, "Channel not found in cache: %s" % c
+            raise Exception("Channel not found in cache: %s" % c)
 
         # Check to see if we're asked to sync to an orgid,
         # make sure the org from the export is not null org,
@@ -233,7 +233,7 @@ def import_channels(channels, orgid=None, master=None):
             # If we know the master this is coming from and the master org
             # has been mapped to a local org, transform org_id to the local
             # org_id. Otherwise just put it in the default org.
-            if (org_map and c_obj['org_id'] in org_map.keys()
+            if (org_map and c_obj['org_id'] in list(org_map.keys())
                     and org_map[c_obj['org_id']]):
                 c_obj['org_id'] = org_map[c_obj['org_id']]
             else:
@@ -248,7 +248,7 @@ def import_channels(channels, orgid=None, master=None):
         if c_obj.has_key('trust_list') and c_obj['trust_list']:
             trusts = []
             for trust in c_obj['trust_list']:
-                if org_map.has_key(trust['org_trust_id']):
+                if trust['org_trust_id'] in org_map:
                     trust['org_trust_id'] = org_map[trust['org_trust_id']]
                     trusts.append(trust)
             c_obj['trust_list'] = trusts
@@ -270,7 +270,7 @@ class ShortPackageCollection:
 
     def __init__(self):
         self.__dict__ = self._shared_state
-        if not self._shared_state.keys():
+        if not list(self._shared_state.keys()):
             self._cache = None
             self._init_cache()
 
@@ -344,7 +344,7 @@ class ErrataCollection:
 
     def __init__(self):
         self.__dict__ = self._shared_state
-        if not self._shared_state.keys():
+        if not list(self._shared_state.keys()):
             self._errata_hash = {}
             self._cache = None
             self._init_cache()
@@ -361,7 +361,7 @@ class ErrataCollection:
 
     def get_erratum_timestamp(self, erratum_id):
         """Returns the erratum's timestamp"""
-        if not self._errata_hash.has_key(erratum_id):
+        if erratum_id not in self._errata_hash:
             raise KeyError("Erratum %s could not be found" % erratum_id)
         return self._errata_hash[erratum_id]
 
@@ -444,7 +444,7 @@ def import_kickstarts(batch):
 
 
 def _to_timestamp(t):
-    if isinstance(t, types.IntType):
+    if isinstance(t, usix.IntType):
         # Already an int
         return t
     # last_modified is YYYY-MM-DD HH24:MI:SS
@@ -552,7 +552,7 @@ class ChannelPackageArchCompatContainer(diskImportLib.ChannelPackageArchCompatCo
         self.arches[self.batch[-1]['package-arch']] = 1
 
     def endContainerCallback(self):
-        arches = self.arches.keys()
+        arches = list(self.arches.keys())
         arches.sort()
         if arches:
             for arch in arches:

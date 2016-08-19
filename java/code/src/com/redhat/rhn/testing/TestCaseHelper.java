@@ -15,6 +15,7 @@
 package com.redhat.rhn.testing;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.domain.common.LoggingFactory;
 
 import org.hibernate.TransactionException;
 
@@ -27,6 +28,19 @@ import org.hibernate.TransactionException;
 public class TestCaseHelper {
 
     private TestCaseHelper() {
+    }
+
+    /**
+     * Shared logic for setting up unit tests.
+     */
+    public static void setUpHelper() {
+        try {
+            LoggingFactory.clearLogId();
+        }
+        catch (Exception se) {
+            TestCaseHelper.tearDownHelper();
+            LoggingFactory.clearLogId();
+        }
     }
 
     /**

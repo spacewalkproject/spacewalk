@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -61,7 +61,7 @@ def initiate(server_id, action_id, dry_run=0):
 
     h = rhnSQL.prepare(_query_file_list_initiate)
     h.execute(action_id=action_id)
-    files = map(lambda x: x['path'], h.fetchall_dict() or [])
+    files = [x['path'] for x in h.fetchall_dict() or []]
 
     return (kickstart_host, boot_image, append_string, static_device, system_record, files)
 

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -104,23 +104,23 @@ class Handler(handler_base.HandlerBase):
             outstring = "%(status)s  %(owner)s  %(group)s  %(mode)s  %(selinux)s  %(file)s"
 
             #Print out the column labels.
-            print outstring % {
+            print(outstring % {
                                     "status"       :       formatstr % (maxlenarr['status'], status_label),
                                     "owner"        :       formatstr % (maxlenarr['owner'], owner_status),
                                     "group"        :       formatstr % (maxlenarr['group'], group_status),
                                     "mode"         :       formatstr % (maxlenarr['mode'], mode_status),
                                     "selinux"      :       formatstr % (maxlenarr['selinux'], selinux_status),
                                     "file"         :       formatstr_nolimit % (file_status),
-                              }
+                              })
 
-            print outstring % {
+            print(outstring % {
                                     "status"       :       formatstr % (maxlenarr['status'], ""),
                                     "owner"        :       formatstr % (maxlenarr['owner'], status_help),
                                     "group"        :       formatstr % (maxlenarr['group'], status_help),
                                     "mode"         :       formatstr % (maxlenarr['mode'], status_help),
                                     "selinux"      :       formatstr % (maxlenarr['selinux'], status_help),
                                     "file"         :       ""
-                              }
+                              })
 
             #Go through each of the dictionaries returned by self._process_file(), format their values, and print out the result.
             for fdict in ret:
@@ -136,31 +136,31 @@ class Handler(handler_base.HandlerBase):
                     if sum == 0:
                         continue
 
-                print outstring % {
+                print(outstring % {
                                     "status"       :       formatstr % (maxlenarr['status'], fdict['status']),
                                     "owner"        :       formatstr % (maxlenarr['owner'], fdict['owner']),
                                     "group"        :       formatstr % (maxlenarr['group'], fdict['group']),
                                     "mode"         :       formatstr % (maxlenarr['mode'], fdict['mode']),
                                     "selinux"      :       formatstr % (maxlenarr['selinux'], src_selinux),
                                     "file"         :       formatstr_nolimit % (fdict['file']),
-                                  }
+                                  })
                 if len(dst_selinux) > 0:
-                    print outstring % {
+                    print(outstring % {
                                     "status"       :       formatstr % (maxlenarr['status'], ""),
                                     "owner"        :       formatstr % (maxlenarr['owner'], ""),
                                     "group"        :       formatstr % (maxlenarr['group'], ""),
                                     "mode"         :       formatstr % (maxlenarr['mode'], ""),
                                     "selinux"      :       formatstr % (maxlenarr['selinux'], dst_selinux),
                                     "file"         :       "",
-                                      }
+                                      })
         #Not verbose, so give the simple output for each file...
         else:
             outstring = "%*s %s"
-            maxlen = max([0] + map(lambda x: len(x['status']), ret)) + 1
+            maxlen = max([0] + [len(x['status']) for x in ret]) + 1
             for fdict in ret:
                 if self.options.only and len(fdict['status']) == 0:
                     continue
-                print outstring % (maxlen, fdict['status'], fdict['file'])
+                print(outstring % (maxlen, fdict['status'], fdict['file']))
 
     def _process_file(self, *args):
         owner_report = "%s:%s"
@@ -243,7 +243,7 @@ class Handler(handler_base.HandlerBase):
                 status.append('mode')
 
         # compare selinux contexts
-        if info.has_key('selinux_ctx'):
+        if 'selinux_ctx' in info:
             src_selinux = info['selinux_ctx']
             if src_selinux:
                 if not stat_err:

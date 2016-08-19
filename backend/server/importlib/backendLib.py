@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,7 +20,7 @@ import time
 import string
 
 from UserDict import UserDict
-from types import ListType, StringType, DictType, IntType
+from spacewalk.common.usix import ListType, StringType, DictType, IntType, UnicodeType
 
 # A function that formats a UNIX timestamp to the session's format
 
@@ -83,7 +83,7 @@ class Table:
     def __init__(self, name, **kwargs):
         self.name = name
         for k in kwargs.keys():
-            if not self.keywords.has_key(k):
+            if k not in self.keywords:
                 raise TypeError("Unknown keyword attribute '%s'" % k)
         # Initialize stuff
         # Fields
@@ -114,14 +114,14 @@ class Table:
         self.nullable = {}
         if nullable:
             for field in nullable:
-                if not self.fields.has_key(field):
+                if field not in self.fields:
                     raise TypeError("Unknown nullable field %s in table %s" % (
                         field, name))
                 self.nullable[field] = None
 
         # Now analyze pk
         for field in self.pk:
-            if not self.fields.has_key(field):
+            if field not in self.fields:
                 raise TypeError("Unknown primary key field %s" % field)
 
     def __str__(self):
@@ -130,9 +130,9 @@ class Table:
     __repr__ = __str__
 
     def isNullable(self, field):
-        if not self.fields.has_key(field):
+        if field not in self.fields:
             raise TypeError("Unknown field %s" % field)
-        return self.nullable.has_key(field)
+        return field in self.nullable
 
     def getPK(self):
         return self.pk
@@ -144,13 +144,13 @@ class Table:
         return self.attribute
 
     def getObjectAttribute(self, attribute):
-        if self.map.has_key(attribute):
+        if attribute in self.map:
             return self.map[attribute]
         return attribute
 
     def getSeverityHash(self):
         for field in self.fields.keys():
-            if not self.severityHash.has_key(field):
+            if field not in self.severityHash:
                 self.severityHash[field] = self.defaultSeverity
         return self.severityHash
 
@@ -230,7 +230,7 @@ class BaseTableLookup:
         return None
 
     def _getCachedQuery(self, key, blob_map=None):
-        if self.queries.has_key(key):
+        if key in self.queries:
             # Serve it from the pool
             return self.queries[key]
 
@@ -261,7 +261,7 @@ class TableUpdate(BaseTableLookup):
     def __init__(self, table, dbmodule):
         BaseTableLookup.__init__(self, table, dbmodule)
         self.queryTemplate = "update %s set %s where %s"
-        self.fields = self.table.getFields().keys()
+        self.fields = list(self.table.getFields().keys())
         self.count = 1000
         # Fields minus pks
         self.otherfields = []
@@ -276,7 +276,7 @@ class TableUpdate(BaseTableLookup):
             else:
                 self.otherfields.append(field)
         self.updateclause = string.join(
-            map(lambda x: "%s = :%s" % (x, x), self.otherfields), ', ')
+            ["%s = :%s" % (x, x) for x in self.otherfields], ', ')
         # key
         self.firstkey = None
         for pk in self.pks:
@@ -432,7 +432,7 @@ class TableInsert(TableUpdate):
         self.count = 1000
 
         self.insert_fields = self.pks + self.otherfields + self.blob_fields
-        self.insert_values = map(lambda x: ':%s' % x, self.pks + self.otherfields + self.blob_fields)
+        self.insert_values = [':%s' % x for x in self.pks + self.otherfields + self.blob_fields]
 
     def _buildQuery(self, key):
         q = self.queryTemplate % (self.table.name,
@@ -490,14 +490,19 @@ def sanitizeValue(value, datatype):
             # and not depend on Oracle converting
             # empty strings to NULLs -- PostgreSQL
             # does not do this
-        elif isinstance(value, unicode):
-            value = unicode.encode(value, 'utf-8')
-        return value[:datatype.limit]
+        elif isinstance(value, UnicodeType):
+            value = UnicodeType.encode(value, 'utf-8')
+        if len(value) > datatype.limit:
+            value = value[:datatype.limit]
+            # ignore incomplete characters created after truncating
+            value = value.decode('utf-8', 'ignore')
+            value = value.encode('utf-8')
+        return value
     if isinstance(datatype, DBblob):
         if value is None:
             value = ''
-        if isinstance(value, unicode):
-            value = unicode.encode(value, 'utf-8')
+        if isinstance(value, UnicodeType):
+            value = UnicodeType.encode(value, 'utf-8')
         return str(value)
     if value in [None, '']:
         return None
@@ -518,5 +523,5 @@ def addHash(hasharray, hash):
     # hasharray is a hash of arrays
     # add hash's values to hasharray
     for k, v in hash.items():
-        if hasharray.has_key(k):
+        if k in hasharray:
             hasharray[k].append(v)

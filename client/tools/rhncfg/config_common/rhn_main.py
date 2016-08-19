@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,21 +15,25 @@
 
 import os
 import sys
-import string
 
-import local_config
-import rhn_log
-import utils
-import cfg_exceptions
-from urlparse import urlsplit
+from config_common import local_config
+from config_common import rhn_log
+from config_common import utils
+from config_common import cfg_exceptions
+
+try:
+    # python3
+    from urllib.parse import urlsplit
+    from configparser import InterpolationError
+except ImportError: #python2
+    from urlparse import urlsplit
+    from ConfigParser import InterpolationError
 
 try:
     from socket import gaierror
 except:
     from socket import error
     gaierror = error
-
-from ConfigParser import InterpolationError
 
 sys.path.append('/usr/share/rhn')
 from up2date_client import config
@@ -42,10 +46,10 @@ class BaseMain:
     config_section = None
 
     def usage(self, exit_code):
-        print "Usage: %s MODE [ --server-name name ] [ params ]" % sys.argv[0]
-        print "Valid modes are:"
+        print("Usage: %s MODE [ --server-name name ] [ params ]" % sys.argv[0])
+        print("Valid modes are:")
         for mode in self.modes:
-            print "\t%s" % mode
+            print("\t%s" % mode)
         sys.exit(exit_code)
 
     def main(self):
@@ -58,11 +62,11 @@ class BaseMain:
         dict_name_opt={'--server-name': None,'--password': None,'--username': None,}
         for index in range(1,len(sys.argv)):
             arg=sys.argv[index]
-            param = filter(lambda x: x[1] == 0,dict_name_opt.iteritems())
+            param = [x for x in dict_name_opt.items() if x[1] == 0]
             if param:
                 if arg.startswith('-') or arg in self.modes:
                   # not perfect, but at least a little bit better
-                  print "Option %s requires an argument" % dict_name_opt[param[0][0]]
+                  print("Option %s requires an argument" % dict_name_opt[param[0][0]])
                   return 1
                 dict_name_opt[param[0][0]] = arg
                 continue
@@ -77,17 +81,17 @@ class BaseMain:
                 if not rarg:
                     dict_name_opt[param[0]] = 0
                     if index == len(sys.argv) - 1:
-                       print "Option %s requires an argument" % param[0]
+                       print("Option %s requires an argument" % param[0])
                        return 1
                     continue
                 if rarg[0] == '=':
                    if len(rarg) == 1:
-                      print "Option %s requires an argument" % param[0]
+                      print("Option %s requires an argument" % param[0])
                       return 1
 
                    dict_name_opt[param[0]] = rarg[1:]
                    continue
-                print "Unknown option %s" % arg
+                print("Unknown option %s" % arg)
                 return 1
 
             if mode is None:
@@ -102,7 +106,7 @@ class BaseMain:
                     self.usage(1)
 
                 if mode not in self.modes:
-                    print "Unknown mode %s" % mode
+                    print("Unknown mode %s" % mode)
                     self.usage(1)
 
                 continue
@@ -121,15 +125,16 @@ class BaseMain:
 
         execname = os.path.basename(sys.argv[0])
         # Class names cannot have dot in them, so strip the extension
-        execname = string.split(execname, '.', 1)[0]
+        execname = execname.split('.', 1)[0]
 
-        mode_module = string.replace(mode, '-', '_')
+        mode_module = mode.replace('-', '_')
         module_name = "%s_%s" % (self.mode_prefix, mode_module)
         full_module_name = "%s.%s" % (self.plugins_dir, module_name)
 
         try:
             module = __import__(full_module_name)
-        except ImportError, e:
+        except ImportError:
+            e = sys.exc_info()[1]
             rhn_log.die(1, "Unable to load plugin for mode '%s': %s" % (mode, e))
 
         module = getattr(module, module_name)
@@ -150,19 +155,20 @@ class BaseMain:
 
             try:
                 server_name = local_config.get('server_url')
-            except InterpolationError, e:
+            except InterpolationError:
+                e = sys.exc_info()[1]
                 if e.option == 'server_url':
                     server_name = config.getServerlURL()
                     up2date_cfg['proto'] = urlsplit(server_name[0])[0]
                     if up2date_cfg['proto'] == '':
                         up2date_cfg['proto'] = 'https'
-                        up2date_cfg['server_list'] = map(lambda x: urlsplit(x)[2], server_name)
+                        up2date_cfg['server_list'] = [urlsplit(x)[2] for x in server_name]
                     else:
-                        up2date_cfg['server_list'] = map(lambda x: urlsplit(x)[1], server_name)
+                        up2date_cfg['server_list'] = [urlsplit(x)[1] for x in server_name]
                     server_name = (up2date_cfg['server_list'])[0]
                     local_config.init(self.config_section, defaults=up2date_cfg, server_name=server_name)
 
-        print "Using server name", server_name
+        print("Using server name %s" % server_name)
 
         # set the debug level through the config
         rhn_log.set_debug_level(int(local_config.get('debug_level') or 0))
@@ -178,7 +184,8 @@ class BaseMain:
         repo_module_name = "%s.%s" % (self.plugins_dir, repo_class)
         try:
             repo_module = __import__(repo_module_name)
-        except ImportError, e:
+        except ImportError:
+            e = sys.exc_info()[1]
             rhn_log.die(1, "Unable to load repository module:  %s" % e)
 
         try:
@@ -190,25 +197,29 @@ class BaseMain:
             repo = getattr(repo_module, self.repository_class_name)()
         except AttributeError:
             rhn_log.die(1, "Missing repository class")
-        except InterpolationError, e:
+        except InterpolationError:
+            e = sys.exc_info()[1]
             if e.option == 'server_url':
                 #pkilambi: bug#179367# backtic is replaced with single quote
                 rhn_log.die(1, "Missing 'server_url' configuration variable; please refer to the config file")
             raise
-        except cfg_exceptions.ConfigurationError, e:
+        except cfg_exceptions.ConfigurationError:
+            e = sys.exc_info()[1]
             rhn_log.die(e)
-        except gaierror, e:
-            print "Socket Error: %s" % (e.args[1],)
+        except gaierror:
+            e = sys.exc_info()[1]
+            print("Socket Error: %s" % (e.args[1],))
             sys.exit(1)
 
         handler = module.Handler(args, repo, mode=mode, exec_name=execname)
         try:
             try:
-                handler.authenticate(username,password)
+                handler.authenticate(username, password)
                 handler.run()
-            except cfg_exceptions.AuthenticationError, e:
+            except cfg_exceptions.AuthenticationError:
+                e = sys.exc_info()[1]
                 rhn_log.die(1, "Authentication failed: %s" % e)
-            except Exception, e:
+            except Exception:
                 raise
         finally:
             repo.cleanup()

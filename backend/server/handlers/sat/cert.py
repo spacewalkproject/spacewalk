@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -47,7 +47,7 @@ class Certificate(Authentication):
         row = h.fetchone_dict()
         if not row:
             # This should not happen - we're already authenticated
-            raise rhnException, "Satellite cert went away after auth?"
+            raise rhnException("Satellite cert went away after auth?")
 
         # Bugzilla #219625
         # cert is now a blob

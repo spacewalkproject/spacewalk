@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,11 +16,11 @@
 
 import os
 import sys
+import tempfile
 import time
 from stat import ST_SIZE
 from optparse import Option, OptionParser
 from spacewalk.common.rhnConfig import PRODUCT_NAME
-import tempfile
 
 MOUNT_POINT = '/tmp'
 IMAGE_SIZE = "630M"
@@ -52,19 +52,19 @@ def main(arglist):
 
     # Check to see if mkisofs is installed
     if not os.path.exists('/usr/bin/mkisofs'):
-        print "ERROR:: mkisofs is not Installed. Cannot Proceed iso build. " \
-              + "Please install mkisofs and rerun this command."
+        print("ERROR:: mkisofs is not Installed. Cannot Proceed iso build. " \
+              + "Please install mkisofs and rerun this command.")
         return
 
     mountPoint = options.mountpoint or MOUNT_POINT
     if options.type == "dvd":
-        print "Building  DVD Iso ..."
+        print("Building  DVD Iso ...")
         sizeStr = options.size or DVD_IMAGE_SIZE
     else:
         sizeStr = options.size or IMAGE_SIZE
     imageSize = sizeStrToInt(sizeStr)
     if imageSize == 0:
-        print "Unknown size %s" % sizeStr
+        print("Unknown size %s" % sizeStr)
         return
 
     if options.version is None:
@@ -116,7 +116,7 @@ def main(arglist):
     mkisofsTemplate = "mkisofs -r -J -D -file-mode 0444 -new-dir-mode 0555 -dir-mode 0555 " \
         + "-graft-points %s -o %s /DISK_%s_OF_%s=%s"
     for i in range(cdcount):
-        print "---------- %s/%s" % (i + 1, cdcount)
+        print("---------- %s/%s" % (i + 1, cdcount))
 
         # if options.type is None:
         filename = "%s/%s-%s.%s-%02d.iso" % (options.output, file_prefix,
@@ -135,7 +135,7 @@ def main(arglist):
             'volid': "RHNSAT_%s/%s" % (i + 1, cdcount),
             'path-list': pathfiles,
         }
-        opts = ['-%s "%s"' % x for x in opts.items()]
+        opts = ['-%s "%s"' % x for x in list(opts.items())]
 
         # Generate the file list that will go into the CD
         # See the man page for mkisofs to better understand how graft points
@@ -158,19 +158,19 @@ def main(arglist):
             os.write(pathfiles_fd, "\n")
         os.close(pathfiles_fd)
 
-        print "Creating %s" % filename
+        print("Creating %s" % filename)
         # And run it
         fd = os.popen(cmd, "r")
-        print fd.read()
+        print(fd.read())
 
         if options.copy_iso_dir is not None:
             copy_iso_path = os.path.join(options.copy_iso_dir, os.path.basename(os.path.dirname(filename)))
             if not os.path.exists(copy_iso_path):
                 os.mkdir(copy_iso_path)
             fd = os.popen("mv %s %s" % (filename, copy_iso_path), "r")
-            print fd.read()
+            print(fd.read())
             fd = os.popen("rm %s" % filename)
-            print fd.read()
+            print(fd.read())
 
         # Remove the temp file
         os.unlink(pathfiles)

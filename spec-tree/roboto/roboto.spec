@@ -1,12 +1,21 @@
+%if 0%{?suse_version}
+%global apachedocroot /srv/www/htdocs
+%else
+%global apachedocroot %{_var}/www/html
+%endif
+
 Name:           roboto
 Version:        1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Roboto font
 
 Group:          Application/Internet
 License:        Apache Software License v2
 URL:            http://developer.android.com/design/style/typography.html
 Source0:        http://developer.android.com/downloads/design/roboto-1.2.zip
+%if 0%{?suse_version}
+BuildRequires:  unzip
+%endif
 BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
@@ -42,9 +51,9 @@ and the Roboto Slab family.
 
 %install
 rm -rf %{buildroot}
-install -d -m 755 %{buildroot}%{_var}/www/html/fonts/
+install -d -m 755 %{buildroot}%{apachedocroot}/fonts/
 rm -f Roboto_v1.2/*/{Icon,.DS_Store}
-cp -a Roboto_v1.2/Roboto Roboto_v1.2/RobotoCondensed %{buildroot}%{_var}/www/html/fonts/
+cp -a Roboto_v1.2/Roboto Roboto_v1.2/RobotoCondensed %{buildroot}%{apachedocroot}/fonts/
 
 %clean
 rm -rf %{buildroot}
@@ -53,14 +62,22 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %doc
-%{_var}/www/html/fonts/Roboto
+%{apachedocroot}/fonts/Roboto
+%if 0%{?suse_version}
+%dir %{apachedocroot}/fonts
+%endif
 
 %files condensed
 %defattr(-,root,root,-)
-%{_var}/www/html/fonts/RobotoCondensed
-
+%{apachedocroot}/fonts/RobotoCondensed
+%if 0%{?suse_version}
+%dir %{apachedocroot}/fonts
+%endif
 
 %changelog
+* Tue May 10 2016 Grant Gainey 1.2-3
+- roboto: build on openSUSE
+
 * Fri Jan 17 2014 Michael Mraka <michael.mraka@redhat.com> 1.2-2
 - koji build needs Group specified
 

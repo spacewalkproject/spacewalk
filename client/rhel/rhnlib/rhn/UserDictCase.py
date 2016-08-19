@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2001--2015 Red Hat, Inc.
+# Copyright (c) 2001--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,8 +17,14 @@
 # UserDict standard python class
 #
 
-from types import StringType
-from UserDict import UserDict
+
+try: # python2
+    from UserDict import UserDict
+    from types import StringType
+except ImportError: # python3
+    from collections import UserDict
+    StringType = bytes
+    from functools import reduce
 
 # A dictionary with case insensitive keys
 class UserDictCase(UserDict):
@@ -50,6 +56,10 @@ class UserDictCase(UserDict):
         del self.data[key]
         del self.kcase[key]
 
+    def __contains__(self, key):
+        key = self.__lower_string(key)
+        return key in self.data
+
     def keys(self):
         return self.kcase.values()
 
@@ -57,8 +67,8 @@ class UserDictCase(UserDict):
         return self.get_hash().items()
 
     def has_key(self, key):
-        key = self.__lower_string(key)
-        return self.data.has_key(key)
+        # obsoleted, left for compatibility with older python
+        return key in self
 
     def clear(self):
         self.data.clear()

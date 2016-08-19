@@ -2,7 +2,7 @@
 # Code that drops files on the filesystem (/PKG-UPLOAD)
 #
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -52,7 +52,7 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         maps = [['Null-Org', 'null_org'], ['Packaging', 'packaging']]
         for hn, sn in maps:
             header_name = "%s-%s" % (self.header_prefix, hn)
-            if req.headers_in.has_key(header_name):
+            if header_name in req.headers_in:
                 setattr(self, sn, req.headers_in[header_name])
 
         if ret != apache.OK:
@@ -153,6 +153,6 @@ class PackagePush(basePackageUpload.BasePackageUpload):
 
     @staticmethod
     def get_auth_token(value):
-        s = ''.join(map(lambda x: x.strip(), value.split(',')))
-        arr = map(base64.decodestring, s.split(':'))
+        s = ''.join([x.strip() for x in value.split(',')])
+        arr = list(map(base64.decodestring, s.split(':')))
         return arr

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2013--2015 Red Hat, Inc.
+# Copyright (c) 2013--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -37,7 +37,7 @@ class Scap(rhnHandler):
 
         required_keys = ['filename', 'filecontent', 'content-encoding']
         for k in required_keys:
-            if not scap_file.has_key(k):
+            if k not in scap_file:
                 log_debug(1, self.server_id, "The scap file data is invalid or incomplete: %s" % scap_file)
                 raise rhnFault(5101, "Missing or invalid key: %s" % k)
 

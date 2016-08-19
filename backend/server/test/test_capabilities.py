@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -48,7 +48,7 @@ def main():
         rhnSQL.initDB(db_name)
     except ConfigParserError:
         # database is not available when running in rpmbuild time
-        print "Test skipped"
+        print("Test skipped")
         return 0
 
     uri = "http://%s/XMLRPC" % (server_name, )
@@ -87,7 +87,7 @@ def main():
 
     sobj = rhnServer.get(systemid)
     server_id = sobj.getid()
-    print "Registered server", server_id
+    print("Registered server", server_id)
 
     return 0
 

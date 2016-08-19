@@ -180,11 +180,13 @@
                     <c:out value="Primary network interface:" />
                   </th>
                   <td>
+                  <c:if test="${not empty networkInterfaces}">
                     <html:select property="primaryInterface"
                     styleId="primaryInterface">
                       <html:options collection="networkInterfaces"
                       property="value" labelProperty="display" />
                     </html:select>
+                    </c:if>
                   </td>
                 </tr>
               </table>
@@ -192,10 +194,12 @@
           </div>
           <rhn:csrf />
           <div class="text-right margin-bottom-sm">
+          <c:if test="${not empty networkInterfaces}">
             <html:submit property="update_interface"
             styleClass="btn btn-default">
               <bean:message key="sdc.details.edit.update" />
             </html:submit>
+            </c:if>
           </div>
           <div class="panel panel-default">
             <div class="panel-body">
@@ -223,6 +227,7 @@
                       value="list-row-odd" />
                     </c:otherwise>
                   </c:choose>
+
                   <tr class="${style_class}">
                     <td>${current.name}</td>
                     <c:choose>

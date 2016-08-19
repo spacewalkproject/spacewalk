@@ -24,6 +24,7 @@ java/velocity.log*
 java/*.jar
 java/*.txt
 java/*.out
+java/**/*.iml
 thrift/gen-*
 search-server/spacewalk-search/.classpath
 search-server/spacewalk-search/.project
@@ -33,6 +34,7 @@ search-server/spacewalk-search/dist
 search-server/spacewalk-search/rhn-search.pid
 search-server/spacewalk-search/rhn_search_daemon.log
 *~
+.idea
 .project
 .pydevproject
 .zanata-cache

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # String constants for the RHN Register TUI/GUI.
-# Copyright (c) 2000--2015 Red Hat, Inc.
+# Copyright (c) 2000--2016 Red Hat, Inc.
 #
 # Author:
 #       James Slagle <jslagle@redhat.com>
@@ -11,6 +11,9 @@ from up2date_client.pmPlugin import PM_PLUGIN_NAME, PM_NAME
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
+# Python 3 translations don't have a ugettext method
+if not hasattr(t, 'ugettext'):
+    t.ugettext = t.gettext
 _ = t.ugettext
 
 COPYRIGHT_TEXT        = _(u"Copyright © 2006--2014 Red Hat, Inc. All rights reserved.")

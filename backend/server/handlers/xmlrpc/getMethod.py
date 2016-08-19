@@ -2,7 +2,7 @@
 #
 # Client code for Update Agent
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,9 +23,10 @@
 import os
 import string
 import sys
-from types import ClassType
+from spacewalk.common.usix import ClassType
 from distutils.sysconfig import get_python_lib
 
+from spacewalk.common.usix import raise_with_tb
 
 class GetMethodException(Exception):
 
@@ -89,7 +90,7 @@ def getMethod(methodName, baseClass):
     try:
         actions = __import__(modulename)
     except ImportError:
-        raise GetMethodException("Could not import module %s" % modulename), None, sys.exc_info()[2]
+        raise_with_tb(GetMethodException("Could not import module %s" % modulename), sys.exc_info()[2])
 
     className = actions
     # Iterate through the list of components and try to load that specific
@@ -138,12 +139,13 @@ if __name__ == '__main__':
     ]
 
     for m in methods:
-        print "----Running method %s: " % m
+        print("----Running method %s: " % m)
         try:
             method = getMethod(m, 'Actions')
-        except GetMethodException, e:
-            print "Error getting the method %s: %s" % (m,
-                                                       string.join(map(str, e.args)))
+        except GetMethodException:
+            e = sys.exc_info()[1]
+            print("Error getting the method %s: %s" % (m,
+                                                       string.join(map(str, e.args))))
         else:
             method()
 #-----------------------------------------------------------------------------

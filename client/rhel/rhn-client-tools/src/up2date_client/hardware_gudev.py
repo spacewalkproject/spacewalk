@@ -1,4 +1,4 @@
-# Copyright (c) 2010--2014 Red Hat, Inc.
+# Copyright (c) 2010--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,6 +13,8 @@
 #
 
 try:
+    import gi
+    gi.require_version('GUdev', '1.0')
     from gi.repository import GUdev
     gi_gudev = True
 except ImportError:

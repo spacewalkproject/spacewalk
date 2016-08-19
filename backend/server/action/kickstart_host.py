@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,6 +15,7 @@
 
 import sys
 from spacewalk.common.rhnLog import log_debug
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.server.rhnLib import InvalidAction, ShadowAction
 from spacewalk.server.action.utils import SubscribedChannel,\
     ChannelPackage, \
@@ -68,12 +69,15 @@ def schedule_virt_host_pkg_install(server_id, action_id, dry_run=0):
             messaging_package.schedule_package_install()
         else:
             log_debug(4, "dry run requested")
-    except NoActionInfo, nai:
-        raise InvalidAction(str(nai)), None, sys.exc_info()[2]
-    except PackageNotFound, pnf:
-        raise InvalidAction(str(pnf)), None, sys.exc_info()[2]
-    except Exception, e:
-        raise InvalidAction(str(e)), None, sys.exc_info()[2]
+    except NoActionInfo:
+        nai = sys.exc_info()[1]
+        raise_with_tb(InvalidAction(str(nai)), sys.exc_info()[2])
+    except PackageNotFound:
+        pnf = sys.exc_info()[1]
+        raise_with_tb(InvalidAction(str(pnf)), sys.exc_info()[2])
+    except Exception:
+        e = sys.exc_info()[1]
+        raise_with_tb(InvalidAction(str(e)), sys.exc_info()[2])
 
     log_debug(3, "Completed scheduling install of rhn-virtualization-host and osad!")
     raise ShadowAction("Scheduled installation of RHN Virtualization Host packages.")

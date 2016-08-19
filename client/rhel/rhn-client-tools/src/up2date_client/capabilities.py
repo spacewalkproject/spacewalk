@@ -1,11 +1,17 @@
 
-import UserDict
-import config
-import up2dateErrors
-import string
+from up2date_client import config
+from up2date_client import up2dateErrors
+
+try: # python2
+    import UserDict
+except ImportError: # python3
+    import collections as UserDict
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
+# Python 3 translations don't have a ugettext method
+if not hasattr(t, 'ugettext'):
+    t.ugettext = t.gettext
 _ = t.ugettext
 
 # a dict with "capability name" as the key, and the version
@@ -21,23 +27,23 @@ neededCaps = {"caneatCheese": {'version':"21"},
 
 def parseCap(capstring):
     value = None
-    caps = string.split(capstring, ',')
+    caps = capstring.split(',')
 
     capslist = []
     for cap in caps:
         try:
-            (key_version, value) = map(string.strip, string.split(cap, "=", 1))
+            (key_version, value) = [i.strip() for i in cap.split("=", 1)]
         except ValueError:
             # Bad directive: not in 'a = b' format
             continue
 
         # parse out the version
         # lets give it a shot sans regex's first...
-        (key,version) = string.split(key_version, "(", 1)
+        (key,version) = key_version.split("(", 1)
 
         # just to be paranoid
         if version[-1] != ")":
-            print "something broke in parsing the capabilited headers"
+            print("something broke in parsing the capabilited headers")
         #FIXME: raise an approriate exception here...
 
         # trim off the trailing paren
@@ -59,32 +65,32 @@ class Capabilities(UserDict.UserDict):
 
 
     def populate(self, headers):
-        for key in headers.keys():
-            if key == "x-rhn-server-capability":
-                capslist = parseCap(headers[key])
+        for key, val in headers.items():
+            if key.lower() == "x-rhn-server-capability":
+                capslist = parseCap(val)
 
                 for (cap,data) in capslist:
                     self.data[cap] = data
 
     def parseCapVersion(self, versionString):
-        index = string.find(versionString, '-')
+        index = versionString.find('-')
         # version of "-" is bogus, ditto for "1-"
         if index > 0:
-            rng = string.split(versionString, "-")
+            rng = versionString.split("-")
             start = rng[0]
             end = rng[1]
             versions = range(int(start), int(end)+1)
             return versions
 
-        vers = string.split(versionString, ':')
+        vers = versionString.split(':')
         if len(vers) > 1:
-            versions = map(lambda a:int(a), vers)
+            versions = [int(a) for a in vers]
             return versions
 
         return [int(versionString)]
 
     def validateCap(self, cap, capvalue):
-        if not self.data.has_key(cap):
+        if not cap in self.data:
             errstr = _("This client requires the server to support %s, which the current " \
                        "server does not support") % cap
             self.missingCaps[cap] = None
@@ -102,7 +108,7 @@ class Capabilities(UserDict.UserDict):
         self.workaroundMissingCaps()
 
     def setConfig(self, key, configItem):
-        if self.tmpCaps.has_key(key):
+        if key in self.tmpCaps:
             self.cfg[configItem] = 0
             del self.tmpCaps[key]
         else:
@@ -116,7 +122,7 @@ class Capabilities(UserDict.UserDict):
 
         # this is an example of how to work around it
         key = 'caneatCheese'
-        if self.tmpCaps.has_key(key):
+        if key in self.tmpCaps:
             # do whatevers needed to workaround
             del self.tmpCaps[key]
         else:
@@ -185,7 +191,7 @@ class Capabilities(UserDict.UserDict):
         """
         assert version is None or str(version).isdigit()
 
-        if not self.data.has_key(capability):
+        if not capability in self.data:
             return False
         if version:
             data = self.data[capability]

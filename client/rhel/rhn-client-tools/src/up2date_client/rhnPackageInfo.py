@@ -3,10 +3,10 @@
 # updating/fetching package lists, channels, etc
 
 
-import up2dateAuth
-import up2dateLog
-import rhnserver
-import pkgUtils
+from up2date_client import up2dateAuth
+from up2date_client import up2dateLog
+from up2date_client import rhnserver
+from up2date_client import pkgUtils
 
 
 def logDeltaPackages(pkgs):
@@ -29,7 +29,7 @@ def updatePackageProfile(timeout=None):
 
 def pprint_pkglist(pkglist):
     if type(pkglist) == type([]):
-        output = map(lambda a : "%s-%s-%s" % (a[0],a[1],a[2]), pkglist)
+        output = ["%s-%s-%s" % (a[0],a[1],a[2]) for a in pkglist]
     else:
         output = "%s-%s-%s" % (pkglist[0], pkglist[1], pkglist[2])
     return output
@@ -41,10 +41,10 @@ def convertPackagesFromHashToList(packages):
     """
     result = []
     for package in packages:
-        if package.has_key('arch') and package.has_key('cookie'):
+        if 'arch' in package and 'cookie' in package:
             result.append([package['name'], package['version'], package['release'],
                 package['epoch'], package['arch'], package['cookie']])
-        elif package.has_key('arch'):
+        elif 'arch' in package:
             result.append([package['name'], package['version'], package['release'],
                 package['epoch'], package['arch']])
         else:

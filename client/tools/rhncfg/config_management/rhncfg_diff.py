@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,6 +22,8 @@ import sys
 from config_common import handler_base, utils, cfg_exceptions
 from config_common.rhn_log import log_debug, die
 from config_common.file_utils import f_date, ostr_to_sym
+from spacewalk.common.usix import next
+from rhn.i18n import bstr, sstr
 
 
 class Handler(handler_base.HandlerBase):
@@ -67,7 +69,7 @@ class Handler(handler_base.HandlerBase):
 
         files_to_diff = []
 
-        files = map(utils.normalize_path, self.args)
+        files = [utils.normalize_path(x) for x in self.args]
         files_count = len(files)
 
         if files_count != 1 and revision is not None:
@@ -116,9 +118,9 @@ class Handler(handler_base.HandlerBase):
         r = self.repository
         try:
             info = r.get_raw_file_info(channel, path, revision)
-            if info.has_key('encoding') and info['file_contents']:
+            if 'encoding' in info and info['file_contents']:
                 if info['encoding'] == 'base64':
-                    info['file_contents'] = base64.decodestring(info['file_contents'])
+                    info['file_contents'] = base64.decodestring(bstr(info['file_contents']))
                 else:
                     die(9, 'Error: unknown encoding %s' % info['encoding'])
         except cfg_exceptions.RepositoryFileMissingError:
@@ -134,15 +136,40 @@ class Handler(handler_base.HandlerBase):
             if src_link != os.readlink(local_file):
                 return "Symbolic links differ. Channel: '%s' -> '%s'   System: '%s' -> '%s' \n " % (path,src_link, path, dest_link)
             return ""
-        fromlines = info['file_contents'].splitlines(1)
-        tolines = open(local_file, 'r').readlines()
-        diff_output = difflib.unified_diff(fromlines, tolines, info['path'], local_file)
-        first_row = second_row = ''
-        try:
-            first_row = diff_output.next()
-            second_row = diff_output.next()
-        except StopIteration:
-            pass
+
+        response_output = ""
+        content_differs = False
+        if 'is_binary' in info and info['is_binary'] == 'Y':
+            from_content = info['file_contents']
+            to_file = open(local_file, 'rb')
+            to_content = to_file.read()
+            to_file.close()
+            if len(from_content) != len(to_content):
+                content_differs = True
+            else:
+                for i in range(len(from_content)):
+                    if from_content[i] != to_content[i]:
+                         content_differs = True
+                         break
+            if content_differs:
+                response_output = "Binary file content differs\n"
+        else:
+            fromlines = sstr(info['file_contents']).splitlines(1)
+            tofile = open(local_file, 'r')
+            tolines = tofile.readlines()
+            tofile.close()
+            diff_output = difflib.unified_diff(fromlines, tolines, info['path'], local_file)
+            first_row = second_row = ''
+            try:
+                first_row = next(diff_output)
+                # if content was same, exception thrown so following
+                # lines don't execute
+                content_differs = True
+                second_row = next(diff_output)
+                response_output = ''.join(list(diff_output))
+            except StopIteration:
+                pass
+
         file_stat = os.lstat(local_file)
         local_info = r.make_stat_info(local_file, file_stat)
         # rhel4 do not support selinux
@@ -150,17 +177,17 @@ class Handler(handler_base.HandlerBase):
             local_info['selinux_ctx'] = ''
         if 'selinux_ctx' not in info:
             info['selinux_ctx'] = ''
-        if not first_row and not self.__attributes_differ(info, local_info):
+        if not content_differs and not self.__attributes_differ(info, local_info):
             return ""
         else:
-            template = "--- %s\t%s\tattributes: %s %s %s %s\tconfig channel: %s\trevision: %s"
-            if not info.has_key('modified'):
+            template = "%s %s\t%s\tattributes: %s %s %s %s\tconfig channel: %s\trevision: %s"
+            if 'modified' not in info:
                 info['modified'] = ''
-            first_row = template % (path, str(info['modified']), ostr_to_sym(info['filemode'], info['filetype']),
+            first_row = template % ('---', path, str(info['modified']), ostr_to_sym(info['filemode'], info['filetype']),
                         info['username'], info['groupname'], info['selinux_ctx'], channel,
                         info['revision'],
             )
-            second_row = template % (local_file, f_date(datetime.fromtimestamp(local_info['mtime'])), ostr_to_sym(local_info['mode'], 'file'),
+            second_row = template % ('+++', local_file, f_date(datetime.fromtimestamp(local_info['mtime'])), ostr_to_sym(local_info['mode'], 'file'),
                         local_info['user'], local_info['group'], local_info['selinux_ctx'], 'local file', None
             )
-        return first_row + '\n' + second_row + '\n' + ''.join(list(diff_output))
+        return first_row + '\n' + second_row + '\n' + response_output

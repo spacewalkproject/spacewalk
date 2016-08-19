@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -95,7 +95,7 @@ def upload(server_id, action_id, dry_run=0):
     log_debug(3)
     h = rhnSQL.prepare(_query_upload_files)
     h.execute(action_id=action_id, server_id=server_id)
-    files = map(lambda x: x['path'], h.fetchall_dict() or [])
+    files = [x['path'] for x in h.fetchall_dict() or []]
 
     return action_id, files
 

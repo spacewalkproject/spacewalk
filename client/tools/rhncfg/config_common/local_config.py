@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,10 +15,15 @@
 
 import os
 import sys
-import string
-import ConfigParser
 
-import utils
+# python2
+try:
+    import ConfigParser
+except: #python3
+    import configparser as ConfigParser
+
+
+from config_common import utils
 
 class rhncfgConfigParser(ConfigParser.ConfigParser):
     _local_config_file_name = '.rhncfgrc'
@@ -27,7 +32,7 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
     def __init__(self, section, defaults=None):
         """defaults is either None, or a dictionary of default values which can be overridden"""
         if defaults:
-            for (k, v) in defaults.iteritems():
+            for (k, v) in defaults.items():
               if type(v) == int:
                     defaults[k] = str(v)
         ConfigParser.ConfigParser.__init__(self, defaults)
@@ -41,13 +46,14 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
 
         try:
             self.read(self._get_config_files())
-        except ConfigParser.MissingSectionHeaderError, e:
-            print "Config error: line %s, file %s: %s" % (e.lineno,
-                e.filename, e)
+        except ConfigParser.MissingSectionHeaderError:
+            e = sys.exc_info()[1]
+            print("Config error: line %s, file %s: %s" % (e.lineno,
+                e.filename, e))
             sys.exit(1)
 
     def _get_config_files(self):
-        if string.find(sys.platform, 'sunos') > -1:
+        if sys.platform.find('sunos') > -1:
             return [
                 "/opt/redhat/rhn/solaris/etc/sysconfig/rhn/%s.conf" % self.section,
                 os.path.join(utils.get_home_dir(), self._local_config_file_name),
@@ -65,7 +71,7 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
         # server_list is always in the defaults, never in the rhncfg config file. It's formed when there
         # are more than one server in up2date's serverURL setting.
         if option == 'server_list':
-            if self.mydefaults.has_key('server_list'):
+            if 'server_list' in self.mydefaults:
                 if type(self.mydefaults['server_list']) is type([]):
                     return self.mydefaults['server_list']
 
@@ -82,15 +88,12 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
             except ValueError:
                 pass
             return ret
-        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError), e:
+        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError):
             pass
 
         defaults = self.defaults()
 
-        if defaults.has_key(option):
-            return defaults[option]
-        else:
-            return None
+        return defaults.get(option)
 
     def keys(self):
         return self.options(self.section)
@@ -107,20 +110,20 @@ def get(var):
 
 def _get_config():
     if rhncfgConfigParser._instance is None:
-        raise ValueError, "Configuration not initialized"
+        raise ValueError("Configuration not initialized")
     return rhncfgConfigParser._instance
 
 def instance():
     return _get_config()
 
 def keys():
-    return _get_config().keys()
+    return list(_get_config().keys())
 
 def main():
     init('rhncfgcli')
-    print "repository: %s" % get("repository")
-    print "useGPG: %s" % get("useGPG")
-    print "serverURL: %s" % get("serverURL")
+    print("repository: %s" % get("repository"))
+    print("useGPG: %s" % get("useGPG"))
+    print("serverURL: %s" % get("serverURL"))
 
 if __name__ == '__main__':
     main()

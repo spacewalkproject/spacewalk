@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,5 +21,5 @@ s = rpclib.Server("http://%s/APPLET" % server)
 
 dict = s.applet.poll_packages('2.1AS', 'i386')
 pkg_count = len(dict['contents'])
-print "Available packages: %d" % pkg_count
+print("Available packages: %d" % pkg_count)
 assert pkg_count > 0, "No packages available for 2.1AS"

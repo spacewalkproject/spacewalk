@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 # Copyright (c) 2010--2011 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # This software is licensed to you under the GNU General Public License,
@@ -16,17 +16,17 @@
 
 import sys
 import os.path
-from shutil import rmtree
 from os import mkdir
+from shutil import rmtree
+import errno
 
 import yum
-from spacewalk.common import fileutils
 from yum.Errors import RepoMDError
 from yum.config import ConfigParser
+from yum.packageSack import ListPackageSack
 from yum.update_md import UpdateMetadata, UpdateNoticeException, UpdateNotice
 from yum.yumRepo import YumRepository
-from urlgrabber.grabber import URLGrabError
-
+from yum.yumRepo import Errors as YumErrors
 try:
     from yum.misc import cElementTree_iterparse as iterparse
 except ImportError:
@@ -36,12 +36,15 @@ except ImportError:
         # pylint: disable=F0401
         import cElementTree
     iterparse = cElementTree.iterparse
+from urlgrabber.grabber import URLGrabError
+
+from spacewalk.common import fileutils
 from spacewalk.satellite_tools.repo_plugins import ContentPackage
 from spacewalk.common.rhnConfig import CFG, initCFG
 
 CACHE_DIR = '/var/cache/rhn/reposync/'
 YUMSRC_CONF = '/etc/rhn/spacewalk-repo-sync/yum.conf'
-
+METADATA_EXPIRE = 24*60*60  # Time (in seconds) after which the metadata will expire
 
 class YumWarnings:
 
@@ -87,7 +90,7 @@ class YumUpdateMetadata(UpdateMetadata):
                 key = un['update_id']
                 if all_versions:
                     key = "%s-%s" % (un['update_id'], un['version'])
-                if not self._notices.has_key(key):
+                if key not in self._notices:
                     self._notices[key] = un
                     for pkg in un['pkglist']:
                         for pkgfile in pkg['packages']:
@@ -108,7 +111,6 @@ class ContentSource(object):
         if not os.path.exists(yumsrc_conf):
             self.yumbase.preconf.fn = '/dev/null'
         self.configparser = ConfigParser()
-        self._clean_cache(CACHE_DIR + name)
 
         # read the proxy configuration in /etc/rhn/rhn.conf
         initCFG('server.satellite')
@@ -134,7 +136,7 @@ class ContentSource(object):
     def setup_repo(self, repo):
         """Fetch repository metadata"""
         repo.cache = 0
-        repo.metadata_expire = 0
+        repo.metadata_expire = METADATA_EXPIRE
         repo.mirrorlist = self.url
         repo.baseurl = [self.url]
         repo.basecachedir = CACHE_DIR
@@ -168,12 +170,24 @@ class ContentSource(object):
         repo.setup(False)
         self.sack = self.repo.getPackageSack()
 
-    def list_packages(self, filters):
+    def number_of_packages(self):
+        for dummy_index in range(3):
+            try:
+                self.sack.populate(self.repo, 'metadata', None, 0)
+                break
+            except YumErrors.RepoError:
+                pass
+        return len(self.sack.returnPackages())
+
+    def list_packages(self, filters, latest):
         """ list packages"""
         self.sack.populate(self.repo, 'metadata', None, 0)
-        pkglist = self.sack.returnPackages()
-        pkglist = yum.misc.unique(pkglist)
+        pkglist = ListPackageSack(self.sack.returnPackages())
         self.num_packages = len(pkglist)
+        if latest:
+            pkglist = pkglist.returnNewestByNameArch()
+        pkglist = yum.misc.unique(pkglist)
+        pkglist.sort(self._sort_packages)
 
         if not filters:
             # if there's no include/exclude filter on command line or in database
@@ -203,6 +217,16 @@ class ContentSource(object):
             new_pack.checksum = pack.checksums[0][1]
             to_return.append(new_pack)
         return to_return
+
+    @staticmethod
+    def _sort_packages(pkg1 ,pkg2):
+        """sorts a list of yum package objects by name"""
+        if pkg1.name > pkg2.name:
+            return 1
+        elif pkg1.name == pkg2.name:
+            return 0
+        else:
+            return -1
 
     @staticmethod
     def _filter_packages(packages, filters, exclude_only=False):
@@ -255,21 +279,28 @@ class ContentSource(object):
                 packages.extend(dep_packages)
         return yum.misc.unique(packages)
 
-    def get_package(self, package):
+    def get_package(self, package, metadata_only=False):
         """ get package """
-        check = (self.verify_pkg, (package.unique_id, 1), {})
-        return self.repo.getPackage(package.unique_id, checkfunc=check)
+        pack = package.unique_id
+        check = (self.verify_pkg, (pack, 1), {})
+        if metadata_only:
+            # Include also data before header section
+            pack.hdrstart = 0
+            data = self.repo.getHeader(pack, checkfunc=check)
+        else:
+            data = self.repo.getPackage(pack, checkfunc=check)
+        return data
 
     @staticmethod
     def verify_pkg(_fo, pkg, _fail):
         return pkg.verifyLocalPkg()
 
     @staticmethod
-    def _clean_cache(directory):
+    def clear_cache(directory=CACHE_DIR):
         rmtree(directory, True)
 
     def get_updates(self):
-        if not self.repo.repoXML.repoData.has_key('updateinfo'):
+        if 'updateinfo' not in self.repo.repoXML.repoData:
             return []
         um = YumUpdateMetadata()
         um.add(self.repo, all_versions=True)
@@ -285,7 +316,14 @@ class ContentSource(object):
     def set_ssl_options(self, ca_cert, client_cert, client_key):
         repo = self.repo
         ssldir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
-        mkdir(ssldir, 0750)
+        try:
+            mkdir(ssldir, int('0750', 8))
+        except OSError as exc:
+            if exc.errno == errno.EEXIST and os.path.isdir(ssldir):
+                pass
+            else:
+                raise
+
         repo.sslcacert = os.path.join(ssldir, 'ca.pem')
         f = open(repo.sslcacert, "w")
         f.write(str(ca_cert))
@@ -305,17 +343,18 @@ class ContentSource(object):
         repo = self.repo
         ssldir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
         try:
-            self._clean_cache(ssldir)
+            self.clear_cache(ssldir)
         except (OSError, IOError):
             pass
 
     def get_file(self, path, local_base=None):
         try:
+            temp_file = ""
             if local_base is not None:
                 target_file = os.path.join(local_base, path)
                 target_dir = os.path.dirname(target_file)
                 if not os.path.exists(target_dir):
-                    os.makedirs(target_dir, 0755)
+                    os.makedirs(target_dir, int('0755', 8))
                 temp_file = target_file + '..download'
                 if os.path.exists(temp_file):
                     os.unlink(temp_file)
@@ -326,3 +365,6 @@ class ContentSource(object):
                 return self.repo.grab.urlread(path)
         except URLGrabError:
             return
+        finally:
+            if os.path.exists(temp_file):
+                os.unlink(temp_file)

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,7 +21,7 @@ import os
 
 # rhn imports:
 from spacewalk.common import rhnCache
-from spacewalk.common.rhnConfig import CFG
+from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.rhnLib import hash_object_id
 
 # NOTE: this is a python 2.2-ism
@@ -100,9 +100,8 @@ class KickstartableTreesCache(BaseCache):
                                              object_id))
 
 if __name__ == '__main__':
-    from spacewalk.common.rhnConfig import initCFG
     initCFG("server.satellite")
     c = PackageCache()
     pid = 'package-12345'
     c.cache_set(pid, {'a': 1, 'b': 2})
-    print c.cache_get(pid)
+    print(c.cache_get(pid))

@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.5.0
+Version: 2.6.0
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -15,8 +15,10 @@ BuildRequires: python3-devel
 Requires: dnf >= 0.5.3
 Requires: dnf-plugins-core
 Requires: librepo >= 1.7.15
-Requires: rhn-client-tools >= 1.10.3-1
-Conflicts: yum-rhn-plugin
+Requires: rhn-client-tools >= 2.5.5
+%if 0%{?fedora} >= 22
+Obsoletes: yum-rhn-plugin
+%endif
 
 %description
 This DNF plugin provides access to a Spacewalk server for software updates.
@@ -62,6 +64,32 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %dir /var/lib/up2date
 
 %changelog
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.8-1
+- updating copyright years
+
+* Thu May 12 2016 Gennadii Altukhov <galt@redhat.com> 2.5.7-1
+- fix: wrong converting of exception to string
+
+* Wed May 11 2016 Gennadii Altukhov <galt@redhat.com> 2.5.6-1
+- replace has_key to work in python 3
+
+* Mon May 09 2016 Gennadii Altukhov <galt@redhat.com> 2.5.5-1
+- 1323028 - fix upgrade from Fedora 21 to 22
+
+* Wed May 04 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.4-1
+- Fix code via PEP8
+- AK does not install packages via dnf-client
+
+* Tue Jan 19 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.3-1
+- yet another python3 fixes
+
+* Fri Jan 08 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.2-1
+- updated dnf / rhnlib / rhn-client-tools dependencies
+
+* Fri Jan 08 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.1-1
+- 1286555 - updated to work in python3
+- Bumping package versions for 2.5.
+
 * Thu Aug 20 2015 Michael Mraka <michael.mraka@redhat.com> 2.4.15-1
 - 1254551 - fixed error message output
 

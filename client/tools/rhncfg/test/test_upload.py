@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -31,7 +31,7 @@ files = [
        'delim_end'      : '|}',
        'file_stat'      : {
             'size'  : 1234,
-            'mode'  : 0755,
+            'mode'  : int("0755", 8),
             'user'  : 'misa',
             'group' : 'misa',
        },
@@ -43,7 +43,7 @@ files = [
        'delim_end'      : '|}',
        'file_stat'      : {
             'size'  : 1234,
-            'mode'  : 0755,
+            'mode'  : int("0755", 8),
             'user'  : 'misa',
             'group' : 'misa',
        },

@@ -32,8 +32,8 @@
     </rhn:column>
   </rhn:listdisplay>
 
-  <input type="hidden" name="aid" value="${action.id}" />
-  <input type="hidden" name="formvars" value="aid" />
+  <rhn:hidden name="aid" value="${action.id}" />
+  <rhn:hidden name="formvars" value="aid" />
 
 </rhn:list>
 

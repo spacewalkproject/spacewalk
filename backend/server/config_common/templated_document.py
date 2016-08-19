@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -99,7 +99,7 @@ class ServerTemplatedDocument(TemplatedDocument):
             log_debug(4, "no custom info", self.server)
             raise "didn't load custom info"
 
-        if self.server.custom_info.has_key(key):
+        if key in self.server.custom_info:
             return self.server.custom_info[key]
 
         return None

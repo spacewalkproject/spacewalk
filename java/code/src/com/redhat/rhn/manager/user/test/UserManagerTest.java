@@ -93,7 +93,7 @@ public class UserManagerTest extends RhnBaseTestCase {
         regular.removePermanentRole(RoleFactory.ORG_ADMIN);
 
         assertTrue(admin.hasRole(RoleFactory.ORG_ADMIN));
-        assertTrue(!regular.hasRole(RoleFactory.ORG_ADMIN));
+        assertFalse(regular.hasRole(RoleFactory.ORG_ADMIN));
 
         // make sure admin can lookup regular by id and by login
         User test = UserManager.lookupUser(admin, regular.getId());
@@ -258,7 +258,7 @@ public class UserManagerTest extends RhnBaseTestCase {
         UserManager.addRemoveUserRoles(usr, new LinkedList<String>(),
                 removeRoles);
         UserManager.storeUser(usr);
-        assertTrue((numRoles - 1) == usr.getRoles().size());
+        assertEquals(numRoles - 1, usr.getRoles().size());
 
         // Test that taking away org admin properly removes
         // permissions for the user (bz156752). Note that calling
@@ -348,7 +348,7 @@ public class UserManagerTest extends RhnBaseTestCase {
         usr.setEmail("something@changed.redhat.com");
         UserManager.storeUser(usr);
         User u2 = UserFactory.lookupById(id);
-        assertEquals(u2.getEmail(), "something@changed.redhat.com");
+        assertEquals("something@changed.redhat.com", u2.getEmail());
     }
 
     public void testGetSystemGroups() {
@@ -364,8 +364,8 @@ public class UserManagerTest extends RhnBaseTestCase {
     public void testGetTimeZoneId() {
         RhnTimeZone tz = UserManager.getTimeZone(UserManager
                 .getTimeZone("Indian/Maldives").getTimeZoneId());
-        assertTrue(UserManager.getTimeZone("Indian/Maldives").equals(tz));
-        assertTrue(tz.getOlsonName().equals("Indian/Maldives"));
+        assertEquals(UserManager.getTimeZone("Indian/Maldives"), tz);
+        assertEquals("Indian/Maldives", tz.getOlsonName());
 
         RhnTimeZone tz2 = UserManager.getTimeZone(-23);
         assertNull(tz2);
@@ -374,7 +374,7 @@ public class UserManagerTest extends RhnBaseTestCase {
     public void testGetTimeZoneOlson() {
         RhnTimeZone tz = UserManager.getTimeZone("America/New_York");
         assertNotNull(tz);
-        assertTrue(tz.getOlsonName().equals("America/New_York"));
+        assertEquals(tz.getOlsonName(), "America/New_York");
 
         RhnTimeZone tz2 = UserManager.getTimeZone("foo");
         assertNull(tz2);
@@ -383,20 +383,21 @@ public class UserManagerTest extends RhnBaseTestCase {
     public void testGetTimeZoneDefault() {
         RhnTimeZone tz = UserManager.getDefaultTimeZone();
         assertNotNull(tz);
-        assertTrue(tz.getTimeZone().getRawOffset() == UserFactory.getDefaultTimeZone()
+        assertEquals(tz.getTimeZone().getRawOffset(), UserFactory.getDefaultTimeZone()
                 .getTimeZone().getRawOffset());
     }
 
     public void testLookupTimeZoneAll() {
-        List lst = UserManager.lookupAllTimeZones();
+        List<RhnTimeZone> lst = UserManager.lookupAllTimeZones();
         assertTrue(lst.size() > 30);
-        assertTrue(lst.get(0) instanceof RhnTimeZone);
         assertTrue(lst.get(5) instanceof RhnTimeZone);
         assertTrue(lst.get(34) instanceof RhnTimeZone);
 
-        assertTrue(((RhnTimeZone)lst.get(5)).equals(UserManager
-                .getTimeZone("America/Denver")));
-        assertTrue(((RhnTimeZone)lst.get(5)).getOlsonName().equals("America/Denver"));
+        assertEquals(UserManager.getTimeZone("GMT"), lst.get(0));
+        assertEquals("GMT", lst.get(0).getOlsonName());
+
+        assertEquals("Pacific/Auckland", lst.get(5).getOlsonName());
+        assertEquals(UserManager.getTimeZone("Pacific/Auckland"), lst.get(5));
     }
 
    public void testUsersInSet() throws Exception {
@@ -482,7 +483,7 @@ public class UserManagerTest extends RhnBaseTestCase {
        SystemSearchResult sr = dr.get(0);
        System.err.println("sr.getDescription() = " + sr.getDescription());
        System.err.println("sr.getHostname() = " + sr.getHostname());
-       assertTrue(sr.getDescription() != null);
+       assertNotNull(sr.getDescription());
        //assertTrue(sr.getHostname() != null);
    }
 }

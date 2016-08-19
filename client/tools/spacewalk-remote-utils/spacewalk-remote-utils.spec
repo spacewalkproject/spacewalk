@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     2.5.1
+Version:     2.6.1
 Release:     1%{?dist}
 Summary:     Utilities to interact with a Red Hat Satellite or Spacewalk server remotely.
 
@@ -15,8 +15,13 @@ Source:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.
 BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 
-Requires: rhnlib >= 2.5.74
 BuildRequires: python-devel
+%if 0%{?fedora} >= 23
+Requires: python3-rhnlib
+%else
+Requires: rhnlib >= 2.5.74
+%endif
+
 BuildRequires: docbook-utils
 %if 0%{?suse_version}
 # provide directories for filelist check in OBS
@@ -31,6 +36,10 @@ Utilities to interact with a Red Hat Satellite or Spacewalk server remotely over
 
 %build
 docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./spacewalk-create-channel/doc/
+%if 0%{?fedora} >= 23
+    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' ./spacewalk-create-channel/spacewalk-create-channel
+    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' ./spacewalk-add-providers/spacewalk-add-providers
+%endif
 
 %install
 %{__rm} -rf %{buildroot}
@@ -58,6 +67,24 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Mon May 30 2016 Tomas Kasparek <tkasparek@redhat.com> 2.6.1-1
+- add supplementary channanels to spacewalk-create-channel
+- Bumping package versions for 2.6.
+
+* Wed May 18 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.5-1
+- convert string and print in spacewalk-create-channel to work in python 3
+
+* Wed May 18 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.4-1
+- update spacewalk-remote-utils with RHEL 6.8 content
+
+* Thu May 12 2016 Gennadii Altukhov <galt@redhat.com> 2.5.3-1
+- change build dependency on python-devel, because we don't use Python3 during
+  package building
+
+* Mon Apr 25 2016 Gennadii Altukhov <galt@redhat.com> 2.5.2-1
+- Make spacewalk-remote-utils compatible with Python 2 and 3
+- Fix indentation to default 4 spaces
+
 * Fri Nov 20 2015 Tomas Kasparek <tkasparek@redhat.com> 2.5.1-1
 - add RHEL 7.2 channel definitions
 - Bumping package versions for 2.5.

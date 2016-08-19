@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -87,7 +87,7 @@ def __processPackage(package, org_id, channels, source):
 
     if 'checksum' not in package:
         raise rhnFault(50, "The package's checksum digest has not been specified")
-    if not package.has_key('packageSize'):
+    if 'packageSize' not in package:
         raise rhnFault(50, "The package size has not been specified")
 
     header = rhn_rpm.headerLoad(package['header'].data)
@@ -96,11 +96,11 @@ def __processPackage(package, org_id, channels, source):
     packageSize = package['packageSize']
     relpath = package.get('relativePath')
 
-    if package.has_key('header_start'):
+    if 'header_start' in package:
         header_start = package['header_start']
     else:
         header_start = 0
-    if package.has_key('header_end'):
+    if 'header_end' in package:
         header_end = package['header_end']
     else:
         # Just say the whole package
@@ -138,16 +138,16 @@ def _formatStatus(status):
 def _dump(object):
     if object is None:
         return ''
-    from types import IntType, StringType, FloatType
+    from spacewalk.common.usix import IntType, StringType, FloatType
     if type(object) in (IntType, StringType, FloatType):
         return object
-    from types import ListType
+    from spacewalk.common.usix import ListType
     if isinstance(object, ListType):
-        return map(_dump, object)
-    from types import TupleType
+        return list(map(_dump, object))
+    from spacewalk.common.usix import TupleType
     if isinstance(object, TupleType):
         return tuple(map(_dump, object))
-    from types import DictType
+    from spacewalk.common.usix import DictType
     if isinstance(object, DictType):
         dict = {}
         for h, v in object.items():
@@ -192,7 +192,7 @@ def _listChannels(channelList, is_source, include_checksums):
                 for pkg in range(len(p)):
                     if p[pkg] is None:
                         p[pkg] = ""
-                print p
+                print(p)
                 rez.append([p[0], p[1], p[2], p[3], channel])
             else:
                 if include_checksums:

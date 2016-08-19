@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -456,7 +456,6 @@ public class ServerFactory extends HibernateFactory {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", server.getId());
         params.put("user_id", user.getId());
-        params.put("org_id", user.getOrg().getId());
         return m.execute(params);
     }
 

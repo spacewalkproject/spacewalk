@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -52,8 +52,8 @@ class History:
                  :summary,
                  :details)
         """)
-        summaries = map(lambda x: x[0], self.__h)
-        details = map(lambda x: x[1], self.__h)
+        summaries = [x[0] for x in self.__h]
+        details = [x[1] for x in self.__h]
         server_ids = [server_id] * len(self.__h)
         hist.executemany(server_id=server_ids, summary=summaries,
                          details=details)

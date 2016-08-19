@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,6 +14,7 @@
 #
 
 import sys
+import time
 
 
 class ProgressBar:
@@ -109,9 +110,7 @@ class ProgressBar:
 #------------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    import time
-
-    print "An example:"
+    print("An example:")
     bar_length = 40
     items = 200
     pb = ProgressBar('standby: ', ' - all done!', items, bar_length, 'o')

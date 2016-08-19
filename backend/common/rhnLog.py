@@ -15,7 +15,7 @@
 #
 #------------------------------------------------------------------------------
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -35,7 +35,9 @@ import sys
 import traceback
 import time
 import fcntl
+import atexit
 from spacewalk.common.fileutils import getUidGid
+from spacewalk.common.rhnLib import isSUSE
 
 LOG = None
 
@@ -96,8 +98,11 @@ def initLOG(log_file="stderr", level=0):
         log_stderr("WARNING: log path not found; attempting to create %s" %
                    log_path, sys.exc_info()[:2])
 
-        # fetch uid, gid so we can do a "chown apache.root"
-        apache_uid, apache_gid = getUidGid('apache', 'apache')
+        # fetch uid, gid so we can do a "chown ..."
+        if isSUSE():
+            apache_uid, apache_gid = getUidGid('wwwrun', 'www')
+        else:
+            apache_uid, apache_gid = getUidGid('apache', 'apache')
 
         try:
             os.makedirs(log_path)
@@ -185,12 +190,15 @@ class rhnLog:
             self.fd = open(self.file, "a", 1)
             set_close_on_exec(self.fd)
             if newfileYN:
-                apache_uid, apache_gid = getUidGid('apache', 'apache')
+                if isSUSE():
+                    apache_uid, apache_gid = getUidGid('wwwrun', 'www')
+                else:
+                    apache_uid, apache_gid = getUidGid('apache', 'apache')
                 if os.getuid() == 0:
                     os.chown(self.file, apache_uid, 0)
                 else:
                     os.chown(self.file, apache_uid, apache_gid)
-                os.chmod(self.file, 0660)
+                os.chmod(self.file, int('0660', 8))
         except:
             log_stderr("ERROR LOG FILE: Couldn't open log file %s" % self.file,
                        sys.exc_info()[:2])
@@ -241,7 +249,7 @@ class rhnLog:
     def set_req(self, req=None):
         remoteAddr = '0.0.0.0'
         if req:
-            if req.headers_in.has_key("X-Forwarded-For"):
+            if "X-Forwarded-For" in req.headers_in:
                 remoteAddr = req.headers_in["X-Forwarded-For"]
             else:
                 remoteAddr = req.connection.remote_ip
@@ -254,22 +262,18 @@ class rhnLog:
         self.level = self.log_info = None
         self.pid = self.file = self.real = self.fd = None
 
-# Exit function is always the last function run.
-_exitfuncChain = getattr(sys, 'exitfunc', None)
 
-
-def _exit(lastExitfunc=_exitfuncChain):
+def _exit():
     global LOG
     if LOG:
         del LOG
         LOG = None
-    if lastExitfunc:
-        lastExitfunc()
-sys.exitfunc = _exit
+
+atexit.register(_exit)
 
 
 #------------------------------------------------------------------------------
 if __name__ == "__main__":
-    print "You can not run this module by itself"
+    print("You can not run this module by itself")
     sys.exit(-1)
 #------------------------------------------------------------------------------

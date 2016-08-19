@@ -32,8 +32,13 @@ if [ -e /lib/systemd/system/tomcat.service ]; then
    TOMCAT="tomcat"
 fi
 
+HTTPD="httpd"
 
-SERVICES="jabberd $TOMCAT httpd osa-dispatcher rhn-search cobblerd taskomatic"
+if [ -e /lib/systemd/system/apache2.service -o -e /etc/init.d/apache2 ]; then
+   HTTPD="apache2"
+fi
+
+SERVICES="jabberd $TOMCAT $HTTPD osa-dispatcher rhn-search cobblerd taskomatic"
 if [ -f /etc/rhn/service-list ] ; then
    . /etc/rhn/service-list
 fi

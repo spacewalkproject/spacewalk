@@ -1,9 +1,10 @@
 #!/usr/bin/python
-# Copyright (c) 2005--2015 Red Hat, Inc.
+# Copyright (c) 2005--2016 Red Hat, Inc.
 #
 #
 #
 
+import sys
 import unittest
 from spacewalk.server import rhnSQL
 
@@ -36,7 +37,8 @@ class ExceptionsTest(unittest.TestCase):
             rhnSQL.execute("drop sequence misatestlob_id_seq")
         except rhnSQL.SQLStatementPrepareError:
             pass
-        except rhnSQL.SQLError, e:
+        except rhnSQL.SQLError:
+            e = sys.exc_info()[1]
             if e.args[0] != 2289:
                 raise
 

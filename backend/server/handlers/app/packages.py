@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,7 +21,9 @@ import os
 import string
 import sys
 import tempfile
-from types import TupleType
+from spacewalk.common.usix import TupleType
+
+from spacewalk.common.usix import raise_with_tb
 
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
@@ -111,7 +113,7 @@ class Packages(RPC_Base):
         if channels:
             authobj.authzChannels(channels)
         force = 0
-        if info.has_key('force'):
+        if 'force' in info:
             force = info['force']
         return uploadPackages(info, force=force,
                               caller="server.app.uploadPackageInfo")
@@ -131,7 +133,7 @@ class Packages(RPC_Base):
         # Authorize the org id passed
         authobj.authzOrg(info)
         force = 0
-        if info.has_key('force'):
+        if 'force' in info:
             force = info['force']
         return uploadPackages(info, source=1, force=force,
                               caller="server.app.uploadSourcePackageInfo")
@@ -285,7 +287,7 @@ class Packages(RPC_Base):
             log_debug(1, "No packages found; done")
             return 0
 
-        if not info.has_key('channels') or not info['channels']:
+        if 'channels' not in info or not info['channels']:
             log_debug(1, "No channels found; done")
             return 0
 
@@ -293,8 +295,7 @@ class Packages(RPC_Base):
         authobj.authzChannels(channelList)
 
         # Have to turn the channel list into a list of Channel objects
-        channelList = map(lambda x: Channel().populate({'label': x}),
-                          channelList)
+        channelList = [Channel().populate({'label': x}) for x in channelList]
 
         # Since we're dealing with superusers, we allow them to change the org
         # id
@@ -307,7 +308,7 @@ class Packages(RPC_Base):
         package_keys = ['name', 'version', 'release', 'epoch', 'arch']
         for package in packageList:
             for k in package_keys:
-                if not package.has_key(k):
+                if k not in package:
                     raise Exception("Missing key %s" % k)
                 if k == 'epoch':
                     if package[k] is not None:
@@ -335,7 +336,7 @@ class Packages(RPC_Base):
                 'orgid':       org_id
             }
 
-            if package.has_key('checksum') and CFG.ENABLE_NVREA:
+            if 'checksum' in package and CFG.ENABLE_NVREA:
                 _checksum_sql_filter = """and c.checksum = :checksum
                                           and c.checksum_type = :checksum_type"""
                 exec_args.update({'checksum_type': package['checksum_type'],
@@ -358,10 +359,12 @@ class Packages(RPC_Base):
         importer = ChannelPackageSubscription(batch, backend, caller=caller)
         try:
             importer.run()
-        except IncompatibleArchError, e:
-            raise rhnFault(50, string.join(e.args), explain=0), None, sys.exc_info()[2]
-        except InvalidChannelError, e:
-            raise rhnFault(50, str(e), explain=0), None, sys.exc_info()[2]
+        except IncompatibleArchError:
+            e = sys.exc_info()[1]
+            raise_with_tb(rhnFault(50, string.join(e.args), explain=0), sys.exc_info()[2])
+        except InvalidChannelError:
+            e = sys.exc_info()[1]
+            raise_with_tb(rhnFault(50, str(e), explain=0), sys.exc_info()[2])
 
         affected_channels = importer.affected_channels
 
@@ -399,9 +402,9 @@ class Packages(RPC_Base):
                 org_id, force = rhnPackageUpload.authenticate_session(
                     session, channels=channels, null_org=null_org, force=force)
             except rhnSession.InvalidSessionError:
-                raise rhnFault(33), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(33), sys.exc_info()[2])
             except rhnSession.ExpiredSessionError:
-                raise rhnFault(34), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(34), sys.exc_info()[2])
 
         if is_source:
             ret = self._getSourcePackageChecksum(org_id, pkg_infos)
@@ -485,7 +488,7 @@ class Packages(RPC_Base):
             }
 
             _checksum_sql_filter = ""
-            if pkg_info.has_key('checksum') and CFG.ENABLE_NVREA:
+            if 'checksum' in pkg_info and CFG.ENABLE_NVREA:
                 _checksum_sql_filter = """and c.checksum = :checksum
                                           and c.checksum_type = :checksum_type"""
                 query_args.update({
@@ -506,7 +509,7 @@ class Packages(RPC_Base):
         elif row.get('path'):
             filePath = os.path.join(CFG.MOUNT_POINT, row['path'])
             if os.access(filePath, os.R_OK):
-                if row.has_key('checksum'):
+                if 'checksum' in row:
                     ret = (row['checksum_type'], row['checksum'])
                 else:
                     ret = 'on-disk'
@@ -523,7 +526,7 @@ class Packages(RPC_Base):
         log_debug(5)
         pkg_infos = info.get('packages')
         for pkg in pkg_infos.keys():
-            if pkg_infos[pkg].has_key('md5sum'):
+            if 'md5sum' in pkg_infos[pkg]:
                 pkg_infos[pkg]['checksum_type'] = 'md5'
                 pkg_infos[pkg]['checksum'] = pkg_infos[pkg]['md5sum']
                 del(pkg_infos[pkg]['md5sum'])

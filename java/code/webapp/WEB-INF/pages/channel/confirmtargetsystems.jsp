@@ -23,7 +23,7 @@
 <rl:listset name="systemset">
 <rhn:csrf />
 
-<input type="hidden" name="cid" value="${cid}" />
+<rhn:hidden name="cid" value="${cid}" />
 
         <rl:list
                         emptykey="systemlist.jsp.nosystems"

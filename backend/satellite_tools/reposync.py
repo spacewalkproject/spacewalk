@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 # Copyright (c) 2010--2011 SUSE Linux Products GmbH
 #
 # This software is licensed to you under the GNU General Public License,
@@ -19,10 +19,12 @@ import shutil
 import sys
 import time
 from datetime import datetime
+from HTMLParser import HTMLParser
 
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel
 from spacewalk.common import fileutils, rhnLog
 from spacewalk.common.rhnLog import log_debug
+from spacewalk.common.rhnLib import isSUSE
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.server.importlib.importLib import IncompletePackage, Erratum, Bug, Keyword
@@ -37,6 +39,43 @@ relative_comps_dir = 'rhn/comps'
 default_hash = 'sha256'
 
 
+class KSDirParser(HTMLParser):
+    def __init__(self):
+        HTMLParser.__init__(self)
+        self.tmp_type = ""
+        self.tmp_datetime = ""
+        self.tmp_name = ""
+        self.current_tag = "dummy_tag"  # this tag doesn't exist in document
+        self.dir_content = []
+
+    def get_content(self):
+        return self.dir_content
+
+    def handle_starttag(self, tag, attributes):
+        self.current_tag = tag
+        if tag == 'img':
+            for name, value in attributes:
+                if name == 'alt':
+                    self.tmp_type = value.strip('[]')
+
+        elif tag == 'a':
+            for name, value in attributes:
+                if name == 'href':
+                    self.tmp_name = value
+
+    def handle_data(self, data):
+        if self.current_tag == "":
+            # data without tag is the last modification date
+            self.tmp_datetime = data.strip().split()[0] + " " + data.strip().split()[1]
+            self.dir_content.append({
+                'name': self.tmp_name,
+                'type': self.tmp_type,
+                'datetime': self.tmp_datetime,
+            })
+        else:
+            self.current_tag = ""
+
+
 def set_filter_opt(option, opt_str, value, parser):
     # pylint: disable=W0613
     if opt_str in ['--include', '-i']:
@@ -48,7 +87,7 @@ def set_filter_opt(option, opt_str, value, parser):
 
 def getChannelRepo():
 
-    initCFG('server')
+    initCFG('server.satellite')
     rhnSQL.initDB()
     items = {}
     sql = """
@@ -73,7 +112,7 @@ def getChannelRepo():
 
 def getParentsChilds(b_only_custom=False):
 
-    initCFG('server')
+    initCFG('server.satellite')
     rhnSQL.initDB()
 
     sql = """
@@ -113,71 +152,80 @@ def getCustomChannels():
 
     return l_custom_ch
 
-def latest_packages(packages):
-    #allows to download only latest packages
-    packages.sort(reverse=True)
-    seen = set()
-    latest = []
-    for pack in packages:
-        if pack.getNRA() not in seen:
-            latest.append(pack)
-            seen.add(pack.getNRA())
-    return latest
 
 class RepoSync(object):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,
-                 quiet=False, filters=None, no_errata=False, sync_kickstart=False, latest=False):
+                 quiet=False, filters=None, no_errata=False, sync_kickstart=False, latest=False,
+                 metadata_only=False, strict=0, excluded_urls=None, no_packages=False):
         self.regen = False
         self.fail = fail
         self.quiet = quiet
         self.filters = filters or []
+        self.no_packages = no_packages
         self.no_errata = no_errata
         self.sync_kickstart = sync_kickstart
         self.latest = latest
+        self.metadata_only = metadata_only
+        self.ks_tree_type = 'externally-managed'
+        self.ks_install_type = 'generic_rpm'
 
-        initCFG('server')
+        initCFG('server.satellite')
         rhnSQL.initDB()
 
         # setup logging
         log_filename = channel_label + '.log'
-        rhnLog.initLOG(default_log_location + log_filename)
+        if CFG.DEBUG is not None:
+            log_level = CFG.DEBUG
+
+        rhnLog.initLOG(default_log_location + log_filename, log_level)
         # os.fchown isn't in 2.4 :/
-        os.system("chgrp apache " + default_log_location + log_filename)
+        if isSUSE():
+            os.system("chgrp www " + default_log_location + log_filename)
+        else:
+            os.system("chgrp apache " + default_log_location + log_filename)
 
         self.log_msg("\nSync started: %s" % (time.asctime(time.localtime())))
         self.log_msg(str(sys.argv))
 
         self.channel_label = channel_label
         self.channel = self.load_channel()
-        if not self.channel or not rhnChannel.isCustomChannel(self.channel['id']):
-            self.print_msg("Channel does not exist or is not custom.")
-            sys.exit(1)
+        if not self.channel:
+            self.print_msg("Channel %s does not exist." % channel_label)
 
         if not url:
             # TODO:need to look at user security across orgs
-            h = rhnSQL.prepare("""select s.id, s.source_url, s.label
+            h = rhnSQL.prepare("""select s.id, s.source_url, s.label, fm.channel_family_id
                                   from rhnContentSource s,
-                                       rhnChannelContentSource cs
+                                       rhnChannelContentSource cs,
+                                       rhnChannelFamilyMembers fm
                                  where s.id = cs.source_id
+                                   and cs.channel_id = fm.channel_id
                                    and cs.channel_id = :channel_id""")
             h.execute(channel_id=int(self.channel['id']))
             source_data = h.fetchall_dict()
+            self.urls = []
+            if excluded_urls is None:
+                excluded_urls = []
             if source_data:
-                self.urls = [(row['id'], row['source_url'], row['label']) for row in source_data]
-            else:
-                self.error_msg("Channel has no URL associated")
-                sys.exit(1)
+                for row in source_data:
+                    if row['source_url'] not in excluded_urls:
+                        self.urls.append((row['id'], row['source_url'], row['label'], row['channel_family_id']))
         else:
-            self.urls = [(None, u, None) for u in url]
+            self.urls = [(None, u, None, None) for u in url]
+
+        if not self.urls:
+            self.error_msg("Channel %s has no URL associated" % channel_label)
 
         self.repo_plugin = self.load_plugin(repo_type)
+        self.strict = strict
+        self.all_packages = []
 
     def sync(self):
         """Trigger a reposync"""
         start_time = datetime.now()
-        for (repo_id, url, repo_label) in self.urls:
-            print
+        for (repo_id, url, repo_label, channel_family_id) in self.urls:
+            print("")
             self.print_msg("Repo URL: %s" % url)
             plugin = None
 
@@ -187,23 +235,30 @@ class RepoSync(object):
 
             # pylint: disable=W0703
             try:
-                plugin = self.repo_plugin(url, self.channel_label)
+                # use modified relative_url as name of repo plugin, because
+                # it used as name of cache directory
+                plugin_name = '_'.join(url.split('://')[1].split('/')[1:])
+
+                plugin = self.repo_plugin(url, plugin_name)
                 if repo_id is not None:
                     keys = rhnSQL.fetchone_dict("""
                         select k1.key as ca_cert, k2.key as client_cert, k3.key as client_key
-                        from rhncontentsourcessl
+                        from rhncontentssl
                                 join rhncryptokey k1
-                                on rhncontentsourcessl.ssl_ca_cert_id = k1.id
+                                on rhncontentssl.ssl_ca_cert_id = k1.id
                                 left outer join rhncryptokey k2
-                                on rhncontentsourcessl.ssl_client_cert_id = k2.id
+                                on rhncontentssl.ssl_client_cert_id = k2.id
                                 left outer join rhncryptokey k3
-                                on rhncontentsourcessl.ssl_client_key_id = k3.id
-                        where rhncontentsourcessl.content_source_id = :repo_id
-                        """, repo_id=int(repo_id))
-                    if keys and keys.has_key('ca_cert'):
+                                on rhncontentssl.ssl_client_key_id = k3.id
+                        where rhncontentssl.content_source_id = :repo_id
+                        or rhncontentssl.channel_family_id = :channel_family_id
+                        """, repo_id=int(repo_id), channel_family_id=int(channel_family_id))
+                    if keys and ('ca_cert' in keys):
                         plugin.set_ssl_options(keys['ca_cert'], keys['client_cert'], keys['client_key'])
-                self.import_packages(plugin, repo_id, url)
-                self.import_groups(plugin, url)
+
+                if not self.no_packages:
+                    self.import_packages(plugin, repo_id, url)
+                    self.import_groups(plugin, url)
 
                 if not self.no_errata:
                     self.import_updates(plugin, url)
@@ -215,7 +270,8 @@ class RepoSync(object):
                     except:
                         rhnSQL.rollback()
                         raise
-            except Exception, e:
+            except Exception:
+                e = sys.exc_info()[1]
                 self.error_msg("ERROR: %s" % e)
             if plugin is not None:
                 plugin.clear_ssl_cache()
@@ -225,9 +281,15 @@ class RepoSync(object):
             taskomatic.add_to_erratacache_queue(self.channel_label)
         self.update_date()
         rhnSQL.commit()
-        total_time = datetime.now() - start_time
-        self.print_msg("Sync completed.")
-        self.print_msg("Total time: %s" % str(total_time).split('.')[0])
+        elapsed_time = datetime.now() - start_time
+        self.print_msg("Sync of channel completed in %s." % str(elapsed_time).split('.')[0])
+        return elapsed_time
+
+    def set_ks_tree_type(self, tree_type='externally-managed'):
+        self.ks_tree_type = tree_type
+
+    def set_ks_install_type(self, install_type='generic_rpm'):
+        self.ks_install_type = install_type
 
     def update_date(self):
         """ Updates the last sync time"""
@@ -287,7 +349,6 @@ class RepoSync(object):
 
     def upload_updates(self, notices):
         batch = []
-        skipped_updates = 0
         typemap = {
             'security': 'Security Advisory',
             'recommended': 'Bug Fix Advisory',
@@ -298,11 +359,12 @@ class RepoSync(object):
         }
         for notice in notices:
             notice = self.fix_notice(notice)
+            advisory = notice['update_id'] + '-' + notice['version']
             existing_errata = self.get_errata(notice['update_id'])
 
             e = Erratum()
             e['errata_from'] = notice['from']
-            e['advisory'] = notice['update_id']
+            e['advisory'] = advisory
             e['advisory_name'] = notice['update_id']
             e['advisory_rel'] = notice['version']
             e['advisory_type'] = typemap.get(notice['type'], 'Product Enhancement Advisory')
@@ -378,7 +440,7 @@ class RepoSync(object):
                 cs = h.fetchone_dict() or None
 
                 if not cs:
-                    if param_dict.has_key('epoch'):
+                    if 'epoch' in param_dict:
                         epoch = param_dict['epoch'] + ":"
                     else:
                         epoch = ""
@@ -409,8 +471,8 @@ class RepoSync(object):
                 e['packages'] = newpkgs
 
             if len(e['packages']) == 0:
-                skipped_updates = skipped_updates + 1
-                continue
+                # FIXME: print only with higher debug option
+                print("Advisory %s has empty package list." % e['advisory_name'])
 
             e['keywords'] = []
             if notice['reboot_suggested']:
@@ -452,8 +514,6 @@ class RepoSync(object):
             e['locally_modified'] = None
             batch.append(e)
 
-        if skipped_updates > 0:
-            self.print_msg("%d errata skipped because of empty package list." % skipped_updates)
         backend = SQLBackend()
         importer = ErrataImport(batch, backend)
         importer.run()
@@ -473,9 +533,8 @@ class RepoSync(object):
         else:
             filters = self.filters
 
-        packages = plug.list_packages(filters)
-        if self.latest:
-            packages = latest_packages(packages)
+        packages = plug.list_packages(filters, self.latest)
+        self.all_packages.extend(packages)
         to_process = []
         num_passed = len(packages)
         self.print_msg("Packages in repo:             %5d" % plug.num_packages)
@@ -493,18 +552,30 @@ class RepoSync(object):
 
             to_download = True
             to_link = True
-            if db_pack['path']:
-                pack.path = os.path.join(CFG.MOUNT_POINT, db_pack['path'])
-                if self.match_package_checksum(pack.path,
-                                               pack.checksum_type, pack.checksum):
-                    # package is already on disk
+            # Package exists in DB
+            if db_pack:
+                # Path in filesystem is defined
+                if db_pack['path']:
+                    pack.path = os.path.join(CFG.MOUNT_POINT, db_pack['path'])
+                else:
+                    pack.path = ""
+
+                if self.metadata_only or self.match_package_checksum(pack.path,
+                                                                     pack.checksum_type, pack.checksum):
+                    # package is already on disk or not required
                     to_download = False
                     if db_pack['channel_id'] == channel_id:
                         # package is already in the channel
                         to_link = False
+
                 elif db_pack['channel_id'] == channel_id:
                     # different package with SAME NVREA
                     self.disassociate_package(db_pack)
+
+                # just pass data from DB, they will be used if there is no RPM available
+                pack.checksum = db_pack['checksum']
+                pack.checksum_type = db_pack['checksum_type']
+                pack.epoch = db_pack['epoch']
 
             if to_download or to_link:
                 to_process.append((pack, to_download, to_link))
@@ -512,20 +583,17 @@ class RepoSync(object):
         num_to_process = len(to_process)
         if num_to_process == 0:
             self.print_msg("No new packages to sync.")
-            return
+            # If we are just appending, we can exit
+            if not self.strict:
+                return
         else:
             self.print_msg("Packages already synced:      %5d" %
                            (num_passed - num_to_process))
             self.print_msg("Packages to sync:             %5d" % num_to_process)
 
         self.regen = True
-        is_non_local_repo = (url.find("file://") < 0)
+        is_non_local_repo = (url.find("file:/") < 0)
 
-        def finally_remove(path):
-            if is_non_local_repo and path and os.path.exists(path):
-                os.remove(path)
-
-        # try/except/finally doesn't work in python 2.4 (RHEL5), so here's a hack
         for (index, what) in enumerate(to_process):
             pack, to_download, to_link = what
             localpath = None
@@ -533,30 +601,35 @@ class RepoSync(object):
             try:
                 self.print_msg("%d/%d : %s" % (index + 1, num_to_process, pack.getNVREA()))
                 if to_download:
-                    pack.path = localpath = plug.get_package(pack)
-                pack.load_checksum_from_header()
-                if to_download:
-                    pack.upload_package(self.channel)
-                    finally_remove(localpath)
+                    pack.path = localpath = plug.get_package(pack, metadata_only=self.metadata_only)
+                    pack.load_checksum_from_header()
+                    pack.upload_package(self.channel, metadata_only=self.metadata_only)
             except KeyboardInterrupt:
-                finally_remove(localpath)
                 raise
-            except Exception, e:
+            except Exception:
+                e = sys.exc_info()[1]
                 self.error_msg(e)
-                finally_remove(localpath)
                 if self.fail:
                     raise
                 to_process[index] = (pack, False, False)
                 continue
+            finally:
+                if is_non_local_repo and localpath and os.path.exists(localpath):
+                    os.remove(localpath)
 
         self.print_msg("Linking packages to channel.")
-        import_batch = [self.associate_package(pack)
-                        for (pack, to_download, to_link) in to_process
-                        if to_link]
+        if self.strict:
+            import_batch = [self.associate_package(pack)
+                            for pack in self.all_packages]
+        else:
+            import_batch = [self.associate_package(pack)
+                            for (pack, to_download, to_link) in to_process
+                            if to_link]
         backend = SQLBackend()
         caller = "server.app.yumreposync"
         importer = ChannelPackageSubscription(import_batch,
-                                              backend, caller=caller, repogen=False)
+                                              backend, caller=caller, repogen=False,
+                                              strict=self.strict)
         importer.run()
         backend.commit()
 
@@ -573,14 +646,20 @@ class RepoSync(object):
         package['version'] = pack.version
         package['release'] = pack.release
         package['arch'] = pack.arch
-        package['checksum'] = pack.a_pkg.checksum
-        package['checksum_type'] = pack.a_pkg.checksum_type
+        if pack.a_pkg:
+            package['checksum'] = pack.a_pkg.checksum
+            package['checksum_type'] = pack.a_pkg.checksum_type
+            # use epoch from file header because createrepo puts epoch="0" to
+            # primary.xml even for packages with epoch=''
+            package['epoch'] = pack.a_pkg.header['epoch']
+        else:
+            # RPM not available but package metadata are in DB, reuse these values
+            package['checksum'] = pack.checksum
+            package['checksum_type'] = pack.checksum_type
+            package['epoch'] = pack.epoch
         package['channels'] = [{'label': self.channel_label,
                                 'id': self.channel['id']}]
         package['org_id'] = self.channel['org_id']
-        # use epoch from file header because createrepo puts epoch="0" to
-        # primary.xml even for packages with epoch=''
-        package['epoch'] = pack.a_pkg.header['epoch']
 
         return IncompletePackage().populate(package)
 
@@ -605,7 +684,7 @@ class RepoSync(object):
     def print_msg(self, message):
         rhnLog.log_clean(0, message)
         if not self.quiet:
-            print message
+            print(message)
 
     def error_msg(self, message):
         rhnLog.log_clean(0, message)
@@ -633,16 +712,7 @@ class RepoSync(object):
             new_version = 0
             for n in notice['version'].split('.'):
                 new_version = (new_version + int(n)) * 100
-            try:
-                notice['version'] = new_version / 100
-            except TypeError:  # yum in RHEL5 does not have __setitem__
-                notice._md['version'] = new_version / 100
-        if notice['from'] and "suse" in notice['from'].lower():
-            # suse style; we need to append the version to id
-            try:
-                notice['update_id'] = notice['update_id'] + '-' + notice['version']
-            except TypeError:  # yum in RHEL5 does not have __setitem__
-                notice._md['update_id'] = notice['update_id'] + '-' + notice['version']
+            notice['version'] = new_version / 100
         return notice
 
     @staticmethod
@@ -650,7 +720,7 @@ class RepoSync(object):
         h = rhnSQL.prepare("""select
             e.id, e.advisory, e.advisory_name, e.advisory_rel
             from rhnerrata e
-            where e.advisory = :name
+            where e.advisory_name = :name
         """)
         h.execute(name=update_id)
         ret = h.fetchone_dict() or None
@@ -698,71 +768,121 @@ class RepoSync(object):
         return ret
 
     def import_kickstart(self, plug, url, repo_label):
-        ks_tree_label = re.sub(r'[^-_0-9A-Za-z@.]', '', repo_label.replace(' ', '_'))
-        if len(ks_tree_label) < 4:
-            ks_tree_label += "_repo"
         pxeboot_path = 'images/pxeboot/'
         pxeboot = plug.get_file(pxeboot_path)
         if pxeboot is None:
             if not re.search(r'/$', url):
-                url = url + '/'
-            self.error_msg("ERROR: kickstartable tree not detected (no %s%s)" % (url, pxeboot_path))
+                url += '/'
+            self.print_msg("Kickstartable tree not detected (no %s%s)" % (url, pxeboot_path))
             return
 
-        if rhnSQL.fetchone_dict("""
+        ks_path = 'rhn/kickstart/'
+        ks_tree_label = re.sub(r'[^-_0-9A-Za-z@.]', '', repo_label.replace(' ', '_'))
+
+        if len(ks_tree_label) < 4:
+            ks_tree_label += "_repo"
+
+        id_request = """
                 select id
                 from rhnKickstartableTree
-                where org_id = :org_id and channel_id = :channel_id and label = :label
-                """, org_id=self.channel['org_id'], channel_id=self.channel['id'], label=ks_tree_label):
-            print "Kickstartable tree %s already synced." % ks_tree_label
-            return
+                where channel_id = :channel_id and label = :label
+                """
 
-        row = rhnSQL.fetchone_dict("""
-            select sequence_nextval('rhn_kstree_id_seq') as id from dual
-            """)
-        ks_id = row['id']
-        ks_path = 'rhn/kickstart/%s/%s' % (self.channel['org_id'], ks_tree_label)
+        if 'org_id' in self.channel and self.channel['org_id']:
+            ks_path += str(self.channel['org_id']) + '/' + CFG.MOUNT_POINT + ks_tree_label
+            row = rhnSQL.fetchone_dict(id_request + " and org_id = :org_id", channel_id=self.channel['id'],
+                                       label=ks_tree_label, org_id=self.channel['org_id'])
+        else:
+            ks_path += ks_tree_label
+            row = rhnSQL.fetchone_dict(id_request + " and org_id is NULL", channel_id=self.channel['id'],
+                                       label=ks_tree_label)
 
-        row = rhnSQL.execute("""
-            insert into rhnKickstartableTree (id, org_id, label, base_path, channel_id,
-                        kstree_type, install_type, last_modified, created, modified)
-            values (:id, :org_id, :label, :base_path, :channel_id,
-                        ( select id from rhnKSTreeType where label = 'externally-managed'),
-                        ( select id from rhnKSInstallType where label = 'generic_rpm'),
-                        current_timestamp, current_timestamp, current_timestamp)
-            """, id=ks_id, org_id=self.channel['org_id'], label=ks_tree_label,
-                             base_path=os.path.join(CFG.MOUNT_POINT, ks_path), channel_id=self.channel['id'])
+        if row:
+            print("Kickstartable tree %s already synced with id = %d. Updating content..." % (ks_tree_label, row['id']))
+            ks_id = row['id']
+        else:
+            row = rhnSQL.fetchone_dict("""
+                select sequence_nextval('rhn_kstree_id_seq') as id from dual
+                """)
+            ks_id = row['id']
+
+            rhnSQL.execute("""
+                       insert into rhnKickstartableTree (id, org_id, label, base_path, channel_id, kstree_type,
+                                                         install_type, last_modified, created, modified)
+                       values (:id, :org_id, :label, :base_path, :channel_id,
+                                 ( select id from rhnKSTreeType where label = :ks_tree_type),
+                                 ( select id from rhnKSInstallType where label = :ks_install_type),
+                                 current_timestamp, current_timestamp, current_timestamp)""", id=ks_id,
+                           org_id=self.channel['org_id'], label=ks_tree_label, base_path=ks_path,
+                           channel_id=self.channel['id'], ks_tree_type=self.ks_tree_type,
+                           ks_install_type=self.ks_install_type)
+
+            print("Added new kickstartable tree %s with id = %d. Downloading content..." % (ks_tree_label, row['id']))
 
         insert_h = rhnSQL.prepare("""
-            insert into rhnKSTreeFile (kstree_id, relative_filename, checksum_id, file_size, last_modified, created, modified)
-            values (:id, :path, lookup_checksum('sha256', :checksum), :st_size, epoch_seconds_to_timestamp_tz(:st_time), current_timestamp, current_timestamp)
-            """)
-        dirs = ['']
-        while len(dirs) > 0:
-            d = dirs.pop(0)
-            v = None
-            if d == pxeboot_path:
-                v = pxeboot
+                insert into rhnKSTreeFile (kstree_id, relative_filename, checksum_id, file_size, last_modified, created,
+                 modified) values (:id, :path, lookup_checksum('sha256', :checksum), :st_size,
+                 epoch_seconds_to_timestamp_tz(:st_time), current_timestamp, current_timestamp)
+        """)
+
+        delete_h = rhnSQL.prepare("""
+                delete from rhnKSTreeFile where kstree_id = :id and relative_filename = :path
+        """)
+
+        # Downloading/Updating content of KS Tree
+        # start from root dir
+        dirs_queue = ['']
+        while len(dirs_queue) > 0:
+            cur_dir_name = dirs_queue.pop(0)
+            cur_dir_html = None
+            if cur_dir_name == pxeboot_path:
+                cur_dir_html = pxeboot
             else:
-                v = plug.get_file(d)
-            if v is None:
+                cur_dir_html = plug.get_file(cur_dir_name)
+            if cur_dir_html is None:
                 continue
 
-            for s in (m.group(1) for m in re.finditer(r'(?i)<a href="(.+?)"', v)):
-                if (re.match(r'/', s) or re.search(r'\?', s) or re.search(r'\.\.', s)
-                        or re.match(r'[a-zA-Z]+:', s) or re.search(r'\.rpm$', s)):
-                    continue
-                if re.search(r'/$', s):
-                    dirs.append(d + s)
-                    continue
-                local_path = os.path.join(CFG.MOUNT_POINT, ks_path, d, s)
-                if os.path.exists(local_path):
-                    print "File %s%s already present locally" % (d, s)
-                else:
-                    print "Retrieving %s" % d + s
-                    plug.get_file(d + s, os.path.join(CFG.MOUNT_POINT, ks_path))
-                st = os.stat(local_path)
-                insert_h.execute(id=ks_id, path=d + s, checksum=getFileChecksum('sha256', local_path),
-                                 st_size=st.st_size, st_time=st.st_mtime)
+            parser = KSDirParser()
+            parser.feed(cur_dir_html.split('<HR>')[1])
 
+            for ks_file in parser.get_content():
+                # do not download rpms, they are already downloaded by self.import_packages()
+                if re.search(r'\.rpm$', ks_file['name']) or re.search(r'\.\.', ks_file['name']):
+                    continue
+
+                # if this is a directory, just add a name into queue (like BFS algorithm)
+                if ks_file['type'] == 'DIR':
+                    dirs_queue.append(cur_dir_name + ks_file['name'])
+                    continue
+
+                local_path = os.path.join(CFG.MOUNT_POINT, ks_path, cur_dir_name, ks_file['name'])
+                need_download = True
+
+                if os.path.exists(local_path):
+                    t = os.path.getmtime(local_path)
+                    if ks_file['datetime'] == datetime.utcfromtimestamp(t).strftime('%d-%b-%Y %H:%M'):
+                        print("File %s%s already present locally" % (cur_dir_name, ks_file['name']))
+                        need_download = False
+                        st = os.stat(local_path)
+                    else:
+                        os.unlink(os.path.join(CFG.MOUNT_POINT, ks_path, cur_dir_name + ks_file['name']))
+
+                if need_download:
+                    for retry in range(3):
+                        try:
+                            print("Retrieving %s" % cur_dir_name + ks_file['name'])
+                            plug.get_file(cur_dir_name + ks_file['name'], os.path.join(CFG.MOUNT_POINT, ks_path))
+                            st = os.stat(local_path)
+                            break
+                        except OSError:  # os.stat if the file wasn't downloaded
+                            if retry < 3:
+                                print("Retry download %s: attempt #%d" % (cur_dir_name + ks_file['name'], retry+1))
+                            else:
+                                raise
+
+                # update entity about current file in a database
+                delete_h.execute(id=ks_id, path=(cur_dir_name + ks_file['name']))
+                insert_h.execute(id=ks_id, path=(cur_dir_name + ks_file['name']),
+                                 checksum=getFileChecksum('sha256', local_path),
+                                 st_size=st.st_size, st_time=st.st_mtime)
         rhnSQL.commit()

@@ -1,7 +1,7 @@
 #
 # This module contains all the RPC-related functions the RHN code uses
 #
-# Copyright (c) 2005--2015 Red Hat, Inc.
+# Copyright (c) 2005--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,17 +17,27 @@
 
 __version__ = "$Revision$"
 
-import transports
-import urllib
 import socket
 import re
 import sys
 
-from types import ListType, TupleType, StringType, UnicodeType, DictType, DictionaryType
+from rhn import transports
+from rhn.i18n import sstr
+from rhn.UserDictCase import UserDictCase
 
-from UserDictCase import UserDictCase
-
-import xmlrpclib
+try: # python2
+    import xmlrpclib
+    from types import ListType, TupleType, StringType, UnicodeType, DictType, DictionaryType
+    from urllib import splittype, splithost
+except ImportError: # python3
+    import xmlrpc.client as xmlrpclib
+    ListType = list
+    TupleType = tuple
+    StringType = bytes
+    UnicodeType = str
+    DictType = dict
+    DictionaryType = dict
+    from urllib.parse import splittype, splithost
 
 # Redirection handling
 
@@ -150,7 +160,7 @@ class Server:
                 if pw is not None and password is None:
                     password = pw
 
-        self._uri = uri
+        self._uri = sstr(uri)
         self._refreshCallback = None
         self._progressCallback = None
         self._bufferSize = None
@@ -288,7 +298,7 @@ class Server:
         headers = self.get_response_headers()
         if not headers:
             return None
-        if headers.has_key('Accept-Ranges'):
+        if 'Accept-Ranges' in headers:
             return headers['Accept-Ranges']
         return None
 
@@ -298,7 +308,7 @@ class Server:
             according the value of self._uri.
         """
         # get the url
-        type, uri = urllib.splittype(self._uri)
+        type, uri = splittype(self._uri)
         if type is None:
             raise MalformedURIError("missing protocol in uri")
         # with a real uri passed in, uri will now contain "//hostname..." so we
@@ -311,7 +321,7 @@ class Server:
             self._type = type
         if self._type not in ("http", "https"):
             raise IOError("unsupported XML-RPC protocol")
-        self._host, self._handler = urllib.splithost(uri)
+        self._host, self._handler = splithost(uri)
         if not self._handler:
             self._handler = "/RPC2"
 
@@ -326,13 +336,13 @@ class Server:
         for item in args:
             item_type = type(item)
             if item_type == StringType or item_type == UnicodeType:
-                item = re.sub(regexp, '', item)
+                item = re.sub(regexp, '', sstr(item))
             elif item_type == TupleType:
-                item = tuple(map(self._strip_characters, item))
+                item = tuple(self._strip_characters(i) for i in item)
             elif item_type == ListType:
-                item = map(self._strip_characters, item)
+                item = [self._strip_characters(i) for i in item]
             elif item_type == DictType or item_type == DictionaryType:
-                item = dict([(self._strip_characters(name, val)) for name, val in item.iteritems()])
+                item = dict([(self._strip_characters(name, val)) for name, val in item.items()])
             # else: some object - should take care of himself
             #        numbers - are safe
             result.append(item)
@@ -409,7 +419,7 @@ class Server:
             if self._verbose:
                 print("%s redirected to %s" % (self._uri, self._redirected))
 
-            typ, uri = urllib.splittype(self._redirected)
+            typ, uri = splittype(self._redirected)
 
             if typ != None:
                 typ = typ.lower()
@@ -426,7 +436,7 @@ class Server:
                 raise InvalidRedirectionError(
                     "HTTPS redirected to HTTP is not supported")
 
-            self._host, self._handler = urllib.splithost(uri)
+            self._host, self._handler = splithost(uri)
             if not self._handler:
                 self._handler = "/RPC2"
 
@@ -479,7 +489,7 @@ class Server:
             'transfer'  : transfer,
             'encoding'  : encoding,
         })
-        apply(self._transport.set_transport_flags, (), kwargs)
+        self._transport.set_transport_flags(**kwargs)
 
     def get_transport_flags(self):
         if not self._transport:
@@ -495,12 +505,12 @@ class Server:
     def set_header(self, name, arg):
         if type(arg) in [ type([]), type(()) ]:
             # Multivalued header
-            self._headers[name] = map(str, arg)
+            self._headers[name] = [str(a) for a in arg]
         else:
             self._headers[name] = str(arg)
 
     def add_header(self, name, arg):
-        if self._headers.has_key(name):
+        if name in self._headers:
             vlist = self._headers[name]
             if not isinstance(vlist, ListType):
                 vlist = [ vlist ]
@@ -585,8 +595,8 @@ class GETServer(Server):
         return ""
 
     def _new_req_body(self):
-        type, tmpuri = urllib.splittype(self._redirected)
-        site, handler = urllib.splithost(tmpuri)
+        type, tmpuri = splittype(self._redirected)
+        site, handler = splithost(tmpuri)
         return handler
 
     def set_range(self, offset=None, amount=None):
@@ -632,12 +642,12 @@ class InvalidRedirectionError(Exception):
 def getHeaderValues(headers, name):
     import mimetools
     if not isinstance(headers, mimetools.Message):
-        if headers.has_key(name):
+        if name in headers:
             return [headers[name]]
         return []
 
-    return map(lambda x: x.split(':', 1)[1].strip(),
-            headers.getallmatchingheaders(name))
+    return [x.split(':', 1)[1].strip() for x in
+            headers.getallmatchingheaders(name)]
 
 class _Method:
     """ some magic to bind an XML-RPC method to an RPC server.
@@ -694,10 +704,10 @@ def reportError(headers):
     errcode = 0
     errmsg = ""
     s = "X-RHN-Fault-Code"
-    if headers.has_key(s):
+    if s in headers:
         errcode = int(headers[s])
     s = "X-RHN-Fault-String"
-    if headers.has_key(s):
+    if s in headers:
         _sList = getHeaderValues(headers, s)
         if _sList:
             _s = ''.join(_sList)

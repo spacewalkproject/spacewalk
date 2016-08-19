@@ -9,6 +9,15 @@
 
     <h2><rhn:icon type="header-proxy" /><bean:message key="sdc.details.proxyclients.header"/></h2>
 
+    <c:choose>
+      <c:when test="${requestScope.version != null}">
+        <p><bean:message key="sdc.details.proxy.licensed" arg0="${requestScope.version}" /></p>
+      </c:when>
+      <c:otherwise>
+        <p><bean:message key="sdc.details.proxy.unlicensed" /></p>
+      </c:otherwise>
+    </c:choose>
+
     <rhn:list pageList="${requestScope.pageList}"
             noDataText="sdc.details.proxyclients.empty">
 

@@ -3,6 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
     <body>
@@ -10,7 +11,7 @@
                      deletionUrl="/rhn/admin/DeleteSchedule.do?schid=${param.schid}"
                      deletionAcl="user_role(satellite_admin); formvar_exists(schid)"
                      deletionType="schedule">
-            <bean:message key="schedule.edit.jsp.toolbar" arg0="${schedulename}"/>
+            <bean:message key="schedule.edit.jsp.toolbar" arg0="${fn:escapeXml(schedulename)}"/>
         </rhn:toolbar>
         <html:form action="/admin/ScheduleDetail" styleClass="form-horizontal">
             <rhn:csrf/>

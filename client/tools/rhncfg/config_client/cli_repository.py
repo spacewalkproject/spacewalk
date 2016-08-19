@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,7 +15,6 @@
 #
 
 import os
-import string
 
 from config_common import cfg_exceptions, repository
 
@@ -33,7 +32,7 @@ class ClientRepository:
 
         # listed in order of losers first, ie, entry 2 overrides entry
         # 1, etc
-        self.config_channels = string.split(tmp_channels, ":")
+        self.config_channels = tmp_channels.split(":")
         self.cfg_files = {}
 
     def list_files(self):
@@ -55,7 +54,7 @@ class ClientRepository:
         if not self.cfg_files:
             raise "never did a list_files"
 
-        if not self.cfg_files.has_key(file):
+        if file not in self.cfg_files:
             raise cfg_exceptions.ConfigNotManaged(file)
 
         return self.server_repository.get_file(self.cfg_files[file][0], self.cfg_files[file][1])

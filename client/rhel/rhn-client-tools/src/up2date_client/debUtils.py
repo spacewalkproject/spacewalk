@@ -1,5 +1,5 @@
 # Client code for Update Agent
-# Copyright (c) 2011--2012 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 2011--2016 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Author: Simon Lukasik
 #         Lukas Durfina
@@ -9,6 +9,9 @@ import os
 import apt
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
+# Python 3 translations don't have a ugettext method
+if not hasattr(t, 'ugettext'):
+    t.ugettext = t.gettext
 _ = t.ugettext
 
 

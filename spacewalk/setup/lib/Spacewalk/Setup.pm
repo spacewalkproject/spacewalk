@@ -911,6 +911,9 @@ sub postgresql_get_database_answers {
     my $opts = shift;
     my $answers = shift;
 
+    my %config = ();
+    read_config(DEFAULT_RHN_CONF_LOCATION, \%config);
+
     ask(
         -noninteractive => $opts->{"non-interactive"},
         -question => "Hostname (leave empty for local)",
@@ -933,18 +936,21 @@ sub postgresql_get_database_answers {
         -noninteractive => $opts->{"non-interactive"},
         -question => "Database",
         -test => qr/\S+/,
+        -default => $config{'db_name'},
         -answer => \$answers->{'db-name'});
 
     ask(
         -noninteractive => $opts->{"non-interactive"},
         -question => "Username",
         -test => qr/\S+/,
+        -default => $config{'db_user'},
         -answer => \$answers->{'db-user'});
 
     ask(
         -noninteractive => $opts->{"non-interactive"},
         -question => "Password",
         -test => qr/\S+/,
+        -default => $config{'db_password'},
         -answer => \$answers->{'db-password'},
         -password => 1);
 
@@ -1981,7 +1987,7 @@ L<https://bugzilla.redhat.com/enter_bug.cgi?product=Spacewalk>.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright (c) 2008--2015 Red Hat, Inc.
+Copyright (c) 2008--2016 Red Hat, Inc.
 
 This software is licensed to you under the GNU General Public License,
 version 2 (GPLv2). There is NO WARRANTY for this software, express or

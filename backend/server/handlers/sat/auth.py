@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,6 +15,7 @@
 # Satellite specific authentication xmlrpc method.
 
 import time
+import sys
 from rhn.connections import idn_puny_to_unicode
 
 from spacewalk.common.rhnLog import log_debug
@@ -58,7 +59,8 @@ class Authentication(rhnHandler):
         # Authenticate server
         try:
             self.auth_system()
-        except rhnFault, e:
+        except rhnFault:
+            e = sys.exc_info()[1]
             if e.code == 2002:
                 # Return an error code
                 return 0

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -176,7 +176,7 @@ class User:
         changed = 0
 
         # translation
-        if name in mapping.keys():
+        if name in list(mapping.keys()):
             name = mapping[name]
         # Some fields can not have null string values
         if name in ["first_names", "last_name", "prefix",  # personal_info
@@ -247,7 +247,7 @@ class User:
                and ug.group_type = ugt.id
         """)
         h.execute(user_id=user_id)
-        return map(lambda x: x['role'], h.fetchall_dict() or [])
+        return [x['role'] for x in h.fetchall_dict() or []]
 
     def reload(self, user_id):
         """ Reload the current data from the SQL database using the given id """

@@ -28,7 +28,8 @@ SPACEWALK_FILES	=   __init__ \
 	    rhn_mpm \
 	    rhn_pkg \
 	    rhn_rpm \
-	    stringutils
+	    stringutils \
+	    usix
 SCRIPTS = spacewalk-cfg-get
 
 # check if we can build man pages

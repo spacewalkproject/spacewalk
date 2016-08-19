@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,10 +13,17 @@
 # in this software or its documentation.
 #
 
+import os
 import re
 import time
-import types
-import urlparse
+try:
+    #  python 2
+    import urlparse
+except ImportError:
+    #  python3
+    import urllib.parse as urlparse # pylint: disable=F0401,E0611
+
+from spacewalk.common import usix
 
 
 def setHeaderValue(mp_table, name, values):
@@ -27,7 +34,7 @@ def setHeaderValue(mp_table, name, values):
     """
     # mp_table is an Apache mp_table (like headers_in or headers_out)
     # Sets the header name to the values
-    if isinstance(values, (types.ListType, types.TupleType)):
+    if isinstance(values, (usix.ListType, usix.TupleType)):
         for v in values:
             mp_table.add(name, str(v))
     else:
@@ -56,7 +63,7 @@ def rfc822time(arg):
            be translated to GMT in the return value.
     """
 
-    if isinstance(arg, (types.ListType, types.TupleType)):
+    if isinstance(arg, (usix.ListType, usix.TupleType)):
         # Convert to float.
         arg = time.mktime(arg)
 
@@ -75,7 +82,7 @@ def timestamp(s):
     """
     Converts the string in format YYYYMMDDHHMISS to seconds from the epoch
     """
-    if isinstance(s, (types.IntType, types.FloatType)):
+    if isinstance(s, (usix.IntType, usix.FloatType)):
         # Presumably already a timestamp
         return s
     if len(s) == 14:
@@ -97,7 +104,7 @@ def checkValue(val, *args):
     """
 
     for a in args:
-        if isinstance(a, types.TypeType):
+        if isinstance(a, usix.TypeType):
             # Is val of type a?
             if isinstance(val, a):
                 return 1
@@ -170,3 +177,30 @@ def parseRPMName(pkgName):
         e = r[ind + 1:]
         r = r[0:ind]
     return str(n), e, str(v), str(r)
+
+def isSUSE():
+    """Return true if this is a SUSE system, otherwise false"""
+
+    if not os.path.exists('/etc/os-release'):
+        return False
+
+    cpe_name = ''
+    try:
+        lines = open('/etc/os-release', 'rb').readlines()
+        for line in lines:
+            # Skip empty and comment-only lines
+            if re.match(r'[ \t]*(#|$)', line):
+                continue
+
+            # now split it into keys and values. We allow for max one
+            # split/cut (the first one)
+            (key, val) = [c.strip() for c in line.split('=', 1)]
+            if key == 'CPE_NAME':
+                cpe_name = val
+                break
+    except (IOError, OSError):
+        pass
+
+    if 'cpe:/o:opensuse:' in cpe_name or 'cpe:/o:suse:' in cpe_name:
+        return True
+    return False

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,7 +16,13 @@
 import os
 import sys
 import tempfile
-import xmlrpclib
+from spacewalk.common.usix import raise_with_tb
+
+try: # python2
+    import xmlrpclib
+except ImportError: # python3
+    import xmlrpc.client as xmlrpclib
+
 
 from config_common import cfg_exceptions, repository, utils, file_utils
 from config_common.rhn_log import log_debug
@@ -56,12 +62,13 @@ class Repository(repository.RPC_Repository):
                     'username' : self.username,
                     'password' : self.password,
                     })
-            except xmlrpclib.Fault, e:
+            except xmlrpclib.Fault:
+                e = sys.exc_info()[1]
                 fault_code, fault_string = e.faultCode, e.faultString
                 if fault_code == -2:
-                    raise cfg_exceptions.AuthenticationError(
-                        "Invalid username or incorrect password"), None, sys.exc_info()[2]
-                raise cfg_exceptions.InvalidSession(fault_code, fault_string), None, sys.exc_info()[2]
+                    raise_with_tb(cfg_exceptions.AuthenticationError(
+                        "Invalid username or incorrect password"), sys.exc_info()[2])
+                raise_with_tb(cfg_exceptions.InvalidSession(fault_code, fault_string), sys.exc_info()[2])
 
             self._save_session()
 
@@ -89,11 +96,12 @@ class Repository(repository.RPC_Repository):
             params['revision'] = revision
         try:
             result = self.rpc_call('config.management.get_file', params)
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault:
+            e = sys.exc_info()[1]
             if e.faultCode == -4011:
                 # File not present
-                raise cfg_exceptions.RepositoryFileMissingError(config_channel,
-                    repopath), None, sys.exc_info()[2]
+                raise_with_tb(cfg_exceptions.RepositoryFileMissingError(config_channel,
+                    repopath), sys.exc_info()[2])
             raise
         return result
 
@@ -168,22 +176,23 @@ class Repository(repository.RPC_Repository):
         try:
             result = self.rpc_call('config.management.put_file', params)
 
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault:
+            e = sys.exc_info()[1]
             fault_code, fault_string = e.faultCode, e.faultString
 
             if is_first_revision and fault_code == -4013:
-                raise cfg_exceptions.RepositoryFileExistsError(fault_string), None, sys.exc_info()[2]
+                raise_with_tb(cfg_exceptions.RepositoryFileExistsError(fault_string), sys.exc_info()[2])
 
             if old_revision and fault_code == -4012:
-                raise cfg_exceptions.RepositoryFileVersionMismatchError(fault_string), None, sys.exc_info()[2]
+                raise_with_tb(cfg_exceptions.RepositoryFileVersionMismatchError(fault_string), sys.exc_info()[2])
 
             if fault_code == -4003:
-                raise cfg_exceptions.ConfigFileTooLargeError(fault_string), None, sys.exc_info()[2]
+                raise_with_tb(cfg_exceptions.ConfigFileTooLargeError(fault_string), sys.exc_info()[2])
 
             if fault_code == -4014:
-                raise cfg_exceptions.QuotaExceeded(fault_string), None, sys.exc_info()[2]
+                raise_with_tb(cfg_exceptions.QuotaExceeded(fault_string), sys.exc_info()[2])
 
-            raise cfg_exceptions.RepositoryFilePushError(fault_code, fault_string), None, sys.exc_info()[2]
+            raise_with_tb(cfg_exceptions.RepositoryFilePushError(fault_code, fault_string), sys.exc_info()[2])
 
         return result
 
@@ -201,7 +210,7 @@ class Repository(repository.RPC_Repository):
         files = self.rpc_call('config.management.list_files',
             {'session' : self.session, 'config_channel' : config_channel})
 
-        return map(lambda p: p['path'], files)
+        return [p['path'] for p in files]
 
     def get_file_revisions(self, config_channel, repopath):
         """
@@ -216,11 +225,12 @@ class Repository(repository.RPC_Repository):
         try:
             revisions = self.rpc_call('config.management.list_file_revisions',
                 params)
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault:
+            e = sys.exc_info()[1]
             if e.faultCode == -4011:
                 # File not present
-                raise cfg_exceptions.RepositoryFileMissingError(
-                    config_channel, repopath), None, sys.exc_info()[2]
+                raise_with_tb(cfg_exceptions.RepositoryFileMissingError(
+                    config_channel, repopath), sys.exc_info()[2])
             raise
         return revisions
 
@@ -242,9 +252,10 @@ class Repository(repository.RPC_Repository):
         try:
             return self.rpc_call('config.management.create_config_channel',
                 {'session' : self.session, 'config_channel' : config_channel})
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault:
+            e = sys.exc_info()[1]
             if e.faultCode == -4010:
-                raise cfg_exceptions.ConfigChannelAlreadyExistsError(config_channel), None, sys.exc_info()[2]
+                raise_with_tb(cfg_exceptions.ConfigChannelAlreadyExistsError(config_channel), sys.exc_info()[2])
             raise
 
     def remove_config_channel(self, config_channel):
@@ -253,11 +264,12 @@ class Repository(repository.RPC_Repository):
         try:
             return self.rpc_call('config.management.remove_config_channel',
                 {'session' : self.session, 'config_channel' : config_channel})
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault:
+            e = sys.exc_info()[1]
             if e.faultCode == -4009:
-                raise cfg_exceptions.ConfigChannelNotInRepo(config_channel), None, sys.exc_info()[2]
+                raise_with_tb(cfg_exceptions.ConfigChannelNotInRepo(config_channel), sys.exc_info()[2])
             if e.faultCode == -4005:
-                raise cfg_exceptions.ConfigChannelNotEmptyError(config_channel), None, sys.exc_info()[2]
+                raise_with_tb(cfg_exceptions.ConfigChannelNotEmptyError(config_channel), sys.exc_info()[2])
             raise
 
     def _get_default_delimiters(self):
@@ -293,13 +305,14 @@ class Repository(repository.RPC_Repository):
             params['revision_dst'] = revision_dst
         try:
             ret = self.rpc_call('config.management.diff', params)
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault:
+            e = sys.exc_info()[1]
             if e.faultCode == -4011:
                 # File not present
-                raise cfg_exceptions.RepositoryFileMissingError(e.faultString), None, sys.exc_info()[2]
+                raise_with_tb(cfg_exceptions.RepositoryFileMissingError(e.faultString), sys.exc_info()[2])
             if e.faultCode == -4004:
                 # Binary file requested
-                raise cfg_exceptions.BinaryFileDiffError(e.faultString), None, sys.exc_info()[2]
+                raise_with_tb(cfg_exceptions.BinaryFileDiffError(e.faultString), sys.exc_info()[2])
             raise
         return ret
 

@@ -547,15 +547,19 @@ if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
     if ! grep -q -E "^ +$CHANNEL_LABEL$" <<<"$CONFIG_CHANNELS" ; then
         rhncfg-manager create-channel --server-name "$RHN_PARENT" "$CHANNEL_LABEL"
     fi
+    arr_conf_list=( $HTTPDCONFD_DIR/ssl.conf
+                    $RHNCONF_DIR/rhn.conf
+                    $SQUID_DIR/squid.conf
+                    $HTTPDCONFD_DIR/cobbler-proxy.conf
+                    $HTTPDCONF_DIR/httpd.conf
+                    $JABBERD_DIR/c2s.xml
+                    $JABBERD_DIR/sm.xml )
+    for conf_file in ${arr_conf_list[*]}; do
+        [ -e ${conf_file} ] && arr_conf=(${arr_conf[*]} ${conf_file})
+    done
     rhncfg-manager update --server-name "$RHN_PARENT" \
         --channel="$CHANNEL_LABEL" \
-        $HTTPDCONFD_DIR/ssl.conf \
-        $RHNCONF_DIR/rhn.conf \
-        $SQUID_DIR/squid.conf \
-        $HTTPDCONFD_DIR/cobbler-proxy.conf \
-        $HTTPDCONF_DIR/httpd.conf \
-        $JABBERD_DIR/c2s.xml \
-        $JABBERD_DIR/sm.xml
+        ${arr_conf[*]}
 fi
 
 echo "Enabling Spacewalk Proxy."

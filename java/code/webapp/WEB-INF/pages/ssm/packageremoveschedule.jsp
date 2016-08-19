@@ -55,8 +55,8 @@
                        value='<bean:message key="installconfirm.jsp.confirm"/>'/>
             </div>
         </div>
-        <input type="hidden" name="packagesDecl" value="${requestScope.packagesDecl}" />
-        <input type="hidden" name="mode" value="${param.mode}" />
+        <rhn:hidden name="packagesDecl" value="${requestScope.packagesDecl}" />
+        <rhn:hidden name="mode" value="${param.mode}" />
     </div>
 </rl:listset>
 

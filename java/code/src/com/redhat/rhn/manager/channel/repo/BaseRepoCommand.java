@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,11 +17,13 @@ package com.redhat.rhn.manager.channel.repo;
 import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
+import com.redhat.rhn.domain.channel.ContentSourceType;
 import com.redhat.rhn.domain.channel.SslContentSource;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoLabelException;
+import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoTypeException;
 import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoUrlException;
 
 
@@ -35,6 +37,7 @@ public class BaseRepoCommand {
 
     private String label;
     private String url;
+    private String type;
     private Long sslCaCertId = null;
     private Long sslClientCertId = null;
     private Long sslClientKeyId = null;
@@ -91,6 +94,22 @@ public class BaseRepoCommand {
      */
     public void setUrl(String urlIn) {
         this.url = urlIn;
+    }
+
+    /**
+     *
+     * @return type of repo
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     *
+     * @param typeIn to set type of repo
+     */
+    public void setType(String typeIn) {
+        this.type = typeIn;
     }
 
 
@@ -157,8 +176,8 @@ public class BaseRepoCommand {
         SslCryptoKey clientCert = lookupSslCryptoKey(sslClientCertId, org);
         SslCryptoKey clientKey = lookupSslCryptoKey(sslClientKeyId, org);
 
+        // create new repository
         if (repo == null) {
-            // create cmd
             if (caCert != null) {
                 this.repo = ChannelFactory.createSslRepo(caCert, clientCert, clientKey);
             }
@@ -166,7 +185,15 @@ public class BaseRepoCommand {
                 this.repo = ChannelFactory.createRepo();
             }
         }
+
+        // update existing repository
         else {
+
+            if (clientCert == null && clientKey != null) {
+                throw new InvalidCertificateException("client key is provided " +
+                        "but client certificate is missing");
+            }
+
             if (repo.isSsl() && caCert == null) {
                 ContentSource cs = new ContentSource(repo);
                 ChannelFactory.remove(repo);
@@ -185,27 +212,27 @@ public class BaseRepoCommand {
                 SslContentSource sslRepo = (SslContentSource) repo;
                 sslRepo.setCaCert(caCert);
                 sslRepo.setClientCert(clientCert);
-                // in case client cert isn't set, it makes no sense to set the client key
-                if (sslRepo.getClientCert() == null && clientKey != null) {
-                    throw new InvalidCertificateException("");
-                }
                 sslRepo.setClientKey(clientKey);
             }
         }
 
         repo.setOrg(org);
-        repo.setType(ChannelFactory.CONTENT_SOURCE_TYPE_YUM);
+        ContentSourceType cst = ChannelFactory.lookupContentSourceType(this.type);
+        if (cst == null) {
+            throw new InvalidRepoTypeException(this.type);
+        }
+        repo.setType(cst);
 
-        if (!this.label.equals(repo.getLabel())) {
+        if (this.label != null && !this.label.equals(repo.getLabel())) {
             if (ChannelFactory.lookupContentSourceByOrgAndLabel(org, label) != null) {
                 throw new InvalidRepoLabelException(label);
             }
             repo.setLabel(this.label);
         }
 
-        if (!this.url.equals(repo.getSourceUrl())) {
+        if (this.url != null && !this.url.equals(repo.getSourceUrl())) {
             if (!ChannelFactory.lookupContentSourceByOrgAndRepo(org,
-                    ChannelFactory.CONTENT_SOURCE_TYPE_YUM, url).isEmpty()) {
+                    ChannelFactory.lookupContentSourceType(this.type), url).isEmpty()) {
                 throw new InvalidRepoUrlException(url);
             }
             repo.setSourceUrl(this.url);

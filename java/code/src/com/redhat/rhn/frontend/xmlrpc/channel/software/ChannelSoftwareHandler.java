@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,20 +13,6 @@
  * in this software or its documentation.
  */
 package com.redhat.rhn.frontend.xmlrpc.channel.software;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.StopWatch;
-import org.apache.log4j.Logger;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.client.InvalidCertificateException;
@@ -46,6 +32,8 @@ import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -82,13 +70,29 @@ import com.redhat.rhn.manager.channel.CreateChannelCommand;
 import com.redhat.rhn.manager.channel.UpdateChannelCommand;
 import com.redhat.rhn.manager.channel.repo.BaseRepoCommand;
 import com.redhat.rhn.manager.channel.repo.CreateRepoCommand;
+import com.redhat.rhn.manager.channel.repo.EditRepoCommand;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
+import com.redhat.rhn.manager.kickstart.crypto.NoSuchCryptoKeyException;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.taskomatic.TaskomaticApi;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 import com.redhat.rhn.taskomatic.task.errata.ErrataCacheWorker;
+
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.StopWatch;
+import org.apache.log4j.Logger;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * ChannelSoftwareHandler
@@ -1382,12 +1386,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
             ChannelManager.removePackages(channel, packagesToRemove, loggedInUser);
 
             // refresh the channel
-            ChannelManager.refreshWithNewestPackages(channel, "api");
-
-            // Mark the affected channel to have it's metadata evaluated, where necessary
-            // (RHEL5+, mostly)
-            ChannelManager.queueChannelChange(channel.getLabel(), "java::removeErrata",
-                    loggedInUser.getLogin());
+            ChannelManager.refreshWithNewestPackages(channel, "java::removeErrata");
 
             List<Long> cids = new ArrayList<Long>();
             cids.add(channel.getId());
@@ -2240,12 +2239,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
         mergeTo.getPackages().addAll(differentPackages);
         ChannelFactory.save(mergeTo);
-        ChannelManager.refreshWithNewestPackages(mergeTo, "api");
-
-        // Mark the affected channel to have it's metadata evaluated, where necessary
-        // (RHEL5+, mostly)
-        ChannelManager.queueChannelChange(mergeTo.getLabel(), "java::mergePackages",
-            loggedInUser.getLogin());
+        ChannelManager.refreshWithNewestPackages(mergeTo, "java::mergePackages");
 
         List<Long> cids = new ArrayList<Long>();
         cids.add(mergeTo.getId());
@@ -2405,37 +2399,97 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * Creates a repository
     * @param loggedInUser The current user
     * @param label of the repo to be created
-    * @param type of the repo (YUM only for now)
+    * @param type of the repo
     * @param url of the repo
     * @return new ContentSource
     *
     * @xmlrpc.doc Creates a repository
     * @xmlrpc.param #session_key()
     * @xmlrpc.param #param_desc("string", "label", "repository label")
-    * @xmlrpc.param #param_desc("string", "type", "repository type (only YUM is supported)")
+    * @xmlrpc.param #param_desc("string", "type", "repository type (yum, uln...)")
     * @xmlrpc.param #param_desc("string", "url", "repository url")
     * @xmlrpc.returntype $ContentSourceSerializer
    **/
     public ContentSource createRepo(User loggedInUser, String label, String type,
             String url) {
 
-        BaseRepoCommand repoCmd = null;
-        repoCmd = new CreateRepoCommand(loggedInUser.getOrg());
+        // empty strings for SSL-certificates descriptions
+        String sslCaCert = "";
+        String sslCliCert = "";
+        String sslCliKey = "";
 
-        repoCmd.setLabel(label);
-        repoCmd.setUrl(url);
-
-        try {
-            repoCmd.store();
-        }
-        catch (InvalidCertificateException e) {
-            // this kind of exception gets thrown only for SSL content sources
-        }
-
-        ContentSource repo = ChannelFactory.lookupContentSourceByOrgAndLabel(
-                loggedInUser.getOrg(), label);
-        return repo;
+        return createRepo(loggedInUser, label, type, url, sslCaCert, sslCliCert, sslCliKey);
     }
+
+    /**
+     * Creates a repository
+     * @param loggedInUser The current user
+     * @param label of the repo to be created
+     * @param type of the repo
+     * @param url of the repo
+     * @param sslCaCert CA certificate description
+     * @param sslCliCert Client certificate description
+     * @param sslCliKey Client key description
+     * @return new ContentSource
+     *
+     * @xmlrpc.doc Creates a repository
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "label", "repository label")
+     * @xmlrpc.param #param_desc("string", "type",
+     * "repository type (yum, uln...)")
+     * @xmlrpc.param #param_desc("string", "url", "repository url")
+     * @xmlrpc.param #param_desc("string", "sslCaCert", "SSL CA cert description")
+     * @xmlrpc.param #param_desc("string", "sslCliCert", "SSL Client cert description")
+     * @xmlrpc.param #param_desc("string", "sslCliKey", "SSL Client key description")
+     * @xmlrpc.returntype $ContentSourceSerializer
+    **/
+     public ContentSource createRepo(User loggedInUser, String label, String type,
+             String url, String sslCaCert, String sslCliCert, String sslCliKey) {
+
+         if (StringUtils.isEmpty(label)) {
+             throw new InvalidParameterException("label might not be empty");
+         }
+
+         if (StringUtils.isEmpty(url)) {
+             throw new InvalidParameterException("url might not be empty");
+         }
+
+         BaseRepoCommand repoCmd = new CreateRepoCommand(loggedInUser.getOrg());
+
+         repoCmd.setLabel(label);
+         repoCmd.setUrl(url);
+
+         repoCmd.setType(type);
+
+         // check SSL-certificates parameters
+         if (!StringUtils.isEmpty(sslCaCert)) {
+             repoCmd.setSslCaCertId(getKeyId(loggedInUser, sslCaCert));
+
+             if (!StringUtils.isEmpty(sslCliCert)) {
+                 repoCmd.setSslClientCertId(getKeyId(loggedInUser, sslCliCert));
+             }
+
+             if (!StringUtils.isEmpty(sslCliKey)) {
+                 repoCmd.setSslClientKeyId(getKeyId(loggedInUser, sslCliKey));
+             }
+         }
+         else if (!StringUtils.isEmpty(sslCliCert) || !StringUtils.isEmpty(sslCliKey)) {
+             log.warn("SSL CA Certificate is missing, ignoring other SSL Certs/Keys");
+         }
+
+
+             try {
+                repoCmd.store();
+            }
+            catch (InvalidCertificateException e) {
+                throw new NoSuchCryptoKeyException(e.getMessage());
+            }
+
+
+         ContentSource repo = ChannelFactory.lookupContentSourceByOrgAndLabel(
+                 loggedInUser.getOrg(), label);
+         return repo;
+     }
 
    /**
     * Removes a repository
@@ -2561,6 +2615,93 @@ public class ChannelSoftwareHandler extends BaseHandler {
         ContentSource repo = lookupContentSourceByLabel(label, loggedInUser.getOrg());
         setRepoUrl(repo, url);
         ChannelFactory.save(repo);
+        return repo;
+    }
+
+   /**
+    * Updates repository SSL certificates
+    * @param loggedInUser The current user
+    * @param id ID of the repository
+    * @param sslCaCert new CA certificate description
+    * @param sslCliCert new Client certificate description
+    * @param sslCliKey new Client key description
+    * @return the updated repository
+    *
+    * @xmlrpc.doc Updates repository source URL
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("int", "id", "repository id")
+    * @xmlrpc.param #param_desc("string", "sslCaCert", "SSL CA cert description")
+    * @xmlrpc.param #param_desc("string", "sslCliCert", "SSL Client cert description")
+    * @xmlrpc.param #param_desc("string", "sslCliKey", "SSL Client key description")
+    * @xmlrpc.returntype $ContentSourceSerializer
+   **/
+    public ContentSource updateRepoSsl(User loggedInUser, Integer id,
+            String sslCaCert, String sslCliCert, String sslCliKey) {
+
+        ContentSource repo = ChannelFactory.lookupContentSource(id.longValue(),
+                loggedInUser.getOrg());
+        return updateRepoSsl(loggedInUser, repo.getLabel(), sslCaCert, sslCliCert,
+                sslCliKey);
+    }
+
+   /**
+    * Updates repository SSL certificates
+    * @param loggedInUser The current user
+    * @param label repository label
+    * @param sslCaCert new CA certificate description
+    * @param sslCliCert new Client certificate description
+    * @param sslCliKey new Client key description
+    * @return the updated repository
+    *
+    * @xmlrpc.doc Updates repository source URL
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("string", "label", "repository label")
+    * @xmlrpc.param #param_desc("string", "sslCaCert", "SSL CA cert description")
+    * @xmlrpc.param #param_desc("string", "sslCliCert", "SSL Client cert description")
+    * @xmlrpc.param #param_desc("string", "sslCliKey", "SSL Client key description")
+    * @xmlrpc.returntype $ContentSourceSerializer
+   **/
+    public ContentSource updateRepoSsl(User loggedInUser, String label,
+            String sslCaCert, String sslCliCert, String sslCliKey) {
+
+        if (StringUtils.isEmpty(label)) {
+            throw new InvalidParameterException("label might not be empty");
+        }
+
+        ContentSource repo = ChannelFactory.lookupContentSourceByOrgAndLabel(
+                loggedInUser.getOrg(), label);
+
+        if (repo == null) {
+            throw new InvalidParameterException("no repo with label " + label);
+        }
+
+        EditRepoCommand repoEditor = new EditRepoCommand(loggedInUser, repo.getId());
+
+        // set new SSL Certificates for the repository
+        if (!StringUtils.isEmpty(sslCaCert)) {
+            repoEditor.setSslCaCertId(getKeyId(loggedInUser, sslCaCert));
+
+            if (!StringUtils.isEmpty(sslCliCert)) {
+                repoEditor.setSslClientCertId(getKeyId(loggedInUser, sslCliCert));
+            }
+
+            if (!StringUtils.isEmpty(sslCliKey)) {
+                repoEditor.setSslClientKeyId(getKeyId(loggedInUser, sslCliKey));
+            }
+        }
+        else if (!StringUtils.isEmpty(sslCliCert) || !StringUtils.isEmpty(sslCliKey)) {
+            log.warn("SSL CA Certificate is missing, ignoring other SSL Certs/Keys");
+        }
+
+        // Store Repo
+        try {
+            repoEditor.store();
+        }
+        catch (InvalidCertificateException e) {
+            throw new NoSuchCryptoKeyException(e.getMessage());
+        }
+        repo = ChannelFactory.lookupContentSourceByOrgAndLabel(loggedInUser.getOrg(),
+                label);
         return repo;
     }
 
@@ -3048,9 +3189,19 @@ public class ChannelSoftwareHandler extends BaseHandler {
             throw new InvalidParameterException("url might not be empty");
         }
         if (!ChannelFactory.lookupContentSourceByOrgAndRepo(cs.getOrg(),
-                ChannelFactory.CONTENT_SOURCE_TYPE_YUM, repoUrl).isEmpty()) {
+                cs.getType(), repoUrl).isEmpty()) {
             throw new InvalidRepoUrlException(repoUrl);
         }
         cs.setSourceUrl(repoUrl);
+    }
+
+    private Long getKeyId(User loggedInUser, String keyDescription) {
+        CryptoKey key = KickstartFactory.lookupCryptoKey(keyDescription,
+                loggedInUser.getOrg());
+        if (key == null) {
+            throw new NoSuchCryptoKeyException("no key with such description - " +
+                    keyDescription);
+        }
+        return key.getId();
     }
 }

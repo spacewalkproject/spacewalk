@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -96,7 +96,7 @@ def main():
             status = "disabled"
             if controller.is_on(m):
                 status = "enabled"
-            print rstring % (m, status)
+            print(rstring % (m, status))
 
         status = "disabled"
         if runcontroller.is_on('all'):
@@ -105,7 +105,7 @@ def main():
 
         if runcontroller.is_on('run'):
             status = "enabled"
-        print rstring % ('run', status)
+        print(rstring % ('run', status))
 
 
 if __name__ == "__main__":

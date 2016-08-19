@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 55%{?dist}
+Release: 59%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -32,6 +32,7 @@ Patch18: disable_https.patch
 Patch19: buildiso-boot-options.patch
 Patch20: buildiso-no-local-hdd.patch
 Patch21: cobbler-s390-kernel-options.patch
+Patch22: cobbler-ipv6.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -49,7 +50,10 @@ Requires: tftp-server
 %endif
 
 Requires: mod_wsgi
+# syslinux is only available on x86
+%ifarch %{ix86} x86_64
 Requires: syslinux
+%endif
 
 Requires: createrepo
 %if 0%{?fedora}
@@ -138,6 +142,7 @@ a XMLRPC API for integration with other applications.
 %patch19 -p1
 %patch20 -p1
 %patch21 -p1
+%patch22 -p1
 
 %build
 %{__python} setup.py build 
@@ -487,6 +492,20 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Tue May 24 2016 Jiri Precechtel <jprecech@redhat.com> 2.0.11-59
+- Revert "1302323 - fix usage of not initiated variable in snippet
+  post_install_network_config"
+
+* Tue May 24 2016 Jiri Precechtel <jprecech@redhat.com> 2.0.11-58
+- 784912 - applying ipv6 support Sat. patch to SW
+
+* Wed May 18 2016 Jiri Precechtel <jprecech@redhat.com> 2.0.11-57
+- 1302323 - fix usage of not initiated variable in snippet
+  post_install_network_config
+
+* Sun Feb 21 2016 Jan Dobes <jdobes@redhat.com> 2.0.11-56
+- only require syslinux on x86 as in upstream cobbler
+
 * Wed Nov 04 2015 Tomas Kasparek <tkasparek@redhat.com> 2.0.11-55
 - add system support to --no-local-hdd option without need of profiles
 

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,7 +20,10 @@ import stat
 import re
 
 from rhn.UserDictCase import UserDictCase
+from spacewalk.common.usix import raise_with_tb
 
+# bare-except and broad-except
+# pylint: disable=W0702,W0703
 
 _CONFIG_ROOT = '/etc/rhn'
 _CONFIG_FILE = '%s/rhn.conf' % _CONFIG_ROOT
@@ -92,16 +95,20 @@ class RHNOptions:
 
     def is_initialized(self):
         return (self.__component is not None) and \
-            self.__configs.has_key(self.__component)
+            self.__component in self.__configs
 
     def modifiedYN(self):
         """returns last modified time diff if rhn.conf has changed."""
 
         try:
             si = os.stat(self.filename)
-        except OSError, e:
-            raise ConfigParserError("config file read error",
-                                    self.filename, e.args[1]), None, sys.exc_info()[2]
+        except OSError:
+            e = sys.exc_info()[1]
+            if e[0] == 13: #Error code 13 - Permission denied
+                sys.stderr.write("ERROR: must be root to execute\n")
+            else:
+                sys.stderr.write("ERROR: " + self.filename + " is not accesible\n")
+            sys.exit(e[0])
         lm = si[stat.ST_MTIME]
         # should always be positive, but a non-zero result is still
         # indication that the file has changed.
@@ -149,7 +156,7 @@ class RHNOptions:
         if allCompsYN:
             comps = getAllComponents_tuples()
         for comp in comps:
-            if self.__defaults.has_key(comp):
+            if comp in self.__defaults:
                 # We already have it loaded
                 # XXX: Should we do timestamp checking for this one too?
                 continue
@@ -178,19 +185,19 @@ class RHNOptions:
 
     def keys(self):
         self.__check()
-        return self.__configs[self.__component].keys()
+        return list(self.__configs[self.__component].keys())
 
     def has_key(self, key):
         self.__check()
-        return self.__configs[self.__component].has_key(key)
+        return key in self.__configs[self.__component]
 
     def values(self):
         self.__check()
-        return self.__configs[self.__component].values()
+        return list(self.__configs[self.__component].values())
 
     def items(self):
         self.__check()
-        return self.__configs[self.__component].items()
+        return list(self.__configs[self.__component].items())
 
     def set(self, key, value):
         self.__check()
@@ -200,12 +207,12 @@ class RHNOptions:
     def show(self):
         self.__check()
         # display the configuration read from the file(s) and exit
-        vals = self.__configs[self.__component].items()
+        vals = list(self.__configs[self.__component].items())
         vals.sort(lambda a, b: cmp(a[0], b[0]))
         for k, v in vals:
             if v is None:
                 v = ""
-            print "%-20s = %s" % (k, v)
+            print("%-20s = %s" % (k, v))
 
     # polymorphic methods
 
@@ -221,20 +228,20 @@ class RHNOptions:
                print cfg.DEBUG ---> yields 5
         """
         self.__check()
-        if not self.__configs[self.__component].has_key(key):
+        if key not in self.__configs[self.__component]:
             raise AttributeError(key)
         return self.__configs[self.__component][key]
     __getitem__ = __getattr__
 
     def get(self, key, default=None):
         ret = default
-        if self.__configs[self.__component].has_key(key):
+        if key in self.__configs[self.__component]:
             ret = self.__configs[self.__component][key]
         return ret
 
     def __str__(self):
         s = "Uninitialized"
-        if self.__component and self.__configs.has_key(self.__component):
+        if self.__component and self.__component in self.__configs:
             s = str(self.__configs[self.__component])
         return "<RHNOptions instance at %s: %s>" % (id(self), s)
     __repr__ = __str__
@@ -258,14 +265,14 @@ class RHNOptions:
         opts = UserDictCase()
         comps = parse_comps(component)
         for comp in comps:
-            if not self.__defaults.has_key(comp):
+            if comp not in self.__defaults:
                 warn('key not found in config default dict', comp)
                 continue
             opts.update(self.__defaults[comp])
 
         # Now load the specific stuff, and perform syntax checking too
         for comp in comps:
-            if not self.__parsedConfig.has_key(comp):
+            if comp not in self.__parsedConfig:
                 # No such entry in the config file
                 continue
             for key, (values, _lineno_) in self.__parsedConfig[comp].items():
@@ -304,13 +311,13 @@ class RHNOptions:
 
     def showall(self):
         from pprint import pprint
-        print "__defaults: dictionary of parsed defaults."
+        print("__defaults: dictionary of parsed defaults.")
         pprint(self.__defaults)
-        print
-        print "__parsedConfig: dictionary of parsed /etc/rhn/rhn.conf file."
+        print("")
+        print("__parsedConfig: dictionary of parsed /etc/rhn/rhn.conf file.")
         pprint(self.__parsedConfig)
-        print
-        print "__configs: dictionary of the merged options keyed by component."
+        print("")
+        print("__configs: dictionary of the merged options keyed by component.")
         pprint(self.__configs)
 
 
@@ -387,8 +394,8 @@ def parse_line(line):
         keys = keys.split(varSeparator)
         return (keys, None)
     # split and sanitize
-    vals = map(sanitize_value, [keys] * len(vals.split(optSeparator)),
-               vals.split(optSeparator))
+    vals = list(map(sanitize_value, [keys] * len(vals.split(optSeparator)),
+                    vals.split(optSeparator)))
     if len(vals) == 1:
         # Single value
         vals = vals[0]
@@ -412,8 +419,8 @@ def parse_file(filename, single_key=0):
         try:
             (keys, values) = parse_line(line)
         except:
-            raise ConfigParserError("Parse Error: <%s:%s>: '%s'" % (
-                filename, lineno, line)), None, sys.exc_info()[2]
+            raise_with_tb(ConfigParserError("Parse Error: <%s:%s>: '%s'" % (
+                filename, lineno, line)), sys.exc_info()[2])
         if keys is None:  # We don't care about this line
             continue
         # now process the parsed line
@@ -428,7 +435,7 @@ def parse_file(filename, single_key=0):
         # Store this line in a dictionary filled by component
         comp = tuple(keys[:-1])
         key = keys[-1]
-        if not ret.has_key(comp):
+        if comp not in ret:
             # Don't make it a UserDictCase since we know exactly we
             # already used string.lower
             ret[comp] = {}
@@ -453,8 +460,9 @@ def read_file(filename):
             else:
                 combined = combined + line.replace('\\\n', ' ')
         return new_lines
-    except (IOError, OSError), e:
-        raise ConfigParserError("Can not read config file", filename, e.args[1]), None, sys.exc_info()[2]
+    except (IOError, OSError):
+        e = sys.exc_info()[1]
+        raise_with_tb(ConfigParserError("Can not read config file", filename, e.args[1]), sys.exc_info()[2])
 
 
 def getAllComponents_tree(defaultDir=None):
@@ -483,7 +491,7 @@ def getAllComponents_tree(defaultDir=None):
         d = compTree
         for i in range(len(parts)):
             key = '.'.join(parts[:i + 1])
-            if not d.has_key(key):
+            if key not in d:
                 d[key] = {}
             d = d[key]
     return compTree
@@ -511,7 +519,7 @@ def getAllComponents_tuples(defaultDir=None):
     for comp in comps:
         for c in parse_comps(comp):
             d[c] = None
-    return d.keys()
+    return list(d.keys())
 
 
 CFG = RHNOptions()
@@ -531,11 +539,11 @@ PRODUCT_NAME = ALL_CFG.PRODUCT_NAME
 
 
 def runTest():
-    print "Test script:"
+    print("Test script:")
     import pprint
-    print "Component tree of all installed components:"
+    print("Component tree of all installed components:")
     pprint.pprint(getAllComponents_tree())
-    print
+    print("")
     test_cfg = RHNOptions(sys.argv[1])
 #    test_cfg = RHNOptions('server.app')
 #    test_cfg = RHNOptions('proxy.broker')
@@ -543,22 +551,23 @@ def runTest():
 #    test_cfg = RHNOptions('proxy.redirect', '/tmp')
 #    test_cfg.filename = 'empty.conf'
     test_cfg.parse()
-    print "=============== the object's repr ================================"
-    print test_cfg
-    print "=============== the object's defaults ============================"
+    print("=============== the object's repr ================================")
+    print(test_cfg)
+    print("=============== the object's defaults ============================")
     pprint.pprint(test_cfg.getDefaults())
-    print "=============== an erronous lookup example ======================="
-    print "testing __getattr__"
+    print("=============== an erronous lookup example =======================")
+    print("testing __getattr__")
     try:
-        print test_cfg.lkasjdfxxxxxxxxxxxxxx
-    except AttributeError, e:
-        print 'Testing: "AttributeError: %s"' % e
-    print
-    print "=============== the object's merged settings ======================"
+        print(test_cfg.lkasjdfxxxxxxxxxxxxxx)
+    except AttributeError:
+        e = sys.exc_info()[1]
+        print('Testing: "AttributeError: %s"' % e)
+    print("")
+    print("=============== the object's merged settings ======================")
     test_cfg.show()
-    print "=============== dump of all relevant dictionaries ================="
+    print("=============== dump of all relevant dictionaries =================")
     test_cfg.showall()
-    print "==================================================================="
+    print("===================================================================")
 
 
 #------------------------------------------------------------------------------
@@ -588,4 +597,4 @@ if __name__ == "__main__":
     if do_list:
         cfg.show()
     else:
-        print cfg.get(key_arg)
+        print(cfg.get(key_arg))

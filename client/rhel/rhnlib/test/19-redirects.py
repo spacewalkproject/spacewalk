@@ -42,7 +42,7 @@ def main():
     SYSTEM_ID = open(systemid_path).read()
     ret = 0
     for t in tests:
-        ret = apply(run_test, t) or ret
+        ret = run_test(*t) or ret
     return ret
 
 

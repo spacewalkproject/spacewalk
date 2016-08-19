@@ -25,11 +25,10 @@
 # pylint: disable=W0613
 
 from optparse import Option
-from spacecmd.utils import *
-
-import sys
 import logging
+import sys
 import xmlrpclib
+from spacecmd.utils import *
 
 
 def help_api(self):

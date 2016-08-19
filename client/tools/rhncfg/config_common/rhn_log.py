@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,7 +17,6 @@ import os
 import stat
 import sys
 import time
-import string
 import traceback
 
 class Logger:
@@ -29,7 +28,7 @@ class Logger:
             outstr = "%s %s: %s\n" % (
                 time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time())),
                 self.get_caller(),
-                string.join(map(str, args)))
+                " ".join([str(it) for it in args]))
             sys.stdout.write(outstr)
 
             if not self.logfile is None:
@@ -40,7 +39,7 @@ class Logger:
             outstr = "%s %s: %s\n" % (
                 time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time())),
                 self.get_caller(),
-                string.join(map(str, args)))
+                " ".join([str(it) for it in args]))
             if not self.logfile is None:
                 self.write_to_logfile(outstr)
 
@@ -63,7 +62,7 @@ class Logger:
                 logname.write(logstr)
                 logname.close()
             except:
-                print "does not have permissions to create file  %s" % (self.logfile)
+                print("does not have permissions to create file  %s" % (self.logfile))
                 sys.exit(1)
 
     def set_logfile(self, filename):
@@ -80,12 +79,11 @@ class Logger:
         callid = len(tbStack) - caller_offset
         module = tbStack[callid]
         module_file = os.path.basename(module[0])
-        module_file = string.split(module_file, '.', 1)[0]
+        module_file = module_file.split('.', 1)[0]
         return "%s.%s" % (module_file, module[2])
 
     def log_error(self, *args):
-        line = map(str, args)
-        outstr = string.join(line)
+        outstr = " ".join([str(it) for it in args])
         sys.stderr.write(outstr)
         sys.stderr.write("\n")
         if not self.logfile is None:
@@ -96,23 +94,23 @@ class Logger:
         sys.exit(error_code)
 
 def set_debug_level(*args):
-    return apply(Logger().set_debug_level, args)
+    return Logger().set_debug_level(*args)
 
 def get_debug_level(*args):
-    return apply(Logger().get_debug_level, args)
+    return Logger().get_debug_level(*args)
 
 def set_logfile(*args):
-    return apply(Logger().set_logfile, args)
+    return Logger().set_logfile(*args)
 
 def log_debug(*args):
-    return apply(Logger().log_debug, args)
+    return Logger().log_debug(*args)
 
 def log_to_file(*args):
-    return apply(Logger().log_to_file, args)
+    return Logger().log_to_file(*args)
 
 def log_error(*args):
-    return apply(Logger().log_error, args)
+    return Logger().log_error(*args)
 
 def die(error_code, *args):
-    apply(Logger().log_error, args)
+    Logger().log_error(*args)
     sys.exit(error_code)

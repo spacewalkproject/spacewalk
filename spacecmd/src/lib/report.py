@@ -156,8 +156,8 @@ def do_report_errata(self, args):
 
 
 def help_report_ipaddresses(self):
-    print 'report_network: List the hostname and IP of each system'
-    print 'usage: report_network [<SYSTEMS>]'
+    print 'report_ipaddresses: List the hostname and IP of each system'
+    print 'usage: report_ipaddresses [<SYSTEMS>]'
     print
     print self.HELP_SYSTEM_OPTS
 
@@ -211,8 +211,8 @@ def do_report_ipaddresses(self, args):
 
 
 def help_report_kernels(self):
-    print 'report_network: List the running kernel of each system'
-    print 'usage: report_network [<SYSTEMS>]'
+    print 'report_kernels: List the running kernel of each system'
+    print 'usage: report_kernels [<SYSTEMS>]'
     print
     print self.HELP_SYSTEM_OPTS
 

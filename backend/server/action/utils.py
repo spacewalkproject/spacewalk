@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -144,7 +144,7 @@ class ChannelPackage:
         # may be returned by find_by_packages. If that's the case, we only
         # want the info about package_name.
         package_info = None
-        if possible_packages.has_key(self.package_name):
+        if self.package_name in possible_packages:
             for package in possible_packages[self.package_name]:
                 if package[self.name_index] == self.package_name:
                     self.package_info = package

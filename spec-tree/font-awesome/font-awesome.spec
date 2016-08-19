@@ -1,12 +1,21 @@
+%if 0%{?suse_version}
+%global apachedocroot /srv/www/htdocs
+%else
+%global apachedocroot %{_var}/www/html
+%endif
+
 Name:           font-awesome
 Version:        4.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The iconic font designed for Bootstrap
 
 Group:          Application/Internet
 License:        OFL 1.1 and MIT
 URL:            http://fontawesome.io/
 Source0:        http://fontawesome.io/assets/font-awesome-4.0.3.zip
+%if 0%{?suse_version}
+BuildRequires:  unzip
+%endif
 BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
@@ -30,13 +39,13 @@ Less and Scss files for Font Awesome development.
 
 %install
 rm -rf %{buildroot}
-install -d -m 755 %{buildroot}%{_var}/www/html/fonts/font-awesome
+install -d -m 755 %{buildroot}%{apachedocroot}/fonts/font-awesome
 install -d -m 755 %{buildroot}%{_datadir}/font-awesome
 
 for dir in css fonts ; do
-    install -d -m 755 %{buildroot}%{_var}/www/html/fonts/font-awesome/$dir
+    install -d -m 755 %{buildroot}%{apachedocroot}/fonts/font-awesome/$dir
     for file in $dir/* ; do
-         install -m 644 $file %{buildroot}%{_var}/www/html/fonts/font-awesome/$dir/
+         install -m 644 $file %{buildroot}%{apachedocroot}/fonts/font-awesome/$dir/
     done
 done
 
@@ -53,7 +62,10 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{_var}/www/html/fonts/font-awesome
+%{apachedocroot}/fonts/font-awesome
+%if 0%{?suse_version}
+%dir %{apachedocroot}/fonts
+%endif
 
 %files devel
 %defattr(-,root,root,-)
@@ -61,6 +73,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue May 10 2016 Grant Gainey 4.0.3-2
+- font-awesome: build on openSUSE
+
 * Fri Jan 17 2014 Michael Mraka <michael.mraka@redhat.com> 4.0.3-1
 - initial build of font-awesome package
 

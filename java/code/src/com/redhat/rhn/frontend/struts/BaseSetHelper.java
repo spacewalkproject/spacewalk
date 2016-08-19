@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,6 +13,13 @@
  * in this software or its documentation.
  */
 package com.redhat.rhn.frontend.struts;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.MethodUtil;
@@ -30,12 +37,6 @@ import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 import com.redhat.rhn.frontend.taglibs.list.decorators.AddToSsmDecorator;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.ssm.SsmManager;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -71,54 +72,12 @@ public class BaseSetHelper {
             }
         }
         else if (lookupEquals(ListDisplayTag.SELECT_ALL_KEY, value)) {
-            List filterList = null;
-
-            String uniqueName = TagHelper.generateUniqueName(listName);
-            String filterClass = request.getParameter(
-                    ListTagUtil.makeFilterClassLabel(uniqueName));
-            if (filterClass != null) {
-
-
-                String attr = request.getParameter(
-                        ListTagUtil.makeFilterAttributeByLabel(uniqueName));
-                String header = request.getParameter(
-                        ListTagUtil.makeFilterByLabel(uniqueName));
-
-
-                ListFilter klass = null;
-                try {
-                    klass = (ListFilter) MethodUtil.getClassFromConfig(filterClass);
-                }
-                catch (RuntimeException e) {
-                    try {
-                        klass = (ListFilter) MethodUtil.getClassFromConfig(
-                                filterClass, header, attr);
-                    }
-                    catch (RuntimeException e2) {
-                        filterList = dataSet;
-                    }
-                }
-                if (klass != null) {
-                    Context threadContext = Context.getCurrentContext();
-                    klass.prepare(threadContext.getLocale());
-                }
-                filterList = ListFilterHelper.filterChildren(dataSet, klass,
-                        request.getParameter(
-                                ListTagUtil.makeFilterByLabel(uniqueName)),
-                                ListTagHelper.getFilterValue(request, uniqueName),
-                                ListTagHelper.canSearchByParent(request, uniqueName),
-                                ListTagHelper.canSearchByChild(request, uniqueName));
-            }
-            else {
-                filterList = ListFilterHelper.filterChildren(dataSet, null, null, null,
-                        ListTagHelper.canSearchByParent(request, uniqueName),
-                        ListTagHelper.canSearchByChild(request, uniqueName));
-            }
-
+            List filterList = getFilteredList(listName, dataSet);
             selectAll(set, listName, filterList);
         }
         else if (lookupEquals(ListDisplayTag.UNSELECT_ALL_KEY, value)) {
-            unselectAll(set, listName, dataSet);
+            List filterList = getFilteredList(listName, dataSet);
+            unselectAll(set, listName, filterList);
         }
         else if (lookupEquals(ListDisplayTag.ADD_TO_SSM_KEY, value)) {
 
@@ -143,6 +102,55 @@ public class BaseSetHelper {
                 SsmManager.addServersToSsm(user, selected);
             }
         }
+    }
+
+
+    /**
+     * @param listName
+     * @param dataSet
+     * @return
+     */
+    protected List getFilteredList(String listName, List dataSet) {
+        List filterList = null;
+
+        String uniqueName = TagHelper.generateUniqueName(listName);
+        String filterClass = request.getParameter(
+                ListTagUtil.makeFilterClassLabel(uniqueName));
+        if (filterClass != null) {
+
+
+            String attr = request.getParameter(
+                    ListTagUtil.makeFilterAttributeByLabel(uniqueName));
+            String header = request.getParameter(
+                    ListTagUtil.makeFilterByLabel(uniqueName));
+
+
+            ListFilter klass = null;
+            try {
+                klass = (ListFilter) MethodUtil.getClassFromConfig(filterClass);
+            }
+            catch (RuntimeException e) {
+                try {
+                    klass = (ListFilter) MethodUtil.getClassFromConfig(
+                            filterClass, header, attr);
+                }
+                catch (RuntimeException e2) {
+                    filterList = dataSet;
+                }
+            }
+            if (klass != null) {
+                Context threadContext = Context.getCurrentContext();
+                klass.prepare(threadContext.getLocale());
+            }
+            filterList = ListFilterHelper.filter(dataSet, klass,
+                    request.getParameter(
+                            ListTagUtil.makeFilterByLabel(uniqueName)),
+                            ListTagHelper.getFilterValue(request, uniqueName));
+        }
+        else {
+            filterList = ListFilterHelper.filter(dataSet, null, null, null);
+        }
+        return filterList;
     }
 
 
@@ -192,27 +200,55 @@ public class BaseSetHelper {
      * @param listName the name of the list to grab the data from
      * @param dataSet the dataSet to deselect
      **/
-    public void unselectAll(Set set,
-                              String listName, List dataSet) {
-        set.clear();
-        ListTagHelper.setSelectedAmount(listName, 0, request);
+    public void unselectAll(Set set, String listName, List dataSet) {
 
+        List<String> keys = new ArrayList<String>();
+        String[] keysArray = {};
+
+        // Mark the data-objects as not-selected
         for (Object obj : dataSet) {
-            if (obj instanceof Selectable) {
-                Selectable next = (Selectable) obj;
-                next.setSelected(false);
-            }
-            else if (obj instanceof Map) {
-                Map next = (Map) obj;
-                next.remove(SELECTED);
+            if (RhnListTagFunctions.isExpandable(obj)) {
+                List children = ((Expandable)obj).expand();
+                for (Object child : children) {
+                    removeObjectFromSet(keys, child);
+                }
             }
             else {
-                break;
+                removeObjectFromSet(keys, obj);
             }
         }
+
+        // If we have an RhnSet, we can 'unset' only the data-objects
+        // Otherwise, we don't know enough to be able to make things happen, sorry
+        if (set instanceof RhnSet) {
+            RhnSet rset = (RhnSet)set;
+            rset.removeElements(keys.toArray(keysArray));
+        }
+        else {
+            // Nothing we can do here - really unselect-all
+            set.clear();
+        }
+        // Reset the number-selected to match whatever is left in the Set
+        ListTagHelper.setSelectedAmount(listName, set.size(), request);
         storeSet(set);
     }
 
+
+    private void removeObjectFromSet(List<String> keys, Object obj) {
+        if (obj instanceof Selectable) {
+            Selectable next = (Selectable) obj;
+            next.setSelected(false);
+            keys.add(next.getSelectionKey());
+        }
+        else if (obj instanceof Map) {
+            Map next = (Map) obj;
+            next.remove(SELECTED);
+        }
+        else if (obj instanceof Identifiable) {
+            Identifiable next = (Identifiable) obj;
+            keys.add(next.getId().toString());
+         }
+    }
 
     /**
      * Syncs the selections provided by the rhnset to dataset.
@@ -225,22 +261,40 @@ public class BaseSetHelper {
      */
     public void syncSelections(Set set, List dataSet) {
         for (Object obj : dataSet) {
-            if (obj instanceof Selectable) {
-                Selectable next = (Selectable) obj;
-                if (next.isSelectable()) {
-                    if (set.contains(next.getSelectionKey())) {
-                        next.setSelected(true);
-                    }
+            if (RhnListTagFunctions.isExpandable(obj)) {
+                List children = ((Expandable)obj).expand();
+                for (Object child : children) {
+                    syncObjectToSet(set, child);
                 }
             }
-            else if (obj instanceof Map) {
-                Map next = (Map) obj;
-                if (next.containsKey(SELECTABLE) &&
-                        set.contains(next.get(KEY))) {
-                    next.put(SELECTED, true);
+            else {
+                syncObjectToSet(set, obj);
+            }
+        }
+    }
+
+    private void syncObjectToSet(Set set, Object obj) {
+        if (obj instanceof Selectable) {
+            Selectable next = (Selectable) obj;
+            if (next.isSelectable()) {
+                if (set.contains(next.getSelectionKey())) {
+                    next.setSelected(true);
                 }
             }
         }
+        else if (obj instanceof Map) {
+            Map next = (Map) obj;
+            if (next.containsKey(SELECTABLE) &&
+                    set.contains(next.get(KEY))) {
+                next.put(SELECTED, true);
+            }
+        }
+        else if (obj instanceof Identifiable) {
+            Identifiable next = (Identifiable) obj;
+            if (set.contains(next.getId())) {
+                set.add(next.getId().toString());
+            }
+         }
     }
 
 
@@ -258,29 +312,37 @@ public class BaseSetHelper {
                                 String listName,
                                  List dataSet) {
 
-        boolean everyThingIsAnElement = ListTagHelper.
-                            isParentAnElement(request,
-                                    TagHelper.generateUniqueName(listName));
         for (Object obj : dataSet) {
-            if (everyThingIsAnElement || !RhnListTagFunctions.isExpandable(obj)) {
-                if (obj instanceof Selectable) {
-                    Selectable next = (Selectable) obj;
-                    if (next.isSelectable()) {
-                        set.add(next.getSelectionKey());
-                    }
+            if (RhnListTagFunctions.isExpandable(obj)) {
+                List children = ((Expandable)obj).expand();
+                for (Object child : children) {
+                    addObjectToSet(set, child);
                 }
-                else if (obj instanceof Map) {
-                    Map next = (Map) obj;
-                    set.add(next.get(SessionSetHelper.KEY));
-                }
-                else {
-                   Identifiable next = (Identifiable) obj;
-                   set.add(next.getId().toString());
-                }
+            }
+            else {
+                addObjectToSet(set, obj);
             }
         }
         storeSet(set);
         ListTagHelper.setSelectedAmount(listName, set.size(), request);
+    }
+
+
+    private void addObjectToSet(Set set, Object obj) {
+        if (obj instanceof Selectable) {
+            Selectable next = (Selectable) obj;
+            if (next.isSelectable()) {
+                set.add(next.getSelectionKey());
+            }
+        }
+        else if (obj instanceof Map) {
+            Map next = (Map) obj;
+            set.add(next.get(SessionSetHelper.KEY));
+        }
+        else if (obj instanceof Identifiable) {
+           Identifiable next = (Identifiable) obj;
+           set.add(next.getId().toString());
+        }
     }
 
     protected void storeSet(Set set) {

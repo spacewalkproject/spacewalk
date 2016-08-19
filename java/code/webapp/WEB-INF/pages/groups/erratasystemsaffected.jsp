@@ -3,6 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 <body>
 
@@ -14,11 +15,11 @@
 
   <h2>
     <rhn:icon type="event-type-errata" />
-    <bean:message key="systemgroup.errata-systems-affected.title" arg0="${erratum.advisoryName}" arg1="${erratum.synopsis}" />
+    <bean:message key="systemgroup.errata-systems-affected.title" arg0="${fn:escapeXml(erratum.advisoryName)}" arg1="${fn:escapeXml(erratum.synopsis)}" />
   </h2>
   <p>
     <div class="page-summary">
-    <bean:message key="systemgroup.errata-systems-affected.summary" arg0="${systemgroup.name}" />
+    <bean:message key="systemgroup.errata-systems-affected.summary" arg0="${fn:escapeXml(systemgroup.name)}" />
     </div>
   </p>
   <rl:listset name="systemListSet" legend="system">

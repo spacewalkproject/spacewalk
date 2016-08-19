@@ -1,1 +1,1 @@
-DROP PROCEDURE lookup_virt_sub_level;
+DROP FUNCTION lookup_virt_sub_level;

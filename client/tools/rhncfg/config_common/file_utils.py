@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,6 +14,7 @@
 #
 
 import os
+import sys
 import stat
 import time
 import tempfile
@@ -30,6 +31,8 @@ except:
 
 from config_common import utils
 from config_common.local_config import get as get_config
+from rhn.i18n import bstr, sstr
+
 
 class FileProcessor:
     file_struct_fields = {
@@ -52,27 +55,27 @@ class FileProcessor:
         if directory:
             directory += os.path.split(file_struct['path'])[0]
         if file_struct.get('filetype') == 'symlink':
-            if not file_struct.has_key('symlink'):
-                raise Exception, "Missing key symlink"
+            if 'symlink' not in file_struct:
+                raise Exception("Missing key symlink")
 
             (fullpath, dirs_created, fh) = maketemp(prefix=".rhn-cfg-tmp",
                                   directory=directory, symlink=file_struct['symlink'])
             return fullpath, dirs_created
 
         for k in self.file_struct_fields.keys():
-            if not file_struct.has_key(k):
+            if k not in file_struct:
                 # XXX
-                raise Exception, "Missing key %s" % k
+                raise Exception("Missing key %s" % k)
 
         encoding = ''
 
-        if file_struct.has_key('encoding'):
+        if 'encoding' in file_struct:
             encoding = file_struct['encoding']
 
         contents = file_struct['file_contents']
 
         if contents and (encoding == 'base64'):
-            contents = base64.decodestring(contents)
+            contents = base64.decodestring(bstr(contents))
 
         delim_start = file_struct['delim_start']
         delim_end = file_struct['delim_end']
@@ -83,15 +86,15 @@ class FileProcessor:
                 and file_struct['verify_contents']):
             if file_struct['checksum'] != utils.getContentChecksum(
                     file_struct['checksum_type'], contents):
-                raise Exception, "Corrupt file received: Content checksums do not match!"
+                raise Exception("Corrupt file received: Content checksums do not match!")
         elif ('md5sum' in file_struct and 'verify_contents' in file_struct
                 and file_struct['verify_contents']):
             if file_struct['md5sum'] != utils.getContentChecksum(
                     'md5', contents):
-                raise Exception, "Corrupt file received: Content checksums do not match!"
+                raise Exception("Corrupt file received: Content checksums do not match!")
         elif ('verify_contents' in file_struct
                 and file_struct['verify_contents']):
-            raise Exception, "Corrupt file received: missing checksum information!"
+            raise Exception("Corrupt file received: missing checksum information!")
 
 
         fh = None
@@ -100,7 +103,7 @@ class FileProcessor:
                                   directory=directory)
 
         try:
-            fh.write(contents)
+            fh.write(sstr(contents))
         except Exception:
             if fh:
                 fh.close()  # don't leak fds...
@@ -110,7 +113,7 @@ class FileProcessor:
 
         # try to set mtime and ctime of the file to
         # the last modified time on the server
-        if file_struct.has_key('modified'):
+        if 'modified' in file_struct:
             try:
                 modified = xmlrpc_time(file_struct['modified'].value)
                 epoch_time = time.mktime(modified)
@@ -198,7 +201,7 @@ class FileProcessor:
         if cur_sectx == None:
             cur_sectx = ''
 
-        if file_struct.has_key('selinux_ctx') and file_struct['selinux_ctx']:
+        if 'selinux_ctx' in file_struct and file_struct['selinux_ctx']:
             if cur_sectx != file_struct['selinux_ctx']:
                 sectx_result = "SELinux contexts differ:  actual: [%s], expected: [%s]\n" % (cur_sectx, file_struct['selinux_ctx'])
 
@@ -215,7 +218,8 @@ class FileProcessor:
                     result = ''
                 else:
                     result = "Link targets differ for [%s]: actual: [%s], expected: [%s]\n" % (path, curlink, newlink)
-            except OSError, e:
+            except OSError:
+                e = sys.exc_info()[1]
                 if e.errno == 22:
                     result = "Deployed symlink is no longer a symlink!"
                 else:
@@ -230,9 +234,9 @@ class FileProcessor:
 
     def _validate_struct(self, file_struct):
         for k in self.file_struct_fields.keys():
-            if not file_struct.has_key(k):
+            if k not in file_struct:
                 # XXX
-                raise Exception, "Missing key %s" % k
+                raise Exception("Missing key %s" % k)
 
 
 def diff(src, dst, srcname=None, dstname=None, display_diff=False):

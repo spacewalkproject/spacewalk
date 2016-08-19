@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -33,4 +33,4 @@ if __name__ == '__main__':
     """Test code.
     """
     rhnSQL.initDB()
-    print check_package_arch('i386')
+    print(check_package_arch('i386'))

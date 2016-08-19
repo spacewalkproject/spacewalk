@@ -2,28 +2,39 @@
 
 import os
 import sys
-import config
 import socket
 import time
-import httplib
-import urllib2
 
-import clientCaps
-import up2dateLog
-import up2dateErrors
-import up2dateUtils
-import up2dateAuth
-import urlparse
+from up2date_client import config
+from up2date_client import clientCaps
+from up2date_client import up2dateLog
+from up2date_client import up2dateErrors
+from up2date_client import up2dateUtils
 
-import xmlrpclib
+from rhn import SSL
 from rhn import rpclib
+from rhn.tb import raise_with_tb
+
+try: # python2
+     import httplib
+     import urllib2
+     import urlparse
+     import xmlrpclib
+except ImportError: # python3
+     import http.client as httplib
+     import urllib.request as urllib2
+     import urllib.parse as urlparse
+     import xmlrpc.client as xmlrpclib
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
+# Python 3 translations don't have a ugettext method
+if not hasattr(t, 'ugettext'):
+    t.ugettext = t.gettext
 _ = t.ugettext
 
 def stdoutMsgCallback(msg):
-    print msg
+    print(msg)
 
 
 class RetryServer(rpclib.Server):
@@ -54,7 +65,7 @@ class RetryServer(rpclib.Server):
                     raise
 
                 msg = "An error occurred talking to %s:\n" % self._host
-                msg = msg + "%s\n%s\n" % (sys.exc_type, sys.exc_value)
+                msg = msg + "%s\n%s\n" % (sys.exc_info()[0], sys.exc_info()[1])
                 msg = msg + "Trying the next serverURL: %s\n" % self.serverList.server()
                 self.log.log_me(msg)
                 # try a different url
@@ -64,8 +75,8 @@ class RetryServer(rpclib.Server):
                 typ, uri = urllib.splittype(self.serverList.server())
                 typ = typ.lower()
                 if typ not in ("http", "https"):
-                    raise (rpclib.InvalidRedirectionError(
-                        "Redirected to unsupported protocol %s" % typ), None, sys.exc_info()[2])
+                    raise_with_tb(rpclib.InvalidRedirectionError(
+                        "Redirected to unsupported protocol %s" % typ))
 
                 self._host, self._handler = urllib.splithost(uri)
                 self._orig_handler = self._handler
@@ -114,7 +125,7 @@ def getServer(refreshCallback=None, serverOverride=None, timeout=None):
     # The servers we're talking to need to have their certs
     # signed by one of these CA.
     ca = cfg["sslCACert"]
-    if isinstance(ca, basestring):
+    if not isinstance(ca, list):
         ca = [ca]
 
     rhns_ca_certs = ca or ["/usr/share/rhn/RHNS-CA-CERT"]
@@ -137,7 +148,7 @@ def getServer(refreshCallback=None, serverOverride=None, timeout=None):
 
     lang = None
     for env in 'LANGUAGE', 'LC_ALL', 'LC_MESSAGES', 'LANG':
-        if os.environ.has_key(env):
+        if env in os.environ:
             if not os.environ[env]:
                 # sometimes unset
                 continue
@@ -202,23 +213,23 @@ def doCall(method, *args, **kwargs):
         try:
             ret = method(*args, **kwargs)
         except KeyboardInterrupt:
-            raise (up2dateErrors.CommunicationError(_(
-                "Connection aborted by the user")), None, sys.exc_info()[2])
+            raise_with_tb(up2dateErrors.CommunicationError(_(
+                "Connection aborted by the user")))
         # if we get a socket error, keep tryingx2
-        except (socket.error, socket.sslerror):
+        except (socket.error, SSL.socket_error):
             log.log_me("A socket error occurred: %s, attempt #%s" % (
                 sys.exc_info()[1], attempt_count))
             if attempt_count >= attempts:
                 e = sys.exc_info()[1]
                 if len(e.args) > 1:
-                    raise (up2dateErrors.CommunicationError(e.args[1]), None, sys.exc_info()[2])
+                    raise_with_tb(up2dateErrors.CommunicationError(e.args[1]))
                 else:
-                    raise (up2dateErrors.CommunicationError(e.args[0]), None, sys.exc_info()[2])
+                    raise_with_tb(up2dateErrors.CommunicationError(e.args[0]))
             else:
                 failure = 1
         except httplib.IncompleteRead:
-            print "httplib.IncompleteRead"
-            raise (up2dateErrors.CommunicationError("httplib.IncompleteRead"), None, sys.exc_info()[2])
+            print("httplib.IncompleteRead")
+            raise_with_tb(up2dateErrors.CommunicationError("httplib.IncompleteRead"))
 
         except urllib2.HTTPError:
             e = sys.exc_info()[1]
@@ -227,7 +238,7 @@ def doCall(method, *args, **kwargs):
             msg = msg + "Status Code: %s\n" % e.code
             msg = msg + "Error Message: %s\n" % e.msg
             log.log_me(msg)
-            raise (up2dateErrors.CommunicationError(msg), None, sys.exc_info()[2])
+            raise_with_tb(up2dateErrors.CommunicationError(msg))
 
         except xmlrpclib.ProtocolError:
             e = sys.exc_info()[1]
@@ -245,13 +256,14 @@ def doCall(method, *args, **kwargs):
                 # this function) but login should never get a 34, so
                 # should be safe from recursion
 
+                from up2date_client import up2dateAuth
                 up2dateAuth.updateLoginInfo()
 
             # the servers are being throttle to pay users only, catch the
             # exceptions and display a nice error message
             if abs(errCode) == 51:
                 log.log_me(_("Server has refused connection due to high load"))
-                raise (up2dateErrors.CommunicationError(e.errmsg), None, sys.exc_info()[2])
+                raise_with_tb(up2dateErrors.CommunicationError(e.errmsg))
             # if we get a 404 from our server, thats pretty
             # fatal... no point in retrying over and over. Note that
             # errCode == 17 is specific to our servers, if the
@@ -271,17 +283,17 @@ def doCall(method, *args, **kwargs):
                     pkgName = pkg
                 msg = "File Not Found: %s\n%s" % (pkgName, errMsg)
                 log.log_me(msg)
-                raise (up2dateErrors.FileNotFoundError(msg), None, sys.exc_info()[2])
+                raise_with_tb(up2dateErrors.FileNotFoundError(msg))
 
             if not reset:
                 if attempt_count >= attempts:
-                    raise (up2dateErrors.CommunicationError(e.errmsg), None, sys.exc_info()[2])
+                    raise_with_tb(up2dateErrors.CommunicationError(e.errmsg))
                 else:
                     failure = 1
 
         except xmlrpclib.ResponseError:
-            raise (up2dateErrors.CommunicationError(
-                "Broken response from the server."), None, sys.exc_info()[2])
+            raise_with_tb(up2dateErrors.CommunicationError(
+                "Broken response from the server."))
 
         if ret != None:
             break

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,7 +15,7 @@
 
 import os
 import pwd
-
+import sys
 
 def get_home_dir():
     userid = os.getuid()
@@ -35,7 +35,7 @@ def make_common_attr_equal(object1, object2):
             continue
 
         # Make sure that object2 has the attribute as well. and that it's not equal to ''.
-        if not object2.__dict__.has_key(attr) or object2.__dict__[attr] == '':
+        if attr not in object2.__dict__ or object2.__dict__[attr] == '':
             continue
 
         # Make sure the attributes are the same type OR that the attribute in object1 is None.
@@ -54,22 +54,22 @@ def make_common_attr_equal(object1, object2):
 # Pylint is too stupid to understand subclasses of tuples apparently.
 # This is just to make it shut up.
 def tupleify_urlparse(urlparse_object):
+    ret = []
     if hasattr(urlparse_object, 'scheme'):
-        scheme = urlparse_object.scheme
-        netloc = urlparse_object.netloc
-        path = urlparse_object.path
-        params = urlparse_object.params
-        query = urlparse_object.query
-        fragment = urlparse_object.fragment
+        ret.append(urlparse_object.scheme)
+        ret.append(urlparse_object.netloc)
+        ret.append(urlparse_object.path)
+        ret.append(urlparse_object.params)
+        ret.append(urlparse_object.query)
+        ret.append(urlparse_object.fragment)
     else:
-        scheme = urlparse_object[0]
-        netloc = urlparse_object[1]
-        path = urlparse_object[2]
-        params = urlparse_object[3]
-        query = urlparse_object[4]
-        fragment = urlparse_object[5]
+        ret = [urlparse_object[i] for i in range(0, 6)]
 
-    return scheme, netloc, path, params, query, fragment
+    if sys.version_info[0] == 3:
+        for i in range(0, 6):
+            if not isinstance(ret[i], str):
+                ret[i] = ret[i].decode('ascii')
+    return tuple(ret)
 
 if __name__ == "__main__":
     # This is just for testing purposes.
@@ -89,5 +89,5 @@ if __name__ == "__main__":
 
     obj1, obj2 = make_common_attr_equal(obj1, obj2)
 
-    print obj1.a
-    print obj2.a
+    print(obj1.a)
+    print(obj2.a)

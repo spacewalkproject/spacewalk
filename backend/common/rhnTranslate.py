@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,9 +14,9 @@
 #
 
 import os
-import types
 import gettext
 
+from spacewalk.common.usix import StringType
 
 class RHN_Translations(gettext.GNUTranslations):
     # Defining our own class, since we'd like to save the language we use
@@ -40,7 +40,7 @@ class RHN_Translations(gettext.GNUTranslations):
         # pkilambi:bug#158561,170819,170821: the gettext object in python 2.2.3 has no attribute
         #_fallback so add a check if __dict__ has key
         # if not self._fallback or not hasattr(self._fallback, 'getlangs'):
-        if not self.__dict__.has_key("_fallback") or not self._fallback or not hasattr(self._fallback, 'getlangs'):
+        if "_fallback" not in self.__dict__ or not self._fallback or not hasattr(self._fallback, 'getlangs'):
             return [self.lang, 'C']
         # Recursive call
         return [self.lang] + self._fallback.getlangs()
@@ -70,7 +70,7 @@ class i18n:
         return self.cat.getlangs()
 
     def setlangs(self, langs):
-        if isinstance(langs, types.StringType):
+        if isinstance(langs, StringType):
             langs = [langs]
         # Filter "C" - we will add it ourselves later anyway
         langs = [l for l in langs if l != 'C']

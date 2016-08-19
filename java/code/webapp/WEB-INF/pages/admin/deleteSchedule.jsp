@@ -2,11 +2,12 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <body>
 <rhn:toolbar base="h1" icon="header-channel">
-    <bean:message key="schedule.edit.jsp.toolbar" arg0="${schedulename}"/>
+    <bean:message key="schedule.edit.jsp.toolbar" arg0="${fn:escapeXml(schedulename)}"/>
 </rhn:toolbar>
 
 <div>

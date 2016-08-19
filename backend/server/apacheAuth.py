@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -127,7 +127,7 @@ def auth_proxy():
     #     proxy hit.
 
     tokens = string.split(rhnFlags.get('X-RHN-Proxy-Auth'), ',')
-    tokens = filter(lambda token: token, tokens)
+    tokens = [token for token in tokens if token]
 
     for auth_token in tokens:
         _verifyProxyAuthToken(auth_token)
@@ -155,7 +155,7 @@ def auth_client():
               'X-RHN-Auth',
               'X-RHN-Auth-Server-Time',
               'X-RHN-Auth-Expire-Offset'):
-        if not token.has_key(k):
+        if k not in token:
             # No auth information; decline any action
             log_debug(4, "Declined auth of client for GET requests; "
                          "incomplete header info.")

@@ -182,8 +182,8 @@ def do_snippet_update(self, args):
 
 
 def help_snippet_delete(self):
-    print 'snippet_removefile: Delete a Kickstart snippet'
-    print 'usage: snippet_removefile NAME'
+    print 'snippet_delete: Delete a Kickstart snippet'
+    print 'usage: snippet_delete NAME'
 
 
 def complete_snippet_delete(self, text, line, beg, end):

@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2010--2015 Red Hat, Inc.
+-- Copyright (c) 2010--2016 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -70,5 +70,8 @@ INSERT INTO rhnTaskoTask (id, name, class)
 
 INSERT INTO rhnTaskoTask (id, name, class)
          VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'auto-errata', 'com.redhat.rhn.taskomatic.task.AutoErrataTask');
+
+INSERT INTO rhnTaskoTask (id, name, class)
+         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'uuid-cleanup', 'com.redhat.rhn.taskomatic.task.UuidCleanup');
 
 commit;

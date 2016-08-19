@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,8 +14,9 @@
 #
 
 import os
+import sys
 
-from types import ListType
+from spacewalk.common.usix import ListType
 
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error
@@ -70,7 +71,7 @@ def get_package_path(server_id, pkg_spec, channel):
             and p.package_arch_id = pa.id
     """
     h = rhnSQL.prepare(statement)
-    pkg = map(str, pkg)
+    pkg = list(map(str, pkg))
     h.execute(name=pkg[0], ver=pkg[2], rel=pkg[3], arch=pkg[4],
               channel=channel, server_id=server_id)
     rs = h.fetchall_dict()
@@ -117,7 +118,8 @@ def unlink_package_file(path):
     while dirname not in base_dirs:
         try:
             os.rmdir(dirname)
-        except OSError, e:
+        except OSError:
+            e = sys.exc_info()[1]
             if e.errno == 39:  # OSError: [Errno 39] Directory not empty
                 break
             else:
@@ -194,7 +196,7 @@ def __query_source_package_path_by_name(server_id, pkgFilename, channel):
 
 def get_info_for_package(pkg, channel_id, org_id):
     log_debug(3, pkg)
-    pkg = map(str, pkg)
+    pkg = list(map(str, pkg))
     params = {'name': pkg[0],
               'ver': pkg[1],
               'rel': pkg[2],
@@ -214,7 +216,7 @@ def get_info_for_package(pkg, channel_id, org_id):
 
     statement = """
     select p.path, cp.channel_id,
-           cv.checksum_type, cv.checksum
+           cv.checksum_type, cv.checksum, pe.epoch
       from rhnPackage p
       join rhnPackageName pn
         on p.name_id = pn.id
@@ -233,19 +235,14 @@ def get_info_for_package(pkg, channel_id, org_id):
        and %s
        and pa.label = :arch
        and %s
-     order by cp.channel_id nulls last
+     order by cp.channel_id nulls last,
+              p.id desc
     """ % (epochStatement, orgStatement)
 
     h = rhnSQL.prepare(statement)
     h.execute(**params)
 
     ret = h.fetchone_dict()
-    if not ret:
-        return {'path':          None,
-                'channel_id': None,
-                'checksum_type': None,
-                'checksum':      None,
-                }
     return ret
 
 
@@ -260,7 +257,7 @@ if __name__ == '__main__':
     from spacewalk.common.rhnLog import initLOG
     initLOG("stdout", 1)
     rhnSQL.initDB()
-    print
+    print("")
     # new client
-    print get_package_path(1000463284, 'kernel-2.4.2-2.i686.rpm', 'redhat-linux-i386-7.1')
-    print get_source_package_path(1000463284, 'kernel-2.4.2-2.i686.rpm', 'redhat-linux-i386-7.1')
+    print(get_package_path(1000463284, 'kernel-2.4.2-2.i686.rpm', 'redhat-linux-i386-7.1'))
+    print(get_source_package_path(1000463284, 'kernel-2.4.2-2.i686.rpm', 'redhat-linux-i386-7.1'))

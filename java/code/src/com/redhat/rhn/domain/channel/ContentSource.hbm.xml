@@ -35,7 +35,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 column="channel_id"/>
         </set>
 
-      <joined-subclass name="com.redhat.rhn.domain.channel.SslContentSource" table="rhnContentSourceSsl">
+      <joined-subclass name="com.redhat.rhn.domain.channel.SslContentSource" table="rhnContentSsl">
         <key column="content_source_id" />
         <many-to-one name="caCert" column="ssl_ca_cert_id" class="com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey" />
         <many-to-one name="clientCert" column="ssl_client_cert_id" class="com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey" />

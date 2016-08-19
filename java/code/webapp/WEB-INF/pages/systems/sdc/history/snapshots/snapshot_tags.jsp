@@ -2,6 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <body>
@@ -13,7 +14,7 @@
 </rhn:toolbar>
 
 <div class="page-summary">
-  <bean:message key="system.history.snapshot.tagSingleSummary" arg0="${param.ss_name}"/>
+  <bean:message key="system.history.snapshot.tagSingleSummary" arg0="${fn:escapeXml(param.ss_name)}"/>
 </div>
 
 <rl:listset name="SnapshotSet">
@@ -23,13 +24,15 @@
     <rl:decorator name="PageSizeDecorator" />
     <rl:decorator name="ElaborationDecorator" />
     <rl:column headerkey="system.history.snapshot.tagName">
-      <a href="/rhn/systems/details/history/snapshots/Rollback.do?sid=${param.sid}&ss_id=${current.ssId}">${current.name}</a>
+      <a href="/rhn/systems/details/history/snapshots/Rollback.do?sid=${param.sid}&ss_id=${current.ssId}">
+        <c:out value="${current.name}"/>
+      </a>
     </rl:column>
     <rl:column headerkey="system.history.snapshot.tagAppliedToSnapshot">
       ${current.created}
     </rl:column>
   </rl:list>
-  <input type="hidden" name="sid" value="${param.sid}" />
+  <rhn:hidden name="sid" value="${param.sid}" />
 </rl:listset>
 
 </body>

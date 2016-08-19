@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,6 +19,10 @@ import os
 import hashlib
 import time
 import string
+import sys
+
+if sys.version_info[0] == 3:
+    from functools import reduce
 
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault, rhnException
@@ -85,7 +89,7 @@ def getServerID(server, fields=[]):
     archdb = ""
     archjoin = ""
     # look at the fields
-    fields = map(string.lower, fields)
+    fields = list(map(string.lower, fields))
     for k in fields:
         if k == "id":  # already there
             continue
@@ -346,4 +350,4 @@ def generate_random_string(length=20):
 
 if __name__ == '__main__':
     rhnSQL.initDB()
-    print update_push_client_registration(1000102174)
+    print(update_push_client_registration(1000102174))

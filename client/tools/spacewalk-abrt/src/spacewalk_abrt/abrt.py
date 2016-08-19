@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2013 Red Hat, Inc.
+# Copyright (c) 2013--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,6 +18,7 @@ import base64
 import os
 import sys
 import errno
+from rhn.i18n import bstr
 
 RHNROOT = '/usr/share/rhn'
 if RHNROOT not in sys.path:
@@ -39,7 +40,8 @@ def _readline(filepath):
         f = open(filepath, 'r')
         firstline = f.readline().strip()
         f.close()
-    except IOError, e:
+    except IOError:
+        e = sys.exc_info()[1]
         if e.errno == errno.ENOENT:
             pass
         else:
@@ -116,7 +118,7 @@ def report(problem_dir):
         crash_file_data = {'filename': os.path.basename(i),
                            'path': path,
                            'filesize': filesize,
-                           'filecontent': base64.encodestring(""),
+                           'filecontent': base64.encodestring(bstr("")),
                            'content-encoding': 'base64'}
         if server.abrt.is_crashfile_upload_enabled(systemid) and filesize <= server.abrt.get_crashfile_uploadlimit(systemid):
             f = open(path, 'r')

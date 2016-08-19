@@ -2,12 +2,15 @@
 # a dict with "capability name" as the key, and the version
 # as the value.
 
-import UserDict
 import glob
 import os
-import string
 
-from capabilities import parseCap
+from up2date_client.capabilities import parseCap
+
+try: # python2
+    import UserDict
+except ImportError: # python3
+    import collections as UserDict
 
 class ClientCapabilities(UserDict.UserDict):
     def __init__(self):
@@ -48,15 +51,15 @@ def loadLocalCaps(capsDir = "/etc/sysconfig/rhn/clientCaps.d"):
 
         fd = open(capsFile, "r")
         for line in fd.readlines():
-            string.strip(line)
-            if line[0] == "#":
+            line = line.strip()
+            if not line or line[0] == "#":
                 continue
             caplist = parseCap(line)
 
             for (cap,data) in caplist:
                 caps.data[cap] = data
 
-#    print caps.data
+#    print(caps.data)
 
 loadLocalCaps()
 

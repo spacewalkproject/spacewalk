@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # Client code for Update Agent
-# Copyright (c) 1999--2012 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Author: Adrian Likins <alikins@redhat.com
 #
@@ -49,7 +49,7 @@ def reboot(test=None, cache_only=None):
 
 
 def main():
-    print reboot(test=1)
+    print(reboot(test=1))
 
 if __name__ == "__main__":
     main()

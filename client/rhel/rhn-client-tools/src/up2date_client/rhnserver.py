@@ -1,7 +1,7 @@
 
 #   rhn-client-tools
 #
-# Copyright (c) 2006--2015 Red Hat, Inc.
+# Copyright (c) 2006--2016 Red Hat, Inc.
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -31,13 +31,17 @@
 # files in the program, then also delete it here.
 
 
-import rpcServer
-import up2dateErrors
-import capabilities
+from rhn.tb import raise_with_tb
+from up2date_client import rpcServer
+from up2date_client import up2dateErrors
+from up2date_client import capabilities
 import sys
-import xmlrpclib
 import OpenSSL
 
+try: # python2
+    import xmlrpclib
+except ImportError: # python3
+    import xmlrpc.client as xmlrpclib
 
 class _DoCallWrapper(object):
 
@@ -62,7 +66,7 @@ class _DoCallWrapper(object):
         try:
             return rpcServer.doCall(method, *args, **kwargs)
         except xmlrpclib.Fault:
-            raise (self.__exception_from_fault(sys.exc_info()[1]), None, sys.exc_info()[2])
+            raise_with_tb(self.__exception_from_fault(sys.exc_info()[1]))
         except OpenSSL.SSL.Error:
             # TODO This should probably be moved to rhnlib and raise an
             # exception that subclasses OpenSSL.SSL.Error
@@ -77,9 +81,9 @@ class _DoCallWrapper(object):
                 message = pieces[1]
             message = message.strip(" '")
             if message == 'certificate verify failed':
-                raise (up2dateErrors.SSLCertificateVerifyFailedError(), None, sys.exc_info()[2])
+                raise_with_tb(up2dateErrors.SSLCertificateVerifyFailedError())
             else:
-                raise (up2dateErrors.NetworkError(message), None, sys.exc_info()[2])
+                raise_with_tb(up2dateErrors.NetworkError(message))
 
     def __exception_from_fault(self, fault):
             if fault.faultCode == -3:

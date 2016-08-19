@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -282,11 +282,6 @@ public class DownloadFile extends DownloadAction {
             tree = KickstartFactory.lookupKickstartTreeByLabel(label);
         }
 
-        if (tree != null && ChannelFactory.lookupByLabel(label) != null &&
-                tree.getChannel().getLabel() != label) {
-            map.put(CHILD, label);
-        }
-
         if (map.containsKey("child") &&
                       !Config.get().getBoolean("ks_restrict_child_channels")) {
             Channel child = ChannelFactory.lookupByLabel(map.get("child"));
@@ -393,8 +388,8 @@ public class DownloadFile extends DownloadAction {
             else {
                 data = KickstartManager.getInstance().renderKickstart(url);
             }
-            setTextContentInfo(response, data.length());
-            return getStreamForText(data.getBytes());
+            setContentInfo(response, data.length(), CONTENT_TYPE_TEXT_PLAIN);
+            return getStream(data.getBytes(), CONTENT_TYPE_TEXT_PLAIN);
         }
         else if (type.equals(DownloadManager.DOWNLOAD_TYPE_COBBLER_API)) {
             // read data from POST body
@@ -433,8 +428,8 @@ public class DownloadFile extends DownloadAction {
                     helper.getForwardedHost());
             }
 
-            setXmlContentInfo(response, output.length());
-            return getStreamForXml(output.getBytes());
+            setContentInfo(response, output.length(), CONTENT_TYPE_TEXT_XML);
+            return getStream(output.getBytes(), CONTENT_TYPE_TEXT_XML);
         }
         else {
             Long fileId = (Long) params.get(FILEID);
@@ -442,19 +437,20 @@ public class DownloadFile extends DownloadAction {
             User user = UserFactory.lookupById(userid);
             if (type.equals(DownloadManager.DOWNLOAD_TYPE_PACKAGE)) {
                 Package pack = PackageFactory.lookupByIdAndOrg(fileId, user.getOrg());
-                setBinaryContentInfo(response, pack.getPackageSize().intValue());
+                setContentInfo(response, pack.getPackageSize(), CONTENT_TYPE_OCTET_STREAM);
                 path = Config.get().getString(ConfigDefaults.MOUNT_POINT) +
                     "/" + pack.getPath();
-                return getStreamForBinary(path);
+                return getStreamForPath(path, CONTENT_TYPE_OCTET_STREAM);
             }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_SOURCE)) {
                 Package pack = PackageFactory.lookupByIdAndOrg(fileId, user.getOrg());
                 List<PackageSource> src = PackageFactory.lookupPackageSources(pack);
                 if (!src.isEmpty()) {
-                    setBinaryContentInfo(response, src.get(0).getPackageSize().intValue());
+                    setContentInfo(response, src.get(0).getPackageSize(),
+                            CONTENT_TYPE_OCTET_STREAM);
                     path = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" +
                         src.get(0).getPath();
-                    return getStreamForBinary(path);
+                    return getStreamForPath(path, CONTENT_TYPE_OCTET_STREAM);
                 }
             }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_REPO_LOG)) {
@@ -483,17 +479,18 @@ public class DownloadFile extends DownloadAction {
                     }
                 }
 
-                setTextContentInfo(response, output.length());
-                return getStreamForText(output.toString().getBytes());
+                setContentInfo(response, output.length(), CONTENT_TYPE_TEXT_PLAIN);
+                return getStream(output.toString().getBytes(), CONTENT_TYPE_TEXT_PLAIN);
             }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_CRASHFILE)) {
                 CrashFile crashFile = CrashManager.lookupCrashFileByUserAndId(user,
                                       fileId);
                 String crashPath = crashFile.getCrash().getStoragePath();
-                setBinaryContentInfo(response, (int) crashFile.getFilesize());
+                setContentInfo(response, crashFile.getFilesize(),
+                        CONTENT_TYPE_OCTET_STREAM);
                 path = Config.get().getString(ConfigDefaults.MOUNT_POINT) +
                     "/" + crashPath + "/" + crashFile.getFilename();
-                return getStreamForBinary(path);
+                return getStreamForPath(path, CONTENT_TYPE_OCTET_STREAM);
 
             }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_SCRIPTRAWOUTPUT)) {
@@ -512,7 +509,7 @@ public class DownloadFile extends DownloadAction {
                         results += r.getOutputContents();
                     }
                 }
-                return getStreamForText(results.getBytes());
+                return getStream(results.getBytes(), CONTENT_TYPE_TEXT_PLAIN);
             }
         }
 
@@ -608,7 +605,7 @@ public class DownloadFile extends DownloadAction {
                 log.debug("Directory hit.  just return 200");
                 response.setContentLength(0);
                 response.setStatus(HttpServletResponse.SC_OK);
-                return getStreamForText("".getBytes());
+                return getStream("".getBytes(), CONTENT_TYPE_TEXT_PLAIN);
             }
             else if (actualFile.exists()) {
                 log.debug("Looks like it is an actual file and it exists.");
@@ -619,12 +616,12 @@ public class DownloadFile extends DownloadAction {
             else {
                 log.error(diskPath + " Not Found .. 404!");
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
-                return getStreamForText("".getBytes());
+                return getStream("".getBytes(), CONTENT_TYPE_TEXT_PLAIN);
             }
 
         }
         if (log.isDebugEnabled()) {
-            log.debug("Final path before returning getStreamForBinary(): " + diskPath);
+            log.debug("Final path before returning getStreamForPath(): " + diskPath);
         }
         if (log.isDebugEnabled()) {
             Enumeration e = request.getHeaderNames();
@@ -658,54 +655,34 @@ public class DownloadFile extends DownloadAction {
             log.debug("Saving session.");
             KickstartFactory.saveKickstartSession(ksession);
         }
-        log.debug("returning getStreamForBinary");
+        log.debug("returning getStreamForPath");
 
         File actualFile = new File(diskPath);
         Date mtime = new Date(actualFile.lastModified());
         SimpleDateFormat formatter = new SimpleDateFormat(
                 "EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US);
         formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-        setBinaryContentInfo(response, (int) actualFile.length());
+        setContentInfo(response, actualFile.length(), CONTENT_TYPE_OCTET_STREAM);
         response.addHeader("last-modified", formatter.format(mtime));
         log.debug("added last-modified and content-length values");
-        return getStreamForBinary(diskPath);
+        return getStreamForPath(diskPath, CONTENT_TYPE_OCTET_STREAM);
     }
 
-    private void setBinaryContentInfo(HttpServletResponse responseIn,
-            int lengthIn) {
-        // make sure content type is set first!!!
-        // otherwise content length gets ignored
-        responseIn.setContentType(CONTENT_TYPE_OCTET_STREAM);
-        responseIn.setContentLength(lengthIn);
+    private void setContentInfo(HttpServletResponse responseIn, long lengthIn,
+            String type) {
+        responseIn.setContentType(type);
+        // do not use setContentLength(), because of it receives only integer value
+        responseIn.setHeader("Content-Length", String.valueOf(lengthIn));
     }
 
-    private void setTextContentInfo(HttpServletResponse responseIn, int lengthIn) {
-        // make sure content type is set first!!!
-        // otherwise content length gets ignored
-        responseIn.setContentType(CONTENT_TYPE_TEXT_PLAIN);
-        responseIn.setContentLength(lengthIn);
-    }
-
-    private void setXmlContentInfo(HttpServletResponse responseIn, int lengthIn) {
-        // make sure content type is set first!!!
-        // otherwise content length gets ignored
-        responseIn.setContentType(CONTENT_TYPE_TEXT_XML);
-        responseIn.setContentLength(lengthIn);
-    }
-
-    private StreamInfo getStreamForText(byte[] text) {
-        ByteArrayStreamInfo stream = new ByteArrayStreamInfo("text/plain", text);
+    private StreamInfo getStream(byte[] text, String type) {
+        ByteArrayStreamInfo stream = new ByteArrayStreamInfo(type, text);
         return stream;
     }
 
-    private StreamInfo getStreamForXml(byte[] text) {
-        ByteArrayStreamInfo stream = new ByteArrayStreamInfo(CONTENT_TYPE_TEXT_XML, text);
-        return stream;
-    }
-
-    private StreamInfo getStreamForBinary(String path) {
+    private StreamInfo getStreamForPath(String path, String type) {
         File file = new File(path);
-        FileStreamInfo stream = new FileStreamInfo(CONTENT_TYPE_OCTET_STREAM, file);
+        FileStreamInfo stream = new FileStreamInfo(type, file);
         return stream;
     }
 
@@ -739,7 +716,7 @@ public class DownloadFile extends DownloadAction {
             if (!f.exists()) {
                 log.error("manualServeChecksum :: File not found: " + diskPath);
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
-                return getStreamForText(new byte[0]);
+                return getStream(new byte[0], CONTENT_TYPE_TEXT_PLAIN);
             }
             checksum = MD5Sum.getFileMD5Sum(f);
             response.setHeader("Content-Length", String.valueOf(f.length()));
@@ -747,7 +724,7 @@ public class DownloadFile extends DownloadAction {
         // Create some headers.
         response.addHeader("X-RHN-Checksum", checksum);
         response.setStatus(HttpServletResponse.SC_OK);
-        return getStreamForText("".getBytes());
+        return getStream("".getBytes(), CONTENT_TYPE_TEXT_PLAIN);
     }
 
     // Ported from perl - needed for yum's requests for byte ranges
@@ -790,9 +767,9 @@ public class DownloadFile extends DownloadAction {
         }
 
         if (size <= 0) {
-            return getStreamForBinary(diskPath);
+            return getStreamForPath(diskPath, CONTENT_TYPE_OCTET_STREAM);
         }
-        setBinaryContentInfo(response, (int) size);
+        setContentInfo(response, size, CONTENT_TYPE_OCTET_STREAM);
         response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);
         Date mtime = new Date(actualFile.lastModified());
         // "EEE, dd MMM yyyy HH:mm:ss zzz";
@@ -811,6 +788,13 @@ public class DownloadFile extends DownloadAction {
                     "-" + end + "/" + totalSize);
             log.debug("Added header Accept-Ranges: bytes");
         }
+        // TODO: it's a bad idea to read file from filesystem into memory.
+        // We have to implement copying from InputStream to OutputStream by chunks in this
+        // class instead of using parent execute() (and copy()).
+        // New copy() method will take into account Content-Range header in response
+        // and copy only these bytes. Uncomment after fixing following line:
+        // return getStreamForPath(diskPath, CONTENT_TYPE_OCTET_STREAM);
+
         // gotta make sure it is end + 1
         byte[] chunk = FileUtils.readByteArrayFromFile(actualFile, start, end + 1);
         if (log.isDebugEnabled()) {

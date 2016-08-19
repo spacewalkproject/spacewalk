@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,7 +14,7 @@
 #
 
 import time
-from types import StringType
+from spacewalk.common.usix import StringType
 
 from spacewalk.common import rhnLib
 from spacewalk.common.rhnLog import log_debug
@@ -68,7 +68,7 @@ class BaseDumper:
 
     def dump(self):
         if not hasattr(self, "tag_name"):
-            raise Exception, "Programmer error: subclass did not set tag_name"
+            raise Exception("Programmer error: subclass did not set tag_name")
         tag_name = getattr(self, "tag_name")
         self._attributes = self.set_attributes() or {}
         self._iterator = self.timer(5, "set_iterator", self.set_iterator)
@@ -423,7 +423,6 @@ class _ChannelDumper(BaseRowDumper):
           from rhnChannelPackage rcp, rhnPackage rp
             left join rhnErrataPackage rep on rp.id = rep.package_id
             left join rhnErrata re on rep.errata_id = re.id
-          rhnErrataPackage rep, rhnErrata re
          where rcp.channel_id = :channel_id
            and rcp.package_id = rp.id
            and ((re.modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
@@ -441,8 +440,6 @@ class _ChannelDumper(BaseRowDumper):
             left join rhnErrata re on rep.errata_id = re.id
          where rcp.channel_id = :channel_id
            and rcp.package_id = rp.id
-           and rp.id = rep.package_id
-           and rep.errata_id = re.id
            and ((re.last_modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
                and re.last_modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
             ) or (rep.package_id is NULL
@@ -603,7 +600,7 @@ class ChannelsDumper(BaseSubelementDumper):
             # Nothing to do
             return
 
-        raise NotImplementedError, "To be overridden in a child class"
+        raise NotImplementedError("To be overridden in a child class")
 
 
 class ChannelDumper(_ChannelDumper):
@@ -774,7 +771,7 @@ class _ChannelFamilyDumper(BaseRowDumper):
         if self._row['label'] != 'rh-public':
             if self._null_max_members:
                 attributes['max-members'] = 0
-            elif self._row.has_key('max_members') and self._row['max_members']:
+            elif ('max_members' in self._row) and self._row['max_members']:
                 attributes['max-members'] = self._row['max_members']
         return attributes
 
@@ -1127,7 +1124,7 @@ class ErrataDumper(BaseSubelementDumper):
     def set_iterator(self):
         if self._iterator:
             return self._iterator
-        raise NotImplementedError, "To be overridden in a child class"
+        raise NotImplementedError("To be overridden in a child class")
 
 
 class _ErratumKeywordDumper(BaseDumper):

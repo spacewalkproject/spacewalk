@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2013 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -59,7 +59,7 @@ public class VirtualSystemOverviewSerializer extends RhnXmlRpcCustomSerializer {
         VirtualSystemOverview system = (VirtualSystemOverview) value;
         SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("uuid", system.getUuid());
-        helper.add("id", system.getSystemId());
+        helper.add("id", system.getVirtualSystemId());
         helper.add("guest_name", system.getName());
         helper.add("name", system.getServerName());
         helper.add("last_checkin", system.getLastCheckinDate());

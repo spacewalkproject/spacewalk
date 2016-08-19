@@ -77,8 +77,8 @@
                         </button>
                         </div>
                     </div>
-                    <input type="hidden" name="sid" value="${system.id}" />
-                    <input type="hidden" name="submitted" value="true" />
+                    <rhn:hidden name="sid" value="${system.id}" />
+                    <rhn:hidden name="submitted" value="true" />
                 </form>
                 </c:when>
                 <c:otherwise>

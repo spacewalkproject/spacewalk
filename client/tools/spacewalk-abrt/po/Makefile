@@ -12,14 +12,14 @@ INSTALL_DIR     = $(INSTALL) -m 755 -d
 
 MSGMERGE	= msgmerge -v
 XGETTEXT	= xgettext --default-domain=$(NLSPACKAGE) --from-code utf-8 \
-		  --add-comments
+		  --add-comments --language=Python
 MSGFMT		= msgfmt --statistics --verbose
 
 POFILES		= $(wildcard *.po)
 MOFILES		= $(patsubst %.po,%.mo,$(POFILES))
 SRCFILES = \
         $(wildcard ../src/spacewalk_abrt/*.py) \
-        $(wildcard ../src/bin/*) \
+        ../src/bin/spacewalk-abrt \
         $(wildcard ../src/actions/*.py)
 
 all:: $(MOFILES)

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -28,11 +28,11 @@ class TestObj1:
 
     @staticmethod
     def _private_function():
-        print "This is privatei to TestObj1 instances"
+        print("This is privatei to TestObj1 instances")
 
     @staticmethod
     def public_function():
-        print "This is public and belongs to TestObj1"
+        print("This is public and belongs to TestObj1")
 
 
 class TestObj2:
@@ -47,11 +47,11 @@ class TestObj2:
 
     @staticmethod
     def _private_function():
-        print "This is private to TestObj2 instances"
+        print("This is private to TestObj2 instances")
 
     @staticmethod
     def public_function():
-        print "This is public and belongs to TestObj2"
+        print("This is public and belongs to TestObj2")
 
 
 class UtilsTestCase(unittest.TestCase):

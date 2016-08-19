@@ -2,7 +2,7 @@
 #
 # Spacewalk / Red Hat Network Classic registration tool
 # Adapted from wrapper.py
-# Copyright (c) 1999--2012 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Authors:
 #       Adrian Likins <alikins@redhat.com>
@@ -15,6 +15,9 @@ import os
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
+# Python 3 translations don't have a ugettext method
+if not hasattr(t, 'ugettext'):
+    t.ugettext = t.gettext
 _ = t.ugettext
 
 sys.path.append("/usr/share/rhn/")

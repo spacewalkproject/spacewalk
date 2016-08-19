@@ -1,7 +1,7 @@
 #
 # Decoding data from XML streams
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,17 +16,17 @@
 #
 
 import sys
-import types
+import re
 from xml.sax import make_parser, SAXParseException, ContentHandler, \
     ErrorHandler
 
+from spacewalk.common import usix
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnTB import Traceback
 from spacewalk.server.importlib import importLib, backendLib
 
-import re
 RHEL234_REGEX = re.compile("rhel-[^-]*-[aew]s-(4|3|2.1)")
 
 # Terminology used throughout this file:
@@ -170,7 +170,8 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
                 self.__container.batch = []
             except (KeyboardInterrupt, SystemExit):
                 raise
-            except Exception, e:
+            except Exception:
+                e = sys.exc_info()[1]
                 log_debug(-1, 'ERROR (odd) upon container.batch=[] cleanup: %s' % e)
                 raise
 
@@ -289,8 +290,8 @@ class SatelliteDispatchHandler(BaseDispatchHandler):
         rhnFlags.set("stream-generation", generation)
         if not version:
             version = "0"
-        stream_version = map(int, version.split('.'))
-        allowed_version = map(int, self.version.split("."))
+        stream_version = list(map(int, version.split('.')))
+        allowed_version = list(map(int, self.version.split(".")))
         if (stream_version[0] != allowed_version[0] or
                 stream_version[1] < allowed_version[1]):
             raise IncompatibleVersionError(version, self.version,
@@ -332,7 +333,7 @@ class BaseItem:
 
     def populateFromElements(self, obj, elements):
         # Populates obj with `elements' as subelements
-        keys = obj.keys()
+        keys = list(obj.keys())
         keys_len = len(keys)
         for element in elements:
             if _is_string(element):
@@ -358,18 +359,18 @@ class BaseItem:
 
 
 def _is_string(obj):
-    if isinstance(obj, types.StringType):
+    if isinstance(obj, usix.StringType):
         return 1
-    if isinstance(obj, types.UnicodeType):
+    if isinstance(obj, usix.UnicodeType):
         return 1
     return 0
 
 
 def _stringify(data):
     # Accelerate the most common cases
-    if isinstance(data, types.StringType):
+    if isinstance(data, usix.StringType):
         return data
-    elif isinstance(data, types.UnicodeType):
+    elif isinstance(data, usix.UnicodeType):
         return data.encode('UTF8')
     return str(data)
 
@@ -378,9 +379,9 @@ def _dict_to_utf8(d):
     # Convert the dictionary to have non-unocide key-value pairs
     ret = {}
     for k, v in d.items():
-        if isinstance(k, types.UnicodeType):
+        if isinstance(k, usix.UnicodeType):
             k = k.encode('UTF8')
-        if isinstance(v, types.UnicodeType):
+        if isinstance(v, usix.UnicodeType):
             v = v.encode('UTF8')
         ret[k] = v
     return ret
@@ -1022,7 +1023,7 @@ def _normalizeSubelements(objtype, subelements):
 
     if not subelements:
         # No subelements available
-        if isinstance(objtype, types.ListType):
+        if isinstance(objtype, usix.ListType):
             # Expect a list of things - return the empty list
             return []
         # Expected a scalar type
@@ -1047,7 +1048,7 @@ def _normalizeSubelements(objtype, subelements):
         # Ignore whitespaces around elements
         subelements = _s
 
-    if not isinstance(objtype, types.ListType):
+    if not isinstance(objtype, usix.ListType):
         if len(subelements) > 1:
             raise Exception("Expected a scalar, got back a list")
         subelement = subelements[0]
@@ -1057,10 +1058,10 @@ def _normalizeSubelements(objtype, subelements):
                 return None
             raise Exception("Expected a scalar, got back an element '%s'" % subelement.name)
 
-        if objtype is types.StringType:
+        if objtype is usix.StringType:
             return _stringify(subelement)
 
-        if objtype is types.IntType:
+        if objtype is usix.IntType:
             if subelement == '':
                 # Treat it as NULL
                 return None
@@ -1073,16 +1074,16 @@ def _normalizeSubelements(objtype, subelements):
 
     # Expecting a list of things
     expectedType = objtype[0]
-    if expectedType is types.StringType:
+    if expectedType is usix.StringType:
         # List of strings
-        return map(_stringify, subelements)
+        return list(map(_stringify, subelements))
 
-    if expectedType is types.IntType:
+    if expectedType is usix.IntType:
         # list of ints
-        return map(int, subelements)
+        return list(map(int, subelements))
 
     if expectedType is importLib.DateType:
-        return map(_normalizeDateType, subelements)
+        return list(map(_normalizeDateType, subelements))
 
     # A subelement
     result = []
@@ -1101,10 +1102,10 @@ def _normalizeSubelements(objtype, subelements):
 
 def _normalizeAttribute(objtype, attribute):
     # Deal with simple cases first
-    if (objtype is None) or (objtype is types.StringType):
+    if (objtype is None) or (objtype is usix.StringType):
         # (Don't know how to handle it) or (Expecting a scalar)
         return attribute
-    elif objtype is types.IntType:
+    elif objtype is usix.IntType:
         if attribute == '' or attribute == 'None':
             # Treat it as NULL
             return None
@@ -1112,7 +1113,7 @@ def _normalizeAttribute(objtype, attribute):
             return int(attribute)
     elif objtype is importLib.DateType:
         return _normalizeDateType(attribute)
-    elif isinstance(objtype, types.ListType):
+    elif isinstance(objtype, usix.ListType):
         # List type - split stuff
         return attribute.split()
     else:

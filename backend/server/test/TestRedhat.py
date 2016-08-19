@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -31,7 +31,12 @@
 # Modify the values in data to reflect your set up.
 import TestServer
 import server.redhat_xmlrpc
-import SimpleXMLRPCServer
+try:
+    #  python 2
+    import SimpleXMLRPCServer
+except ImportError:
+    #  python3
+    import xmlrpc.server as SimpleXMLRPCServer
 from spacewalk.common import rhnConfig
 
 
@@ -97,6 +102,6 @@ if __name__ == "__main__":
 #    print rpc_downloads.add_downloadable_files(info)
     server = SimpleXMLRPCServer.SimpleXMLRPCServer(addr=('', 8000))
     for func in rpc_downloads.functions:
-        print func
+        print(func)
         server.register_function(getattr(rpc_downloads, func), name="downloads.%s" % (func))
     server.serve_forever()

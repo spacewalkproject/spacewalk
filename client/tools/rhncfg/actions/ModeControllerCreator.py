@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,7 +14,6 @@
 #
 
 import sys
-import string
 import ModeController
 import Modes
 
@@ -45,7 +44,7 @@ class ModeControllerCreator:
         return controller
 
 def get_controller_creator():
-    if string.find(sys.platform, 'sunos') > -1:
+    if sys.platform.find('sunos') > -1:
         mode_list = [Modes.SolarisDeployMode(), Modes.SolarisDiffMode(), Modes.SolarisUploadMode(), Modes.SolarisMTimeUploadMode(), Modes.SolarisAllMode()]
     else:
         mode_list = [Modes.DeployMode(), Modes.DiffMode(), Modes.UploadMode(), Modes.MTimeUploadMode(), Modes.AllMode()]
@@ -55,7 +54,7 @@ def get_controller_creator():
     return controller
 
 def get_run_controller_creator():
-    if string.find(sys.platform, 'sunos') > -1:
+    if sys.platform.find('sunos') > -1:
         mode_list = [Modes.SolarisRunMode(), Modes.SolarisRunAllMode()]
     else:
         mode_list = [Modes.RunMode(), Modes.RunAllMode()]

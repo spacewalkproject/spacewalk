@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,8 +20,9 @@
 import string
 import sys
 import time
-from types import DictType
+from spacewalk.common.usix import DictType
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhn_rpm
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnException import rhnFault
@@ -45,7 +46,7 @@ class dbPackage:
                  package_arch_id=None):
         if type(pdict) != DictType:
             return None
-        if not pdict.has_key('arch') or pdict['arch'] is None:
+        if ('arch' not in pdict) or (pdict['arch'] is None):
             pdict['arch'] = ""
         if string.lower(str(pdict['epoch'])) == "(none)" or pdict['epoch'] == "" or pdict['epoch'] is None:
             pdict['epoch'] = None
@@ -59,7 +60,7 @@ class dbPackage:
         self.r = str(pdict['release'])
         self.e = pdict['epoch']
         self.a = str(pdict['arch'])
-        if pdict.has_key('installtime'):
+        if 'installtime' in pdict:
             self.installtime = pdict['installtime']
         else:
             self.installtime = None
@@ -126,7 +127,7 @@ class Packages:
             return -1
         if not self.__loaded:
             self.reload_packages_byid(sysid)
-        if self.__p.has_key(p.nvrea):
+        if p.nvrea in self.__p:
             if self.__p[p.nvrea].installtime != p.installtime:
                 self.__p[p.nvrea].installtime = p.installtime
                 self.__p[p.nvrea].status = UPDATED
@@ -147,7 +148,7 @@ class Packages:
             return -1
         if not self.__loaded:
             self.reload_packages_byid(sysid)
-        if self.__p.has_key(p.nvrea):
+        if p.nvrea in self.__p:
             log_debug(4, "  Package deleted")
             self.__p[p.nvrea].delete()
             self.__changed = 1
@@ -159,14 +160,14 @@ class Packages:
         log_debug(4, sysid)
         if not self.__loaded:
             self.reload_packages_byid(sysid)
-        for k in self.__p.keys():
+        for k in list(self.__p.keys()):
             self.__p[k].delete()
             self.__changed = 1
         return 0
 
     def get_packages(self):
         """ produce a list of packages """
-        return map(lambda a: a.nvrea, filter(lambda a: a.status != DELETED, self.__p.values()))
+        return [a.nvrea for a in [a for a in list(self.__p.values()) if a.status != DELETED]]
 
     def __expand_installtime(self, installtime):
         """ Simulating the ternary operator, one liner is ugly """
@@ -186,7 +187,7 @@ class Packages:
         commits = 0
 
         # get rid of the deleted packages
-        dlist = filter(lambda a: a.real and a.status in (DELETED, UPDATED), self.__p.values())
+        dlist = [a for a in list(self.__p.values()) if a.real and a.status in (DELETED, UPDATED)]
         if dlist:
             log_debug(4, sysid, len(dlist), "deleted packages")
             h = rhnSQL.prepare("""
@@ -199,15 +200,15 @@ class Packages:
             """)
             h.execute_bulk({
                 'sysid': [sysid] * len(dlist),
-                'name_id': map(lambda a: a.name_id, dlist),
-                'evr_id': map(lambda a: a.evr_id, dlist),
-                'package_arch_id': map(lambda a: a.package_arch_id, dlist),
+                'name_id': [a.name_id for a in dlist],
+                'evr_id': [a.evr_id for a in dlist],
+                'package_arch_id': [a.package_arch_id for a in dlist],
             })
             commits = commits + len(dlist)
             del dlist
 
         # And now add packages
-        alist = filter(lambda a: a.status in (ADDED, UPDATED), self.__p.values())
+        alist = [a for a in list(self.__p.values()) if a.status in (ADDED, UPDATED)]
         if alist:
             log_debug(4, sysid, len(alist), "added packages")
             h = rhnSQL.prepare("""
@@ -226,22 +227,22 @@ class Packages:
                     return a.e
             package_data = {
                 'sysid': [sysid] * len(alist),
-                'n': map(lambda a: a.n, alist),
-                'v': map(lambda a: a.v, alist),
-                'r': map(lambda a: a.r, alist),
-                'e': map(lambdaae, alist),
-                'a': map(lambda a: a.a, alist),
-                'instime': map(lambda a: self.__expand_installtime(a.installtime),
-                               alist),
+                'n': [a.n for a in alist],
+                'v': [a.v for a in alist],
+                'r': [a.r for a in alist],
+                'e': list(map(lambdaae, alist)),
+                'a': [a.a for a in alist],
+                'instime': [self.__expand_installtime(a.installtime) for a in alist],
             }
             try:
                 h.execute_bulk(package_data)
                 rhnSQL.commit()
-            except rhnSQL.SQLSchemaError, e:
+            except rhnSQL.SQLSchemaError:
+                e = sys.exc_info()[1]
                 # LOOKUP_PACKAGE_ARCH failed
                 if e.errno == 20243:
                     log_debug(2, "Unknown package arch found", e)
-                    raise rhnFault(45, "Unknown package arch found"), None, sys.exc_info()[2]
+                    raise_with_tb(rhnFault(45, "Unknown package arch found"), sys.exc_info()[2])
 
             commits = commits + len(alist)
             del alist
@@ -252,7 +253,7 @@ class Packages:
 
         # if provisioning box, and there was an actual delta, snapshot
         ents = check_entitlement(sysid)
-        if commits and ents.has_key("enterprise_entitled"):
+        if commits and "enterprise_entitled" in ents:
             snapshot_server(sysid, "Package profile changed")
 
         # Our new state does not reflect what's on the database anymore
@@ -310,7 +311,7 @@ class Packages:
             if not t:
                 break
             t['arch'] = package_arches_hash[t['package_arch_id']]
-            if t.has_key('installtime') and t['installtime'] is not None:
+            if 'installtime' in t and t['installtime'] is not None:
                 t['installtime'] = time.mktime(time.strptime(t['installtime'],
                                                              "%Y-%m-%d %H:%M:%S"))
             p = dbPackage(t, real=1, name_id=t['name_id'], evr_id=t['evr_id'],
@@ -424,27 +425,27 @@ def package_delta(list1, list2):
 
     installs = []
     removes = []
-    for pn, ph1 in hash1.items():
-        if not hash2.has_key(pn):
-            removes.extend(ph1.keys())
+    for pn, ph1 in list(hash1.items()):
+        if pn not in hash2:
+            removes.extend(list(ph1.keys()))
             continue
 
         ph2 = hash2[pn]
         del hash2[pn]
 
         # Now, compute the differences between ph1 and ph2
-        for p in ph1.keys():
-            if not ph2.has_key(p):
+        for p in list(ph1.keys()):
+            if p not in ph2:
                 # We have to remove it
                 removes.append(p)
             else:
                 del ph2[p]
         # Everything else left in ph2 has to be installed
-        installs.extend(ph2.keys())
+        installs.extend(list(ph2.keys()))
 
     # Whatever else is left in hash2 should be installed
-    for ph2 in hash2.values():
-        installs.extend(ph2.keys())
+    for ph2 in list(hash2.values()):
+        installs.extend(list(ph2.keys()))
 
     installs.sort()
     removes.sort()
@@ -464,14 +465,14 @@ def _package_list_to_hash(package_list, package_registry):
     for e in package_list:
         e = tuple(e)
         pn = e[0]
-        if not package_registry.has_key(pn):
+        if pn not in package_registry:
             # Definitely new equivalence class
             _add_to_hash(package_registry, pn, e)
             _add_to_hash(hash, pn, e)
             continue
 
         # Look for a match for this package name in the registry
-        plist = package_registry[pn].keys()
+        plist = list(package_registry[pn].keys())
         for p in plist:
             if rhn_rpm.nvre_compare(p, e) == 0:
                 # Packages are identical
@@ -488,7 +489,7 @@ def _package_list_to_hash(package_list, package_registry):
 
 
 def _add_to_hash(hash, key, value):
-    if not hash.has_key(key):
+    if key not in hash:
         hash[key] = {value: None}
     else:
         hash[key][value] = None

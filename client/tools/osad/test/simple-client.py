@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -40,7 +40,7 @@ class SimpleClientRunner(test_lib.SimpleRunner):
         self.dispatcher = self.options.dispatcher
         self._should_exit = self.options.exit
         if not self.dispatcher:
-            print "Missing dispatcher"
+            print("Missing dispatcher")
             sys.exit(0)
 
     def fix_connection(self, client):
@@ -64,7 +64,7 @@ class SimpleClientRunner(test_lib.SimpleRunner):
         # Wait for a presence subscription request
         djid = str(jabber_lib.strip_resource(self.dispatcher))
 
-        if client._roster.get_subscribed_both().has_key(djid):
+        if djid in client._roster.get_subscribed_both():
             client.disconnect()
             sys.exit(0)
 

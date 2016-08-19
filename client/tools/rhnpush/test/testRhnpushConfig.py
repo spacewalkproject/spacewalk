@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -39,8 +39,8 @@ class RhnConfigTestCase(unittest.TestCase):
         assert a != None and b != None and a == '0' and b == '0'
 
     def testKeys(self):
-        a = self.userconfig.keys()
-        b = self.defaultconfig.keys()
+        a = list(self.userconfig.keys())
+        b = list(self.defaultconfig.keys())
         assert a != None and b != None
 
     def test_keys(self):

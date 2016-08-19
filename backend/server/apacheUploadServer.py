@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,6 +15,7 @@
 #
 
 import string
+import sys
 from spacewalk.common import apache
 
 import rhnSession
@@ -39,7 +40,7 @@ class UploadHandler:
         options = req.get_options()
         # if we are initializing out of a <Location> handler don't
         # freak out
-        if not options.has_key("RHNComponentType"):
+        if "RHNComponentType" not in options:
             # clearly nothing to do
             return apache.OK
         initCFG(options["RHNComponentType"])
@@ -49,11 +50,11 @@ class UploadHandler:
             return apache.OK
         self.servers = rhnImport.load("upload_server/handlers",
                                       interface_signature='upload_class')
-        if not options.has_key('SERVER'):
+        if 'SERVER' not in options:
             log_error("SERVER not set in the apache config files!")
             return apache.HTTP_INTERNAL_SERVER_ERROR
         server_name = options['SERVER']
-        if not self.servers.has_key(server_name):
+        if server_name not in self.servers:
             log_error("Unable to load server %s from available servers %s" %
                       (server_name, self.servers))
             return apache.HTTP_INTERNAL_SERVER_ERROR
@@ -100,7 +101,8 @@ class UploadHandler:
         try:
             log_debug(5, "Calling", function)
             ret = function(req)
-        except rhnFault, e:
+        except rhnFault:
+            e = sys.exc_info()[1]
             log_debug(4, "rhnFault caught: %s" % (e, ))
             error_string = self._exception_to_text(e)
             error_code = e.code
@@ -111,7 +113,8 @@ class UploadHandler:
             req.status = ret
             log_debug(4, "_wrapper %s exited with apache code %s" %
                       (function_name, ret))
-        except rhnSession.ExpiredSessionError, e:
+        except rhnSession.ExpiredSessionError:
+            e = sys.exc_info()[1]
             # if session expires we catch here and return a forbidden
             # abd make it re-authenticate
             log_debug(4, "Expire Session Error Caught: %s" % (e, ))

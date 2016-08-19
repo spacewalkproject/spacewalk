@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.5.3
+Version:	2.6.6
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,56 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Aug 18 2016 Grant Gainey 2.6.6-1
+- 1366343 - correct typo in name of errata-clone.log file
+
+* Wed Aug 17 2016 Grant Gainey 2.6.5-1
+- 1367911 - fix recursion by removing *all* copies of a 'visited' rpm when
+  doing dep-checking
+
+* Fri Aug 12 2016 Grant Gainey 2.6.4-1
+- 1366343 - clean up style warnings
+
+* Thu Aug 11 2016 Grant Gainey 2.6.3-1
+- 1366343 - Clean up logging, add CLI output summary, clean up manpage
+
+* Mon Jul 18 2016 Tomas Lestach <tlestach@redhat.com> 2.6.2-1
+- fix typo in spacwalk-clone-by-date man page
+
+* Fri May 27 2016 Jan Dobes 2.6.1-1
+- talk about spacewalk
+- adding postgresql systemd path
+- Bumping package versions for 2.6.
+
+* Thu May 26 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.11-1
+- updating spacewalk-common-channels with Spacewalk 2.5
+
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.10-1
+- updating copyright years
+
+* Wed May 04 2016 Gennadii Altukhov <galt@redhat.com> 2.5.9-1
+- Add Fedora 23 repositories into spacewalk-common-channels config
+- taskotop: a utility to monitor what Taskomatic is doing
+
+* Thu Apr 14 2016 Jiri Precechtel <jprecech@redhat.com> 2.5.8-1
+- 1103960 - removed escape of regular expressions, updated man page
+
+* Fri Apr 01 2016 Jiri Precechtel <jprecech@redhat.com> 2.5.7-1
+- 1103960 - spacewalk-clone-by-date - package names may contain special regexp
+  chars now
+
+* Mon Jan 25 2016 Grant Gainey 2.5.6-1
+- Extended allowed delimiters to include '.'
+- Add delimiter option for spacewalk-manage-channel-lifecycle
+
+* Thu Jan 21 2016 Tomas Lestach <tlestach@redhat.com> 2.5.5-1
+- add openSUSE Leap 42.1
+- remove outdated openSUSE distribution 13.1
+- Added UEK4 channels for Oracle Linux 6 and 7.
+
+* Thu Jan 14 2016 Jan Dobes 2.5.4-1
+- fixing typo in 'archs'
+
 * Wed Dec 09 2015 Jan Dobes 2.5.3-1
 - Updated Oracle yum repo URLs and added new repositories for OL6 and OL7.
 

@@ -39,7 +39,7 @@
             bound="false"
             headerkey="username.nopunc.displayname"
             sortattr="login"
-            filterattr="name"
+            filterattr="login"
             defaultsort="asc" >
 
             <a href="/rhn/users/UserDetails.do?uid=${current.id}">
@@ -50,7 +50,7 @@
          <rl:column sortable="false"
             bound="false"
             headerkey="realname.displayname" >
-            <c:out escapeXml="true" value="${current.userLastName},${current.userFirstName}" />
+            <c:out escapeXml="true" value="${current.userLastName}, ${current.userFirstName}" />
          </rl:column>
 
          <rl:column sortable="true"

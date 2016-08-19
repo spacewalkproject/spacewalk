@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -38,4 +38,4 @@ def update(serverId, actionId, dry_run=0):
         raise InvalidAction("errata.update: Unknown action id "
                             "%s for server %s" % (actionId, serverId))
 
-    return map(lambda x: x['errata_id'], ret)
+    return [x['errata_id'] for x in ret]

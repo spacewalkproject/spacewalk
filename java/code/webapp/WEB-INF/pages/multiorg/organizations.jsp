@@ -3,6 +3,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <body>
@@ -13,7 +14,7 @@
   <bean:message key="organizations.jsp.toolbar"/>
 </rhn:toolbar>
 
-<h2><bean:message key="org.trust.header" arg0="${orgName}" arg1="${orgId}"/></h2>
+<h2><bean:message key="org.trust.header" arg0="${fn:escapeXml(orgName)}" arg1="${fn:escapeXml(orgId)}"/></h2>
 
 <div>
 <rl:listset name="orgListSet">

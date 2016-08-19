@@ -32,7 +32,6 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -806,15 +805,14 @@ public class StringUtil {
     }
 
     /**
-     * Add a path onto another path (either local path or networked service).
+     * Add a path onto another path.
      * This ensures double '/'s aren't included
-     * @param originalPath The start of the path (i.e. http://localhost/, or
-     * /var/www/)
-     * @param toAdd what to add (i.e. /pub/test.file)
+     * @param originalPath The start of the path
+     * @param toAdd what to add
      * @return the full path with no duplicate '/'s
      */
     public static String addPath(String originalPath, String toAdd) {
-        return FilenameUtils.normalize(originalPath + File.separator + toAdd);
+        return new File(originalPath, toAdd).getPath();
     }
 
     /**

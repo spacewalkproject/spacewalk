@@ -7,7 +7,7 @@ from up2date_client import up2dateUtils
 import unittest
 
 TestCase = unittest.TestCase
-test_up2date = "etc-sysconfig-rhn/up2date"
+test_up2date = "../etc-conf/up2date.config"
 
 class ReturnsString(TestCase):
     def testReturnsString(self):

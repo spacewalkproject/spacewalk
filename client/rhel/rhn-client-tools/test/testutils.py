@@ -2,7 +2,6 @@
 
 import os,sys
 import getopt
-import string
 import shutil
 import glob
 
@@ -105,7 +104,7 @@ def getRpmQAList():
     cmdline = "rpm --dbpath %s -qa" % DBPATH
     fd = os.popen(cmdline)
     tmp = fd.readlines()
-    out = map(lambda a:string.strip(a), tmp)
+    out = [a.strip() for a in tmp]
 
     fd.close()
     return out
@@ -119,11 +118,11 @@ def runUp2date(cmd):
 def storeResults(results,testname, type):
     if type == "pre":
         fd = open("%s/%s.pre" % (DATAPATH,testname), "w")
-        fd.write(string.join(results,"\n"))
+        fd.write("\n".join(results))
         fd.close()
     if type == "after":
         fd = open("%s/%s.post" % (DATAPATH,testname), "w")
-        fd.write(string.join(results, "\n"))
+        fd.write("\n".join(results))
         fd.close()
 
 def saveUp2dateOut(up2dateOut,testname):
@@ -222,7 +221,7 @@ def compareResults(resultsName, afterList):
     fd = open("%s/%s" % (RESULTSPATH, resultsName), "r")
     expected = fd.readlines()
     expected.sort()
-    tmp = map(lambda a:string.strip(a), expected)
+    tmp = [a.strip() for a in expected]
     expected = tmp
     afterList.sort()
     deleted, added = difflists(afterList, expected)
@@ -264,15 +263,15 @@ def parsefile(m):
         s = s[:-1]
         if not s:
             continue
-        s = string.strip(s) # remove whitespace
+        s = s.strip() # remove whitespace
         if s[0] == '#':
             continue
-        line = string.split(s, ':')
-        testcasename = string.strip(line[0])
-        dbname = string.strip(line[1])
-        configs = string.strip(line[2])
-        results = string.strip(line[3])
-        options = string.strip(line[4])
+        line = s.split(':')
+        testcasename = line[0].strip()
+        dbname = line[1].strip()
+        configs = line[2].strip()
+        results = line[3].strip()
+        options = line[4].strip()
 
         testcase = Testcase(testcasename, dbname, configs, results, options)
         testcases.append(testcase)

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,6 +20,7 @@ import copy
 import string
 import sys
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhn_rpm
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
@@ -50,6 +51,7 @@ sequences = {
     'rhnArchType': 'rhn_archtype_id_seq',
     'rhnPackageChangeLogRec': 'rhn_pkg_cl_id_seq',
     'rhnPackageChangeLogData': 'rhn_pkg_cld_id_seq',
+    'rhnContentSource': 'rhn_chan_content_src_id_seq',
 }
 
 
@@ -235,7 +237,7 @@ class Backend:
         h.execute()
         rows = h.fetchall_dict()
         if not rows:
-            raise ValueError, "No user is created"
+            raise ValueError("No user is created")
         return rows[0]['id']
 
     def lookupOrg(self, org_name=None):
@@ -323,7 +325,7 @@ class Backend:
         ret = {}
         if rows:
             for row in rows:
-                if row['org_id'] not in ret.keys():
+                if row['org_id'] not in list(ret.keys()):
                     ret[row['org_id']] = []
                 ret[row['org_id']].append(row['org_trust_id'])
         return ret
@@ -370,13 +372,13 @@ class Backend:
         mn_to_mi = {}  # master org name to master org id map
         mi_to_li = {}  # master org id to local org id map
         for org in rows:
-            if ('master_org_id' in org.keys()
-                    and 'master_org_name' in org.keys()
+            if ('master_org_id' in list(org.keys())
+                    and 'master_org_name' in list(org.keys())
                     and org['master_org_id']
                     and org['master_org_name']):
                 mn_to_mi[org['master_org_name']] = org['master_org_id']
-            if ('master_org_id' in org.keys()
-                    and 'local_org_id' in org.keys()
+            if ('master_org_id' in list(org.keys())
+                    and 'local_org_id' in list(org.keys())
                     and org['master_org_id']
                     and org['local_org_id']):
                 mi_to_li[org['master_org_id']] = org['local_org_id']
@@ -587,7 +589,7 @@ class Backend:
         for package in packages:
             # here we need to figure out which checksum we have in the database
             not_found = None
-            for type, chksum in package['checksums'].iteritems():
+            for type, chksum in package['checksums'].items():
                 package['checksum_type'] = type
                 package['checksum'] = chksum
                 package['checksum_id'] = checksums[(type, chksum)]
@@ -595,11 +597,12 @@ class Backend:
                     self.__lookupObjectCollection([package], 'rhnPackage')
                     not_found = None
                     break
-                except InvalidPackageError, e:
+                except InvalidPackageError:
+                    e = sys.exc_info()[1]
                     not_found = (e, sys.exc_info()[2])
             if not_found and not ignore_missing:
                 # package is not in database at all
-                raise not_found[0], None, not_found[1]
+                raise_with_tb(not_found[0], not_found[1])
 
     def lookupChannelFamilies(self, hash):
         if not hash:
@@ -781,7 +784,7 @@ class Backend:
             for table_name, values_hash in op_values.items():
                 if table_name == 'rhnErrata':
                     field = 'id'
-                elif values_hash.has_key('errata_id'):
+                elif 'errata_id' in values_hash:
                     field = 'errata_id'
 
                 # Now we know in which field to look for changes
@@ -799,7 +802,7 @@ class Backend:
             h.execute(errata_id=errata_id)
 
             channel_ids = h.fetchall_dict() or []
-            channel_ids = map(lambda x: x['channel_id'], channel_ids)
+            channel_ids = [x['channel_id'] for x in channel_ids]
             for channel_id in channel_ids:
                 affected_channel_ids[channel_id] = errata_id
 
@@ -861,8 +864,8 @@ class Backend:
             insert into rhnErrataQueue (errata_id, channel_id, next_action)
             values (:errata_id, :channel_id, current_timestamp + numtodsinterval(:timeout, 'second'))
         """)
-        errata_ids = map(lambda x: x[0], errata_channel_ids)
-        channel_ids = map(lambda x: x[1], errata_channel_ids)
+        errata_ids = [x[0] for x in errata_channel_ids]
+        channel_ids = [x[1] for x in errata_channel_ids]
         timeouts = [timeout] * len(errata_ids)
         hdel.executemany(errata_id=errata_ids)
         return h.executemany(errata_id=errata_ids, channel_id=channel_ids,
@@ -964,23 +967,21 @@ class Backend:
         # Since this is not evaluated in rhn_entitlements anymore,
         # make channel families without org globally visible
 
-        cf_ids = []
+        cf_ids = [cf.id for cf in channel_families if 'private-channel-family' not in cf['label']]
 
-        for cf in channel_families:
-            if not cf['org_id']:
-                cf_ids.append(cf.id)
-
-        h_private_del = self.dbmodule.prepare("""
-            delete from rhnPublicChannelFamily
-             where channel_family_id = :channel_family_id
+        h_public_sel = self.dbmodule.prepare("""
+            select channel_family_id from rhnPublicChannelFamily
         """)
-        h_private_ins = self.dbmodule.prepare("""
+        h_public_sel.execute()
+        
+        public_cf_in_db = [x['channel_family_id'] for x in h_public_sel.fetchall_dict() or []]
+        public_cf_to_insert = [x for x in cf_ids if x not in public_cf_in_db]
+
+        h_public_ins = self.dbmodule.prepare("""
             insert into rhnPublicChannelFamily (channel_family_id)
             values (:channel_family_id)
         """)
-
-        h_private_del.executemany(channel_family_id=cf_ids)
-        h_private_ins.executemany(channel_family_id=cf_ids)
+        h_public_ins.executemany(channel_family_id=public_cf_to_insert)
 
     def processDistChannelMap(self, dcms):
         dcmTable = self.tables['rhnDistChannelMap']
@@ -1024,6 +1025,46 @@ class Backend:
         statement.execute(id=channel.id,
                           channel_product_id=channel['channel_product_id'])
 
+    def processChannelContentSources(self, channel):
+        """ Associate content sources with channel """
+
+        # Which content sources are assigned to this channel
+        select_sql = self.dbmodule.prepare("""
+            select source_id from rhnChannelContentSource
+            where channel_id = :channel_id
+        """)
+
+        select_sql.execute(channel_id=channel.id)
+        sources_in_db = [x['source_id'] for x in select_sql.fetchall_dict() or []]
+
+        # Which content sources should be assigned to this channel
+        sources_needed = []
+        if 'content-sources' in channel and channel['content-sources']:
+            for source in channel['content-sources']:
+                sources_needed.append(self.lookupContentSource(source['label']))
+
+        # What to delete and insert
+        sources_to_delete = [x for x in sources_in_db if x not in sources_needed]
+        sources_to_insert = [x for x in sources_needed if x not in sources_in_db]
+
+        delete_sql = self.dbmodule.prepare("""
+            delete from rhnChannelContentSource
+            where source_id = :source_id
+            and channel_id = :channel_id
+        """)
+
+        insert_sql = self.dbmodule.prepare("""
+           insert into rhnChannelContentSource
+           (source_id, channel_id)
+           values (:source_id, :channel_id)
+        """)
+
+        for source_id in sources_to_delete:
+            delete_sql.execute(source_id=source_id, channel_id=channel.id)
+
+        for source_id in sources_to_insert:
+            insert_sql.execute(source_id=source_id, channel_id=channel.id)
+
     def processProductNames(self, batch):
         """ Check if ProductName for channel in batch is already in DB.
             If not add it there.
@@ -1039,6 +1080,46 @@ class Backend:
             if not self.lookupProductNames(channel['label']):
                 statement.execute(product_label=channel['label'],
                                   product_name=channel['name'])
+
+    def processContentSources(self, batch):
+        """ Insert content source into DB """
+
+        childTables = []
+        self.__processObjectCollection(batch, 'rhnContentSource',
+                                       childTables, 'content_source_id', uploadForce=4, ignoreUploaded=1,
+                                       forceVerify=1)
+
+    def lookupContentSource(self, label):
+        """ Get id for given content source """
+
+        sql = self.dbmodule.prepare("""
+            select id from rhnContentSource where label = :label and org_id is null
+        """)
+
+        sql.execute(label=label)
+
+        content_source = sql.fetchone_dict()
+
+        if content_source:
+            return content_source['id']
+
+        return
+
+    def lookupContentSourceType(self, label):
+        """ Get id for given content type label """
+
+        sql = self.dbmodule.prepare("""
+            select id from rhnContentSourceType where label = :label
+        """)
+
+        sql.execute(label=label)
+
+        source_type = sql.fetchone_dict()
+
+        if source_type:
+            return source_type['id']
+
+        return
 
     def lookupProductNames(self, label):
         """ For given label of product return its id.
@@ -1146,20 +1227,20 @@ class Backend:
 
             for channelId in package['channels'].keys():
                 # Build the channel-package list
-                if channel_packages.has_key(channelId):
+                if channelId in channel_packages:
                     cp = channel_packages[channelId]
                 else:
                     channel_packages[channelId] = cp = {}
                 cp[package.id] = None
 
-                if channels.has_key(channelId):
+                if channelId in channels:
                     # Already subscribed
                     continue
                 dict = {
                     'package_id': package.id,
                     'channel_id': channelId,
                 }
-                if not affected_channels.has_key(channelId):
+                if channelId not in affected_channels:
                     modified_packages = ([], [])
                     affected_channels[channelId] = modified_packages
                 else:
@@ -1201,12 +1282,12 @@ class Backend:
                 if not row:
                     break
                 package_id = row['package_id']
-                if not pid_hash.has_key(package_id):
+                if package_id not in pid_hash:
                     # Have to remove it
                     extra_cp['package_id'].append(package_id)
                     extra_cp['channel_id'].append(channel_id)
                     # And mark this channel as being affected
-                    if not affected_channels.has_key(channel_id):
+                    if channel_id not in affected_channels:
                         modified_packages = ([], [])
                         affected_channels[channel_id] = modified_packages
                     else:
@@ -1231,8 +1312,9 @@ class Backend:
                         refresh_newest_package(channel_id, caller, id)
                 else:
                     refresh_newest_package(channel_id, caller, None)
-            except rhnSQL.SQLError, e:
-                raise rhnFault(23, str(e[1]), explain=0), None, sys.exc_info()[2]
+            except rhnSQL.SQLError:
+                e = sys.exc_info()[1]
+                raise_with_tb(rhnFault(23, str(e[1]), explain=0), sys.exc_info()[2])
             if deleted_packages_list:
                 invalidate_ss = 1
             else:
@@ -1325,7 +1407,7 @@ class Backend:
         }
 
         for k, v in kwargs.items():
-            if not kwparams.has_key(k):
+            if k not in kwparams:
                 raise TypeError("Unknown keyword parameter %s" % k)
             if v is not None:
                 # Leave the default values in case of a None
@@ -1338,7 +1420,7 @@ class Backend:
         forceVerify = kwparams['forceVerify']
 
         # All the tables affected
-        tables = [parentTable] + childTables.keys()
+        tables = [parentTable] + list(childTables.keys())
 
         # Build the hash for the operations on the tables
         dml = DML(tables, self.tables)
@@ -1476,7 +1558,7 @@ class Backend:
         }
 
         # Grab the rest of the information
-        childTablesInfo = self.__getChildTablesInfo(objid, childTables.keys(),
+        childTablesInfo = self.__getChildTablesInfo(objid, list(childTables.keys()),
                                                     childTableLookups)
 
         # Start computing deltas
@@ -1519,7 +1601,7 @@ class Backend:
                 _buildExternalValue(val, ent, childTableObj)
 
                 # Look this value up
-                if not dbside.has_key(key):
+                if key not in dbside:
                     if childTableObj.sequenceColumn:
                         # Initialize the sequence column too
                         sc = childTableObj.sequenceColumn
@@ -1581,14 +1663,15 @@ class Backend:
             dict = hash[tname]
             try:
                 self.__doInsertTable(tname, dict)
-            except rhnSQL.SQLError, e:
-                raise rhnFault(54, str(e[1]), explain=0), None, sys.exc_info()[2]
+            except rhnSQL.SQLError:
+                e = sys.exc_info()[1]
+                raise_with_tb(rhnFault(54, str(e[1]), explain=0), sys.exc_info()[2])
 
     def __doInsertTable(self, table, hash):
         if not hash:
             return
         tab = self.tables[table]
-        k = hash.keys()[0]
+        k = list(hash.keys())[0]
         if not hash[k]:
             # Nothing to do
             return
@@ -1708,7 +1791,7 @@ class Backend:
                 break
 
             t = hash2tuple(row, fields)
-            if incoming.has_key(t):
+            if t in incoming:
                 # we already have this value uploaded
                 del incoming[t]
                 continue
@@ -1729,10 +1812,10 @@ class Backend:
         all_fields = uq_fields + fields
         for entry in data:
             for f in all_fields:
-                if not entry.has_key(f):
-                    raise Exception, "Missing field %s" % f
+                if f not in entry:
+                    raise Exception("Missing field %s" % f)
             val = entry[first_uq_col]
-            if not uq_col_values.has_key(val):
+            if val not in uq_col_values:
                 valhash = {}
                 uq_col_values[val] = valhash
             else:
@@ -1756,7 +1839,7 @@ class Backend:
                 if not row:
                     break
                 key = build_key(row, uq_fields)
-                if not valhash.has_key(key):
+                if key not in valhash:
                     # Need to delete this one
                     deletes.append(row)
                     continue
@@ -1773,13 +1856,13 @@ class Backend:
                 updates.append(entry)
 
         inserts = []
-        map(inserts.extend, map(lambda x: x.values(), uq_col_values.values()))
+        list(map(inserts.extend, [list(x.values()) for x in list(uq_col_values.values())]))
 
         if deletes:
             params = transpose(deletes, uq_fields)
             query = "delete from %s where %s" % (
                 table_name,
-                string.join(map(lambda x: "%s = :%s" % (x, x), uq_fields),
+                string.join(["%s = :%s" % (x, x) for x in uq_fields],
                             ' and '),
             )
             h = self.dbmodule.prepare(query)
@@ -1789,7 +1872,7 @@ class Backend:
             query = "insert into %s (%s) values (%s)" % (
                 table_name,
                 string.join(all_fields, ', '),
-                string.join(map(lambda x: ":" + x, all_fields), ', '),
+                string.join([":" + x for x in all_fields], ', '),
             )
             h = self.dbmodule.prepare(query)
             h.executemany(**params)
@@ -1797,9 +1880,9 @@ class Backend:
             params = transpose(updates, all_fields)
             query = "update % set %s where %s" % (
                 table_name,
-                string.join(map(lambda x: "%s = :s" + (x, x), fields),
+                string.join(["%s = :s" + (x, x) for x in fields],
                             ', '),
-                string.join(map(lambda x: "%s = :%s" % (x, x), uq_fields),
+                string.join(["%s = :%s" % (x, x) for x in uq_fields],
                             ' and '),
             )
             h = self.dbmodule.prepare(query)
@@ -1869,13 +1952,13 @@ def _buildExternalValue(dict, entry, tableObj):
     # updates dict with values from entry
     # entry is a hash-like object (non-db)
     for f, datatype in tableObj.getFields().items():
-        if dict.has_key(f):
+        if f in dict:
             # initialized somewhere else
             continue
         # Get the attribute's name
         attr = tableObj.getObjectAttribute(f)
         # Sanitize the value according to its datatype
-        if not entry.has_key(attr):
+        if attr not in entry:
             entry[attr] = None
         dict[f] = sanitizeValue(entry[attr], datatype)
 
@@ -1897,7 +1980,7 @@ def computeDiff(hash1, hash2, diffHash, diffobj, prefix=None):
         if k == 'installed_size' and v is not None and hash2[k] is None:
             # Skip installed_size which might not have been populated
             continue
-        if diffHash.has_key(k):
+        if k in diffHash:
             diffval = diffHash[k]
             if diffval == 0:
                 # Completely ignore this key

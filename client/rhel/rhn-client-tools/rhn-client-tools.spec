@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.5.3
+Version: 2.6.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -12,18 +12,25 @@ BuildArch: noarch
 BuildRequires: update-desktop-files
 %endif
 
-Requires: rhnlib >= 2.5.74
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
-Requires: python-ethtool >= 0.4
 Requires: gnupg
 Requires: sh-utils
-%if 0%{?suse_version}
-Requires: dbus-1-python
+BuildRequires: python-devel
+%if 0%{?fedora} >= 23
+Requires: libgudev
+Requires: newt-python3
+Requires: python3-gobject-base
+Requires: python3-dmidecode
+Requires: python3-netifaces
+Requires: python3-hwdata
+Requires: python3-rhnlib >= 2.5.78
 %else
-Requires: dbus-python
-%endif
+Requires: python-dmidecode
+Requires: python-ethtool >= 0.4
+Requires: rhnlib >= 2.5.78
 %if 0%{?fedora}
+Requires: newt-python
 Requires: pygobject3-base libgudev1
 Requires: python-hwdata
 %else
@@ -32,18 +39,23 @@ Requires: python-gudev
 Requires: python-hwdata
 %else
 Requires: hal >= 0.5.8.1-52
-%endif
-%endif
+%endif # 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
 %if 0%{?suse_version}
 Requires: python-newt
 %endif
 %if 0%{?rhel} == 5
 Requires: newt
 %endif
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?rhel} > 5
 Requires: newt-python
 %endif
-Requires: python-dmidecode
+%endif # 0%{?fedora}
+%endif # 0%{?fedora} >= 23
+%if 0%{?suse_version}
+Requires: dbus-1-python
+%else
+Requires: dbus-python
+%endif
 %if 0%{?suse_version}
 Requires: zypper
 %else
@@ -51,8 +63,8 @@ Requires: zypper
 Requires: dnf
 %else
 Requires: yum
-%endif
-%endif
+%endif # 0%{?fedora} >= 22
+%endif # 0%{?suse_version}
 
 Conflicts: up2date < 5.0.0
 Conflicts: yum-rhn-plugin < 1.6.4-1
@@ -61,7 +73,6 @@ Conflicts: spacewalk-koan < 0.2.7-1
 Conflicts: rhn-kickstart < 5.4.3-1
 Conflicts: rhn-virtualization-host < 5.4.36-2
 
-BuildRequires: python-devel
 BuildRequires: gettext
 BuildRequires: intltool
 BuildRequires: desktop-file-utils
@@ -81,8 +92,12 @@ BuildRequires: redhat-logos
 # The following BuildRequires are for check only
 %if 0%{?fedora}
 BuildRequires: python-coverage
-BuildRequires: rhnlib
 BuildRequires: rpm-python
+%endif
+%if 0%{?fedora} >= 23
+Requires: python3-rhnlib >= 2.5.78
+%else
+Requires: rhnlib >= 2.5.78
 %endif
 
 %description
@@ -104,7 +119,7 @@ Requires: yum-rhn-plugin >= 1.6.4-1
 %endif
 
 %description -n rhn-check
-rhn-check polls a Red Hat Satelliteor Spacewalk server to find and execute 
+rhn-check polls a Red Hat Satellite or Spacewalk server to find and execute
 scheduled actions.
 
 %package -n rhn-setup
@@ -153,6 +168,9 @@ registering a system with a Red Hat Satellite or Spacewalk server.
 
 %build
 make -f Makefile.rhn-client-tools
+%if 0%{?fedora} >= 23
+    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' src/actions/*.py src/bin/*.py test/*.py
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -383,6 +401,58 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Aug 03 2016 Tomas Lestach <tlestach@redhat.com> 2.6.1-1
+- fix typo/missing space in rhn_check rpm description
+- Bumping package versions for 2.6.
+
+* Tue May 24 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.16-1
+- updating copyright years
+- Regenerating .po and .pot files for rhn-client-tools.
+- Updating .po translations from Zanata
+
+* Thu May 12 2016 Gennadii Altukhov <galt@redhat.com> 2.5.15-1
+- change build dependency on python-devel, because we don't use Python3 during
+  package building
+
+* Wed May 11 2016 Gennadii Altukhov <galt@redhat.com> 2.5.14-1
+- 1326306 - use 'netifaces' module for Python3 instead of 'ethtools'
+
+* Fri Feb 19 2016 Jan Dobes 2.5.13-1
+- fixed 'exceptions.ValueError: invalid literal for int(): 0oxxx' to work in
+  python 2.4 (RHEL5)
+
+* Thu Feb 18 2016 Jan Dobes 2.5.12-1
+- delete file with input files after template is created
+- try to generate more similar order of entries in template
+- pulling *.po translations from Zanata
+- fixing current *.po translations
+
+* Fri Feb 12 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.11-1
+- 1259884 - fixed missing method for sorting of rhnChannels
+- 1259884 - open terminal for write only
+
+* Fri Jan 22 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.10-1
+- Bug 1300251 - clientCaps.py : IndexError: string index out of range
+
+* Tue Jan 19 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.9-1
+- yet another python3 fixes
+
+* Tue Jan 12 2016 Grant Gainey 2.5.8-1
+- 875728 - Clarify useNoSSLForPackages comment to match reality
+
+* Tue Jan 12 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.7-1
+- 1259884, 1286555 - more python3 fixes
+
+* Fri Jan 08 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.6-1
+- updated dnf / rhnlib / rhn-client-tools dependencies
+- fixed rpmbuild tests
+
+* Fri Jan 08 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.5-1
+- 1259884, 1286555 - updated to work in python3
+
+* Fri Jan 08 2016 Tomas Lestach <tlestach@redhat.com> 2.5.4-1
+- 1260454 - clean up channels to subscribe before processing results
+
 * Thu Dec 17 2015 Jan Dobes 2.5.3-1
 - 1262780 - alow to use existing rpcServer when creating RhnServer
 

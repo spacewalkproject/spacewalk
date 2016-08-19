@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 <html>
@@ -12,7 +13,7 @@
 <h2><bean:message key="deleteconfirm.jsp.confirmprofiledeletion"/></h2>
 
 <div class="page-summary">
-   <p><bean:message key="deleteconfirm.jsp.profile_pagesummary" arg0="${requestScope.profile.name}"/></p>
+   <p><bean:message key="deleteconfirm.jsp.profile_pagesummary" arg0="${fn:escapeXml(requestScope.profile.name)}"/></p>
 </div>
 
 <html:form action="/systems/details/packages/profiles/DeleteProfile">

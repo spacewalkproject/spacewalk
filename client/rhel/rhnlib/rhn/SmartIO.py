@@ -1,7 +1,7 @@
 #
 # Smart IO class
 #
-# Copyright (c) 2002--2014 Red Hat, Inc.
+# Copyright (c) 2002--2016 Red Hat, Inc.
 #
 # Author: Mihai Ibanescu <misa@redhat.com>
 
@@ -10,7 +10,10 @@ This module implements the SmartIO class
 """
 
 import os
-from cStringIO import StringIO
+try: # python2
+    from cStringIO import StringIO
+except ImportError: # python3
+    from io import BytesIO as StringIO
 
 class SmartIO:
     """

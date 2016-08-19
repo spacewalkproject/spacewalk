@@ -1,6 +1,6 @@
 #   rhn-client-tools - RHN support tools and libraries
 #
-# Copyright (c) 2006--2012 Red Hat, Inc.
+# Copyright (c) 2006--2016 Red Hat, Inc.
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -41,12 +41,12 @@ def suite():
         testByteRangeRpcServer.suite(),
         testClientCaps.suite(),
         testConfig.suite(),
-        testRhnChannel.suite(),
-        testRpcServer.suite(),
+###        testRhnChannel.suite(),
+###        testRpcServer.suite(),
         testRpmUtils.suite(),
         testSSLSocketTimeout.suite(),
         testTransactions.suite(),
-        testUp2dateAuth.suite(),
+###        testUp2dateAuth.suite(),
         testUp2dateUtils.suite(),
         rhnPackageInfo.suite(),
 ###        testrhnregGui.suite(),

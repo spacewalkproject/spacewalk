@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        2.5.1
+Version:        2.6.0
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -13,7 +13,7 @@ BuildRequires:  gettext
 BuildRequires:  python
 Requires:       abrt
 Requires:       abrt-cli
-Requires:       rhnlib
+Requires:       rhn-client-tools
 Requires:       rhn-check
 %description
 spacewalk-abrt - rhn-check plug-in for collecting information about crashes handled by ABRT.
@@ -23,6 +23,9 @@ spacewalk-abrt - rhn-check plug-in for collecting information about crashes hand
 
 %build
 make -f Makefile.spacewalk-abrt
+%if 0%{?fedora} >= 23
+sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' src/bin/spacewalk-abrt
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -44,6 +47,24 @@ service abrtd restart
 %{_mandir}/man8/*
 
 %changelog
+* Tue May 24 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.5-1
+- updating copyright years
+- Regenerating .po and .pot files for spacewalk-abrt.
+- Updating .po translations from Zanata
+
+* Wed May 18 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.4-1
+- encodestring expected bytes, not string
+
+* Tue Apr 26 2016 Gennadii Altukhov <galt@redhat.com> 2.5.3-1
+- Adapt spacewalk-abrt to Python 2/3
+
+* Thu Feb 18 2016 Jan Dobes 2.5.2-1
+- fixing warning
+- do not evaluate Makefile
+- do not keep this file in git
+- pulling *.po translations from Zanata
+- fixing current *.po translations
+
 * Fri Nov 13 2015 Tomas Kasparek <tkasparek@redhat.com> 2.5.1-1
 - python is not part of basic Fedora installation anymore
 - Bumping package versions for 2.5.

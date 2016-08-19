@@ -8,7 +8,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.1
+Version: 2.6.0
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python
@@ -26,7 +26,15 @@ BuildRequires: spacewalk-backend >= 1.7.24
 %define rhnroot %{_usr}/share/rhn
 %define destdir %{rhnroot}/proxy
 %define rhnconf %{_sysconfdir}/rhn
+%if 0%{?suse_version}
+%define httpdconf %{_sysconfdir}/apache2/conf.d
+%define apache_user wwwrun
+%define apache_group www
+%else
 %define httpdconf %{_sysconfdir}/httpd/conf.d
+%define apache_user apache
+%define apache_group apache
+%endif
 
 %description
 This package is never built.
@@ -36,19 +44,21 @@ Summary: Packages required by the SpacewalkManagement Proxy
 Group:   Applications/Internet
 Requires: squid
 Requires: spacewalk-backend >= 1.7.24
-# python-hashlib is optional for spacewalk-backend-libs
-# but we need made it mandatory here
-Requires: python-hashlib
 Requires: %{name}-broker = %{version}
 Requires: %{name}-redirect = %{version}
 Requires: %{name}-common >= %{version}
 Requires: %{name}-docs
 Requires: %{name}-html
-Requires: spacewalk-proxy-selinux
 Requires: jabberd spacewalk-setup-jabberd
 Requires: httpd
+%if 0%{?fedora} || 0%{?rhel}
+# python-hashlib is optional for spacewalk-backend-libs
+# but we need made it mandatory here
+Requires: python-hashlib
+Requires: spacewalk-proxy-selinux
 Requires: sos
 Requires(preun): initscripts
+%endif
 Obsoletes: rhns-proxy < 5.3.0
 Obsoletes: rhns-proxy-management < 5.3.0
 BuildRequires: /usr/bin/docbook2man
@@ -76,7 +86,9 @@ Requires: spacewalk-certs-tools
 Requires: spacewalk-proxy-package-manager
 Requires: spacewalk-ssl-cert-check
 Requires: httpd
+%if 0%{?fedora} || 0%{?rhel}
 Requires: mod_ssl
+%endif
 Requires: mod_wsgi
 Requires(post): %{name}-common
 Conflicts: %{name}-redirect < %{version}-%{release}
@@ -116,7 +128,11 @@ between an Spacewalk Proxy Server and parent Spacewalk server.
 %package common
 Group:   Applications/Internet
 Summary: Modules shared by Spacewalk Proxy components
+%if 0%{?suse_version}
+BuildRequires: apache2
+%else
 Requires: mod_ssl
+%endif
 Requires: mod_wsgi
 Requires: %{name}-broker >= %{version}
 Requires: spacewalk-backend >= 1.7.24
@@ -167,6 +183,11 @@ install -d -m 750 $RPM_BUILD_ROOT/%{_datadir}/spacewalk
 
 mkdir -p $RPM_BUILD_ROOT/%{_var}/spool/rhn-proxy/list
 
+%if 0%{?suse_version}
+mkdir -p $RPM_BUILD_ROOT/etc/apache2
+mv $RPM_BUILD_ROOT/etc/httpd/conf.d $RPM_BUILD_ROOT/%{httpdconf}
+rm -rf $RPM_BUILD_ROOT/etc/httpd
+%endif
 touch $RPM_BUILD_ROOT/%{httpdconf}/cobbler-proxy.conf
 
 %clean
@@ -181,10 +202,14 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 
 %post broker
 if [ -f %{_sysconfdir}/sysconfig/rhn/systemid ]; then
-    chown root.apache %{_sysconfdir}/sysconfig/rhn/systemid
+    chown root.%{apache_group} %{_sysconfdir}/sysconfig/rhn/systemid
     chmod 0640 %{_sysconfdir}/sysconfig/rhn/systemid
 fi
+%if 0%{?suse_version}
+/sbin/service apache2 try-restart > /dev/null 2>&1 ||:
+%else
 /sbin/service httpd condrestart > /dev/null 2>&1
+%endif
 
 # In case of an upgrade, get the configured package list directory and clear it
 # out.  Don't worry; it will be rebuilt by the proxy.
@@ -209,7 +234,11 @@ rm -rf $RHN_PKG_DIR/list/*
 exit 0
 
 %post redirect
+%if 0%{?suse_version}
+/sbin/service apache2 try-restart > /dev/null 2>&1 ||:
+%else
 /sbin/service httpd condrestart > /dev/null 2>&1
+%endif
 # Make sure the scriptlet returns with success
 exit 0
 
@@ -237,13 +266,26 @@ fi
 
 %preun
 if [ $1 = 0 ] ; then
+%if 0%{?suse_version}
+    /sbin/service apache2 try-restart > /dev/null 2>&1 ||:
+%else
     /sbin/service httpd condrestart >/dev/null 2>&1
+%endif
 fi
+
+%if 0%{?suse_version}
+%post common
+sysconf_addword /etc/sysconfig/apache2 APACHE_MODULES wsgi
+sysconf_addword /etc/sysconfig/apache2 APACHE_MODULES access_compat
+sysconf_addword /etc/sysconfig/apache2 APACHE_MODULES proxy
+sysconf_addword /etc/sysconfig/apache2 APACHE_MODULES rewrite
+sysconf_addword /etc/sysconfig/apache2 APACHE_SERVER_FLAGS SSL
+%endif
 
 %posttrans common
 if [ -n "$1" ] ; then # anything but uninstall
     mkdir /var/cache/rhn/proxy-auth 2>/dev/null
-    chown apache:root /var/cache/rhn/proxy-auth
+    chown %{apache_user}:root /var/cache/rhn/proxy-auth
     restorecon /var/cache/rhn/proxy-auth
 fi
 
@@ -253,21 +295,27 @@ fi
 %{destdir}/broker/__init__.py*
 %{destdir}/broker/rhnBroker.py*
 %{destdir}/broker/rhnRepository.py*
-%attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy
-%attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy/list
-%attr(770,root,apache) %dir %{_var}/log/rhn
+%attr(750,%{apache_user},%{apache_group}) %dir %{_var}/spool/rhn-proxy
+%attr(750,%{apache_user},%{apache_group}) %dir %{_var}/spool/rhn-proxy/list
+%attr(770,root,%{apache_group}) %dir %{_var}/log/rhn
 %config(noreplace) %{_sysconfdir}/logrotate.d/rhn-proxy-broker
 # config files
-%attr(644,root,apache) %{_prefix}/share/rhn/config-defaults/rhn_proxy_broker.conf
+%attr(644,root,%{apache_group}) %{_prefix}/share/rhn/config-defaults/rhn_proxy_broker.conf
+%if 0%{?suse_version}
+%dir %{destdir}/broker
+%endif
 
 %files redirect
 %dir %{destdir}
 %{destdir}/redirect/__init__.py*
 %{destdir}/redirect/rhnRedirect.py*
-%attr(770,root,apache) %dir %{_var}/log/rhn
+%attr(770,root,%{apache_group}) %dir %{_var}/log/rhn
 %config(noreplace) %{_sysconfdir}/logrotate.d/rhn-proxy-redirect
 # config files
-%attr(644,root,apache) %{_prefix}/share/rhn/config-defaults/rhn_proxy_redirect.conf
+%attr(644,root,%{apache_group}) %{_prefix}/share/rhn/config-defaults/rhn_proxy_redirect.conf
+%if 0%{?suse_version}
+%dir %{destdir}/redirect
+%endif
 
 %files common
 %dir %{destdir}
@@ -280,31 +328,39 @@ fi
 %{destdir}/rhnAuthCacheClient.py*
 %{destdir}/rhnProxyAuth.py*
 %{destdir}/rhnAuthProtocol.py*
-%attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy
-%attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy/list
-%attr(770,root,apache) %dir %{_var}/log/rhn
-%attr(755,root,apache) %dir %{_datadir}/spacewalk
+%attr(750,%{apache_user},%{apache_group}) %dir %{_var}/spool/rhn-proxy
+%attr(750,%{apache_user},%{apache_group}) %dir %{_var}/spool/rhn-proxy/list
+%attr(770,root,%{apache_group}) %dir %{_var}/log/rhn
+%attr(755,root,%{apache_group}) %dir %{_datadir}/spacewalk
 # config files
-%attr(755,root,apache) %dir %{rhnconf}
-%attr(645,root,apache) %config %{rhnconf}/rhn.conf
-%attr(644,root,apache) %{_prefix}/share/rhn/config-defaults/rhn_proxy.conf
-%attr(644,root,apache) %config %{httpdconf}/spacewalk-proxy.conf
+%attr(755,root,%{apache_group}) %dir %{rhnconf}
+%attr(645,root,%{apache_group}) %config %{rhnconf}/rhn.conf
+%attr(644,root,%{apache_group}) %{_prefix}/share/rhn/config-defaults/rhn_proxy.conf
+%attr(644,root,%{apache_group}) %config %{httpdconf}/spacewalk-proxy.conf
 # this file is created by either cli or webui installer
 %ghost %config %{httpdconf}/cobbler-proxy.conf
-%attr(644,root,apache) %config %{httpdconf}/spacewalk-proxy-wsgi.conf
+%attr(644,root,%{apache_group}) %config %{httpdconf}/spacewalk-proxy-wsgi.conf
 %{rhnroot}/wsgi/xmlrpc.py*
 %{rhnroot}/wsgi/xmlrpc_redirect.py*
 # the cache
-%attr(750,apache,root) %dir %{_var}/cache/rhn
-%attr(750,apache,root) %dir %{_var}/cache/rhn/proxy-auth
+%attr(750,%{apache_user},root) %dir %{_var}/cache/rhn
+%attr(750,%{apache_user},root) %dir %{_var}/cache/rhn/proxy-auth
+%if 0%{?suse_version}
+%dir %{rhnroot}
+%dir %{rhnroot}/wsgi
+%attr(755,root,%{apache_group}) %dir %{rhnroot}/config-defaults
+%endif
 
 %files package-manager
 # config files
-%attr(644,root,apache) %{_prefix}/share/rhn/config-defaults/rhn_proxy_package_manager.conf
+%attr(644,root,%{apache_group}) %{_prefix}/share/rhn/config-defaults/rhn_proxy_package_manager.conf
 %{_bindir}/rhn_package_manager
 %{rhnroot}/PackageManager/rhn_package_manager.py*
 %{rhnroot}/PackageManager/__init__.py*
 %{_mandir}/man8/rhn_package_manager.8.gz
+%if 0%{?suse_version}
+%dir %{rhnroot}/PackageManager
+%endif
 
 %files management
 # dirs
@@ -316,6 +372,9 @@ fi
 
 
 %changelog
+* Fri May 20 2016 Grant Gainey 2.5.2-1
+- spacewalk-proxy: build on openSUSE
+
 * Fri Nov 27 2015 Jan Dobes 2.5.1-1
 - removing old dependency
 - Bumping package versions for 2.5.

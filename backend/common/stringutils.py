@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2013--2015 Red Hat, Inc.
+# Copyright (c) 2013--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,12 +13,12 @@
 # in this software or its documentation.
 #
 
-from types import StringType, UnicodeType
+from spacewalk.common.usix import StringType, UnicodeType
 
 
 def to_unicode(obj):
     if isinstance(obj, StringType):
-        return unicode(obj, 'utf8')
+        return UnicodeType(obj, 'utf8')
     else:
         return obj
 

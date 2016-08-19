@@ -21,8 +21,8 @@ package com.redhat.rhn.common.conf;
  */
 public class UserDefaults {
     private static UserDefaults instance = new UserDefaults();
-    public static final String MAX_PASSWORD_LENGTH = "max_password_len";
-    public static final String MIN_PASSWORD_LENGTH = "min_password_len";
+    public static final String MAX_PASSWORD_LENGTH = "max_passwd_len";
+    public static final String MIN_PASSWORD_LENGTH = "min_passwd_len";
     public static final String MAX_USER_LENGTH = "max_user_len";
     public static final String MIN_USER_LENGTH = "min_user_len";
     public static final String MAX_EMAIL_LENGTH = "min_email_len";

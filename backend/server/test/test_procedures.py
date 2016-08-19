@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,7 +23,7 @@ while 1:
     #p = rhnSQL.Procedure('rhn_entitlements.get_server_entitlement')
     p = rhnSQL.Procedure('rhn_entitlements.upgrade_server')
     ret = p(1000102174)
-    print counter, ret
+    print(counter, ret)
     counter = counter + 1
     # if counter > 700:
     #    time.sleep(.5)

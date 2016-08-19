@@ -1,19 +1,21 @@
 #
 
-import rhnserver
-import config
 import os
-import up2dateErrors
-import up2dateUtils
-import string
-import up2dateLog
-import clientCaps
 import pickle
 import time
 
-from types import DictType
+try: # python2
+    from types import DictType
+except ImportError: # python3
+    DictType = dict
 
 from rhn import rpclib
+from up2date_client import clientCaps
+from up2date_client import config
+from up2date_client import rhnserver
+from up2date_client import up2dateErrors
+from up2date_client import up2dateLog
+from up2date_client import up2dateUtils
 
 loginInfo = None
 pcklAuthFileName = "/var/spool/up2date/loginAuth.pkl"
@@ -49,7 +51,7 @@ def maybeUpdateVersion():
       newSystemId = s.registration.upgrade_version(getSystemId(), systemVer)
 
       path = cfg["systemIdPath"]
-      dir = path[:string.rfind(path, "/")]
+      dir = path[:path.rfind("/")]
       if not os.access(dir, os.W_OK):
           try:
               os.mkdir(dir)
@@ -120,7 +122,7 @@ def readCachedLogin():
     pcklAuth = open(pcklAuthFileName, 'rb')
     try:
         data = pickle.load(pcklAuth)
-    except EOFError:
+    except (EOFError, ValueError):
         log.log_debug("Unexpected EOF. Probably an empty file, \
                        regenerate auth file")
         pcklAuth.close()

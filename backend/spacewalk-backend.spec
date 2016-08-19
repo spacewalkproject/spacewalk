@@ -1,21 +1,46 @@
 %global rhnroot %{_prefix}/share/rhn
 %global rhnconfigdefaults %{rhnroot}/config-defaults
 %global rhnconf %{_sysconfdir}/rhn
+
+%if 0%{?rhel}
 %global apacheconfd %{_sysconfdir}/httpd/conf.d
+%global apache_user apache
+%global apache_group apache
+%global apache_pkg httpd
+%endif
+
 %if 0%{?rhel} && 0%{?rhel} < 6
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 %endif
-%global pythonrhnroot %{python_sitelib}/spacewalk
+
+%if 0%{?fedora} >= 23
+%{!?python3_sitelib: %global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
+%global python3rhnroot %{python3_sitelib}/spacewalk
+%endif
 
 %if 0%{?fedora}
 %{!?pylint_check: %global pylint_check 1}
+%global apacheconfd %{_sysconfdir}/httpd/conf.d
+%global apache_user apache
+%global apache_group apache
+%global apache_pkg httpd
 %endif
+
+%if 0%{?suse_version}
+%{!?pylint_check: %global pylint_check 1}
+%global apacheconfd %{_sysconfdir}/apache2/conf.d
+%global apache_user wwwrun
+%global apache_group www
+%global apache_pkg apache2
+%endif
+
+%global pythonrhnroot %{python_sitelib}/spacewalk
 
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.5.8
+Version: 2.6.37
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -37,7 +62,7 @@ BuildRequires: spacewalk-pylint >= 2.2
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version} > 1310
 BuildRequires: rhnlib >= 2.5.74
 BuildRequires: rhn-client-tools
 BuildRequires: rpm-python
@@ -46,8 +71,9 @@ BuildRequires: python-debian
 BuildRequires: python-gzipstream
 BuildRequires: yum
 %endif
-Requires(pre): httpd
-Requires: httpd
+Requires(pre): %{apache_pkg}
+Requires: %{apache_pkg}
+Requires: %{name}-usix
 # we don't really want to require this redhat-release, so we protect
 # against installations on other releases using conflicts...
 Obsoletes: rhns-common < 5.3.0
@@ -69,6 +95,7 @@ Requires: %{name} = %{version}-%{release}
 Obsoletes: rhns-sql < 5.3.0
 Provides: rhns-sql = 1:%{version}-%{release}
 Requires: %{name}-sql-virtual = %{version}-%{release}
+Requires: %{name}-usix
 
 %description sql
 This package contains the basic code that provides SQL connectivity for
@@ -78,6 +105,7 @@ the Spacewalk backend modules.
 Summary: Oracle backend for Spacewalk
 Group: Applications/Internet
 Requires: python(:DBAPI:oracle)
+Requires: %{name}-usix
 Provides: %{name}-sql-virtual = %{version}-%{release}
 
 %description sql-oracle
@@ -88,6 +116,7 @@ modules.
 Summary: Postgresql backend for Spacewalk
 Group: Applications/Internet
 Requires: python-psycopg2 >= 2.0.14-2
+Requires: %{name}-usix
 Provides: %{name}-sql-virtual = %{version}-%{release}
 
 %description sql-postgresql
@@ -99,6 +128,7 @@ Summary: Basic code that provides RHN Server functionality
 Group: Applications/Internet
 Requires(pre): %{name}-sql = %{version}-%{release}
 Requires: %{name}-sql = %{version}-%{release}
+Requires: %{name}-usix
 Requires: PyPAM
 Obsoletes: rhns-server < 5.3.0
 Provides: rhns-server = 1:%{version}-%{release}
@@ -122,6 +152,7 @@ Summary: Handler for /XMLRPC
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Requires: rpm-python
+Requires: %{name}-usix
 Obsoletes: rhns-server-xmlrpc < 5.3.0
 Obsoletes: rhns-xmlrpc < 5.3.0
 Provides: rhns-server-xmlrpc = 1:%{version}-%{release}
@@ -136,6 +167,7 @@ and the up2date clients.
 Summary: Handler for /APPLET
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
+Requires: %{name}-usix
 Obsoletes: rhns-applet < 5.3.0
 Provides: rhns-applet = 1:%{version}-%{release}
 
@@ -147,6 +179,7 @@ provides the functions for the RHN applet.
 Summary: Handler for /APP
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
+Requires: %{name}-usix
 Obsoletes: rhns-server-app < 5.3.0
 Obsoletes: rhns-app < 5.3.0
 Provides: rhns-server-app = 1:%{version}-%{release}
@@ -183,6 +216,7 @@ Summary: Listener for the Server XML dumper
 Group: Applications/Internet
 Requires: rpm-python
 Requires: %{name}-xml-export-libs = %{version}-%{release}
+Requires: %{name}-usix
 
 %description iss-export
 %{name} contains the basic code that provides server/backend
@@ -195,18 +229,59 @@ This package contains listener for the Server XML dumper.
 %package libs
 Summary: Spacewalk server and client tools libraries
 Group: Applications/Internet
+%if 0%{?suse_version}
+BuildRequires: python-devel
+%else
 BuildRequires: python2-devel
 Conflicts: %{name} < 1.7.0
 Requires: python-hashlib
+Requires: %{name}-usix
 BuildRequires: python-hashlib
+%endif
 
 %description libs
 Libraries required by both Spacewalk server and Spacewalk client tools.
+
+%package usix
+Summary: Spacewalk server and client nano six library
+Group: Applications/Internet
+Provides: %{name}-usix = %{version}-%{release}
+
+%description usix
+Library for writing code that runs on Python 2 and 3
+
+
+%if 0%{?fedora} >= 23
+
+%package -n python3-%{name}-libs
+Summary: Spacewalk client tools libraries for Fedora 23
+Group: Applications/Internet
+BuildRequires: python2-devel
+BuildRequires: python-hashlib
+BuildRequires: python3-devel
+Conflicts: %{name} < 1.7.0
+Requires: python3-libs
+Requires: python3-%{name}-usix
+
+%description -n python3-%{name}-libs
+Libraries required by Spacewalk client tools on Fedora 23.
+
+%package -n python3-%{name}-usix
+Summary: Spacewalk client micro six library
+Group: Applications/Internet
+Provides: python3-%{name}-usix = %{version}-%{release}
+BuildRequires: python2-devel
+
+%description -n python3-%{name}-usix
+Library for writing code that runs on Python 2 and 3
+
+%endif
 
 %package config-files-common
 Summary: Common files for the Configuration Management project
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
+Requires: %{name}-usix
 Obsoletes: rhns-config-files-common < 5.3.0
 Provides: rhns-config-files-common = 1:%{version}-%{release}
 
@@ -227,6 +302,7 @@ This package contains the server-side code for configuration management.
 Summary: Handler for /CONFIG-MANAGEMENT-TOOL
 Group: Applications/Internet
 Requires: %{name}-config-files-common = %{version}-%{release}
+Requires: %{name}-usix
 Obsoletes: rhns-config-files-tool < 5.3.0
 Provides: rhns-config-files-tool = 1:%{version}-%{release}
 
@@ -252,14 +328,17 @@ Requires: %{name}
 Requires: spacewalk-certs-tools
 Requires: spacewalk-admin >= 0.1.1-0
 Requires: python-gzipstream
-Requires: python-hashlib
 %if 0%{?fedora} || 0%{?rhel} > 6
 Requires: pyliblzma
 %endif
+%if 0%{?fedora} || 0%{?rhel}
+Requires: python-hashlib
 Requires: mod_ssl
+%endif
 Requires: %{name}-xml-export-libs
 Requires: cobbler20
 Requires: rhnlib  >= 2.5.57
+Requires: %{name}-usix
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 Provides: spacewalk-backend-satellite-tools = %{version}-%{release}
@@ -272,11 +351,28 @@ Various utilities for the Spacewalk Server.
 Summary: Spacewalk XML data exporter
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
+Requires: %{name}-usix
 Obsoletes: rhns-xml-export-libs < 5.3.0
 Provides: rhns-xml-export-libs = 1:%{version}-%{release}
 
 %description xml-export-libs
 Libraries required by various exporting tools
+
+%if 0%{?rhel} > 5 || 0%{?fedora}
+%package cdn
+Summary: CDN tools
+Group: Applications/Internet
+Requires: %{name}-server = %{version}-%{release}
+Requires: %{name}-usix
+Requires: subscription-manager
+Requires: libxml2-python
+Requires: python-requests
+BuildRequires: libxml2-python
+BuildRequires: python-requests
+
+%description cdn
+Tools for syncing content from Red Hat CDN
+%endif
 
 %prep
 %setup -q
@@ -289,14 +385,37 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{rhnroot}
 install -d $RPM_BUILD_ROOT%{pythonrhnroot}
 make -f Makefile.backend install PREFIX=$RPM_BUILD_ROOT \
-    MANDIR=%{_mandir}
+    MANDIR=%{_mandir} APACHECONFDIR=%{apacheconfd}
+
+%if 0%{?fedora} && 0%{?fedora} >= 23
+install -d $RPM_BUILD_ROOT%{python3rhnroot}/common
+cp $RPM_BUILD_ROOT%{pythonrhnroot}/__init__.py \
+    $RPM_BUILD_ROOT%{python3rhnroot}/
+cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/{__init__.py,usix.py} \
+    $RPM_BUILD_ROOT%{python3rhnroot}/common
+cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/{checksum.py,cli.py,rhn_deb.py,rhn_mpm.py,rhn_pkg.py,rhn_rpm.py,stringutils.py,fileutils.py,rhnLib.py} \
+    $RPM_BUILD_ROOT%{python3rhnroot}/common
+%endif
+
+%if 0%{?rhel} && 0%{?rhel} < 6
+rm -rf $RPM_BUILD_ROOT%{pythonrhnroot}/cdn_tools
+rm -rf $RPM_BUILD_ROOT%{_bindir}/cdn-*
+%endif
+
 export PYTHON_MODULE_NAME=%{name}
 export PYTHON_MODULE_VERSION=%{version}
-
 %find_lang %{name}-server
 
 %if 0%{?fedora} || 0%{?rhel} > 6
 sed -i 's/#LOGROTATE-3.8#//' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/spacewalk-backend-*
+sed -i 's/#DOCUMENTROOT#/\/var\/www\/html/' $RPM_BUILD_ROOT%{rhnconfigdefaults}/rhn.conf
+%endif
+%if 0%{?suse_version}
+sed -i 's/#LOGROTATE-3.8#.*/    su root www/' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/spacewalk-backend-*
+sed -i 's/#DOCUMENTROOT#/\/srv\/www\/htdocs/' $RPM_BUILD_ROOT%{rhnconfigdefaults}/rhn.conf
+pushd $RPM_BUILD_ROOT
+find -name '*.py' -print0 | xargs -0 python %py_libdir/py_compile.py
+popd
 %endif
 
 %clean
@@ -313,16 +432,30 @@ spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_tools \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/upload_server \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/wsgi
+
+%if 0%{?rhel} > 5 || 0%{?fedora}
+spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/cdn_tools
+%endif
+
+%endif
+
+%if 0%{?fedora} && 0%{?fedora} >= 23
+rm -r $RPM_BUILD_ROOT%{python3rhnroot}/__pycache__
+rm -r $RPM_BUILD_ROOT%{python3rhnroot}/common/__pycache__
 %endif
 
 %pre server
 OLD_SECRET_FILE=%{_var}/www/rhns/server/secret/rhnSecret.py
 if [ -f $OLD_SECRET_FILE ]; then
-    install -d -m 750 -o root -g apache %{rhnconf}
+    install -d -m 750 -o root -g %{apache_group} %{rhnconf}
     mv ${OLD_SECRET_FILE}*  %{rhnconf}
 fi
 
 %post server
+if [ ! -e %{rhnconf}/rhn.conf ]; then
+    exit 0
+fi
+
 # Is secret key in our config file?
 regex="^[[:space:]]*(server\.|)secret_key[[:space:]]*=.*$"
 
@@ -355,17 +488,16 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/rhnConfig.py*
 %{pythonrhnroot}/common/rhnException.py*
 %{pythonrhnroot}/common/rhnFlags.py*
-%{pythonrhnroot}/common/rhnLib.py*
 %{pythonrhnroot}/common/rhnLog.py*
 %{pythonrhnroot}/common/rhnMail.py*
 %{pythonrhnroot}/common/rhnTB.py*
 %{pythonrhnroot}/common/rhnRepository.py*
 %{pythonrhnroot}/common/rhnTranslate.py*
 %{pythonrhnroot}/common/RPC_Base.py*
-%attr(770,root,apache) %dir %{_var}/log/rhn
+%attr(770,root,%{apache_group}) %dir %{_var}/log/rhn
 # config files
-%attr(755,root,apache) %dir %{rhnconfigdefaults}
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn.conf
+%attr(755,root,%{apache_group}) %dir %{rhnconfigdefaults}
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn.conf
 %attr(755,root,root) %{_bindir}/spacewalk-cfg-get
 %{_mandir}/man8/spacewalk-cfg-get.8.gz
 # wsgi stuff
@@ -441,6 +573,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/server/importlib/productNamesImport.py*
 %{pythonrhnroot}/server/importlib/userAuth.py*
 %{pythonrhnroot}/server/importlib/orgImport.py*
+%{pythonrhnroot}/server/importlib/contentSourcesImport.py*
 %{rhnroot}/server/handlers/__init__.py*
 
 # Repomd stuff
@@ -452,15 +585,15 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/server/repomd/view.py*
 
 # the cache
-%attr(755,apache,apache) %dir %{_var}/cache/rhn
+%attr(755,%{apache_user},%{apache_group}) %dir %{_var}/cache/rhn
 %attr(755,root,root) %dir %{_var}/cache/rhn/satsync
 # config files
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server.conf
 # main httpd config
-%attr(644,root,apache) %config %{apacheconfd}/zz-spacewalk-server.conf
+%attr(644,root,%{apache_group}) %config %{apacheconfd}/zz-spacewalk-server.conf
 
 # wsgi stuff
-%attr(644,root,apache) %config %{apacheconfd}/zz-spacewalk-server-wsgi.conf
+%attr(644,root,%{apache_group}) %config %{apacheconfd}/zz-spacewalk-server-wsgi.conf
 %{rhnroot}/wsgi/app.py*
 %{rhnroot}/wsgi/applet.py*
 %{rhnroot}/wsgi/config.py*
@@ -473,6 +606,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 # logs and other stuff
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-server
 
+%if 0%{?suse_version}
+%dir %{rhnroot}/server
+%dir %{rhnroot}/server/handlers
+%endif
+
 %files xmlrpc
 %doc LICENSE
 %dir %{rhnroot}/server/handlers/xmlrpc
@@ -482,7 +620,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{pythonrhnroot}/server/action_extra_data
 %{pythonrhnroot}/server/action_extra_data/*
 # config files
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_xmlrpc.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_xmlrpc.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-xmlrpc
 
 %files applet
@@ -490,7 +628,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/server/handlers/applet
 %{rhnroot}/server/handlers/applet/*
 # config files
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_applet.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_applet.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-applet
 
 %files app
@@ -498,7 +636,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/server/handlers/app
 %{rhnroot}/server/handlers/app/*
 # config files
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_app.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_app.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-app
 
 %files iss
@@ -524,9 +662,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files libs
 %doc LICENSE
-%{pythonrhnroot}/__init__.py*
-%dir %{pythonrhnroot}/common
-%{pythonrhnroot}/common/__init__.py*
 %{pythonrhnroot}/common/checksum.py*
 %{pythonrhnroot}/common/cli.py*
 %{pythonrhnroot}/common/fileutils.py*
@@ -535,6 +670,37 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/rhn_pkg.py*
 %{pythonrhnroot}/common/rhn_rpm.py*
 %{pythonrhnroot}/common/stringutils.py*
+%{pythonrhnroot}/common/rhnLib.py*
+
+%files usix
+%doc LICENSE
+%dir %{pythonrhnroot}
+%{pythonrhnroot}/__init__.py*
+%dir %{pythonrhnroot}/common
+%{pythonrhnroot}/common/__init__.py*
+%{pythonrhnroot}/common/usix.py*
+
+%if 0%{?fedora} && 0%{?fedora} >= 23
+%files -n python3-%{name}-libs
+%doc LICENSE
+%{python3rhnroot}/common/checksum.py
+%{python3rhnroot}/common/cli.py
+%{python3rhnroot}/common/fileutils.py
+%{python3rhnroot}/common/rhn_deb.py
+%{python3rhnroot}/common/rhn_mpm.py
+%{python3rhnroot}/common/rhn_pkg.py
+%{python3rhnroot}/common/rhn_rpm.py
+%{python3rhnroot}/common/stringutils.py
+%{python3rhnroot}/common/rhnLib.py*
+
+%files -n python3-%{name}-usix
+%doc LICENSE
+%dir %{python3rhnroot}
+%{python3rhnroot}/__init__.py
+%dir %{python3rhnroot}/common
+%{python3rhnroot}/common/__init__.py
+%{python3rhnroot}/common/usix.py
+%endif
 
 %files config-files-common
 %doc LICENSE
@@ -546,14 +712,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 %doc LICENSE
 %dir %{rhnroot}/server/handlers/config
 %{rhnroot}/server/handlers/config/*
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_config-management.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_config-management.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-config-files
 
 %files config-files-tool
 %doc LICENSE
 %dir %{rhnroot}/server/handlers/config_mgmt
 %{rhnroot}/server/handlers/config_mgmt/*
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_config-management-tool.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_config-management-tool.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-config-files-tool
 
 %files package-push-server
@@ -563,16 +729,17 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/upload_server/handlers
 %{rhnroot}/upload_server/handlers/__init__.py*
 %{rhnroot}/upload_server/handlers/package_push
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_upload.conf
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_upload_package-push.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_upload.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_upload_package-push.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-package-push-server
 
 %files tools
 %doc LICENSE
 %doc README.ULN
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_satellite.conf
+%attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_satellite.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-tools
 %attr(755,root,root) %{_bindir}/rhn-charsets
+%attr(755,root,root) %{_bindir}/rhn-satellite-activate
 %attr(755,root,root) %{_bindir}/rhn-schema-version
 %attr(755,root,root) %{_bindir}/rhn-ssl-dbstore
 %attr(755,root,root) %{_bindir}/satellite-sync
@@ -588,6 +755,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/spacewalk-update-signatures
 %attr(755,root,root) %{_bindir}/spacewalk-data-fsck
 %attr(755,root,root) %{_bindir}/spacewalk-fips-tool
+%{pythonrhnroot}/satellite_tools/contentRemove.py*
 %{pythonrhnroot}/satellite_tools/SequenceServer.py*
 %{pythonrhnroot}/satellite_tools/messages.py*
 %{pythonrhnroot}/satellite_tools/progress_bar.py*
@@ -597,6 +765,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/satComputePkgHeaders.py*
 %{pythonrhnroot}/satellite_tools/syncCache.py*
 %{pythonrhnroot}/satellite_tools/sync_handlers.py*
+%{pythonrhnroot}/satellite_tools/rhn_satellite_activate.py*
 %{pythonrhnroot}/satellite_tools/rhn_ssl_dbstore.py*
 %{pythonrhnroot}/satellite_tools/xmlWireSource.py*
 %{pythonrhnroot}/satellite_tools/updatePackages.py*
@@ -611,13 +780,15 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/disk_dumper/dumper.py*
 %{pythonrhnroot}/satellite_tools/disk_dumper/string_buffer.py*
 %dir %{pythonrhnroot}/satellite_tools/repo_plugins
-%attr(755,root,apache) %dir %{_var}/log/rhn/reposync
+%attr(755,root,%{apache_group}) %dir %{_var}/log/rhn/reposync
 %{pythonrhnroot}/satellite_tools/repo_plugins/__init__.py*
 %{pythonrhnroot}/satellite_tools/repo_plugins/yum_src.py*
 %{pythonrhnroot}/satellite_tools/repo_plugins/uln_src.py*
-%config %attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_iss.conf
+%{pythonrhnroot}/satellite_tools/repo_plugins/deb_src.py*
+%config %attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_iss.conf
 %{_mandir}/man8/rhn-satellite-exporter.8*
 %{_mandir}/man8/rhn-charsets.8*
+%{_mandir}/man8/rhn-satellite-activate.8*
 %{_mandir}/man8/rhn-schema-version.8*
 %{_mandir}/man8/rhn-ssl-dbstore.8*
 %{_mandir}/man8/rhn-db-stats.8*
@@ -649,7 +820,436 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/exportLib.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
+%if 0%{?rhel} > 5 || 0%{?fedora}
+%files cdn
+%attr(755,root,root) %{_bindir}/cdn-activate
+%attr(755,root,root) %{_bindir}/cdn-sync
+%{pythonrhnroot}/cdn_tools/*.py*
+%endif
+
 %changelog
+* Thu Aug 18 2016 Jan Dobes 2.6.37-1
+- fixing import
+- apply formatting changes on file in original location and drop it from cdn
+  dir
+- fixing pylint: too-many-nested-blocks, no need for else
+- adding support for release channel mapping
+
+* Wed Aug 17 2016 Jan Dobes <jdobes@redhat.com> 2.6.36-1
+- fixing pylint: wrong-import-position, wrong-import-order
+- fixing pylint: wrong-import-position
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-position
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order,ungrouped-imports
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-position
+- fixing pylint: consider-using-enumerate
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-position
+- fixing pylint: wrong-import-position
+- fixing pylint: wrong-import-order
+- fixing pylint: No value for argument 'tb' in constructor call (no-value-for-
+  parameter)
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixed SyntaxError " b'' " for RHEL5
+
+* Tue Aug 16 2016 Jan Dobes 2.6.35-1
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: simplifiable-if-statement
+- fixing pylint: unneeded-not
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-position
+- sys.exitfunc is deprecated since Python 2.4
+- more pylint and pep8 fixes
+
+* Tue Aug 16 2016 Jan Dobes 2.6.34-1
+- fixing pylint issues
+- drop disconnected activation on spacewalk, there is not much to insert and
+  not possible to update counts
+- call signature check directly instead of calling external (also dropped) perl
+  script
+- include files in packages
+- bringing back tool for activation
+
+* Mon Aug 15 2016 Jan Dobes 2.6.33-1
+- do not change package_from_filename header
+
+* Fri Aug 12 2016 Jan Dobes 2.6.32-1
+- set header_end to value where we stop reading
+- split maximally once or we lost part of the release sometimes
+- get package format from filename
+- check downloaded file
+- add basic plug-in for syncing deb repo
+- there are errata with intentionally empty package list, cannot skip them
+
+* Thu Aug 11 2016 Gennadii Altukhov <galt@redhat.com> 2.6.31-1
+- share repodata between yum_src and cdnsync
+
+* Tue Aug 09 2016 Gennadii Altukhov <galt@redhat.com> 2.6.30-1
+- cdn-sync - check proxy port number
+
+* Tue Aug 09 2016 Jan Dobes 2.6.29-1
+- initialize before _load_entitlements is called
+- check if there are any available channels first
+- filter channel families with ssl credentials - they are 'activated'
+- fixing listing of channels for some empty channel families
+
+* Mon Aug 08 2016 Jan Dobes 2.6.28-1
+- handle missing cdn mappings
+- W0201: attribute defined outside init
+- string.join is deprecated
+
+* Mon Aug 08 2016 Jan Dobes 2.6.27-1
+- do not download comps if not downloading packages
+- pass less parameters inside class
+- fixing --no-packages
+
+* Fri Aug 05 2016 Gennadii Altukhov <galt@redhat.com> 2.6.26-1
+- Impove error message about missing parent channels
+- cdn-sync - add debug-level verification
+- cdn-sync - add proxy url convertor from ascii to puny
+- cdn-sync - remove temporary certificates
+
+* Fri Aug 05 2016 Gennadii Altukhov <galt@redhat.com> 2.6.25-1
+- fix pep8 'Line too long'
+- bugfix - typo in variable name
+- cdn-sync - add to syncing kickstartable trees: - parameterized values for
+  rhnKSTreeType and rhnKSInstallType - possibility to select kickstartable
+  trees with NULL organisation id
+- bugfix - remove temporary file if there is an error during downloading by
+  yum-wrapper
+- cdn-sync - exclude kickstart repositories only if we have them in config file
+
+* Thu Aug 04 2016 Jan Dobes 2.6.24-1
+- handle not existing channels
+- we don't support RHEL 5 already
+
+* Wed Aug 03 2016 Jan Dobes 2.6.23-1
+- better look for existing erratum by advisory name now
+- always set advisory with version number and be different than advisory_name
+- do not crash for now
+
+* Wed Aug 03 2016 Jan Dobes 2.6.22-1
+- support strict package subscription to channel
+- fixing pep8
+- unused import
+- unused variable
+
+* Fri Jul 29 2016 Jan Dobes 2.6.21-1
+- simplify and allow to use other parameters without channel parameter
+- rename to plural to have same parameter as in satsync
+- show more info like in satsync
+- Revert "check if DB is running"
+
+* Fri Jul 29 2016 Jan Dobes 2.6.20-1
+- check if DB is running
+
+* Thu Jul 28 2016 Gennadii Altukhov <galt@redhat.com> 2.6.19-1
+- cdn-sync - add handling of database connection error
+- bugfix - Check connection to a DB is open before make commit()
+- Make reraising of exception compatible with Python 2 and 3. Additional
+  changes to commit 20ba5c63b13b2afe0a4c0340cc5538dae8f5c018
+- simplify condition
+
+* Wed Jul 27 2016 Gennadii Altukhov <galt@redhat.com> 2.6.18-1
+- build cdn-sync only for RHEL > 5 and Fedora
+- cdn-sync - add syncing of kickstart repositories - reposync now doesn't
+  terminate a program if one of channels doesn't exist - add posibility to
+  exclude some repos from syncing
+
+* Wed Jul 27 2016 Jan Dobes 2.6.17-1
+- fixing typo
+- count total time of sync
+
+* Tue Jul 26 2016 Jan Dobes 2.6.16-1
+- distinct by checksum to connect multiple packages with same nevrao to
+  erratum, not only one of them
+- fixing multiple packages in null org without channel - pick the last one
+- support syncing only RPMs metadata
+
+* Tue Jul 26 2016 Eric Herget <eherget@redhat.com> 2.6.15-1
+- 1345843 - sane output when diff of binary config files
+
+* Wed Jul 20 2016 Gennadii Altukhov <galt@redhat.com> 2.6.14-1
+- cdn-sync -  fix pylint warnings and errors
+- bug fix in cache of reposync when several repos assigned on channel
+- cdn-sync - change path for cache repodata, do not save primary.xml and
+  repomd.xml on disk
+- cdn-sync - show progress bar during updating repodata
+- cdn-sync - add number of packages to channel listing output
+- cdn-sync - Implement cdn-sync parameter for repodata updating
+- cdn-sync - Implement cdn-sync parameter for just listing assigned
+  repositories for channels
+- cdn-sync - bugfix in listing child channels. Show only those of child
+  channels which belong to channel families from manifest.
+- cdn-sync - add workaroud for missing RHN to CDN source matching * checking
+  that we have mapping in config json * if channel doesn't have at least one
+  source, skip it during syncing
+- cdn-sync - add exceptions to handling during channel import
+- cdn-sync - add parameter to print current configuration file
+- cdn-sync - add support of different debug levels for cdn-sync and reposync
+- cdn-sync - use the same config (CFG object) for cdn-sync, reposync and yum-
+  repo-plugin
+- cdn-sync - add parameters for http proxy and blocking of concurrent runs of
+  cdn-sync
+
+* Tue Jul 19 2016 Grant Gainey 2.6.13-1
+- change default checksum type to sha256 for debían packages. Usage of SHA256
+  is recommended in https://wiki.debian.org/RepositoryFormat#Size.2C_MD5sum.2C_
+  SHA1.2C_SHA256.2C_SHA512 This should also fix RH BZ 1348321
+- Fixes unnecessary removal of whitespaces in package dependencies. Needed for
+  correct creation of Packages.gz
+- 1226329 - sense support for debian packages
+
+* Mon Jul 18 2016 Jiri Dostal <jdostal@redhat.com> 2.6.12-1
+- 1357480 - get_possible_orgs function never called? -> removed
+
+* Tue Jul 12 2016 Grant Gainey 2.6.11-1
+- 1355884 - teach xmlWireSource to be able to write to tempfile
+
+* Fri Jul 01 2016 Jiri Dostal <jdostal@redhat.com> 2.6.10-1
+- spacewalk-repo-sync fix for missing -c parameter
+
+* Wed Jun 22 2016 Jiri Dostal <jdostal@redhat.com> 2.6.9-1
+- 1348575 - Many tools from spacewalk-backend-tools package returning Python
+  tracebacks when run under non-root user
+- list only custom channels
+
+* Mon Jun 20 2016 Jan Dobes 2.6.8-1
+- pep8
+- fixing pylint
+
+* Mon Jun 20 2016 Jan Dobes 2.6.7-1
+- Revert "sync content strictly - only packages from batch will be in channel"
+
+* Wed Jun 15 2016 Jan Dobes 2.6.6-1
+- make CDN root configurable
+
+* Wed Jun 15 2016 Jan Dobes 2.6.5-1
+- do not delete and insert everything on every call
+- Revert "old families should not be visible after reactivation"
+
+* Tue Jun 14 2016 Jan Dobes 2.6.4-1
+- fix satellite-sync and do not delete and insert on every cdn-sync
+- simlify content sources import and do not delete and insert on every cdn-sync
+- fixing incorrect name of variable
+
+* Mon Jun 13 2016 Jan Dobes 2.6.3-1
+- fixing pylint in cdnsync module and little refactoring
+- fixing pylint in activation module
+- fixing pylint in contentRemove module
+- missing import
+
+* Fri Jun 10 2016 Jan Dobes 2.6.2-1
+- make possible to clear packages in null-org outside channels (partially
+  synced channels)
+- add functions to remove content outside channels
+- move spacewalk-remove-channel code into new module
+- sync content strictly - only packages from batch will be in channel
+- allow reposync to subscribe packages to channel strictly
+- show which channel is processed
+- support --no-errata
+- support --no-packages
+- fixing synced channel indicator
+- list skipped errata
+- it's not an error
+- channel families may not be in filtered list
+- find ssl keys for families
+- unlock null org channels
+- run sync
+- import content sources for channels
+- teach backend to insert content sources
+- dist channel mapping
+- insert channel metadata
+- adding available channel listing
+- add linking channel families with certificates
+- refactor to class
+- insert families matching product data only
+- old families should not be visible after reactivation
+- lookup in separate function
+- fix rhnContentSourceSsl -> rhnContentSsl in code
+- import channel families
+- reusing previously dropped satellite certificate class
+- insert SSL credentials from file and manifest into DB
+- start to build -cdn package
+- refactoring satCerts to make possible insert into single org/null org
+
+* Tue Jun 07 2016 Jan Dobes 2.6.1-1
+- print() prints '()' in python 2 instead of expected empty line
+- fix chgrp call on openSUSE
+- Bumping package versions for 2.6.
+
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.43-1
+- fix missing new line in translation
+- updating copyright years
+- Regenerating .po and .pot files for spacewalk-backend.
+- Updating .po translations from Zanata
+
+* Fri May 20 2016 Grant Gainey 2.5.42-1
+- fix isSUSE check
+
+* Wed May 18 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.41-1
+- Only trigger virtualization notification on server save when the
+  virtualization data is not falsy
+
+* Fri May 13 2016 Gennadii Altukhov <galt@redhat.com> 2.5.40-1
+- moving rhnLib.py into spacewalk-backend-libs package,
+- Fix check for local URI
+
+* Thu May 12 2016 Gennadii Altukhov <galt@redhat.com> 2.5.39-1
+- change build dependency on python-devel, because we don't use Python3 during
+  package building
+
+* Wed May 11 2016 Gennadii Altukhov <galt@redhat.com> 2.5.38-1
+- fix imports of usix
+
+* Tue May 10 2016 Grant Gainey 2.5.37-1
+- spacewalk-backend: build on openSUSE - specfile fixes
+- spacewalk-backend: build on openSUSE
+- 1331271 - fix string concatenation
+
+* Mon Apr 25 2016 Gennadii Altukhov <galt@redhat.com> 2.5.36-1
+- Add missing sys imports
+
+* Fri Apr 22 2016 Gennadii Altukhov <galt@redhat.com> 2.5.35-1
+- Add mode to open packages as 'binary'
+- Fix relative imports for python backend-common libs
+- Automatic commit of package [spacewalk-backend] release [2.5.34-1].
+- fix building of spacewalk-backend
+
+* Fri Apr 22 2016 Tomas Lestach <tlestach@redhat.com> 2.5.34-1
+- fix building of spacewalk-backend
+
+* Thu Apr 21 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.33-1
+-
+
+* Thu Apr 21 2016 Gennadii Altukhov <galt@redhat.com> 2.5.32-1.git.1.151aa47
+- Add missing import 'sys'
+
+* Wed Apr 20 2016 Gennadii Altukhov <galt@redhat.com> 2.5.31-1.git.1.151aa47
+- Add new packages for spacewalk-backend-libs and usix
+- Fix usix module to run under Python 3
+
+* Tue Apr 19 2016 Gennadii Altukhov <galt@redhat.com> 2.5.30-1
+- Resolve conflicts between usix and backend-libs
+- Fix pylint warnings/fails
+- fix usix next() import and usage
+
+* Mon Apr 18 2016 Gennadii Altukhov <galt@redhat.com> 2.5.29-1
+- Fix 'iteritems' in backend Python 2/3 compatibility
+- Fix '.next()' in backend Python 2/3 compatibility
+- Add import of 'reduce' function in backend for Python 3 compatibility
+- Fix 'exc_type' in backend code for Python 2/3 compatibility
+- Fix 'unicode' in backend code for Python 2/3 compatibility
+- Fix 'apply' in backend code for Python 2/3 compatibility
+- Fix 'maxint' in backend code for Python 2/3 compatibility
+- Fix 'exitfunc' in backend code for Python 2/3 compatibility
+- Fix 'raw_input' in backend code for Python 2/3 compatibility
+- Fix imports in backend code for Python 2/3 compatibility
+- Fix data types in backend code for Python 2/3 compatibility
+- Fix 'dict' in backend code for Python 2/3 compatibility
+- Add __bool__ in backend code for Python 2/3 compatibility
+- Fix 'filter' in backend code for Python 2/3 compatibility
+- Fix 'map' in backend code for Python 2/3 compatibility
+- Fix 'xrange' in backend code for Python 2/3 compatibility
+- Fix 'octal' format of number in backend code for Python 2/3 compatibility
+- Fix 'raise' in backend code for Python 2/3 compatibility
+- Fix 'except' in backend code for Python 2/3 compatibility
+- Fix 'has_key' in backend code for Python 2/3 compatibility
+- Fix 'print' in backend code for Python 2/3 compatibility
+- Add micro-six python module to write code that runs on Python 2 and 3
+
+* Wed Mar 23 2016 Jan Dobes 2.5.28-1
+- qemu-kvm guests created on my Fedora 22 have following signature, mark them
+  as virtual
+
+* Tue Mar 22 2016 Jan Dobes 2.5.27-1
+- 1320025 - call notify guest before subscribing to channels too and refactor
+  code
+
+* Fri Mar 18 2016 Jan Dobes 2.5.26-1
+- Fix for bz1309337 'rhnreg_ks doesn't work with activation key'
+
+* Wed Mar 09 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.25-1
+- 1276569 - we need to import either cx_Oracle or psycopg2
+
+* Thu Mar 03 2016 Jan Dobes <jdobes@redhat.com> 2.5.24-1
+- 1308486 - better never import foreign private channel families, custom
+  channels will be synced into your org anyway
+- 1308486 - org_id of channel family is probably never filled, just not make
+  private channel families public
+
+* Wed Mar 02 2016 Jan Dobes 2.5.23-1
+- all strings should be truncated, not only unicode instances
+
+* Fri Feb 26 2016 Jan Dobes 2.5.22-1
+- make sure truncated value does not contain incomplete characters
+
+* Fri Feb 19 2016 Grant Gainey 2.5.21-1
+- 1303422 - allow sat-sync-error-email to be configurable
+
+* Thu Feb 18 2016 Jan Dobes 2.5.20-1
+- pulling *.po translations from Zanata
+- fixing current *.po translations
+
+* Thu Feb 18 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.19-1
+- Remove self from staticmethod
+- Fix Python errors from CI build and rename sort function for consistency.
+- Remove custom latest RPM handling in spacewalk-repo-sync and use the same
+  logic as reposync from yum-utils instead.
+
+* Fri Feb 05 2016 Grant Gainey 2.5.18-1
+- 1305051 - fix broken 'raise' on error
+
+* Tue Feb 02 2016 Jan Dobes 2.5.17-1
+- 1303524 - do not import errata to all synced channels because some may not
+  have all packages synced
+- 1276569 - improve message
+
+* Mon Feb 01 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.16-1
+- 1276569 - fix pylint
+
+* Fri Jan 29 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.15-1
+- 1276569 - advise users to purge satsync cache on IntegrityError
+
+* Thu Jan 28 2016 Jan Dobes 2.5.14-1
+- 1302817 - making sure packages without errata are included
+- 1302817 - fixing invalid query
+
+* Fri Jan 22 2016 Jan Dobes 2.5.13-1
+- 1301137 - update guest also on re-registration
+- 1301137 - allow to change uuid of already registered guests
+- 1301137 - there can be guests without hypervisor registered
+- fixing exception when reactivating system without base channel and without
+  any available
+
+* Thu Jan 21 2016 Gennadii Altukhov <galt@redhat.com> 2.5.12-1
+- 1051018 - Added filename in the error message of satellite-sync, in case file
+  has wrong size
+- 1281775 - Added processing of ValueError exception, during spacewalk-data-
+  fsck
+
+* Tue Jan 19 2016 Michael Mraka <michael.mraka@redhat.com> 2.5.11-1
+- local variable 'primif' referenced before assignment
+
+* Thu Jan 14 2016 Jan Dobes 2.5.10-1
+- cleaning few old translations
+- removing old duplicate template file
+
+* Tue Jan 12 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.9-1
+- 1297752 1297753 - allow client responses to be in Unicode
+
 * Thu Dec 10 2015 Jan Dobes 2.5.8-1
 - making synced channels in null org visible to all orgs
 

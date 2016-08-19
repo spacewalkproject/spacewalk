@@ -1,7 +1,7 @@
--- oracle equivalent source sha1 b066ac6547b6c6edc1b434903d84dd366e40e32f
+-- oracle equivalent source sha1 1cfd396bca74a43ebbb27b959aa622f0d4fda332
 
 --
--- Copyright (c) 2008--2012 Red Hat, Inc.
+-- Copyright (c) 2008--2016 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -35,4 +35,3 @@ rhn_virtinst_mod_trig
 before insert or update on rhnVirtualInstance
 for each row
 execute procedure rhn_virtinst_mod_trig_fun();
-

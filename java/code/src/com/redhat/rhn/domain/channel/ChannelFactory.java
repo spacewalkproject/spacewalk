@@ -49,10 +49,6 @@ public class ChannelFactory extends HibernateFactory {
 
     private static ChannelFactory singleton = new ChannelFactory();
     private static Logger log = Logger.getLogger(ChannelFactory.class);
-
-    public static final ContentSourceType CONTENT_SOURCE_TYPE_YUM =
-                            ChannelFactory.lookupContentSourceType("yum");
-
     private ChannelFactory() {
         super();
     }
@@ -105,7 +101,6 @@ public class ChannelFactory extends HibernateFactory {
                                        "Channel.findByLabelAndUserId", params);
     }
 
-
     /**
      * Lookup a content source type by label
      * @param label the label to lookup
@@ -116,6 +111,15 @@ public class ChannelFactory extends HibernateFactory {
         params.put("label", label);
         return (ContentSourceType) singleton.lookupObjectByNamedQuery(
                 "ContentSourceType.findByLabel", params);
+    }
+
+    /**
+     * List all available content source types
+     * @return list of ContentSourceType
+     */
+    public static List<ContentSourceType> listContentSourceTypes() {
+        return singleton.listObjectsByNamedQuery("ContentSourceType.listAllTypes",
+                Collections.EMPTY_MAP);
     }
 
     /**
@@ -211,8 +215,12 @@ public class ChannelFactory extends HibernateFactory {
     public static List getChannelIds(List<String> labelsIn) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("labels", labelsIn);
-        return singleton.listObjectsByNamedQuery(
+        List<Long> list = singleton.listObjectsByNamedQuery(
                 "Channel.findChannelIdsByLabels", params);
+        if (list != null) {
+            return list;
+        }
+        return new ArrayList<Long>();
     }
 
     /**

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -27,9 +27,10 @@ import sys
 import string
 import os
 import re
-import types
+from spacewalk.common import usix
 
 from rhn.UserDictCase import UserDictCase
+from spacewalk.common.usix import raise_with_tb, next
 from spacewalk.server import rhnSQL
 from spacewalk.common import rhnConfig
 from spacewalk.common.rhnLog import log_debug, log_error
@@ -60,11 +61,12 @@ class Cursor(sql_base.Cursor):
                                      force=force)
             self._type_mapping = ORACLE_TYPE_MAPPING
             self.blob_map = blob_map
-        except sql_base.SQLSchemaError, e:
+        except sql_base.SQLSchemaError:
+            e = sys.exc_info()[1]
             (errno, errmsg) = e.errno, e.errmsg
             if 900 <= errno <= 999:
                 # Per Oracle's documentation, SQL parsing error
-                raise sql_base.SQLStatementPrepareError(self.dbh, errmsg, self.sql), None, sys.exc_info()[2]
+                raise_with_tb(sql_base.SQLStatementPrepareError(self.dbh, errmsg, self.sql), sys.exc_info()[2])
             # XXX: we should be handling the lost connection cases
             # in here too, but we don't get that many of these and
             # besides, this is much harder to get right
@@ -73,13 +75,14 @@ class Cursor(sql_base.Cursor):
             # the SQL code we just passed in since we're dealing with
             # an OracleError. I hope this is always the case, of not,
             # we'll have to log the sql code here
-            raise rhnException("Can not prepare statement", e.args), None, sys.exc_info()[2]
+            raise_with_tb(rhnException("Can not prepare statement", e.args), sys.exc_info()[2])
 
     def _prepare(self, force=None):
         try:
             return sql_base.Cursor._prepare(self, force)
-        except self.OracleError, e:
-            raise self._build_exception(e), None, sys.exc_info()[2]
+        except self.OracleError:
+            e = sys.exc_info()[1]
+            raise_with_tb(self._build_exception(e), sys.exc_info()[2])
 
     def _prepare_sql(self):
         cursor = self.dbh.cursor()
@@ -92,14 +95,14 @@ class Cursor(sql_base.Cursor):
 
     def _execute_wrapper(self, function, *p, **kw):
         params = ','.join(["%s: %s" % (repr(key), repr(value)) for key, value
-                           in kw.items()])
+                           in list(kw.items())])
         log_debug(5, "Executing SQL: \"%s\" with bind params: {%s}"
                   % (self.sql, params))
         if self.sql is None:
             raise rhnException("Cannot execute empty cursor")
         if self.blob_map:
             blob_content = {}
-            for orig_blob_var in self.blob_map.keys():
+            for orig_blob_var in list(self.blob_map.keys()):
                 new_blob_var = orig_blob_var + '_blob'
                 blob_content[new_blob_var] = kw[orig_blob_var]
                 kw[new_blob_var] = self.var(cx_Oracle.BLOB)
@@ -108,25 +111,26 @@ class Cursor(sql_base.Cursor):
 
         try:
             retval = function(*p, **kw)
-        except self.OracleError, e:
+        except self.OracleError:
+            e = sys.exc_info()[1]
             ret = self._get_oracle_error_info(e)
-            if isinstance(ret, types.StringType):
-                raise sql_base.SQLError(self.sql, p, kw, ret), None, sys.exc_info()[2]
+            if isinstance(ret, usix.StringType):
+                raise_with_tb(sql_base.SQLError(self.sql, p, kw, ret), sys.exc_info()[2])
             (errno, errmsg) = ret[:2]
             if 900 <= errno <= 999:
                 # Per Oracle's documentation, SQL parsing error
-                raise sql_base.SQLStatementPrepareError(errno, errmsg, self.sql), None, sys.exc_info()[2]
+                raise_with_tb(sql_base.SQLStatementPrepareError(errno, errmsg, self.sql), sys.exc_info()[2])
             if errno == 1475:  # statement needs to be reparsed; force a prepare again
                 if self.reparsed:  # useless, tried that already. give up
                     log_error("Reparsing cursor did not fix it", self.sql)
                     args = ("Reparsing tried and still got this",) + tuple(ret)
-                    raise sql_base.SQLError(*args), None, sys.exc_info()[2]
+                    raise_with_tb(sql_base.SQLError(*args), sys.exc_info()[2])
                 self._real_cursor = self.dbh.prepare(self.sql)
                 self.reparsed = 1
                 self._execute_wrapper(function, *p, **kw)
             elif 20000 <= errno <= 20999:  # error codes we know we raise as schema errors
-                raise sql_base.SQLSchemaError(*ret), None, sys.exc_info()[2]
-            raise sql_base.SQLError(*ret), None, sys.exc_info()[2]
+                raise_with_tb(sql_base.SQLSchemaError(*ret), sys.exc_info()[2])
+            raise_with_tb(sql_base.SQLError(*ret), sys.exc_info()[2])
         except ValueError:
             # this is not good.Let the user know
             raise
@@ -170,8 +174,8 @@ class Cursor(sql_base.Cursor):
             return 0
         # Compute number of values
         max_array_size = 25
-        i = kwargs.itervalues()
-        firstval = i.next()
+        i = iter(list(kwargs.values()))
+        firstval = next(i)
         array_size = len(firstval)
         if array_size == 0:
             return 0
@@ -181,7 +185,7 @@ class Cursor(sql_base.Cursor):
         for k in kwargs.iterkeys():
             pdict[k] = None
         arr = []
-        for i in xrange(chunk_size):
+        for i in range(chunk_size):
             arr.append(pdict.copy())
 
         # Now arr is an array of the desired size
@@ -193,9 +197,9 @@ class Cursor(sql_base.Cursor):
             if item_count != chunk_size:
                 arr = arr[:item_count]
 
-            for i in xrange(item_count):
+            for i in range(item_count):
                 pdict = arr[i]
-                for k, v in kwargs.iteritems():
+                for k, v in kwargs.items():
                     pdict[k] = to_string(v[start + i])
 
             # We clear self->bindVariables so that list of all nulls
@@ -235,7 +239,7 @@ class Cursor(sql_base.Cursor):
 
     def _build_exception(self, error):
         ret = self._get_oracle_error_info(error)
-        if isinstance(ret, types.StringType):
+        if isinstance(ret, usix.StringType):
             return sql_base.SQLError(ret)
         return sql_base.SQLSchemaError(ret[0], ret[1])
 
@@ -292,15 +296,18 @@ class Procedure(sql_base.Procedure):
         retval = None
         try:
             retval = self._call_proc(args)
-        except cx_Oracle.DatabaseError, e:
+        except cx_Oracle.DatabaseError:
+            e = sys.exc_info()[1]
             if not hasattr(e, "args"):
-                raise sql_base.SQLError(self.name, args), None, sys.exc_info()[2]
+                raise_with_tb(sql_base.SQLError(self.name, args), sys.exc_info()[2])
             elif 20000 <= e[0].code <= 20999:  # error codes we know we raise as schema errors
 
-                raise sql_base.SQLSchemaError(e[0].code, str(e[0])), None, sys.exc_info()[2]
-            raise sql_base.SQLError(e[0].code, str(e[0])), None, sys.exc_info()[2]
-        except cx_Oracle.NotSupportedError, error:
-            raise sql_base.SQLError(*error.args), None, sys.exc_info()[2]
+                raise_with_tb(sql_base.SQLSchemaError(e[0].code, str(e[0])), sys.exc_info()[2])
+
+            raise_with_tb(sql_base.SQLError(e[0].code, str(e[0])), sys.exc_info()[2])
+        except cx_Oracle.NotSupportedError:
+            error = sys.exc_info()[1]
+            raise_with_tb(sql_base.SQLError(*error.args), sys.exc_info()[2])
         return retval
 
     def _munge_args(self, args):
@@ -329,7 +336,7 @@ class Procedure(sql_base.Procedure):
         return self._call_proc_ret(args, ret_type=None)
 
     def _call_proc_ret(self, args, ret_type=None):
-        args = map(to_string, self._munge_args(args))
+        args = list(map(to_string, self._munge_args(args)))
         if ret_type:
             ret_type_mapped = False
             for sqltype, db_type in self._type_mapping:
@@ -393,11 +400,12 @@ class Database(sql_base.Database):
         self._fix_environment_vars()
         try:
             self.dbh = self._connect()
-        except self.OracleError, e:
+        except self.OracleError:
+            e = sys.exc_info()[1]
             ret = self._get_oracle_error_info(e)
-            if isinstance(ret, types.StringType):
-                raise sql_base.SQLConnectError(self.dbtxt, -1,
-                                               "Unable to connect to database", ret), None, sys.exc_info()[2]
+            if isinstance(ret, usix.StringType):
+                raise_with_tb(sql_base.SQLConnectError(self.dbtxt, -1,
+                                               "Unable to connect to database", ret), sys.exc_info()[2])
             (errno, errmsg) = ret[:2]
             log_error("Connection attempt failed", errno, errmsg)
             if reconnect:
@@ -408,11 +416,11 @@ class Database(sql_base.Database):
                     return self.connect(reconnect=0)
                 err_args = [self.dbtxt, errno, errmsg]
                 err_args.extend(list(ret[2:]))
-                raise sql_base.SQLConnectError(*err_args), None, sys.exc_info()[2]
+                raise_with_tb(sql_base.SQLConnectError(*err_args), sys.exc_info()[2])
             # else, this is a reconnect attempt
-            raise sql_base.SQLConnectError(*(
+            raise_with_tb(sql_base.SQLConnectError(*(
                 [self.dbtxt, errno, errmsg,
-                 "Attempting Re-Connect to the database failed", ] + ret[2:])), None, sys.exc_info()[2]
+                 "Attempting Re-Connect to the database failed", ] + ret[2:])), sys.exc_info()[2])
         dbh_id = id(self.dbh)
         # Reset the statement cache for this database connection
         self._cursor_class._cursor_cache[dbh_id] = {}
@@ -442,7 +450,7 @@ class Database(sql_base.Database):
         log_debug(1, "Closed DB database connection to %s" % self.dbtxt)
         dbh_id = id(self.dbh)
         _cursor_cache = self._cursor_class._cursor_cache
-        if _cursor_cache.has_key(dbh_id):
+        if dbh_id in _cursor_cache:
             _cache = _cursor_cache[dbh_id]
             for sql, cursor in _cache.items():
                 # Close cursors
@@ -459,10 +467,8 @@ class Database(sql_base.Database):
     # pass-through functions for when you want to do SQL yourself
     def prepare(self, sql, force=0, blob_map=None):
         # Abuse the map calls to get rid of SQL comments and extra spaces
-        sql = string.join(filter(lambda a: len(a),
-                                 map(string.strip,
-                                     map(lambda a: (a + " ")[:string.find(a, '--')],
-                                         string.split(sql, "\n")))),
+        sql = string.join([a for a in list(map(string.strip,
+                                     [(a + " ")[:string.find(a, '--')] for a in string.split(sql, "\n")])) if len(a)],
                           " ")
         if blob_map:
             col_list = []
@@ -479,18 +485,20 @@ class Database(sql_base.Database):
     def procedure(self, name):
         try:
             c = self.dbh.cursor()
-        except cx_Oracle.DatabaseError, error:
+        except cx_Oracle.DatabaseError:
+            error = sys.exc_info()[1]
             e = error[0]
-            raise sql_base.SQLSchemaError(e.code, e.message, e.context), None, sys.exc_info()[2]
+            raise_with_tb(sql_base.SQLSchemaError(e.code, e.message, e.context), sys.exc_info()[2])
         # Pass the cursor in so we can close it after execute()
         return self._procedure_class(name, c)
 
     def _function(self, name, ret_type):
         try:
             c = self.dbh.cursor()
-        except cx_Oracle.DatabaseError, error:
+        except cx_Oracle.DatabaseError:
+            error = sys.exc_info()[1]
             e = error[0]
-            raise sql_base.SQLSchemaError(e.code, e.message, e.context), None, sys.exc_info()[2]
+            raise_with_tb(sql_base.SQLSchemaError(e.code, e.message, e.context), sys.exc_info()[2])
         return Function(name, c, ret_type)
 
     # why would anybody need this?!
@@ -507,7 +515,8 @@ class Database(sql_base.Database):
 
     def commit(self):
         log_debug(3, self.dbtxt)
-        return self.dbh.commit()
+        if self.dbh is not None:
+            return self.dbh.commit()
 
     def rollback(self, name=None):
         log_debug(3, self.dbtxt, name)

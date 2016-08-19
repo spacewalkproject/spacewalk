@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,6 +18,7 @@
 import sys
 
 from spacewalk.common import rhnFlags
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault, rhnException
 from spacewalk.common.rhnTranslate import _
@@ -121,7 +122,7 @@ def token_channels(server, server_arch, tokens_obj):
     # channel family ids used in the loop below.
     channel_family_ids = set()
 
-    for c in filter(lambda a: a["parent_channel"], chash.values()):
+    for c in [a for a in chash.values() if a["parent_channel"]]:
         # make sure this channel has the right parent
         if str(c["parent_channel"]) != str(sbc["id"]):
             ret.append("NOT subscribed to channel '%s' "
@@ -138,7 +139,8 @@ def token_channels(server, server_arch, tokens_obj):
             child._load_channel_families()
             cfamid = child._channel_families[0]
             channel_family_ids.add(cfamid)
-        except rhnSQL.SQLError, e:
+        except rhnSQL.SQLError:
+            e = sys.exc_info()[1]
             log_error("Failed channel subscription", server_id,
                       c["id"], c["label"], c["name"])
             ret.append("FAILED to subscribe to channel '%s'" % c["name"])
@@ -180,11 +182,12 @@ def token_server_groups(server_id, tokens_obj):
 
         try:
             join_server_group(server_id, server_group_id)
-        except rhnSQL.SQLError, e:
+        except rhnSQL.SQLError:
+            e = sys.exc_info()[1]
             log_error("Failed to add server to group", server_id,
                       server_group_id, sg["name"])
-            raise rhnFault(80, _("Failed to add server to group %s") %
-                           sg["name"]), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(80, _("Failed to add server to group %s") %
+                           sg["name"]), sys.exc_info()[2])
         else:
             ret.append("Subscribed to server group '%s'" % sg["name"])
     return ret
@@ -224,7 +227,7 @@ def token_packages(server_id, tokens_obj):
     if not package_names:
         return ret
 
-    package_arch_ids = package_names.keys()
+    package_arch_ids = list(package_names.keys())
     # Get the latest action scheduled for this token
     last_action_id = rhnFlags.get('token_last_action_id')
 
@@ -291,7 +294,7 @@ def deploy_configs_if_needed(server):
 
         # only care about the 1st revision of a particular path due to
         # sql ordering...
-        if not revisions.has_key(row['path']):
+        if row['path'] not in revisions:
             revisions[row['path']] = row['revision_id']
 
     if not len(revisions):
@@ -398,7 +401,7 @@ def token_config_channels(server, tokens_obj):
         for c in channels:
             config_channel_id = c['config_channel_id']
             if not c['config_channel_id'] in current_channels and\
-                    not config_channels_hash.has_key(config_channel_id):
+                    config_channel_id not in config_channels_hash:
                 position = len(current_channels) + len(config_channels) + 1
                 # Update the position in the queue
                 c['position'] = position
@@ -411,9 +414,8 @@ def token_config_channels(server, tokens_obj):
 
         h.execute_bulk({
             'server_id': [server_id] * len(config_channels),
-            'config_channel_id': map(lambda c: c['config_channel_id'],
-                                     config_channels),
-            'position': map(lambda c: c['position'], config_channels),
+            'config_channel_id': [c['config_channel_id'] for c in config_channels],
+            'position': [c['position'] for c in config_channels],
         })
 
         for channel in config_channels:
@@ -525,6 +527,8 @@ class ActivationTokens:
     def __nonzero__(self):
         return (len(self.tokens) > 0)
 
+    __bool__ = __nonzero__
+
     def get_server_id(self):
         if not self:
             return None
@@ -549,7 +553,7 @@ class ActivationTokens:
         return self.entitlements
 
     def has_entitlement_label(self, entitlement):
-        if entitlement in map(lambda x: x[0], self.entitlements):
+        if entitlement in [x[0] for x in self.entitlements]:
             return 1
         return 0
 
@@ -560,7 +564,7 @@ class ActivationTokens:
         """ Returns a string of the entitlement names that the token grants.
             This function is poorly named.
         """
-        token_names = map(lambda x: x[0], self.entitlements)
+        token_names = [x[0] for x in self.entitlements]
         if not token_names:
             return None
         return ",".join(token_names)
@@ -595,22 +599,25 @@ class ActivationTokens:
 
             try:
                 can_ent = can_entitle_server(server_id, entitlement[0])
-            except rhnSQL.SQLSchemaError, e:
+            except rhnSQL.SQLSchemaError:
+                e = sys.exc_info()[1]
                 can_ent = 0
 
             try:
                 # bugzilla #160077, skip attempting to entitle if we cant
                 if can_ent:
                     entitle_server(server_id, entitlement[0])
-            except rhnSQL.SQLSchemaError, e:
+            except rhnSQL.SQLSchemaError:
+                e = sys.exc_info()[1]
                 log_error("Token failed to entitle server", server_id,
                           self.get_names(), entitlement[0], e.errmsg)
                 #No idea what error may be here...
-                raise rhnFault(90, e.errmsg), None, sys.exc_info()[2]
-            except rhnSQL.SQLError, e:
+                raise_with_tb(rhnFault(90, e.errmsg), sys.exc_info()[2])
+            except rhnSQL.SQLError:
+                e = sys.exc_info()[1]
                 log_error("Token failed to entitle server", server_id,
                           self.get_names(), entitlement[0], e.args)
-                raise rhnFault(90, str(e)), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(90, str(e)), sys.exc_info()[2])
             else:
                 history["entitlement"] = "Entitled as a %s member" % entitlement[1]
 
@@ -645,14 +652,16 @@ class ReRegistrationActivationToken(ReRegistrationToken):
                 "rhn_entitlements.remove_server_entitlement")
             try:
                 unentitle_server(server_id, ent)
-            except rhnSQL.SQLSchemaError, e:
+            except rhnSQL.SQLSchemaError:
+                e = sys.exc_info()[1]
                 log_error("Failed to unentitle server", server_id,
                           ent, e.errmsg)
-                raise rhnFault(90, e.errmsg), None, sys.exc_info()[2]
-            except rhnSQL.SQLError, e:
+                raise_with_tb(rhnFault(90, e.errmsg), sys.exc_info()[2])
+            except rhnSQL.SQLError:
+                e = sys.exc_info()[1]
                 log_error("Failed to unentitle server", server_id,
                           ent, e.args)
-                raise rhnFault(90, str(e)), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(90, str(e)), sys.exc_info()[2])
 
         # Call parent method:
         ReRegistrationToken.entitle(self, server_id, history, virt_type)
@@ -717,7 +726,7 @@ def _validate_entitlements(token_string, rereg_ents, base_entitlements,
     Remove entitlements being maintained as just a list of labels.
     """
     # Check for exactly one base entitlement:
-    if len(base_entitlements.keys()) != 1:
+    if len(list(base_entitlements.keys())) != 1:
         log_error("Tokens with different base entitlements", token_string,
                   base_entitlements)
         raise rhnFault(63,
@@ -855,7 +864,7 @@ def fetch_token(token_string):
         'user_id': user_id,
         'org_id': org_id,
         'kickstart_session_id': ks_session_id,
-        'entitlements': entitlements_base.keys() + entitlements_extra.keys(),
+        'entitlements': list(entitlements_base.keys()) + list(entitlements_extra.keys()),
         'deploy_configs': deploy_configs,
     }
     log_debug(4, "Values", kwargs)
@@ -916,7 +925,7 @@ def fetch_org_token(org_id):
             'user_id': token_entry['user_id'],
             'org_id': token_entry['org_id'],
             'kickstart_session_id': token_entry['kickstart_session_id'],
-            'entitlements': entitlements_base.keys() + entitlements_extra.keys(),
+            'entitlements': list(entitlements_base.keys()) + list(entitlements_extra.keys()),
             'deploy_configs': token_entry['deploy_configs'] == 'Y',
         }
         tokens.append(token_entry)
@@ -1024,7 +1033,7 @@ def history_report(history):
 
 
 def history_subreport(history, key, title, emptymsg):
-    if history.has_key(key):
+    if key in history:
         subreport = title + "\n"
         subreport += "<ul>\n"
 

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,7 +15,7 @@
 
 from actions import configfiles
 
-print configfiles.diff([
+print(configfiles.diff([
     {
         'path'          : "/etc/googah",
         'namespace'     : "foo1",
@@ -40,4 +40,4 @@ print configfiles.diff([
         'delim_start'   : "[|",
         'delim_end'     : "|]",
     },
-])
+]))

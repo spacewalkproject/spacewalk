@@ -22,7 +22,7 @@
 
 <rl:listset name="groupSet" legend="errata">
     <rhn:csrf />
-    <input type="hidden" name="sgid" value="${systemgroup.id}" />
+    <rhn:hidden name="sgid" value="${systemgroup.id}" />
 
     <rl:list emptykey="erratalist.jsp.noerrata">
 

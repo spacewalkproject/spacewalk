@@ -2,9 +2,9 @@
 
 Name:           spacewalk-schema
 Group:          Applications/Internet
-Summary:        Oracle SQL schema for Spacewalk server
+Summary:        SQL schema for Spacewalk server
 
-Version:        2.5.4
+Version:        2.6.7
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -19,14 +19,16 @@ BuildRequires:  /usr/bin/pod2man
 Requires:       %{sbinpath}/restorecon
 Obsoletes:      rhn-satellite-schema <= 5.1.0
 
+%if 0%{?suse_version}
+BuildRequires:  fdupes
+%endif
 
 %define rhnroot /etc/sysconfig/rhn/
 %define oracle %{rhnroot}/oracle
 %define postgres %{rhnroot}/postgres
 
 %description
-rhn-satellite-schema is the Oracle SQL schema for the Spacewalk server.
-Oracle tablespace name conversions have NOT been applied.
+spacewalk-schema is the SQL schema for the Spacewalk server.
 
 %prep
 
@@ -58,6 +60,10 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 cp -p spacewalk-schema-upgrade.1 $RPM_BUILD_ROOT%{_mandir}/man1
 cp -p spacewalk-sql.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
+%if 0%{?suse_version}
+%fdupes %{buildroot}/%{rhnroot}
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -69,8 +75,98 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/spacewalk-sql
 %{_mandir}/man1/spacewalk-schema-upgrade*
 %{_mandir}/man1/spacewalk-sql*
+%if 0%{?suse_version}
+%dir %{rhnroot}
+%endif
 
 %changelog
+* Fri Aug 12 2016 Jan Dobes 2.6.7-1
+- enable deb type
+
+* Fri Jun 17 2016 Jan Dobes 2.6.6-1
+- we already have unbreakable linux network reposync plugin
+
+* Mon Jun 13 2016 Grant Gainey 2.6.5-1
+- spacewalk-schema: build on openSUSE
+
+* Mon Jun 13 2016 Jan Dobes 2.6.4-1
+- sequence is still there
+
+* Mon Jun 13 2016 Jan Dobes 2.6.3-1
+- fixing invalid syntax
+
+* Fri Jun 10 2016 Jan Dobes 2.6.2-1
+- change rhnContentSourceSsl table to possibly connect to channel family
+  (instead of content source) and rename to rhnContentSsl
+
+* Thu Jun 09 2016 Jan Dobes 2.6.1-1
+- fix dropping unused entitlements when multiple orgs are available
+- Bumping package versions for 2.6.
+
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.21-1
+- updating copyright years
+- 1303886 - remove Oracle from summary
+
+* Thu Apr 14 2016 Jiri Precechtel <jprecech@redhat.com> 2.5.20-1
+- 1320119 - added delete of data in referrenced table
+
+* Fri Mar 18 2016 Jan Dobes 2.5.19-1
+- add missing database commit
+
+* Thu Mar 17 2016 Jan Dobes 2.5.18-1
+- adding missing Oracle upgrade
+- delete sync probe task
+- populate uuid cleanup task on clean installation
+- drop column from _log table too
+- sequnce rhn_org_entitlement_type_seq should be dropped
+- dropping functions after entitlements removal in upgrade
+
+* Fri Mar 11 2016 Jan Dobes 2.5.17-1
+- Revert "fix oracle sha1 for 017-drop_monitoring_tables.sql"
+
+* Fri Mar 11 2016 Jan Dobes 2.5.16-1
+- make sure people already on 2.4 will get missed 2.2 -> 2.3 upgrades
+- fixing missing 2.2 -> 2.3 upgrades
+- Revert "delete one more table"
+
+* Wed Mar 09 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.15-1
+- fixing oracle sha1
+- taskomatic records for uuid cleanup
+
+* Wed Mar 09 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.14-1
+- remove uuid cleanup from database level
+
+* Mon Mar 07 2016 Jan Dobes 2.5.13-1
+- fixing upgrade on Oracle - it's function
+- fixing upgrade on Oracle - invalid end of file
+- fixing upgrade on Oracle
+- add Chile to the list of timezones (bsc#959055)
+
+* Fri Feb 12 2016 Jan Dobes 2.5.12-1
+- fixing missing upgrade
+
+* Tue Feb 09 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.11-1
+- delete trigger if does exist before creating it
+
+* Tue Feb 02 2016 Grant Gainey 2.5.10-1
+- When deleting a server, delete all associated rhnSet entries
+- 1303886 - update %%description of spacewalk-schema package
+
+* Fri Jan 29 2016 Jan Dobes 2.5.9-1
+- 1301611 - no need to lock table since we don't update entitlements
+
+* Fri Jan 22 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.8-1
+- fix oracle sha1 for 017-drop_monitoring_tables.sql
+
+* Thu Jan 14 2016 Jan Dobes 2.5.7-1
+- delete one more table
+
+* Mon Jan 11 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.6-1
+- purge duplicate uuid records during upgrade process
+
+* Fri Jan 08 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.5-1
+- purge uuid records after deleting a system
+
 * Mon Dec 07 2015 Jan Dobes 2.5.4-1
 - first org needs id = 1
 

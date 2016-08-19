@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,9 +18,14 @@
 
 import os
 import shutil
-from types import IntType, StringType, InstanceType
+from spacewalk.common.usix import IntType, StringType, InstanceType
 from UserDict import UserDict
-from UserList import UserList
+try:
+    #  python 2
+    from UserList import UserList
+except ImportError:
+    #  python3
+    from collections import UserList
 
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.fileutils import createPath, setPermsPath
@@ -204,6 +209,13 @@ class ChannelTrust(Information):
     }
 
 
+class ContentSource(Information):
+    attributeTypes = {
+        'label': StringType,
+        'source_url': StringType,
+    }
+
+
 class Channel(Information):
     attributeTypes = {
         'label': StringType,
@@ -240,6 +252,7 @@ class Channel(Information):
         'export-type': StringType,
         'export-end-date': StringType,
         'export-start-date': StringType,
+        'content-sources': [ContentSource],
     }
 
 
@@ -680,16 +693,16 @@ class GenericPackageImport(Import):
         Import._processPackage(self, package)
 
         # Save the fields in the local hashes
-        if not self.evrs.has_key(package.evr):
+        if package.evr not in self.evrs:
             self.evrs[package.evr] = None
 
-        if not self.names.has_key(package.name):
+        if package.name not in self.names:
             self.names[package.name] = None
 
-        if not self.package_arches.has_key(package.arch):
+        if package.arch not in self.package_arches:
             self.package_arches[package.arch] = None
 
-        for type, chksum in package['checksums'].iteritems():
+        for type, chksum in package['checksums'].items():
             checksumTuple = (type, chksum)
             if not checksumTuple in self.checksums:
                 self.checksums[checksumTuple] = None
@@ -815,7 +828,7 @@ class Diff(UserList):
 
 # Replaces all occurences of None with the empty string
 def removeNone(list):
-    return map(lambda x: (x is not None and x) or '', list)
+    return [(x is not None and x) or '' for x in list]
 
 
 # Assorted functions for various things
@@ -854,7 +867,7 @@ def move_package(filename, basedir, relpath, checksum_type, checksum, force=None
         shutil.copy(filename, packagePath)
 
     # set the path perms readable by all users
-    os.chmod(packagePath, 0644)
+    os.chmod(packagePath, int('0644', 8))
 
 
 # Returns a list of containing nevra for the given RPM header

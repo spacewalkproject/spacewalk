@@ -25,7 +25,7 @@
 <rl:listset name="distChannelMap">
 <rhn:csrf />
 
-<input type="hidden" name="cid" value="${cid}" />
+<rhn:hidden name="cid" value="${cid}" />
 
         <rl:list emptykey="distchannelmap.jsp.empty" alphabarcolumn="os" >
 

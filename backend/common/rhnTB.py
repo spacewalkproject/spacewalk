@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,18 +18,23 @@ import os
 import sys
 import time
 import traceback
-from StringIO import StringIO
+import socket
+try:
+    #  python 2
+    from StringIO import StringIO
+except ImportError:
+    #  python3
+    from io import StringIO
 from rhn.connections import idn_puny_to_unicode
 
-from rhnConfig import CFG, PRODUCT_NAME
-from rhnLog import log_error
-from rhnTranslate import _
-from stringutils import to_string
-import rhnMail
-import rhnFlags
+from spacewalk.common.rhnConfig import CFG, PRODUCT_NAME
+from spacewalk.common.rhnLog import log_error
+from spacewalk.common.rhnTranslate import _
+from spacewalk.common.stringutils import to_string
+from spacewalk.common import rhnMail
+from spacewalk.common import rhnFlags
 
 # Get the hostname for traceback use
-import socket
 hostname = socket.gethostname()
 
 # Keep QUIET_MAIL in a global variable that is initialized from CFG
@@ -43,7 +48,7 @@ def print_env(fd=sys.stderr):
     """ Dump the environment. """
     dct = os.environ
     fd.write("\nEnvironment for PID=%d on exception:\n" % os.getpid())
-    el = dct.keys()
+    el = list(dct.keys())
     el.sort()
     for k in el:
         fd.write("%s = %s\n" % (to_string(k), to_string(dct[k])))
@@ -97,7 +102,7 @@ def print_req(req, fd=sys.stderr):
     fd.write("Remote Host: %s\nServer Name: %s:%d\n" % (
         req.get_remote_host(), req.server.server_hostname, req.server.port))
     fd.write("Headers passed in:\n")
-    kl = req.headers_in.keys()
+    kl = list(req.headers_in.keys())
     kl.sort()
     for k in kl:
         fd.write("\t%s: %s\n" % (to_string(k), to_string(req.headers_in[k])))

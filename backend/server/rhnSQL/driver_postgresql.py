@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,6 +32,7 @@ from rhn.UserDictCase import UserDictCase
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnSQL import sql_types
 
+from spacewalk.common.usix import BufferType, raise_with_tb
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnException
 from const import POSTGRESQL
@@ -82,7 +83,8 @@ class Function(sql_base.Procedure):
         log_debug(2, query, args)
         try:
             ret = self.cursor.execute(query, args)
-        except psycopg2.Error, e:
+        except psycopg2.Error:
+            e = sys.exc_info()[1]
             error_code = 99999
             m = re.match('ERROR: +-([0-9]+)', e.pgerror)
             if m:
@@ -159,6 +161,8 @@ class Database(sql_base.Database):
         if not self.port:
             self.port = -1
 
+        self.dbh = None
+
         sql_base.Database.__init__(self)
 
     def connect(self, reconnect=1):
@@ -178,21 +182,22 @@ class Database(sql_base.Database):
             if self.sslmode is not None and self.sslrootcert is None:
                 raise AttributeError("Attribute sslrootcert needs to be set if sslmode is set.")
 
-            self.dbh = psycopg2.connect(" ".join("%s=%s" % (k, re.escape(str(v))) for k, v in dsndata.iteritems()))
+            self.dbh = psycopg2.connect(" ".join("%s=%s" % (k, re.escape(str(v))) for k, v in dsndata.items()))
 
             # convert all DECIMAL types to float (let Python to choose one)
             DEC2INTFLOAT = psycopg2.extensions.new_type(psycopg2._psycopg.DECIMAL.values,
                                                         'DEC2INTFLOAT', decimal2intfloat)
             psycopg2.extensions.register_type(DEC2INTFLOAT)
-        except psycopg2.Error, e:
+        except psycopg2.Error:
+            e = sys.exc_info()[1]
             if reconnect > 0:
                 # Try one more time:
                 return self.connect(reconnect=reconnect - 1)
 
             # Failed reconnect, time to error out:
-            raise sql_base.SQLConnectError(
+            raise_with_tb(sql_base.SQLConnectError(
                 self.database, e.pgcode, e.pgerror,
-                "Attempting Re-Connect to the database failed"), None, sys.exc_info()[2]
+                "All attempts to connect to the database failed"), sys.exc_info()[2])
 
     def is_connected_to(self, backend, host, port, username, password,
                         database, sslmode, sslrootcert):
@@ -230,7 +235,8 @@ class Database(sql_base.Database):
         return c.execute()
 
     def commit(self):
-        self.dbh.commit()
+        if self.dbh is not None:
+            self.dbh.commit()
 
     def rollback(self, name=None):
         if name:
@@ -277,26 +283,29 @@ class Cursor(sql_base.Cursor):
 
     def _execute_wrapper(self, function, *p, **kw):
         params = ','.join(["%s: %s" % (key, value) for key, value
-                           in kw.items()])
+                           in list(kw.items())])
         log_debug(5, "Executing SQL: \"%s\" with bind params: {%s}"
                   % (self.sql, params))
         if self.sql is None:
             raise rhnException("Cannot execute empty cursor")
         if self.blob_map:
-            for blob_var in self.blob_map.keys():
-                kw[blob_var] = buffer(kw[blob_var])
+            for blob_var in list(self.blob_map.keys()):
+                kw[blob_var] = BufferType(kw[blob_var])
 
         try:
             retval = function(*p, **kw)
-        except psycopg2.InternalError, e:
+        except psycopg2.InternalError:
+            e = sys.exc_info()[1]
             error_code = 99999
             m = re.match('ERROR: +-([0-9]+)', e.pgerror)
             if m:
                 error_code = int(m.group(1))
             raise sql_base.SQLSchemaError(error_code, e.pgerror, e)
-        except psycopg2.ProgrammingError, e:
+        except psycopg2.ProgrammingError:
+            e = sys.exc_info()[1]
             raise sql_base.SQLStatementPrepareError(self.dbh, e.pgerror, self.sql)
-        except KeyError, e:
+        except KeyError:
+            e = sys.exc_info()[1]
             raise sql_base.SQLError("Unable to bound the following variable(s): %s"
                                     % (string.join(e.args, " ")))
         return retval

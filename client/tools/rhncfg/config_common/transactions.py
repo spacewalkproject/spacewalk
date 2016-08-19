@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,10 +20,10 @@ import grp
 import sys
 import errno
 import shutil
-import string
 
 from config_common import file_utils, utils, cfg_exceptions
 from config_common.rhn_log import log_debug
+from spacewalk.common.usix import raise_with_tb
 
 class TargetNotFile(Exception): pass
 class DuplicateDeployment(Exception): pass
@@ -66,7 +66,7 @@ class DeployTransaction:
         """renames a file to it's new backup name"""
         # ensure we haven't attempted to back this file up before
         # (protect against odd logic coming from the server)
-        if self.backup_by_path.has_key(path):
+        if path in self.backup_by_path:
             raise DuplicateDeployment("Error: attempted to backup %s twice" % path)
 
 
@@ -81,10 +81,11 @@ class DeployTransaction:
                 # need to make sure to handle it if we catch a 'OSError: [Errno 18] Invalid cross-device link'
                 try:
                     log_debug(9, "trying to use os.renames")
-                    oumask = os.umask(022)
+                    oumask = os.umask(int('022', 8))
                     os.renames(path, new_path)
                     os.umask(oumask)
-                except OSError, e:
+                except OSError:
+                    e = sys.exc_info()[1]
                     if e.errno == 18:
                         log_debug(9, "os.renames failed, using shutil functions")
                         path_dir, path_file = os.path.split(path)
@@ -120,34 +121,36 @@ class DeployTransaction:
         if file_info['filetype'] != 'symlink':
             uid = file_info.get('uid')
             if uid is None:
-                if file_info.has_key('username'):
+                if 'username' in file_info:
                     # determine uid
 
                     try:
                         user_record = pwd.getpwnam(file_info['username'])
                         uid = user_record[2]
-                    except Exception, e:
+                    except Exception:
+                        e = sys.exc_info()[1]
                         #Check if username is an int
                         try:
                             uid = int(file_info['username'])
                         except ValueError:
-                            raise cfg_exceptions.UserNotFound(file_info['username']), None, sys.exc_info()[2]
+                            raise_with_tb(cfg_exceptions.UserNotFound(file_info['username']), sys.exc_info()[2])
                 else:
                     #default to root (3.2 sats)
                     uid = 0
 
             gid = file_info.get('gid')
             if gid is None:
-                if file_info.has_key('groupname'):
+                if 'groupname' in file_info:
                     # determine gid
                     try:
                         group_record = grp.getgrnam(file_info['groupname'])
                         gid = group_record[2]
-                    except Exception, e:
+                    except Exception:
+                        e = sys.exc_info()[1]
                         try:
                             gid = int(file_info['groupname'])
                         except ValueError:
-                            raise cfg_exceptions.GroupNotFound(file_info['groupname']), None, sys.exc_info()[2]
+                            raise_with_tb(cfg_exceptions.GroupNotFound(file_info['groupname']), sys.exc_info()[2])
 
                 else:
                     #default to root (3.2 sats)
@@ -158,26 +161,28 @@ class DeployTransaction:
                 os.chown(temp_file_path, uid, gid)
 
                 mode = '600'
-                if file_info.has_key('filemode'):
+                if 'filemode' in file_info:
                     if file_info['filemode'] is "":
                         mode='000'
                     else:
                         mode = file_info['filemode']
 
-                mode = string.atoi(str(mode), 8)
+                mode = int(str(mode), 8)
                 os.chmod(temp_file_path, mode)
 
-            if file_info.has_key('selinux_ctx'):
+            if 'selinux_ctx' in file_info:
                 sectx = file_info.get('selinux_ctx')
                 if sectx is not None and sectx is not "":
                     log_debug(1, "selinux context: " + sectx);
                     try:
                         if lsetfilecon(temp_file_path, sectx) < 0:
                             raise Exception("failed to set selinux context on %s" % dest_path)
-                    except OSError, e:
-                        raise Exception("failed to set selinux context on %s" % dest_path, e), None, sys.exc_info()[2]
+                    except OSError:
+                        e = sys.exc_info()[1]
+                        raise_with_tb(Exception("failed to set selinux context on %s" % dest_path, e), sys.exc_info()[2])
 
-        except OSError, e:
+        except OSError:
+            e = sys.exc_info()[1]
             if e.errno == errno.EPERM and not strict_ownership:
                 sys.stderr.write("cannonical file ownership and permissions lost on %s\n" % dest_path)
             else:
@@ -203,19 +208,17 @@ class DeployTransaction:
         # Older servers will not return directories; if filetype is missing,
         # assume file
         if file_info.get('filetype') == 'directory':
-                self.dirs.append(file_info)
+            self.dirs.append(file_info)
         else:
-                self._chown_chmod_chcon(processed_file_path, dest_path, file_info, strict_ownership=strict_ownership)
-
-                if self.newtemp_by_path.has_key(dest_path):
-                    raise DuplicateDeployment("Error:  %s already added to transaction" % dest_path)
-
-                self.newtemp_by_path[dest_path] = processed_file_path
+            if "dest_path" in self.newtemp_by_path:
+                raise DuplicateDeployment("Error:  %s already added to transaction" % dest_path)
+            self.newtemp_by_path[dest_path] = processed_file_path
+            self._chown_chmod_chcon(processed_file_path, dest_path, file_info, strict_ownership=strict_ownership)
 
     def add(self, file_info):
         """add a file to the deploy transaction"""
-        for k in file_utils.FileProcessor.file_struct_fields.keys():
-            if not file_info.has_key(k):
+        for k in file_utils.FileProcessor.file_struct_fields:
+            if k not in file_info:
                 raise Exception("needed key %s mising from file structure" % k)
 
         file_info['path'] = self._normalize_path_to_root(file_info['path'])
@@ -241,7 +244,8 @@ class DeployTransaction:
             # need to make sure to handle it if we catch a 'OSError: [Errno 18] Invalid cross-device link'
             try:
                 os.rename(self.backup_by_path[path], path)
-            except OSError, e:
+            except OSError:
+                e = sys.exc_info()[1]
                 if e.errno == 18:
                     log_debug(9, "os.rename failed, using shutil.copy")
                     shutil.copy(self.backup_by_path[path], path)
@@ -309,7 +313,7 @@ class DeployTransaction:
                         raise cfg_exceptions.DirectoryEntryIsFile(dirname)
                     if os.path.isdir(dirname):
                         s = os.stat(dirname)
-                        entry = { 'filemode': "%o" % (s[0] & 07777),
+                        entry = { 'filemode': "%o" % (s[0] & int('07777', 8)),
                                   'uid': s[4],
                                   'gid': s[5],
                                   'filetype': 'directory',
@@ -365,7 +369,7 @@ class DeployTransaction:
 
 
             #paths = map(lambda x: x['path'], self.files)
-            paths = self.newtemp_by_path.keys()
+            paths = list(self.newtemp_by_path.keys())
 
             # 2.
             for path in paths:
@@ -373,11 +377,11 @@ class DeployTransaction:
                     raise cfg_exceptions.FileEntryIsDirectory(path)
                 else:
                     self._rename_to_backup(path)
-                    if self.backup_by_path.has_key(path):
+                    if path in self.backup_by_path:
                         log_debug(9, "backup file %s written" % self.backup_by_path[path])
 
             # 3.
-            paths.sort(key = lambda s: string.count(s, os.path.sep))
+            paths.sort(key = lambda s: s.count(os.path.sep))
             for path in paths:
                 if self.deployment_cb:
                     self.deployment_cb(path)

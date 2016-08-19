@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        2.5.0
+Version:        2.6.0
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -62,10 +62,12 @@ Requires:       yum-utils
 # Requires:       jabberpy
 Obsoletes:      spacewalk-monitoring < 2.3
 
+%if 0%{?rhel} || 0%{?fedora}
 # SELinux
 Requires:       osa-dispatcher-selinux
 Requires:       spacewalk-selinux
 Obsoletes:      spacewalk-monitoring-selinux < 2.3
+%endif
 
 %if 0%{?rhel} == 5
 Requires:       jabberd-selinux
@@ -77,7 +79,11 @@ Requires:       selinux-policy-base >= 3.7.19-93
 
 Requires:       ace-editor >= 1.1.1
 
+%if 0%{?suse_version}
+Requires:       cobbler
+%else
 Requires:       cobbler20
+%endif
 
 %description common
 Spacewalk is a systems management application that will
@@ -157,6 +163,11 @@ rm -rf %{buildroot}
 
 %files common
 %{_sysconfdir}/spacewalk-release
+%if 0%{?suse_version}
+%dir %{_datadir}/spacewalk
+%dir %{_datadir}/spacewalk/setup
+%dir %{_datadir}/spacewalk/setup/defaults.d
+%endif
 
 %files oracle
 %{_datadir}/spacewalk/setup/defaults.d/oracle-backend.conf
@@ -165,6 +176,10 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Tue May 10 2016 Grant Gainey 2.5.1-1
+- spacewalk: build on openSUSE
+- Bumping package versions for 2.5.
+
 * Fri Jul 24 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.2-1
 - require cobbler20 - Spacewalk is not working with upstream cobbler anyway
 

@@ -2,6 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 <html>
@@ -29,7 +30,7 @@
         <div class="col-sm-10">
           <c:choose>
             <c:when test="${requestScope.scheduler != null}">
-          <bean:message key="system.event.summaryText" arg0="${requestScope.actiontype}" arg1="${requestScope.scheduler}" />
+          <bean:message key="system.event.summaryText" arg0="${fn:escapeXml(requestScope.actiontype)}" arg1="${fn:escapeXml(requestScope.scheduler)}" />
             </c:when>
             <c:otherwise>
               <c:out value="${requestScope.actiontype}" />
@@ -76,7 +77,7 @@
 <c:if test="${requestScope.failed == true}">
   <div align="right">
     <hr/>
-    <input type="hidden" name="aid" value="${requestScope.aid}" />
+    <rhn:hidden name="aid" value="${requestScope.aid}" />
     <html:submit styleClass="btn btn-default">
       <bean:message key="system.event.rescheduleButton"/>
     </html:submit>

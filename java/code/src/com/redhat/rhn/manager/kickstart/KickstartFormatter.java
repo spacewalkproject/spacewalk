@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -37,6 +37,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.download.DownloadManager;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -47,7 +48,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 /**
  * Simple class to reduce dependencies between Struts and database layers
@@ -340,7 +340,6 @@ public class KickstartFormatter {
     }
 
     private void addCobblerSnippet(StringBuilder buf, String contents) {
-        CobblerSnippet.makeFragment(contents);
         buf.append(CobblerSnippet.makeFragment(contents));
         buf.append(NEWLINE);
     }
@@ -381,8 +380,11 @@ public class KickstartFormatter {
                         command.getArguments() + NEWLINE);
             }
             else if (cname.matches("url")) {
-                String argVal = adjustUrlHost(command);
-                commands.append(cname + SPACE + argVal + NEWLINE);
+                if (command.getArguments() != null) {
+                    String argVal = adjustUrlHost(command);
+
+                    commands.append(cname + SPACE + argVal + NEWLINE);
+                }
             }
             else if (cname.matches("repo")) {
                 RepoInfo repo = RepoInfo.parse(command);
@@ -779,6 +781,13 @@ public class KickstartFormatter {
             retval.append("/etc/init.d/haldaemon restart" + NEWLINE);
         }
         retval.append("# begin cobbler snippet" + NEWLINE);
+        retval.append(NEWLINE);
+        // Work around for bug #522251
+        if (!this.ksdata.getKickstartDefaults().getKstree().getChannel().
+             getChannelArch().getName().startsWith("s390")) {
+            addCobblerSnippet(retval, "post_install_network_config");
+        }
+
         addCobblerSnippet(retval, DEFAULT_MOTD);
         addCobblerSnippet(retval, REDHAT_REGISTER_SNIPPET);
         retval.append("# end cobbler snippet" + NEWLINE);
@@ -787,12 +796,6 @@ public class KickstartFormatter {
         retval.append(RHNCHECK + NEWLINE);
         addLogEnd(retval, RHN_LOG_FILE, "");
 
-        retval.append(NEWLINE);
-        // Work around for bug #522251
-        if (!this.ksdata.getKickstartDefaults().getKstree().getChannel().
-             getChannelArch().getName().startsWith("s390")) {
-            addCobblerSnippet(retval, "post_install_network_config");
-        }
         addEnd(retval);
         return retval.toString();
     }

@@ -26,8 +26,8 @@
       ${current.nvrea}
     </rl:column>
   </rl:list>
-  <input type="hidden" name="sid" value="${param.sid}" />
-  <input type="hidden" name="ss_id" value="${param.ss_id}" />
+  <rhn:hidden name="sid" value="${param.sid}" />
+  <rhn:hidden name="ss_id" value="${param.ss_id}" />
 </rl:listset>
 
 </body>

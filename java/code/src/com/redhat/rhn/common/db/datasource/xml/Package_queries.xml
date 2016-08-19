@@ -660,6 +660,19 @@ ORDER BY  UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr)), UPPER(PA.label), P
   <elaborator name="package_channels" />
 </mode>
 
+<mode name="source_package_ids_in_set" class="com.redhat.rhn.frontend.dto.PackageSourceOverview">
+  <query params="set_label, user_id">
+  SELECT  PS.id AS ID,
+          SRPM.name AS NVREA
+      FROM rhnPackageSource PS inner join
+      rhnSourceRPM SRPM on PS.source_rpm_id = SRPM.id inner join
+      rhnSet S on PS.id = S.element
+   WHERE  S.label = :set_label
+     AND  S.user_id = :user_id
+ORDER BY  UPPER(SRPM.name), PS.id
+  </query>
+</mode>
+
 <mode name="packages_available_to_errata" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="org_id, eid">
 select * from (
@@ -1319,6 +1332,20 @@ SELECT P.id, PE.epoch, PE.version, PE.release
   </query>
 </write-mode>
 
+<write-mode name="schedule_source_pkg_for_delete_from_set">
+  <query params="set_label, uid">
+    INSERT INTO rhnPackageFileDeleteQueue (path)
+      (SELECT distinct(ps.path)
+         FROM rhnPackageSource ps, rhnSet s
+        WHERE ps.id = s.element
+          AND s.label = :set_label
+          AND s.user_id = :uid
+          AND not exists
+          (select path from rhnPackageFileDeleteQueue Q where Q.path = ps.path)
+      )
+  </query>
+</write-mode>
+
 <!-- Deletes packages found in the given RhnSet. The set must contain the package ID in
      the "element" of the set. -->
 <write-mode name="delete_packages_from_set">
@@ -1542,6 +1569,19 @@ SELECT distinct P.id AS ID,
     <elaborator name="package_details" />
 </mode>
 
+<mode name="orphan_source_packages" class="com.redhat.rhn.frontend.dto.PackageSourceOverview">
+  <query params="org_id">
+SELECT distinct PS.id AS ID,
+       SRPM.name AS NVREA,
+       PS.path as PATH
+FROM rhnPackageSource PS inner join
+     rhnSourceRPM SRPM on PS.source_rpm_id = SRPM.id left join
+     rhnPackage P on SRPM.id = P.source_rpm_id left join
+     rhnChannelPackage CP on CP.package_id = P.id
+WHERE  PS.org_id = :org_id and
+       CP.package_id is null
+  </query>
+</mode>
 
 <mode name="all_custom_packages" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="org_id">
@@ -1557,6 +1597,16 @@ SELECT distinct P.id AS ID,
     <elaborator name="package_channels" />
 </mode>
 
+<mode name="all_custom_source_packages" class="com.redhat.rhn.frontend.dto.PackageSourceOverview">
+  <query params="org_id">
+SELECT distinct PS.id AS ID,
+       SRPM.name AS NVREA,
+       PS.path as PATH
+FROM rhnPackageSource PS inner join
+     rhnSourceRPM SRPM on PS.source_rpm_id = SRPM.id
+WHERE  PS.org_id = :org_id
+  </query>
+</mode>
 
 <mode name="custom_package_in_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="cid, org_id">
@@ -1572,6 +1622,20 @@ SELECT distinct P.id AS ID,
   </query>
     <elaborator name="package_details" />
     <elaborator name="package_channels" />
+</mode>
+
+<mode name="custom_source_package_in_channel" class="com.redhat.rhn.frontend.dto.PackageSourceOverview">
+  <query params="cid, org_id">
+SELECT distinct PS.id AS ID,
+       SRPM.name AS NVREA,
+       PS.path as PATH
+FROM rhnPackageSource PS inner join
+     rhnSourceRPM SRPM on PS.source_rpm_id = SRPM.id left join
+     rhnPackage P on SRPM.id = P.source_rpm_id left join
+     rhnChannelPackage CP on CP.package_id = P.id
+WHERE  PS.org_id = :org_id and
+       CP.channel_id = :cid
+  </query>
 </mode>
 
 <!-- Runs the cache cleanup for all packages in an RhnSet. The package ID must be in
@@ -1673,10 +1737,10 @@ ORDER BY P.package_arch_id DESC
 <write-mode name="delete_package_sources_from_set">
    <query params="set_label, uid">
       DELETE FROM rhnPackageSource ps
-       WHERE ps.source_rpm_id IN (
-             SELECT p.source_rpm_id
-               FROM rhnPackage p, rhnSet s
-              WHERE p.id = s.element
+       WHERE ps.id IN (
+             SELECT ps.id
+               FROM rhnPackageSource ps, rhnSet s
+              WHERE ps.id = s.element
                 AND s.label = :set_label
                 AND S.user_id = :uid
              )

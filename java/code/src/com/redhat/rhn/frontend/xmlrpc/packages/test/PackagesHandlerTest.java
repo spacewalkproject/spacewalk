@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,8 +15,12 @@
 package com.redhat.rhn.frontend.xmlrpc.packages.test;
 
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
+import com.redhat.rhn.domain.rpm.SourceRpm;
+import com.redhat.rhn.domain.rpm.test.SourceRpmTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.packages.PackagesHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
@@ -100,6 +104,14 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
         handler.removePackage(admin, new Integer(pkg.getId().intValue()));
     }
 
+    public void testRemovePackageSource() throws Exception {
+        User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
+        SourceRpm srpm = SourceRpmTest.createTestSourceRpm();
+        PackageSource pkg = PackageTest.createTestPackageSource(srpm, user.getOrg());
+        HibernateFactory.getSession().save(pkg);
+        handler.removeSourcePackage(admin, new Integer(pkg.getId().intValue()));
+    }
+
 
     public void testFindByNevra() throws Exception {
         Package p = PackageTest.createTestPackage(admin.getOrg());
@@ -114,6 +126,18 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
                 "", p.getPackageArch().getLabel());
         assertTrue(newP.size() == 1);
         assertEquals(p, newP.get(0));
+    }
+
+    public void testListSourcePackages() throws Exception {
+        User user = UserTestUtils.createUser("testUser", regular.getOrg().getId());
+        Object[] result1 = handler.listSourcePackages(user);
+        for (int i = 0; i < 3; i++) {
+            SourceRpm srpm = SourceRpmTest.createTestSourceRpm();
+            PackageSource pkg = PackageTest.createTestPackageSource(srpm, user.getOrg());
+            HibernateFactory.getSession().save(pkg);
+        }
+        Object[] result2 = handler.listSourcePackages(user);
+        assertEquals(3, result2.length - result1.length);
     }
 
 }

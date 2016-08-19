@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,18 +15,18 @@
 
 package com.redhat.rhn.frontend.taglibs.list;
 
+import com.redhat.rhn.frontend.servlets.LegacyServletOutputStream;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
-import javax.servlet.ServletOutputStream;
 
 /**
  * Buffers servlet output rather than streaming it to the client
  *
  * @version $Rev $
  */
-class BufferedServletOutputStream extends ServletOutputStream {
+class BufferedServletOutputStream extends LegacyServletOutputStream {
 
     private ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 

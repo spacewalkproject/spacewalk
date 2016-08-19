@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -67,7 +67,7 @@ def drop_table(dbh, table_name):
 def list_tables(dbh):
     h = dbh.cursor()
     h.execute("select table_name from user_tables")
-    return map(lambda x: x[0].upper(), h.fetchall())
+    return [x[0].upper() for x in h.fetchall()]
 
 if __name__ == '__main__':
     sys.exit(main() or 0)

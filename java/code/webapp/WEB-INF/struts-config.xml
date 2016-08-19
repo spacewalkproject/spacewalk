@@ -727,6 +727,8 @@
             <form-property name="url" type="java.lang.String"/>
             <form-property name="sourceid" type="java.lang.Long" />
             <form-property name="label" type="java.lang.String"/>
+            <form-property name="contenttypes" type="java.util.List"/>
+            <form-property name="contenttype" type="java.lang.String"/>
             <form-property name="sslcryptokeys" type="java.util.List"/>
             <form-property name="sslcacert" type="java.lang.String"/>
             <form-property name="sslclientcert" type="java.lang.String"/>
@@ -2466,7 +2468,7 @@
              className="com.redhat.rhn.frontend.struts.RhnActionMapping">
          <set-property property="acls" value="user_role(channel_admin)"/>
          <forward name="default" path="/WEB-INF/pages/errata/addpackagepackagepush.jsp"/>
-         <forward name="finished" path="/errata/manage/ListPackages.do" />
+         <forward name="finished" path="/errata/manage/AddPackages.do" />
      </action>
 
      <action path="/errata/manage/AddPackagePackagePushSubmit"
@@ -2483,48 +2485,26 @@
      </action>
 
     <action path="/errata/manage/ListPackages"
-            scope="request"
-            type="com.redhat.rhn.frontend.action.errata.ListPackagesSetupAction"
-            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(channel_admin)"/>
-        <forward name="default"
-            path="/WEB-INF/pages/errata/packages/list.jsp"/>
-    </action>
-
-    <action path="/errata/manage/ListPackagesSubmit"
         scope="request"
         input="/WEB-INF/pages/errata/packages/list.jsp"
         type="com.redhat.rhn.frontend.action.errata.ListPackagesAction"
-        parameter="dispatch"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequired" value="true" />
         <set-property property="acls" value="user_role(channel_admin)"/>
-        <forward name="default"
-            path="/errata/manage/ListPackages.do" />
-        <forward name="confirm"
-            path="/errata/manage/RemovePackages.do" redirect="true"/>
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default" path="/WEB-INF/pages/errata/packages/list.jsp" />
+        <forward name="confirm" path="/errata/manage/RemovePackages.do" redirect="true"/>
     </action>
 
     <action path="/errata/manage/RemovePackages"
         scope="request"
-        type="com.redhat.rhn.frontend.action.errata.RemovePackagesSetupAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(channel_admin)"/>
-        <forward name="default"
-            path="/WEB-INF/pages/errata/packages/remove.jsp"/>
-    </action>
-
-    <action path="/errata/manage/RemovePackagesSubmit"
-        scope="request"
         input="/WEB-INF/pages/errata/packages/remove.jsp"
         type="com.redhat.rhn.frontend.action.errata.RemovePackagesAction"
-        parameter="dispatch"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequired" value="true" />
         <set-property property="acls" value="user_role(channel_admin)"/>
+        <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
-            path="/errata/manage/RemovePackages.do" redirect="true"/>
-        <forward name="success"
+            path="/WEB-INF/pages/errata/packages/remove.jsp"/>
+        <forward name="confirm"
             path="/errata/manage/ListPackages.do" redirect="true"/>
     </action>
 
@@ -2826,24 +2806,13 @@
                  path="/WEB-INF/pages/systems/sdc/connection.jsp" />
     </action>
 
-    <action path="/systems/details/Proxy"
-        scope="request"
-        input="/WEB-INF/pages/systems/sdc/proxy.jsp"
-        type="com.redhat.rhn.frontend.action.systems.sdc.ProxyAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="mixins" value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
-        <set-property property="acls" value="user_role(org_admin); system_feature(ftr_proxy_capable) or system_is_proxy(); org_channel_family(rhn-proxy) or system_is_proxy(); child_channel_candidate(rhn-proxy) or system_is_proxy(); not system_is_satellite(); system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)"/>
-        <forward name="default"
-                 path="/WEB-INF/pages/systems/sdc/proxy.jsp" />
-    </action>
-
     <action path="/systems/details/ProxyClients"
         scope="request"
         input="/WEB-INF/pages/systems/sdc/proxyclients.jsp"
         type="com.redhat.rhn.frontend.action.systems.sdc.ProxyClientsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="mixins" value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
-        <set-property property="acls" value="system_is_proxy()"/>
+        <set-property property="acls" value="user_role(org_admin); system_feature(ftr_proxy_capable) or system_is_proxy(); org_channel_family(rhn-proxy) or system_is_proxy(); child_channel_candidate(rhn-proxy) or system_is_proxy(); not system_is_satellite(); system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/sdc/proxyclients.jsp" />
     </action>
@@ -5305,6 +5274,8 @@
                path="/admin/multiorg/OrgDetails.do" redirect="true" />
       <forward name="error"
                path="/WEB-INF/pages/admin/multiorg/orgdetails.jsp" />
+      <forward name="nosuchorg"
+               path="/admin/multiorg/Organizations.do" redirect="true" />
     </action>
 
     <action path="/admin/multiorg/OrgConfigDetails"

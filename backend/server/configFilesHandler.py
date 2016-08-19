@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,10 +18,16 @@
 
 import base64
 import os
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib
 import sys
 import hashlib
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnConfig import CFG
@@ -231,7 +237,8 @@ class ConfigFilesHandler(rhnHandler):
         try:
             self._push_config_file(file)
             self._push_revision(file)
-        except rhnSQL.SQLSchemaError, e:
+        except rhnSQL.SQLSchemaError:
+            e = sys.exc_info()[1]
             log_debug(4, "schema error", e)
             rhnSQL.rollback()  # blow away the contents that got inserted
             if e.errno == 20267:
@@ -246,30 +253,36 @@ class ConfigFilesHandler(rhnHandler):
     def push_file(self, config_channel_id, file):
         try:
             result = self._push_file(config_channel_id, file)
-        except ConfigFilePathIncomplete, e:
-            raise rhnFault(4015,
-                           "Full path of file '%s' must be specified" % e.file.get('path'),
-                           explain=0), None, sys.exc_info()[2]
-        except ConfigFileExistsError, e:
-            raise rhnFault(4013,
-                           "File %s already uploaded" % e.file.get('path'),
-                           explain=0), None, sys.exc_info()[2]
-        except ConfigFileVersionMismatchError, e:
-            raise rhnFault(4012, "File %s uploaded with a different "
-                           "version" % e.file.get('path'), explain=0), None, sys.exc_info()[2]
-        except ConfigFileMissingDelimError, e:
-            raise rhnFault(4008, "Delimiter not specified for file %s" %
-                           e.file.get('path'), explain=0), None, sys.exc_info()[2]
-        except ConfigFileMissingContentError, e:
-            raise rhnFault(4007, "No content sent for file %s" %
-                           e.file.get('path'), explain=0), None, sys.exc_info()[2]
-        except ConfigFileExceedsQuota, e:
-            raise rhnFault(4014, "File size of %s exceeds free quota space" %
-                           e.file.get('path'), explain=0), None, sys.exc_info()[2]
-        except ConfigFileTooLargeError, e:
-            raise rhnFault(4003, "File size of %s larger than %s bytes" %
-                           (e.file.get('path'), self._get_maximum_file_size()),
-                           explain=0), None, sys.exc_info()[2]
+        except ConfigFilePathIncomplete:
+            e = sys.exc_info()[1]
+            raise_with_tb(rhnFault(4015, "Full path of file '%s' must be specified" % e.file.get('path'),
+                          explain=0), sys.exc_info()[2])
+
+        except ConfigFileExistsError:
+            e = sys.exc_info()[1]
+            raise_with_tb(rhnFault(4013, "File %s already uploaded" % e.file.get('path'),
+                          explain=0), sys.exc_info()[2])
+        except ConfigFileVersionMismatchError:
+            e = sys.exc_info()[1]
+            raise_with_tb(rhnFault(4012, "File %s uploaded with a different "
+                           "version" % e.file.get('path'), explain=0), sys.exc_info()[2])
+        except ConfigFileMissingDelimError:
+            e = sys.exc_info()[1]
+            raise_with_tb(rhnFault(4008, "Delimiter not specified for file %s" %
+                           e.file.get('path'), explain=0), sys.exc_info()[2])
+        except ConfigFileMissingContentError:
+            e = sys.exc_info()[1]
+            raise_with_tb(rhnFault(4007, "No content sent for file %s" %
+                           e.file.get('path'), explain=0), sys.exc_info()[2])
+        except ConfigFileExceedsQuota:
+            e = sys.exc_info()[1]
+            raise_with_tb(rhnFault(4014, "File size of %s exceeds free quota space" %
+                           e.file.get('path'), explain=0), sys.exc_info()[2])
+        except ConfigFileTooLargeError:
+            e = sys.exc_info()[1]
+            raise_with_tb(rhnFault(4003, "File size of %s larger than %s bytes" %
+                                         (e.file.get('path'), self._get_maximum_file_size()),
+                                   explain=0), sys.exc_info()[2])
 
         rhnSQL.commit()
         return result
@@ -541,4 +554,5 @@ def format_file_results(row, server=None):
         'filetype': row['label'],
         'selinux_ctx': row['selinux_ctx'] or '',
         'modified': m_date,
+        'is_binary': row['is_binary'] or '',
     }

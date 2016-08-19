@@ -46,6 +46,7 @@ public class EnvironmentFilter implements Filter {
     private static String[] nosslurls = {"/rhn/kickstart/DownloadFile",
                                          "/rhn/common/DownloadFile",
                                          "/rhn/rpc/api",
+                                         "/rhn/errors",
                                          "/rhn/ty/TinyUrl"};
 
     /**

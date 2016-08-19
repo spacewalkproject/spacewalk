@@ -1,5 +1,5 @@
 Name:		spacewalk-oscap
-Version:	2.5.0
+Version:	2.6.0
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -12,7 +12,11 @@ BuildArch:	noarch
 BuildRequires:	python-devel
 BuildRequires:	rhnlib
 BuildRequires:  libxslt
+%if 0%{?rhel} && 0%{?rhel} < 6
+Requires: openscap-utils >= 1.0.8-1
+%else
 Requires:	openscap-scanner
+%endif
 Requires:	libxslt
 Requires:       rhnlib
 Requires:       rhn-check
@@ -40,9 +44,26 @@ rm -rf $RPM_BUILD_ROOT
 %config  /etc/sysconfig/rhn/clientCaps.d/scap
 %{_datadir}/rhn/actions/scap.*
 %{_datadir}/openscap/xsl/xccdf-resume.xslt
-
+%if 0%{?suse_version}
+%dir /etc/sysconfig/rhn
+%dir /etc/sysconfig/rhn/clientCaps.d
+%dir %{_datadir}/openscap
+%dir %{_datadir}/openscap/xsl
+%dir %{_datadir}/rhn
+%dir %{_datadir}/rhn/actions
+%endif
 
 %changelog
+* Mon May 23 2016 Gennadii Altukhov <galt@redhat.com> 2.5.3-1
+- convert code to work in python 2/3
+
+* Fri May 20 2016 Grant Gainey 2.5.2-1
+- spacewalk-oscap: build on openSUSE
+
+* Fri Jan 22 2016 Tomas Lestach <tlestach@redhat.com> 2.5.1-1
+- 1232596 - still require openscap-utils on RHEL5
+- Bumping package versions for 2.5.
+
 * Fri Jun 19 2015 Tomas Kasparek <tkasparek@redhat.com> 2.4.1-1
 - rhbz#1232596: Require just openscap-scanner package everywhere
 - Bumping package versions for 2.4.

@@ -47,13 +47,15 @@
                                    bound="false"
                            headerkey="grouplist.jsp.name"
                            sortattr="name" defaultsort="asc" filterattr="name" styleclass="${nameStyle}">
-                                <a href="/rhn/groups/GroupDetail.do?sgid=${current.id}">${current.name}</a>
+                                <a href="/rhn/groups/GroupDetail.do?sgid=${current.id}">
+                                  <c:out value="${current.name}"/>
+                                </a>
                 </rl:column>
         </rl:list>
 
 </div>
 <rhn:require acl="user_role(org_admin) or user_role(system_group_admin)">
-<input type="hidden" name="sid" value="${system.id}" />
+<rhn:hidden name="sid" value="${system.id}" />
 <div class="text-right">
    <rhn:submitted/>
    <hr/>

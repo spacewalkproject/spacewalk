@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 
@@ -11,7 +11,7 @@
 
 <div class="page-summary">
    <p><bean:message key="deleteconfirm.jsp.satadmin.description"/></p>
-   <p><bean:message key="deleteconfirm.jsp.satadmin_revoke" arg0="${requestScope.username}"/></p>
+   <p><bean:message key="deleteconfirm.jsp.satadmin_revoke" arg0="${fn:escapeXml(requestScope.username)}"/></p>
 </div>
 
 <html:form action="/admin/multiorg/SatRoleConfirm.do">

@@ -35,6 +35,7 @@ import up2date_client.up2dateAuth
 import up2date_client.config
 import up2date_client.rhnChannel
 import up2date_client.rhnPackageInfo
+from rhn.i18n import ustr
 from up2date_client import up2dateErrors
 
 STORED_CHANNELS_NAME = '_spacewalk.json'
@@ -100,8 +101,7 @@ class Spacewalk(dnf.Plugin):
             try:
                 login_info = up2date_client.up2dateAuth.getLoginInfo(timeout=self.conf.timeout)
             except up2dateErrors.RhnServerException as e:
-                logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, RHN_DISABLED,
-                                           unicode(e))
+                logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, RHN_DISABLED, e)
                 return
 
             if not login_info:
@@ -113,8 +113,7 @@ class Spacewalk(dnf.Plugin):
                 svrChannels = up2date_client.rhnChannel.getChannelDetails(
                                                               timeout=self.conf.timeout)
             except up2dateErrors.CommunicationError as e:
-                logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, RHN_DISABLED,
-                                           unicode(e))
+                logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, RHN_DISABLED, e)
                 return
             except up2dateErrors.NoChannelsError:
                 logger.error("%s\n%s", NOT_SUBSCRIBED_ERROR, CHANNELS_DISABLED)
@@ -134,7 +133,7 @@ class Spacewalk(dnf.Plugin):
 
         repos = self.base.repos
 
-        for (channel_id, channel_dict) in enabled_channels.iteritems():
+        for (channel_id, channel_dict) in enabled_channels.items():
             cached_channel = cached_channels.get(channel_id)
             cached_version = None
             if cached_channel:
@@ -174,8 +173,7 @@ class Spacewalk(dnf.Plugin):
             up2date_client.rhnPackageInfo.updatePackageProfile(
                                                         timeout=self.conf.timeout)
         except up2dateErrors.RhnServerException as e:
-            logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, PROFILE_NOT_SENT,
-                                       unicode(e))
+            logger.error("%s\n%s\n%s", COMMUNICATION_ERROR, PROFILE_NOT_SENT, e)
 
 
     def _read_channels_file(self):
@@ -213,10 +211,10 @@ class  SpacewalkRepo(dnf.repo.Repo):
                       'X-RHN-Auth-Expire-Offset']
 
     def __init__(self, channel, opts):
-        super(SpacewalkRepo, self).__init__(unicode(channel['label']),
+        super(SpacewalkRepo, self).__init__(ustr(channel['label']),
                                             opts.get('cachedir'))
         # dnf stuff
-        self.name = unicode(channel['name'])
+        self.name = ustr(channel['name'])
         self.baseurl = [ url + '/GET-REQ/' + self.id for url in channel['url']]
         self.sslcacert = opts.get('sslcacert')
         self.proxy = opts.get('proxy')
@@ -246,7 +244,7 @@ class  SpacewalkRepo(dnf.repo.Repo):
     def add_http_headers(self, handle):
         http_headers = []
         for header in self.needed_headers:
-            if not self.login_info.has_key(header):
+            if not header in self.login_info:
                 error = MISSING_HEADER % header
                 raise dnf.Error.RepoError(error)
             if self.login_info[header] in (None, ''):
@@ -303,7 +301,7 @@ def is_valid_gpg_key_url(key_url):
     return True
 
 def get_ssl_ca_cert(up2date_cfg):
-    if not (up2date_cfg.has_key('sslCACert') and up2date_cfg['sslCACert']):
+    if not ('sslCACert' in up2date_cfg and up2date_cfg['sslCACert']):
         raise BadSslCaCertConfig
 
     ca_certs = up2date_cfg['sslCACert']

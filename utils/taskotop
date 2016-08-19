@@ -1,0 +1,172 @@
+#!/usr/bin/env python
+#
+# Displays a summary of Taskomatic activities in progress
+#
+# Copyright (c) 2016 SUSE LLC
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+
+import datetime
+import time
+import struct
+import StringIO
+import signal
+import sys
+import curses
+
+from spacewalk.server import rhnSQL
+
+def get_tasko_runs(maximum_age):
+    """Returns data about recent Taskomatic task runs from the database."""
+    task_query = rhnSQL.prepare("""
+        SELECT
+            task.name AS name,
+            run.id AS id,
+            run.start_time AS start_time,
+            run.end_time AS end_time,
+            schedule.data AS data
+
+            FROM rhnTaskoRun run
+                JOIN rhnTaskoSchedule schedule ON schedule.id = run.schedule_id
+                JOIN rhnTaskoTemplate template ON template.id = run.template_id
+                JOIN rhnTaskoTask task ON task.id = template.task_id
+
+            WHERE
+                run.start_time IS NOT NULL
+                    AND (run.end_time IS NULL OR run.end_time > :timelimit)
+
+            ORDER BY end_time DESC NULLS FIRST, start_time ASC
+    """);
+    # trim those older than 1 minute
+    task_query.execute(timelimit = datetime.datetime.now() - datetime.timedelta(seconds=maximum_age))
+
+    # HACK: simulate fetchall_dict() in such a way BLOBs are only read once
+    # (otherwise we get exceptions)
+    result = []
+    row = task_query.fetchone_dict()
+    while row is not None:
+        row["data"] =  rhnSQL.read_lob(row["data"])
+        result.append(row)
+        row = task_query.fetchone_dict()
+    return result
+
+def get_channel_names(ids):
+    """Gets the channel names corresponding to channel ids from the database."""
+    if len(ids) == 0:
+        return []
+
+    query = rhnSQL.prepare("""
+        SELECT DISTINCT label
+            FROM rhnChannel
+            WHERE id IN ({0})
+            ORDER BY label
+    """.format(",".join(ids)));
+    query.execute()
+
+    return [tuple[0] for tuple in query.fetchall()]
+
+def get_current_repodata_channel_names():
+    """Gets the channel names of currenlty running repodata tasks from the database."""
+    query = rhnSQL.prepare("""
+        SELECT DISTINCT channel_label
+            FROM rhnRepoRegenQueue
+            WHERE next_action IS NULL
+            ORDER BY channel_label
+    """);
+    query.execute()
+
+    return [row[0] for row in query.fetchall()]
+
+def extract_channel_ids(bytes):
+    """Extracts channel ids from a Java Map in serialized form."""
+    # HACK: this heuristicallty looks for strings, which are marked with 't',
+    # two bytes for the length and the string chars themselves. If they
+    # represent numbers, we assume they are channel_ids
+    # (currently this is the case)
+    java_strings = []
+    io = StringIO.StringIO(bytes)
+    while True:
+        char = io.read(1)
+        if char == "":
+            break
+        elif char == "t":
+            oldpos = io.tell()
+            try:
+                length = struct.unpack(">H", io.read(2))[0]
+                java_string = struct.unpack(">{0}s".format(length), io.read(length))
+                java_strings += java_string
+            except struct.error:
+                pass # not a real string, ignore
+            io.seek(oldpos)
+    # of those found, filter the ones looking like a number
+    return [java_string for java_string in java_strings if java_string.isdigit()]
+
+def format_run(run):
+    """Formats data from a Taskomatic run in human-friendly form."""
+    if run["end_time"]:
+        run["since"] = format_date_delta(run["start_time"], run["end_time"])
+        run["status"] = "(finished)"
+    else:
+        run["since"] = format_date_delta(run["start_time"], datetime.datetime.now())
+        run["status"] = ""
+
+    run["channel_name"] = ""
+    if run["data"]:
+        channel_names = get_channel_names(extract_channel_ids(run["data"]))
+        run["channel_name"] = format_multiple_names(channel_names)
+
+    if run["name"] == "channel-repodata" and run["status"] == "":
+        run["channel_name"] = format_multiple_names(get_current_repodata_channel_names())
+
+    return "{id:11d} {name:>30} {since:>13} {status:10} {channel_name:>60}".format(**run)
+
+def format_multiple_names(names):
+    """Formats an array so that it does not take up too much screen space."""
+    if len(names) == 0:
+        return ""
+    elif len(names) == 1:
+        return names[0]
+    else:
+        one = names[datetime.datetime.now().second % len(names)]
+        if len(names) == 1:
+            return "{0} and 1 other".format(one)
+        else:
+            return "{0} and {1} others".format(one, len(names) -1)
+
+def format_date_delta(start, end):
+    """Formats a time delta in human-friently form."""
+    td = end.replace(tzinfo=None) - start.replace(tzinfo=None)
+    seconds = (td.microseconds + (td.seconds + td.days * 24 * 3600) * 10**6) / 10**6
+    return "{0}s".format(seconds)
+
+def main(screen):
+    """Computes and displays runs every second."""
+    rhnSQL.initDB()
+
+    # exit gracefully on ctrl-c
+    signal.signal(signal.SIGINT, lambda signal, frame: sys.exit(0))
+
+    # hide cursor
+    curses.curs_set(0)
+    while True:
+        screen.erase()
+
+        rows = (
+            ["{0:>11} {1:>30} {2:>13} {3:10} {4:>60}".format("RUN ID", "TASK NAME", "ELAPSED TIME", "", "CHANNEL")] +
+            [format_run(run) for run in get_tasko_runs(60)]
+        )
+
+        for index, row in enumerate(rows):
+            if index < screen.getmaxyx()[0]:
+                screen.addstr(index, 0, row)
+
+        screen.refresh()
+        time.sleep(1)
+
+curses.wrapper(main)

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -52,7 +52,7 @@ def store_client_route(server_id):
     # NOTE: X-RHN-Proxy-Auth described in proxy/broker/rhnProxyAuth.py
     if rhnFlags.test('X-RHN-Proxy-Auth'):
         tokens = string.split(rhnFlags.get('X-RHN-Proxy-Auth'), ',')
-        tokens = filter(lambda token: token, tokens)
+        tokens = [token for token in tokens if token]
 
         log_debug(4, "route tokens", tokens)
         # newRoute in this format: [(id0, hostname0),  (id1, hostname1),  ...]

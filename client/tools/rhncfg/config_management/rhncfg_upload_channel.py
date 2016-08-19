@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -61,7 +61,7 @@ class Handler(handler_base.HandlerBase):
         #5/12/05 wregglej - 149034 allowing the channel name and the directory name to vary independently.
         if not self.options.channel is None:
             #Get the list of channels with leading and trailing whitespace removed.
-            channels = map(string.strip, string.split(self.options.channel,','))
+            channels = [x.strip() for x in self.options.channel.split(',') if x]
 
             #Get the list of directories to upload. At this point it's the list of arguments.
             dirs = self.args
@@ -71,7 +71,7 @@ class Handler(handler_base.HandlerBase):
             #specified that each directory is it's own channel.
             channels = os.listdir(topdir)
             dirs = None
-            print "No config channels specified, using %s" % channels
+            print("No config channels specified, using %s" % channels)
         else:
             #At this point, --channel wasn't used but there was something included as an argument.
             #The name of the channel is assumed to be the same as the name of the directory.
@@ -97,7 +97,7 @@ class Handler(handler_base.HandlerBase):
         else:
             selinux_ctx = None
 
-        print "Using config channel %s" % channel
+        print("Using config channel %s" % channel)
 
         channel_dir = utils.join_path(topdir, directory_name)
 
@@ -114,11 +114,12 @@ class Handler(handler_base.HandlerBase):
                 local_file = utils.join_path(dirname, f)
                 remote_file = utils.join_path(remote_dirname, f)
 
-                print "Uploading %s from %s" % (remote_file, local_file)
+                print("Uploading %s from %s" % (remote_file, local_file))
                 try:
                     self.r.put_file(channel, remote_file, local_file, is_first_revision=0,
                                     selinux_ctx = selinux_ctx)
-                except cfg_exceptions.RepositoryFilePushError, e:
+                except cfg_exceptions.RepositoryFilePushError:
+                    e = sys.exc_info()[1]
                     log_error(e)
 
 
@@ -127,10 +128,8 @@ def is_file_or_link(dirname, basename):
                         os.path.islink(os.path.join(dirname, basename))
 
 def list_files_recursive(d):
-    def visitfunc(arg, dirname, names):
-        arg.append((dirname, filter(lambda x, d=dirname: is_file_or_link(d, x),
-            names)))
-
     file_list = []
-    os.path.walk(d, visitfunc, file_list)
+    for dirname, dirs, names in os.walk(d):
+        file_list.append((dirname, filter(lambda x, d=dirname: is_file_or_link(d, x),
+            names)))
     return file_list

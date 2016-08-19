@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 
-# Copyright (c) 1999--2015 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Author: Adrian Likins <alikins@redhat.com>
 
@@ -28,19 +28,19 @@ def refresh_list(cache_only=None):
     s = rpcServer.getServer()
 
     if argVerbose > 1:
-        print "Called refresh_hardware"
+        print("Called refresh_hardware")
 
     try:
         s.registration.refresh_hw_profile(up2dateAuth.getSystemId(),
                                           hardwareList)
     except:
-        print "ERROR: sending hardware database for System Profile"
+        print("ERROR: sending hardware database for System Profile")
         return (12, "Error refreshing system hardware", {})
 
     return (0, "hardware list refreshed", {})
 
 def main():
-        print refresh_list()
+        print(refresh_list())
 
 if __name__ == "__main__":
         main()

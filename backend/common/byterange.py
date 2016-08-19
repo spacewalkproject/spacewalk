@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,6 +18,7 @@ import re
 import sys
 
 # common module
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnException import rhnException
 
@@ -46,10 +47,10 @@ def parse_byteranges(byterange_header, file_size=None):
         # Invalid byterange
         raise InvalidByteRangeException
     try:
-        start, end = map(_str2int, mo.groups())
+        start, end = list(map(_str2int, mo.groups()))
     except ValueError:
         # Invalid
-        raise InvalidByteRangeException, None, sys.exc_info()[2]
+        raise_with_tb(InvalidByteRangeException, sys.exc_info()[2])
     if start is not None:
         if start < 0:
             # Invalid

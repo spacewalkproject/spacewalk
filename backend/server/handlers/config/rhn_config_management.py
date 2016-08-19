@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -124,7 +124,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             config_channels = [config_channel]
         else:
             config_channels = self._get_client_config_channels(self.server.getid())
-            config_channels = map(lambda x: x['label'], config_channels)
+            config_channels = [x['label'] for x in config_channels]
 
         if not config_channels:
             # No config channels
@@ -153,7 +153,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                 if config_channel == str(self.server.getid()):
                     result_hash[path] = (config_channel, path, row['config_file_type_id'])
 
-        result = result_hash.values()
+        result = list(result_hash.values())
         # Sort by path first since that's what the web site does
         result.sort(lambda x, y: cmp(x[1], y[1]))
         return result

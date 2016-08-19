@@ -3,6 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <body>
@@ -10,9 +11,9 @@
   <c:out value="${requestScope.repo_name}"/>
 </rhn:toolbar>
 <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/repo_detail.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-<h2><bean:message key="repos.jsp.channelHeader" arg0="${repo_name}"/></h2>
+<h2><bean:message key="repos.jsp.channelHeader" arg0="${fn:escapeXml(repo_name)}"/></h2>
 <div class="page-summary">
-<p><bean:message key="repos.jsp.channelSummary" arg0="${repo_name}"/></p>
+<p><bean:message key="repos.jsp.channelSummary" arg0="${fn:escapeXml(repo_name)}"/></p>
 </div>
 
 

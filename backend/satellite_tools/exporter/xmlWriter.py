@@ -1,6 +1,6 @@
 # -*- coding: ISO-8859-1 -*-
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -82,13 +82,13 @@ class XMLWriter:
         if it's been closed already.
         """
         if not self.tag_stack:
-            raise Exception, "Could not close tag %s: empty tag stack" % name
+            raise Exception("Could not close tag %s: empty tag stack" % name)
         if namespace:
             name = "%s:%s" % (namespace, name)
 
         if self.tag_stack[-1] != name:
-            raise Exception, "Could not close tag %s if not opened before" \
-                % name
+            raise Exception("Could not close tag %s if not opened before" \
+                % name)
         self.tag_stack.pop()
 
         self.stream.write("</")
@@ -114,7 +114,7 @@ class XMLWriter:
     # Substitution function for re
     def _sub_function(self, match_object):
         c = match_object.group()
-        if self._escaped_chars.has_key(c):
+        if c in self._escaped_chars:
             return self._escaped_chars[c]
         # return "&#%d;" % ord(c)
         return '?'
@@ -134,4 +134,4 @@ if __name__ == '__main__':
     writer.close_tag("message")
     writer.empty_tag("yahoo", attributes={'abc': 1})
     writer.close_tag(weirdtag)
-    print
+    print("")

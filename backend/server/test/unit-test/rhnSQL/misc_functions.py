@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,9 +20,14 @@
 import os
 import sys
 import time
-import types
+from spacewalk.common import usix
 
-from ConfigParser import ConfigParser
+try:
+    #  python 2
+    from ConfigParser import ConfigParser
+except ImportError:
+    #  python3
+    from configparser import ConfigParser
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.server import rhnSQL, rhnUser
 
@@ -58,7 +63,7 @@ def _create_server_group(org_id, name, description):
 
 def create_server_group(params):
     "Create a server group from a dictionary with the params"
-    return apply(_create_server_group, (), params)
+    return _create_server_group(*(), **params)
 
 
 def fetch_server_group(org_id, name):
@@ -81,7 +86,7 @@ def fetch_server_groups(server_id):
     "Return a server's groups"
     h = rhnSQL.prepare(_query_fetch_server_groups)
     h.execute(server_id=server_id)
-    groups = map(lambda x: x['server_group_id'], h.fetchall_dict() or [])
+    groups = [x['server_group_id'] for x in h.fetchall_dict() or []]
     groups.sort()
     return groups
 
@@ -204,7 +209,7 @@ def create_new_user(org_id=None, username=None, password=None, roles=None, encry
 
 def lookup_org_id(org_id):
     "Look up the org id by user name"
-    if isinstance(org_id, types.StringType):
+    if isinstance(org_id, usix.StringType):
         # Is it a user?
         u = rhnUser.search(org_id)
 
@@ -391,7 +396,8 @@ def grant_channel_family_entitlements(org_id, channel_family, quantity):
             org=org_id,
             url='%s url' % channel_family
         )
-    except rhnSQL.SQLError, e:
+    except rhnSQL.SQLError:
+        e = sys.exc_info()[1]
         # if we're here that means we're voilating something
         raise
 
@@ -420,7 +426,8 @@ def find_or_create_arch_type(name, label):
             name=name
         )
         rhnSQL.commit()
-    except rhnSQL.SQLError, e:
+    except rhnSQL.SQLError:
+        e = sys.exc_info()[1]
         # if we're here that means we're voilating something
         raise
 
@@ -453,7 +460,8 @@ def find_or_create_channel_arch(name, label):
             name=name
         )
         rhnSQL.commit()
-    except rhnSQL.SQLError, e:
+    except rhnSQL.SQLError:
+        e = sys.exc_info()[1]
         # if we're here that means we're voilating something
         raise
 
@@ -501,7 +509,8 @@ def add_channel(label, org_id, channel_arch_id):
         h = rhnSQL.prepare(lookup)
         h.execute(label=label)
         return h.fetchone_dict()
-    except rhnSQL.SQLError, e:
+    except rhnSQL.SQLError:
+        e = sys.exc_info()[1]
         # if we're here that means we're voilating something
         raise
 

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,15 +14,25 @@
 #
 
 import sys
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib  # pylint: disable=F0401
 
-from spacewalk.common.rhnConfig import PRODUCT_NAME
-from cStringIO import StringIO
+try:
+    #  python 2
+    from cStringIO import StringIO
+except ImportError:
+    #  python3
+    from io import StringIO
 
 
 # What other rhn modules we need
-from rhnTranslate import _
-import rhnFlags
+from spacewalk.common.rhnConfig import PRODUCT_NAME
+from spacewalk.common.rhnTranslate import _
+from spacewalk.common import rhnFlags
 
 
 # default template values for error messages
@@ -315,7 +325,7 @@ class rhnFault(Exception):
         self.text = err_text
         self.explain = explain
         self.arrayText = ''
-        if self.code and FaultArray.has_key(self.code):
+        if self.code and self.code in FaultArray:
             self.arrayText = FaultArray[self.code]
         Exception.__init__(self, self.code, self.text, self.arrayText)
 
@@ -336,7 +346,7 @@ class rhnFault(Exception):
         if templateOverrides:
             for label in templateOverrides.keys():
                 # only care about values we've defined defaults for...
-                if templateValues.has_key(label):
+                if label in templateValues:
                     templateValues[label] = templateOverrides[label]
 
         s = StringIO()
@@ -361,5 +371,5 @@ class rhnNotFound(Exception):
     pass
 
 if __name__ == "__main__":
-    print "You can not run this module by itself"
+    print("You can not run this module by itself")
     sys.exit(-1)

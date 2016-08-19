@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,6 +19,10 @@
 
 import sys
 from optparse import OptionParser, Option
+
+from spacewalk.server import rhnSQL
+from spacewalk.common import rhn_rpm
+from spacewalk.common.rhn_pkg import InvalidPackageError
 
 SERVER_RETURN = 0
 
@@ -50,11 +54,6 @@ OK = 1
 # End of _apache.py
 
 sys.modules["_apache"] = sys.modules["__main__"]
-
-
-from spacewalk.server import rhnSQL
-from spacewalk.common import rhn_rpm
-from spacewalk.common.rhn_pkg import InvalidPackageError
 
 options_table = [
     Option("-v", "--verbose",       action="count",
@@ -98,10 +97,10 @@ class Runner:
             raise
 
         if self.options.commit:
-            print "Commiting work"
+            print("Commiting work")
             rhnSQL.commit()
         else:
-            print "Rolling back"
+            print("Rolling back")
             rhnSQL.rollback()
 
     def _get_packages(self):
@@ -128,20 +127,20 @@ class Runner:
                 if not row:
                     break
                 channel_label = row['label']
-                if self._channel_packages.has_key(package_id):
+                if package_id in self._channel_packages:
                     l = self._channel_packages[package_id]
                 else:
                     l = self._channel_packages[package_id] = []
                 l.append(channel_label)
 
-                if not self._channels_hash.has_key(channel_label):
+                if channel_label not in self._channels_hash:
                     orphaned_packages[package_id] = None
 
         if orphaned_packages:
-            print "Bailing out because of packages shared with other channels"
+            print("Bailing out because of packages shared with other channels")
             for package_id in orphaned_packages.keys():
                 channels = self._channel_packages[package_id]
-                print package_id, channels
+                print(package_id, channels)
             return None
 
         return package_ids
@@ -195,17 +194,18 @@ class Runner:
             try:
                 p_file = file(self.options.prefix + "/" + path, 'r')
             except IOError:
-                print "Error opening file %s" % path
+                print("Error opening file %s" % path)
                 continue
 
             try:
                 (header_start, header_end) = rhn_rpm.get_header_byte_range(p_file)
-            except InvalidPackageError, e:
-                print "Error reading header size from file %s: %s" % (path, e)
+            except InvalidPackageError:
+                e = sys.exc_info()[1]
+                print("Error reading header size from file %s: %s" % (path, e))
 
             try:
                 h.execute(package_id=package_id, header_start=header_start, header_end=header_end)
-            except rhnSQL.SQLError, e:
+            except rhnSQL.SQLError:
                 pass
 
     @staticmethod

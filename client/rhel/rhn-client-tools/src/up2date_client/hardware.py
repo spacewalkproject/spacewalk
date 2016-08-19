@@ -1,5 +1,5 @@
 #
-# Copyright (c) 1999--2015 Red Hat, Inc.
+# Copyright (c) 1999--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,29 +20,48 @@ import socket
 import re
 import os
 import sys
-import config
-import rhnserver
+from up2date_client import config
+from up2date_client import rhnserver
 
+from rhn.i18n import ustr
+
+try:
+    long
+except NameError: # long is not defined in python3
+    long = int
+
+
+# network module for python 2
 try:
     import ethtool
     ethtool_present = True
 except ImportError:
-    sys.stderr.write("Warning: information about network interfaces could not be retrieved on this platform.\n")
     ethtool_present = False
+
+# network module for python3 (Fedora >= 23)
+try:
+    import netifaces
+    import ipaddress
+    netifaces_present = True
+except ImportError:
+    netifaces_present = False
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
+# Python 3 translations don't have a ugettext method
+if not hasattr(t, 'ugettext'):
+    t.ugettext = t.gettext
 _ = t.ugettext
 
 import dbus
 import dmidecode
-import up2dateLog
+from up2date_client import up2dateLog
 
 try: # F13 and EL6
-    from hardware_gudev import get_devices, get_computer_info
+    from up2date_client.hardware_gudev import get_devices, get_computer_info
     using_gudev = 1
 except ImportError:
-    from hardware_hal import check_hal_dbus_status, get_hal_computer, read_hal
+    from up2date_client.hardware_hal import check_hal_dbus_status, get_hal_computer, read_hal
     using_gudev = 0
 
 # Some systems don't have the _locale module installed
@@ -224,7 +243,7 @@ def __get_number_sockets():
 def read_cpuinfo():
     def get_entry(a, entry):
         e = entry.lower()
-        if not a.has_key(e):
+        if not e in a:
             return ""
         return a[e]
 
@@ -456,7 +475,7 @@ def read_memory_2_6():
         key = blobs[0]
         if len(blobs) == 1:
             continue
-        #print blobs
+        #print(blobs)
         value = blobs[1].strip()
         meminfo_dict[key] = value
 
@@ -613,14 +632,22 @@ def read_network_interfaces():
     intDict = {}
     intDict['class'] = "NETINTERFACES"
 
-    if not ethtool_present:
+    if not ethtool_present and not netifaces_present:
         # ethtool is not available on non-linux platforms (as kfreebsd), skip it
+        sys.stderr.write("Warning: information about network interfaces could not be retrieved on this platform.\n")
         return intDict
 
-    interfaces = list(set(ethtool.get_devices() + ethtool.get_active_devices()))
+    if ethtool_present:
+        interfaces = list(set(ethtool.get_devices() + ethtool.get_active_devices()))
+    else:
+        interfaces = netifaces.interfaces()
+
     for interface in interfaces:
         try:
-            hwaddr = ethtool.get_hwaddr(interface)
+            if ethtool_present:
+                hwaddr = ethtool.get_hwaddr(interface)
+            else:
+                hwaddr = netifaces.ifaddresses(interface)[netifaces.AF_LINK][0]['addr']
         except:
             hwaddr = ""
 
@@ -635,44 +662,96 @@ def read_network_interfaces():
             hwaddr = get_slave_hwaddr(master_interface, interface)
 
         try:
-            module = ethtool.get_module(interface)
+            if ethtool_present:
+                module = ethtool.get_module(interface)
+            else:
+                driver_file = open('/sys/class/net/%s/device/uevent' % interface, 'r')
+                module = driver_file.readline().split('=')[1].strip()
+                driver_file.close()
         except:
             if interface == 'lo':
                 module = "loopback"
             else:
                 module = "Unknown"
+
         try:
-            ipaddr = ethtool.get_ipaddr(interface)
+            if ethtool_present:
+                ipaddr = ethtool.get_ipaddr(interface)
+            else:
+                ipaddr = netifaces.ifaddresses(interface)[netifaces.AF_INET][0]['addr']
         except:
             ipaddr = ""
 
         try:
-            netmask = ethtool.get_netmask(interface)
+            if ethtool_present:
+                netmask = ethtool.get_netmask(interface)
+            else:
+                netmask = netifaces.ifaddresses(interface)[netifaces.AF_INET][0]['netmask']
         except:
             netmask = ""
 
         try:
-            broadcast = ethtool.get_broadcast(interface)
+            if ethtool_present:
+                broadcast = ethtool.get_broadcast(interface)
+            else:
+                broadcast = netifaces.ifaddresses(interface)[netifaces.AF_INET][0]['broadcast']
         except:
             broadcast = ""
 
         ip6_list = []
-        dev_info = ethtool.get_interfaces_info(interface)
-        for info in dev_info:
-            # one interface may have more IPv6 addresses
-            for ip6 in info.get_ipv6_addresses():
-                scope = ip6.scope
-                if scope == 'global':
-                    scope = 'universe'
-                ip6_list.append({
-                    'scope':   scope,
-                    'addr':    ip6.address,
-                    'netmask': ip6.netmask
-                })
-        intDict[interface] = {'hwaddr':hwaddr,
-                              'ipaddr':ipaddr,
-                              'netmask':netmask,
-                              'broadcast':broadcast,
+        if ethtool_present:
+            dev_info = ethtool.get_interfaces_info(interface)
+            for info in dev_info:
+                # one interface may have more IPv6 addresses
+                for ip6 in info.get_ipv6_addresses():
+                    scope = ip6.scope
+                    if scope == 'global':
+                        scope = 'universe'
+                    ip6_list.append({
+                        'scope':   scope,
+                        'addr':    ip6.address,
+                        'netmask': ip6.netmask
+                    })
+
+        else:
+            try:
+                for dev_info in netifaces.ifaddresses(interface)[netifaces.AF_INET6]:
+                    ip6_addr = dev_info['addr'].split('%')[0]
+
+                    scope_info = ipaddress.IPv6Address(ip6_addr)
+                    if scope_info.is_global:
+                        scope = 'universe'
+                    elif scope_info.is_link_local:
+                        scope = 'link'
+                    elif scope_info.is_loopback:
+                        scope = 'host'
+                    elif scope_info.is_site_local:
+                        scope = 'site'
+
+                    # count number of '1' bits in netmask returned by netifaces
+                    ip6_netmask = dev_info['netmask']
+                    netmask_bits = 0
+                    for two_octets in ip6_netmask.split(':'):
+                        if not two_octets:
+                            break
+                        elif two_octets.lower() == 'ffff':
+                            netmask_bits += 16
+                        else:
+                            # remove '0b' from begin and find last '1' in the string
+                            netmask_bits += 16 - 1 - bin(int(two_octets, 16))[2:].rindex('1')
+
+                    ip6_list.append({
+                            'scope':   scope,
+                            'addr':    ip6_addr,
+                            'netmask': netmask_bits
+                    })
+            except KeyError:
+                pass  # no ipv6 for this interface
+
+        intDict[interface] = {'hwaddr': hwaddr,
+                              'ipaddr': ipaddr,
+                              'netmask': netmask,
+                              'broadcast': broadcast,
                               'module': module,
                               'ipv6': ip6_list}
 
@@ -731,7 +810,7 @@ def read_dmi():
                                                      "system", system_serial)
 
     # Clean up empty entries
-    for k in dmidict.keys()[:]:
+    for k in list(dmidict.keys()):
         if dmidict[k] is None:
             del dmidict[k]
             # Finished
@@ -754,7 +833,7 @@ def get_hal_system_and_smbios():
 
     for key in props:
         if key.startswith('system'):
-            system_and_smbios[unicode(key)] = unicode(props[key])
+            system_and_smbios[ustr(key)] = ustr(props[key])
 
     system_and_smbios.update(get_smbios())
     return system_and_smbios
@@ -806,7 +885,7 @@ def Hardware():
             except:
                 # bz253596 : Logging Dbus Error messages instead of printing on stdout
                 log = up2dateLog.initLog()
-                msg = "Error reading hardware information: %s\n" % (sys.exc_type)
+                msg = "Error reading hardware information: %s\n" % (sys.exc_info()[0])
                 log.log_me(msg)
 
     # all others return individual arrays
@@ -816,14 +895,14 @@ def Hardware():
         ret = read_cpuinfo()
         if ret: allhw.append(ret)
     except:
-        print _("Error reading cpu information:"), sys.exc_type
+        print(_("Error reading cpu information:"), sys.exc_info()[0])
 
     # memory size info
     try:
         ret = read_memory()
         if ret: allhw.append(ret)
     except:
-        print _("Error reading system memory information:"), sys.exc_type
+        print(_("Error reading system memory information:"), sys.exc_info()[0])
 
     cfg = config.initUp2dateConfig()
     if not cfg["skipNetwork"]:
@@ -833,7 +912,7 @@ def Hardware():
             if ret:
                 allhw.append(ret)
         except:
-            print _("Error reading networking information:"), sys.exc_type
+            print(_("Error reading networking information:"), sys.exc_info()[0])
     # dont like catchall exceptions but theres not
     # really anything useful we could do at this point
     # and its been trouble prone enough
@@ -846,7 +925,7 @@ def Hardware():
     except:
         # bz253596 : Logging Dbus Error messages instead of printing on stdout
         log = up2dateLog.initLog()
-        msg = "Error reading DMI information: %s\n" % (sys.exc_type)
+        msg = "Error reading DMI information: %s\n" % (sys.exc_info()[0])
         log.log_me(msg)
 
     try:
@@ -854,7 +933,7 @@ def Hardware():
         if ret:
             allhw.append(ret)
     except:
-        print _("Error reading install method information:"), sys.exc_type
+        print(_("Error reading install method information:"), sys.exc_info()[0])
 
     if not cfg["skipNetwork"]:
         try:
@@ -862,7 +941,7 @@ def Hardware():
             if ret:
                 allhw.append(ret)
         except:
-            print _("Error reading network interface information:"), sys.exc_type
+            print(_("Error reading network interface information:"), sys.exc_info()[0])
 
     # all Done.
     return allhw
@@ -878,5 +957,5 @@ def Hardware():
 if __name__ == '__main__':
     for hw in Hardware():
         for k in hw.keys():
-            print "'%s' : '%s'" % (k, hw[k])
+            print("'%s' : '%s'" % (k, hw[k]))
         print

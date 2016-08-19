@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,15 +14,18 @@
 #
 
 import time
+import sys
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.server import rhnSQL
 
-import jabber_lib
-
+try: # python 2
+    import jabber_lib
+except ImportError: # python 3
+    from osad import jabber_lib
 
 class Client(jabber_lib.JabberClient):
     def __init__(self, *args, **kwargs):
-        apply(jabber_lib.JabberClient.__init__, (self, ) + args, kwargs)
+        jabber_lib.JabberClient.__init__(self, *args, **kwargs)
         self.username = None
         self.resource = None
         #self.DEBUG = jabber_lib.my_debug
@@ -94,7 +97,7 @@ class Client(jabber_lib.JabberClient):
             args.append(attrs[sc])
 
         log_debug(4, "Signature args", args)
-        signature = apply(jabber_lib.sign, args)
+        signature = jabber_lib.sign(*args)
         x_signature = x.getAttr('signature')
         if signature != x_signature:
             log_debug(1, "Signatures do not match", signature, x_signature)
@@ -125,7 +128,7 @@ class Client(jabber_lib.JabberClient):
             args.append(attrs[sc])
 
         log_debug(4, "Signature args", args)
-        attrs['signature'] = apply(jabber_lib.sign, args)
+        attrs['signature'] = jabber_lib.sign(*args)
 
         x = jabber_lib.jabber.xmlstream.Node('x')
         x.setNamespace(jabber_lib.NS_RHN_SIGNED)

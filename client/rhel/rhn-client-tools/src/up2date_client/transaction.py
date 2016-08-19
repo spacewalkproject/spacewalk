@@ -1,7 +1,7 @@
 
 #
 # Client code for Update Agent
-# Copyright (c) 1999--2015 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPLv2.
 #
 #         Adrian Likins <alikins@redhat.com
 #
@@ -98,7 +98,7 @@ class Up2dateTransaction:
         if attr in self._methods:
             return self.getMethod(attr)
         else:
-            raise AttributeError, attr
+            raise AttributeError(attr)
 
     def getMethod(self, method):
         # in theory, we can override this with

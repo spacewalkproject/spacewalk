@@ -44,10 +44,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -669,8 +669,8 @@ public class KickstartData {
     /**
      * @return Returns the customOptions.
      */
-    public SortedSet<KickstartCommand> getCustomOptions() {
-        return new TreeSet<KickstartCommand>(getCommandSubset("custom"));
+    public LinkedHashSet<KickstartCommand> getCustomOptions() {
+        return new LinkedHashSet<KickstartCommand>(getCommandSubset("custom"));
     }
 
     /**
@@ -727,8 +727,9 @@ public class KickstartData {
      */
     public String getUrl() {
         for (KickstartCommand c : getOptions()) {
-            if (c.getCommandName().getName().equals("url")) {
-                Matcher match = URL_REGEX.matcher(c.getArguments());
+            String a = c.getArguments();
+            if (c.getCommandName().getName().equals("url") && a != null) {
+                Matcher match = URL_REGEX.matcher(a);
                 if (match.find()) {
                     return match.group(1);
                 }

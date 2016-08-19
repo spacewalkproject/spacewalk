@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,7 +16,7 @@
 
 import os
 import sys
-import types
+from spacewalk.common import usix
 from optparse import OptionParser, Option
 
 _topdir = os.path.abspath(os.path.dirname(sys.argv[0]))
@@ -30,7 +30,7 @@ def main():
     rhnSQL.initDB()
 
     if not args:
-        print "No module specified"
+        print("No module specified")
         return 0
 
     if '.' not in sys.path:
@@ -39,13 +39,14 @@ def main():
     g = globals()
 
     for module_name in args:
-        print "Checking module %s" % module_name
+        print("Checking module %s" % module_name)
         pmn = proper_module_name(module_name)
         try:
             m = __import__(pmn)
             g[module_name] = m
-        except ImportError, e:
-            print "Unable to import module %s: %s" % (module_name, e)
+        except ImportError:
+            e = sys.exc_info()[1]
+            print("Unable to import module %s: %s" % (module_name, e))
             continue
 
         comps = pmn.split('.')
@@ -55,8 +56,9 @@ def main():
         for mod, name, statement in get_class_instances(m, rhnSQL.Statement):
             try:
                 rhnSQL.prepare(statement)
-            except rhnSQL.SQLStatementPrepareError, e:
-                print "Error: %s.%s: %s" % (mod.__name__, name, e)
+            except rhnSQL.SQLStatementPrepareError:
+                e = sys.exc_info()[1]
+                print("Error: %s.%s: %s" % (mod.__name__, name, e))
 
 
 def proper_module_name(module_name):
@@ -73,14 +75,14 @@ def get_class_instances(obj, class_obj):
     if not hasattr(obj, "__dict__"):
         return []
     id_obj = id(obj)
-    if _objs_seen.has_key(id_obj):
+    if id_obj in _objs_seen:
         return []
     _objs_seen[id_obj] = None
     result = []
     for k, v in obj.__dict__.items():
         if isinstance(v, class_obj):
             result.append((obj, k, v))
-        elif isinstance(v, types.ClassType):
+        elif isinstance(v, usix.ClassType):
             result.extend(get_class_instances(v, class_obj))
     return result
 

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -115,8 +115,7 @@ class Row(UserDictCase):
         if self.hashname not in self.data:
             raise AttributeError("Table does not have a hash `%s' key" % self.hashname)
         # get a list of fields to be set
-        items = map(lambda a: (a[0], a[1][0]),
-                    filter(lambda b: b[1][1] == 1, self.data.items()))
+        items = [(a[0], a[1][0]) for a in [b for b in list(self.data.items()) if b[1][1] == 1]]
         if not items:  # if there is nothing for us to do, avoid doing it.
             return
         # and now build the SQL statements

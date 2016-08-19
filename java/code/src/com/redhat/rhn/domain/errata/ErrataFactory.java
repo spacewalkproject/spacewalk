@@ -17,24 +17,6 @@
  */
 package com.redhat.rhn.domain.errata;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
-
-import org.apache.commons.collections.IteratorUtils;
-import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-
 import com.redhat.rhn.common.db.DatabaseException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -66,6 +48,24 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
+
+import org.apache.commons.collections.IteratorUtils;
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
 
 /**
  * ErrataFactory - the singleton class used to fetch and store
@@ -336,9 +336,8 @@ public class ErrataFactory extends HibernateFactory {
 
 
     private static void postPublishActions(Channel chan, User user) {
-        ChannelManager.refreshWithNewestPackages(chan, "web.errata_push");
-        ChannelManager.queueChannelChange(chan.getLabel(),
-                "java::publishErrataPackagesToChannel", user.getLogin());
+        ChannelManager.refreshWithNewestPackages(chan,
+            "java::publishErrataPackagesToChannel");
     }
 
 

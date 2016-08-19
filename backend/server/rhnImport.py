@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -29,7 +29,7 @@ class Loader:
         root_dir = "/usr/share/rhn"
         key = (dir, root_dir, interface_signature)
 
-        if self._imports.has_key(key):
+        if key in self._imports:
             return self._imports[key]
 
         dirname = "%s/%s" % (root_dir, dir)
@@ -69,7 +69,8 @@ class Loader:
             # Try to import the module
             try:
                 m = __import__(fromclause, {}, {}, [module])
-            except ImportError, e:
+            except ImportError:
+                e = sys.exc_info()[1]
                 log_error("Error importing %s: %s" % (module, e))
                 log_debug(6, "Details: sys.path: %s" % (sys.path, ))
                 continue

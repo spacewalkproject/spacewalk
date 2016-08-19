@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,6 +13,23 @@
  * in this software or its documentation.
  */
 package com.redhat.rhn.domain.user;
+
+import java.sql.Types;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -28,23 +45,6 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.legacy.UserImpl;
 import com.redhat.rhn.manager.session.SessionManager;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.hibernate.Query;
-import org.hibernate.Session;
-
-import java.sql.Types;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
 
 /**
  * UserFactory  - the singleton class used to fetch and store
@@ -531,41 +531,43 @@ public  class UserFactory extends HibernateFactory {
             Session session = HibernateFactory.getSession();
             timeZones = session.getNamedQuery("RhnTimeZone.loadAll").list();
 
-            //Now sort the timezones. American timezones come first as they are 'preferred'
-            //All other timezones are sorted and placed after American ones.
-            //American timezones are sorted East to West based on raw off-set.
-            //All other timezones are sorted West to East based on raw off-set.
+            //Now sort the timezones, GMT+0000 at top, then East-to-West
             if (timeZones != null) {
                 Collections.sort(timeZones, new Comparator() {
+                    @Override
                     public int compare(Object o1, Object o2) {
                         RhnTimeZone t1 = (RhnTimeZone) o1;
                         RhnTimeZone t2 = (RhnTimeZone) o2;
-                        int offSet1 = t1.getTimeZone().getRawOffset();
-                        int offSet2 = t2.getTimeZone().getRawOffset();
+                        Integer offSet1 = t1.getTimeZone().getRawOffset();
+                        Integer offSet2 = t2.getTimeZone().getRawOffset();
 
-                        if (offSet2 - offSet1 == 0) {
-                            return t2.getOlsonName().compareTo(t1.getOlsonName());
-                        }
-
-                        if (offSet1 <= -18000000 && offSet1 >= -36000000 &&
-                                offSet2 <= -18000000 && offSet2 >= -36000000) {
-                            //both in America
-                            return offSet2 - offSet1;
-                        }
-
-                        if (offSet1 <= -18000000 && offSet1 >= -36000000) {
-                            //first timezone in America
+                        // Make sure GMT+0000 is first
+                        if (offSet1 == 0 && offSet2 != 0) {
+                            // first one GMT
                             return -1;
                         }
-                        if (offSet2 <= -18000000 && offSet2 >= -36000000) {
-                            //second timezone in America
+
+                        if (offSet1 != 0 && offSet2 == 0) {
+                            // second one GMT
                             return 1;
                         }
 
-                        return offSet1 - offSet2;
+                        // Make sure negative offsets 'win' over positive
+                        if (offSet1 < 0 && offSet2 > 0) {
+                            return -1;
+                        }
+
+                        if (offSet1 > 0 && offSet2 < 0) {
+                            return 1;
+                        }
+
+                        if (offSet2.equals(offSet1)) {
+                            return t2.getOlsonName().compareTo(t1.getOlsonName());
+                        }
+
+                        return offSet2.compareTo(offSet1);
                     }
-                }
-                        );
+                });
             }
 
             timeZoneList = timeZones;

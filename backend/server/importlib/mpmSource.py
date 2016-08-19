@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,7 +30,7 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
         'package_group', 'build_time', 'build_host'
     ]
     for t in _already_mapped:
-        if tagMap.has_key(t):
+        if t in tagMap:
             del tagMap[t]
 
     def populate(self, header, size, checksum_type, checksum, path=None, org_id=None,

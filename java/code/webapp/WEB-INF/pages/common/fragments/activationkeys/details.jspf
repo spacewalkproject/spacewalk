@@ -6,7 +6,7 @@
 <html:form action="${param.url}" styleClass="form-horizontal">
     <rhn:csrf />
     <c:if test="${not empty param.tid}">
-        <input type="hidden" name="tid" value="${param.tid}"/>
+        <rhn:hidden name="tid" value="${param.tid}"/>
     </c:if>
         <h2><bean:message key="activation-key.details.jsp.title"/></h2>
         <p><bean:message key="activation-key.jsp.summary"/></p>

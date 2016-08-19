@@ -3,7 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <head>
@@ -14,7 +14,7 @@
 
     <rl:listset name="packageSet">
     <rhn:csrf />
-    <input type="hidden" name="cid" value="${cid}">
+    <rhn:hidden name="cid" value="${cid}" />
     <bean:message key="channel.jsp.package.comparemessage" />
     <h2>
         <rhn:icon type="header-package" />
@@ -26,6 +26,7 @@
         <jsp:param name="option_no_packages" value="true" />
         <jsp:param name="option_all_packages" value="false" />
         <jsp:param name="option_orphan_packages" value="false" />
+        <jsp:param name="option_source_packages" value="false"/>
     </jsp:include>
 
     <rl:list dataset="pageList" name="packageList"
@@ -64,10 +65,10 @@
                     <bean:message key="channel.jsp.package.thisnewer" />
                 </c:when>
                 <c:when test="${current.comparison == -1}">
-                    <bean:message key="channel.jsp.package.othernewer" arg0="${other_channel}" />
+                    <bean:message key="channel.jsp.package.othernewer" arg0="${fn:escapeXml(other_channel)}" />
                 </c:when>
                 <c:when test="${current.comparison == -2}">
-                    <bean:message key="channel.jsp.package.otheronly" arg0="${other_channel}" />
+                    <bean:message key="channel.jsp.package.otheronly" arg0="${fn:escapeXml(other_channel)}" />
                 </c:when>
             </c:choose>
         </rl:column>
@@ -82,19 +83,19 @@
             <div class="radio">
                 <label>
                     <input type="radio" name="sync_type" value="full" ${empty sync_type || sync_type == "full" ? ' checked="1"' : ''}  />
-                    <bean:message key="channel.jsp.package.full_sync_descr" arg0="<strong>${channel_name}</strong>" />
+                    <bean:message key="channel.jsp.package.full_sync_descr" arg0="<strong>${fn:escapeXml(channel_name)}</strong>" />
                 </label>
             </div>
             <div class="radio">
                 <label>
                     <input type="radio" name="sync_type" value="add" ${sync_type == "add" ? ' checked="1"' : ''} />
-                    <bean:message key="channel.jsp.package.add_only_descr" arg0="<strong>${channel_name}</strong>" />
+                    <bean:message key="channel.jsp.package.add_only_descr" arg0="<strong>${fn:escapeXml(channel_name)}</strong>" />
                 </label>
             </div>
             <div class="radio">
                 <label>
                     <input type="radio" name="sync_type" value="remove" ${sync_type == "remove" ? ' checked="1"' : ''}/>
-                    <bean:message key="channel.jsp.package.remove_only_descr" arg0="<strong>${channel_name}</strong>" />
+                    <bean:message key="channel.jsp.package.remove_only_descr" arg0="<strong>${fn:escapeXml(channel_name)}</strong>" />
                 </label>
             </div>
         </div>

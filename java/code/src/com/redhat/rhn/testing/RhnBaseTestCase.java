@@ -34,7 +34,6 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.Asserts;
-import com.redhat.rhn.domain.common.LoggingFactory;
 
 /**
  * RhnBaseTestCase is the base class for all RHN TestCases.
@@ -67,13 +66,7 @@ public abstract class RhnBaseTestCase extends TestCase {
      */
     protected void setUp() throws Exception {
         super.setUp();
-        try {
-            LoggingFactory.clearLogId();
-        }
-        catch (Exception se) {
-            TestCaseHelper.tearDownHelper();
-            LoggingFactory.clearLogId();
-        }
+        TestCaseHelper.setUpHelper();
     }
 
     /**

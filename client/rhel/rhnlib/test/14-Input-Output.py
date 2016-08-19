@@ -5,12 +5,14 @@
 #
 # 2004-11-29: fails, but it looks like it never worked. Need to investigate
 
-import string
 import sys
 sys.path.append('..')
 from rhn import transports
 import xmlrpclib
-from cStringIO import StringIO
+try: # python2
+    from cStringIO import StringIO
+except ImportError: # python3
+    from io import StringIO
 
 REFERENCE_XML = {
     'a'     : [1, 'b', '3'],
@@ -32,7 +34,7 @@ def test_xmlrpc(transfer, encoding):
 
     i = transports.Input(headers)
     io = i.decode(StringIO(o.data))
-    assert(string.lower(i.type) == 'text/xml')
+    assert(i.type.lower() == 'text/xml')
 
     io.seek(0, 0)
     data = io.read()
@@ -51,7 +53,7 @@ def test_blob(transfer, encoding):
 
     i = transports.Input(headers)
     io = i.decode(StringIO(o.data))
-    assert(string.lower(i.type) == 'application/binary')
+    assert(i.type.lower() == 'application/binary')
 
     io.seek(0, 0)
     data = io.read()

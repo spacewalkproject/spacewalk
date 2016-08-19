@@ -19,9 +19,6 @@
             <rhn-tab-url>
                 /rhn/errata/manage/RemovePackages.do
             </rhn-tab-url>
-            <rhn-tab-url>
-                /rhn/errata/manage/AddPackagePackagePush.do
-            </rhn-tab-url>
         </rhn-tab>
         <rhn-tab name="Add">
             <rhn-tab-url>
@@ -29,7 +26,10 @@
             </rhn-tab-url>
             <rhn-tab-url>
                 /rhn/errata/manage/AddPackagesConfirm.do
-                        </rhn-tab-url>
+            </rhn-tab-url>
+            <rhn-tab-url>
+                /rhn/errata/manage/AddPackagePackagePush.do
+            </rhn-tab-url>
         </rhn-tab>
     </rhn-tab>
 

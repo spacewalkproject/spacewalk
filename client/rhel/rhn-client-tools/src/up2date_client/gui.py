@@ -1,6 +1,6 @@
 #
 # GUI for Update Agent
-# Copyright (c) 1999--2015 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Authors:
 #    Preston Brown <pbrown@redhat.com>
@@ -21,18 +21,25 @@ gtk.glade.bindtextdomain("rhn-client-tools", "/usr/share/locale")
 import gnome.ui
 
 import signal
-import xmlrpclib
+
+try: # python2
+    import xmlrpclib
+except ImportError: # python3
+    import xmlrpc.client as xmlrpclib
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
+# Python 3 translations don't have a ugettext method
+if not hasattr(t, 'ugettext'):
+    t.ugettext = t.gettext
 _ = t.ugettext
 
-import up2dateErrors
-import config
-import rhnreg
-import messageWindow
+from up2date_client import up2dateErrors
+from up2date_client import config
+from up2date_client import rhnreg
+from up2date_client import messageWindow
 
-import rhnregGui
+from up2date_client import rhnregGui
 
 
 
@@ -346,7 +353,7 @@ if __name__ == "__main__":
     try:
         main()
     except xmlrpclib.ResponseError:
-        print sys.exc_info()[1]
+        print(sys.exc_info()[1])
     except IOError:
         e = sys.exc_info()[1]
-        print _("There was some sort of I/O error: %s") % e.errmsg
+        print(_("There was some sort of I/O error: %s") % e.errmsg)

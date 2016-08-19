@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,7 +14,7 @@
 #
 #
 
-import types
+from spacewalk.common import usix
 
 
 class RequestedChannels:
@@ -52,13 +52,13 @@ class RequestedChannels:
 
         for l in self.__lists:
             assert hasattr(self, l), "Class does not initialize %s" % l
-            assert isinstance(getattr(self, l), types.ListType)
+            assert isinstance(getattr(self, l), usix.ListType)
 
         # Initialize the requested channels
         self.request(requested)
 
     def request(self, requested):
-        assert isinstance(requested, types.ListType)
+        assert isinstance(requested, usix.ListType)
 
         self._requested.clear()
         for c in requested:
@@ -74,7 +74,7 @@ class RequestedChannels:
     def _set(self, name, channel_list):
         if name not in ['_available', '_imported']:
             raise AttributeError('set' + name)
-        assert isinstance(channel_list, types.ListType)
+        assert isinstance(channel_list, usix.ListType)
         h = getattr(self, name)
         h.clear()
         for c in channel_list:
@@ -100,7 +100,7 @@ class RequestedChannels:
 
     def _print_values(self):
         for name in self.__lists:
-            print "Contents of %s: %s" % (name, getattr(self, name))
+            print("Contents of %s: %s" % (name, getattr(self, name)))
         return self
 
     def compute(self):
@@ -108,17 +108,17 @@ class RequestedChannels:
         available = self._available.copy()
         imported = self._imported.copy()
         for c in self._requested.keys():
-            if self._available.has_key(c):
+            if c in self._available:
                 del available[c]
                 # Channel exists
-                if self._imported.has_key(c):
+                if c in self._imported:
                     del imported[c]
                     self._requested_imported.append(c)
                     continue
                 self._requested_new.append(c)
                 continue
             # Requested channel not available
-            if self._imported.has_key(c):
+            if c in self._imported:
                 del imported[c]
                 self._end_of_service.append(c)
                 continue
@@ -126,7 +126,7 @@ class RequestedChannels:
             self._typos.append(c)
 
         for c in available.keys():
-            if imported.has_key(c):
+            if c in imported:
                 # Available, already imported
                 del imported[c]
             # Available, not imported
@@ -134,7 +134,7 @@ class RequestedChannels:
 
         # The rest are channels that were once imported, but now are
         # unavailable
-        self._end_of_service.extend(imported.keys())
+        self._end_of_service.extend(list(imported.keys()))
 
         self._requested_channels.extend(self._requested_new)
         self._requested_channels.extend(self._requested_imported)
@@ -174,10 +174,10 @@ def _verify_expectations(c, expectations):
         method_name = 'get' + k
         val = getattr(c, method_name)()
         if val == expected:
-            print "ok: %s = %s" % (method_name, expected)
+            print("ok: %s = %s" % (method_name, expected))
         else:
-            print "FAILED: %s: expected %s, got %s" % (method_name, expected,
-                                                       val)
+            print("FAILED: %s: expected %s, got %s" % (method_name, expected,
+                                                       val))
 
 
 def test1(requested, available, imported, expectations):
@@ -216,9 +216,9 @@ def test():
         '_typos': ['b', 'c'],
         '_requested_channels': ['a', 'd'],
     }
-    print "Running test1"
+    print("Running test1")
     test1(requested, available, imported, expectations)
-    print "Running test2"
+    print("Running test2")
     test2(requested, available, imported, expectations)
 
 if __name__ == '__main__':

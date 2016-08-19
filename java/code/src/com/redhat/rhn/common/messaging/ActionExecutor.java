@@ -30,14 +30,14 @@ class ActionExecutor implements Runnable {
     private static final Logger LOG = Logger.getLogger(ActionExecutor.class);
 
     private EventMessage msg;
-    private List actionHandlers = new ArrayList();
+    private List<MessageAction> actionHandlers = new ArrayList<MessageAction>();
 
     /**
      * Constructor
      * @param handlers list of event handlers to dispatch to
      * @param eventMsg message published to queue
      */
-    public ActionExecutor(List handlers, EventMessage eventMsg) {
+    public ActionExecutor(List<MessageAction> handlers, EventMessage eventMsg) {
         actionHandlers.addAll(handlers);
         msg = eventMsg;
     }
@@ -47,8 +47,8 @@ class ActionExecutor implements Runnable {
      * the message to each
      */
     public void run() {
-        for (Iterator iter = actionHandlers.iterator(); iter.hasNext();) {
-            MessageAction action = (MessageAction) iter.next();
+        for (Iterator<MessageAction> iter = actionHandlers.iterator(); iter.hasNext();) {
+            MessageAction action = iter.next();
             LOG.debug("run() - got action: " + action.getClass().getName());
             try {
                 if (msg instanceof EventDatabaseMessage) {

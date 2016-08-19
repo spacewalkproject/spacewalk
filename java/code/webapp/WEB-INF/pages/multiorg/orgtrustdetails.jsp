@@ -2,6 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html:html >
   <body>
@@ -28,10 +29,10 @@
         <th><bean:message key="orgtrustdetails.jsp.channelsprovided"/></th>
         <c:choose>
         <c:when test="${channelsfrom > 0}">
-          <td><a href="/rhn/multiorg/channels/Provided.do?oid=${param.oid}">${channelsfrom}</a> (<bean:message key="orgtrustdetails.jsp.systemconsume1" arg0="${sysleech}"/>)</td>
+          <td><a href="/rhn/multiorg/channels/Provided.do?oid=${param.oid}">${channelsfrom}</a> (<bean:message key="orgtrustdetails.jsp.systemconsume1" arg0="${fn:escapeXml(sysleech)}"/>)</td>
         </c:when>
         <c:otherwise>
-          <td>${channelsfrom} (<bean:message key="orgtrustdetails.jsp.systemconsume1" arg0="${sysleech}"/>)</td>
+          <td>${channelsfrom} (<bean:message key="orgtrustdetails.jsp.systemconsume1" arg0="${fn:escapeXml(sysleech)}"/>)</td>
         </c:otherwise>
         </c:choose>
       </tr>
@@ -39,10 +40,10 @@
         <th><bean:message key="orgtrustdetails.jsp.channelsconsumed"/></th>
         <c:choose>
         <c:when test="${channelsto > 0}">
-          <td><a href="/rhn/multiorg/channels/Consumed.do?oid=${param.oid}">${channelsto}</a> (<bean:message key="orgtrustdetails.jsp.systemconsume2" arg0="${orgtrust}" arg1="${sysseed}"/>)</td>
+          <td><a href="/rhn/multiorg/channels/Consumed.do?oid=${param.oid}">${channelsto}</a> (<bean:message key="orgtrustdetails.jsp.systemconsume2" arg0="${fn:escapeXml(orgtrust)}" arg1="${fn:escapeXml(sysseed)}"/>)</td>
         </c:when>
         <c:otherwise>
-          <td>${channelsto} (<bean:message key="orgtrustdetails.jsp.systemconsume2" arg0="${orgtrust}" arg1="${sysseed}" />)</td>
+          <td>${channelsto} (<bean:message key="orgtrustdetails.jsp.systemconsume2" arg0="${fn:escapeXml(orgtrust)}" arg1="${fn:escapeXml(sysseed)}" />)</td>
         </c:otherwise>
         </c:choose>
       </tr>

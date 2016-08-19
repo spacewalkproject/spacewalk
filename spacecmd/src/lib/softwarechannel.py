@@ -31,9 +31,9 @@
 # pylint: disable=C0103
 
 from optparse import Option
-from spacecmd.utils import *
 import urllib
 import xmlrpclib
+from spacecmd.utils import *
 
 ARCH_LABELS = ['ia32', 'ia64', 'x86_64', 'ppc',
                'i386-sun-solaris', 'sparc-sun-solaris']
@@ -783,7 +783,7 @@ def do_softwarechannel_clone(self, args):
 
 def help_softwarechannel_clonetree(self):
     print 'softwarechannel_clonetree: Clone a software channel and its child channels'
-    print '''usage: softwarechannel_clonetree [options]A
+    print '''usage: softwarechannel_clonetree [options]
              e.g    softwarechannel_clonetree foobasechannel -p "my_"
                     softwarechannel_clonetree foobasechannel -x "s/foo/bar"
                     softwarechannel_clonetree foobasechannel -x "s/^/my_"
@@ -1419,9 +1419,8 @@ def do_softwarechannel_adderrata(self, args):
 
 
 def help_softwarechannel_getorgaccess(self):
-    print 'Get the org-access for the software channel'
-    print 'usage : softwarechannel_getorgaccess : get org access for all channels'
-    print 'usage : softwarechannel_getorgaccess <channel_label(s)> : get org access for specific channel(s)'
+    print 'softwarechannel_getorgaccess: Get the org-access for the software channel'
+    print 'usage: softwarechannel_getorgaccess [CHANNEL ...]'
 
 
 def complete_softwarechannel_getorgaccess(self, text, line, beg, end):
@@ -1444,28 +1443,36 @@ def do_softwarechannel_getorgaccess(self, args):
         sharing = self.client.channel.access.getOrgSharing(
             self.session, channel)
         print "%s : %s" % (channel, sharing)
+        if sharing == 'protected':
+            # for protected channels list each organization's access status
+            channel_orgs = self.client.channel.org.list(self.session, channel)
+            for org in channel_orgs:
+                print "\t%s : %s" % (org["org_name"], org["access_enabled"])
 
 ####################
 
 
 def help_softwarechannel_setorgaccess(self):
-    print 'Set the org-access for the software channel'
-    print '''usage : softwarechannel_setorgaccess <channel_label> [options]
+    print 'softwarechannel_setorgaccess: Set the org-access for the software channel'
+    print '''usage : softwarechannel_setorgaccess <CHANNEL> [options]
 -d,--disable : disable org access (private, no org sharing)
--e,--enable : enable org access (public access to all trusted orgs)'''
+-e,--enable : enable org access (public access to all trusted orgs)
+-p,--protected ORG : protected org access for ORG only (multiple instances of -p ORG are allowed)'''
 
 
 def complete_softwarechannel_setorgaccess(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
 
 
-def do_softwarechannel_setorgaccess(self, args):
+def do_softwarechannel_setorgaccess(self, args, options=None):
     if not len(args):
         self.help_softwarechannel_setorgaccess()
         return
-    options = [Option('-e', '--enable', action='store_true'),
-               Option('-d', '--disable', action='store_true')]
-    (args, options) = parse_arguments(args, options)
+    if not options:
+        options = [Option('-e', '--enable', action='store_true'),
+                   Option('-d', '--disable', action='store_true'),
+                   Option('-p', '--protected', action='append')]
+        (args, options) = parse_arguments(args, options)
 
     if not len(args):
         self.help_softwarechannel_setorgaccess()
@@ -1473,6 +1480,10 @@ def do_softwarechannel_setorgaccess(self, args):
 
     # allow globbing of software channel names
     channels = filter_results(self.do_softwarechannel_list('', True), args)
+
+    # get the list of trusted organizations when we are dealing with protected channels
+    if (options.protected):
+        org_trust_list = self.client.org.trusts.listOrgs(self.session)
 
     for channel in channels:
         # If they just specify a channel and --enable/--disable
@@ -1487,9 +1498,92 @@ def do_softwarechannel_setorgaccess(self, args):
                 "Making org sharing private for channel : %s " % channel)
             self.client.channel.access.setOrgSharing(
                 self.session, channel, 'private')
+        elif (options.protected):
+            logging.info(
+                "Making org sharing protected for channel : %s " % channel)
+            self.client.channel.access.setOrgSharing(
+                self.session, channel, 'protected')
+            for org in org_trust_list:
+                if org["org_name"] in options.protected:
+                    logging.info(
+                        "Enabling %s access for channel : %s " % (org["org_name"],channel))
+                    self.client.channel.org.enableAccess(
+                        self.session, channel, org["org_id"])
+                else:
+                    logging.info(
+                        "Disabling %s access for channel : %s " % (org["org_name"],channel))
+                    self.client.channel.org.disableAccess(
+                        self.session, channel, org["org_id"])
         else:
             self.help_softwarechannel_setorgaccess()
             return
+
+####################
+
+
+def help_softwarechannel_getorgaccesstree(self):
+    print 'softwarechannel_getorgaccesstree: Get the org-access for a software base channel and its children'
+    print 'usage: softwarechannel_getorgaccesstree [CHANNEL]'
+
+def complete_softwarechannel_getorgaccesstree(self, text, line, beg, end):
+    return tab_completer(self.list_base_channels(), text)
+
+def do_softwarechannel_getorgaccesstree(self, args):
+
+    (args, _options) = parse_arguments(args)
+
+    # If no args are passed, we dump the org access for all base channels
+    if not len(args):
+        channels = self.list_base_channels()
+    else:
+        # allow globbing of software channel names
+        channels = filter_results(self.list_base_channels(), args)
+
+    if not len(channels):
+        logging.error("Can't call softwarechannel_getorgaccesstree on child channel!")
+        self.help_softwarechannel_getorgaccesstree()
+        return
+
+    for channel in channels:
+        do_softwarechannel_getorgaccess(self, channel)
+        for child in self.list_child_channels(parent=channel):
+            do_softwarechannel_getorgaccess(self, child)
+
+####################
+
+
+def help_softwarechannel_setorgaccesstree(self):
+    print 'softwarechannel_setorgaccesstree: set the org-access for a software base channel and its children'
+    print '''usage: softwarechannel_setorgaccesstree <CHANNEL> [options]
+-d,--disable : disable org access (private, no org sharing)
+-e,--enable : enable org access (public access to all trusted orgs)
+-p,--protected ORG : protected org access for ORG only (multiple instances of -p ORG are allowed)'''
+
+def complete_softwarechannel_setorgaccesstree(self, text, line, beg, end):
+    return tab_completer(self.list_base_channels(), text)
+
+def do_softwarechannel_setorgaccesstree(self, args):
+    options = [Option('-e', '--enable', action='store_true'),
+               Option('-d', '--disable', action='store_true'),
+               Option('-p', '--protected', action='append')]
+    (args, options) = parse_arguments(args, options)
+
+    if not len(args) or not (options.enable or options.disable or options.protected):
+        self.help_softwarechannel_setorgaccesstree()
+        return
+
+    # allow globbing of software channel names
+    channels = filter_results(self.list_base_channels(), args)
+
+    if not len(channels):
+        logging.error("Can't call softwarechannel_setorgaccesstree on child channel!")
+        self.help_softwarechannel_setorgaccesstree()
+        return
+
+    for channel in channels:
+        do_softwarechannel_setorgaccess(self, [channel], options)
+        for child in self.list_child_channels(parent=channel):
+            do_softwarechannel_setorgaccess(self, [child], options)
 
 ####################
 
@@ -1976,7 +2070,7 @@ def help_softwarechannel_removesyncschedule(self):
     print 'softwarechannel_removesyncschedule: '
     print 'Removes the repo sync schedule for a software channel'
     print
-    print 'usage: softwarechannel_setsyncschedule <CHANNEL>'
+    print 'usage: softwarechannel_removesyncschedule <CHANNEL>'
 
 
 def complete_softwarechannel_removesyncschedule(self, text, line, beg, end):

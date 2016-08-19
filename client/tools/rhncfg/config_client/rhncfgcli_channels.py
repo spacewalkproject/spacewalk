@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -24,13 +24,13 @@ class Handler(handler_base.HandlerBase):
 
         config_channels = r.load_config_channels()
         if not config_channels:
-            print "(no config channels associated with this system)"
+            print("(no config channels associated with this system)")
             return
-        print "Config channels:"
+        print("Config channels:")
         templ = "%-32s%s"
         label = "Label"
         name = "Name"
-        print templ % (label, name)
-        print templ % ('-' * len(label), '-' * len(name))
+        print(templ % (label, name))
+        print(templ % ('-' * len(label), '-' * len(name)))
         for c in config_channels:
-            print templ % (c['label'], c['name'])
+            print(templ % (c['label'], c['name']))

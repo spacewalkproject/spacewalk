@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,7 +15,11 @@
 
 import os
 import sys
-import xmlrpclib
+
+try: # python2
+    import xmlrpclib
+except ImportError: # python3
+    import xmlrpc.client as xmlrpclib
 
 from config_common import local_config, cfg_exceptions, file_utils, \
     repository
@@ -34,7 +38,8 @@ class ClientRepository(repository.RPC_Repository):
         systemid_file = local_config.get("systemid") or self.default_systemid
         try:
             f = open(systemid_file, "r")
-        except IOError, e:
+        except IOError:
+            e = sys.exc_info()[1]
             sys.stderr.write("Cannot open %s: %s\n" % (systemid_file, e))
             sys.exit(1)
 
@@ -47,13 +52,13 @@ class ClientRepository(repository.RPC_Repository):
 
     def rpc_call(self, method_name, *params):
         try:
-            result = apply(repository.RPC_Repository.rpc_call,
-                (self, method_name) + params)
-        except xmlrpclib.Fault, e:
+            result = repository.RPC_Repository.rpc_call(self, method_name, *params)
+        except xmlrpclib.Fault:
+            e = sys.exc_info()[1]
             if e.faultCode == -9:
                 # System not subscribed
-                raise cfg_exceptions.AuthenticationError(
-                    "Invalid digital server certificate%s" % e.faultString), None, sys.exc_info()[2]
+                raise_with_tb(cfg_exceptions.AuthenticationError(
+                    "Invalid digital server certificate%s" % e.faultString), sys.exc_info()[2])
             raise
         return result
 
@@ -71,7 +76,7 @@ class ClientRepository(repository.RPC_Repository):
         log_debug(4, file)
         result = self.rpc_call('config.client.get_file', self.system_id, file)
 
-        if result.has_key('missing'):
+        if 'missing' in result:
             return None
 
         dirs_created = None
@@ -120,7 +125,8 @@ class ClientRepository(repository.RPC_Repository):
             try:
                 self.rpc_call('config.client.upload_file',
                     self.system_id, action_id, params)
-            except xmlrpclib.Fault, e:
+            except xmlrpclib.Fault:
+                e = sys.exc_info()[1]
                 fault_code, fault_string = e.faultCode, e.faultString
                 # deal with particular faults
                 if fault_code == -4003:
@@ -130,8 +136,8 @@ class ClientRepository(repository.RPC_Repository):
                     # Ran out of org quota space
                     failed_due_to_quota.append(file)
                 else:
-                    raise cfg_exceptions.RepositoryFilePushError(fault_code,
-                        fault_string), None, sys.exc_info()[2]
+                    raise_with_tb(cfg_exceptions.RepositoryFilePushError(fault_code,
+                        fault_string), sys.exc_info()[2])
             except Exception:
                 traceback.print_exc()
                 raise

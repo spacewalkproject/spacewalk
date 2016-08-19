@@ -1,0 +1,9 @@
+#!/usr/bin/python
+
+import sys
+
+from spacewalk.cdn_tools.activation import Activation
+
+a = Activation(sys.argv[1], sys.argv[2])
+a.run()
+

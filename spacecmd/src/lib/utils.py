@@ -44,6 +44,7 @@ from datetime import datetime, timedelta
 from difflib import unified_diff
 from tempfile import mkstemp
 from textwrap import wrap
+from subprocess import Popen, PIPE
 import rpm
 from spacecmd.optionparser import SpacecmdOptionParser
 
@@ -254,7 +255,7 @@ def parse_time_input(userinput=''):
 
     # handle YYYMMDDHHMM times
     if not timestamp:
-        match = re.match(r'^(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?$', userinput)
+        match = re.match(r'^(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?(\d{2})?$', userinput)
 
         if match:
             date_format = '%Y%m%d'
@@ -275,7 +276,7 @@ def parse_time_input(userinput=''):
                                                         match.group(4)),
                                           date_format)
             # YYYYMMDDHHMM
-            else:
+            elif not match.group(6):
                 date_format += '%H%M'
 
                 timestamp = time.strptime('%s%s%s%s%s' % (match.group(1),
@@ -284,7 +285,17 @@ def parse_time_input(userinput=''):
                                                           match.group(4),
                                                           match.group(5)),
                                           date_format)
+            # YYYYMMDDHHMMSS
+            else:
+                date_format += '%H%M%S'
 
+                timestamp = time.strptime('%s%s%s%s%s%s' % (match.group(1),
+                                                            match.group(2),
+                                                            match.group(3),
+                                                            match.group(4),
+                                                            match.group(5),
+                                                            match.group(6)),
+                                          date_format)
             if timestamp:
                 # 2.5 has a nice little datetime.strptime() function...
                 timestamp = datetime(*(timestamp)[0:7])
@@ -633,7 +644,7 @@ def json_dump(obj, fp, indent=4, **kwargs):
 def json_dump_to_file(obj, filename):
     json_data = json.dumps(obj, indent=4, sort_keys=True)
 
-    if json_data == None:
+    if json_data is None:
         logging.error("Could not generate json data object!")
         return False
 
@@ -754,14 +765,24 @@ def diff(source_data, target_data, source_channel, target_channel):
     return list(unified_diff(source_data, target_data, source_channel, target_channel))
 
 
-def file_needs_b64_enc(self, contents):
-    """Used to check if files (config files primarily) need base64 encoding
-    in order to work properly via the API"""
+def file_is_binary(self, path):
+    """Tries to determine whether the file is a binary.
+       Assumes binary if it can't categorize the file as plaintext"""
+    try:
+        process = Popen(["file", "-b", "--mime-type", path], stdout=PIPE)
+        output = process.communicate()[0]
+        exit_code = process.wait()
+        if exit_code != 0:
+            return True
 
-    if "\0" in contents:
-        return True
+        if output.startswith("text/"):
+            return False
+    except OSError:
+        pass
+    return True
 
-    if not contents:  # zero length
-        return False
 
-    return True # always base64 encode, prevents stripping of whitespace
+def string_to_bool(input_string):
+    if not isinstance(input_string, bool):
+        return input_string.lower().rstrip(' ') == 'true'
+    return input_string

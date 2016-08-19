@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -423,6 +423,20 @@ public class PackageFactory extends HibernateFactory {
         params.put("pack", pack);
 
         return singleton.listObjectsByNamedQuery("PackageSource.findByPackage", params);
+    }
+
+    /**
+     * Lookup package source by it's ID
+     * @param psid id of the source package
+     * @param org the org with access to the source package
+     * @return the package source
+     */
+    public static PackageSource lookupPackageSourceByIdAndOrg(Long psid, Org org) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("id", psid);
+        params.put("org", org);
+        return (PackageSource) singleton.lookupObjectByNamedQuery(
+                "PackageSource.findByIdAndOrg", params);
     }
 
     /**

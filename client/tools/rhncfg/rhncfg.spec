@@ -8,14 +8,20 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.87
+Version: 5.10.96
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: docbook-utils
 BuildRequires: python
 Requires: python
+%if 0%{?fedora} >= 23
+Requires: python3-rhnlib
+Requires: python3-spacewalk-backend-usix
+%else
 Requires: rhnlib
+Requires: spacewalk-backend-usix
+%endif
 %if 0%{?rhel} && 0%{?rhel} < 6
 Requires: rhn-client-tools >= 0.4.20-86
 %else
@@ -71,6 +77,9 @@ The code required to run configuration actions scheduled via the RHN Classic web
 
 %build
 make -f Makefile.rhncfg all
+%if 0%{?fedora} >= 23
+    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' config_*/*.py actions/*.py
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -122,6 +131,60 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Tue Jul 26 2016 Eric Herget <eherget@redhat.com> 5.10.96-1
+- 1345843 - sane output when diff of binary config files
+- 1358484 - dest file in diff output prefixed with '+++'
+
+* Mon Jun 13 2016 Tomas Kasparek <tkasparek@redhat.com> 5.10.95-1
+- Show info message as string - not array
+- headers.get_all exists only in python 3
+- verify doesn't work with binary files
+
+* Thu Jun 09 2016 Gennadii Altukhov <galt@redhat.com> 5.10.94-1
+- 1343653 - Uploading binary file by rhncfg-manager doesn't work in Fedora 23
+
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 5.10.93-1
+- updating copyright years
+
+* Wed May 18 2016 Tomas Kasparek <tkasparek@redhat.com> 5.10.92-1
+- convert string to work in python 3
+- method os.path.walk doesn't exist in Python 3
+
+* Tue May 17 2016 Tomas Kasparek <tkasparek@redhat.com> 5.10.91-1
+- fix 'ValueError: invalid literal for int() with base 10' in python 3
+
+* Tue May 03 2016 Gennadii Altukhov <galt@redhat.com> 5.10.90-1
+- fix remote command doesn't work in Python 3
+- Fix typo
+
+* Fri Apr 29 2016 Gennadii Altukhov <galt@redhat.com> 5.10.89-1
+- used defined values from rpclib
+- Fix: 'generator' object has no attribute 'next' in Python 3
+- sys.exc_type and sys.exc_value is deprecated since version 1.5
+- open /dev/tty to work in python 3
+- basestring contains type str and bytes in python3
+- urllib compatibility in python 2/3
+- function raw_input doesn't exist in python 3
+- fixed TypeError: expected bytes-like object, not str
+- modified raise to work in python 2/3
+- rewrite function map and filter to clause 'for'
+- method iteritems was renamed to items
+- fix module ConfigParser was moved in python3
+- fix library xmlrpc was moved in python3
+- compatibility for octal format of number
+- replaced method has_key to work with python 2/3
+- replaced call apply to work in python 3
+- modified exception and raise to work in python 2/3
+- build package for fedora 23+ with default python 3
+- replaced string module calls to work in python 2/3
+- modified imports to compatibility with python 2/3
+- function print compatibility for python 2 and 3
+
+* Mon Feb 29 2016 Gennadii Altukhov <galt@redhat.com> 5.10.88-1
+- 1309003 fixing removing of temporary files during transaction rollback for
+  rhncfg-manager.
+- 1309006 fixing removing directories which rhncfg-manager didn't create.
+
 * Thu Oct 29 2015 Jan Dobes 5.10.87-1
 - 518128 - python 2.4 compatibility
 

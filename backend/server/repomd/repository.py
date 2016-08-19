@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,13 +17,19 @@
 #
 
 import time
-import StringIO
+try:
+    #  python 2
+    import StringIO
+except ImportError:
+    #  python3
+    import io as StringIO
 import shutil
 import os.path
 
 from gzip import GzipFile
 from gzip import write32u
 
+from spacewalk.common.usix import LongType
 from spacewalk.common import checksum
 from spacewalk.common import rhnCache
 from spacewalk.common.rhnLog import log_debug
@@ -160,7 +166,7 @@ class Repository(object):
         if self.channel.comps:
             comps_view = view.CompsView(self.channel.comps)
             return comps_view.get_file()
-        elif comps_mapping.has_key(self.channel.label):
+        elif self.channel.label in comps_mapping:
             comps_view = view.CompsView(Comps(None,
                                               os.path.join(CFG.mount_point, comps_mapping[self.channel.label])))
             return comps_view.get_file()
@@ -420,6 +426,6 @@ class NoTimeStampGzipFile(GzipFile):
         self.fileobj.write('\010')
         # no flags
         self.fileobj.write('\x00')
-        write32u(self.fileobj, long(0))
+        write32u(self.fileobj, LongType(0))
         self.fileobj.write('\002')
         self.fileobj.write('\377')

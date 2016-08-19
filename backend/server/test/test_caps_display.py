@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,4 +16,4 @@ from rhn import rpclib
 
 s = rpclib.Server("http://coyote.devel.redhat.com/REDHAT-XMLRPC")
 
-print s.actions.system_capabilities(1003485542)
+print(s.actions.system_capabilities(1003485542))

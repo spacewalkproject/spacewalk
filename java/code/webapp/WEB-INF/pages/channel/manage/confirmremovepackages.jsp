@@ -24,7 +24,7 @@
 <rl:listset name="packageSet" legend="system-group">
 <rhn:csrf />
 
-<input type="hidden" name="cid" value="${cid}" />
+<rhn:hidden name="cid" value="${cid}" />
 
         <rl:list dataset="pageList"
                         name="packageList"

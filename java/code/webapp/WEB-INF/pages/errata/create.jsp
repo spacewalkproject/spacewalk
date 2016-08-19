@@ -148,7 +148,7 @@
                     <html:textarea property="notes" cols="40" rows="6" styleClass="form-control"/>
                 </div>
             </div>
-            <input type="hidden" name="eid" value="0" />
+            <rhn:hidden name="eid" value="0" />
             <div class="form-group">
                 <div class="col-lg-offset-3 col-lg-6">
                     <html:submit styleClass="btn btn-success">

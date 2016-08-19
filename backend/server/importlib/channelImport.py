@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -42,19 +42,19 @@ class ChannelImport(Import):
     def __processChannel(self, channel):
         # Processes a package
         arch = channel['channel_arch']
-        if not self.arches.has_key(arch):
+        if arch not in self.arches:
             self.arches[arch] = None
         for family in channel['families']:
             self.families[family['label']] = None
         # Dists
-        if channel.has_key('dists') and channel['dists'] is not None:
+        if 'dists' in channel and channel['dists'] is not None:
             for dist in channel['dists']:
                 self.arches[dist['channel_arch']] = None
         # Product Names
-        if channel.has_key('release') and channel['release'] is not None:
+        if 'release' in channel and channel['release'] is not None:
             for release in channel['release']:
                 self.arches[release['channel_arch']] = None
-        if not channel.has_key('receiving_updates') or channel['receiving_updates'] is None:
+        if 'receiving_updates' not in channel or channel['receiving_updates'] is None:
             channel['receiving_updates'] = 'N'
         # Yum repo checksum type
         if (channel['checksum_type']
@@ -63,7 +63,7 @@ class ChannelImport(Import):
 
         # bug #528227
         # Print a warning in case the sync would move the channel between orgs
-        if channel.has_key('org_id') and channel['org_id']:
+        if 'org_id' in channel and channel['org_id']:
             org_id = self.backend.lookupChannelOrg(channel['label'])
 
             if org_id and int(channel['org_id']) != org_id['org_id']:
@@ -95,7 +95,7 @@ class ChannelImport(Import):
         else:
             channel['checksum_type_id'] = None
 
-        if channel.has_key('product_name'):
+        if 'product_name' in channel:
             channel['product_name_id'] = self.backend.lookupProductNames(
                 channel['product_name'])
         families = []
@@ -117,7 +117,7 @@ class ChannelImport(Import):
         self.__postprocessChannelMaps(channel, 'release')
 
     def __postprocessChannelMaps(self, channel, map):
-        if channel.has_key(map) and channel[map] is not None:
+        if map in channel and channel[map] is not None:
             for dict in channel[map]:
                 arch = dict['channel_arch']
                 if self.arches[arch] is None:
@@ -135,11 +135,10 @@ class ChannelImport(Import):
         for channel in self.batch:
             if channel.ignored:
                 continue
-            if (channel.has_key('trust_list')
-                    and channel['trust_list']):
+            if 'trust_list' in channel and channel['trust_list']:
                 self.backend.clearChannelTrusts(channel['label'])
                 for trust in channel['trust_list']:
-                    if (channel.has_key('org_id') and channel['org_id']
+                    if ('org_id' in channel and channel['org_id']
                             and self.backend.orgTrustExists(
                             channel['org_id'], trust['org_trust_id'])):
                         channel_trusts.append(
@@ -164,7 +163,7 @@ class ChannelImport(Import):
             if channel.ignored:
                 continue
             label = channel['label']
-            if not parentChannels.has_key(label):
+            if label not in parentChannels:
                 # This channel is not a parent channel to anybody
                 continue
             parentChannels[label] = channel.id
@@ -187,12 +186,12 @@ class ChannelImport(Import):
                 parentChannels[k] = v['id']
         if missingParents:
             raise MissingParentChannelError(
-                missingParents, "Invalid import (this parent needs to be imported?) %s" % missingParents)
+                missingParents, "Invalid import, this parents need to be imported: %s" % str(", ".join(missingParents)))
 
         # Fix up the parent channels
         for channel in nonNullParentBatch:
             parent = channel['parent_channel']
-            if not parentChannels.has_key(parent):
+            if parent not in parentChannels:
                 # Unknown parent channel
                 channel.ignored = 1
                 continue
@@ -210,14 +209,17 @@ class ChannelImport(Import):
         if len(channel_trusts) > 0:
             self.backend.processChannelTrusts(channel_trusts)
 
-        # Finally go back and add the products, if any
+        # Finally go back and add the products and content sources, if any
         for channel in self.batch:
             if channel.ignored:
                 continue
 
-            if (channel.has_key('channel_product') and channel['channel_product']) \
-                    or (channel.has_key('product_name') and channel['product_name']):
+            if ('channel_product' in channel and channel['channel_product']) \
+                    or ('product_name' in channel and channel['product_name']):
                 self.backend.processChannelProduct(channel)
+
+            self.backend.processChannelContentSources(channel)
+
 
         # Sometimes we may want to turn commits off
         if self.will_commit:
@@ -227,9 +229,7 @@ class ChannelImport(Import):
 class ChannelFamilyImport(Import):
 
     def preprocess(self):
-        if CFG.ISS_PARENT:
-            # Filter out private channel families from ISS syncs
-            self.__filterCustomChannelFamilies()
+        self.__filterCustomChannelFamilies()
         # We have to look up the channels for this channel family first
         self.channels = {}
         for cf in self.batch:

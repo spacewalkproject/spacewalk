@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,6 +19,7 @@
 import string
 import sys
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnLog import log_debug, log_error
@@ -66,6 +67,7 @@ class Server(ServerWrapper):
 
         # uuid
         self.uuid = None
+        self.virt_uuid = None
         self.registration_number = None
 
     _query_lookup_arch = rhnSQL.Statement("""
@@ -155,8 +157,7 @@ class Server(ServerWrapper):
         old_rel = self.server["release"]
         current_channels = rhnChannel.channels_for_server(self.server["id"])
         # Extract the base channel off of
-        old_base = filter(lambda x: not x['parent_channel'],
-                          current_channels)
+        old_base = [x for x in current_channels if not x['parent_channel']]
 
         # Quick sanity check
         base_channels_count = len(old_base)
@@ -170,7 +171,7 @@ class Server(ServerWrapper):
 
         # bz 442355
         # Leave custom base channels alone, don't alter any of the channel subscriptions
-        if not CFG.RESET_BASE_CHANNEL and rhnChannel.isCustomChannel(old_base["id"]):
+        if not CFG.RESET_BASE_CHANNEL and old_base and rhnChannel.isCustomChannel(old_base["id"]):
             log_debug(3,
                       "Custom base channel detected, will not alter channel subscriptions")
             self.server["release"] = new_rel
@@ -190,13 +191,16 @@ class Server(ServerWrapper):
         s.release = new_rel
         s.arch = self.archname
         # Let get_server_channels deal with the errors and raise rhnFault
-        target_channels = rhnChannel.guess_channels_for_server(s)
-        target_base = filter(lambda x: not x['parent_channel'],
-                             target_channels)[0]
+        target_channels = rhnChannel.guess_channels_for_server(s, none_ok=True)
+        if target_channels:
+            target_base = filter(lambda x: not x['parent_channel'],
+                                 target_channels)[0]
+        else:
+            target_base = None
 
         channels_to_subscribe = []
         channels_to_unsubscribe = []
-        if old_base and old_base['id'] == target_base['id']:
+        if old_base and target_base and old_base['id'] == target_base['id']:
             # Same base channel. Preserve the currently subscribed child
             # channels, just add the ones that are missing
             hash = {}
@@ -205,7 +209,7 @@ class Server(ServerWrapper):
 
             for c in target_channels:
                 channel_id = c['id']
-                if hash.has_key(channel_id):
+                if channel_id in hash:
                     # Already subscribed to this one
                     del hash[channel_id]
                     continue
@@ -241,7 +245,7 @@ class Server(ServerWrapper):
         # Make a history note
         sub_channels = rhnChannel.channels_for_server(self.server["id"])
         if sub_channels:
-            channel_list = map(lambda a: a["name"], sub_channels)
+            channel_list = [a["name"] for a in sub_channels]
             msg = """The Red Hat Satellite Update Agent has detected a
             change in the base version of the operating system running
             on your system and has updated your channel subscriptions
@@ -398,7 +402,8 @@ class Server(ServerWrapper):
             try:
                 self._entitle(entitlement)
                 any_base_entitlements = 1
-            except rhnSQL.SQLSchemaError, e:
+            except rhnSQL.SQLSchemaError:
+                e = sys.exc_info()[1]
                 if e.errno == 20287:
                     # ORA-20287: (invalid_entitlement) - The server can not be
                     # entitled to the specified level
@@ -410,21 +415,22 @@ class Server(ServerWrapper):
                 # Should not normally happen
                 log_error("Failed to entitle", self.server["id"], entitlement,
                           e.errmsg)
-                raise server_lib.rhnSystemEntitlementException("Unable to entitle"), None, sys.exc_info()[2]
-            except rhnSQL.SQLError, e:
+                raise_with_tb(server_lib.rhnSystemEntitlementException("Unable to entitle"), sys.exc_info()[2])
+            except rhnSQL.SQLError:
+                e = sys.exc_info()[1]
                 log_error("Failed to entitle", self.server["id"], entitlement,
                           str(e))
-                raise server_lib.rhnSystemEntitlementException("Unable to entitle"), None, sys.exc_info()[2]
+                raise_with_tb(server_lib.rhnSystemEntitlementException("Unable to entitle"), sys.exc_info()[2])
             else:
                 if any_base_entitlements:
                     # All is fine
                     return
                 else:
-                    raise server_lib.rhnNoSystemEntitlementsException, None, sys.exc_info()[2]
+                    raise_with_tb(server_lib.rhnNoSystemEntitlementsException, sys.exc_info()[2])
 
     def _entitle(self, entitlement):
         system_entitlements = server_lib.check_entitlement(self.server["id"])
-        system_entitlements = system_entitlements.keys()
+        system_entitlements = list(system_entitlements.keys())
 
         if entitlement not in system_entitlements:
             entitle_server = rhnSQL.Procedure("rhn_entitlements.entitle_server")
@@ -476,8 +482,16 @@ class Server(ServerWrapper):
         if commit:
             rhnSQL.commit()
 
+    def handle_virtual_guest(self):
+        # Handle virtualization specific bits
+        if self.virt_uuid and self.virt_type:
+            rhnVirtualization._notify_guest(self.getid(),
+                                            self.virt_uuid, self.virt_type)
+
     # Save this record in the database
     def __save(self, channel):
+        tokens_obj = rhnFlags.get("registration_token")
+
         if self.server.real:
             server_id = self.server["id"]
             self.server.save()
@@ -501,13 +515,7 @@ class Server(ServerWrapper):
             self.server.create(server_id)
             server_lib.create_server_setup(server_id, org_id)
 
-            have_reg_token = rhnFlags.test("registration_token")
-
-            # Handle virtualization specific bits
-            if self.virt_uuid is not None and \
-               self.virt_type is not None:
-                rhnVirtualization._notify_guest(self.getid(),
-                                                self.virt_uuid, self.virt_type)
+            self.handle_virtual_guest()
 
             # if we're using a token, then the following channel
             # subscription request can allow no matches since the
@@ -524,10 +532,10 @@ class Server(ServerWrapper):
                 rhnChannel.subscribe_sql(server_id, channel_info['id'])
             else:
                 rhnChannel.subscribe_server_channels(self,
-                                                     none_ok=have_reg_token,
+                                                     none_ok=tokens_obj,
                                                      user_id=user_id)
 
-            if not have_reg_token:
+            if not tokens_obj:
                 # Attempt to auto-entitle, can throw the following exceptions:
                 #   rhnSystemEntitlementException
                 #   rhnNoSystemEntitlementsException
@@ -539,6 +547,11 @@ class Server(ServerWrapper):
                 self.join_groups()
 
             server_lib.join_rhn(org_id)
+
+        # Update virtual guest attributes on re-registration
+        if tokens_obj and tokens_obj.is_rereg_token:
+            self.handle_virtual_guest()
+
         # Update the uuid - but don't commit yet
         self.update_uuid(self.uuid, commit=0)
 
@@ -568,7 +581,8 @@ class Server(ServerWrapper):
                 try:
                     search = SearchNotify()
                     search.notify()
-                except Exception, e:
+                except Exception:
+                    e = sys.exc_info()[1]
                     log_error("Exception caught from SearchNotify.notify().", e)
         return 0
 

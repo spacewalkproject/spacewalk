@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,6 +21,7 @@ import string
 import sys
 
 from rhn.UserDictCase import UserDictCase
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnTB import Traceback
@@ -314,8 +315,8 @@ class Device(GenericDevice):
                     if self.data[k][0] == '"' and self.data[k][-1] == '"':
                         self.data[k] = self.data[k][1:-1]
         except IndexError:
-            raise IndexError, "Can not process data = %s, key = %s" % (
-                repr(self.data), k), sys.exc_info()[2]
+            raise_with_tb(IndexError("Can not process data = %s, key = %s" % (
+                repr(self.data), k)), sys.exc_info()[2])
 
 
 class HardwareDevice(Device):
@@ -372,13 +373,13 @@ class CPUDevice(Device):
         # if we don't have an architecture, guess it
         if not self.data.has_key("architecture"):
             log_error("hash does not have a platform member: %s" % dict)
-            raise AttributeError, "Expected a hash value for member `platform'"
+            raise AttributeError("Expected a hash value for member `platform'")
         # now extract the arch field, which has to come out of rhnCpuArch
         arch = self.data["architecture"]
         row = rhnSQL.Table("rhnCpuArch", "label")[arch]
         if row is None or not row.has_key("id"):
             log_error("Can not find arch %s in rhnCpuArch" % arch)
-            raise AttributeError, "Invalid architecture for CPU: `%s'" % arch
+            raise AttributeError("Invalid architecture for CPU: `%s'" % arch)
         self.data["cpu_arch_id"] = row["id"]
         del self.data["architecture"]
         if self.data.has_key("nrcpu"):  # make sure this is a number
@@ -431,11 +432,11 @@ class NetIfaceInformation(Device):
             vdict = {}
             for key, mapping in self.key_mapping.items():
                 # Look at the mapping first; if not found, look for the key
-                if info.has_key(mapping):
+                if mapping in info:
                     k = mapping
                 else:
                     k = key
-                if not info.has_key(k):
+                if k not in info:
                     raise rhnFault(53, "Unable to find required field %s"
                                    % key)
                 val = info[k]
@@ -469,7 +470,7 @@ class NetIfaceInformation(Device):
         ifaces = self.ifaces.copy()
         for iface in self.db_ifaces:
             name = iface['name']
-            if not self.ifaces.has_key(name):
+            if name not in self.ifaces:
                 # To be deleted
                 deletes.append({'server_id': server_id, 'name': name})
                 continue
@@ -533,9 +534,9 @@ class NetIfaceInformation(Device):
             (%s) values (%s)"""
         self._null_columns(params, self._autonull)
 
-        columns = self.key_mapping.values() + ['server_id', 'name']
+        columns = list(self.key_mapping.values()) + ['server_id', 'name']
         columns.sort()
-        bind_params = string.join(map(lambda x: ':' + x, columns), ", ")
+        bind_params = string.join([':' + x for x in columns], ", ")
         h = rhnSQL.prepare(q % (string.join(columns, ", "), bind_params))
         return _dml(h, params)
 
@@ -544,7 +545,7 @@ class NetIfaceInformation(Device):
             where %s"""
 
         columns = ['server_id', 'name']
-        wheres = map(lambda x: '%s = :%s' % (x, x), columns)
+        wheres = ['%s = :%s' % (x, x) for x in columns]
         h = rhnSQL.prepare(q % string.join(wheres, " and "))
         return _dml(h, params)
 
@@ -555,12 +556,12 @@ class NetIfaceInformation(Device):
         self._null_columns(params, self._autonull)
 
         wheres = ['server_id', 'name']
-        wheres = map(lambda x: '%s = :%s' % (x, x), wheres)
+        wheres = ['%s = :%s' % (x, x) for x in wheres]
         wheres = string.join(wheres, " and ")
 
-        updates = self.key_mapping.values()
+        updates = list(self.key_mapping.values())
         updates.sort()
-        updates = map(lambda x: '%s = :%s' % (x, x), updates)
+        updates = ['%s = :%s' % (x, x) for x in updates]
         updates = string.join(updates, ", ")
 
         h = rhnSQL.prepare(q % (updates, wheres))
@@ -615,11 +616,11 @@ class NetIfaceAddress(Device):
             vdict = {}
             for key, mapping in self.key_mapping.items():
                 # Look at the mapping first; if not found, look for the key
-                if info.has_key(mapping):
+                if mapping in info:
                     k = mapping
                 else:
                     k = key
-                if not info.has_key(k):
+                if k not in info:
                     raise rhnFault(53, "Unable to find required field %s"
                                    % (key))
                 val = info[k]
@@ -655,7 +656,7 @@ class NetIfaceAddress(Device):
         ifaces = self.ifaces.copy()
         for iface in self.db_ifaces:
             address = iface['address']
-            if not self.ifaces.has_key(iface['address']):
+            if iface['address'] not in self.ifaces:
                 # To be deleted
                 # filter out params, which are not used in query
                 iface = dict((column, iface[column]) for column in self.unique)
@@ -689,9 +690,9 @@ class NetIfaceAddress(Device):
             (%s) values (%s)"""
         self._null_columns(params, self._autonull)
 
-        columns = self.key_mapping.values() + ['interface_id']
+        columns = list(self.key_mapping.values()) + ['interface_id']
         columns.sort()
-        bind_params = string.join(map(lambda x: ':' + x, columns), ", ")
+        bind_params = string.join([':' + x for x in columns], ", ")
         h = rhnSQL.prepare(q % (self.table, string.join(columns, ", "), bind_params))
         return _dml(h, params)
 
@@ -700,7 +701,7 @@ class NetIfaceAddress(Device):
             where %s"""
 
         columns = self.unique
-        wheres = map(lambda x: '%s = :%s' % (x, x), columns)
+        wheres = ['%s = :%s' % (x, x) for x in columns]
         h = rhnSQL.prepare(q % (self.table, string.join(wheres, " and ")))
         return _dml(h, params)
 
@@ -711,12 +712,12 @@ class NetIfaceAddress(Device):
         self._null_columns(params, self._autonull)
 
         wheres = self.unique
-        wheres = map(lambda x: '%s = :%s' % (x, x), wheres)
+        wheres = ['%s = :%s' % (x, x) for x in wheres]
         wheres = string.join(wheres, " and ")
 
-        updates = self.key_mapping.values()
+        updates = list(self.key_mapping.values())
         updates.sort()
-        updates = map(lambda x: '%s = :%s' % (x, x), updates)
+        updates = ['%s = :%s' % (x, x) for x in updates]
         updates = string.join(updates, ", ")
 
         h = rhnSQL.prepare(q % (self.table, updates, wheres))
@@ -783,7 +784,7 @@ def _hash_eq(h1, h2):
     """ Compares two hashes and return 1 if the first is a subset of the second """
     log_debug(5, h1, h2)
     for k, v in h1.items():
-        if not h2.has_key(k):
+        if k not in h2:
             return 0
         if h2[k] != v:
             return 0
@@ -804,14 +805,14 @@ def _transpose(hasharr):
     """ Transpose the array of hashes into a hash of arrays """
     if not hasharr:
         return {}
-    keys = hasharr[0].keys()
+    keys = list(hasharr[0].keys())
     result = {}
     for k in keys:
         result[k] = []
 
     for hval in hasharr:
         for k in keys:
-            if hval.has_key(k):
+            if k in hval:
                 result[k].append(hval[k])
             else:
                 result[k].append(None)
@@ -905,7 +906,7 @@ class Hardware:
             hardware = UserDictCase(hardware)
         if not isinstance(hardware, UserDictCase):
             log_error("argument type is not  hash: %s" % hardware)
-            raise TypeError, "This function requires a hash as an argument"
+            raise TypeError("This function requires a hash as an argument")
         # validation is important
         hw_class = hardware.get("class")
         if hw_class is None:
@@ -936,8 +937,8 @@ class Hardware:
             # Same trick: try-except and raise the exception so that Traceback
             # can send the e-mail
             try:
-                raise KeyError, "Unknwon class type `%s' for hardware '%s'" % (
-                    hw_class, hardware)
+                raise KeyError("Unknwon class type `%s' for hardware '%s'" % (
+                    hw_class, hardware))
             except:
                 Traceback(mail=1)
                 return
@@ -945,7 +946,7 @@ class Hardware:
         # create the new device
         new_dev = class_type(hardware)
 
-        if self.__hardware.has_key(class_type):
+        if class_type in self.__hardware:
             _l = self.__hardware[class_type]
         else:
             _l = self.__hardware[class_type] = []
@@ -970,9 +971,7 @@ class Hardware:
 
             # filter out the hardware that was just added and then
             # deleted before saving
-            hardware[device_type] = filter(lambda a:
-                                           not (a.status == 2 and hasattr(a, "id") and a.id == 0),
-                                           hardware[device_type])
+            hardware[device_type] = [a for a in hardware[device_type] if not (a.status == 2 and hasattr(a, "id") and a.id == 0)]
         return 0
 
     def save_hardware_byid(self, sysid):
@@ -991,7 +990,7 @@ class Hardware:
 
     def __load_from_db(self, DevClass, sysid):
         """ Load a certain hardware class from the database """
-        if not self.__hardware.has_key(DevClass):
+        if DevClass not in self.__hardware:
             self.__hardware[DevClass] = []
 
         h = rhnSQL.prepare("select id from %s where server_id = :sysid" % DevClass.table)

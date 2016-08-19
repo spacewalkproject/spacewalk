@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,17 +15,24 @@
 
 import os
 import sys
-import rpm
 import struct
 import tempfile
 
+import rpm
+
+from spacewalk.common.usix import raise_with_tb
+from spacewalk.common.usix import next as usix_next
 from spacewalk.common import checksum
-from rhn_pkg import A_Package, InvalidPackageError
+from spacewalk.common.rhn_pkg import A_Package, InvalidPackageError
+
+# bare-except and broad-except
+# pylint: disable=W0702,W0703
 
 if not hasattr(tempfile, 'SpooledTemporaryFile'):
     # RHEL5
     tempfile.SpooledTemporaryFile = tempfile.NamedTemporaryFile
 
+# pylint: disable=E1101
 # Expose a bunch of useful constants from rpm
 error = rpm.error
 
@@ -89,14 +96,13 @@ class RPM_Header:
         return len(self.hdr)
 
     def __nonzero__(self):
-        if self.hdr:
-            return True
-        else:
-            return False
+        return bool(self.hdr)
+
+    __bool__ = __nonzero__
 
     def checksum_type(self):
         if self.hdr[rpm.RPMTAG_FILEDIGESTALGO] \
-                and PGPHASHALGO.has_key(self.hdr[rpm.RPMTAG_FILEDIGESTALGO]):
+                and self.hdr[rpm.RPMTAG_FILEDIGESTALGO] in PGPHASHALGO:
             checksum_type = PGPHASHALGO[self.hdr[rpm.RPMTAG_FILEDIGESTALGO]]
         else:
             checksum_type = 'md5'
@@ -156,18 +162,27 @@ class RPM_Package(A_Package):
 
     def __init__(self, input_stream=None):
         A_Package.__init__(self, input_stream)
+        self.header = None
         self.header_data = tempfile.SpooledTemporaryFile()
+        self.header_start = None
+        self.header_end = None
+        self.checksum_type = None
+        self.checksum = None
+        self.payload_stream = None
+        self.payload_size = None
 
     def read_header(self):
         self._get_header_byte_range()
         try:
             self.header = get_package_header(file_obj=self.header_data)
-        except InvalidPackageError, e:
-            raise InvalidPackageError(*e.args), None, sys.exc_info()[2]
-        except error, e:
-            raise InvalidPackageError(e), None, sys.exc_info()[2]
+        except InvalidPackageError:
+            e = sys.exc_info()[1]
+            raise_with_tb(InvalidPackageError(*e.args), sys.exc_info()[2])
+        except error:
+            e = sys.exc_info()[1]
+            raise_with_tb(InvalidPackageError(e), sys.exc_info()[2])
         except:
-            raise InvalidPackageError, None, sys.exc_info()[2]
+            raise_with_tb(InvalidPackageError, sys.exc_info()[2])
         self.checksum_type = self.header.checksum_type()
 
     def _get_header_byte_range(self):
@@ -307,10 +322,10 @@ def get_package_header(filename=None, file_obj=None, fd=None):
     global SHARED_TS
     # XXX Deal with exceptions better
     if (filename is None and file_obj is None and fd is None):
-        raise ValueError, "No parameters passed"
+        raise ValueError("No parameters passed")
 
     if filename is not None:
-        f = open(filename)
+        f = open(filename, 'rb')
     elif file_obj is not None:
         f = file_obj
         f.seek(0, 0)
@@ -366,7 +381,7 @@ class MatchIterator:
 
     def next(self):
         try:
-            hdr = self.mi.next()
+            hdr = usix_next(self.mi)
         except StopIteration:
             hdr = None
 
@@ -389,7 +404,7 @@ def labelCompare(t1, t2):
 def nvre_compare(t1, t2):
     def build_evr(p):
         evr = [p[3], p[1], p[2]]
-        evr = map(str, evr)
+        evr = list(map(str, evr))
         if evr[0] == "":
             evr[0] = None
         return evr
@@ -445,12 +460,12 @@ if __name__ == '__main__':
         h = mi.next()
         if not h:
             break
-        print h['name']
+        print(h['name'])
     sys.exit(1)
     hdrX = get_package_header(filename="/tmp/python-1.5.2-42.72.i386.rpm")
-    print dir(hdrX)
+    print(dir(hdrX))
     # Sources
     hdrX = get_package_header(filename="/tmp/python-1.5.2-42.72.src.rpm")
     hdrY = headerLoad(hdrX.unload())
-    print hdrY
-    print len(hdrY.keys())
+    print(hdrY)
+    print(len(list(hdrY.keys())))

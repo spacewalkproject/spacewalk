@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,7 +14,7 @@
 #
 
 import os
-
+import sys
 from config_common import handler_base, utils, cfg_exceptions
 from config_common.rhn_log import log_debug, die, log_error
 
@@ -72,7 +72,7 @@ class Handler(handler_base.HandlerBase):
         if not r.config_channel_exists(channel):
             die(6, "Error: config channel %s does not exist" % channel)
 
-        files = map(utils.normalize_path, self.args)
+        files = [utils.normalize_path(x) for x in self.args]
         files_to_push = []
         if self.options.dest_file:
             if len(files) != 1:
@@ -106,11 +106,11 @@ class Handler(handler_base.HandlerBase):
             if not os.path.exists(local_file):
                 if self.options.ignore_missing:
                     files_to_push.remove((local_file,remote_file))
-                    print "Local file %s does not exist. Ignoring file..." %(local_file)
+                    print("Local file %s does not exist. Ignoring file..." %(local_file))
                 else:
                     die(9, "No such file `%s'" % local_file)
 
-        print "Pushing to channel %s:" % (channel, )
+        print("Pushing to channel %s:" % (channel, ))
 
         delim_start = self.options.delim_start
         delim_end = self.options.delim_end
@@ -126,10 +126,12 @@ class Handler(handler_base.HandlerBase):
                     delim_start=delim_start,
                     delim_end=delim_end,
                     selinux_ctx=selinux_ctx)
-            except cfg_exceptions.RepositoryFileExistsError, e:
+            except cfg_exceptions.RepositoryFileExistsError:
+                e = sys.exc_info()[1]
                 log_error("Error: %s is already in channel %s" %
                           (remote_file, channel))
-            except cfg_exceptions.RepositoryFilePushError, e:
+            except cfg_exceptions.RepositoryFilePushError:
+                e = sys.exc_info()[1]
                 log_error("Error pushing file:  %s" % e)
             else:
-                print "Local file %s -> remote file %s" % (local_file, remote_file)
+                print("Local file %s -> remote file %s" % (local_file, remote_file))

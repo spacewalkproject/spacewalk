@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2010--2015 Red Hat, Inc.
+# Copyright (c) 2010--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,7 +21,7 @@ import time
 import string
 from importLib import Channel
 from backendLib import gmtime, localtime
-from types import IntType
+from spacewalk.common.usix import IntType, UnicodeType
 from spacewalk.common.stringutils import to_string
 
 
@@ -41,14 +41,14 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
         ]
 
         for t in self._already_mapped:
-            if self.tagMap.has_key(t):
+            if t in self.tagMap:
                 del self.tagMap[t]
 
         # XXX is seems to me that this is the place that 'source_rpm' is getting
         # set
         for f in self.keys():
             field = f
-            if self.tagMap.has_key(f):
+            if f in self.tagMap:
                 field = self.tagMap[f]
                 if not field:
                     # Unsupported
@@ -62,7 +62,7 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
                     val = gmtime(val)
             elif val:
                 # Convert to strings
-                if isinstance(val, unicode):
+                if isinstance(val, UnicodeType):
                     val = to_string(val)
                 else:
                     val = str(val)
@@ -131,10 +131,10 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
             l = []
             values = header[k]
             if values is not None:
-                val = string.join(values.split(), "")  # remove whitespaces
-                val = val.split(',')  # split packages
+                val = values.split(', ')  # split packages
                 i = 0
                 for v in val:
+                    relation = 0
                     version = ''
                     if '|' in v:
                         # TODO: store alternative-package-names semantically someday
@@ -142,10 +142,18 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
                     else:
                         nv = v.split('(')
                         name = nv[0] + '_' + str(i)
-                        # TODO FIX VERSION AND FLAGS
                         if (len(nv) > 1):
                             version = nv[1].rstrip(')')
-                    hash = {'name': name, 'version': version, 'flags': 0}
+                            if version:
+                                while version.startswith(("<", ">", "=")):
+                                    if version.startswith("<"):
+                                        relation |= 2
+                                    if version.startswith(">"):
+                                        relation |= 4
+                                    if version.startswith("="):
+                                        relation |= 8
+                                    version = version[1:]
+                    hash = {'name': name, 'version': version, 'flags': relation}
                     finst = dclass()
                     finst.populate(hash)
                     l.append(finst)

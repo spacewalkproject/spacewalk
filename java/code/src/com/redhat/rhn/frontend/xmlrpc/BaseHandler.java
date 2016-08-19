@@ -375,8 +375,8 @@ public class BaseHandler implements XmlRpcInvocationHandler {
     }
 
     /**
-     * Validate the requested entitlements. At this juncture only the add-on entitlements
-     * are to be set via the API.
+     * Validate that specified entitlement names correspond to real entitlements
+     * that can be changed via API (in other words, they are not permanent).
      *
      * @param entitlements List of string entitlement labels to be validated.
      */
@@ -384,7 +384,7 @@ public class BaseHandler implements XmlRpcInvocationHandler {
 
         for (String e : entitlements) {
             Entitlement ent = EntitlementManager.getByName(e);
-            if ((ent == null) || (!ent.isSatelliteEntitlement())) {
+            if ((ent == null) || (ent.isPermanent())) {
                 throw new InvalidEntitlementException();
             }
         }

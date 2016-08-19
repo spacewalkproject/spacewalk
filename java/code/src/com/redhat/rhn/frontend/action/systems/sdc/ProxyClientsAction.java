@@ -52,10 +52,15 @@ public class ProxyClientsAction extends RhnAction implements Listable<SystemOver
 
         SystemManager.ensureAvailableToUser(user, sid);
 
-        ListHelper helper = new ListHelper(this, request);
-        helper.setListName("systemList");
-        helper.setDataSetName(RequestContext.PAGE_LIST);
-        helper.execute();
+        if (server.isProxy()) {
+            request.setAttribute("version",
+                    server.getProxyInfo().getVersion().getVersion());
+
+            ListHelper helper = new ListHelper(this, request);
+            helper.setListName("systemList");
+            helper.setDataSetName(RequestContext.PAGE_LIST);
+            helper.execute();
+        }
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }

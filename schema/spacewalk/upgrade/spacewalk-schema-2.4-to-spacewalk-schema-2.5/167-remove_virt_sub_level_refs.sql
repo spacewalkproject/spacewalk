@@ -6,6 +6,14 @@ WHERE
     server_group_type_id = lookup_sg_type('virtualization_host') AND
     virt_sub_level_id = lookup_virt_sub_level('virtualization_free');
 
+DELETE FROM rhnChannelFamilyVirtSubLevel
+WHERE
+  virt_sub_level_id IN (
+    SELECT id
+    FROM rhnVirtSubLevel
+    WHERE label = 'virtualization_free'
+  );
+
 DELETE FROM rhnVirtSubLevel
 WHERE label = 'virtualization_free';
 

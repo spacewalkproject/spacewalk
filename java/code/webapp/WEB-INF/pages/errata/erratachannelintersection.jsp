@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 <html>
@@ -12,7 +13,7 @@
         <bean:message key="header.jsp.errata"/> <c:out value="${advisory}" />
     </rhn:toolbar>
 
-    <p><bean:message key="errata.channel.intersection.summary" arg0="${channel}" arg1="${advisory}" /></p>
+    <p><bean:message key="errata.channel.intersection.summary" arg0="${fn:escapeXml(channel)}" arg1="${fn:escapeXml(advisory)}" /></p>
 
     <h2><rhn:icon type="header-package"/><bean:message key="channels.overview.packages"/></h2>
 

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,7 +15,7 @@
 import sys
 
 if len(sys.argv) != 3:
-    print "Usage: %s server_id action_id" % sys.argv[0]
+    print("Usage: %s server_id action_id" % sys.argv[0])
     sys.exit(1)
 
 system_id = sys.argv[1]

@@ -1,11 +1,11 @@
--- oracle equivalent source sha1 d130b6810a88f60d18168cf65494494f3ce00e6f
+-- oracle equivalent source sha1 cb70a658c37d3b3f12288856bff108af32440b92
 
 -- rhnServerGroup and dependencies
 
 SELECT logging.clear_log_id();
 
 DELETE FROM rhnOrgExtGroupMapping
-  WHERE server_group_id = (
+  WHERE server_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (
@@ -16,7 +16,7 @@ DELETE FROM rhnOrgExtGroupMapping
   );
 
 DELETE FROM rhnRegTokenGroups
-  WHERE server_group_id = (
+  WHERE server_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (
@@ -27,7 +27,7 @@ DELETE FROM rhnRegTokenGroups
   );
 
 DELETE FROM rhnServerGroupMembers
-  WHERE server_group_id = (
+  WHERE server_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (
@@ -38,7 +38,7 @@ DELETE FROM rhnServerGroupMembers
   );
 
 DELETE FROM rhnSnapshotServerGroup
-  WHERE server_group_id = (
+  WHERE server_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (
@@ -49,7 +49,7 @@ DELETE FROM rhnSnapshotServerGroup
   );
 
 DELETE FROM rhnUserDefaultSystemGroups
-  WHERE system_group_id = (
+  WHERE system_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (
@@ -60,7 +60,7 @@ DELETE FROM rhnUserDefaultSystemGroups
   );
 
 DELETE FROM rhnUserServerGroupPerms
-  WHERE server_group_id = (
+  WHERE server_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (

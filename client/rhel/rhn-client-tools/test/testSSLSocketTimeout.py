@@ -5,7 +5,10 @@ import sys
 import unittest
 
 #Import the modules you need to test...
-import httplib
+try: # python2
+    import httplib
+except ImportError: # python3
+    import http.client as httplib
 
 def write(blip):
     sys.stdout.write("\n|%s|\n" % blip)

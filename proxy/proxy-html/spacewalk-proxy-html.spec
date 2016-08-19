@@ -1,4 +1,8 @@
+%if 0%{?suse_version}
+%global htmldir /srv/www/htdocs
+%else
 %global htmldir %{_var}/www/html
+%endif
 
 Name: spacewalk-proxy-html
 Summary: The HTML component for Spacewalk Proxy
@@ -6,7 +10,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk 
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.0
+Version: 2.6.0
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -39,8 +43,16 @@ rm -rf $RPM_BUILD_ROOT
 %{htmldir}/_rhn_proxy/*.ico
 %{htmldir}/_rhn_proxy/*.png
 %doc LICENSE
+%if 0%{?suse_version}
+%dir %dir %{htmldir}/_rhn_proxy
+%endif
 
 %changelog
+* Fri May 20 2016 Grant Gainey 2.5.1-1
+- spacewalk-proxy-html: build on openSUSE
+- Bumping package versions for 2.5.
+- Bumping package versions for 2.4.
+
 * Wed Jan 14 2015 Matej Kollar <mkollar@redhat.com> 2.3.1-1
 - Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
 - Bumping package versions for 2.3.

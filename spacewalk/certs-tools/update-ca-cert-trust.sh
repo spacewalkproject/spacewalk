@@ -1,4 +1,4 @@
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,6 +23,11 @@
 CERT_DIR=/usr/share/rhn
 CERT_FILE=RHN-ORG-TRUSTED-SSL-CERT
 TRUST_DIR=/etc/pki/ca-trust/source/anchors
+
+# Not on EL5
+if [ ! -d $TRUST_DIR ]; then
+    exit 0
+fi
 
 if [ -f $CERT_DIR/$CERT_FILE ]; then
     ln -sf $CERT_DIR/$CERT_FILE $TRUST_DIR

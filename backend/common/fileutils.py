@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,14 +19,14 @@ import bz2
 import gzip
 import pwd
 import grp
-import types
 import shutil
 import subprocess
 import select
 import stat
 import tempfile
-from checksum import getFileChecksum
-
+from spacewalk.common.checksum import getFileChecksum
+from spacewalk.common.rhnLib import isSUSE
+from spacewalk.common.usix import ListType, TupleType, MaxInt
 
 def cleanupAbsPath(path):
     """ take ~taw/../some/path/$MOUNT_POINT/blah and make it sensible.
@@ -84,14 +84,14 @@ def rotateFile(filepath, depth=5, suffix='.', verbosity=0):
     if not filepath or not isinstance(filepath, type('')):
         raise ValueError("filepath '%s' is not a valid arguement" % filepath)
     if not isinstance(depth, type(0)) or depth < -1 \
-            or depth > sys.maxint - 1 or depth == 0:
+            or depth > MaxInt - 1 or depth == 0:
         raise ValueError("depth must fall within range "
-                         "[-1, 1...%s]" % (sys.maxint - 1))
+                         "[-1, 1...%s]" % (MaxInt - 1))
 
     # force verbosity to be a numeric value
     verbosity = verbosity or 0
     if not isinstance(verbosity, type(0)) or verbosity < -1 \
-            or verbosity > sys.maxint - 1:
+            or verbosity > MaxInt - 1:
         raise ValueError('invalid verbosity value: %s' % (verbosity))
 
     filepath = cleanupAbsPath(filepath)
@@ -165,9 +165,9 @@ def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
         outputLog --> optional log file file object write method
     """
 
-    cmd_is_list = isinstance(cmd, (types.ListType, types.TupleType))
+    cmd_is_list = isinstance(cmd, (ListType, TupleType))
     if cmd_is_list:
-        cmd = map(str, cmd)
+        cmd = list(map(str, cmd))
     # pylint: disable=E1101
     c = subprocess.Popen(cmd, bufsize=0, stdin=subprocess.PIPE,
                          stdout=subprocess.PIPE, stderr=subprocess.PIPE,
@@ -230,7 +230,7 @@ def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
     return exitcode, child_out, child_err
 
 
-def makedirs(path,  mode=0755, user=None, group=None):
+def makedirs(path,  mode=int('0755', 8), user=None, group=None):
     "makedirs function that also changes the owners"
 
     dirs_to_create = []
@@ -254,7 +254,8 @@ def makedirs(path,  mode=0755, user=None, group=None):
         dirname = dirs_to_create.pop()
         try:
             os.mkdir(dirname, mode)
-        except OSError, e:
+        except OSError:
+            e = sys.exc_info()[1]
             if e.errno != 17:  # File exists
                 raise
             # Ignore the error
@@ -264,21 +265,31 @@ def makedirs(path,  mode=0755, user=None, group=None):
             # Changing permissions failed; ignore the error
             sys.stderr.write("Changing owner for %s failed\n" % dirname)
 
-
-def createPath(path, user='apache', group='apache', chmod=0755):
+def createPath(path, user=None, group=None, chmod=int('0755', 8)):
     """advanced makedirs
 
     Will create the path if necessary.
     Will chmod, and chown that path properly.
+    Defaults for user/group to the apache user
 
     Uses the above makedirs() function.
     """
+    if isSUSE():
+        if user is None:
+            user = 'wwwrun'
+        if group is None:
+            group = 'www'
+    else:
+        if user is None:
+            user = 'apache'
+        if group is None:
+            group = 'apache'
 
     path = cleanupAbsPath(path)
     if not os.path.exists(path):
         makedirs(path, mode=chmod, user=user, group=group)
     elif not os.path.isdir(path):
-        raise ValueError, "ERROR: createPath('%s'): path doesn't lead to a directory" % str(path)
+        raise ValueError("ERROR: createPath('%s'): path doesn't lead to a directory" % str(path))
     else:
         os.chmod(path, chmod)
         uid, gid = getUidGid(user, group)
@@ -289,10 +300,15 @@ def createPath(path, user='apache', group='apache', chmod=0755):
             sys.stderr.write("Changing owner for %s failed\n" % path)
 
 
-def setPermsPath(path, user='apache', group='root', chmod=0750):
+def setPermsPath(path, user=None, group='root', chmod=int('0750', 8)):
     """chown user.group and set permissions to chmod"""
+    if isSUSE() and user is None:
+        user = 'wwwrun'
+    elif user is None:
+        user = 'apache'
+
     if not os.path.exists(path):
-        raise OSError, "*** ERROR: Path doesn't exist (can't set permissions): %s" % path
+        raise OSError("*** ERROR: Path doesn't exist (can't set permissions): %s" % path)
 
     # If non-root, don't bother to change owners
     if os.getuid() != 0:
@@ -301,11 +317,11 @@ def setPermsPath(path, user='apache', group='root', chmod=0750):
     gc = GecosCache()
     uid = gc.getuid(user)
     if uid is None:
-        raise OSError, "*** ERROR: user '%s' doesn't exist. Cannot set permissions properly." % user
+        raise OSError("*** ERROR: user '%s' doesn't exist. Cannot set permissions properly." % user)
 
     gid = gc.getgid(group)
     if gid is None:
-        raise OSError, "*** ERROR: group '%s' doesn't exist. Cannot set permissions properly." % group
+        raise OSError("*** ERROR: group '%s' doesn't exist. Cannot set permissions properly." % group)
 
     uid_, gid_ = os.stat(path)[4:6]
     if uid_ != uid or gid_ != gid:
@@ -320,14 +336,14 @@ class GecosCache:
 
     def __init__(self):
         self.__dict__ = self.__shared_data
-        if len(self.__shared_data.keys()) == 0:
+        if len(list(self.__shared_data.keys())) == 0:
             # Not initialized
             self._users = {}
             self._groups = {}
 
     def getuid(self, name):
         "Return the UID of the user by name"
-        if self._users.has_key(name):
+        if name in self._users:
             return self._users[name]
         try:
             uid = pwd.getpwnam(name)[2]
@@ -340,7 +356,7 @@ class GecosCache:
 
     def getgid(self, name):
         "Return the GID of the group by name"
-        if self._groups.has_key(name):
+        if name in self._groups:
             return self._groups[name]
         try:
             gid = grp.getgrnam(name)[2]
@@ -480,7 +496,7 @@ def decompress_open(filename, mode='r'):
         file_obj = bz2.BZ2File(filename, mode)
     elif filename.endswith('.xz'):
         try:
-            # pylint: disable=F0401
+            # pylint: disable=F0401,E1101
             import lzma
             file_obj = lzma.LZMAFile(filename, mode)
         except ImportError: # No LZMA lib - be sad

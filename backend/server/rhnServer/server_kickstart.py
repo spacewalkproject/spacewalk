@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,6 +15,8 @@
 #
 # Kickstart-related operations
 #
+
+import sys
 
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error
@@ -111,7 +113,8 @@ def delete_guests(server_id):
     # Commit all changes:
     try:
         rhnSQL.commit()
-    except rhnSQL.SQLError, e:
+    except rhnSQL.SQLError:
+        e = sys.exc_info()[1]
         log_error("Error committing transaction: %s" % e)
         rhnSQL.rollback()
 
@@ -431,7 +434,7 @@ def schedule_rhncfg_install(server_id, action_id, scheduler,
     packages_to_install = []
     for p in packages:
         key = (p['name'], p['version'], p['release'], p['epoch'])
-        if not sphash.has_key(key):
+        if key not in sphash:
             packages_to_install.append(p['package_id'])
 
     if not packages_to_install:
@@ -500,7 +503,7 @@ def _subscribe_server_to_capable_channels(server_id, scheduler, capability):
     h = rhnSQL.prepare(_query_lookup_unsubscribed_server_channels)
     h.execute(server_id=server_id, org_id=org_id,
               base_channel_id=base_channel_id)
-    l = map(lambda x: (x['id'], 0), h.fetchall_dict() or [])
+    l = [(x['id'], 0) for x in h.fetchall_dict() or []]
     channels.extend(l)
     # We now have a list of channels; look for one that provides the
     # capability

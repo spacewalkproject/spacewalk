@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2015 SUSE LLC
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,55 +14,31 @@
  */
 package com.redhat.rhn.testing;
 
-import org.jmock.Mock;
 import org.jmock.cglib.MockObjectTestCase;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
- *
- * RhnJmockBaseTestCase - Add a bit of cleanup logic to the MockObjectTestCase
- * @version $Rev$
+ * RhnJmockBaseTestCase - This is the same thing as {@link RhnBaseTestCase}
+ * but it extends from {@link MockObjectTestCase}.
  */
 public abstract class RhnJmockBaseTestCase extends MockObjectTestCase {
 
     /**
-     * {@inheritDoc}
+     * Called once per test method.
+     *
+     * @throws Exception if an error occurs during test setup
+     */
+    protected void setUp() throws Exception {
+        super.setUp();
+        TestCaseHelper.setUpHelper();
+    }
+
+    /**
+     * Called once per test method to clean up.
+     *
+     * @throws Exception if an error occurs during tear down
      */
     protected void tearDown() throws Exception {
-        // TODO Auto-generated method stub
         super.tearDown();
         TestCaseHelper.tearDownHelper();
     }
-
-    /**
-     * Add a variable to the Mocked request object
-     * @param mreq Mock of the HttpServletRequest object
-     * @param name of the parameter
-     * @param value value of the param
-     */
-    public void addRequestParam(Mock mreq, String name, String value) {
-        if (!(mreq.proxy() instanceof HttpServletRequest)) {
-            throw new IllegalArgumentException(
-                    "mreq must be a proxy/mock of a HttpServletRequest");
-        }
-        mreq.expects(atLeastOnce()).method("getParameter").
-            with(eq(name)).will(returnValue(value));
-    }
-    /**
-     * Util for turning of the spew from the l10n service for
-     * test cases that make calls with dummy string IDs.
-     */
-    public static void disableLocalizationServiceLogging() {
-        RhnBaseTestCase.disableLocalizationServiceLogging();
-    }
-
-    /**
-     * Util for turning on the spew from the l10n service for
-     * test cases that make calls with dummy string IDs.
-     */
-    public static void enableLocalizationServiceLogging() {
-        RhnBaseTestCase.enableLocalizationServiceLogging();
-    }
-
 }

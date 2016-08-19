@@ -69,8 +69,8 @@
                                    headerkey="systemlist.jsp.last_checked_in"/>
 
 </rl:list>
-  <input type="hidden" name="key" value="${param.key}"/>
-  <input type="hidden" name="key_type" value="${param.key_type}"/>
+  <rhn:hidden name="key" value="${param.key}"/>
+  <rhn:hidden name="key_type" value="${param.key_type}"/>
 
   <div class="text-right">
     <hr />

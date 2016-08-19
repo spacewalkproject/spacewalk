@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,15 +14,15 @@
  */
 package com.redhat.rhn.testing;
 
-import java.io.IOException;
+import com.redhat.rhn.frontend.servlets.LegacyServletOutputStream;
 
-import javax.servlet.ServletOutputStream;
+import java.io.IOException;
 
 /**
  * RhnMockServletOutputStream - simple mock of an output stream
  * @version $Rev$
  */
-public class RhnMockServletOutputStream extends ServletOutputStream {
+public class RhnMockServletOutputStream extends LegacyServletOutputStream {
     private StringBuffer contents;
 
     /**

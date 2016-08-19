@@ -2,13 +2,16 @@
 # all the crap that is stored on the rhn side of stuff
 # updating/fetching package lists, channels, etc
 
-import up2dateAuth
-import up2dateErrors
-import config
-import rhnserver
+from up2date_client import up2dateAuth
+from up2date_client import up2dateErrors
+from up2date_client import config
+from up2date_client import rhnserver
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
+# Python 3 translations don't have a ugettext method
+if not hasattr(t, 'ugettext'):
+    t.ugettext = t.gettext
 _ = t.ugettext
 
 # heh, dont get much more generic than this...
@@ -25,6 +28,9 @@ class rhnChannel:
 
     def __setitem__(self, item, value):
         self.dict[item] = value
+
+    def __lt__(self, other):
+        return (self.dict["name"] > other.dict["name"])
 
     def keys(self):
         return self.dict.keys()
@@ -98,7 +104,7 @@ def getChannels(force=None, label_whitelist=None, timeout=None):
         up2dateChannels = s.up2date.listChannels(up2dateAuth.getSystemId())
 
         for chan in up2dateChannels:
-            if label_whitelist and not label_whitelist.has_key(chan['label']):
+            if label_whitelist and not chan['label'] in label_whitelist:
                 continue
 
             channel = rhnChannel(type = 'up2date', url = config.getServerlURL())

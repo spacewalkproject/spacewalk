@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,11 +13,13 @@
 # in this software or its documentation.
 #
 
+import re
+import rpm
 from spacewalk.common import rhn_pkg
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.server import rhnPackageUpload
-import re
-import rpm
+
+
 class ContentPackage:
 
     def __init__(self):
@@ -35,13 +37,13 @@ class ContentPackage:
         self.arch = None
 
         self.path = None
-        self.file = None
 
         self.a_pkg = None
 
     def __cmp__(self,other):
         relSelf = re.split(r".",self.release)[0]
         relOther = re.split(r".",other.release)[0]
+        # pylint: disable=E1101
         return rpm.labelCompare((self.epoch,self.version,relSelf),\
                                 (other.epoch,other.version,relOther))
 
@@ -72,16 +74,15 @@ class ContentPackage:
     def load_checksum_from_header(self):
         if self.path is None:
             raise rhnFault(50, "Unable to load package", explain=0)
-        self.file = open(self.path, 'rb')
-        self.a_pkg = rhn_pkg.package_from_stream(self.file, packaging='rpm')
+        self.a_pkg = rhn_pkg.package_from_filename(self.path)
         self.a_pkg.read_header()
         self.a_pkg.payload_checksum()
-        self.file.close()
+        self.a_pkg.input_stream.close()
 
-    def upload_package(self, channel):
+    def upload_package(self, channel, metadata_only=False):
         rel_package_path = rhnPackageUpload.relative_path_from_header(
             self.a_pkg.header, channel['org_id'],
-            self.a_pkg.checksum_type, self.a_pkg.checksum)
+            self.a_pkg.checksum_type, self.a_pkg.checksum) if not metadata_only else None
         _unused = rhnPackageUpload.push_package(self.a_pkg,
                                                 force=False,
                                                 relative_path=rel_package_path,

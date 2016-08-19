@@ -1,0 +1,11 @@
+--- a/bin/test-setup-specfile.pl	2016-04-14 18:36:49.274937626 +0200
++++ b/bin/test-setup-specfile.pl	2016-04-14 18:37:02.888010344 +0200
+@@ -26,7 +26,7 @@ my ($have_release, $have_source, $have_s
+ my $i = 0;
+ for (@lines) {
+ 	no warnings 'uninitialized';
+-	if (s/^(Release:\s*)(.+?)(%{\?dist})?\s*\n$/$1$2.git.$CNT.$SHA1$3\n/i) {
++	if (s/^(Release:\s*)(.+?)(%\{\?dist})?\s*\n$/$1$2.git.$CNT.$SHA1$3\n/i) {
+ 		if ($have_release) {
+ 			die "Duplicate Release line found in [$IN] at line [$i]\n";
+ 		}

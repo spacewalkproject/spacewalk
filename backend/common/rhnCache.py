@@ -1,4 +1,4 @@
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,14 +18,20 @@
 
 import os
 import gzip
-import cPickle
+try:
+    #  python 2
+    import cPickle
+except ImportError:
+    #  python3
+    import pickle as cPickle
 import fcntl
 import sys
 from stat import ST_MTIME
 from errno import EEXIST
 
-from rhnLib import timestamp
+from spacewalk.common.rhnLib import timestamp
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common.fileutils import makedirs, setPermsPath
 
 # this is a constant I'm not too happy about but one way or another we have
@@ -71,7 +77,7 @@ def get(name, modified=None, raw=None, compressed=None, missing_is_null=1):
 
 
 def set(name, value, modified=None, raw=None, compressed=None,
-        user='root', group='root', mode=0755):
+        user='root', group='root', mode=int('0755', 8)):
     # pylint: disable=W0622
     cache = __get_cache(raw, compressed)
 
@@ -129,7 +135,8 @@ def _safe_create(fname, user, group, mode):
             try:
                 #os.makedirs(dirname, 0755)
                 makedirs(dirname, mode, user, group)
-            except OSError, e:
+            except OSError:
+                e = sys.exc_info()[1]
                 # There is a window between the moment we check the disk and
                 # the one we try to create the directory
                 # We double-check the file existance here
@@ -148,8 +155,9 @@ def _safe_create(fname, user, group, mode):
         # file does not exist, attempt to create it
         # we pass most of the exceptions through
         try:
-            fd = os.open(fname, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0644)
-        except OSError, e:
+            fd = os.open(fname, os.O_WRONLY | os.O_CREAT | os.O_EXCL, int('0644', 8))
+        except OSError:
+            e = sys.exc_info()[1]
             # The file may be already there
             if e.errno == EEXIST and os.access(fname, os.F_OK):
                 # Retry
@@ -163,13 +171,13 @@ def _safe_create(fname, user, group, mode):
     # Ran out of tries; something is fishy
     # (if we manage to create or truncate the file, we've returned from the
     # function already)
-    raise RuntimeError, "Attempt to create file %s failed" % fname
+    raise RuntimeError("Attempt to create file %s failed" % fname)
 
 
 class LockedFile(object):
 
     def __init__(self, name, modified=None, user='root', group='root',
-                 mode=0755):
+                 mode=int('0755', 8)):
         if modified:
             self.modified = timestamp(modified)
         else:
@@ -224,8 +232,8 @@ class WriteLockedFile(LockedFile):
         try:
             fd = _safe_create(self.fname, user, group, mode)
         except UnreadableFileError:
-            raise OSError, "cache entry exists, but is not accessible: %s" % \
-                name, sys.exc_info()[2]
+            raise_with_tb(OSError("cache entry exists, but is not accessible: %s" % \
+                name), sys.exc_info()[2])
 
         # now we have the fd open, lock it
         fcntl.lockf(fd, fcntl.LOCK_EX)
@@ -252,7 +260,7 @@ class Cache:
         return s
 
     def set(self, name, value, modified=None, user='root', group='root',
-            mode=0755):
+            mode=int('0755', 8)):
         fd = self.set_file(name, modified, user, group, mode)
 
         fd.write(value)
@@ -276,10 +284,10 @@ class Cache:
         fname = _fname(name)
         # test for valid entry
         if not os.access(fname, os.R_OK):
-            raise KeyError, "Invalid cache key for delete: %s" % name
+            raise KeyError("Invalid cache key for delete: %s" % name)
         # now can we delete it?
         if not os.access(fname, os.W_OK):
-            raise OSError, "Read-Only access for cache entry: %s" % name
+            raise OSError("Read-Only access for cache entry: %s" % name)
         os.unlink(fname)
 
     @staticmethod
@@ -289,7 +297,7 @@ class Cache:
 
     @staticmethod
     def set_file(name, modified=None, user='root', group='root',
-                 mode=0755):
+                 mode=int('0755', 8)):
         fd = WriteLockedFile(name, modified, user, group, mode)
         return fd
 
@@ -323,13 +331,13 @@ class CompressedCache:
             # Some gzip error
             # poking at gzip.zlib may not be such a good idea
             fd.close()
-            raise KeyError(name), None, sys.exc_info()[2]
+            raise_with_tb(KeyError(name), sys.exc_info()[2])
         fd.close()
 
         return value
 
     def set(self, name, value, modified=None, user='root', group='root',
-            mode=0755):
+            mode=int('0755', 8)):
         # Since most of the data is kept in memory anyway, don't bother to
         # write it to a temp file at this point
         f = self.set_file(name, modified, user, group, mode)
@@ -347,7 +355,7 @@ class CompressedCache:
         return ClosingZipFile('r', compressed_file)
 
     def set_file(self, name, modified=None, user='root', group='root',
-                 mode=0755):
+                 mode=int('0755', 8)):
         io = self.cache.set_file(name, modified, user, group, mode)
 
         f = ClosingZipFile('w', io)
@@ -365,10 +373,10 @@ class ObjectCache:
         try:
             return cPickle.loads(pickled)
         except cPickle.UnpicklingError:
-            raise KeyError(name), None, sys.exc_info()[2]
+            raise_with_tb(KeyError(name), sys.exc_info()[2])
 
     def set(self, name, value, modified=None, user='root', group='root',
-            mode=0755):
+            mode=int('0755', 8)):
         pickled = cPickle.dumps(value, -1)
         self.cache.set(name, pickled, modified, user, group, mode)
 
@@ -397,7 +405,7 @@ class NullCache:
             return None
 
     def set(self, name, value, modified=None, user='root', group='root',
-            mode=0755):
+            mode=int('0755', 8)):
         self.cache.set(name, value, modified, user, group, mode)
 
     def has_key(self, name, modified=None):
@@ -413,5 +421,5 @@ class NullCache:
             return None
 
     def set_file(self, name, modified=None, user='root', group='root',
-                 mode=0755):
+                 mode=int('0755', 8)):
         return self.cache.set_file(name, modified, user, group, mode)

@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 # Copyright 2013 Aron Parsons <aronparsons@gmail.com>
-# Copyright (c) 2011--2015 Red Hat, Inc.
+# Copyright (c) 2011--2016 Red Hat, Inc.
 #
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
@@ -32,9 +32,9 @@
 
 from optparse import Option
 from datetime import datetime
-from spacecmd.utils import *
 import base64
 import xmlrpclib
+from spacecmd.utils import *
 
 
 def help_configchannel_list(self):
@@ -237,7 +237,7 @@ def do_configchannel_filedetails(self, args):
     result.append('SELinux Context: %s' % details.get('selinux_ctx'))
 
     if details.get('type') == 'file':
-        result.append('MD5:             %s' % details.get('md5'))
+        result.append('SHA256:          %s' % details.get('sha256'))
         result.append('Binary:          %s' % details.get('binary'))
 
         if not details.get('binary'):
@@ -331,7 +331,7 @@ def do_configchannel_backup(self, args):
             os.makedirs(dumpdir)
 
         if details.get('type') == 'file':
-            fh.write('md5 = %s\n' % details.get('md5'))
+            fh.write('sha256 = %s\n' % details.get('sha256'))
             fh.write('binary = %s\n' % details.get('binary'))
             of = open(dumpfile, 'w')
             of.write(details.get('contents') or '')
@@ -503,10 +503,7 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
         # if this is a new file, ask if it's a symlink
         if not options.symlink:
             userinput = prompt_user('Symlink [y/N]:')
-            if re.match('y', userinput, re.I):
-                options.symlink = True
-            else:
-                options.symlink = False
+            options.symlink = re.match('y', userinput, re.I)
 
         if options.symlink:
             target_input = prompt_user('Target Path:', noblank=True)
@@ -519,10 +516,7 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
                 options.selinux_ctx = selinux_input
         else:
             userinput = prompt_user('Directory [y/N]:')
-            if re.match('y', userinput, re.I):
-                options.directory = True
-            else:
-                options.directory = False
+            options.directory = re.match('y', userinput, re.I)
 
             if not options.mode:
                 if options.directory:
@@ -559,7 +553,15 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
                 if self.user_confirm('Read an existing file [y/N]:',
                                      nospacer=True, ignore_yes=True):
                     options.file = prompt_user('File:')
+
                     contents = read_file(options.file)
+
+                    if options.binary is None:
+                        options.binary = self.file_is_binary(options.file)
+                        if options.binary:
+                            logging.debug("Binary detected")
+                    elif options.binary:
+                        logging.debug("Binary selected")
                 else:
                     if contents:
                         template = contents
@@ -575,16 +577,13 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
         if not options.symlink and not options.directory:
             if options.file:
                 contents = read_file(options.file)
-                # If binary mode explicitly specified, we always base64 encode
-                # we also check the file contents to see if we detect a file
-                # which needs encoding
-                if options.binary:
-                    logging.debug("Binary selected, base64 encoding contents")
-                    contents = base64.b64encode(contents)
-                elif self.file_needs_b64_enc(contents):
-                    logging.debug("Detected file needs base64 encoding")
-                    contents = base64.b64encode(contents)
-                    options.binary = True
+
+                if options.binary is None:
+                    options.binary = self.file_is_binary(options.file)
+                    if options.binary:
+                        logging.debug("Binary detected")
+                elif options.binary:
+                    logging.debug("Binary selected")
             else:
                 logging.error('You must provide the file contents')
                 return
@@ -619,14 +618,19 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
             else:
                 options.mode = '0644'
 
+        logging.debug("base64 encoding contents")
+        contents = base64.b64encode(contents)
+
         file_info = {'contents': ''.join(contents),
                      'owner': options.owner,
                      'group': options.group,
                      'selinux_ctx': options.selinux_ctx,
-                     'permissions': options.mode}
+                     'permissions': options.mode,
+                     'contents_enc64': True,
+                     'binary': options.binary}
 
+        # Binary set or detected
         if options.binary:
-            file_info['contents_enc64'] = True
             file_info['binary'] = True
 
         print 'Path:            %s' % options.path
@@ -634,6 +638,7 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
         print 'Owner:           %s' % file_info['owner']
         print 'Group:           %s' % file_info['group']
         print 'Mode:            %s' % file_info['permissions']
+        print 'Binary:          %s' % file_info['binary']
         print 'SELinux Context: %s' % file_info['selinux_ctx']
 
         # only add the revision field if the user supplied it
@@ -648,7 +653,10 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
             else:
                 print 'Contents'
                 print '--------'
-                print file_info['contents']
+                if file_info['contents_enc64']:
+                    print base64.b64decode(file_info['contents'])
+                else:
+                    print file_info['contents']
 
     return file_info
 
@@ -808,8 +816,8 @@ def do_configchannel_updatefile(self, args):
 
 
 def help_configchannel_removefiles(self):
-    print 'configchannel_removefile: Remove configuration files'
-    print 'usage: configchannel_removefile CHANNEL <FILE ...>'
+    print 'configchannel_removefiles: Remove configuration files'
+    print 'usage: configchannel_removefiles CHANNEL <FILE ...>'
 
 
 def complete_configchannel_removefiles(self, text, line, beg, end):
@@ -952,8 +960,8 @@ def export_configchannel_getdetails(self, channel):
     # int "permissions"               Y (as string!)  N
     # string "permissions_mode"       N               N
     # string "selinux_ctx"            Y               Y
-    # boolean "binary"                N               N
-    # string "md5"                    N               N
+    # boolean "binary"                Y               N
+    # string "sha256"                 N               N
     # string "macro-start-delimiter"  Y               N
     # string "macro-end-delimiter"    Y               N
     for f in fileinfo:
@@ -985,8 +993,8 @@ def export_configchannel_getdetails(self, channel):
                         f['contents_enc64'] = b64f['contents_enc64']
 
         for k in ['channel', 'revision', 'creation', 'modified',
-                  'permissions_mode', 'binary', 'md5']:
-            if f.has_key(k):
+                  'permissions_mode', 'binary', 'sha256']:
+            if k in f:
                 del f[k]
 
     details['files'] = fileinfo
@@ -1119,26 +1127,23 @@ def import_configchannel_fromdetails(self, ccdetails):
                     # I guess the best thing to do here flag an error and
                     # import everything else
                     if not filedetails.has_key('contents'):
-                        logging.error("Failed trying to import file %s" % path)
-                        logging.error("if it is a binary file, or contains" +
-                                      " characters not valid in XML these can't be" +
-                                      " exported correctly via the API")
+                        logging.error(
+                            "Failed trying to import file %s (empty content)"
+                            % path)
+                        logging.error("Older APIs can't export encoded files")
                         continue
-                    # Now we check if the file needs base64 encoding
-                    # This will be because of trailing newlines (which get
-                    # eaten by the API)
-                    elif self.file_needs_b64_enc(filedetails['contents']):
-                        logging.debug("Detected file needs base64 encoding")
+
+                    if not filedetails['contents_enc64']:
+                        logging.debug("base64 encoding file")
                         filedetails['contents'] = \
-                            base64.b64encode(filedetails['contents'])
+                            base64.b64encode(filedetails['contents'].encode('utf8'))
                         filedetails['contents_enc64'] = True
 
                 logging.debug("Creating %s %s" %
                               (filedetails['type'], filedetails))
                 if filedetails.has_key('type'):
                     del filedetails['type']
-                if filedetails.has_key('binary'):
-                    del filedetails['binary']
+
                 ret = self.client.configchannel.createOrUpdatePath(
                     self.session, ccdetails['label'], path, isdir, filedetails)
             if ret != None:

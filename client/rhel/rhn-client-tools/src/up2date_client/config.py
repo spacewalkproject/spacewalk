@@ -1,5 +1,5 @@
 # This file is a portion of the Red Hat Update Agent
-# Copyright (c) 1999--2015 Red Hat, Inc.  Distributed under GPL
+# Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPL
 #
 # Authors:
 #       Cristian Gafton <gafton@redhat.com>
@@ -14,6 +14,7 @@ import os
 import sys
 import locale
 from rhn.connections import idn_ascii_to_puny, idn_puny_to_unicode
+from rhn.i18n import ustr, sstr
 
 try: # python2
     from urlparse import urlsplit, urlunsplit
@@ -22,6 +23,9 @@ except ImportError: # python3
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
+# Python 3 translations don't have a ugettext method
+if not hasattr(t, 'ugettext'):
+    t.ugettext = t.gettext
 _ = t.ugettext
 
 # XXX: This could be moved in a more "static" location if it is too
@@ -76,7 +80,7 @@ class ConfigFile:
         if self.fileName == None:
             return
         if not os.access(self.fileName, os.R_OK):
-#            print "warning: can't access %s" % self.fileName
+#            print("warning: can't access %s" % self.fileName)
             return
 
         f = open(self.fileName, "r")
@@ -103,7 +107,7 @@ class ConfigFile:
                 # or maybe error.
                 continue
             key = split[0].strip()
-            value = unicode(split[1].strip(), 'utf-8')
+            value = ustr(split[1].strip())
 
             # decode a comment line
             comment = None
@@ -133,7 +137,7 @@ class ConfigFile:
 
             # now insert the (comment, value) in the dictionary
             newval = (comment, value)
-            if self.dict.has_key(key): # do we need to update
+            if key in self.dict: # do we need to update
                 newval = self.dict[key]
                 if comment is not None: # override comment
                     newval = (comment, newval[1])
@@ -167,25 +171,29 @@ class ConfigFile:
         f.write("")
         for key in self.dict.keys():
             (comment, value) = self.dict[key]
-            f.write((u"%s[comment]=%s\n" % (key, comment)).encode('utf-8'))
+            f.write(sstr(u"%s[comment]=%s\n" % (key, comment)))
             if type(value) != type([]):
                 value = [ value ]
             if key in FileOptions:
                 value = map(os.path.abspath, value)
-            f.write((u"%s=%s\n" % (key, ';'.join(map(str, value)))).encode('utf-8'))
+            f.write(sstr(u"%s=%s\n" % (key, ';'.join(map(str, value)))))
             f.write("\n")
         f.close()
         os.rename(self.fileName+'.new', self.fileName)
 
     # dictionary interface
+    def __contains__(self, name):
+        return name in self.dict
+
     def has_key(self, name):
-        return self.dict.has_key(name)
+        # obsoleted, left for compatibility with older python
+        return name in self
 
     def keys(self):
         return self.dict.keys()
 
     def values(self):
-        return map(lambda a: a[1], self.dict.values())
+        return [a[1] for a in self.dict.values()]
 
     def update(self, dict):
         self.dict.update(dict)
@@ -193,12 +201,12 @@ class ConfigFile:
     # we return None when we reference an invalid key instead of
     # raising an exception
     def __getitem__(self, name):
-        if self.dict.has_key(name):
+        if name in self.dict:
             return self.dict[name][1]
         return None
 
     def __setitem__(self, name, value):
-        if self.dict.has_key(name):
+        if name in self.dict:
             val = self.dict[name]
         else:
             val = (None, None)
@@ -206,7 +214,7 @@ class ConfigFile:
 
     # we might need to expose the comments...
     def info(self, name):
-        if self.dict.has_key(name):
+        if name in self.dict:
             return self.dict[name][0]
         return ""
 
@@ -223,15 +231,19 @@ class Config:
 
     # classic dictionary interface: we prefer values from the runtime
     # dictionary over the ones from the stored config
-    def has_key(self, name):
-        if self.runtime.has_key(name):
+    def __contains__(self, name):
+        if name in self.runtime:
             return True
-        if self.stored.has_key(name):
+        if name in self.stored:
             return True
         return False
 
+    def has_key(self, name):
+        # obsoleted, left for compatibility with older python
+        return name in self
+
     def keys(self):
-        ret = self.runtime.keys()
+        ret = list(self.runtime.keys())
         for k in self.stored.keys():
             if k not in ret:
                 ret.append(k)
@@ -257,9 +269,9 @@ class Config:
 
     # we return None when nothing is found instead of raising and exception
     def __getitem__(self, name):
-        if self.runtime.has_key(name):
+        if name in self.runtime:
             return self.runtime[name]
-        if self.stored.has_key(name):
+        if name in self.stored:
             return self.stored[name]
         return None
 
@@ -275,7 +287,7 @@ class Config:
         self.stored.load(filename)
         # make sure the runtime cache is not polluted
         for k in self.stored.keys():
-            if not self.runtime.has_key(k):
+            if not k in self.runtime:
                 continue
             # allow this one to pass through
             del self.runtime[k]
@@ -284,7 +296,7 @@ class Config:
     def set(self, name, value):
         self.stored[name] = value
         # clean up the runtime cache
-        if self.runtime.has_key(name):
+        if name in self.runtime:
             del self.runtime[name]
 
 
@@ -308,12 +320,12 @@ def getProxySetting():
 def convert_url_to_puny(url):
     """ returns url where hostname is converted to Punycode (RFC3492) """
     s = urlsplit(url)
-    return urlunsplit((s[0], idn_ascii_to_puny(s[1]), s[2], s[3], s[4])).encode('utf-8')
+    return sstr(urlunsplit((s[0], ustr(idn_ascii_to_puny(s[1])), s[2], s[3], s[4])))
 
 def convert_url_from_puny(url):
     """ returns url where hostname is converted from Punycode (RFC3492). Returns unicode string. """
     s = urlsplit(url)
-    return unicode(urlunsplit((s[0], idn_puny_to_unicode(s[1]), s[2], s[3], s[4])))
+    return ustr(urlunsplit((s[0], idn_puny_to_unicode(s[1]), s[2], s[3], s[4])))
 
 def getServerlURL():
     """ return list of serverURL from config
@@ -324,7 +336,7 @@ def getServerlURL():
     # serverURL may be a list in the config file, so by default, grab the
     # first element.
     if type(cfg['serverURL']) == type([]):
-        return map(convert_url_to_puny, cfg['serverURL'])
+        return [convert_url_to_puny(i) for i in cfg['serverURL']]
     else:
         return [convert_url_to_puny(cfg['serverURL'])]
 

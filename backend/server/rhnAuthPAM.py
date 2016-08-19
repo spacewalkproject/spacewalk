@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,6 +16,7 @@
 import PAM
 import sys
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common.rhnLog import log_error
 from spacewalk.common.rhnException import rhnException
 
@@ -59,12 +60,13 @@ def check_password(username, password, service):
         finally:
             # Something to be always executed - cleanup
             __username = __password = None
-    except PAM.error, e:
+    except PAM.error:
+        e = sys.exc_info()[1]
         resp, code = e.args[:2]
         log_error("Password check failed (%s): %s" % (code, resp))
         return 0
     except:
-        raise rhnException('Internal PAM error'), None, sys.exc_info()[2]
+        raise_with_tb(rhnException('Internal PAM error'), sys.exc_info()[2])
     else:
         # Good password
         return 1

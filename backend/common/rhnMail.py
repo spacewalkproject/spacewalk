@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,9 +18,10 @@
 import os
 import smtplib
 
-from rhnConfig import CFG, PRODUCT_NAME
 from rhn.connections import idn_puny_to_unicode
-from stringutils import to_string
+
+from spacewalk.common.rhnConfig import CFG, PRODUCT_NAME
+from spacewalk.common.stringutils import to_string
 
 # check if the headers have the minimum required fields
 
@@ -29,14 +30,14 @@ def __check_headers(h):
     if not isinstance(h, type({})) or not hasattr(h, "has_key"):
         # does not look like a dictionary
         h = {}
-    if not h.has_key("Subject"):
+    if "Subject" not in h:
         h["Subject"] = "%s System Mail From %s" % (PRODUCT_NAME,
                                                    idn_puny_to_unicode(os.uname()[1]))
-    if not h.has_key("To"):
+    if "To" not in h:
         to = CFG.TRACEBACK_MAIL
     else:
         to = h["To"]
-    if not ("Content-Type" in h):
+    if "Content-Type" not in h:
         h["Content-Type"] = "text/plain; charset=utf-8"
     if isinstance(to, (type([]), type(()))):
         toaddrs = to

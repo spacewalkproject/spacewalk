@@ -1,6 +1,16 @@
+%if 0%{?suse_version}
+%define apacheconfdir %{_sysconfdir}/apache2
+%define apachepkg apache2
+%define apache_group www
+%else
+%define apacheconfdir %{_sysconfdir}/httpd
+%define apachepkg httpd
+%define apache_group apache
+%endif
+
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.5.2
+Version: 2.6.1
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -11,12 +21,14 @@ Buildarch: noarch
 Requires: perl(Satcon)
 Obsoletes: rhn-satellite-config < 5.3.0
 Provides: rhn-satellite-config = 5.3.0
+%if 0%{?rhel} || 0%{?fedora}
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
+%endif
 # We need package httpd to be able to assign group apache in files section
-Requires: httpd
+Requires(pre): %{apachepkg}
 Requires: openssl
 
 %global prepdir %{_var}/lib/rhn/rhn-satellite-prep
@@ -38,32 +50,41 @@ mv etc $RPM_BUILD_ROOT/
 mv var $RPM_BUILD_ROOT/
 mv usr $RPM_BUILD_ROOT/
 
+%if 0%{?suse_version}
+export NO_BRP_STALE_LINK_ERROR=yes
+mv $RPM_BUILD_ROOT/etc/httpd $RPM_BUILD_ROOT%{apacheconfdir}
+sed -i 's|var/www/html|srv/www/htdocs|g' $RPM_BUILD_ROOT%{apacheconfdir}/conf.d/zz-spacewalk-www.conf
+%endif
+
 tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc \
      | tar -C $RPM_BUILD_ROOT -xvf -
 
 echo "" > $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/rhn.conf
 
-find $RPM_BUILD_ROOT -name '*.symlink' | \
-	while read filename ; do linkname=${filename%.symlink} ; \
-		target=`sed -s 's/^Link to //' $filename` ; \
-		ln -sf $target $linkname ; \
-		rm -f $filename ; \
-	done
+mkdir -p $RPM_BUILD_ROOT/etc/pki/tls/certs/
+mkdir -p $RPM_BUILD_ROOT/etc/pki/tls/private/
+%if 0%{?suse_version}
+ln -sf  %{apacheconfdir}/ssl.key/server.key $RPM_BUILD_ROOT/etc/pki/tls/private/spacewalk.key
+ln -sf  %{apacheconfdir}/ssl.crt/server.crt $RPM_BUILD_ROOT/etc/pki/tls/certs/spacewalk.crt
+%else
+ln -sf  %{apacheconfdir}/conf/ssl.key/server.key $RPM_BUILD_ROOT/etc/pki/tls/private/spacewalk.key
+ln -sf  %{apacheconfdir}/conf/ssl.crt/server.crt $RPM_BUILD_ROOT/etc/pki/tls/certs/spacewalk.crt
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %attr(400,root,root) %config(noreplace) %{_sysconfdir}/rhn/spacewalk-repo-sync/uln.conf
-%config(noreplace) %{_sysconfdir}/httpd/conf.d/zz-spacewalk-www.conf
+%config(noreplace) %{apacheconfdir}/conf.d/zz-spacewalk-www.conf
 %config(noreplace) %{_sysconfdir}/webapp-keyring.gpg
 %dir %{_var}/lib/cobbler/
 %dir %{_var}/lib/cobbler/kickstarts/
 %dir %{_var}/lib/cobbler/snippets/
 %config(noreplace) %{_var}/lib/cobbler/kickstarts/spacewalk-sample.ks
 %config(noreplace) %{_var}/lib/cobbler/snippets/spacewalk_file_preservation
-%attr(0750,root,apache) %dir %{_sysconfdir}/rhn
-%attr(0640,root,apache) %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rhn/rhn.conf
+%attr(0750,root,%{apache_group}) %dir %{_sysconfdir}/rhn
+%attr(0640,root,%{apache_group}) %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rhn/rhn.conf
 # NOTE: If if you change these, you need to make a corresponding change in
 # spacewalk/install/Spacewalk-Setup/bin/spacewalk-setup
 %config(noreplace) %{_sysconfdir}/pki/tls/private/spacewalk.key
@@ -71,13 +92,20 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/satname
 %dir %{_var}/lib/rhn
 %dir %{_var}/lib/rhn/rhn-satellite-prep
-%dir %{_var}/lib/rhn/rhn-satellite-prep/etc
-%attr(0750,root,apache) %dir %{_var}/lib/rhn/rhn-satellite-prep/etc/rhn
-%attr(0640,root,apache) %{_var}/lib/rhn/rhn-satellite-prep/etc/rhn/rhn.conf
+%attr(0750,root,root) %dir %{_var}/lib/rhn/rhn-satellite-prep/etc
+%attr(0750,root,%{apache_group}) %dir %{_var}/lib/rhn/rhn-satellite-prep/etc/rhn
+%attr(0640,root,%{apache_group}) %{_var}/lib/rhn/rhn-satellite-prep/etc/rhn/rhn.conf
 %dir %{_prefix}/share/rhn
 %attr(0755,root,root) %{_prefix}/share/rhn/startup.pl
 %doc LICENSE
 %doc %{_mandir}/man5/rhn.conf.5*
+%if 0%{?suse_version}
+%dir %{_sysconfdir}/pki
+%dir %{_sysconfdir}/pki/tls
+%dir %{_sysconfdir}/pki/tls/certs
+%dir %{_sysconfdir}/pki/tls/private
+%dir %{_sysconfdir}/rhn/spacewalk-repo-sync
+%endif
 
 %pre
 # This section is needed here because previous versions of spacewalk-config
@@ -91,12 +119,33 @@ if [ -f /etc/init.d/satellite-httpd ] ; then
 fi
 
 # Set the group to allow Apache to access the conf files ...
-chgrp apache /etc/rhn /etc/rhn/rhn.conf 2> /dev/null || :
+chgrp %{apache_group} /etc/rhn /etc/rhn/rhn.conf 2> /dev/null || :
 # ... once we restrict access to some files that were too open in
 # the past.
 chmod o-rwx /etc/rhn/rhn.conf* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
+%if 0%{?suse_version}
+%post
+sysconf_addword /etc/sysconfig/apache2 APACHE_MODULES version
+sysconf_addword /etc/sysconfig/apache2 APACHE_MODULES access_compat
+sysconf_addword /etc/sysconfig/apache2 APACHE_MODULES proxy
+sysconf_addword /etc/sysconfig/apache2 APACHE_MODULES proxy_ajp
+sysconf_addword /etc/sysconfig/apache2 APACHE_MODULES rewrite
+sysconf_addword /etc/sysconfig/apache2 APACHE_MODULES headers
+sysconf_addword /etc/sysconfig/apache2 APACHE_MODULES wsgi
+sysconf_addword /etc/sysconfig/apache2 APACHE_MODULES perl
+sysconf_addword /etc/sysconfig/apache2 APACHE_SERVER_FLAGS SSL
+sysconf_addword /etc/sysconfig/apache2 APACHE_SERVER_FLAGS ISSUSE
+%endif
+
 %changelog
+* Tue Jun 14 2016 Jan Dobes 2.6.1-1
+- create the symlink directly and point to correct destination on SUSE
+- Bumping package versions for 2.6.
+
+* Tue May 10 2016 Grant Gainey 2.5.3-1
+- spacewalk-config: build on openSUSE
+
 * Thu Dec 17 2015 Jan Dobes 2.5.2-1
 - removing unused enable_solaris_support configuration parameter
 - removing unused force_unentitlement configuration parameter

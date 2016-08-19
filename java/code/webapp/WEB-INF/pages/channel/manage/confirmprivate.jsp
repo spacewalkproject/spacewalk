@@ -59,23 +59,23 @@
    </div>
 
    <!-- need to pass along the form -->
-   <input type="hidden" name="name" value="${name}" />
-   <input type="hidden" name="label" value="${label}" />
-   <input type="hidden" name="parent" value="${parent}" />
-   <input type="hidden" name="arch" value="${arch}" />
-   <input type="hidden" name="arch_name" value="${arch_name}" />
-   <input type="hidden" name="checksum" value="${checksum}" />
-   <input type="hidden" name="summary" value="${summary}" />
-   <input type="hidden" name="description" value="${description}" />
-   <input type="hidden" name="maintainer_name" value="${maintainer_name}" />
-   <input type="hidden" name="maintainer_email" value="${maintainer_email}" />
-   <input type="hidden" name="maintainer_phone" value="${maintainer_phone}" />
-   <input type="hidden" name="support_policy" value="${support_policy}" />
-   <input type="hidden" name="per_user_subscriptions" value="${per_user_subscriptions}" />
-   <input type="hidden" name="org_sharing" value="${org_sharing}" />
-   <input type="hidden" name="gpg_key_url" value="${gpg_key_url}" />
-   <input type="hidden" name="gpg_key_id" value="${gpg_key_id}" />
-   <input type="hidden" name="gpg_key_fingerprint" value="${gpg_key_fingerprint}" />
+   <rhn:hidden name="name" value="${name}" />
+   <rhn:hidden name="label" value="${label}" />
+   <rhn:hidden name="parent" value="${parent}" />
+   <rhn:hidden name="arch" value="${arch}" />
+   <rhn:hidden name="arch_name" value="${arch_name}" />
+   <rhn:hidden name="checksum" value="${checksum}" />
+   <rhn:hidden name="summary" value="${summary}" />
+   <rhn:hidden name="description" value="${description}" />
+   <rhn:hidden name="maintainer_name" value="${maintainer_name}" />
+   <rhn:hidden name="maintainer_email" value="${maintainer_email}" />
+   <rhn:hidden name="maintainer_phone" value="${maintainer_phone}" />
+   <rhn:hidden name="support_policy" value="${support_policy}" />
+   <rhn:hidden name="per_user_subscriptions" value="${per_user_subscriptions}" />
+   <rhn:hidden name="org_sharing" value="${org_sharing}" />
+   <rhn:hidden name="gpg_key_url" value="${gpg_key_url}" />
+   <rhn:hidden name="gpg_key_id" value="${gpg_key_id}" />
+   <rhn:hidden name="gpg_key_fingerprint" value="${gpg_key_fingerprint}" />
 </rl:listset>
 
 </body>

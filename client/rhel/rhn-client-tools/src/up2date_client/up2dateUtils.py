@@ -1,5 +1,5 @@
 # Client code for Update Agent
-# Copyright (c) 1999--2012 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Author: Preston Brown <pbrown@redhat.com>
 #         Adrian Likins <alikins@redhat.com>
@@ -7,12 +7,15 @@
 """utility functions for up2date"""
 
 import os
-import string
-import up2dateErrors
-import config
 import gettext
-from pkgplatform import getPlatform
+from up2date_client import up2dateErrors
+from up2date_client import config
+from up2date_client.pkgplatform import getPlatform
+
 t = gettext.translation('rhn-client-tools', fallback=True)
+# Python 3 translations don't have a ugettext method
+if not hasattr(t, 'ugettext'):
+    t.ugettext = t.gettext
 _ = t.ugettext
 
 if getPlatform() == 'deb':
@@ -27,7 +30,7 @@ if getPlatform() == 'deb':
         return os_name, os_version, os_release
 
 else:
-    import transaction
+    from up2date_client import transaction
     def _getOSVersionAndRelease():
         ts = transaction.initReadOnlyTransaction()
         for h in ts.dbMatch('Providename', "redhat-release"):
@@ -80,12 +83,12 @@ def getRelease():
 def getArch():
     if os.access("/etc/rpm/platform", os.R_OK):
         fd = open("/etc/rpm/platform", "r")
-        platform = string.strip(fd.read())
+        platform = fd.read().strip()
 
         #bz 216225
         #handle some replacements..
         replace = {"ia32e-redhat-linux": "x86_64-redhat-linux"}
-        if replace.has_key(platform):
+        if platform in replace:
             platform = replace[platform]
         return platform
     arch = os.uname()[4]

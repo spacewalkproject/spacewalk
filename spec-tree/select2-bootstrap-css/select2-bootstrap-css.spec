@@ -1,6 +1,12 @@
+%if 0%{?suse_version}
+%global apachedocroot /srv/www/htdocs
+%else
+%global apachedocroot %{_var}/www/html
+%endif
+
 Name:           select2-bootstrap-css
 Version:        1.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        CSS to make Select2 fit in with Bootstrap 3.
 
 Group:          Applications/Internet
@@ -20,8 +26,8 @@ CSS to make Select2 fit in with Bootstrap 3 – ready for use in original, LESS,
 
 %install
 rm -rf %{buildroot}
-install -d -m 755 %{buildroot}%{_var}/www/html/javascript/select2
-install -m 644 select2-bootstrap.css %{buildroot}%{_var}/www/html/javascript/select2
+install -d -m 755 %{buildroot}%{apachedocroot}/javascript/select2
+install -m 644 select2-bootstrap.css %{buildroot}%{apachedocroot}/javascript/select2
 
 %clean
 rm -rf %{buildroot}
@@ -29,10 +35,16 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{_var}/www/html/javascript/select2/select2-bootstrap.css
-
+%{apachedocroot}/javascript/select2/select2-bootstrap.css
+%if 0%{?suse_version}
+%dir %{apachedocroot}/javascript
+%dir %{apachedocroot}/javascript/select2
+%endif
 
 %changelog
+* Tue May 10 2016 Grant Gainey 1.3.0-5
+- select2-bootstrap-css: build on openSUSE
+
 * Fri May 30 2014 Milan Zazrivec <mzazrivec@redhat.com> 1.3.0-4
 - fix file path
 

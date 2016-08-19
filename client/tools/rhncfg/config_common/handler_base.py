@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,13 +14,13 @@
 #
 
 import sys
-import string
 import getpass
 from optparse import OptionParser, Option
 
-import rhn_log
-import cfg_exceptions
-import local_config
+from config_common import rhn_log
+from config_common import cfg_exceptions
+from config_common import local_config
+from rhn.i18n import bstr
 
 class HandlerBase:
     _options_table = []
@@ -44,7 +44,7 @@ class HandlerBase:
 
     def _parse_args(self, args):
         # Parses the arguments and returns a tuple (options, args)
-        usage = string.join(["%prog", self.mode, self._usage_options])
+        usage = " ".join(["%prog", self.mode, self._usage_options])
         self._parser = self._option_parser_class(
             option_list=self._options_table,
             usage=usage)
@@ -66,7 +66,8 @@ class HandlerBase:
 
             try:
                 self.repository.login(username=username, password=password)
-            except cfg_exceptions.InvalidSession, e:
+            except cfg_exceptions.InvalidSession:
+                e = sys.exc_info()[1]
                 rhn_log.die(1, "Session error: %s\n" % e)
 
     def get_auth_info(self, username=None):
@@ -78,16 +79,16 @@ class HandlerBase:
         return (username, password)
 
     def _read_username(self):
-        tty = open("/dev/tty", "r+")
-        tty.write("Username: ")
+        tty = open("/dev/tty", "rb+", buffering=0)
+        tty.write(bstr("Username: "))
         try:
             username = tty.readline()
         except KeyboardInterrupt:
-            tty.write("\n")
+            tty.write(bstr("\n"))
             sys.exit(0)
         if username is None:
             # EOF
-            tty.write("\n")
+            tty.write(bstr("\n"))
             sys.exit(0)
-        return string.strip(username)
+        return username.strip()
 

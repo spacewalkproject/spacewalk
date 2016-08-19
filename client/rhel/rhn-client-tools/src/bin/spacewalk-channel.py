@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2009--2015 Red Hat, Inc.
+# Copyright (c) 2009--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,14 +17,23 @@ import getpass
 import os
 import re
 import sys
-import urlparse
-import xmlrpclib
 from rhn import rpclib
-
+from rhn.i18n import sstr
 from optparse import Option, OptionParser
 
+try: # python2
+    import urlparse
+    import xmlrpclib
+except ImportError: # python3
+    import urllib.parse as urlparse
+    import xmlrpc.client as xmlrpclib
+
 import gettext
-_ = gettext.translation('rhn-client-tools', fallback=True).ugettext
+t = gettext.translation('rhn-client-tools', fallback=True)
+# Python 3 translations don't have a ugettext method
+if not hasattr(t, 'ugettext'):
+    t.ugettext = t.gettext
+_ = t.ugettext
 
 _LIBPATH = "/usr/share/rhn"
 # add to the path if need be
@@ -44,7 +53,7 @@ class Credentials(object):
 
     def __getattr__(self, attr):
         if attr == 'user':
-            tty = open("/dev/tty", "r+")
+            tty = open("/dev/tty", "w")
             tty.write('Username: ')
             tty.close()
             setattr(self, 'user', sys.stdin.readline().rstrip('\n'))
@@ -70,7 +79,7 @@ VERBOSE = False
 
 def info(text):
     if VERBOSE:
-        print text
+        print(text)
 
 
 def systemExit(code, msgs=None):
@@ -81,7 +90,7 @@ def systemExit(code, msgs=None):
         for msg in msgs:
             if hasattr(msg, 'value'):
                 msg = msg.value
-            sys.stderr.write(rhncli.utf8_encode(msg) + "\n")
+            sys.stderr.write(sstr(msg) + "\n")
     sys.exit(code)
 
 
@@ -193,13 +202,13 @@ def list_channels(only_base_channels=False):
 
     for channel in sorted(channels):
         if not (only_base_channels and channel['parent_channel']):
-            print channel['label']
+            print(channel['label'])
 
 
 def list_available_channels(credentials):
     channels = get_available_channels(credentials.user, credentials.password)
     channels.sort()
-    print '\n'.join(channels)
+    print('\n'.join(channels))
 
 
 def main():

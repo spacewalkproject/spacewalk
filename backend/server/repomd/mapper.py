@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,6 +22,7 @@ import time
 
 from spacewalk.common import rhnCache
 from spacewalk.common.rhnConfig import CFG
+from spacewalk.common.usix import UnicodeType
 from spacewalk.server import rhnSQL
 
 import domain
@@ -762,7 +763,7 @@ def oratimestamp_to_sinceepoch(ts):
 def string_to_unicode(text):
     if text is None:
         return ''
-    if isinstance(text, unicode):
+    if isinstance(text, UnicodeType):
         return text
 
     # First try a bunch of encodings in strict mode

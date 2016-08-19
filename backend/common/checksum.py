@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2009--2015 Red Hat, Inc.
+# Copyright (c) 2009--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,17 +15,17 @@
 
 import os
 
-hashlib_has_usedforsecurity = False
-
 try:
     import hashlib
     import inspect
-    if 'usedforsecurity' in inspect.getargspec(hashlib.new)[0]:
-        hashlib_has_usedforsecurity = True
+
+    hashlib_has_usedforsecurity = 'usedforsecurity' in inspect.getargspec(hashlib.new)[0]
 except ImportError:
     import md5
     import sha
     from Crypto.Hash import SHA256 as sha256
+
+    hashlib_has_usedforsecurity = False
 
     class hashlib(object):
 
@@ -38,8 +38,7 @@ except ImportError:
             elif checksum == 'sha256':
                 return sha256.new()
             else:
-                raise ValueError, "Incompatible checksum type"
-
+                raise ValueError("Incompatible checksum type")
 
 def getHashlibInstance(hash_type, used_for_security):
     """Get an instance of a hashlib object.

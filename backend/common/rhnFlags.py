@@ -1,4 +1,4 @@
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -48,7 +48,7 @@ def test(name):
     if not name:
         return 0
     name = name.lower()
-    return __F.has_key(name) and __F[name]
+    return (name in __F) and __F[name]
 
 
 def reset():

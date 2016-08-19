@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,10 +14,17 @@
 #
 
 import sys
-import string
+
+try:
+    PY3 = sys.version_info.major >= 3
+    raw_input = input
+except AttributeError:
+    PY3 = False
+
 
 class ModeMissingException(Exception):
     pass
+
 
 #Handles operations on a group of Modes.
 class ModeController:
@@ -27,14 +34,14 @@ class ModeController:
 
     #Enable the mode.
     def on(self, mode_name):
-        if self.mode_list.has_key(mode_name):
+        if mode_name in self.mode_list:
             self.mode_list[mode_name].on()
         else:
             raise ModeMissingException()
 
     #Disable the mode
     def off(self, mode_name):
-        if self.mode_list.has_key(mode_name):
+        if mode_name in self.mode_list:
             self.mode_list[mode_name].off()
         else:
             raise ModeMissingException()
@@ -54,14 +61,14 @@ class ModeController:
 
     #Check to see if the mode is on.
     def is_on(self, mode_name):
-        if self.mode_list.has_key(mode_name):
+        if mode_name in self.mode_list:
             return self.mode_list[mode_name].is_on()
         else:
             return 0
 
     #Check to see if the mode is off.
     def is_off(self, mode_name):
-        if self.mode_list.has_key(mode_name):
+        if mode_name in self.mode_list:
             return self.mode_list[mode_name].is_off()
         else:
             return 0
@@ -70,13 +77,13 @@ class ModeController:
     def add_mode(self, mode_obj):
         mode_name = mode_obj.get_name()
 
-        if not self.mode_list.has_key(mode_name):
+        if not mode_name in self.mode_list:
             self.mode_list[mode_name] = mode_obj
 
     #Remove a mode from the batch.
     def del_mode(self, mode_obj):
         mode_name = mode_obj.get_name()
-        if self.mode_list.has_key(mode_name):
+        if mode_name in self.mode_list:
             del self.mode_list[mode_name]
 
     #set the value of force
@@ -156,7 +163,7 @@ def ask_before_continuing(question=None):
 
     while answer != 'y' and answer != 'n':
         answer = raw_input(the_question)
-        answer = string.lower(answer)[0]
+        answer = answer.lower()[0]
 
     if answer == 'n':
         sys.exit(0)

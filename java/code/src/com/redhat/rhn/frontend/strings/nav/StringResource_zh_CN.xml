@@ -678,18 +678,21 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
+        <target>外部认证</target>
       </trans-unit>
       <trans-unit id="Group Role Mapping">
         <source>Group Role Mapping</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
+        <target>群组角色映射</target>
       </trans-unit>
       <trans-unit id="System Group Configuration">
         <source>System Group Configuration</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
+        <target>系统组配置</target>
       </trans-unit>
       <trans-unit id="Master Setup">
         <source>Master Setup</source>
@@ -717,12 +720,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
+        <target>电源管理配置</target>
       </trans-unit>
       <trans-unit id="Power Management Operations">
         <source>Power Management Operations</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
+        <target>电源管理操作</target>
       </trans-unit>
       <trans-unit id="Tag Systems">
         <source>Tag Systems</source>
@@ -1181,9 +1186,11 @@
       <!-- SUSE Studio -->
       <trans-unit id="Credentials">
         <source>Credentials</source>
+        <target>证书</target>
       </trans-unit>
       <trans-unit id="Images">
         <source>Images</source>
+        <target>镜像</target>
       </trans-unit>
     </body>
   </file>

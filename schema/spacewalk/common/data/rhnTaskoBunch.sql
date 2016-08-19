@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2010--2015 Red Hat, Inc.
+-- Copyright (c) 2010--2016 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -71,5 +71,8 @@ INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
              VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'auto-errata-bunch', 'Schedule automatic errata update actions', null);
+
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'uuid-cleanup-bunch', 'purge orphaned uuid records', null);
 
 commit;

@@ -19,9 +19,9 @@
 
 <html:form action="/users/ChannelPermsSubmit">
 <rhn:csrf />
-<input type="hidden" name="role" value="${role}" />
-<input type="hidden" name="uid" value="${user.id}" />
-<input type="hidden" name="formvars" value="uid" />
+<rhn:hidden name="role" value="${role}" />
+<rhn:hidden name="uid" value="${user.id}" />
+<rhn:hidden name="formvars" value="uid" />
 
 <%@ include file="/WEB-INF/pages/common/fragments/admin/channelperms_list.jspf" %>
 

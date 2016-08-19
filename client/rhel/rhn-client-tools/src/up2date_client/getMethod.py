@@ -1,7 +1,7 @@
 # Retrieve action method name given queued action information.
 #
 # Client code for Update Agent
-# Copyright (c) 1999--2015 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPLv2.
 #
 # An allowable xmlrpc method is retrieved given a base location, a
 # hierarchical route to the class/module, and method name.
@@ -10,8 +10,13 @@
 import os
 import string
 import sys
-from types import ClassType
 
+from rhn.tb import raise_with_tb
+
+try: # python2
+    from types import ClassType
+except ImportError: # python3
+    ClassType = type
 
 class GetMethodException(Exception):
     """Exception class"""
@@ -44,7 +49,7 @@ def getMethod(methodName, abspath, baseClass):
     #route/label.
     #"""
     # First split the method name
-    methodNameComps = string.split(baseClass, '.') + string.split(methodName, '.')
+    methodNameComps = baseClass.split('.') + methodName.split('.')
     # Sanity checks
     sanity(methodNameComps)
     # Build the path to the file
@@ -72,12 +77,12 @@ def getMethod(methodName, abspath, baseClass):
     # The position of the file
     fIndex = index + 1
     # Now build the module name
-    modulename = string.join(methodNameComps[:fIndex], '.')
+    modulename = '.'.join(methodNameComps[:fIndex])
     # And try to import it
     try:
         actions = __import__(modulename)
     except ImportError:
-        raise GetMethodException("Could not import module %s" % modulename), None, sys.exc_info()[2]
+        raise_with_tb(GetMethodException("Could not import module %s" % modulename))
 
     className = actions
     # Iterate through the list of components and try to load that specific
@@ -89,24 +94,24 @@ def getMethod(methodName, abspath, baseClass):
             if not hasattr(className, comp):
                 # Hmmm... Not there
                 raise GetMethodException("Class %s has no attribute %s" % (
-                    string.join(methodNameComps[:index], '.'), comp))
+                    '.'.join(methodNameComps[:index]), comp))
             className = getattr(className, comp)
-            #print type(className)
+            #print(type(className))
             continue
         # A file or method
         # We look for the special __rhnexport__ array
         if not hasattr(className, '__rhnexport__'):
             raise GetMethodException("Class %s is not RHN-compliant" % \
-                string.join(methodNameComps[:index], '.'))
+                '.'.join(methodNameComps[:index]))
         export = getattr(className, '__rhnexport__')
         if comp not in export:
             raise GetMethodException("Class %s does not export '%s'" % (
-                string.join(methodNameComps[:index], '.'), comp))
+                '.'.join(methodNameComps[:index]), comp))
         className = getattr(className, comp)
         if type(className) is ClassType:
             # Try to instantiate it
             className = className()
-        #print type(className)
+        #print(type(className))
 
     return className
 
@@ -126,13 +131,13 @@ if __name__ == '__main__':
     ]
 
     for m in methods:
-        print "----Running method %s: " % m
+        print("----Running method %s: " % m)
         try:
             method = getMethod(m, '.', 'Actions')
         except GetMethodException:
             e = sys.exc_info()[1]
-            print "Error getting the method %s: %s" % (m,
-                string.join(map(str, e.args)))
+            print("Error getting the method %s: %s" % (m,
+                ''.join(map(str, e.args))))
         else:
             method()
 #-----------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,12 +17,18 @@
 # The only really exportable item is the Certificate class
 #
 
+import sys
 import hashlib
 import time
 import random
 import socket
 import string
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib
 
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault
@@ -123,7 +129,8 @@ class Certificate:
         dump["fields"] = self.__fields
         try:
             x = xmlrpclib.dumps((dump,))
-        except TypeError, e:
+        except TypeError:
+            e = sys.exc_info()[1]
             log_error("Could not marshall certificate for %s" % dump)
             e.args = e.args + (dump,)  # Carry on the information for the exception reporting
             raise
@@ -159,12 +166,12 @@ class Certificate:
         else:
             s = sysid[0]
             del junk
-        if not s.has_key("system_id") or not s.has_key("fields"):
+        if "system_id" not in s or not s.has_key("fields"):
             log_error("Got certificate with missing entries: %s" % s)
             return -1
         # check the certificate some more
         for k in s["fields"]:
-            if not s.has_key(k):
+            if k not in s:
                 log_error("Certificate lists unknown %s as a checksum field" % k,
                           "cert data: %s" % s)
                 return -1
@@ -203,7 +210,7 @@ class Certificate:
     def valid(self):
         log_debug(4)
         # check for anonymous
-        if self.attrs.has_key('type') and self.attrs['type'] \
+        if 'type' in self.attrs and self.attrs['type'] \
                 and string.upper(self.attrs['type']) == "ANONYMOUS":
             raise rhnFault(28, """
             You need to re-register your system with Red Hat Satellite.

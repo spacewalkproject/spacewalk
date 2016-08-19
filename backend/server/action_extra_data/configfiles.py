@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -204,7 +204,7 @@ def _mark_missing_diff_files(server_id, action_id, missing_files):
         if not row:
             break
         action_config_revision_id, path = row['id'], row['path']
-        if hash.has_key(path):
+        if path in hash:
             # This shouldn't really happen
             log_error("Duplicate path for diff "
                       "(scheduler did not resolve config files? %s, %s" %
@@ -214,7 +214,7 @@ def _mark_missing_diff_files(server_id, action_id, missing_files):
 
     ids = []
     for path in missing_files:
-        if not hash.has_key(path):
+        if path not in hash:
             log_error("Client reports missing a file "
                       "that was not scheduled for diff? %s" % path)
             continue
@@ -301,7 +301,7 @@ _query_delete_old_diffs = rhnSQL.Statement("""
 def _disable_old_diffs(server_id):
     h = rhnSQL.prepare(_query_lookup_old_diffs)
     h.execute(server_id=server_id)
-    old_acr_ids = map(lambda x: x['id'], h.fetchall_dict() or [])
+    old_acr_ids = [x['id'] for x in h.fetchall_dict() or []]
     if not old_acr_ids:
         # Nothing to do here
         return

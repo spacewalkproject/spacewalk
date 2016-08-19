@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,6 +22,7 @@ import sys
 from rhn import rpclib
 
 # common modules imports
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnRepository, rhnFlags, rhnCache
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnConfig import CFG
@@ -248,14 +249,15 @@ class Repository(rhnRepository.Repository):
         try:
             rhnFlags.set('Download-Accelerator-Path', file_path)
             return self._getFile(CFG.REPOMD_CACHE_MOUNT_POINT + "/" + file_path)
-        except IOError, e:
+        except IOError:
+            e = sys.exc_info()[1]
             # For file not found, queue up a regen, and return 404
             if e.errno == 2 and file_name != "comps.xml":
                 taskomatic.add_to_repodata_queue(self.channelName,
                                                  "repodata request", file_name, bypass_filters=True)
                 rhnSQL.commit()
                 # This returns 404 to the client
-                raise rhnFault(6), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(6), sys.exc_info()[2])
             raise
 
     def repodata(self, file_name):
@@ -368,8 +370,8 @@ class Repository(rhnRepository.Repository):
         try:
             stat_info = os.stat(filePath)
         except:
-            raise rhnFault(17, "Unable to read package %s"
-                               % os.path.basename(filePath)), None, sys.exc_info()[2]
+            raise_with_tb(rhnFault(17, "Unable to read package %s"
+                               % os.path.basename(filePath)), sys.exc_info()[2])
         lastModified = stat_info[stat.ST_MTIME]
 
         # OK, file exists, check the cache

@@ -37,6 +37,7 @@ public abstract class BaseDaemon implements WrapperListener {
     public static final int LOG_INFO = WrapperManager.WRAPPER_LOG_LEVEL_INFO;
     public static final int LOG_ERROR = WrapperManager.WRAPPER_LOG_LEVEL_ERROR;
     public static final int LOG_FATAL = WrapperManager.WRAPPER_LOG_LEVEL_FATAL;
+    public static final int LOG_STATUS = WrapperManager.WRAPPER_LOG_LEVEL_STATUS;
 
     public static final int SUCCESS = Integer.MIN_VALUE;
 

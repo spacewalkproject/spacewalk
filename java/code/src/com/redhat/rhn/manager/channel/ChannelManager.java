@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,25 +13,6 @@
  * in this software or its documentation.
  */
 package com.redhat.rhn.manager.channel;
-
-import java.io.File;
-import java.sql.Timestamp;
-import java.sql.Types;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
@@ -86,6 +67,25 @@ import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.taskomatic.TaskomaticApi;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import java.io.File;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * ChannelManager
@@ -172,23 +172,6 @@ public class ChannelManager extends BaseManager {
          if (chan != null) {
              ChannelManager.queueChannelChange(chan.getLabel(), label, label);
          }
-    }
-
-    /**
-     * Clones the "newest" packages to the clone channel.
-     * The reason is to speed up the process, becasue calling
-     * rhn_channel.refresh_newest_package
-     * takes two minutes for channel with 11000 packages
-     *
-     * @param fromChannelId original channel id
-     * @param toChannel cloned channel
-     * @param label label for taskomatic repo_regen request
-     */
-    public static void cloneNewestPackages(Long fromChannelId, Channel toChannel,
-                                                                    String label) {
-        ChannelFactory.cloneNewestPackageCache(fromChannelId, toChannel.getId());
-        ChannelManager.queueChannelChange(
-                toChannel.getLabel(), label, "clone channel");
     }
 
     /**

@@ -58,7 +58,7 @@
                     <div class="col-lg-offset-3 col-lg-6">
                         <input type="submit" name="dispatch" class="btn btn-success"
                                value="${rhn:localize('system.jsp.customkey.updatebutton')}" />
-                        <input type="hidden" name="cikid" value="${param.cikid}" />
+                        <rhn:hidden name="cikid" value="${param.cikid}" />
                     </div>
                 </div>
             </div>

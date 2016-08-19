@@ -1,5 +1,5 @@
 #
-# Copyright (c) 1999--2015 Red Hat, Inc.
+# Copyright (c) 1999--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -44,7 +44,6 @@ wrapper just to present the firstboot style api's. (Each "page" in firstboot is
 a module with a class that inherits FirstBootGuiWindow.)
 """
 
-import urlparse
 import gtk
 # Need to import gtk.glade to make this file work alone even though we always
 # access it as gtk.glade. Not sure why. Maybe gtk's got weird hackish stuff
@@ -55,25 +54,33 @@ import sys
 import os
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
+# Python 3 translations don't have a ugettext method
+if not hasattr(t, 'ugettext'):
+    t.ugettext = t.gettext
 _ = t.ugettext
 gtk.glade.bindtextdomain("rhn-client-tools")
 
-import rhnreg
-from rhnreg import ActivationResult
-import up2dateErrors
-import hardware
-import messageWindow
-import progress
+from up2date_client import rhnreg
+from up2date_client.rhnreg import ActivationResult
+from up2date_client import up2dateErrors
+from up2date_client import hardware
+from up2date_client import messageWindow
+from up2date_client import progress
 from up2date_client import pkgUtils
-import up2dateAuth
-import up2dateUtils
-import config
+from up2date_client import up2dateAuth
+from up2date_client import up2dateUtils
+from up2date_client import config
 import OpenSSL
-import up2dateLog
+from up2date_client import up2dateLog
 from rhn import rpclib
 from rhn.connections import idn_puny_to_unicode
-import rhnreg_constants
-from pmPlugin import PM_PLUGIN_NAME, PM_PLUGIN_CONF
+from up2date_client import rhnreg_constants
+from up2date_client.pmPlugin import PM_PLUGIN_NAME, PM_PLUGIN_CONF
+
+try: # python2
+    import urlparse
+except ImportError: # python3
+    import urllib.parse as urlparse
 
 cfg = config.initUp2dateConfig()
 log = up2dateLog.initLog()
@@ -457,7 +464,7 @@ class LoginPage:
         except up2dateErrors.CommunicationError:
             e = sys.exc_info()[1]
             setArrowCursor()
-            print e.errmsg
+            print(e.errmsg)
             self.fatalError(_("There was an error communicating with the registration server.  The message was:\n") + e.errmsg)
             return True # fatalError in firstboot will return to here
 
@@ -617,7 +624,7 @@ class CreateProfilePage:
         try:
             self.hardware = hardware.Hardware()
         except:
-            print _("Error running hardware profile")
+            print(_("Error running hardware profile"))
 
     def populateProfile(self):
         try:
@@ -627,7 +634,7 @@ class CreateProfilePage:
                 ipaddr = None
                 if self.hardware:
                     for hw in self.hardware:
-                        if hw.has_key('class'):
+                        if 'class' in hw:
                             if hw['class'] == 'NETINFO':
                                 hostname = hw.get('hostname')
                                 ipaddr = hw.get('ipaddr')
@@ -806,7 +813,7 @@ class CreateProfilePage:
 ##                rowData = self.regPackageArea.get_row_data(row)
 ##                if rowData[0] == 1:
 ##                    selection.append(rowData[1])
-##            print "gh270"
+##            print("gh270")
 ##            selectedPackages = []
 ##            for pkg in packageList:
 ##                if pkg[0] in selection:

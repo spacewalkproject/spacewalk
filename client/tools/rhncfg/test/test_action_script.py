@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,7 +16,7 @@
 
 from actions import script
 
-print script.run(1, {
+print(script.run(1, {
     'username'  : 'misa',
     'groupname' : 'misa',
     'now'       : '2004-02-20 09:00:00',
@@ -29,4 +29,4 @@ sys.stdout.write("1\\n")
 sys.stderr.write("2\\n")
 time.sleep(10)
 """,
-})
+}))

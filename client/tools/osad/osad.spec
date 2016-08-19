@@ -5,9 +5,11 @@
 
 %if 0%{?suse_version}
 %global apache_group www
+%global apache_user wwwrun
 %global include_selinux_package 0
 %else
 %global apache_group apache
+%global apache_user apache
 %global include_selinux_package 1
 %endif
 
@@ -17,14 +19,21 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.63
+Version: 5.11.71
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: python-devel
 Requires: python
+%if 0%{?fedora} >= 23
+Requires: python3-rhnlib
+Requires: python3-spacewalk-backend-usix
+Requires: python3-jabberpy
+%else
 Requires: rhnlib >= 1.8-3
+Requires: spacewalk-backend-usix
 Requires: jabberpy
+%endif
 Requires: osa-common = %{version}
 %if 0%{?rhel} && 0%{?rhel} < 6
 Requires: rhn-client-tools >= 0.4.20-66
@@ -174,6 +183,9 @@ done
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{rhnroot}
 make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} INITDIR=%{_initrddir}
+%if 0%{?fedora} >= 23
+    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' $RPM_BUILD_ROOT/usr/sbin/osad
+%endif
 mkdir -p %{buildroot}%{_var}/log/rhn
 touch %{buildroot}%{_var}/log/osad
 touch %{buildroot}%{_var}/log/rhn/osa-dispatcher.log
@@ -347,7 +359,6 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %files
 %dir %{rhnroot}/osad
 %attr(755,root,root) %{_sbindir}/osad
-%{rhnroot}/osad/_ConfigParser.py*
 %{rhnroot}/osad/osad.py*
 %{rhnroot}/osad/osad_client.py*
 %{rhnroot}/osad/osad_config.py*
@@ -389,10 +400,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %attr(770,root,%{apache_group}) %dir %{_var}/log/rhn/oracle
 %attr(770,root,root) %dir %{_var}/log/rhn/oracle/osa-dispatcher
 %doc LICENSE
-%ghost %attr(640,apache,root) %{_var}/log/rhn/osa-dispatcher.log
+%ghost %attr(640,%{apache_user},root) %{_var}/log/rhn/osa-dispatcher.log
 %if 0%{?suse_version}
-%dir %{_sysconfdir}/rhn
-%dir %{rhnroot}/config-defaults
+%attr(750,root,%{apache_group}) %dir %{_sysconfdir}/rhn
+%attr(755,root,%{apache_group}) %dir %{rhnroot}/config-defaults
 %dir %{_var}/log/rhn
 %endif
 
@@ -413,6 +424,31 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 5.11.71-1
+- updating copyright years
+
+* Thu May 12 2016 Gennadii Altukhov <galt@redhat.com> 5.11.70-1
+- change interpreter on python2 for osa-dispatcher
+
+* Tue May 10 2016 Grant Gainey 5.11.69-1
+- osad: fix permissions on directories
+
+* Wed May 04 2016 Gennadii Altukhov <galt@redhat.com> 5.11.68-1
+- 1332224 - service osad doesn't work with selinux
+
+* Tue May 03 2016 Gennadii Altukhov <galt@redhat.com> 5.11.67-1
+- Adapt osad to work  in python 2/3
+- remove local ConfigParser which was used for Python 1.5
+
+* Fri Apr 29 2016 Tomas Kasparek <tkasparek@redhat.com> 5.11.66-1
+- fix typo in error message
+
+* Tue Apr 26 2016 Tomas Kasparek <tkasparek@redhat.com> 5.11.65-1
+- provide Knowledgebase article hint in case of connection fails
+
+* Fri Feb 12 2016 Gennadii Altukhov <galt@redhat.com> 5.11.64-1
+- 1306541 - Add possibility for OSAD to work in failover mode
+
 * Thu Nov 19 2015 Tomas Kasparek <tkasparek@redhat.com> 5.11.63-1
 - osad: re-send subscription stanzas after a while
 

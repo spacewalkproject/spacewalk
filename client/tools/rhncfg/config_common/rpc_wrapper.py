@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,9 +14,9 @@
 #
 
 import sys
-import string
 from rhn import rpclib
-import xmlrpclib
+from spacewalk.common.usix import raise_with_tb
+
 try:
     from socket import error, sslerror, herror, gaierror, timeout
 except ImportError:
@@ -25,6 +25,14 @@ except ImportError:
     herror = error
     gaierror = error
     timeout = error
+
+try: # python2
+    import xmlrpclib
+    import urllib
+except ImportError: # python3
+    import xmlrpc.client as xmlrpclib
+    import urllib.parse as urllib
+
 
 #This is raised when the failover stuff has gone through every server in the server list
 #and the error is still occurring.
@@ -103,10 +111,9 @@ class Server(rpclib.Server):
         #                              proxy=self.rpc_args['proxy'], username=self.rpc_args['username'],\
         #                              password=self.rpc_args['password'], refreshCallback=self.rpc_args['refreshCallback'],\
         #                              progressCallback=self.rpc_args['progressCallback'])
-        import urllib
         self._uri = myuri
         typ, uri = urllib.splittype(self._uri)
-        typ = string.lower(typ)
+        typ = typ.lower()
         if typ not in ("http", "https"):
             raise InvalidRedirectionError(
                 "Redirected to unsupported protocol %s" % typ)
@@ -134,7 +141,7 @@ class Server(rpclib.Server):
     def _failover(self):
         #The print statements are from alikins rpcServer.py.
         msg = "An error occurred talking to %s:\n" % self._get_uri()
-        msg = msg + "%s\n%s\n" % (sys.exc_type, sys.exc_value)
+        msg = msg + "%s\n%s\n" % (sys.exc_info()[0], sys.exc_info()[1])
 
         #Increments the index to point to the next server in self.list_of_uris
         self.current_index = self.current_index + 1
@@ -146,7 +153,7 @@ class Server(rpclib.Server):
             failover_uri = self._get_uri()  #Grab the uri of the new server to use.
         msg = msg + "Trying the next serverURL: %s\n" % failover_uri
 
-        print msg
+        print(msg)
 
         #Set up rpclib.Server to use the new uri.
         self.init_server(failover_uri)
@@ -158,22 +165,25 @@ class Server(rpclib.Server):
         succeed = 0
         while succeed == 0:
             try:
-                ret = apply(function, arglist, kwargs)
+                ret = function(*arglist, **kwargs)
             except rpclib.InvalidRedirectionError:
                 raise
-            except xmlrpclib.Fault, e:
+            except xmlrpclib.Fault:
+                e = sys.exc_info()[1]
                 save_traceback = sys.exc_info()[2]
                 try:
                     self._failover()
-                except NoMoreServers, f:
-                    raise e, None, save_traceback  #Don't raise the NoMoreServers error, raise the error that triggered the failover.
+                except NoMoreServers:
+                    f = sys.exc_info()[1]
+                    raise_with_tb(e, save_traceback)  #Don't raise the NoMoreServers error, raise the error that triggered the failover.
                 continue
-            except (error, sslerror, herror, gaierror, timeout), e:
+            except (error, sslerror, herror, gaierror, timeout):
+                e = sys.exc_info()[1]
                 save_traceback = sys.exc_info()[2]
                 try:
                     self._failover()
-                except NoMoreServers, f:
-                    raise e, None, save_traceback
+                except NoMoreServers:
+                    raise_with_tb(e, save_traceback)
                 continue
             succeed = 1 #If we get here then the function call eventually succeeded and we don't need to try again.
         return ret

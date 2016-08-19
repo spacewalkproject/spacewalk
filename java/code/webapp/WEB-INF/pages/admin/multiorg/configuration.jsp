@@ -51,7 +51,7 @@ function modifyUploadCheckbox(checkbox) {
       action="/rhn/admin/multiorg/OrgConfigDetails.do">
       <rhn:csrf />
       <rhn:submitted/>
-      <input type="hidden" name="oid" value="${param.oid}"/>
+      <rhn:hidden name="oid" value="${param.oid}"/>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4><bean:message key="satconfig.jsp.header"/></h4>

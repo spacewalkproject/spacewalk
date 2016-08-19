@@ -1,6 +1,6 @@
 #!/usr/bin/python -u
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 # Copyright (c) 2011 SUSE LLC
 #
 # This software is licensed to you under the GNU General Public License,
@@ -15,15 +15,16 @@
 # in this software or its documentation.
 #
 
-LOCK = None
 import re
 import StringIO
 import simplejson as json
 import shutil
 import sys
 import os
-import socket
 from optparse import OptionParser
+import datetime
+
+LOCK = None
 
 
 def systemExit(code, msg=None):
@@ -42,17 +43,20 @@ except ImportError:
     systemExit(1, "Unable to find code tree.\n"
                "Path not correct? " + sys.path)
 
+
 def releaseLOCK():
     global LOCK
     if LOCK:
         LOCK.release()
         LOCK = None
 
+
 def clear_interrupted_downloads():
     initCFG('server.satellite')
     pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1', 'stage')
     if os.path.exists(pkgdir):
         shutil.rmtree(pkgdir)
+
 
 def main():
 
@@ -118,7 +122,7 @@ def main():
         print "======================================"
         print "|   Channel Label   |   Repository   |"
         print "======================================"
-        for ch in d_chan_repo:
+        for ch in list(set(l_ch_custom) & set(d_chan_repo)):
             for repo in d_chan_repo[ch]:
                 print "%s | %s" %(ch,repo)
         for ch in list(set(l_ch_custom)-set(d_chan_repo)):
@@ -147,18 +151,18 @@ def main():
             systemExit(1, "Configuration file is invalid, please check syntax. Error [%s]" % e )
 
         for key in l_params:
-            if config.has_key(key) and not getattr(options, key):
+            if key in config and not getattr(options, key):
                 setattr(options, key, config[key])
 
         # Channels
-        if config.has_key('channel'):
+        if 'channel' in config:
             for ch,repo in config['channel'].iteritems():
                  d_ch_repo_sync[ch]=repo
 
-        if config.has_key('parent_channel'):
+        if 'parent_channel' in config:
             options.parent_label+=config['parent_channel']
 
-    if len(options.channel_label)>0:
+    if options.channel_label and len(options.channel_label)>0:
         for channel in options.channel_label:
             d_ch_repo_sync[channel]=options.url
 
@@ -195,6 +199,7 @@ def main():
              print " %s: %s" % (key,str(getattr(options, key)))
          return 0
 
+    total_time = datetime.timedelta()
     for ch,repo in d_ch_repo_sync.items():
 
         print "======================================"
@@ -209,7 +214,10 @@ def main():
                       no_errata=options.no_errata,
                       sync_kickstart=options.sync_kickstart,
                       latest=options.latest)
-        sync.sync()
+        elapsed_time = sync.sync()
+        total_time += elapsed_time
+
+    print("Total time: %s" % str(total_time).split('.')[0])
     releaseLOCK()
     return 0
 

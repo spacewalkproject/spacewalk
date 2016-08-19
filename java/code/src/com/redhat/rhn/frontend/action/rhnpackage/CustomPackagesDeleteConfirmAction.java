@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -63,11 +63,21 @@ public class CustomPackagesDeleteConfirmAction extends RhnAction {
             throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
         }
 
+        boolean sourcePackagesChecked =
+                Boolean.parseBoolean(request.getParameter("source_checked"));
+
         RhnSet set =  RhnSetDecl.DELETABLE_PACKAGE_LIST.get(user);
-        DataResult result = PackageManager.packageIdsInSet(user, set.getLabel(), null);
+        DataResult result;
+        if (sourcePackagesChecked) {
+            result = PackageManager.sourcePackageIdsInSet(user, set.getLabel(), null);
+        }
+        else {
+            result = PackageManager.packageIdsInSet(user, set.getLabel(), null);
+        }
 
 
         TagHelper.bindElaboratorTo(LIST_NAME, result.getElaborator(), request);
+        request.setAttribute("source_checked", sourcePackagesChecked);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute(RequestContext.PAGE_LIST, result);
 
@@ -78,8 +88,12 @@ public class CustomPackagesDeleteConfirmAction extends RhnAction {
         if (button.equals(request.getParameter("confirm")) && set.size() > 0) {
             int setSize = set.size();
 
-            deletePackages(user, set);
-
+            if (sourcePackagesChecked) {
+                deleteSourcePackages(user, set);
+            }
+            else {
+                deletePackages(user, set);
+            }
 
             ActionMessages msg = new ActionMessages();
             String[] actionParams = {setSize + ""};
@@ -102,6 +116,10 @@ public class CustomPackagesDeleteConfirmAction extends RhnAction {
 
     private void deletePackages(User user, RhnSet set) {
         PackageManager.deletePackages(set.getElementValues(), user);
+    }
+
+    private void deleteSourcePackages(User user, RhnSet set) {
+        PackageManager.deleteSourcePackages(set.getElementValues(), user);
     }
 
 }

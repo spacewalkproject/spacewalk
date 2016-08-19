@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,6 +17,7 @@
 
 
 # these are pretty much the only entry points
+from spacewalk.common.usix import StringType, UnicodeType
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.server import rhnUser
@@ -31,7 +32,7 @@ def get(system_id, load_user=1):
     """ retrieve the server with matching certificate from the database """
     log_debug(3, "load_user = %s" % load_user)
     # This has to be a string
-    if not isinstance(system_id, basestring):
+    if not isinstance(system_id, (StringType, UnicodeType)):
         return None
     # Try to initialize the certificate object
     cert = Certificate()

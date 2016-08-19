@@ -23,4 +23,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="ContentSourceType.findByLabel">
         <![CDATA[from com.redhat.rhn.domain.channel.ContentSourceType as c where c.label = :label]]>
     </query>
+    <query name="ContentSourceType.listAllTypes">
+        <![CDATA[from com.redhat.rhn.domain.channel.ContentSourceType]]>
+    </query>
 </hibernate-mapping>

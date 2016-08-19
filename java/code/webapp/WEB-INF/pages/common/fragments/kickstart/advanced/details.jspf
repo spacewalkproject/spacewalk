@@ -2,6 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
 <c:choose>
     <c:when test="${empty requestScope.invalid}">
@@ -104,7 +105,7 @@
                     </label>
                 </div>
                 <span class="help-block">
-                    <bean:message key="kickstartdetails.jsp.summary2" arg0="${param.ksurl}" />
+                    <bean:message key="kickstartdetails.jsp.summary2" arg0="${fn:escapeXml(param.ksurl)}" />
                 </span>
             </div>
         </div>
@@ -143,7 +144,7 @@
     </div>
     <rhn:submitted/>
     <c:if test="${not empty param.ksid}">
-        <input type="hidden" name="ksid" value="${param.ksid}"/>
+        <rhn:hidden name="ksid" value="${param.ksid}"/>
     </c:if>
 </html:form>
 </c:when>
@@ -151,7 +152,7 @@
     <p>
         <bean:message key="kickstartdetails.invalid.jsp.summary"/>
         <bean:message key="kickstartdetails.invalid.jsp.summary-option1"
-                      arg0="${ksdata.tree.label}"
+                      arg0="${fn:escapeXml(ksdata.tree.label)}"
                       arg1="/rhn/kickstart/TreeEdit.do?kstid=${ksdata.tree.id}"/>
     </p>
     <p>
@@ -189,7 +190,7 @@
                 </div>
             </div>
             <rhn:submitted/>
-            <input type="hidden" name="ksid" value="${param.ksid}"/>
+            <rhn:hidden name="ksid" value="${param.ksid}"/>
         </c:if>
     </html:form>
 </c:when>

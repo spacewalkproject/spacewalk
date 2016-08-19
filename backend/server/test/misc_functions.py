@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,7 +19,7 @@
 import os
 import sys
 import time
-import types
+from spacewalk.common import usix
 import server.importlib.headerSource
 import server.importlib.packageImport
 import server.importlib.backendOracle
@@ -89,7 +89,7 @@ def fetch_server_groups(server_id):
     "Return a server's groups"
     h = rhnSQL.prepare(_query_fetch_server_groups)
     h.execute(server_id=server_id)
-    groups = map(lambda x: x['server_group_id'], h.fetchall_dict() or [])
+    groups = [x['server_group_id'] for x in h.fetchall_dict() or []]
     groups.sort()
     return groups
 
@@ -152,7 +152,7 @@ def create_new_user(org_id=None, username=None, password=None, roles=None):
 
 def lookup_org_id(org_id):
     "Look up the org id by user name"
-    if isinstance(org_id, types.StringType):
+    if isinstance(org_id, usix.StringType):
         # Is it a user?
 
         u = rhnUser.search(org_id)
@@ -179,10 +179,10 @@ class InvalidRoleError(Exception):
 def listdir(directory):
     directory = os.path.abspath(os.path.normpath(directory))
     if not os.access(directory, os.R_OK | os.X_OK):
-        print "Can't access %s." % (directory)
+        print("Can't access %s." % (directory))
         sys.exit(1)
     if not os.path.isdir(directory):
-        print "%s not valid." % (directory)
+        print("%s not valid." % (directory))
         sys.exit(1)
     packageList = []
     for f in os.listdir(directory):

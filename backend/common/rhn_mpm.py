@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,24 +15,38 @@
 
 import os
 import gzip
-import cStringIO
+try:
+    #  python 2
+    import cStringIO
+except ImportError:
+    #  python3
+    import io as cStringIO
 import tempfile
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib # pylint: disable=F0401
 import struct
 import sys
-import fileutils
+from spacewalk.common import fileutils
 
-from types import ListType, TupleType
+from spacewalk.common.usix import ListType, TupleType
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import checksum
-from rhn_pkg import A_Package, InvalidPackageError
+from spacewalk.common.rhn_pkg import A_Package, InvalidPackageError
+
+# bare-except and broad-except
+# pylint: disable=W0702,W0703
 
 MPM_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
 
 
 def labelCompare(l1, l2):
     try:
-        import rhn_rpm
+        from spacewalk.common import rhn_rpm
     except ImportError:
         # rhn_rpm not avalable; return a dummy comparison function
         return -1
@@ -46,7 +60,7 @@ def get_package_header(filename=None, file_obj=None, fd=None):
 def load(filename=None, file_obj=None, fd=None):
     """ Loads an MPM and returns its header and its payload """
     if (filename is None and file_obj is None and fd is None):
-        raise ValueError, "No parameters passed"
+        raise ValueError("No parameters passed")
 
     if filename is not None:
         f = open(filename)
@@ -60,13 +74,14 @@ def load(filename=None, file_obj=None, fd=None):
     p = MPM_Package()
     try:
         p.load(f)
-    except InvalidPackageError, e:
+    except InvalidPackageError:
+        e = sys.exc_info()[1]
         try:
             return load_rpm(f)
         except InvalidPackageError:
-            raise e, None, sys.exc_info()[2]
+            raise_with_tb(e, sys.exc_info()[2])
         except:
-            raise e, None, sys.exc_info()[2]
+            raise_with_tb(e, sys.exc_info()[2])
 
     return p.header, p.payload_stream
 
@@ -75,9 +90,9 @@ def load_rpm(stream):
     # Hmm, maybe an rpm
 
     try:
-        import rhn_rpm
+        from spacewalk.common import rhn_rpm
     except ImportError:
-        raise InvalidPackageError, None, sys.exc_info()[2]
+        raise_with_tb(InvalidPackageError, sys.exc_info()[2])
 
     # Dup the file descriptor, we don't want it to get closed before we read
     # the payload
@@ -89,12 +104,14 @@ def load_rpm(stream):
 
     try:
         header = rhn_rpm.get_package_header(file_obj=stream)
-    except InvalidPackageError, e:
-        raise InvalidPackageError(*e.args), None, sys.exc_info()[2]
-    except rhn_rpm.error, e:
-        raise InvalidPackageError(e), None, sys.exc_info()[2]
+    except InvalidPackageError:
+        e = sys.exc_info()[1]
+        raise_with_tb(InvalidPackageError(*e.args), sys.exc_info()[2])
+    except rhn_rpm.error:
+        e = sys.exc_info()[1]
+        raise_with_tb(InvalidPackageError(e), sys.exc_info()[2])
     except:
-        raise InvalidPackageError, None, sys.exc_info()[2]
+        raise_with_tb(InvalidPackageError, sys.exc_info()[2])
     stream.seek(0, 0)
 
     return header, stream
@@ -282,7 +299,7 @@ def _replace_null(obj):
     if obj is None:
         return ''
     if isinstance(obj, ListType):
-        return map(_replace_null, obj)
+        return list(map(_replace_null, obj))
     if isinstance(obj, TupleType):
         return tuple(_replace_null(list(obj)))
     if hasattr(obj, 'items'):

@@ -3,11 +3,12 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
     <body>
         <rhn:toolbar base="h1" icon="header-organisation">
-            <bean:message key="orgdelete.jsp.header1" arg0="${orgName}"/>
+            <bean:message key="orgdelete.jsp.header1" arg0="${fn:escapeXml(orgName)}"/>
         </rhn:toolbar>
         <rhn:dialogmenu mindepth="0" maxdepth="1"
                         definition="/WEB-INF/nav/org_tabs.xml"

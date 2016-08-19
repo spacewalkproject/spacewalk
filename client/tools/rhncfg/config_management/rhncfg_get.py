@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,9 +20,11 @@ import tempfile
 from config_common import handler_base, utils, cfg_exceptions
 from config_common.rhn_log import log_debug, die
 from config_common.transactions import DeployTransaction, FailedRollback
+from spacewalk.common.usix import raise_with_tb
+
 
 def deploying_mesg_callback(path):
-    print "Deploying %s" % path
+    print("Deploying %s" % path)
 
 
 class Handler(handler_base.HandlerBase):
@@ -92,30 +94,30 @@ class Handler(handler_base.HandlerBase):
                 dep_trans.add_preprocessed(f, temp_file, info, dirs_created, strict_ownership=0)
                 continue
             elif info.get('filetype') == 'symlink':
-                print "%s -> %s" % (info['path'], info['symlink'])
+                print("%s -> %s" % (info['path'], info['symlink']))
                 continue
             elif info.get('filetype') == 'directory':
-                print "%s is a directory entry, nothing to get" % info['path']
+                print("%s is a directory entry, nothing to get" % info['path'])
                 continue
             else:
-                print open(temp_file).read()
+                print(open(temp_file).read())
                 os.unlink(temp_file)
 
         if topdir:
             try:
                 dep_trans.deploy()
-            except Exception, e:
+            except Exception:
                 try:
                     dep_trans.rollback()
-                except FailedRollback, e2:
-                    raise e2, "FAILED ROLLBACK:  ", sys.exc_info()[2]
+                except FailedRollback:
+                    raise_with_tb(FailedRollback("FAILED ROLLBACK:  "), sys.exc_info()[2])
                 #5/3/05 wregglej - 136415 Added exception stuff for missing user info.
-                except cfg_exceptions.UserNotFound, f:
+                except cfg_exceptions.UserNotFound:
                     raise
                 #5/5/05 wregglej - 136415 Added exception handling for unknown group.
-                except cfg_exceptions.GroupNotFound, f:
+                except cfg_exceptions.GroupNotFound:
                     raise
                 else:
-                    raise e, "Deploy failed, rollback successful:  ", sys.exc_info()[2]
+                    raise_with_tb(Exception("Deploy failed, rollback successful:  "), sys.exc_info()[2])
 
 

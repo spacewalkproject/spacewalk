@@ -1,4 +1,5 @@
 ALTER TABLE rhnServerGroup DROP COLUMN max_members;
+ALTER TABLE rhnservergroup_log DROP COLUMN max_members;
 
 BEGIN
   logging.recreate_trigger('rhnservergroup');

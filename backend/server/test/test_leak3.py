@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2013 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,7 +17,7 @@ import os
 import time
 from DCOracle2 import connect
 
-print os.getpid()
+print(os.getpid())
 dbh = connect('rhnuser/rhnuser@webdev')
 
 h = dbh.prepare("select 1 from dual")
@@ -27,8 +27,8 @@ i = 0
 while 1:
     h.execute()
     if 0:
-        print h.fetchone_dict()
+        print(h.fetchone_dict())
     else:
-        print i, "%.3f" % (time.time() - start)
+        print(i, "%.3f" % (time.time() - start))
     i = i + 1
     time.sleep(.01)

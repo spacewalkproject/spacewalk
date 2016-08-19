@@ -23,9 +23,11 @@ import com.redhat.rhn.domain.action.config.ConfigAction;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptRunAction;
+import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import java.util.ArrayList;
@@ -382,6 +384,54 @@ public class ActionChainManager {
         Date earliest, ActionChain actionChain) {
         Set<Action> actions = scheduleActions(user, ActionFactory.TYPE_REBOOT,
             ActionFactory.TYPE_REBOOT.getName(), earliest, actionChain, null, serverIds);
+        return actions;
+    }
+
+    /**
+     * Schedules an Errata update on a server.
+     * @param user the user scheduling actions
+     * @param server the affected server
+     * @param errataIds a list of erratas IDs
+     * @param earliest the earliest execution date
+     * @param actionChain the action chain or null
+     * @return scheduled actions
+     */
+    public static Action scheduleErrataUpdate(User user, Server server,
+            List<Integer> errataIds, Date earliest, ActionChain actionChain) {
+        Set<Long> serverIds = new HashSet<Long>();
+        serverIds.add(server.getId());
+        Set<Action> actions = scheduleErrataUpdates(user, serverIds, errataIds, earliest,
+                actionChain);
+        return actions.iterator().next();
+    }
+
+    /**
+     * Schedules one or more Errata updates on multiple servers.
+     * @param user the user scheduling actions
+     * @param serverIds the affected servers' IDs
+     * @param errataIds a list of erratas IDs
+     * @param earliest the earliest execution date
+     * @param actionChain the action chain or null
+     * @return scheduled actions
+     */
+    public static Set<Action> scheduleErrataUpdates(User user, Set<Long> serverIds,
+        List<Integer> errataIds, Date earliest, ActionChain actionChain) {
+
+        Set<Action> actions = new HashSet<Action>();
+
+        for (Integer errataId : errataIds) {
+            Errata currErrata = ErrataManager.lookupErrata(Long.valueOf(errataId), user);
+            Action update = ActionManager.createErrataAction(user, currErrata);
+            ActionManager.storeAction(update);
+            int sortOrder = ActionChainFactory.getNextSortOrderValue(actionChain);
+
+            for (Long serverId : serverIds) {
+                ActionChainFactory.queueActionChainEntry(update, actionChain,
+                    serverId, sortOrder);
+            }
+            actions.add(update);
+        }
+
         return actions;
     }
 

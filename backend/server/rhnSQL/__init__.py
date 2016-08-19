@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,6 +17,7 @@
 
 import sys
 
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.rhnException import rhnException
@@ -148,12 +149,13 @@ def initDB(backend=None, host=None, port=None, username=None,
 #        raise  # pass on, we know those ones
 #    except (KeyboardInterrupt, SystemExit):
 #        raise
-    except SQLConnectError, e:
+    except SQLConnectError:
+        e = sys.exc_info()[1]
         try:
             closeDB()
         except NameError:
             pass
-        raise e
+        raise_with_tb(e, sys.exc_info()[2])
     except:
         raise
         #e_type, e_value = sys.exc_info()[:2]
@@ -204,7 +206,7 @@ def __test_DB():
     try:
         return __DB
     except NameError:
-        raise SystemError("Not connected to any database!"), None, sys.exc_info()[2]
+        raise_with_tb(SystemError("Not connected to any database!"), sys.exc_info()[2])
 
 
 def __test_DB2():
@@ -217,7 +219,7 @@ def __test_DB2():
             initDB(initsecond=True)
             return __DB2
         except NameError:
-            raise SystemError("Not connected to secondary database!"), None, sys.exc_info()[2]
+            raise_with_tb(SystemError("Not connected to secondary database!"), sys.exc_info()[2])
 
 # wrapper for a Procedure callable class
 

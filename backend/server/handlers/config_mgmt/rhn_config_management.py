@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,6 +19,7 @@
 import sys
 import difflib
 from spacewalk.common.rhnLog import log_debug
+from spacewalk.common.usix import raise_with_tb, next
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.server import rhnSQL, configFilesHandler
 from spacewalk.common.fileutils import f_date, ostr_to_sym
@@ -65,9 +66,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     def management_list_channels(self, dict):
         log_debug(1)
         self._get_and_validate_session(dict)
-        return map(lambda x: x['label'],
-                   rhnSQL.fetchall_dict(self._query_list_config_channels,
-                                        org_id=self.org_id) or [])
+        return [x['label'] for x in rhnSQL.fetchall_dict(self._query_list_config_channels,
+                                        org_id=self.org_id) or []]
 
     _query_lookup_config_channel = rhnSQL.Statement("""
         select id
@@ -127,11 +127,12 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
         try:
             delete_call(row['id'])
-        except rhnSQL.SQLError, e:
+        except rhnSQL.SQLError:
+            e = sys.exc_info()[1]
             errno = e.args[0]
             if errno == 2292:
-                raise rhnFault(4005, "Cannot remove non-empty channel %s" %
-                               config_channel, explain=0), None, sys.exc_info()[2]
+                raise_with_tb(rhnFault(4005, "Cannot remove non-empty channel %s" %
+                               config_channel, explain=0), sys.exc_info()[2])
             raise
 
         log_debug(5, "Removed:", config_channel)
@@ -218,9 +219,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         # XXX Validate the namespace
         path = dict.get('path')
 
-        retval = map(lambda x: x['revision'],
-                     rhnSQL.fetchall_dict(self._query_list_file_revisions,
-                                          org_id=self.org_id, config_channel=config_channel, path=path) or [])
+        retval = [x['revision'] for x in rhnSQL.fetchall_dict(self._query_list_file_revisions,
+                                          org_id=self.org_id, config_channel=config_channel, path=path) or []]
         if not retval:
             raise rhnFault(4011, "File %s does not exist in channel %s" %
                            (path, config_channel), explain=0)
@@ -453,7 +453,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         diff = difflib.unified_diff(
             fsrc['file_content'], fdst['file_content'], path, path, fsrc['modified'], fdst['modified'], lineterm='')
         try:
-            first_row = diff.next()
+            first_row = next(diff)
         except StopIteration:
             return ""
 
@@ -462,7 +462,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             return first_row + '\n'.join(list(diff))
 
         try:
-            second_row = diff.next()
+            second_row = next(diff)
         except StopIteration:
             second_row = ''
 

@@ -3,6 +3,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <body>
@@ -37,7 +38,7 @@
 
 <div class="page-summary" style="padding-top: 10px;">
 <p>
-   <bean:message key="org.users.summary" arg0="${orgName}" />
+   <bean:message key="org.users.summary" arg0="${fn:escapeXml(orgName)}" />
 </p>
 </div>
 <c:set var="pageList" value="${requestScope.pageList}" />

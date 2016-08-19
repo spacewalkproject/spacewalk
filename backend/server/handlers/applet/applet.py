@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2016 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,10 +15,16 @@
 
 # system module imports
 import string
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib
 import random
 
 # common modules imports
+from spacewalk.common.usix import LongType
 from spacewalk.common import rhnCache, rhnFlags, rhn_rpm
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnConfig import CFG
@@ -130,17 +136,17 @@ class Applet(rhnHandler):
                 release, server_arch, uuid))
             return {'last_modified': 0, 'contents': []}
 
-        last_channel_changed_ts = max(map(lambda a: a["last_modified"], channel_list))
+        last_channel_changed_ts = max([a["last_modified"] for a in channel_list])
 
         # make satellite content override a cache caused by hosted
-        last_channel_changed_ts = str(long(last_channel_changed_ts) + 1)
+        last_channel_changed_ts = str(LongType(last_channel_changed_ts) + 1)
 
         # gotta be careful about channel unsubscriptions...
         client_cache_invalidated = None
 
         # we return rhnServer.channels_changed for each row
         # in the satellite case, pluck it off the first...
-        if channel_list[0].has_key("server_channels_changed"):
+        if "server_channels_changed" in channel_list[0]:
             sc_ts = channel_list[0]["server_channels_changed"]
 
             if sc_ts and (sc_ts >= last_channel_changed_ts):
@@ -160,7 +166,7 @@ class Applet(rhnHandler):
         rhnFlags.set("XMLRPC-Encoded-Response", 1)
 
         # next, check the cache if we have something with this timestamp
-        label_list = map(lambda a: str(a["id"]), channel_list)
+        label_list = [str(a["id"]) for a in channel_list]
         label_list.sort()
         log_debug(4, "label_list", label_list)
         cache_key = "applet-poll-%s" % string.join(label_list, "-")
@@ -248,7 +254,7 @@ class Applet(rhnHandler):
 
             pkg_name = p["name"]
 
-            if contents.has_key(pkg_name):
+            if pkg_name in contents:
                 stored_pkg = contents[pkg_name]
 
                 s = [stored_pkg["name"],
@@ -272,7 +278,7 @@ class Applet(rhnHandler):
                 log_debug(7, "initial store for %s" % pkg_name)
                 contents[pkg_name] = p
 
-        ret["contents"] = contents.values()
+        ret["contents"] = list(contents.values())
 
         # save it in the cache
         # We've set XMLRPC-Encoded-Response above
