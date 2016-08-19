@@ -2726,7 +2726,13 @@ def do_system_listerrata(self, args):
 
 def help_system_applyerrata(self):
     print 'system_applyerrata: Apply errata to a system'
-    print 'usage: system_applyerrata <SYSTEMS> [ERRATA|search:XXX ...]'
+    print '''usage: system_applyerrata [options] <SYSTEMS> \
+[ERRATA|search:XXX ...]
+
+options:
+  -s START_TIME'''
+    print
+    print self.HELP_TIME_OPTS
     print
     print self.HELP_SYSTEM_OPTS
 
@@ -2741,7 +2747,11 @@ def complete_system_applyerrata(self, text, line, beg, end):
 
 
 def do_system_applyerrata(self, args):
-    (args, _options) = parse_arguments(args)
+    # this is really just an entry point to do_errata_apply
+    # and the whole parsing of the start time needed is done
+    # there; here we only make sure we accept this option
+    options = [Option('-s', '--start-time', action='store')]
+    (args, options) = parse_arguments(args, options)
 
     if len(args) < 2:
         self.help_system_applyerrata()
@@ -2760,7 +2770,12 @@ def do_system_applyerrata(self, args):
     if not len(errata_list) or not len(systems):
         return
 
-    return self.do_errata_apply(' '.join(errata_list), systems)
+    # reconstruct options so we can pass them to do_errata_apply
+    opts = []
+    if options.start_time:
+        opts.append('-s ' + options.start_time)
+
+    return self.do_errata_apply(' '.join(opts + errata_list), systems)
 
 ####################
 
