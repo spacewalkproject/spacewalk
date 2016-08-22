@@ -44,6 +44,7 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.PackageDto;
+import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.DuplicateChannelLabelException;
@@ -171,11 +172,19 @@ public class ChannelSoftwareHandler extends BaseHandler {
             throw new PermissionCheckFailureException();
         }
 
-        List<Long> eids = ChannelManager.listErrataIdsNeedingResync(channel,
+        List<ErrataOverview> errata = ChannelManager.listErrataNeedingResync(channel,
                 loggedInUser);
+        List<Long> eids = new ArrayList<Long>();
+        for (ErrataOverview e : errata) {
+            eids.add(e.getId());
+        }
 
-        List<Long> pids = ChannelManager
-                .listErrataPackageIdsForResync(channel, loggedInUser);
+        List<PackageOverview> packages = ChannelManager
+                .listErrataPackagesForResync(channel, loggedInUser);
+        List<Long> pids = new ArrayList<Long>();
+        for (PackageOverview p : packages) {
+            pids.add(p.getId());
+        }
 
         ChannelEditor.getInstance().addPackages(loggedInUser, channel, pids);
 
