@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.6.5
+Version:     2.6.6
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -92,6 +92,21 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Aug 22 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.6-1
+- Add start time to system_applyerrata
+- Accept -s option in errata_apply
+- Add start time to errata_apply
+- spacecmd: Add system_reboot examples to man page
+- spacecmd: Skip time prompt when running with --yes
+- spacecmd: Add start time to system_schedulepackagerefresh
+- spacecmd: Add start time to system_schedulehardwarerefresh
+- spacecmd: Add start time to system_syncpackages
+- spacecmd: Add start time to system_deployconfigfiles
+- spacecmd: Add start time to system_upgradepackage
+- spacecmd: Add start time to system_removepackage
+- spacecmd: Add start time to system_installpackage
+- spacecmd: Add start time to system_reboot
+
 * Thu Aug 18 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.5-1
 - Repaired package listing.
 - Added seconds to timeparse func.
