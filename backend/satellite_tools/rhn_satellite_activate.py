@@ -578,6 +578,12 @@ def main():
     def writeError(e):
         sys.stderr.write('\nERROR: %s\n' % e)
 
+    # Handle RHSM manifest
+    if options.manifest:
+        cdn_activate = cdn_activation.Activation(options.manifest, options.rhn_cert)
+    else:
+        cdn_activate = None
+
     # general sanity/GPG check
     try:
         validateSatCert(options.rhn_cert, options.verbose)
@@ -594,7 +600,7 @@ def main():
                 'RHN Certificate appears to have expired: %s' % just_date)
             return 11
 
-    if not options.sanity_only:
+    if not options.sanity_only and not options.manifest:
         prepRhnCert(options)
 
         # remote activation
@@ -639,6 +645,9 @@ def main():
             except PopulateChannelFamiliesException, e:
                 writeError(e)
                 return 40
+
+    elif cdn_activate:
+        cdn_activate.run()
 
     return 0
 
