@@ -822,7 +822,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %if 0%{?rhel} > 5 || 0%{?fedora}
 %files cdn
-%attr(755,root,root) %{_bindir}/cdn-activate
 %attr(755,root,root) %{_bindir}/cdn-sync
 %{pythonrhnroot}/cdn_tools/*.py*
 %endif
