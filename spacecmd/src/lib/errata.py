@@ -108,35 +108,40 @@ def do_errata_apply(self, args, only_systems=None):
 
     systems = []
     summary = []
+    to_apply_by_name = {}
     for erratum in errata_list:
-        count = 0
-
         try:
             # get the systems affected by each errata
             affected_systems = \
                 self.client.errata.listAffectedSystems(self.session, erratum)
 
-            # build a list of systems that we will schedule errata for
+            # build a list of systems that we will schedule errata for,
+            # indexed by errata name
             for system in affected_systems:
-                # prevent duplicates in the system list
-                if system.get('name') not in systems:
-
-                    # filter if we were passed a list of systems
-                    if not len(only_systems) or \
-                       system.get('name') in only_systems:
-
-                        systems.append(system.get('name'))
-                        count += 1
+                # add this system to the list of systems affected by
+                # this erratum if we were not passed a list of systems
+                # (and therefore all systems are to be touched) or we were
+                # passed a list of systems and this one is part of that list
+                if not len(only_systems) or system.get('name') in only_systems:
+                    if erratum not in to_apply_by_name:
+                        to_apply_by_name[erratum] = []
+                    if system.get('name') not in to_apply_by_name[erratum]:
+                        to_apply_by_name[erratum].append(system.get('name'))
         except xmlrpclib.Fault:
             logging.debug('%s does not affect any systems' % erratum)
             continue
 
         # make a summary list to show the user
-        if count > 0:
+        if erratum in to_apply_by_name:
             summary.append('%s        %s' % (erratum.ljust(15),
-                                             str(count).rjust(3)))
+                                             str(len(to_apply_by_name[erratum])).rjust(3)))
         else:
             logging.debug('%s does not affect any systems' % erratum)
+
+    # get a unique list of all systems we need to touch
+    for systemlist in to_apply_by_name.values():
+        systems += systemlist
+    systems = list(set(systems))
 
     if not len(systems):
         logging.warning('No errata to apply')
