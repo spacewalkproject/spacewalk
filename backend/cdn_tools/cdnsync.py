@@ -182,17 +182,20 @@ class CdnSync(object):
         if channel in self.kickstart_metadata:
             for tree in self.kickstart_metadata[channel]:
                 tree_label = tree['ks_tree_label']
-                sources = self.kickstart_source_mapping[tree_label]
-                # One tree comes from one repo, one repo for each tree is in the mapping,
-                # in future there may be multiple repos for one tree and we will need to select
-                # correct repo
-                source = sources[0]
-                content_source = ContentSource()
-                content_source['label'] = tree_label
-                content_source['source_url'] = CFG.CDN_ROOT + source['relative_url']
-                content_source['org_id'] = None
-                content_source['type_id'] = type_id
-                batch.append(content_source)
+                if tree_label in self.kickstart_source_mapping:
+                    sources = self.kickstart_source_mapping[tree_label]
+                    # One tree comes from one repo, one repo for each tree is in the mapping,
+                    # in future there may be multiple repos for one tree and we will need to select
+                    # correct repo
+                    source = sources[0]
+                    content_source = ContentSource()
+                    content_source['label'] = tree_label
+                    content_source['source_url'] = CFG.CDN_ROOT + source['relative_url']
+                    content_source['org_id'] = None
+                    content_source['type_id'] = type_id
+                    batch.append(content_source)
+                else:
+                    print("WARN: Kickstart tree not available: %s" % tree_label)
 
         return batch
 
