@@ -819,7 +819,7 @@ class RepoSync(object):
                                        label=ks_tree_label)
 
         if row:
-            print("Kickstartable tree %s already synced with id = %d. Updating content..." % (ks_tree_label, row['id']))
+            print("Kickstartable tree %s already synced. Updating content..." % ks_tree_label)
             ks_id = row['id']
         else:
             row = rhnSQL.fetchone_dict("""
@@ -838,7 +838,7 @@ class RepoSync(object):
                            channel_id=self.channel['id'], ks_tree_type=self.ks_tree_type,
                            ks_install_type=self.ks_install_type)
 
-            print("Added new kickstartable tree %s with id = %d. Downloading content..." % (ks_tree_label, row['id']))
+            print("Added new kickstartable tree %s. Downloading content..." % ks_tree_label)
 
         insert_h = rhnSQL.prepare("""
                 insert into rhnKSTreeFile (kstree_id, relative_filename, checksum_id, file_size, last_modified, created,
