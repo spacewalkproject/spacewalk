@@ -63,12 +63,11 @@ public class ConfigUploadMtimeActionTest extends RhnBaseTestCase {
         assertNotNull(cfa.getServers());
         Server serv = cfa.getServers()[0];
         assertNotNull(serv.getId());
-        assertNotNull(((ConfigChannelAssociation)
-                cfa.getRhnActionConfigChannel().toArray()[0]).getParentAction().getId());
-        assertNotNull(((ConfigChannelAssociation)
-                cfa.getRhnActionConfigChannel().toArray()[0]).getServer().getId());
-        assertNotNull(((ConfigChannelAssociation)
-                cfa.getRhnActionConfigChannel().toArray()[0]).getConfigChannel().getId());
+        ConfigChannelAssociation association =
+                cfa.getConfigChannelAssociations().iterator().next();
+        assertNotNull(association.getParentAction().getId());
+        assertNotNull(association.getServer().getId());
+        assertNotNull(association.getConfigChannel().getId());
         // Check the ConfigDateDetails
         assertNotNull(cfa.getConfigDateDetails().getActionId());
     }
@@ -108,10 +107,10 @@ public class ConfigUploadMtimeActionTest extends RhnBaseTestCase {
         assertNotNull(sameAction.getConfigDateFileActions().toArray()[0]);
         assertNotNull(sameAction.getConfigDateFileActions().toArray()[1]);
 
-        assertNotNull(sameAction.getRhnActionConfigChannel());
-        assertEquals(2, sameAction.getRhnActionConfigChannel().size());
-        assertNotNull(sameAction.getRhnActionConfigChannel().toArray()[0]);
-        assertNotNull(sameAction.getRhnActionConfigChannel().toArray()[1]);
+        assertNotNull(sameAction.getConfigChannelAssociations());
+        assertEquals(2, sameAction.getConfigChannelAssociations().size());
+        assertNotNull(sameAction.getConfigChannelAssociations().toArray()[0]);
+        assertNotNull(sameAction.getConfigChannelAssociations().toArray()[1]);
 
         assertNotNull(sameAction.getConfigDateDetails());
         assertEquals(sameAction.getName(), testAction.getName());

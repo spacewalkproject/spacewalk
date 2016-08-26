@@ -114,7 +114,7 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
 
         //Create a success message
         if (upload != null) {
-            createSuccessMessage(upload, upload.getRhnActionConfigFileName().size(),
+            createSuccessMessage(upload, upload.getConfigFileNameAssociations().size(),
                     "config.import.success", request, null);
         }
 

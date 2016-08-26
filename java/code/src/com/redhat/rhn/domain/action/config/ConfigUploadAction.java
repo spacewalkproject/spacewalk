@@ -30,35 +30,37 @@ import java.util.Set;
  */
 public class ConfigUploadAction extends Action {
 
-    private Set rhnActionConfigChannel;
-    private Set rhnActionConfigFileName;
+    private Set<ConfigChannelAssociation> configChannelAssociations;
+    private Set<ConfigFileNameAssociation> configFileNameAssociations;
 
     /**
-     * @return Returns the rhnActionConfigChannel.
+     * @return Returns the config channel associations.
      */
-    public Set getRhnActionConfigChannel() {
-        return rhnActionConfigChannel;
+    public Set<ConfigChannelAssociation> getConfigChannelAssociations() {
+        return configChannelAssociations;
     }
 
     /**
-     * @param rhnActionConfigChannelIn The rhnActionConfigChannel to set.
+     * @param configChannelAssociationsIn The config channel associations to set.
      */
-    public void setRhnActionConfigChannel(Set rhnActionConfigChannelIn) {
-        rhnActionConfigChannel = rhnActionConfigChannelIn;
+    public void setConfigChannelAssociations(
+            Set<ConfigChannelAssociation> configChannelAssociationsIn) {
+        configChannelAssociations = configChannelAssociationsIn;
     }
 
     /**
-     * @return Returns the rhnActionConfigFileName.
+     * @return Returns the config file name associations.
      */
-    public Set getRhnActionConfigFileName() {
-        return rhnActionConfigFileName;
+    public Set<ConfigFileNameAssociation> getConfigFileNameAssociations() {
+        return configFileNameAssociations;
     }
 
     /**
-     * @param rhnActionConfigFileNameIn The rhnActionConfigFileName to set.
+     * @param configFileNameAssociationsIn The config file name associations to set.
      */
-    public void setRhnActionConfigFileName(Set rhnActionConfigFileNameIn) {
-        rhnActionConfigFileName = rhnActionConfigFileNameIn;
+    public void setConfigFileNameAssociations(
+            Set<ConfigFileNameAssociation> configFileNameAssociationsIn) {
+        configFileNameAssociations = configFileNameAssociationsIn;
     }
 
     /**
@@ -74,11 +76,11 @@ public class ConfigUploadAction extends Action {
         newCA.setServer(server);
         newCA.setModified(new Date());
         newCA.setCreated(new Date());
-        if (rhnActionConfigChannel == null) {
-            rhnActionConfigChannel = new HashSet();
+        if (configChannelAssociations == null) {
+            configChannelAssociations = new HashSet<>();
         }
         newCA.setParentAction(this);
-        rhnActionConfigChannel.add(newCA);
+        configChannelAssociations.add(newCA);
     }
 
     /**
@@ -92,11 +94,11 @@ public class ConfigUploadAction extends Action {
         newFNA.setServer(server);
         newFNA.setModified(new Date());
         newFNA.setCreated(new Date());
-        if (rhnActionConfigFileName == null) {
-            rhnActionConfigFileName = new HashSet();
+        if (configFileNameAssociations == null) {
+            configFileNameAssociations = new HashSet<>();
         }
         newFNA.setParentAction(this);
-        rhnActionConfigFileName.add(newFNA);
+        configFileNameAssociations.add(newFNA);
     }
 
     /**

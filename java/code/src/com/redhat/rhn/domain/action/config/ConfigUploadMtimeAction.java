@@ -32,7 +32,7 @@ public class ConfigUploadMtimeAction extends Action {
 
     private Set configDateFileActions;
 
-    private Set rhnActionConfigChannel;
+    private Set<ConfigChannelAssociation> configChannelAssociations;
 
     private ConfigDateDetails configDateDetails;
 
@@ -66,7 +66,7 @@ public class ConfigUploadMtimeAction extends Action {
      * @return Returns the configChannels associated with this Action
      */
     public ConfigChannel[] getConfigChannels() {
-        Iterator i = rhnActionConfigChannel.iterator();
+        Iterator i = configChannelAssociations.iterator();
         Set retval = new HashSet();
         while (i.hasNext()) {
             ConfigChannelAssociation ca = (ConfigChannelAssociation)i.next();
@@ -79,7 +79,7 @@ public class ConfigUploadMtimeAction extends Action {
      * @return Returns the servers associated with this Action
      */
     public Server[] getServers() {
-        Iterator i = rhnActionConfigChannel.iterator();
+        Iterator i = configChannelAssociations.iterator();
         Set retval = new HashSet();
         while (i.hasNext()) {
             ConfigChannelAssociation ca = (ConfigChannelAssociation)i.next();
@@ -100,24 +100,26 @@ public class ConfigUploadMtimeAction extends Action {
         newCA.setServer(serverIn);
         newCA.setModified(new Date());
         newCA.setCreated(new Date());
-        if (rhnActionConfigChannel == null) {
-            rhnActionConfigChannel = new HashSet();
+        if (configChannelAssociations == null) {
+            configChannelAssociations = new HashSet();
         }
         newCA.setParentAction(this);
-        rhnActionConfigChannel.add(newCA);
+        configChannelAssociations.add(newCA);
     }
 
     /**
-     * @return Returns the rhnActionConfigChannel.
+     * @return Returns the config channel associations.
      */
-    public Set getRhnActionConfigChannel() {
-        return rhnActionConfigChannel;
+    public Set<ConfigChannelAssociation> getConfigChannelAssociations() {
+        return configChannelAssociations;
     }
+
     /**
-     * @param rhnActionConfigChannelIn The rhnActionConfigChannel to set.
+     * @param configChannelAssociationsIn The config channel associations to set.
      */
-    public void setRhnActionConfigChannel(Set rhnActionConfigChannelIn) {
-        this.rhnActionConfigChannel = rhnActionConfigChannelIn;
+    public void setConfigChannelAssociations(
+            Set<ConfigChannelAssociation> configChannelAssociationsIn) {
+        this.configChannelAssociations = configChannelAssociationsIn;
     }
 
     /**

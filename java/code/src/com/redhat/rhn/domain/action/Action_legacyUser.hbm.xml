@@ -85,7 +85,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <!-- ConfigUploadAction: 15 -->
                 <subclass name="com.redhat.rhn.domain.action.config.ConfigUploadAction"
                     discriminator-value="15" lazy="true">
-                    <set name="rhnActionConfigChannel" cascade="all" lazy="false">
+                    <set name="configChannelAssociations" cascade="all" lazy="false" table="rhnActionConfigChannel">
                         <key column="action_id"/>
                         <composite-element
                             class="com.redhat.rhn.domain.action.config.ConfigChannelAssociation">
@@ -104,7 +104,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                         </many-to-one>
                                 </composite-element>
                     </set>
-                    <set name="rhnActionConfigFileName" cascade="all" lazy="true">
+                    <set name="configFileNameAssociations" cascade="all" lazy="true" table="rhnActionConfigFileName">
                         <key column="action_id"/>
                         <composite-element
                             class="com.redhat.rhn.domain.action.config.ConfigFileNameAssociation">
@@ -133,11 +133,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                         class="com.redhat.rhn.domain.action.config.ConfigDateFileAction"
                                         />
                         </set>
-                        <!-- in order to use the composite-element mapping here we have
-                                 to make sure the name of the variable is the same as the table name
-                                 since Hibernate doesnt support name and table attributes for the set
-                                 element.  Ugly, but its less code -->
-                        <set name="rhnActionConfigChannel" cascade="all" lazy="true">
+                        <set name="configChannelAssociations" cascade="all" lazy="true" table="rhnActionConfigChannel">
                                 <key column="action_id"/>
                                 <composite-element
                                         class="com.redhat.rhn.domain.action.config.ConfigChannelAssociation">

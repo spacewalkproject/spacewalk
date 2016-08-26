@@ -40,7 +40,8 @@ public class ConfigUploadActionTest extends RhnBaseTestCase {
         assertTrue(lookedUp instanceof ConfigUploadAction);
 
         //see that we have an expected collection
-        Set set = ((ConfigUploadAction)lookedUp).getRhnActionConfigFileName();
+        Set<ConfigFileNameAssociation> set =
+                ((ConfigUploadAction) lookedUp).getConfigFileNameAssociations();
         assertNotNull(set);
         assertEquals(2, set.size());
 

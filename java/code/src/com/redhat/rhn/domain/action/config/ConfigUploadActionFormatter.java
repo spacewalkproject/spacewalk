@@ -57,8 +57,8 @@ public class ConfigUploadActionFormatter extends ActionFormatter {
          * relationships, it can't happen scheduled from the web UI,
          * and these really are *just* notes.
          */
-        displayChannels(buffy, action.getRhnActionConfigChannel());
-        displayFileNames(buffy, action.getRhnActionConfigFileName());
+        displayChannels(buffy, action.getConfigChannelAssociations());
+        displayFileNames(buffy, action.getConfigFileNameAssociations());
         return buffy.toString();
     }
 
