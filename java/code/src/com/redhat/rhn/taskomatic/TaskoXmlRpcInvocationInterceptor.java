@@ -48,5 +48,4 @@ public class TaskoXmlRpcInvocationInterceptor implements
         HibernateFactory.rollbackTransaction();
         HibernateFactory.closeSession();
     }
-
 }

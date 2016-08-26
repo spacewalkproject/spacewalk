@@ -132,5 +132,4 @@ public class ConfigUploadMtimeAction extends Action {
     public void setConfigDateDetails(ConfigDateDetails configDateDetailsIn) {
         this.configDateDetails = configDateDetailsIn;
     }
-
 }

@@ -93,6 +93,5 @@ public class DeviceTest extends RhnBaseTestCase {
         assertNotNull(hd.getId());
 
         return hd;
-
     }
 }

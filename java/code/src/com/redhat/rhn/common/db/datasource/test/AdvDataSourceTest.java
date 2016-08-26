@@ -399,5 +399,3 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         System.out.println(dr);
     }
 }
-
-

@@ -109,5 +109,4 @@ public class ConfigUploadAction extends Action {
         }
         return formatter;
     }
-
 }

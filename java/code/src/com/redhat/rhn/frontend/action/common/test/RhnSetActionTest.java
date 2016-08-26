@@ -285,7 +285,5 @@ public class RhnSetActionTest extends RhnBaseTestCase {
         public Long getId() {
             return this.id;
         }
-
     }
-
 }

@@ -52,5 +52,4 @@ public class CancelKickstartTest extends BaseTestCaseWithUser {
         assertTrue(lookupreload.getServerActions() == null ||
                 lookupreload.getServerActions().size() == 0);
     }
-
 }

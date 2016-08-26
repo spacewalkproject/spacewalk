@@ -112,6 +112,4 @@ public class DmiTest extends RhnBaseTestCase {
 
         return dmi;
     }
-
-
 }

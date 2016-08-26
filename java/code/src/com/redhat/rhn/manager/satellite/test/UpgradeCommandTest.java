@@ -25,7 +25,6 @@ import com.redhat.rhn.testing.BaseTestCaseWithUser;
 
 import java.util.List;
 
-
 public class UpgradeCommandTest extends BaseTestCaseWithUser {
 
     public void testUpgradeProfiles() throws Exception {

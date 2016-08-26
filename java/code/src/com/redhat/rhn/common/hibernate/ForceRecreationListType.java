@@ -185,6 +185,5 @@ public class ForceRecreationListType implements UserCollectionType {
         public boolean needsRecreate(CollectionPersister persister) {
             return true;
         }
-
     }
 }

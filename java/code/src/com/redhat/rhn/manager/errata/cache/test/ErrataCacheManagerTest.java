@@ -338,5 +338,4 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         assertFalse(dr.isEmpty());
         assertTrue(dr.size() >= 1);
     }
-
 }

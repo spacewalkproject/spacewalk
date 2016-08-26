@@ -25,7 +25,6 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.Set;
 
-
 public class ConfigUploadActionTest extends RhnBaseTestCase {
 
     public void testLookup() throws Exception {
@@ -50,5 +49,4 @@ public class ConfigUploadActionTest extends RhnBaseTestCase {
         assertTrue(o instanceof ConfigFileNameAssociation);
         assertEquals(((ConfigFileNameAssociation)o).getParentAction(), lookedUp);
     }
-
 }

@@ -248,5 +248,4 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                 "sid", sid.toString());
     }
-
 }

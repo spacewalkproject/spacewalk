@@ -84,5 +84,4 @@ public class NestedTransactionFactoryTest extends RhnBaseTestCase {
         WebSessionFactory.save(s);
         return s;
     }
-
 }

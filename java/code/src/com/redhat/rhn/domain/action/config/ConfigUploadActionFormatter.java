@@ -132,5 +132,4 @@ public class ConfigUploadActionFormatter extends ActionFormatter {
             }
         }
     }
-
 }
