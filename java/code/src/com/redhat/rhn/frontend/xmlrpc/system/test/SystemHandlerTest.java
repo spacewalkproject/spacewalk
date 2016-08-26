@@ -48,7 +48,6 @@ import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.CPU;
-import com.redhat.rhn.domain.server.CPUArch;
 import com.redhat.rhn.domain.server.CustomDataValue;
 import com.redhat.rhn.domain.server.Device;
 import com.redhat.rhn.domain.server.Dmi;
@@ -64,6 +63,7 @@ import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerHistoryEvent;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
+import com.redhat.rhn.domain.server.test.CPUTest;
 import com.redhat.rhn.domain.server.test.GuestBuilder;
 import com.redhat.rhn.domain.server.test.NetworkInterfaceTest;
 import com.redhat.rhn.domain.server.test.NetworkTest;
@@ -1273,14 +1273,8 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         cpu.setModel("model_string");
         cpu.setStepping("stepping_string");
 
-        CPUArch arch = new CPUArch();
-        arch.setName("i986");
-        arch.setLabel("i986");
-        arch.setCreated(new Date());
-        TestUtils.saveAndReload(arch);
-
         cpu.setServer(server);
-        cpu.setArch(arch);
+        cpu.setArch(ServerFactory.lookupCPUArchByName(CPUTest.ARCH_NAME));
         server.setCpu(cpu);
 
         CPU cpuMap = (CPU) handler.getCpu(admin,
