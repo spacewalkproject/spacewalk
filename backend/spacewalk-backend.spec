@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.38
+Version: 2.6.39
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -827,6 +827,16 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Fri Aug 26 2016 Jan Dobes 2.6.39-1
+- make sure images from treeinfo are included regardless on directory listing
+- do not show internal DB id
+- detect treeinfo file
+- split listing files and downloading
+- there can be missing mappings for kickstart trees currently
+- do cdn activation in rhn-satellite-activate
+- add manifest parameter for rhn-satellite-activate
+- dropping cdn-activate script
+
 * Mon Aug 22 2016 Jan Dobes 2.6.38-1
 - update kickstart syncing code
 - fixing pylint: too-many-nested-blocks, little refactoring
