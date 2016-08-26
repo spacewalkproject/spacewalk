@@ -92,6 +92,14 @@ class TreeInfoParser(object):
             except ConfigParser.ParsingError:
                 raise TreeInfoError("Could not parse treeinfo file!")
 
+    def get_images(self):
+        files = []
+        for section_name in self.parser.sections():
+            if section_name.startswith('images-') or section_name == 'stage2':
+                for item in self.parser.items(section_name):
+                    files.append(item[1])
+        return files
+
 
 def set_filter_opt(option, opt_str, value, parser):
     # pylint: disable=W0613
@@ -799,6 +807,13 @@ class RepoSync(object):
             return
 
         treeinfo_parser = TreeInfoParser(treeinfo)
+        # Make sure images are included
+        to_download = []
+        for repo_path in treeinfo_parser.get_images():
+            local_path = os.path.join(CFG.MOUNT_POINT, ks_path, repo_path)
+            # TODO: better check
+            if not os.path.exists(local_path):
+                to_download.append(repo_path)
 
         if len(ks_tree_label) < 4:
             ks_tree_label += "_repo"
@@ -853,7 +868,6 @@ class RepoSync(object):
         # Downloading/Updating content of KS Tree
         # start from root dir
         dirs_queue = ['']
-        to_download = []
         print("Gathering all files in kickstart repository...")
         while len(dirs_queue) > 0:
             cur_dir_name = dirs_queue.pop(0)
@@ -869,24 +883,25 @@ class RepoSync(object):
                 if re.search(r'\.rpm$', ks_file['name']) or re.search(r'\.\.', ks_file['name']):
                     continue
 
+                repo_path = cur_dir_name + ks_file['name']
                 # if this is a directory, just add a name into queue (like BFS algorithm)
                 if ks_file['type'] == 'DIR':
-                    dirs_queue.append(cur_dir_name + ks_file['name'])
+                    dirs_queue.append(repo_path)
                     continue
 
-                local_path = os.path.join(CFG.MOUNT_POINT, ks_path, cur_dir_name, ks_file['name'])
+                local_path = os.path.join(CFG.MOUNT_POINT, ks_path, repo_path)
                 need_download = True
 
                 if os.path.exists(local_path):
                     t = os.path.getmtime(local_path)
                     if ks_file['datetime'] == datetime.utcfromtimestamp(t).strftime('%d-%b-%Y %H:%M'):
-                        print("File %s%s already present locally" % (cur_dir_name, ks_file['name']))
+                        print("File %s already present locally" % repo_path)
                         need_download = False
                     else:
-                        os.unlink(os.path.join(CFG.MOUNT_POINT, ks_path, cur_dir_name + ks_file['name']))
+                        os.unlink(os.path.join(CFG.MOUNT_POINT, ks_path, repo_path))
 
-                if need_download:
-                    to_download.append(cur_dir_name + ks_file['name'])
+                if need_download and repo_path not in to_download:
+                    to_download.append(repo_path)
 
         if to_download:
             print("Downloading %d files." % len(to_download))
