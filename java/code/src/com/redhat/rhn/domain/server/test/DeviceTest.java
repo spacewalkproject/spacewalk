@@ -22,9 +22,6 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import org.hibernate.Session;
-
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -54,32 +51,27 @@ public class DeviceTest extends RhnBaseTestCase {
 
     private void verifyInDb(Long id, String value) throws Exception {
         // Now lets manually test to see if the user got updated
-        Session session = null;
-        Connection c = null;
-        ResultSet rs = null;
-        PreparedStatement ps = null;
-        String rawValue = null;
-        try {
-            session = HibernateFactory.getSession();
-            c = session.connection();
-            assertNotNull(c);
-            ps = c.prepareStatement(
-                "SELECT PROP1 FROM RHNDEVICE " +
-                "  WHERE ID = " + id);
-            rs = ps.executeQuery();
-            rs.next();
-            rawValue = rs.getString("PROP1");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            rs.close();
-            ps.close();
-        }
-
-        assertNotNull(rawValue);
-        assertEquals(value, rawValue);
+        HibernateFactory.getSession().doWork(connection -> {
+            ResultSet rs = null;
+            PreparedStatement ps = null;
+            String rawValue = null;
+            try {
+                ps = connection.prepareStatement(
+                        "SELECT prop1 FROM rhnDevice WHERE id = " + id);
+                rs = ps.executeQuery();
+                rs.next();
+                rawValue = rs.getString("prop1");
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            finally {
+                rs.close();
+                ps.close();
+            }
+            assertNotNull(rawValue);
+            assertEquals(value, rawValue);
+        });
     }
 
     public static Device createTestDevice() throws Exception {

@@ -23,7 +23,6 @@ import com.redhat.rhn.common.translation.ExceptionConstants;
 import com.redhat.rhn.common.translation.SqlExceptionTranslator;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -48,134 +47,131 @@ public class ExceptionsWrapperTest extends TestCase {
     }
 
     public void testConstraintViolation() throws Exception {
-        Session session = null;
-        Statement stmt = null;
-        try {
-            session = HibernateFactory.getSession();
-            stmt = session.connection().createStatement();
-
-            stmt.execute("insert into exceptions_test (small_column, id) " +
-                    "values ('tooBigAString', 1)");
-        }
-        catch (SQLException e) {
-            if (!ConfigDefaults.get().isOracle()) {
-                session.connection().rollback();
-            }
+        HibernateFactory.getSession().doWork(connection -> {
+            Statement statement = null;
             try {
-                throw SqlExceptionTranslator.sqlException(e);
+                statement = connection.createStatement();
+
+                statement.execute("insert into exceptions_test (small_column, id) " +
+                    "values ('tooBigAString', 1)");
             }
-            catch (ConstraintViolationException c) {
-                assertNull(c.getConstraint());
-                assertEquals(c.getConstraintType(),
-                        ExceptionConstants.VALUE_TOO_LARGE);
+            catch (SQLException e) {
+                if (!ConfigDefaults.get().isOracle()) {
+                    connection.rollback();
+                }
+                try {
+                    throw SqlExceptionTranslator.sqlException(e);
+                }
+                catch (ConstraintViolationException c) {
+                    assertNull(c.getConstraint());
+                    assertEquals(c.getConstraintType(), ExceptionConstants.VALUE_TOO_LARGE);
+                }
+                // PostgreSQL
+                catch (WrappedSQLException c) {
+                    assertTrue(c.getMessage().toLowerCase().contains("value too long"));
+                }
             }
-            // PostgreSQL
-            catch (WrappedSQLException c) {
-                assertTrue(c.getMessage().toLowerCase().contains("value too long"));
+            finally {
+                HibernateHelper.cleanupDB(statement);
             }
-        }
-        finally {
-            HibernateHelper.cleanupDB(stmt);
-        }
+        });
     }
 
     public void testNamedConstraint() throws Exception {
-        Session session = null;
-        Statement stmt = null;
-        try {
-            session = HibernateFactory.getSession();
-            stmt = session.connection().createStatement();
-
-            stmt.execute("insert into exceptions_test (small_column, id) " +
-                    "values ('in', 1)");
-            stmt.execute("insert into exceptions_test (small_column, id) " +
-                    "values ('ano', 1)");
-        }
-        catch (SQLException e) {
-            if (!ConfigDefaults.get().isOracle()) {
-                session.connection().rollback();
-            }
+        HibernateFactory.getSession().doWork(connection -> {
+            Statement statement = null;
             try {
-                throw SqlExceptionTranslator.sqlException(e);
+                statement = connection.createStatement();
+
+                statement.execute("insert into exceptions_test (small_column, id) " +
+                    "values ('in', 1)");
+                statement.execute("insert into exceptions_test (small_column, id) " +
+                    "values ('ano', 1)");
             }
-            catch (ConstraintViolationException c) {
-                assertTrue(c.getConstraint().indexOf("EXCEPTIONS_TEST_PK") >= 0);
-                assertEquals(c.getConstraintType(),
-                        ExceptionConstants.VALUE_TOO_LARGE);
+            catch (SQLException e) {
+                if (!ConfigDefaults.get().isOracle()) {
+                    connection.rollback();
+                }
+                try {
+                    throw SqlExceptionTranslator.sqlException(e);
+                }
+                catch (ConstraintViolationException c) {
+                    assertTrue(c.getConstraint().indexOf("EXCEPTIONS_TEST_PK") >= 0);
+                    assertEquals(c.getConstraintType(), ExceptionConstants.VALUE_TOO_LARGE);
+                }
+                // PostgreSQL
+                catch (WrappedSQLException w) {
+                    assertTrue(w.getMessage().toLowerCase().contains("duplicate key"));
+                }
             }
-            // PostgreSQL
-            catch (WrappedSQLException c) {
-                assertTrue(c.getMessage().toLowerCase().contains("duplicate key"));
+            finally {
+                HibernateHelper.cleanupDB(statement);
             }
-        }
-        finally {
-            HibernateHelper.cleanupDB(stmt);
-        }
+        });
     }
 
     public void testNotReplaced() throws Exception {
-        Session session = null;
-        Statement stmt = null;
-        try {
-            session = HibernateFactory.getSession();
-            stmt = session.connection().createStatement();
-
-            stmt.execute("insert into exceptions_test (foobar, id) " +
-                    "values ('in', 1)");
-            stmt.execute("insert into exceptions_test (small_column, id) " +
-                    "values ('ano', 1)");
-        }
-        catch (SQLException e) {
-            if (!ConfigDefaults.get().isOracle()) {
-                session.connection().rollback();
-            }
+        HibernateFactory.getSession().doWork(connection -> {
+            Statement statement = null;
             try {
-                throw SqlExceptionTranslator.sqlException(e);
+                statement = connection.createStatement();
+
+                statement.execute("insert into exceptions_test (foobar, id) " +
+                    "values ('in', 1)");
+                statement.execute("insert into exceptions_test (small_column, id) " +
+                    "values ('ano', 1)");
             }
-            catch (WrappedSQLException c) {
-                // Expected WrappedSQLException
+            catch (SQLException e) {
+                if (!ConfigDefaults.get().isOracle()) {
+                    connection.rollback();
+                }
+                try {
+                    throw SqlExceptionTranslator.sqlException(e);
+                }
+                catch (WrappedSQLException c) {
+                    // Expected WrappedSQLException
+                }
             }
-        }
-        finally {
-            HibernateHelper.cleanupDB(stmt);
-        }
+            finally {
+                HibernateHelper.cleanupDB(statement);
+            }
+        });
     }
 
     // Make sure that there are no StackTraceElements from
     // com.redhat.rhn.common.translation
     public void testStackElements() throws Exception {
-        Session session = null;
-        Statement stmt = null;
-        try {
-            session = HibernateFactory.getSession();
-            stmt = session.connection().createStatement();
-
-            stmt.execute("insert into exceptions_test (foobar, id) " +
-                    "values ('in', 1)");
-            stmt.execute("insert into exceptions_test (small_column, id) " +
-                    "values ('ano', 1)");
-        }
-        catch (SQLException e) {
-            if (!ConfigDefaults.get().isOracle()) {
-                session.connection().rollback();
-            }
+        HibernateFactory.getSession().doWork(connection -> {
+            Statement statement = null;
             try {
-                throw SqlExceptionTranslator.sqlException(e);
+                statement = connection.createStatement();
+
+                statement.execute("insert into exceptions_test (foobar, id) " +
+                    "values ('in', 1)");
+                statement.execute("insert into exceptions_test (small_column, id) " +
+                    "values ('ano', 1)");
             }
-            catch (WrappedSQLException c) {
-                StackTraceElement[] elements = c.getStackTrace();
-                for (int i = 0; i < elements.length; i++) {
-                    String method = elements[i].getMethodName();
-                    String className = elements[i].getClassName();
-                    assertFalse(className.equals(EXCEPTION_TRANSLATOR));
-                    assertFalse(method.equals("convert"));
+            catch (SQLException e) {
+                if (!ConfigDefaults.get().isOracle()) {
+                    connection.rollback();
+                }
+                try {
+                    throw SqlExceptionTranslator.sqlException(e);
+                }
+                catch (WrappedSQLException w) {
+                    StackTraceElement[] elements = w.getStackTrace();
+                    for (int i = 0; i < elements.length; i++) {
+                        String method = elements[i].getMethodName();
+                        String className = elements[i].getClassName();
+                        assertFalse(className.equals(EXCEPTION_TRANSLATOR));
+                        assertFalse(method.equals("convert"));
+                    }
                 }
             }
-        }
-        finally {
-            HibernateHelper.cleanupDB(stmt);
-        }
-
+            finally {
+                HibernateHelper.cleanupDB(statement);
+            }
+        });
     }
 
     public static Test suite() throws Exception {
@@ -194,53 +190,50 @@ public class ExceptionsWrapperTest extends TestCase {
     }
 
     protected static void oneTimeSetup() throws Exception {
-        Session session = null;
-        Statement stmt = null;
-        try {
-            session = HibernateFactory.getSession();
-            stmt = session.connection().createStatement();
-            stmt.executeQuery("select 1 from exceptions_test");
-        }
-        catch (SQLException e) {
-            // Couldn't select 1, so the table didn't exist, create it
-            if (ConfigDefaults.get().isOracle()) {
-                stmt.execute("create table exceptions_test " +
-                        "( " +
-                        "  small_column VarChar2(5)," +
-                        "  id     number" +
-                        "         constraint exceptions_test_pk primary key" +
-                        ")");
+        HibernateFactory.getSession().doWork(connection -> {
+            Statement statement = null;
+            try {
+                statement = connection.createStatement();
+                statement.executeQuery("select 1 from exceptions_test");
             }
-            else {
-                session.connection().rollback();
-                stmt.execute("create table exceptions_test " +
-                        "( " +
-                        "  small_column VarChar(5)," +
-                        "  id     numeric" +
-                        "         constraint exceptions_test_pk primary key" +
-                        ")");
-            }
+            catch (SQLException e) {
+                // Couldn't select 1, so the table didn't exist, create it
+                if (ConfigDefaults.get().isOracle()) {
+                    statement.execute("create table exceptions_test ( " +
+                        "small_column VarChar2(5), " +
+                        "id number " +
+                        "constraint exceptions_test_pk primary key" +
+                    ")");
+                }
+                else {
+                    connection.rollback();
+                    statement.execute("create table exceptions_test ( " +
+                        "small_column VarChar(5), " +
+                        "id numeric " +
+                        "constraint exceptions_test_pk primary key" +
+                     ")");
+                }
 
-            session.connection().commit();
-        }
-        finally {
-            HibernateHelper.cleanupDB(stmt);
-        }
+                connection.commit();
+            }
+            finally {
+                HibernateHelper.cleanupDB(statement);
+            }
+        });
     }
 
     protected static void oneTimeTeardown() throws Exception {
-        Session session = null;
-        Statement stmt = null;
-        try {
-            session = HibernateFactory.getSession();
-            stmt = session.connection().createStatement();
-            Connection c = session.connection();
-            forceQuery(c, "drop table exceptions_test");
-            c.commit();
-        }
-        finally {
-            HibernateHelper.cleanupDB(stmt);
-        }
+        HibernateFactory.getSession().doWork(connection -> {
+            Statement statement = null;
+            try {
+                statement = connection.createStatement();
+                forceQuery(connection, "drop table exceptions_test");
+                connection.commit();
+            }
+            finally {
+                HibernateHelper.cleanupDB(statement);
+            }
+        });
     }
 
     private static void forceQuery(Connection c, String query) {

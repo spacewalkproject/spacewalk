@@ -15,15 +15,6 @@
 
 package com.redhat.rhn.domain.user.test;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TimeZone;
-
-import org.hibernate.Session;
-
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.org.Org;
@@ -43,6 +34,12 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestStatics;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TimeZone;
 
 /** JUnit test case for the User
  *  class.
@@ -213,32 +210,30 @@ public class UserFactoryTest extends RhnBaseTestCase {
         flushAndEvict(usr);
 
         // Now lets manually test to see if the user got updated
-        Connection c = null;
-        ResultSet rs = null;
-        PreparedStatement ps = null;
-        Session session = null;
-        String rawValue = null;
-        try {
-            session = HibernateFactory.getSession();
-            c = session.connection();
-            assertNotNull(c);
-            ps = c.prepareStatement(
-                "SELECT FIRST_NAMES FROM WEB_USER_PERSONAL_INFO" +
-                "  WHERE WEB_USER_ID = " + id);
-            rs = ps.executeQuery();
-            rs.next();
-            rawValue = rs.getString("FIRST_NAMES");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            rs.close();
-            ps.close();
-        }
+        HibernateFactory.getSession().doWork(connection -> {
+            ResultSet rs = null;
+            PreparedStatement ps = null;
+            String rawValue = null;
+            try {
+                ps = connection.prepareStatement("SELECT first_names " +
+                    "FROM web_user_personal_info " +
+                    "WHERE web_user_id = " + id
+                );
+                rs = ps.executeQuery();
+                rs.next();
+                rawValue = rs.getString("first_names");
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            finally {
+                rs.close();
+                ps.close();
+            }
 
-        usr = UserFactory.lookupById(id);
-        assertEquals(usr.getFirstNames(), rawValue);
+            User actualUser = UserFactory.lookupById(id);
+            assertEquals(actualUser.getFirstNames(), rawValue);
+        });
     }
 
 

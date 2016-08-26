@@ -36,7 +36,6 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import org.hibernate.Session;
 
-import java.sql.Connection;
 import java.sql.Statement;
 import java.util.Date;
 
@@ -87,24 +86,16 @@ public class KickstartCleanupTest extends RhnBaseTestCase {
     }
 
     private static void backdateKickstartSession(Session session,
-            KickstartSession ksession, int days) throws Exception {
-        Connection cn = session.connection();
-        StringBuffer sql = new StringBuffer();
-        sql.append("update rhnkickstartsession set last_action" +
-                " = current_timestamp - interval '");
-        sql.append(String.valueOf(days));
-        sql.append("' day");
-        sql.append(" where id = ").append(ksession.getId());
-        Statement stmt = null;
-        try {
-            stmt = cn.createStatement();
-            stmt.execute(sql.toString());
-        }
-        finally {
-            if (stmt != null) {
-                stmt.close();
+            KickstartSession ksession, int days)
+        throws Exception {
+        HibernateFactory.getSession().doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                statement.execute("UPDATE rhnKickstartSession " +
+                    "SET last_action = current_timestamp - interval '" + days + "' day " +
+                    "WHERE id = " + ksession.getId()
+                );
             }
-        }
+        });
     }
 
     private static KickstartSession createSession() throws Exception {

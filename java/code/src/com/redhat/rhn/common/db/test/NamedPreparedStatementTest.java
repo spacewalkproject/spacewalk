@@ -125,7 +125,7 @@ public class NamedPreparedStatementTest extends RhnBaseTestCase {
         assertEquals(1, lst.size());
         assertEquals(1, ((Integer)lst.get(0)).intValue());
 
-        session.connection().prepareStatement(jdbcQuery);
+        session.doWork(c -> c.prepareStatement(jdbcQuery));
     }
 
     public void testTwoBindPrepare() throws Exception {
@@ -148,39 +148,38 @@ public class NamedPreparedStatementTest extends RhnBaseTestCase {
         assertEquals(1, lst.size());
         assertEquals(1, ((Integer)lst.get(0)).intValue());
 
-        session.connection().prepareStatement(jdbcQuery);
+        session.doWork(c -> c.prepareStatement(jdbcQuery));
     }
 
     public void testNotFoundBindParam() throws Exception {
-        List lst;
-        String jdbcQuery;
-        Map pMap = new HashMap();
+        Map<String, List<Integer>> pMap = new HashMap<String, List<Integer>>();
 
-        jdbcQuery = NamedPreparedStatement.replaceBindParams(TWO_VAR_QUERY,
+        String jdbcQuery = NamedPreparedStatement.replaceBindParams(TWO_VAR_QUERY,
                                                              pMap);
         assertEquals(TWO_VAR_QUERY_SUBST, jdbcQuery);
 
-        lst = (List)pMap.get("sid");
-        assertNotNull(lst);
-        assertEquals(LIST_SIZE, lst.size());
-        assertEquals(FIRST_POS, ((Integer)lst.get(0)).intValue());
-        assertEquals(SECOND_POS, ((Integer)lst.get(1)).intValue());
+        List<Integer> params = pMap.get("sid");
+        assertNotNull(params);
+        assertEquals(LIST_SIZE, params.size());
+        assertEquals(FIRST_POS, params.get(0).intValue());
+        assertEquals(SECOND_POS, params.get(1).intValue());
 
-        lst = (List)pMap.get("user_id");
-        assertNotNull(lst);
-        assertEquals(1, lst.size());
-        assertEquals(1, ((Integer)lst.get(0)).intValue());
+        List<Integer> userIdParams = pMap.get("user_id");
+        assertNotNull(userIdParams);
+        assertEquals(1, userIdParams.size());
+        assertEquals(1, userIdParams.get(0).intValue());
 
-        PreparedStatement ps = session.connection().prepareStatement(jdbcQuery);
-
-        Map parameters = new HashMap();
-        parameters.put("BAD_DATA", "GARBAGE");
-        try {
-            NamedPreparedStatement.execute(ps, pMap, parameters);
-            fail("Should have received BindVariableNotFoundException");
-        }
-        catch (BindVariableNotFoundException e) {
-            // Expected exception
-        }
+        session.doWork(connection -> {
+            PreparedStatement ps = connection.prepareStatement(jdbcQuery);
+            Map<String, Object> parameters = new HashMap<String, Object>();
+            parameters.put("BAD_DATA", "GARBAGE");
+            try {
+                NamedPreparedStatement.execute(ps, pMap, parameters);
+                fail("Should have received BindVariableNotFoundException");
+            }
+            catch (BindVariableNotFoundException e) {
+                // Expected exception
+            }
+        });
     }
 }

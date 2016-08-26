@@ -29,9 +29,7 @@ import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -177,38 +175,34 @@ public class RhnSetActionTest extends RhnBaseTestCase {
     }
 
     public static void verifyRhnSetData(Long uid, String setname, int size)
-             throws HibernateException, SQLException {
-        Session session = null;
-        Connection c = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        try {
-            session = HibernateFactory.getSession();
-            session.flush();
-            c = session.connection();
-            stmt = c.createStatement();
-            String query = "select * from rhnset where user_id = " +
-                                   uid.toString();
-            rs = stmt.executeQuery(query);
+        throws HibernateException, SQLException {
+        HibernateFactory.getSession().doWork(connection -> {
+            Statement statement = null;
+            ResultSet rs = null;
+            try {
+                statement = connection.createStatement();
+                String query = "SELECT * FROM rhnSet WHERE user_id = " + uid.toString();
+                rs = statement.executeQuery(query);
 
-            assertNotNull(rs);
+                assertNotNull(rs);
 
-            int cnt = 0;
-            while (rs.next()) {
-                assertEquals(uid.longValue(), rs.getLong("USER_ID"));
-                assertEquals(setname, rs.getString("LABEL"));
-                cnt++;
+                int cnt = 0;
+                while (rs.next()) {
+                    assertEquals(uid.longValue(), rs.getLong("user_id"));
+                    assertEquals(setname, rs.getString("label"));
+                    cnt++;
+                }
+
+                assertEquals(size, cnt);
             }
-
-            assertEquals(size, cnt);
-        }
-        catch (SQLException e) {
-            log.error("Error validating data.", e);
-            throw e;
-        }
-        finally {
-            HibernateHelper.cleanupDB(rs, stmt);
-        }
+            catch (SQLException e) {
+                log.error("Error validating data.", e);
+                throw e;
+            }
+            finally {
+                HibernateHelper.cleanupDB(rs, statement);
+            }
+        });
     }
 
     public static class TestAction extends RhnSetAction {

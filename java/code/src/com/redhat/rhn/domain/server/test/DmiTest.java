@@ -22,9 +22,6 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import org.hibernate.Session;
-
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
@@ -67,34 +64,30 @@ public class DmiTest extends RhnBaseTestCase {
 
     private void verifyInDb(Long id, Map params) throws Exception {
         // Now lets manually test to see if the user got updated
-        Session session = null;
-        Connection c = null;
-        ResultSet rs = null;
-        PreparedStatement ps = null;
-        try {
-            session = HibernateFactory.getSession();
-            c = session.connection();
-            assertNotNull(c);
-            ps = c.prepareStatement(
-                "SELECT * FROM RHNSERVERDMI " +
-                "  WHERE ID = " + id);
-            rs = ps.executeQuery();
-            rs.next();
+        HibernateFactory.getSession().doWork(connection -> {
+            ResultSet rs = null;
+            PreparedStatement ps = null;
+            try {
+                ps = connection.prepareStatement(
+                    "SELECT * FROM rhnServerDmi WHERE id = " + id);
+                rs = ps.executeQuery();
+                rs.next();
 
-            assertEquals(id.longValue(), rs.getLong("ID"));
-            assertEquals(params.get("vendor"), rs.getString("VENDOR"));
-            assertEquals(params.get("system"), rs.getString("SYSTEM"));
-            assertEquals(params.get("product"), rs.getString("PRODUCT"));
-            assertEquals(params.get("biosvendor"), rs.getString("BIOS_VENDOR"));
-            assertEquals(params.get("biosversion"), rs.getString("BIOS_VERSION"));
-            assertEquals(params.get("biosrelease"), rs.getString("BIOS_RELEASE"));
-            assertEquals(params.get("asset"), rs.getString("ASSET"));
-            assertEquals(params.get("board"), rs.getString("BOARD"));
-        }
-        finally {
-            rs.close();
-            ps.close();
-        }
+                assertEquals(id.longValue(), rs.getLong("ID"));
+                assertEquals(params.get("vendor"), rs.getString("VENDOR"));
+                assertEquals(params.get("system"), rs.getString("SYSTEM"));
+                assertEquals(params.get("product"), rs.getString("PRODUCT"));
+                assertEquals(params.get("biosvendor"), rs.getString("BIOS_VENDOR"));
+                assertEquals(params.get("biosversion"), rs.getString("BIOS_VERSION"));
+                assertEquals(params.get("biosrelease"), rs.getString("BIOS_RELEASE"));
+                assertEquals(params.get("asset"), rs.getString("ASSET"));
+                assertEquals(params.get("board"), rs.getString("BOARD"));
+            }
+            finally {
+                rs.close();
+                ps.close();
+            }
+        });
     }
 
     /**

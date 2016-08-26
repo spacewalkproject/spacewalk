@@ -28,7 +28,6 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -333,52 +332,53 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
     }
 
 
+    @Override
     protected void setUp() throws Exception {
-        Session session = HibernateFactory.getSession();
-        Connection c = session.connection();
-        Statement stmt = c.createStatement();
-        try {
-            if (ConfigDefaults.get().isOracle()) {
-                stmt.execute("create table adv_datasource " +
+        HibernateFactory.getSession().doWork(connection -> {
+            Statement statement = connection.createStatement();
+            try {
+                if (ConfigDefaults.get().isOracle()) {
+                    statement.execute("create table adv_datasource " +
                         "( " +
                         "  foobar VarChar2(32)," +
                         "  test_column VarChar2(25)," +
                         "  pin    number, " +
                         "  id     number" +
                         "         constraint adv_datasource_pk primary key" +
-                        ")");
-            }
-            else {
-                stmt.execute("create table adv_datasource " +
+                        ")"
+                    );
+                }
+                else {
+                    statement.execute("create table adv_datasource " +
                         "( " +
                         "  foobar VarChar," +
                         "  test_column VarChar," +
                         "  pin    numeric, " +
                         "  id     numeric" +
                         "         constraint adv_datasource_pk primary key" +
-                        ");");
+                        ");"
+                    );
+                }
+                connection.commit();
             }
-            c.commit();
-        }
-        finally {
-            HibernateHelper.cleanupDB(stmt);
-        }
+            finally {
+                HibernateHelper.cleanupDB(statement);
+            }
+        });
     }
 
     protected void tearDown() throws Exception {
-        Session session = null;
-        Connection c = null;
-        Statement stmt = null;
-        try {
-            session = HibernateFactory.getSession();
-            c = session.connection();
-            stmt = c.createStatement();
-            forceQuery(c, "drop table adv_datasource");
-            c.commit();
-        }
-        finally {
-            HibernateHelper.cleanupDB(stmt);
-        }
+        HibernateFactory.getSession().doWork(connection -> {
+            Statement statement = null;
+            try {
+                statement = connection.createStatement();
+                forceQuery(connection, "drop table adv_datasource");
+                connection.commit();
+            }
+            finally {
+                HibernateHelper.cleanupDB(statement);
+            }
+        });
     }
 
     private static void forceQuery(Connection c, String query) {

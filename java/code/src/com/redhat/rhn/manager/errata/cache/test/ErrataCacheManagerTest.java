@@ -39,9 +39,6 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import org.hibernate.Session;
-
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
@@ -109,19 +106,20 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         assertEquals(1, rows);
 
         // verify what was inserted
-        Session session = HibernateFactory.getSession();
-        Connection conn = session.connection();
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(
-                "select * from rhnServerNeededPackageCache where server_id = " +
-                sid.toString());
-        assertTrue(rs.next());
-        assertEquals(sid.longValue(), rs.getLong("server_id"));
-        assertEquals(eid.longValue(), rs.getLong("errata_id"));
-        assertEquals(pid.longValue(), rs.getLong("package_id"));
+        HibernateFactory.getSession().doWork(connection -> {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                "SELECT * FROM rhnServerNeededPackageCache WHERE server_id = " +
+                sid.toString()
+            );
+            assertTrue(rs.next());
+            assertEquals(sid.longValue(), rs.getLong("server_id"));
+            assertEquals(eid.longValue(), rs.getLong("errata_id"));
+            assertEquals(pid.longValue(), rs.getLong("package_id"));
 
-        // make sure we don't have more
-        assertFalse(rs.next());
+            // make sure we don't have more
+            assertFalse(rs.next());
+        });
     }
 
     public static Map createServerNeededPackageCache(User userIn,
@@ -176,33 +174,34 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         Long pid = pkg.getId();
 
         // insert record into table
-        int rows = ErrataCacheManager.insertNeededErrataCache(
-                sid, eid, pid);
-        assertEquals(1, rows);
+        HibernateFactory.getSession().doWork(connection -> {
+            int rows = ErrataCacheManager.insertNeededErrataCache(sid, eid, pid);
+            assertEquals(1, rows);
 
-        // verify what was inserted
-        Session session = HibernateFactory.getSession();
-        Connection conn = session.connection();
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(
-                "select * from rhnServerNeededPackageCache where server_id = " +
-                sid.toString());
-        assertTrue(rs.next());
-        assertEquals(sid.longValue(), rs.getLong("server_id"));
-        assertEquals(eid.longValue(), rs.getLong("errata_id"));
-        assertEquals(pid.longValue(), rs.getLong("package_id"));
+            // verify what was inserted
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                "SELECT * FROM rhnServerNeededPackageCache WHERE server_id = " +
+                sid.toString()
+            );
+            assertTrue(rs.next());
+            assertEquals(sid.longValue(), rs.getLong("server_id"));
+            assertEquals(eid.longValue(), rs.getLong("errata_id"));
+            assertEquals(pid.longValue(), rs.getLong("package_id"));
 
-        // make sure we don't have more
-        assertFalse(rs.next());
+            // make sure we don't have more
+            assertFalse(rs.next());
 
-        // now let's delete the above record
-        rows = ErrataCacheManager.deleteNeededPackageCache(sid, eid, pid);
-        assertEquals(1, rows);
+            // now let's delete the above record
+            rows = ErrataCacheManager.deleteNeededPackageCache(sid, eid, pid);
+            assertEquals(1, rows);
 
-        rs = stmt.executeQuery(
-                "select * from rhnServerNeededPackageCache where server_id = " +
-                sid.toString());
-        assertFalse(rs.next());
+            rs = stmt.executeQuery(
+                "SELECT * FROM rhnServerNeededPackageCache WHERE server_id = "
+                + sid.toString()
+            );
+            assertFalse(rs.next());
+        });
     }
 
     public static Server createServerNeedintErrataCache(User userIn) throws Exception {
@@ -241,18 +240,19 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         assertEquals(1, rows);
 
         // verify what was inserted
-        Session session = HibernateFactory.getSession();
-        Connection conn = session.connection();
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(
-                "select * from rhnServerNeededErrataCache where server_id = " +
-                sid.toString());
-        assertTrue(rs.next());
-        assertEquals(sid.longValue(), rs.getLong("server_id"));
-        assertEquals(eid.longValue(), rs.getLong("errata_id"));
+        HibernateFactory.getSession().doWork(connection -> {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                "SELECT * FROM rhnServerNeededErrataCache WHERE server_id = " +
+                sid.toString()
+            );
+            assertTrue(rs.next());
+            assertEquals(sid.longValue(), rs.getLong("server_id"));
+            assertEquals(eid.longValue(), rs.getLong("errata_id"));
 
-        // make sure we don't have more
-        assertFalse(rs.next());
+            // make sure we don't have more
+            assertFalse(rs.next());
+        });
     }
 
     public void testDeleteNeededErrataCache() throws Exception {
@@ -267,31 +267,33 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         Package p = e.getPackages().iterator().next();
 
         // insert record into table
-        int rows = ErrataCacheManager.insertNeededErrataCache(sid, eid, p.getId());
-        assertEquals(1, rows);
+        HibernateFactory.getSession().doWork(connection -> {
+            int rows = ErrataCacheManager.insertNeededErrataCache(sid, eid, p.getId());
+            assertEquals(1, rows);
 
-        // verify what was inserted
-        Session session = HibernateFactory.getSession();
-        Connection conn = session.connection();
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(
-                "select * from rhnServerNeededErrataCache where server_id = " +
-                sid.toString());
-        assertTrue(rs.next());
-        assertEquals(sid.longValue(), rs.getLong("server_id"));
-        assertEquals(eid.longValue(), rs.getLong("errata_id"));
+            // verify what was inserted
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                "SELECT * FROM rhnServerNeededErrataCache WHERE server_id = " +
+                sid.toString()
+            );
+            assertTrue(rs.next());
+            assertEquals(sid.longValue(), rs.getLong("server_id"));
+            assertEquals(eid.longValue(), rs.getLong("errata_id"));
 
-        // make sure we don't have more
-        assertFalse(rs.next());
+            // make sure we don't have more
+            assertFalse(rs.next());
 
-        // now let's delete the above record
-        rows = ErrataCacheManager.deleteNeededErrataCache(sid, eid);
-        assertEquals(1, rows);
+            // now let's delete the above record
+            rows = ErrataCacheManager.deleteNeededErrataCache(sid, eid);
+            assertEquals(1, rows);
 
-        rs = stmt.executeQuery(
-                "select * from rhnServerNeededErrataCache where server_id = " +
-                sid.toString());
-        assertFalse(rs.next());
+            rs = statement.executeQuery(
+                "SELECT * FROM rhnServerNeededErrataCache WHERE server_id = " +
+                sid.toString()
+            );
+            assertFalse(rs.next());
+        });
     }
 
     public void testPackagesNeedingUpdates() throws Exception {

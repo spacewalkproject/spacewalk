@@ -29,9 +29,6 @@ import com.redhat.rhn.common.hibernate.HibernateHelper;
 import com.redhat.rhn.common.util.manifestfactory.ManifestFactoryLookupException;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
-import org.hibernate.Session;
-
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Collection;
 import java.util.HashMap;
@@ -154,42 +151,42 @@ public class DataSourceParserTest extends RhnBaseTestCase {
     }
 
     public void testPrepareAll() throws Exception {
-        Session sess = HibernateFactory.getSession();
-        Connection conn = sess.connection();
-        PreparedStatement ps = null;
-        try {
-            Collection fileSet = ModeFactory.getKeys();
-            Iterator i = fileSet.iterator();
-            while (i.hasNext()) {
-                String file = (String)i.next();
-                Iterator j = ModeFactory.getFileKeys(file).values().iterator();
+        HibernateFactory.getSession().doWork(connection -> {
+            PreparedStatement ps = null;
+            try {
+                Collection<?> fileSet = ModeFactory.getKeys();
+                Iterator<?> i = fileSet.iterator();
+                while (i.hasNext()) {
+                    String file = (String)i.next();
+                    Iterator<?> j = ModeFactory.getFileKeys(file).values().iterator();
 
-                while (j.hasNext()) {
-                    Mode m = (Mode)j.next();
+                    while (j.hasNext()) {
+                        Mode m = (Mode)j.next();
 
-                    if (shouldSkip(m)) {
-                        continue;
-                    }
-                    CachedStatement stmt = m.getQuery();
-                    if (stmt != null) {
-                        String query = m.getQuery().getQuery();
+                        if (shouldSkip(m)) {
+                            continue;
+                        }
+                        CachedStatement stmt = m.getQuery();
+                        if (stmt != null) {
+                            String query = m.getQuery().getQuery();
 
-                        // HACK!  Some of the queries actually have %s in them.
-                        // So, replace all %s with :rbb so that the explain plan
-                        // can be generated.
-                        query = query.replaceAll("%s", ":rbb");
+                            // HACK: some of the queries actually have %s in them.
+                            // So, replace all %s with :rbb so that the explain plan
+                            // can be generated.
+                            query = query.replaceAll("%s", ":rbb");
 
-                        ps = conn.prepareStatement(query);
+                            ps = connection.prepareStatement(query);
+                        }
                     }
                 }
             }
-        }
-        finally {
-            if (conn != null) {
-                conn.commit();
+            finally {
+                if (connection != null) {
+                    connection.commit();
+                }
+                HibernateHelper.cleanupDB(ps);
             }
-            HibernateHelper.cleanupDB(ps);
-        }
+        });
     }
 
     private void runTestQuery(String queryName, String elabName) throws Exception {

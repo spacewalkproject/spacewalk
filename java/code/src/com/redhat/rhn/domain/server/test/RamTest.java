@@ -21,9 +21,6 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import org.hibernate.Session;
-
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -57,31 +54,23 @@ public class RamTest extends RhnBaseTestCase {
     }
 
 
-    private void verifyInDb(Long serverId, long ram, long swap)
-        throws Exception {
-        // Now lets manually test to see if the user got updated
-        Session session = null;
-        Connection c = null;
-        ResultSet rs = null;
-        PreparedStatement ps = null;
-        try {
-            session = HibernateFactory.getSession();
-            c = session.connection();
-            assertNotNull(c);
-            ps = c.prepareStatement(
-                "SELECT ID, RAM, SWAP FROM RHNRAM " +
- "  WHERE SERVER_ID = " + serverId);
-            rs = ps.executeQuery();
-            rs.next();
+    private void verifyInDb(Long serverId, long ram, long swap) throws Exception {
+        HibernateFactory.getSession().doWork(connection -> {
+            ResultSet rs = null;
+            PreparedStatement ps = null;
+            try {
+                ps = connection.prepareStatement("SELECT id, ram, swap FROM rhnRam " +
+                   "  WHERE server_id = " + serverId);
+                rs = ps.executeQuery();
+                rs.next();
 
-            assertEquals(ram, rs.getLong("RAM"));
-            assertEquals(swap, rs.getLong("SWAP"));
-        }
-        finally {
-            rs.close();
-            ps.close();
-        }
+                assertEquals(ram, rs.getLong("RAM"));
+                assertEquals(swap, rs.getLong("SWAP"));
+            }
+            finally {
+                rs.close();
+                ps.close();
+            }
+        });
     }
-
-
 }
