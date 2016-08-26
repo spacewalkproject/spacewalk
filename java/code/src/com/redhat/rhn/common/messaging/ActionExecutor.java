@@ -57,8 +57,7 @@ class ActionExecutor implements Runnable {
                     while (evtdb.getTransaction().isActive()) {
                         if (LOG.isDebugEnabled()) {
                             LOG.debug("DB message, waiting for txn: active: " +
-                                    evtdb.getTransaction().isActive() + " commited: " +
-                                    evtdb.getTransaction().wasCommitted());
+                                    evtdb.getTransaction().isActive());
                         }
                         Thread.sleep(10);
                     }

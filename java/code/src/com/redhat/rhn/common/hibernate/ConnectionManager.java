@@ -26,6 +26,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -302,7 +303,8 @@ class ConnectionManager {
         Session session = info.getSession();
         try {
             Transaction txn = info.getTransaction();
-            if (txn != null && !txn.wasCommitted() && !txn.wasRolledBack()) {
+            if (txn != null && txn.getStatus().isNotOneOf(
+                    TransactionStatus.COMMITTED, TransactionStatus.ROLLED_BACK)) {
                 try {
                     txn.commit();
                 }

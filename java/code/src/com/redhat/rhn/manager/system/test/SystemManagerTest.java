@@ -82,8 +82,8 @@ import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import org.cobbler.test.MockConnection;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
+import org.hibernate.type.IntegerType;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -135,7 +135,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         Integer count = (Integer) session.createSQLQuery("Select count(*) as cnt " +
                                                          "  from rhnSnapshot " +
                                                          " where server_id = " + sid)
-                                         .addScalar("cnt", Hibernate.INTEGER)
+                                         .addScalar("cnt", IntegerType.INSTANCE)
                                          .uniqueResult();
         return count;
     }
