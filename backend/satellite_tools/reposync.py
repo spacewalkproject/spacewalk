@@ -20,6 +20,7 @@ import sys
 import time
 from datetime import datetime
 from HTMLParser import HTMLParser
+import ConfigParser
 
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel
 from spacewalk.common import fileutils, rhnLog
@@ -74,6 +75,22 @@ class KSDirParser(HTMLParser):
             })
         else:
             self.current_tag = ""
+
+
+class TreeInfoError(Exception):
+    pass
+
+
+class TreeInfoParser(object):
+    def __init__(self, filename):
+        self.parser = ConfigParser.RawConfigParser()
+        # do not lowercase
+        self.parser.optionxform = str
+        with open(filename) as fp:
+            try:
+                self.parser.readfp(fp)
+            except ConfigParser.ParsingError:
+                raise TreeInfoError("Could not parse treeinfo file!")
 
 
 def set_filter_opt(option, opt_str, value, parser):
@@ -266,7 +283,7 @@ class RepoSync(object):
                 # only for repos obtained from the DB
                 if self.sync_kickstart and repo_label:
                     try:
-                        self.import_kickstart(plugin, url, repo_label)
+                        self.import_kickstart(plugin, repo_label)
                     except:
                         rhnSQL.rollback()
                         raise
@@ -767,17 +784,21 @@ class RepoSync(object):
 
         return ret
 
-    def import_kickstart(self, plug, url, repo_label):
-        pxeboot_path = 'images/pxeboot/'
-        pxeboot = plug.get_file(pxeboot_path)
-        if pxeboot is None:
-            if not re.search(r'/$', url):
-                url += '/'
-            self.print_msg("Kickstartable tree not detected (no %s%s)" % (url, pxeboot_path))
-            return
-
+    def import_kickstart(self, plug, repo_label):
         ks_path = 'rhn/kickstart/'
         ks_tree_label = re.sub(r'[^-_0-9A-Za-z@.]', '', repo_label.replace(' ', '_'))
+
+        treeinfo_path = ['treeinfo', '.treeinfo']
+        treeinfo = None
+        for path in treeinfo_path:
+            treeinfo = plug.get_file(path, os.path.join(CFG.MOUNT_POINT, ks_path))
+            if treeinfo:
+                break
+        if not treeinfo:
+            self.print_msg("Kickstartable tree not detected (no treeinfo file)")
+            return
+
+        treeinfo_parser = TreeInfoParser(treeinfo)
 
         if len(ks_tree_label) < 4:
             ks_tree_label += "_repo"
@@ -836,11 +857,7 @@ class RepoSync(object):
         print("Gathering all files in kickstart repository...")
         while len(dirs_queue) > 0:
             cur_dir_name = dirs_queue.pop(0)
-            cur_dir_html = None
-            if cur_dir_name == pxeboot_path:
-                cur_dir_html = pxeboot
-            else:
-                cur_dir_html = plug.get_file(cur_dir_name)
+            cur_dir_html = plug.get_file(cur_dir_name)
             if cur_dir_html is None:
                 continue
 
