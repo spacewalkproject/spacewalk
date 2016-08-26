@@ -46,7 +46,7 @@ public class UpgradeCommandTest extends BaseTestCaseWithUser {
         commitHappened();
 
         UpgradeCommand cmd = new UpgradeCommand();
-        cmd.store();
+        cmd.upgrade();
 
         // Check to see if the upgrade command created the default profile.
         ksession =

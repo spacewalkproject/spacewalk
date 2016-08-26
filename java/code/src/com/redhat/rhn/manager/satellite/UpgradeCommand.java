@@ -53,24 +53,12 @@ public class UpgradeCommand extends BaseTransactionCommand {
 
 
     /**
-     * Excute the upgrade step
+     * Excutes the upgrade step in an own transaction
      */
     public void store() {
         try {
             HibernateFactory.getSession().beginTransaction();
-            List upgradeTasks = TaskFactory.getTaskListByNameLike(UPGRADE_TASK_NAME);
-            // Loop over upgrade tasks and execute the steps.
-            for (int i = 0; i < upgradeTasks.size(); i++) {
-                Task t = (Task) upgradeTasks.get(i);
-                // Use WARN because we want this logged.
-                if (t != null) {
-                    log.warn("got upgrade task: " + t.getName());
-                    if (t.getName().equals(UPGRADE_KS_PROFILES)) {
-                        processKickstartProfiles();
-                        TaskFactory.remove(t);
-                    }
-                }
-            }
+            upgrade();
         }
         catch (Exception e) {
             log.error("Problem upgrading!", e);
@@ -79,6 +67,26 @@ public class UpgradeCommand extends BaseTransactionCommand {
         }
         finally {
             handleTransaction();
+        }
+    }
+
+
+    /**
+     * Excutes the upgrade step
+     */
+    public void upgrade() {
+        List upgradeTasks = TaskFactory.getTaskListByNameLike(UPGRADE_TASK_NAME);
+        // Loop over upgrade tasks and execute the steps.
+        for (int i = 0; i < upgradeTasks.size(); i++) {
+            Task t = (Task) upgradeTasks.get(i);
+            // Use WARN because we want this logged.
+            if (t != null) {
+                log.warn("got upgrade task: " + t.getName());
+                if (t.getName().equals(UPGRADE_KS_PROFILES)) {
+                    processKickstartProfiles();
+                    TaskFactory.remove(t);
+                }
+            }
         }
     }
 
