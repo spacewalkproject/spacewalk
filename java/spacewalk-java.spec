@@ -482,6 +482,7 @@ echo "wrapper.java.classpath.28=/usr/share/java/log4j-1.jar" >> conf/default/rhn
 echo "wrapper.java.classpath.28=/usr/share/java/log4j.jar" >> conf/default/rhn_taskomatic_daemon.conf
 %endif
 %if 0%{?fedora}
+echo "hibernate.id.new_generator_mappings = false" >> conf/default/rhn_hibernate.conf
 echo "wrapper.java.classpath.49=/usr/share/java/hibernate3/hibernate-core-3.jar
 wrapper.java.classpath.61=/usr/share/java/hibernate-jpa-2.0-api.jar
 wrapper.java.classpath.62=/usr/share/java/hibernate3/hibernate-ehcache-3.jar
@@ -10127,4 +10128,3 @@ Feature: Support channel-permissions on ISS
 - 576907 - making same display changes for system sync (tlestach@redhat.com)
 - Move systemlogs directory out of /var/satellite (joshua.roys@gtri.gatech.edu)
 - 580227 - displaying dates in the same format (tlestach@redhat.com)
-
