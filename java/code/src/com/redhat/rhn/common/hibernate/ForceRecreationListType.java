@@ -70,6 +70,7 @@ public class ForceRecreationListType implements UserCollectionType {
     /**
      * {@inheritDoc}
      */
+    @Override
     public PersistentCollection instantiate(SharedSessionContractImplementor session,
             CollectionPersister persister) throws HibernateException {
         return new ForceRecreationList(session);
@@ -78,6 +79,7 @@ public class ForceRecreationListType implements UserCollectionType {
     /**
      * {@inheritDoc}
      */
+    @Override
     public PersistentCollection wrap(SharedSessionContractImplementor session,
             Object collection) {
         return new ForceRecreationList(session, (List) collection);
@@ -88,6 +90,7 @@ public class ForceRecreationListType implements UserCollectionType {
      *
      * {@inheritDoc}
      */
+    @Override
     public Iterator getElementsIterator(Object collection) {
         return ((List) collection).iterator();
     }
@@ -96,6 +99,7 @@ public class ForceRecreationListType implements UserCollectionType {
      *
      * {@inheritDoc}
      */
+    @Override
     public boolean contains(Object collection, Object entity) {
         return ((List) collection).contains(entity);
     }
@@ -104,6 +108,7 @@ public class ForceRecreationListType implements UserCollectionType {
      *
      * {@inheritDoc}
      */
+    @Override
     public Object indexOf(Object collection, Object entity) {
         int l = ((List) collection).indexOf(entity);
         if (l < 0) {
@@ -116,6 +121,7 @@ public class ForceRecreationListType implements UserCollectionType {
      *
      * {@inheritDoc}
      */
+    @Override
     public Object replaceElements(Object original, Object target,
             CollectionPersister persister, Object owner, Map copyCache,
             SharedSessionContractImplementor session) throws HibernateException {
@@ -131,6 +137,7 @@ public class ForceRecreationListType implements UserCollectionType {
      * @param anticipatedSize sample size
      * @return an empty  list.
      */
+    @Override
     public Object instantiate(int anticipatedSize) {
         if (anticipatedSize > 0) {
             return new ArrayList(anticipatedSize);
