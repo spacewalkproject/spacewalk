@@ -38,8 +38,7 @@ import java.util.Set;
 
 /**
  * Manages the lifecycle of the Hibernate SessionFactory and associated
- * thread-scoped Hibernate sessions
- * @version $Rev$
+ * thread-scoped Hibernate sessions.
  */
 class ConnectionManager {
 

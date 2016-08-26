@@ -23,10 +23,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-
 /**
  * ConfigUploadMtimeAction - Class representing ActionType.TYPE_CONFIGFILES_MTIME_UPLOAD: 23
- * @version $Rev$
  */
 public class ConfigUploadMtimeAction extends Action {
 

@@ -73,7 +73,6 @@ import com.redhat.rhn.manager.system.IncompatibleArchException;
 
 /**
  * PackageManager
- * @version $Rev$
  */
 public class PackageManager extends BaseManager {
     private static final Logger LOG = Logger.getLogger(PackageManager.class);

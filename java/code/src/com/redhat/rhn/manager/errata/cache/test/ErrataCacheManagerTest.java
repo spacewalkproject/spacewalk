@@ -47,7 +47,6 @@ import java.util.Map;
 
 /**
  * ErrataFactoryTest
- * @version $Rev$
  */
 public class ErrataCacheManagerTest extends RhnBaseTestCase {
 

@@ -29,7 +29,6 @@ import com.redhat.rhn.testing.TestUtils;
 
 /**
  * CancelKickstartTest - test to verify that we cancel kickstarts and the actions correctly.
- * @version $Rev$
  */
 public class CancelKickstartTest extends BaseTestCaseWithUser {
 

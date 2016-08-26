@@ -27,11 +27,8 @@ import org.apache.log4j.Logger;
 
 import java.util.List;
 
-
 /**
  * Class responsible for executing one-time upgrade logic
- *
- * @version $Rev$
  */
 public class UpgradeCommand extends BaseTransactionCommand {
 

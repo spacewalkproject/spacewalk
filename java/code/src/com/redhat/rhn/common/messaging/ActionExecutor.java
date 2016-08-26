@@ -21,9 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Utility class which encapsulates the logic necessary to dispatch actions
- *
- * @version $Rev $
+ * Utility class which encapsulates the logic necessary to dispatch actions.
  */
 class ActionExecutor implements Runnable {
 

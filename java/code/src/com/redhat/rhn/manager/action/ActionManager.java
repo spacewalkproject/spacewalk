@@ -91,9 +91,6 @@ import java.util.Set;
  * ActionManager - the singleton class used to provide Business Operations
  * on Actions where those operations interact with other top tier Business
  * Objects.
- *
- * Operations that require the Action make changes to
- * @version $Rev$
  */
 public class ActionManager extends BaseManager {
     private static Logger log = Logger.getLogger(ActionManager.class);

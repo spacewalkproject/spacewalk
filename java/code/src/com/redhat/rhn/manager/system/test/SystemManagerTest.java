@@ -94,9 +94,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * SystemManagerTest
- */
+
 public class SystemManagerTest extends RhnBaseTestCase {
 
     public static final Long NUM_CPUS = new Long(5);

@@ -50,8 +50,6 @@ import java.util.StringTokenizer;
 
 /**
  * A cached set of query/elaborator strings and the parameterMap hash maps.
- *
- * @version $Rev$
  */
 public class CachedStatement implements Serializable {
 

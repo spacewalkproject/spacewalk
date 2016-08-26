@@ -41,11 +41,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
-/** JUnit test case for the User
- *  class.
- * @version $Rev$
+/**
+ * JUnit test case for the User class.
  */
-
 public class UserFactoryTest extends RhnBaseTestCase {
     private UserFactory factory;
 

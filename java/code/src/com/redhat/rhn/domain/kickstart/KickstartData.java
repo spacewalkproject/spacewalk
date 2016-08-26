@@ -54,7 +54,6 @@ import java.util.regex.Pattern;
 
 /**
  * KickstartData - Class representation of the table RhnKSData.
- * @version $Rev: 1 $
  */
 public class KickstartData {
 

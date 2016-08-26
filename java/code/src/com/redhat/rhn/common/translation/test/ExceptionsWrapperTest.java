@@ -33,9 +33,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-/*
- * $Rev$
- */
 public class ExceptionsWrapperTest extends TestCase {
 
     private static final Logger LOG = Logger.getLogger(ExceptionsWrapperTest.class);

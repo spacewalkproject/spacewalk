@@ -53,10 +53,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  * ImportFileConfirmSubmitAction, for sdc configuration
- * @version $Rev$
  */
 public class FileListConfirmSubmitAction extends RhnListDispatchAction {
 

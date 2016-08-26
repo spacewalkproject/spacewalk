@@ -22,7 +22,6 @@ import redstone.xmlrpc.XmlRpcInvocationInterceptor;
 
 /**
  * TaskoXmlRpcInvocationInterceptor
- * @version $Rev$
  */
 public class TaskoXmlRpcInvocationInterceptor implements
         XmlRpcInvocationInterceptor {

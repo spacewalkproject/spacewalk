@@ -27,10 +27,6 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * DeviceTest
- * @version $Rev$
- */
 public class DmiTest extends RhnBaseTestCase {
 
     public static final String VENDOR = "ZEUS computers";

@@ -21,10 +21,6 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 
 import org.hibernate.HibernateException;
 
-/**
- * UnnestedTransactionFactoryTest
- * @version $Rev$
- */
 public class NestedTransactionFactoryTest extends RhnBaseTestCase {
 
     private static final long EXP_TIME = 60 * 60 * 1000;

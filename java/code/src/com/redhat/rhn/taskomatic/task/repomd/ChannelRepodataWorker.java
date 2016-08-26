@@ -32,10 +32,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 /**
- *
- * @version $Rev $
- *
+ * Generates metadata files for channels.
  */
 public class ChannelRepodataWorker implements QueueWorker {
 

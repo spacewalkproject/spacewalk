@@ -43,9 +43,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-/*
- * $Rev$
- */
 public class AdvDataSourceTest extends RhnBaseTestCase {
 
     private static Logger log = Logger.getLogger(AdvDataSourceTest.class);

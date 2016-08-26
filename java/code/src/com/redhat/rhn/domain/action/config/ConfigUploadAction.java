@@ -26,7 +26,6 @@ import java.util.Set;
 
 /**
  * ConfigUpload - Class representing ActionType.TYPE_CONFIGFILES_MTIME_UPLOAD: 15
- * @version $Rev$
  */
 public class ConfigUploadAction extends Action {
 

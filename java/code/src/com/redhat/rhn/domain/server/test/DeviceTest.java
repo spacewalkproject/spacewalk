@@ -25,10 +25,6 @@ import com.redhat.rhn.testing.UserTestUtils;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-/**
- * DeviceTest
- * @version $Rev$
- */
 public class DeviceTest extends RhnBaseTestCase {
 
     public static final String DESCRIPTION = "Test Device";

@@ -31,10 +31,6 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-/**
- * ConfigUploadActionTest
- * @version $Rev$
- */
 public class ConfigUploadMtimeActionTest extends RhnBaseTestCase {
 
     /**

@@ -60,10 +60,6 @@ import java.util.Map;
  * a whole was unique we wouldn't have had to deal with this......
  * but positions can be null twice for the same server, so we
  * cannot enforce that constraint..
- *
- *
- * ForceRecreationListType
- * @version $Rev$
  */
 public class ForceRecreationListType implements UserCollectionType {
 

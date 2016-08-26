@@ -43,7 +43,6 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * RhnSetActionTest
- * @version $Rev$
  */
 public class RhnSetActionTest extends RhnBaseTestCase {
     private static Logger log = Logger.getLogger(RhnSetActionTest.class);

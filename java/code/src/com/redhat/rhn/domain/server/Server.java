@@ -58,8 +58,6 @@ import java.util.TreeSet;
 
 /**
  * Server - Class representation of the table rhnServer.
- *
- * @version $Rev$
  */
 public class Server extends BaseDomainHelper implements Identifiable {
 

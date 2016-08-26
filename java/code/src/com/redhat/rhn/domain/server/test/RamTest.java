@@ -24,10 +24,6 @@ import com.redhat.rhn.testing.UserTestUtils;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-/**
- * DeviceTest
- * @version $Rev$
- */
 public class RamTest extends RhnBaseTestCase {
 
     public void testRam() throws Exception {

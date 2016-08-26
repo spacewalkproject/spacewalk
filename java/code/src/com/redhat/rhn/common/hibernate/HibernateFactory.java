@@ -53,8 +53,6 @@ import java.util.Set;
  * <p>
  * Abstract methods define what the subclass must implement to determine what is
  * specific to that Factory's instance.
- *
- * @version $Rev$
  */
 public abstract class HibernateFactory {
 
