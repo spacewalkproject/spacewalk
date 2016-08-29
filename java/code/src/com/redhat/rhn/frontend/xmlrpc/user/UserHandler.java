@@ -590,7 +590,7 @@ public class UserHandler extends BaseHandler {
     }
 
     /**
-     * Toggles whether or not a user users pamAuthentication or the basic RHN db auth.
+     * Toggles whether or not a user users pamAuthentication or the basic Satellite db auth.
      * @param loggedInUser The current user
      * @param login The login for the user you would like to change
      * @param val The value you would like to set this to (1 = true, 0 = false)
@@ -599,7 +599,7 @@ public class UserHandler extends BaseHandler {
      * to lookup the user corresponding to login or if the user does not exist.
      *
      * @xmlrpc.doc Toggles whether or not a user uses PAM authentication or
-     * basic RHN authentication.
+     * basic Satellite authentication.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("string", "login", "User's login name.")
      * @xmlrpc.param #param("int", "pam_value")
