@@ -117,11 +117,7 @@ public class KickstartHandler extends BaseHandler {
      * @param kickstartFileContents Contents of a kickstart file.
      * @return 1 if successful, exception otherwise.
      *
-<<<<<<< HEAD
-     * @xmlrpc.doc Import a kickstart profile into RHN.
-=======
      * @xmlrpc.doc Import a kickstart profile into Satellite.
->>>>>>> 5b61a20... hanged from 'RHN' to 'Satellite' in API doc.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
      * kickstart profile.")
