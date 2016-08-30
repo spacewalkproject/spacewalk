@@ -22,26 +22,49 @@ class Manifest(object):
 
     INNER_ZIP_NAME = "consumer_export.zip"
     ENTITLEMENTS_PATH = "export/entitlements"
+    CERTIFICATE_PATH = "export/extensions"
 
     def __init__(self, zip_path):
         self.all_entitlements = []
+        self.certificate_path = None
         # Open manifest from path
+        top_zip = None
+        inner_zip = None
+        inner_file = None
         try:
             top_zip = zipfile.ZipFile(zip_path, 'r')
             # Fetch inner zip file into memory
             try:
+                # inner_file = top_zip.open(zip_path.split('.zip')[0] + '/' + self.INNER_ZIP_NAME)
                 inner_file = top_zip.open(self.INNER_ZIP_NAME)
                 inner_file_data = cStringIO.StringIO(inner_file.read())
                 # Open the inner zip file
                 try:
                     inner_zip = zipfile.ZipFile(inner_file_data)
                     self._load_entitlements(inner_zip)
+                    self._extract_certificate(inner_zip)
                 finally:
-                    inner_zip.close()
+                    if inner_zip is not None:
+                        inner_zip.close()
             finally:
-                inner_file.close()
+                if inner_file is not None:
+                    inner_file.close()
         finally:
-            top_zip.close()
+            if top_zip is not None:
+                top_zip.close()
+
+    def _extract_certificate(self, zip_file):
+        files = zip_file.namelist()
+        certificates_names = []
+        for f in files:
+            if f.startswith(self.CERTIFICATE_PATH) and f.endswith(".xml"):
+                certificates_names.append(f)
+        if len(certificates_names) >= 1:
+            # take only first file
+            self.certificate_path = '/tmp/' + certificates_names[0].split('/')[-1]
+            content = zip_file.open(certificates_names[0])  # take only first file
+            with open(self.certificate_path, 'wb') as c:
+                c.write(content.read())
 
     def _load_entitlements(self, zip_file):
         files = zip_file.namelist()
@@ -85,6 +108,9 @@ class Manifest(object):
 
     def get_all_entitlements(self):
         return self.all_entitlements
+
+    def get_certificate_path(self):
+        return self.certificate_path
 
 
 class Entitlement(object):
