@@ -1421,9 +1421,6 @@ public class PackageManager extends BaseManager {
         catch (Exception e) {
             HibernateFactory.rollbackTransaction();
         }
-        finally {
-            HibernateFactory.closeSession();
-        }
     }
 
     private static void updateRepoEntry(Long packageId, String xml, String type) {

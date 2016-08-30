@@ -240,8 +240,5 @@ public class ChannelRepodataWorker implements QueueWorker {
             HibernateFactory.rollbackTransaction();
             return;
         }
-        finally {
-            HibernateFactory.closeSession();
-        }
     }
 }
