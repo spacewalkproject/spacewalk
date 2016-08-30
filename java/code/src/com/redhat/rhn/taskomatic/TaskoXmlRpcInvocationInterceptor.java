@@ -31,9 +31,6 @@ public class TaskoXmlRpcInvocationInterceptor implements
      * {@inheritDoc}
      */
     public Object after(XmlRpcInvocation invocation, Object returnValue) {
-        if (HibernateFactory.getSession().getTransaction().isActive()) {
-            HibernateFactory.commitTransaction();
-        }
         HibernateFactory.closeSession();
         return returnValue;
     }
