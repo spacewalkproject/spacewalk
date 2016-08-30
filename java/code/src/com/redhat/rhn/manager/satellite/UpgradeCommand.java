@@ -57,7 +57,6 @@ public class UpgradeCommand extends BaseTransactionCommand {
      */
     public void store() {
         try {
-            HibernateFactory.getSession().beginTransaction();
             upgrade();
         }
         catch (Exception e) {

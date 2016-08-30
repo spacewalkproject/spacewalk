@@ -279,13 +279,16 @@ class ConnectionManager {
                     LOG.debug("YYY Opening Hibernate Session");
                 }
                 info = new SessionInfo(sessionFactory.openSession());
-                // Automatically start a transaction
-                info.setTransaction(info.getSession().beginTransaction());
             }
             catch (HibernateException e) {
                 throw new HibernateRuntimeException("couldn't open session", e);
             }
             SESSION_TLS.set(info);
+        }
+
+        // Automatically start a transaction
+        if (info.getTransaction() == null) {
+            info.setTransaction(info.getSession().beginTransaction());
         }
 
         return info.getSession();
