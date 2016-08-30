@@ -50,7 +50,7 @@ channel:CHANNEL
 
 HELP_TIME_OPTS = '''Dates can be any of the following:
 Explicit Dates:
-Dates can be expressed as explicit date strings in the YYYYMMDD[HHMM]
+Dates can be expressed as explicit date strings in the YYYYMMDD[HHMMSS]
 format.  The year, month and day are required, while the hours and
 minutes are not; the hours and minutes will default to 0000 if no
 values are provided.
