@@ -115,7 +115,6 @@ public class ChannelRepodataWorker implements QueueWorker {
                 }
 
                 dequeueChannel();
-                HibernateFactory.commitTransaction();
             }
             else {
                 HibernateFactory.commitTransaction();
