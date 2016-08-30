@@ -24,7 +24,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.cfg.Environment;
 import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
@@ -175,13 +174,6 @@ class ConnectionManager {
                     ConfigDefaults.get().getJdbcConnectionString());
 
             config.addProperties(hibProperties);
-            // Force the use of our txn factory
-            if (config.getProperty(Environment.TRANSACTION_STRATEGY) != null) {
-                throw new IllegalArgumentException("The property " +
-                        Environment.TRANSACTION_STRATEGY +
-                        " can not be set in a configuration file;" +
-                        " it is set to a fixed value by the code");
-            }
 
             for (Iterator<String> i = hbms.iterator(); i.hasNext();) {
                 String hbmFile = i.next();
