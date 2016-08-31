@@ -1847,8 +1847,10 @@ def do_softwarechannel_sync(self, args):
             continue
 
     print "packages common in both channels:"
+    logging.debug("packages common in both channels:")
     for i in (source_ids & target_ids):
         print self.get_package_name(i)
+        logging.debug(self.get_package_name(i))
     print
 
     # check for packages only in the source channel
