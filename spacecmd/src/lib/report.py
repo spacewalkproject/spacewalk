@@ -57,12 +57,12 @@ def do_report_inactivesystems(self, args):
     if len(systems):
         max_size = max_length([s.get('name') for s in systems])
 
-        print '%s  %s' % ('System'.ljust(max_size), 'Last Checkin')
-        print ('-' * max_size) + '  ------------'
+        print '%s  %s  %s' % ('System ID ', 'System'.ljust(max_size), 'Last Checkin')
+        print ('----------  '+'-' * max_size) + '  ------------'
 
         for s in sorted(systems, key=itemgetter('name')):
-            print '%s  %s' % (s.get('name').ljust(max_size),
-                              s.get('last_checkin'))
+            print '%s  %s  %s' % (s.get('id'),s.get('name').ljust(max_size),
+                                  s.get('last_checkin'))
 
 ####################
 
