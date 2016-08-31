@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.6.7
+Version:     2.6.8
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -92,6 +92,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Aug 31 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.8-1
+- Added seconds to HELP_TIME_OPTS
+
 * Tue Aug 30 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.7-1
 - Fix summary displayed when applying multiple errata
 
