@@ -1116,7 +1116,7 @@ def import_configchannel_fromdetails(self, ccdetails):
             else:
                 if filedetails['type'] == 'directory':
                     isdir = True
-                    if 'contents' in filedetails:
+                    if filedetails.has_key('contents'):
                         del filedetails['contents']
                 else:
                     isdir = False
