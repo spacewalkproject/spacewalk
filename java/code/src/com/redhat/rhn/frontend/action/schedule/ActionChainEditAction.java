@@ -17,10 +17,13 @@
  */
 package com.redhat.rhn.frontend.action.schedule;
 
+import com.redhat.rhn.common.hibernate.LookupException;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionChainEntryGroup;
 import com.redhat.rhn.domain.action.ActionChainFactory;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -32,6 +35,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
+import org.hibernate.ObjectNotFoundException;
 
 import java.util.Date;
 import java.util.List;
@@ -71,9 +75,9 @@ public class ActionChainEditAction extends RhnAction {
         HttpServletRequest request, HttpServletResponse response) {
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext requestContext = new RequestContext(request);
-        ActionChain actionChain = ActionChainFactory.getActionChain(
-            requestContext.getCurrentUser(),
-            Long.valueOf(request.getParameter(ACTION_CHAIN_ID_PARAMETER)));
+        ActionChain actionChain = getActionChain(
+                requestContext.getCurrentUser(),
+                Long.valueOf(request.getParameter(ACTION_CHAIN_ID_PARAMETER)));
 
         if (isSubmitted(form)) {
             if (requestContext.wasDispatched("actionchain.jsp.delete")) {
@@ -86,6 +90,21 @@ public class ActionChainEditAction extends RhnAction {
         setAttributes(request, form, actionChain);
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+    // either return action chain or throw LookupException if not found
+    private ActionChain getActionChain(User user, Long actionChainId) {
+        try {
+            return ActionChainFactory.getActionChain(user, actionChainId);
+        }
+        catch (ObjectNotFoundException notFoundException) {
+            LocalizationService ls = LocalizationService.getInstance();
+            LookupException e = new LookupException("Could not find action chain id: " +
+                    actionChainId);
+            e.setLocalizedTitle(ls.getMessage("lookup.jsp.title.actionchain"));
+            e.setLocalizedReason1(ls.getMessage("lookup.jsp.actionchain.reason1"));
+            throw e;
+        }
     }
 
     /**

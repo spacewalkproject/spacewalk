@@ -308,6 +308,9 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Lookup error page</context>
         </context-group>
+        <trans-unit id="lookup.jsp.title.actionchain">
+          <source>We're sorry, but the Action Chain could not be found.</source>
+        </trans-unit>
         <trans-unit id="lookup.jsp.title.user">
           <source>We're sorry, but the user could not be found.</source>
         </trans-unit>
@@ -364,6 +367,9 @@
         </trans-unit>
         <trans-unit id="lookup.jsp.summary">
           <source>This error may have occurred in one of three ways:</source>
+        </trans-unit>
+        <trans-unit id="lookup.jsp.actionchain.reason1">
+          <source>The Action Chain requested does not exist. This is most likely if the Action Chain has been already scheduled and deleted.</source>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason1.user">
           <source>The user requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
