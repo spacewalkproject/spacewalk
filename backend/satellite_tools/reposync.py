@@ -825,7 +825,7 @@ class RepoSync(object):
                 """
 
         if 'org_id' in self.channel and self.channel['org_id']:
-            ks_path += str(self.channel['org_id']) + '/' + CFG.MOUNT_POINT + ks_tree_label
+            ks_path += str(self.channel['org_id']) + '/' + ks_tree_label
             row = rhnSQL.fetchone_dict(id_request + " and org_id = :org_id", channel_id=self.channel['id'],
                                        label=ks_tree_label, org_id=self.channel['org_id'])
         else:
