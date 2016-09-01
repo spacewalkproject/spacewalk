@@ -20,6 +20,14 @@
     action="/rhn/kickstart/KickstartOptionsEdit.do">
     <rhn:csrf />
     <c:forEach items="${options}" var="option">
+      <c:choose>
+        <c:when test="${option.enabled}">
+          <c:set var="enabled" value="checked=\"checked\"" />
+        </c:when>
+        <c:otherwise>
+          <c:set var="enabled" value="" />
+        </c:otherwise>
+      </c:choose>
       <div class="form-group">
         <c:choose>
           <c:when test="${option.hasArgs}">
@@ -35,18 +43,12 @@
           <c:otherwise>
           </c:otherwise>
         </c:choose>
+
           <div class="col-lg-6">
             <c:choose>
               <c:when test="${option.hasArgs}">
                 <div class="input-group">
-                  <span class="input-group-addon"> <c:choose>
-                      <c:when test="${option.enabled}">
-                        <c:set var="enabled" value="checked=\"checked\"" />
-                      </c:when>
-                      <c:otherwise>
-                        <c:set var="enabled" value="" />
-                      </c:otherwise>
-                    </c:choose>
+                  <span class="input-group-addon">
                     <input type="checkbox" name="${option.name}" value="${option.name}" ${enabled} />
                   </span>
                   <c:choose>
