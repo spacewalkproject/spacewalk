@@ -19,7 +19,6 @@ import shutil
 import sys
 import time
 from datetime import datetime
-from HTMLParser import HTMLParser
 import ConfigParser
 
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel
@@ -40,42 +39,21 @@ relative_comps_dir = 'rhn/comps'
 default_hash = 'sha256'
 
 
-class KSDirParser(HTMLParser):
-    def __init__(self):
-        HTMLParser.__init__(self)
-        self.tmp_type = ""
-        self.tmp_datetime = ""
-        self.tmp_name = ""
-        self.current_tag = "dummy_tag"  # this tag doesn't exist in document
+class KSDirParser:
+    def __init__(self, dir_html):
         self.dir_content = []
+        for s in (m.group(1) for m in re.finditer(r'(?i)<a href="(.+?)"', dir_html)):
+            if not (re.match(r'/', s) or re.search(r'\?', s) or re.search(r'\.\.', s) or re.match(r'[a-zA-Z]+:', s) or
+                    re.search(r'\.rpm$', s)):
+                if re.search(r'/$', s):
+                    file_type = 'DIR'
+                else:
+                    file_type = 'FILE'
+
+                self.dir_content.append({'name': s, 'type': file_type})
 
     def get_content(self):
         return self.dir_content
-
-    def handle_starttag(self, tag, attributes):
-        self.current_tag = tag
-        if tag == 'img':
-            for name, value in attributes:
-                if name == 'alt':
-                    self.tmp_type = value.strip('[]')
-
-        elif tag == 'a':
-            for name, value in attributes:
-                if name == 'href':
-                    self.tmp_name = value
-
-    def handle_data(self, data):
-        if self.current_tag == "":
-            # data without tag is the last modification date
-            self.tmp_datetime = data.strip().split()[0] + " " + data.strip().split()[1]
-            self.dir_content.append({
-                'name': self.tmp_name,
-                'type': self.tmp_type,
-                'datetime': self.tmp_datetime,
-            })
-        else:
-            self.current_tag = ""
-
 
 class TreeInfoError(Exception):
     pass
@@ -795,29 +773,10 @@ class RepoSync(object):
     def import_kickstart(self, plug, repo_label):
         ks_path = 'rhn/kickstart/'
         ks_tree_label = re.sub(r'[^-_0-9A-Za-z@.]', '', repo_label.replace(' ', '_'))
-
-        treeinfo_path = ['treeinfo', '.treeinfo']
-        treeinfo = None
-        for path in treeinfo_path:
-            treeinfo = plug.get_file(path, os.path.join(CFG.MOUNT_POINT, ks_path))
-            if treeinfo:
-                break
-        if not treeinfo:
-            self.print_msg("Kickstartable tree not detected (no treeinfo file)")
-            return
-
-        treeinfo_parser = TreeInfoParser(treeinfo)
-        # Make sure images are included
-        to_download = []
-        for repo_path in treeinfo_parser.get_images():
-            local_path = os.path.join(CFG.MOUNT_POINT, ks_path, repo_path)
-            # TODO: better check
-            if not os.path.exists(local_path):
-                to_download.append(repo_path)
-
         if len(ks_tree_label) < 4:
             ks_tree_label += "_repo"
 
+        # construct ks_path and check we already have this KS tree synced
         id_request = """
                 select id
                 from rhnKickstartableTree
@@ -832,6 +791,29 @@ class RepoSync(object):
             ks_path += ks_tree_label
             row = rhnSQL.fetchone_dict(id_request + " and org_id is NULL", channel_id=self.channel['id'],
                                        label=ks_tree_label)
+
+        treeinfo_path = ['treeinfo', '.treeinfo']
+        for path in treeinfo_path:
+            print("Trying " + path)
+            treeinfo = plug.get_file(path, os.path.join(CFG.MOUNT_POINT, ks_path))
+            try:
+                treeinfo_parser = TreeInfoParser(treeinfo)
+                break
+            except TreeInfoError:
+                treeinfo = None
+
+        if not treeinfo:
+            self.print_msg("Kickstartable tree not detected (no valid treeinfo file)")
+            return
+
+        treeinfo_parser = TreeInfoParser(treeinfo)
+        # Make sure images are included
+        to_download = []
+        for repo_path in treeinfo_parser.get_images():
+            local_path = os.path.join(CFG.MOUNT_POINT, ks_path, repo_path)
+            # TODO: better check
+            if not os.path.exists(local_path):
+                to_download.append(repo_path)
 
         if row:
             print("Kickstartable tree %s already synced. Updating content..." % ks_tree_label)
@@ -875,32 +857,16 @@ class RepoSync(object):
             if cur_dir_html is None:
                 continue
 
-            parser = KSDirParser()
-            parser.feed(cur_dir_html.split('<HR>')[1])
+            parser = KSDirParser(cur_dir_html)
 
             for ks_file in parser.get_content():
-                # do not download rpms, they are already downloaded by self.import_packages()
-                if re.search(r'\.rpm$', ks_file['name']) or re.search(r'\.\.', ks_file['name']):
-                    continue
-
                 repo_path = cur_dir_name + ks_file['name']
                 # if this is a directory, just add a name into queue (like BFS algorithm)
                 if ks_file['type'] == 'DIR':
                     dirs_queue.append(repo_path)
                     continue
 
-                local_path = os.path.join(CFG.MOUNT_POINT, ks_path, repo_path)
-                need_download = True
-
-                if os.path.exists(local_path):
-                    t = os.path.getmtime(local_path)
-                    if ks_file['datetime'] == datetime.utcfromtimestamp(t).strftime('%d-%b-%Y %H:%M'):
-                        print("File %s already present locally" % repo_path)
-                        need_download = False
-                    else:
-                        os.unlink(os.path.join(CFG.MOUNT_POINT, ks_path, repo_path))
-
-                if need_download and repo_path not in to_download:
+                if repo_path not in to_download:
                     to_download.append(repo_path)
 
         if to_download:
