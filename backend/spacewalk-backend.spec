@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.40
+Version: 2.6.41
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -827,6 +827,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Fri Sep 02 2016 Gennadii Altukhov <galt@redhat.com> 2.6.41-1
+- reposync - rewrite HTML parser for Kickstart repositories
+- Added the capability for spacewalk-debug to grab the user's preferences for
+  timezone and language locale
+- fixing path
+
 * Tue Aug 30 2016 Gennadii Altukhov <galt@redhat.com> 2.6.40-1
 - add possibility to use certificate from manifest
 
