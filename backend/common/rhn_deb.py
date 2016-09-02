@@ -122,7 +122,7 @@ class DEB_Package(A_Package):
 
     def read_header(self):
         self._stream_copy(self.input_stream, self.header_data)
-        self.header_end = self.input_stream.tell()
+        self.header_end = self.header_data.tell()
         try:
             self.header_data.seek(0, 0)
             self.header = deb_Header(self.header_data)
