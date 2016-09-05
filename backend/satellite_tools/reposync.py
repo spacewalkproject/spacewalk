@@ -23,7 +23,6 @@ import ConfigParser
 
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel
 from spacewalk.common import fileutils, rhnLog
-from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnLib import isSUSE
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhnConfig import CFG, initCFG
@@ -32,6 +31,8 @@ from spacewalk.server.importlib.packageImport import ChannelPackageSubscription
 from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.errataImport import ErrataImport
 from spacewalk.server import taskomatic
+
+from syncLib import log, log2disk, log2stderr
 
 
 default_log_location = '/var/log/rhn/'
@@ -159,7 +160,7 @@ class RepoSync(object):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,
                  quiet=False, filters=None, no_errata=False, sync_kickstart=False, latest=False,
-                 metadata_only=False, strict=0, excluded_urls=None, no_packages=False, log_dir="reposync"):
+                 metadata_only=False, strict=0, excluded_urls=None, no_packages=False, log_dir="reposync", log_level=None):
         self.regen = False
         self.fail = fail
         self.quiet = quiet
@@ -177,10 +178,10 @@ class RepoSync(object):
 
         # setup logging
         log_filename = channel_label + '.log'
-        if CFG.DEBUG is not None:
-            log_level = CFG.DEBUG
-
         log_path = default_log_location + log_dir + '/' + log_filename
+        if log_level is None:
+            log_level = 0
+        CFG.set('DEBUG', log_level)
         rhnLog.initLOG(log_path, log_level)
         # os.fchown isn't in 2.4 :/
         if isSUSE():
@@ -188,13 +189,13 @@ class RepoSync(object):
         else:
             os.system("chgrp apache " + log_path)
 
-        self.log_msg("\nSync started: %s" % (time.asctime(time.localtime())))
-        self.log_msg(str(sys.argv))
+        log2disk(0, str(sys.argv), notimeYN=True)
+        log2disk(0, "Sync started: %s" % (time.asctime(time.localtime())), notimeYN=True)
 
         self.channel_label = channel_label
         self.channel = self.load_channel()
         if not self.channel:
-            self.print_msg("Channel %s does not exist." % channel_label)
+            log(0, "Channel %s does not exist." % channel_label)
 
         if not url:
             # TODO:need to look at user security across orgs
@@ -218,7 +219,7 @@ class RepoSync(object):
             self.urls = [(None, u, None, None) for u in url]
 
         if not self.urls:
-            self.error_msg("Channel %s has no URL associated" % channel_label)
+            log2stderr(0, "Channel %s has no URL associated" % channel_label)
 
         self.repo_plugin = self.load_plugin(repo_type)
         self.strict = strict
@@ -228,8 +229,7 @@ class RepoSync(object):
         """Trigger a reposync"""
         start_time = datetime.now()
         for (repo_id, url, repo_label, channel_family_id) in self.urls:
-            print("")
-            self.print_msg("Repo URL: %s" % url)
+            log(0, "Repo URL: %s" % url)
             plugin = None
 
             # If the repository uses a uln:// URL, switch to the ULN plugin, overriding the command-line
@@ -275,7 +275,7 @@ class RepoSync(object):
                         raise
             except Exception:
                 e = sys.exc_info()[1]
-                self.error_msg("ERROR: %s" % e)
+                log2stderr(0, "ERROR: %s" % e)
             if plugin is not None:
                 plugin.clear_ssl_cache()
         if self.regen:
@@ -285,7 +285,7 @@ class RepoSync(object):
         self.update_date()
         rhnSQL.commit()
         elapsed_time = datetime.now() - start_time
-        self.print_msg("Sync of channel completed in %s." % str(elapsed_time).split('.')[0])
+        log(0, "Sync of channel completed in %s." % str(elapsed_time).split('.')[0])
         return elapsed_time
 
     def set_ks_tree_type(self, tree_type='externally-managed'):
@@ -309,7 +309,7 @@ class RepoSync(object):
 
     def import_updates(self, plug, url):
         notices = plug.get_updates()
-        self.print_msg("Repo %s has %s errata." % (url, len(notices)))
+        log(0, "Repo %s has %s errata." % (url, len(notices)))
         if notices:
             self.upload_updates(notices)
 
@@ -317,7 +317,7 @@ class RepoSync(object):
         groupsfile = plug.get_groups()
         if groupsfile:
             basename = os.path.basename(groupsfile)
-            self.print_msg("Repo %s has comps file %s." % (url, basename))
+            log(0, "Repo %s has comps file %s." % (url, basename))
             relativedir = os.path.join(relative_comps_dir, self.channel_label)
             absdir = os.path.join(CFG.MOUNT_POINT, relativedir)
             if not os.path.exists(absdir):
@@ -447,12 +447,12 @@ class RepoSync(object):
                         epoch = param_dict['epoch'] + ":"
                     else:
                         epoch = ""
-                    log_debug(1, "No checksum found for %s-%s%s-%s.%s."
-                                 " Skipping Package" % (param_dict['name'],
-                                                        epoch,
-                                                        param_dict['version'],
-                                                        param_dict['release'],
-                                                        param_dict['arch']))
+                    log(2, "No checksum found for %s-%s%s-%s.%s."
+                           " Skipping Package" % (param_dict['name'],
+                                                  epoch,
+                                                  param_dict['version'],
+                                                  param_dict['release'],
+                                                  param_dict['arch']))
                     continue
 
                 newpkgs = []
@@ -475,7 +475,7 @@ class RepoSync(object):
 
             if len(e['packages']) == 0:
                 # FIXME: print only with higher debug option
-                print("Advisory %s has empty package list." % e['advisory_name'])
+                log(1, "Advisory %s has empty package list." % e['advisory_name'])
 
             e['keywords'] = []
             if notice['reboot_suggested']:
@@ -540,9 +540,9 @@ class RepoSync(object):
         self.all_packages.extend(packages)
         to_process = []
         num_passed = len(packages)
-        self.print_msg("Packages in repo:             %5d" % plug.num_packages)
+        log(0, "Packages in repo:             %5d" % plug.num_packages)
         if plug.num_excluded:
-            self.print_msg("Packages passed filter rules: %5d" % num_passed)
+            log(0, "Packages passed filter rules: %5d" % num_passed)
         channel_id = int(self.channel['id'])
         if self.channel['org_id']:
             self.channel['org_id'] = int(self.channel['org_id'])
@@ -585,14 +585,14 @@ class RepoSync(object):
 
         num_to_process = len(to_process)
         if num_to_process == 0:
-            self.print_msg("No new packages to sync.")
+            log(0, "No new packages to sync.")
             # If we are just appending, we can exit
             if not self.strict:
                 return
         else:
-            self.print_msg("Packages already synced:      %5d" %
+            log(0, "Packages already synced:      %5d" %
                            (num_passed - num_to_process))
-            self.print_msg("Packages to sync:             %5d" % num_to_process)
+            log(0, "Packages to sync:             %5d" % num_to_process)
 
         self.regen = True
         is_non_local_repo = (url.find("file:/") < 0)
@@ -602,7 +602,7 @@ class RepoSync(object):
             localpath = None
             # pylint: disable=W0703
             try:
-                self.print_msg("%d/%d : %s" % (index + 1, num_to_process, pack.getNVREA()))
+                log(0, "%d/%d : %s" % (index + 1, num_to_process, pack.getNVREA()))
                 if to_download:
                     pack.path = localpath = plug.get_package(pack, metadata_only=self.metadata_only)
                     pack.load_checksum_from_header()
@@ -611,7 +611,7 @@ class RepoSync(object):
                 raise
             except Exception:
                 e = sys.exc_info()[1]
-                self.error_msg(e)
+                log2stderr(0, e)
                 if self.fail:
                     raise
                 to_process[index] = (pack, False, False)
@@ -620,7 +620,7 @@ class RepoSync(object):
                 if is_non_local_repo and localpath and os.path.exists(localpath):
                     os.remove(localpath)
 
-        self.print_msg("Linking packages to channel.")
+        log(0, "Linking packages to channel.")
         if self.strict:
             import_batch = [self.associate_package(pack)
                             for pack in self.all_packages]
@@ -683,20 +683,6 @@ class RepoSync(object):
 
     def load_channel(self):
         return rhnChannel.channel_info(self.channel_label)
-
-    def print_msg(self, message):
-        rhnLog.log_clean(0, message)
-        if not self.quiet:
-            print(message)
-
-    def error_msg(self, message):
-        rhnLog.log_clean(0, message)
-        if not self.quiet:
-            sys.stderr.write(str(message) + "\n")
-
-    @staticmethod
-    def log_msg(message):
-        rhnLog.log_clean(0, message)
 
     @staticmethod
     def _to_db_date(date):
@@ -798,7 +784,7 @@ class RepoSync(object):
         treeinfo_path = ['treeinfo', '.treeinfo']
         treeinfo_parser = None
         for path in treeinfo_path:
-            print("Trying " + path)
+            log(1, "Trying " + path)
             treeinfo = plug.get_file(path, os.path.join(CFG.MOUNT_POINT, ks_path))
             if treeinfo:
                 try:
@@ -808,7 +794,7 @@ class RepoSync(object):
                     pass
 
         if not treeinfo_parser:
-            self.print_msg("Kickstartable tree not detected (no valid treeinfo file)")
+            log(0, "Kickstartable tree not detected (no valid treeinfo file)")
             return
 
         # Make sure images are included
@@ -820,7 +806,7 @@ class RepoSync(object):
                 to_download.append(repo_path)
 
         if row:
-            print("Kickstartable tree %s already synced. Updating content..." % ks_tree_label)
+            log(0, "Kickstartable tree %s already synced. Updating content..." % ks_tree_label)
             ks_id = row['id']
         else:
             row = rhnSQL.fetchone_dict("""
@@ -839,7 +825,7 @@ class RepoSync(object):
                            channel_id=self.channel['id'], ks_tree_type=self.ks_tree_type,
                            ks_install_type=self.ks_install_type)
 
-            print("Added new kickstartable tree %s. Downloading content..." % ks_tree_label)
+            log(0, "Added new kickstartable tree %s. Downloading content..." % ks_tree_label)
 
         insert_h = rhnSQL.prepare("""
                 insert into rhnKSTreeFile (kstree_id, relative_filename, checksum_id, file_size, last_modified, created,
@@ -854,7 +840,7 @@ class RepoSync(object):
         # Downloading/Updating content of KS Tree
         # start from root dir
         dirs_queue = ['']
-        print("Gathering all files in kickstart repository...")
+        log(0, "Gathering all files in kickstart repository...")
         while len(dirs_queue) > 0:
             cur_dir_name = dirs_queue.pop(0)
             cur_dir_html = plug.get_file(cur_dir_name)
@@ -874,17 +860,17 @@ class RepoSync(object):
                     to_download.append(repo_path)
 
         if to_download:
-            print("Downloading %d files." % len(to_download))
+            log(0, "Downloading %d files." % len(to_download))
             for item in to_download:
                 for retry in range(3):
                     try:
-                        print("Retrieving %s" % item)
+                        log(1, "Retrieving %s" % item)
                         plug.get_file(item, os.path.join(CFG.MOUNT_POINT, ks_path))
                         st = os.stat(os.path.join(CFG.MOUNT_POINT, ks_path, item))
                         break
                     except OSError:  # os.stat if the file wasn't downloaded
                         if retry < 3:
-                            print("Retry download %s: attempt #%d" % (item, retry + 1))
+                            log(2, "Retry download %s: attempt #%d" % (item, retry + 1))
                         else:
                             raise
                 # update entity about current file in a database
@@ -893,6 +879,6 @@ class RepoSync(object):
                                  checksum=getFileChecksum('sha256', os.path.join(CFG.MOUNT_POINT, ks_path, item)),
                                  st_size=st.st_size, st_time=st.st_mtime)
         else:
-            print("Nothing to download.")
+            log(0, "Nothing to download.")
 
         rhnSQL.commit()

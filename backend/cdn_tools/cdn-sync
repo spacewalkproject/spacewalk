@@ -42,12 +42,11 @@ def process_commandline():
     parser.add_argument('--http-proxy', action='store', help="alternative http proxy (hostname:port)")
     parser.add_argument('--http-proxy-username', action='store', help="alternative http proxy username")
     parser.add_argument('--http-proxy-password', action='store', help="alternative http proxy password")
-    parser.add_argument('--debug-level', action='store',
-                        help='override debug level in /etc/rhn/rhn.conf (which is currently set at %s).' % CFG.DEBUG)
     parser.add_argument('-p', '--print-configuration', action='store_true', help='print the configuration and exit')
     parser.add_argument('--count-packages', action='store_true', help="Count number of packages in all"
                         "repositories for every channel")
     parser.add_argument("--no-rpms", action="store_true", help="Do not sync RPMs (debug only)")
+    parser.add_argument("-v", "--verbose", action='count', help="Verbose output. Possible to accumulate: -vvv")
 
     cmd_args = parser.parse_args()
 
@@ -63,25 +62,6 @@ def process_commandline():
         CFG.set("HTTP_PROXY", idn_ascii_to_puny(cmd_args.http_proxy))
         CFG.set("HTTP_PROXY_USERNAME", cmd_args.http_proxy_username)
         CFG.set("HTTP_PROXY_PASSWORD", cmd_args.http_proxy_password)
-
-    # check the validity of the debug level
-    if cmd_args.debug_level:
-        try:
-            debug_level = int(cmd_args.debug_level)
-        except (ValueError, TypeError):
-            system_exit(1, "Incorrect debug-level value: %s" % str(cmd_args.debug_level))
-        if not (0 <= debug_level <= 6):
-            msg = ["ERROR: --debug-level takes an in integer value within the range [0 - 6]:",
-                   "  0  - little logging/messaging.",
-                   "  1  - minimal logging/messaging.",
-                   "  2  - normal level of logging/messaging.",
-                   "  3  - lots of logging/messaging.",
-                   "  4+ - excessive logging/messaging."]
-            system_exit(1, msg)
-        else:
-            CFG.set('DEBUG', debug_level)
-
-            print("DEBUG = %d" % CFG.DEBUG)
 
     return cmd_args
 
@@ -100,7 +80,8 @@ if __name__ == '__main__':
 
         args = process_commandline()
         cdnsync = CdnSync(no_packages=args.no_packages, no_errata=args.no_errata,
-                          no_rpms=args.no_rpms, no_kickstarts=args.no_kickstarts)
+                          no_rpms=args.no_rpms, no_kickstarts=args.no_kickstarts,
+                          log_level=args.verbose)
 
         if args.list_channels:
             if args.count_packages:

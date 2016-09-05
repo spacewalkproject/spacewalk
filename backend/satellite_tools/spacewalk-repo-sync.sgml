@@ -80,6 +80,11 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         <group>
         <arg>--dry-run</arg>
         </group>
+        <sbr>
+        <group>
+        <arg>-v</arg>
+        <arg>--verbose</arg>
+        </group>
     </cmdsynopsis>
 </synopsis>
 </refsynopsisdiv>
@@ -158,6 +163,12 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         <term>-q, --quiet</term>
         <listitem>
             <para>Do not print any output except for errors.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-v, --verbose</term>
+        <listitem>
+            <para>Print verbose output. Possible to accumulate: -vvv</para>
         </listitem>
     </varlistentry>
     <varlistentry>

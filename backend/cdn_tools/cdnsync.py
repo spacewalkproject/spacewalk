@@ -37,12 +37,14 @@ from spacewalk.satellite_tools.repo_plugins import yum_src
 class CdnSync(object):
     """Main class of CDN sync run."""
 
-    def __init__(self, no_packages=False, no_errata=False, no_rpms=False, no_kickstarts=False):
+    def __init__(self, no_packages=False, no_errata=False, no_rpms=False, no_kickstarts=False,
+                 log_level=None):
 
         self.no_packages = no_packages
         self.no_errata = no_errata
         self.no_rpms = no_rpms
         self.no_kickstarts = no_kickstarts
+        self.log_level = log_level
 
         rhnSQL.initDB()
         initCFG('server.satellite')
@@ -312,7 +314,8 @@ class CdnSync(object):
                                  metadata_only=self.no_rpms,
                                  excluded_urls=excluded_urls,
                                  strict=1,
-                                 log_dir="cdnsync")
+                                 log_dir="cdnsync",
+                                 log_level=self.log_level)
         sync.set_ks_tree_type('rhn-managed')
         if kickstart_trees:
             # Assuming all trees have same install type

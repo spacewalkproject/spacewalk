@@ -110,6 +110,8 @@ def main():
                       default=False, help="Do not sync errata")
     parser.add_option('', '--sync-kickstart', action='store_true', dest='sync_kickstart',
                       default=False, help="Sync kickstartable tree")
+    parser.add_option('-v', '--verbose', action='count',
+                      help="Verbose output. Possible to accumulate: -vvv")
     (options, args) = parser.parse_args()
 
     l_params=["no_errata", "sync_kickstart", "quiet", "fail"]
@@ -213,7 +215,8 @@ def main():
                       filters=options.filters,
                       no_errata=options.no_errata,
                       sync_kickstart=options.sync_kickstart,
-                      latest=options.latest)
+                      latest=options.latest,
+                      log_level=options.verbose)
         elapsed_time = sync.sync()
         total_time += elapsed_time
 
