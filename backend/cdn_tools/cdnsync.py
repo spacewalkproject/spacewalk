@@ -305,7 +305,6 @@ class CdnSync(object):
                                  "yum",
                                  url=None,
                                  fail=True,
-                                 quiet=False,
                                  filters=False,
                                  no_packages=self.no_packages,
                                  no_errata=self.no_errata,

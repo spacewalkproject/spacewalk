@@ -70,6 +70,6 @@ The command-line parameters are:
 -t REPO_TYPE, --type=REPO_TYPE
      The type of repo. To use direct ULN integration, set this to "uln".
 
-You can also set the -q or --quiet parameter when running via a cronjob. It is recommended that a cronjob be manually
-configured to run this script at least once a day to keep the Spacewalk channels up-to-date with ULN either by
-running the script via cron or scheduling a repository sync via the Spacewalk Taskomatic engine.
+It is recommended that a cronjob be manually configured to run this script at least once a day
+to keep the Spacewalk channels up-to-date with ULN either by running the script via cron or scheduling
+a repository sync via the Spacewalk Taskomatic engine.

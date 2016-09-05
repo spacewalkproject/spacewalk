@@ -96,8 +96,6 @@ def main():
     parser.add_option('-f', '--fail', action='store_true', dest='fail',
                       default=False,
                       help="If a package import fails, fail the entire operation")
-    parser.add_option('-q', '--quiet', action='store_true', dest='quiet',
-                      default=False, help="Print no output, still logs output")
     parser.add_option('-i', '--include', action='callback',
                       callback=reposync.set_filter_opt, type='str', nargs=1,
                       dest='filters', default=[],
@@ -114,7 +112,7 @@ def main():
                       help="Verbose output. Possible to accumulate: -vvv")
     (options, args) = parser.parse_args()
 
-    l_params=["no_errata", "sync_kickstart", "quiet", "fail"]
+    l_params=["no_errata", "sync_kickstart", "fail"]
     d_chan_repo=reposync.getChannelRepo()
     l_ch_custom=reposync.getCustomChannels()
     d_parent_child=reposync.getParentsChilds()
@@ -211,7 +209,6 @@ def main():
                       repo_type=options.repo_type,
                       url=repo,
                       fail=options.fail,
-                      quiet=options.quiet,
                       filters=options.filters,
                       no_errata=options.no_errata,
                       sync_kickstart=options.sync_kickstart,
