@@ -13,7 +13,7 @@
 <RefNameDiv>
 <RefName><command>&RHNSATACT;</command></RefName>
 <RefPurpose>
-    activates (using an RHN Certificate) a &RHNSAT;.
+    activates (using an RHN Certificate or RHSM Manifest) a &RHNSAT;.
 </RefPurpose>
 </RefNameDiv>
 
@@ -22,7 +22,7 @@
     <cmdsynopsis>
         <command>&RHNSATACT; [ options <replaceable>...</replaceable> ] \
   [ --systemid<replaceable>PATH</replaceable> ] [ --rhn-cert <replaceable>PATH</replaceable> ] \
-  [ --no-ssl ] [ --sanity-only ] [ -h|--help ]</command>
+  [ --no-ssl ] [ --manifest <replaceable>PATH</replaceable> ] [ --sanity-only ] [ -h|--help ]</command>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -30,9 +30,12 @@
 <RefSect1><Title>Description</Title>
 
 <para>
-    <emphasis>&RHNSATACT;</emphasis> activates (using an RHN Certificate) a
-    &RHNSAT;. The RHN Cert is (a) checked for sanity, (b) inserted into the
-    local database, and (c) inserted into the remote database.
+    <emphasis>&RHNSATACT;</emphasis> activates (using an RHN Certificate
+    or RHSM Manifest) a &RHNSAT;. The RHN Cert is (a) checked for sanity, (b)
+    inserted into the local database, and (c) inserted into the remote
+    database. If RHSM Manifest is used instead of RHN Certificate, only local
+    activation is performed. RHSM Manifest activation allows &RHNSAT; to access
+    CDN repositories.
 </para>
 
 <para>
@@ -62,6 +65,12 @@
         <term>--no-ssl</term>
         <listitem>
             <para>(FOR TESTING ONLY) disable SSL.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--manifest <replaceable>PATH</replaceable></term>
+        <listitem>
+            <para>new RHSM manifest path/filename.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
