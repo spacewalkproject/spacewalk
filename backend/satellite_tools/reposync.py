@@ -475,7 +475,7 @@ class RepoSync(object):
 
             if len(e['packages']) == 0:
                 # FIXME: print only with higher debug option
-                log(1, "Advisory %s has empty package list." % e['advisory_name'])
+                log(2, "Advisory %s has empty package list." % e['advisory_name'])
 
             e['keywords'] = []
             if notice['reboot_suggested']:
@@ -493,11 +493,18 @@ class RepoSync(object):
                 if len(bzs):
                     tmp = {}
                     for bz in bzs:
-                        if bz['id'] not in tmp:
+                        try:
+                            bz_id = int(bz['id'])
+                        # This can happen in some incorrectly generated updateinfo, let's be smart
+                        except ValueError:
+                            log(2, "Bugzilla assigned to advisory %s has invalid id: %s, trying to get it from URL..."
+                                % (e['advisory_name'], bz['id']))
+                            bz_id = int(re.search("\d+$", bz['href']).group(0))
+                        if bz_id not in tmp:
                             bug = Bug()
-                            bug.populate({'bug_id': bz['id'], 'summary': bz['title'], 'href': bz['href']})
+                            bug.populate({'bug_id': bz_id, 'summary': bz['title'], 'href': bz['href']})
                             e['bugs'].append(bug)
-                            tmp[bz['id']] = None
+                            tmp[bz_id] = None
                 cves = [r for r in notice['references'] if r['type'] == 'cve']
                 if len(cves):
                     tmp = {}
