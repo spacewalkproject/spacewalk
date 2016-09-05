@@ -25,6 +25,14 @@ all :: $(SCRIPTS)
 install :: $(SCRIPTS) $(PREFIX)/$(BINDIR)
 	$(INSTALL_BIN) $(SCRIPTS) $(PREFIX)/$(BINDIR)
 
+ifneq ($(DOCBOOK),)
+# install man pages
+all	:: $(MANS)
+install :: $(MANS) $(PREFIX)/$(MANDIR)
+	$(INSTALL_DATA) $(MANS) $(PREFIX)/$(MANDIR)/man8
+endif
+
+
 %.new : %
 	sed -e 's|@@ROOT@@|$(ROOT)|g' <$* >$@
 
