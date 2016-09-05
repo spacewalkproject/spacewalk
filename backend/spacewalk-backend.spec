@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.42
+Version: 2.6.43
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -828,6 +828,16 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Mon Sep 05 2016 Jan Dobes 2.6.43-1
+- dropping quiet flag, it's not much useful now
+- try to recover from incorrect updateinfo.xml
+- change log level handling in reposync
+- adding some basic info into man page
+- unused variable
+- split reposync and cdnsync log directories
+- fixing TypeError when filename is None
+- kickstarts from external repositories have full path in DB
+
 * Fri Sep 02 2016 Jan Dobes 2.6.42-1
 - fixing rhnpush
 
