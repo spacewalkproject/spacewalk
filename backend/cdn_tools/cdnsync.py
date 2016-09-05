@@ -311,7 +311,8 @@ class CdnSync(object):
                                  latest=False,
                                  metadata_only=self.no_rpms,
                                  excluded_urls=excluded_urls,
-                                 strict=1)
+                                 strict=1,
+                                 log_dir="cdnsync")
         sync.set_ks_tree_type('rhn-managed')
         if kickstart_trees:
             # Assuming all trees have same install type

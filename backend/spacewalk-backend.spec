@@ -824,6 +824,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %files cdn
 %attr(755,root,root) %{_bindir}/cdn-sync
 %{pythonrhnroot}/cdn_tools/*.py*
+%attr(755,root,%{apache_group}) %dir %{_var}/log/rhn/cdnsync
 %endif
 
 %changelog

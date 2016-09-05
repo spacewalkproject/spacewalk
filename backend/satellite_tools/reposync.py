@@ -34,7 +34,7 @@ from spacewalk.server.importlib.errataImport import ErrataImport
 from spacewalk.server import taskomatic
 
 
-default_log_location = '/var/log/rhn/reposync/'
+default_log_location = '/var/log/rhn/'
 relative_comps_dir = 'rhn/comps'
 default_hash = 'sha256'
 
@@ -160,7 +160,7 @@ class RepoSync(object):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,
                  quiet=False, filters=None, no_errata=False, sync_kickstart=False, latest=False,
-                 metadata_only=False, strict=0, excluded_urls=None, no_packages=False):
+                 metadata_only=False, strict=0, excluded_urls=None, no_packages=False, log_dir="reposync"):
         self.regen = False
         self.fail = fail
         self.quiet = quiet
@@ -181,12 +181,13 @@ class RepoSync(object):
         if CFG.DEBUG is not None:
             log_level = CFG.DEBUG
 
-        rhnLog.initLOG(default_log_location + log_filename, log_level)
+        log_path = default_log_location + log_dir + '/' + log_filename
+        rhnLog.initLOG(log_path, log_level)
         # os.fchown isn't in 2.4 :/
         if isSUSE():
-            os.system("chgrp www " + default_log_location + log_filename)
+            os.system("chgrp www " + log_path)
         else:
-            os.system("chgrp apache " + default_log_location + log_filename)
+            os.system("chgrp apache " + log_path)
 
         self.log_msg("\nSync started: %s" % (time.asctime(time.localtime())))
         self.log_msg(str(sys.argv))
