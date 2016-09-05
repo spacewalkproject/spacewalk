@@ -796,20 +796,21 @@ class RepoSync(object):
                                        label=ks_tree_label)
 
         treeinfo_path = ['treeinfo', '.treeinfo']
+        treeinfo_parser = None
         for path in treeinfo_path:
             print("Trying " + path)
             treeinfo = plug.get_file(path, os.path.join(CFG.MOUNT_POINT, ks_path))
-            try:
-                treeinfo_parser = TreeInfoParser(treeinfo)
-                break
-            except TreeInfoError:
-                treeinfo = None
+            if treeinfo:
+                try:
+                    treeinfo_parser = TreeInfoParser(treeinfo)
+                    break
+                except TreeInfoError:
+                    pass
 
-        if not treeinfo:
+        if not treeinfo_parser:
             self.print_msg("Kickstartable tree not detected (no valid treeinfo file)")
             return
 
-        treeinfo_parser = TreeInfoParser(treeinfo)
         # Make sure images are included
         to_download = []
         for repo_path in treeinfo_parser.get_images():
