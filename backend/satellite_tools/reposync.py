@@ -36,7 +36,6 @@ from spacewalk.server import taskomatic
 
 default_log_location = '/var/log/rhn/'
 relative_comps_dir = 'rhn/comps'
-default_hash = 'sha256'
 
 
 class KSDirParser:
