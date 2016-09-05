@@ -785,10 +785,13 @@ class RepoSync(object):
 
         if 'org_id' in self.channel and self.channel['org_id']:
             ks_path += str(self.channel['org_id']) + '/' + ks_tree_label
+            # Trees synced from external repositories are expected to have full path it database
+            db_path = os.path.join(CFG.MOUNT_POINT, ks_path)
             row = rhnSQL.fetchone_dict(id_request + " and org_id = :org_id", channel_id=self.channel['id'],
                                        label=ks_tree_label, org_id=self.channel['org_id'])
         else:
             ks_path += ks_tree_label
+            db_path = ks_path
             row = rhnSQL.fetchone_dict(id_request + " and org_id is NULL", channel_id=self.channel['id'],
                                        label=ks_tree_label)
 
@@ -831,7 +834,7 @@ class RepoSync(object):
                                  ( select id from rhnKSTreeType where label = :ks_tree_type),
                                  ( select id from rhnKSInstallType where label = :ks_install_type),
                                  current_timestamp, current_timestamp, current_timestamp)""", id=ks_id,
-                           org_id=self.channel['org_id'], label=ks_tree_label, base_path=ks_path,
+                           org_id=self.channel['org_id'], label=ks_tree_label, base_path=db_path,
                            channel_id=self.channel['id'], ks_tree_type=self.ks_tree_type,
                            ks_install_type=self.ks_install_type)
 
