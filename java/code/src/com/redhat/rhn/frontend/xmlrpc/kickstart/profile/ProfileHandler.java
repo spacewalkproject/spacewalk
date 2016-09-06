@@ -261,7 +261,8 @@ public class ProfileHandler extends BaseHandler {
         if (tree == null) {
             throw new NoSuchKickstartTreeException(kstreeLabel);
         }
-
+        KickstartCommand urlC = ksdata.getCommand("url");
+        urlC.setArguments("--url " + tree.getDefaultDownloadLocation());
         KickstartDefaults ksdefault = ksdata.getKickstartDefaults();
         ksdefault.setKstree(tree);
         CobblerProfileEditCommand cpec = new CobblerProfileEditCommand(ksdata,
