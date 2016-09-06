@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.44
+Version: 2.6.45
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -829,6 +829,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Tue Sep 06 2016 Gennadii Altukhov <galt@redhat.com> 2.6.45-1
+- add man page for cdn-sync
+
 * Tue Sep 06 2016 Jan Dobes 2.6.44-1
 - try to speed up RHEL kickstart syncing by not downloading release-notes
 
