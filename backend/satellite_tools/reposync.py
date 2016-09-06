@@ -40,6 +40,8 @@ relative_comps_dir = 'rhn/comps'
 
 
 class KSDirParser:
+    file_blacklist = ["release-notes/"]
+
     def __init__(self, dir_html):
         self.dir_content = []
         for s in (m.group(1) for m in re.finditer(r'(?i)<a href="(.+?)"', dir_html)):
@@ -50,7 +52,8 @@ class KSDirParser:
                 else:
                     file_type = 'FILE'
 
-                self.dir_content.append({'name': s, 'type': file_type})
+                if s not in self.file_blacklist:
+                    self.dir_content.append({'name': s, 'type': file_type})
 
     def get_content(self):
         return self.dir_content
