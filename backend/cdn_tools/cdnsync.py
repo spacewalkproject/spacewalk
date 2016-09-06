@@ -21,6 +21,7 @@ import datetime
 
 import constants
 from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
+from spacewalk.common import rhnLog
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnChannel import ChannelNotFoundError
 from spacewalk.server.importlib.backendOracle import SQLBackend
@@ -31,11 +32,14 @@ from spacewalk.server.importlib.importLib import Channel, ChannelFamily, \
     ProductName, DistChannelMap, ContentSource, ReleaseChannelMap
 from spacewalk.satellite_tools import reposync
 from spacewalk.satellite_tools import contentRemove
+from spacewalk.satellite_tools.syncLib import log, log2disk, log2stderr
 from spacewalk.satellite_tools.repo_plugins import yum_src
 
 
 class CdnSync(object):
     """Main class of CDN sync run."""
+
+    log_path = '/var/log/rhn/cdnsync.log'
 
     def __init__(self, no_packages=False, no_errata=False, no_rpms=False, no_kickstarts=False,
                  log_level=None):
@@ -44,7 +48,13 @@ class CdnSync(object):
         self.no_errata = no_errata
         self.no_rpms = no_rpms
         self.no_kickstarts = no_kickstarts
+        if log_level is None:
+            log_level = 0
         self.log_level = log_level
+
+        CFG.set('DEBUG', log_level)
+        rhnLog.initLOG(self.log_path, self.log_level)
+        log2disk(0, "Command: %s" % str(sys.argv))
 
         rhnSQL.initDB()
         initCFG('server.satellite')
@@ -75,8 +85,7 @@ class CdnSync(object):
                 self.kickstart_source_mapping = json.load(f)
         except IOError:
             e = sys.exc_info()[1]
-            # TODO: print only on bigger debug level
-            print("ERROR: Problem with loading file: %s" % e)
+            log2stderr(0, "ERROR: Problem with loading file: %s" % e)
             raise CdnMappingsLoadError()
 
         # Map channels to their channel family
@@ -145,7 +154,7 @@ class CdnSync(object):
                     base_channels[channel] = [k for k in all_channels
                                               if self.channel_metadata[k]['parent_channel'] == channel]
             except KeyError:
-                print("Channel %s not found in channel metadata" % channel)
+                log(1, "Channel %s not found in channel metadata" % channel)
                 continue
 
         return base_channels
@@ -197,7 +206,7 @@ class CdnSync(object):
                     content_source['type_id'] = type_id
                     batch.append(content_source)
                 else:
-                    print("WARN: Kickstart tree not available: %s" % tree_label)
+                    log(1, "WARN: Kickstart tree not available: %s" % tree_label)
 
         return batch
 
@@ -297,10 +306,11 @@ class CdnSync(object):
                 source = self.kickstart_source_mapping[tree_label][0]
                 excluded_urls.append(CFG.CDN_ROOT + source['relative_url'])
 
-
-        print "======================================"
-        print "| Channel: %s" % channel
-        print "======================================"
+        log(0, "======================================")
+        log(0, "| Channel: %s" % channel)
+        log(0, "======================================")
+        log(0, "Sync of channel started.")
+        log2disk(0, "Please check 'cdnsync/%s.log' for sync log of this channel." % channel, notimeYN=True)
         sync = reposync.RepoSync(channel,
                                  "yum",
                                  url=None,
@@ -344,8 +354,11 @@ class CdnSync(object):
         for channel in channels:
             cur_time = self._sync_channel(channel)
             total_time += cur_time
+            # Switch back to cdnsync log
+            rhnLog.initLOG(self.log_path, self.log_level)
+            log2disk(0, "Sync of channel completed.")
 
-        print("Total time: %s" % str(total_time).split('.')[0])
+        log(0, "Total time: %s" % str(total_time).split('.')[0])
 
     def count_packages(self):
         start_time = int(time.time())
@@ -358,7 +371,7 @@ class CdnSync(object):
             for child in sorted(base_channels[base_channel]):
                 repo_list.extend(self._get_content_sources(child, backend))
 
-        print("Number of repositories: %d" % len(repo_list))
+        log(0, "Number of repositories: %d" % len(repo_list))
         already_downloaded = 0
         print_progress_bar(already_downloaded, len(repo_list), prefix='Downloading repodata:',
                            suffix='Complete', bar_length=50)
@@ -375,32 +388,32 @@ class CdnSync(object):
                     print_progress_bar(already_downloaded, len(repo_list), prefix='Downloading repodata:',
                                        suffix='Complete', bar_length=50)
         elapsed_time = int(time.time())
-        print("Elapsed time: %d seconds" % (elapsed_time - start_time))
+        log(0, "Elapsed time: %d seconds" % (elapsed_time - start_time))
 
     def print_channel_tree(self, repos=False):
         available_channel_tree = self._list_available_channels()
         backend = SQLBackend()
 
         if available_channel_tree:
-            print("p = previously imported/synced channel")
-            print(". = channel not yet imported/synced")
-            print("? = No CDN source provided to count number of packages")
+            log(0, "p = previously imported/synced channel")
+            log(0, ". = channel not yet imported/synced")
+            log(0, "? = No CDN source provided to count number of packages")
 
-            print("Base channels:")
+            log(0, "Base channels:")
             for channel in sorted(available_channel_tree):
                 status = 'p' if channel in self.synced_channels else '.'
-                print("    %s %s" % (status, channel))
+                log(0, "    %s %s" % (status, channel))
                 if repos:
                     sources = self._get_content_sources(channel, backend)
                     if sources:
                         for source in sources:
-                            print("        %s" % source['source_url'])
+                            log(0, "        %s" % source['source_url'])
                     else:
-                        print("        No CDN source provided!")
+                        log(0, "        No CDN source provided!")
             for channel in sorted(available_channel_tree):
                 # Print only if there are any child channels
                 if len(available_channel_tree[channel]) > 0:
-                    print("%s:" % channel)
+                    log(0, "%s:" % channel)
                     for child in sorted(available_channel_tree[channel]):
                         status = 'p' if child in self.synced_channels else '.'
                         packages_number = '?'
@@ -417,16 +430,16 @@ class CdnSync(object):
                                 except Exception:
                                     pass
 
-                        print("    %s %s %s" % (status, child, str(packages_number)))
+                        log(0, "    %s %s %s" % (status, child, str(packages_number)))
                         if repos:
 
                             if sources:
                                 for source in sources:
-                                    print("        %s" % source['source_url'])
+                                    log(0, "        %s" % source['source_url'])
                             else:
-                                print("        No CDN source provided!")
+                                log(0, "        No CDN source provided!")
         else:
-            print("No available channels were found. Is your %s activated for CDN?" % PRODUCT_NAME)
+            log2stderr(0, "No available channels were found. Is your %s activated for CDN?" % PRODUCT_NAME)
 
     @staticmethod
     def clear_cache():
