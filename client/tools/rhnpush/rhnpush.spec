@@ -46,9 +46,9 @@ Summary: Package uploader for the Spacewalk or Red Hat Satellite Server
 
 %description
 rhnpush uploads package headers to the Spacewalk or Red Hat Satellite
-servers intospecified channels and allows for several other channel
+servers into specified channels and allows for several other channel
 management operations relevant to controlling what packages are available
-perchannel.
+per channel.
 
 %prep
 %setup -q
