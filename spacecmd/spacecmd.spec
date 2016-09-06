@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.6.9
+Version:     2.6.10
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -92,6 +92,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Sep 06 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.10-1
+- 1251949 - spacecmd: Repaired compiling regexps to avoid error: multiple
+  repeat
+
 * Wed Aug 31 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.9-1
 - 1209646 - spacecmd: Added systemID to report_inactivesystems output
 - 1367562 - spacecmd: Added output to logging.debug from softwarechannel_sync
