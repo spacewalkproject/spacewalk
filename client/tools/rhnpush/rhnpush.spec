@@ -8,7 +8,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.98
+Version:       5.5.99
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -95,6 +95,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Tue Sep 06 2016 Jan Dobes 5.5.99-1
+- Fix typo
+
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 5.5.98-1
 - updating copyright years
 
