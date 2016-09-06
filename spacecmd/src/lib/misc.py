@@ -279,11 +279,13 @@ def do_login(self, args):
     self.client = xmlrpclib.Server(server_url, verbose=verbose_xmlrpc)
 
     # check the API to verify connectivity
+    # pylint: disable=W0702
     try:
         self.api_version = self.client.api.getVersion()
         logging.debug('Server API Version = %s', self.api_version)
-    except xmlrpclib.Fault, e:
+    except:
         if self.options.debug > 0:
+            e = sys.exc_info()[0]
             logging.exception(e)
 
         logging.error('Failed to connect to %s', server_url)
