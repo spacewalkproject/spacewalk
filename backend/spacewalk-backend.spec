@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.46
+Version: 2.6.47
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -829,6 +829,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Wed Sep 07 2016 Jan Dobes 2.6.47-1
+- a bit more magic is needed for gpg check satellite certificate
+- changing log format
+- log cdnsync module
+
 * Wed Sep 07 2016 Gennadii Altukhov <galt@redhat.com> 2.6.46-1
 - fixup man page for cdn-sync
 
