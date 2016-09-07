@@ -191,8 +191,8 @@ class RepoSync(object):
         else:
             os.system("chgrp apache " + log_path)
 
-        log2disk(0, str(sys.argv), notimeYN=True)
-        log2disk(0, "Sync started: %s" % (time.asctime(time.localtime())), notimeYN=True)
+        log2disk(0, "Command: %s" % str(sys.argv))
+        log2disk(0, "Sync of channel started.")
 
         self.channel_label = channel_label
         self.channel = self.load_channel()
