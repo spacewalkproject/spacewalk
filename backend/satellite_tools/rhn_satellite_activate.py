@@ -119,13 +119,15 @@ def getCertChecksumString(sat_cert):
         for item in getattr(sat_cert, field):
             attributes = {}
             for k, v in item.attributes.items():
-                attributes[k] = getattr(item, v)
+                attr = getattr(item, v)
+                if attr != "":
+                    attributes[k] = attr
             tree[name].append(attributes)
 
     # Create string from tree
     for key in sorted(tree):
         if isinstance(tree[key], list):
-            for item in tree[key]:
+            for item in sorted(tree[key], key=lambda item: "".join(sorted(item.keys() + item.values()))):
                 line = "%s" % key
                 for attribute in sorted(item):
                     line += "-%s-%s" % (attribute, item[attribute])
