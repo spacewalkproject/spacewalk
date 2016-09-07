@@ -1,6 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
 <!ENTITY RHNSAT "Red Hat Satellite Server" >
-<!ENTITY CDNSYNC "Red Hat Satellite Incremental Synchronization Tool for Red Hat repositories">
+<!ENTITY CDNSYNC "Red Hat Satellite Incremental Synchronization Tool for Red Hat CDN repositories ">
 
 ]>
 <refentry>
@@ -42,25 +42,11 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
     <cmdsynopsis>
         <arg>--no-packages</arg>
     </cmdsynopsis>
-<!--
-    <cmdsynopsis>
-        <arg>- -source-packages</arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>- -no-source-packages</arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>- -no-srpms</arg>
-    </cmdsynopsis>
--->
     <cmdsynopsis>
         <arg>--no-errata</arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--no-kickstarts</arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>--debug-level<replaceable> DEBUG_LEVEL</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--http-proxy<replaceable> HTTP_PROXY_HOSTNAME:PORT</replaceable></arg>
@@ -191,17 +177,6 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>--debug-level=<replaceable>DEBUG_LEVEL</replaceable></term>
-        <listitem>
-            <para>Override the level (amount) of messaging to both the
-            log files and the screen. This debug level is set in
-            /etc/rhn/rhn.conf (the debug variable). The default setting
-            (for normal levels of messaging) is 2. --debug-level can be set
-            to a level between 0 (nearly no messaging) to 6 (insane amount of
-            messaging).</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
         <term>-v, --verbose</term>
         <listitem>
             <para>Verbose output. Possible to accumulate: -vvv.</para>
@@ -221,74 +196,6 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
     </varlistentry>
 </variablelist>
 </RefSect1>
-
-<!--
-<RefSect1><Title>DEBUGGING and EXPERIMENTAL Options</Title>
-<variablelist>
-    <varlistentry>
-        <term> step=[<replaceable>channels|rpms|packages|errata|kickstarts</replaceable>]</term>
-        <listitem>
-            <para>DEBUG ONLY:</para>
-            <para>Perform the sync process *only* to the step specified</para>
-            <variablelist>
-                <varlistentry>
-                <term>channel-families</term>
-                <listitem>
-                    <para>process channel family data. ***don't use this
-                    option*** It is rarely used. The step, "channels",
-                    or nearly any other step, will process channel families
-                    as well.</para>
-                </listitem>
-                </varlistentry>
-                <varlistentry>
-                <term>channels</term>
-                <listitem>
-                    <para>process channel data. This option will automatically
-                    enable the "arches" step.</para>
-                </listitem>
-                </varlistentry>
-                <varlistentry>
-                <term>rpms</term>
-                <listitem>
-                    <para>fetch rpms and fill repository. This option will
-                    automatically enable the "channels" step.</para>
-                </listitem>
-                </varlistentry>
-                <varlistentry>
-                <term>packages</term>
-                <listitem>
-                    <para>process full package metadata (can be very slow). This
-                    option will automatically enable the "rpms" step.</para>
-                </listitem>
-                </varlistentry>
-                <varlistentry>
-                <term>source-packages</term>
-                <listitem>
-                    <para>process source package metadata.</para>
-                    <para>this option will automatically enable -step packages.</para>
-                </listitem>
-                </varlistentry>
-                <varlistentry>
-                <term>errata</term>
-                <listitem>
-                    <para>process errata data. This option will
-                    automatically enable the "channels" step.</para>
-                </listitem>
-                </varlistentry>
-                <varlistentry>
-                <term>kickstarts</term>
-                <listitem>
-                    <simpara>process kickstart data (metadata and files) for
-                    provisioning. This option will automatically enable the
-                    "channels" step.</simpara>
-                </listitem>
-                </varlistentry>
-            </variablelist>
-        </listitem>
-    </varlistentry>
-</variablelist>
-</RefSect1>
--->
 
 
 <RefSect1><Title>Examples</Title>
