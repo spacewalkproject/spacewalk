@@ -7665,6 +7665,9 @@ Please note that some manual configuration of these scripts may still be require
       <trans-unit id="repos.jsp.noChannels">
         <source>This repository is not linked to any channel.</source>
       </trans-unit>
+      <trans-unit id="repos.jsp.createRepo">
+        <source>&lt;a href="{0}"&gt;Create a new repository&lt;/a&gt;</source>
+      </trans-unit>
       <trans-unit id="os">
         <source>Operating System</source>
       </trans-unit>

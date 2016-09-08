@@ -13,6 +13,8 @@
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
 
 <h2><rhn:icon type="header-package" /> <bean:message key="repos.jsp.channel.repos"/></h2>
+<rhn:icon type="item-add" /><bean:message key="repos.jsp.createRepo"
+                                          arg0="/rhn/channels/manage/repos/RepoCreate.do?cid=${cid}"/>
 
 <rl:listset name="packageSet">
 <rhn:csrf />

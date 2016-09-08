@@ -7805,8 +7805,9 @@
         <forward name="default"
                  path="/WEB-INF/pages/channel/manage/repo/repodetails.jsp"/>
         <forward name="success"
-                 path="/channels/manage/repos/RepoEdit.do" redirect = "true"
-                 />
+                 path="/channels/manage/repos/RepoEdit.do" redirect = "true"/>
+        <forward name="channelSub"
+                 path="/channels/manage/Repositories.do" redirect = "true"/>
     </action>
 
     <action path="/channels/manage/repos/RepoEdit"

@@ -35,6 +35,9 @@
             <rhn:csrf />
             <rhn:submitted/>
             <html:hidden property="id" value="${repo.id}"/>
+            <c:if test='${not empty requestScope.cid}'>
+                <html:hidden property="cid" value="${requestScope.cid}" />
+            </c:if>
             <div class="form-group">
                 <label class="col-lg-3 control-label">
                     <rhn:required-field key = "repos.jsp.create.label"/>:

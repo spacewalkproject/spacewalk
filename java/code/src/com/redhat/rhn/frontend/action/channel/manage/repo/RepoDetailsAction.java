@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +39,7 @@ import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
+import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.channel.ContentSourceFilter;
@@ -84,10 +86,13 @@ public class RepoDetailsAction extends RhnAction {
                                   HttpServletResponse response) {
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext ctx = new RequestContext(request);
-        Map params = makeParamMap(request);
-
+        Map<String, Object> params = makeParamMap(request);
+        String cid = null;
         request.setAttribute(mapping.getParameter(), Boolean.TRUE);
-
+        if (ctx.hasParam("cid")) {
+            cid = ctx.getParam("cid", false);
+            request.setAttribute("cid", cid);
+        }
         if (ctx.isSubmitted()) {
 
             ValidatorResult result = RhnValidationHelper.validate(this.getClass(),
@@ -115,6 +120,22 @@ public class RepoDetailsAction extends RhnAction {
                                 "repos.jsp.update.success", repo.getLabel());
                     }
                     request.removeAttribute(CREATE_MODE);
+                    /*
+                    If cid isn't specified, repo will be created as usual. Otherwise repo
+                     will be created and will be automatically assigned to channel cid
+                     with redirection to channel repo page
+                     */
+                    if (cid != null) {
+                        params.put("cid", cid);
+                        Channel chan = ChannelFactory.lookupById(Long.parseLong(cid));
+                        Set<ContentSource> sources = chan.getSources();
+                        sources.add(repo);
+                        ChannelFactory.save(chan);
+                        createSuccessMessage(request,
+                                "channel.edit.repo.updated", chan.getLabel());
+                        return getStrutsDelegate().forwardParams(
+                                mapping.findForward("channelSub"), params);
+                    }
                     setupRepo(request, form, repo);
                     params.put("id", repo.getId());
                     return getStrutsDelegate().forwardParams(
@@ -129,7 +150,8 @@ public class RepoDetailsAction extends RhnAction {
 
         setup(request, form, isCreateMode(request));
 
-        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+        return getStrutsDelegate().forwardParams(mapping.findForward(RhnHelper
+                .DEFAULT_FORWARD), params);
     }
 
     private Map<String, String> makeValidationMap(DynaActionForm form) {
