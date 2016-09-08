@@ -18,7 +18,7 @@ Requires: openscap-utils >= 1.0.8-1
 Requires:	openscap-scanner
 %endif
 Requires:	libxslt
-Requires:       rhnlib
+Requires:       rhnlib >= 0:2.5.78-1
 Requires:       rhn-check
 %description
 spacewalk-oscap is a plug-in for rhn-check. With this plugin, user is able
