@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.6.10
+Version:     2.6.11
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -92,6 +92,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Sep 08 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.11-1
+- Revert "1251949 - spacecmd: Repaired compiling regexps to avoid error:
+  multiple repeat"
+
 * Tue Sep 06 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.10-1
 - 1251949 - spacecmd: Repaired compiling regexps to avoid error: multiple
   repeat
