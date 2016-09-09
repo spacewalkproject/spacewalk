@@ -825,6 +825,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/cdn-sync
 %{pythonrhnroot}/cdn_tools/*.py*
 %attr(755,root,%{apache_group}) %dir %{_var}/log/rhn/cdnsync
+%config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-cdn
 %{_mandir}/man8/cdn-sync.8*
 %endif
 
