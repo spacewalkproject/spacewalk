@@ -26,6 +26,8 @@ import datetime
 
 LOCK = None
 
+log_path = '/var/log/rhn/reposync.log'
+
 
 def systemExit(code, msg=None):
     "Exit with a code and optional message(s). Saved a few lines of code."
@@ -34,9 +36,11 @@ def systemExit(code, msg=None):
 
 try:
     from rhn import rhnLockfile
+    from spacewalk.common import rhnLog
     from spacewalk.common.rhnConfig import CFG, initCFG
     from spacewalk.common.rhnTB import fetchTraceback
     from spacewalk.satellite_tools import reposync
+    from spacewalk.satellite_tools.syncLib import log, log2disk
 except KeyboardInterrupt:
     systemExit(0, "\nUser interrupted process.")
 except ImportError:
@@ -52,7 +56,6 @@ def releaseLOCK():
 
 
 def clear_interrupted_downloads():
-    initCFG('server.satellite')
     pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1', 'stage')
     if os.path.exists(pkgdir):
         shutil.rmtree(pkgdir)
@@ -112,6 +115,15 @@ def main():
                       help="Verbose output. Possible to accumulate: -vvv")
     (options, args) = parser.parse_args()
 
+    log_level = options.verbose
+    if log_level is None:
+        log_level = 0
+
+    initCFG('server.satellite')
+    CFG.set('DEBUG', log_level)
+    rhnLog.initLOG(log_path, log_level)
+    log2disk(0, "Command: %s" % str(sys.argv))
+
     l_params=["no_errata", "sync_kickstart", "fail"]
     d_chan_repo=reposync.getChannelRepo()
     l_ch_custom=reposync.getCustomChannels()
@@ -119,14 +131,14 @@ def main():
     d_ch_repo_sync={}
 
     if options.list:
-        print "======================================"
-        print "|   Channel Label   |   Repository   |"
-        print "======================================"
+        log(0, "======================================")
+        log(0, "|   Channel Label   |   Repository   |")
+        log(0, "======================================")
         for ch in list(set(l_ch_custom) & set(d_chan_repo)):
             for repo in d_chan_repo[ch]:
-                print "%s | %s" %(ch,repo)
+                log(0, "%s | %s" %(ch,repo))
         for ch in list(set(l_ch_custom)-set(d_chan_repo)):
-            print "%s | No repository set" % ch
+            log(0, "%s | No repository set" % ch)
         return 0
 
     # Automatically remove all the remains inside of /var/spacewalk/packages/1/stage
@@ -182,29 +194,31 @@ def main():
             systemExit(1, "Channel %s Channel has no URL associated" % ch)
 
     if options.dry_run:
-         print "======================================"
-         print "|   Channel Label   |   Repository   |"
-         print "======================================"
+        log(0, "======================================")
+        log(0, "|   Channel Label   |   Repository   |")
+        log(0, "======================================")
 
-         for ch,repo in d_ch_repo_sync.items():
-             if repo:
-                print " %s : %s" % (ch,", ".join(repo))
-             else:
-                print " %s : %s" % (ch,", ".join(d_chan_repo[ch]))
+        for ch,repo in d_ch_repo_sync.items():
+            if repo:
+                log(0, " %s : %s" % (ch,", ".join(repo)))
+            else:
+                log(0, " %s : %s" % (ch,", ".join(d_chan_repo[ch])))
 
-         print "======================================"
-         print "|             Parameters             |"
-         print "======================================"
-         for key in  l_params:
-             print " %s: %s" % (key,str(getattr(options, key)))
-         return 0
+        log(0, "======================================")
+        log(0, "|             Parameters             |")
+        log(0, "======================================")
+        for key in  l_params:
+            log(0, " %s: %s" % (key,str(getattr(options, key))))
+        return 0
 
     total_time = datetime.timedelta()
     for ch,repo in d_ch_repo_sync.items():
 
-        print "======================================"
-        print "| Channel: %s" % ch
-        print "======================================"
+        log(0, "======================================")
+        log(0, "| Channel: %s" % ch)
+        log(0, "======================================")
+        log(0, "Sync of channel started.")
+        log2disk(0, "Please check 'reposync/%s.log' for sync log of this channel." % ch, notimeYN=True)
         sync = reposync.RepoSync(channel_label=ch,
                       repo_type=options.repo_type,
                       url=repo,
@@ -216,8 +230,11 @@ def main():
                       log_level=options.verbose)
         elapsed_time = sync.sync()
         total_time += elapsed_time
+        # Switch back to common log
+        rhnLog.initLOG(log_path, log_level)
+        log2disk(0, "Sync of channel completed.")
 
-    print("Total time: %s" % str(total_time).split('.')[0])
+    log(0, "Total time: %s" % str(total_time).split('.')[0])
     releaseLOCK()
     return 0
 
