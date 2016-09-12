@@ -28,7 +28,7 @@ for package in $GITROOT/rel-eng/packages/* ; do
     if echo "$CHANGED_FILES" | grep -q "^$prefix" ; then
         # process package
         echo -en "travis_fold:start:$package_basename-build\\r"
-        echo "Building $package_basename"
+        echo "Building $package_basename..."
         cd $GITROOT$prefix
         # can we describe latest tag? tito fails if not
         echo "Describing latest tag"
@@ -50,22 +50,15 @@ for package in $GITROOT/rel-eng/packages/* ; do
             # need to commit downloaded sources for Tito
             git add . && git commit -am "Adding sources"
         fi
-        # create SRPM
-        srpm=$(tito build --test --srpm | tail -n1 | sed 's/^Wrote: //g')
-        echo "SRPM created: $srpm"
-        # decide arch
-        case $package_basename in
-            cx_Oracle|jpam|oracle-lib-compat|perl-DBD-Oracle|tanukiwrapper|rhnsd) arch="x86_64";;
-            *) arch="noarch";;
-        esac
         echo -en "travis_fold:start:$package_basename-mock\\r"
-        echo "Running mock"
+        echo "Running builder"
+        mkdir -p /tmp/mock/$package_basename
         # build SRPM
-        sudo mock -r spacewalk --resultdir=/tmp/mock/$package_basename --arch=$arch --rebuild $srpm
+        docker run --privileged=true -v $GITROOT:/git -v /tmp/mock/$package_basename:/out -e PACKAGE=$prefix -e DIST=spacewalk-nightly-fedora22 spacewalkproject/docker-builder
         status=$?
         echo -en "travis_fold:end:$package_basename-mock\\r"
         if [ $status -eq 0 ] ; then
-            echo "Building $package_basename succeeded"
+            STATUS_MSG="Building $package_basename succeeded!"
             # build in koji if tag was pushed
             tag_commit=$(git rev-parse $latest_tag^{commit})
             if [ -f ~/.koji/.spacewalk.cert ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && git rev-list $TRAVIS_COMMIT_RANGE | grep -q "$tag_commit" ; then
@@ -76,26 +69,28 @@ for package in $GITROOT/rel-eng/packages/* ; do
                 mv $GITROOT/.git/shallow.org $GITROOT/.git/shallow
             fi
         else
-            echo "Mock failed with code: $status"
+            STATUS_MSG="Building $package_basename failed with code: $status, see logs."
+
+            # output logs
+            echo -en "travis_fold:start:$package_basename-build-log\\r"
+            echo "# build.log"
+            cat /tmp/mock/$package_basename/build.log
+            echo -en "travis_fold:end:$package_basename-build-log\\r"
+
+            echo -en "travis_fold:start:$package_basename-root-log\\r"
+            echo "# root.log"
+            cat /tmp/mock/$package_basename/root.log
+            echo -en "travis_fold:end:$package_basename-root-log\\r"
+
+            echo -en "travis_fold:start:$package_basename-state-log\\r"
+            echo "# state.log"
+            cat /tmp/mock/$package_basename/state.log
+            echo -en "travis_fold:end:$package_basename-state-log\\r"
         fi
-        # output logs
-        echo -en "travis_fold:start:$package_basename-build-log\\r"
-        echo "# build.log"
-        cat /tmp/mock/$package_basename/build.log
-        echo -en "travis_fold:end:$package_basename-build-log\\r"
-
-        echo -en "travis_fold:start:$package_basename-root-log\\r"
-        echo "# root.log"
-        cat /tmp/mock/$package_basename/root.log
-        echo -en "travis_fold:end:$package_basename-root-log\\r"
-
-        echo -en "travis_fold:start:$package_basename-state-log\\r"
-        echo "# state.log"
-        cat /tmp/mock/$package_basename/state.log
-        echo -en "travis_fold:end:$package_basename-state-log\\r"
 
         STATUS_ALL=$((STATUS_ALL+status))
         echo -en "travis_fold:end:$package_basename-build\\r"
+        echo $STATUS_MSG
     fi
 done
 
