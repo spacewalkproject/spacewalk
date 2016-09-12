@@ -12,8 +12,7 @@ BuildArch:      noarch
 
 %description
 Spacewalk is a systems management application that will
-inventory, provision, update and control your Linux and
-Solaris machines.
+inventory, provision, update and control your Linux machines.
 
 %package common
 Summary: Spacewalk Systems Management Application with Oracle database backend
@@ -87,8 +86,7 @@ Requires:       cobbler20
 
 %description common
 Spacewalk is a systems management application that will
-inventory, provision, update and control your Linux and
-Solaris machines.
+inventory, provision, update and control your Linux machines.
 
 %package oracle
 Summary: Spacewalk Systems Management Application with Oracle database backend
@@ -112,8 +110,8 @@ Requires: oracle-instantclient-sqlplus-selinux
 
 %description oracle
 Spacewalk is a systems management application that will
-inventory, provision, update and control your Linux and
-Solaris machines.
+inventory, provision, update and control your Linux machines.
+Version for Oracle database backend.
 
 %package postgresql
 Summary: Spacewalk Systems Management Application with PostgreSQL database backend
@@ -136,8 +134,8 @@ Requires: postgresql >= 8.4
 
 %description postgresql
 Spacewalk is a systems management application that will 
-inventory, provision, update and control your Linux and 
-Solaris machines.
+inventory, provision, update and control your Linux machines.
+Version for PostgreSQL database backend.
 
 %prep
 #nothing to do here
