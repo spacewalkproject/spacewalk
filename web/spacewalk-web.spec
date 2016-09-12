@@ -69,7 +69,7 @@ Requires: spacewalk-base-minimal-config
 
 %description -n spacewalk-base-minimal
 Independent Perl modules in the RHN:: name-space.
-This are very basic modules need to handle configuration files, database,
+These are very basic modules needed to handle configuration files, database,
 sessions and exceptions.
 
 %package -n spacewalk-base-minimal-config
