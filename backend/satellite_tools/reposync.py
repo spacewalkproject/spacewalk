@@ -17,7 +17,6 @@ import os
 import re
 import shutil
 import sys
-import time
 from datetime import datetime
 import ConfigParser
 
@@ -163,7 +162,8 @@ class RepoSync(object):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,
                  filters=None, no_errata=False, sync_kickstart=False, latest=False,
-                 metadata_only=False, strict=0, excluded_urls=None, no_packages=False, log_dir="reposync", log_level=None):
+                 metadata_only=False, strict=0, excluded_urls=None, no_packages=False,
+                 log_dir="reposync", log_level=None):
         self.regen = False
         self.fail = fail
         self.filters = filters or []
@@ -501,7 +501,7 @@ class RepoSync(object):
                         except ValueError:
                             log(2, "Bugzilla assigned to advisory %s has invalid id: %s, trying to get it from URL..."
                                 % (e['advisory_name'], bz['id']))
-                            bz_id = int(re.search("\d+$", bz['href']).group(0))
+                            bz_id = int(re.search(r"\d+$", bz['href']).group(0))
                         if bz_id not in tmp:
                             bug = Bug()
                             bug.populate({'bug_id': bz_id, 'summary': bz['title'], 'href': bz['href']})
@@ -599,8 +599,7 @@ class RepoSync(object):
             if not self.strict:
                 return
         else:
-            log(0, "Packages already synced:      %5d" %
-                           (num_passed - num_to_process))
+            log(0, "Packages already synced:      %5d" % (num_passed - num_to_process))
             log(0, "Packages to sync:             %5d" % num_to_process)
 
         self.regen = True
