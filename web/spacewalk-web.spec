@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.1
+Version: 2.6.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -155,6 +155,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Sep 12 2016 Jan Dobes 2.6.2-1
+- spacewalk-base-minimal package description typo fixed
+
 * Mon Jun 27 2016 Tomas Lestach <tlestach@redhat.com> 2.6.1-1
 - bumping Spacewalk version
 - Bumping package versions for 2.6.
