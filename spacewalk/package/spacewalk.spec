@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        2.6.0
+Version:        2.6.1
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -174,6 +174,13 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Mon Sep 12 2016 Jan Dobes 2.6.1-1
+- Fixing spacewalk, spacewalk-common, spacewalk-oracle and spacewalk-postgresql
+  package descriptions. Solaris support has been dropped so I removed mentions
+  of Solaris. I also mentioned that the -oracle and -postgresql packages differ
+  in database backend used.
+- Bumping package versions for 2.6.
+
 * Tue May 10 2016 Grant Gainey 2.5.1-1
 - spacewalk: build on openSUSE
 - Bumping package versions for 2.5.
