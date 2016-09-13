@@ -394,52 +394,53 @@ class CdnSync(object):
         available_channel_tree = self._list_available_channels()
         backend = SQLBackend()
 
-        if available_channel_tree:
-            log(0, "p = previously imported/synced channel")
-            log(0, ". = channel not yet imported/synced")
-            log(0, "? = No CDN source provided to count number of packages")
+        if not available_channel_tree:
+            log2stderr(0, "No available channels were found. Is your %s activated for CDN?" % PRODUCT_NAME)
+            return
 
-            log(0, "Base channels:")
-            for channel in sorted(available_channel_tree):
-                status = 'p' if channel in self.synced_channels else '.'
-                log(0, "    %s %s" % (status, channel))
-                if repos:
-                    sources = self._get_content_sources(channel, backend)
+        log(0, "p = previously imported/synced channel")
+        log(0, ". = channel not yet imported/synced")
+        log(0, "? = No CDN source provided to count number of packages")
+
+        log(0, "Base channels:")
+        for channel in sorted(available_channel_tree):
+            status = 'p' if channel in self.synced_channels else '.'
+            log(0, "    %s %s" % (status, channel))
+            if repos:
+                sources = self._get_content_sources(channel, backend)
+                if sources:
+                    for source in sources:
+                        log(0, "        %s" % source['source_url'])
+                else:
+                    log(0, "        No CDN source provided!")
+        for channel in sorted(available_channel_tree):
+            # Print only if there are any child channels
+            if len(available_channel_tree[channel]) > 0:
+                log(0, "%s:" % channel)
+                for child in sorted(available_channel_tree[channel]):
+                    status = 'p' if child in self.synced_channels else '.'
+                    packages_number = '?'
+                    sources = self._get_content_sources(child, backend)
+
                     if sources:
+                        packages_number = 0
+                    for source in sources:
+                        pn_file = constants.CDN_REPODATA_ROOT + '/' + \
+                                  (source['source_url'].split(CFG.CDN_ROOT)[1])[1:].replace('/', '_') + \
+                                  "/packages_num"
+                        try:
+                            packages_number += int(open(pn_file, 'r').read())
+                        # pylint: disable=W0703
+                        except Exception:
+                            pass
+
+                    log(0, "    %s %s %s" % (status, child, str(packages_number)))
+                    if repos:
+                        if not sources:
+                            log(0, "        No CDN source provided!")
                         for source in sources:
                             log(0, "        %s" % source['source_url'])
-                    else:
-                        log(0, "        No CDN source provided!")
-            for channel in sorted(available_channel_tree):
-                # Print only if there are any child channels
-                if len(available_channel_tree[channel]) > 0:
-                    log(0, "%s:" % channel)
-                    for child in sorted(available_channel_tree[channel]):
-                        status = 'p' if child in self.synced_channels else '.'
-                        packages_number = '?'
-                        sources = self._get_content_sources(child, backend)
-                        if sources:
-                            packages_number = 0
-                            for source in sources:
-                                pn_file = constants.CDN_REPODATA_ROOT + '/' + \
-                                          (source['source_url'].split(CFG.CDN_ROOT)[1])[1:].replace('/', '_') + \
-                                          "/packages_num"
-                                try:
-                                    packages_number += int(open(pn_file, 'r').read())
-                                # pylint: disable=W0703
-                                except Exception:
-                                    pass
 
-                        log(0, "    %s %s %s" % (status, child, str(packages_number)))
-                        if repos:
-
-                            if sources:
-                                for source in sources:
-                                    log(0, "        %s" % source['source_url'])
-                            else:
-                                log(0, "        No CDN source provided!")
-        else:
-            log2stderr(0, "No available channels were found. Is your %s activated for CDN?" % PRODUCT_NAME)
 
     @staticmethod
     def clear_cache():
