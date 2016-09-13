@@ -3,6 +3,7 @@ git:
 branches:
   only:
   - master
+language: generic
 notifications:
   email: false
 sudo: required
