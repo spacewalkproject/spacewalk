@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.6.7
+Version:	2.6.8
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Sep 13 2016 Jan Dobes 2.6.8-1
+- fixing pylint: unused import
+
 * Mon Sep 12 2016 Jan Dobes 2.6.7-1
 - Revert "don't add newer errata when processing dependencies"
 
