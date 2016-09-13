@@ -454,12 +454,16 @@ for file in $SYSTEMID_PATH $UP2DATE_FILE; do
 done
 
 #Setup the cobbler stuff, needed to use koan through a proxy
+#and proxy for registration in Insights Service
 PROTO="http";
 if [ $USE_SSL -eq 1 ]; then
    PROTO="https"
 fi
 sed -e "s/\$PROTO/$PROTO/g" \
     -e "s/\$RHN_PARENT/$RHN_PARENT/g" < $DIR/cobbler-proxy.conf > $HTTPDCONFD_DIR/cobbler-proxy.conf
+
+sed -e "s/\$PROTO/$PROTO/g" \
+    -e "s/\$RHN_PARENT/$RHN_PARENT/g" < $DIR/insights-proxy.conf > $HTTPDCONFD_DIR/insights-proxy.conf
 
 
 # lets do SSL stuff
@@ -551,6 +555,7 @@ if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
                     $RHNCONF_DIR/rhn.conf
                     $SQUID_DIR/squid.conf
                     $HTTPDCONFD_DIR/cobbler-proxy.conf
+                    $HTTPDCONFD_DIR/insights-proxy.conf
                     $HTTPDCONF_DIR/httpd.conf
                     $JABBERD_DIR/c2s.xml
                     $JABBERD_DIR/sm.xml )
