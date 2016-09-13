@@ -12,6 +12,8 @@
 # in this software or its documentation.
 #
 
+import json
+
 from spacewalk.satellite_tools import satCerts
 from spacewalk.server import rhnSQL
 from spacewalk.server.importlib.backendOracle import SQLBackend
@@ -20,7 +22,6 @@ from spacewalk.server.importlib.importLib import ChannelFamily
 from spacewalk.server.rhnServer.satellite_cert import SatelliteCert
 import constants
 from manifest import Manifest
-import json
 
 
 class Activation(object):
