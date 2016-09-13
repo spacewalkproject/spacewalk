@@ -26,7 +26,6 @@ import pprint
 import subprocess
 import datetime
 import re
-import time
 
 from yum.Errors import RepoError
 
