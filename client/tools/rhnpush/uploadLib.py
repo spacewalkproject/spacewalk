@@ -18,7 +18,6 @@ import os
 import sys
 import fnmatch
 import getpass
-from rhnpush import rhnpush_cache
 
 # imports
 # pylint: disable=F0401,E0611
@@ -48,6 +47,8 @@ except ImportError:
     # pylint: disable=F0401
     import cgiwrap
     Output = cgiwrap.Output
+
+from rhnpush import rhnpush_cache
 
 # Buffer size we use for copying
 BUFFER_SIZE = 65536
@@ -452,8 +453,8 @@ class UploadClass:
             alreadyUploaded, newPackages = ret
             pkglists = (alreadyUploaded, newPackages)
 
-            for idx in range(len(pkglists)):
-                for p in pkglists[idx]:
+            for idx, item in enumerate(pkglists):
+                for p in item:
                     key = tuple(p[:5])
                     if key not in uploadedPackages:
                         # XXX Hmm

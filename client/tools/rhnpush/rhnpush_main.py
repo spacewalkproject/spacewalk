@@ -32,6 +32,7 @@ import os
 import random
 import sys
 import time
+from optparse import Option, OptionParser
 
 # pylint: disable=F0401,E0611
 if sys.version_info[0] == 3:
@@ -39,18 +40,15 @@ if sys.version_info[0] == 3:
 else:
     import urlparse
 
-
-from rhnpush import rhnpush_confmanager
 from rhn.connections import idn_ascii_to_puny
 
-from optparse import Option, OptionParser
 from rhn import rpclib
+from rhn.i18n import sstr
 from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
 from spacewalk.common.usix import raise_with_tb
-from rhnpush import uploadLib
-from rhnpush import rhnpush_v2
+
 from rhnpush.utils import tupleify_urlparse
-from rhn.i18n import sstr
+from rhnpush import rhnpush_confmanager, uploadLib, rhnpush_v2
 
 # Global settings
 BUFFER_SIZE = 65536

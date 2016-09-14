@@ -13,10 +13,10 @@
 # in this software or its documentation.
 #
 
-from rhnpush import rhnpush_config
-from rhnpush import utils
 import sys
 import os
+from rhnpush import rhnpush_config
+from rhnpush import utils
 
 
 class ConfManager:
