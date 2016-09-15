@@ -241,8 +241,10 @@ class RepoSync(object):
             # pylint: disable=W0703
             try:
                 # use modified relative_url as name of repo plugin, because
-                # it used as name of cache directory
-                plugin_name = '_'.join(url.split('://')[1].split('/')[1:])
+                # it used as name of cache directory as well
+
+                relative_url = '_'.join(url.split('://')[1].split('/')[1:])
+                plugin_name = relative_url.replace("?", "_").replace("&", "_").replace("=", "_")
 
                 plugin = self.repo_plugin(url, plugin_name)
 
