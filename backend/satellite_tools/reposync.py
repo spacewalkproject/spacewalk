@@ -227,7 +227,7 @@ class RepoSync(object):
         self.strict = strict
         self.all_packages = []
 
-    def sync(self):
+    def sync(self, update_repodata=False):
         """Trigger a reposync"""
         start_time = datetime.now()
         for (repo_id, url, repo_label, channel_family_id) in self.urls:
@@ -245,6 +245,10 @@ class RepoSync(object):
                 plugin_name = '_'.join(url.split('://')[1].split('/')[1:])
 
                 plugin = self.repo_plugin(url, plugin_name)
+
+                if update_repodata:
+                    plugin.clear_cache()
+
                 if repo_id is not None:
                     keys = rhnSQL.fetchone_dict("""
                         select k1.key as ca_cert, k2.key as client_cert, k3.key as client_key

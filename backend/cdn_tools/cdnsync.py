@@ -315,7 +315,7 @@ class CdnSync(object):
         if kickstart_trees:
             # Assuming all trees have same install type
             sync.set_ks_install_type(kickstart_trees[0]['ks_install_type'])
-        return sync.sync()
+        return sync.sync(update_repodata=True)
 
     def sync(self, channels=None):
         # If no channels specified, sync already synced channels

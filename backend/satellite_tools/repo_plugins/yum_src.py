@@ -16,7 +16,7 @@
 
 import sys
 import os.path
-from os import mkdir
+from os import makedirs
 from shutil import rmtree
 import errno
 
@@ -304,9 +304,12 @@ class ContentSource(object):
     def verify_pkg(_fo, pkg, _fail):
         return pkg.verifyLocalPkg()
 
-    @staticmethod
-    def clear_cache(directory=CACHE_DIR):
+    def clear_cache(self, directory=None):
+        if directory is None:
+            directory = CACHE_DIR + self.name
         rmtree(directory, True)
+        # restore empty directory
+        makedirs(directory + "/packages", int('0755', 8))
 
     def get_updates(self):
         if 'updateinfo' not in self.repo.repoXML.repoData:
@@ -326,7 +329,7 @@ class ContentSource(object):
         repo = self.repo
         ssldir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
         try:
-            mkdir(ssldir, int('0750', 8))
+            makedirs(ssldir, int('0750', 8))
         except OSError as exc:
             if exc.errno == errno.EEXIST and os.path.isdir(ssldir):
                 pass
@@ -351,10 +354,7 @@ class ContentSource(object):
     def clear_ssl_cache(self):
         repo = self.repo
         ssldir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
-        try:
-            self.clear_cache(ssldir)
-        except (OSError, IOError):
-            pass
+        rmtree(ssldir, True)
 
     def get_file(self, path, local_base=None):
         try:
