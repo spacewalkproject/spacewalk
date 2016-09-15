@@ -6,7 +6,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.6.2
+Version: 2.6.3
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -100,6 +100,9 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Thu Sep 15 2016 Jan Dobes 2.6.3-1
+- fixing pylint: misplaced-bare-raise
+
 * Wed Sep 14 2016 Gennadii Altukhov <galt@redhat.com> 2.6.2-1
 - 1367918 - Add httpd config for Insights Service on RHN Proxy
 
