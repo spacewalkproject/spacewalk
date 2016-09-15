@@ -45,12 +45,13 @@ from difflib import unified_diff
 from tempfile import mkstemp
 from textwrap import wrap
 from subprocess import Popen, PIPE
-import rpm
 
 try:
     import json
 except ImportError:
     import simplejson as json  # python < 2.6
+
+import rpm
 
 from spacecmd.optionparser import SpacecmdOptionParser
 
