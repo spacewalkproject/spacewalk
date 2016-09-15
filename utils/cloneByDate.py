@@ -29,9 +29,6 @@ import re
 
 from yum.Errors import RepoError
 
-
-from depsolver import DepSolver
-
 try:
     from spacewalk.common import rhnLog
     from spacewalk.common.rhnConfig import CFG, initCFG
@@ -48,6 +45,8 @@ except ImportError:
     from common.rhnLog import log_debug, log_clean
     from common.rhnConfig import CFG, initCFG
     from satellite_tools.progress_bar import ProgressBar
+
+from depsolver import DepSolver
 
 
 LOG_LOCATION = '/var/log/rhn/errata-clone.log'

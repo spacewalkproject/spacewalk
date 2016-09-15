@@ -14,12 +14,12 @@ import os
 import sys
 import xmlrpclib
 
+from optparse import OptionParser, Option
+from spacewalk.common.cli import getUsernamePassword, xmlrpc_login, xmlrpc_logout
+
 _topdir = '/usr/share/rhn'
 if _topdir not in sys.path:
     sys.path.append(_topdir)
-
-from optparse import OptionParser, Option
-from spacewalk.common.cli import getUsernamePassword, xmlrpc_login, xmlrpc_logout
 
 client = None
 DEBUG = 0
