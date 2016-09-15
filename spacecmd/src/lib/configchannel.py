@@ -556,10 +556,9 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
 
                     contents = read_file(options.file)
 
-                    if options.binary is None:
-                        options.binary = self.file_is_binary(options.file)
-                        if options.binary:
-                            logging.debug("Binary detected")
+                    if options.binary is None and self.file_is_binary(options.file):
+                        options.binary = True
+                        logging.debug("Binary detected")
                     elif options.binary:
                         logging.debug("Binary selected")
                 else:

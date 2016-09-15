@@ -66,24 +66,23 @@ def do_softwarechannel_list(self, args, doreturn=False):
 
     if doreturn:
         return labels
-    else:
-        if len(labels):
-            if (options.verbose):
-                for l in sorted(labels):
-                    details = self.client.channel.software.getDetails(
-                        self.session, l)
-                    print "%s : %s" % (l, details['summary'])
-                    if (options.tree):
-                        for c in self.list_child_channels(parent=l):
-                            cdetails = self.client.channel.software.getDetails(
-                                self.session, c)
-                            print " |-%s : %s" % (c, cdetails['summary'])
-            else:
-                for l in sorted(labels):
-                    print "%s" % l
-                    if (options.tree):
-                        for c in self.list_child_channels(parent=l):
-                            print " |-%s" % c
+    elif len(labels):
+        if (options.verbose):
+            for l in sorted(labels):
+                details = self.client.channel.software.getDetails(
+                    self.session, l)
+                print "%s : %s" % (l, details['summary'])
+                if (options.tree):
+                    for c in self.list_child_channels(parent=l):
+                        cdetails = self.client.channel.software.getDetails(
+                            self.session, c)
+                        print " |-%s : %s" % (c, cdetails['summary'])
+        else:
+            for l in sorted(labels):
+                print "%s" % l
+                if (options.tree):
+                    for c in self.list_child_channels(parent=l):
+                        print " |-%s" % c
 
 ####################
 
