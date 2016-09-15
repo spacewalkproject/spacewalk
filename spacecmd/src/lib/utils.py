@@ -339,7 +339,7 @@ def latest_pkg(pkg1, pkg2, version_key='version',
     t1 = (pkg1[epoch_key].strip(), pkg1[version_key], pkg1[release_key])
     t2 = (pkg2[epoch_key].strip(), pkg2[version_key], pkg2[release_key])
 
-    result = rpm.labelCompare(t1, t2)
+    result = rpm.labelCompare(t1, t2) # pylint: disable=no-member
     if result == 1:
         return pkg1
     elif result == -1:
