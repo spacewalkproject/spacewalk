@@ -110,9 +110,20 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>--count-packages</term>
+        <listitem>
+            <para>Count number of packages in allrepositories for every channel.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>-l, --list-channels</term>
         <listitem>
-            <para>list all available channels for import/syncing and exit.</para>
+            <para>list all available channels for import/syncing and exit. Output in format:</para>
+            <para>STATUS NAME NUMBER_PACKAGES</para>
+            <para>STATUS: 'p' = previously imported/synced channel, '.' = channel not yet imported/synced.</para>
+            <para>NUMBER_PACKAGES: '?' = No CDN source provided to count number of packages, '0' = no packages
+            in channel OR packages are not counted yet (it's necessary to run cnd-sync with --count-packages),
+            number of packages.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -146,6 +157,18 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>--no-errata</term>
+        <listitem>
+            <para>do not process errata data.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--no-kickstarts</term>
+        <listitem>
+            <para>do not process kickstart data (provisioning feature).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>--http-proxy<replaceable> HTTP_PROXY_HOSTNAME:PORT</replaceable>
         <listitem>
              <para>alternative http proxy address and port (hostname:port)</para>
@@ -165,29 +188,12 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>--no-errata</term>
-        <listitem>
-            <para>do not process errata data.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--no-kickstarts</term>
-        <listitem>
-            <para>do not process kickstart data (provisioning feature).</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
         <term>-v, --verbose</term>
         <listitem>
             <para>Verbose output. Possible to accumulate: -vvv.</para>
         </listitem>
     </varlistentry>
-    <varlistentry>
-        <term>--count-packages</term>
-        <listitem>
-            <para>Count number of packages in allrepositories for every channel</para>
-        </listitem>
-    </varlistentry>
+
     <varlistentry>
         <term>--clear-cache</term>
         <listitem>
@@ -200,19 +206,19 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
 
 <RefSect1><Title>Examples</Title>
 <simplelist>
+        <member><command>cdn-sync --count-packages</command></member>
+        <member><command>cdn-sync --list-repos</command></member>
         <member><command>cdn-sync --list-channels</command></member>
-        <member><command>cdn-sync --channel=rhel-i386-as-3</command></member>
-        <member><command>cdn-sync -c rhel-i386-as-3 -c redhat-advanced-server-i386</command></member>
+        <member><command>cdn-sync --channel rhel-i386-server-6</command></member>
+        <member><command>cdn-sync -c rhel-i386-server-6 -c rhel-i386-server-5</command></member>
 </simplelist>
 </RefSect1>
 
 <RefSect1><Title>See Also</Title>
 <simplelist>
-    <member>db-control(1) - embedded database environment only!</member>
-    <member>rhn-charsets(8)</member>
+    <member>rhn-satellite-activate(8)</member>
     <member>rhnpush(8)</member>
-    <member>rhn-schema-version(8)</member>
-    <member>rhn-ssl-dbstore(8)</member>
+    <member>spacewalk-repo-sync(8)</member>
 </simplelist>
 </RefSect1>
 
