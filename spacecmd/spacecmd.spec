@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.6.11
+Version:     2.6.12
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -92,6 +92,11 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Sep 15 2016 Jan Dobes 2.6.12-1
+- fixing pylint: too-many-nested-blocks
+- fixing pylint: wrong-import-order
+- building of spacecmd package fails in i686 buildroot because of this
+
 * Thu Sep 08 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.11-1
 - Revert "1251949 - spacecmd: Repaired compiling regexps to avoid error:
   multiple repeat"
