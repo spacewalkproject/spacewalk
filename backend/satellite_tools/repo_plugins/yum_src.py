@@ -44,7 +44,6 @@ from spacewalk.common.rhnConfig import CFG, initCFG
 
 CACHE_DIR = '/var/cache/rhn/reposync/'
 YUMSRC_CONF = '/etc/rhn/spacewalk-repo-sync/yum.conf'
-METADATA_EXPIRE = 24*60*60  # Time (in seconds) after which the metadata will expire
 
 class YumWarnings:
 
@@ -136,7 +135,6 @@ class ContentSource(object):
     def setup_repo(self, repo):
         """Fetch repository metadata"""
         repo.cache = 0
-        repo.metadata_expire = METADATA_EXPIRE
         repo.mirrorlist = self.url
         repo.baseurl = [self.url]
         repo.basecachedir = CACHE_DIR
