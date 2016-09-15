@@ -277,21 +277,7 @@ class CdnSync(object):
         repo_label = (repo_source.split(CFG.CDN_ROOT)[1])[1:].replace('/', '_')
         repo_plugin = yum_src.ContentSource(str(repo_source), str(repo_label))
         repo_plugin.set_ssl_options(str(keys['ca_cert']), str(keys['client_cert']), str(keys['client_key']))
-
-        cdn_repodata_path = constants.CDN_REPODATA_ROOT + '/' +\
-                            (repo_source.split(CFG.CDN_ROOT)[1])[1:].replace('/', '_')
-
-        # create directory for repo data if it doesn't exist
-        try:
-            os.makedirs(cdn_repodata_path)
-        except OSError as exc:
-            if exc.errno == errno.EEXIST and os.path.isdir(cdn_repodata_path):
-                pass
-            else:
-                raise
-
-        with open(cdn_repodata_path + '/' + "packages_num", 'w') as f_out:
-            f_out.write(str(repo_plugin.number_of_packages()))
+        return repo_plugin.raw_list_packages()
 
     def _sync_channel(self, channel):
         excluded_urls = []
@@ -368,8 +354,8 @@ class CdnSync(object):
 
         repo_list = []
         for base_channel in sorted(base_channels):
-            for child in sorted(base_channels[base_channel]):
-                repo_list.extend(self._get_content_sources(child, backend))
+            for channel in sorted(base_channels[base_channel] + [base_channel]):
+                repo_list.extend(self._get_content_sources(channel, backend))
 
         log(0, "Number of repositories: %d" % len(repo_list))
         already_downloaded = 0
@@ -377,16 +363,31 @@ class CdnSync(object):
                            suffix='Complete', bar_length=50)
 
         for base_channel in sorted(base_channels):
-            for child in sorted(base_channels[base_channel]):
-                family_label = self.channel_to_family[child]
+            for channel in sorted(base_channels[base_channel] + [base_channel]):
+                family_label = self.channel_to_family[channel]
                 keys = self._get_family_keys(family_label)
 
-                sources = self._get_content_sources(child, backend)
+                sources = self._get_content_sources(channel, backend)
+                list_packages = []
                 for source in sources:
-                    self._count_packages_in_repo(source['source_url'], keys)
+                    list_packages.extend(self._count_packages_in_repo(source['source_url'], keys))
                     already_downloaded += 1
                     print_progress_bar(already_downloaded, len(repo_list), prefix='Downloading repodata:',
                                        suffix='Complete', bar_length=50)
+
+                cdn_repodata_path = constants.CDN_REPODATA_ROOT + '/' + channel
+
+                # create directory for repo data if it doesn't exist
+                try:
+                    os.makedirs(cdn_repodata_path)
+                except OSError as exc:
+                    if exc.errno == errno.EEXIST and os.path.isdir(cdn_repodata_path):
+                        pass
+                    else:
+                        raise
+                with open(cdn_repodata_path + '/' + "packages_num", 'w') as f_out:
+                    f_out.write(str(len(set(list_packages))))
+
         elapsed_time = int(time.time())
         log(0, "Elapsed time: %d seconds" % (elapsed_time - start_time))
 
@@ -405,41 +406,51 @@ class CdnSync(object):
         log(0, "Base channels:")
         for channel in sorted(available_channel_tree):
             status = 'p' if channel in self.synced_channels else '.'
-            log(0, "    %s %s" % (status, channel))
+
+            sources = self._get_content_sources(channel, backend)
+            if sources:
+                packages_number = '0'
+            else:
+                packages_number = '?'
+            try:
+                packages_number = open(constants.CDN_REPODATA_ROOT + '/' + channel + "/packages_num", 'r').read()
+            # pylint: disable=W0703
+            except Exception:
+                pass
+
+            log(0, "    %s %s %s" % (status, channel, packages_number))
             if repos:
-                sources = self._get_content_sources(channel, backend)
                 if sources:
                     for source in sources:
                         log(0, "        %s" % source['source_url'])
                 else:
                     log(0, "        No CDN source provided!")
+
+        # print information about child channels
         for channel in sorted(available_channel_tree):
             # Print only if there are any child channels
             if len(available_channel_tree[channel]) > 0:
                 log(0, "%s:" % channel)
                 for child in sorted(available_channel_tree[channel]):
                     status = 'p' if child in self.synced_channels else '.'
-                    packages_number = '?'
                     sources = self._get_content_sources(child, backend)
-
                     if sources:
-                        packages_number = 0
-                    for source in sources:
-                        pn_file = constants.CDN_REPODATA_ROOT + '/' + \
-                                  (source['source_url'].split(CFG.CDN_ROOT)[1])[1:].replace('/', '_') + \
-                                  "/packages_num"
-                        try:
-                            packages_number += int(open(pn_file, 'r').read())
-                        # pylint: disable=W0703
-                        except Exception:
-                            pass
+                        packages_number = '0'
+                    else:
+                        packages_number = '?'
+                    try:
+                        packages_number = open(constants.CDN_REPODATA_ROOT + '/' + child + "/packages_num", 'r').read()
+                    # pylint: disable=W0703
+                    except Exception:
+                        pass
 
-                    log(0, "    %s %s %s" % (status, child, str(packages_number)))
+                    log(0, "    %s %s %s" % (status, child, packages_number))
                     if repos:
-                        if not sources:
+                        if sources:
+                            for source in sources:
+                                log(0, "        %s" % source['source_url'])
+                        else:
                             log(0, "        No CDN source provided!")
-                        for source in sources:
-                            log(0, "        %s" % source['source_url'])
 
 
     @staticmethod

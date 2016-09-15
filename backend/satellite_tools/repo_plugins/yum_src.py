@@ -179,6 +179,15 @@ class ContentSource(object):
                 pass
         return len(self.sack.returnPackages())
 
+    def raw_list_packages(self):
+        for dummy_index in range(3):
+            try:
+                self.sack.populate(self.repo, 'metadata', None, 0)
+                break
+            except YumErrors.RepoError:
+                pass
+        return self.sack.returnPackages()
+
     def list_packages(self, filters, latest):
         """ list packages"""
         self.sack.populate(self.repo, 'metadata', None, 0)
