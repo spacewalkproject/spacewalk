@@ -177,7 +177,7 @@ def _errorHandler(pre='', post=''):
         47     http proxy authentication failure
     """
     try:
-        raise
+        raise # pylint: disable=bad-option-value, misplaced-bare-raise
     except (SystemExit, KeyboardInterrupt, NameError, TypeError,
             ValueError):
         raise
