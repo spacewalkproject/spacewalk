@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.52
+Version: 2.6.53
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -830,6 +830,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Thu Sep 15 2016 Gennadii Altukhov <galt@redhat.com> 2.6.53-1
+- cdn-sync - fix man page
+
 * Thu Sep 15 2016 Gennadii Altukhov <galt@redhat.com> 2.6.52-1
 - fix yum plugin naming, based on an url, because it can be a metalink
 - remove hardcoded METADATA_EXPIRE, use value from config file
