@@ -50,7 +50,7 @@ public class UpgradeCommand extends BaseTransactionCommand {
 
 
     /**
-     * Excutes the upgrade step in an own transaction
+     * Executes the upgrade step in an own transaction
      */
     public void store() {
         try {
@@ -68,7 +68,7 @@ public class UpgradeCommand extends BaseTransactionCommand {
 
 
     /**
-     * Excutes the upgrade step
+     * Executes the upgrade step
      */
     public void upgrade() {
         List upgradeTasks = TaskFactory.getTaskListByNameLike(UPGRADE_TASK_NAME);
