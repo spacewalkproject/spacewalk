@@ -21,6 +21,7 @@
 ## language imports
 import socket
 import sys
+from xmlrpclib import Fault
 
 ## local imports
 from spacewalk.common.rhnLog import log_debug, log_error
@@ -28,7 +29,6 @@ from spacewalk.common.rhnTB import Traceback
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnTranslate import _
 from rhnAuthProtocol import CommunicationError, send, recv
-from xmlrpclib import Fault
 
 #
 # Protocol description:
@@ -177,6 +177,7 @@ class Shelf:
 
 #-------------------------------------------------------------------------------
 # test code
+# pylint: disable=E0012, C0411, C0413, E1136
 if __name__ == '__main__':
     from spacewalk.common.rhnConfig import initCFG
     initCFG("proxy.broker")

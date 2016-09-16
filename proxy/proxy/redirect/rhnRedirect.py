@@ -25,12 +25,13 @@ from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnTB import Traceback
 from spacewalk.common import rhnFlags, rhnLib, apache
 
+# rhnlib imports
+from rhn import connections
+
 # local module imports
 from proxy.rhnShared import SharedHandler
 from proxy import rhnConstants
 
-# rhnlib imports
-from rhn import connections
 
 # Main apache entry point for the proxy.
 

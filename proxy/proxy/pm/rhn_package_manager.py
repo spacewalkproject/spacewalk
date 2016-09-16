@@ -40,14 +40,14 @@ from xml.dom import minidom
 import sys
 import shutil
 import xmlrpclib
-from rhnpush.uploadLib import UploadError
 from optparse import Option, OptionParser
 
 # RHN imports
-from rhnpush import uploadLib
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.rhnLib import parseUrl
 initCFG('proxy.package_manager')
+from rhnpush.uploadLib import UploadError
+from rhnpush import uploadLib
 from proxy.broker.rhnRepository import computePackagePaths
 
 # globals
