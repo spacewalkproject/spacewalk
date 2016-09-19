@@ -20,6 +20,7 @@
 import os
 import base64
 import xmlrpclib
+import re
 
 # common imports
 from spacewalk.common.rhnConfig import CFG
@@ -243,7 +244,7 @@ class apacheHandler(rhnApache):
         hdrs = UserDictCase()
         for k in req.headers_in.keys():
             if k.lower() != 'range':  # we want checksum of whole file
-                hdrs[k] = req.headers_in[k]
+                hdrs[k] = re.sub(r'\n(?![ \t])|\r(?![ \t\n])', '', str(req.headers_in[k]))
 
         log_debug(9, "Using existing headers_in", hdrs)
         connection.request("HEAD", pingURL, None, hdrs)
