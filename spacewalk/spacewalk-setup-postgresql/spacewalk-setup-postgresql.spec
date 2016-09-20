@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-postgresql
-Version:        2.6.1
+Version:        2.6.2
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 Group:          Applications/System
@@ -63,6 +63,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Sep 20 2016 Jan Dobes 2.6.2-1
+- postgresql 9.5 does not support checkpoint_segments parameter
+
 * Mon Jun 13 2016 Grant Gainey 2.6.1-1
 - spacewalk-setup-postgresql: build and setup on openSUSE
 - Bumping package versions for 2.6.
