@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.31
+Version: 2.6.32
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Sep 20 2016 Eric Herget <eherget@redhat.com> 2.6.32-1
+- 1377839 - fix a few tiny issues and update eclipse code formatter settings
+
 * Tue Sep 20 2016 Jiri Dostal <jdostal@redhat.com> 2.6.31-1
 - 1368490 - RFE: add 'Create new Repository' link on the channel repositories
   page
