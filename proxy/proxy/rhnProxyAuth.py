@@ -462,8 +462,7 @@ class AuthLocalBackend:
     def _compute_key(self, key):
         return os.path.join(self._cache_prefix, str(key))
 
-    # pylint: disable=E0012, E0302
-    def __len__(self, key):
+    def __len__(self):
         pass
 
 # ==============================================================================
