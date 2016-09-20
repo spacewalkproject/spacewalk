@@ -178,37 +178,6 @@
   </elaborator>
 </mode>
 
-<mode name="all_tables_with_sort_or">
-  <query params="" sort="table_name,owner" defaultsort="table_name"
-         sortorder="asc">
-      SELECT t.table_name, t.owner
-        FROM all_tables t
-       WHERE t.table_name LIKE 'RHN%'
-       ORDER BY %o
-  </query>
-  <elaborator params="" column="table_name" multiple="t">
-      SELECT table_name, column_name, column_id
-        FROM all_tab_cols
-       WHERE table_name in (%s)
-  </elaborator>
-</mode>
-
-<mode name="all_tables_with_sort_pg">
-  <query params="" sort="table_name,owner" defaultsort="table_name"
-         sortorder="asc">
-      SELECT t.tablename as table_name, t.tableowner as owner
-        FROM pg_tables t
-       WHERE t.tablename LIKE 'rhn%'
-       ORDER BY %o
-  </query>
-  <elaborator params="" column="table_name" multiple="t">
-      SELECT c.relname as TABLE_NAME, a.attname, a.atttypid
-        FROM pg_attribute a, pg_class c
-       WHERE c.relname in (%s)
-         AND c.oid = a.attrelid
-  </elaborator>
-</mode>
-
 
 <write-mode name="update_group_type">
     <query params="type_id, sgid">

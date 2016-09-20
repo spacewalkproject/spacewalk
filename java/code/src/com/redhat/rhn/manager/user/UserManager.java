@@ -14,6 +14,21 @@
  */
 package com.redhat.rhn.manager.user;
 
+import java.sql.Types;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.security.auth.login.LoginException;
+
+import org.apache.log4j.Logger;
+
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -45,21 +60,6 @@ import com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.SatManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
-
-import org.apache.log4j.Logger;
-
-import java.sql.Types;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.security.auth.login.LoginException;
 
 /**
  * UserManager - the singleton class used to provide Business Operations
@@ -825,27 +825,17 @@ public class UserManager extends BaseManager {
     public static DataResult<SystemSearchResult> visibleSystemsAsDtoFromList(User user,
             List<Long> ids) {
 
+        if (ids.isEmpty()) {
+            return null;
+        }
         SelectMode m = ModeFactory.getMode("System_queries",
             "visible_to_user_from_sysid_list");
-        DataResult<SystemSearchResult> dr = null;
 
-        int batchSize = 500;
-        for (int batch = 0; batch < ids.size(); batch = batch + batchSize) {
-            int toIndex = batch + batchSize;
-            if (toIndex > ids.size()) {
-                toIndex = ids.size();
-            }
-            Map<String, Object> params = new HashMap<String, Object>();
-            params.put("user_id", user.getId());
-            DataResult partial = m.execute(params, ids.subList(batch, toIndex));
-            partial.setElaborationParams(Collections.EMPTY_MAP);
-            if (dr == null) {
-                dr = partial;
-            }
-            else {
-                dr.addAll(partial);
-            }
-        }
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+
+        DataResult<SystemSearchResult> dr = m.execute(params, ids);
+        dr.setElaborationParams(Collections.EMPTY_MAP);
         return dr;
     }
 

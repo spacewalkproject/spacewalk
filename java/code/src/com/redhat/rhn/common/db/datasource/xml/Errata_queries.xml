@@ -408,6 +408,45 @@ select e.id, e.advisory, e.advisory_name, e.advisory_type, e.advisory_rel, e.syn
  where e.id in (%s)
 </query>
 
+<query name="system_overview" params="">
+  SELECT SERVER_ID AS ID, OUTDATED_PACKAGES, SERVER_NAME, security_errata, bug_errata, enhancement_errata,
+          SERVER_ADMINS, GROUP_COUNT, MODIFIED, CHANNEL_LABELS, CHANNEL_ID, HISTORY_COUNT,
+          unique_crash_count, total_crash_count, LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE,
+          SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED
+  FROM  rhnServerOverview
+  WHERE  server_id IN (%s)
+ORDER BY  UPPER(COALESCE(SERVER_NAME, '(none)')), SERVER_ID
+</query>
+
+<query name="entitlements" params="" multiple="t">
+  SELECT SEV.server_id AS ID,
+         SEV.label AS ENTITLEMENT,
+         SEV.server_group_type_id,
+         SEV.permanent AS entitlement_permanent,
+         SEV.is_base AS entitlement_is_base
+    FROM rhnServerEntitlementView SEV
+   WHERE SEV.server_id IN (%s)
+ORDER BY CASE SEV.is_base WHEN 'Y' THEN 1 WHEN 'N' THEN 2 END, SEV.label
+</query>
+
+<query name="is_virtual_guest" params="">
+SELECT vi.virtual_system_id as ID, 1 as virtual_guest FROM rhnVirtualInstance vi WHERE vi.virtual_system_id in (%s)
+</query>
+
+<query name="is_virtual_host" params="">
+select distinct sgm.server_id as ID, 1 as virtual_host
+    from rhnServerGroup sg
+        INNER JOIN rhnServerGroupMembers sgm ON sg.id = sgm.server_group_id
+            INNER JOIN rhnServerGroupType sgt ON sgt.id = sg.group_type
+            where
+                sgm.server_id in (%s) and
+                    sgt.label='virtualization_host'
+union
+select VI.host_system_id as ID, 1 as virtual_host
+    from rhnVirtualInstance VI
+        where VI.host_system_id in (%s)
+</query>
+
 <mode name="simple_in_channel" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="cid">
 SELECT CE.errata_id AS id
@@ -1252,13 +1291,13 @@ delete from rhnServerNeededCache
 </mode>
 
 <!-- Errata Search Queries -->
-<elaborator name="default_errata_elaborator" params="">
+<query name="default_errata_elaborator" params="">
 SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type, E.synopsis AS ADVISORY_SYNOPSIS,
         TO_CHAR(E.update_date, 'YYYY-MM-DD') AS ADVISORY_LAST_UPDATED
   FROM  rhnErrata E
    WHERE  E.id IN (%s)
 ORDER BY E.update_date DESC
-</elaborator>
+</query>
 
 <mode name="errata_search_by_advisory" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="org_id, search_string">

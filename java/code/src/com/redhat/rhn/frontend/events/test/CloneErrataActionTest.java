@@ -98,7 +98,7 @@ public class CloneErrataActionTest extends BaseTestCaseWithUser {
     private int countActiveRepomdTasks(String label) {
         SelectMode selector = ModeFactory.getMode(TaskConstants.MODE_NAME,
             TaskConstants.TASK_QUERY_REPOMD_CANDIDATES_DETAILS_QUERY);
-        Map<Object, Object> params = new HashMap<Object, Object>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("channel_label", label);
         return selector.execute(params).size();
     }

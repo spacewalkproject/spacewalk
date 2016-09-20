@@ -99,7 +99,7 @@ public class SsmActionTestUtils extends TestCase {
         WriteMode wm = ModeFactory.getWriteMode("test_queries",
             "insert_into_rhnServerPackage_with_arch");
 
-        Map<String, Long> params = new HashMap<String, Long>(4);
+        Map<String, Object> params = new HashMap<String, Object>(4);
         params.put("server_id", serverId);
         params.put("pn_id", packageIn.getPackageName().getId());
         params.put("evr_id", packageIn.getPackageEvr().getId());

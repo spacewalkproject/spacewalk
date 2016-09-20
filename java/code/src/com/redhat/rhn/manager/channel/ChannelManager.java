@@ -2371,7 +2371,7 @@ public class ChannelManager extends BaseManager {
     public static boolean isChannelLabelInProgress(String channel) {
         SelectMode selector = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_REPOMD_DETAILS_QUERY);
-        Map<Object, Object> params = new HashMap<Object, Object>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("channel_label", channel);
         return (selector.execute(params).size() > 0);
     }
