@@ -8,7 +8,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.6.1
+Version: 2.6.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python
@@ -372,6 +372,9 @@ fi
 
 
 %changelog
+* Tue Sep 20 2016 Jan Dobes 2.6.2-1
+- header can be changed here, this method was added for pylint anyway
+
 * Tue Sep 20 2016 Gennadii Altukhov <galt@redhat.com> 2.6.1-1
 - proxy 'ValueError: Invalid header value' fixing
 - proxy - fix build on Fedora 24
