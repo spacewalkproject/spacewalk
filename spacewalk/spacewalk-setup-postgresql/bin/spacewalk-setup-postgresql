@@ -81,6 +81,7 @@ PG_DATA=/var/lib/pgsql/data
 PG_HBA="$PG_DATA/pg_hba.conf"
 PG_IDENT="$PG_DATA/pg_ident.conf"
 POSTGRESQL="$PG_DATA/postgresql.conf"
+POSTGRESQL_SW_APPEND=/usr/share/spacewalk/setup/postgresql.conf
 PORT=5432
 PG_PIDFILE="/var/run/postmaster.$PORT.pid"
 if isSUSE ; then
@@ -140,19 +141,7 @@ create() {
 
     # see bug 821446, we enable timestamps in logs by default
     sed -i 's/^\(\s*max_connections.*\|\s*shared_buffers.*\)$/### next line has been commented out by spacewalk-setup-postgresql ###\n##\1/' $POSTGRESQL
-    cat >> $POSTGRESQL <<EOF
-
-### spacewalk-setup-postgresql modified values
-checkpoint_completion_target = 0.7
-checkpoint_segments = 8
-effective_cache_size = 1152MB
-log_line_prefix = '%m '
-maintenance_work_mem = 96MB
-max_connections = 600
-shared_buffers = 384MB
-wal_buffers = 4MB
-work_mem = 2560kB
-EOF
+    cat $POSTGRESQL_SW_APPEND >> $POSTGRESQL
 
     if $STANDALONE; then
         echo "$ADDRESS"|grep -q '127.0.0.1\|*' || ADDRESS="$ADDRESS, 127.0.0.1"
