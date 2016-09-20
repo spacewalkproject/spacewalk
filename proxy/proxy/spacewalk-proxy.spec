@@ -8,7 +8,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.6.0
+Version: 2.6.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python
@@ -372,6 +372,11 @@ fi
 
 
 %changelog
+* Tue Sep 20 2016 Gennadii Altukhov <galt@redhat.com> 2.6.1-1
+- proxy 'ValueError: Invalid header value' fixing
+- proxy - fix build on Fedora 24
+- Bumping package versions for 2.6.
+
 * Fri May 20 2016 Grant Gainey 2.5.2-1
 - spacewalk-proxy: build on openSUSE
 
