@@ -17,6 +17,7 @@ package com.redhat.rhn.domain.rhnpackage;
 import com.redhat.rhn.common.db.datasource.CachedStatement;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.QuerySanitizer;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.org.Org;
@@ -334,14 +335,13 @@ public class PackageFactory extends HibernateFactory {
             // in a string, and therefore not dangerous.
             m = ModeFactory.getMode("Package_queries", "searchByIdAndArches");
             CachedStatement cs = m.getQuery();
-            String query = cs.getOrigQuery();
-            String archString = "'" + sanitizeArchLabel(archLabels.get(0)) + "'";
-            for (int i = 1; i < archLabels.size(); i++) {
-                archString += ", '" + sanitizeArchLabel(archLabels.get(i)) + "'";
-            }
-            query = query.replace(":channel_arch_labels", archString);
-            cs.setQuery(query);
-            m.setQuery(cs);
+            cs.modifyQuery(":channel_arch_labels", archLabels, new QuerySanitizer() {
+
+                @Override
+                public boolean isSanitary(String value) {
+                    return value.matches("^[a-zA-Z0-9\\-_]*$");
+                }
+            });
         }
         else if (searchType.equals(PackageSearchAction.RELEVANT)) {
             if (relevantUserId == null) {
@@ -368,17 +368,6 @@ public class PackageFactory extends HibernateFactory {
         DataResult result = m.execute(params, pids);
         result.elaborate();
         return result;
-    }
-
-    private static String sanitizeArchLabel(String archLabel) {
-        // ArchLabels can only contain alphanumeric, '-', or '_' in order to guard
-        // against sql injection. They will never contain anything else during the
-        // normal course of operation, throw an error if the regex doesn't match.
-        if (!archLabel.matches("^[a-zA-Z0-9\\-_]*$")) {
-            throw new IllegalArgumentException("The channel architecture " + archLabel +
-                    " is invalid! Possible sql injection attempt!");
-        }
-        return archLabel;
     }
 
     /**

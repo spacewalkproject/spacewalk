@@ -109,7 +109,7 @@ public final class NamedPreparedStatement {
      */
     public static boolean execute(CallableStatement cs,
             Map<String, List<Integer>> parameterMap,
-            Map<String, Object> inParams, Map<String, Integer> outParams)
+            Map<String, ?> inParams, Map<String, Integer> outParams)
             throws RuntimeException {
         try {
             setVars(cs, parameterMap, inParams);
@@ -134,7 +134,7 @@ public final class NamedPreparedStatement {
      */
     public static boolean execute(PreparedStatement ps,
             Map<String, List<Integer>> parameterMap,
-            Map<String, Object> parameters) {
+            Map<String, ?> parameters) {
         try {
             setVars(ps, parameterMap, parameters);
             return ps.execute();
@@ -177,7 +177,7 @@ public final class NamedPreparedStatement {
     }
 
     private static void setVars(PreparedStatement ps,
-            Map<String, List<Integer>> parameterMap, Map<String, Object> map) {
+            Map<String, List<Integer>> parameterMap, Map<String, ?> map) {
         Iterator<String> i = map.keySet().iterator();
 
         while (i.hasNext()) {

@@ -24,6 +24,20 @@ public abstract class BaseMode implements Mode {
     private String name;
     private CachedStatement query;
 
+    /**
+     * This constructor is only to support DataListTest
+     */
+    protected BaseMode() { }
+
+    /**
+     * Construct a new BaseMode instance.
+     * @param parsedMode
+     */
+    /*package*/ BaseMode(ParsedMode parsedMode) {
+        this.name = parsedMode.getName();
+        this.query = new CachedStatement(parsedMode.getParsedQuery());
+    }
+
     /** {@inheritDoc} */
     public void setName(String n) {
         name = n;
@@ -46,8 +60,12 @@ public abstract class BaseMode implements Mode {
 
     /** {@inheritDoc} */
     public String toString() {
-        return "[ Name = " + getName() +
-               "  query = " + query.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("[ Name = ");
+        sb.append(getName());
+        sb.append("  query = ");
+        sb.append(query == null ? "null" : query.toString());
+        return sb.toString();
     }
 
     /**

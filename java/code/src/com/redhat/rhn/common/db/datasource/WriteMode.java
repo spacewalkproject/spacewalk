@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -24,35 +24,30 @@ import java.util.Map;
  */
 public class WriteMode extends BaseMode {
 
+    /*package*/ WriteMode(ParsedMode parsedMode) {
+        super(parsedMode);
+    }
+
     /**
      * Executes the update statement with the given query parameters.
      * @param parameters Query parameters.
      * @return int number of rows affected.
      */
-    public int executeUpdate(Map parameters) {
+    public int executeUpdate(Map<String, ?> parameters) {
         return getQuery().executeUpdate(parameters);
     }
 
-
     /**
-     * execute an update with an inClause (%s).
-     *  This handles more than 1000 items in teh in clause
+     * execute an update with an inClause (%s). This handles more than 1000
+     * items in the in clause
      * @param parameters the query parameters
      * @param inClause the in clause
      * @return the number of rows updated/inserted/deleted
      */
-    public int executeUpdate(Map parameters, List inClause) {
-        int subStart = 0;
-        int toReturn = 0;
-        while (subStart < inClause.size()) {
-            int subLength = subStart + CachedStatement.BATCH_SIZE >= inClause.size() ?
-                    inClause.size() - subStart  : CachedStatement.BATCH_SIZE;
-            List subClause = inClause.subList(subStart, subStart + subLength);
-            toReturn += getQuery().executeUpdate(parameters, subClause);
-            subStart += subLength;
+    public int executeUpdate(Map<String, ?> parameters, List<?> inClause) {
+        if (inClause == null || inClause.isEmpty()) {
+            return 0;
         }
-        return toReturn;
+        return getQuery().executeUpdate(parameters, inClause);
     }
-
 }
-

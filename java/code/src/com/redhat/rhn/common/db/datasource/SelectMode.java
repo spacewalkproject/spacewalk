@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2016 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,7 +17,6 @@ package com.redhat.rhn.common.db.datasource;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -29,32 +28,24 @@ import java.util.Map;
 public class SelectMode extends BaseMode implements Serializable {
 
     private String clazz;
-    private List<CachedStatement> elaborators;
+    private List<CachedStatement> elaborators = new ArrayList<CachedStatement>();
     private int maxRows;
 
     // increase this number on any data change
     private static final long serialVersionUID = 1L;
 
-    // We could (and probably should) cache the ResultSet metadata here as
-    // well.  There is no reason that the first call to each statement
-    // couldn't do the work to determine what is returned.
-
-    /** Constructs a new SelectMode */
-    public SelectMode() {
-        elaborators = new ArrayList<CachedStatement>();
-    }
-
     /**
-     * Copy constructor
-     * @param modeIn The mode to copy into new SelectMode object
+     * Only used by DataListTest
      */
-    public SelectMode(SelectMode modeIn) {
-        if (modeIn != null) {
-            this.clazz = modeIn.getClassString();
-            this.elaborators = new ArrayList<CachedStatement>(
-                    modeIn.getElaborators());
-            setName(modeIn.getName());
-            setQuery(new CachedStatement(modeIn.getQuery()));
+    protected SelectMode() { }
+
+    /*package*/ SelectMode(ParsedMode parsedMode) {
+        super(parsedMode);
+        if (parsedMode != null) {
+            this.clazz = parsedMode.getClassname();
+            for (ParsedQuery parsedQuery : parsedMode.getElaborators()) {
+                elaborators.add(new CachedStatement(parsedQuery));
+            }
         }
     }
 
@@ -91,32 +82,21 @@ public class SelectMode extends BaseMode implements Serializable {
     }
 
     /**
-     * Executes the query using the given paramters and sort options.
-     * @param parameters Query paramters.
-     * @param sortColumn column used for sorting.
-     * @param order Sorting order ASC or DESC
-     * @return DataResult containing results from query.
-     */
-    public DataResult execute(Map parameters, String sortColumn, String order) {
-        return getQuery().execute(parameters, sortColumn, order, this);
-    }
-
-    /**
      * Executes the query using the given parameters.
      * @param parameters Query parameters.
      * @return DataResult containing results from query.
      */
-    public DataResult execute(Map parameters) {
+    public DataResult execute(Map<String, ?> parameters) {
         return getQuery().execute(parameters, this);
     }
 
     /**
      * Executes the query with an IN clause.
-     * @param parameters Query parameters.
+     * @param inClause values to be included in the IN clause.
      * @return DataResult containing results from query.
      */
-    public DataResult execute(List parameters) {
-        return getQuery().execute(parameters, this);
+    public DataResult execute(List<?> inClause) {
+        return getQuery().execute(inClause, this);
     }
 
     /**
@@ -124,7 +104,7 @@ public class SelectMode extends BaseMode implements Serializable {
      * @return DataResult containing results from query.
      */
     public DataResult execute() {
-        return getQuery().execute((Map) null, this);
+        return getQuery().execute((Map<String, ?>) null, this);
     }
 
     /**
@@ -133,36 +113,21 @@ public class SelectMode extends BaseMode implements Serializable {
      * @param inClause values to be included in the IN clause.
      * @return DataResult containing results from query.
      */
-    public DataResult execute(Map parameters, List inClause) {
-        int subStart = 0;
-        DataResult toReturn = new DataResult(this);
-        while (subStart < inClause.size()) {
-            int subLength = subStart + CachedStatement.BATCH_SIZE >= inClause.size() ?
-                    inClause.size() - subStart  : CachedStatement.BATCH_SIZE;
-                    List subClause = inClause.subList(subStart, subStart + subLength);
-                    DataResult subDr = getQuery().execute(parameters, subClause, this);
-                    toReturn.addDataResult(subDr);
-                    subStart += subLength;
-        }
-        return toReturn;
+    public DataResult execute(Map<String, ?> parameters, List<?> inClause) {
+        return getQuery().execute(parameters, inClause, this);
     }
 
     /**
-     * Elaborates a list by calling the elaboration queries with the
-     * given parameters.
-     * @param resultList The resultList that has items from the driving
-     *                   query results.
+     * Elaborates a list by calling the elaboration queries with the given
+     * parameters.
+     * @param resultList The resultList that has items from the driving query
+     * results.
      * @param parameters named query parameters for elaborators.
      */
-    public void elaborate(List resultList, Map parameters) {
+    public void elaborate(List resultList, Map<String, ?> parameters) {
         // find the requested elaborator.
-        Iterator<CachedStatement> i = elaborators.iterator();
-        CachedStatement cs = null;
-        while (i.hasNext()) {
-            cs = i.next();
-
-            Collection elaborated = cs.executeElaborator(resultList, this,
-                    parameters);
+        for (CachedStatement cs : elaborators) {
+            Collection elaborated = cs.executeElaborator(resultList, this, parameters);
             resultList.clear();
             resultList.addAll(elaborated);
         }
@@ -172,13 +137,12 @@ public class SelectMode extends BaseMode implements Serializable {
     @Override
     public String toString() {
         String str = super.toString();
-        return str +
-                "  # of elaborators: " + elaborators.size() + " ]";
+        return str + "  # of elaborators: " + elaborators.size() + " ]";
     }
 
     /**
-     * The maximum number of rows to be returned by the query. Zero (0)
-     * means unlimited.
+     * The maximum number of rows to be returned by the query. Zero (0) means
+     * unlimited.
      * @param max maximum number of rows to be returned, zero (0) is unlimited.
      */
     public void setMaxRows(int max) {
@@ -196,4 +160,3 @@ public class SelectMode extends BaseMode implements Serializable {
         return maxRows;
     }
 }
-
