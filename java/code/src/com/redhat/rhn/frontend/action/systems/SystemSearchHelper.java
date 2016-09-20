@@ -379,7 +379,7 @@ public class SystemSearchHelper {
         }
         else if (DMI_BIOS.equals(mode)) {
             query = "dmiBiosVendor:(" + terms + ") dmiBiosVersion:(" + terms + ")" +
-                "dmiBiosRelease:(" + terms + ")";
+                " dmiBiosRelease:(" + terms + ")";
             index = SERVER_INDEX;
         }
         else if (DMI_ASSET.equals(mode)) {

@@ -1008,8 +1008,10 @@ public class ListTag extends BodyTagSupport {
             case TBL_ADDONS:    return ListCommand.COL_HEADER;
             case COL_HEADER:    return ListCommand.BEFORE_RENDER;
             case BEFORE_RENDER: return ListCommand.RENDER;
+            // The following RENDER-->RENDER appears to be intentional,
+            // depending on doAfterBodyRenderData() to eventually set cmd to AFTER_RENDER.
             case RENDER:        return ListCommand.RENDER;
-            case AFTER_RENDER: return ListCommand.TBL_FOOTER;
+            case AFTER_RENDER:  return ListCommand.TBL_FOOTER;
             default:             return null;
         }
     }
