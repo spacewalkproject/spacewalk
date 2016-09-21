@@ -18,7 +18,7 @@ Requires: dnf-plugins-core
 Requires: librepo >= 1.7.15
 Requires: rhn-client-tools >= 2.5.5
 %if 0%{?fedora} >= 22
-Obsoletes: yum-rhn-plugin
+Obsoletes: yum-rhn-plugin < 2.7
 %endif
 
 %description
@@ -63,7 +63,6 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %{python2_sitelib}/dnf-plugins/*
 %endif
 %{_datadir}/rhn/actions/*
-%dir /var/lib/up2date
 
 %changelog
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.8-1
