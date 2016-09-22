@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.32
+Version: 2.6.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 22 2016 Jan Dobes 2.6.33-1
+- partially fixing reposync progress bar
+
 * Tue Sep 20 2016 Eric Herget <eherget@redhat.com> 2.6.32-1
 - 1377839 - fix a few tiny issues and update eclipse code formatter settings
 
