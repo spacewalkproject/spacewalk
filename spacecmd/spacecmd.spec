@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.6.13
+Version:     2.6.14
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -92,6 +92,12 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Sep 22 2016 Jiri Dostal <jdostal@redhat.com> 2.6.14-1
+- spacecmd: catch all exceptions in do_login()
+- Revert presious commit - spacewalk-pylint does not accept exception without
+  type
+- spacecmd: catch all exceptions in do_login()
+
 * Thu Sep 15 2016 Jan Dobes 2.6.13-1
 - fixing pylint: wrong-import-order
 
