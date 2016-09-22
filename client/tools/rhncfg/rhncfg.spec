@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.96
+Version: 5.10.97
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -131,6 +131,10 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Thu Sep 22 2016 Jan Dobes 5.10.97-1
+- python 3.5 dropped MAXFD from subprocess, workaround by getting this value
+  directly
+
 * Tue Jul 26 2016 Eric Herget <eherget@redhat.com> 5.10.96-1
 - 1345843 - sane output when diff of binary config files
 - 1358484 - dest file in diff output prefixed with '+++'
