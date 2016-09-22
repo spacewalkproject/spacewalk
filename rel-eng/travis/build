@@ -54,7 +54,7 @@ for package in $GITROOT/rel-eng/packages/* ; do
         echo "Running builder"
         mkdir -p /tmp/mock/$package_basename
         # build SRPM
-        docker run --privileged=true -v $GITROOT:/git -v /tmp/mock/$package_basename:/out -e PACKAGE=$prefix -e DIST=spacewalk-nightly-fedora22 spacewalkproject/docker-builder
+        docker run --privileged=true -v $GITROOT:/git -v /tmp/mock/$package_basename:/out -e PACKAGE=$prefix -e DIST=spacewalk-nightly-fedora24 spacewalkproject/docker-builder
         status=$?
         echo -en "travis_fold:end:$package_basename-mock\\r"
         if [ $status -eq 0 ] ; then
