@@ -24,9 +24,9 @@ import tempfile
 import base64
 
 try:
-    from subprocess import MAXFD
-except ImportError:
-    from popen2 import MAXFD
+    MAXFD = os.sysconf("SC_OPEN_MAX")
+except:
+    MAXFD = 256
 
 
 # this is ugly, hopefully it will be natively supported in up2date
