@@ -71,14 +71,14 @@ class RetryServer(rpclib.Server):
                 # try a different url
 
                 # use the next serverURL
-                import urllib
-                typ, uri = urllib.splittype(self.serverList.server())
+                parse_res = urlparse.urlsplit(self.serverList.server())
+                typ = parse_res.scheme
+                self._host = parse_res.netloc
+                self._handler = parse_res.path
                 typ = typ.lower()
                 if typ not in ("http", "https"):
                     raise_with_tb(rpclib.InvalidRedirectionError(
                         "Redirected to unsupported protocol %s" % typ))
-
-                self._host, self._handler = urllib.splithost(uri)
                 self._orig_handler = self._handler
                 self._type = typ
                 self._uri = self.serverList.server()
