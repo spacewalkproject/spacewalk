@@ -466,7 +466,9 @@ class ChannelTreeCloner:
             log_clean(0, "")
             log_clean(0, "%i packages were added to %s as a result of clone:"
                       % (len(pkg_diff), cloner.dest_label()))
-            log_clean(0, "\n".join([pkg['nvrea'] for pkg in pkg_diff]))
+            sorted_pkg_diff = sorted(pkg_diff, key=lambda p: p['nvrea'])
+            log_clean(0, "\n".join([pkg['nvrea'] for pkg in sorted_pkg_diff]))
+
         if len(added_pkgs) > 0 and not skip_depsolve:
             self.dep_solve([pkg['nvrea'] for pkg in added_pkgs])
 
@@ -567,6 +569,11 @@ class ChannelTreeCloner:
                 print '%s RPM(s) added to %s to resolve dependencies.' \
                        % (cloner.total_added_nevras, cloner.dest_label())
                 cloner.total_added_nevras = 0
+            if cloner.total_added_errata > 0:
+                reported = 1
+                print '%s errata added to %s to resolve dependencies.' \
+                       % (cloner.total_added_errata, cloner.dest_label())
+                cloner.total_added_errata = 0
 
         if reported:
             print 'Please see %s for details.' % LOG_LOCATION
@@ -577,6 +584,7 @@ class ChannelCloner:
     def __init__(self, from_label, to_label, to_date, remote_api, db_api,
                  security_only, use_update_date, no_errata_sync, errata):
         self.total_added_nevras = 0
+        self.total_added_errata = 0
         self.remote_api = remote_api
         self.db_api = db_api
         self.from_label = from_label
@@ -667,18 +675,19 @@ class ChannelCloner:
         needed_ids = still_needed_pids
 
         # Log the RPMs we're adding due to dep-solving
-        if len(needed_ids) > 0:
+        needed_name_set = sorted(set(needed_names))
+        if len(needed_name_set) > 0:
             log_clean(0, "")
-            log_clean(0, "Adding %i RPM(s) needed for dependencies to %s" % (len(needed_ids), self.to_label))
-            if len(needed_names) > 0:
-                for name in needed_names:
-                    log_clean(0, name)
+            log_clean(0, "Adding %i RPM(s) needed for dependencies to %s" % (len(needed_name_set), self.to_label))
+            for name in needed_name_set:
+                log_clean(0, name)
 
         # Clone (and log) the errata we are adding for same
         if len(needed_errata) > 0:
+            self.total_added_errata += len(needed_errata)
             log_clean(0, "")
             log_clean(0, "Cloning %i errata for dependencies to %s :" % (len(needed_errata), self.to_label))
-            needed_errata_list = list(needed_errata)
+            needed_errata_list = sorted(list(needed_errata))
             while(len(needed_errata_list) > 0):
                 errata_set = needed_errata_list[:self.bunch_size]
                 del needed_errata_list[:self.bunch_size]
@@ -719,7 +728,7 @@ class ChannelCloner:
         print msg
         log_clean(0, "")
         log_clean(0, msg)
-        for e in self.errata_to_clone:
+        for e in sorted(self.errata_to_clone):
             log_clean(0, "%s - %s" % (e['advisory_name'], e['synopsis']))
 
         pb = ProgressBar(prompt="", endTag=' - complete',
