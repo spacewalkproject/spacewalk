@@ -6,7 +6,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.6.3
+Version: 2.6.4
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -100,6 +100,9 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Fri Sep 23 2016 Jan Dobes 2.6.4-1
+- fix bz1340031 - yes_no: command not found
+
 * Thu Sep 15 2016 Jan Dobes 2.6.3-1
 - fixing pylint: misplaced-bare-raise
 
