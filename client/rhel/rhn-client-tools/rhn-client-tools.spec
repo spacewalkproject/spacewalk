@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.6.2
+Version: 2.6.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -401,6 +401,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Sep 23 2016 Jiri Dostal <jdostal@redhat.com> 2.6.3-1
+- Fix of deprecated functions urllib.splittype and urllib.splithost
+
 * Thu Sep 22 2016 Jan Dobes 2.6.2-1
 - fedora 24 client will not send it's smbios because there is a warning and it
   fails on syntax error
