@@ -630,7 +630,8 @@ class JabberClient(jabber.Client, object):
             else:
                 break
         else:
-            log_error("Not able to reconnect")
+            log_error("Not able to reconnect - "
+                "See https://access.redhat.com/solutions/45332 for possible solutions.\n")
             raise SSLDisabledError
 
         starttls_node = stanza.getTag('starttls')
@@ -1391,7 +1392,7 @@ def generate_random_string(length=20):
     devrandom.close()
 
     return ''.join(result)[:length].lower()
-    
+
 
 def push_to_background():
     log_debug(3, "Pushing process into background")
