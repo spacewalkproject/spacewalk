@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.2
+Version: 2.6.3
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -154,6 +154,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Sep 26 2016 Eric Herget <eherget@redhat.com> 2.6.3-1
+- 1373900 - db-control start/stop now returns non-zero and complains on failure
+- require spacewalk-base-minimal-config from spacewalk-setup
+
 * Mon Sep 12 2016 Jan Dobes 2.6.2-1
 - spacewalk-base-minimal package description typo fixed
 
