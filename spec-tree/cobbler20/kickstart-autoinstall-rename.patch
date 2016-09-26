@@ -1,0 +1,28 @@
+diff -rupN cobbler-2.0.11/cobbler/item_profile.py.org cobbler-2.0.11/cobbler/item_profile.py
+--- cobbler-2.0.11/cobbler/item_profile.py.org	2016-09-26 14:19:34.281384422 +0200
++++ cobbler-2.0.11/cobbler/item_profile.py	2016-09-26 14:22:15.393770376 +0200
+@@ -37,6 +37,7 @@ FIELDS = [
+   ["parent",'','',"Parent Profile",True,"",[],"str"],
+   ["enable_menu","SETTINGS:enable_menu",'<<inherit>>',"Enable PXE Menu?",True,"Show this profile in the PXE menu?",0,"bool"],
+   ["kickstart","SETTINGS:default_kickstart",'<<inherit>>',"Kickstart",True,"Path to kickstart template",0,"str"],
++  ["autoinst","SETTINGS:default_kickstart",'<<inherit>>',"Kickstart",True,"Path to kickstart template",0,"str"],
+   ["kernel_options",{},'<<inherit>>',"Kernel Options",True,"Ex: selinux=permissive",0,"dict"],
+   ["kernel_options_post",{},'<<inherit>>',"Kernel Options (Post Install)",True,"Ex: clocksource=pit noapic",0,"dict"],
+   ["ks_meta",{},'<<inherit>>',"Kickstart Metadata",True,"Ex: dog=fang agent=86",0,"dict"],
+@@ -182,13 +183,13 @@ class Profile(item.Item):
+ 	Or filesystem path.  Minor checking of the URL is performed here.
+ 	"""
+         if kickstart == "" or kickstart is None:
+-            self.kickstart = ""
++            self.kickstart = self.autoinst = ""
+             return True
+         if kickstart == "<<inherit>>":
+-            self.kickstart = kickstart
++            self.kickstart = self.autoinst = kickstart
+             return True
+         if utils.find_kickstart(kickstart):
+-            self.kickstart = kickstart
++            self.kickstart = self.autoinst = kickstart
+             return True
+         raise CX(_("kickstart not found: %s") % kickstart)
+ 
