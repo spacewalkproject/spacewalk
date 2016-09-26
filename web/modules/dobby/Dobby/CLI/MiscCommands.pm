@@ -75,12 +75,22 @@ sub pg_version {
   return $pg_version{$key};
 }
 
+my %msgs =
+  ( OPEN => "The database is running and accepting connections.",
+    OFFLINE => "The database is offline.",
+    MOUNTED => "The database is running but not accepting connections.",
+    STOPPING => "The database is in the process of shutting down.",
+  );
+
 sub command_startstop {
   my $cli = shift;
   my $command = shift;
 
   my $d = new Dobby::DB;
   my $backend = PXT::Config->get('db_backend');
+
+  my $retval = 0;
+  my $state = 'NULL';
 
   if ($command eq 'start') {
     if ($d->instance_state ne 'OFFLINE') {
@@ -95,6 +105,17 @@ sub command_startstop {
         $d->listener_startup;
         print "done.\n";
       }
+      $state = $d->instance_state;
+      if ($state ne 'OPEN') {
+        $retval = 1;
+        print "Database failed to start.  ";
+        if (exists $msgs{$state}) {
+          print "$msgs{$state}\n";
+        }
+        else {
+          print "Unknown database state '$state'\n";
+        }
+      }
     }
   }
   elsif ($command eq 'stop') {
@@ -104,6 +125,10 @@ sub command_startstop {
     else {
       if ($backend eq 'postgresql') {
         system("/sbin/service", pg_version('service'), "stop");
+        $state = $d->instance_state;
+        if ($state ne 'OFFLINE') {
+          $retval = 1;
+        }
       } else {
         print "Shutting down database";
         $d->listener_shutdown;
@@ -114,15 +139,30 @@ sub command_startstop {
           sleep 1;
           print ".";
         }
-        my $s = ($d->instance_state eq 'OFFLINE') ? " done.\n" : " fail.\n";
-        print $s;
+        $state = $d->instance_state;
+        if ($state ne 'OFFLINE') {
+          $retval = 1;
+          print " fail.\n";
+        }
+        else {
+          print " done.\n";
+        }
+      }
+      if ($retval != 0) {
+        print "Database failed to stop.  ";
+        if (exists $msgs{$state}) {
+          print "$msgs{$state}\n";
+        }
+        else {
+          print "Unknown database state '$state'\n";
+        }
       }
     }
   }
   else {
     croak "Unknown command '$command' not in (start, stop)";
   }
-  return 0;
+  return $retval;
 }
 
 sub command_status {
@@ -130,13 +170,6 @@ sub command_status {
 
   my $d = new Dobby::DB;
   my $state = $d->instance_state;
-
-  my %msgs =
-    ( OPEN => "The database is running and accepting connections.",
-      OFFLINE => "The database is offline.",
-      MOUNTED => "The database is running but not accepting connections.",
-      STOPPING => "The database is in the process of shutting down.",
-    );
 
   if (exists $msgs{$state}) {
     print "$msgs{$state}\n";
