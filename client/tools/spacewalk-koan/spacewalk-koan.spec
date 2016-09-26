@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.6.0
+Version: 2.6.1
 Release: 1%{?dist}
 URL:            https://fedorahosted.org/spacewalk
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -46,6 +46,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Mon Sep 26 2016 Jan Dobes 2.6.1-1
+- embed_kickstart was renamed to embed_autoinst in koan upstream
+- Bumping package versions for 2.6.
+
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.2-1
 - updating copyright years
 
