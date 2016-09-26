@@ -1132,6 +1132,10 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
         while (i.hasNext()) {
             PackageListItem pli = (PackageListItem) i.next();
+            if (pli.getName().equals("dnf-plugin-spacewalk")) {
+                // found dnf-plugin-spacewalk - returning
+                return null;
+            }
             if (pli.getName().equals("yum-rhn-plugin")) {
                 // found yum-rhn-plugin - returning
                 return null;
