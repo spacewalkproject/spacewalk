@@ -31,6 +31,7 @@ Requires:       PyYAML
 Requires:       /usr/bin/gpg
 Requires:       spacewalk-setup-jabberd
 Requires:       spacewalk-base-minimal
+Requires:       spacewalk-base-minimal-config
 Requires:       curl
 
 %description
