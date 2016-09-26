@@ -168,13 +168,13 @@ def initiate(kickstart_host, base, extra_append, static_device=None, system_reco
         k.add_reinstall_entry = None
         k.kopts_override      = None
         k.use_kexec           = None
-        k.embed_kickstart     =  None
+        k.embed_kickstart = k.embed_autoinst =  None
         if hasattr(k, 'no_copy_default'):
             k.no_copy_default = 1
         else: # older koan
             k.grubby_copy_default = 0
         if static_device:
-            k.embed_kickstart = 1
+            k.embed_kickstart = k.embed_autoinst = 1
         k.run()
 
     except Exception:
