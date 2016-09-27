@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.34
+Version: 2.6.35
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Sep 27 2016 Jiri Dostal <jdostal@redhat.com> 2.6.35-1
+- 1378879 - The API system.upgradeEntitlement does not work
+
 * Mon Sep 26 2016 Jan Dobes 2.6.34-1
 - support initiating RHEL kickstart with dnf-plugin-spacewalk installed
 
