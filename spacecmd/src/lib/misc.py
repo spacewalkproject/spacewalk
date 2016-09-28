@@ -383,7 +383,7 @@ def do_login(self, args):
             logging.error('Could not write session file')
 
     # load the system/package/errata caches
-    self.load_caches(server)
+    self.load_caches(server, username)
 
     # keep track of who we are and who we're connected to
     self.current_user = username
@@ -682,8 +682,8 @@ def save_system_cache(self):
                self.system_cache_expire)
 
 
-def load_caches(self, server):
-    conf_dir = os.path.join(self.conf_dir, server)
+def load_caches(self, server, username):
+    conf_dir = os.path.join(self.conf_dir, server, username)
 
     try:
         if not os.path.isdir(conf_dir):
