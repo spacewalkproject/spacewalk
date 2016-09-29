@@ -203,10 +203,10 @@ if [ -f /usr/bin/spacewalk-sql ] ; then
         SELECT w.login as login,
                tz.display_name as timezone,
                ui.preferred_locale as locale
-         FROM web_contact w, rhntimezone tz, rhnuserinfo ui
-          WHERE ui.timezone_id = tz.id
-            AND ui.user_id = w.id
-          ORDER BY login;
+          FROM web_contact w
+               inner join rhnuserinfo ui on ui.user_id = w.id
+               left outer join rhntimezone tz on ui.timezone_id = tz.id
+        ORDER BY login;
     """
     echo "    * querying users timezone and localization preferences"
     echo $USERS_TZ_LC_SQL | /usr/bin/spacewalk-sql --select-mode - > $DIR/users-preferences
