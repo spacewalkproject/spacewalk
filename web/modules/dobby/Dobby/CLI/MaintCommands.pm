@@ -34,7 +34,7 @@ sub register_dobby_commands {
                       -description => "Gather statistics on database instance of Red Hat Satellite objects",
                       -handler => \&gather_stats);
   $cli->register_mode(-command => "shrink-segments",
-                      -description => "Shrink Oracle database segments of Red Hat Satellite",
+                      -description => "Shrink database segments of Red Hat Satellite",
                       -handler => \&shrink_segments);
 }
 
