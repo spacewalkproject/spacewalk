@@ -54,7 +54,6 @@ import java.util.regex.Pattern;
 
 /**
  * KickstartData - Class representation of the table RhnKSData.
- * @version $Rev: 1 $
  */
 public class KickstartData {
 
@@ -206,14 +205,6 @@ public class KickstartData {
         return this.active;
     }
 
-
-    /**
-     * Getter for active
-     * @return String to get
-     */
-    public boolean getActive() {
-        return isActive();
-    }
     /**
      * Setter for active
      * @param activeIn to set

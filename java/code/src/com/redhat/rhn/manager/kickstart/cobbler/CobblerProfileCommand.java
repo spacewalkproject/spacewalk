@@ -34,8 +34,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * CobblerProfileComand - class to contain logic to communicate with cobbler
- * @version $Rev$
+ * CobblerProfileComand - class to contain logic to communicate with cobbler.
  */
 public abstract class CobblerProfileCommand extends CobblerCommand {
 
@@ -126,7 +125,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
                     getVirtualizationType().getLabel());
         }
 
-        profile.setEnableMenu(ksData.getActive());
+        profile.setEnableMenu(ksData.isActive());
 
         profile.save();
     }

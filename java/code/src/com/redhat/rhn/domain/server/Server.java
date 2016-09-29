@@ -58,8 +58,6 @@ import java.util.TreeSet;
 
 /**
  * Server - Class representation of the table rhnServer.
- *
- * @version $Rev$
  */
 public class Server extends BaseDomainHelper implements Identifiable {
 
@@ -112,7 +110,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private Set<ServerHistoryEvent> history;
     private Set<InstalledPackage> packages;
     private ProxyInfo proxyInfo;
-    private Set<? extends ServerGroup> groups;
+    private Set<ServerGroup> groups;
     private Set<Capability> capabilities;
     private CrashCount crashCount;
     private Set<Crash> crashes;
@@ -139,7 +137,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * @return Returns the groups.
      */
-    protected Set<? extends ServerGroup> getGroups() {
+    protected Set<ServerGroup> getGroups() {
         return groups;
     }
 
@@ -147,7 +145,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * @param groupsIn The groups to set.
      */
-    protected void setGroups(Set<? extends ServerGroup> groupsIn) {
+    protected void setGroups(Set<ServerGroup> groupsIn) {
         groups = groupsIn;
     }
 

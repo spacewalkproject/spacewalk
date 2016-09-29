@@ -25,7 +25,6 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.Set;
 
-
 public class ConfigUploadActionTest extends RhnBaseTestCase {
 
     public void testLookup() throws Exception {
@@ -40,7 +39,8 @@ public class ConfigUploadActionTest extends RhnBaseTestCase {
         assertTrue(lookedUp instanceof ConfigUploadAction);
 
         //see that we have an expected collection
-        Set set = ((ConfigUploadAction)lookedUp).getRhnActionConfigFileName();
+        Set<ConfigFileNameAssociation> set =
+                ((ConfigUploadAction) lookedUp).getConfigFileNameAssociations();
         assertNotNull(set);
         assertEquals(2, set.size());
 
@@ -49,5 +49,4 @@ public class ConfigUploadActionTest extends RhnBaseTestCase {
         assertTrue(o instanceof ConfigFileNameAssociation);
         assertEquals(((ConfigFileNameAssociation)o).getParentAction(), lookedUp);
     }
-
 }

@@ -58,17 +58,23 @@ Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 %if 0%{?fedora}
 Requires: classpathx-jaf
-Requires: hibernate3 >= 3.6.10
-Requires: hibernate3-c3p0 >= 3.6.10
-Requires: hibernate3-ehcache >= 3.6.10
+Requires: hibernate5
+Requires: hibernate-commons-annotations
+Requires: hibernate-jpa-2.1-api
+Requires: ehcache-core >= 2.10.1
+Requires: classmate
 Requires: javassist
-Requires: java-devel >= 1:1.7.0
-BuildRequires: ehcache-core
-BuildRequires: hibernate3 >= 0:3.6.10
-BuildRequires: hibernate3-c3p0 >= 3.6.10
-BuildRequires: hibernate3-ehcache >= 3.6.10
-BuildRequires: javassist
-BuildRequires: java-devel >= 1:1.7.0
+Requires: jboss-logging
+Requires: statistics
+Requires: java-devel >= 1:1.8.0
+BuildRequires: hibernate5
+BuildRequires: hibernate-commons-annotations
+BuildRequires: hibernate-jpa-2.1-api
+BuildRequires: ehcache-core >= 2.10.1
+BuildRequires: classmate
+BuildRequires: jboss-logging
+BuildRequires: statistics
+BuildRequires: java-devel >= 1:1.8.0
 %else
 Requires: hibernate3 = 0:3.2.4
 Requires: java-1.7.0-openjdk-devel
@@ -482,15 +488,18 @@ echo "wrapper.java.classpath.28=/usr/share/java/log4j-1.jar" >> conf/default/rhn
 echo "wrapper.java.classpath.28=/usr/share/java/log4j.jar" >> conf/default/rhn_taskomatic_daemon.conf
 %endif
 %if 0%{?fedora}
+echo "hibernate.id.new_generator_mappings = false" >> conf/default/rhn_hibernate.conf
 echo "wrapper.java.classpath.49=/usr/share/java/hibernate3/hibernate-core-3.jar
-wrapper.java.classpath.61=/usr/share/java/hibernate-jpa-2.0-api.jar
-wrapper.java.classpath.62=/usr/share/java/hibernate3/hibernate-ehcache-3.jar
-wrapper.java.classpath.63=/usr/share/java/hibernate3/hibernate-c3p0-3.jar
+wrapper.java.classpath.61=/usr/share/java/hibernate-jpa-2.1-api.jar
+wrapper.java.classpath.62=/usr/share/java/hibernate3/hibernate-ehcache-5.jar
+wrapper.java.classpath.63=/usr/share/java/hibernate3/hibernate-c3p0-5.jar
 wrapper.java.classpath.64=/usr/share/java/hibernate*/hibernate-commons-annotations.jar
 wrapper.java.classpath.65=/usr/share/java/slf4j/api.jar
 wrapper.java.classpath.66=/usr/share/java/jboss-logging.jar
 wrapper.java.classpath.67=/usr/share/java/javassist.jar
-wrapper.java.classpath.68=/usr/share/java/ehcache-core.jar" >> conf/default/rhn_taskomatic_daemon.conf
+wrapper.java.classpath.68=/usr/share/java/ehcache-core.jar
+wrapper.java.classpath.69=/usr/share/java/classmate.jar
+wrapper.java.classpath.70=/usr/share/java/statistics.jar" >> conf/default/rhn_taskomatic_daemon.conf
 %else
 echo "hibernate.cache.provider_class=org.hibernate.cache.OSCacheProvider" >> conf/default/rhn_hibernate.conf
 echo "wrapper.java.classpath.49=/usr/share/java/hibernate3.jar" >> conf/default/rhn_taskomatic_daemon.conf
@@ -627,11 +636,10 @@ fi
 %{jardir}/concurrent*.jar
 %{jardir}/dom4j.jar
 %{jardir}/dwr.jar
-%{jardir}/hibernate3*
 %if 0%{?fedora}
 %{jardir}/ehcache-core.jar
 %{jardir}/*_hibernate-commons-annotations.jar
-%{jardir}/hibernate-jpa-2.0-api*.jar
+%{jardir}/hibernate-jpa-2.1-api*.jar
 %{jardir}/javassist.jar
 %{jardir}/slf4j_api.jar
 %{jardir}/slf4j_log4j12*.jar
@@ -639,6 +647,11 @@ fi
 %{_javadir}/mchange-commons.jar
 %{_javadir}/jboss-logging.jar
 %{jardir}/*jboss-logging.jar
+%{jardir}/hibernate-core-5.jar
+%{jardir}/hibernate-c3p0-5.jar
+%{jardir}/hibernate-ehcache-5.jar
+%{jardir}/classmate.jar
+%{jardir}/statistics.jar
 
 %if 0%{?fedora} >= 21
 %{_javadir}/c3p0.jar
@@ -10157,4 +10170,3 @@ Feature: Support channel-permissions on ISS
 - 576907 - making same display changes for system sync (tlestach@redhat.com)
 - Move systemlogs directory out of /var/satellite (joshua.roys@gtri.gatech.edu)
 - 580227 - displaying dates in the same format (tlestach@redhat.com)
-

@@ -22,7 +22,6 @@ import redstone.xmlrpc.XmlRpcInvocationInterceptor;
 
 /**
  * TaskoXmlRpcInvocationInterceptor
- * @version $Rev$
  */
 public class TaskoXmlRpcInvocationInterceptor implements
         XmlRpcInvocationInterceptor {
@@ -31,9 +30,6 @@ public class TaskoXmlRpcInvocationInterceptor implements
      * {@inheritDoc}
      */
     public Object after(XmlRpcInvocation invocation, Object returnValue) {
-        if (HibernateFactory.getSession().getTransaction().isActive()) {
-            HibernateFactory.commitTransaction();
-        }
         HibernateFactory.closeSession();
         return returnValue;
     }
@@ -52,5 +48,4 @@ public class TaskoXmlRpcInvocationInterceptor implements
         HibernateFactory.rollbackTransaction();
         HibernateFactory.closeSession();
     }
-
 }

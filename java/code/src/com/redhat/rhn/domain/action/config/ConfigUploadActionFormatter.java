@@ -26,11 +26,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-
-/**
- * ConfigUploadActionFormatter
- * @version $Rev$
- */
 public class ConfigUploadActionFormatter extends ActionFormatter {
 
     /**
@@ -57,8 +52,8 @@ public class ConfigUploadActionFormatter extends ActionFormatter {
          * relationships, it can't happen scheduled from the web UI,
          * and these really are *just* notes.
          */
-        displayChannels(buffy, action.getRhnActionConfigChannel());
-        displayFileNames(buffy, action.getRhnActionConfigFileName());
+        displayChannels(buffy, action.getConfigChannelAssociations());
+        displayFileNames(buffy, action.getConfigFileNameAssociations());
         return buffy.toString();
     }
 
@@ -137,5 +132,4 @@ public class ConfigUploadActionFormatter extends ActionFormatter {
             }
         }
     }
-
 }

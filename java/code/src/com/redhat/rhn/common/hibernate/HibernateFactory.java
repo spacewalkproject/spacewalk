@@ -22,13 +22,13 @@ import com.redhat.rhn.common.db.datasource.SelectMode;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.hibernate.EntityMode;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
 import org.hibernate.MappingException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.metadata.ClassMetadata;
 
 import java.io.ByteArrayOutputStream;
@@ -53,8 +53,6 @@ import java.util.Set;
  * <p>
  * Abstract methods define what the subclass must implement to determine what is
  * specific to that Factory's instance.
- *
- * @version $Rev$
  */
 public abstract class HibernateFactory {
 
@@ -423,7 +421,7 @@ public abstract class HibernateFactory {
     public static Object reload(Object obj) throws HibernateException {
         // assertNotNull(obj);
         ClassMetadata cmd = connectionManager.getMetadata(obj);
-        Serializable id = cmd.getIdentifier(obj, EntityMode.POJO);
+        Serializable id = cmd.getIdentifier(obj, (SessionImplementor) getSession());
         Session session = getSession();
         session.flush();
         session.evict(obj);
@@ -562,7 +560,7 @@ public abstract class HibernateFactory {
         if (data.length == 0) {
             return null;
         }
-        return Hibernate.createBlob(data);
+        return Hibernate.getLobCreator(getSession()).createBlob(data);
 
     }
 

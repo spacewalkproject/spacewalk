@@ -73,7 +73,6 @@ import com.redhat.rhn.manager.system.IncompatibleArchException;
 
 /**
  * PackageManager
- * @version $Rev$
  */
 public class PackageManager extends BaseManager {
     private static final Logger LOG = Logger.getLogger(PackageManager.class);
@@ -1420,9 +1419,6 @@ public class PackageManager extends BaseManager {
         }
         catch (Exception e) {
             HibernateFactory.rollbackTransaction();
-        }
-        finally {
-            HibernateFactory.closeSession();
         }
     }
 

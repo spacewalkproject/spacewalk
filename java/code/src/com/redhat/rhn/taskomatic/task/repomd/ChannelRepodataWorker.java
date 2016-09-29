@@ -32,10 +32,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 /**
- *
- * @version $Rev $
- *
+ * Generates metadata files for channels.
  */
 public class ChannelRepodataWorker implements QueueWorker {
 
@@ -115,7 +114,6 @@ public class ChannelRepodataWorker implements QueueWorker {
                 }
 
                 dequeueChannel();
-                HibernateFactory.commitTransaction();
             }
             else {
                 HibernateFactory.commitTransaction();
@@ -239,9 +237,6 @@ public class ChannelRepodataWorker implements QueueWorker {
                     channelLabelToProcess, e);
             HibernateFactory.rollbackTransaction();
             return;
-        }
-        finally {
-            HibernateFactory.closeSession();
         }
     }
 }

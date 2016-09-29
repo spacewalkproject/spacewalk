@@ -24,7 +24,6 @@ import com.redhat.rhn.domain.test.TestInterface;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -36,9 +35,6 @@ import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-/*
- * $Rev$
- */
 public class TestFactoryWrapperTest extends RhnBaseTestCase {
     private static Logger log = Logger.getLogger(TestFactoryWrapperTest.class);
 
@@ -164,48 +160,45 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
     }
 
     protected static void oneTimeSetup() throws Exception {
-        Connection c = null;
-        Statement stmt = null;
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            c = session.connection();
-            stmt = c.createStatement();
-            stmt.executeQuery("select 1 from persist_test");
-        }
-        catch (SQLException e) {
-            // let's clean up anything that MAY have been left
-            // over
-            forceQuery(c, "drop table persist_test");
-            forceQuery(c, "drop sequence persist_sequence");
+        HibernateFactory.getSession().doWork(connection -> {
+            Statement statement = null;
+            try {
+                statement = connection.createStatement();
+                statement.executeQuery("select 1 from persist_test");
+            }
+            catch (SQLException e) {
+                // let's clean up anything that MAY have been left
+                // over
+                forceQuery(connection, "drop table persist_test");
+                forceQuery(connection, "drop sequence persist_sequence");
 
-            // Couldn't select 1, so the table didn't exist, create it
-            if (ConfigDefaults.get().isOracle()) {
-                stmt.execute("create sequence persist_sequence");
-                stmt.execute("create table persist_test " +
-                        "( " +
-                        "  foobar VarChar2(32)," +
-                        "  test_column VarChar2(5)," +
-                        "  pin    number, " +
-                        "  hidden VarChar(32), " +
-                        "  id     number" +
-                        "         constraint persist_test_pk primary key," +
-                        "  created timestamp with local time zone" +
-                        ")");
-                stmt.execute("insert into persist_test (foobar, id) " +
-                        "values ('Blarg', persist_sequence.nextval)");
-                stmt.execute("insert into persist_test (foobar, id) " +
-                        "values ('duplicate', persist_sequence.nextval)");
-                stmt.execute("insert into persist_test (foobar, id) " +
-                        "values ('duplicate', persist_sequence.nextval)");
-                stmt.execute("insert into persist_test (foobar, hidden, id) " +
-                        "values ('duplicate', 'xxxxx', persist_sequence.nextval)");
-
+                // Couldn't select 1, so the table didn't exist, create it
+                if (ConfigDefaults.get().isOracle()) {
+                    statement.execute("create sequence persist_sequence");
+                    statement.execute("create table persist_test " +
+                            "( " +
+                            "  foobar VarChar2(32)," +
+                            "  test_column VarChar2(5)," +
+                            "  pin    number, " +
+                            "  hidden VarChar(32), " +
+                            "  id     number" +
+                            "         constraint persist_test_pk primary key," +
+                            "  created timestamp with local time zone" +
+                            ")"
+                    );
+                    statement.execute("insert into persist_test (foobar, id) " +
+                            "values ('Blarg', persist_sequence.nextval)");
+                    statement.execute("insert into persist_test (foobar, id) " +
+                            "values ('duplicate', persist_sequence.nextval)");
+                    statement.execute("insert into persist_test (foobar, id) " +
+                            "values ('duplicate', persist_sequence.nextval)");
+                    statement.execute("insert into persist_test (foobar, hidden, id) " +
+                            "values ('duplicate', 'xxxxx', persist_sequence.nextval)");
             }
             else {
-                c.rollback();
-                stmt.execute("create sequence persist_sequence");
-                stmt.execute("create table persist_test " +
+                connection.rollback();
+                statement.execute("create sequence persist_sequence");
+                statement.execute("create table persist_test " +
                         "( " +
                         "  foobar VarChar(32)," +
                         "  test_column VarChar(5)," +
@@ -214,40 +207,39 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
                         "  id     numeric" +
                         "         constraint persist_test_pk primary key," +
                         "  created timestamp with time zone" +
-                        ")");
-                stmt.execute("insert into persist_test (foobar, id) " +
+                        ")"
+                );
+                statement.execute("insert into persist_test (foobar, id) " +
                         "values ('Blarg', nextval('persist_sequence'))");
-                stmt.execute("insert into persist_test (foobar, id) " +
+                statement.execute("insert into persist_test (foobar, id) " +
                         "values ('duplicate', nextval('persist_sequence'))");
-                stmt.execute("insert into persist_test (foobar, id) " +
+                statement.execute("insert into persist_test (foobar, id) " +
                         "values ('duplicate', nextval('persist_sequence'))");
-                stmt.execute("insert into persist_test (foobar, hidden, id) " +
+                statement.execute("insert into persist_test (foobar, hidden, id) " +
                         "values ('duplicate', 'xxxxx', nextval('persist_sequence'))");
-            }
+                }
 
-            c.commit();
-        }
-        finally {
-            HibernateHelper.cleanupDB(stmt);
-        }
+                connection.commit();
+            }
+            finally {
+                HibernateHelper.cleanupDB(statement);
+            }
+        });
     }
 
     protected static void oneTimeTeardown() throws Exception {
-
-        Connection c = null;
-        Statement stmt = null;
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            c = session.connection();
-            stmt = c.createStatement();
-            // Couldn't select 1, so the table didn't exist, create it
-            forceQuery(c, "drop sequence persist_sequence");
-            forceQuery(c, "drop table persist_test");
-        }
-        finally {
-            HibernateHelper.cleanupDB(stmt);
-        }
+        HibernateFactory.getSession().doWork(connection -> {
+            Statement statement = null;
+            try {
+                statement = connection.createStatement();
+                // Couldn't select 1, so the table didn't exist, create it
+                forceQuery(connection, "drop sequence persist_sequence");
+                forceQuery(connection, "drop table persist_test");
+            }
+            finally {
+                HibernateHelper.cleanupDB(statement);
+            }
+        });
     }
 
     private static void forceQuery(Connection c, String query) {

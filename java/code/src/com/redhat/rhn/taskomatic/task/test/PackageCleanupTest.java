@@ -19,32 +19,20 @@ import com.redhat.rhn.taskomatic.task.PackageCleanup;
 import com.redhat.rhn.taskomatic.task.RhnJob;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
-import org.hibernate.Session;
-
 import java.io.File;
 import java.sql.Statement;
 
 public class PackageCleanupTest extends RhnBaseTestCase {
 
-
-
     protected void setUp() throws Exception {
-        Session session = HibernateFactory.getSession();
-        StringBuffer sql = new StringBuffer();
-        sql.append("insert into rhnPackageFileDeleteQueue (path) ");
-        sql.append("values ('test-pkg-delete-me.rpm')");
-        Statement stmt = null;
-        try {
-            stmt = session.connection().createStatement();
-            stmt.execute(sql.toString());
-        }
-        finally {
-            if (stmt != null) {
-                stmt.close();
+        HibernateFactory.getSession().doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                statement.execute("INSERT INTO rhnPackageFileDeleteQueue(path) " +
+                        "VALUES ('test-pkg-delete-me.rpm')"
+                );
             }
-        }
-        File f = new File("/tmp/test-pkg-delete-me.rpm");
-        f.createNewFile();
+        });
+        new File("/tmp/test-pkg-delete-me.rpm").createNewFile();
     }
 
     public void testPackageCleanup() throws Exception {

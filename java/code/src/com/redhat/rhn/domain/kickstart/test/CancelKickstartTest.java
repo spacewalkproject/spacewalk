@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.domain.kickstart.test;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.channel.Channel;
@@ -30,7 +29,6 @@ import com.redhat.rhn.testing.TestUtils;
 
 /**
  * CancelKickstartTest - test to verify that we cancel kickstarts and the actions correctly.
- * @version $Rev$
  */
 public class CancelKickstartTest extends BaseTestCaseWithUser {
 
@@ -49,12 +47,9 @@ public class CancelKickstartTest extends BaseTestCaseWithUser {
         cancelsession.markFailed("failed : " + TestUtils.randomString());
         KickstartFactory.saveKickstartSession(cancelsession);
         flushAndEvict(cancelsession);
-        flushAndEvict(cancelsession.getAction());
-        HibernateFactory.getSession().flush();
         Action lookupreload = ActionFactory.lookupById(aid1);
         lookupreload = (Action) reload(lookupreload);
         assertTrue(lookupreload.getServerActions() == null ||
                 lookupreload.getServerActions().size() == 0);
     }
-
 }

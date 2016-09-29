@@ -15,9 +15,9 @@
 package com.redhat.rhn.common.hibernate;
 
 import org.hibernate.HibernateException;
-import org.hibernate.collection.PersistentCollection;
-import org.hibernate.collection.PersistentList;
-import org.hibernate.engine.SessionImplementor;
+import org.hibernate.collection.internal.PersistentList;
+import org.hibernate.collection.spi.PersistentCollection;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.collection.CollectionPersister;
 import org.hibernate.usertype.UserCollectionType;
 
@@ -60,17 +60,14 @@ import java.util.Map;
  * a whole was unique we wouldn't have had to deal with this......
  * but positions can be null twice for the same server, so we
  * cannot enforce that constraint..
- *
- *
- * ForceRecreationListType
- * @version $Rev$
  */
 public class ForceRecreationListType implements UserCollectionType {
 
     /**
      * {@inheritDoc}
      */
-    public PersistentCollection instantiate(SessionImplementor session,
+    @Override
+    public PersistentCollection instantiate(SharedSessionContractImplementor session,
             CollectionPersister persister) throws HibernateException {
         return new ForceRecreationList(session);
     }
@@ -78,7 +75,8 @@ public class ForceRecreationListType implements UserCollectionType {
     /**
      * {@inheritDoc}
      */
-    public PersistentCollection wrap(SessionImplementor session,
+    @Override
+    public PersistentCollection wrap(SharedSessionContractImplementor session,
             Object collection) {
         return new ForceRecreationList(session, (List) collection);
 
@@ -88,6 +86,7 @@ public class ForceRecreationListType implements UserCollectionType {
      *
      * {@inheritDoc}
      */
+    @Override
     public Iterator getElementsIterator(Object collection) {
         return ((List) collection).iterator();
     }
@@ -96,6 +95,7 @@ public class ForceRecreationListType implements UserCollectionType {
      *
      * {@inheritDoc}
      */
+    @Override
     public boolean contains(Object collection, Object entity) {
         return ((List) collection).contains(entity);
     }
@@ -104,6 +104,7 @@ public class ForceRecreationListType implements UserCollectionType {
      *
      * {@inheritDoc}
      */
+    @Override
     public Object indexOf(Object collection, Object entity) {
         int l = ((List) collection).indexOf(entity);
         if (l < 0) {
@@ -116,9 +117,10 @@ public class ForceRecreationListType implements UserCollectionType {
      *
      * {@inheritDoc}
      */
+    @Override
     public Object replaceElements(Object original, Object target,
             CollectionPersister persister, Object owner, Map copyCache,
-            SessionImplementor session) throws HibernateException {
+            SharedSessionContractImplementor session) throws HibernateException {
         List result = (List) target;
         result.clear();
         result.addAll((Collection) original);
@@ -131,6 +133,7 @@ public class ForceRecreationListType implements UserCollectionType {
      * @param anticipatedSize sample size
      * @return an empty  list.
      */
+    @Override
     public Object instantiate(int anticipatedSize) {
         if (anticipatedSize > 0) {
             return new ArrayList(anticipatedSize);
@@ -163,7 +166,7 @@ public class ForceRecreationListType implements UserCollectionType {
          *
          * @param session session implementation
          */
-        public ForceRecreationList(SessionImplementor session) {
+        ForceRecreationList(SharedSessionContractImplementor session) {
             super(session);
         }
 
@@ -171,7 +174,7 @@ public class ForceRecreationListType implements UserCollectionType {
          * @param session session implementation
          * @param list  list to persist
          */
-        public ForceRecreationList(SessionImplementor session, List list) {
+        ForceRecreationList(SharedSessionContractImplementor session, List list) {
             super(session, list);
         }
 
@@ -182,6 +185,5 @@ public class ForceRecreationListType implements UserCollectionType {
         public boolean needsRecreate(CollectionPersister persister) {
             return true;
         }
-
     }
 }

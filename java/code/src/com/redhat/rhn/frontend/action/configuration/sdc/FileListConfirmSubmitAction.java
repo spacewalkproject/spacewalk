@@ -53,10 +53,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  * ImportFileConfirmSubmitAction, for sdc configuration
- * @version $Rev$
  */
 public class FileListConfirmSubmitAction extends RhnListDispatchAction {
 
@@ -114,7 +112,7 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
 
         //Create a success message
         if (upload != null) {
-            createSuccessMessage(upload, upload.getRhnActionConfigFileName().size(),
+            createSuccessMessage(upload, upload.getConfigFileNameAssociations().size(),
                     "config.import.success", request, null);
         }
 
@@ -250,5 +248,4 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                 "sid", sid.toString());
     }
-
 }

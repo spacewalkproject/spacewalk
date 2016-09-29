@@ -25,7 +25,6 @@ import com.redhat.rhn.testing.BaseTestCaseWithUser;
 
 import java.util.List;
 
-
 public class UpgradeCommandTest extends BaseTestCaseWithUser {
 
     public void testUpgradeProfiles() throws Exception {
@@ -46,7 +45,7 @@ public class UpgradeCommandTest extends BaseTestCaseWithUser {
         commitHappened();
 
         UpgradeCommand cmd = new UpgradeCommand();
-        cmd.store();
+        cmd.upgrade();
 
         // Check to see if the upgrade command created the default profile.
         ksession =

@@ -20,33 +20,10 @@ import com.redhat.rhn.domain.session.WebSessionFactory;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.TransactionException;
 
-/**
- * UnnestedTransactionFactoryTest
- * @version $Rev$
- */
 public class NestedTransactionFactoryTest extends RhnBaseTestCase {
 
     private static final long EXP_TIME = 60 * 60 * 1000;
-
-
-    public void aTestNesting() throws HibernateException {
-        //System.out.println("XXX BEGIN testNesting");
-        Session session = HibernateFactory.getSession();
-        try {
-            //System.out.println("XXX beginTransaction1");
-            session.beginTransaction();
-            //System.out.println("XXX END testNesting, fail");
-            fail("Created nested transaction, which is verboten");
-        }
-        catch (TransactionException e) {
-            // Expected
-            //System.out.println("XXX expected transaction");
-        }
-        //System.out.println("XXX END testNesting");
-    }
 
     public void testRollback() throws HibernateException {
         WebSession s = createWebSession();
@@ -107,5 +84,4 @@ public class NestedTransactionFactoryTest extends RhnBaseTestCase {
         WebSessionFactory.save(s);
         return s;
     }
-
 }

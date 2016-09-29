@@ -27,6 +27,7 @@ import com.redhat.rhn.common.util.StringUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.jdbc.ReturningWork;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
@@ -49,8 +50,6 @@ import java.util.StringTokenizer;
 
 /**
  * A cached set of query/elaborator strings and the parameterMap hash maps.
- *
- * @version $Rev$
  */
 public class CachedStatement implements Serializable {
 
@@ -282,7 +281,6 @@ public class CachedStatement implements Serializable {
         return res.intValue();
     }
 
-
     DataResult<Object> execute(Map<String, Object> parameters, Mode mode) {
         return execute(parameters, defaultSort, sortOrder, mode);
     }
@@ -367,6 +365,7 @@ public class CachedStatement implements Serializable {
         return elaborated;
     }
 
+    @SuppressWarnings("unchecked")
     private Collection<Object> executeElaboratorBatch(List<Object> resultList,
             Mode mode,
             Map<String, Object> parametersIn) {
@@ -381,8 +380,8 @@ public class CachedStatement implements Serializable {
 
         // If we aren't actually operating on a list, just elaborate.
         if (origQuery.indexOf("%s") == -1) {
-            return (DataResult<Object>) execute(query, qMap, parameters,
-                    mode, resultList);
+            return (DataResult<Object>) executeChecking(query, qMap, parameters, mode,
+                    resultList);
         }
 
         StringBuilder bindParams = new StringBuilder(":l0");
@@ -440,40 +439,26 @@ public class CachedStatement implements Serializable {
 
     private Object execute(String sql, Map<String, List<Integer>> parameterMap,
             Map<String, Object> parameters, Mode mode) {
-        return execute(sql, parameterMap, parameters, mode, null);
+        return executeChecking(sql, parameterMap, parameters, mode, null);
     }
 
-    // This isn't great, but I want to return either an integer count of the
-    // number of rows updated, or the DataResult.  That can only be done by
-    // returning an Object and letting the caller do the casting for us.
-    private Object execute(String sql, Map<String, List<Integer>> parameterMap,
+    /**
+     * Prepares and executes a SQL statements with parameters, handling
+     * Exceptions appropriately.
+     * @param sql SQL string to be prepared and executed
+     * @param parameterMap The Map returned setup by replaceBindParams
+     * @param parameters The Map returned setup by replaceBindParams
+     * @param mode Mode for selection queries
+     * @param dr Data result list or null
+     * @return either an integer count of the number of rows updated, or the
+     *         DataResult. Casting to int or DataResult is caller's
+     *         responsibility
+     */
+    private Object executeChecking(String sql, Map<String, List<Integer>> parameterMap,
             Map<String, Object> parameters, Mode mode, List<Object> dr) {
-        storeForRestart(sql, parameterMap, parameters, mode, dr);
-        PreparedStatement ps = null;
+
         try {
-            Connection conn = stealConnection();
-            ps = conn.prepareStatement(sql);
-
-            // allow limiting the results for better performance.
-            if (mode != null && mode instanceof SelectMode) {
-                ps.setMaxRows(((SelectMode)mode).getMaxRows());
-            }
-
-            if (log.isDebugEnabled()) {
-                log.debug("execute() - Executing: " + sql);
-                log.debug("execute() - With: " + parameters);
-            }
-
-            boolean returnType = NamedPreparedStatement.execute(ps,
-                    parameterMap,
-                    setupParamMap(parameters));
-            if (log.isDebugEnabled()) {
-                log.debug("execute() - Return type: " + returnType);
-            }
-            if (returnType) {
-                return processResultSet(ps.getResultSet(), (SelectMode)mode, dr);
-            }
-            return new Integer(ps.getUpdateCount());
+            return execute(sql, parameterMap, parameters, mode, dr);
         }
         catch (SQLException e) {
             throw SqlExceptionTranslator.sqlException(e);
@@ -489,9 +474,67 @@ public class CachedStatement implements Serializable {
             log.error("Error while processing cached statement sql: " + sql, e);
             throw e;
         }
-        finally {
-            HibernateHelper.cleanupDB(ps);
+    }
+
+    /**
+     * Executes a prepared SQL statement with parameters.
+     * @param sql SQL string to be prepared and executed
+     * @param parameterMap The Map returned setup by replaceBindParams
+     * @param parameters The Map returned setup by replaceBindParams
+     * @param mode Mode for selection queries
+     * @param dr Data result list or null
+     * @return either an integer count of the number of rows updated, or the
+     *         DataResult. Casting to int or DataResult is caller's
+     *         responsibility
+     * @throws SQLException
+     */
+    private Object execute(String sql, Map<String, List<Integer>> parameterMap,
+            Map<String, Object> parameters, Mode mode,
+            List<Object> dr) throws SQLException {
+        if (log.isDebugEnabled()) {
+            log.debug("execute() - Executing: " + sql);
+            log.debug("execute() - With: " + parameters);
         }
+
+        storeForRestart(sql, parameterMap, parameters, mode, dr);
+
+        return doWithStolenConnection(connection -> {
+            PreparedStatement ps = null;
+            try {
+                ps = prepareStatement(connection, sql, mode);
+                boolean returnType = NamedPreparedStatement.execute(ps, parameterMap,
+                        setupParamMap(parameters));
+                if (log.isDebugEnabled()) {
+                    log.debug("execute() - Return type: " + returnType);
+                }
+                if (returnType) {
+                    return processResultSet(ps.getResultSet(), (SelectMode) mode, dr);
+                }
+                return new Integer(ps.getUpdateCount());
+            }
+            finally {
+                HibernateHelper.cleanupDB(ps);
+            }
+        });
+    }
+
+    /**
+     * Executes a prepared SQL statement with parameters.
+     * @param connection JDBC connection object in which create the statement
+     * @param sql SQL string to be prepared and executed
+     * @param mode Mode for selection queries
+     * @return the prepared statement
+     * @throws SQLException
+     */
+    private PreparedStatement prepareStatement(Connection connection, String sql, Mode mode)
+        throws SQLException, HibernateException {
+        PreparedStatement ps = connection.prepareStatement(sql);
+
+        // allow limiting the results for better performance.
+        if (mode != null && mode instanceof SelectMode) {
+            ps.setMaxRows(((SelectMode) mode).getMaxRows());
+        }
+        return ps;
     }
 
     private Map<String, Object> processOutputParams(CallableStatement cs,
@@ -518,35 +561,30 @@ public class CachedStatement implements Serializable {
 
     Map<String, Object> executeCallable(Map<String, Object> inParams,
             Map<String, Integer> outParams) {
-        CallableStatement cs = null;
-        try {
-            Connection conn = stealConnection();
-            cs = conn.prepareCall(query);
-
-            // Do we need to check the return code?  The original code in
-            // ConnInvocHandler didn't, but I'm not sure that is correct. rbb
-            NamedPreparedStatement.execute(cs, qMap, inParams,
-                    outParams);
-            return processOutputParams(cs, outParams);
-        }
-        catch (SQLException e) {
-            throw SqlExceptionTranslator.sqlException(e);
-        }
-        catch (HibernateException he) {
-            throw new
-            HibernateRuntimeException(
-                    "HibernateException executing CachedStatement", he);
-
-        }
-        catch (RuntimeException e) {
-            if (e.getCause() instanceof SQLException) {
-                throw SqlExceptionTranslator.sqlException((SQLException) e.getCause());
+        return doWithStolenConnection(connection -> {
+            CallableStatement cs = null;
+            try {
+                cs = connection.prepareCall(query);
+                NamedPreparedStatement.execute(cs, qMap, inParams, outParams);
+                return processOutputParams(cs, outParams);
             }
-            throw e;
-        }
-        finally {
-            HibernateHelper.cleanupDB(cs);
-        }
+            catch (SQLException e) {
+                throw SqlExceptionTranslator.sqlException(e);
+            }
+            catch (HibernateException he) {
+                throw new HibernateRuntimeException(
+                        "HibernateException executing CachedStatement", he);
+            }
+            catch (RuntimeException e) {
+                if (e.getCause() instanceof SQLException) {
+                    throw SqlExceptionTranslator.sqlException((SQLException) e.getCause());
+                }
+                throw e;
+            }
+            finally {
+                HibernateHelper.cleanupDB(cs);
+            }
+        });
     }
 
     private DataResult<Object> processResultSet(ResultSet rs, SelectMode mode,
@@ -879,19 +917,14 @@ public class CachedStatement implements Serializable {
     }
 
     /**
-     * Get the DB connection from Hibernate. Since we will use it
-     * to run queries/stored procs, this will also flush the session
-     * to ensure that stored procs will see all the in-memory changes
+     * Get the DB connection from Hibernate and run some work on it. Since we
+     * will use it to run queries/stored procs, this will also flush the session
+     * to ensure that stored procs will see changes made in the Hibenate cache
      */
-    private Connection stealConnection() throws HibernateException {
-        Connection conn;
+    private <T> T doWithStolenConnection(ReturningWork<T> work) throws HibernateException {
         Session session = HibernateFactory.getSession();
-        // We are doing stuff behind Hibernate's back and
-        // need to make sure the DB reflects all changes
-        // made in memory
         session.flush();
-        conn = session.connection();
-        return conn;
+        return session.doReturningWork(work);
     }
 
     private void storeForRestart(String sql,
@@ -905,9 +938,8 @@ public class CachedStatement implements Serializable {
      * @return what the previous query returned or null.
      */
     public Object restartQuery() {
-        return restartData == null ? null : execute(restartData.getSql(),
+        return restartData == null ? null : executeChecking(restartData.getSql(),
                 restartData.getParameterMap(), restartData.getParameters(),
                 restartData.getMode(), restartData.getDr());
     }
 }
-

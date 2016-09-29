@@ -21,9 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Utility class which encapsulates the logic necessary to dispatch actions
- *
- * @version $Rev $
+ * Utility class which encapsulates the logic necessary to dispatch actions.
  */
 class ActionExecutor implements Runnable {
 
@@ -57,8 +55,7 @@ class ActionExecutor implements Runnable {
                     while (evtdb.getTransaction().isActive()) {
                         if (LOG.isDebugEnabled()) {
                             LOG.debug("DB message, waiting for txn: active: " +
-                                    evtdb.getTransaction().isActive() + " commited: " +
-                                    evtdb.getTransaction().wasCommitted());
+                                    evtdb.getTransaction().isActive());
                         }
                         Thread.sleep(10);
                     }
