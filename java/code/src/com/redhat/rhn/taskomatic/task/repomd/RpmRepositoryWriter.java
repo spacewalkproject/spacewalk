@@ -35,6 +35,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.file.Files;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -424,9 +425,6 @@ public class RpmRepositoryWriter extends RepositoryWriter {
         File updateinfo = null;
         if (doUpdateinfo) {
             updateinfo = new File(prefix + UPDATEINFO_FILE);
-        }
-
-        if (doUpdateinfo) {
             updateinfo.setLastModified(lastModified);
         }
 
@@ -435,8 +433,17 @@ public class RpmRepositoryWriter extends RepositoryWriter {
         other.setLastModified(lastModified);
         repomd.setLastModified(lastModified);
 
+        File renamedupdateinfo = new File(prefix + "updateinfo.xml.gz");
         if (doUpdateinfo) {
-            updateinfo.renameTo(new File(prefix + "updateinfo.xml.gz"));
+            updateinfo.renameTo(renamedupdateinfo);
+        }
+        else {
+            try {
+                Files.deleteIfExists(renamedupdateinfo.toPath());
+            }
+            catch (IOException e) {
+                throw new RepomdRuntimeException(e);
+            }
         }
 
         primary.renameTo(new File(prefix + "primary.xml.gz"));
