@@ -2421,8 +2421,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
    **/
     public ContentSource createRepo(User loggedInUser, String label, String type,
             String url) {
-
         // empty strings for SSL-certificates descriptions
+        type = type.toLowerCase();
         String sslCaCert = "";
         String sslCliCert = "";
         String sslCliKey = "";
