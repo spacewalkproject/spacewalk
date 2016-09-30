@@ -22,6 +22,7 @@ CLIENT_CERT_PREFIX = "CDN-CLIENT-CERT-"
 CLIENT_KEY_PREFIX = "CDN-CLIENT-KEY-"
 
 CA_CERT_PATH = "/etc/rhsm/ca/redhat-uep.pem"
+CANDLEPIN_CA_CERT_DIR = "/etc/rhn/candlepin-certs"
 
 CHANNEL_DEFINITIONS_PATH = "/usr/share/rhn/cdn-sync/channels.json"
 CHANNEL_FAMILY_MAPPING_PATH = "/usr/share/rhn/cdn-sync/families.json"

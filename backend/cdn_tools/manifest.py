@@ -15,11 +15,16 @@
 import cStringIO
 import json
 import zipfile
+import os
+from M2Crypto import X509
+
+import constants
 
 
 class Manifest(object):
     """Class containing relevant data from RHSM manifest."""
 
+    SIGNATURE_NAME = "signature"
     INNER_ZIP_NAME = "consumer_export.zip"
     ENTITLEMENTS_PATH = "export/entitlements"
     CERTIFICATE_PATH = "export/extensions"
@@ -27,6 +32,9 @@ class Manifest(object):
     def __init__(self, zip_path):
         self.all_entitlements = []
         self.certificate_path = None
+        # Signature and signed data
+        self.signature = None
+        self.data = None
         # Open manifest from path
         top_zip = None
         inner_zip = None
@@ -37,7 +45,10 @@ class Manifest(object):
             try:
                 # inner_file = top_zip.open(zip_path.split('.zip')[0] + '/' + self.INNER_ZIP_NAME)
                 inner_file = top_zip.open(self.INNER_ZIP_NAME)
-                inner_file_data = cStringIO.StringIO(inner_file.read())
+                self.data = inner_file.read()
+                inner_file_data = cStringIO.StringIO(self.data)
+                signature_file = top_zip.open(self.SIGNATURE_NAME)
+                self.signature = signature_file.read()
                 # Open the inner zip file
                 try:
                     inner_zip = zipfile.ZipFile(inner_file_data)
@@ -118,6 +129,29 @@ class Manifest(object):
 
     def get_certificate_path(self):
         return self.certificate_path
+
+    def check_signature(self):
+        if self.signature and self.data:
+            certs = os.listdir(constants.CANDLEPIN_CA_CERT_DIR)
+            # At least one certificate has to match
+            for cert_name in certs:
+                cert_file = None
+                try:
+                    cert_file = open(constants.CANDLEPIN_CA_CERT_DIR + '/' + cert_name, 'r')
+                    cert = X509.load_cert_string(cert_file.read())
+                except (IOError, X509.X509Error):
+                    continue
+                finally:
+                    if cert_file is not None:
+                        cert_file.close()
+                pubkey = cert.get_pubkey()
+                pubkey.reset_context(md='sha256')
+                pubkey.verify_init()
+
+                pubkey.verify_update(self.data)
+                if pubkey.verify_final(self.signature):
+                    return True
+        return False
 
 
 class Entitlement(object):

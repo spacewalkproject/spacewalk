@@ -175,9 +175,12 @@ class Activation(object):
         rhnSQL.commit()
 
     def run(self):
-        print("Updating certificates...")
-        self._update_certificates()
-        print("Updating channel families...")
-        self._update_channel_families()
-        print("Updating certificates for channel families...")
-        self._update_families_ssl()
+        if self.manifest.check_signature():
+            print("Updating certificates...")
+            self._update_certificates()
+            print("Updating channel families...")
+            self._update_channel_families()
+            print("Updating certificates for channel families...")
+            self._update_families_ssl()
+        else:
+            print("Manifest validation failed!")
