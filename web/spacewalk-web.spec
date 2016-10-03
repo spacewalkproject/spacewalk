@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.3
+Version: 2.6.4
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -154,6 +154,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Oct 03 2016 Jiri Dostal <jdostal@redhat.com> 2.6.4-1
+- 'shrink-segments' works on embedded PostgreSQL as well
+
 * Mon Sep 26 2016 Eric Herget <eherget@redhat.com> 2.6.3-1
 - 1373900 - db-control start/stop now returns non-zero and complains on failure
 - require spacewalk-base-minimal-config from spacewalk-setup
