@@ -339,6 +339,8 @@ Requires: %{name}-xml-export-libs
 Requires: cobbler20
 Requires: rhnlib  >= 2.5.57
 Requires: %{name}-usix
+Requires: python-requests
+BuildRequires: python-requests
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 Provides: spacewalk-backend-satellite-tools = %{version}-%{release}
@@ -364,10 +366,6 @@ Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Requires: %{name}-usix
 Requires: subscription-manager
-Requires: libxml2-python
-Requires: python-requests
-BuildRequires: libxml2-python
-BuildRequires: python-requests
 
 %description cdn
 Tools for syncing content from Red Hat CDN
