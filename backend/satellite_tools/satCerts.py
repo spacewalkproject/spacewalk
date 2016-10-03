@@ -140,8 +140,12 @@ def _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, cert):
 def store_CaCert(description, caCert, verbosity=0):
     org_ids = get_all_orgs()
     org_ids.append({'id': None})
-    with open(caCert, 'rb') as f:
+    f = open(caCert, 'rb')
+    try:
         cert = f.read().strip()
+    finally:
+        if f is not None:
+            f.close()
     for org_id in org_ids:
         org_id = org_id['id']
         store_rhnCryptoKey(description, cert, org_id, verbosity)

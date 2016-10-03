@@ -59,34 +59,47 @@ class CdnSync(object):
         rhnSQL.initDB()
         initCFG('server.satellite')
 
+        f = None
+        # try block in try block - this is hack for python 2.4 compatibility
+        # to support finally
         try:
-            # Channel families mapping to channels
-            with open(constants.CHANNEL_FAMILY_MAPPING_PATH, 'r') as f:
+            try:
+                # Channel families mapping to channels
+                f = open(constants.CHANNEL_FAMILY_MAPPING_PATH, 'r')
                 self.families = json.load(f)
+                f.close()
 
-            # Channel metadata
-            with open(constants.CHANNEL_DEFINITIONS_PATH, 'r') as f:
+                # Channel metadata
+                f = open(constants.CHANNEL_DEFINITIONS_PATH, 'r')
                 self.channel_metadata = json.load(f)
+                f.close()
 
-            # Dist/Release channel mapping
-            with open(constants.CHANNEL_DIST_MAPPING_PATH, 'r') as f:
+                # Dist/Release channel mapping
+                f = open(constants.CHANNEL_DIST_MAPPING_PATH, 'r')
                 self.channel_dist_mapping = json.load(f)
+                f.close()
 
-            # Channel to repositories mapping
-            with open(constants.CONTENT_SOURCE_MAPPING_PATH, 'r') as f:
+                # Channel to repositories mapping
+                f = open(constants.CONTENT_SOURCE_MAPPING_PATH, 'r')
                 self.content_source_mapping = json.load(f)
+                f.close()
 
-            # Kickstart metadata
-            with open(constants.KICKSTART_DEFINITIONS_PATH, 'r') as f:
+                # Kickstart metadata
+                f = open(constants.KICKSTART_DEFINITIONS_PATH, 'r')
                 self.kickstart_metadata = json.load(f)
+                f.close()
 
-            # Channel to kickstart repositories mapping
-            with open(constants.KICKSTART_SOURCE_MAPPING_PATH, 'r') as f:
+                # Channel to kickstart repositories mapping
+                f = open(constants.KICKSTART_SOURCE_MAPPING_PATH, 'r')
                 self.kickstart_source_mapping = json.load(f)
-        except IOError:
-            e = sys.exc_info()[1]
-            log2stderr(0, "ERROR: Problem with loading file: %s" % e)
-            raise CdnMappingsLoadError()
+                f.close()
+            except IOError:
+                e = sys.exc_info()[1]
+                log2stderr(0, "ERROR: Problem with loading file: %s" % e)
+                raise CdnMappingsLoadError()
+        finally:
+            if f is not None:
+                f.close()
 
         # Map channels to their channel family
         self.channel_to_family = {}
@@ -380,13 +393,18 @@ class CdnSync(object):
                 # create directory for repo data if it doesn't exist
                 try:
                     os.makedirs(cdn_repodata_path)
-                except OSError as exc:
+                except OSError:
+                    exc = sys.exc_info()[1]
                     if exc.errno == errno.EEXIST and os.path.isdir(cdn_repodata_path):
                         pass
                     else:
                         raise
-                with open(cdn_repodata_path + '/' + "packages_num", 'w') as f_out:
+                f_out = open(cdn_repodata_path + '/' + "packages_num", 'w')
+                try:
                     f_out.write(str(len(set(list_packages))))
+                finally:
+                    if f_out is not None:
+                        f_out.close()
 
         elapsed_time = int(time.time())
         log(0, "Elapsed time: %d seconds" % (elapsed_time - start_time))
@@ -405,7 +423,10 @@ class CdnSync(object):
 
         log(0, "Base channels:")
         for channel in sorted(available_channel_tree):
-            status = 'p' if channel in self.synced_channels else '.'
+            if channel in self.synced_channels:
+                status = 'p'
+            else:
+                status = '.'
 
             sources = self._get_content_sources(channel, backend)
             if sources:
@@ -432,7 +453,10 @@ class CdnSync(object):
             if len(available_channel_tree[channel]) > 0:
                 log(0, "%s:" % channel)
                 for child in sorted(available_channel_tree[channel]):
-                    status = 'p' if child in self.synced_channels else '.'
+                    if child in self.synced_channels:
+                        status = 'p'
+                    else:
+                        status = '.'
                     sources = self._get_content_sources(child, backend)
                     if sources:
                         packages_number = '0'

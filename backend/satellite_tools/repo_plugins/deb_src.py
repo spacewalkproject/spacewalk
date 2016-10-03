@@ -48,9 +48,13 @@ class DebRepo(object):
                 if not data.ok:
                     return ''
                 filename = self.basecachedir + '/' + os.path.basename(url)
-                with open(filename, 'wb') as fd:
+                fd = open(filename, 'wb')
+                try:
                     for chunk in data.iter_content(chunk_size=1024):
                         fd.write(chunk)
+                finally:
+                    if fd is not None:
+                        fd.close()
                 return filename
             except requests.exceptions.RequestException:
                 print "ERROR: requests.exceptions.RequestException occured"

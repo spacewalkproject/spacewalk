@@ -66,11 +66,15 @@ class TreeInfoParser(object):
         self.parser = ConfigParser.RawConfigParser()
         # do not lowercase
         self.parser.optionxform = str
-        with open(filename) as fp:
+        fp = open(filename)
+        try:
             try:
                 self.parser.readfp(fp)
             except ConfigParser.ParsingError:
                 raise TreeInfoError("Could not parse treeinfo file!")
+        finally:
+            if fp is not None:
+                fp.close()
 
     def get_images(self):
         files = []

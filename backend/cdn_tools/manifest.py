@@ -63,8 +63,12 @@ class Manifest(object):
             # take only first file
             self.certificate_path = '/tmp/' + certificates_names[0].split('/')[-1]
             content = zip_file.open(certificates_names[0])  # take only first file
-            with open(self.certificate_path, 'wb') as c:
+            c = open(self.certificate_path, 'wb')
+            try:
                 c.write(content.read())
+            finally:
+                if c is not None:
+                    c.close()
 
     def _load_entitlements(self, zip_file):
         files = zip_file.namelist()
@@ -76,30 +80,33 @@ class Manifest(object):
         if len(entitlements_files) >= 1:
             self.all_entitlements = []
             for entitlement_file in entitlements_files:
+                entitlements = zip_file.open(entitlement_file)
+                # try block in try block - this is hack for python 2.4 compatibility
+                # to support finally
                 try:
-                    entitlements = zip_file.open(entitlement_file)
-                    data = json.load(entitlements)
+                    try:
+                        data = json.load(entitlements)
 
-                    # Extract credentials
-                    certs = data['certificates']
-                    if len(certs) != 1:
-                        raise IncorrectEntitlementsFileFormatError(
-                            "ERROR: Single certificate in entitlements file is expected, found: %d"
-                            % len(certs))
-                    cert = certs[0]
-                    credentials = Credentials(data['id'], cert['cert'], cert['key'])
+                        # Extract credentials
+                        certs = data['certificates']
+                        if len(certs) != 1:
+                            raise IncorrectEntitlementsFileFormatError(
+                                "ERROR: Single certificate in entitlements file is expected, found: %d"
+                                % len(certs))
+                        cert = certs[0]
+                        credentials = Credentials(data['id'], cert['cert'], cert['key'])
 
-                    # Extract product IDs
-                    product_ids = []
-                    provided_products = data['pool']['providedProducts']
-                    for product in provided_products:
-                        product_ids.append(product['productId'])
+                        # Extract product IDs
+                        product_ids = []
+                        provided_products = data['pool']['providedProducts']
+                        for product in provided_products:
+                            product_ids.append(product['productId'])
 
-                    entitlement = Entitlement(product_ids, credentials)
-                    self.all_entitlements.append(entitlement)
-                except KeyError:
-                    print("ERROR: Cannot access required field in file '%s'" % entitlement_file)
-                    raise
+                        entitlement = Entitlement(product_ids, credentials)
+                        self.all_entitlements.append(entitlement)
+                    except KeyError:
+                        print("ERROR: Cannot access required field in file '%s'" % entitlement_file)
+                        raise
                 finally:
                     entitlements.close()
         else:
