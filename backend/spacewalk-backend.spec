@@ -358,7 +358,6 @@ Provides: rhns-xml-export-libs = 1:%{version}-%{release}
 %description xml-export-libs
 Libraries required by various exporting tools
 
-%if 0%{?rhel} > 5 || 0%{?fedora}
 %package cdn
 Summary: CDN tools
 Group: Applications/Internet
@@ -372,7 +371,6 @@ BuildRequires: python-requests
 
 %description cdn
 Tools for syncing content from Red Hat CDN
-%endif
 
 %prep
 %setup -q
@@ -396,12 +394,6 @@ cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/{__init__.py,usix.py} \
 cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/{checksum.py,cli.py,rhn_deb.py,rhn_mpm.py,rhn_pkg.py,rhn_rpm.py,stringutils.py,fileutils.py,rhnLib.py} \
     $RPM_BUILD_ROOT%{python3rhnroot}/common
 %endif
-
-%if 0%{?rhel} && 0%{?rhel} < 6
-rm -rf $RPM_BUILD_ROOT%{pythonrhnroot}/cdn_tools
-rm -rf $RPM_BUILD_ROOT%{_bindir}/cdn-*
-%endif
-
 export PYTHON_MODULE_NAME=%{name}
 export PYTHON_MODULE_VERSION=%{version}
 %find_lang %{name}-server
@@ -430,13 +422,9 @@ export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}:/usr/lib/rhn:/usr/share/rhn
 spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_exporter \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_tools \
+                 $RPM_BUILD_ROOT%{pythonrhnroot}/cdn_tools \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/upload_server \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/wsgi
-
-%if 0%{?rhel} > 5 || 0%{?fedora}
-spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/cdn_tools
-%endif
-
 %endif
 
 %if 0%{?fedora} && 0%{?fedora} >= 23
@@ -820,14 +808,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/exportLib.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
-%if 0%{?rhel} > 5 || 0%{?fedora}
 %files cdn
 %attr(755,root,root) %{_bindir}/cdn-sync
 %{pythonrhnroot}/cdn_tools/*.py*
 %attr(755,root,%{apache_group}) %dir %{_var}/log/rhn/cdnsync
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-cdn
 %{_mandir}/man8/cdn-sync.8*
-%endif
 
 %changelog
 * Thu Sep 29 2016 Grant Gainey 2.6.54-1
