@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.38
+Version: 2.6.39
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -730,6 +730,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 03 2016 Eric Herget <eherget@redhat.com> 2.6.39-1
+- 1377841 - csv download all items, not remainder of dividing total items by
+  500
+
 * Mon Oct 03 2016 Jiri Dostal <jdostal@redhat.com> 2.6.38-1
 - 1380304 - API client.channel.software.createRepo() should not advertise it
   supports "uln"
