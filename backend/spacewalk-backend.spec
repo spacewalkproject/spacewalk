@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.55
+Version: 2.6.56
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -816,6 +816,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue Oct 04 2016 Gennadii Altukhov <galt@redhat.com> 2.6.56-1
+- fix spacewalk-backend build * we still need to build spacewalk-backend on
+  RHEL5 to use two subpackages spacewalk-backend-libs and spacewalk-backend-
+  usix on cliend side. spacewalk-backend-tools uses python-requests module wich
+  is absent in RHEL5 repos, so I removed it from BuildDependencies, but leave
+  in Dependencies, maybe it can be installed manually.
+
 * Tue Oct 04 2016 Gennadii Altukhov <galt@redhat.com> 2.6.55-1
 - fix dependencies for CDN-Sync
 - fix spec file to build CDN-Sync on RHEL5 reverted
