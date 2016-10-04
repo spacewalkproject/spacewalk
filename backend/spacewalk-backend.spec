@@ -340,7 +340,9 @@ Requires: cobbler20
 Requires: rhnlib  >= 2.5.57
 Requires: %{name}-usix
 Requires: python-requests
+%if 0%{?fedora} || 0%{?rhel} > 5
 BuildRequires: python-requests
+%endif
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 Provides: spacewalk-backend-satellite-tools = %{version}-%{release}
