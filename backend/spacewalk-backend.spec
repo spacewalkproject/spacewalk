@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.54
+Version: 2.6.55
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -814,6 +814,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue Oct 04 2016 Gennadii Altukhov <galt@redhat.com> 2.6.55-1
+- fix dependencies for CDN-Sync
+- fix spec file to build CDN-Sync on RHEL5 reverted
+  (7e629f0f5ead8aa4c8c6f2e5c0ee4a3cb85e0474)
+- fix python backend code to be compatible with Python 2.4
+
 * Thu Sep 29 2016 Grant Gainey 2.6.54-1
 - 1372721 - Handle the case where a user has no timezone/locale setting
 
