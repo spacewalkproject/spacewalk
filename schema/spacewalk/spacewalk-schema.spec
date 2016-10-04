@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.6.9
+Version:        2.6.10
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Oct 04 2016 Jan Dobes 2.6.10-1
+- splitting oracle and postgresql upgrade
+
 * Fri Sep 02 2016 Grant Gainey 2.6.9-1
 - Avoid a deadlock when deleting a server
 
