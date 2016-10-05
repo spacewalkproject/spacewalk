@@ -193,7 +193,7 @@ Utility for cloning errata by date (For RHEL5 and above).
     <varlistentry>
         <term>-d <replaceable>YYYY-MM-DD</replaceable>, --to_date=<replaceable>YYYY-MM-DD</replaceable></term>
         <listitem>
-            <para>All errata on or before the specified date will be cloned if it does not already exist in the destination channel(s). If this option is omitted no errata will be cloned (unless dependency resolution demands it).
+            <para>All errata on or before the specified date will be cloned if it does not already exist in the destination channel(s). If this option is omitted no errata will be cloned (unless dependency resolution demands it). Note this option will include all errata issued up to <emphasis>YYYY-MM-DD 00:00:00.</emphasis>
             </para>
         </listitem>
     </varlistentry>
