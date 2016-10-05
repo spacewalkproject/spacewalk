@@ -2415,7 +2415,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.doc Creates a repository
     * @xmlrpc.param #session_key()
     * @xmlrpc.param #param_desc("string", "label", "repository label")
-    * @xmlrpc.param #param_desc("string", "type", "repository type (yum)")
+    * @xmlrpc.param #param_desc("string", "type", "repository type (yum, uln...)")
     * @xmlrpc.param #param_desc("string", "url", "repository url")
     * @xmlrpc.returntype $ContentSourceSerializer
    **/
@@ -2444,7 +2444,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.doc Creates a repository
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "label", "repository label")
-     * @xmlrpc.param #param_desc("string", "type", "repository type (yum)")
+     * @xmlrpc.param #param_desc("string", "type",
+     * "repository type (yum, uln...)")
      * @xmlrpc.param #param_desc("string", "url", "repository url")
      * @xmlrpc.param #param_desc("string", "sslCaCert", "SSL CA cert description")
      * @xmlrpc.param #param_desc("string", "sslCliCert", "SSL Client cert description")
