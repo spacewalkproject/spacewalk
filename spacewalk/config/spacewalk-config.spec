@@ -10,7 +10,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.6.1
+Version: 2.6.2
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -141,6 +141,9 @@ sysconf_addword /etc/sysconfig/apache2 APACHE_SERVER_FLAGS ISSUSE
 %endif
 
 %changelog
+* Wed Oct 05 2016 Jan Dobes 2.6.2-1
+- adding candlepin CA certificate to check manifest signature
+
 * Tue Jun 14 2016 Jan Dobes 2.6.1-1
 - create the symlink directly and point to correct destination on SUSE
 - Bumping package versions for 2.6.
