@@ -247,7 +247,10 @@ public class CachedStatement implements Serializable {
         storeForRestart(parameters, inClause, mode);
         this.sqlStatement = NamedPreparedStatement.replaceBindParams(sqlStatement, qMap);
 
-        if (sqlStatement.indexOf("%s") > 0 && (inClause != null && !inClause.isEmpty())) {
+        if (sqlStatement.indexOf("%s") > 0) {
+            if (inClause == null || inClause.isEmpty()) {
+                return new DataResult<Object>(mode);
+            }
             // one of these two items is the return value. Ugly, but...
             Integer returnInt = null;
             DataResult<Object> returnDataResult = null;
