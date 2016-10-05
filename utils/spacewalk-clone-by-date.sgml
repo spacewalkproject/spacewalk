@@ -21,69 +21,69 @@ Utility for cloning errata by date (For RHEL5 and above).
         <arg>options <replaceable>...</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>-c <replaceable>CONFIGFILE</replaceable></arg>
-        <arg>--config=<replaceable>CONFIGFILE</replaceable></arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>-m</arg><arg>--sample-config</arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>-u <replaceable>USERNAME</replaceable></arg>
-        <arg>--username=<replaceable>USERNAME</replaceable></arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>-p <replaceable>PASSWORD</replaceable></arg>
-        <arg>--password=<replaceable>PASSWORD</replaceable></arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>-l <replaceable>SRC DEST <optional>DEST_NAME <optional>DEST_SUMMARY <optional>DEST_DESCRIPTION</optional></optional></optional></replaceable></arg>
-	<arg>--channels=<replaceable>SRC DEST <optional>DEST_NAME <optional>DEST_SUMMARY <optional>DEST_DESCRIPTION</optional></optional></optional></replaceable></arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>-d=<replaceable>YYYY-MM-DD</replaceable></arg>
-        <arg>--to_date=<replaceable>YYYY-MM-DD</replaceable></arg>
+        <arg>-a <replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable></arg>
+	<arg>--parents=<replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>-b <replaceable>PKG1,PKG2,PKG3</replaceable></arg>
         <arg>--blacklist=<replaceable>PKG1,PKG2,PKG3</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>-r <replaceable>PKG1,PKG2,PKG3</replaceable></arg>
-        <arg>--removelist=<replaceable>PKG1,PKG2,PKG3</replaceable></arg>
+        <arg>-c <replaceable>CONFIGFILE</replaceable></arg>
+        <arg>--config=<replaceable>CONFIGFILE</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>-v</arg><arg>--validate</arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>-k</arg><arg>--skip_depsolve</arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>-y</arg><arg>--assumeyes</arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>-o</arg><arg>--security_only</arg>
+        <arg>-d=<replaceable>YYYY-MM-DD</replaceable></arg>
+        <arg>--to_date=<replaceable>YYYY-MM-DD</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>-e</arg><arg>--errata</arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>-z</arg><arg>--use-update-date</arg>
+        <arg>-h</arg><arg>--help</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-j</arg><arg>--dry-run</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-k</arg><arg>--skip_depsolve</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-l <replaceable>SRC DEST <optional>DEST_NAME <optional>DEST_SUMMARY <optional>DEST_DESCRIPTION</optional></optional></optional></replaceable></arg>
+	<arg>--channels=<replaceable>SRC DEST <optional>DEST_NAME <optional>DEST_SUMMARY <optional>DEST_DESCRIPTION</optional></optional></optional></replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-m</arg><arg>--sample-config</arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>-n</arg><arg>--no-errata-sync</arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>-o</arg><arg>--security_only</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-p <replaceable>PASSWORD</replaceable></arg>
+        <arg>--password=<replaceable>PASSWORD</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-r <replaceable>PKG1,PKG2,PKG3</replaceable></arg>
+        <arg>--removelist=<replaceable>PKG1,PKG2,PKG3</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-u <replaceable>USERNAME</replaceable></arg>
+        <arg>--username=<replaceable>USERNAME</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-v</arg><arg>--validate</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-x</arg><arg>--skip-errata-depsolve</arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>-h</arg><arg>--help</arg>
+        <arg>-y</arg><arg>--assumeyes</arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>-a <replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable></arg>
-	<arg>--parents=<replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable></arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>-j</arg><arg>--dry-run</arg>
+        <arg>-z</arg><arg>--use-update-date</arg>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -130,77 +130,9 @@ Utility for cloning errata by date (For RHEL5 and above).
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-c <replaceable>FILE</replaceable>, --config=<replaceable>FILE</replaceable></term>
+        <term>-a <replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable>, --parents=<replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable></term>
         <listitem>
-            <para>Configuration file holding parameters, see --sample-config for an example.
-                      Any command-line parameters override those in specified config file.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>-m  --sample-config</term>
-        <listitem>
-            <para>Generate a sample configuration file.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>-u <replaceable>USERNAME</replaceable>, --username=<replaceable>USERNAME</replaceable></term>
-        <listitem>
-            <para>username of user that has administrative access.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>-p <replaceable>PASSWORD</replaceable>, --password=<replaceable>PASSWORD</replaceable></term>
-        <listitem>
-            <para>password of user that has administrative access.  If not provided, password will be prompted for.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>-l <replaceable>SRC_LABEL DEST_LABEL <optional>DEST_NAME <optional>DEST_SUMMARY <optional>DEST_DESCRIPTION</optional></optional></optional></replaceable>, --channels=<replaceable>SRC_LABEL DEST_LABEL <optional>DEST_NAME <optional>DEST_SUMMARY <optional>DEST_DESCRIPTION</optional></optional></optional></replaceable></term>
-        <listitem>
-            <para>Space separated list of source channel and destination channel.  Can be specified multiple times to provide base channel and child channel pairs of a single channel tree.  Can optionally include destination channel name, summary, and description, in that order.  To specify more than one channel tree, specify a config file.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>-y  --assumeyes</term>
-        <listitem>
-            <para>Instead of asking for confirmation before cloning a channel or errata, continue uninterrupted.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>-o  --security_only</term>
-        <listitem>
-            <para>Clone only security errata (and their dependencies).</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>-e  --errata</term>
-        <listitem>
-            <para>Clone only specified errata (and their dependencies). A comma-separated list (e.g. --errata=RHSA-2014:0043,RHBA-2014:0085).</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>-z  --use-update-date</term>
-        <listitem>
-            <para>While cloning errata by date, clone all errata that have last been updated on or before the date provided by to_date. If omitted will use issue date of errata (default).</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>-v  --validate</term>
-        <listitem>
-            <para>Run repoclosure on all provided channels.  This overrides --to_date and will not perform any cloning.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>-k  --skip_depsolve</term>
-        <listitem>
-            <para>Do not attempt to ensure added packages have needed dependencies (Not recommended). </para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>-d <replaceable>YYYY-MM-DD</replaceable>, --to_date=<replaceable>YYYY-MM-DD</replaceable></term>
-        <listitem>
-            <para>All errata on or before the specified date will be cloned if it does not already exist in the destination channel(s). If this option is omitted no errata will be cloned (unless dependency resolution demands it).
-            </para>
+            <para>The parent channels that will be used for dependency resolution and that newly cloned channels will be created as children of. No changes will be made to these channels unless dependency resolution demands it. If only the destination parent channel is specified then the source parent channel will be automatically chosen as the channel the destination parent channel was cloned from. Both of these channels must already exist. The config file equivalent to this option is specifiying '"existing-parent-do-not-modify": true' for a parent channel.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -214,13 +146,48 @@ Utility for cloning errata by date (For RHEL5 and above).
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-r <replaceable>PKG1,PKG2,PKG3</replaceable>, --removelist=<replaceable>PKG1,PKG2,PKG3</replaceable></term>
+        <term>-c <replaceable>FILE</replaceable>, --config=<replaceable>FILE</replaceable></term>
         <listitem>
-            <para>Comma separated list of Perl-style regular expressions used to match package names to be removed after cloning.  All packages are considered for removal, even those not added by errata/channel cloning.  <emphasis>Dependency resolution is not ensured on resulting repository.</emphasis>
+            <para>Configuration file holding parameters, see --sample-config for an example.
+                      Any command-line parameters override those in specified config file.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-d <replaceable>YYYY-MM-DD</replaceable>, --to_date=<replaceable>YYYY-MM-DD</replaceable></term>
+        <listitem>
+            <para>All errata on or before the specified date will be cloned if it does not already exist in the destination channel(s). If this option is omitted no errata will be cloned (unless dependency resolution demands it).
             </para>
-            <para>
-                Note:  This option is global across all destination channels. To specify per channel removelists, you must use a configuration file.  See --sample-config for an example.
-            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-e  --errata</term>
+        <listitem>
+            <para>Clone only specified errata (and their dependencies). A comma-separated list (e.g. --errata=RHSA-2014:0043,RHBA-2014:0085).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-j --dry-run</term>
+        <listitem>
+            <para>Creates a file for each pair of channels in the working directory that comprises the list of erratas that are to be cloned. No actual errata cloning takes place.</para>
+            <para>Warning: If some of the destination channels do not exist, they will be created with the original package set.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-k  --skip_depsolve</term>
+        <listitem>
+            <para>Do not attempt to ensure added packages have needed dependencies (Not recommended). </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-l <replaceable>SRC_LABEL DEST_LABEL <optional>DEST_NAME <optional>DEST_SUMMARY <optional>DEST_DESCRIPTION</optional></optional></optional></replaceable>, --channels=<replaceable>SRC_LABEL DEST_LABEL <optional>DEST_NAME <optional>DEST_SUMMARY <optional>DEST_DESCRIPTION</optional></optional></optional></replaceable></term>
+        <listitem>
+            <para>Space separated list of source channel and destination channel.  Can be specified multiple times to provide base channel and child channel pairs of a single channel tree.  Can optionally include destination channel name, summary, and description, in that order.  To specify more than one channel tree, specify a config file.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-m  --sample-config</term>
+        <listitem>
+            <para>Generate a sample configuration file.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -233,6 +200,40 @@ Utility for cloning errata by date (For RHEL5 and above).
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>-o  --security_only</term>
+        <listitem>
+            <para>Clone only security errata (and their dependencies).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-p <replaceable>PASSWORD</replaceable>, --password=<replaceable>PASSWORD</replaceable></term>
+        <listitem>
+            <para>password of user that has administrative access.  If not provided, password will be prompted for.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-r <replaceable>PKG1,PKG2,PKG3</replaceable>, --removelist=<replaceable>PKG1,PKG2,PKG3</replaceable></term>
+        <listitem>
+            <para>Comma separated list of Perl-style regular expressions used to match package names to be removed after cloning.  All packages are considered for removal, even those not added by errata/channel cloning.  <emphasis>Dependency resolution is not ensured on resulting repository.</emphasis>
+            </para>
+            <para>
+                Note:  This option is global across all destination channels. To specify per channel removelists, you must use a configuration file.  See --sample-config for an example.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-u <replaceable>USERNAME</replaceable>, --username=<replaceable>USERNAME</replaceable></term>
+        <listitem>
+            <para>username of user that has administrative access.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-v  --validate</term>
+        <listitem>
+            <para>Run repoclosure on all provided channels.  This overrides --to_date and will not perform any cloning.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>-x --skip-errata-depsolv</term>
         <listitem>
             <para>When pulling in an erratum to satisfy dependency-resolution, <emphasis>DO NOT</emphasis> add that erratum's packages to the list of packages to do dependency-resolution against. This will result in fewer RPMs/errata being included for dependency-resolution (sometimes <emphasis>MANY</emphasis> fewer) at the possible expense of a cloned channel that is not dependency-complete. If ommitted, we will add an erratum's RPMs to the list required for dependency-resolution and recurse on the list (default).
@@ -240,16 +241,15 @@ Utility for cloning errata by date (For RHEL5 and above).
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-a <replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable>, --parents=<replaceable><optional>SRC_PARENT</optional> DEST_PARENT</replaceable></term>
+        <term>-y  --assumeyes</term>
         <listitem>
-            <para>The parent channels that will be used for dependency resolution and that newly cloned channels will be created as children of. No changes will be made to these channels unless dependency resolution demands it. If only the destination parent channel is specified then the source parent channel will be automatically chosen as the channel the destination parent channel was cloned from. Both of these channels must already exist. The config file equivalent to this option is specifiying '"existing-parent-do-not-modify": true' for a parent channel.</para>
+            <para>Instead of asking for confirmation before cloning a channel or errata, continue uninterrupted.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-j --dry-run</term>
+        <term>-z  --use-update-date</term>
         <listitem>
-            <para>Creates a file for each pair of channels in the working directory that comprises the list of erratas that are to be cloned. No actual errata cloning takes place.</para>
-            <para>Warning: If some of the destination channels do not exist, they will be created with the original package set.</para>
+            <para>While cloning errata by date, clone all errata that have last been updated on or before the date provided by to_date. If omitted will use issue date of errata (default).</para>
         </listitem>
     </varlistentry>
 </variablelist>
