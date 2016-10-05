@@ -368,6 +368,8 @@ Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Requires: %{name}-usix
 Requires: subscription-manager
+BuildRequires: m2crypto
+Requires: m2crypto
 
 %description cdn
 Tools for syncing content from Red Hat CDN
