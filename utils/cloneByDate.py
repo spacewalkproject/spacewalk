@@ -223,7 +223,8 @@ def main(options):
                                         options.to_date, options.blacklist,
                                         options.removelist,
                                         options.security_only, options.use_update_date,
-                                        options.no_errata_sync, errata, parents)
+                                        options.no_errata_sync, errata,
+                                        options.skip_errata_depsolve, parents)
 
         cloners.append(tree_cloner)
         needed_channels += tree_cloner.needing_create().values()
@@ -287,7 +288,7 @@ class ChannelTreeCloner:
     """Usage:
         a = ChannelTreeCloner(channel_hash, xmlrpc, db, to_date, blacklist,
             removelist, security_only, use_update_date,
-            no_errata_sync, errata, parents)
+            no_errata_sync, errata, skip_errata_depsolve, parents)
         a.create_channels()
         a.prepare()
         a.clone()
@@ -296,7 +297,7 @@ class ChannelTreeCloner:
 
     def __init__(self, channels, remote_api, db_api, to_date, blacklist,
                  removelist, security_only, use_update_date,
-                 no_errata_sync, errata, parents=None):
+                 no_errata_sync, errata, skip_errata_depsolve, parents=None ):
         self.remote_api = remote_api
         self.db_api = db_api
         self.channel_map = channels
@@ -316,6 +317,7 @@ class ChannelTreeCloner:
         self.security_only = security_only
         self.use_update_date = use_update_date
         self.no_errata_sync = no_errata_sync
+        self.skip_errata_depsolve = skip_errata_depsolve
         self.solver = None
         self.visited = {}
 
@@ -325,7 +327,7 @@ class ChannelTreeCloner:
             cloner = ChannelCloner(from_label, to_label, self.to_date,
                                    self.remote_api, self.db_api,
                                    self.security_only, self.use_update_date,
-                                   self.no_errata_sync, errata)
+                                   self.no_errata_sync, errata, skip_errata_depsolve)
             self.cloners.append(cloner)
 
     def needing_create(self):
@@ -582,7 +584,8 @@ class ChannelCloner:
     # pylint: disable=R0902
 
     def __init__(self, from_label, to_label, to_date, remote_api, db_api,
-                 security_only, use_update_date, no_errata_sync, errata):
+                 security_only, use_update_date, no_errata_sync, errata,
+                 skip_errata_depsolve):
         self.total_added_nevras = 0
         self.total_added_errata = 0
         self.remote_api = remote_api
@@ -599,6 +602,7 @@ class ChannelCloner:
         self.use_update_date = use_update_date
         self.no_errata_sync = no_errata_sync
         self.errata = errata
+        self.skip_errata_depsolve = skip_errata_depsolve
         # construct a set of every erratum name in the original channel
         self.original_errata = set(self.remote_api.list_errata(self.from_label))
         self.original_pid_errata_map = {}
@@ -693,6 +697,15 @@ class ChannelCloner:
                 del needed_errata_list[:self.bunch_size]
                 for e in errata_set:
                     log_clean(0, "%s" % e)
+                    if not self.skip_errata_depsolve:
+                        e_pkgs = self.remote_api.get_erratum_packages(e)
+                        for pkg in e_pkgs:
+                            if self.from_label in pkg['providing_channels']:
+                                pkg['nvrea'] = "%s-%s-%s.%s" % (pkg['name'],
+                                                                pkg['version'],
+                                                                pkg['release'],
+                                                                pkg['arch_label'])
+                                needed_names.add(pkg['nvrea'] )
                 self.remote_api.clone_errata(self.to_label, errata_set)
 
         if len(needed_ids) > 0:
@@ -947,6 +960,9 @@ class RemoteApi:
         self.auth_check()
         return self.client.packages.listProvidingErrata(self.auth_token, pid)
 
+    def get_erratum_packages(self, advisory_name):
+        self.auth_check()
+        return self.client.errata.listPackages(self.auth_token, advisory_name)
 
 class DBApi:
 
