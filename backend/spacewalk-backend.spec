@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.56
+Version: 2.6.57
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -816,6 +816,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Wed Oct 05 2016 Jan Dobes 2.6.57-1
+- check signature in code
+
 * Tue Oct 04 2016 Gennadii Altukhov <galt@redhat.com> 2.6.56-1
 - fix spacewalk-backend build * we still need to build spacewalk-backend on
   RHEL5 to use two subpackages spacewalk-backend-libs and spacewalk-backend-
