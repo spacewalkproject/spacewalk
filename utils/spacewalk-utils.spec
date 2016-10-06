@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.6.12
+Version:	2.6.13
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,12 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Oct 06 2016 Grant Gainey 2.6.13-1
+- Fix tagging issue
+
+* Thu Oct 06 2016 Grant Gainey
+- 1382272 - Fix typos in/general cleanup of CBD manpage
+
 * Thu Oct 06 2016 Grant Gainey 2.6.12-1
 - 1382272 - Fix typos in/general cleanup of CBD manpage
 
