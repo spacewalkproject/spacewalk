@@ -5788,6 +5788,13 @@ Follow this url to see the full list of inactive systems:
           <context context-type="paramnotes">7 revisions were deleted successfully.</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="config_revisions.success.singular">
+        <source>{0} revision was deleted successfully.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
+          <context context-type="paramnotes">1 revision was deleted successfully.</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="config_files.setFilesToRemove.success">
         <source>{0} configuration file(s) successfully deleted.</source>
         <context-group name="ctx">
