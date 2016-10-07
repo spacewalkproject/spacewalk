@@ -129,6 +129,16 @@ class ContentSource(object):
         self.num_packages = 0
         self.num_excluded = 0
 
+        # if self.url is metalink it will be expanded into
+        # real urls in self.repo.urls and also save this metalink
+        # in begin of the url list ("for repolist -v ... or anything else wants to know the baseurl")
+        # Remove it from the list, we don't need it to download content of repo
+        real_urls = []
+        for url in self.repo.urls:
+            if '?' not in url:
+                real_urls.append(url)
+        self.repo.urls = real_urls
+
     def _authenticate(self, url):
         pass
 
