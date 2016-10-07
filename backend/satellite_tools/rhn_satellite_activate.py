@@ -22,6 +22,13 @@ import tempfile
 from optparse import Option, OptionParser
 from rhn import rpclib
 from rhn.connections import idn_ascii_to_puny
+from M2Crypto import X509
+
+# Check if python-rhsm is installed
+try:
+    from rhsm.config import RhsmConfigParser
+except ImportError:
+    RhsmConfigParser = None
 
 # Recent rhnlib has support for timing out, rather than hanging.
 try:
@@ -49,10 +56,27 @@ DEFAULT_RHN_CERT_LOCATION = '/etc/sysconfig/rhn/rhn-entitlement-cert.xml'
 DEFAULT_WEB_HANDLER = '/rpc/api'
 DEFAULT_WEBAPP_GPG_KEY_RING = "/etc/webapp-keyring.gpg"
 DEFAULT_CONFIG_FILE = "/etc/rhn/rhn.conf"
+DEFAULT_RHSM_CONFIG_FILE = "/etc/rhsm/rhsm.conf"
 
 
 class CaCertInsertionError(Exception):
     "raise when fail to insert CA cert into the local database"
+
+
+def getRHSMUuid():
+    """ Tries to get UUID of of this system if it's registered into Subscription manager."""
+
+    if RhsmConfigParser and os.path.isfile(DEFAULT_RHSM_CONFIG_FILE):
+        cfg = RhsmConfigParser(config_file=DEFAULT_RHSM_CONFIG_FILE)
+        cert_dir = cfg.get('rhsm', 'consumerCertDir')
+        cert_path = os.path.join(cert_dir, 'cert.pem')
+        if os.path.isfile(cert_path):
+            f = open(cert_path, 'r')
+            cert = X509.load_cert_string(f.read())
+            f.close()
+            subject = cert.get_subject()
+            return subject.CN
+    return None
 
 
 def openGzippedFile(filename):
