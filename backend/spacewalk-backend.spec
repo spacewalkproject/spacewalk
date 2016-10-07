@@ -70,6 +70,7 @@ BuildRequires: python-crypto
 BuildRequires: python-debian
 BuildRequires: python-gzipstream
 BuildRequires: yum
+BuildRequires: m2crypto
 %endif
 Requires(pre): %{apache_pkg}
 Requires: %{apache_pkg}
@@ -340,6 +341,7 @@ Requires: cobbler20
 Requires: rhnlib  >= 2.5.57
 Requires: %{name}-usix
 Requires: python-requests
+Requires: m2crypto
 %if 0%{?fedora} || 0%{?rhel} > 5
 BuildRequires: python-requests
 %endif
@@ -368,7 +370,6 @@ Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Requires: %{name}-usix
 Requires: subscription-manager
-BuildRequires: m2crypto
 Requires: m2crypto
 
 %description cdn
