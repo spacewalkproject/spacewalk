@@ -84,6 +84,20 @@ class TreeInfoParser(object):
                     files.append(item[1])
         return files
 
+    def get_family(self):
+        for section_name in self.parser.sections():
+            if section_name == 'general':
+                for item in self.parser.items(section_name):
+                    if item[0] == 'family':
+                        return item[1]
+
+    def get_major_version(self):
+        for section_name in self.parser.sections():
+            if section_name == 'general':
+                for item in self.parser.items(section_name):
+                    if item[0] == 'version':
+                        return item[1].split('.')[0]
+
 
 def set_filter_opt(option, opt_str, value, parser):
     # pylint: disable=W0613
@@ -177,7 +191,7 @@ class RepoSync(object):
         self.latest = latest
         self.metadata_only = metadata_only
         self.ks_tree_type = 'externally-managed'
-        self.ks_install_type = 'generic_rpm'
+        self.ks_install_type = None
 
         initCFG('server.satellite')
         rhnSQL.initDB()
@@ -814,6 +828,15 @@ class RepoSync(object):
         if not treeinfo_parser:
             log(0, "Kickstartable tree not detected (no valid treeinfo file)")
             return
+
+        if self.ks_install_type is None:
+            family = treeinfo_parser.get_family()
+            if family == 'Fedora':
+                self.ks_install_type = 'fedora18'
+            elif family == 'CentOS':
+                self.ks_install_type = 'rhel_' + treeinfo_parser.get_major_version()
+            else:
+                self.ks_install_type = 'generic_rpm'
 
         # Make sure images are included
         to_download = []
