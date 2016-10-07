@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.58
+Version: 2.6.59
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -819,6 +819,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Fri Oct 07 2016 Gennadii Altukhov <galt@redhat.com> 2.6.59-1
+- fix setting of default kickstart installation type
+- fix list of urls in yum_src repo plugin.
+- require m2crypto in -tools package
+- get uuid of system if registered in RHSM
+
 * Wed Oct 05 2016 Jan Dobes 2.6.58-1
 - adding m2crypto dependency
 
