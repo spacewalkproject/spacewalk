@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.59
+Version: 2.6.60
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -819,6 +819,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Mon Oct 10 2016 Jan Dobes 2.6.60-1
+- detect already activated system
+- adding force parameter
+- cleaning, removing even older API references to not get confused
+- activate system registered to RHSM
+- adding new parameter to save current behavior
+
 * Fri Oct 07 2016 Gennadii Altukhov <galt@redhat.com> 2.6.59-1
 - fix setting of default kickstart installation type
 - fix list of urls in yum_src repo plugin.
