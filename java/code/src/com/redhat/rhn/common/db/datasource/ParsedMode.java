@@ -28,7 +28,7 @@ public interface ParsedMode {
     /**
      * ModeType
      */
-    public static enum ModeType {
+    enum ModeType {
         SELECT, WRITE, CALLABLE
     };
 
