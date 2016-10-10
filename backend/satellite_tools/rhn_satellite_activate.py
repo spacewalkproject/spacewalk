@@ -338,13 +338,11 @@ def activateSatellite_remote(options):
         raise RHNCertRemoteSatelliteAlreadyActivatedException(msg)
 
     rhn_cert = openGzippedFile(options.rhn_cert).read()
-    ret = None
-    oldApiYN = DEFAULT_WEB_HANDLER == '/WEBRPC/satellite.pxt'
-    if not oldApiYN and systemid:
+    if systemid:
         try:
             if options.verbose:
                 print "Executing: remote XMLRPC deactivation (if necessary)."
-            ret = s.satellite.deactivate_satellite(systemid, rhn_cert)
+            s.satellite.deactivate_satellite(systemid, rhn_cert)
         except rpclib.xmlrpclib.Fault, f:
             # 1025 results in "satellite_not_activated"
             if abs(f.faultCode) != 1025:
@@ -378,19 +376,8 @@ def activateSatellite_remote(options):
             systemid_file.close()
     except rpclib.xmlrpclib.Fault, f:
         sys.stderr.write("Error reported from RHN: %s\n" % f)
-        # NOTE: we support the old (pre-cactus) web-handler API and the new.
-        # The old web handler used faultCodes of 1|-1 and the new API uses
-        # faultCodes in the range [1020, ..., 1039]
-        if oldApiYN and abs(f.faultCode) == 1:
-            sys.stderr.write(
-                'ERROR: error upon attempt to activate this %s\n'
-                'against the RHN hosted service.\n\n%s\n' % (PRODUCT_NAME, f))
-            raise RHNCertRemoteActivationException('%s' % f), None, sys.exc_info()[2]
-
-        if not oldApiYN \
-          and (abs(f.faultCode) in range(1020, 1039+1)
-               or f.faultString in (no_sat_chan_for_version,
-                                    no_sat_chan_for_version1)):
+        if (abs(f.faultCode) in range(1020, 1039+1) or f.faultString in (no_sat_chan_for_version,
+                                                                         no_sat_chan_for_version1)):
             if abs(f.faultCode) == 1020:
                 # 1020 results in "no_management_slots"
                 print "NOTE: no management slots found on the hosted account."
