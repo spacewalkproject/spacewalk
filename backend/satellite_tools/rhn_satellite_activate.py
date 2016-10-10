@@ -23,6 +23,7 @@ from optparse import Option, OptionParser
 from rhn import rpclib
 from rhn.connections import idn_ascii_to_puny
 from M2Crypto import X509
+from xml.dom.minidom import parseString
 
 # Check if python-rhsm is installed
 try:
@@ -339,6 +340,24 @@ def activateSatellite_remote(options):
 
     rhn_cert = openGzippedFile(options.rhn_cert).read()
     if systemid:
+        # Find description in systemid XML
+        systemid_description = ""
+        systemid_members = parseString(systemid).getElementsByTagName("member")
+        for member in systemid_members:
+            name = member.getElementsByTagName('name')[0].firstChild.nodeValue
+            if name == 'description':
+                systemid_description = (member.getElementsByTagName('value')[0]
+                                              .getElementsByTagName('string')[0]
+                                              .firstChild.nodeValue)
+                break
+
+        # Systems having RHSM in description received this file from activation API => are activated
+        if 'RHSM' in systemid_description and not options.force:
+            msg = ("ERROR: This system is probably already activated Satellite. If you want "
+                   "to activate it again, please run with --force parameter.")
+            sys.stderr.write(msg + "\n")
+            raise RHNCertRemoteSatelliteAlreadyActivatedException(msg)
+
         try:
             if options.verbose:
                 print "Executing: remote XMLRPC deactivation (if necessary)."
