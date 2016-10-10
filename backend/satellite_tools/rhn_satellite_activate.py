@@ -317,16 +317,30 @@ def activateSatellite_remote(options):
                         options.http_proxy_password,
                         options.ca_cert,
                         not options.no_ssl)
-    if not os.path.exists(options.systemid):
-        msg = ("ERROR: Server not registered? No systemid: %s"
-               % options.systemid)
-        sys.stderr.write(msg+"\n")
+
+    systemid = None
+    if os.path.exists(options.systemid):
+        systemid_file = open(options.systemid, 'rb')
+        systemid = systemid_file.read()
+        systemid_file.close()
+
+    rhsm_uuid = getRHSMUuid()
+
+    if options.old_api:
+        if not systemid:
+            msg = ("ERROR: Server not registered to RHN? No systemid: %s"
+                   % options.systemid)
+            sys.stderr.write(msg+"\n")
+            raise RHNCertRemoteSatelliteAlreadyActivatedException(msg)
+    elif not rhsm_uuid:
+        msg = "ERROR: Server not registered to RHSM? No identity found."
+        sys.stderr.write(msg + "\n")
         raise RHNCertRemoteSatelliteAlreadyActivatedException(msg)
-    systemid = open(options.systemid, 'rb').read()
+
     rhn_cert = openGzippedFile(options.rhn_cert).read()
     ret = None
     oldApiYN = DEFAULT_WEB_HANDLER == '/WEBRPC/satellite.pxt'
-    if not oldApiYN:
+    if not oldApiYN and systemid:
         try:
             if options.verbose:
                 print "Executing: remote XMLRPC deactivation (if necessary)."
@@ -338,6 +352,13 @@ def activateSatellite_remote(options):
                                  'remote deactivation (reraising): %s\n' % f)
                 raise RHNCertRemoteActivationException('%s' % f), None, sys.exc_info()[2]
 
+        # Delete systemid file because new will be received
+        if not options.old_api:
+            if options.verbose:
+                print("NOTE: Existing systemid file will be overwritten.")
+            os.unlink(options.systemid)
+            systemid = None
+
     no_sat_chan_for_version = 'no_sat_for_version'
     no_sat_chan_for_version1 = "Unhandled exception 'no_sat_chan_for_version' (unhandled_named_exception)"
     # FIXME: that second version is a work-around to a bug ( 137656 ). It
@@ -346,7 +367,15 @@ def activateSatellite_remote(options):
     try:
         if options.verbose:
             print "Executing: remote XMLRPC activation call."
-        ret = s.satellite.activate_satellite(systemid, rhn_cert)
+        if systemid:
+            ret = s.satellite.activate_satellite(systemid, rhn_cert)
+        # System registered to RHSM
+        else:
+            ret = s.satellite.activate_satellite_registered_to_RHSM(rhsm_uuid, rhn_cert)
+            # Write returned systemid file
+            systemid_file = open(options.systemid, 'wb')
+            systemid_file.write(ret)
+            systemid_file.close()
     except rpclib.xmlrpclib.Fault, f:
         sys.stderr.write("Error reported from RHN: %s\n" % f)
         # NOTE: we support the old (pre-cactus) web-handler API and the new.
