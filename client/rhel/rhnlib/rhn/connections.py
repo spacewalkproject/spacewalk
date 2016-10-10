@@ -10,6 +10,7 @@
 import base64
 import encodings.idna
 import socket
+import errno
 from platform import python_version
 from rhn import SSL
 from rhn import nonblocking
@@ -177,16 +178,12 @@ class HTTPSConnection(HTTPConnection):
             af, socktype, proto, canonname, sa = r
             try:
                 sock = socket.socket(af, socktype, proto)
-            except socket.error:
-                sock = None
-                continue
-
-            try:
                 sock.connect((self.host, self.port))
                 sock.settimeout(self.timeout)
-            except socket.error:
-                sock.close()
-                sock = None
+            except socket.error as e:
+                if e.errno != errno.EINTR:
+                    sock.close()
+                    sock = None
                 continue
             break
 
