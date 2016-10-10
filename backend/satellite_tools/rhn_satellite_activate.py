@@ -515,6 +515,8 @@ def processCommandline():
                + '(accumulable: -vvv means "be *really* verbose").'),
         Option('--dump-version', action='store', help="requested version of XML dump"),
         Option('--manifest',     action='store',      help='the RHSM manifest path/filename to activate for CDN'),
+        Option('--old-api', action='store_true', help='activate Satellite using old API, system '
+                                                      + 'has to be registered to RHN Classic'),
     ]
 
     options, args = OptionParser(option_list=options).parse_args()
