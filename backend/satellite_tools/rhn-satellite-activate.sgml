@@ -23,7 +23,7 @@
         <command>&RHNSATACT; [ options <replaceable>...</replaceable> ] \
   [ --systemid<replaceable>PATH</replaceable> ] [ --rhn-cert <replaceable>PATH</replaceable> ] \
   [ --no-ssl ] [ --manifest <replaceable>PATH</replaceable> ] [ --sanity-only ] \
-  [ --old-api ] [ -h|--help ]</command>
+  [ --old-api ] [ --force ] [ -h|--help ]</command>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -96,6 +96,12 @@
         <term>--old-api</term>
         <listitem>
             <para>Activate Satellite using old API, system has to be registered to RHN Classic.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-f | --force</term>
+        <listitem>
+            <para>Force activate Satellite if it is already activated.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

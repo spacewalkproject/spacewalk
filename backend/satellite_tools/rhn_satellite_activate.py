@@ -533,6 +533,7 @@ def processCommandline():
         Option('--manifest',     action='store',      help='the RHSM manifest path/filename to activate for CDN'),
         Option('--old-api', action='store_true', help='activate Satellite using old API, system '
                                                       + 'has to be registered to RHN Classic'),
+        Option('-f', '--force', action='store_true', help='force activate Satellite if it is already activated'),
     ]
 
     options, args = OptionParser(option_list=options).parse_args()
