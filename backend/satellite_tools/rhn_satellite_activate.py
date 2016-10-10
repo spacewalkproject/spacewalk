@@ -20,8 +20,6 @@ import time
 import gzip
 import tempfile
 from optparse import Option, OptionParser
-from rhn import rpclib
-from rhn.connections import idn_ascii_to_puny
 from M2Crypto import X509
 from xml.dom.minidom import parseString
 
@@ -37,6 +35,8 @@ try:
 except ImportError:
     class TimeoutException(Exception):
         pass
+from rhn import rpclib
+from rhn.connections import idn_ascii_to_puny
 
 # common, server imports
 from spacewalk.common import rhnLib, fileutils
@@ -347,8 +347,8 @@ def activateSatellite_remote(options):
             name = member.getElementsByTagName('name')[0].firstChild.nodeValue
             if name == 'description':
                 systemid_description = (member.getElementsByTagName('value')[0]
-                                              .getElementsByTagName('string')[0]
-                                              .firstChild.nodeValue)
+                                        .getElementsByTagName('string')[0]
+                                        .firstChild.nodeValue)
                 break
 
         # Systems having RHSM in description received this file from activation API => are activated
@@ -551,7 +551,7 @@ def processCommandline():
         Option('--dump-version', action='store', help="requested version of XML dump"),
         Option('--manifest',     action='store',      help='the RHSM manifest path/filename to activate for CDN'),
         Option('--old-api', action='store_true', help='activate Satellite using old API, system '
-                                                      + 'has to be registered to RHN Classic'),
+               + 'has to be registered to RHN Classic'),
         Option('-f', '--force', action='store_true', help='force activate Satellite if it is already activated'),
     ]
 
