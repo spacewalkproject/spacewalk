@@ -52,7 +52,7 @@ Requires: tftp-server
 
 Requires: mod_wsgi
 # syslinux is only available on x86
-%ifarch %{ix86} x86_64
+%if "%{_arch}" == "i386" || "%{_arch}" == "i686" || "%{_arch}" == "x86_64"
 Requires: syslinux
 %endif
 
