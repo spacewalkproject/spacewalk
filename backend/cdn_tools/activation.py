@@ -18,7 +18,8 @@ from spacewalk.satellite_tools import satCerts
 from spacewalk.server import rhnSQL
 from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.channelImport import ChannelFamilyImport
-from spacewalk.server.importlib.importLib import ChannelFamily
+from spacewalk.server.importlib.importLib import ChannelFamily, ContentSource
+from spacewalk.server.importlib.contentSourcesImport import ContentSourcesImport
 from spacewalk.server.rhnServer.satellite_cert import SatelliteCert
 import constants
 from manifest import Manifest
@@ -48,14 +49,6 @@ class Activation(object):
         finally:
             if f is not None:
                 f.close()
-
-        # product to family mapping
-        p = open(constants.PRODUCT_FAMILY_MAPPING_PATH, 'r')
-        try:
-            self.products = json.load(p)
-        finally:
-            if p is not None:
-                p.close()
 
         self.families_to_import = []
 
@@ -90,28 +83,12 @@ class Activation(object):
     def _update_channel_families(self):
         """Insert channel family data into DB"""
 
-        families_in_mapping = []
-        for entitlement in self.manifest.get_all_entitlements():
-            for product_id in entitlement.get_product_ids():
-                try:
-                    product = self.products[product_id]
-                    families_in_mapping.extend(product['families'])
-                # Some product cannot be mapped into channel families
-                except KeyError:
-                    print("Cannot map product '%s' into channel families" % product_id)
-
-        families_in_mapping = set(families_in_mapping)
-
         # Debug
-        print("Channel families mapped from products: %d" % len(self.families_to_import))
         print("Channel families in cert: %d" % len(self.sat5_cert.channel_families)) # pylint: disable=E1101
 
         batch = []
         for cf in self.sat5_cert.channel_families: # pylint: disable=E1101
             label = cf.name
-            if label not in families_in_mapping:
-                print("Skipping channel family from certificate, not in the mapping: %s" % label)
-                continue
             try:
                 family = self.families[label]
                 family_object = ChannelFamily()
@@ -128,31 +105,29 @@ class Activation(object):
         importer = ChannelFamilyImport(batch, backend)
         importer.run()
 
-    def _update_families_ssl(self):
-        """Link channel families with certificates inserted in _update_certificates method"""
-        family_ids = {}
-        for family in self.families_to_import:
-            family_ids[family] = None
+    def _update_repositories_ssl(self):
+        """Setup SSL credential to access repositories
+           We do this in 2 steps:
+           1. Fetching provided repositories from manifest - URL contains variables to substitute
+           2. Assigning one certificate/key set to each repository"""
 
-        # Populate with IDs
+        # First delete all meta repositories
+        hdel_repos = rhnSQL.prepare("""
+            delete from rhnContentSource where
+            label like :prefix || '%%'
+            and org_id is null
+        """)
+        hdel_repos.execute(prefix=constants.MANIFEST_REPOSITORY_DB_PREFIX)
+        rhnSQL.commit()
+
         backend = SQLBackend()
-        backend.lookupChannelFamilies(family_ids)
+        type_id = backend.lookupContentSourceType('yum')
 
         # Lookup CA cert
         ca_cert = satCerts.lookup_cert(constants.CA_CERT_NAME, None)
         ca_cert_id = int(ca_cert['id'])
 
-        # Queries for updating relation between channel families and certificates
-        hdel = rhnSQL.prepare("""
-            delete from rhnContentSsl where
-            channel_family_id = :cfid
-        """)
-        hins = rhnSQL.prepare("""
-            insert into rhnContentSsl
-            (channel_family_id, ssl_ca_cert_id, ssl_client_cert_id, ssl_client_key_id)
-            values (:cfid, :ca_cert_id, :client_cert_id, :client_key_id)
-        """)
-
+        content_sources_batch = {}
         for entitlement in self.manifest.get_all_entitlements():
             creds = entitlement.get_credentials()
             client_cert = satCerts.lookup_cert(constants.CLIENT_CERT_PREFIX +
@@ -161,32 +136,30 @@ class Activation(object):
                                               creds.get_id(), None)
             client_cert_id = int(client_cert['id'])
             client_key_id = int(client_key['id'])
-            family_ids_to_link = []
-            for product_id in entitlement.get_product_ids():
-                try:
-                    product = self.products[product_id]
-                    for family in product['families']:
-                        if family in family_ids:
-                            family_ids_to_link.append(family_ids[family])
-                except KeyError:
-                    print("Cannot map product '%s' into channel families" % product_id)
+            for product in entitlement.get_products():
+                repositories = product.get_repositories()
+                for repository in repositories:
+                    if repository not in content_sources_batch:
+                        content_source = ContentSource()
+                        content_source['label'] = constants.MANIFEST_REPOSITORY_DB_PREFIX + repository
+                        content_source['source_url'] = repositories[repository]
+                        content_source['org_id'] = None
+                        content_source['type_id'] = type_id
+                        content_source['ssl_ca_cert_id'] = ca_cert_id
+                        content_source['ssl_client_cert_id'] = client_cert_id
+                        content_source['ssl_client_key_id'] = client_key_id
+                        content_sources_batch[repository] = content_source
 
-            family_ids_to_link = set(family_ids_to_link)
-
-            for cfid in family_ids_to_link:
-                hdel.execute(cfid=cfid)
-                hins.execute(cfid=cfid, ca_cert_id=ca_cert_id,
-                             client_cert_id=client_cert_id, client_key_id=client_key_id)
-
-        rhnSQL.commit()
+        importer = ContentSourcesImport(content_sources_batch.values(), backend)
+        importer.run()
 
     def run(self):
         if self.manifest.check_signature():
             print("Updating certificates...")
             self._update_certificates()
+            print("Updating CDN repositories...")
+            self._update_repositories_ssl()
             print("Updating channel families...")
             self._update_channel_families()
-            print("Updating certificates for channel families...")
-            self._update_families_ssl()
         else:
             print("Manifest validation failed!")
