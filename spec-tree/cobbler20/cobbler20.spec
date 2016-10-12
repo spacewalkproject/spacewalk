@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 61%{?dist}
+Release: 62%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -494,6 +494,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Wed Oct 12 2016 Gennadii Altukhov <galt@redhat.com> 2.0.11-62
+- fix architectures to build cobbler20 on.
+
 * Tue Oct 11 2016 Gennadii Altukhov <galt@redhat.com> 2.0.11-61
 - disable patch kickstart-autoinstall-rename.patch for cobbler20
 
