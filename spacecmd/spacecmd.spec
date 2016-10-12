@@ -10,7 +10,7 @@
 Name:        spacecmd
 Version:     2.6.15
 Release:     1%{?dist}
-Summary:     Command-line interface to Spacewalk and Satellite servers
+Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
 Group:       Applications/System
 License:     GPLv3+
@@ -43,7 +43,7 @@ Requires:      python-simplejson
 %endif
 
 %description
-spacecmd is a command-line interface to Spacewalk and Satellite servers
+spacecmd is a command-line interface to Spacewalk and Red Hat Satellite servers
 
 %prep
 %setup -q
