@@ -20,8 +20,9 @@ import time
 import gzip
 import tempfile
 from optparse import Option, OptionParser
-from M2Crypto import X509
 from xml.dom.minidom import parseString
+from M2Crypto import X509
+
 
 # Check if python-rhsm is installed
 try:
