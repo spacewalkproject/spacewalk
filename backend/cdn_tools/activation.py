@@ -62,6 +62,12 @@ class Activation(object):
     def _update_certificates(self):
         """Delete and insert certificates needed for syncing from CDN repositories."""
 
+        # Remove all previously used certs/keys
+        for description_prefix in (constants.CA_CERT_NAME,
+                                   constants.CLIENT_CERT_PREFIX,
+                                   constants.CLIENT_KEY_PREFIX):
+            satCerts.delete_rhnCryptoKey_null_org(description_prefix)
+
         # Read RHSM cert
         f = open(constants.CA_CERT_PATH, 'r')
         try:

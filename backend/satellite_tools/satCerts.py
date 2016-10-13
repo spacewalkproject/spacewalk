@@ -178,6 +178,18 @@ def store_rhnCryptoKey(description, cert, org_id, verbosity=0):
             "...the traceback: %s" % fetchTraceback()), sys.exc_info()[2])
 
 
+def delete_rhnCryptoKey_null_org(description_prefix):
+    h = rhnSQL.prepare(_queryDeleteCryptoCertInfoNullOrg)
+    h.execute(description_prefix=description_prefix)
+
+
+_queryDeleteCryptoCertInfoNullOrg = rhnSQL.Statement("""
+    DELETE FROM rhnCryptoKey ck
+    WHERE ck.description LIKE :description_prefix || '%%'
+      AND ck.crypto_key_type_id = (SELECT id FROM rhnCryptoKeyType WHERE label = 'SSL')
+      AND ck.org_id is NULL
+""")
+
 _querySelectCryptoCertInfo = rhnSQL.Statement("""
     SELECT ck.id, ck.description, ckt.label as type_label, ck.key
       FROM rhnCryptoKeyType ckt,
