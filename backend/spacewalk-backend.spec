@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.61
+Version: 2.6.62
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -819,6 +819,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Oct 13 2016 Gennadii Altukhov <galt@redhat.com> 2.6.62-1
+- fix pylint wrong-import-order
+- reverting pylint change - method cannot be called, it's not instance
+
 * Mon Oct 10 2016 Jan Dobes 2.6.61-1
 - fixing pylint
 
