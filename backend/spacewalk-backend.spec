@@ -371,6 +371,7 @@ Requires: %{name}-server = %{version}-%{release}
 Requires: %{name}-usix
 Requires: subscription-manager
 Requires: m2crypto
+Requires: cdn-sync-mappings
 
 %description cdn
 Tools for syncing content from Red Hat CDN
