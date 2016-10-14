@@ -312,6 +312,7 @@ def activateSatellite_remote(options):
     # may raise InvalidRhnCertError, UnhandledXmlrpcError, socket.error,
     # or cgiwrap.ProtocolError
 
+    print 'RHN_PARENT: %s' % options.server
     s = getXmlrpcServer(options.server,
                         DEFAULT_WEB_HANDLER,
                         options.http_proxy,
@@ -566,6 +567,16 @@ def processCommandline():
 
     initCFG('server.satellite')
 
+    if options.manifest or options.cdn_deactivate:
+        if not cdn_activation:
+            sys.stderr.write("ERROR: Package spacewalk-backend-cdn has to be installed for using --manifest "
+                             "and --cdn-deactivate.\n")
+            sys.exit(1)
+
+    # No need to check further if deactivating
+    if options.cdn_deactivate:
+        return options
+
     # systemid
     if not options.systemid:
         options.systemid = DEFAULT_SYSTEMID_LOCATION
@@ -574,12 +585,6 @@ def processCommandline():
     if not options.rhn_cert and not options.manifest:
         print "NOTE: using backup cert as default: %s" % DEFAULT_RHN_CERT_LOCATION
         options.rhn_cert = DEFAULT_RHN_CERT_LOCATION
-
-    if options.manifest or options.cdn_deactivate:
-        if not cdn_activation:
-            sys.stderr.write("ERROR: Package spacewalk-backend-cdn has to be installed for using --manifest "
-                             "and --cdn-deactivate.\n")
-            sys.exit(1)
 
     if options.manifest:
         cdn_manifest = Manifest(options.manifest)
@@ -604,7 +609,6 @@ def processCommandline():
             sys.stderr.write("ERROR: rhn_parent is not set in /etc/rhn/rhn.conf\n")
             sys.exit(1)
         options.server = idn_ascii_to_puny(rhnLib.parseUrl(CFG.RHN_PARENT)[1].split(':')[0])
-        print 'RHN_PARENT: %s' % options.server
 
     options.http_proxy = idn_ascii_to_puny(CFG.HTTP_PROXY)
     options.http_proxy_username = CFG.HTTP_PROXY_USERNAME
