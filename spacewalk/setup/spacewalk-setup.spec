@@ -3,7 +3,7 @@
 Name:           spacewalk-setup
 Version:        2.6.1
 Release:        1%{?dist}
-Summary:        Initial setup tools for Red Hat Spacewalk
+Summary:        Initial setup tools for Spacewalk
 
 Group:          Applications/System
 License:        GPLv2
