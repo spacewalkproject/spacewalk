@@ -28,9 +28,11 @@ class Manifest(object):
     INNER_ZIP_NAME = "consumer_export.zip"
     ENTITLEMENTS_PATH = "export/entitlements"
     CERTIFICATE_PATH = "export/extensions"
+    PRODUCTS_PATH = "export/products"
 
     def __init__(self, zip_path):
         self.all_entitlements = []
+        self.manifest_repos = {}
         self.certificate_path = None
         # Signature and signed data
         self.signature = None
@@ -81,6 +83,18 @@ class Manifest(object):
                 if c is not None:
                     c.close()
 
+    def _fill_product_repositories(self, zip_file, product):
+        product_file = zip_file.open(self.PRODUCTS_PATH + '/' + str(product.get_id()) + '.json')
+        product_data = json.load(product_file)
+        product_file.close()
+        try:
+            for content in product_data['productContent']:
+                content = content['content']
+                product.add_repository(content['label'], content['contentUrl'])
+        except KeyError:
+            print("ERROR: Cannot access required field in product '%s'" % product.get_id())
+            raise
+
     def _load_entitlements(self, zip_file):
         files = zip_file.namelist()
         entitlements_files = []
@@ -108,12 +122,14 @@ class Manifest(object):
                         credentials = Credentials(data['id'], cert['cert'], cert['key'])
 
                         # Extract product IDs
-                        product_ids = []
+                        products = []
                         provided_products = data['pool']['providedProducts']
-                        for product in provided_products:
-                            product_ids.append(product['productId'])
+                        for provided_product in provided_products:
+                            product = Product(provided_product['productId'])
+                            self._fill_product_repositories(zip_file, product)
+                            products.append(product)
 
-                        entitlement = Entitlement(product_ids, credentials)
+                        entitlement = Entitlement(products, credentials)
                         self.all_entitlements.append(entitlement)
                     except KeyError:
                         print("ERROR: Cannot access required field in file '%s'" % entitlement_file)
@@ -155,15 +171,15 @@ class Manifest(object):
 
 
 class Entitlement(object):
-    def __init__(self, product_ids, credentials):
-        if product_ids and credentials:
-            self.product_ids = product_ids
+    def __init__(self, products, credentials):
+        if products and credentials:
+            self.products = products
             self.credentials = credentials
         else:
             raise IncorrectEntitlementError()
 
-    def get_product_ids(self):
-        return self.product_ids
+    def get_products(self):
+        return self.products
 
     def get_credentials(self):
         return self.credentials
@@ -195,6 +211,30 @@ class Credentials(object):
 
     def get_key(self):
         return self.key
+
+
+class Product(object):
+    def __init__(self, identifier):
+        try:
+            self.id = int(identifier)
+        except ValueError:
+            raise IncorrectProductError(
+                "ERROR: Invalid product id: %s" % identifier
+            )
+        self.repositories = {}
+
+    def get_id(self):
+        return self.id
+
+    def get_repositories(self):
+        return self.repositories
+
+    def add_repository(self, label, url):
+        self.repositories[label] = url
+
+
+class IncorrectProductError(Exception):
+    pass
 
 
 class IncorrectEntitlementError(Exception):
