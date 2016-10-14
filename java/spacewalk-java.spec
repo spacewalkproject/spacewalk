@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.40
+Version: 2.6.41
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -730,6 +730,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 14 2016 Grant Gainey 2.6.41-1
+- Updated specfile - RHN -> Spacewalk
+- Checkstyle: remove redundant modifiers
+- add missing string
+
 * Wed Oct 05 2016 Eric Herget <eherget@redhat.com> 2.6.40-1
 - 1377841 - return empty DataResult when querying with empty inClause and query
   has in clause substitution
