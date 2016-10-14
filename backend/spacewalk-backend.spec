@@ -89,7 +89,7 @@ Generic program files needed by the Spacewalk server machines.
 This package includes the common code required by all servers/proxies.
 
 %package sql
-Summary: Core functions providing SQL connectivity for the RHN backend modules
+Summary: Core functions providing SQL connectivity for the Spacewalk backend modules
 Group: Applications/Internet
 Requires(pre): %{name} = %{version}-%{release}
 Requires: %{name} = %{version}-%{release}
@@ -125,7 +125,7 @@ This package contains provides PostgreSQL connectivity for the Spacewalk
 backend modules.
 
 %package server
-Summary: Basic code that provides RHN Server functionality
+Summary: Basic code that provides Spacewalk Server functionality
 Group: Applications/Internet
 Requires(pre): %{name}-sql = %{version}-%{release}
 Requires: %{name}-sql = %{version}-%{release}
@@ -174,7 +174,7 @@ Provides: rhns-applet = 1:%{version}-%{release}
 
 %description applet
 These are the files required for running the /APPLET handler, which
-provides the functions for the RHN applet.
+provides the functions for the Spacewalk applet.
 
 %package app
 Summary: Handler for /APP
