@@ -213,6 +213,11 @@ class ContentSource(Information):
     attributeTypes = {
         'label': StringType,
         'source_url': StringType,
+        'type_id': IntType,
+        'org_id': IntType,
+        'ssl_ca_cert_id': IntType,
+        'ssl_client_cert_id': IntType,
+        'ssl_client_key_id': IntType,
     }
 
 

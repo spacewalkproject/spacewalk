@@ -574,7 +574,10 @@ class OracleBackend(Backend):
                   'org_id': DBint(),
                   'label': DBstring(128),
                   'source_url': DBstring(2048),
-                  'type_id': DBint()
+                  'type_id': DBint(),
+                  'ssl_ca_cert_id': DBint(),
+                  'ssl_client_cert_id': DBint(),
+                  'ssl_client_key_id': DBint()
               },
               pk=['label', 'org_id', 'type_id'],
               nullable=['org_id'],
