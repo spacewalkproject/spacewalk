@@ -23,7 +23,7 @@
         <command>&RHNSATACT; [ options <replaceable>...</replaceable> ] \
   [ --systemid<replaceable>PATH</replaceable> ] [ --rhn-cert <replaceable>PATH</replaceable> ] \
   [ --no-ssl ] [ --manifest <replaceable>PATH</replaceable> ] [ --sanity-only ] \
-  [ --old-api ] [ --force ] [ -h|--help ]</command>
+  [ --old-api ] [ --force ] [ --cdn-deactivate ] [ -h|--help ]</command>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -102,6 +102,12 @@
         <term>-f | --force</term>
         <listitem>
             <para>Force activate Satellite if it is already activated.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--cdn-deactivate</term>
+        <listitem>
+            <para>Deactivate CDN-activated Satellite.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

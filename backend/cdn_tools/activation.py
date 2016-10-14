@@ -52,14 +52,19 @@ class Activation(object):
 
         self.families_to_import = []
 
+    @staticmethod
+    def _remove_certificates():
+        for description_prefix in (constants.CA_CERT_NAME,
+                                   constants.CLIENT_CERT_PREFIX,
+                                   constants.CLIENT_KEY_PREFIX):
+
+            satCerts.delete_rhnCryptoKey_null_org(description_prefix)
+
     def _update_certificates(self):
         """Delete and insert certificates needed for syncing from CDN repositories."""
 
         # Remove all previously used certs/keys
-        for description_prefix in (constants.CA_CERT_NAME,
-                                   constants.CLIENT_CERT_PREFIX,
-                                   constants.CLIENT_KEY_PREFIX):
-            satCerts.delete_rhnCryptoKey_null_org(description_prefix)
+        self._remove_certificates()
 
         # Read RHSM cert
         f = open(constants.CA_CERT_PATH, 'r')
@@ -105,13 +110,9 @@ class Activation(object):
         importer = ChannelFamilyImport(batch, backend)
         importer.run()
 
-    def _update_repositories_ssl(self):
-        """Setup SSL credential to access repositories
-           We do this in 2 steps:
-           1. Fetching provided repositories from manifest - URL contains variables to substitute
-           2. Assigning one certificate/key set to each repository"""
-
-        # First delete all meta repositories
+    @staticmethod
+    def _remove_repositories():
+        """This method removes repositories obtained from manifest"""
         hdel_repos = rhnSQL.prepare("""
             delete from rhnContentSource where
             label like :prefix || '%%'
@@ -119,6 +120,15 @@ class Activation(object):
         """)
         hdel_repos.execute(prefix=constants.MANIFEST_REPOSITORY_DB_PREFIX)
         rhnSQL.commit()
+
+    def _update_repositories(self):
+        """Setup SSL credential to access repositories
+           We do this in 2 steps:
+           1. Fetching provided repositories from manifest - URL contains variables to substitute
+           2. Assigning one certificate/key set to each repository"""
+
+        # First delete all repositories from previously used manifests
+        self._remove_repositories()
 
         backend = SQLBackend()
         type_id = backend.lookupContentSourceType('yum')
@@ -153,13 +163,22 @@ class Activation(object):
         importer = ContentSourcesImport(content_sources_batch.values(), backend)
         importer.run()
 
-    def run(self):
+    def activate(self):
         if self.manifest.check_signature():
             print("Updating certificates...")
             self._update_certificates()
-            print("Updating CDN repositories...")
-            self._update_repositories_ssl()
+            print("Updating manifest repositories...")
+            self._update_repositories()
             print("Updating channel families...")
             self._update_channel_families()
         else:
             print("Manifest validation failed!")
+
+    @staticmethod
+    def deactivate():
+        """Function to remove certificates and manifest repositories from DB"""
+        rhnSQL.initDB()
+        print("Removing certificates...")
+        Activation._remove_certificates()
+        print("Removing manifest repositories...")
+        Activation._remove_repositories()

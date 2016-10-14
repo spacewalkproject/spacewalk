@@ -554,6 +554,7 @@ def processCommandline():
         Option('--old-api', action='store_true', help='activate Satellite using old API, system '
                + 'has to be registered to RHN Classic'),
         Option('-f', '--force', action='store_true', help='force activate Satellite if it is already activated'),
+        Option('--cdn-deactivate', action='store_true', help='deactivate CDN-activated Satellite'),
     ]
 
     options, args = OptionParser(option_list=options).parse_args()
@@ -574,10 +575,13 @@ def processCommandline():
         print "NOTE: using backup cert as default: %s" % DEFAULT_RHN_CERT_LOCATION
         options.rhn_cert = DEFAULT_RHN_CERT_LOCATION
 
-    if options.manifest:
+    if options.manifest or options.cdn_deactivate:
         if not cdn_activation:
-            sys.stderr.write("ERROR: Package spacewalk-backend-cdn has to be installed for using --manifest.\n")
+            sys.stderr.write("ERROR: Package spacewalk-backend-cdn has to be installed for using --manifest "
+                             "and --cdn-deactivate.\n")
             sys.exit(1)
+
+    if options.manifest:
         cdn_manifest = Manifest(options.manifest)
         tmp_cert_path = cdn_manifest.get_certificate_path()
         if tmp_cert_path is not None:
@@ -651,6 +655,11 @@ def main():
     def writeError(e):
         sys.stderr.write('\nERROR: %s\n' % e)
 
+    # CDN Deactivation
+    if options.cdn_deactivate:
+        cdn_activation.Activation.deactivate()
+        return 0
+
     # Handle RHSM manifest
     if options.manifest:
         cdn_activate = cdn_activation.Activation(options.manifest, options.rhn_cert)
@@ -720,7 +729,7 @@ def main():
                 return 40
 
     elif cdn_activate:
-        cdn_activate.run()
+        cdn_activate.activate()
 
     return 0
 
