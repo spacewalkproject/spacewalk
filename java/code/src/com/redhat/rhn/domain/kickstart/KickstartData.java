@@ -605,6 +605,15 @@ public class KickstartData {
         this.commands = c;
     }
 
+    /**
+     * Convenience method to remove all commands
+     */
+    public void removeCommands() {
+        if (this.commands != null && this.commands.size() > 0) {
+            this.commands.clear();
+        }
+    }
+
     private Set<KickstartCommand> getCommandSubset(String name) {
         Set<KickstartCommand> retval = new HashSet<KickstartCommand>();
         if (this.commands != null && this.commands.size() > 0) {

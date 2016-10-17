@@ -184,9 +184,12 @@ public class AdvancedModeDetailsAction extends RhnAction {
             }
             else {
                 ks = getKsData(context);
+                // upload content of new kickstart file
                 ks.setData(fileData);
-                ks.removeCommand("rootpw", Boolean.TRUE);
+                // build new commands in KickstartData
+                ks.removeCommands();
                 builder.buildCommands(ks, parser.getOptionLines(), tree);
+
                 builder.update(ks, label, tree, virtType);
                 ks.setActive(Boolean.TRUE.equals(form.get(ACTIVE)));
                 ks.setOrgDefault(Boolean.TRUE.equals(form.get(ORG_DEFAULT)));
