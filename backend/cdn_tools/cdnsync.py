@@ -29,11 +29,14 @@ from spacewalk.server.importlib.contentSourcesImport import ContentSourcesImport
 from spacewalk.server.importlib.channelImport import ChannelImport
 from spacewalk.server.importlib.productNamesImport import ProductNamesImport
 from spacewalk.server.importlib.importLib import Channel, ChannelFamily, \
-    ProductName, DistChannelMap, ContentSource, ReleaseChannelMap
+    ProductName, DistChannelMap, ReleaseChannelMap
 from spacewalk.satellite_tools import reposync
 from spacewalk.satellite_tools import contentRemove
 from spacewalk.satellite_tools.syncLib import log, log2disk, log2stderr
 from spacewalk.satellite_tools.repo_plugins import yum_src
+
+from common import CdnMappingsLoadError
+from repository import CdnRepositoryManager
 
 
 class CdnSync(object):
@@ -44,6 +47,7 @@ class CdnSync(object):
     def __init__(self, no_packages=False, no_errata=False, no_rpms=False, no_kickstarts=False,
                  log_level=None):
 
+        self.cdn_repository_manager = CdnRepositoryManager()
         self.no_packages = no_packages
         self.no_errata = no_errata
         self.no_rpms = no_rpms
@@ -79,19 +83,9 @@ class CdnSync(object):
                 self.channel_dist_mapping = json.load(f)
                 f.close()
 
-                # Channel to repositories mapping
-                f = open(constants.CONTENT_SOURCE_MAPPING_PATH, 'r')
-                self.content_source_mapping = json.load(f)
-                f.close()
-
                 # Kickstart metadata
                 f = open(constants.KICKSTART_DEFINITIONS_PATH, 'r')
                 self.kickstart_metadata = json.load(f)
-                f.close()
-
-                # Channel to kickstart repositories mapping
-                f = open(constants.KICKSTART_SOURCE_MAPPING_PATH, 'r')
-                self.kickstart_source_mapping = json.load(f)
                 f.close()
             except IOError:
                 e = sys.exc_info()[1]
@@ -115,36 +109,11 @@ class CdnSync(object):
         channels = h.fetchall_dict() or []
         self.synced_channels = [ch['label'] for ch in channels]
 
-        # Set SSL-keys for channel family
-        self.family_keys = {}
-
-    def _get_family_keys(self, family_label):
-        if family_label not in self.family_keys:
-            # get ssl keys from database
-            ssl_query = rhnSQL.prepare("""
-                                select k1.key as ca_cert, k2.key as client_cert, k3.key as client_key
-                                from rhncontentssl join
-                                     rhncryptokey k1 on rhncontentssl.ssl_ca_cert_id = k1.id left outer join
-                                     rhncryptokey k2 on rhncontentssl.ssl_client_cert_id = k2.id left outer join
-                                     rhncryptokey k3 on rhncontentssl.ssl_client_key_id = k3.id inner join
-                                     rhnchannelfamily cf on rhncontentssl.channel_family_id = cf.id
-                                where cf.label = :channel_family
-                            """)
-            ssl_query.execute(channel_family=family_label)
-            keys = ssl_query.fetchone_dict()
-            if 'client_key' not in keys or 'client_cert' not in keys or 'ca_cert' not in keys:
-                raise Exception("Cannot get SSL keys for channel family %s" % family_label)
-            else:
-                self.family_keys[family_label] = keys
-
-        return self.family_keys[family_label]
-
     def _list_available_channels(self):
-        # Select from rhnContentSsl to filter cdn-activated channel families
+        # Select channel families in DB
         h = rhnSQL.prepare("""
             select label from rhnChannelFamilyPermissions cfp inner join
-                              rhnChannelFamily cf on cfp.channel_family_id = cf.id inner join
-                              rhnContentSsl cs on cf.id = cs.channel_family_id
+                              rhnChannelFamily cf on cfp.channel_family_id = cf.id
             where cf.org_id is null
         """)
         h.execute()
@@ -158,6 +127,9 @@ class CdnSync(object):
             family = self.families[label]
             channels = [c for c in family['channels'] if c is not None]
             all_channels.extend(channels)
+
+        # filter available channels
+        all_channels = [x for x in all_channels if self.cdn_repository_manager.check_channel_availability(x)]
 
         # fill base_channel
         for channel in all_channels:
@@ -187,44 +159,7 @@ class CdnSync(object):
         importer = ProductNamesImport(batch, backend)
         importer.run()
 
-    def _get_content_sources(self, channel, backend):
-        batch = []
-        sources = []
-        type_id = backend.lookupContentSourceType('yum')
-
-        if channel in self.content_source_mapping:
-            sources.extend(self.content_source_mapping[channel])
-        for source in sources:
-            if not source['pulp_content_category'] == "source":
-                content_source = ContentSource()
-                content_source['label'] = source['pulp_repo_label_v2']
-                content_source['source_url'] = CFG.CDN_ROOT + source['relative_url']
-                content_source['org_id'] = None
-                content_source['type_id'] = type_id
-                batch.append(content_source)
-
-        if channel in self.kickstart_metadata:
-            for tree in self.kickstart_metadata[channel]:
-                tree_label = tree['ks_tree_label']
-                if tree_label in self.kickstart_source_mapping:
-                    sources = self.kickstart_source_mapping[tree_label]
-                    # One tree comes from one repo, one repo for each tree is in the mapping,
-                    # in future there may be multiple repos for one tree and we will need to select
-                    # correct repo
-                    source = sources[0]
-                    content_source = ContentSource()
-                    content_source['label'] = tree_label
-                    content_source['source_url'] = CFG.CDN_ROOT + source['relative_url']
-                    content_source['org_id'] = None
-                    content_source['type_id'] = type_id
-                    batch.append(content_source)
-                else:
-                    log(1, "WARN: Kickstart tree not available: %s" % tree_label)
-
-        return batch
-
     def _update_channels_metadata(self, channels):
-
         # First populate rhnProductName table
         self._update_product_names(channels)
 
@@ -273,7 +208,7 @@ class CdnSync(object):
             channel_object['dists'] = dists
             channel_object['release'] = releases
 
-            sources = self._get_content_sources(label, backend)
+            sources = self.cdn_repository_manager.get_content_sources_import_batch(label, backend)
             content_sources_batch.extend(sources)
             channel_object['content-sources'] = sources
 
@@ -287,8 +222,8 @@ class CdnSync(object):
 
     @staticmethod
     def _count_packages_in_repo(repo_source, keys):
-        repo_label = (repo_source.split(CFG.CDN_ROOT)[1])[1:].replace('/', '_')
-        repo_plugin = yum_src.ContentSource(str(repo_source), str(repo_label))
+        repo_label = repo_source[1:].replace('/', '_')
+        repo_plugin = yum_src.ContentSource(CFG.CDN_ROOT + str(repo_source), str(repo_label))
         repo_plugin.set_ssl_options(str(keys['ca_cert']), str(keys['client_cert']), str(keys['client_key']))
         return repo_plugin.raw_list_packages()
 
@@ -300,10 +235,8 @@ class CdnSync(object):
             kickstart_trees = self.kickstart_metadata[channel]
 
         if self.no_kickstarts:
-            for tree in kickstart_trees:
-                tree_label = tree['ks_tree_label']
-                source = self.kickstart_source_mapping[tree_label][0]
-                excluded_urls.append(CFG.CDN_ROOT + source['relative_url'])
+            kickstart_repos = self.cdn_repository_manager.get_content_sources_kickstart(channel)
+            excluded_urls.extend(kickstart_repos)
 
         log(0, "======================================")
         log(0, "| Channel: %s" % channel)
@@ -339,7 +272,8 @@ class CdnSync(object):
         not_available = []
         for channel in channels:
             if any(channel not in d for d in
-                   [self.channel_metadata, self.channel_to_family,  self.content_source_mapping]):
+                   [self.channel_metadata, self.channel_to_family]) or (
+                   not self.cdn_repository_manager.check_channel_availability(channel)):
                 not_available.append(channel)
 
         if not_available:
@@ -362,13 +296,12 @@ class CdnSync(object):
     def count_packages(self):
         start_time = int(time.time())
 
-        backend = SQLBackend()
         base_channels = self._list_available_channels()
 
         repo_list = []
         for base_channel in sorted(base_channels):
             for channel in sorted(base_channels[base_channel] + [base_channel]):
-                repo_list.extend(self._get_content_sources(channel, backend))
+                repo_list.extend(self.cdn_repository_manager.get_content_sources(channel))
 
         log(0, "Number of repositories: %d" % len(repo_list))
         already_downloaded = 0
@@ -377,13 +310,11 @@ class CdnSync(object):
 
         for base_channel in sorted(base_channels):
             for channel in sorted(base_channels[base_channel] + [base_channel]):
-                family_label = self.channel_to_family[channel]
-                keys = self._get_family_keys(family_label)
-
-                sources = self._get_content_sources(channel, backend)
+                sources = self.cdn_repository_manager.get_content_sources(channel)
                 list_packages = []
                 for source in sources:
-                    list_packages.extend(self._count_packages_in_repo(source['source_url'], keys))
+                    keys = self.cdn_repository_manager.get_repository_crypto_keys(source['relative_url'])
+                    list_packages.extend(self._count_packages_in_repo(source['relative_url'], keys))
                     already_downloaded += 1
                     print_progress_bar(already_downloaded, len(repo_list), prefix='Downloading repodata:',
                                        suffix='Complete', bar_length=50)
@@ -411,7 +342,6 @@ class CdnSync(object):
 
     def print_channel_tree(self, repos=False):
         available_channel_tree = self._list_available_channels()
-        backend = SQLBackend()
 
         if not available_channel_tree:
             log2stderr(0, "No available channels were found. Is your %s activated for CDN?" % PRODUCT_NAME)
@@ -428,7 +358,7 @@ class CdnSync(object):
             else:
                 status = '.'
 
-            sources = self._get_content_sources(channel, backend)
+            sources = self.cdn_repository_manager.get_content_sources(channel)
             if sources:
                 packages_number = '0'
             else:
@@ -443,7 +373,7 @@ class CdnSync(object):
             if repos:
                 if sources:
                     for source in sources:
-                        log(0, "        %s" % source['source_url'])
+                        log(0, "        %s" % source['relative_url'])
                 else:
                     log(0, "        No CDN source provided!")
 
@@ -457,7 +387,7 @@ class CdnSync(object):
                         status = 'p'
                     else:
                         status = '.'
-                    sources = self._get_content_sources(child, backend)
+                    sources = self.cdn_repository_manager.get_content_sources(child)
                     if sources:
                         packages_number = '0'
                     else:
@@ -472,10 +402,9 @@ class CdnSync(object):
                     if repos:
                         if sources:
                             for source in sources:
-                                log(0, "        %s" % source['source_url'])
+                                log(0, "        %s" % source['relative_url'])
                         else:
                             log(0, "        No CDN source provided!")
-
 
     @staticmethod
     def clear_cache():
@@ -504,7 +433,3 @@ def print_progress_bar(iteration, total, prefix='', suffix='', decimals=2, bar_l
     if iteration == total:
         sys.stdout.write('\n')
         sys.stdout.flush()
-
-
-class CdnMappingsLoadError(Exception):
-    pass

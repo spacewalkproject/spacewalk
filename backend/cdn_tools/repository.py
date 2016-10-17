@@ -12,19 +12,50 @@
 # in this software or its documentation.
 #
 
+import sys
+import json
+
 from spacewalk.server import rhnSQL
+from spacewalk.satellite_tools.syncLib import log2stderr, log
+from spacewalk.server.importlib.importLib import ContentSource
 import constants
+from common import CdnMappingsLoadError
 
 
 class CdnRepositoryManager(object):
     """Class managing CDN repositories, connected channels etc."""
 
     def __init__(self):
+        rhnSQL.initDB()
         self.repository_tree = CdnRepositoryTree()
         self._populate_repository_tree()
 
+        f = None
+        try:
+            try:
+                # Channel to repositories mapping
+                f = open(constants.CONTENT_SOURCE_MAPPING_PATH, 'r')
+                self.content_source_mapping = json.load(f)
+                f.close()
+
+                # Channel to kickstart repositories mapping
+                f = open(constants.KICKSTART_SOURCE_MAPPING_PATH, 'r')
+                self.kickstart_source_mapping = json.load(f)
+                f.close()
+
+                # Kickstart metadata
+                f = open(constants.KICKSTART_DEFINITIONS_PATH, 'r')
+                self.kickstart_metadata = json.load(f)
+                f.close()
+            except IOError:
+                e = sys.exc_info()[1]
+                log2stderr(0, "ERROR: Problem with loading file: %s" % e)
+                raise CdnMappingsLoadError()
+        finally:
+            if f is not None:
+                f.close()
+
     def _populate_repository_tree(self):
-        rhnSQL.initDB()
         query = rhnSQL.prepare("""
             select cs.label, cs.source_url, cs.ssl_ca_cert_id, cs.ssl_client_cert_id, cs.ssl_client_key_id
             from rhnContentSource cs
@@ -37,6 +68,88 @@ class CdnRepositoryManager(object):
             repository = CdnRepository(row['label'], row['source_url'],
                                        row['ssl_ca_cert_id'], row['ssl_client_cert_id'], row['ssl_client_key_id'])
             self.repository_tree.add_repository(repository)
+
+    def get_content_sources_regular(self, channel_label):
+        if channel_label in self.content_source_mapping:
+            return self.content_source_mapping[channel_label]
+        else:
+            return []
+
+    def get_content_sources_kickstart(self, channel_label):
+        if channel_label in self.kickstart_metadata:
+            for tree in self.kickstart_metadata[channel_label]:
+                tree_label = tree['ks_tree_label']
+                if tree_label in self.kickstart_source_mapping:
+                    return self.kickstart_source_mapping[tree_label]
+                else:
+                    log(1, "WARN: Kickstart tree not available: %s" % tree_label)
+        return []
+
+    def get_content_sources(self, channel_label):
+        sources = self.get_content_sources_regular(channel_label)
+        kickstart_sources = self.get_content_sources_kickstart(channel_label)
+        return sources + kickstart_sources
+
+    def check_channel_availability(self, channel_label):
+        """Checks if all repositories for channel are available."""
+        sources = self.get_content_sources(channel_label)
+
+        # No content, no channel
+        if not sources:
+            return False
+
+        for source in sources:
+            try:
+                self.repository_tree.find_repository(source['relative_url'])
+            except CdnRepositoryNotFoundError:
+                return False
+        return True
+
+    def get_content_sources_import_batch(self, channel_label, backend):
+        batch = []
+        type_id = backend.lookupContentSourceType('yum')
+
+        sources = self.get_content_sources_regular(channel_label)
+
+        for source in sources:
+            if not source['pulp_content_category'] == "source":
+                content_source = ContentSource()
+                content_source['label'] = source['pulp_repo_label_v2']
+                content_source['source_url'] = source['relative_url']
+                content_source['org_id'] = None
+                content_source['type_id'] = type_id
+                repository = self.repository_tree.find_repository(source['relative_url'])
+                content_source['ssl_ca_cert_id'] = repository.get_ca_cert()
+                content_source['ssl_client_cert_id'] = repository.get_client_cert()
+                content_source['ssl_client_key_id'] = repository.get_client_key()
+                batch.append(content_source)
+
+        kickstart_sources = self.get_content_sources_kickstart(channel_label)
+        if kickstart_sources:
+            # One tree comes from one repo, one repo for each tree is in the mapping,
+            # in future there may be multiple repos for one tree and we will need to select
+            # correct repo
+            ks_source = kickstart_sources[0]
+            content_source = ContentSource()
+            tree_label = self.kickstart_metadata[channel_label][0]['ks_tree_label']
+            content_source['label'] = tree_label
+            content_source['source_url'] = ks_source['relative_url']
+            content_source['org_id'] = None
+            content_source['type_id'] = type_id
+            repository = self.repository_tree.find_repository(ks_source['relative_url'])
+            content_source['ssl_ca_cert_id'] = repository.get_ca_cert()
+            content_source['ssl_client_cert_id'] = repository.get_client_cert()
+            content_source['ssl_client_key_id'] = repository.get_client_key()
+            batch.append(content_source)
+
+        return batch
+
+    def get_repository_crypto_keys(self, url):
+        try:
+            repo = self.repository_tree.find_repository(url)
+            return repo.get_crypto_keys()
+        except CdnRepositoryNotFoundError:
+            return {}
 
 
 class CdnRepositoryTree(object):
@@ -112,9 +225,9 @@ class CdnRepository(object):
     def __init__(self, label, url, ca_cert, client_cert, client_key):
         self.label = label
         self.url = url
-        self.ca_cert = ca_cert
-        self.client_cert = client_cert
-        self.client_key = client_key
+        self.ca_cert = int(ca_cert)
+        self.client_cert = int(client_cert)
+        self.client_key = int(client_key)
 
     def get_label(self):
         return self.label
@@ -130,3 +243,16 @@ class CdnRepository(object):
 
     def get_client_key(self):
         return self.client_key
+
+    def get_crypto_keys(self):
+        ssl_query = rhnSQL.prepare("""
+            select key from rhnCryptoKey where id = :id
+        """)
+        keys = {}
+        ssl_query.execute(id=self.ca_cert)
+        keys['ca_cert'] = ssl_query.fetchone_dict()
+        ssl_query.execute(id=self.client_cert)
+        keys['client_cert'] = ssl_query.fetchone_dict()
+        ssl_query.execute(id=self.client_key)
+        keys['client_key'] = ssl_query.fetchone_dict()
+        return keys
