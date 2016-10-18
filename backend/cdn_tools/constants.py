@@ -26,6 +26,7 @@ MANIFEST_REPOSITORY_DB_PREFIX = "manifest_"
 CA_CERT_PATH = "/etc/rhsm/ca/redhat-uep.pem"
 CANDLEPIN_CA_CERT_DIR = "/etc/rhn/candlepin-certs"
 
+MAPPINGS_RPM_NAME = "cdn-sync-mappings"
 CHANNEL_DEFINITIONS_PATH = "/usr/share/rhn/cdn-sync/channels.json"
 CHANNEL_FAMILY_MAPPING_PATH = "/usr/share/rhn/cdn-sync/families.json"
 CHANNEL_DIST_MAPPING_PATH = "/usr/share/rhn/cdn-sync/dist_map.json"
