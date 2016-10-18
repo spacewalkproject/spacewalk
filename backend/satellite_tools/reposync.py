@@ -243,6 +243,15 @@ class RepoSync(object):
         self.strict = strict
         self.all_packages = []
 
+    def set_urls_prefix(self, prefix):
+        """If there are relative urls in DB, set their real location in runtime"""
+        for index, url in enumerate(self.urls):
+            # Make list, add prefix, make tuple and save
+            url = list(url)
+            url[1] = "%s%s" % (prefix, url[1])
+            url = tuple(url)
+            self.urls[index] = url
+
     def sync(self, update_repodata=False):
         """Trigger a reposync"""
         start_time = datetime.now()

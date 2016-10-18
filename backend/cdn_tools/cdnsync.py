@@ -261,6 +261,7 @@ class CdnSync(object):
         if kickstart_trees:
             # Assuming all trees have same install type
             sync.set_ks_install_type(kickstart_trees[0]['ks_install_type'])
+        sync.set_urls_prefix(CFG.CDN_ROOT)
         return sync.sync(update_repodata=True)
 
     def sync(self, channels=None):
