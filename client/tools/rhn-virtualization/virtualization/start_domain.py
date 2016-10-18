@@ -13,7 +13,12 @@
 # in this software or its documentation.
 #
 
-import commands
+try:
+    # python 2
+    import commands
+except ImportError:
+    import subprocess as commands
+
 import libvirt
 import os
 import os.path
@@ -23,6 +28,7 @@ import sys
 from virtualization.domain_directory import DomainDirectory
 from virtualization.domain_config    import DomainConfig, DomainConfigError
 from virtualization.errors           import VirtualizationException
+from spacewalk.common.usix import raise_with_tb
 
 ###############################################################################
 # Constants
@@ -50,7 +56,8 @@ def start_domain(uuid):
     # data provided in the config to start the domain.
     try:
         config.getConfigItem(DomainConfig.BOOTLOADER)
-    except DomainConfigError, dce:
+    except DomainConfigError:
+        dce = sys.exc_info()[1]
         # No bootloader tag present.  Use pygrub to extract the kernel from
         # the disk image if its Xen. For fully virt we dont have pygrub, it
         # directly emulates the BIOS loading the first sector of the boot disk.
@@ -61,10 +68,10 @@ def start_domain(uuid):
     # Now, we'll restart the instance, this time using the re-create XML.
     try:
         domain = connection.createLinux(config.toXML(), 0)
-    except Exception, e:
-        raise VirtualizationException, \
-              "Error occurred while attempting to recreate domain %s: %s" % \
-                  (uuid, str(e)), sys.exc_info()[2]
+    except Exception:
+        e = sys.exc_info()[1]
+        raise_with_tb(VirtualizationException("Error occurred while attempting to recreate domain %s: %s" %
+                                              (uuid, str(e))), sys.exc_info()[2])
 
 ###############################################################################
 # Helper Methods
@@ -81,9 +88,8 @@ def _prepare_guest_kernel_and_ramdisk(config):
     (status, output) = \
         commands.getstatusoutput("%s -q %s" % (PYGRUB, disk_image))
     if status != 0:
-        raise VirtualizationException, \
-            "Error occurred while executing '%s' (status=%d). Output=%s" % \
-                (PYGRUB, status, output)
+        raise VirtualizationException("Error occurred while executing '%s' (status=%d). Output=%s" %
+                                      (PYGRUB, status, output))
 
     # Now analyze the output and extract the names of the new kernel and initrd
     # images from it.
@@ -98,9 +104,10 @@ def _prepare_guest_kernel_and_ramdisk(config):
     try:
         os.rename(pygrub_kernel_path, runtime_kernel_path)
         os.rename(pygrub_initrd_path, runtime_initrd_path)
-    except OSError, oe:
-        raise VirtualizationException, \
-              "Error occurred while renaming runtime image paths: %s" % str(oe), sys.exc_info()[2]
+    except OSError:
+        oe = sys.exc_info()[1]
+        raise_with_tb(VirtualizationException("Error occurred while renaming runtime image paths: %s" % str(oe)),
+                      sys.exc_info()[2])
 
 
 def _extract_image_paths_from_pygrub_output(output):
@@ -113,9 +120,7 @@ def _extract_image_paths_from_pygrub_output(output):
                       output,
                       re.MULTILINE)
     if match is None or len(match.groups()) != 2:
-        raise VirtualizationException, \
-              "Could not locate kernel and initrd in pygrub output: %s" % \
-                  output
+        raise VirtualizationException("Could not locate kernel and initrd in pygrub output: %s" % output)
 
     kernel_path = match.group(1)
     initrd_path = match.group(2)
@@ -123,4 +128,4 @@ def _extract_image_paths_from_pygrub_output(output):
     return (kernel_path, initrd_path)
 
 if __name__ == "__main__":
-    print "result=", start_domain(sys.argv[1])
+    print("result=", start_domain(sys.argv[1]))

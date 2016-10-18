@@ -17,9 +17,15 @@ import sys
 sys.path.append("/usr/share/rhn/")
 
 import os
-import cPickle
+try:
+    # python2
+    import cPickle
+except ImportError:
+    import pickle as cPickle
 import time
 import traceback
+
+from spacewalk.common.usix import LongType
 
 ###############################################################################
 # Constants
@@ -78,7 +84,7 @@ class PollerStateCache:
         if self.__expire_time is None:
             return False
         else:
-            return long(time.time()) >= self.__expire_time
+            return LongType(time.time()) >= self.__expire_time
 
     def is_changed(self):
         return self.__added or self.__removed or self.__modified
@@ -116,7 +122,8 @@ class PollerStateCache:
         cache_file = None
         try:
             cache_file = open(CACHE_DATA_PATH, 'r')
-        except IOError, ioe:
+        except IOError:
+            ioe = sys.exc_info()[1]
             # Couldn't open the cache file.  That's ok, there might not be one.
             # We'll only complain if debugging is enabled.
             self._log_debug("Could not open cache file '%s': %s" % \
@@ -127,7 +134,8 @@ class PollerStateCache:
         if cache_file:
             try:
                 state = cPickle.load(cache_file)
-            except cPickle.PickleError, pe:
+            except cPickle.PickleError:
+                pe = sys.exc_info()[1]
                 # Strange.  Possibly, the file is corrupt.  We'll load an empty
                 # state instead.
                 self._log_debug("Error occurred while loading state: %s" % \
@@ -141,7 +149,7 @@ class PollerStateCache:
         if state:
             self._log_debug("Loaded state: %s" % repr(state))
 
-            self.__expire_time = long(state['expire_time'])
+            self.__expire_time = LongType(state['expire_time'])
 
             # If the cache is expired, set the old data to None so we force
             # a refresh.
@@ -162,12 +170,12 @@ class PollerStateCache:
         # First, ensure that the proper parent directory is created.
         cache_dir_path = os.path.dirname(CACHE_DATA_PATH)
         if not os.path.exists(cache_dir_path):
-            os.makedirs(cache_dir_path, 0700)
+            os.makedirs(cache_dir_path, int('0700', 8))
 
         state = {}
         state['domain_data'] = self.__new_domain_data
         if self.__expire_time is None or self.is_expired():
-            state['expire_time'] = long(time.time()) + CACHE_EXPIRE_SECS
+            state['expire_time'] = LongType(time.time()) + CACHE_EXPIRE_SECS
         else:
             state['expire_time'] = self.__expire_time
 
@@ -191,8 +199,7 @@ class PollerStateCache:
         # First, figure out the modified and added uuids.
         if self.__new_domain_data:
             for (uuid, new_properties) in self.__new_domain_data.items():
-                if not self.__old_domain_data or \
-                    not self.__old_domain_data.has_key(uuid):
+                if not self.__old_domain_data or uuid not in self.__old_domain_data:
 
                     self.__added[uuid] = self.__new_domain_data[uuid]
                 else:
@@ -203,14 +210,13 @@ class PollerStateCache:
         # Now, figure out the removed uuids.
         if self.__old_domain_data:
             for uuid in self.__old_domain_data.keys():
-                if not self.__new_domain_data or \
-                    not self.__new_domain_data.has_key(uuid):
+                if not self.__new_domain_data or uuid not in self.__new_domain_data:
 
                     self.__removed[uuid] = self.__old_domain_data[uuid]
 
     def _log_debug(self, msg, include_trace = 0):
         if self.__debug:
-            print "DEBUG: " + str(msg)
+            print("DEBUG: " + str(msg))
             if include_trace:
                 e_info = sys.exc_info()
                 traceback.print_exception(e_info[0], e_info[1], e_info[2])

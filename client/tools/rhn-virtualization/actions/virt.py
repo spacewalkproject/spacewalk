@@ -38,7 +38,8 @@ def refresh(cache_only=None):
         return (0, "no-ops for caching", {})
     try:
         support.refresh()
-    except errors.VirtualizationException, ve:
+    except errors.VirtualizationException:
+        ve = sys.exc_info()[1]
         return (1, str(ve), {})
     return (0, "Virtualization Info refreshed.", {})
 
@@ -47,7 +48,8 @@ def shutdown(uuid, cache_only=None):
         return (0, "no-ops for caching", {})
     try:
         support.shutdown(uuid)
-    except errors.VirtualizationException, ve:
+    except errors.VirtualizationException:
+        ve = sys.exc_info()[1]
         return (1, str(ve), {})
     return (0, "Domain %s shutdown." % str(uuid), {})
 
@@ -56,7 +58,8 @@ def start(uuid, cache_only=None):
         return (0, "no-ops for caching", {})
     try:
         support.start(uuid)
-    except errors.VirtualizationException, ve:
+    except errors.VirtualizationException:
+        ve = sys.exc_info()[1]
         return (1, str(ve), {})
     return (0, "Domain %s started." % str(uuid), {})
 
@@ -65,7 +68,8 @@ def suspend(uuid, cache_only=None):
         return (0, "no-ops for caching", {})
     try:
         support.suspend(uuid)
-    except errors.VirtualizationException, ve:
+    except errors.VirtualizationException:
+        ve = sys.exc_info()[1]
         return (1, str(ve), {})
     return (0, "Domain %s suspended." % str(uuid), {})
 
@@ -74,7 +78,8 @@ def resume(uuid, cache_only=None):
         return (0, "no-ops for caching", {})
     try:
         support.resume(uuid)
-    except errors.VirtualizationException, ve:
+    except errors.VirtualizationException:
+        ve = sys.exc_info()[1]
         return (1, str(ve), {})
     return (0, "Domain %s resumed." % str(uuid), {})
 
@@ -83,7 +88,8 @@ def reboot(uuid, cache_only=None):
         return (0, "no-ops for caching", {})
     try:
         support.reboot(uuid)
-    except errors.VirtualizationException, ve:
+    except errors.VirtualizationException:
+        ve = sys.exc_info()[1]
         return (1, str(ve), {})
     return (0, "Domain %s rebooted." % str(uuid), {})
 
@@ -92,7 +98,8 @@ def destroy(uuid, cache_only=None):
         return (0, "no-ops for caching", {})
     try:
         support.destroy(uuid)
-    except errors.VirtualizationException, ve:
+    except errors.VirtualizationException:
+        ve = sys.exc_info()[1]
         return (1, str(ve), {})
     return (0, "Domain %s destroyed." % str(uuid), {})
 
@@ -101,7 +108,8 @@ def setMemory(uuid, memory, cache_only=None):
         return (0, "no-ops for caching", {})
     try:
         support.setMemory(uuid, memory)
-    except errors.VirtualizationException, ve:
+    except errors.VirtualizationException:
+        ve = sys.exc_info()[1]
         return (1, str(ve), {})
     return (0, "Memory set to %s on %s." % (str(memory), str(uuid)), {})
 
@@ -110,7 +118,8 @@ def setVCPUs(uuid, vcpus, cache_only=None):
         return (0, "no-ops for caching", {})
     try:
         support.setVCPUs(uuid, vcpus)
-    except errors.VirtualizationException, ve:
+    except errors.VirtualizationException:
+        ve = sys.exc_info()[1]
         return (1, str(ve), {})
     return (0, "VCPUs set to %s on %s." % (str(vcpus), str(uuid)), {})
 
@@ -128,5 +137,5 @@ if __name__ == "__main__":
     import sys
     import actions.virt
     func = getattr(actions.virt, sys.argv[1])
-    print apply(func, tuple(sys.argv[2:]))
+    print(func(*tuple(sys.argv[2:])))
 

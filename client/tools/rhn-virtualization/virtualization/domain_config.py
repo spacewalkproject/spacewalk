@@ -18,6 +18,9 @@ import string
 import os
 import sys
 
+from spacewalk.common.usix import raise_with_tb
+
+
 ###############################################################################
 # Exceptions
 ###############################################################################
@@ -72,9 +75,10 @@ class DomainConfig:
         self.__dom_tree = None
         try:
             self.__dom_tree = parse(self.__file_name).documentElement
-        except Exception, e:
-            raise DomainConfigError("Error reading config file '%s': %s" % \
-                                        (self.__file_name, str(e))), None, sys.exc_info()[2]
+        except Exception:
+            e = sys.exc_info()[1]
+            raise_with_tb(DomainConfigError("Error reading config file '%s': %s" % (self.__file_name, str(e))),
+                          sys.exc_info()[2])
 
 
     def save(self):
@@ -84,9 +88,10 @@ class DomainConfig:
             try:
                 file = open(self.__file_name, "w")
                 file.write(self.__dom_tree.toxml())
-            except IOError, ioe:
-                raise DomainConfigError("Error saving config file '%s': %s" % \
-                                            (self.__file_name, str(ioe))), None, sys.exc_info()[2]
+            except IOError:
+                ioe = sys.exc_info()[1]
+                raise_with_tb(DomainConfigError("Error saving config file '%s': %s" % (self.__file_name, str(ioe))),
+                              sys.exc_info()[2])
 
         finally:
             if file is not None:
@@ -175,9 +180,7 @@ class DomainConfig:
 
             # Look for the "method" argument.  This is a good indication that
             # the instance is in the installer.
-            if (command_line_dict.has_key("method") or
-                command_line_dict.has_key("ks") or
-                command_line_dict.has_key("autoyast")):
+            if "method" in command_line_dict or "ks" in command_line_dict or "autoyast" in command_line_dict:
                 result = 1
 
         return result
@@ -190,8 +193,7 @@ class DomainConfig:
         found = self.__extractElement(start_tree, *tag_path)
 
         if len(found.childNodes) == 0:
-            raise DomainConfigError, \
-                  "Unable to find config value: " + "/".join(tag_path)
+            raise DomainConfigError("Unable to find config value: " + "/".join(tag_path))
 
         return found.childNodes[0].data
 
@@ -205,8 +207,7 @@ class DomainConfig:
 
         # Dig out the value of the requested attribute.
         if not found.hasAttribute(attribute_name):
-            raise DomainConfigError, \
-                  "Unable to find config attribute: " + "/".join(tag_path)
+            raise DomainConfigError("Unable to find config attribute: " + "/".join(tag_path))
 
         return found.getAttribute(attribute_name)
 
@@ -214,8 +215,7 @@ class DomainConfig:
         found = self.__extractElement(start_tree, *tag_path)
 
         if len(found.childNodes) == 0:
-            raise DomainConfigError, \
-                  "Unable to find config value: " + "/".join(tag_path)
+            raise DomainConfigError("Unable to find config value: " + "/".join(tag_path))
 
         found.parentNode.removeChild(found)
 
@@ -224,8 +224,7 @@ class DomainConfig:
         found = self.__extractElement(start_tree, *tag_path[:-1])
 
         if not found.hasAttribute(attribute_name):
-            raise DomainConfigError, \
-                  "Unable to find config attribute: " + "/".join(tag_path)
+            raise DomainConfigError("Unable to find config attribute: " + "/".join(tag_path))
 
         found.removeAttribute(attribute_name)
 
@@ -244,10 +243,9 @@ class DomainConfig:
 
         try:
             found.childNodes[0].data = str(value)
-        except IndexError, ie:
-            raise DomainConfigError(
-                "Error writing %s tag in '%s'." % \
-                    (string.join(tag_path, '/'), self.__file_name)), None, sys.exc_info()[2]
+        except IndexError:
+            raise_with_tb(DomainConfigError("Error writing %s tag in '%s'." % ('/'.join(tag_path), self.__file_name)),
+                          sys.exc_info()[2])
 
     def __setElementAttribute(self, start_tree, value, *tag_path):
         attribute_name = tag_path[-1]
@@ -287,7 +285,7 @@ class DomainConfig:
             # only applies to elements below the root node.
             if start_tree.nodeName != tag:
                 # First part of the tag path didn't match.  Raise exception.
-               raise DomainConfigError, "Could not locate tag <%s>." % tag
+               raise DomainConfigError("Could not locate tag <%s>." % tag)
             else:
                # First part matched; adjust the tag pointer, if there's any
                # thing left.
@@ -305,7 +303,7 @@ class DomainConfig:
 
         # If we got here, we couldn't find the tag in question.  Raise an
         # exception
-        raise DomainConfigError, "Could not locate tag " + str(tag)
+        raise DomainConfigError("Could not locate tag " + str(tag))
 
 ###############################################################################
 # Test Method
@@ -315,14 +313,14 @@ if __name__ == "__main__":
     import sys
     uuid = sys.argv[1]
     f = DomainConfig("/etc/sysconfig/rhn/virt", uuid)
-    print "name=", f.getConfigItem(DomainConfig.NAME)
-    print "memory=", f.getConfigItem(DomainConfig.MEMORY)
-    print "domain_id=", f.getConfigItem(DomainConfig.DOMAIN_ID)
+    print("name=", f.getConfigItem(DomainConfig.NAME))
+    print("memory=", f.getConfigItem(DomainConfig.MEMORY))
+    print("domain_id=", f.getConfigItem(DomainConfig.DOMAIN_ID))
     f.setConfigItem(DomainConfig.DOMAIN_ID, 22322)
     f.setConfigItem(DomainConfigItem("domain/argh", DataType.ATTRIBUTE), 22322)
     f.setConfigItem(DomainConfigItem("domain/pete", DataType.VALUE), "hello")
     f.setConfigItem(DomainConfigItem("domain/vcpu", DataType.VALUE), "22")
     f.setConfigItem(DomainConfig.BOOTLOADER, "/usr/pete/bin/pygrub")
     f.removeConfigItem(DomainConfigItem("domain/os", DataType.VALUE))
-    print f.toXML()
+    print(f.toXML())
 

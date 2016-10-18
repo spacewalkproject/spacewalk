@@ -14,7 +14,8 @@
 #
 
 import sys
-from domain_config import DomainConfig
+sys.path.append("/usr/share/rhn")
+from virtualization.domain_config import DomainConfig
 
 fieldname = sys.argv[1]
 filename = sys.argv[2]
@@ -32,7 +33,7 @@ fields = {
             'disk_source'   :   DomainConfig.DISK_IMAGE_PATH
          }
 
-if not fields.has_key(fieldname):
+if fieldname not in fields:
     sys.stdout.write("Unknown configuration element %s \n" % fieldname)
     sys.exit(1)
 
@@ -40,5 +41,5 @@ result = dc.getConfigItem(fields[fieldname])
 if fieldname == "uuid":
     result = result.replace("-", "")
 
-print result
+print(result)
 
