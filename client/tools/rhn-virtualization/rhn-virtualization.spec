@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.55
+Version:        5.4.56
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -156,6 +156,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed Oct 19 2016 Gennadii Altukhov <galt@redhat.com> 5.4.56-1
+- 1379891 - make rhn-virtualization code compatible with Python 2/3
+
 * Tue Jan 13 2015 Matej Kollar <mkollar@redhat.com> 5.4.55-1
 - Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
 
