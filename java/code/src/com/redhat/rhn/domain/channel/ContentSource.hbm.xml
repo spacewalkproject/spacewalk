@@ -27,6 +27,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             class="com.redhat.rhn.domain.channel.ContentSourceType"
             column="type_id"/>
 
+        <many-to-one name="caCert" column="ssl_ca_cert_id" class="com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey" />
+        <many-to-one name="clientCert" column="ssl_client_cert_id" class="com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey" />
+        <many-to-one name="clientKey" column="ssl_client_key_id" class="com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey" />
+
         <set name="channels" lazy="true" table="rhnChannelContentSource"
             cascade="save-update">
             <key column="source_id"/>
@@ -34,13 +38,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 class="com.redhat.rhn.domain.channel.Channel"
                 column="channel_id"/>
         </set>
-
-      <joined-subclass name="com.redhat.rhn.domain.channel.SslContentSource" table="rhnContentSsl">
-        <key column="content_source_id" />
-        <many-to-one name="caCert" column="ssl_ca_cert_id" class="com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey" />
-        <many-to-one name="clientCert" column="ssl_client_cert_id" class="com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey" />
-        <many-to-one name="clientKey" column="ssl_client_key_id" class="com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey" />
-      </joined-subclass>
     </class>
 
 

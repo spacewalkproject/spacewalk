@@ -219,12 +219,10 @@ class RepoSync(object):
 
         if not url:
             # TODO:need to look at user security across orgs
-            h = rhnSQL.prepare("""select s.id, s.source_url, s.label, fm.channel_family_id
+            h = rhnSQL.prepare("""select s.id, s.source_url, s.label
                                   from rhnContentSource s,
-                                       rhnChannelContentSource cs,
-                                       rhnChannelFamilyMembers fm
+                                       rhnChannelContentSource cs
                                  where s.id = cs.source_id
-                                   and cs.channel_id = fm.channel_id
                                    and cs.channel_id = :channel_id""")
             h.execute(channel_id=int(self.channel['id']))
             source_data = h.fetchall_dict()
@@ -234,7 +232,7 @@ class RepoSync(object):
             if source_data:
                 for row in source_data:
                     if row['source_url'] not in excluded_urls:
-                        self.urls.append((row['id'], row['source_url'], row['label'], row['channel_family_id']))
+                        self.urls.append((row['id'], row['source_url'], row['label']))
         else:
             self.urls = [(None, u, None, None) for u in url]
 
@@ -248,7 +246,7 @@ class RepoSync(object):
     def sync(self, update_repodata=False):
         """Trigger a reposync"""
         start_time = datetime.now()
-        for (repo_id, url, repo_label, channel_family_id) in self.urls:
+        for (repo_id, url, repo_label) in self.urls:
             log(0, "Repo URL: %s" % url)
             plugin = None
 
@@ -272,16 +270,15 @@ class RepoSync(object):
                 if repo_id is not None:
                     keys = rhnSQL.fetchone_dict("""
                         select k1.key as ca_cert, k2.key as client_cert, k3.key as client_key
-                        from rhncontentssl
+                        from rhncontentsource cs
                                 join rhncryptokey k1
-                                on rhncontentssl.ssl_ca_cert_id = k1.id
+                                on cs.ssl_ca_cert_id = k1.id
                                 left outer join rhncryptokey k2
-                                on rhncontentssl.ssl_client_cert_id = k2.id
+                                on cs.ssl_client_cert_id = k2.id
                                 left outer join rhncryptokey k3
-                                on rhncontentssl.ssl_client_key_id = k3.id
-                        where rhncontentssl.content_source_id = :repo_id
-                        or rhncontentssl.channel_family_id = :channel_family_id
-                        """, repo_id=int(repo_id), channel_family_id=int(channel_family_id))
+                                on cs.ssl_client_key_id = k3.id
+                        where cs.id = :repo_id
+                        """, repo_id=int(repo_id))
                     if keys and ('ca_cert' in keys):
                         plugin.set_ssl_options(keys['ca_cert'], keys['client_cert'], keys['client_key'])
 
