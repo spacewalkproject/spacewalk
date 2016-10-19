@@ -152,6 +152,7 @@ def auth_client():
     token = dict((k.lower(),v) for k,v in get("AUTH_SESSION_TOKEN").items())
     # Check to see if everything we need to compute the signature is there
     for k in ('x-rhn-server-id',
+              'x-rhn-auth-user-id',
               'x-rhn-auth',
               'x-rhn-auth-server-time',
               'x-rhn-auth-expire-offset'):
