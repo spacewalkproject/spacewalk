@@ -318,6 +318,7 @@ class ContentSource(object):
         rmtree(directory, True)
         # restore empty directory
         makedirs(directory + "/packages", int('0755', 8))
+        makedirs(directory + "/gen", int('0755', 8))
 
     def get_updates(self):
         if 'updateinfo' not in self.repo.repoXML.repoData:
