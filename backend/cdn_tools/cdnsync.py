@@ -274,7 +274,7 @@ class CdnSync(object):
         for channel in channels:
             if any(channel not in d for d in
                    [self.channel_metadata, self.channel_to_family]) or (
-                   not self.cdn_repository_manager.check_channel_availability(channel)):
+                       not self.cdn_repository_manager.check_channel_availability(channel)):
                 not_available.append(channel)
 
         if not_available:
