@@ -4,7 +4,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.redhat.rhn.domain.channel.ContentSource"
-        table="rhnContentSource" >
+        table="rhnContentSource" discriminator-value="null" >
 
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -12,6 +12,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">rhn_chan_content_src_id_seq</param>
             </generator>
         </id>
+
+        <discriminator column="ssl_ca_cert_id" type="long" insert="false"/>
 
         <property name="sourceUrl" type="string" column="source_url"/>
         <property name="created" type="timestamp" column="created"  insert="false" update="false" />
@@ -27,10 +29,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             class="com.redhat.rhn.domain.channel.ContentSourceType"
             column="type_id"/>
 
-        <many-to-one name="caCert" column="ssl_ca_cert_id" class="com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey" />
-        <many-to-one name="clientCert" column="ssl_client_cert_id" class="com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey" />
-        <many-to-one name="clientKey" column="ssl_client_key_id" class="com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey" />
-
         <set name="channels" lazy="true" table="rhnChannelContentSource"
             cascade="save-update">
             <key column="source_id"/>
@@ -38,6 +36,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 class="com.redhat.rhn.domain.channel.Channel"
                 column="channel_id"/>
         </set>
+
+        <subclass name="com.redhat.rhn.domain.channel.SslContentSource" discriminator-value="not null" lazy="true">
+            <many-to-one name="caCert" column="ssl_ca_cert_id" class="com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey" />
+            <many-to-one name="clientCert" column="ssl_client_cert_id" class="com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey" />
+            <many-to-one name="clientKey" column="ssl_client_key_id" class="com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey" />
+        </subclass>
     </class>
 
 
