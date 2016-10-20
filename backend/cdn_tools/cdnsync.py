@@ -124,7 +124,11 @@ class CdnSync(object):
         base_channels = {}
         for family in families:
             label = family['label']
-            family = self.families[label]
+            try:
+                family = self.families[label]
+            except KeyError:
+                log2stderr(0, "ERROR: Unknown channel family: %s" % label)
+                continue
             channels = [c for c in family['channels'] if c is not None]
             all_channels.extend(channels)
 
