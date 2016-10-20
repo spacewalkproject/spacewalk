@@ -278,7 +278,7 @@ Utility for cloning errata by date (For RHEL5 and above).
     </para>
     <itemizedlist>
         <listitem><para>The command-line arguments or config-file contents used for the run</para></listitem>
-        <listitem><para>The output of each round of dependency-checking that adds RPMs/errata</para></listitem>
+        <listitem><para>The output of each round of dependency-checking that adds packages/errata</para></listitem>
         <listitem><para>The complete list of all errata and packages cloned into each channel</para></listitem>
     </itemizedlist>
 </RefSect1>
