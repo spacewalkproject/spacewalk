@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.63
+Version: 2.6.64
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -820,6 +820,25 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Oct 20 2016 Jan Dobes 2.6.64-1
+- fixing pylint
+- this directory needs to be created after cleanup
+- set repository location in runtime, not hardcoded in DB
+- cleanup and moving repository logic from cdnsync to repository module
+- package name is now known
+- adding classes to work with CDN repositories
+- do not print RHN messages if (de)activating CDN
+- refactor and add option to deactivate CDN
+- removing usage of product mapping and saving repositories from manifest
+  instead
+- support populating SSL information
+- require mapping package
+- load repository urls from manifest
+- make sure all old certs/keys are gone
+- fixing occurences in code
+- check for presence of all headers
+- headers can sometimes arrive in lowercase
+
 * Fri Oct 14 2016 Grant Gainey 2.6.63-1
 - Update specfile to remove references to RHN
 
