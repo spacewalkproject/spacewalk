@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.2
+Version: 2.6.3
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Oct 20 2016 Jan Dobes 2.6.3-1
+- fixing occurences in code
+
 * Mon Jun 13 2016 Grant Gainey 2.6.2-1
 - spacewalk-reports: build on openSUSE
 
