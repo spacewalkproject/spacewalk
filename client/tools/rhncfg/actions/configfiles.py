@@ -26,6 +26,9 @@ from config_client import rpc_cli_repository
 sys.path.append('/usr/share/rhn')
 from up2date_client import config
 
+from spacewalk.common.usix import StringType, UnicodeType
+
+
 # this is a list of the methods that get exported by a module
 __rhnexport__ = [
     'mtime_upload',
@@ -326,13 +329,17 @@ def deploy(params, topdir=None, cache_only=None):
 
 
 def diff(params, cache_only=None):
-    def is_utf8(input):
+    def is_utf8(in_string):
         """Returns true if input is a valid UTF-8 string, False otherwise."""
-        try:
-            input.decode('utf-8')
-        except UnicodeDecodeError:
-            return False
-        return True
+        if isinstance(in_string, UnicodeType):
+            return True
+        elif isinstance(in_string, StringType):
+            try:
+                in_string.decode('utf-8')
+                return True
+            except UnicodeDecodeError:
+                return False
+        return False
 
     if cache_only:
         return (0, "no-ops for caching", {})

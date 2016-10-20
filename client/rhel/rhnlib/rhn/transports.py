@@ -728,8 +728,9 @@ class BaseOutput:
         if self._connection is None:
             raise Exception("No connection object found")
         self._connection.connect()
-        self._connection.request(self.method, handler, body=self.data,
-            headers=self.headers)
+        # wrap self data into binary object, otherwise HTTPConnection.request
+        # will encode it as ISO-8859-1 https://docs.python.org/3/library/http.client.html#httpconnection-objects
+        self._connection.request(self.method, handler, body=bstr(self.data), headers=self.headers)
 
         response = self._connection.getresponse()
 
