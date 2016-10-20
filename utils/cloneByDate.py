@@ -660,7 +660,7 @@ class ChannelCloner:
                 needed_ids.append(found['id'])
                 needed_names.add(found['nvrea'])
 
-        needed_errata = set()
+        needed_errata = set() # list, [0] = advisory, [1] = synopsis
         still_needed_pids = []
         for pid in needed_ids:
             if pid not in self.original_pid_errata_map:
@@ -669,13 +669,11 @@ class ChannelCloner:
                     if erratum['advisory'] in self.original_errata:
                         self.original_pid_errata_map[pid] = \
                             erratum['advisory']
+                        needed_errata.add((self.original_pid_errata_map[pid], erratum['synopsis']))
                         break
                 else:  # no match found, store so we don't repeat search
                     self.original_pid_errata_map[pid] = None
-            if self.original_pid_errata_map[pid] != None:
-                needed_errata.add(self.original_pid_errata_map[pid])
-            else:
-                still_needed_pids.append(pid)
+                    still_needed_pids.append(pid)
         needed_ids = still_needed_pids
 
         # Log the RPMs we're adding due to dep-solving
@@ -696,9 +694,9 @@ class ChannelCloner:
                 errata_set = needed_errata_list[:self.bunch_size]
                 del needed_errata_list[:self.bunch_size]
                 for e in errata_set:
-                    log_clean(0, "%s" % e)
+                    log_clean(0, "%s - %s" % e)
                     if not self.skip_errata_depsolve:
-                        e_pkgs = self.remote_api.get_erratum_packages(e)
+                        e_pkgs = self.remote_api.get_erratum_packages(e[0])
                         for pkg in e_pkgs:
                             if self.from_label in pkg['providing_channels']:
                                 pkg['nvrea'] = "%s-%s-%s.%s" % (pkg['name'],
@@ -706,7 +704,7 @@ class ChannelCloner:
                                                                 pkg['release'],
                                                                 pkg['arch_label'])
                                 needed_names.add(pkg['nvrea'] )
-                self.remote_api.clone_errata(self.to_label, errata_set)
+                self.remote_api.clone_errata(self.to_label, [e[0] for e in errata_set])
 
         if len(needed_ids) > 0:
             self.remote_api.add_packages(self.to_label, needed_ids)
