@@ -69,9 +69,10 @@ class CdnRepositoryManager(object):
                                        row['ssl_ca_cert_id'], row['ssl_client_cert_id'], row['ssl_client_key_id'])
             self.repository_tree.add_repository(repository)
 
-    def get_content_sources_regular(self, channel_label):
+    def get_content_sources_regular(self, channel_label, source=False):
         if channel_label in self.content_source_mapping:
-            return self.content_source_mapping[channel_label]
+            return [x for x in self.content_source_mapping[channel_label]
+                    if source or x['pulp_content_category'] != "source"]
         else:
             return []
 
@@ -85,8 +86,8 @@ class CdnRepositoryManager(object):
                     log(1, "WARN: Kickstart tree not available: %s" % tree_label)
         return []
 
-    def get_content_sources(self, channel_label):
-        sources = self.get_content_sources_regular(channel_label)
+    def get_content_sources(self, channel_label, source=False):
+        sources = self.get_content_sources_regular(channel_label, source=source)
         kickstart_sources = self.get_content_sources_kickstart(channel_label)
         return sources + kickstart_sources
 
@@ -112,17 +113,16 @@ class CdnRepositoryManager(object):
         sources = self.get_content_sources_regular(channel_label)
 
         for source in sources:
-            if not source['pulp_content_category'] == "source":
-                content_source = ContentSource()
-                content_source['label'] = source['pulp_repo_label_v2']
-                content_source['source_url'] = source['relative_url']
-                content_source['org_id'] = None
-                content_source['type_id'] = type_id
-                repository = self.repository_tree.find_repository(source['relative_url'])
-                content_source['ssl_ca_cert_id'] = repository.get_ca_cert()
-                content_source['ssl_client_cert_id'] = repository.get_client_cert()
-                content_source['ssl_client_key_id'] = repository.get_client_key()
-                batch.append(content_source)
+            content_source = ContentSource()
+            content_source['label'] = source['pulp_repo_label_v2']
+            content_source['source_url'] = source['relative_url']
+            content_source['org_id'] = None
+            content_source['type_id'] = type_id
+            repository = self.repository_tree.find_repository(source['relative_url'])
+            content_source['ssl_ca_cert_id'] = repository.get_ca_cert()
+            content_source['ssl_client_cert_id'] = repository.get_client_cert()
+            content_source['ssl_client_key_id'] = repository.get_client_key()
+            batch.append(content_source)
 
         kickstart_sources = self.get_content_sources_kickstart(channel_label)
         if kickstart_sources:
