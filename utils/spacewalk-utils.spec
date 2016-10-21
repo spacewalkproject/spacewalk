@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.6.14
+Version:	2.6.15
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Oct 21 2016 Gennadii Altukhov <galt@redhat.com> 2.6.15-1
+- pylint fix: Too many nested blocks (6/5) (too-many-nested-blocks)
+
 * Thu Oct 20 2016 Grant Gainey 2.6.14-1
 - 1369888 - log synopsis with advisory
 - 1382272 - Change last RPM to package
