@@ -19,6 +19,7 @@ import sys
 import time
 import gzip
 import tempfile
+import re
 from optparse import Option, OptionParser
 from xml.dom.minidom import parseString
 from M2Crypto import X509
@@ -59,6 +60,7 @@ DEFAULT_WEB_HANDLER = '/rpc/api'
 DEFAULT_WEBAPP_GPG_KEY_RING = "/etc/webapp-keyring.gpg"
 DEFAULT_CONFIG_FILE = "/etc/rhn/rhn.conf"
 DEFAULT_RHSM_CONFIG_FILE = "/etc/rhsm/rhsm.conf"
+SUPPORTED_RHEL_VERSIONS = ['5', '6']
 
 
 class CaCertInsertionError(Exception):
@@ -259,6 +261,39 @@ def prepRhnCert(options):
             raise
 
 
+def enableSatelliteRepo(rhn_cert):
+    args = ['rpm', '-q', '--qf', '\'%{version}\'', '-f', '/etc/redhat-release']
+    ret, out, err = fileutils.rhn_popen(args)
+    # Read from stdout, strip quotes if any and extract first number
+    version = re.search(r'\d+', out.read().strip("'")).group()
+
+    if version not in SUPPORTED_RHEL_VERSIONS:
+        msg = "WARNING: No Satellite repository available for RHEL version: %s.\n" % version
+        sys.stderr.write(msg)
+        return
+
+    sat_cert = satellite_cert.SatelliteCert()
+    sat_cert.load(rhn_cert)
+    sat_version = getattr(sat_cert, 'satellite-version')
+
+    repo = "rhel-%s-server-satellite-%s-rpms" % (version, sat_version)
+    args = ['/usr/bin/subscription-manager', 'repos', '--enable', repo]
+    ret, out, err = fileutils.rhn_popen(args)
+    if ret:
+        msg_ = "Enabling of Satellite repository failed."
+        msg = ("%s\nReturn value: %s\nStandard-out: %s\n\n"
+               "Standard-error: %s\n\n"
+               % (msg_, ret, out.read(), err.read()))
+        sys.stderr.write(msg)
+        raise EnableSatelliteRepositoryException("Enabling of Satellite repository failed. Is there Satellite "
+                                                 "subscription attached to this system? Is the version of "
+                                                 "RHEL and Satellite certificate correct?")
+
+
+class EnableSatelliteRepositoryException(Exception):
+    "when there is no attached satellite subscription in rhsm or incorrect combination of rhel and sat version"
+
+
 class RHNCertLocalActivationException(Exception):
     "general local activate failure exception"
 
@@ -341,6 +376,11 @@ def activateSatellite_remote(options):
         raise RHNCertRemoteSatelliteAlreadyActivatedException(msg)
 
     rhn_cert = openGzippedFile(options.rhn_cert).read()
+
+    # Check if satellite repository is enabled
+    if rhsm_uuid:
+        enableSatelliteRepo(rhn_cert)
+
     if systemid:
         # Find description in systemid XML
         systemid_description = ""
@@ -723,6 +763,9 @@ def main():
         except TimeoutException, e:
             writeError(e)
             return 89
+        except EnableSatelliteRepositoryException, e:
+            writeError(e)
+            return 90
 
         # channel family stuff
         if CFG.RHN_PARENT and not CFG.ISS_PARENT:
