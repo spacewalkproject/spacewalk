@@ -697,13 +697,16 @@ class ChannelCloner:
                     log_clean(0, "%s - %s" % e)
                     if not self.skip_errata_depsolve:
                         e_pkgs = self.remote_api.get_erratum_packages(e[0])
-                        for pkg in e_pkgs:
-                            if self.from_label in pkg['providing_channels']:
-                                pkg['nvrea'] = "%s-%s-%s.%s" % (pkg['name'],
-                                                                pkg['version'],
-                                                                pkg['release'],
-                                                                pkg['arch_label'])
-                                needed_names.add(pkg['nvrea'] )
+                    else:
+                        e_pkgs = []
+
+                    for pkg in e_pkgs:
+                        if self.from_label in pkg['providing_channels']:
+                            pkg['nvrea'] = "%s-%s-%s.%s" % (pkg['name'],
+                                                            pkg['version'],
+                                                            pkg['release'],
+                                                            pkg['arch_label'])
+                            needed_names.add(pkg['nvrea'] )
                 self.remote_api.clone_errata(self.to_label, [e[0] for e in errata_set])
 
         if len(needed_ids) > 0:
