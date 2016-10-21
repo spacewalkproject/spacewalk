@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.6.11
+Version:        2.6.12
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Oct 21 2016 Jan Dobes 2.6.12-1
+- adding missing dependency
+
 * Thu Oct 20 2016 Jan Dobes 2.6.11-1
 - drop rhnContentSourceSsl completely
 
