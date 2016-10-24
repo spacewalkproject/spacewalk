@@ -234,7 +234,7 @@ class RepoSync(object):
                     if row['source_url'] not in excluded_urls:
                         self.urls.append((row['id'], row['source_url'], row['label']))
         else:
-            self.urls = [(None, u, None, None) for u in url]
+            self.urls = [(None, u, None) for u in url]
 
         if not self.urls:
             log2stderr(0, "Channel %s has no URL associated" % channel_label)
