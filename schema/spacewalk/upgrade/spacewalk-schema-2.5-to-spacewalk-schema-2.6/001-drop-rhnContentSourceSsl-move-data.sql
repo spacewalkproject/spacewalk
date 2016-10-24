@@ -1,7 +1,7 @@
 -- Add columns
-alter table rhnContentSource add column ssl_ca_cert_id number constraint rhn_cs_cacertid_fk references rhnCryptoKey(id) on delete set null;
-alter table rhnContentSource add column ssl_client_cert_id number constraint rhn_cs_clcertid_fk references rhnCryptoKey(id) on delete set null;
-alter table rhnContentSource add column ssl_client_key_id number constraint rhn_cs_clkeyid_fk references rhnCryptoKey(id) on delete set null;
+alter table rhnContentSource add ssl_ca_cert_id number constraint rhn_cs_cacertid_fk references rhnCryptoKey(id) on delete set null;
+alter table rhnContentSource add ssl_client_cert_id number constraint rhn_cs_clcertid_fk references rhnCryptoKey(id) on delete set null;
+alter table rhnContentSource add ssl_client_key_id number constraint rhn_cs_clkeyid_fk references rhnCryptoKey(id) on delete set null;
 
 -- Copy values
 update rhnContentSource cs set
