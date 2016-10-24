@@ -2168,14 +2168,14 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
       <trans-unit id="errataconfirm.schedule">
-        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
+        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={3}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 1 system</context>
         </context-group>
       </trans-unit>
       <trans-unit id="errataconfirm.schedule.plural">
-        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; systems</source>
+        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={3}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{1}&lt;/strong&gt; systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 3 systems</context>

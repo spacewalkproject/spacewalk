@@ -118,10 +118,11 @@ public class ErrataConfirmAction extends RhnListDispatchAction {
                  if (systems.size() != 1) {
                      messageKey += ".plural";
                  }
-                 args =  new Object[3];
+                 args =  new Object[4];
                  args[0] = currentErrata.getAdvisoryName();
                  args[1] = new Long(systems.size());
                  args[2] = currentErrata.getId().toString();
+                 args[3] = update.getId();
              }
              else {
                  int sortOrder = ActionChainFactory.getNextSortOrderValue(actionChain);
