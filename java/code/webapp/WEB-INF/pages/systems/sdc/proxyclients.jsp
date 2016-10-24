@@ -23,7 +23,16 @@
 
       <rhn:listdisplay>
         <rhn:column header="systemlist.jsp.system">
-          <c:out value="${current.name}" escapeXml="true" />
+          <c:choose>
+            <c:when test = "${not empty requestScope.accessMap[current.id]}">
+              <a href="/rhn/systems/details/Overview.do?sid=${current.id}">
+                <c:out value="${current.name}" escapeXml="true" />
+              </a>
+            </c:when>
+            <c:otherwise>
+              <c:out value="${current.name}" escapeXml="true" />
+            </c:otherwise>
+          </c:choose>
         </rhn:column>
 
         <rhn:column header="systemlist.jsp.entitlement">
