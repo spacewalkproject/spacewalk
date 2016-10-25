@@ -729,8 +729,9 @@ def main():
     if options.sanity_only:
         return 0
 
+    prepRhnCert(options)
+
     if not options.manifest:
-        prepRhnCert(options)
 
         # remote activation
         try:
