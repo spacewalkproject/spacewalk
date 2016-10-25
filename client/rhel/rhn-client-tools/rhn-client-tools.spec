@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.6.3
+Version: 2.6.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -401,6 +401,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Oct 25 2016 Gennadii Altukhov <galt@redhat.com> 2.6.4-1
+- 1320468 - add newline before hostname in LoginPage label
+
 * Fri Sep 23 2016 Jiri Dostal <jdostal@redhat.com> 2.6.3-1
 - Fix of deprecated functions urllib.splittype and urllib.splithost
 
