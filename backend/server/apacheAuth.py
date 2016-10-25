@@ -149,7 +149,7 @@ def auth_client():
         log_debug(4, "declined client authentication for GET requests")
         return 0
 
-    token = dict((k.lower(),v) for k,v in get("AUTH_SESSION_TOKEN").items())
+    token = dict((k.lower(),v) for k,v in rhnFlags.get("AUTH_SESSION_TOKEN").items())
     # Check to see if everything we need to compute the signature is there
     for k in ('x-rhn-server-id',
               'x-rhn-auth-user-id',
