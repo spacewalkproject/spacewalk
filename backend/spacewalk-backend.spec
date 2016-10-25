@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.66
+Version: 2.6.67
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -820,6 +820,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue Oct 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.6.67-1
+- fix: NameError: global name 'get' is not defined.
+- always save certificate
+- refactoring in activation
+
 * Mon Oct 24 2016 Jan Dobes 2.6.66-1
 - fixing number of values
 
