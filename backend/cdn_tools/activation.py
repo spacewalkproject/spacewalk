@@ -85,8 +85,8 @@ class Activation(object):
             satCerts.store_rhnCryptoKey(
                 constants.CLIENT_KEY_PREFIX + creds.get_id(), creds.get_key(), None)
 
-    def _update_channel_families(self):
-        """Insert channel family data into DB"""
+    def update_channel_families(self):
+        """Insert channel family data into DB. Should not be called if there are entitlements to handle."""
 
         # Debug
         print("Channel families in cert: %d" % len(self.sat5_cert.channel_families)) # pylint: disable=E1101
@@ -169,8 +169,6 @@ class Activation(object):
             self._update_certificates()
             print("Updating manifest repositories...")
             self._update_repositories()
-            print("Updating channel families...")
-            self._update_channel_families()
         else:
             print("Manifest validation failed!")
 

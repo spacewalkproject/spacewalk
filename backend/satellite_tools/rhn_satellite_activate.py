@@ -726,7 +726,10 @@ def main():
                 'RHN Certificate appears to have expired: %s' % just_date)
             return 11
 
-    if not options.sanity_only and not options.manifest:
+    if options.sanity_only:
+        return 0
+
+    if not options.manifest:
         prepRhnCert(options)
 
         # remote activation
@@ -776,6 +779,8 @@ def main():
                 return 40
 
     elif cdn_activate:
+        # Following line only in environment without entitlements
+        cdn_activate.update_channel_families()
         cdn_activate.activate()
 
     return 0
