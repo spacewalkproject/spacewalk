@@ -780,8 +780,7 @@ def main():
                 return 40
 
     elif cdn_activate:
-        # Following line only in environment without entitlements
-        cdn_activate.update_channel_families()
+        cdn_activate.import_channel_families()
         cdn_activate.activate()
 
     return 0

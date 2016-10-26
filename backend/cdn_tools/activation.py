@@ -85,8 +85,8 @@ class Activation(object):
             satCerts.store_rhnCryptoKey(
                 constants.CLIENT_KEY_PREFIX + creds.get_id(), creds.get_key(), None)
 
-    def update_channel_families(self):
-        """Insert channel family data into DB. Should not be called if there are entitlements to handle."""
+    def import_channel_families(self):
+        """Insert channel family data into DB."""
 
         # Debug
         print("Channel families in cert: %d" % len(self.sat5_cert.channel_families)) # pylint: disable=E1101
