@@ -182,7 +182,20 @@ public class TaskoJob implements Job {
                     return;
                 }
 
-                job.execute(context, taskRun);
+                try {
+                    job.execute(context, taskRun);
+                }
+                catch (Exception e) {
+                    if (HibernateFactory.getSession().getTransaction().isActive()) {
+                        HibernateFactory.rollbackTransaction();
+                        HibernateFactory.closeSession();
+                    }
+                    job.appendExceptionToLogError(e);
+                    taskRun.failed();
+                    HibernateFactory.commitTransaction();
+                    HibernateFactory.closeSession();
+                }
+
                 // rollback everything, what the application changed and didn't committed
                 if (TaskoFactory.getSession().getTransaction().isActive()) {
                     TaskoFactory.rollbackTransaction();

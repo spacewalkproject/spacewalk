@@ -70,17 +70,7 @@ public abstract class RhnQueueJob implements RhnJob {
     public void execute(JobExecutionContext ctx, TaskoRun runIn)
             throws JobExecutionException {
         setJobRun(runIn);
-        try {
-            execute(ctx);
-        }
-        catch (Exception e) {
-            if (HibernateFactory.getSession().getTransaction().isActive()) {
-                HibernateFactory.rollbackTransaction();
-                HibernateFactory.closeSession();
-            }
-            appendExceptionToLogError(e);
-            jobRun.saveStatus(TaskoRun.STATUS_FAILED);
-        }
+        execute(ctx);
         HibernateFactory.commitTransaction();
         HibernateFactory.closeSession();
     }
