@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.43
+Version: 2.6.44
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -730,6 +730,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Oct 26 2016 Jan Dobes 2.6.44-1
+- 1240597 - fixing null pointer exception when we call updateLogPaths()
+  multiple times
+- 1240597 - catch HibernateException on commit when touched data in database
+  were modified during task execution by someone else
+
 * Thu Oct 20 2016 Jan Dobes 2.6.43-1
 - fixing hibernate mapping
 - fixing occurences in code
