@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 5.0.21
+Version: 5.0.22
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -138,6 +138,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Oct 27 2016 Jan Dobes 5.0.22-1
+- 1306994 - better check if file is opened
+
 * Tue May 24 2016 Tomas Kasparek <tkasparek@redhat.com> 5.0.21-1
 - Regenerating .po and .pot files for rhnsd.
 - Updating .po translations from Zanata
