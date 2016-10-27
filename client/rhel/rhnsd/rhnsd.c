@@ -152,7 +152,7 @@ int main (int argc, char **argv)
 
 	/* read from /dev/null */
 	int devnull = open("/dev/null", O_RDONLY);
-	if (devnull != STDIN_FILENO) {
+	if ((devnull >= 0) && (devnull != STDIN_FILENO)) {
 	    dup2(devnull, STDIN_FILENO);
 	    close(devnull);
 	}
