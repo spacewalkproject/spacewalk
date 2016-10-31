@@ -271,6 +271,7 @@ def processCommandline():
         Option('--dump-version', action='store', help="requested version of XML dump"),
         Option('--manifest',     action='store',      help='the RHSM manifest path/filename to activate for CDN'),
         Option('--cdn-deactivate', action='store_true', help='deactivate CDN-activated Satellite'),
+        Option('--disconnected', action='store_true', help="activate locally, not subscribe to remote repository")
     ]
 
     options, args = OptionParser(option_list=options).parse_args()
@@ -286,9 +287,13 @@ def processCommandline():
     if options.cdn_deactivate:
         return options
 
-    if not options.sanity_only and CFG.DISCONNECTED:
+    if options.sanity_only:
+        options.disconnected = 1
+
+    if CFG.DISCONNECTED and not options.disconnected:
         sys.stderr.write("""ERROR: Satellite server has been setup to run in disconnected mode.
-       Correct server configuration in /etc/rhn/rhn.conf.
+       Either correct server configuration in /etc/rhn/rhn.conf
+       or use --disconnected to activate it locally.
 """)
         sys.exit(1)
 
@@ -319,6 +324,9 @@ def main():
         85   1025 satellite_not_activated exception - this shouldn't happen!
         86   1026 satellite_no_base_channel exception
         87   2(?) no_sat_chan_for_version exception
+
+        90   not registered to rhsm
+        91   enabling sat repo failed
 
         127  general unknown failure (not really mapped yet)
 
@@ -365,6 +373,18 @@ def main():
 
     if options.sanity_only:
         return 0
+
+    if not options.disconnected:
+        rhsm_uuid = getRHSMUuid()
+        if not rhsm_uuid:
+            writeError("Server not registered to RHSM? No identity found.")
+            return 90
+        try:
+            enableSatelliteRepo(cdn_activate.manifest.get_satellite_certificate())
+        except EnableSatelliteRepositoryException:
+            e = sys.exc_info()[1]
+            writeError(e)
+            return 91
 
     prepRhsmManifest(options)
 
