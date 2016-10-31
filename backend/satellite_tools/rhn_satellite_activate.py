@@ -49,7 +49,7 @@ except ImportError:
 
 
 DEFAULT_SYSTEMID_LOCATION = '/etc/sysconfig/rhn/systemid'
-DEFAULT_RHN_CERT_LOCATION = '/etc/sysconfig/rhn/rhn-entitlement-cert.xml'
+DEFAULT_RHSM_MANIFEST_LOCATION = '/etc/sysconfig/rhn/rhsm-manifest.zip'
 DEFAULT_WEB_HANDLER = '/rpc/api'
 DEFAULT_WEBAPP_GPG_KEY_RING = "/etc/webapp-keyring.gpg"
 DEFAULT_CONFIG_FILE = "/etc/rhn/rhn.conf"
@@ -179,13 +179,13 @@ def validateSatCert(cert, verbosity=0):
     signature = sat_cert.signature
 
     # copy cert to temp location (it may be gzipped).
-    fd, certTmpFile = tempfile.mkstemp(prefix = DEFAULT_RHN_CERT_LOCATION + '-')
+    fd, certTmpFile = tempfile.mkstemp(prefix="/tmp/cert-")
     fo = os.fdopen(fd, 'wb')
     fo.write(getCertChecksumString(sat_cert))
     fo.flush()
     fo.close()
 
-    fd, signatureTmpFile = tempfile.mkstemp(prefix = DEFAULT_RHN_CERT_LOCATION + '-signature-')
+    fd, signatureTmpFile = tempfile.mkstemp(prefix="/tmp/cert-signature-")
     fo = os.fdopen(fd, 'wb')
     fo.write(signature)
     fo.flush()
@@ -217,17 +217,17 @@ def validateSatCert(cert, verbosity=0):
     return 0
 
 
-def writeRhnCert(options, cert):
-    if os.path.exists(DEFAULT_RHN_CERT_LOCATION):
-        fileutils.rotateFile(DEFAULT_RHN_CERT_LOCATION, depth=5)
-    fo = open(DEFAULT_RHN_CERT_LOCATION, 'w+b')
-    fo.write(cert)
+def writeRhsmManifest(options, manifest):
+    if os.path.exists(DEFAULT_RHSM_MANIFEST_LOCATION):
+        fileutils.rotateFile(DEFAULT_RHSM_MANIFEST_LOCATION, depth=5)
+    fo = open(DEFAULT_RHSM_MANIFEST_LOCATION, 'w+b')
+    fo.write(manifest)
     fo.close()
-    options.rhn_cert = DEFAULT_RHN_CERT_LOCATION
+    options.manifest = DEFAULT_RHSM_MANIFEST_LOCATION
 
 
-def prepRhnCert(options):
-    """ minor prepping of the RHN cerficate
+def prepRhsmManifest(options):
+    """ minor prepping of the RHSM manifest
         writing to default storage location
     """
 
@@ -235,19 +235,19 @@ def prepRhnCert(options):
     #       function is run.
     #       validateSatCert() must have been run prior to this as well (it
     #       populates "/var/log/entitlementCert"
-    if options.rhn_cert and options.rhn_cert != DEFAULT_RHN_CERT_LOCATION:
+    if options.manifest and options.manifest != DEFAULT_RHSM_MANIFEST_LOCATION:
         try:
-            cert = openGzippedFile(options.rhn_cert).read()
+            manifest = open(options.manifest, 'rb').read()
         except (IOError, OSError), e:
             msg = _('ERROR: "%s" (specified in commandline)\n'
-                    'could not be opened and read:\n%s') % (options.rhn_cert, str(e))
+                    'could not be opened and read:\n%s') % (options.manifest, str(e))
             sys.stderr.write(msg+'\n')
             raise
-        cert = cert.strip()
         try:
-            writeRhnCert(options, cert)
+            writeRhsmManifest(options, manifest)
         except (IOError, OSError), e:
-            msg = _('ERROR: "%s" could not be opened\nand/or written to:\n%s') % (DEFAULT_RHN_CERT_LOCATION, str(e))
+            msg = _('ERROR: "%s" could not be opened\nand/or written to:\n%s') % (
+                DEFAULT_RHSM_MANIFEST_LOCATION, str(e))
             sys.stderr.write(msg+'\n')
             raise
 
@@ -658,13 +658,13 @@ def main():
         if date:
             just_date = date.split(' ')[0]
             writeError(
-                'RHN Certificate appears to have expired: %s' % just_date)
+                'Satellite Certificate appears to have expired: %s' % just_date)
             return 11
 
     if options.sanity_only:
         return 0
 
-    prepRhnCert(options)
+    prepRhsmManifest(options)
 
     cdn_activate.import_channel_families()
     cdn_activate.activate()
