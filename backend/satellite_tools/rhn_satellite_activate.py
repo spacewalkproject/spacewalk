@@ -31,12 +31,6 @@ try:
 except ImportError:
     RhsmConfigParser = None
 
-# Recent rhnlib has support for timing out, rather than hanging.
-try:
-    from rhn.SSL import TimeoutException
-except ImportError:
-    class TimeoutException(Exception):
-        pass
 from rhn import rpclib
 from rhn.connections import idn_ascii_to_puny
 
@@ -599,12 +593,6 @@ def processCommandline():
 
     initCFG('server.satellite')
 
-    if options.manifest or options.cdn_deactivate:
-        if not cdn_activation:
-            sys.stderr.write("ERROR: Package spacewalk-backend-cdn has to be installed for using --manifest "
-                             "and --cdn-deactivate.\n")
-            sys.exit(1)
-
     # No need to check further if deactivating
     if options.cdn_deactivate:
         return options
@@ -653,16 +641,17 @@ def main():
     def writeError(e):
         sys.stderr.write('\nERROR: %s\n' % e)
 
+    if not cdn_activation:
+        writeError("Package spacewalk-backend-cdn has to be installed for using this tool.")
+        sys.exit(1)
+
     # CDN Deactivation
     if options.cdn_deactivate:
         cdn_activation.Activation.deactivate()
         return 0
 
     # Handle RHSM manifest
-    if options.manifest:
-        cdn_activate = cdn_activation.Activation(options.manifest, options.rhn_cert)
-    else:
-        cdn_activate = None
+    cdn_activate = cdn_activation.Activation(options.manifest, options.rhn_cert)
 
     # general sanity/GPG check
     try:
@@ -685,57 +674,8 @@ def main():
 
     prepRhnCert(options)
 
-    if not options.manifest:
-
-        # remote activation
-        try:
-            activateSatellite_remote(options)
-        except RHNCertRemoteActivationException, e:
-            writeError(e)
-            return 20
-        except RHNCertRemoteNoManagementSlotsException, e:
-            writeError(e)
-            return 80
-        except RHNCertRemoteSatelliteAlreadyActivatedException, e:
-            # note, this is normally a 1021 fault, but it's what we want
-            # so let's return 0
-            return 0
-        except RHNCertRemoteNoAccessToSatChannelException, e:
-            writeError(e)
-            return 82
-        except RHNCertRemoteInsufficientChannelEntitlementsException, e:
-            writeError(e)
-            return 83
-        except RHNCertRemoteInvalidSatCertificateException, e:
-            writeError(e)
-            return 84
-        except RHNCertRemoteSatelliteNotActivatedException, e:
-            writeError(e)
-            return 85
-        except RHNCertRemoteSatelliteNoBaseChannelException, e:
-            writeError(e)
-            return 86
-        except RHNCertNoSatChanForVersion, e:
-            writeError(e)
-            return 87
-        except TimeoutException, e:
-            writeError(e)
-            return 89
-        except EnableSatelliteRepositoryException, e:
-            writeError(e)
-            return 90
-
-        # channel family stuff
-        if CFG.RHN_PARENT and not CFG.ISS_PARENT:
-            try:
-                populateChannelFamilies(options)
-            except PopulateChannelFamiliesException, e:
-                writeError(e)
-                return 40
-
-    elif cdn_activate:
-        cdn_activate.import_channel_families()
-        cdn_activate.activate()
+    cdn_activate.import_channel_families()
+    cdn_activate.activate()
 
     return 0
 
