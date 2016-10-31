@@ -577,11 +577,6 @@ ERROR: can't seem to parse the expires field in the RHN Certificate.
 
 def processCommandline():
     options = [
-        Option('--systemid',     action='store',      help='(FOR TESTING ONLY) alternative systemid path/filename. '
-               + 'The system default is used if not specified.'),
-        Option('--rhn-cert',     action='store',      help='new RHN certificate path/filename (default is'
-               + ' %s - the saved RHN cert).' % DEFAULT_RHN_CERT_LOCATION),
-        Option('--no-ssl',       action='store_true', help='(FOR TESTING ONLY) disables SSL'),
         Option('--sanity-only',  action='store_true', help="confirm certificate sanity. Does not activate"
                + "the Red Hat Satellite locally or remotely."),
         Option('--ignore-expiration', action='store_true', help='execute regardless of the expiration'
@@ -592,9 +587,6 @@ def processCommandline():
                + '(accumulable: -vvv means "be *really* verbose").'),
         Option('--dump-version', action='store', help="requested version of XML dump"),
         Option('--manifest',     action='store',      help='the RHSM manifest path/filename to activate for CDN'),
-        Option('--old-api', action='store_true', help='activate Satellite using old API, system '
-               + 'has to be registered to RHN Classic'),
-        Option('-f', '--force', action='store_true', help='force activate Satellite if it is already activated'),
         Option('--cdn-deactivate', action='store_true', help='deactivate CDN-activated Satellite'),
     ]
 
@@ -617,49 +609,11 @@ def processCommandline():
     if options.cdn_deactivate:
         return options
 
-    # systemid
-    if not options.systemid:
-        options.systemid = DEFAULT_SYSTEMID_LOCATION
-    options.systemid = fileutils.cleanupAbsPath(options.systemid)
-
-    if not options.rhn_cert and not options.manifest:
-        print "NOTE: using backup cert as default: %s" % DEFAULT_RHN_CERT_LOCATION
-        options.rhn_cert = DEFAULT_RHN_CERT_LOCATION
-
-    if options.manifest:
-        cdn_manifest = Manifest(options.manifest)
-        tmp_cert_path = cdn_manifest.get_certificate_path()
-        if tmp_cert_path is not None:
-            options.rhn_cert = tmp_cert_path
-
-    options.rhn_cert = fileutils.cleanupAbsPath(options.rhn_cert)
-    if not os.path.exists(options.rhn_cert):
-        sys.stderr.write("ERROR: RHN Cert (%s) does not exist\n" % options.rhn_cert)
-        sys.exit(1)
-
     if not options.sanity_only and CFG.DISCONNECTED:
         sys.stderr.write("""ERROR: Satellite server has been setup to run in disconnected mode.
        Correct server configuration in /etc/rhn/rhn.conf.
 """)
         sys.exit(1)
-
-    options.server = ''
-    if not options.sanity_only:
-        if not CFG.RHN_PARENT:
-            sys.stderr.write("ERROR: rhn_parent is not set in /etc/rhn/rhn.conf\n")
-            sys.exit(1)
-        options.server = idn_ascii_to_puny(rhnLib.parseUrl(CFG.RHN_PARENT)[1].split(':')[0])
-
-    options.http_proxy = idn_ascii_to_puny(CFG.HTTP_PROXY)
-    options.http_proxy_username = CFG.HTTP_PROXY_USERNAME
-    options.http_proxy_password = CFG.HTTP_PROXY_PASSWORD
-    options.ca_cert = CFG.CA_CHAIN
-    if options.verbose:
-        print 'HTTP_PROXY: %s' % options.http_proxy
-        print 'HTTP_PROXY_USERNAME: %s' % options.http_proxy_username
-        print 'HTTP_PROXY_PASSWORD: <password>'
-        if not options.no_ssl:
-            print 'CA_CERT: %s' % options.ca_cert
 
     return options
 
