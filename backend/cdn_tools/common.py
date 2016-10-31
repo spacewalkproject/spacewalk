@@ -12,9 +12,16 @@
 # in this software or its documentation.
 #
 
-"""
-Common stuff
-"""
+from spacewalk.common import fileutils
+import constants
+
+
+def verify_mappings():
+    args = ['rpm', '-V', constants.MAPPINGS_RPM_NAME]
+    ret = fileutils.rhn_popen(args)
+    if ret[0]:
+        raise CdnMappingsLoadError("CDN mappings changed on disk. Please re-install '%s' package."
+                                   % constants.MAPPINGS_RPM_NAME)
 
 
 class CdnMappingsLoadError(Exception):

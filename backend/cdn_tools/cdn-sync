@@ -126,8 +126,8 @@ if __name__ == '__main__':
         e = sys.exc_info()[1]
         system_exit(20, ["ERROR: Can't connect to the database: %s" % str(e), "Check if your database is running."])
     except CdnMappingsLoadError:
-        system_exit(30, ["ERROR: Cannot load CDN mapping files.", "Make sure package %s is installed."
-                         % MAPPINGS_RPM_NAME])
+        e = sys.exc_info()[1]
+        system_exit(30, ["ERROR: %s" % str(e)])
     except Exception:
         e = sys.exc_info()[1]
         if LOCK:

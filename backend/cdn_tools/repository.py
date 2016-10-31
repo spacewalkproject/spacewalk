@@ -17,7 +17,7 @@ import sys
 import json
 
 from spacewalk.server import rhnSQL
-from spacewalk.satellite_tools.syncLib import log2stderr, log
+from spacewalk.satellite_tools.syncLib import log
 from spacewalk.server.importlib.importLib import ContentSource
 
 import constants
@@ -52,8 +52,7 @@ class CdnRepositoryManager(object):
                 f.close()
             except IOError:
                 e = sys.exc_info()[1]
-                log2stderr(0, "ERROR: Problem with loading file: %s" % e)
-                raise CdnMappingsLoadError()
+                raise CdnMappingsLoadError("Problem with loading file: %s" % e)
         finally:
             if f is not None:
                 f.close()

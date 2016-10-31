@@ -38,9 +38,11 @@ from spacewalk.server.rhnServer import satellite_cert
 try:
     from spacewalk.cdn_tools import activation as cdn_activation
     from spacewalk.cdn_tools.manifest import MissingSatelliteCertificateError
+    from spacewalk.cdn_tools.common import CdnMappingsLoadError
 except ImportError:
     cdn_activation = None
     MissingSatelliteCertificateError = None
+    CdnMappingsLoadError = None
 
 
 DEFAULT_RHSM_MANIFEST_LOCATION = '/etc/sysconfig/rhn/rhsm-manifest.zip'
@@ -310,6 +312,7 @@ def main():
         11   expired!
         12   certificate version fails remedially
         13   certificate missing in manifest
+        15   cannot load mapping files
         20   remote activation failure (general, and really unknown why)
         30   local activation failure
         40   channel population failure
@@ -351,6 +354,9 @@ def main():
     # Handle RHSM manifest
     try:
         cdn_activate = cdn_activation.Activation(options.manifest)
+    except CdnMappingsLoadError, e:
+        writeError(e)
+        return 15
     except MissingSatelliteCertificateError, e:
         writeError(e)
         return 13

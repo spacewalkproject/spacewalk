@@ -35,7 +35,7 @@ from spacewalk.satellite_tools import contentRemove
 from spacewalk.satellite_tools.syncLib import log, log2disk, log2stderr
 from spacewalk.satellite_tools.repo_plugins import yum_src
 
-from common import CdnMappingsLoadError
+from common import CdnMappingsLoadError, verify_mappings
 from repository import CdnRepositoryManager
 
 
@@ -68,6 +68,8 @@ class CdnSync(object):
         rhnSQL.initDB()
         initCFG('server.satellite')
 
+        verify_mappings()
+
         f = None
         # try block in try block - this is hack for python 2.4 compatibility
         # to support finally
@@ -94,8 +96,7 @@ class CdnSync(object):
                 f.close()
             except IOError:
                 e = sys.exc_info()[1]
-                log2stderr(0, "ERROR: Problem with loading file: %s" % e)
-                raise CdnMappingsLoadError()
+                raise CdnMappingsLoadError("Problem with loading file: %s" % e)
         finally:
             if f is not None:
                 f.close()

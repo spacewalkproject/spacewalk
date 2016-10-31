@@ -21,6 +21,7 @@ from spacewalk.server.importlib.channelImport import ChannelFamilyImport
 from spacewalk.server.importlib.importLib import ChannelFamily, ContentSource
 from spacewalk.server.importlib.contentSourcesImport import ContentSourcesImport
 from spacewalk.server.rhnServer.satellite_cert import SatelliteCert
+from common import verify_mappings
 import constants
 from manifest import Manifest
 
@@ -33,6 +34,8 @@ class Activation(object):
         self.manifest = Manifest(manifest_path)
         self.sat5_cert = SatelliteCert()
         self.sat5_cert.load(self.manifest.get_satellite_certificate())
+
+        verify_mappings()
 
         # Channel families metadata
         f = open(constants.CHANNEL_FAMILY_MAPPING_PATH, 'r')
