@@ -45,9 +45,9 @@ class CdnSync(object):
     log_path = '/var/log/rhn/cdnsync.log'
 
     def __init__(self, no_packages=False, no_errata=False, no_rpms=False, no_kickstarts=False,
-                 log_level=None):
+                 log_level=None, mount_point=None):
 
-        self.cdn_repository_manager = CdnRepositoryManager()
+        self.cdn_repository_manager = CdnRepositoryManager(mount_point)
         self.no_packages = no_packages
         self.no_errata = no_errata
         self.no_rpms = no_rpms
@@ -55,6 +55,11 @@ class CdnSync(object):
         if log_level is None:
             log_level = 0
         self.log_level = log_level
+
+        if mount_point:
+            self.mount_point = "file://" + mount_point
+        else:
+            self.mount_point = CFG.CDN_ROOT
 
         CFG.set('DEBUG', log_level)
         rhnLog.initLOG(self.log_path, self.log_level)
@@ -224,10 +229,9 @@ class CdnSync(object):
         importer = ChannelImport(channels_batch, backend)
         importer.run()
 
-    @staticmethod
-    def _count_packages_in_repo(repo_source, keys):
+    def _count_packages_in_repo(self, repo_source, keys):
         repo_label = repo_source[1:].replace('/', '_')
-        repo_plugin = yum_src.ContentSource(CFG.CDN_ROOT + str(repo_source), str(repo_label))
+        repo_plugin = yum_src.ContentSource(self.mount_point + str(repo_source), str(repo_label))
         repo_plugin.set_ssl_options(str(keys['ca_cert']), str(keys['client_cert']), str(keys['client_key']))
         return repo_plugin.raw_list_packages()
 
@@ -265,7 +269,7 @@ class CdnSync(object):
         if kickstart_trees:
             # Assuming all trees have same install type
             sync.set_ks_install_type(kickstart_trees[0]['ks_install_type'])
-        sync.set_urls_prefix(CFG.CDN_ROOT)
+        sync.set_urls_prefix(self.mount_point)
         return sync.sync(update_repodata=True)
 
     def sync(self, channels=None):

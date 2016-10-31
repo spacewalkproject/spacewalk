@@ -5,6 +5,7 @@ import sys
 import os
 
 from spacewalk.common.rhnConfig import CFG, initCFG
+from spacewalk.common.fileutils import cleanupAbsPath
 from spacewalk.cdn_tools.constants import MAPPINGS_RPM_NAME
 from spacewalk.cdn_tools.cdnsync import CdnSync, CdnMappingsLoadError
 from spacewalk.server import rhnSQL
@@ -36,6 +37,7 @@ def process_commandline():
     parser.add_argument("-r", "--list-repos", action="store_true", help="List all repositories assigned on channels for"
                                                                         "debug purpose only.")
     parser.add_argument("-c", "--channel", action="append", help="Sync this channel only.")
+    parser.add_argument("-m", "--mount-point", action="store", help="Source mount point for import from Content ISO")
     parser.add_argument("--no-packages", action="store_true", help="Do not sync packages.")
     parser.add_argument("--no-errata", action="store_true", help="Do not sync errata.")
     parser.add_argument("--no-kickstarts", action="store_true", help="Do not sync kickstart repositories.")
@@ -64,6 +66,11 @@ def process_commandline():
         CFG.set("HTTP_PROXY_USERNAME", cmd_args.http_proxy_username)
         CFG.set("HTTP_PROXY_PASSWORD", cmd_args.http_proxy_password)
 
+    if cmd_args.mount_point:
+        cmd_args.mount_point = cleanupAbsPath(cmd_args.mount_point)
+        if not os.path.isdir(cmd_args.mount_point):
+            system_exit(1, "Invalid mount point: %s" % cmd_args.mount_point)
+
     return cmd_args
 
 
@@ -82,7 +89,7 @@ if __name__ == '__main__':
         args = process_commandline()
         cdnsync = CdnSync(no_packages=args.no_packages, no_errata=args.no_errata,
                           no_rpms=args.no_rpms, no_kickstarts=args.no_kickstarts,
-                          log_level=args.verbose)
+                          log_level=args.verbose, mount_point=args.mount_point)
 
         if args.list_channels:
             if args.count_packages:

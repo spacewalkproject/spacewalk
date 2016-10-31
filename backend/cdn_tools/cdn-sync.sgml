@@ -34,6 +34,10 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <arg>--channel=<replaceable>CHANNEL</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>-m<replaceable> MOUNT_POINT</replaceable></arg>
+        <arg>--mount-point=<replaceable>MOUNT_POINT</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-p</arg> <arg>--print-configuration</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -136,6 +140,12 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <term>-c, --channel<replaceable> CHANNEL</replaceable>
         <listitem>
             <para>process data for this channel only.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-m, --mount-point<replaceable> MOUNT_POINT</replaceable>
+        <listitem>
+            <para>Source mount point for import from Content ISO.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
