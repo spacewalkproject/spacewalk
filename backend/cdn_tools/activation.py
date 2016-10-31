@@ -28,19 +28,11 @@ from manifest import Manifest
 class Activation(object):
     """Class inserting channel families and SSL metadata into DB."""
 
-    def __init__(self, manifest_path, cert_path):
+    def __init__(self, manifest_path):
         rhnSQL.initDB()
         self.manifest = Manifest(manifest_path)
-
-        # Satellite 5 certificate
-        c = open(cert_path, 'r')
-        try:
-            self.sat5_cert = SatelliteCert()
-            content = c.read()
-            self.sat5_cert.load(content)
-        finally:
-            if c is not None:
-                c.close()
+        self.sat5_cert = SatelliteCert()
+        self.sat5_cert.load(self.manifest.get_satellite_certificate())
 
         # Channel families metadata
         f = open(constants.CHANNEL_FAMILY_MAPPING_PATH, 'r')

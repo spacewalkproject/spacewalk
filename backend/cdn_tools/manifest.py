@@ -33,7 +33,7 @@ class Manifest(object):
     def __init__(self, zip_path):
         self.all_entitlements = []
         self.manifest_repos = {}
-        self.certificate_path = None
+        self.sat5_certificate = None
         # Signature and signed data
         self.signature = None
         self.data = None
@@ -74,14 +74,11 @@ class Manifest(object):
                 certificates_names.append(f)
         if len(certificates_names) >= 1:
             # take only first file
-            self.certificate_path = '/tmp/' + certificates_names[0].split('/')[-1]
-            content = zip_file.open(certificates_names[0])  # take only first file
-            c = open(self.certificate_path, 'wb')
-            try:
-                c.write(content.read())
-            finally:
-                if c is not None:
-                    c.close()
+            cert_file = zip_file.open(certificates_names[0])  # take only first file
+            self.sat5_certificate = cert_file.read().strip()
+            cert_file.close()
+        else:
+            raise MissingSatelliteCertificateError("Satellite Certificate was not found in manifest.")
 
     def _fill_product_repositories(self, zip_file, product):
         product_file = zip_file.open(self.PRODUCTS_PATH + '/' + str(product.get_id()) + '.json')
@@ -143,8 +140,8 @@ class Manifest(object):
     def get_all_entitlements(self):
         return self.all_entitlements
 
-    def get_certificate_path(self):
-        return self.certificate_path
+    def get_satellite_certificate(self):
+        return self.sat5_certificate
 
     def check_signature(self):
         if self.signature and self.data:
@@ -246,4 +243,7 @@ class IncorrectCredentialsError(Exception):
 
 
 class IncorrectEntitlementsFileFormatError(Exception):
+    pass
+
+class MissingSatelliteCertificateError(Exception):
     pass

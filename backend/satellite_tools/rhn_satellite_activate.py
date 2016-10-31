@@ -42,10 +42,10 @@ from spacewalk.server.rhnServer import satellite_cert
 # Try to import cdn activation module if available
 try:
     from spacewalk.cdn_tools import activation as cdn_activation
-    from spacewalk.cdn_tools.manifest import Manifest
+    from spacewalk.cdn_tools.manifest import MissingSatelliteCertificateError
 except ImportError:
     cdn_activation = None
-    Manifest = None
+    MissingSatelliteCertificateError = None
 
 
 DEFAULT_SYSTEMID_LOCATION = '/etc/sysconfig/rhn/systemid'
@@ -161,13 +161,10 @@ def getCertChecksumString(sat_cert):
     return result
 
 
-def validateSatCert(certFilename, verbosity=0):
-    """ validating (i.e., verifing sanity of) this product. Calls
-        validate-sat-cert.pl
+def validateSatCert(cert, verbosity=0):
+    """ validating (i.e., verifing sanity of) this product.
         I.e., makes sure the product Certificate is a sane certificate
     """
-
-    cert = openGzippedFile(certFilename).read().strip()
 
     sat_cert = satellite_cert.SatelliteCert()
     sat_cert.load(cert)
@@ -533,20 +530,10 @@ def populateChannelFamilies(options):
                                                "Family permissions failed.")
 
 
-def expiredYN(certPath):
+def expiredYN(cert):
     """ dead simple check to see if our RHN cert is not expired
         returns either "" or the date of expiration.
     """
-
-    ## open cert
-    try:
-        fo = open(certPath, 'rb')
-    except IOError:
-        sys.stderr.write("ERROR: unable to open the cert: %s\n" % certPath)
-        sys.exit(1)
-
-    cert = fo.read().strip()
-    fo.close()
 
     # parse it and snag "expires"
     sc = satellite_cert.SatelliteCert()
@@ -615,6 +602,7 @@ def main():
              version check)
         11   expired!
         12   certificate version fails remedially
+        13   certificate missing in manifest
         20   remote activation failure (general, and really unknown why)
         30   local activation failure
         40   channel population failure
@@ -651,18 +639,22 @@ def main():
         return 0
 
     # Handle RHSM manifest
-    cdn_activate = cdn_activation.Activation(options.manifest, options.rhn_cert)
+    try:
+        cdn_activate = cdn_activation.Activation(options.manifest)
+    except MissingSatelliteCertificateError, e:
+        writeError(e)
+        return 13
 
     # general sanity/GPG check
     try:
-        validateSatCert(options.rhn_cert, options.verbose)
+        validateSatCert(cdn_activate.manifest.get_satellite_certificate(), options.verbose)
     except RHNCertGeneralSanityException, e:
         writeError(e)
         return 10
 
     # expiration check
     if not options.ignore_expiration:
-        date = expiredYN(options.rhn_cert)
+        date = expiredYN(cdn_activate.manifest.get_satellite_certificate())
         if date:
             just_date = date.split(' ')[0]
             writeError(
