@@ -23,7 +23,7 @@ from spacewalk.server.importlib.contentSourcesImport import ContentSourcesImport
 from spacewalk.server.rhnServer.satellite_cert import SatelliteCert
 from common import verify_mappings
 import constants
-from manifest import Manifest
+from manifest import Manifest, ManifestValidationError
 
 
 class Activation(object):
@@ -160,12 +160,14 @@ class Activation(object):
 
     def activate(self):
         if self.manifest.check_signature():
+            print("Populating channel families...")
+            self.import_channel_families()
             print("Updating certificates...")
             self._update_certificates()
             print("Updating manifest repositories...")
             self._update_repositories()
         else:
-            print("Manifest validation failed!")
+            raise ManifestValidationError("Manifest validation failed! Make sure the specified manifest is correct.")
 
     @staticmethod
     def deactivate():

@@ -245,5 +245,10 @@ class IncorrectCredentialsError(Exception):
 class IncorrectEntitlementsFileFormatError(Exception):
     pass
 
+
 class MissingSatelliteCertificateError(Exception):
+    pass
+
+
+class ManifestValidationError(Exception):
     pass

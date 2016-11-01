@@ -37,11 +37,12 @@ from spacewalk.server.rhnServer import satellite_cert
 # Try to import cdn activation module if available
 try:
     from spacewalk.cdn_tools import activation as cdn_activation
-    from spacewalk.cdn_tools.manifest import MissingSatelliteCertificateError
+    from spacewalk.cdn_tools.manifest import MissingSatelliteCertificateError, ManifestValidationError
     from spacewalk.cdn_tools.common import CdnMappingsLoadError
 except ImportError:
     cdn_activation = None
     MissingSatelliteCertificateError = None
+    ManifestValidationError = None
     CdnMappingsLoadError = None
 
 
@@ -312,6 +313,7 @@ def main():
         11   expired!
         12   certificate version fails remedially
         13   certificate missing in manifest
+        14   manifest signature incorrect
         15   cannot load mapping files
         20   remote activation failure (general, and really unknown why)
         30   local activation failure
@@ -394,8 +396,12 @@ def main():
 
     prepRhsmManifest(options)
 
-    cdn_activate.import_channel_families()
-    cdn_activate.activate()
+    try:
+        cdn_activate.activate()
+    except ManifestValidationError:
+        e = sys.exc_info()[1]
+        writeError(e)
+        return 14
 
     return 0
 
