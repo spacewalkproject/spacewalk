@@ -6,7 +6,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.6.4
+Version: 2.6.5
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -100,6 +100,10 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Tue Nov 01 2016 Gennadii Altukhov <galt@redhat.com> 2.6.5-1
+- 1390665 - ask user for credentials only if configuration script works in
+  interactive mode
+
 * Fri Sep 23 2016 Jan Dobes 2.6.4-1
 - fix bz1340031 - yes_no: command not found
 
