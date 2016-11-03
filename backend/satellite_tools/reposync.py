@@ -217,6 +217,11 @@ class RepoSync(object):
         if not self.channel:
             log(0, "Channel %s does not exist." % channel_label)
 
+        if self.channel['org_id']:
+            self.channel['org_id'] = int(self.channel['org_id'])
+        else:
+            self.channel['org_id'] = None
+
         if not url:
             # TODO:need to look at user security across orgs
             h = rhnSQL.prepare("""select s.id, s.source_url, s.label
@@ -583,10 +588,7 @@ class RepoSync(object):
         if plug.num_excluded:
             log(0, "Packages passed filter rules: %5d" % num_passed)
         channel_id = int(self.channel['id'])
-        if self.channel['org_id']:
-            self.channel['org_id'] = int(self.channel['org_id'])
-        else:
-            self.channel['org_id'] = None
+
         for pack in packages:
             db_pack = rhnPackage.get_info_for_package(
                 [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
