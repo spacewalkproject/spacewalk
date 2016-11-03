@@ -13,17 +13,15 @@
 <RefNameDiv>
 <RefName><command>&RHNSATACT;</command></RefName>
 <RefPurpose>
-    activates (using an RHN Certificate or RHSM Manifest) a &RHNSAT;.
+    activates (using an RHSM Manifest) a &RHNSAT;.
 </RefPurpose>
 </RefNameDiv>
 
 <RefSynopsisDiv>
 <Synopsis>
     <cmdsynopsis>
-        <command>&RHNSATACT; [ options <replaceable>...</replaceable> ] \
-  [ --systemid<replaceable>PATH</replaceable> ] [ --rhn-cert <replaceable>PATH</replaceable> ] \
-  [ --no-ssl ] [ --manifest <replaceable>PATH</replaceable> ] [ --sanity-only ] \
-  [ --old-api ] [ --force ] [ --cdn-deactivate ] [ -h|--help ]</command>
+        <command>&RHNSATACT; [ options <replaceable>...</replaceable> ] [ --manifest <replaceable>PATH</replaceable> ] \
+  [ --sanity-only ] [ --cdn-deactivate ] [ -h|--help ]</command>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -31,43 +29,20 @@
 <RefSect1><Title>Description</Title>
 
 <para>
-    <emphasis>&RHNSATACT;</emphasis> activates (using an RHN Certificate
-    or RHSM Manifest) a &RHNSAT;. The RHN Cert is (a) checked for sanity, (b)
-    inserted into the local database, and (c) inserted into the remote
-    database. If RHSM Manifest is used instead of RHN Certificate, only local
-    activation is performed. RHSM Manifest activation allows &RHNSAT; to access
-    CDN repositories.
+    <emphasis>&RHNSATACT;</emphasis> activates (using an or RHSM Manifest) a &RHNSAT;.
+    The RHSM Manifest is (a) checked for sanity, (b) extracted data are inserted
+    into the local database. If disconnected option is specified, this Satellite
+    will not subscribe to Satellite repository and will not receive updates.
+    Activation allows &RHNSAT; to sync channel content from CDN repositories.
 </para>
 
 <para>
-    NOTE: activation generally occurs upon Red Hat Satellite installation. This
-          is useful for pushing a new RHN Certificate and fixing issues related
-          to account certificate issues.
+    NOTE: activation generally occurs upon Red Hat Satellite installation.
 </para>
 </RefSect1>
 
 <RefSect1><Title>Options</Title>
 <variablelist>
-    <varlistentry>
-        <term>--systemid <replaceable>PATH</replaceable></term>
-        <listitem>
-            <para>(FOR TESTING ONLY) alternative systemid path/filename. The
-                  system default is used if not specified.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--rhn-cert <replaceable>PATH</replaceable></term>
-        <listitem>
-            <para>new RHN certificate path/filename (default is
-            /etc/sysconfig/rhn/rhn-entitlement-cert.xml - the saved RHN cert).</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--no-ssl</term>
-        <listitem>
-            <para>(FOR TESTING ONLY) disable SSL.</para>
-        </listitem>
-    </varlistentry>
     <varlistentry>
         <term>--manifest <replaceable>PATH</replaceable></term>
         <listitem>
@@ -77,7 +52,7 @@
     <varlistentry>
         <term>--sanity-only</term>
         <listitem>
-            <para>confirm certificate sanity. Does not activate the Red Hat Satellite locally or remotely.</para>
+            <para>confirm manifest sanity. Does not activate the Red Hat Satellite locally or remotely.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -90,18 +65,6 @@
         <term>--ignore-version-mismatch</term>
         <listitem>
             <para>execute regardless of version mismatch of existing and new certificate.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--old-api</term>
-        <listitem>
-            <para>Activate Satellite using old API, system has to be registered to RHN Classic.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>-f | --force</term>
-        <listitem>
-            <para>Force activate Satellite if it is already activated.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -139,13 +102,14 @@
     <member>rhnpush(8)</member>
     <member>rhn-schema-version(8)</member>
     <member>rhn-ssl-dbstore(8)</member>
-    <member>satellite-sync(8)</member>
+    <member>cdn-sync(8)</member>
 </simplelist>
 </RefSect1>
 
 <RefSect1><Title>Authors</Title>
 <simplelist>
     <member>Todd Warner <email>taw@redhat.com</email></member>
+    <member>Jan Dobes <email>jdobes@redhat.com</email></member>
 </simplelist>
 </RefSect1>
 </RefEntry>
