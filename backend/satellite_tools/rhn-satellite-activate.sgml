@@ -21,7 +21,7 @@
 <Synopsis>
     <cmdsynopsis>
         <command>&RHNSATACT; [ options <replaceable>...</replaceable> ] [ --manifest <replaceable>PATH</replaceable> ] \
-  [ --sanity-only ] [ --cdn-deactivate ] [ -h|--help ]</command>
+  [ --sanity-only ] [ --disconnected ] [ --cdn-deactivate ] [ -h|--help ]</command>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -53,6 +53,12 @@
         <term>--sanity-only</term>
         <listitem>
             <para>confirm manifest sanity. Does not activate the Red Hat Satellite locally or remotely.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--disconnected</term>
+        <listitem>
+            <para>activate locally, but not subscribe to Satellite repository.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
