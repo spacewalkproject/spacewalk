@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.68
+Version: 2.6.69
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -820,6 +820,20 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Nov 03 2016 Jan Dobes 2.6.69-1
+- update man page
+- import channel families after signature is checked and fix return code if
+  manifest validation fails
+- always check mappings
+- use disconnected option to not subscribe to sat repo
+- removing remote activation functions
+- save manifest to default location
+- read certificate from manifest only
+- making cdn activation mandatory in this script
+- removing unsupported options
+- fixing list of channels when there are only child channels available
+- adding mount point parameter
+
 * Wed Oct 26 2016 Jan Dobes 2.6.68-1
 - rename and remove untrue comments
 
