@@ -479,12 +479,10 @@ class Syncer:
                 sync_parent = CFG.ISS_PARENT
                 self.systemid = 'N/A'   # systemid is not used in ISS auth process
                 is_iss = 1
-            elif not CFG.DISCONNECTED:
-                sync_parent = CFG.RHN_PARENT
-                is_iss = 0
             else:
                 log(1, _(PRODUCT_NAME + ' - live synchronization'))
-                log(-1, _("ERROR: Can't use live synchronization in disconnected mode."), stream=sys.stderr)
+                log(-1, _("ERROR: Can't use live synchronization from RHN. This is not supported."),
+                    stream=sys.stderr)
                 sys.exit(1)
 
             url = self.xmlDataServer.schemeAndUrl(sync_parent)
