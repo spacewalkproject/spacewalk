@@ -14,10 +14,9 @@
  */
 package com.redhat.rhn.frontend.action;
 
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.RhnValidationHelper;
-import com.redhat.rhn.manager.user.UserManager;
+import javax.security.auth.login.LoginException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -29,9 +28,10 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
-import javax.security.auth.login.LoginException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.manager.user.UserManager;
 
 /**
  * LoginAction
@@ -42,6 +42,7 @@ public class LoginAction extends RhnAction {
     public static final String DEFAULT_URL_BOUNCE = "/rhn/YourRhn.do";
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
             ActionForm form, HttpServletRequest request,
             HttpServletResponse response) {
@@ -63,9 +64,22 @@ public class LoginAction extends RhnAction {
         addErrors(request, errors);
         errors.clear();
 
+        // External-auth didn't return a user - try local-auth
         if (user == null) {
-            user = loginUser((String) f.get("username"), (String) f.get("password"),
+            user = loginUser(f.getString("username"), f.getString("password"),
                     request, response, errors);
+            if (errors.isEmpty()) {
+                // No errors, log success
+                log.info("LOCAL AUTH SUCCESS: [" + user.getLogin() + "]");
+            }
+            else {
+                // Errors, log failure
+                log.info("LOCAL AUTH FAILURE: [" + f.getString("username") + "]");
+            }
+        }
+        // External-auth returned a user and no errors
+        else if (errors.isEmpty()) {
+            log.info("EXTERNAL AUTH SUCCESS: [" + user.getLogin() + "]");
         }
 
         if (errors.isEmpty()) {
@@ -73,6 +87,7 @@ public class LoginAction extends RhnAction {
         }
         else {
             addErrors(request, errors);
+
             ret = mapping.findForward("failure");
         }
 
