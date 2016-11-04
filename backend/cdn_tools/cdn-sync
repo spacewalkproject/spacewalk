@@ -38,6 +38,8 @@ def process_commandline():
                                                                         "debug purpose only.")
     parser.add_argument("-c", "--channel", action="append", help="Sync this channel only.")
     parser.add_argument("-m", "--mount-point", action="store", help="Source mount point for import from Content ISO")
+    parser.add_argument("--consider-full", action="store_true",
+                        help="Mount point will be considered to contain full channels.")
     parser.add_argument("--no-packages", action="store_true", help="Do not sync packages.")
     parser.add_argument("--no-errata", action="store_true", help="Do not sync errata.")
     parser.add_argument("--no-kickstarts", action="store_true", help="Do not sync kickstart repositories.")
@@ -89,7 +91,8 @@ if __name__ == '__main__':
         args = process_commandline()
         cdnsync = CdnSync(no_packages=args.no_packages, no_errata=args.no_errata,
                           no_rpms=args.no_rpms, no_kickstarts=args.no_kickstarts,
-                          log_level=args.verbose, mount_point=args.mount_point)
+                          log_level=args.verbose, mount_point=args.mount_point,
+                          consider_full=args.consider_full)
 
         if args.list_channels:
             if args.count_packages:

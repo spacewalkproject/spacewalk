@@ -45,7 +45,7 @@ class CdnSync(object):
     log_path = '/var/log/rhn/cdnsync.log'
 
     def __init__(self, no_packages=False, no_errata=False, no_rpms=False, no_kickstarts=False,
-                 log_level=None, mount_point=None):
+                 log_level=None, mount_point=None, consider_full=False):
 
         self.cdn_repository_manager = CdnRepositoryManager(mount_point)
         self.no_packages = no_packages
@@ -58,8 +58,10 @@ class CdnSync(object):
 
         if mount_point:
             self.mount_point = "file://" + mount_point
+            self.consider_full = consider_full
         else:
             self.mount_point = CFG.CDN_ROOT
+            self.consider_full = True
 
         CFG.set('DEBUG', log_level)
         rhnLog.initLOG(self.log_path, self.log_level)
@@ -264,7 +266,7 @@ class CdnSync(object):
                                  latest=False,
                                  metadata_only=self.no_rpms,
                                  excluded_urls=excluded_urls,
-                                 strict=1,
+                                 strict=self.consider_full,
                                  log_dir="cdnsync",
                                  log_level=self.log_level)
         sync.set_ks_tree_type('rhn-managed')

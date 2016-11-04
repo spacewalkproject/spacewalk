@@ -38,6 +38,9 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <arg>--mount-point=<replaceable>MOUNT_POINT</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--consider-full</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-p</arg> <arg>--print-configuration</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -146,6 +149,15 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <term>-m, --mount-point<replaceable> MOUNT_POINT</replaceable>
         <listitem>
             <para>Source mount point for import from Content ISO.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--consider-full</term>
+        <listitem>
+            <para>When this option is used, channels being synced from Content ISO mount point will be considered to be
+            full channels. Any package in channel but not in the mounted ISO will be deleted. Without this option the
+            Content ISO is interpreted as Incremental Content ISO. This option makes sense only together with --mount-point.
+            Live sync is always considered as full sync.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
