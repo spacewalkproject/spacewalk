@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.45
+Version: 2.6.46
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 04 2016 Grant Gainey 2.6.46-1
+- 1385811 - log login/out and failures, update log4j defaults
+
 * Thu Nov 03 2016 Tomas Lestach <tlestach@redhat.com> 2.6.45-1
 - 1251252 - removing use of 'Satellite' in kickstart.* (API)doc
 
