@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Progga <progga@BengaLinux.Org>, 2004.
@@ -11,14 +11,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 10:36+0200\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2016-11-07 18:09+0100\n"
 "PO-Revision-Date: 2015-03-17 08:22-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Bengali (India) <anubad@lists.ankur.org.in>\n"
 "Language: bn-IN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 3.9.6\n"
 
@@ -39,8 +39,7 @@ msgid ""
 "command as root to access Spacewalk repositories."
 msgstr ""
 "*উল্লেখ্য* Red Hat Network-র সংগ্রহস্থলগুলি নীচে তালিকাভুক্ত করা হয়নি। RHN "
-"সংগ্রহস্থলগুলি প্রাপ্ত করার জন্য root ব্যবহারকারী রূপে এই কমান্ডটি প্রয়োগ "
-"করুন।"
+"সংগ্রহস্থলগুলি প্রাপ্ত করার জন্য root ব্যবহারকারী রূপে এই কমান্ডটি প্রয়োগ করুন।"
 
 #: ../rhnplugin.py:90
 #, fuzzy
@@ -82,8 +81,7 @@ msgid ""
 msgstr ""
 
 #: ../rhnplugin.py:161
-msgid ""
-"This system is receiving updates from RHN Classic or Red Hat Satellite."
+msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 
 #: ../rhnplugin.py:286
@@ -96,8 +94,7 @@ msgstr "ত্রুটির বার্তা:"
 
 #: ../rhnplugin.py:295
 msgid "Please run rhn_register as root on this client"
-msgstr ""
-"অনুগ্রহ করে এই ক্লায়েন্ট মেশিনের মধ্যে root পরিচয়ে rhn_register প্রয়োগ করুন।"
+msgstr "অনুগ্রহ করে এই ক্লায়েন্ট মেশিনের মধ্যে root পরিচয়ে rhn_register প্রয়োগ করুন।"
 
 #: ../rhnplugin.py:374
 #, python-format

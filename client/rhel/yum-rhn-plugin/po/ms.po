@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Mahrazi Mohd Kamal<mahrazi@gmail.com>, 2006.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
@@ -10,14 +10,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 10:36+0200\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2016-11-07 18:09+0100\n"
 "PO-Revision-Date: 2015-03-17 08:22-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ms\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Zanata 3.9.6\n"
 
@@ -77,8 +77,7 @@ msgid ""
 msgstr ""
 
 #: ../rhnplugin.py:161
-msgid ""
-"This system is receiving updates from RHN Classic or Red Hat Satellite."
+msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 
 #: ../rhnplugin.py:286
