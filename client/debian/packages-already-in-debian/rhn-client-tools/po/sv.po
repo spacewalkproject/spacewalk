@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Christian Rose <menthos@menthos.com>, 2002, 2003, 2004, 2005.
 # Göran Uddeborg <goeran@uddeborg.se>, 2010.
@@ -12,15 +12,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
 "PO-Revision-Date: 2016-02-17 11:07-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Swedish (http://www.transifex.net/projects/p/fedora/language/"
 "sv/)\n"
 "Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Zanata 3.9.6\n"
 
@@ -103,8 +103,7 @@ msgstr "Kan inte hitta system-id"
 
 #: ../src/up2date_client/rhnChannel.py:113
 msgid "This system may not be updated until it is associated with a channel."
-msgstr ""
-"Detta system kan inte uppdateras innan det är associerat med en kanal."
+msgstr "Detta system kan inte uppdateras innan det är associerat med en kanal."
 
 #: ../src/up2date_client/rhncli.py:70
 msgid "Show additional output"
@@ -127,9 +126,11 @@ msgstr ""
 "proxyserver"
 
 #: ../src/up2date_client/rhncli.py:98
-msgid "\n"
+msgid ""
+"\n"
 "Aborted.\n"
-msgstr "\n"
+msgstr ""
+"\n"
 "Avbröts.\n"
 
 #: ../src/up2date_client/rhncli.py:101
@@ -335,8 +336,7 @@ msgstr "Uppsättningen av programvaru-uppdateringar misslyckades"
 #: ../src/up2date_client/rhnreg_constants.py:61
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
-"\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
 "Är du säker på att du inte vill ansluta ditt system till Red Hat Network?  "
 "Du kommer förlora fördelarna med din prenumeration på Red Hat Enterprise "
@@ -350,8 +350,7 @@ msgstr ""
 "Du kommer inte kunna dra nytta av dessa fördelar med en prenumeration utan "
 "att ansluta ditt system till Red Hat Network.\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "Ta mig tillbaka till uppsättningsprocessen."
 
@@ -369,7 +368,8 @@ msgstr ""
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr "Ange din inloggningsinformation för %s Red Hat Network-satellit:\n"
+msgstr ""
+"Ange din inloggningsinformation för %s Red Hat Network-satellit:\n"
 "\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:72
@@ -420,8 +420,7 @@ msgstr " Mindre utgåva: "
 msgid "Limited Updates Only"
 msgstr "Endast begränsade uppdateringar"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "Alla tillgängliga uppdateringar"
 
@@ -497,8 +496,8 @@ msgid ""
 "com/):\n"
 "\n"
 msgstr ""
-"Ange din inloggningsinformation för Red Hat Network (http://rhn.redhat.com/):"
-"\n"
+"Ange din inloggningsinformation för Red Hat Network (http://rhn.redhat."
+"com/):\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:117
 msgid ""
@@ -697,7 +696,8 @@ msgstr ""
 "kommer inte få programvaruuppdateringar för att hålla det säkert och stött.  "
 "Det finns några saker du kan försöka för att lösa situationen:\n"
 "(1) Logga in på http://rhn.redhat.com/ och och ta bort rättigheter för ett "
-"inaktivet system i Your RHN → Subscription Management → System Entitlements.\n"
+"inaktivet system i Your RHN → Subscription Management → System "
+"Entitlements.\n"
 "(2) Köp en ytterligare prenumeration på Red Hat Enterprise Linux på http://"
 "www.redhat.com/store/.\n"
 "(3) Aktivera ett nytt installationsnummer på http://www.redhat.com/now/.  "
@@ -805,14 +805,14 @@ msgid ""
 "Universal Default activation key: %s"
 msgstr ""
 "Universell standardaktiveringsnyckel upptäcktes\n"
-"En universell standardaktiveringsnyckel upptäcktes för din RHN-organisation. "
-" Vad det betyder är att en uppsättning egenskaper (prenumerationer på "
-"programvarukanaler, Red Hat Network-tjänster, paketinstallationer, "
-"systemgruppstillhörigheter, etc.) för ditt systems anslutning till Red Hat "
-"Network har bestämts av aktiveringsnyckeln snarare eän ditt systems "
-"installationsnummer.  Du kan också titta i RHN referensguide, avsnitt 6.4.6 "
-"för mer detaljer om aktiveringsnycklar (http://rhn.redhat.com/rhn/help/"
-"reference/)\n"
+"En universell standardaktiveringsnyckel upptäcktes för din RHN-"
+"organisation.  Vad det betyder är att en uppsättning egenskaper "
+"(prenumerationer på programvarukanaler, Red Hat Network-tjänster, "
+"paketinstallationer, systemgruppstillhörigheter, etc.) för ditt systems "
+"anslutning till Red Hat Network har bestämts av aktiveringsnyckeln snarare "
+"eän ditt systems installationsnummer.  Du kan också titta i RHN "
+"referensguide, avsnitt 6.4.6 för mer detaljer om aktiveringsnycklar (http://"
+"rhn.redhat.com/rhn/help/reference/)\n"
 "Universell standardaktiveringsnyckel: %s"
 
 #. Error Messages.
@@ -922,10 +922,12 @@ msgstr ""
 "FAQ_61_7924.shtm "
 
 #: ../src/up2date_client/rhnreg_constants.py:302
-msgid "\n"
+msgid ""
+"\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
-msgstr "\n"
+msgstr ""
+"\n"
 " Tips: Mindre utgåvor med en \"*\" stöds nu av Red Hat.\n"
 "\n"
 
@@ -1046,8 +1048,7 @@ msgid "There was an error communicating with Red Hat Network."
 msgstr "Det uppstod ett fel vid kommunikation med Red Hat Netwok."
 
 #: ../src/up2date_client/rhnregGui.py:372
-msgid ""
-"The server may be in outage mode. You may have to try connecting later."
+msgid "The server may be in outage mode. You may have to try connecting later."
 msgstr ""
 "Servern kan vara nere.  Du kan vara tvungen att försöka ansluta senare."
 
@@ -1238,8 +1239,7 @@ msgid "Arch"
 msgstr "Ark."
 
 #: ../src/up2date_client/rhnregGui.py:1288
-msgid ""
-"Building a list of RPM packages installed on your system.  Please wait."
+msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
 "Bygger en lista med RPM-paket som är installerade på ditt system. Var vänlig "
 "vänta."
@@ -1457,7 +1457,8 @@ msgstr ""
 "    administratör genom att logga in på Red Hat Network och besöka sidan\n"
 "    \"Subscription Management\" i avdelningen \"Your RHN\" i RHN.\n"
 "    \n"
-"    En vanlig anledning till detta fel är att man av misstag har satt upp en\n"
+"    En vanlig anledning till detta fel är att man av misstag har satt upp "
+"en\n"
 "    aktiveringsnyckel som är satt som universell standard.  Om en "
 "aktiveringsnyckel\n"
 "    är satt för kontot som en universell standard kan du avaktivera denna "
@@ -2355,9 +2356,11 @@ msgstr ""
 "fortsätter (du kommer kunna flytta till en senare utgåva.)"
 
 #: ../data/rh_register.glade.h:126
-msgid "\n"
+msgid ""
+"\n"
 "Are you sure you would like to continue?"
-msgstr "\n"
+msgstr ""
+"\n"
 "Är du säker på att du vill fortsätta?"
 
 #: ../data/rh_register.glade.h:128
@@ -2442,8 +2445,8 @@ msgstr ""
 msgctxt "yes"
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/DOC-"
-"45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
+"DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146

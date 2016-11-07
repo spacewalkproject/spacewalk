@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Bernd Groh <bgroh@redhat.com>, 2003.
 # Luc de Louw <luc@delouw.ch>, 2011.
@@ -14,14 +14,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
 "PO-Revision-Date: 2016-02-17 09:49-0500\n"
 "Last-Translator: Jan Dobes <jdobes@redhat.com>\n"
 "Language-Team: German <trans-de@lists.fedoraproject.org>\n"
 "Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Zanata 3.9.6\n"
 
@@ -129,9 +129,11 @@ msgstr ""
 "Authentifizierung erfordert."
 
 #: ../src/up2date_client/rhncli.py:98
-msgid "\n"
+msgid ""
+"\n"
 "Aborted.\n"
-msgstr "\n"
+msgstr ""
+"\n"
 "Abgebrochen.\n"
 
 #: ../src/up2date_client/rhncli.py:101
@@ -142,8 +144,7 @@ msgstr "Ein unerwarteter Betriebssystemfehler ist aufgetreten: %s\n"
 #: ../src/up2date_client/rhncli.py:105
 msgid "A connection was attempted with a malformed URI.\n"
 msgstr ""
-"Es wurde versucht, eine Verbindung mit einer fehlerhaften URI herzustellen."
-"\n"
+"Es wurde versucht, eine Verbindung mit einer fehlerhaften URI herzustellen.\n"
 
 #: ../src/up2date_client/rhncli.py:107
 #, python-format
@@ -168,8 +169,8 @@ msgid ""
 "the time on this system is correct.\n"
 msgstr ""
 "Eine häufige Ursache dieses Fehlers ist es, dass die Systemzeit falsch "
-"eingestellt ist. Überprüfen Sie dass die Zeit auf diesem System richtig ist."
-"\n"
+"eingestellt ist. Überprüfen Sie dass die Zeit auf diesem System richtig "
+"ist.\n"
 
 #: ../src/up2date_client/rhncli.py:120
 #, python-format
@@ -343,8 +344,7 @@ msgstr "Einrichtung des Software-Updates nicht erfolgreich"
 #: ../src/up2date_client/rhnreg_constants.py:61
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
-"\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
 "Möchten Sie Ihr System wirklich nicht mit dem Red Hat Network zu verbinden? "
 "Sie werden nicht in den Genuss der Vorteile eines Red Hat Enterprise Linux "
@@ -358,8 +358,7 @@ msgstr ""
 "Ohne die Verbindung Ihres Systems mit Red Hat Network können Sie die "
 "Vorteile dieser Abonnement-Privilegien nicht nutzen.\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "Zurück zum Einrichtungsprozess."
 
@@ -430,8 +429,7 @@ msgstr " Zwischen-Release: "
 msgid "Limited Updates Only"
 msgstr "Nur eingeschränkte Updates"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "Alle verfügbaren Updates"
 
@@ -648,8 +646,8 @@ msgstr ""
 "Falls Sie Updates für dieses Produkt erhalten möchten, loggen Sie sich bitte "
 "auf der Web-Schnittstelle des Satelliten ein und abonnieren die jeweiligen "
 "Software-Kanäle, um Updates für das Produkt zu erhalten. Siehe auch KBase-"
-"Artikel 11313 für weitere Details. (http://kbase.redhat.com/faq/docs/DOC-"
-"11313)"
+"Artikel 11313 für weitere Details. (http://kbase.redhat.com/faq/docs/"
+"DOC-11313)"
 
 #: ../src/up2date_client/rhnreg_constants.py:177
 msgid ""
@@ -865,7 +863,8 @@ msgstr ""
 "Überprüfen Sie die angegebene Position erneut - ist '%s' korrekt?\n"
 "Korrigieren Sie sie ggf. und versuchen es erneut.\n"
 "\n"
-"Stellen Sie sicher, dass die Netzwerkverbindung dieses Systems funktioniert.\n"
+"Stellen Sie sicher, dass die Netzwerkverbindung dieses Systems "
+"funktioniert.\n"
 "\n"
 "Dieses System kann keine Software-Updates erfolgreich von Red Hat abrufen, "
 "ohne sich mit Red Hat Network zu verbinden"
@@ -946,7 +945,8 @@ msgstr ""
 "shtm zu finden."
 
 #: ../src/up2date_client/rhnreg_constants.py:302
-msgid "\n"
+msgid ""
+"\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
 msgstr ""
@@ -1082,8 +1082,7 @@ msgid "There was an error communicating with Red Hat Network."
 msgstr "Bei der Kommunikation mit Red Hat Network trat ein Fehler auf."
 
 #: ../src/up2date_client/rhnregGui.py:372
-msgid ""
-"The server may be in outage mode. You may have to try connecting later."
+msgid "The server may be in outage mode. You may have to try connecting later."
 msgstr ""
 "Möglicherweise ist der Server derzeit ausgeschaltet. Sie müssen es ggf. noch "
 "einmal später versuchen."
@@ -1169,7 +1168,6 @@ msgid ""
 msgstr ""
 "Die angegebene Installationsnummer [ %s ] ist keine gültige "
 "Installationsnummer. Gehen Sie zum vorherigen Bildschirm, um dies zu beheben."
-""
 
 #: ../src/up2date_client/rhnregGui.py:815 ../src/up2date_client/tui.py:893
 msgid "Problem registering system."
@@ -1222,8 +1220,7 @@ msgstr ""
 #: ../src/up2date_client/tui.py:926
 msgid "Problem registering personal information:\n"
 msgstr ""
-"Beim Registrieren der persönlichen Informationen sind Probleme aufgetreten:"
-"\n"
+"Beim Registrieren der persönlichen Informationen sind Probleme aufgetreten:\n"
 
 #: ../src/up2date_client/rhnregGui.py:930
 #: ../src/up2date_client/rhnregGui.py:947 ../src/up2date_client/tui.py:918
@@ -1288,8 +1285,7 @@ msgid "Arch"
 msgstr "Arch"
 
 #: ../src/up2date_client/rhnregGui.py:1288
-msgid ""
-"Building a list of RPM packages installed on your system.  Please wait."
+msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
 "Erstelle eine Liste der auf Ihrem System installierten RPM-Pakete. Bitte "
 "warten."
@@ -1507,7 +1503,8 @@ msgstr ""
 "Ihre Organisation bestehende Berechtigungen freigibt, \n"
 "    oder zusätzliche Berechtigungen erwirbt. Zusätzliche Berechtigungen "
 "können von Ihrem Organisationsadministrator\n"
-"    erworben werden. Dazu kann dieser sich bei Red Hat Network einloggen und\n"
+"    erworben werden. Dazu kann dieser sich bei Red Hat Network einloggen "
+"und\n"
 "    auf die Seite 'Abonnement-Management' im Abschnitt 'Ihr RHN' von RHN "
 "zugreifen.\n"
 "    \n"
@@ -1932,7 +1929,8 @@ msgid ""
 "<small>Tip: Forgot your login or password? Look it up at \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 msgstr ""
-"<small>Hinweis: Haben Sie Ihr Login oder Passwort vergessen? Schlagen Sie es\n"
+"<small>Hinweis: Haben Sie Ihr Login oder Passwort vergessen? Schlagen Sie "
+"es\n"
 "unter https://www.redhat.com/wapps/sso/rhn/lostPassword.html nach.</small>"
 
 #: ../data/rh_register.glade.h:23
@@ -2430,8 +2428,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:124
 msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
-msgstr ""
-"<big><b>Das Wechseln zu früheren Releases ist nicht möglich!</b></big>"
+msgstr "<big><b>Das Wechseln zu früheren Releases ist nicht möglich!</b></big>"
 
 #: ../data/rh_register.glade.h:125
 msgid ""
@@ -2444,9 +2441,11 @@ msgstr ""
 "auf ein neueres Release wechseln)."
 
 #: ../data/rh_register.glade.h:126
-msgid "\n"
+msgid ""
+"\n"
 "Are you sure you would like to continue?"
-msgstr "\n"
+msgstr ""
+"\n"
 "Möchten Sie wirklich fortfahren?"
 
 #: ../data/rh_register.glade.h:128
@@ -2531,8 +2530,8 @@ msgstr ""
 msgctxt "yes"
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/DOC-"
-"45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
+"DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146
@@ -2605,11 +2604,11 @@ msgid ""
 "release of Red Hat Enterprise Linux 6.  It will be registered to the main "
 "'Red Hat Enterprise Linux 6' software channel."
 msgstr ""
-"<b>_Alle verfügbaren Updates</b> werden diesem System zur Verfügung gestellt."
-" Dieses System - wenn es auf dem aktuellsten Stand gehalten wird - wird "
-"immer dem aktuell verfügbaren Zwischen-Release von Red Hat Enterprise Linux "
-"6 entsprechen.  Es wird beim Haupt-Software-Channel für 'Red Hat Enterprise "
-"Linux 6' registriert."
+"<b>_Alle verfügbaren Updates</b> werden diesem System zur Verfügung "
+"gestellt. Dieses System - wenn es auf dem aktuellsten Stand gehalten wird - "
+"wird immer dem aktuell verfügbaren Zwischen-Release von Red Hat Enterprise "
+"Linux 6 entsprechen.  Es wird beim Haupt-Software-Channel für 'Red Hat "
+"Enterprise Linux 6' registriert."
 
 #: ../data/rh_register.glade.h:161
 msgid ""

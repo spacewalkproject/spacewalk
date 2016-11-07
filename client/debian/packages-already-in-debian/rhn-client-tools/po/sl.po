@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Rok Papez <rok.papez@lugos.si>, 2004.
@@ -9,16 +9,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
 "PO-Revision-Date: 2015-03-17 08:09-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3)\n"
 "X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
@@ -27,8 +27,7 @@ msgid ""
 "This client requires the server to support %s, which the current server does "
 "not support"
 msgstr ""
-"Ta odjemalec zahteva, da strežnik podpira %s, kar pa trenutni strežnik ne "
-"zna"
+"Ta odjemalec zahteva, da strežnik podpira %s, kar pa trenutni strežnik ne zna"
 
 #: ../src/up2date_client/config.py:143
 #, python-format
@@ -119,9 +118,11 @@ msgid "Specify a password to use with an authenticated http proxy"
 msgstr "Določi geslo za spletni posrednik"
 
 #: ../src/up2date_client/rhncli.py:98
-msgid "\n"
+msgid ""
+"\n"
 "Aborted.\n"
-msgstr "\n"
+msgstr ""
+"\n"
 "Prekinjeno.\n"
 
 #: ../src/up2date_client/rhncli.py:101
@@ -301,8 +302,7 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:61
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
-"\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:63
@@ -311,8 +311,7 @@ msgid ""
 "without connecting your system to Red Hat Network.\n"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr ""
 
@@ -378,8 +377,7 @@ msgstr ""
 msgid "Limited Updates Only"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr ""
 
@@ -431,7 +429,6 @@ msgid ""
 "relevant to this system."
 msgstr ""
 "Podatki RPM so pomembni pri določanju kateri paketi so zanimivi za ta sistem."
-""
 
 #: ../src/up2date_client/rhnreg_constants.py:108
 msgid "Include RPM packages installed on this system in my System Profile"
@@ -752,7 +749,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:302
-msgid "\n"
+msgid ""
+"\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
 msgstr ""
@@ -866,8 +864,7 @@ msgid "There was an error communicating with Red Hat Network."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:372
-msgid ""
-"The server may be in outage mode. You may have to try connecting later."
+msgid "The server may be in outage mode. You may have to try connecting later."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:374
@@ -1051,8 +1048,7 @@ msgid "Arch"
 msgstr "Arhi"
 
 #: ../src/up2date_client/rhnregGui.py:1288
-msgid ""
-"Building a list of RPM packages installed on your system.  Please wait."
+msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1319
@@ -2122,7 +2118,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:126
-msgid "\n"
+msgid ""
+"\n"
 "Are you sure you would like to continue?"
 msgstr ""
 
@@ -2208,8 +2205,8 @@ msgstr ""
 msgctxt "yes"
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/DOC-"
-"45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
+"DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146

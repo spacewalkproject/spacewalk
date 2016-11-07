@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Mohammad Ghoniem <Mohammad.Ghoniem@laposte.net>, 2004.
@@ -12,14 +12,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
 "PO-Revision-Date: 2015-03-17 08:03-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Arabic <trans-ar@lists.fedoraproject.org>\n"
 "Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5\n"
 "X-Generator: Zanata 3.9.6\n"
@@ -120,9 +120,11 @@ msgid "Specify a password to use with an authenticated http proxy"
 msgstr "حدّد كلمة مرور لاستخدامها مع http proxy مُوثّق"
 
 #: ../src/up2date_client/rhncli.py:98
-msgid "\n"
+msgid ""
+"\n"
 "Aborted.\n"
-msgstr "\n"
+msgstr ""
+"\n"
 "تم الإجهاض.\n"
 
 #: ../src/up2date_client/rhncli.py:101
@@ -154,8 +156,8 @@ msgid ""
 "A common cause of this error is the system time being incorrect. Verify that "
 "the time on this system is correct.\n"
 msgstr ""
-"السّبب الشّائع لهذا الخطأ هو كَوْن توقيت النّظام غير صحيح. تحقّق من أنّ "
-"التوقيت صحيح على هذا النّظام.\n"
+"السّبب الشّائع لهذا الخطأ هو كَوْن توقيت النّظام غير صحيح. تحقّق من أنّ التوقيت "
+"صحيح على هذا النّظام.\n"
 
 #: ../src/up2date_client/rhncli.py:120
 #, python-format
@@ -302,8 +304,7 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:61
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
-"\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:63
@@ -312,8 +313,7 @@ msgid ""
 "without connecting your system to Red Hat Network.\n"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr ""
 
@@ -379,8 +379,7 @@ msgstr ""
 msgid "Limited Updates Only"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr ""
 
@@ -405,8 +404,8 @@ msgid ""
 "Profile on the Red Hat Network web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
-"اسم السّجلّ الشّخصيّ هو اسم تختاره لتعريف سجلّ النّظام الشّخصي هذا على صفحات "
-"شبكة ردهات. اختيارياً، حدد رقم الحاسوب التّسلسلي أو رقم الهويّة."
+"اسم السّجلّ الشّخصيّ هو اسم تختاره لتعريف سجلّ النّظام الشّخصي هذا على صفحات شبكة "
+"ردهات. اختيارياً، حدد رقم الحاسوب التّسلسلي أو رقم الهويّة."
 
 #: ../src/up2date_client/rhnreg_constants.py:97
 msgid ""
@@ -750,7 +749,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:302
-msgid "\n"
+msgid ""
+"\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
 msgstr ""
@@ -864,8 +864,7 @@ msgid "There was an error communicating with Red Hat Network."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:372
-msgid ""
-"The server may be in outage mode. You may have to try connecting later."
+msgid "The server may be in outage mode. You may have to try connecting later."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:374
@@ -1049,11 +1048,9 @@ msgid "Arch"
 msgstr "بنية النّظام"
 
 #: ../src/up2date_client/rhnregGui.py:1288
-msgid ""
-"Building a list of RPM packages installed on your system.  Please wait."
+msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
 "يقوم معالج التّسجيل بتجميع لائحة بحزم RPM المثبّتة على نظامك.  يرجى الانتظار."
-""
 
 #: ../src/up2date_client/rhnregGui.py:1319
 msgid ""
@@ -1068,7 +1065,8 @@ msgstr ""
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
 "you own %s."
-msgstr "كان هناك خطأ في حفظ تهيئتك. تحقّق من أنّك\n"
+msgstr ""
+"كان هناك خطأ في حفظ تهيئتك. تحقّق من أنّك\n"
 "تملك %s."
 
 #: ../src/up2date_client/rhnregGui.py:1391
@@ -1176,8 +1174,7 @@ msgstr ""
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr ""
-"  <Tab>/<Alt-Tab> بين العناصر  |  <Space> للتّحديد  |  <F12> الشّاشة "
-"التّالية"
+"  <Tab>/<Alt-Tab> بين العناصر  |  <Space> للتّحديد  |  <F12> الشّاشة التّالية"
 
 #: ../src/up2date_client/tui.py:1258
 msgid "You must run the RHN registration program as root."
@@ -2122,7 +2119,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:126
-msgid "\n"
+msgid ""
+"\n"
 "Are you sure you would like to continue?"
 msgstr ""
 
@@ -2208,8 +2206,8 @@ msgstr ""
 msgctxt "yes"
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/DOC-"
-"45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
+"DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146

@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Martin Minar <skulliq@gmail.com>, 2011.
 # Milan Kerslager <kerslage@linux.cz>, 2002, 2007.
@@ -12,15 +12,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
+"PO-Revision-Date: 2016-02-17 09:45-0500\n"
+"Last-Translator: Jan Dobes <jdobes@redhat.com>\n"
+"Language-Team: Czech (http://www.transifex.net/projects/p/fedora/language/"
+"cs/)\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-02-17 09:45-0500\n"
-"Last-Translator: Jan Dobes <jdobes@redhat.com>\n"
-"Language-Team: Czech (http://www.transifex.net/projects/p/fedora/language/cs/"
-")\n"
-"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
 "X-Generator: Zanata 3.9.6\n"
 
@@ -105,7 +105,6 @@ msgstr "Neporařilo se nalézt ID systému"
 msgid "This system may not be updated until it is associated with a channel."
 msgstr ""
 "Tento systém nemůže být aktualizován, dokud není asociován s nějakým kanálem."
-""
 
 #: ../src/up2date_client/rhncli.py:70
 msgid "Show additional output"
@@ -125,9 +124,11 @@ msgid "Specify a password to use with an authenticated http proxy"
 msgstr "Zadejte heslo, které chcete použít pro autentizaci k HTTP proxy"
 
 #: ../src/up2date_client/rhncli.py:98
-msgid "\n"
+msgid ""
+"\n"
 "Aborted.\n"
-msgstr "\n"
+msgstr ""
+"\n"
 "Přerušeno.\n"
 
 #: ../src/up2date_client/rhncli.py:101
@@ -137,13 +138,15 @@ msgstr "Došlo k neočekávané chybě OS: %s\n"
 
 #: ../src/up2date_client/rhncli.py:105
 msgid "A connection was attempted with a malformed URI.\n"
-msgstr "Došlo k pokusu o spojení s poškozeným URI.\n"
+msgstr ""
+"Došlo k pokusu o spojení s poškozeným URI.\n"
 "\n"
 
 #: ../src/up2date_client/rhncli.py:107
 #, python-format
 msgid "A connection was attempted with a malformed URI: %s.\n"
-msgstr "Došlo k pokusu o spojení s poškozeným URI: %s.\n"
+msgstr ""
+"Došlo k pokusu o spojení s poškozeným URI: %s.\n"
 "\n"
 
 #: ../src/up2date_client/rhncli.py:109
@@ -330,8 +333,7 @@ msgstr "Nastavení aktualizace programů nebylo úspěšné"
 #: ../src/up2date_client/rhnreg_constants.py:61
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
-"\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
 "Jste si jisti, že se nechcete připojit do Red Hat Network? Připojení "
 "umožňuje naplno využít výhody předplaceného přístupu včetně:\n"
@@ -342,8 +344,7 @@ msgid ""
 "without connecting your system to Red Hat Network.\n"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "Zpět k procesu nastavení."
 
@@ -411,8 +412,7 @@ msgstr ""
 msgid "Limited Updates Only"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "Všechny dostupné aktualizace"
 
@@ -811,7 +811,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:302
-msgid "\n"
+msgid ""
+"\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
 msgstr ""
@@ -925,8 +926,7 @@ msgid "There was an error communicating with Red Hat Network."
 msgstr "Při komunikaci s Red Hat Network došlo k chybě."
 
 #: ../src/up2date_client/rhnregGui.py:372
-msgid ""
-"The server may be in outage mode. You may have to try connecting later."
+msgid "The server may be in outage mode. You may have to try connecting later."
 msgstr "Server je asi v odstávce. Můžete se zkusit připojit později."
 
 #: ../src/up2date_client/rhnregGui.py:374
@@ -1114,8 +1114,7 @@ msgid "Arch"
 msgstr "Arch"
 
 #: ../src/up2date_client/rhnregGui.py:1288
-msgid ""
-"Building a list of RPM packages installed on your system.  Please wait."
+msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
 "Sestavuji seznam balíčků RPM nainstalovaných na vašem systému. Čekejte "
 "prosím."
@@ -2195,7 +2194,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:126
-msgid "\n"
+msgid ""
+"\n"
 "Are you sure you would like to continue?"
 msgstr ""
 
@@ -2281,8 +2281,8 @@ msgstr ""
 msgctxt "yes"
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/DOC-"
-"45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
+"DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146

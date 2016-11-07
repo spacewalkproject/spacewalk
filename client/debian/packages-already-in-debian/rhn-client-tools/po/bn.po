@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Progga <progga@BengaLinux.Org>, 2004.
@@ -12,14 +12,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
 "PO-Revision-Date: 2015-03-17 08:03-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Bengali <info@ankur.org.bd>\n"
 "Language: bn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Zanata 3.9.6\n"
 
@@ -29,8 +29,8 @@ msgid ""
 "This client requires the server to support %s, which the current server does "
 "not support"
 msgstr ""
-"এই ক্লায়েন্টের জন্য সার্ভারের দ্বারা %s-র সমর্থিত হওয়া আবশ্যক। বর্তমান "
-"সার্ভারে এটি সমর্থিত নয়।"
+"এই ক্লায়েন্টের জন্য সার্ভারের দ্বারা %s-র সমর্থিত হওয়া আবশ্যক। বর্তমান সার্ভারে এটি "
+"সমর্থিত নয়।"
 
 #: ../src/up2date_client/config.py:143
 #, python-format
@@ -102,9 +102,7 @@ msgstr ""
 
 #: ../src/up2date_client/rhnChannel.py:113
 msgid "This system may not be updated until it is associated with a channel."
-msgstr ""
-"একটি চ্যানেলের সাথে যুক্ত না হওয়া পর্যন্ত সিস্টেমটিকে পরিবর্ধিত নাও হতে "
-"পারে।"
+msgstr "একটি চ্যানেলের সাথে যুক্ত না হওয়া পর্যন্ত সিস্টেমটিকে পরিবর্ধিত নাও হতে পারে।"
 
 #: ../src/up2date_client/rhncli.py:70
 msgid "Show additional output"
@@ -116,17 +114,18 @@ msgstr "ব্যবহারের জন্য একটি http প্রক�
 
 #: ../src/up2date_client/rhncli.py:74
 msgid "Specify a username to use with an authenticated http proxy"
-msgstr ""
-"অনুমোদিত http প্রক্সিতে ব্যবহারের জন্য একটি ব্যবহারকারীর-নাম উল্লেখ করুন"
+msgstr "অনুমোদিত http প্রক্সিতে ব্যবহারের জন্য একটি ব্যবহারকারীর-নাম উল্লেখ করুন"
 
 #: ../src/up2date_client/rhncli.py:76
 msgid "Specify a password to use with an authenticated http proxy"
 msgstr "অনুমোদিত http প্রক্সির সাথে ব্যবহারের জন্য একটি পাসওয়ার্ড উল্লেখ করুন"
 
 #: ../src/up2date_client/rhncli.py:98
-msgid "\n"
+msgid ""
+"\n"
 "Aborted.\n"
-msgstr "\n"
+msgstr ""
+"\n"
 "অস্বাভাবিক সমাপ্তি ঘটেছে।\n"
 
 #: ../src/up2date_client/rhncli.py:101
@@ -158,8 +157,8 @@ msgid ""
 "A common cause of this error is the system time being incorrect. Verify that "
 "the time on this system is correct.\n"
 msgstr ""
-"এই সমস্যার একটি প্রধান কারণ সিস্টেমের ভুল সময়।  সুতরাং এই সিস্টেমের সময় সঠিক "
-"কিনা তা পরীক্ষা করুন।\n"
+"এই সমস্যার একটি প্রধান কারণ সিস্টেমের ভুল সময়।  সুতরাং এই সিস্টেমের সময় সঠিক কিনা "
+"তা পরীক্ষা করুন।\n"
 
 #: ../src/up2date_client/rhncli.py:120
 #, python-format
@@ -179,8 +178,7 @@ msgstr ""
 #: ../src/up2date_client/rhncli.py:170 ../src/up2date_client/rhncli.py:205
 msgid "Unable to open gui. Try `up2date --nox`"
 msgstr ""
-"গ্রাফিকাল ইন্টারফেস (gui) আরম্ভ করতে ব্যর্থ। `up2date --nox` ব্যবহার করে "
-"চেষ্টা করুন"
+"গ্রাফিকাল ইন্টারফেস (gui) আরম্ভ করতে ব্যর্থ। `up2date --nox` ব্যবহার করে চেষ্টা করুন"
 
 #: ../src/up2date_client/rhncli.py:212
 #, python-format
@@ -308,8 +306,7 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:61
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
-"\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:63
@@ -318,8 +315,7 @@ msgid ""
 "without connecting your system to Red Hat Network.\n"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr ""
 
@@ -385,8 +381,7 @@ msgstr ""
 msgid "Limited Updates Only"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr ""
 
@@ -411,8 +406,8 @@ msgid ""
 "Profile on the Red Hat Network web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
-"Red Hat নেটওয়ার্কের ওয়েব পেজে আপনার সিস্টেম প্রোফাইলকে সনাক্ত করার জন্য "
-"আপনার নির্বাচিত একটি বর্ণনামূলক নাম ব্যবহৃত হয়। এই\n"
+"Red Hat নেটওয়ার্কের ওয়েব পেজে আপনার সিস্টেম প্রোফাইলকে সনাক্ত করার জন্য আপনার "
+"নির্বাচিত একটি বর্ণনামূলক নাম ব্যবহৃত হয়। এই\n"
 "নামটি হল প্রোফাইলের নাম।  এই নামের পরিবর্তে কম্পিউটারের সিরিয়াল নম্বর অথবা "
 "সনাক্তকরণ নম্বরও ব্যবহার করা যেতে পারে।"
 
@@ -421,13 +416,12 @@ msgid ""
 "Additional hardware information including PCI devices, disk sizes and mount "
 "points will be included in the profile."
 msgstr ""
-"হার্ডওয়্যার সংক্রান্ত অতিরিক্ত তথ্য যেমন, PCI ডিভাইস, ডিস্কের সাইজ এবং "
-"মাউন্ট পয়েন্ট এই প্রোফাইলে অন্তর্ভুক্ত করা হবে।"
+"হার্ডওয়্যার সংক্রান্ত অতিরিক্ত তথ্য যেমন, PCI ডিভাইস, ডিস্কের সাইজ এবং মাউন্ট পয়েন্ট "
+"এই প্রোফাইলে অন্তর্ভুক্ত করা হবে।"
 
 #: ../src/up2date_client/rhnreg_constants.py:100
 msgid "Include the following information about hardware and network:"
-msgstr ""
-"নেটওয়ার্ক এবং হার্ডওয়্যার সংক্রান্ত নিম্নলিখিত তথ্যগুলি অন্তর্ভুক্ত করুন:"
+msgstr "নেটওয়ার্ক এবং হার্ডওয়্যার সংক্রান্ত নিম্নলিখিত তথ্যগুলি অন্তর্ভুক্ত করুন:"
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:104
@@ -439,20 +433,20 @@ msgid ""
 "RPM information is important to determine what updated software packages are "
 "relevant to this system."
 msgstr ""
-"বর্তমান সিস্টেমের জন্য উপযুক্ত আপডেট সফটওয়্যার নির্ধারণ করতে RPM সংক্রান্ত "
-"তথ্য অত্যন্ত গুরুত্ত্বপূর্ণ।"
+"বর্তমান সিস্টেমের জন্য উপযুক্ত আপডেট সফটওয়্যার নির্ধারণ করতে RPM সংক্রান্ত তথ্য অত্যন্ত "
+"গুরুত্ত্বপূর্ণ।"
 
 #: ../src/up2date_client/rhnreg_constants.py:108
 msgid "Include RPM packages installed on this system in my System Profile"
 msgstr ""
-"বর্তমান সিস্টেমে ইনস্টল করা RPM প্যাকেজগুলিকে আমার সিস্টেম প্রোফাইলের মধ্যে "
-"অন্তর্ভুক্ত করো"
+"বর্তমান সিস্টেমে ইনস্টল করা RPM প্যাকেজগুলিকে আমার সিস্টেম প্রোফাইলের মধ্যে অন্তর্ভুক্ত "
+"করো"
 
 #: ../src/up2date_client/rhnreg_constants.py:110
 msgid "You may deselect individual packages by unchecking them below."
 msgstr ""
-"নীচে, প্রত্যেকটি প্যাকেজ আনচেক করে আপনি পৃথকভাবে এগুলিকে নির্বাচন তালিকা "
-"থেকে সরিয়ে ফলেতে পারেন।"
+"নীচে, প্রত্যেকটি প্যাকেজ আনচেক করে আপনি পৃথকভাবে এগুলিকে নির্বাচন তালিকা থেকে "
+"সরিয়ে ফলেতে পারেন।"
 
 #: ../src/up2date_client/rhnreg_constants.py:112
 msgid "Building Package List"
@@ -765,7 +759,8 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:302
-msgid "\n"
+msgid ""
+"\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
 msgstr ""
@@ -879,8 +874,7 @@ msgid "There was an error communicating with Red Hat Network."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:372
-msgid ""
-"The server may be in outage mode. You may have to try connecting later."
+msgid "The server may be in outage mode. You may have to try connecting later."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:374
@@ -936,8 +930,7 @@ msgstr ""
 #: ../src/up2date_client/rhnregGui.py:761
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr ""
-"আপনার প্রোফাইলের তথ্য Red Hat নেটওয়ার্কে প্রেরণ করা হচ্ছে।  অনুগ্রহ করে "
-"অপেক্ষা করুন।"
+"আপনার প্রোফাইলের তথ্য Red Hat নেটওয়ার্কে প্রেরণ করা হচ্ছে।  অনুগ্রহ করে অপেক্ষা করুন।"
 
 #: ../src/up2date_client/rhnregGui.py:780
 msgid "Registering System"
@@ -1066,11 +1059,10 @@ msgid "Arch"
 msgstr "আর্কিটেকচার"
 
 #: ../src/up2date_client/rhnregGui.py:1288
-msgid ""
-"Building a list of RPM packages installed on your system.  Please wait."
+msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
-"আপনার সিস্টেমে ইনস্টল করা RPM প্যাকেজের তালিকা নির্মাণ করা হচ্ছে।  অনুগ্রহ "
-"করে অপেক্ষা করুন।"
+"আপনার সিস্টেমে ইনস্টল করা RPM প্যাকেজের তালিকা নির্মাণ করা হচ্ছে।  অনুগ্রহ করে "
+"অপেক্ষা করুন।"
 
 #: ../src/up2date_client/rhnregGui.py:1319
 msgid ""
@@ -1195,8 +1187,7 @@ msgstr ""
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr ""
-"  <Tab>/<Alt-Tab> বস্তুর মধ্যে চলাচল  |  <Space> বাছাই করে  |  <F12> পরবর্তী "
-"পর্দা"
+"  <Tab>/<Alt-Tab> বস্তুর মধ্যে চলাচল  |  <Space> বাছাই করে  |  <F12> পরবর্তী পর্দা"
 
 #: ../src/up2date_client/tui.py:1258
 msgid "You must run the RHN registration program as root."
@@ -1411,9 +1402,7 @@ msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:87
 msgid "This system is already registered. Use --force to override"
-msgstr ""
-"এই সিস্টেমটি পূর্বেই নিবন্ধিত করা হয়েছে। --force ব্যবহার করে এটি উপেক্ষা "
-"করুন"
+msgstr "এই সিস্টেমটি পূর্বেই নিবন্ধিত করা হয়েছে। --force ব্যবহার করে এটি উপেক্ষা করুন"
 
 #: ../src/bin/rhnreg_ks.py:121
 msgid ""
@@ -1446,9 +1435,9 @@ msgid ""
 "A profilename was not specified, and hostname and IP address could not be "
 "determined to use as a profilename, please specify one."
 msgstr ""
-"কোনো প্রোফাইলের নাম উল্লেখ করা হয়নি। প্রোফাইল নাম হিসাবে ব্যবহার করার জন্য "
-"কোনো হোস্ট নাম অথবা IP অ্যাড্রেস নির্ণয় করা যায়নি। অনুগ্রহ করে একটি প্রোফাইল-"
-"নাম উল্লেখ করুন।"
+"কোনো প্রোফাইলের নাম উল্লেখ করা হয়নি। প্রোফাইল নাম হিসাবে ব্যবহার করার জন্য কোনো "
+"হোস্ট নাম অথবা IP অ্যাড্রেস নির্ণয় করা যায়নি। অনুগ্রহ করে একটি প্রোফাইল-নাম উল্লেখ "
+"করুন।"
 
 #: ../src/bin/spacewalk-channel.py:53
 msgid "ERROR: must be root to execute\n"
@@ -2144,7 +2133,8 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:126
-msgid "\n"
+msgid ""
+"\n"
 "Are you sure you would like to continue?"
 msgstr ""
 
@@ -2230,8 +2220,8 @@ msgstr ""
 msgctxt "yes"
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/DOC-"
-"45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
+"DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146
