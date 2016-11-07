@@ -93,9 +93,12 @@ class CdnRepositoryManager(object):
         kickstart_sources = self.get_content_sources_kickstart(channel_label)
         return sources + kickstart_sources
 
-    def check_channel_availability(self, channel_label):
+    def check_channel_availability(self, channel_label, no_kickstarts=False):
         """Checks if all repositories for channel are available."""
-        sources = self.get_content_sources(channel_label)
+        if no_kickstarts:
+            sources = self.get_content_sources_regular(channel_label)
+        else:
+            sources = self.get_content_sources(channel_label)
 
         # No content, no channel
         if not sources:

@@ -143,7 +143,8 @@ class CdnSync(object):
             all_channels.extend(channels)
 
         # filter available channels
-        all_channels = [x for x in all_channels if self.cdn_repository_manager.check_channel_availability(x)]
+        all_channels = [x for x in all_channels if
+                        self.cdn_repository_manager.check_channel_availability(x, self.no_kickstarts)]
 
         for base_channel in [x for x in all_channels if not self.channel_metadata[x]['parent_channel']]:
             channel_tree[base_channel] = []
@@ -286,7 +287,7 @@ class CdnSync(object):
         for channel in channels:
             if any(channel not in d for d in
                    [self.channel_metadata, self.channel_to_family]) or (
-                       not self.cdn_repository_manager.check_channel_availability(channel)):
+                       not self.cdn_repository_manager.check_channel_availability(channel, self.no_kickstarts)):
                 not_available.append(channel)
 
         if not_available:
