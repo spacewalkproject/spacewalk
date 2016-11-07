@@ -1594,13 +1594,15 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Indirizzo</target>
       </trans-unit>
       <trans-unit id="address2">
-        <source>Street Address</source>
+        <source>Street Address 2</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Indirizzo</target>
       </trans-unit>
@@ -1609,6 +1611,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Città</target>
       </trans-unit>
@@ -1617,6 +1620,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Regione/Provincia</target>
       </trans-unit>
@@ -1625,6 +1629,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Nazione</target>
       </trans-unit>
@@ -1632,6 +1637,7 @@
         <source>Building</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Edificio</target>
       </trans-unit>
@@ -1639,6 +1645,7 @@
         <source>Room</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Stanza</target>
       </trans-unit>
@@ -1646,6 +1653,7 @@
         <source>Rack</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Rack</target>
       </trans-unit>
@@ -6759,6 +6767,13 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         </context-group>
         <target>Cancellate con successo {0} revisioni.</target>
       </trans-unit>
+      <trans-unit id="config_revisions.success.singular">
+        <source>{0} revision was deleted successfully.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
+          <context context-type="paramnotes">1 revision was deleted successfully.</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="config_files.setFilesToRemove.success">
         <source>{0} configuration file(s) successfully deleted.</source>
         <context-group name="ctx">
@@ -7859,7 +7874,7 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         <target>durante gli ultimi 180 giorni</target>
       </trans-unit>
       <trans-unit id="oneyear">
-        <source>with the past year</source>
+        <source>within the past year</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
@@ -8619,6 +8634,72 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         <source>Matching Field Value</source>
         <target>Valore del campo corrispondente</target>
       </trans-unit>
+      <trans-unit id="dmiBiosVendor">
+        <source>DMI Bios Vendor</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiBiosVersion">
+        <source>DMI Bios Version</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiBiosRelease">
+        <source>DMI Bios Release</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiSystem">
+        <source>DMI System</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiAsset">
+        <source>DMI Asset Tag</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cpuModel">
+        <source>CPU Model</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cpuMHz">
+        <source>CPU MHz</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cpuNumberOfCpus">
+        <source>CPU Count</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ram">
+        <source>RAM KB</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="serverArchName">
+        <source>Server Architecture</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="runningKernel">
+        <source>Kernel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="xid">
         <source>Xid</source>
         <target>Xid</target>
@@ -9235,6 +9316,9 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
       <trans-unit id="edit.channel.repo.repolabelinuse">
         <source>The repository label '{0}' is already in use, please choose a different label</source>
         <target>L'etichetta del repositorio '{0}'è già utilizzata, inserire un'altra etichetta</target>
+      </trans-unit>
+      <trans-unit id="edit.channel.repo.invalidrepotype">
+        <source>The repository type '{0}' is invalid, please choose a different type</source>
       </trans-unit>
       <trans-unit id="edit.channel.repo.repourlinuse">
         <source>There's already a defined repository with given url, please reuse it.</source>

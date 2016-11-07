@@ -1594,13 +1594,15 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Dirección</target>
       </trans-unit>
       <trans-unit id="address2">
-        <source>Street Address</source>
+        <source>Street Address 2</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Dirección</target>
       </trans-unit>
@@ -1609,6 +1611,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Ciudad</target>
       </trans-unit>
@@ -1617,6 +1620,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Estado/Provincia</target>
       </trans-unit>
@@ -1625,6 +1629,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>País</target>
       </trans-unit>
@@ -1632,6 +1637,7 @@
         <source>Building</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Edificio</target>
       </trans-unit>
@@ -1639,6 +1645,7 @@
         <source>Room</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Habitación</target>
       </trans-unit>
@@ -1646,6 +1653,7 @@
         <source>Rack</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Estante</target>
       </trans-unit>
@@ -1996,7 +2004,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
-        <target>Remoción del paquete</target>
+        <target>Eliminación del paquete</target>
       </trans-unit>
       <trans-unit id="errata.update">
         <source>Errata Update</source>
@@ -2031,7 +2039,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
-        <target>Instalación y remoción de paquetes en una transacción RPM</target>
+        <target>Instalación y eliminación de paquetes en una transacción RPM</target>
       </trans-unit>
       <trans-unit id="reboot.reboot">
         <source>System reboot</source>
@@ -2438,7 +2446,7 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
-        <target>Remoción de paquetes Solaris</target>
+        <target>Eliminación de paquetes Solaris</target>
       </trans-unit>
       <trans-unit id="solarispkgs.patchInstall">
         <source>Solaris Patch Install</source>
@@ -2452,7 +2460,7 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
-        <target>Remoción de parches Solaris</target>
+        <target>Eliminación de parches Solaris</target>
       </trans-unit>
       <trans-unit id="solarispkgs.patchClusterInstall">
         <source>Solaris Patch Cluster Install</source>
@@ -2466,7 +2474,7 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
-        <target>Remoción de un racimo de parches Solaris</target>
+        <target>Eliminación de un racimo de parches Solaris</target>
       </trans-unit>
       <trans-unit id="script.run">
         <source>Run an arbitrary script</source>
@@ -6760,6 +6768,13 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
         <target>{0} revisiones fueron borradas con éxito.</target>
       </trans-unit>
+      <trans-unit id="config_revisions.success.singular">
+        <source>{0} revision was deleted successfully.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
+          <context context-type="paramnotes">1 revision was deleted successfully.</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="config_files.setFilesToRemove.success">
         <source>{0} configuration file(s) successfully deleted.</source>
         <context-group name="ctx">
@@ -7860,7 +7875,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         <target>en los últimos 180 días</target>
       </trans-unit>
       <trans-unit id="oneyear">
-        <source>with the past year</source>
+        <source>within the past year</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
@@ -8366,7 +8381,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       </trans-unit>
       <trans-unit id="api.systemgroup.accessChangeDenied">
         <source>Changing administrator access is not allowed for Satellite and Organization administrators.  These users are granted access by default; therefore, the following users should be removed from the input: {0}</source>
-        <target>El cambio de acceso del administrador no está permitido para los administradores del Satellite y la organización. Estos usuarios tienen acceso predeterminado; por ello, los siguientes usuarios deben ser removidos de los datos suministrados: {0}</target>
+        <target>El cambio de acceso del administrador no está permitido para los administradores del Satellite y la organización. Estos usuarios tienen acceso predeterminado; por ello, los siguientes usuarios deben ser eliminados de los datos suministrados: {0}</target>
       </trans-unit>
       <trans-unit id="api.system.invalidprofilelabel">
         <source>Invalid profile label specified: {0}</source>
@@ -8619,6 +8634,72 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       <trans-unit id="matchingFieldValue">
         <source>Matching Field Value</source>
         <target>Valor de campo coincidente</target>
+      </trans-unit>
+      <trans-unit id="dmiBiosVendor">
+        <source>DMI Bios Vendor</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiBiosVersion">
+        <source>DMI Bios Version</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiBiosRelease">
+        <source>DMI Bios Release</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiSystem">
+        <source>DMI System</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiAsset">
+        <source>DMI Asset Tag</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cpuModel">
+        <source>CPU Model</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cpuMHz">
+        <source>CPU MHz</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cpuNumberOfCpus">
+        <source>CPU Count</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ram">
+        <source>RAM KB</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="serverArchName">
+        <source>Server Architecture</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="runningKernel">
+        <source>Kernel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="xid">
         <source>Xid</source>
@@ -9125,7 +9206,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       </trans-unit>
       <trans-unit id="message.channel.delete.systemssubscribed">
         <source>There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.</source>
-        <target>Hay sistemas suscritos en este canal. Por favor confirme la remoción del canal del sistema seleccionando la casilla de selección.</target>
+        <target>Hay sistemas suscritos en este canal. Por favor confirme la eliminación del canal del sistema seleccionando la casilla de selección.</target>
       </trans-unit>
       <trans-unit id="message.channel.cannot-be-deleted.has-distros">
         <source>There are currently kickstart distributions associated to this channel. Please disassociate or delete the kickstart distributions before proceeding to delete the channel.</source>
@@ -9237,6 +9318,9 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         <source>The repository label '{0}' is already in use, please choose a different label</source>
         <target>La etiqueta de repositorio '{0}' ya está en uso, por favor elija una etiqueta diferente</target>
       </trans-unit>
+      <trans-unit id="edit.channel.repo.invalidrepotype">
+        <source>The repository type '{0}' is invalid, please choose a different type</source>
+      </trans-unit>
       <trans-unit id="edit.channel.repo.repourlinuse">
         <source>There's already a defined repository with given url, please reuse it.</source>
         <target>Ya existe un  repositorio  definido con la URL provista, por favor vuélvala a utilizar.</target>
@@ -9285,7 +9369,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       </trans-unit>
       <trans-unit id="channel.manage.merge.finished">
         <source>{0} Package(s) have been added and {1} Package(s) have been removed from the channel.</source>
-        <target>{0} paquete(s) han sido añadidos y {1} paquete(s) han sido removidos del canal.</target>
+        <target>{0} paquete(s) han sido añadidos y {1} paquete(s) han sido eliminados del canal.</target>
       </trans-unit>
       <trans-unit id="system.select.inactive">
         <source>Select Inactive</source>
