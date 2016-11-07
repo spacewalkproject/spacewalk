@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Martin Minar <skulliq@gmail.com>, 2011.
 # Milan Kerslager <kerslage@linux.cz>, 2002,2007.
@@ -9,19 +9,19 @@
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Spacewalk\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-23 13:40+0200\n"
-"PO-Revision-Date: 2012-10-30 06:38-0400\n"
-"Last-Translator: adelton <jpx-tx@adelton.com>\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/fedora/language/"
-"cs/)\n"
-"Language: cs\n"
+"POT-Creation-Date: 2014-07-10 10:36+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-03-17 08:22-0400\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/fedora/language/cs/"
+")\n"
+"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../rhnplugin.py:52
 msgid "There was an error communicating with RHN."
@@ -82,7 +82,8 @@ msgid ""
 msgstr ""
 
 #: ../rhnplugin.py:161
-msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
+msgid ""
+"This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 
 #: ../rhnplugin.py:286

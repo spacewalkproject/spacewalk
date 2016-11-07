@@ -1,25 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Xavier Conde Rueda <xaviconde@eresmas.com>, 2004, 2005.
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: Spacewalk\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:57+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2015-10-18 03:34-0400\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan <fedora@llistes.softcatala.org>\n"
 "Language: ca\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -124,11 +124,9 @@ msgstr ""
 "que requereixi autenticació"
 
 #: ../src/up2date_client/rhncli.py:98
-msgid ""
-"\n"
+msgid "\n"
 "Aborted.\n"
-msgstr ""
-"\n"
+msgstr "\n"
 "S'ha avortat.\n"
 
 #: ../src/up2date_client/rhncli.py:101
@@ -333,7 +331,8 @@ msgstr "Configuració de l'actualització de programari sense èxit"
 #: ../src/up2date_client/rhnreg_constants.py:61
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+"\n"
 msgstr ""
 "Esteu segur que no voleu connectar el vostre sistema a la Red Hat Network? "
 "Us perdreu els beneficis d'una subscripció de Red Hat Enterprise Linux:\n"
@@ -478,7 +477,8 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:108
 msgid "Include RPM packages installed on this system in my System Profile"
 msgstr ""
-"Inclou els paquets RPM instal·lats en aquest sistema al meu perfil de sistema"
+"Inclou els paquets RPM instal·lats en aquest sistema al meu perfil de "
+"sistema"
 
 #: ../src/up2date_client/rhnreg_constants.py:110
 msgid "You may deselect individual packages by unchecking them below."
@@ -747,6 +747,7 @@ msgid ""
 msgstr ""
 "Aquest sistema no es va poder associar amb els següents mòduls de la RHN "
 "perquè no hi havien suficients subscripcions disponibles en el vostre compte:"
+""
 
 #: ../src/up2date_client/rhnreg_constants.py:217
 msgid ""
@@ -822,8 +823,8 @@ msgstr ""
 "connexió del vostre sistema a la Red Hat Network, han estat determinats amb "
 "la clau d'activació en lloc del vostre nombre d'instal·lació.  Per a més "
 "detalls sobre les claus d'activació, podeu adreçar-vos a la guia de "
-"referencia de la RHN, secció 6.4.6 (http://rhn.redhat.com/rhn/help/"
-"reference/)\n"
+"referencia de la RHN, secció 6.4.6 (http://rhn.redhat.com/rhn/help/reference/"
+")\n"
 "Clau universal d'activació per defecte universal: %s"
 
 #. Error Messages.
@@ -886,8 +887,7 @@ msgid ""
 "\n"
 "Please try again with a different certificate file."
 msgstr ""
-"<b><span size=\"16000\">El fitxer del certificat no és compatible</span></"
-"b>\n"
+"<b><span size=\"16000\">El fitxer del certificat no és compatible</span></b>\n"
 "\n"
 "El certificat que heu proporcionat, <b>%s</b>, no és compatible amb el "
 "servidor de la Red Hat Network a <b>%s</b>. És possible que vulgueu tornar a "
@@ -904,8 +904,7 @@ msgid ""
 " The certificate is expired. Please ensure you have the correct  certificate "
 "and your system time is correct."
 msgstr ""
-"<b><span size=\"12000\">El fitxer del certificat no és compatible</span></"
-"b>\n"
+"<b><span size=\"12000\">El fitxer del certificat no és compatible</span></b>\n"
 "\n"
 " El certificat ha vençut. Assegureu-vos que teniu el certificat correcte i "
 "que l'hora del sistema sigui correcta."
@@ -928,16 +927,15 @@ msgstr ""
 "Problema de registrament del sistema.\n"
 "\n"
 "Una clau d'activació per defecte universal limita el número de sistemes que "
-"es poden connectar a l'organització de la RHN associada amb el vostre "
-"usuari. Per a permetre que aquest sistema es connecti, poseu-vos en contacte "
-"amb l'administrador de l'organització de la RHN per augmentar el nombre de "
+"es poden connectar a l'organització de la RHN associada amb el vostre usuari."
+" Per a permetre que aquest sistema es connecti, poseu-vos en contacte amb "
+"l'administrador de l'organització de la RHN per augmentar el nombre de "
 "sistemes que poden connectar-se o bé desactiveu aquesta clau d'activació per "
 "defecte universal. Podeu trobar més detalls en l'article de la base de "
 "coneixement de Red Hat #7924 a http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
 
 #: ../src/up2date_client/rhnreg_constants.py:302
-msgid ""
-"\n"
+msgid "\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
 msgstr ""
@@ -1071,7 +1069,8 @@ msgid "There was an error communicating with Red Hat Network."
 msgstr "Hi va haver un error en comunicar amb la Red Hat Network."
 
 #: ../src/up2date_client/rhnregGui.py:372
-msgid "The server may be in outage mode. You may have to try connecting later."
+msgid ""
+"The server may be in outage mode. You may have to try connecting later."
 msgstr ""
 "El servidor pot estar en mode de suspensió temporal. Podria ser que "
 "haguéssiu d'intentar connectar-hi més tard."
@@ -1134,7 +1133,8 @@ msgstr "Hi va haver un error mentre es creava el perfil."
 
 #: ../src/up2date_client/rhnregGui.py:761
 msgid "Sending your profile information to Red Hat Network.  Please wait."
-msgstr "S'està enviant la informació del perfil a la Red Hat Network, espereu."
+msgstr ""
+"S'està enviant la informació del perfil a la Red Hat Network, espereu."
 
 #: ../src/up2date_client/rhnregGui.py:780
 msgid "Registering System"
@@ -1270,7 +1270,8 @@ msgid "Arch"
 msgstr "Arquitectura"
 
 #: ../src/up2date_client/rhnregGui.py:1288
-msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgid ""
+"Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
 "S'està construint una llista dels paquets RPM instal·lats en el vostre "
 "sistema, espereu."
@@ -1309,7 +1310,8 @@ msgstr "Advertència: no s'ha pogut habilitar rhnsd amb chkconfig"
 
 #: ../src/up2date_client/rpcServer.py:44
 msgid "Error: Server Unavailable. Please try later."
-msgstr "Error: El servidor no està disponible. Si us plau, proveu-ho més tard."
+msgstr ""
+"Error: El servidor no està disponible. Si us plau, proveu-ho més tard."
 
 #: ../src/up2date_client/rpcServer.py:160
 msgid "ERROR: can not find RHNS CA file"
@@ -2077,6 +2079,7 @@ msgid ""
 "Activate a previously purchased subscription you have not yet activated."
 msgstr ""
 "Activeu una subscripció comprada anteriorment i que encara no s'hagi activat."
+""
 
 #: ../data/rh_register.glade.h:54
 msgctxt "yes"
@@ -2314,6 +2317,7 @@ msgctxt "yes"
 msgid "Your system is not setup for software updates."
 msgstr ""
 "El vostre sistema no està configurat per a les actualitzacions de programari."
+""
 
 #: ../data/rh_register.glade.h:99
 msgctxt "yes"
@@ -2420,7 +2424,8 @@ msgstr "_Sí, continua"
 
 #: ../data/rh_register.glade.h:124
 msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
-msgstr "<big><b>No serà possible el moviment a llançaments anteriors</b></big>"
+msgstr ""
+"<big><b>No serà possible el moviment a llançaments anteriors</b></big>"
 
 #: ../data/rh_register.glade.h:125
 msgid ""
@@ -2433,11 +2438,9 @@ msgstr ""
 "moure'l a un llançament posterior)."
 
 #: ../data/rh_register.glade.h:126
-msgid ""
-"\n"
+msgid "\n"
 "Are you sure you would like to continue?"
-msgstr ""
-"\n"
+msgstr "\n"
 "Esteu segur que voleu continuar?"
 
 #: ../data/rh_register.glade.h:128
@@ -2533,8 +2536,8 @@ msgstr ""
 msgctxt "yes"
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
-"DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/DOC-"
+"45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146

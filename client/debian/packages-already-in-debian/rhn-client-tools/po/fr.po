@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Alain PORTAL <aportal@univ-montp2.fr>, 2006.
 # Audrey Simons <asimons@redhat.com>, 2004, 2005.
@@ -15,18 +15,18 @@
 # Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: Spacewalk\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:57+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2016-02-17 12:04-0500\n"
 "Last-Translator: Jan Dobes <jdobes@redhat.com>\n"
 "Language-Team: French <trans-fr@lists.fedoraproject.org>\n"
 "Language: fr\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -79,7 +79,8 @@ msgstr "Erreur lors de la lecture des informations sur la CPU :"
 
 #: ../src/up2date_client/hardware.py:733
 msgid "Error reading system memory information:"
-msgstr "Erreur lors de la lecture des informations sur la mémoire du système :"
+msgstr ""
+"Erreur lors de la lecture des informations sur la mémoire du système :"
 
 #: ../src/up2date_client/hardware.py:743
 msgid "Error reading networking information:"
@@ -131,11 +132,9 @@ msgid "Specify a password to use with an authenticated http proxy"
 msgstr "Spécifier un mot de passe à utiliser avec un proxy http authentifié"
 
 #: ../src/up2date_client/rhncli.py:98
-msgid ""
-"\n"
+msgid "\n"
 "Aborted.\n"
-msgstr ""
-"\n"
+msgstr "\n"
 "Interrompu.\n"
 
 #: ../src/up2date_client/rhncli.py:101
@@ -342,7 +341,8 @@ msgstr "Installation de mise à jour logicielle non réussie"
 #: ../src/up2date_client/rhnreg_constants.py:61
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+"\n"
 msgstr ""
 "Êtes-vous sûr de ne pas vouloir connecter votre système à Red Hat Network ? "
 "Vous passerez à côté des bénéfices d'un abonnement à Red Hat Enterprise "
@@ -622,6 +622,7 @@ msgid ""
 "services:"
 msgstr ""
 "Les abonnements ont été activés pour les services/produits Red Hat suivants :"
+""
 
 #: ../src/up2date_client/rhnreg_constants.py:163
 msgid "Software channel subscriptions:"
@@ -672,8 +673,7 @@ msgid ""
 "Warning: yum-rhn-plugin is not present, could not enable it.\n"
 "Automatic updates will not work."
 msgstr ""
-"Attention : yum-rhn-plugin n'est pas présent, impossible donc de "
-"l'activer. \n"
+"Attention : yum-rhn-plugin n'est pas présent, impossible donc de l'activer. \n"
 "Les mises à jour automatiques ne fonctionneront donc pas."
 
 #: ../src/up2date_client/rhnreg_constants.py:190
@@ -714,8 +714,8 @@ msgid ""
 msgstr ""
 "Ce système n'a pu s'inscrire à aucun canal logiciel. Votre système ne pourra "
 "donc pas recevoir les mises à jour nécessaires pour le conserver sûr et "
-"supporté. Vous pouvez faire plusieurs choses pour remédier à cette "
-"situation :\n"
+"supporté. Vous pouvez faire plusieurs choses pour remédier à cette situation "
+":\n"
 "(1) Connectez-vous à http://rhn.redhat.com/ et désintitulez un système "
 "inactif à votre RHN > Subscription Management > System Entitlements.\n"
 "(2) Achetez une inscription supplémentaire Red Hat Enterprise Linux à http://"
@@ -802,8 +802,8 @@ msgstr ""
 "Ce système n'a pu être associé à aucun module de niveau de service RHN. Ce "
 "système n'a pu s'inscrire à aucun canal logiciel. Votre système ne pourra "
 "donc pas recevoir les mises à jour nécessaires pour le conserver sûr et "
-"supporté. Vous pouvez faire plusieurs choses pour remédier à cette "
-"situation :\n"
+"supporté. Vous pouvez faire plusieurs choses pour remédier à cette situation "
+":\n"
 "(1) Connectez-vous à http://rhn.redhat.com/ et désintitulez un système "
 "inactif à votre RHN > Subscription Management > System Entitlements.\n"
 "(2) Achetez une inscription supplémentaire Red Hat Enterprise Linux à http://"
@@ -902,8 +902,8 @@ msgstr ""
 "Le certificat que vous avez fourni, <b>%s</b>, n'est pas compatible avec le "
 "serveur Red Hat Network à <b>%s</b> Vous pouvez re-vérifier que vous avez "
 "fourni un fichier de certificat valide. Êtes-vous sûr que vous avez fourni "
-"le certificat correct, et que le fichier de certificat n'a pas été "
-"corrompu ?\n"
+"le certificat correct, et que le fichier de certificat n'a pas été corrompu "
+"?\n"
 "\n"
 "Merci de ré-essayer avec un fichier de certificat différent."
 
@@ -942,13 +942,12 @@ msgstr ""
 "permettre à ce système de se connecter, veuillez contacter l'administrateur "
 "de votre organisation RHN pour qu'il augmente le nombre de systèmes "
 "autorisés à se connecter ou qu'il désactive cette clé universelle "
-"d'activation par défaut. Vous trouverez plus de détails dans l'article N"
-"°7924 de la base de connaissance Red Hat à http://kbase.redhat.com/faq/"
+"d'activation par défaut. Vous trouverez plus de détails dans l'article "
+"N°7924 de la base de connaissance Red Hat à http://kbase.redhat.com/faq/"
 "FAQ_61_7924.shtm"
 
 #: ../src/up2date_client/rhnreg_constants.py:302
-msgid ""
-"\n"
+msgid "\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
 msgstr ""
@@ -1031,6 +1030,7 @@ msgstr "Une erreur est apparue lors de l'application de votre choix."
 msgid "You specified an invalid protocol. Only https and http are allowed."
 msgstr ""
 "Vous avez spécifié un protocole invalide. Seuls https et http sont autorisés."
+""
 
 #: ../src/up2date_client/rhnregGui.py:324
 msgid ""
@@ -1083,7 +1083,8 @@ msgid "There was an error communicating with Red Hat Network."
 msgstr "Il y a eu une erreur de communication avec Red Hat Network."
 
 #: ../src/up2date_client/rhnregGui.py:372
-msgid "The server may be in outage mode. You may have to try connecting later."
+msgid ""
+"The server may be in outage mode. You may have to try connecting later."
 msgstr ""
 "Ce serveur pourrait être en mode de défaillance (outage). Vous devriez "
 "essayer de vous y connecter plus tard."
@@ -1147,6 +1148,7 @@ msgstr "Une erreur est apparue durant la création du profil."
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr ""
 "Envoi des informations de votre profil à Red Hat Network. Veuillez patienter."
+""
 
 #: ../src/up2date_client/rhnregGui.py:780
 msgid "Registering System"
@@ -1247,8 +1249,8 @@ msgstr ""
 #: ../src/up2date_client/rhnregGui.py:1055
 msgid "Something went wrong while installing the new certificate:\n"
 msgstr ""
-"Quelque chose s'est mal passé lors de l'installation du nouveau "
-"certificat :\n"
+"Quelque chose s'est mal passé lors de l'installation du nouveau certificat :"
+"\n"
 
 #: ../src/up2date_client/rhnregGui.py:1107
 #: ../src/up2date_client/rhnregGui.py:1108
@@ -1258,7 +1260,8 @@ msgstr "inconnu"
 
 #: ../src/up2date_client/rhnregGui.py:1201
 msgid "There was an error getting the list of hardware."
-msgstr "Une erreur est apparue durant la récupération de la liste du matériel."
+msgstr ""
+"Une erreur est apparue durant la récupération de la liste du matériel."
 
 #: ../src/up2date_client/rhnregGui.py:1213 ../src/up2date_client/tui.py:678
 #, python-format
@@ -1284,7 +1287,8 @@ msgid "Arch"
 msgstr "Arch"
 
 #: ../src/up2date_client/rhnregGui.py:1288
-msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgid ""
+"Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
 "La liste des paquetages RPM installés sur votre système en cours de "
 "compilation. Veuillez patienter."
@@ -1414,6 +1418,7 @@ msgstr "Terminer"
 msgid "You specified an invalid protocol.Only https and http are allowed."
 msgstr ""
 "Vous avez spécifié un protocole invalide. Seuls https et http sont autorisés."
+""
 
 #: ../src/up2date_client/tui.py:1161
 msgid ""
@@ -1506,8 +1511,8 @@ msgstr ""
 "procéder à l'achat\n"
 "    de droits supplémentaires. Ceux-ci peuvent être achetés par "
 "l'administrateur de votre\n"
-"    organisation en vous connectant à Red Hat Network et en visitant la "
-"page \n"
+"    organisation en vous connectant à Red Hat Network et en visitant la page "
+"\n"
 "    « Gestion des abonnements » dans la section « Votre RHN » de RHN.\n"
 "\n"
 "    Une cause fréquente de ce code erreur vient du fait d'avoir configuré "
@@ -1517,6 +1522,7 @@ msgstr ""
 "    d'activation est activée comme par défaut, vous pouvez désactiver cette "
 "clé \n"
 "    et recommencer en évitant le besoin d'un droit Management supplémentaire."
+""
 
 #: ../src/firstboot/rhn_choose_server_gui.py:41
 #: ../src/firstboot/rhn_choose_server_gui.py:42 ../data/rh_register.glade.h:9
@@ -1549,8 +1555,7 @@ msgstr "Créer un profil"
 #: ../src/firstboot/rhn_provide_certificate_gui.py:56
 #: ../src/firstboot/rhn_start_gui.py:60
 msgid "Finish Updates Setup"
-msgstr ""
-"Finir l'installation\n"
+msgstr "Finir l'installation\n"
 "des mises à jour"
 
 #: ../src/firstboot/rhn_create_profile_gui.py:86
@@ -1566,8 +1571,7 @@ msgstr "Souhaitez-vous revenir en arrière et essayer de nouveau?"
 #: ../src/firstboot/rhn_register.py:28 ../src/firstboot/rhn_register.py:29
 #: ../src/firstboot/rhn_start_gui.py:42 ../src/firstboot/rhn_start_gui.py:43
 msgid "Set Up Software Updates"
-msgstr ""
-"Configurer les mises à jour\n"
+msgstr "Configurer les mises à jour\n"
 "logicielles"
 
 #: ../src/firstboot/rhn_review_gui.py:41 ../src/firstboot/rhn_review_gui.py:42
@@ -1692,7 +1696,8 @@ msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:178
 msgid "Warning: yum-rhn-plugin is not present, could not enable it."
-msgstr "Attention : yum-rhn-plugin n'est pas présent, impossible de l'activer."
+msgstr ""
+"Attention : yum-rhn-plugin n'est pas présent, impossible de l'activer."
 
 #: ../src/bin/rhnreg_ks.py:180
 msgid ""
@@ -2445,11 +2450,9 @@ msgstr ""
 "continuez (vous pourrez passer à une version ultérieure.)"
 
 #: ../data/rh_register.glade.h:126
-msgid ""
-"\n"
+msgid "\n"
 "Are you sure you would like to continue?"
-msgstr ""
-"\n"
+msgstr "\n"
 "Êtes-vous sûr de vouloir continuer ?"
 
 #: ../data/rh_register.glade.h:128
@@ -2534,8 +2537,8 @@ msgstr ""
 msgctxt "yes"
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
-"DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/DOC-"
+"45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146
@@ -2658,37 +2661,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Inscrivez votre système à Spacewalk/Satellite/Red Hat Network"
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "Vous avez spécifié un protocole invalide."
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr ""
-#~ "Module Update : mises à jour par système, notifications d'errata d'email, "
-#~ "information d'errata"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "Module Provisioning : bare metal provisioning, provisioning du statut "
-#~ "existant, rollbacks, gestion de la configuration"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "Module monitoring : tests de perfomance système prédéfinis et "
-#~ "personnalisés, notification par courriel des performances systèmes, "
-#~ "graphique des performances système."
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "Module de plateforme de virtualisation : mises à jour logicielles pour un "
-#~ "nombre illimité d'hôtes virtuels de ce système, accès à des canaux "
-#~ "supplémentaires de logiciels pour les hôtes de ce système. "

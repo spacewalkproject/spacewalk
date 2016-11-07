@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Maxim Dziumanenko <dziumanenko@gmail.com>, 2003.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
@@ -9,19 +9,19 @@
 # Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: Spacewalk\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:57+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2016-02-20 09:08-0500\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
-"X-Generator: Zanata 3.8.4\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -122,11 +122,9 @@ msgid "Specify a password to use with an authenticated http proxy"
 msgstr "Вказати пароль для автентифікації з http проксі"
 
 #: ../src/up2date_client/rhncli.py:98
-msgid ""
-"\n"
+msgid "\n"
 "Aborted.\n"
-msgstr ""
-"\n"
+msgstr "\n"
 "Перервано.\n"
 
 #: ../src/up2date_client/rhncli.py:101
@@ -331,7 +329,8 @@ msgstr "Помилка при налаштовуванні оновлення П
 #: ../src/up2date_client/rhnreg_constants.py:61
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+"\n"
 msgstr ""
 "Ви справді не хочете з’єднати вашу систему з Red Hat Network? Без такого "
 "з’єднання ви не зможете скористатися перевагами передплати Red Hat "
@@ -365,8 +364,8 @@ msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
 msgstr ""
-"Введіть інформацію про ваш обліковий запис для %s Red Hat Network "
-"Satellite:\n"
+"Введіть інформацію про ваш обліковий запис для %s Red Hat Network Satellite:"
+"\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:72
 msgid "Red Hat Login:"
@@ -475,7 +474,8 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:108
 msgid "Include RPM packages installed on this system in my System Profile"
-msgstr "Включати RPM пакети встановлені на цій системі у профіль моєї системи."
+msgstr ""
+"Включати RPM пакети встановлені на цій системі у профіль моєї системи."
 
 #: ../src/up2date_client/rhnreg_constants.py:110
 msgid "You may deselect individual packages by unchecking them below."
@@ -540,8 +540,8 @@ msgstr ""
 "винятком певних випадків) не реєструватися на RHN повторно.\n"
 "\n"
 "Щоб дізнатися більше про реєстрацію на RHN та використані технології, будь "
-"ласка, ознайомтеся з цієї статтею: https://access.redhat.com/kb/docs/"
-"DOC-45563"
+"ласка, ознайомтеся з цієї статтею: https://access.redhat.com/kb/docs/DOC-"
+"45563"
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:134
@@ -917,8 +917,7 @@ msgstr ""
 "FAQ_61_7924.shtm (англійською)."
 
 #: ../src/up2date_client/rhnreg_constants.py:302
-msgid ""
-"\n"
+msgid "\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
 msgstr ""
@@ -1050,7 +1049,8 @@ msgid "There was an error communicating with Red Hat Network."
 msgstr "Помилка при підключенні до Red Hat Network."
 
 #: ../src/up2date_client/rhnregGui.py:372
-msgid "The server may be in outage mode. You may have to try connecting later."
+msgid ""
+"The server may be in outage mode. You may have to try connecting later."
 msgstr "Можливо, сервер недоступний. Спробуйте підключитись пізніше."
 
 #: ../src/up2date_client/rhnregGui.py:374
@@ -1241,7 +1241,8 @@ msgid "Arch"
 msgstr "Архітектура"
 
 #: ../src/up2date_client/rhnregGui.py:1288
-msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgid ""
+"Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
 "Складається список встановлених на вашій системі пакетів. Будь ласка, "
 "зачекайте."
@@ -1259,8 +1260,7 @@ msgstr ""
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
 "you own %s."
-msgstr ""
-"Помилка збереження конфігурації. Перевірте, що ви є\n"
+msgstr "Помилка збереження конфігурації. Перевірте, що ви є\n"
 "власником %s."
 
 #: ../src/up2date_client/rhnregGui.py:1391
@@ -1631,7 +1631,8 @@ msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:178
 msgid "Warning: yum-rhn-plugin is not present, could not enable it."
-msgstr "Попередження: не виявлено yum-rhn-plugin, додаток неможливо увімкнути."
+msgstr ""
+"Попередження: не виявлено yum-rhn-plugin, додаток неможливо увімкнути."
 
 #: ../src/bin/rhnreg_ks.py:180
 msgid ""
@@ -2426,11 +2427,9 @@ msgstr ""
 "буде перейти на наступний випуск)."
 
 #: ../data/rh_register.glade.h:126
-msgid ""
-"\n"
+msgid "\n"
 "Are you sure you would like to continue?"
-msgstr ""
-"\n"
+msgstr "\n"
 "Ви справді бажаєте продовжити виконання дії?"
 
 #: ../data/rh_register.glade.h:128
@@ -2525,8 +2524,8 @@ msgstr ""
 msgctxt "yes"
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
-"DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/DOC-"
+"45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 "Щоб дізнатися більше про реєстрацію на RHN та використані технології, будь "
 "ласка, ознайомтеся з цієї статтею: <a href=\"https://access.redhat.com/kb/"
@@ -2537,6 +2536,7 @@ msgctxt "yes"
 msgid "Software update setup has been completed for this system."
 msgstr ""
 "Налаштовування оновлення програмного забезпечення для цієї системи завершено."
+""
 
 #: ../data/rh_register.glade.h:147
 msgctxt "yes"
@@ -2667,37 +2667,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Реєстрація у Spacewalk/Satellite/Red Hat Network."
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "Вказаний неправильний протокол."
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr ""
-#~ "Модуль оновлення: оновлення ПЗ для окремих систем, виправлення сповіщення "
-#~ "ел.пошти, інформація про виправлення"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "Модуль забезпечення: забезпечення на рівні обладнання, забезпечення "
-#~ "існуючого стану, відткати, керування конфігурацією"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "Модуль моніторингу: перевизначення та індивідуальні зонди для перевірки "
-#~ "швидкодії системи, ел. сповіщення про швидкодію системи, діаграми "
-#~ "швидкодії"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "Модуль платформи віртуалізації: оновлення ПЗ для необмеженого числа "
-#~ "віртуальних гостей вказаної системи, доступ до додаткових каналів ПЗ для "
-#~ "гостей."

@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # David Barzilay <barzilay@redhat.com>, 2004, 2005.
 # Igor Pires Soares <igor@projetofedora.org>, 2007.
@@ -13,18 +13,18 @@
 # Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: Spacewalk\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:57+0200\n"
-"PO-Revision-Date: 2012-02-24 08:32-0500\n"
-"Last-Translator: Marcos Lauande <marcoslauande@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) <trans-pt_br@lists.fedoraproject.org>\n"
-"Language: pt-BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-02-17 11:05-0500\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
+"Language-Team: Portuguese (Brazil) <trans-pt_br@lists.fedoraproject.org>\n"
+"Language: pt-BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -118,18 +118,17 @@ msgstr "Especificar um proxy http para usar"
 
 #: ../src/up2date_client/rhncli.py:74
 msgid "Specify a username to use with an authenticated http proxy"
-msgstr "Especificar um nome de usuário para usar com um proxy http autenticado"
+msgstr ""
+"Especificar um nome de usuário para usar com um proxy http autenticado"
 
 #: ../src/up2date_client/rhncli.py:76
 msgid "Specify a password to use with an authenticated http proxy"
 msgstr "Especificar uma senha para usar com um proxy http autenticado"
 
 #: ../src/up2date_client/rhncli.py:98
-msgid ""
-"\n"
+msgid "\n"
 "Aborted.\n"
-msgstr ""
-"\n"
+msgstr "\n"
 "Abortado.\n"
 
 #: ../src/up2date_client/rhncli.py:101
@@ -336,11 +335,12 @@ msgstr "Configuração de atualização de software malsucedida"
 #: ../src/up2date_client/rhnreg_constants.py:61
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+"\n"
 msgstr ""
 "Tem certeza que você não quer conectar seu sistema ao Red Hat Network? Você "
-"deixará de obter os benefícios de uma subscrição do Red Hat Enterprise "
-"Linux:\n"
+"deixará de obter os benefícios de uma subscrição do Red Hat Enterprise Linux:"
+"\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:63
 msgid ""
@@ -370,8 +370,7 @@ msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
 msgstr ""
-"Por favor entre sua informação de login para o Red Hat Network Satellite "
-"%s:\n"
+"Por favor entre sua informação de login para o Red Hat Network Satellite %s:\n"
 "\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:72
@@ -557,10 +556,10 @@ msgid ""
 msgstr ""
 "Nós terminamos de coletar informações para o Perfil do Sistema.\n"
 "\n"
-"Clique em \"Próximo\" para enviar este Perfil de Sistema ao Red Hat "
-"Network.  Clique em \"Cancelar\" e nenhuma informação será enviada.  Você "
-"pode rodar o programa de registro mais tarde digitando `rhn_register` na "
-"linha de comandos."
+"Clique em \"Próximo\" para enviar este Perfil de Sistema ao Red Hat Network. "
+" Clique em \"Cancelar\" e nenhuma informação será enviada.  Você pode rodar "
+"o programa de registro mais tarde digitando `rhn_register` na linha de "
+"comandos."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:142
@@ -637,8 +636,8 @@ msgstr ""
 "receber atualizações para tal produto, por favor autentique-se à interface "
 "Web do seu Satellite e subscreva este sistema aos canais de software "
 "apropriados para receber atualizações para tal produto. Consulte o artigo "
-"11313 da Kbase para maiores detalhes (http://kbase.redhat.com/faq/docs/"
-"DOC-11313)."
+"11313 da Kbase para maiores detalhes (http://kbase.redhat.com/faq/docs/DOC-"
+"11313)."
 
 #: ../src/up2date_client/rhnreg_constants.py:177
 msgid ""
@@ -909,7 +908,8 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:286
 msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
-msgstr "Por favor verifique o valor de sslCACert em /etc/sysconfig/rhn/up2date"
+msgstr ""
+"Por favor verifique o valor de sslCACert em /etc/sysconfig/rhn/up2date"
 
 #: ../src/up2date_client/rhnreg_constants.py:289
 msgid ""
@@ -934,14 +934,12 @@ msgstr ""
 "com/faq/FAQ_61_7924.shtm"
 
 #: ../src/up2date_client/rhnreg_constants.py:302
-msgid ""
-"\n"
+msgid "\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
 msgstr ""
 "\n"
-" Dica: Versões menores com um '*' são atualmente suportadas pela by Red "
-"Hat.\n"
+" Dica: Versões menores com um '*' são atualmente suportadas pela by Red Hat.\n"
 "\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:305
@@ -1038,7 +1036,8 @@ msgstr "Não foi possível contatar o Red Hat Network (%s)."
 #: ../src/up2date_client/rhnregGui.py:348
 #: ../src/up2date_client/rhnregGui.py:361
 msgid "Make sure the network connection on this system is operational."
-msgstr "Certifique-se de que a conexão de rede deste sistema está operacional."
+msgstr ""
+"Certifique-se de que a conexão de rede deste sistema está operacional."
 
 #: ../src/up2date_client/rhnregGui.py:350
 msgid ""
@@ -1067,7 +1066,8 @@ msgid "There was an error communicating with Red Hat Network."
 msgstr "Ocorreu um erro ao comunicar com o Red Hat Network."
 
 #: ../src/up2date_client/rhnregGui.py:372
-msgid "The server may be in outage mode. You may have to try connecting later."
+msgid ""
+"The server may be in outage mode. You may have to try connecting later."
 msgstr ""
 "O servidor pode estar fora do ar. Talvez você tenha que tentar mais tarde."
 
@@ -1129,6 +1129,7 @@ msgstr "Houve um erro ao criar o perfil."
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr ""
 "Enviando as informações de seu perfil ao Red Hat Network.  Por favor aguarde."
+""
 
 #: ../src/up2date_client/rhnregGui.py:780
 msgid "Registering System"
@@ -1263,7 +1264,8 @@ msgid "Arch"
 msgstr "Arquitetura"
 
 #: ../src/up2date_client/rhnregGui.py:1288
-msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgid ""
+"Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
 "Criando uma lista dos pacotes RPM instalados em seu sistema.  Por favor "
 "aguarde."
@@ -1477,11 +1479,10 @@ msgstr ""
 "empresa para este erro.\n"
 "    Você deve ser capaz de registrar este sistema depois que sua empresa "
 "liberar serviços já existentes\n"
-"    ou compre serviços adicionais. Os serviços podem ser adquiridos pelo "
-"seu\n"
+"    ou compre serviços adicionais. Os serviços podem ser adquiridos pelo seu\n"
 "    administrador de empresa, registrando.se no Red Hat Network e visitando\n"
-"    a página de Gerenciamento de Subscrição em sua seção do 'Seu RHN' do "
-"RHN.\n"
+"    a página de Gerenciamento de Subscrição em sua seção do 'Seu RHN' do RHN."
+"\n"
 "    \n"
 "    Uma causa comum deste código de erro deve-se à implementação errada de "
 "uma\n"
@@ -1660,7 +1661,8 @@ msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:178
 msgid "Warning: yum-rhn-plugin is not present, could not enable it."
-msgstr "Aviso: yum-rhn-plugin não está presente, não foi possivel habilita-lo."
+msgstr ""
+"Aviso: yum-rhn-plugin não está presente, não foi possivel habilita-lo."
 
 #: ../src/bin/rhnreg_ks.py:180
 msgid ""
@@ -2407,11 +2409,9 @@ msgstr ""
 "continuar (você será capaz de mover para uma versão posterior.)"
 
 #: ../data/rh_register.glade.h:126
-msgid ""
-"\n"
+msgid "\n"
 "Are you sure you would like to continue?"
-msgstr ""
-"\n"
+msgstr "\n"
 "Tem certeza que gostaria de continuar?"
 
 #: ../data/rh_register.glade.h:128
@@ -2496,8 +2496,8 @@ msgstr ""
 msgctxt "yes"
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
-"DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/DOC-"
+"45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146
@@ -2613,42 +2613,9 @@ msgstr "Registro RHN"
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
-"Registre para atualizações de software do Spacewalk/Satellite/Red Hat Network"
+"Registre para atualizações de software do Spacewalk/Satellite/Red Hat "
+"Network"
 
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Registrar no Spacewalk/Satellite/Red Hat Network."
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "Você especificou um protocolo inválido."
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr ""
-#~ "Módulo Update: atualizações por sistema, e-mails de notificação de "
-#~ "erratas, informações de erratas"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "Módulo Provisioning: provisionamento de sistemas novos e existentes, "
-#~ "reversões (rollbacks), gerenciamento de configuração"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "Módulo Monitoring: verificações pré-definidas e personalizadas "
-#~ "de desempenho do sistema, e-mails de notificação de "
-#~ "desempenho do sistema, gráficos sobre o desempenho do sistema"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "Módulo da Plataforma de Virtualização: atualizações de software para um "
-#~ "número ilimitado de convidados neste sistema, acesso a canais de "
-#~ "softwares adicionais para os convidados neste sistema."

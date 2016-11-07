@@ -1,25 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: Spacewalk\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:57+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2016-02-17 10:06-0500\n"
 "Last-Translator: Jan Dobes <jdobes@redhat.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: hr\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
-"X-Generator: Zanata 3.8.4\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -119,11 +119,9 @@ msgid "Specify a password to use with an authenticated http proxy"
 msgstr "Odredite lozinku za upotrebu s provjerenim http proxyjem"
 
 #: ../src/up2date_client/rhncli.py:98
-msgid ""
-"\n"
+msgid "\n"
 "Aborted.\n"
-msgstr ""
-"\n"
+msgstr "\n"
 "Prekinuto.\n"
 
 #: ../src/up2date_client/rhncli.py:101
@@ -327,7 +325,8 @@ msgstr "Postavljanje ažuriranja softvera nije bilo uspješno"
 #: ../src/up2date_client/rhnreg_constants.py:61
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+"\n"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:63
@@ -355,8 +354,7 @@ msgstr ""
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr ""
-"Unesite svoje podatke o prijavi pri %s Red Hat Mrežnom Satelitu:\n"
+msgstr "Unesite svoje podatke o prijavi pri %s Red Hat Mrežnom Satelitu:\n"
 "\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:72
@@ -680,10 +678,10 @@ msgstr ""
 "System Entitlements.\n"
 "(2) Naručite dodatne pretplate za Red Hat Enterprise Linux na adresi: http://"
 "www.redhat.com/store/.\n"
-"(3) Aktivirajte novi instalacijski broj na adresi http://www.redhat.com/"
-"now/. Nakon što odgovarajuće aktivne pretplate učinite raspoloživim unutar "
-"vašeg naloga, možete pretražiti do profila ovog sustava unutar web-sučelja "
-"RHM i ovaj sustav pretplatiti na softverske kanale putem kartice Software > "
+"(3) Aktivirajte novi instalacijski broj na adresi http://www.redhat.com/now/."
+" Nakon što odgovarajuće aktivne pretplate učinite raspoloživim unutar vašeg "
+"naloga, možete pretražiti do profila ovog sustava unutar web-sučelja RHM i "
+"ovaj sustav pretplatiti na softverske kanale putem kartice Software > "
 "Software channels."
 
 #: ../src/up2date_client/rhnreg_constants.py:209
@@ -766,10 +764,10 @@ msgstr ""
 "System Entitlements.\n"
 "(2) Naručite dodatne pretplate za Red Hat Enterprise Linux na adresi: http://"
 "www.redhat.com/store/.\n"
-"(3) Aktivirajte novi instalacijski broj na adresi http://www.redhat.com/"
-"now/. Nakon što odgovarajuće aktivne pretplate učinite raspoloživim unutar "
-"vašeg naloga, možete pretražiti do profila ovog sustava unutar web-sučelja "
-"RHM, izbrisati profil i ponovno povezati ovaj sustav na Red Hat Mrežu."
+"(3) Aktivirajte novi instalacijski broj na adresi http://www.redhat.com/now/."
+" Nakon što odgovarajuće aktivne pretplate učinite raspoloživim unutar vašeg "
+"naloga, možete pretražiti do profila ovog sustava unutar web-sučelja RHM, "
+"izbrisati profil i ponovno povezati ovaj sustav na Red Hat Mrežu."
 
 #: ../src/up2date_client/rhnreg_constants.py:245
 #, python-format
@@ -891,8 +889,7 @@ msgstr ""
 "shtm "
 
 #: ../src/up2date_client/rhnreg_constants.py:302
-msgid ""
-"\n"
+msgid "\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
 msgstr ""
@@ -1011,7 +1008,8 @@ msgid "There was an error communicating with Red Hat Network."
 msgstr "Došlo je do pogreške u komuniciranju s Red Hat Mrežom."
 
 #: ../src/up2date_client/rhnregGui.py:372
-msgid "The server may be in outage mode. You may have to try connecting later."
+msgid ""
+"The server may be in outage mode. You may have to try connecting later."
 msgstr "Poslužitelj vjerojatno nije u funkciji. Morat ćete pokušati kasnije."
 
 #: ../src/up2date_client/rhnregGui.py:374
@@ -1201,7 +1199,8 @@ msgid "Arch"
 msgstr "Arh"
 
 #: ../src/up2date_client/rhnregGui.py:1288
-msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgid ""
+"Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
 "Izgrađuje se popis RPM paketa instaliranih na vaš sustav. Pričekajte..."
 
@@ -1794,8 +1793,8 @@ msgid ""
 "<small>Tip: Forgot your login or password? Look it up at \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 msgstr ""
-"<small>Savjet: Zaboravili ste prijavu ili lozinku? Potražite je putem "
-"adrese:\n"
+"<small>Savjet: Zaboravili ste prijavu ili lozinku? Potražite je putem adrese:"
+"\n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 
 #: ../data/rh_register.glade.h:23
@@ -2292,8 +2291,7 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:126
-msgid ""
-"\n"
+msgid "\n"
 "Are you sure you would like to continue?"
 msgstr ""
 
@@ -2379,8 +2377,8 @@ msgstr ""
 msgctxt "yes"
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
-"DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/DOC-"
+"45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146
@@ -2487,37 +2485,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr ""
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "Odredili ste nepravilan protokol."
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr ""
-#~ "Modul ažuriranja: ažuriranja po pojedinačnom sustavu, obavijesti e-poštom "
-#~ "o ispravcima, podaci o ispravcima."
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "Modul podrške: osnovna podrška, podrška postojećeg stanja, povrati, "
-#~ "upravljanje konfiguracijom"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "Modul nadzora: unaprijed definirana i prilagođena ispitivanja performansi "
-#~ "sustava, obavijesti e-poštom o performansama sustava, grafikoni "
-#~ "performansi sustava"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "Modul platfrome virtualizacije: Softverska ažuriranja neograničenog broja "
-#~ "virtualnih gostiju na ovo sustavu, pristup dodatnim softverskim kanalima "
-#~ "gostima ovog sustava."

@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Bettina De Monti <bdemonti@redhat.it>, 2001.
 # Francesco Valente <fvalen@redhat.com>, 2003, 2004.
@@ -11,18 +11,18 @@
 # Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: Spacewalk\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-21 11:57+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2016-02-17 10:09-0500\n"
 "Last-Translator: Jan Dobes <jdobes@redhat.com>\n"
 "Language-Team: Italian <trans-it@lists.fedoraproject.org>\n"
 "Language: it\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -125,11 +125,9 @@ msgid "Specify a password to use with an authenticated http proxy"
 msgstr "Specificare una password da usare con un proxy http autenticato"
 
 #: ../src/up2date_client/rhncli.py:98
-msgid ""
-"\n"
+msgid "\n"
 "Aborted.\n"
-msgstr ""
-"\n"
+msgstr "\n"
 "Interrotto.\n"
 
 #: ../src/up2date_client/rhncli.py:101
@@ -340,7 +338,8 @@ msgstr "Impostazione aggiornamento software non riuscito"
 #: ../src/up2date_client/rhnreg_constants.py:61
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+"\n"
 msgstr ""
 "Siete sicuri di non voler collegare il sistema a Red Hat Network? Così "
 "facendo non potrete usufruire dei benefici offerti dalla sottoscrizione a "
@@ -869,8 +868,7 @@ msgstr ""
 "Controllo posizione fornita - '%s' risulta essere corretto?\n"
 "In caso contrario, correggetelo e riprovate.\n"
 "\n"
-"Accertatevi che il collegamento di rete su questo sistema risulti "
-"operativo.\n"
+"Accertatevi che il collegamento di rete su questo sistema risulti operativo.\n"
 "\n"
 "Questo sistema non riceverà alcun aggiornamento software da Red Hat, senza "
 "collegarsi prima al server di Red Hat Network"
@@ -951,8 +949,7 @@ msgstr ""
 "#7924 su http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
 
 #: ../src/up2date_client/rhnreg_constants.py:302
-msgid ""
-"\n"
+msgid "\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
 msgstr ""
@@ -967,8 +964,8 @@ msgid ""
 "older than the recent minor release if you select this option.\n"
 msgstr ""
 "Avvertimento: Se questa opzione viene selezionata non sarà possibile "
-"limitare questo sistema ad una versione minore più vecchia di quella "
-"recente.\n"
+"limitare questo sistema ad una versione minore più vecchia di quella recente."
+"\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:310
 #, python-format
@@ -1088,7 +1085,8 @@ msgid "There was an error communicating with Red Hat Network."
 msgstr "Si è verificato un errore di comunicazione con Red Hat Network."
 
 #: ../src/up2date_client/rhnregGui.py:372
-msgid "The server may be in outage mode. You may have to try connecting later."
+msgid ""
+"The server may be in outage mode. You may have to try connecting later."
 msgstr ""
 "Il server potrebbe essere in modalità outage. Riprovate a collegarvi più "
 "tardi."
@@ -1171,9 +1169,9 @@ msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
 msgstr ""
-"Il numero d'installazione [ %s ] fornito non risulta essere un numero "
-"valido. Vi preghiamo di tornare alla schermata precedente e di correggere "
-"questo errore."
+"Il numero d'installazione [ %s ] fornito non risulta essere un numero valido."
+" Vi preghiamo di tornare alla schermata precedente e di correggere questo "
+"errore."
 
 #: ../src/up2date_client/rhnregGui.py:815 ../src/up2date_client/tui.py:893
 msgid "Problem registering system."
@@ -1292,7 +1290,8 @@ msgid "Arch"
 msgstr "Arch"
 
 #: ../src/up2date_client/rhnregGui.py:1288
-msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgid ""
+"Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
 "Creazione di un elenco di pacchetti RPM installati sul vostro sistema. "
 "Attendere prego."
@@ -1928,7 +1927,8 @@ msgid ""
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 msgstr ""
 "<small>Suggerimento: Avete dimenticato il vostro nome utente o password? "
-"Ricercateli su https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
+"Ricercateli su https://www.redhat.com/wapps/sso/rhn/lostPassword.html</"
+"small>"
 
 #: ../data/rh_register.glade.h:23
 msgid "RHN login field"
@@ -2440,11 +2440,9 @@ msgstr ""
 "continuare (sarà possibile usare una versione più recente.)"
 
 #: ../data/rh_register.glade.h:126
-msgid ""
-"\n"
+msgid "\n"
 "Are you sure you would like to continue?"
-msgstr ""
-"\n"
+msgstr "\n"
 "Sei sicuro di voler continuare?"
 
 #: ../data/rh_register.glade.h:128
@@ -2529,8 +2527,8 @@ msgstr ""
 msgctxt "yes"
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
-"DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/DOC-"
+"45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:146
@@ -2654,36 +2652,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Registrazione a Spacewalk/Satellite/Red Hat Network."
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "Avete specificato un protocollo non valido."
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr ""
-#~ "Modulo Update: Aggiornamenti per-sistema, notifiche email errata, "
-#~ "informazioni errata"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "Modulo di provisioning: provisioning bare-metal, stato di provisioning "
-#~ "esistente, rollback e gestione della configurazione"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "Modulo di monitoring: probe per le prestazioni del sistema personalizzati "
-#~ "e predefiniti, notifiche email e grafiche sulla prestazione del sistema"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "Modulo piattaforma di virtualizzazione: aggiornamenti software per un "
-#~ "numero illimitato di guest virtuali presenti su questo sistema, accesso "
-#~ "ai canali software aggiuntivi per i guest presenti su questo sistema."

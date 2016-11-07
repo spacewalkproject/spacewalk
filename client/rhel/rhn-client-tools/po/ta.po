@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Felix <ifelix@redhat.com>, 2006-2007.
 # Jayaradha N <jaya@pune.redhat.com>, 2004.
@@ -14,21 +14,21 @@
 # Jan Dobes <jdobes@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: Spacewalk\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-23 13:35+0200\n"
-"PO-Revision-Date: 2014-01-14 04:23-0500\n"
-"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Tamil (http://www.transifex.com/projects/p/spacewalk/language/"
-"ta/)\n"
-"Language: ta\n"
+"POT-Creation-Date: 2015-08-21 11:59+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-02-18 08:05-0500\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
+"Language-Team: Tamil (http://www.transifex.com/projects/p/spacewalk/language/"
+"ta/)\n"
+"Language: ta\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
-#: ../src/up2date_client/capabilities.py:94
+#: ../src/up2date_client/capabilities.py:88
 #, python-format
 msgid ""
 "This client requires the server to support %s, which the current server does "
@@ -37,75 +37,75 @@ msgstr ""
 "நடப்பு சேவையகம் துணைபுரியாததால், இந்த கிளையன் சேவையகம் %sக்கு துணைபுரிய "
 "தேவைப்படுத்துகிறது."
 
-#: ../src/up2date_client/config.py:162
+#: ../src/up2date_client/config.py:158
 #, python-format
 msgid "%s was not found"
 msgstr "%s ஐ காணவில்லை"
 
-#: ../src/up2date_client/debUtils.py:59 ../src/up2date_client/rpmUtils.py:116
+#: ../src/up2date_client/debUtils.py:56 ../src/up2date_client/rpmUtils.py:112
 msgid "Getting list of packages installed on the system"
 msgstr "கணினியில் நிறுவப்பட்ட தொகுப்பின் பட்டியலை பெறுகிறது"
 
-#: ../src/up2date_client/gui.py:320
+#: ../src/up2date_client/gui.py:313
 msgid "_Finish"
 msgstr "முடிவு (_F)"
 
 #. Finish Window
-#: ../src/up2date_client/gui.py:321
-#: ../src/up2date_client/rhnreg_constants.py:155
+#: ../src/up2date_client/gui.py:314
+#: ../src/up2date_client/rhnreg_constants.py:152
 msgid "Updates Configured"
 msgstr "புதுப்பிப்புகள் அமைவாக்கம் செய்யப்பட்டன"
 
-#: ../src/up2date_client/gui.py:323
+#: ../src/up2date_client/gui.py:316
 msgid "_Exit"
 msgstr "வெளியேறு (_E)"
 
-#: ../src/up2date_client/gui.py:324
+#: ../src/up2date_client/gui.py:317
 msgid "Software Updates Not Set Up"
 msgstr "மேம்படுத்தல் அமைவு"
 
-#: ../src/up2date_client/gui.py:334
+#: ../src/up2date_client/gui.py:327
 msgid "You must run rhn_register as root."
 msgstr "rhn_register ஐ root ஆக இயக்க வேண்டும்."
 
-#: ../src/up2date_client/gui.py:359
+#: ../src/up2date_client/gui.py:352
 #, python-format
 msgid "There was some sort of I/O error: %s"
 msgstr "சில I/O பிழை உள்ளது: %s"
 
-#: ../src/up2date_client/hardware.py:898
+#: ../src/up2date_client/hardware.py:819
 msgid "Error reading cpu information:"
 msgstr "cpu தகவலை வாசிக்கும் போது பிழை:"
 
-#: ../src/up2date_client/hardware.py:905
+#: ../src/up2date_client/hardware.py:826
 msgid "Error reading system memory information:"
 msgstr "கணினி நினைவக தகவலை வாசிக்கும் போது பிழை:"
 
-#: ../src/up2date_client/hardware.py:915
+#: ../src/up2date_client/hardware.py:836
 msgid "Error reading networking information:"
 msgstr "பிணைய தகவலை வாசிக்கும் போது பிழை:"
 
-#: ../src/up2date_client/hardware.py:936
+#: ../src/up2date_client/hardware.py:857
 msgid "Error reading install method information:"
 msgstr "நிறுவல் முறை தகவலை வாசிக்கும் போது பிழை:"
 
-#: ../src/up2date_client/hardware.py:944
+#: ../src/up2date_client/hardware.py:865
 msgid "Error reading network interface information:"
 msgstr "பிணைய முகப்பு தகவலை வாசிக்கும் போது பிழை:"
 
-#: ../src/up2date_client/messageWindow.py:100
+#: ../src/up2date_client/messageWindow.py:98
 msgid "Error:"
 msgstr "பிழை:"
 
-#: ../src/up2date_client/messageWindow.py:107
+#: ../src/up2date_client/messageWindow.py:105
 msgid "Yes/No dialog:"
 msgstr "ஆம்/இல்லை உரையாடல்:"
 
-#: ../src/up2date_client/rhnChannel.py:102
+#: ../src/up2date_client/rhnChannel.py:96
 msgid "Unable to Locate SystemId"
 msgstr "SystemIdஐ காண முடியவில்லை"
 
-#: ../src/up2date_client/rhnChannel.py:119
+#: ../src/up2date_client/rhnChannel.py:113
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "தடத்தோடு தொடர்பை ஏற்படுத்தாத வரை கணினியை மேம்படுத்த முடியாது."
 
@@ -123,14 +123,13 @@ msgstr "பயனர் பெயர் அங்கீகரிக்கப்�
 
 #: ../src/up2date_client/rhncli.py:76
 msgid "Specify a password to use with an authenticated http proxy"
-msgstr "அங்கீகரிக்கப்பட்ட http பதிலாளை பயன்படுத்தும் கடவுச்சொல்லை குறிப்பிடவும்"
+msgstr ""
+"அங்கீகரிக்கப்பட்ட http பதிலாளை பயன்படுத்தும் கடவுச்சொல்லை குறிப்பிடவும்"
 
 #: ../src/up2date_client/rhncli.py:98
-msgid ""
-"\n"
+msgid "\n"
 "Aborted.\n"
-msgstr ""
-"\n"
+msgstr "\n"
 "நிறுத்தப்பட்டது.\n"
 
 #: ../src/up2date_client/rhncli.py:101
@@ -162,8 +161,8 @@ msgid ""
 "A common cause of this error is the system time being incorrect. Verify that "
 "the time on this system is correct.\n"
 msgstr ""
-"இந்த சிக்கலுக்கு காரணம் கணினியில் நேரம் தவறாக உள்ளதே ஆகும். கணினியின் நேரம் சரியாக "
-"உள்ளதா எனசரி பார்க்கவும்.\n"
+"இந்த சிக்கலுக்கு காரணம் கணினியில் நேரம் தவறாக உள்ளதே ஆகும். கணினியின் நேரம் "
+"சரியாக உள்ளதா எனசரி பார்க்கவும்.\n"
 
 #: ../src/up2date_client/rhncli.py:121
 #, python-format
@@ -200,66 +199,65 @@ msgstr "ஒரு பிழை ஏற்பட்டுள்ளது:"
 msgid "See /var/log/up2date for more information"
 msgstr "மேலும் தகவலுக்கு /var/log/up2date ஐ பார்க்கவும்"
 
-#: ../src/up2date_client/rhnreg_constants.py:19
+#: ../src/up2date_client/rhnreg_constants.py:16
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
 msgstr "காப்புரிமை © 2006--2014 Red Hat, Inc. All rights reserved."
 
 #. Satellite URL Window
-#: ../src/up2date_client/rhnreg_constants.py:22
+#: ../src/up2date_client/rhnreg_constants.py:19
 #, fuzzy
 msgid "Enter your Red Hat Satellite URL."
-msgstr ""
-"உங்கள் %s Red Hat Network சேட்டிலைட்டின் புகுபதிவை உள்ளிடவும்:\n"
+msgstr "உங்கள் %s Red Hat Network சேட்டிலைட்டின் புகுபதிவை உள்ளிடவும்:\n"
 "\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:23
+#: ../src/up2date_client/rhnreg_constants.py:20
 msgid ""
 "Please enter the location of your Red Hat Satellite server and of its SSL "
 "certificate. The SSL certificate is only required if you will be connecting "
 "over https (recommended)."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:27
+#: ../src/up2date_client/rhnreg_constants.py:24
 msgid "Satellite URL:"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:28
+#: ../src/up2date_client/rhnreg_constants.py:25
 msgid "SSL certificate:"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:29
+#: ../src/up2date_client/rhnreg_constants.py:26
 #, fuzzy
 msgid "You must enter a valid Satellite URL."
 msgstr "ஒரு புகுபதிவை உள்ளிட வேண்டும்."
 
-#: ../src/up2date_client/rhnreg_constants.py:30
+#: ../src/up2date_client/rhnreg_constants.py:27
 msgid ""
 "If you are using https you must enter the location of a valid SSL "
 "certificate."
 msgstr ""
 
 #. Connect Window
-#: ../src/up2date_client/rhnreg_constants.py:34
+#: ../src/up2date_client/rhnreg_constants.py:31
 #, fuzzy
 msgid "Attempting to contact the Spacewalk server."
 msgstr "Red Hat Network சேவையகத்தை தொடர்பு கொள்ள முயற்சிக்கிறது."
 
-#: ../src/up2date_client/rhnreg_constants.py:35
+#: ../src/up2date_client/rhnreg_constants.py:32
 #, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
 msgstr "Red Hat Network சேவையகத்தை %sஇல் தொடர்பு கொள்ள முயற்சிக்கிறோம்."
 
-#: ../src/up2date_client/rhnreg_constants.py:37
+#: ../src/up2date_client/rhnreg_constants.py:34
 #, python-format
 msgid "A proxy was specified at %s."
 msgstr "%s இல் ஒரு பதிலாள் குறிப்பிடப்பட்டுள்ளது."
 
 #. Start Window
-#: ../src/up2date_client/rhnreg_constants.py:40 ../data/gui.glade.h:1
+#: ../src/up2date_client/rhnreg_constants.py:37 ../data/gui.glade.h:1
 msgid "System Registration"
 msgstr "RHN பதிவு செய்தல்"
 
-#: ../src/up2date_client/rhnreg_constants.py:41
+#: ../src/up2date_client/rhnreg_constants.py:38
 #, fuzzy
 msgid ""
 "This assistant will guide you through connecting your system to Red Hat "
@@ -273,8 +271,8 @@ msgid ""
 "\n"
 msgstr ""
 "இந்த உதவியாளர் உங்கள் கணினியை Red Hat Network (RHN) உடன் இணைத்து மென்பொருள் "
-"மேம்படுத்தல்களான பாதுகாப்பு மேம்படுத்தல்கள் போன்றவற்றால் உங்கள் முழு துணையை பெற உதவுவார். "
-"நீங்கள் பின்வருவனற்றை இந்த நேரத்தில் கொண்டிருக்க வேண்டும்:\n"
+"மேம்படுத்தல்களான பாதுகாப்பு மேம்படுத்தல்கள் போன்றவற்றால் உங்கள் முழு துணையை "
+"பெற உதவுவார். நீங்கள் பின்வருவனற்றை இந்த நேரத்தில் கொண்டிருக்க வேண்டும்:\n"
 "\n"
 " * ஒரு பிணைய இணைப்பு\n"
 " * உங்கள் Red Hat புகுபதிவு மற்றும் கடவுச்சொல்\n"
@@ -282,48 +280,49 @@ msgstr ""
 "\n"
 
 #. Why Register Window
-#: ../src/up2date_client/rhnreg_constants.py:54 ../data/rh_register.glade.h:5
+#: ../src/up2date_client/rhnreg_constants.py:51 ../data/rh_register.glade.h:5
 msgid "Why Should I Connect to RHN? ..."
 msgstr "எதற்காக RHN உடன் இணைக்க வேண்டும்? ..."
 
-#: ../src/up2date_client/rhnreg_constants.py:55 ../data/rh_register.glade.h:69
+#: ../src/up2date_client/rhnreg_constants.py:52 ../data/rh_register.glade.h:69
 msgid "Why Register"
 msgstr "எதற்கு பதிவு"
 
-#: ../src/up2date_client/rhnreg_constants.py:56
+#: ../src/up2date_client/rhnreg_constants.py:53
 #, fuzzy
 msgid ""
 "Connecting your system to Red Hat Satellite allows you to take full "
 "advantage of the benefits of a paid subscription, including:"
 msgstr ""
-"உங்கள் கணினியை Red Hat Network உடன் இணைப்பது செலுத்தப்பட்ட சந்தாவின் முழு நன்மைகளை பெற "
-"அனுமதிக்கும்:"
+"உங்கள் கணினியை Red Hat Network உடன் இணைப்பது செலுத்தப்பட்ட சந்தாவின் முழு "
+"நன்மைகளை பெற அனுமதிக்கும்:"
 
-#: ../src/up2date_client/rhnreg_constants.py:58
+#: ../src/up2date_client/rhnreg_constants.py:55
 msgid "Security & Updates:"
 msgstr "பாதுகாப்பு & மேம்படுத்தல்கள்:"
 
-#: ../src/up2date_client/rhnreg_constants.py:59
+#: ../src/up2date_client/rhnreg_constants.py:56
 msgid "Downloads & Upgrades:"
 msgstr "பதிவிறக்கங்கள் & மேம்படுத்தல்கள்:"
 
-#: ../src/up2date_client/rhnreg_constants.py:60
+#: ../src/up2date_client/rhnreg_constants.py:57
 msgid "Support:"
 msgstr "துணை:"
 
-#: ../src/up2date_client/rhnreg_constants.py:61
+#: ../src/up2date_client/rhnreg_constants.py:58
 msgid "Compliance:"
 msgstr "உடன்பாடு:"
 
-#: ../src/up2date_client/rhnreg_constants.py:62
+#: ../src/up2date_client/rhnreg_constants.py:59
 msgid ""
 "Receive the latest software updates, including security updates, keeping "
 "this Red Hat Enterprise Linux system updated and secure."
 msgstr ""
-"பாதுகாப்பு மேம்படுத்தல்களையும் சேர்த்து, நடப்பு மென்பொருள் மேம்படுத்தல்களை பெறவும், இந்த "
-"Red Hat Enterprise Linux கணினி மேம்படுத்தல் மற்றும் பாதுகாப்பினை வைத்திருக்கவும்."
+"பாதுகாப்பு மேம்படுத்தல்களையும் சேர்த்து, நடப்பு மென்பொருள் மேம்படுத்தல்களை "
+"பெறவும், இந்த Red Hat Enterprise Linux கணினி மேம்படுத்தல் மற்றும் "
+"பாதுகாப்பினை வைத்திருக்கவும்."
 
-#: ../src/up2date_client/rhnreg_constants.py:64 ../data/rh_register.glade.h:76
+#: ../src/up2date_client/rhnreg_constants.py:61 ../data/rh_register.glade.h:76
 msgid ""
 "Download installation images for Red Hat Enterprise Linux releases, "
 "including new releases."
@@ -331,216 +330,221 @@ msgstr ""
 "Red Hat Enterprise Linux வெளியீடுகள், புதிய வெளியீடுகளையும் சேர்த்து நிறுவல் "
 "குறுவட்டு உருக்களை பதிவிறக்கம் செய்யவும்."
 
-#: ../src/up2date_client/rhnreg_constants.py:66 ../data/rh_register.glade.h:78
+#: ../src/up2date_client/rhnreg_constants.py:63 ../data/rh_register.glade.h:78
 msgid ""
 "Access to the technical support experts at Red Hat or Red Hat's partners for "
 "help with any issues you might encounter with this system."
 msgstr ""
-"இந்த கணினியில் ஏதாவது சிக்கல்களை அறிந்தால், தொழில்நுட்ப துணைக்கு Red Hat அல்லது Red "
-"Hat இன் பங்காளர்களை அணுகவும்."
+"இந்த கணினியில் ஏதாவது சிக்கல்களை அறிந்தால், தொழில்நுட்ப துணைக்கு Red Hat "
+"அல்லது Red Hat இன் பங்காளர்களை அணுகவும்."
 
-#: ../src/up2date_client/rhnreg_constants.py:68
+#: ../src/up2date_client/rhnreg_constants.py:65
 msgid ""
 "Stay in compliance with your subscription agreement and manage subscriptions "
 "for systems connected to your account."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:71
+#: ../src/up2date_client/rhnreg_constants.py:68
 msgid ""
 "Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
 "privacy_statement.html"
 msgstr ""
-"துணுக்கு: Red Hat உங்கள் தனிப்பட்டவைகளை மதிக்கிறது: http://www.redhat.com/legal/"
-"privacy_statement.html"
+"துணுக்கு: Red Hat உங்கள் தனிப்பட்டவைகளை மதிக்கிறது: http://www.redhat.com/"
+"legal/privacy_statement.html"
 
-#: ../src/up2date_client/rhnreg_constants.py:73
+#: ../src/up2date_client/rhnreg_constants.py:70
 msgid "Take me back to the registration"
 msgstr "என்னை பதிவு செய்தலுக்கு எடுத்துச்செல்லவும்"
 
 #. Confirm Quit Window
-#: ../src/up2date_client/rhnreg_constants.py:76
+#: ../src/up2date_client/rhnreg_constants.py:73
 msgid "Software Update Not Set Up"
 msgstr "மேம்படுத்தல் அமைவு"
 
-#: ../src/up2date_client/rhnreg_constants.py:77
+#: ../src/up2date_client/rhnreg_constants.py:74
 #, fuzzy
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Satellite? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+"\n"
 msgstr ""
-"நீங்கள் உங்கள் கணினியை Red Hat Network உடன் இணைக்க வேண்டாமா? நீங்கள் Red Hat Enterprise "
-"Linux சந்தாவின் நன்மைகளை இழக்கக்கூடும்:\n"
+"நீங்கள் உங்கள் கணினியை Red Hat Network உடன் இணைக்க வேண்டாமா? நீங்கள் Red Hat "
+"Enterprise Linux சந்தாவின் நன்மைகளை இழக்கக்கூடும்:\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:79
+#: ../src/up2date_client/rhnreg_constants.py:76
 #, fuzzy
 msgid ""
 "You will not be able to take advantage of these subscription privileges "
 "without connecting your system to Red Hat Satellite.\n"
 msgstr ""
-"உங்கள் கணினியை Red Hat Network உடன் இணைக்காமல் நீங்கள் இந்த சந்தா முன்னுரிமைகளை எடுக்க "
-"முடியாது.\n"
+"உங்கள் கணினியை Red Hat Network உடன் இணைக்காமல் நீங்கள் இந்த சந்தா "
+"முன்னுரிமைகளை எடுக்க முடியாது.\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:81
+#: ../src/up2date_client/rhnreg_constants.py:78
 msgid "Take me back to the setup process."
 msgstr "அமைவு பணிக்கு என்னை எடுத்த செல்லவும்."
 
-#: ../src/up2date_client/rhnreg_constants.py:82
+#: ../src/up2date_client/rhnreg_constants.py:79
 msgid "I'll register later."
 msgstr "பின்னர் பதிவு செய்கிறேன்."
 
 #. Info Window
-#: ../src/up2date_client/rhnreg_constants.py:85 ../data/gui.glade.h:4
+#: ../src/up2date_client/rhnreg_constants.py:82 ../data/gui.glade.h:4
 #: ../data/rh_register.glade.h:13
 msgid "Red Hat Account"
 msgstr "Red Hat புகுபதிவு"
 
-#: ../src/up2date_client/rhnreg_constants.py:86
+#: ../src/up2date_client/rhnreg_constants.py:83
 #, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr ""
-"உங்கள் %s Red Hat Network சேட்டிலைட்டின் புகுபதிவை உள்ளிடவும்:\n"
+msgstr "உங்கள் %s Red Hat Network சேட்டிலைட்டின் புகுபதிவை உள்ளிடவும்:\n"
 "\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:88
+#: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Red Hat Login:"
 msgstr "Red Hat புகுபதிவு:"
 
-#: ../src/up2date_client/rhnreg_constants.py:89
-#: ../src/up2date_client/tui.py:138
+#: ../src/up2date_client/rhnreg_constants.py:86
+#: ../src/up2date_client/tui.py:137
 msgid "Login:"
 msgstr "புகுபதிவு:"
 
-#: ../src/up2date_client/rhnreg_constants.py:90
+#: ../src/up2date_client/rhnreg_constants.py:87
 msgid "Password:"
 msgstr "கடவுச்சொல்:"
 
-#: ../src/up2date_client/rhnreg_constants.py:91
+#: ../src/up2date_client/rhnreg_constants.py:88
 msgid ""
 "Tip: Forgot your login or password?  Contact your Satellite's Organization "
 "Administrator."
 msgstr ""
-"துணுக்கு: உங்கள் பயனர் பெயர் அல்லது கடவுச்சொல் மறந்து விட்டதா? உங்கள் சேட்டிலைட் நிறுவன "
-"நிர்வாகியைத் தொடர்பு கொள்ளவும்."
+"துணுக்கு: உங்கள் பயனர் பெயர் அல்லது கடவுச்சொல் மறந்து விட்டதா? உங்கள் "
+"சேட்டிலைட் நிறுவன நிர்வாகியைத் தொடர்பு கொள்ளவும்."
 
-#: ../src/up2date_client/rhnreg_constants.py:93
+#: ../src/up2date_client/rhnreg_constants.py:90
 msgid "Please enter a desired login."
 msgstr "ஒரு விருப்பமான புகுபதிவை உள்ளிடவும்."
 
-#: ../src/up2date_client/rhnreg_constants.py:94
+#: ../src/up2date_client/rhnreg_constants.py:91
 msgid "Please enter and verify a password."
 msgstr "ஒரு கடவுச்சொல்லை உள்ளிட்டு சரிபார்க்கவும்."
 
 #. OS Release Window
-#: ../src/up2date_client/rhnreg_constants.py:97 ../data/gui.glade.h:5
+#: ../src/up2date_client/rhnreg_constants.py:94 ../data/gui.glade.h:5
 #: ../data/rh_register.glade.h:142
 msgid "Operating System Release Version"
 msgstr "இயக்கத்தள பதிப்பு:"
 
-#: ../src/up2date_client/rhnreg_constants.py:98
+#: ../src/up2date_client/rhnreg_constants.py:95
 msgid "Operating System version:"
 msgstr "இயக்கத்தள பதிப்பு:"
 
-#: ../src/up2date_client/rhnreg_constants.py:99
+#: ../src/up2date_client/rhnreg_constants.py:96
 msgid " Minor Release: "
 msgstr "சிறிய வெளியீடு:"
 
-#: ../src/up2date_client/rhnreg_constants.py:100
+#: ../src/up2date_client/rhnreg_constants.py:97
 msgid "Limited Updates Only"
 msgstr "வரம்பிட்ட புதுப்பித்தல்கள் மட்டும்"
 
-#: ../src/up2date_client/rhnreg_constants.py:101
+#: ../src/up2date_client/rhnreg_constants.py:98
 #: ../data/rh_register.glade.h:151
 msgid "All available updates"
 msgstr "அனைத்து இருக்கும் புதுப்பித்தல்கள்"
 
-#: ../src/up2date_client/rhnreg_constants.py:102
+#: ../src/up2date_client/rhnreg_constants.py:99
 msgid "Confirm operating system release selection"
 msgstr "இயக்கத்தள வெளியீடு தேர்வை உறுதிப்படுத்து"
 
-#: ../src/up2date_client/rhnreg_constants.py:103
+#: ../src/up2date_client/rhnreg_constants.py:100
 msgid ""
 "Your system will be subscribed to the base software channel to receive all "
 "available updates."
 msgstr ""
-"உங்கள் கணினி அடிப்படை மென்பொருள் சேனலுக்கு அனைத்து புதுப்பித்தலும் கிடைக்கப்பெற சந்தாப்படும்"
+"உங்கள் கணினி அடிப்படை மென்பொருள் சேனலுக்கு அனைத்து புதுப்பித்தலும் "
+"கிடைக்கப்பெற சந்தாப்படும்"
 
 #. Hardware Window
-#: ../src/up2date_client/rhnreg_constants.py:108
+#: ../src/up2date_client/rhnreg_constants.py:105
 msgid "Create Profile - Hardware"
 msgstr "உங்கள் கணினி விவரக்குறிப்பை உருவாக்கவும் -வன்பொருள்"
 
-#: ../src/up2date_client/rhnreg_constants.py:109
+#: ../src/up2date_client/rhnreg_constants.py:106
 #, fuzzy
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Satellite web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
-"Red Hat Network இணைய பக்கங்களில் உங்கள் கணினி விவரக்குறிப்பை அடையாளப்படுத்த பயன்படும் "
-"பெயர் விவரக்குறிப்பு பெயர் ஆகும், விருப்பப்படி, ஒரு கணினி வரிசை எண் அல்லது அடையாள "
-"எண்ணையும் இதில் சேர்க்கலாம்."
+"Red Hat Network இணைய பக்கங்களில் உங்கள் கணினி விவரக்குறிப்பை அடையாளப்படுத்த "
+"பயன்படும் பெயர் விவரக்குறிப்பு பெயர் ஆகும், விருப்பப்படி, ஒரு கணினி வரிசை "
+"எண் அல்லது அடையாள எண்ணையும் இதில் சேர்க்கலாம்."
 
-#: ../src/up2date_client/rhnreg_constants.py:113
+#: ../src/up2date_client/rhnreg_constants.py:110
 msgid ""
 "Additional hardware information including PCI devices, disk sizes and mount "
 "points will be included in the profile."
 msgstr ""
-"PCI சாதனங்கள், வட்டின் அளவு மற்றும் ஏற்றப்புள்ளி ஆகியவற்றுடன் கூடுதல் வன்பொருள் தகவல் இந்த "
-"விவரக்குறிப்புடன் சேர்க்கப்படும்."
+"PCI சாதனங்கள், வட்டின் அளவு மற்றும் ஏற்றப்புள்ளி ஆகியவற்றுடன் கூடுதல் "
+"வன்பொருள் தகவல் இந்த விவரக்குறிப்புடன் சேர்க்கப்படும்."
 
-#: ../src/up2date_client/rhnreg_constants.py:116
+#: ../src/up2date_client/rhnreg_constants.py:113
 msgid "Include the following information about hardware and network:"
 msgstr "வன்பொருள் மற்றும் பிணையம் பற்றிய பின்வரும் தகவலை சேர்க்கவும்:"
 
 #. Packages Window
-#: ../src/up2date_client/rhnreg_constants.py:120
+#: ../src/up2date_client/rhnreg_constants.py:117
 msgid "Create Profile - Packages"
 msgstr "உங்கள் கணினி விவரக்குறிப்பை உருவாக்கவும் - தொகுப்புகள்"
 
-#: ../src/up2date_client/rhnreg_constants.py:121
+#: ../src/up2date_client/rhnreg_constants.py:118
 msgid ""
 "RPM information is important to determine what updated software packages are "
 "relevant to this system."
 msgstr ""
-"இந்த கணினியோடு தொடர்புடைய, மேம்படுத்தப்பட்ட தொகுப்புகள் பற்றி தெரிந்து கொள்ள RPM தகவல் "
-"முக்கியமானதாகும்."
+"இந்த கணினியோடு தொடர்புடைய, மேம்படுத்தப்பட்ட தொகுப்புகள் பற்றி தெரிந்து கொள்ள "
+"RPM தகவல் முக்கியமானதாகும்."
 
-#: ../src/up2date_client/rhnreg_constants.py:124
+#: ../src/up2date_client/rhnreg_constants.py:121
 msgid "Include RPM packages installed on this system in my System Profile"
 msgstr ""
-"RPM தொகுப்புகளையும் சேர்த்து என் கணினி விவரக்குறிப்பில் இந்த கணினி நிறுவப்பட்டுள்ளது"
+"RPM தொகுப்புகளையும் சேர்த்து என் கணினி விவரக்குறிப்பில் இந்த கணினி "
+"நிறுவப்பட்டுள்ளது"
 
-#: ../src/up2date_client/rhnreg_constants.py:126
+#: ../src/up2date_client/rhnreg_constants.py:123
 msgid "You may deselect individual packages by unchecking them below."
-msgstr "நீங்கள் தனிப்பட்ட தொகுப்புகளை தேர்வு நீக்க கீழே அவற்றை சோதிக்காமல் விடவும்."
+msgstr ""
+"நீங்கள் தனிப்பட்ட தொகுப்புகளை தேர்வு நீக்க கீழே அவற்றை சோதிக்காமல் விடவும்."
 
-#: ../src/up2date_client/rhnreg_constants.py:128
+#: ../src/up2date_client/rhnreg_constants.py:125
 msgid "Building Package List"
 msgstr "தொகுப்பு பட்டியலை உருவாக்குகிறது"
 
 #. Product Window
-#: ../src/up2date_client/rhnreg_constants.py:131
+#: ../src/up2date_client/rhnreg_constants.py:128
 msgid "*Email Address:"
 msgstr "*மின்னஞ்சல் முகவரி:"
 
-#: ../src/up2date_client/rhnreg_constants.py:133
+#: ../src/up2date_client/rhnreg_constants.py:130
 #: ../data/rh_register.glade.h:125
 msgid "System Already Registered"
 msgstr "கணினி ஏற்கனவே பதிவு செய்யப்பட்டது"
 
-#: ../src/up2date_client/rhnreg_constants.py:134
+#: ../src/up2date_client/rhnreg_constants.py:131
 #: ../data/rh_register.glade.h:126
 msgid "It appears this system has already been set up for software updates:"
-msgstr "கணினி ஏற்கனவே மென்பொருள் மேம்படுத்தல்களுக்கு அமைக்கப்பட்டிருப்பதாக தெரிகிறது:"
+msgstr ""
+"கணினி ஏற்கனவே மென்பொருள் மேம்படுத்தல்களுக்கு அமைக்கப்பட்டிருப்பதாக தெரிகிறது:"
+""
 
-#: ../src/up2date_client/rhnreg_constants.py:135
+#: ../src/up2date_client/rhnreg_constants.py:132
 #: ../data/rh_register.glade.h:131
 msgid "Are you sure you would like to continue?"
 msgstr "தொடர வேண்டுமா?"
 
-#: ../src/up2date_client/rhnreg_constants.py:137
+#: ../src/up2date_client/rhnreg_constants.py:134
 msgid ""
 "This system has already been registered using Red Hat Subscription "
 "Management.\n"
@@ -555,12 +559,12 @@ msgid ""
 msgstr ""
 
 #. Send Window
-#: ../src/up2date_client/rhnreg_constants.py:144
+#: ../src/up2date_client/rhnreg_constants.py:141
 #, fuzzy
 msgid "Send Profile Information to Red Hat Satellite"
 msgstr "Red Hat Network க்கு விவரக்குறிப்பு தகவலை அனுப்புகிறது"
 
-#: ../src/up2date_client/rhnreg_constants.py:145
+#: ../src/up2date_client/rhnreg_constants.py:142
 #, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
@@ -571,17 +575,18 @@ msgid ""
 msgstr ""
 "கணினி விவரக்குறிப்பு தகவல் சேமிப்பது முடிக்கப்பட்டது.\n"
 "\n"
-"\"அடுத்து\"  என்பதை சொடுக்கி Red Hat Networkக்கு கணினி விவரக்குறிப்பை அனுப்பவும்.  "
-"\"ரத்து\" என்பதை சொடுக்கினால் தகவல் அனுப்பப்படாது.  நீங்கள் பதிவு நிரலை பிறகு "
-"கட்டளைவரியில் `rhn_register` தட்டச்சு செய்வது மூலம் இயக்கலாம்."
+"\"அடுத்து\"  என்பதை சொடுக்கி Red Hat Networkக்கு கணினி விவரக்குறிப்பை "
+"அனுப்பவும்.  \"ரத்து\" என்பதை சொடுக்கினால் தகவல் அனுப்பப்படாது.  நீங்கள் "
+"பதிவு நிரலை பிறகு கட்டளைவரியில் `rhn_register` தட்டச்சு செய்வது மூலம் "
+"இயக்கலாம்."
 
 #. Sending Window
-#: ../src/up2date_client/rhnreg_constants.py:152
+#: ../src/up2date_client/rhnreg_constants.py:149
 #, fuzzy
 msgid "Sending Profile to Red Hat Satellite"
 msgstr "Red Hat Networkக்கு விவரக்குறிப்பை அனுப்புகிறது"
 
-#: ../src/up2date_client/rhnreg_constants.py:156
+#: ../src/up2date_client/rhnreg_constants.py:153
 #, fuzzy, python-format
 msgid ""
 "You may now run '%s update' from this system's command line to get the "
@@ -592,24 +597,25 @@ msgid ""
 "are in chapter 6 of the RHN Reference Guide, available from the 'Help' "
 "button in the main Red Hat Network Satellite web interface.)"
 msgstr ""
-"உங்கள் கணினியின் கட்டளைவரியில் 'yum update' என்பதை இயக்கி நடப்பு மென்பொருள் மேம்பாடுகளை "
-"Red Hat Network இலிருந்து பெறலாம். நீங்கள் சமீபத்திய மேம்பாடுகளை பெற ஒரு கால அளவில் "
-"இதனை இயக்க வேண்டும். மாற்றாக, நீங்கள் தானியக்க மென்பொருள் மேம்படுத்தல்களுக்கு Red Hat "
-"Network இணைய முகப்பு வழியாகவும் கட்டமைக்கலாம் (இது 'தானியக்க பிழைத்திருத்த மேம்பாடு' "
-"எனப்படும்). (இதற்கான விவரங்களை RHN குறிப்பு கையேட்டில் அத்தியாயம் 6 இல் பார்க்கலாம். "
-"இதற்கு முதன்மை Red Hat Network இணைய முகப்பில் உதவி பொத்தானை சொடுக்க வேண்டும்.)"
+"உங்கள் கணினியின் கட்டளைவரியில் 'yum update' என்பதை இயக்கி நடப்பு மென்பொருள் "
+"மேம்பாடுகளை Red Hat Network இலிருந்து பெறலாம். நீங்கள் சமீபத்திய மேம்பாடுகளை "
+"பெற ஒரு கால அளவில் இதனை இயக்க வேண்டும். மாற்றாக, நீங்கள் தானியக்க மென்பொருள் "
+"மேம்படுத்தல்களுக்கு Red Hat Network இணைய முகப்பு வழியாகவும் கட்டமைக்கலாம் "
+"(இது 'தானியக்க பிழைத்திருத்த மேம்பாடு' எனப்படும்). (இதற்கான விவரங்களை RHN "
+"குறிப்பு கையேட்டில் அத்தியாயம் 6 இல் பார்க்கலாம். இதற்கு முதன்மை Red Hat "
+"Network இணைய முகப்பில் உதவி பொத்தானை சொடுக்க வேண்டும்.)"
 
 #. Review Window
-#: ../src/up2date_client/rhnreg_constants.py:167 ../data/gui.glade.h:7
+#: ../src/up2date_client/rhnreg_constants.py:164 ../data/gui.glade.h:7
 msgid "Review Subscription"
 msgstr "சந்தாவை மறுபார்வையிடவும்"
 
-#: ../src/up2date_client/rhnreg_constants.py:168
+#: ../src/up2date_client/rhnreg_constants.py:165
 #: ../data/rh_register.glade.h:53
 msgid "Please review the subscription details below:"
 msgstr "கீழே சந்தா விவரங்களை மறுபார்வையிடவும்:"
 
-#: ../src/up2date_client/rhnreg_constants.py:169
+#: ../src/up2date_client/rhnreg_constants.py:166
 #, fuzzy, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
@@ -618,36 +624,38 @@ msgstr ""
 "நிறுவல் எண் %s Red Hat Network உடன் ஆரம்பத்தில் இணைக்கப்பட்டிருக்கும் போது "
 "செயல்படுத்தப்பட்டது."
 
-#: ../src/up2date_client/rhnreg_constants.py:171
+#: ../src/up2date_client/rhnreg_constants.py:168
 msgid ""
 "Subscriptions have been activated for the following Red Hat products/"
 "services:"
-msgstr "சந்தாக்கள் பின்வரும் Red Hat தயாரிப்புகள்/சேவைகளுக்கு செயல்படுத்தப்பட்டது:"
+msgstr ""
+"சந்தாக்கள் பின்வரும் Red Hat தயாரிப்புகள்/சேவைகளுக்கு செயல்படுத்தப்பட்டது:"
 
-#: ../src/up2date_client/rhnreg_constants.py:173
+#: ../src/up2date_client/rhnreg_constants.py:170
 msgid "Software Channel Subscriptions:"
 msgstr "மென்பொருள் தட சந்தாக்கள்:"
 
-#: ../src/up2date_client/rhnreg_constants.py:174
+#: ../src/up2date_client/rhnreg_constants.py:171
 msgid "This system will receive updates from the following software channels:"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:176
+#: ../src/up2date_client/rhnreg_constants.py:173
 msgid ""
 "Warning: Only installed product listed above will receive updates and "
 "support. If you would like to receive updates for additional products, "
 "please login to your satellite web interface and subscribe this system to "
-"the appropriate software channels. See Kbase article for more details. "
-"(http://kbase.redhat.com/faq/docs/DOC-11313)"
+"the appropriate software channels. See Kbase article for more details. (http:"
+"//kbase.redhat.com/faq/docs/DOC-11313)"
 msgstr ""
-"எச்சரிக்கை: நிறுவப்பட்ட மென்பொருள் இந்த கணினியில் மேலே பட்டியலிடப்படாவிட்டால், நீங்கள் இந்த "
-"மென்பொருளுக்கான மேம்படுத்தல்கள் அல்லது துணையை பெற முடியாது. நீங்கள் இந்த மென்பொருளின் "
-"மேம்படுத்தல்களை பெற, உங்கள் சேட்டிலைட் இணைய முகப்பில் புகுபதிவு செய்து, இந்த கணினியை "
-"அதற்கான மென்பொருள் தடங்களில் சந்தாப்படுத்தி அதற்கான மேம்படுத்தல்களை பெறவும். Kbase "
-"article 11313 இல் மேலும் பல விவரங்களை பார்க்கவும். (http://kbase.redhat.com/faq/"
-"docs/DOC-11313)"
+"எச்சரிக்கை: நிறுவப்பட்ட மென்பொருள் இந்த கணினியில் மேலே "
+"பட்டியலிடப்படாவிட்டால், நீங்கள் இந்த மென்பொருளுக்கான மேம்படுத்தல்கள் அல்லது "
+"துணையை பெற முடியாது. நீங்கள் இந்த மென்பொருளின் மேம்படுத்தல்களை பெற, உங்கள் "
+"சேட்டிலைட் இணைய முகப்பில் புகுபதிவு செய்து, இந்த கணினியை அதற்கான மென்பொருள் "
+"தடங்களில் சந்தாப்படுத்தி அதற்கான மேம்படுத்தல்களை பெறவும். Kbase article "
+"11313 இல் மேலும் பல விவரங்களை பார்க்கவும். (http://kbase.redhat.com/faq/docs/"
+"DOC-11313)"
 
-#: ../src/up2date_client/rhnreg_constants.py:184
+#: ../src/up2date_client/rhnreg_constants.py:181
 #, fuzzy, python-format
 msgid ""
 "Warning: %s is not present, could not enable it.\n"
@@ -656,12 +664,12 @@ msgstr ""
 "எச்சரிக்கை: yum-rhn-plugin இல்லை, எனவே செயல்படுத்த முடியவில்லை\n"
 "தானியக்க புதுப்பித்தல்கள் வேலை செய்யாது."
 
-#: ../src/up2date_client/rhnreg_constants.py:186
+#: ../src/up2date_client/rhnreg_constants.py:183
 #, fuzzy, python-format
 msgid "Note: %s has been enabled."
 msgstr "Note: yum-rhn-plugin செயல்படுத்தப்படலாம்."
 
-#: ../src/up2date_client/rhnreg_constants.py:187
+#: ../src/up2date_client/rhnreg_constants.py:184
 #, fuzzy, python-format
 msgid ""
 "Warning: An error occurred during enabling %s.\n"
@@ -672,15 +680,15 @@ msgstr ""
 "yum-rhn-plugin செயல்படுத்தப்படவில்லை.\n"
 "தானியக்க புதுப்பித்தல்கள் வேலை செய்யாது."
 
-#: ../src/up2date_client/rhnreg_constants.py:190
+#: ../src/up2date_client/rhnreg_constants.py:187
 msgid ""
 "You were unable to be subscribed to the following software channels because "
 "there were insufficient subscriptions available in your account:"
 msgstr ""
-"உங்கள் கணக்கில் போதிய சந்தாக்கள் இல்லாததால் நீங்கள் பின்வரும் மென்பொருள் தடங்களில் சந்தாப்படுத்த "
-"முடியாது:"
+"உங்கள் கணக்கில் போதிய சந்தாக்கள் இல்லாததால் நீங்கள் பின்வரும் மென்பொருள் "
+"தடங்களில் சந்தாப்படுத்த முடியாது:"
 
-#: ../src/up2date_client/rhnreg_constants.py:194
+#: ../src/up2date_client/rhnreg_constants.py:191
 msgid ""
 "This system was unable to subscribe to any software channels. Your system "
 "will not receive any software updates to keep it secure and supported. "
@@ -690,44 +698,44 @@ msgid ""
 "to software channels via the software > software channels tab."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:200
+#: ../src/up2date_client/rhnreg_constants.py:197
 msgid "Service Level:"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:201
+#: ../src/up2date_client/rhnreg_constants.py:198
 msgid ""
 "Depending on what Red Hat Satellite modules are associated with a system, "
 "you'll enjoy different benefits. The following are the Red Hat Satellite "
 "modules associated with this system:"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:205
+#: ../src/up2date_client/rhnreg_constants.py:202
 msgid ""
 "This system was unable to be associated with the following RHN module(s) "
 "because there were insufficient subscriptions available in your account:"
 msgstr ""
-"இந்த கணினி பின்வரும் RHN தொகுதி(களுடன்) தொடர்புடையதாக இல்லை ஏனெனில் உங்கள் கணக்கில் "
-"போதிய சந்தாக்கள் இல்லை:"
+"இந்த கணினி பின்வரும் RHN தொகுதி(களுடன்) தொடர்புடையதாக இல்லை ஏனெனில் உங்கள் "
+"கணக்கில் போதிய சந்தாக்கள் இல்லை:"
 
-#: ../src/up2date_client/rhnreg_constants.py:208
+#: ../src/up2date_client/rhnreg_constants.py:205
 #, fuzzy
 msgid ""
 "Management module: automatic updates, systems grouping, systems permissions, "
 "system package profiling, bare-metal provisioning, existing state "
 "provisioning, rollbacks, configuration management"
 msgstr ""
-"மேலாண்மை தொகுதிகள்: தானியக்க மேம்படுத்தல்கள், கணினி குழுப்படுத்தல், கணினிகள் அனுமதிகள், "
-"கணினி தொகுப்பு விவரக்குறிப்பிடல்"
+"மேலாண்மை தொகுதிகள்: தானியக்க மேம்படுத்தல்கள், கணினி குழுப்படுத்தல், கணினிகள் "
+"அனுமதிகள், கணினி தொகுப்பு விவரக்குறிப்பிடல்"
 
-#: ../src/up2date_client/rhnreg_constants.py:213
+#: ../src/up2date_client/rhnreg_constants.py:210
 msgid ""
 "Virtualization module: software updates for a limited number of virtual "
 "guests on this system."
 msgstr ""
-"மெய்நிகராக்க தொகுதி: மென்பொருள் மேம்படுத்தல்கள் இந்த கணினியில் வரையறுக்கப்பட்ட மெய்நிகர் "
-"விருந்தினர்களையே கொண்டுள்ளது."
+"மெய்நிகராக்க தொகுதி: மென்பொருள் மேம்படுத்தல்கள் இந்த கணினியில் "
+"வரையறுக்கப்பட்ட மெய்நிகர் விருந்தினர்களையே கொண்டுள்ளது."
 
-#: ../src/up2date_client/rhnreg_constants.py:217
+#: ../src/up2date_client/rhnreg_constants.py:214
 #, fuzzy
 msgid ""
 "<b>Warning:</b> Any guest systems you create on this system and register to "
@@ -737,14 +745,14 @@ msgid ""
 "in RHN's web interface if you do not want virtual guests of this system to "
 "consume additional subscriptions."
 msgstr ""
-"<b>எச்சரிக்கை:</b> இந்த கணினியில் உருவாக்கப்பட்ட எந்த விருந்தினர் கணினிகளும் RHNஇல் "
-"பதிவு செய்யப்பட்டது Red Hat Enterprise Linux சந்தாவில் இந்த புரவலன் கணினியையும் "
-"தாண்டி எடுத்துக்கொள்ளப்படும். அதற்கு நீங்கள்: (1) மெய்நிகராக்கம் அல்லது மெய்நிகராக்க தள "
-"கணினி உரிமத்தை அளிக்க வேண்டும் மற்றும் (2) இந்த கணினியில் மெய்நிகர் விருந்தினர் கணினிக்கு "
-"கூடுதல் சந்தாவை சேர்க்க வேண்டாம் எனில் RHNனின் இணைய முகப்பில் இந்த கணினி உரிமத்தை "
-"செயல்படுத்த வேண்டும்."
+"<b>எச்சரிக்கை:</b> இந்த கணினியில் உருவாக்கப்பட்ட எந்த விருந்தினர் கணினிகளும் "
+"RHNஇல் பதிவு செய்யப்பட்டது Red Hat Enterprise Linux சந்தாவில் இந்த புரவலன் "
+"கணினியையும் தாண்டி எடுத்துக்கொள்ளப்படும். அதற்கு நீங்கள்: (1) மெய்நிகராக்கம் "
+"அல்லது மெய்நிகராக்க தள கணினி உரிமத்தை அளிக்க வேண்டும் மற்றும் (2) இந்த "
+"கணினியில் மெய்நிகர் விருந்தினர் கணினிக்கு கூடுதல் சந்தாவை சேர்க்க வேண்டாம் "
+"எனில் RHNனின் இணைய முகப்பில் இந்த கணினி உரிமத்தை செயல்படுத்த வேண்டும்."
 
-#: ../src/up2date_client/rhnreg_constants.py:225
+#: ../src/up2date_client/rhnreg_constants.py:222
 msgid ""
 "This system was unable to be associated with any RHN service level modules. "
 "This system will not receive any software updates to keep it secure and "
@@ -754,7 +762,7 @@ msgid ""
 "profile, and re-connect this system to Red Hat Satellite."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:232
+#: ../src/up2date_client/rhnreg_constants.py:229
 #, python-format
 msgid ""
 "Universal default activation key detected\n"
@@ -769,17 +777,17 @@ msgid ""
 msgstr ""
 
 #. Error Messages.
-#: ../src/up2date_client/rhnreg_constants.py:244
+#: ../src/up2date_client/rhnreg_constants.py:241
 msgid "Fatal Error"
 msgstr "முக்கிய பிழை"
 
-#: ../src/up2date_client/rhnreg_constants.py:245
-#: ../src/up2date_client/rhnregGui.py:163
-#: ../src/up2date_client/rhnregGui.py:177
+#: ../src/up2date_client/rhnreg_constants.py:242
+#: ../src/up2date_client/rhnregGui.py:156
+#: ../src/up2date_client/rhnregGui.py:170
 msgid "Warning"
 msgstr "எச்சரிக்கை"
 
-#: ../src/up2date_client/rhnreg_constants.py:246
+#: ../src/up2date_client/rhnreg_constants.py:243
 #, fuzzy, python-format
 msgid ""
 "We can't contact the Red Hat Satellite.\n"
@@ -799,23 +807,24 @@ msgstr ""
 "\n"
 "இந்த கணினியிலுள்ள பிணைய இணைப்பு செயல்படுகிறதா.\n"
 "\n"
-"இந்த கணினி வெற்றிகரமாக Red Hat இலிருந்து Red Hat Network ஐ இணைக்காமல் மென்பொருள் "
-"மேம்படுத்தல்களை பெற முடியாது"
+"இந்த கணினி வெற்றிகரமாக Red Hat இலிருந்து Red Hat Network ஐ இணைக்காமல் "
+"மென்பொருள் மேம்படுத்தல்களை பெற முடியாது"
 
-#: ../src/up2date_client/rhnreg_constants.py:253
+#: ../src/up2date_client/rhnreg_constants.py:250
 #, python-format
 msgid "Architecture: %s, OS Release: %s, OS Version: %s"
 msgstr "வடிவமைப்பு: %s, OS வெளியீடு: %s, OS பதிப்பு: %s"
 
-#: ../src/up2date_client/rhnreg_constants.py:255
+#: ../src/up2date_client/rhnreg_constants.py:252
 msgid ""
 "This server doesn't support functionality needed by this version of the "
 "software update setup client. Please try again with a newer server."
 msgstr ""
-"இந்த சேவையகம் மென்பொருள் மேம்படுத்தல் அமைவு கிளையறின் இந்த பதிப்பால் தேவைப்படும் "
-"செயல்பாட்டுக்கு துணைபுரியவில்லை. ஒரு புதிய சேவையகத்துடன் மீண்டும் முயற்சிக்கவும்."
+"இந்த சேவையகம் மென்பொருள் மேம்படுத்தல் அமைவு கிளையறின் இந்த பதிப்பால் "
+"தேவைப்படும் செயல்பாட்டுக்கு துணைபுரியவில்லை. ஒரு புதிய சேவையகத்துடன் "
+"மீண்டும் முயற்சிக்கவும்."
 
-#: ../src/up2date_client/rhnreg_constants.py:261
+#: ../src/up2date_client/rhnreg_constants.py:258
 #, fuzzy, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
@@ -829,14 +838,14 @@ msgid ""
 msgstr ""
 "<b><span size=\"16000\">சரியில்லாத சான்றிதழ் கோப்பு</span></b>\n"
 "\n"
-"நீங்கள் கொடுத்த சான்றிதழ், <b>%s</b>, Red Hat Network சேவையகத்திற்கு <b>%s</b>இல் "
-"சரியில்லாமல் உள்ளது. நீங்கள் சரியான சான்றிதழ் கோப்பு கொடுத்துள்ளீர்கள் என்பதை இருமுறை "
-"சரிபார்க்கவும். நீங்கள் சரியான சான்றிதழை கொடுத்துள்ளீர்களா மற்றும் இந்த சான்றிதழ் கோப்பு "
-"அழிக்கப்பட்டுள்ளதா?\n"
+"நீங்கள் கொடுத்த சான்றிதழ், <b>%s</b>, Red Hat Network சேவையகத்திற்கு <b>%s</"
+"b>இல் சரியில்லாமல் உள்ளது. நீங்கள் சரியான சான்றிதழ் கோப்பு கொடுத்துள்ளீர்கள் "
+"என்பதை இருமுறை சரிபார்க்கவும். நீங்கள் சரியான சான்றிதழை கொடுத்துள்ளீர்களா "
+"மற்றும் இந்த சான்றிதழ் கோப்பு அழிக்கப்பட்டுள்ளதா?\n"
 "\n"
 "வேறு சான்றிதழ் கோப்புடன் மீண்டும் முயற்சிக்கவும்."
 
-#: ../src/up2date_client/rhnreg_constants.py:269
+#: ../src/up2date_client/rhnreg_constants.py:266
 msgid ""
 "<b><span size=\"12000\">Incompatible Certificate File</span></b>\n"
 "\n"
@@ -845,10 +854,10 @@ msgid ""
 msgstr ""
 "<b><span size=\"12000\">உகந்ததில்லாத சான்றிதழ் கோப்பு</span></b>\n"
 "\n"
-" சான்றிதழ் காலாவதியானது. சரியாட சான்றிழை கொண்டு சரியான கணினி நேரத்தை கொண்டுள்ளீர்கள் "
-"என்பதை உறுதிப்படுத்தவும்."
+" சான்றிதழ் காலாவதியானது. சரியாட சான்றிழை கொண்டு சரியான கணினி நேரத்தை "
+"கொண்டுள்ளீர்கள் என்பதை உறுதிப்படுத்தவும்."
 
-#: ../src/up2date_client/rhnreg_constants.py:273
+#: ../src/up2date_client/rhnreg_constants.py:270
 msgid ""
 "Please verify the values of sslCACert and serverURL in /etc/sysconfig/rhn/"
 "up2date. You can either make the serverURL use http instead of https, or you "
@@ -856,7 +865,7 @@ msgid ""
 "and ensure sslCACert points to it."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:279
+#: ../src/up2date_client/rhnreg_constants.py:276
 msgid ""
 "Problem registering system.\n"
 "\n"
@@ -869,32 +878,34 @@ msgid ""
 msgstr ""
 "கணினியை பதிவு செய்வதில் பி.\n"
 "\n"
-"ஒரு பொதுவான முன்னிருப்பு செயல்படுத்தும் குறியீடு உங்கள் புகுபதிவுடன் தொடர்புடைய RHN "
-"நிறுவனத்துடன் இணைக்கும் போது கணினிகளின் எண்ணிக்கையை வரைமுறைப்படுத்துகிறது. உங்கள் RHN "
-"நிறுவன நிர்வாகியை தொடர்பு கொண்டு இணைப்பில் கணினிகளின் எண்ணிக்கை உயர்த்த அறிவுறுத்தவும் "
-"அல்லது இந்த பொதுவான முன்னிருப்பு செயல்படுத்தும் குறியீட்டை செயல்நீக்கவும். மேலும் தகவல்கள் "
-"Red Hat Knowledgebase Article #7924 ஐ http://kbase.redhat.com/faq/"
-"FAQ_61_7924.shtm இல் பார்க்கலாம்"
+"ஒரு பொதுவான முன்னிருப்பு செயல்படுத்தும் குறியீடு உங்கள் புகுபதிவுடன் "
+"தொடர்புடைய RHN நிறுவனத்துடன் இணைக்கும் போது கணினிகளின் எண்ணிக்கையை "
+"வரைமுறைப்படுத்துகிறது. உங்கள் RHN நிறுவன நிர்வாகியை தொடர்பு கொண்டு இணைப்பில் "
+"கணினிகளின் எண்ணிக்கை உயர்த்த அறிவுறுத்தவும் அல்லது இந்த பொதுவான முன்னிருப்பு "
+"செயல்படுத்தும் குறியீட்டை செயல்நீக்கவும். மேலும் தகவல்கள் Red Hat "
+"Knowledgebase Article #7924 ஐ http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+"இல் பார்க்கலாம்"
 
-#: ../src/up2date_client/rhnreg_constants.py:292
-msgid ""
-"\n"
+#: ../src/up2date_client/rhnreg_constants.py:289
+msgid "\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
 msgstr ""
 "\n"
-" துணைக்கு: '*' உடன் உள்ள சிறிய வெளியீடுகள் தற்போது Red Hatஆல் துணைபுரியப்படுகிறது.\n"
+" துணைக்கு: '*' உடன் உள்ள சிறிய வெளியீடுகள் தற்போது Red Hatஆல் "
+"துணைபுரியப்படுகிறது.\n"
 "\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:295
+#: ../src/up2date_client/rhnreg_constants.py:292
 msgid ""
 "Warning:You will not be able to limit this system to minor release that is "
 "older than the recent minor release if you select this option.\n"
 msgstr ""
-"எச்சரிக்கை: இந்த விருப்பத்தை தேர்ந்தெடுத்தால் நீங்கள் இந்த கணினி ஒரு சிறிய வெளியீடு அது "
-"மிக சமீபத்திய சிறிய வெளியீட்டை விட பழையது என வரம்பை அமைக்க முடியாது.\n"
+"எச்சரிக்கை: இந்த விருப்பத்தை தேர்ந்தெடுத்தால் நீங்கள் இந்த கணினி ஒரு சிறிய "
+"வெளியீடு அது மிக சமீபத்திய சிறிய வெளியீட்டை விட பழையது என வரம்பை அமைக்க "
+"முடியாது.\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:300
+#: ../src/up2date_client/rhnreg_constants.py:297
 #, python-format
 msgid ""
 "Your system will be subscribed to %s \n"
@@ -910,188 +921,193 @@ msgstr ""
 "நீங்கள் தொடர விரும்புகிறீர்களா?"
 
 #. Navigation
-#: ../src/up2date_client/rhnreg_constants.py:309
-#: ../src/up2date_client/tui.py:540
+#: ../src/up2date_client/rhnreg_constants.py:306
+#: ../src/up2date_client/tui.py:539
 msgid "OK"
 msgstr "சரி"
 
-#: ../src/up2date_client/rhnreg_constants.py:310
-#: ../src/up2date_client/tui.py:540
+#: ../src/up2date_client/rhnreg_constants.py:307
+#: ../src/up2date_client/tui.py:539
 msgid "Error"
 msgstr "பிழை"
 
-#: ../src/up2date_client/rhnreg_constants.py:311
+#: ../src/up2date_client/rhnreg_constants.py:308
 msgid "Next"
 msgstr "அடுத்து"
 
-#: ../src/up2date_client/rhnreg_constants.py:312
+#: ../src/up2date_client/rhnreg_constants.py:309
 msgid "Back"
 msgstr "பின்னோக்கு"
 
-#: ../src/up2date_client/rhnreg_constants.py:313
+#: ../src/up2date_client/rhnreg_constants.py:310
 msgid "Cancel"
 msgstr "ரத்து"
 
-#: ../src/up2date_client/rhnreg_constants.py:314
+#: ../src/up2date_client/rhnreg_constants.py:311
 #: ../data/rh_register.glade.h:110
 msgid "No, Cancel"
 msgstr "இல்லை, ரத்து செய்யவும்"
 
-#: ../src/up2date_client/rhnreg_constants.py:315
+#: ../src/up2date_client/rhnreg_constants.py:312
 #: ../data/rh_register.glade.h:112
 msgid "Yes, Continue"
 msgstr "ஆம், தொடரவும்"
 
-#: ../src/up2date_client/rhnreg_constants.py:316
+#: ../src/up2date_client/rhnreg_constants.py:313
 msgid "Press <space> to deselect the option."
 msgstr "<space>ஐ அழுத்தி விருப்பத்தை தேர்வு நீக்கவும்."
 
-#: ../src/up2date_client/rhnregGui.py:153
-#: ../src/up2date_client/rhnregGui.py:170
+#: ../src/up2date_client/rhnregGui.py:146
+#: ../src/up2date_client/rhnregGui.py:163
 msgid "Notice"
 msgstr "அறிவிப்பு"
 
-#: ../src/up2date_client/rhnregGui.py:278
+#: ../src/up2date_client/rhnregGui.py:271
 msgid "There was an error while applying your choice."
 msgstr "உங்கள் விருப்பத்தை செயல்படுத்தும் போது ஒரு பிழை ஏற்பட்டது."
 
-#: ../src/up2date_client/rhnregGui.py:297
+#: ../src/up2date_client/rhnregGui.py:290
 msgid "You specified an invalid protocol. Only https and http are allowed."
 msgstr ""
-"நீங்கள் தவறான நெறிமுறையை குறிப்பிட்டுள்ளீர்கள். https மற்றும் http ஆகியவை மட்டுமே "
-"அனுமதிக்கப்படும்."
+"நீங்கள் தவறான நெறிமுறையை குறிப்பிட்டுள்ளீர்கள். https மற்றும் http ஆகியவை "
+"மட்டுமே அனுமதிக்கப்படும்."
 
-#: ../src/up2date_client/rhnregGui.py:311
+#: ../src/up2date_client/rhnregGui.py:304
 #, fuzzy
 msgid ""
 "You will not be able to successfully register this system without contacting "
 "a Spacewalk server."
 msgstr ""
-"இந்த கணினியை Red Hat Network சேவையகத்துடன் தொடர்பு கொள்ளாமல் பதிவு செய்ய முடியாது."
+"இந்த கணினியை Red Hat Network சேவையகத்துடன் தொடர்பு கொள்ளாமல் பதிவு செய்ய "
+"முடியாது."
 
-#: ../src/up2date_client/rhnregGui.py:331
+#: ../src/up2date_client/rhnregGui.py:324
 msgid "Cannot contact selected server"
 msgstr "தேர்ந்தெடுக்கப்பட்ட சேவையகத்தை தொடர்புகொள்ள முடியவில்லை"
 
-#: ../src/up2date_client/rhnregGui.py:332
+#: ../src/up2date_client/rhnregGui.py:325
 #, python-format
 msgid "We could not contact the Satellite or Proxy at '%s.'"
 msgstr "'%s.' இல் நாம் சேட்டிலைட் அல்லது பதிலாளை தொடர்பு கொள்ள முடியாது"
 
-#: ../src/up2date_client/rhnregGui.py:334
+#: ../src/up2date_client/rhnregGui.py:327
 #, python-format
 msgid ""
 "Double-check the location - is '%s' correct? If not, you can correct it and "
 "try again."
 msgstr ""
-"'%s' இடம் சரியா என இருமுறை சரிபார்க்க வேண்டுமா? இல்லையெனில், அதனை சரி செய்து மீண்டும் "
-"முயற்சிக்கவும்."
+"'%s' இடம் சரியா என இருமுறை சரிபார்க்க வேண்டுமா? இல்லையெனில், அதனை சரி செய்து "
+"மீண்டும் முயற்சிக்கவும்."
 
-#: ../src/up2date_client/rhnregGui.py:337
+#: ../src/up2date_client/rhnregGui.py:330
 msgid "Make sure the network connection on this system is operational."
-msgstr "இந்த கணினியிலுள்ள பிணைய இணைப்பு செயல்பாட்டில் உள்ளது என உறுதிபடுத்தவும்."
+msgstr ""
+"இந்த கணினியிலுள்ள பிணைய இணைப்பு செயல்பாட்டில் உள்ளது என உறுதிபடுத்தவும்."
 
-#: ../src/up2date_client/rhnregGui.py:347
+#: ../src/up2date_client/rhnregGui.py:340
 #, fuzzy
 msgid "There was an error communicating with Spacewalk server."
 msgstr "Red Hat Network உடன் தொடர்பு கொள்ளும் போது ஒரு பிழை."
 
-#: ../src/up2date_client/rhnregGui.py:348
-msgid "The server may be in outage mode. You may have to try connecting later."
-msgstr "சேவையகம் செயலற்ற முறையில் இருக்கலாம். நீங்கள் பின்னர் இணைக்க முயற்சிக்கலாம்."
+#: ../src/up2date_client/rhnregGui.py:341
+msgid ""
+"The server may be in outage mode. You may have to try connecting later."
+msgstr ""
+"சேவையகம் செயலற்ற முறையில் இருக்கலாம். நீங்கள் பின்னர் இணைக்க முயற்சிக்கலாம்."
 
-#: ../src/up2date_client/rhnregGui.py:350
+#: ../src/up2date_client/rhnregGui.py:343
 msgid "You may be running a client that is incompatible with the server."
 msgstr "நீங்கள் இயக்கும் கிளையன் சேவையகத்துடன் உகந்ததாக இல்லாமல் இருக்கலாம்."
 
-#: ../src/up2date_client/rhnregGui.py:383
+#: ../src/up2date_client/rhnregGui.py:376
 #, fuzzy, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Spacewalk server:"
 msgstr ""
-"உங்கள் <b>%s</b> Red Hat Network சேட்டிலைட்டிற்கு உங்கள் கணக்கு விவரங்களை உள்ளிடவும்:"
+"உங்கள் <b>%s</b> Red Hat Network சேட்டிலைட்டிற்கு உங்கள் கணக்கு விவரங்களை "
+"உள்ளிடவும்:"
 
-#: ../src/up2date_client/rhnregGui.py:422
+#: ../src/up2date_client/rhnregGui.py:415
 msgid "You must enter a login."
 msgstr "ஒரு புகுபதிவை உள்ளிட வேண்டும்."
 
-#: ../src/up2date_client/rhnregGui.py:428
+#: ../src/up2date_client/rhnregGui.py:421
 msgid "You must enter a password."
 msgstr "நீங்கள் கடவுச்சொல்லை உள்ளிட வேண்டும்."
 
-#: ../src/up2date_client/rhnregGui.py:441
+#: ../src/up2date_client/rhnregGui.py:434
 msgid "There was an error while logging in."
 msgstr "புகுபதிவு செய்யும் போது ஒரு பிழை ஏற்பட்டது."
 
-#: ../src/up2date_client/rhnregGui.py:468
+#: ../src/up2date_client/rhnregGui.py:461
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
 msgstr "பதிவு சேவையகத்துடன் தொடர்பு கொள்வதில் ஒரு பிழை.  அதன் செய்தி:\n"
 
-#: ../src/up2date_client/rhnregGui.py:606
+#: ../src/up2date_client/rhnregGui.py:599
 msgid "There was an error while assembling information for the profile."
 msgstr "விவரக்குறிப்புக்கு தகவலை அடுக்கும் போது ஒரு பிழை ஏற்பட்டது."
 
-#: ../src/up2date_client/rhnregGui.py:627
+#: ../src/up2date_client/rhnregGui.py:620
 msgid "Error running hardware profile"
 msgstr "வன்பொருள் விவரக்குறிப்பை இயக்கும் போது பிழை"
 
-#: ../src/up2date_client/rhnregGui.py:657
+#: ../src/up2date_client/rhnregGui.py:650
 msgid "There was an error while populating the profile."
 msgstr "விவரக்குறிப்பை எண்ணும் போது ஒரு பிழை ஏற்பட்டது."
 
-#: ../src/up2date_client/rhnregGui.py:677
+#: ../src/up2date_client/rhnregGui.py:670
 msgid "You must choose a name for this profile."
 msgstr "இந்த விவரக்குறிப்பிற்கு ஒரு பெயரை தேர்ந்தெடுக்க வேண்டும்."
 
-#: ../src/up2date_client/rhnregGui.py:691
+#: ../src/up2date_client/rhnregGui.py:684
 msgid "There was an error while creating the profile."
 msgstr "விவரக்குறிப்பை உருவாக்கும் போது ஒரு பிழை ஏற்பட்டது."
 
-#: ../src/up2date_client/rhnregGui.py:702
+#: ../src/up2date_client/rhnregGui.py:695
 msgid "Registering system and sending profile information.  Please wait."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:721
+#: ../src/up2date_client/rhnregGui.py:714
 msgid "Registering System"
 msgstr "கணினியை பதிவு செய்கிறது"
 
-#: ../src/up2date_client/rhnregGui.py:736
-#: ../src/up2date_client/rhnregGui.py:741
-#: ../src/up2date_client/rhnregGui.py:746
-#: ../src/up2date_client/rhnregGui.py:750 ../src/up2date_client/tui.py:989
-#: ../src/up2date_client/tui.py:993 ../src/up2date_client/tui.py:997
-#: ../src/up2date_client/tui.py:1001
+#: ../src/up2date_client/rhnregGui.py:729
+#: ../src/up2date_client/rhnregGui.py:734
+#: ../src/up2date_client/rhnregGui.py:739
+#: ../src/up2date_client/rhnregGui.py:743 ../src/up2date_client/tui.py:990
+#: ../src/up2date_client/tui.py:994 ../src/up2date_client/tui.py:998
+#: ../src/up2date_client/tui.py:1002
 msgid "Problem registering system:\n"
 msgstr "கணினியை பதிவு செய்வதில் சிக்கல்:\n"
 
-#: ../src/up2date_client/rhnregGui.py:753
+#: ../src/up2date_client/rhnregGui.py:746
 #, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
 msgstr ""
-"கொடுக்கப்பட்ட நிறுவல் எண் [ %s ] சரியானது அல்ல. எனவே முந்தைய திரைக்கு சென்று அதனை "
-"சரியாக உள்ளிடவும்."
+"கொடுக்கப்பட்ட நிறுவல் எண் [ %s ] சரியானது அல்ல. எனவே முந்தைய திரைக்கு சென்று "
+"அதனை சரியாக உள்ளிடவும்."
 
-#: ../src/up2date_client/rhnregGui.py:763 ../src/up2date_client/tui.py:1007
+#: ../src/up2date_client/rhnregGui.py:756 ../src/up2date_client/tui.py:1008
 msgid "Problem registering system."
 msgstr "கணினியை பதிவு செய்வதில் சிக்கல்."
 
-#: ../src/up2date_client/rhnregGui.py:773 ../src/up2date_client/tui.py:1012
+#: ../src/up2date_client/rhnregGui.py:766 ../src/up2date_client/tui.py:1013
 msgid "Problem writing out system id to disk."
 msgstr "கணினியின் அடையாளத்தை வட்டில் எழுதும்போது பிழை"
 
-#: ../src/up2date_client/rhnregGui.py:779
+#: ../src/up2date_client/rhnregGui.py:772
 msgid "There was a problem registering this system."
 msgstr "இந்த கணினியைப் பதிவு செய்வதில் சிக்கல்."
 
-#: ../src/up2date_client/rhnregGui.py:792
+#: ../src/up2date_client/rhnregGui.py:785
 msgid "Sending hardware information"
 msgstr "வன்பொருள் தகவலை அனுப்புகிறது"
 
-#: ../src/up2date_client/rhnregGui.py:797
+#: ../src/up2date_client/rhnregGui.py:790
 msgid "Problem sending hardware information."
 msgstr "வன்பொருள் தகவலை அனுப்புவதில் சிக்கல்."
 
@@ -1099,85 +1115,87 @@ msgstr "வன்பொருள் தகவலை அனுப்புவத�
 #. #                rowData = self.regPackageArea.get_row_data(row)
 #. #                if rowData[0] == 1:
 #. #                    selection.append(rowData[1])
-#. #            print("gh270")
+#. #            print "gh270"
 #. #            selectedPackages = []
 #. #            for pkg in packageList:
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
-#: ../src/up2date_client/rhnregGui.py:821
+#: ../src/up2date_client/rhnregGui.py:814
 msgid "Sending package information"
 msgstr "தொகுப்பு தகவலை அனுப்புகிறது"
 
-#: ../src/up2date_client/rhnregGui.py:826
+#: ../src/up2date_client/rhnregGui.py:819
 msgid "Problem sending package information."
 msgstr "தொகுப்பு பட்டியலை அனுப்புவதில் சிக்கல்."
 
-#: ../src/up2date_client/rhnregGui.py:858 ../src/up2date_client/tui.py:1061
+#: ../src/up2date_client/rhnregGui.py:851 ../src/up2date_client/tui.py:1062
 #, python-format
-msgid ""
-"Could not open %s\n"
+msgid "Could not open %s\n"
 "%s is not enabled.\n"
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:912
+#: ../src/up2date_client/rhnregGui.py:905
 msgid "There was an error while installing the certificate."
 msgstr "சான்றிதழை நிறுவும் போது ஒரு பிழை ஏற்பட்டது."
 
-#: ../src/up2date_client/rhnregGui.py:938
+#: ../src/up2date_client/rhnregGui.py:931
 msgid "You must select a certificate."
 msgstr "நீங்கள் ஒரு சான்றிதழை தேர்ந்தெடுக்க வேண்டும்."
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
-#: ../src/up2date_client/rhnregGui.py:968
+#: ../src/up2date_client/rhnregGui.py:961
 msgid ""
 "There was an SSL error. This could be because the file you picked was not a "
 "certificate file."
-msgstr "அங்கு ஒரு SSL பிழை உள்ளது. ஏனெனில் எடுத்த கோப்பு சான்றிதழ் கோப்பு இல்லை."
+msgstr ""
+"அங்கு ஒரு SSL பிழை உள்ளது. ஏனெனில் எடுத்த கோப்பு சான்றிதழ் கோப்பு இல்லை."
 
 #. TODO Provide better messages
-#: ../src/up2date_client/rhnregGui.py:976
+#: ../src/up2date_client/rhnregGui.py:969
 msgid "Something went wrong while installing the new certificate:\n"
 msgstr "புதிய சான்றிதழை நிறுவும் போது சில தவறுகள் நடந்துள்ளது:\n"
 
-#: ../src/up2date_client/rhnregGui.py:1028
-#: ../src/up2date_client/rhnregGui.py:1029
-#: ../src/up2date_client/rhnregGui.py:1030
+#: ../src/up2date_client/rhnregGui.py:1021
+#: ../src/up2date_client/rhnregGui.py:1022
+#: ../src/up2date_client/rhnregGui.py:1023
 msgid "unknown"
 msgstr "தெரியாதது"
 
-#: ../src/up2date_client/rhnregGui.py:1134
+#: ../src/up2date_client/rhnregGui.py:1127
 msgid "There was an error getting the list of hardware."
 msgstr "வன்பொருள் பட்டியலை எடுக்கும் போது ஒரு பிழை ஏற்பட்டது."
 
-#: ../src/up2date_client/rhnregGui.py:1146 ../src/up2date_client/tui.py:788
+#: ../src/up2date_client/rhnregGui.py:1139 ../src/up2date_client/tui.py:786
 #, python-format
 msgid "%d MHz"
 msgstr "%d MHz"
 
-#: ../src/up2date_client/rhnregGui.py:1150
+#: ../src/up2date_client/rhnregGui.py:1143
 #, python-format
 msgid "%s MB"
 msgstr "%s MB"
 
-#: ../src/up2date_client/rhnregGui.py:1195
+#: ../src/up2date_client/rhnregGui.py:1188
 msgid "There was an error building the list of packages."
 msgstr "தொகுப்புகளின் பட்டியலை உருவாக்கும் போது முக்கிய பிழை ஏற்பட்டது."
 
-#: ../src/up2date_client/rhnregGui.py:1210
+#: ../src/up2date_client/rhnregGui.py:1203
 msgid "Package"
 msgstr "தொகுப்பு"
 
-#: ../src/up2date_client/rhnregGui.py:1215
+#: ../src/up2date_client/rhnregGui.py:1208
 msgid "Arch"
 msgstr "Arch"
 
-#: ../src/up2date_client/rhnregGui.py:1222
-msgid "Building a list of RPM packages installed on your system.  Please wait."
+#: ../src/up2date_client/rhnregGui.py:1215
+msgid ""
+"Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
-"உங்கள் கணினியில் நிறுவப்பட்ட RPM தொகுப்புகளின் பட்டியலை உருவாக்குகிறது.  காத்திருக்கவும்."
+"உங்கள் கணினியில் நிறுவப்பட்ட RPM தொகுப்புகளின் பட்டியலை உருவாக்குகிறது.  "
+"காத்திருக்கவும்."
 
-#: ../src/up2date_client/rhnregGui.py:1253
+#: ../src/up2date_client/rhnregGui.py:1246
 msgid ""
 "There was an error loading your configuration.  Make sure that\n"
 "you have read access to /etc/sysconfig/rhn."
@@ -1185,7 +1203,7 @@ msgstr ""
 "உங்கள் கட்டமைப்பை ஏற்று போது பிழை. /etc/sysconfig/rhn ஐ \n"
 "வாசிக்க அனுமதி உள்ளதா என்பதை உறுதி செய்யவும்."
 
-#: ../src/up2date_client/rhnregGui.py:1295
+#: ../src/up2date_client/rhnregGui.py:1288
 #, python-format
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
@@ -1194,163 +1212,164 @@ msgstr ""
 "உங்கள் கட்டமைப்பை சேமிக்கும் போது பிழை. %s உங்களுடையதா\n"
 "என்பதை உறுதிப்படுத்தவும்."
 
-#: ../src/up2date_client/rhnregGui.py:1325
+#: ../src/up2date_client/rhnregGui.py:1318
 #, python-format
 msgid ""
 "This error shouldn't have happened. If you'd like to help us improve this "
 "program, please file a bug at bugzilla.redhat.com. Including the relevant "
 "parts of '%s' would be very helpful. Thanks!"
 msgstr ""
-"இந்த பிழை வரக்கூடாது. நீங்கள் இந்த நிரலை மேம்படுத்த எங்களுக்கு உதவி எண்ணினால், bugzilla."
-"redhat.com இல் ஒரு பிழையை '%s' உடன் அறிக்கையிட்டால் உதவியாக இருக்கும். நன்றி!"
+"இந்த பிழை வரக்கூடாது. நீங்கள் இந்த நிரலை மேம்படுத்த எங்களுக்கு உதவி "
+"எண்ணினால், bugzilla.redhat.com இல் ஒரு பிழையை '%s' உடன் அறிக்கையிட்டால் "
+"உதவியாக இருக்கும். நன்றி!"
 
-#: ../src/up2date_client/rhnreg.py:75
+#: ../src/up2date_client/rhnreg.py:59
 #, fuzzy
 msgid "Warning: unable to enable rhnsd with systemd"
 msgstr "எச்சரிக்கை: rhnsd யை chkconfig உடன் செயல்படுத்த முடியவில்லை"
 
-#: ../src/up2date_client/rhnreg.py:81
+#: ../src/up2date_client/rhnreg.py:65
 msgid "Warning: unable to enable rhnsd with chkconfig"
 msgstr "எச்சரிக்கை: rhnsd யை chkconfig உடன் செயல்படுத்த முடியவில்லை"
 
-#: ../src/up2date_client/rpcServer.py:56
+#: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
 msgstr "பிழை: சேவையகம் இல்லை. பின்னர் முயற்சிக்கவும்."
 
-#: ../src/up2date_client/rpcServer.py:179
+#: ../src/up2date_client/rpcServer.py:168
 msgid "ERROR: can not find RHNS CA file"
 msgstr "ERROR: RHNS CA கோப்பினை காணவில்லை"
 
-#: ../src/up2date_client/rpcServer.py:217
+#: ../src/up2date_client/rpcServer.py:206
 msgid "Connection aborted by the user"
 msgstr "இணைப்பு பயனரால் நிறுத்தப்பட்டது"
 
-#: ../src/up2date_client/rpcServer.py:265
+#: ../src/up2date_client/rpcServer.py:252
 msgid "Server has refused connection due to high load"
 msgstr "அதிக சுமையால் சேவையகம் இணைப்பை நிராகரித்தது"
 
-#: ../src/up2date_client/tui.py:137
+#: ../src/up2date_client/tui.py:136
 #, fuzzy
 msgid "Spacewalk Location:"
 msgstr "Red Hat Network இடம்:"
 
-#: ../src/up2date_client/tui.py:139
+#: ../src/up2date_client/tui.py:138
 msgid "System ID:"
 msgstr "கணினி ID:"
 
-#: ../src/up2date_client/tui.py:540
+#: ../src/up2date_client/tui.py:539
 msgid "The server indicated an error:\n"
 msgstr "சேவையகம் ஒரு பிழையை காட்டியது:\n"
 
-#: ../src/up2date_client/tui.py:545
+#: ../src/up2date_client/tui.py:544
 msgid "There was an error communicating with the registration server:\n"
 msgstr "பதிவு சேவையகத்துடன் தொடர்பு கொள்வதில் ஒரு பிழை:\n"
 
-#: ../src/up2date_client/tui.py:737
+#: ../src/up2date_client/tui.py:735
 msgid "Profile name:"
 msgstr "விவரக்குறிப்பு பெயர்:"
 
-#: ../src/up2date_client/tui.py:759 ../src/up2date_client/tui.py:760
+#: ../src/up2date_client/tui.py:757 ../src/up2date_client/tui.py:758
 msgid "Version: "
 msgstr "பதிப்பு: "
 
-#: ../src/up2date_client/tui.py:766
+#: ../src/up2date_client/tui.py:764
 msgid "CPU model: "
 msgstr "CPU மாதிரி: "
 
-#: ../src/up2date_client/tui.py:772
+#: ../src/up2date_client/tui.py:770
 msgid "Hostname: "
 msgstr "புரவலன் பெயர்: "
 
-#: ../src/up2date_client/tui.py:784
+#: ../src/up2date_client/tui.py:782
 msgid "CPU speed: "
 msgstr "CPU வேகம்: "
 
-#: ../src/up2date_client/tui.py:790
+#: ../src/up2date_client/tui.py:788
 msgid "IP Address: "
 msgstr "IP முகவரி: "
 
-#: ../src/up2date_client/tui.py:799
+#: ../src/up2date_client/tui.py:797
 msgid "Memory: "
 msgstr "நினைவகம்: "
 
-#: ../src/up2date_client/tui.py:803
+#: ../src/up2date_client/tui.py:801
 #, python-format
 msgid "%s megabytes"
 msgstr "%s மெகாபைட்கள்"
 
-#: ../src/up2date_client/tui.py:1028
+#: ../src/up2date_client/tui.py:1029
 msgid "Problem sending hardware profile:\n"
 msgstr "வன்பொருள் விவரக்குறிப்பை அனுப்புவதில் சிக்கல்:\n"
 
-#: ../src/up2date_client/tui.py:1032
+#: ../src/up2date_client/tui.py:1033
 msgid "Problem sending hardware profile."
 msgstr "வன்பொருள் விவரக்குறிப்பை அனுப்புவதில் சிக்கல்."
 
-#: ../src/up2date_client/tui.py:1042
+#: ../src/up2date_client/tui.py:1043
 msgid "Problem sending package list:\n"
 msgstr "தொகுப்பு பட்டியலை அனுப்புவதில் சிக்கல்:\n"
 
-#: ../src/up2date_client/tui.py:1045
+#: ../src/up2date_client/tui.py:1046
 msgid "Problem sending package list."
 msgstr "தொகுப்பு பட்டியலை அனுப்புவதில் பிழை."
 
-#: ../src/up2date_client/tui.py:1099
+#: ../src/up2date_client/tui.py:1100
 msgid "Finish"
 msgstr "முடிவு"
 
-#: ../src/up2date_client/tui.py:1213
+#: ../src/up2date_client/tui.py:1214
 #, fuzzy
 msgid "You specified an invalid protocol.Only https and http are allowed."
 msgstr ""
-"நீங்கள் தவறான நெறிமுறையை குறிப்பிட்டுள்ளீர்கள். https மற்றும் http ஆகியவை மட்டுமே "
-"அனுமதிக்கப்படும்."
+"நீங்கள் தவறான நெறிமுறையை குறிப்பிட்டுள்ளீர்கள். https மற்றும் http ஆகியவை "
+"மட்டுமே அனுமதிக்கப்படும்."
 
-#: ../src/up2date_client/tui.py:1244
+#: ../src/up2date_client/tui.py:1245
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 
-#: ../src/up2date_client/tui.py:1348
+#: ../src/up2date_client/tui.py:1349
 msgid "You must run the RHN registration program as root."
 msgstr "நீங்கள் RHN பதிவு நிரலை ரூட்டாக் இயக்கவேண்டும்."
 
-#: ../src/up2date_client/up2dateErrors.py:44
-#: ../src/up2date_client/up2dateErrors.py:82
+#: ../src/up2date_client/up2dateErrors.py:39
+#: ../src/up2date_client/up2dateErrors.py:78
 #, python-format
 msgid "class %s has no attribute '%s'"
 msgstr "class %s பண்பு '%s'-ஐ கொண்டிருக்கவில்லை"
 
-#: ../src/up2date_client/up2dateErrors.py:108
+#: ../src/up2date_client/up2dateErrors.py:104
 msgid "RPM error.  The message was:\n"
 msgstr "RPM பிழை.  அதன் செய்தி:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:115
+#: ../src/up2date_client/up2dateErrors.py:111
 msgid "Password error. The message was:\n"
 msgstr "கடவுச்சொல் பிழை. அதன் செய்தி:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:119
+#: ../src/up2date_client/up2dateErrors.py:115
 msgid "RPM dependency error. The message was:\n"
 msgstr "RPM சார்பு பிழை. அதன் செய்தி:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:129
+#: ../src/up2date_client/up2dateErrors.py:125
 msgid "Error communicating with server. The message was:\n"
 msgstr "சேவையகத்தோடு தொடர்பு கொள்வதில் பிழை. அதன் செய்தி: \n"
 
-#: ../src/up2date_client/up2dateErrors.py:136
+#: ../src/up2date_client/up2dateErrors.py:132
 msgid "File Not Found: \n"
 msgstr "கோப்பினை காணவில்லை: \n"
 
-#: ../src/up2date_client/up2dateErrors.py:143
+#: ../src/up2date_client/up2dateErrors.py:139
 msgid "Delay error from server.  The message was:\n"
 msgstr "சேவையகத்திடமிருந்து தாமத பிழை. அதன் செய்தி:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:179
+#: ../src/up2date_client/up2dateErrors.py:177
 msgid "Error validating data at server:\n"
 msgstr "சேவையக தகவலை சரிபார்கும் போது பிழை:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:192
+#: ../src/up2date_client/up2dateErrors.py:190
 msgid ""
 "\n"
 "Red Hat Network Classic is not supported.\n"
@@ -1362,19 +1381,19 @@ msgid ""
 "    "
 msgstr ""
 
-#: ../src/up2date_client/up2dateErrors.py:203
+#: ../src/up2date_client/up2dateErrors.py:201
 msgid "The installation number is invalid"
 msgstr "நிறுவல் எண் தவறானது"
 
-#: ../src/up2date_client/up2dateErrors.py:206
+#: ../src/up2date_client/up2dateErrors.py:204
 msgid "Error parsing the oemInfo file at field:\n"
 msgstr "oemInfo கோப்பினை புலத்தில் பகுக்கும்போது பிழை:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:233
+#: ../src/up2date_client/up2dateErrors.py:231
 msgid "Network error: "
 msgstr "நெட்வொர்க் பிழை:"
 
-#: ../src/up2date_client/up2dateErrors.py:301
+#: ../src/up2date_client/up2dateErrors.py:299
 #, fuzzy
 msgid ""
 "\n"
@@ -1398,241 +1417,253 @@ msgid ""
 "    requiring a Management entitlement."
 msgstr ""
 "\n"
-"    இந்த கணினியை Red Hat Network உடன் பதிவு செய்ய போதிய மேலாண்மை உரிமங்களை உங்கள்\n"
-"    நிறுவனம் கொண்டிருக்கவில்லை. உங்கள் நிறுவன நிர்வாகி இந்த பிழையை கொண்டிருப்பார்.\n"
-"    நீங்கள் இந்த கணினியை உங்கள் நிறுவனம் இருக்கும் அல்லது வாங்கிய கூடுதல் உரிமங்களை\n"
-"    வெறுமையாக்கியது பதிவு செய்ய வேண்டும். கூடுதல் உரிமங்கள் உங்கள் நிறுவன நிர்வாகி\n"
-"    Red Hat Network-ஆல் பதிவு செய்து வாங்கப்படலாம் மற்றும் 'சந்தா மேலாண்மை' பக்கத்தில்\n"
+"    இந்த கணினியை Red Hat Network உடன் பதிவு செய்ய போதிய மேலாண்மை உரிமங்களை "
+"உங்கள்\n"
+"    நிறுவனம் கொண்டிருக்கவில்லை. உங்கள் நிறுவன நிர்வாகி இந்த பிழையை "
+"கொண்டிருப்பார்.\n"
+"    நீங்கள் இந்த கணினியை உங்கள் நிறுவனம் இருக்கும் அல்லது வாங்கிய கூடுதல் "
+"உரிமங்களை\n"
+"    வெறுமையாக்கியது பதிவு செய்ய வேண்டும். கூடுதல் உரிமங்கள் உங்கள் நிறுவன "
+"நிர்வாகி\n"
+"    Red Hat Network-ஆல் பதிவு செய்து வாங்கப்படலாம் மற்றும் 'சந்தா மேலாண்மை' "
+"பக்கத்தில்\n"
 "    'உங்கள் RHN' பிரிவில் RHN -இல் பார்க்கலாம்.\n"
 "    \n"
 "    இந்த பிழை ஏற்படுவதற்கான பொதுவான காரணம் தவறாக ஒரு செயல்படுத்தல் விசை "
 "முன்னிருப்பாக\n"
-"   அமைக்கப்பட்டதாகும். ஒரு செயல்படுத்தல் விசை கணக்கில் முன்னிருப்பாக அமைக்கப்பட்டால்\n"
+"   அமைக்கப்பட்டதாகும். ஒரு செயல்படுத்தல் விசை கணக்கில் முன்னிருப்பாக "
+"அமைக்கப்பட்டால்\n"
 "   நீங்கள் இந்த விசையை செயல்நீக்கம் செய்து ஒரு மேலாண்மை உரிமம்\n"
 "   தேவையை தடுத்து மறுமுயற்சி செய்யலாம்."
 
-#: ../src/bin/rhn_check.py:406
+#: ../src/bin/rhn_check.py:394
 msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
 msgstr ""
-"rhn_checkஇன் ஒரு எடுத்துக்காட்டுக்கு மேல் இயக்க முயற்சிக்கிறது. வெளியேறுகிறது.\n"
+"rhn_checkஇன் ஒரு எடுத்துக்காட்டுக்கு மேல் இயக்க முயற்சிக்கிறது. "
+"வெளியேறுகிறது.\n"
 
-#: ../src/bin/rhn-profile-sync.py:38
+#: ../src/bin/rhn-profile-sync.py:35
 msgid ""
 "You need to register this system by running `rhn_register` before using this "
 "option"
 msgstr ""
-"இந்த விருப்பத்தை பயன்படுத்தும் முன் `rhn_register` ஐ இயக்கி இந்த கணினியை பதிவு செய்ய "
-"வேண்டும்"
+"இந்த விருப்பத்தை பயன்படுத்தும் முன் `rhn_register` ஐ இயக்கி இந்த கணினியை "
+"பதிவு செய்ய வேண்டும்"
 
-#: ../src/bin/rhn-profile-sync.py:46
+#: ../src/bin/rhn-profile-sync.py:43
 msgid "Updating package profile..."
 msgstr "தொகுப்பு விவரக்குறிப்பை மேம்படுத்துகிறது..."
 
-#: ../src/bin/rhn-profile-sync.py:49
+#: ../src/bin/rhn-profile-sync.py:46
 msgid "Updating hardware profile..."
 msgstr "வன்பொருள் விவரக்குறிப்பை மேம்படுத்துகிறது..."
 
-#: ../src/bin/rhn-profile-sync.py:53
+#: ../src/bin/rhn-profile-sync.py:50
 msgid "Updating virtualization profile..."
 msgstr "மெய்நிகராக்க விவரக்குறிப்பை மேம்படுத்துகிறது..."
 
-#: ../src/bin/rhn_register.py:40
+#: ../src/bin/rhn_register.py:37
 msgid "Do not attempt to use X"
 msgstr "X யை பயன்படுத்த முயற்சிக்க வேண்டாம்"
 
-#: ../src/bin/rhnreg_ks.py:51
+#: ../src/bin/rhnreg_ks.py:47
 msgid "Specify a profilename"
 msgstr "ஒரு விவரக்குறிப்பு பெயரை குறிப்பிடவும்"
 
-#: ../src/bin/rhnreg_ks.py:53
+#: ../src/bin/rhnreg_ks.py:49
 msgid "Specify a username"
 msgstr "ஒரு பயனர் பெயரை குறிப்பிடவும்"
 
-#: ../src/bin/rhnreg_ks.py:55
+#: ../src/bin/rhnreg_ks.py:51
 msgid "Specify a password"
 msgstr "ஒரு கடவுச்சொல்லை குறிப்பிடவும்"
 
-#: ../src/bin/rhnreg_ks.py:57
+#: ../src/bin/rhnreg_ks.py:53
 msgid "Specify an organizational id for this system"
 msgstr "ஒரு நிறுவன குறியீட்டை இந்த கணினிக்கு குறிப்பிடவும்"
 
-#: ../src/bin/rhnreg_ks.py:59
+#: ../src/bin/rhnreg_ks.py:55
 msgid "Specify a url to use as a server"
 msgstr "சேவையகமாக பயன்படுத்த ஒரு url ஐ குறிப்பிடவும்."
 
-#: ../src/bin/rhnreg_ks.py:61
+#: ../src/bin/rhnreg_ks.py:57
 msgid "Specify a file to use as the ssl CA cert"
 msgstr "ssl CA சான்றிதழாக பயன்படுத்த ஒரு கோப்பினை குறிப்பிடவும்"
 
-#: ../src/bin/rhnreg_ks.py:63
+#: ../src/bin/rhnreg_ks.py:59
 msgid "Specify an activation key"
 msgstr "ஒரு செயல்படுத்தல் விசையை குறிப்பிடவும்"
 
-#: ../src/bin/rhnreg_ks.py:65
+#: ../src/bin/rhnreg_ks.py:61
 msgid ""
 "Subscribe this system to the EUS channel tied to the system's redhat-release"
-msgstr "EUS சேனலுக்கு இந்த கணினியை சந்தாப்படுத்துவது கணினியின் redhat-வெளியீடு ஆகும்"
+msgstr ""
+"EUS சேனலுக்கு இந்த கணினியை சந்தாப்படுத்துவது கணினியின் redhat-வெளியீடு ஆகும்"
 
-#: ../src/bin/rhnreg_ks.py:67
+#: ../src/bin/rhnreg_ks.py:63
 msgid "[Deprecated] Read contact info from stdin"
 msgstr "[நீக்கப்பட்டது] stdin இலிருந்து தொடர்பு தகவலை வாசிக்கவும்"
 
-#: ../src/bin/rhnreg_ks.py:69
+#: ../src/bin/rhnreg_ks.py:65
 msgid "Do not probe or upload any hardware info"
 msgstr "எந்த வன்பொருள் தகவலையும் ஆய்வு அல்லது ஏற்ற வேண்டாம்"
 
-#: ../src/bin/rhnreg_ks.py:71
+#: ../src/bin/rhnreg_ks.py:67
 msgid "Do not profile or upload any package info"
 msgstr "எந்த தொகுப்பு தகவலையும் விவரக்குறிப்பிட அல்லது ஏற்ற வேண்டாம்"
 
-#: ../src/bin/rhnreg_ks.py:73
+#: ../src/bin/rhnreg_ks.py:69
 msgid "Do not upload any virtualization info"
 msgstr "எந்த மெய்நிகராக்க தகவலையும் ஏற்ற வேண்டாம்"
 
-#: ../src/bin/rhnreg_ks.py:75
+#: ../src/bin/rhnreg_ks.py:71
 msgid "Do not start rhnsd after completion"
 msgstr "முடிந்தவுடன் rhnsd ஐ ஆரம்பிக்க வேண்டாம்"
 
-#: ../src/bin/rhnreg_ks.py:77
+#: ../src/bin/rhnreg_ks.py:73
 msgid "Register the system even if it is already registered"
 msgstr "கணினி ஏற்கனவே பதிவு செய்யப்பட்டாலும் பதிவு செய்யவும்"
 
-#: ../src/bin/rhnreg_ks.py:87
+#: ../src/bin/rhnreg_ks.py:83
 msgid "A username and password are required to register a system."
 msgstr ""
-"ஒரு பயனர் பெயர், கடவுச்சொல் மற்றும் மின்னஞ்சல் முகவரி கணினியை பதிவு செய்ய தேவையாகும்."
+"ஒரு பயனர் பெயர், கடவுச்சொல் மற்றும் மின்னஞ்சல் முகவரி கணினியை பதிவு செய்ய "
+"தேவையாகும்."
 
-#: ../src/bin/rhnreg_ks.py:92
+#: ../src/bin/rhnreg_ks.py:88
 msgid "This system is already registered. Use --force to override"
-msgstr "இந்த கணினி ஏற்கனவே பதிவு செய்யப்பட்டது. --force ஐ பயன்படுத்தி மேலாணை செய்யவும்"
+msgstr ""
+"இந்த கணினி ஏற்கனவே பதிவு செய்யப்பட்டது. --force ஐ பயன்படுத்தி மேலாணை "
+"செய்யவும்"
 
-#: ../src/bin/rhnreg_ks.py:126
+#: ../src/bin/rhnreg_ks.py:122
 msgid ""
 "Usage of --use-eus-channel option with --activationkey is not supported. "
 "Please use username and password instead."
 msgstr ""
-"--use-eus-channel விருப்பத்தை  --activationkey உடன் பயன்படுத்து துணைபுரியவில்லை. "
-"அதற்கு பதிலாக பயனர் பெயர் மற்றும் கடவுச்சொல்லை பயன்படுத்தவும்."
+"--use-eus-channel விருப்பத்தை  --activationkey உடன் பயன்படுத்து "
+"துணைபுரியவில்லை. அதற்கு பதிலாக பயனர் பெயர் மற்றும் கடவுச்சொல்லை "
+"பயன்படுத்தவும்."
 
-#: ../src/bin/rhnreg_ks.py:129
+#: ../src/bin/rhnreg_ks.py:125
 msgid "The server you are registering against does not support EUS."
 msgstr "நீங்கள் பதிவு செய்த சேவையகம் EUSக்கு துணைபுரியாது."
 
-#: ../src/bin/rhnreg_ks.py:155
+#: ../src/bin/rhnreg_ks.py:151
 msgid ""
 "Warning: --contactinfo option has been deprecated. Please login to the "
 "server web user Interface and update your contactinfo. "
 msgstr ""
-"எச்சரிக்கை: --contactinfo விருப்பம் நீக்கப்பட்டது. சேவையக வலை பயனர் முகப்பிற்கு "
-"புகுபதிவு செய்து உங்கள் தொடர்பு தகவலை புதுப்பிக்கவும். "
+"எச்சரிக்கை: --contactinfo விருப்பம் நீக்கப்பட்டது. சேவையக வலை பயனர் "
+"முகப்பிற்கு புகுபதிவு செய்து உங்கள் தொடர்பு தகவலை புதுப்பிக்கவும். "
 
-#: ../src/bin/rhnreg_ks.py:176
+#: ../src/bin/rhnreg_ks.py:175
 #, fuzzy, python-format
 msgid "Warning: %s is not present, could not enable it."
 msgstr "எச்சரிக்கை: yum-rhn-plugin இல்லை, எனவே செயல்படுத்த முடியவில்லை."
 
-#: ../src/bin/rhnreg_ks.py:179
+#: ../src/bin/rhnreg_ks.py:178
 #, fuzzy, python-format
-msgid ""
-"Warning: Could not open %s\n"
+msgid "Warning: Could not open %s\n"
 "%s is not enabled.\n"
 msgstr ""
 "எச்சரிக்கை: /etc/yum/pluginconf.d/rhnplugin.conf-ஐ திறக்க முடியவில்லை\n"
 "yum-rhn-plugin செயல்படுத்தவில்லை.\n"
 
-#: ../src/bin/rhnreg_ks.py:201
+#: ../src/bin/rhnreg_ks.py:200
 msgid ""
 "A profilename was not specified, and hostname and IP address could not be "
 "determined to use as a profilename, please specify one."
 msgstr ""
-"ஒரு விவரக்குறிப்பு பெயர் குறிப்பிடவில்லை, மற்றும் புரவலன் பெயர் மற்றும் IP முகவரியை "
-"விவரக்குறிப்பு பெயராக பயன்படுத்த வரையறுக்க முடியாது, எனவே ஒன்றையாவது குறிப்பிடவும்."
+"ஒரு விவரக்குறிப்பு பெயர் குறிப்பிடவில்லை, மற்றும் புரவலன் பெயர் மற்றும் IP "
+"முகவரியை விவரக்குறிப்பு பெயராக பயன்படுத்த வரையறுக்க முடியாது, எனவே "
+"ஒன்றையாவது குறிப்பிடவும்."
 
-#: ../src/bin/spacewalk-channel.py:103
+#: ../src/bin/spacewalk-channel.py:94
 msgid "name of channel you want to (un)subscribe"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:105
+#: ../src/bin/spacewalk-channel.py:96
 msgid "subscribe to channel"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:107
+#: ../src/bin/spacewalk-channel.py:98
 msgid "unsubscribe from channel"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:109
+#: ../src/bin/spacewalk-channel.py:100
 msgid "list channels"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:111
+#: ../src/bin/spacewalk-channel.py:102
 msgid "show base channel of a system"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:113
+#: ../src/bin/spacewalk-channel.py:104
 msgid "list all available child channels"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:115
+#: ../src/bin/spacewalk-channel.py:106
 msgid "verbose output"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:117
+#: ../src/bin/spacewalk-channel.py:108
 msgid "your user name"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:119
+#: ../src/bin/spacewalk-channel.py:110
 msgid "your password"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:126
+#: ../src/bin/spacewalk-channel.py:117
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:168
+#: ../src/bin/spacewalk-channel.py:159
 msgid "ERROR: you have to specify at least one channel"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:174
+#: ../src/bin/spacewalk-channel.py:165
 msgid "ERROR: this action does not require channel"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:181
+#: ../src/bin/spacewalk-channel.py:172
 #, python-format
 msgid "Channel(s): %s successfully added"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:183
+#: ../src/bin/spacewalk-channel.py:174
 #, python-format
 msgid "Error during adding channel(s) %s"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:190
+#: ../src/bin/spacewalk-channel.py:181
 #, python-format
 msgid "Channel(s): %s successfully removed"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:192
+#: ../src/bin/spacewalk-channel.py:183
 #, python-format
 msgid "Error during removal of channel(s) %s"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:199
+#: ../src/bin/spacewalk-channel.py:190
 msgid "This system is not associated with any channel."
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:201
+#: ../src/bin/spacewalk-channel.py:192
 msgid "Unable to locate SystemId file. Is this system registered?"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:234
+#: ../src/bin/spacewalk-channel.py:225
 msgid "ERROR: you may want to specify --add, --remove or --list"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:239
+#: ../src/bin/spacewalk-channel.py:230
 msgid "ERROR: must be root to execute\n"
 msgstr ""
 
-#: ../src/bin/spacewalk-channel.py:244
+#: ../src/bin/spacewalk-channel.py:235
 msgid "User interrupted process."
 msgstr ""
 
@@ -1683,11 +1714,11 @@ msgid ""
 "system at your earliest convenience."
 msgstr ""
 "Red Hat Network சேவையகத்தில் இணைக்காமல் Red Hat இலிருந்து நீங்கள் பாதுகாப்பு "
-"மேம்படுத்தல்களையும் சேர்த்து மென்பொருள் மேம்படுத்தல்களை இந்த கணினிக்குப் பெற <b>முடியாது</"
-"b>.\n"
+"மேம்படுத்தல்களையும் சேர்த்து மென்பொருள் மேம்படுத்தல்களை இந்த கணினிக்குப் பெற "
+"<b>முடியாது</b>.\n"
 "\n"
-"உங்கள் கணினியை மேம்படுத்தி, பாதுகாத்து மற்றும் துணைபுரிய, இந்த கணினியை விரைவாக பதிவு "
-"செய்யவும். "
+"உங்கள் கணினியை மேம்படுத்தி, பாதுகாத்து மற்றும் துணைபுரிய, இந்த கணினியை "
+"விரைவாக பதிவு செய்யவும். "
 
 #: ../data/rh_register.glade.h:7
 msgid ""
@@ -1739,8 +1770,8 @@ msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
 msgstr ""
-"<small>உதவிக்குறிப்பு: உங்கள் புகுபதிவு அல்லது கடவுச்சொல் மறந்து விட்டதா? உங்கள் "
-"சேட்டிலைட் <i>நிறுவன நிர்வாகியை</i> தொடர்பு கொள்ளவும்.</small>"
+"<small>உதவிக்குறிப்பு: உங்கள் புகுபதிவு அல்லது கடவுச்சொல் மறந்து விட்டதா? "
+"உங்கள் சேட்டிலைட் <i>நிறுவன நிர்வாகியை</i> தொடர்பு கொள்ளவும்.</small>"
 
 #: ../data/rh_register.glade.h:20
 msgid "Hardware Info"
@@ -1792,8 +1823,8 @@ msgid ""
 "with Red Hat to receive software updates and other benefits. You will need "
 "the following to register:"
 msgstr ""
-"இந்த உதவியாளர் உங்கள் கணினியை Red Hat Network (RHN) இல் மென்பொருள் மேம்படுத்தல்களுக்கு "
-"பெற உதவும், அதாவது:"
+"இந்த உதவியாளர் உங்கள் கணினியை Red Hat Network (RHN) இல் மென்பொருள் "
+"மேம்படுத்தல்களுக்கு பெற உதவும், அதாவது:"
 
 #: ../data/rh_register.glade.h:32
 msgid "• A network connection"
@@ -1844,8 +1875,8 @@ msgid ""
 "Your system will need to access a subscription. This will allow you to keep "
 "your system updated, secure, and supported."
 msgstr ""
-"உங்கள் கணினி ஒரு சந்தாவை அணுக வேண்டும். இது உங்கள் கணினியை புதுப்பித்ததாகவும் "
-"பாதுகாப்பாகவும் ஆதரவுடனும் வைத்திருக்க உதவும்."
+"உங்கள் கணினி ஒரு சந்தாவை அணுக வேண்டும். இது உங்கள் கணினியை "
+"புதுப்பித்ததாகவும் பாதுகாப்பாகவும் ஆதரவுடனும் வைத்திருக்க உதவும்."
 
 #: ../data/rh_register.glade.h:43
 msgid ""
@@ -1853,25 +1884,25 @@ msgid ""
 "need to do one of the following to create an active subscription in your "
 "account before this system can be registered:"
 msgstr ""
-"<b>உங்கள் கணக்கில் செயலிலுள்ள சந்தா எதுவும் இல்லை.</b> உங்கள் கணக்கில் செயலிலுள்ள சந்தாவை "
-"உருவாக்க இந்த கணினி Red Hat Network உடன் இணைக்கப்படுவதற்கு முன் பின்வருவனவற்றில் ஒன்றை "
-"செய்ய வேண்டும்:"
+"<b>உங்கள் கணக்கில் செயலிலுள்ள சந்தா எதுவும் இல்லை.</b> உங்கள் கணக்கில் "
+"செயலிலுள்ள சந்தாவை உருவாக்க இந்த கணினி Red Hat Network உடன் "
+"இணைக்கப்படுவதற்கு முன் பின்வருவனவற்றில் ஒன்றை செய்ய வேண்டும்:"
 
 #: ../data/rh_register.glade.h:44
 msgid ""
 "Purchase an additional Red Hat Enterprise Linux subscription at http://www."
 "redhat.com/store/."
 msgstr ""
-"http://www.redhat.com/store/ மூலம் ஒரு கூடுதல் Red Hat Enterprise Linux சந்தாவை "
-"வாங்கவும்."
+"http://www.redhat.com/store/ மூலம் ஒரு கூடுதல் Red Hat Enterprise Linux "
+"சந்தாவை வாங்கவும்."
 
 #: ../data/rh_register.glade.h:45
 msgid ""
 "Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
 "RHN > Subscription Management > System Entitlements."
 msgstr ""
-"http://rhn.redhat.com/ இல் புகுபதிவு செய்து உங்கள் RHN > சந்தா நிர்வாகம் > கணினி "
-"உரிமங்கள் என்பதில் ஒரு செயலிலா கணினியை உரிமம் நீக்கவும்."
+"http://rhn.redhat.com/ இல் புகுபதிவு செய்து உங்கள் RHN > சந்தா நிர்வாகம் > "
+"கணினி உரிமங்கள் என்பதில் ஒரு செயலிலா கணினியை உரிமம் நீக்கவும்."
 
 #: ../data/rh_register.glade.h:46
 msgid ""
@@ -1915,8 +1946,8 @@ msgid ""
 "A recognizable name will help you identify this system in a management "
 "interface."
 msgstr ""
-"அடையாளம் காணத்தக்க பெயர் ஒன்று இருந்தால், நிர்வாக இடைமுகத்தில் இந்தக் கணினியை நீங்கள் "
-"அடையாளம் காண உதவியாக இருக்கும்."
+"அடையாளம் காணத்தக்க பெயர் ஒன்று இருந்தால், நிர்வாக இடைமுகத்தில் இந்தக் "
+"கணினியை நீங்கள் அடையாளம் காண உதவியாக இருக்கும்."
 
 #: ../data/rh_register.glade.h:57
 msgid "System _Name:"
@@ -1935,8 +1966,9 @@ msgid ""
 "Send us a profile of your current hardware and packages so we can determine "
 "what updates are available."
 msgstr ""
-"உங்கள் கணினியில் நிறுவப்பட்ட தொகுப்புகள் மற்றும் வன்பொருள் பற்றிய விவரக்குறிப்பை எங்களுக்கு "
-"அனுப்ப வேண்டும் அதனால் என்ன மேம்படுத்தல்கள் உள்ளன என்பதை நாங்கள் குறிப்பிடலாம்."
+"உங்கள் கணினியில் நிறுவப்பட்ட தொகுப்புகள் மற்றும் வன்பொருள் பற்றிய "
+"விவரக்குறிப்பை எங்களுக்கு அனுப்ப வேண்டும் அதனால் என்ன மேம்படுத்தல்கள் உள்ளன "
+"என்பதை நாங்கள் குறிப்பிடலாம்."
 
 #: ../data/rh_register.glade.h:61
 msgid "_View Hardware Profile ..."
@@ -1975,8 +2007,8 @@ msgid ""
 "Registering your system with Red Hat allows you to take full advantage of "
 "the benefits of a paid subscription, including:"
 msgstr ""
-"உங்கள் கணினியை Red Hat Network உடன் இணைப்பது செலுத்தப்பட்ட சந்தாவின் முழு நன்மைகளை பெற "
-"அனுமதிக்கும்:"
+"உங்கள் கணினியை Red Hat Network உடன் இணைப்பது செலுத்தப்பட்ட சந்தாவின் முழு "
+"நன்மைகளை பெற அனுமதிக்கும்:"
 
 #: ../data/rh_register.glade.h:71
 msgid "_Close"
@@ -1996,8 +2028,8 @@ msgid ""
 "this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
 msgstr ""
 "இந்த Red Hat Enterprise Linux கணினியை <b>புதுப்பித்ததாகவும்</b> "
-"<b>பாதுபாப்பானதாகவும்</b>வைத்திருக்கும் பாதுகாப்பு புதுப்பித்தல்கள் உட்பட சமீபத்திய "
-"மென்பொருள் புதுப்பித்தல்களைப் பெறுக."
+"<b>பாதுபாப்பானதாகவும்</b>வைத்திருக்கும் பாதுகாப்பு புதுப்பித்தல்கள் உட்பட "
+"சமீபத்திய மென்பொருள் புதுப்பித்தல்களைப் பெறுக."
 
 #: ../data/rh_register.glade.h:75
 msgid "<b>Downloads &amp; Upgrades:</b>"
@@ -2020,17 +2052,17 @@ msgid ""
 "Manage subscriptions and systems registered to Customer Portal via access."
 "redhat.com or through one of our other subscription management services."
 msgstr ""
-"access.redhat.com மூலம் அல்லது எங்கள் சந்தா நிர்வாக சேவைகளில் ஏதேனும் ஒன்றின் மூலம் "
-"நீங்கள் வாடிக்கையாளர் வலைவாசலில் பதிவு செய்யப்பட்டுள்ள கணினிகளையும் சந்தாக்களையும் "
-"நிர்வகிக்கலாம்."
+"access.redhat.com மூலம் அல்லது எங்கள் சந்தா நிர்வாக சேவைகளில் ஏதேனும் "
+"ஒன்றின் மூலம் நீங்கள் வாடிக்கையாளர் வலைவாசலில் பதிவு செய்யப்பட்டுள்ள "
+"கணினிகளையும் சந்தாக்களையும் நிர்வகிக்கலாம்."
 
 #: ../data/rh_register.glade.h:82
 msgid ""
 "<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
 "privacy_statement.html.</small>"
 msgstr ""
-"<small><b>உதவிக்குறிப்பு:</b> Red Hat உங்கள் தனியுரிமையை மதிக்கிறது: http://www."
-"redhat.com/legal/privacy_statement.html.</small>"
+"<small><b>உதவிக்குறிப்பு:</b> Red Hat உங்கள் தனியுரிமையை மதிக்கிறது: http://"
+"www.redhat.com/legal/privacy_statement.html.</small>"
 
 #: ../data/rh_register.glade.h:83
 msgid "Provide a Security Certificate"
@@ -2064,8 +2096,8 @@ msgid ""
 "I <b>_don't</b> have an SSL certificate. I will contact my system "
 "administrator for assistance and will register at a later time."
 msgstr ""
-"என்னிடம் SSL சான்றிதழ் <b>இல்லை</b>. நான் உதவிக்காக என் கணினி நிர்வாகியை தொடர்பு கொண்டு "
-"பின்னர் பதிவு செய்வேன் (_S)."
+"என்னிடம் SSL சான்றிதழ் <b>இல்லை</b>. நான் உதவிக்காக என் கணினி நிர்வாகியை "
+"தொடர்பு கொண்டு பின்னர் பதிவு செய்வேன் (_S)."
 
 #: ../data/rh_register.glade.h:92
 msgid "Your system is not setup for software updates."
@@ -2156,16 +2188,14 @@ msgid ""
 "be able to move this system to an earlier minor release channel if you "
 "continue (you will be able to move to a later release.)"
 msgstr ""
-"உங்கள் கணினி தள மென்பொருள் தடத்தால் சந்தாப்படுத்தப்படும். நீங்கள் தொடந்தால் முந்தைய சிறிய "
-"வெளியீடு சேனலுக்கு உங்களால் இந்த முறைமையை நகர்த்த முடியாது (ஒரு புதிய வெளியீட்டை "
-"உங்களால் நகர்த்த முடியும்.)"
+"உங்கள் கணினி தள மென்பொருள் தடத்தால் சந்தாப்படுத்தப்படும். நீங்கள் தொடந்தால் "
+"முந்தைய சிறிய வெளியீடு சேனலுக்கு உங்களால் இந்த முறைமையை நகர்த்த முடியாது "
+"(ஒரு புதிய வெளியீட்டை உங்களால் நகர்த்த முடியும்.)"
 
 #: ../data/rh_register.glade.h:115
-msgid ""
-"\n"
+msgid "\n"
 "Are you sure you would like to continue?"
-msgstr ""
-"\n"
+msgstr "\n"
 "நீங்கள் தொடர வேண்டுமா?"
 
 #: ../data/rh_register.glade.h:117
@@ -2193,8 +2223,8 @@ msgid ""
 "Are you sure you don't want to register your system with Red Hat? You'll "
 "miss out on the benefits of a Red Hat Enterprise Linux Subscription:"
 msgstr ""
-"நீங்கள் உங்கள் கணினியை Red Hat Network உடன் இணைக்க வேண்டாமா? நீங்கள் Red Hat Enterprise "
-"Linux சந்தாவின் நன்மைகளை இழக்கக்கூடும்:"
+"நீங்கள் உங்கள் கணினியை Red Hat Network உடன் இணைக்க வேண்டாமா? நீங்கள் Red Hat "
+"Enterprise Linux சந்தாவின் நன்மைகளை இழக்கக்கூடும்:"
 
 #: ../data/rh_register.glade.h:123
 msgid "Management:"
@@ -2203,9 +2233,10 @@ msgstr "நிர்வாகம்:"
 #: ../data/rh_register.glade.h:124
 msgid ""
 "You will not be able to take advantage of these benefits without registering."
+""
 msgstr ""
-"உங்கள் கணினியை Red Hat Network உடன் இணைக்காமல் நீங்கள் இந்த சந்தா முன்னுரிமைகளை எடுக்க "
-"முடியாது."
+"உங்கள் கணினியை Red Hat Network உடன் இணைக்காமல் நீங்கள் இந்த சந்தா "
+"முன்னுரிமைகளை எடுக்க முடியாது."
 
 #: ../data/rh_register.glade.h:127
 msgid "<b>Spacewalk Location:</b>"
@@ -2232,8 +2263,8 @@ msgid ""
 "This system has already been registered with RHN using RHN certificate-based "
 "technology."
 msgstr ""
-"RHN சான்றிதழ் அடிப்படையான டெக்னாலஜியைப் பயன்படுத்தி ஏற்கனவே இந்த கணினி RHN உடன் "
-"பதிவுசெய்யப்பட்டுள்ளது."
+"RHN சான்றிதழ் அடிப்படையான டெக்னாலஜியைப் பயன்படுத்தி ஏற்கனவே இந்த கணினி RHN "
+"உடன் பதிவுசெய்யப்பட்டுள்ளது."
 
 #: ../data/rh_register.glade.h:134
 msgid ""
@@ -2244,12 +2275,12 @@ msgstr ""
 #: ../data/rh_register.glade.h:135
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
-"DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/DOC-"
+"45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
-"RHN பதிவு மற்றும் தொழில்நுட்பங்களைப் பற்றிய மேலும் அறிய, இந்த அறிவுக்களஞ்சியக் கட்டுரையைப் "
-"பார்க்கவும்: <a href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://"
-"access.redhat.com/kb/docs/DOC-45563</a>\n"
+"RHN பதிவு மற்றும் தொழில்நுட்பங்களைப் பற்றிய மேலும் அறிய, இந்த "
+"அறிவுக்களஞ்சியக் கட்டுரையைப் பார்க்கவும்: <a href=\"https://access.redhat."
+"com/kb/docs/DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 
 #: ../data/rh_register.glade.h:137
 msgid "Software update setup has been completed for this system."
@@ -2265,13 +2296,14 @@ msgid ""
 "circled below.) Clicking on this icon, when available, will guide you "
 "through applying any updates that are available:"
 msgstr ""
-"உங்கள் கணினி இப்போது மென்பொருள் புதுப்பித்தல்களைப் பெற தயாராக இருக்கிறது, அது கணினியை "
-"பாதுகாப்பாகவும் ஆதரவுடனும் வைக்கும்.\n"
+"உங்கள் கணினி இப்போது மென்பொருள் புதுப்பித்தல்களைப் பெற தயாராக இருக்கிறது, "
+"அது கணினியை பாதுகாப்பாகவும் ஆதரவுடனும் வைக்கும்.\n"
 "\n"
-" உங்கள் பணிமேடையில் அறிவிப்பு பகுதியில் தொகுப்பு சின்னம் தோன்றும் போது மென்பொருள் "
-"புதுப்பித்தல் கிடைக்கும் என்பதை நீங்கள் அறியலாம் (பொதுவாக மேல்-வலது ஓரத்தில், கீழே "
-"வட்டமிடப்பட்டது) அவை இருக்கும் போது இந்த சின்னத்தை சொடுக்கினால் கிடைக்கக்கூடிய "
-"புதுப்பித்தல்களைப் பயன்படுத்துவதற்கு வழிகாட்டுதல்கள் வழங்கப்படும்:"
+" உங்கள் பணிமேடையில் அறிவிப்பு பகுதியில் தொகுப்பு சின்னம் தோன்றும் போது "
+"மென்பொருள் புதுப்பித்தல் கிடைக்கும் என்பதை நீங்கள் அறியலாம் (பொதுவாக மேல்-"
+"வலது ஓரத்தில், கீழே வட்டமிடப்பட்டது) அவை இருக்கும் போது இந்த சின்னத்தை "
+"சொடுக்கினால் கிடைக்கக்கூடிய புதுப்பித்தல்களைப் பயன்படுத்துவதற்கு "
+"வழிகாட்டுதல்கள் வழங்கப்படும்:"
 
 #: ../data/rh_register.glade.h:141
 msgid "Aplet screenshot"
@@ -2279,7 +2311,9 @@ msgstr "அப்லெட் திரைபிடிப்பு"
 
 #: ../data/rh_register.glade.h:143
 msgid "Select how your system will receive updates:"
-msgstr "உங்கள் கணினிக்கு புதுப்பிப்புகள் எப்படிக் கிடைக்கப்பெறும் எனத் தேர்வு செய்யவும்:"
+msgstr ""
+"உங்கள் கணினிக்கு புதுப்பிப்புகள் எப்படிக் கிடைக்கப்பெறும் எனத் தேர்வு "
+"செய்யவும்:"
 
 #: ../data/rh_register.glade.h:144
 msgid "Limited updates"
@@ -2320,8 +2354,8 @@ msgid ""
 "<b>Tip:</b> Minor releases with a '*' are currently fully supported by Red "
 "Hat."
 msgstr ""
-"<b>துணுக்கு:</b> ஒரு '*' உடன் உள்ள சிறிய வெளியீடுகள் Red Hatஆல் தற்போது முழுவதும் "
-"துணைபுரிகிறது."
+"<b>துணுக்கு:</b> ஒரு '*' உடன் உள்ள சிறிய வெளியீடுகள் Red Hatஆல் தற்போது "
+"முழுவதும் துணைபுரிகிறது."
 
 #: ../data/rh_register.glade.h:152
 msgid ""
@@ -2351,22 +2385,23 @@ msgid ""
 "recent minor release and <b>cannot</b> be limited to an older release "
 "version."
 msgstr ""
-"<b>எச்சரிக்கை:</b> இந்த விருப்பத்தைப் பயன்படுத்தினால், உங்கள் கணினி எப்போதும் சமீபத்திய "
-"சிறு வெளியீடாகவே இருக்கும், மேலும் அதை ஒரு பழைய வெளியீட்டுப் பதிப்புக்கு மட்டும் என "
-"வரம்புப்படுத்த <b>முடியாது</b>."
+"<b>எச்சரிக்கை:</b> இந்த விருப்பத்தைப் பயன்படுத்தினால், உங்கள் கணினி "
+"எப்போதும் சமீபத்திய சிறு வெளியீடாகவே இருக்கும், மேலும் அதை ஒரு பழைய "
+"வெளியீட்டுப் பதிப்புக்கு மட்டும் என வரம்புப்படுத்த <b>முடியாது</b>."
 
 #: ../data/rh_register.glade.h:155
 msgid ""
 "Warning: Using this option, your system will always be the most recent minor "
 "release and cannot be limited to an older release version."
 msgstr ""
-"எச்சரிக்கை: இந்த விருப்பத்தைப் பயன்படுத்தினால், உங்கள் கணினி எப்போதும் சமீபத்திய சிறு "
-"வெளியீடாகவே இருக்கும், மேலும் அதை ஒரு பழைய வெளியீட்டுப் பதிப்புக்கு மட்டும் என "
-"வரம்புப்படுத்த முடியாது."
+"எச்சரிக்கை: இந்த விருப்பத்தைப் பயன்படுத்தினால், உங்கள் கணினி எப்போதும் "
+"சமீபத்திய சிறு வெளியீடாகவே இருக்கும், மேலும் அதை ஒரு பழைய வெளியீட்டுப் "
+"பதிப்புக்கு மட்டும் என வரம்புப்படுத்த முடியாது."
 
 #: ../data/rh_register.glade.h:156
 msgid "<b>Your system was registered for updates during installation.</b>"
-msgstr "<b>உங்கள் கணினி நிறுவலின் போது புதுப்பித்தலுக்கு பதிவு செய்யப்பட்டது.</b>"
+msgstr ""
+"<b>உங்கள் கணினி நிறுவலின் போது புதுப்பித்தலுக்கு பதிவு செய்யப்பட்டது.</b>"
 
 #: ../data/rh_register.glade.h:157
 msgid ""
@@ -2378,13 +2413,14 @@ msgid ""
 "circled below.) Clicking on this icon, when available, will guide you "
 "through applying any updates that are available:"
 msgstr ""
-"உங்கள் கணினி இப்போது மென்பொருள் புதுப்பித்தல்களைப் பெற தயாராக இருக்கிறது, அது கணினியை "
-"பாதுகாப்பாகவும் ஆதரவுடனும் வைக்கும்.\n"
+"உங்கள் கணினி இப்போது மென்பொருள் புதுப்பித்தல்களைப் பெற தயாராக இருக்கிறது, "
+"அது கணினியை பாதுகாப்பாகவும் ஆதரவுடனும் வைக்கும்.\n"
 "\n"
-" உங்கள் பணிமேடையில் அறிவிப்பு பகுதியில் தொகுப்பு சின்னம் தோன்றும் போது மென்பொருள் "
-"புதுப்பித்தல் கிடைக்கும் என்பதை நீங்கள் அறியலாம் (பொதுவாக மேல்-வலது ஓரத்தில், கீழே "
-"வட்டமிடப்பட்டது) அவை இருக்கும் போது இந்த சின்னத்தை சொடுக்கினால் கிடைக்கக்கூடிய "
-"புதுப்பித்தல்களைப் பயன்படுத்துவதற்கு வழிகாட்டுதல்கள் வழங்கப்படும்:"
+" உங்கள் பணிமேடையில் அறிவிப்பு பகுதியில் தொகுப்பு சின்னம் தோன்றும் போது "
+"மென்பொருள் புதுப்பித்தல் கிடைக்கும் என்பதை நீங்கள் அறியலாம் (பொதுவாக மேல்-"
+"வலது ஓரத்தில், கீழே வட்டமிடப்பட்டது) அவை இருக்கும் போது இந்த சின்னத்தை "
+"சொடுக்கினால் கிடைக்கக்கூடிய புதுப்பித்தல்களைப் பயன்படுத்துவதற்கு "
+"வழிகாட்டுதல்கள் வழங்கப்படும்:"
 
 #: ../data/rh_register.glade.h:160
 msgid "icon of aplet"
@@ -2400,754 +2436,10 @@ msgid ""
 "Register for software updates from Spacewalk/Red Hat Satellite/Red Hat "
 "Network Classic"
 msgstr ""
-"Spacewalk/Satellite/Red Hat Network இலிருந்து மென்பொருள் புதுப்பித்தல்களை பதிவு "
-"செய்யவும்"
+"Spacewalk/Satellite/Red Hat Network இலிருந்து மென்பொருள் புதுப்பித்தல்களை "
+"பதிவு செய்யவும்"
 
 #: ../rhn_register.desktop.in.h:3
 #, fuzzy
 msgid "Register to Spacewalk/Red Hat Satellite/Red Hat Network Classic."
 msgstr "Spacewalk/Satellite/Red Hat Network யுடன் பதிவு செய்யவும்."
-
-#~ msgid ""
-#~ "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
-#~ "yum-rhn-plugin is not enabled.\n"
-#~ msgstr ""
-#~ "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
-#~ "yum-rhn-plugin செயல்படுத்தப்படவில்லை.\n"
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "நீங்கள் தவறான நெறிமுறையை குறிப்பிட்டுள்ளீர்கள்."
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr ""
-#~ "தொகுதி மேம்படுத்தல்: கணினிக்கான மேம்படுத்தல், மின்னஞ்சல் பிழைத்திருத்தங்கள் அறிவிப்புகள், "
-#~ "பிழைத்திருத்த தகவல்கள்"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "வாய்ப்பளித்தல் தொகுதி: bare-metal வாய்ப்பளித்தல், ஏற்கனவே உள்ள நிலை வாய்ப்பளித்தல், "
-#~ "rollbacks, கட்டமைப்பு மேலாண்மை"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "கண்காணித்தல் தொகுதி: முன் குறிப்பிட்ட மற்றும் தனிபயன் கணினி செயல்திறன் ஆய்வு செய்தல், "
-#~ "கணினி செயல்திறன் மின்னஞ்சல் அறிவிப்புகள், கணினி செயல்திறனின் வரைபடங்கள்"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "மெய்நிகராக்க தள தொகுதி: மென்பொருள் மேம்படுத்தல்கள் இந்த கணினியில் வரையறை இல்லாமல் "
-#~ "மெய்நிகர் விருந்தினர்களையே கொண்டுள்ளது, கூடுதல் மென்பொருள் தடங்கள் விருந்தினர்களுக்கு "
-#~ "இந்த கணினியில் கொண்டுள்ளது."
-
-#~ msgid "Automatic Subscription Activation"
-#~ msgstr "தானியக்க சந்தா செயல்படுத்தல்"
-
-#~ msgid "Subscription Activation"
-#~ msgstr "சந்தா செயல்படுத்தல்"
-
-#~ msgid ""
-#~ "You will not be able to successfully register this system without "
-#~ "contacting a Red Hat Network server."
-#~ msgstr ""
-#~ "இந்த கணினியை Red Hat Network சேவையகத்துடன் தொடர்பு கொள்ளாமல் பதிவு செய்ய "
-#~ "முடியாது."
-
-#~ msgid "We could not contact Red Hat Network (%s)."
-#~ msgstr "நாம் Red Hat Network (%s)ஐ தொடர்பு கொள்ள முடியாது."
-
-#~ msgid ""
-#~ "Did you mean to register to a Red Hat Network Satellite or Proxy? If so, "
-#~ "you can enter a Satellite or Proxy location instead."
-#~ msgstr ""
-#~ "ஒரு Red Hat Network சேட்டிலைட் அல்லது பதிலாளை பதிவு செய்ய வேண்டுமா? ஆம் என்றால் "
-#~ "சேட்டிலைட் அல்லது பதிலாள் இடத்தை உள்ளிடவும்."
-
-#~ msgid "There was an error communicating with Red Hat Network."
-#~ msgstr "Red Hat Network உடன் தொடர்பு கொள்ளும் போது ஒரு பிழை."
-
-#~ msgid ""
-#~ "Please enter your account information for the <b>%s</b> Red Hat Network "
-#~ "Satellite:"
-#~ msgstr ""
-#~ "உங்கள் <b>%s</b> Red Hat Network சேட்டிலைட்டிற்கு உங்கள் கணக்கு விவரங்களை உள்ளிடவும்:"
-
-#~ msgid ""
-#~ "Registering system and sending profile information to Red Hat.  Please "
-#~ "wait."
-#~ msgstr ""
-#~ "Red Hat Networkக்கு உங்கள் விவரக்குறிப்பு தகவல் அனுப்பப்படுகிறது.  காத்திருக்கவும்."
-
-#~ msgid "Problem registering personal information:\n"
-#~ msgstr "தனிப்பட்ட தகவலை பதிவுசெய்யும் போது சிக்கல்:\n"
-
-#~ msgid "Problem registering personal information"
-#~ msgstr "தனிப்பட்ட தகவலை பதிவுசெய்யும் போது சிக்கல்"
-
-#~ msgid "Red Hat Network Location:"
-#~ msgstr "Red Hat Network இடம்:"
-
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "எச்சரிக்கை: rhn_checkஐ இயக்க முடியவில்லை"
-
-#~ msgid "Warning:"
-#~ msgstr "எச்சரிக்கை:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "சரி உரையாடல்:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "வினா உரையாடல்:"
-
-#~ msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
-#~ msgstr "காப்புரிமை © 2006--2010 Red Hat, Inc. All rights reserved."
-
-#~ msgid "Attempting to contact the Red Hat Network server."
-#~ msgstr "Red Hat Network சேவையகத்தை தொடர்பு கொள்ள முயற்சிக்கிறது."
-
-#~ msgid ""
-#~ "This assistant will guide you through connecting your system to Red Hat "
-#~ "Network (RHN) to receive software updates, including security updates, to "
-#~ "keep your system supported and compliant.  You will need the following at "
-#~ "this time:\n"
-#~ "\n"
-#~ " * A network connection\n"
-#~ " * Your Red Hat Login & password\n"
-#~ " * The location of a Red Hat Network Satellite or Proxy (optional)\n"
-#~ "\n"
-#~ msgstr ""
-#~ "இந்த உதவியாளர் உங்கள் கணினியை Red Hat Network (RHN) உடன் இணைத்து மென்பொருள் "
-#~ "மேம்படுத்தல்களான பாதுகாப்பு மேம்படுத்தல்கள் போன்றவற்றால் உங்கள் முழு துணையை பெற "
-#~ "உதவுவார். நீங்கள் பின்வருவனற்றை இந்த நேரத்தில் கொண்டிருக்க வேண்டும்:\n"
-#~ "\n"
-#~ " * ஒரு பிணைய இணைப்பு\n"
-#~ " * உங்கள் Red Hat புகுபதிவு மற்றும் கடவுச்சொல்\n"
-#~ " * Red Hat Network சேட்டிலைட் அல்லது பதிலாளின் இடம் (விருப்பப்படி)\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Connecting your system to Red Hat Network allows you to take full "
-#~ "advantage of the benefits of a paid subscription, including:"
-#~ msgstr ""
-#~ "உங்கள் கணினியை Red Hat Network உடன் இணைப்பது செலுத்தப்பட்ட சந்தாவின் முழு நன்மைகளை "
-#~ "பெற அனுமதிக்கும்:"
-
-#~ msgid ""
-#~ "Stay in compliance with your subscription agreement and manage "
-#~ "subscriptions for systems connected to your account at http://rhn.redhat."
-#~ "com/."
-#~ msgstr ""
-#~ "உங்கள் சந்தா ஒப்பந்தம் மற்றும் கணினிகளின் சந்தாக்கள் மேலாண்மை உங்கள் கணக்குடன் http://rhn."
-#~ "redhat.com/ இல் இணைந்திருக்க உடன்படவும்."
-
-#~ msgid ""
-#~ "Are you sure you don't want to connect your system to Red Hat Network? "
-#~ "You'll miss out on the benefits of a Red Hat Enterprise Linux "
-#~ "subscription:\n"
-#~ msgstr ""
-#~ "நீங்கள் உங்கள் கணினியை Red Hat Network உடன் இணைக்க வேண்டாமா? நீங்கள் Red Hat "
-#~ "Enterprise Linux சந்தாவின் நன்மைகளை இழக்கக்கூடும்:\n"
-
-#~ msgid ""
-#~ "You will not be able to take advantage of these subscription privileges "
-#~ "without connecting your system to Red Hat Network.\n"
-#~ msgstr ""
-#~ "உங்கள் கணினியை Red Hat Network உடன் இணைக்காமல் நீங்கள் இந்த சந்தா முன்னுரிமைகளை "
-#~ "எடுக்க முடியாது.\n"
-
-#~ msgid ""
-#~ "A Profile Name is a descriptive name that you choose to identify this "
-#~ "System Profile on the Red Hat Network web pages. Optionally, include a "
-#~ "computer serial or identification number."
-#~ msgstr ""
-#~ "Red Hat Network இணைய பக்கங்களில் உங்கள் கணினி விவரக்குறிப்பை அடையாளப்படுத்த "
-#~ "பயன்படும் பெயர் விவரக்குறிப்பு பெயர் ஆகும், விருப்பப்படி, ஒரு கணினி வரிசை எண் அல்லது "
-#~ "அடையாள எண்ணையும் இதில் சேர்க்கலாம்."
-
-#~ msgid "You may deselect individua\tl packages by unchecking them below."
-#~ msgstr "நீங்கள் தனிப்பட்ட தொகுப்புகளை தேர்வு நீக்க\tl கீழே அவற்றை சோதிக்காமல் விடவும்."
-
-#~ msgid ""
-#~ "Please enter your login information for Red Hat Network (http://rhn."
-#~ "redhat.com/):\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Red Hat Networkக்கு உங்கள் கணக்கு தகவலை உள்ளிடவும் (http://rhn.redhat.com/):\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Tip: Forgot your login or password? Visit: https://www.redhat.com/wapps/"
-#~ "sso/lostPassword.html"
-#~ msgstr ""
-#~ "துணுக்கு: உங்கள் புகுபதிவு அல்லது கடவுச்சொல் மறந்துவிட்டதா? https://www.redhat."
-#~ "com/wapps/sso/lostPassword.html இல் பார்க்கவும்"
-
-#~ msgid ""
-#~ "This system has already been registered with RHN using RHN certficate-"
-#~ "based technology.\n"
-#~ "\n"
-#~ "The tool you are using is attempting to re-register using RHN Classic "
-#~ "technology. Red Hat recommends (except in a few cases) that customers "
-#~ "only register with RHN once.\n"
-#~ "\n"
-#~ "To learn more about RHN registration and technologies please consult this "
-#~ "Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563"
-#~ msgstr ""
-#~ "RHN உடன் RHN Certificate-Based டெக்னாலஜியைப் பயன்படுத்தி இந்த கணினி ஏற்கனவே "
-#~ "பதிவுசெய்யப்பட்டிருப்பதாக தோன்றுகிறது. இந்த கருவிக்கு  RHN க்ளாசிக் டெக்னாலஜியை "
-#~ "பயன்படுத்தி RHN பதிவுசெய்தல் தேவைப்படுகிறது.\n"
-#~ "\n"
-#~ "சில நிகழ்வுகளுக்கு மட்டும் , Red Hat ஆனது வாடிக்கையாளர்களை  RHN உடன் மட்டும் "
-#~ "ஒருமுறை பதிவுசெய்ய பரிந்துரைக்கிறது.\n"
-#~ "\n"
-#~ "மேலும் தகவலுக்காக,மாற்று கருவிகளையும் சேர்த்து, இந்த அறிவுத்திறன் ஆர்ட்டிகலை "
-#~ "பார்க்கவும்: https://access.redhat.com/kb/docs/DOC-45563"
-
-#~ msgid "Send Profile Information to Red Hat Network"
-#~ msgstr "Red Hat Network க்கு விவரக்குறிப்பு தகவலை அனுப்புகிறது"
-
-#~ msgid ""
-#~ "We are finished collecting information for the System Profile.\n"
-#~ "\n"
-#~ "Press \"Next\" to send this System Profile to Red Hat Network.  Click "
-#~ "\"Cancel\" and no information will be sent.  You can run the registration "
-#~ "program later by typing `rhn_register` at the command line."
-#~ msgstr ""
-#~ "கணினி விவரக்குறிப்பு தகவல் சேமிப்பது முடிக்கப்பட்டது.\n"
-#~ "\n"
-#~ "\"அடுத்து\"  என்பதை சொடுக்கி Red Hat Networkக்கு கணினி விவரக்குறிப்பை "
-#~ "அனுப்பவும்.  \"ரத்து\" என்பதை சொடுக்கினால் தகவல் அனுப்பப்படாது.  நீங்கள் பதிவு நிரலை "
-#~ "பிறகு கட்டளைவரியில் `rhn_register` தட்டச்சு செய்வது மூலம் இயக்கலாம்."
-
-#~ msgid "Sending Profile to Red Hat Network"
-#~ msgstr "Red Hat Networkக்கு விவரக்குறிப்பை அனுப்புகிறது"
-
-#~ msgid ""
-#~ "The installation number %s was activated during this system's initial "
-#~ "connection to Red Hat Network."
-#~ msgstr ""
-#~ "நிறுவல் எண் %s Red Hat Network உடன் ஆரம்பத்தில் இணைக்கப்பட்டிருக்கும் போது "
-#~ "செயல்படுத்தப்பட்டது."
-
-#~ msgid ""
-#~ "This system will receive updates from the following RHN Classic software "
-#~ "channels:"
-#~ msgstr ""
-#~ "இந்த கணினி பின்வரும் Red Hat Network மென்பொருள் தடங்களிலிருந்து மேம்படுத்தல்களை "
-#~ "பெறுகிறது:"
-
-#~ msgid ""
-#~ "Warning: Only installed products listed above will receive updates and "
-#~ "support. If you would like to receive updates for additional products, "
-#~ "please visit http://access.redhat.com/ and subscribe this system to the "
-#~ "appropriate software channels. See Kbase article for more details. "
-#~ "(http://kbase.redhat.com/faq/docs/DOC-11313)"
-#~ msgstr ""
-#~ "எச்சரிக்கை: நிறுவப்பட்ட மென்பொருள் இந்த கணினியில் மேலே பட்டியலிடப்படாவிட்டால், நீங்கள் "
-#~ "இந்த மென்பொருளுக்கான மேம்படுத்தல்கள் அல்லது துணையை பெற முடியாது. நீங்கள் இந்த "
-#~ "மென்பொருளின் மேம்படுத்தல்களை பெற, http://rhn.redhat.com/ இல் இந்த கணினியை அதற்கான "
-#~ "மென்பொருள் தடங்களில் சந்தாப்படுத்தி அதற்கான மேம்படுத்தல்களை பெறவும். Kbase article "
-#~ "11313 இல் மேலும் பல விவரங்களை பார்க்கவும். (http://kbase.redhat.com/faq/docs/"
-#~ "DOC-11313)"
-
-#~ msgid ""
-#~ "This system was unable to subscribe to any software channels. Your system "
-#~ "will not receive any software updates to keep it secure and supported. "
-#~ "There are a few things you can try to resolve this situation:\n"
-#~ "(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
-#~ "Your RHN > Subscription Management > System Entitlements.\n"
-#~ "(2) Purchase an additional Red Hat Enterprise Linux subscription at "
-#~ "http://www.redhat.com/store/.\n"
-#~ "(3) Activate a new installation number at http://www.redhat.com/now/. "
-#~ "Once you make the appropriate active subscriptions available in your "
-#~ "account, you may browse to this system's profile in the RHN web interface "
-#~ "and subscribe this system to software channels via the software > "
-#~ "software channels tab."
-#~ msgstr ""
-#~ "இந்த கணினி எந்த மென்பொருள் தடங்களையும் சந்தாப்படுத்த முடியவில்லை. உங்கள் கணினி "
-#~ "பாதுகாப்பாகவும் துணை புரிவதாகவும் இருக்க எந்த மென்பொருள் மேம்படுத்தல்களையும் பெற "
-#~ "முடியாது. இந்த நேரத்தில் சில விஷயங்களை சரி செய்யலாம்:\n"
-#~ "(1) http://rhn.redhat.com/ இல் புகுபதிவு செய்து உங்கள் RHN > சந்தா மேலாண்மை > "
-#~ "கணினி உரிமங்கள் என்பதில் செயலற்ற கணினிகளை உரிமம் நீக்கவும்.\n"
-#~ "(2) கூடுதல் Red Hat Enterprise Linux சந்தாவை http://www.redhat.com/store/ "
-#~ "இல் வாங்கவும்.\n"
-#~ "(3) http://www.redhat.com/now/ இல் புதிய நிறுவல் எண்ணை செயல்படுத்தவும். உங்கள் "
-#~ "கணக்கில் அதற்கான செயலுள்ள சந்தாவை பெற்ற பின், நீங்கள் இந்த கணினி விவரத்தை RHN இணைய "
-#~ "முகப்பில் உலாவி, இந்த கணினியை மென்பொருள் > மென்பொருள் தடங்கள் தத்தலின் வழியாக "
-#~ "மென்பொருள் தடங்களை இந்த கணினிக்கு சந்தாப்படுத்தவும்."
-
-#~ msgid "RHN Classic Service Level:"
-#~ msgstr "RHN சேவை நிலை:"
-
-#~ msgid ""
-#~ "Depending on what RHN Classic modules are associated with a system, "
-#~ "you'll enjoy different benefits. The following are the RHN Classic "
-#~ "modules associated with this system:"
-#~ msgstr ""
-#~ "உங்கள் கணினியில் RHN தொகுதிகள் அடிப்படையில், நீங்கள் பல்வேறு Red Hat Network "
-#~ "நன்மைகளை பெறுவீர்கள். பின்வருவன இந்த கணினியுடன் தொடர்புடைய RHN தொகுதிகளாகும்:"
-
-#~ msgid ""
-#~ "This system was unable to be associated with any RHN service level "
-#~ "modules. This system will not receive any software updates to keep it "
-#~ "secure and supported. There are a few things you can try to resolve this "
-#~ "situation:\n"
-#~ "(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
-#~ "Your RHN > Subscription Management > System Entitlements.\n"
-#~ "(2) Purchase an additional Red Hat Enterprise Linux subscription at "
-#~ "http://www.redhat.com/store/.\n"
-#~ "(3) Activate a new installation number at http://www.redhat.com/now/. "
-#~ "Once you make the appropriate active subscriptions available in your "
-#~ "account, you may browse to this system's profile in the RHN web "
-#~ "interface, delete the profile, and re-connect this system to Red Hat "
-#~ "Network."
-#~ msgstr ""
-#~ "இந்த கணினி எந்த RHN சேவை நிலை தொகுதிகளுடனும் தொடர்புப்படுத்த முடியவில்லை. இந்த "
-#~ "கணினி பாதுகாப்பாகவும் துணை புரிவதாகவும் இருக்க எந்த மென்பொருள் மேம்படுத்தல்களையும் "
-#~ "பெற முடியாது. இந்த நேரத்தில் சில விஷயங்களை சரி செய்யலாம்:\n"
-#~ "(1) http://rhn.redhat.com/ இல் புகுபதிவு செய்து உங்கள் RHN > சந்தா மேலாண்மை > "
-#~ "கணினி உரிமங்கள் என்பதில் செயலற்ற கணினிகளை உரிமம் நீக்கவும்.\n"
-#~ "(2) கூடுதல் Red Hat Enterprise Linux சந்தாவை http://www.redhat.com/store/ "
-#~ "இல் வாங்கவும்.\n"
-#~ "(3) http://www.redhat.com/now/ இல் புதிய நிறுவல் எண்ணை செயல்படுத்தவும். உங்கள் "
-#~ "கணக்கில் அதற்கான செயலுள்ள சந்தாவை பெற்ற பின், நீங்கள் இந்த கணினி விவரத்தை RHN இணைய "
-#~ "முகப்பில் உலாவி, விவரக்குறிக்கை அழித்து, இந்த கணினியை மீண்டும் Red Hat Network உடன் "
-#~ "இணைக்கவும்."
-
-#~ msgid ""
-#~ "Universal default activation key detected\n"
-#~ "A universal default activation key was detected in your RHN Classic "
-#~ "account. This means that a set of properties (software channel "
-#~ "subscriptions, package installations, system group memberships, etc.) for "
-#~ "your system's connection to RHN Classic have been determined by the "
-#~ "activation key rather than your installation number.  You may also refer "
-#~ "to the RHN Reference Guide, section 6.4.6 for more details about "
-#~ "activation keys (http://access.redhat.com/knowledge/docs/"
-#~ "Red_Hat_Network/)\n"
-#~ "Universal Default activation key: %s"
-#~ msgstr ""
-#~ "ஒரு பொதுவான முன்னிருப்பு செயல்படுத்தும் குறியீடு கண்டுபிடிக்கப்பட்டது \n"
-#~ "ஒரு பொதுவான முன்னிருப்பு செயல்படுத்தும் குறியீடு உங்கள் RHN நிறுவனத்தில் "
-#~ "கண்டுபிடிக்கப்பட்டது. அதாவது ஒரு பண்புகளின் தொகுப்பு (மென்பொருள் தட சந்தாக்கள், Red "
-#~ "Hat Network சேவை, தொகுப்பு நிறுவல்கள், கணினி குழு உறுப்பினர்கள், இன்னும் பல) உங்கள் "
-#~ "கணினியை Red Hat Network உடன் இணைத்து உங்கள் நிறுவல் குறியீட்டை விட செயல்படுத்தும் "
-#~ "குறியீட்டை குறிக்கும்.  நீங்கள் RHN குறிப்பு கையேட்டில், பிரிவு 6.4.6 ல் செயல்படுத்தும் "
-#~ "குறியீடு பற்றி அறியலாம் (http://rhn.redhat.com/rhn/help/reference/)\n"
-#~ "பொதுவான முன்னிருப்பு செயல்படுத்தும் விசை: %s"
-
-#~ msgid ""
-#~ "We can't contact the Red Hat Network Server.\n"
-#~ "\n"
-#~ "Double check the location provided - is '%s' correct?\n"
-#~ "If not, you can correct it and try again.\n"
-#~ "\n"
-#~ "Make sure that the network connection on this system is operational.\n"
-#~ "\n"
-#~ "This system will not be able to successfully receive software updates "
-#~ "from Red Hat without connecting to a Red Hat Network server"
-#~ msgstr ""
-#~ "Red Hat Network Serverஐ தொடர்பு கொள்ள முடியவில்லை.\n"
-#~ "\n"
-#~ "கொடுக்கப்பட்ட இடத்தை இருமுறை சரிபார்க்கவும் - '%s' என்பது சரியா?\n"
-#~ "இல்லையெனில், அதனை சரி செய்து மீண்டும் முயற்சி செய்யவும்.\n"
-#~ "\n"
-#~ "இந்த கணினியிலுள்ள பிணைய இணைப்பு செயல்படுகிறதா.\n"
-#~ "\n"
-#~ "இந்த கணினி வெற்றிகரமாக Red Hat இலிருந்து Red Hat Network ஐ இணைக்காமல் மென்பொருள் "
-#~ "மேம்படுத்தல்களை பெற முடியாது"
-
-#~ msgid ""
-#~ "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
-#~ "\n"
-#~ "The certificate you provided, <b>%s</b>, is not compatible with  the Red "
-#~ "Hat Network server at <b>%s</b>. You may want to double-check that you "
-#~ "have provided a valid certificate file. Are you sure you have provided "
-#~ "the correct certificate, and that the certificate file has not been "
-#~ "corrupted?\n"
-#~ "\n"
-#~ "Please try again with a different certificate file."
-#~ msgstr ""
-#~ "<b><span size=\"16000\">சரியில்லாத சான்றிதழ் கோப்பு</span></b>\n"
-#~ "\n"
-#~ "நீங்கள் கொடுத்த சான்றிதழ், <b>%s</b>, Red Hat Network சேவையகத்திற்கு <b>%s</b>இல் "
-#~ "சரியில்லாமல் உள்ளது. நீங்கள் சரியான சான்றிதழ் கோப்பு கொடுத்துள்ளீர்கள் என்பதை இருமுறை "
-#~ "சரிபார்க்கவும். நீங்கள் சரியான சான்றிதழை கொடுத்துள்ளீர்களா மற்றும் இந்த சான்றிதழ் கோப்பு "
-#~ "அழிக்கப்பட்டுள்ளதா?\n"
-#~ "\n"
-#~ "வேறு சான்றிதழ் கோப்புடன் மீண்டும் முயற்சிக்கவும்."
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "தொகுப்பை நிறுவும் போது முக்கிய பிழை ஏற்பட்டது:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "RPM சார்பு பிழை.  அதன் செய்தி:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "தொகுப்பு தவிர்த்தல் பட்டியல் பிழை.  அதன் செய்தி:\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "    Your organization does not have enough Management entitlements to "
-#~ "register this\n"
-#~ "    system to Red Hat Network. Please notify your organization "
-#~ "administrator of this error. \n"
-#~ "    You should be able to register this system after your organization "
-#~ "frees existing \n"
-#~ "    or purchases additional entitlements. Additional entitlements may be "
-#~ "purchased by your\n"
-#~ "    organization administrator by logging into Red Hat Network and "
-#~ "visiting\n"
-#~ "    the 'Subscription Management' page in the 'Your RHN' section of RHN.\n"
-#~ "    \n"
-#~ "    A common cause of this error code is due to having mistakenly setup "
-#~ "an\n"
-#~ "    Activation Key which is set as the universal default.  If an "
-#~ "activation key is set\n"
-#~ "    on the account as a universal default, you can disable this key and "
-#~ "retry to avoid\n"
-#~ "    requiring a Management entitlement."
-#~ msgstr ""
-#~ "\n"
-#~ "    Your organization does not have enough Management entitlements to "
-#~ "register this\n"
-#~ "    system to Red Hat Network. Please notify your organization "
-#~ "administrator of this error. \n"
-#~ "    You should be able to register this system after your organization "
-#~ "frees existing \n"
-#~ "    or purchases additional entitlements. Additional entitlements may be "
-#~ "purchased by your\n"
-#~ "    organization administrator by logging into Red Hat Network and "
-#~ "visiting\n"
-#~ "    the 'Subscription Management' page in the 'Your RHN' section of RHN.\n"
-#~ "    \n"
-#~ "    A common cause of this error code is due to having mistakenly setup "
-#~ "an\n"
-#~ "    Activation Key which is set as the universal default.  If an "
-#~ "activation key is set\n"
-#~ "    on the account as a universal default, you can disable this key and "
-#~ "retry to avoid\n"
-#~ "    requiring a Management entitlement."
-
-#~ msgid ""
-#~ "%%prog (Red Hat Network Client Tools) %s\n"
-#~ "Copyright (C) 1999--2010 Red Hat, Inc.\n"
-#~ "Licensed under the terms of the GPLv2."
-#~ msgstr ""
-#~ "%%prog (Red Hat Network Client Tools) %s\n"
-#~ "Copyright (C) 1999--2010 Red Hat, Inc.\n"
-#~ "Licensed under the terms of the GPLv2."
-
-#~ msgid "Select operating system release"
-#~ msgstr "இயக்கத்தள வெளியீட்டை தேர்ந்தெடு"
-
-#~ msgid "Provide Certificate"
-#~ msgstr "சான்றிதழ் கொடுக்கவும்"
-
-#~ msgid "Finish Updates Setup"
-#~ msgstr "அமைவு முடித்தல்"
-
-#~ msgid "There was a communication error with the server:"
-#~ msgstr "சேவையகத்துடன் தொடர்பு கொள்ளும் போது பிழை"
-
-#~ msgid "Would you like to go back and try again?"
-#~ msgstr "நீங்கள் பின் சென்று மீண்டும் முயற்சிக்கவா?"
-
-#~ msgid ""
-#~ "This system will <b>not</b> be able to successfully receive software "
-#~ "updates, including security updates, from Red Hat without connecting to a "
-#~ "Red Hat Network server.\n"
-#~ "\n"
-#~ "To keep your system updated, secure, and supported, please register this "
-#~ "system at your earliest convenience.\n"
-#~ "\n"
-#~ "You may access the RHN registration tool by running <b>RHN Registration</"
-#~ "b> in the <b>System > Administration</b> menu.\n"
-#~ "You may access the software update tool by running <b>Software Update</b> "
-#~ "in the <b>System > Administration</b> menu."
-#~ msgstr ""
-#~ "Red Hat Network சேவையகத்தில் இணைக்காமல் Red Hat இலிருந்து நீங்கள் பாதுகாப்பு "
-#~ "மேம்படுத்தல்களையும் சேர்த்து மென்பொருள் மேம்படுத்தல்களை இந்த கணினிக்குப் பெற "
-#~ "<b>முடியாது</b>.\n"
-#~ "\n"
-#~ "உங்கள் கணினியை மேம்படுத்தி, பாதுகாத்து மற்றும் துணைபுரிய, இந்த கணினியை விரைவாக "
-#~ "பதிவு செய்யவும். \n"
-#~ "\n"
-#~ "இந்த RHN பதிவு கருவியை  <b>கணினி > நிர்வாகம்</b> மெனுவில் <b>RHN பதிவு</b> "
-#~ "என்பதில் அணுகலாம்.\n"
-#~ "மென்பொருள் புதுப்பித்தல் கருவியை <b>கணினி > நிர்வாகம்</b> மெனுவில் <b>மென்பொருள் "
-#~ "புதுப்பித்தல்</b> என்பதை இயக்கி அணுகலாம்."
-
-#~ msgctxt "yes"
-#~ msgid "I'd like to register with:"
-#~ msgstr "நான் இதனுடன் பதிவு செய்ய விரும்புகிறேன்:"
-
-#~ msgid "I'd like to register with:"
-#~ msgstr "ஆம், நான் இப்போது பதிவு செய்யப்போகிறேன்."
-
-#~ msgid ""
-#~ "Red Hat Subscription Management offers improved management and tracking "
-#~ "of subscriptions and access to content. It is the recommended and default "
-#~ "registration option."
-#~ msgstr ""
-#~ "Red Hat சந்தா நிர்வாகம் சந்தாக்களின் மேம்பட்ட நிர்வாகம் மற்றும் கண்காணிப்பு மற்றும் "
-#~ "உள்ளடக்கத்திற்கான அணுகலை அளிக்கிறது. இதுவே பரிந்துரைக்கப்படும் மற்றும் முன்னிருப்பான "
-#~ "பதிவு விருப்பமாகும்."
-
-#~ msgctxt "yes"
-#~ msgid "Red Hat Subscription Management"
-#~ msgstr "Red Hat சந்தா நிர்வாகம்"
-
-#~ msgid "Red Hat Subscription Management"
-#~ msgstr "சந்தாவை மறுபார்வையிடவும்"
-
-#~ msgid ""
-#~ "RHN Classic provides system-level support and management of Red Hat "
-#~ "systems and networks. Red Hat Subscription Management is the recommended "
-#~ "service to use, but RHN Classic is still available."
-#~ msgstr ""
-#~ "RHN Classic கணினியளவிலான Red Hat கணினிகள் மற்றும் பிணையங்களின் ஆதரவு மற்றும் "
-#~ "நிர்வாகத்தை வழங்குகிறது. Red Hat சந்தா நிர்வாகமே பயன்படுத்தப் பரிந்துரைக்கப்படும் "
-#~ "சேவையாகும், ஆனால் RHN Classic சேவையும் கிடைக்கிறது."
-
-#~ msgctxt "yes"
-#~ msgid "Red Hat Network (RHN) Classic"
-#~ msgstr "Red Hat Network (RHN) Classic"
-
-#~ msgid "Red Hat Network (RHN) Classic"
-#~ msgstr "Red Hat Network இடம்"
-
-#~ msgid ""
-#~ "Satellite users have the benefits of RHN Classic without having to "
-#~ "provide Internet access to connected systems. Proxy users enjoy reduced "
-#~ "bandwidth requirements for RHN Classic and can deploy custom packages."
-#~ msgstr ""
-#~ "Satellite பயனர்கள் இணைந்துள்ள கணினிகளுக்கு இணைய அணுகலை வழங்காமலே RHN Classic இன் "
-#~ "அனுகூலங்களைப் பெறுவர். பதிலி பயனர்கள் RHN Classic க்குகான குறைக்கப்பட்ட பட்டையகல "
-#~ "தேவைகளைப் பெற்று மகிழ்வர், மேலும் தனிப்பயன் தொகுப்புகளை நிறுவ முடியும்."
-
-#~ msgctxt "yes"
-#~ msgid "An RHN Satellite or RHN Proxy"
-#~ msgstr "RHN Satellite அல்லது RHN Proxy"
-
-#~ msgid "An RHN Satellite or RHN Proxy"
-#~ msgstr "RHN Satellite அல்லது RHN Proxy"
-
-#~ msgctxt "yes"
-#~ msgid "Location:"
-#~ msgstr "இடம்:"
-
-#~ msgctxt "yes"
-#~ msgid "Please enter your Red Hat account information:"
-#~ msgstr "உங்கள்  Red Hat கணக்கு தகவலை உள்ளிடவும்:"
-
-#~ msgid ""
-#~ "<small>Tip: Forgot your login or password? Look it up at http://red.ht/"
-#~ "lost_password</small>"
-#~ msgstr ""
-#~ "<small>துணுக்கு: உங்கள் புகுபதிவு அல்லது கடவுச்சொல் மறந்துவிட்டதா?  \n"
-#~ "https://www.redhat.com/wapps/sso/rhn/lostPassword.html இல் பார்க்கவும்</small>"
-
-#~ msgid ""
-#~ "Tip: Forgot your login or password? Look it up at http://red.ht/"
-#~ "lost_password"
-#~ msgstr ""
-#~ "<small>துணுக்கு: உங்கள் புகுபதிவு அல்லது கடவுச்சொல் மறந்துவிட்டதா?  \n"
-#~ "https://www.redhat.com/wapps/sso/rhn/lostPassword.html இல் பார்க்கவும்</small>"
-
-#~ msgctxt "yes"
-#~ msgid "Package Information"
-#~ msgstr "தொகுப்பு தகவல்"
-
-#~ msgctxt "yes"
-#~ msgid ""
-#~ "This assistant will guide you through the process of registering your "
-#~ "system with Red Hat to receive software updates and other benefits. You "
-#~ "will need the following to register:"
-#~ msgstr ""
-#~ "உங்கள் கணினிக்கு மென்பொருள் புதுப்பிப்புகளும்  மற்ற அனுகூலங்களும் கிடைக்கச் செய்வதற்காக "
-#~ "Red Hat உடன் பதிவு செய்யும் செயல்முறையில் இந்த உதவியாளர் உங்களுக்கு வழிகாட்டும். "
-#~ "பதிவு செய்ய தேவையானவை பின்வருமாறு:"
-
-#~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
-#~ msgstr "• உங்கள் Red Hat Network அல்லது Red Hat Network சேட்டிலைட் புகுபதிவு "
-
-#~ msgid "• Your Red Hat account login"
-#~ msgstr "• உங்கள் Red Hatகணக்கு புகுபதிவு"
-
-#~ msgid "Your Red Hat account login"
-#~ msgstr "Red Hat புகுபதிவு"
-
-#~ msgid "• A Red Hat subscription that covers your product"
-#~ msgstr "• உங்கள் தயாரிப்புக்கு சேவை வழங்கும் ஒரு Red Hat சந்தா"
-
-#~ msgid "A Red Hat subscription that covers your product"
-#~ msgstr "உங்கள் தயாரிப்புக்கு சேவை வழங்கும் ஒரு Red Hat சந்தா"
-
-#~ msgid "• (optional) The address of an alternate service"
-#~ msgstr "• (கட்டாயமல்ல) மாற்று சேவையின் முகவரி"
-
-#~ msgid "(optional) The address of an alternate service"
-#~ msgstr "(கட்டாயமல்ல) மாற்று சேவையின் முகவரி"
-
-#~ msgid "_More Info"
-#~ msgstr "வன்பொருள் தகவல்"
-
-#~ msgid "More Info"
-#~ msgstr "வன்பொருள் தகவல்"
-
-#~ msgctxt "yes"
-#~ msgid "Please review the subscription details below:"
-#~ msgstr "கீழே உள்ள சந்தா விவரங்களை மறுபார்வையிடவும்:"
-
-#~ msgctxt "yes"
-#~ msgid ""
-#~ "A recognizable name will help you identify this system in a management "
-#~ "interface."
-#~ msgstr ""
-#~ "அடையாளம் காணத்தக்க பெயர் ஒன்று இருந்தால், நிர்வாக இடைமுகத்தில் இந்தக் கணினியை நீங்கள் "
-#~ "அடையாளம் காண உதவியாக இருக்கும்."
-
-#~ msgctxt "yes"
-#~ msgid ""
-#~ "Send us a profile of your current hardware and packages so we can "
-#~ "determine what updates are available."
-#~ msgstr ""
-#~ "உங்கள் கணினியில் நிறுவப்பட்ட தொகுப்புகள் மற்றும் வன்பொருள் பற்றிய விவரக்குறிப்பை "
-#~ "எங்களுக்கு அனுப்பவும், அதைக் கொண்டு என்ன மேம்படுத்தல்கள் உள்ளன என்பதை நாங்கள் முடிவு "
-#~ "செய்ய முடியும்."
-
-#~ msgctxt "yes"
-#~ msgid ""
-#~ "Registering your system with Red Hat allows you to take full advantage of "
-#~ "the benefits of a paid subscription, including:"
-#~ msgstr ""
-#~ "உங்கள் கணினியை Red Hat உடன் பதிவு செய்தால், பணம் செலுத்திப் பெறும் சந்தாவின் "
-#~ "முழுமையான அனுகூலங்களின் நன்மைகளைப் பெற முடியும், இவை உட்பட:"
-
-#~ msgctxt "yes"
-#~ msgid ""
-#~ "Download installation images for Red Hat Enterprise Linux releases, "
-#~ "including new releases."
-#~ msgstr ""
-#~ "Red Hat Enterprise Linux வெளியீடுகள், புதிய வெளியீடுகளையும் சேர்த்து நிறுவல் "
-#~ "குறுவட்டு உருக்களை பதிவிறக்கம் செய்யவும்."
-
-#~ msgctxt "yes"
-#~ msgid ""
-#~ "Access to the technical support experts at Red Hat or Red Hat's partners "
-#~ "for help with any issues you might encounter with this system."
-#~ msgstr ""
-#~ "நீங்கள் இந்தக் கணினியில் ஏதேனும் சிக்கல்களைச் சந்தித்தால், உதவுக்கி Red Hat இல் உள்ள "
-#~ "தொழில்நுட்ப ஆதரவு நிபுணர்களை அணுகவும் அல்லது Red Hat இன் கூட்டாளர்களை அணுகவும்."
-
-#~ msgctxt "yes"
-#~ msgid ""
-#~ "Manage subscriptions and systems registered to Customer Portal via access."
-#~ "redhat.com or through one of our other subscription management services."
-#~ msgstr ""
-#~ "access.redhat.com மூலம் அல்லது எங்கள் சந்தா நிர்வாக சேவைகளில் ஏதேனும் ஒன்றின் மூலம் "
-#~ "நீங்கள் வாடிக்கையாளர் வலைவாசலில் பதிவு செய்யப்பட்டுள்ள கணினிகளையும் சந்தாக்களையும் "
-#~ "நிர்வகிக்கலாம்."
-
-#~ msgid ""
-#~ "A security certificate compatible with <b>%s</b> was not found on this "
-#~ "system.\n"
-#~ "\n"
-#~ "A security certificate, using SSL technology, is necessary to ensure that "
-#~ "data communicated between this system and Red Hat Network (including your "
-#~ "login and password) is secure."
-#~ msgstr ""
-#~ "இந்த கணினியில் <b>%s</b> உடன் இணக்கமான ஒரு பாதுகாப்பு சான்றிதழ் காணப்படவில்லை.\n"
-#~ "\n"
-#~ "இந்த கணினிக்கும் Red Hat Network க்குக்கும் இடையே பரிமாறப்படும் தரவு (உங்கள் "
-#~ "புகுபதிவு மற்றும் கடவுச்சொல்லையும் சேர்த்து) பாதுகாப்பாக உள்ளதை உறுதிப்படுத்த,  SSL "
-#~ "தொழில்நுட்பத்தைப் பயன்படுத்தும் ஒரு பாதுகாப்பு சான்றிதழ் அவசியமாகும்."
-
-#~ msgid ""
-#~ "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-#~ msgstr ""
-#~ "Red Hat Network உடன் தொடர்பு கொள்ள நான் <b>SSL சான்றிதழ்</b> வைத்திருக்கிறேன் (_S):"
-
-#~ msgid ""
-#~ "You won't be able to receive software updates, including security "
-#~ "updates, for this system.\n"
-#~ "\n"
-#~ "You may access the RHN registration tool by running <b>RHN Registration</"
-#~ "b> or <b>Red Hat Subscription Manager</b> in the <b>System > "
-#~ "Administration</b> menu.\n"
-#~ "You may access the software update tool by running <b>Software Update</b> "
-#~ "in the <b>System > Administration</b> menu."
-#~ msgstr ""
-#~ "நீங்கள் இந்தக் கணினிக்கு பாதுகாப்பு புதுப்பித்தல்கள் உட்பட மென்பொருள் புதுப்பித்தல்கள் "
-#~ "எதையும் பெற முடியாது.\n"
-#~ "\n"
-#~ "<b>கணினி > நிர்வாகம்</b> மெனுவில் உள்ள <b>RHN பதிவு</b> அல்லது <b>Red Hat சந்தா "
-#~ "நிர்வாகி</b> ஆகியவற்றை இயக்குவதன் மூலம் இந்த RHN பதிவுக் கருவியை அணுகலாம்.\n"
-#~ "<b>கணினி > நிர்வாகம்</b> மெனுவில் உள்ள <b>மென்பொருள் புதுப்பித்தல்</b> என்பதை "
-#~ "இயக்குவதன் மூலம் மென்பொருள் புதுப்பித்தல் கருவியை அணுகலாம்."
-
-#~ msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
-#~ msgstr "ஒரு _HTTP பதிலாள் வழியாக Red Hat Network உடன் இணைக்க விரும்புகிறேன்."
-
-#~ msgctxt "yes"
-#~ msgid ""
-#~ "Are you sure you don't want to register your system with Red Hat? You'll "
-#~ "miss out on the benefits of a Red Hat Enterprise Linux Subscription:"
-#~ msgstr ""
-#~ "நிச்சயமாக உங்கள் கணினியை Red Hat உடன் பதிவு செய்ய வேண்டாமா? நீங்கள் Red Hat "
-#~ "Enterprise Linux சந்தாவின் நன்மைகளை இழப்பீர்கள்:"
-
-#~ msgctxt "yes"
-#~ msgid ""
-#~ "You will not be able to take advantage of these benefits without "
-#~ "registering."
-#~ msgstr ""
-#~ "உங்கள் கணினியை பதிவு செய்யாமல் நீங்கள் இந்த அனுகூலங்களின் நன்மைகளைப் பெற முடியாது."
-
-#~ msgctxt "yes"
-#~ msgid "It appears this system has already been set up for software updates:"
-#~ msgstr ""
-#~ "இந்தக் கணினி ஏற்கனவே மென்பொருள் புதுப்பித்தல்களுக்காக அமைக்கப்பட்டிருப்பதாக தெரிகிறது:"
-
-#~ msgid "<b>Red Hat Network Location:</b>"
-#~ msgstr "<b>Red Hat Network இடம்:</b>"
-
-#~ msgctxt "yes"
-#~ msgid "Are you sure you would like to continue?"
-#~ msgstr "நிச்சயம் தொடர வேண்டுமா?"
-
-#~ msgid ""
-#~ "The tool you are using is attempting to re-register using RHN Classic "
-#~ "technology. Red Hat recommends (except in a few cases) that customers "
-#~ "only register with RHN once."
-#~ msgstr ""
-#~ "நீங்கள் பயன்படுத்தும் கருவி RHN கிளாஸிக் தொழில்நுட்பத்தைப் பயன்படுத்தி மறு பதிவு செய்ய "
-#~ "முயற்சிக்கிறது. RHN உடன் ஒருமுறை மட்டுமே பதிவு செய்ய Red Hat பரிந்துரை செய்கிறது "
-#~ "(சில சந்தர்ப்பங்கள் தவிர)."
-
-#~ msgid ""
-#~ "Alternate services include: CloudForms System Engine, Subscription Asset "
-#~ "Manager, Red Hat Network (RHN) Satellite, and RHN Proxy."
-#~ msgstr ""
-#~ "மாற்று சேவைகளில் இவை உள்ளடங்கும்: CloudForms System Engine, சந்தா சொத்து "
-#~ "நிர்வாகி, Red Hat Network (RHN) Satellite மற்றும் RHN பதிலி."
-
-#~ msgid ""
-#~ "Register for software updates from Spacewalk/Satellite/Red Hat Network"
-#~ msgstr ""
-#~ "Spacewalk/Satellite/Red Hat Network இலிருந்து மென்பொருள் புதுப்பித்தல்களை பதிவு "
-#~ "செய்யவும்"
-
-#~ msgid "Register to Spacewalk/Satellite/Red Hat Network."
-#~ msgstr "Spacewalk/Satellite/Red Hat Network யுடன் பதிவு செய்யவும்."
-
-#~ msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
-#~ msgstr "sslCACert இன் மதிப்பை /etc/sysconfig/rhn/up2date இல் சரிபார்க்கவும்"
