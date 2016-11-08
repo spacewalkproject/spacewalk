@@ -249,7 +249,7 @@ class CdnSync(object):
 
         if self.no_kickstarts:
             kickstart_repos = self.cdn_repository_manager.get_content_sources_kickstart(channel)
-            excluded_urls.extend(kickstart_repos)
+            excluded_urls.extend([x['relative_url'] for x in kickstart_repos])
 
         log(0, "======================================")
         log(0, "| Channel: %s" % channel)
