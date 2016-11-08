@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.71
+Version: 2.6.72
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -820,6 +820,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue Nov 08 2016 Jan Dobes 2.6.72-1
+- fixing case when local repository has packages in subdirectories
+- Regenerating .po and .pot files for backend
+- Updating .po translations from Zanata
+
 * Mon Nov 07 2016 Jan Dobes 2.6.71-1
 - kickstart repositories are not required when syncing with --no-kickstarts
 
