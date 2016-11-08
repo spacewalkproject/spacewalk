@@ -81,6 +81,12 @@ insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 -- Fedora 23 (secondary)
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 (sequence_nextval('rhn_pkey_id_seq'), 'b4bb871c873529b8', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+-- Fedora 24
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), '73bde98381b46521', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+-- Fedora 24 (secondary)
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), 'b8635eeb030d5aed', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
 
 -- CentOS
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
