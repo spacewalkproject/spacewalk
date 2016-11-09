@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        2.6.1
+Version:        2.6.2
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -47,6 +47,9 @@ service abrtd restart
 %{_mandir}/man8/*
 
 %changelog
+* Wed Nov 09 2016 Gennadii Altukhov <galt@redhat.com> 2.6.2-1
+- Revert Project-Id-Version for translations
+
 * Tue Nov 08 2016 Gennadii Altukhov <galt@redhat.com> 2.6.1-1
 - Regenerating .po and .pot files for spacewalk-abrt.
 - Updating .po translations from Zanata
