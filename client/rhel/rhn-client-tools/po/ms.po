@@ -9,7 +9,7 @@
 # Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>, 2004,2012
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-07 18:07+0100\n"
 "PO-Revision-Date: 2015-03-18 01:43-0400\n"

@@ -8,7 +8,7 @@
 # Sweta Kothari <swkothar@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-07 18:09+0100\n"
 "PO-Revision-Date: 2015-03-17 08:22-0400\n"

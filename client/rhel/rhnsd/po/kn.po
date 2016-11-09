@@ -9,7 +9,7 @@
 # Shankar Prasad <svenkate@redhat.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-07 18:10+0100\n"
 "PO-Revision-Date: 2015-03-17 08:21-0400\n"
