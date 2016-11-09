@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.6.5
+Version: 2.6.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -401,6 +401,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Nov 09 2016 Gennadii Altukhov <galt@redhat.com> 2.6.6-1
+- Revert Project-Id-Version for translations
+
 * Tue Nov 08 2016 Gennadii Altukhov <galt@redhat.com> 2.6.5-1
 - Regenerating .po and .pot files for rhn-client-tools.
 - Updating .po translations from Zanata
