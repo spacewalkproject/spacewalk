@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.72
+Version: 2.6.73
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -820,6 +820,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Wed Nov 09 2016 Gennadii Altukhov <galt@redhat.com> 2.6.73-1
+- properly extract path
+- add missing newline in string
+
 * Tue Nov 08 2016 Jan Dobes 2.6.72-1
 - fixing case when local repository has packages in subdirectories
 - Regenerating .po and .pot files for backend
