@@ -107,22 +107,12 @@ insert into rhnServerArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_server_arch_id_seq'), 'ppc64pseries-redhat-linux', 'ppc64pseries', lookup_arch_type('rpm'));
 
 insert into rhnServerArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_server_arch_id_seq'), 'sparc-sun4m-solaris', 'Sparc Solaris', lookup_arch_type('sysv-solaris'));
-insert into rhnServerArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_server_arch_id_seq'), 'sparc-sun4u-solaris', 'Sparc Solaris', lookup_arch_type('sysv-solaris'));
-insert into rhnServerArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_server_arch_id_seq'), 'sparc-sun4v-solaris', 'Sparc Solaris', lookup_arch_type('sysv-solaris'));
-
-insert into rhnServerArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_server_arch_id_seq'), 'ia32e-redhat-linux', 'EM64T', lookup_arch_type('rpm'));
 
 insert into rhnServerArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_server_arch_id_seq'), 'amd64-redhat-linux', 'AMD64', lookup_arch_type('rpm'));
 insert into rhnServerArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_server_arch_id_seq'), 'amd64-debian-linux', 'AMD64 Debian', lookup_arch_type('deb'));
-
-insert into rhnServerArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_server_arch_id_seq'), 'i386-i86pc-solaris', 'i386 Solaris', lookup_arch_type('sysv-solaris'));
 
 insert into rhnServerArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_server_arch_id_seq'), 'arm-debian-linux', 'arm Debian', lookup_arch_type('deb'));

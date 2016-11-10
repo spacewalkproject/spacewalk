@@ -61,19 +61,11 @@ insert into rhnPackageArch (id, label, name, arch_type_id) values
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'ppc64pseries', 'ppc64pseries', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_package_arch_id_seq'), 'sparc-solaris', 'Sparc Solaris', lookup_arch_type('sysv-solaris'));
-insert into rhnPackageArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_package_arch_id_seq'), 'sparc.sun4u-solaris', 'Sparc Solaris sun4u', lookup_arch_type('sysv-solaris'));
-insert into rhnPackageArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_package_arch_id_seq'), 'sparc.sun4v-solaris', 'Sparc Solaris sun4v', lookup_arch_type('sysv-solaris'));
-insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'tar', 'TAR archive', lookup_arch_type('tar'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'ia32e', 'EM64T', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'amd64', 'AMD64', lookup_arch_type('rpm'));
-insert into rhnPackageArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_package_arch_id_seq'), 'i386-solaris', 'i386-solaris', lookup_arch_type('sysv-solaris'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'aarch64', 'AArch64', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
@@ -91,25 +83,6 @@ insert into rhnPackageArch (id, label, name, arch_type_id) values
 
 insert into rhnPackageArch (id, label, name, arch_type_id) values 
 ( sequence_nextval('rhn_package_arch_id_seq'), 'nosrc', 'nosrc', lookup_arch_type('rpm') );
-
-
-insert into rhnPackageArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_package_arch_id_seq'), 'sparc-solaris-patch', 'Sparc Solaris patch', lookup_arch_type('solaris-patch'));
-insert into rhnPackageArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_package_arch_id_seq'), 'i386-solaris-patch', 'i386 Solaris patch', lookup_arch_type('solaris-patch'));
-insert into rhnPackageArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_package_arch_id_seq'), 'sparc-solaris-patch-cluster',
-'Sparc Solaris patch cluster', lookup_arch_type('solaris-patch-cluster'));
-insert into rhnPackageArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_package_arch_id_seq'), 'i386-solaris-patch-cluster',
-'i386 Solaris patch cluster', lookup_arch_type('solaris-patch-cluster'));
- 
-insert into rhnPackageArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_package_arch_id_seq'), 'noarch-solaris', 'noarch-solaris', lookup_arch_type('sysv-solaris'));
-insert into rhnPackageArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_package_arch_id_seq'), 'noarch-solaris-patch', 'noarch-solaris-patch', lookup_arch_type('sysv-solaris'));
-insert into rhnPackageArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_package_arch_id_seq'), 'noarch-solaris-patch-cluster', 'noarch-solaris-patch-cluster', lookup_arch_type('sysv-solaris'));
 
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'all-deb', 'all-deb', lookup_arch_type('deb'));

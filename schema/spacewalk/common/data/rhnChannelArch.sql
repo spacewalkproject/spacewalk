@@ -88,11 +88,5 @@ insert into rhnChannelArch (id, label, name, arch_type_id) values
 insert into rhnChannelArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_channel_arch_id_seq'), 'channel-mips-deb', 'mips Debian', lookup_arch_type('deb'));
 
-insert into rhnChannelArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-sparc-sun-solaris', 'Sparc Solaris', lookup_arch_type('sysv-solaris'));
-
-insert into rhnChannelArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-i386-sun-solaris', 'i386 Solaris', lookup_arch_type('sysv-solaris'));
-
 commit;
 
