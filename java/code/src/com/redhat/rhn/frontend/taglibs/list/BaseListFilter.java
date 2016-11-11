@@ -75,4 +75,9 @@ public abstract class BaseListFilter implements ListFilter {
      * @param userLocale the locale info used for the display value
      */
     public abstract void processMap(Map map, Locale userLocale);
+
+    @Override
+    public void postFilter(List filteredList) {
+        // No default behavior
+    }
 }
