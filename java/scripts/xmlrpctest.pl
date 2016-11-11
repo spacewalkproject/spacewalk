@@ -235,17 +235,11 @@ sub run_channel_software_tests {
                 elsif ($key eq 'channel-iSeries') {
                     assertEquals('iSeries', $value);
                 }
-                elsif ($key eq 'channel-sparc-sun-solaris') {
-                    assertEquals('Sparc Solaris', $value);
-                }
                 elsif ($key eq 'channel-ia64') {
                     assertEquals('IA-64', $value);
                 }
                 elsif ($key eq 'channel-s390x') {
                     assertEquals('s390x', $value);
-                }
-                elsif ($key eq 'channel-i386-sun-solaris') {
-                    assertEquals('i386 Solaris', $value);
                 }
                 elsif ($key eq 'channel-sparc') {
                     assertEquals('Sparc', $value);
