@@ -239,6 +239,13 @@ public class VirtualSystemOverview extends SystemOverview
         return (this.getUuid() == null);
     }
 
+    /**
+     * Return a text label to identify the type of system - VM or Host
+     * @return Text label to identify the type of system - VM or Host
+     */
+    public String getSystemTypeLabel() {
+        return getIsVirtualHost() ? "Host" : "VM";
+    }
 
     /**
      * Gets the value of doAction

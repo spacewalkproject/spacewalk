@@ -17,22 +17,20 @@
 <rl:listset name="systemListSet" legend="system">
   <rhn:csrf />
   <rhn:submitted />
-  <rl:list emptykey="virtuallist.jsp.nosystems"
+  <rl:list dataset="pageList"
+           name="virtSystemList"
+           emptykey="virtuallist.jsp.nosystems"
            filter="com.redhat.rhn.frontend.taglibs.list.filters.VirtualSystemOverviewFilter">
     <rl:rowrenderer name="VirtualSystemsRowRenderer"/>
     <rl:decorator name="PageSizeDecorator"/>
     <rl:decorator name="ElaborationDecorator"/>
     <rl:decorator name="SystemIconDecorator"/>
-    <c:if test = "${empty noAddToSsm}">
-      <rl:decorator name="AddToSsmDecorator" />
-    </c:if>
+    <rl:decorator name="AddToSsmDecorator" />
 
-    <c:if test = "${empty notSelectable}">
-      <rl:decorator name="SelectableDecorator"/>
-      <rl:selectablecolumn value="${current.systemId}"
-                           selected="${current.selected}"
-                           disabled="${!current.selectable}"/>
-    </c:if>
+    <rl:decorator name="SelectableDecorator"/>
+    <rl:selectablecolumn value="${current.systemId}"
+                         selected="${current.selected}"
+                         disabled="${!current.selectable}"/>
 
     <rl:column sortable="false"
                bound="false"
@@ -105,11 +103,9 @@
       </c:if>
     </rl:column>
   </rl:list>
-  <c:if test = "${empty noCsv}">
-    <rl:csv dataset="pageList"
-            name="systemList"
-            exportColumns="name,id,securityErrata,bugErrata,enhancementErrata,outdatedPackages,lastCheckin,entitlementLevel,channelLabels"/>
-  </c:if>
+  <rl:csv dataset="pageList"
+          name="virtSystemList"
+          exportColumns="systemTypeLabel,serverName,name,virtualSystemId,hostSystemId,securityErrata,bugErrata,enhancementErrata,outdatedPackages,entitlementLevel,channelLabels"/>
   <rhn:csrf />
   <rhn:submitted />
 </rl:listset>
