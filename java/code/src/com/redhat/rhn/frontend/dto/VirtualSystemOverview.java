@@ -25,7 +25,7 @@ import com.redhat.rhn.frontend.filter.DepthAware;
 public class VirtualSystemOverview extends SystemOverview
                                         implements DepthAware {
 
-    private static final String FAKENODE_LABEL = "(Unknown Host)";
+    public static final String FAKENODE_LABEL = "(Unknown Host)";
 
     private Long systemId;
     private String uuid;
