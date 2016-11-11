@@ -38,7 +38,7 @@ public class SystemOverview extends BaseDto implements Serializable  {
     private Long securityErrata = 0L;
     private Long bugErrata = 0L;
     private Long enhancementErrata = 0L;
-    private Long outdatedPackages;
+    private Long outdatedPackages = 0L;
     private Long configFilesWithDifferences;
     private String serverName;
     private Long serverAdmins;
@@ -55,7 +55,7 @@ public class SystemOverview extends BaseDto implements Serializable  {
     private String serverArchName;
     private Date lastCheckin;
     private Date created;
-    private Long locked;
+    private Long locked = 0L;
     private String name;
     private List status;
     private List actionId;

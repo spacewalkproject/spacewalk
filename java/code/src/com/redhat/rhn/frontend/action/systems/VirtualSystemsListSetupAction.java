@@ -55,8 +55,9 @@ public class VirtualSystemsListSetupAction extends BaseSystemListSetupAction {
         }
     }
 
-    protected DataResult getDataResult(User user, PageControl pc, ActionForm formIn) {
-        DataResult dr = SystemManager.virtualSystemsList(user, pc);
+    protected DataResult<VirtualSystemOverview> getDataResult(User user, PageControl pc,
+            ActionForm formIn) {
+        DataResult<VirtualSystemOverview> dr = SystemManager.virtualSystemsList(user, pc);
 
         for (int i = 0; i < dr.size(); i++) {
             VirtualSystemOverview current = (VirtualSystemOverview) dr.get(i);
