@@ -2430,61 +2430,12 @@ available for this kickstart profile to function properly.
         </context-group>
         <target>Загрузить данные конфиг.файла на сервер, основываясь на mtime</target>
       </trans-unit>
-      <trans-unit id="solarispkgs.install">
-        <source>Solaris Package Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Установка пакета Solaris</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.remove">
-        <source>Solaris Package Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Удаление пакета Solaris</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchInstall">
-        <source>Solaris Patch Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Установка исправления Solaris</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchRemove">
-        <source>Solaris Patch Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Удаление исправления Solaris</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchClusterInstall">
-        <source>Solaris Patch Cluster Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Установка блока исправлений Solaris</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchClusterRemove">
-        <source>Solaris Patch Cluster Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Удаление блока исправлений Solaris</target>
-      </trans-unit>
       <trans-unit id="script.run">
         <source>Run an arbitrary script</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
         <target>Выполнить произвольный сценарий</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.refresh_list">
-        <source>Solaris Package List Refresh</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Обновление списка пакетов Solaris</target>
       </trans-unit>
       <trans-unit id="rhnsd.configure">
         <source>@@PRODUCT_NAME@@ Daemon Configuration</source>
@@ -8938,14 +8889,6 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="mips Debian">
         <source>mips Debian</source>
         <target>mips Debian</target>
-      </trans-unit>
-      <trans-unit id="Sparc Solaris">
-        <source>Sparc Solaris</source>
-        <target>Sparc Solaris</target>
-      </trans-unit>
-      <trans-unit id="i386 Solaris">
-        <source>i386 Solaris</source>
-        <target>i386 Solaris</target>
       </trans-unit>
       <trans-unit id="AArch64">
         <source>ARM aarch64</source>

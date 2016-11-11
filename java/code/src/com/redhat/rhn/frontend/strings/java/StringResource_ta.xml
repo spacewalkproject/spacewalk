@@ -2352,61 +2352,12 @@ available for this kickstart profile to function properly.
         </context-group>
         <target>mtime லிருந்து சேவையகத்திற்கு கட்டமை கோப்புகளை தரவு அடிப்படையில் ஏற்றவும்</target>
       </trans-unit>
-      <trans-unit id="solarispkgs.install">
-        <source>Solaris Package Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>சோலாரிஸ் தொகுப்பு நிறுவுதல்</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.remove">
-        <source>Solaris Package Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>சோலாரிஸ் தொகுப்பு நீக்குதல்</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchInstall">
-        <source>Solaris Patch Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>சோலாரிஸ் பின்னிணைப்பு நிறுவுதல்</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchRemove">
-        <source>Solaris Patch Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>சோலாரிஸ் பின்னிணைப்பு நீக்குதல்</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchClusterInstall">
-        <source>Solaris Patch Cluster Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>சோலாரிஸ் பின்னிணைப்பு கொத்து நிறுவுதல்</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchClusterRemove">
-        <source>Solaris Patch Cluster Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>சோலாரிஸ் பின்னிணைப்பு கொத்து நீக்குதல்</target>
-      </trans-unit>
       <trans-unit id="script.run">
         <source>Run an arbitrary script</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
         <target>முறையற்ற உரையை இயக்கவும்</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.refresh_list">
-        <source>Solaris Package List Refresh</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>சோலாரிஸ் தொகுப்பு பட்டியலை புதுப்பித்தல்</target>
       </trans-unit>
       <trans-unit id="rhnsd.configure">
         <source>@@PRODUCT_NAME@@ Daemon Configuration</source>
@@ -8637,14 +8588,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
       <trans-unit id="mips Debian">
         <source>mips Debian</source>
         <target>mips Debian</target>
-      </trans-unit>
-      <trans-unit id="Sparc Solaris">
-        <source>Sparc Solaris</source>
-        <target>Sparc Solaris</target>
-      </trans-unit>
-      <trans-unit id="i386 Solaris">
-        <source>i386 Solaris</source>
-        <target>i386 Solaris</target>
       </trans-unit>
       <trans-unit id="AArch64">
         <source>ARM aarch64</source>

@@ -2354,61 +2354,12 @@ available for this kickstart profile to function properly.
         </context-group>
         <target>mtime ਦੇ ਅਧਾਰ ਨਾਲ ਸਰਵਰ 'ਤੇ ਸੰਰਚਨਾ ਫਾਇਲ ਡਾਟਾ ਅੱਪਲੋਡ</target>
       </trans-unit>
-      <trans-unit id="solarispkgs.install">
-        <source>Solaris Package Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>ਸਲੋਰਸ (Solaris) ਪੈਕੇਜ ਇੰਸਟਾਲ</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.remove">
-        <source>Solaris Package Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>ਸਲੋਰਸ (Solaris) ਪੈਕੇਜ ਹਟਾਓ</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchInstall">
-        <source>Solaris Patch Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>ਸਲੋਰਸ (Solaris) ਪੈਂਚ ਇੰਸਟਾਲ</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchRemove">
-        <source>Solaris Patch Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>ਸਲੋਰਸ (Solaris) ਪੈਂਚ ਹਟਾਉਣਾ</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchClusterInstall">
-        <source>Solaris Patch Cluster Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>ਸਲੋਰਸ (Solaris) ਪੈਂਚ ਕਲਾਸਟਰ ਇੰਸਟਾਲ</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchClusterRemove">
-        <source>Solaris Patch Cluster Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>ਸਲੋਰਸ (Solaris) ਪੈਂਚ ਕਲਾਸਟਰ ਹਟਾਉਣਾ</target>
-      </trans-unit>
       <trans-unit id="script.run">
         <source>Run an arbitrary script</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
         <target>ਇੱਕ ਇਖਤਿਆਰੀ ਸਕਰਿਪਟ ਚਲਾਓ</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.refresh_list">
-        <source>Solaris Package List Refresh</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>ਸਲੋਰਸ (Solaris) ਪੈਕੇਜ ਸੂਚੀ ਤਾਜ਼ਾ</target>
       </trans-unit>
       <trans-unit id="rhnsd.configure">
         <source>@@PRODUCT_NAME@@ Daemon Configuration</source>
@@ -8639,14 +8590,6 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="mips Debian">
         <source>mips Debian</source>
         <target>mips Debian</target>
-      </trans-unit>
-      <trans-unit id="Sparc Solaris">
-        <source>Sparc Solaris</source>
-        <target>Sparc Solaris</target>
-      </trans-unit>
-      <trans-unit id="i386 Solaris">
-        <source>i386 Solaris</source>
-        <target>i386 Solaris</target>
       </trans-unit>
       <trans-unit id="AArch64">
         <source>ARM aarch64</source>
