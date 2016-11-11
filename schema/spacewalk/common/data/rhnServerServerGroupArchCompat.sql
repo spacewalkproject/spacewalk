@@ -172,22 +172,6 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
 	values (lookup_server_arch('mips-debian-linux'),
             lookup_sg_type('enterprise_entitled'));
 
-insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
-   values (lookup_server_arch('sparc-sun4m-solaris'), 
-           lookup_sg_type('enterprise_entitled'));
-
-insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
-   values (lookup_server_arch('sparc-sun4u-solaris'), 
-           lookup_sg_type('enterprise_entitled'));
-
-insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
-   values (lookup_server_arch('sparc-sun4v-solaris'), 
-           lookup_sg_type('enterprise_entitled'));
-
-insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
-   values (lookup_server_arch('i386-i86pc-solaris'), 
-           lookup_sg_type('enterprise_entitled'));
-
 -- virtualization_host* compatibilities --
 
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type)

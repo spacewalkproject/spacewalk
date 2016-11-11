@@ -102,16 +102,6 @@ insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_i
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('aarch64'), LOOKUP_PACKAGE_ARCH('aarch64'), current_timestamp, current_timestamp);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('aarch64'), LOOKUP_PACKAGE_ARCH('noarch'), current_timestamp, current_timestamp);
 
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc.sun4u-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc.sun4u-solaris'), LOOKUP_PACKAGE_ARCH('sparc.sun4u-solaris'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris'), LOOKUP_PACKAGE_ARCH('sparc.sun4u-solaris'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc.sun4v-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc.sun4v-solaris'), LOOKUP_PACKAGE_ARCH('sparc.sun4v-solaris'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris'), LOOKUP_PACKAGE_ARCH('sparc.sun4v-solaris'), current_timestamp, current_timestamp);
-
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('tar'), LOOKUP_PACKAGE_ARCH('tar'), current_timestamp, current_timestamp);
 
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('ia32e'), LOOKUP_PACKAGE_ARCH('noarch'), current_timestamp, current_timestamp);
@@ -120,28 +110,6 @@ insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_i
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('amd64'), LOOKUP_PACKAGE_ARCH('noarch'), current_timestamp, current_timestamp);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('amd64'), LOOKUP_PACKAGE_ARCH('amd64'), current_timestamp, current_timestamp);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('amd64'), current_timestamp, current_timestamp);
-
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-solaris'), LOOKUP_PACKAGE_ARCH('i386-solaris'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris'), LOOKUP_PACKAGE_ARCH('i386-solaris'), current_timestamp, current_timestamp);
-
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris-patch'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris-patch'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-solaris-patch'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-solaris-patch'), LOOKUP_PACKAGE_ARCH('i386-solaris-patch'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), LOOKUP_PACKAGE_ARCH('i386-solaris-patch'), current_timestamp, current_timestamp);
-
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch-cluster'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch-cluster'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('i386-solaris-patch-cluster'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('i386-solaris-patch-cluster'), current_timestamp, current_timestamp);
-
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), current_timestamp, current_timestamp);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), current_timestamp, current_timestamp);
 
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('all-deb'), current_timestamp, current_timestamp);
 
