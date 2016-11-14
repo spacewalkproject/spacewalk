@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-postgresql
-Version:        2.6.2
+Version:        2.7.0
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 Group:          Applications/System

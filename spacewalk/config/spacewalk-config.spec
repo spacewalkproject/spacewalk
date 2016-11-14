@@ -10,7 +10,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.6.5
+Version: 2.7.0
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
