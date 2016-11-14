@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.6.15
+Version:        2.6.16
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Nov 14 2016 Tomas Kasparek <tkasparek@redhat.com> 2.6.16-1
+- delete solaris architecture during upgrade
+- remove solaris compatibility mappings
+- don't populate db with solaris architectures
+
 * Thu Nov 10 2016 Gennadii Altukhov <galt@redhat.com> 2.6.15-1
 - add Fedora 24 key into schema upgrade
 
