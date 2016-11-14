@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.47
+Version: 2.6.48
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -730,6 +730,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 14 2016 Gennadii Altukhov <galt@redhat.com> 2.6.48-1
+- remove Solaris from strings
+- don't test removed solaris architectures
+
 * Tue Nov 08 2016 Gennadii Altukhov <galt@redhat.com> 2.6.47-1
 - Bump API Version
 - Merging frontend L10N from Zanata
