@@ -44,11 +44,19 @@ public class PackageEvrFactoryTest extends RhnBaseTestCase {
      * Test method to create a test PackageEvr
      * @return Returns a test PackageEvr
      */
+    public static PackageEvr createTestPackageEvr(String epoch, String version, String release) {
+        return PackageEvrFactory.lookupOrCreatePackageEvr(epoch, version, release);
+    }
+
+    /**
+     * Test method to create a test PackageEvr
+     * @return Returns a test PackageEvr
+     */
     public static PackageEvr createTestPackageEvr() {
         String epoch = "1";
         String version = "1.0.0";
         String release = "1";
 
-        return PackageEvrFactory.lookupOrCreatePackageEvr(epoch, version, release);
+        return createTestPackageEvr(epoch, version, release);
     }
 }

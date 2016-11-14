@@ -40,10 +40,19 @@ public class PackageNameTest extends RhnBaseTestCase {
      * @return a test PackageName object.
      * @throws Exception
      */
-    public static PackageName createTestPackageName() throws Exception {
+    public static PackageName createTestPackageName(String name) throws Exception {
         PackageName p = new PackageName();
-        p.setName("00JavaTest" + TestUtils.randomString());
+        p.setName(name);
         TestUtils.saveAndFlush(p);
         return p;
+    }
+
+    /**
+     * Create a test PackageName
+     * @return a test PackageName object.
+     * @throws Exception
+     */
+    public static PackageName createTestPackageName() throws Exception {
+        return createTestPackageName("00JavaTest" + TestUtils.randomString());
     }
 }
