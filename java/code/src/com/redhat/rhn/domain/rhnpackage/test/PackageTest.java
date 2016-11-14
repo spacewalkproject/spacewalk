@@ -94,15 +94,13 @@ public class PackageTest extends RhnBaseTestCase {
         return p;
     }
 
-    public static Package populateTestPackage(Package p, Org org) throws Exception {
-        PackageName pname = PackageNameTest.createTestPackageName();
-        PackageEvr pevr = PackageEvrFactoryTest.createTestPackageEvr();
+    public static Package populateTestPackage(Package p, Org org,
+            PackageName pname,
+            PackageEvr pevr,
+            PackageArch parch
+    ) throws Exception {
         PackageGroup pgroup = PackageGroupTest.createTestPackageGroup();
         SourceRpm srpm = SourceRpmTest.createTestSourceRpm();
-
-        Long testid = new Long(100);
-        String query = "PackageArch.findById";
-        PackageArch parch = (PackageArch) TestUtils.lookupFromCacheById(testid, query);
 
         p.setRpmVersion("foo");
         p.setDescription("RHN-JAVA Package Test");
@@ -112,7 +110,7 @@ public class PackageTest extends RhnBaseTestCase {
         p.setBuildHost("foo2");
         p.setBuildTime(new Date());
         p.setChecksum(ChecksumFactory.safeCreate(
-            MD5Crypt.crypt(TestUtils.randomString()), "md5"));
+                MD5Crypt.crypt(TestUtils.randomString()), "md5"));
         p.setVendor("Rhn-Java");
         p.setPayloadFormat("testpayloadformat");
         p.setCompat(new Long(0));
@@ -130,16 +128,18 @@ public class PackageTest extends RhnBaseTestCase {
         p.setSourceRpm(srpm);
         p.setPackageArch(parch);
 
-
         p.getPackageFiles().add(createTestPackageFile(p));
         p.getPackageFiles().add(createTestPackageFile(p));
-
 
         HibernateFactory.getSession().save(createTestPackageSource(srpm, org));
-
-
         return p;
+    }
 
+    public static Package populateTestPackage(Package p, Org org) throws Exception {
+        PackageName pname = PackageNameTest.createTestPackageName();
+        PackageEvr pevr = PackageEvrFactoryTest.createTestPackageEvr();
+        PackageArch parch = (PackageArch) TestUtils.lookupFromCacheById(100L, "PackageArch.findById");
+        return populateTestPackage(p, org, pname, pevr, parch);
     }
 
 
