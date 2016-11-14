@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.5
+Version: 2.6.6
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -154,6 +154,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Nov 14 2016 Gennadii Altukhov <galt@redhat.com> 2.6.6-1
+- remove 'nightly' from web.version
+
 * Fri Oct 14 2016 Grant Gainey 2.6.5-1
 - Update specfile for RHN reference and minor wordsmithing
 
