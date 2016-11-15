@@ -665,7 +665,7 @@ class JabberClient(jabber.Client, object):
             # Error in the SSL handshake - most likely mismatching CA cert
             log_error("Traceback caught:")
             log_error(extract_traceback())
-            raise_with_tb(SSLHandshakeError, sys.exc_info()[2])
+            raise_with_tb(SSLHandshakeError(), sys.exc_info()[2])
 
         # Re-init the parsers
         jabber.xmlstream.Stream.connect(self)
