@@ -825,7 +825,7 @@ class RepoSync(object):
         treeinfo_parser = None
         for path in treeinfo_path:
             log(1, "Trying " + path)
-            treeinfo = plug.get_file(path, os.path.join(CFG.MOUNT_POINT, ks_path))
+            treeinfo = plug.get_file(path, os.path.join(plug.repo.basecachedir, plug.name))
             if treeinfo:
                 try:
                     treeinfo_parser = TreeInfoParser(treeinfo)
