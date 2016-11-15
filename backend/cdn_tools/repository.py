@@ -79,14 +79,20 @@ class CdnRepositoryManager(object):
             return []
 
     def get_content_sources_kickstart(self, channel_label):
+        repositories = []
         if channel_label in self.kickstart_metadata:
             for tree in self.kickstart_metadata[channel_label]:
                 tree_label = tree['ks_tree_label']
                 if tree_label in self.kickstart_source_mapping:
-                    return self.kickstart_source_mapping[tree_label]
+                    # One tree comes from one repo, one repo for each tree is in the mapping,
+                    # in future there may be multiple repos for one tree and we will need to select
+                    # correct repo
+                    repository = self.kickstart_source_mapping[tree_label][0]
+                    repository['ks_tree_label'] = tree_label
+                    repositories.append(repository)
                 else:
                     log(1, "WARN: Kickstart tree not available: %s" % tree_label)
-        return []
+        return repositories
 
     def get_content_sources(self, channel_label, source=False):
         sources = self.get_content_sources_regular(channel_label, source=source)
@@ -136,14 +142,10 @@ class CdnRepositoryManager(object):
             batch.append(content_source)
 
         kickstart_sources = self.get_content_sources_kickstart(channel_label)
-        if kickstart_sources:
-            # One tree comes from one repo, one repo for each tree is in the mapping,
-            # in future there may be multiple repos for one tree and we will need to select
-            # correct repo
-            ks_source = kickstart_sources[0]
+
+        for ks_source in kickstart_sources:
             content_source = ContentSource()
-            tree_label = self.kickstart_metadata[channel_label][0]['ks_tree_label']
-            content_source['label'] = tree_label
+            content_source['label'] = ks_source['ks_tree_label']
             content_source['source_url'] = ks_source['relative_url']
             content_source['org_id'] = None
             content_source['type_id'] = type_id
