@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.7.0
+Version: 2.7.1
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -65,6 +65,10 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %{_datadir}/rhn/actions/*
 
 %changelog
+* Tue Nov 15 2016 Gennadii Altukhov <galt@redhat.com> 2.7.1-1
+- remove workaround  for BZ 1218071
+- Bumping package versions for 2.7.
+
 * Fri Sep 23 2016 Michael Mraka <michael.mraka@redhat.com> 2.6.1-1
 - fixed rpmlint warnings
 - 1342491 - remove dependency on python2 on F23+
