@@ -4,7 +4,7 @@ Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.7.0
+Version: 2.7.1
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -85,6 +85,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Nov 15 2016 Gennadii Altukhov <galt@redhat.com> 2.7.1-1
+- fix except in rhnlib to make it compatible with Python 2.4
+- Bumping package versions for 2.7.
+
 * Fri Nov 11 2016 Jiri Dostal <jdostal@redhat.com> 2.6.2-1
 - [1260527] RHEL7 reboot loop
 
