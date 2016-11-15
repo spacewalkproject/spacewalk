@@ -379,7 +379,8 @@ class CheckCli(rhncli.RhnCli):
     def __run_action(method, params, kwargs={}):
         try:
             (status, message, data) = CheckCli.__do_call(method, params, kwargs)
-        except SystemExit as e:
+        except SystemExit:
+            e = sys.exc_info()[1]
             global TERMINATE
             TERMINATE = True
             # Are we dealing with shutdown script? If yes, send some response
