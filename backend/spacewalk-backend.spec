@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.0
+Version: 2.7.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -820,6 +820,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue Nov 15 2016 Jan Dobes 2.7.1-1
+- 1395214 - download treeinfo to cache directory to not create folder in
+  kickstart directory if there isn't any treeinfo
+- 1395214 - evaluate kickstart trees properly
+- Bumping package versions for 2.7.
+
 * Wed Nov 09 2016 Gennadii Altukhov <galt@redhat.com> 2.6.74-1
 - Revert Project-Id-Version for translations
 
