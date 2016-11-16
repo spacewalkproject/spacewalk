@@ -975,17 +975,17 @@ class Registration(rhnHandler):
             primif=None
             if ipaddr:
                 h = rhnSQL.prepare("""
-                    select interface_id from rhnServerNetAddress4 where address = :address
+                    select interface_id from rhnServerNetAddress4 rsna4 left join rhnServerNetInterface rsni on rsna4.interface_id = rsni.id where address = :address and server_id = :server_id
                 """)
-                h.execute(address=ipaddr)
+                h.execute(address=ipaddr, server_id=sid)
                 row = h.fetchone_dict()
                 if row:
                     primif=row['interface_id']
             elif ip6addr:
                 h = rhnSQL.prepare("""
-                    select interface_id from rhnServerNetAddress6 where address = :address
+                    select interface_id from rhnServerNetAddress6 rsna6 left join rhnServerNetInterface rsni on rsna6.interface_id = rsni.id where address = :address and server_id = :server_id
                 """)
-                h.execute(address=ip6addr)
+                h.execute(address=ip6addr, server_id=sid)
                 row = h.fetchone_dict()
                 if row:
                     primif=row['interface_id']
