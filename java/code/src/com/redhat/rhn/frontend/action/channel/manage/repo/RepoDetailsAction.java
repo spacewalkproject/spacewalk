@@ -111,6 +111,7 @@ public class RepoDetailsAction extends RhnAction {
                         addErrors(request, errors);
                         setupContentTypes(ctx);
                         setupCryptoKeys(ctx);
+                        bindRepo(request, repo);
                         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
                     }
                     if (isCreateMode(request)) {
