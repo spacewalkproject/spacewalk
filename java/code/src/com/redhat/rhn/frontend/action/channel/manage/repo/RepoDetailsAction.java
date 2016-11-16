@@ -108,6 +108,7 @@ public class RepoDetailsAction extends RhnAction {
                     ContentSource repo = submit(request, errors, form);
                     if (!errors.isEmpty()) {
                         addErrors(request, errors);
+                        setupContentTypes(ctx);
                         setupCryptoKeys(ctx);
                         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
                     }
