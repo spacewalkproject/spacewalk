@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.0
+Version: 2.7.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -730,6 +730,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Nov 16 2016 Jan Dobes 2.7.1-1
+- 1394245 - fill label and id on error page
+- 1394245 - content type can change too, handle it
+- 1394245 - set variable in case of errors
+- Bumping package versions for 2.7.
+
 * Mon Nov 14 2016 Gennadii Altukhov <galt@redhat.com> 2.6.48-1
 - remove Solaris from strings
 - don't test removed solaris architectures
