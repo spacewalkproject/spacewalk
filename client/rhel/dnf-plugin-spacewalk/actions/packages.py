@@ -124,6 +124,9 @@ def update(package_list, cache_only=None):
                    {'version': '1', 'name': "package_install_failure"})
         else:
             ret = (0, "Requested packages already installed", {})
+        # workaround for RhBug:1218071
+        base.plugins.unload()
+        base.close()
         return ret
 
     return _dnf_transaction(base, install=to_install, cache_only=cache_only)
@@ -268,6 +271,12 @@ def _dnf_base(load_system_repo=True, load_available_repos=True):
     # initialize dnf
     base = dnf.Base()
 
+    # this is actually workaround for RhBug:1218071
+    if not base.plugins.plugins and base.conf.plugins:
+        base.plugins.load(base.conf.pluginpath, [])
+        base.plugins.run_init(base)
+        plugin = [p for p in base.plugins.plugins if p.name == 'spacewalk'][0]
+        plugin.activate_channels()
     if load_available_repos:
         base.read_all_repos()
     base.fill_sack(load_system_repo=True, load_available_repos=True)
@@ -328,6 +337,11 @@ def _dnf_transaction(base, install=[], remove=[], full_update=False,
         message = "Error while executing packages action: %s" % str(e)
         data = {}
         return (status, message, data)
+    finally:
+        # workaround for RhBug:1218071
+        base.plugins.unload()
+        base.close()
+
     return (0, "Update Succeeded", {})
 
 
