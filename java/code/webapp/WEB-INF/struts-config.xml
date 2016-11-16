@@ -2881,26 +2881,6 @@
                  path="/WEB-INF/pages/systems/proxylist.jsp"/>
     </action>
 
-    <action path="/systems/VirtualSystemsList"
-        scope="request"
-        input="/WEB-INF/pages/systems/virtualsystemlist.jsp"
-        type="com.redhat.rhn.frontend.action.systems.VirtualSystemsListSetupAction">
-        <forward name="default"
-                 path="/WEB-INF/pages/systems/virtualsystemlist.jsp"/>
-    </action>
-
-     <action path="/systems/VirtualSystemsListSubmit"
-         scope="request"
-         input="/WEB-INF/pages/systems/virtuallist.jsp"
-         type="com.redhat.rhn.frontend.action.systems.SystemListAction"
-         parameter="dispatch"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="postRequired" value="true" />
-         <forward name="default"
-                  path="/systems/VirtualSystemsList.do"
-                  redirect="true"/>
-     </action>
-
     <action path="/systems/SystemGroupList"
         scope="request"
         input="/WEB-INF/pages/systems/grouplist.jsp"
