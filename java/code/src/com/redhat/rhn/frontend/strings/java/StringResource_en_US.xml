@@ -7363,6 +7363,24 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="systemTypeLabel">
+        <source>System Type</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="virtualSystemId">
+        <source>Virtual System Id</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hostSystemId">
+        <source>Host System Id</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="xid">
         <source>Xid</source>
       </trans-unit>
