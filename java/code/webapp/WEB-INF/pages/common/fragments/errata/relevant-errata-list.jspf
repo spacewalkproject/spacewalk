@@ -30,26 +30,12 @@
                    styleclass="text-align: center;">
             <a href="/rhn/errata/details/SystemsAffected.do?eid=${current.id}">${current.affectedSystemCount}</a>
         </rl:column>
-
-                <c:if test="${displayCves}">
-                         <rl:column headerkey="erratalist.jsp.updated"
-                                sortable="true"
-                                sortattr="updateDateObj"
-                                styleclass="text-align: center;">
-                                    ${current.updateDate}
-                                </rl:column>
-                </c:if>
-                <c:if test="${not displayCves}">
-                          <rl:column headerkey="erratalist.jsp.updated"
-                                sortable="true"
-                                sortattr="updateDateObj"
-                                styleclass="text-align: center;">
-                                    ${current.updateDate}
-                                </rl:column>
-                </c:if>
-
-
-
+        <rl:column headerkey="erratalist.jsp.updated"
+                   sortable="true"
+                   sortattr="updateDateObj"
+                   styleclass="text-align: center;">
+            ${current.updateDate}
+        </rl:column>
 
         <c:if test="${displayCves}">
 
