@@ -7859,7 +7859,7 @@ Follow this url to see the full list of inactive systems:
         <source>The repository label '{0}' is already in use, please choose a different label</source>
       </trans-unit>
       <trans-unit id="edit.channel.repo.invalidrepotype">
-        <source>The repository type '{0}' is invalid, please choose a different type</source>
+        <source>The repository type '{0}' is invalid or already in use with given url, please choose a different type</source>
       </trans-unit>
       <trans-unit id="edit.channel.repo.repourlinuse">
         <source>There's already a defined repository with given url, please reuse it.</source>
