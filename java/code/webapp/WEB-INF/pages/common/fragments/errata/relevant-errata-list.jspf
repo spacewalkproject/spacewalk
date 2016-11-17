@@ -17,7 +17,10 @@
                 <rhn:icon type="errata-enhance" title="erratalist.jsp.productenhancementadvisory" />
             </c:if>
         </rl:column>
-        <rl:column headerkey="erratalist.jsp.advisory">
+        <rl:column headerkey="erratalist.jsp.advisory"
+                   sortable="true"
+                   sortattr="advisoryName"
+                   defaultsort="asc">
             <a href="/rhn/errata/details/Details.do?eid=${current.id}">${current.advisoryName}</a>
         </rl:column>
         <rl:column headerkey="erratalist.jsp.synopsis"
