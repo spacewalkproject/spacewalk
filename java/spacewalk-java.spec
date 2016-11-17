@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.1
+Version: 2.7.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -730,6 +730,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 17 2016 Eric Herget <eherget@redhat.com> 2.7.2-1
+- 1394299 - Add missing CSV labels to strings and add a space to separate xml
+  attributes in listtag
+- 1394299 - Remove the temporary old virt systems page
+- 1394299 - Add CSV download to virt sys page that is now converted to new list
+  tag
+- 1394299 - Switch virt sys page to new list tag leaving old virt sys page
+  temporarily
+- 1394299 - Add support for postFilter processing of filtered data to support
+  conversion to new list tag
+- 1394299 - tidy up commit for work on Download CSV option on Virt Systems page
+
 * Wed Nov 16 2016 Jan Dobes 2.7.1-1
 - 1394245 - fill label and id on error page
 - 1394245 - content type can change too, handle it
