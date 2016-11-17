@@ -48,6 +48,7 @@ public class ColumnTag extends BodyTagSupport {
     protected String headerClass;
     protected boolean sortable;
     private String defaultSortDir;
+    private String currentSortDir;
     private String filterAttr;
     private String filterMessage;
     private String width;
@@ -149,6 +150,8 @@ public class ColumnTag extends BodyTagSupport {
         ListTag parent = (ListTag) BodyTagSupport.findAncestorWithClass(this,
                 ListTag.class);
         int retval = BodyTagSupport.SKIP_BODY;
+        currentSortDir = fetchSortDir();
+
         if (command.equals(ListCommand.ENUMERATE)) {
             parent.addColumn();
             retval = BodyTagSupport.EVAL_PAGE;
@@ -222,8 +225,6 @@ public class ColumnTag extends BodyTagSupport {
             ListTagUtil.write(pageContext, "\" ");
         }
 
-
-        String sortDir = getSortDir();
         if (headerStyle != null || isCurrColumnSorted()) {
             ListTagUtil.write(pageContext, " class=\"");
 
@@ -232,12 +233,7 @@ public class ColumnTag extends BodyTagSupport {
                 ListTagUtil.write(pageContext, " ");
             }
 
-            if (isCurrColumnSorted()) {
-                if (isAlphaBarSelected()) {
-                    sortDir = RequestContext.SORT_ASC;
-                }
-                ListTagUtil.write(pageContext, sortDir + "Sort");
-            }
+            ListTagUtil.write(pageContext, currentSortDir + "Sort");
 
             ListTagUtil.write(pageContext, "\"");
         }
@@ -264,30 +260,14 @@ public class ColumnTag extends BodyTagSupport {
     }
 
     private boolean isCurrColumnSorted() {
-        String sortName = getSortName();
-
-        ListTag parent = (ListTag) BodyTagSupport.findAncestorWithClass(this,
-                ListTag.class);
-
-        if (isAlphaBarSelected()  && parent.getAlphaBarColumn().equals(sortName))  {
-            return true;
-        }
-
-        String requestLabel  = pageContext.getRequest().
-                        getParameter(ListTagUtil.makeSortByLabel(getListName()));
-        if (isSortable() && sortName.equals(requestLabel)) {
-            return true;
-        }
-
-        return isSortable() && requestLabel == null &&
-                            !StringUtils.isBlank(defaultSortDir);
+        return !StringUtils.isEmpty(currentSortDir);
     }
 
     private void writeSortLink() throws JspException {
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         String sortBy = getSortName();
         String jsurl = ListTagUtil.makeColumnSortLink(request, getListName(),
-                sortBy, getSortDir());
+                sortBy, currentSortDir);
         String href = "<a href=\"javascript:%s\">";
         ListTagUtil.write(pageContext, String.format(href, jsurl));
         writeColumnName();
@@ -308,20 +288,37 @@ public class ColumnTag extends BodyTagSupport {
         }
     }
 
-    private String getSortDir() {
+    /**
+     * Gets the active sort direction for the column, or empty string if the list is not
+     * sorted on this column.
+     *
+     * @return Active sort direction for the column
+     */
+    private String fetchSortDir() {
+        String sortName = getSortName();
+
+        ListTag parent = (ListTag) BodyTagSupport.findAncestorWithClass(this,
+                ListTag.class);
+
+        if (isAlphaBarSelected() && parent.getAlphaBarColumn().equals(sortName)) {
+            return RequestContext.SORT_ASC;
+        }
+
+        String requestLabel = pageContext.getRequest().
+                getParameter(ListTagUtil.makeSortByLabel(getListName()));
+
+        if (requestLabel != null && !requestLabel.equals(sortName)) {
+            return "";
+        }
 
         String sortDirectionKey = ListTagUtil.makeSortDirLabel(getListName());
         String sortDir = pageContext.getRequest().getParameter(sortDirectionKey);
+
         if (StringUtils.isBlank(sortDir)) {
-            if (RequestContext.SORT_DESC.equals(defaultSortDir)) {
-                return RequestContext.SORT_DESC;
-            }
-            return RequestContext.SORT_ASC;
+            sortDir = defaultSortDir;
         }
-        if (sortDir.equals(RequestContext.SORT_ASC)) {
-            return RequestContext.SORT_ASC;
-        }
-        return RequestContext.SORT_DESC;
+
+        return StringUtils.isEmpty(sortDir) ? "" : sortDir;
     }
 
     protected void renderUnbound() throws JspException {
