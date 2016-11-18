@@ -20069,8 +20069,8 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="schedule.edit.jsp.editschedule">
-        <source>Edit Schedule</source>
+      <trans-unit id="schedule.edit.jsp.updateschedule">
+        <source>Update Schedule</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
         </context-group>
