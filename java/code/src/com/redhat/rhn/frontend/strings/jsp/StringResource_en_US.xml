@@ -14431,13 +14431,13 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>Delete Files</source>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_sandbox">
-          <source>Copy Latest to Sandbox</source>
+          <source>Copy to Local Sandbox</source>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_local">
-          <source>Copy Latest to System Channel</source>
+          <source>Copy to Locally-Managed Files</source>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_global">
-          <source>Copy Latest to Central Channel</source>
+          <source>Copy to Centrally-Managed Files</source>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.sandbox.success">
           <source>{0} file(s) successfully copied to Sandbox</source>
