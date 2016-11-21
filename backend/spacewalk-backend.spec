@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.1
+Version: 2.7.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -820,6 +820,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Mon Nov 21 2016 Jan Dobes 2.7.2-1
+- 1395207 - recognize downloaded headers by yum
+
 * Tue Nov 15 2016 Jan Dobes 2.7.1-1
 - 1395214 - download treeinfo to cache directory to not create folder in
   kickstart directory if there isn't any treeinfo
