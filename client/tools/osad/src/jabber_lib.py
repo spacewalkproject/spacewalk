@@ -25,12 +25,12 @@ from optparse import OptionParser, Option
 import traceback
 from rhn import SSL
 
-try: # python 3
-    from io import StringIO
-    from osad.rhn_log import log_debug, log_error
-except ImportError: # python 2
+try: # python 2
     from cStringIO import StringIO
     from rhn_log import log_debug, log_error
+except ImportError: # python 3
+    from io import StringIO
+    from osad.rhn_log import log_debug, log_error
 
 from spacewalk.common.usix import raise_with_tb
 from rhn.i18n import bstr
