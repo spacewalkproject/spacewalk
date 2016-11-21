@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.2
+Version: 2.7.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 21 2016 Gennadii Altukhov <galt@redhat.com> 2.7.3-1
+- scheduleDetail.jsp: clarify button label
+
 * Thu Nov 17 2016 Eric Herget <eherget@redhat.com> 2.7.2-1
 - 1394299 - Add missing CSV labels to strings and add a space to separate xml
   attributes in listtag
