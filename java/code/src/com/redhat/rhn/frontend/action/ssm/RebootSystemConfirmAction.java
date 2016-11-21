@@ -95,13 +95,19 @@ public class RebootSystemConfirmAction extends RhnAction
             set.getElementValues()));
 
         int n = set.size();
-        if (n == 1) {
-            createSuccessMessage(request, "ssm.misc.reboot.message.success.singular",
-                    LocalizationService.getInstance().formatNumber(new Integer(n)));
+
+        String messageKeySuffix = n == 1 ? "singular" : "plural";
+        LocalizationService ls = LocalizationService.getInstance();
+
+        if (actionChain == null) {
+            createMessage(request, "ssm.misc.reboot.message.success." + messageKeySuffix,
+                    new String[] {ls.formatNumber(n, request.getLocale()),
+                            ls.formatDate(earliest, request.getLocale())});
         }
         else {
-            createSuccessMessage(request, "ssm.misc.reboot.message.success.plural",
-                    LocalizationService.getInstance().formatNumber(new Integer(n)));
+            createMessage(request, "ssm.misc.reboot.message.queued." + messageKeySuffix,
+                    new String[] {ls.formatNumber(n, request.getLocale()),
+                            actionChain.getId().toString(), actionChain.getLabel()});
         }
 
         set.clear();
