@@ -60,7 +60,7 @@ def package_from_stream(stream, packaging):
 def package_from_filename(filename):
     if filename.endswith('.deb'):
         packaging = 'deb'
-    elif filename.endswith('.rpm'):
+    elif filename.endswith('.rpm') or filename.endswith('.hdr'):
         packaging = 'rpm'
     else:
         packaging = 'mpm'
