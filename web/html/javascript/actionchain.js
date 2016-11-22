@@ -168,9 +168,11 @@ $(function() {
 
   function setUnsavedData() {
     $.unsaved = true;
+    $("#action-chain-save-input").fadeIn();
   }
 
   function clearUnsavedData() {
     $.unsaved = false;
+    $("#action-chain-save-input").fadeOut();
   }
 });
