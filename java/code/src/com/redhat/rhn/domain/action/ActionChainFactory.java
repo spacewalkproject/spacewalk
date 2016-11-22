@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.criterion.Order;
@@ -318,6 +319,8 @@ public class ActionChainFactory extends HibernateFactory {
         log.debug("Scheduling Action Chain " +  actionChain + " to date " + date);
         Map<Server, Action> latest = new HashMap<Server, Action>();
         int maxSortOrder = getNextSortOrderValue(actionChain);
+        Date dateInOrder = new Date(date.getTime());
+
         for (int sortOrder = 0; sortOrder < maxSortOrder; sortOrder++) {
             for (ActionChainEntry entry : getActionChainEntries(actionChain, sortOrder)) {
                 Server server = entry.getServer();
@@ -326,7 +329,11 @@ public class ActionChainFactory extends HibernateFactory {
                 log.debug("Scheduling Action " + action + " to server " + server);
                 ActionFactory.addServerToAction(server.getId(), action);
                 action.setPrerequisite(latest.get(server));
-                action.setEarliestAction(date);
+                action.setEarliestAction(dateInOrder);
+
+                // Increment 'earliest' time by a millisecond for each chain action in
+                // order to sort them correctly for display
+                dateInOrder = DateUtils.addMilliseconds(dateInOrder, 1);
 
                 latest.put(server, action);
             }
