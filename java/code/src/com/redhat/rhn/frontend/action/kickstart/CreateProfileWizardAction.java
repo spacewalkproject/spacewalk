@@ -397,19 +397,4 @@ public class CreateProfileWizardAction extends RhnWizardAction {
         return "";
     }
 
-    /**
-     * When we actually go to store the download location we store only a path if possible.
-     * The hostname will be added dynamically when the kickstart file is requested, as it
-     * could refer to proxy or satellite host.
-     */
-    private String getDefaultDownloadLocation(KickstartableTree tree) {
-        String path = tree.getBasePath();
-        if (!tree.basePathIsUrl()) {
-            // Relative base paths don't seem to start with a /, but just in case...
-            if (path.length() > 0 && path.charAt(0) != '/') {
-                path = "/" + path;
-            }
-        }
-        return path;
-    }
 }
