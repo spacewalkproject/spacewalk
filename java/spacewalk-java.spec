@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.4
+Version: 2.7.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 22 2016 Eric Herget <eherget@redhat.com> 2.7.5-1
+- 1394299 - clean up system id inclusion in virt systems csv download
+
 * Tue Nov 22 2016 Jiri Dostal <jdostal@redhat.com> 2.7.4-1
 - Removing unused method. Last use removed by BZ 1388073
 - 1388073 - unable to PXE provision: http://<fqdn>/rhn/kickstart/
