@@ -23,8 +23,8 @@ import org.jdom.input.SAXBuilder;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +43,7 @@ public class SchemaParser {
     private URL schemaURL;
 
     /** The constraints from the schema */
-    private Map constraints;
+    private Map<String, Constraint> constraints;
 
     /** XML Schema Namespace */
     private Namespace schemaNamespace;
@@ -63,7 +63,7 @@ public class SchemaParser {
      */
     public SchemaParser(URL schemaURLIn) throws IOException {
         this.schemaURL = schemaURLIn;
-        constraints = new HashMap();
+        constraints = new LinkedHashMap<String, Constraint>();
         schemaNamespace =
             Namespace.getNamespace(SCHEMA_NAMESPACE_URI);
 
@@ -78,7 +78,7 @@ public class SchemaParser {
      *
      * @return <code>Map</code> - the schema-defined constraints.
      */
-    public Map getConstraints() {
+    public Map<String, Constraint> getConstraints() {
         return constraints;
     }
 
