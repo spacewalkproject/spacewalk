@@ -287,7 +287,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
         Boolean useDefault = (Boolean) form.get(DEFAULT_DOWNLOAD_PARAM);
         String downloadUrl = null;
         if (useDefault != null && Boolean.TRUE.equals(useDefault)) {
-            downloadUrl = getDefaultDownloadLocation(tree);
+            downloadUrl = tree.getDefaultDownloadLocation();
         }
         else {
             downloadUrl = form.getString(USER_DOWNLOAD_PARAM);
