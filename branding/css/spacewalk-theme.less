@@ -267,8 +267,18 @@ aside .nav > li > a {
                 color: @spacewalk-aside-second-submenu-hyperlink-hover;
                 .glow-text;
         }
-	a:before {
+	li a:before {
+		content: "◦";
+		font-family: 'FontAwesome';
+		margin-right: .5em
+	}
+	li.parent a:before {
 		content: "\f105 ";
+		font-family: 'FontAwesome';
+		margin-right: .5em
+	}
+	li.parent.active a:before {
+		content: "\f107 ";
 		font-family: 'FontAwesome';
 		margin-right: .5em
 	}
@@ -847,4 +857,3 @@ code {
   color: #cfcfcf;
   clear: both;
 }
-
