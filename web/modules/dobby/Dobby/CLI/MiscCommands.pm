@@ -108,13 +108,8 @@ sub command_startstop {
       $state = $d->instance_state;
       if ($state ne 'OPEN') {
         $retval = 1;
-        print "Database failed to start.  ";
-        if (exists $msgs{$state}) {
-          print "$msgs{$state}\n";
-        }
-        else {
-          print "Unknown database state '$state'\n";
-        }
+        print "Unable to connect to database to determine status.  If database service\n";
+        print "started successfully, check configuration in rhn.conf.\n";
       }
     }
   }
