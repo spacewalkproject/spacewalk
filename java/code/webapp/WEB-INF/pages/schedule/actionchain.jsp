@@ -81,7 +81,7 @@
                 </tbody>
             </table></div></div>
 
-            <div class="form-group">
+            <div id="action-chain-save-input" class="form-group" hidden>
                 <div class="col-md-offset-3 col-md-6">
                     <button class="btn btn-primary" id="save"><bean:message key="actionchain.jsp.save"/></button>
                     <button class="btn btn-default" id="cancel"><bean:message key="actionchain.jsp.cancel"/></button>
