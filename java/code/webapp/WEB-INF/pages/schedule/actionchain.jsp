@@ -54,24 +54,24 @@
                     <c:forEach items="${groups}" var="group">
                         <tr class="group" data-sort-order="${group.sortOrder}">
                             <td>
-                                <a class="system-list-show-hide" id="system-list-show-hide-${group.sortOrder}" href="#"><i class="fa fa-plus-square"></i></a>
+                                <a class="system-list-show-hide" href="#"><i class="fa fa-plus-square"></i></a>
 
                                 <span class="counter">${group.sortOrder + 1}</span>.
 
                                 <bean:message key="actionchain.jsp.${group.actionTypeLabel}" arg0="${group.relatedObjectDescription}"/>
 
-                                <strong id="system-counter-${group.sortOrder}">
+                                <strong class="system-counter">
                                     ${group.systemCount}
                                 </strong>
 
-                                <span id="singular-label-${group.sortOrder}" <c:if test="${group.systemCount != 1}">hidden</c:if>>
+                                <span class="singular-label" <c:if test="${group.systemCount != 1}">hidden</c:if>>
                                     <bean:message key="actionchain.jsp.system"/>
                                 </span>
-                                <span id="plural-label-${group.sortOrder}" <c:if test="${group.systemCount == 1}">hidden</c:if>>
+                                <span class="plural-label" <c:if test="${group.systemCount == 1}">hidden</c:if>>
                                     <bean:message key="actionchain.jsp.systems"/>
                                 </span>
 
-                                <div id="system-list-${group.sortOrder}" hidden></div>
+                                <div class="system-list" id="system-list-${group.sortOrder}" hidden></div>
                             </td>
                             <td>
                                 <a class="delete-group" href="#"><i class="fa fa-trash-o"></i>delete action</a>

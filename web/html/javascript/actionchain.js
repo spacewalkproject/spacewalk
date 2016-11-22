@@ -11,13 +11,15 @@ $(function() {
 
   // handle clik on +/- icons
   $(".system-list-show-hide").click(function() {
-    var sortOrder = $(this).closest(".group").data("sort-order");
-    var listId = "system-list-" + sortOrder;
-    var list = $("#" + listId);
+    var group = $(this).closest(".group");
+    var list = group.find(".system-list");
+    var icon = group.find(".system-list-show-hide i");
 
     // change icon
-    $("#system-list-show-hide-" + sortOrder + " i").toggleClass("fa-plus-square fa-minus-square")
+    icon.toggleClass("fa-plus-square fa-minus-square");
 
+    var listId = list.attr("id");
+    var sortOrder = group.data("sort-order");
     // if needed, load list via Ajax
     if (list.is(":empty")) {
       ActionChainEntriesRenderer.renderAsync(
@@ -58,7 +60,7 @@ $(function() {
     }
     else {
       li.fadeOut(400, function() {
-        updateSystemCounter(ul, group.data("sort-order"));
+        updateSystemCounter(ul, group);
       }).addClass("deleted");
     }
     return false;
@@ -154,12 +156,12 @@ $(function() {
     setUnsavedData();
   }
 
-  function updateSystemCounter(ul, sortOrder) {
+  function updateSystemCounter(ul, group) {
     var count = ul.find("li:visible").size();
-    $("#system-counter-" + sortOrder).text(count);
+    group.find(".system-counter").text(count);
     if (count == 1) {
-      $("#singular-label-" + sortOrder).show();
-      $("#plural-label-" + sortOrder).hide();
+      group.find(".singular-label").show();
+      group.find(".plural-label").hide();
     }
     setUnsavedData();
   }
