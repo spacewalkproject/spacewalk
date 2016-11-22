@@ -103,7 +103,21 @@ public class VirtualSystemOverview extends SystemOverview
     public void setSystemId(Long systemIdIn) {
         this.systemId = systemIdIn;
     }
-
+    /**
+     * @return The System Id value for use in csv on virt systems page
+     */
+    public Long getSystemIdForCsv() {
+        Long retval = null;
+        if (!isFakeNode()) {
+            if (getUuid() == null && getHostSystemId() != null) {
+                retval = getHostSystemId();
+            }
+            else {
+                retval = getVirtualSystemId();
+            }
+        }
+        return retval;
+    }
     /**
      * @return Returns the vcpus.
      */
@@ -184,7 +198,13 @@ public class VirtualSystemOverview extends SystemOverview
     public void setHostSystemId(Long hostSystemIdIn) {
         this.hostSystemId = hostSystemIdIn;
     }
-
+    /**
+     * @return Returns the host system id for virt system CSV download.  This
+     * returns the host system id if the system is not a host and null if it is.
+     */
+    public Long getHostSystemIdForCsv() {
+        return getUuid() == null ? null : getHostSystemId();
+    }
     /**
      * @return Returns the virtual system id.
      */

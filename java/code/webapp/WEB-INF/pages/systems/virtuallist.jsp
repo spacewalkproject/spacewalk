@@ -105,7 +105,7 @@
   </rl:list>
   <rl:csv dataset="pageList"
           name="virtSystemList"
-          exportColumns="systemTypeLabel,serverName,name,virtualSystemId,hostSystemId,securityErrata,bugErrata,enhancementErrata,outdatedPackages,entitlementLevel,channelLabels"/>
+          exportColumns="systemTypeLabel,systemIdForCsv,serverName,name,hostSystemIdForCsv,securityErrata,bugErrata,enhancementErrata,outdatedPackages,entitlementLevel,channelLabels"/>
   <rhn:csrf />
   <rhn:submitted />
 </rl:listset>
