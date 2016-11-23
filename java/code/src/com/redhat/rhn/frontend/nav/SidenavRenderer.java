@@ -25,6 +25,7 @@ import static java.util.stream.Collectors.joining;
 import static java.util.stream.Stream.concat;
 import static java.util.stream.Stream.empty;
 import static java.util.stream.Stream.of;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * SidenavRenderer renders an unordered list which is decorated
@@ -98,7 +99,10 @@ public class SidenavRenderer extends Renderable {
         Stream<String> additionalClasses =
                 node.getNodes().isEmpty() ? empty() : of("parent");
         String classString = concat(baseClasses, additionalClasses).collect(joining(" "));
-        li.setAttribute("class", classString);
+
+        if (isNotEmpty(classString)) {
+            li.setAttribute("class", classString);
+        }
 
         li.addBody(aHref(node.getPrimaryURL(), node.getName(), node.getTarget()));
         sb.append(li.render());
