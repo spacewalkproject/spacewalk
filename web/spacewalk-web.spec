@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.0
+Version: 2.7.1
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -154,6 +154,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Nov 23 2016 Eric Herget <eherget@redhat.com> 2.7.1-1
+- 1373900 - update failure message when db-control start fails
+- Bumping package versions for 2.7.
+
 * Fri Oct 14 2016 Grant Gainey 2.6.5-1
 - Update specfile for RHN reference and minor wordsmithing
 
