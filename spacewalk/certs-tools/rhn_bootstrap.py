@@ -212,7 +212,7 @@ def getOptionsTable():
         Option('--gpg-key',
                action='store',
                type='string', default=defopts['gpg-key'],
-               help='path to corporate public GPG key, if used. It will be copied to the location specified by the --pub-tree option. (currently: %s)' % repr(defopts['gpg-key'])),
+               help='path to corporate public GPG key, if used. It will be copied to the location specified by the --pub-tree option. Format is GPG_KEY1,GPG_KEY2 (currently: %s)' % repr(defopts['gpg-key'])),
         Option('--http-proxy',
                action='store',
                type='string', default=defopts['http-proxy'],
@@ -358,9 +358,11 @@ ERROR: the value of --overrides and --script cannot be the same!
         sys.stderr.write("ERROR: CA SSL certificate file or RPM not found\n")
         sys.exit(errnoCANotFound)
 
-    if not options.no_gpg and options.gpg_key and not os.path.exists(options.gpg_key):
-        sys.stderr.write("ERROR: corporate public GPG key file not found\n")
-        sys.exit(errnoGPGNotFound)
+    if not options.no_gpg and options.gpg_key:
+        for gpg_key in options.gpg_key.split(","):
+            if not os.path.exists(gpg_key):
+                sys.stderr.write("ERROR: corporate public GPG key file '{0}' not found\n".format(gpg_key))
+                sys.exit(errnoGPGNotFound)
 
     if options.http_proxy != "":
         options.http_proxy = parseHttpProxyString(options.http_proxy)
@@ -419,18 +421,19 @@ def copyFiles(options):
             if writeYN:
                 copyFile(options.ssl_cert, dest)
 
-    # corp GPG key
+    # corp GPG keys
     if not options.no_gpg and options.gpg_key:
-        writeYN = 1
-        dest = os.path.join(pubDir, os.path.basename(options.gpg_key))
-        if os.path.dirname(options.gpg_key) != pubDir:
-            if os.path.isfile(dest) \
-              and getFileChecksum('md5', options.gpg_key) != getFileChecksum('md5', dest):
-                rotateFile(dest, options.verbose)
-            elif os.path.isfile(dest):
-                writeYN = 0
-            if writeYN:
-                copyFile(options.gpg_key, dest)
+        for gpg_key in options.gpg_key.split(","):
+            writeYN = 1
+            dest = os.path.join(pubDir, os.path.basename(gpg_key))
+            if os.path.dirname(gpg_key) != pubDir:
+                if os.path.isfile(dest) \
+                  and getFileChecksum('md5', gpg_key) != getFileChecksum('md5', dest):
+                    rotateFile(dest, options.verbose)
+                elif os.path.isfile(dest):
+                    writeYN = 0
+                if writeYN:
+                    copyFile(gpg_key, dest)
 
 
 def writeClientConfigOverrides(options):
