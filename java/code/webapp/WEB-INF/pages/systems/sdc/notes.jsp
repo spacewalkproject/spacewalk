@@ -29,7 +29,7 @@
         </rhn:column>
 
         <rhn:column header="sdc.details.notes.updated" sortProperty="modified">
-          ${current.modified}
+          <rhn:formatDate humanStyle="calendar" value="${current.modified}" type="both" dateStyle="short" timeStyle="long"/>
         </rhn:column>
 
       </rhn:listdisplay>
