@@ -477,7 +477,7 @@ def do_softwarechannel_setdetails(self, args):
             return
         channel_id = details.get('id')
         logging.debug('setting details for channel %s (%d)' % (channel,
-                      channel_id))
+                                                               channel_id))
         try:
             self.client.channel.software.setDetails(self.session,
                                                     channel_id,
