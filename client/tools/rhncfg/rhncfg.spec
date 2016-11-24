@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.99
+Version: 5.10.100
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -131,6 +131,9 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Thu Nov 24 2016 Jiri Dostal <jdostal@redhat.com> 5.10.100-1
+- 1260527 - fix Python 2.4 syntax (RHEL5)
+
 * Fri Nov 11 2016 Jiri Dostal <jdostal@redhat.com> 5.10.99-1
 - [1260527] RHEL7 reboot loop
 
