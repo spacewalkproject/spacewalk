@@ -20,9 +20,6 @@
   <p>
     <bean:message key="ssm.config.rank.jsp.summary" />
   </p>
-        <noscript>
-                <p><bean:message key="common.config.rank.jsp.warning.noscript"/></p>
-        </noscript>
 </div>
 <html:form method="POST"
                action="/systems/ssm/config/Rank.do">

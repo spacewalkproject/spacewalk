@@ -22,10 +22,6 @@
                         <bean:message key="activation-key.config.subscriptions.jsp.para1"
                         arg0="${rhn:localize('sdc.config.subscriptions.jsp.continue')}"/>
                 </p>
-                <noscript>
-                        <p><bean:message key="common.config.rank.jsp.warning.noscript"/></p>
-                </noscript>
-
 
                 <c:set var="pageList" value="${requestScope.all}" />
 

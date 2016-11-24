@@ -17,9 +17,6 @@
   <p>
     <bean:message key="ssm.config.subscribe.jsp.summary"/>
   </p>
-<noscript>
-        <p><bean:message key="common.config.rank.jsp.warning.noscript"/></p>
-</noscript>
 </div>
 <html:form method="post" action="/systems/ssm/config/SubscribeSubmit.do">
   <rhn:csrf />

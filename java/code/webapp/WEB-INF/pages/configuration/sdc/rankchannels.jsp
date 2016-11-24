@@ -32,9 +32,6 @@
                     </span>
                 </p>
             </c:if>
-            <noscript>
-                <p><bean:message key="common.config.rank.jsp.warning.noscript"/></p>
-            </noscript>
             <h2><bean:message key="sdc.config.rank.jsp.subscribed_channels"/></h2>
 
             <%@ include file="/WEB-INF/pages/common/fragments/configuration/rankchannels.jspf" %>

@@ -28,9 +28,6 @@
       <rhn:csrf />
       <rhn:submitted />
 
-      <noscript>
-          <p><bean:message key="kickstartscript.order.noscript"/></p>
-      </noscript>
       <table style="width:100%;">
           <tr>
             <td colspan="2">
