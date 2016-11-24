@@ -74,19 +74,19 @@
            </tr>
            <tr><td><bean:message key="erratasearch.jsp.types_to_search"/></td>
              <td>
-                <div class="checkbox">
+                <div class="checkbox icon-wrapper">
                   <html:checkbox property="errata_type_bug">
                     <rhn:icon type="errata-bugfix" />
                         <bean:message key="erratalist.jsp.bugadvisory"/>
                   </html:checkbox>
                 </div>
-                <div class="checkbox">
+                <div class="checkbox icon-wrapper">
                 <html:checkbox property="errata_type_security">
                     <rhn:icon type="errata-security" />
                     <bean:message key="erratalist.jsp.securityadvisory"/>
                 </html:checkbox>
                 </div>
-                <div class="checkbox">
+                <div class="checkbox icon-wrapper">
                 <html:checkbox property="errata_type_enhancement">
                     <rhn:icon type="errata-enhance" />
                     <bean:message key="erratalist.jsp.productenhancementadvisory"/>
