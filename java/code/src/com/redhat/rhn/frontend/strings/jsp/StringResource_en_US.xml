@@ -686,6 +686,12 @@
           <context context-type="sourcefile">500 error page</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="common.jsp.noscript">
+          <source>Some features require JavaScript in order to work properly. Make sure you enable JavaScript in your browser.</source>
+          <context-group name="ctx">
+              <context context-type="sourcefile">All pages</context>
+          </context-group>
+      </trans-unit>
       <trans-unit id="orgadmin.displayname">
         <source>Org Admin?*</source>
         <context-group name="ctx">
