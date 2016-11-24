@@ -123,7 +123,7 @@ def report(problem_dir):
         if server.abrt.is_crashfile_upload_enabled(systemid) and filesize <= server.abrt.get_crashfile_uploadlimit(systemid):
             f = open(path, 'r')
             try:
-                crash_file_data['filecontent'] = base64.encodestring(f.read())
+                crash_file_data['filecontent'] = base64.encodestring(bstr(f.read()))
             finally:
                 f.close()
 
