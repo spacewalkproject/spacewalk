@@ -8378,12 +8378,6 @@ Please note that some manual configuration of these scripts may still be require
           <context context-type="sourcefile">/rhn/kickstart/Scripts</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="kickstartscript.order.noscript">
-        <source>&lt;strong&gt;Warning:&lt;/strong&gt; Javascript is required for the kickstart script ordering to succeed. Please enable Javascript in order to continue.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/Scripts</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="kickstartips.jsp.baremetal_summary">
         <source>&lt;p&gt; In order to kickstart "bare metal systems", you will need to provide them with a boot image that is compatible with the version of the operating system you are kickstarting to via boot CD. &lt;/p&gt; &lt;p&gt; Once these systems have booted using the appropriate image, you will need to provide a kickstart file. You may use the following URL in your Boot CD or in your PXE configuration to provide these systems with the kickstart file associated with this kickstart profile:&lt;/p&gt;</source>
         <context-group name="ctx">
@@ -16656,9 +16650,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </trans-unit>
         <trans-unit id="common.config.rank.jsp.warning">
           <source>&lt;strong&gt;Warning:&lt;/strong&gt; You have just selected new configuration channel(s) to subscribe this system to. This system will &lt;strong&gt;not&lt;/strong&gt; be subscribed to these channels until you confirm the subscriptions by determining their ranks and clicking on "{0}" below. </source>
-        </trans-unit>
-        <trans-unit id="common.config.rank.jsp.warning.noscript">
-          <source>&lt;strong&gt;Warning:&lt;/strong&gt; Javascript is required for the subscription and channel ranking operations to succeed. Please enable Javascript in order to continue on to these tasks.</source>
         </trans-unit>
         <trans-unit id="common.config.rank.jsp.error.nojavascript">
           <source>Please enable Javascript before ordering your channel subscriptions.</source>
