@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.7.1
+Version:        2.7.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Nov 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.7.2-1
+- delete records from rhnArchTypeActions before deleting architecture types
+
 * Wed Nov 23 2016 Tomas Kasparek <tkasparek@redhat.com> 2.7.1-1
 - delete from solaris from rhnArchType table
 - Bumping package versions for 2.7.
