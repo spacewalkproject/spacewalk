@@ -71,6 +71,10 @@ delete from rhnServerArch where label = 'sparc-sun4u-solaris';
 delete from rhnServerArch where label = 'sparc-sun4v-solaris';
 delete from rhnServerArch where label = 'i386-i86pc-solaris';
 
+delete from rhnArchTypeActions where arch_type_id = (select id from rhnArchType where label = 'solaris-patch');
+delete from rhnArchTypeActions where arch_type_id = (select id from rhnArchType where label = 'solaris-patch-cluster');
+delete from rhnArchTypeActions where arch_type_id = (select id from rhnArchType where label = 'sysv-solaris');
+
 delete from rhnArchType where label = 'solaris-patch';
 delete from rhnArchType where label = 'solaris-patch-cluster';
 delete from rhnArchType where label = 'sysv-solaris';
