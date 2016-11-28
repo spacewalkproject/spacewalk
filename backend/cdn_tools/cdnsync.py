@@ -234,9 +234,11 @@ class CdnSync(object):
         importer = ChannelImport(channels_batch, backend)
         importer.run()
 
-    def _count_packages_in_repo(self, repo_source, keys):
-        repo_label = repo_source[1:].replace('/', '_')
-        repo_plugin = yum_src.ContentSource(self.mount_point + str(repo_source), str(repo_label))
+    def _count_packages_in_repo(self, repo_source):
+        repo_label = self.cdn_repository_manager.get_content_source_label(repo_source)
+        keys = self.cdn_repository_manager.get_repository_crypto_keys(repo_source['relative_url'])
+        repo_plugin = yum_src.ContentSource(self.mount_point + str(repo_source['relative_url']),
+                                            str(repo_label), org=None)
         repo_plugin.set_ssl_options(str(keys['ca_cert']), str(keys['client_cert']), str(keys['client_key']))
         return repo_plugin.raw_list_packages()
 
@@ -333,8 +335,7 @@ class CdnSync(object):
                 sources = self.cdn_repository_manager.get_content_sources(channel)
                 list_packages = []
                 for source in sources:
-                    keys = self.cdn_repository_manager.get_repository_crypto_keys(source['relative_url'])
-                    list_packages.extend(self._count_packages_in_repo(source['relative_url'], keys))
+                    list_packages.extend(self._count_packages_in_repo(source))
                     already_downloaded += 1
                     print_progress_bar(already_downloaded, len(repo_list), prefix='Downloading repodata:',
                                        suffix='Complete', bar_length=50)

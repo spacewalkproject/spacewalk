@@ -102,7 +102,7 @@ class YumUpdateMetadata(UpdateMetadata):
 
 class ContentSource(object):
 
-    def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF):
+    def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF, org="1"):
         self.url = url
         self.name = name
         self.yumbase = yum.YumBase()
@@ -110,6 +110,10 @@ class ContentSource(object):
         if not os.path.exists(yumsrc_conf):
             self.yumbase.preconf.fn = '/dev/null'
         self.configparser = ConfigParser()
+        if org:
+            self.org = org
+        else:
+            self.org = "NULL"
 
         # read the proxy configuration in /etc/rhn/rhn.conf
         initCFG('server.satellite')
@@ -147,12 +151,12 @@ class ContentSource(object):
         repo.cache = 0
         repo.mirrorlist = self.url
         repo.baseurl = [self.url]
-        repo.basecachedir = CACHE_DIR
+        repo.basecachedir = os.path.join(CACHE_DIR, self.org)
         # base_persistdir have to be set before pkgdir
         if hasattr(repo, 'base_persistdir'):
-            repo.base_persistdir = CACHE_DIR
+            repo.base_persistdir = repo.basecachedir
 
-        pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1', 'stage')
+        pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, self.org, 'stage')
         if not os.path.isdir(pkgdir):
             fileutils.makedirs(pkgdir, user='apache', group='apache')
         repo.pkgdir = pkgdir
@@ -315,7 +319,7 @@ class ContentSource(object):
 
     def clear_cache(self, directory=None):
         if directory is None:
-            directory = CACHE_DIR + self.name
+            directory = os.path.join(CACHE_DIR, self.org, self.name)
         rmtree(directory, True)
         # restore empty directory
         makedirs(directory + "/packages", int('0755', 8))

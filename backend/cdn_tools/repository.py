@@ -164,6 +164,15 @@ class CdnRepositoryManager(object):
         except CdnRepositoryNotFoundError:
             return {}
 
+    @staticmethod
+    def get_content_source_label(source):
+        if 'pulp_repo_label_v2' in source:
+            return source['pulp_repo_label_v2']
+        elif 'ks_tree_label' in source:
+            return source['ks_tree_label']
+        else:
+            raise InvalidContentSourceType()
+
 
 class CdnRepositoryTree(object):
     """Class representing activated CDN repositories in tree structure.
@@ -229,6 +238,10 @@ class CdnRepositoryTree(object):
 
 
 class CdnRepositoryNotFoundError(Exception):
+    pass
+
+
+class InvalidContentSourceType(Exception):
     pass
 
 

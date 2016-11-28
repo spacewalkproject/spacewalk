@@ -270,13 +270,15 @@ class RepoSync(object):
 
             # pylint: disable=W0703
             try:
-                # use modified relative_url as name of repo plugin, because
-                # it used as name of cache directory as well
+                if repo_label:
+                    repo_name = repo_label
+                else:
+                    # use modified relative_url as name of repo plugin, because
+                    # it used as name of cache directory as well
+                    relative_url = '_'.join(url.split('://')[1].split('/')[1:])
+                    repo_name = relative_url.replace("?", "_").replace("&", "_").replace("=", "_")
 
-                relative_url = '_'.join(url.split('://')[1].split('/')[1:])
-                plugin_name = relative_url.replace("?", "_").replace("&", "_").replace("=", "_")
-
-                plugin = self.repo_plugin(url, plugin_name)
+                plugin = self.repo_plugin(url, repo_name, org=self.channel['org_id'])
 
                 if update_repodata:
                     plugin.clear_cache()
