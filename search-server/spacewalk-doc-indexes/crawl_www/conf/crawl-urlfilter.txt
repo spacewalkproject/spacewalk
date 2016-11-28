@@ -40,6 +40,6 @@
 #+^http://([a-z0-9]*\.)*MY.DOMAIN.NAME/
 #+^http://([a-z0-9]*\.)*redhat.com/
 +^https://access.redhat.com/documentation/en-US/Red_Hat_Satellite/5.7/
-+^https://fedorahosted.org/spacewalk/wiki/ReleaseNotes24
++^https://fedorahosted.org/spacewalk/wiki/ReleaseNotes26
 # skip everything else
 -.
