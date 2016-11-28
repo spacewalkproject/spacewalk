@@ -279,7 +279,8 @@ class RepoSync(object):
                     repo_name = relative_url.replace("?", "_").replace("&", "_").replace("=", "_")
 
                 plugin = self.repo_plugin(url, repo_name,
-                                          org=str(self.channel['org_id'] or ''))
+                                          org=str(self.channel['org_id'] or ''),
+                                          channel_label=self.channel_label)
 
                 if update_repodata:
                     plugin.clear_cache()

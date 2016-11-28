@@ -102,7 +102,7 @@ class YumUpdateMetadata(UpdateMetadata):
 
 class ContentSource(object):
 
-    def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF, org="1"):
+    def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF, org="1", channel_label=""):
         self.url = url
         self.name = name
         self.yumbase = yum.YumBase()
@@ -121,8 +121,14 @@ class ContentSource(object):
         self.proxy_user = CFG.http_proxy_username
         self.proxy_pass = CFG.http_proxy_password
         self._authenticate(url)
+        # Check for settings in yum configuration files
         if name in self.yumbase.repos.repos:
             repo = self.yumbase.repos.repos[name]
+        elif channel_label in self.yumbase.repos.repos:
+            repo = self.yumbase.repos.repos[channel_label]
+            # In case we are using Repo object based on channel config, override it's id to name of the repo
+            # To not create channel directories in cache directory
+            repo.id = name
         else:
             repo = yum.yumRepo.YumRepository(name)
             repo.populate(self.configparser, name, self.yumbase.conf)
