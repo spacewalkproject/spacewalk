@@ -1,5 +1,5 @@
 Name: spacewalk-doc-indexes
-Version: 2.6.0
+Version: 2.6.1
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk
 
@@ -48,6 +48,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Nov 28 2016 Gennadii Altukhov <galt@redhat.com> 2.6.1-1
+- reindex documentation for rhn-search
+- updated release notes to Spacewalk 2.6
+- Bumping package versions for 2.6.
+
 * Fri May 20 2016 Grant Gainey 2.5.2-1
 - spacewalk-doc-indexes: build on openSUSE
 
