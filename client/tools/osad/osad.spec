@@ -19,7 +19,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.75
+Version: 5.11.76
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -425,6 +425,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Nov 29 2016 Jan Dobes 5.11.76-1
+- perl isn't in Fedora 25 buildroot
+
 * Mon Nov 21 2016 Gennadii Altukhov <galt@redhat.com> 5.11.75-1
 - 1397078: fix python2/3 StringIO import
 
