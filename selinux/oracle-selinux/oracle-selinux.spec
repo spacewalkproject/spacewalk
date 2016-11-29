@@ -20,7 +20,7 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.1.23.36
+Version:         0.1.23.37
 Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -211,6 +211,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Tue Nov 29 2016 Jan Dobes 0.1.23.37-1
+- perl isn't in Fedora 25 buildroot
+
 * Fri Nov 15 2013 Michael Mraka <michael.mraka@redhat.com> 0.1.23.36-1
 - 1029894 - allow oracle read sysfs
 
