@@ -23,6 +23,7 @@ Version: 5.11.75
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
+BuildRequires: perl
 BuildRequires: python-devel
 Requires: python
 %if 0%{?fedora} >= 23
