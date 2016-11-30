@@ -101,9 +101,14 @@ class YumUpdateMetadata(UpdateMetadata):
                             no.add(un)
 
 
+class RepoMDNotFound(Exception):
+    pass
+
+
 class ContentSource(object):
 
-    def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF, org="1", channel_label="", no_mirrors=False):
+    def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF, org="1", channel_label="",
+                 no_mirrors=False, cached_repodata=0):
         self.url = url
         self.name = name
         self.yumbase = yum.YumBase()
@@ -140,7 +145,7 @@ class ContentSource(object):
             repo.populate(self.configparser, name, self.yumbase.conf)
         self.repo = repo
 
-        self.setup_repo(repo, no_mirrors)
+        self.setup_repo(repo, no_mirrors, cached_repodata=cached_repodata)
         self.num_packages = 0
         self.num_excluded = 0
 
@@ -163,9 +168,9 @@ class ContentSource(object):
     def _authenticate(self, url):
         pass
 
-    def setup_repo(self, repo, no_mirrors):
+    def setup_repo(self, repo, no_mirrors, cached_repodata=0):
         """Fetch repository metadata"""
-        repo.cache = 0
+        repo.cache = cached_repodata
         repo.mirrorlist = self.url
         repo.baseurl = [self.url]
         repo.basecachedir = os.path.join(CACHE_DIR, self.org)
@@ -207,7 +212,7 @@ class ContentSource(object):
                 warnings.restore()
                 raise
             warnings.restore()
-        repo.setup(False)
+        repo.setup(cached_repodata)
 
     def number_of_packages(self):
         for dummy_index in range(3):
@@ -460,3 +465,35 @@ class ContentSource(object):
         params['proxy'] = self.repo.proxy
         params['proxy_username'] = self.repo.proxy_username
         params['proxy_password'] = self.repo.proxy_password
+
+    # Simply load primary and updateinfo path from repomd
+    def get_metadata_paths(self):
+        def get_location(data_item):
+            for sub_item in data_item:
+                if sub_item.tag.endswith("location"):
+                    return sub_item.attrib.get("href")
+
+        def get_checksum(data_item):
+            for sub_item in data_item:
+                if sub_item.tag.endswith("checksum"):
+                    return sub_item.attrib.get("type"), sub_item.text
+
+        repomd_path = os.path.join(self.repo.basecachedir, self.name, "repomd.xml")
+        if not os.path.isfile(repomd_path):
+            raise RepoMDNotFound(repomd_path)
+        repomd = open(repomd_path, 'rb')
+        files = {}
+        for _event, elem in iterparse(repomd):
+            if elem.tag.endswith("data"):
+                if elem.attrib.get("type") == "primary_db":
+                    files['primary'] = (get_location(elem), get_checksum(elem))
+                elif elem.attrib.get("type") == "primary" and 'primary' not in files:
+                    files['primary'] = (get_location(elem), get_checksum(elem))
+                elif elem.attrib.get("type") == "updateinfo":
+                    files['updateinfo'] = (get_location(elem), get_checksum(elem))
+                elif elem.attrib.get("type") == "group_gz":
+                    files['group'] = (get_location(elem), get_checksum(elem))
+                elif elem.attrib.get("type") == "group" and 'group' not in files:
+                    files['group'] = (get_location(elem), get_checksum(elem))
+        repomd.close()
+        return files.values()

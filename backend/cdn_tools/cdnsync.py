@@ -33,7 +33,7 @@ from spacewalk.server.importlib.importLib import Channel, ChannelFamily, \
 from spacewalk.satellite_tools import reposync
 from spacewalk.satellite_tools import contentRemove
 from spacewalk.satellite_tools.syncLib import log, log2disk, log2stderr
-from spacewalk.satellite_tools.repo_plugins import yum_src
+from spacewalk.satellite_tools.repo_plugins import yum_src, ThreadedDownloader, ProgressBarLogger
 
 from common import CdnMappingsLoadError, verify_mappings
 from repository import CdnRepositoryManager
@@ -234,13 +234,13 @@ class CdnSync(object):
         importer = ChannelImport(channels_batch, backend)
         importer.run()
 
-    def _count_packages_in_repo(self, repo_source):
+    def _create_yum_repo(self, repo_source):
         repo_label = self.cdn_repository_manager.get_content_source_label(repo_source)
         keys = self.cdn_repository_manager.get_repository_crypto_keys(repo_source['relative_url'])
         repo_plugin = yum_src.ContentSource(self.mount_point + str(repo_source['relative_url']),
-                                            str(repo_label), org=None, no_mirrors=True)
+                                            str(repo_label), org=None, no_mirrors=True, cached_repodata=1)
         repo_plugin.set_ssl_options(str(keys['ca_cert']), str(keys['client_cert']), str(keys['client_key']))
-        return repo_plugin.raw_list_packages()
+        return repo_plugin
 
     def _sync_channel(self, channel):
         excluded_urls = []
@@ -315,52 +315,136 @@ class CdnSync(object):
 
     def count_packages(self):
         start_time = int(time.time())
-
         channel_tree, not_available_channels = self._list_available_channels()
 
-        repo_list = []
-        for base_channel in sorted(channel_tree):
-            channel_list = channel_tree[base_channel]
+        # Collect all channels
+        channel_list = []
+        for base_channel in channel_tree:
+            channel_list.extend(channel_tree[base_channel])
             if base_channel not in not_available_channels:
                 channel_list.append(base_channel)
-            for channel in sorted(channel_list):
-                repo_list.extend(self.cdn_repository_manager.get_content_sources(channel))
+        log(0, "Number of channels: %d" % len(channel_list))
 
-        log(0, "Number of repositories: %d" % len(repo_list))
-        already_downloaded = 0
-        print_progress_bar(already_downloaded, len(repo_list), prefix='Downloading repodata:',
-                           suffix='Complete', bar_length=50)
+        # Prepare repositories
+        repo_tree = {}
+        repository_count = 0
+        for channel in channel_list:
+            sources = self.cdn_repository_manager.get_content_sources(channel)
+            repository_count += len(sources)
+            repo_tree[channel] = sources
+        log(0, "Number of repositories: %d" % repository_count)
 
-        for base_channel in sorted(channel_tree):
-            channel_list = channel_tree[base_channel]
-            if base_channel not in not_available_channels:
-                channel_list.append(base_channel)
-            for channel in sorted(channel_list):
-                sources = self.cdn_repository_manager.get_content_sources(channel)
-                list_packages = []
-                for source in sources:
-                    list_packages.extend(self._count_packages_in_repo(source))
-                    already_downloaded += 1
-                    print_progress_bar(already_downloaded, len(repo_list), prefix='Downloading repodata:',
-                                       suffix='Complete', bar_length=50)
+        downloader = ThreadedDownloader()
+        for channel in repo_tree:
+            for source in repo_tree[channel]:
+                yum_repo = self._create_yum_repo(source)
+                params = {}
+                yum_repo.set_download_parameters(params, "repodata/repomd.xml",
+                                                 os.path.join(yum_repo.repo.basecachedir,
+                                                              yum_repo.name, "repomd.xml.new"))
+                downloader.add(params)
 
-                cdn_repodata_path = constants.CDN_REPODATA_ROOT + '/' + channel
+        progress_bar = ProgressBarLogger("Downloading repomd:  ", repository_count)
+        downloader.set_log_obj(progress_bar)
+        # Overwrite existing files
+        downloader.set_force(True)
+        log2disk(0, "Downloading repomd started.")
+        downloader.run()
+        log2disk(0, "Downloading repomd finished.")
 
-                # create directory for repo data if it doesn't exist
-                try:
-                    os.makedirs(cdn_repodata_path)
-                except OSError:
-                    exc = sys.exc_info()[1]
-                    if exc.errno == errno.EEXIST and os.path.isdir(cdn_repodata_path):
-                        pass
-                    else:
-                        raise
-                f_out = open(cdn_repodata_path + '/' + "packages_num", 'w')
-                try:
-                    f_out.write(str(len(set(list_packages))))
-                finally:
-                    if f_out is not None:
-                        f_out.close()
+        progress_bar = ProgressBarLogger("Comparing repomd:    ", len(repo_tree))
+        to_download_count = 0
+        repo_tree_to_update = {}
+        log2disk(0, "Comparing repomd started.")
+        for channel in repo_tree:
+            cdn_repodata_path = os.path.join(constants.CDN_REPODATA_ROOT, channel)
+            packages_num_path = os.path.join(cdn_repodata_path, "packages_num")
+            packages_size_path = os.path.join(cdn_repodata_path, "packages_size")
+
+            sources = repo_tree[channel]
+            yum_repos = [self._create_yum_repo(source) for source in sources]
+
+            # packages_num file exists and all cached repomd files are up to date => skip
+            if os.path.isfile(packages_num_path) and os.path.isfile(packages_size_path) and all(
+                    [x.repomd_up_to_date() for x in yum_repos]):
+                progress_bar.log(True, None)
+                continue
+
+            update_channel = False
+            for yum_repo in yum_repos:
+                # use new repomd
+                new_repomd = os.path.join(yum_repo.repo.basecachedir, yum_repo.name, "repomd.xml.new")
+                if os.path.isfile(new_repomd):
+                    update_channel = True
+                    os.rename(new_repomd,
+                              os.path.join(yum_repo.repo.basecachedir, yum_repo.name, "repomd.xml"))
+                else:
+                    # it wasn't downloaded
+                    continue
+
+                for path, checksum_pair in yum_repo.get_metadata_paths():
+                    params = {}
+                    yum_repo.set_download_parameters(params, path,
+                                                     os.path.join(yum_repo.repo.basecachedir, yum_repo.name,
+                                                                  os.path.basename(path)),
+                                                     checksum_type=checksum_pair[0], checksum=checksum_pair[1])
+                    downloader.add(params)
+                    to_download_count += 1
+
+            # If there is at least one repo with new repomd, pass through this channel
+            if update_channel:
+                repo_tree_to_update[channel] = sources
+
+            progress_bar.log(True, None)
+        log2disk(0, "Comparing repomd finished.")
+
+        progress_bar = ProgressBarLogger("Downloading metadata:", to_download_count)
+        downloader.set_log_obj(progress_bar)
+        downloader.set_force(False)
+        log2disk(0, "Downloading metadata started.")
+        downloader.run()
+        log2disk(0, "Downloading metadata finished.")
+
+        progress_bar = ProgressBarLogger("Counting packages:   ", len(repo_tree_to_update))
+        log2disk(0, "Counting packages started.")
+        for channel in repo_tree_to_update:
+            cdn_repodata_path = os.path.join(constants.CDN_REPODATA_ROOT, channel)
+            packages_num_path = os.path.join(cdn_repodata_path, "packages_num")
+            packages_size_path = os.path.join(cdn_repodata_path, "packages_size")
+
+            sources = repo_tree_to_update[channel]
+            yum_repos = [self._create_yum_repo(source) for source in sources]
+
+            packages = {}
+            for yum_repo in yum_repos:
+                for pkg in yum_repo.raw_list_packages():
+                    nvrea = str(pkg)
+                    packages[nvrea] = pkg.packagesize
+
+            # create directory for repo data if it doesn't exist
+            try:
+                os.makedirs(cdn_repodata_path)
+            except OSError:
+                exc = sys.exc_info()[1]
+                if exc.errno == errno.EEXIST and os.path.isdir(cdn_repodata_path):
+                    pass
+                else:
+                    raise
+            f_num_out = open(packages_num_path, 'w')
+            f_size_out = open(packages_size_path, 'w')
+            try:
+                f_num_out.write(str(len(packages)))
+                f_size_out.write(str(sum(packages.values())))
+            finally:
+                if f_num_out is not None:
+                    f_num_out.close()
+                if f_size_out is not None:
+                    f_size_out.close()
+            # Delete cache to save space
+            for yum_repo in yum_repos:
+                yum_repo.clear_cache(keep_repomd=True)
+            progress_bar.log(True, None)
+        log2disk(0, "Counting packages finished.")
 
         elapsed_time = int(time.time())
         log(0, "Elapsed time: %d seconds" % (elapsed_time - start_time))
@@ -438,26 +522,3 @@ class CdnSync(object):
     def clear_cache():
         # Clear packages outside channels from DB and disk
         contentRemove.delete_outside_channels(None)
-
-
-# from here http://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console
-# Print iterations progress
-def print_progress_bar(iteration, total, prefix='', suffix='', decimals=2, bar_length=100):
-    """
-    Call in a loop to create terminal progress bar
-    @params:
-        iteration   - Required  : current iteration (Int)
-        total       - Required  : total iterations (Int)
-        prefix      - Optional  : prefix string (Str)
-        suffix      - Optional  : suffix string (Str)
-        decimals    - Optional  : number of decimals in percent complete (Int)
-        bar_length   - Optional  : character length of bar (Int)
-    """
-    filled_length = int(round(bar_length * iteration / float(total)))
-    percents = round(100.00 * (iteration / float(total)), decimals)
-    bar_char = '#' * filled_length + '-' * (bar_length - filled_length)
-    sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar_char, percents, '%', suffix))
-    sys.stdout.flush()
-    if iteration == total:
-        sys.stdout.write('\n')
-        sys.stdout.flush()
