@@ -2310,4 +2310,26 @@ SELECT SP.server_id ID, S.name
   <elaborator name="entitlements"/>
 </mode>
 
+<write-mode name="remove_activation_keys">
+  <query params="sid">
+    delete from rhnActivationKey ak
+     where 1=1
+       and ak.reg_token_id in (
+            select t.id
+              from rhnregtoken t
+             where 1=1
+               and ak.reg_token_id = t.id
+               and t.server_id = :sid
+            )
+  </query>
+</write-mode>
+
+<write-mode name="remove_activation_key">
+  <query params="token">
+    delete from rhnActivationKey ak
+     where 1=1
+       and ak.token = :token
+  </query>
+</write-mode>
+
 </datasource_modes>

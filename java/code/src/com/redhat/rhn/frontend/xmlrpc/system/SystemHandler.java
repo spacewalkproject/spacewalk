@@ -198,10 +198,7 @@ public class SystemHandler extends BaseHandler {
         // creating a new one... there should only be 1; however, earlier
         // versions of the API did not remove the existing reactivation keys;
         // therefore, it is possible that multiple will be returned...
-        List<ActivationKey> existingKeys = ActivationKeyFactory.lookupByServer(server);
-        for (ActivationKey key : existingKeys) {
-            ActivationKeyFactory.removeKey(key);
-        }
+        ActivationKeyFactory.removeKeysForServer(server.getId());
 
         String note = "Reactivation key for " + server.getName() + ".";
         ActivationKey key = ActivationKeyManager.getInstance().

@@ -14,6 +14,17 @@
  */
 package com.redhat.rhn.domain.token;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.common.validator.ValidatorException;
@@ -26,15 +37,6 @@ import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.Scrubber;
-
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 /**
  * ActivationKeyFactory
@@ -251,14 +253,30 @@ public class ActivationKeyFactory extends HibernateFactory {
     }
 
     /**
+     * Remove all activation-keys associated with a given server
+     *
+     * @param sid server-id of the server of interest
+     * @return number of rows deleted
+     */
+    public static int removeKeysForServer(Long sid) {
+        WriteMode m = ModeFactory.getWriteMode("System_queries", "remove_activation_keys");
+        Map params = new HashMap();
+        params.put("sid", sid.longValue());
+        return m.executeUpdate(params);
+    }
+
+    /**
      * Remove an ActivationKey
      * @param key to remove
      */
     public static void removeKey(ActivationKey key) {
         if (key != null) {
-            singleton.removeObject(key);
+            WriteMode m = ModeFactory.getWriteMode("System_queries",
+                    "remove_activation_key");
+            Map params = new HashMap();
+            params.put("token", key.getKey());
+            m.executeUpdate(params);
         }
-
     }
 
     /**
