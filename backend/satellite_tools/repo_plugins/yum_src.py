@@ -333,11 +333,19 @@ class ContentSource(object):
     def verify_pkg(_fo, pkg, _fail):
         return pkg.verifyLocalPkg()
 
-    def clear_cache(self, directory=None):
+    def clear_cache(self, directory=None, keep_repomd=False):
         if directory is None:
             directory = os.path.join(CACHE_DIR, self.org, self.name)
-        rmtree(directory, True)
-        # restore empty directory
+
+        # remove content in directory
+        for item in os.listdir(directory):
+            path = os.path.join(directory, item)
+            if os.path.isfile(path) and not (keep_repomd and item == "repomd.xml"):
+                os.unlink(path)
+            elif os.path.isdir(path):
+                rmtree(path)
+
+        # restore empty directories
         makedirs(directory + "/packages", int('0755', 8))
         makedirs(directory + "/gen", int('0755', 8))
 
