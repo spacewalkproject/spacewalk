@@ -39,7 +39,7 @@ except ImportError:
     iterparse = cElementTree.iterparse
 from urlgrabber.grabber import URLGrabError
 
-from spacewalk.common import fileutils
+from spacewalk.common import fileutils, checksum
 from spacewalk.satellite_tools.repo_plugins import ContentPackage
 from spacewalk.common.rhnConfig import CFG, initCFG
 
@@ -417,3 +417,15 @@ class ContentSource(object):
         finally:
             if os.path.exists(temp_file):
                 os.unlink(temp_file)
+
+    def repomd_up_to_date(self):
+        repomd_old_path = os.path.join(self.repo.basecachedir, self.name, "repomd.xml")
+        # No cached repomd?
+        if not os.path.isfile(repomd_old_path):
+            return False
+        repomd_new_path = os.path.join(self.repo.basecachedir, self.name, "repomd.xml.new")
+        # Newer file not available? Don't do anything. It should be downloaded before this.
+        if not os.path.isfile(repomd_new_path):
+            return True
+        return (checksum.getFileChecksum('sha256', filename=repomd_old_path) ==
+                checksum.getFileChecksum('sha256', filename=repomd_new_path))
