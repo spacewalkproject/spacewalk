@@ -13,7 +13,20 @@ Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $versi
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRequires:  perl(ExtUtils::MakeMaker)
 %if 0%{?fedora} && 0%{?fedora} >= 24
-BuildRequires: perl-Test
+BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  make
+BuildRequires:  perl
+BuildRequires:  perl-generators
+# Run-time:
+# bytes not used at tests
+# Data::Dumper not used at tests
+# File::Find not used at tests
+# File::Path not used at tests
+# Getopt::Long not used at tests
+BuildRequires:  perl(strict)
+# Tests:
+BuildRequires:  perl(Test)
 %endif
 Requires:       %{sbinpath}/restorecon
 
