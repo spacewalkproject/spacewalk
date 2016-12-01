@@ -86,7 +86,7 @@ case "$1" in
     reload)
         echo -n $"Reloading Spacewalk Daemon: "
         if [ -n "`pidfileofproc $RHNSD`" ] ; then
-            killproc $RHNSD -TERM
+            killproc $RHNSD -HUP
             RETVAL=$?
         else
             failure $"Reloading rhnsd"
