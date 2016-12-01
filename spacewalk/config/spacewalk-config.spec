@@ -21,6 +21,9 @@ Buildarch: noarch
 Requires: perl(Satcon)
 Obsoletes: rhn-satellite-config < 5.3.0
 Provides: rhn-satellite-config = 5.3.0
+%if 0%{?fedora} > 24
+BuildRequires: perl-generators
+%endif
 %if 0%{?rhel} || 0%{?fedora}
 Requires(post): chkconfig
 Requires(preun): chkconfig
