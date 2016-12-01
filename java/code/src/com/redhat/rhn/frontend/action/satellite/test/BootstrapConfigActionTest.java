@@ -85,4 +85,3 @@ public class BootstrapConfigActionTest extends RhnPostMockStrutsTestCase {
         verifyActionMessages(new String[]{"bootstrap.config.success"});
     }
 }
-
