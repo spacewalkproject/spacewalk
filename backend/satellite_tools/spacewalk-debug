@@ -143,6 +143,12 @@ if [ -d /usr/share/rhn/config-defaults ]; then
     cp -fapRd /usr/share/rhn/config-defaults/* $DIR/config-defaults
 fi
 
+# copying the /usr/share/rhn/config-defaults
+echo "    * copying config-defaults files"
+if [ -d /usr/share/rhn/config-defaults ]; then
+    cp -fapRd /usr/share/rhn/config-defaults/* $DIR/config-defaults
+fi
+
 #cobbler stuff
 echo "    * copying cobbler files"
 if [ -d /etc/cobbler ]; then
