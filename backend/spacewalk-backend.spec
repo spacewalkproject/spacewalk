@@ -643,6 +643,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/rhn_rpm.py*
 %{pythonrhnroot}/common/stringutils.py*
 %{pythonrhnroot}/common/rhnLib.py*
+%{pythonrhnroot}/common/timezone_utils.py*
 
 %files usix
 %doc LICENSE
@@ -788,6 +789,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Mon Jun 6 2016 Laurence Rochfort <laurence.rochfort@oracle.com> 2.5.43-1
+- Add timezone_utils.py to libs files for BZ 1342977
+
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.43-1
 - fix missing new line in translation
 - updating copyright years
