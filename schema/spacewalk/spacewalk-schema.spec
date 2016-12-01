@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.6.0
+Version:        2.7.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -19,6 +19,9 @@ BuildRequires:  /usr/bin/pod2man
 Requires:       %{sbinpath}/restorecon
 Obsoletes:      rhn-satellite-schema <= 5.1.0
 
+%if 0%{?suse_version}
+BuildRequires:  fdupes
+%endif
 
 %define rhnroot /etc/sysconfig/rhn/
 %define oracle %{rhnroot}/oracle
@@ -57,6 +60,10 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 cp -p spacewalk-schema-upgrade.1 $RPM_BUILD_ROOT%{_mandir}/man1
 cp -p spacewalk-sql.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
+%if 0%{?suse_version}
+%fdupes %{buildroot}/%{rhnroot}
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -68,8 +75,71 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/spacewalk-sql
 %{_mandir}/man1/spacewalk-schema-upgrade*
 %{_mandir}/man1/spacewalk-sql*
+%if 0%{?suse_version}
+%dir %{rhnroot}
+%endif
 
 %changelog
+* Fri Nov 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.7.2-1
+- delete records from rhnArchTypeActions before deleting architecture types
+
+* Wed Nov 23 2016 Tomas Kasparek <tkasparek@redhat.com> 2.7.1-1
+- delete from solaris from rhnArchType table
+- Bumping package versions for 2.7.
+
+* Mon Nov 14 2016 Tomas Kasparek <tkasparek@redhat.com> 2.6.16-1
+- delete solaris architecture during upgrade
+- remove solaris compatibility mappings
+- don't populate db with solaris architectures
+
+* Thu Nov 10 2016 Gennadii Altukhov <galt@redhat.com> 2.6.15-1
+- add Fedora 24 key into schema upgrade
+
+* Tue Nov 08 2016 Gennadii Altukhov <galt@redhat.com> 2.6.14-1
+- Added repo urls and gpg keys for Fedora 24
+
+* Mon Oct 24 2016 Jan Dobes 2.6.13-1
+- fixing ORA-00904: : invalid identifier
+
+* Fri Oct 21 2016 Jan Dobes 2.6.12-1
+- adding missing dependency
+
+* Thu Oct 20 2016 Jan Dobes 2.6.11-1
+- drop rhnContentSourceSsl completely
+
+* Tue Oct 04 2016 Jan Dobes 2.6.10-1
+- splitting oracle and postgresql upgrade
+
+* Fri Sep 02 2016 Grant Gainey 2.6.9-1
+- Avoid a deadlock when deleting a server
+
+* Wed Aug 24 2016 Grant Gainey 2.6.8-1
+- 1369559 - adjust pgres autovacuum settings for rhnChannelPackage to make
+  rapid, large, size-changes more performant
+
+* Fri Aug 12 2016 Jan Dobes 2.6.7-1
+- enable deb type
+
+* Fri Jun 17 2016 Jan Dobes 2.6.6-1
+- we already have unbreakable linux network reposync plugin
+
+* Mon Jun 13 2016 Grant Gainey 2.6.5-1
+- spacewalk-schema: build on openSUSE
+
+* Mon Jun 13 2016 Jan Dobes 2.6.4-1
+- sequence is still there
+
+* Mon Jun 13 2016 Jan Dobes 2.6.3-1
+- fixing invalid syntax
+
+* Fri Jun 10 2016 Jan Dobes 2.6.2-1
+- change rhnContentSourceSsl table to possibly connect to channel family
+  (instead of content source) and rename to rhnContentSsl
+
+* Thu Jun 09 2016 Jan Dobes 2.6.1-1
+- fix dropping unused entitlements when multiple orgs are available
+- Bumping package versions for 2.6.
+
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.21-1
 - updating copyright years
 - 1303886 - remove Oracle from summary

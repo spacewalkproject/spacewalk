@@ -85,18 +85,8 @@ public abstract class RhnJavaJob implements RhnJob {
         enableLogging(run);
         HibernateFactory.commitTransaction();
         HibernateFactory.closeSession();
-        try {
-            execute(context);
-            run.saveStatus(TaskoRun.STATUS_FINISHED);
-        }
-        catch (Exception e) {
-            if (HibernateFactory.getSession().getTransaction().isActive()) {
-                HibernateFactory.rollbackTransaction();
-                HibernateFactory.closeSession();
-            }
-            appendExceptionToLogError(e);
-            run.saveStatus(TaskoRun.STATUS_FAILED);
-        }
+        execute(context);
+        run.saveStatus(TaskoRun.STATUS_FINISHED);
         run.finished();
         HibernateFactory.commitTransaction();
         HibernateFactory.closeSession();

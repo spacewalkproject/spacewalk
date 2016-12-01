@@ -46,4 +46,11 @@ public interface ListFilter {
      * @return true if the data bean passes, false if not
      */
     boolean filter(Object object, String field, String criteria);
+
+    /**
+     * Invoked after the list of filtered objects has been built and before
+     * the list is returned from ListFilterHelper.
+     * @param filteredList The filtered list
+     */
+    void postFilter(List filteredList);
 }

@@ -8,9 +8,9 @@
 %endif
 
 Name:        spacecmd
-Version:     2.6.0
+Version:     2.7.0
 Release:     1%{?dist}
-Summary:     Command-line interface to Spacewalk and Satellite servers
+Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
 Group:       Applications/System
 License:     GPLv3+
@@ -43,7 +43,7 @@ Requires:      python-simplejson
 %endif
 
 %description
-spacecmd is a command-line interface to Spacewalk and Satellite servers
+spacecmd is a command-line interface to Spacewalk and Red Hat Satellite servers
 
 %prep
 %setup -q
@@ -92,6 +92,84 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Oct 12 2016 Grant Gainey 2.6.16-1
+- Update Satellite to Red Hat Satellite (trademark)
+
+* Wed Sep 28 2016 Eric Herget <eherget@redhat.com> 2.6.15-1
+- 1368397 - spacecmd should generate caches for the server+user combination
+
+* Thu Sep 22 2016 Jiri Dostal <jdostal@redhat.com> 2.6.14-1
+- spacecmd: catch all exceptions in do_login()
+- Revert presious commit - spacewalk-pylint does not accept exception without
+  type
+- spacecmd: catch all exceptions in do_login()
+
+* Thu Sep 15 2016 Jan Dobes 2.6.13-1
+- fixing pylint: wrong-import-order
+
+* Thu Sep 15 2016 Jan Dobes 2.6.12-1
+- fixing pylint: too-many-nested-blocks
+- fixing pylint: wrong-import-order
+- building of spacecmd package fails in i686 buildroot because of this
+
+* Thu Sep 08 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.11-1
+- Revert "1251949 - spacecmd: Repaired compiling regexps to avoid error:
+  multiple repeat"
+
+* Tue Sep 06 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.10-1
+- 1251949 - spacecmd: Repaired compiling regexps to avoid error: multiple
+  repeat
+
+* Wed Aug 31 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.9-1
+- 1209646 - spacecmd: Added systemID to report_inactivesystems output
+- 1367562 - spacecmd: Added output to logging.debug from softwarechannel_sync
+  func
+- 1179333 - spacecmd: Modified IF statement in due to fails according BZ
+
+* Wed Aug 31 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.8-1
+- Added seconds to HELP_TIME_OPTS
+
+* Tue Aug 30 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.7-1
+- Fix summary displayed when applying multiple errata
+
+* Mon Aug 22 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.6-1
+- Add start time to system_applyerrata
+- Accept -s option in errata_apply
+- Add start time to errata_apply
+- spacecmd: Add system_reboot examples to man page
+- spacecmd: Skip time prompt when running with --yes
+- spacecmd: Add start time to system_schedulepackagerefresh
+- spacecmd: Add start time to system_schedulehardwarerefresh
+- spacecmd: Add start time to system_syncpackages
+- spacecmd: Add start time to system_deployconfigfiles
+- spacecmd: Add start time to system_upgradepackage
+- spacecmd: Add start time to system_removepackage
+- spacecmd: Add start time to system_installpackage
+- spacecmd: Add start time to system_reboot
+
+* Thu Aug 18 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.5-1
+- Repaired package listing.
+- Added seconds to timeparse func.
+
+* Tue Aug 09 2016 Tomas Lestach <tlestach@redhat.com> 2.6.4-1
+- addressing pylint issues
+
+* Tue Aug 09 2016 Tomas Lestach <tlestach@redhat.com> 2.6.3-1
+- 1309710 - Adding kickstart_setsoftwaredetails feature.
+- Fixing kickstart_getsoftware autocompletion.
+
+* Thu Jul 21 2016 Tomas Lestach <tlestach@redhat.com> 2.6.2-1
+- spacecmd: Check number of arguments in system_show_packageversion
+- Fix help/usage messages
+- spacecmd: user: allow more than one group at a time
+
+* Mon Jun 27 2016 Tomas Lestach <tlestach@redhat.com> 2.6.1-1
+- simplyfication of comparison
+- simplify if statements
+- replacing 'expr == None' with 'expr is None'
+- fix import order in spacecmd
+- Bumping package versions for 2.6.
+
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.8-1
 - updating copyright years
 

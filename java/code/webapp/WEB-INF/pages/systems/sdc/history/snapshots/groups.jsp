@@ -29,7 +29,7 @@
             <c:when test="${empty current.snapshot_group_id}">
                 <rl:column headerkey="grouplist.jsp.name">
                     <a href="/rhn/groups/GroupDetail.do?sgid=${current.current_group_id}">
-                        ${current.current_group_name}
+                        <c:out value="${current.current_group_name}"/>
                    </a>
                 </rl:column>
                 <rl:column headerkey="grouplist.jsp.groupmembership">
@@ -40,7 +40,7 @@
             <c:when test="${empty current.current_group_id}">
                 <rl:column headerkey="grouplist.jsp.name">
                     <a href="/rhn/groups/GroupDetail.do?sgid=${current.snapshot_group_id}">
-                        ${current.snapshot_group_name}
+                        <c:out value="${current.snapshot_group_name}"/>
                     </a>
                 </rl:column>
                 <rl:column headerkey="grouplist.jsp.groupmembership">

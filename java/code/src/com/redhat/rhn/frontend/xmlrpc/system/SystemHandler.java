@@ -198,10 +198,7 @@ public class SystemHandler extends BaseHandler {
         // creating a new one... there should only be 1; however, earlier
         // versions of the API did not remove the existing reactivation keys;
         // therefore, it is possible that multiple will be returned...
-        List<ActivationKey> existingKeys = ActivationKeyFactory.lookupByServer(server);
-        for (ActivationKey key : existingKeys) {
-            ActivationKeyFactory.removeKey(key);
-        }
+        ActivationKeyFactory.removeKeysForServer(server.getId());
 
         String note = "Reactivation key for " + server.getName() + ".";
         ActivationKey key = ActivationKeyManager.getInstance().
@@ -4147,6 +4144,12 @@ public class SystemHandler extends BaseHandler {
     public int addEntitlements(User loggedInUser, Integer serverId,
             List<String> entitlements) {
         boolean needsSnapshot = false;
+        Entitlement entitlement = null;
+        List<Entitlement> entitlementL = new ArrayList<Entitlement>();
+        for (String e : entitlements) {
+            entitlement = EntitlementManager.getByName(e);
+            entitlementL.add(entitlement);
+        }
         Server server = null;
         try {
             server = SystemManager.lookupByIdAndUser(new Long(serverId.longValue()),
@@ -4156,7 +4159,7 @@ public class SystemHandler extends BaseHandler {
             throw new NoSuchSystemException();
         }
 
-        validateEntitlements(entitlements);
+        validateEntitlements(entitlementL);
 
         List<String> addOnEnts = new LinkedList<String>(entitlements);
         // first process base entitlements
@@ -4221,6 +4224,13 @@ public class SystemHandler extends BaseHandler {
     public int removeEntitlements(User loggedInUser, Integer serverId,
             List<String> entitlements) {
         boolean needsSnapshot = false;
+        List<Entitlement> entitlementL = new ArrayList<Entitlement>();
+        Entitlement entitlement;
+        for (String e : entitlements) {
+            entitlement = EntitlementManager.getByName(e);
+            entitlementL.add(entitlement);
+        }
+
         Server server = null;
         try {
             server = SystemManager.lookupByIdAndUser(new Long(serverId.longValue()),
@@ -4230,7 +4240,7 @@ public class SystemHandler extends BaseHandler {
             throw new NoSuchSystemException();
         }
 
-        validateEntitlements(entitlements);
+        validateEntitlements(entitlementL);
 
         List<Entitlement> baseEnts = new LinkedList<Entitlement>();
 
@@ -5736,5 +5746,17 @@ public class SystemHandler extends BaseHandler {
             map.put("lastPingTime", new Date(0));
         }
         return map;
+    }
+    /**
+     * Method to list systems that require reboot
+     * @param loggedInUser the session key
+     * @return List of systems that require reboot
+     *
+     * @xmlrpc.doc list systems that require reboot
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.return List of systems that require reboot
+     */
+    public Object[] listSuggestedReboot(User loggedInUser) {
+            return SystemManager.requiringRebootList(loggedInUser, null).toArray();
     }
 }

@@ -16,6 +16,8 @@
 # Simple string buffer that wraps around streams to speed up writes
 #
 
+import sys
+import time
 
 class StringBuffer:
 
@@ -45,8 +47,6 @@ class StringBuffer:
 
 
 if __name__ == '__main__':
-    import sys
-    import time
     sb = StringBuffer(sys.stdout)
     sb.buffer_size = 10
 

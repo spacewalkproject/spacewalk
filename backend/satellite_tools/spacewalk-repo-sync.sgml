@@ -50,11 +50,6 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         </group>
         <sbr>
         <group>
-        <arg>-q</arg>
-        <arg>--quiet</arg>
-        </group>
-        <sbr>
-        <group>
         <arg>-f</arg>
         <arg>--fail</arg>
         </group>
@@ -79,6 +74,11 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         <sbr>
         <group>
         <arg>--dry-run</arg>
+        </group>
+        <sbr>
+        <group>
+        <arg>-v</arg>
+        <arg>--verbose</arg>
         </group>
     </cmdsynopsis>
 </synopsis>
@@ -155,9 +155,9 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-q, --quiet</term>
+        <term>-v, --verbose</term>
         <listitem>
-            <para>Do not print any output except for errors.</para>
+            <para>Print verbose output. Possible to accumulate: -vvv</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -219,7 +219,6 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
 {
  "no_errata":false,
  "sync_kickstart":false,
- "quiet":false,
  "fail":true,
  "dry_run":false,
  "channel":{"chann_1":["http://example.com/repo1","http://example.com/repo2"],"chann_2":[]},

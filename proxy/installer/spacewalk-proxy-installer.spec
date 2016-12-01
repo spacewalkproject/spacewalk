@@ -6,7 +6,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.6.0
+Version: 2.7.0
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -63,6 +63,7 @@ install -m 755 -d $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 squid.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 rhn.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 cobbler-proxy.conf $RPM_BUILD_ROOT%{defaultdir}
+install -m 644 insights-proxy.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 755 configure-proxy.sh $RPM_BUILD_ROOT/%{_usr}/sbin
 install -m 755 rhn-proxy-activate $RPM_BUILD_ROOT%{_bindir}
 install -m 644 rhn_proxy_activate.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer
@@ -87,6 +88,7 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %{defaultdir}/squid.conf
 %{defaultdir}/rhn.conf
 %{defaultdir}/cobbler-proxy.conf
+%{defaultdir}/insights-proxy.conf
 %{_usr}/sbin/configure-proxy.sh
 %{_mandir}/man8/*
 %dir %{_usr}/share/rhn/installer
@@ -98,6 +100,23 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Tue Nov 01 2016 Gennadii Altukhov <galt@redhat.com> 2.6.5-1
+- 1390665 - ask user for credentials only if configuration script works in
+  interactive mode
+
+* Fri Sep 23 2016 Jan Dobes 2.6.4-1
+- fix bz1340031 - yes_no: command not found
+
+* Thu Sep 15 2016 Jan Dobes 2.6.3-1
+- fixing pylint: misplaced-bare-raise
+
+* Wed Sep 14 2016 Gennadii Altukhov <galt@redhat.com> 2.6.2-1
+- 1367918 - Add httpd config for Insights Service on RHN Proxy
+
+* Mon Jun 27 2016 Tomas Lestach <tlestach@redhat.com> 2.6.1-1
+- fix import order
+- Bumping package versions for 2.6.
+
 * Thu Feb 25 2016 Jan Dobes 2.5.2-1
 - 647105 - filter only existing config files
 

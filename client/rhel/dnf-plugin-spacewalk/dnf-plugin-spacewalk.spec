@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.6.0
+Version: 2.7.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -8,16 +8,17 @@ Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.
 URL:     https://fedorahosted.org/spacewalk
 BuildArch: noarch
 
-BuildRequires: python-devel
 %if 0%{?fedora}
 BuildRequires: python3-devel
+%else
+BuildRequires: python-devel
 %endif
 Requires: dnf >= 0.5.3
 Requires: dnf-plugins-core
 Requires: librepo >= 1.7.15
 Requires: rhn-client-tools >= 2.5.5
 %if 0%{?fedora} >= 22
-Obsoletes: yum-rhn-plugin
+Obsoletes: yum-rhn-plugin < 2.7
 %endif
 
 %description
@@ -30,16 +31,16 @@ This DNF plugin provides access to a Spacewalk server for software updates.
 
 
 %install
-install -d %{buildroot}%{python2_sitelib}/dnf-plugins/
 install -d %{buildroot}%{_sysconfdir}/dnf/plugins/
 install -d %{buildroot}/usr/share/rhn/actions
 install -d %{buildroot}/var/lib/up2date
 install -d %{buildroot}%{_mandir}/man{5,8}
-install -m 644 spacewalk.py %{buildroot}%{python2_sitelib}/dnf-plugins/
 %if 0%{?fedora}
 install -d %{buildroot}%{python3_sitelib}/dnf-plugins/
-ln -s %{python2_sitelib}/dnf-plugins/spacewalk.py \
-        %{buildroot}%{python3_sitelib}/dnf-plugins/spacewalk.py
+install -m 644 spacewalk.py %{buildroot}%{python3_sitelib}/dnf-plugins/
+%else
+install -d %{buildroot}%{python2_sitelib}/dnf-plugins/
+install -m 644 spacewalk.py %{buildroot}%{python2_sitelib}/dnf-plugins/
 %endif
 install -m 644 actions/packages.py %{buildroot}/usr/share/rhn/actions/
 install -m 644 actions/errata.py %{buildroot}/usr/share/rhn/actions/
@@ -56,14 +57,26 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %license LICENSE
 %dir /var/lib/up2date
 %{_mandir}/man*/*
-%{python2_sitelib}/dnf-plugins/*
 %if 0%{?fedora}
 %{python3_sitelib}/dnf-plugins/*
+%else
+%{python2_sitelib}/dnf-plugins/*
 %endif
 %{_datadir}/rhn/actions/*
-%dir /var/lib/up2date
 
 %changelog
+* Wed Nov 16 2016 Gennadii Altukhov <galt@redhat.com> 2.7.2-1
+- reverted 2030f2f6b1efb82bda06676fbf22ab3716e890e5. A new API call is not
+  available yet in Fedora 23/24.
+
+* Tue Nov 15 2016 Gennadii Altukhov <galt@redhat.com> 2.7.1-1
+- remove workaround  for BZ 1218071
+- Bumping package versions for 2.7.
+
+* Fri Sep 23 2016 Michael Mraka <michael.mraka@redhat.com> 2.6.1-1
+- fixed rpmlint warnings
+- 1342491 - remove dependency on python2 on F23+
+
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.8-1
 - updating copyright years
 

@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        2.6.0
+Version:        2.7.0
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -12,8 +12,7 @@ BuildArch:      noarch
 
 %description
 Spacewalk is a systems management application that will
-inventory, provision, update and control your Linux and
-Solaris machines.
+inventory, provision, update and control your Linux machines.
 
 %package common
 Summary: Spacewalk Systems Management Application with Oracle database backend
@@ -87,8 +86,7 @@ Requires:       cobbler20
 
 %description common
 Spacewalk is a systems management application that will
-inventory, provision, update and control your Linux and
-Solaris machines.
+inventory, provision, update and control your Linux machines.
 
 %package oracle
 Summary: Spacewalk Systems Management Application with Oracle database backend
@@ -112,8 +110,8 @@ Requires: oracle-instantclient-sqlplus-selinux
 
 %description oracle
 Spacewalk is a systems management application that will
-inventory, provision, update and control your Linux and
-Solaris machines.
+inventory, provision, update and control your Linux machines.
+Version for Oracle database backend.
 
 %package postgresql
 Summary: Spacewalk Systems Management Application with PostgreSQL database backend
@@ -136,8 +134,8 @@ Requires: postgresql >= 8.4
 
 %description postgresql
 Spacewalk is a systems management application that will 
-inventory, provision, update and control your Linux and 
-Solaris machines.
+inventory, provision, update and control your Linux machines.
+Version for PostgreSQL database backend.
 
 %prep
 #nothing to do here
@@ -176,6 +174,13 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Mon Sep 12 2016 Jan Dobes 2.6.1-1
+- Fixing spacewalk, spacewalk-common, spacewalk-oracle and spacewalk-postgresql
+  package descriptions. Solaris support has been dropped so I removed mentions
+  of Solaris. I also mentioned that the -oracle and -postgresql packages differ
+  in database backend used.
+- Bumping package versions for 2.6.
+
 * Tue May 10 2016 Grant Gainey 2.5.1-1
 - spacewalk: build on openSUSE
 - Bumping package versions for 2.5.

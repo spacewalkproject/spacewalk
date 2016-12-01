@@ -334,7 +334,7 @@ class ErrataImport(GenericPackageImport):
 
 def get_nevrao(package):
     return list(map(lambda x, d=package: d[x],
-               ['name', 'epoch', 'version', 'release', 'arch', 'org_id']))
+               ['name', 'epoch', 'version', 'release', 'arch', 'org_id', 'checksum_type', 'checksum']))
 
 
 def has_suffix(s, suffix):

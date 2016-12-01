@@ -21,13 +21,12 @@ if sys.version_info[0] == 3:
     from urllib.parse import splitport
     from urllib.parse import urlparse
 else:
-    from urllib import splitport
     from urlparse import urlparse
-
-from spacewalk.common.usix import ListType, TupleType, IntType
+    from urllib import splitport
 
 from rhn import connections, rpclib
 
+from spacewalk.common.usix import ListType, TupleType, IntType
 from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
 from spacewalk.common.usix import raise_with_tb
 from rhnpush.utils import tupleify_urlparse

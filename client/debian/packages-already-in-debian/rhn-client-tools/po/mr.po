@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
-"PO-Revision-Date: 2012-02-14 08:00-0500\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
+"PO-Revision-Date: 2016-02-17 11:02-0500\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/language/"
 "mr/)\n"
 "Language: mr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -340,8 +340,7 @@ msgstr ""
 "प्रणालीला Red Hat Network सह जोडल्याविना, तुम्ही या सबस्क्रिप्शन हक्कांचे फायदे घेऊ "
 "शकणार <b>नाही</b>.\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "मला व्यवस्था प्रक्रियेत परत घेऊन चला."
 
@@ -411,8 +410,7 @@ msgstr " किर्कोळ प्रकाशन: "
 msgid "Limited Updates Only"
 msgstr "फक्त मर्यादीत सुधारणा"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "सर्व उपलब्ध सुधारणा"
 
@@ -2543,33 +2541,3 @@ msgstr "Spacewalk/Satellite/Red Hat Network पासून सॉफ्टव�
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Spacewalk/Satellite/Red Hat Network शी नोंदणी करा."
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "तुम्ही एक अवैध प्रोटोकॉल दर्शवला."
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr "अद्यतन मॉड्यूल: प्रतिप्रणाली अद्यतने, इमेल एराटा सुचना, एराटा माहिती"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "प्रोविजनिंग मॉड्यूल: बेअर-मेटल प्रोविजनिंग, उपलब्ध स्थिती प्रोविजनिंग, रोलबॅक, व्यूहरचना "
-#~ "व्यवस्थापन"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "मॉनिटरिंग मॉड्यूल: पूर्व व्याख्यीत आणि स्वेच्छा प्रणाली कार्यशीलता प्रोब्स, प्रणाली "
-#~ "कार्यशीलता इमेल सुचना, प्रणली कार्यशीलता आलेख"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "आभासीकरण प्लॅटफॉर्म मॉड्यूल: या प्रणालीवरील अमर्यादित संख्येच्या आभासी अतिथींसाठी "
-#~ "सॉफ्टवेयर अद्यतने, या प्रणालीच्या अतिथींसाठी अतिरिक्त सॉफ्टवेयर वाहिन्यांवर प्रवेश."

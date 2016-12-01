@@ -8,7 +8,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.98
+Version:       5.5.101
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -46,9 +46,9 @@ Summary: Package uploader for the Spacewalk or Red Hat Satellite Server
 
 %description
 rhnpush uploads package headers to the Spacewalk or Red Hat Satellite
-servers intospecified channels and allows for several other channel
+servers into specified channels and allows for several other channel
 management operations relevant to controlling what packages are available
-perchannel.
+per channel.
 
 %prep
 %setup -q
@@ -95,6 +95,16 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Thu Nov 03 2016 Gennadii Altukhov <galt@redhat.com> 5.5.101-1
+- 1390170 - rhnpush is used on a client side as well, so make it compatible
+  with RHEL 5 and Python 2.4
+
+* Wed Sep 14 2016 Jan Dobes 5.5.100-1
+- fixing pylint in rhnpush
+
+* Tue Sep 06 2016 Jan Dobes 5.5.99-1
+- Fix typo
+
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 5.5.98-1
 - updating copyright years
 

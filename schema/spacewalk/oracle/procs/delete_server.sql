@@ -42,7 +42,12 @@ procedure delete_server (
         type filelistsid_t is table of rhnServerPreserveFileList.file_list_id%type;
         filelistsid_c filelistsid_t;
 
+    update_lock number;
 begin
+    -- lock the rhnServer row to prevent deadlocks
+    -- we want rhnServer to be locked first, followed by tables that depend on it
+    select id into update_lock from rhnServer where id = server_id_in for update;
+
         -- filelists
 	select	spfl.file_list_id id bulk collect into filelistsid_c
 	  from	rhnServerPreserveFileList spfl

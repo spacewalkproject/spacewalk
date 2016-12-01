@@ -30,10 +30,10 @@
 # pylint: disable=C0103
 
 from optparse import Option
-from spacecmd.utils import *
-
 import shlex
 import xmlrpclib
+from spacecmd.utils import *
+
 
 
 def help_repo_list(self):
@@ -156,7 +156,7 @@ def do_repo_addfilters(self, args):
 
 
 def help_repo_removefilters(self):
-    print 'repo_removefilters: Add filters for a user repo'
+    print 'repo_removefilters: Remove filters from a user repo'
     print 'usage: repo_removefilters repo <filter ...>'
 
 

@@ -7,14 +7,15 @@
 # Piotr Drąg <piotrdrag@gmail.com>, 2006,2011-2012.
 # Tom Berner <tom@lodz.pl>, 2005.
 # Tom Berner <tom@man.lodz.pl>, 2004.
-# Piotr Drąg <pdrag@aviary.pl>, 2015. #zanata
+# Piotr Drąg <piotrdrag@gmail.com>, 2015. #zanata
+# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-23 13:40+0200\n"
-"PO-Revision-Date: 2015-09-02 08:47-0400\n"
-"Last-Translator: Piotr Drąg <pdrag@aviary.pl>\n"
+"POT-Creation-Date: 2016-11-07 18:09+0100\n"
+"PO-Revision-Date: 2016-09-03 10:50-0400\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -22,11 +23,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../rhnplugin.py:52
 msgid "There was an error communicating with RHN."
-msgstr "Wystąpił błąd podczas komunikowania się z usługą RHN."
+msgstr "Wystąpił błąd podczas komunikowania się z usługą RHN."
 
 #: ../rhnplugin.py:67
 msgid "Red Hat Satellite or RHN Classic support will be disabled."
@@ -56,12 +57,12 @@ msgstr "Czyszczenie"
 
 #: ../rhnplugin.py:116
 msgid "Using list of RHN repos from cache"
-msgstr "Używanie listy repozytoriów RHN z pamięci podręcznej"
+msgstr "Używanie listy repozytoriów RHN z pamięci podręcznej"
 
 #: ../rhnplugin.py:132
 msgid "This system is not registered with RHN Classic or Red Hat Satellite."
 msgstr ""
-"Ten system nie jest zarejestrowany w usłudze RHN Classic lub Red Hat "
+"Ten system nie jest zarejestrowany w usłudze RHN Classic lub Red Hat "
 "Satellite."
 
 #: ../rhnplugin.py:133 ../rhnplugin.py:149
@@ -81,21 +82,21 @@ msgid ""
 "This system may not be registered to RHN Classic or Red Hat Satellite. "
 "SystemId could not be acquired."
 msgstr ""
-"Ten system może nie być zarejestrowany w usłudze RHN Classic lub Red Hat "
+"Ten system może nie być zarejestrowany w usłudze RHN Classic lub Red Hat "
 "Satellite. Nie można uzyskać identyfikatora systemu."
 
 #: ../rhnplugin.py:161
 msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
-"Ten system utrzymuje aktualizacje z usługi RHN Classic lub Red Hat Satellite."
+"Ten system otrzymuje aktualizacje z usługi RHN Classic lub Red Hat Satellite."
 
 #: ../rhnplugin.py:286
 msgid "Package profile information could not be sent."
-msgstr "Informacje o profilu pakietów nie mogą zostać wysłane."
+msgstr "Nie można wysłać informacji o profilu pakietów."
 
 #: ../rhnplugin.py:294
 msgid "Error Message:"
-msgstr "Komunikaty błędu:"
+msgstr "Komunikat błędu:"
 
 #: ../rhnplugin.py:295
 msgid "Please run rhn_register as root on this client"
@@ -104,4 +105,4 @@ msgstr "Proszę wykonać polecenie rhn_register jako root na tym kliencie"
 #: ../rhnplugin.py:374
 #, python-format
 msgid "Missing required login information for RHN: %s"
-msgstr "Brak wymaganej informacji o loginie dla usługi RHN: %s"
+msgstr "Brak wymaganej informacji o logowaniu dla usługi RHN: %s"

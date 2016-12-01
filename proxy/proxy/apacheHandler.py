@@ -16,17 +16,13 @@
 #
 # -----------------------------------------------------------------------------
 
-## language imports
+# language imports
 import os
 import base64
 import xmlrpclib
-from rhnConstants import HEADER_ACTUAL_URI, HEADER_EFFECTIVE_URI, \
-    HEADER_CHECKSUM, SCHEME_HTTP, SCHEME_HTTPS, URI_PREFIX_KS, \
-    URI_PREFIX_KS_CHECKSUM, COMPONENT_BROKER, COMPONENT_REDIRECT
-from rhn import rpclib, connections
+import re
 
-## common imports
-from rhn.UserDictCase import UserDictCase
+# common imports
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnApache import rhnApache
@@ -34,10 +30,16 @@ from spacewalk.common.rhnTB import Traceback
 from spacewalk.common.rhnException import rhnFault, rhnException
 from spacewalk.common import rhnFlags, apache
 from spacewalk.common.rhnLib import setHeaderValue
-
-## local imports
-from proxy.rhnProxyAuth import get_proxy_auth
 from spacewalk.common import byterange
+
+from rhn import rpclib, connections
+from rhn.UserDictCase import UserDictCase
+from rhnConstants import HEADER_ACTUAL_URI, HEADER_EFFECTIVE_URI, \
+    HEADER_CHECKSUM, SCHEME_HTTP, SCHEME_HTTPS, URI_PREFIX_KS, \
+    URI_PREFIX_KS_CHECKSUM, COMPONENT_BROKER, COMPONENT_REDIRECT
+
+# local imports
+from proxy.rhnProxyAuth import get_proxy_auth
 
 
 def getComponentType(req):
@@ -242,7 +244,7 @@ class apacheHandler(rhnApache):
         hdrs = UserDictCase()
         for k in req.headers_in.keys():
             if k.lower() != 'range':  # we want checksum of whole file
-                hdrs[k] = req.headers_in[k]
+                hdrs[k] = re.sub(r'\n(?![ \t])|\r(?![ \t\n])', '', str(req.headers_in[k]))
 
         log_debug(9, "Using existing headers_in", hdrs)
         connection.request("HEAD", pingURL, None, hdrs)

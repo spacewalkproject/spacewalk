@@ -51,6 +51,7 @@ sequences = {
     'rhnArchType': 'rhn_archtype_id_seq',
     'rhnPackageChangeLogRec': 'rhn_pkg_cl_id_seq',
     'rhnPackageChangeLogData': 'rhn_pkg_cld_id_seq',
+    'rhnContentSource': 'rhn_chan_content_src_id_seq',
 }
 
 
@@ -601,7 +602,7 @@ class Backend:
                     not_found = (e, sys.exc_info()[2])
             if not_found and not ignore_missing:
                 # package is not in database at all
-                raise not_found[0].with_traceback(not_found[1])
+                raise_with_tb(not_found[0], not_found[1])
 
     def lookupChannelFamilies(self, hash):
         if not hash:
@@ -966,23 +967,21 @@ class Backend:
         # Since this is not evaluated in rhn_entitlements anymore,
         # make channel families without org globally visible
 
-        cf_ids = []
+        cf_ids = [cf.id for cf in channel_families if 'private-channel-family' not in cf['label']]
 
-        for cf in channel_families:
-            if 'private-channel-family' not in cf['label']:
-                cf_ids.append(cf.id)
-
-        h_private_del = self.dbmodule.prepare("""
-            delete from rhnPublicChannelFamily
-             where channel_family_id = :channel_family_id
+        h_public_sel = self.dbmodule.prepare("""
+            select channel_family_id from rhnPublicChannelFamily
         """)
-        h_private_ins = self.dbmodule.prepare("""
+        h_public_sel.execute()
+        
+        public_cf_in_db = [x['channel_family_id'] for x in h_public_sel.fetchall_dict() or []]
+        public_cf_to_insert = [x for x in cf_ids if x not in public_cf_in_db]
+
+        h_public_ins = self.dbmodule.prepare("""
             insert into rhnPublicChannelFamily (channel_family_id)
             values (:channel_family_id)
         """)
-
-        h_private_del.executemany(channel_family_id=cf_ids)
-        h_private_ins.executemany(channel_family_id=cf_ids)
+        h_public_ins.executemany(channel_family_id=public_cf_to_insert)
 
     def processDistChannelMap(self, dcms):
         dcmTable = self.tables['rhnDistChannelMap']
@@ -1026,6 +1025,46 @@ class Backend:
         statement.execute(id=channel.id,
                           channel_product_id=channel['channel_product_id'])
 
+    def processChannelContentSources(self, channel):
+        """ Associate content sources with channel """
+
+        # Which content sources are assigned to this channel
+        select_sql = self.dbmodule.prepare("""
+            select source_id from rhnChannelContentSource
+            where channel_id = :channel_id
+        """)
+
+        select_sql.execute(channel_id=channel.id)
+        sources_in_db = [x['source_id'] for x in select_sql.fetchall_dict() or []]
+
+        # Which content sources should be assigned to this channel
+        sources_needed = []
+        if 'content-sources' in channel and channel['content-sources']:
+            for source in channel['content-sources']:
+                sources_needed.append(self.lookupContentSource(source['label']))
+
+        # What to delete and insert
+        sources_to_delete = [x for x in sources_in_db if x not in sources_needed]
+        sources_to_insert = [x for x in sources_needed if x not in sources_in_db]
+
+        delete_sql = self.dbmodule.prepare("""
+            delete from rhnChannelContentSource
+            where source_id = :source_id
+            and channel_id = :channel_id
+        """)
+
+        insert_sql = self.dbmodule.prepare("""
+           insert into rhnChannelContentSource
+           (source_id, channel_id)
+           values (:source_id, :channel_id)
+        """)
+
+        for source_id in sources_to_delete:
+            delete_sql.execute(source_id=source_id, channel_id=channel.id)
+
+        for source_id in sources_to_insert:
+            insert_sql.execute(source_id=source_id, channel_id=channel.id)
+
     def processProductNames(self, batch):
         """ Check if ProductName for channel in batch is already in DB.
             If not add it there.
@@ -1041,6 +1080,46 @@ class Backend:
             if not self.lookupProductNames(channel['label']):
                 statement.execute(product_label=channel['label'],
                                   product_name=channel['name'])
+
+    def processContentSources(self, batch):
+        """ Insert content source into DB """
+
+        childTables = []
+        self.__processObjectCollection(batch, 'rhnContentSource',
+                                       childTables, 'content_source_id', uploadForce=4, ignoreUploaded=1,
+                                       forceVerify=1)
+
+    def lookupContentSource(self, label):
+        """ Get id for given content source """
+
+        sql = self.dbmodule.prepare("""
+            select id from rhnContentSource where label = :label and org_id is null
+        """)
+
+        sql.execute(label=label)
+
+        content_source = sql.fetchone_dict()
+
+        if content_source:
+            return content_source['id']
+
+        return
+
+    def lookupContentSourceType(self, label):
+        """ Get id for given content type label """
+
+        sql = self.dbmodule.prepare("""
+            select id from rhnContentSourceType where label = :label
+        """)
+
+        sql.execute(label=label)
+
+        source_type = sql.fetchone_dict()
+
+        if source_type:
+            return source_type['id']
+
+        return
 
     def lookupProductNames(self, label):
         """ For given label of product return its id.

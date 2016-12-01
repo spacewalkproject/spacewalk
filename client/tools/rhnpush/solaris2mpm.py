@@ -1040,8 +1040,8 @@ def _to_db_timestamp(s):
         m = int(m)
 
     except ValueError:
-        for i in range(len(_months)):
-            if m == _months[i]:
+        for i, item in enumerate(_months):
+            if m == item:
                 break
             else:
 

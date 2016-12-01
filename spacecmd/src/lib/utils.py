@@ -44,14 +44,16 @@ from datetime import datetime, timedelta
 from difflib import unified_diff
 from tempfile import mkstemp
 from textwrap import wrap
-import rpm
-from spacecmd.optionparser import SpacecmdOptionParser
 from subprocess import Popen, PIPE
 
 try:
     import json
 except ImportError:
     import simplejson as json  # python < 2.6
+
+import rpm
+
+from spacecmd.optionparser import SpacecmdOptionParser
 
 
 __EDITORS = ['vim', 'vi', 'nano', 'emacs']
@@ -255,7 +257,7 @@ def parse_time_input(userinput=''):
 
     # handle YYYMMDDHHMM times
     if not timestamp:
-        match = re.match(r'^(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?$', userinput)
+        match = re.match(r'^(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?(\d{2})?$', userinput)
 
         if match:
             date_format = '%Y%m%d'
@@ -276,7 +278,7 @@ def parse_time_input(userinput=''):
                                                         match.group(4)),
                                           date_format)
             # YYYYMMDDHHMM
-            else:
+            elif not match.group(6):
                 date_format += '%H%M'
 
                 timestamp = time.strptime('%s%s%s%s%s' % (match.group(1),
@@ -285,7 +287,17 @@ def parse_time_input(userinput=''):
                                                           match.group(4),
                                                           match.group(5)),
                                           date_format)
+            # YYYYMMDDHHMMSS
+            else:
+                date_format += '%H%M%S'
 
+                timestamp = time.strptime('%s%s%s%s%s%s' % (match.group(1),
+                                                            match.group(2),
+                                                            match.group(3),
+                                                            match.group(4),
+                                                            match.group(5),
+                                                            match.group(6)),
+                                          date_format)
             if timestamp:
                 # 2.5 has a nice little datetime.strptime() function...
                 timestamp = datetime(*(timestamp)[0:7])
@@ -329,7 +341,7 @@ def latest_pkg(pkg1, pkg2, version_key='version',
     t1 = (pkg1[epoch_key].strip(), pkg1[version_key], pkg1[release_key])
     t2 = (pkg2[epoch_key].strip(), pkg2[version_key], pkg2[release_key])
 
-    result = rpm.labelCompare(t1, t2)
+    result = rpm.labelCompare(t1, t2) # pylint: disable=no-member
     if result == 1:
         return pkg1
     elif result == -1:
@@ -634,7 +646,7 @@ def json_dump(obj, fp, indent=4, **kwargs):
 def json_dump_to_file(obj, filename):
     json_data = json.dumps(obj, indent=4, sort_keys=True)
 
-    if json_data == None:
+    if json_data is None:
         logging.error("Could not generate json data object!")
         return False
 
@@ -770,3 +782,9 @@ def file_is_binary(self, path):
     except OSError:
         pass
     return True
+
+
+def string_to_bool(input_string):
+    if not isinstance(input_string, bool):
+        return input_string.lower().rstrip(' ') == 'true'
+    return input_string

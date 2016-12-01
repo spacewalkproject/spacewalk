@@ -1,9 +1,9 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.6.0
+Version:        2.7.0
 Release:        1%{?dist}
-Summary:        Initial setup tools for Red Hat Spacewalk
+Summary:        Initial setup tools for Spacewalk
 
 Group:          Applications/System
 License:        GPLv2
@@ -31,6 +31,7 @@ Requires:       PyYAML
 Requires:       /usr/bin/gpg
 Requires:       spacewalk-setup-jabberd
 Requires:       spacewalk-base-minimal
+Requires:       spacewalk-base-minimal-config
 Requires:       curl
 
 %description
@@ -112,6 +113,13 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Oct 14 2016 Grant Gainey 2.6.2-1
+- Updated specfile to remove extraneous 'Red Hat'
+
+* Fri Sep 30 2016 Jan Dobes 2.6.1-1
+- require spacewalk-base-minimal-config from spacewalk-setup
+- Bumping package versions for 2.6.
+
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.5-1
 - updating copyright years
 

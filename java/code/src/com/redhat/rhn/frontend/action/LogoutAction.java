@@ -14,21 +14,25 @@
  */
 package com.redhat.rhn.frontend.action;
 
-import com.redhat.rhn.frontend.security.AuthenticationServiceFactory;
-import com.redhat.rhn.frontend.struts.RhnAction;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.redhat.rhn.frontend.security.AuthenticationServiceFactory;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
 
 /**
  * LogoutAction
  * @version $Rev$
  */
 public class LogoutAction extends RhnAction {
+
+    private static Logger log = Logger.getLogger(LogoutAction.class);
 
     /**
      * Initializes this action.
@@ -37,8 +41,11 @@ public class LogoutAction extends RhnAction {
     }
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
+        log.info("WEB LOGOUT: [" +
+            new RequestContext(request).getCurrentUser().getLogin() + "]");
 
         AuthenticationServiceFactory.getInstance().getAuthenticationService().invalidate(
                 request, response);

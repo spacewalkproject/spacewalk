@@ -1960,62 +1960,6 @@
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="solarispkgs.install">
-        <source>Solaris Package Install</source>
-        <target>Solaris প্যাকেজ ইনস্টলেশন</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="solarispkgs.remove">
-        <source>Solaris Package Removal</source>
-        <target>Solaris প্যাকেজ অপসারণ</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchInstall">
-        <source>Solaris Patch Install</source>
-        <target>Solaris প্যাচ ইনস্টলেশন</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchRemove">
-        <source>Solaris Patch Removal</source>
-        <target>Solaris প্যাচ অপসারণ</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchClusterInstall">
-        <source>Solaris Patch Cluster Install</source>
-        <target>Solaris প্যাচ সমষ্ঠি ইনস্টলেশন</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchClusterRemove">
-        <source>Solaris Patch Cluster Removal</source>
-        <target>Solaris প্যাচ সমষ্ঠি অপসারণ</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="script.run">
-        <source>Run an arbitrary script</source>
-        <target>কোনো যথেচ্ছ স্ক্রিপ্ট চালনা করুন</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="solarispkgs.refresh_list">
-        <source>Solaris Package List Refresh</source>
-        <target>Solaris প্যাকেজ তালিকা নতুন করে প্রদর্শন</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="rhnsd.configure">
         <source>@@PRODUCT_NAME@@ Daemon Configuration</source>
         <target>@@PRODUCT_NAME@@ Daemon কনফিগারেশন ব্যবস্থা</target>
@@ -6693,13 +6637,6 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="system.entitle.no-add.solaris-slots">
-        <source>{0} entitlements cannot be added to solaris machines</source>
-        <target>solaris মেশিনের মধ্যে {0} এনটাইটেলমেন্ট যোগ করা সম্ভব নয়</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="system.invalidsystem">
         <source>Invalid system</source>
         <target>সিস্টেম বৈধ নয়</target>
@@ -7099,14 +7036,6 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="mips Debian">
         <source>mips Debian</source>
         <target>mips Debian</target>
-      </trans-unit>
-      <trans-unit id="Sparc Solaris">
-        <source>Sparc Solaris</source>
-        <target>Sparc Solaris</target>
-      </trans-unit>
-      <trans-unit id="i386 Solaris">
-        <source>i386 Solaris</source>
-        <target>i386 Solaris</target>
       </trans-unit>
       <trans-unit id="probeparam.passnomatch">
         <source>The Password and Password Confirm did not match.</source>

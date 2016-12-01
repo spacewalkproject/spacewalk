@@ -96,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
+* Mon Nov 14 2016 Gennadii Altukhov <galt@redhat.com> 2.6-0
+- Bumping package versions for 2.6.
+
 * Tue Sep 29 2015 Jan Dobes 2.5-3
 - Bumping spacewalk-repo version to 2.5.
 

@@ -92,7 +92,19 @@ set_value() {
     eval "$(printf "%q=%q" "$VAR" "$ARG")"
 }
 
+yes_no() {
+    case "$1" in
+        Y|y|Y/n|n/Y|1)
+            echo 1
+            ;;
+        *)
+            echo 0
+            ;;
+    esac
+}
+
 INTERACTIVE=1
+INTERACTIVE_RETRIES=3
 CNAME_INDEX=0
 
 OPTS=$(getopt --longoptions=help,answer-file:,non-interactive,version:,traceback-email:,use-ssl::,force-own-ca,http-proxy:,http-username:,http-password:,ssl-build-dir:,ssl-org:,ssl-orgunit:,ssl-common:,ssl-city:,ssl-state:,ssl-country:,ssl-email:,ssl-password:,ssl-cname:,populate-config-channel::,start-services:: -n ${0##*/} -- h "$@")
@@ -201,17 +213,6 @@ default_or_input() {
         INPUT="$DEFAULT"
     fi
     eval "$(printf "%q=%q" "$VARIABLE" "$INPUT")"
-}
-
-yes_no() {
-    case "$1" in
-        Y|y|Y/n|n/Y|1)
-            echo 1
-            ;;
-        *)
-            echo 0
-            ;;
-    esac
 }
 
 config_error() {
@@ -454,12 +455,16 @@ for file in $SYSTEMID_PATH $UP2DATE_FILE; do
 done
 
 #Setup the cobbler stuff, needed to use koan through a proxy
+#and proxy for registration in Insights Service
 PROTO="http";
 if [ $USE_SSL -eq 1 ]; then
    PROTO="https"
 fi
 sed -e "s/\$PROTO/$PROTO/g" \
     -e "s/\$RHN_PARENT/$RHN_PARENT/g" < $DIR/cobbler-proxy.conf > $HTTPDCONFD_DIR/cobbler-proxy.conf
+
+sed -e "s/\$PROTO/$PROTO/g" \
+    -e "s/\$RHN_PARENT/$RHN_PARENT/g" < $DIR/insights-proxy.conf > $HTTPDCONFD_DIR/insights-proxy.conf
 
 
 # lets do SSL stuff
@@ -536,14 +541,28 @@ default_or_input "Create and populate configuration channel $CHANNEL_LABEL?" POP
 POPULATE_CONFIG_CHANNEL=$(yes_no $POPULATE_CONFIG_CHANNEL)
 if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
     RHNCFG_STATUS=1
-    default_or_input "RHN username:" RHN_USER ''
-    while [ $RHNCFG_STATUS != 0 ] ; do
+
+    for i in $(seq 1 $INTERACTIVE_RETRIES) ; do
+        default_or_input "RHN username:" RHN_USER ''
         CONFIG_CHANNELS=$(rhncfg-manager list-channels ${RHN_USER:+--username="${RHN_USER}"} ${RHN_PASSWORD:+--password="${RHN_PASSWORD}"} --server-name="$RHN_PARENT")
-        RHNCFG_STATUS=$?
-        # In case of incorrect username/password, we want to re-ask user
-        unset RHN_USER
-        unset RHN_PASSWORD
+
+        RHNCFG_STATUS="$?"
+
+        if [ "$RHNCFG_STATUS" != "0" ] ; then
+            if [ "$INTERACTIVE" = "1" ] ; then
+                # In case of incorrect username/password, we want to re-ask user
+                unset RHN_USER
+                unset RHN_PASSWORD
+            fi
+        else
+            break
+        fi
     done
+
+    if [ "$RHNCFG_STATUS" != "0" ] ; then
+        exit "$RHNCFG_STATUS"
+    fi
+
     if ! grep -q -E "^ +$CHANNEL_LABEL$" <<<"$CONFIG_CHANNELS" ; then
         rhncfg-manager create-channel --server-name "$RHN_PARENT" "$CHANNEL_LABEL"
     fi
@@ -551,6 +570,7 @@ if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
                     $RHNCONF_DIR/rhn.conf
                     $SQUID_DIR/squid.conf
                     $HTTPDCONFD_DIR/cobbler-proxy.conf
+                    $HTTPDCONFD_DIR/insights-proxy.conf
                     $HTTPDCONF_DIR/httpd.conf
                     $JABBERD_DIR/c2s.xml
                     $JABBERD_DIR/sm.xml )

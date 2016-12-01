@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
 "PO-Revision-Date: 2016-02-17 10:14-0500\n"
 "Last-Translator: Jan Dobes <jdobes@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -346,8 +346,7 @@ msgstr ""
 "システムを Red Hat Network に接続しないとこれらサブスクリプションの特権を ご"
 "利用頂くことができません。\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "設定のプロセスに戻ります。"
 
@@ -417,8 +416,7 @@ msgstr "マイナーリリース:"
 msgid "Limited Updates Only"
 msgstr "限定的な更新のみ"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "全ての利用可能な更新"
 
@@ -2596,37 +2594,3 @@ msgstr "Spacewalk/Satellite/Red Hat Network からソフトウェア更新用に
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Spacewalk/Satellite/Red Hat Network に登録する"
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "無効なプロトコルを指定しました。"
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr ""
-#~ "Update モジュール: システムごとに更新、 Emal によるエラータ通知、 エラータ"
-#~ "情報"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "Provisioning モジュール: ベアメタルのプロビジョニング、 既存状態のプロビ"
-#~ "ジョニング、ロールバック、 設定管理"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "Monitoring モジュール: 事前定義タイプのカスタムなシステムパフォーマンスの"
-#~ "プローブ、 システムパフォーマンスを Email にて通知、 システムパフォーマン"
-#~ "スに関するグラフ"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "仮想プラットフォームモジュール: このシステム上の仮想ゲストに対するソフト"
-#~ "ウェアの更新、 数は無制限です。 このシステムのゲスト用追加ソフトウェアチャ"
-#~ "ンネルへのアクセスです。"

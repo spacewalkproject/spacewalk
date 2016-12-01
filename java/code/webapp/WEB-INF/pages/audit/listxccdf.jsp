@@ -23,7 +23,7 @@
     <%@ include file="/WEB-INF/pages/common/fragments/audit/xccdf-easy-list.jspf" %>
   </rl:list>
   <rl:csv name="groupSet"
-    exportColumns="id,sid,serverName,profile,satisfied,dissatisfied,satisfactionUnknown"/>
+    exportColumns="id,sid,serverName,profile,completed,satisfied,dissatisfied,satisfactionUnknown"/>
   <rhn:tooltip key="audit.listxccdf.jsp.tooltip"/>
 </rl:listset>
 

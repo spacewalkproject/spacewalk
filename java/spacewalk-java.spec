@@ -20,10 +20,10 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.4
+Version: 2.7.6
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
-Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
+Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 ExcludeArch: ia64
@@ -189,7 +189,7 @@ Provides: rhn-oracle-jdbc-tomcat5 = %{version}-%{release}
 This package contains the code for the Java version of the Spacewalk Web Site.
 
 %package config
-Summary: Configuration files for RHN Java
+Summary: Configuration files for Spacewalk Java
 Group: Applications/Internet
 Obsoletes: rhn-java-config < 5.3.0
 Obsoletes: rhn-java-config-sat < 5.3.0
@@ -252,7 +252,7 @@ Requires: jmock < 2.0
 Requires: ant-junit
 
 %description tests
-This package contains testing files of spacewalk-java.  
+This package contains testing files of spacewalk-java.
 
 %files tests
 %defattr(644,root,root,775)
@@ -730,6 +730,204 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Nov 30 2016 Grant Gainey 2.7.6-1
+- 1385099 - delete activation-keys using mode-query instead of hibernate
+
+* Tue Nov 22 2016 Eric Herget <eherget@redhat.com> 2.7.5-1
+- 1394299 - clean up system id inclusion in virt systems csv download
+
+* Tue Nov 22 2016 Jiri Dostal <jdostal@redhat.com> 2.7.4-1
+- Removing unused method. Last use removed by BZ 1388073
+- 1388073 - unable to PXE provision: http://<fqdn>/rhn/kickstart/
+
+* Mon Nov 21 2016 Gennadii Altukhov <galt@redhat.com> 2.7.3-1
+- scheduleDetail.jsp: clarify button label
+
+* Thu Nov 17 2016 Eric Herget <eherget@redhat.com> 2.7.2-1
+- 1394299 - Add missing CSV labels to strings and add a space to separate xml
+  attributes in listtag
+- 1394299 - Remove the temporary old virt systems page
+- 1394299 - Add CSV download to virt sys page that is now converted to new list
+  tag
+- 1394299 - Switch virt sys page to new list tag leaving old virt sys page
+  temporarily
+- 1394299 - Add support for postFilter processing of filtered data to support
+  conversion to new list tag
+- 1394299 - tidy up commit for work on Download CSV option on Virt Systems page
+
+* Wed Nov 16 2016 Jan Dobes 2.7.1-1
+- 1394245 - fill label and id on error page
+- 1394245 - content type can change too, handle it
+- 1394245 - set variable in case of errors
+- Bumping package versions for 2.7.
+
+* Mon Nov 14 2016 Gennadii Altukhov <galt@redhat.com> 2.6.48-1
+- remove Solaris from strings
+- don't test removed solaris architectures
+
+* Tue Nov 08 2016 Gennadii Altukhov <galt@redhat.com> 2.6.47-1
+- Bump API Version
+- Merging frontend L10N from Zanata
+
+* Fri Nov 04 2016 Grant Gainey 2.6.46-1
+- 1385811 - log login/out and failures, update log4j defaults
+
+* Thu Nov 03 2016 Tomas Lestach <tlestach@redhat.com> 2.6.45-1
+- 1251252 - removing use of 'Satellite' in kickstart.* (API)doc
+
+* Wed Oct 26 2016 Jan Dobes 2.6.44-1
+- 1240597 - fixing null pointer exception when we call updateLogPaths()
+  multiple times
+- 1240597 - catch HibernateException on commit when touched data in database
+  were modified during task execution by someone else
+
+* Thu Oct 20 2016 Jan Dobes 2.6.43-1
+- fixing hibernate mapping
+- fixing occurences in code
+- Ensure no stray config channels are listed for ranking (bsc#979630)
+
+* Mon Oct 17 2016 Gennadii Altukhov <galt@redhat.com> 2.6.42-1
+- fill KickstartData when select kickstart profile.
+- add small fix for Kickstart profile update.
+
+* Fri Oct 14 2016 Grant Gainey 2.6.41-1
+- Updated specfile - RHN -> Spacewalk
+- Checkstyle: remove redundant modifiers
+- add missing string
+
+* Wed Oct 05 2016 Eric Herget <eherget@redhat.com> 2.6.40-1
+- 1377841 - return empty DataResult when querying with empty inClause and query
+  has in clause substitution
+- Revert "1380304 - API client.channel.software.createRepo() should not
+  advertise it supports "uln""
+
+* Mon Oct 03 2016 Eric Herget <eherget@redhat.com> 2.6.39-1
+- 1377841 - csv download all items, not remainder of dividing total items by
+  500
+
+* Mon Oct 03 2016 Jiri Dostal <jdostal@redhat.com> 2.6.38-1
+- 1380304 - API client.channel.software.createRepo() should not advertise it
+  supports "uln"
+
+* Fri Sep 30 2016 Eric Herget <eherget@redhat.com> 2.6.37-1
+- 1365410 - remove updateinfo.xml.gz if last errata associated with channel is
+  deleted
+
+* Fri Sep 30 2016 Jiri Dostal <jdostal@redhat.com> 2.6.36-1
+- 1380311 - API client.channel.software.createRepo() in 5.8.0 allows "yum" repo
+  type only
+
+* Tue Sep 27 2016 Jiri Dostal <jdostal@redhat.com> 2.6.35-1
+- 1378879 - The API system.upgradeEntitlement does not work
+
+* Mon Sep 26 2016 Jan Dobes 2.6.34-1
+- support initiating RHEL kickstart with dnf-plugin-spacewalk installed
+
+* Thu Sep 22 2016 Jan Dobes 2.6.33-1
+- partially fixing reposync progress bar
+
+* Tue Sep 20 2016 Eric Herget <eherget@redhat.com> 2.6.32-1
+- 1377839 - fix a few tiny issues and update eclipse code formatter settings
+
+* Tue Sep 20 2016 Jiri Dostal <jdostal@redhat.com> 2.6.31-1
+- 1368490 - RFE: add 'Create new Repository' link on the channel repositories
+  page
+
+* Mon Sep 12 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.30-1
+- Added completed column to audit CSV download
+
+* Tue Sep 06 2016 Jiri Dostal <jdostal@redhat.com> 2.6.29-1
+- 1356173 - kickstart.profile.set_advanced_options does not update kickstart
+  file
+
+* Fri Sep 02 2016 Grant Gainey 2.6.28-1
+- Make heading match navigation: "Managed Systems"
+
+* Fri Sep 02 2016 Grant Gainey 2.6.27-1
+- Redirect user to a meaningful page after requesting details of non-existing
+  Action Chain
+
+* Mon Aug 29 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.26-1
+- removed unwanted chars and lines from previous commit
+- Changed from 'RHN' to 'Satellite' in API doc.
+- Revert "1282838 - Fix extremely slow channel.software.syncErrata API"
+
+* Wed Aug 10 2016 Jiri Dostal <jdostal@redhat.com> 2.6.25-1
+- 1357824 - Kickstart advanced options accept required options without argument
+- Kickstart AdvancedOptions ISE without URL
+
+* Wed Aug 10 2016 Eric Herget <eherget@redhat.com> 2.6.24-1
+- 1365530 - add system data to downloaded csv on Advanced Search page
+
+* Thu Aug 04 2016 Grant Gainey 2.6.23-1
+- 1351785 - getInputStream() reached from multiple places
+
+* Wed Aug 03 2016 Jiri Dostal <jdostal@redhat.com> 2.6.22-1
+- 1332805 - The problematic editing of kickstart profile
+
+* Wed Aug 03 2016 Jiri Dostal <jdostal@redhat.com> 2.6.21-1
+- 1332805 - The problematic editing of kickstart profile
+
+* Wed Aug 03 2016 Jiri Dostal <jdostal@redhat.com> 2.6.20-1
+- 1332805 - The problematic editing of kickstart profile
+
+* Tue Aug 02 2016 Jan Dobes 2.6.19-1
+- 1192879 - refresh list on click
+- 1192879 - use radio box instead of checkbox
+- Fixing typo "with the past year" > "within the past year""
+
+* Wed Jul 27 2016 Jiri Dostal <jdostal@redhat.com> 2.6.18-1
+- 1356173 - kickstart.profile.set_advanced_options does not update kickstart
+  file
+
+* Tue Jul 19 2016 Grant Gainey 2.6.17-1
+- 1226329 - sense support for debian packages
+
+* Tue Jul 19 2016 Jiri Dostal <jdostal@redhat.com> 2.6.16-1
+- ISE kickstart AdvancedOptions with "url" field checked but not set
+
+* Mon Jul 11 2016 Jiri Dostal <jdostal@redhat.com> 2.6.15-1
+- 1324737 - API call to get list of Systems Requiring Reboot
+
+* Thu Jul 07 2016 Gennadii Altukhov <galt@redhat.com> 2.6.14-1
+- 1353210 - use Oracle and PostgreSQL compatible 'REGEXP_REPLACE' function
+  instead of 'SUBSTRING'
+
+* Tue Jul 05 2016 Grant Gainey 2.6.13-1
+- 1351695 - Traceback: comparison method violates its general contract Cleanup
+  of a few more suboptimal compare() methods
+
+* Tue Jul 05 2016 Grant Gainey 2.6.12-1
+- 1351695 - Fix SystemSearchHelper score-comparator This should fix the TimSort
+  issue, in addition to fixing a variety of broken edge-case behavior in this
+  comparator. Also adds a Junit for
+  SystemSearchHelper.SearchResultScoreComparator
+
+* Wed Jun 29 2016 Tomas Lestach <tlestach@redhat.com> 2.6.11-1
+- 1124809 - fix system sorting by last checkin
+
+* Tue Jun 21 2016 Gennadii Altukhov <galt@redhat.com> 2.6.10-1
+- 1348522 - add sha512 support for password encryption in kickstart profile
+
+* Tue Jun 21 2016 Jan Dobes 2.6.9-1
+- fixing api documentation
+- adding exception for invalid repo type
+- rewriting code to use lookup by label only
+- redundant statement
+- need to have lookup by label method because of API
+
+* Mon Jun 20 2016 Jiri Dostal <jdostal@redhat.com> 2.6.8-1
+- 1332880 - Updating of network properties does not work without HW profile
+
+* Fri Jun 17 2016 Jan Dobes 2.6.7-1
+- make possible to select content type for repo
+
+* Fri Jun 10 2016 Jan Dobes 2.6.6-1
+- fix rhnContentSourceSsl -> rhnContentSsl in code
+
+* Thu Jun 09 2016 Grant Gainey 2.6.5-1
+- 1322710 - <c:out> is your friend
+
 * Fri Jun 03 2016 Jiri Precechtel <jprecech@redhat.com> 2.6.4-1
 - 1288818 - added API method actionchain.addErrataUpdate()
 
@@ -8618,7 +8816,7 @@ Feature: Support channel-permissions on ISS
 * Thu Nov 18 2010 Lukas Zapletal 1.3.6-1
 - Replacing DECODE function with CASE-SWITCH (multiple times)
 - 642599 use redhat_management_server insted of http_server in reactivation
-  snippet 
+  snippet
 
 * Thu Nov 18 2010 Tomas Lestach <tlestach@redhat.com> 1.3.5-1
 - 654275 - make repo generation faster in the RHN way (tlestach@redhat.com)
@@ -8632,18 +8830,18 @@ Feature: Support channel-permissions on ISS
 - Replacing sysdate in SQL INSERT with current_timestamp
 
 * Tue Nov 16 2010 Lukas Zapletal 1.3.3-1
-- Adding one jar ignore to spacewalk-java.spec for F14 
-- Turning off checkstyle in the java spec for F14 
-- Adding requires for F14 in spacewalk-java.spec 
+- Adding one jar ignore to spacewalk-java.spec for F14
+- Turning off checkstyle in the java spec for F14
+- Adding requires for F14 in spacewalk-java.spec
 
 * Tue Nov 16 2010 Lukas Zapletal 1.3.2-1
 - No longer distributing jar symlinks with version numbers
-- use an existing column name in ORDER BY statements 
+- use an existing column name in ORDER BY statements
 - Revert "Implement new API call packages.getPackageIdFromPath"
-- Implement new API call packages.getPackageIdFromPath 
-- allow setting null value as paramter 
-- fix TaskManagerTest.testGetCurrentDBTime test 
-- 645694 - introducing cleanup-packagechangelog-data task 
+- Implement new API call packages.getPackageIdFromPath
+- allow setting null value as paramter
+- fix TaskManagerTest.testGetCurrentDBTime test
+- 645694 - introducing cleanup-packagechangelog-data task
 
 * Mon Nov 15 2010 Tomas Lestach <tlestach@redhat.com> 1.3.1-1
 - checkstyle fix (tlestach@redhat.com)
@@ -8691,35 +8889,35 @@ Feature: Support channel-permissions on ISS
 
 * Fri Nov 12 2010 Lukas Zapletal 1.2.107-1
 - Revert "Removing commons-discovery jar from spacewalk-java.spec"
-- Add missing file from previous commit 
-- Implement getRepoDetails API calls 
-- Correct the xmlrpc.doc 
-- 647806 - Implement API calls for external repos 
-- 652626 - correct typo in named query 
+- Add missing file from previous commit
+- Implement getRepoDetails API calls
+- Correct the xmlrpc.doc
+- 647806 - Implement API calls for external repos
+- 652626 - correct typo in named query
 
 * Fri Nov 12 2010 Lukas Zapletal 1.2.106-1
-- Removing jasper5-compiler jar from spacewalk-java.spec 
-- Removing commons-discovery jar from spacewalk-java.spec 
+- Removing jasper5-compiler jar from spacewalk-java.spec
+- Removing commons-discovery jar from spacewalk-java.spec
 
 * Fri Nov 12 2010 Lukas Zapletal 1.2.105-1
 - Adding missing jakarta-commons-discovery require for RHEL6+/FC13+
 
 * Thu Nov 11 2010 Lukas Zapletal 1.2.104-1
-- Removing extra slash after RPM_BUILD_ROOT 
+- Removing extra slash after RPM_BUILD_ROOT
 - We do not distribute jspapi.jar now - according to Servlet Spec 2.3
 - Add missing ssm.migrate.systems.notrust to StringResource
-- Implement channel.software.listUserRepos API call 
+- Implement channel.software.listUserRepos API call
 
 * Thu Nov 11 2010 Lukas Zapletal 1.2.103-1
-- Replacing one more NVL with COALESCE function 
-- Replacing NVL with COALESCE function 
+- Replacing one more NVL with COALESCE function
+- Replacing NVL with COALESCE function
 
 * Thu Nov 11 2010 Lukas Zapletal 1.2.102-1
 - Correcting one more ANSI JOIN syntax in channel queries (PG)
-- Correcting ANSI JOIN syntax in channel queries 
-- Correcting spaces in channel queries xml file 
-- Making two server group portable 
-- Correcting NULL values in channel manager repo gen 
+- Correcting ANSI JOIN syntax in channel queries
+- Correcting spaces in channel queries xml file
+- Making two server group portable
+- Correcting NULL values in channel manager repo gen
 
 * Thu Nov 11 2010 Lukas Zapletal 1.2.101-1
 - Correcting spacewalk-java.spec - removing doubled files
@@ -8769,12 +8967,12 @@ Feature: Support channel-permissions on ISS
 - removing insert of NULL value(PG) (tlestach@redhat.com)
 
 * Fri Nov 05 2010 Lukas Zapletal 1.2.93-1
-- Two config queries are ported to PostgreSQL 
+- Two config queries are ported to PostgreSQL
 - rewriting INSERT ALL in insert_channel_packages_in_set (PG)
 
 * Thu Nov 04 2010 Lukas Zapletal 1.2.92-1
-- Replacing 4 occurances of NVL with ANSI COALESCE 
-- 645842 - return macro delims for config files 
+- Replacing 4 occurances of NVL with ANSI COALESCE
+- 645842 - return macro delims for config files
 
 * Thu Nov 04 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.91-1
 - fixing build errors (msuchy@redhat.com)
@@ -8794,17 +8992,17 @@ Feature: Support channel-permissions on ISS
   database (jsherril@redhat.com)
 
 * Wed Nov 03 2010 Lukas Zapletal 1.2.87-1
-- Using general nextval function in ssm operation queries 
-- fixing some fedora 14 provisioning issues 
+- Using general nextval function in ssm operation queries
+- fixing some fedora 14 provisioning issues
 
 * Tue Nov 02 2010 Lukas Zapletal 1.2.86-1
-- Removing unnecessary JSPF fragment file 
+- Removing unnecessary JSPF fragment file
 
 * Tue Nov 02 2010 Lukas Zapletal 1.2.85-1
-- Fixing unambiguous column 'name' for PostgreSQL 
-- 645829 - make it possile to update macro delimiters 
-- 645829 - do not trim curly brackets in macro delimiters 
-- removing unnecessary condition 
+- Fixing unambiguous column 'name' for PostgreSQL
+- 645829 - make it possile to update macro delimiters
+- 645829 - do not trim curly brackets in macro delimiters
+- removing unnecessary condition
 
 * Tue Nov 02 2010 Lukas Zapletal 1.2.84-1
 - Changing the way how taskomatic connects to PostgreSQL db
@@ -8818,21 +9016,21 @@ Feature: Support channel-permissions on ISS
   (tlestach@redhat.com)
 
 * Tue Nov 02 2010 Lukas Zapletal 1.2.82-1
-- Renaming two ignored unit tests properly 
-- Removing unused methods from java db manager 
-- Removing unused class from java db manager 
-- Removing unused class - Worker 
-- Removing dead code in two tests 
-- Fixing table name aliases 
+- Renaming two ignored unit tests properly
+- Removing unused methods from java db manager
+- Removing unused class from java db manager
+- Removing unused class - Worker
+- Removing dead code in two tests
+- Fixing table name aliases
 - Two classes were not serializabled while putting them into HttpSession
-- Fixing date diff in alerts 
-- making kickstart channel list sorted alphabetically 
+- Fixing date diff in alerts
+- making kickstart channel list sorted alphabetically
 - sorting activation key base channel drop down by alphabetical order
 - 648470 - changing manage package page to sort channels by name
 - 644880 - check for arch compatibility when adding packages into a channel
-- 647099 - introducing satellite.isMonitoringEnabled API 
+- 647099 - introducing satellite.isMonitoringEnabled API
 - replace web.is_monitoring_backend with
-  ConfigDefaults.WEB_IS_MONITORING_BACKEND 
+  ConfigDefaults.WEB_IS_MONITORING_BACKEND
 - fixing ISE on package deletion due to RHNSAT.RHN_PFDQUEUE_PATH_UQ violation
 
 * Mon Nov 01 2010 Tomas Lestach <tlestach@redhat.com> 1.2.81-1
@@ -8864,31 +9062,31 @@ Feature: Support channel-permissions on ISS
 
 * Fri Oct 29 2010 Lukas Zapletal 1.2.76-1
 - Making DISTINCT-ORDER BY package/system queries portable
-- Removing unnecessary subselect 
-- Simplifying ORDER BY clauses in package queries 
+- Removing unnecessary subselect
+- Simplifying ORDER BY clauses in package queries
 - Revert "Reverting "Removed unnecessary ORDER BY" commits and fixing"
-  
+
 
 * Wed Oct 27 2010 Shannon Hughes <shughes@redhat.com> 1.2.75-1
 - fix for checkstyle (shughes@redhat.com)
 
 * Wed Oct 27 2010 Lukas Zapletal 1.2.74-1
-- Fixing missing brace in Taskomatic query 
-- Addressing issue in system overview 
-- PostgreSQL needs FROM keyword in DELETE 
-- Adding missing interval keyword to Taskomatic 
-- Protocol config value is now used in Taskomatic 
-- Getting taskomatic working on PostgreSQL 
+- Fixing missing brace in Taskomatic query
+- Addressing issue in system overview
+- PostgreSQL needs FROM keyword in DELETE
+- Adding missing interval keyword to Taskomatic
+- Protocol config value is now used in Taskomatic
+- Getting taskomatic working on PostgreSQL
 - removing unneeded insmod on kickstart %%pre script, since they are already
-  loaded 
+  loaded
 - fixing query to run correctly, c.id was not valid because the join did not
-  come directly after rhnChannel c 
-- adding missing import 
+  come directly after rhnChannel c
+- adding missing import
 - 646892 - fixing issue where kickstart expiration would occur after current
-  date and not scheduled date of kickstart 
-- removing need of setNvreUpper method in PackageOverview 
-- fixing broken if statement in snippet 
-- fixing broken query used by SSM System delete 
+  date and not scheduled date of kickstart
+- removing need of setNvreUpper method in PackageOverview
+- fixing broken if statement in snippet
+- fixing broken query used by SSM System delete
 
 * Mon Oct 25 2010 Lukas Zapletal 1.2.73-1
 - Fixing Taskomatic blob handling (now binary)
@@ -8910,25 +9108,25 @@ Feature: Support channel-permissions on ISS
 - Fix checkstyle errors (colin.coe@gmail.com)
 
 * Thu Oct 21 2010 Lukas Zapletal 1.2.69-1
-- Fixed all LEFT OUTER JOINs in Channels 
+- Fixed all LEFT OUTER JOINs in Channels
 - Fixed LEFT OUTER JOIN for PostgreSQL in Software Channels
-- Removed unnecessary ORDER BY in DISTINCT query. 
-- Simplified SQL query with evr_t_as_vre_simple function. 
+- Removed unnecessary ORDER BY in DISTINCT query.
+- Simplified SQL query with evr_t_as_vre_simple function.
 - Fixed composite type accessing for PostgreSQL for all packages
-- Simplified SQL query with evr_t_as_vre_simple function. 
-- Fixed composite type accessing for PostgreSQL 
-- Sorting fix in packages for PostgreSQL 
-- Fix of evr_t_as_vre_simple PostgreSQL function 
-- ANSI JOIN syntax fix for PostgreSQL in system update 
-- PostgreSQL fix in package search 
-- Integer-Long fix in channel subscribers for PostgreSQL 
-- Update System Currency to use rhn.cfg file 
+- Simplified SQL query with evr_t_as_vre_simple function.
+- Fixed composite type accessing for PostgreSQL
+- Sorting fix in packages for PostgreSQL
+- Fix of evr_t_as_vre_simple PostgreSQL function
+- ANSI JOIN syntax fix for PostgreSQL in system update
+- PostgreSQL fix in package search
+- Integer-Long fix in channel subscribers for PostgreSQL
+- Update System Currency to use rhn.cfg file
 
 * Wed Oct 20 2010 Lukas Zapletal 1.2.68-1
-- Rewrite of LEFT OUTER JOIN into ANSI syntax 
+- Rewrite of LEFT OUTER JOIN into ANSI syntax
 - Function evr_t_as_vre_simple in all package queries now general
-- Using date time function instead of arithmetics 
-- Sysdate replaced with current_timestamp 
+- Using date time function instead of arithmetics
+- Sysdate replaced with current_timestamp
 - Removed unnecessary ORDER BY in SELECT COUNT
 - Use the global function evr_t_as_vre_simple in package_ids_in_set instead of
   method .as_vre_simple; this works on PostgreSQL as well.
@@ -8938,16 +9136,16 @@ Feature: Support channel-permissions on ISS
 - Fix ISE in AK child channel page (colin.coe@gmail.com)
 
 * Wed Oct 20 2010 Lukas Zapletal 1.2.66-1
-- Removed unnecessary ORDER BY 
-- Using date time function instead of arithmetics 
-- Added setHasSubscription for Integer 
-- Using date time function instead of arithmetics 
+- Removed unnecessary ORDER BY
+- Using date time function instead of arithmetics
+- Added setHasSubscription for Integer
+- Using date time function instead of arithmetics
 - Fix in PostgreSQL (ORDER BY) in Out Of Date system list.
-- Fixed comma in ANSI JOIN syntax from previous commit 
-- Left join now in ANSI syntax for virtual system list. 
+- Fixed comma in ANSI JOIN syntax from previous commit
+- Left join now in ANSI syntax for virtual system list.
 - Fix in PostgreSQL plus NVL fix
 - All DECODE functions replaced with CASE-WHEN in System_queries
-- Fixing system overview list for PostgreSQL 
+- Fixing system overview list for PostgreSQL
 
 * Tue Oct 19 2010 Tomas Lestach <tlestach@redhat.com> 1.2.65-1
 - removing unused imports (tlestach@redhat.com)
@@ -8988,10 +9186,10 @@ Feature: Support channel-permissions on ISS
 - System list now working on Postgresql (lzap+git@redhat.com)
 
 * Fri Oct 15 2010 Lukas Zapletal 1.2.60-1
-- Checkstyle fixes 
-- Checkstyle testing report now part of java spec 
-- Removed unused query 
-- Made the list tag dataset manipulator handle maps 
+- Checkstyle fixes
+- Checkstyle testing report now part of java spec
+- Removed unused query
+- Made the list tag dataset manipulator handle maps
 
 * Wed Oct 13 2010 Tomas Lestach <tlestach@redhat.com> 1.2.59-1
 - 642519 - associate only unique keywords with an erratum (tlestach@redhat.com)
@@ -9484,7 +9682,7 @@ Feature: Support channel-permissions on ISS
   all. (jsherril@redhat.com)
 
 * Fri Jul 30 2010 Shannon Hughes <shughes@redhat.com> 1.1.40-1
-- modify build requires java for epoc 1:1.6.0 
+- modify build requires java for epoc 1:1.6.0
 
 * Fri Jul 30 2010 Justin Sherrill <jsherril@redhat.com> 1.1.39-1
 - few more changes for asm vs objectweb-asm detection (jsherril@redhat.com)

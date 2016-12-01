@@ -38,12 +38,6 @@ insert into rhnChildChannelArchCompat (parent_arch_id, child_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-sparc'), LOOKUP_CHANNEL_ARCH('channel-sparc'));
 
 insert into rhnChildChannelArchCompat (parent_arch_id, child_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-sparc'), LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'));
-
-insert into rhnChildChannelArchCompat (parent_arch_id, child_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-sparc'), LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris'));
-
-insert into rhnChildChannelArchCompat (parent_arch_id, child_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-sparc-deb'), LOOKUP_CHANNEL_ARCH('channel-sparc-deb'));
 
 insert into rhnChildChannelArchCompat (parent_arch_id, child_arch_id)
@@ -99,24 +93,6 @@ values (LOOKUP_CHANNEL_ARCH('channel-arm-deb'), LOOKUP_CHANNEL_ARCH('channel-arm
 
 insert into rhnChildChannelArchCompat (parent_arch_id, child_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-mips-deb'), LOOKUP_CHANNEL_ARCH('channel-mips-deb'));
-
-insert into rhnChildChannelArchCompat (parent_arch_id, child_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_CHANNEL_ARCH('channel-sparc'));
-
-insert into rhnChildChannelArchCompat (parent_arch_id, child_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'));
-
-insert into rhnChildChannelArchCompat (parent_arch_id, child_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris'));
-
-insert into rhnChildChannelArchCompat (parent_arch_id, child_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris'), LOOKUP_CHANNEL_ARCH('channel-sparc'));
-
-insert into rhnChildChannelArchCompat (parent_arch_id, child_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris'), LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'));
-
-insert into rhnChildChannelArchCompat (parent_arch_id, child_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris'), LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris'));
 
 insert into rhnChildChannelArchCompat (parent_arch_id, child_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-aarch64'), LOOKUP_CHANNEL_ARCH('channel-aarch64'));

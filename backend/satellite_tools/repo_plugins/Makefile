@@ -20,7 +20,7 @@ TOP	= ../..
 
 # Specific stuff
 SUBDIR	= satellite_tools/repo_plugins
-SPACEWALK_FILES	= __init__ yum_src uln_src
+SPACEWALK_FILES	= __init__ yum_src uln_src deb_src
 
 include $(TOP)/Makefile.defs
 

@@ -80,6 +80,7 @@ public class ListFilterHelper {
                 filteredData.add(object);
             }
         }
+        filter.postFilter(filteredData);
         return filteredData;
     }
 }

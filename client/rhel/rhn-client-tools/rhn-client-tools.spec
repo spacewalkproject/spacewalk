@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.6.0
+Version: 2.7.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -119,7 +119,7 @@ Requires: yum-rhn-plugin >= 1.6.4-1
 %endif
 
 %description -n rhn-check
-rhn-check polls a Red Hat Satelliteor Spacewalk server to find and execute 
+rhn-check polls a Red Hat Satellite or Spacewalk server to find and execute
 scheduled actions.
 
 %package -n rhn-setup
@@ -401,6 +401,34 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Nov 15 2016 Gennadii Altukhov <galt@redhat.com> 2.7.1-1
+- fix except to be compatible with Python 2.4
+- Bumping package versions for 2.7.
+
+* Fri Nov 11 2016 Jiri Dostal <jdostal@redhat.com> 2.6.7-1
+- [1260527] RHEL7 reboot loop
+
+* Wed Nov 09 2016 Gennadii Altukhov <galt@redhat.com> 2.6.6-1
+- Revert Project-Id-Version for translations
+
+* Tue Nov 08 2016 Gennadii Altukhov <galt@redhat.com> 2.6.5-1
+- Regenerating .po and .pot files for rhn-client-tools.
+- Updating .po translations from Zanata
+
+* Tue Oct 25 2016 Gennadii Altukhov <galt@redhat.com> 2.6.4-1
+- 1320468 - add newline before hostname in LoginPage label
+
+* Fri Sep 23 2016 Jiri Dostal <jdostal@redhat.com> 2.6.3-1
+- Fix of deprecated functions urllib.splittype and urllib.splithost
+
+* Thu Sep 22 2016 Jan Dobes 2.6.2-1
+- fedora 24 client will not send it's smbios because there is a warning and it
+  fails on syntax error
+
+* Wed Aug 03 2016 Tomas Lestach <tlestach@redhat.com> 2.6.1-1
+- fix typo/missing space in rhn_check rpm description
+- Bumping package versions for 2.6.
+
 * Tue May 24 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.16-1
 - updating copyright years
 - Regenerating .po and .pot files for rhn-client-tools.

@@ -166,9 +166,15 @@ def do_system_list(self, args, doreturn=False):
 
 def help_system_reboot(self):
     print 'system_reboot: Reboot a system'
-    print 'usage: system_reboot <SYSTEMS>'
+    print '''usage: system_reboot <SYSTEMS> [options]
+
+options:
+  -s START_TIME'''
+
     print
     print self.HELP_SYSTEM_OPTS
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_system_reboot(self, text, line, beg, end):
@@ -176,7 +182,9 @@ def complete_system_reboot(self, text, line, beg, end):
 
 
 def do_system_reboot(self, args):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+
+    (args, options) = parse_arguments(args, options)
 
     if not len(args):
         self.help_system_reboot()
@@ -188,8 +196,22 @@ def do_system_reboot(self, args):
     else:
         systems = self.expand_systems(args)
 
+    # get the start time option
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
+
     print
 
+    print 'Start Time: %s' % options.start_time
+    print
     print 'Systems'
     print '-------'
     print '\n'.join(sorted(systems))
@@ -197,14 +219,12 @@ def do_system_reboot(self, args):
     if not self.user_confirm('Reboot these systems [y/N]:'):
         return
 
-    action_time = parse_time_input('now')
-
     for system in systems:
         system_id = self.get_system_id(system)
         if not system_id:
             continue
 
-        self.client.system.scheduleReboot(self.session, system_id, action_time)
+        self.client.system.scheduleReboot(self.session, system_id, options.start_time)
 
 ####################
 
@@ -619,7 +639,7 @@ def do_system_listhardware(self, args):
                     print
                 count += 1
 
-                if device.get('description') == None:
+                if device.get('description') is None:
                     print 'Description: None'
                 else:
                     print 'Description: %s' % (
@@ -633,9 +653,15 @@ def do_system_listhardware(self, args):
 
 def help_system_installpackage(self):
     print 'system_installpackage: Install a package on a system'
-    print 'usage: system_installpackage <SYSTEMS> <PACKAGE ...>'
+    print '''usage: system_installpackage <SYSTEMS> <PACKAGE ...> [options]
+
+options:
+    -s START_TIME'''
+
     print
     print self.HELP_SYSTEM_OPTS
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_system_installpackage(self, text, line, beg, end):
@@ -648,11 +674,25 @@ def complete_system_installpackage(self, text, line, beg, end):
 
 
 def do_system_installpackage(self, args):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+
+    (args, options) = parse_arguments(args, options)
 
     if len(args) < 2:
         self.help_system_installpackage()
         return
+
+    # get the start time option
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
 
     # use the systems listed in the SSM
     if re.match('ssm', args[0], re.I):
@@ -736,18 +776,19 @@ def do_system_installpackage(self, args):
         logging.warning('%s does not have access to all requested packages' %
                         self.get_system_name(system_id))
 
+    print
+    print 'Start Time: %s' % options.start_time
+
     if not self.user_confirm('Install these packages [y/N]:'):
         return
 
     scheduled = 0
     for system_id in jobs:
-        action_time = parse_time_input('now')
-
         try:
             self.client.system.schedulePackageInstall(self.session,
                                                       system_id,
                                                       jobs[system_id],
-                                                      action_time)
+                                                      options.start_time)
 
             scheduled += 1
         except xmlrpclib.Fault:
@@ -760,9 +801,15 @@ def do_system_installpackage(self, args):
 
 def help_system_removepackage(self):
     print 'system_removepackage: Remove a package from a system'
-    print 'usage: system_removepackage <SYSTEMS> <PACKAGE ...>'
+    print '''usage: system_removepackage <SYSTEMS> <PACKAGE ...> [options]
+
+options:
+    -s START_TIME'''
+
     print
     print self.HELP_SYSTEM_OPTS
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_system_removepackage(self, text, line, beg, end):
@@ -775,11 +822,25 @@ def complete_system_removepackage(self, text, line, beg, end):
 
 
 def do_system_removepackage(self, args):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+
+    (args, options) = parse_arguments(args, options)
 
     if len(args) < 2:
         self.help_system_removepackage()
         return
+
+    # get the start time option
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
 
     # use the systems listed in the SSM
     if re.match('ssm', args[0], re.I):
@@ -795,7 +856,7 @@ def do_system_removepackage(self, args):
     # get all matching package names
     logging.debug('Finding matching packages')
     matching_packages = \
-        filter_results(self.get_package_names(True), package_list)
+        filter_results(self.get_package_names(True), package_list, True)
 
     jobs = {}
     for package_name in matching_packages:
@@ -829,10 +890,12 @@ def do_system_removepackage(self, args):
 
     if not len(jobs):
         return
+
+    print
+    print 'Start Time: %s' % options.start_time
+
     if not self.user_confirm('Remove these packages [y/N]:'):
         return
-
-    action_time = parse_time_input('now')
 
     scheduled = 0
     for system in jobs:
@@ -844,7 +907,7 @@ def do_system_removepackage(self, args):
             action_id = self.client.system.schedulePackageRemove(self.session,
                                                                  system_id,
                                                                  jobs[system],
-                                                                 action_time)
+                                                                 options.start_time)
 
             logging.info('Action ID: %i' % action_id)
             scheduled += 1
@@ -858,9 +921,15 @@ def do_system_removepackage(self, args):
 
 def help_system_upgradepackage(self):
     print 'system_upgradepackage: Upgrade a package on a system'
-    print 'usage: system_upgradepackage <SYSTEMS> <PACKAGE ...>|*'
+    print '''usage: system_upgradepackage <SYSTEMS> <PACKAGE ...>|* [options]'
+
+options:
+    -s START_TIME'''
+
     print
     print self.HELP_SYSTEM_OPTS
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_system_upgradepackage(self, text, line, beg, end):
@@ -873,7 +942,13 @@ def complete_system_upgradepackage(self, text, line, beg, end):
 
 
 def do_system_upgradepackage(self, args):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+
+    # this will come handy for individual packages, as we call
+    # self.do_system_installpackage anyway
+    orig_args = args
+
+    (args, options) = parse_arguments(args, options)
 
     if len(args) < 2:
         self.help_system_upgradepackage()
@@ -881,7 +956,19 @@ def do_system_upgradepackage(self, args):
 
     # install and upgrade for individual packages are the same
     if not '.*' in args[1:]:
-        return self.do_system_installpackage(' '.join(args))
+        return self.do_system_installpackage(orig_args)
+
+    # get the start time option
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
 
     # use the systems listed in the SSM
     if re.match('ssm', args[0], re.I):
@@ -934,10 +1021,11 @@ def do_system_upgradepackage(self, args):
 
         print '\n'.join(sorted(package_names))
 
+    print
+    print 'Start Time: %s' % options.start_time
+
     if not self.user_confirm('Upgrade these packages [y/N]:'):
         return
-
-    action_time = parse_time_input('now')
 
     scheduled = 0
     for system in jobs:
@@ -947,7 +1035,7 @@ def do_system_upgradepackage(self, args):
             self.client.system.schedulePackageInstall(self.session,
                                                       system_id,
                                                       jobs[system],
-                                                      action_time)
+                                                      options.start_time)
 
             scheduled += 1
         except xmlrpclib.Fault:
@@ -1532,9 +1620,15 @@ def do_system_setconfigchannelorder(self, args):
 def help_system_deployconfigfiles(self):
     print 'system_deployconfigfiles: Deploy all configuration files for ' \
           'a system'
-    print 'usage: system_deployconfigfiles <SYSTEMS>'
+    print '''usage: system_deployconfigfiles <SYSTEMS> [options]
+
+options:
+    -s START_TIME'''
+
     print
     print self.HELP_SYSTEM_OPTS
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_system_deployconfigfiles(self, text, line, beg, end):
@@ -1542,11 +1636,25 @@ def complete_system_deployconfigfiles(self, text, line, beg, end):
 
 
 def do_system_deployconfigfiles(self, args):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+
+    (args, options) = parse_arguments(args, options)
 
     if not len(args):
         self.help_system_deployconfigfiles()
         return
+
+    # get the start time option
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
 
     # use the systems listed in the SSM
     if re.match('ssm', args[0], re.I):
@@ -1557,6 +1665,9 @@ def do_system_deployconfigfiles(self, args):
     if not len(systems):
         return
 
+    print
+    print 'Start Time: %s' % options.start_time
+    print
     print 'Systems'
     print '-------'
     print '\n'.join(sorted(systems))
@@ -1567,11 +1678,9 @@ def do_system_deployconfigfiles(self, args):
 
     system_ids = [self.get_system_id(s) for s in systems]
 
-    action_time = parse_time_input('now')
-
     self.client.system.config.deployAll(self.session,
                                         system_ids,
-                                        action_time)
+                                        options.start_time)
 
     logging.info('Scheduled deployment for %i system(s)' % len(system_ids))
 
@@ -2617,7 +2726,13 @@ def do_system_listerrata(self, args):
 
 def help_system_applyerrata(self):
     print 'system_applyerrata: Apply errata to a system'
-    print 'usage: system_applyerrata <SYSTEMS> [ERRATA|search:XXX ...]'
+    print '''usage: system_applyerrata [options] <SYSTEMS> \
+[ERRATA|search:XXX ...]
+
+options:
+  -s START_TIME'''
+    print
+    print self.HELP_TIME_OPTS
     print
     print self.HELP_SYSTEM_OPTS
 
@@ -2632,7 +2747,11 @@ def complete_system_applyerrata(self, text, line, beg, end):
 
 
 def do_system_applyerrata(self, args):
-    (args, _options) = parse_arguments(args)
+    # this is really just an entry point to do_errata_apply
+    # and the whole parsing of the start time needed is done
+    # there; here we only make sure we accept this option
+    options = [Option('-s', '--start-time', action='store')]
+    (args, options) = parse_arguments(args, options)
 
     if len(args) < 2:
         self.help_system_applyerrata()
@@ -2651,7 +2770,12 @@ def do_system_applyerrata(self, args):
     if not len(errata_list) or not len(systems):
         return
 
-    return self.do_errata_apply(' '.join(errata_list), systems)
+    # reconstruct options so we can pass them to do_errata_apply
+    opts = []
+    if options.start_time:
+        opts.append('-s ' + options.start_time)
+
+    return self.do_errata_apply(' '.join(opts + errata_list), systems)
 
 ####################
 
@@ -3047,7 +3171,12 @@ def do_system_comparepackages(self, args):
 
 def help_system_syncpackages(self):
     print 'system_syncpackages: Sync packages between two systems'
-    print 'usage: system_syncpackages SOURCE TARGET'
+    print '''usage: system_syncpackages SOURCE TARGET [options]
+
+options:
+    -s START_TIME'''
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_system_syncpackages(self, text, line, beg, end):
@@ -3055,7 +3184,9 @@ def complete_system_syncpackages(self, text, line, beg, end):
 
 
 def do_system_syncpackages(self, args):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+
+    (args, options) = parse_arguments(args, options)
 
     if len(args) != 2:
         self.help_system_syncpackages()
@@ -3069,13 +3200,26 @@ def do_system_syncpackages(self, args):
     if not source_id or not target_id:
         return
 
+    # get the start time option
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
+
     # show a comparison and ask for confirmation
     self.do_system_comparepackages('%s %s' % (source_id, target_id))
 
+    print
+    print 'Start Time: %s' % options.start_time
+
     if not self.user_confirm('Sync packages [y/N]:'):
         return
-
-    start_time = parse_time_input('now')
 
     # get package IDs
     packages = self.client.system.listPackages(self.session, source_id)
@@ -3095,7 +3239,7 @@ def do_system_syncpackages(self, args):
                                                       target_id,
                                                       source_id,
                                                       package_ids,
-                                                      start_time)
+                                                      options.start_time)
 ####################
 
 
@@ -3333,9 +3477,15 @@ def do_system_comparewithchannel(self, args):
 def help_system_schedulehardwarerefresh(self):
     print 'system_schedulehardwarerefresh: Schedule a hardware refresh ' + \
           'for a system'
-    print 'usage: system_schedulehardwarerefresh <SYSTEMS>'
+    print '''usage: system_schedulehardwarerefresh <SYSTEMS> [options]
+
+options:
+  -s START_TIME'''
+
     print
     print self.HELP_SYSTEM_OPTS
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_system_schedulehardwarerefresh(self, text, line, beg, end):
@@ -3343,19 +3493,31 @@ def complete_system_schedulehardwarerefresh(self, text, line, beg, end):
 
 
 def do_system_schedulehardwarerefresh(self, args):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+
+    (args, options) = parse_arguments(args, options)
 
     if not len(args):
         self.help_system_schedulehardwarerefresh()
         return
+
+    # get the start time option
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
 
     # use the systems listed in the SSM
     if re.match('ssm', args[0], re.I):
         systems = self.ssm.keys()
     else:
         systems = self.expand_systems(args)
-
-    action_time = parse_time_input('now')
 
     for system in systems:
         system_id = self.get_system_id(system)
@@ -3364,7 +3526,7 @@ def do_system_schedulehardwarerefresh(self, args):
 
         self.client.system.scheduleHardwareRefresh(self.session,
                                                    system_id,
-                                                   action_time)
+                                                   options.start_time)
 
 ####################
 
@@ -3372,9 +3534,14 @@ def do_system_schedulehardwarerefresh(self, args):
 def help_system_schedulepackagerefresh(self):
     print 'system_schedulepackagerefresh: Schedule a software package ' + \
           'refresh for a system'
-    print 'usage: system_schedulepackagerefresh <SYSTEMS>'
+    print '''usage: system_schedulepackagerefresh <SYSTEMS> [options]
+
+options:
+  -s START_TIME'''
     print
     print self.HELP_SYSTEM_OPTS
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_system_schedulepackagerefresh(self, text, line, beg, end):
@@ -3382,19 +3549,31 @@ def complete_system_schedulepackagerefresh(self, text, line, beg, end):
 
 
 def do_system_schedulepackagerefresh(self, args):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+
+    (args, options) = parse_arguments(args, options)
 
     if not len(args):
         self.help_system_schedulepackagerefresh()
         return
+
+    # get the start time option
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
 
     # use the systems listed in the SSM
     if re.match('ssm', args[0], re.I):
         systems = self.ssm.keys()
     else:
         systems = self.expand_systems(args)
-
-    action_time = parse_time_input('now')
 
     for system in systems:
         system_id = self.get_system_id(system)
@@ -3403,7 +3582,7 @@ def do_system_schedulepackagerefresh(self, args):
 
         self.client.system.schedulePackageRefresh(self.session,
                                                   system_id,
-                                                  action_time)
+                                                  options.start_time)
 
 ####################
 
@@ -3426,6 +3605,10 @@ def complete_system_show_packageversion(self, text, line, beg, end):
 
 def do_system_show_packageversion(self, args):
     (args, _options) = parse_arguments(args)
+
+    if len(args) != 2:
+        self.help_system_show_packageversion()
+        return
 
     if re.match('ssm', args[0], re.I):
         systems = self.ssm.keys()

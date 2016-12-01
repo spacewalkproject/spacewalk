@@ -143,7 +143,7 @@ public class ChannelRepodataWorker implements QueueWorker {
     private void populateQueueEntryDetails() {
         SelectMode selector = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_REPOMD_DETAILS_QUERY);
-        Map<Object, Object> params = new HashMap<Object, Object>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("channel_label", channelLabelToProcess);
         queueEntries = selector.execute(params);
     }
@@ -155,7 +155,7 @@ public class ChannelRepodataWorker implements QueueWorker {
     private boolean isChannelLabelAlreadyInProcess() {
         SelectMode selector = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_REPOMD_DETAILS_QUERY);
-        Map<Object, Object> params = new HashMap<Object, Object>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("channel_label", channelLabelToProcess);
         return (selector.execute(params).size() > 0);
     }

@@ -10,16 +10,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
-"PO-Revision-Date: 2012-02-14 08:00-0500\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
+"PO-Revision-Date: 2016-02-17 10:59-0500\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
 "Language: ml\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -338,8 +338,7 @@ msgid ""
 "without connecting your system to Red Hat Network.\n"
 msgstr "Red Hat നെറ്റ്‌വര്‍ക്കിലേക്ക് കണക്ട് ചെയ്യാതെ ഈ സബ്സ്ക്രിപ്ഷന്‍ ആനുകൂല്യങ്ങള്‍ ലഭ്യമാകുകയില്ല.\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "തിരികെ സെറ്റപ്പ് പ്രക്രിയയിലേക്ക് പോകുക."
 
@@ -409,8 +408,7 @@ msgstr " ലഘു ലക്കം : "
 msgid "Limited Updates Only"
 msgstr "വളരെ കുറഞ്ഞ പരിഷ്കരണങ്ങള്‍ മാത്രം"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "ലഭ്യമായ എല്ലാ പരിഷ്കരണങ്ങള്‍"
 
@@ -2560,37 +2558,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "സ്പെയിസ്‌വോക്ക്/സാറ്റിലൈറ്റ്/Red Hat നെറ്റ്‌വര്‍ക്ക് രജിസ്ടര്‍ ചെയ്യുക."
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "നിങ്ങള്‍ തെറ്റായ സമ്പ്രദായമാണ് നല്‍കിയിരിക്കുന്നത്."
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr ""
-#~ "അപ്ഡേറ്റ് മൊഡ്യൂള്‍: ഓരോ സിസ്റ്റത്തിനുള്ള അപ്ഡേറ്റുകള്‍, ഇമെയിലിലുളള തെറ്റുകളുടെ അറിയിപ്പ്, "
-#~ "പിഴവുകള്‍ സംബന്ധിച്ചുളള വിവരങ്ങള്‍"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "പ്രൊവിശനിങ് മൊഡ്യൂള്‍: ബെയര്‍-മെറ്റര്‍ പ്രൊവിശനിങ്, നിലവിലുളള സ്റ്റേറ്റ് പ്രൊവിശനിങ്, "
-#~ "റോള്‍ബാക്ക്, കോണ്‍ഫിഗറേഷന്‍ മാനേജ്മെന്റ്"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "മോണിറ്ററിങ് മൊഡ്യൂള്‍: മുമ്പ് വ്യക്തമാക്കിയിട്ടുളള സിസ്റ്റം പ്രവര്‍ത്തനങ്ങളുടെ തിരച്ചിലുകള്‍. "
-#~ "സിസ്റ്റത്തിന്റെ പ്രവര്‍ത്തനങ്ങള്‍ സംബന്ധിച്ചുളള ഈമെയില്‍ അറിയിപ്പുകള്‍, സിസ്റ്റം പ്രവര്‍ത്തനത്തിന്റെ "
-#~ "ഗ്രാഫുകള്‍"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "വിര്‍ച്ച്വലൈസേഷന്‍ പ്ളാറ്റ്ഫോം ഘടകം: ഈ സിസ്റ്റത്തിലുള്ള വളരെ ചുരുക്കം വിര്‍ച്ച്വല്‍ "
-#~ "സിസ്റ്റങ്ങള്‍ക്കുള്ളസോഫ്റ്റ്‌വെയര്‍ അപ്ഡേറ്റുകള്‍, സിസ്റ്റത്തിന്റെ എല്ലാ ഗസ്റ്റുകള്‍ക്കും സോഫ്റ്റ്‌വെയര്‍ "
-#~ "ചാനലുകളിലേക്കുളള പ്രവേശനം."

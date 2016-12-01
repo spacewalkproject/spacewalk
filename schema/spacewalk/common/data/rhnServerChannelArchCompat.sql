@@ -94,18 +94,6 @@ insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('armv6hl-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-arm'));
 
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
-(LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'));
-
-insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
-(LOOKUP_SERVER_ARCH('sparc-sun4u-solaris'), LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'));
-
-insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
-(LOOKUP_SERVER_ARCH('sparc-sun4v-solaris'), LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'));
-
-insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
-(LOOKUP_SERVER_ARCH('i386-i86pc-solaris'), LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris'));
-
-insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('i386-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-ia32-deb'));
 
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values

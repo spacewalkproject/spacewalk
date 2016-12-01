@@ -17,7 +17,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.6.0
+Version:    2.7.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -124,6 +124,11 @@ rm -rf %{buildroot}
 %{wwwdocroot}/css/*.less
 
 %changelog
+* Thu Nov 17 2016 Eric Herget <eherget@redhat.com> 2.7.1-1
+- 1394299 - fix css and UI display to better support tree list
+- Bumping package versions for 2.7.
+- Bumping package versions for 2.6.
+
 * Tue May 10 2016 Grant Gainey 2.5.3-1
 - spacewalk-branding: build on openSUSE
 

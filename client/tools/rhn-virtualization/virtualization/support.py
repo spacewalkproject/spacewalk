@@ -14,6 +14,7 @@
 #
 
 import sys
+import gettext
 sys.path.append("/usr/share/rhn/")
 
 from up2date_client import rhncli
@@ -26,7 +27,9 @@ from virtualization.notification     import Plan,                    \
                                             TargetType
 from virtualization.domain_config    import DomainConfig
 from virtualization.domain_directory import DomainDirectory
-import gettext
+from spacewalk.common.usix import UnicodeType
+
+
 t = gettext.translation('rhn-virtualization', fallback=True)
 _ = t.ugettext
 
@@ -44,7 +47,7 @@ def utf8_encode(msg):
     """
     if hasattr(rhncli, 'utf8_encode'):
         return rhncli.utf8_encode(msg)
-    if isinstance(msg, unicode):
+    if isinstance(msg, UnicodeType):
         msg = msg.encode('utf-8')
     return(msg)
 
@@ -53,7 +56,12 @@ def _check_status(daemon):
     """
      Checks to see if daemon is running.
     """
-    import commands
+    try:
+        # python 2
+        import commands
+    except ImportError:
+        import subprocess as commands
+
     cmd = "/etc/init.d/%s status" % daemon
     status, msg = commands.getstatusoutput(cmd)
     if status != 0:
@@ -107,8 +115,8 @@ def refresh(fail_on_error=False):
            # On a Xen host, either there were no domains or xend might not be
            # running. Don't proceed further.
            return
-    domain_list = domains.values()
-    domain_uuids = domains.keys()
+    domain_list = list(domains.values())
+    domain_uuids = list(domains.keys())
 
     if not vdsm_enabled:
         # We need this only for libvirt
@@ -227,5 +235,5 @@ def _fetch_host_uuid():
 
 if __name__ == "__main__":
     #refresh()
-    print _retrieve_virtual_domain_list()
+    print(_retrieve_virtual_domain_list())
 

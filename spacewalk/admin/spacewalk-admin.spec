@@ -1,8 +1,8 @@
 %global rhnroot /%{_datadir}/rhn
-Summary: Various utility scripts and data files for Red Hat Satellite installations
+Summary: Various utility scripts and data files for Spacewalk and Red Hat Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 2.6.0
+Version: 2.7.0
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -25,7 +25,7 @@ BuildRequires: spacewalk-config
 %endif
 
 %description
-Various utility scripts and data files for Spacewalk installations.
+Various utility scripts and data files for Spacewalk and Red Hat Satellite installations.
 
 %prep
 %setup -q
@@ -89,6 +89,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Oct 12 2016 Grant Gainey 2.6.1-1
+- Update specfile to be consistent about referring to both SW and Satellite
+- Bumping package versions for 2.6.
+
 * Fri May 20 2016 Grant Gainey 2.5.3-1
 - remove monitoring from SUSE spacewalk target
 

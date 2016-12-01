@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
 "PO-Revision-Date: 2016-02-17 09:39-0500\n"
 "Last-Translator: Jan Dobes <jdobes@redhat.com>\n"
 "Language-Team: Bengali (India) <anubad@lists.ankur.org.in>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -346,8 +346,7 @@ msgstr ""
 "Red Hat Network-র সাথে সিস্টেম যুক্ত না করা হলে সাবস্ক্রিপশনের সাথে প্রাপ্ত সুযোগ "
 "সুবিধা ব্যবহার করা যাবে না।\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "নির্ধারণ ব্যবস্থায় প্রত্যাবর্তন করুন।"
 
@@ -417,8 +416,7 @@ msgstr " ক্ষুদ্র রিলিজ: "
 msgid "Limited Updates Only"
 msgstr "শুধুমাত্র সীমিত  আপডেট"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "উপলব্ধ সকল আপডেট"
 
@@ -2588,36 +2586,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Spacewalk/Satellite/Red Hat Network-এ নিবন্ধন করুন।"
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "উল্লিখিত প্রোটোকল বৈধ নয়।"
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr ""
-#~ "Update মডিউল: প্রতি-সিস্টেম ভিত্তিক আপডেট, ই-মেইল দ্বারা ত্রুটি-বিচ্যুতির "
-#~ "সূচনাপ্রদান, ত্রুটি-বিচ্যুতির তথ্য"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "Provisioning মডিউল: বেয়ার-মেটাল প্রভিশনিং, বিদ্যমান অবস্থায় প্রভিশনিং, "
-#~ "রোলব্যাক ও কনফিগারেশন পরিচালনা"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "Monitoring মডিউল: পূর্বনির্ধারিত ও পছন্দসই সিস্টেমের কর্মক্ষমতা নিরীক্ষণের প্রোব, "
-#~ "সিস্টেমের কর্ম বিষয়ক ই-মেইল দ্বারা সূচনা প্রদান, সিস্টেমের কর্ম সংক্রান্ত গ্রাফ"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "ভার্চুয়ালাইজেশন প্ল্যাটফর্ম মডিউল: সিস্টেমের মধ্যে সীমাবিহীন গেস্ট সিস্টেমের জন্য "
-#~ "সফ্টওয়্যার আপডেট এবং এই সিস্টেমের গেস্ট সিস্টেমের জন্য অতিরিক্ত সফ্টওয়্যার চ্যানেল "
-#~ "ব্যবহারের সুযোগ।"

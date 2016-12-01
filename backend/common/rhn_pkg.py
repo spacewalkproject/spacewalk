@@ -14,6 +14,7 @@
 #
 
 import os
+from rhn.i18n import bstr
 from spacewalk.common import checksum
 
 def get_package_header(filename=None, file_obj=None, fd=None):
@@ -59,7 +60,7 @@ def package_from_stream(stream, packaging):
 def package_from_filename(filename):
     if filename.endswith('.deb'):
         packaging = 'deb'
-    elif filename.endswith('.rpm'):
+    elif filename.endswith('.rpm') or filename.endswith('.hdr'):
         packaging = 'rpm'
     else:
         packaging = 'mpm'
@@ -121,7 +122,7 @@ class A_Package:
 
     @staticmethod
     def _read_bytes(stream, amt):
-        ret = b''
+        ret = bstr('')
         while amt:
             buf = stream.read(min(amt, BUFFER_SIZE))
             if not buf:

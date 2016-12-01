@@ -114,7 +114,6 @@ class Registration(rhnHandler):
         self.functions.append("delete_packages")
         self.functions.append("delta_packages")
         self.functions.append("finish_message")
-        self.functions.append("get_possible_orgs")
         self.functions.append("new_system")
         self.functions.append("new_system_user_pass")
 # self.functions.append("new_system_activation_key")
@@ -666,37 +665,6 @@ class Registration(rhnHandler):
 # 'system_slots' : ['UNDER CONSTRUCTION'],
 # 'failed_system_slots' : ['UNDER CONSTRUCTION'],
 # }
-
-    def get_possible_orgs(self, username, password):
-        """ Gets all the orgs that a user belongs to.
-            In the OCS-future, users may belong to more than one org.
-
-            New for RHEL 5.
-
-            Returns a dict like:
-            {
-                'orgs': {'19': 'Engineering', '4009': 'Finance'},
-                'default_org': '19'
-            }
-            'orgs' must have at least one pair and 'default_org' must exist and point
-            to something in 'orgs'.
-
-            TODO Pick fault number for this and document it here
-            Fault:
-            * Bad credentials
-        """
-        user = rhnUser.auth_username_password(username, password)
-
-        # buzilla #229362, jslagle
-        # Clients currently are calling this method in hopes
-        # to one day support multi-org satellite.
-        # So, if we're running on a sat, return the default org
-        # for now.
-        org_id = user.contact["org_id"]
-        org_name = user.customer["name"]
-        orgs = {str(org_id): org_name}
-        default_org = str(org_id)
-        return {'orgs': orgs, 'default_org': default_org}
 
     def activate_registration_number(self, username, password, key, other):
         """ Entitle a particular org using an entitlement number.

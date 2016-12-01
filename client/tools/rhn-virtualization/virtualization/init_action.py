@@ -14,7 +14,8 @@
 #
 
 import sys
-import support
+sys.path.append("/usr/share/rhn/")
+from virtualization import support
 
 actions =   {
                 'shutdown'  :   support.shutdown,
@@ -28,13 +29,14 @@ actions =   {
 action_type = sys.argv[1]
 uuid = sys.argv[2]
 
-if not action_type in actions.keys():
+if not action_type in list(actions.keys()):
     sys.stderr.write("Unknown action: %s \n" % action_type)
     sys.exit(1)
 
 try:
     actions[action_type](uuid)
-except Exception, e:
+except Exception:
+    e = sys.exc_info()[1]
     sys.stderr.write(str(e))
     sys.exit(1)
 

@@ -15,16 +15,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
-"PO-Revision-Date: 2012-02-14 08:00-0500\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
+"PO-Revision-Date: 2016-02-17 11:10-0500\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Chinese (Taiwan) <trans-zh_TW@lists.fedoraproject.org>\n"
 "Language: zh-TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -334,8 +334,7 @@ msgid ""
 "without connecting your system to Red Hat Network.\n"
 msgstr "不向 Red Hat Network 註冊系統，您將無法享用到這些訂閱權利。\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "帶我回到設定過程。"
 
@@ -403,8 +402,7 @@ msgstr " 非重大發行版："
 msgid "Limited Updates Only"
 msgstr "僅有有限的更新"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "所有可用更新"
 
@@ -2484,31 +2482,3 @@ msgstr "註冊以取得來自於 Spacewalk/Satellite/Red Hat Network 的軟體�
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "向 Spacewalk/Satellite/Red Hat Network 註冊。"
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "您指定了不合規定的通訊協定。"
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr "更新模組：更新每台系統、電子郵件勘誤通知、勘誤資訊"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr "佈建模組：裸機佈建、現有狀態佈建、回復、配置管理"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "監控模組：事先定義與自訂的系統效能偵測、以電子郵件通知系統效能、系統效能的"
-#~ "圖形"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "虛擬平台模組：為這台系統上的所有虛擬客座端（不限數量）更新軟體、讓這台系統"
-#~ "上的客座端存取額外軟體頻道。"

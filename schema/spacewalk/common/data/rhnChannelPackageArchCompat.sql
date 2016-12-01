@@ -316,21 +316,6 @@ insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-mips-deb'), LOOKUP_PACKAGE_ARCH('src-deb'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris'));
-
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_PACKAGE_ARCH('sparc.sun4u-solaris'));
-
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_PACKAGE_ARCH('sparc.sun4v-solaris'));
-
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch-cluster'));
-
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch'));
-
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-ia32'), LOOKUP_PACKAGE_ARCH('nosrc'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
@@ -359,32 +344,5 @@ values (LOOKUP_CHANNEL_ARCH('channel-x86_64'), LOOKUP_PACKAGE_ARCH('nosrc'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-ppc'), LOOKUP_PACKAGE_ARCH('nosrc'));
-
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris'), LOOKUP_PACKAGE_ARCH('i386-solaris'));
-
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris'), LOOKUP_PACKAGE_ARCH('i386-solaris-patch-cluster'));
-
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris'), LOOKUP_PACKAGE_ARCH('i386-solaris-patch'));
-
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'));
-
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'));
-
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'));
-
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'));
-
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'));
-
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'));
 
 commit;

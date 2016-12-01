@@ -17,11 +17,13 @@ package com.redhat.rhn.manager.channel.repo;
 import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
+import com.redhat.rhn.domain.channel.ContentSourceType;
 import com.redhat.rhn.domain.channel.SslContentSource;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoLabelException;
+import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoTypeException;
 import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoUrlException;
 
 
@@ -35,6 +37,7 @@ public class BaseRepoCommand {
 
     private String label;
     private String url;
+    private String type;
     private Long sslCaCertId = null;
     private Long sslClientCertId = null;
     private Long sslClientKeyId = null;
@@ -93,6 +96,22 @@ public class BaseRepoCommand {
         this.url = urlIn;
     }
 
+    /**
+     *
+     * @return type of repo
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     *
+     * @param typeIn to set type of repo
+     */
+    public void setType(String typeIn) {
+        this.type = typeIn;
+    }
+
 
     /**
      * @return Returns the sslCaCertId.
@@ -149,9 +168,11 @@ public class BaseRepoCommand {
      * in the org
      * @throws InvalidCertificateException in case client key is set,
      * but client certificate is missing
+     * @throws InvalidRepoTypeException in case repo wih given type already exists
+     * in the org
      */
     public void store() throws InvalidRepoUrlException, InvalidRepoLabelException,
-            InvalidCertificateException {
+            InvalidCertificateException, InvalidRepoTypeException {
 
         SslCryptoKey caCert = lookupSslCryptoKey(sslCaCertId, org);
         SslCryptoKey clientCert = lookupSslCryptoKey(sslClientCertId, org);
@@ -198,7 +219,6 @@ public class BaseRepoCommand {
         }
 
         repo.setOrg(org);
-        repo.setType(ChannelFactory.CONTENT_SOURCE_TYPE_YUM);
 
         if (this.label != null && !this.label.equals(repo.getLabel())) {
             if (ChannelFactory.lookupContentSourceByOrgAndLabel(org, label) != null) {
@@ -207,12 +227,22 @@ public class BaseRepoCommand {
             repo.setLabel(this.label);
         }
 
-        if (this.url != null && !this.url.equals(repo.getSourceUrl())) {
-            if (!ChannelFactory.lookupContentSourceByOrgAndRepo(org,
-                    ChannelFactory.CONTENT_SOURCE_TYPE_YUM, url).isEmpty()) {
-                throw new InvalidRepoUrlException(url);
+        if (this.url != null && this.type != null) {
+            ContentSourceType cst = ChannelFactory.lookupContentSourceType(this.type);
+            boolean alreadyExists = !ChannelFactory.lookupContentSourceByOrgAndRepo(
+                    org, cst, url).isEmpty();
+            if (!this.url.equals(repo.getSourceUrl())) {
+                if (alreadyExists) {
+                    throw new InvalidRepoUrlException(url);
+                }
+                repo.setSourceUrl(this.url);
             }
-            repo.setSourceUrl(this.url);
+            if (!cst.equals(repo.getType())) {
+                if (alreadyExists) {
+                    throw new InvalidRepoTypeException(this.type);
+                }
+                repo.setType(cst);
+            }
         }
 
         ChannelFactory.save(repo);

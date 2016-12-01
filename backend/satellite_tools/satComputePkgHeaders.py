@@ -20,6 +20,10 @@
 import sys
 from optparse import OptionParser, Option
 
+from spacewalk.server import rhnSQL
+from spacewalk.common import rhn_rpm
+from spacewalk.common.rhn_pkg import InvalidPackageError
+
 SERVER_RETURN = 0
 
 
@@ -50,11 +54,6 @@ OK = 1
 # End of _apache.py
 
 sys.modules["_apache"] = sys.modules["__main__"]
-
-
-from spacewalk.server import rhnSQL
-from spacewalk.common import rhn_rpm
-from spacewalk.common.rhn_pkg import InvalidPackageError
 
 options_table = [
     Option("-v", "--verbose",       action="count",

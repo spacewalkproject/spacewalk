@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-23 13:35+0200\n"
-"PO-Revision-Date: 2014-01-14 04:23-0500\n"
-"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"POT-Creation-Date: 2016-11-07 18:07+0100\n"
+"PO-Revision-Date: 2015-03-18 01:40-0400\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/projects/p/spacewalk/"
 "language/id/)\n"
 "Language: id\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:94
 #, python-format
@@ -539,8 +539,7 @@ msgstr ""
 msgid "Review Subscription"
 msgstr "Diskripsi"
 
-#: ../src/up2date_client/rhnreg_constants.py:168
-#: ../data/rh_register.glade.h:53
+#: ../src/up2date_client/rhnreg_constants.py:168 ../data/rh_register.glade.h:53
 msgid "Please review the subscription details below:"
 msgstr ""
 
@@ -2128,144 +2127,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Red Hat Satellite/Red Hat Network Classic."
 msgstr ""
-
-#~ msgid "Red Hat Network Location:"
-#~ msgstr "Buat Login"
-
-#~ msgctxt "yes"
-#~ msgid "Red Hat Subscription Management"
-#~ msgstr "Diskripsi"
-
-#~ msgid "Red Hat Subscription Management"
-#~ msgstr "Diskripsi"
-
-#~ msgctxt "yes"
-#~ msgid "Red Hat Network (RHN) Classic"
-#~ msgstr "Buat Login"
-
-#~ msgid "Red Hat Network (RHN) Classic"
-#~ msgstr "Buat Login"
-
-#~ msgctxt "yes"
-#~ msgid "Please enter your Red Hat account information:"
-#~ msgstr "Buat Login"
-
-#~ msgctxt "yes"
-#~ msgid "Package Information"
-#~ msgstr "Up2date - Informasi Rahasia"
-
-#~ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
-#~ msgstr "Buat Login"
-
-#~ msgid "• Your Red Hat account login"
-#~ msgstr "Buat Login"
-
-#~ msgid "Your Red Hat account login"
-#~ msgstr "Buat Login"
-
-#~ msgid "<b>Red Hat Network Location:</b>"
-#~ msgstr "Buat Login"
-
-#~ msgid "Create your system profile"
-#~ msgstr "Buat Login"
-
-#~ msgid "yes|Red Hat Network _Location:"
-#~ msgstr "Buat Login"
-
-#~ msgid "Create a New Login ..."
-#~ msgstr "Buat Login"
-
-#~ msgid "Access a subscription"
-#~ msgstr "Diskripsi"
-
-#~ msgid "Access Subscription"
-#~ msgstr "Diskripsi"
-
-#~ msgid "C_reate new login"
-#~ msgstr "Buat Login"
-
-#~ msgid "Create a _New Login"
-#~ msgstr "Buat Login"
-
-#~ msgid "and manage subscriptions "
-#~ msgstr "Diskripsi"
-
-#~ msgid "Version: %s"
-#~ msgstr "Versi"
-
-#~ msgid ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-#~ msgstr ""
-#~ "\n"
-#~ "    %-30.30s\t%-30.30s\n"
-
-#~ msgid "Package Name"
-#~ msgstr "Nama Paket"
-
-#~ msgid "Reason For Skipping"
-#~ msgstr "Alasan Untuk Melewatinya"
-
-#~ msgid "Testing package set / solving RPM inter-dependencies"
-#~ msgstr ""
-#~ "Melakukan tes pada paketnya/ Menyelesaikan inter-dependensi dari RPM"
-
-#~ msgid "Package                                Required by\n"
-#~ msgstr "Paket                                Diperlukan Oleh\n"
-
-#~ msgid "%-40.40s %s %s \n"
-#~ msgstr "%-40.40s %s %s \n"
-
-#~ msgid "%-40.40s %s %s\n"
-#~ msgstr "%-40.40s %s %s\n"
-
-#~ msgid "Don't know how to handle dependency sense \"%s\""
-#~ msgstr "Tidak tahu bagaimana harus menyelesaikan dependensi dari \"%s\""
-
-#~ msgid "Old Version"
-#~ msgstr "Versi Lama"
-
-#~ msgid "Size"
-#~ msgstr "Ukuran"
-
-#~ msgid "Reason Skipped"
-#~ msgstr "Alasan Dilewati"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "6.0"
-#~ msgstr "6.0"
-
-#~ msgid "6.1"
-#~ msgstr "6.1"
-
-#~ msgid "6.2"
-#~ msgstr "6.2"
-
-#~ msgid "7.0"
-#~ msgstr "7.0"
-
-#~ msgid "7.1"
-#~ msgstr "7.1"
-
-#~ msgid "7.2"
-#~ msgstr "7.2"
-
-#~ msgid "7.3"
-#~ msgstr "7.3"
-
-#~ msgid "8.0"
-#~ msgstr "8.0"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "Add"
-#~ msgstr "Tambah"
-
-#~ msgid "Add new:"
-#~ msgstr "Tambah baru:"

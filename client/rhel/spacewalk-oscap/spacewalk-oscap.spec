@@ -1,5 +1,5 @@
 Name:		spacewalk-oscap
-Version:	2.6.0
+Version:	2.7.0
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -18,7 +18,7 @@ Requires: openscap-utils >= 1.0.8-1
 Requires:	openscap-scanner
 %endif
 Requires:	libxslt
-Requires:       rhnlib
+Requires:       rhnlib >= 0:2.5.78-1
 Requires:       rhn-check
 %description
 spacewalk-oscap is a plug-in for rhn-check. With this plugin, user is able
@@ -54,6 +54,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Sep 12 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.1-1
+- Increasing required version of rhnlib in due to ImportError module i18n in
+  scap.py
+- Bumping package versions for 2.6.
+
 * Mon May 23 2016 Gennadii Altukhov <galt@redhat.com> 2.5.3-1
 - convert code to work in python 2/3
 

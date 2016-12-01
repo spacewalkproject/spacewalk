@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 import base64
-import ConfigParser
+try:
+    #  python 2
+    import ConfigParser
+except ImportError:
+    #  python3
+    import configparser as ConfigParser
 import hashlib
 import itertools
 import os
@@ -45,10 +50,10 @@ def _downloadFile(imageName,serverUrl,proxySetting):
     #                  proxyPass : s3cr3t }
     # proxyUser and proxyPass are optional
     #
-    if proxySetting.has_key("proxyURL") and proxySetting["proxyURL"] != None and proxySetting["proxyURL"] != "":
+    if "proxyURL" in proxySetting and proxySetting["proxyURL"] is not None and proxySetting["proxyURL"] != "":
         server = proxySetting["proxyURL"]
         c.setopt(pycurl.PROXY, server )
-        if proxySetting.has_key("proxyUser") and proxySetting["proxyUser"] != None and proxySetting["proxyUser"] != "":
+        if "proxyUser" in proxySetting and proxySetting["proxyUser"] is not None and proxySetting["proxyUser"] != "":
             user     = proxySetting["proxyUser"]
             password = base64.b64decode( proxySetting["proxyPass"] )
             c.setopt(pycurl.PROXYUSERPWD, "%s:%s" % (user,password) )
@@ -70,16 +75,16 @@ def _connect_to_hypervisor():
     # much else.
     try:
         import libvirt
-    except ImportError, ie:
-        raise VirtualizationException, \
-              "Unable to locate libvirt: %s" % str(ie)
+    except ImportError:
+        ie = sys.exc_info()[1]
+        raise VirtualizationException("Unable to locate libvirt: %s" % str(ie))
 
     # Attempt to connect to the hypervisor.
     try:
         connection = libvirt.open(None)
-    except Exception, e:
-        raise VirtualizationException, \
-              "Could not connect to hypervisor: %s" % str(e)
+    except Exception:
+        e = sys.exc_info()[1]
+        raise VirtualizationException("Could not connect to hypervisor: %s" % str(e))
 
     return connection
 
@@ -97,10 +102,10 @@ def _extractImage( source, dest, imageType ):
         log.log_debug("target path not found: %s" % dest)
         raise Exception("target path not found: %s" % dest)
 
-    if( source.endswith("gz") ):
-        param = param + "z"
-    elif( source.endswith("bz2") ):
-        param = param + "j"
+    if source.endswith("gz"):
+        param += "z"
+    elif source.endswith("bz2"):
+        param += "j"
 
     if imageType == 'qcow2':
         log.log_debug(2, "copy %s to %s" %(source, dest))
@@ -133,7 +138,7 @@ def _fileExists(name, md5Sum):
 def _domainExists( dom, connection ):
     try:
         connection.lookupByName(dom)
-    except Exception, e:
+    except Exception:
         log.log_debug("domain %s does not exist" % dom)
         return False
     log.log_debug("domain %s exists" % dom)
@@ -146,7 +151,7 @@ def _createTargetDir( wantedDir ):
         if not os.path.exists(new_dir_name):
             try:
                 os.makedirs( new_dir_name )
-            except OSError, exc:
+            except OSError:
                 return (1, "creating directory %s failed" % new_dir_name)
             return new_dir_name
         elif len(os.listdir(new_dir_name)) <= 1:
@@ -201,11 +206,12 @@ def deploy(params, extraParams="",cache_only=None):
 
     try:
         connection = _connect_to_hypervisor()
-    except Exception, e:
+    except Exception:
+        e = sys.exc_info()[1]
         return (1, "%s" % e, {})
 
     # if we got an explicit name, we'll use it
-    if params.has_key("domainName") and params["domainName"] != "":
+    if "domainName" in params and params["domainName"] != "":
         imageName = params["domainName"]
     # if not, we'll try to find a free name
     elif( _domainExists(imageName, connection) ):
@@ -228,14 +234,16 @@ def deploy(params, extraParams="",cache_only=None):
             if not _fileExists("%s/%s" % (IMAGE_BASE_PATH,studioArchiveFileName), checksum):
                 log.log_debug("downloading image file failed. HTTP Code is: %s" % httpResponseCode)
                 return (1, "downloading image file failed: %s/%s (%s)" % (IMAGE_BASE_PATH, studioArchiveFileName,httpResponseCode), {})
-        except Exception, e:
+        except Exception:
+            e = sys.exc_info()[1]
             return ( 1, "getting the image failed with: %s" % e )
     if cache_only:
         return (0, "image fetched and cached for later deployment", {})
     try:
         targetDir = _createTargetDir( "%s/%s" % (IMAGE_BASE_PATH, imageName) )
         _extractImage( "%s/%s" % (IMAGE_BASE_PATH,studioArchiveFileName), targetDir, imageType )
-    except Exception, e:
+    except Exception:
+        e = sys.exc_info()[1]
         return (1, "extracting the image tarball failed with: %s" % e, {})
 
     # image exists in $IMAGE_BASE_PATH/$imageName now
@@ -268,7 +276,8 @@ def deploy(params, extraParams="",cache_only=None):
     domain = None
     try:
         domain = connection.defineXML(create_xml)
-    except Exception, e:
+    except Exception:
+        e = sys.exc_info()[1]
         return (1, "failed to pass XML to libvirt: %s" % e, {})
 
     domain.create()
@@ -280,5 +289,5 @@ def deploy(params, extraParams="",cache_only=None):
 if __name__ == "__main__":
     # test code
     log.log_debug("actions/image.py called")
-    print "You can not run this module by itself"
+    print("You can not run this module by itself")
     sys.exit(-1)

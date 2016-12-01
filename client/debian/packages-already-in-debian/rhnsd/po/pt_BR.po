@@ -12,53 +12,53 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-21 12:22+0100\n"
-"PO-Revision-Date: 2012-02-14 08:07-0500\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"POT-Creation-Date: 2016-11-07 18:12+0100\n"
+"PO-Revision-Date: 2015-03-17 08:12-0400\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Portuguese (Brazil) <trans-pt_br@lists.fedoraproject.org>\n"
 "Language: pt-BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
-#: ../rhnsd.c:55
+#: ../rhnsd.c:54
 msgid "MINS"
 msgstr ""
 
-#: ../rhnsd.c:56
+#: ../rhnsd.c:55
 msgid "Connect to Red Hat Network every MINS minutes"
 msgstr ""
 
-#: ../rhnsd.c:58
+#: ../rhnsd.c:57
 msgid "Run in foreground"
 msgstr ""
 
 #. Short description of program.
-#: ../rhnsd.c:63
+#: ../rhnsd.c:62
 msgid "Red Hat Network Services Daemon"
 msgstr ""
 
-#: ../rhnsd.c:116
+#: ../rhnsd.c:115
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "Apenas o root pode rodar este programa\n"
 
-#: ../rhnsd.c:136
+#: ../rhnsd.c:135
 msgid "wrong number of arguments"
 msgstr "número de argumentos incorreto"
 
-#: ../rhnsd.c:143
+#: ../rhnsd.c:142
 msgid "already running"
 msgstr "já está rodando"
 
-#: ../rhnsd.c:243
+#: ../rhnsd.c:242
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:246
+#: ../rhnsd.c:245
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Escrito por %s.\n"

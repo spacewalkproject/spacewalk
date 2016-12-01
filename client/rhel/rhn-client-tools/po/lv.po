@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-23 13:35+0200\n"
-"PO-Revision-Date: 2014-01-14 04:23-0500\n"
-"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"POT-Creation-Date: 2016-11-07 18:07+0100\n"
+"PO-Revision-Date: 2015-03-18 01:42-0400\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Latvian (http://www.transifex.com/projects/p/spacewalk/"
 "language/lv/)\n"
 "Language: lv\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:94
 #, python-format
@@ -533,8 +533,7 @@ msgstr ""
 msgid "Review Subscription"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:168
-#: ../data/rh_register.glade.h:53
+#: ../src/up2date_client/rhnreg_constants.py:168 ../data/rh_register.glade.h:53
 msgid "Please review the subscription details below:"
 msgstr ""
 

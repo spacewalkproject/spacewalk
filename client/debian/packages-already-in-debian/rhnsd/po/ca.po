@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-21 12:22+0100\n"
+"POT-Creation-Date: 2016-11-07 18:12+0100\n"
 "PO-Revision-Date: 2015-04-02 03:54-0400\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan <fedora@llistes.softcatala.org>\n"
@@ -19,44 +19,44 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
-#: ../rhnsd.c:55
+#: ../rhnsd.c:54
 msgid "MINS"
 msgstr "MINS"
 
-#: ../rhnsd.c:56
+#: ../rhnsd.c:55
 msgid "Connect to Red Hat Network every MINS minutes"
 msgstr "Conecta a la Red Hat Network cada MINS minuts"
 
-#: ../rhnsd.c:58
+#: ../rhnsd.c:57
 msgid "Run in foreground"
 msgstr "Executa en primer pla"
 
 #. Short description of program.
-#: ../rhnsd.c:63
+#: ../rhnsd.c:62
 msgid "Red Hat Network Services Daemon"
 msgstr "Red Hat Network Services Daemon"
 
-#: ../rhnsd.c:116
+#: ../rhnsd.c:115
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "Tan sols root pot executar aquest programa\n"
 
-#: ../rhnsd.c:136
+#: ../rhnsd.c:135
 msgid "wrong number of arguments"
 msgstr "el nombre d'arguments no és correcte"
 
-#: ../rhnsd.c:143
+#: ../rhnsd.c:142
 msgid "already running"
 msgstr "ja s'està executant"
 
-#: ../rhnsd.c:243
+#: ../rhnsd.c:242
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright © %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:246
+#: ../rhnsd.c:245
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Escrit per %s.\n"

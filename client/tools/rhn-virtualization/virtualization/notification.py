@@ -74,7 +74,8 @@ class Plan:
 
         try:
             server.registration.virt_notify(systemid, self.__items)
-        except up2dateErrors.CommunicationError, e:
+        except up2dateErrors.CommunicationError:
+            e = sys.exc_info()[1]
             log.trace_me()
             log.log_me(e)
 

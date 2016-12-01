@@ -25,97 +25,42 @@ import java.util.Map;
  * @author sherr
  */
 public class RestartData implements Serializable {
-    private String sql;
-    private Map<String, List<Integer>> parameterMap;
-    private Map<String, Object> parameters;
+    private static final long serialVersionUID = 1L;
+
+    private Map<String, ?> parameters;
+    private List<?> inClause;
     private Mode mode;
-    private List<Object> dr;
 
     /**
      * Create a RestartData for a query
-     * @param sqlIn the sql to execute
-     * @param parameterMapIn the parameter map
      * @param parametersIn the parameters
+     * @param inClauseIn the list of inClause values
      * @param modeIn the mode
-     * @param drIn the dr
      */
-    public RestartData(String sqlIn, Map<String, List<Integer>> parameterMapIn,
-            Map<String, Object> parametersIn, Mode modeIn, List<Object> drIn) {
-        this.sql = sqlIn;
-        this.parameterMap = parameterMapIn;
+    public RestartData(Map<String, ?> parametersIn, List<?> inClauseIn, Mode modeIn) {
         this.parameters = parametersIn;
+        this.inClause = inClauseIn;
         this.mode = modeIn;
-        this.dr = drIn;
-    }
-
-    /**
-     * @return the sql
-     */
-    public String getSql() {
-        return sql;
-    }
-
-    /**
-     * @param sqlIn the sql to set
-     */
-    public void setSql(String sqlIn) {
-        this.sql = sqlIn;
-    }
-
-    /**
-     * @return the parameterMap
-     */
-    public Map<String, List<Integer>> getParameterMap() {
-        return parameterMap;
-    }
-
-    /**
-     * @param parameterMapIn the parameterMap to set
-     */
-    public void setParameterMap(Map<String, List<Integer>> parameterMapIn) {
-        this.parameterMap = parameterMapIn;
     }
 
     /**
      * @return the parameters
      */
-    public Map<String, Object> getParameters() {
+    public Map<String, ?> getParameters() {
         return parameters;
     }
 
     /**
-     * @param parametersIn the parameters to set
+     * @return the inClause
      */
-    public void setParameters(Map<String, Object> parametersIn) {
-        this.parameters = parametersIn;
+    public List<?> getInClause() {
+        return inClause;
     }
 
     /**
-     * @return the mode
+     * @return the Mode
      */
     public Mode getMode() {
         return mode;
     }
-
-    /**
-     * @param modeIn the mode to set
-     */
-    public void setMode(Mode modeIn) {
-        this.mode = modeIn;
-    }
-
-    /**
-     * @return the dr
-     */
-    public List<Object> getDr() {
-        return dr;
-    }
-
-    /**
-     * @param drIn the dr to set
-     */
-    public void setDr(List<Object> drIn) {
-        this.dr = drIn;
-    }
-
 }

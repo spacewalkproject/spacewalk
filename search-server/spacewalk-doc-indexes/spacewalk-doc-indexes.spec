@@ -1,5 +1,5 @@
 Name: spacewalk-doc-indexes
-Version: 2.6.0
+Version: 2.7.0
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk
 

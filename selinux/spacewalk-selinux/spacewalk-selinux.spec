@@ -8,7 +8,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        2.6.0
+Version:        2.7.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -20,6 +20,7 @@ URL:            http://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
+BuildRequires:  perl
 BuildRequires:  checkpolicy, selinux-policy-devel, hardlink
 BuildRequires:  policycoreutils >= %{POLICYCOREUTILSVER}
 BuildArch:      noarch
@@ -113,6 +114,13 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Nov 29 2016 Jan Dobes 2.7.1-1
+- perl isn't in Fedora 25 buildroot
+- Bumping package versions for 2.7.
+- Bumping package versions for 2.6.
+- Bumping package versions for 2.5.
+- Bumping package versions for 2.4.
+
 * Tue Feb 17 2015 Tomas Lestach <tlestach@redhat.com> 2.3.2-1
 - spacewalk-monitoring-selinux seems to be redundant now, removing
 

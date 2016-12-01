@@ -39,13 +39,21 @@
   </div>
 </div>
 <c:if test="${param.option_source_packages}">
-    <div class="row-0">
-        <label class="col-md-2">
-            <bean:message key="channel.jsp.package.viewsourcepackages"/>:
+  <div class="row-0">
+    <div class="col-md-offset-2 col-md-6">
+      <div class="radio">
+        <label>
+          <input type="radio" name="package_type" value="binary" onclick="this.form.submit();" <c:if test="${not source_checked}">checked </c:if>>
+           <bean:message key="channel.jsp.package.viewbinarypackages"/>
         </label>
-        <div class="col-md-1">
-            <input type="checkbox" name="source_checked" <c:if test="${source_checked}">checked </c:if>>
-        </div>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="package_type" value="source" onclick="this.form.submit();" <c:if test="${source_checked}">checked </c:if>>
+          <bean:message key="channel.jsp.package.viewsourcepackages"/>
+        </label>
+      </div>
     </div>
+  </div>
 </c:if>
 <hr/>

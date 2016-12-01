@@ -18,8 +18,9 @@
 import os
 import smtplib
 
-from spacewalk.common.rhnConfig import CFG, PRODUCT_NAME
 from rhn.connections import idn_puny_to_unicode
+
+from spacewalk.common.rhnConfig import CFG, PRODUCT_NAME
 from spacewalk.common.stringutils import to_string
 
 # check if the headers have the minimum required fields
@@ -36,7 +37,7 @@ def __check_headers(h):
         to = CFG.TRACEBACK_MAIL
     else:
         to = h["To"]
-    if not ("Content-Type" in h):
+    if "Content-Type" not in h:
         h["Content-Type"] = "text/plain; charset=utf-8"
     if isinstance(to, (type([]), type(()))):
         toaddrs = to

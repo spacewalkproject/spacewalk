@@ -73,8 +73,7 @@ public class SystemListHelper {
             i.setType("system-unknown");
             i.setTitle("systemlist.jsp.notcheckingin");
         }
-        else if (SystemManager.isKickstarting(user,
-                 new Long(next.getId().longValue()))) {
+        else if (SystemManager.isKickstarting(user, next.getId())) {
             //status = "kickstarting";
             url.setAttribute("href",
                     "/rhn/systems/details/kickstart/SessionStatus.do?sid=" +
@@ -84,8 +83,7 @@ public class SystemListHelper {
         }
         else if (next.getEnhancementErrata() + next.getBugErrata() +
                      next.getSecurityErrata() > 0 &&
-                     !SystemManager.hasUnscheduledErrata(user, new Long(next.getId()
-                             .longValue()))) {
+                     !SystemManager.hasUnscheduledErrata(user, next.getId())) {
             //status = "updates scheduled";
             url.setAttribute("href",
                     "/rhn/systems/details/history/Pending.do?sid=" +
@@ -93,7 +91,7 @@ public class SystemListHelper {
             i.setType("action-pending");
             i.setTitle("systemlist.jsp.updatesscheduled");
         }
-        else if (SystemManager.countActions(new Long(next.getId().longValue())) > 0) {
+        else if (SystemManager.countActions(next.getId()) > 0) {
             //status = "actions scheduled";
             url.setAttribute("href",
                     "/rhn/systems/details/history/Pending.do?sid=" +
@@ -101,17 +99,18 @@ public class SystemListHelper {
             i.setType("action-pending");
             i.setTitle("systemlist.jsp.actionsscheduled");
         }
-        else if ((next.getEnhancementErrata() + next.getBugErrata() +
-                  next.getSecurityErrata()) == 0 &&
-                  next.getOutdatedPackages().intValue() == 0 &&
-                  SystemManager.countPackageActions(
-                     new Long(next.getId().longValue())) == 0) {
+        else if ((next.getEnhancementErrata() == null ||
+                  next.getEnhancementErrata() == 0) &&
+                 next.getBugErrata() == 0 &&
+                 next.getSecurityErrata() == 0 &&
+                 next.getOutdatedPackages() == 0 &&
+                 SystemManager.countPackageActions(next.getId()) == 0) {
 
             //status = "up2date";
             i.setType("system-ok");
             i.setTitle("systemlist.jsp.up2date");
         }
-        else if (next.getSecurityErrata().intValue() > 0) {
+        else if (next.getSecurityErrata() > 0) {
             //status = "critical";
             url.setAttribute("href",
                     "/rhn/systems/details/ErrataList.do?sid=" +
@@ -120,7 +119,7 @@ public class SystemListHelper {
             i.setType("system-crit");
             i.setTitle("systemlist.jsp.critical");
         }
-        else if (next.getOutdatedPackages().intValue() > 0) {
+        else if (next.getOutdatedPackages() > 0) {
             //status = "updates";
             url.setAttribute("href",
                     "/rhn/systems/details/packages/UpgradableList.do?sid=" +

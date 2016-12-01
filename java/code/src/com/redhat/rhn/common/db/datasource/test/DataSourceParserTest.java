@@ -16,13 +16,13 @@ package com.redhat.rhn.common.db.datasource.test;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.db.datasource.CachedStatement;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.MapColumnNotFoundException;
-import com.redhat.rhn.common.db.datasource.Mode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.ModeNotFoundException;
 import com.redhat.rhn.common.db.datasource.ParameterValueNotFoundException;
+import com.redhat.rhn.common.db.datasource.ParsedMode;
+import com.redhat.rhn.common.db.datasource.ParsedQuery;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.HibernateHelper;
@@ -144,13 +144,13 @@ public class DataSourceParserTest extends RhnBaseTestCase {
         }
     }
 
-    private boolean shouldSkip(Mode m) {
+    private boolean shouldSkip(ParsedMode m) {
         /* Don't do plans for queries that use system tables or for
          * dummy queries.
          */
-        return (m != null && m.getQuery() != null &&
+        return (m != null && m.getParsedQuery() != null &&
                 (m.getName().equals("tablespace_overview") ||
-                 m.getQuery().getOrigQuery().trim().startsWith("--")));
+                 m.getParsedQuery().getSqlStatement().trim().startsWith("--")));
     }
 
     public void testPrepareAll() throws Exception {
@@ -165,14 +165,14 @@ public class DataSourceParserTest extends RhnBaseTestCase {
                 Iterator j = ModeFactory.getFileKeys(file).values().iterator();
 
                 while (j.hasNext()) {
-                    Mode m = (Mode)j.next();
+                    ParsedMode m = (ParsedMode)j.next();
 
                     if (shouldSkip(m)) {
                         continue;
                     }
-                    CachedStatement stmt = m.getQuery();
-                    if (stmt != null) {
-                        String query = m.getQuery().getQuery();
+                    ParsedQuery pq = m.getParsedQuery();
+                    if (pq != null) {
+                        String query = pq.getSqlStatement();
 
                         // HACK!  Some of the queries actually have %s in them.
                         // So, replace all %s with :rbb so that the explain plan
@@ -290,80 +290,6 @@ public class DataSourceParserTest extends RhnBaseTestCase {
         }
     }
 
-    public void testSort() throws Exception {
-        SelectMode m = ModeFactory.getMode("test_queries", "all_tables_with_sort" +
-                db_sufix);
-        assertNotNull(m);
-
-        DataResult dr = m.execute(new HashMap());
-        assertNotNull(dr);
-        assertTrue(dr.size() > 0);
-        Iterator i = dr.iterator();
-        Map first = (Map)i.next();
-        Map second;
-        while (i.hasNext()) {
-            second = (Map)i.next();
-            String t1 = (String)first.get("table_name");
-            String t2 = (String)second.get("table_name");
-            assertTrue(t1.compareTo(t2) <= 0);
-            first = second;
-        }
-    }
-
-    public void testSortChangeOrder() throws Exception {
-        SelectMode m = ModeFactory.getMode("test_queries", "all_tables_with_sort" +
-                db_sufix);
-        assertNotNull(m);
-
-        DataResult dr = m.execute(new HashMap(), "table_name", "DESC");
-        assertNotNull(dr);
-        assertTrue(dr.size() > 0);
-        Iterator i = dr.iterator();
-        Map first = (Map)i.next();
-        Map second;
-        while (i.hasNext()) {
-            second = (Map)i.next();
-            String t1 = (String)first.get("table_name");
-            String t2 = (String)second.get("table_name");
-            assertTrue(t1.compareTo(t2) >= 0);
-            first = second;
-        }
-    }
-
-    public void testSortColumn() throws Exception {
-        SelectMode m = ModeFactory.getMode("test_queries", "all_tables_with_sort" +
-                db_sufix);
-        assertNotNull(m);
-
-        DataResult dr = m.execute(new HashMap(), "owner", "DESC");
-        assertNotNull(dr);
-        assertTrue(dr.size() > 0);
-        Iterator i = dr.iterator();
-        Map first = (Map)i.next();
-        Map second;
-        while (i.hasNext()) {
-            second = (Map)i.next();
-            String t1 = (String)first.get("owner");
-            String t2 = (String)second.get("owner");
-            assertTrue(t1.compareTo(t2) >= 0);
-            first = second;
-        }
-    }
-
-    public void testIllegalSortColumn() throws Exception {
-        SelectMode m = ModeFactory.getMode("test_queries", "all_tables_with_sort" +
-                db_sufix);
-        assertNotNull(m);
-
-        try {
-            m.execute(new HashMap(), "foobar", "DESC");
-            fail("Should have received exception");
-        }
-        catch (IllegalArgumentException e) {
-            // Expected exception
-        }
-    }
-
     public void testExternalQuery() throws Exception {
         SelectMode m = ModeFactory.getMode("System_queries", "visible_to_uid");
         Map<String, Object> params = new HashMap<String, Object>();
@@ -382,7 +308,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
         SelectMode m = ModeFactory.getMode("test_queries", "withClass" + db_sufix);
         String clazz = m.getClassString();
         assertEquals("com.redhat.rhn.common.db.datasource.test.TableData", clazz);
-        DataResult dr = m.execute(new HashMap(), "owner", "DESC");
+        DataResult dr = m.execute(new HashMap());
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
         Iterator i = dr.iterator();
@@ -394,7 +320,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
         SelectMode m = ModeFactory.getMode("test_queries", "withClass" + db_sufix);
         String clazz = m.getClassString();
         assertEquals("com.redhat.rhn.common.db.datasource.test.TableData", clazz);
-        DataResult dr = m.execute(new HashMap(), "owner", "DESC");
+        DataResult dr = m.execute(new HashMap());
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
         dr = dr.subList(0, 1);

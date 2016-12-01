@@ -73,6 +73,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -260,7 +261,8 @@ public class ProfileHandler extends BaseHandler {
         if (tree == null) {
             throw new NoSuchKickstartTreeException(kstreeLabel);
         }
-
+        KickstartCommand urlC = ksdata.getCommand("url");
+        urlC.setArguments("--url " + tree.getDefaultDownloadLocation());
         KickstartDefaults ksdefault = ksdata.getKickstartDefaults();
         ksdefault.setKstree(tree);
         CobblerProfileEditCommand cpec = new CobblerProfileEditCommand(ksdata,
@@ -897,7 +899,7 @@ public class ProfileHandler extends BaseHandler {
         }
         cmd.getKickstartData().setOptions(customSet);
         KickstartFactory.saveKickstartData(ksdata);
-
+        cmd.store();
         return 1;
     }
 
@@ -935,7 +937,7 @@ public class ProfileHandler extends BaseHandler {
             throw new FaultException(-3, "kickstartProfileNotFound",
             "No Kickstart Profile found with label: " + ksLabel);
         }
-        SortedSet options = ksdata.getCustomOptions();
+        LinkedHashSet options = ksdata.getCustomOptions();
         return options.toArray();
     }
 

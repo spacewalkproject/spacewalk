@@ -8,7 +8,7 @@
 %define modulename spacewalk-proxy
 
 Name:           spacewalk-proxy-selinux
-Version:        2.6.0
+Version:        2.7.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Proxy
 
@@ -22,6 +22,7 @@ URL:            http://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
+BuildRequires:  perl
 BuildRequires:  checkpolicy, selinux-policy-devel, hardlink
 BuildRequires:  policycoreutils >= %{POLICYCOREUTILSVER}
 BuildArch:      noarch
@@ -109,6 +110,16 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Nov 29 2016 Jan Dobes 2.7.1-1
+- perl isn't in Fedora 25 buildroot
+- Bumping package versions for 2.7.
+- Bumping package versions for 2.6.
+- Bumping package versions for 2.5.
+- Bumping package versions for 2.4.
+- Bumping package versions for 2.3.
+- Bumping package versions for 2.2.
+- Bumping package versions for 2.1.
+
 * Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
 - Bumping package versions for 2.0.
 

@@ -35,9 +35,9 @@ import readline
 import shlex
 from getpass import getpass
 from ConfigParser import NoOptionError
-from spacecmd.utils import *
 from time import sleep
 import xmlrpclib
+from spacecmd.utils import *
 
 # list of system selection options for the help output
 HELP_SYSTEM_OPTS = '''<SYSTEMS> can be any of the following:
@@ -50,7 +50,7 @@ channel:CHANNEL
 
 HELP_TIME_OPTS = '''Dates can be any of the following:
 Explicit Dates:
-Dates can be expressed as explicit date strings in the YYYYMMDD[HHMM]
+Dates can be expressed as explicit date strings in the YYYYMMDD[HHMMSS]
 format.  The year, month and day are required, while the hours and
 minutes are not; the hours and minutes will default to 0000 if no
 values are provided.
@@ -279,11 +279,13 @@ def do_login(self, args):
     self.client = xmlrpclib.Server(server_url, verbose=verbose_xmlrpc)
 
     # check the API to verify connectivity
+    # pylint: disable=W0702
     try:
         self.api_version = self.client.api.getVersion()
         logging.debug('Server API Version = %s', self.api_version)
-    except xmlrpclib.Fault, e:
+    except:
         if self.options.debug > 0:
+            e = sys.exc_info()[0]
             logging.exception(e)
 
         logging.error('Failed to connect to %s', server_url)
@@ -381,7 +383,7 @@ def do_login(self, args):
             logging.error('Could not write session file')
 
     # load the system/package/errata caches
-    self.load_caches(server)
+    self.load_caches(server, username)
 
     # keep track of who we are and who we're connected to
     self.current_user = username
@@ -680,8 +682,8 @@ def save_system_cache(self):
                self.system_cache_expire)
 
 
-def load_caches(self, server):
-    conf_dir = os.path.join(self.conf_dir, server)
+def load_caches(self, server, username):
+    conf_dir = os.path.join(self.conf_dir, server, username)
 
     try:
         if not os.path.isdir(conf_dir):
@@ -983,10 +985,7 @@ def load_config_section(self, section):
 
     # handle the nossl boolean
     if self.config.has_key('nossl') and isinstance(self.config['nossl'], str):
-        if re.match('^1|y|true$', self.config['nossl'], re.I):
-            self.config['nossl'] = True
-        else:
-            self.config['nossl'] = False
+        self.config['nossl'] = re.match('^1|y|true$', self.config['nossl'], re.I)
 
     # Obfuscate the password with asterisks
     config_debug = self.config.copy()

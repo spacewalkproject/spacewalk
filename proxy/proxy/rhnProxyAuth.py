@@ -15,7 +15,7 @@
 #
 # -----------------------------------------------------------------------------
 
-## system imports
+# system imports
 import os
 import time
 import socket
@@ -24,12 +24,7 @@ import sys
 # pylint: disable=E0611
 from hashlib import sha1
 
-## local imports
-import rhnAuthCacheClient
-from rhn import rpclib
-from rhn import SSL
-
-## common imports
+# common imports
 from spacewalk.common.rhnLib import parseUrl
 from spacewalk.common.rhnTB import Traceback
 from spacewalk.common.rhnLog import log_debug, log_error
@@ -37,6 +32,12 @@ from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.common import rhnCache
 from spacewalk.common.rhnTranslate import _
+
+# local imports
+from rhn import rpclib
+from rhn import SSL
+import rhnAuthCacheClient
+
 
 sys.path.append('/usr/share/rhn')
 from up2date_client import config
@@ -461,7 +462,7 @@ class AuthLocalBackend:
     def _compute_key(self, key):
         return os.path.join(self._cache_prefix, str(key))
 
-    def __len__(self, key):
+    def __len__(self):
         pass
 
 # ==============================================================================

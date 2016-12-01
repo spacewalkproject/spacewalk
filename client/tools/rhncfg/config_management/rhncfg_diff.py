@@ -136,15 +136,40 @@ class Handler(handler_base.HandlerBase):
             if src_link != os.readlink(local_file):
                 return "Symbolic links differ. Channel: '%s' -> '%s'   System: '%s' -> '%s' \n " % (path,src_link, path, dest_link)
             return ""
-        fromlines = sstr(info['file_contents']).splitlines(1)
-        tolines = open(local_file, 'r').readlines()
-        diff_output = difflib.unified_diff(fromlines, tolines, info['path'], local_file)
-        first_row = second_row = ''
-        try:
-            first_row = next(diff_output)
-            second_row = next(diff_output)
-        except StopIteration:
-            pass
+
+        response_output = ""
+        content_differs = False
+        if 'is_binary' in info and info['is_binary'] == 'Y':
+            from_content = info['file_contents']
+            to_file = open(local_file, 'rb')
+            to_content = to_file.read()
+            to_file.close()
+            if len(from_content) != len(to_content):
+                content_differs = True
+            else:
+                for i in range(len(from_content)):
+                    if from_content[i] != to_content[i]:
+                         content_differs = True
+                         break
+            if content_differs:
+                response_output = "Binary file content differs\n"
+        else:
+            fromlines = sstr(info['file_contents']).splitlines(1)
+            tofile = open(local_file, 'r')
+            tolines = tofile.readlines()
+            tofile.close()
+            diff_output = difflib.unified_diff(fromlines, tolines, info['path'], local_file)
+            first_row = second_row = ''
+            try:
+                first_row = next(diff_output)
+                # if content was same, exception thrown so following
+                # lines don't execute
+                content_differs = True
+                second_row = next(diff_output)
+                response_output = ''.join(list(diff_output))
+            except StopIteration:
+                pass
+
         file_stat = os.lstat(local_file)
         local_info = r.make_stat_info(local_file, file_stat)
         # rhel4 do not support selinux
@@ -152,17 +177,17 @@ class Handler(handler_base.HandlerBase):
             local_info['selinux_ctx'] = ''
         if 'selinux_ctx' not in info:
             info['selinux_ctx'] = ''
-        if not first_row and not self.__attributes_differ(info, local_info):
+        if not content_differs and not self.__attributes_differ(info, local_info):
             return ""
         else:
-            template = "--- %s\t%s\tattributes: %s %s %s %s\tconfig channel: %s\trevision: %s"
+            template = "%s %s\t%s\tattributes: %s %s %s %s\tconfig channel: %s\trevision: %s"
             if 'modified' not in info:
                 info['modified'] = ''
-            first_row = template % (path, str(info['modified']), ostr_to_sym(info['filemode'], info['filetype']),
+            first_row = template % ('---', path, str(info['modified']), ostr_to_sym(info['filemode'], info['filetype']),
                         info['username'], info['groupname'], info['selinux_ctx'], channel,
                         info['revision'],
             )
-            second_row = template % (local_file, f_date(datetime.fromtimestamp(local_info['mtime'])), ostr_to_sym(local_info['mode'], 'file'),
+            second_row = template % ('+++', local_file, f_date(datetime.fromtimestamp(local_info['mtime'])), ostr_to_sym(local_info['mode'], 'file'),
                         local_info['user'], local_info['group'], local_info['selinux_ctx'], 'local file', None
             )
-        return first_row + '\n' + second_row + '\n' + ''.join(list(diff_output))
+        return first_row + '\n' + second_row + '\n' + response_output

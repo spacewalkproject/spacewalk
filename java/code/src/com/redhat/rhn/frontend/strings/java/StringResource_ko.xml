@@ -1594,13 +1594,15 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>주소</target>
       </trans-unit>
       <trans-unit id="address2">
-        <source>Street Address</source>
+        <source>Street Address 2</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>주소</target>
       </trans-unit>
@@ -1609,6 +1611,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>도시</target>
       </trans-unit>
@@ -1617,6 +1620,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>주/지역</target>
       </trans-unit>
@@ -1625,6 +1629,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>국가</target>
       </trans-unit>
@@ -1632,6 +1637,7 @@
         <source>Building</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>빌딩</target>
       </trans-unit>
@@ -1639,6 +1645,7 @@
         <source>Room</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>룸</target>
       </trans-unit>
@@ -1646,6 +1653,7 @@
         <source>Rack</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>랙</target>
       </trans-unit>
@@ -2424,61 +2432,12 @@ rhn-tools 채널의 satellite 동기화를 요청하고 다시 시도해야
         </context-group>
         <target>서버로 mtime에 기초하여 설정 파일 데이터 업로드</target>
       </trans-unit>
-      <trans-unit id="solarispkgs.install">
-        <source>Solaris Package Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris 패키지 설치</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.remove">
-        <source>Solaris Package Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris 패키지 삭제</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchInstall">
-        <source>Solaris Patch Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris 패치 설치</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchRemove">
-        <source>Solaris Patch Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris 패치 삭제</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchClusterInstall">
-        <source>Solaris Patch Cluster Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris 패치 클러스터 설치</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchClusterRemove">
-        <source>Solaris Patch Cluster Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris 패치 클러스터 삭제</target>
-      </trans-unit>
       <trans-unit id="script.run">
         <source>Run an arbitrary script</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
         <target>임의 스크립터 실행</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.refresh_list">
-        <source>Solaris Package List Refresh</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris 패키치 목록 재생</target>
       </trans-unit>
       <trans-unit id="rhnsd.configure">
         <source>@@PRODUCT_NAME@@ Daemon Configuration</source>
@@ -6752,6 +6711,13 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>{0} 배포판이 성공적으로 삭제되었습니다.</target>
       </trans-unit>
+      <trans-unit id="config_revisions.success.singular">
+        <source>{0} revision was deleted successfully.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
+          <context context-type="paramnotes">1 revision was deleted successfully.</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="config_files.setFilesToRemove.success">
         <source>{0} configuration file(s) successfully deleted.</source>
         <context-group name="ctx">
@@ -7828,7 +7794,7 @@ Follow this url to see the full list of inactive systems:
         <target>지난 180일 사이 </target>
       </trans-unit>
       <trans-unit id="oneyear">
-        <source>with the past year</source>
+        <source>within the past year</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
@@ -8574,6 +8540,72 @@ Follow this url to see the full list of inactive systems:
         <source>Matching Field Value</source>
         <target>일치하는 영역 값 </target>
       </trans-unit>
+      <trans-unit id="dmiBiosVendor">
+        <source>DMI Bios Vendor</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiBiosVersion">
+        <source>DMI Bios Version</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiBiosRelease">
+        <source>DMI Bios Release</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiSystem">
+        <source>DMI System</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiAsset">
+        <source>DMI Asset Tag</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cpuModel">
+        <source>CPU Model</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cpuMHz">
+        <source>CPU MHz</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cpuNumberOfCpus">
+        <source>CPU Count</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ram">
+        <source>RAM KB</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="serverArchName">
+        <source>Server Architecture</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="runningKernel">
+        <source>Kernel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="xid">
         <source>Xid</source>
         <target>Xid</target>
@@ -8815,14 +8847,6 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="mips Debian">
         <source>mips Debian</source>
         <target>mips Debian</target>
-      </trans-unit>
-      <trans-unit id="Sparc Solaris">
-        <source>Sparc Solaris</source>
-        <target>Sparc Solaris</target>
-      </trans-unit>
-      <trans-unit id="i386 Solaris">
-        <source>i386 Solaris</source>
-        <target>i386 Solaris</target>
       </trans-unit>
       <trans-unit id="AArch64">
         <source>ARM aarch64</source>
@@ -9187,6 +9211,9 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="edit.channel.repo.repolabelinuse">
         <source>The repository label '{0}' is already in use, please choose a different label</source>
         <target>리포지터리 레이블 '{0}'은 이미 사용 중입니다. 다른 레이블을 선택하십시오 </target>
+      </trans-unit>
+      <trans-unit id="edit.channel.repo.invalidrepotype">
+        <source>The repository type '{0}' is invalid, please choose a different type</source>
       </trans-unit>
       <trans-unit id="edit.channel.repo.repourlinuse">
         <source>There's already a defined repository with given url, please reuse it.</source>

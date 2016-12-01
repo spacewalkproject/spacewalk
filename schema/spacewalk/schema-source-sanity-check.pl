@@ -81,6 +81,9 @@ sub check_file_content {
                 if ($filename =~ '\w*_index.sql') {
                         $name =~ s/_index$//g;
                 }
+                elsif ($filename =~ '\w*_alters.sql') {
+                        $name =~ s/_alters$//g;
+                }
                 if (not $content =~ /^(--.*\n
                                         |\s*\n
                                         |(create|alter|comment\s+on)\s+table\s+$name\b(?:[^;]|';')+;

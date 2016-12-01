@@ -1594,13 +1594,15 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Adresse</target>
       </trans-unit>
       <trans-unit id="address2">
-        <source>Street Address</source>
+        <source>Street Address 2</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Adresse</target>
       </trans-unit>
@@ -1609,6 +1611,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Stadt</target>
       </trans-unit>
@@ -1617,6 +1620,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Bundesland</target>
       </trans-unit>
@@ -1625,6 +1629,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Land</target>
       </trans-unit>
@@ -1632,6 +1637,7 @@
         <source>Building</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Gebäude</target>
       </trans-unit>
@@ -1639,6 +1645,7 @@
         <source>Room</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Raum</target>
       </trans-unit>
@@ -1646,6 +1653,7 @@
         <source>Rack</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>Rack</target>
       </trans-unit>
@@ -2426,61 +2434,12 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
         </context-group>
         <target>Konfig-Dateidaten basierend auf mtime auf den Server laden</target>
       </trans-unit>
-      <trans-unit id="solarispkgs.install">
-        <source>Solaris Package Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris Paketinstallation</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.remove">
-        <source>Solaris Package Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris Paketentfernung</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchInstall">
-        <source>Solaris Patch Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris Patch Installation</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchRemove">
-        <source>Solaris Patch Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris Patch Entfernung</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchClusterInstall">
-        <source>Solaris Patch Cluster Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris Patch Cluster-Installation</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchClusterRemove">
-        <source>Solaris Patch Cluster Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris Patch Cluster-Entfernung</target>
-      </trans-unit>
       <trans-unit id="script.run">
         <source>Run an arbitrary script</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
         <target>Ein beliebiges Skript ausführen</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.refresh_list">
-        <source>Solaris Package List Refresh</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris Paketliste neu laden</target>
       </trans-unit>
       <trans-unit id="rhnsd.configure">
         <source>@@PRODUCT_NAME@@ Daemon Configuration</source>
@@ -6760,6 +6719,13 @@ Folgen Sie dieser URL für die vollständige Liste inaktiver Systeme:
         </context-group>
         <target>{0} Revisionen wurden erfolgreich gelöscht.</target>
       </trans-unit>
+      <trans-unit id="config_revisions.success.singular">
+        <source>{0} revision was deleted successfully.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
+          <context context-type="paramnotes">1 revision was deleted successfully.</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="config_files.setFilesToRemove.success">
         <source>{0} configuration file(s) successfully deleted.</source>
         <context-group name="ctx">
@@ -7860,7 +7826,7 @@ Folgen Sie dieser URL für die vollständige Liste inaktiver Systeme:
         <target>innerhalb der vergangenen 180 Tage</target>
       </trans-unit>
       <trans-unit id="oneyear">
-        <source>with the past year</source>
+        <source>within the past year</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
@@ -8620,6 +8586,72 @@ Folgen Sie dieser URL für die vollständige Liste inaktiver Systeme:
         <source>Matching Field Value</source>
         <target>Übereinstimmender Feldwert</target>
       </trans-unit>
+      <trans-unit id="dmiBiosVendor">
+        <source>DMI Bios Vendor</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiBiosVersion">
+        <source>DMI Bios Version</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiBiosRelease">
+        <source>DMI Bios Release</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiSystem">
+        <source>DMI System</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiAsset">
+        <source>DMI Asset Tag</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cpuModel">
+        <source>CPU Model</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cpuMHz">
+        <source>CPU MHz</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cpuNumberOfCpus">
+        <source>CPU Count</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ram">
+        <source>RAM KB</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="serverArchName">
+        <source>Server Architecture</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="runningKernel">
+        <source>Kernel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="xid">
         <source>Xid</source>
         <target>Xid</target>
@@ -8861,14 +8893,6 @@ Folgen Sie dieser URL für die vollständige Liste inaktiver Systeme:
       <trans-unit id="mips Debian">
         <source>mips Debian</source>
         <target>mips Debian</target>
-      </trans-unit>
-      <trans-unit id="Sparc Solaris">
-        <source>Sparc Solaris</source>
-        <target>Sparc Solaris</target>
-      </trans-unit>
-      <trans-unit id="i386 Solaris">
-        <source>i386 Solaris</source>
-        <target>i386 Solaris</target>
       </trans-unit>
       <trans-unit id="AArch64">
         <source>ARM aarch64</source>
@@ -9236,6 +9260,9 @@ Folgen Sie dieser URL für die vollständige Liste inaktiver Systeme:
       <trans-unit id="edit.channel.repo.repolabelinuse">
         <source>The repository label '{0}' is already in use, please choose a different label</source>
         <target>Das Repository-Label '{0}' wird bereits verwendet, bitte wählen Sie ein anderes Label</target>
+      </trans-unit>
+      <trans-unit id="edit.channel.repo.invalidrepotype">
+        <source>The repository type '{0}' is invalid, please choose a different type</source>
       </trans-unit>
       <trans-unit id="edit.channel.repo.repourlinuse">
         <source>There's already a defined repository with given url, please reuse it.</source>

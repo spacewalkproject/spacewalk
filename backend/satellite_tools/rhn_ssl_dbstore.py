@@ -81,7 +81,7 @@ def main():
         sys.stderr.write('\nERROR: %s\n' % e)
 
     try:
-        satCerts.store_rhnCryptoKey(values.label, values.ca_cert, verbosity=values.verbose)
+        satCerts.store_CaCert(values.label, values.ca_cert, verbosity=values.verbose)
     except satCerts.CaCertInsertionError:
         writeError("Cannot insert certificate into DB!\n\n%s\n" % rhnTB.fetchTraceback())
         sys.exit(13)

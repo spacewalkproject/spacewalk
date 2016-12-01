@@ -19,10 +19,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.redhat.rhn.domain.channel.ContentSourceType;
+import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoTypeException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -37,6 +40,7 @@ import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
+import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.channel.ContentSourceFilter;
@@ -66,6 +70,7 @@ public class RepoDetailsAction extends RhnAction {
     public static final String REPO = "repo";
     public static final String URL = "url";
     public static final String LABEL = "label";
+    public static final String TYPE = "contenttype";
     public static final String SSL_CA_CERT = "sslcacert";
     public static final String SSL_CLIENT_CERT = "sslclientcert";
     public static final String SSL_CLIENT_KEY = "sslclientkey";
@@ -82,10 +87,13 @@ public class RepoDetailsAction extends RhnAction {
                                   HttpServletResponse response) {
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext ctx = new RequestContext(request);
-        Map params = makeParamMap(request);
-
+        Map<String, Object> params = makeParamMap(request);
+        String cid = null;
         request.setAttribute(mapping.getParameter(), Boolean.TRUE);
-
+        if (ctx.hasParam("cid")) {
+            cid = ctx.getParam("cid", false);
+            request.setAttribute("cid", cid);
+        }
         if (ctx.isSubmitted()) {
 
             ValidatorResult result = RhnValidationHelper.validate(this.getClass(),
@@ -101,7 +109,9 @@ public class RepoDetailsAction extends RhnAction {
                     ContentSource repo = submit(request, errors, form);
                     if (!errors.isEmpty()) {
                         addErrors(request, errors);
-                        setupPopup(ctx);
+                        setupContentTypes(ctx);
+                        setupCryptoKeys(ctx);
+                        bindRepo(request, repo);
                         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
                     }
                     if (isCreateMode(request)) {
@@ -113,6 +123,22 @@ public class RepoDetailsAction extends RhnAction {
                                 "repos.jsp.update.success", repo.getLabel());
                     }
                     request.removeAttribute(CREATE_MODE);
+                    /*
+                    If cid isn't specified, repo will be created as usual. Otherwise repo
+                     will be created and will be automatically assigned to channel cid
+                     with redirection to channel repo page
+                     */
+                    if (cid != null) {
+                        params.put("cid", cid);
+                        Channel chan = ChannelFactory.lookupById(Long.parseLong(cid));
+                        Set<ContentSource> sources = chan.getSources();
+                        sources.add(repo);
+                        ChannelFactory.save(chan);
+                        createSuccessMessage(request,
+                                "channel.edit.repo.updated", chan.getLabel());
+                        return getStrutsDelegate().forwardParams(
+                                mapping.findForward("channelSub"), params);
+                    }
                     setupRepo(request, form, repo);
                     params.put("id", repo.getId());
                     return getStrutsDelegate().forwardParams(
@@ -127,7 +153,8 @@ public class RepoDetailsAction extends RhnAction {
 
         setup(request, form, isCreateMode(request));
 
-        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+        return getStrutsDelegate().forwardParams(mapping.findForward(RhnHelper
+                .DEFAULT_FORWARD), params);
     }
 
     private Map<String, String> makeValidationMap(DynaActionForm form) {
@@ -144,7 +171,8 @@ public class RepoDetailsAction extends RhnAction {
     private void setup(HttpServletRequest request, DynaActionForm form,
             boolean createMode) {
         RequestContext context = new RequestContext(request);
-        setupPopup(context);
+        setupContentTypes(context);
+        setupCryptoKeys(context);
         if (!createMode) {
             request.setAttribute("id", context.getParamAsLong("id"));
             setupRepo(request, form, ChannelFactory.lookupContentSource(
@@ -152,7 +180,15 @@ public class RepoDetailsAction extends RhnAction {
         }
     }
 
-    private void setupPopup(RequestContext context) {
+    private void setupContentTypes(RequestContext context) {
+        List<LabelValueBean> contentTypes = new ArrayList<LabelValueBean>();
+        for (ContentSourceType ct : ChannelFactory.listContentSourceTypes()) {
+            contentTypes.add(lv(ct.getLabel(), ct.getLabel()));
+        }
+        context.getRequest().setAttribute("contenttypes", contentTypes);
+    }
+
+    private void setupCryptoKeys(RequestContext context) {
         List<LabelValueBean> sslCrytpoKeyOptions = new ArrayList<LabelValueBean>();
         sslCrytpoKeyOptions.add(lv(LocalizationService.getInstance().
                 getMessage("generic.jsp.none"), ""));
@@ -170,6 +206,7 @@ public class RepoDetailsAction extends RhnAction {
         form.set(LABEL, repo.getLabel());
         form.set(URL, repo.getSourceUrl());
         form.set(SOURCEID, repo.getId());
+        form.set(TYPE, repo.getType().getLabel());
         if (repo.isSsl()) {
             SslContentSource sslRepo = (SslContentSource) repo;
             form.set(SSL_CA_CERT, getStringId(sslRepo.getCaCert()));
@@ -259,6 +296,7 @@ public class RepoDetailsAction extends RhnAction {
         RequestContext context = new RequestContext(request);
         String url = form.getString(URL);
         String label = form.getString(LABEL);
+        String type = form.getString(TYPE);
         String sfilters = form.getString(FILTERS);
         Org org = context.getCurrentUser().getOrg();
         BaseRepoCommand repoCmd = null;
@@ -272,6 +310,7 @@ public class RepoDetailsAction extends RhnAction {
 
         repoCmd.setLabel(label);
         repoCmd.setUrl(url);
+        repoCmd.setType(type);
         repoCmd.setSslCaCertId(parseIdFromForm(form, SSL_CA_CERT));
         repoCmd.setSslClientCertId(parseIdFromForm(form, SSL_CLIENT_CERT));
         repoCmd.setSslClientKeyId(parseIdFromForm(form, SSL_CLIENT_KEY));
@@ -303,6 +342,10 @@ public class RepoDetailsAction extends RhnAction {
         catch (InvalidCertificateException e) {
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                     "edit.channel.repo.clientcertmissing"));
+        }
+        catch (InvalidRepoTypeException e) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                    "edit.channel.repo.invalidrepotype", repoCmd.getType()));
         }
         catch (InvalidParameterException e) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,

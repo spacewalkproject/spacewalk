@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
-"PO-Revision-Date: 2012-02-14 08:00-0500\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
+"PO-Revision-Date: 2016-02-17 11:09-0500\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Chinese (China) (http://www.transifex.net/projects/p/fedora/"
 "language/zh_CN/)\n"
 "Language: zh-CN\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -330,8 +330,7 @@ msgid ""
 "without connecting your system to Red Hat Network.\n"
 msgstr "不将您的系统与红帽网络相连，您将无法获得这些订阅所提供的益处。\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "返回到设置过程。"
 
@@ -399,8 +398,7 @@ msgstr "次要版本："
 msgid "Limited Updates Only"
 msgstr "仅限有限更新"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "所有可用更新"
 
@@ -2479,33 +2477,3 @@ msgstr "在 Spacewalk/Satellite/红帽网络中注册软件更新"
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "在 Spacewalk/Satellite/Red Hat 网络注册。"
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "您指定了一个无效的协议。"
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr "更新模块：每个系统的更新，电子邮件勘误通知，勘误信息"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "Provision 模块：全新系统 provision、已存在状态 provision、系统恢复、配置管"
-#~ "理"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "监测模块：预定义的和自定义的系统性能探测、系统性能电子邮件通知，系统性能的"
-#~ "显示图"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "虚拟化平台模块：对本系统上的不限制数量的客户机的软件进行更新，以及对其他软"
-#~ "件通道的访问。"

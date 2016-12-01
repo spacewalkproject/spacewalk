@@ -19,10 +19,11 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.71
+Version: 5.11.76
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
+BuildRequires: perl
 BuildRequires: python-devel
 Requires: python
 %if 0%{?fedora} >= 23
@@ -363,7 +364,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %{rhnroot}/osad/osad_client.py*
 %{rhnroot}/osad/osad_config.py*
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/osad.conf
-%config(noreplace) %attr(600,root,root) %{_sysconfdir}/sysconfig/rhn/osad-auth.conf
+%verify(not md5 mtime size) %config(noreplace) %attr(600,root,root) %{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 %config(noreplace) %{client_caps_dir}/*
 %if 0%{?fedora} || 0%{?suse_version} >= 1210 || 0%{?rhel} >= 7
 %{_unitdir}/osad.service
@@ -424,6 +425,21 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Nov 29 2016 Jan Dobes 5.11.76-1
+- perl isn't in Fedora 25 buildroot
+
+* Mon Nov 21 2016 Gennadii Altukhov <galt@redhat.com> 5.11.75-1
+- 1397078: fix python2/3 StringIO import
+
+* Fri Nov 11 2016 Jiri Dostal <jdostal@redhat.com> 5.11.74-1
+- [1260527] RHEL7 reboot loop
+
+* Thu Sep 29 2016 Jiri Dostal <jdostal@redhat.com> 5.11.73-1
+- Fix of verification of /etc/sysconfig/rhn/osad-auth.conf file
+
+* Fri Sep 23 2016 Grant Gainey 5.11.72-1
+- 1277448 - Link ssl-failure-log to associated solution-article
+
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 5.11.71-1
 - updating copyright years
 

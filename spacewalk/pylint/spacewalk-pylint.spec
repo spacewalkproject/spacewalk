@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	2.6.0
+Version:	2.7.0
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -10,7 +10,7 @@ Source0:	https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:	noarch
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?suse_version} >= 1320
 Requires:	pylint > 1.1
 %else
 %if 0%{?rhel} > 6
@@ -52,6 +52,11 @@ sed -i '/disable=/ s/,bad-whitespace,unpacking-non-sequence,superfluous-parens,c
 sed -i '/disable=/ s/,C1001,W0121,useless-else-on-loop//g;' \
         %{buildroot}%{_sysconfdir}/spacewalk-pylint.rc
 %endif
+%if 0%{?suse_version}
+# new checks in pylint 1.2
+sed -i '/disable=/ s/,bad-continuation//g;' \
+        %{buildroot}%{_sysconfdir}/spacewalk-pylint.rc
+%endif
 mkdir -p %{buildroot}/%{_mandir}/man8
 install -m 644 spacewalk-pylint.8 %{buildroot}/%{_mandir}/man8
 
@@ -67,6 +72,15 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Aug 16 2016 Jan Dobes 2.6.2-1
+- redefined-variable-type check is broken in pylint-1.5.6-1.fc24.noarch
+
+* Mon Jun 13 2016 Grant Gainey 2.6.1-1
+- spacewalk-pylint: require pylint > 1.1 for openSUSE
+- Bumping package versions for 2.6.
+- Bumping package versions for 2.5.
+- Bumping package versions for 2.4.
+
 * Wed Jan 14 2015 Matej Kollar <mkollar@redhat.com> 2.3.2-1
 - Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
 

@@ -198,6 +198,20 @@ if [ -f /usr/bin/db-control ] ; then
     /usr/bin/db-control report > $DIR/db-control-report
 fi
 
+if [ -f /usr/bin/spacewalk-sql ] ; then
+    USERS_TZ_LC_SQL="""
+        SELECT w.login as login,
+               tz.display_name as timezone,
+               ui.preferred_locale as locale
+          FROM web_contact w
+               inner join rhnuserinfo ui on ui.user_id = w.id
+               left outer join rhntimezone tz on ui.timezone_id = tz.id
+        ORDER BY login;
+    """
+    echo "    * querying users timezone and localization preferences"
+    echo $USERS_TZ_LC_SQL | /usr/bin/spacewalk-sql --select-mode - > $DIR/users-preferences
+fi
+
 echo "    * get diskspace available"
 df -h > $DIR/diskinfo
 

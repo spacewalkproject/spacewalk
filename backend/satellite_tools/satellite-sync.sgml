@@ -117,6 +117,9 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
         <arg>--no-ssl</arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--sync-to-temp</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-h</arg> <arg>--help</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -481,6 +484,21 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
         <term>--list-error-codes</term>
         <listitem>
             <para>list the possible exit codes for satellite-sync</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--sync-to-temp</term>
+        <listitem>
+            <para>stream content being synchronized to a tempfile</para>
+            <para>On heavily-loaded systems, or network topologies with short timeouts, it
+            is possible for a satellite-sync to abort with 'IncompleteRead: IncompleteRead(..)',
+            and a UnicodeDecodeError in the sync-logs. This is the result of a partial
+            read in the midst of a GzipStream.</para>
+            <para>This option tells satellite-sync to stream content being synchronized to a
+            local tempfile prior to passing it to the rest of the satellite-sync processing,
+            which alleviates this issue.</para>
+            <para>This option can be made the default for all satellite-syncs by setting the
+            configuration option 'sync_to_temp = 1' in /etc/rhn/rhn.conf.</para>
         </listitem>
     </varlistentry>
 </variablelist>

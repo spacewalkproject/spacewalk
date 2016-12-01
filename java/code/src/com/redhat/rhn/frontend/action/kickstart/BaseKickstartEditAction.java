@@ -94,8 +94,8 @@ public abstract class BaseKickstartEditAction extends RhnAction {
         }
 
         // If the password is encrypted the password should be MD5 (starts with "$1")
-        // on rhel 5 or lower and SHA256 (starts with "$5") on rhel 6 and above. Display
-        // a warning if the user needs to reset root password.
+        // on rhel 5 or lower and SHA256/SHA512 (starts with "$5"/"$6") on rhel 6 and above.
+        // Display a warning if the user needs to reset root password.
         KickstartCommand passwordCmd = cmd.getKickstartData().getCommand("rootpw");
         String password = "";
         if (passwordCmd != null) {
@@ -104,7 +104,8 @@ public abstract class BaseKickstartEditAction extends RhnAction {
         boolean isRhel5OrLess = cmd.getKickstartData().isRHEL5OrLess();
 
         if ((isRhel5OrLess && !password.startsWith("$1")) ||
-                (!isRhel5OrLess && !password.startsWith("$5"))) {
+                (!isRhel5OrLess &&
+                      !(password.startsWith("$5") || password.startsWith("$6")))) {
             ValidatorWarning[] vws =
                     { new ValidatorWarning("kickstart.software.changeencryption") };
             strutsDelegate.saveMessages(request,

@@ -241,10 +241,15 @@ public class TaskoRun {
     }
 
     private void deleteLogFileIfExists(String fileName) {
-        new File(fileName).delete();
+        if (fileName != null) {
+            new File(fileName).delete();
+        }
     }
 
     private boolean logPresent(String fileName) {
+        if (fileName == null) {
+            return false;
+        }
         File logFile = new File(fileName);
         return logFile.length() > 0;
     }

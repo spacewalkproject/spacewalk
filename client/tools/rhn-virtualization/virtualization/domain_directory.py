@@ -15,6 +15,7 @@
 
 import binascii
 import os
+import sys
 import string
 
 try:
@@ -69,8 +70,7 @@ class DomainDirectory:
         self.__path = CONFIG_DIR
         self.conn = libvirt.openReadOnly(None)
         if not self.conn:
-            raise VirtualizationException, \
-                  "Failed to open connection to hypervisor."
+            raise VirtualizationException("Failed to open connection to hypervisor.")
 
     def get_config_path(self, uuid):
         cfg_filename = "%s.xml" % uuid
@@ -125,10 +125,9 @@ class DomainDirectory:
                 # Lookup the domain by its uuid.
                 try:
                     domain = self.conn.lookupByUUID(uuid_as_num)
-                except libvirt.libvirtError, lve:
-                    raise VirtualizationException, \
-                          "Failed to obtain handle to domain %s: %s" % \
-                              (uuid, repr(lve))
+                except libvirt.libvirtError:
+                    lve = sys.exc_info()[1]
+                    raise VirtualizationException("Failed to obtain handle to domain %s: %s" % (uuid, repr(lve)))
 
                 # Now grab the XML description of the configuration.
                 xml = domain.XMLDesc(0)

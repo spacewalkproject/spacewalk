@@ -380,7 +380,7 @@ class LoginPage:
         tipIconSatellite = self.loginXml.get_widget('tipIconSatellite')
         server = config.getServerlURL()[0]
         protocol, host, path, parameters, query, fragmentIdentifier = urlparse.urlparse(server)
-        satelliteText = _("Please enter your account information for the <b>%s</b> Spacewalk server:") % host
+        satelliteText = _("Please enter your account information for the <b>%s</b> Spacewalk server:") % ("\n" + host)
         instructionsLabel.set_label(satelliteText)
         #forgotInfoSatellite.show()
         #tipIconSatellite.show()

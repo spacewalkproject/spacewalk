@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.6.1
+Version:	2.7.0
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,59 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Nov 08 2016 Gennadii Altukhov <galt@redhat.com> 2.6.16-1
+- Added repo urls and gpg keys for Fedora 24
+
+* Fri Oct 21 2016 Gennadii Altukhov <galt@redhat.com> 2.6.15-1
+- pylint fix: Too many nested blocks (6/5) (too-many-nested-blocks)
+
+* Thu Oct 20 2016 Grant Gainey 2.6.14-1
+- 1369888 - log synopsis with advisory
+- 1382272 - Change last RPM to package
+
+* Thu Oct 06 2016 Grant Gainey 2.6.13-1
+- Fix tagging issue
+
+* Thu Oct 06 2016 Grant Gainey
+- 1382272 - Fix typos in/general cleanup of CBD manpage
+
+* Thu Oct 06 2016 Grant Gainey 2.6.12-1
+- 1382272 - Fix typos in/general cleanup of CBD manpage
+
+* Wed Oct 05 2016 Grant Gainey 2.6.11-1
+- 1369185 - Alphabetize c-b-d switches in help/manpage
+- 1369185 - Add RPMs from 'discovered' dependencies to depsolv list in
+  cloneByDate Add new switch, --skip-errata-depsolv, allowing one to choose to
+  not do that. Added --skip-errata-depsolv to manpage
+
+* Thu Sep 22 2016 Grant Gainey 2.6.10-1
+- 1369888 - Added more summary-info to cbd, sorted various outputs
+
+* Thu Sep 15 2016 Jan Dobes 2.6.9-1
+- fixing pylint in spacewalk-utils
+
+* Tue Sep 13 2016 Jan Dobes 2.6.8-1
+- fixing pylint: unused import
+
+* Mon Sep 12 2016 Jan Dobes 2.6.7-1
+- Revert "don't add newer errata when processing dependencies"
+
+* Thu Aug 18 2016 Grant Gainey 2.6.6-1
+- 1366343 - correct typo in name of errata-clone.log file
+
+* Wed Aug 17 2016 Grant Gainey 2.6.5-1
+- 1367911 - fix recursion by removing *all* copies of a 'visited' rpm when
+  doing dep-checking
+
+* Fri Aug 12 2016 Grant Gainey 2.6.4-1
+- 1366343 - clean up style warnings
+
+* Thu Aug 11 2016 Grant Gainey 2.6.3-1
+- 1366343 - Clean up logging, add CLI output summary, clean up manpage
+
+* Mon Jul 18 2016 Tomas Lestach <tlestach@redhat.com> 2.6.2-1
+- fix typo in spacwalk-clone-by-date man page
+
 * Fri May 27 2016 Jan Dobes 2.6.1-1
 - talk about spacewalk
 - adding postgresql systemd path

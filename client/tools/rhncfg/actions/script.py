@@ -24,9 +24,9 @@ import tempfile
 import base64
 
 try:
-    from subprocess import MAXFD
-except ImportError:
-    from popen2 import MAXFD
+    MAXFD = os.sysconf("SC_OPEN_MAX")
+except:
+    MAXFD = 256
 
 
 # this is ugly, hopefully it will be natively supported in up2date
@@ -46,6 +46,16 @@ __rhnexport__ = [
 # action version we understand
 ACTION_VERSION = 2
 
+# SystemExit exception error code
+SYSEXIT_CODE = 3
+
+class SignalHandler:
+    def __init__(self):
+        self.gotSigterm = False
+    # Handle SIGTERM so that we can return status to Satellite
+    def handle(self, signal, frame):
+        self.gotSigterm = True
+        raise SystemExit(SYSEXIT_CODE)
 
 def _create_script_file(script, uid=None, gid=None):
 
@@ -90,6 +100,9 @@ def _create_path(fpath):
 
 def run(action_id, params, cache_only=None):
 
+    # Setup SIGTERM handler
+    sHandler = SignalHandler()
+    signal.signal(signal.SIGTERM, sHandler.handle)
     cfg = config.initUp2dateConfig()
     local_config.init('rhncfg-client', defaults=dict(cfg.items()))
 

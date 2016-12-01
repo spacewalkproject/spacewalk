@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
-"PO-Revision-Date: 2012-02-14 08:00-0500\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
+"PO-Revision-Date: 2016-02-17 11:07-0500\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Swedish (http://www.transifex.net/projects/p/fedora/language/"
 "sv/)\n"
 "Language: sv\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -350,8 +350,7 @@ msgstr ""
 "Du kommer inte kunna dra nytta av dessa fördelar med en prenumeration utan "
 "att ansluta ditt system till Red Hat Network.\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "Ta mig tillbaka till uppsättningsprocessen."
 
@@ -421,8 +420,7 @@ msgstr " Mindre utgåva: "
 msgid "Limited Updates Only"
 msgstr "Endast begränsade uppdateringar"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "Alla tillgängliga uppdateringar"
 
@@ -2568,37 +2566,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Registrera i Spacewalk/satellit/Red Hat Network"
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "Du angav ett ogiltigt protokoll."
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr ""
-#~ "Uppdateringsmodul:  uppdateringar per system, erratanotifieringar via "
-#~ "epost, erratainformation"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "Underhållsmodul: underhåll av ren hårdvara, underhåll av befintligt "
-#~ "tillstånd, tillbakarullning, konfigurationshantering"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "Övervakningsmodul: fördefinierade och anpassade mätpunkter av "
-#~ "systemprestanda, notifieringar via epost om systemprestanda, grafer över "
-#~ "systemprestanda"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "Virtualiseringsplattformsmodul: programvaruuppdateringar för ett "
-#~ "obegränsat antal virtuella gäster på detta system, åtkomst av ytterligare "
-#~ "programvarukanaler för gäster på detta system."

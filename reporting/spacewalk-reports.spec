@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.0
+Version: 2.7.0
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -41,8 +41,21 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/spacewalk/reports
 %{_mandir}/man8/spacewalk-report.8*
 %doc COPYING
+%if 0%{?suse_version}
+%dir %{_datadir}/spacewalk
+%endif
 
 %changelog
+* Thu Oct 20 2016 Jan Dobes 2.6.3-1
+- fixing occurences in code
+
+* Mon Jun 13 2016 Grant Gainey 2.6.2-1
+- spacewalk-reports: build on openSUSE
+
+* Fri Jun 10 2016 Jan Dobes 2.6.1-1
+- fix rhnContentSourceSsl -> rhnContentSsl in code
+- Bumping package versions for 2.6.
+
 * Tue Nov 24 2015 Jan Dobes 2.5.1-1
 - audit-server-groups report: remove reporting of max_members
 - entitlements report: dropped

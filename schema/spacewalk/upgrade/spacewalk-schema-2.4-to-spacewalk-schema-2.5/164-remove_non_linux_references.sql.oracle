@@ -4,7 +4,7 @@ BEGIN
 logging.clear_log_id();
 
 DELETE FROM rhnOrgExtGroupMapping
-  WHERE server_group_id = (
+  WHERE server_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (
@@ -15,7 +15,7 @@ DELETE FROM rhnOrgExtGroupMapping
   );
 
 DELETE FROM rhnRegTokenGroups
-  WHERE server_group_id = (
+  WHERE server_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (
@@ -25,17 +25,8 @@ DELETE FROM rhnRegTokenGroups
       )
   );
 
-UPDATE rhnServerGroupMembers
-  SET server_group_id = (
-    SELECT id
-      FROM rhnServerGroup
-      WHERE group_type = (
-        SELECT id
-          FROM rhnServerGroupType
-          WHERE label = 'enterprise_entitled'
-      )
-  )
-  WHERE server_group_id = (
+DELETE FROM rhnServerGroupMembers
+  WHERE server_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (
@@ -46,7 +37,7 @@ UPDATE rhnServerGroupMembers
   );
 
 DELETE FROM rhnSnapshotServerGroup
-  WHERE server_group_id = (
+  WHERE server_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (
@@ -57,7 +48,7 @@ DELETE FROM rhnSnapshotServerGroup
   );
 
 DELETE FROM rhnUserDefaultSystemGroups
-  WHERE system_group_id = (
+  WHERE system_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (
@@ -68,7 +59,7 @@ DELETE FROM rhnUserDefaultSystemGroups
   );
 
 DELETE FROM rhnUserServerGroupPerms
-  WHERE server_group_id = (
+  WHERE server_group_id in (
     SELECT id
       FROM rhnServerGroup
       WHERE group_type = (

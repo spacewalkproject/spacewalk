@@ -17,6 +17,7 @@ package com.redhat.rhn.common.db.datasource;
 import com.redhat.rhn.common.util.manifestfactory.ManifestFactory;
 import com.redhat.rhn.common.util.manifestfactory.ManifestFactoryBuilder;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
@@ -34,6 +35,7 @@ import java.util.Map;
  */
 public class ModeFactory implements ManifestFactoryBuilder {
 
+    private static Logger logger = Logger.getLogger(ModeFactory.class);
 
     private static final String DEFAULT_PARSER_NAME =
                                        "org.apache.xerces.parsers.SAXParser";
@@ -61,10 +63,10 @@ public class ModeFactory implements ManifestFactoryBuilder {
                 throw new NullPointerException("filename is null");
             }
 
+            logger.debug("Parsing mode file '" + filename + "'");
             URL u = this.getClass().getResource(filename);
             DataSourceParserHelper handler =
                           (DataSourceParserHelper)parser.getContentHandler();
-            handler.resetModes();
             parser.parse(new InputSource(u.openStream()));
             return handler.getModes();
         }
@@ -75,29 +77,39 @@ public class ModeFactory implements ManifestFactoryBuilder {
 
     private static Mode getModeInternal(String name, String mode) {
         Map modes = (Map)factory.getObject(name);
-        Mode ret = (Mode)modes.get(mode);
-        if (ret == null) {
+        ParsedMode pm = (ParsedMode)modes.get(mode);
+        if (pm == null) {
             throw new ModeNotFoundException(
                               "Could not find mode " + mode + " in " + name);
         }
-        return ret;
+        switch (pm.getType()) {
+        case SELECT:
+            return new SelectMode(pm);
+        case CALLABLE:
+            return new CallableMode(pm);
+        case WRITE:
+            return new WriteMode(pm);
+        default:
+            // should never reach here
+            return null;
+        }
     }
 
     private static SelectMode getSelectMode(String name, String mode) {
         Map modes = (Map) factory.getObject(name);
-        SelectMode m = (SelectMode) modes.get(mode);
-        if (m == null) {
+        ParsedMode pm = (ParsedMode) modes.get(mode);
+        if (pm == null) {
             throw new ModeNotFoundException(
                               "Could not find mode " + mode + " in " + name);
         }
-        SelectMode ret = new SelectMode(m);
-        return ret;
+        return new SelectMode(pm);
     }
+
     /**
-     * Retreive a specific mode from the map of modes already parsed
+     * Retrieve a specific mode from the map of modes already parsed
      * @param name The name of the file to search, this is the name as it is
      *             passed to parseURL.
-     * @param mode the mode to retreive
+     * @param mode the mode to retrieve
      * @return The requested mode
      */
     public static SelectMode getMode(String name, String mode) {
@@ -105,10 +117,10 @@ public class ModeFactory implements ManifestFactoryBuilder {
     }
 
     /**
-     * Retreive a specific mode from the map of modes already parsed.
+     * Retrieve a specific mode from the map of modes already parsed.
      * @param name The name of the file to search, this is the name as it is passed
      *             to parseURL.
-     * @param mode The mode to retreive
+     * @param mode The mode to retrieve
      * @param clazz The class you would like the returned objects to be.
      * @return The requested mode
      */
@@ -119,10 +131,10 @@ public class ModeFactory implements ManifestFactoryBuilder {
     }
 
     /**
-     * Retreive a specific mode from the map of modes already parsed
+     * Retrieve a specific mode from the map of modes already parsed
      * @param name The name of the file to search, this is the name as it is
      *             passed to parseURL.
-     * @param mode the mode to retreive
+     * @param mode the mode to retrieve
      * @return The requested mode
      */
     public static WriteMode getWriteMode(String name, String mode) {
@@ -130,10 +142,10 @@ public class ModeFactory implements ManifestFactoryBuilder {
     }
 
     /**
-     * Retreive a specific mode from the map of modes already parsed
+     * Retrieve a specific mode from the map of modes already parsed
      * @param name The name of the file to search, this is the name as it is
      *             passed to parseURL.
-     * @param mode the mode to retreive
+     * @param mode the mode to retrieve
      * @return The requested mode
      */
     public static CallableMode getCallableMode(String name, String mode) {
@@ -141,7 +153,7 @@ public class ModeFactory implements ManifestFactoryBuilder {
     }
 
     /**
-     * Retreive the keys
+     * Retrieve the keys
      * @return the fileMap filled out from parsing the files.
      * This function really shouldn't be here, but I need it for the
      * unit tests.

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
 "PO-Revision-Date: 2016-02-17 11:47-0500\n"
 "Last-Translator: Jan Dobes <jdobes@redhat.com>\n"
 "Language-Team: Kannada (http://www.transifex.net/projects/p/fedora/language/"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -344,8 +344,7 @@ msgstr ""
 "ನಿಮ್ಮ ಗಣಕವನ್ನು Red Hat Network ನೊಂದಿಗೆ ಸಂಪರ್ಕಿತವಾಗುವಂತೆ ಮಾಡದೆ ಈ ಚಂದಾ "
 "ಸವಲತ್ತುಗಳನ್ನು ಹೊಂದಲು ಸಾಧ್ಯವಿಲ್ಲ.\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "ನನ್ನನ್ನು ಹಿಂದಿರುವ ಸಂಯೋಜನಾ ಪ್ರಕ್ರಿಯೆಗೆ ಕೊಂಡೊಯ್ಯಿರಿ."
 
@@ -415,8 +414,7 @@ msgstr " ಕಿರು ಬಿಡುಗಡೆ: "
 msgid "Limited Updates Only"
 msgstr "ನಿಯಮಿತ ಅಪ್‌ಡೇಟ್‌ಗಳು ಮಾತ್ರ"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "ಲಭ್ಯವಿರುವ ಎಲ್ಲಾ ಅಪ್‌ಡೇಟ್‌ಗಳು"
 
@@ -2587,36 +2585,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Red Hat Networkನೊಂದಿಗೆ ನೋಂದಾಯಿಸಿ"
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "ನೀವು ಒಂದು ಅಮಾನ್ಯ ಪ್ರೋಟೋಕಾಲನ್ನು ಸೂಚಿಸಿದ್ದೀರಿ."
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr ""
-#~ "ಅಪ್ಡೇಟ್ ಮಾಡ್ಯುಲು: ಪ್ರತಿ-ಗಣಕ ಅಪ್ಡೇಟುಗಳು, ಇ ಮೈಲ್ ಎರಾಟ (errata) ಸೂಚನೆಗಳು, "
-#~ "ಎರಾಟಮಾಹಿತಿ"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "ಪ್ರಾವಿಶನಿಂಗ್ ಮಾಡ್ಯುಲು: ಬೇರ್-ಮೆಟಲ್ ಪ್ರಾವಿಶನಿಂಗ್, ಪ್ರಸ್ತುತ ಸ್ಥಿತಿ ಪ್ರಾವಿಶನಿಂಗ್, ರೋಲ್-"
-#~ "ಬ್ಯಾಕ್ಸ್, ಸಂರಚನಾ ನಿರ್ವಹಣೆ"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡ್ಯುಲ್: ಪೂರ್ವ ನಿರ್ಧಾರಿತ ಹಾಗು ಗ್ರಾಹಕ ಕಾರ್ಯ ನಿರ್ವಹಣಾ ತನಿಖೆಗಳು, "
-#~ "ಗಣಕಕಾರ್ಯನಿರ್ವಹಣಾ ಇಮೈಲ್ ಸೂಚನೆಗಳು, ಗಣಕ ಕಾರ್ಯನಿರ್ವಹಣಾ ರೇಖಾಚಿತ್ರಗಳು"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "ವಾಸ್ತವೀಕರಣ ಪ್ಲಾಟ್-ಫಾರಂ ಮಾಡ್ಯುಲು: ಈ ಗಣಕದಲ್ಲಿನ ಅನಿಯಮಿತ ಸಂಖ್ಯೆಯ ವಾಸ್ತವ "
-#~ "ಅತಿಥಿಗಳಿಗಾಗಿನ ತಂತ್ರಾಂಶ ಅಪ್ಡೇಟುಗಳು, ಈ ಗಣಕದಲ್ಲಿನ ಅತಿಥಿಗಳಿಗಾಗಿ ಹೆಚ್ಚುವರಿ ತಂತ್ರಾಂಶ "
-#~ "ಮಾರ್ಗಗಳಿಗೆ ಪ್ರವೇಶಾಧಿಕಾರ."

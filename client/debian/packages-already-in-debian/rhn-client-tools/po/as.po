@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
 "PO-Revision-Date: 2016-02-17 09:34-0500\n"
 "Last-Translator: Jan Dobes <jdobes@redhat.com>\n"
 "Language-Team: Assamese (http://www.transifex.net/projects/p/fedora/language/"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -343,8 +343,7 @@ msgstr ""
 "আপুনি আপোনাৰ চিস্টেম Red Hat Network -ৰ লগত সংযোগ নকৰাকৈ এই স্বাক্ষৰণ সুবিধাসমূহ "
 "উপলবদ্ধ কৰিব নোৱাৰিব।\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "প্ৰতিষ্ঠা পপ্ৰক্ৰয়য়ালৈ মোক ঘুৰাই লৈ যাওক ।"
 
@@ -414,8 +413,7 @@ msgstr " গৌণ উন্মোচন: "
 msgid "Limited Updates Only"
 msgstr "কেৱল সীমিত আপডেইটসমূহ"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "সকলো উপলব্ধ আপডেইট"
 
@@ -2576,35 +2574,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Spacewalk/Satellite/Red Hat Network -ত ৰেজিস্টাৰ কৰক"
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "আপুনি এটা অবৈধ আচাৰ বিধি নিৰ্দ্দিষ্ট কৰিছে ।"
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr ""
-#~ "উন্নয়নৰ অংশ:প্ৰতিটো ব্যৱস্থাপ্ৰণালীৰ উন্নয়ন, ঈ‌মেইলৰ যোগেদি শুধৰণীৰ বিজ্ঞপিত কৰণ, "
-#~ "শুধৰণীৰ তথ্য"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "যোগান ধৰা অংশ: মুক্ত ধাতুৰ যোগান ধৰা, বৰ্ত্তমান অৱস্থাৰ যোগান ধৰা, সঙ্কুচিত কৰা, "
-#~ "বিন্যাসৰ পৰিচালনা"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "কাৰ্য্য নিৰীক্ষণ অংশ:পূব নিৰ্ধাৰিত আৰু নিজ পছন্দৰ ব্যৱস্থাপ্ৰণালীৰ কাৰ্য্যসাধনৰ "
-#~ "অনুসন্ধান, প্ৰণালীৰ কাৰ্য্যসাধনৰ ঈ‌-মেইল জাননি, প্ৰণালীৰ কাৰ্য্যসাধনৰ ৰেখাচিত্ৰ "
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "ভাৰ্চুৱেলাইজেছন মঞ্চৰ অংশ: এই ব্যৱস্থাপ্ৰণালীত অসংখ্য ভাৰ্চুৱেল অতিথিৰ বাবে "
-#~ "চালনাজ্ঞানৰ উন্নয়ন, অতিৰিক্ত চালনাজ্ঞানৰ মাধ্যমলৈ উপক্ৰমৰ অনুমতি ।"

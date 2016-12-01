@@ -365,7 +365,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
         </context-group>
-        <target>Listar/Remover archivos</target>
+        <target>Listar/Eliminar archivos</target>
       </trans-unit>
       <trans-unit id="configchannel.nav.add">
         <source>Add Files</source>
@@ -579,7 +579,7 @@
         </trans-unit>
         <trans-unit id="system.detail.nav.remove">
           <source>List / Remove</source>
-          <target>Listar / Remover</target>
+          <target>Listar / Eliminar</target>
         </trans-unit>
       </group>
       <trans-unit id="Add">
@@ -785,7 +785,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Listar / Remover</target>
+        <target>Listar / Eliminar</target>
       </trans-unit>
       <trans-unit id="Add / Remove">
         <source>Add / Remove</source>

@@ -354,6 +354,9 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Lookup error page</context>
         </context-group>
+        <trans-unit id="lookup.jsp.title.actionchain">
+          <source>We're sorry, but the Action Chain could not be found.</source>
+        </trans-unit>
         <trans-unit id="lookup.jsp.title.user">
           <source>We're sorry, but the user could not be found.</source>
           <target>Lo sentimos, pero no se pudo encontrar el usuario.</target>
@@ -429,6 +432,9 @@
         <trans-unit id="lookup.jsp.summary">
           <source>This error may have occurred in one of three ways:</source>
           <target>Este error pudo haber ocurrido en una de las tres maneras:</target>
+        </trans-unit>
+        <trans-unit id="lookup.jsp.actionchain.reason1">
+          <source>The Action Chain requested does not exist. This is most likely if the Action Chain has been already scheduled and deleted.</source>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason1.user">
           <source>The user requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
@@ -601,7 +607,7 @@
         </trans-unit>
         <trans-unit id="permission.jsp.title.removerole">
           <source>Cannot remove role.</source>
-          <target>No se puede remover el rol.</target>
+          <target>No se puede eliminar el rol.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.title.disableuser">
           <source>Cannot deactivate user.</source>
@@ -640,7 +646,7 @@
           <context-group name="ctx">
             <context context-type="paramnotes">You cannot remove the Organization Administrator role from the last Organization Administrator.</context>
           </context-group>
-          <target>No puede remover el rol {0} del último {0}.</target>
+          <target>No puede eliminar el rol {0} del último {0}.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.summary.deleteuser">
           <source>You must be an organization administrator for a satellite to delete a user.</source>
@@ -1975,7 +1981,7 @@ inmediatamente y usted &lt;b&gt;no podrá iniciar una sesión nuevamente&lt;/b&g
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
-        <target>Este usuario es el último administrador de la organización y no puede ser removido
+        <target>Este usuario es el último administrador de la organización y no puede ser eliminado
 del rol de Administrador de la organización.</target>
       </trans-unit>
       <trans-unit id="satadmin.jsp.error.lastsatadmin">
@@ -1983,7 +1989,7 @@ del rol de Administrador de la organización.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/Users</context>
         </context-group>
-        <target>El usuario {0} es el último administrador de @@PRODUCT_NAME@@ y no puede ser removido del rol de Administrador de @@PRODUCT_NAME@@.</target>
+        <target>El usuario {0} es el último administrador de @@PRODUCT_NAME@@ y no puede ser eliminado del rol de Administrador de @@PRODUCT_NAME@@.</target>
       </trans-unit>
       <trans-unit id="satadmin.jsp.error.notsatadmin">
         <source>The user {0} is the not a @@PRODUCT_NAME@@ Administrator. Only users with @@PRODUCT_NAME@@ Administrator role can grant  or revoke @@PRODUCT_NAME@@ Administrator roles from other users.</source>
@@ -2248,7 +2254,7 @@ del rol de Administrador de la organización.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page with a List View</context>
         </context-group>
-        <target>remover servidores existentes del SSM</target>
+        <target>eliminar servidores existentes del SSM</target>
       </trans-unit>
       <trans-unit id="systemsadmined.jsp.access">
         <source>Access Granted Through</source>
@@ -3073,21 +3079,21 @@ del rol de Administrador de la organización.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList</context>
         </context-group>
-        <target>Los siguientes paquetes están instalados en este sistema. Se puede programar la remoción de los paquetes haciendo clic en &quot;Remover paquetes&quot; después de seleccionarlos.</target>
+        <target>Los siguientes paquetes están instalados en este sistema. Se puede programar la eliminación de los paquetes haciendo clic en &quot;Eliminar paquetes&quot; después de seleccionarlos.</target>
       </trans-unit>
       <trans-unit id="packagelist.jsp.removablepackages">
         <source>Removable Packages</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList</context>
         </context-group>
-        <target>Paquetes removibles</target>
+        <target>Paquetes que se pueden eliminar</target>
       </trans-unit>
       <trans-unit id="packagelist.jsp.removepackages">
         <source>Remove Packages</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList</context>
         </context-group>
-        <target>Remover paquetes</target>
+        <target>Eliminar paquetes</target>
       </trans-unit>
       <trans-unit id="packagelist.jsp.installedpagesummary">
         <source>The following packages are installed on this system.</source>
@@ -3685,7 +3691,7 @@ del rol de Administrador de la organización.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
         </context-group>
-        <target>Error &lt;strong&gt;{0}&lt;/strong&gt; removido de erratas &lt;strong&gt;{1}&lt;/strong&gt;.</target>
+        <target>Error &lt;strong&gt;{0}&lt;/strong&gt; eliminado de erratas &lt;strong&gt;{1}&lt;/strong&gt;.</target>
       </trans-unit>
       <trans-unit id="errata.edit.commadelimited">
         <source>(Comma delimited)</source>
@@ -3807,7 +3813,7 @@ del rol de Administrador de la organización.</target>
                 /rhn/errata/manage/RemovePackages.do
             </context>
         </context-group>
-        <target>Confirmar remoción de paquetes</target>
+        <target>Confirmar eliminación de paquetes</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.confirm.remove.instructions">
         <source>Below is the list of packages which you have selected to remove from this erratum.  Click 'Confirm' to remove them.</source>
@@ -3816,7 +3822,7 @@ del rol de Administrador de la organización.</target>
                 /rhn/errata/manage/RemovePackages.do
             </context>
         </context-group>
-        <target>A continuación se listan los paquetes seleccionados para remover de esta errata. Haga clic en 'Confirmar' para removerlos.</target>
+        <target>A continuación se listan los paquetes seleccionados para eliminar de esta errata. Haga clic en 'Confirmar' para eliminarlos.</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.confirm.confirm">
         <source>Confirm</source>
@@ -3843,7 +3849,7 @@ del rol de Administrador de la organización.</target>
                 /rhn/errata/manage/ListPackages.do
             </context>
         </context-group>
-        <target>Remover paquetes</target>
+        <target>Eliminar paquetes</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.list.instructions">
         <source>The following packages are associated with this errata. To remove packages from this errata, select them, and click 'Remove Packages' below. To add packages to this errata, click 'add' above.</source>
@@ -3852,7 +3858,7 @@ del rol de Administrador de la organización.</target>
                 /rhn/errata/manage/ListPackages.do
             </context>
         </context-group>
-        <target>Los siguientes paquetes están asociados con estas erratas. Para remover los paquetes de estas erratas, selecciónelos y haga clic en 'Remover paquetes'. Para añadir paquetes a estas erratas, haga clic en 'añadir'.</target>
+        <target>Los siguientes paquetes están asociados con estas erratas. Para eliminar los paquetes de estas erratas, selecciónelos y haga clic en 'Eliminar paquetes'. Para añadir paquetes a estas erratas, haga clic en 'añadir'.</target>
       </trans-unit>
       <trans-unit id="errata.publish.toolbar">
         <source>Publish Errata: </source>
@@ -4050,7 +4056,7 @@ del rol de Administrador de la organización.</target>
                 /rhn/errata/manage/RemovePackages.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; paquetes removidos de erratas &lt;strong&gt;{1}&lt;/strong&gt;</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; paquetes eliminados de erratas &lt;strong&gt;{1}&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="errata.edit.packages.remove.success.singular">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; package removed from errata &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -4059,7 +4065,7 @@ del rol de Administrador de la organización.</target>
                 /rhn/errata/manage/RemovePackages.do
             </context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; paquetes removidos de erratas &lt;strong&gt;{1}&lt;/strong&gt;</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; paquetes eliminados de erratas &lt;strong&gt;{1}&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="errata.overview.jsp.summary">
         <source>The following errata apply to at least one system to which you have administrative access.</source>
@@ -6341,7 +6347,7 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
         </trans-unit>
         <trans-unit id="systems.groups.jsp.removed">
           <source>{0} system groups removed.</source>
-          <target>{0} grupo de sistemas removidos.</target>
+          <target>{0} grupo de sistemas eliminados.</target>
         </trans-unit>
         <trans-unit id="systems.groups.jsp.added">
           <source>{0} system groups added.</source>
@@ -6405,11 +6411,11 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
         </trans-unit>
         <trans-unit id="systemgroup.systems.removed">
           <source>{0} systems were removed from &lt;strong&gt;{1}&lt;/strong&gt; server group.</source>
-          <target>{0} sistemas fueron removidos de &lt;strong&gt;{1}&lt;/strong&gt; grupo de servidor.</target>
+          <target>{0} sistemas fueron eliminados de &lt;strong&gt;{1}&lt;/strong&gt; grupo de servidor.</target>
         </trans-unit>
         <trans-unit id="systemgroup.systems.remove">
           <source>Remove Systems</source>
-          <target>Remover sistemas</target>
+          <target>Eliminar sistemas</target>
         </trans-unit>
         <trans-unit id="systemgroup.details.status">
           <source>System Group Status</source>
@@ -6666,7 +6672,7 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
         </trans-unit>
         <trans-unit id="system_entitlements.provisioning.removed.success">
           <source>Removed &lt;strong&gt;Provisioning&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
-          <target>Servicio de &lt;strong&gt;aprovisionamiento&lt;/strong&gt; removido de &lt;strong&gt;{0}&lt;/strong&gt; sistema(s).</target>
+          <target>Servicio de &lt;strong&gt;aprovisionamiento&lt;/strong&gt; eliminado de &lt;strong&gt;{0}&lt;/strong&gt; sistema(s).</target>
         </trans-unit>
         <trans-unit id="system_entitlements.provisioning.noManagement">
           <source>&lt;strong&gt;Provisioning&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Provisioning&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Provisioning&lt;/strong&gt; entitlement to these system(s).</source>
@@ -6698,7 +6704,7 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
         </trans-unit>
         <trans-unit id="system_entitlements.monitoring.removed.success">
           <source>Removed &lt;strong&gt;Monitoring&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
-          <target>Servicio de &lt;strong&gt;monitorización&lt;/strong&gt; removido de &lt;strong&gt;{0}&lt;/strong&gt; sistema(s).</target>
+          <target>Servicio de &lt;strong&gt;monitorización&lt;/strong&gt; eliminado de &lt;strong&gt;{0}&lt;/strong&gt; sistema(s).</target>
         </trans-unit>
         <trans-unit id="system_entitlements.monitoring.noManagement">
           <source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Monitoring&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Monitoring&lt;/strong&gt; entitlement to these system(s).</source>
@@ -6906,7 +6912,7 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
           <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
           <context context-type="sourcefile">https://wopr.skavenlabs/rhn/ssm/PackageRemove.do</context>
         </context-group>
-        <target>Confirmar remoción de paquetes</target>
+        <target>Confirmar eliminación de paquetes</target>
       </trans-unit>
       <trans-unit id="removeconfirm.jsp.widgetsummary">
         <source>You may schedule the package removals to take place as soon as possible, or no sooner than a specified time:</source>
@@ -6936,7 +6942,7 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        <target>{0} remoción de paquetes ha sido &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;programada&lt;/a&gt; para &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
+        <target>{0} eliminación de paquetes ha sido &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;programada&lt;/a&gt; para &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.packageremovals">
         <source>{0} package removals have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
@@ -6944,7 +6950,7 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        <target>{0} remociones de paquetes han sido &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;programadas&lt;/a&gt; para &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
+        <target>{0} eliminaciones de paquetes han sido &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;programadas&lt;/a&gt; para &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.packageupgrade">
         <source>{0} package upgrade has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
@@ -7005,14 +7011,14 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
         </context-group>
-        <target>{0} remoción de parches ha sido &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;programada&lt;/a&gt; para &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
+        <target>{0} eliminación de parches ha sido &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;programada&lt;/a&gt; para &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.patchremovals">
         <source>{0} patch removals have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
         </context-group>
-        <target>{0} remociones de parches han sido &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;programadas&lt;/a&gt; para &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
+        <target>{0} eliminaciones de parches han sido &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;programadas&lt;/a&gt; para &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.patchinstall">
         <source>{0} patch install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
@@ -7160,7 +7166,7 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/Packages.do</context>
         </context-group>
-        <target>Listar / Remover paquetes instalados</target>
+        <target>Listar / Eliminar paquetes instalados</target>
       </trans-unit>
       <trans-unit id="packagesindex.jsp.verify">
         <source>Verify Files and Packages</source>
@@ -7576,7 +7582,7 @@ organización si decide borrar este rol de su inicio de sesión.
         <context-group name="ctx">
           <context context-type="sourcefile">NOTFILLEDOUT</context>
         </context-group>
-        <target>Confirmar la remoción del rol de administración del Satélite de &lt;strong&gt;{0}&lt;/strong&gt; al hacer clic en el botón inferior.</target>
+        <target>Confirmar la eliminación del rol de administración del Satélite de &lt;strong&gt;{0}&lt;/strong&gt; al hacer clic en el botón inferior.</target>
       </trans-unit>
       <trans-unit id="syncprofile.jsp.selection">
         <source>Date Selection</source>
@@ -7632,7 +7638,7 @@ organización si decide borrar este rol de su inicio de sesión.
         <context-group name="ctx">
           <context context-type="sourcefile">NOTFILLEDOUT</context>
         </context-group>
-        <target>Remover paquetes listados de sincronización</target>
+        <target>Eliminar paquetes listados de sincronización</target>
       </trans-unit>
       <trans-unit id="missingpkgs.jsp.selectnewpackageprofile">
         <source>Select new package profile</source>
@@ -8948,6 +8954,9 @@ Tenga en cuenta que podría ser necesario configurar manualmente estos scripts. 
         <source>Repository URL</source>
         <target>URL del repositorio</target>
       </trans-unit>
+      <trans-unit id="repos.jsp.create.type">
+        <source>Repository Type</source>
+      </trans-unit>
       <trans-unit id="repos.jsp.create.submit">
         <source>Create Repository</source>
         <target>Crear repositorio</target>
@@ -9042,6 +9051,9 @@ Tenga en cuenta que podría ser necesario configurar manualmente estos scripts. 
       <trans-unit id="repos.jsp.noChannels">
         <source>This repository is not linked to any channel.</source>
         <target>Este repositorio no está asociado con ningún canal.</target>
+      </trans-unit>
+      <trans-unit id="repos.jsp.createRepo">
+        <source>&lt;a href="{0}"&gt;Create a new repository&lt;/a&gt;</source>
       </trans-unit>
       <trans-unit id="os">
         <source>Operating System</source>
@@ -12420,7 +12432,7 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
         </trans-unit>
         <trans-unit id="activation-key.groups.jsp.removed">
           <source>{0} system groups removed.</source>
-          <target>{0} grupo de sistemas removidos.</target>
+          <target>{0} grupo de sistemas eliminados.</target>
         </trans-unit>
         <trans-unit id="activation-key.groups.jsp.added">
           <source>{0} system groups added.</source>
@@ -12581,7 +12593,7 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
         </trans-unit>
         <trans-unit id="errata.common.deletepackageAlt">
           <source>remove package</source>
-          <target>remover paquete</target>
+          <target>eliminar paquete</target>
         </trans-unit>
         <trans-unit id="errata.common.upgradepackageAlt">
           <source>upgrade package</source>
@@ -13514,7 +13526,7 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
         </trans-unit>
         <trans-unit id="system.history.snapshot.tagDeleteHeader">
           <source>Confirm Snapshot Tag Removal</source>
-          <target>Confirmar remoción de etiqueta de instantánea</target>
+          <target>Confirmar eliminación de etiqueta de instantánea</target>
         </trans-unit>
         <trans-unit id="system.history.snapshot.tagDeleteSummary">
           <source>Please confirm that you want to remove the listed snapshot tags.</source>
@@ -14316,7 +14328,7 @@ a file or files, or copy the latest version into a set of local overrides or int
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
         </context-group>
-        <target>Esta lista muestra los archivos que este canal de configuración contiene. Puede remover
+        <target>Esta lista muestra los archivos que este canal de configuración contiene. Puede eliminar
 uno o varios archivos, copiar la última versión en un grupo de sobrescritura local o en otros canales de configuración centrales.</target>
       </trans-unit>
       <trans-unit id="channelfiles.jsp.path">
@@ -14360,7 +14372,7 @@ uno o varios archivos, copiar la última versión en un grupo de sobrescritura l
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
         </context-group>
-        <target>Remover archivos seleccionados</target>
+        <target>Eliminar archivos seleccionados</target>
       </trans-unit>
       <trans-unit id="channelfiles.jsp.copy2systems">
         <source>Copy to Systems</source>
@@ -15148,7 +15160,7 @@ centralmente de este archivo, {2}; a continuación encontrará una lista de sist
           <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeploy.do</context>
           <context context-type="paramnotes">1 system override (_Remove System Override_)</context>
         </context-group>
-        <target>{0} sobrescritura del sistema (&lt;a href=&quot;{1}&quot;&gt;Remover sobrescritura del sistema&lt;/a&gt;)</target>
+        <target>{0} sobrescritura del sistema (&lt;a href=&quot;{1}&quot;&gt;Eliminar sobrescritura del sistema&lt;/a&gt;)</target>
       </trans-unit>
       <trans-unit id="globaldeploy.jsp.outranked-numbers">
         <source>{0} central overrides (&lt;a href="{1}"&gt;Modify rank&lt;/a&gt;)</source>
@@ -15783,7 +15795,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context context-type="sourcefile">/rhn/configuration/file/DeleteFile.do</context>
         </context-group>
         <target>&lt;strong&gt;NOTA:&lt;/strong&gt; Si se borra el archivo de configuración descrito
-a continuación. TODAS las revisiones del archivo en este canal serán removidas.
+a continuación. TODAS las revisiones del archivo en este canal serán eliminadas.
 También se borrarán todas las acciones de implementación actualmente pendientes
 para cualquiera de esas revisiones, así como todo el historial de implementaciones
 concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer?</target>
@@ -15901,7 +15913,7 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
       </trans-unit>
       <!-- managedsystems.jsp -->
       <trans-unit id="managedsystems.jsp.toolbar">
-        <source>Systems</source>
+        <source>Managed Systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
         </context-group>
@@ -17308,7 +17320,7 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
         </trans-unit>
         <trans-unit id="sdc.configlist.jsp.unsubscribe">
           <source>Unsubscribe</source>
-          <target>Remover suscripción</target>
+          <target>Eliminar suscripción</target>
         </trans-unit>
         <trans-unit id="config_channels_to_unsubscribe.unsubscribe.success">
           <source>{0} configuration channel(s) were unsubscribed.</source>
@@ -17887,7 +17899,7 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
         </trans-unit>
         <trans-unit id="ssm.package.remove">
           <source>Remove existing packages</source>
-          <target>Remover paquetes existentes</target>
+          <target>Eliminar paquetes existentes</target>
         </trans-unit>
         <trans-unit id="ssm.package.verify">
           <source>Verify existing packages</source>
@@ -17947,7 +17959,7 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
         </context-group>
         <trans-unit id="ssm.package.remove.select.header">
           <source>Package Removal</source>
-          <target>Remoción de paquetes</target>
+          <target>Eliminación de paquetes</target>
         </trans-unit>
         <trans-unit id="ssm.package.remove.select.summary">
           <source>Packages listed below may be removed from one or more systems.
@@ -17961,7 +17973,7 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
         </trans-unit>
         <trans-unit id="ssm.package.remove.select.confirm">
           <source>Remove Selected Packages</source>
-          <target>Remover paquetes seleccionados</target>
+          <target>Eliminar paquetes seleccionados</target>
         </trans-unit>
         <trans-unit id="ssm.package.remove.select.numsystems">
           <source>Systems</source>
@@ -18623,7 +18635,7 @@ para suscribir los sistemas a los canales de software durante el inicio de insta
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn</context>
         </context-group>
-        <target>¿Está seguro que desea borrar este script de Kickstart?&lt;strong&gt;&lt;p&gt;ADVERTENCIA: al borrar este script lo removerá del perfil Kickstart..&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Por favor haga clic en el botón sólo una vez.&lt;/strong&gt;&lt;/p&gt;</target>
+        <target>¿Está seguro que desea borrar este script de Kickstart?&lt;strong&gt;&lt;p&gt;ADVERTENCIA: al borrar este script lo eliminará del perfil Kickstart..&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Por favor haga clic en el botón sólo una vez.&lt;/strong&gt;&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="kickstart.scriptdelete.jsp.confirmdelete">
         <source>Delete Kickstart Script</source>
@@ -19391,7 +19403,7 @@ La ruta del árbol, el RPM Kickstart, el canal base y la generación del instala
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsConfirm.do</context>
         </context-group>
-        <target>Haga clic en el botón de confirmación para borrar los siguientes sistemas virtuales. Esto borrará toda la información de los sistemas virtuales de @@PRODUCT_NAME@@. &lt;strong&gt;NOTA:&lt;/strong&gt; Esto no removerá la máquina virtual del host.</target>
+        <target>Haga clic en el botón de confirmación para borrar los siguientes sistemas virtuales. Esto borrará toda la información de los sistemas virtuales de @@PRODUCT_NAME@@. &lt;strong&gt;NOTA:&lt;/strong&gt; Esto no eliminará la máquina virtual del host.</target>
       </trans-unit>
       <trans-unit id="virtualguests_confirm.jsp.nosystems">
         <source>No systems selected.</source>
@@ -21710,7 +21722,7 @@ La ruta del árbol, el RPM Kickstart, el canal base y la generación del instala
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
           </context-group>
-          <target>Remover suscripción</target>
+          <target>Eliminar suscripción</target>
         </trans-unit>
         <trans-unit id="ssmchildsubs.jsp.donothing">
           <source>Do Nothing</source>
@@ -21818,7 +21830,7 @@ A continuación encontrará una lista de canales en su organización.
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptionsAction.do</context>
           </context-group>
-          <target>Remover suscripción de</target>
+          <target>Eliminar suscripción de</target>
         </trans-unit>
         <trans-unit id="ssmchildsubconfirm.jsp.submit">
           <source>Change Subscriptions</source>
@@ -21832,7 +21844,7 @@ A continuación encontrará una lista de canales en su organización.
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptionsAction.do</context>
           </context-group>
-          <target>No hay sistemas disponibles en su grupo de sistemas para procesar las acciones de suscripción/remoción de la suscripción que ha seleccionado.</target>
+          <target>No hay sistemas disponibles en su grupo de sistemas para procesar las acciones de suscripción/eliminación de la suscripción que ha seleccionado.</target>
         </trans-unit>
         <trans-unit id="basesub.jsp.header">
           <source>Base Channel Alteration</source>
@@ -22542,11 +22554,11 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.confirmbutton">
         <source>Confirm Removal</source>
-        <target>Confirmar remoción</target>
+        <target>Confirmar eliminación</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.menu.list">
         <source>List / Remove Packages</source>
-        <target>Listar / Remover paquetes</target>
+        <target>Listar / Eliminar paquetes</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.menu.add">
         <source>Add Packages</source>
@@ -22571,6 +22583,9 @@ given channel.</source>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>
         <target>Ver Paquetes</target>
+      </trans-unit>
+      <trans-unit id="channel.jsp.package.viewbinarypackages">
+        <source>Binary Packages</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.viewsourcepackages">
         <source>Source Packages</source>
@@ -24055,7 +24070,7 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
         <target>Por favor verifique el cambio que va a efectuar antes de confirmar
-        esta remoción de acceso.</target>
+        esta eliminación de acceso.</target>
       </trans-unit>
       <trans-unit id="confirmprotected.jsp.confirmmsg">
         <source>Are you sure you want to set this channel's access policy to
@@ -24070,7 +24085,7 @@ given channel.</source>
         <target>¿Está seguro de querer establecer esta política de acceso de canal a
         canal &lt;strong&gt;protegido&lt;/strong&gt;?, observe que las
         organizaciones abajo tienen sistemas que se suscriben a este canal.
-        Remover el acceso de estas organizaciones puede ocasionar efectos adversos a esos sistemas.
+        Eliminar el acceso de estas organizaciones puede ocasionar efectos adversos a esos sistemas.
         Por ejemplo, ya no podrán recibir actualizaciones de seguridad para
         el contenido proporcionado por este canal.</target>
       </trans-unit>
@@ -24134,7 +24149,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata/Errata.do</context>
         </context-group>
-        <target>Listar/Remover errata</target>
+        <target>Listar/Eliminar errata</target>
       </trans-unit>
       <trans-unit id="list.jsp.errata.add">
         <source>Add Errata</source>
@@ -24162,35 +24177,35 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
         </context-group>
-        <target>Confirmar remoción</target>
+        <target>Confirmar eliminación</target>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.remove">
         <source>Remove Errata</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
         </context-group>
-        <target>Remover errata</target>
+        <target>Eliminar errata</target>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.remove.message">
         <source>Below is the list of errata associated with this channel. To remove an erratum from this channel, select it here, and click 'Remove' below.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
         </context-group>
-        <target>A continuación se lista la errata asociada con este canal. Para remover un error desde este canal, selecciónelo aquí y haga clic abajo en 'Remover'.</target>
+        <target>A continuación se lista la errata asociada con este canal. Para eliminar un error desde este canal, selecciónelo aquí y haga clic abajo en 'Eliminar'.</target>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.remove.confirmmessage">
         <source>Click 'Confirm' below to remove these errata from your channel. Related packages will also be removed from the channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
         </context-group>
-        <target>Haga clic abajo en 'Confirmar' remover esta errata de su canal. Los paquetes relacionados también serán removidos del canal.</target>
+        <target>Haga clic abajo en 'Confirmar' eliminar esta errata de su canal. Los paquetes relacionados también serán eliminados del canal.</target>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.remove.finalmessage">
         <source>Successfully removed {0} errata from this channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
         </context-group>
-        <target>Errata de este canal {0} removida correctamente.</target>
+        <target>Errata de este canal {0} eliminada correctamente.</target>
       </trans-unit>
       <trans-unit id="channel.jsp.managers.message">
         <source>Selected users may manage this channel. Users with Admin Access (org admins or channel admins) may manage any channel.</source>
@@ -24818,7 +24833,7 @@ given channel.</source>
         </context-group>
         <trans-unit id="iss.confirmslaveremove.jsp.toolbar">
           <source>ISS Configuration - Confirm Slave Removal</source>
-          <target>Configuración ISS - Confirmar remoción de esclavo</target>
+          <target>Configuración ISS - Confirmar eliminación de esclavo</target>
         </trans-unit>
         <trans-unit id="iss.confirmslaveremove.jsp.areyousure">
           <source>
@@ -24862,7 +24877,7 @@ given channel.</source>
         </context-group>
         <trans-unit id="iss.confirmmasterremove.jsp.toolbar">
           <source>ISS Configuration - Confirm Master Removal</source>
-          <target>Configuración ISS - Confirmar remoción de maestro</target>
+          <target>Configuración ISS - Confirmar eliminación de maestro</target>
         </trans-unit>
         <trans-unit id="iss.confirmmasterremove.jsp.areyousure">
           <source>

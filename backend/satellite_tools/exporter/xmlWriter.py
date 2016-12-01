@@ -134,4 +134,4 @@ if __name__ == '__main__':
     writer.close_tag("message")
     writer.empty_tag("yahoo", attributes={'abc': 1})
     writer.close_tag(weirdtag)
-    print()
+    print("")

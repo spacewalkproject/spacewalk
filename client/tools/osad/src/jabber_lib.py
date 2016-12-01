@@ -25,12 +25,12 @@ from optparse import OptionParser, Option
 import traceback
 from rhn import SSL
 
-try: # python 3
-    from io import StringIO
-    from osad.rhn_log import log_debug, log_error
-except ImportError: # python 2
+try: # python 2
     from cStringIO import StringIO
     from rhn_log import log_debug, log_error
+except ImportError: # python 3
+    from io import StringIO
+    from osad.rhn_log import log_debug, log_error
 
 from spacewalk.common.usix import raise_with_tb
 from rhn.i18n import bstr
@@ -630,7 +630,8 @@ class JabberClient(jabber.Client, object):
             else:
                 break
         else:
-            log_error("Not able to reconnect")
+            log_error("Not able to reconnect - "
+                "See https://access.redhat.com/solutions/45332 for possible solutions.\n")
             raise SSLDisabledError
 
         starttls_node = stanza.getTag('starttls')
@@ -1391,7 +1392,7 @@ def generate_random_string(length=20):
     devrandom.close()
 
     return ''.join(result)[:length].lower()
-    
+
 
 def push_to_background():
     log_debug(3, "Pushing process into background")

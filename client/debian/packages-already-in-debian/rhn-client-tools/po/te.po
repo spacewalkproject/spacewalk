@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
-"PO-Revision-Date: 2012-02-14 08:00-0500\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
+"PO-Revision-Date: 2016-02-17 11:08-0500\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Telugu (http://www.transifex.net/projects/p/fedora/language/"
 "te/)\n"
 "Language: te\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -339,8 +339,7 @@ msgstr ""
 "మీరు మీ కంప్యూటరును Red Hat Networkకి అనుసంధించకుండా ఈ సబ్ స్క్రిప్షన్ విశేషాధికారాలను "
 "పొందలేరు.\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "నన్ను తిరిగి అమర్పు విధానానికి తీసుకుని వెళ్లు."
 
@@ -408,8 +407,7 @@ msgstr " చిన్న విడుదల: "
 msgid "Limited Updates Only"
 msgstr "పరిమిత నవీకరణలు మాత్రమే"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "అందుబాటులో వున్న అన్ని నవీకరణలు"
 
@@ -2529,34 +2527,3 @@ msgstr "సాఫ్టువేర్ నవీకరణల కొరకు Spa
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Spacewalk/Satellite/Red Hat Network కు నమోదుకండి."
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "మీరు విలువలేని చట్టాన్ని తెలిపారు."
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr ""
-#~ "గుణకాన్ని నవీకరించు: ముందలి కంప్యూటరు నవీకరణలు, ఈటపా errata సూచన, errata సమాచారం"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "Provisioning గుణకం: bare-metal provisioning, ఉన్న state provisioning, "
-#~ "rollbacks, ఆకృతీకరణ నిర్వహణ"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "Monitoring గుణకం: ముందే నిర్వచించబడిన మరియూ వినియోగ విధాన ఇబ్బందులు, కంప్యూటరు పనితనం "
-#~ "ఈటపా సూచనలు, కంప్యూటరు పనితనం చిత్రాలు"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "వాస్తవీకరణ ప్లాట్ ఫాం గుణకం: ఈ కంప్యూటరులో అపరిమిత సభ్యులకు సాఫ్టువేరు నవీకరణలు, ఈ "
-#~ "కంప్యూటరు కోసం అదనపు సాఫ్టువేరు చానళ్లను అందుబాటులో ఉంచుతోంది."

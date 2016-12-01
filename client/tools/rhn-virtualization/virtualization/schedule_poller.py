@@ -15,9 +15,13 @@
 
 import sys
 sys.path.append("/usr/share/rhn")
-import string
-import types
-import commands
+try:
+    # Python 2
+    import commands
+except ImportError:
+    import subprocess as commands
+
+from spacewalk.common.usix import StringType
 
 def create_crontab_line(minute  =   None,\
                         hour    =   None,\
@@ -38,16 +42,16 @@ def create_crontab_line(minute  =   None,\
     if dow == None:
         dow = "*"
 
-    if type(minute) != types.StringType:
-        minute = string.strip(str(minute))
-    if type(hour) != types.StringType:
-        hour = string.strip(str(hour))
-    if type(dom) != types.StringType:
-        dom = string.strip(str(dom))
-    if type(month) != types.StringType:
-        month = string.strip(str(month))
-    if type(dow) != types.StringType:
-        dow = string.strip(str(dow))
+    if type(minute) != StringType:
+        minute = str(minute).strip()
+    if type(hour) != StringType:
+        hour = str(hour).strip()
+    if type(dom) != StringType:
+        dom = str(dom).strip()
+    if type(month) != StringType:
+        month = str(month).strip()
+    if type(dow) != StringType:
+        dow = str(dow).strip
 
     str_template = "%s %s %s %s %s %s %s\n"
 
@@ -70,7 +74,8 @@ def schedule_poller(minute=None, hour=None, dom=None, month=None, dow=None):
         #close the temp file
         cronfile.close()
 
-    except Exception, e:
+    except Exception:
+        e = sys.exc_info()[1]
         return (1, str(e))
 
     #pass the temp file to crontab

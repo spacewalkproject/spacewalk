@@ -68,6 +68,10 @@ public abstract class BaseConfigFilter implements ListFilter {
         return retval;
     }
 
+    @Override
+    public void postFilter(List filteredList) {
+        // Nothing to do here
+    }
 
     private void buildMap(Locale aLoc) {
         LocalizationService ls = LocalizationService.getInstance();

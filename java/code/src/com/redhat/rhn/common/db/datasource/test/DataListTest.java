@@ -21,6 +21,7 @@ import java.util.Map;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.db.datasource.CachedStatement;
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -127,10 +128,12 @@ public class DataListTest extends RhnBaseTestCase {
         private static final long serialVersionUID = 1L;
         private int elaborated;
         private DataResult baseDr;
+        private SelectMode selectMode;
 
         public HookedSelectMode(SelectMode m) {
-            super(m);
+            selectMode = m;
             elaborated = 0;
+            super.setName(m.getName());
         }
 
         public boolean isElaborated() {
@@ -141,6 +144,7 @@ public class DataListTest extends RhnBaseTestCase {
             return elaborated;
         }
 
+        @Override
         public DataResult execute(Map parms) {
             if (baseDr == null) {
                 baseDr = buildBase(parms);
@@ -148,6 +152,7 @@ public class DataListTest extends RhnBaseTestCase {
             return baseDr;
         }
 
+        @Override
         public void elaborate(List resultList, Map parms) {
             if (elaborated <= 0) {
                 buildElab(parms);
@@ -180,6 +185,70 @@ public class DataListTest extends RhnBaseTestCase {
             return new DataResult(typedDr);
         }
 
+        @Override
+        public String getClassString() {
+            return selectMode.getClassString();
+        }
+
+        @Override
+        public void addElaborator(CachedStatement q) {
+            selectMode.addElaborator(q);
+        }
+
+        @Override
+        public List<CachedStatement> getElaborators() {
+            return selectMode.getElaborators();
+        }
+
+        @Override
+        public DataResult execute(List<?> inClause) {
+            return selectMode.execute(inClause);
+        }
+
+        @Override
+        public DataResult execute() {
+            return selectMode.execute();
+        }
+
+        @Override
+        public DataResult execute(Map<String, ?> parameters, List<?> inClause) {
+            return selectMode.execute(parameters, inClause);
+        }
+
+        @Override
+        public void setMaxRows(int max) {
+            selectMode.setMaxRows(max);
+        }
+
+        @Override
+        public int getMaxRows() {
+            return selectMode.getMaxRows();
+        }
+
+        @Override
+        public void setName(String n) {
+            selectMode.setName(n);
+        }
+
+        @Override
+        public String getName() {
+            return selectMode.getName();
+        }
+
+        @Override
+        public void setQuery(CachedStatement q) {
+            selectMode.setQuery(q);
+        }
+
+        @Override
+        public CachedStatement getQuery() {
+            return selectMode.getQuery();
+        }
+
+        @Override
+        public int getArity() {
+            return selectMode.getArity();
+        }
     }
 
 }

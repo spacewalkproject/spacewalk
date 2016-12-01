@@ -19,8 +19,8 @@ import glob
 import stat
 import re
 
-from spacewalk.common.usix import raise_with_tb
 from rhn.UserDictCase import UserDictCase
+from spacewalk.common.usix import raise_with_tb
 
 # bare-except and broad-except
 # pylint: disable=W0702,W0703
@@ -104,8 +104,11 @@ class RHNOptions:
             si = os.stat(self.filename)
         except OSError:
             e = sys.exc_info()[1]
-            raise_with_tb(ConfigParserError("config file read error",
-                                            self.filename, e.args[1]), sys.exc_info()[2])
+            if e[0] == 13: #Error code 13 - Permission denied
+                sys.stderr.write("ERROR: must be root to execute\n")
+            else:
+                sys.stderr.write("ERROR: " + self.filename + " is not accesible\n")
+            sys.exit(e[0])
         lm = si[stat.ST_MTIME]
         # should always be positive, but a non-zero result is still
         # indication that the file has changed.
@@ -310,10 +313,10 @@ class RHNOptions:
         from pprint import pprint
         print("__defaults: dictionary of parsed defaults.")
         pprint(self.__defaults)
-        print()
+        print("")
         print("__parsedConfig: dictionary of parsed /etc/rhn/rhn.conf file.")
         pprint(self.__parsedConfig)
-        print()
+        print("")
         print("__configs: dictionary of the merged options keyed by component.")
         pprint(self.__configs)
 
@@ -540,7 +543,7 @@ def runTest():
     import pprint
     print("Component tree of all installed components:")
     pprint.pprint(getAllComponents_tree())
-    print()
+    print("")
     test_cfg = RHNOptions(sys.argv[1])
 #    test_cfg = RHNOptions('server.app')
 #    test_cfg = RHNOptions('proxy.broker')
@@ -559,7 +562,7 @@ def runTest():
     except AttributeError:
         e = sys.exc_info()[1]
         print('Testing: "AttributeError: %s"' % e)
-    print()
+    print("")
     print("=============== the object's merged settings ======================")
     test_cfg.show()
     print("=============== dump of all relevant dictionaries =================")

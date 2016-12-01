@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.0
+Version: 2.7.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -70,6 +70,7 @@ BuildRequires: python-crypto
 BuildRequires: python-debian
 BuildRequires: python-gzipstream
 BuildRequires: yum
+BuildRequires: m2crypto
 %endif
 Requires(pre): %{apache_pkg}
 Requires: %{apache_pkg}
@@ -88,7 +89,7 @@ Generic program files needed by the Spacewalk server machines.
 This package includes the common code required by all servers/proxies.
 
 %package sql
-Summary: Core functions providing SQL connectivity for the RHN backend modules
+Summary: Core functions providing SQL connectivity for the Spacewalk backend modules
 Group: Applications/Internet
 Requires(pre): %{name} = %{version}-%{release}
 Requires: %{name} = %{version}-%{release}
@@ -124,7 +125,7 @@ This package contains provides PostgreSQL connectivity for the Spacewalk
 backend modules.
 
 %package server
-Summary: Basic code that provides RHN Server functionality
+Summary: Basic code that provides Spacewalk Server functionality
 Group: Applications/Internet
 Requires(pre): %{name}-sql = %{version}-%{release}
 Requires: %{name}-sql = %{version}-%{release}
@@ -173,7 +174,7 @@ Provides: rhns-applet = 1:%{version}-%{release}
 
 %description applet
 These are the files required for running the /APPLET handler, which
-provides the functions for the RHN applet.
+provides the functions for the Spacewalk applet.
 
 %package app
 Summary: Handler for /APP
@@ -339,6 +340,11 @@ Requires: %{name}-xml-export-libs
 Requires: cobbler20
 Requires: rhnlib  >= 2.5.57
 Requires: %{name}-usix
+Requires: python-requests
+Requires: m2crypto
+%if 0%{?fedora} || 0%{?rhel} > 5
+BuildRequires: python-requests
+%endif
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 Provides: spacewalk-backend-satellite-tools = %{version}-%{release}
@@ -357,6 +363,18 @@ Provides: rhns-xml-export-libs = 1:%{version}-%{release}
 
 %description xml-export-libs
 Libraries required by various exporting tools
+
+%package cdn
+Summary: CDN tools
+Group: Applications/Internet
+Requires: %{name}-server = %{version}-%{release}
+Requires: %{name}-usix
+Requires: subscription-manager
+Requires: m2crypto
+Requires: cdn-sync-mappings
+
+%description cdn
+Tools for syncing content from Red Hat CDN
 
 %prep
 %setup -q
@@ -408,6 +426,7 @@ export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}:/usr/lib/rhn:/usr/share/rhn
 spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_exporter \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_tools \
+                 $RPM_BUILD_ROOT%{pythonrhnroot}/cdn_tools \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/upload_server \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/wsgi
 %endif
@@ -546,6 +565,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/server/importlib/productNamesImport.py*
 %{pythonrhnroot}/server/importlib/userAuth.py*
 %{pythonrhnroot}/server/importlib/orgImport.py*
+%{pythonrhnroot}/server/importlib/contentSourcesImport.py*
 %{rhnroot}/server/handlers/__init__.py*
 
 # Repomd stuff
@@ -712,6 +732,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_satellite.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-tools
 %attr(755,root,root) %{_bindir}/rhn-charsets
+%attr(755,root,root) %{_bindir}/rhn-satellite-activate
 %attr(755,root,root) %{_bindir}/rhn-schema-version
 %attr(755,root,root) %{_bindir}/rhn-ssl-dbstore
 %attr(755,root,root) %{_bindir}/satellite-sync
@@ -727,6 +748,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/spacewalk-update-signatures
 %attr(755,root,root) %{_bindir}/spacewalk-data-fsck
 %attr(755,root,root) %{_bindir}/spacewalk-fips-tool
+%{pythonrhnroot}/satellite_tools/contentRemove.py*
 %{pythonrhnroot}/satellite_tools/SequenceServer.py*
 %{pythonrhnroot}/satellite_tools/messages.py*
 %{pythonrhnroot}/satellite_tools/progress_bar.py*
@@ -736,6 +758,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/satComputePkgHeaders.py*
 %{pythonrhnroot}/satellite_tools/syncCache.py*
 %{pythonrhnroot}/satellite_tools/sync_handlers.py*
+%{pythonrhnroot}/satellite_tools/rhn_satellite_activate.py*
 %{pythonrhnroot}/satellite_tools/rhn_ssl_dbstore.py*
 %{pythonrhnroot}/satellite_tools/xmlWireSource.py*
 %{pythonrhnroot}/satellite_tools/updatePackages.py*
@@ -754,9 +777,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/repo_plugins/__init__.py*
 %{pythonrhnroot}/satellite_tools/repo_plugins/yum_src.py*
 %{pythonrhnroot}/satellite_tools/repo_plugins/uln_src.py*
+%{pythonrhnroot}/satellite_tools/repo_plugins/deb_src.py*
 %config %attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_iss.conf
 %{_mandir}/man8/rhn-satellite-exporter.8*
 %{_mandir}/man8/rhn-charsets.8*
+%{_mandir}/man8/rhn-satellite-activate.8*
 %{_mandir}/man8/rhn-schema-version.8*
 %{_mandir}/man8/rhn-ssl-dbstore.8*
 %{_mandir}/man8/rhn-db-stats.8*
@@ -788,7 +813,487 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/exportLib.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
+%files cdn
+%attr(755,root,root) %{_bindir}/cdn-sync
+%{pythonrhnroot}/cdn_tools/*.py*
+%attr(755,root,%{apache_group}) %dir %{_var}/log/rhn/cdnsync
+%config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-cdn
+%{_mandir}/man8/cdn-sync.8*
+
 %changelog
+
+* Wed Nov 30 2016 Jan Dobes 2.7.4-1
+- 1387173 - only user repositories should be allowed to configure, accessing
+  self.yumbase.repos.repos can take long, do it once
+
+* Mon Nov 28 2016 Jan Dobes 2.7.3-1
+- 1387173 - make possible to configure by channel
+- 1387173 - make sure org_id is string
+- 1387173 - make possible to setup repository configuration with guessable name
+  and keep org_id information
+
+* Mon Nov 21 2016 Jan Dobes 2.7.2-1
+- 1395207 - recognize downloaded headers by yum
+
+* Tue Nov 15 2016 Jan Dobes 2.7.1-1
+- 1395214 - download treeinfo to cache directory to not create folder in
+  kickstart directory if there isn't any treeinfo
+- 1395214 - evaluate kickstart trees properly
+- Bumping package versions for 2.7.
+
+* Wed Nov 09 2016 Gennadii Altukhov <galt@redhat.com> 2.6.74-1
+- Revert Project-Id-Version for translations
+
+* Wed Nov 09 2016 Gennadii Altukhov <galt@redhat.com> 2.6.73-1
+- properly extract path
+- add missing newline in string
+
+* Tue Nov 08 2016 Jan Dobes 2.6.72-1
+- fixing case when local repository has packages in subdirectories
+- Regenerating .po and .pot files for backend
+- Updating .po translations from Zanata
+
+* Mon Nov 07 2016 Jan Dobes 2.6.71-1
+- kickstart repositories are not required when syncing with --no-kickstarts
+
+* Fri Nov 04 2016 Jan Dobes 2.6.70-1
+- adding support for incremental imports from mount point
+- disabling RHN satsync in code
+- do cast to None earlier to prevent crash if --no-packages is used
+- adding missed disconnected option
+
+* Thu Nov 03 2016 Jan Dobes 2.6.69-1
+- update man page
+- import channel families after signature is checked and fix return code if
+  manifest validation fails
+- always check mappings
+- use disconnected option to not subscribe to sat repo
+- removing remote activation functions
+- save manifest to default location
+- read certificate from manifest only
+- making cdn activation mandatory in this script
+- removing unsupported options
+- fixing list of channels when there are only child channels available
+- adding mount point parameter
+
+* Wed Oct 26 2016 Jan Dobes 2.6.68-1
+- rename and remove untrue comments
+
+* Tue Oct 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.6.67-1
+- fix: NameError: global name 'get' is not defined.
+- always save certificate
+- refactoring in activation
+
+* Mon Oct 24 2016 Jan Dobes 2.6.66-1
+- fixing number of values
+
+* Fri Oct 21 2016 Jan Dobes 2.6.65-1
+- check if relevant repository is enabled
+- filter source repositories by default
+- fixing the result dictionary
+- fixing channel family not found in mapping
+
+* Thu Oct 20 2016 Jan Dobes 2.6.64-1
+- fixing pylint
+- this directory needs to be created after cleanup
+- set repository location in runtime, not hardcoded in DB
+- cleanup and moving repository logic from cdnsync to repository module
+- package name is now known
+- adding classes to work with CDN repositories
+- do not print RHN messages if (de)activating CDN
+- refactor and add option to deactivate CDN
+- removing usage of product mapping and saving repositories from manifest
+  instead
+- support populating SSL information
+- require mapping package
+- load repository urls from manifest
+- make sure all old certs/keys are gone
+- fixing occurences in code
+- check for presence of all headers
+- headers can sometimes arrive in lowercase
+
+* Fri Oct 14 2016 Grant Gainey 2.6.63-1
+- Update specfile to remove references to RHN
+
+* Thu Oct 13 2016 Gennadii Altukhov <galt@redhat.com> 2.6.62-1
+- fix pylint wrong-import-order
+- reverting pylint change - method cannot be called, it's not instance
+
+* Mon Oct 10 2016 Jan Dobes 2.6.61-1
+- fixing pylint
+
+* Mon Oct 10 2016 Jan Dobes 2.6.60-1
+- detect already activated system
+- adding force parameter
+- cleaning, removing even older API references to not get confused
+- activate system registered to RHSM
+- adding new parameter to save current behavior
+
+* Fri Oct 07 2016 Gennadii Altukhov <galt@redhat.com> 2.6.59-1
+- fix setting of default kickstart installation type
+- fix list of urls in yum_src repo plugin.
+- require m2crypto in -tools package
+- get uuid of system if registered in RHSM
+
+* Wed Oct 05 2016 Jan Dobes 2.6.58-1
+- adding m2crypto dependency
+
+* Wed Oct 05 2016 Jan Dobes 2.6.57-1
+- check signature in code
+
+* Tue Oct 04 2016 Gennadii Altukhov <galt@redhat.com> 2.6.56-1
+- fix spacewalk-backend build * we still need to build spacewalk-backend on
+  RHEL5 to use two subpackages spacewalk-backend-libs and spacewalk-backend-
+  usix on cliend side. spacewalk-backend-tools uses python-requests module wich
+  is absent in RHEL5 repos, so I removed it from BuildDependencies, but leave
+  in Dependencies, maybe it can be installed manually.
+
+* Tue Oct 04 2016 Gennadii Altukhov <galt@redhat.com> 2.6.55-1
+- fix dependencies for CDN-Sync
+- fix spec file to build CDN-Sync on RHEL5 reverted
+  (7e629f0f5ead8aa4c8c6f2e5c0ee4a3cb85e0474)
+- fix python backend code to be compatible with Python 2.4
+
+* Thu Sep 29 2016 Grant Gainey 2.6.54-1
+- 1372721 - Handle the case where a user has no timezone/locale setting
+
+* Thu Sep 15 2016 Gennadii Altukhov <galt@redhat.com> 2.6.53-1
+- cdn-sync - fix man page
+
+* Thu Sep 15 2016 Gennadii Altukhov <galt@redhat.com> 2.6.52-1
+- fix yum plugin naming, based on an url, because it can be a metalink
+- remove hardcoded METADATA_EXPIRE, use value from config file
+- cdn-sync - clear repodata before syncing repository
+
+* Thu Sep 15 2016 Gennadii Altukhov <galt@redhat.com> 2.6.51-1
+- cdn-sync  - add fixes in packages counting: - if we have the same package in
+  different repositories of channel, we count it only one time - count packages
+  for base channel
+
+* Tue Sep 13 2016 Jan Dobes 2.6.50-1
+- fixing pylint: too-many-nested-blocks
+- fixing pylint: wrong-import-order
+- fixing pylint: unsubscriptable-object
+
+* Mon Sep 12 2016 Jan Dobes 2.6.49-1
+- fixing pylint
+
+* Fri Sep 09 2016 Jan Dobes 2.6.48-1
+- adding logrotate files
+- adding logging of spacewalk-repo-sync script
+
+* Wed Sep 07 2016 Jan Dobes 2.6.47-1
+- a bit more magic is needed for gpg check satellite certificate
+- changing log format
+- log cdnsync module
+
+* Wed Sep 07 2016 Gennadii Altukhov <galt@redhat.com> 2.6.46-1
+- fixup man page for cdn-sync
+
+* Tue Sep 06 2016 Gennadii Altukhov <galt@redhat.com> 2.6.45-1
+- add man page for cdn-sync
+
+* Tue Sep 06 2016 Jan Dobes 2.6.44-1
+- try to speed up RHEL kickstart syncing by not downloading release-notes
+
+* Mon Sep 05 2016 Jan Dobes 2.6.43-1
+- dropping quiet flag, it's not much useful now
+- try to recover from incorrect updateinfo.xml
+- change log level handling in reposync
+- adding some basic info into man page
+- unused variable
+- split reposync and cdnsync log directories
+- fixing TypeError when filename is None
+- kickstarts from external repositories have full path in DB
+
+* Fri Sep 02 2016 Jan Dobes 2.6.42-1
+- fixing rhnpush
+
+* Fri Sep 02 2016 Gennadii Altukhov <galt@redhat.com> 2.6.41-1
+- reposync - rewrite HTML parser for Kickstart repositories
+- Added the capability for spacewalk-debug to grab the user's preferences for
+  timezone and language locale
+- fixing path
+
+* Tue Aug 30 2016 Gennadii Altukhov <galt@redhat.com> 2.6.40-1
+- add possibility to use certificate from manifest
+
+* Fri Aug 26 2016 Jan Dobes 2.6.39-1
+- make sure images from treeinfo are included regardless on directory listing
+- do not show internal DB id
+- detect treeinfo file
+- split listing files and downloading
+- there can be missing mappings for kickstart trees currently
+- do cdn activation in rhn-satellite-activate
+- add manifest parameter for rhn-satellite-activate
+- dropping cdn-activate script
+
+* Mon Aug 22 2016 Jan Dobes 2.6.38-1
+- update kickstart syncing code
+- fixing pylint: too-many-nested-blocks, little refactoring
+
+* Thu Aug 18 2016 Jan Dobes 2.6.37-1
+- fixing import
+- apply formatting changes on file in original location and drop it from cdn
+  dir
+- fixing pylint: too-many-nested-blocks, no need for else
+- adding support for release channel mapping
+
+* Wed Aug 17 2016 Jan Dobes <jdobes@redhat.com> 2.6.36-1
+- fixing pylint: wrong-import-position, wrong-import-order
+- fixing pylint: wrong-import-position
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-position
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order,ungrouped-imports
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-position
+- fixing pylint: consider-using-enumerate
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-position
+- fixing pylint: wrong-import-position
+- fixing pylint: wrong-import-order
+- fixing pylint: No value for argument 'tb' in constructor call (no-value-for-
+  parameter)
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixed SyntaxError " b'' " for RHEL5
+
+* Tue Aug 16 2016 Jan Dobes 2.6.35-1
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: simplifiable-if-statement
+- fixing pylint: unneeded-not
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-order
+- fixing pylint: wrong-import-position
+- sys.exitfunc is deprecated since Python 2.4
+- more pylint and pep8 fixes
+
+* Tue Aug 16 2016 Jan Dobes 2.6.34-1
+- fixing pylint issues
+- drop disconnected activation on spacewalk, there is not much to insert and
+  not possible to update counts
+- call signature check directly instead of calling external (also dropped) perl
+  script
+- include files in packages
+- bringing back tool for activation
+
+* Mon Aug 15 2016 Jan Dobes 2.6.33-1
+- do not change package_from_filename header
+
+* Fri Aug 12 2016 Jan Dobes 2.6.32-1
+- set header_end to value where we stop reading
+- split maximally once or we lost part of the release sometimes
+- get package format from filename
+- check downloaded file
+- add basic plug-in for syncing deb repo
+- there are errata with intentionally empty package list, cannot skip them
+
+* Thu Aug 11 2016 Gennadii Altukhov <galt@redhat.com> 2.6.31-1
+- share repodata between yum_src and cdnsync
+
+* Tue Aug 09 2016 Gennadii Altukhov <galt@redhat.com> 2.6.30-1
+- cdn-sync - check proxy port number
+
+* Tue Aug 09 2016 Jan Dobes 2.6.29-1
+- initialize before _load_entitlements is called
+- check if there are any available channels first
+- filter channel families with ssl credentials - they are 'activated'
+- fixing listing of channels for some empty channel families
+
+* Mon Aug 08 2016 Jan Dobes 2.6.28-1
+- handle missing cdn mappings
+- W0201: attribute defined outside init
+- string.join is deprecated
+
+* Mon Aug 08 2016 Jan Dobes 2.6.27-1
+- do not download comps if not downloading packages
+- pass less parameters inside class
+- fixing --no-packages
+
+* Fri Aug 05 2016 Gennadii Altukhov <galt@redhat.com> 2.6.26-1
+- Impove error message about missing parent channels
+- cdn-sync - add debug-level verification
+- cdn-sync - add proxy url convertor from ascii to puny
+- cdn-sync - remove temporary certificates
+
+* Fri Aug 05 2016 Gennadii Altukhov <galt@redhat.com> 2.6.25-1
+- fix pep8 'Line too long'
+- bugfix - typo in variable name
+- cdn-sync - add to syncing kickstartable trees: - parameterized values for
+  rhnKSTreeType and rhnKSInstallType - possibility to select kickstartable
+  trees with NULL organisation id
+- bugfix - remove temporary file if there is an error during downloading by
+  yum-wrapper
+- cdn-sync - exclude kickstart repositories only if we have them in config file
+
+* Thu Aug 04 2016 Jan Dobes 2.6.24-1
+- handle not existing channels
+- we don't support RHEL 5 already
+
+* Wed Aug 03 2016 Jan Dobes 2.6.23-1
+- better look for existing erratum by advisory name now
+- always set advisory with version number and be different than advisory_name
+- do not crash for now
+
+* Wed Aug 03 2016 Jan Dobes 2.6.22-1
+- support strict package subscription to channel
+- fixing pep8
+- unused import
+- unused variable
+
+* Fri Jul 29 2016 Jan Dobes 2.6.21-1
+- simplify and allow to use other parameters without channel parameter
+- rename to plural to have same parameter as in satsync
+- show more info like in satsync
+- Revert "check if DB is running"
+
+* Fri Jul 29 2016 Jan Dobes 2.6.20-1
+- check if DB is running
+
+* Thu Jul 28 2016 Gennadii Altukhov <galt@redhat.com> 2.6.19-1
+- cdn-sync - add handling of database connection error
+- bugfix - Check connection to a DB is open before make commit()
+- Make reraising of exception compatible with Python 2 and 3. Additional
+  changes to commit 20ba5c63b13b2afe0a4c0340cc5538dae8f5c018
+- simplify condition
+
+* Wed Jul 27 2016 Gennadii Altukhov <galt@redhat.com> 2.6.18-1
+- build cdn-sync only for RHEL > 5 and Fedora
+- cdn-sync - add syncing of kickstart repositories - reposync now doesn't
+  terminate a program if one of channels doesn't exist - add posibility to
+  exclude some repos from syncing
+
+* Wed Jul 27 2016 Jan Dobes 2.6.17-1
+- fixing typo
+- count total time of sync
+
+* Tue Jul 26 2016 Jan Dobes 2.6.16-1
+- distinct by checksum to connect multiple packages with same nevrao to
+  erratum, not only one of them
+- fixing multiple packages in null org without channel - pick the last one
+- support syncing only RPMs metadata
+
+* Tue Jul 26 2016 Eric Herget <eherget@redhat.com> 2.6.15-1
+- 1345843 - sane output when diff of binary config files
+
+* Wed Jul 20 2016 Gennadii Altukhov <galt@redhat.com> 2.6.14-1
+- cdn-sync -  fix pylint warnings and errors
+- bug fix in cache of reposync when several repos assigned on channel
+- cdn-sync - change path for cache repodata, do not save primary.xml and
+  repomd.xml on disk
+- cdn-sync - show progress bar during updating repodata
+- cdn-sync - add number of packages to channel listing output
+- cdn-sync - Implement cdn-sync parameter for repodata updating
+- cdn-sync - Implement cdn-sync parameter for just listing assigned
+  repositories for channels
+- cdn-sync - bugfix in listing child channels. Show only those of child
+  channels which belong to channel families from manifest.
+- cdn-sync - add workaroud for missing RHN to CDN source matching * checking
+  that we have mapping in config json * if channel doesn't have at least one
+  source, skip it during syncing
+- cdn-sync - add exceptions to handling during channel import
+- cdn-sync - add parameter to print current configuration file
+- cdn-sync - add support of different debug levels for cdn-sync and reposync
+- cdn-sync - use the same config (CFG object) for cdn-sync, reposync and yum-
+  repo-plugin
+- cdn-sync - add parameters for http proxy and blocking of concurrent runs of
+  cdn-sync
+
+* Tue Jul 19 2016 Grant Gainey 2.6.13-1
+- change default checksum type to sha256 for debían packages. Usage of SHA256
+  is recommended in https://wiki.debian.org/RepositoryFormat#Size.2C_MD5sum.2C_
+  SHA1.2C_SHA256.2C_SHA512 This should also fix RH BZ 1348321
+- Fixes unnecessary removal of whitespaces in package dependencies. Needed for
+  correct creation of Packages.gz
+- 1226329 - sense support for debian packages
+
+* Mon Jul 18 2016 Jiri Dostal <jdostal@redhat.com> 2.6.12-1
+- 1357480 - get_possible_orgs function never called? -> removed
+
+* Tue Jul 12 2016 Grant Gainey 2.6.11-1
+- 1355884 - teach xmlWireSource to be able to write to tempfile
+
+* Fri Jul 01 2016 Jiri Dostal <jdostal@redhat.com> 2.6.10-1
+- spacewalk-repo-sync fix for missing -c parameter
+
+* Wed Jun 22 2016 Jiri Dostal <jdostal@redhat.com> 2.6.9-1
+- 1348575 - Many tools from spacewalk-backend-tools package returning Python
+  tracebacks when run under non-root user
+- list only custom channels
+
+* Mon Jun 20 2016 Jan Dobes 2.6.8-1
+- pep8
+- fixing pylint
+
+* Mon Jun 20 2016 Jan Dobes 2.6.7-1
+- Revert "sync content strictly - only packages from batch will be in channel"
+
+* Wed Jun 15 2016 Jan Dobes 2.6.6-1
+- make CDN root configurable
+
+* Wed Jun 15 2016 Jan Dobes 2.6.5-1
+- do not delete and insert everything on every call
+- Revert "old families should not be visible after reactivation"
+
+* Tue Jun 14 2016 Jan Dobes 2.6.4-1
+- fix satellite-sync and do not delete and insert on every cdn-sync
+- simlify content sources import and do not delete and insert on every cdn-sync
+- fixing incorrect name of variable
+
+* Mon Jun 13 2016 Jan Dobes 2.6.3-1
+- fixing pylint in cdnsync module and little refactoring
+- fixing pylint in activation module
+- fixing pylint in contentRemove module
+- missing import
+
+* Fri Jun 10 2016 Jan Dobes 2.6.2-1
+- make possible to clear packages in null-org outside channels (partially
+  synced channels)
+- add functions to remove content outside channels
+- move spacewalk-remove-channel code into new module
+- sync content strictly - only packages from batch will be in channel
+- allow reposync to subscribe packages to channel strictly
+- show which channel is processed
+- support --no-errata
+- support --no-packages
+- fixing synced channel indicator
+- list skipped errata
+- it's not an error
+- channel families may not be in filtered list
+- find ssl keys for families
+- unlock null org channels
+- run sync
+- import content sources for channels
+- teach backend to insert content sources
+- dist channel mapping
+- insert channel metadata
+- adding available channel listing
+- add linking channel families with certificates
+- refactor to class
+- insert families matching product data only
+- old families should not be visible after reactivation
+- lookup in separate function
+- fix rhnContentSourceSsl -> rhnContentSsl in code
+- import channel families
+- reusing previously dropped satellite certificate class
+- insert SSL credentials from file and manifest into DB
+- start to build -cdn package
+- refactoring satCerts to make possible insert into single org/null org
+
+* Tue Jun 07 2016 Jan Dobes 2.6.1-1
+- print() prints '()' in python 2 instead of expected empty line
+- fix chgrp call on openSUSE
+- Bumping package versions for 2.6.
+
 * Mon Jun 6 2016 Laurence Rochfort <laurence.rochfort@oracle.com> 2.5.43-1
 - Add timezone_utils.py to libs files for BZ 1342977
 

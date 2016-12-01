@@ -418,9 +418,9 @@ class Database(sql_base.Database):
                 err_args.extend(list(ret[2:]))
                 raise_with_tb(sql_base.SQLConnectError(*err_args), sys.exc_info()[2])
             # else, this is a reconnect attempt
-            raise sql_base.SQLConnectError(*(
+            raise_with_tb(sql_base.SQLConnectError(*(
                 [self.dbtxt, errno, errmsg,
-                 "Attempting Re-Connect to the database failed", ] + ret[2:])).with_traceback(sys.exc_info()[2])
+                 "Attempting Re-Connect to the database failed", ] + ret[2:])), sys.exc_info()[2])
         dbh_id = id(self.dbh)
         # Reset the statement cache for this database connection
         self._cursor_class._cursor_cache[dbh_id] = {}
@@ -515,7 +515,8 @@ class Database(sql_base.Database):
 
     def commit(self):
         log_debug(3, self.dbtxt)
-        return self.dbh.commit()
+        if self.dbh is not None:
+            return self.dbh.commit()
 
     def rollback(self, name=None):
         log_debug(3, self.dbtxt, name)

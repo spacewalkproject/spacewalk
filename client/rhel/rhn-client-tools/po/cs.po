@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-23 13:35+0200\n"
-"PO-Revision-Date: 2014-01-14 04:23-0500\n"
-"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"POT-Creation-Date: 2016-11-07 18:07+0100\n"
+"PO-Revision-Date: 2016-02-18 05:57-0500\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/spacewalk/language/"
 "cs/)\n"
 "Language: cs\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:94
 #, python-format
@@ -568,8 +568,7 @@ msgstr ""
 msgid "Review Subscription"
 msgstr "Popis"
 
-#: ../src/up2date_client/rhnreg_constants.py:168
-#: ../data/rh_register.glade.h:53
+#: ../src/up2date_client/rhnreg_constants.py:168 ../data/rh_register.glade.h:53
 msgid "Please review the subscription details below:"
 msgstr ""
 
@@ -2194,13 +2193,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Red Hat Satellite/Red Hat Network Classic."
 msgstr ""
-
-#~ msgid ""
-#~ "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
-#~ "yum-rhn-plugin is not enabled.\n"
-#~ msgstr ""
-#~ "Nemohu otevřít /etc/yum/pluginconf.d/rhnplugin.conf\n"
-#~ "yum-rhn-plugin není povolen.\n"
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "Uvedli jste neplatný protokol."

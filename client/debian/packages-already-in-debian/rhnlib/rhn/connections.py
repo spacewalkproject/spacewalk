@@ -150,7 +150,7 @@ class HTTPSConnection(HTTPConnection):
     def __init__(self, host, port=None, trusted_certs=None):
         HTTPConnection.__init__(self, host, port)
         trusted_certs = trusted_certs or []
-        self.trusted_certs = trusted_certs
+        self.trusted_certs = [str(ts) for ts in trusted_certs]
 
     def connect(self):
         "Connect to a host on a given (SSL) port"

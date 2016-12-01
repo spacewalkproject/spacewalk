@@ -149,23 +149,25 @@ def auth_client():
         log_debug(4, "declined client authentication for GET requests")
         return 0
 
-    token = rhnFlags.get("AUTH_SESSION_TOKEN")
+    token = dict((k.lower(),v) for k,v in rhnFlags.get("AUTH_SESSION_TOKEN").items())
     # Check to see if everything we need to compute the signature is there
-    for k in ('X-RHN-Server-Id',
-              'X-RHN-Auth',
-              'X-RHN-Auth-Server-Time',
-              'X-RHN-Auth-Expire-Offset'):
+    for k in ('x-rhn-server-id',
+              'x-rhn-auth-user-id',
+              'x-rhn-auth',
+              'x-rhn-auth-server-time',
+              'x-rhn-auth-expire-offset'):
         if k not in token:
             # No auth information; decline any action
             log_debug(4, "Declined auth of client for GET requests; "
                          "incomplete header info.")
             return 0
 
-    clientId = token['X-RHN-Server-Id']
-    username = token['X-RHN-Auth-User-Id']
-    signature = token['X-RHN-Auth']
-    rhnServerTime = token['X-RHN-Auth-Server-Time']
-    expireOffset = token['X-RHN-Auth-Expire-Offset']
+    clientId = token['x-rhn-server-id']
+    username = token['x-rhn-auth-user-id']
+    signature = token['x-rhn-auth']
+    rhnServerTime = token['x-rhn-auth-server-time']
+    expireOffset = token['x-rhn-auth-expire-offset']
+
 
     computed = computeSignature(CFG.SECRET_KEY, clientId, username,
                                 rhnServerTime, expireOffset)

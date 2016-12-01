@@ -110,7 +110,7 @@ def _initialize_dmi_data():
                 if dmi_warn:
                     dmidecode.clear_warnings()
                     log = up2dateLog.initLog()
-                    log.log_debug("dmidecode warnings: " % dmi_warn)
+                    log.log_debug("dmidecode warnings: %s" % dmi_warn)
             except:
                 # DMI decode FAIL, this can happend e.g in PV guest
                 _dmi_not_available = 1

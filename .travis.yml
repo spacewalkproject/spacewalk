@@ -3,23 +3,15 @@ git:
 branches:
   only:
   - master
+language: generic
 notifications:
   email: false
 sudo: required
-dist: trusty
+services:
+  - docker
 before_install:
-- sudo apt-get -y update
-- wget https://fedorahosted.org/released/koji/koji-1.9.0.tar.bz2 -O /tmp/koji-1.9.0.tar.bz2
-- tar -xjf /tmp/koji-1.9.0.tar.bz2 -C /tmp
-- wget https://github.com/dgoodwin/tito/archive/tito-0.4.18-1.tar.gz -O /tmp/tito.tar.gz
-install:
-- sudo apt-get -y install yum yum-utils mock pigz python-rpm python-openssl python-urlgrabber python-decoratortools python-lzma python-setuptools python-krbv
-- sudo make -C /tmp/koji-1.9.0/cli DESTDIR=/ install && export PYTHONPATH=$PYTHONPATH:/tmp/koji-1.9.0/
-- sudo pip install /tmp/tito.tar.gz
-- sudo groupadd mock
-- sudo usermod -a -G mock travis
+- docker pull spacewalkproject/docker-builder
 before_script:
-- sudo cp rel-eng/travis/mock/spacewalk.cfg /etc/mock/
 - git config user.email "travis@localhost" && git config user.name "Travis"
 - ln -s `pwd`/rel-eng/travis/koji ~/.koji
 - echo "KOJI_OPTIONS=-c ~/.koji/spacewalk-config build --nowait" > ~/.spacewalk-build-rc

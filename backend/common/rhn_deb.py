@@ -29,7 +29,7 @@ from spacewalk.common.rhn_pkg import A_Package, InvalidPackageError
 # bare-except and broad-except
 # pylint: disable=W0702,W0703
 
-DEB_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
+DEB_CHECKSUM_TYPE = 'sha256'       # FIXME: this should be a configuration option
 
 
 class deb_Header:
@@ -78,7 +78,7 @@ class deb_Header:
                     self.hdr[k] = debcontrol.get_as_string(k)
 
             version = debcontrol.get_as_string('Version')
-            version_tmpArr = version.split('-')
+            version_tmpArr = version.split('-', 1)
             if len(version_tmpArr) == 1:
                 self.hdr['version'] = version
                 self.hdr['release'] = "X"
@@ -122,6 +122,7 @@ class DEB_Package(A_Package):
 
     def read_header(self):
         self._stream_copy(self.input_stream, self.header_data)
+        self.header_end = self.header_data.tell()
         try:
             self.header_data.seek(0, 0)
             self.header = deb_Header(self.header_data)

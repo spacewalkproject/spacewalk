@@ -50,7 +50,6 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.session.SessionManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -380,10 +379,9 @@ public class BaseHandler implements XmlRpcInvocationHandler {
      *
      * @param entitlements List of string entitlement labels to be validated.
      */
-    protected void validateEntitlements(List<String> entitlements) {
+    protected void validateEntitlements(List<Entitlement> entitlements) {
 
-        for (String e : entitlements) {
-            Entitlement ent = EntitlementManager.getByName(e);
+        for (Entitlement ent : entitlements) {
             if ((ent == null) || (ent.isPermanent())) {
                 throw new InvalidEntitlementException();
             }

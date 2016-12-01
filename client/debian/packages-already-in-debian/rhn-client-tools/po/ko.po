@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
 "PO-Revision-Date: 2016-02-17 10:24-0500\n"
 "Last-Translator: Jan Dobes <jdobes@redhat.com>\n"
 "Language-Team: Korean (http://www.transifex.net/projects/p/fedora/language/"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -340,8 +340,7 @@ msgstr ""
 "시스템을 Red Hat Network에 연결하지 않고 이러한 등록 권한의 혜택을 받으실 수 "
 "없습니다.\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "설정 절차가 있는 곳으로 이동합니다."
 
@@ -411,8 +410,7 @@ msgstr " 마이너 릴리즈: "
 msgid "Limited Updates Only"
 msgstr "제한된 업데이트만  "
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "모든 사용 가능한 업데이트 "
 
@@ -2561,34 +2559,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Spacewalk/Satellite/Red Hat Network에 등록."
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "잘못된 프로토콜을 지정하셨습니다."
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr ""
-#~ "업데이트(Update) 모듈: 시스템당 업데이트, 이메일 에라타 통지, 에라타 정보"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "프로비져닝(Provisioning) 모듈: bare-metal 프로비져닝, 기존 상태 프로비져"
-#~ "닝, 롤백, 구성 관리"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "모니터링(Monitoring) 모듈: 미리 정의된 사용자 시스템 성능 검색, 시스템 성"
-#~ "능에 대한 이메일 통지, 시스템 성능에 대한 그래프"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "가상화 플랫폼 모듈: 시스템에서 제한되지 않은 숫자의 가상 게스트에 대한 소"
-#~ "프트웨어 업데이트, 게스트의 추가된 소프트웨어 채널로의 액세스."

@@ -1,0 +1,257 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "Red Hat Satellite Server" >
+<!ENTITY CDNSYNC "Red Hat Satellite Incremental Synchronization Tool for Red Hat CDN repositories ">
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>cdn-sync</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 1.0.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>cdn-sync</command></RefName>
+<RefPurpose>
+Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's CDN RPM repository.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>cdn-sync</command>
+        <arg>options <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-l</arg> <arg>--list-channels</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-r</arg> <arg>--list-repos</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-c<replaceable> CHANNEL</replaceable></arg>
+        <arg>--channel=<replaceable>CHANNEL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-m<replaceable> MOUNT_POINT</replaceable></arg>
+        <arg>--mount-point=<replaceable>MOUNT_POINT</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--consider-full</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-p</arg> <arg>--print-configuration</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-rpms</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-packages</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-errata</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-kickstarts</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--http-proxy<replaceable> HTTP_PROXY_HOSTNAME:PORT</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--http-proxy-username<replaceable> HTTP_PROXY_USERNAME</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--http-proxy-password<replaceable> HTTP_PROXY_PASSWORD</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-h</arg> <arg>--help</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--count-packages</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--clear-cache</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-v</arg> <arg>--verbose</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+<para>
+    The &CDNSYNC; (<emphasis>cdn-sync</emphasis>) synchronizes
+    a &RHNSAT; with Red Hat's CDN servers.
+</para>
+<para>
+    This tool enables a &RHNSAT; to update its database metadata and
+    RPM packages with that of Red Hat. This action can be performed via
+    the internet (ie. directly).
+</para>
+<para>
+        <simplelist>
+            <member>o channels: sync channel data</member>
+        </simplelist>
+        <simplelist>
+            <member>o rpms: sync (fetch) rpms</member>
+        </simplelist>
+        <simplelist>
+            <member>o packages: sync full package metadata for those rpms fetched successfully</member>
+        </simplelist>
+        <simplelist>
+            <member>o errata: sync errata data</member>
+        </simplelist>
+        <simplelist>
+            <member>o kickstarts: sync kickstart data</member>
+        </simplelist>
+</para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--count-packages</term>
+        <listitem>
+            <para>Count number of packages in allrepositories for every channel.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-l, --list-channels</term>
+        <listitem>
+            <para>list all available channels for import/syncing and exit. Output in format:</para>
+            <para>STATUS NAME NUMBER_PACKAGES</para>
+            <para>STATUS: 'p' = previously imported/synced channel, '.' = channel not yet imported/synced.</para>
+            <para>NUMBER_PACKAGES: '?' = No CDN source provided to count number of packages, '0' = no packages
+            in channel OR packages are not counted yet (it's necessary to run cnd-sync with --count-packages),
+            number of packages.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-r, --list-repos</term>
+        <listitem>
+            <para>List all repositories assigned on channels for debug purpose only.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-c, --channel<replaceable> CHANNEL</replaceable>
+        <listitem>
+            <para>process data for this channel only.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-m, --mount-point<replaceable> MOUNT_POINT</replaceable>
+        <listitem>
+            <para>Source mount point for import from Content ISO.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--consider-full</term>
+        <listitem>
+            <para>When this option is used, channels being synced from Content ISO mount point will be considered to be
+            full channels. Any package in channel but not in the mounted ISO will be deleted. Without this option the
+            Content ISO is interpreted as Incremental Content ISO. This option makes sense only together with --mount-point.
+            Live sync is always considered as full sync.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-p, --print-configuration</term>
+        <listitem>
+            <para>print the current configuration and exit.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--no-rpms</term>
+        <listitem>
+            <para>do not fetch actual rpms.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--no-packages</term>
+        <listitem>
+            <para>do not process full package metadata.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--no-errata</term>
+        <listitem>
+            <para>do not process errata data.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--no-kickstarts</term>
+        <listitem>
+            <para>do not process kickstart data (provisioning feature).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--http-proxy<replaceable> HTTP_PROXY_HOSTNAME:PORT</replaceable>
+        <listitem>
+             <para>alternative http proxy address and port (hostname:port)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--http-proxy-username<replaceable> HTTP_PROXY_USERNAME</replaceable>
+        <listitem>
+            <para>alternative http proxy username</para>
+        </listitem>
+    </varlistentry>
+
+    <varlistentry>
+        <term>--http-proxy-password<replaceable> HTTP_PROXY_PASSWORD</replaceable>
+        <listitem>
+            <para>alternative http proxy password</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-v, --verbose</term>
+        <listitem>
+            <para>Verbose output. Possible to accumulate: -vvv.</para>
+        </listitem>
+    </varlistentry>
+
+    <varlistentry>
+        <term>--clear-cache</term>
+        <listitem>
+            <para>Delete partially synced channels.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+
+<RefSect1><Title>Examples</Title>
+<simplelist>
+        <member><command>cdn-sync --count-packages</command></member>
+        <member><command>cdn-sync --list-repos</command></member>
+        <member><command>cdn-sync --list-channels</command></member>
+        <member><command>cdn-sync --channel rhel-i386-server-6</command></member>
+        <member><command>cdn-sync -c rhel-i386-server-6 -c rhel-i386-server-5</command></member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>See Also</Title>
+<simplelist>
+    <member>rhn-satellite-activate(8)</member>
+    <member>rhnpush(8)</member>
+    <member>spacewalk-repo-sync(8)</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Gennadii Altukhov <email>galt@redhat.com</email></member>
+    <member>Jan Dobes <email>jdobes@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>
+
+<!--
+vim: sw=4
+-->

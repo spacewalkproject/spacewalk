@@ -569,7 +569,20 @@ class OracleBackend(Backend):
               },
               pk=['id', 'label', 'name'],
               ),
-
+        Table('rhnContentSource',
+              fields={
+                  'id': DBint(),
+                  'org_id': DBint(),
+                  'label': DBstring(128),
+                  'source_url': DBstring(2048),
+                  'type_id': DBint(),
+                  'ssl_ca_cert_id': DBint(),
+                  'ssl_client_cert_id': DBint(),
+                  'ssl_client_key_id': DBint()
+              },
+              pk=['label', 'org_id', 'type_id'],
+              nullable=['org_id'],
+              ),
     )
 
     def __init__(self):
@@ -630,7 +643,7 @@ class PostgresqlBackend(OracleBackend):
             h = self.dbmodule.prepare_secondary(sql)
             for name, version in capabilityHash.keys():
                 ver = version
-                if version is None or version == '':
+                if version == '':
                     ver = None
                 h.execute(name=name, version=ver)
                 row = h.fetchone_dict()

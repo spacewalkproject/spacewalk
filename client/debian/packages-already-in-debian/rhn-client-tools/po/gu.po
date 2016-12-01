@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
 "PO-Revision-Date: 2016-02-17 10:03-0500\n"
 "Last-Translator: Jan Dobes <jdobes@redhat.com>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -337,8 +337,7 @@ msgstr ""
 "તમે તમારી સિસ્ટમને Red Hat Network સાથે જોડ્યા વિના આ ઉમેદવારીઓના વિશેષાધિકારોના "
 "લાભો ઉઠાવવા માટે સમર્થ થશો નહિં.\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "મને સુયોજન પ્રક્રિયા પર પાછા લઈ જાવ."
 
@@ -408,8 +407,7 @@ msgstr "ગૌણ પ્રકાશન:"
 msgid "Limited Updates Only"
 msgstr "ફક્ત મર્યાદિત સુધારાઓ"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "બધા ઉપલબ્ધ સુધારાઓ"
 
@@ -2544,32 +2542,3 @@ msgstr "સ્પેસવૉક/સેટેલાઇટ/Red Hat નેટવ�
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "સ્પેસવૉક/સેટેલાઇટ/Red Hat નેટવર્કમાં રજીસ્ટર કરો."
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "તમે અયોગ્ય પ્રોટોકોલ સ્પષ્ટ કરેલ છે."
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr "સુધારા મોડ્યુલ: પૂર્વ-સિસ્ટમ સુધારાઓ, ઈમેઈલ ત્રુટિસૂચી સૂચનો, ત્રુટિસૂચી જાણકારી"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "બચાવ મોડ્યુલ: ન્યૂનતમ-ધાતુ બચાવ, હાલની પરિસ્થિતિ બચાવ, રોલબેકો, રૂપરેખાંકન વ્યવસ્થાપન"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "મોનીટરીંગ મોડ્યુલ: પૂર્વ-વ્યાખ્યાયિત અને વૈવિધ્યપૂર્ણ સિસ્ટમ પ્રભાવ ચકાસણીઓ, સિસ્ટમ "
-#~ "પ્રભાવ ઈમેઈલ સૂચનો, સિસ્ટમ પ્રભાવના આલેખો"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ મોડ્યુલ: આ સિસ્ટમ માટે અમર્યાદિત સંખ્યાના વર્ચ્યુઅલ મહેમાનો માટે "
-#~ "સોફ્ટવેર સુધારાઓ, આ સિસ્ટમના મહેમાનો માટે વધારાની સોફ્ટવેર ચેનલોનો વપરાશ."

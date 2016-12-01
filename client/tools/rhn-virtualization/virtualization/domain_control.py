@@ -21,6 +21,9 @@ except:
     # be on every system.
     libvirt = None
 
+from spacewalk.common.usix import raise_with_tb
+
+
 ###############################################################################
 # Public Interface
 ###############################################################################
@@ -115,9 +118,10 @@ def _get_domain(uuid):
     hyphenized_uuid = hyphenize_uuid(uuid)
     try:
         domain = conn.lookupByUUIDString(hyphenized_uuid)
-    except libvirt.libvirtError, lve:
-        raise VirtualizationException, \
-              "Domain UUID '%s' not found: %s" (hyphenized_uuid, str(lve)), sys.exc_info()[2]
+    except libvirt.libvirtError:
+        lve = sys.exc_info()[1]
+        raise_with_tb(VirtualizationException("Domain UUID '%s' not found: %s" % (hyphenized_uuid, str(lve))),
+                      sys.exc_info()[2])
     return (conn, domain)
 
 def _call_domain_control_routine(uuid, routine_name, *args):
@@ -136,23 +140,24 @@ def _call_domain_control_routine(uuid, routine_name, *args):
     try:
         ctrl_func = getattr(domain, routine_name)
     except AttributeError:
-        raise VirtualizationException, "Unknown function: %s" % routine_name, sys.exc_info()[2]
+        raise_with_tb(VirtualizationException("Unknown function: %s" % routine_name), sys.exc_info()[2])
 
     result = 0
     try:
-        result = apply(ctrl_func, args)
-    except TypeError, te:
-        raise VirtualizationException, \
-              "Invalid arguments (%s) to %s: %s" % \
-                  (str(args), routine_name, str(te)), sys.exc_info()[2]
-    except libvirt.libvirtError, le:
-        raise VirtualizationException, \
-              "LibVirt Error %s: %s" % \
-                  (routine_name, str(le)), sys.exc_info()[2]
+        if sys.version_info[0] == 3:
+            result = ctrl_func(*args)
+        else:
+            result = apply(ctrl_func, args)
+    except TypeError:
+        te = sys.exc_info()[1]
+        raise_with_tb(VirtualizationException("Invalid arguments (%s) to %s: %s" % (str(args), routine_name, str(te))),
+                      sys.exc_info()[2])
+    except libvirt.libvirtError:
+        le = sys.exc_info()[1]
+        raise_with_tb(VirtualizationException("LibVirt Error %s: %s" % (routine_name, str(le))), sys.exc_info()[2])
 
     # Handle the return code.  Anything non-zero is an error.
     if result != 0:
-        raise VirtualizationException, \
-              "Could not perform function '%s' on domain %s.  Error: %s" % \
-                  (routine_name, uuid, str(result)), sys.exc_info()[2]
+        raise_with_tb(VirtualizationException("Could not perform function '%s' on domain %s.  Error: %s" %
+                      (routine_name, uuid, str(result))), sys.exc_info()[2])
 

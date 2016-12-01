@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
 "PO-Revision-Date: 2016-02-20 09:08-0500\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -345,8 +345,7 @@ msgstr ""
 "Ви не зможете скористатися цими перевагами передплати без з’єднання вашої "
 "системи з Red Hat Network.\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "Повернутися до процесу налаштовування."
 
@@ -416,8 +415,7 @@ msgstr " Мінорний випуск: "
 msgid "Limited Updates Only"
 msgstr "Лише обмежені оновлення"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "Всі доступі оновлення"
 
@@ -2667,37 +2665,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Реєстрація у Spacewalk/Satellite/Red Hat Network."
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "Вказаний неправильний протокол."
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr ""
-#~ "Модуль оновлення: оновлення ПЗ для окремих систем, виправлення сповіщення "
-#~ "ел.пошти, інформація про виправлення"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "Модуль забезпечення: забезпечення на рівні обладнання, забезпечення "
-#~ "існуючого стану, відткати, керування конфігурацією"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "Модуль моніторингу: перевизначення та індивідуальні зонди для перевірки "
-#~ "швидкодії системи, ел. сповіщення про швидкодію системи, діаграми "
-#~ "швидкодії"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "Модуль платформи віртуалізації: оновлення ПЗ для необмеженого числа "
-#~ "віртуальних гостей вказаної системи, доступ до додаткових каналів ПЗ для "
-#~ "гостей."

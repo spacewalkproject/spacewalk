@@ -32,6 +32,7 @@
 
 from operator import itemgetter
 import xmlrpclib
+from optparse import Option
 
 from spacecmd.utils import *
 
@@ -69,7 +70,12 @@ def do_errata_summary(self, args):
 
 def help_errata_apply(self):
     print 'errata_apply: Apply an erratum to all affected systems'
-    print 'usage: errata_apply ERRATA|search:XXX ...'
+    print '''usage: errata_apply [options] ERRATA|search:XXX ...
+
+options:
+  -s START_TIME'''
+    print
+    print self.HELP_TIME_OPTS
 
 
 def complete_errata_apply(self, text, line, beg, end):
@@ -77,47 +83,65 @@ def complete_errata_apply(self, text, line, beg, end):
 
 
 def do_errata_apply(self, args, only_systems=None):
-    (args, _options) = parse_arguments(args)
+    options = [Option('-s', '--start-time', action='store')]
+    (args, options) = parse_arguments(args, options)
     only_systems = only_systems or []
 
     if not len(args):
         self.help_errata_apply()
         return
 
+    # get the start time option
+    # skip the prompt if we are running with --yes
+    # use "now" if no start time was given
+    if is_interactive(options) and self.options.yes != True:
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+    else:
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
+
     # allow globbing and searching via arguments
     errata_list = self.expand_errata(args)
 
     systems = []
     summary = []
+    to_apply_by_name = {}
     for erratum in errata_list:
-        count = 0
-
         try:
             # get the systems affected by each errata
             affected_systems = \
                 self.client.errata.listAffectedSystems(self.session, erratum)
 
-            # build a list of systems that we will schedule errata for
+            # build a list of systems that we will schedule errata for,
+            # indexed by errata name
             for system in affected_systems:
-                # prevent duplicates in the system list
-                if system.get('name') not in systems:
-
-                    # filter if we were passed a list of systems
-                    if not len(only_systems) or \
-                       system.get('name') in only_systems:
-
-                        systems.append(system.get('name'))
-                        count += 1
+                # add this system to the list of systems affected by
+                # this erratum if we were not passed a list of systems
+                # (and therefore all systems are to be touched) or we were
+                # passed a list of systems and this one is part of that list
+                if not len(only_systems) or system.get('name') in only_systems:
+                    if erratum not in to_apply_by_name:
+                        to_apply_by_name[erratum] = []
+                    if system.get('name') not in to_apply_by_name[erratum]:
+                        to_apply_by_name[erratum].append(system.get('name'))
         except xmlrpclib.Fault:
             logging.debug('%s does not affect any systems' % erratum)
             continue
 
         # make a summary list to show the user
-        if count > 0:
+        if erratum in to_apply_by_name:
             summary.append('%s        %s' % (erratum.ljust(15),
-                                             str(count).rjust(3)))
+                                             str(len(to_apply_by_name[erratum])).rjust(3)))
         else:
             logging.debug('%s does not affect any systems' % erratum)
+
+    # get a unique list of all systems we need to touch
+    for systemlist in to_apply_by_name.values():
+        systems += systemlist
+    systems = list(set(systems))
 
     if not len(systems):
         logging.warning('No errata to apply')
@@ -127,6 +151,8 @@ def do_errata_apply(self, args, only_systems=None):
     print 'Errata             Systems'
     print '--------------     -------'
     print '\n'.join(sorted(summary))
+    print
+    print 'Start Time: %s' % options.start_time
 
     if not self.user_confirm('Apply these errata [y/N]:'):
         return
@@ -157,7 +183,8 @@ def do_errata_apply(self, args, only_systems=None):
         for erratum in to_apply:
             self.client.system.scheduleApplyErrata(self.session,
                                                    to_apply[erratum],
-                                                   [erratum])
+                                                   [erratum],
+                                                   options.start_time)
 
             logging.info('Scheduled %i system(s) for %s' %
                          (len(to_apply[erratum]),
@@ -186,7 +213,8 @@ def do_errata_apply(self, args, only_systems=None):
             # this results in one action per erratum for each server
             self.client.system.scheduleApplyErrata(self.session,
                                                    system_id,
-                                                   errata_to_apply)
+                                                   errata_to_apply,
+                                                   options.start_time)
 
             logging.info('Scheduled %i errata for %s' %
                          (len(errata_to_apply), system))

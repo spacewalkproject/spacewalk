@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 59%{?dist}
+Release: 62%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -33,6 +33,7 @@ Patch19: buildiso-boot-options.patch
 Patch20: buildiso-no-local-hdd.patch
 Patch21: cobbler-s390-kernel-options.patch
 Patch22: cobbler-ipv6.patch
+#Patch23: kickstart-autoinstall-rename.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -51,7 +52,7 @@ Requires: tftp-server
 
 Requires: mod_wsgi
 # syslinux is only available on x86
-%ifarch %{ix86} x86_64
+%if "%{_arch}" == "i386" || "%{_arch}" == "i686" || "%{_arch}" == "x86_64"
 Requires: syslinux
 %endif
 
@@ -143,6 +144,7 @@ a XMLRPC API for integration with other applications.
 %patch20 -p1
 %patch21 -p1
 %patch22 -p1
+#%patch23 -p1
 
 %build
 %{__python} setup.py build 
@@ -492,6 +494,15 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Wed Oct 12 2016 Gennadii Altukhov <galt@redhat.com> 2.0.11-62
+- fix architectures to build cobbler20 on.
+
+* Tue Oct 11 2016 Gennadii Altukhov <galt@redhat.com> 2.0.11-61
+- disable patch kickstart-autoinstall-rename.patch for cobbler20
+
+* Mon Sep 26 2016 Jan Dobes 2.0.11-60
+- fixing kickstarting with upstream koan
+
 * Tue May 24 2016 Jiri Precechtel <jprecech@redhat.com> 2.0.11-59
 - Revert "1302323 - fix usage of not initiated variable in snippet
   post_install_network_config"

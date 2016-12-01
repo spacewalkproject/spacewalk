@@ -18,7 +18,6 @@ import os
 import sys
 import fnmatch
 import getpass
-from rhnpush import rhnpush_cache
 
 # imports
 # pylint: disable=F0401,E0611
@@ -48,6 +47,8 @@ except ImportError:
     # pylint: disable=F0401
     import cgiwrap
     Output = cgiwrap.Output
+
+from rhnpush import rhnpush_cache
 
 # Buffer size we use for copying
 BUFFER_SIZE = 65536
@@ -452,8 +453,8 @@ class UploadClass:
             alreadyUploaded, newPackages = ret
             pkglists = (alreadyUploaded, newPackages)
 
-            for idx in range(len(pkglists)):
-                for p in pkglists[idx]:
+            for idx, item in enumerate(pkglists):
+                for p in item:
                     key = tuple(p[:5])
                     if key not in uploadedPackages:
                         # XXX Hmm
@@ -753,7 +754,7 @@ def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):
 # pylint: disable=E1123
 def hasChannelChecksumCapability(rpc_server):
     """ check whether server supports getPackageChecksumBySession function"""
-    if 'rpcServerOverride' in inspect.getargspec(rhnserver.RhnServer.__init__).args:
+    if 'rpcServerOverride' in inspect.getargspec(rhnserver.RhnServer.__init__)[0]:
         server = rhnserver.RhnServer(rpcServerOverride=rpc_server)
     else:
         server = rhnserver.RhnServer()
@@ -767,7 +768,7 @@ def exists_getPackageChecksumBySession(rpc_server):
     # unfortunatelly we do not have capability for getPackageChecksumBySession function,
     # but extended_profile in version 2 has been created just 2 months before
     # getPackageChecksumBySession lets use it instead
-    if 'rpcServerOverride' in inspect.getargspec(rhnserver.RhnServer.__init__).args:
+    if 'rpcServerOverride' in inspect.getargspec(rhnserver.RhnServer.__init__)[0]:
         server = rhnserver.RhnServer(rpcServerOverride=rpc_server)
     else:
         server = rhnserver.RhnServer()

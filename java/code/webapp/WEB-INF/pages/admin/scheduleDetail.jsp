@@ -113,7 +113,7 @@
                                 <c:otherwise>
                                     <c:if test="${active}">
                                         <html:submit property="edit_button" styleClass="btn btn-success">
-                                            <bean:message key="schedule.edit.jsp.editschedule"/>
+                                            <bean:message key="schedule.edit.jsp.updateschedule"/>
                                         </html:submit>
                                     </c:if>
                                 </c:otherwise>

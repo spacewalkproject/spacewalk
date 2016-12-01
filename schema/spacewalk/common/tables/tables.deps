@@ -54,7 +54,6 @@ rhnChannelPackageArchCompat    :: rhnPackageArch rhnChannelArch
 rhnChannelPermission           :: rhnChannelPermissionRole rhnChannel web_contact
 rhnChannelTrust                :: rhnChannel
 rhnChannelContentSource        :: rhnChannel rhnContentSourceType rhnContentSource
-rhnContentSourceSsl            :: rhnContentSource rhnCryptoKey
 rhnChecksum                    :: rhnChecksumType
 rhnClientCapability            :: rhnClientCapabilityName
 rhnConfigContent               :: rhnChecksum
@@ -62,6 +61,7 @@ rhnConfigFile                  :: rhnConfigChannel rhnConfigFileState rhnConfigF
 rhnConfigFile_foreignkeys      :: rhnConfigRevision
 rhnConfigChannel               :: web_customer rhnConfigChannelType
 rhnConfigRevision              :: rhnConfigFile rhnConfigInfo rhnConfigContent rhnConfigFileType
+rhnContentSource               :: rhnCryptoKey
 rhnCpu                         :: rhnServer rhnCpuArch
 rhnCryptoKey                   :: rhnCryptoKeyType
 rhnCryptoKeyKickstart          :: rhnCryptoKey rhnKSData

@@ -39,6 +39,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -236,26 +237,31 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
 
             String lastLine = lines[lines.length - 1];
             // Downloading packages
-            if (lastLine.matches("\\d+/\\d+ : .+")) {
-                String[] progress = lastLine.split(" : ")[0].split("/");
+            if (lastLine.matches(".*\\d+/\\d+ : .+")) {
+                // Example:
+                // 2016/09/07 14:41:14 +02:00 22/22 : spacewalk-oscap-2.5.3-1.fc24.noarch
+                String[] lineParts = lastLine.split(" ");
+                // Remove timestamp part - 3 words
+                lineParts = Arrays.copyOfRange(lineParts, 3, lineParts.length);
+                String[] progress = lineParts[0].split("/");
                 int done = Integer.parseInt(progress[0]);
                 int total = Integer.parseInt(progress[1]);
                 int percentage = done * 100 / total;
                 syncingRepo.put("progress", String.valueOf(percentage));
-                syncingRepo.put("title", lastLine);
+                syncingRepo.put("title", StringUtils.join(lineParts, " "));
                 // Mark as failed if reposync stopped running
                 syncingRepo.put("failed", !inProgress);
             }
             else {
                 for (String line : lines) {
                     // Packages are downloaded
-                    if (line.equals("No new packages to sync.") ||
-                            (line.equals("Linking packages to channel."))) {
+                    if (line.contains("No new packages to sync.") ||
+                            (line.contains("Linking packages to channel."))) {
                         syncingRepo.put("progress", "100");
                         // Mark as finished when all repos are synced
                         syncingRepo.put("finished", !inProgress);
                     }
-                    else if (line.startsWith("ERROR: ")) {
+                    else if (line.contains("ERROR: ")) {
                         syncingRepo.put("failed", true);
                         syncingRepo.put("title", line);
                         break;

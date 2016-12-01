@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 05d32e7bd5b1435cf265672168a525b89bf1b1bc
+-- oracle equivalent source sha1 0b7a847bd0511b75a6dd90aa555e1bd572d3e0d1
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -45,7 +45,12 @@ declare
                                 ('local_override','server_import')
                         and cct.id = cc.confchan_type_id;
 
+    update_lock numeric;
 begin
+    -- lock the rhnServer row to prevent deadlocks
+    -- we want rhnServer to be locked first, followed by tables that depend on it
+    select id into update_lock from rhnServer where id = server_id_in for update;
+
         -- filelists
         delete from rhnFileList where id in (
 	select	spfl.file_list_id

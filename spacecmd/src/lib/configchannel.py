@@ -32,9 +32,9 @@
 
 from optparse import Option
 from datetime import datetime
-from spacecmd.utils import *
 import base64
 import xmlrpclib
+from spacecmd.utils import *
 
 
 def help_configchannel_list(self):
@@ -503,10 +503,7 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
         # if this is a new file, ask if it's a symlink
         if not options.symlink:
             userinput = prompt_user('Symlink [y/N]:')
-            if re.match('y', userinput, re.I):
-                options.symlink = True
-            else:
-                options.symlink = False
+            options.symlink = re.match('y', userinput, re.I)
 
         if options.symlink:
             target_input = prompt_user('Target Path:', noblank=True)
@@ -519,10 +516,7 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
                 options.selinux_ctx = selinux_input
         else:
             userinput = prompt_user('Directory [y/N]:')
-            if re.match('y', userinput, re.I):
-                options.directory = True
-            else:
-                options.directory = False
+            options.directory = re.match('y', userinput, re.I)
 
             if not options.mode:
                 if options.directory:
@@ -562,10 +556,9 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
 
                     contents = read_file(options.file)
 
-                    if options.binary is None:
-                        options.binary = self.file_is_binary(options.file)
-                        if options.binary:
-                            logging.debug("Binary detected")
+                    if options.binary is None and self.file_is_binary(options.file):
+                        options.binary = True
+                        logging.debug("Binary detected")
                     elif options.binary:
                         logging.debug("Binary selected")
                 else:
@@ -822,8 +815,8 @@ def do_configchannel_updatefile(self, args):
 
 
 def help_configchannel_removefiles(self):
-    print 'configchannel_removefile: Remove configuration files'
-    print 'usage: configchannel_removefile CHANNEL <FILE ...>'
+    print 'configchannel_removefiles: Remove configuration files'
+    print 'usage: configchannel_removefiles CHANNEL <FILE ...>'
 
 
 def complete_configchannel_removefiles(self, text, line, beg, end):
@@ -1122,7 +1115,7 @@ def import_configchannel_fromdetails(self, ccdetails):
             else:
                 if filedetails['type'] == 'directory':
                     isdir = True
-                    if 'contents' in filedetails:
+                    if filedetails.has_key('contents'):
                         del filedetails['contents']
                 else:
                     isdir = False

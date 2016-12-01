@@ -16,18 +16,17 @@
 
 import sys
 import os.path
+from os import makedirs
 from shutil import rmtree
-from os import mkdir
+import errno
 
 import yum
-from spacewalk.common import fileutils
 from yum.Errors import RepoMDError
 from yum.config import ConfigParser
 from yum.packageSack import ListPackageSack
 from yum.update_md import UpdateMetadata, UpdateNoticeException, UpdateNotice
 from yum.yumRepo import YumRepository
-from urlgrabber.grabber import URLGrabError
-
+from yum.yumRepo import Errors as YumErrors
 try:
     from yum.misc import cElementTree_iterparse as iterparse
 except ImportError:
@@ -37,12 +36,14 @@ except ImportError:
         # pylint: disable=F0401
         import cElementTree
     iterparse = cElementTree.iterparse
+from urlgrabber.grabber import URLGrabError
+
+from spacewalk.common import fileutils
 from spacewalk.satellite_tools.repo_plugins import ContentPackage
 from spacewalk.common.rhnConfig import CFG, initCFG
 
 CACHE_DIR = '/var/cache/rhn/reposync/'
 YUMSRC_CONF = '/etc/rhn/spacewalk-repo-sync/yum.conf'
-
 
 class YumWarnings:
 
@@ -101,7 +102,7 @@ class YumUpdateMetadata(UpdateMetadata):
 
 class ContentSource(object):
 
-    def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF):
+    def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF, org="1", channel_label=""):
         self.url = url
         self.name = name
         self.yumbase = yum.YumBase()
@@ -109,7 +110,10 @@ class ContentSource(object):
         if not os.path.exists(yumsrc_conf):
             self.yumbase.preconf.fn = '/dev/null'
         self.configparser = ConfigParser()
-        self._clean_cache(CACHE_DIR + name)
+        if org:
+            self.org = org
+        else:
+            self.org = "NULL"
 
         # read the proxy configuration in /etc/rhn/rhn.conf
         initCFG('server.satellite')
@@ -117,9 +121,20 @@ class ContentSource(object):
         self.proxy_user = CFG.http_proxy_username
         self.proxy_pass = CFG.http_proxy_password
         self._authenticate(url)
-        if name in self.yumbase.repos.repos:
-            repo = self.yumbase.repos.repos[name]
+        # Check for settings in yum configuration files (for custom repos/channels only)
+        if org:
+            repos = self.yumbase.repos.repos
         else:
+            repos = None
+        if repos and name in repos:
+            repo = repos[name]
+        elif repos and channel_label in repos:
+            repo = repos[channel_label]
+            # In case we are using Repo object based on channel config, override it's id to name of the repo
+            # To not create channel directories in cache directory
+            repo.id = name
+        else:
+            # Not using values from config files
             repo = yum.yumRepo.YumRepository(name)
             repo.populate(self.configparser, name, self.yumbase.conf)
         self.repo = repo
@@ -129,26 +144,36 @@ class ContentSource(object):
         self.num_packages = 0
         self.num_excluded = 0
 
+        # if self.url is metalink it will be expanded into
+        # real urls in self.repo.urls and also save this metalink
+        # in begin of the url list ("for repolist -v ... or anything else wants to know the baseurl")
+        # Remove it from the list, we don't need it to download content of repo
+        real_urls = []
+        for url in self.repo.urls:
+            if '?' not in url:
+                real_urls.append(url)
+        self.repo.urls = real_urls
+
     def _authenticate(self, url):
         pass
 
     def setup_repo(self, repo):
         """Fetch repository metadata"""
         repo.cache = 0
-        repo.metadata_expire = 0
         repo.mirrorlist = self.url
         repo.baseurl = [self.url]
-        repo.basecachedir = CACHE_DIR
+        repo.basecachedir = os.path.join(CACHE_DIR, self.org)
         # base_persistdir have to be set before pkgdir
         if hasattr(repo, 'base_persistdir'):
-            repo.base_persistdir = CACHE_DIR
-        if (self.url.find("file://") < 0):
-            pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1', 'stage')
-            if not os.path.isdir(pkgdir):
-                fileutils.makedirs(pkgdir, user='apache', group='apache')
-        else:
-            pkgdir = self.url[7:]
+            repo.base_persistdir = repo.basecachedir
+
+        pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, self.org, 'stage')
+        if not os.path.isdir(pkgdir):
+            fileutils.makedirs(pkgdir, user='apache', group='apache')
         repo.pkgdir = pkgdir
+
+        if "file://" in self.url:
+            repo.copy_local = 1
 
         yb_cfg = self.yumbase.conf.cfg
         if not ((yb_cfg.has_section(self.name) and yb_cfg.has_option(self.name, 'proxy')) or
@@ -168,6 +193,24 @@ class ContentSource(object):
         warnings.restore()
         repo.setup(False)
         self.sack = self.repo.getPackageSack()
+
+    def number_of_packages(self):
+        for dummy_index in range(3):
+            try:
+                self.sack.populate(self.repo, 'metadata', None, 0)
+                break
+            except YumErrors.RepoError:
+                pass
+        return len(self.sack.returnPackages())
+
+    def raw_list_packages(self):
+        for dummy_index in range(3):
+            try:
+                self.sack.populate(self.repo, 'metadata', None, 0)
+                break
+            except YumErrors.RepoError:
+                pass
+        return self.sack.returnPackages()
 
     def list_packages(self, filters, latest):
         """ list packages"""
@@ -269,18 +312,29 @@ class ContentSource(object):
                 packages.extend(dep_packages)
         return yum.misc.unique(packages)
 
-    def get_package(self, package):
+    def get_package(self, package, metadata_only=False):
         """ get package """
-        check = (self.verify_pkg, (package.unique_id, 1), {})
-        return self.repo.getPackage(package.unique_id, checkfunc=check)
+        pack = package.unique_id
+        check = (self.verify_pkg, (pack, 1), {})
+        if metadata_only:
+            # Include also data before header section
+            pack.hdrstart = 0
+            data = self.repo.getHeader(pack, checkfunc=check)
+        else:
+            data = self.repo.getPackage(pack, checkfunc=check)
+        return data
 
     @staticmethod
     def verify_pkg(_fo, pkg, _fail):
         return pkg.verifyLocalPkg()
 
-    @staticmethod
-    def _clean_cache(directory):
+    def clear_cache(self, directory=None):
+        if directory is None:
+            directory = os.path.join(CACHE_DIR, self.org, self.name)
         rmtree(directory, True)
+        # restore empty directory
+        makedirs(directory + "/packages", int('0755', 8))
+        makedirs(directory + "/gen", int('0755', 8))
 
     def get_updates(self):
         if 'updateinfo' not in self.repo.repoXML.repoData:
@@ -299,7 +353,15 @@ class ContentSource(object):
     def set_ssl_options(self, ca_cert, client_cert, client_key):
         repo = self.repo
         ssldir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
-        mkdir(ssldir, int('0750', 8))
+        try:
+            makedirs(ssldir, int('0750', 8))
+        except OSError:
+            exc = sys.exc_info()[1]
+            if exc.errno == errno.EEXIST and os.path.isdir(ssldir):
+                pass
+            else:
+                raise
+
         repo.sslcacert = os.path.join(ssldir, 'ca.pem')
         f = open(repo.sslcacert, "w")
         f.write(str(ca_cert))
@@ -318,25 +380,27 @@ class ContentSource(object):
     def clear_ssl_cache(self):
         repo = self.repo
         ssldir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
-        try:
-            self._clean_cache(ssldir)
-        except (OSError, IOError):
-            pass
+        rmtree(ssldir, True)
 
     def get_file(self, path, local_base=None):
         try:
-            if local_base is not None:
-                target_file = os.path.join(local_base, path)
-                target_dir = os.path.dirname(target_file)
-                if not os.path.exists(target_dir):
-                    os.makedirs(target_dir, int('0755', 8))
-                temp_file = target_file + '..download'
-                if os.path.exists(temp_file):
-                    os.unlink(temp_file)
-                downloaded = self.repo.grab.urlgrab(path, temp_file)
-                os.rename(downloaded, target_file)
-                return target_file
-            else:
-                return self.repo.grab.urlread(path)
-        except URLGrabError:
-            return
+            try:
+                temp_file = ""
+                if local_base is not None:
+                    target_file = os.path.join(local_base, path)
+                    target_dir = os.path.dirname(target_file)
+                    if not os.path.exists(target_dir):
+                        os.makedirs(target_dir, int('0755', 8))
+                    temp_file = target_file + '..download'
+                    if os.path.exists(temp_file):
+                        os.unlink(temp_file)
+                    downloaded = self.repo.grab.urlgrab(path, temp_file)
+                    os.rename(downloaded, target_file)
+                    return target_file
+                else:
+                    return self.repo.grab.urlread(path)
+            except URLGrabError:
+                return
+        finally:
+            if os.path.exists(temp_file):
+                os.unlink(temp_file)

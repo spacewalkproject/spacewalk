@@ -1,0 +1,121 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "Red Hat Satellite Server" >
+<!ENTITY RHNSATACT "rhn-satellite-activate" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>&RHNSATACT;</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 3.4.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>&RHNSATACT;</command></RefName>
+<RefPurpose>
+    activates (using an RHSM Manifest) a &RHNSAT;.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>&RHNSATACT; [ options <replaceable>...</replaceable> ] [ --manifest <replaceable>PATH</replaceable> ] \
+  [ --sanity-only ] [ --disconnected ] [ --cdn-deactivate ] [ -h|--help ]</command>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+
+<para>
+    <emphasis>&RHNSATACT;</emphasis> activates (using an or RHSM Manifest) a &RHNSAT;.
+    The RHSM Manifest is (a) checked for sanity, (b) extracted data are inserted
+    into the local database. If disconnected option is specified, this Satellite
+    will not subscribe to Satellite repository and will not receive updates.
+    Activation allows &RHNSAT; to sync channel content from CDN repositories.
+</para>
+
+<para>
+    NOTE: activation generally occurs upon Red Hat Satellite installation.
+</para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>--manifest <replaceable>PATH</replaceable></term>
+        <listitem>
+            <para>new RHSM manifest path/filename.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--sanity-only</term>
+        <listitem>
+            <para>confirm manifest sanity. Does not activate the Red Hat Satellite locally or remotely.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--disconnected</term>
+        <listitem>
+            <para>activate locally, but not subscribe to Satellite repository.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ignore-expiration</term>
+        <listitem>
+            <para>execute regardless of the expiration of the RHN Certificate (not recommended).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ignore-version-mismatch</term>
+        <listitem>
+            <para>execute regardless of version mismatch of existing and new certificate.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--cdn-deactivate</term>
+        <listitem>
+            <para>Deactivate CDN-activated Satellite.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-v | --verbose</term>
+        <listitem>
+            <para>be verbose (accumulable: -vvv means "be *really* verbose").</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-h | --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Files</Title>
+<simplelist>
+    <member>/usr/bin/rhn-satellite-activate</member>
+    <member>/etc/rhn/rhn.conf</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>See Also</Title>
+<simplelist>
+    <member>db-control(1) - embedded database environment only!</member>
+    <member>rhn-charsets(8)</member>
+    <member>rhnpush(8)</member>
+    <member>rhn-schema-version(8)</member>
+    <member>rhn-ssl-dbstore(8)</member>
+    <member>cdn-sync(8)</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Todd Warner <email>taw@redhat.com</email></member>
+    <member>Jan Dobes <email>jdobes@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>

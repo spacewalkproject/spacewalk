@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
-"PO-Revision-Date: 2012-02-14 08:00-0500\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
+"PO-Revision-Date: 2016-02-17 11:03-0500\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Oriya (http://www.transifex.net/projects/p/fedora/language/"
 "or/)\n"
 "Language: or\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -337,8 +337,7 @@ msgstr ""
 "ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ Red Hat Network ସହିତ ସଂଯୋଗ ନ କଲେ ଆପଣ ସଦସ୍ଯତା ବିଶେଷାଧୀକାର ର ସୁବିଧା "
 "ପାଇପାରିବେ ନାହିଁ।\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "ମୋତେ ପୁନର୍ବାର ବ୍ଯବସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ନେଇଯାଆନ୍ତୁ।"
 
@@ -408,8 +407,7 @@ msgstr " ଗୌଣ ପ୍ରକାଶନ:"
 msgid "Limited Updates Only"
 msgstr "କେବଳ ସିମୀତ ଅଦ୍ୟତନ"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "ସମସ୍ତ ଉପଲବ୍ଧ ଅଦ୍ୟତନଗୁଡ଼ିକ"
 
@@ -2550,33 +2548,3 @@ msgstr "Spacewalk/Satellite/Red Hat ନେଟୱର୍କରୁ ସଫ୍ଟୱ�
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Spacewalk/Satellite/Red Hat ନେଟୱର୍କକୁ ପଞ୍ଜିକରଣ କରନ୍ତୁ।"
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "ଆପଣ ଗୋଟିଏ ଅବୈଧ ପ୍ରୋଟୋକଲ ନିର୍ଦ୍ଦିଷ୍ଟ କରିଛନ୍ତି।"
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr "ଅଦ୍ଯତନ ଏକକାଂଶ: ତନ୍ତ୍ର-ପ୍ରତି ଅଦ୍ଯତନ ଗୁଡିକ, ଇ-ଡାକ ଇରେଟା ସୂଚନା, ଇରେଟା ସୂଚନା"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "ପ୍ରବନ୍ଧ ଏକକାଂଶ: ଖାଲି-ଧାତୁ ପ୍ରବନ୍ଧ, ଅବସ୍ଥିତ ଅବସ୍ଥା ପ୍ରବନ୍ଧ, ରୋଲ-ବ୍ଯାକ, ବିନ୍ଯାସ ପରିଚାଳନା"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "ପ୍ରଦର୍ଶିକା ଏକକାଂଶ: ପୂର୍ବରୁ ପରିଭାଷିତ ଏବଂ ଇଚ୍ଛାରୂପଣ ତନ୍ତ୍ର ପ୍ରଦର୍ଶନ ସନ୍ଧାନ, ତନ୍ତ୍ର ପ୍ରଦର୍ଶନ ଇ-"
-#~ "ଡାକ ସୂଚନା, ତନ୍ତ୍ର ପ୍ରଦର୍ଶନର ଗ୍ରାଫ"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "ଆଭାସୀକରଣ ପ୍ଲାଟଫର୍ମ ଏକକାଂଶ: ଏହି ତନ୍ତ୍ରରେ ଅସୀମିତ ସଂଖ୍ଯକ ଆଭାସୀ ଅତିଥି ମାନଙ୍କ ପାଇଁ ସଫ୍ଟୱେର "
-#~ "ଅଦ୍ଯତନ ଉପଲବ୍ଧ, ଏହି ତନ୍ତ୍ରର ଅତିଥି ମାନଙ୍କ ପାଇଁ ଅତିରିକ୍ତ ସଫ୍ଚୱେର ଉପପଥ ମାନଙ୍କୁ ଅଭିଗମ କରିବା "
-#~ "ସମ୍ଭବ।"

@@ -1557,13 +1557,15 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>गली पता</target>
       </trans-unit>
       <trans-unit id="address2">
-        <source>Street Address</source>
+        <source>Street Address 2</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>गली पता</target>
       </trans-unit>
@@ -1572,6 +1574,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>शहर</target>
       </trans-unit>
@@ -1580,6 +1583,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>राज्य/प्रांत</target>
       </trans-unit>
@@ -1588,6 +1592,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>देश</target>
       </trans-unit>
@@ -1595,6 +1600,7 @@
         <source>Building</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>बिल्डिंग</target>
       </trans-unit>
@@ -1602,6 +1608,7 @@
         <source>Room</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>कमरा</target>
       </trans-unit>
@@ -1609,6 +1616,7 @@
         <source>Rack</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
         <target>रैक</target>
       </trans-unit>
@@ -2344,61 +2352,12 @@ available for this kickstart profile to function properly.
         </context-group>
         <target>mtime से सर्वर में आधारित विन्यास फाइल आंकड़ा अद्यतन करें</target>
       </trans-unit>
-      <trans-unit id="solarispkgs.install">
-        <source>Solaris Package Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris संकुल अधिष्ठापन</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.remove">
-        <source>Solaris Package Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris संकुल हटाया जाना</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchInstall">
-        <source>Solaris Patch Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris पैच अधिष्ठापन</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchRemove">
-        <source>Solaris Patch Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris पैच विस्थापन</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchClusterInstall">
-        <source>Solaris Patch Cluster Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris पैच क्लस्टर अधिष्ठापन</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.patchClusterRemove">
-        <source>Solaris Patch Cluster Removal</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris पैच क्लस्टर विस्थापन</target>
-      </trans-unit>
       <trans-unit id="script.run">
         <source>Run an arbitrary script</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
         <target>बेतरतीव स्क्रिप्ट के रूप में चलायें</target>
-      </trans-unit>
-      <trans-unit id="solarispkgs.refresh_list">
-        <source>Solaris Package List Refresh</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
-        </context-group>
-        <target>Solaris संकुल सूची ताज़ा करें</target>
       </trans-unit>
       <trans-unit id="rhnsd.configure">
         <source>@@PRODUCT_NAME@@ Daemon Configuration</source>
@@ -6630,6 +6589,13 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>{0} पुनरीक्षण को सफलतापूर्वक मिटाया गया.</target>
       </trans-unit>
+      <trans-unit id="config_revisions.success.singular">
+        <source>{0} revision was deleted successfully.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
+          <context context-type="paramnotes">1 revision was deleted successfully.</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="config_files.setFilesToRemove.success">
         <source>{0} configuration file(s) successfully deleted.</source>
         <context-group name="ctx">
@@ -7621,7 +7587,7 @@ Follow this url to see the full list of inactive systems:
         <target>बीते 180 दिनों के अंदर</target>
       </trans-unit>
       <trans-unit id="oneyear">
-        <source>with the past year</source>
+        <source>within the past year</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
@@ -8342,6 +8308,72 @@ Follow this url to see the full list of inactive systems:
         <source>Matching Field Value</source>
         <target>मिलान किया क्षेत्र मान</target>
       </trans-unit>
+      <trans-unit id="dmiBiosVendor">
+        <source>DMI Bios Vendor</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiBiosVersion">
+        <source>DMI Bios Version</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiBiosRelease">
+        <source>DMI Bios Release</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiSystem">
+        <source>DMI System</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dmiAsset">
+        <source>DMI Asset Tag</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cpuModel">
+        <source>CPU Model</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cpuMHz">
+        <source>CPU MHz</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cpuNumberOfCpus">
+        <source>CPU Count</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ram">
+        <source>RAM KB</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="serverArchName">
+        <source>Server Architecture</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="runningKernel">
+        <source>Kernel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="xid">
         <source>Xid</source>
       </trans-unit>
@@ -8556,14 +8588,6 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="mips Debian">
         <source>mips Debian</source>
         <target>mips Debian</target>
-      </trans-unit>
-      <trans-unit id="Sparc Solaris">
-        <source>Sparc Solaris</source>
-        <target>Sparc Solaris</target>
-      </trans-unit>
-      <trans-unit id="i386 Solaris">
-        <source>i386 Solaris</source>
-        <target>i386 Solaris</target>
       </trans-unit>
       <trans-unit id="AArch64">
         <source>ARM aarch64</source>
@@ -8903,6 +8927,9 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
       <trans-unit id="edit.channel.repo.repolabelinuse">
         <source>The repository label '{0}' is already in use, please choose a different label</source>
+      </trans-unit>
+      <trans-unit id="edit.channel.repo.invalidrepotype">
+        <source>The repository type '{0}' is invalid, please choose a different type</source>
       </trans-unit>
       <trans-unit id="edit.channel.repo.repourlinuse">
         <source>There's already a defined repository with given url, please reuse it.</source>

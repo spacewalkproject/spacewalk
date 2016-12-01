@@ -18,9 +18,16 @@
 #
 # Dan Kenigsberg <danken@redhat.com>
 
-import xmlrpclib
+try:
+    #  python 2
+    import xmlrpclib
+except ImportError:
+    #  python3
+    import xmlrpc.client as xmlrpclib
 import subprocess
 import sys
+
+from spacewalk.common.usix import raise_with_tb
 
 VDSM_DIR = '/usr/share/vdsm'
 VDSM_CONF = '/etc/vdsm/vdsm.conf'
@@ -32,7 +39,7 @@ try:
     config.read(VDSM_CONF)
 except:
     # VDSM not available
-    raise ImportError('local vdsm not found'), None, sys.exc_info()[2]
+    raise_with_tb(ImportError('local vdsm not found'), sys.exc_info()[2])
 
 def getTrustStorePath():
     tsPath = None
@@ -77,8 +84,8 @@ if __name__ == '__main__':
     server = connect()
     response = server.list(True)
     if response['status']['code'] != 0:
-        print response['status']['message']
+        print(response['status']['message'])
     else:
         for d in response['vmList']:
-            print d
+            print(d)
 

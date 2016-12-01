@@ -22,7 +22,6 @@ import os
 import sys
 import stat
 import time
-from spacewalk.common import usix
 import exceptions
 try:
     #  python 2
@@ -32,29 +31,23 @@ except ImportError:
     import queue as Queue # pylint: disable=F0401
 import threading
 from optparse import Option, OptionParser
+import gettext
 from rhn.connections import idn_ascii_to_puny, idn_puny_to_unicode
 
-import gettext
-translation = gettext.translation('spacewalk-backend-server', fallback=True)
-_ = translation.ugettext
+sys.path.append("/usr/share/rhn")
+from up2date_client import config
 
 # __rhn imports__
-from spacewalk.common.usix import raise_with_tb
+from spacewalk.common import usix
 from spacewalk.common import rhnMail, rhnLib
 from spacewalk.common.rhnLog import initLOG
 from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
-from spacewalk.common.rhnTB import exitWithTraceback
-sys.path.append("/usr/share/rhn")
-from up2date_client import config
+from spacewalk.common.rhnTB import exitWithTraceback, fetchTraceback
 from spacewalk.common.checksum import getFileChecksum
-
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
 from spacewalk.server.rhnLib import get_package_path
 from spacewalk.common import fileutils
-
-initCFG('server.satellite')
-initLOG(CFG.LOG_FILE, CFG.DEBUG)
 
 # __rhn sync/import imports__
 import xmlWireSource
@@ -80,6 +73,11 @@ import req_channels
 import messages
 import sync_handlers
 import constants
+
+translation = gettext.translation('spacewalk-backend-server', fallback=True)
+_ = translation.ugettext
+initCFG('server.satellite')
+initLOG(CFG.LOG_FILE, CFG.DEBUG)
 
 _DEFAULT_SYSTEMID_PATH = '/etc/sysconfig/rhn/systemid'
 DEFAULT_ORG = 1
@@ -481,12 +479,10 @@ class Syncer:
                 sync_parent = CFG.ISS_PARENT
                 self.systemid = 'N/A'   # systemid is not used in ISS auth process
                 is_iss = 1
-            elif not CFG.DISCONNECTED:
-                sync_parent = CFG.RHN_PARENT
-                is_iss = 0
             else:
                 log(1, _(PRODUCT_NAME + ' - live synchronization'))
-                log(-1, _("ERROR: Can't use live synchronization in disconnected mode."), stream=sys.stderr)
+                log(-1, _("ERROR: Can't use live synchronization from RHN. This is not supported."),
+                    stream=sys.stderr)
                 sys.exit(1)
 
             url = self.xmlDataServer.schemeAndUrl(sync_parent)
@@ -502,8 +498,8 @@ class Syncer:
                         and os.access(self._systemidPath, os.R_OK)):
                     self.systemid = open(self._systemidPath, 'rb').read()
                 else:
-                    raise_with_tb(RhnSyncException(_('ERROR: this server must be registered with RHN.')),
-                                  sys.exc_info()[2])
+                    usix.raise_with_tb(RhnSyncException(_('ERROR: this server must be registered with RHN.')),
+                                       sys.exc_info()[2])
             # authorization check of the satellite
             auth = xmlWireSource.AuthWireSource(self.systemid, self.sslYN,
                                                 self.xml_dump_version)
@@ -640,8 +636,8 @@ class Syncer:
                     self._process_comps(importer.backend, label, sync_handlers._to_timestamp(ch['comps_last_modified']))
 
         except InvalidChannelFamilyError:
-            raise_with_tb(RhnSyncException(messages.invalid_channel_family_error %
-                                           ''.join(requested_channels)), sys.exc_info()[2])
+            usix.raise_with_tb(RhnSyncException(messages.invalid_channel_family_error %
+                                                ''.join(requested_channels)), sys.exc_info()[2])
         except MissingParentChannelError:
             raise
 
@@ -2121,6 +2117,8 @@ def processCommandline():
                help=_('alternative server with which to connect (hostname)')),
         Option('--step',                action='store',
                help=_('synchronize to this step (man satellite-sync for more info)')),
+        Option('--sync-to-temp',        action='store_true',
+               help=_('write complete data to tempfile before streaming to remainder of app')),
         Option('--systemid',            action='store',
                help=_("DEBUG ONLY: alternative path to digital system id")),
         Option('--traceback-mail',      action='store',
@@ -2173,13 +2171,15 @@ def processCommandline():
     CFG.set("HTTP_PROXY_PASSWORD", OPTIONS.http_proxy_password or CFG.HTTP_PROXY_PASSWORD)
     CFG.set("CA_CHAIN", OPTIONS.ca_cert or CFG.CA_CHAIN)
 
+    CFG.set("SYNC_TO_TEMP", OPTIONS.sync_to_temp or CFG.SYNC_TO_TEMP)
+
     # check the validity of the debug level
     if OPTIONS.debug_level:
         debugRange = 6
         try:
             debugLevel = int(OPTIONS.debug_level)
             if not (0 <= debugLevel <= debugRange):
-                raise_with_tb(RhnSyncException("exception will be caught"), sys.exc_info()[2])
+                usix.raise_with_tb(RhnSyncException("exception will be caught"), sys.exc_info()[2])
         except KeyboardInterrupt:
             e = sys.exc_info()[1]
             raise
@@ -2325,8 +2325,8 @@ def processCommandline():
         except (ValueError, TypeError):
             # int(None) --> TypeError
             # int('a')  --> ValueError
-            raise_with_tb(ValueError(_("ERROR: --batch-size must have a value within the range: 1..50")),
-                          sys.exc_info()[2])
+            usix.raise_with_tb(ValueError(_("ERROR: --batch-size must have a value within the range: 1..50")),
+                               sys.exc_info()[2])
 
     OPTIONS.mount_point = fileutils.cleanupAbsPath(OPTIONS.mount_point)
     OPTIONS.systemid = fileutils.cleanupAbsPath(OPTIONS.systemid)
@@ -2399,7 +2399,6 @@ if __name__ == '__main__':
         ex = sys.exc_info()[1]
         sys.exit(ex)
     except Exception:  # pylint: disable=E0012, W0703
-        from spacewalk.common.rhnTB import fetchTraceback
         tb = 'TRACEBACK: ' + fetchTraceback(with_locals=1)
         log2disk(-1, tb)
         log2email(-1, tb)

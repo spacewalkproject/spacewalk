@@ -145,6 +145,7 @@
     <c:if test = "${not empty showLastCheckinSort}">
         <rl:column sortable="true"
                   attr="lastCheckin"
+                  sortattr="lastCheckinDate"
                   bound="false"
                   headerkey="systemlist.jsp.last_checked_in">
             <rhn:formatDate humanStyle="from" value="${current.lastCheckinDate}"

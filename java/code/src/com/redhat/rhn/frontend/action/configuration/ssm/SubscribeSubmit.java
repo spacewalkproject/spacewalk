@@ -85,9 +85,14 @@ public class SubscribeSubmit extends BaseSetOperateOnSelectedItemsAction {
                                     ActionForm formIn,
                                     HttpServletRequest request,
                                     HttpServletResponse response) {
+        RequestContext context = new RequestContext(request);
+        User user = context.getCurrentUser();
+
+        // completely replace any existing item in the set with values
+        // coming from the current request
+        getSetDecl().clear(user);
         RhnSet set = updateSet(request);
 
-        RequestContext context = new RequestContext(request);
         if (!context.isJavaScriptEnabled()) {
             return handleNoScript(mapping, formIn, request, response);
         }
@@ -101,7 +106,6 @@ public class SubscribeSubmit extends BaseSetOperateOnSelectedItemsAction {
            process on the next page, so need to add in those omitted channels explicitly
            so they take place in the ranking.
          */
-        User user = context.getCurrentUser();
         ConfigurationManager manager = ConfigurationManager.getInstance();
         DataResult channels = manager.ssmChannelListForSubscribeAlreadySubbed(user);
 

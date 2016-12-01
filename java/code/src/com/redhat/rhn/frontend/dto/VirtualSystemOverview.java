@@ -25,7 +25,7 @@ import com.redhat.rhn.frontend.filter.DepthAware;
 public class VirtualSystemOverview extends SystemOverview
                                         implements DepthAware {
 
-    private static final String FAKENODE_LABEL = "(Unknown Host)";
+    public static final String FAKENODE_LABEL = "(Unknown Host)";
 
     private Long systemId;
     private String uuid;
@@ -103,7 +103,21 @@ public class VirtualSystemOverview extends SystemOverview
     public void setSystemId(Long systemIdIn) {
         this.systemId = systemIdIn;
     }
-
+    /**
+     * @return The System Id value for use in csv on virt systems page
+     */
+    public Long getSystemIdForCsv() {
+        Long retval = null;
+        if (!isFakeNode()) {
+            if (getUuid() == null && getHostSystemId() != null) {
+                retval = getHostSystemId();
+            }
+            else {
+                retval = getVirtualSystemId();
+            }
+        }
+        return retval;
+    }
     /**
      * @return Returns the vcpus.
      */
@@ -184,7 +198,13 @@ public class VirtualSystemOverview extends SystemOverview
     public void setHostSystemId(Long hostSystemIdIn) {
         this.hostSystemId = hostSystemIdIn;
     }
-
+    /**
+     * @return Returns the host system id for virt system CSV download.  This
+     * returns the host system id if the system is not a host and null if it is.
+     */
+    public Long getHostSystemIdForCsv() {
+        return getUuid() == null ? null : getHostSystemId();
+    }
     /**
      * @return Returns the virtual system id.
      */
@@ -239,6 +259,13 @@ public class VirtualSystemOverview extends SystemOverview
         return (this.getUuid() == null);
     }
 
+    /**
+     * Return a text label to identify the type of system - VM or Host
+     * @return Text label to identify the type of system - VM or Host
+     */
+    public String getSystemTypeLabel() {
+        return getIsVirtualHost() ? "Host" : "VM";
+    }
 
     /**
      * Gets the value of doAction

@@ -49,6 +49,8 @@ from virtualization.util               import hyphenize_uuid,      \
 from virtualization.poller_state_cache import PollerStateCache
 
 from virtualization.domain_directory   import DomainDirectory
+
+from spacewalk.common.usix import raise_with_tb
 ###############################################################################
 # Globals
 ###############################################################################
@@ -77,9 +79,10 @@ def poll_hypervisor():
 
     try:
         conn = libvirt.openReadOnly(None)
-    except libvirt.libvirtError, lve:
+    except libvirt.libvirtError:
         # virConnectOpen() failed
-        sys.stderr.write(rhncli.utf8_encode(_("Warning: Could not retrieve virtualization information!\n\tlibvirtd service needs to be running.\n")))
+        sys.stderr.write(rhncli.utf8_encode(_("Warning: Could not retrieve virtualization information!\n\t" +
+                                              "libvirtd service needs to be running.\n")))
         conn = None
 
     if not conn:
@@ -93,10 +96,10 @@ def poll_hypervisor():
     for domainID in domainIDs:
         try:
             domain = conn.lookupByID(domainID)
-        except libvirt.libvirtError, lve:
-            raise VirtualizationException, \
-                  "Failed to obtain handle to domain %d: %s" % \
-                      (domainID, repr(lve)), sys.exc_info()[2]
+        except libvirt.libvirtError:
+            lve = sys.exc_info()[1]
+            raise_with_tb(VirtualizationException("Failed to obtain handle to domain %d: %s" % (domainID, repr(lve)),
+                                                  sys.exc_info()[2]))
 
         uuid = binascii.hexlify(domain.UUID())
         # SEE: http://libvirt.org/html/libvirt-libvirt.html#virDomainInfo
@@ -157,7 +160,7 @@ def poll_through_vdsm(server):
         uuid = domain['vmId'].lower().replace('-', '')
         # Map the VDSM status to libvirt for server compatibility
         status = 'nostate'
-        if VIRT_VDSM_STATUS_MAP.has_key(domain['status']):
+        if domain['status'] in VIRT_VDSM_STATUS_MAP:
             status = VIRT_VDSM_STATUS_MAP[domain['status']]
         # This is gonna be fully virt as its managed by VDSM
         virt_type = VirtualizationType.FULLY
@@ -166,7 +169,7 @@ def poll_through_vdsm(server):
         memory = int(domain['memSize']) * 1024
 
         # vcpus
-        if domain.has_key('smp'):
+        if 'smp' in domain:
             vcpus = domain['smp']
         else:
             vcpus = '1'
@@ -193,8 +196,7 @@ def poll_state(uuid):
     """
     conn = libvirt.openReadOnly(None)
     if not conn:
-        raise VirtualizationException, \
-              "Failed to open connection to hypervisor."
+        raise VirtualizationException("Failed to open connection to hypervisor.")
 
     # Attempt to connect to the domain.  Since there is technically no
     # "stopped" state, we will assume that if we cannot connect the domain is
@@ -203,7 +205,7 @@ def poll_state(uuid):
     domain = None
     try:
         domain = conn.lookupByUUIDString(hyphenize_uuid(uuid))
-    except libvirt.libvirtError, lve:
+    except libvirt.libvirtError:
         # Can't find domain.  Return stopped state.
         return State(None)
 
@@ -261,7 +263,7 @@ def _parse_options():
 
 def _log_debug(msg, include_trace = 0):
     if options and options.debug:
-        print "DEBUG: " + str(msg)
+        print("DEBUG: " + str(msg))
         if include_trace:
             e_info = sys.exc_info()
             traceback.print_exception(e_info[0], e_info[1], e_info[2])
@@ -279,8 +281,13 @@ if __name__ == "__main__":
     server = None
     try:
         from virtualization import localvdsm
-        import commands
-        status, msg = commands.getstatusoutput("/etc/init.d/vdsmd status")
+
+        if sys.version_info[0] == 3:
+            status, msg = subprocess.getstatusoutput("/etc/init.d/vdsmd status")
+        else:
+            import commands
+            status, msg = commands.getstatusoutput("/etc/init.d/vdsmd status")
+
         if status == 0:
             server = localvdsm.connect()
             vdsm_enabled = True
@@ -313,7 +320,7 @@ if __name__ == "__main__":
 
     # create the unkonwn domain config files (for libvirt only)
     if libvirt and not vdsm_enabled:
-        uuid_list = domain_list.keys()
+        uuid_list = list(domain_list.keys())
         domain = DomainDirectory()
         domain.save_unknown_domain_configs(uuid_list)
 

@@ -13,16 +13,15 @@
 # in this software or its documentation.
 #
 
+import sys
+import string  # pylint: disable=W0402
 
 from spacewalk.common import usix
-import sys
-
 from spacewalk.server.importlib import channelImport, packageImport, errataImport, \
     kickstartImport
 from spacewalk.common.usix import raise_with_tb
 import diskImportLib
 import xmlSource
-import string  # pylint: disable=W0402
 import syncCache
 import syncLib
 

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
 "PO-Revision-Date: 2016-02-17 10:05-0500\n"
 "Last-Translator: Jan Dobes <jdobes@redhat.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -338,8 +338,7 @@ msgstr ""
 "आप इन सदस्यता सुविधा का बिना अपने सिस्टम को Red Hat Network में जोड़े लाभ लेने में समर्थ "
 "नहीं हो सकेंगे.\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "सेटअप प्रक्रिया में मुझे वापस ले चलें"
 
@@ -407,8 +406,7 @@ msgstr " गौण रिलीज: "
 msgid "Limited Updates Only"
 msgstr "सीमित अद्यतन केवल"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "सभी उपलब्ध अद्यतन"
 
@@ -2534,33 +2532,3 @@ msgstr "Spacewalk/Satellite/Red Hat Network से सॉफ्टवेयर �
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Spacewalk/Satellite/Red Hat Network में पंजीकृत करें."
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "आपने एक अवैध प्रोटोकॉल निर्दिष्ट किया है."
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr "अद्यतन मॉड्यूल: पूर्व सिस्टम अध्यतन, इरेटा अद्यतन"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "प्रोविजनिंग मॉड्यूल: बेअर मेटल प्रोविजनिंग, मौजूदा स्टेट प्रोविजनिंग, रॉलबैक, विन्यास "
-#~ "प्रबंधन"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "मॉनिटरिंग मॉड्यूल: पूर्व निर्धारित और पसंदीदा सिस्टम प्रदर्शन जांच, सिस्टम प्रदर्शन ईमेल "
-#~ "अधिसूचना, सिस्टम प्रदर्शन का आलेख"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "वर्चुअलाइजेशन प्लेटफॉर्म मॉड्यूल: इस सिस्टम के वर्चुअल अतिथि की असीमित संख्या के लिये "
-#~ "सॉफ्टवेयर अद्यतन, इस सिस्टम में अतिथि के लिये अतिरिक्त सॉफ्टवेयर चैनल में पहुंच."

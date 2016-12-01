@@ -205,9 +205,8 @@
                     </rl:column>
                 </rl:list>
                 <rl:csv dataset="searchResults"
-                        name="searchResults"
-                        exportColumns="id,serverName,matchingField,matchingFieldValue,entitlementLevel"/>
-
+                        name="pageList"
+                        exportColumns="id,serverName,matchingField,matchingFieldValue,entitlementLevel,room,rack,building,address1,address2,city,state,country,dmiBiosVendor,dmiBiosVersion,dmiBiosRelease,dmiSystem,dmiAsset,cpuModel,cpuMHz,cpuNumberOfCpus,ram,name,hostname,serverArchName,os,runningKernel,release"/>
             </rl:listset>
         </c:if>
     </body>

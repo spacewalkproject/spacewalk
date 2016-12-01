@@ -35,6 +35,7 @@ import sys
 import traceback
 import time
 import fcntl
+import atexit
 from spacewalk.common.fileutils import getUidGid
 from spacewalk.common.rhnLib import isSUSE
 
@@ -261,23 +262,14 @@ class rhnLog:
         self.level = self.log_info = None
         self.pid = self.file = self.real = self.fd = None
 
-# Exit function is always the last function run.
-_exitfuncChain = getattr(sys, 'exitfunc', None)
 
-
-def _exit(lastExitfunc=_exitfuncChain):
+def _exit():
     global LOG
     if LOG:
         del LOG
         LOG = None
-    if lastExitfunc:
-        lastExitfunc()
 
-if sys.version_info[0] == 3:
-    import atexit
-    atexit.register(_exit)
-else:
-    sys.exitfunc = _exit
+atexit.register(_exit)
 
 
 #------------------------------------------------------------------------------

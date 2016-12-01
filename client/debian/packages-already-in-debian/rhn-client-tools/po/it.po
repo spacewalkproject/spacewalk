@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 11:57+0200\n"
+"POT-Creation-Date: 2016-11-07 18:11+0100\n"
 "PO-Revision-Date: 2016-02-17 10:09-0500\n"
 "Last-Translator: Jan Dobes <jdobes@redhat.com>\n"
 "Language-Team: Italian <trans-it@lists.fedoraproject.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -354,8 +354,7 @@ msgstr ""
 "Non sarete in grado di usufruire dei vantaggi offerti da queste "
 "sottoscrizioni se non collegate prima il vostro sistema a Red Hat Network.\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:65
-#: ../data/rh_register.glade.h:129
+#: ../src/up2date_client/rhnreg_constants.py:65 ../data/rh_register.glade.h:129
 msgid "Take me back to the setup process."
 msgstr "Riportami al processo d'impostazione"
 
@@ -426,8 +425,7 @@ msgstr " Versione minore:"
 msgid "Limited Updates Only"
 msgstr "Solo aggiornamenti limitati"
 
-#: ../src/up2date_client/rhnreg_constants.py:85
-#: ../data/rh_register.glade.h:159
+#: ../src/up2date_client/rhnreg_constants.py:85 ../data/rh_register.glade.h:159
 msgid "All available updates"
 msgstr "Tutti gli aggiornamenti disponibili"
 
@@ -2654,36 +2652,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Registrazione a Spacewalk/Satellite/Red Hat Network."
-
-#~ msgid "You specified an invalid protocol."
-#~ msgstr "Avete specificato un protocollo non valido."
-
-#~ msgid ""
-#~ "Update module: per-system updates, email errata notifications, errata "
-#~ "information"
-#~ msgstr ""
-#~ "Modulo Update: Aggiornamenti per-sistema, notifiche email errata, "
-#~ "informazioni errata"
-
-#~ msgid ""
-#~ "Provisioning module: bare-metal provisioning, existing state "
-#~ "provisioning, rollbacks, configuration management"
-#~ msgstr ""
-#~ "Modulo di provisioning: provisioning bare-metal, stato di provisioning "
-#~ "esistente, rollback e gestione della configurazione"
-
-#~ msgid ""
-#~ "Monitoring module: pre-defined and custom system performance probes, "
-#~ "system performance email notifications, graphs of system performance"
-#~ msgstr ""
-#~ "Modulo di monitoring: probe per le prestazioni del sistema personalizzati "
-#~ "e predefiniti, notifiche email e grafiche sulla prestazione del sistema"
-
-#~ msgid ""
-#~ "Virtualization Platform module: software updates for an unlimited number "
-#~ "virtual guests of this system, access to additional software channels for "
-#~ "guests of this system."
-#~ msgstr ""
-#~ "Modulo piattaforma di virtualizzazione: aggiornamenti software per un "
-#~ "numero illimitato di guest virtuali presenti su questo sistema, accesso "
-#~ "ai canali software aggiuntivi per i guest presenti su questo sistema."

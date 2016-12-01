@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.0
+Version: 2.7.0
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -21,7 +21,7 @@ Requires: c3p0 >= 0.9.1
 Requires: cglib
 Requires: doc-indexes
 Requires: jakarta-commons-httpclient
-%if 0%{?fedora} || 0%{?rhel} >=7
+%if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
 Requires: apache-commons-cli
 Requires: apache-commons-codec
 Requires: apache-commons-lang
@@ -32,7 +32,7 @@ Requires: jakarta-commons-codec
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-logging
 %endif
-%if 0%{?fedora} >= 20 || 0%{?rhel} >=7
+%if 0%{?fedora} >= 20 || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
 BuildRequires: javapackages-tools
 Requires: javapackages-tools
 %else
@@ -43,13 +43,13 @@ Requires: log4j12
 %else
 Requires: log4j
 %endif
-%if 0%{?fedora} || 0%{?rhel} >=7
+%if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
 Requires: jakarta-oro
 %else
 Requires: oro
 %endif
 #Requires: lucene
-%if 0%{?fedora} || 0%{?rhel} >=7
+%if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
 Requires: mchange-commons
 Requires: objectweb-asm
 %else
@@ -66,7 +66,7 @@ BuildRequires: ant
 #BuildRequires: apache-ibatis-sqlmap
 BuildRequires: c3p0 >= 0.9.1
 BuildRequires: jakarta-commons-httpclient
-%if 0%{?fedora} || 0%{?rhel} >=7
+%if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
 BuildRequires: apache-commons-cli
 BuildRequires: apache-commons-codec
 BuildRequires: apache-commons-lang
@@ -83,7 +83,7 @@ BuildRequires: log4j12
 %else
 BuildRequires: log4j
 %endif
-%if 0%{?fedora} || 0%{?rhel} >=7
+%if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
 BuildRequires: jakarta-oro
 %else
 BuildRequires: oro
@@ -94,14 +94,17 @@ BuildRequires: redstone-xmlrpc
 #BuildRequires: picocontainer
 BuildRequires: tanukiwrapper
 BuildRequires: simple-core
-%if 0%{?rhel} < 7
+%if 0%{?rhel} && 0%{?rhel} < 7
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 %endif
-%if 0%{?fedora} || 0%{?rhel} >=7
+%if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1210
 BuildRequires: systemd
+%endif
+%if 0%{?suse_version}
+BuildRequires: doc-indexes
 %endif
 
 %description
@@ -121,7 +124,7 @@ install -d -m 755 $RPM_BUILD_ROOT%{_var}/lib/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT%{_var}/lib/rhn/search/indexes
 ln -s -f %{_prefix}/share/rhn/search/indexes/docs $RPM_BUILD_ROOT%{_var}/lib/rhn/search/indexes/docs
 install -d -m 755 $RPM_BUILD_ROOT%{_sbindir}
-%if 0%{?fedora} || 0%{?rhel} >=7
+%if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1210
 install -d -m 755 $RPM_BUILD_ROOT%{_unitdir}
 %else
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
@@ -135,7 +138,7 @@ install -p -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_prefix}/share/rh
 cp -d lib/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib
 install -p -m 644 src/config/etc/logrotate.d/rhn-search $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn-search
 install -p -m 755 src/config/rhn-search $RPM_BUILD_ROOT%{_sbindir}
-%if 0%{?fedora} || 0%{?rhel} >=7
+%if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1210
 install -p -m 755 src/config/rhn-search.service $RPM_BUILD_ROOT%{_unitdir}
 %else
 install -p -m 755 src/config/rhn-search.init $RPM_BUILD_ROOT%{_initrddir}/rhn-search
@@ -147,11 +150,17 @@ ln -s -f %{_prefix}/share/rhn/search/lib/spacewalk-search-%{version}.jar $RPM_BU
 %if 0%{?fedora} && 0%{?fedora} >= 21
 sed -i 's/log4j.jar/log4j-1.jar/' $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_search_daemon.conf
 %endif
+%if 0%{?suse_version} >= 1315
+sed -i 's/nutch-2008-12-01_04-01-21.jar/apache-nutch-1.9.jar/' $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_search_daemon.conf
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
+%if 0%{?suse_version} >= 1210
+%service_add_post rhn-search.service
+%else
 if [ -f /etc/init.d/rhn-search ]; then
    # This adds the proper /etc/rc*.d links for the script
    /sbin/chkconfig --add rhn-search
@@ -161,6 +170,7 @@ if [ -f /etc/init.d/rhn-search ]; then
        was_running=1
    fi
 fi
+%endif
 
 # Migrate original /usr/share/rhn/search/indexes/*
 # to /var/lib/rhn/search/indexes
@@ -188,18 +198,30 @@ if [ -f /etc/init.d/rhn-search ]; then
 fi
 
 %preun
+%if 0%{?suse_version} >= 1210
+%service_del_preun rhn-search.service
+%else
 if [ $1 = 0 ] ; then
     if [ -f /etc/init.d/rhn-search ]; then
        /sbin/service rhn-search stop >/dev/null 2>&1
        /sbin/chkconfig --del rhn-search
     fi
 fi
+%endif
+
+%if 0%{?suse_version} >= 1210
+%postun
+%service_del_postun rhn-search.service
+
+%pre
+%service_add_pre rhn-search.service
+%endif
 
 %files
 %attr(755, root, root) %{_var}/log/rhn/search
 %{_prefix}/share/rhn/search/lib/*
 %attr(755, root, root) %{_sbindir}/rhn-search
-%if 0%{?fedora} || 0%{?rhel} >=7
+%if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1210
 %attr(755, root, root) %{_unitdir}/rhn-search.service
 %else
 %attr(755, root, root) %{_initrddir}/rhn-search
@@ -211,8 +233,21 @@ fi
 %dir %attr(755, root, root) %{_var}/lib/rhn/search
 %dir %attr(755, root, root) %{_var}/lib/rhn/search/indexes
 %{_var}/lib/rhn/search/indexes/docs
+%if 0%{?suse_version}
+%dir %attr(755, root, root) %{_var}/lib/rhn
+%dir %attr(750,root,www) %{_prefix}/share/rhn/config-defaults
+%dir /usr/share/rhn
+%dir /usr/share/rhn/search
+%dir /usr/share/rhn/search/lib
+%attr(770,root,www) %dir /var/log/rhn
+%endif
 
 %changelog
+* Mon Jun 13 2016 Grant Gainey 2.6.1-1
+- spacewalk-search: use apache-nutch 1.9
+- spacewalk-search: build on openSUSE
+- Bumping package versions for 2.6.
+
 * Fri Jan 08 2016 Jan Dobes 2.5.2-1
 - require log4j12, it will not download in build time on Fedora 23 otherwise
 

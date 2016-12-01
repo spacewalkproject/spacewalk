@@ -44,6 +44,7 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.PackageDto;
+import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.DuplicateChannelLabelException;
@@ -171,11 +172,19 @@ public class ChannelSoftwareHandler extends BaseHandler {
             throw new PermissionCheckFailureException();
         }
 
-        List<Long> eids = ChannelManager.listErrataIdsNeedingResync(channel,
+        List<ErrataOverview> errata = ChannelManager.listErrataNeedingResync(channel,
                 loggedInUser);
+        List<Long> eids = new ArrayList<Long>();
+        for (ErrataOverview e : errata) {
+            eids.add(e.getId());
+        }
 
-        List<Long> pids = ChannelManager
-                .listErrataPackageIdsForResync(channel, loggedInUser);
+        List<PackageOverview> packages = ChannelManager
+                .listErrataPackagesForResync(channel, loggedInUser);
+        List<Long> pids = new ArrayList<Long>();
+        for (PackageOverview p : packages) {
+            pids.add(p.getId());
+        }
 
         ChannelEditor.getInstance().addPackages(loggedInUser, channel, pids);
 
@@ -2399,21 +2408,21 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * Creates a repository
     * @param loggedInUser The current user
     * @param label of the repo to be created
-    * @param type of the repo (YUM only for now)
+    * @param type of the repo
     * @param url of the repo
     * @return new ContentSource
     *
     * @xmlrpc.doc Creates a repository
     * @xmlrpc.param #session_key()
     * @xmlrpc.param #param_desc("string", "label", "repository label")
-    * @xmlrpc.param #param_desc("string", "type", "repository type (only YUM is supported)")
+    * @xmlrpc.param #param_desc("string", "type", "repository type (yum, uln...)")
     * @xmlrpc.param #param_desc("string", "url", "repository url")
     * @xmlrpc.returntype $ContentSourceSerializer
    **/
     public ContentSource createRepo(User loggedInUser, String label, String type,
             String url) {
-
         // empty strings for SSL-certificates descriptions
+        type = type.toLowerCase();
         String sslCaCert = "";
         String sslCliCert = "";
         String sslCliKey = "";
@@ -2425,7 +2434,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * Creates a repository
      * @param loggedInUser The current user
      * @param label of the repo to be created
-     * @param type of the repo (YUM only for now)
+     * @param type of the repo
      * @param url of the repo
      * @param sslCaCert CA certificate description
      * @param sslCliCert Client certificate description
@@ -2436,7 +2445,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "label", "repository label")
      * @xmlrpc.param #param_desc("string", "type",
-     * "repository type (only YUM is supported)")
+     * "repository type (yum, uln...)")
      * @xmlrpc.param #param_desc("string", "url", "repository url")
      * @xmlrpc.param #param_desc("string", "sslCaCert", "SSL CA cert description")
      * @xmlrpc.param #param_desc("string", "sslCliCert", "SSL Client cert description")
@@ -2454,11 +2463,12 @@ public class ChannelSoftwareHandler extends BaseHandler {
              throw new InvalidParameterException("url might not be empty");
          }
 
-         BaseRepoCommand repoCmd = null;
-         repoCmd = new CreateRepoCommand(loggedInUser.getOrg());
+         BaseRepoCommand repoCmd = new CreateRepoCommand(loggedInUser.getOrg());
 
          repoCmd.setLabel(label);
          repoCmd.setUrl(url);
+
+         repoCmd.setType(type);
 
          // check SSL-certificates parameters
          if (!StringUtils.isEmpty(sslCaCert)) {
@@ -3188,7 +3198,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
             throw new InvalidParameterException("url might not be empty");
         }
         if (!ChannelFactory.lookupContentSourceByOrgAndRepo(cs.getOrg(),
-                ChannelFactory.CONTENT_SOURCE_TYPE_YUM, repoUrl).isEmpty()) {
+                cs.getType(), repoUrl).isEmpty()) {
             throw new InvalidRepoUrlException(repoUrl);
         }
         cs.setSourceUrl(repoUrl);

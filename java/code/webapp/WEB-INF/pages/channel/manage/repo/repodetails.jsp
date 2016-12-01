@@ -35,6 +35,9 @@
             <rhn:csrf />
             <rhn:submitted/>
             <html:hidden property="id" value="${repo.id}"/>
+            <c:if test='${not empty requestScope.cid}'>
+                <html:hidden property="cid" value="${requestScope.cid}" />
+            </c:if>
             <div class="form-group">
                 <label class="col-lg-3 control-label">
                     <rhn:required-field key = "repos.jsp.create.label"/>:
@@ -52,6 +55,16 @@
                 </label>
                 <div class="col-lg-6">
                     <html:text property="url" styleClass="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">
+                    <rhn:required-field key = "repos.jsp.create.type"/>:
+                </label>
+                <div class="col-lg-6">
+                    <html:select property="contenttype" styleClass="form-control">
+                        <html:options collection="contenttypes" labelProperty="label" property="value" />
+                    </html:select>
                 </div>
             </div>
             <div class="form-group">

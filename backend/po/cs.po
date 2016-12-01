@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-23 13:37+0200\n"
-"PO-Revision-Date: 2012-02-14 08:08-0500\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"POT-Creation-Date: 2016-11-07 18:08+0100\n"
+"PO-Revision-Date: 2015-03-17 08:03-0400\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/fedora/language/"
 "cs/)\n"
 "Language: cs\n"
@@ -21,7 +21,26 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Zanata 3.8.4\n"
+"X-Generator: Zanata 3.9.6\n"
+
+#: ../server/rhnHandler.py:62
+msgid "Please run rhn_register as root on this client"
+msgstr ""
+
+#: ../server/rhnHandler.py:75
+#, python-format
+msgid "Service not enabled for system profile: \"%s\""
+msgstr "Tato služba není aktivována pro systémový profil: \"%s\""
+
+#: ../server/rhnPackage.py:46 ../server/rhnPackage.py:81
+#: ../server/rhnPackage.py:101 ../server/rhnPackage.py:152
+#, python-format
+msgid "Invalid RPM package %s requested"
+msgstr "Byl vyžádán neplatný RPM balík %s"
+
+#: ../server/rhnPackage.py:106
+msgid "Package not found"
+msgstr "Balík nenalezen"
 
 #: ../server/rhnChannel.py:1926
 #, python-format
@@ -128,24 +147,121 @@ msgstr ""
 "\n"
 "  %(entitlement_url)s\n"
 
-#: ../server/importlib/userAuth.py:98
-msgid "You are not authorized to manage packages in the null org"
-msgstr "Prázdná organizace nemá právo spravovat balíky."
-
-#: ../server/importlib/userAuth.py:103
+#: ../server/apacheAuth.py:67
 #, python-format
-msgid "You are not allowed to manage packages in the %s org"
-msgstr "%s organizace nemá právo spravovat balíky."
+msgid "incomplete proxy authentication token: %s"
+msgstr "Neúplný autentifikační token pro proxy: %s"
 
-#: ../server/importlib/userAuth.py:121
-msgid "You are not allowed to perform administrative tasks"
-msgstr "Nemáte právo provádět administraci."
+#: ../server/apacheAuth.py:85
+#, python-format
+msgid "Sent proxy signature %s does not match ours %s."
+msgstr "Zaslaný podpis proxy %s neodpovídá našemu %s."
 
-#: ../server/importlib/userAuth.py:144
+#: ../server/apacheAuth.py:120
+msgid "declined proxy authentication"
+msgstr "zamítnutá proxy autentifikace"
+
+#: ../server/handlers/sat/auth.py:45
+msgid "ISS is disabled on this satellite."
+msgstr "ISS je na tomto satelitu deaktivována."
+
+#: ../server/handlers/sat/auth.py:50
+#, python-format
+msgid "Server \"%s\" is not enabled for ISS."
+msgstr "Server \"%s\" nemá povolen ISS."
+
+#: ../server/handlers/xmlrpc/up2date.py:236
+#, python-format
+msgid "Invalid value %s (%s)"
+msgstr "Neplatná hodnota %s (%s)"
+
+#: ../server/handlers/xmlrpc/scap.py:89
+#, fuzzy
+msgid "Invalid system_id/action_id pair."
+msgstr "Neplatné přihlašovací údaje do systému."
+
+#: ../server/handlers/xmlrpc/proxy.py:64
+#, fuzzy, python-format
+msgid "Spacewalk Proxy service not enabled for server profile: \"%s\""
+msgstr "Profil \"%s\" nemá aktivovánu službu RHN Proxy."
+
+#: ../server/handlers/xmlrpc/proxy.py:84
+msgid "Invalid session key"
+msgstr "Neplatný session key"
+
+#: ../server/handlers/xmlrpc/proxy.py:92
+msgid "This server ID no longer exists"
+msgstr "Toto ID serveru již neexistuje"
+
+#: ../server/handlers/xmlrpc/registration.py:202
+msgid "Required data missing"
+msgstr "Chybí požadovaná data"
+
+#: ../server/handlers/xmlrpc/registration.py:206
+msgid "Required members missing"
+msgstr "Chybí požadovaní členi"
+
+#: ../server/handlers/xmlrpc/registration.py:215
+msgid "Attempt to register a system to an invalid username"
+msgstr "Pokoušíte se zaregistrovat systém na neexistujicího uživate"
+
+#: ../server/handlers/xmlrpc/registration.py:223
 #, python-format
 msgid ""
-"You are not allowed to manage channel %s, or that channel does not exist"
-msgstr "Nemáte právo spravovat kanál %s, případně tento kanál ani neexistuje."
+"\n"
+"                   %s Account has been deactivated on this server.\n"
+"                   Please contact your Org administrator for more help."
+msgstr ""
+"\n"
+"                   Účet %s byl na tomto serveru deaktivován.\n"
+"                   Pro další pomoc kontaktujte správce své organizace."
+
+#: ../server/handlers/xmlrpc/registration.py:796
+msgid "Invalid system release version requested"
+msgstr "Požadována neplatná release verze systému"
+
+#: ../server/handlers/xmlrpc/registration.py:1028
+#, fuzzy
+msgid "Red Hat Satellite Welcome Message"
+msgstr "Vítejte v Red Hat Network"
+
+#: ../server/handlers/xmlrpc/registration.py:1038
+#, fuzzy
+msgid "Red Hat Satellite Privacy Statement"
+msgstr "Red Hat Network prohlášení o soukromí"
+
+#: ../server/handlers/xmlrpc/registration.py:1059
+msgid "Expected a dictionary as a product argument"
+msgstr "Jako argument u produktu je očekáván slovník"
+
+#: ../server/handlers/xmlrpc/registration.py:1269
+#, python-format
+msgid "Invalid value '%s' for %s (%s)"
+msgstr "Neplatná hodnota '%s' pro %s (%s)"
+
+#: ../server/handlers/xmlrpc/errata.py:62
+#, python-format
+msgid "Expected a package name, not: %s"
+msgstr "Očekávám jméno balíku, nikoliv \"%s\""
+
+#: ../server/handlers/xmlrpc/errata.py:113
+#, python-format
+msgid "Expected a package, not: %s"
+msgstr "Očekávám balík, nikoliv \"%s\""
+
+#: ../server/handlers/xmlrpc/queue.py:434
+#, python-format
+msgid "Invalid action value type %s (%s)"
+msgstr "Neplatná hodnota operace typu %s (%s)"
+
+#: ../server/handlers/xmlrpc/queue.py:459
+#, python-format
+msgid "Action %s does not belong to server %s"
+msgstr "Operace %s nenáleží k serveru %s"
+
+#: ../server/handlers/applet/applet.py:78
+msgid "Your system was not found in the RHN database"
+msgstr "Váš systém nebyl v databázi RHN nalezen"
 
 #: ../server/apacheRequest.py:59
 #, python-format
@@ -174,123 +290,6 @@ msgstr ""
 #, python-format
 msgid "Invalid URI %s"
 msgstr "Neplatné URI %s"
-
-#: ../server/rhnPackage.py:46 ../server/rhnPackage.py:81
-#: ../server/rhnPackage.py:101 ../server/rhnPackage.py:152
-#, python-format
-msgid "Invalid RPM package %s requested"
-msgstr "Byl vyžádán neplatný RPM balík %s"
-
-#: ../server/rhnPackage.py:106
-msgid "Package not found"
-msgstr "Balík nenalezen"
-
-#: ../server/handlers/sat/auth.py:45
-msgid "ISS is disabled on this satellite."
-msgstr "ISS je na tomto satelitu deaktivována."
-
-#: ../server/handlers/sat/auth.py:50
-#, python-format
-msgid "Server \"%s\" is not enabled for ISS."
-msgstr "Server \"%s\" nemá povolen ISS."
-
-#: ../server/handlers/applet/applet.py:78
-msgid "Your system was not found in the RHN database"
-msgstr "Váš systém nebyl v databázi RHN nalezen"
-
-#: ../server/handlers/xmlrpc/registration.py:203
-msgid "Required data missing"
-msgstr "Chybí požadovaná data"
-
-#: ../server/handlers/xmlrpc/registration.py:207
-msgid "Required members missing"
-msgstr "Chybí požadovaní členi"
-
-#: ../server/handlers/xmlrpc/registration.py:216
-msgid "Attempt to register a system to an invalid username"
-msgstr "Pokoušíte se zaregistrovat systém na neexistujicího uživate"
-
-#: ../server/handlers/xmlrpc/registration.py:224
-#, python-format
-msgid ""
-"\n"
-"                   %s Account has been deactivated on this server.\n"
-"                   Please contact your Org administrator for more help."
-msgstr ""
-"\n"
-"                   Účet %s byl na tomto serveru deaktivován.\n"
-"                   Pro další pomoc kontaktujte správce své organizace."
-
-#: ../server/handlers/xmlrpc/registration.py:828
-msgid "Invalid system release version requested"
-msgstr "Požadována neplatná release verze systému"
-
-#: ../server/handlers/xmlrpc/registration.py:1060
-#, fuzzy
-msgid "Red Hat Satellite Welcome Message"
-msgstr "Vítejte v Red Hat Network"
-
-#: ../server/handlers/xmlrpc/registration.py:1070
-#, fuzzy
-msgid "Red Hat Satellite Privacy Statement"
-msgstr "Red Hat Network prohlášení o soukromí"
-
-#: ../server/handlers/xmlrpc/registration.py:1091
-msgid "Expected a dictionary as a product argument"
-msgstr "Jako argument u produktu je očekáván slovník"
-
-#: ../server/handlers/xmlrpc/registration.py:1301
-#, python-format
-msgid "Invalid value '%s' for %s (%s)"
-msgstr "Neplatná hodnota '%s' pro %s (%s)"
-
-#: ../server/handlers/xmlrpc/up2date.py:236
-#, python-format
-msgid "Invalid value %s (%s)"
-msgstr "Neplatná hodnota %s (%s)"
-
-#: ../server/handlers/xmlrpc/proxy.py:64
-#, fuzzy, python-format
-msgid "Spacewalk Proxy service not enabled for server profile: \"%s\""
-msgstr "Profil \"%s\" nemá aktivovánu službu RHN Proxy."
-
-#: ../server/handlers/xmlrpc/proxy.py:84
-msgid "Invalid session key"
-msgstr "Neplatný session key"
-
-#: ../server/handlers/xmlrpc/proxy.py:92
-msgid "This server ID no longer exists"
-msgstr "Toto ID serveru již neexistuje"
-
-#: ../server/handlers/xmlrpc/scap.py:89
-#, fuzzy
-msgid "Invalid system_id/action_id pair."
-msgstr "Neplatné přihlašovací údaje do systému."
-
-#: ../server/handlers/xmlrpc/errata.py:62
-#, python-format
-msgid "Expected a package name, not: %s"
-msgstr "Očekávám jméno balíku, nikoliv \"%s\""
-
-#: ../server/handlers/xmlrpc/errata.py:113
-#, python-format
-msgid "Expected a package, not: %s"
-msgstr "Očekávám balík, nikoliv \"%s\""
-
-#: ../server/handlers/xmlrpc/queue.py:434
-#, python-format
-msgid "Invalid action value type %s (%s)"
-msgstr "Neplatná hodnota operace typu %s (%s)"
-
-#: ../server/handlers/xmlrpc/queue.py:459
-#, python-format
-msgid "Action %s does not belong to server %s"
-msgstr "Operace %s nenáleží k serveru %s"
-
-#: ../server/rhnServer/server_class.py:97
-#, python-format
-msgid "Architecture `%s' is not supported"
-msgstr "Architektura '%s' není podporována"
 
 #: ../server/rhnServer/server_token.py:77
 #, python-format
@@ -338,28 +337,29 @@ msgstr "Nesouhlasí session kickstartu"
 msgid "Stacking of re-registration tokens is not supported"
 msgstr "Sčítání re-registračních tokenů není podporováno"
 
-#: ../server/rhnHandler.py:62
-msgid "Please run rhn_register as root on this client"
-msgstr ""
-
-#: ../server/rhnHandler.py:75
+#: ../server/rhnServer/server_class.py:97
 #, python-format
-msgid "Service not enabled for system profile: \"%s\""
-msgstr "Tato služba není aktivována pro systémový profil: \"%s\""
+msgid "Architecture `%s' is not supported"
+msgstr "Architektura '%s' není podporována"
 
-#: ../server/apacheAuth.py:67
+#: ../server/importlib/userAuth.py:98
+msgid "You are not authorized to manage packages in the null org"
+msgstr "Prázdná organizace nemá právo spravovat balíky."
+
+#: ../server/importlib/userAuth.py:103
 #, python-format
-msgid "incomplete proxy authentication token: %s"
-msgstr "Neúplný autentifikační token pro proxy: %s"
+msgid "You are not allowed to manage packages in the %s org"
+msgstr "%s organizace nemá právo spravovat balíky."
 
-#: ../server/apacheAuth.py:85
+#: ../server/importlib/userAuth.py:121
+msgid "You are not allowed to perform administrative tasks"
+msgstr "Nemáte právo provádět administraci."
+
+#: ../server/importlib/userAuth.py:144
 #, python-format
-msgid "Sent proxy signature %s does not match ours %s."
-msgstr "Zaslaný podpis proxy %s neodpovídá našemu %s."
-
-#: ../server/apacheAuth.py:120
-msgid "declined proxy authentication"
-msgstr "zamítnutá proxy autentifikace"
+msgid ""
+"You are not allowed to manage channel %s, or that channel does not exist"
+msgstr "Nemáte právo spravovat kanál %s, případně tento kanál ani neexistuje."
 
 #: ../server/rhnUser.py:289 ../server/rhnUser.py:292
 msgid "Invalid username/password combination"
@@ -420,6 +420,16 @@ msgstr "uživatelské jméno by mělo mít alespoň %d znaků"
 #, python-format
 msgid "Cannot register usernames ending with %s"
 msgstr "Nelze registrovat uživatelská jména končící na %s"
+
+#: ../common/rhnTB.py:205
+#, python-format
+msgid "ERROR: %s %s: %s"
+msgstr ""
+
+#: ../common/rhnTB.py:207
+#, python-format
+msgid "TRACEBACK: %s"
+msgstr ""
 
 #. 0-999: Red Hat client/client-like interaction errors:
 #: ../common/rhnException.py:53
@@ -1029,16 +1039,6 @@ msgstr ""
 #: ../common/rhnException.py:362
 #, python-format
 msgid "Explanation: %s"
-msgstr ""
-
-#: ../common/rhnTB.py:205
-#, python-format
-msgid "ERROR: %s %s: %s"
-msgstr ""
-
-#: ../common/rhnTB.py:207
-#, python-format
-msgid "TRACEBACK: %s"
 msgstr ""
 
 #, fuzzy

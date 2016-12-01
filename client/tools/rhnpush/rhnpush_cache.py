@@ -22,8 +22,8 @@
 #
 # CacheManager - Controls access to the cache.
 
-from rhnpush import utils
 import os
+from rhnpush import utils
 
 # This is the class that contains the session.
 

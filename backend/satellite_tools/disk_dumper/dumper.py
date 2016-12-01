@@ -17,7 +17,6 @@ import time
 import gzip
 import sys
 import tempfile
-from spacewalk.common.usix import ListType
 try:
     #  python 2
     from cStringIO import StringIO
@@ -25,7 +24,7 @@ except ImportError:
     #  python3
     from io import StringIO
 
-from spacewalk.common.usix import raise_with_tb
+from spacewalk.common.usix import raise_with_tb, ListType
 from spacewalk.common import rhnCache, rhnLib, rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG

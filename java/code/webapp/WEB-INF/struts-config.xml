@@ -727,6 +727,8 @@
             <form-property name="url" type="java.lang.String"/>
             <form-property name="sourceid" type="java.lang.Long" />
             <form-property name="label" type="java.lang.String"/>
+            <form-property name="contenttypes" type="java.util.List"/>
+            <form-property name="contenttype" type="java.lang.String"/>
             <form-property name="sslcryptokeys" type="java.util.List"/>
             <form-property name="sslcacert" type="java.lang.String"/>
             <form-property name="sslclientcert" type="java.lang.String"/>
@@ -2624,6 +2626,16 @@
                  path="/WEB-INF/pages/systems/physicallist.jsp"/>
     </action>
 
+    <action path="/systems/VirtualList"
+        scope="request"
+        input="/WEB-INF/pages/systems/virtuallist.jsp"
+        type="com.redhat.rhn.frontend.action.systems.VirtualSystemSetupAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/virtuallist.jsp"/>
+    </action>
+
     <action path="/systems/DuplicateIPList"
         scope="request"
         input="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"
@@ -2868,26 +2880,6 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/proxylist.jsp"/>
     </action>
-
-    <action path="/systems/VirtualSystemsList"
-        scope="request"
-        input="/WEB-INF/pages/systems/virtuallist.jsp"
-        type="com.redhat.rhn.frontend.action.systems.VirtualSystemsListSetupAction">
-        <forward name="default"
-                 path="/WEB-INF/pages/systems/virtuallist.jsp"/>
-    </action>
-
-     <action path="/systems/VirtualSystemsListSubmit"
-         scope="request"
-         input="/WEB-INF/pages/systems/virtuallist.jsp"
-         type="com.redhat.rhn.frontend.action.systems.SystemListAction"
-         parameter="dispatch"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="postRequired" value="true" />
-         <forward name="default"
-                  path="/systems/VirtualSystemsList.do"
-                  redirect="true"/>
-     </action>
 
     <action path="/systems/SystemGroupList"
         scope="request"
@@ -7803,8 +7795,9 @@
         <forward name="default"
                  path="/WEB-INF/pages/channel/manage/repo/repodetails.jsp"/>
         <forward name="success"
-                 path="/channels/manage/repos/RepoEdit.do" redirect = "true"
-                 />
+                 path="/channels/manage/repos/RepoEdit.do" redirect = "true"/>
+        <forward name="channelSub"
+                 path="/channels/manage/Repositories.do" redirect = "true"/>
     </action>
 
     <action path="/channels/manage/repos/RepoEdit"

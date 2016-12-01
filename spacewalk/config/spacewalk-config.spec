@@ -10,7 +10,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.6.0
+Version: 2.7.0
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -61,12 +61,15 @@ tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc \
 
 echo "" > $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/rhn.conf
 
-find $RPM_BUILD_ROOT -name '*.symlink' | \
-	while read filename ; do linkname=${filename%.symlink} ; \
-		target=`sed -s 's/^Link to //' $filename` ; \
-		ln -sf $target $linkname ; \
-		rm -f $filename ; \
-	done
+mkdir -p $RPM_BUILD_ROOT/etc/pki/tls/certs/
+mkdir -p $RPM_BUILD_ROOT/etc/pki/tls/private/
+%if 0%{?suse_version}
+ln -sf  %{apacheconfdir}/ssl.key/server.key $RPM_BUILD_ROOT/etc/pki/tls/private/spacewalk.key
+ln -sf  %{apacheconfdir}/ssl.crt/server.crt $RPM_BUILD_ROOT/etc/pki/tls/certs/spacewalk.crt
+%else
+ln -sf  %{apacheconfdir}/conf/ssl.key/server.key $RPM_BUILD_ROOT/etc/pki/tls/private/spacewalk.key
+ln -sf  %{apacheconfdir}/conf/ssl.crt/server.crt $RPM_BUILD_ROOT/etc/pki/tls/certs/spacewalk.crt
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -82,6 +85,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_var}/lib/cobbler/snippets/spacewalk_file_preservation
 %attr(0750,root,%{apache_group}) %dir %{_sysconfdir}/rhn
 %attr(0640,root,%{apache_group}) %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rhn/rhn.conf
+%attr(0750,root,%{apache_group}) %dir %{_sysconfdir}/rhn/candlepin-certs
+%config %attr(644, root, root) %{_sysconfdir}/rhn/candlepin-certs/candlepin-redhat-ca.crt
 # NOTE: If if you change these, you need to make a corresponding change in
 # spacewalk/install/Spacewalk-Setup/bin/spacewalk-setup
 %config(noreplace) %{_sysconfdir}/pki/tls/private/spacewalk.key
@@ -136,6 +141,22 @@ sysconf_addword /etc/sysconfig/apache2 APACHE_SERVER_FLAGS ISSUSE
 %endif
 
 %changelog
+* Thu Nov 10 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.5-1
+- 1373067 - Modified option for fonts directory
+
+* Mon Nov 07 2016 Jan Dobes 2.6.4-1
+- adding development key to keyring
+
+* Tue Oct 25 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.3-1
+- 1373067 - Prevent Apache directory listing
+
+* Wed Oct 05 2016 Jan Dobes 2.6.2-1
+- adding candlepin CA certificate to check manifest signature
+
+* Tue Jun 14 2016 Jan Dobes 2.6.1-1
+- create the symlink directly and point to correct destination on SUSE
+- Bumping package versions for 2.6.
+
 * Tue May 10 2016 Grant Gainey 2.5.3-1
 - spacewalk-config: build on openSUSE
 

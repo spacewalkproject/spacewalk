@@ -15,9 +15,10 @@
 
 import os
 import sys
-import rpm
 import struct
 import tempfile
+
+import rpm
 
 from spacewalk.common.usix import raise_with_tb
 from spacewalk.common.usix import next as usix_next
@@ -95,10 +96,7 @@ class RPM_Header:
         return len(self.hdr)
 
     def __nonzero__(self):
-        if self.hdr:
-            return True
-        else:
-            return False
+        return bool(self.hdr)
 
     __bool__ = __nonzero__
 

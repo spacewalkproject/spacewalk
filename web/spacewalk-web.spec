@@ -4,11 +4,11 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.0
+Version: 2.7.1
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: perl(ExtUtils::MakeMaker)
 
@@ -37,7 +37,7 @@ This package contains the HTML files for the Spacewalk web site.
 
 %package -n spacewalk-base
 Group: Applications/Internet
-Summary: Programs needed to be installed on the RHN Web base classes
+Summary: Programs which need to be installed for the Spacewalk Web base classes
 Provides: spacewalk(spacewalk-base) = %{version}-%{release}
 Requires: /usr/bin/sudo
 Requires: webserver
@@ -52,24 +52,23 @@ Provides: rhn-base = 5.3.0
 
 
 %description -n spacewalk-base
-This package includes the core RHN:: packages necessary to manipulate
+This package includes the core RHN:: packages necessary to manipulate the
 database.  This includes RHN::* and RHN::DB::*.
 
 
 %package -n spacewalk-base-minimal
 Summary: Core of Perl modules for %{name} package
-Group: Applications/Internet 
+Group: Applications/Internet
 Provides: spacewalk(spacewalk-base-minimal) = %{version}-%{release}
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Obsoletes: rhn-base-minimal < 5.3.0
 Provides: rhn-base-minimal = 5.3.0
 Requires: perl(DBI)
 Requires: perl(Params::Validate)
-Requires: spacewalk-base-minimal-config
 
 %description -n spacewalk-base-minimal
 Independent Perl modules in the RHN:: name-space.
-This are very basic modules need to handle configuration files, database,
+These are very basic modules needed to handle configuration files, database,
 sessions and exceptions.
 
 %package -n spacewalk-base-minimal-config
@@ -85,7 +84,7 @@ Configuration file for spacewalk-base-minimal package.
 
 
 %package -n spacewalk-dobby
-Summary: Perl modules and scripts to administer an Oracle database
+Summary: Perl modules and scripts to administer a PostgreSQL database
 Group: Applications/Internet
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Obsoletes: rhn-dobby < 5.3.0
@@ -93,7 +92,7 @@ Provides: rhn-dobby = 5.3.0
 Requires: %{sbinpath}/runuser
 
 %description -n spacewalk-dobby
-Dobby is collection of Perl modules and scripts to administer an Oracle
+Dobby is collection of Perl modules and scripts to administer a PostgreSQL
 database.
 
 
@@ -155,6 +154,27 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Nov 23 2016 Eric Herget <eherget@redhat.com> 2.7.1-1
+- 1373900 - update failure message when db-control start fails
+- Bumping package versions for 2.7.
+
+* Fri Oct 14 2016 Grant Gainey 2.6.5-1
+- Update specfile for RHN reference and minor wordsmithing
+
+* Mon Oct 03 2016 Jiri Dostal <jdostal@redhat.com> 2.6.4-1
+- 'shrink-segments' works on embedded PostgreSQL as well
+
+* Mon Sep 26 2016 Eric Herget <eherget@redhat.com> 2.6.3-1
+- 1373900 - db-control start/stop now returns non-zero and complains on failure
+- require spacewalk-base-minimal-config from spacewalk-setup
+
+* Mon Sep 12 2016 Jan Dobes 2.6.2-1
+- spacewalk-base-minimal package description typo fixed
+
+* Mon Jun 27 2016 Tomas Lestach <tlestach@redhat.com> 2.6.1-1
+- bumping Spacewalk version
+- Bumping package versions for 2.6.
+
 * Thu Dec 17 2015 Jan Dobes 2.5.7-1
 - moving non_expirable_package_urls parameter to java
 - moving download_url_lifetime parameter to java
@@ -1904,8 +1924,8 @@ rm -rf $RPM_BUILD_ROOT
 
 * Thu Nov 18 2010 Lukas Zapletal 1.3.1-1
 - Replacing DECODE function with CASE-SWITCH (4x)
-- Marking the master as nightly. 
-- Bumping package versions for 1.3. 
+- Marking the master as nightly.
+- Bumping package versions for 1.3.
 
 * Mon Nov 15 2010 Jan Pazdziora 1.2.27-1
 - bumping api version (jsherril@redhat.com)
@@ -1966,10 +1986,10 @@ rm -rf $RPM_BUILD_ROOT
   (lzap+git@redhat.com)
 
 * Thu Oct 21 2010 Lukas Zapletal 1.2.16-1
-- Sorting fix in packages for PostgreSQL 
-- Fix of evr_t_as_vre_simple PostgreSQL function 
-- Fix in package file list for PostgreSQL 
-- Changed SQL Perl generator joins to ANSI 
+- Sorting fix in packages for PostgreSQL
+- Fix of evr_t_as_vre_simple PostgreSQL function
+- Fix in package file list for PostgreSQL
+- Changed SQL Perl generator joins to ANSI
 
 * Wed Oct 20 2010 Lukas Zapletal 1.2.15-1
 - Function evr_t_as_vre_simple in all package queries now general
@@ -1977,10 +1997,10 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Oct 20 2010 Lukas Zapletal 1.2.14-1
 - Fix in PostgreSQL (of previous commit)
 - All DECODE functions replaced with CASE-WHEN in System_queries
-- Fixing system overview list for PostgreSQL 
-- Port /network/systems/details/custominfo/edit.pxt 
-- Port /network/systems/details/custominfo/index.pxt 
-- Update Perl module to redirect to Java not PXT 
+- Fixing system overview list for PostgreSQL
+- Port /network/systems/details/custominfo/edit.pxt
+- Port /network/systems/details/custominfo/index.pxt
+- Update Perl module to redirect to Java not PXT
 - s|/network/systems/ssm/misc/index.pxt|/rhn/systems/ssm/misc/Index.do|
 
 * Wed Oct 13 2010 Jan Pazdziora 1.2.13-1

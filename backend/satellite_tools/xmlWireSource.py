@@ -18,20 +18,19 @@
 import os
 import sys
 import time
-import connection
 
 # rhn imports
-from spacewalk.common.usix import raise_with_tb
-from spacewalk.common import rhnLib
-from spacewalk.common.rhnConfig import CFG
+from rhn import rpclib
 sys.path.append("/usr/share/rhn")
 from up2date_client import config
 
+from spacewalk.common.usix import raise_with_tb
+from spacewalk.common import rhnLib
+from spacewalk.common.rhnConfig import CFG
+
 # local imports
 from syncLib import log, log2, RhnSyncException
-
-from rhn import rpclib
-
+import connection
 
 class BaseWireSource:
 
@@ -155,7 +154,14 @@ class BaseWireSource:
             func = getattr(server, method)
             try:
                 stream = func(*params)
-                return stream
+                if CFG.SYNC_TO_TEMP:
+                    import tempfile
+                    cached = tempfile.NamedTemporaryFile()
+                    stream.read_to_file(cached)
+                    cached.seek(0)
+                    return cached
+                else:
+                    return stream
             except rpclib.xmlrpclib.ProtocolError:
                 e = sys.exc_info()[1]
                 p = tuple(['<the systemid>'] + list(params[1:]))
