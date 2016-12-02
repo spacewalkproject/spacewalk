@@ -129,6 +129,26 @@ public class ActionManager extends BaseManager {
     }
 
     /**
+     * Mark action as failed for specified system
+     * @param loggedInUser The user making the request.
+     * @param serverId server id
+     * @param actionId The id of the Action to be set as failed
+     * @param message Message from user, reason of this fail
+     * @return int 1 if succeed
+     */
+    public static int failSystemAction(User loggedInUser, Long serverId, Long actionId,
+                                       String message) {
+        Action action = ActionFactory.lookupByUserAndId(loggedInUser, actionId);
+        Server server = SystemManager.lookupByIdAndUser(serverId, loggedInUser);
+        ServerAction serverAction = ActionFactory.getServerActionForServerAndAction(server, action);
+
+        serverAction.setStatus(ActionFactory.STATUS_FAILED);
+        serverAction.setResultMsg(message);
+
+        return 1;
+    }
+
+    /**
      * Retreive the specified Action, assuming that the User making the request
      * has the required permissions.
      * @param user The user making the lookup request.
