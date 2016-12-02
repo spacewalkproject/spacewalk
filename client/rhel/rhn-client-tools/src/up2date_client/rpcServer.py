@@ -72,9 +72,9 @@ class RetryServer(rpclib.Server):
 
                 # use the next serverURL
                 parse_res = urlparse.urlsplit(self.serverList.server())
-                typ = parse_res.scheme
-                self._host = parse_res.netloc
-                self._handler = parse_res.path
+                typ = parse_res[0] # scheme
+                self._host = parse_res[1] # netloc
+                self._handler = parse_res[2] # path
                 typ = typ.lower()
                 if typ not in ("http", "https"):
                     raise_with_tb(rpclib.InvalidRedirectionError(
