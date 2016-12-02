@@ -20,6 +20,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
+import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.action.Action;
@@ -126,6 +127,33 @@ public class ActionManager extends BaseManager {
             failed += ActionFactory.removeAction(actionId);
         }
         return failed;
+    }
+
+    /**
+     * Mark action as failed for specified system
+     * @param loggedInUser The user making the request.
+     * @param serverId server id
+     * @param actionId The id of the Action to be set as failed
+     * @param message Message from user, reason of this fail
+     * @return int 0
+     */
+    public static int failSystemAction(User loggedInUser, Long serverId, Long actionId,
+                                       String message) {
+        Action action;
+        ServerAction serverAction;
+        Server server;
+
+        action = ActionFactory.lookupByUserAndId(loggedInUser, actionId);
+        server = SystemManager.lookupByIdAndUser(serverId, loggedInUser);
+        serverAction = ActionFactory.getServerActionForServerAndAction(server, action);
+        CallableMode mode = ModeFactory.getCallableMode("System_queries",
+                "fail_action_for_system");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("aid", serverAction.getParentAction().getId());
+        params.put("sid", serverAction.getServerId());
+        params.put("message", message);
+        mode.execute(params, new HashMap<String, Integer>());
+        return 1;
     }
 
     /**
