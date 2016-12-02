@@ -59,9 +59,9 @@ public class BootstrapConfigActionTest extends RhnPostMockStrutsTestCase {
                 form.get(BootstrapConfigAction.ENABLE_SSL));
         assertEquals(Boolean.TRUE,
                 form.get(BootstrapConfigAction.ENABLE_GPG));
-        assertEquals(Boolean.TRUE,
+        assertEquals(Boolean.FALSE,
                 form.get(BootstrapConfigAction.ALLOW_CONFIG_ACTIONS));
-        assertEquals(Boolean.TRUE,
+        assertEquals(Boolean.FALSE,
                 form.get(BootstrapConfigAction.ALLOW_REMOTE_COMMANDS));
         assertEquals("", form.getString(BootstrapConfigAction.HTTP_PROXY));
         assertEquals("", form.getString(BootstrapConfigAction.HTTP_PROXY_USERNAME));
