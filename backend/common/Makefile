@@ -29,7 +29,8 @@ SPACEWALK_FILES	=   __init__ \
 	    rhn_pkg \
 	    rhn_rpm \
 	    stringutils \
-	    usix
+	    usix \
+	    timezone_utils
 SCRIPTS = spacewalk-cfg-get
 
 # check if we can build man pages

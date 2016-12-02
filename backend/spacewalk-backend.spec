@@ -663,6 +663,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/rhn_rpm.py*
 %{pythonrhnroot}/common/stringutils.py*
 %{pythonrhnroot}/common/rhnLib.py*
+%{pythonrhnroot}/common/timezone_utils.py*
 
 %files usix
 %doc LICENSE
@@ -820,6 +821,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+
 * Wed Nov 30 2016 Jan Dobes 2.7.4-1
 - 1387173 - only user repositories should be allowed to configure, accessing
   self.yumbase.repos.repos can take long, do it once
@@ -1291,6 +1293,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 - print() prints '()' in python 2 instead of expected empty line
 - fix chgrp call on openSUSE
 - Bumping package versions for 2.6.
+
+* Mon Jun 6 2016 Laurence Rochfort <laurence.rochfort@oracle.com> 2.5.43-1
+- Add timezone_utils.py to libs files for BZ 1342977
 
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.43-1
 - fix missing new line in translation
