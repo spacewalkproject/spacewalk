@@ -13,11 +13,134 @@
 # in this software or its documentation.
 #
 
+import os
+import sys
 import re
+import time
 import rpm
+from Queue import Queue, Empty
+from threading import Thread, Lock
+import pycurl
+from urlgrabber.grabber import URLGrabberOptions, PyCurlFileObject
 from spacewalk.common import rhn_pkg
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.server import rhnPackageUpload
+from spacewalk.satellite_tools.syncLib import log, log2stderr
+
+
+class ProgressBarLogger:
+    def __init__(self, msg, total):
+        self.msg = msg
+        self.total = total
+        self.status = 0
+        self.lock = Lock()
+
+    def log(self, params=None):
+        self.lock.acquire()
+        self.status += 1
+        self._print_progress_bar(self.status, self.total, prefix=self.msg, bar_length=50)
+        self.lock.release()
+
+    # from here http://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console
+    # Print iterations progress
+    @staticmethod
+    def _print_progress_bar(iteration, total, prefix='', suffix='', decimals=2, bar_length=100):
+        """
+        Call in a loop to create terminal progress bar
+        @params:
+            iteration   - Required  : current iteration (Int)
+            total       - Required  : total iterations (Int)
+            prefix      - Optional  : prefix string (Str)
+            suffix      - Optional  : suffix string (Str)
+            decimals    - Optional  : number of decimals in percent complete (Int)
+            bar_length   - Optional  : character length of bar (Int)
+        """
+        filled_length = int(round(bar_length * iteration / float(total)))
+        percents = round(100.00 * (iteration / float(total)), decimals)
+        bar_char = '#' * filled_length + '-' * (bar_length - filled_length)
+        sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar_char, percents, '%', suffix))
+        sys.stdout.flush()
+        if iteration == total:
+            sys.stdout.write('\n')
+            sys.stdout.flush()
+
+
+class PyCurlFileObjectThread(PyCurlFileObject):
+    def __init__(self, url, filename, opts, curl_cache):
+        self.curl_cache = curl_cache
+        PyCurlFileObject.__init__(self, url, filename, opts)
+
+    def _do_open(self):
+        self.curl_obj = self.curl_cache
+        self.curl_obj.reset()
+        self._set_opts()
+        self._do_grab()
+        return self.fo
+
+
+class DownloadThread(Thread):
+    def __init__(self, parent):
+        Thread.__init__(self)
+        self.parent = parent
+        # pylint: disable=E1101
+        self.curl = pycurl.Curl()
+
+    def __fetch_url(self, params):
+        (base_urls, remote_relative, local_path, ssl_ca_cert, ssl_cert, ssl_key) = params
+        url = base_urls[0] + '/' + remote_relative
+        opts = URLGrabberOptions(ssl_ca_cert=ssl_ca_cert, ssl_cert=ssl_cert, ssl_key=ssl_key)
+        fo = PyCurlFileObjectThread(url, local_path, opts, self.curl)
+        fo.close()
+
+    def run(self):
+        while not self.parent.queue.empty():
+            try:
+                params = self.parent.queue.get(block=False)
+            except Empty:
+                break
+            self.__fetch_url(params)
+            if self.parent.log_obj:
+                # log_obj must be thread-safe
+                self.parent.log_obj.log(params=params)
+            self.parent.queue.task_done()
+
+
+class ThreadedDownloader:
+    def __init__(self, threads=5, log_obj=None):
+        self.queue = Queue()
+        self.threads = threads
+        self.log_obj = log_obj
+
+    def set_log_obj(self, log_obj):
+        self.log_obj = log_obj
+
+    @staticmethod
+    def _validate(ssl_ca_cert, ssl_cert, ssl_key):
+        for certificate_file in (ssl_ca_cert, ssl_cert, ssl_key):
+            if certificate_file and not os.path.isfile(certificate_file):
+                log2stderr(0, "ERROR: Certificate file not found: %s" % certificate_file)
+                return False
+        return True
+
+    def add(self, base_urls, remote_relative, local_path, ssl_ca_cert, ssl_cert, ssl_key):
+        if self._validate(ssl_ca_cert, ssl_cert, ssl_key):
+            self.queue.put((base_urls, remote_relative, local_path, ssl_ca_cert, ssl_cert, ssl_key))
+
+    def run(self):
+        size = self.queue.qsize()
+        if size <= 0:
+            return
+        log(1, "Downloading %s files." % str(size))
+        started_threads = []
+        for _ in range(self.threads):
+            thread = DownloadThread(self)
+            thread.setDaemon(True)
+            thread.start()
+            started_threads.append(thread)
+
+        # wait to finish
+        while any(t.isAlive() for t in started_threads):
+            time.sleep(1)
 
 
 class ContentPackage:
