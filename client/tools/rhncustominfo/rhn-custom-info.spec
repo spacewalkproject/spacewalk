@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.32
+Version: 5.4.33
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -63,6 +63,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Tue Dec 06 2016 Eric Herget <eherget@redhat.com> 5.4.33-1
+- 1386615 - rhn-custom-info should not require CA cert for non-https server
+
 * Tue Jun 07 2016 Jan Dobes 5.4.32-1
 - print() prints '()' in python 2 instead of expected empty line
 - fix fedora macro usage
