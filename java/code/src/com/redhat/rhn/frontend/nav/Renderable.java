@@ -115,7 +115,7 @@ public abstract class Renderable {
     }
 
     /**
-     * checn to see if a given node element at a given depth can be
+     * check to see if a given node element at a given depth can be
      * rendered
      * @param node the node in question
      * @param depth the depth in question
@@ -123,7 +123,7 @@ public abstract class Renderable {
      */
     protected final boolean canRender(NavNode node, int depth) {
         if (guard != null) {
-            return guard.canRender(node, depth) && guard.canRender(node, depth);
+            return guard.canRender(node, depth);
         }
 
         return true;
