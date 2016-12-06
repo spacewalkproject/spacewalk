@@ -75,11 +75,12 @@ def create_server_obj(server_url):
     if lang:
         server.setlang(lang)
 
-    for ca_cert in ca_certs:
-        if not os.access(ca_cert, os.R_OK):
-            raise "could not find cert %s" % ca_cert
+    if server_url.startswith("https"):
+        for ca_cert in ca_certs:
+            if not os.access(ca_cert, os.R_OK):
+                raise "could not find cert %s" % ca_cert
 
-        server.add_trusted_cert(ca_cert)
+            server.add_trusted_cert(ca_cert)
 
     return server
 
