@@ -472,14 +472,14 @@ def do_system_runscript(self, args):
                                                              script_contents,
                                                              options.start_time)
         else:
-            action_id = self.client.system.scheduleLabelScriptRun(self.session,
-                                                                  options.label,
-                                                                  system_ids,
-                                                                  options.user,
-                                                                  options.group,
-                                                                  options.timeout,
-                                                                  script_contents,
-                                                                  options.start_time)
+            action_id = self.client.system.scheduleScriptRun(self.session,
+                                                             options.label,
+                                                             system_ids,
+                                                             options.user,
+                                                             options.group,
+                                                             options.timeout,
+                                                             script_contents,
+                                                             options.start_time)
 
 
         logging.info('Action ID: %i' % action_id)
