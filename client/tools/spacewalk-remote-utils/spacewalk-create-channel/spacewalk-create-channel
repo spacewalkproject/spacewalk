@@ -440,7 +440,7 @@ def gather(clear):
                         #do supplementary
                         suppl = extras[1]
                         fullDir = GATHER_DIR + "Supp-RHEL-%s/%s.%s/%s/%s/os/Packages/" % (version, version, update_num, release, arch)
-                        print fullDir
+                        print(fullDir)
                         saveRpmList(fullDir + "/", DATA_DIR + getFileName(version, update,release, arch, suppl))
 
                         #do optional
