@@ -14801,6 +14801,9 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="ssm.operations.provisioning.remotecommand.form.gid.missing">
           <source>Group name on the target system is not specified.</source>
         </trans-unit>
+        <trans-unit id="ssm.operations.provisioning.remotecommand.form.timeout.max">
+          <source>Timeout value specified exceeds max value of 2147483647.</source>
+        </trans-unit>
         <trans-unit id="ssm.operations.provisioning.remotecommand.form.script_body.missing">
           <source>No script has been specified.</source>
         </trans-unit>
