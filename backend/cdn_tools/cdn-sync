@@ -105,7 +105,9 @@ if __name__ == '__main__':
         elif args.clear_cache:
             cdnsync.clear_cache()
         else:
-            cdnsync.sync(channels=args.channel)
+            error_messages = cdnsync.sync(channels=args.channel)
+            if error_messages:
+                system_exit(1, error_messages)
 
     except KeyboardInterrupt:
         system_exit(0, "\nUser interrupted process.")

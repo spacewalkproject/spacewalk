@@ -259,6 +259,7 @@ class RepoSync(object):
 
     def sync(self, update_repodata=False):
         """Trigger a reposync"""
+        ret_code = 0
         start_time = datetime.now()
         for (repo_id, url, repo_label) in self.urls:
             log(0, "Repo URL: %s" % url)
@@ -301,7 +302,11 @@ class RepoSync(object):
                         plugin.set_ssl_options(keys['ca_cert'], keys['client_cert'], keys['client_key'])
 
                 if not self.no_packages:
-                    self.import_packages(plugin, repo_id, url)
+                    ret = self.import_packages(plugin, repo_id, url)
+                    # we check previous ret_code value because we don't want
+                    # to override it with new successful one
+                    if ret_code == 0:
+                        ret_code = ret
                     self.import_groups(plugin, url)
 
                 if not self.no_errata:
@@ -317,6 +322,9 @@ class RepoSync(object):
             except Exception:
                 e = sys.exc_info()[1]
                 log2stderr(0, "ERROR: %s" % e)
+                log2disk(0, "ERROR: %s" % e)
+                if ret_code == 0:
+                    ret_code = 1
             if plugin is not None:
                 plugin.clear_ssl_cache()
         if self.regen:
@@ -327,7 +335,7 @@ class RepoSync(object):
         rhnSQL.commit()
         elapsed_time = datetime.now() - start_time
         log(0, "Sync of channel completed in %s." % str(elapsed_time).split('.')[0])
-        return elapsed_time
+        return elapsed_time, ret_code
 
     def set_ks_tree_type(self, tree_type='externally-managed'):
         self.ks_tree_type = tree_type
@@ -571,6 +579,7 @@ class RepoSync(object):
         self.regen = True
 
     def import_packages(self, plug, source_id, url):
+        ret_code = 0
         if (not self.filters) and source_id:
             h = rhnSQL.prepare("""
                     select flag, filter
@@ -654,8 +663,10 @@ class RepoSync(object):
             except KeyboardInterrupt:
                 raise
             except Exception:
+                ret_code = 1
                 e = sys.exc_info()[1]
                 log2stderr(0, e)
+                log2disk(0, e)
                 if self.fail:
                     raise
                 to_process[index] = (pack, False, False)
@@ -679,6 +690,7 @@ class RepoSync(object):
                                               strict=self.strict)
         importer.run()
         backend.commit()
+        return ret_code
 
     @staticmethod
     def match_package_checksum(abspath, checksum_type, checksum):

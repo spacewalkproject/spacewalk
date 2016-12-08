@@ -299,15 +299,19 @@ class CdnSync(object):
         self._update_channels_metadata(channels)
 
         # Finally, sync channel content
+        error_messages = []
         total_time = datetime.timedelta()
         for channel in channels:
-            cur_time = self._sync_channel(channel)
+            cur_time, ret_code = self._sync_channel(channel)
+            if ret_code != 0:
+                error_messages.append("Problems occurred during syncing channel %s. Please check "
+                                      "/var/log/rhn/cdnsync/%s.log for the details\n" % (channel, channel))
             total_time += cur_time
             # Switch back to cdnsync log
             rhnLog.initLOG(self.log_path, self.log_level)
             log2disk(0, "Sync of channel completed.")
-
         log(0, "Total time: %s" % str(total_time).split('.')[0])
+        return error_messages
 
     def count_packages(self):
         start_time = int(time.time())
