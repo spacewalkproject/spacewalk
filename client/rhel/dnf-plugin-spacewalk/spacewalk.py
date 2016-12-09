@@ -39,7 +39,6 @@ from rhn.i18n import ustr
 from up2date_client import up2dateErrors
 
 STORED_CHANNELS_NAME = '_spacewalk.json'
-PLUGIN_CONF = 'spacewalk'
 
 RHN_DISABLED    = _("Spacewalk based repositories will be disabled.")
 CHANNELS_DISABLED = _("Spacewalk channel support will be disabled.")
@@ -66,7 +65,7 @@ class Spacewalk(dnf.Plugin):
         self.connected_to_spacewalk = False
         self.up2date_cfg = {}
         self.conf = copy(self.base.conf)
-        self.parser = self.read_config(self.conf, PLUGIN_CONF)
+        self.parser = self.read_config(self.conf)
         if "main" in self.parser.sections():
             options = self.parser.items("main")
             for (key, value) in options:
@@ -80,7 +79,7 @@ class Spacewalk(dnf.Plugin):
             return
         self.cli.demands.root_user = True
 
-        self.activate_channels(self.cli.demands.sack_activation)
+        self.activate_channels()
 
     def activate_channels(self, networking=True):
         enabled_channels = {}
@@ -144,7 +143,7 @@ class Spacewalk(dnf.Plugin):
                 for (key, value) in options:
                     setattr(conf, key, value)
             repo = SpacewalkRepo(channel_dict, {
-                                    'cachedir'  : self.base.conf.cachedir,
+                                    'conf'      : self.base.conf,
                                     'proxy'     : proxy_url,
                                     'timeout'   : conf.timeout,
                                     'sslcacert' : sslcacert,
@@ -212,7 +211,7 @@ class  SpacewalkRepo(dnf.repo.Repo):
 
     def __init__(self, channel, opts):
         super(SpacewalkRepo, self).__init__(ustr(channel['label']),
-                                            opts.get('cachedir'))
+                                            opts.get('conf'))
         # dnf stuff
         self.name = ustr(channel['name'])
         self.baseurl = [ url + '/GET-REQ/' + self.id for url in channel['url']]
