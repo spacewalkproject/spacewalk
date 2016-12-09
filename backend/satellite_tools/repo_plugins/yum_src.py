@@ -103,7 +103,7 @@ class YumUpdateMetadata(UpdateMetadata):
 
 class ContentSource(object):
 
-    def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF, org="1", channel_label=""):
+    def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF, org="1", channel_label="", no_mirrors=False):
         self.url = url
         self.name = name
         self.yumbase = yum.YumBase()
@@ -140,7 +140,7 @@ class ContentSource(object):
             repo.populate(self.configparser, name, self.yumbase.conf)
         self.repo = repo
 
-        self.setup_repo(repo)
+        self.setup_repo(repo, no_mirrors)
         self.num_packages = 0
         self.num_excluded = 0
 
@@ -163,7 +163,7 @@ class ContentSource(object):
     def _authenticate(self, url):
         pass
 
-    def setup_repo(self, repo):
+    def setup_repo(self, repo, no_mirrors):
         """Fetch repository metadata"""
         repo.cache = 0
         repo.mirrorlist = self.url
@@ -189,14 +189,18 @@ class ContentSource(object):
             repo.proxy_username = self.proxy_user
             repo.proxy_password = self.proxy_pass
 
-        warnings = YumWarnings()
-        warnings.disable()
-        try:
-            repo.baseurlSetup()
-        except:
+        # Do not try to expand baseurl to other mirrors
+        if no_mirrors:
+            repo.urls = repo.baseurl
+        else:
+            warnings = YumWarnings()
+            warnings.disable()
+            try:
+                repo.baseurlSetup()
+            except:
+                warnings.restore()
+                raise
             warnings.restore()
-            raise
-        warnings.restore()
         repo.setup(False)
 
     def number_of_packages(self):
