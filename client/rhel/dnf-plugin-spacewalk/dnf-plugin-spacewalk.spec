@@ -13,7 +13,7 @@ BuildRequires: python3-devel
 %else
 BuildRequires: python-devel
 %endif
-Requires: dnf >= 0.5.3
+Requires: dnf >= 2.0.0
 Requires: dnf-plugins-core
 Requires: librepo >= 1.7.15
 Requires: rhn-client-tools >= 2.5.5
