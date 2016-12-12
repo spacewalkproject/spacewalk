@@ -212,6 +212,7 @@ def main():
         return 0
 
     total_time = datetime.timedelta()
+    ret_code = 0
     for ch,repo in d_ch_repo_sync.items():
 
         log(0, "======================================")
@@ -228,7 +229,9 @@ def main():
                       sync_kickstart=options.sync_kickstart,
                       latest=options.latest,
                       log_level=options.verbose)
-        elapsed_time = sync.sync()
+        elapsed_time, channel_ret_code = sync.sync()
+        if channel_ret_code != 0 and ret_code == 0:
+            ret_code = channel_ret_code
         total_time += elapsed_time
         # Switch back to common log
         rhnLog.initLOG(log_path, log_level)
@@ -236,7 +239,7 @@ def main():
 
     log(0, "Total time: %s" % str(total_time).split('.')[0])
     releaseLOCK()
-    return 0
+    return ret_code
 
 
 if __name__ == '__main__':
