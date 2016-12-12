@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.5
+Version: 2.7.6
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -820,6 +820,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Mon Dec 12 2016 Gennadii Altukhov <galt@redhat.com> 2.7.6-1
+- 1403898 - spacewalk-repo-sync returns non-zero return code if some problems
+  occured
+
 * Mon Dec 12 2016 Gennadii Altukhov <galt@redhat.com> 2.7.5-1
 - 1397427 - add non-zero return code and error message if some problems
   occurred during syncing
