@@ -74,12 +74,12 @@ class Spacewalk(dnf.Plugin):
             return
         logger.debug('initialized Spacewalk plugin')
 
+        self.activate_channels()
+
     def config(self):
         if not self.conf.enabled:
             return
         self.cli.demands.root_user = True
-
-        self.activate_channels()
 
     def activate_channels(self, networking=True):
         enabled_channels = {}
