@@ -20,7 +20,6 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
-import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.action.Action;
@@ -139,20 +138,17 @@ public class ActionManager extends BaseManager {
      */
     public static int failSystemAction(User loggedInUser, Long serverId, Long actionId,
                                        String message) {
-        Action action;
-        ServerAction serverAction;
-        Server server;
+        Action action = ActionFactory.lookupByUserAndId(loggedInUser, actionId);
+        Server server = SystemManager.lookupByIdAndUser(serverId, loggedInUser);
+        ServerAction serverAction = ActionFactory.getServerActionForServerAndAction(server, action);
 
-        action = ActionFactory.lookupByUserAndId(loggedInUser, actionId);
-        server = SystemManager.lookupByIdAndUser(serverId, loggedInUser);
-        serverAction = ActionFactory.getServerActionForServerAndAction(server, action);
-        CallableMode mode = ModeFactory.getCallableMode("System_queries",
-                "fail_action_for_system");
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("aid", serverAction.getParentAction().getId());
-        params.put("sid", serverAction.getServerId());
-        params.put("message", message);
-        mode.execute(params, new HashMap<String, Integer>());
+        serverAction.setStatus(ActionFactory.STATUS_FAILED);
+        serverAction.setResultMsg(message);
+        ActionFactory.removeActionForSystem(actionId,serverId);
+        action = ActionFactory.lookupById(actionId);
+        action.addServerAction(serverAction);
+        ActionFactory.save(action);
+
         return 1;
     }
 
