@@ -2299,14 +2299,6 @@ ORDER BY E.update_date, E.id
   </query>
 </mode>
 
-<callable-mode name="fail_action_for_system">
-    <query params="aid, sid, message">
-        UPDATE rhnServerAction S
-        SET status = (SELECT id FROM rhnactionstatus WHERE name = 'Failed'), result_msg = :message
-        WHERE S.server_id = :sid AND S.action_id = :aid
-    </query>
-</callable-mode>
-
 <mode name="clients_through_proxy" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="sid">
 SELECT SP.server_id ID, S.name
