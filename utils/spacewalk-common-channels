@@ -39,8 +39,6 @@ CHANNEL_ARCH = {
     'x86_64':       'channel-x86_64',
     'ppc':          'channel-ppc',
     'ppc64':        'channel-ppc64',
-    'sparc-sun-solaris': 'channel-sparc-sun-solaris',
-    'i386-sun-solaris':  'channel-i386-sun-solaris',
 }
 
 SPLIT_PATTERN = '[ ,]+'
