@@ -660,6 +660,13 @@ class RepoSync(object):
                     pack.path = localpath = plug.get_package(pack, metadata_only=self.metadata_only)
                     pack.load_checksum_from_header()
                     pack.upload_package(self.channel, metadata_only=self.metadata_only)
+
+                    # we do not want to keep a whole 'a_pkg' object for every package in memory,
+                    # because we need only checksum. see BZ 1397417
+                    pack.checksum = pack.a_pkg.checksum
+                    pack.checksum_type = pack.a_pkg.checksum_type
+                    pack.epoch = pack.a_pkg.header['epoch']
+                    pack.a_pkg = None
             except KeyboardInterrupt:
                 raise
             except Exception:

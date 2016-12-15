@@ -138,7 +138,6 @@ class ContentSource(object):
             repo = yum.yumRepo.YumRepository(name)
             repo.populate(self.configparser, name, self.yumbase.conf)
         self.repo = repo
-        self.sack = None
 
         self.setup_repo(repo)
         self.num_packages = 0
@@ -153,6 +152,9 @@ class ContentSource(object):
             if '?' not in url:
                 real_urls.append(url)
         self.repo.urls = real_urls
+
+    def __del__(self):
+        self.repo.close()
 
     def _authenticate(self, url):
         pass
@@ -192,30 +194,29 @@ class ContentSource(object):
             raise
         warnings.restore()
         repo.setup(False)
-        self.sack = self.repo.getPackageSack()
 
     def number_of_packages(self):
         for dummy_index in range(3):
             try:
-                self.sack.populate(self.repo, 'metadata', None, 0)
+                self.repo.getPackageSack().populate(self.repo, 'metadata', None, 0)
                 break
             except YumErrors.RepoError:
                 pass
-        return len(self.sack.returnPackages())
+        return len(self.repo.getPackageSack().returnPackages())
 
     def raw_list_packages(self):
         for dummy_index in range(3):
             try:
-                self.sack.populate(self.repo, 'metadata', None, 0)
+                self.repo.getPackageSack().populate(self.repo, 'metadata', None, 0)
                 break
             except YumErrors.RepoError:
                 pass
-        return self.sack.returnPackages()
+        return self.repo.getPackageSack().returnPackages()
 
     def list_packages(self, filters, latest):
         """ list packages"""
-        self.sack.populate(self.repo, 'metadata', None, 0)
-        pkglist = ListPackageSack(self.sack.returnPackages())
+        self.repo.getPackageSack().populate(self.repo, 'metadata', None, 0)
+        pkglist = ListPackageSack(self.repo.getPackageSack().returnPackages())
         self.num_packages = len(pkglist)
         if latest:
             pkglist = pkglist.returnNewestByNameArch()
@@ -231,7 +232,7 @@ class ContentSource(object):
 
         if filters:
             pkglist = self._filter_packages(pkglist, filters)
-            pkglist = self._get_package_dependencies(self.sack, pkglist)
+            pkglist = self._get_package_dependencies(self.repo.getPackageSack(), pkglist)
 
             # do not pull in dependencies if they're explicitly excluded
             pkglist = self._filter_packages(pkglist, filters, True)
