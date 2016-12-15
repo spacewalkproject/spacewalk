@@ -144,10 +144,10 @@ public class ActionManager extends BaseManager {
 
         serverAction.setStatus(ActionFactory.STATUS_FAILED);
         serverAction.setResultMsg(message);
-        ActionFactory.removeActionForSystem(actionId,serverId);
-        action = ActionFactory.lookupById(actionId);
-        action.addServerAction(serverAction);
-        ActionFactory.save(action);
+        //ActionFactory.removeActionForSystem(actionId,serverId);
+        //action = ActionFactory.lookupById(actionId);
+        //action.addServerAction(serverAction);
+        //ActionFactory.save(action);
 
         return 1;
     }
