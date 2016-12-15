@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.7.1
+Version:     2.7.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -92,6 +92,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Dec 15 2016 Jiri Dostal <jdostal@redhat.com> 2.7.2-1
+- 1404276 - spacecmd has hardcoded architectures - there is solaris
+
 * Tue Dec 06 2016 Jiri Dostal <jdostal@redhat.com> 2.7.1-1
 - 1250572 - Text description missing for remote command by Spacecmd
 - Bumping package versions for 2.7.
