@@ -35,8 +35,6 @@ import urllib
 import xmlrpclib
 from spacecmd.utils import *
 
-ARCH_LABELS = ['ia32', 'ia64', 'x86_64', 'ppc',
-               'i386-sun-solaris', 'sparc-sun-solaris']
 
 CHECKSUM = ['sha1', 'sha256', 'sha384', 'sha512']
 
@@ -506,8 +504,7 @@ options:
   -n NAME
   -l LABEL
   -p PARENT_CHANNEL
-  -a ARCHITECTURE ['ia32', 'ia64', 'x86_64', 'ppc',
-                  'i386-sun-solaris', 'sparc-sun-solaris']
+  -a ARCHITECTURE
   -c CHECKSUM %s
   -u GPG_URL
   -i GPG_ID
@@ -515,6 +512,8 @@ options:
 
 
 def do_softwarechannel_create(self, args):
+    arches = self.client.channel.software.listArches(self.session)
+    self.ARCH_LABELS = [x["label"].replace("channel-","") for x in arches]
     options = [ Option('-n', '--name', action='store'),
                 Option('-l', '--label', action='store'),
                 Option('-p', '--parent-channel', action='store'),
