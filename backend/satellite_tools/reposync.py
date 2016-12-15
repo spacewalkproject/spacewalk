@@ -243,6 +243,7 @@ class RepoSync(object):
 
         if not self.urls:
             log2stderr(0, "Channel %s has no URL associated" % channel_label)
+            log2disk(0, "Channel %s has no URL associated" % channel_label)
 
         self.repo_plugin = self.load_plugin(repo_type)
         self.strict = strict
@@ -259,7 +260,10 @@ class RepoSync(object):
 
     def sync(self, update_repodata=False):
         """Trigger a reposync"""
-        ret_code = 0
+        if self.urls:
+            ret_code = 0
+        else:
+            ret_code = 1
         start_time = datetime.now()
         for (repo_id, url, repo_label) in self.urls:
             log(0, "Repo URL: %s" % url)
