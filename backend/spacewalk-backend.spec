@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.7
+Version: 2.7.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -820,6 +820,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Dec 15 2016 Gennadii Altukhov <galt@redhat.com> 2.7.8-1
+- 1404033 - return non-zero return code if channel has no URL associated
+
 * Thu Dec 15 2016 Gennadii Altukhov <galt@redhat.com> 2.7.7-1
 - 1397417 - fix memory leaks in cdn-sync and spacewalk-repo-sync. * remove a
   circular dependency between YumRepository and ContentSource * optimize memory
