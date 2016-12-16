@@ -15,6 +15,7 @@
 #
 
 import sys
+import logging
 import os.path
 from os import makedirs
 from shutil import rmtree
@@ -154,6 +155,9 @@ class ContentSource(object):
         self.repo.urls = real_urls
 
     def __del__(self):
+        # close log files for yum plugin
+        for handler in logging.getLogger("yum.filelogging").handlers:
+            handler.close()
         self.repo.close()
 
     def _authenticate(self, url):
