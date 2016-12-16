@@ -137,7 +137,7 @@ class CdnSync(object):
             try:
                 family = self.families[label]
             except KeyError:
-                log2stderr(0, "ERROR: Unknown channel family: %s" % label)
+                log2stderr(1, "ERROR: Unknown channel family: %s" % label)
                 continue
             channels = [c for c in family['channels'] if c is not None]
             all_channels.extend(channels)
