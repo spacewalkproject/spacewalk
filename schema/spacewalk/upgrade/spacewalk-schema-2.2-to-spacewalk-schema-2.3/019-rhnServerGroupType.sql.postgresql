@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 6d95d28b616ca7586fb6b5ee5dfc9de2b4a674bc
+-- oracle equivalent source sha1 ca7be9ed2a8ef93f8f95adbcf25c38d82f6cc07e
 
 delete from rhnServerGroupMembers where server_group_id in
        (select sg.id
@@ -13,5 +13,7 @@ alter table rhnServerGroup enable trigger rhnservergroup_log_trig;
 delete from rhnSgTypeBaseAddOnCompat where addon_id in
        (select id from rhnServerGroupType where label = 'monitoring_entitled');
 delete from rhnServerServerGroupArchCompat where server_group_type in
+       (select id from rhnServerGroupType where label = 'monitoring_entitled');
+delete from rhnServerGroupTypeFeature where server_group_type_id in
        (select id from rhnServerGroupType where label = 'monitoring_entitled');
 delete from rhnServerGroupType where label = 'monitoring_entitled';
