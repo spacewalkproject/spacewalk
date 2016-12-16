@@ -134,7 +134,7 @@ public class ActionManager extends BaseManager {
      * @param serverId server id
      * @param actionId The id of the Action to be set as failed
      * @param message Message from user, reason of this fail
-     * @return int 0
+     * @return int 1 if succeed
      */
     public static int failSystemAction(User loggedInUser, Long serverId, Long actionId,
                                        String message) {
@@ -144,10 +144,6 @@ public class ActionManager extends BaseManager {
 
         serverAction.setStatus(ActionFactory.STATUS_FAILED);
         serverAction.setResultMsg(message);
-        //ActionFactory.removeActionForSystem(actionId,serverId);
-        //action = ActionFactory.lookupById(actionId);
-        //action.addServerAction(serverAction);
-        //ActionFactory.save(action);
 
         return 1;
     }
