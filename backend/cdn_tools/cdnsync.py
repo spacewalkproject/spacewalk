@@ -261,7 +261,7 @@ class CdnSync(object):
         sync = reposync.RepoSync(channel,
                                  "yum",
                                  url=None,
-                                 fail=True,
+                                 fail=False,
                                  filters=False,
                                  no_packages=self.no_packages,
                                  no_errata=self.no_errata,
