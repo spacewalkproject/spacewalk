@@ -848,6 +848,7 @@ class RepoSync(object):
             row = rhnSQL.fetchone_dict(id_request + " and org_id is NULL", channel_id=self.channel['id'],
                                        label=ks_tree_label)
 
+        fileutils.createPath(os.path.join(CFG.MOUNT_POINT, ks_path))
         treeinfo_path = ['treeinfo', '.treeinfo']
         treeinfo_parser = None
         for path in treeinfo_path:
@@ -957,4 +958,10 @@ class RepoSync(object):
         else:
             log(0, "Nothing to download.")
 
+        # set permissions recursively
+        for root, dirs, files in os.walk(os.path.join(CFG.MOUNT_POINT, ks_path)):
+            for d in dirs:
+                fileutils.setPermsPath(os.path.join(root, d), group='apache')
+            for f in files:
+                fileutils.setPermsPath(os.path.join(root, f), group='apache')
         rhnSQL.commit()
