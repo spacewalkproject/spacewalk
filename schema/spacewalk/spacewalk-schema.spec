@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.7.4
+Version:        2.7.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Dec 20 2016 Tomas Kasparek <tkasparek@redhat.com> 2.7.5-1
+- 1402437 - update sha1
+
 * Tue Dec 20 2016 Tomas Kasparek <tkasparek@redhat.com> 2.7.4-1
 - 1402437 - drop child channels first
 - rhnServerGroupTypeFeature table is dependant on rhnServerGroupType
