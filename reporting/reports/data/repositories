@@ -41,6 +41,7 @@ sql:
             left outer join rhncryptokey ck_cert on ck_cert.id = cs.ssl_client_cert_id
             left outer join rhncryptokey ck_ca on ck_ca.id = cs.ssl_ca_cert_id
             join rhncontentsourcetype cst on cs.type_id = cst.id
+       where cs.org_id is not null
     ) X
-    where org_id is not null
+    -- where placeholder
     order by org_id, id
