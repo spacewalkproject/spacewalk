@@ -3457,7 +3457,7 @@ def do_system_comparewithchannel(self, args):
         channelnewer = []
         systemnewer = []
         channelmissing = []
-        for key in packages.keys():
+        for key in packages:
             syspkg = packages.get(key)
             if latestpkgs.has_key(key):
                 chpkg = latestpkgs.get(key)
