@@ -42,10 +42,31 @@ begin
 end;
 $$ language plpgsql;
 
+create or replace
+function delete_channel_tmp_child (
+  arch_in varchar
+)
+returns void as
+$$
+declare
+  rec record;
+begin
+  for rec in select channel.id as id
+      from rhnChannel channel
+      where channel_arch_id = LOOKUP_CHANNEL_ARCH(arch_in)
+      and channel.parent_channel is not null loop
+    perform delete_channel(rec.id);
+  end loop;
+end;
+$$ language plpgsql;
+
+select delete_channel_tmp_child('channel-sparc-sun-solaris');
+select delete_channel_tmp_child('channel-i386-sun-solaris');
 select delete_channel_tmp('channel-sparc-sun-solaris');
 select delete_channel_tmp('channel-i386-sun-solaris');
 
 drop function delete_channel_tmp(varchar);
+drop function delete_channel_tmp_child(varchar);
 
 delete from rhnChannelPackageArchCompat where channel_arch_id = LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris');
 delete from rhnChannelPackageArchCompat where channel_arch_id = LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris');

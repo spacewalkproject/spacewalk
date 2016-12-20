@@ -39,10 +39,30 @@ end delete_channel_tmp;
 /
 show errors;
 
+create or replace
+procedure delete_channel_tmp_child (
+  arch_in in varchar2
+) is
+  cursor channels is
+  select channel.id id
+  from rhnChannel channel
+  where channel_arch_id = LOOKUP_CHANNEL_ARCH(arch_in)
+  and channel.parent_channel is not null;
+begin
+  for c in channels loop
+    delete_channel(c.id);
+  end loop;
+end delete_channel_tmp_child;
+/
+show errors;
+
+execute delete_channel_tmp_child('channel-sparc-sun-solaris');
+execute delete_channel_tmp_child('channel-i386-sun-solaris');
 execute delete_channel_tmp('channel-sparc-sun-solaris');
 execute delete_channel_tmp('channel-i386-sun-solaris');
 
 drop procedure delete_channel_tmp;
+drop procedure delete_channel_tmp_child;
 
 delete from rhnChannelPackageArchCompat where channel_arch_id = LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris');
 delete from rhnChannelPackageArchCompat where channel_arch_id = LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris');
