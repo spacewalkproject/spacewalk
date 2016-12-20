@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.7.2
+Version:     2.7.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -92,6 +92,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Dec 20 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.3-1
+- fixing pylint: spacecmd: consider-iterating-dictionary
+
 * Thu Dec 15 2016 Jiri Dostal <jdostal@redhat.com> 2.7.2-1
 - 1404276 - spacecmd has hardcoded architectures - there is solaris
 
