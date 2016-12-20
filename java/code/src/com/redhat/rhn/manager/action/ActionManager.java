@@ -140,7 +140,8 @@ public class ActionManager extends BaseManager {
                                        String message) {
         Action action = ActionFactory.lookupByUserAndId(loggedInUser, actionId);
         Server server = SystemManager.lookupByIdAndUser(serverId, loggedInUser);
-        ServerAction serverAction = ActionFactory.getServerActionForServerAndAction(server, action);
+        ServerAction serverAction = ActionFactory.getServerActionForServerAndAction(server,
+                action);
 
         serverAction.setStatus(ActionFactory.STATUS_FAILED);
         serverAction.setResultMsg(message);
