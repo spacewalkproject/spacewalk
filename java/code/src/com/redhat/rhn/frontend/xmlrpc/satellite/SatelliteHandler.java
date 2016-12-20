@@ -55,4 +55,33 @@ public class SatelliteHandler extends BaseHandler {
         }
         return toReturn.toArray();
     }
+
+    /**
+     * Indicates if monitoring is enabled on the satellite
+     * available since API version 10.13
+     * @param loggedInUser The current user
+     * @return True if monitoring is enabled
+     *
+     * @xmlrpc.doc Indicates if monitoring is enabled on the satellite
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype #param("boolean", "True if monitoring is enabled")
+     */
+    public boolean isMonitoringEnabled(User loggedInUser) {
+        return false;
+    }
+
+    /**
+     * Indicates if monitoring is enabled on the satellite
+     * available since API version 10.14
+     * @param clientcert client certificate of the system.
+     * @return True if monitoring is enabled
+     *
+     * @xmlrpc.doc Indicates if monitoring is enabled on the satellite
+     * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
+     * @xmlrpc.returntype #param("boolean", "True if monitoring is enabled")
+     */
+    public boolean isMonitoringEnabledBySystemId(String clientcert) {
+        return false;
+    }
+
 }
