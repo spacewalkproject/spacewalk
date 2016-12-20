@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.7.3
+Version:        2.7.4
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Dec 20 2016 Tomas Kasparek <tkasparek@redhat.com> 2.7.4-1
+- 1402437 - drop child channels first
+- rhnServerGroupTypeFeature table is dependant on rhnServerGroupType
+
 * Tue Dec 13 2016 Tomas Kasparek <tkasparek@redhat.com> 2.7.3-1
 - 1402437 - delete all solaris related records in database
 
