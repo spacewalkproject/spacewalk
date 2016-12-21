@@ -313,7 +313,7 @@ class CdnSync(object):
         log(0, "Total time: %s" % str(total_time).split('.')[0])
         return error_messages
 
-    def count_packages(self):
+    def count_packages(self, channels=None):
         start_time = int(time.time())
         channel_tree, not_available_channels = self._list_available_channels()
 
@@ -323,6 +323,11 @@ class CdnSync(object):
             channel_list.extend(channel_tree[base_channel])
             if base_channel not in not_available_channels:
                 channel_list.append(base_channel)
+
+        # Only some channels specified by parameter
+        if channels:
+            channel_list = [c for c in channel_list if c in channels]
+
         log(0, "Number of channels: %d" % len(channel_list))
 
         # Prepare repositories

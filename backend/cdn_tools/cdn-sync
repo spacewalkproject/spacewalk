@@ -96,12 +96,12 @@ if __name__ == '__main__':
 
         if args.list_channels:
             if args.count_packages:
-                cdnsync.count_packages()
+                cdnsync.count_packages(channels=args.channel)
             cdnsync.print_channel_tree()
         elif args.list_repos:
             cdnsync.print_channel_tree(repos=True)
         elif args.count_packages:
-            cdnsync.count_packages()
+            cdnsync.count_packages(channels=args.channel)
         elif args.clear_cache:
             cdnsync.clear_cache()
         else:
