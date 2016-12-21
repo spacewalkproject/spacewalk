@@ -35,7 +35,7 @@ from spacewalk.satellite_tools import contentRemove
 from spacewalk.satellite_tools.syncLib import log, log2disk, log2stderr
 from spacewalk.satellite_tools.repo_plugins import yum_src, ThreadedDownloader, ProgressBarLogger
 
-from common import CdnMappingsLoadError, verify_mappings
+from common import CdnMappingsLoadError, verify_mappings, human_readable_size
 from repository import CdnRepositoryManager
 
 
@@ -463,30 +463,39 @@ class CdnSync(object):
 
         log(0, "p = previously imported/synced channel")
         log(0, ". = channel not yet imported/synced")
-        log(0, "? = No CDN source provided to count number of packages")
+        log(0, "? = package count not available (try to run cdn-sync --count-packages)")
 
         log(0, "Base channels:")
         available_base_channels = [x for x in sorted(channel_tree) if x not in not_available_channels]
         if not available_base_channels:
             log(0, "      NONE")
+
+        longest_label = len(max(available_base_channels + [i for l in channel_tree.values() for i in l], key=len or ""))
         for channel in available_base_channels:
             if channel in self.synced_channels:
                 status = 'p'
             else:
                 status = '.'
 
-            sources = self.cdn_repository_manager.get_content_sources(channel)
-            if sources:
-                packages_number = '0'
-            else:
-                packages_number = '?'
             try:
                 packages_number = open(constants.CDN_REPODATA_ROOT + '/' + channel + "/packages_num", 'r').read()
             # pylint: disable=W0703
             except Exception:
-                pass
+                packages_number = '?'
 
-            log(0, "    %s %s %s" % (status, channel, packages_number))
+            try:
+                packages_size = open(constants.CDN_REPODATA_ROOT + '/' + channel + "/packages_size", 'r').read()
+                packages_size = human_readable_size(int(packages_size))
+            # pylint: disable=W0703
+            except Exception:
+                packages_size = '?B'
+
+            space = " "
+            offset = longest_label - len(channel)
+            space += " " * offset
+
+            log(0, "    %s %s%s%s packages (%s)" % (status, channel, space, packages_number, packages_size))
+            sources = self.cdn_repository_manager.get_content_sources(channel)
             if repos:
                 if sources:
                     for source in sources:
@@ -504,19 +513,27 @@ class CdnSync(object):
                         status = 'p'
                     else:
                         status = '.'
-                    sources = self.cdn_repository_manager.get_content_sources(child)
-                    if sources:
-                        packages_number = '0'
-                    else:
-                        packages_number = '?'
+
                     try:
                         packages_number = open(constants.CDN_REPODATA_ROOT + '/' + child + "/packages_num", 'r').read()
                     # pylint: disable=W0703
                     except Exception:
-                        pass
+                        packages_number = '?'
 
-                    log(0, "    %s %s %s" % (status, child, packages_number))
+                    try:
+                        packages_size = open(constants.CDN_REPODATA_ROOT + '/' + child + "/packages_size", 'r').read()
+                        packages_size = human_readable_size(int(packages_size))
+                    # pylint: disable=W0703
+                    except Exception:
+                        packages_size = '?B'
+
+                    space = " "
+                    offset = longest_label - len(child)
+                    space += " " * offset
+
+                    log(0, "    %s %s%s%s packages (%s)" % (status, child, space, packages_number, packages_size))
                     if repos:
+                        sources = self.cdn_repository_manager.get_content_sources(child)
                         if sources:
                             for source in sources:
                                 log(0, "        %s" % source['relative_url'])
