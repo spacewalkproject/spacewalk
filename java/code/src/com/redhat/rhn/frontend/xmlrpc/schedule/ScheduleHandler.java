@@ -66,7 +66,7 @@ public class ScheduleHandler extends BaseHandler {
      * @param loggedInUser The current user
      * @param serverId server id
      * @param actionId action id
-     * @return int 0
+     * @return int 1 if successfull
      *
      * @xmlrpc.doc Fail specific event on specified system
      * @xmlrpc.param #session_key()
@@ -87,7 +87,7 @@ public class ScheduleHandler extends BaseHandler {
      * @param serverId server id
      * @param actionId action id
      * @param message some info about this fail
-     * @return int 0
+     * @return int 1 if successfull
      *
      *
      * @xmlrpc.doc Fail specific event on specified system
