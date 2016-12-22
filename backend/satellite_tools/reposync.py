@@ -30,6 +30,7 @@ from spacewalk.server.importlib.packageImport import ChannelPackageSubscription
 from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.errataImport import ErrataImport
 from spacewalk.server import taskomatic
+from spacewalk.satellite_tools.repo_plugins import ThreadedDownloader, ProgressBarLogger, TextLogger
 
 from syncLib import log, log2disk, log2stderr
 
@@ -629,14 +630,15 @@ class RepoSync(object):
                         # package is already in the channel
                         to_link = False
 
+                    # just pass data from DB, they will be used in strict channel
+                    # linking if there is no new RPM downloaded
+                    pack.checksum = db_pack['checksum']
+                    pack.checksum_type = db_pack['checksum_type']
+                    pack.epoch = db_pack['epoch']
+
                 elif db_pack['channel_id'] == channel_id:
                     # different package with SAME NVREA
                     self.disassociate_package(db_pack)
-
-                # just pass data from DB, they will be used if there is no RPM available
-                pack.checksum = db_pack['checksum']
-                pack.checksum_type = db_pack['checksum_type']
-                pack.epoch = db_pack['epoch']
 
             if to_download or to_link:
                 to_process.append((pack, to_download, to_link))
@@ -654,14 +656,40 @@ class RepoSync(object):
         self.regen = True
         is_non_local_repo = (url.find("file:/") < 0)
 
+        downloader = ThreadedDownloader()
+        to_download_count = 0
+        for what in to_process:
+            pack, to_download, to_link = what
+            if to_download:
+                target_file = os.path.join(plug.repo.pkgdir, os.path.basename(pack.unique_id.relativepath))
+                pack.path = target_file
+                params = {}
+                if self.metadata_only:
+                    bytes_range = (0, pack.unique_id.hdrend)
+                    checksum_type = None
+                    checksum = None
+                else:
+                    bytes_range = None
+                    checksum_type = pack.checksum_type
+                    checksum = pack.checksum
+                plug.set_download_parameters(params, pack.unique_id.relativepath, target_file,
+                                             checksum_type=checksum_type, checksum=checksum,
+                                             bytes_range=bytes_range)
+                downloader.add(params)
+                to_download_count += 1
+        logger = TextLogger(None, to_download_count)
+        downloader.set_log_obj(logger)
+        downloader.run()
+
+        log2disk(0, "Importing packages started.")
+        progress_bar = ProgressBarLogger("Importing packages:    ", to_download_count)
         for (index, what) in enumerate(to_process):
             pack, to_download, to_link = what
             localpath = None
             # pylint: disable=W0703
             try:
-                log(0, "%d/%d : %s" % (index + 1, num_to_process, pack.getNVREA()))
                 if to_download:
-                    pack.path = localpath = plug.get_package(pack, metadata_only=self.metadata_only)
+                    localpath = pack.path
                     pack.load_checksum_from_header()
                     pack.upload_package(self.channel, metadata_only=self.metadata_only)
 
@@ -671,6 +699,7 @@ class RepoSync(object):
                     pack.checksum_type = pack.a_pkg.checksum_type
                     pack.epoch = pack.a_pkg.header['epoch']
                     pack.a_pkg = None
+                    progress_bar.log(True, None)
             except KeyboardInterrupt:
                 raise
             except Exception:
@@ -681,10 +710,11 @@ class RepoSync(object):
                 if self.fail:
                     raise
                 to_process[index] = (pack, False, False)
-                continue
+                progress_bar.log(False, None)
             finally:
                 if is_non_local_repo and localpath and os.path.exists(localpath):
                     os.remove(localpath)
+        log2disk(0, "Importing packages finished.")
 
         log(0, "Linking packages to channel.")
         if self.strict:
@@ -848,7 +878,6 @@ class RepoSync(object):
             row = rhnSQL.fetchone_dict(id_request + " and org_id is NULL", channel_id=self.channel['id'],
                                        label=ks_tree_label)
 
-        fileutils.createPath(os.path.join(CFG.MOUNT_POINT, ks_path))
         treeinfo_path = ['treeinfo', '.treeinfo']
         treeinfo_parser = None
         for path in treeinfo_path:
@@ -874,6 +903,7 @@ class RepoSync(object):
             else:
                 self.ks_install_type = 'generic_rpm'
 
+        fileutils.createPath(os.path.join(CFG.MOUNT_POINT, ks_path))
         # Make sure images are included
         to_download = []
         for repo_path in treeinfo_parser.get_images():
@@ -937,19 +967,18 @@ class RepoSync(object):
                     to_download.append(repo_path)
 
         if to_download:
-            log(0, "Downloading %d files." % len(to_download))
+            log2disk(0, "Downloading %d files." % len(to_download))
+            progress_bar = ProgressBarLogger("Downloading kickstarts:", len(to_download))
+            downloader = ThreadedDownloader()
             for item in to_download:
-                for retry in range(3):
-                    try:
-                        log(1, "Retrieving %s" % item)
-                        plug.get_file(item, os.path.join(CFG.MOUNT_POINT, ks_path))
-                        st = os.stat(os.path.join(CFG.MOUNT_POINT, ks_path, item))
-                        break
-                    except OSError:  # os.stat if the file wasn't downloaded
-                        if retry < 3:
-                            log(2, "Retry download %s: attempt #%d" % (item, retry + 1))
-                        else:
-                            raise
+                params = {}
+                plug.set_download_parameters(params, item, os.path.join(CFG.MOUNT_POINT, ks_path, item))
+                downloader.add(params)
+            downloader.set_log_obj(progress_bar)
+            downloader.run()
+            log2disk(0, "Download finished.")
+            for item in to_download:
+                st = os.stat(os.path.join(CFG.MOUNT_POINT, ks_path, item))
                 # update entity about current file in a database
                 delete_h.execute(id=ks_id, path=item)
                 insert_h.execute(id=ks_id, path=item,
