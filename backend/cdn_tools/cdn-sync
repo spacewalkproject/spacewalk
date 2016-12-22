@@ -108,6 +108,7 @@ if __name__ == '__main__':
             error_messages = cdnsync.sync(channels=args.channel)
             if error_messages:
                 system_exit(1, error_messages)
+        LOCK.release()
 
     except KeyboardInterrupt:
         system_exit(0, "\nUser interrupted process.")
@@ -120,19 +121,33 @@ if __name__ == '__main__':
         system_exit(1, "SYNC ERROR: attempting to run more than one instance of cdn-sync. Exiting.")
     except ChannelNotFoundError:
         e = sys.exc_info()[1]
+        if LOCK:
+            LOCK.release()
         system_exit(12, ["ERROR: these channels either do not exist or are not available:",
                          e,
                          "(to see a list of channel labels: /usr/bin/cdn-sync --list-channels)"])
     except (MissingParentChannelError, InvalidChannelFamilyError,
             InvalidChannelError, InvalidArchError):
         e = sys.exc_info()[1]
+        if LOCK:
+            LOCK.release()
         system_exit(1, "SYNC ERROR: %s. Exiting." % str(e))
     except rhnSQL.SQLConnectError:
         e = sys.exc_info()[1]
+        if LOCK:
+            LOCK.release()
         system_exit(20, ["ERROR: Can't connect to the database: %s" % str(e), "Check if your database is running."])
     except CdnMappingsLoadError:
         e = sys.exc_info()[1]
         system_exit(30, ["ERROR: %s" % str(e)])
+    except IOError:
+        e = sys.exc_info()[1]
+        if LOCK:
+            LOCK.release()
+        # Broken pipe
+        if e.errno != 32:
+            raise_with_tb(Exception("SYNC ERROR: attempting to display as much information as possible\n %s" % str(e)),
+                          sys.exc_info()[2])
     except Exception:
         e = sys.exc_info()[1]
         if LOCK:
