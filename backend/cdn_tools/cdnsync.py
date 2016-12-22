@@ -16,8 +16,7 @@ import json
 import errno
 import os
 import sys
-import time
-import datetime
+from datetime import datetime, timedelta
 
 import constants
 from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
@@ -300,7 +299,7 @@ class CdnSync(object):
 
         # Finally, sync channel content
         error_messages = []
-        total_time = datetime.timedelta()
+        total_time = timedelta()
         for channel in channels:
             cur_time, ret_code = self._sync_channel(channel)
             if ret_code != 0:
@@ -314,7 +313,7 @@ class CdnSync(object):
         return error_messages
 
     def count_packages(self, channels=None):
-        start_time = int(time.time())
+        start_time = datetime.now()
         channel_tree, not_available_channels = self._list_available_channels()
 
         # Collect all channels
@@ -451,8 +450,8 @@ class CdnSync(object):
             progress_bar.log(True, None)
         log2disk(0, "Counting packages finished.")
 
-        elapsed_time = int(time.time())
-        log(0, "Elapsed time: %d seconds" % (elapsed_time - start_time))
+        end_time = datetime.now()
+        log(0, "Total time: %s" % str(end_time - start_time).split('.')[0])
 
     def print_channel_tree(self, repos=False):
         channel_tree, not_available_channels = self._list_available_channels()
