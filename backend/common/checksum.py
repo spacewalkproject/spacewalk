@@ -59,6 +59,9 @@ def getFileChecksum(hashtype, filename=None, fd=None, file_obj=None, buffer_size
     if buffer_size is None:
         buffer_size = 65536
 
+    if hashtype == 'sha':
+        hashtype = 'sha1'
+
     if filename is None and fd is None and file_obj is None:
         raise ValueError("no file specified")
     if file_obj:
