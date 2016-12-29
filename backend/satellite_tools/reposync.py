@@ -415,7 +415,7 @@ class RepoSync(object):
         }
         for notice in notices:
             notice = self.fix_notice(notice)
-            advisory = notice['update_id'] + '-' + notice['version']
+            advisory = notice['update_id'] + '-' + str(notice['version'])
             existing_errata = self.get_errata(notice['update_id'])
 
             e = Erratum()
