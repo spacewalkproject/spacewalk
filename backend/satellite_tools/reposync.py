@@ -741,7 +741,7 @@ class RepoSync(object):
             new_version = 0
             for n in notice['version'].split('.'):
                 new_version = (new_version + int(n)) * 100
-            notice['version'] = new_version / 100
+            notice['version'] = str(new_version / 100)
         return notice
 
     @staticmethod
