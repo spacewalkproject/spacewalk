@@ -710,6 +710,7 @@ class RepoSync(object):
                 if self.fail:
                     raise
                 to_process[index] = (pack, False, False)
+                self.all_packages.remove(pack)
                 progress_bar.log(False, None)
             finally:
                 if is_non_local_repo and localpath and os.path.exists(localpath):

@@ -17,17 +17,17 @@ import os
 import sys
 import re
 import time
-import rpm
 from Queue import Queue, Empty
 from threading import Thread, Lock
-import pycurl
-from urlgrabber.grabber import URLGrabberOptions, PyCurlFileObject, URLGrabError
 try:
     #  python 2
     import urlparse
 except ImportError:
     #  python3
     import urllib.parse as urlparse # pylint: disable=F0401,E0611
+from urlgrabber.grabber import URLGrabberOptions, PyCurlFileObject, URLGrabError
+import pycurl
+import rpm
 from spacewalk.common import rhn_pkg
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhnConfig import CFG, initCFG
@@ -271,12 +271,17 @@ class ContentPackage:
 
         self.a_pkg = None
 
-    def __cmp__(self,other):
-        relSelf = re.split(r".",self.release)[0]
-        relOther = re.split(r".",other.release)[0]
-        # pylint: disable=E1101
-        return rpm.labelCompare((self.epoch,self.version,relSelf),\
-                                (other.epoch,other.version,relOther))
+    def __cmp__(self, other):
+        ret = cmp(self.name, other.name)
+        if ret == 0:
+            rel_self = str(self.release).split('.')[0]
+            rel_other = str(other.release).split('.')[0]
+            # pylint: disable=E1101
+            ret = rpm.labelCompare((str(self.epoch), str(self.version), rel_self),
+                                   (str(other.epoch), str(other.version), rel_other))
+        if ret == 0:
+            ret = cmp(self.arch, other.arch)
+        return ret
 
     def getNRA(self):
         rel = re.match(".*?\\.(.*)",self.release)
