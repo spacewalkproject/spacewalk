@@ -36,7 +36,7 @@ class ProgressBarLogger:
         self.status = 0
         self.lock = Lock()
 
-    def log(self, success, params=None):
+    def log(self, *_):
         self.lock.acquire()
         self.status += 1
         self._print_progress_bar(self.status, self.total, prefix=self.msg, bar_length=50)
@@ -64,6 +64,22 @@ class ProgressBarLogger:
         if iteration == total:
             sys.stdout.write('\n')
             sys.stdout.flush()
+
+
+class TextLogger:
+    def __init__(self, _, total):
+        self.total = total
+        self.status = 0
+        self.lock = Lock()
+
+    def log(self, success, param):
+        self.lock.acquire()
+        self.status += 1
+        if success:
+            log(0, "%d/%d : %s" % (self.status, self.total, str(param)))
+        else:
+            log2(0, 0, "%d/%d : %s (failed)" % (self.status, self.total, str(param)), stream=sys.stderr)
+        self.lock.release()
 
 
 class PyCurlFileObjectThread(PyCurlFileObject):
@@ -119,24 +135,25 @@ class DownloadThread(Thread):
         return False
 
     def __fetch_url(self, params):
-        (base_urls, remote_relative, local_path, ssl_ca_cert, ssl_cert, ssl_key, checksum_type, checksum) = params
-
         # Skip existing file if exists and matches checksum
         if not self.parent.force:
-            if self.__is_file_done(local_path=local_path, checksum_type=checksum_type, checksum=checksum):
+            if self.__is_file_done(local_path=params['target_file'], checksum_type=params['checksum_type'],
+                                   checksum=params['checksum']):
                 return True
 
-        url = base_urls[0] + '/' + remote_relative
-        opts = URLGrabberOptions(ssl_ca_cert=ssl_ca_cert, ssl_cert=ssl_cert, ssl_key=ssl_key)
+        url = params['urls'][0] + '/' + params['relative_path']
+        opts = URLGrabberOptions(ssl_ca_cert=params['ssl_ca_cert'], ssl_cert=params['ssl_client_cert'],
+                                 ssl_key=params['ssl_client_key'], range=params['bytes_range'])
         for retry in range(self.parent.retries):
             fo = None
             try:
                 try:
-                    fo = PyCurlFileObjectThread(url, local_path, opts, self.curl)
+                    fo = PyCurlFileObjectThread(url, params['target_file'], opts, self.curl)
                     # Check target file
-                    if not self.__is_file_done(file_obj=fo, checksum_type=checksum_type, checksum=checksum):
+                    if not self.__is_file_done(file_obj=fo, checksum_type=params['checksum_type'],
+                                               checksum=params['checksum']):
                         raise FailedDownloadError("Target file isn't valid. Checksum should be %s (%s)."
-                                                  % (checksum, checksum_type))
+                                                  % (params['checksum'], params['checksum_type']))
                     break
                 except (FailedDownloadError, URLGrabError):
                     e = sys.exc_info()[1]
@@ -147,8 +164,8 @@ class DownloadThread(Thread):
                 if fo:
                     fo.close()
                 # Delete failed download file
-                elif os.path.isfile(local_path):
-                    os.unlink(local_path)
+                elif os.path.isfile(params['target_file']):
+                    os.unlink(params['target_file'])
 
         return True
 
@@ -161,7 +178,7 @@ class DownloadThread(Thread):
             success = self.__fetch_url(params)
             if self.parent.log_obj:
                 # log_obj must be thread-safe
-                self.parent.log_obj.log(success, params=params)
+                self.parent.log_obj.log(success, os.path.basename(params['relative_path']))
             self.parent.queue.task_done()
 
 
@@ -187,10 +204,9 @@ class ThreadedDownloader:
                 return False
         return True
 
-    def add(self, base_urls, remote_relative, local_path, ssl_ca_cert, ssl_cert, ssl_key, checksum_type, checksum):
-        if self._validate(ssl_ca_cert, ssl_cert, ssl_key):
-            self.queue.put((base_urls, remote_relative, local_path,
-                            ssl_ca_cert, ssl_cert, ssl_key, checksum_type, checksum))
+    def add(self, params):
+        if self._validate(params['ssl_ca_cert'], params['ssl_client_cert'], params['ssl_client_key']):
+            self.queue.put(params)
 
     def run(self):
         size = self.queue.qsize()

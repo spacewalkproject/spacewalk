@@ -177,6 +177,9 @@ class ContentSource(object):
         if not os.path.isdir(pkgdir):
             fileutils.makedirs(pkgdir, user='apache', group='apache')
         repo.pkgdir = pkgdir
+        repo.sslcacert = None
+        repo.sslclientcert = None
+        repo.sslclientkey = None
 
         if "file://" in self.url:
             repo.copy_local = 1
@@ -433,3 +436,21 @@ class ContentSource(object):
             return True
         return (checksum.getFileChecksum('sha256', filename=repomd_old_path) ==
                 checksum.getFileChecksum('sha256', filename=repomd_new_path))
+
+    # Get download parameters for threaded downloader
+    def set_download_parameters(self, params, relative_path, target_file, checksum_type=None, checksum_value=None,
+                                bytes_range=None):
+        # Create directories if needed
+        target_dir = os.path.dirname(target_file)
+        if not os.path.exists(target_dir):
+            os.makedirs(target_dir, int('0755', 8))
+
+        params['urls'] = self.repo.urls
+        params['relative_path'] = relative_path
+        params['target_file'] = target_file
+        params['ssl_ca_cert'] = self.repo.sslcacert
+        params['ssl_client_cert'] = self.repo.sslclientcert
+        params['ssl_client_key'] = self.repo.sslclientkey
+        params['checksum_type'] = checksum_type
+        params['checksum'] = checksum_value
+        params['bytes_range'] = bytes_range
