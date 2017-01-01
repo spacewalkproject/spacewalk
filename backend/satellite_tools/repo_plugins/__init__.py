@@ -30,6 +30,7 @@ except ImportError:
     import urllib.parse as urlparse # pylint: disable=F0401,E0611
 from spacewalk.common import rhn_pkg
 from spacewalk.common.checksum import getFileChecksum
+from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.server import rhnPackageUpload
 from spacewalk.satellite_tools.syncLib import log, log2
@@ -207,9 +208,10 @@ class DownloadThread(Thread):
 
 
 class ThreadedDownloader:
-    def __init__(self, threads=5, retries=3, log_obj=None, force=False):
+    def __init__(self, retries=3, log_obj=None, force=False):
         self.queue = Queue()
-        self.threads = threads
+        initCFG('server.satellite')
+        self.threads = CFG.REPOSYNC_DOWNLOAD_THREADS
         self.retries = retries
         self.log_obj = log_obj
         self.force = force
