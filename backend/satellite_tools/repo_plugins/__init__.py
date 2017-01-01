@@ -22,6 +22,12 @@ from Queue import Queue, Empty
 from threading import Thread, Lock
 import pycurl
 from urlgrabber.grabber import URLGrabberOptions, PyCurlFileObject, URLGrabError
+try:
+    #  python 2
+    import urlparse
+except ImportError:
+    #  python3
+    import urllib.parse as urlparse # pylint: disable=F0401,E0611
 from spacewalk.common import rhn_pkg
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhnException import rhnFault
@@ -105,6 +111,7 @@ class DownloadThread(Thread):
         self.parent = parent
         # pylint: disable=E1101
         self.curl = pycurl.Curl()
+        self.mirror = 0
 
     @staticmethod
     def __is_file_done(local_path=None, file_obj=None, checksum_type=None, checksum=None):
@@ -119,7 +126,7 @@ class DownloadThread(Thread):
             return True
         return False
 
-    def __can_retry(self, retry, opts, url, e):
+    def __can_retry(self, retry, mirrors, opts, url, e):
         retrycode = getattr(e, 'errno', None)
         code = getattr(e, 'code', None)
         if retry < (self.parent.retries - 1):
@@ -130,9 +137,21 @@ class DownloadThread(Thread):
                      stream=sys.stderr)
                 return True
 
+        # 14 - HTTP Error
+        if retry < (mirrors - 1) and retrycode == 14:
+            log2(0, 2, "ERROR: Download failed: %s - %s. Trying next mirror..." % (url, sys.exc_info()[1]),
+                 stream=sys.stderr)
+            return True
+
         log2(0, 1, "ERROR: Download failed: %s - %s." % (url, sys.exc_info()[1]),
              stream=sys.stderr)
         return False
+
+    def __next_mirror(self, total):
+        if self.mirror < (total - 1):
+            self.mirror += 1
+        else:
+            self.mirror = 0
 
     def __fetch_url(self, params):
         # Skip existing file if exists and matches checksum
@@ -141,15 +160,16 @@ class DownloadThread(Thread):
                                    checksum=params['checksum']):
                 return True
 
-        url = params['urls'][0] + '/' + params['relative_path']
         opts = URLGrabberOptions(ssl_ca_cert=params['ssl_ca_cert'], ssl_cert=params['ssl_client_cert'],
                                  ssl_key=params['ssl_client_key'], range=params['bytes_range'],
                                  proxy=params['proxy'], username=params['proxy_username'],
                                  password=params['proxy_password'])
-        for retry in range(self.parent.retries):
+        mirrors = len(params['urls'])
+        for retry in max(range(self.parent.retries), mirrors):
             fo = None
             try:
                 try:
+                    url = urlparse.urljoin(params['urls'][self.mirror], params['relative_path'])
                     fo = PyCurlFileObjectThread(url, params['target_file'], opts, self.curl)
                     # Check target file
                     if not self.__is_file_done(file_obj=fo, checksum_type=params['checksum_type'],
@@ -159,8 +179,9 @@ class DownloadThread(Thread):
                     break
                 except (FailedDownloadError, URLGrabError):
                     e = sys.exc_info()[1]
-                    if not self.__can_retry(retry, opts, url, e):
+                    if not self.__can_retry(retry, mirrors, opts, url, e):
                         return False
+                    self.__next_mirror(mirrors)
 
             finally:
                 if fo:
@@ -177,6 +198,7 @@ class DownloadThread(Thread):
                 params = self.parent.queue.get(block=False)
             except Empty:
                 break
+            self.mirror = 0
             success = self.__fetch_url(params)
             if self.parent.log_obj:
                 # log_obj must be thread-safe
