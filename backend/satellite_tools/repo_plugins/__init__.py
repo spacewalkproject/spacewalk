@@ -25,9 +25,9 @@ try:
 except ImportError:
     #  python3
     import urllib.parse as urlparse # pylint: disable=F0401,E0611
-from urlgrabber.grabber import URLGrabberOptions, PyCurlFileObject, URLGrabError
 import pycurl
 import rpm
+from urlgrabber.grabber import URLGrabberOptions, PyCurlFileObject, URLGrabError
 from spacewalk.common import rhn_pkg
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhnConfig import CFG, initCFG
