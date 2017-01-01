@@ -31,7 +31,7 @@ from spacewalk.server.importlib.importLib import Channel, ChannelFamily, \
     ProductName, DistChannelMap, ReleaseChannelMap
 from spacewalk.satellite_tools import reposync
 from spacewalk.satellite_tools import contentRemove
-from spacewalk.satellite_tools.syncLib import log, log2disk, log2stderr
+from spacewalk.satellite_tools.syncLib import log, log2disk, log2
 from spacewalk.satellite_tools.repo_plugins import yum_src, ThreadedDownloader, ProgressBarLogger
 
 from common import CdnMappingsLoadError, verify_mappings, human_readable_size
@@ -141,7 +141,7 @@ class CdnSync(object):
             try:
                 family = self.families[label]
             except KeyError:
-                log2stderr(1, "ERROR: Unknown channel family: %s" % label)
+                log2(0, 1, "ERROR: Unknown channel family: %s" % label, stream=sys.stderr)
                 continue
             channels = [c for c in family['channels'] if c is not None]
             all_channels.extend(channels)
@@ -463,7 +463,8 @@ class CdnSync(object):
         channel_tree, not_available_channels = self._list_available_channels()
 
         if not channel_tree:
-            log2stderr(0, "No available channels were found. Is your %s activated for CDN?" % PRODUCT_NAME)
+            log2(0, 0, "No available channels were found. Is your %s activated for CDN?"
+                 % PRODUCT_NAME, stream=sys.stderr)
             return
 
         log(0, "p = previously imported/synced channel")

@@ -32,7 +32,7 @@ from spacewalk.server.importlib.errataImport import ErrataImport
 from spacewalk.server import taskomatic
 from spacewalk.satellite_tools.repo_plugins import ThreadedDownloader, ProgressBarLogger, TextLogger
 
-from syncLib import log, log2disk, log2stderr
+from syncLib import log, log2, log2disk
 
 
 default_log_location = '/var/log/rhn/'
@@ -244,8 +244,7 @@ class RepoSync(object):
             self.urls = [(None, u, None) for u in url]
 
         if not self.urls:
-            log2stderr(0, "Channel %s has no URL associated" % channel_label)
-            log2disk(0, "Channel %s has no URL associated" % channel_label)
+            log2(0, 0, "Channel %s has no URL associated" % channel_label, stream=sys.stderr)
 
         self.repo_plugin = self.load_plugin(repo_type)
         self.strict = strict
@@ -327,8 +326,7 @@ class RepoSync(object):
                         raise
             except Exception:
                 e = sys.exc_info()[1]
-                log2stderr(0, "ERROR: %s" % e)
-                log2disk(0, "ERROR: %s" % e)
+                log2(0, 0, "ERROR: %s" % e, stream=sys.stderr)
                 if ret_code == 0:
                     ret_code = 1
             if plugin is not None:
@@ -706,8 +704,7 @@ class RepoSync(object):
             except Exception:
                 ret_code = 1
                 e = sys.exc_info()[1]
-                log2stderr(0, e)
-                log2disk(0, e)
+                log2(0, 0, e, stream=sys.stderr)
                 if self.fail:
                     raise
                 to_process[index] = (pack, False, False)
