@@ -397,7 +397,7 @@ class CdnSync(object):
                     yum_repo.set_download_parameters(params, path,
                                                      os.path.join(yum_repo.repo.basecachedir, yum_repo.name,
                                                                   os.path.basename(path)),
-                                                     checksum_type=checksum_pair[0], checksum=checksum_pair[1])
+                                                     checksum_type=checksum_pair[0], checksum_value=checksum_pair[1])
                     downloader.add(params)
                     to_download_count += 1
 

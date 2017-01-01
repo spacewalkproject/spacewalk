@@ -672,7 +672,7 @@ class RepoSync(object):
                     checksum_type = pack.checksum_type
                     checksum = pack.checksum
                 plug.set_download_parameters(params, pack.unique_id.relativepath, target_file,
-                                             checksum_type=checksum_type, checksum=checksum,
+                                             checksum_type=checksum_type, checksum_value=checksum,
                                              bytes_range=bytes_range)
                 downloader.add(params)
                 to_download_count += 1
