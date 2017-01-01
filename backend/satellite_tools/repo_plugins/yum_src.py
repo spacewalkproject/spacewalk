@@ -180,6 +180,9 @@ class ContentSource(object):
         repo.sslcacert = None
         repo.sslclientcert = None
         repo.sslclientkey = None
+        repo.proxy = None
+        repo.proxy_username = None
+        repo.proxy_password = None
 
         if "file://" in self.url:
             repo.copy_local = 1
@@ -454,3 +457,6 @@ class ContentSource(object):
         params['checksum_type'] = checksum_type
         params['checksum'] = checksum_value
         params['bytes_range'] = bytes_range
+        params['proxy'] = self.repo.proxy
+        params['proxy_username'] = self.repo.proxy_username
+        params['proxy_password'] = self.repo.proxy_password
