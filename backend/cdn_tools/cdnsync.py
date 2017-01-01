@@ -549,3 +549,7 @@ class CdnSync(object):
     def clear_cache():
         # Clear packages outside channels from DB and disk
         contentRemove.delete_outside_channels(None)
+        if os.path.isdir(constants.PACKAGE_STAGE_DIRECTORY):
+            log(0, "Cleaning package stage directory.")
+            for pkg in os.listdir(constants.PACKAGE_STAGE_DIRECTORY):
+                os.unlink(os.path.join(constants.PACKAGE_STAGE_DIRECTORY, pkg))

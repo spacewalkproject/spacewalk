@@ -35,3 +35,4 @@ KICKSTART_DEFINITIONS_PATH = "/usr/share/rhn/cdn-sync/kickstart.json"
 KICKSTART_SOURCE_MAPPING_PATH = "/usr/share/rhn/cdn-sync/kickstart_cdn_mappings.json"
 
 CDN_REPODATA_ROOT = "/var/cache/rhn/cdnsync"
+PACKAGE_STAGE_DIRECTORY = "/var/satellite/redhat/NULL/stage"
