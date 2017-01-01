@@ -282,7 +282,7 @@ class CdnSync(object):
             # Assuming all trees have same install type
             sync.set_ks_install_type(kickstart_trees[0]['ks_install_type'])
         sync.set_urls_prefix(self.mount_point)
-        return sync.sync(update_repodata=True)
+        return sync.sync()
 
     def sync(self, channels=None):
         # If no channels specified, sync already synced channels

@@ -259,7 +259,7 @@ class RepoSync(object):
             url = tuple(url)
             self.urls[index] = url
 
-    def sync(self, update_repodata=False):
+    def sync(self, update_repodata=True):
         """Trigger a reposync"""
         if self.urls:
             ret_code = 0
