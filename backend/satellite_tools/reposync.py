@@ -182,13 +182,14 @@ class RepoSync(object):
     def __init__(self, channel_label, repo_type, url=None, fail=False,
                  filters=None, no_errata=False, sync_kickstart=False, latest=False,
                  metadata_only=False, strict=0, excluded_urls=None, no_packages=False,
-                 log_dir="reposync", log_level=None):
+                 log_dir="reposync", log_level=None, force_kickstart=False):
         self.regen = False
         self.fail = fail
         self.filters = filters or []
         self.no_packages = no_packages
         self.no_errata = no_errata
         self.sync_kickstart = sync_kickstart
+        self.force_kickstart = force_kickstart
         self.latest = latest
         self.metadata_only = metadata_only
         self.ks_tree_type = 'externally-managed'
@@ -970,7 +971,7 @@ class RepoSync(object):
         if to_download:
             log2disk(0, "Downloading %d files." % len(to_download))
             progress_bar = ProgressBarLogger("Downloading kickstarts:", len(to_download))
-            downloader = ThreadedDownloader()
+            downloader = ThreadedDownloader(force=self.force_kickstart)
             for item in to_download:
                 params = {}
                 plug.set_download_parameters(params, item, os.path.join(CFG.MOUNT_POINT, ks_path, item))

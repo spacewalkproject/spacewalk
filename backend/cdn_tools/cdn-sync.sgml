@@ -56,6 +56,9 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <arg>--no-kickstarts</arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--force-kickstarts</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>--http-proxy<replaceable> HTTP_PROXY_HOSTNAME:PORT</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -188,6 +191,12 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <term>--no-kickstarts</term>
         <listitem>
             <para>do not process kickstart data (provisioning feature).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--force-kickstarts</term>
+        <listitem>
+            <para>download and overwrite existing kickstart data.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
