@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.10
+Version: 2.7.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -820,6 +820,35 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Mon Jan 02 2017 Jan Dobes <jdobes@redhat.com> 2.7.11-1
+- 1409434 - make updating repodata default
+- 1409434 - log2stderr will not get it into log files
+- 1409434 - remove downloaded packages as well
+- 1409434 - returning ret_code is expected
+- 1409434 - adding option for overwriting kickstart data
+- 1409434 - do not try to link not imported package to channel
+- 1409434 - add multithreaded download to reposync
+- 1409434 - fixing broken pipe on long output and release locks
+- 1409434 - consistent time
+- 1409434 - improve list format
+- 1409434 - suppress "Unknown channel family" messages
+- 1409434 - support counting single channel
+- 1409434 - fixing argument format
+- 1409434 - download all repomd first and skip repositories with up to date
+  repomd
+- 1409434 - configurable threads
+- 1409434 - work with mirrors
+- 1409434 - work with proxy
+- 1409434 - changing parameter format, add function for setting parameters, add
+  text log class
+- 1409434 - retry download, checksum etc.
+- 1409434 - adding multi-threaded downloader
+- 1409434 - repodata can contain only sha word
+- 1409434 - we can skip mirror expansion in cdnsync
+- 1409434 - adding function to check if there is newer repomd in repository
+  than in cache
+- 1409434 - support keeping repomd in cache
+
 * Mon Dec 19 2016 Gennadii Altukhov <galt@redhat.com> 2.7.10-1
 - 1395815 - fix permissions for Kickstart Tree paths
 
