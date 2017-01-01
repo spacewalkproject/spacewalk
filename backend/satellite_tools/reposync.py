@@ -649,7 +649,7 @@ class RepoSync(object):
             log(0, "No new packages to sync.")
             # If we are just appending, we can exit
             if not self.strict:
-                return
+                return ret_code
         else:
             log(0, "Packages already synced:      %5d" % (num_passed - num_to_process))
             log(0, "Packages to sync:             %5d" % num_to_process)
