@@ -168,9 +168,9 @@ class DownloadThread(Thread):
         mirrors = len(params['urls'])
         for retry in max(range(self.parent.retries), mirrors):
             fo = None
+            url = urlparse.urljoin(params['urls'][self.mirror], params['relative_path'])
             try:
                 try:
-                    url = urlparse.urljoin(params['urls'][self.mirror], params['relative_path'])
                     fo = PyCurlFileObjectThread(url, params['target_file'], opts, self.curl)
                     # Check target file
                     if not self.__is_file_done(file_obj=fo, checksum_type=params['checksum_type'],
