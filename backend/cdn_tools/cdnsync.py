@@ -307,10 +307,14 @@ class CdnSync(object):
         error_messages = []
         total_time = timedelta()
         for channel in channels:
-            cur_time, ret_code = self._sync_channel(channel)
-            if ret_code != 0:
+            cur_time, failed_packages = self._sync_channel(channel)
+            if failed_packages < 0:
                 error_messages.append("Problems occurred during syncing channel %s. Please check "
                                       "/var/log/rhn/cdnsync/%s.log for the details\n" % (channel, channel))
+            if failed_packages > 0:
+                error_messages.append("%d packages in channel %s failed to sync. Please check "
+                                      "/var/log/rhn/cdnsync/%s.log for the details\n" % (failed_packages, channel,
+                                                                                         channel))
             total_time += cur_time
             # Switch back to cdnsync log
             rhnLog.initLOG(self.log_path, self.log_level)

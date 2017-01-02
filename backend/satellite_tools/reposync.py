@@ -261,10 +261,10 @@ class RepoSync(object):
 
     def sync(self, update_repodata=True):
         """Trigger a reposync"""
-        if self.urls:
-            ret_code = 0
-        else:
-            ret_code = 1
+        failed_packages = 0
+        sync_error = 0
+        if not self.urls:
+            sync_error = -1
         start_time = datetime.now()
         for (repo_id, url, repo_label) in self.urls:
             log(0, "Repo URL: %s" % url)
@@ -308,10 +308,7 @@ class RepoSync(object):
 
                 if not self.no_packages:
                     ret = self.import_packages(plugin, repo_id, url)
-                    # we check previous ret_code value because we don't want
-                    # to override it with new successful one
-                    if ret_code == 0:
-                        ret_code = ret
+                    failed_packages += ret
                     self.import_groups(plugin, url)
 
                 if not self.no_errata:
@@ -327,8 +324,9 @@ class RepoSync(object):
             except Exception:
                 e = sys.exc_info()[1]
                 log2(0, 0, "ERROR: %s" % e, stream=sys.stderr)
-                if ret_code == 0:
-                    ret_code = 1
+                log2disk(0, "ERROR: %s" % e)
+                # pylint: disable=W0104
+                sync_error == -1
             if plugin is not None:
                 plugin.clear_ssl_cache()
         if self.regen:
@@ -339,7 +337,10 @@ class RepoSync(object):
         rhnSQL.commit()
         elapsed_time = datetime.now() - start_time
         log(0, "Sync of channel completed in %s." % str(elapsed_time).split('.')[0])
-        return elapsed_time, ret_code
+        # if there is no global problems, but some packages weren't synced
+        if sync_error == 0 and failed_packages > 0:
+            sync_error = failed_packages
+        return elapsed_time, sync_error
 
     def set_ks_tree_type(self, tree_type='externally-managed'):
         self.ks_tree_type = tree_type
@@ -583,7 +584,7 @@ class RepoSync(object):
         self.regen = True
 
     def import_packages(self, plug, source_id, url):
-        ret_code = 0
+        failed_packages = 0
         if (not self.filters) and source_id:
             h = rhnSQL.prepare("""
                     select flag, filter
@@ -647,7 +648,7 @@ class RepoSync(object):
             log(0, "No new packages to sync.")
             # If we are just appending, we can exit
             if not self.strict:
-                return ret_code
+                return failed_packages
         else:
             log(0, "Packages already synced:      %5d" % (num_passed - num_to_process))
             log(0, "Packages to sync:             %5d" % num_to_process)
@@ -702,7 +703,7 @@ class RepoSync(object):
             except KeyboardInterrupt:
                 raise
             except Exception:
-                ret_code = 1
+                failed_packages += 1
                 e = sys.exc_info()[1]
                 log2(0, 0, e, stream=sys.stderr)
                 if self.fail:
@@ -730,7 +731,7 @@ class RepoSync(object):
                                               strict=self.strict)
         importer.run()
         backend.commit()
-        return ret_code
+        return failed_packages
 
     @staticmethod
     def match_package_checksum(abspath, checksum_type, checksum):
