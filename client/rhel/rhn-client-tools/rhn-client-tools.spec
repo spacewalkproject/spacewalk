@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.7.1
+Version: 2.7.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -401,6 +401,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Jan 02 2017 Jiri Dostal <jdostal@redhat.com> 2.7.2-1
+- urlsplit back compatibility with python 2.4 fixing bug introduced in dc7ee6d
+
 * Tue Nov 15 2016 Gennadii Altukhov <galt@redhat.com> 2.7.1-1
 - fix except to be compatible with Python 2.4
 - Bumping package versions for 2.7.
