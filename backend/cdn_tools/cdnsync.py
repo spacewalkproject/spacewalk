@@ -242,7 +242,7 @@ class CdnSync(object):
         repo_label = self.cdn_repository_manager.get_content_source_label(repo_source)
         keys = self.cdn_repository_manager.get_repository_crypto_keys(repo_source['relative_url'])
         repo_plugin = yum_src.ContentSource(self.mount_point + str(repo_source['relative_url']),
-                                            str(repo_label), org=None, no_mirrors=True, cached_repodata=1)
+                                            str(repo_label), org=None, no_mirrors=True)
         repo_plugin.set_ssl_options(str(keys['ca_cert']), str(keys['client_cert']), str(keys['client_key']))
         return repo_plugin
 

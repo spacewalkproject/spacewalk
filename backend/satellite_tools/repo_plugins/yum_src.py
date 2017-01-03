@@ -108,7 +108,7 @@ class RepoMDNotFound(Exception):
 class ContentSource(object):
 
     def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF, org="1", channel_label="",
-                 no_mirrors=False, cached_repodata=0):
+                 no_mirrors=False):
         self.url = url
         # Make sure baseurl ends with / and urljoin will work correctly
         if self.url[-1] != '/':
@@ -148,7 +148,7 @@ class ContentSource(object):
             repo.populate(self.configparser, name, self.yumbase.conf)
         self.repo = repo
 
-        self.setup_repo(repo, no_mirrors, cached_repodata=cached_repodata)
+        self.setup_repo(repo, no_mirrors)
         self.num_packages = 0
         self.num_excluded = 0
 
@@ -171,9 +171,9 @@ class ContentSource(object):
     def _authenticate(self, url):
         pass
 
-    def setup_repo(self, repo, no_mirrors, cached_repodata=0):
+    def setup_repo(self, repo, no_mirrors):
         """Fetch repository metadata"""
-        repo.cache = cached_repodata
+        repo.cache = 0
         repo.mirrorlist = self.url
         repo.baseurl = [self.url]
         repo.basecachedir = os.path.join(CACHE_DIR, self.org)
@@ -215,7 +215,7 @@ class ContentSource(object):
                 warnings.restore()
                 raise
             warnings.restore()
-        repo.setup(cached_repodata)
+        repo.setup(0)
 
     def number_of_packages(self):
         for dummy_index in range(3):
