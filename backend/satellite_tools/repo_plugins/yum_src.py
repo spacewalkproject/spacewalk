@@ -110,6 +110,9 @@ class ContentSource(object):
     def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF, org="1", channel_label="",
                  no_mirrors=False, cached_repodata=0):
         self.url = url
+        # Make sure baseurl ends with / and urljoin will work correctly
+        if self.url[-1] != '/':
+            self.url += '/'
         self.name = name
         self.yumbase = yum.YumBase()
         self.yumbase.preconf.fn = yumsrc_conf
