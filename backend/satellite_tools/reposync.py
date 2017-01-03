@@ -677,6 +677,8 @@ class RepoSync(object):
                                              bytes_range=bytes_range)
                 downloader.add(params)
                 to_download_count += 1
+        if num_to_process != 0:
+            log(0, "New packages to download:     %5d" % to_download_count)
         logger = TextLogger(None, to_download_count)
         downloader.set_log_obj(logger)
         downloader.run()
@@ -690,15 +692,16 @@ class RepoSync(object):
             try:
                 if to_download:
                     localpath = pack.path
-                    pack.load_checksum_from_header()
-                    pack.upload_package(self.channel, metadata_only=self.metadata_only)
+                    if os.path.exists(localpath):
+                        pack.load_checksum_from_header()
+                        pack.upload_package(self.channel, metadata_only=self.metadata_only)
 
-                    # we do not want to keep a whole 'a_pkg' object for every package in memory,
-                    # because we need only checksum. see BZ 1397417
-                    pack.checksum = pack.a_pkg.checksum
-                    pack.checksum_type = pack.a_pkg.checksum_type
-                    pack.epoch = pack.a_pkg.header['epoch']
-                    pack.a_pkg = None
+                        # we do not want to keep a whole 'a_pkg' object for every package in memory,
+                        # because we need only checksum. see BZ 1397417
+                        pack.checksum = pack.a_pkg.checksum
+                        pack.checksum_type = pack.a_pkg.checksum_type
+                        pack.epoch = pack.a_pkg.header['epoch']
+                        pack.a_pkg = None
                     progress_bar.log(True, None)
             except KeyboardInterrupt:
                 raise
