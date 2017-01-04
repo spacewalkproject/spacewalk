@@ -110,9 +110,6 @@ class ContentSource(object):
     def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF, org="1", channel_label="",
                  no_mirrors=False):
         self.url = url
-        # Make sure baseurl ends with / and urljoin will work correctly
-        if self.url[-1] != '/':
-            self.url += '/'
         self.name = name
         self.yumbase = yum.YumBase()
         self.yumbase.preconf.fn = yumsrc_conf
@@ -206,6 +203,9 @@ class ContentSource(object):
         # Do not try to expand baseurl to other mirrors
         if no_mirrors:
             repo.urls = repo.baseurl
+            # Make sure baseurl ends with / and urljoin will work correctly
+            if repo.urls[0][-1] != '/':
+                repo.urls[0] += '/'
         else:
             warnings = YumWarnings()
             warnings.disable()
