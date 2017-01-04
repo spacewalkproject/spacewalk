@@ -203,21 +203,27 @@ def prepRhsmManifest(options):
 
 
 def enableSatelliteRepo(rhn_cert):
-    args = ['rpm', '-q', '--qf', '\'%{version}\'', '-f', '/etc/redhat-release']
+    args = ['rpm', '-q', '--qf', '\'%{version} %{arch}\'', '-f', '/etc/redhat-release']
     ret, out, err = fileutils.rhn_popen(args)
+    data = out.read().strip("'")
+    version, arch = data.split()
     # Read from stdout, strip quotes if any and extract first number
-    version = re.search(r'\d+', out.read().strip("'")).group()
+    version = re.search(r'\d+', version).group()
 
     if version not in SUPPORTED_RHEL_VERSIONS:
         msg = "WARNING: No Satellite repository available for RHEL version: %s.\n" % version
         sys.stderr.write(msg)
         return
 
+    arch_str = "server"
+    if arch == "s390x":
+        arch_str = "system-z"
+
     sat_cert = satellite_cert.SatelliteCert()
     sat_cert.load(rhn_cert)
     sat_version = getattr(sat_cert, 'satellite-version')
 
-    repo = "rhel-%s-server-satellite-%s-rpms" % (version, sat_version)
+    repo = "rhel-%s-%s-satellite-%s-rpms" % (version, arch_str, sat_version)
     args = ['/usr/bin/subscription-manager', 'repos', '--enable', repo]
     ret, out, err = fileutils.rhn_popen(args)
     if ret:
