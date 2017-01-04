@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.16
+Version: 2.7.17
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -820,6 +820,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Wed Jan 04 2017 Jan Dobes 2.7.17-1
+- 1409434 - fixing mirror expansion
+
 * Wed Jan 04 2017 Jan Dobes 2.7.16-1
 - 1410149 - fixing activation on s390x
 - 1410146 - fixing entitlements without provided products
