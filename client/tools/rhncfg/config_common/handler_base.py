@@ -62,13 +62,19 @@ class HandlerBase:
             if not username :
                 username=local_config.get('username')
             if not password :
-               (username, password) = self.get_auth_info(username)
+                password=local_config.get('password')
 
             try:
                 self.repository.login(username=username, password=password)
             except cfg_exceptions.InvalidSession:
-                e = sys.exc_info()[1]
-                rhn_log.die(1, "Session error: %s\n" % e)
+                if not password :
+                    (username, password) = self.get_auth_info(username)
+
+                try:
+                     self.repository.login(username=username, password=password)
+                except cfg_exceptions.InvalidSession:
+                     e = sys.exc_info()[1]
+                     rhn_log.die(1, "Session error: %s\n" % e)
 
     def get_auth_info(self, username=None):
         if username is None:
