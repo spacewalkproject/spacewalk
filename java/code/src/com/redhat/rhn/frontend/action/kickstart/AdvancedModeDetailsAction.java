@@ -174,6 +174,9 @@ public class AdvancedModeDetailsAction extends RhnAction {
             KickstartBuilder builder = new KickstartBuilder(user);
             KickstartRawData ks;
             String fileData = getData(context, form);
+            if (fileData == null) {
+                fileData = "";
+            }
 
             // Add info about all commands from fileData to KickstartData, since we use it
             // to determine type of password encryption, see Bug 1122422
