@@ -283,7 +283,13 @@ def processCommandline():
         Option('--disconnected', action='store_true', help="activate locally, not subscribe to remote repository")
     ]
 
-    options, args = OptionParser(option_list=options).parse_args()
+    parser = OptionParser(option_list=options)
+    options, args = parser.parse_args()
+
+    option_values = [v for v in vars(options).values() if v is not None]
+    if not option_values:
+        parser.print_help()
+        sys.exit(1)
 
     # we take no extra commandline arguments that are not linked to an option
     if args:
@@ -359,6 +365,9 @@ def main():
         cdn_activation.Activation.deactivate()
         return 0
 
+    if not options.manifest:
+        writeError("Manifest was not provided. Run the activation tool with option --manifest=MANIFEST.")
+        sys.exit(1)
     # Handle RHSM manifest
     try:
         cdn_activate = cdn_activation.Activation(options.manifest)
