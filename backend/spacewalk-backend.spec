@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.17
+Version: 2.7.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -820,6 +820,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Fri Jan 06 2017 Gennadii Altukhov <galt@redhat.com> 2.7.18-1
+- 1406462 - print help if no options were provided for rhn-satellite-activate
+
 * Wed Jan 04 2017 Jan Dobes 2.7.17-1
 - 1409434 - fixing mirror expansion
 
