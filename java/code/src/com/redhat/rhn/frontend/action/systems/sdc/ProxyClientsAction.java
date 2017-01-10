@@ -14,7 +14,9 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,6 +40,7 @@ import com.redhat.rhn.manager.system.SystemManager;
  * @version $Rev$
  */
 public class ProxyClientsAction extends RhnAction implements Listable<SystemOverview> {
+    private static final String ACCESS_MAP = "accessMap";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -74,7 +77,21 @@ public class ProxyClientsAction extends RhnAction implements Listable<SystemOver
         Long sid = context.getRequiredParam(RequestContext.SID);
         DataResult<SystemOverview> clients = SystemManager.listClientsThroughProxy(sid);
         clients.elaborate();
+
+        setAccessMap(context, clients);
         return clients;
     }
 
+    private void setAccessMap(RequestContext context, List<SystemOverview> systems) {
+        Map<Long, Boolean> accessMap = new HashMap<Long, Boolean>();
+        User user = context.getCurrentUser();
+
+        for (SystemOverview sys : systems) {
+            if (SystemManager.isAvailableToUser(user, sys.getId())) {
+                accessMap.put(sys.getId(), true);
+            }
+        }
+
+        context.getRequest().setAttribute(ACCESS_MAP, accessMap);
+    }
 }

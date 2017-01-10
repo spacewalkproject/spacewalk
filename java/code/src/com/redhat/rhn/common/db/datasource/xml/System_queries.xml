@@ -2305,6 +2305,7 @@ SELECT SP.server_id ID, S.name
   FROM rhnServer S, rhnServerPath SP
  WHERE SP.proxy_server_id = :sid
    AND S.id = SP.server_id
+ ORDER BY S.name
   </query>
   <elaborator name="system_overview"/>
   <elaborator name="entitlements"/>
