@@ -23,7 +23,7 @@
 
       <rhn:listdisplay>
         <rhn:column header="systemlist.jsp.system">
-          <c:out value="${current.name}" escapeXml="true" />
+          <a href="/rhn/systems/details/Overview.do?sid=${current.id}">${current.serverName}</a>
         </rhn:column>
 
         <rhn:column header="systemlist.jsp.entitlement">
