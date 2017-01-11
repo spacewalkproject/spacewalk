@@ -24,7 +24,7 @@ CREATE TABLE rhnConfigInfo
     filemode     NUMBER,
     symlink_target_filename_id NUMBER
                     CONSTRAINT rhn_confinfo_symlink_fk
-                        REFERENCES rhnConfigFileName (id),    
+                        REFERENCES rhnConfigFileName (id),
     created      timestamp with local time zone
                      DEFAULT (current_timestamp) NOT NULL,
     modified     timestamp with local time zone
@@ -33,10 +33,6 @@ CREATE TABLE rhnConfigInfo
 )
 ENABLE ROW MOVEMENT
 ;
-
-CREATE UNIQUE INDEX rhn_confinfo_ugf_uq
-    ON rhnConfigInfo (username, groupname, filemode, selinux_ctx, symlink_target_filename_id)
-    TABLESPACE [[4m_tbs]];
 
 CREATE SEQUENCE rhn_confinfo_id_seq;
 

@@ -14,6 +14,17 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.configchannel;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
+
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.config.ConfigChannel;
@@ -29,17 +40,6 @@ import com.redhat.rhn.manager.configuration.file.ConfigFileData;
 import com.redhat.rhn.manager.configuration.file.DirectoryData;
 import com.redhat.rhn.manager.configuration.file.SymlinkData;
 import com.redhat.rhn.manager.configuration.file.TextFileData;
-
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -106,7 +106,7 @@ public class XmlRpcConfigChannelHelper {
      * @return returns the new created or updated config revision..
      */
 
-    public ConfigRevision createOrUpdatePath(User loggedInUser,
+    public synchronized ConfigRevision createOrUpdatePath(User loggedInUser,
                                          ConfigChannel channel,
                                          String path,
                                          ConfigFileType type,
