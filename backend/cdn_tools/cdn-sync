@@ -74,6 +74,9 @@ def process_commandline():
         if not os.path.isdir(cmd_args.mount_point):
             system_exit(1, "Invalid mount point: %s" % cmd_args.mount_point)
 
+    if cmd_args.channel:
+        cmd_args.channel = set(cmd_args.channel)
+
     return cmd_args
 
 
