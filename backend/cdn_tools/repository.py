@@ -276,9 +276,9 @@ class CdnRepository(object):
         """)
         keys = {}
         ssl_query.execute(id=self.ca_cert)
-        keys['ca_cert'] = ssl_query.fetchone_dict()['key']
+        keys['ca_cert'] = str(ssl_query.fetchone_dict()['key'])
         ssl_query.execute(id=self.client_cert)
-        keys['client_cert'] = ssl_query.fetchone_dict()['key']
+        keys['client_cert'] = str(ssl_query.fetchone_dict()['key'])
         ssl_query.execute(id=self.client_key)
-        keys['client_key'] = ssl_query.fetchone_dict()['key']
+        keys['client_key'] = str(ssl_query.fetchone_dict()['key'])
         return keys
