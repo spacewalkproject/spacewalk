@@ -286,11 +286,6 @@ def processCommandline():
     parser = OptionParser(option_list=options)
     options, args = parser.parse_args()
 
-    option_values = [v for v in vars(options).values() if v is not None]
-    if not option_values:
-        parser.print_help()
-        sys.exit(1)
-
     # we take no extra commandline arguments that are not linked to an option
     if args:
         msg = "ERROR: these arguments make no sense in this context (try --help): %s\n" % repr(args)
@@ -366,8 +361,11 @@ def main():
         return 0
 
     if not options.manifest:
-        writeError("Manifest was not provided. Run the activation tool with option --manifest=MANIFEST.")
-        sys.exit(1)
+        if os.path.exists(DEFAULT_RHSM_MANIFEST_LOCATION):
+            options.manifest = DEFAULT_RHSM_MANIFEST_LOCATION
+        else:
+            writeError("Manifest was not provided. Run the activation tool with option --manifest=MANIFEST.")
+            sys.exit(1)
     # Handle RHSM manifest
     try:
         cdn_activate = cdn_activation.Activation(options.manifest)
