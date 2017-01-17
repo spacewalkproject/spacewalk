@@ -29,12 +29,6 @@ rhnContentSource
                                 references rhnContentSourceType(id),
         source_url      varchar2(2048) NOT NULL,
         label           varchar2(128) NOT NULL,
-        ssl_ca_cert_id number
-                constraint rhn_cs_cacertid_fk references rhnCryptoKey(id) on delete set null,
-        ssl_client_cert_id number
-                constraint rhn_cs_clcertid_fk references rhnCryptoKey(id) on delete set null,
-        ssl_client_key_id number
-                constraint rhn_cs_clkeyid_fk references rhnCryptoKey(id) on delete set null,
         created         timestamp with local time zone default(current_timestamp) NOT NULL,
         modified        timestamp with local time zone default(current_timestamp) NOT NULL
 )
