@@ -11,6 +11,7 @@ import gettext
 from up2date_client import up2dateErrors
 from up2date_client import config
 from up2date_client.pkgplatform import getPlatform
+from rhn.i18n import sstr
 
 t = gettext.translation('rhn-client-tools', fallback=True)
 # Python 3 translations don't have a ugettext method
@@ -35,17 +36,17 @@ else:
         ts = transaction.initReadOnlyTransaction()
         for h in ts.dbMatch('Providename', "redhat-release"):
             SYSRELVER = 'system-release(releasever)'
-            version = h['version']
-            release = h['release']
+            version = sstr(h['version'])
+            release = sstr(h['release'])
             if SYSRELVER in h['providename']:
-                provides = dict(zip(h['providename'], h['provideversion']))
+                provides = dict(zip(sstr(h['providename']), sstr(h['provideversion'])))
                 release = '%s-%s' % (version, release)
                 version = provides[SYSRELVER]
-            osVersionRelease = (h['name'], version, release)
+            osVersionRelease = (sstr(h['name']), version, release)
             return osVersionRelease
         else:
             for h in ts.dbMatch('Providename', "distribution-release"):
-                osVersionRelease = (h['name'], h['version'], h['release'])
+                osVersionRelease = (sstr(h['name']), sstr(h['version']), sstr(h['release']))
                 # zypper requires a exclusive lock on the rpmdb. So we need
                 # to close it here.
                 ts.ts.closeDB()
