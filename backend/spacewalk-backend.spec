@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.20
+Version: 2.7.21
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -820,6 +820,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Wed Jan 18 2017 Gennadii Altukhov <galt@redhat.com> 2.7.21-1
+- bz1412600 - error during syncing duplicated channel's labels
+
 * Mon Jan 16 2017 Gennadii Altukhov <galt@redhat.com> 2.7.20-1
 - 1406462 - add possibility to use previous manifest
 
