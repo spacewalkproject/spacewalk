@@ -179,13 +179,14 @@ def parseRPMName(pkgName):
         r = r[0:ind]
     return str(n), e, str(v), str(r)
 
+
 def parseDEBName(pkgName):
-    """ IN:  Package string in, n-n-n_v.v.v-v.v-r.r.r, format.
+    """ IN:  Package string in, n-n_v.v-v.v-r.r, format.
         OUT: Four strings (in a tuple): name, epoch, version, release.
     """
     if pkgName.find('_') == -1:
         return None, None, None, None
-    e = ''
+    e = None
     n, version = pkgName.split('_')
     if version.find(':') != -1:
         e, version = version.split(':')
@@ -193,6 +194,7 @@ def parseDEBName(pkgName):
     v = '-'.join(version_tmpArr[:-1])
     r = version_tmpArr[-1]
     return str(n), e, str(v), str(r)
+
 
 def isSUSE():
     """Return true if this is a SUSE system, otherwise false"""
