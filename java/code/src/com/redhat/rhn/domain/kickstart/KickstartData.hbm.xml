@@ -132,7 +132,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 FROM rhnKickstartCommand sortcol, rhnKickstartCommandName cname
                 WHERE KICKSTART_ID = :id
                 AND sortcol.ks_command_name_id = cname.id
-                ORDER BY cname.sort_order
+                ORDER BY cname.sort_order, custom_position
     </sql-query>
 
     <!--

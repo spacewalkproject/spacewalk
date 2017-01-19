@@ -80,7 +80,7 @@ public class KickstartData {
     private Set<Token> defaultRegTokens;
     private Set<FileList> preserveFileLists;
     private Set<KickstartPackage> ksPackages = new HashSet<KickstartPackage>();
-    private Collection<KickstartCommand> commands = new HashSet<KickstartCommand>();
+    private Collection<KickstartCommand> commands = new LinkedHashSet<KickstartCommand>();
     private Set<KickstartIpRange> ips; // rhnKickstartIpRange
     private Set<KickstartScript> scripts;      // rhnKickstartScript
     private KickstartDefaults kickstartDefaults;
@@ -113,7 +113,7 @@ public class KickstartData {
         defaultRegTokens = new HashSet<Token>();
         preserveFileLists = new HashSet<FileList>();
         ksPackages = new TreeSet<KickstartPackage>();
-        commands = new HashSet<KickstartCommand>();
+        commands = new LinkedHashSet<KickstartCommand>();
         ips = new HashSet<KickstartIpRange>();
         scripts = new HashSet<KickstartScript>();
         postLog = false;
@@ -615,7 +615,7 @@ public class KickstartData {
     }
 
     private Set<KickstartCommand> getCommandSubset(String name) {
-        Set<KickstartCommand> retval = new HashSet<KickstartCommand>();
+        Set<KickstartCommand> retval = new LinkedHashSet<KickstartCommand>();
         if (this.commands != null && this.commands.size() > 0) {
             for (Iterator<KickstartCommand> iter = this.commands.iterator();
                     iter.hasNext();) {
