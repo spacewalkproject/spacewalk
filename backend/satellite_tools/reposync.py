@@ -335,6 +335,14 @@ class RepoSync(object):
             taskomatic.add_to_erratacache_queue(self.channel_label)
         self.update_date()
         rhnSQL.commit()
+
+        # update permissions
+        fileutils.createPath(os.path.join(CFG.MOUNT_POINT, 'rhn'))  # if the directory exists update ownership only
+        for root, dirs, files in os.walk(os.path.join(CFG.MOUNT_POINT, 'rhn')):
+            for d in dirs:
+                fileutils.setPermsPath(os.path.join(root, d), group='apache')
+            for f in files:
+                fileutils.setPermsPath(os.path.join(root, f), group='apache')
         elapsed_time = datetime.now() - start_time
         log(0, "Sync of channel completed in %s." % str(elapsed_time).split('.')[0])
         # if there is no global problems, but some packages weren't synced
@@ -991,9 +999,4 @@ class RepoSync(object):
             log(0, "Nothing to download.")
 
         # set permissions recursively
-        for root, dirs, files in os.walk(os.path.join(CFG.MOUNT_POINT, ks_path)):
-            for d in dirs:
-                fileutils.setPermsPath(os.path.join(root, d), group='apache')
-            for f in files:
-                fileutils.setPermsPath(os.path.join(root, f), group='apache')
         rhnSQL.commit()
