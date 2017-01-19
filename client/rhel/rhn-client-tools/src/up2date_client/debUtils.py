@@ -28,7 +28,7 @@ def verifyPackages(packages):
 
 def parseVRE(version):
     epoch = ''
-    release = '0'
+    release = 'X'
     if version.find(':') != -1:
         epoch, version = version.split(':')
     if version.find('-') != -1:
