@@ -17,6 +17,7 @@ import os
 import sys
 import re
 import time
+import urllib
 from Queue import Queue, Empty
 from threading import Thread, Lock
 try:
@@ -87,6 +88,22 @@ class TextLogger:
         else:
             log2(0, 0, "%d/%d : %s (failed)" % (self.status, self.total, str(param)), stream=sys.stderr)
         self.lock.release()
+
+
+# Older versions of urlgrabber don't allow to set proxy parameters separately
+# Simplified version from yumRepository class
+def get_proxies(proxy, user, password):
+    if not proxy:
+        return {}
+    proxy_string = proxy
+    if user:
+        auth = urllib.quote(user)
+        if password:
+            auth += ':' + urllib.quote(password)
+        proto, rest = re.match('(\w+://)(.+)', proxy_string).groups()
+        proxy_string = "%s%s@%s" % (proto, auth, rest)
+    proxies = {'http': proxy_string, 'https': proxy_string, 'ftp': proxy_string}
+    return proxies
 
 
 class PyCurlFileObjectThread(PyCurlFileObject):
@@ -164,7 +181,7 @@ class DownloadThread(Thread):
         opts = URLGrabberOptions(ssl_ca_cert=params['ssl_ca_cert'], ssl_cert=params['ssl_client_cert'],
                                  ssl_key=params['ssl_client_key'], range=params['bytes_range'],
                                  proxy=params['proxy'], username=params['proxy_username'],
-                                 password=params['proxy_password'])
+                                 password=params['proxy_password'], proxies=params['proxies'])
         mirrors = len(params['urls'])
         for retry in max(range(self.parent.retries), mirrors):
             fo = None

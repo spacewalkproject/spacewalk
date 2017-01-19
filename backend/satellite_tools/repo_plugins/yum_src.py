@@ -40,7 +40,7 @@ except ImportError:
 from urlgrabber.grabber import URLGrabError
 
 from spacewalk.common import fileutils, checksum
-from spacewalk.satellite_tools.repo_plugins import ContentPackage
+from spacewalk.satellite_tools.repo_plugins import ContentPackage, get_proxies
 from spacewalk.common.rhnConfig import CFG, initCFG
 
 CACHE_DIR = '/var/cache/rhn/reposync/'
@@ -468,6 +468,8 @@ class ContentSource(object):
         params['proxy'] = self.repo.proxy
         params['proxy_username'] = self.repo.proxy_username
         params['proxy_password'] = self.repo.proxy_password
+        # Older urlgrabber compatibility
+        params['proxies'] = get_proxies(self.repo.proxy, self.repo.proxy_username, self.repo.proxy_password)
 
     # Simply load primary and updateinfo path from repomd
     def get_metadata_paths(self):
