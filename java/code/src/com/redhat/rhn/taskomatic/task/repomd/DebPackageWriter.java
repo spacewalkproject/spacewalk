@@ -79,7 +79,7 @@ public class DebPackageWriter {
 
             out.write("Version: ");
             String epoch = pkgDto.getEpoch();
-            if (!epoch.isEmpty()) {
+            if (!epoch.equalsIgnoreCase("")) {
                 out.write(epoch + ":");
             }
             out.write(pkgDto.getVersion());
@@ -140,7 +140,7 @@ public class DebPackageWriter {
 
             out.write("Filename: XMLRPC/GET-REQ/" + channelLabel + "/getPackage/");
             out.write(pkgDto.getName() + "_");
-            if (!epoch.isEmpty()) {
+            if (!epoch.equalsIgnoreCase("")) {
                 out.write(epoch + ":");
             }
             out.write(pkgDto.getVersion() + "-" + out.write(pkgDto.getRelease());
