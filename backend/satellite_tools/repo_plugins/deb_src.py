@@ -118,13 +118,17 @@ class DebRepo(object):
                 elif pair[0] == "Architecture:":
                     package.arch = pair[1] + '-deb'
                 elif pair[0] == "Version:":
-                    version = pair[1].split('-', 1)
-                    if len(version) == 1:
-                        package.version = version[0]
-                        package.release = 'X'
+                    package['epoch'] = ''
+                    version = pair[1]
+                    if version.find(':') != -1:
+                        package['epoch'], version = version.split(':')
+                    if version.find('-') != -1:
+                        tmp = version.split('-')
+                        package['version'] = '-'.join(tmp[:-1])
+                        package['release'] = tmp[-1]
                     else:
-                        package.version = version[0]
-                        package.release = version[1]
+                        package['version'] = version
+                        package['release'] = 'X'
                 elif pair[0] == "Filename:":
                     package.relativepath = pair[1]
                 elif pair[0] == "SHA256:":

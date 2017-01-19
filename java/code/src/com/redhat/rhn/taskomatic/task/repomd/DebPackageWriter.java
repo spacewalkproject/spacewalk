@@ -78,6 +78,10 @@ public class DebPackageWriter {
             out.newLine();
 
             out.write("Version: ");
+            String epoch = pkgDto.getEpoch();
+            if (!epoch.isEmpty()) {
+                out.write(epoch + ":");
+            }
             out.write(pkgDto.getVersion());
             String release = pkgDto.getRelease();
             if (!release.equalsIgnoreCase("X")) {
@@ -134,9 +138,13 @@ public class DebPackageWriter {
                     TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_BREAKS,
                     pkgDto.getId(), "Breaks");
 
-            out.write("Filename: XMLRPC/GET-REQ/" + channelLabel + "/getPackage/" +
-                    pkgDto.getName() + "-" + pkgDto.getVersion() + "-" +
-                    pkgDto.getRelease() + "." + pkgDto.getArchLabel() + ".deb");
+            out.write("Filename: XMLRPC/GET-REQ/" + channelLabel + "/getPackage/");
+            out.write(pkgDto.getName() + "_");
+            if (!epoch.isEmpty()) {
+                out.write(epoch + ":");
+            }
+            out.write(pkgDto.getVersion() + "-" + out.write(pkgDto.getRelease());
+            out.write("." + pkgDto.getArchLabel() + ".deb");
             out.newLine();
 
             // size of package, is checked by apt
