@@ -143,7 +143,7 @@ public class DebPackageWriter {
             if (!epoch.equalsIgnoreCase("")) {
                 out.write(epoch + ":");
             }
-            out.write(pkgDto.getVersion() + "-" + out.write(pkgDto.getRelease());
+            out.write(pkgDto.getVersion() + "-" + pkgDto.getRelease());
             out.write("." + pkgDto.getArchLabel() + ".deb");
             out.newLine();
 
