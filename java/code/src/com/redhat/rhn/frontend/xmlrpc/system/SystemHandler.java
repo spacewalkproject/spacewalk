@@ -5721,7 +5721,13 @@ public class SystemHandler extends BaseHandler {
      *
      * @xmlrpc.doc list systems that require reboot
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.return List of systems that require reboot
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("system")
+     *              #prop("int" "id")
+     *              #prop("string" "name")
+     *          #struct_end()
+     *      #array_end()
      */
     public Object[] listSuggestedReboot(User loggedInUser) {
             return SystemManager.requiringRebootList(loggedInUser, null).toArray();
