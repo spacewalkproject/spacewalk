@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.18
+Version: 2.7.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jan 19 2017 Jiri Dostal <jdostal@redhat.com> 2.7.19-1
+- 1324737 - [RFE] API call to get list of Systems Requiring Reboot
+
 * Fri Jan 13 2017 Grant Gainey 2.7.18-1
 - 1412555 - order all kickstart-tree-queries by label
 
