@@ -179,7 +179,7 @@ def parseRPMName(pkgName):
         r = r[0:ind]
     return str(n), e, str(v), str(r)
 
-def parseDEPName(pkgName):
+def parseDEBName(pkgName):
     """ IN:  Package string in, n-n-n-v.v.v-r.r_r, format.
         OUT: Four strings (in a tuple): name, epoch, version, release.
     """
