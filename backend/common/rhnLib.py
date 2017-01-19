@@ -180,7 +180,7 @@ def parseRPMName(pkgName):
     return str(n), e, str(v), str(r)
 
 def parseDEBName(pkgName):
-    """ IN:  Package string in, n-n-n-v.v.v-r.r_r, format.
+    """ IN:  Package string in, n-n-n_v.v.v-v.v-r.r.r, format.
         OUT: Four strings (in a tuple): name, epoch, version, release.
     """
     if pkgName.find('_') == -1:
