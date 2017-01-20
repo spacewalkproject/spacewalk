@@ -6,7 +6,7 @@
 
 Name:           roboto
 Version:        1.3
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        Roboto font
 
 Group:          Application/Internet
@@ -75,6 +75,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Jan 20 2017 Grant Gainey 1.3-1
+- 1208421 - Update Roboto fonts
+
 * Tue May 10 2016 Grant Gainey 1.2-3
 - roboto: build on openSUSE
 
