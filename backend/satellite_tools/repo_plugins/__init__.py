@@ -17,7 +17,6 @@ import os
 import sys
 import re
 import time
-import urllib
 from Queue import Queue, Empty
 from threading import Thread, Lock
 try:
@@ -26,6 +25,7 @@ try:
 except ImportError:
     #  python3
     import urllib.parse as urlparse # pylint: disable=F0401,E0611
+from urllib import quote
 import pycurl
 import rpm
 from urlgrabber.grabber import URLGrabberOptions, PyCurlFileObject, URLGrabError
@@ -97,10 +97,10 @@ def get_proxies(proxy, user, password):
         return {}
     proxy_string = proxy
     if user:
-        auth = urllib.quote(user)
+        auth = quote(user)
         if password:
-            auth += ':' + urllib.quote(password)
-        proto, rest = re.match('(\w+://)(.+)', proxy_string).groups()
+            auth += ':' + quote(password)
+        proto, rest = re.match(r'(\w+://)(.+)', proxy_string).groups()
         proxy_string = "%s%s@%s" % (proto, auth, rest)
     proxies = {'http': proxy_string, 'https': proxy_string, 'ftp': proxy_string}
     return proxies
