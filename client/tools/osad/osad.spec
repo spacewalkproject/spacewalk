@@ -19,7 +19,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.76
+Version: 5.11.77
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -419,6 +419,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Mon Jan 23 2017 Jan Dobes 5.11.77-1
+- removing selinux port requirements
+- Drop code used from the Perl stack to 'trickle' OSAD
+
 * Tue Nov 29 2016 Jan Dobes 5.11.76-1
 - perl isn't in Fedora 25 buildroot
 
