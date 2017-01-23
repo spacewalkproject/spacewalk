@@ -340,12 +340,6 @@ fi
 %postun -n osa-dispatcher-selinux
 # Clean up after package removal
 if [ $1 -eq 0 ]; then
-
-  /usr/sbin/semanage port -ln \
-    | perl '-F/,?\s+/' -ane 'print map "$_\n", @F if shift @F eq "osa_dispatcher_upstream_notif_server_port_t" and shift @F eq "tcp"' \
-    | while read port ; do \
-      /usr/sbin/semanage port -d -t osa_dispatcher_upstream_notif_server_port_t -p tcp $port || :
-    done
   for selinuxvariant in %{selinux_variants}
     do
       /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
