@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.23
+Version: 2.7.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -820,6 +820,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Mon Jan 23 2017 Jan Dobes 2.7.24-1
+- 1414697 - fixing pylint
+- 1316708 - fixing case when postgresql is installed but spacewalk is using
+  Oracle
+-   bz#1316708 - added the capability for spacewalk-debug to capture the
+  pg_catalog information from PostgreSQL
+
 * Thu Jan 19 2017 Jan Dobes 2.7.23-1
 - 1414697 - proxy can't be specified in multiple parameters on all versions of
   urlgrabber
