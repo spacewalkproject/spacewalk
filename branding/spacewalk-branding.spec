@@ -17,7 +17,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.7.1
+Version:    2.7.2
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -124,6 +124,9 @@ rm -rf %{buildroot}
 %{wwwdocroot}/css/*.less
 
 %changelog
+* Mon Jan 23 2017 Jan Dobes 2.7.2-1
+- Differentiate writable/non-writable fields
+
 * Thu Nov 17 2016 Eric Herget <eherget@redhat.com> 2.7.1-1
 - 1394299 - fix css and UI display to better support tree list
 - Bumping package versions for 2.7.
