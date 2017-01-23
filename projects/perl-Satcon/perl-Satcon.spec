@@ -2,7 +2,7 @@
 
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        2.7.0
+Version:        2.7.1
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
@@ -63,6 +63,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Mon Jan 23 2017 Jan Dobes 2.7.1-1
+- Specify all dependencies
+- Bumping package versions for 2.7.
+
 * Wed Jul 20 2016 Tomas Lestach <tlestach@redhat.com> 2.6.1-1
 - let's BuildRequire perl-Test for perl-Satcon
 - Bumping package versions for 2.6.
