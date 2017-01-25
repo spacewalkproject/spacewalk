@@ -243,27 +243,23 @@ class ContentSource(object):
 
         for filter_item in filters:
             sense, pkg_list = filter_item
+            regex = fnmatch.translate(pkg_list[0])
+            reobj = re.compile(regex)
             if sense == '+':
-                    # include
-                for index in range(len(excluded)):
-                    regex = fnmatch.translate(pkg_list[0])
-                    reobj = re.compile(regex)
-                    if (reobj.match(excluded[index]['name'])):
-                        print("It's an include match for " + excluded[index]['name'])
-                        allmatched_include.insert(0,excluded[index])
-                        selected.insert(0,excluded[index])
+                # include
+                for index, excluded_pkg in enumerate(excluded):
+                    if (reobj.match(excluded_pkg['name'])):
+                        allmatched_include.insert(0,excluded_pkg)
+                        selected.insert(0,excluded_pkg)
                 for pkg in allmatched_include:
                     if pkg in excluded:
                         excluded.remove(pkg)
             elif sense == '-':
                 # exclude
-                for index in range(len(selected)):
-                    regex = fnmatch.translate(pkg_list[0])
-                    reobj = re.compile(regex)
-                    if (reobj.match(selected[index]['name'])):
-                        print("It's an exclude match for " + selected[index]['name'])
-                        allmatched_exclude.insert(0,selected[index])
-                        excluded.insert(0,selected[index])
+                for index, selected_pkg in enumerate(selected):
+                    if (reobj.match(selected_pkg['name'])):
+                        allmatched_exclude.insert(0,selected_pkg)
+                        excluded.insert(0,selected_pkg)
 
                 for pkg in allmatched_exclude:
                     if pkg in selected:
