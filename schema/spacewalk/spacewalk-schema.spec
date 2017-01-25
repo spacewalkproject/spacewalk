@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.7.6
+Version:        2.7.7
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jan 25 2017 Jiri Dostal <jdostal@redhat.com> 2.7.7-1
+- 1332805 - The problematic editing of kickstart profile - custom options
+
 * Mon Jan 23 2017 Jan Dobes 2.7.6-1
 - Drop code used from the Perl stack to 'trickle' OSAD
 
