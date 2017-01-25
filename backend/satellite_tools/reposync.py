@@ -710,6 +710,8 @@ class RepoSync(object):
                         pack.checksum_type = pack.a_pkg.checksum_type
                         pack.epoch = pack.a_pkg.header['epoch']
                         pack.a_pkg = None
+                    else:
+                        raise Exception
                     progress_bar.log(True, None)
             except KeyboardInterrupt:
                 raise
