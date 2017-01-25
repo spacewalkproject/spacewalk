@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemCurrency;
 import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.dto.VirtualSystemOverview;
 import com.redhat.rhn.frontend.html.HtmlTag;
 import com.redhat.rhn.frontend.taglibs.IconTag;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -58,6 +59,13 @@ public class SystemListHelper {
                                               boolean makeLinks) {
         HtmlTag url = new HtmlTag("a");
         IconTag i = new IconTag();
+
+        if (next instanceof VirtualSystemOverview) {
+            VirtualSystemOverview vso = (VirtualSystemOverview)next;
+            if (vso.getSystemId() != null) {
+                vso.setId(vso.getSystemId());
+            }
+        }
 
         if (next.getEntitlement() == null ||
             next.getEntitlement().isEmpty()) {
