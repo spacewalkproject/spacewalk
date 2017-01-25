@@ -513,11 +513,12 @@ class CdnSync(object):
             except Exception:
                 packages_size = '?B'
 
+            packages_size = "(%s)" % packages_size
             space = " "
             offset = longest_label - len(channel)
             space += " " * offset
 
-            log(0, "    %s %s%s%s packages (%s)" % (status, channel, space, packages_number, packages_size))
+            log(0, "    %s %s%s%6s packages %9s" % (status, channel, space, packages_number, packages_size))
             sources = self.cdn_repository_manager.get_content_sources(channel)
             if repos:
                 if sources:
@@ -550,11 +551,12 @@ class CdnSync(object):
                     except Exception:
                         packages_size = '?B'
 
+                    packages_size = "(%s)" % packages_size
                     space = " "
                     offset = longest_label - len(child)
                     space += " " * offset
 
-                    log(0, "    %s %s%s%s packages (%s)" % (status, child, space, packages_number, packages_size))
+                    log(0, "    %s %s%s%6s packages %9s" % (status, child, space, packages_number, packages_size))
                     if repos:
                         sources = self.cdn_repository_manager.get_content_sources(child)
                         if sources:
