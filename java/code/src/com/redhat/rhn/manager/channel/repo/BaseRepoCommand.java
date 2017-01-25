@@ -20,11 +20,16 @@ import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.channel.ContentSourceType;
 import com.redhat.rhn.domain.channel.SslContentSource;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoLabelException;
 import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoTypeException;
 import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoUrlException;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -38,9 +43,8 @@ public class BaseRepoCommand {
     private String label;
     private String url;
     private String type;
-    private Long sslCaCertId = null;
-    private Long sslClientCertId = null;
-    private Long sslClientKeyId = null;
+    private Set<SslContentSource> sslSetsToAdd = new HashSet<>();
+    private Set<SslContentSource> sslSetsToDelete = new HashSet<>();
     private Org org;
     /**
      * Constructor
@@ -113,51 +117,54 @@ public class BaseRepoCommand {
     }
 
 
-    /**
-     * @return Returns the sslCaCertId.
-     */
-    public Long getSslCaCertId() {
-        return sslCaCertId;
+    private SslContentSource createSslSet(Long sslCaCertId, Long sslClientCertId,
+                          Long sslClientKeyId) throws InvalidCertificateException {
+        SslCryptoKey caCert = lookupSslCryptoKey(sslCaCertId, org);
+        SslCryptoKey clientCert = lookupSslCryptoKey(sslClientCertId, org);
+        SslCryptoKey clientKey = lookupSslCryptoKey(sslClientKeyId, org);
+        if (caCert == null) {
+            return null;
+        }
+        else if (clientCert == null && clientKey != null) {
+            throw new InvalidCertificateException(
+                    "client key is provided but client certificate is missing");
+        }
+        SslContentSource sslSet = ChannelFactory.createRepoSslSet();
+        sslSet.setCaCert(caCert);
+        sslSet.setClientCert(clientCert);
+        sslSet.setClientKey(clientKey);
+        sslSet.setCreated(new Date());
+        sslSet.setModified(new Date());
+        return sslSet;
     }
 
-
     /**
-     * @param sslCaCertIdIn The sslCaCertId to set.
+     * Marks some SSL set for assigning to repository
+     * @param sslCaCertId ca cert id
+     * @param sslClientCertId client cert id
+     * @param sslClientKeyId client key
+     * @throws InvalidCertificateException in case ca cert is missing or client key is set,
+     * but client certificate is missing
      */
-    public void setSslCaCertId(Long sslCaCertIdIn) {
-        sslCaCertId = sslCaCertIdIn;
+    public void addSslSet(Long sslCaCertId, Long sslClientCertId, Long sslClientKeyId)
+            throws InvalidCertificateException {
+        SslContentSource sslSet = createSslSet(sslCaCertId, sslClientCertId,
+                sslClientKeyId);
+        if (sslSet != null) {
+            sslSetsToAdd.add(sslSet);
+            sslSetsToDelete.remove(sslSet);
+        }
     }
 
-
     /**
-     * @return Returns the sslClientCertId.
+     * Marks all assigned SSL sets for deletion
      */
-    public Long getSslClientCertId() {
-        return sslClientCertId;
-    }
-
-
-    /**
-     * @param sslClientCertIdIn The sslClientCertId to set.
-     */
-    public void setSslClientCertId(Long sslClientCertIdIn) {
-        sslClientCertId = sslClientCertIdIn;
-    }
-
-
-    /**
-     * @return Returns the sslClientKeyId.
-     */
-    public Long getSslClientKeyId() {
-        return sslClientKeyId;
-    }
-
-
-    /**
-     * @param sslClientKeyIdIn The sslClientKeyId to set.
-     */
-    public void setSslClientKeyId(Long sslClientKeyIdIn) {
-        sslClientKeyId = sslClientKeyIdIn;
+    public void deleteAllSslSets() {
+        if (repo != null) {
+            Set<SslContentSource> repoSslSets = repo.getSslSets();
+            sslSetsToDelete.addAll(repoSslSets);
+            sslSetsToAdd.removeAll(repoSslSets);
+        }
     }
 
     /**
@@ -166,56 +173,23 @@ public class BaseRepoCommand {
      * in the org
      * @throws InvalidRepoLabelException in case repo witch given label already exists
      * in the org
-     * @throws InvalidCertificateException in case client key is set,
-     * but client certificate is missing
      * @throws InvalidRepoTypeException in case repo wih given type already exists
      * in the org
      */
     public void store() throws InvalidRepoUrlException, InvalidRepoLabelException,
-            InvalidCertificateException, InvalidRepoTypeException {
-
-        SslCryptoKey caCert = lookupSslCryptoKey(sslCaCertId, org);
-        SslCryptoKey clientCert = lookupSslCryptoKey(sslClientCertId, org);
-        SslCryptoKey clientKey = lookupSslCryptoKey(sslClientKeyId, org);
+            InvalidRepoTypeException {
 
         // create new repository
         if (repo == null) {
-            if (caCert != null) {
-                this.repo = ChannelFactory.createSslRepo(caCert, clientCert, clientKey);
-            }
-            else {
-                this.repo = ChannelFactory.createRepo();
-            }
+            this.repo = ChannelFactory.createRepo();
         }
 
-        // update existing repository
-        else {
-
-            if (clientCert == null && clientKey != null) {
-                throw new InvalidCertificateException("client key is provided " +
-                        "but client certificate is missing");
-            }
-
-            if (repo.isSsl() && caCert == null) {
-                ContentSource cs = new ContentSource(repo);
-                ChannelFactory.remove(repo);
-                ChannelFactory.commitTransaction();
-                ChannelFactory.closeSession();
-                repo = cs;
-            }
-            if (!repo.isSsl() && caCert != null) {
-                SslContentSource sslRepo = new SslContentSource(repo);
-                ChannelFactory.remove(repo);
-                ChannelFactory.commitTransaction();
-                ChannelFactory.closeSession();
-                repo = sslRepo;
-            }
-            if (repo.isSsl()) {
-                SslContentSource sslRepo = (SslContentSource) repo;
-                sslRepo.setCaCert(caCert);
-                sslRepo.setClientCert(clientCert);
-                sslRepo.setClientKey(clientKey);
-            }
+        Set<SslContentSource> repoSslSets = repo.getSslSets();
+        for (SslContentSource sslSet : sslSetsToAdd) {
+            repoSslSets.add(sslSet);
+        }
+        for (SslContentSource sslSet : sslSetsToDelete) {
+            repoSslSets.remove(sslSet);
         }
 
         repo.setOrg(org);
