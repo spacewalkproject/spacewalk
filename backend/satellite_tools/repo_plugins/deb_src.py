@@ -247,7 +247,7 @@ class ContentSource(object):
             reobj = re.compile(regex)
             if sense == '+':
                 # include
-                for index, excluded_pkg in enumerate(excluded):
+                for excluded_pkg in enumerate(excluded):
                     if (reobj.match(excluded_pkg['name'])):
                         allmatched_include.insert(0,excluded_pkg)
                         selected.insert(0,excluded_pkg)
@@ -256,7 +256,7 @@ class ContentSource(object):
                         excluded.remove(pkg)
             elif sense == '-':
                 # exclude
-                for index, selected_pkg in enumerate(selected):
+                for selected_pkg in enumerate(selected):
                     if (reobj.match(selected_pkg['name'])):
                         allmatched_exclude.insert(0,selected_pkg)
                         excluded.insert(0,selected_pkg)
