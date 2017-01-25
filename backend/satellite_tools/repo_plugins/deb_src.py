@@ -18,6 +18,7 @@ import os.path
 from shutil import rmtree
 import time
 import requests
+import re
 from spacewalk.common import fileutils
 from spacewalk.satellite_tools.download import get_proxies
 from spacewalk.satellite_tools.repo_plugins import ContentPackage, CACHE_DIR
@@ -196,8 +197,8 @@ class ContentSource(object):
                 filters.append(('-', [p]))
 
         if filters:
-            # TODO
-            pass
+            pkglist = self._filter_packages(pkglist, filters)
+            self.num_excluded = self.num_packages - len(pkglist)
 
         to_return = []
         for pack in pkglist:
@@ -219,6 +220,57 @@ class ContentSource(object):
             return 0
         else:
             return -1
+    @staticmethod
+    def _filter_packages(packages, filters):
+        """ implement include / exclude logic
+            filters are: [ ('+', includelist1), ('-', excludelist1),
+                           ('+', includelist2), ... ]
+        """
+        if filters is None:
+            return
+
+        selected = []
+        excluded = []
+        allmatched_include = []
+        allmatched_exclude = []
+        if filters[0][0] == '-':
+            # first filter is exclude, start with full package list
+            # and then exclude from it
+            selected = packages
+        else:
+            excluded = packages
+
+        for filter_item in filters:
+            sense, pkg_list = filter_item
+            if sense == '+':
+                    # include
+                    for index in range(len(excluded)):
+                      regex = fnmatch.translate(pkg_list[0])
+                      reobj = re.compile(regex)
+                      if (reobj.match(excluded[index]['name'])):
+                        print("It's an include match for " + excluded[index]['name'])
+                        allmatched_include.insert(0,excluded[index])
+                        selected.insert(0,excluded[index])
+                    for pkg in allmatched_include:
+                        if pkg in excluded:
+                            excluded.remove(pkg)
+            elif sense == '-':
+                # exclude
+                for index in range(len(selected)):
+                  regex = fnmatch.translate(pkg_list[0])
+                  reobj = re.compile(regex)
+                  if (reobj.match(selected[index]['name'])):
+                    print("It's an exclude match for " + selected[index]['name'])
+                    allmatched_exclude.insert(0,selected[index])
+                    excluded.insert(0,selected[index])
+
+                for pkg in allmatched_exclude:
+                    if pkg in selected:
+                        selected.remove(pkg)
+                excluded = (excluded + allmatched_exclude)
+            else:
+                raise UpdateNoticeException
+        return selected
 
     def clear_cache(self, directory=None):
         if directory is None:
