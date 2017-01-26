@@ -27,7 +27,6 @@ public class CreateRepoCommand extends BaseRepoCommand {
      * @param orgIn org for repo
      */
     public CreateRepoCommand(Org orgIn) {
-        super();
         this.setOrg(orgIn);
     }
 }

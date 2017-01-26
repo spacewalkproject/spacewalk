@@ -20,7 +20,6 @@ import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.channel.ContentSourceType;
 import com.redhat.rhn.domain.channel.SslContentSource;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
-import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoLabelException;
@@ -33,24 +32,19 @@ import java.util.Set;
 
 
 /**
- * CreateRepoCommand - Command to create a repo
+ * BaseRepoCommand - Command to create or edit a repo
  * @version $Rev: 119601 $
  */
-public class BaseRepoCommand {
+public abstract class BaseRepoCommand {
 
     protected ContentSource repo;
 
     private String label;
     private String url;
     private String type;
-    private Set<SslContentSource> sslSetsToAdd = new HashSet<>();
-    private Set<SslContentSource> sslSetsToDelete = new HashSet<>();
+    private Set<SslContentSource> sslSetsToAdd = new HashSet<SslContentSource>();
+    private Set<SslContentSource> sslSetsToDelete = new HashSet<SslContentSource>();
     private Org org;
-    /**
-     * Constructor
-     */
-    BaseRepoCommand() {
-    }
 
     /**
      *

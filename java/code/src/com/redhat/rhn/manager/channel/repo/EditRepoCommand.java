@@ -18,7 +18,7 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.user.User;
 
 /**
- * CreateRepoCommand - Command to create a repo
+ * EditRepoCommand - Command to edit a repo
  * @version $Rev: 119601 $
  */
 public class EditRepoCommand extends BaseRepoCommand {
@@ -29,7 +29,6 @@ public class EditRepoCommand extends BaseRepoCommand {
      * @param repoId id of content source object
      */
     public EditRepoCommand(User currentUser, Long repoId) {
-        super();
         this.setOrg(currentUser.getOrg());
         this.repo = ChannelFactory.lookupContentSource(repoId, currentUser.getOrg());
     }
