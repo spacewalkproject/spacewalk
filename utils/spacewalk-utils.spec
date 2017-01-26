@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.6.16
+Version:	2.6.17
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Jan 26 2017 Gennadii Altukhov <galt@redhat.com> 2.6.17-1
+- add channels for openSUSE Leap 42.2
+
 * Tue Nov 08 2016 Gennadii Altukhov <galt@redhat.com> 2.6.16-1
 - Added repo urls and gpg keys for Fedora 24
 
