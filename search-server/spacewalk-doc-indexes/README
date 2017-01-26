@@ -1,6 +1,6 @@
 This package will generate lucene index files for help documents.
 The specific docs which will be examined are specified by a file located at:
-    crawl_www/urls/urls.txt
+crawl_www/urls/urls.txt
 Nutch must be installed on the system, a RPM is provided at ../../spec-tree/nutch
 
 To run:
