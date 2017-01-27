@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.48
+Version: 2.6.49
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 27 2017 Gennadii Altukhov <galt@redhat.com> 2.6.49-1
+- 1394299 - fix regression with virt system status display
+
 * Mon Nov 14 2016 Gennadii Altukhov <galt@redhat.com> 2.6.48-1
 - remove Solaris from strings
 - don't test removed solaris architectures
