@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.74
+Version: 2.6.75
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -820,6 +820,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Fri Jan 27 2017 Gennadii Altukhov <galt@redhat.com> 2.6.75-1
+- 1401488 - Fixes the following error on errata-sync: ERROR: cannot concatenate
+  'str' and 'int' objects
+
 * Wed Nov 09 2016 Gennadii Altukhov <galt@redhat.com> 2.6.74-1
 - Revert Project-Id-Version for translations
 
