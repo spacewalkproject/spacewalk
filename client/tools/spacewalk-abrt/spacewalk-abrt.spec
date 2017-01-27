@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        2.6.2
+Version:        2.6.3
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -47,6 +47,9 @@ service abrtd restart
 %{_mandir}/man8/*
 
 %changelog
+* Fri Jan 27 2017 Gennadii Altukhov <galt@redhat.com> 2.6.3-1
+- abrt python2/3 fix
+
 * Wed Nov 09 2016 Gennadii Altukhov <galt@redhat.com> 2.6.2-1
 - Revert Project-Id-Version for translations
 
