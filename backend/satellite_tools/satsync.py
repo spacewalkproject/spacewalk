@@ -481,8 +481,9 @@ class Syncer:
                 is_iss = 1
             else:
                 log(1, _(PRODUCT_NAME + ' - live synchronization'))
-                log(-1, _("ERROR: Synchronizing from RHN is no longer supported. Please register to RHSM and "
-                          "use cdn-sync"),
+                log(-1, _("ERROR: Live content synchronizing with RHN Classic Hosted is no longer supported.\nPlease "
+                          "use the cdn-sync command instead unless you are attempting to sync from another Satellite "
+                          "via Inter-Satelite-Sync (ISS), or from local content on disk via Channel Dump ISOs."),
                     stream=sys.stderr)
                 sys.exit(1)
 

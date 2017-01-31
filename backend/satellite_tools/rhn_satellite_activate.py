@@ -362,8 +362,9 @@ def main():
         return 0
 
     if options.rhn_cert:
-        writeError("Activation with RHN certificate is deprecated. Run the activation tool with "
-                   "option --manifest=MANIFEST.")
+        writeError("Activation with RHN Classic Satellite Certificate is deprecated.\nPlease obtain a Manifest for this"
+                   " Satellite version via https://access.redhat.com/knowledge/tools/satcert, "
+                   "and re-run this activation tool with option --manifest=MANIFEST-FILE.")
         sys.exit(1)
 
     if not options.manifest:
