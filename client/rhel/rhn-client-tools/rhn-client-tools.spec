@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.7.3
+Version: 2.7.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -401,6 +401,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Feb 01 2017 Eric Herget <eherget@redhat.com> 2.7.4-1
+- 1414579 - remove sstr call on list arguments to fix rhel7 client issue
+
 * Wed Jan 18 2017 Eric Herget <eherget@redhat.com> 2.7.3-1
 - 1414579 - rhn-search traceback - immediateTrigger-server exists with certain
   identification
