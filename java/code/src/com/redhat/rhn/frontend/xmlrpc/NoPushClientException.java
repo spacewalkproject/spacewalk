@@ -24,6 +24,9 @@ import com.redhat.rhn.FaultException;
  */
 public class NoPushClientException extends FaultException  {
 
+    /**
+     * Constructor
+     */
     public NoPushClientException() {
         super(3028, "No OSA push client" , "Cannot send a ping to a system using OSA");
     }
