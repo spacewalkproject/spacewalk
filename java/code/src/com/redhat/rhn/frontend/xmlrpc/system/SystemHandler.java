@@ -5664,7 +5664,7 @@ public class SystemHandler extends BaseHandler {
 
         PushClient client = null;
         client = server.getPushClient();
-        if(client == null) {
+        if (client == null) {
             throw new NoPushClientException();
         }
         client.setLastPingTime(new Date());
