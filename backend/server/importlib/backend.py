@@ -1084,7 +1084,7 @@ class Backend:
     def processContentSources(self, batch):
         """ Insert content source into DB """
 
-        childTables = []
+        childTables = ['rhnContentSourceSsl']
         self.__processObjectCollection(batch, 'rhnContentSource',
                                        childTables, 'content_source_id', uploadForce=4, ignoreUploaded=1,
                                        forceVerify=1)
