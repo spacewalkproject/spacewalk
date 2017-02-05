@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.21
+Version: 2.7.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -820,6 +820,35 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Wed Feb 01 2017 Jan Dobes 2.7.28-1
+- 1414454 - setting channel_access to private as a default
+
+* Tue Jan 31 2017 Gennadii Altukhov <galt@redhat.com> 2.7.27-1
+- 1413788 - change error messages in satellite-sync and rhn-satellite-activate
+
+* Wed Jan 25 2017 Gennadii Altukhov <galt@redhat.com> 2.7.26-1
+- fix failed packages counting if we cannot download some package
+
+* Wed Jan 25 2017 Gennadii Altukhov <galt@redhat.com> 2.7.25-1
+- 1415193 - fix man page for satellite-sync
+- 1413788 - improve error messages for obsolete options in satellite-sync and
+  rhn-satellite-activate
+
+* Mon Jan 23 2017 Jan Dobes 2.7.24-1
+- 1414697 - fixing pylint
+- 1316708 - fixing case when postgresql is installed but spacewalk is using
+  Oracle
+-   bz#1316708 - added the capability for spacewalk-debug to capture the
+  pg_catalog information from PostgreSQL
+
+* Thu Jan 19 2017 Jan Dobes 2.7.23-1
+- 1414697 - proxy can't be specified in multiple parameters on all versions of
+  urlgrabber
+
+* Thu Jan 19 2017 Gennadii Altukhov <galt@redhat.com> 2.7.22-1
+- 1395815 - change permissions for /var/satellite/rhn* after syncing of a
+  channel
+
 * Wed Jan 18 2017 Gennadii Altukhov <galt@redhat.com> 2.7.21-1
 - bz1412600 - error during syncing duplicated channel's labels
 

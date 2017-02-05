@@ -279,6 +279,7 @@ def processCommandline():
                + '(accumulable: -vvv means "be *really* verbose").'),
         Option('--dump-version', action='store', help="requested version of XML dump"),
         Option('--manifest',     action='store',      help='the RHSM manifest path/filename to activate for CDN'),
+        Option('--rhn-cert', action='store', help='this option is deprecated, use --manifest instead'),
         Option('--cdn-deactivate', action='store_true', help='deactivate CDN-activated Satellite'),
         Option('--disconnected', action='store_true', help="activate locally, not subscribe to remote repository")
     ]
@@ -359,6 +360,12 @@ def main():
     if options.cdn_deactivate:
         cdn_activation.Activation.deactivate()
         return 0
+
+    if options.rhn_cert:
+        writeError("Activation with RHN Classic Satellite Certificate is deprecated.\nPlease obtain a Manifest for this"
+                   " Satellite version via https://access.redhat.com/knowledge/tools/satcert, "
+                   "and re-run this activation tool with option --manifest=MANIFEST-FILE.")
+        sys.exit(1)
 
     if not options.manifest:
         if os.path.exists(DEFAULT_RHSM_MANIFEST_LOCATION):

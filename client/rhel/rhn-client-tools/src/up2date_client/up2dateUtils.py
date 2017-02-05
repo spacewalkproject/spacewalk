@@ -39,7 +39,7 @@ else:
             version = sstr(h['version'])
             release = sstr(h['release'])
             if SYSRELVER in h['providename']:
-                provides = dict(zip(sstr(h['providename']), sstr(h['provideversion'])))
+                provides = dict(zip(h['providename'], h['provideversion']))
                 release = '%s-%s' % (version, release)
                 version = provides[SYSRELVER]
             osVersionRelease = (sstr(h['name']), version, release)

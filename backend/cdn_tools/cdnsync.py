@@ -230,6 +230,9 @@ class CdnSync(object):
             content_sources_batch.extend(sources)
             channel_object['content-sources'] = sources
 
+            # Set default channel access to private
+            channel_object['channel_access'] = 'private'
+
             channels_batch.append(channel_object)
 
         importer = ContentSourcesImport(content_sources_batch, backend)

@@ -22,6 +22,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property   name="arguments" type="string" column="arguments"/>
         <property   name="created"   type="date"   column="created"/>
         <property   name="modified"  type="date"   column="modified"/>
+        <property   name="customPosition" type="java.lang.Integer" column="custom_position"/>
 
     </class>
 

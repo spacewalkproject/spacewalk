@@ -50,6 +50,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -547,7 +548,7 @@ public class KickstartBuilder {
         setupBasicInfo(ksLabel, ksdata, tree, virtType, updateType);
         KickstartCommandName kcn = null;
         KickstartCommand kscmd = null;
-        ksdata.setCommands(new HashSet<KickstartCommand>());
+        ksdata.setCommands(new LinkedHashSet<KickstartCommand>());
         kcn = KickstartFactory.lookupKickstartCommandName("url");
         kscmd = new KickstartCommand();
         kscmd.setCommandName(kcn);

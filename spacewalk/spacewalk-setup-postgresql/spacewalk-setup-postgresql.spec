@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-postgresql
-Version:        2.7.0
+Version:        2.7.1
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 Group:          Applications/System
@@ -17,6 +17,7 @@ Requires:	postgresql-contrib >= 8.4
 Requires:	postgresql-pltcl
 %endif
 Requires:	lsof
+Requires:	perl(DBD::Pg)
 Obsoletes:	spacewalk-setup-embedded-postgresql
 
 %description
@@ -63,6 +64,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Feb 02 2017 Gennadii Altukhov <galt@redhat.com> 2.7.1-1
+- 1415118 - add Perl DBI backend for PostgreSQL as requirement
+- Bumping package versions for 2.7.
+
 * Tue Sep 20 2016 Jan Dobes 2.6.2-1
 - postgresql 9.5 does not support checkpoint_segments parameter
 

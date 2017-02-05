@@ -22,9 +22,6 @@ files_pid_filetrans(osa_dispatcher_t,osa_dispatcher_var_run_t,file)
 create_files_pattern(osa_dispatcher_t,var_run_t,osa_dispatcher_var_run_t)
 write_files_pattern(osa_dispatcher_t,var_run_t,osa_dispatcher_var_run_t)
 
-type osa_dispatcher_upstream_notif_server_port_t;
-corenet_port(osa_dispatcher_upstream_notif_server_port_t)
-
 files_read_etc_files(osa_dispatcher_t)
 libs_use_ld_so(osa_dispatcher_t)
 libs_use_shared_libs(osa_dispatcher_t)
@@ -70,7 +67,6 @@ corenet_all_recvfrom_netlabel(osa_dispatcher_t)
 allow osa_dispatcher_t self:process { setpgid setsched getsched };
 allow osa_dispatcher_t self:capability { sys_nice chown fowner sys_tty_config };
 
-allow osa_dispatcher_t osa_dispatcher_upstream_notif_server_port_t:tcp_socket name_bind;
 allow osa_dispatcher_t inaddr_any_node_t:tcp_socket node_bind;
 allow osa_dispatcher_t osa_dispatcher_t:tcp_socket listen;
 

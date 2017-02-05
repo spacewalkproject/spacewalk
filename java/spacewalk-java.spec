@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.18
+Version: 2.7.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -730,6 +730,28 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 03 2017 Gennadii Altukhov <galt@redhat.com> 2.7.24-1
+- 1408167 - escape XML in name of a system in Proxy list
+
+* Fri Feb 03 2017 Gennadii Altukhov <galt@redhat.com> 2.7.23-1
+- fixup
+- fixup
+- 1414421 - fix unhandled internal exception: null
+- 1416810 - change the name of logfile
+- fixing year
+
+* Wed Jan 25 2017 Eric Herget <eherget@redhat.com> 2.7.22-1
+- 1394299 - fix regression with virt system status display
+
+* Wed Jan 25 2017 Jiri Dostal <jdostal@redhat.com> 2.7.21-1
+- 1332805 - The problematic editing of kickstart profile - custom options
+
+* Mon Jan 23 2017 Jan Dobes 2.7.20-1
+- Use human-parseable dates for server notes (bsc#969564) (#863)
+
+* Thu Jan 19 2017 Jiri Dostal <jdostal@redhat.com> 2.7.19-1
+- 1324737 - [RFE] API call to get list of Systems Requiring Reboot
+
 * Fri Jan 13 2017 Grant Gainey 2.7.18-1
 - 1412555 - order all kickstart-tree-queries by label
 

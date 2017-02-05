@@ -30,7 +30,8 @@ CREATE TABLE rhnKickstartCommand
     created             timestamp with local time zone
                             DEFAULT (current_timestamp) NOT NULL,
     modified            timestamp with local time zone
-                            DEFAULT (current_timestamp) NOT NULL
+                            DEFAULT (current_timestamp) NOT NULL,
+    custom_position     NUMBER
 )
 ENABLE ROW MOVEMENT
 ;

@@ -19,7 +19,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.76
+Version: 5.11.77
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -340,12 +340,6 @@ fi
 %postun -n osa-dispatcher-selinux
 # Clean up after package removal
 if [ $1 -eq 0 ]; then
-
-  /usr/sbin/semanage port -ln \
-    | perl '-F/,?\s+/' -ane 'print map "$_\n", @F if shift @F eq "osa_dispatcher_upstream_notif_server_port_t" and shift @F eq "tcp"' \
-    | while read port ; do \
-      /usr/sbin/semanage port -d -t osa_dispatcher_upstream_notif_server_port_t -p tcp $port || :
-    done
   for selinuxvariant in %{selinux_variants}
     do
       /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
@@ -425,6 +419,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Mon Jan 23 2017 Jan Dobes 5.11.77-1
+- removing selinux port requirements
+- Drop code used from the Perl stack to 'trickle' OSAD
+
 * Tue Nov 29 2016 Jan Dobes 5.11.76-1
 - perl isn't in Fedora 25 buildroot
 

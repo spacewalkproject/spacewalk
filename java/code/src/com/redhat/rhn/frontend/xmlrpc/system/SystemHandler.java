@@ -92,6 +92,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidParameterException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProfileLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidSystemException;
 import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
+import com.redhat.rhn.frontend.xmlrpc.NoPushClientException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchActionException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchCobblerSystemRecordException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchNetworkInterfaceException;
@@ -5657,7 +5658,15 @@ public class SystemHandler extends BaseHandler {
      */
     public int sendOsaPing(User loggedInUser, Integer serverId) {
         Server server = lookupServer(loggedInUser, serverId);
-        PushClient client = server.getPushClient();
+        if (server == null) {
+            throw new InvalidSystemException();
+        }
+
+        PushClient client = null;
+        client = server.getPushClient();
+        if (client == null) {
+            throw new NoPushClientException();
+        }
         client.setLastPingTime(new Date());
         client.setNextActionTime(null);
         SystemManager.storeServer(server);
@@ -5721,7 +5730,13 @@ public class SystemHandler extends BaseHandler {
      *
      * @xmlrpc.doc list systems that require reboot
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.return List of systems that require reboot
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("system")
+     *              #prop("int" "id")
+     *              #prop("string" "name")
+     *          #struct_end()
+     *      #array_end()
      */
     public Object[] listSuggestedReboot(User loggedInUser) {
             return SystemManager.requiringRebootList(loggedInUser, null).toArray();
