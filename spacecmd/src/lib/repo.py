@@ -288,6 +288,7 @@ def help_repo_create(self):
 options:
   -n, --name   name of repository
   -u, --url    url of repository
+  -t, --type   type of repository (defaults to yum)
 
   --ca         SSL CA certificate (not required)
   --cert       SSL Client certificate (not required)
@@ -297,6 +298,7 @@ options:
 def do_repo_create(self, args):
     options = [Option('-n', '--name', action='store'),
                Option('-u', '--url', action='store'),
+               Option('-t', '--type', default='yum', action='store'),
                Option('--ca', default='', action='store'),
                Option('--cert', default='', action='store'),
                Option('--key', default='', action='store')]
@@ -306,6 +308,7 @@ def do_repo_create(self, args):
     if is_interactive(options):
         options.name = prompt_user('Name:', noblank=True)
         options.url = prompt_user('URL:', noblank=True)
+        options.type = prompt_user('Type:', noblank=True)
         options.ca = prompt_user('SSL CA cert:')
         options.cert = prompt_user('SSL Client cert:')
         options.key = prompt_user('SSL Client key:')
@@ -320,7 +323,7 @@ def do_repo_create(self, args):
 
     self.client.channel.software.createRepo(self.session,
                                             options.name,
-                                            'yum',
+                                            options.type,
                                             options.url,
                                             options.ca,
                                             options.cert,
