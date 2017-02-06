@@ -13,7 +13,11 @@ BuildRequires: python3-devel
 %else
 BuildRequires: python-devel
 %endif
+%if 0%{?fedora} <= 25
+Requires: dnf >= 0.5.3
+%else
 Requires: dnf >= 2.0.0
+%endif
 Requires: dnf-plugins-core
 Requires: librepo >= 1.7.15
 Requires: rhn-client-tools >= 2.5.5
@@ -28,7 +32,9 @@ This DNF plugin provides access to a Spacewalk server for software updates.
 %setup -q
 
 %build
-
+%if 0%{?fedora} <= 25
+patch -p4 < dnf-plugin-spacewalk-revert-to-1.0.patch
+%endif
 
 %install
 install -d %{buildroot}%{_sysconfdir}/dnf/plugins/
