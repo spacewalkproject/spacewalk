@@ -279,7 +279,8 @@ class CdnSync(object):
                                  excluded_urls=excluded_urls,
                                  strict=self.consider_full,
                                  log_dir="cdnsync",
-                                 log_level=self.log_level)
+                                 log_level=self.log_level,
+                                 check_ssl_dates=True)
         sync.set_ks_tree_type('rhn-managed')
         if kickstart_trees:
             # Assuming all trees have same install type
