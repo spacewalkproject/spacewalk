@@ -326,7 +326,7 @@ class RepoSync(object):
                 log2(0, 0, "ERROR: %s" % e, stream=sys.stderr)
                 log2disk(0, "ERROR: %s" % e)
                 # pylint: disable=W0104
-                sync_error == -1
+                sync_error = -1
             if plugin is not None:
                 plugin.clear_ssl_cache()
         if self.regen:
