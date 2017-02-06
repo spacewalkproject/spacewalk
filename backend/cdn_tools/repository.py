@@ -17,6 +17,7 @@ import sys
 import json
 
 from spacewalk.server import rhnSQL
+from spacewalk.satellite_tools.satCerts import verify_certificate_dates
 from spacewalk.satellite_tools.syncLib import log
 from spacewalk.server.importlib.importLib import ContentSource, ContentSourceSsl
 
@@ -127,8 +128,15 @@ class CdnRepositoryManager(object):
 
         for source in sources:
             try:
-                self.repository_tree.find_repository(source['relative_url'])
+                crypto_keys = self.get_repository_crypto_keys(source['relative_url'])
             except CdnRepositoryNotFoundError:
+                return False
+
+            # Check SSL certificates
+            if not crypto_keys:
+                log(0, "ERROR: No valid SSL certificates were found for repository '%s'"
+                       " required for channel '%s'."
+                    % (source['relative_url'], channel_label))
                 return False
 
             # Try to look for repomd file
@@ -172,7 +180,9 @@ class CdnRepositoryManager(object):
             return []
         crypto_keys = []
         for ssl_set in repo.get_ssl_sets():
-            crypto_keys.append(ssl_set.get_crypto_keys())
+            keys = ssl_set.get_crypto_keys(check_dates=True)
+            if keys:
+                crypto_keys.append(keys)
         return crypto_keys
 
 
@@ -296,15 +306,29 @@ class CdnRepositorySsl(object):
     def get_client_key(self):
         return self.client_key
 
-    def get_crypto_keys(self):
+    def get_crypto_keys(self, check_dates=False):
         ssl_query = rhnSQL.prepare("""
-            select key from rhnCryptoKey where id = :id
+            select description, key from rhnCryptoKey where id = :id
         """)
         keys = {}
         ssl_query.execute(id=self.ca_cert)
-        keys['ca_cert'] = str(ssl_query.fetchone_dict()['key'])
+        row = ssl_query.fetchone_dict()
+        keys['ca_cert'] = (str(row['description']), str(row['key']))
         ssl_query.execute(id=self.client_cert)
-        keys['client_cert'] = str(ssl_query.fetchone_dict()['key'])
+        row = ssl_query.fetchone_dict()
+        keys['client_cert'] = (str(row['description']), str(row['key']))
         ssl_query.execute(id=self.client_key)
-        keys['client_key'] = str(ssl_query.fetchone_dict()['key'])
+        row = ssl_query.fetchone_dict()
+        keys['client_key'] = (str(row['description']), str(row['key']))
+
+        # Check if SSL certificates are usable
+        if check_dates:
+            failed = 0
+            for key in (keys['ca_cert'], keys['client_cert']):
+                if not verify_certificate_dates(key[1]):
+                    log(1, "WARN: Problem with dates in certificate '%s'. "
+                           "Please check validity of this certificate." % key[0])
+                    failed += 1
+            if failed:
+                return {}
         return keys
