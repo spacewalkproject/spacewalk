@@ -19,7 +19,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.77
+Version: 5.11.78
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -419,6 +419,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Feb 07 2017 Eric Herget <eherget@redhat.com> 5.11.78-1
+- 1419199 - fix osa_dispatcher so it can successfully register with jabberd
+
 * Mon Jan 23 2017 Jan Dobes 5.11.77-1
 - removing selinux port requirements
 - Drop code used from the Perl stack to 'trickle' OSAD
