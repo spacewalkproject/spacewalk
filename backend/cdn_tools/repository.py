@@ -174,10 +174,7 @@ class CdnRepositoryManager(object):
         return batch
 
     def get_repository_crypto_keys(self, url):
-        try:
-            repo = self.repository_tree.find_repository(url)
-        except CdnRepositoryNotFoundError:
-            return []
+        repo = self.repository_tree.find_repository(url)
         crypto_keys = []
         for ssl_set in repo.get_ssl_sets():
             keys = ssl_set.get_crypto_keys(check_dates=True)

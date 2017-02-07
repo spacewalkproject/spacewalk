@@ -35,7 +35,7 @@ from spacewalk.satellite_tools.syncLib import log, log2disk, log2
 from spacewalk.satellite_tools.repo_plugins import yum_src, ThreadedDownloader, ProgressBarLogger
 
 from common import CdnMappingsLoadError, verify_mappings, human_readable_size
-from repository import CdnRepositoryManager
+from repository import CdnRepositoryManager, CdnRepositoryNotFoundError
 
 
 class CdnSync(object):
@@ -243,10 +243,18 @@ class CdnSync(object):
 
     def _create_yum_repo(self, repo_source):
         repo_label = self.cdn_repository_manager.get_content_source_label(repo_source)
-        keys = self.cdn_repository_manager.get_repository_crypto_keys(repo_source['relative_url'])
         repo_plugin = yum_src.ContentSource(self.mount_point + str(repo_source['relative_url']),
                                             str(repo_label), org=None, no_mirrors=True)
-        repo_plugin.set_ssl_options(str(keys['ca_cert'][1]), str(keys['client_cert'][1]), str(keys['client_key'][1]))
+        try:
+            keys = self.cdn_repository_manager.get_repository_crypto_keys(repo_source['relative_url'])
+        except CdnRepositoryNotFoundError:
+            return repo_plugin
+        if len(keys) >= 1:
+            repo_plugin.set_ssl_options(str(keys[0]['ca_cert'][1]), str(keys[0]['client_cert'][1]),
+                                        str(keys[0]['client_key'][1]))
+        else:
+            log2(0, 1, "ERROR: No valid SSL certificates were found for repository '%s'."
+                 % repo_source['relative_url'], stream=sys.stderr)
         return repo_plugin
 
     def _sync_channel(self, channel):
