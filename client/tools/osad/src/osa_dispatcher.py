@@ -47,7 +47,7 @@ class Runner(jabber_lib.Runner):
     def __init__(self):
         jabber_lib.Runner.__init__(self)
         initCFG("osa-dispatcher")
-        self._notifier = Notifier
+        self._notifier = Notifier()
         self._poll_interval = None
         self._next_poll_interval = None
         # Cache states
