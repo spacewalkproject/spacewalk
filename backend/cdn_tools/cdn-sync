@@ -6,7 +6,6 @@ import os
 
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.fileutils import cleanupAbsPath
-from spacewalk.cdn_tools.constants import MAPPINGS_RPM_NAME
 from spacewalk.cdn_tools.cdnsync import CdnSync, CdnMappingsLoadError
 from spacewalk.server import rhnSQL
 from spacewalk.common.usix import raise_with_tb
@@ -53,6 +52,8 @@ def process_commandline():
                         "repositories for every channel")
     parser.add_argument("--no-rpms", action="store_true", help="Do not sync RPMs (debug only)")
     parser.add_argument("-v", "--verbose", action='count', help="Verbose output. Possible to accumulate: -vvv")
+    parser.add_argument("--cdn-certificates", action="store_true",
+                        help="Print details about currently used SSL certificates for accessing CDN.")
 
     cmd_args = parser.parse_args()
 
@@ -109,6 +110,8 @@ if __name__ == '__main__':
             cdnsync.count_packages(channels=args.channel)
         elif args.clear_cache:
             cdnsync.clear_cache()
+        elif args.cdn_certificates:
+            cdnsync.print_cdn_certificates_info()
         else:
             error_messages = cdnsync.sync(channels=args.channel)
             if error_messages:

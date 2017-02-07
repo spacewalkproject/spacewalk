@@ -31,6 +31,7 @@ from spacewalk.server.importlib.importLib import Channel, ChannelFamily, \
     ProductName, DistChannelMap, ReleaseChannelMap
 from spacewalk.satellite_tools import reposync
 from spacewalk.satellite_tools import contentRemove
+from spacewalk.satellite_tools.satCerts import get_certificate_info, verify_certificate_dates
 from spacewalk.satellite_tools.syncLib import log, log2disk, log2
 from spacewalk.satellite_tools.repo_plugins import yum_src, ThreadedDownloader, ProgressBarLogger
 
@@ -570,3 +571,57 @@ class CdnSync(object):
             log(0, "Cleaning package stage directory.")
             for pkg in os.listdir(constants.PACKAGE_STAGE_DIRECTORY):
                 os.unlink(os.path.join(constants.PACKAGE_STAGE_DIRECTORY, pkg))
+
+    def print_cdn_certificates_info(self):
+        h = rhnSQL.prepare("""
+            SELECT ck.id, ck.description, ck.key
+            FROM rhnCryptoKeyType ckt,
+                 rhnCryptoKey ck
+            WHERE ckt.label = 'SSL'
+              AND ckt.id = ck.crypto_key_type_id
+              AND ck.description LIKE 'CDN_%'
+              AND ck.org_id is NULL
+            ORDER BY ck.description
+        """)
+        h.execute()
+        keys = h.fetchall_dict() or []
+        if not keys:
+            log2(0, 0, "No SSL certificates were found. Is your %s activated for CDN?"
+                 % PRODUCT_NAME, stream=sys.stderr)
+            return
+
+        for key in keys:
+            log(0, "======================================")
+            log(0, "| Certificate/Key: %s" % key['description'])
+            log(0, "======================================")
+            if constants.CA_CERT_NAME == key['description'] or constants.CLIENT_CERT_PREFIX in key['description']:
+                if not verify_certificate_dates(str(key['key'])):
+                    log(0, "WARNING: This certificate is not valid.")
+                cn, serial_number, not_before, not_after = get_certificate_info(str(key['key']))
+                log(0, "Common name:   %s" % str(cn))
+                log(0, "Serial number: %s" % str(serial_number))
+                log(0, "Valid from:    %s" % str(not_before))
+                log(0, "Valid to:      %s" % str(not_after))
+            if constants.CLIENT_CERT_PREFIX in key['description']:
+                manager = CdnRepositoryManager(client_cert_id=int(key['id']))
+                self.cdn_repository_manager = manager
+                log(0, "Provided channels (*), assigned repositories (>):")
+                channel_tree, not_available_channels = self._list_available_channels()
+                if not channel_tree:
+                    log(0, "    NONE")
+                for base_channel in sorted(channel_tree):
+                    if base_channel not in not_available_channels:
+                        log(0, "    * %s" % base_channel)
+                        sources = self.cdn_repository_manager.get_content_sources(base_channel)
+                        sources = [source['relative_url'] for source in sources]
+                        for source in sorted(sources):
+                            log(0, "        > %s" % source)
+                    elif channel_tree[base_channel]:
+                        log(0, "    * %s (base channel not provided)" % base_channel)
+                    for child_channel in sorted(channel_tree[base_channel]):
+                        log(0, "        * %s" % child_channel)
+                        sources = self.cdn_repository_manager.get_content_sources(child_channel)
+                        sources = [source['relative_url'] for source in sources]
+                        for source in sorted(sources):
+                            log(0, "            > %s" % source)
+            log(0, "")

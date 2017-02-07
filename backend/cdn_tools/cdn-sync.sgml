@@ -79,6 +79,9 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
     <cmdsynopsis>
         <arg>-v</arg> <arg>--verbose</arg>
     </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--cdn-certificates</arg>
+    </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
 
@@ -229,6 +232,12 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <term>--clear-cache</term>
         <listitem>
             <para>Delete partially synced channels.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--cdn-certificates</term>
+        <listitem>
+            <para>Print details about currently used SSL certificates for accessing CDN.</para>
         </listitem>
     </varlistentry>
 </variablelist>
