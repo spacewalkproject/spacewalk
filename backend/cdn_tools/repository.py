@@ -28,11 +28,11 @@ from common import CdnMappingsLoadError
 class CdnRepositoryManager(object):
     """Class managing CDN repositories, connected channels etc."""
 
-    def __init__(self, local_mount_point=None):
+    def __init__(self, local_mount_point=None, client_cert_id=None):
         rhnSQL.initDB()
         self.local_mount_point = local_mount_point
         self.repository_tree = CdnRepositoryTree()
-        self._populate_repository_tree()
+        self._populate_repository_tree(client_cert_id=client_cert_id)
 
         f = None
         try:
@@ -58,16 +58,20 @@ class CdnRepositoryManager(object):
             if f is not None:
                 f.close()
 
-    def _populate_repository_tree(self):
-        query = rhnSQL.prepare("""
+    def _populate_repository_tree(self, client_cert_id=None):
+        sql = """
             select cs.label, cs.source_url, csssl.ssl_ca_cert_id,
                    csssl.ssl_client_cert_id, csssl.ssl_client_key_id
             from rhnContentSource cs inner join
                  rhnContentSourceSsl csssl on cs.id = csssl.content_source_id
             where cs.org_id is null
               and cs.label like :prefix || '%%'
-        """)
-        query.execute(prefix=constants.MANIFEST_REPOSITORY_DB_PREFIX)
+        """
+        # Create repository tree containing only repositories provided from single client certificate
+        if client_cert_id:
+            sql += " and csssl.ssl_client_cert_id = :client_cert_id"
+        query = rhnSQL.prepare(sql)
+        query.execute(prefix=constants.MANIFEST_REPOSITORY_DB_PREFIX, client_cert_id=client_cert_id)
         rows = query.fetchall_dict() or []
         cdn_repositories = {}
         # Loop all rows from DB
