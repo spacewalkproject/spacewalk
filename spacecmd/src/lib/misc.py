@@ -985,7 +985,7 @@ def load_config_section(self, section):
 
     try:
         if (self.config.has_key('username')
-            and self.config['username'] != self.config_parser.get(section, 'username')):
+                and self.config['username'] != self.config_parser.get(section, 'username')):
             del self.config['password']
     except NoOptionError:
         pass
