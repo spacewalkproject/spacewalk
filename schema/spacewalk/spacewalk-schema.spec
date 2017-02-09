@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.6.16
+Version:        2.6.17
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,13 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Feb 09 2017 Jan Dobes 2.6.17-1
+- 1402437 - update sha1
+- 1402437 - drop child channels first
+- 1402437 - delete all solaris related records in database
+- delete records from rhnArchTypeActions before deleting architecture types
+- delete from solaris from rhnArchType table
+
 * Mon Nov 14 2016 Tomas Kasparek <tkasparek@redhat.com> 2.6.16-1
 - delete solaris architecture during upgrade
 - remove solaris compatibility mappings
