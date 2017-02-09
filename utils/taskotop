@@ -169,4 +169,7 @@ def main(screen):
         screen.refresh()
         time.sleep(1)
 
-curses.wrapper(main)
+if len(sys.argv) > 1:
+    print('Usage: %s\nTaskotop - utility to monitor what taskomatic daemon is doing.\n' % sys.argv[0])
+else:
+    curses.wrapper(main)

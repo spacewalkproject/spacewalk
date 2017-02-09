@@ -1,0 +1,46 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN">
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>taskotop</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 1.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>taskotop</command></RefName>
+<RefPurpose>
+Taskotop - utility to monitor what taskomatic deamon is doing.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>taskotop</command>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+    <para>
+        <emphasis>taskotop</emphasis> - utility to monitor what's currently taskomatic doing.
+    </para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Tomas Kasparek<email>tkasparek@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>
