@@ -69,16 +69,20 @@ class Activation(object):
             if f is not None:
                 f.close()
 
+        if not satCerts.verify_certificate_dates(str(ca_cert)):
+            print("WARNING: '%s' certificate is not valid." % constants.CA_CERT_PATH)
         # Insert RHSM cert and certs from manifest into DB
         satCerts.store_rhnCryptoKey(
             constants.CA_CERT_NAME, ca_cert, None)
 
         for entitlement in self.manifest.get_all_entitlements():
             creds = entitlement.get_credentials()
-            satCerts.store_rhnCryptoKey(
-                constants.CLIENT_CERT_PREFIX + creds.get_id(), creds.get_cert(), None)
-            satCerts.store_rhnCryptoKey(
-                constants.CLIENT_KEY_PREFIX + creds.get_id(), creds.get_key(), None)
+            cert_name = constants.CLIENT_CERT_PREFIX + creds.get_id()
+            key_name = constants.CLIENT_KEY_PREFIX + creds.get_id()
+            if not satCerts.verify_certificate_dates(str(creds.get_cert())):
+                print("WARNING: '%s' certificate is not valid." % cert_name)
+            satCerts.store_rhnCryptoKey(cert_name, creds.get_cert(), None)
+            satCerts.store_rhnCryptoKey(key_name, creds.get_key(), None)
 
     def import_channel_families(self):
         """Insert channel family data into DB."""
