@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.7.1
+Version:	2.7.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Feb 09 2017 Jan Dobes 2.7.2-1
+- 1404692 - add basic help for taskotop
+- 1403961 - add Fedora 25 repositories
+
 * Mon Jan 23 2017 Jan Dobes 2.7.1-1
 - use spacewalk 2.6 for openSUSE Leap 42.2
 - add channels for openSUSE Leap 42.2
