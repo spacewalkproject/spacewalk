@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.25
+Version: 2.7.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -730,6 +730,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 09 2017 Jan Dobes 2.7.26-1
+- 1401497 - changing BaseRepoCommand to abstract class and some checkstyle
+  fixes
+- 1401497 - updating serializers
+- 1401497 - updating repo create/edit API calls
+- 1401497 - updating repo create/edit page
+- 1401497 - update command to support multiple ssl sets per repository
+- 1401497 - updating hibernate mapping
+
 * Thu Feb 09 2017 Gennadii Altukhov <galt@redhat.com> 2.7.25-1
 - 1418746 - add possibility to add systems to SSM from ProxyClients page
 
