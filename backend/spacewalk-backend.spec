@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.28
+Version: 2.7.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -821,6 +821,21 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Feb 09 2017 Jan Dobes 2.7.29-1
+- 1401497 - complain about certificates during activation
+- 1401497 - adding more details of current SSL certificates in DB
+- 1401497 - support creating repository tree with only repos provided by single
+  client certificate
+- 1401497 - catch on higher level to not mark missing repositories as found
+  repositories with no SSL certificates
+- 1401497 - check SSL dates in reposync
+- 1401497 - check if there is any not-expired ssl set
+- 1401497 - adding function for checking certificate dates
+- 1401497 - fixing repository tree population functions to support multiple ssl
+- 1401497 - fixing import of SSL certificates to import them all
+- require python-argparse for spacewalk-backend-cdn
+- Fix typo
+
 * Wed Feb 01 2017 Jan Dobes 2.7.28-1
 - 1414454 - setting channel_access to private as a default
 
