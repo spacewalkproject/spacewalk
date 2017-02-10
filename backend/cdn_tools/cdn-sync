@@ -81,6 +81,17 @@ def process_commandline():
     return cmd_args
 
 
+def getDbIssParent():
+    rhnSQL.initDB()
+    sql = "select label from rhnISSMaster where is_current_master = 'Y'"
+    h = rhnSQL.prepare(sql)
+    h.execute()
+    row = h.fetchone_dict()
+    if not row:
+        return None
+    return row['label']
+
+
 if __name__ == '__main__':
     LOCK = None
     try:
@@ -94,6 +105,19 @@ if __name__ == '__main__':
         LOCK = rhnLockfile.Lockfile('/var/run/cdn-sync.pid')
 
         args = process_commandline()
+
+        if CFG.get('disconnected') == 1:
+            system_exit(1, 'ERROR: the Satellite server is installed in disconnected mode, cannot continue syncing '
+                        'from CDN')
+
+        if getDbIssParent() or (CFG.get('iss_parent') and CFG.get('disable_iss') == 0):
+            parent = getDbIssParent()
+            if not parent:
+                parent = CFG.get('iss_parent')
+            system_exit(1, 'ERROR: the Satellite server is registered to a parent Satellite "%s".\nTo sync content '
+                        'from the parent Satellite via Inter-Satellite-Sync, please, use the "satellite-sync" command' %
+                        parent)
+
         cdnsync = CdnSync(no_packages=args.no_packages, no_errata=args.no_errata,
                           no_rpms=args.no_rpms, no_kickstarts=args.no_kickstarts,
                           log_level=args.verbose, mount_point=args.mount_point,

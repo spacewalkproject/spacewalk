@@ -93,7 +93,10 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
 <para>
     This tool enables a &RHNSAT; to update its database metadata and
     RPM packages with that of Red Hat. This action can be performed via
-    the internet (ie. directly).
+    the internet (ie. directly). To use this tool a &RHNSAT; must be
+    registered to RHSM and must not be registered to another &RHNSAT;.
+    For live content synchronizing via Inter-Satelite-Sync (ISS),
+    or from local content on disk, please, use <emphasis>satellite-sync</emphasis>.
 </para>
 <para>
         <simplelist>
