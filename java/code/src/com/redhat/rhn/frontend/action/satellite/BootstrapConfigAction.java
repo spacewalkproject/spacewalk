@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.satellite;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.frontend.action.satellite.util.CACertPathUtil;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
@@ -102,6 +103,8 @@ public class BootstrapConfigAction extends BaseConfigAction {
         else {
             form.set(HOSTNAME, IDN.toUnicode(
                 Config.get().getString(ConfigDefaults.JABBER_SERVER)));
+            String caCertPath = CACertPathUtil.processCACertPath();
+            form.set(SSL_CERT, caCertPath);
             form.set(ENABLE_SSL, Boolean.TRUE);
             form.set(ENABLE_GPG, Boolean.TRUE);
             form.set(ALLOW_CONFIG_ACTIONS, Boolean.FALSE);
