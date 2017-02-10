@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.7.2
+Version:	2.7.3
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Feb 10 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.3-1
+- 1404692 - add additional info about taskotop
+
 * Thu Feb 09 2017 Jan Dobes 2.7.2-1
 - 1404692 - add basic help for taskotop
 - 1403961 - add Fedora 25 repositories
