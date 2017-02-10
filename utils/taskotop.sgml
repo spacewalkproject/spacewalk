@@ -9,7 +9,7 @@
 <RefNameDiv>
 <RefName><command>taskotop</command></RefName>
 <RefPurpose>
-Taskotop - utility to monitor what taskomatic deamon is doing.
+utility to monitor what taskomatic deamon is doing.
 </RefPurpose>
 </RefNameDiv>
 
@@ -23,7 +23,13 @@ Taskotop - utility to monitor what taskomatic deamon is doing.
 
 <RefSect1><Title>Description</Title>
     <para>
-        <emphasis>taskotop</emphasis> - utility to monitor what's currently taskomatic doing.
+        <emphasis>taskotop</emphasis> - utility display currently running tasks in taskomatic.<sbr>
+        Currently taskotop provides following information:<sbr>
+        RUN ID - unique ID of the run. An ID can be used to obtain additional information. If a specific task produced any standard output or error output during its run, it can be found in /var/log/rhn/tasko/sat/*/*_RUN_ID_{out,err}.<sbr>
+        TASK NAME - name of taskomatic task as shown on Admin/Task Schedules taskomatic bunch details.<sbr>
+        ELAPSED TIME - displays info for how long the task has been running.<sbr>
+        CHANNEL - valid for channel-repodata task in running state, shows label of the channel for which taskomatic is currently processing data.<sbr>
+        General taskomatic log file can be found at /var/log/rhn/rhn_taskomatic_daemon.log
     </para>
 </RefSect1>
 
