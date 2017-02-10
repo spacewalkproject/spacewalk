@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.26
+Version: 2.7.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -730,6 +730,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 10 2017 Jan Dobes 2.7.27-1
+- Fix JSP logic and readability
+- Fix issue with checkboxes not being checked
+- Fix broken merge (bsc#987864)
+
 * Thu Feb 09 2017 Jan Dobes 2.7.26-1
 - 1401497 - changing BaseRepoCommand to abstract class and some checkstyle
   fixes
