@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.7.3
+Version:	2.7.4
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Feb 13 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.4-1
+- 1404692 - fix sgml errors
+
 * Fri Feb 10 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.3-1
 - 1404692 - add additional info about taskotop
 
