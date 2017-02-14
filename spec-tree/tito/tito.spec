@@ -2,7 +2,7 @@
 
 Name: tito
 Version: 0.4.18
-Release: 1.8%{?dist}
+Release: 1.9%{?dist}
 Summary: A tool for managing rpm based git projects
 
 Group: Development/Tools
@@ -92,6 +92,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb 14 2017 Jan Dobes 0.4.18-1.9
+- git diff on fedora 25 can generate rename patches not consumable by patch on
+  rhel 6
+
 * Fri Apr 15 2016 Jan Dobes 0.4.18-1.8
 - fixing creating srpm on Fedora 23
 
