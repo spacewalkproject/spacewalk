@@ -1,0 +1,18 @@
+--- a/bin/generate-patches.pl	2017-02-14 11:58:05.598874494 +0100
++++ b/bin/generate-patches.pl	2017-02-14 11:58:39.278610705 +0100
+@@ -124,13 +124,13 @@ while (@end_version > @start_version) {
+ 
+ for (my $i = 0; $i < @path - 1; $i++) {
+ 	my $patch_name = "$path[$i]-to-$path[$i + 1].patch";
+-	system "git diff --relative $path[$i]..$path[$i + 1] > $target_directory/$patch_name";
++	system "git diff --no-renames --relative $path[$i]..$path[$i + 1] > $target_directory/$patch_name";
+ 	print "$patch_name\n";
+ }
+ 
+ if (defined $commit_id) {
+ 	my $patch_name = "$path[$#path]-to-$package-git-$commit_id.patch";
+-	system "git diff --relative $path[$#path]..$commit_id > $target_directory/$patch_name";
++	system "git diff --no-renames --relative $path[$#path]..$commit_id > $target_directory/$patch_name";
+ 	if (-s "$target_directory/$patch_name") {
+ 		print "$patch_name\n";
+ 	} else {
