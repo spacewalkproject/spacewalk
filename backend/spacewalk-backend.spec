@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.30
+Version: 2.7.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -821,6 +821,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue Feb 14 2017 Jan Dobes 2.7.31-1
+- 1420288 - support importing KS files with other checksum type than md5
+
 * Tue Feb 14 2017 Gennadii Altukhov <galt@redhat.com> 2.7.30-1
 - 1418044 - check ISS case in cdn-sync
 
