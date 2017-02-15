@@ -1942,7 +1942,7 @@ Proceed with upgrade if services are already stopped.
 
 =item B<--run-updater=<yes|no>>
 
-Set to 'yes' to automatically install needed packages from RHN, provided the system is registered. Set to 'no' to terminate the installer if any needed packages are missing.
+Set to 'yes' to automatically install needed packages from RHSM, provided the system is registered. Set to 'no' to terminate the installer if any needed packages are missing.
 
 =item B<--run-cobbler>
 
