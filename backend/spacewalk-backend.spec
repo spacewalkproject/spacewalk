@@ -74,7 +74,7 @@ BuildRequires: m2crypto
 %endif
 Requires(pre): %{apache_pkg}
 Requires: %{apache_pkg}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 # we don't really want to require this redhat-release, so we protect
 # against installations on other releases using conflicts...
 Obsoletes: rhns-common < 5.3.0
@@ -96,7 +96,7 @@ Requires: %{name} = %{version}-%{release}
 Obsoletes: rhns-sql < 5.3.0
 Provides: rhns-sql = 1:%{version}-%{release}
 Requires: %{name}-sql-virtual = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 
 %description sql
 This package contains the basic code that provides SQL connectivity for
@@ -106,7 +106,7 @@ the Spacewalk backend modules.
 Summary: Oracle backend for Spacewalk
 Group: Applications/Internet
 Requires: python(:DBAPI:oracle)
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Provides: %{name}-sql-virtual = %{version}-%{release}
 
 %description sql-oracle
@@ -117,7 +117,7 @@ modules.
 Summary: Postgresql backend for Spacewalk
 Group: Applications/Internet
 Requires: python-psycopg2 >= 2.0.14-2
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Provides: %{name}-sql-virtual = %{version}-%{release}
 
 %description sql-postgresql
@@ -129,7 +129,7 @@ Summary: Basic code that provides Spacewalk Server functionality
 Group: Applications/Internet
 Requires(pre): %{name}-sql = %{version}-%{release}
 Requires: %{name}-sql = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Requires: PyPAM
 Obsoletes: rhns-server < 5.3.0
 Provides: rhns-server = 1:%{version}-%{release}
@@ -153,7 +153,7 @@ Summary: Handler for /XMLRPC
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Requires: rpm-python
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Obsoletes: rhns-server-xmlrpc < 5.3.0
 Obsoletes: rhns-xmlrpc < 5.3.0
 Provides: rhns-server-xmlrpc = 1:%{version}-%{release}
@@ -168,7 +168,7 @@ and the up2date clients.
 Summary: Handler for /APPLET
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Obsoletes: rhns-applet < 5.3.0
 Provides: rhns-applet = 1:%{version}-%{release}
 
@@ -180,7 +180,7 @@ provides the functions for the Spacewalk applet.
 Summary: Handler for /APP
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Obsoletes: rhns-server-app < 5.3.0
 Obsoletes: rhns-app < 5.3.0
 Provides: rhns-server-app = 1:%{version}-%{release}
@@ -217,7 +217,7 @@ Summary: Listener for the Server XML dumper
 Group: Applications/Internet
 Requires: rpm-python
 Requires: %{name}-xml-export-libs = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 
 %description iss-export
 %{name} contains the basic code that provides server/backend
@@ -236,7 +236,7 @@ BuildRequires: python-devel
 BuildRequires: python2-devel
 Conflicts: %{name} < 1.7.0
 Requires: python-hashlib
-Requires: %{name}-usix
+Requires: spacewalk-usix
 BuildRequires: python-hashlib
 %endif
 
@@ -250,7 +250,7 @@ BuildRequires: python-hashlib
 BuildRequires: python3-devel
 Conflicts: %{name} < 1.7.0
 Requires: python3-libs
-Requires: python3-%{name}-usix
+Requires: python3-spacewalk-usix
 
 %description -n python3-%{name}-libs
 Libraries required by Spacewalk client tools on Fedora 23.
@@ -261,7 +261,7 @@ Libraries required by Spacewalk client tools on Fedora 23.
 Summary: Common files for the Configuration Management project
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Obsoletes: rhns-config-files-common < 5.3.0
 Provides: rhns-config-files-common = 1:%{version}-%{release}
 
@@ -282,7 +282,7 @@ This package contains the server-side code for configuration management.
 Summary: Handler for /CONFIG-MANAGEMENT-TOOL
 Group: Applications/Internet
 Requires: %{name}-config-files-common = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Obsoletes: rhns-config-files-tool < 5.3.0
 Provides: rhns-config-files-tool = 1:%{version}-%{release}
 
@@ -318,7 +318,7 @@ Requires: mod_ssl
 Requires: %{name}-xml-export-libs
 Requires: cobbler20
 Requires: rhnlib  >= 2.5.57
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Requires: python-requests
 Requires: m2crypto
 %if 0%{?fedora} || 0%{?rhel} > 5
@@ -336,7 +336,7 @@ Various utilities for the Spacewalk Server.
 Summary: Spacewalk XML data exporter
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Obsoletes: rhns-xml-export-libs < 5.3.0
 Provides: rhns-xml-export-libs = 1:%{version}-%{release}
 
@@ -347,7 +347,7 @@ Libraries required by various exporting tools
 Summary: CDN tools
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Requires: subscription-manager
 Requires: m2crypto
 Requires: cdn-sync-mappings

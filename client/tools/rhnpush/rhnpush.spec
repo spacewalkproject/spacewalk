@@ -20,11 +20,11 @@ BuildRequires: python-devel
 %if 0%{?fedora} >= 23
 Requires:      python3-rhnlib
 Requires:      python3-spacewalk-backend-libs
-Requires:      python3-spacewalk-backend-usix
+Requires:      python3-spacewalk-usix
 %else
 Requires:      rhnlib >= 2.5.74
 Requires:      spacewalk-backend-libs >= 1.7.17
-Requires:      spacewalk-backend-usix
+Requires:      spacewalk-usix
 %endif
 
 Requires:      rhn-client-tools

@@ -28,11 +28,11 @@ BuildRequires: python-devel
 Requires: python
 %if 0%{?fedora} >= 23
 Requires: python3-rhnlib
-Requires: python3-spacewalk-backend-usix
+Requires: python3-spacewalk-usix
 Requires: python3-jabberpy
 %else
 Requires: rhnlib >= 1.8-3
-Requires: spacewalk-backend-usix
+Requires: spacewalk-usix
 Requires: jabberpy
 %endif
 Requires: osa-common = %{version}

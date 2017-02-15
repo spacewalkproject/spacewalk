@@ -28,9 +28,9 @@ virtual machine guest images.
 Summary: Files needed by rhn-virtualization-host
 Group: System Environment/Base
 %if 0%{?fedora} >= 23
-Requires: python3-spacewalk-backend-usix
+Requires: python3-spacewalk-usix
 %else
-Requires: spacewalk-backend-usix
+Requires: spacewalk-usix
 %endif
 Requires: rhn-client-tools
 %if 0%{?suse_version}
