@@ -82,4 +82,7 @@ rm -r -f $RPM_BUILD_ROOT%{python3rhnroot}/common/__pycache__
 %endif
 
 %changelog
+* Wed Feb 15 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.1-1
+- new package built with tito
+
 
