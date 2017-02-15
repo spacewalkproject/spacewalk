@@ -240,6 +240,9 @@ Requires: spacewalk-usix
 BuildRequires: python-hashlib
 %endif
 
+%description libs
+Libraries required by both Spacewalk server and Spacewalk client tools.
+
 %if 0%{?fedora} >= 23
 
 %package -n python3-%{name}-libs
@@ -656,6 +659,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{python3rhnroot}/common/rhn_rpm.py
 %{python3rhnroot}/common/stringutils.py
 %{python3rhnroot}/common/rhnLib.py*
+%endif
 
 %files config-files-common
 %doc LICENSE
