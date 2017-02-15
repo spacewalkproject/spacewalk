@@ -3,7 +3,8 @@
 %endif
 
 %if 0%{?fedora} >= 23
-%{!?python3_sitelib: %global python_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
+%{!?python3_sitelib: %global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
+%global python3rhnroot %{python3_sitelib}/spacewalk
 %endif
 
 %global pythonrhnroot %{python_sitelib}/spacewalk
@@ -22,9 +23,24 @@ BuildArch: noarch
 
 Provides:	spacewalk-backend-usix = %{version}-%{release}
 Obsoletes: spacewalk-backend-usix < 2.8
+BuildRequires: python-devel
 
 %description
 Library for writing code that runs on Python 2 and 3
+
+%if 0%{?fedora} >= 23
+
+%package -n python3-%{name}
+Summary: Spacewalk client micro six library
+Group: Applications/Internet
+Provides: python3-spacewalk-backend-usix = %{version}-%{release}
+Obsoletes: python3-spacewalk-backend-usix < 2.8
+BuildRequires: python3-devel
+
+%description -n python3-%{name}
+Library for writing code that runs on Python 2 and 3
+
+%endif
 
 %prep
 %setup -q
@@ -38,14 +54,32 @@ rm -rf $RPM_BUILD_ROOT
 install -m 0755 -d $RPM_BUILD_ROOT%{pythonrhnroot}/common
 install -m 0644 usix.py* $RPM_BUILD_ROOT%{pythonrhnroot}/common/usix.py
 
+%if 0%{?fedora} && 0%{?fedora} >= 23
+install -d $RPM_BUILD_ROOT%{python3rhnroot}/common
+cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/usix.py $RPM_BUILD_ROOT%{python3rhnroot}/common
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%check
+%if 0%{?fedora} && 0%{?fedora} >= 23
+rm -r -f $RPM_BUILD_ROOT%{python3rhnroot}/__pycache__
+rm -r -f $RPM_BUILD_ROOT%{python3rhnroot}/common/__pycache__
+%endif
 
 %files
 %dir %{pythonrhnroot}
 %dir %{pythonrhnroot}/common
 %{pythonrhnroot}/common/usix.py*
 
+%if 0%{?fedora} && 0%{?fedora} >= 23
+
+%files -n python3-%{name}
+%dir %{python3rhnroot}
+%dir %{python3rhnroot}/common
+%{python3rhnroot}/common/usix.py*
+%endif
 
 %changelog
 
