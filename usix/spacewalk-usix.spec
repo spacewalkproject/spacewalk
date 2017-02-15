@@ -30,7 +30,7 @@ Library for writing code that runs on Python 2 and 3
 
 
 %build
-
+%define debug_package %{nil}
 
 %install
 rm -rf $RPM_BUILD_ROOT
