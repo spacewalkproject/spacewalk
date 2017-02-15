@@ -646,6 +646,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/rhn_rpm.py*
 %{pythonrhnroot}/common/stringutils.py*
 %{pythonrhnroot}/common/rhnLib.py*
+%{pythonrhnroot}/__init__.py*
+%{pythonrhnroot}/common/__init__.py*
 
 %if 0%{?fedora} && 0%{?fedora} >= 23
 %files -n python3-%{name}-libs
@@ -659,6 +661,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{python3rhnroot}/common/rhn_rpm.py
 %{python3rhnroot}/common/stringutils.py
 %{python3rhnroot}/common/rhnLib.py*
+%{python3rhnroot}/__init__.py
+%{python3rhnroot}/common/__init__.py
 %endif
 
 %files config-files-common
