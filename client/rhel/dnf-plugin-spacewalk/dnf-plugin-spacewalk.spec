@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.7.2
+Version: 2.7.3
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -71,6 +71,12 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %{_datadir}/rhn/actions/*
 
 %changelog
+* Wed Feb 15 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.3-1
+- allow building both dnf 1.0 and 2.0 version from the same source
+- 1308493 - initialize spacewalk channels before --enablerepo/--disablerepo
+  handler
+- dnf-plugin-spacewalk updated to dnf 2.0
+
 * Wed Nov 16 2016 Gennadii Altukhov <galt@redhat.com> 2.7.2-1
 - reverted 2030f2f6b1efb82bda06676fbf22ab3716e890e5. A new API call is not
   available yet in Fedora 23/24.
