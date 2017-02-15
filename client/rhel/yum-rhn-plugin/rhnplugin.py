@@ -425,7 +425,7 @@ class RhnRepo(YumRepository):
             # but we have to send and empty X-RHN-Auth-User-Id ...
             AuthUserH = 'X-RHN-Auth-User-Id'
             if (AuthUserH in self.http_headers and not self.http_headers[AuthUserH]):
-                self.http_headers[AuthUserH] = "\nX-libcurl-Empty-Header-Workaround: *"
+                self.http_headers[AuthUserH] = "\r\nX-libcurl-Empty-Header-Workaround: *"
 
         # Turn our dict into a list of 2-tuples
         headers = YumRepository._YumRepository__headersListFromDict(self)   # pylint: disable-msg=E1101

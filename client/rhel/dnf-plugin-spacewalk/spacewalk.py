@@ -251,7 +251,7 @@ class  SpacewalkRepo(dnf.repo.Repo):
                 # This doesn't work due to bug in librepo (or even deeper in libcurl)
                 # the workaround bellow can be removed once BZ#1211662 is fixed
                 #http_headers.append("%s;" % header)
-                http_headers.append("%s: \nX-libcurl-Empty-Header-Workaround: *" % header)
+                http_headers.append("%s: \r\nX-libcurl-Empty-Header-Workaround: *" % header)
             else:
                 http_headers.append("%s: %s" % (header, self.login_info[header]))
         if not self.force_http:
