@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.7.5
+Version:	2.7.6
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -96,6 +96,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Feb 15 2017 Gennadii Altukhov <galt@redhat.com> 2.7.6-1
+- 1414855 - add exception processing in taskotop
+
 * Tue Feb 14 2017 Grant Gainey 2.7.5-1
 - 1404692 - tweaked manpage a bit
 
