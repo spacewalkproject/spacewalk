@@ -240,18 +240,6 @@ Requires: %{name}-usix
 BuildRequires: python-hashlib
 %endif
 
-%description libs
-Libraries required by both Spacewalk server and Spacewalk client tools.
-
-%package usix
-Summary: Spacewalk server and client nano six library
-Group: Applications/Internet
-Provides: %{name}-usix = %{version}-%{release}
-
-%description usix
-Library for writing code that runs on Python 2 and 3
-
-
 %if 0%{?fedora} >= 23
 
 %package -n python3-%{name}-libs
@@ -266,15 +254,6 @@ Requires: python3-%{name}-usix
 
 %description -n python3-%{name}-libs
 Libraries required by Spacewalk client tools on Fedora 23.
-
-%package -n python3-%{name}-usix
-Summary: Spacewalk client micro six library
-Group: Applications/Internet
-Provides: python3-%{name}-usix = %{version}-%{release}
-BuildRequires: python2-devel
-
-%description -n python3-%{name}-usix
-Library for writing code that runs on Python 2 and 3
 
 %endif
 
@@ -394,7 +373,7 @@ make -f Makefile.backend install PREFIX=$RPM_BUILD_ROOT \
 install -d $RPM_BUILD_ROOT%{python3rhnroot}/common
 cp $RPM_BUILD_ROOT%{pythonrhnroot}/__init__.py \
     $RPM_BUILD_ROOT%{python3rhnroot}/
-cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/{__init__.py,usix.py} \
+cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/__init__.py \
     $RPM_BUILD_ROOT%{python3rhnroot}/common
 cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/{checksum.py,cli.py,rhn_deb.py,rhn_mpm.py,rhn_pkg.py,rhn_rpm.py,stringutils.py,fileutils.py,rhnLib.py} \
     $RPM_BUILD_ROOT%{python3rhnroot}/common
@@ -665,14 +644,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/stringutils.py*
 %{pythonrhnroot}/common/rhnLib.py*
 
-%files usix
-%doc LICENSE
-%dir %{pythonrhnroot}
-%{pythonrhnroot}/__init__.py*
-%dir %{pythonrhnroot}/common
-%{pythonrhnroot}/common/__init__.py*
-%{pythonrhnroot}/common/usix.py*
-
 %if 0%{?fedora} && 0%{?fedora} >= 23
 %files -n python3-%{name}-libs
 %doc LICENSE
@@ -685,15 +656,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{python3rhnroot}/common/rhn_rpm.py
 %{python3rhnroot}/common/stringutils.py
 %{python3rhnroot}/common/rhnLib.py*
-
-%files -n python3-%{name}-usix
-%doc LICENSE
-%dir %{python3rhnroot}
-%{python3rhnroot}/__init__.py
-%dir %{python3rhnroot}/common
-%{python3rhnroot}/common/__init__.py
-%{python3rhnroot}/common/usix.py
-%endif
 
 %files config-files-common
 %doc LICENSE
