@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.31
+Version: 2.7.32
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -787,6 +787,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Wed Feb 15 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.32-1
+- fix specfile
+- require spacewalk-usix indead of spacewalk-backend-usix
+- remove spacewalk-backend-usix package
+
 * Tue Feb 14 2017 Jan Dobes 2.7.31-1
 - 1420288 - support importing KS files with other checksum type than md5
 
