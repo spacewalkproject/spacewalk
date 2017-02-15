@@ -169,7 +169,26 @@ def main(screen):
         screen.refresh()
         time.sleep(1)
 
+
+def system_exit(code, msgs=None):
+    """Exit with a code and optional message(s). Saved a few lines of code."""
+
+    if msgs:
+        if type(msgs) not in [type([]), type(())]:
+            msgs = (msgs,)
+        for msg in msgs:
+            sys.stderr.write(str(msg) + '\n')
+    sys.exit(code)
+
+
 if len(sys.argv) > 1:
     print('Usage: %s\nTaskotop - utility to monitor what taskomatic daemon is doing.\n' % sys.argv[0])
 else:
-    curses.wrapper(main)
+    try:
+        curses.wrapper(main)
+    except rhnSQL.SQLConnectError:
+        e = sys.exc_info()[1]
+        system_exit(20, ["ERROR: Can't connect to the database: %s" % str(e), "Check if your database is running."])
+    except Exception:
+         e = sys.exc_info()[1]
+         system_exit(1, "ERROR: Some problems occurred during getting information about tasks: %s" % str(e))
