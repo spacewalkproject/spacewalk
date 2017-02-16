@@ -19,7 +19,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.79
+Version: 5.11.80
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -419,6 +419,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Thu Feb 16 2017 Eric Herget <eherget@redhat.com> 5.11.80-1
+- BZ1410781 - osad doesn't pick up tasks following a reboot event
+
 * Wed Feb 15 2017 Tomas Kasparek <tkasparek@redhat.com> 5.11.79-1
 - require spacewalk-usix indead of spacewalk-backend-usix
 
