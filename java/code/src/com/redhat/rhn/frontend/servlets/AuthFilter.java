@@ -46,8 +46,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * AuthFilter - a servlet filter to ensure authenticated user info is put at
  * request scope properly
- *
- * @version $Rev$
  */
 public class AuthFilter implements Filter {
 

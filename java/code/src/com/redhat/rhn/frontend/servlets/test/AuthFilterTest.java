@@ -31,7 +31,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * AuthFilterTest
- * @version $Rev$
  */
 public class AuthFilterTest extends MockObjectTestCase {
 
