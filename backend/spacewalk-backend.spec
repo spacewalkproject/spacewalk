@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.33
+Version: 2.7.34
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -792,6 +792,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Feb 16 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.34-1
+- require spacewalk-usix in buildtime for pylint
+
 * Wed Feb 15 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.33-1
 - __init__.py should be owned by backend-libs package
 - delete usix source
