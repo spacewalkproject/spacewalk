@@ -105,6 +105,8 @@ public class AuthFilter implements Filter {
                 LoggingFactory.setLogAuth(user.getId());
             }
             chain.doFilter(request, response);
+            authenticationService.refresh((HttpServletRequest) request,
+                    (HttpServletResponse) response);
         }
         else {
             authenticationService.redirectToLogin((HttpServletRequest)request,

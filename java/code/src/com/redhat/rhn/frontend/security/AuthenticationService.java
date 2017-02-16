@@ -46,6 +46,14 @@ public interface AuthenticationService {
         throws ServletException;
 
     /**
+     * Refresh any storage of session information (cookies, database rows).
+     *
+     * @param request the request
+     * @param response the response
+     */
+    void refresh(HttpServletRequest request, HttpServletResponse response);
+
+    /**
      * CSFR check might be skipped for particular POST requests f.e. all login
      * pages
      * @param request The current request
