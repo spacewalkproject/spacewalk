@@ -36,10 +36,11 @@ from spacewalk.server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
 from spacewalk.satellite_tools.exporter import xmlWriter
 from spacewalk.satellite_tools import xmlDiskSource, diskImportLib, progress_bar
 from spacewalk.satellite_tools.syncLib import initEMAIL_LOG, dumpEMAIL_LOG, log2email, log2stderr, log2stdout
+from spacewalk.common.checksum import getFileChecksum
+
 from iss_ui import UI
 from iss_actions import ActionDeps
 import iss_isos
-from spacewalk.common.checksum import getFileChecksum
 
 t = gettext.translation('spacewalk-backend-server', fallback=True)
 _ = t.ugettext
