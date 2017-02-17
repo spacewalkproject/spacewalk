@@ -187,9 +187,8 @@ def get_single_ssl_set(keys, check_dates=False):
                  verify_certificate_dates(ssl_set['client_cert'])):
                 return ssl_set
     # Get first
-    elif len(keys) >= 1:
+    else:
         return keys[0]
-    return None
 
 
 class RepoSync(object):
@@ -317,8 +316,8 @@ class RepoSync(object):
                              rhncryptokey k3 on csssl.ssl_client_key_id = k3.id
                         where cs.id = :repo_id
                         """, repo_id=int(repo_id))
-                    ssl_set = get_single_ssl_set(keys, check_dates=self.check_ssl_dates)
-                    if ssl_set:
+                    if keys:
+                        ssl_set = get_single_ssl_set(keys, check_dates=self.check_ssl_dates)
                         plugin.set_ssl_options(ssl_set['ca_cert'], ssl_set['client_cert'], ssl_set['client_key'])
 
                 if not self.no_packages:
