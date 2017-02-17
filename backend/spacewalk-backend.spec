@@ -581,6 +581,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %dir %{_var}/cache/rhn/satsync
 # config files
 %attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server.conf
+# Workaround for strict-whitespace-enforcement in httpd
+%attr(644,root,%{apache_group}) %config %{apacheconfd}/aa-spacewalk-server.conf
+
 # main httpd config
 %attr(644,root,%{apache_group}) %config %{apacheconfd}/zz-spacewalk-server.conf
 
