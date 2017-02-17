@@ -37,6 +37,7 @@ Group: Applications/Internet
 Provides: python3-spacewalk-backend-usix = %{version}-%{release}
 Obsoletes: python3-spacewalk-backend-usix < 2.8
 BuildRequires: python3-devel
+Requires: python3-spacewalk-backend-libs
 
 %description -n python3-%{name}
 Library for writing code that runs on Python 2 and 3
