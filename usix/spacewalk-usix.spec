@@ -24,6 +24,7 @@ BuildArch: noarch
 Provides:	spacewalk-backend-usix = %{version}-%{release}
 Obsoletes: spacewalk-backend-usix < 2.8
 BuildRequires: python-devel
+Requires: spacewalk-backend-libs
 
 %description
 Library for writing code that runs on Python 2 and 3
