@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.7.3
+Version: 2.7.4
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -71,6 +71,9 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %{_datadir}/rhn/actions/*
 
 %changelog
+* Fri Feb 17 2017 Jan Dobes 2.7.4-1
+- fix bz1422518 - request failed: error reading the headers (CVE-2016-8743)
+
 * Wed Feb 15 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.3-1
 - allow building both dnf 1.0 and 2.0 version from the same source
 - 1308493 - initialize spacewalk channels before --enablerepo/--disablerepo
