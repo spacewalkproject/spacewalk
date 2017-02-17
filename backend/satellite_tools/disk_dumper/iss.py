@@ -1096,7 +1096,7 @@ class ExporterMain:
         if self.options.all_channels:
             channel_dict = self.list_channels()
             self.options.channel = []
-            for pc in channel_dict.keys():
+            for pc in channel_dict:
                 self.options.channel.append(pc)
                 self.options.channel.extend(channel_dict[pc])
         elif self.options.channel:
