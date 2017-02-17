@@ -10,7 +10,7 @@
 %global pythonrhnroot %{python_sitelib}/spacewalk
 
 Name:	    spacewalk-usix
-Version:	2.7.1
+Version:	2.7.2
 Release:	1%{?dist}
 Summary:	Spacewalk server and client nano six library
 
@@ -83,6 +83,9 @@ rm -r -f $RPM_BUILD_ROOT%{python3rhnroot}/common/__pycache__
 %endif
 
 %changelog
+* Fri Feb 17 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.2-1
+- require spacewalk-backend-libs for usix functionality
+
 * Wed Feb 15 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.1-1
 - new package built with tito
 
