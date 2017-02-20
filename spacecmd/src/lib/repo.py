@@ -298,7 +298,7 @@ options:
 def do_repo_create(self, args):
     options = [Option('-n', '--name', action='store'),
                Option('-u', '--url', action='store'),
-               Option('-t', '--type', default='yum', action='store'),
+               Option('-t', '--type', action='store'),
                Option('--ca', default='', action='store'),
                Option('--cert', default='', action='store'),
                Option('--key', default='', action='store')]
@@ -320,6 +320,9 @@ def do_repo_create(self, args):
         if not options.url:
             logging.error('A URL is required')
             return
+
+        if not options.type:
+            options.type = 'yum'
 
     self.client.channel.software.createRepo(self.session,
                                             options.name,
