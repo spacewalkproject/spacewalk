@@ -236,7 +236,11 @@ public class TaskomaticApi {
      * @param user the user
      */
     public void unscheduleRepoSync(Channel chan, User user) {
-        unscheduleRepoTask(createRepoSyncScheduleName(chan, user), user);
+        String jobLabel = createRepoSyncScheduleName(chan, user);
+        Map task = findScheduleByBunchAndLabel("repo-sync-bunch", jobLabel, user);
+        if (task != null) {
+            unscheduleRepoTask(jobLabel, user);
+        }
     }
 
     private void unscheduleRepoTask(String jobLabel, User user) {
