@@ -19,12 +19,14 @@
 
 import os
 import base64
+import sys
 from rhn import rpclib
 
 from spacewalk.common import apache, rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
+from spacewalk.server.importlib.importLib import InvalidArchError
 from spacewalk.server import rhnPackageUpload, rhnSQL, basePackageUpload
 
 
@@ -120,9 +122,19 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         self.package_path = os.path.join(CFG.MOUNT_POINT,
                                          self.rel_package_path)
 
-        package_dict, diff_level = rhnPackageUpload.push_package(a_pkg,
-                                                                 force=self.force,
-                                                                 relative_path=self.rel_package_path, org_id=self.org_id)
+        try:
+            package_dict, diff_level = rhnPackageUpload.push_package(a_pkg,
+                                                                     force=self.force,
+                                                                     relative_path=self.rel_package_path,
+                                                                     org_id=self.org_id)
+        except InvalidArchError:
+            e = sys.exc_info()[1]
+            req.write(str(e))
+            return apache.HTTP_NOT_ACCEPTABLE
+        except Exception:
+            e = sys.exc_info()[1]
+            req.write(str(e))
+            return apache.HTTP_BAD_REQUEST
 
         if diff_level:
             return self._send_package_diff(req, diff_level, package_dict)
