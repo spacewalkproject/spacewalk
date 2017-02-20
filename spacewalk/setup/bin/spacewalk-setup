@@ -39,7 +39,7 @@ $DEBUG = 0;
 use constant DEFAULT_CA_CERT_NAME =>
   'RHN-ORG-TRUSTED-SSL-CERT';
 
-use constant COBBLER_20_COMMAND => 'cobbler20-setup';
+use constant COBBLER_20_COMMAND => 'cobbler20-setup > /dev/null';
 use constant COBBLER_COMMAND => 'spacewalk-setup-cobbler';
 
 my %opts = Spacewalk::Setup::parse_options();
