@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.35
+Version: 2.7.36
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -792,6 +792,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Mon Feb 20 2017 Gennadii Altukhov <galt@redhat.com> 2.7.36-1
+- 1390241 - catch exception InvalidArchError and send back an error message
+
 * Fri Feb 17 2017 Jan Dobes 2.7.35-1
 - 1401497 - fixing empty select
 
