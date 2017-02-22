@@ -95,11 +95,14 @@ class DeployTransaction:
                                 log_debug(9, "copying symlink %s to %s"% (path,new_path_dir))
                                 linkto = os.readlink(path)
                                 if os.path.lexists(new_path):
-                                    log_debug(9, "symlink %s exists, removing it"% (path))
+                                    log_debug(9, "backup %s exists, removing it"% (new_path))
                                     os.unlink(new_path)
                                 os.symlink(linkto,new_path)
                             else:
                                 log_debug(9, "backup directory %s exists, copying %s to it" % (new_path_dir, new_path_file))
+                                if os.path.lexists(new_path):
+                                    log_debug(9, "backup %s exists, removing it"% (new_path))
+                                    os.unlink(new_path)
                                 shutil.copy(path, new_path)
                         else:
                             log_debug(9, "backup directory does not exist, creating the tree now")
