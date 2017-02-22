@@ -86,6 +86,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Calendar;
 
 /**
  * ActionManager - the singleton class used to provide Business Operations
@@ -142,9 +143,11 @@ public class ActionManager extends BaseManager {
         Server server = SystemManager.lookupByIdAndUser(serverId, loggedInUser);
         ServerAction serverAction = ActionFactory.getServerActionForServerAndAction(server,
                 action);
+        Date now = Calendar.getInstance().getTime();
 
         serverAction.setStatus(ActionFactory.STATUS_FAILED);
         serverAction.setResultMsg(message);
+        serverAction.setCompletionTime(now);
 
         return 1;
     }
