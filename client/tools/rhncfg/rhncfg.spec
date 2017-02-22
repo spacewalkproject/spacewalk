@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.101
+Version: 5.10.102
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -131,6 +131,10 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Wed Feb 22 2017 Eric Herget <eherget@redhat.com> 5.10.102-1
+- 1361269 - Symlink target overwritten when the symlink is replaced by a file
+  managed by rhncfg-client
+
 * Wed Feb 15 2017 Tomas Kasparek <tkasparek@redhat.com> 5.10.101-1
 - require spacewalk-usix indead of spacewalk-backend-usix
 
