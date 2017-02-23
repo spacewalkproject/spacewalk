@@ -182,9 +182,9 @@ def get_single_ssl_set(keys, check_dates=False):
     """Picks one of available SSL sets for given repository."""
     if check_dates:
         for ssl_set in keys:
-            if verify_certificate_dates(ssl_set['ca_cert']) and \
+            if verify_certificate_dates(str(ssl_set['ca_cert'])) and \
                 (not ssl_set['client_cert'] or
-                 verify_certificate_dates(ssl_set['client_cert'])):
+                 verify_certificate_dates(str(ssl_set['client_cert']))):
                 return ssl_set
     # Get first
     else:
