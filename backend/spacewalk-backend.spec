@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.37
+Version: 2.7.38
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -794,6 +794,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Feb 23 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.38-1
+- temporarily copy usix into buildroot for pylint check
+
 * Tue Feb 21 2017 Jan Dobes 2.7.37-1
 - 1425137 - fixing element CODE undefined
 - 1425137 - close term tags
