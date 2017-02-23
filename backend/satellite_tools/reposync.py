@@ -189,6 +189,7 @@ def get_single_ssl_set(keys, check_dates=False):
     # Get first
     else:
         return keys[0]
+    return None
 
 
 class RepoSync(object):
@@ -318,7 +319,10 @@ class RepoSync(object):
                         """, repo_id=int(repo_id))
                     if keys:
                         ssl_set = get_single_ssl_set(keys, check_dates=self.check_ssl_dates)
-                        plugin.set_ssl_options(ssl_set['ca_cert'], ssl_set['client_cert'], ssl_set['client_key'])
+                        if ssl_set:
+                            plugin.set_ssl_options(ssl_set['ca_cert'], ssl_set['client_cert'], ssl_set['client_key'])
+                        else:
+                            raise ValueError("No valid SSL certificates were found for repository.")
 
                 if not self.no_packages:
                     ret = self.import_packages(plugin, repo_id, url)
