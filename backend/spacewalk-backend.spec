@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.38
+Version: 2.7.39
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -794,6 +794,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Feb 23 2017 Jan Dobes 2.7.39-1
+- 1401497 - fixing case when there isn't any valid SSL cert
+- 1401497 - fixing 'ERROR: expected a readable buffer object' on Oracle
+
 * Thu Feb 23 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.38-1
 - temporarily copy usix into buildroot for pylint check
 
