@@ -214,7 +214,7 @@ class Runner:
 
         log(1, '   db:  %s/<password>@%s' % (CFG.DB_USER, CFG.DB_NAME))
 
-        selected = [action for action in list(actionDict.keys()) if actionDict[action]]
+        selected = [action for action in list(actionDict) if actionDict[action]]
         log2(-1, 3, "Action list/commandline toggles: %s" % repr(selected),
              stream=sys.stderr)
 

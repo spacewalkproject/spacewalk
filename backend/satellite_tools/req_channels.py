@@ -107,7 +107,7 @@ class RequestedChannels:
         self._reset_computed()
         available = self._available.copy()
         imported = self._imported.copy()
-        for c in self._requested.keys():
+        for c in self._requested:
             if c in self._available:
                 del available[c]
                 # Channel exists
