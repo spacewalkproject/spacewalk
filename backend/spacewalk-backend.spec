@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.41
+Version: 2.7.42
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -794,6 +794,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Fri Feb 24 2017 Jan Dobes 2.7.42-1
+- Postgresql 9.6 support
+
 * Fri Feb 24 2017 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.41-1
 - Fixing wrong-import-position (C0413) for backend.
 - Fixing ungrouped-imports for backend
