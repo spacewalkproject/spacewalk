@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.7.8
+Version:        2.7.9
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Feb 24 2017 Jan Dobes 2.7.9-1
+- drop create_first_org
+
 * Thu Feb 09 2017 Jan Dobes 2.7.8-1
 - 1401497 - upgrades
 - 1401497 - save ssl in separate table again, now allow to have multiple ssl
