@@ -83,18 +83,26 @@ rm -r -f $RPM_BUILD_ROOT%{python3rhnroot}/common/__pycache__
 %files
 %dir %{pythonrhnroot}
 %dir %{pythonrhnroot}/common
-%{pythonrhnroot}/__init__.py*
-%{pythonrhnroot}/common/__init__.py*
+%{pythonrhnroot}/__init__.py
+%{pythonrhnroot}/common/__init__.py
 %{pythonrhnroot}/common/usix.py*
+%exclude %{pythonrhnroot}/__init__.pyc
+%exclude %{pythonrhnroot}/__init__.pyo
+%exclude %{pythonrhnroot}/common/__init__.pyc
+%exclude %{pythonrhnroot}/common/__init__.pyo
 
 %if 0%{?fedora} && 0%{?fedora} >= 23
 
 %files -n python3-%{name}
 %dir %{python3rhnroot}
 %dir %{python3rhnroot}/common
-%{python3rhnroot}/__init__.py*
-%{python3rhnroot}/common/__init__.py*
+%{python3rhnroot}/__init__.py
+%{python3rhnroot}/common/__init__.py
 %{python3rhnroot}/common/usix.py*
+%exclude %{python3rhnroot}/__init__.pyc
+%exclude %{python3rhnroot}/__init__.pyo
+%exclude %{python3rhnroot}/common/__init__.pyc
+%exclude %{python3rhnroot}/common/__init__.pyo
 %endif
 
 %changelog
