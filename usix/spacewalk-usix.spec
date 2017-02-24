@@ -24,7 +24,6 @@ BuildArch: noarch
 Provides:	spacewalk-backend-usix = %{version}-%{release}
 Obsoletes: spacewalk-backend-usix < 2.8
 BuildRequires: python-devel
-BuildRequires: spacewalk-backend-libs
 
 %description
 Library for writing code that runs on Python 2 and 3
@@ -63,13 +62,6 @@ cp $RPM_BUILD_ROOT%{pythonrhnroot}/__init__.py $RPM_BUILD_ROOT%{python3rhnroot}
 cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/__init__.py $RPM_BUILD_ROOT%{python3rhnroot}/common
 cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/usix.py $RPM_BUILD_ROOT%{python3rhnroot}/common
 %endif
-
-#
-# we have to match __init__.py in spacewalk-backend-libs
-# check whether we have latest version of it
-# if this test fail update __init__.py files from the latest spacewalk-backend-libs
-cmp $i %{python_sitelib}/spacewalk/__init__.py $RPM_BUILD_ROOT%{pythonrhnroot}/__init__.py || exit 1
-cmp $i %{python_sitelib}/spacewalk/common/__init__.py $RPM_BUILD_ROOT%{pythonrhnroot}/common/__init__.py || exit 1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
