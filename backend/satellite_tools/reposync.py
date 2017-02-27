@@ -21,7 +21,7 @@ from datetime import datetime
 import ConfigParser
 
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel
-from spacewalk.common import fileutils, rhnLog
+from spacewalk.common import fileutils, rhnLog, rhnCache
 from spacewalk.common.rhnLib import isSUSE
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhnConfig import CFG, initCFG
@@ -38,6 +38,7 @@ from syncLib import log, log2, log2disk
 
 default_log_location = '/var/log/rhn/'
 relative_comps_dir = 'rhn/comps'
+checksum_cache_filename = 'reposync/checksum_cache'
 
 
 class KSDirParser:
@@ -265,6 +266,10 @@ class RepoSync(object):
         self.strict = strict
         self.all_packages = []
         self.check_ssl_dates = check_ssl_dates
+        # Init cache for computed checksums to not compute it on each reposync run again
+        self.checksum_cache = rhnCache.get(checksum_cache_filename)
+        if self.checksum_cache is None:
+            self.checksum_cache = {}
 
     def set_urls_prefix(self, prefix):
         """If there are relative urls in DB, set their real location in runtime"""
@@ -347,6 +352,8 @@ class RepoSync(object):
                 sync_error = -1
             if plugin is not None:
                 plugin.clear_ssl_cache()
+        # Update cache with package checksums
+        rhnCache.set(checksum_cache_filename, self.checksum_cache)
         if self.regen:
             taskomatic.add_to_repodata_queue_for_channel_package_subscription(
                 [self.channel_label], [], "server.app.yumreposync")
@@ -648,7 +655,7 @@ class RepoSync(object):
                 else:
                     pack.path = ""
 
-                if self.metadata_only or self.match_package_checksum(pack.path,
+                if self.metadata_only or self.match_package_checksum(db_pack['path'], pack.path,
                                                                      pack.checksum_type, pack.checksum):
                     # package is already on disk or not required
                     to_download = False
@@ -721,6 +728,9 @@ class RepoSync(object):
                     if os.path.exists(localpath):
                         pack.load_checksum_from_header()
                         pack.upload_package(self.channel, metadata_only=self.metadata_only)
+                        # Save uploaded package to cache with repository checksum type
+                        self.checksum_cache[localpath.split(CFG.MOUNT_POINT + '/')[1]] =\
+                            {pack.checksum_type: pack.checksum}
 
                         # we do not want to keep a whole 'a_pkg' object for every package in memory,
                         # because we need only checksum. see BZ 1397417
@@ -764,11 +774,21 @@ class RepoSync(object):
         backend.commit()
         return failed_packages
 
-    @staticmethod
-    def match_package_checksum(abspath, checksum_type, checksum):
-        if (os.path.exists(abspath) and
-                getFileChecksum(checksum_type, filename=abspath) == checksum):
-            return 1
+    def match_package_checksum(self, relpath, abspath, checksum_type, checksum):
+        if os.path.exists(abspath):
+            if relpath not in self.checksum_cache:
+                self.checksum_cache[relpath] = {}
+            cached_checksums = self.checksum_cache[relpath]
+            if checksum_type not in cached_checksums:
+                checksum_disk = getFileChecksum(checksum_type, filename=abspath)
+                cached_checksums[checksum_type] = checksum_disk
+            else:
+                checksum_disk = cached_checksums[checksum_type]
+            if checksum_disk == checksum:
+                return 1
+        elif relpath in self.checksum_cache:
+            # Remove path from cache if not exists
+            del self.checksum_cache[relpath]
         return 0
 
     def associate_package(self, pack):
