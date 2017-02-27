@@ -107,7 +107,7 @@ def tui_call_wrapper(screen, func, *params):
 
     return results
 
-class WindowSkipException(BaseException):
+class WindowSkipException(Exception):
         pass
 
 class AlreadyRegisteredWindow:
