@@ -23,7 +23,7 @@ def main():
     mem_usage_VmSize_max = None
     mem_usage_VmSize_first = None
     mem_usage_VmSize_allowed_percent = 0.5   # [%] allowed gain of first -> max
-    for i in range(10000):
+    for i in range(1,10000):
         run_test(server_url, ca_cert)
         if i % 100 == 0:
             new_mem_usage = mem_usage_int()
