@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 ULN plugin for spacewalk-repo-sync.
 """
-# pylint: disable=C0413
+# pylint: disable=E0012, C0413
 import sys
 sys.path.append('/usr/share/rhn')
 from up2date_client.rpcServer import RetryServer, ServerList

@@ -17,7 +17,7 @@
 
 
 # __lang. imports__
-# pylint: disable=C0413
+# pylint: disable=E0012, C0413
 import datetime
 import os
 import sys
