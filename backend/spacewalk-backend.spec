@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.44
+Version: 2.7.45
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -797,6 +797,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Wed Mar 01 2017 Jan Dobes 2.7.45-1
+- 1419867 - cache correct path of uploaded package
+- don't use keys() to iterate over a dictionary
+
 * Tue Feb 28 2017 Grant Gainey 2.7.44-1
 - 1427625 - Add strict-httpd-workaround *FIRST* in httpd conf files
   (bz is a SW-clone of BZ#1422518)
