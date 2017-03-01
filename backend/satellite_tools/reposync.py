@@ -727,10 +727,10 @@ class RepoSync(object):
                     localpath = pack.path
                     if os.path.exists(localpath):
                         pack.load_checksum_from_header()
-                        pack.upload_package(self.channel, metadata_only=self.metadata_only)
+                        rel_package_path = pack.upload_package(self.channel, metadata_only=self.metadata_only)
                         # Save uploaded package to cache with repository checksum type
-                        self.checksum_cache[localpath.split(CFG.MOUNT_POINT + '/')[1]] =\
-                            {pack.checksum_type: pack.checksum}
+                        if rel_package_path:
+                            self.checksum_cache[rel_package_path] = {pack.checksum_type: pack.checksum}
 
                         # we do not want to keep a whole 'a_pkg' object for every package in memory,
                         # because we need only checksum. see BZ 1397417

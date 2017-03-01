@@ -342,3 +342,4 @@ class ContentPackage:
                                                 force=False,
                                                 relative_path=rel_package_path,
                                                 org_id=channel['org_id'])
+        return rel_package_path
