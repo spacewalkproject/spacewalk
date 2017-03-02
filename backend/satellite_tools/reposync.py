@@ -757,21 +757,25 @@ class RepoSync(object):
                     os.remove(localpath)
         log2disk(0, "Importing packages finished.")
 
-        log(0, "Linking packages to channel.")
         if self.strict:
+            # Need to make sure all packages from all repositories are associated with channel
             import_batch = [self.associate_package(pack)
                             for pack in self.all_packages]
         else:
+            # Only packages from current repository are appended to channel
             import_batch = [self.associate_package(pack)
                             for (pack, to_download, to_link) in to_process
                             if to_link]
-        backend = SQLBackend()
-        caller = "server.app.yumreposync"
-        importer = ChannelPackageSubscription(import_batch,
-                                              backend, caller=caller, repogen=False,
-                                              strict=self.strict)
-        importer.run()
-        backend.commit()
+        # Do not re-link if nothing was marked to link
+        if any([to_link for (pack, to_download, to_link) in to_process]):
+            log(0, "Linking packages to channel.")
+            backend = SQLBackend()
+            caller = "server.app.yumreposync"
+            importer = ChannelPackageSubscription(import_batch,
+                                                  backend, caller=caller, repogen=False,
+                                                  strict=self.strict)
+            importer.run()
+            backend.commit()
         return failed_packages
 
     def match_package_checksum(self, relpath, abspath, checksum_type, checksum):
