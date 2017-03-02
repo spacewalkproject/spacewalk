@@ -2589,7 +2589,7 @@ def do_system_details(self, args, short=False):
             print self.SEPARATOR
         add_separator = True
 
-        print 'Name:          %s' % system
+        print 'Name:          %s' % details.get('profile_name')
         print 'System ID:     %i' % system_id
 
         if uuid:
