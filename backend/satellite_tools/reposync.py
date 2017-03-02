@@ -720,27 +720,27 @@ class RepoSync(object):
         progress_bar = ProgressBarLogger("Importing packages:    ", to_download_count)
         for (index, what) in enumerate(to_process):
             pack, to_download, to_link = what
-            localpath = None
+            if not to_download:
+                continue
+            localpath = pack.path
             # pylint: disable=W0703
             try:
-                if to_download:
-                    localpath = pack.path
-                    if os.path.exists(localpath):
-                        pack.load_checksum_from_header()
-                        rel_package_path = pack.upload_package(self.channel, metadata_only=self.metadata_only)
-                        # Save uploaded package to cache with repository checksum type
-                        if rel_package_path:
-                            self.checksum_cache[rel_package_path] = {pack.checksum_type: pack.checksum}
+                if os.path.exists(localpath):
+                    pack.load_checksum_from_header()
+                    rel_package_path = pack.upload_package(self.channel, metadata_only=self.metadata_only)
+                    # Save uploaded package to cache with repository checksum type
+                    if rel_package_path:
+                        self.checksum_cache[rel_package_path] = {pack.checksum_type: pack.checksum}
 
-                        # we do not want to keep a whole 'a_pkg' object for every package in memory,
-                        # because we need only checksum. see BZ 1397417
-                        pack.checksum = pack.a_pkg.checksum
-                        pack.checksum_type = pack.a_pkg.checksum_type
-                        pack.epoch = pack.a_pkg.header['epoch']
-                        pack.a_pkg = None
-                    else:
-                        raise Exception
-                    progress_bar.log(True, None)
+                    # we do not want to keep a whole 'a_pkg' object for every package in memory,
+                    # because we need only checksum. see BZ 1397417
+                    pack.checksum = pack.a_pkg.checksum
+                    pack.checksum_type = pack.a_pkg.checksum_type
+                    pack.epoch = pack.a_pkg.header['epoch']
+                    pack.a_pkg = None
+                else:
+                    raise Exception
+                progress_bar.log(True, None)
             except KeyboardInterrupt:
                 raise
             except Exception:
