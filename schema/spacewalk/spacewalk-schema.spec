@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.7.9
+Version:        2.7.10
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Mar 02 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.10-1
+- 1427530 - solaris channels can have non-solaris child channels
+
 * Fri Feb 24 2017 Jan Dobes 2.7.9-1
 - drop create_first_org
 
