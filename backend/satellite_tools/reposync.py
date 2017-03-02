@@ -460,11 +460,15 @@ class RepoSync(object):
             'feature': 'Product Enhancement Advisory',
             'enhancement': 'Product Enhancement Advisory'
         }
+        channel_advisory_names = self.list_errata()
         for notice in notices:
             notice = self.fix_notice(notice)
+
+            if notice['update_id'] in channel_advisory_names:
+                continue
+
             advisory = notice['update_id'] + '-' + notice['version']
             existing_errata = self.get_errata(notice['update_id'])
-
             e = Erratum()
             e['errata_from'] = notice['from']
             e['advisory'] = advisory
@@ -624,10 +628,14 @@ class RepoSync(object):
             e['locally_modified'] = None
             batch.append(e)
 
-        backend = SQLBackend()
-        importer = ErrataImport(batch, backend)
-        importer.run()
-        self.regen = True
+        if batch:
+            log(0, "Syncing %s new errata to channel." % len(batch))
+            backend = SQLBackend()
+            importer = ErrataImport(batch, backend)
+            importer.run()
+            self.regen = True
+        elif notices:
+            log(0, "No new errata to sync.")
 
     def import_packages(self, plug, source_id, url):
         failed_packages = 0
@@ -920,6 +928,17 @@ class RepoSync(object):
             ret['packages'].append(ipackage)
 
         return ret
+
+    def list_errata(self):
+        """List advisory names present in channel"""
+        h = rhnSQL.prepare("""select e.advisory_name
+            from rhnChannelErrata ce
+            inner join rhnErrata e on e.id = ce.errata_id
+            where ce.channel_id = :cid
+        """)
+        h.execute(cid=self.channel['id'])
+        advisories = [row['advisory_name'] for row in h.fetchall_dict()]
+        return advisories
 
     def import_kickstart(self, plug, repo_label):
         ks_path = 'rhn/kickstart/'
