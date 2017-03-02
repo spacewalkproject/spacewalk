@@ -686,7 +686,6 @@ class RepoSync(object):
             log(0, "Packages already synced:      %5d" % (num_passed - num_to_process))
             log(0, "Packages to sync:             %5d" % num_to_process)
 
-        self.regen = True
         is_non_local_repo = (url.find("file:/") < 0)
 
         downloader = ThreadedDownloader()
@@ -776,6 +775,7 @@ class RepoSync(object):
                                                   strict=self.strict)
             importer.run()
             backend.commit()
+            self.regen = True
         return failed_packages
 
     def match_package_checksum(self, relpath, abspath, checksum_type, checksum):
