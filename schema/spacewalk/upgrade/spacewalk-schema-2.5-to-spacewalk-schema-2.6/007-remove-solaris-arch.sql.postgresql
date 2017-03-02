@@ -53,8 +53,10 @@ declare
 begin
   for rec in select channel.id as id
       from rhnChannel channel
-      where channel_arch_id = LOOKUP_CHANNEL_ARCH(arch_in)
-      and channel.parent_channel is not null loop
+      where channel.parent_channel in
+        (select id from rhnChannel c2
+          where c2.channel_arch_id = LOOKUP_CHANNEL_ARCH(arch_in))
+    loop
     perform delete_channel(rec.id);
   end loop;
 end;

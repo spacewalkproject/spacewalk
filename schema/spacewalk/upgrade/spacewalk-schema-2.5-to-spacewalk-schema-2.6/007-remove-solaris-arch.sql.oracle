@@ -46,8 +46,9 @@ procedure delete_channel_tmp_child (
   cursor channels is
   select channel.id id
   from rhnChannel channel
-  where channel_arch_id = LOOKUP_CHANNEL_ARCH(arch_in)
-  and channel.parent_channel is not null;
+  where channel.parent_channel in
+    (select id from rhnChannel c2
+      where c2.channel_arch_id = LOOKUP_CHANNEL_ARCH(arch_in));
 begin
   for c in channels loop
     delete_channel(c.id);
