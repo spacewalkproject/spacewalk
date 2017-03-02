@@ -44,17 +44,22 @@ checksum_cache_filename = 'reposync/checksum_cache'
 class KSDirParser:
     file_blacklist = ["release-notes/"]
 
-    def __init__(self, dir_html):
+    def __init__(self, dir_html, additional_blacklist=None):
         self.dir_content = []
+
+        if additional_blacklist is None:
+            additional_blacklist = []
+        elif type(additional_blacklist) != type([]):
+            additional_blacklist = [additional_blacklist]
+
         for s in (m.group(1) for m in re.finditer(r'(?i)<a href="(.+?)"', dir_html)):
-            if not (re.match(r'/', s) or re.search(r'\?', s) or re.search(r'\.\.', s) or re.match(r'[a-zA-Z]+:', s) or
-                    re.search(r'\.rpm$', s)):
+            if not (re.match(r'/', s) or re.search(r'\?', s) or re.search(r'\.\.', s) or re.match(r'[a-zA-Z]+:', s)):
                 if re.search(r'/$', s):
                     file_type = 'DIR'
                 else:
                     file_type = 'FILE'
 
-                if s not in self.file_blacklist:
+                if s not in (self.file_blacklist + additional_blacklist):
                     self.dir_content.append({'name': s, 'type': file_type})
 
     def get_content(self):
@@ -100,6 +105,14 @@ class TreeInfoParser(object):
                 for item in self.parser.items(section_name):
                     if item[0] == 'version':
                         return item[1].split('.')[0]
+
+    def get_package_dir(self):
+        for section_name in self.parser.sections():
+            if section_name == 'general':
+                for item in self.parser.items(section_name):
+                    if item[0] == 'packagedir':
+                        return item[1]
+
 
 
 def set_filter_opt(option, opt_str, value, parser):
@@ -1001,6 +1014,7 @@ class RepoSync(object):
 
         # Downloading/Updating content of KS Tree
         # start from root dir
+        is_root = True
         dirs_queue = ['']
         log(0, "Gathering all files in kickstart repository...")
         while len(dirs_queue) > 0:
@@ -1009,7 +1023,12 @@ class RepoSync(object):
             if cur_dir_html is None:
                 continue
 
-            parser = KSDirParser(cur_dir_html)
+            blacklist = None
+            if is_root:
+                blacklist = [treeinfo_parser.get_package_dir() + '/']
+                is_root = False
+
+            parser = KSDirParser(cur_dir_html, blacklist)
 
             for ks_file in parser.get_content():
                 repo_path = cur_dir_name + ks_file['name']
