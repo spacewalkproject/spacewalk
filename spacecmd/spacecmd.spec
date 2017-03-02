@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.7.4
+Version:     2.7.5
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -92,6 +92,11 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Mar 02 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.5-1
+- 1428384 - print profile_name instead of string we're searching for
+- 1427905 - there may be a system with name equal to systemid
+- 1427938 - expect name as string
+
 * Fri Feb 24 2017 Jan Dobes 2.7.4-1
 - Fix interactive mode
 - Add a type parameter to repo_create
