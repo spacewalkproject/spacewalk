@@ -1602,7 +1602,7 @@ def do_system_setconfigchannelorder(self, args):
     print
     print 'New Configuration Channels'
     print '--------------------------'
-    for i, new_channel in new_channels(new_channels, 1):
+    for i, new_channel in enumerate(new_channels, 1):
         print '[%i] %s' % (i, new_channel)
 
     if not self.user_confirm():
