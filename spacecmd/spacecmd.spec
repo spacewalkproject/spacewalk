@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.7.5
+Version:     2.7.6
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -92,6 +92,14 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Mar 03 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.6-1
+- 1202684 - exit with 1 with incorrect command, wrong server, etc.
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+- 1189291 - call enumerate instead of list
+- 1399151 - print also systemdid with system name
+- 1427888 - return list of strings only
+
 * Thu Mar 02 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.5-1
 - 1428384 - print profile_name instead of string we're searching for
 - 1427905 - there may be a system with name equal to systemid
