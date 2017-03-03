@@ -13,7 +13,7 @@ Summary:        SELinux policy module supporting jabberd
 
 Group:          System Environment/Base
 License:        GPLv2+
-URL:            http://github.com/spacewalkproject/spacewalk
+URL:            https://github.com/spacewalkproject/spacewalk
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 

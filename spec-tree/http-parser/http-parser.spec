@@ -13,7 +13,7 @@ Summary:        HTTP request/response parser for C
 
 Group:          System Environment/Libraries
 License:        MIT
-URL:            http://github.com/joyent/http-parser
+URL:            https://github.com/joyent/http-parser
 # download from https://github.com/joyent/http-parser/tarball/%%{version}
 Source0:        joyent-http-parser-v%{version}-%{github_seq}-g%{git_commit_hash}.tar.gz
 BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)

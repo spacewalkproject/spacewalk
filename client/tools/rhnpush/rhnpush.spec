@@ -7,7 +7,7 @@
 Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
-URL:           http://github.com/spacewalkproject/spacewalk
+URL:           https://github.com/spacewalkproject/spacewalk
 Version:       5.5.102
 Release:       1%{?dist}
 Source0:       https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz

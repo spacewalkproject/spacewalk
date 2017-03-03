@@ -12,7 +12,7 @@ Name: spacewalk-config
 Summary: Spacewalk Configuration
 Version: 2.7.1
 Release: 1%{?dist}
-URL: http://github.com/spacewalkproject/spacewalk
+URL: https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 License: GPLv2
 Group: Applications/System
