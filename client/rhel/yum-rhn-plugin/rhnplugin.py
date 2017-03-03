@@ -464,7 +464,8 @@ class RhnRepo(YumRepository):
                                       http_headers=headers,
                                       ssl_ca_cert = self.sslcacert.encode('utf-8'),
                                       timeout=self.timeout,
-                                      size = size
+                                      size = size,
+                                      retry_no_cache=self._retry_no_cache
                                       )
             return result
 
@@ -488,7 +489,8 @@ class RhnRepo(YumRepository):
                                           http_headers=headers,
                                           ssl_ca_cert = self.sslcacert.encode('utf-8'),
                                           timeout=self.timeout,
-                                          size = size
+                                          size = size,
+                                          retry_no_cache=self._retry_no_cache
                                           )
                 return result
             except URLGrabError, e:
