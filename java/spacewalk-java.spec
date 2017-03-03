@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.29
+Version: 2.7.30
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -730,6 +730,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 03 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.30-1
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+- Fix SSM reboot action success messages
+- Fix checkbox icon align
+- Get rid of remaining <noscript> elements as general noscript error is
+  displayed for each page
+- Display warning when JavaScript is disabled on all pages (bsc#987579)
+
 * Wed Feb 22 2017 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.29-1
 - 1384093 - action now store its completion time
 
