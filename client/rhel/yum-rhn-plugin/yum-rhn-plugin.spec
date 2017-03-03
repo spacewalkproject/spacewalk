@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.7.2
+Version: 2.7.3
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,10 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Mar 03 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.3-1
+- 1398406 - update repo options from rhnplugin.conf even in cacheonly mode
+- 1391867 - pass retry_no_cache option to urlgrabber
+
 * Thu Mar 02 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.2-1
 - 1361185 - use yum's lock to prevent concurent yum & rhn_check actions
 
