@@ -17,7 +17,7 @@ License:         GPLv2+
 # cd spacewalk
 # make srpm TAG=%{name}-%{version}-%{release}
 URL:             http://github.com/spacewalkproject/spacewalk
-Source0:         https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Source0:         https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildRoot:       %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildRequires:   perl
 BuildRequires:   checkpolicy, selinux-policy-devel, hardlink

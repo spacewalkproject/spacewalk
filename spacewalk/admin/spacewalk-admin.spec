@@ -4,7 +4,7 @@ Name: spacewalk-admin
 URL:     https://github.com/spacewalkproject/spacewalk
 Version: 2.7.0
 Release: 1%{?dist}
-Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 License: GPLv2
 Group: Applications/Internet
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)

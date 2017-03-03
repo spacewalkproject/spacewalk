@@ -15,7 +15,7 @@ Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 Group:       Applications/System
 License:     GPLv3+
 URL:         https://github.com/spacewalkproject/spacewalk/wiki/spacecmd
-Source:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Source:      https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 

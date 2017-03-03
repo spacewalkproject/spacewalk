@@ -10,7 +10,7 @@ Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
 Version: 10.2.0.60
 Release: 1%{?dist}
-Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 License: Proprietary
 Group:   Oracle Server
 BuildArch: noarch

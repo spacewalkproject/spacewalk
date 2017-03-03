@@ -2,7 +2,7 @@ Name: rhn-custom-info
 Summary: Set and list custom values for RHN-enabled machines
 Group: Applications/System
 License: GPLv2
-Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
 Version: 5.4.33
 Release: 1%{?dist}

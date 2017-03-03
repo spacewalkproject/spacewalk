@@ -4,7 +4,7 @@ Version: 2.7.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
-Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}

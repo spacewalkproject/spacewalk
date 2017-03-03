@@ -13,7 +13,7 @@ Summary: Spacewalk Configuration
 Version: 2.7.1
 Release: 1%{?dist}
 URL: http://github.com/spacewalkproject/spacewalk
-Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 License: GPLv2
 Group: Applications/System
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)

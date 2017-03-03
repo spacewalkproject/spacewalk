@@ -2,7 +2,7 @@ Summary: Oracle Database Server command-line admin scripts
 Name: oracle-server-admin
 Version: 2.7.0
 Release: 1%{?dist}
-Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 License: Oracle License
 Group: Oracle Server
 BuildArch: noarch
