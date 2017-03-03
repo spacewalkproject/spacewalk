@@ -1,14 +1,80 @@
-delete from rhnChildChannelArchCompat where parent_arch_id = LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris');
-delete from rhnChildChannelArchCompat where parent_arch_id = LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris');
+create or replace
+procedure delete_server_tmp (
+  arch_in varchar2
+) is
+  cursor systems is
+    select server.id id
+    from rhnServer server
+    where server_arch_id = LOOKUP_SERVER_ARCH(arch_in);
+begin
+  for s in systems loop
+    logging.clear_log_id();
+    delete_server(s.id);
+  end loop;
+end delete_server_tmp;
+/
+show errors;
 
-delete from rhnChildChannelArchCompat where child_arch_id = LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris');
-delete from rhnChildChannelArchCompat where child_arch_id = LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris');
 
-delete from rhnChannelPackageArchCompat where channel_arch_id = LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris');
+execute delete_server_tmp('sparc-sun4m-solaris');
+execute delete_server_tmp('sparc-sun4u-solaris');
+execute delete_server_tmp('sparc-sun4v-solaris');
+execute delete_server_tmp('i386-i86pc-solaris');
+
+drop procedure delete_server_tmp;
+
+create or replace
+procedure delete_channel_tmp (
+  arch_in in varchar2
+) is
+  cursor channels is
+  select channel.id id
+  from rhnChannel channel
+  where channel_arch_id = LOOKUP_CHANNEL_ARCH(arch_in);
+begin
+  for c in channels loop
+    delete_channel(c.id);
+  end loop;
+end delete_channel_tmp;
+/
+show errors;
+
+create or replace
+procedure delete_channel_tmp_child (
+  arch_in in varchar2
+) is
+  cursor channels is
+  select channel.id id
+  from rhnChannel channel
+  where channel.parent_channel in
+    (select id from rhnChannel c2
+      where c2.channel_arch_id = LOOKUP_CHANNEL_ARCH(arch_in));
+begin
+  for c in channels loop
+    delete_channel(c.id);
+  end loop;
+end delete_channel_tmp_child;
+/
+show errors;
+
+execute delete_channel_tmp_child('channel-sparc-sun-solaris');
+execute delete_channel_tmp_child('channel-i386-sun-solaris');
+execute delete_channel_tmp('channel-sparc-sun-solaris');
+execute delete_channel_tmp('channel-i386-sun-solaris');
+
+drop procedure delete_channel_tmp;
+drop procedure delete_channel_tmp_child;
+
 delete from rhnChannelPackageArchCompat where channel_arch_id = LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris');
+delete from rhnChannelPackageArchCompat where channel_arch_id = LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris');
 
-delete from rhnServerChannelArchCompat where channel_arch_id = LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris');
 delete from rhnServerChannelArchCompat where channel_arch_id = LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris');
+delete from rhnServerChannelArchCompat where channel_arch_id = LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris');
+
+delete from rhnChildChannelArchCompat where parent_arch_id = LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris');
+delete from rhnChildChannelArchCompat where parent_arch_id = LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris');
+delete from rhnChildChannelArchCompat where child_arch_id = LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris');
+delete from rhnChildChannelArchCompat where child_arch_id = LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris');
 
 delete from rhnChannelArch where label = 'channel-sparc-sun-solaris';
 delete from rhnChannelArch where label = 'channel-i386-sun-solaris';
@@ -49,6 +115,30 @@ delete from rhnServerPackageArchCompat where package_arch_id = LOOKUP_PACKAGE_AR
 delete from rhnServerPackageArchCompat where package_arch_id = LOOKUP_PACKAGE_ARCH('noarch-solaris-patch');
 delete from rhnServerPackageArchCompat where package_arch_id = LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster');
 
+delete from rhnPackage where package_arch_id = (select id from rhnPackageArch where label = 'sparc-solaris');
+delete from rhnPackage where package_arch_id = (select id from rhnPackageArch where label = 'sparc.sun4u-solaris');
+delete from rhnPackage where package_arch_id = (select id from rhnPackageArch where label = 'sparc.sun4v-solaris');
+delete from rhnPackage where package_arch_id = (select id from rhnPackageArch where label = 'i386-solaris');
+delete from rhnPackage where package_arch_id = (select id from rhnPackageArch where label = 'sparc-solaris-patch');
+delete from rhnPackage where package_arch_id = (select id from rhnPackageArch where label = 'i386-solaris-patch');
+delete from rhnPackage where package_arch_id = (select id from rhnPackageArch where label = 'sparc-solaris-patch-cluster');
+delete from rhnPackage where package_arch_id = (select id from rhnPackageArch where label = 'i386-solaris-patch-cluster');
+delete from rhnPackage where package_arch_id = (select id from rhnPackageArch where label = 'noarch-solaris');
+delete from rhnPackage where package_arch_id = (select id from rhnPackageArch where label = 'noarch-solaris-patch');
+delete from rhnPackage where package_arch_id = (select id from rhnPackageArch where label = 'noarch-solaris-patch-cluster');
+
+delete from rhnPackageNEVRA where package_arch_id = (select id from rhnPackageArch where label = 'sparc-solaris');
+delete from rhnPackageNEVRA where package_arch_id = (select id from rhnPackageArch where label = 'sparc.sun4u-solaris');
+delete from rhnPackageNEVRA where package_arch_id = (select id from rhnPackageArch where label = 'sparc.sun4v-solaris');
+delete from rhnPackageNEVRA where package_arch_id = (select id from rhnPackageArch where label = 'i386-solaris');
+delete from rhnPackageNEVRA where package_arch_id = (select id from rhnPackageArch where label = 'sparc-solaris-patch');
+delete from rhnPackageNEVRA where package_arch_id = (select id from rhnPackageArch where label = 'i386-solaris-patch');
+delete from rhnPackageNEVRA where package_arch_id = (select id from rhnPackageArch where label = 'sparc-solaris-patch-cluster');
+delete from rhnPackageNEVRA where package_arch_id = (select id from rhnPackageArch where label = 'i386-solaris-patch-cluster');
+delete from rhnPackageNEVRA where package_arch_id = (select id from rhnPackageArch where label = 'noarch-solaris');
+delete from rhnPackageNEVRA where package_arch_id = (select id from rhnPackageArch where label = 'noarch-solaris-patch');
+delete from rhnPackageNEVRA where package_arch_id = (select id from rhnPackageArch where label = 'noarch-solaris-patch-cluster');
+
 delete from rhnPackageArch where label = 'sparc-solaris';
 delete from rhnPackageArch where label = 'sparc.sun4u-solaris';
 delete from rhnPackageArch where label = 'sparc.sun4v-solaris';
@@ -60,6 +150,10 @@ delete from rhnPackageArch where label = 'i386-solaris-patch-cluster';
 delete from rhnPackageArch where label = 'noarch-solaris';
 delete from rhnPackageArch where label = 'noarch-solaris-patch';
 delete from rhnPackageArch where label = 'noarch-solaris-patch-cluster';
+
+delete from rhnPackageArch where arch_type_id = (select id from rhnArchType where label = 'solaris-patch');
+delete from rhnPackageArch where arch_type_id = (select id from rhnArchType where label = 'solaris-patch-cluster');
+delete from rhnPackageArch where arch_type_id = (select id from rhnArchType where label = 'sysv-solaris');
 
 delete from rhnServerServerGroupArchCompat where server_arch_id = LOOKUP_SERVER_ARCH('sparc-sun4m-solaris');
 delete from rhnServerServerGroupArchCompat where server_arch_id = LOOKUP_SERVER_ARCH('sparc-sun4u-solaris');

@@ -14,67 +14,75 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.systems.BaseSystemsAction;
+import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.RhnListSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.frontend.taglibs.list.TagHelper;
+import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.SystemOverview;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
-import com.redhat.rhn.manager.system.SystemManager;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
- * SystemHardwareAction handles the interaction of the ChannelDetails page.
+ * ProxyClientsAction
  * @version $Rev$
  */
-public class ProxyClientsAction extends RhnAction implements Listable<SystemOverview> {
+public class ProxyClientsAction extends BaseSystemsAction {
+
+    private Server server;
 
     /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping,
-            ActionForm formIn,
-            HttpServletRequest request,
-            HttpServletResponse response) {
-
-        RequestContext ctx = new RequestContext(request);
-        User user =  ctx.getCurrentUser();
-        Server server = ctx.lookupAndBindServer();
+    @Override
+    public ActionForward execute(ActionMapping mapping, ActionForm formIn,
+            HttpServletRequest request, HttpServletResponse response) {
+        RequestContext requestContext = new RequestContext(request);
+        User user = requestContext.getCurrentUser();
+        server = requestContext.lookupAndBindServer();
         Long sid = server.getId();
-
         SystemManager.ensureAvailableToUser(user, sid);
-
         if (server.isProxy()) {
             request.setAttribute("version",
                     server.getProxyInfo().getVersion().getVersion());
+            DataResult<SystemOverview> result = getDataResult(user, null, formIn);
+            if (result.isEmpty()) {
+                request.setAttribute(SHOW_NO_SYSTEMS, Boolean.TRUE);
+            }
+            RhnSet set = getSetDecl().get(user);
 
-            ListHelper helper = new ListHelper(this, request);
-            helper.setListName("systemList");
-            helper.setDataSetName(RequestContext.PAGE_LIST);
-            helper.execute();
+            RhnListSetHelper helper = new RhnListSetHelper(request);
+            if (ListTagHelper.getListAction("systemList", request) != null) {
+                helper.execute(set, "systemList", result);
+            }
+            if (!set.isEmpty()) {
+                helper.syncSelections(set, result);
+                ListTagHelper.setSelectedAmount("systemList", set.size(), request);
+            }
+            ListTagHelper.bindSetDeclTo("systemList", getSetDecl(), request);
+            request.setAttribute(RequestContext.PAGE_LIST, result);
+            request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+            TagHelper.bindElaboratorTo("systemList", result.getElaborator(), request);
         }
-
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
-    /**
-     * Get the list of client systems
-     * @param context the request context
-     * @return the list of client systems
-     */
-    public List<SystemOverview> getResult(RequestContext context) {
-        Long sid = context.getRequiredParam(RequestContext.SID);
-        DataResult<SystemOverview> clients = SystemManager.listClientsThroughProxy(sid);
-        clients.elaborate();
-        return clients;
+    @Override
+    protected DataResult<SystemOverview> getDataResult(User user, PageControl pc,
+            ActionForm formIn) {
+        DataResult<SystemOverview> systems;
+        systems = SystemManager.listClientsThroughProxy(server.getId());
+        systems.elaborate();
+        return systems;
     }
-
 }

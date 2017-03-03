@@ -31,6 +31,7 @@ from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import rhnMail
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.rhnTB import Traceback, exitWithTraceback
+from spacewalk.common.checksum import getFileChecksum
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
 from spacewalk.satellite_tools.exporter import xmlWriter
@@ -39,7 +40,6 @@ from spacewalk.satellite_tools.syncLib import initEMAIL_LOG, dumpEMAIL_LOG, log2
 from iss_ui import UI
 from iss_actions import ActionDeps
 import iss_isos
-from spacewalk.common.checksum import getFileChecksum
 
 t = gettext.translation('spacewalk-backend-server', fallback=True)
 _ = t.ugettext
@@ -1096,7 +1096,7 @@ class ExporterMain:
         if self.options.all_channels:
             channel_dict = self.list_channels()
             self.options.channel = []
-            for pc in channel_dict.keys():
+            for pc in channel_dict:
                 self.options.channel.append(pc)
                 self.options.channel.extend(channel_dict[pc])
         elif self.options.channel:

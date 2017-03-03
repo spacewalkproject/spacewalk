@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.7.2
+Version: 2.7.4
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -13,7 +13,11 @@ BuildRequires: python3-devel
 %else
 BuildRequires: python-devel
 %endif
+%if 0%{?fedora} <= 25
 Requires: dnf >= 0.5.3
+%else
+Requires: dnf >= 2.0.0
+%endif
 Requires: dnf-plugins-core
 Requires: librepo >= 1.7.15
 Requires: rhn-client-tools >= 2.5.5
@@ -28,7 +32,9 @@ This DNF plugin provides access to a Spacewalk server for software updates.
 %setup -q
 
 %build
-
+%if 0%{?fedora} <= 25
+patch -p4 < dnf-plugin-spacewalk-revert-to-1.0.patch
+%endif
 
 %install
 install -d %{buildroot}%{_sysconfdir}/dnf/plugins/
@@ -65,6 +71,15 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %{_datadir}/rhn/actions/*
 
 %changelog
+* Fri Feb 17 2017 Jan Dobes 2.7.4-1
+- fix bz1422518 - request failed: error reading the headers (CVE-2016-8743)
+
+* Wed Feb 15 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.3-1
+- allow building both dnf 1.0 and 2.0 version from the same source
+- 1308493 - initialize spacewalk channels before --enablerepo/--disablerepo
+  handler
+- dnf-plugin-spacewalk updated to dnf 2.0
+
 * Wed Nov 16 2016 Gennadii Altukhov <galt@redhat.com> 2.7.2-1
 - reverted 2030f2f6b1efb82bda06676fbf22ab3716e890e5. A new API call is not
   available yet in Fedora 23/24.

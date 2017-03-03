@@ -307,7 +307,7 @@ def do_group_restore(self, args):
         current[groupname] = details['description']
         current[groupname] = current[groupname].rstrip('\n')
 
-    for groupname in files.keys():
+    for groupname in files:
         fh = open(files[groupname], 'r')
         details = fh.read()
         fh.close()

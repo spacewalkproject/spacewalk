@@ -64,6 +64,7 @@ public class SystemRemoteCommandAction extends RhnAction {
         public static final String LABEL = "lbl";
         public static final String TIMEOUT = "timeout";
         public static final Long DEFAULT_TIMEOUT = 600L;
+        public static final Long MAX_TIMEOUT = new Long(Integer.MAX_VALUE);
 
         public static final String[] MANDATORY_FIELDS = {
             FormData.UID,
@@ -211,6 +212,15 @@ public class SystemRemoteCommandAction extends RhnAction {
                 errorMessages.add(ActionMessages.GLOBAL_MESSAGE,
                                   new ActionMessage(checkResult.getMessageKey()));
             }
+        }
+
+        // Check if timeout exceeds the XMLRPC integer type max
+        if ((Long) form.get(FormData.TIMEOUT) > FormData.MAX_TIMEOUT) {
+          formValid = false;
+          errorMessages.add(ActionMessages.GLOBAL_MESSAGE,
+                             new ActionMessage(String.format(
+                                 "ssm.operations.provisioning.remotecommand." +
+                                 "form.timeout.max")));
         }
 
         return formValid;

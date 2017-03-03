@@ -19,14 +19,36 @@
 
 # language imports
 import sys
+from datetime import datetime
+
+from M2Crypto import X509
 
 # other rhn imports
+from spacewalk.common.rhnLib import utc
 from spacewalk.common.usix import raise_with_tb
 from spacewalk.server import rhnSQL
 from spacewalk.common.rhnTB import fetchTraceback
 
 # bare-except and broad-except
 # pylint: disable=W0702,W0703
+
+
+# Get not before and not after timestamps from given X509 certificate
+def get_certificate_info(cert_str):
+    cert = X509.load_cert_string(cert_str)
+    not_before = cert.get_not_before().get_datetime()
+    not_after = cert.get_not_after().get_datetime()
+    subject = cert.get_subject()
+    cn = subject.CN
+    serial_number = cert.get_serial_number()
+    return cn, serial_number, not_before, not_after
+
+
+def verify_certificate_dates(cert_str):
+    _, _, not_before, not_after = get_certificate_info(cert_str)
+    now = datetime.now(utc)
+    return not_before < now < not_after
+
 
 def get_all_orgs():
     """ Fetch org_id. Create first org_id if needed.

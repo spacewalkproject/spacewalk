@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.7.0
+Version:     2.7.5
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -92,6 +92,25 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Mar 02 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.5-1
+- 1428384 - print profile_name instead of string we're searching for
+- 1427905 - there may be a system with name equal to systemid
+- 1427938 - expect name as string
+
+* Fri Feb 24 2017 Jan Dobes 2.7.4-1
+- Fix interactive mode
+- Add a type parameter to repo_create
+
+* Tue Dec 20 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.3-1
+- fixing pylint: spacecmd: consider-iterating-dictionary
+
+* Thu Dec 15 2016 Jiri Dostal <jdostal@redhat.com> 2.7.2-1
+- 1404276 - spacecmd has hardcoded architectures - there is solaris
+
+* Tue Dec 06 2016 Jiri Dostal <jdostal@redhat.com> 2.7.1-1
+- 1250572 - Text description missing for remote command by Spacecmd
+- Bumping package versions for 2.7.
+
 * Wed Oct 12 2016 Grant Gainey 2.6.16-1
 - Update Satellite to Red Hat Satellite (trademark)
 

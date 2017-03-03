@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.2
+Version: 2.7.47
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -62,6 +62,7 @@ BuildRequires: spacewalk-pylint >= 2.2
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
+BuildRequires: spacewalk-usix
 %if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version} > 1310
 BuildRequires: rhnlib >= 2.5.74
 BuildRequires: rhn-client-tools
@@ -74,7 +75,7 @@ BuildRequires: m2crypto
 %endif
 Requires(pre): %{apache_pkg}
 Requires: %{apache_pkg}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 # we don't really want to require this redhat-release, so we protect
 # against installations on other releases using conflicts...
 Obsoletes: rhns-common < 5.3.0
@@ -96,7 +97,7 @@ Requires: %{name} = %{version}-%{release}
 Obsoletes: rhns-sql < 5.3.0
 Provides: rhns-sql = 1:%{version}-%{release}
 Requires: %{name}-sql-virtual = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 
 %description sql
 This package contains the basic code that provides SQL connectivity for
@@ -106,7 +107,7 @@ the Spacewalk backend modules.
 Summary: Oracle backend for Spacewalk
 Group: Applications/Internet
 Requires: python(:DBAPI:oracle)
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Provides: %{name}-sql-virtual = %{version}-%{release}
 
 %description sql-oracle
@@ -117,7 +118,7 @@ modules.
 Summary: Postgresql backend for Spacewalk
 Group: Applications/Internet
 Requires: python-psycopg2 >= 2.0.14-2
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Provides: %{name}-sql-virtual = %{version}-%{release}
 
 %description sql-postgresql
@@ -129,7 +130,7 @@ Summary: Basic code that provides Spacewalk Server functionality
 Group: Applications/Internet
 Requires(pre): %{name}-sql = %{version}-%{release}
 Requires: %{name}-sql = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Requires: PyPAM
 Obsoletes: rhns-server < 5.3.0
 Provides: rhns-server = 1:%{version}-%{release}
@@ -153,7 +154,7 @@ Summary: Handler for /XMLRPC
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Requires: rpm-python
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Obsoletes: rhns-server-xmlrpc < 5.3.0
 Obsoletes: rhns-xmlrpc < 5.3.0
 Provides: rhns-server-xmlrpc = 1:%{version}-%{release}
@@ -168,7 +169,7 @@ and the up2date clients.
 Summary: Handler for /APPLET
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Obsoletes: rhns-applet < 5.3.0
 Provides: rhns-applet = 1:%{version}-%{release}
 
@@ -180,7 +181,7 @@ provides the functions for the Spacewalk applet.
 Summary: Handler for /APP
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Obsoletes: rhns-server-app < 5.3.0
 Obsoletes: rhns-app < 5.3.0
 Provides: rhns-server-app = 1:%{version}-%{release}
@@ -217,7 +218,7 @@ Summary: Listener for the Server XML dumper
 Group: Applications/Internet
 Requires: rpm-python
 Requires: %{name}-xml-export-libs = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 
 %description iss-export
 %{name} contains the basic code that provides server/backend
@@ -236,21 +237,12 @@ BuildRequires: python-devel
 BuildRequires: python2-devel
 Conflicts: %{name} < 1.7.0
 Requires: python-hashlib
-Requires: %{name}-usix
+Requires: spacewalk-usix
 BuildRequires: python-hashlib
 %endif
 
 %description libs
 Libraries required by both Spacewalk server and Spacewalk client tools.
-
-%package usix
-Summary: Spacewalk server and client nano six library
-Group: Applications/Internet
-Provides: %{name}-usix = %{version}-%{release}
-
-%description usix
-Library for writing code that runs on Python 2 and 3
-
 
 %if 0%{?fedora} >= 23
 
@@ -262,19 +254,10 @@ BuildRequires: python-hashlib
 BuildRequires: python3-devel
 Conflicts: %{name} < 1.7.0
 Requires: python3-libs
-Requires: python3-%{name}-usix
+Requires: python3-spacewalk-usix
 
 %description -n python3-%{name}-libs
 Libraries required by Spacewalk client tools on Fedora 23.
-
-%package -n python3-%{name}-usix
-Summary: Spacewalk client micro six library
-Group: Applications/Internet
-Provides: python3-%{name}-usix = %{version}-%{release}
-BuildRequires: python2-devel
-
-%description -n python3-%{name}-usix
-Library for writing code that runs on Python 2 and 3
 
 %endif
 
@@ -282,7 +265,7 @@ Library for writing code that runs on Python 2 and 3
 Summary: Common files for the Configuration Management project
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Obsoletes: rhns-config-files-common < 5.3.0
 Provides: rhns-config-files-common = 1:%{version}-%{release}
 
@@ -303,7 +286,7 @@ This package contains the server-side code for configuration management.
 Summary: Handler for /CONFIG-MANAGEMENT-TOOL
 Group: Applications/Internet
 Requires: %{name}-config-files-common = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Obsoletes: rhns-config-files-tool < 5.3.0
 Provides: rhns-config-files-tool = 1:%{version}-%{release}
 
@@ -339,7 +322,7 @@ Requires: mod_ssl
 Requires: %{name}-xml-export-libs
 Requires: cobbler20
 Requires: rhnlib  >= 2.5.57
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Requires: python-requests
 Requires: m2crypto
 %if 0%{?fedora} || 0%{?rhel} > 5
@@ -357,7 +340,7 @@ Various utilities for the Spacewalk Server.
 Summary: Spacewalk XML data exporter
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Obsoletes: rhns-xml-export-libs < 5.3.0
 Provides: rhns-xml-export-libs = 1:%{version}-%{release}
 
@@ -368,10 +351,11 @@ Libraries required by various exporting tools
 Summary: CDN tools
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Requires: %{name}-usix
+Requires: spacewalk-usix
 Requires: subscription-manager
 Requires: m2crypto
 Requires: cdn-sync-mappings
+Requires: python-argparse
 
 %description cdn
 Tools for syncing content from Red Hat CDN
@@ -393,7 +377,7 @@ make -f Makefile.backend install PREFIX=$RPM_BUILD_ROOT \
 install -d $RPM_BUILD_ROOT%{python3rhnroot}/common
 cp $RPM_BUILD_ROOT%{pythonrhnroot}/__init__.py \
     $RPM_BUILD_ROOT%{python3rhnroot}/
-cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/{__init__.py,usix.py} \
+cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/__init__.py \
     $RPM_BUILD_ROOT%{python3rhnroot}/common
 cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/{checksum.py,cli.py,rhn_deb.py,rhn_mpm.py,rhn_pkg.py,rhn_rpm.py,stringutils.py,fileutils.py,rhnLib.py} \
     $RPM_BUILD_ROOT%{python3rhnroot}/common
@@ -423,12 +407,14 @@ make -f Makefile.backend PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} test || :
 %if 0%{?pylint_check}
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}:/usr/lib/rhn:/usr/share/rhn
+cp %{pythonrhnroot}/common/usix.py $RPM_BUILD_ROOT%{pythonrhnroot}/common
 spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_exporter \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_tools \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/cdn_tools \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/upload_server \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/wsgi
+rm -f $RPM_BUILD_ROOT%{pythonrhnroot}/common/usix.py
 %endif
 
 %if 0%{?fedora} && 0%{?fedora} >= 23
@@ -581,6 +567,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %dir %{_var}/cache/rhn/satsync
 # config files
 %attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server.conf
+# Workaround for strict-whitespace-enforcement in httpd
+%attr(644,root,%{apache_group}) %config %{apacheconfd}/aa-spacewalk-server.conf
+
 # main httpd config
 %attr(644,root,%{apache_group}) %config %{apacheconfd}/zz-spacewalk-server.conf
 
@@ -663,14 +652,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/rhn_rpm.py*
 %{pythonrhnroot}/common/stringutils.py*
 %{pythonrhnroot}/common/rhnLib.py*
-
-%files usix
-%doc LICENSE
-%dir %{pythonrhnroot}
 %{pythonrhnroot}/__init__.py*
-%dir %{pythonrhnroot}/common
 %{pythonrhnroot}/common/__init__.py*
-%{pythonrhnroot}/common/usix.py*
 
 %if 0%{?fedora} && 0%{?fedora} >= 23
 %files -n python3-%{name}-libs
@@ -684,14 +667,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{python3rhnroot}/common/rhn_rpm.py
 %{python3rhnroot}/common/stringutils.py
 %{python3rhnroot}/common/rhnLib.py*
-
-%files -n python3-%{name}-usix
-%doc LICENSE
-%dir %{python3rhnroot}
 %{python3rhnroot}/__init__.py
-%dir %{python3rhnroot}/common
 %{python3rhnroot}/common/__init__.py
-%{python3rhnroot}/common/usix.py
 %endif
 
 %files config-files-common
@@ -820,6 +797,217 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Mar 02 2017 Jan Dobes 2.7.47-1
+- 1427220 - trigger repodata generation after and only if channel packages are
+  updated
+- 1419867 - do not re-subscribe packages to channel if nothing was added
+
+* Thu Mar 02 2017 Jan Dobes 2.7.46-1
+- 1419867 - simplyfying nested blocks
+- wrong-import-position is not present in pylint on Fedora 23
+
+* Wed Mar 01 2017 Jan Dobes 2.7.45-1
+- 1419867 - cache correct path of uploaded package
+- don't use keys() to iterate over a dictionary
+
+* Tue Feb 28 2017 Grant Gainey 2.7.44-1
+- 1427625 - Add strict-httpd-workaround *FIRST* in httpd conf files
+  (bz is a SW-clone of BZ#1422518)
+
+* Mon Feb 27 2017 Jan Dobes 2.7.43-1
+- 1419867 - adding checksum cache for reposync to speed up syncing already
+  synced channel
+
+* Fri Feb 24 2017 Jan Dobes 2.7.42-1
+- Postgresql 9.6 support
+
+* Fri Feb 24 2017 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.41-1
+- Fixing wrong-import-position (C0413) for backend.
+- Fixing ungrouped-imports for backend
+- Fixing trailing-newlines for backend
+- Fixing consider-iterating-dictionary for backend
+
+* Fri Feb 24 2017 Jan Dobes 2.7.40-1
+- align number to right in output
+
+* Thu Feb 23 2017 Jan Dobes 2.7.39-1
+- 1401497 - fixing case when there isn't any valid SSL cert
+- 1401497 - fixing 'ERROR: expected a readable buffer object' on Oracle
+
+* Thu Feb 23 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.38-1
+- temporarily copy usix into buildroot for pylint check
+
+* Tue Feb 21 2017 Jan Dobes 2.7.37-1
+- 1425137 - fixing element CODE undefined
+- 1425137 - close term tags
+
+* Mon Feb 20 2017 Gennadii Altukhov <galt@redhat.com> 2.7.36-1
+- 1390241 - catch exception InvalidArchError and send back an error message
+
+* Fri Feb 17 2017 Jan Dobes 2.7.35-1
+- 1401497 - fixing empty select
+
+* Thu Feb 16 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.34-1
+- require spacewalk-usix in buildtime for pylint
+
+* Wed Feb 15 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.33-1
+- __init__.py should be owned by backend-libs package
+- delete usix source
+
+* Wed Feb 15 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.32-1
+- fix specfile
+- require spacewalk-usix indead of spacewalk-backend-usix
+- remove spacewalk-backend-usix package
+
+* Tue Feb 14 2017 Jan Dobes 2.7.31-1
+- 1420288 - support importing KS files with other checksum type than md5
+
+* Tue Feb 14 2017 Gennadii Altukhov <galt@redhat.com> 2.7.30-1
+- 1418044 - check ISS case in cdn-sync
+
+* Thu Feb 09 2017 Jan Dobes 2.7.29-1
+- 1401497 - complain about certificates during activation
+- 1401497 - adding more details of current SSL certificates in DB
+- 1401497 - support creating repository tree with only repos provided by single
+  client certificate
+- 1401497 - catch on higher level to not mark missing repositories as found
+  repositories with no SSL certificates
+- 1401497 - check SSL dates in reposync
+- 1401497 - check if there is any not-expired ssl set
+- 1401497 - adding function for checking certificate dates
+- 1401497 - fixing repository tree population functions to support multiple ssl
+- 1401497 - fixing import of SSL certificates to import them all
+- require python-argparse for spacewalk-backend-cdn
+- Fix typo
+
+* Wed Feb 01 2017 Jan Dobes 2.7.28-1
+- 1414454 - setting channel_access to private as a default
+
+* Tue Jan 31 2017 Gennadii Altukhov <galt@redhat.com> 2.7.27-1
+- 1413788 - change error messages in satellite-sync and rhn-satellite-activate
+
+* Wed Jan 25 2017 Gennadii Altukhov <galt@redhat.com> 2.7.26-1
+- fix failed packages counting if we cannot download some package
+
+* Wed Jan 25 2017 Gennadii Altukhov <galt@redhat.com> 2.7.25-1
+- 1415193 - fix man page for satellite-sync
+- 1413788 - improve error messages for obsolete options in satellite-sync and
+  rhn-satellite-activate
+
+* Mon Jan 23 2017 Jan Dobes 2.7.24-1
+- 1414697 - fixing pylint
+- 1316708 - fixing case when postgresql is installed but spacewalk is using
+  Oracle
+-   bz#1316708 - added the capability for spacewalk-debug to capture the
+  pg_catalog information from PostgreSQL
+
+* Thu Jan 19 2017 Jan Dobes 2.7.23-1
+- 1414697 - proxy can't be specified in multiple parameters on all versions of
+  urlgrabber
+
+* Thu Jan 19 2017 Gennadii Altukhov <galt@redhat.com> 2.7.22-1
+- 1395815 - change permissions for /var/satellite/rhn* after syncing of a
+  channel
+
+* Wed Jan 18 2017 Gennadii Altukhov <galt@redhat.com> 2.7.21-1
+- bz1412600 - error during syncing duplicated channel's labels
+
+* Mon Jan 16 2017 Gennadii Altukhov <galt@redhat.com> 2.7.20-1
+- 1406462 - add possibility to use previous manifest
+
+* Thu Jan 12 2017 Gennadii Altukhov <galt@redhat.com> 2.7.19-1
+- 1412617 - Oracle backend returns LOB object not a string, convert to string
+
+* Fri Jan 06 2017 Gennadii Altukhov <galt@redhat.com> 2.7.18-1
+- 1406462 - print help if no options were provided for rhn-satellite-activate
+
+* Wed Jan 04 2017 Jan Dobes 2.7.17-1
+- 1409434 - fixing mirror expansion
+
+* Wed Jan 04 2017 Jan Dobes 2.7.16-1
+- 1410149 - fixing activation on s390x
+- 1410146 - fixing entitlements without provided products
+
+* Tue Jan 03 2017 Gennadii Altukhov <galt@redhat.com> 2.7.15-1
+- fix usability bug in reposync
+- 1406038 - show number of packages which are failed during a channel syncing
+
+* Tue Jan 03 2017 Jan Dobes 2.7.14-1
+- 1409434 - this option works differently on different yum versions, reverting
+  for now
+- 1409434 - make baseurls in good format when not expanding mirrors
+- 1409434 - don't have to be in try block
+
+* Mon Jan 02 2017 Jan Dobes 2.7.13-1
+- 1401488 - Fixes the following error on errata-sync: ERROR: cannot concatenate
+  'str' and 'int' objects
+
+* Mon Jan 02 2017 Jan Dobes <jdobes@redhat.com> 2.7.12-1
+- 1409434 - fixing parameters
+- 1409434 - fixing pylint
+
+* Mon Jan 02 2017 Jan Dobes <jdobes@redhat.com> 2.7.11-1
+- 1409434 - make updating repodata default
+- 1409434 - log2stderr will not get it into log files
+- 1409434 - remove downloaded packages as well
+- 1409434 - returning ret_code is expected
+- 1409434 - adding option for overwriting kickstart data
+- 1409434 - do not try to link not imported package to channel
+- 1409434 - add multithreaded download to reposync
+- 1409434 - fixing broken pipe on long output and release locks
+- 1409434 - consistent time
+- 1409434 - improve list format
+- 1409434 - suppress "Unknown channel family" messages
+- 1409434 - support counting single channel
+- 1409434 - fixing argument format
+- 1409434 - download all repomd first and skip repositories with up to date
+  repomd
+- 1409434 - configurable threads
+- 1409434 - work with mirrors
+- 1409434 - work with proxy
+- 1409434 - changing parameter format, add function for setting parameters, add
+  text log class
+- 1409434 - retry download, checksum etc.
+- 1409434 - adding multi-threaded downloader
+- 1409434 - repodata can contain only sha word
+- 1409434 - we can skip mirror expansion in cdnsync
+- 1409434 - adding function to check if there is newer repomd in repository
+  than in cache
+- 1409434 - support keeping repomd in cache
+
+* Mon Dec 19 2016 Gennadii Altukhov <galt@redhat.com> 2.7.10-1
+- 1395815 - fix permissions for Kickstart Tree paths
+
+* Fri Dec 16 2016 Gennadii Altukhov <galt@redhat.com> 2.7.9-1
+- 1405039 - continue syncing if we cannot download some packages
+- close log file handler for yum plugin to avoid file descriptors leak
+
+* Thu Dec 15 2016 Gennadii Altukhov <galt@redhat.com> 2.7.8-1
+- 1404033 - return non-zero return code if channel has no URL associated
+
+* Thu Dec 15 2016 Gennadii Altukhov <galt@redhat.com> 2.7.7-1
+- 1397417 - fix memory leaks in cdn-sync and spacewalk-repo-sync. * remove a
+  circular dependency between YumRepository and ContentSource * optimize memory
+  consumption
+
+* Mon Dec 12 2016 Gennadii Altukhov <galt@redhat.com> 2.7.6-1
+- 1403898 - spacewalk-repo-sync returns non-zero return code if some problems
+  occured
+
+* Mon Dec 12 2016 Gennadii Altukhov <galt@redhat.com> 2.7.5-1
+- 1397427 - add non-zero return code and error message if some problems
+  occurred during syncing
+
+* Wed Nov 30 2016 Jan Dobes 2.7.4-1
+- 1387173 - only user repositories should be allowed to configure, accessing
+  self.yumbase.repos.repos can take long, do it once
+
+* Mon Nov 28 2016 Jan Dobes 2.7.3-1
+- 1387173 - make possible to configure by channel
+- 1387173 - make sure org_id is string
+- 1387173 - make possible to setup repository configuration with guessable name
+  and keep org_id information
+
 * Mon Nov 21 2016 Jan Dobes 2.7.2-1
 - 1395207 - recognize downloaded headers by yum
 

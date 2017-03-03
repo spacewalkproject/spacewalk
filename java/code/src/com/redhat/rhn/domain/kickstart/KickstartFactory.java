@@ -37,6 +37,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -53,7 +54,7 @@ import java.util.Set;
  */
 public class KickstartFactory extends HibernateFactory {
 
-
+    private static final int IN_CLAUSE_MAX_SIZE = 1000;
     private static KickstartFactory singleton = new KickstartFactory();
     private static Logger log = Logger.getLogger(KickstartFactory.class);
 
@@ -1072,22 +1073,27 @@ public class KickstartFactory extends HibernateFactory {
      */
     public static void failKickstartSessions(Set actionsToDelete, Set servers) {
         Session session = HibernateFactory.getSession();
-        Iterator iter;
         KickstartSessionState failed = KickstartFactory.SESSION_STATE_FAILED;
         Query kickstartSessionQuery = session.getNamedQuery(
                 "KickstartSession.findPendingForActions");
-        kickstartSessionQuery.setParameterList("servers", servers);
         kickstartSessionQuery.setParameterList("actions_to_delete", actionsToDelete);
+        int subStart = 0;
+        List serverList = new ArrayList(servers);
+        while (subStart < servers.size()) {
+            int subLength = subStart + IN_CLAUSE_MAX_SIZE >= serverList.size() ?
+                    serverList.size() - subStart : IN_CLAUSE_MAX_SIZE;
+            List subClause = serverList.subList(subStart, subStart + subLength);
+            subStart += subLength;
+            kickstartSessionQuery.setParameterList("servers", subClause);
+            List ksSessions = kickstartSessionQuery.list();
+            for (Object next : ksSessions) {
+                KickstartSession ks = (KickstartSession)next;
+                log.debug("Failing kickstart associated with action: " + ks.getId());
+                ks.setState(failed);
+                ks.setAction(null);
 
-        List ksSessions = kickstartSessionQuery.list();
-        iter = ksSessions.iterator();
-        while (iter.hasNext()) {
-            KickstartSession ks = (KickstartSession)iter.next();
-            log.debug("Failing kickstart associated with action: " + ks.getId());
-            ks.setState(failed);
-            ks.setAction(null);
-
-            setKickstartSessionHistoryMessage(ks, failed, KICKSTART_CANCELLED_MESSAGE);
+                setKickstartSessionHistoryMessage(ks, failed, KICKSTART_CANCELLED_MESSAGE);
+            }
         }
     }
 

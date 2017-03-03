@@ -2,7 +2,7 @@
 
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        2.7.0
+Version:        2.7.1
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
@@ -13,7 +13,20 @@ Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $versi
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRequires:  perl(ExtUtils::MakeMaker)
 %if 0%{?fedora} && 0%{?fedora} >= 24
-BuildRequires: perl-Test
+BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  make
+BuildRequires:  perl
+BuildRequires:  perl-generators
+# Run-time:
+# bytes not used at tests
+# Data::Dumper not used at tests
+# File::Find not used at tests
+# File::Path not used at tests
+# Getopt::Long not used at tests
+BuildRequires:  perl(strict)
+# Tests:
+BuildRequires:  perl(Test)
 %endif
 Requires:       %{sbinpath}/restorecon
 
@@ -50,6 +63,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Mon Jan 23 2017 Jan Dobes 2.7.1-1
+- Specify all dependencies
+- Bumping package versions for 2.7.
+
 * Wed Jul 20 2016 Tomas Lestach <tlestach@redhat.com> 2.6.1-1
 - let's BuildRequire perl-Test for perl-Satcon
 - Bumping package versions for 2.6.

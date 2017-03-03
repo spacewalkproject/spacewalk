@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.5
+Version: 2.7.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -730,6 +730,94 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 22 2017 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.29-1
+- 1384093 - action now store its completion time
+
+* Mon Feb 20 2017 Jan Dobes 2.7.28-1
+- 1414459 - unschedule task only if exists
+
+* Fri Feb 10 2017 Jan Dobes 2.7.27-1
+- Fix JSP logic and readability
+- Fix issue with checkboxes not being checked
+- Fix broken merge (bsc#987864)
+
+* Thu Feb 09 2017 Jan Dobes 2.7.26-1
+- 1401497 - changing BaseRepoCommand to abstract class and some checkstyle
+  fixes
+- 1401497 - updating serializers
+- 1401497 - updating repo create/edit API calls
+- 1401497 - updating repo create/edit page
+- 1401497 - update command to support multiple ssl sets per repository
+- 1401497 - updating hibernate mapping
+
+* Thu Feb 09 2017 Gennadii Altukhov <galt@redhat.com> 2.7.25-1
+- 1418746 - add possibility to add systems to SSM from ProxyClients page
+
+* Fri Feb 03 2017 Gennadii Altukhov <galt@redhat.com> 2.7.24-1
+- 1408167 - escape XML in name of a system in Proxy list
+
+* Fri Feb 03 2017 Gennadii Altukhov <galt@redhat.com> 2.7.23-1
+- fixup
+- fixup
+- 1414421 - fix unhandled internal exception: null
+- 1416810 - change the name of logfile
+- fixing year
+
+* Wed Jan 25 2017 Eric Herget <eherget@redhat.com> 2.7.22-1
+- 1394299 - fix regression with virt system status display
+
+* Wed Jan 25 2017 Jiri Dostal <jdostal@redhat.com> 2.7.21-1
+- 1332805 - The problematic editing of kickstart profile - custom options
+
+* Mon Jan 23 2017 Jan Dobes 2.7.20-1
+- Use human-parseable dates for server notes (bsc#969564) (#863)
+
+* Thu Jan 19 2017 Jiri Dostal <jdostal@redhat.com> 2.7.19-1
+- 1324737 - [RFE] API call to get list of Systems Requiring Reboot
+
+* Fri Jan 13 2017 Grant Gainey 2.7.18-1
+- 1412555 - order all kickstart-tree-queries by label
+
+* Thu Jan 12 2017 Gennadii Altukhov <galt@redhat.com> 2.7.17-1
+- 1412177 - fix ISE when Kickstart File contains only newlines
+
+* Wed Jan 11 2017 Gennadii Altukhov <galt@redhat.com> 2.7.16-1
+- 1408167 - add links to systems in JSP
+
+* Tue Jan 10 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.15-1
+- update year in copyright
+
+* Fri Jan 06 2017 Gennadii Altukhov <galt@redhat.com> 2.7.14-1
+- 1410754 - fix Internal Server Error when kickstart file is empty
+- re-implement createMonitoringScout API for backward compatibility
+
+* Wed Dec 21 2016 Tomas Lestach <tlestach@redhat.com> 2.7.13-1
+- bz1389349 change taskomatic uuid task to writemode vs callable
+
+* Wed Dec 21 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.12-1
+- edit method description
+- fixing checkstyle - long line
+- keep satellite.isMonitoringEnabled API for backward compatibility
+
+* Tue Dec 20 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.11-1
+- 1384093 - new API call failSystemAction
+
+* Wed Dec 14 2016 Jiri Dostal <jdostal@redhat.com> 2.7.10-1
+- Fix: remove double and useless check
+
+* Wed Dec 07 2016 Eric Herget <eherget@redhat.com> 2.7.9-1
+- 1402522 - Cancelling schedule action on Oracle fails when number of systems
+  greater than 1000
+
+* Wed Dec 07 2016 Jiri Dostal <jdostal@redhat.com> 2.7.8-1
+- 1399841 - Remote command execution allows integers outside 32 bit range
+
+* Fri Dec 02 2016 Jiri Dostal <jdostal@redhat.com> 2.7.7-1
+- 1250572 - Text description missing for remote command by API and spacecmd
+
+* Wed Nov 30 2016 Grant Gainey 2.7.6-1
+- 1385099 - delete activation-keys using mode-query instead of hibernate
+
 * Tue Nov 22 2016 Eric Herget <eherget@redhat.com> 2.7.5-1
 - 1394299 - clean up system id inclusion in virt systems csv download
 

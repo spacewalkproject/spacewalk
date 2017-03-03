@@ -24,7 +24,6 @@ CREATE TABLE rhnPushDispatcher
     last_checkin  timestamp with local time zone
                       DEFAULT (current_timestamp) NOT NULL,
     hostname      VARCHAR2(256) NOT NULL,
-    port          NUMBER NOT NULL,
     created       timestamp with local time zone
                       DEFAULT (current_timestamp) NOT NULL,
     modified      timestamp with local time zone

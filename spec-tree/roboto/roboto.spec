@@ -5,14 +5,14 @@
 %endif
 
 Name:           roboto
-Version:        1.2
-Release:        3%{?dist}
+Version:        1.3
+Release:        1%{?dist}
 Summary:        Roboto font
 
 Group:          Application/Internet
 License:        Apache Software License v2
 URL:            http://developer.android.com/design/style/typography.html
-Source0:        http://developer.android.com/downloads/design/roboto-1.2.zip
+Source0:        http://developer.android.com/downloads/design/roboto-1.3.tar.gz
 %if 0%{?suse_version}
 BuildRequires:  unzip
 %endif
@@ -52,8 +52,8 @@ and the Roboto Slab family.
 %install
 rm -rf %{buildroot}
 install -d -m 755 %{buildroot}%{apachedocroot}/fonts/
-rm -f Roboto_v1.2/*/{Icon,.DS_Store}
-cp -a Roboto_v1.2/Roboto Roboto_v1.2/RobotoCondensed %{buildroot}%{apachedocroot}/fonts/
+rm -f Roboto_v1.3/*/{Icon,.DS_Store}
+cp -a Roboto_v1.3/Roboto Roboto_v1.3/RobotoCondensed %{buildroot}%{apachedocroot}/fonts/
 
 %clean
 rm -rf %{buildroot}
@@ -75,6 +75,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Jan 20 2017 Grant Gainey 1.3-1
+- 1208421 - Update Roboto fonts
+
 * Tue May 10 2016 Grant Gainey 1.2-3
 - roboto: build on openSUSE
 

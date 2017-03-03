@@ -743,6 +743,14 @@ sub _oracle_check_connect_info {
         if (not $@) {
                 # We were able to connect to the database. Good.
                 return 2;
+        } else {
+                # Bugzilla 466747: On s390x, stty: standard input: Bad file descriptor
+                # For some reason DBI mistakenly sets FD_CLOEXEC on a stdin file descriptor
+                # here. This made it impossible for us to succesfully call `stty -echo`
+                # later in the code. Following two lines work around the problem.
+
+                my $flags = fcntl(STDIN, F_GETFD, 0);
+                fcntl(STDIN, F_SETFD, $flags & ~FD_CLOEXEC);
         }
         if (not defined DBI->err()) {   # maybe we failed to load the DBD?
                 die $@;
@@ -1942,7 +1950,7 @@ Proceed with upgrade if services are already stopped.
 
 =item B<--run-updater=<yes|no>>
 
-Set to 'yes' to automatically install needed packages from RHN, provided the system is registered. Set to 'no' to terminate the installer if any needed packages are missing.
+Set to 'yes' to automatically install needed packages from RHSM, provided the system is registered. Set to 'no' to terminate the installer if any needed packages are missing.
 
 =item B<--run-cobbler>
 

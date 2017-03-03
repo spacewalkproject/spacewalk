@@ -19,19 +19,20 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.75
+Version: 5.11.80
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
+BuildRequires: perl
 BuildRequires: python-devel
 Requires: python
 %if 0%{?fedora} >= 23
 Requires: python3-rhnlib
-Requires: python3-spacewalk-backend-usix
+Requires: python3-spacewalk-usix
 Requires: python3-jabberpy
 %else
 Requires: rhnlib >= 1.8-3
-Requires: spacewalk-backend-usix
+Requires: spacewalk-usix
 Requires: jabberpy
 %endif
 Requires: osa-common = %{version}
@@ -339,12 +340,6 @@ fi
 %postun -n osa-dispatcher-selinux
 # Clean up after package removal
 if [ $1 -eq 0 ]; then
-
-  /usr/sbin/semanage port -ln \
-    | perl '-F/,?\s+/' -ane 'print map "$_\n", @F if shift @F eq "osa_dispatcher_upstream_notif_server_port_t" and shift @F eq "tcp"' \
-    | while read port ; do \
-      /usr/sbin/semanage port -d -t osa_dispatcher_upstream_notif_server_port_t -p tcp $port || :
-    done
   for selinuxvariant in %{selinux_variants}
     do
       /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
@@ -424,6 +419,22 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Thu Feb 16 2017 Eric Herget <eherget@redhat.com> 5.11.80-1
+- BZ1410781 - osad doesn't pick up tasks following a reboot event
+
+* Wed Feb 15 2017 Tomas Kasparek <tkasparek@redhat.com> 5.11.79-1
+- require spacewalk-usix indead of spacewalk-backend-usix
+
+* Tue Feb 07 2017 Eric Herget <eherget@redhat.com> 5.11.78-1
+- 1419199 - fix osa_dispatcher so it can successfully register with jabberd
+
+* Mon Jan 23 2017 Jan Dobes 5.11.77-1
+- removing selinux port requirements
+- Drop code used from the Perl stack to 'trickle' OSAD
+
+* Tue Nov 29 2016 Jan Dobes 5.11.76-1
+- perl isn't in Fedora 25 buildroot
+
 * Mon Nov 21 2016 Gennadii Altukhov <galt@redhat.com> 5.11.75-1
 - 1397078: fix python2/3 StringIO import
 

@@ -140,7 +140,7 @@ def do_report_errata(self, args):
 
     # XXX: max(list, key=len) in >2.5
     max_size = 0
-    for e in report.keys():
+    for e in report:
         size = len(e)
         if size > max_size:
             max_size = size
@@ -183,7 +183,7 @@ def do_report_ipaddresses(self, args):
 
     # XXX: max(list, key=len) in >2.5
     system_max_size = 0
-    for s in report.keys():
+    for s in report:
         size = len(s)
         if size > system_max_size:
             system_max_size = size
@@ -237,7 +237,7 @@ def do_report_kernels(self, args):
 
     # XXX: max(list, key=len) in >2.5
     system_max_size = 0
-    for s in report.keys():
+    for s in report:
         size = len(s)
         if size > system_max_size:
             system_max_size = size

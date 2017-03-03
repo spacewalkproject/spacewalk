@@ -18,7 +18,7 @@ from spacewalk.satellite_tools import satCerts
 from spacewalk.server import rhnSQL
 from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.channelImport import ChannelFamilyImport
-from spacewalk.server.importlib.importLib import ChannelFamily, ContentSource
+from spacewalk.server.importlib.importLib import ChannelFamily, ContentSource, ContentSourceSsl
 from spacewalk.server.importlib.contentSourcesImport import ContentSourcesImport
 from spacewalk.server.rhnServer.satellite_cert import SatelliteCert
 from common import verify_mappings
@@ -69,16 +69,20 @@ class Activation(object):
             if f is not None:
                 f.close()
 
+        if not satCerts.verify_certificate_dates(str(ca_cert)):
+            print("WARNING: '%s' certificate is not valid." % constants.CA_CERT_PATH)
         # Insert RHSM cert and certs from manifest into DB
         satCerts.store_rhnCryptoKey(
             constants.CA_CERT_NAME, ca_cert, None)
 
         for entitlement in self.manifest.get_all_entitlements():
             creds = entitlement.get_credentials()
-            satCerts.store_rhnCryptoKey(
-                constants.CLIENT_CERT_PREFIX + creds.get_id(), creds.get_cert(), None)
-            satCerts.store_rhnCryptoKey(
-                constants.CLIENT_KEY_PREFIX + creds.get_id(), creds.get_key(), None)
+            cert_name = constants.CLIENT_CERT_PREFIX + creds.get_id()
+            key_name = constants.CLIENT_KEY_PREFIX + creds.get_id()
+            if not satCerts.verify_certificate_dates(str(creds.get_cert())):
+                print("WARNING: '%s' certificate is not valid." % cert_name)
+            satCerts.store_rhnCryptoKey(cert_name, creds.get_cert(), None)
+            satCerts.store_rhnCryptoKey(key_name, creds.get_key(), None)
 
     def import_channel_families(self):
         """Insert channel family data into DB."""
@@ -134,6 +138,7 @@ class Activation(object):
 
         content_sources_batch = {}
         for entitlement in self.manifest.get_all_entitlements():
+            # Lookup SSL certificates and keys
             creds = entitlement.get_credentials()
             client_cert = satCerts.lookup_cert(constants.CLIENT_CERT_PREFIX +
                                                creds.get_id(), None)
@@ -141,6 +146,11 @@ class Activation(object):
                                               creds.get_id(), None)
             client_cert_id = int(client_cert['id'])
             client_key_id = int(client_key['id'])
+            content_source_ssl = ContentSourceSsl()
+            content_source_ssl['ssl_ca_cert_id'] = ca_cert_id
+            content_source_ssl['ssl_client_cert_id'] = client_cert_id
+            content_source_ssl['ssl_client_key_id'] = client_key_id
+            # Loop provided products
             for product in entitlement.get_products():
                 repositories = product.get_repositories()
                 for repository in repositories:
@@ -150,10 +160,11 @@ class Activation(object):
                         content_source['source_url'] = repositories[repository]
                         content_source['org_id'] = None
                         content_source['type_id'] = type_id
-                        content_source['ssl_ca_cert_id'] = ca_cert_id
-                        content_source['ssl_client_cert_id'] = client_cert_id
-                        content_source['ssl_client_key_id'] = client_key_id
+                        content_source['ssl-sets'] = [content_source_ssl]
                         content_sources_batch[repository] = content_source
+                    # There may be more SSL certs to one repository, append it
+                    elif content_source_ssl not in content_sources_batch[repository]['ssl-sets']:
+                        content_sources_batch[repository]['ssl-sets'].append(content_source_ssl)
 
         importer = ContentSourcesImport(content_sources_batch.values(), backend)
         importer.run()

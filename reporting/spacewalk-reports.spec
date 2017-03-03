@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.0
+Version: 2.7.3
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -46,6 +46,18 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Feb 22 2017 Jan Dobes 2.7.3-1
+- 1401497 - fixing query
+
+* Tue Dec 20 2016 Gennadii Altukhov <galt@redhat.com> 2.7.2-1
+- 1405351 - spacewalk-report return placeholder to SQL request for repositories
+  report
+
+* Tue Dec 20 2016 Gennadii Altukhov <galt@redhat.com> 2.7.1-1
+- 1405351 - spacewalk-report should reports repositories for a non-null
+  organizations only
+- Bumping package versions for 2.7.
+
 * Thu Oct 20 2016 Jan Dobes 2.6.3-1
 - fixing occurences in code
 

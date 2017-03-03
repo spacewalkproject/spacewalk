@@ -733,20 +733,26 @@ def get_system_names(self):
     return self.all_systems.values()
 
 
+def get_system_names_ids(self):
+    self.generate_system_cache()
+    return self.all_systems
+
+
 # check for duplicate system names and return the system ID
 def get_system_id(self, name):
+    name = str(name)
     self.generate_system_cache()
+    systems = []
 
     try:
         # check if we were passed a system instead of a name
         system_id = int(name)
         if system_id in self.all_systems:
-            return system_id
+            systems.append(system_id)
     except ValueError:
         pass
 
     # get a set of matching systems to check for duplicate names
-    systems = []
     for system_id in self.all_systems:
         if name == self.all_systems[system_id]:
             systems.append(system_id)
@@ -757,6 +763,8 @@ def get_system_id(self, name):
         logging.warning("Can't find system ID for %s", name)
         return 0
     else:
+        if len(systems) == 2 and systems[0] == systems[1]:
+            return systems[0]
         logging.warning('Duplicate system profile names found!')
         logging.warning("Please reference systems by ID or resolve the")
         logging.warning("underlying issue with 'system_delete' or 'system_rename'")
@@ -851,7 +859,7 @@ def expand_systems(self, args):
 
     matches = filter_results(self.get_system_names(), systems)
 
-    return list(set(matches + system_ids))
+    return [str(x) for x in list(set(matches + system_ids))]
 
 
 def list_base_channels(self):

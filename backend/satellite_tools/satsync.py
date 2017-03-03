@@ -17,6 +17,7 @@
 
 
 # __lang. imports__
+# pylint: disable=E0012, C0413
 import datetime
 import os
 import sys
@@ -214,7 +215,7 @@ class Runner:
 
         log(1, '   db:  %s/<password>@%s' % (CFG.DB_USER, CFG.DB_NAME))
 
-        selected = [action for action in list(actionDict.keys()) if actionDict[action]]
+        selected = [action for action in list(actionDict) if actionDict[action]]
         log2(-1, 3, "Action list/commandline toggles: %s" % repr(selected),
              stream=sys.stderr)
 
@@ -481,7 +482,9 @@ class Syncer:
                 is_iss = 1
             else:
                 log(1, _(PRODUCT_NAME + ' - live synchronization'))
-                log(-1, _("ERROR: Can't use live synchronization from RHN. This is not supported."),
+                log(-1, _("ERROR: Live content synchronizing with RHN Classic Hosted is no longer supported.\nPlease "
+                          "use the cdn-sync command instead unless you are attempting to sync from another Satellite "
+                          "via Inter-Satelite-Sync (ISS), or from local content on disk via Channel Dump ISOs."),
                     stream=sys.stderr)
                 sys.exit(1)
 
@@ -2287,7 +2290,7 @@ def processCommandline():
                     "force_all_errata": 'force-all-errata',
                     'no_ssl': 'no-ssl'}
 
-    for oa in otherActions.keys():
+    for oa in otherActions:
         if getattr(OPTIONS, oa):
             actionDict[otherActions[oa]] = 1
         else:

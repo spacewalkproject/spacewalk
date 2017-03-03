@@ -14,6 +14,7 @@
 #
 
 
+# pylint: disable=E0012, C0413
 # system imports
 import os
 import sys

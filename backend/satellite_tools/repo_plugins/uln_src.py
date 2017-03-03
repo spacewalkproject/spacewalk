@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 ULN plugin for spacewalk-repo-sync.
 """
+# pylint: disable=E0012, C0413
 import sys
 sys.path.append('/usr/share/rhn')
 from up2date_client.rpcServer import RetryServer, ServerList
@@ -66,6 +67,6 @@ class ContentSource(yum_ContentSource):
         s.addServerList(slist)
         self.key = s.auth.login(self.uln_user, self.uln_pass)
 
-    def setup_repo(self, repo):
+    def setup_repo(self, repo, *args, **kwargs):
         repo.http_headers = {'X-ULN-Api-User-Key': self.key}
-        yum_ContentSource.setup_repo(self, repo)
+        yum_ContentSource.setup_repo(self, repo, *args, **kwargs)

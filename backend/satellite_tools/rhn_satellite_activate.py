@@ -203,21 +203,27 @@ def prepRhsmManifest(options):
 
 
 def enableSatelliteRepo(rhn_cert):
-    args = ['rpm', '-q', '--qf', '\'%{version}\'', '-f', '/etc/redhat-release']
+    args = ['rpm', '-q', '--qf', '\'%{version} %{arch}\'', '-f', '/etc/redhat-release']
     ret, out, err = fileutils.rhn_popen(args)
+    data = out.read().strip("'")
+    version, arch = data.split()
     # Read from stdout, strip quotes if any and extract first number
-    version = re.search(r'\d+', out.read().strip("'")).group()
+    version = re.search(r'\d+', version).group()
 
     if version not in SUPPORTED_RHEL_VERSIONS:
         msg = "WARNING: No Satellite repository available for RHEL version: %s.\n" % version
         sys.stderr.write(msg)
         return
 
+    arch_str = "server"
+    if arch == "s390x":
+        arch_str = "system-z"
+
     sat_cert = satellite_cert.SatelliteCert()
     sat_cert.load(rhn_cert)
     sat_version = getattr(sat_cert, 'satellite-version')
 
-    repo = "rhel-%s-server-satellite-%s-rpms" % (version, sat_version)
+    repo = "rhel-%s-%s-satellite-%s-rpms" % (version, arch_str, sat_version)
     args = ['/usr/bin/subscription-manager', 'repos', '--enable', repo]
     ret, out, err = fileutils.rhn_popen(args)
     if ret:
@@ -273,11 +279,13 @@ def processCommandline():
                + '(accumulable: -vvv means "be *really* verbose").'),
         Option('--dump-version', action='store', help="requested version of XML dump"),
         Option('--manifest',     action='store',      help='the RHSM manifest path/filename to activate for CDN'),
+        Option('--rhn-cert', action='store', help='this option is deprecated, use --manifest instead'),
         Option('--cdn-deactivate', action='store_true', help='deactivate CDN-activated Satellite'),
         Option('--disconnected', action='store_true', help="activate locally, not subscribe to remote repository")
     ]
 
-    options, args = OptionParser(option_list=options).parse_args()
+    parser = OptionParser(option_list=options)
+    options, args = parser.parse_args()
 
     # we take no extra commandline arguments that are not linked to an option
     if args:
@@ -353,6 +361,18 @@ def main():
         cdn_activation.Activation.deactivate()
         return 0
 
+    if options.rhn_cert:
+        writeError("Activation with RHN Classic Satellite Certificate is deprecated.\nPlease obtain a Manifest for this"
+                   " Satellite version via https://access.redhat.com/knowledge/tools/satcert, "
+                   "and re-run this activation tool with option --manifest=MANIFEST-FILE.")
+        sys.exit(1)
+
+    if not options.manifest:
+        if os.path.exists(DEFAULT_RHSM_MANIFEST_LOCATION):
+            options.manifest = DEFAULT_RHSM_MANIFEST_LOCATION
+        else:
+            writeError("Manifest was not provided. Run the activation tool with option --manifest=MANIFEST.")
+            sys.exit(1)
     # Handle RHSM manifest
     try:
         cdn_activate = cdn_activation.Activation(options.manifest)
@@ -412,4 +432,3 @@ if __name__ == "__main__":
                      '           calling program.\n')
     sys.exit(abs(main() or 0))
 #===============================================================================
-

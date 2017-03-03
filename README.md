@@ -14,7 +14,7 @@ Resources
 Following links might be of value in case you are interested:
 
   * [project pages](http://spacewalkproject.org/),
-  * [wiki](https://fedorahosted.org/spacewalk/),
+  * [wiki](https://github.com/spacewalkproject/spacewalk/wiki),
   * [issue tracker (Bugzilla)](https://bugzilla.redhat.com/enter_bug.cgi?product=Spacewalk).
 
 [RedHatSatellite]: https://www.redhat.com/products/enterprise-linux/satellite/

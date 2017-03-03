@@ -92,6 +92,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidParameterException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProfileLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidSystemException;
 import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
+import com.redhat.rhn.frontend.xmlrpc.NoPushClientException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchActionException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchCobblerSystemRecordException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchNetworkInterfaceException;
@@ -198,10 +199,7 @@ public class SystemHandler extends BaseHandler {
         // creating a new one... there should only be 1; however, earlier
         // versions of the API did not remove the existing reactivation keys;
         // therefore, it is possible that multiple will be returned...
-        List<ActivationKey> existingKeys = ActivationKeyFactory.lookupByServer(server);
-        for (ActivationKey key : existingKeys) {
-            ActivationKeyFactory.removeKey(key);
-        }
+        ActivationKeyFactory.removeKeysForServer(server.getId());
 
         String note = "Reactivation key for " + server.getName() + ".";
         ActivationKey key = ActivationKeyManager.getInstance().
@@ -3594,131 +3592,31 @@ public class SystemHandler extends BaseHandler {
      * Schedule a script to run.
      *
      * @param loggedInUser The current user
-     * @param systemIds IDs of the servers to run the script on.
-     * @param username User to run script as.
-     * @param groupname Group to run script as.
-     * @param timeout Seconds to allow the script to run before timing out.
-     * @param script Contents of the script to run.
-     * @param earliest Earliest the script can run.
+     * @param label        Text description
+     * @param systemIds    IDs of the servers to run the script on.
+     * @param username     User to run script as.
+     * @param groupname    Group to run script as.
+     * @param timeout      Seconds to allow the script to run before timing out.
+     * @param script       Contents of the script to run.
+     * @param earliest     Earliest the script can run.
      * @return ID of the new script action.
-     *
      * @xmlrpc.doc Schedule a script to run.
      * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "label")
      * @xmlrpc.param #array_single("int", "System IDs of the servers to run the script on.")
      * @xmlrpc.param #param_desc("string", "username", "User to run script as.")
      * @xmlrpc.param #param_desc("string", "groupname", "Group to run script as.")
      * @xmlrpc.param #param_desc("int", "timeout", "Seconds to allow the script to run
-     *                                      before timing out.")
+     *before timing out.")
      * @xmlrpc.param #param_desc("string", "script", "Contents of the script to run.")
      * @xmlrpc.param #param_desc("dateTime.iso8601", "earliestOccurrence",
-     *                  "Earliest the script can run.")
+     * "Earliest the script can run.")
      * @xmlrpc.returntype int - ID of the script run action created. Can be used to fetch
      * results with system.getScriptResults.
      */
-    public Integer scheduleScriptRun(User loggedInUser, List<Integer> systemIds,
-            String username, String groupname, Integer timeout, String script,
-            Date earliest) {
-
-        ScriptActionDetails scriptDetails = ActionManager.createScript(username, groupname,
-                new Long(timeout.longValue()), script);
-        ScriptAction action = null;
-
-        List<Long> servers = new ArrayList<Long>();
-
-        for (Iterator<Integer> sysIter = systemIds.iterator(); sysIter.hasNext();) {
-            Integer sidAsInt = sysIter.next();
-            Long sid = new Long(sidAsInt.longValue());
-            try {
-                SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
-                        loggedInUser);
-                servers.add(sid);
-            }
-            catch (LookupException e) {
-                throw new NoSuchSystemException();
-            }
-        }
-
-        try {
-            action = ActionManager.scheduleScriptRun(loggedInUser, servers,
-                    null, scriptDetails, earliest);
-        }
-        catch (MissingCapabilityException e) {
-            throw new com.redhat.rhn.frontend.xmlrpc.MissingCapabilityException();
-        }
-        catch (MissingEntitlementException e) {
-            throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
-        }
-
-        return new Integer(action.getId().intValue());
-    }
-
-    /**
-     * Schedule a script to run.
-     *
-     * @param loggedInUser The current user
-     * @param sid ID of the server to run the script on.
-     * @param username User to run script as.
-     * @param groupname Group to run script as.
-     * @param timeout Seconds to allow the script to run before timing out.
-     * @param script Contents of the script to run.
-     * @param earliest Earliest the script can run.
-     * @return ID of the new script action.
-     *
-     * @xmlrpc.doc Schedule a script to run.
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param_desc("int", "serverId",
-     *          "ID of the server to run the script on.")
-     * @xmlrpc.param #param_desc("string", "username", "User to run script as.")
-     * @xmlrpc.param #param_desc("string", "groupname", "Group to run script as.")
-     * @xmlrpc.param #param_desc("int", "timeout", "Seconds to allow the script to run
-     *                                      before timing out.")
-     * @xmlrpc.param #param_desc("string", "script", "Contents of the script to run.")
-     * @xmlrpc.param #param_desc("dateTime.iso8601", "earliestOccurrence",
-     *                  "Earliest the script can run.")
-     * @xmlrpc.returntype int - ID of the script run action created. Can be used to fetch
-     * results with system.getScriptResults.
-     */
-    public Integer scheduleScriptRun(User loggedInUser, Integer sid, String username,
-            String groupname, Integer timeout, String script, Date earliest) {
-
-        List<Integer> systemIds = new ArrayList<Integer>();
-        systemIds.add(sid);
-
-        return scheduleScriptRun(loggedInUser, systemIds, username, groupname, timeout,
-                script, earliest);
-    }
-    /**
-     * Schedule a script with label to run.
-     *
-     * @param loggedInUser The current user
-     * @param label Description/label for script
-     * @param systemIds IDs of the servers to run the script on.
-     * @param username User to run script as.
-     * @param groupname Group to run script as.
-     * @param timeout Seconds to allow the script to run before timing out.
-     * @param script Contents of the script to run.
-     * @param earliest Earliest the script can run.
-     * @return ID of the new script action.
-     *
-     * @xmlrpc.doc Schedule a script to run.
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param_desc("string", "label","Label or short description of script.")
-     * @xmlrpc.param #array_single("int", "System IDs of the servers to run the script on.")
-     * @xmlrpc.param #param_desc("string", "username", "User to run script as.")
-     * @xmlrpc.param #param_desc("string", "groupname", "Group to run script as.")
-     * @xmlrpc.param #param_desc("int", "timeout", "Seconds to allow the script to run
-     *                                      before timing out.")
-     * @xmlrpc.param #param_desc("string", "script", "Contents of the script to run.")
-     * @xmlrpc.param #param_desc("dateTime.iso8601", "earliestOccurrence",
-     *                  "Earliest the script can run.")
-     * @xmlrpc.returntype int - ID of the script run action created. Can be used to fetch
-     * results with system.getScriptResults.
-     */
-    public Integer scheduleLabelScriptRun(User loggedInUser, String label,
-            List<Integer> systemIds,
-            String username, String groupname,
-            Integer timeout, String script,
-            Date earliest) {
+    public Integer scheduleScriptRun(User loggedInUser, String label, List<Integer>
+            systemIds, String username, String groupname, Integer timeout, String script,
+                                     Date earliest) {
 
         ScriptActionDetails scriptDetails = ActionManager.createScript(username, groupname,
                 new Long(timeout.longValue()), script);
@@ -3754,45 +3652,112 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
-     * Schedule a script with label to run.
+     * Schedule a script to run.
      *
      * @param loggedInUser The current user
-     * @param label Description/label for script
-     * @param sid ID of the server to run the script on.
-     * @param username User to run script as.
-     * @param groupname Group to run script as.
-     * @param timeout Seconds to allow the script to run before timing out.
-     * @param script Contents of the script to run.
-     * @param earliest Earliest the script can run.
+     * @param systemIds    IDs of the servers to run the script on.
+     * @param username     User to run script as.
+     * @param groupname    Group to run script as.
+     * @param timeout      Seconds to allow the script to run before timing out.
+     * @param script       Contents of the script to run.
+     * @param earliest     Earliest the script can run.
      * @return ID of the new script action.
-     *
      * @xmlrpc.doc Schedule a script to run.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param_desc("string", "label","Label or short description of script.")
-     * @xmlrpc.param #param_desc("int", "serverId",
-     *          "ID of the server to run the script on.")
+     * @xmlrpc.param #array_single("int", "System IDs of the servers to run the script on.")
      * @xmlrpc.param #param_desc("string", "username", "User to run script as.")
      * @xmlrpc.param #param_desc("string", "groupname", "Group to run script as.")
      * @xmlrpc.param #param_desc("int", "timeout", "Seconds to allow the script to run
-     *                                      before timing out.")
+     *before timing out.")
      * @xmlrpc.param #param_desc("string", "script", "Contents of the script to run.")
      * @xmlrpc.param #param_desc("dateTime.iso8601", "earliestOccurrence",
-     *                  "Earliest the script can run.")
+     * "Earliest the script can run.")
      * @xmlrpc.returntype int - ID of the script run action created. Can be used to fetch
      * results with system.getScriptResults.
      */
-    public Integer scheduleLabelScriptRun(User loggedInUser, String label,
-            Integer sid, String username,
-            String groupname, Integer timeout,
-            String script, Date earliest) {
+    public Integer scheduleScriptRun(User loggedInUser, List<Integer>
+            systemIds, String username, String groupname, Integer timeout, String script,
+                                     Date earliest) {
+        return scheduleScriptRun(loggedInUser, null, systemIds, username, groupname,
+                timeout, script, earliest);
+
+    }
+
+    /**
+     * Schedule a script to run.
+     *
+     * @param loggedInUser The current user
+     * @param sid          ID of the server to run the script on.
+     * @param username     User to run script as.
+     * @param groupname    Group to run script as.
+     * @param timeout      Seconds to allow the script to run before timing out.
+     * @param script       Contents of the script to run.
+     * @param earliest     Earliest the script can run.
+     * @return ID of the new script action.
+     * @xmlrpc.doc Schedule a script to run.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("int", "serverId",
+     * "ID of the server to run the script on.")
+     * @xmlrpc.param #param_desc("string", "username", "User to run script as.")
+     * @xmlrpc.param #param_desc("string", "groupname", "Group to run script as.")
+     * @xmlrpc.param #param_desc("int", "timeout", "Seconds to allow the script to run
+     *before timing out.")
+     * @xmlrpc.param #param_desc("string", "script", "Contents of the script to run.")
+     * @xmlrpc.param #param_desc("dateTime.iso8601", "earliestOccurrence",
+     * "Earliest the script can run.")
+     * @xmlrpc.returntype int - ID of the script run action created. Can be used to fetch
+     * results with system.getScriptResults.
+     */
+    public Integer scheduleScriptRun(User loggedInUser, Integer sid, String username,
+                                     String groupname, Integer timeout, String script,
+                                     Date earliest) {
 
         List<Integer> systemIds = new ArrayList<Integer>();
         systemIds.add(sid);
 
-        return scheduleLabelScriptRun(loggedInUser, label, systemIds,
-                username, groupname, timeout,
+        return scheduleScriptRun(loggedInUser, null, systemIds, username, groupname,
+                timeout,
                 script, earliest);
     }
+
+    /**
+     * Schedule a script to run.
+     *
+     * @param loggedInUser The current user
+     * @param label        Text description
+     * @param sid          ID of the server to run the script on.
+     * @param username     User to run script as.
+     * @param groupname    Group to run script as.
+     * @param timeout      Seconds to allow the script to run before timing out.
+     * @param script       Contents of the script to run.
+     * @param earliest     Earliest the script can run.
+     * @return ID of the new script action.
+     * @xmlrpc.doc Schedule a script to run.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "label")
+     * @xmlrpc.param #param_desc("int", "serverId",
+     * "ID of the server to run the script on.")
+     * @xmlrpc.param #param_desc("string", "username", "User to run script as.")
+     * @xmlrpc.param #param_desc("string", "groupname", "Group to run script as.")
+     * @xmlrpc.param #param_desc("int", "timeout", "Seconds to allow the script to run
+     *before timing out.")
+     * @xmlrpc.param #param_desc("string", "script", "Contents of the script to run.")
+     * @xmlrpc.param #param_desc("dateTime.iso8601", "earliestOccurrence",
+     * "Earliest the script can run.")
+     * @xmlrpc.returntype int - ID of the script run action created. Can be used to fetch
+     * results with system.getScriptResults.
+     */
+    public Integer scheduleScriptRun(User loggedInUser, String label, Integer sid, String
+            username, String groupname, Integer timeout, String script, Date earliest) {
+
+        List<Integer> systemIds = new ArrayList<Integer>();
+        systemIds.add(sid);
+
+        return scheduleScriptRun(loggedInUser, label, systemIds, username, groupname,
+                timeout,
+                script, earliest);
+    }
+
     /**
      * Fetch results from a script execution. Returns an empty array if no results are
      * yet available.
@@ -5693,7 +5658,15 @@ public class SystemHandler extends BaseHandler {
      */
     public int sendOsaPing(User loggedInUser, Integer serverId) {
         Server server = lookupServer(loggedInUser, serverId);
-        PushClient client = server.getPushClient();
+        if (server == null) {
+            throw new InvalidSystemException();
+        }
+
+        PushClient client = null;
+        client = server.getPushClient();
+        if (client == null) {
+            throw new NoPushClientException();
+        }
         client.setLastPingTime(new Date());
         client.setNextActionTime(null);
         SystemManager.storeServer(server);
@@ -5757,7 +5730,13 @@ public class SystemHandler extends BaseHandler {
      *
      * @xmlrpc.doc list systems that require reboot
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.return List of systems that require reboot
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("system")
+     *              #prop("int" "id")
+     *              #prop("string" "name")
+     *          #struct_end()
+     *      #array_end()
      */
     public Object[] listSuggestedReboot(User loggedInUser) {
             return SystemManager.requiringRebootList(loggedInUser, null).toArray();

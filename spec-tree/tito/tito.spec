@@ -2,7 +2,7 @@
 
 Name: tito
 Version: 0.4.18
-Release: 1.8%{?dist}
+Release: 1.9%{?dist}
 Summary: A tool for managing rpm based git projects
 
 Group: Development/Tools
@@ -15,6 +15,7 @@ Patch2:  0001-fixed-changelog-formating.patch
 Patch3:  0002-fixed-no-source-spec-issue.patch
 Patch4:  git-quick-build.patch
 Patch5:  fixing-unescaped-left-brace-in-newer-perl.patch
+Patch6:  dont-generate-renames-rhel-6-workaround.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch: noarch
@@ -46,6 +47,7 @@ git.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 %{__python} setup.py build
@@ -90,6 +92,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb 14 2017 Jan Dobes 0.4.18-1.9
+- git diff on fedora 25 can generate rename patches not consumable by patch on
+  rhel 6
+
 * Fri Apr 15 2016 Jan Dobes 0.4.18-1.8
 - fixing creating srpm on Fedora 23
 

@@ -285,7 +285,7 @@ def do_package_listinstalledsystems(self, args):
         print '-' * len(package)
 
         if len(systems):
-            print '\n'.join(sorted([s.get('name') for s in systems]))
+            print '\n'.join(sorted(['%s : %s' % (s.get('name'), s.get('id')) for s in systems]))
 
 ####################
 

@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
-import com.redhat.rhn.common.db.datasource.CallableMode;
+import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 
 import org.quartz.JobExecutionContext;
@@ -35,15 +35,15 @@ public class UuidCleanup extends RhnJavaJob {
     public void execute(JobExecutionContext context)
             throws JobExecutionException {
 
-        CallableMode m = ModeFactory.getCallableMode(TaskConstants.MODE_NAME,
+        WriteMode m = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_UUID_CLEANUP);
         if (log.isDebugEnabled()) {
-            log.debug("Calling CallableMode " + TaskConstants.MODE_NAME + "::" +
+            log.debug("Calling WriteMode " + TaskConstants.MODE_NAME + "::" +
                     TaskConstants.TASK_QUERY_UUID_CLEANUP);
         }
-        m.execute(new HashMap(), new HashMap());
+        m.executeUpdate(new HashMap());
         if (log.isDebugEnabled()) {
-            log.debug("CallableMode " + TaskConstants.MODE_NAME + "::" +
+            log.debug("WriteMode " + TaskConstants.MODE_NAME + "::" +
                     TaskConstants.TASK_QUERY_UUID_CLEANUP + " returned");
         }
     }

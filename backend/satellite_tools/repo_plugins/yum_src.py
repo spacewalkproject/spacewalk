@@ -15,6 +15,7 @@
 #
 
 import sys
+import logging
 import os.path
 from os import makedirs
 from shutil import rmtree
@@ -38,8 +39,8 @@ except ImportError:
     iterparse = cElementTree.iterparse
 from urlgrabber.grabber import URLGrabError
 
-from spacewalk.common import fileutils
-from spacewalk.satellite_tools.repo_plugins import ContentPackage
+from spacewalk.common import fileutils, checksum
+from spacewalk.satellite_tools.repo_plugins import ContentPackage, get_proxies
 from spacewalk.common.rhnConfig import CFG, initCFG
 
 CACHE_DIR = '/var/cache/rhn/reposync/'
@@ -100,9 +101,14 @@ class YumUpdateMetadata(UpdateMetadata):
                             no.add(un)
 
 
+class RepoMDNotFound(Exception):
+    pass
+
+
 class ContentSource(object):
 
-    def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF):
+    def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF, org="1", channel_label="",
+                 no_mirrors=False):
         self.url = url
         self.name = name
         self.yumbase = yum.YumBase()
@@ -110,6 +116,10 @@ class ContentSource(object):
         if not os.path.exists(yumsrc_conf):
             self.yumbase.preconf.fn = '/dev/null'
         self.configparser = ConfigParser()
+        if org:
+            self.org = org
+        else:
+            self.org = "NULL"
 
         # read the proxy configuration in /etc/rhn/rhn.conf
         initCFG('server.satellite')
@@ -117,15 +127,25 @@ class ContentSource(object):
         self.proxy_user = CFG.http_proxy_username
         self.proxy_pass = CFG.http_proxy_password
         self._authenticate(url)
-        if name in self.yumbase.repos.repos:
-            repo = self.yumbase.repos.repos[name]
+        # Check for settings in yum configuration files (for custom repos/channels only)
+        if org:
+            repos = self.yumbase.repos.repos
         else:
+            repos = None
+        if repos and name in repos:
+            repo = repos[name]
+        elif repos and channel_label in repos:
+            repo = repos[channel_label]
+            # In case we are using Repo object based on channel config, override it's id to name of the repo
+            # To not create channel directories in cache directory
+            repo.id = name
+        else:
+            # Not using values from config files
             repo = yum.yumRepo.YumRepository(name)
             repo.populate(self.configparser, name, self.yumbase.conf)
         self.repo = repo
-        self.sack = None
 
-        self.setup_repo(repo)
+        self.setup_repo(repo, no_mirrors)
         self.num_packages = 0
         self.num_excluded = 0
 
@@ -139,23 +159,35 @@ class ContentSource(object):
                 real_urls.append(url)
         self.repo.urls = real_urls
 
+    def __del__(self):
+        # close log files for yum plugin
+        for handler in logging.getLogger("yum.filelogging").handlers:
+            handler.close()
+        self.repo.close()
+
     def _authenticate(self, url):
         pass
 
-    def setup_repo(self, repo):
+    def setup_repo(self, repo, no_mirrors):
         """Fetch repository metadata"""
         repo.cache = 0
         repo.mirrorlist = self.url
         repo.baseurl = [self.url]
-        repo.basecachedir = CACHE_DIR
+        repo.basecachedir = os.path.join(CACHE_DIR, self.org)
         # base_persistdir have to be set before pkgdir
         if hasattr(repo, 'base_persistdir'):
-            repo.base_persistdir = CACHE_DIR
+            repo.base_persistdir = repo.basecachedir
 
-        pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1', 'stage')
+        pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, self.org, 'stage')
         if not os.path.isdir(pkgdir):
             fileutils.makedirs(pkgdir, user='apache', group='apache')
         repo.pkgdir = pkgdir
+        repo.sslcacert = None
+        repo.sslclientcert = None
+        repo.sslclientkey = None
+        repo.proxy = None
+        repo.proxy_username = None
+        repo.proxy_password = None
 
         if "file://" in self.url:
             repo.copy_local = 1
@@ -168,39 +200,45 @@ class ContentSource(object):
             repo.proxy_username = self.proxy_user
             repo.proxy_password = self.proxy_pass
 
-        warnings = YumWarnings()
-        warnings.disable()
-        try:
-            repo.baseurlSetup()
-        except:
+        # Do not try to expand baseurl to other mirrors
+        if no_mirrors:
+            repo.urls = repo.baseurl
+            # Make sure baseurl ends with / and urljoin will work correctly
+            if repo.urls[0][-1] != '/':
+                repo.urls[0] += '/'
+        else:
+            warnings = YumWarnings()
+            warnings.disable()
+            try:
+                repo.baseurlSetup()
+            except:
+                warnings.restore()
+                raise
             warnings.restore()
-            raise
-        warnings.restore()
-        repo.setup(False)
-        self.sack = self.repo.getPackageSack()
+        repo.setup(0)
 
     def number_of_packages(self):
         for dummy_index in range(3):
             try:
-                self.sack.populate(self.repo, 'metadata', None, 0)
+                self.repo.getPackageSack().populate(self.repo, 'metadata', None, 0)
                 break
             except YumErrors.RepoError:
                 pass
-        return len(self.sack.returnPackages())
+        return len(self.repo.getPackageSack().returnPackages())
 
     def raw_list_packages(self):
         for dummy_index in range(3):
             try:
-                self.sack.populate(self.repo, 'metadata', None, 0)
+                self.repo.getPackageSack().populate(self.repo, 'metadata', None, 0)
                 break
             except YumErrors.RepoError:
                 pass
-        return self.sack.returnPackages()
+        return self.repo.getPackageSack().returnPackages()
 
     def list_packages(self, filters, latest):
         """ list packages"""
-        self.sack.populate(self.repo, 'metadata', None, 0)
-        pkglist = ListPackageSack(self.sack.returnPackages())
+        self.repo.getPackageSack().populate(self.repo, 'metadata', None, 0)
+        pkglist = ListPackageSack(self.repo.getPackageSack().returnPackages())
         self.num_packages = len(pkglist)
         if latest:
             pkglist = pkglist.returnNewestByNameArch()
@@ -216,7 +254,7 @@ class ContentSource(object):
 
         if filters:
             pkglist = self._filter_packages(pkglist, filters)
-            pkglist = self._get_package_dependencies(self.sack, pkglist)
+            pkglist = self._get_package_dependencies(self.repo.getPackageSack(), pkglist)
 
             # do not pull in dependencies if they're explicitly excluded
             pkglist = self._filter_packages(pkglist, filters, True)
@@ -313,11 +351,19 @@ class ContentSource(object):
     def verify_pkg(_fo, pkg, _fail):
         return pkg.verifyLocalPkg()
 
-    def clear_cache(self, directory=None):
+    def clear_cache(self, directory=None, keep_repomd=False):
         if directory is None:
-            directory = CACHE_DIR + self.name
-        rmtree(directory, True)
-        # restore empty directory
+            directory = os.path.join(CACHE_DIR, self.org, self.name)
+
+        # remove content in directory
+        for item in os.listdir(directory):
+            path = os.path.join(directory, item)
+            if os.path.isfile(path) and not (keep_repomd and item == "repomd.xml"):
+                os.unlink(path)
+            elif os.path.isdir(path):
+                rmtree(path)
+
+        # restore empty directories
         makedirs(directory + "/packages", int('0755', 8))
         makedirs(directory + "/gen", int('0755', 8))
 
@@ -389,3 +435,70 @@ class ContentSource(object):
         finally:
             if os.path.exists(temp_file):
                 os.unlink(temp_file)
+
+    def repomd_up_to_date(self):
+        repomd_old_path = os.path.join(self.repo.basecachedir, self.name, "repomd.xml")
+        # No cached repomd?
+        if not os.path.isfile(repomd_old_path):
+            return False
+        repomd_new_path = os.path.join(self.repo.basecachedir, self.name, "repomd.xml.new")
+        # Newer file not available? Don't do anything. It should be downloaded before this.
+        if not os.path.isfile(repomd_new_path):
+            return True
+        return (checksum.getFileChecksum('sha256', filename=repomd_old_path) ==
+                checksum.getFileChecksum('sha256', filename=repomd_new_path))
+
+    # Get download parameters for threaded downloader
+    def set_download_parameters(self, params, relative_path, target_file, checksum_type=None, checksum_value=None,
+                                bytes_range=None):
+        # Create directories if needed
+        target_dir = os.path.dirname(target_file)
+        if not os.path.exists(target_dir):
+            os.makedirs(target_dir, int('0755', 8))
+
+        params['urls'] = self.repo.urls
+        params['relative_path'] = relative_path
+        params['target_file'] = target_file
+        params['ssl_ca_cert'] = self.repo.sslcacert
+        params['ssl_client_cert'] = self.repo.sslclientcert
+        params['ssl_client_key'] = self.repo.sslclientkey
+        params['checksum_type'] = checksum_type
+        params['checksum'] = checksum_value
+        params['bytes_range'] = bytes_range
+        params['proxy'] = self.repo.proxy
+        params['proxy_username'] = self.repo.proxy_username
+        params['proxy_password'] = self.repo.proxy_password
+        # Older urlgrabber compatibility
+        params['proxies'] = get_proxies(self.repo.proxy, self.repo.proxy_username, self.repo.proxy_password)
+
+    # Simply load primary and updateinfo path from repomd
+    def get_metadata_paths(self):
+        def get_location(data_item):
+            for sub_item in data_item:
+                if sub_item.tag.endswith("location"):
+                    return sub_item.attrib.get("href")
+
+        def get_checksum(data_item):
+            for sub_item in data_item:
+                if sub_item.tag.endswith("checksum"):
+                    return sub_item.attrib.get("type"), sub_item.text
+
+        repomd_path = os.path.join(self.repo.basecachedir, self.name, "repomd.xml")
+        if not os.path.isfile(repomd_path):
+            raise RepoMDNotFound(repomd_path)
+        repomd = open(repomd_path, 'rb')
+        files = {}
+        for _event, elem in iterparse(repomd):
+            if elem.tag.endswith("data"):
+                if elem.attrib.get("type") == "primary_db":
+                    files['primary'] = (get_location(elem), get_checksum(elem))
+                elif elem.attrib.get("type") == "primary" and 'primary' not in files:
+                    files['primary'] = (get_location(elem), get_checksum(elem))
+                elif elem.attrib.get("type") == "updateinfo":
+                    files['updateinfo'] = (get_location(elem), get_checksum(elem))
+                elif elem.attrib.get("type") == "group_gz":
+                    files['group'] = (get_location(elem), get_checksum(elem))
+                elif elem.attrib.get("type") == "group" and 'group' not in files:
+                    files['group'] = (get_location(elem), get_checksum(elem))
+        repomd.close()
+        return files.values()

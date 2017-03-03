@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProxyVersionException;
 import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
+import com.redhat.rhn.frontend.xmlrpc.NotSupportedException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyAlreadyRegisteredException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyNeedManagementException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyNotActivatedException;
@@ -40,6 +41,24 @@ import java.util.List;
  */
 public class ProxyHandler extends BaseHandler {
     private static Logger log = Logger.getLogger(ProxyHandler.class);
+
+
+    /**
+     * Create Monitoring Scout for proxy.
+     * Implemented due to to backward compatibility
+     * @param clientcert client certificate of the system.
+     * @return string - actually an exception is thrown everytime
+     * @throws NotSupportedException thrown everytime as this call is no longer supported
+     * @since 10.7
+     *
+     * @xmlrpc.doc Create Monitoring Scout for proxy.
+     * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
+     * @xmlrpc.returntype string
+     */
+    public String createMonitoringScout(String clientcert)
+        throws NotSupportedException {
+        throw new NotSupportedException();
+    }
 
     /**
      * Test, if the system identified by the given client certificate, is proxy.

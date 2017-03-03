@@ -159,7 +159,7 @@ def do_system_list(self, args, doreturn=False):
         return self.get_system_names()
     else:
         if len(self.get_system_names()):
-            print '\n'.join(sorted(self.get_system_names()))
+            print '\n'.join(sorted(['%s : %s' % (v, k) for k, v in self.get_system_names_ids().iteritems()]))
 
 ####################
 
@@ -472,14 +472,14 @@ def do_system_runscript(self, args):
                                                              script_contents,
                                                              options.start_time)
         else:
-            action_id = self.client.system.scheduleLabelScriptRun(self.session,
-                                                                  options.label,
-                                                                  system_ids,
-                                                                  options.user,
-                                                                  options.group,
-                                                                  options.timeout,
-                                                                  script_contents,
-                                                                  options.start_time)
+            action_id = self.client.system.scheduleScriptRun(self.session,
+                                                             options.label,
+                                                             system_ids,
+                                                             options.user,
+                                                             options.group,
+                                                             options.timeout,
+                                                             script_contents,
+                                                             options.start_time)
 
 
         logging.info('Action ID: %i' % action_id)
@@ -2589,7 +2589,7 @@ def do_system_details(self, args, short=False):
             print self.SEPARATOR
         add_separator = True
 
-        print 'Name:          %s' % system
+        print 'Name:          %s' % details.get('profile_name')
         print 'System ID:     %i' % system_id
 
         if uuid:
@@ -3457,7 +3457,7 @@ def do_system_comparewithchannel(self, args):
         channelnewer = []
         systemnewer = []
         channelmissing = []
-        for key in packages.keys():
+        for key in packages:
             syspkg = packages.get(key)
             if latestpkgs.has_key(key):
                 chpkg = latestpkgs.get(key)

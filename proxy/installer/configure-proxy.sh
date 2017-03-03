@@ -107,7 +107,7 @@ INTERACTIVE=1
 INTERACTIVE_RETRIES=3
 CNAME_INDEX=0
 
-OPTS=$(getopt --longoptions=help,answer-file:,non-interactive,version:,traceback-email:,use-ssl::,force-own-ca,http-proxy:,http-username:,http-password:,ssl-build-dir:,ssl-org:,ssl-orgunit:,ssl-common:,ssl-city:,ssl-state:,ssl-country:,ssl-email:,ssl-password:,ssl-cname:,populate-config-channel::,start-services:: -n ${0##*/} -- h "$@")
+OPTS=$(getopt --longoptions=help,answer-file:,non-interactive,version:,traceback-email:,use-ssl::,force-own-ca,http-proxy:,http-username:,http-password:,rhn-user:,rhn-password:,ssl-build-dir:,ssl-org:,ssl-orgunit:,ssl-common:,ssl-city:,ssl-state:,ssl-country:,ssl-email:,ssl-password:,ssl-cname:,populate-config-channel::,start-services:: -n ${0##*/} -- h "$@")
 
 if [ $? != 0 ] ; then
     print_help
@@ -156,16 +156,16 @@ while : ; do
 done
 
 # params dep check
+if [[ $INTERACTIVE == 0 && -z $ANSWER_FILE ]]; then
+    echo "Option --non-interactive is for use only with option --answer-file."
+    exit 1
+fi
+
 if [[ $INTERACTIVE == 0 \
     && ( -z $POPULATE_CONFIG_CHANNEL || $( yes_no $POPULATE_CONFIG_CHANNEL ) == 1 ) \
     && ( -z  $RHN_USER || -z $RHN_PASSWORD ) ]]; then
         echo "Error: When --populate-config-channel is set to Yes both --rhn-user and --rhn-password have to be provided."
         exit 1
-fi
-
-if [[ $INTERACTIVE == 0 && -z $ANSWER_FILE ]]; then
-    echo "Option --non-interactive is for use only with option --answer-file."
-    exit 1
 fi
 
 ACCUMULATED_ANSWERS=""

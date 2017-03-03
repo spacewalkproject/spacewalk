@@ -1,5 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
@@ -18,20 +20,30 @@
       </c:otherwise>
     </c:choose>
 
-    <rhn:list pageList="${requestScope.pageList}"
-            noDataText="sdc.details.proxyclients.empty">
+	<rl:listset name="systemListSet" legend="system">
 
-      <rhn:listdisplay>
-        <rhn:column header="systemlist.jsp.system">
-          <c:out value="${current.name}" escapeXml="true" />
-        </rhn:column>
+	    <rl:list dataset="pageList" name="systemList" emptykey="nosystems.message" alphabarcolumn="name">
 
-        <rhn:column header="systemlist.jsp.entitlement">
-          <c:out value="${current.entitlementLevel}" escapeXml="false" />
-        </rhn:column>
-      </rhn:listdisplay>
+             <rl:selectablecolumn value="${current.id}" selected="${current.selected}"/>
 
-    </rhn:list>
+             <!-- Name Column -->
+             <rl:column sortable="true"
+                        bound="false"
+                        headerkey="systemlist.jsp.system"
+                        sortattr="name"
+                        defaultsort="asc"
+                        styleclass="${namestyle}">
+                 <a href="/rhn/systems/details/Overview.do?sid=${current.id}">${fn:escapeXml(current.name)}</a>
+             </rl:column>
 
+             <!-- Entitlement Column -->
+             <rl:column sortable="false"
+                        bound="false"
+                        headerkey="systemlist.jsp.entitlement">
+                  <c:out value="${current.entitlementLevel}" escapeXml="false"/>
+             </rl:column>
+
+	    </rl:list>
+    </rl:listset>
   </body>
 </html:html>

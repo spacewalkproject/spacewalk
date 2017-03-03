@@ -62,6 +62,7 @@ class YumAction(yum.YumBase):
         self.doConfigSetup(debuglevel=self.cfg["debug"])
         self.cache_only = None
 
+        self.doLock()
         self.doTsSetup()
         self.doRpmDBSetup()
         self.doRepoSetup()

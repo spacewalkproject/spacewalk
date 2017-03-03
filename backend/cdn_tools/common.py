@@ -24,5 +24,14 @@ def verify_mappings():
                                    % constants.MAPPINGS_RPM_NAME)
 
 
+# Up to terabytes, should be enough
+def human_readable_size(file_size):
+    for count in ['B', 'K', 'M', 'G']:
+        if file_size < 1024.0:
+            return "%3.1f%s" % (file_size, count)
+        file_size /= 1024.0
+    return "%3.1f%s" % (file_size, 'T')
+
+
 class CdnMappingsLoadError(Exception):
     pass

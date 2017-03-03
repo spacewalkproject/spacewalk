@@ -62,6 +62,48 @@ public class ScheduleHandler extends BaseHandler {
     }
 
     /**
+     * Fail specific event on specified system
+     * @param loggedInUser The current user
+     * @param serverId server id
+     * @param actionId action id
+     * @return int 1 if successfull
+     *
+     * @xmlrpc.doc Fail specific event on specified system
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("int", "actionId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+
+    public int failSystemAction(User loggedInUser, Integer serverId, Integer actionId) {
+        return failSystemAction(loggedInUser, serverId, actionId,
+                "This action has been manually failed by " + loggedInUser.getLogin());
+    }
+
+    /**
+     * Fail specific event on specified system and let the user provide
+     * some info for this fail.
+     * @param loggedInUser The current user
+     * @param serverId server id
+     * @param actionId action id
+     * @param message some info about this fail
+     * @return int 1 if successfull
+     *
+     *
+     * @xmlrpc.doc Fail specific event on specified system
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("int", "actionId")
+     * @xmlrpc.param #param("string", "message")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int failSystemAction(User loggedInUser, Integer serverId, Integer actionId,
+                                 String message) {
+        return ActionManager.failSystemAction(loggedInUser, serverId.longValue(),
+                actionId.longValue(), message);
+    }
+
+    /**
      * List all scheduled actions regardless of status.  This includes pending,
      * completed, failed and archived.
      * @param loggedInUser The current user

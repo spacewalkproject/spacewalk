@@ -126,8 +126,10 @@ class Manifest(object):
                             self._fill_product_repositories(zip_file, product)
                             products.append(product)
 
-                        entitlement = Entitlement(products, credentials)
-                        self.all_entitlements.append(entitlement)
+                        # Skip entitlements not providing any products
+                        if products:
+                            entitlement = Entitlement(products, credentials)
+                            self.all_entitlements.append(entitlement)
                     except KeyError:
                         print("ERROR: Cannot access required field in file '%s'" % entitlement_file)
                         raise

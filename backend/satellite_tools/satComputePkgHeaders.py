@@ -120,7 +120,7 @@ class Runner:
         orphaned_packages = {}
         # Now, for each package, get the channels it's part of
         h = rhnSQL.prepare(self._query_get_channel_packages)
-        for package_id in package_ids.keys():
+        for package_id in package_ids:
             h.execute(package_id=package_id)
             while 1:
                 row = h.fetchone_dict()
@@ -138,7 +138,7 @@ class Runner:
 
         if orphaned_packages:
             print("Bailing out because of packages shared with other channels")
-            for package_id in orphaned_packages.keys():
+            for package_id in orphaned_packages:
                 channels = self._channel_packages[package_id]
                 print(package_id, channels)
             return None

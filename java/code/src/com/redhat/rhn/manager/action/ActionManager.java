@@ -86,6 +86,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Calendar;
 
 /**
  * ActionManager - the singleton class used to provide Business Operations
@@ -126,6 +127,29 @@ public class ActionManager extends BaseManager {
             failed += ActionFactory.removeAction(actionId);
         }
         return failed;
+    }
+
+    /**
+     * Mark action as failed for specified system
+     * @param loggedInUser The user making the request.
+     * @param serverId server id
+     * @param actionId The id of the Action to be set as failed
+     * @param message Message from user, reason of this fail
+     * @return int 1 if succeed
+     */
+    public static int failSystemAction(User loggedInUser, Long serverId, Long actionId,
+                                       String message) {
+        Action action = ActionFactory.lookupByUserAndId(loggedInUser, actionId);
+        Server server = SystemManager.lookupByIdAndUser(serverId, loggedInUser);
+        ServerAction serverAction = ActionFactory.getServerActionForServerAndAction(server,
+                action);
+        Date now = Calendar.getInstance().getTime();
+
+        serverAction.setStatus(ActionFactory.STATUS_FAILED);
+        serverAction.setResultMsg(message);
+        serverAction.setCompletionTime(now);
+
+        return 1;
     }
 
     /**

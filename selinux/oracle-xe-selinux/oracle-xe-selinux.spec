@@ -6,7 +6,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:            oracle-xe-selinux
-Version:         10.2.0.41
+Version:         10.2.0.42
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
@@ -19,6 +19,7 @@ License:         GPLv2+
 URL:             http://fedorahosted.org/spacewalk
 Source0:         https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:       %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+BuildRequires:   perl
 BuildRequires:   checkpolicy, selinux-policy-devel, hardlink
 BuildArch:       noarch
 
@@ -138,6 +139,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Nov 29 2016 Jan Dobes 10.2.0.42-1
+- perl isn't in Fedora 25 buildroot
+
 * Wed Sep 16 2015 Tomas Kasparek <tkasparek@redhat.com> 10.2.0.41-1
 - bz1258563 - selinux fix for fedora 21/22
 

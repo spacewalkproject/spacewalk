@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.7.0
+Version:        2.7.2
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -113,6 +113,14 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Feb 21 2017 Jan Dobes 2.7.2-1
+- 1416804 - reset stdin for failed connections
+
+* Mon Feb 20 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.1-1
+- 1175596 - don't leak output of cobbler sync into installer
+- 1420744 - change RHN on RHSM in installer script
+- Bumping package versions for 2.7.
+
 * Fri Oct 14 2016 Grant Gainey 2.6.2-1
 - Updated specfile to remove extraneous 'Red Hat'
 

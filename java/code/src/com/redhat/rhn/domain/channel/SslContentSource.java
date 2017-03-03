@@ -14,14 +14,17 @@
  */
 package com.redhat.rhn.domain.channel;
 
+import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 
 /**
  * SslContentSource
  * @version $Rev$
  */
-public class SslContentSource extends ContentSource {
+public class SslContentSource extends BaseDomainHelper {
 
     private  SslCryptoKey caCert;
     private  SslCryptoKey clientCert;
@@ -35,10 +38,12 @@ public class SslContentSource extends ContentSource {
 
     /**
      * Copy Constructor
-     * @param cs content source template
+     * @param ssl ssl content source template
      */
-    public SslContentSource(ContentSource cs) {
-        super(cs);
+    public SslContentSource(SslContentSource ssl) {
+        caCert = ssl.getCaCert();
+        clientCert = ssl.getClientCert();
+        clientKey = ssl.getClientKey();
     }
 
     /**
@@ -84,9 +89,28 @@ public class SslContentSource extends ContentSource {
     }
 
     /**
-     * @return indicates SSL attribute
+     * {@inheritDoc}
      */
-    public boolean isSsl() {
-        return true;
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof SslContentSource)) {
+            return false;
+        }
+
+        SslContentSource r = (SslContentSource) obj;
+
+        return new EqualsBuilder().append(r.getCaCert(), getCaCert())
+                .append(r.getClientCert(), getClientCert())
+                .append(r.getClientKey(), getClientKey())
+                .isEquals();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int hashCode() {
+        return new HashCodeBuilder().append(getCaCert())
+                .append(getClientCert())
+                .append(getClientKey())
+                .toHashCode();
     }
 }

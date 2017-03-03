@@ -149,8 +149,10 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
                     for (StringTokenizer strtok = new StringTokenizer(
                             customOps, NEWLINE); strtok.hasMoreTokens();) {
                         KickstartCommand custom = new KickstartCommand();
-                        custom.setCommandName(KickstartFactory
-                                .lookupKickstartCommandName("custom"));
+                        KickstartCommandName cn = KickstartFactory
+                                .lookupKickstartCommandName("custom");
+                        custom.setCommandName(cn);
+                        custom.setKickstartData(cmd.getKickstartData());
                         String args = strtok.nextToken().trim();
                         if (!args.isEmpty()) {
                             custom.setArguments(args);

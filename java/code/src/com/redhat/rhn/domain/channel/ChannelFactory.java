@@ -22,7 +22,6 @@ import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.common.ChecksumType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
-import com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.server.Server;
@@ -529,19 +528,11 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
-     * Creates a SSL Repo
-     * @param caCert CA certificate
-     * @param clientCert client's certificate
-     * @param clientKey client's key
-     * @return SSL Repo
+     * Creates empty SSL set for repository
+     * @return empty SSL set
      */
-    public static SslContentSource createSslRepo(SslCryptoKey caCert,
-            SslCryptoKey clientCert, SslCryptoKey clientKey) {
-        SslContentSource scs = new SslContentSource();
-        scs.setCaCert(caCert);
-        scs.setClientCert(clientCert);
-        scs.setClientKey(clientKey);
-        return scs;
+    public static SslContentSource createRepoSslSet() {
+        return new SslContentSource();
     }
 
     /**

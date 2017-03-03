@@ -575,12 +575,20 @@ class OracleBackend(Backend):
                   'label': DBstring(128),
                   'source_url': DBstring(2048),
                   'type_id': DBint(),
+              },
+              pk=['label', 'org_id', 'type_id'],
+              nullable=['org_id'],
+              ),
+        Table('rhnContentSourceSsl',
+              fields={
+                  'content_source_id': DBint(),
                   'ssl_ca_cert_id': DBint(),
                   'ssl_client_cert_id': DBint(),
                   'ssl_client_key_id': DBint()
               },
-              pk=['label', 'org_id', 'type_id'],
-              nullable=['org_id'],
+              attribute='ssl-sets',
+              pk=['content_source_id', 'ssl_ca_cert_id', 'ssl_client_cert_id', 'ssl_client_key_id'],
+              nullable=['ssl_client_cert_id', 'ssl_client_key_id'],
               ),
     )
 

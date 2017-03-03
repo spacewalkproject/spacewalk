@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.56
+Version:        5.4.57
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -28,9 +28,9 @@ virtual machine guest images.
 Summary: Files needed by rhn-virtualization-host
 Group: System Environment/Base
 %if 0%{?fedora} >= 23
-Requires: python3-spacewalk-backend-usix
+Requires: python3-spacewalk-usix
 %else
-Requires: spacewalk-backend-usix
+Requires: spacewalk-usix
 %endif
 Requires: rhn-client-tools
 %if 0%{?suse_version}
@@ -156,6 +156,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed Feb 15 2017 Tomas Kasparek <tkasparek@redhat.com> 5.4.57-1
+- require spacewalk-usix indead of spacewalk-backend-usix
+
 * Wed Oct 19 2016 Gennadii Altukhov <galt@redhat.com> 5.4.56-1
 - 1379891 - make rhn-virtualization code compatible with Python 2/3
 

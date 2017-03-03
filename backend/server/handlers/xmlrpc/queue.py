@@ -228,7 +228,7 @@ class Queue(rhnHandler):
 
     _query_queue_future = rhnSQL.Statement("""
                     select sa.action_id id, a.version,
-                           sa.remaining_tries, at.label method,
+                           sa.remaining_tries, at.label as method,
                            at.unlocked_only,
                            a.prerequisite
                       from rhnServerAction sa,
@@ -261,7 +261,7 @@ class Queue(rhnHandler):
 
     _query_queue_get = rhnSQL.Statement("""
                     select sa.action_id id, a.version,
-                           sa.remaining_tries, at.label method,
+                           sa.remaining_tries, at.label as method,
                            at.unlocked_only,
                            a.prerequisite
                       from rhnServerAction sa,

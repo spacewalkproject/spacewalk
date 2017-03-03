@@ -8,7 +8,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.101
+Version:       5.5.102
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -20,11 +20,11 @@ BuildRequires: python-devel
 %if 0%{?fedora} >= 23
 Requires:      python3-rhnlib
 Requires:      python3-spacewalk-backend-libs
-Requires:      python3-spacewalk-backend-usix
+Requires:      python3-spacewalk-usix
 %else
 Requires:      rhnlib >= 2.5.74
 Requires:      spacewalk-backend-libs >= 1.7.17
-Requires:      spacewalk-backend-usix
+Requires:      spacewalk-usix
 %endif
 
 Requires:      rhn-client-tools
@@ -95,6 +95,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Wed Feb 15 2017 Tomas Kasparek <tkasparek@redhat.com> 5.5.102-1
+- require spacewalk-usix indead of spacewalk-backend-usix
+
 * Thu Nov 03 2016 Gennadii Altukhov <galt@redhat.com> 5.5.101-1
 - 1390170 - rhnpush is used on a client side as well, so make it compatible
   with RHEL 5 and Python 2.4

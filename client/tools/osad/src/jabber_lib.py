@@ -56,7 +56,7 @@ NS_STARTTLS = 'urn:ietf:params:xml:ns:xmpp-tls'
 NS_STANZAS = "urn:ietf:params:xml:ns:xmpp-stanzas"
 
 # The class that starts everything
-class Runner:
+class Runner(object):
     option_parser = OptionParser
     option = Option
 

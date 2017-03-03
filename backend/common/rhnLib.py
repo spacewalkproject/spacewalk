@@ -16,6 +16,7 @@
 import os
 import re
 import time
+from datetime import tzinfo, timedelta
 try:
     #  python 2
     import urlparse
@@ -204,3 +205,19 @@ def isSUSE():
     if 'cpe:/o:opensuse:' in cpe_name or 'cpe:/o:suse:' in cpe_name:
         return True
     return False
+
+
+class UTC(tzinfo):
+    """Used for creating offset-aware datetime objects in Python 2."""
+    # pylint: disable=W0613
+
+    def utcoffset(self, dt):
+        return timedelta(0)
+
+    def tzname(self, dt):
+        return "UTC"
+
+    def dst(self, dt):
+        return timedelta(0)
+
+utc = UTC()

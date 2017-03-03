@@ -21,3 +21,7 @@ input[type="file"].form-control {
 div.checkbox.icon-wrapper i.fa {
     width: .6em;
 }
+
+div.form-control {
+    &:extend(.form-control[readonly]);
+}

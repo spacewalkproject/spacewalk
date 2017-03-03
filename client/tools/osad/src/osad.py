@@ -257,6 +257,16 @@ class Runner(jabber_lib.Runner):
         c.send_presence()
         return c
 
+    def preprocess_once(self, client):
+        # BZ 1410781
+        # If the system just started following a reboot event,
+        # we need to run rhn_check in order to let the server
+        # know the reboot is complete, otherwise it won't send
+        # any further events to us.
+        super(Runner, self).preprocess_once(client)
+        client.run_rhn_check_async()
+        return client
+
     def process_once(self, client):
 
         # Re-read the systemid file.  If it's changed from the

@@ -6,7 +6,6 @@ import os
 
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.fileutils import cleanupAbsPath
-from spacewalk.cdn_tools.constants import MAPPINGS_RPM_NAME
 from spacewalk.cdn_tools.cdnsync import CdnSync, CdnMappingsLoadError
 from spacewalk.server import rhnSQL
 from spacewalk.common.usix import raise_with_tb
@@ -43,6 +42,7 @@ def process_commandline():
     parser.add_argument("--no-packages", action="store_true", help="Do not sync packages.")
     parser.add_argument("--no-errata", action="store_true", help="Do not sync errata.")
     parser.add_argument("--no-kickstarts", action="store_true", help="Do not sync kickstart repositories.")
+    parser.add_argument("--force-kickstarts", action="store_true", help="Overwrite kickstart files.")
     parser.add_argument("--clear-cache", action="store_true", help="Delete partially synced channels.")
     parser.add_argument('--http-proxy', action='store', help="alternative http proxy (hostname:port)")
     parser.add_argument('--http-proxy-username', action='store', help="alternative http proxy username")
@@ -52,6 +52,8 @@ def process_commandline():
                         "repositories for every channel")
     parser.add_argument("--no-rpms", action="store_true", help="Do not sync RPMs (debug only)")
     parser.add_argument("-v", "--verbose", action='count', help="Verbose output. Possible to accumulate: -vvv")
+    parser.add_argument("--cdn-certificates", action="store_true",
+                        help="Print details about currently used SSL certificates for accessing CDN.")
 
     cmd_args = parser.parse_args()
 
@@ -73,7 +75,21 @@ def process_commandline():
         if not os.path.isdir(cmd_args.mount_point):
             system_exit(1, "Invalid mount point: %s" % cmd_args.mount_point)
 
+    if cmd_args.channel:
+        cmd_args.channel = set(cmd_args.channel)
+
     return cmd_args
+
+
+def getDbIssParent():
+    rhnSQL.initDB()
+    sql = "select label from rhnISSMaster where is_current_master = 'Y'"
+    h = rhnSQL.prepare(sql)
+    h.execute()
+    row = h.fetchone_dict()
+    if not row:
+        return None
+    return row['label']
 
 
 if __name__ == '__main__':
@@ -89,23 +105,42 @@ if __name__ == '__main__':
         LOCK = rhnLockfile.Lockfile('/var/run/cdn-sync.pid')
 
         args = process_commandline()
+
+        if CFG.get('disconnected') == 1:
+            system_exit(1, 'ERROR: the Satellite server is installed in disconnected mode, cannot continue syncing '
+                        'from CDN')
+
+        if getDbIssParent() or (CFG.get('iss_parent') and CFG.get('disable_iss') == 0):
+            parent = getDbIssParent()
+            if not parent:
+                parent = CFG.get('iss_parent')
+            system_exit(1, 'ERROR: the Satellite server is registered to a parent Satellite "%s".\nTo sync content '
+                        'from the parent Satellite via Inter-Satellite-Sync, please, use the "satellite-sync" command' %
+                        parent)
+
         cdnsync = CdnSync(no_packages=args.no_packages, no_errata=args.no_errata,
                           no_rpms=args.no_rpms, no_kickstarts=args.no_kickstarts,
                           log_level=args.verbose, mount_point=args.mount_point,
-                          consider_full=args.consider_full)
+                          consider_full=args.consider_full,
+                          force_kickstarts=args.force_kickstarts)
 
         if args.list_channels:
             if args.count_packages:
-                cdnsync.count_packages()
+                cdnsync.count_packages(channels=args.channel)
             cdnsync.print_channel_tree()
         elif args.list_repos:
             cdnsync.print_channel_tree(repos=True)
         elif args.count_packages:
-            cdnsync.count_packages()
+            cdnsync.count_packages(channels=args.channel)
         elif args.clear_cache:
             cdnsync.clear_cache()
+        elif args.cdn_certificates:
+            cdnsync.print_cdn_certificates_info()
         else:
-            cdnsync.sync(channels=args.channel)
+            error_messages = cdnsync.sync(channels=args.channel)
+            if error_messages:
+                system_exit(1, error_messages)
+        LOCK.release()
 
     except KeyboardInterrupt:
         system_exit(0, "\nUser interrupted process.")
@@ -118,19 +153,33 @@ if __name__ == '__main__':
         system_exit(1, "SYNC ERROR: attempting to run more than one instance of cdn-sync. Exiting.")
     except ChannelNotFoundError:
         e = sys.exc_info()[1]
+        if LOCK:
+            LOCK.release()
         system_exit(12, ["ERROR: these channels either do not exist or are not available:",
                          e,
                          "(to see a list of channel labels: /usr/bin/cdn-sync --list-channels)"])
     except (MissingParentChannelError, InvalidChannelFamilyError,
             InvalidChannelError, InvalidArchError):
         e = sys.exc_info()[1]
+        if LOCK:
+            LOCK.release()
         system_exit(1, "SYNC ERROR: %s. Exiting." % str(e))
     except rhnSQL.SQLConnectError:
         e = sys.exc_info()[1]
+        if LOCK:
+            LOCK.release()
         system_exit(20, ["ERROR: Can't connect to the database: %s" % str(e), "Check if your database is running."])
     except CdnMappingsLoadError:
         e = sys.exc_info()[1]
         system_exit(30, ["ERROR: %s" % str(e)])
+    except IOError:
+        e = sys.exc_info()[1]
+        if LOCK:
+            LOCK.release()
+        # Broken pipe
+        if e.errno != 32:
+            raise_with_tb(Exception("SYNC ERROR: attempting to display as much information as possible\n %s" % str(e)),
+                          sys.exc_info()[2])
     except Exception:
         e = sys.exc_info()[1]
         if LOCK:

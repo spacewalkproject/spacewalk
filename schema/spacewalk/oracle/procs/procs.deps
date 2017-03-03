@@ -17,7 +17,6 @@
 
 path = . tables views packages class
 
-create_first_org                :: rhnUserGroupType rhnUserGroup
 create_new_org                  :: web_customer rhnUserGroupType rhnUserGroup
 create_new_user                 :: web_contact web_user_contact_permission \
                                    web_user_personal_info web_user_site_info \

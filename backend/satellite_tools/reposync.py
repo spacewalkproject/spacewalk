@@ -21,7 +21,7 @@ from datetime import datetime
 import ConfigParser
 
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel
-from spacewalk.common import fileutils, rhnLog
+from spacewalk.common import fileutils, rhnLog, rhnCache
 from spacewalk.common.rhnLib import isSUSE
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhnConfig import CFG, initCFG
@@ -30,12 +30,15 @@ from spacewalk.server.importlib.packageImport import ChannelPackageSubscription
 from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.errataImport import ErrataImport
 from spacewalk.server import taskomatic
+from spacewalk.satellite_tools.repo_plugins import ThreadedDownloader, ProgressBarLogger, TextLogger
+from spacewalk.satellite_tools.satCerts import verify_certificate_dates
 
-from syncLib import log, log2disk, log2stderr
+from syncLib import log, log2, log2disk
 
 
 default_log_location = '/var/log/rhn/'
 relative_comps_dir = 'rhn/comps'
+checksum_cache_filename = 'reposync/checksum_cache'
 
 
 class KSDirParser:
@@ -176,18 +179,33 @@ def getCustomChannels():
     return l_custom_ch
 
 
+def get_single_ssl_set(keys, check_dates=False):
+    """Picks one of available SSL sets for given repository."""
+    if check_dates:
+        for ssl_set in keys:
+            if verify_certificate_dates(str(ssl_set['ca_cert'])) and \
+                (not ssl_set['client_cert'] or
+                 verify_certificate_dates(str(ssl_set['client_cert']))):
+                return ssl_set
+    # Get first
+    else:
+        return keys[0]
+    return None
+
+
 class RepoSync(object):
 
     def __init__(self, channel_label, repo_type, url=None, fail=False,
                  filters=None, no_errata=False, sync_kickstart=False, latest=False,
                  metadata_only=False, strict=0, excluded_urls=None, no_packages=False,
-                 log_dir="reposync", log_level=None):
+                 log_dir="reposync", log_level=None, force_kickstart=False, check_ssl_dates=False):
         self.regen = False
         self.fail = fail
         self.filters = filters or []
         self.no_packages = no_packages
         self.no_errata = no_errata
         self.sync_kickstart = sync_kickstart
+        self.force_kickstart = force_kickstart
         self.latest = latest
         self.metadata_only = metadata_only
         self.ks_tree_type = 'externally-managed'
@@ -242,11 +260,16 @@ class RepoSync(object):
             self.urls = [(None, u, None) for u in url]
 
         if not self.urls:
-            log2stderr(0, "Channel %s has no URL associated" % channel_label)
+            log2(0, 0, "Channel %s has no URL associated" % channel_label, stream=sys.stderr)
 
         self.repo_plugin = self.load_plugin(repo_type)
         self.strict = strict
         self.all_packages = []
+        self.check_ssl_dates = check_ssl_dates
+        # Init cache for computed checksums to not compute it on each reposync run again
+        self.checksum_cache = rhnCache.get(checksum_cache_filename)
+        if self.checksum_cache is None:
+            self.checksum_cache = {}
 
     def set_urls_prefix(self, prefix):
         """If there are relative urls in DB, set their real location in runtime"""
@@ -257,8 +280,12 @@ class RepoSync(object):
             url = tuple(url)
             self.urls[index] = url
 
-    def sync(self, update_repodata=False):
+    def sync(self, update_repodata=True):
         """Trigger a reposync"""
+        failed_packages = 0
+        sync_error = 0
+        if not self.urls:
+            sync_error = -1
         start_time = datetime.now()
         for (repo_id, url, repo_label) in self.urls:
             log(0, "Repo URL: %s" % url)
@@ -270,34 +297,41 @@ class RepoSync(object):
 
             # pylint: disable=W0703
             try:
-                # use modified relative_url as name of repo plugin, because
-                # it used as name of cache directory as well
+                if repo_label:
+                    repo_name = repo_label
+                else:
+                    # use modified relative_url as name of repo plugin, because
+                    # it used as name of cache directory as well
+                    relative_url = '_'.join(url.split('://')[1].split('/')[1:])
+                    repo_name = relative_url.replace("?", "_").replace("&", "_").replace("=", "_")
 
-                relative_url = '_'.join(url.split('://')[1].split('/')[1:])
-                plugin_name = relative_url.replace("?", "_").replace("&", "_").replace("=", "_")
-
-                plugin = self.repo_plugin(url, plugin_name)
+                plugin = self.repo_plugin(url, repo_name,
+                                          org=str(self.channel['org_id'] or ''),
+                                          channel_label=self.channel_label)
 
                 if update_repodata:
                     plugin.clear_cache()
 
                 if repo_id is not None:
-                    keys = rhnSQL.fetchone_dict("""
+                    keys = rhnSQL.fetchall_dict("""
                         select k1.key as ca_cert, k2.key as client_cert, k3.key as client_key
-                        from rhncontentsource cs
-                                join rhncryptokey k1
-                                on cs.ssl_ca_cert_id = k1.id
-                                left outer join rhncryptokey k2
-                                on cs.ssl_client_cert_id = k2.id
-                                left outer join rhncryptokey k3
-                                on cs.ssl_client_key_id = k3.id
+                        from rhncontentsource cs inner join
+                             rhncontentsourcessl csssl on cs.id = csssl.content_source_id inner join
+                             rhncryptokey k1 on csssl.ssl_ca_cert_id = k1.id left outer join
+                             rhncryptokey k2 on csssl.ssl_client_cert_id = k2.id left outer join
+                             rhncryptokey k3 on csssl.ssl_client_key_id = k3.id
                         where cs.id = :repo_id
                         """, repo_id=int(repo_id))
-                    if keys and ('ca_cert' in keys):
-                        plugin.set_ssl_options(keys['ca_cert'], keys['client_cert'], keys['client_key'])
+                    if keys:
+                        ssl_set = get_single_ssl_set(keys, check_dates=self.check_ssl_dates)
+                        if ssl_set:
+                            plugin.set_ssl_options(ssl_set['ca_cert'], ssl_set['client_cert'], ssl_set['client_key'])
+                        else:
+                            raise ValueError("No valid SSL certificates were found for repository.")
 
                 if not self.no_packages:
-                    self.import_packages(plugin, repo_id, url)
+                    ret = self.import_packages(plugin, repo_id, url)
+                    failed_packages += ret
                     self.import_groups(plugin, url)
 
                 if not self.no_errata:
@@ -312,18 +346,34 @@ class RepoSync(object):
                         raise
             except Exception:
                 e = sys.exc_info()[1]
-                log2stderr(0, "ERROR: %s" % e)
+                log2(0, 0, "ERROR: %s" % e, stream=sys.stderr)
+                log2disk(0, "ERROR: %s" % e)
+                # pylint: disable=W0104
+                sync_error = -1
             if plugin is not None:
                 plugin.clear_ssl_cache()
+        # Update cache with package checksums
+        rhnCache.set(checksum_cache_filename, self.checksum_cache)
         if self.regen:
             taskomatic.add_to_repodata_queue_for_channel_package_subscription(
                 [self.channel_label], [], "server.app.yumreposync")
             taskomatic.add_to_erratacache_queue(self.channel_label)
         self.update_date()
         rhnSQL.commit()
+
+        # update permissions
+        fileutils.createPath(os.path.join(CFG.MOUNT_POINT, 'rhn'))  # if the directory exists update ownership only
+        for root, dirs, files in os.walk(os.path.join(CFG.MOUNT_POINT, 'rhn')):
+            for d in dirs:
+                fileutils.setPermsPath(os.path.join(root, d), group='apache')
+            for f in files:
+                fileutils.setPermsPath(os.path.join(root, f), group='apache')
         elapsed_time = datetime.now() - start_time
         log(0, "Sync of channel completed in %s." % str(elapsed_time).split('.')[0])
-        return elapsed_time
+        # if there is no global problems, but some packages weren't synced
+        if sync_error == 0 and failed_packages > 0:
+            sync_error = failed_packages
+        return elapsed_time, sync_error
 
     def set_ks_tree_type(self, tree_type='externally-managed'):
         self.ks_tree_type = tree_type
@@ -567,6 +617,7 @@ class RepoSync(object):
         self.regen = True
 
     def import_packages(self, plug, source_id, url):
+        failed_packages = 0
         if (not self.filters) and source_id:
             h = rhnSQL.prepare("""
                     select flag, filter
@@ -604,7 +655,7 @@ class RepoSync(object):
                 else:
                     pack.path = ""
 
-                if self.metadata_only or self.match_package_checksum(pack.path,
+                if self.metadata_only or self.match_package_checksum(db_pack['path'], pack.path,
                                                                      pack.checksum_type, pack.checksum):
                     # package is already on disk or not required
                     to_download = False
@@ -612,14 +663,15 @@ class RepoSync(object):
                         # package is already in the channel
                         to_link = False
 
+                    # just pass data from DB, they will be used in strict channel
+                    # linking if there is no new RPM downloaded
+                    pack.checksum = db_pack['checksum']
+                    pack.checksum_type = db_pack['checksum_type']
+                    pack.epoch = db_pack['epoch']
+
                 elif db_pack['channel_id'] == channel_id:
                     # different package with SAME NVREA
                     self.disassociate_package(db_pack)
-
-                # just pass data from DB, they will be used if there is no RPM available
-                pack.checksum = db_pack['checksum']
-                pack.checksum_type = db_pack['checksum_type']
-                pack.epoch = db_pack['epoch']
 
             if to_download or to_link:
                 to_process.append((pack, to_download, to_link))
@@ -629,58 +681,118 @@ class RepoSync(object):
             log(0, "No new packages to sync.")
             # If we are just appending, we can exit
             if not self.strict:
-                return
+                return failed_packages
         else:
             log(0, "Packages already synced:      %5d" % (num_passed - num_to_process))
             log(0, "Packages to sync:             %5d" % num_to_process)
 
-        self.regen = True
         is_non_local_repo = (url.find("file:/") < 0)
 
+        downloader = ThreadedDownloader()
+        to_download_count = 0
+        for what in to_process:
+            pack, to_download, to_link = what
+            if to_download:
+                target_file = os.path.join(plug.repo.pkgdir, os.path.basename(pack.unique_id.relativepath))
+                pack.path = target_file
+                params = {}
+                if self.metadata_only:
+                    bytes_range = (0, pack.unique_id.hdrend)
+                    checksum_type = None
+                    checksum = None
+                else:
+                    bytes_range = None
+                    checksum_type = pack.checksum_type
+                    checksum = pack.checksum
+                plug.set_download_parameters(params, pack.unique_id.relativepath, target_file,
+                                             checksum_type=checksum_type, checksum_value=checksum,
+                                             bytes_range=bytes_range)
+                downloader.add(params)
+                to_download_count += 1
+        if num_to_process != 0:
+            log(0, "New packages to download:     %5d" % to_download_count)
+        logger = TextLogger(None, to_download_count)
+        downloader.set_log_obj(logger)
+        downloader.run()
+
+        log2disk(0, "Importing packages started.")
+        progress_bar = ProgressBarLogger("Importing packages:    ", to_download_count)
         for (index, what) in enumerate(to_process):
             pack, to_download, to_link = what
-            localpath = None
+            if not to_download:
+                continue
+            localpath = pack.path
             # pylint: disable=W0703
             try:
-                log(0, "%d/%d : %s" % (index + 1, num_to_process, pack.getNVREA()))
-                if to_download:
-                    pack.path = localpath = plug.get_package(pack, metadata_only=self.metadata_only)
+                if os.path.exists(localpath):
                     pack.load_checksum_from_header()
-                    pack.upload_package(self.channel, metadata_only=self.metadata_only)
+                    rel_package_path = pack.upload_package(self.channel, metadata_only=self.metadata_only)
+                    # Save uploaded package to cache with repository checksum type
+                    if rel_package_path:
+                        self.checksum_cache[rel_package_path] = {pack.checksum_type: pack.checksum}
+
+                    # we do not want to keep a whole 'a_pkg' object for every package in memory,
+                    # because we need only checksum. see BZ 1397417
+                    pack.checksum = pack.a_pkg.checksum
+                    pack.checksum_type = pack.a_pkg.checksum_type
+                    pack.epoch = pack.a_pkg.header['epoch']
+                    pack.a_pkg = None
+                else:
+                    raise Exception
+                progress_bar.log(True, None)
             except KeyboardInterrupt:
                 raise
             except Exception:
+                failed_packages += 1
                 e = sys.exc_info()[1]
-                log2stderr(0, e)
+                log2(0, 0, e, stream=sys.stderr)
                 if self.fail:
                     raise
                 to_process[index] = (pack, False, False)
-                continue
+                self.all_packages.remove(pack)
+                progress_bar.log(False, None)
             finally:
                 if is_non_local_repo and localpath and os.path.exists(localpath):
                     os.remove(localpath)
+        log2disk(0, "Importing packages finished.")
 
-        log(0, "Linking packages to channel.")
         if self.strict:
+            # Need to make sure all packages from all repositories are associated with channel
             import_batch = [self.associate_package(pack)
                             for pack in self.all_packages]
         else:
+            # Only packages from current repository are appended to channel
             import_batch = [self.associate_package(pack)
                             for (pack, to_download, to_link) in to_process
                             if to_link]
-        backend = SQLBackend()
-        caller = "server.app.yumreposync"
-        importer = ChannelPackageSubscription(import_batch,
-                                              backend, caller=caller, repogen=False,
-                                              strict=self.strict)
-        importer.run()
-        backend.commit()
+        # Do not re-link if nothing was marked to link
+        if any([to_link for (pack, to_download, to_link) in to_process]):
+            log(0, "Linking packages to channel.")
+            backend = SQLBackend()
+            caller = "server.app.yumreposync"
+            importer = ChannelPackageSubscription(import_batch,
+                                                  backend, caller=caller, repogen=False,
+                                                  strict=self.strict)
+            importer.run()
+            backend.commit()
+            self.regen = True
+        return failed_packages
 
-    @staticmethod
-    def match_package_checksum(abspath, checksum_type, checksum):
-        if (os.path.exists(abspath) and
-                getFileChecksum(checksum_type, filename=abspath) == checksum):
-            return 1
+    def match_package_checksum(self, relpath, abspath, checksum_type, checksum):
+        if os.path.exists(abspath):
+            if relpath not in self.checksum_cache:
+                self.checksum_cache[relpath] = {}
+            cached_checksums = self.checksum_cache[relpath]
+            if checksum_type not in cached_checksums:
+                checksum_disk = getFileChecksum(checksum_type, filename=abspath)
+                cached_checksums[checksum_type] = checksum_disk
+            else:
+                checksum_disk = cached_checksums[checksum_type]
+            if checksum_disk == checksum:
+                return 1
+        elif relpath in self.checksum_cache:
+            # Remove path from cache if not exists
+            del self.checksum_cache[relpath]
         return 0
 
     def associate_package(self, pack):
@@ -741,7 +853,7 @@ class RepoSync(object):
             new_version = 0
             for n in notice['version'].split('.'):
                 new_version = (new_version + int(n)) * 100
-            notice['version'] = new_version / 100
+            notice['version'] = str(new_version / 100)
         return notice
 
     @staticmethod
@@ -846,6 +958,7 @@ class RepoSync(object):
             else:
                 self.ks_install_type = 'generic_rpm'
 
+        fileutils.createPath(os.path.join(CFG.MOUNT_POINT, ks_path))
         # Make sure images are included
         to_download = []
         for repo_path in treeinfo_parser.get_images():
@@ -909,19 +1022,18 @@ class RepoSync(object):
                     to_download.append(repo_path)
 
         if to_download:
-            log(0, "Downloading %d files." % len(to_download))
+            log2disk(0, "Downloading %d files." % len(to_download))
+            progress_bar = ProgressBarLogger("Downloading kickstarts:", len(to_download))
+            downloader = ThreadedDownloader(force=self.force_kickstart)
             for item in to_download:
-                for retry in range(3):
-                    try:
-                        log(1, "Retrieving %s" % item)
-                        plug.get_file(item, os.path.join(CFG.MOUNT_POINT, ks_path))
-                        st = os.stat(os.path.join(CFG.MOUNT_POINT, ks_path, item))
-                        break
-                    except OSError:  # os.stat if the file wasn't downloaded
-                        if retry < 3:
-                            log(2, "Retry download %s: attempt #%d" % (item, retry + 1))
-                        else:
-                            raise
+                params = {}
+                plug.set_download_parameters(params, item, os.path.join(CFG.MOUNT_POINT, ks_path, item))
+                downloader.add(params)
+            downloader.set_log_obj(progress_bar)
+            downloader.run()
+            log2disk(0, "Download finished.")
+            for item in to_download:
+                st = os.stat(os.path.join(CFG.MOUNT_POINT, ks_path, item))
                 # update entity about current file in a database
                 delete_h.execute(id=ks_id, path=item)
                 insert_h.execute(id=ks_id, path=item,
@@ -930,4 +1042,5 @@ class RepoSync(object):
         else:
             log(0, "Nothing to download.")
 
+        # set permissions recursively
         rhnSQL.commit()
