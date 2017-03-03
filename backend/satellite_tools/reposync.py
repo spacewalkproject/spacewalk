@@ -973,12 +973,12 @@ class RepoSync(object):
 
         fileutils.createPath(os.path.join(CFG.MOUNT_POINT, ks_path))
         # Make sure images are included
-        to_download = []
+        to_download = set()
         for repo_path in treeinfo_parser.get_images():
             local_path = os.path.join(CFG.MOUNT_POINT, ks_path, repo_path)
             # TODO: better check
-            if not os.path.exists(local_path):
-                to_download.append(repo_path)
+            if not os.path.exists(local_path) or self.force_kickstart:
+                to_download.add(repo_path)
 
         if row:
             log(0, "Kickstartable tree %s already synced. Updating content..." % ks_tree_label)
@@ -1037,11 +1037,11 @@ class RepoSync(object):
                     dirs_queue.append(repo_path)
                     continue
 
-                if repo_path not in to_download:
-                    to_download.append(repo_path)
+                if not os.path.exists(os.path.join(CFG.MOUNT_POINT, ks_path, repo_path)) or self.force_kickstart:
+                    to_download.add(repo_path)
 
         if to_download:
-            log2disk(0, "Downloading %d files." % len(to_download))
+            log(0, "Downloading %d kickstart files." % len(to_download))
             progress_bar = ProgressBarLogger("Downloading kickstarts:", len(to_download))
             downloader = ThreadedDownloader(force=self.force_kickstart)
             for item in to_download:
@@ -1059,7 +1059,7 @@ class RepoSync(object):
                                  checksum=getFileChecksum('sha256', os.path.join(CFG.MOUNT_POINT, ks_path, item)),
                                  st_size=st.st_size, st_time=st.st_mtime)
         else:
-            log(0, "Nothing to download.")
+            log(0, "No new kickstart files to download.")
 
         # set permissions recursively
         rhnSQL.commit()
