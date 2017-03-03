@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.47
+Version: 2.7.48
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -797,6 +797,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Fri Mar 03 2017 Gennadii Altukhov <galt@redhat.com> 2.7.48-1
+- 1418025 - sync RPM packages for addons in Kickstart Tree
+- Fix: selection of primary interface
+
 * Thu Mar 02 2017 Jan Dobes 2.7.47-1
 - 1427220 - trigger repodata generation after and only if channel packages are
   updated
