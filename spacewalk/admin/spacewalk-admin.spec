@@ -1,7 +1,7 @@
 %global rhnroot /%{_datadir}/rhn
 Summary: Various utility scripts and data files for Spacewalk and Red Hat Satellite installations
 Name: spacewalk-admin
-URL:     https://fedorahosted.org/spacewalk
+URL:     https://github.com/spacewalkproject/spacewalk
 Version: 2.7.0
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz

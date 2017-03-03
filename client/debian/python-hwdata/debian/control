@@ -2,7 +2,7 @@ Source: python-hwdata
 X-Python-Version: >= 2.6
 Section: python
 Priority: optional
-Homepage: https://fedorahosted.org/spacewalk/wiki/Projects/python-hwdata
+Homepage: https://github.com/spacewalkproject/spacewalk/wiki/Projects/python-hwdata
 Maintainer: William van de Velde <kc@cobradevil.org>
 Build-Depends: debhelper (>> 8), python (>=2.6.6-3), python-all-dev (>= 2.6.6-3)
 Standards-Version: 3.9.3

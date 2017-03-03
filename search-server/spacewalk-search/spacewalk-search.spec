@@ -11,7 +11,7 @@ Release: 1%{?dist}
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
 # cd search-server
 # make test-srpm
-URL: https://fedorahosted.org/spacewalk
+URL: https://github.com/spacewalkproject/spacewalk
 Source0: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch

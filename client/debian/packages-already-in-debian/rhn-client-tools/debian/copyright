@@ -50,7 +50,7 @@ Copyright
  nothing left where Red Hat trademarks apply to.
 
  An exception for linking GPLed code with OpenSSL was added by upstream:
- https://fedorahosted.org/spacewalk/changeset/9b930abf494222ccf4c086bb354db73950c15217
+ https://github.com/spacewalkproject/spacewalk/changeset/9b930abf494222ccf4c086bb354db73950c15217
 
 
 The Debian packaging is

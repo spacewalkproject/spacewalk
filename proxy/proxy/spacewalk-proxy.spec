@@ -6,7 +6,7 @@ Name: spacewalk-proxy
 Summary: Spacewalk Proxy Server
 Group:   Applications/Internet
 License: GPLv2
-URL:     https://fedorahosted.org/spacewalk
+URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version: 2.7.0
 Release: 1%{?dist}

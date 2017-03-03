@@ -10,7 +10,7 @@ Summary:     Utilities to interact with a Red Hat Satellite or Spacewalk server 
 
 Group:       Applications/System
 License:     GPLv2
-URL:         http://fedorahosted.org/spacewalk
+URL:         http://github.com/spacewalkproject/spacewalk
 Source:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch

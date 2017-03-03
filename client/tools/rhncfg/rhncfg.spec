@@ -6,7 +6,7 @@ Name: rhncfg
 Summary: Spacewalk Configuration Client Libraries
 Group:   Applications/System
 License: GPLv2
-URL:     https://fedorahosted.org/spacewalk
+URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version: 5.10.102
 Release: 1%{?dist}

@@ -5,7 +5,7 @@ Maintainer: Marcelo Moreira de Mello <mmello@redhat.com>
 Build-Depends: python, docbook-utils, debhelper (>= 7.0.50~)
 Build-Depends-Indep: python-support (>= 0.8)
 Standards-Version: 3.9.1
-Homepage: https://fedorahosted.org/spacewalk
+Homepage: https://github.com/spacewalkproject/spacewalk
 
 Package: rhncfg
 Architecture: all

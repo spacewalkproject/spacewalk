@@ -105,7 +105,7 @@ end<br />
 </code>
 <hr />
 
-For more examples visit the <a href="https://fedorahosted.org/spacewalk/">Spacewalk community page</a>.
+For more examples visit the <a href="https://github.com/spacewalkproject/spacewalk/">Spacewalk community page</a>.
 
 <p />
 </body><p />

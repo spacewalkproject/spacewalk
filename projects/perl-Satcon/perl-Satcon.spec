@@ -6,7 +6,7 @@ Version:        2.7.1
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
-URL:            https://fedorahosted.org/spacewalk
+URL:            https://github.com/spacewalkproject/spacewalk
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))

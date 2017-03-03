@@ -5,7 +5,7 @@ Maintainer: Miroslav Suchý <miroslav@suchy.cz>
 Uploaders: Bernd Zeimetz <bzed@debian.org>
 Build-Depends: debhelper (>= 7.0.50~)
 Standards-Version: 3.9.3
-Homepage: https://fedorahosted.org/spacewalk
+Homepage: https://github.com/spacewalkproject/spacewalk
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/spacewalk/rhnsd.git
 Vcs-Git: git://anonscm.debian.org/collab-maint/spacewalk/rhnsd.git
 

@@ -2,7 +2,7 @@ Name: spacewalk-proxy-docs
 Summary: Spacewalk Proxy Server Documentation
 Group: Applications/Internet
 License: Open Publication
-URL:     https://fedorahosted.org/spacewalk
+URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version: 2.7.0
 Release: 1%{?dist}

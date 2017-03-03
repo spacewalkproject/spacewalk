@@ -9,7 +9,7 @@ Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
 License:        GPLv2
-Url:            http://fedorahosted.org/spacewalk/
+Url:            http://github.com/spacewalkproject/spacewalk/
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 

@@ -16,7 +16,7 @@ License:         GPLv2+
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
 # cd spacewalk
 # make srpm TAG=%{name}-%{version}-%{release}
-URL:             http://fedorahosted.org/spacewalk
+URL:             http://github.com/spacewalkproject/spacewalk
 Source0:         https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:       %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildRequires:   perl

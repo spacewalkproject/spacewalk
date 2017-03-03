@@ -5,7 +5,7 @@ Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-URL:     https://fedorahosted.org/spacewalk
+URL:     https://github.com/spacewalkproject/spacewalk
 BuildArch: noarch
 
 %if 0%{?fedora}

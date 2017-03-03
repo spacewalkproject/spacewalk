@@ -1981,7 +1981,7 @@ Setup PostgreSQL database for multi-server installation (database and Spacewalk 
 
 =head1 SEE ALSO
 
-See documentation at L<https://fedorahosted.org/spacewalk/> for more
+See documentation at L<https://github.com/spacewalkproject/spacewalk/> for more
 details and the Spacewalk server, its configuration and use..
 
 =head1 AUTHOR

@@ -5,7 +5,7 @@ License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version: 2.7.0
 Release: 1%{?dist}
-URL:            https://fedorahosted.org/spacewalk
+URL:            https://github.com/spacewalkproject/spacewalk
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch:      noarch
 BuildRequires:  python

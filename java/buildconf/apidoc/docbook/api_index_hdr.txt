@@ -7,7 +7,7 @@
     <pubdate><?dbtimestamp?></pubdate>
     <productname>Spacewalk</productname>
     <productnumber>2.2</productnumber>
-    <bibliosource class="uri">https://fedorahosted.org/spacewalk</bibliosource>
+    <bibliosource class="uri">https://github.com/spacewalkproject/spacewalk</bibliosource>
     <abstract>
       <para>
         Welcome to the Spacewalk API. By using the included API calls, you can easily automate many of

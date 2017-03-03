@@ -4,7 +4,7 @@
 # machine is IPA-enrolled and on the IPA server, HTTP/<the-spacewalk-fqdn>
 # service is created.
 #
-# https://fedorahosted.org/spacewalk/wiki/SpacewalkAndIPA
+# https://github.com/spacewalkproject/spacewalk/wiki/SpacewalkAndIPA
 
 use strict;
 use warnings FATAL => 'all';
@@ -387,7 +387,7 @@ service is created.
 
 =head1 SEE ALSO
 
-https://fedorahosted.org/spacewalk/wiki/SpacewalkAndIPA, spacewalk-setup(8)
+https://github.com/spacewalkproject/spacewalk/wiki/SpacewalkAndIPA, spacewalk-setup(8)
 
 =head1 COPYRIGHT AND LICENSE
 

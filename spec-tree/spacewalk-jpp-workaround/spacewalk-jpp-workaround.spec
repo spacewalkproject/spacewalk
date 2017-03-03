@@ -5,7 +5,7 @@ Summary:	Workaround package to fulfill jpackage broken dependencies
 
 Group:		Applications/Internet
 License:	GPLv2
-URL:		https://fedorahosted.org/spacewalk
+URL:		https://github.com/spacewalkproject/spacewalk
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
 

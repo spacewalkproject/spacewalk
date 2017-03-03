@@ -2,7 +2,7 @@ Summary: Support programs and libraries for Red Hat Network or Spacewalk
 License: GPLv2
 Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-URL:     https://fedorahosted.org/spacewalk
+URL:     https://github.com/spacewalkproject/spacewalk
 Name: rhn-client-tools
 Version: 1.8.9
 Release: 1%{?dist}

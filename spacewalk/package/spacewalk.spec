@@ -4,7 +4,7 @@ Name:           spacewalk
 Version:        2.7.0
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
-URL:            https://fedorahosted.org/spacewalk
+URL:            https://github.com/spacewalkproject/spacewalk
 Group:          Applications/Internet
 License:        GPLv2
 BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
