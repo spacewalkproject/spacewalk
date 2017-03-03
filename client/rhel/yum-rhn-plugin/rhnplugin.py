@@ -163,7 +163,6 @@ def init_hook(conduit):
     repos = conduit.getRepos()
     cachedir = conduit_conf.cachedir
     sslcacert = get_ssl_ca_cert(up2date_cfg)
-    pluginOptions = getRHNRepoOptions(conduit, 'main')
 
     cachefile = openRHNReposCache(conduit)
     for channel in svrChannels:
@@ -181,16 +180,7 @@ def init_hook(conduit):
                 repo.timeout = timeout
             if hasattr(conduit_conf, '_repos_persistdir'):
                 repo.base_persistdir = conduit_conf._repos_persistdir
-            repoOptions = getRHNRepoOptions(conduit, repo.id)
-            for options in [pluginOptions, repoOptions]:
-                if options:
-                    for o in options:
-                        if o[0] == 'exclude': # extend current list
-                            setattr(repo, o[0], ",".join(repo.exclude) + ',' + o[1])
-                        else: # replace option
-                            setattr(repo, o[0], o[1])
-                        conduit.info(5, "Repo '%s' setting option '%s' = '%s'" %
-                            (repo.id, o[0], o[1]))
+            updateRHNRepoOptions(conduit, repo)
             repos.add(repo)
             if cachefile:
                 cachefile.write("%s %s\n" % (repo.id, repo.name))
@@ -242,6 +232,7 @@ def addCachedRepos(conduit):
             repo.name = reponame
             if hasattr(conduit.getConf(), '_repos_persistdir'):
                 repo.base_persistdir = conduit.getConf()._repos_persistdir
+            updateRHNRepoOptions(conduit, repo)
             repo.enable()
             if not repos.findRepos(repo.id):
                 repos.add(repo)
@@ -754,6 +745,19 @@ def getRHNRepoOptions(conduit, repoid):
     except NoSectionError:
         pass
     return None
+
+def updateRHNRepoOptions(conduit, repo):
+    pluginOptions = getRHNRepoOptions(conduit, 'main')
+    repoOptions = getRHNRepoOptions(conduit, repo.id)
+    for options in [pluginOptions, repoOptions]:
+        if options:
+            for o in options:
+                if o[0] == 'exclude': # extend current list
+                    setattr(repo, o[0], ",".join(repo.exclude) + ',' + o[1])
+                else: # replace option
+                    setattr(repo, o[0], o[1])
+                conduit.info(5, "Repo '%s' setting option '%s' = '%s'" %
+                    (repo.id, o[0], o[1]))
 
 def config_hook(conduit):
     if hasattr(conduit, 'registerPackageName'):
