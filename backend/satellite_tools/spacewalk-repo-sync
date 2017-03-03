@@ -45,7 +45,7 @@ except KeyboardInterrupt:
     systemExit(0, "\nUser interrupted process.")
 except ImportError:
     systemExit(1, "Unable to find code tree.\n"
-               "Path not correct? " + sys.path)
+               "Path not correct? " + str(sys.path))
 
 
 def releaseLOCK():
