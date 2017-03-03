@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.48
+Version: 2.7.49
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -797,6 +797,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Fri Mar 03 2017 Gennadii Altukhov <galt@redhat.com> 2.7.49-1
+- fix pylint warning
+- Updated links to github in spec files
+- 1428834 - show sys.path as string if anything goes wrong
+- Migrating Fedorahosted to GitHub
+
 * Fri Mar 03 2017 Gennadii Altukhov <galt@redhat.com> 2.7.48-1
 - 1418025 - sync RPM packages for addons in Kickstart Tree
 - Fix: selection of primary interface
