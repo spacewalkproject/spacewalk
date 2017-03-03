@@ -733,6 +733,11 @@ def get_system_names(self):
     return self.all_systems.values()
 
 
+def get_system_names_ids(self):
+    self.generate_system_cache()
+    return self.all_systems
+
+
 # check for duplicate system names and return the system ID
 def get_system_id(self, name):
     name = str(name)

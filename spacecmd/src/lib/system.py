@@ -159,7 +159,7 @@ def do_system_list(self, args, doreturn=False):
         return self.get_system_names()
     else:
         if len(self.get_system_names()):
-            print '\n'.join(sorted(self.get_system_names()))
+            print '\n'.join(sorted(['%s : %s' % (v, k) for k, v in self.get_system_names_ids().iteritems()]))
 
 ####################
 
