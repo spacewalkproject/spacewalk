@@ -49,7 +49,7 @@ class KSDirParser:
 
         if additional_blacklist is None:
             additional_blacklist = []
-        elif type(additional_blacklist) != type([]):
+        elif not isinstance(additional_blacklist, type([])):
             additional_blacklist = [additional_blacklist]
 
         for s in (m.group(1) for m in re.finditer(r'(?i)<a href="(.+?)"', dir_html)):
