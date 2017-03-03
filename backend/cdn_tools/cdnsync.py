@@ -45,7 +45,8 @@ class CdnSync(object):
     log_path = '/var/log/rhn/cdnsync.log'
 
     def __init__(self, no_packages=False, no_errata=False, no_rpms=False, no_kickstarts=False,
-                 log_level=None, mount_point=None, consider_full=False, force_kickstarts=False):
+                 log_level=None, mount_point=None, consider_full=False, force_kickstarts=False,
+                 force_all_errata=False):
 
         self.cdn_repository_manager = CdnRepositoryManager(mount_point)
         self.no_packages = no_packages
@@ -54,6 +55,7 @@ class CdnSync(object):
         if self.no_packages and self.no_rpms:
             log(0, "Parameter --no-rpms has no effect.")
         self.no_kickstarts = no_kickstarts
+        self.force_all_errata = force_all_errata
         self.force_kickstarts = force_kickstarts
         if self.no_kickstarts and self.force_kickstarts:
             log(0, "Parameter --force-kickstarts has no effect.")
@@ -282,6 +284,7 @@ class CdnSync(object):
                                  no_packages=self.no_packages,
                                  no_errata=self.no_errata,
                                  sync_kickstart=(not self.no_kickstarts),
+                                 force_all_errata=self.force_all_errata,
                                  force_kickstart=self.force_kickstarts,
                                  latest=False,
                                  metadata_only=self.no_rpms,

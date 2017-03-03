@@ -42,6 +42,8 @@ def process_commandline():
     parser.add_argument("--no-packages", action="store_true", help="Do not sync packages.")
     parser.add_argument("--no-errata", action="store_true", help="Do not sync errata.")
     parser.add_argument("--no-kickstarts", action="store_true", help="Do not sync kickstart repositories.")
+    parser.add_argument("--force-all-errata", action="store_true", help="Process metadata of all errata, "
+                                                                        "not only missing.")
     parser.add_argument("--force-kickstarts", action="store_true", help="Overwrite kickstart files.")
     parser.add_argument("--clear-cache", action="store_true", help="Delete partially synced channels.")
     parser.add_argument('--http-proxy', action='store', help="alternative http proxy (hostname:port)")
@@ -122,6 +124,7 @@ if __name__ == '__main__':
                           no_rpms=args.no_rpms, no_kickstarts=args.no_kickstarts,
                           log_level=args.verbose, mount_point=args.mount_point,
                           consider_full=args.consider_full,
+                          force_all_errata=args.force_all_errata,
                           force_kickstarts=args.force_kickstarts)
 
         if args.list_channels:

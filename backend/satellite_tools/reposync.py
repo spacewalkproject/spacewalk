@@ -211,13 +211,15 @@ class RepoSync(object):
     def __init__(self, channel_label, repo_type, url=None, fail=False,
                  filters=None, no_errata=False, sync_kickstart=False, latest=False,
                  metadata_only=False, strict=0, excluded_urls=None, no_packages=False,
-                 log_dir="reposync", log_level=None, force_kickstart=False, check_ssl_dates=False):
+                 log_dir="reposync", log_level=None, force_kickstart=False, force_all_errata=False,
+                 check_ssl_dates=False):
         self.regen = False
         self.fail = fail
         self.filters = filters or []
         self.no_packages = no_packages
         self.no_errata = no_errata
         self.sync_kickstart = sync_kickstart
+        self.force_all_errata = force_all_errata
         self.force_kickstart = force_kickstart
         self.latest = latest
         self.metadata_only = metadata_only
@@ -464,7 +466,7 @@ class RepoSync(object):
         for notice in notices:
             notice = self.fix_notice(notice)
 
-            if notice['update_id'] in channel_advisory_names:
+            if not self.force_all_errata and notice['update_id'] in channel_advisory_names:
                 continue
 
             advisory = notice['update_id'] + '-' + notice['version']

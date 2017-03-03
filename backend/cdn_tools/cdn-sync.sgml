@@ -56,6 +56,9 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <arg>--no-kickstarts</arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--force-all-errata</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>--force-kickstarts</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -197,6 +200,12 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <term>--no-kickstarts</term>
         <listitem>
             <para>do not process kickstart data (provisioning feature).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--force-all-errata</term>
+        <listitem>
+            <para>process metadata of all errata, not only missing.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

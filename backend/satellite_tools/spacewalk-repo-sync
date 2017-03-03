@@ -111,6 +111,8 @@ def main():
                       default=False, help="Do not sync errata")
     parser.add_option('', '--sync-kickstart', action='store_true', dest='sync_kickstart',
                       default=False, help="Sync kickstartable tree")
+    parser.add_option('', '--force-all-errata', action='store_true', dest='force_all_errata',
+                      default=False, help="Process metadata of all errata, not only missing.")
     parser.add_option('-v', '--verbose', action='count',
                       help="Verbose output. Possible to accumulate: -vvv")
     (options, args) = parser.parse_args()
@@ -228,7 +230,8 @@ def main():
                       no_errata=options.no_errata,
                       sync_kickstart=options.sync_kickstart,
                       latest=options.latest,
-                      log_level=options.verbose)
+                      log_level=options.verbose,
+                      force_all_errata=options.force_all_errata)
         elapsed_time, channel_ret_code = sync.sync()
         if channel_ret_code != 0 and ret_code == 0:
             ret_code = channel_ret_code
