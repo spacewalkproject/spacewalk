@@ -35,3 +35,7 @@ def human_readable_size(file_size):
 
 class CdnMappingsLoadError(Exception):
     pass
+
+
+class CustomChannelSyncError(Exception):
+    pass

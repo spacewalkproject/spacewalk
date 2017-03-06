@@ -6,6 +6,7 @@ import os
 
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.fileutils import cleanupAbsPath
+from spacewalk.cdn_tools.common import CustomChannelSyncError
 from spacewalk.cdn_tools.cdnsync import CdnSync, CdnMappingsLoadError
 from spacewalk.server import rhnSQL
 from spacewalk.common.usix import raise_with_tb
@@ -39,6 +40,9 @@ def process_commandline():
     parser.add_argument("-m", "--mount-point", action="store", help="Source mount point for import from Content ISO")
     parser.add_argument("--consider-full", action="store_true",
                         help="Mount point will be considered to contain full channels.")
+    parser.add_argument("-a", "--add-repo", action="append", help="Attach specified CDN repository to custom channel.")
+    parser.add_argument("-d", "--delete-repo", action="append",
+                        help="Delete specified CDN repository from custom channel.")
     parser.add_argument("--no-packages", action="store_true", help="Do not sync packages.")
     parser.add_argument("--no-errata", action="store_true", help="Do not sync errata.")
     parser.add_argument("--no-kickstarts", action="store_true", help="Do not sync kickstart repositories.")
@@ -139,6 +143,11 @@ if __name__ == '__main__':
             cdnsync.clear_cache()
         elif args.cdn_certificates:
             cdnsync.print_cdn_certificates_info()
+        elif args.add_repo or args.delete_repo:
+            error_messages = cdnsync.setup_repos_and_sync(channels=args.channel, add_repos=args.add_repo,
+                                                          delete_repos=args.delete_repo)
+            if error_messages:
+                system_exit(1, error_messages)
         else:
             error_messages = cdnsync.sync(channels=args.channel)
             if error_messages:
@@ -161,6 +170,11 @@ if __name__ == '__main__':
         system_exit(12, ["ERROR: these channels either do not exist or are not available:",
                          e,
                          "(to see a list of channel labels: /usr/bin/cdn-sync --list-channels)"])
+    except CustomChannelSyncError:
+        e = sys.exc_info()[1]
+        if LOCK:
+            LOCK.release()
+        system_exit(13, ["ERROR: custom CDN repository sync failed: ", e])
     except (MissingParentChannelError, InvalidChannelFamilyError,
             InvalidChannelError, InvalidArchError):
         e = sys.exc_info()[1]

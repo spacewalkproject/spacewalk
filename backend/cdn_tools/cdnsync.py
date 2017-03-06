@@ -22,7 +22,7 @@ import constants
 from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
 from spacewalk.common import rhnLog
 from spacewalk.server import rhnSQL
-from spacewalk.server.rhnChannel import ChannelNotFoundError
+from spacewalk.server.rhnChannel import ChannelNotFoundError, channel_info
 from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.contentSourcesImport import ContentSourcesImport
 from spacewalk.server.importlib.channelImport import ChannelImport
@@ -35,7 +35,7 @@ from spacewalk.satellite_tools.satCerts import get_certificate_info, verify_cert
 from spacewalk.satellite_tools.syncLib import log, log2disk, log2
 from spacewalk.satellite_tools.repo_plugins import yum_src, ThreadedDownloader, ProgressBarLogger
 
-from common import CdnMappingsLoadError, verify_mappings, human_readable_size
+from common import CdnMappingsLoadError, CustomChannelSyncError, verify_mappings, human_readable_size
 from repository import CdnRepositoryManager, CdnRepositoryNotFoundError
 
 
@@ -132,23 +132,24 @@ class CdnSync(object):
         channels = h.fetchall_dict() or []
         self.synced_channels = [ch['label'] for ch in channels]
 
-    def _list_available_channels(self):
-        # Select channel families in DB
+        # Select available channel families from DB
         h = rhnSQL.prepare("""
-            select label from rhnChannelFamilyPermissions cfp inner join
-                              rhnChannelFamily cf on cfp.channel_family_id = cf.id
+            select label
+            from rhnChannelFamilyPermissions cfp inner join
+                 rhnChannelFamily cf on cfp.channel_family_id = cf.id
             where cf.org_id is null
         """)
         h.execute()
         families = h.fetchall_dict() or []
+        self.entitled_families = [f['label'] for f in families]
 
+    def _tree_available_channels(self):
         # collect all channel from available families
         all_channels = []
         channel_tree = {}
         # Not available parents of child channels
         not_available_channels = []
-        for family in families:
-            label = family['label']
+        for label in self.entitled_families:
             try:
                 family = self.families[label]
             except KeyError:
@@ -172,6 +173,70 @@ class CdnSync(object):
             channel_tree[parent_channel].append(child_channel)
 
         return channel_tree, not_available_channels
+
+    def _list_available_channels(self):
+        channel_tree, not_available_channels = self._tree_available_channels()
+        # Collect all channels
+        channel_list = []
+        for base_channel in channel_tree:
+            channel_list.extend(channel_tree[base_channel])
+            if base_channel not in not_available_channels:
+                channel_list.append(base_channel)
+        return channel_list
+
+    def _is_channel_available(self, label, requested_repos=None):
+        db_channel = channel_info(label)
+        # Not adding custom repositories to channel, it means either:
+        # 1. Trying to sync custom channel - in this case, it has to have already associated CDN repositories,
+        #    it's ensured by query populating synced_channels variable
+        # 2. Trying to sync channel from mappings - it may not exists so we check requirements from mapping files
+        if not requested_repos:
+            if db_channel and db_channel['org_id']:
+                # Custom channel doesn't have any null-org repositories assigned
+                if label not in self.synced_channels:
+                    log2(0, 0, "Custom channel '%s' doesn't contain any CDN repositories." % label, stream=sys.stderr)
+                    return False
+            else:
+                if label not in self.channel_metadata:
+                    log2(0, 0, "Channel '%s' not found in channel metadata mapping." % label, stream=sys.stderr)
+                    return False
+                elif label not in self.channel_to_family:
+                    log2(0, 0, "Channel '%s' not found in channel family mapping." % label, stream=sys.stderr)
+                    return False
+                family = self.channel_to_family[label]
+                if family not in self.entitled_families:
+                    log2(0, 0, "Channel family '%s' is not entitled." % family, stream=sys.stderr)
+                    return False
+                elif not self.cdn_repository_manager.check_channel_availability(label, self.no_kickstarts):
+                    log2(0, 0, "Channel '%s' repositories are not available." % label, stream=sys.stderr)
+                    return False
+        # Adding custom repositories to custom channel, need to check:
+        # 1. Repositories availability - if there are SSL certificates for them
+        # 2. Channel is custom
+        # 3. Repositories are not already associated with any channels in mapping files
+        else:
+            if not db_channel or not db_channel['org_id']:
+                log2(0, 0, "Channel '%s' doesn't exist or is not custom." % label, stream=sys.stderr)
+                return False
+
+            # Repositories can't be part of any channel from mappings
+            channels = []
+            for repo in requested_repos:
+                channels.extend(self.cdn_repository_manager.list_channels_containing_repository(repo))
+            if channels:
+                log2(0, 0, "Specified repositories can't be synced because they are part of following channels: %s" %
+                     ", ".join(channels), stream=sys.stderr)
+                return False
+            # Check availability of repositories
+            not_available = []
+            for repo in requested_repos:
+                if not self.cdn_repository_manager.check_repository_availability(repo):
+                    not_available.append(repo)
+            if not_available:
+                log2(0, 0, "Following repositories are not available: %s" % ", ".join(not_available),
+                     stream=sys.stderr)
+                return False
+        return True
 
     def _update_product_names(self, channels):
         backend = SQLBackend()
@@ -252,6 +317,24 @@ class CdnSync(object):
         importer = ChannelImport(channels_batch, backend)
         importer.run()
 
+    def _assign_repositories_to_channel(self, channel_label, delete_repos=None, add_repos=None):
+        backend = SQLBackend()
+        repos = self.cdn_repository_manager.list_associated_repos(channel_label)
+        if delete_repos:
+            for to_delete in delete_repos:
+                if to_delete in repos:
+                    repos.remove(to_delete)
+                else:
+                    log2(0, 0, "WARNING: Repository '%s' is not attached to channel." % to_delete, stream=sys.stderr)
+        if add_repos:
+            repos = list(set(repos + add_repos))
+        content_sources_batch = self.cdn_repository_manager.get_content_sources_import_batch(
+            channel_label, backend, repos=sorted(repos))
+        for content_source in content_sources_batch:
+            content_source['channels'] = [channel_label]
+        importer = ContentSourcesImport(content_sources_batch, backend)
+        importer.run()
+
     def _create_yum_repo(self, repo_source):
         repo_label = self.cdn_repository_manager.get_content_source_label(repo_source)
         repo_plugin = yum_src.ContentSource(self.mount_point + str(repo_source['relative_url']),
@@ -314,21 +397,23 @@ class CdnSync(object):
     def sync(self, channels=None):
         # If no channels specified, sync already synced channels
         if not channels:
-            channels = self.synced_channels
+            channels = list(self.synced_channels)
 
         # Check channel availability before doing anything
         not_available = []
         for channel in channels:
-            if any(channel not in d for d in
-                   [self.channel_metadata, self.channel_to_family]) or (
-                       not self.cdn_repository_manager.check_channel_availability(channel, self.no_kickstarts)):
+            if not self._is_channel_available(channel):
                 not_available.append(channel)
 
         if not_available:
             raise ChannelNotFoundError("  " + "\n  ".join(not_available))
 
         # Need to update channel metadata
-        self._update_channels_metadata(channels)
+        self._update_channels_metadata([ch for ch in channels if ch in self.channel_metadata])
+        # Make sure custom channels are properly connected with repos
+        for channel in channels:
+            if channel in self.synced_channels and self.synced_channels[channel]:
+                self._assign_repositories_to_channel(channel)
 
         # Finally, sync channel content
         error_messages = []
@@ -349,16 +434,33 @@ class CdnSync(object):
         log(0, "Total time: %s" % str(total_time).split('.')[0])
         return error_messages
 
+    def setup_repos_and_sync(self, channels=None, add_repos=None, delete_repos=None):
+        # Fix format of relative url
+        if add_repos:
+            for index, repo in enumerate(add_repos):
+                repo = repo.replace(CFG.CDN_ROOT, '')
+                repo = os.path.join('/', repo)
+                add_repos[index] = repo
+        if delete_repos:
+            for index, repo in enumerate(delete_repos):
+                repo = repo.replace(CFG.CDN_ROOT, '')
+                repo = os.path.join('/', repo)
+                delete_repos[index] = repo
+        # We need single custom channel
+        if not channels or len(channels) > 1:
+            raise CustomChannelSyncError("Single custom channel needed.")
+        channel = list(channels)[0]
+        if not self._is_channel_available(channel, requested_repos=add_repos):
+            raise CustomChannelSyncError("Unable to attach requested repositories to this channel.")
+        # Add custom repositories to custom channel
+        self._assign_repositories_to_channel(channel, delete_repos=delete_repos, add_repos=add_repos)
+
+        error_messages = self.sync(channels=channels)
+        return error_messages
+
     def count_packages(self, channels=None):
         start_time = datetime.now()
-        channel_tree, not_available_channels = self._list_available_channels()
-
-        # Collect all channels
-        channel_list = []
-        for base_channel in channel_tree:
-            channel_list.extend(channel_tree[base_channel])
-            if base_channel not in not_available_channels:
-                channel_list.append(base_channel)
+        channel_list = self._list_available_channels()
 
         # Only some channels specified by parameter
         if channels:
@@ -491,7 +593,7 @@ class CdnSync(object):
         log(0, "Total time: %s" % str(end_time - start_time).split('.')[0])
 
     def print_channel_tree(self, repos=False):
-        channel_tree, not_available_channels = self._list_available_channels()
+        channel_tree, not_available_channels = self._tree_available_channels()
 
         if not channel_tree:
             log2(0, 0, "No available channels were found. Is your %s activated for CDN?"
@@ -622,7 +724,7 @@ class CdnSync(object):
                 manager = CdnRepositoryManager(client_cert_id=int(key['id']))
                 self.cdn_repository_manager = manager
                 log(0, "Provided channels (*), assigned repositories (>):")
-                channel_tree, not_available_channels = self._list_available_channels()
+                channel_tree, not_available_channels = self._tree_available_channels()
                 if not channel_tree:
                     log(0, "    NONE")
                 for base_channel in sorted(channel_tree):
