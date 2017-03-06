@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
 Name: rhn-client-tools
-Version: 2.7.5
+Version: 2.7.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -401,6 +401,12 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Mar 06 2017 Gennadii Altukhov <galt@redhat.com> 2.7.6-1
+- 1371871 - fix UnicodeDecodeError when running rhnreg_ks with a different
+  locale than en_US
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Fri Mar 03 2017 Jiri Dostal <jdostal@redhat.com> 2.7.5-1
 - 1427249 - Fix rhn_register crashing on startup on Python < 2.5.
 
