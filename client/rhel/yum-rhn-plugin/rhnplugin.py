@@ -446,18 +446,18 @@ class RhnRepo(YumRepository):
 
         if url is not None:
             remote = url + '/' + relative
-            result = self.grab.urlgrab(remote, local,
-                                      text = text,
-                                      range = (start, end),
-                                      copy_local=copy_local,
-                                      reget = reget,
-                                      checkfunc=checkfunc,
-                                      http_headers=headers,
-                                      ssl_ca_cert = self.sslcacert.encode('utf-8'),
-                                      timeout=self.timeout,
-                                      size = size,
-                                      retry_no_cache=self._retry_no_cache
-                                      )
+            kwargs = {'text': text,
+                      'range': (start, end),
+                      'copy_local': copy_local,
+                      'reget': reget,
+                      'checkfunc': checkfunc,
+                      'http_headers': headers,
+                      'ssl_ca_cert': self.sslcacert.encode('utf-8'),
+                      'timeout': self.timeout,
+                      'size': size}
+            if hasattr(self, '_retry_no_cache'):
+                kwargs['retry_no_cache'] = self._retry_no_cache
+            result = self.grab.urlgrab(remote, local, **kwargs)
             return result
 
         result = None
@@ -471,18 +471,18 @@ class RhnRepo(YumRepository):
             # Construct the full url string
             remote = server + '/' + relative
             try:
-                result = self.grab.urlgrab(remote, local,
-                                          text = text,
-                                          range = (start, end),
-                                          copy_local=copy_local,
-                                          reget = reget,
-                                          checkfunc=checkfunc,
-                                          http_headers=headers,
-                                          ssl_ca_cert = self.sslcacert.encode('utf-8'),
-                                          timeout=self.timeout,
-                                          size = size,
-                                          retry_no_cache=self._retry_no_cache
-                                          )
+                kwargs = {'text': text,
+                          'range': (start, end),
+                          'copy_local': copy_local,
+                          'reget': reget,
+                          'checkfunc': checkfunc,
+                          'http_headers': headers,
+                          'ssl_ca_cert': self.sslcacert.encode('utf-8'),
+                          'timeout': self.timeout,
+                          'size': size}
+                if hasattr(self, '_retry_no_cache'):
+                    kwargs['retry_no_cache'] = self._retry_no_cache
+                result = self.grab.urlgrab(remote, local, **kwargs)
                 return result
             except URLGrabError, e:
                 urlException = e
