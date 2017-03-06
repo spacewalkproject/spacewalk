@@ -80,6 +80,11 @@
     <available file="/usr/share/java/jmock/jmock.jar" />
   </condition>
 
+  <condition property="taglibs" value="taglibs-core taglibs-standard"
+                                 else="tomcat-taglibs-standard/taglibs-build-tools tomcat-taglibs-standard/taglibs-standard-compat tomcat-taglibs-standard/taglibs-standard-impl tomcat-taglibs-standard/taglibs-standard-jstlel tomcat-taglibs-standard/taglibs-standard-spec">
+      <available file="/usr/share/java/taglibs-core.jar"/>
+  </condition>
+
   <property name="boot.jar.dependencies" value="ivy" />
 
   <property name="common.jar.dependencies"
@@ -89,7 +94,7 @@
              mailapi smtp jdom jpam ${jmock-jars}
              ${log4j-jars} oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars} ${tomcat-jars}
              bcprov bcpg jcommon stringtree-json postgresql-jdbc
-             taglibs-core logdriver quartz dwr slf4j-api slf4j-log4j12
+             ${taglibs} logdriver quartz dwr slf4j-api slf4j-log4j12
              concurrent velocity simple-core  mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3 strutstest" />
 
   <!-- deps needed for testing, but required to build -->
@@ -115,7 +120,7 @@
 
   <property name="run.jar.dependencies"
       value="antlr ${asm} cglib c3p0 commons-discovery dom4j jaf jta
-             ojdbc14 oscache sitemesh taglibs-standard xalan-j2 xerces-j2
+             ojdbc14 oscache sitemesh ${taglibs} xalan-j2 xerces-j2
              xml-commons-apis ${common.jar.dependencies}" />
 
   <!-- =================== RPM build, use jpackage syntax ======================= -->
@@ -130,7 +135,7 @@
 
   <property name="install.run.jar.dependencies"
       value="antlr ${asm} cglib c3p0 commons-discovery dom4j dwr jaf jta
-             oscache sitemesh taglibs-standard xalan-j2 xerces-j2
+             oscache sitemesh ${taglibs} xalan-j2 xerces-j2
              xml-commons-apis ${install.common.jar.dependencies}" />
 
   <property name="install.common.jar.dependencies"
@@ -140,7 +145,7 @@
              ${tomcat-jars} javamail jdom jpam dwr
              ${log4j-jars} oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars}
              jcommon stringtree-json postgresql-jdbc
-             taglibs-core quartz
+             ${taglibs} quartz
              concurrent simple-core simple-xml susestudio-java-client" />
 
   <property name="dist.jar.dependencies"
@@ -151,8 +156,8 @@
              ${commons-validator} concurrent dom4j ${hibernate} jta
              jaf ${jasper-jars} javamail jcommon jdom ${other-jars}
              ${tomcat-jars} jpam ${log4j-jars} redstone-xmlrpc-client redstone-xmlrpc
-             oro oscache quartz stringtree-json sitemesh ${struts-jars} taglibs-core
-             taglibs-standard tanukiwrapper postgresql-jdbc simple-xml susestudio-java-client
+             oro oscache quartz stringtree-json sitemesh ${struts-jars} ${taglibs}
+             tanukiwrapper postgresql-jdbc simple-xml susestudio-java-client
              xalan-j2 xerces-j2 xml-commons-apis simple-core" />
 
   <path id="bootjars">

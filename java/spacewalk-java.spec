@@ -36,7 +36,6 @@ Requires: dojo
 Requires: dwr >= 3
 Requires: jakarta-commons-el
 Requires: jakarta-commons-fileupload
-Requires: jakarta-taglibs-standard
 Requires: java >= 1:1.7.0
 Requires: jcommon
 Requires: jdom
@@ -63,16 +62,20 @@ Requires: hibernate3-c3p0 >= 3.6.10
 Requires: hibernate3-ehcache >= 3.6.10
 Requires: javassist
 Requires: java-devel >= 1:1.7.0
+Requires: tomcat-taglibs-standard
 BuildRequires: ehcache-core
 BuildRequires: hibernate3 >= 0:3.6.10
 BuildRequires: hibernate3-c3p0 >= 3.6.10
 BuildRequires: hibernate3-ehcache >= 3.6.10
 BuildRequires: javassist
 BuildRequires: java-devel >= 1:1.7.0
+BuildRequires: tomcat-taglibs-standard
 %else
 Requires: hibernate3 = 0:3.2.4
+Requires: jakarta-taglibs-standard
 Requires: java-1.7.0-openjdk-devel
 BuildRequires: hibernate3 = 0:3.2.4
+BuildRequires: jakarta-taglibs-standard
 BuildRequires: java-1.7.0-openjdk-devel
 %endif
 # EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
@@ -157,7 +160,6 @@ BuildRequires: dwr >= 3
 BuildRequires: jaf
 BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-commons-fileupload
-BuildRequires: jakarta-taglibs-standard
 BuildRequires: jcommon
 BuildRequires: jdom
 BuildRequires: jpam
@@ -279,7 +281,6 @@ Requires: bcel
 Requires: c3p0 >= 0.9.1
 Requires: cobbler20
 Requires: concurrent
-Requires: jakarta-taglibs-standard
 Requires: java >= 0:1.7.0
 Requires: jcommon
 Requires: jpam
@@ -299,8 +300,10 @@ Requires: hibernate3-c3p0 >= 3.6.10
 Requires: hibernate3-ehcache >= 3.6.10
 Requires: javassist
 Requires: java-devel >= 0:1.7.0
+Requires: tomcat-taglibs-standard
 %else
 Requires: hibernate3 >= 0:3.2.4
+Requires: jakarta-taglibs-standard
 Requires: java-1.7.0-openjdk-devel
 %endif
 %if 0%{?fedora} || 0%{?rhel} >= 7
@@ -490,10 +493,19 @@ wrapper.java.classpath.64=/usr/share/java/hibernate*/hibernate-commons-annotatio
 wrapper.java.classpath.65=/usr/share/java/slf4j/api.jar
 wrapper.java.classpath.66=/usr/share/java/jboss-logging.jar
 wrapper.java.classpath.67=/usr/share/java/javassist.jar
-wrapper.java.classpath.68=/usr/share/java/ehcache-core.jar" >> conf/default/rhn_taskomatic_daemon.conf
+wrapper.java.classpath.68=/usr/share/java/ehcache-core.jar
+wrapper.java.classpath.69=/usr/share/java/tomcat-taglibs-standard/taglibs-build-tools.jar
+wrapper.java.classpath.70=/usr/share/java/tomcat-taglibs-standard/taglibs-standard-compat.jar
+wrapper.java.classpath.71=/usr/share/java/tomcat-taglibs-standard/taglibs-standard-impl.jar
+wrapper.java.classpath.72=/usr/share/java/tomcat-taglibs-standard/taglibs-standard-jstlel.jar
+wrapper.java.classpath.73=/usr/share/java/tomcat-taglibs-standard/taglibs-standard-spec.jar
+" >> conf/default/rhn_taskomatic_daemon.conf
 %else
 echo "hibernate.cache.provider_class=org.hibernate.cache.OSCacheProvider" >> conf/default/rhn_hibernate.conf
-echo "wrapper.java.classpath.49=/usr/share/java/hibernate3.jar" >> conf/default/rhn_taskomatic_daemon.conf
+echo "wrapper.java.classpath.49=/usr/share/java/hibernate3.jar
+wrapper.java.classpath.17=/usr/share/java/taglibs-standard.jar
+wrapper.java.classpath.32=/usr/share/java/taglibs-core.jar
+" >> conf/default/rhn_taskomatic_daemon.conf
 %endif
 install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_hibernate.conf
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
@@ -550,7 +562,8 @@ ln -s -f %{_javadir}/mchange-commons.jar $RPM_BUILD_ROOT%{jardir}/mchange-common
 rm -rf $RPM_BUILD_ROOT%{jardir}/jspapi.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-compiler.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-runtime.jar
-rm -rf $RPM_BUILD_ROOT%{jardir}/tomcat*.jar
+rm -rf $RPM_BUILD_ROOT%{jardir}/tomcat*api.jar
+rm -rf $RPM_BUILD_ROOT%{jardir}/tomcat[_a-z]*.jar
 %if 0%{?omit_tests} > 0
 rm -rf $RPM_BUILD_ROOT%{_datadir}/rhn/lib/rhn-test.jar
 rm -rf $RPM_BUILD_ROOT/classes/com/redhat/rhn/common/conf/test/conf
@@ -639,6 +652,11 @@ fi
 %{_javadir}/mchange-commons.jar
 %{_javadir}/jboss-logging.jar
 %{jardir}/*jboss-logging.jar
+%{jardir}/tomcat-taglibs-standard_taglibs-build-tools.jar
+%{jardir}/tomcat-taglibs-standard_taglibs-standard-compat.jar
+%{jardir}/tomcat-taglibs-standard_taglibs-standard-impl.jar
+%{jardir}/tomcat-taglibs-standard_taglibs-standard-jstlel.jar
+%{jardir}/tomcat-taglibs-standard_taglibs-standard-spec.jar
 
 %if 0%{?fedora} >= 21
 %{_javadir}/c3p0.jar
@@ -646,6 +664,9 @@ fi
 %{_javadir}/hibernate-jpa-2.0-api.jar
 %endif
 
+%else
+%{jardir}/taglibs-core.jar
+%{jardir}/taglibs-standard.jar
 %endif
 %{jardir}/jaf.jar
 %{jardir}/javamail.jar
@@ -665,8 +686,6 @@ fi
 %{jardir}/sitemesh.jar
 %{jardir}/stringtree-json.jar
 %{jardir}/susestudio-java-client.jar
-%{jardir}/taglibs-core.jar
-%{jardir}/taglibs-standard.jar
 %{jardir}/tanukiwrapper.jar
 %{jardir}/velocity-*.jar
 %{jardir}/xalan-j2.jar
