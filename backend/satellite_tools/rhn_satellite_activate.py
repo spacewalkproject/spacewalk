@@ -269,9 +269,9 @@ ERROR: can't seem to parse the expires field in the RHN Certificate.
 
 def processCommandline():
     options = [
-        Option('--sanity-only',  action='store_true', help="confirm certificate sanity. Does not activate"
+        Option('--sanity-only',  action='store_true', help="confirm certificate sanity. Does not activate "
                + "the Red Hat Satellite locally or remotely."),
-        Option('--ignore-expiration', action='store_true', help='execute regardless of the expiration'
+        Option('--ignore-expiration', action='store_true', help='execute regardless of the expiration '
                + 'of the RHN Certificate (not recommended).'),
         Option('--ignore-version-mismatch', action='store_true', help='execute regardless of version '
                + 'mismatch of existing and new certificate.'),
