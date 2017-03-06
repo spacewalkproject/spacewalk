@@ -56,7 +56,7 @@ class Log:
 
         log_name = self.cfg["logFile"] or "/var/log/up2date"
         log_file = open(log_name, 'a')
-        msg = u"%s %s\n" % (self.log_info, s)
+        msg = u"%s %s\n" % (ustr(self.log_info), ustr(s))
         log_file.write(sstr(msg))
         log_file.flush()
         log_file.close()
