@@ -939,7 +939,7 @@ class RepoSync(object):
             where ce.channel_id = :cid
         """)
         h.execute(cid=self.channel['id'])
-        advisories = [row['advisory_name'] for row in h.fetchall_dict()]
+        advisories = [row['advisory_name'] for row in h.fetchall_dict() or []]
         return advisories
 
     def import_kickstart(self, plug, repo_label):
