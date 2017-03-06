@@ -34,7 +34,6 @@ Requires: classpathx-mail
 Requires: cobbler20
 Requires: dojo
 Requires: dwr >= 3
-Requires: jakarta-commons-el
 Requires: jakarta-commons-fileupload
 Requires: java >= 1:1.7.0
 Requires: jcommon
@@ -56,6 +55,7 @@ Requires: susestudio-java-client
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 %if 0%{?fedora}
+Requires: apache-commons-el
 Requires: classpathx-jaf
 Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
@@ -63,6 +63,7 @@ Requires: hibernate3-ehcache >= 3.6.10
 Requires: javassist
 Requires: java-devel >= 1:1.7.0
 Requires: tomcat-taglibs-standard
+BuildRequires: apache-commons-el
 BuildRequires: ehcache-core
 BuildRequires: hibernate3 >= 0:3.6.10
 BuildRequires: hibernate3-c3p0 >= 3.6.10
@@ -72,9 +73,11 @@ BuildRequires: java-devel >= 1:1.7.0
 BuildRequires: tomcat-taglibs-standard
 %else
 Requires: hibernate3 = 0:3.2.4
+Requires: jakarta-commons-el
 Requires: jakarta-taglibs-standard
 Requires: java-1.7.0-openjdk-devel
 BuildRequires: hibernate3 = 0:3.2.4
+BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-taglibs-standard
 BuildRequires: java-1.7.0-openjdk-devel
 %endif
@@ -158,7 +161,6 @@ BuildRequires: concurrent
 BuildRequires: dom4j
 BuildRequires: dwr >= 3
 BuildRequires: jaf
-BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-commons-fileupload
 BuildRequires: jcommon
 BuildRequires: jdom
