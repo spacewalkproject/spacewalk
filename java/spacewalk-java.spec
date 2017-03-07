@@ -34,7 +34,6 @@ Requires: classpathx-mail
 Requires: cobbler20
 Requires: dojo
 Requires: dwr >= 3
-Requires: jakarta-commons-fileupload
 Requires: java >= 1:1.7.0
 Requires: jcommon
 Requires: jdom
@@ -83,19 +82,23 @@ BuildRequires: java-1.7.0-openjdk-devel
 %endif
 # EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
 %if 0%{?fedora} || 0%{?rhel} >= 7
+Requires: apache-commons-fileupload
 Requires: struts >= 0:1.3.0
 Requires: tomcat >= 7
 Requires: tomcat-lib >= 7
 Requires: servlet >= 3.0
+BuildRequires: apache-commons-fileupload
 BuildRequires: struts >= 0:1.3.0
 BuildRequires: tomcat >= 7
 BuildRequires: tomcat-lib >= 7
 %else
+Requires: jakarta-commons-fileupload
 Requires: struts >= 0:1.3.0
 Requires: struts-taglib >= 0:1.3.0
 Requires: tomcat6
 Requires: tomcat6-lib
 Requires: tomcat6-servlet-2.5-api
+BuildRequires: jakarta-commons-fileupload
 BuildRequires: struts >= 0:1.3.0
 BuildRequires: struts-taglib >= 0:1.3.0
 BuildRequires: tomcat6
@@ -161,7 +164,6 @@ BuildRequires: concurrent
 BuildRequires: dom4j
 BuildRequires: dwr >= 3
 BuildRequires: jaf
-BuildRequires: jakarta-commons-fileupload
 BuildRequires: jcommon
 BuildRequires: jdom
 BuildRequires: jpam
