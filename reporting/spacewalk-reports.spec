@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.4
+Version: 2.7.5
 Release: 1%{?dist}
 URL: https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -46,6 +46,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Mar 07 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.5-1
+- Add issue date to errata-list-all report
+- date is a keyword on oracle
+
 * Fri Mar 03 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.4-1
 - Updated links to github in spec files
 - Migrating Fedorahosted to GitHub
