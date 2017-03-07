@@ -18,7 +18,7 @@ import json
 
 from spacewalk.server import rhnSQL
 from spacewalk.satellite_tools.satCerts import verify_certificate_dates
-from spacewalk.satellite_tools.syncLib import log
+from spacewalk.satellite_tools.syncLib import log, log2
 from spacewalk.server.importlib.importLib import ContentSource, ContentSourceSsl
 
 import constants
@@ -154,22 +154,31 @@ class CdnRepositoryManager(object):
             return False
 
         for source in sources:
-            try:
-                crypto_keys = self.get_repository_crypto_keys(source['relative_url'])
-            except CdnRepositoryNotFoundError:
+            if not self.check_repository_availability(source['relative_url'], channel_label=channel_label):
                 return False
+        return True
 
-            # Check SSL certificates
-            if not crypto_keys:
-                log(0, "ERROR: No valid SSL certificates were found for repository '%s'"
-                       " required for channel '%s'."
-                    % (source['relative_url'], channel_label))
-                return False
+    def check_repository_availability(self, relative_url, channel_label=None):
+        try:
+            crypto_keys = self.get_repository_crypto_keys(relative_url)
+        except CdnRepositoryNotFoundError:
+            log2(0, 1, "ERROR: No SSL certificates were found for repository '%s'" % relative_url, stream=sys.stderr)
+            return False
 
-            # Try to look for repomd file
-            if self.local_mount_point and not os.path.isfile(os.path.join(
-                    self.local_mount_point, source['relative_url'][1:], "repodata/repomd.xml")):
-                return False
+        # Check SSL certificates
+        if not crypto_keys:
+            if channel_label:
+                log2(0, 1, "ERROR: No valid SSL certificates were found for repository '%s'"
+                           " required for channel '%s'." % (relative_url, channel_label), stream=sys.stderr)
+            else:
+                log2(0, 1, "ERROR: No valid SSL certificates were found for repository '%s'." % relative_url,
+                     stream=sys.stderr)
+            return False
+
+        # Try to look for repomd file
+        if self.local_mount_point and not os.path.isfile(os.path.join(
+                self.local_mount_point, relative_url[1:], "repodata/repomd.xml")):
+            return False
 
         return True
 

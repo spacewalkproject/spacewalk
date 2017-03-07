@@ -259,6 +259,8 @@ class CdnSync(object):
         try:
             keys = self.cdn_repository_manager.get_repository_crypto_keys(repo_source['relative_url'])
         except CdnRepositoryNotFoundError:
+            log2(0, 1, "ERROR: No SSL certificates were found for repository '%s'" % repo_source['relative_url'],
+                 stream=sys.stderr)
             return repo_plugin
         if len(keys) >= 1:
             repo_plugin.set_ssl_options(str(keys[0]['ca_cert'][1]), str(keys[0]['client_cert'][1]),
