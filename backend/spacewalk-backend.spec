@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.51
+Version: 2.7.52
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -797,6 +797,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue Mar 07 2017 Grant Gainey 2.7.52-1
+- 1427625 - Fix garbage-char in file (??)
+- 1419867 - fixing 'NoneType object is not iterable' error
+
 * Mon Mar 06 2017 Jan Dobes 2.7.51-1
 - 1427851 - fixing spaces
 
