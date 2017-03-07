@@ -182,32 +182,45 @@ class CdnRepositoryManager(object):
 
         return True
 
-    def get_content_sources_import_batch(self, channel_label, backend):
+    def get_content_sources_import_batch(self, channel_label, backend, repos=None):
         batch = []
-        type_id = backend.lookupContentSourceType('yum')
 
-        sources = self.get_content_sources(channel_label)
-
-        for source in sources:
-            content_source = ContentSource()
-            if 'ks_tree_label' in source:
-                content_source['label'] = source['ks_tree_label']
-            else:
-                content_source['label'] = source['pulp_repo_label_v2']
-            content_source['source_url'] = source['relative_url']
-            content_source['org_id'] = None
-            content_source['type_id'] = type_id
-            content_source['ssl-sets'] = []
-            repository = self.repository_tree.find_repository(source['relative_url'])
-            for ssl_set in repository.get_ssl_sets():
-                content_source_ssl = ContentSourceSsl()
-                content_source_ssl['ssl_ca_cert_id'] = ssl_set.get_ca_cert()
-                content_source_ssl['ssl_client_cert_id'] = ssl_set.get_client_cert()
-                content_source_ssl['ssl_client_key_id'] = ssl_set.get_client_key()
-                content_source['ssl-sets'].append(content_source_ssl)
-            batch.append(content_source)
+        # No custom repos specified, look into channel mappings
+        if not repos:
+            sources = self.get_content_sources(channel_label)
+            for source in sources:
+                if 'ks_tree_label' in source:
+                    content_source = self._create_content_source_obj(source['ks_tree_label'],
+                                                                     source['relative_url'], backend)
+                else:
+                    content_source = self._create_content_source_obj(source['pulp_repo_label_v2'],
+                                                                     source['relative_url'], backend)
+                batch.append(content_source)
+        # We want to sync not-mapped repositories
+        else:
+            for index, repo in enumerate(repos):
+                repo_label = "%s-%d" % (channel_label, index)
+                content_source = self._create_content_source_obj(repo_label, repo, backend)
+                batch.append(content_source)
 
         return batch
+
+    def _create_content_source_obj(self, label, source_url, backend):
+        type_id = backend.lookupContentSourceType('yum')
+        content_source = ContentSource()
+        content_source['label'] = label
+        content_source['source_url'] = source_url
+        content_source['org_id'] = None
+        content_source['type_id'] = type_id
+        content_source['ssl-sets'] = []
+        repository = self.repository_tree.find_repository(source_url)
+        for ssl_set in repository.get_ssl_sets():
+            content_source_ssl = ContentSourceSsl()
+            content_source_ssl['ssl_ca_cert_id'] = ssl_set.get_ca_cert()
+            content_source_ssl['ssl_client_cert_id'] = ssl_set.get_client_cert()
+            content_source_ssl['ssl_client_key_id'] = ssl_set.get_client_key()
+            content_source['ssl-sets'].append(content_source_ssl)
+        return content_source
 
     def get_repository_crypto_keys(self, url):
         repo = self.repository_tree.find_repository(url)
