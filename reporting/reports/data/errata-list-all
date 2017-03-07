@@ -13,6 +13,7 @@ columns:
 
 	advisory	Advisory / errata identifier
 	type		Advisory type (Enhancement, Bug Fix, Security)
+	issue_date	Issue date of the erratum
 	update_date 	Date of the last update
 	cve		List of CVE names (Common Vulnerabilities and Exposures Identifiers) addressed by the errata
 	synopsis	Synopsis of the errata
@@ -24,9 +25,10 @@ multival_columns:
 
 sql:
 
-	select advisory, type, update_date, cve, synopsis from (
+	select advisory, type, issue_date, update_date, cve, synopsis from (
 	select rhnErrata.id, rhnErrata.advisory_name as advisory,
 		rhnErrata.advisory_type as type,
+		rhnErrata.issue_date as issue_date,
 		rhnErrata.update_date as update_date,
 		rhnCVE.name as cve,
 		rhnErrata.synopsis
@@ -36,4 +38,4 @@ sql:
 		on rhnErrataCVE.cve_id = rhnCVE.id
 	) X
 	-- where placeholder
-	order by update_date desc, advisory, id, cve
+	order by issue_date desc, update_date desc, advisory, id, cve
