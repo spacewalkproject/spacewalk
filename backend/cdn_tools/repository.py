@@ -58,6 +58,29 @@ class CdnRepositoryManager(object):
             if f is not None:
                 f.close()
 
+        self.__init_repository_to_channels_mapping()
+
+    # Map repositories to channels
+    def __init_repository_to_channels_mapping(self):
+        self.repository_to_channels = {}
+        for channel in self.content_source_mapping:
+            for source in self.content_source_mapping[channel]:
+                relative_url = source['relative_url']
+                if relative_url in self.repository_to_channels:
+                    self.repository_to_channels[relative_url].append(channel)
+                else:
+                    self.repository_to_channels[relative_url] = [channel]
+
+        for channel in self.kickstart_metadata:
+            for tree in self.kickstart_metadata[channel]:
+                tree_label = tree['ks_tree_label']
+                if tree_label in self.kickstart_source_mapping:
+                    relative_url = self.kickstart_source_mapping[tree_label][0]['relative_url']
+                    if relative_url in self.repository_to_channels:
+                        self.repository_to_channels[relative_url].append(channel)
+                    else:
+                        self.repository_to_channels[relative_url] = [channel]
+
     def _populate_repository_tree(self, client_cert_id=None):
         sql = """
             select cs.label, cs.source_url, csssl.ssl_ca_cert_id,
@@ -195,6 +218,12 @@ class CdnRepositoryManager(object):
             return source['ks_tree_label']
         else:
             raise InvalidContentSourceType()
+
+    def list_channels_containing_repository(self, relative_path):
+        if relative_path in self.repository_to_channels:
+            return self.repository_to_channels[relative_path]
+        else:
+            return []
 
 
 class CdnRepositoryTree(object):
