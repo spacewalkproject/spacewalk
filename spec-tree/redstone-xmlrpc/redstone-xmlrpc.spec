@@ -10,16 +10,13 @@ Patch0: build-classpath.patch
 Patch1: fault_serialization.patch
 Patch2: escaping_string_serialization.path
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-%if 0%{?fedora} >= 20 || 0%{?rhel} >=7
+%if 0%{?fedora} || 0%{?rhel} >=7
 BuildRequires: javapackages-tools
+BuildRequires: jboss-servlet-2.5-api
+Requires: jboss-servlet-2.5-api
+%define third_party_jars jboss-servlet-2.5-api
 %else
 BuildRequires: jpackage-utils >= 0:1.5
-%endif
-%if 0%{?rhel} <= 5
-BuildRequires: servletapi5
-Requires: servletapi5
-%define third_party_jars servletapi5
-%else
 BuildRequires: tomcat6-servlet-2.5-api
 Requires: tomcat6-servlet-2.5-api
 %define third_party_jars tomcat6-servlet-2.5-api
