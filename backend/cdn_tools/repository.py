@@ -276,7 +276,10 @@ class CdnRepositoryTree(object):
         """Recursive function going through tree."""
         # Return leaf
         if not keys:
-            return node
+            if not isinstance(node, dict):
+                return node
+            else:
+                raise CdnRepositoryNotFoundError()
         step = keys[0]
         to_check = [x for x in node.keys() if x in self.VARIABLES or x == step]
         # Remove first step in path, create new list
