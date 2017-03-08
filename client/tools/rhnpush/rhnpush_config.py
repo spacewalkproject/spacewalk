@@ -146,6 +146,6 @@ class rhnpushConfigParser:
 
         # ensuring consistency only checks for missing configuration option.
         if ensure_consistency:
-            for thiskey in self.options_defaults.keys():
+            for thiskey in self.options_defaults:
                 if thiskey not in self.__dict__:
                     self.__dict__[thiskey] = self.options_defaults[thiskey]
