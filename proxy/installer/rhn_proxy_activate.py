@@ -36,7 +36,7 @@ from optparse import Option, OptionParser
 from rhn import rpclib, SSL
 
 sys.path.append('/usr/share/rhn')
-from up2date_client import config
+from up2date_client import config # pylint: disable=C0413
 
 DEFAULT_WEBRPC_HANDLER_v3_x = '/rpc/api'
 
