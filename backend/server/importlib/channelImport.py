@@ -220,7 +220,6 @@ class ChannelImport(Import):
 
             self.backend.processChannelContentSources(channel)
 
-
         # Sometimes we may want to turn commits off
         if self.will_commit:
             self.backend.commit()

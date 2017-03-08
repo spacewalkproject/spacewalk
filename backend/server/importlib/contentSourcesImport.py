@@ -14,16 +14,28 @@
 #
 #
 
-from importLib import Import
+from importLib import Import, Channel
+from spacewalk.server.rhnChannel import channel_info
 
 
 class ContentSourcesImport(Import):
 
     def __init__(self, batch, backend):
         Import.__init__(self, batch, backend)
+        self.channels_to_link = {}
 
     def preprocess(self):
-        pass
+        for content_source in self.batch:
+            # Link back content sources to channel objects to subscribe them to existing channels right after import
+            if 'channels' in content_source and content_source['channels'] is not None:
+                for channel_label in content_source['channels']:
+                    if channel_label not in self.channels_to_link:
+                        db_channel = channel_info(channel_label)
+                        channel_obj = Channel()
+                        channel_obj.id = db_channel['id']
+                        channel_obj['content-sources'] = []
+                        self.channels_to_link[channel_label] = channel_obj
+                    self.channels_to_link[channel_label]['content-sources'].append(content_source)
 
     def fix(self):
         pass
@@ -31,6 +43,8 @@ class ContentSourcesImport(Import):
     def submit(self):
         try:
             self.backend.processContentSources(self.batch)
+            for channel in self.channels_to_link.values():
+                self.backend.processChannelContentSources(channel)
         except:
             self.backend.rollback()
             raise
