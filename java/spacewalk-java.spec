@@ -50,6 +50,8 @@ Requires: spacewalk-java-config
 Requires: spacewalk-java-jdbc
 Requires: spacewalk-java-lib
 Requires: stringtree-json
+Requires: struts >= 0:1.3.0
+Requires: struts-taglib >= 0:1.3.0
 Requires: susestudio-java-client
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
@@ -75,42 +77,23 @@ BuildRequires: hibernate3 = 0:3.2.4
 BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-taglibs-standard
 %endif
-# EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
 %if 0%{?fedora} || 0%{?rhel} >= 7
-Requires: apache-commons-fileupload
-Requires: struts >= 0:1.3.0
-Requires: tomcat >= 7
-Requires: tomcat-lib >= 7
-Requires: servlet >= 3.0
-BuildRequires: apache-commons-fileupload
-BuildRequires: struts >= 0:1.3.0
-BuildRequires: tomcat >= 7
-BuildRequires: tomcat-lib >= 7
-%else
-Requires: jakarta-commons-fileupload
-Requires: struts >= 0:1.3.0
-Requires: struts-taglib >= 0:1.3.0
-Requires: tomcat6
-Requires: tomcat6-lib
-Requires: tomcat6-servlet-2.5-api
-BuildRequires: jakarta-commons-fileupload
-BuildRequires: struts >= 0:1.3.0
-BuildRequires: struts-taglib >= 0:1.3.0
-BuildRequires: tomcat6
-BuildRequires: tomcat6-lib
-%endif
-%if 0%{?fedora} || 0%{?rhel} >=7
 Requires:      apache-commons-cli
 Requires:      apache-commons-codec
 Requires:      apache-commons-discovery
+Requires:      apache-commons-fileupload
 Requires:      apache-commons-io
 Requires:      apache-commons-lang
 Requires:      apache-commons-logging
 Requires:      javapackages-tools
+Requires:      servlet >= 3.0
+Requires:      tomcat >= 7
+Requires:      tomcat-lib >= 7
 BuildRequires: apache-commons-cli
 BuildRequires: apache-commons-codec
 BuildRequires: apache-commons-collections
 BuildRequires: apache-commons-discovery
+BuildRequires: apache-commons-fileupload
 BuildRequires: apache-commons-io
 BuildRequires: apache-commons-logging
 BuildRequires: apache-commons-validator
@@ -118,24 +101,33 @@ BuildRequires: apache-commons-validator
 BuildRequires: aspell aspell-en libxslt
 BuildRequires: javapackages-tools
 BuildRequires: mvn(ant-contrib:ant-contrib)
+BuildRequires: tomcat >= 7
+BuildRequires: tomcat-lib >= 7
 %else
 Requires:      jakarta-commons-cli
 Requires:      jakarta-commons-codec
 Requires:      jakarta-commons-discovery
+Requires:      jakarta-commons-fileupload
 Requires:      jakarta-commons-io
 Requires:      jakarta-commons-lang >= 0:2.1
 Requires:      jakarta-commons-logging
 Requires:      jpackage-utils
+Requires:      tomcat6
+Requires:      tomcat6-lib
+Requires:      tomcat6-servlet-2.5-api
 BuildRequires: ant-contrib
 BuildRequires: ant-nodeps
 BuildRequires: jakarta-commons-cli
 BuildRequires: jakarta-commons-codec
 BuildRequires: jakarta-commons-collections
 BuildRequires: jakarta-commons-discovery
+BuildRequires: jakarta-commons-fileupload
 BuildRequires: jakarta-commons-io
 BuildRequires: jakarta-commons-logging
 BuildRequires: jakarta-commons-validator
 BuildRequires: jpackage-utils
+BuildRequires: tomcat6
+BuildRequires: tomcat6-lib
 %endif
 # for RHEL6 we need to filter out several package versions
 %if  0%{?rhel} && 0%{?rhel} >= 6
@@ -171,6 +163,8 @@ BuildRequires: simple-core
 BuildRequires: simple-xml
 BuildRequires: sitemesh
 BuildRequires: stringtree-json
+BuildRequires: struts >= 0:1.3.0
+BuildRequires: struts-taglib >= 0:1.3.0
 BuildRequires: susestudio-java-client
 BuildRequires: tanukiwrapper
 %if 0%{?run_checkstyle}
