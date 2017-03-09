@@ -454,18 +454,4 @@ def getInstalledHeader(rpmName):
 
 
 if __name__ == '__main__':
-    mi = MatchIterator("name")
-    mi.pattern("name", rpm.RPMMIRE_GLOB, "*ker*")
-    while 1:
-        h = mi.next()
-        if not h:
-            break
-        print(h['name'])
-    sys.exit(1)
-    hdrX = get_package_header(filename="/tmp/python-1.5.2-42.72.i386.rpm")
-    print(dir(hdrX))
-    # Sources
-    hdrX = get_package_header(filename="/tmp/python-1.5.2-42.72.src.rpm")
-    hdrY = headerLoad(hdrX.unload())
-    print(hdrY)
-    print(len(list(hdrY.keys())))
+    pass
