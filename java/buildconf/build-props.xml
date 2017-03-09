@@ -48,10 +48,6 @@
 
   <!-- =================== jar dependencies ======================= -->
 
-  <condition property="asm" value="asm/asm" else="objectweb-asm/asm">
-    <available file="/usr/share/java/asm/asm.jar" />
-  </condition>
-
   <condition property="hibernate-commons-annotations" value="hibernate/hibernate-commons-annotations" else="hibernate-commons-annotations/hibernate-commons-annotations">
     <available file="/usr/share/java/hibernate/hibernate-commons-annotations.jar" />
   </condition>
@@ -119,7 +115,7 @@
        concurrent xalan-j2" />
 
   <property name="run.jar.dependencies"
-      value="antlr ${asm} cglib c3p0 commons-discovery dom4j jta
+      value="antlr objectweb-asm/asm cglib c3p0 commons-discovery dom4j jta
              ojdbc14 oscache sitemesh ${taglibs} xalan-j2 xerces-j2
              xml-commons-apis ${common.jar.dependencies}" />
 
@@ -134,7 +130,7 @@
       ${install.common.jar.dependencies} tanukiwrapper" />
 
   <property name="install.run.jar.dependencies"
-      value="antlr ${asm} cglib c3p0 commons-discovery dom4j dwr jta
+      value="antlr objectweb-asm/asm cglib c3p0 commons-discovery dom4j dwr jta
              oscache sitemesh ${taglibs} xalan-j2 xerces-j2
              xml-commons-apis ${install.common.jar.dependencies}" />
 
@@ -149,7 +145,7 @@
              concurrent simple-core simple-xml susestudio-java-client" />
 
   <property name="dist.jar.dependencies"
-      value="antlr ${asm} bcel c3p0 cglib
+      value="antlr objectweb-asm/asm bcel c3p0 cglib
              commons-collections commons-beanutils commons-cli commons-codec
              commons-digester commons-discovery commons-el commons-fileupload commons-io
              commons-lang commons-logging

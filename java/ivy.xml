@@ -3,8 +3,7 @@
     <dependencies>
         <dependency org="redhat" name="antlr" rev="2.7.6" />
         <dependency org="redhat" name="ant-contrib" rev="1.0" />
-        <dependency org="redhat" name="asm" rev="1.5.3" />
-        <dependency org="redhat" name="asm-attrs" rev="1.5.3" />
+        <dependency org="redhat" name="objectweb-asm" rev="1.3.2" />
         <dependency org="redhat" name="bcel" rev="5.1" />
         <dependency org="redhat" name="bcpg" rev="1.37" />
         <dependency org="redhat" name="bcprov" rev="1.37" />

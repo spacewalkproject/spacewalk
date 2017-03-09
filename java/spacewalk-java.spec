@@ -30,6 +30,7 @@ ExcludeArch: ia64
 
 Requires: bcel
 Requires: c3p0 >= 0.9.1
+Requires: cglib
 Requires: cobbler20
 Requires: dojo
 Requires: dwr >= 3
@@ -128,13 +129,6 @@ BuildRequires: jakarta-commons-validator
 BuildRequires: jpackage-utils
 BuildRequires: tomcat6
 BuildRequires: tomcat6-lib
-%endif
-# for RHEL6 we need to filter out several package versions
-%if  0%{?rhel} && 0%{?rhel} >= 6
-# cglib is not compatible with hibernate and asm from RHEL6
-Requires: cglib < 0:2.2
-%else
-Requires: cglib
 %endif
 
 BuildRequires: /usr/bin/perl
@@ -262,16 +256,9 @@ This package contains testing files of spacewalk-java.
 Summary: Java version of taskomatic
 Group: Applications/Internet
 
-# for RHEL6 we need to filter out several package versions
-%if  0%{?rhel} && 0%{?rhel} >= 6
-# cglib is not compatible with hibernate and asm from RHEL6
-Requires: cglib < 0:2.2
-%else
-Requires: cglib
-%endif
-
 Requires: bcel
 Requires: c3p0 >= 0.9.1
+Requires: cglib
 Requires: cobbler20
 Requires: concurrent
 Requires: java-headless >= 0:1.7.0
@@ -534,16 +521,6 @@ install -d -m 755 $RPM_BUILD_ROOT%{realcobsnippetsdir}
 ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT%{realcobsnippetsdir}/spacewalk
 touch $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs/audit-review.log
 
-# Fedoras have cglib version that is not compatible with asm and need objectweb-asm
-# Unfortunately both libraries must be installed for dependencies so we override
-# the asm symlink with objectweb-asm here
-%if 0%{?fedora}
-ln -s -f %{_javadir}/objectweb-asm/asm-all.jar $RPM_BUILD_ROOT%{jardir}/asm_asm.jar
-ln -s -f %{_javadir}/objectweb-asm/asm-all.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-asm.jar
-%else
-ln -s -f %{_javadir}/asm/asm.jar  $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-asm.jar
-%endif
-
 # 732350 - On Fedora 15, mchange's log stuff is no longer in c3p0.
 %if 0%{?fedora}
 ln -s -f %{_javadir}/mchange-commons.jar $RPM_BUILD_ROOT%{jardir}/mchange-commons.jar
@@ -665,6 +642,7 @@ fi
 %{jardir}/jpam.jar
 %{jardir}/jta.jar
 %{jardir}/log4j*.jar
+%{jardir}/objectweb-asm_asm.jar
 %{jardir}/oro.jar
 %{jardir}/oscache.jar
 %{jardir}/quartz.jar
@@ -681,8 +659,6 @@ fi
 %{jardir}/xalan-j2.jar
 %{jardir}/xerces-j2.jar
 %{jardir}/xml-commons-apis.jar
-
-%{jardir}/asm_asm.jar
 
 %{jardir}/struts*.jar
 %{jardir}/commons-chain.jar
@@ -714,7 +690,6 @@ fi
 %attr(755, root, root) %{_initrddir}/taskomatic
 %endif
 %{_bindir}/taskomaticd
-%{_datadir}/rhn/lib/spacewalk-asm.jar
 
 
 %files config
