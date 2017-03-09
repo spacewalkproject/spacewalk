@@ -134,7 +134,8 @@ class CdnRepositoryManager(object):
                     repository['ks_tree_label'] = tree_label
                     repositories.append(repository)
                 else:
-                    log(1, "WARN: Kickstart tree not available: %s" % tree_label)
+                    log2(1, 1, "WARNING: Can't find repository for kickstart tree in mappings: %s"
+                         % tree_label, stream=sys.stderr)
         return repositories
 
     def get_content_sources(self, channel_label, source=False):
@@ -162,16 +163,16 @@ class CdnRepositoryManager(object):
         try:
             crypto_keys = self.get_repository_crypto_keys(relative_url)
         except CdnRepositoryNotFoundError:
-            log2(0, 1, "ERROR: No SSL certificates were found for repository '%s'" % relative_url, stream=sys.stderr)
+            log2(1, 1, "ERROR: No SSL certificates were found for repository '%s'" % relative_url, stream=sys.stderr)
             return False
 
         # Check SSL certificates
         if not crypto_keys:
             if channel_label:
-                log2(0, 1, "ERROR: No valid SSL certificates were found for repository '%s'"
+                log2(1, 1, "ERROR: No valid SSL certificates were found for repository '%s'"
                            " required for channel '%s'." % (relative_url, channel_label), stream=sys.stderr)
             else:
-                log2(0, 1, "ERROR: No valid SSL certificates were found for repository '%s'." % relative_url,
+                log2(1, 1, "ERROR: No valid SSL certificates were found for repository '%s'." % relative_url,
                      stream=sys.stderr)
             return False
 
@@ -381,7 +382,7 @@ class CdnRepositorySsl(object):
             failed = 0
             for key in (keys['ca_cert'], keys['client_cert']):
                 if not verify_certificate_dates(key[1]):
-                    log(1, "WARN: Problem with dates in certificate '%s'. "
+                    log(1, "WARNING: Problem with dates in certificate '%s'. "
                            "Please check validity of this certificate." % key[0])
                     failed += 1
             if failed:

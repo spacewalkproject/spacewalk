@@ -153,7 +153,7 @@ class CdnSync(object):
             try:
                 family = self.families[label]
             except KeyError:
-                log2(0, 1, "ERROR: Unknown channel family: %s" % label, stream=sys.stderr)
+                log2(2, 2, "WARNING: Can't find channel family in mappings: %s" % label, stream=sys.stderr)
                 continue
             channels = [c for c in family['channels'] if c is not None]
             all_channels.extend(channels)
@@ -194,21 +194,21 @@ class CdnSync(object):
             if db_channel and db_channel['org_id']:
                 # Custom channel doesn't have any null-org repositories assigned
                 if label not in self.synced_channels:
-                    log2(0, 0, "Custom channel '%s' doesn't contain any CDN repositories." % label, stream=sys.stderr)
+                    log2(1, 1, "Custom channel '%s' doesn't contain any CDN repositories." % label, stream=sys.stderr)
                     return False
             else:
                 if label not in self.channel_metadata:
-                    log2(0, 0, "Channel '%s' not found in channel metadata mapping." % label, stream=sys.stderr)
+                    log2(1, 1, "Channel '%s' not found in channel metadata mapping." % label, stream=sys.stderr)
                     return False
                 elif label not in self.channel_to_family:
-                    log2(0, 0, "Channel '%s' not found in channel family mapping." % label, stream=sys.stderr)
+                    log2(1, 1, "Channel '%s' not found in channel family mapping." % label, stream=sys.stderr)
                     return False
                 family = self.channel_to_family[label]
                 if family not in self.entitled_families:
-                    log2(0, 0, "Channel family '%s' is not entitled." % family, stream=sys.stderr)
+                    log2(1, 1, "Channel family '%s' is not entitled." % family, stream=sys.stderr)
                     return False
                 elif not self.cdn_repository_manager.check_channel_availability(label, self.no_kickstarts):
-                    log2(0, 0, "Channel '%s' repositories are not available." % label, stream=sys.stderr)
+                    log2(1, 1, "Channel '%s' repositories are not available." % label, stream=sys.stderr)
                     return False
         # Adding custom repositories to custom channel, need to check:
         # 1. Repositories availability - if there are SSL certificates for them
@@ -216,7 +216,7 @@ class CdnSync(object):
         # 3. Repositories are not already associated with any channels in mapping files
         else:
             if not db_channel or not db_channel['org_id']:
-                log2(0, 0, "Channel '%s' doesn't exist or is not custom." % label, stream=sys.stderr)
+                log2(1, 1, "Channel '%s' doesn't exist or is not custom." % label, stream=sys.stderr)
                 return False
 
             # Repositories can't be part of any channel from mappings
@@ -224,7 +224,7 @@ class CdnSync(object):
             for repo in requested_repos:
                 channels.extend(self.cdn_repository_manager.list_channels_containing_repository(repo))
             if channels:
-                log2(0, 0, "Specified repositories can't be synced because they are part of following channels: %s" %
+                log2(1, 1, "Specified repositories can't be synced because they are part of following channels: %s" %
                      ", ".join(channels), stream=sys.stderr)
                 return False
             # Check availability of repositories
@@ -233,7 +233,7 @@ class CdnSync(object):
                 if not self.cdn_repository_manager.check_repository_availability(repo):
                     not_available.append(repo)
             if not_available:
-                log2(0, 0, "Following repositories are not available: %s" % ", ".join(not_available),
+                log2(1, 1, "Following repositories are not available: %s" % ", ".join(not_available),
                      stream=sys.stderr)
                 return False
         return True
@@ -342,14 +342,14 @@ class CdnSync(object):
         try:
             keys = self.cdn_repository_manager.get_repository_crypto_keys(repo_source['relative_url'])
         except CdnRepositoryNotFoundError:
-            log2(0, 1, "ERROR: No SSL certificates were found for repository '%s'" % repo_source['relative_url'],
+            log2(1, 1, "ERROR: No SSL certificates were found for repository '%s'" % repo_source['relative_url'],
                  stream=sys.stderr)
             return repo_plugin
         if len(keys) >= 1:
             repo_plugin.set_ssl_options(str(keys[0]['ca_cert'][1]), str(keys[0]['client_cert'][1]),
                                         str(keys[0]['client_key'][1]))
         else:
-            log2(0, 1, "ERROR: No valid SSL certificates were found for repository '%s'."
+            log2(1, 1, "ERROR: No valid SSL certificates were found for repository '%s'."
                  % repo_source['relative_url'], stream=sys.stderr)
         return repo_plugin
 
