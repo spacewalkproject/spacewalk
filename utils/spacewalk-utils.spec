@@ -40,6 +40,9 @@ Requires:       /usr/bin/spacewalk-sql
 Requires:       perl-Satcon
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       python, rpm-python
+%if 0%{?rhel} == 6
+Requires:       python-argparse
+%endif
 Requires:       rhnlib >= 2.5.20
 Requires:       rpm
 Requires:       setup

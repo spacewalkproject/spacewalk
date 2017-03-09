@@ -19,8 +19,146 @@ import StringIO
 import signal
 import sys
 import curses
+import logging
+import argparse
 
 from spacewalk.server import rhnSQL
+
+
+
+parser = argparse.ArgumentParser(description="Taskotop is a tool to monitor what taskomatic " +
+                                 "is currently doing.")
+parser.add_argument("-H", "--human-readable", action="store_true",
+                    dest="humanReadable",
+                    help="Use human readable time output.  Time will be displayed " +
+                    "in the format [[days:]hours:]min:sec instead of total seconds.")
+parser.add_argument("-m", "--max-age", type=int,
+                    dest="maxAge", default=60,
+                    help="Retrieve past events up to this old (in seconds, default 60)")
+parser.add_argument("-v", "--verbose", action="count",
+                    dest="verbose", default=0,
+                    help="Increase log output verbosity.  Specify multiple times, up to 4 " +
+                    "to increase verbosity.")
+parser.add_argument("--logfile", dest="logfile", default="./taskotop.log",
+                    help="Specify logfile to use if at least one verbose arg specified.  " +
+                    "Default is ./taskotop.log")
+args = parser.parse_args()
+
+HUMAN_READABLE = args.humanReadable
+MAXIMUM_AGE = args.maxAge
+LOGGING_ENABLED = False
+
+INTERACTIVE_HELP = [
+"Help for taskotop interactive commands",
+"",
+"  h    Display this help page.",
+"  H    Toggle human readable format.  This toggles the time display between",
+"       [[days:]hours:]min:sec format and total seconds.",
+"  q    Quit taskotop.",
+""
+]
+
+
+def log_debug(msg, *args, **kwargs):
+    if LOGGING_ENABLED:
+        logging.debug(msg, *args, **kwargs)
+
+def log_info(msg, *args, **kwargs):
+    if LOGGING_ENABLED:
+        logging.info(msg, *args, **kwargs)
+
+def log_warning(msg, *args, **kwargs):
+    if LOGGING_ENABLED:
+        logging.warning(msg, *args, **kwargs)
+
+def log_error(msg, *args, **kwargs):
+    if LOGGING_ENABLED:
+        logging.error(msg, *args, **kwargs)
+
+class CursesDisplayBuilder:
+    """Builder class to make laying out a curses display in a table format easier"""
+    JUSTIFY_LEFT = 0
+    JUSTIFY_CENTER = 1
+    JUSTIFY_RIGHT = 2
+    row = []
+
+    def add_column(self, width, heading, heading_justify, data_justify, format_data_callable, data_key = ""):
+        self.row.append(CursesDisplayColumn(width,
+                                       heading,
+                                       heading_justify,
+                                       data_justify,
+                                       format_data_callable,
+                                       data_key))
+
+    def string_of_length(self, length, char="*"):
+        retval = ""
+        for i in range(0, length):
+            retval += char
+        return retval
+
+    def output_to_screen(self, screen, data, starty = 0):
+        maxy, maxx = screen.getmaxyx()
+        log_debug('maxy, maxx is %d %d' % (maxy, maxx))
+        last_column_to_display = 0
+        current_width = 0
+        for column in self.row:
+            if current_width + column.width <= maxx:
+                last_column_to_display += 1
+                current_width += column.width + 1
+            else:
+                break
+            log_debug('column \'%s\': width %d, next column starts at %d' % (column.heading, column.width, current_width))
+
+        current_row = 0
+        if current_row + starty < maxy:
+            current_x = 0
+            for colindex in range (0, last_column_to_display):
+                column = self.row[colindex]
+                width = column.width
+                if width == -1:
+                    width = maxx - current_x
+                display_value = column.heading
+                if len(display_value) > width:
+                    display_value = self.string_of_length(width)
+                xpos = current_x + column.heading_justify * (width - len(display_value)) / 2
+                log_debug('y=%d x=%d  value \'%s\'' % (current_row + starty, xpos, display_value))
+                if len(display_value) > 0:
+                    screen.addstr(current_row + starty, xpos, display_value)
+                current_x += width + 1
+            current_row += 1
+
+        for rowdata in data:
+            if current_row + starty >= maxy:
+                break
+            else:
+                current_x = 0
+                for colindex in range (0, last_column_to_display):
+                    column = self.row[colindex]
+                    width = column.width
+                    if width == -1:
+                        width = maxx - current_x
+                    display_value = column.format_data_callable(rowdata, column.data_key, width)
+                    if len(display_value) > width:
+                        display_value = self.string_of_length(width)
+                    xpos = current_x + column.data_justify * (width - len(display_value)) / 2
+                    log_debug('y=%d x=%d value \'%s\'  value length %d' % (current_row + starty, xpos, display_value, len(display_value)))
+                    if len(display_value) > 0:
+                        screen.addstr(current_row + starty, xpos, display_value)
+                    current_x += width + 1
+                current_row += 1
+
+        return current_row - 1
+
+class CursesDisplayColumn:
+    """Data structure for representing a column within CursesDisplayBuilder"""
+    def __init__(self, width, heading, heading_justify, data_justify, format_data_callable, data_key = ""):
+        self.width = width
+        self.heading = heading
+        self.heading_justify = heading_justify
+        self.data_justify = data_justify
+        self.format_data_callable = format_data_callable
+        self.data_key = data_key
+
 
 def get_tasko_runs(maximum_age):
     """Returns data about recent Taskomatic task runs from the database."""
@@ -43,7 +181,7 @@ def get_tasko_runs(maximum_age):
 
             ORDER BY end_time DESC NULLS FIRST, start_time ASC
     """);
-    # trim those older than 1 minute
+    # trim those older than maximum_age
     task_query.execute(timelimit = datetime.datetime.now() - datetime.timedelta(seconds=maximum_age))
 
     # HACK: simulate fetchall_dict() in such a way BLOBs are only read once
@@ -107,46 +245,107 @@ def extract_channel_ids(bytes):
     # of those found, filter the ones looking like a number
     return [java_string for java_string in java_strings if java_string.isdigit()]
 
-def format_run(run):
-    """Formats data from a Taskomatic run in human-friendly form."""
-    if run["end_time"]:
-        run["since"] = format_date_delta(run["start_time"], run["end_time"])
-        run["status"] = "(finished)"
-    else:
-        run["since"] = format_date_delta(run["start_time"], datetime.datetime.now())
-        run["status"] = ""
+def show_taskomatic_header(screen, maxy, maxx):
+    """Get taskomatic telemetry and display up to maxy, maxx"""
 
-    run["channel_name"] = ""
-    if run["data"]:
-        channel_names = get_channel_names(extract_channel_ids(run["data"]))
-        run["channel_name"] = format_multiple_names(channel_names)
+def display_interactive_help(screen):
+    """Display the interactive help on the screen"""
+    log_debug("Displaying interactive help")
+    while True:
+        screen.erase()
+        maxy, maxx = screen.getmaxyx()
+        current_y = 0
+        for line in INTERACTIVE_HELP:
+            if current_y > maxy - 2:
+                break
+            if len(line) > maxx:
+                line = line[0:maxx]
+            screen.addstr(current_y, 0, line)
+            current_y += 1
+        presskey_text = "Press any key "
+        if len(presskey_text) > maxx:
+            presskey_text = presskey_text[0:maxx]
+        screen.addstr(current_y, 0, presskey_text)
+        screen.refresh()
+        try:
+            c = screen.getch()
+            if c > -1 and c < 256:
+                break
+        except Exception:
+            pass
 
-    if run["name"] == "channel-repodata" and run["status"] == "":
-        run["channel_name"] = format_multiple_names(get_current_repodata_channel_names())
+def process_interactive_input(c, screen):
+    """Process the interactive input from the user"""
+    if c == ord('q'):
+        system_exit(0)
+    elif c == ord('H'):
+        global HUMAN_READABLE
+        HUMAN_READABLE = not HUMAN_READABLE
+        log_debug('HUMAN_READABLE is now %s' % HUMAN_READABLE)
+    elif c == ord('h'):
+        # turn off half delay with nocbreak(), then
+        # turn cbreak back on so no need to hit 'enter'
+        curses.nocbreak()
+        curses.cbreak()
+        curses.curs_set(1)
+        display_interactive_help(screen)
+        curses.curs_set(0)
+        curses.halfdelay(10)
 
-    return "{id:11d} {name:>30} {since:>13} {status:10} {channel_name:>60}".format(**run)
+def format_elapsed_time(rowdata, data_key, width):
+    """Formats the elapsed time for display."""
+    end = datetime.datetime.now()
+    if rowdata["end_time"]:
+        end = rowdata["end_time"]
 
-def format_multiple_names(names):
-    """Formats an array so that it does not take up too much screen space."""
-    if len(names) == 0:
-        return ""
-    elif len(names) == 1:
-        return names[0]
-    else:
-        one = names[datetime.datetime.now().second % len(names)]
-        if len(names) == 1:
-            return "{0} and 1 other".format(one)
-        else:
-            return "{0} and {1} others".format(one, len(names) -1)
-
-def format_date_delta(start, end):
-    """Formats a time delta in human-friently form."""
-    td = end.replace(tzinfo=None) - start.replace(tzinfo=None)
+    td = end.replace(tzinfo=None) - rowdata["start_time"].replace(tzinfo=None)
     seconds = (td.microseconds + (td.seconds + td.days * 24 * 3600) * 10**6) / 10**6
+    if HUMAN_READABLE:
+        result, s = divmod(seconds, 60)
+        result, m = divmod(result, 60)
+        result, h = divmod(result, 24)
+
+        retval = ""
+        if result > 0:
+            retval += '%d:' % result
+        if h > 0:
+            retval += '%02d:' % h
+        retval += '%02d:' % m
+        retval += '%02d' % s
+        return retval
     return "{0}s".format(seconds)
+
+def format_status(rowdata, data_key, width):
+    """format the status value for display"""
+    if rowdata["end_time"]:
+        return "(finished)"
+    return ""
+
+def format_channel_names(rowdata, data_key, width):
+    """format channel names for display"""
+    channel_names = []
+    if rowdata["data"]:
+        channel_names = get_channel_names(extract_channel_ids(rowdata["data"]))
+    if rowdata["name"] == "channel-repodata" and not rowdata["end_time"]:
+        channel_names = get_current_repodata_channel_names()
+    retval = ", ".join(channel_names)
+    if len(retval) > width:
+        retval = retval[0:width]
+    return retval
+
+def format_int(rowdata, data_key, width):
+    """format an int for display"""
+    return "{id:d}".format(**rowdata)
+
+def format_string(rowdata, data_key, width):
+    """format a string for display"""
+    return rowdata[data_key]
+
 
 def main(screen):
     """Computes and displays runs every second."""
+    curses.halfdelay(10)
+
     rhnSQL.initDB()
 
     # exit gracefully on ctrl-c
@@ -154,25 +353,56 @@ def main(screen):
 
     # hide cursor
     curses.curs_set(0)
+
+    # set up curses display builder
+    display_builder = CursesDisplayBuilder()
+    display_builder.add_column(11,
+                            "RUN ID",
+                            display_builder.JUSTIFY_RIGHT,
+                            display_builder.JUSTIFY_LEFT,
+                            format_int,
+                            "id"),
+    display_builder.add_column(30,
+                            "TASK NAME",
+                            display_builder.JUSTIFY_RIGHT,
+                            display_builder.JUSTIFY_RIGHT,
+                            format_string,
+                            "name"),
+    display_builder.add_column(13,
+                            "ELAPSED TIME",
+                            display_builder.JUSTIFY_RIGHT,
+                            display_builder.JUSTIFY_RIGHT,
+                            format_elapsed_time),
+    display_builder.add_column(10,
+                            "",
+                            display_builder.JUSTIFY_LEFT,
+                            display_builder.JUSTIFY_LEFT,
+                            format_status),
+    display_builder.add_column(-1,
+                            "CHANNEL",
+                            display_builder.JUSTIFY_CENTER,
+                            display_builder.JUSTIFY_RIGHT,
+                            format_channel_names)
+
     while True:
+        log_debug("updating screen")
         screen.erase()
-
-        rows = (
-            ["{0:>11} {1:>30} {2:>13} {3:10} {4:>60}".format("RUN ID", "TASK NAME", "ELAPSED TIME", "", "CHANNEL")] +
-            [format_run(run) for run in get_tasko_runs(60)]
-        )
-
-        for index, row in enumerate(rows):
-            if index < screen.getmaxyx()[0]:
-                screen.addstr(index, 0, row)
-
+        display_builder.output_to_screen(screen, get_tasko_runs(MAXIMUM_AGE))
         screen.refresh()
-        time.sleep(1)
+        try:
+            # given up to a 1 second to retrieve user input
+            # because of halfdelay(10) call earlier
+            c = screen.getch()
+            if c != curses.ERR:
+                process_interactive_input(c, screen)
+        except Exception:
+            e = sys.exc_info()[1]
+            log_warning('getch() exception %s' % e)
+            pass
 
 
 def system_exit(code, msgs=None):
     """Exit with a code and optional message(s). Saved a few lines of code."""
-
     if msgs:
         if type(msgs) not in [type([]), type(())]:
             msgs = (msgs,)
@@ -181,14 +411,30 @@ def system_exit(code, msgs=None):
     sys.exit(code)
 
 
-if len(sys.argv) > 1:
-    print('Usage: %s\nTaskotop - utility to monitor what taskomatic daemon is doing.\n' % sys.argv[0])
-else:
-    try:
-        curses.wrapper(main)
-    except rhnSQL.SQLConnectError:
-        e = sys.exc_info()[1]
-        system_exit(20, ["ERROR: Can't connect to the database: %s" % str(e), "Check if your database is running."])
-    except Exception:
-         e = sys.exc_info()[1]
-         system_exit(1, "ERROR: Some problems occurred during getting information about tasks: %s" % str(e))
+if args.verbose > 0:
+    LOGGING_ENABLED = True
+    loglevel = logging.NOTSET
+    if args.verbose == 1:
+        loglevel = logging.ERROR
+    elif args.verbose == 2:
+        loglevel = logging.WARNING
+    elif args.verbose == 3:
+        loglevel = logging.INFO
+    else:
+        loglevel = logging.DEBUG
+    logging.basicConfig(filename=args.logfile, level=loglevel, format='%(asctime)s %(levelname)s:%(message)s')
+    log_info("Logging started...")
+    log_info('verbosity is %d' % args.verbose)
+    log_debug('HUMAN_READABLE is %s' % HUMAN_READABLE)
+    log_debug('MAXIMUM_AGE is %d' % MAXIMUM_AGE)
+
+try:
+    curses.wrapper(main)
+except rhnSQL.SQLConnectError:
+    e = sys.exc_info()[1]
+    system_exit(20, ["ERROR: Can't connect to the database: %s" % str(e), "Check if your database is running."])
+except Exception:
+    e = sys.exc_info()[1]
+    system_exit(1, "ERROR: Some problems occurred during getting information about tasks: %s" % str(e))
+
+
