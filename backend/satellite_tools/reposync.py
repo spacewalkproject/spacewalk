@@ -212,7 +212,7 @@ class RepoSync(object):
                  filters=None, no_errata=False, sync_kickstart=False, latest=False,
                  metadata_only=False, strict=0, excluded_urls=None, no_packages=False,
                  log_dir="reposync", log_level=None, force_kickstart=False, force_all_errata=False,
-                 check_ssl_dates=False):
+                 check_ssl_dates=False, force_null_org_content=False):
         self.regen = False
         self.fail = fail
         self.filters = filters or []
@@ -250,10 +250,10 @@ class RepoSync(object):
         if not self.channel:
             log(0, "Channel %s does not exist." % channel_label)
 
-        if self.channel['org_id']:
-            self.channel['org_id'] = int(self.channel['org_id'])
+        if not self.channel['org_id'] or force_null_org_content:
+            self.org_id = None
         else:
-            self.channel['org_id'] = None
+            self.org_id = int(self.channel['org_id'])
 
         if not url:
             # TODO:need to look at user security across orgs
@@ -321,7 +321,7 @@ class RepoSync(object):
                     repo_name = relative_url.replace("?", "_").replace("&", "_").replace("=", "_")
 
                 plugin = self.repo_plugin(url, repo_name,
-                                          org=str(self.channel['org_id'] or ''),
+                                          org=str(self.org_id or ''),
                                           channel_label=self.channel_label)
 
                 if update_repodata:
@@ -496,7 +496,7 @@ class RepoSync(object):
                 e['update_date'] = self._to_db_date(notice['updated'])
             else:
                 e['update_date'] = self._to_db_date(notice['issued'])
-            e['org_id'] = self.channel['org_id']
+            e['org_id'] = self.org_id
             e['notes'] = ''
             e['channels'] = []
             e['packages'] = []
@@ -521,8 +521,8 @@ class RepoSync(object):
                 else:
                     epochStatement = "pevr.epoch = :epoch"
                     param_dict['epoch'] = pkg['epoch']
-                if self.channel['org_id']:
-                    param_dict['org_id'] = self.channel['org_id']
+                if self.org_id:
+                    param_dict['org_id'] = self.org_id
                     orgStatement = "= :org_id"
                 else:
                     orgStatement = "is NULL"
@@ -568,7 +568,7 @@ class RepoSync(object):
 
                 package = IncompletePackage().populate(pkg)
                 package['epoch'] = cs['epoch']
-                package['org_id'] = self.channel['org_id']
+                package['org_id'] = self.org_id
 
                 package['checksums'] = {cs['checksum_type']: cs['checksum']}
                 package['checksum_type'] = cs['checksum_type']
@@ -666,7 +666,7 @@ class RepoSync(object):
         for pack in packages:
             db_pack = rhnPackage.get_info_for_package(
                 [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
-                channel_id, self.channel['org_id'])
+                channel_id, self.org_id)
 
             to_download = True
             to_link = True
@@ -749,7 +749,7 @@ class RepoSync(object):
             try:
                 if os.path.exists(localpath):
                     pack.load_checksum_from_header()
-                    rel_package_path = pack.upload_package(self.channel, metadata_only=self.metadata_only)
+                    rel_package_path = pack.upload_package(self.org_id, metadata_only=self.metadata_only)
                     # Save uploaded package to cache with repository checksum type
                     if rel_package_path:
                         self.checksum_cache[rel_package_path] = {pack.checksum_type: pack.checksum}
@@ -837,7 +837,7 @@ class RepoSync(object):
             package['epoch'] = pack.epoch
         package['channels'] = [{'label': self.channel_label,
                                 'id': self.channel['id']}]
-        package['org_id'] = self.channel['org_id']
+        package['org_id'] = self.org_id
 
         return IncompletePackage().populate(package)
 
@@ -955,12 +955,12 @@ class RepoSync(object):
                 where channel_id = :channel_id and label = :label
                 """
 
-        if 'org_id' in self.channel and self.channel['org_id']:
-            ks_path += str(self.channel['org_id']) + '/' + ks_tree_label
+        if self.org_id:
+            ks_path += str(self.org_id) + '/' + ks_tree_label
             # Trees synced from external repositories are expected to have full path it database
             db_path = os.path.join(CFG.MOUNT_POINT, ks_path)
             row = rhnSQL.fetchone_dict(id_request + " and org_id = :org_id", channel_id=self.channel['id'],
-                                       label=ks_tree_label, org_id=self.channel['org_id'])
+                                       label=ks_tree_label, org_id=self.org_id)
         else:
             ks_path += ks_tree_label
             db_path = ks_path
@@ -1017,7 +1017,7 @@ class RepoSync(object):
                                  ( select id from rhnKSTreeType where label = :ks_tree_type),
                                  ( select id from rhnKSInstallType where label = :ks_install_type),
                                  current_timestamp, current_timestamp, current_timestamp)""", id=ks_id,
-                           org_id=self.channel['org_id'], label=ks_tree_label, base_path=db_path,
+                           org_id=self.org_id, label=ks_tree_label, base_path=db_path,
                            channel_id=self.channel['id'], ks_tree_type=self.ks_tree_type,
                            ks_install_type=self.ks_install_type)
 
