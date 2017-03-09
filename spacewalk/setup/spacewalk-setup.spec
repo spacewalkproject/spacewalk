@@ -113,6 +113,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Mar 20 2017 Laurence Rochfort <laurence.rochfort@oracle.com> 2.7.2-1
+- 1430747 - Add support for Oracle 12.2
+
 * Tue Feb 21 2017 Jan Dobes 2.7.2-1
 - 1416804 - reset stdin for failed connections
 
