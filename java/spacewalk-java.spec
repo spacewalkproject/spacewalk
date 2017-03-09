@@ -30,11 +30,11 @@ ExcludeArch: ia64
 
 Requires: bcel
 Requires: c3p0 >= 0.9.1
-Requires: classpathx-mail
 Requires: cobbler20
 Requires: dojo
 Requires: dwr >= 3
 Requires: java-headless >= 1:1.7.0
+Requires: javamail
 Requires: jcommon
 Requires: jdom
 Requires: jpam
@@ -146,11 +146,11 @@ BuildRequires: antlr >= 0:2.7.6
 BuildRequires: bcel
 BuildRequires: c3p0 >= 0.9.1
 BuildRequires: cglib
-BuildRequires: classpathx-mail
 BuildRequires: concurrent
 BuildRequires: dom4j
 BuildRequires: dwr >= 3
 BuildRequires: java-devel >= 1:1.7.0
+BuildRequires: javamail
 BuildRequires: jcommon
 BuildRequires: jdom
 BuildRequires: jpam
@@ -659,7 +659,7 @@ fi
 %{jardir}/taglibs-core.jar
 %{jardir}/taglibs-standard.jar
 %endif
-%{jardir}/javamail.jar
+%{jardir}/javamail_javax.mail.jar
 %{jardir}/jcommon*.jar
 %{jardir}/jdom.jar
 %{jardir}/jpam.jar

@@ -142,7 +142,7 @@
       value="bcel cglib commons-beanutils commons-cli commons-codec
              commons-collections commons-digester commons-discovery
              commons-el commons-fileupload commons-io commons-lang commons-logging ${commons-validator} ${hibernate}
-             ${tomcat-jars} javamail jdom jpam dwr
+             ${tomcat-jars} javamail/javax.mail jdom jpam dwr
              ${log4j-jars} oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars}
              jcommon stringtree-json postgresql-jdbc
              ${taglibs} quartz
@@ -154,7 +154,7 @@
              commons-digester commons-discovery commons-el commons-fileupload commons-io
              commons-lang commons-logging
              ${commons-validator} concurrent dom4j ${hibernate} jta
-             ${jasper-jars} javamail jcommon jdom ${other-jars}
+             ${jasper-jars} javamail/javax.mail jcommon jdom ${other-jars}
              ${tomcat-jars} jpam ${log4j-jars} redstone-xmlrpc-client redstone-xmlrpc
              oro oscache quartz stringtree-json sitemesh ${struts-jars} ${taglibs}
              tanukiwrapper postgresql-jdbc simple-xml susestudio-java-client

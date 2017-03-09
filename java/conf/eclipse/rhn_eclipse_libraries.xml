@@ -27,7 +27,7 @@
         <archive path="/usr/share/java/marquee-xmlrpc.jar" source="/rhn-java/code/libsrc/marquee-xmlrpc-1.3-src.jar"/>
         <archive path="/usr/share/java/ognl.jar"/>
         <archive path="/usr/share/java/activation.jar"/>
-        <archive path="/usr/share/java/javamail/mailapi.jar"/>
+        <archive path="/usr/share/java/javamail/javax.mail-api.jar"/>
         <archive path="/usr/share/java/wsdl4j.jar"/>
         <archive path="/usr/share/java/axis/saaj.jar"/>
         <archive path="/usr/share/java/axis/jaxrpc.jar"/>
