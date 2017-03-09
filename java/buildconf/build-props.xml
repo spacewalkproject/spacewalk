@@ -119,7 +119,7 @@
        concurrent xalan-j2" />
 
   <property name="run.jar.dependencies"
-      value="antlr ${asm} cglib c3p0 commons-discovery dom4j jaf jta
+      value="antlr ${asm} cglib c3p0 commons-discovery dom4j jta
              ojdbc14 oscache sitemesh ${taglibs} xalan-j2 xerces-j2
              xml-commons-apis ${common.jar.dependencies}" />
 
@@ -134,7 +134,7 @@
       ${install.common.jar.dependencies} tanukiwrapper" />
 
   <property name="install.run.jar.dependencies"
-      value="antlr ${asm} cglib c3p0 commons-discovery dom4j dwr jaf jta
+      value="antlr ${asm} cglib c3p0 commons-discovery dom4j dwr jta
              oscache sitemesh ${taglibs} xalan-j2 xerces-j2
              xml-commons-apis ${install.common.jar.dependencies}" />
 
@@ -154,7 +154,7 @@
              commons-digester commons-discovery commons-el commons-fileupload commons-io
              commons-lang commons-logging
              ${commons-validator} concurrent dom4j ${hibernate} jta
-             jaf ${jasper-jars} javamail jcommon jdom ${other-jars}
+             ${jasper-jars} javamail jcommon jdom ${other-jars}
              ${tomcat-jars} jpam ${log4j-jars} redstone-xmlrpc-client redstone-xmlrpc
              oro oscache quartz stringtree-json sitemesh ${struts-jars} ${taglibs}
              tanukiwrapper postgresql-jdbc simple-xml susestudio-java-client

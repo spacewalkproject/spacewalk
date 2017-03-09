@@ -34,7 +34,7 @@ Requires: classpathx-mail
 Requires: cobbler20
 Requires: dojo
 Requires: dwr >= 3
-Requires: java >= 1:1.7.0
+Requires: java-headless >= 1:1.7.0
 Requires: jcommon
 Requires: jdom
 Requires: jpam
@@ -55,12 +55,10 @@ Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 %if 0%{?fedora}
 Requires: apache-commons-el
-Requires: classpathx-jaf
 Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
 Requires: hibernate3-ehcache >= 3.6.10
 Requires: javassist
-Requires: java-devel >= 1:1.7.0
 Requires: tomcat-taglibs-standard
 BuildRequires: apache-commons-el
 BuildRequires: ehcache-core
@@ -68,17 +66,14 @@ BuildRequires: hibernate3 >= 0:3.6.10
 BuildRequires: hibernate3-c3p0 >= 3.6.10
 BuildRequires: hibernate3-ehcache >= 3.6.10
 BuildRequires: javassist
-BuildRequires: java-devel >= 1:1.7.0
 BuildRequires: tomcat-taglibs-standard
 %else
 Requires: hibernate3 = 0:3.2.4
 Requires: jakarta-commons-el
 Requires: jakarta-taglibs-standard
-Requires: java-1.7.0-openjdk-devel
 BuildRequires: hibernate3 = 0:3.2.4
 BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-taglibs-standard
-BuildRequires: java-1.7.0-openjdk-devel
 %endif
 # EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
 %if 0%{?fedora} || 0%{?rhel} >= 7
@@ -163,7 +158,7 @@ BuildRequires: classpathx-mail
 BuildRequires: concurrent
 BuildRequires: dom4j
 BuildRequires: dwr >= 3
-BuildRequires: jaf
+BuildRequires: java-devel >= 1:1.7.0
 BuildRequires: jcommon
 BuildRequires: jdom
 BuildRequires: jpam
@@ -285,7 +280,7 @@ Requires: bcel
 Requires: c3p0 >= 0.9.1
 Requires: cobbler20
 Requires: concurrent
-Requires: java >= 0:1.7.0
+Requires: java-headless >= 0:1.7.0
 Requires: jcommon
 Requires: jpam
 Requires: log4j
@@ -303,12 +298,10 @@ Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
 Requires: hibernate3-ehcache >= 3.6.10
 Requires: javassist
-Requires: java-devel >= 0:1.7.0
 Requires: tomcat-taglibs-standard
 %else
 Requires: hibernate3 >= 0:3.2.4
 Requires: jakarta-taglibs-standard
-Requires: java-1.7.0-openjdk-devel
 %endif
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: apache-commons-cli
@@ -672,7 +665,6 @@ fi
 %{jardir}/taglibs-core.jar
 %{jardir}/taglibs-standard.jar
 %endif
-%{jardir}/jaf.jar
 %{jardir}/javamail.jar
 %{jardir}/jcommon*.jar
 %{jardir}/jdom.jar
