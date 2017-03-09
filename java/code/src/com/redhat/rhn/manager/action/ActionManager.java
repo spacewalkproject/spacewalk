@@ -250,7 +250,7 @@ public class ActionManager extends BaseManager {
     public static void cancelActions(User user, List actionsToCancel) {
         Iterator it = actionsToCancel.iterator();
         while (it.hasNext()) {
-            Action a = (Action)it.next();
+            Action a = (Action) it.next();
             cancelAction(user, a);
         }
     }
