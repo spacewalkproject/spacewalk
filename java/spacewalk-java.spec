@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.30
+Version: 2.7.31
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -730,6 +730,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 10 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.31-1
+- Migrate to jMock2
+
 * Fri Mar 03 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.30-1
 - Updated links to github in spec files
 - Migrating Fedorahosted to GitHub
