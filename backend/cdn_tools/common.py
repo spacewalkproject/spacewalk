@@ -17,11 +17,15 @@ import constants
 
 
 def verify_mappings():
-    args = ['rpm', '-V', constants.MAPPINGS_RPM_NAME]
+    args = ['rpm', '-q', constants.MAPPINGS_RPM_NAME]
     ret = fileutils.rhn_popen(args)
-    if ret[0]:
-        raise CdnMappingsLoadError("CDN mappings changed on disk. Please re-install '%s' package."
-                                   % constants.MAPPINGS_RPM_NAME)
+    # Package installed, exitcode is 0
+    if not ret[0]:
+        args = ['rpm', '-V', constants.MAPPINGS_RPM_NAME]
+        ret = fileutils.rhn_popen(args)
+        if ret[0]:
+            raise CdnMappingsLoadError("CDN mappings changed on disk. Please re-install '%s' package."
+                                       % constants.MAPPINGS_RPM_NAME)
 
 
 # Up to terabytes, should be enough

@@ -6,8 +6,8 @@ import os
 
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.fileutils import cleanupAbsPath
-from spacewalk.cdn_tools.common import CustomChannelSyncError
-from spacewalk.cdn_tools.cdnsync import CdnSync, CdnMappingsLoadError
+from spacewalk.cdn_tools.common import CustomChannelSyncError, CdnMappingsLoadError
+from spacewalk.cdn_tools.cdnsync import CdnSync
 from spacewalk.server import rhnSQL
 from spacewalk.common.usix import raise_with_tb
 from rhn import rhnLockfile

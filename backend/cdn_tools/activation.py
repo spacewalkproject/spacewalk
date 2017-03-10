@@ -12,6 +12,7 @@
 # in this software or its documentation.
 #
 
+import sys
 import json
 
 from spacewalk.satellite_tools import satCerts
@@ -37,10 +38,16 @@ class Activation(object):
 
         verify_mappings()
 
+        f = None
         # Channel families metadata
-        f = open(constants.CHANNEL_FAMILY_MAPPING_PATH, 'r')
         try:
+            f = open(constants.CHANNEL_FAMILY_MAPPING_PATH, 'r')
             self.families = json.load(f)
+            f.close()
+        except IOError:
+            e = sys.exc_info()[1]
+            print "Ignoring channel mappings: %s" % e
+            self.families = {}
         finally:
             if f is not None:
                 f.close()

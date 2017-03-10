@@ -35,7 +35,7 @@ from spacewalk.satellite_tools.satCerts import get_certificate_info, verify_cert
 from spacewalk.satellite_tools.syncLib import log, log2disk, log2
 from spacewalk.satellite_tools.repo_plugins import yum_src, ThreadedDownloader, ProgressBarLogger
 
-from common import CdnMappingsLoadError, CustomChannelSyncError, verify_mappings, human_readable_size
+from common import CustomChannelSyncError, verify_mappings, human_readable_size
 from repository import CdnRepositoryManager, CdnRepositoryNotFoundError
 
 
@@ -48,6 +48,16 @@ class CdnSync(object):
                  log_level=None, mount_point=None, consider_full=False, force_kickstarts=False,
                  force_all_errata=False):
 
+        if log_level is None:
+            log_level = 0
+        self.log_level = log_level
+        CFG.set('DEBUG', log_level)
+        rhnLog.initLOG(self.log_path, self.log_level)
+        log2disk(0, "Command: %s" % str(sys.argv))
+
+        rhnSQL.initDB()
+        initCFG('server.satellite')
+
         self.cdn_repository_manager = CdnRepositoryManager(mount_point)
         self.no_packages = no_packages
         self.no_errata = no_errata
@@ -59,9 +69,6 @@ class CdnSync(object):
         self.force_kickstarts = force_kickstarts
         if self.no_kickstarts and self.force_kickstarts:
             log(0, "Parameter --force-kickstarts has no effect.")
-        if log_level is None:
-            log_level = 0
-        self.log_level = log_level
 
         if mount_point:
             self.mount_point = "file://" + mount_point
@@ -69,13 +76,6 @@ class CdnSync(object):
         else:
             self.mount_point = CFG.CDN_ROOT
             self.consider_full = True
-
-        CFG.set('DEBUG', log_level)
-        rhnLog.initLOG(self.log_path, self.log_level)
-        log2disk(0, "Command: %s" % str(sys.argv))
-
-        rhnSQL.initDB()
-        initCFG('server.satellite')
 
         verify_mappings()
 
@@ -105,7 +105,11 @@ class CdnSync(object):
                 f.close()
             except IOError:
                 e = sys.exc_info()[1]
-                raise CdnMappingsLoadError("Problem with loading file: %s" % e)
+                log(1, "Ignoring channel mappings: %s" % e)
+                self.families = {}
+                self.channel_metadata = {}
+                self.channel_dist_mapping = {}
+                self.kickstart_metadata = {}
         finally:
             if f is not None:
                 f.close()
@@ -132,6 +136,14 @@ class CdnSync(object):
         channels = h.fetchall_dict() or []
         self.synced_channels = {}
         for channel in channels:
+            # Channel mappings missing, don't evaluate channels coming from them as synced
+            if not channel['org_id'] and not channel['label'] in self.channel_metadata:
+                continue
+            # Custom channel repositories not available, don't mark as synced
+            if channel['org_id']:
+                repos = self.cdn_repository_manager.list_associated_repos(channel['label'])
+                if not all([self.cdn_repository_manager.check_repository_availability(r) for r in repos]):
+                    continue
             self.synced_channels[channel['label']] = channel['org_id']
 
         # Select available channel families from DB
@@ -598,20 +610,22 @@ class CdnSync(object):
         channel_tree, not_available_channels = self._tree_available_channels()
 
         if not channel_tree:
-            log2(0, 0, "No available channels were found. Is your %s activated for CDN?"
-                 % PRODUCT_NAME, stream=sys.stderr)
-            return
+            log(1, "WARNING: No available channels from channel mappings were found. "
+                   "Is %s package installed and your %s activated?" % (constants.MAPPINGS_RPM_NAME, PRODUCT_NAME))
+
+        available_base_channels = [x for x in sorted(channel_tree) if x not in not_available_channels]
+        custom_cdn_channels = [ch for ch in self.synced_channels if self.synced_channels[ch]]
+        longest_label = len(max(available_base_channels + custom_cdn_channels +
+                                [i for l in channel_tree.values() for i in l] + [""], key=len))
 
         log(0, "p = previously imported/synced channel")
         log(0, ". = channel not yet imported/synced")
         log(0, "? = package count not available (try to run cdn-sync --count-packages)")
 
-        log(0, "Base channels:")
-        available_base_channels = [x for x in sorted(channel_tree) if x not in not_available_channels]
+        log(0, "Entitled base channels:")
+
         if not available_base_channels:
             log(0, "      NONE")
-
-        longest_label = len(max(available_base_channels + [i for l in channel_tree.values() for i in l], key=len or ""))
         for channel in available_base_channels:
             if channel in self.synced_channels:
                 status = 'p'
@@ -646,6 +660,9 @@ class CdnSync(object):
                 else:
                     log(0, "        No CDN source provided!")
 
+        log(0, "Entitled child channels:")
+        if not (any([channel_tree[ch] for ch in channel_tree])):
+            log(0, "      NONE")
         # print information about child channels
         for channel in sorted(channel_tree):
             # Print only if there are any child channels
@@ -686,15 +703,15 @@ class CdnSync(object):
                             log(0, "        No CDN source provided!")
 
         # Not-null org_id channels
-        custom_cdn_channels = [ch for ch in self.synced_channels if self.synced_channels[ch]]
-        if custom_cdn_channels:
-            log(0, "Custom channels syncing from CDN:")
-            for channel in sorted(custom_cdn_channels):
-                log(0, "    p %s" % channel)
-                if repos:
-                    paths = self.cdn_repository_manager.list_associated_repos(channel)
-                    for path in sorted(paths):
-                        log(0, "        %s" % path)
+        log(0, "Custom channels syncing from CDN:")
+        if not custom_cdn_channels:
+            log(0, "      NONE")
+        for channel in sorted(custom_cdn_channels):
+            log(0, "    p %s" % channel)
+            if repos:
+                paths = self.cdn_repository_manager.list_associated_repos(channel)
+                for path in sorted(paths):
+                    log(0, "        %s" % path)
 
     @staticmethod
     def clear_cache():

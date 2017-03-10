@@ -22,7 +22,6 @@ from spacewalk.satellite_tools.syncLib import log, log2
 from spacewalk.server.importlib.importLib import ContentSource, ContentSourceSsl
 
 import constants
-from common import CdnMappingsLoadError
 
 
 class CdnRepositoryManager(object):
@@ -53,7 +52,10 @@ class CdnRepositoryManager(object):
                 f.close()
             except IOError:
                 e = sys.exc_info()[1]
-                raise CdnMappingsLoadError("Problem with loading file: %s" % e)
+                log(1, "Ignoring channel mappings: %s" % e)
+                self.content_source_mapping = {}
+                self.kickstart_source_mapping = {}
+                self.kickstart_metadata = {}
         finally:
             if f is not None:
                 f.close()
