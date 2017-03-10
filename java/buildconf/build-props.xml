@@ -75,9 +75,9 @@
   </condition>
 
   <condition property="jmock-jars"
-                value="jmock jmock-cglib"
+                value="jmock/jmock jmock/jmock-junit3 jmock/jmock-legacy"
                  else="">
-    <available file="/usr/share/java/jmock.jar" />
+    <available file="/usr/share/java/jmock/jmock.jar" />
   </condition>
 
   <property name="boot.jar.dependencies" value="ivy" />
