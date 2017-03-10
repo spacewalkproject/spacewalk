@@ -354,7 +354,6 @@ Requires: %{name}-server = %{version}-%{release}
 Requires: spacewalk-usix
 Requires: subscription-manager
 Requires: m2crypto
-Requires: cdn-sync-mappings
 Requires: python-argparse
 
 %description cdn
