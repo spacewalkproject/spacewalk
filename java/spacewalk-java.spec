@@ -151,7 +151,7 @@ BuildRequires: jpam
 BuildRequires: jta
 BuildRequires: oscache
 BuildRequires: postgresql-jdbc
-BuildRequires: quartz
+BuildRequires: quartz < 2.0
 BuildRequires: redstone-xmlrpc
 BuildRequires: simple-core
 BuildRequires: simple-xml
