@@ -34,8 +34,9 @@ def process_commandline():
     initCFG('server.satellite')
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--list-channels", action="store_true", help="List channels available to sync.")
-    parser.add_argument("-r", "--list-repos", action="store_true", help="List all repositories assigned on channels for"
-                                                                        "debug purpose only.")
+    parser.add_argument("-r", "--show-repos", action="store_true",
+                        help="Show all repositories assigned to channels for debug purposes. Use together with "
+                             "--list-channels or --cdn-certificates.")
     parser.add_argument("-c", "--channel", action="append", help="Sync this channel only.")
     parser.add_argument("-m", "--mount-point", action="store", help="Source mount point for import from Content ISO")
     parser.add_argument("--consider-full", action="store_true",
@@ -134,15 +135,13 @@ if __name__ == '__main__':
         if args.list_channels:
             if args.count_packages:
                 cdnsync.count_packages(channels=args.channel)
-            cdnsync.print_channel_tree()
-        elif args.list_repos:
-            cdnsync.print_channel_tree(repos=True)
+            cdnsync.print_channel_tree(repos=args.show_repos)
         elif args.count_packages:
             cdnsync.count_packages(channels=args.channel)
         elif args.clear_cache:
             cdnsync.clear_cache()
         elif args.cdn_certificates:
-            cdnsync.print_cdn_certificates_info()
+            cdnsync.print_cdn_certificates_info(repos=args.show_repos)
         elif args.add_repo or args.delete_repo:
             error_messages = cdnsync.setup_repos_and_sync(channels=args.channel, add_repos=args.add_repo,
                                                           delete_repos=args.delete_repo)

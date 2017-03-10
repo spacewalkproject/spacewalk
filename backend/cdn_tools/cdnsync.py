@@ -690,7 +690,7 @@ class CdnSync(object):
             for pkg in os.listdir(constants.PACKAGE_STAGE_DIRECTORY):
                 os.unlink(os.path.join(constants.PACKAGE_STAGE_DIRECTORY, pkg))
 
-    def print_cdn_certificates_info(self):
+    def print_cdn_certificates_info(self, repos=False):
         h = rhnSQL.prepare("""
             SELECT ck.id, ck.description, ck.key
             FROM rhnCryptoKeyType ckt,
@@ -732,14 +732,16 @@ class CdnSync(object):
                         log(0, "    * %s" % base_channel)
                         sources = self.cdn_repository_manager.get_content_sources(base_channel)
                         sources = [source['relative_url'] for source in sources]
-                        for source in sorted(sources):
-                            log(0, "        > %s" % source)
+                        if repos:
+                            for source in sorted(sources):
+                                log(0, "        > %s" % source)
                     elif channel_tree[base_channel]:
                         log(0, "    * %s (base channel not provided)" % base_channel)
                     for child_channel in sorted(channel_tree[base_channel]):
                         log(0, "        * %s" % child_channel)
                         sources = self.cdn_repository_manager.get_content_sources(child_channel)
                         sources = [source['relative_url'] for source in sources]
-                        for source in sorted(sources):
-                            log(0, "            > %s" % source)
+                        if repos:
+                            for source in sorted(sources):
+                                log(0, "            > %s" % source)
             log(0, "")
