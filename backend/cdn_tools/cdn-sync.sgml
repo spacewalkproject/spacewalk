@@ -83,7 +83,7 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <arg>-v</arg> <arg>--verbose</arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>--cdn-certificates</arg>
+        <arg>--cdn-certs</arg>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -149,7 +149,7 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <term>-r, --show-repos</term>
         <listitem>
             <para>Show all repositories assigned to channels for debug purposes. Use together with
-                  --list-channels or --cdn-certificates.</para>
+                  --list-channels or --cdn-certs.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -248,7 +248,7 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>--cdn-certificates</term>
+        <term>--cdn-certs</term>
         <listitem>
             <para>Print details about currently used SSL certificates for accessing CDN.</para>
         </listitem>
