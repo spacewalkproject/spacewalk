@@ -119,7 +119,7 @@ class CdnSync(object):
         # Set already synced channels, entitled null-org channels and custom channels with associated
         # CDN repositories
         h = rhnSQL.prepare("""
-            select distinct c.label
+            select distinct c.label, c.org_id
             from rhnChannelFamilyPermissions cfp inner join
                  rhnChannelFamily cf on cfp.channel_family_id = cf.id inner join
                  rhnChannelFamilyMembers cfm on cf.id = cfm.channel_family_id inner join
@@ -130,7 +130,9 @@ class CdnSync(object):
         """)
         h.execute()
         channels = h.fetchall_dict() or []
-        self.synced_channels = [ch['label'] for ch in channels]
+        self.synced_channels = {}
+        for channel in channels:
+            self.synced_channels[channel['label']] = channel['org_id']
 
         # Select available channel families from DB
         h = rhnSQL.prepare("""
