@@ -75,7 +75,7 @@
   </condition>
 
   <condition property="jmock-jars"
-                value="jmock/jmock jmock/jmock-junit3 jmock/jmock-legacy"
+                value="jmock/jmock jmock/jmock-junit3 jmock/jmock-legacy hamcrest/all.jar"
                  else="">
     <available file="/usr/share/java/jmock/jmock.jar" />
   </condition>
