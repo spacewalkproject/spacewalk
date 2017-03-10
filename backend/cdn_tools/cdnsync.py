@@ -738,25 +738,20 @@ class CdnSync(object):
             if constants.CLIENT_CERT_PREFIX in key['description']:
                 manager = CdnRepositoryManager(client_cert_id=int(key['id']))
                 self.cdn_repository_manager = manager
-                log(0, "Provided channels (*), assigned repositories (>):")
+                log(0, "Provided channels:")
                 channel_tree, not_available_channels = self._tree_available_channels()
                 if not channel_tree:
                     log(0, "    NONE")
                 for base_channel in sorted(channel_tree):
                     if base_channel not in not_available_channels:
                         log(0, "    * %s" % base_channel)
-                        sources = self.cdn_repository_manager.get_content_sources(base_channel)
-                        sources = [source['relative_url'] for source in sources]
-                        if repos:
-                            for source in sorted(sources):
-                                log(0, "        > %s" % source)
                     elif channel_tree[base_channel]:
-                        log(0, "    * %s (base channel not provided)" % base_channel)
+                        log(0, "    * %s (only child channels provided)" % base_channel)
                     for child_channel in sorted(channel_tree[base_channel]):
                         log(0, "        * %s" % child_channel)
-                        sources = self.cdn_repository_manager.get_content_sources(child_channel)
-                        sources = [source['relative_url'] for source in sources]
-                        if repos:
-                            for source in sorted(sources):
-                                log(0, "            > %s" % source)
+                if repos:
+                    log(0, "Provided repositories:")
+                    provided_repos = self.cdn_repository_manager.list_provided_repos(key['id'])
+                    for repo in sorted(provided_repos):
+                        log(0, "    %s" % repo)
             log(0, "")

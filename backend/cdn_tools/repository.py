@@ -245,6 +245,18 @@ class CdnRepositoryManager(object):
         paths = [r['source_url'] for r in h.fetchall_dict() or []]
         return paths
 
+    @staticmethod
+    def list_provided_repos(crypto_key_id):
+        h = rhnSQL.prepare("""
+                select cs.source_url
+                from rhnContentSource cs inner join
+                     rhnContentSourceSsl csssl on cs.id = csssl.content_source_id
+                where cs.label like :prefix || '%%'
+                  and csssl.ssl_client_cert_id = :client_cert_id
+            """)
+        h.execute(prefix=constants.MANIFEST_REPOSITORY_DB_PREFIX, client_cert_id=crypto_key_id)
+        paths = [r['source_url'] for r in h.fetchall_dict() or []]
+        return paths
 
     @staticmethod
     def get_content_source_label(source):
