@@ -640,8 +640,9 @@ class CdnSync(object):
             sources = self.cdn_repository_manager.get_content_sources(channel)
             if repos:
                 if sources:
-                    for source in sources:
-                        log(0, "        %s" % source['relative_url'])
+                    paths = [s['relative_url'] for s in sources]
+                    for path in sorted(paths):
+                        log(0, "        %s" % path)
                 else:
                     log(0, "        No CDN source provided!")
 
@@ -678,10 +679,22 @@ class CdnSync(object):
                     if repos:
                         sources = self.cdn_repository_manager.get_content_sources(child)
                         if sources:
-                            for source in sources:
-                                log(0, "        %s" % source['relative_url'])
+                            paths = [s['relative_url'] for s in sources]
+                            for path in sorted(paths):
+                                log(0, "        %s" % path)
                         else:
                             log(0, "        No CDN source provided!")
+
+        # Not-null org_id channels
+        custom_cdn_channels = [ch for ch in self.synced_channels if self.synced_channels[ch]]
+        if custom_cdn_channels:
+            log(0, "Custom channels syncing from CDN:")
+            for channel in sorted(custom_cdn_channels):
+                log(0, "    p %s" % channel)
+                if repos:
+                    paths = self.cdn_repository_manager.list_associated_repos(channel)
+                    for path in sorted(paths):
+                        log(0, "        %s" % path)
 
     @staticmethod
     def clear_cache():

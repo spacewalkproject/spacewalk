@@ -232,6 +232,19 @@ class CdnRepositoryManager(object):
                 crypto_keys.append(keys)
         return crypto_keys
 
+    @staticmethod
+    def list_associated_repos(channel_label):
+        h = rhnSQL.prepare("""
+                select cs.source_url
+                from rhnChannel c inner join
+                     rhnChannelContentSource ccs on c.id = ccs.channel_id inner join
+                     rhnContentSource cs on ccs.source_id = cs.id
+                where c.label = :label
+            """)
+        h.execute(label=channel_label)
+        paths = [r['source_url'] for r in h.fetchall_dict() or []]
+        return paths
+
 
     @staticmethod
     def get_content_source_label(source):
