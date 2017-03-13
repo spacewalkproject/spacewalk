@@ -473,6 +473,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/rhnTranslate.py*
 %{pythonrhnroot}/common/RPC_Base.py*
 %attr(770,root,%{apache_group}) %dir %{_var}/log/rhn
+# Workaround for strict-whitespace-enforcement in httpd
+%attr(644,root,%{apache_group}) %config %{apacheconfd}/aa-spacewalk-server.conf
 # config files
 %attr(755,root,%{apache_group}) %dir %{rhnconfigdefaults}
 %attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn.conf
@@ -567,8 +569,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %dir %{_var}/cache/rhn/satsync
 # config files
 %attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server.conf
-# Workaround for strict-whitespace-enforcement in httpd
-%attr(644,root,%{apache_group}) %config %{apacheconfd}/aa-spacewalk-server.conf
 
 # main httpd config
 %attr(644,root,%{apache_group}) %config %{apacheconfd}/zz-spacewalk-server.conf
