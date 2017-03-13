@@ -41,7 +41,6 @@ Requires: jdom
 Requires: jpam
 Requires: jta
 Requires: log4j
-Requires: oscache
 Requires: redstone-xmlrpc
 Requires: simple-core
 Requires: simple-xml
@@ -74,9 +73,11 @@ BuildRequires: tomcat-taglibs-standard
 Requires: hibernate3 = 0:3.2.4
 Requires: jakarta-commons-el
 Requires: jakarta-taglibs-standard
+Requires: oscache
 BuildRequires: hibernate3 = 0:3.2.4
 BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-taglibs-standard
+BuildRequires: oscache
 %endif
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires:      apache-commons-cli
@@ -149,7 +150,6 @@ BuildRequires: jcommon
 BuildRequires: jdom
 BuildRequires: jpam
 BuildRequires: jta
-BuildRequires: oscache
 BuildRequires: postgresql-jdbc
 BuildRequires: quartz < 2.0
 BuildRequires: redstone-xmlrpc
@@ -265,7 +265,6 @@ Requires: java-headless >= 0:1.7.0
 Requires: jcommon
 Requires: jpam
 Requires: log4j
-Requires: oscache
 Requires: quartz < 2.0
 Requires: simple-core
 Requires: spacewalk-java-config
@@ -283,6 +282,7 @@ Requires: tomcat-taglibs-standard
 %else
 Requires: hibernate3 >= 0:3.2.4
 Requires: jakarta-taglibs-standard
+Requires: oscache
 %endif
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: apache-commons-cli
@@ -633,6 +633,7 @@ fi
 %endif
 
 %else
+%{jardir}/oscache.jar
 %{jardir}/taglibs-core.jar
 %{jardir}/taglibs-standard.jar
 %endif
@@ -644,7 +645,6 @@ fi
 %{jardir}/log4j*.jar
 %{jardir}/objectweb-asm_asm.jar
 %{jardir}/oro.jar
-%{jardir}/oscache.jar
 %{jardir}/quartz.jar
 %{jardir}/redstone-xmlrpc-client.jar
 %{jardir}/redstone-xmlrpc.jar

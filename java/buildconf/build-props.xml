@@ -48,6 +48,10 @@
 
   <!-- =================== jar dependencies ======================= -->
 
+  <condition property="oscache" value="oscache" else="">
+    <available file="/usr/share/java/oscache.jar" />
+  </condition>
+
   <condition property="hibernate-commons-annotations" value="hibernate/hibernate-commons-annotations" else="hibernate-commons-annotations/hibernate-commons-annotations">
     <available file="/usr/share/java/hibernate/hibernate-commons-annotations.jar" />
   </condition>
@@ -116,7 +120,7 @@
 
   <property name="run.jar.dependencies"
       value="antlr objectweb-asm/asm cglib c3p0 commons-discovery dom4j jta
-             ojdbc14 oscache sitemesh ${taglibs} xalan-j2 xerces-j2
+             ojdbc14 ${oscache} sitemesh ${taglibs} xalan-j2 xerces-j2
              xml-commons-apis ${common.jar.dependencies}" />
 
   <!-- =================== RPM build, use jpackage syntax ======================= -->
@@ -131,7 +135,7 @@
 
   <property name="install.run.jar.dependencies"
       value="antlr objectweb-asm/asm cglib c3p0 commons-discovery dom4j dwr jta
-             oscache sitemesh ${taglibs} xalan-j2 xerces-j2
+             ${oscache} sitemesh ${taglibs} xalan-j2 xerces-j2
              xml-commons-apis ${install.common.jar.dependencies}" />
 
   <property name="install.common.jar.dependencies"
@@ -152,7 +156,7 @@
              ${commons-validator} concurrent dom4j ${hibernate} jta
              ${jasper-jars} javamail/javax.mail jcommon jdom ${other-jars}
              ${tomcat-jars} jpam ${log4j-jars} redstone-xmlrpc-client redstone-xmlrpc
-             oro oscache quartz stringtree-json sitemesh ${struts-jars} ${taglibs}
+             oro ${oscache} quartz stringtree-json sitemesh ${struts-jars} ${taglibs}
              tanukiwrapper postgresql-jdbc simple-xml susestudio-java-client
              xalan-j2 xerces-j2 xml-commons-apis simple-core" />
 
