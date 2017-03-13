@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.32
+Version: 2.7.33
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -714,6 +714,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 13 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.33-1
+- we need quartz v1 for build
+- use standard objectweb-asm and cglib on all platforms
+- use standard javamail on Fedora
+- merged Requires/BuildRequires into a single ifdef (cleanup)
+- jaf is a part of standard openjdk for a long time
+
 * Fri Mar 10 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.32-1
 - use standard apache-commons-fileupload on Fedora
 - use standard apache-commons-el on Fedora
