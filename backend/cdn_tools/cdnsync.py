@@ -474,7 +474,8 @@ class CdnSync(object):
 
     def count_packages(self, channels=None):
         start_time = datetime.now()
-        channel_list = self._list_available_channels()
+        # Both entitled channels and custom channels with null-org repositories.
+        channel_list = self._list_available_channels() + [c for c in self.synced_channels if self.synced_channels[c]]
 
         # Only some channels specified by parameter
         if channels:
@@ -487,6 +488,13 @@ class CdnSync(object):
         repository_count = 0
         for channel in channel_list:
             sources = self.cdn_repository_manager.get_content_sources(channel)
+            # Custom channel
+            if not sources:
+                repos = self.cdn_repository_manager.list_associated_repos(channel)
+                sources = []
+                for index, repo in enumerate(sorted(repos)):
+                    repo_label = "%s-%d" % (channel, index)
+                    sources.append({'relative_url': repo, 'pulp_repo_label_v2': repo_label})
             repository_count += len(sources)
             repo_tree[channel] = sources
         log(0, "Number of repositories: %d" % repository_count)
