@@ -648,19 +648,15 @@ class CdnSync(object):
         log(0, "? = package count not available (try to run cdn-sync --count-packages)")
 
         log(0, "Entitled base channels:")
-
         if not available_base_channels:
             log(0, "      NONE")
         for channel in available_base_channels:
             log(0, "%s" % self._channel_line_format(channel, longest_label))
-            sources = self.cdn_repository_manager.get_content_sources(channel)
             if repos:
-                if sources:
-                    paths = [s['relative_url'] for s in sources]
-                    for path in sorted(paths):
-                        log(0, "        %s" % path)
-                else:
-                    log(0, "        No CDN source provided!")
+                sources = self.cdn_repository_manager.get_content_sources(channel)
+                paths = [s['relative_url'] for s in sources]
+                for path in sorted(paths):
+                    log(0, "        %s" % path)
 
         log(0, "Entitled child channels:")
         if not (any([channel_tree[ch] for ch in channel_tree])):
@@ -674,12 +670,9 @@ class CdnSync(object):
                     log(0, "%s" % self._channel_line_format(child, longest_label))
                     if repos:
                         sources = self.cdn_repository_manager.get_content_sources(child)
-                        if sources:
-                            paths = [s['relative_url'] for s in sources]
-                            for path in sorted(paths):
-                                log(0, "        %s" % path)
-                        else:
-                            log(0, "        No CDN source provided!")
+                        paths = [s['relative_url'] for s in sources]
+                        for path in sorted(paths):
+                            log(0, "        %s" % path)
 
         # Not-null org_id channels
         log(0, "Custom channels syncing from CDN:")
