@@ -1,7 +1,7 @@
 Name: quartz
 Summary: Quartz Enterprise Job Scheduler
 Version:        1.8.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Quartz Enterprise Job Scheduler
 License:        ASL 2.0
 URL:            http://www.quartz-scheduler.org/
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}/%{name}-oracle-%{version}.jar
 
 %changelog
+* Mon Mar 13 2017 Michael Mraka <michael.mraka@redhat.com> 1.8.4-7
+- require standard apache-commons-collecitons on Fedora
+
 * Wed Aug 27 2014 Michael Mraka <michael.mraka@redhat.com> 1.8.4-6
 - fixed requires for RHEL7
 
