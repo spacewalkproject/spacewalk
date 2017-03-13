@@ -606,6 +606,31 @@ class CdnSync(object):
         end_time = datetime.now()
         log(0, "Total time: %s" % str(end_time - start_time).split('.')[0])
 
+    def _channel_line_format(self, channel, longest_label):
+        if channel in self.synced_channels:
+            status = 'p'
+        else:
+            status = '.'
+        try:
+            packages_number = open(constants.CDN_REPODATA_ROOT + '/' + channel + "/packages_num", 'r').read()
+        # pylint: disable=W0703
+        except Exception:
+            packages_number = '?'
+
+        try:
+            packages_size = open(constants.CDN_REPODATA_ROOT + '/' + channel + "/packages_size", 'r').read()
+            packages_size = human_readable_size(int(packages_size))
+        # pylint: disable=W0703
+        except Exception:
+            packages_size = '?B'
+
+        packages_size = "(%s)" % packages_size
+        space = " "
+        offset = longest_label - len(channel)
+        space += " " * offset
+
+        return "    %s %s%s%6s packages %9s" % (status, channel, space, packages_number, packages_size)
+
     def print_channel_tree(self, repos=False):
         channel_tree, not_available_channels = self._tree_available_channels()
 
@@ -627,30 +652,7 @@ class CdnSync(object):
         if not available_base_channels:
             log(0, "      NONE")
         for channel in available_base_channels:
-            if channel in self.synced_channels:
-                status = 'p'
-            else:
-                status = '.'
-
-            try:
-                packages_number = open(constants.CDN_REPODATA_ROOT + '/' + channel + "/packages_num", 'r').read()
-            # pylint: disable=W0703
-            except Exception:
-                packages_number = '?'
-
-            try:
-                packages_size = open(constants.CDN_REPODATA_ROOT + '/' + channel + "/packages_size", 'r').read()
-                packages_size = human_readable_size(int(packages_size))
-            # pylint: disable=W0703
-            except Exception:
-                packages_size = '?B'
-
-            packages_size = "(%s)" % packages_size
-            space = " "
-            offset = longest_label - len(channel)
-            space += " " * offset
-
-            log(0, "    %s %s%s%6s packages %9s" % (status, channel, space, packages_number, packages_size))
+            log(0, "%s" % self._channel_line_format(channel, longest_label))
             sources = self.cdn_repository_manager.get_content_sources(channel)
             if repos:
                 if sources:
@@ -669,30 +671,7 @@ class CdnSync(object):
             if len(channel_tree[channel]) > 0:
                 log(0, "%s:" % channel)
                 for child in sorted(channel_tree[channel]):
-                    if child in self.synced_channels:
-                        status = 'p'
-                    else:
-                        status = '.'
-
-                    try:
-                        packages_number = open(constants.CDN_REPODATA_ROOT + '/' + child + "/packages_num", 'r').read()
-                    # pylint: disable=W0703
-                    except Exception:
-                        packages_number = '?'
-
-                    try:
-                        packages_size = open(constants.CDN_REPODATA_ROOT + '/' + child + "/packages_size", 'r').read()
-                        packages_size = human_readable_size(int(packages_size))
-                    # pylint: disable=W0703
-                    except Exception:
-                        packages_size = '?B'
-
-                    packages_size = "(%s)" % packages_size
-                    space = " "
-                    offset = longest_label - len(child)
-                    space += " " * offset
-
-                    log(0, "    %s %s%s%6s packages %9s" % (status, child, space, packages_number, packages_size))
+                    log(0, "%s" % self._channel_line_format(child, longest_label))
                     if repos:
                         sources = self.cdn_repository_manager.get_content_sources(child)
                         if sources:
@@ -707,7 +686,7 @@ class CdnSync(object):
         if not custom_cdn_channels:
             log(0, "      NONE")
         for channel in sorted(custom_cdn_channels):
-            log(0, "    p %s" % channel)
+            log(0, "%s" % self._channel_line_format(channel, longest_label))
             if repos:
                 paths = self.cdn_repository_manager.list_associated_repos(channel)
                 for path in sorted(paths):
