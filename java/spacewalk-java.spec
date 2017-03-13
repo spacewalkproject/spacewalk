@@ -51,7 +51,6 @@ Requires: spacewalk-java-jdbc
 Requires: spacewalk-java-lib
 Requires: stringtree-json
 Requires: struts >= 0:1.3.0
-Requires: struts-taglib >= 0:1.3.0
 Requires: susestudio-java-client
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
@@ -114,6 +113,7 @@ Requires:      jakarta-commons-io
 Requires:      jakarta-commons-lang >= 0:2.1
 Requires:      jakarta-commons-logging
 Requires:      jpackage-utils
+Requires:      struts-taglib >= 0:1.3.0
 Requires:      tomcat6
 Requires:      tomcat6-lib
 Requires:      tomcat6-servlet-2.5-api
@@ -128,6 +128,7 @@ BuildRequires: jakarta-commons-io
 BuildRequires: jakarta-commons-logging
 BuildRequires: jakarta-commons-validator
 BuildRequires: jpackage-utils
+BuildRequires: struts-taglib >= 0:1.3.0
 BuildRequires: tomcat6
 BuildRequires: tomcat6-lib
 %endif
@@ -158,7 +159,6 @@ BuildRequires: simple-xml
 BuildRequires: sitemesh
 BuildRequires: stringtree-json
 BuildRequires: struts >= 0:1.3.0
-BuildRequires: struts-taglib >= 0:1.3.0
 BuildRequires: susestudio-java-client
 BuildRequires: tanukiwrapper
 %if 0%{?run_checkstyle}
