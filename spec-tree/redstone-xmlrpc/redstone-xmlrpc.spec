@@ -1,7 +1,7 @@
 Summary: An xmlrpc library
 Name: redstone-xmlrpc
 Version: 1.1_20071120 
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: LGPL
 Group: Development/Library
 URL: http://xmlrpc.sourceforge.net
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}
 
 %changelog
+* Mon Mar 13 2017 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-17
+- use standard jboss-servlet-2.5-api on Fedora
+
 * Tue Mar 01 2016 Gennadii Altukhov <galt@redhat.com> 1.1_20071120-16
 - 1313425 Adding patch for redstone XMLRPC to escape '>'
 
