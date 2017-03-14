@@ -17,6 +17,8 @@ import sys
 import json
 
 from spacewalk.server import rhnSQL
+from spacewalk.server.importlib.backendOracle import SQLBackend
+from spacewalk.server.importlib.contentSourcesImport import ContentSourcesImport
 from spacewalk.satellite_tools.satCerts import verify_certificate_dates
 from spacewalk.satellite_tools.syncLib import log, log2
 from spacewalk.server.importlib.importLib import ContentSource, ContentSourceSsl
@@ -233,6 +235,24 @@ class CdnRepositoryManager(object):
             if keys:
                 crypto_keys.append(keys)
         return crypto_keys
+
+    def assign_repositories_to_channel(self, channel_label, delete_repos=None, add_repos=None):
+        backend = SQLBackend()
+        repos = self.list_associated_repos(channel_label)
+        if delete_repos:
+            for to_delete in delete_repos:
+                if to_delete in repos:
+                    repos.remove(to_delete)
+                else:
+                    log2(0, 0, "WARNING: Repository '%s' is not attached to channel." % to_delete, stream=sys.stderr)
+        if add_repos:
+            repos = list(set(repos + add_repos))
+        content_sources_batch = self.get_content_sources_import_batch(
+            channel_label, backend, repos=sorted(repos))
+        for content_source in content_sources_batch:
+            content_source['channels'] = [channel_label]
+        importer = ContentSourcesImport(content_sources_batch, backend)
+        importer.run()
 
     @staticmethod
     def list_associated_repos(channel_label):

@@ -331,24 +331,6 @@ class CdnSync(object):
         importer = ChannelImport(channels_batch, backend)
         importer.run()
 
-    def _assign_repositories_to_channel(self, channel_label, delete_repos=None, add_repos=None):
-        backend = SQLBackend()
-        repos = self.cdn_repository_manager.list_associated_repos(channel_label)
-        if delete_repos:
-            for to_delete in delete_repos:
-                if to_delete in repos:
-                    repos.remove(to_delete)
-                else:
-                    log2(0, 0, "WARNING: Repository '%s' is not attached to channel." % to_delete, stream=sys.stderr)
-        if add_repos:
-            repos = list(set(repos + add_repos))
-        content_sources_batch = self.cdn_repository_manager.get_content_sources_import_batch(
-            channel_label, backend, repos=sorted(repos))
-        for content_source in content_sources_batch:
-            content_source['channels'] = [channel_label]
-        importer = ContentSourcesImport(content_sources_batch, backend)
-        importer.run()
-
     def _create_yum_repo(self, repo_source):
         repo_label = self.cdn_repository_manager.get_content_source_label(repo_source)
         repo_plugin = yum_src.ContentSource(self.mount_point + str(repo_source['relative_url']),
@@ -427,7 +409,7 @@ class CdnSync(object):
         # Make sure custom channels are properly connected with repos
         for channel in channels:
             if channel in self.synced_channels and self.synced_channels[channel]:
-                self._assign_repositories_to_channel(channel)
+                self.cdn_repository_manager.assign_repositories_to_channel(channel)
 
         # Finally, sync channel content
         error_messages = []
@@ -467,7 +449,8 @@ class CdnSync(object):
         if not self._is_channel_available(channel, requested_repos=add_repos):
             raise CustomChannelSyncError("Unable to attach requested repositories to this channel.")
         # Add custom repositories to custom channel
-        self._assign_repositories_to_channel(channel, delete_repos=delete_repos, add_repos=add_repos)
+        self.cdn_repository_manager.assign_repositories_to_channel(channel, delete_repos=delete_repos,
+                                                                   add_repos=add_repos)
 
         error_messages = self.sync(channels=channels)
         return error_messages
