@@ -1,0 +1,12 @@
+diff -up sitemesh-2.4.2/build.xml.0000~ sitemesh-2.4.2/build.xml
+--- sitemesh-2.4.2/build.xml.0000~	2006-06-22 01:31:38.000000000 -0400
++++ sitemesh-2.4.2/build.xml	2013-08-22 18:16:57.826806595 -0400
+@@ -14,7 +14,7 @@
+     <target name="jflex" unless="lexer.uptodate" description="Generate Lexer class">
+         <echo message="Generating HTML lexer using JFlex"/>
+         <mkdir dir="build/java"/>
+-        <java classpath="lib/jflex.jar" classname="JFlex.Main" fork="yes">
++        <java classpath="lib/jflex.jar:lib/java-cup.jar" classname="JFlex.Main" fork="yes">
+             <arg value="-d"/>
+             <arg value="build/java/com/opensymphony/module/sitemesh/html/tokenizer"/>
+             <arg value="src/java/com/opensymphony/module/sitemesh/html/tokenizer/lexer.flex"/>

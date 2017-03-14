@@ -1,0 +1,18 @@
+diff -up sitemesh-2.4.2/src/java/com/opensymphony/module/sitemesh/tapestry/Util.java.0004~ sitemesh-2.4.2/src/java/com/opensymphony/module/sitemesh/tapestry/Util.java
+--- sitemesh-2.4.2/src/java/com/opensymphony/module/sitemesh/tapestry/Util.java.0004~	2005-08-02 19:50:48.000000000 -0400
++++ sitemesh-2.4.2/src/java/com/opensymphony/module/sitemesh/tapestry/Util.java	2013-08-22 18:16:57.833806447 -0400
+@@ -33,11 +33,10 @@ public class Util {
+     }
+ 
+     public static Page getPage(IRequestCycle cycle) {
+-        return (Page) cycle.getRequestContext().getRequest().getAttribute(
+-                RequestConstants.PAGE);
++        return (Page) cycle.getAttribute(RequestConstants.PAGE);
+     }
+ 
+     public static IRender getHeadRenderer(IRequestCycle cycle) {
+         return new RenderString(((HTMLPage) getPage(cycle)).getHead(), true);
+     }
+-}
+\ No newline at end of file
++}

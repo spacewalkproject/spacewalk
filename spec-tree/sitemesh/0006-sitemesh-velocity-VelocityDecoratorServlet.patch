@@ -1,0 +1,46 @@
+diff -up sitemesh-2.4.2/src/java/com/opensymphony/module/sitemesh/velocity/VelocityDecoratorServlet.java.0006~ sitemesh-2.4.2/src/java/com/opensymphony/module/sitemesh/velocity/VelocityDecoratorServlet.java
+--- sitemesh-2.4.2/src/java/com/opensymphony/module/sitemesh/velocity/VelocityDecoratorServlet.java.0006~	2005-08-05 19:32:14.000000000 -0400
++++ sitemesh-2.4.2/src/java/com/opensymphony/module/sitemesh/velocity/VelocityDecoratorServlet.java	2013-08-22 18:16:57.967805488 -0400
+@@ -17,7 +17,7 @@ import org.apache.velocity.context.Conte
+ import org.apache.velocity.tools.view.servlet.VelocityViewServlet;
+ 
+ import javax.servlet.http.HttpServletRequest;
+-import javax.servlet.http.HttpServletResponse;
++import javax.servlet.http.HttpServletResponse; import java.io.IOException;
+ import java.io.StringWriter;
+ 
+ /**
+@@ -27,7 +27,7 @@ import java.io.StringWriter;
+  * @version $Revision: 1.9 $
+  */
+ public class VelocityDecoratorServlet extends VelocityViewServlet {
+-    public Template handleRequest(HttpServletRequest request, HttpServletResponse response, Context context) throws Exception {
++    public Template handleRequest(HttpServletRequest request, HttpServletResponse response, Context context) {
+         HTMLPage htmlPage = (HTMLPage) request.getAttribute(RequestConstants.PAGE);
+         String template;
+ 
+@@ -45,7 +45,7 @@ public class VelocityDecoratorServlet ex
+             template = request.getServletPath();
+         }
+         else {
+-            context.put("title", OutputConverter.convert(htmlPage.getTitle()));
++            try {context.put("title", OutputConverter.convert(htmlPage.getTitle()));
+             {
+                 StringWriter buffer = new StringWriter();
+                 htmlPage.writeBody(OutputConverter.getWriter(buffer));
+@@ -55,7 +55,7 @@ public class VelocityDecoratorServlet ex
+                 StringWriter buffer = new StringWriter();
+                 htmlPage.writeHead(OutputConverter.getWriter(buffer));
+                 context.put("head", buffer.toString());
+-            }
++            }} catch (IOException e) { return null; }
+             context.put("page", htmlPage);
+             DecoratorMapper decoratorMapper = getDecoratorMapper();
+             Decorator decorator = decoratorMapper.getDecorator(request, htmlPage);
+@@ -70,4 +70,4 @@ public class VelocityDecoratorServlet ex
+         DecoratorMapper decoratorMapper = factory.getDecoratorMapper();
+         return decoratorMapper;
+     }
+-}
+\ No newline at end of file
++}

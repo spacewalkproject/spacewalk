@@ -1,0 +1,19 @@
+diff -up sitemesh-2.4.2/src/java/com/opensymphony/module/sitemesh/tapestry/Title.java.0002~ sitemesh-2.4.2/src/java/com/opensymphony/module/sitemesh/tapestry/Title.java
+--- sitemesh-2.4.2/src/java/com/opensymphony/module/sitemesh/tapestry/Title.java.0002~	2005-08-02 19:50:48.000000000 -0400
++++ sitemesh-2.4.2/src/java/com/opensymphony/module/sitemesh/tapestry/Title.java	2013-08-22 18:16:57.829806530 -0400
+@@ -1,6 +1,6 @@
+ package com.opensymphony.module.sitemesh.tapestry;
+ 
+-import org.apache.tapestry.Tapestry;
++import org.apache.hivemind.HiveMind;
+ 
+ public abstract class Title extends SiteMeshBase {
+     
+@@ -8,6 +8,6 @@ public abstract class Title extends Site
+ 
+     public String getTitle() {
+         String title = getSiteMeshPage().getTitle();
+-        return Tapestry.isBlank(title) ? getDefault() : title;
++        return HiveMind.isBlank(title) ? getDefault() : title;
+     }
+ }

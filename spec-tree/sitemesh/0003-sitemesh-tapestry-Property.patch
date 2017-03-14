@@ -1,0 +1,20 @@
+diff -up sitemesh-2.4.2/src/java/com/opensymphony/module/sitemesh/tapestry/Property.java.0003~ sitemesh-2.4.2/src/java/com/opensymphony/module/sitemesh/tapestry/Property.java
+--- sitemesh-2.4.2/src/java/com/opensymphony/module/sitemesh/tapestry/Property.java.0003~	2005-08-02 19:50:48.000000000 -0400
++++ sitemesh-2.4.2/src/java/com/opensymphony/module/sitemesh/tapestry/Property.java	2013-08-22 18:16:57.831806491 -0400
+@@ -1,6 +1,6 @@
+ package com.opensymphony.module.sitemesh.tapestry;
+ 
+-import org.apache.tapestry.Tapestry;
++import org.apache.hivemind.HiveMind;
+ 
+ /**
+  * Because Tapestry templating works differently than JSP taglibs,
+@@ -27,7 +27,7 @@ public abstract class Property extends S
+         String propertyName = getProperty();
+         String propertyValue = getSiteMeshPage().getProperty(propertyName);
+         
+-        if (Tapestry.isBlank(propertyValue)) {
++        if (HiveMind.isBlank(propertyValue)) {
+             propertyValue = getDefault();
+         }
+ 
