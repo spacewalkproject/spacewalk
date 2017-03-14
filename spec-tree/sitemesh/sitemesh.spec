@@ -4,7 +4,7 @@
 
 Name:           sitemesh
 Version:        2.4.2
-Release:        2.0%{?dist}
+Release:        2.1%{?dist}
 Epoch:          0
 Summary:        Sitemesh
 License:        ASL 1.1
@@ -218,6 +218,9 @@ export MAVEN_OPTS=
 %{_docdir}/sitemesh
 
 %changelog
+* Tue Mar 14 2017 Michael Mraka <michael.mraka@redhat.com> 2.4.2-2.1
+- rebuild sitemesh locally without jpackage dependencies
+
 * Fri Aug 23 2013 David Walluck <dwalluck@redhat.com> 0:2.4.2-1
 - release
 
