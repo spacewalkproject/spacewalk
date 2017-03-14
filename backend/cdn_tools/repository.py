@@ -310,6 +310,17 @@ class CdnRepositoryManager(object):
         return paths
 
     @staticmethod
+    def cleanup_orphaned_repos():
+        h = rhnSQL.prepare("""
+            delete from rhnContentSource cs
+            where cs.org_id is null
+              and cs.label not like :prefix || '%%'
+              and not exists (select channel_id from rhnChannelContentSource where source_id = cs.id)
+        """)
+        h.execute(prefix=constants.MANIFEST_REPOSITORY_DB_PREFIX)
+        rhnSQL.commit()
+
+    @staticmethod
     def get_content_source_label(source):
         if 'pulp_repo_label_v2' in source:
             return source['pulp_repo_label_v2']

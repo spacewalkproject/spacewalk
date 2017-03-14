@@ -684,14 +684,16 @@ class CdnSync(object):
                 for path in sorted(paths):
                     log(0, "        %s" % path)
 
-    @staticmethod
-    def clear_cache():
+    def clear_cache(self):
         # Clear packages outside channels from DB and disk
+        log(0, "Cleaning imported packages outside channels.")
         contentRemove.delete_outside_channels(None)
         if os.path.isdir(constants.PACKAGE_STAGE_DIRECTORY):
             log(0, "Cleaning package stage directory.")
             for pkg in os.listdir(constants.PACKAGE_STAGE_DIRECTORY):
                 os.unlink(os.path.join(constants.PACKAGE_STAGE_DIRECTORY, pkg))
+        log(0, "Cleaning orphaned CDN repositories in DB.")
+        self.cdn_repository_manager.cleanup_orphaned_repos()
 
     def print_cdn_certificates_info(self, repos=False):
         h = rhnSQL.prepare("""
