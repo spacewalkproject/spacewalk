@@ -198,57 +198,57 @@ class CdnSync(object):
                 channel_list.append(base_channel)
         return channel_list
 
-    def _is_channel_available(self, label, requested_repos=None):
-        db_channel = channel_info(label)
-        # Not adding custom repositories to channel, it means either:
-        # 1. Trying to sync custom channel - in this case, it has to have already associated CDN repositories,
-        #    it's ensured by query populating synced_channels variable
-        # 2. Trying to sync channel from mappings - it may not exists so we check requirements from mapping files
-        if not requested_repos:
-            if db_channel and db_channel['org_id']:
-                # Custom channel doesn't have any null-org repositories assigned
-                if label not in self.synced_channels:
-                    log2(1, 1, "Custom channel '%s' doesn't contain any CDN repositories." % label, stream=sys.stderr)
-                    return False
-            else:
-                if label not in self.channel_metadata:
-                    log2(1, 1, "Channel '%s' not found in channel metadata mapping." % label, stream=sys.stderr)
-                    return False
-                elif label not in self.channel_to_family:
-                    log2(1, 1, "Channel '%s' not found in channel family mapping." % label, stream=sys.stderr)
-                    return False
-                family = self.channel_to_family[label]
-                if family not in self.entitled_families:
-                    log2(1, 1, "Channel family '%s' is not entitled." % family, stream=sys.stderr)
-                    return False
-                elif not self.cdn_repository_manager.check_channel_availability(label, self.no_kickstarts):
-                    log2(1, 1, "Channel '%s' repositories are not available." % label, stream=sys.stderr)
-                    return False
+    def _can_add_repos(self, db_channel, repos):
         # Adding custom repositories to custom channel, need to check:
         # 1. Repositories availability - if there are SSL certificates for them
         # 2. Channel is custom
         # 3. Repositories are not already associated with any channels in mapping files
-        else:
-            if not db_channel or not db_channel['org_id']:
-                log2(1, 1, "Channel '%s' doesn't exist or is not custom." % label, stream=sys.stderr)
-                return False
+        if not db_channel or not db_channel['org_id']:
+            log2(1, 1, "Channel '%s' doesn't exist or is not custom." % db_channel['label'], stream=sys.stderr)
+            return False
+        # Repositories can't be part of any channel from mappings
+        channels = []
+        for repo in repos:
+            channels.extend(self.cdn_repository_manager.list_channels_containing_repository(repo))
+        if channels:
+            log2(1, 1, "Specified repositories can't be synced because they are part of following channels: %s" %
+                 ", ".join(channels), stream=sys.stderr)
+            return False
+        # Check availability of repositories
+        not_available = []
+        for repo in repos:
+            if not self.cdn_repository_manager.check_repository_availability(repo):
+                not_available.append(repo)
+        if not_available:
+            log2(1, 1, "Following repositories are not available: %s" % ", ".join(not_available),
+                 stream=sys.stderr)
+            return False
+        return True
 
-            # Repositories can't be part of any channel from mappings
-            channels = []
-            for repo in requested_repos:
-                channels.extend(self.cdn_repository_manager.list_channels_containing_repository(repo))
-            if channels:
-                log2(1, 1, "Specified repositories can't be synced because they are part of following channels: %s" %
-                     ", ".join(channels), stream=sys.stderr)
+    def _is_channel_available(self, label):
+        # Checking channel availability, it means either:
+        # 1. Trying to sync custom channel - in this case, it has to have already associated CDN repositories,
+        #    it's ensured by query populating synced_channels variable
+        # 2. Trying to sync channel from mappings - it may not exists so we check requirements from mapping files
+        db_channel = channel_info(label)
+        if db_channel and db_channel['org_id']:
+            # Custom channel doesn't have any null-org repositories assigned
+            if label not in self.synced_channels:
+                log2(1, 1, "Custom channel '%s' doesn't contain any CDN repositories." % label, stream=sys.stderr)
                 return False
-            # Check availability of repositories
-            not_available = []
-            for repo in requested_repos:
-                if not self.cdn_repository_manager.check_repository_availability(repo):
-                    not_available.append(repo)
-            if not_available:
-                log2(1, 1, "Following repositories are not available: %s" % ", ".join(not_available),
-                     stream=sys.stderr)
+        else:
+            if label not in self.channel_metadata:
+                log2(1, 1, "Channel '%s' not found in channel metadata mapping." % label, stream=sys.stderr)
+                return False
+            elif label not in self.channel_to_family:
+                log2(1, 1, "Channel '%s' not found in channel family mapping." % label, stream=sys.stderr)
+                return False
+            family = self.channel_to_family[label]
+            if family not in self.entitled_families:
+                log2(1, 1, "Channel family '%s' is not entitled." % family, stream=sys.stderr)
+                return False
+            elif not self.cdn_repository_manager.check_channel_availability(label, self.no_kickstarts):
+                log2(1, 1, "Channel '%s' repositories are not available." % label, stream=sys.stderr)
                 return False
         return True
 
@@ -446,12 +446,14 @@ class CdnSync(object):
         if not channels or len(channels) > 1:
             raise CustomChannelSyncError("Single custom channel needed.")
         channel = list(channels)[0]
-        if not self._is_channel_available(channel, requested_repos=add_repos):
+        db_channel = channel_info(channel)
+        if add_repos and not self._can_add_repos(db_channel, add_repos):
             raise CustomChannelSyncError("Unable to attach requested repositories to this channel.")
         # Add custom repositories to custom channel
         self.cdn_repository_manager.assign_repositories_to_channel(channel, delete_repos=delete_repos,
                                                                    add_repos=add_repos)
-
+        # Add to synced channels
+        self.synced_channels[channel] = db_channel['org_id']
         error_messages = self.sync(channels=channels)
         return error_messages
 
