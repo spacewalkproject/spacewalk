@@ -1,4 +1,4 @@
-%bcond_with ant
+%bcond_without ant
 
 %global namedversion %{version}%{?namedreltag}
 
@@ -143,7 +143,7 @@ popd
 export OPT_JAR_LIST=`%{__cat} %{_sysconfdir}/ant.d/junit`
 export CLASSPATH=
 export LC_ALL=en_US.UTF-8
-%{ant} -Dbuild.sysclasspath=first dist
+%{ant} -Dbuild.sysclasspath=first jflex dist
 %else
 export MAVEN_REPO_LOCAL=${PWD}/.m2/repository
 export ALT_DEPLOYMENT_REPOSITORY=remote-repository::default::file://${PWD}/maven2-brew
