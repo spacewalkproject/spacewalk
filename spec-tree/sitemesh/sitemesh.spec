@@ -28,6 +28,7 @@ Patch5:         0005-sitemesh-tapestry-SiteMeshBase.patch
 Patch6:         0006-sitemesh-velocity-VelocityDecoratorServlet.patch
 Patch7:         0007-sitemesh-pom.patch
 Patch8:         0008-sitemesh-package-html.patch
+Patch9:         sitemesh-jflex-1.6.x-compatibility.patch
 Requires(post): jpackage-utils
 Requires(postun): jpackage-utils
 Requires:       jpackage-utils
@@ -66,7 +67,7 @@ BuildRequires:  maven-war-plugin >= 0:2.1
 %if %with ant
 BuildRequires:  ant
 BuildRequires:  ant-junit
-BuildRequires:  java-cup
+BuildRequires:  java_cup
 BuildRequires:  jflex
 %endif
 #
@@ -121,6 +122,7 @@ Requires:       sitemesh-javadoc = %{epoch}:%{version}-%{release}
 %patch6 -p1 -b .0006~
 %patch7 -p1 -b .0007~
 %patch8 -p1 -b .0008~
+%patch9 -p1 -b .jflex
 
 %if %with ant
 # XXX: missing tapestry-3.0.1.jar
@@ -128,11 +130,11 @@ Requires:       sitemesh-javadoc = %{epoch}:%{version}-%{release}
 
 pushd lib
 %{__ln_s} `%{_bindir}/build-classpath freemarker` freemarker.jar
-%{__ln_s} `%{_bindir}/build-classpath java-cup` java-cup.jar
+%{__ln_s} `%{_bindir}/build-classpath java_cup` java_cup.jar
 %{__ln_s} `%{_bindir}/build-classpath jflex` jflex.jar
-%{__ln_s} `%{_bindir}/build-classpath jsp_api` jsp.jar
+%{__ln_s} `%{_bindir}/build-classpath jboss-jsp-2.2-api` jsp.jar
 %{__ln_s} `%{_bindir}/build-classpath junit` junit-3.8.1.jar
-%{__ln_s} `%{_bindir}/build-classpath servlet_api` servlet.jar
+%{__ln_s} `%{_bindir}/build-classpath jboss-servlet-2.5-api` servlet.jar
 %{__ln_s} `%{_bindir}/build-classpath velocity` velocity-dep-1.3.1.jar
 %{__ln_s} `%{_bindir}/build-classpath velocity-tools` velocity-tools-view-1.1.jar
 popd

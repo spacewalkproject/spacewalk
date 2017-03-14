@@ -1,0 +1,22 @@
+--- a/src/java/com/opensymphony/module/sitemesh/html/tokenizer/lexer.flex
++++ b/src/java/com/opensymphony/module/sitemesh/html/tokenizer/lexer.flex
+@@ -21,8 +21,6 @@
+ //%line
+ //%column
+
+-// Profiling showed that this mode was slightly faster than %pack or %table.
+-%switch
+ // Profiling showed this as an optimal size buffer that was often filled but rarely exceeded.
+ %buffer 2048
+
+--- a/build.xml
++++ b/build.xml
+@@ -14,7 +14,7 @@
+     <target name="jflex" unless="lexer.uptodate" description="Generate Lexer class">
+         <echo message="Generating HTML lexer using JFlex"/>
+         <mkdir dir="build/java"/>
+-        <java classpath="lib/jflex.jar:lib/java-cup.jar" classname="JFlex.Main" fork="yes">
++        <java classpath="lib/jflex.jar:lib/java_cup.jar" classname="jflex.Main" fork="yes">
+             <arg value="-d"/>
+             <arg value="build/java/com/opensymphony/module/sitemesh/html/tokenizer"/>
+             <arg value="src/java/com/opensymphony/module/sitemesh/html/tokenizer/lexer.flex"/>
