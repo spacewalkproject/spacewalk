@@ -247,12 +247,27 @@ class CdnRepositoryManager(object):
                     log2(0, 0, "WARNING: Repository '%s' is not attached to channel." % to_delete, stream=sys.stderr)
         if add_repos:
             repos = list(set(repos + add_repos))
-        content_sources_batch = self.get_content_sources_import_batch(
-            channel_label, backend, repos=sorted(repos))
-        for content_source in content_sources_batch:
-            content_source['channels'] = [channel_label]
-        importer = ContentSourcesImport(content_sources_batch, backend)
-        importer.run()
+        # If there are any repositories intended to be attached to channel
+        if repos:
+            content_sources_batch = self.get_content_sources_import_batch(
+                channel_label, backend, repos=sorted(repos))
+            for content_source in content_sources_batch:
+                content_source['channels'] = [channel_label]
+                importer = ContentSourcesImport(content_sources_batch, backend)
+                importer.run()
+        else:
+            # Make sure everything is unlinked
+            self.unlink_all_repos(channel_label)
+
+    @staticmethod
+    def unlink_all_repos(channel_label):
+        h = rhnSQL.prepare("""
+                    delete
+                    from rhnChannelContentSource ccs
+                    where ccs.channel_id = (select id from rhnChannel where label = :label)
+                """)
+        h.execute(label=channel_label)
+        rhnSQL.commit()
 
     @staticmethod
     def list_associated_repos(channel_label):
