@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.53
+Version: 2.7.54
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,44 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue Mar 14 2017 Jan Dobes 2.7.54-1
+- 1427238 - update man page
+- 1427238 - cleanup orphaned repositories not attached to any channel
+- 1427238 - there should not be custom repositories assigned, delete them if
+  they are
+- 1427238 - handle sync after first repo was added, last repo was removed
+- 1427238 - splitting into two functions and mark as synced after repos are
+  assigned
+- 1427238 - ContentSourceImport can't unlink last associated repository, do it
+  differently
+- 1427238 - move to repository file
+- 1427238 - support counting packages in custom channels
+- 1427238 - removing unreachable code, channels without content sources are
+  filtered out earlier
+- 1427238 - put common code into separate method
+- 1427238 - work without channel mappings
+- break mappings dependency on spacewalk
+- 1427238 - list all provided repositories separately, not associated with
+  channels because it's in channel list output already anyway
+- 1427238 - list custom CDN channels and sorting repositories
+- 1427238 - load org_id of synced channels
+- 1427238 - rename --cdn-certificates to shorter --cdn-certs
+- 1427238 - change --list-repositories option to be used only together with
+  --list-channels and --cdn-certificates
+- 1427238 - shuffle verbosity levels a bit and fix messages
+- 1427238 - adding --add-repo and --delete-repo parameter to sync specific
+  repos to custom channel
+- 1427238 - make sure content is in null org, not in custom org
+- 1427238 - check if it's really leaf, fixing error when incomplete path is
+  searched
+- 1427238 - support linking ContentSource to existing channels during their
+  import
+- 1427238 - update function creating ContentSource to work with specified repos
+- 1427238 - split checking function
+- 1427238 - list channels syncing from given repository
+- 1427238 - filter channels with lost entitlement and include custom repos with
+  null content source assigned
+
 * Mon Mar 13 2017 Grant Gainey 2.7.53-1
 - 1427625 - Move aa-spacewalk-server.conf to backend from server
 - remove old code used for testing
