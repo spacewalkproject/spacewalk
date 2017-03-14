@@ -80,6 +80,7 @@ BuildRequires:  maven-remote-resources-plugin
 BuildRequires:  maven-resources-plugin
 BuildRequires:  maven-site-plugin
 BuildRequires:  maven-source-plugin
+BuildRequires:  xmvn
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/sitemesh-%{namedversion}-%{release}-root
 
@@ -147,9 +148,9 @@ export LC_ALL=en_US.UTF-8
 export MAVEN_REPO_LOCAL=${PWD}/.m2/repository
 export ALT_DEPLOYMENT_REPOSITORY=remote-repository::default::file://${PWD}/maven2-brew
 export MAVEN_OPTS=
-%{_bindir}/mvn-jpp -B -e -Dmaven.repo.local=${MAVEN_REPO_LOCAL} -DaltDeploymentRepository=${ALT_DEPLOYMENT_REPOSITORY} -DperformRelease deploy javadoc:aggregate
+%{_bindir}/mvn-local -B -e -Dmaven.repo.local=${MAVEN_REPO_LOCAL} -DaltDeploymentRepository=${ALT_DEPLOYMENT_REPOSITORY} -DperformRelease deploy javadoc:aggregate
 # FIXME: anything involving site and classpath seems to fail
-%{_bindir}/mvn-jpp -B -e -Dmaven.repo.local=${MAVEN_REPO_LOCAL} -DaltDeploymentRepository=${ALT_DEPLOYMENT_REPOSITORY} -Dmaven.test.skip -Dcobertura.skip -Dfindbugs.skip site
+%{_bindir}/mvn-local -B -e -Dmaven.repo.local=${MAVEN_REPO_LOCAL} -DaltDeploymentRepository=${ALT_DEPLOYMENT_REPOSITORY} -Dmaven.test.skip -Dcobertura.skip -Dfindbugs.skip site
 %endif
 
 %install
@@ -174,10 +175,6 @@ export MAVEN_OPTS=
 %{__cp} -p maven2-brew/opensymphony/sitemesh/%{namedversion}/sitemesh-%{namedversion}.pom %{buildroot}%{_mavenpomdir}/JPP-sitemesh.pom
 %endif
 
-# depmaps
-%add_to_maven_depmap opensymphony sitemesh %{namedversion} JPP sitemesh
-[ %{name} = "sitemesh" ] || %{__mv} %{buildroot}%{_mavendepmapfragdir}/%{name} %{buildroot}%{_mavendepmapfragdir}/sitemesh
-
 # javadoc
 %{__mkdir_p} %{buildroot}%{_javadocdir}/sitemesh-%{namedversion}
 %if %with ant
@@ -188,22 +185,15 @@ export MAVEN_OPTS=
 %{__ln_s} sitemesh-%{namedversion} %{buildroot}%{_javadocdir}/sitemesh
 
 # site
-%{__mkdir_p} %{buildroot}%{_docdir}/sitemesh-%{namedversion}
+%{__mkdir_p} %{buildroot}%{_docdir}/sitemesh
 %if %without ant
-%{__cp} -pr target/site/* %{buildroot}%{_docdir}/sitemesh-%{namedversion}
-%{__rm} -r %{buildroot}%{_docdir}/sitemesh-%{namedversion}/apidocs
+%{__cp} -pr target/site/* %{buildroot}%{_docdir}/sitemesh
+%{__rm} -r %{buildroot}%{_docdir}/sitemesh/apidocs
 %endif
-%{__ln_s} %{_javadocdir}/sitemesh %{buildroot}%{_docdir}/sitemesh-%{namedversion}/apidocs
-%{__ln_s} sitemesh-%{namedversion} %{buildroot}%{_docdir}/sitemesh
+%{__ln_s} %{_javadocdir}/sitemesh %{buildroot}%{_docdir}/sitemesh/apidocs
 
 %clean
 %{__rm} -rf %{buildroot}
-
-%post -n sitemesh
-%update_maven_depmap
-
-%postun -n sitemesh
-%update_maven_depmap
 
 %files -n sitemesh
 %defattr(0644,root,root,0755)
@@ -217,7 +207,6 @@ export MAVEN_OPTS=
 %{_javadir}/sitemesh-sources.jar
 %endif
 %{_mavenpomdir}/JPP-sitemesh.pom
-%{_mavendepmapfragdir}/sitemesh
 
 %files -n sitemesh-javadoc
 %defattr(0644,root,root,0755)
@@ -226,7 +215,6 @@ export MAVEN_OPTS=
 
 %files -n sitemesh-site
 %defattr(0644,root,root,0755)
-%{_docdir}/sitemesh-%{namedversion}
 %{_docdir}/sitemesh
 
 %changelog
