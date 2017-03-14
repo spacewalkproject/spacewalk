@@ -44,6 +44,14 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <arg>-p</arg> <arg>--print-configuration</arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>-a<replaceable> REPO</replaceable></arg>
+        <arg>--add-repo=<replaceable>REPO</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-d<replaceable> REPO</replaceable></arg>
+        <arg>--delete-repo=<replaceable>REPO</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>--no-rpms</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -180,6 +188,25 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>-a, --add-repo<replaceable> REPO</replaceable></term>
+        <listitem>
+            <para>Attach specified CDN repository to custom channel. Single custom channel has to be specified using
+            --channel parameter. This parameter can be specified multiple times to attach multiple repositories.
+            After repositories are attached, sync of channel is processed. On next run, channel can be synced directly
+            using --channel parameter. Only CDN repositories not attached to channels provided by cdn-sync mappings
+            can be attached to custom channels.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-d, --delete-repo<replaceable> REPO</replaceable></term>
+        <listitem>
+            <para>Delete specified CDN repository from custom channel. Single custom channel has to be specified using
+            --channel parameter. This parameter can be specified multiple times to delete multiple repositories.
+            After repositories are deleted, sync of channel is processed. On next run, channel can be synced directly
+            using --channel parameter.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>--no-rpms</term>
         <listitem>
             <para>do not fetch actual rpms.</para>
@@ -263,7 +290,10 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <member><command>cdn-sync --list-channels</command></member>
         <member><command>cdn-sync --list-channels --show-repos</command></member>
         <member><command>cdn-sync --channel rhel-i386-server-6</command></member>
+        <member><command>cdn-sync # syncs all previously synced channels</command></member>
         <member><command>cdn-sync -c rhel-i386-server-6 -c rhel-i386-server-5</command></member>
+        <member><command>cdn-sync -c my-custom-channel --add-repo /content/dist/rhel/server/6/6Server/x86_64/sat-tools/6.2/os</command></member>
+        <member><command>cdn-sync -c my-custom-channel # syncs custom channel with all previously added CDN repositories</command></member>
 </simplelist>
 </RefSect1>
 
