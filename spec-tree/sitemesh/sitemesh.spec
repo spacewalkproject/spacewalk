@@ -4,7 +4,7 @@
 
 Name:           sitemesh
 Version:        2.4.2
-Release:        2%{?reltag}%{?dist}
+Release:        2.0%{?dist}
 Epoch:          0
 Summary:        Sitemesh
 License:        ASL 1.1
@@ -32,14 +32,13 @@ Requires(post): jpackage-utils
 Requires(postun): jpackage-utils
 Requires:       jpackage-utils
 BuildRequires:  jpackage-utils
-BuildRequires:  jboss-jsp-api_2.2_spec >= 0:1.0.1
-BuildRequires:  jboss-servlet-api_3.0_spec >= 0:1.0.2
+BuildRequires:  jboss-jsp-2.2-api >= 0:1.0.1
+BuildRequires:  jboss-servlet-3.0-api >= 0:1.0.2
 BuildRequires:  freemarker >= 0:2.3.20
 BuildRequires:  velocity >= 0:1.7
 BuildRequires:  velocity-tools >= 0:2.0
 BuildRequires:  junit >= 0:4.11
 # XXX: 1.4.3-r1
-BuildRequires:  maven-jflex-plugin >= 0:1.4.3
 BuildRequires:  maven-source-plugin >= 0:2.2.1
 BuildRequires:  maven-jar-plugin >= 0:2.4
 BuildRequires:  maven-surefire-plugin >= 0:2.16
@@ -47,10 +46,7 @@ BuildRequires:  maven-assembly-plugin >= 0:2.4
 BuildRequires:  maven-compiler-plugin >= 0:3.1
 BuildRequires:  maven-javadoc-plugin >= 0:2.9.1
 BuildRequires:  maven-surefire-report-plugin >= 0:2.16
-BuildRequires:  maven-jxr-plugin >= 0:2.3
-BuildRequires:  cobertura-maven-plugin >= 0:2.5.2
 BuildRequires:  maven-pmd-plugin >= 0:3.0.1
-BuildRequires:  findbugs-maven-plugin >= 0:2.5.2
 BuildRequires:  maven-javadoc-plugin >= 0:2.9.1
 #
 BuildRequires:  maven-antrun-plugin >= 0:1.3
@@ -75,7 +71,6 @@ BuildRequires:  jflex
 %endif
 #
 BuildRequires:  maven-compiler-plugin
-BuildRequires:  maven-default-skin
 BuildRequires:  maven-deploy-plugin
 BuildRequires:  maven-install-plugin
 BuildRequires:  maven-jar-plugin
@@ -85,8 +80,6 @@ BuildRequires:  maven-remote-resources-plugin
 BuildRequires:  maven-resources-plugin
 BuildRequires:  maven-site-plugin
 BuildRequires:  maven-source-plugin
-BuildRequires:  maven-surefire-plugin
-BuildRequires:  surefire-junit4
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/sitemesh-%{namedversion}-%{release}-root
 
