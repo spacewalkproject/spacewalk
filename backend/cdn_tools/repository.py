@@ -238,6 +238,7 @@ class CdnRepositoryManager(object):
 
     def assign_repositories_to_channel(self, channel_label, delete_repos=None, add_repos=None):
         backend = SQLBackend()
+        self.unlink_all_repos(channel_label, custom_only=True)
         repos = self.list_associated_repos(channel_label)
         if delete_repos:
             for to_delete in delete_repos:
@@ -268,12 +269,16 @@ class CdnRepositoryManager(object):
         return len(repos)
 
     @staticmethod
-    def unlink_all_repos(channel_label):
-        h = rhnSQL.prepare("""
-                    delete
-                    from rhnChannelContentSource ccs
-                    where ccs.channel_id = (select id from rhnChannel where label = :label)
-                """)
+    def unlink_all_repos(channel_label, custom_only=False):
+        sql = """
+            delete from rhnChannelContentSource ccs
+            where ccs.channel_id = (select id from rhnChannel where label = :label)
+        """
+        if custom_only:
+            sql += """
+                and ccs.source_id in (select id from rhnContentSource where id = ccs.source_id and org_id is not null)
+            """
+        h = rhnSQL.prepare(sql)
         h.execute(label=channel_label)
         rhnSQL.commit()
 
@@ -285,6 +290,7 @@ class CdnRepositoryManager(object):
                      rhnChannelContentSource ccs on c.id = ccs.channel_id inner join
                      rhnContentSource cs on ccs.source_id = cs.id
                 where c.label = :label
+                  and cs.org_id is null
             """)
         h.execute(label=channel_label)
         paths = [r['source_url'] for r in h.fetchall_dict() or []]
