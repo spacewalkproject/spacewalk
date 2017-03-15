@@ -466,6 +466,11 @@ echo "wrapper.java.classpath.28=/usr/share/java/log4j-1.jar" >> conf/default/rhn
 %else
 echo "wrapper.java.classpath.28=/usr/share/java/log4j.jar" >> conf/default/rhn_taskomatic_daemon.conf
 %endif
+%if 0%{?fedora} >= 25
+echo "wrapper.java.classpath.50=/usr/share/java/cglib/cglib.jar" >> conf/default/rhn_taskomatic_daemon.conf
+%else
+echo "wrapper.java.classpath.50=/usr/share/java/cglib.jar" >> conf/default/rhn_taskomatic_daemon.conf
+%endif
 %if 0%{?fedora}
 echo "wrapper.java.classpath.49=/usr/share/java/hibernate3/hibernate-core-3.jar
 wrapper.java.classpath.61=/usr/share/java/hibernate-jpa-2.0-api.jar
@@ -596,7 +601,11 @@ fi
 %{jardir}/antlr.jar
 %{jardir}/bcel.jar
 %{jardir}/c3p0*.jar
+%if 0%{?fedora} >= 25
+%{jardir}/cglib_cglib.jar
+%else
 %{jardir}/cglib.jar
+%endif
 %{jardir}/commons-beanutils.jar
 %{jardir}/commons-cli.jar
 %{jardir}/commons-codec.jar

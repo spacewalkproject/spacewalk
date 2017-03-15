@@ -48,6 +48,10 @@
 
   <!-- =================== jar dependencies ======================= -->
 
+  <condition property="cglib" value="cglib/cglib" else="cglib">
+    <available file="/usr/share/java/cglib/cglib.jar" />
+  </condition>
+
   <condition property="oscache" value="oscache" else="">
     <available file="/usr/share/java/oscache.jar" />
   </condition>
@@ -88,7 +92,7 @@
   <property name="boot.jar.dependencies" value="ivy" />
 
   <property name="common.jar.dependencies"
-      value="bcel cglib commons-beanutils commons-cli commons-codec
+      value="bcel ${cglib} commons-beanutils commons-cli commons-codec
              commons-collections commons-digester commons-discovery
              commons-el commons-fileupload commons-io commons-lang commons-logging ${commons-validator} ${hibernate}
              mailapi smtp jdom jpam ${jmock-jars}
@@ -119,7 +123,7 @@
        concurrent xalan-j2" />
 
   <property name="run.jar.dependencies"
-      value="antlr objectweb-asm/asm cglib c3p0 commons-discovery dom4j jta
+      value="antlr objectweb-asm/asm ${cglib} c3p0 commons-discovery dom4j jta
              ojdbc14 ${oscache} sitemesh ${taglibs} xalan-j2 xerces-j2
              xml-commons-apis ${common.jar.dependencies}" />
 
@@ -134,12 +138,12 @@
       ${install.common.jar.dependencies} tanukiwrapper" />
 
   <property name="install.run.jar.dependencies"
-      value="antlr objectweb-asm/asm cglib c3p0 commons-discovery dom4j dwr jta
+      value="antlr objectweb-asm/asm ${cglib} c3p0 commons-discovery dom4j dwr jta
              ${oscache} sitemesh ${taglibs} xalan-j2 xerces-j2
              xml-commons-apis ${install.common.jar.dependencies}" />
 
   <property name="install.common.jar.dependencies"
-      value="bcel cglib commons-beanutils commons-cli commons-codec
+      value="bcel ${cglib} commons-beanutils commons-cli commons-codec
              commons-collections commons-digester commons-discovery
              commons-el commons-fileupload commons-io commons-lang commons-logging ${commons-validator} ${hibernate}
              ${tomcat-jars} javamail/javax.mail jdom jpam dwr
@@ -149,7 +153,7 @@
              concurrent simple-core simple-xml susestudio-java-client" />
 
   <property name="dist.jar.dependencies"
-      value="antlr objectweb-asm/asm bcel c3p0 cglib
+      value="antlr objectweb-asm/asm bcel c3p0 ${cglib}
              commons-collections commons-beanutils commons-cli commons-codec
              commons-digester commons-discovery commons-el commons-fileupload commons-io
              commons-lang commons-logging
