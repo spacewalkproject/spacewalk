@@ -34,7 +34,7 @@ public class SystemCommandThreadedExecutor implements Executor {
         private InputStream inputStream;
         private boolean logError;
         private Logger logger;
-        public StreamThread(InputStream in, boolean err, Logger log) {
+        StreamThread(InputStream in, boolean err, Logger log) {
                 inputStream = in;
                 logError = err;
                 logger = log;

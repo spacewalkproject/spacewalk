@@ -120,7 +120,7 @@ public class SetCleanup {
     }
 
     private static class NoopCleanup extends SetCleanup {
-        public NoopCleanup() {
+        NoopCleanup() {
             super("noop", "noop");
         }
 
@@ -146,7 +146,7 @@ public class SetCleanup {
      * @version $Rev$
      */
     private static class SetCleanupWithOrg extends SetCleanup {
-        public SetCleanupWithOrg(String mode) {
+        SetCleanupWithOrg(String mode) {
             super(mode);
         }
 

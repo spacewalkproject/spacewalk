@@ -35,7 +35,7 @@ class BufferedResponseWrapper extends HttpServletResponseWrapper {
    /**
     * ${@inheritDoc}
     */
-    public BufferedResponseWrapper(HttpServletResponse target) {
+    BufferedResponseWrapper(HttpServletResponse target) {
         super(target);
     }
 

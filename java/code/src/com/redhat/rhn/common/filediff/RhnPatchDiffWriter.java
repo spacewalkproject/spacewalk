@@ -197,7 +197,7 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
          * @param fromLine Starting line for from file
          * @param toLine Starting line for to file
          */
-        public EditPoint(int fromLine, int toLine) {
+        EditPoint(int fromLine, int toLine) {
             fromStart = fromLine;
             toStart = toLine;
             lines = new StringBuffer();

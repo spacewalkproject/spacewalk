@@ -163,7 +163,7 @@ public class ForceRecreationListType implements UserCollectionType {
          *
          * @param session session implementation
          */
-        public ForceRecreationList(SessionImplementor session) {
+        ForceRecreationList(SessionImplementor session) {
             super(session);
         }
 
@@ -171,7 +171,7 @@ public class ForceRecreationListType implements UserCollectionType {
          * @param session session implementation
          * @param list  list to persist
          */
-        public ForceRecreationList(SessionImplementor session, List list) {
+        ForceRecreationList(SessionImplementor session, List list) {
             super(session, list);
         }
 

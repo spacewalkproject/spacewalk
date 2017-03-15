@@ -37,7 +37,7 @@ class ActionExecutor implements Runnable {
      * @param handlers list of event handlers to dispatch to
      * @param eventMsg message published to queue
      */
-    public ActionExecutor(List<MessageAction> handlers, EventMessage eventMsg) {
+    ActionExecutor(List<MessageAction> handlers, EventMessage eventMsg) {
         actionHandlers.addAll(handlers);
         msg = eventMsg;
     }

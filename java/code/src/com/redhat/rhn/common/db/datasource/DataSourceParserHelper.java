@@ -47,7 +47,7 @@ class DataSourceParserHelper implements ContentHandler, Serializable {
     /**
      * Create a new DataSourceParserHelper
      */
-    public DataSourceParserHelper() {
+    DataSourceParserHelper() {
     }
 
     /**

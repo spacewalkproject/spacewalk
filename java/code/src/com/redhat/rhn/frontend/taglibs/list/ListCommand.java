@@ -32,7 +32,7 @@ public enum ListCommand {
 
     private String _cmd;
 
-    private ListCommand(String cmd) {
+    ListCommand(String cmd) {
         _cmd = cmd;
     }
 
