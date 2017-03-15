@@ -35,11 +35,6 @@ import time
 from optparse import Option, OptionParser
 
 # pylint: disable=F0401,E0611
-if sys.version_info[0] == 3:
-    import urllib.parse as urlparse
-else:
-    import urlparse
-
 from rhn.connections import idn_ascii_to_puny
 
 from rhn import rpclib
@@ -49,6 +44,11 @@ from spacewalk.common.usix import raise_with_tb
 
 from rhnpush.utils import tupleify_urlparse
 from rhnpush import rhnpush_confmanager, uploadLib, rhnpush_v2
+
+if sys.version_info[0] == 3:
+    import urllib.parse as urlparse
+else:
+    import urlparse
 
 # Global settings
 BUFFER_SIZE = 65536

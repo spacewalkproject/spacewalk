@@ -25,19 +25,21 @@ import getpass
 # exceptions
 # pylint: disable=W0702,W0703
 
-if sys.version_info[0] == 3:
-    import xmlrpc.client as xmlrpclib
-else:
-    import xmlrpclib
 import inspect
 from spacewalk.common import rhn_mpm
 from spacewalk.common.rhn_pkg import package_from_filename, get_package_header
 from spacewalk.common.usix import raise_with_tb
 from up2date_client import rhnserver
 from rhn.i18n import sstr
+from rhnpush import rhnpush_cache
+
+if sys.version_info[0] == 3:
+    import xmlrpc.client as xmlrpclib
+else:
+    import xmlrpclib
 
 try:
-    from rhn import rpclib
+    from rhn import rpclib # pylint: disable=C0412
     Binary = rpclib.xmlrpclib.Binary
     Output = rpclib.transports.Output
 except ImportError:
@@ -47,8 +49,6 @@ except ImportError:
     # pylint: disable=F0401
     import cgiwrap
     Output = cgiwrap.Output
-
-from rhnpush import rhnpush_cache
 
 # Buffer size we use for copying
 BUFFER_SIZE = 65536

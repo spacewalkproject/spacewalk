@@ -17,13 +17,6 @@ import socket
 import base64
 import sys
 # pylint: disable=F0401,E0611,W0632
-if sys.version_info[0] == 3:
-    from urllib.parse import splitport
-    from urllib.parse import urlparse
-else:
-    from urlparse import urlparse
-    from urllib import splitport
-
 from rhn import connections, rpclib
 
 from spacewalk.common.usix import ListType, TupleType, IntType
@@ -31,6 +24,12 @@ from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
 from spacewalk.common.usix import raise_with_tb
 from rhnpush.utils import tupleify_urlparse
 
+if sys.version_info[0] == 3:
+    from urllib.parse import splitport
+    from urllib.parse import urlparse
+else:
+    from urlparse import urlparse
+    from urllib import splitport # pylint: disable=C0412
 
 class ConnectionError(Exception):
     pass
