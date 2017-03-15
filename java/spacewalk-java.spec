@@ -179,6 +179,8 @@ BuildRequires: susestudio-java-client
 BuildRequires: tanukiwrapper
 %if 0%{?run_checkstyle}
 BuildRequires: checkstyle
+BuildRequires: apache-commons-cli >= 1.3
+BuildRequires: apache-commons-lang3 >= 3.4
 %endif
 %if ! 0%{?omit_tests} > 0
 BuildRequires: translate-toolkit
