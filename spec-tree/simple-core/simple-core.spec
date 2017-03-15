@@ -1,6 +1,6 @@
 Name:		simple-core		
 Version:	3.1.3
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Embeddable Java HTTP engine capable of handling large loads
 Group:	 	Development/Libraries	
 License:	GNU
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadocdir}/*
 
 %changelog
+* Wed Mar 15 2017 Michael Mraka <michael.mraka@redhat.com> 3.1.3-8
+- don't bundle kxml on Fedora and RHEL7
+
 * Mon Nov 30 2015 Tomas Lestach <tlestach@redhat.com> 3.1.3-7
 - java-devel is required in simple-core fc23 buildroot
 
