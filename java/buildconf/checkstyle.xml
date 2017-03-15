@@ -48,6 +48,8 @@
 
         <property name="cacheFile" value="${checkstyle.cache.file}"/>
 
+        <module name="FileContentsHolder" />
+
         <!-- ************************************************************** -->
         <!-- Checks that are different from the sun coding conventions ones -->
         <!-- ************************************************************** -->
@@ -230,5 +232,7 @@ MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, S
         <property name="format" value="\s+$"/>
         <property name="message" value="Line has trailing spaces."/>
     </module>
+
+    <module name="SuppressionCommentFilter" />
 
 </module>
