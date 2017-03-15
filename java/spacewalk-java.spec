@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.33
+Version: 2.7.34
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -714,6 +714,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 15 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.34-1
+- ProxyHandler: dead code removed
+- struts-taglib is part of struts on Fedora / EPEL7
+- hibernate on Fedora uses ehcache
+
 * Mon Mar 13 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.33-1
 - we need quartz v1 for build
 - use standard objectweb-asm and cglib on all platforms
