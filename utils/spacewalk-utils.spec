@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.7.7
+Version:	2.7.8
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Mar 15 2017 Eric Herget <eherget@redhat.com> 2.7.8-1
+- 1432629 - add taskomaticd process info in optional header to taskotop
+- remove system currency generation script
+
 * Mon Mar 13 2017 Eric Herget <eherget@redhat.com> 2.7.7-1
 - 1430901 - taskotop enhancements
 - Updated links to github in spec files
