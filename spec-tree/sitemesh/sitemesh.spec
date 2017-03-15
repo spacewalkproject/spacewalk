@@ -32,6 +32,7 @@ Patch9:         sitemesh-jflex-1.6.x-compatibility.patch
 Requires(post): jpackage-utils
 Requires(postun): jpackage-utils
 Requires:       jpackage-utils
+BuildRequires:  glibc-langpack-en
 BuildRequires:  jpackage-utils
 BuildRequires:  jboss-jsp-2.2-api >= 0:1.0.1
 BuildRequires:  jboss-servlet-3.0-api >= 0:1.0.2
