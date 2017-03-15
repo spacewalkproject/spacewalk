@@ -4,7 +4,7 @@
 
 Name:           sitemesh
 Version:        2.4.2
-Release:        2.3%{?dist}
+Release:        2.4%{?dist}
 Epoch:          0
 Summary:        Sitemesh
 License:        ASL 1.1
@@ -222,6 +222,9 @@ export MAVEN_OPTS=
 %{_docdir}/sitemesh
 
 %changelog
+* Wed Mar 15 2017 Michael Mraka <michael.mraka@redhat.com> 2.4.2-2.4
+- require  en (UTF8) locales
+
 * Wed Mar 15 2017 Michael Mraka <michael.mraka@redhat.com> 2.4.2-2.3
 - explicitly require javac
 - link proper jar from Requires:
