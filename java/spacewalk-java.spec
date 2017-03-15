@@ -237,7 +237,11 @@ Summary: Test Classes for testing spacewalk-java
 Group:  Applications/Internet
 
 BuildRequires:  jmock > 2.6
+BuildRequires:  mvn(org.jmock:jmock-junit3) > 2.6
+BuildRequires:  mvn(org.jmock:jmock-legacy) > 2.6
 Requires: jmock > 2.6
+Requires: mvn(org.jmock:jmock-junit3) > 2.6
+Requires: mvn(org.jmock:jmock-legacy) > 2.6
 Requires: ant-junit
 
 %description tests
