@@ -204,6 +204,24 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
 </variablelist>
 </refsect1>
 
+<RefSect1><Title>Configuration files</Title>
+<variablelist>
+    <varlistentry>
+        <term>/etc/rhn/rhn.conf</term>
+        <listitem>
+            <variablelist>
+                <varlistentry>
+                    <term>server.satellite.reposync_download_threads = 5</term>
+                    <listitem>
+                        <para>Set maximum number of threads to be used for simultaneous downloads.</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
 <refsect1><title>Examples</title>
 <simplelist>
     <member>List all custom channels and the repositories assigned to them.</member>

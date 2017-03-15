@@ -283,6 +283,23 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
 </variablelist>
 </RefSect1>
 
+<RefSect1><Title>Configuration files</Title>
+<variablelist>
+    <varlistentry>
+        <term>/etc/rhn/rhn.conf</term>
+        <listitem>
+            <variablelist>
+                <varlistentry>
+                    <term>server.satellite.reposync_download_threads = 5</term>
+                    <listitem>
+                        <para>Set maximum number of threads to be used for simultaneous downloads.</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
 
 <RefSect1><Title>Examples</Title>
 <simplelist>
