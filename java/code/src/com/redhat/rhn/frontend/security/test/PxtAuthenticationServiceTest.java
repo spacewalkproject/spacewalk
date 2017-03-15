@@ -197,8 +197,8 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
             allowing(mockResponse).sendRedirect(
                     "/rhn/Login.do?url_bounce=/rhn/YourRhn.do?" +
                             "question=param+1+%3D+%27Who+is+the+one%3F%27&" +
-                            "answer=param+2+%3D+%27Neo+is+the+one%21%27&"
-                            + "request_method=POST");
+                            "answer=param+2+%3D+%27Neo+is+the+one%21%27&" +
+                            "request_method=POST");
             will(returnValue(null));
             allowing(mockRequest).getRequestURI();
             will(returnValue("/rhn/YourRhn.do"));

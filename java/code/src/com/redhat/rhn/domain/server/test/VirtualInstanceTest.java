@@ -29,7 +29,7 @@ import junit.framework.TestCase;
 public class VirtualInstanceTest extends TestCase {
 
     private class GuestStub extends VirtualInstance {
-        public GuestStub(Long id) {
+        GuestStub(Long id) {
             super(id);
         }
     }
