@@ -134,7 +134,7 @@ pushd lib
 %{__ln_s} `%{_bindir}/build-classpath jflex` jflex.jar
 %{__ln_s} `%{_bindir}/build-classpath jboss-jsp-2.2-api` jsp.jar
 %{__ln_s} `%{_bindir}/build-classpath junit` junit-3.8.1.jar
-%{__ln_s} `%{_bindir}/build-classpath jboss-servlet-2.5-api` servlet.jar
+%{__ln_s} `%{_bindir}/build-classpath jboss-servlet-3.0-api` servlet.jar
 %{__ln_s} `%{_bindir}/build-classpath velocity` velocity-dep-1.3.1.jar
 %{__ln_s} `%{_bindir}/build-classpath velocity-tools` velocity-tools-view-1.1.jar
 popd
