@@ -134,12 +134,6 @@ public class ProxyHandler extends BaseHandler {
             throw new ProxyNeedManagementException();
         }
 
-        // if the server does nto have enterprise_entitled entitlement, add it
-        //
-
-        if (!server.hasEntitlement(EntitlementManager.MANAGEMENT)) {
-            SystemManager.entitleServer(server, EntitlementManager.MANAGEMENT);
-        }
         SystemManager.activateProxy(server, version);
         return 1;
     }
