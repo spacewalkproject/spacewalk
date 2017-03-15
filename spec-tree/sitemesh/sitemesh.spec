@@ -67,6 +67,7 @@ BuildRequires:  maven-war-plugin >= 0:2.1
 %if %with ant
 BuildRequires:  ant
 BuildRequires:  ant-junit
+BuildRequires:  java-devel
 BuildRequires:  java_cup
 BuildRequires:  jflex
 %endif
