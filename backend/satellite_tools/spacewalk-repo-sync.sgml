@@ -195,7 +195,6 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         </listitem>
     </varlistentry>
     <varlistentry>
-    <varlistentry>
         <term>--dry-run</term>
         <listitem>
             <para>Test run. No sync takes place.</para>
