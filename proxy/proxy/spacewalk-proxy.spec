@@ -8,7 +8,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-Version: 2.7.0
+Version: 2.7.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python
@@ -372,6 +372,13 @@ fi
 
 
 %changelog
+* Thu Mar 16 2017 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.1-1
+- wrong-import-position is not present in pylint on Fedora 23
+- pylint fixes - proxy
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+- Bumping package versions for 2.7.
+
 * Tue Sep 20 2016 Jan Dobes 2.6.2-1
 - header can be changed here, this method was added for pylint anyway
 
