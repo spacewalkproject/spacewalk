@@ -46,7 +46,7 @@ from optparse import Option, OptionParser
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.rhnLib import parseUrl
 initCFG('proxy.package_manager')
-# pylint: disable=C0413
+# pylint: disable=E0012, C0413
 from rhnpush.uploadLib import UploadError
 from rhnpush import uploadLib
 from proxy.broker.rhnRepository import computePackagePaths
