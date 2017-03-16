@@ -177,7 +177,7 @@ class Shelf:
 
 #-------------------------------------------------------------------------------
 # test code
-# pylint: disable=E0012, C0411, C0413, E1136
+# pylint: disable=E0012, C0411, C0413, E1136, C0412
 if __name__ == '__main__':
     from spacewalk.common.rhnConfig import initCFG
     initCFG("proxy.broker")
