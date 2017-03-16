@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.55
+Version: 2.7.56
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Mar 16 2017 Jan Dobes 2.7.56-1
+- 1430236 - fixing 'WARNING:  there is already a transaction in progress' in
+  postgresql logs
+
 * Wed Mar 15 2017 Jan Dobes 2.7.55-1
 - 1428749 - fixing redundant tag
 - 1428749 - adding note about threads
