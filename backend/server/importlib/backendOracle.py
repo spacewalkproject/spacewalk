@@ -627,8 +627,6 @@ class PostgresqlBackend(OracleBackend):
     # connection which we only use here, so we can directly commit to that
     # instead of opening a new connection for each insert.
     def processCapabilities(self, capabilityHash):
-        # initiate transaction, turns off auto-commit mode
-        self.dbmodule.execute_secondary("begin")
         # must lock the table to keep rhnpush or whomever from causing
         # this transaction to fail
         lock_sql = "lock table rhnPackageCapability in exclusive mode"
@@ -653,8 +651,6 @@ class PostgresqlBackend(OracleBackend):
     def lookupChecksums(self, checksumHash):
         if not checksumHash:
             return
-        # initiate transaction, turns off auto-commit mode
-        self.dbmodule.execute_secondary("begin")
         # must lock the table to keep rhnpush or whomever from causing
         # this transaction to fail
         lock_sql = "lock table rhnChecksum in exclusive mode"
