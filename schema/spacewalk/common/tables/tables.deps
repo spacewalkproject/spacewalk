@@ -209,7 +209,6 @@ rhnVirtualInstanceEventLog     :: rhnVirtualInstance rhnVirtualInstanceEventType
                                   rhnVirtualInstanceState
 rhnVisibleObjects              :: PXTSessions
 rhnWebContactChangeLog         :: rhnWebContactChangeState
-rhn_config_parameter           :: rhn_config_group rhn_config_security_type
 rhnActionChain                 :: web_contact
 rhnActionChainEntry            :: rhnActionChain rhnAction rhnServer
 suseCredentials                :: suseCredentialsType web_contact
