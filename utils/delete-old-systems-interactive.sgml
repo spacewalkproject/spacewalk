@@ -1,0 +1,91 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN">
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>delete-old-systems-interactive</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 1.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>delete-old-systems-interactive</command></RefName>
+<RefPurpose>
+delete inactive systems from Spacewalk server.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>delete-old-systems-interactive [OPTIONS] --idle time_delta</command>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+    <para><emphasis>delete-old-systems-interactive</emphasis> - will use Spacewalk API to determine when each registred system checked in last time and optionaly will delete systems which have been inactive for time_delta.</para>
+    <para> This script will list all registred systems and their last check in. And will if none system is idle more then time_delta, it will write summary:</para>
+    <para>Total systems [127], none idle</para>
+    <para>If some systems are idle more then time_delta, you will get summary like:</para>
+    <para>Total systems [127], would delete [51]</para>
+    <para>None system is deleted by default, unless you specify --force option.</para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--idle time_delta</term>
+        <listitem>
+            <para>Search for system, which are inactive for more then time_delta. If only number is specified, it is interpreted as days. You can use suffixes m (for minutes), h (hours), d (days) and w (weeks). E.g. "--idle 10" and "--idle 10d" is the same and means ten days, "--idle 2w" means two weeks.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--host host</term>
+        <listitem>
+            <para>Hostname of you Spacewalk server. If not set, localhost is used by default.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--username login</term>
+        <listitem>
+            <para>Your username. By default "admin".</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--password pass</term>
+        <listitem>
+            <para>Your password. If not specified on command line, then it is read from /etc/rhn/$username-password</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--force</term>
+        <listitem>
+            <para>If specified, then idle systems are deleted.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>EXAMPLES</Title>
+    <para>delete-old-systems-interactive --server=spacewalk.com --idle 30d</para>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Miroslav Suchy<email>msuchy@redhat.com</email></member>
+    <member>Jan Pazdziora<email>jpazdziora@redhat.com</email></member>
+    <member>Tomas Kasparek<email>tkasparek@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>COPYRIGHT AND LICENSE</Title>
+    <para>Copyright (c) 2009--2015 Red Hat, Inc.</para>
+    <para>Released under GNU General Public License, version 2 (GPLv2).</para>
+</RefSect1>
+
+</RefEntry>
