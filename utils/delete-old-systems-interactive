@@ -1,167 +1,115 @@
-#!/usr/bin/perl
+#!/usr/bin/python
+#
+# Copyright (c) 2017 Red Hat, Inc.
+#
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
 
-use strict;
-use warnings FATAL => 'all';
+from __future__ import print_function
+from datetime import datetime, timedelta
+from optparse import Option, OptionParser
+import re
+import sys
 
-use Getopt::Long ();
-use Frontier::Client;
+try:
+    import xmlrpclib
+except ImportError:
+    import xmlrpc.client as xmlrpclib  # pylint: disable=F0401
 
-my $idle_time;
-my ($host, $username) = ( 'localhost', 'admin' );
-my $passwd;
-my $force;
+def processCommandline(argv):
+    optionsTable = [
+        Option('--idle', action='store', dest='idle',
+            help=''),
+        Option('--host', action='store', dest='host', default='localhost',
+            help=''),
+        Option('--username', action='store', dest='username', default='admin',
+            help=''),
+        Option('--password', action='store', dest='passwd',
+            help=''),
+        Option('--force', action='store_true', dest='force', default=False,
+            help=''),
+    ]
+    optionParser = OptionParser(
+        usage="Usage: %s --idle=<idletime[w|d|h|m]> [--host=<host>] [--username=<username>] [--password=<password>] [--force]" % sys.argv[0],
+        option_list=optionsTable)
 
-my $usage = "Usage: $0 --idle=<idletime[w|d|h|m]> [--host=<host>] [--username=<username>] [--password=<password>] [--force]\n";
-Getopt::Long::GetOptions(
-        'idle=s' => \$idle_time,
-        'host=s' => \$host,
-        'username=s' => \$username,
-        'password=s' => \$passwd,
-        'force' => \$force,
-) or die $usage;
+    options = optionParser.parse_args(argv)[0]
 
-if (not defined $idle_time) {
-        die "Need --idle parameter\n";
-}
+    if not options.idle:
+        sys.stderr.write('Need --idle parameter\n')
+        sys.exit(1)
 
-if (not defined $passwd) {
-        my $passwdfile = "/etc/rhn/$username-password";
-        open PASSWD, $passwdfile or die "Error reading password file [$passwdfile]: $!\n";
-        $passwd = <PASSWD>;
-        chomp $passwd;
-        close PASSWD;
-}
+    if not options.passwd:
+        passwdfile = '/etc/rhn/%s-password' % options.username
+        try:
+            with open(passwdfile, 'r') as f:
+                options.passwd = f.read().splitlines()[0]
+        except IOError:
+            sys.stderr.write('Error reading password file [%s]: %s\n' % (passwdfile, sys.exc_info()[1]))
 
-my ($t, $w) = ($idle_time =~ /^(\d+)(\D)$/);
+    try:
+        t, w = re.compile('^(\d+)(\D)$').search(options.idle).groups()
+    except AttributeError:
+        t = options.idle
+        w = 'd'
 
-if (not defined $w) {
-        $t = $idle_time;
-        $w = 'd';
-}
-if ($w eq 'm') { $idle_time = $t * 60; }
-elsif ($w eq 'h') { $idle_time = $t * 60 * 60; }
-elsif ($w eq 'd') { $idle_time = $t * 60 * 60 * 24; }
-elsif ($w eq 'w') { $idle_time = $t * 60 * 60 * 24 * 7; }
-else {
-        die "Unknown idle parameter [$idle_time]\n";
-}
+    try:
+        t = int(t)
+    except ValueError:
+        sys.stderr.write('Unknown idle parameter [%s]\n' % options.idle)
+        sys.exit(1)
 
-my $not_before = time - $idle_time;
-my ($sec, $min, $h, $d, $m, $y) = localtime($not_before);
-my $cutoff = sprintf '%04d%02d%02dT%02d:%02d:%02d',
-                                $y + 1900,$m + 1, $d, $h, $min, $sec;
-print "Lookup on [$host] systems with last checkin before [$cutoff]\n";
+    if w == 'm':
+        options.idle = t * 60
+    elif w == 'h':
+        options.idle = t * 60 * 60
+    elif w == 'd':
+        options.idle = t * 60 * 60 * 24
+    elif w == 'w':
+        options.idle = t * 60 * 60 * 24 * 7
+    else:
+      sys.stderr.write('Unknown idle parameter [%s]\n' % options.idle)
+      sys.exit(1)
 
-my $client = new Frontier::Client(url => "http://$host/rpc/api", debug=>0);
-my $session = $client->call('auth.login', $username, $passwd)
-        or die "Failed to login to [$host]\n";
+    return options
 
-my $systems = $client->call('system.list_user_systems', $session);
-$systems = [
-        sort { $a->{last_checkin} cmp $b->{last_checkin} }
-        map { if (ref $_->{last_checkin}) {
-                $_->{last_checkin} = $_->{last_checkin}->value
-        } else {
-                $_->{last_checkin} =~ s/-//g;
-        }; $_;} @$systems
-];
+if __name__ == '__main__':
+    options = processCommandline(sys.argv)
 
-my $delete = 0;
-my $total = @$systems;
-$cutoff =~ s/\D//g;
-for (my $i = 0; $i < @$systems; $i++) {
-        my $sys = $systems->[$i];
-        my $sys_date = $sys->{last_checkin};
-        $sys_date =~ s/\D//g;
-        if (length($sys_date) == 8) {
-                $sys_date .= '235959';
-        }
-        print "System [$sys->{name}] id [$sys->{id}] last checking [$sys->{last_checkin}] ";
-        if ($sys_date lt $cutoff) {
-                print " -> delete";
-                $delete ++;
-        } else {
-                splice @$systems, $i, 1;
-                $i--;
-        }
-        print "\n";
-}
-if (not $delete ) {
-        print "Total systems [$total], none idle\n";
-        exit;
-}
-if (not $force) {
-        print "Total systems [$total], would delete [$delete]\n";
-        exit;
-}
+    not_before = datetime.now() - timedelta(seconds=options.idle)
 
-print "Total systems [$total], will delete [$delete]\n";
+    print('Lookup on [%s] systems with last checkin before [%s]' % (options.host, not_before))
 
-if (not $client->call('system.delete_systems', $session, [map $_->{id}, @$systems ])) {
-        print "Error deleting system [sys->{id}]\n";
-} else {
-        print "All systems deleted\n";
-}
+    client = xmlrpclib.Server('http://%s/rpc/api' % options.host, verbose=0)
+    key = client.auth.login(options.username, options.passwd)
 
-=pod
+    systems = client.system.list_user_systems(key)
+    to_delete = []
+    for system in systems:
+        print('System [%s] id [%s] last checking [%s]' % (system['name'], system['id'], system['last_checkin']), end='')
+        if system['last_checkin'] < not_before:
+            to_delete.append(system['id'])
+            print(' -> delete', end='')
+        print()
 
-=head1 NAME
+    if len(to_delete) == 0:
+        print('Total systems [%s], none idle' % len(systems))
+        sys.exit(0)
 
-delete-old-systems-interactive - delete inactive systems from Spacewalk server.
+    if not options.force:
+        print('Total systems [%s], would delete [%s]' % (len(systems), len(to_delete)))
+    else:
+        client.system.delete_systems(key, to_delete)
+        print('All systems deleted')
 
-=head1 SYNOPSIS
-
-delete-old-systems-interactive [OPTIONS] --idle time_delta
-
-=head1 DESCRIPTION
-
-delete-old-systems-interactive - will use Spacewalk API to determine when each registred system checked in
-last time and optionaly will delete systems which have been inactive for time_delta.
-
-This script will list all registred systems and their last check in. And will if none system is idle more
-then time_delta, it will write summary:
-
- Total systems [127], none idle
-
-If some systems are idle more then time_delta, you will get summary like:
-
- Total systems [127], would delete [51]
-
-None system is deleted by default, unless you specify --force option.
-
-=head1 OPTIONS
-
---idle time_delta
-        Search for system, which are inactive for more then time_delta.
-        If only number is specified, it is interpreted as days. You can use suffixes m (for minutes),
-        h (hours), d (days) and w (weeks). E.g. "--idle 10" and "--idle 10d" is the same and means
-        ten days, "--idle 2w" means two weeks.
-
---host host
-        Hostname of you Spacewalk server. If not set, localhost is used by default.
-
---username login
-        Your username. By default "admin".
-
---password pass
-        Your password. If not specified on command line, then it is read from /etc/rhn/$username-password
-
---force
-        If specified, then idle systems are deleted.
-
-=head1 EXAMPLES
-
-  delete-old-systems-interactive --server=spacewalk.com --idle 30d
-
-=head1 AUTHOR
-
-Miroslav Suchy <msuchy@redhat.com>,
-Jan Pazdziora <jpazdziora@redhat.com>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright (c) 2009--2015 Red Hat, Inc.
-Released under GNU General Public License, version 2 (GPLv2).
-
-=cut
-
+    client.auth.logout(key)
