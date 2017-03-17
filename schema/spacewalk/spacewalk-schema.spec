@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.7.12
+Version:        2.7.13
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Mar 17 2017 Jiri Dostal <jdostal@redhat.com> 2.7.13-1
+- 1433029 - Some of monitoring data are not removed from DB
+
 * Thu Mar 16 2017 Jiri Dostal <jdostal@redhat.com> 2.7.12-1
 - 1433029 - Some of monitoring data are not removed from DB
 - Use HTTPS in all Github links
