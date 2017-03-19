@@ -492,6 +492,14 @@ sub setup_ssl_certs {
 
   Spacewalk::Setup::ask(
       -noninteractive => $opts{"non-interactive"},
+      -question => "Cname alias of the machine (comma seperated)",
+      -test => sub { my $text = shift;
+                     return length($text) <= 128 },
+      -answer => \$answers->{"ssl-set-cnames"},
+     );
+
+  Spacewalk::Setup::ask(
+      -noninteractive => $opts{"non-interactive"},
       -question => "Organization",
       -test => sub { my $text = shift;
                      return $text =~ /\S/ && length($text) <= 128 },
@@ -604,6 +612,7 @@ sub setup_ssl_certs {
                        '-cert-expiration' => $answers->{'ssl-server-cert-expiration'},
                        '-set-email' => $answers->{'ssl-set-email'},
                        '-set-hostname' => $answers->{'hostname'},
+                       '-set-cnames' => $answers->{'ssl-set-cnames'},
                       );
 
   print Spacewalk::Setup::loc("** SSL: Storing SSL certificates.\n");
@@ -667,6 +676,7 @@ sub generate_server_cert {
                              'cert-expiration' => 1,
                              'set-email' => 1,
                              'set-hostname' => 1,
+                             'set-cnames' => 0,
                             });
 
   $params{'cert-expiration'} *= 365;
@@ -676,7 +686,16 @@ sub generate_server_cert {
   foreach my $name (keys %params) {
     next unless ($params{$name});
 
-    push @opts, qq(--$name=$params{$name});
+    if ($name eq "set-cnames") {
+      foreach my $alias (split(/\s*,\s*/, $params{$name})) {
+        chomp($alias);
+        next if length($alias) <= 0;
+        push @opts, qq(--set-cname=$alias);
+      }
+    }
+    else {
+      push @opts, qq(--$name=$params{$name});
+    }
   }
 
   Spacewalk::Setup::system_or_exit(['/usr/bin/rhn-ssl-tool', @opts], 36, 'Could not generate server certificate.');
