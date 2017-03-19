@@ -2811,6 +2811,24 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="systemsearch_location_country">
+        <source>Country</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="systemsearch_location_state">
+        <source>State/Province</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="systemsearch_location_city">
+        <source>City</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="systemsearch_location_address">
         <source>Address</source>
         <context-group name="ctx">

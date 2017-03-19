@@ -95,7 +95,10 @@ public class SystemSearchAction extends BaseSearchAction implements Listable {
                     { SystemSearchHelper.INSTALLED_PACKAGES,
                                     SystemSearchHelper.NEEDED_PACKAGES },
                     /* location */
-                    { SystemSearchHelper.LOC_ADDRESS, SystemSearchHelper.LOC_BUILDING,
+                    { SystemSearchHelper.LOC_COUNTRY, SystemSearchHelper.LOC_STATE,
+                                    SystemSearchHelper.LOC_CITY,
+                                    SystemSearchHelper.LOC_ADDRESS,
+                                    SystemSearchHelper.LOC_BUILDING,
                                     SystemSearchHelper.LOC_ROOM,
                                     SystemSearchHelper.LOC_RACK } };
 
