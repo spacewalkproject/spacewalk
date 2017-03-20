@@ -6,7 +6,7 @@ import os
 
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.fileutils import cleanupAbsPath
-from spacewalk.cdn_tools.common import CustomChannelSyncError, CdnMappingsLoadError
+from spacewalk.cdn_tools.common import CustomChannelSyncError, CdnMappingsLoadError, CountingPackagesError
 from spacewalk.cdn_tools.cdnsync import CdnSync
 from spacewalk.server import rhnSQL
 from spacewalk.common.usix import raise_with_tb
@@ -196,6 +196,11 @@ if __name__ == '__main__':
         if e.errno != 32:
             raise_with_tb(Exception("SYNC ERROR: attempting to display as much information as possible\n %s" % str(e)),
                           sys.exc_info()[2])
+    except CountingPackagesError:
+        e = sys.exc_info()[1]
+        if LOCK:
+            LOCK.release()
+        system_exit(20, "ERROR: Problem occurred during package counting: %s" % str(e))
     except Exception:
         e = sys.exc_info()[1]
         if LOCK:

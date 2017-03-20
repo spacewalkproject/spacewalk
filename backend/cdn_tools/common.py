@@ -43,3 +43,7 @@ class CdnMappingsLoadError(Exception):
 
 class CustomChannelSyncError(Exception):
     pass
+
+
+class CountingPackagesError(Exception):
+    pass

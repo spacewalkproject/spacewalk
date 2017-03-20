@@ -35,7 +35,7 @@ from spacewalk.satellite_tools.satCerts import get_certificate_info, verify_cert
 from spacewalk.satellite_tools.syncLib import log, log2disk, log2
 from spacewalk.satellite_tools.repo_plugins import yum_src, ThreadedDownloader, ProgressBarLogger
 
-from common import CustomChannelSyncError, verify_mappings, human_readable_size
+from common import CustomChannelSyncError, CountingPackagesError, verify_mappings, human_readable_size
 from repository import CdnRepositoryManager, CdnRepositoryNotFoundError
 
 
@@ -512,6 +512,8 @@ class CdnSync(object):
         to_download_count = 0
         repo_tree_to_update = {}
         log2disk(0, "Comparing repomd started.")
+
+        is_missing_repomd = False
         for channel in repo_tree:
             cdn_repodata_path = os.path.join(constants.CDN_REPODATA_ROOT, channel)
             packages_num_path = os.path.join(cdn_repodata_path, "packages_num")
@@ -519,6 +521,12 @@ class CdnSync(object):
 
             sources = repo_tree[channel]
             yum_repos = [self._create_yum_repo(source) for source in sources]
+
+            # check all repomd files were downloaded
+            for yum_repo in yum_repos:
+                new_repomd = os.path.join(yum_repo.repo.basecachedir, yum_repo.name, "repomd.xml.new")
+                if not os.path.isfile(new_repomd):
+                    is_missing_repomd = True
 
             # packages_num file exists and all cached repomd files are up to date => skip
             if os.path.isfile(packages_num_path) and os.path.isfile(packages_size_path) and all(
@@ -604,6 +612,9 @@ class CdnSync(object):
 
         end_time = datetime.now()
         log(0, "Total time: %s" % str(end_time - start_time).split('.')[0])
+        if is_missing_repomd:
+            raise CountingPackagesError("Cannot download some repomd.xml files. "
+                                        "Please, check /var/log/rhn/cdnsync.log for details")
 
     def _channel_line_format(self, channel, longest_label):
         if channel in self.synced_channels:
