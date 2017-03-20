@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.37
+Version: 2.7.38
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -743,6 +743,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 20 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.38-1
+- obsolete old jpackage rpms to make smooth upgrade
+
 * Thu Mar 16 2017 Gennadii Altukhov <galt@redhat.com> 2.7.37-1
 - 1408167 - add link to proxy system details page
 
