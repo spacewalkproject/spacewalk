@@ -55,6 +55,12 @@ def db_init():
     rhnSQL.initDB()
 
 
+def src_package_query():
+    query = """select p.id
+                 from rhnPackage p
+                where p.path like :filename"""
+    return query
+
 def package_query(options, bind_path=False):
     query = """select %s
                  from %s
@@ -270,8 +276,9 @@ def check_disk_vs_db(disk_content=None, db_content=None):
             row = h.fetchone_dict()
 
             if not row:
-                report['dbexists'] += 1
-                not_in_db(abs_path, options)
+                if is_orphaned_srpm(abs_path, f):
+                    report['dbexists'] += 1
+                    not_in_db(abs_path, options)
                 continue
 
             if options.size and options.fs_only:
@@ -290,6 +297,18 @@ def check_disk_vs_db(disk_content=None, db_content=None):
                 error_found = 1
     return error_found
 
+def is_orphaned_srpm(path, file):
+    if file.find("src.rpm") != -1:
+        query = src_package_query()
+        h = rhnSQL.prepare(query)
+        wildcard_filename = "%/" + file.replace('src','%')
+        h.execute(filename=wildcard_filename)
+        row = h.fetchone_dict()
+        if not row:
+            log(0, "SRPM without matching RPM: %s" % (path))
+            return True
+
+    return False
 
 def not_in_db(path, options):
     if options.remove:
