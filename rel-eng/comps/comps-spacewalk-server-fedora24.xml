@@ -61,6 +61,7 @@
        <packagereq type="default">select2-bootstrap-css</packagereq>
        <packagereq type="default">simple-core</packagereq>
        <packagereq type="default">simple-xml</packagereq>
+       <packagereq type="default">sitemesh</packagereq>
        <packagereq type="default">spacecmd</packagereq>
        <packagereq type="default">spacewalk-admin</packagereq>
        <packagereq type="default">spacewalk-backend</packagereq>
