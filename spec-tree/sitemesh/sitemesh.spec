@@ -4,7 +4,7 @@
 
 Name:           sitemesh
 Version:        2.4.2
-Release:        2.4%{?dist}
+Release:        2.5%{?dist}
 Epoch:          0
 Summary:        Sitemesh
 License:        ASL 1.1
@@ -224,6 +224,9 @@ export MAVEN_OPTS=
 %{_docdir}/sitemesh
 
 %changelog
+* Mon Mar 20 2017 Michael Mraka <michael.mraka@redhat.com> 2.4.2-2.5
+- relax dependencies on Fedora 23
+
 * Wed Mar 15 2017 Michael Mraka <michael.mraka@redhat.com> 2.4.2-2.4
 - require  en (UTF8) locales
 
