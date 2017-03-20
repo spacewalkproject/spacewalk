@@ -991,6 +991,13 @@ def load_config_section(self, section):
             except NoOptionError:
                 pass
 
+    try:
+        if (self.config.has_key('username')
+                and self.config['username'] != self.config_parser.get(section, 'username')):
+            del self.config['password']
+    except NoOptionError:
+        pass
+
     # handle the nossl boolean
     if self.config.has_key('nossl') and isinstance(self.config['nossl'], str):
         self.config['nossl'] = re.match('^1|y|true$', self.config['nossl'], re.I)
