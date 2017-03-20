@@ -90,6 +90,22 @@ Requires:      javapackages-tools
 Requires:      servlet >= 3.0
 Requires:      tomcat >= 7
 Requires:      tomcat-lib >= 7
+# obsolete old jpackage rpms to make smooth upgrade
+Obsoletes:     classpathx-jaf <= 1.1.1
+Obsoletes:     classpathx-mail <= 1.1.2
+Obsoletes:     geronimo-jsp-2.1-api <= 1.2
+Obsoletes:     geronimo-servlet-2.5-api <= 1.2
+Obsoletes:     geronimo-specs-poms <= 1.2
+Obsoletes:     glassfish-jaf <= 1.1.0
+Obsoletes:     glassfish-javamail <= 1.4.0
+Obsoletes:     jakarta-commons-el <= 1.0
+Obsoletes:     jakarta-commons-collections <= 3.1
+Obsoletes:     oscache <= 2.4.1
+Obsoletes:     sitemesh <= 2.4.1
+Obsoletes:     spacewalk-jpp-workaround <= 2.3.5
+Obsoletes:     tomcat5-jsp-2.0-api <= 5.5.27
+Obsoletes:     tomcat5-servlet-2.4-api <= 5.5.27
+Obsoletes:     tomcat6-el-1.0-api <= 6.0.18
 BuildRequires: apache-commons-cli
 BuildRequires: apache-commons-codec
 BuildRequires: apache-commons-collections
