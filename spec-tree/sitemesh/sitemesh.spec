@@ -32,11 +32,13 @@ Patch9:         sitemesh-jflex-1.6.x-compatibility.patch
 Requires(post): jpackage-utils
 Requires(postun): jpackage-utils
 Requires:       jpackage-utils
+%if 0%{?fedora} >= 24
 BuildRequires:  glibc-langpack-en
+%endif
 BuildRequires:  jpackage-utils
 BuildRequires:  jboss-jsp-2.2-api >= 0:1.0.1
 BuildRequires:  jboss-servlet-3.0-api >= 0:1.0.2
-BuildRequires:  freemarker >= 0:2.3.20
+BuildRequires:  freemarker >= 0:2.3.19
 BuildRequires:  velocity >= 0:1.7
 BuildRequires:  velocity-tools >= 0:2.0
 BuildRequires:  junit >= 0:4.11
