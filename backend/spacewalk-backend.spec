@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.56
+Version: 2.7.57
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Mon Mar 20 2017 Gennadii Altukhov <galt@redhat.com> 2.7.57-1
+- 1418025 - fix package downloading for Kickstart addons. Add parsing repodata
+  for addons repository and download all packages according to its location.
+- 1427231 - if package was not downloaded and message-less Exception catched,
+  don't print empty line and don't print to stream on default verbose setting
+
 * Thu Mar 16 2017 Jan Dobes 2.7.56-1
 - 1430236 - fixing 'WARNING:  there is already a transaction in progress' in
   postgresql logs
