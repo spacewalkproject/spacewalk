@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.57
+Version: 2.7.58
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Mon Mar 20 2017 Gennadii Altukhov <galt@redhat.com> 2.7.58-1
+- 1433365 - show error message if we cannot download repomd.xml during counting
+  packages
+- 1433365 - fix http proxy configuration for yum_src
+
 * Mon Mar 20 2017 Gennadii Altukhov <galt@redhat.com> 2.7.57-1
 - 1418025 - fix package downloading for Kickstart addons. Add parsing repodata
   for addons repository and download all packages according to its location.
