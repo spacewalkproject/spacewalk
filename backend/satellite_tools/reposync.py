@@ -18,6 +18,8 @@ import re
 import shutil
 import sys
 from datetime import datetime
+from xml.dom import minidom
+import gzip
 import ConfigParser
 
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel
@@ -53,7 +55,8 @@ class KSDirParser:
             additional_blacklist = [additional_blacklist]
 
         for s in (m.group(1) for m in re.finditer(r'(?i)<a href="(.+?)"', dir_html)):
-            if not (re.match(r'/', s) or re.search(r'\?', s) or re.search(r'\.\.', s) or re.match(r'[a-zA-Z]+:', s)):
+            if not (re.match(r'/', s) or re.search(r'\?', s) or re.search(r'\.\.', s) or re.match(r'[a-zA-Z]+:', s) or
+                    re.search(r'\.rpm$', s)):
                 if re.search(r'/$', s):
                     file_type = 'DIR'
                 else:
@@ -113,6 +116,28 @@ class TreeInfoParser(object):
                     if item[0] == 'packagedir':
                         return item[1]
 
+    def get_addons(self):
+        addons_dirs = []
+        for section_name in self.parser.sections():
+            # check by name
+            if section_name.startswith('addon-'):
+                for item in self.parser.items(section_name):
+                    if item[0] == 'repository':
+                        addons_dirs.append(item[1])
+            # check by type
+            else:
+                repository = None
+                repo_type = None
+                for item in self.parser.items(section_name):
+                    if item[0] == 'repository':
+                        repository = item[1]
+                    elif item[0] == 'type':
+                        repo_type = item[1]
+
+                if repo_type == 'addon' and repository is not None:
+                    addons_dirs.append(repository)
+
+        return addons_dirs
 
 
 def set_filter_opt(option, opt_str, value, parser):
@@ -1035,8 +1060,6 @@ class RepoSync(object):
         """)
 
         # Downloading/Updating content of KS Tree
-        # start from root dir
-        is_root = True
         dirs_queue = ['']
         log(0, "Gathering all files in kickstart repository...")
         while len(dirs_queue) > 0:
@@ -1045,22 +1068,36 @@ class RepoSync(object):
             if cur_dir_html is None:
                 continue
 
-            blacklist = None
-            if is_root:
-                blacklist = [treeinfo_parser.get_package_dir() + '/']
-                is_root = False
-
-            parser = KSDirParser(cur_dir_html, blacklist)
-
+            parser = KSDirParser(cur_dir_html)
             for ks_file in parser.get_content():
                 repo_path = cur_dir_name + ks_file['name']
-                # if this is a directory, just add a name into queue (like BFS algorithm)
                 if ks_file['type'] == 'DIR':
                     dirs_queue.append(repo_path)
                     continue
 
                 if not os.path.exists(os.path.join(CFG.MOUNT_POINT, ks_path, repo_path)) or self.force_kickstart:
                     to_download.add(repo_path)
+
+        for addon_dir in treeinfo_parser.get_addons():
+            repomd_url = str(addon_dir + '/repodata/repomd.xml')
+            repomd_file = plug.get_file(repomd_url, os.path.join(plug.repo.basecachedir, plug.name))
+
+            if repomd_file:
+                # find location of primary.xml
+                repomd_xml = minidom.parse(repomd_file)
+                for i in repomd_xml.getElementsByTagName('data'):
+                    if i.attributes['type'].value == 'primary':
+                        primary_url = str(addon_dir + '/' +
+                                          i.getElementsByTagName('location')[0].attributes['href'].value)
+                        break
+
+                primary_zip = plug.get_file(primary_url, os.path.join(plug.repo.basecachedir, plug.name))
+                if primary_zip:
+                    primary_xml = gzip.open(primary_zip, 'r')
+                    xmldoc = minidom.parse(primary_xml)
+                    for i in xmldoc.getElementsByTagName('package'):
+                        package = i.getElementsByTagName('location')[0].attributes['href'].value
+                        to_download.add(str(os.path.normpath(os.path.join(addon_dir, package))))
 
         if to_download:
             log(0, "Downloading %d kickstart files." % len(to_download))
@@ -1083,5 +1120,4 @@ class RepoSync(object):
         else:
             log(0, "No new kickstart files to download.")
 
-        # set permissions recursively
         rhnSQL.commit()
