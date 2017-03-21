@@ -200,7 +200,12 @@ class DownloadThread(Thread):
                     if not self.__can_retry(retry, mirrors, opts, url, e):
                         return False
                     self.__next_mirror(mirrors)
-
+                # RHEL 6 urlgrabber raises KeyboardInterrupt for example when there is no space left
+                # but handle also other fatal exceptions
+                except (KeyboardInterrupt, Exception):  # pylint: disable=W0703
+                    e = sys.exc_info()[1]
+                    self.parent.fail(e)
+                    return False
             finally:
                 if fo:
                     fo.close()
@@ -211,7 +216,7 @@ class DownloadThread(Thread):
         return True
 
     def run(self):
-        while not self.parent.queue.empty():
+        while not self.parent.queue.empty() and self.parent.can_continue():
             try:
                 params = self.parent.queue.get(block=False)
             except Empty:
@@ -232,6 +237,8 @@ class ThreadedDownloader:
         self.retries = retries
         self.log_obj = log_obj
         self.force = force
+        self.lock = Lock()
+        self.exception = None
 
     def set_log_obj(self, log_obj):
         self.log_obj = log_obj
@@ -266,6 +273,22 @@ class ThreadedDownloader:
         # wait to finish
         while any(t.isAlive() for t in started_threads):
             time.sleep(1)
+
+        # raise first detected exception from child threads if any
+        if self.exception:
+            raise self.exception  # pylint: disable=E0702
+
+    def can_continue(self):
+        self.lock.acquire()
+        status = self.exception is None
+        self.lock.release()
+        return status
+
+    def fail(self, exception):
+        self.lock.acquire()
+        if not self.exception:
+            self.exception = exception
+        self.lock.release()
 
 
 class ContentPackage:
