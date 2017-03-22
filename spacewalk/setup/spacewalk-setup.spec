@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.7.2
+Version:        2.7.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -116,6 +116,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Mar 22 2017 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.3-1
+- require three perl libs because of failure on fc25
+- Migrating Fedorahosted to GitHub
+
 * Tue Feb 21 2017 Jan Dobes 2.7.2-1
 - 1416804 - reset stdin for failed connections
 
