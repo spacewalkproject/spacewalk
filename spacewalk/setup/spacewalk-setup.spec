@@ -33,6 +33,9 @@ Requires:       spacewalk-setup-jabberd
 Requires:       spacewalk-base-minimal
 Requires:       spacewalk-base-minimal-config
 Requires:       curl
+Requires:	perl-Mail-RFC822-Address
+Requires:	perl-DateTime
+Requires:	perl-Net-LibIDN
 
 %description
 A collection of post-installation scripts for managing Spacewalk's initial
