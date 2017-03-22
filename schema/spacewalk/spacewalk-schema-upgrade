@@ -291,7 +291,7 @@ close SQL;
 
 if (not @ARGV or $ARGV[0] ne '-y') {
         print "Planning to run spacewalk-sql with [$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql]\n";
-        print "\nPlase make sure you have a valid backup of your database before continuing.\n\n";
+        print "\nPlease make sure you have a valid backup of your database before continuing.\n\n";
         local $| = 1;
         READ_ENTER:
         print "Hit Enter to continue or Ctrl+C to interrupt: ";
