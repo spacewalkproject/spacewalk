@@ -43,6 +43,10 @@ parser.add_argument("-m", "--max-age", type=int,
                     dest="maxAge", default=60,
                     help="Retrieve past events up to this old (in seconds, default 60). " +
                     "This has no effect if -e/--each-task is specified.")
+parser.add_argument("-n", type=int,
+                    dest="numIterations", default=-1,
+                    help="taskotop will iterate the specified number of times and then exit. " +
+                    "If not specified, taskotop will run until the user exits taskotop.")
 parser.add_argument("-t", "--taskomatic", action="store_true",
                     dest="displayTaskomatic",
                     help="Include taskomaticd process information in the output.")
@@ -572,8 +576,13 @@ def main(screen):
                             display_builder.JUSTIFY_RIGHT,
                             format_channel_names)
 
-    while True:
-        log_debug("updating screen")
+    num_iterations = args.numIterations
+    while num_iterations != 0:
+        if num_iterations > 0:
+            num_iterations -= 1
+            log_debug('updating screen (%d remaining)' % num_iterations)
+        else:
+            log_debug("updating screen")
         screen.erase()
         current_y = 0
         if DISPLAY_TASKOMATIC:
