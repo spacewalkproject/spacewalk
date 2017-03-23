@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.58
+Version: 2.7.59
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Mar 23 2017 Gennadii Altukhov <galt@redhat.com> 2.7.59-1
+- 1434786 - ignore channels which are not exist or not available
+
 * Mon Mar 20 2017 Gennadii Altukhov <galt@redhat.com> 2.7.58-1
 - 1433365 - show error message if we cannot download repomd.xml during counting
   packages
