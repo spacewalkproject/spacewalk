@@ -194,6 +194,12 @@ class ContentSource(object):
     def _authenticate(self, url):
         pass
 
+    @staticmethod
+    def interrupt_callback(*args, **kwargs):  # pylint: disable=W0613
+        # Just re-raise
+        e = sys.exc_info()[1]
+        raise e
+
     def setup_repo(self, repo, no_mirrors):
         """Fetch repository metadata"""
         repo.cache = 0
@@ -238,6 +244,7 @@ class ContentSource(object):
                 warnings.restore()
                 raise
             warnings.restore()
+        repo.interrupt_callback = self.interrupt_callback
         repo.setup(0)
 
     def number_of_packages(self):
