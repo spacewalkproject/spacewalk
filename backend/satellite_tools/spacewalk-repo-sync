@@ -249,7 +249,7 @@ if __name__ == '__main__':
     try:
         sys.exit(abs(main() or 0))
     except KeyboardInterrupt:
-        systemExit(0, "\nUser interrupted process.")
+        systemExit(1, "\nProcess has been interrupted.")
     except SystemExit, e:
         releaseLOCK()
         sys.exit(e.code)

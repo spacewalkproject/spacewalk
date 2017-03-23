@@ -153,7 +153,7 @@ if __name__ == '__main__':
         LOCK.release()
 
     except KeyboardInterrupt:
-        system_exit(0, "\nUser interrupted process.")
+        system_exit(1, "\nProcess has been interrupted.")
     except SystemExit:
         e = sys.exc_info()[1]
         if LOCK:
