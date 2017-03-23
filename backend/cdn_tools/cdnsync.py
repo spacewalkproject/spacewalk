@@ -406,6 +406,14 @@ class CdnSync(object):
 
         channels = available
 
+        error_messages = []
+
+        # if we have not_available channels log the error immediately
+        if not_available:
+            msg = "ERROR: these channels either do not exist or are not available:\n" + "\n".join(not_available)
+            log(0, msg)
+            error_messages.append(msg)
+
         # Need to update channel metadata
         self._update_channels_metadata([ch for ch in channels if ch in self.channel_metadata])
         # Make sure custom channels are properly connected with repos
@@ -414,7 +422,6 @@ class CdnSync(object):
                 self.cdn_repository_manager.assign_repositories_to_channel(channel)
 
         # Finally, sync channel content
-        error_messages = []
         total_time = timedelta()
         for channel in channels:
             cur_time, failed_packages = self._sync_channel(channel)
@@ -431,9 +438,6 @@ class CdnSync(object):
             log2disk(0, "Sync of channel completed.")
         log(0, "Total time: %s" % str(total_time).split('.')[0])
 
-        if not_available:
-            error_messages.append("ERROR: these channels either do not exist or are not available:\n" +
-                                  "\n".join(not_available))
         return error_messages
 
     def setup_repos_and_sync(self, channels=None, add_repos=None, delete_repos=None):
