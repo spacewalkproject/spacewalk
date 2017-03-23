@@ -1,4 +1,4 @@
-%{!?perlgen:%define perlgen 5.8}
+%{!?perlgen:%global perlgen 5.8}
 Name: perl-Mail-RFC822-Address
 Version: 0.3
 Release: 12%{?dist}
@@ -8,6 +8,7 @@ Group: Development/Libraries
 URL: http://search.cpan.org/search?mode=module&query=Mail%3a%3aRFC822%3a%3aAddress
 BuildRoot: %{_tmppath}/%{name}-root
 Buildarch: noarch
+BuildRequires:	perl
 BuildRequires:	perl(ExtUtils::MakeMaker)
 %if 0%{?rhel} >= 7
 BuildRequires:  perl(Data::Dumper)
