@@ -22,7 +22,7 @@ import constants
 from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
 from spacewalk.common import rhnLog
 from spacewalk.server import rhnSQL
-from spacewalk.server.rhnChannel import ChannelNotFoundError, channel_info
+from spacewalk.server.rhnChannel import channel_info
 from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.contentSourcesImport import ContentSourcesImport
 from spacewalk.server.importlib.channelImport import ChannelImport
@@ -397,12 +397,14 @@ class CdnSync(object):
 
         # Check channel availability before doing anything
         not_available = []
+        available = []
         for channel in channels:
             if not self._is_channel_available(channel):
                 not_available.append(channel)
+            else:
+                available.append(channel)
 
-        if not_available:
-            raise ChannelNotFoundError("  " + "\n  ".join(not_available))
+        channels = available
 
         # Need to update channel metadata
         self._update_channels_metadata([ch for ch in channels if ch in self.channel_metadata])
@@ -428,6 +430,10 @@ class CdnSync(object):
             rhnLog.initLOG(self.log_path, self.log_level)
             log2disk(0, "Sync of channel completed.")
         log(0, "Total time: %s" % str(total_time).split('.')[0])
+
+        if not_available:
+            error_messages.append("ERROR: these channels either do not exist or are not available:\n" +
+                                  "\n".join(not_available))
         return error_messages
 
     def setup_repos_and_sync(self, channels=None, add_repos=None, delete_repos=None):

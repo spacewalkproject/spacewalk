@@ -12,7 +12,6 @@ from spacewalk.server import rhnSQL
 from spacewalk.common.usix import raise_with_tb
 from rhn import rhnLockfile
 from rhn.connections import idn_ascii_to_puny
-from spacewalk.server.rhnChannel import ChannelNotFoundError
 from spacewalk.server.importlib.importLib import InvalidArchError, \
     InvalidChannelError, InvalidChannelFamilyError, MissingParentChannelError
 
@@ -162,13 +161,6 @@ if __name__ == '__main__':
         sys.exit(e.code)
     except rhnLockfile.LockfileLockedException:
         system_exit(1, "SYNC ERROR: attempting to run more than one instance of cdn-sync. Exiting.")
-    except ChannelNotFoundError:
-        e = sys.exc_info()[1]
-        if LOCK:
-            LOCK.release()
-        system_exit(12, ["ERROR: these channels either do not exist or are not available:",
-                         e,
-                         "(to see a list of channel labels: /usr/bin/cdn-sync --list-channels)"])
     except CustomChannelSyncError:
         e = sys.exc_info()[1]
         if LOCK:
