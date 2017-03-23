@@ -29,8 +29,8 @@
 <RefSect1><Title>Description</Title>
 
 <para>
-    <emphasis>&RHNSATACT;</emphasis> activates (using an or RHSM Manifest) a &RHNSAT;.
-    The RHSM Manifest is (a) checked for sanity, (b) extracted data are inserted
+    <emphasis>&RHNSATACT;</emphasis> activates (using an RHSM Manifest) a &RHNSAT;.
+    The RHSM Manifest is (a) checked for sanity, (b) extracted and data are inserted
     into the local database. If disconnected option is specified, this Satellite
     will not subscribe to Satellite repository and will not receive updates.
     Activation allows &RHNSAT; to sync channel content from CDN repositories.
