@@ -8,7 +8,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           https://github.com/spacewalkproject/spacewalk
-Version:       5.5.103
+Version:       5.5.104
 Release:       1%{?dist}
 Source0:       https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -95,6 +95,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Fri Mar 24 2017 Ondrej Gajdusek <ogajduse@redhat.com> 5.5.104-1
+- Disabling Pylint in Fedora<25 to prevent weird err
+
 * Wed Mar 15 2017 Ondrej Gajdusek <ogajduse@redhat.com> 5.5.103-1
 - Pylint fixes in rhnpush
 - pylint fix consider-iterating-dictionary for rhnpush.rhnpush_config
