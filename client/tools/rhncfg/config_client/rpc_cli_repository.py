@@ -24,6 +24,7 @@ except ImportError: # python3
 from config_common import local_config, cfg_exceptions, file_utils, \
     repository
 from config_common.rhn_log import log_debug
+from spacewalk.common.usix import raise_with_tb
 
 import traceback
 
