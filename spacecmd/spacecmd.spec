@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.7.6
+Version:     2.7.7
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -92,6 +92,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Mar 24 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.7-1
+- 1428862 - make sure to know if we get into default function and exit
+  accordingly
+
 * Fri Mar 03 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.6-1
 - 1202684 - exit with 1 with incorrect command, wrong server, etc.
 - Updated links to github in spec files
