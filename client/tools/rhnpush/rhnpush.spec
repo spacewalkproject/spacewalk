@@ -75,7 +75,7 @@ sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' $RPM_BUILD_ROOT%{_bindir}/rhnpu
 rm -rf $RPM_BUILD_ROOT
 
 %check
-%if 0%{?pylint_check}
+%if 0%{?pylint_check} && 0%{?fedora} >= 25
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}:/usr/share/rhn
 spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
