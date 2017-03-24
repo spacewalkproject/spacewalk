@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.61
+Version: 2.7.62
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Fri Mar 24 2017 Jiri Dostal <jdostal@redhat.com> 2.7.62-1
+- filter channels to removed by patern with '*' - e.g. 'fedora19*'
+- Fix suboptimal wording
+
 * Thu Mar 23 2017 Jan Dobes 2.7.61-1
 - 1427231 - set interrupt callback to not retry
 - 1427231 - it's not necessarily interrupted by user and the return code should
