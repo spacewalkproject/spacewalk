@@ -467,6 +467,7 @@ install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/unit-tests
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/lib
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/classes
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/spacewalk/taskomatic
 install -d -m 755 $RPM_BUILD_ROOT%{cobprofdir}
 install -d -m 755 $RPM_BUILD_ROOT%{cobprofdirup}
 install -d -m 755 $RPM_BUILD_ROOT%{cobprofdirwiz}
@@ -476,40 +477,8 @@ install -d -m 755 $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
 %if 0%{?fedora}
 echo "hibernate.cache.region.factory_class=net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory" >> conf/default/rhn_hibernate.conf
-%endif
-%if 0%{?fedora} && 0%{?fedora} >= 21
-echo "wrapper.java.classpath.28=/usr/share/java/log4j-1.jar" >> conf/default/rhn_taskomatic_daemon.conf
-%else
-echo "wrapper.java.classpath.28=/usr/share/java/log4j.jar" >> conf/default/rhn_taskomatic_daemon.conf
-%endif
-%if 0%{?fedora} >= 25
-echo "wrapper.java.classpath.50=/usr/share/java/cglib/cglib.jar" >> conf/default/rhn_taskomatic_daemon.conf
-%else
-echo "wrapper.java.classpath.50=/usr/share/java/cglib.jar" >> conf/default/rhn_taskomatic_daemon.conf
-%endif
-%if 0%{?fedora}
-echo "wrapper.java.classpath.49=/usr/share/java/hibernate3/hibernate-core-3.jar
-wrapper.java.classpath.61=/usr/share/java/hibernate-jpa-2.0-api.jar
-wrapper.java.classpath.62=/usr/share/java/hibernate3/hibernate-ehcache-3.jar
-wrapper.java.classpath.63=/usr/share/java/hibernate3/hibernate-c3p0-3.jar
-wrapper.java.classpath.64=/usr/share/java/hibernate*/hibernate-commons-annotations.jar
-wrapper.java.classpath.65=/usr/share/java/slf4j/simple.jar
-wrapper.java.classpath.66=/usr/share/java/jboss-logging.jar
-wrapper.java.classpath.67=/usr/share/java/javassist.jar
-wrapper.java.classpath.68=/usr/share/java/ehcache-core.jar
-wrapper.java.classpath.69=/usr/share/java/tomcat-taglibs-standard/taglibs-build-tools.jar
-wrapper.java.classpath.70=/usr/share/java/tomcat-taglibs-standard/taglibs-standard-compat.jar
-wrapper.java.classpath.71=/usr/share/java/tomcat-taglibs-standard/taglibs-standard-impl.jar
-wrapper.java.classpath.72=/usr/share/java/tomcat-taglibs-standard/taglibs-standard-jstlel.jar
-wrapper.java.classpath.73=/usr/share/java/tomcat-taglibs-standard/taglibs-standard-spec.jar
-" >> conf/default/rhn_taskomatic_daemon.conf
 %else
 echo "hibernate.cache.provider_class=org.hibernate.cache.OSCacheProvider" >> conf/default/rhn_hibernate.conf
-echo "wrapper.java.classpath.49=/usr/share/java/hibernate3.jar
-wrapper.java.classpath.17=/usr/share/java/taglibs-standard.jar
-wrapper.java.classpath.32=/usr/share/java/taglibs-core.jar
-wrapper.java.classpath.65=/usr/share/java/slf4j/jcl.jar
-" >> conf/default/rhn_taskomatic_daemon.conf
 %endif
 install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_hibernate.conf
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
@@ -546,6 +515,13 @@ ln -s -f %{_javadir}/dwr.jar $RPM_BUILD_ROOT%{jardir}/dwr.jar
 install -d -m 755 $RPM_BUILD_ROOT%{realcobsnippetsdir}
 ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT%{realcobsnippetsdir}/spacewalk
 touch $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs/audit-review.log
+
+# special links for taskomatic
+TASKOMATIC_BUILD_DIR=%{_prefix}/share/spacewalk/taskomatic
+ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT$TASKOMATIC_BUILD_DIR/ojdbc14.jar
+ln -s -f %{_javadir}/quartz-oracle.jar $RPM_BUILD_ROOT$TASKOMATIC_BUILD_DIR/quartz-oracle.jar
+rm -f $RPM_BUILD_ROOT$TASKOMATIC_BUILD_DIR/slf4j*nop.jar
+rm -f $RPM_BUILD_ROOT$TASKOMATIC_BUILD_DIR/slf4j*simple.jar
 
 # 732350 - On Fedora 15, mchange's log stuff is no longer in c3p0.
 %if 0%{?fedora}
@@ -720,6 +696,7 @@ fi
 %attr(755, root, root) %{_initrddir}/taskomatic
 %endif
 %{_bindir}/taskomaticd
+%{_datarootdir}/spacewalk/taskomatic
 
 
 %files config
@@ -738,6 +715,8 @@ fi
 %files oracle
 %defattr(644, tomcat, tomcat)
 %{jardir}/ojdbc14.jar
+%{_prefix}/share/spacewalk/taskomatic/ojdbc14.jar
+%{_prefix}/share/spacewalk/taskomatic/quartz-oracle.jar
 
 %files postgresql
 %defattr(644, tomcat, tomcat)

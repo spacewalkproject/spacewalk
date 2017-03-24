@@ -937,6 +937,12 @@ delete from rhnChannel where label like 'ChannelLabel%';
         <include name="**/jasper5-compiler*" />
     </fileset>
     </delete>
+
+    <!-- link taskomatic jars -->
+    <mkdir dir="${prefix}${taskomatic.link.dir}" />
+    <jpackage-deps jars="${taskomatic.jar.dependencies}"
+                    dir="${prefix}${taskomatic.link.dir}"/>
+
   </target>
 
   <!--

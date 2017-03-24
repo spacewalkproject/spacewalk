@@ -17,6 +17,7 @@
   <property name="report.dir" location="${build.dir}/reports" />
   <property name="javadoc.deploydir" location="/usr/share/javadoc/rhn-java" />
   <property name="build.instrument.dir" location="${build.dir}/instrumented" />
+  <property name="taskomatic.link.dir" location="/usr/share/spacewalk/taskomatic" />
 
   <property name="eclipse.lib.dirs" location="${lib.dir}" />
 
@@ -163,6 +164,9 @@
              oro ${oscache} quartz stringtree-json sitemesh ${struts-jars} ${taglibs}
              tanukiwrapper postgresql-jdbc simple-xml susestudio-java-client
              xalan-j2 xerces-j2 xml-commons-apis simple-core" />
+
+  <property name="taskomatic.jar.dependencies"
+      value="${dist.jar.dependencies} commons-dbcp commons-pool mchange-commons" />
 
   <path id="bootjars">
     <fileset dir="${boot.lib.dir}" includes="*.jar" />
