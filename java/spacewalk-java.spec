@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.39
+Version: 2.7.40
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -723,6 +723,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 24 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.40-1
+- simplified taskomatic jar dependencies by linking them into a single
+  directory
+
 * Tue Mar 21 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.39-1
 - include slf4j logger binding
 
