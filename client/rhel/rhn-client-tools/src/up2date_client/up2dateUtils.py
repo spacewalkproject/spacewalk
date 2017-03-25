@@ -34,7 +34,7 @@ else:
     from up2date_client import transaction
     def _getOSVersionAndRelease():
         ts = transaction.initReadOnlyTransaction()
-        for h in ts.dbMatch('Providename', "redhat-release"):
+        for h in ts.dbMatch('Providename', "oraclelinux-release"):
             SYSRELVER = 'system-release(releasever)'
             version = sstr(h['version'])
             release = sstr(h['release'])
@@ -45,17 +45,28 @@ else:
             osVersionRelease = (sstr(h['name']), version, release)
             return osVersionRelease
         else:
-            for h in ts.dbMatch('Providename', "distribution-release"):
-                osVersionRelease = (sstr(h['name']), sstr(h['version']), sstr(h['release']))
-                # zypper requires a exclusive lock on the rpmdb. So we need
-                # to close it here.
-                ts.ts.closeDB()
+            for h in ts.dbMatch('Providename', "redhat-release"):
+                SYSRELVER = 'system-release(releasever)'
+                version = sstr(h['version'])
+                release = sstr(h['release'])
+                if SYSRELVER in h['providename']:
+                    provides = dict(zip(h['providename'], h['provideversion']))
+                    release = '%s-%s' % (version, release)
+                    version = provides[SYSRELVER]
+                osVersionRelease = (sstr(h['name']), version, release)
                 return osVersionRelease
             else:
-                raise up2dateErrors.RpmError(
-                    "Could not determine what version of Red Hat Linux you "\
-                    "are running.\nIf you get this error, try running \n\n"\
-                    "\t\trpm --rebuilddb\n\n")
+                for h in ts.dbMatch('Providename', "distribution-release"):
+                    osVersionRelease = (sstr(h['name']), sstr(h['version']), sstr(h['release']))
+                    # zypper requires a exclusive lock on the rpmdb. So we need
+                    # to close it here.
+                    ts.ts.closeDB()
+                    return osVersionRelease
+                else:
+                    raise up2dateErrors.RpmError(
+                        "Could not determine what version of Red Hat Linux you "\
+                        "are running.\nIf you get this error, try running \n\n"\
+                        "\t\trpm --rebuilddb\n\n")
 
 def getVersion():
     '''
