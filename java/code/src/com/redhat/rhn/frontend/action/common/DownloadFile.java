@@ -388,7 +388,7 @@ public class DownloadFile extends DownloadAction {
             else {
                 data = KickstartManager.getInstance().renderKickstart(url);
             }
-            setContentInfo(response, data.length(), CONTENT_TYPE_TEXT_PLAIN);
+            setContentInfo(response, data.getBytes().length, CONTENT_TYPE_TEXT_PLAIN);
             return getStream(data.getBytes(), CONTENT_TYPE_TEXT_PLAIN);
         }
         else if (type.equals(DownloadManager.DOWNLOAD_TYPE_COBBLER_API)) {
