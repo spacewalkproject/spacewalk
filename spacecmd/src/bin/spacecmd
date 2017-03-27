@@ -96,7 +96,7 @@ if __name__ == '__main__':
         os.environ['TERM'] = 'dumb'
 
     # import our Cmd subclass after we settle our TERM value
-    from spacecmd.shell import SpacewalkShell, UnknownCallException:
+    from spacecmd.shell import SpacewalkShell, UnknownCallException
 
     # create an instance of the shell
     shell = SpacewalkShell(options, conf_dir, config)
