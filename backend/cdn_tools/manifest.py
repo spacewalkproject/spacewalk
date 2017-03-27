@@ -18,6 +18,8 @@ import zipfile
 import os
 from M2Crypto import X509
 
+from spacewalk.server.rhnServer.satellite_cert import SatelliteCert
+
 import constants
 
 
@@ -29,11 +31,17 @@ class Manifest(object):
     ENTITLEMENTS_PATH = "export/entitlements"
     CERTIFICATE_PATH = "export/extensions"
     PRODUCTS_PATH = "export/products"
+    CONSUMER_INFO = "export/consumer.json"
+    UPSTREAM_CONSUMER_PATH = "export/upstream_consumer"
 
     def __init__(self, zip_path):
         self.all_entitlements = []
         self.manifest_repos = {}
         self.sat5_certificate = None
+        self.satellite_version = None
+        self.consumer_credentials = None
+        self.uuid = None
+        self.ownerid = None
         # Signature and signed data
         self.signature = None
         self.data = None
@@ -56,6 +64,8 @@ class Manifest(object):
                     inner_zip = zipfile.ZipFile(inner_file_data)
                     self._load_entitlements(inner_zip)
                     self._extract_certificate(inner_zip)
+                    self._extract_consumer_info(inner_zip)
+                    self._extract_consumer_credentials(inner_zip)
                 finally:
                     if inner_zip is not None:
                         inner_zip.close()
@@ -77,6 +87,10 @@ class Manifest(object):
             cert_file = zip_file.open(certificates_names[0])  # take only first file
             self.sat5_certificate = cert_file.read().strip()
             cert_file.close()
+            # Save version too
+            sat5_cert = SatelliteCert()
+            sat5_cert.load(self.sat5_certificate)
+            self.satellite_version = getattr(sat5_cert, 'satellite-version')
         else:
             raise MissingSatelliteCertificateError("Satellite Certificate was not found in manifest.")
 
@@ -139,11 +153,67 @@ class Manifest(object):
             raise IncorrectEntitlementsFileFormatError(
                 "ERROR: There has to be at least one entitlements file")
 
+    def _extract_consumer_info(self, zip_file):
+        files = zip_file.namelist()
+        found = False
+        for f in files:
+            if f == self.CONSUMER_INFO:
+                found = True
+                break
+        if found:
+            consumer_info = zip_file.open(self.CONSUMER_INFO)
+            try:
+                try:
+                    data = json.load(consumer_info)
+                    self.uuid = data['uuid']
+                    self.ownerid = data['owner']['key']
+                except KeyError:
+                    print("ERROR: Cannot access required field in file '%s'" % self.CONSUMER_INFO)
+                    raise
+            finally:
+                consumer_info.close()
+        else:
+            raise MissingConsumerInfoError()
+
+    def _extract_consumer_credentials(self, zip_file):
+        files = zip_file.namelist()
+        consumer_credentials = []
+        for f in files:
+            if f.startswith(self.UPSTREAM_CONSUMER_PATH) and f.endswith(".json"):
+                consumer_credentials.append(f)
+
+        if len(consumer_credentials) == 1:
+            upstream_consumer = zip_file.open(consumer_credentials[0])
+            try:
+                try:
+                    data = json.load(upstream_consumer)
+                    self.consumer_credentials = Credentials(data['id'], data['cert'], data['key'])
+                except KeyError:
+                    print("ERROR: Cannot access required field in file '%s'" % consumer_credentials[0])
+                    raise
+            finally:
+                upstream_consumer.close()
+        else:
+            raise IncorrectCredentialsError(
+                "ERROR: Single upstream consumer certificate expected, found %d." % len(consumer_credentials))
+
     def get_all_entitlements(self):
         return self.all_entitlements
 
     def get_satellite_certificate(self):
         return self.sat5_certificate
+
+    def get_satellite_version(self):
+        return self.satellite_version
+
+    def get_consumer_credentials(self):
+        return self.consumer_credentials
+
+    def get_uuid(self):
+        return self.uuid
+
+    def get_ownerid(self):
+        return self.ownerid
 
     def check_signature(self):
         if self.signature and self.data:
@@ -253,4 +323,8 @@ class MissingSatelliteCertificateError(Exception):
 
 
 class ManifestValidationError(Exception):
+    pass
+
+
+class MissingConsumerInfoError(Exception):
     pass

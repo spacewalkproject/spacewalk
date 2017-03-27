@@ -15,6 +15,10 @@
 import sys
 import json
 
+from spacewalk.cdn_tools import constants
+from spacewalk.cdn_tools.candlepin_api import CandlepinApi
+from spacewalk.cdn_tools.common import verify_mappings
+from spacewalk.cdn_tools.manifest import Manifest, ManifestValidationError
 from spacewalk.satellite_tools import satCerts
 from spacewalk.server import rhnSQL
 from spacewalk.server.importlib.backendOracle import SQLBackend
@@ -22,9 +26,6 @@ from spacewalk.server.importlib.channelImport import ChannelFamilyImport
 from spacewalk.server.importlib.importLib import ChannelFamily, ContentSource, ContentSourceSsl
 from spacewalk.server.importlib.contentSourcesImport import ContentSourcesImport
 from spacewalk.server.rhnServer.satellite_cert import SatelliteCert
-from common import verify_mappings
-import constants
-from manifest import Manifest, ManifestValidationError
 
 
 class Activation(object):
@@ -195,3 +196,12 @@ class Activation(object):
         Activation._remove_certificates()
         print("Removing manifest repositories...")
         Activation._remove_repositories()
+
+    @staticmethod
+    def download_manifest(old_manifest_path, http_proxy=None, http_proxy_username=None,
+                          http_proxy_password=None):
+        manifest = Manifest(old_manifest_path)
+        candlepin_api = CandlepinApi(current_manifest=manifest, http_proxy=http_proxy,
+                                     http_proxy_username=http_proxy_username,
+                                     http_proxy_password=http_proxy_password)
+        return candlepin_api.export_manifest()

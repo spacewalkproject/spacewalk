@@ -13,6 +13,7 @@
 #
 
 import os
+import sys
 import tempfile
 
 import requests
@@ -95,12 +96,21 @@ class CandlepinApi(object):
         else:
             verify = False
 
+        response = None
         if self.username is not None and self.password is not None:
-            response = requests.get(url, params=params, proxies=self._get_proxies(),
-                                    auth=(self.username, self.password), verify=verify)
+            try:
+                response = requests.get(url, params=params, proxies=self._get_proxies(),
+                                        auth=(self.username, self.password), verify=verify)
+            except requests.RequestException:
+                e = sys.exc_info()[1]
+                print("ERROR: %s" % str(e))
         else:
             cert = self._write_cert()
-            response = requests.get(url, params=params, proxies=self._get_proxies(), verify=verify, cert=cert)
+            try:
+                response = requests.get(url, params=params, proxies=self._get_proxies(), verify=verify, cert=cert)
+            except requests.RequestException:
+                e = sys.exc_info()[1]
+                print("ERROR: %s" % str(e))
             self._delete_cert(cert)
         return response
 
@@ -131,15 +141,17 @@ class CandlepinApi(object):
 
         response = self._call_api(url, params)
 
-        if response.status_code == requests.codes.ok:
-            fd, downloaded_manifest = tempfile.mkstemp(prefix="/tmp/manifest-", suffix=".zip")
-            fo = os.fdopen(fd, 'wb')
-            for chunk in response:
-                fo.write(chunk)
-            fo.flush()
-            fo.close()
-            return downloaded_manifest
-        else:
-            print("Download status code: %s" % response.status_code)
-            print("Message: '%s'" % response.text)
-            return None
+        if response is not None:
+            if response.status_code == requests.codes.ok:
+                fd, downloaded_manifest = tempfile.mkstemp(prefix="/tmp/manifest-", suffix=".zip")
+                fo = os.fdopen(fd, 'wb')
+                for chunk in response:
+                    fo.write(chunk)
+                fo.flush()
+                fo.close()
+                return downloaded_manifest
+            else:
+                print("Download status code: %s" % response.status_code)
+                print("Message: '%s'" % response.text)
+
+        return None

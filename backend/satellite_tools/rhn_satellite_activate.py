@@ -22,7 +22,7 @@ import re
 from optparse import Option, OptionParser
 from M2Crypto import X509
 
-
+from rhn.connections import idn_ascii_to_puny
 # Check if python-rhsm is installed
 try:
     from rhsm.config import RhsmConfigParser
@@ -281,7 +281,8 @@ def processCommandline():
         Option('--manifest',     action='store',      help='the RHSM manifest path/filename to activate for CDN'),
         Option('--rhn-cert', action='store', help='this option is deprecated, use --manifest instead'),
         Option('--cdn-deactivate', action='store_true', help='deactivate CDN-activated Satellite'),
-        Option('--disconnected', action='store_true', help="activate locally, not subscribe to remote repository")
+        Option('--disconnected', action='store_true', help="activate locally, not subscribe to remote repository"),
+        Option('--download-manifest', action='store_true', help="download refreshed manifest from RHSM")
     ]
 
     parser = OptionParser(option_list=options)
@@ -308,6 +309,14 @@ def processCommandline():
 """)
         sys.exit(1)
 
+    options.http_proxy = idn_ascii_to_puny(CFG.HTTP_PROXY)
+    options.http_proxy_username = CFG.HTTP_PROXY_USERNAME
+    options.http_proxy_password = CFG.HTTP_PROXY_PASSWORD
+    if options.verbose:
+        print 'HTTP_PROXY: %s' % options.http_proxy
+        print 'HTTP_PROXY_USERNAME: %s' % options.http_proxy_username
+        print 'HTTP_PROXY_PASSWORD: <password>'
+
     return options
 
 
@@ -323,6 +332,7 @@ def main():
         13   certificate missing in manifest
         14   manifest signature incorrect
         15   cannot load mapping files
+        16   manifest download failed
         20   remote activation failure (general, and really unknown why)
         30   local activation failure
         40   channel population failure
@@ -369,10 +379,24 @@ def main():
 
     if not options.manifest:
         if os.path.exists(DEFAULT_RHSM_MANIFEST_LOCATION):
+            # Get new refreshed manifest from Candlepin server
+            if options.download_manifest:
+                print("Downloading manifest...")
+                path = cdn_activation.Activation.download_manifest(
+                    DEFAULT_RHSM_MANIFEST_LOCATION,
+                    http_proxy=options.http_proxy,
+                    http_proxy_username=options.http_proxy_username,
+                    http_proxy_password=options.http_proxy_password)
+                if not path:
+                    writeError("Download of manifest failed!")
+                    return 16
+                options.manifest = path
+                print("New manifest downloaded to: '%s'" % path)
+                return 0
             options.manifest = DEFAULT_RHSM_MANIFEST_LOCATION
         else:
             writeError("Manifest was not provided. Run the activation tool with option --manifest=MANIFEST.")
-            sys.exit(1)
+            return 1
     # Handle RHSM manifest
     try:
         cdn_activate = cdn_activation.Activation(options.manifest)
