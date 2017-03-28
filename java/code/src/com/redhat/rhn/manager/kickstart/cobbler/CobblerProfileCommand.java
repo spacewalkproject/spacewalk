@@ -106,9 +106,6 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
 
         Map meta = profile.getKsMeta();
         meta.put("org", this.ksData.getOrg().getId());
-        if (this.ksData.getUrl().startsWith("/")) {
-            meta.put("media_path", this.ksData.getUrl());
-        }
         profile.setKsMeta(meta);
 
         // Check for para_host
