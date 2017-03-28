@@ -257,7 +257,21 @@ public class KickstartUrlHelper {
      */
     public String getCobblerMediaUrl() {
         StringBuilder url = new StringBuilder();
-        url.append(protocol + host + "$" + COBBLER_MEDIA_VARIABLE);
+        url.append(getCobblerMediaUrlBase() + "$" + COBBLER_MEDIA_VARIABLE);
+        log.debug("returning: " + url);
+        return url.toString();
+    }
+
+    /**
+     * Get the cobbler style --url base:
+     *
+     * http://$http_server/
+     *
+     * @return String base url , cobbler style: http://$http_server/
+     */
+    public String getCobblerMediaUrlBase() {
+        StringBuilder url = new StringBuilder();
+        url.append(protocol + host);
         log.debug("returning: " + url);
         return url.toString();
     }
