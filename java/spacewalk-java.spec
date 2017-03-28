@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.41
+Version: 2.7.42
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -710,6 +710,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 28 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.42-1
+- run checkstyle on Fedora again
+- fixed new checkstyle errors
+- newer checkstyle requires commons-lang3
+- use same requires on Fedora and RHEL7
+
 * Mon Mar 27 2017 Gennadii Altukhov <galt@redhat.com> 2.7.41-1
 - 1421115 - set number of bytes instead of length of java string for 'Content-
   Length' HTTP-header
