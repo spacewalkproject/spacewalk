@@ -14,31 +14,100 @@ Utility to monitor what the taskomatic daemon is doing.
 </RefNameDiv>
 
 <RefSynopsisDiv>
-<Synopsis>
     <cmdsynopsis>
         <command>taskotop</command>
+        <group>
+	    <arg choice="plain">-e</arg>
+	    <arg choice="plain">-r</arg>
+	</group>
+        <arg>-m <replaceable>MAXAGE</replaceable></arg>
+        <arg>-n <replaceable>NUMITERATIONS</replaceable></arg>
+        <arg>-t</arg>
+        <arg>-v<arg>-v<arg>-v<arg>-v</arg></arg></arg></arg>
+        <arg>--hide-elapsed</arg>
+        <arg>--show-start</arg>
+        <arg>--logfile <replaceable>LOGFILE</replaceable></arg>
     </cmdsynopsis>
-</Synopsis>
+    <cmdsynopsis>
+        <command>taskotop</command>
+        <group>
+	    <arg choice="plain">--each-task</arg>
+	    <arg choice="plain">--recent-history</arg>
+	</group>
+        <arg>--max-age <replaceable>MAXAGE</replaceable></arg>
+        <arg>-n <replaceable>NUMITERATIONS</replaceable></arg>
+        <arg>--taskomatic</arg>
+        <arg>--verbose<arg>--verbose<arg>--verbose<arg>--verbose</arg></arg></arg></arg>
+        <arg>--hide-elapsed</arg>
+        <arg>--show-start</arg>
+        <arg>--logfile <replaceable>LOGFILE</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <command>taskotop</command>
+        <arg>-h</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <command>taskotop</command>
+        <arg>--help</arg>
+    </cmdsynopsis>
 </RefSynopsisDiv>
 
 <RefSect1><Title>Description</Title>
     <para>
-        <emphasis>taskotop</emphasis> - displays status of currently-executing or recently-completed taskomatic tasks.
+        <command>taskotop</command> is a utility that displays the status of currently-executing or recently-completed taskomatic tasks.  It optionally displays information about the running taskomatic daemon.
     </para>
     <para>
-        taskotop provides an updating terminal-window view of the currently-executing taskomatic tasks, similar to the way the 'top' command works for general processes. It provides the following information for tasks that are currently executing or which have finished within the last minute:
-    </para>
-    <para>
-        RUN ID - unique ID of the run. An ID can be used to obtain additional information. If a specific task produced any standard output or error output during its run, it can be found in /var/log/rhn/tasko/sat/*/*_RUN_ID_{out,err}.
-    </para>
-    <para>
-        TASK NAME - name of a taskomatic task as shown on Admin/Task Schedules, 'Bunch' details. For example, the <emphasis>cleanup-data-bunch</emphasis> includes the TASK NAMEs 'cleanup-packagechangelog-data' and 'cleanup-timeseries-data'.
-    </para>
-    <para>
-        ELAPSED TIME - displays how long the task has been running.
-    </para>
-    <para>
-        CHANNEL - valid for a channel-repodata task in running state, shows label of the channel for which taskomatic is currently processing data.
+        <command>taskotop</command> provides an updating terminal-window view of the currently-executing taskomatic tasks, similar to the way the <application>top</application> command works for general processes. It provides the following information for tasks that are currently executing or which have finished within the last minute:
+        <variablelist>
+	  <varlistentry>
+	    <term>RUN ID</term>
+	    <listitem>
+	      <para>
+		Unique ID of the run. An ID can be used to obtain additional information. If a specific task produced any standard output or error output during its run, it can be found in /var/log/rhn/tasko/sat/*/*_RUN_ID_{out,err}.
+	      </para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>TASK NAME</term>
+	    <listitem>
+	      <para>
+		Name of a taskomatic task as shown on Admin/Task Schedules, 'Bunch' details. For example, the <emphasis>cleanup-data-bunch</emphasis> includes the TASK NAMEs 'cleanup-packagechangelog-data' and 'cleanup-timeseries-data'.
+	      </para>
+	    </listitem>
+	  </varlistentry>	  
+    	  <varlistentry>
+	    <term>START</term>
+	    <listitem>
+	      <para>
+		The date and time the task run was started.  This column of information is hidden by default and can be enabled with the <option>--show-start</option> command line argument.
+	      </para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>ELAPSED</term>
+	    <listitem>
+	      <para>
+		How long the task has been running.  This column of information is displayed by default and can be hidden with the <option>--hide-elapsed</option> command line option.
+	      </para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>END</term>
+	    <listitem>
+	      <para>
+		The date and time the task run ended.
+	      </para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>CHANNEL</term>
+	    <listitem>
+	      <para>
+		When a channel-repodata task is in the running state, this column shows the label of the channel for which taskomatic is currently processing data.
+	      </para>
+	    </listitem>
+	  </varlistentry>
+        </variablelist>
     </para>
     <para>
         The general taskomatic log file can be found at /var/log/rhn/rhn_taskomatic_daemon.log
@@ -50,7 +119,145 @@ Utility to monitor what the taskomatic daemon is doing.
     <varlistentry>
         <term>-h, --help</term>
         <listitem>
-            <para>Display the help screen with a list of options.</para>
+            <para>
+	        Display the help screen with a list of options.
+	    </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-e, --each-task</term>
+        <listitem>
+            <para>
+                Display most recent run for each task instead of recent task run history.
+	    </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+	<term>-r, --recent-history</term>
+	<listitem>
+	    <para>
+	        Display recent history of task runs. This is the default display mode.
+	    </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+	<term>-H, --human-readable</term>
+	<listitem>
+	    <para>
+                Use human readable time output. Time will be displayed in the format [[days:]hours:]min:sec instead of total seconds.
+	    </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+	<term>-m <replaceable>MAXAGE</replaceable>, --max-age <replaceable>MAXAGE</replaceable></term>
+	<listitem>
+	    <para>
+                Retrieve past events up to this old (in seconds, default 60). This has no effect if -e/--each-task is specified.
+	    </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+	<term>-n <replaceable>NUMITERATIONS</replaceable></term>
+	<listitem>
+	    <para>
+                <command>taskotop</command> will iterate the specified number of times and then exit. If not specified, <command>taskotop</command> will run until the user exits taskotop.
+	    </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+	<term>-t, --taskomatic</term>
+	<listitem>
+	    <para>
+                Include taskomaticd process information in the output.
+	    </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+	<term>-v [-v [-v [-v] ] ], --verbose [--verbose [--verbose [--verbose] ] ]</term>
+	<listitem>
+	    <para>
+                Increase log output verbosity. Specify multiple times, up to 4 to increase verbosity.
+	    </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+	<term>--hide-elapsed</term>
+	<listitem>
+	    <para>
+                Hide the ELAPSED column in the display.
+	    </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+	<term>--show-start</term>
+	<listitem>
+	    <para>
+                Include the START column in the display.
+	    </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--logfile <replaceable>LOGFILE</replaceable></term>
+        <listitem>
+            <para>
+                Specify logfile to use if at least one verbose arg specified. Default is ./taskotop.log
+	    </para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Interactive Commands</Title>
+<para>
+    While <command>taskotop</command> is running, these one-character interactive commands may be used.
+</para>
+<variablelist>
+    <varlistentry>
+        <term>e</term>
+        <listitem>
+            <para>
+	        Change display mode to show each task's latest run.
+	    </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>h</term>
+        <listitem>
+            <para>
+	        Display the interactive command help page.
+	    </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>H</term>
+        <listitem>
+            <para>
+	        Toggle human readable format.  This toggles the time display between [[days:]hours:]min:sec format and total seconds.
+	    </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>q</term>
+        <listitem>
+            <para>
+	        Quit <command>taskotop</command>.
+	    </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>r</term>
+        <listitem>
+            <para>
+	        Change display mode to show recent history of task runs.
+	    </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>t</term>
+        <listitem>
+            <para>
+	        Toggle taskomatic process information display.
+	    </para>
         </listitem>
     </varlistentry>
 </variablelist>
@@ -59,6 +266,7 @@ Utility to monitor what the taskomatic daemon is doing.
 <RefSect1><Title>Authors</Title>
 <simplelist>
     <member>Tomas Kasparek<email>tkasparek@redhat.com</email></member>
+    <member>Eric Herget<email>eherget@redhat.com</email></member>
 </simplelist>
 </RefSect1>
 </RefEntry>
