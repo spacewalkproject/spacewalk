@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.7.8
+Version:	2.7.9
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,16 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Mar 28 2017 Eric Herget <eherget@redhat.com> 2.7.9-1
+- 1434564 - Update taskotop man page
+- 1434564 - Add command line argument to optionally specify the number of times
+  taskotop should iterate before exiting.
+- 1434564 - Modify output columns to include task run end time and optional
+  task run start time.  Drop the status column because its redundant.
+- 1434564 - Add new 'each task' display mode
+- docbook manpage for delete-old-systems-interactive
+- rewrite delete-old-systems-interactive into python
+
 * Wed Mar 15 2017 Eric Herget <eherget@redhat.com> 2.7.8-1
 - 1432629 - add taskomaticd process info in optional header to taskotop
 - remove system currency generation script
