@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.42
+Version: 2.7.43
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -710,6 +710,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 29 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.43-1
+- fix perrmissions on /usr/share/spacewalk/taskomatic/*.jar
+
 * Tue Mar 28 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.42-1
 - run checkstyle on Fedora again
 - fixed new checkstyle errors
