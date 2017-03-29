@@ -700,8 +700,8 @@ fi
 %{_datadir}/rhn/lib/rhn.jar
 
 %files oracle
-%defattr(644, tomcat, tomcat)
-%{jardir}/ojdbc14.jar
+%defattr(644,root,root,775)
+%attr(644, tomcat, tomcat) %{jardir}/ojdbc14.jar
 %{_prefix}/share/spacewalk/taskomatic/ojdbc14.jar
 %{_prefix}/share/spacewalk/taskomatic/quartz-oracle.jar
 
