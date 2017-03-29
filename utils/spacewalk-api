@@ -95,6 +95,17 @@ while (my $param = shift @ARGV) {
 
 my $data = $client->call(@params);
 
+$Data::Dumper::Useqq = 1;
+
+{ no warnings 'redefine';
+    sub Data::Dumper::qquote {
+        my $s = shift;
+        return "'$s'";
+    }
+}
+
+binmode STDOUT, ':encoding(UTF-8)';
+
 print Data::Dumper->Dump([$data], ["result"]);
 
 if ($login) {
