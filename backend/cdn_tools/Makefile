@@ -4,7 +4,7 @@ TOP	= ..
 SUBDIR	= cdn_tools
 SUBDIRS = 
 SPACEWALK_FILES	= __init__  constants  manifest \
-            activation cdnsync repository common
+            activation cdnsync repository common candlepin_api
 SCRIPTS = cdn-sync
 
 # check if we can build man pages
