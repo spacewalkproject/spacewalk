@@ -458,6 +458,8 @@ install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/unit-tests
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/lib
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/classes
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/lib
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/spacewalk/taskomatic
 install -d -m 755 $RPM_BUILD_ROOT%{cobprofdir}
 install -d -m 755 $RPM_BUILD_ROOT%{cobprofdirup}
@@ -511,6 +513,11 @@ ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT$TASKOMATIC_BUILD_DIR/ojdbc14.ja
 ln -s -f %{_javadir}/quartz-oracle.jar $RPM_BUILD_ROOT$TASKOMATIC_BUILD_DIR/quartz-oracle.jar
 rm -f $RPM_BUILD_ROOT$TASKOMATIC_BUILD_DIR/slf4j*nop.jar
 rm -f $RPM_BUILD_ROOT$TASKOMATIC_BUILD_DIR/slf4j*simple.jar
+
+# special links for rhn-search
+RHN_SEARCH_BUILD_DIR=%{_prefix}/share/rhn/search/lib
+ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT$RHN_SEARCH_BUILD_DIR/ojdbc14.jar
+ln -s -f %{_javadir}/postgresql-jdbc.jar $RPM_BUILD_ROOT$RHN_SEARCH_BUILD_DIR/postgresql-jdbc.jar
 
 # 732350 - On Fedora 15, mchange's log stuff is no longer in c3p0.
 %if 0%{?fedora} || 0%{?rhel} >= 7
@@ -702,12 +709,14 @@ fi
 %files oracle
 %defattr(644,root,root,775)
 %attr(644, tomcat, tomcat) %{jardir}/ojdbc14.jar
+%{_prefix}/share/rhn/search/lib/ojdbc14.jar
 %{_prefix}/share/spacewalk/taskomatic/ojdbc14.jar
 %{_prefix}/share/spacewalk/taskomatic/quartz-oracle.jar
 
 %files postgresql
-%defattr(644, tomcat, tomcat)
-%{jardir}/postgresql-jdbc.jar
+%defattr(644,root,root,775)
+%attr(644, tomcat, tomcat) %{jardir}/postgresql-jdbc.jar
+%{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
 * Wed Mar 29 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.43-1
