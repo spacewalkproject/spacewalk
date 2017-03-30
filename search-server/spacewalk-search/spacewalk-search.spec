@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.1
+Version: 2.7.2
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -227,6 +227,10 @@ fi
 %endif
 
 %changelog
+* Thu Mar 30 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.2-1
+- simplified Requires/Buildrequires ifdefs
+- added missing requires
+
 * Thu Mar 30 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.1-1
 - simplify rhn-search jar list
 
