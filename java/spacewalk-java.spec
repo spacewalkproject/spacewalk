@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.43
+Version: 2.7.44
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -719,6 +719,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 30 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.44-1
+- simplify rhn-search jar list
+
 * Wed Mar 29 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.43-1
 - fix perrmissions on /usr/share/spacewalk/taskomatic/*.jar
 
