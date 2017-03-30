@@ -65,6 +65,7 @@ Obsoletes: rhn-search < 5.3.0
 BuildRequires: ant
 #BuildRequires: apache-ibatis-sqlmap
 BuildRequires: c3p0 >= 0.9.1
+BuildRequires: cglib
 BuildRequires: jakarta-commons-httpclient
 %if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
 BuildRequires: apache-commons-cli
@@ -85,6 +86,7 @@ BuildRequires: log4j
 %endif
 %if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
 BuildRequires: jakarta-oro
+BuildRequires: objectweb-asm
 %else
 BuildRequires: oro
 %endif
