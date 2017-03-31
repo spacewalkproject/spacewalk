@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.7.3
+Version:        2.7.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -116,6 +116,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Mar 31 2017 Laurence Rochfort <laurence.rochfort@oracle.com>
+- 1430747 - Add support for Oracle 12.2.
+
 * Wed Mar 22 2017 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.3-1
 - require three perl libs because of failure on fc25
 - Migrating Fedorahosted to GitHub
