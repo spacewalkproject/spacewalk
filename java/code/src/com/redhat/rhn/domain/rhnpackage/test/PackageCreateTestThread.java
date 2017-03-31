@@ -29,7 +29,7 @@ class PackageCreateTestThread implements Runnable {
     private String pkgName;
     private List accum;
 
-    public PackageCreateTestThread(String packageName, List accumulator) {
+    PackageCreateTestThread(String packageName, List accumulator) {
         pkgName = packageName;
         accum = accumulator;
     }

@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.7.2
+Version:        2.7.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -33,6 +33,9 @@ Requires:       spacewalk-setup-jabberd
 Requires:       spacewalk-base-minimal
 Requires:       spacewalk-base-minimal-config
 Requires:       curl
+Requires:	perl-Mail-RFC822-Address
+Requires:	perl-DateTime
+Requires:	perl-Net-LibIDN
 
 %description
 A collection of post-installation scripts for managing Spacewalk's initial
@@ -113,8 +116,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
-* Mon Mar 20 2017 Laurence Rochfort <laurence.rochfort@oracle.com> 2.7.2-1
-- 1430747 - Add support for Oracle 12.2
+* Wed Mar 22 2017 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.3-1
+- require three perl libs because of failure on fc25
+- Migrating Fedorahosted to GitHub
 
 * Tue Feb 21 2017 Jan Dobes 2.7.2-1
 - 1416804 - reset stdin for failed connections

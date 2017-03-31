@@ -28,9 +28,9 @@ import java.util.Map;
  * @version $Rev$
  */
 public enum SELinuxMode {
-    ENFORCING ("enforcing"),
+    ENFORCING("enforcing"),
     PERMISSIVE("permissive"),
-    DISABLED ("disabled");
+    DISABLED("disabled");
     private static final Map<String, SELinuxMode> MODE_MAP =
                                     new HashMap<String, SELinuxMode>();
 

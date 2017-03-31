@@ -1,7 +1,7 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
 Version: 1.62
-Release: 3%{?dist}
+Release: 4%{?dist}
 License:  GPL+ or Artistic
 Group: Development/Libraries
 Source0: DBD-Oracle-%{version}.tar.gz
@@ -11,6 +11,13 @@ BuildRoot: %{_tmppath}/perl-DBD-Oracle-buildroot/
 BuildRequires: perl >= 0:5.6.1, perl(DBI)
 BuildRequires: perl(ExtUtils::MakeMaker)
 BuildRequires: oracle-instantclient11.2-devel
+BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  make
+BuildRequires:  perl
+BuildRequires:  perl-generators
+BuildRequires:  perl(strict)
+
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # the version requires is not automatically picked up
 Requires: perl(DBI) >= 1.51
@@ -60,6 +67,9 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man3/*
 
 %changelog
+* Tue Mar 28 2017 Michael Mraka <michael.mraka@redhat.com> 1.62-4
+- since Fedora 25 perl is not in default buildroot
+
 * Thu Jan 29 2015 Tomas Lestach <tlestach@redhat.com> 1.62-3
 - we need to use the exact oracle instantclient version
 

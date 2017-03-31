@@ -30,7 +30,7 @@ public class LabelTest extends TestCase {
         private String beerLabel;
         private String beerName;
 
-        public BeerLabel(String name, String label) {
+        BeerLabel(String name, String label) {
             this.beerLabel = label;
             this.beerName = name;
         }

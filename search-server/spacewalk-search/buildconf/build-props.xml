@@ -5,14 +5,9 @@
   </condition>
 
   <property name="jpackage.jars"
-      value="
-      c3p0 commons-cli commons-codec commons-httpclient commons-lang commons-logging
-      ${log4j}
-      oro
-      quartz
-      redstone-xmlrpc redstone-xmlrpc-client
-      simple-core
-      tanukiwrapper
-     " />
+      value="c3p0 cglib commons-cli commons-codec commons-httpclient commons-lang
+             commons-logging ${log4j} mchange-commons objectweb-asm/asm oro
+             quartz redstone-xmlrpc redstone-xmlrpc-client simple-core
+             slf4j/api slf4j/jdk14 tanukiwrapper" />
 
 </project>

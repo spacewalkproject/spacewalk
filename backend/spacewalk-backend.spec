@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.57
+Version: 2.7.63
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,31 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Fri Mar 24 2017 Jiri Dostal <jdostal@redhat.com> 2.7.63-1
+- Make spacewalk-remove-channel python3 compatible
+
+* Fri Mar 24 2017 Jiri Dostal <jdostal@redhat.com> 2.7.62-1
+- filter channels to removed by patern with '*' - e.g. 'fedora19*'
+- Fix suboptimal wording
+
+* Thu Mar 23 2017 Jan Dobes 2.7.61-1
+- 1427231 - set interrupt callback to not retry
+- 1427231 - it's not necessarily interrupted by user and the return code should
+  not be zero
+- 1427231 - propagate first detected fatal exception from child threads and
+  interrupt downloading
+
+* Thu Mar 23 2017 Gennadii Altukhov <galt@redhat.com> 2.7.60-1
+- 1434786 - show list of non-available channels at the beginning of syncing
+
+* Thu Mar 23 2017 Gennadii Altukhov <galt@redhat.com> 2.7.59-1
+- 1434786 - ignore channels which are not exist or not available
+
+* Mon Mar 20 2017 Gennadii Altukhov <galt@redhat.com> 2.7.58-1
+- 1433365 - show error message if we cannot download repomd.xml during counting
+  packages
+- 1433365 - fix http proxy configuration for yum_src
+
 * Mon Mar 20 2017 Gennadii Altukhov <galt@redhat.com> 2.7.57-1
 - 1418025 - fix package downloading for Kickstart addons. Add parsing repodata
   for addons repository and download all packages according to its location.

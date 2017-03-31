@@ -19,6 +19,7 @@
 
 import sys
 import os
+import fnmatch
 from optparse import Option, OptionParser
 
 # quick check to see if you are a super-user.
@@ -106,9 +107,9 @@ def main():
         keys = dict_parents.keys()
         keys.sort()
         for c in keys:
-            print c
+            print(c)
             for sub in dict_parents[c]:
-                print "\t" + sub
+                print("\t" + sub)
         sys.exit(0)
 
     # Verify if the channel is valid
@@ -117,18 +118,20 @@ def main():
         channels[channel] = None
 
     for parent in options.channel_with_children:
-        if parent in dict_parents:
-            channels[parent] = None
-            for ch in dict_parents[parent]:
-                channels[ch] = None
-        else:
-            print "Unknown parent channel %s" % parent
+        matchs = fnmatch.filter(dict_parents, parent)
+        for parent in matchs:
+            if parent in dict_parents:
+                channels[parent] = None
+                for ch in dict_parents[parent]:
+                    channels[ch] = None
+        if not matchs:
+            print("Unknown parent channel %s" % parent)
             sys.exit(-1)
 
     child_test_fail = False
     for channel in channels.keys():
         if channel not in dict_label:
-            print "Unknown channel %s" % channel
+            print("Unknown channel %s" % channel)
             sys.exit(-1)
         if not options.skip_channels and not options.just_kickstart_trees:
             # Sanity check: verify subchannels are deleted as well if base
@@ -142,10 +145,10 @@ def main():
                     child_test_fail = True
                     children.append(subch)
             if children:
-                print "Error: cannot remove channel %s: subchannel(s) exist: " % (
-                    channel)
+                print("Error: cannot remove channel %s: subchannel(s) exist: " % (
+                    channel))
                 for child in children:
-                    print "\t\t\t" + child
+                    print("\t\t\t" + child)
 
     if child_test_fail:
         sys.exit(-1)
@@ -187,7 +190,8 @@ if __name__ == '__main__':
     except SystemExit:
         # Normal exit
         raise
-    except Exception, e:
+    except Exception:
+        e = sys.exc_info()[1]
         releaseLOCK()
         sys.stderr.write("\nERROR: unhandled exception occurred: (%s).\n" % e)
         import traceback

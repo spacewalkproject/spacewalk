@@ -27,7 +27,7 @@ class SessionInfo {
     private Session session;
     private Transaction txn;
 
-    public SessionInfo(Session sessionIn) {
+    SessionInfo(Session sessionIn) {
         session = sessionIn;
     }
 

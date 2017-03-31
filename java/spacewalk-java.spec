@@ -12,7 +12,7 @@
 %define jardir          %{_localstatedir}/lib/tomcat6/webapps/rhn/WEB-INF/lib
 %endif
 
-%if 0%{?rhel} || 0%{?fedora} <= 22
+%if 0%{?rhel} || 0%{?fedora}
 %define run_checkstyle  1
 %endif
 
@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.38
+Version: 2.7.44
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -54,42 +54,24 @@ Requires: struts >= 0:1.3.0
 Requires: susestudio-java-client
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
-%if 0%{?fedora}
-Requires: apache-commons-el
-Requires: hibernate3 >= 3.6.10
-Requires: hibernate3-c3p0 >= 3.6.10
-Requires: hibernate3-ehcache >= 3.6.10
-Requires: javassist
-Requires: tomcat-taglibs-standard
-BuildRequires: apache-commons-el
-BuildRequires: ehcache-core
-BuildRequires: hibernate3 >= 0:3.6.10
-BuildRequires: hibernate3-c3p0 >= 3.6.10
-BuildRequires: hibernate3-ehcache >= 3.6.10
-BuildRequires: javassist
-BuildRequires: tomcat-taglibs-standard
-%else
-Requires: hibernate3 = 0:3.2.4
-Requires: jakarta-commons-el
-Requires: jakarta-taglibs-standard
-Requires: oscache
-BuildRequires: hibernate3 = 0:3.2.4
-BuildRequires: jakarta-commons-el
-BuildRequires: jakarta-taglibs-standard
-BuildRequires: oscache
-%endif
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires:      apache-commons-cli
 Requires:      apache-commons-codec
 Requires:      apache-commons-discovery
+Requires:      apache-commons-el
 Requires:      apache-commons-fileupload
 Requires:      apache-commons-io
 Requires:      apache-commons-lang
 Requires:      apache-commons-logging
+Requires:      hibernate3 >= 3.6.10
+Requires:      hibernate3-c3p0 >= 3.6.10
+Requires:      hibernate3-ehcache >= 3.6.10
 Requires:      javapackages-tools
+Requires:      javassist
 Requires:      servlet >= 3.0
 Requires:      tomcat >= 7
 Requires:      tomcat-lib >= 7
+Requires:      tomcat-taglibs-standard
 # obsolete old jpackage rpms to make smooth upgrade
 Obsoletes:     classpathx-jaf <= 1.1.1
 Obsoletes:     classpathx-mail <= 1.1.2
@@ -110,40 +92,55 @@ BuildRequires: apache-commons-cli
 BuildRequires: apache-commons-codec
 BuildRequires: apache-commons-collections
 BuildRequires: apache-commons-discovery
+BuildRequires: apache-commons-el
 BuildRequires: apache-commons-fileupload
 BuildRequires: apache-commons-io
 BuildRequires: apache-commons-logging
 BuildRequires: apache-commons-validator
 # spelling checker is only for Fedoras (no aspell in RHEL6)
 BuildRequires: aspell aspell-en libxslt
+BuildRequires: ehcache-core
+BuildRequires: hibernate3 >= 0:3.6.10
+BuildRequires: hibernate3-c3p0 >= 3.6.10
+BuildRequires: hibernate3-ehcache >= 3.6.10
+BuildRequires: javassist
 BuildRequires: javapackages-tools
 BuildRequires: mvn(ant-contrib:ant-contrib)
 BuildRequires: tomcat >= 7
 BuildRequires: tomcat-lib >= 7
+BuildRequires: tomcat-taglibs-standard
 %else
+Requires:      hibernate3 = 0:3.2.4
 Requires:      jakarta-commons-cli
 Requires:      jakarta-commons-codec
 Requires:      jakarta-commons-discovery
+Requires:      jakarta-commons-el
 Requires:      jakarta-commons-fileupload
 Requires:      jakarta-commons-io
 Requires:      jakarta-commons-lang >= 0:2.1
 Requires:      jakarta-commons-logging
+Requires:      jakarta-taglibs-standard
 Requires:      jpackage-utils
+Requires:      oscache
 Requires:      struts-taglib >= 0:1.3.0
 Requires:      tomcat6
 Requires:      tomcat6-lib
 Requires:      tomcat6-servlet-2.5-api
 BuildRequires: ant-contrib
 BuildRequires: ant-nodeps
+BuildRequires: hibernate3 = 0:3.2.4
 BuildRequires: jakarta-commons-cli
 BuildRequires: jakarta-commons-codec
 BuildRequires: jakarta-commons-collections
 BuildRequires: jakarta-commons-discovery
+BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-commons-fileupload
 BuildRequires: jakarta-commons-io
 BuildRequires: jakarta-commons-logging
+BuildRequires: jakarta-taglibs-standard
 BuildRequires: jakarta-commons-validator
 BuildRequires: jpackage-utils
+BuildRequires: oscache
 BuildRequires: struts-taglib >= 0:1.3.0
 BuildRequires: tomcat6
 BuildRequires: tomcat6-lib
@@ -179,6 +176,8 @@ BuildRequires: susestudio-java-client
 BuildRequires: tanukiwrapper
 %if 0%{?run_checkstyle}
 BuildRequires: checkstyle
+BuildRequires: apache-commons-cli >= 1.3
+BuildRequires: apache-commons-lang3 >= 3.4
 %endif
 %if ! 0%{?omit_tests} > 0
 BuildRequires: translate-toolkit
@@ -268,6 +267,7 @@ This package contains testing files of spacewalk-java.
 %{_datadir}/rhn/lib/rhn-test.jar
 %{_datadir}/rhn/unit-tests/*
 %{_datadir}/rhn/unittest.xml
+%{jardir}/commons-lang3.jar
 %{jardir}/mockobjects*.jar
 %{jardir}/strutstest*.jar
 %endif
@@ -293,7 +293,12 @@ Requires: spacewalk-java-lib
 Requires: tanukiwrapper
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
+Requires: apache-commons-cli
+Requires: apache-commons-codec
+Requires: apache-commons-dbcp
+Requires: apache-commons-lang
+Requires: apache-commons-logging
 Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
 Requires: hibernate3-ehcache >= 3.6.10
@@ -301,21 +306,13 @@ Requires: javassist
 Requires: tomcat-taglibs-standard
 %else
 Requires: hibernate3 >= 0:3.2.4
-Requires: jakarta-taglibs-standard
-Requires: oscache
-%endif
-%if 0%{?fedora} || 0%{?rhel} >= 7
-Requires: apache-commons-cli
-Requires: apache-commons-codec
-Requires: apache-commons-dbcp
-Requires: apache-commons-lang
-Requires: apache-commons-logging
-%else
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-dbcp
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-logging
+Requires: jakarta-taglibs-standard
+Requires: oscache
 %endif
 Conflicts: quartz >= 2.0
 Obsoletes: taskomatic < 5.3.0
@@ -420,21 +417,15 @@ find . -type f -name '*.xml' | xargs perl -CSAD -lne '
 rm -rf $RPM_BUILD_ROOT
 
 # on Fedora 19 some jars are named differently
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 mkdir -p $RPM_BUILD_ROOT%{_javadir}
 [[ -f %{_javadir}/mchange-commons-java.jar ]] && ln -s -f %{_javadir}/mchange-commons-java.jar $RPM_BUILD_ROOT%{_javadir}/mchange-commons.jar
 [[ -f %{_javadir}/mchange-commons/mchange-commons-java.jar ]] && ln -s -f %{_javadir}/mchange-commons/mchange-commons-java.jar $RPM_BUILD_ROOT%{_javadir}/mchange-commons.jar
 ln -s -f %{_javadir}/jboss-logging/jboss-logging.jar $RPM_BUILD_ROOT%{_javadir}/jboss-logging.jar
-# create missing symlinks on fedora21
-%if 0%{?fedora} >= 21
- ln -s -f %{_javadir}/hibernate-jpa-2.0-api/hibernate-jpa-2.0-api.jar $RPM_BUILD_ROOT%{_javadir}/hibernate-jpa-2.0-api.jar
- ln -s -f %{_javadir}/c3p0/c3p0.jar $RPM_BUILD_ROOT%{_javadir}/c3p0.jar
- ln -s -f %{_javadir}/concurrent/concurrent.jar $RPM_BUILD_ROOT%{_javadir}/concurrent.jar
-%endif
+ln -s -f %{_javadir}/hibernate-jpa-2.0-api/hibernate-jpa-2.0-api.jar $RPM_BUILD_ROOT%{_javadir}/hibernate-jpa-2.0-api.jar
+ln -s -f %{_javadir}/c3p0/c3p0.jar $RPM_BUILD_ROOT%{_javadir}/c3p0.jar
+ln -s -f %{_javadir}/concurrent/concurrent.jar $RPM_BUILD_ROOT%{_javadir}/concurrent.jar
 
-%endif
-
-%if 0%{?fedora} || 0%{?rhel} >= 7
 ant -Dprefix=$RPM_BUILD_ROOT install-tomcat
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat/Catalina/localhost/
 
@@ -467,6 +458,9 @@ install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/unit-tests
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/lib
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/classes
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/lib
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/spacewalk/taskomatic
 install -d -m 755 $RPM_BUILD_ROOT%{cobprofdir}
 install -d -m 755 $RPM_BUILD_ROOT%{cobprofdirup}
 install -d -m 755 $RPM_BUILD_ROOT%{cobprofdirwiz}
@@ -474,52 +468,19 @@ install -d -m 755 $RPM_BUILD_ROOT%{cobdirsnippets}
 install -d -m 755 $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs
 
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 echo "hibernate.cache.region.factory_class=net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory" >> conf/default/rhn_hibernate.conf
-%endif
-%if 0%{?fedora} && 0%{?fedora} >= 21
-echo "wrapper.java.classpath.28=/usr/share/java/log4j-1.jar" >> conf/default/rhn_taskomatic_daemon.conf
-%else
-echo "wrapper.java.classpath.28=/usr/share/java/log4j.jar" >> conf/default/rhn_taskomatic_daemon.conf
-%endif
-%if 0%{?fedora} >= 25
-echo "wrapper.java.classpath.50=/usr/share/java/cglib/cglib.jar" >> conf/default/rhn_taskomatic_daemon.conf
-%else
-echo "wrapper.java.classpath.50=/usr/share/java/cglib.jar" >> conf/default/rhn_taskomatic_daemon.conf
-%endif
-%if 0%{?fedora}
-echo "wrapper.java.classpath.49=/usr/share/java/hibernate3/hibernate-core-3.jar
-wrapper.java.classpath.61=/usr/share/java/hibernate-jpa-2.0-api.jar
-wrapper.java.classpath.62=/usr/share/java/hibernate3/hibernate-ehcache-3.jar
-wrapper.java.classpath.63=/usr/share/java/hibernate3/hibernate-c3p0-3.jar
-wrapper.java.classpath.64=/usr/share/java/hibernate*/hibernate-commons-annotations.jar
-wrapper.java.classpath.65=/usr/share/java/slf4j/api.jar
-wrapper.java.classpath.66=/usr/share/java/jboss-logging.jar
-wrapper.java.classpath.67=/usr/share/java/javassist.jar
-wrapper.java.classpath.68=/usr/share/java/ehcache-core.jar
-wrapper.java.classpath.69=/usr/share/java/tomcat-taglibs-standard/taglibs-build-tools.jar
-wrapper.java.classpath.70=/usr/share/java/tomcat-taglibs-standard/taglibs-standard-compat.jar
-wrapper.java.classpath.71=/usr/share/java/tomcat-taglibs-standard/taglibs-standard-impl.jar
-wrapper.java.classpath.72=/usr/share/java/tomcat-taglibs-standard/taglibs-standard-jstlel.jar
-wrapper.java.classpath.73=/usr/share/java/tomcat-taglibs-standard/taglibs-standard-spec.jar
-" >> conf/default/rhn_taskomatic_daemon.conf
 %else
 echo "hibernate.cache.provider_class=org.hibernate.cache.OSCacheProvider" >> conf/default/rhn_hibernate.conf
-echo "wrapper.java.classpath.49=/usr/share/java/hibernate3.jar
-wrapper.java.classpath.17=/usr/share/java/taglibs-standard.jar
-wrapper.java.classpath.32=/usr/share/java/taglibs-core.jar
-" >> conf/default/rhn_taskomatic_daemon.conf
 %endif
 install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_hibernate.conf
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
 install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
 install -m 644 conf/rhn_java.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
 install -m 644 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
-# LOGROTATE >= 3.8 requires extra permission config
-%if 0%{?fedora} || 0%{?rhel} > 6
-sed -i 's/#LOGROTATE-3.8#//' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
-%endif
 %if 0%{?fedora} || 0%{?rhel} >= 7
+# LOGROTATE >= 3.8 requires extra permission config
+sed -i 's/#LOGROTATE-3.8#//' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
 install -m 755 scripts/taskomatic $RPM_BUILD_ROOT%{_sbindir}
 install -m 644 scripts/taskomatic.service $RPM_BUILD_ROOT%{_unitdir}
 %else
@@ -546,8 +507,20 @@ install -d -m 755 $RPM_BUILD_ROOT%{realcobsnippetsdir}
 ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT%{realcobsnippetsdir}/spacewalk
 touch $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs/audit-review.log
 
+# special links for taskomatic
+TASKOMATIC_BUILD_DIR=%{_prefix}/share/spacewalk/taskomatic
+ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT$TASKOMATIC_BUILD_DIR/ojdbc14.jar
+ln -s -f %{_javadir}/quartz-oracle.jar $RPM_BUILD_ROOT$TASKOMATIC_BUILD_DIR/quartz-oracle.jar
+rm -f $RPM_BUILD_ROOT$TASKOMATIC_BUILD_DIR/slf4j*nop.jar
+rm -f $RPM_BUILD_ROOT$TASKOMATIC_BUILD_DIR/slf4j*simple.jar
+
+# special links for rhn-search
+RHN_SEARCH_BUILD_DIR=%{_prefix}/share/rhn/search/lib
+ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT$RHN_SEARCH_BUILD_DIR/ojdbc14.jar
+ln -s -f %{_javadir}/postgresql-jdbc.jar $RPM_BUILD_ROOT$RHN_SEARCH_BUILD_DIR/postgresql-jdbc.jar
+
 # 732350 - On Fedora 15, mchange's log stuff is no longer in c3p0.
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 ln -s -f %{_javadir}/mchange-commons.jar $RPM_BUILD_ROOT%{jardir}/mchange-commons.jar
 %endif
 
@@ -638,7 +611,7 @@ fi
 %{jardir}/dom4j.jar
 %{jardir}/dwr.jar
 %{jardir}/hibernate3*
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %{jardir}/ehcache-core.jar
 %{jardir}/*_hibernate-commons-annotations.jar
 %{jardir}/hibernate-jpa-2.0-api*.jar
@@ -646,8 +619,11 @@ fi
 %{jardir}/slf4j_api.jar
 %{jardir}/slf4j_log4j12*.jar
 %{jardir}/mchange-commons.jar
-%{_javadir}/mchange-commons.jar
+%{_javadir}/c3p0.jar
+%{_javadir}/concurrent.jar
+%{_javadir}/hibernate-jpa-2.0-api.jar
 %{_javadir}/jboss-logging.jar
+%{_javadir}/mchange-commons.jar
 %{jardir}/*jboss-logging.jar
 %{jardir}/tomcat-taglibs-standard_taglibs-build-tools.jar
 %{jardir}/tomcat-taglibs-standard_taglibs-standard-compat.jar
@@ -655,11 +631,6 @@ fi
 %{jardir}/tomcat-taglibs-standard_taglibs-standard-jstlel.jar
 %{jardir}/tomcat-taglibs-standard_taglibs-standard-spec.jar
 
-%if 0%{?fedora} >= 21
-%{_javadir}/c3p0.jar
-%{_javadir}/concurrent.jar
-%{_javadir}/hibernate-jpa-2.0-api.jar
-%endif
 
 %else
 %{jardir}/oscache.jar
@@ -719,6 +690,7 @@ fi
 %attr(755, root, root) %{_initrddir}/taskomatic
 %endif
 %{_bindir}/taskomaticd
+%{_datarootdir}/spacewalk/taskomatic
 
 
 %files config
@@ -735,14 +707,41 @@ fi
 %{_datadir}/rhn/lib/rhn.jar
 
 %files oracle
-%defattr(644, tomcat, tomcat)
-%{jardir}/ojdbc14.jar
+%defattr(644,root,root,775)
+%attr(644, tomcat, tomcat) %{jardir}/ojdbc14.jar
+%{_prefix}/share/rhn/search/lib/ojdbc14.jar
+%{_prefix}/share/spacewalk/taskomatic/ojdbc14.jar
+%{_prefix}/share/spacewalk/taskomatic/quartz-oracle.jar
 
 %files postgresql
-%defattr(644, tomcat, tomcat)
-%{jardir}/postgresql-jdbc.jar
+%defattr(644,root,root,775)
+%attr(644, tomcat, tomcat) %{jardir}/postgresql-jdbc.jar
+%{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 30 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.44-1
+- simplify rhn-search jar list
+
+* Wed Mar 29 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.43-1
+- fix perrmissions on /usr/share/spacewalk/taskomatic/*.jar
+
+* Tue Mar 28 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.42-1
+- run checkstyle on Fedora again
+- fixed new checkstyle errors
+- newer checkstyle requires commons-lang3
+- use same requires on Fedora and RHEL7
+
+* Mon Mar 27 2017 Gennadii Altukhov <galt@redhat.com> 2.7.41-1
+- 1421115 - set number of bytes instead of length of java string for 'Content-
+  Length' HTTP-header
+
+* Fri Mar 24 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.40-1
+- simplified taskomatic jar dependencies by linking them into a single
+  directory
+
+* Tue Mar 21 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.39-1
+- include slf4j logger binding
+
 * Mon Mar 20 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.38-1
 - obsolete old jpackage rpms to make smooth upgrade
 

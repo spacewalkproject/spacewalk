@@ -39,7 +39,7 @@ class XmlResourceBundleParser  extends DefaultHandler {
 
     /** constructor
      */
-    public XmlResourceBundleParser() {
+    XmlResourceBundleParser() {
         super();
         thisText = new StringBuffer();
         messages = new HashMap();

@@ -1,13 +1,14 @@
-%{!?perlgen:%define perlgen 5.8}
+%{!?perlgen:%global perlgen 5.8}
 Name: perl-Mail-RFC822-Address
 Version: 0.3
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Mail-RFC822-Address Perl module
 License: distributable
 Group: Development/Libraries
 URL: http://search.cpan.org/search?mode=module&query=Mail%3a%3aRFC822%3a%3aAddress
 BuildRoot: %{_tmppath}/%{name}-root
 Buildarch: noarch
+BuildRequires:	perl
 BuildRequires:	perl(ExtUtils::MakeMaker)
 %if 0%{?rhel} >= 7
 BuildRequires:  perl(Data::Dumper)
@@ -63,6 +64,9 @@ fi
 %files -f Mail-RFC822-Address-%{version}-filelist
 
 %changelog
+* Thu Mar 23 2017 Michael Mraka <michael.mraka@redhat.com> 0.3-13
+- since Fedora 25 perl is not in standard buildroot
+
 * Thu Jun 26 2014 Michael Mraka <michael.mraka@redhat.com> 0.3-12
 - RHEL7 dependency
 

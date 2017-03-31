@@ -35,9 +35,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
+// CHECKSTYLE:OFF
 import static org.hamcrest.Matchers.*;
 import static org.jmock.Expectations.returnValue;
-
+// CHECKSTYLE:ON
 
 public class ListTagTest extends MockObjectTestCase {
     private ListSetTag lst;

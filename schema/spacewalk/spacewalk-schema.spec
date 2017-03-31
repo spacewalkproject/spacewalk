@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.7.13
+Version:        2.7.15
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,12 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Mar 22 2017 Tomas Lestach <tlestach@redhat.com> 2.7.15-1
+- 1434900 - fixing typo in spacewalk-schema-upgrade
+
+* Tue Mar 21 2017 Jiri Dostal <jdostal@redhat.com> 2.7.14-1
+- 1433029 SHA1 Oracle fix
+
 * Fri Mar 17 2017 Jiri Dostal <jdostal@redhat.com> 2.7.13-1
 - 1433029 - Some of monitoring data are not removed from DB
 

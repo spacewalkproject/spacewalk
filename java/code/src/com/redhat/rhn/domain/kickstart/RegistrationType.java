@@ -20,9 +20,9 @@ package com.redhat.rhn.domain.kickstart;
  * @version $Rev$
  */
 public enum RegistrationType {
-    REACTIVATION ("reactivation"),
-    DELETION ("deletion"),
-    NONE ("none");
+    REACTIVATION("reactivation"),
+    DELETION("deletion"),
+    NONE("none");
     public static final String COBBLER_VAR = "SPACEWALK_registration_type";
     private String type;
     RegistrationType(String regType) {

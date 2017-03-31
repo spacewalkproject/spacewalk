@@ -27,6 +27,12 @@ import javax.servlet.http.HttpServletResponse;
 public class CSVMockTestHelper {
 
     /**
+     * Empty default constructor to silence checkstyle :)
+     */
+    private CSVMockTestHelper() {
+    }
+
+    /**
      * Returns the expectations of {@link HttpServletResponse} when CSV Export is performed.
      * @param response the response
      * @param out - the output stream

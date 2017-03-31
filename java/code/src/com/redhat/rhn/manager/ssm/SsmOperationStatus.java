@@ -36,7 +36,7 @@ public enum SsmOperationStatus {
      */
     private String text;
 
-    private SsmOperationStatus(String textIn) {
+    SsmOperationStatus(String textIn) {
         this.text = textIn;
     }
 

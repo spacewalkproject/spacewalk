@@ -273,7 +273,7 @@ public class AccessTest extends BaseTestCaseWithUser {
     class MockUser extends UserImpl {
         private final Set mockRoles;
 
-        public MockUser() {
+        MockUser() {
             mockRoles = new HashSet();
         }
 

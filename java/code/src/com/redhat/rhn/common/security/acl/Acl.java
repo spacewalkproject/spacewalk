@@ -526,7 +526,7 @@ public class Acl {
          * @param obj The object on which to call the method
          * @param meth The method to call
          */
-        public InstanceMethodPair(Object obj, Method meth) {
+        InstanceMethodPair(Object obj, Method meth) {
             instance = obj;
             method = meth;
         }

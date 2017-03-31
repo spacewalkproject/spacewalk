@@ -22,7 +22,7 @@ import constants
 from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
 from spacewalk.common import rhnLog
 from spacewalk.server import rhnSQL
-from spacewalk.server.rhnChannel import ChannelNotFoundError, channel_info
+from spacewalk.server.rhnChannel import channel_info
 from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.contentSourcesImport import ContentSourcesImport
 from spacewalk.server.importlib.channelImport import ChannelImport
@@ -35,7 +35,7 @@ from spacewalk.satellite_tools.satCerts import get_certificate_info, verify_cert
 from spacewalk.satellite_tools.syncLib import log, log2disk, log2
 from spacewalk.satellite_tools.repo_plugins import yum_src, ThreadedDownloader, ProgressBarLogger
 
-from common import CustomChannelSyncError, verify_mappings, human_readable_size
+from common import CustomChannelSyncError, CountingPackagesError, verify_mappings, human_readable_size
 from repository import CdnRepositoryManager, CdnRepositoryNotFoundError
 
 
@@ -397,12 +397,22 @@ class CdnSync(object):
 
         # Check channel availability before doing anything
         not_available = []
+        available = []
         for channel in channels:
             if not self._is_channel_available(channel):
                 not_available.append(channel)
+            else:
+                available.append(channel)
 
+        channels = available
+
+        error_messages = []
+
+        # if we have not_available channels log the error immediately
         if not_available:
-            raise ChannelNotFoundError("  " + "\n  ".join(not_available))
+            msg = "ERROR: these channels either do not exist or are not available:\n" + "\n".join(not_available)
+            log(0, msg)
+            error_messages.append(msg)
 
         # Need to update channel metadata
         self._update_channels_metadata([ch for ch in channels if ch in self.channel_metadata])
@@ -412,7 +422,6 @@ class CdnSync(object):
                 self.cdn_repository_manager.assign_repositories_to_channel(channel)
 
         # Finally, sync channel content
-        error_messages = []
         total_time = timedelta()
         for channel in channels:
             cur_time, failed_packages = self._sync_channel(channel)
@@ -428,6 +437,7 @@ class CdnSync(object):
             rhnLog.initLOG(self.log_path, self.log_level)
             log2disk(0, "Sync of channel completed.")
         log(0, "Total time: %s" % str(total_time).split('.')[0])
+
         return error_messages
 
     def setup_repos_and_sync(self, channels=None, add_repos=None, delete_repos=None):
@@ -512,6 +522,8 @@ class CdnSync(object):
         to_download_count = 0
         repo_tree_to_update = {}
         log2disk(0, "Comparing repomd started.")
+
+        is_missing_repomd = False
         for channel in repo_tree:
             cdn_repodata_path = os.path.join(constants.CDN_REPODATA_ROOT, channel)
             packages_num_path = os.path.join(cdn_repodata_path, "packages_num")
@@ -519,6 +531,12 @@ class CdnSync(object):
 
             sources = repo_tree[channel]
             yum_repos = [self._create_yum_repo(source) for source in sources]
+
+            # check all repomd files were downloaded
+            for yum_repo in yum_repos:
+                new_repomd = os.path.join(yum_repo.repo.basecachedir, yum_repo.name, "repomd.xml.new")
+                if not os.path.isfile(new_repomd):
+                    is_missing_repomd = True
 
             # packages_num file exists and all cached repomd files are up to date => skip
             if os.path.isfile(packages_num_path) and os.path.isfile(packages_size_path) and all(
@@ -604,6 +622,9 @@ class CdnSync(object):
 
         end_time = datetime.now()
         log(0, "Total time: %s" % str(end_time - start_time).split('.')[0])
+        if is_missing_repomd:
+            raise CountingPackagesError("Cannot download some repomd.xml files. "
+                                        "Please, check /var/log/rhn/cdnsync.log for details")
 
     def _channel_line_format(self, channel, longest_label):
         if channel in self.synced_channels:

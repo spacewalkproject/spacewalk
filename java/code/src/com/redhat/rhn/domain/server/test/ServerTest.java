@@ -169,7 +169,7 @@ public class ServerTest extends BaseTestCaseWithUser {
     }
 
     private class VirtEntitledServer extends Server {
-        public VirtEntitledServer(User user) {
+        VirtEntitledServer(User user) {
             setOrg(user.getOrg());
             ServerGroupManager manager = ServerGroupManager.getInstance();
             EntitlementServerGroup group = manager.
@@ -181,7 +181,7 @@ public class ServerTest extends BaseTestCaseWithUser {
     }
 
     private class ServerWithGuests extends Server {
-        public ServerWithGuests() {
+        ServerWithGuests() {
             VirtualInstance vi = new VirtualInstance();
             vi.setUuid(TestUtils.randomString());
             addGuest(vi);

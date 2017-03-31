@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.0
+Version: 2.7.2
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -21,40 +21,7 @@ Requires: c3p0 >= 0.9.1
 Requires: cglib
 Requires: doc-indexes
 Requires: jakarta-commons-httpclient
-%if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
-Requires: apache-commons-cli
-Requires: apache-commons-codec
-Requires: apache-commons-lang
-Requires: apache-commons-logging
-%else
-Requires: jakarta-commons-cli
-Requires: jakarta-commons-codec
-Requires: jakarta-commons-lang >= 0:2.1
-Requires: jakarta-commons-logging
-%endif
-%if 0%{?fedora} >= 20 || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
-BuildRequires: javapackages-tools
-Requires: javapackages-tools
-%else
-Requires: jpackage-utils >= 0:1.5
-%endif
-%if 0%{?fedora} && 0%{?fedora} >= 21
-Requires: log4j12
-%else
-Requires: log4j
-%endif
-%if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
-Requires: jakarta-oro
-%else
-Requires: oro
-%endif
 #Requires: lucene
-%if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
-Requires: mchange-commons
-Requires: objectweb-asm
-%else
-Requires: asm
-%endif
 Requires: quartz < 2.0
 Conflicts: quartz >= 2.0
 Requires: redstone-xmlrpc
@@ -65,35 +32,52 @@ Obsoletes: rhn-search < 5.3.0
 BuildRequires: ant
 #BuildRequires: apache-ibatis-sqlmap
 BuildRequires: c3p0 >= 0.9.1
+BuildRequires: cglib
 BuildRequires: jakarta-commons-httpclient
-%if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
-BuildRequires: apache-commons-cli
-BuildRequires: apache-commons-codec
-BuildRequires: apache-commons-lang
-BuildRequires: apache-commons-logging
-%else
-BuildRequires: jakarta-commons-cli
-BuildRequires: jakarta-commons-codec
-BuildRequires: jakarta-commons-lang >= 0:2.1
-BuildRequires: jakarta-commons-logging
-%endif
 BuildRequires: java-devel >= 1.6.0
-%if 0%{?fedora} && 0%{?fedora} >= 21
-BuildRequires: log4j12
-%else
-BuildRequires: log4j
-%endif
-%if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
-BuildRequires: jakarta-oro
-%else
-BuildRequires: oro
-%endif
 #BuildRequires: lucene
-BuildRequires: quartz
+BuildRequires: quartz < 2.0
 BuildRequires: redstone-xmlrpc
 #BuildRequires: picocontainer
 BuildRequires: tanukiwrapper
 BuildRequires: simple-core
+%if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
+Requires: apache-commons-cli
+Requires: apache-commons-codec
+Requires: apache-commons-lang
+Requires: apache-commons-logging
+Requires: jakarta-oro
+Requires: javapackages-tools
+Requires: mchange-commons
+Requires: objectweb-asm
+BuildRequires: apache-commons-cli
+BuildRequires: apache-commons-codec
+BuildRequires: apache-commons-lang
+BuildRequires: apache-commons-logging
+BuildRequires: jakarta-oro
+BuildRequires: javapackages-tools
+BuildRequires: objectweb-asm
+%else
+Requires: asm
+Requires: jakarta-commons-cli
+Requires: jakarta-commons-codec
+Requires: jakarta-commons-lang >= 0:2.1
+Requires: jakarta-commons-logging
+Requires: jpackage-utils >= 0:1.5
+Requires: oro
+BuildRequires: jakarta-commons-cli
+BuildRequires: jakarta-commons-codec
+BuildRequires: jakarta-commons-lang >= 0:2.1
+BuildRequires: jakarta-commons-logging
+BuildRequires: oro
+%endif
+%if 0%{?fedora} && 0%{?fedora} >= 21
+Requires: log4j12
+BuildRequires: log4j12
+%else
+Requires: log4j
+BuildRequires: log4j
+%endif
 %if 0%{?rhel} && 0%{?rhel} < 7
 Requires(post): chkconfig
 Requires(preun): chkconfig
@@ -243,6 +227,13 @@ fi
 %endif
 
 %changelog
+* Thu Mar 30 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.2-1
+- simplified Requires/Buildrequires ifdefs
+- added missing requires
+
+* Thu Mar 30 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.1-1
+- simplify rhn-search jar list
+
 * Mon Jun 13 2016 Grant Gainey 2.6.1-1
 - spacewalk-search: use apache-nutch 1.9
 - spacewalk-search: build on openSUSE

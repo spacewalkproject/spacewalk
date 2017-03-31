@@ -51,7 +51,7 @@ public class StringUtil {
     /**
      * Script check errors.
      */
-    public static enum ScriptCheckResult {
+    public enum ScriptCheckResult {
         NO_SHELL_DEFINED(1, "stringutil.scriptcheck.error.noshelldefined"),
         NO_SCRIPT_DEFINED(2, "stringutil.scriptcheck.error.noscript");
 

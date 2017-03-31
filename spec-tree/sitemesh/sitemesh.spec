@@ -4,7 +4,7 @@
 
 Name:           sitemesh
 Version:        2.4.2
-Release:        2.5%{?dist}
+Release:        2.6%{?dist}
 Epoch:          0
 Summary:        Sitemesh
 License:        ASL 1.1
@@ -36,12 +36,26 @@ Requires:       jpackage-utils
 BuildRequires:  glibc-langpack-en
 %endif
 BuildRequires:  jpackage-utils
+%if 0%{?fedora} || 0%{?rhel} >= 7
 BuildRequires:  jboss-jsp-2.2-api >= 0:1.0.1
 BuildRequires:  jboss-servlet-3.0-api >= 0:1.0.2
-BuildRequires:  freemarker >= 0:2.3.19
-BuildRequires:  velocity >= 0:1.7
-BuildRequires:  velocity-tools >= 0:2.0
 BuildRequires:  junit >= 0:4.11
+BuildRequires:  velocity >= 0:1.7
+%else
+BuildRequires:  tomcat-jsp-2.2-api >= 0:1.0.1
+BuildRequires:  tomcat6-servlet-2.5-api >= 0:1.0.2
+BuildRequires:  junit >= 0:3.8.2
+BuildRequires:  velocity >= 0:1.4
+%endif
+BuildRequires:  freemarker >= 0:2.3.19
+BuildRequires:  velocity-tools >= 0:2.0
+%if %with ant
+BuildRequires:  ant
+BuildRequires:  ant-junit
+BuildRequires:  java-devel
+BuildRequires:  java_cup
+BuildRequires:  jflex
+%else
 # XXX: 1.4.3-r1
 BuildRequires:  maven-source-plugin >= 0:2.2.1
 BuildRequires:  maven-jar-plugin >= 0:2.4
@@ -67,14 +81,6 @@ BuildRequires:  maven-release-plugin >= 0:2.0
 # XXX: 2.1-alpha-2
 BuildRequires:  maven-war-plugin >= 0:2.1
 #
-%if %with ant
-BuildRequires:  ant
-BuildRequires:  ant-junit
-BuildRequires:  java-devel
-BuildRequires:  java_cup
-BuildRequires:  jflex
-%endif
-#
 BuildRequires:  maven-compiler-plugin
 BuildRequires:  maven-deploy-plugin
 BuildRequires:  maven-install-plugin
@@ -86,6 +92,7 @@ BuildRequires:  maven-resources-plugin
 BuildRequires:  maven-site-plugin
 BuildRequires:  maven-source-plugin
 BuildRequires:  xmvn
+%endif
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/sitemesh-%{namedversion}-%{release}-root
 
@@ -136,9 +143,14 @@ pushd lib
 %{__ln_s} `%{_bindir}/build-classpath freemarker` freemarker.jar
 %{__ln_s} `%{_bindir}/build-classpath java_cup` java_cup.jar
 %{__ln_s} `%{_bindir}/build-classpath jflex` jflex.jar
-%{__ln_s} `%{_bindir}/build-classpath jboss-jsp-2.2-api` jsp.jar
 %{__ln_s} `%{_bindir}/build-classpath junit` junit-3.8.1.jar
+%if 0%{?fedora} || 0%{?rhel} >= 7
+%{__ln_s} `%{_bindir}/build-classpath jboss-jsp-2.2-api` jsp.jar
 %{__ln_s} `%{_bindir}/build-classpath jboss-servlet-3.0-api` servlet.jar
+%else
+%{__ln_s} `%{_bindir}/build-classpath tomcat-jsp-2.2-api` jsp.jar
+%{__ln_s} `%{_bindir}/build-classpath tomcat6-servlet-2.5-api` servlet.jar
+%endif
 %{__ln_s} `%{_bindir}/build-classpath velocity` velocity-dep-1.3.1.jar
 %{__ln_s} `%{_bindir}/build-classpath velocity-tools` velocity-tools-view-1.1.jar
 popd
@@ -224,6 +236,9 @@ export MAVEN_OPTS=
 %{_docdir}/sitemesh
 
 %changelog
+* Wed Mar 29 2017 Michael Mraka <michael.mraka@redhat.com> 2.4.2-2.6
+- let sitemesh build on RHEL6
+
 * Mon Mar 20 2017 Michael Mraka <michael.mraka@redhat.com> 2.4.2-2.5
 - relax dependencies on Fedora 23
 

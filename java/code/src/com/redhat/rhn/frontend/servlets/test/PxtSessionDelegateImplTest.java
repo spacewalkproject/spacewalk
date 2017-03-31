@@ -46,7 +46,7 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
 
         private boolean isLoadPxtSessionStubbed;
 
-        public PxtSessionDelegateImplStub() {
+        PxtSessionDelegateImplStub() {
             findPxtSessionByIdCallback = TransformerUtils.nullTransformer();
             createPxtSessionCallback = TransformerUtils.nullTransformer();
         }

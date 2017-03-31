@@ -42,6 +42,11 @@ import sys
 from cmd import Cmd
 from spacecmd.utils import *
 
+class UnknownCallException(Exception):
+
+    def __init__(self):
+        Exception.__init__(self)
+
 
 class SpacewalkShell(Cmd):
     __module_list = ['activationkey', 'configchannel', 'cryptokey',
@@ -233,3 +238,7 @@ class SpacewalkShell(Cmd):
     def postcmd(self, cmdresult, cmd):
         SpacewalkShell.print_result(cmdresult, cmd)
         self.prompt = re.sub('##', str(len(self.ssm)), self.prompt_template)
+
+    def default(self, line):
+        Cmd.default(self, line)
+        raise UnknownCallException

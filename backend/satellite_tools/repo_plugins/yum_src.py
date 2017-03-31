@@ -121,11 +121,37 @@ class ContentSource(object):
         else:
             self.org = "NULL"
 
-        # read the proxy configuration in /etc/rhn/rhn.conf
+        self.proxy_addr = None
+        self.proxy_user = None
+        self.proxy_pass = None
+
+        # read the proxy configuration
+        # /etc/rhn/rhn.conf has more priority than yum.conf
         initCFG('server.satellite')
-        self.proxy_addr = CFG.http_proxy
-        self.proxy_user = CFG.http_proxy_username
-        self.proxy_pass = CFG.http_proxy_password
+
+        if CFG.http_proxy:
+            self.proxy_addr = CFG.http_proxy
+            self.proxy_user = CFG.http_proxy_username
+            self.proxy_pass = CFG.http_proxy_password
+        else:
+            yb_cfg = self.yumbase.conf.cfg
+            section_name = None
+
+            if yb_cfg.has_section(self.name):
+                section_name = self.name
+            elif yb_cfg.has_section('main'):
+                section_name = 'main'
+
+            if section_name:
+                if yb_cfg.has_option(section_name, option='proxy'):
+                    self.proxy_addr = yb_cfg.get(section_name, option='proxy')
+
+                if yb_cfg.has_option(section_name, 'proxy_username'):
+                    self.proxy_user = yb_cfg.get(section_name, 'proxy_username')
+
+                if yb_cfg.has_option(section_name, 'proxy_password'):
+                    self.proxy_pass = yb_cfg.get(section_name, 'proxy_password')
+
         self._authenticate(url)
         # Check for settings in yum configuration files (for custom repos/channels only)
         if org:
@@ -168,6 +194,12 @@ class ContentSource(object):
     def _authenticate(self, url):
         pass
 
+    @staticmethod
+    def interrupt_callback(*args, **kwargs):  # pylint: disable=W0613
+        # Just re-raise
+        e = sys.exc_info()[1]
+        raise e
+
     def setup_repo(self, repo, no_mirrors):
         """Fetch repository metadata"""
         repo.cache = 0
@@ -192,10 +224,7 @@ class ContentSource(object):
         if "file://" in self.url:
             repo.copy_local = 1
 
-        yb_cfg = self.yumbase.conf.cfg
-        if not ((yb_cfg.has_section(self.name) and yb_cfg.has_option(self.name, 'proxy')) or
-                (yb_cfg.has_section('main') and yb_cfg.has_option('main', 'proxy'))) and \
-                self.proxy_addr is not None:
+        if self.proxy_addr:
             repo.proxy = "http://%s" % self.proxy_addr
             repo.proxy_username = self.proxy_user
             repo.proxy_password = self.proxy_pass
@@ -215,6 +244,7 @@ class ContentSource(object):
                 warnings.restore()
                 raise
             warnings.restore()
+        repo.interrupt_callback = self.interrupt_callback
         repo.setup(0)
 
     def number_of_packages(self):

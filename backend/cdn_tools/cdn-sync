@@ -6,13 +6,12 @@ import os
 
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.fileutils import cleanupAbsPath
-from spacewalk.cdn_tools.common import CustomChannelSyncError, CdnMappingsLoadError
+from spacewalk.cdn_tools.common import CustomChannelSyncError, CdnMappingsLoadError, CountingPackagesError
 from spacewalk.cdn_tools.cdnsync import CdnSync
 from spacewalk.server import rhnSQL
 from spacewalk.common.usix import raise_with_tb
 from rhn import rhnLockfile
 from rhn.connections import idn_ascii_to_puny
-from spacewalk.server.rhnChannel import ChannelNotFoundError
 from spacewalk.server.importlib.importLib import InvalidArchError, \
     InvalidChannelError, InvalidChannelFamilyError, MissingParentChannelError
 
@@ -154,7 +153,7 @@ if __name__ == '__main__':
         LOCK.release()
 
     except KeyboardInterrupt:
-        system_exit(0, "\nUser interrupted process.")
+        system_exit(1, "\nProcess has been interrupted.")
     except SystemExit:
         e = sys.exc_info()[1]
         if LOCK:
@@ -162,13 +161,6 @@ if __name__ == '__main__':
         sys.exit(e.code)
     except rhnLockfile.LockfileLockedException:
         system_exit(1, "SYNC ERROR: attempting to run more than one instance of cdn-sync. Exiting.")
-    except ChannelNotFoundError:
-        e = sys.exc_info()[1]
-        if LOCK:
-            LOCK.release()
-        system_exit(12, ["ERROR: these channels either do not exist or are not available:",
-                         e,
-                         "(to see a list of channel labels: /usr/bin/cdn-sync --list-channels)"])
     except CustomChannelSyncError:
         e = sys.exc_info()[1]
         if LOCK:
@@ -196,6 +188,11 @@ if __name__ == '__main__':
         if e.errno != 32:
             raise_with_tb(Exception("SYNC ERROR: attempting to display as much information as possible\n %s" % str(e)),
                           sys.exc_info()[2])
+    except CountingPackagesError:
+        e = sys.exc_info()[1]
+        if LOCK:
+            LOCK.release()
+        system_exit(20, "ERROR: Problem occurred during package counting: %s" % str(e))
     except Exception:
         e = sys.exc_info()[1]
         if LOCK:
