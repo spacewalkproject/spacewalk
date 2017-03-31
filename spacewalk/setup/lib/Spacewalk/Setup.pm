@@ -114,6 +114,7 @@ sub parse_options {
             "skip-ssl-cert-generation",
             "skip-ssl-vhost-setup",
             "skip-services-check",
+            "skip-services-restart",
             "skip-logfile-init",
             "clear-db",
             "re-register",
@@ -135,7 +136,7 @@ sub parse_options {
 
   my $usage = loc("usage: %s %s\n",
                   $0,
-                  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --upgrade ] [ --run-updater=<yes|no>] [--run-cobbler] [ --enable-tftp=<yes|no>] [ --external-oracle | --external-postgresql [ --external-postgresql-over-ssl ] ]" );
+                  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --skip-services-restart ] [ --clear-db ] [ --re-register ] [ --upgrade ] [ --run-updater=<yes|no>] [--run-cobbler] [ --enable-tftp=<yes|no>] [ --external-oracle | --external-postgresql [ --external-postgresql-over-ssl ] ]" );
 
   # Terminate if any errors were encountered parsing the command line args:
   my %opts;
@@ -1956,6 +1957,10 @@ Only runs necessary steps for a Satellite upgrade.
 =item B<--skip-services-check>
 
 Proceed with upgrade if services are already stopped.
+
+=item B<--skip-services-restart>
+
+Do not restart services at the end of installation.
 
 =item B<--run-updater=<yes|no>>
 
