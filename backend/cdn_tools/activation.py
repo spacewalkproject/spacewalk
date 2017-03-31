@@ -31,7 +31,8 @@ from spacewalk.server.rhnServer.satellite_cert import SatelliteCert
 class Activation(object):
     """Class inserting channel families and SSL metadata into DB."""
 
-    def __init__(self, manifest_path):
+    def __init__(self, manifest_path, verbosity=0):
+        self.verbosity = verbosity
         rhnSQL.initDB()
         self.manifest = Manifest(manifest_path)
         self.sat5_cert = SatelliteCert()
@@ -95,11 +96,11 @@ class Activation(object):
     def import_channel_families(self):
         """Insert channel family data into DB."""
 
-        # Debug
-        print("Channel families in cert: %d" % len(self.sat5_cert.channel_families)) # pylint: disable=E1101
+        if self.verbosity:
+            print("Channel families in cert: %d" % len(self.sat5_cert.channel_families))  # pylint: disable=E1101
 
         batch = []
-        for cf in self.sat5_cert.channel_families: # pylint: disable=E1101
+        for cf in self.sat5_cert.channel_families:  # pylint: disable=E1101
             label = cf.name
             try:
                 family = self.families[label]
@@ -110,7 +111,9 @@ class Activation(object):
                 batch.append(family_object)
                 self.families_to_import.append(label)
             except KeyError:
-                print("ERROR: Channel family '%s' was not found in mapping" % label)
+                # While channel mappings are not consistent with certificate generated on RHN...
+                if self.verbosity:
+                    print("WARNING: Channel family '%s' was not found in mapping" % label)
 
         # Perform import
         backend = SQLBackend()
@@ -199,18 +202,18 @@ class Activation(object):
 
     @staticmethod
     def download_manifest(old_manifest_path, http_proxy=None, http_proxy_username=None,
-                          http_proxy_password=None):
+                          http_proxy_password=None, verbosity=0):
         manifest = Manifest(old_manifest_path)
         candlepin_api = CandlepinApi(current_manifest=manifest, http_proxy=http_proxy,
                                      http_proxy_username=http_proxy_username,
-                                     http_proxy_password=http_proxy_password)
+                                     http_proxy_password=http_proxy_password, verbosity=verbosity)
         return candlepin_api.export_manifest()
 
     @staticmethod
     def refresh_manifest(old_manifest_path, http_proxy=None, http_proxy_username=None,
-                         http_proxy_password=None):
+                         http_proxy_password=None, verbosity=0):
         manifest = Manifest(old_manifest_path)
         candlepin_api = CandlepinApi(current_manifest=manifest, http_proxy=http_proxy,
                                      http_proxy_username=http_proxy_username,
-                                     http_proxy_password=http_proxy_password)
+                                     http_proxy_password=http_proxy_password, verbosity=verbosity)
         return candlepin_api.refresh_manifest()

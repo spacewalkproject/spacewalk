@@ -27,7 +27,8 @@ class CandlepinApi(object):
     """Class used to communicate with Candlepin API."""
 
     def __init__(self, current_manifest=None, username=None, password=None,
-                 http_proxy=None, http_proxy_username=None, http_proxy_password=None):
+                 http_proxy=None, http_proxy_username=None, http_proxy_password=None, verbosity=0):
+        self.verbosity = verbosity
         self.base_url = CFG.CANDLEPIN_SERVER_API
         if self.base_url.startswith('https'):
             self.protocol = 'https'
@@ -148,8 +149,9 @@ class CandlepinApi(object):
         url = "%s%s/export" % (self.base_url, uuid)
         params = {"ext": ["ownerid:%s" % ownerid, "version:%s" % satellite_version]}
 
-        print("URL: '%s'" % url)
-        print("Parameters: '%s'" % str(params))
+        if self.verbosity:
+            print("URL: '%s'" % url)
+            print("Parameters: '%s'" % str(params))
 
         response = self._call_api(url, params=params, method="get")
 
@@ -178,7 +180,8 @@ class CandlepinApi(object):
 
         url = "%s%s/certificates" % (self.base_url, uuid)
 
-        print("URL: '%s'" % url)
+        if self.verbosity:
+            print("URL: '%s'" % url)
 
         response = self._call_api(url, method="put")
 

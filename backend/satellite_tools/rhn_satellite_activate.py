@@ -388,7 +388,8 @@ def main():
                     DEFAULT_RHSM_MANIFEST_LOCATION,
                     http_proxy=options.http_proxy,
                     http_proxy_username=options.http_proxy_username,
-                    http_proxy_password=options.http_proxy_password)
+                    http_proxy_password=options.http_proxy_password,
+                    verbosity=options.verbose)
                 if not ok:
                     writeError("Refreshing manifest failed!")
                     return 17
@@ -401,7 +402,8 @@ def main():
                     DEFAULT_RHSM_MANIFEST_LOCATION,
                     http_proxy=options.http_proxy,
                     http_proxy_username=options.http_proxy_username,
-                    http_proxy_password=options.http_proxy_password)
+                    http_proxy_password=options.http_proxy_password,
+                    verbosity=options.verbose)
                 if not path:
                     writeError("Download of manifest failed!")
                     return 16
@@ -414,7 +416,7 @@ def main():
             return 1
     # Handle RHSM manifest
     try:
-        cdn_activate = cdn_activation.Activation(options.manifest)
+        cdn_activate = cdn_activation.Activation(options.manifest, verbosity=options.verbose)
     except CdnMappingsLoadError, e:
         writeError(e)
         return 15
