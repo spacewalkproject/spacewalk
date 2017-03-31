@@ -34,6 +34,17 @@ ask() {
     fi
 }
 
+isSUSE() {
+    if [ ! -e '/etc/os-release' ]; then
+        return 1
+    fi
+    source /etc/os-release
+    if echo $CPE_NAME | grep -E 'cpe:/o:(open)*suse:' >/dev/null ; then
+        return 0
+    fi
+    return 1
+}
+
 ask_check() {
     while true; do
         ask "$1" "$2" $3 || echo
@@ -277,17 +288,6 @@ check() {
         fi
     fi
     exit $RET
-}
-
-isSUSE() {
-    if [ ! -e '/etc/os-release' ]; then
-        return 1
-    fi
-    source /etc/os-release
-    if echo $CPE_NAME | grep -E 'cpe:/o:(open)*suse:' >/dev/null ; then
-        return 0
-    fi
-    return 1
 }
 
 exists_db() {
