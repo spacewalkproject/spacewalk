@@ -154,6 +154,7 @@ class CandlepinApi(object):
         response = self._call_api(url, params=params, method="get")
 
         if response is not None:
+            # pylint: disable=E1101
             if response.status_code == requests.codes.ok:
                 fd, downloaded_manifest = tempfile.mkstemp(prefix="/tmp/manifest-", suffix=".zip")
                 fo = os.fdopen(fd, 'wb')
@@ -182,6 +183,7 @@ class CandlepinApi(object):
         response = self._call_api(url, method="put")
 
         if response is not None:
+            # pylint: disable=E1101
             if response.status_code == requests.codes.ok or response.status_code == requests.codes.no_content:
                 return True
             else:
