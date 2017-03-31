@@ -90,7 +90,7 @@ class CandlepinApi(object):
             if key_file:
                 os.unlink(key_file)
 
-    def _call_api(self, url, params):
+    def _call_api(self, url, params=None, method="get"):
         if self.protocol == 'https':
             verify = CA_CERT_PATH
         else:
@@ -99,19 +99,31 @@ class CandlepinApi(object):
         response = None
         if self.username is not None and self.password is not None:
             try:
-                response = requests.get(url, params=params, proxies=self._get_proxies(),
-                                        auth=(self.username, self.password), verify=verify)
+                if method == "get":
+                    response = requests.get(url, params=params, proxies=self._get_proxies(),
+                                            auth=(self.username, self.password), verify=verify)
+                elif method == "put":
+                    response = requests.put(url, params=params, proxies=self._get_proxies(),
+                                            auth=(self.username, self.password), verify=verify)
+                else:
+                    raise ValueError("Unsupported method: '%s'" % method)
             except requests.RequestException:
                 e = sys.exc_info()[1]
                 print("ERROR: %s" % str(e))
         else:
             cert = self._write_cert()
             try:
-                response = requests.get(url, params=params, proxies=self._get_proxies(), verify=verify, cert=cert)
+                if method == "get":
+                    response = requests.get(url, params=params, proxies=self._get_proxies(), verify=verify, cert=cert)
+                elif method == "put":
+                    response = requests.put(url, params=params, proxies=self._get_proxies(), verify=verify, cert=cert)
+                else:
+                    raise ValueError("Unsupported method: '%s'" % method)
             except requests.RequestException:
                 e = sys.exc_info()[1]
                 print("ERROR: %s" % str(e))
-            self._delete_cert(cert)
+            finally:
+                self._delete_cert(cert)
         return response
 
     def export_manifest(self, uuid=None, ownerid=None, satellite_version=None):
@@ -136,10 +148,10 @@ class CandlepinApi(object):
         url = "%s%s/export" % (self.base_url, uuid)
         params = {"ext": ["ownerid:%s" % ownerid, "version:%s" % satellite_version]}
 
-        print("Download URL: '%s'" % url)
-        print("Download parameters: '%s'" % str(params))
+        print("URL: '%s'" % url)
+        print("Parameters: '%s'" % str(params))
 
-        response = self._call_api(url, params)
+        response = self._call_api(url, params=params, method="get")
 
         if response is not None:
             if response.status_code == requests.codes.ok:
@@ -151,7 +163,29 @@ class CandlepinApi(object):
                 fo.close()
                 return downloaded_manifest
             else:
-                print("Download status code: %s" % response.status_code)
+                print("Status code: %s" % response.status_code)
                 print("Message: '%s'" % response.text)
 
         return None
+
+    def refresh_manifest(self, uuid=None):
+        if uuid is None:
+            if self.current_manifest:
+                uuid = self.current_manifest.get_uuid()
+            else:
+                raise ValueError("Uuid is not known.")
+
+        url = "%s%s/certificates" % (self.base_url, uuid)
+
+        print("URL: '%s'" % url)
+
+        response = self._call_api(url, method="put")
+
+        if response is not None:
+            if response.status_code == requests.codes.ok or response.status_code == requests.codes.no_content:
+                return True
+            else:
+                print("Status code: %s" % response.status_code)
+                print("Message: '%s'" % response.text)
+
+        return False

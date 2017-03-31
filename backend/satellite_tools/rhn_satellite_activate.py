@@ -282,7 +282,8 @@ def processCommandline():
         Option('--rhn-cert', action='store', help='this option is deprecated, use --manifest instead'),
         Option('--cdn-deactivate', action='store_true', help='deactivate CDN-activated Satellite'),
         Option('--disconnected', action='store_true', help="activate locally, not subscribe to remote repository"),
-        Option('--download-manifest', action='store_true', help="download refreshed manifest from RHSM")
+        Option('--download-manifest', action='store_true', help="download new manifest from RHSM"),
+        Option('--refresh-manifest', action='store_true', help="regenerate certificates in RHSM for your consumer")
     ]
 
     parser = OptionParser(option_list=options)
@@ -333,6 +334,7 @@ def main():
         14   manifest signature incorrect
         15   cannot load mapping files
         16   manifest download failed
+        17   manifest refresh failed
         20   remote activation failure (general, and really unknown why)
         30   local activation failure
         40   channel population failure
@@ -379,6 +381,19 @@ def main():
 
     if not options.manifest:
         if os.path.exists(DEFAULT_RHSM_MANIFEST_LOCATION):
+            # Call refreshment API on Candlepin server
+            if options.refresh_manifest:
+                print("Refreshing manifest...")
+                ok = cdn_activation.Activation.refresh_manifest(
+                    DEFAULT_RHSM_MANIFEST_LOCATION,
+                    http_proxy=options.http_proxy,
+                    http_proxy_username=options.http_proxy_username,
+                    http_proxy_password=options.http_proxy_password)
+                if not ok:
+                    writeError("Refreshing manifest failed!")
+                    return 17
+                print("Manifest refresh requested.")
+                return 0
             # Get new refreshed manifest from Candlepin server
             if options.download_manifest:
                 print("Downloading manifest...")
