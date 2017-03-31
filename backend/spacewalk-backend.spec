@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.64
+Version: 2.7.65
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Fri Mar 31 2017 Jan Dobes 2.7.65-1
+- 1397762 - update man page
+- 1397762 - use at least some verbosity levels in cdn_tools modules
+
 * Fri Mar 31 2017 Jan Dobes 2.7.64-1
 - 1397762 - fixing pylint
 - 1397762 - adding Candlepin API to call manifest refresh
