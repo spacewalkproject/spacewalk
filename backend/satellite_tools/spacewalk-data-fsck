@@ -28,6 +28,7 @@ report_msg = {
     'file': "%5d files scanned",
     'exists': "ERROR: %5d files missing on disk",
     'dbexists': "ERROR: %5d files missing in database",
+    'srpmexists': "ERROR: %5d SRPMs without matching RPM in db",
     'restore': "ERROR: %5d file paths could not be restored",
     'size': "ERROR: %5d file size mismatch(es)",
     'checksum': "ERROR: %5d file checksum mismatch(es)",
@@ -276,8 +277,11 @@ def check_disk_vs_db(disk_content=None, db_content=None):
             row = h.fetchone_dict()
 
             if not row:
-                if is_orphaned_srpm(abs_path, f):
-                    report['dbexists'] += 1
+                if (not is_srpm(f)) or is_orphaned_srpm(abs_path, f):
+                    if is_srpm(f):
+                        report['srpmexists'] += 1
+                    else:
+                        report['dbexists'] += 1
                     not_in_db(abs_path, options)
                 continue
 
@@ -290,32 +294,42 @@ def check_disk_vs_db(disk_content=None, db_content=None):
                                                           row['checksum_type'], row['checksum'])
     h.close()
     error_found = 0
-    for i in ['file', 'dbexists', 'size', 'nevrao', 'checksum']:
+    for i in ['file', 'dbexists', 'srpmexists', 'size', 'nevrao', 'checksum']:
         if report[i] > 0:
             log(1, report_msg[i] % report[i])
             if i != 'file':
                 error_found = 1
     return error_found
 
-def is_orphaned_srpm(path, file):
+def is_srpm(file):
     if file.find("src.rpm") != -1:
+        return True
+    else:
+        return False
+
+def is_orphaned_srpm(path, file):
+    if is_srpm(file):
         query = src_package_query()
         h = rhnSQL.prepare(query)
         wildcard_filename = "%/" + file.replace('src','%')
         h.execute(filename=wildcard_filename)
         row = h.fetchone_dict()
         if not row:
-            log(0, "SRPM without matching RPM: %s" % (path))
+            log(0, "SRPM without matching RPM in db: %s" % (path))
             return True
 
     return False
 
 def not_in_db(path, options):
     if options.remove:
-        log(0, "Removed file missing in db: %s" % (path))
+        if is_srpm(path):
+            log(0, "Removed SRPM without matching RPM in db: %s" % (path))
+        else:
+            log(0, "Removed file missing in db: %s" % (path))
         unlink_package_file(path)
     else:
-        log(0, "File missing in db: %s" % (path))
+        if not is_srpm(path):
+            log(0, "File missing in db: %s" % (path))
 
 def remove_mismatch(path, options):
     log(0, "Removed file because checksum does not match: %s" % (path))
