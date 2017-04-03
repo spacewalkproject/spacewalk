@@ -114,15 +114,16 @@ class CandlepinApi(object):
         else:
             cert = self._write_cert()
             try:
-                if method == "get":
-                    response = requests.get(url, params=params, proxies=self._get_proxies(), verify=verify, cert=cert)
-                elif method == "put":
-                    response = requests.put(url, params=params, proxies=self._get_proxies(), verify=verify, cert=cert)
-                else:
-                    raise ValueError("Unsupported method: '%s'" % method)
-            except requests.RequestException:
-                e = sys.exc_info()[1]
-                print("ERROR: %s" % str(e))
+                try:
+                    if method == "get":
+                        response = requests.get(url, params=params, proxies=self._get_proxies(), verify=verify, cert=cert)
+                    elif method == "put":
+                        response = requests.put(url, params=params, proxies=self._get_proxies(), verify=verify, cert=cert)
+                    else:
+                        raise ValueError("Unsupported method: '%s'" % method)
+                except requests.RequestException:
+                    e = sys.exc_info()[1]
+                    print("ERROR: %s" % str(e))
             finally:
                 self._delete_cert(cert)
         return response

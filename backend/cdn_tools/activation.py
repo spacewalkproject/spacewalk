@@ -43,13 +43,14 @@ class Activation(object):
         f = None
         # Channel families metadata
         try:
-            f = open(constants.CHANNEL_FAMILY_MAPPING_PATH, 'r')
-            self.families = json.load(f)
-            f.close()
-        except IOError:
-            e = sys.exc_info()[1]
-            print "Ignoring channel mappings: %s" % e
-            self.families = {}
+            try:
+                f = open(constants.CHANNEL_FAMILY_MAPPING_PATH, 'r')
+                self.families = json.load(f)
+                f.close()
+            except IOError:
+                e = sys.exc_info()[1]
+                print "Ignoring channel mappings: %s" % e
+                self.families = {}
         finally:
             if f is not None:
                 f.close()

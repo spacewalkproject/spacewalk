@@ -222,10 +222,11 @@ class Manifest(object):
             for cert_name in certs:
                 cert_file = None
                 try:
-                    cert_file = open(constants.CANDLEPIN_CA_CERT_DIR + '/' + cert_name, 'r')
-                    cert = X509.load_cert_string(cert_file.read())
-                except (IOError, X509.X509Error):
-                    continue
+                    try:
+                        cert_file = open(constants.CANDLEPIN_CA_CERT_DIR + '/' + cert_name, 'r')
+                        cert = X509.load_cert_string(cert_file.read())
+                    except (IOError, X509.X509Error):
+                        continue
                 finally:
                     if cert_file is not None:
                         cert_file.close()
