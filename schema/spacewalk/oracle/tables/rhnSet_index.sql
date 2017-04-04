@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2011 Red Hat, Inc.
+-- Copyright (c) 2017 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,19 +13,6 @@
 -- in this software or its documentation.
 --
 
-
-CREATE TABLE rhnSet
-(
-    user_id        NUMBER NOT NULL
-                       CONSTRAINT rhn_set_user_fk
-                           REFERENCES web_contact (id)
-                           ON DELETE CASCADE,
-    label          VARCHAR2(32) NOT NULL,
-    element        NUMBER NOT NULL,
-    element_two    NUMBER,
-    element_three  NUMBER
-)
-ENABLE ROW MOVEMENT
-NOLOGGING
-;
-
+ALTER TABLE rhnSet
+    ADD CONSTRAINT rhn_set_user_label_elem_unq UNIQUE (user_id, label, element, element_two, element_three)
+    USING INDEX TABLESPACE [[8m_tbs]];
