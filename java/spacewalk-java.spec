@@ -28,12 +28,16 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 ExcludeArch: ia64
 
+Requires: apache-commons-fileupload
 Requires: bcel
 Requires: c3p0 >= 0.9.1
 Requires: cglib
 Requires: cobbler20
 Requires: dojo
 Requires: dwr >= 3
+Requires: hibernate3 >= 3.6.10
+Requires: hibernate3-c3p0 >= 3.6.10
+Requires: hibernate3-ehcache >= 3.6.10
 Requires: java-headless >= 1:1.7.0
 Requires: javamail
 Requires: jcommon
@@ -52,6 +56,7 @@ Requires: spacewalk-java-lib
 Requires: stringtree-json
 Requires: struts >= 0:1.3.0
 Requires: susestudio-java-client
+Requires: tomcat-taglibs-standard
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 %if 0%{?fedora} || 0%{?rhel} >= 7
@@ -59,19 +64,14 @@ Requires:      apache-commons-cli
 Requires:      apache-commons-codec
 Requires:      apache-commons-discovery
 Requires:      apache-commons-el
-Requires:      apache-commons-fileupload
 Requires:      apache-commons-io
 Requires:      apache-commons-lang
 Requires:      apache-commons-logging
-Requires:      hibernate3 >= 3.6.10
-Requires:      hibernate3-c3p0 >= 3.6.10
-Requires:      hibernate3-ehcache >= 3.6.10
 Requires:      javapackages-tools
 Requires:      javassist
 Requires:      servlet >= 3.0
 Requires:      tomcat >= 7
 Requires:      tomcat-lib >= 7
-Requires:      tomcat-taglibs-standard
 # obsolete old jpackage rpms to make smooth upgrade
 Obsoletes:     classpathx-jaf <= 1.1.1
 Obsoletes:     classpathx-mail <= 1.1.2
@@ -92,60 +92,39 @@ Obsoletes:     spacewalk-jpp-workaround <= 2.3.5
 Obsoletes:     tomcat5-jsp-2.0-api <= 5.5.27
 Obsoletes:     tomcat5-servlet-2.4-api <= 5.5.27
 Obsoletes:     tomcat6-el-1.0-api <= 6.0.18
-BuildRequires: apache-commons-cli
 BuildRequires: apache-commons-codec
-BuildRequires: apache-commons-collections
 BuildRequires: apache-commons-discovery
 BuildRequires: apache-commons-el
-BuildRequires: apache-commons-fileupload
 BuildRequires: apache-commons-io
 BuildRequires: apache-commons-logging
-BuildRequires: apache-commons-validator
 # spelling checker is only for Fedoras (no aspell in RHEL6)
 BuildRequires: aspell aspell-en libxslt
 BuildRequires: ehcache-core
-BuildRequires: hibernate3 >= 0:3.6.10
-BuildRequires: hibernate3-c3p0 >= 3.6.10
-BuildRequires: hibernate3-ehcache >= 3.6.10
 BuildRequires: javassist
 BuildRequires: javapackages-tools
 BuildRequires: mvn(ant-contrib:ant-contrib)
 BuildRequires: tomcat >= 7
 BuildRequires: tomcat-lib >= 7
-BuildRequires: tomcat-taglibs-standard
 %else
-Requires:      hibernate3 = 0:3.2.4
 Requires:      jakarta-commons-cli
 Requires:      jakarta-commons-codec
 Requires:      jakarta-commons-discovery
 Requires:      jakarta-commons-el
-Requires:      jakarta-commons-fileupload
 Requires:      jakarta-commons-io
-Requires:      jakarta-commons-lang >= 0:2.1
+Requires:      jakarta-commons-lang
 Requires:      jakarta-commons-logging
-Requires:      jakarta-taglibs-standard
 Requires:      jpackage-utils
-Requires:      oscache
-Requires:      struts-taglib >= 0:1.3.0
 Requires:      tomcat6
 Requires:      tomcat6-lib
 Requires:      tomcat6-servlet-2.5-api
 BuildRequires: ant-contrib
 BuildRequires: ant-nodeps
-BuildRequires: hibernate3 = 0:3.2.4
-BuildRequires: jakarta-commons-cli
 BuildRequires: jakarta-commons-codec
-BuildRequires: jakarta-commons-collections
 BuildRequires: jakarta-commons-discovery
 BuildRequires: jakarta-commons-el
-BuildRequires: jakarta-commons-fileupload
 BuildRequires: jakarta-commons-io
 BuildRequires: jakarta-commons-logging
-BuildRequires: jakarta-taglibs-standard
-BuildRequires: jakarta-commons-validator
 BuildRequires: jpackage-utils
-BuildRequires: oscache
-BuildRequires: struts-taglib >= 0:1.3.0
 BuildRequires: tomcat6
 BuildRequires: tomcat6-lib
 %endif
@@ -156,12 +135,19 @@ BuildRequires: ant
 BuildRequires: ant-apache-regexp
 BuildRequires: ant-junit
 BuildRequires: antlr >= 0:2.7.6
+BuildRequires: apache-commons-cli
+BuildRequires: apache-commons-collections
+BuildRequires: apache-commons-fileupload
+BuildRequires: apache-commons-validator
 BuildRequires: bcel
 BuildRequires: c3p0 >= 0.9.1
 BuildRequires: cglib
 BuildRequires: concurrent
 BuildRequires: dom4j
 BuildRequires: dwr >= 3
+BuildRequires: hibernate3 >= 0:3.6.10
+BuildRequires: hibernate3-c3p0 >= 3.6.10
+BuildRequires: hibernate3-ehcache >= 3.6.10
 BuildRequires: java-devel >= 1:1.7.0
 BuildRequires: javamail
 BuildRequires: jcommon
@@ -178,8 +164,14 @@ BuildRequires: stringtree-json
 BuildRequires: struts >= 0:1.3.0
 BuildRequires: susestudio-java-client
 BuildRequires: tanukiwrapper
+BuildRequires: tomcat-taglibs-standard
 %if 0%{?run_checkstyle}
 BuildRequires: checkstyle
+%if 0%{?fedora} || 0%{?rhel} >= 7
+BuildRequires: apache-commons-beanutils >= 1.9
+%else
+BuildRequires: jakarta-commons-beanutils >= 1.9
+%endif
 BuildRequires: apache-commons-cli >= 1.3
 BuildRequires: apache-commons-lang3 >= 3.4
 %endif
@@ -285,6 +277,9 @@ Requires: c3p0 >= 0.9.1
 Requires: cglib
 Requires: cobbler20
 Requires: concurrent
+Requires: hibernate3 >= 3.6.10
+Requires: hibernate3-c3p0 >= 3.6.10
+Requires: hibernate3-ehcache >= 3.6.10
 Requires: java-headless >= 0:1.7.0
 Requires: jcommon
 Requires: jpam
@@ -295,6 +290,7 @@ Requires: spacewalk-java-config
 Requires: spacewalk-java-jdbc
 Requires: spacewalk-java-lib
 Requires: tanukiwrapper
+Requires: tomcat-taglibs-standard
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 %if 0%{?fedora} || 0%{?rhel} >= 7
@@ -303,20 +299,13 @@ Requires: apache-commons-codec
 Requires: apache-commons-dbcp
 Requires: apache-commons-lang
 Requires: apache-commons-logging
-Requires: hibernate3 >= 3.6.10
-Requires: hibernate3-c3p0 >= 3.6.10
-Requires: hibernate3-ehcache >= 3.6.10
 Requires: javassist
-Requires: tomcat-taglibs-standard
 %else
-Requires: hibernate3 >= 0:3.2.4
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-dbcp
-Requires: jakarta-commons-lang >= 0:2.1
+Requires: jakarta-commons-lang
 Requires: jakarta-commons-logging
-Requires: jakarta-taglibs-standard
-Requires: oscache
 %endif
 Conflicts: quartz >= 2.0
 Obsoletes: taskomatic < 5.3.0
@@ -472,11 +461,9 @@ install -d -m 755 $RPM_BUILD_ROOT%{cobdirsnippets}
 install -d -m 755 $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs
 
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
-%if 0%{?fedora} || 0%{?rhel} >= 7
+
 echo "hibernate.cache.region.factory_class=net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory" >> conf/default/rhn_hibernate.conf
-%else
-echo "hibernate.cache.provider_class=org.hibernate.cache.OSCacheProvider" >> conf/default/rhn_hibernate.conf
-%endif
+
 install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_hibernate.conf
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
 install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
@@ -533,7 +520,7 @@ rm -rf $RPM_BUILD_ROOT%{jardir}/jspapi.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-compiler.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-runtime.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/tomcat*api.jar
-rm -rf $RPM_BUILD_ROOT%{jardir}/tomcat[_a-z]*.jar
+rm -rf $RPM_BUILD_ROOT%{jardir}/tomcat[_a-z6]*.jar
 %if 0%{?omit_tests} > 0
 rm -rf $RPM_BUILD_ROOT%{_datadir}/rhn/lib/rhn-test.jar
 rm -rf $RPM_BUILD_ROOT/classes/com/redhat/rhn/common/conf/test/conf
@@ -615,19 +602,20 @@ fi
 %{jardir}/dom4j.jar
 %{jardir}/dwr.jar
 %{jardir}/hibernate3*
-%if 0%{?fedora} || 0%{?rhel} >= 7
 %{jardir}/ehcache-core.jar
 %{jardir}/*_hibernate-commons-annotations.jar
 %{jardir}/hibernate-jpa-2.0-api*.jar
 %{jardir}/javassist.jar
 %{jardir}/slf4j_api.jar
 %{jardir}/slf4j_log4j12*.jar
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %{jardir}/mchange-commons.jar
 %{_javadir}/c3p0.jar
 %{_javadir}/concurrent.jar
 %{_javadir}/hibernate-jpa-2.0-api.jar
 %{_javadir}/jboss-logging.jar
 %{_javadir}/mchange-commons.jar
+%endif
 %{jardir}/*jboss-logging.jar
 %{jardir}/tomcat-taglibs-standard_taglibs-build-tools.jar
 %{jardir}/tomcat-taglibs-standard_taglibs-standard-compat.jar
@@ -635,12 +623,6 @@ fi
 %{jardir}/tomcat-taglibs-standard_taglibs-standard-jstlel.jar
 %{jardir}/tomcat-taglibs-standard_taglibs-standard-spec.jar
 
-
-%else
-%{jardir}/oscache.jar
-%{jardir}/taglibs-core.jar
-%{jardir}/taglibs-standard.jar
-%endif
 %{jardir}/javamail_javax.mail.jar
 %{jardir}/jcommon*.jar
 %{jardir}/jdom.jar
