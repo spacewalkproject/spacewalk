@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.66
+Version: 2.7.67
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue Apr 04 2017 Jan Dobes 2.7.67-1
+- 1438807 - display channel sync error causes on default verbosity and improve
+  them
+- 1438807 - label may not be in db_channel if channel doesn't exist
+- 1434471 - raise Database exception up to stack and stop syncing.
+- 1434471 - raise unified exception from database drivers if it's not possible
+  to execute SQL statement
+
 * Mon Apr 03 2017 Jan Dobes 2.7.66-1
 - 1397762 - fix build on RHEL 5
 
