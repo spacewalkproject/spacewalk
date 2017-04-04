@@ -61,7 +61,7 @@ Javadoc for %{name}.
 %patch5 -p1
 
 rm -Rfv tools/*.jar
-build-jar-repository -p tools/ %jpackage_jars
+build-jar-repository -p tools/ ant antlr apache-commons-beanutils apache-commons-collections apache-commons-logging checkstyle junit regexp
 
 %build
 export JAVA_HOME=%{java_home}
