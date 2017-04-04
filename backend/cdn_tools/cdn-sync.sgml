@@ -311,6 +311,7 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <member><command>cdn-sync -c rhel-i386-server-6 -c rhel-i386-server-5</command></member>
         <member><command>cdn-sync -c my-custom-channel --add-repo /content/dist/rhel/server/6/6Server/x86_64/sat-tools/6.2/os</command></member>
         <member><command>cdn-sync -c my-custom-channel # syncs custom channel with all previously added CDN repositories</command></member>
+        <member><command>cdn-sync -c my-custom-channel -d /content/dist/rhel/server/6/6Server/x86_64/sat-tools/6.2/os</command></member>
 </simplelist>
 </RefSect1>
 
