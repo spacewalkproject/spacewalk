@@ -315,7 +315,12 @@ class Cursor(sql_base.Cursor):
         PostgreSQL specific execution of the query.
         """
         params = UserDictCase(kwargs)
-        self._real_cursor.execute(self.sql, params)
+        try:
+            self._real_cursor.execute(self.sql, params)
+        except psycopg2.Error:
+            e = sys.exc_info()[1]
+            raise sql_base.SQLError("Cannot execute SQL statement: %s" % str(e))
+
         self.description = self._real_cursor.description
         return self._real_cursor.rowcount
 

@@ -164,7 +164,12 @@ class Cursor(sql_base.Cursor):
 
         # cx_Oracle expects the first arg to be the statement and no
         # positional args:
-        self._real_cursor.execute(*(None, ), **params)
+        try:
+            self._real_cursor.execute(*(None, ), **params)
+        except cx_Oracle.Error:
+            e = sys.exc_info()[1]
+            raise sql_base.SQLError("Cannot execute SQL statement: %s" % str(e))
+
         self.description = self._real_cursor.description
         return self._real_cursor.rowcount
 
