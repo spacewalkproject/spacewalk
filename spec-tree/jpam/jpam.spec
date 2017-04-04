@@ -1,12 +1,3 @@
-%if 0%{?fedora} || 0%{?rhel} >= 7
-Requires: apache-commons-io
-%define jpackage_run_jars antlr apache-commons-beanutils apache-commons-collections apache-commons-logging regexp
-%else
-%define jpackage_run_jars antlr jakarta-commons-beanutils jakarta-commons-collections jakarta-commons-logging regexp
-%endif
-
-%define jpackage_build_jars checkstyle junit ant
-%define jpackage_jars %jpackage_run_jars %jpackage_build_jars
 
 Summary: A JNI Wrapper for the Unix pam(8) subsystem and a JAAS bridge
 Name: jpam
@@ -24,17 +15,37 @@ Version: 0.4
 Release: 28%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
-Requires: %jpackage_run_jars
-BuildRequires: %jpackage_jars
-BuildRequires: gcc make
-BuildRequires: pam-devel
-%if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
+%if 0%{?fedora} || 0%{?rhel} >= 7
+Requires: apache-commons-beanutils
+Requires: apache-commons-collections
+Requires: apache-commons-io
+Requires: apache-commons-logging
+Requires: javapackages-tools
+BuildRequires: apache-commons-beanutils
+BuildRequires: apache-commons-collections
+BuildRequires: apache-commons-io
+BuildRequires: apache-commons-logging
 BuildRequires: javapackages-tools
-Requires:      javapackages-tools
 %else
+Requires: jakarta-commons-beanutils
+Requires: jakarta-commons-collections
+Requires: jakarta-commons-logging
 BuildRequires: ant-nodeps
+BuildRequires: jakarta-commons-beanutils
+BuildRequires: jakarta-commons-collections
+BuildRequires: jakarta-commons-logging
 %endif
+Requires: antlr
+Requires: regexp
+BuildRequires: ant
+BuildRequires: antlr
+BuildRequires: checkstyle
+BuildRequires: gcc
 BuildRequires: java-devel >= 1.6.0
+BuildRequires: junit
+BuildRequires: make
+BuildRequires: pam-devel
+BuildRequires: regexp
 
 # ia64 doesnt have a new enough java.
 ExcludeArch:  ia64
