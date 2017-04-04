@@ -204,14 +204,14 @@ class CdnSync(object):
         # 2. Channel is custom
         # 3. Repositories are not already associated with any channels in mapping files
         if not db_channel or not db_channel['org_id']:
-            log2(1, 1, "Channel doesn't exist or is not custom.", stream=sys.stderr)
+            log2(0, 0, "ERROR: Channel doesn't exist or is not custom.", stream=sys.stderr)
             return False
         # Repositories can't be part of any channel from mappings
         channels = []
         for repo in repos:
             channels.extend(self.cdn_repository_manager.list_channels_containing_repository(repo))
         if channels:
-            log2(1, 1, "Specified repositories can't be synced because they are part of following channels: %s" %
+            log2(0, 0, "ERROR: Specified repositories can't be synced because they are part of following channels: %s" %
                  ", ".join(channels), stream=sys.stderr)
             return False
         # Check availability of repositories
@@ -220,7 +220,7 @@ class CdnSync(object):
             if not self.cdn_repository_manager.check_repository_availability(repo):
                 not_available.append(repo)
         if not_available:
-            log2(1, 1, "Following repositories are not available: %s" % ", ".join(not_available),
+            log2(0, 0, "ERROR: Following repositories are not available: %s" % ", ".join(not_available),
                  stream=sys.stderr)
             return False
         return True
@@ -234,21 +234,22 @@ class CdnSync(object):
         if db_channel and db_channel['org_id']:
             # Custom channel doesn't have any null-org repositories assigned
             if label not in self.synced_channels:
-                log2(1, 1, "Custom channel '%s' doesn't contain any CDN repositories." % label, stream=sys.stderr)
+                log2(0, 0, "ERROR: Custom channel '%s' doesn't contain any CDN repositories." % label, stream=sys.stderr)
                 return False
         else:
             if label not in self.channel_metadata:
-                log2(1, 1, "Channel '%s' not found in channel metadata mapping." % label, stream=sys.stderr)
+                log2(0, 0, "ERROR: Channel '%s' not found in channel metadata mapping." % label, stream=sys.stderr)
                 return False
             elif label not in self.channel_to_family:
-                log2(1, 1, "Channel '%s' not found in channel family mapping." % label, stream=sys.stderr)
+                log2(0, 0, "ERROR: Channel '%s' not found in channel family mapping." % label, stream=sys.stderr)
                 return False
             family = self.channel_to_family[label]
             if family not in self.entitled_families:
-                log2(1, 1, "Channel family '%s' is not entitled." % family, stream=sys.stderr)
+                log2(0, 0, "ERROR: Channel family '%s' containing channel '%s' is not entitled." % (family, label),
+                     stream=sys.stderr)
                 return False
             elif not self.cdn_repository_manager.check_channel_availability(label, self.no_kickstarts):
-                log2(1, 1, "Channel '%s' repositories are not available." % label, stream=sys.stderr)
+                log2(0, 0, "ERROR: Channel '%s' repositories are not available." % label, stream=sys.stderr)
                 return False
         return True
 
