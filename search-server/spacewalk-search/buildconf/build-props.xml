@@ -8,6 +8,6 @@
       value="c3p0 cglib commons-cli commons-codec commons-httpclient commons-lang
              commons-logging ${log4j} mchange-commons objectweb-asm/asm oro
              quartz redstone-xmlrpc redstone-xmlrpc-client simple-core
-             slf4j/api slf4j/jdk14 tanukiwrapper" />
+             slf4j/api slf4j/simple tanukiwrapper" />
 
 </project>
