@@ -204,7 +204,7 @@ class CdnSync(object):
         # 2. Channel is custom
         # 3. Repositories are not already associated with any channels in mapping files
         if not db_channel or not db_channel['org_id']:
-            log2(1, 1, "Channel '%s' doesn't exist or is not custom." % db_channel['label'], stream=sys.stderr)
+            log2(1, 1, "Channel doesn't exist or is not custom.", stream=sys.stderr)
             return False
         # Repositories can't be part of any channel from mappings
         channels = []
