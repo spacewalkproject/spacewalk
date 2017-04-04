@@ -11,11 +11,10 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
 
 Requires: java >= 1.5
-%if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: apache-commons-logging
+%if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: apache-commons-collections
 %else
-Requires: jakarta-commons-logging
 Requires: jakarta-commons-collections
 %endif
 
