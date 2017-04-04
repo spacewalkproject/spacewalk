@@ -172,11 +172,11 @@ if __name__ == '__main__':
         if LOCK:
             LOCK.release()
         system_exit(1, "SYNC ERROR: %s. Exiting." % str(e))
-    except rhnSQL.SQLConnectError:
+    except rhnSQL.SQLError:
         e = sys.exc_info()[1]
         if LOCK:
             LOCK.release()
-        system_exit(20, ["ERROR: Can't connect to the database: %s" % str(e), "Check if your database is running."])
+        system_exit(20, ["DATABASE ERROR: %s. " % str(e), "Check if your database is running."])
     except CdnMappingsLoadError:
         e = sys.exc_info()[1]
         system_exit(30, ["ERROR: %s" % str(e)])

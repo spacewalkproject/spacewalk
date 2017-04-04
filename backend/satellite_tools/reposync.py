@@ -384,6 +384,8 @@ class RepoSync(object):
                     except:
                         rhnSQL.rollback()
                         raise
+            except rhnSQL.SQLError:
+                raise
             except Exception:
                 e = sys.exc_info()[1]
                 log2(0, 0, "ERROR: %s" % e, stream=sys.stderr)
@@ -789,6 +791,8 @@ class RepoSync(object):
                     raise Exception
                 progress_bar.log(True, None)
             except KeyboardInterrupt:
+                raise
+            except rhnSQL.SQLError:
                 raise
             except Exception:
                 failed_packages += 1
