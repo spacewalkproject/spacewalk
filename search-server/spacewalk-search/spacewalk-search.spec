@@ -17,11 +17,18 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 #Requires: apache-ibatis-sqlmap
+Requires: apache-commons-cli
+Requires: apache-commons-codec
+Requires: apache-commons-lang
+Requires: apache-commons-logging
 Requires: c3p0 >= 0.9.1
 Requires: cglib
 Requires: doc-indexes
 Requires: jakarta-commons-httpclient
+Requires: jakarta-oro
+Requires: javapackages-tools
 #Requires: lucene
+Requires: objectweb-asm
 Requires: quartz < 2.0
 Conflicts: quartz >= 2.0
 Requires: redstone-xmlrpc
@@ -30,46 +37,26 @@ Requires: tanukiwrapper
 Requires: simple-core
 Obsoletes: rhn-search < 5.3.0
 BuildRequires: ant
+BuildRequires: apache-commons-cli
+BuildRequires: apache-commons-codec
+BuildRequires: apache-commons-lang
+BuildRequires: apache-commons-logging
 #BuildRequires: apache-ibatis-sqlmap
 BuildRequires: c3p0 >= 0.9.1
 BuildRequires: cglib
 BuildRequires: jakarta-commons-httpclient
+BuildRequires: jakarta-oro
 BuildRequires: java-devel >= 1.6.0
+BuildRequires: javapackages-tools
 #BuildRequires: lucene
+BuildRequires: objectweb-asm
 BuildRequires: quartz < 2.0
 BuildRequires: redstone-xmlrpc
 #BuildRequires: picocontainer
 BuildRequires: tanukiwrapper
 BuildRequires: simple-core
 %if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
-Requires: apache-commons-cli
-Requires: apache-commons-codec
-Requires: apache-commons-lang
-Requires: apache-commons-logging
-Requires: jakarta-oro
-Requires: javapackages-tools
 Requires: mchange-commons
-Requires: objectweb-asm
-BuildRequires: apache-commons-cli
-BuildRequires: apache-commons-codec
-BuildRequires: apache-commons-lang
-BuildRequires: apache-commons-logging
-BuildRequires: jakarta-oro
-BuildRequires: javapackages-tools
-BuildRequires: objectweb-asm
-%else
-Requires: asm
-Requires: jakarta-commons-cli
-Requires: jakarta-commons-codec
-Requires: jakarta-commons-lang >= 0:2.1
-Requires: jakarta-commons-logging
-Requires: jpackage-utils >= 0:1.5
-Requires: oro
-BuildRequires: jakarta-commons-cli
-BuildRequires: jakarta-commons-codec
-BuildRequires: jakarta-commons-lang >= 0:2.1
-BuildRequires: jakarta-commons-logging
-BuildRequires: oro
 %endif
 %if 0%{?fedora} && 0%{?fedora} >= 21
 Requires: log4j12
