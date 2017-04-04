@@ -116,9 +116,11 @@ class CandlepinApi(object):
             try:
                 try:
                     if method == "get":
-                        response = requests.get(url, params=params, proxies=self._get_proxies(), verify=verify, cert=cert)
+                        response = requests.get(url, params=params, proxies=self._get_proxies(),
+                                                verify=verify, cert=cert)
                     elif method == "put":
-                        response = requests.put(url, params=params, proxies=self._get_proxies(), verify=verify, cert=cert)
+                        response = requests.put(url, params=params, proxies=self._get_proxies(),
+                                                verify=verify, cert=cert)
                     else:
                         raise ValueError("Unsupported method: '%s'" % method)
                 except requests.RequestException:
