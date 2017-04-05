@@ -234,7 +234,8 @@ class CdnSync(object):
         if db_channel and db_channel['org_id']:
             # Custom channel doesn't have any null-org repositories assigned
             if label not in self.synced_channels:
-                log2(0, 0, "ERROR: Custom channel '%s' doesn't contain any CDN repositories." % label, stream=sys.stderr)
+                log2(0, 0, "ERROR: Custom channel '%s' doesn't contain any CDN repositories." % label,
+                     stream=sys.stderr)
                 return False
         else:
             if label not in self.channel_metadata:
