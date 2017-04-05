@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.7.15
+Version:        2.7.16
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,12 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Apr 05 2017 Jan Dobes 2.7.16-1
+- 1434336 - adding postgresql upgrade
+- 1434336 - on postgresql it's needed to define multiple unique indexes because
+  of null values
+- 1436567 - add warning that satellite service should be stopped before upgrade
+
 * Wed Mar 22 2017 Tomas Lestach <tlestach@redhat.com> 2.7.15-1
 - 1434900 - fixing typo in spacewalk-schema-upgrade
 
