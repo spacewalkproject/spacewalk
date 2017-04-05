@@ -1,3 +1,12 @@
+%if 0%{?fedora} || 0%{?rhel} >= 7
+Requires: apache-commons-io
+%define jpackage_run_jars antlr apache-commons-beanutils apache-commons-collections apache-commons-logging regexp
+%else
+%define jpackage_run_jars antlr jakarta-commons-beanutils jakarta-commons-collections jakarta-commons-logging regexp
+%endif
+
+%define jpackage_build_jars checkstyle junit ant
+%define jpackage_jars %jpackage_run_jars %jpackage_build_jars
 
 Summary: A JNI Wrapper for the Unix pam(8) subsystem and a JAAS bridge
 Name: jpam
@@ -15,27 +24,17 @@ Version: 0.4
 Release: 30%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
-Requires: antlr
-Requires: apache-commons-beanutils
-Requires: apache-commons-collections
-Requires: apache-commons-io
-Requires: apache-commons-logging
-Requires: javapackages-tools
-Requires: regexp
-BuildRequires: ant
-BuildRequires: antlr
-BuildRequires: apache-commons-beanutils
-BuildRequires: apache-commons-collections
-BuildRequires: apache-commons-io
-BuildRequires: apache-commons-logging
-BuildRequires: checkstyle
-BuildRequires: gcc
-BuildRequires: java-devel >= 1.6.0
-BuildRequires: javapackages-tools
-BuildRequires: junit
-BuildRequires: make
+Requires: %jpackage_run_jars
+BuildRequires: %jpackage_jars
+BuildRequires: gcc make
 BuildRequires: pam-devel
-BuildRequires: regexp
+%if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
+BuildRequires: javapackages-tools
+Requires:      javapackages-tools
+%else
+BuildRequires: ant-nodeps
+%endif
+BuildRequires: java-devel >= 1.6.0
 
 # ia64 doesnt have a new enough java.
 ExcludeArch:  ia64
@@ -61,7 +60,7 @@ Javadoc for %{name}.
 %patch5 -p1
 
 rm -Rfv tools/*.jar
-build-jar-repository -p tools/ ant antlr apache-commons-beanutils apache-commons-collections apache-commons-logging checkstyle junit regexp
+build-jar-repository -p tools/ %jpackage_jars
 
 %build
 export JAVA_HOME=%{java_home}
