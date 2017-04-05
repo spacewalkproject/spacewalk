@@ -38,7 +38,7 @@ BuildRequires: c3p0 >= 0.9.1
 BuildRequires: cglib
 BuildRequires: jakarta-commons-httpclient
 BuildRequires: jakarta-oro
-BuildRequires: java-devel >= 1.6.0
+BuildRequires: java-devel >= 1.8.0
 BuildRequires: javapackages-tools
 #BuildRequires: lucene
 BuildRequires: objectweb-asm
