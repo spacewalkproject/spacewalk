@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     2.7.3
+Version:     2.7.4
 Release:     1%{?dist}
 Summary:     Utilities to interact with a Red Hat Satellite or Spacewalk server remotely.
 
@@ -67,6 +67,12 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Wed Apr 05 2017 Jiri Dostal <jdostal@redhat.com> 2.7.4-1
+- 1439097 - Update spacewalk-remote-utils with RHEL 6.9 channel definitions
+- Use HTTPS in all Github links
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Wed Dec 07 2016 Jiri Dostal <jdostal@redhat.com> 2.7.3-1
 - python 3 requires print with parentheses   File /usr/bin/spacewalk-create-
   channel, line 443     print fullDir                 ^ SyntaxError: Missing
