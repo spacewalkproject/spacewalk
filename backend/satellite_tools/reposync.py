@@ -1101,7 +1101,10 @@ class RepoSync(object):
                     xmldoc = minidom.parse(primary_xml)
                     for i in xmldoc.getElementsByTagName('package'):
                         package = i.getElementsByTagName('location')[0].attributes['href'].value
-                        to_download.add(str(os.path.normpath(os.path.join(addon_dir, package))))
+                        repo_path = str(os.path.normpath(os.path.join(addon_dir, package)))
+                        if not os.path.exists(os.path.join(CFG.MOUNT_POINT, ks_path, repo_path)) \
+                                or self.force_kickstart:
+                            to_download.add(repo_path)
 
         if to_download:
             log(0, "Downloading %d kickstart files." % len(to_download))
