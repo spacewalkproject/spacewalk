@@ -335,20 +335,7 @@ def main():
         15   cannot load mapping files
         16   manifest download failed
         17   manifest refresh failed
-        20   remote activation failure (general, and really unknown why)
         30   local activation failure
-        40   channel population failure
-
-        0   1021 satellite_already_activated exception - MAPS TO 0
-
-        (CODE - 1000 + 60)
-        80   1020 no_management_slots exception
-        82   1022 no_access_to_sat_channel exception
-        83   1023 insufficient_channel_entitlements exception
-        84   1024 invalid_sat_certificate exception
-        85   1025 satellite_not_activated exception - this shouldn't happen!
-        86   1026 satellite_no_base_channel exception
-        87   2(?) no_sat_chan_for_version exception
 
         90   not registered to rhsm
         91   enabling sat repo failed
