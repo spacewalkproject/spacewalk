@@ -1,5 +1,4 @@
 %if 0%{?fedora} || 0%{?rhel} >= 7
-Requires: apache-commons-io
 %define jpackage_run_jars antlr apache-commons-beanutils apache-commons-collections apache-commons-logging regexp
 %else
 %define jpackage_run_jars antlr jakarta-commons-beanutils jakarta-commons-collections jakarta-commons-logging regexp
@@ -26,17 +25,19 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 Requires: %jpackage_run_jars
 BuildRequires: %jpackage_jars
-BuildRequires: gcc make
+BuildRequires: gcc
+BuildRequires: java-devel >= 1.6.0
+BuildRequires: make
 BuildRequires: pam-devel
-%if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
+%if 0%{?fedora} || 0%{?rhel} >= 7
+Requires:      apache-commons-io
+Requires:      javapackages-tools
 BuildRequires: ant
 BuildRequires: javapackages-tools
-Requires:      javapackages-tools
 %else
 BuildRequires: ant < 1.9
 BuildRequires: ant-nodeps < 1.9
 %endif
-BuildRequires: java-devel >= 1.6.0
 
 # ia64 doesnt have a new enough java.
 ExcludeArch:  ia64
