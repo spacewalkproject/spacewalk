@@ -173,6 +173,9 @@ def writeRhsmManifest(options, manifest):
     fo = open(DEFAULT_RHSM_MANIFEST_LOCATION, 'w+b')
     fo.write(manifest)
     fo.close()
+    # Delete from temporary location
+    if options.manifest_refresh:
+        os.unlink(options.manifest)
     options.manifest = DEFAULT_RHSM_MANIFEST_LOCATION
 
 
@@ -282,8 +285,11 @@ def processCommandline():
         Option('--rhn-cert', action='store', help='this option is deprecated, use --manifest instead'),
         Option('--cdn-deactivate', action='store_true', help='deactivate CDN-activated Satellite'),
         Option('--disconnected', action='store_true', help="activate locally, not subscribe to remote repository"),
-        Option('--download-manifest', action='store_true', help="download new manifest from RHSM"),
-        Option('--refresh-manifest', action='store_true', help="regenerate certificates in RHSM for your consumer")
+        Option('--manifest-download', action='store_true',
+               help="download new manifest from RHSM to temporary location"),
+        Option('--manifest-refresh', action='store_true', help="download new manifest from RHSM and activate it"),
+        Option('--manifest-reconcile-request', action='store_true',
+               help="request regeneration of entitlement certificates")
     ]
 
     parser = OptionParser(option_list=options)
@@ -302,6 +308,9 @@ def processCommandline():
 
     if options.sanity_only:
         options.disconnected = 1
+
+    if options.manifest_refresh:
+        options.manifest_download = 1
 
     if CFG.DISCONNECTED and not options.disconnected:
         sys.stderr.write("""ERROR: Satellite server has been setup to run in disconnected mode.
@@ -368,9 +377,10 @@ def main():
 
     if not options.manifest:
         if os.path.exists(DEFAULT_RHSM_MANIFEST_LOCATION):
-            # Call refreshment API on Candlepin server
-            if options.refresh_manifest:
-                print("Refreshing manifest...")
+            options.manifest = DEFAULT_RHSM_MANIFEST_LOCATION
+            # Call regeneration API on Candlepin server
+            if options.manifest_reconcile_request:
+                print("Requesting manifest regeneration...")
                 ok = cdn_activation.Activation.refresh_manifest(
                     DEFAULT_RHSM_MANIFEST_LOCATION,
                     http_proxy=options.http_proxy,
@@ -378,12 +388,12 @@ def main():
                     http_proxy_password=options.http_proxy_password,
                     verbosity=options.verbose)
                 if not ok:
-                    writeError("Refreshing manifest failed!")
+                    writeError("Manifest regeneration failed!")
                     return 17
-                print("Manifest refresh requested.")
+                print("Manifest regeneration requested.")
                 return 0
             # Get new refreshed manifest from Candlepin server
-            if options.download_manifest:
+            if options.manifest_download:
                 print("Downloading manifest...")
                 path = cdn_activation.Activation.download_manifest(
                     DEFAULT_RHSM_MANIFEST_LOCATION,
@@ -392,14 +402,16 @@ def main():
                     http_proxy_password=options.http_proxy_password,
                     verbosity=options.verbose)
                 if not path:
-                    writeError("Download of manifest failed!")
+                    writeError("Manifest download failed!")
                     return 16
-                options.manifest = path
-                print("New manifest downloaded to: '%s'" % path)
-                return 0
-            options.manifest = DEFAULT_RHSM_MANIFEST_LOCATION
+                if options.manifest_refresh:
+                    options.manifest = path
+                else:
+                    print("New manifest saved to: '%s'" % path)
+                    return 0
         else:
-            writeError("Manifest was not provided. Run the activation tool with option --manifest=MANIFEST.")
+            writeError("No currently activated manifest was found. "
+                       "Run the activation tool with option --manifest=MANIFEST.")
             return 1
     # Handle RHSM manifest
     try:
