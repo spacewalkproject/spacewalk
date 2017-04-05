@@ -17,10 +17,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 #Requires: apache-ibatis-sqlmap
-Requires: apache-commons-cli
-Requires: apache-commons-codec
-Requires: apache-commons-lang
-Requires: apache-commons-logging
 Requires: c3p0 >= 0.9.1
 Requires: cglib
 Requires: doc-indexes
@@ -37,10 +33,6 @@ Requires: tanukiwrapper
 Requires: simple-core
 Obsoletes: rhn-search < 5.3.0
 BuildRequires: ant
-BuildRequires: apache-commons-cli
-BuildRequires: apache-commons-codec
-BuildRequires: apache-commons-lang
-BuildRequires: apache-commons-logging
 #BuildRequires: apache-ibatis-sqlmap
 BuildRequires: c3p0 >= 0.9.1
 BuildRequires: cglib
@@ -56,7 +48,24 @@ BuildRequires: redstone-xmlrpc
 BuildRequires: tanukiwrapper
 BuildRequires: simple-core
 %if 0%{?fedora} || 0%{?rhel} >=7 || 0%{?suse_version} >= 1315
+Requires: apache-commons-cli
+Requires: apache-commons-codec
+Requires: apache-commons-lang
+Requires: apache-commons-logging
 Requires: mchange-commons
+BuildRequires: apache-commons-cli
+BuildRequires: apache-commons-codec
+BuildRequires: apache-commons-lang
+BuildRequires: apache-commons-logging
+%else
+Requires: jakarta-commons-cli
+Requires: jakarta-commons-codec
+Requires: jakarta-commons-lang
+Requires: jakarta-commons-logging
+BuildRequires: jakarta-commons-cli
+BuildRequires: jakarta-commons-codec
+BuildRequires: jakarta-commons-lang
+BuildRequires: jakarta-commons-logging
 %endif
 %if 0%{?fedora} && 0%{?fedora} >= 21
 Requires: log4j12
