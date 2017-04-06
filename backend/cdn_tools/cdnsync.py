@@ -412,7 +412,7 @@ class CdnSync(object):
 
         # if we have not_available channels log the error immediately
         if not_available:
-            msg = "ERROR: these channels either do not exist or are not available:\n" + "\n".join(not_available)
+            msg = "ERROR: these channels either do not exist or are not available:\n  " + "\n  ".join(not_available)
             log(0, msg)
             error_messages.append(msg)
 
