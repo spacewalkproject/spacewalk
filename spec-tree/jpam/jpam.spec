@@ -25,6 +25,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 Requires: %jpackage_run_jars
 BuildRequires: %jpackage_jars
+BuildRequires: apache-commons-beanutils >= 1.9
 BuildRequires: gcc
 BuildRequires: java-devel >= 1.6.0
 BuildRequires: make
