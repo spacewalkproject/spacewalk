@@ -55,6 +55,7 @@ class Repository(RPC_Base):
             'getPackageHeader',
             'getPackageSource',
             'i18n',
+            'media_1'
         ]
 
     def set_compress_headers(self, val):
@@ -126,6 +127,16 @@ class Repository(RPC_Base):
             We do not support it so just return 404. But do not fail with
             traceback.
         """
+        raise rhnNotFound()
+
+    @staticmethod
+    def media_1(filePath):
+        """SUSE File
+
+        We do not support it so just return 404. But do not fail with
+        traceback.
+        """
+        log_debug(3, filePath)
         raise rhnNotFound()
 
     def getPackageSource(self, pkgFilename):
