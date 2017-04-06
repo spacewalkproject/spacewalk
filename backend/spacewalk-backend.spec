@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.71
+Version: 2.7.72
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Apr 06 2017 Gennadii Altukhov <galt@redhat.com> 2.7.72-1
+- 1434786 - add indentation for missing channels in an error message
+
 * Wed Apr 05 2017 Jan Dobes 2.7.71-1
 - 1418025 - fixing behavior to work with --force-kickstarts parameter
 
