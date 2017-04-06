@@ -2422,7 +2422,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
     public ContentSource createRepo(User loggedInUser, String label, String type,
             String url) {
         // empty strings for SSL-certificates descriptions
-        type = type.toLowerCase();
         String sslCaCert = "";
         String sslCliCert = "";
         String sslCliKey = "";
@@ -2463,6 +2462,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
              throw new InvalidParameterException("url might not be empty");
          }
 
+         type = type.toLowerCase();
          BaseRepoCommand repoCmd = new CreateRepoCommand(loggedInUser.getOrg());
 
          repoCmd.setLabel(label);
