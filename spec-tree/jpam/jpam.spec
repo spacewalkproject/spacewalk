@@ -20,7 +20,7 @@ Patch3: jpam-0.4-no_checkstyle.patch
 Patch4: jpam-0.4-no-password-prompt.patch
 Patch5: jpam-0.4-arm.patch
 Version: 0.4
-Release: 31%{?dist}
+Release: 32%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 Requires: %jpackage_run_jars
@@ -113,6 +113,9 @@ fi
 %{_javadocdir}/%{name}-%{version}
 
 %changelog
+* Thu Apr 06 2017 Michael Mraka <michael.mraka@redhat.com> 0.4-32
+- new checkstyle requirement
+
 * Wed Apr 05 2017 Michael Mraka <michael.mraka@redhat.com> 0.4-31
 - require older ant on RHEL6
 - Revert jakarta-* -> apache-* changes
