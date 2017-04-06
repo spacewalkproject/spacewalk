@@ -88,7 +88,7 @@ mkdir -p $DIR/conf/rhn/sysconfig
 mkdir -p $DIR/httpd-logs
 mkdir -p $DIR/tomcat-logs
 mkdir -p $DIR/cobbler-logs
-mkdir -p $DIR/rhn-logs
+mkdir -p $DIR/rhn-logs/rhn
 mkdir -p $DIR/config-defaults
 mkdir -p $DIR/kickstarts
 mkdir -p $DIR/database
@@ -114,7 +114,27 @@ if [ -d /var/log/httpd ]; then
 elif [ -d /var/log/apache2 ]; then
     cp -fapRd /var/log/apache2 $DIR/httpd-logs
 fi
-cp -fapRd /var/log/rhn* $DIR/rhn-logs
+
+# copy rhn logs
+if [ -d /var/log/rhn ]; then
+    cp -fapd  /var/log/rhn/{*log*,*.gz} $DIR/rhn-logs/rhn
+
+    # check for oracle dir
+    if [ -d /var/log/rhn/oracle ]; then
+        cp -fapRd /var/log/rhn/oracle $DIR/rhn-logs/rhn
+    fi
+
+    # check for reposync dir
+    if [ -d /var/log/rhn/reposync ]; then
+        cp -fapRd /var/log/rhn/reposync $DIR/rhn-logs/rhn
+    fi
+
+    # check for search dir
+    if [ -d /var/log/rhn/search ]; then
+        cp -fapRd /var/log/rhn/search $DIR/rhn-logs/rhn
+    fi
+fi
+
 DB_INSTALL_LOG=/var/log/rhn/rhn-database-installation.log
 if [ -f "$DB_INSTALL_LOG" ] ; then
     mkdir -p $DIR/tmp
@@ -288,4 +308,3 @@ rm -Rf $(echo $DIR | sed -e 's/\/[^\/]*$//g')
 
 echo
 echo "Debug dump created, stored in $TARBALL"
-
