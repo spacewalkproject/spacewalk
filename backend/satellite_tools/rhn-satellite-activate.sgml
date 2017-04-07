@@ -127,6 +127,18 @@
 </simplelist>
 </RefSect1>
 
+<RefSect1><Title>Examples</Title>
+<simplelist>
+    <member><command>rhn-satellite-activate --manifest /tmp/manifest.zip</command></member>
+    <member><command>rhn-satellite-activate --manifest /tmp/manifest.zip --disconnected</command></member>
+    <member><command>rhn-satellite-activate --manifest-info</member>
+    <member><command>rhn-satellite-activate --manifest-download</member>
+    <member><command>rhn-satellite-activate --manifest-reconcile-request</member>
+    <member><command>rhn-satellite-activate --manifest-refresh --disconnected</member>
+    <member><command>rhn-satellite-activate --deactivate</member>
+</simplelist>
+</RefSect1>
+
 <RefSect1><Title>See Also</Title>
 <simplelist>
     <member>db-control(1) - embedded database environment only!</member>
