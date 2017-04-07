@@ -562,8 +562,8 @@ class GetHandler(apacheRequest):
         repository = rhnRepository.Repository(self.channel, server_id,
                                               username)
         repository.set_qos()
-
-        f = repository.get_function(method)
+        meth = method.replace('.', '_')
+        f = repository.get_function(meth)
         if f is None:
             raise UnknownXML("function '%s' invalid; path_info is %s" % (
                 method, self.req.path_info))
