@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-postgresql
-Version:        2.7.1
+Version:        2.7.2
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 Group:          Applications/System
@@ -64,6 +64,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Apr 07 2017 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.2-1
+- fix isSUSE: command not found
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Thu Feb 02 2017 Gennadii Altukhov <galt@redhat.com> 2.7.1-1
 - 1415118 - add Perl DBI backend for PostgreSQL as requirement
 - Bumping package versions for 2.7.
