@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.72
+Version: 2.7.73
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,22 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Fri Apr 07 2017 Jan Dobes 2.7.73-1
+- 1397762 - adding examples section
+- 1397762 - add option to display info about currently used manifest
+- 1397762 - use candlepin API server from manifest
+- 1397762 - rename --cdn-deactivate to just --deactivate
+- 1397762 - rotate manifest on deactivation
+- 1397762 - parse meta json file
+- 1397762 - get name and API URL from manifest
+- 1397762 - be more descriptive
+- 1397762 - provide option for immediate activation and rename parameters
+- 1439949 - Set a maximum limit to include the PostgreSQL logs into the
+  spacewalk-debug tarball.
+- Enhances performance by copying just the pertinent files under /var/rhn/log.
+  A lot of the times, external files are mistakenly saved there by sysadmins
+  such as database dumps, etc.
+
 * Thu Apr 06 2017 Gennadii Altukhov <galt@redhat.com> 2.7.72-1
 - 1434786 - add indentation for missing channels in an error message
 
