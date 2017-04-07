@@ -368,6 +368,10 @@ def main():
     # CDN Deactivation
     if options.cdn_deactivate:
         cdn_activation.Activation.deactivate()
+        # Rotate the manifest to not have any currently used
+        if os.path.exists(DEFAULT_RHSM_MANIFEST_LOCATION):
+            fileutils.rotateFile(DEFAULT_RHSM_MANIFEST_LOCATION, depth=5)
+            os.unlink(DEFAULT_RHSM_MANIFEST_LOCATION)
         return 0
 
     if options.rhn_cert:
