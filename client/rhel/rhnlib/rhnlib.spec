@@ -4,7 +4,7 @@ Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-Version: 2.7.1
+Version: 2.7.2
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -85,6 +85,13 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Apr 07 2017 Jan Dobes 2.7.2-1
+- Let the memory usage for ssl-memleak-test stabilize a bit. During the test
+  run, the first memory check is often done too quickly, and all necessary
+  memory is not allocated yet, ending is false negative test result.
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Tue Nov 15 2016 Gennadii Altukhov <galt@redhat.com> 2.7.1-1
 - fix except in rhnlib to make it compatible with Python 2.4
 - Bumping package versions for 2.7.
