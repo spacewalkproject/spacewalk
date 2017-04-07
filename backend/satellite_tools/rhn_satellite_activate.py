@@ -235,9 +235,10 @@ def enableSatelliteRepo(rhn_cert):
                "Standard-error: %s\n\n"
                % (msg_, ret, out.read(), err.read()))
         sys.stderr.write(msg)
-        raise EnableSatelliteRepositoryException("Enabling of Satellite repository failed. Is there Satellite "
-                                                 "subscription attached to this system? Is the version of "
-                                                 "RHEL and Satellite certificate correct?")
+        raise EnableSatelliteRepositoryException("Enabling of Satellite repository failed. Make sure Satellite "
+                                                 "subscription is attached to this system, both versions of RHEL and "
+                                                 "Satellite are supported or run activation with --disconnected "
+                                                 "option.")
 
 
 class EnableSatelliteRepositoryException(Exception):
@@ -445,7 +446,8 @@ def main():
     if not options.disconnected:
         rhsm_uuid = getRHSMUuid()
         if not rhsm_uuid:
-            writeError("Server not registered to RHSM? No identity found.")
+            writeError("System not registered to RHSM? No identity found. Please register system to RHSM"
+                       " or run activation with --disconnected option.")
             return 90
         try:
             enableSatelliteRepo(cdn_activate.manifest.get_satellite_certificate())
