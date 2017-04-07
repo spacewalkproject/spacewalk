@@ -284,7 +284,7 @@ def processCommandline():
         Option('--dump-version', action='store', help="requested version of XML dump"),
         Option('--manifest',     action='store',      help='the RHSM manifest path/filename to activate for CDN'),
         Option('--rhn-cert', action='store', help='this option is deprecated, use --manifest instead'),
-        Option('--cdn-deactivate', action='store_true', help='deactivate CDN-activated Satellite'),
+        Option('--deactivate', action='store_true', help='deactivate CDN-activated Satellite'),
         Option('--disconnected', action='store_true', help="activate locally, not subscribe to remote repository"),
         Option('--manifest-download', action='store_true',
                help="download new manifest from RHSM to temporary location"),
@@ -304,7 +304,7 @@ def processCommandline():
     initCFG('server.satellite')
 
     # No need to check further if deactivating
-    if options.cdn_deactivate:
+    if options.deactivate:
         return options
 
     if options.sanity_only:
@@ -366,7 +366,7 @@ def main():
         sys.exit(1)
 
     # CDN Deactivation
-    if options.cdn_deactivate:
+    if options.deactivate:
         cdn_activation.Activation.deactivate()
         # Rotate the manifest to not have any currently used
         if os.path.exists(DEFAULT_RHSM_MANIFEST_LOCATION):
