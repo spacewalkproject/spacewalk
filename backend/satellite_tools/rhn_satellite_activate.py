@@ -286,6 +286,7 @@ def processCommandline():
         Option('--rhn-cert', action='store', help='this option is deprecated, use --manifest instead'),
         Option('--deactivate', action='store_true', help='deactivate CDN-activated Satellite'),
         Option('--disconnected', action='store_true', help="activate locally, not subscribe to remote repository"),
+        Option('--manifest-info', action='store_true', help="show information about currently activated manifest"),
         Option('--manifest-download', action='store_true',
                help="download new manifest from RHSM to temporary location"),
         Option('--manifest-refresh', action='store_true', help="download new manifest from RHSM and activate it"),
@@ -383,6 +384,9 @@ def main():
     if not options.manifest:
         if os.path.exists(DEFAULT_RHSM_MANIFEST_LOCATION):
             options.manifest = DEFAULT_RHSM_MANIFEST_LOCATION
+            if options.manifest_info:
+                cdn_activation.Activation.manifest_info(DEFAULT_RHSM_MANIFEST_LOCATION)
+                return 0
             # Call regeneration API on Candlepin server
             if options.manifest_reconcile_request:
                 print("Requesting manifest regeneration...")

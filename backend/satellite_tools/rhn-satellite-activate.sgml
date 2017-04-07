@@ -21,7 +21,7 @@
 <Synopsis>
     <cmdsynopsis>
         <command>&RHNSATACT; [ options <replaceable>...</replaceable> ] [ --manifest <replaceable>PATH</replaceable> ] \
-  [ --sanity-only ] [ --disconnected ] [ --deactivate ] \
+  [ --sanity-only ] [ --disconnected ] [ --deactivate ] [ --manifest-info ] \
   [ ---manifest-download ] [ --manifest-refresh ] [ --manifest-reconcile-request ] \
   [ -h|--help ]</command>
     </cmdsynopsis>
@@ -79,6 +79,12 @@
         <term>--deactivate</term>
         <listitem>
             <para>Deactivate CDN-activated Satellite.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--manifest-info</term>
+        <listitem>
+            <para>Show information about currently activated manifest.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

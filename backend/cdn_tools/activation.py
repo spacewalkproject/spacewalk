@@ -202,6 +202,16 @@ class Activation(object):
         Activation._remove_repositories()
 
     @staticmethod
+    def manifest_info(manifest_path):
+        manifest = Manifest(manifest_path)
+        print("Name: %s" % manifest.get_name())
+        print("UUID: %s" % manifest.get_uuid())
+        print("Owner ID: %s" % manifest.get_ownerid())
+        print("Satellite version: %s" % manifest.get_satellite_version())
+        print("Created: %s" % manifest.get_created())
+        print("API URL: %s" % manifest.get_api_url())
+
+    @staticmethod
     def download_manifest(old_manifest_path, http_proxy=None, http_proxy_username=None,
                           http_proxy_password=None, verbosity=0):
         manifest = Manifest(old_manifest_path)
