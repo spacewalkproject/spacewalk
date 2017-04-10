@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.47
+Version: 2.7.48
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -705,6 +705,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Apr 10 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.48-1
+- updated RHEL6 (Build)Requires according to new java packages
+
 * Mon Apr 10 2017 Jan Dobes 2.7.47-1
 - obsolete some more packages for successfull upgrade on rhel 7
 
