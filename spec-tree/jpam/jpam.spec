@@ -11,7 +11,7 @@ Patch3: jpam-0.4-no_checkstyle.patch
 Patch4: jpam-0.4-no-password-prompt.patch
 Patch5: jpam-0.4-arm.patch
 Version: 0.4
-Release: 32%{?dist}
+Release: 33%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 BuildRequires: apache-commons-beanutils >= 1.9
@@ -125,6 +125,9 @@ fi
 %{_javadocdir}/%{name}-%{version}
 
 %changelog
+* Mon Apr 10 2017 Michael Mraka <michael.mraka@redhat.com> 0.4-33
+- expanded (Build)Requires list to make it more readable
+
 * Thu Apr 06 2017 Michael Mraka <michael.mraka@redhat.com> 0.4-32
 - new checkstyle requirement
 
