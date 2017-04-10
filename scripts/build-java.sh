@@ -29,7 +29,8 @@ if [ -f \"\$SRPM\" ]; then
    if [ \$DIST == 'el6' ]; then
        yum install -y jmock ant-apache-regexp ant-contrib ant-junit ant-nodeps checkstyle
    else
-       yum install -y aspell-en jmock ant-apache-regexp ant-junit 'mvn(ant-contrib:ant-contrib)' checkstyle
+       yum install -y aspell-en jmock ant-apache-regexp ant-junit 'mvn(ant-contrib:ant-contrib)' checkstyle apache-commons-lang3 translate-toolkit 'mvn(org.jmock:jmock-junit3)' 'mvn(org.jmock:jmock-legacy)'
+
    fi
    rm -rf /usr/src/redhat/SOURCES/*
    rm -rf /usr/src/redhat/BUILD/*
