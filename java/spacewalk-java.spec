@@ -75,6 +75,10 @@ Requires:      tomcat-taglibs-standard
 # obsolete old jpackage rpms to make smooth upgrade
 Obsoletes:     classpathx-jaf <= 1.1.1
 Obsoletes:     classpathx-mail <= 1.1.2
+Obsoletes:     excalibur-avalon-framework-api <= 1:4.3.1
+Obsoletes:     excalibur-avalon-framework-impl <= 1:4.3.1
+Obsoletes:     excalibur-avalon-logkit <= 1:2.2.1
+Obsoletes:     geronimo-jms-1.1-api <= 1.2
 Obsoletes:     geronimo-jsp-2.1-api <= 1.2
 Obsoletes:     geronimo-servlet-2.5-api <= 1.2
 Obsoletes:     geronimo-specs-poms <= 1.2
