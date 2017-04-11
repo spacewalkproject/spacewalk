@@ -413,8 +413,14 @@ class CdnSync(object):
         # if we have not_available channels log the error immediately
         if not_available:
             msg = "ERROR: these channels either do not exist or are not available:\n  " + "\n  ".join(not_available)
-            log(0, msg)
             error_messages.append(msg)
+
+            # BZ 1434913 - let user know satellite may not be activated if all channels are in not_available
+            if not available:
+                msg = "Is your Red Hat Satellite activated for CDN?\n"
+                msg += "(to see details about currently used SSL certificates for accessing CDN:"
+                msg += " /usr/bin/cdn-sync --cdn-certs)"
+                error_messages.append(msg)
 
         # Need to update channel metadata
         self._update_channels_metadata([ch for ch in channels if ch in self.channel_metadata])
