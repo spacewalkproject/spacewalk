@@ -18,6 +18,7 @@ use POSIX ":sys_wait_h";
 use Fcntl qw(F_GETFD F_SETFD FD_CLOEXEC);
 use Socket;
 use Net::LibIDN ();
+use Term::Completion::Path;
 
 use Params::Validate qw(validate);
 Params::Validate::validation_options(strip_leading => "-");
@@ -570,6 +571,7 @@ sub ask {
             answer => 1,
             password => 0,
             default => 0,
+            completion => 0,
         });
 
     if (${$params{answer}} and not $params{default}) {
@@ -609,7 +611,13 @@ sub ask {
             print "\n";
         }
         else {
-            ${$params{answer}} = <STDIN>;
+            if ($params{completion}) {
+                my $tc = Term::Completion::Path->new();
+                ${$params{answer}} = $tc->complete();
+            }
+            else {
+                ${$params{answer}} = <STDIN>;
+            }
         }
 
         chomp ${$params{answer}};
