@@ -844,7 +844,7 @@ def do_softwarechannel_clonetree(self, args):
 
     channels = [options.source_channel]
     if not options.source_channel in self.list_base_channels():
-        logging.error("Can't call softwarechannel_clonetree on child channel!")
+        logging.error("Channel does not exist or is not a base channel!")
         self.help_softwarechannel_clonetree()
         return
     logging.debug("--child mode specified, finding children of %s\n" %
@@ -1538,7 +1538,7 @@ def do_softwarechannel_getorgaccesstree(self, args):
         channels = filter_results(self.list_base_channels(), args)
 
     if not len(channels):
-        logging.error("Can't call softwarechannel_getorgaccesstree on child channel!")
+        logging.error("Channel does not exist or is not a base channel!")
         self.help_softwarechannel_getorgaccesstree()
         return
 
@@ -1574,7 +1574,7 @@ def do_softwarechannel_setorgaccesstree(self, args):
     channels = filter_results(self.list_base_channels(), args)
 
     if not len(channels):
-        logging.error("Can't call softwarechannel_setorgaccesstree on child channel!")
+        logging.error("Channel does not exist or is not a base channel!")
         self.help_softwarechannel_setorgaccesstree()
         return
 
