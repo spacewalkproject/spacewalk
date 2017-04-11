@@ -263,9 +263,9 @@ This package contains testing files of spacewalk-java.
 %{_datadir}/rhn/lib/rhn-test.jar
 %{_datadir}/rhn/unit-tests/*
 %{_datadir}/rhn/unittest.xml
-%{jardir}/commons-lang3.jar
-%{jardir}/mockobjects*.jar
-%{jardir}/strutstest*.jar
+%attr(644, tomcat, tomcat) %{jardir}/commons-lang3.jar
+%attr(644, tomcat, tomcat) %{jardir}/mockobjects*.jar
+%attr(644, tomcat, tomcat) %{jardir}/strutstest*.jar
 %endif
 
 %package -n spacewalk-taskomatic
