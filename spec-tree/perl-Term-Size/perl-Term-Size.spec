@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Apr 11 2017 Tomas Kasparek <tkasparek@redhat.com> 0.207-14.1
+- 1440818 - add a patch and fix package version
+
 * Tue Apr 11 2017 Tomas Kasparek <tkasparek@redhat.com> 0.207.1-14
 - new package built with tito
 
