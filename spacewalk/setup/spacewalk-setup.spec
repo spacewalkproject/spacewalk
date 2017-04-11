@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.7.4
+Version:        2.7.5
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -117,6 +117,11 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Apr 11 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.5-1
+- 1440818 - add option for path completion
+- 1440818 - require perl-Term-Completion module
+- 1440818 - remove leading and trailing spaces when asking for information
+
 * Fri Mar 31 2017 Laurence Rochfort <laurence.rochfort@oracle.com>
 - 1430747 - Add support for Oracle 12.2.
 
