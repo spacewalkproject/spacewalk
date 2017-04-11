@@ -1,6 +1,6 @@
 Name:           perl-Term-Size 
-Version:        0.207.1
-Release:        14%{?dist}
+Version:        0.207
+Release:        14%{?dist}.1
 License:        GPL+ or Artistic 
 Summary:        Simple way to get terminal size 
 Source0:        http://search.cpan.org/CPAN/authors/id/F/FE/FERREIRA/Term-Size-%{version}.tar.gz
