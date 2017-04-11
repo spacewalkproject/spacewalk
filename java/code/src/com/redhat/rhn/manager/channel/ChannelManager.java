@@ -658,11 +658,6 @@ public class ChannelManager extends BaseManager {
      */
     public static boolean verifyChannelAdmin(User user, Long cid)
         throws InvalidChannelRoleException {
-
-        if (user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
-            return true;
-        }
-
         return verifyChannelRole(user, cid, QRY_ROLE_MANAGE);
     }
 
