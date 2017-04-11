@@ -1,5 +1,5 @@
 Name:           perl-Term-Size 
-Version:        0.207
+Version:        0.207.1
 Release:        14%{?dist}
 License:        GPL+ or Artistic 
 Summary:        Simple way to get terminal size 
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Apr 11 2017 Tomas Kasparek <tkasparek@redhat.com> 0.207.1-14
+- new package built with tito
+
 * Sun May 15 2016 Jitka Plesnikova <jplesnik@redhat.com> - 0.207-14
 - Perl 5.24 rebuild
 
