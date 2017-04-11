@@ -20,6 +20,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildArch:      noarch
 Requires:       perl
 Requires:       perl-Params-Validate
+Requires:       perl(Term::Completion::Path)
 Requires:       spacewalk-schema
 Requires:       %{sbinpath}/restorecon
 Requires:       spacewalk-admin
