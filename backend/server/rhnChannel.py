@@ -1763,7 +1763,7 @@ def __auth_user(server_id, username, password):
     # The user's password checks, verify that they have perms on that
     # server.
     h = rhnSQL.prepare("""
-    select count(*)
+    select 1
     from rhnUserServerPerms usp
     where usp.user_id = :user_id
     and   usp.server_id = :server_id
