@@ -160,7 +160,7 @@ Utility to monitor what the taskomatic daemon is doing.
 	<term>-n <replaceable>NUMITERATIONS</replaceable></term>
 	<listitem>
 	    <para>
-                <command>taskotop</command> will iterate the specified number of times and then exit. If not specified, <command>taskotop</command> will run until the user exits taskotop.
+                <command>taskotop</command> will iterate the specified number of times and then exit. If not specified or 0 (the default), <command>taskotop</command> will run until the user exits taskotop.
 	    </para>
 	</listitem>
     </varlistentry>

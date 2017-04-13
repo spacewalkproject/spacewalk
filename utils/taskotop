@@ -21,10 +21,12 @@ import sys
 import curses
 import logging
 import argparse
+import os.path
 
 from spacewalk.server import rhnSQL
 
 
+DEFAULT_LOGFILE = './taskotop.log'
 
 parser = argparse.ArgumentParser(description="Taskotop is a tool to monitor what taskomatic " +
                                  "is currently doing.")
@@ -44,9 +46,9 @@ parser.add_argument("-m", "--max-age", type=int,
                     help="Retrieve past events up to this old (in seconds, default 60). " +
                     "This has no effect if -e/--each-task is specified.")
 parser.add_argument("-n", type=int,
-                    dest="numIterations", default=-1,
+                    dest="numIterations", default=0,
                     help="taskotop will iterate the specified number of times and then exit. " +
-                    "If not specified, taskotop will run until the user exits taskotop.")
+                    "If not specified or 0 (the default), taskotop will run until the user exits taskotop.")
 parser.add_argument("-t", "--taskomatic", action="store_true",
                     dest="displayTaskomatic",
                     help="Include taskomaticd process information in the output.")
@@ -60,9 +62,9 @@ parser.add_argument("--hide-elapsed", action="store_true",
 parser.add_argument("--show-start", action="store_true",
                     dest="showStart",
                     help="Include the START column in the display.")
-parser.add_argument("--logfile", dest="logfile", default="./taskotop.log",
+parser.add_argument("--logfile", dest="logfile", default=DEFAULT_LOGFILE,
                     help="Specify logfile to use if at least one verbose arg specified.  " +
-                    "Default is ./taskotop.log")
+                    "Default is %s" % DEFAULT_LOGFILE)
 args = parser.parse_args()
 
 DISPLAY_TASKOMATIC = args.displayTaskomatic
@@ -529,8 +531,6 @@ def main(screen):
     """Computes and displays runs every second."""
     curses.halfdelay(10)
 
-    log_error(curses.termattrs())
-    
     rhnSQL.initDB()
 
     # exit gracefully on ctrl-c
@@ -577,6 +577,8 @@ def main(screen):
                             format_channel_names)
 
     num_iterations = args.numIterations
+    if args.numIterations == 0:
+        num_iterations = -1
     while num_iterations != 0:
         if num_iterations > 0:
             num_iterations -= 1
@@ -616,6 +618,14 @@ def system_exit(code, msgs=None):
             sys.stderr.write(str(msg) + '\n')
     sys.exit(code)
 
+if args.numIterations < 0:
+    system_exit(2, "ERROR: NUMITERATIONS must not be a negative value")
+
+if args.maxAge < 0:
+    system_exit(2, "ERROR: MAXAGE must not be a negative value")
+
+if args.logfile != DEFAULT_LOGFILE and args.verbose == 0:
+    system_exit(2, "ERROR: --logfile command line option requires use of -v or --verbose option")
 
 if args.verbose > 0:
     LOGGING_ENABLED = True
@@ -628,9 +638,18 @@ if args.verbose > 0:
         loglevel = logging.INFO
     else:
         loglevel = logging.DEBUG
+    dirname = os.path.dirname(args.logfile)
+    if dirname != '' and not os.path.isdir(os.path.dirname(args.logfile)):
+        system_exit(1, "ERROR: Directory %s in specified logfile doesn't exist" % dirname)
+    try:
+        lfile = open(args.logfile, 'a')
+        lfile.write("Logging started with verbosity %d on %s\n" % (args.verbose,  time.strftime("%c")))
+        lfile.write("taskotop command args: %s\n" % ' '.join(sys.argv[1:]))
+        lfile.close()
+    except Exception:
+        system_exit(1, "ERROR: Failed to open and write to logfile %s" % args.logfile)
+
     logging.basicConfig(filename=args.logfile, level=loglevel, format='%(asctime)s %(levelname)s:%(message)s')
-    log_info("Logging started...")
-    log_info('verbosity is %d' % args.verbose)
     log_debug('HUMAN_READABLE is %s' % HUMAN_READABLE)
     log_debug('MAXIMUM_AGE is %d' % MAXIMUM_AGE)
 
@@ -652,8 +671,8 @@ try:
 except rhnSQL.SQLConnectError:
     e = sys.exc_info()[1]
     system_exit(20, ["ERROR: Can't connect to the database: %s" % str(e), "Check if your database is running."])
-#except Exception:
-#    e = sys.exc_info()[1]
-#    system_exit(1, "ERROR: Some problems occurred during getting information about tasks: %s" % str(e))
+except Exception:
+    e = sys.exc_info()[1]
+    system_exit(1, "ERROR: Some problems occurred during getting information about tasks: %s" % str(e))
 
 
