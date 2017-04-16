@@ -26,10 +26,10 @@ mailitout() {
       MAILADDRESS=$(spacewalk-cfg-get traceback_mail)
    fi
 
-   SUBJECT="Warning - PostgreSQL database mount point is running out of space"
+   HOSTNAME=$(hostname)
+   SUBJECT="Warning - Red Hat Satellite 5 PostgreSQL database mount point is running out of space on $HOSTNAME"
    BODY="This is a notice to let you know that you have gone over 90% usage of
-the mount point where the PostgreSQL database resides. We recommend to be
-proactive and increase the storage before getting to 100% usage."
+the mount point where the Red Hat Satellite 5 PostgreSQL database resides on $HOSTNAME. We recommend to be proactive and increase the storage before getting to 100% usage."
 
    echo -e "$BODY\n\n$reportusage" | mail -s "$SUBJECT" $MAILADDRESS
    exit 0
