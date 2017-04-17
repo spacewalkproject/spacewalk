@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.server;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.domain.channel.Channel;
@@ -1520,9 +1521,10 @@ public class Server extends BaseDomainHelper implements Identifiable {
         for (Iterator<VirtualInstance> it = guests.iterator(); it.hasNext();) {
             VirtualInstance g = it.next();
             if (g.getId().equals(guest.getId())) {
-                guest.setHostSystem(null);
-
                 it.remove();
+                if (g.getGuestSystem() == null) {
+                    HibernateFactory.getSession().delete(g);
+                }
                 deleted = true;
                 break;
             }

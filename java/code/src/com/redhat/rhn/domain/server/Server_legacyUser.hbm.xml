@@ -79,7 +79,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </set>
 
         <set name="virtualGuests" inverse="true" lazy="true" outer-join="true"
-            cascade="all-delete-orphan">
+            cascade="all">
                 <key column="host_system_id"/>
                 <one-to-many class="com.redhat.rhn.domain.server.VirtualInstance"/>
         </set>
