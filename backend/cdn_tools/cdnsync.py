@@ -417,7 +417,7 @@ class CdnSync(object):
 
             # BZ 1434913 - let user know satellite may not be activated if all channels are in not_available
             if not available:
-                msg = "Is your Red Hat Satellite activated for CDN?\n"
+                msg = "WARNING: Is your Red Hat Satellite activated for CDN?\n"
                 msg += "(to see details about currently used SSL certificates for accessing CDN:"
                 msg += " /usr/bin/cdn-sync --cdn-certs)"
                 error_messages.append(msg)
