@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.75
+Version: 2.7.76
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue Apr 18 2017 Jan Dobes 2.7.76-1
+- 1439721 - subset of log2disk messages is good to include in email too
+- 1439721 - adding to spacewalk-repo-sync
+- 1439721 - making traceback_mail overridable
+- 1439721 - send email report
+
 * Mon Apr 17 2017 Eric Herget <eherget@redhat.com> 2.7.75-1
 - 1434913 - cdn-sync could provide information that the satellite is not
   activated
