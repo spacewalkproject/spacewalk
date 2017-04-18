@@ -43,6 +43,7 @@ def process_commandline():
     parser.add_argument("-a", "--add-repo", action="append", help="Attach specified CDN repository to custom channel.")
     parser.add_argument("-d", "--delete-repo", action="append",
                         help="Delete specified CDN repository from custom channel.")
+    parser.add_argument("--email", action="store_true", help="e-mail a report of what was synced/imported")
     parser.add_argument("--no-packages", action="store_true", help="Do not sync packages.")
     parser.add_argument("--no-errata", action="store_true", help="Do not sync errata.")
     parser.add_argument("--no-kickstarts", action="store_true", help="Do not sync kickstart repositories.")
@@ -129,8 +130,10 @@ if __name__ == '__main__':
                           log_level=args.verbose, mount_point=args.mount_point,
                           consider_full=args.consider_full,
                           force_all_errata=args.force_all_errata,
-                          force_kickstarts=args.force_kickstarts)
+                          force_kickstarts=args.force_kickstarts,
+                          email=args.email)
 
+        error_messages = []
         if args.list_channels:
             if args.count_packages:
                 cdnsync.count_packages(channels=args.channel)
@@ -144,13 +147,14 @@ if __name__ == '__main__':
         elif args.add_repo or args.delete_repo:
             error_messages = cdnsync.setup_repos_and_sync(channels=args.channel, add_repos=args.add_repo,
                                                           delete_repos=args.delete_repo)
-            if error_messages:
-                system_exit(1, error_messages)
         else:
             error_messages = cdnsync.sync(channels=args.channel)
-            if error_messages:
-                system_exit(1, error_messages)
+
+        cdnsync.send_email(additional_messages=error_messages)
+
         LOCK.release()
+        if error_messages:
+            system_exit(1, error_messages)
 
     except KeyboardInterrupt:
         system_exit(1, "\nProcess has been interrupted.")

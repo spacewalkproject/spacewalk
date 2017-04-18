@@ -52,6 +52,9 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <arg>--delete-repo=<replaceable>REPO</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--email</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>--no-rpms</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -204,6 +207,12 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
             --channel parameter. This parameter can be specified multiple times to delete multiple repositories.
             After repositories are deleted, sync of channel is processed. On next run, channel can be synced directly
             using --channel parameter.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--email</term>
+        <listitem>
+            <para>e-mail a report of what was synced/imported</para>
         </listitem>
     </varlistentry>
     <varlistentry>

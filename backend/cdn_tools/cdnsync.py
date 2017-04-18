@@ -32,7 +32,7 @@ from spacewalk.server.importlib.importLib import Channel, ChannelFamily, \
 from spacewalk.satellite_tools import reposync
 from spacewalk.satellite_tools import contentRemove
 from spacewalk.satellite_tools.satCerts import get_certificate_info, verify_certificate_dates
-from spacewalk.satellite_tools.syncLib import log, log2disk, log2
+from spacewalk.satellite_tools.syncLib import log, log2disk, log2, initEMAIL_LOG, log2email
 from spacewalk.satellite_tools.repo_plugins import yum_src, ThreadedDownloader, ProgressBarLogger
 
 from common import CustomChannelSyncError, CountingPackagesError, verify_mappings, human_readable_size
@@ -46,12 +46,15 @@ class CdnSync(object):
 
     def __init__(self, no_packages=False, no_errata=False, no_rpms=False, no_kickstarts=False,
                  log_level=None, mount_point=None, consider_full=False, force_kickstarts=False,
-                 force_all_errata=False):
+                 force_all_errata=False, email=False):
 
         if log_level is None:
             log_level = 0
         self.log_level = log_level
         CFG.set('DEBUG', log_level)
+        self.email = email
+        if self.email:
+            initEMAIL_LOG()
         rhnLog.initLOG(self.log_path, self.log_level)
         log2disk(0, "Command: %s" % str(sys.argv))
 
@@ -774,3 +777,10 @@ class CdnSync(object):
                     for repo in sorted(provided_repos):
                         log(0, "    %s" % repo)
             log(0, "")
+
+    # Append additional messages and send email
+    def send_email(self, additional_messages):
+        if self.email:
+            if additional_messages:
+                log2email(0, '\n'.join(additional_messages), cleanYN=1, notimeYN=1)
+            reposync.send_mail(sync_type="CDN")
