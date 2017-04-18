@@ -137,6 +137,14 @@ def log2email(level, msg, cleanYN=0, notimeYN=0):
         log2stream(level, msg, cleanYN, notimeYN, EMAIL_LOG)
 
 
+def log2background(level, msg, cleanYN=0, notimeYN=0):
+    """Log to email and disk
+    Arguments: see def _prepLogMsg(...) above.
+    """
+    log2email(level, msg, cleanYN, notimeYN)
+    log2disk(level, msg, cleanYN, notimeYN)
+
+
 def log2stderr(level, msg, cleanYN=0, notimeYN=0):
     """Log to standard error
     Arguments: see def _prepLogMsg(...) above.

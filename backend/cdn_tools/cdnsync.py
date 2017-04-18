@@ -32,7 +32,7 @@ from spacewalk.server.importlib.importLib import Channel, ChannelFamily, \
 from spacewalk.satellite_tools import reposync
 from spacewalk.satellite_tools import contentRemove
 from spacewalk.satellite_tools.satCerts import get_certificate_info, verify_certificate_dates
-from spacewalk.satellite_tools.syncLib import log, log2disk, log2, initEMAIL_LOG, log2email
+from spacewalk.satellite_tools.syncLib import log, log2disk, log2, initEMAIL_LOG, log2email, log2background
 from spacewalk.satellite_tools.repo_plugins import yum_src, ThreadedDownloader, ProgressBarLogger
 
 from common import CustomChannelSyncError, CountingPackagesError, verify_mappings, human_readable_size
@@ -525,14 +525,14 @@ class CdnSync(object):
         downloader.set_log_obj(progress_bar)
         # Overwrite existing files
         downloader.set_force(True)
-        log2disk(0, "Downloading repomd started.")
+        log2background(0, "Downloading repomd started.")
         downloader.run()
-        log2disk(0, "Downloading repomd finished.")
+        log2background(0, "Downloading repomd finished.")
 
         progress_bar = ProgressBarLogger("Comparing repomd:    ", len(repo_tree))
         to_download_count = 0
         repo_tree_to_update = {}
-        log2disk(0, "Comparing repomd started.")
+        log2background(0, "Comparing repomd started.")
 
         is_missing_repomd = False
         for channel in repo_tree:
@@ -581,17 +581,17 @@ class CdnSync(object):
                 repo_tree_to_update[channel] = sources
 
             progress_bar.log(True, None)
-        log2disk(0, "Comparing repomd finished.")
+        log2background(0, "Comparing repomd finished.")
 
         progress_bar = ProgressBarLogger("Downloading metadata:", to_download_count)
         downloader.set_log_obj(progress_bar)
         downloader.set_force(False)
-        log2disk(0, "Downloading metadata started.")
+        log2background(0, "Downloading metadata started.")
         downloader.run()
-        log2disk(0, "Downloading metadata finished.")
+        log2background(0, "Downloading metadata finished.")
 
         progress_bar = ProgressBarLogger("Counting packages:   ", len(repo_tree_to_update))
-        log2disk(0, "Counting packages started.")
+        log2background(0, "Counting packages started.")
         for channel in repo_tree_to_update:
             cdn_repodata_path = os.path.join(constants.CDN_REPODATA_ROOT, channel)
             packages_num_path = os.path.join(cdn_repodata_path, "packages_num")
@@ -629,7 +629,7 @@ class CdnSync(object):
             for yum_repo in yum_repos:
                 yum_repo.clear_cache(keep_repomd=True)
             progress_bar.log(True, None)
-        log2disk(0, "Counting packages finished.")
+        log2background(0, "Counting packages finished.")
 
         end_time = datetime.now()
         log(0, "Total time: %s" % str(end_time - start_time).split('.')[0])
