@@ -65,6 +65,14 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         </group>
         <sbr>
         <group>
+        <arg>--email</arg>
+        </group>
+        <sbr>
+        <group>
+        <arg>--traceback-mail=<replaceable>EMAIL_ADDESS(ES)</replaceable></arg>
+        </group>
+        <sbr>
+        <group>
         <arg>--no-errata</arg>
         </group>
         <sbr>
@@ -174,6 +182,20 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         <term>-e <replaceable>PKG1,PKG2...</replaceable>, --exclude <replaceable>PKG1,PKG2...</replaceable></term>
         <listitem>
             <para>Comma or space separated list of excluded packages.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--email</term>
+        <listitem>
+            <para>e-mail a report of what was synced/imported (sent to whomever
+            is considered the receiver of "traceback_mail").</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--traceback-mail=<replaceable>EMAIL_ADDRESS(ES)</replaceable></term>
+        <listitem>
+            <para>alternative email address(es) for all sync correspondence.
+            Example: --traceback-mail="user1@example.com, user2@example.com".</para>
         </listitem>
     </varlistentry>
     <varlistentry>

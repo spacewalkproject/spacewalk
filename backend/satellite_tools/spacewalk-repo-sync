@@ -24,6 +24,8 @@ import os
 from optparse import OptionParser
 import datetime
 
+from spacewalk.satellite_tools.syncLib import initEMAIL_LOG
+
 LOCK = None
 
 log_path = '/var/log/rhn/reposync.log'
@@ -107,6 +109,9 @@ def main():
                       callback=reposync.set_filter_opt,
                       type='str', nargs=1, dest='filters', default=[],
                       help="List of excluded packages")
+    parser.add_option('', '--email', action="store_true", help="e-mail a report of what was synced/imported")
+    parser.add_option('', '--traceback-mail', action="store",
+                      help="alternative email address(es) for sync output (--email option)")
     parser.add_option('', '--no-errata', action='store_true', dest='no_errata',
                       default=False, help="Do not sync errata")
     parser.add_option('', '--sync-kickstart', action='store_true', dest='sync_kickstart',
@@ -123,6 +128,9 @@ def main():
 
     initCFG('server.satellite')
     CFG.set('DEBUG', log_level)
+    CFG.set("TRACEBACK_MAIL", options.traceback_mail or CFG.TRACEBACK_MAIL)
+    if options.email:
+        initEMAIL_LOG()
     rhnLog.initLOG(log_path, log_level)
     log2disk(0, "Command: %s" % str(sys.argv))
 
@@ -241,6 +249,8 @@ def main():
         log2disk(0, "Sync of channel completed.")
 
     log(0, "Total time: %s" % str(total_time).split('.')[0])
+    if options.email:
+        reposync.send_mail()
     releaseLOCK()
     return ret_code
 
