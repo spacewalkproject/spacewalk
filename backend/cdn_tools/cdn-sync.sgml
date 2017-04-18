@@ -55,6 +55,9 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <arg>--email</arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--traceback-mail=<replaceable>EMAIL_ADDESS(ES)</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>--no-rpms</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -212,7 +215,15 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
     <varlistentry>
         <term>--email</term>
         <listitem>
-            <para>e-mail a report of what was synced/imported</para>
+            <para>e-mail a report of what was synced/imported (sent to whomever
+            is considered the receiver of "traceback_mail").</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--traceback-mail=<replaceable>EMAIL_ADDRESS(ES)</replaceable></term>
+        <listitem>
+            <para>alternative email address(es) for all sync correspondence.
+            Example: --traceback-mail="user1@example.com, user2@example.com".</para>
         </listitem>
     </varlistentry>
     <varlistentry>

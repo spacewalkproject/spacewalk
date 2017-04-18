@@ -44,6 +44,8 @@ def process_commandline():
     parser.add_argument("-d", "--delete-repo", action="append",
                         help="Delete specified CDN repository from custom channel.")
     parser.add_argument("--email", action="store_true", help="e-mail a report of what was synced/imported")
+    parser.add_argument("--traceback-mail", action="store",
+                        help="alternative email address(es) for sync output (--email option)")
     parser.add_argument("--no-packages", action="store_true", help="Do not sync packages.")
     parser.add_argument("--no-errata", action="store_true", help="Do not sync errata.")
     parser.add_argument("--no-kickstarts", action="store_true", help="Do not sync kickstart repositories.")
@@ -76,6 +78,8 @@ def process_commandline():
         CFG.set("HTTP_PROXY", idn_ascii_to_puny(cmd_args.http_proxy))
         CFG.set("HTTP_PROXY_USERNAME", cmd_args.http_proxy_username)
         CFG.set("HTTP_PROXY_PASSWORD", cmd_args.http_proxy_password)
+
+    CFG.set("TRACEBACK_MAIL", cmd_args.traceback_mail or CFG.TRACEBACK_MAIL)
 
     if cmd_args.mount_point:
         cmd_args.mount_point = cleanupAbsPath(cmd_args.mount_point)
