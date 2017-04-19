@@ -1,6 +1,17 @@
 # logrotation file for Spacewalk Server
 #
 
+/var/log/rhn/activation.log {
+    weekly
+    rotate 5
+    copytruncate
+    compress
+    notifempty
+    missingok
+    size=10M
+#LOGROTATE-3.8#    su root apache
+}
+
 /var/log/rhn/rhn_server_satellite.log {
     weekly
     rotate 5
