@@ -398,8 +398,7 @@ def main():
                     DEFAULT_RHSM_MANIFEST_LOCATION,
                     http_proxy=options.http_proxy,
                     http_proxy_username=options.http_proxy_username,
-                    http_proxy_password=options.http_proxy_password,
-                    verbosity=options.verbose)
+                    http_proxy_password=options.http_proxy_password)
                 if not ok:
                     writeError("Manifest regeneration failed!")
                     return 17
@@ -412,8 +411,7 @@ def main():
                     DEFAULT_RHSM_MANIFEST_LOCATION,
                     http_proxy=options.http_proxy,
                     http_proxy_username=options.http_proxy_username,
-                    http_proxy_password=options.http_proxy_password,
-                    verbosity=options.verbose)
+                    http_proxy_password=options.http_proxy_password)
                 if not path:
                     writeError("Manifest download failed!")
                     return 16

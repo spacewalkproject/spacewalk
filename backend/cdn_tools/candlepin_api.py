@@ -21,17 +21,17 @@ import requests
 from spacewalk.cdn_tools.constants import CA_CERT_PATH
 from spacewalk.common.cli import getUsernamePassword
 from spacewalk.common.rhnConfig import CFG
+from spacewalk.satellite_tools.syncLib import log, log2
 
 
 class CandlepinApi(object):
     """Class used to communicate with Candlepin API."""
 
     def __init__(self, current_manifest=None, username=None, password=None,
-                 http_proxy=None, http_proxy_username=None, http_proxy_password=None, verbosity=0):
-        self.verbosity = verbosity
+                 http_proxy=None, http_proxy_username=None, http_proxy_password=None):
         self.base_url = current_manifest.get_api_url()
         if CFG.CANDLEPIN_SERVER_API:
-            print("Overriding Candlepin server to: '%s'" % CFG.CANDLEPIN_SERVER_API)
+            log(0, "Overriding Candlepin server to: '%s'" % CFG.CANDLEPIN_SERVER_API)
             self.base_url = CFG.CANDLEPIN_SERVER_API
 
         if self.base_url.startswith('https'):
@@ -50,7 +50,7 @@ class CandlepinApi(object):
         if self.current_manifest and self.protocol == 'https' and not username:
             self.username = self.password = None
         else:
-            print("Candlepin login:")
+            log(0, "Candlepin login:")
             self.username, self.password = getUsernamePassword(username, password)
 
         self.http_proxy = http_proxy
@@ -114,7 +114,7 @@ class CandlepinApi(object):
                     raise ValueError("Unsupported method: '%s'" % method)
             except requests.RequestException:
                 e = sys.exc_info()[1]
-                print("ERROR: %s" % str(e))
+                log2(0, 0, "ERROR: %s" % str(e), stream=sys.stderr)
         else:
             cert = self._write_cert()
             try:
@@ -129,7 +129,7 @@ class CandlepinApi(object):
                         raise ValueError("Unsupported method: '%s'" % method)
                 except requests.RequestException:
                     e = sys.exc_info()[1]
-                    print("ERROR: %s" % str(e))
+                    log2(0, 0, "ERROR: %s" % str(e), stream=sys.stderr)
             finally:
                 self._delete_cert(cert)
         return response
@@ -156,9 +156,8 @@ class CandlepinApi(object):
         url = "%s%s/export" % (self.base_url, uuid)
         params = {"ext": ["ownerid:%s" % ownerid, "version:%s" % satellite_version]}
 
-        if self.verbosity:
-            print("URL: '%s'" % url)
-            print("Parameters: '%s'" % str(params))
+        log(1, "URL: '%s'" % url)
+        log(1, "Parameters: '%s'" % str(params))
 
         response = self._call_api(url, params=params, method="get")
 
@@ -173,8 +172,8 @@ class CandlepinApi(object):
                 fo.close()
                 return downloaded_manifest
             else:
-                print("Status code: %s" % response.status_code)
-                print("Message: '%s'" % response.text)
+                log2(0, 0, "Status code: %s" % response.status_code, stream=sys.stderr)
+                log2(0, 0, "Message: '%s'" % response.text, stream=sys.stderr)
 
         return None
 
@@ -187,8 +186,7 @@ class CandlepinApi(object):
 
         url = "%s%s/certificates" % (self.base_url, uuid)
 
-        if self.verbosity:
-            print("URL: '%s'" % url)
+        log(1, "URL: '%s'" % url)
 
         response = self._call_api(url, method="put")
 
@@ -197,7 +195,7 @@ class CandlepinApi(object):
             if response.status_code == requests.codes.ok or response.status_code == requests.codes.no_content:
                 return True
             else:
-                print("Status code: %s" % response.status_code)
-                print("Message: '%s'" % response.text)
+                log2(0, 0, "Status code: %s" % response.status_code, stream=sys.stderr)
+                log2(0, 0, "Message: '%s'" % response.text, stream=sys.stderr)
 
         return False

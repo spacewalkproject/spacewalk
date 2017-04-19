@@ -214,18 +214,18 @@ class Activation(object):
 
     @staticmethod
     def download_manifest(old_manifest_path, http_proxy=None, http_proxy_username=None,
-                          http_proxy_password=None, verbosity=0):
+                          http_proxy_password=None):
         manifest = Manifest(old_manifest_path)
         candlepin_api = CandlepinApi(current_manifest=manifest, http_proxy=http_proxy,
                                      http_proxy_username=http_proxy_username,
-                                     http_proxy_password=http_proxy_password, verbosity=verbosity)
+                                     http_proxy_password=http_proxy_password)
         return candlepin_api.export_manifest()
 
     @staticmethod
     def refresh_manifest(old_manifest_path, http_proxy=None, http_proxy_username=None,
-                         http_proxy_password=None, verbosity=0):
+                         http_proxy_password=None):
         manifest = Manifest(old_manifest_path)
         candlepin_api = CandlepinApi(current_manifest=manifest, http_proxy=http_proxy,
                                      http_proxy_username=http_proxy_username,
-                                     http_proxy_password=http_proxy_password, verbosity=verbosity)
+                                     http_proxy_password=http_proxy_password)
         return candlepin_api.refresh_manifest()
