@@ -12,12 +12,15 @@
 # in this software or its documentation.
 #
 
+import sys
+
 import cStringIO
 import json
 import zipfile
 import os
 from M2Crypto import X509
 
+from spacewalk.satellite_tools.syncLib import log2
 from spacewalk.server.rhnServer.satellite_cert import SatelliteCert
 
 import constants
@@ -108,7 +111,7 @@ class Manifest(object):
                 content = content['content']
                 product.add_repository(content['label'], content['contentUrl'])
         except KeyError:
-            print("ERROR: Cannot access required field in product '%s'" % product.get_id())
+            log2(0, 0, "ERROR: Cannot access required field in product '%s'" % product.get_id(), stream=sys.stderr)
             raise
 
     def _load_entitlements(self, zip_file):
@@ -150,7 +153,8 @@ class Manifest(object):
                             entitlement = Entitlement(products, credentials)
                             self.all_entitlements.append(entitlement)
                     except KeyError:
-                        print("ERROR: Cannot access required field in file '%s'" % entitlement_file)
+                        log2(0, 0, "ERROR: Cannot access required field in file '%s'" % entitlement_file,
+                             stream=sys.stderr)
                         raise
                 finally:
                     entitlements.close()
@@ -175,7 +179,8 @@ class Manifest(object):
                     self.ownerid = data['owner']['key']
                     self.api_url = data['urlApi']
                 except KeyError:
-                    print("ERROR: Cannot access required field in file '%s'" % self.CONSUMER_INFO)
+                    log2(0, 0, "ERROR: Cannot access required field in file '%s'" % self.CONSUMER_INFO,
+                         stream=sys.stderr)
                     raise
             finally:
                 consumer_info.close()
@@ -196,7 +201,7 @@ class Manifest(object):
                     data = json.load(meta_info)
                     self.created = data['created']
                 except KeyError:
-                    print("ERROR: Cannot access required field in file '%s'" % self.META_INFO)
+                    log2(0, 0, "ERROR: Cannot access required field in file '%s'" % self.META_INFO, stream=sys.stderr)
                     raise
             finally:
                 meta_info.close()
@@ -217,7 +222,8 @@ class Manifest(object):
                     data = json.load(upstream_consumer)
                     self.consumer_credentials = Credentials(data['id'], data['cert'], data['key'])
                 except KeyError:
-                    print("ERROR: Cannot access required field in file '%s'" % consumer_credentials[0])
+                    log2(0, 0, "ERROR: Cannot access required field in file '%s'" % consumer_credentials[0],
+                         stream=sys.stderr)
                     raise
             finally:
                 upstream_consumer.close()
