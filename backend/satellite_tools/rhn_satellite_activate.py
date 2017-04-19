@@ -30,7 +30,7 @@ except ImportError:
     RhsmConfigParser = None
 
 # common, server imports
-from spacewalk.common import fileutils
+from spacewalk.common import fileutils, rhnLog
 from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
 from spacewalk.common.rhnTranslate import _
 from spacewalk.server.rhnServer import satellite_cert
@@ -44,6 +44,7 @@ except ImportError:
     MissingSatelliteCertificateError = None
     ManifestValidationError = None
     CdnMappingsLoadError = None
+from spacewalk.satellite_tools.syncLib import log, log2disk, log2
 
 
 DEFAULT_RHSM_MANIFEST_LOCATION = '/etc/sysconfig/rhn/rhsm-manifest.zip'
@@ -51,6 +52,11 @@ DEFAULT_WEBAPP_GPG_KEY_RING = "/etc/webapp-keyring.gpg"
 DEFAULT_CONFIG_FILE = "/etc/rhn/rhn.conf"
 DEFAULT_RHSM_CONFIG_FILE = "/etc/rhsm/rhsm.conf"
 SUPPORTED_RHEL_VERSIONS = ['5', '6']
+LOG_PATH = '/var/log/rhn/activation.log'
+
+
+def writeError(e):
+    log2(0, 0, '\nERROR: %s\n' % e, stream=sys.stderr, cleanYN=1)
 
 
 class CaCertInsertionError(Exception):
@@ -111,7 +117,7 @@ def getCertChecksumString(sat_cert):
     return result
 
 
-def validateSatCert(cert, verbosity=0):
+def validateSatCert(cert):
     """ validating (i.e., verifing sanity of) this product.
         I.e., makes sure the product Certificate is a sane certificate
     """
@@ -121,8 +127,8 @@ def validateSatCert(cert, verbosity=0):
 
     for key in ['generation', 'product', 'owner', 'issued', 'expires', 'slots']:
         if not getattr(sat_cert, key):
-            sys.stderr.write("Error: Your satellite certificate is not valid. Field %s is not defined.\n"
-                             "Please contact your support representative.\n" % key)
+            writeError("Your satellite certificate is not valid. Field %s is not defined.\n"
+                       "Please contact your support representative." % key)
             raise RHNCertGeneralSanityException("RHN Entitlement Certificate failed "
                                                 "to validate.")
 
@@ -144,8 +150,7 @@ def validateSatCert(cert, verbosity=0):
     args = ['gpg', '--verify', '-q', '--keyring',
             DEFAULT_WEBAPP_GPG_KEY_RING, signatureTmpFile, certTmpFile]
 
-    if verbosity:
-        print "Checking cert XML sanity and GPG signature:", repr(' '.join(args))
+    log(1, "Checking cert XML sanity and GPG signature: %s" % repr(' '.join(args)))
 
     ret, out, err = fileutils.rhn_popen(args)
     err = err.read()
@@ -157,11 +162,11 @@ def validateSatCert(cert, verbosity=0):
 
     if err.find('Ohhhh jeeee: ... this is a bug') != -1 or err.find('verify err') != -1 or ret:
         msg = "%s Entitlement Certificate failed to validate.\n" % PRODUCT_NAME
-        msg = msg + "MORE INFORMATION:\n"
+        msg += "MORE INFORMATION:\n"
         msg = msg + "  Return value: %s\n" % ret +\
                     "  Standard-out: %s\n" % out +\
-                    "  Standard-error: %s\n" % err
-        sys.stderr.write(msg)
+                    "  Standard-error: %s" % err
+        writeError(msg)
         raise RHNCertGeneralSanityException("RHN Entitlement Certificate failed "
                                             "to validate.")
     return 0
@@ -192,16 +197,16 @@ def prepRhsmManifest(options):
         try:
             manifest = open(options.manifest, 'rb').read()
         except (IOError, OSError), e:
-            msg = _('ERROR: "%s" (specified in commandline)\n'
+            msg = _('"%s" (specified in commandline)\n'
                     'could not be opened and read:\n%s') % (options.manifest, str(e))
-            sys.stderr.write(msg+'\n')
+            writeError(msg)
             raise
         try:
             writeRhsmManifest(options, manifest)
         except (IOError, OSError), e:
-            msg = _('ERROR: "%s" could not be opened\nand/or written to:\n%s') % (
+            msg = _('"%s" could not be opened\nand/or written to:\n%s') % (
                 DEFAULT_RHSM_MANIFEST_LOCATION, str(e))
-            sys.stderr.write(msg+'\n')
+            writeError(msg)
             raise
 
 
@@ -214,8 +219,7 @@ def enableSatelliteRepo(rhn_cert):
     version = re.search(r'\d+', version).group()
 
     if version not in SUPPORTED_RHEL_VERSIONS:
-        msg = "WARNING: No Satellite repository available for RHEL version: %s.\n" % version
-        sys.stderr.write(msg)
+        log(0, "WARNING: No Satellite repository available for RHEL version: %s." % version)
         return
 
     arch_str = "server"
@@ -232,9 +236,9 @@ def enableSatelliteRepo(rhn_cert):
     if ret:
         msg_ = "Enabling of Satellite repository failed."
         msg = ("%s\nReturn value: %s\nStandard-out: %s\n\n"
-               "Standard-error: %s\n\n"
+               "Standard-error: %s\n"
                % (msg_, ret, out.read(), err.read()))
-        sys.stderr.write(msg)
+        writeError(msg)
         raise EnableSatelliteRepositoryException("Enabling of Satellite repository failed. Make sure Satellite "
                                                  "subscription is attached to this system, both versions of RHEL and "
                                                  "Satellite are supported or run activation with --disconnected "
@@ -258,9 +262,8 @@ def expiredYN(cert):
     try:
         expires = time.mktime(time.strptime(sc.expires, sc.datesFormat_cert))-time.timezone
     except ValueError:
-        sys.stderr.write("""\
-ERROR: can't seem to parse the expires field in the RHN Certificate.
-       RHN Certificate's version is incorrect?\n""")
+        writeError("Can't seem to parse the expires field in the RHN Certificate. "
+                   "RHN Certificate's version is incorrect?")
         # a cop-out FIXME: not elegant
         sys.exit(11)
 
@@ -297,12 +300,17 @@ def processCommandline():
     parser = OptionParser(option_list=options)
     options, args = parser.parse_args()
 
+    initCFG('server.satellite')
+    if options.verbose is None:
+        options.verbose = 0
+    CFG.set('DEBUG', options.verbose)
+    rhnLog.initLOG(LOG_PATH, options.verbose)
+    log2disk(0, "Command: %s" % str(sys.argv))
+
     # we take no extra commandline arguments that are not linked to an option
     if args:
-        msg = "ERROR: these arguments make no sense in this context (try --help): %s\n" % repr(args)
-        raise ValueError(msg)
-
-    initCFG('server.satellite')
+        writeError("These arguments make no sense in this context (try --help): %s" % repr(args))
+        sys.exit(1)
 
     # No need to check further if deactivating
     if options.deactivate:
@@ -315,19 +323,18 @@ def processCommandline():
         options.manifest_download = 1
 
     if CFG.DISCONNECTED and not options.disconnected:
-        sys.stderr.write("""ERROR: Satellite server has been setup to run in disconnected mode.
+        msg = """Satellite server has been setup to run in disconnected mode.
        Either correct server configuration in /etc/rhn/rhn.conf
-       or use --disconnected to activate it locally.
-""")
+       or use --disconnected to activate it locally."""
+        writeError(msg)
         sys.exit(1)
 
     options.http_proxy = idn_ascii_to_puny(CFG.HTTP_PROXY)
     options.http_proxy_username = CFG.HTTP_PROXY_USERNAME
     options.http_proxy_password = CFG.HTTP_PROXY_PASSWORD
-    if options.verbose:
-        print 'HTTP_PROXY: %s' % options.http_proxy
-        print 'HTTP_PROXY_USERNAME: %s' % options.http_proxy_username
-        print 'HTTP_PROXY_PASSWORD: <password>'
+    log(1, 'HTTP_PROXY: %s' % options.http_proxy)
+    log(1, 'HTTP_PROXY_USERNAME: %s' % options.http_proxy_username)
+    log(1, 'HTTP_PROXY_PASSWORD: <password>')
 
     return options
 
@@ -359,9 +366,6 @@ def main():
 
     options = processCommandline()
 
-    def writeError(e):
-        sys.stderr.write('\nERROR: %s\n' % e)
-
     if not cdn_activation:
         writeError("Package spacewalk-backend-cdn has to be installed for using this tool.")
         sys.exit(1)
@@ -389,7 +393,7 @@ def main():
                 return 0
             # Call regeneration API on Candlepin server
             if options.manifest_reconcile_request:
-                print("Requesting manifest regeneration...")
+                log(0, "Requesting manifest regeneration...")
                 ok = cdn_activation.Activation.refresh_manifest(
                     DEFAULT_RHSM_MANIFEST_LOCATION,
                     http_proxy=options.http_proxy,
@@ -399,11 +403,11 @@ def main():
                 if not ok:
                     writeError("Manifest regeneration failed!")
                     return 17
-                print("Manifest regeneration requested.")
+                log(0, "Manifest regeneration requested.")
                 return 0
             # Get new refreshed manifest from Candlepin server
             if options.manifest_download:
-                print("Downloading manifest...")
+                log(0, "Downloading manifest...")
                 path = cdn_activation.Activation.download_manifest(
                     DEFAULT_RHSM_MANIFEST_LOCATION,
                     http_proxy=options.http_proxy,
@@ -416,7 +420,7 @@ def main():
                 if options.manifest_refresh:
                     options.manifest = path
                 else:
-                    print("New manifest saved to: '%s'" % path)
+                    log(0, "New manifest saved to: '%s'" % path)
                     return 0
         else:
             writeError("No currently activated manifest was found. "
@@ -434,7 +438,7 @@ def main():
 
     # general sanity/GPG check
     try:
-        validateSatCert(cdn_activate.manifest.get_satellite_certificate(), options.verbose)
+        validateSatCert(cdn_activate.manifest.get_satellite_certificate())
     except RHNCertGeneralSanityException, e:
         writeError(e)
         return 10
