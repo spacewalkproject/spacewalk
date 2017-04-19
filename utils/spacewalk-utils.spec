@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.7.10
+Version:	2.7.11
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Apr 19 2017 Eric Herget <eherget@redhat.com> 2.7.11-1
+- 1442238 - taskotop various fixes to command line arg processing and logging
+
 * Wed Mar 29 2017 Gennadii Altukhov <galt@redhat.com> 2.7.10-1
 - 1305744 - add UTF-8 encoding before output on stdout
 
