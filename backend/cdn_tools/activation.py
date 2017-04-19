@@ -20,6 +20,7 @@ from spacewalk.cdn_tools.candlepin_api import CandlepinApi
 from spacewalk.cdn_tools.common import verify_mappings
 from spacewalk.cdn_tools.manifest import Manifest, ManifestValidationError
 from spacewalk.satellite_tools import satCerts
+from spacewalk.satellite_tools.syncLib import log, log2
 from spacewalk.server import rhnSQL
 from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.channelImport import ChannelFamilyImport
@@ -31,8 +32,7 @@ from spacewalk.server.rhnServer.satellite_cert import SatelliteCert
 class Activation(object):
     """Class inserting channel families and SSL metadata into DB."""
 
-    def __init__(self, manifest_path, verbosity=0):
-        self.verbosity = verbosity
+    def __init__(self, manifest_path):
         rhnSQL.initDB()
         self.manifest = Manifest(manifest_path)
         self.sat5_cert = SatelliteCert()
@@ -49,7 +49,7 @@ class Activation(object):
                 f.close()
             except IOError:
                 e = sys.exc_info()[1]
-                print "Ignoring channel mappings: %s" % e
+                log(1, "Ignoring channel mappings: %s" % e)
                 self.families = {}
         finally:
             if f is not None:
@@ -80,7 +80,7 @@ class Activation(object):
                 f.close()
 
         if not satCerts.verify_certificate_dates(str(ca_cert)):
-            print("WARNING: '%s' certificate is not valid." % constants.CA_CERT_PATH)
+            log2(0, 0, "WARNING: '%s' certificate is not valid." % constants.CA_CERT_PATH, stream=sys.stderr)
         # Insert RHSM cert and certs from manifest into DB
         satCerts.store_rhnCryptoKey(
             constants.CA_CERT_NAME, ca_cert, None)
@@ -90,15 +90,14 @@ class Activation(object):
             cert_name = constants.CLIENT_CERT_PREFIX + creds.get_id()
             key_name = constants.CLIENT_KEY_PREFIX + creds.get_id()
             if not satCerts.verify_certificate_dates(str(creds.get_cert())):
-                print("WARNING: '%s' certificate is not valid." % cert_name)
+                log2(0, 0, "WARNING: '%s' certificate is not valid." % cert_name, stream=sys.stderr)
             satCerts.store_rhnCryptoKey(cert_name, creds.get_cert(), None)
             satCerts.store_rhnCryptoKey(key_name, creds.get_key(), None)
 
     def import_channel_families(self):
         """Insert channel family data into DB."""
 
-        if self.verbosity:
-            print("Channel families in cert: %d" % len(self.sat5_cert.channel_families))  # pylint: disable=E1101
+        log(1, "Channel families in manifest: %d" % len(self.sat5_cert.channel_families))  # pylint: disable=E1101
 
         batch = []
         for cf in self.sat5_cert.channel_families:  # pylint: disable=E1101
@@ -113,9 +112,11 @@ class Activation(object):
                 self.families_to_import.append(label)
             except KeyError:
                 # While channel mappings are not consistent with certificate generated on RHN...
-                if self.verbosity:
-                    print("WARNING: Channel family '%s' was not found in mapping" % label)
+                msg = ("WARNING: Channel family '%s' is provided by manifest but "
+                       "was not found in cdn-sync mappings." % label)
+                log2(0, 1, msg, stream=sys.stderr)
 
+        log(1, "Channel families to import: %d" % len(batch))
         # Perform import
         backend = SQLBackend()
         importer = ChannelFamilyImport(batch, backend)
@@ -183,11 +184,11 @@ class Activation(object):
 
     def activate(self):
         if self.manifest.check_signature():
-            print("Populating channel families...")
+            log(0, "Populating channel families...")
             self.import_channel_families()
-            print("Updating certificates...")
+            log(0, "Updating certificates...")
             self._update_certificates()
-            print("Updating manifest repositories...")
+            log(0, "Updating manifest repositories...")
             self._update_repositories()
         else:
             raise ManifestValidationError("Manifest validation failed! Make sure the specified manifest is correct.")
@@ -196,20 +197,20 @@ class Activation(object):
     def deactivate():
         """Function to remove certificates and manifest repositories from DB"""
         rhnSQL.initDB()
-        print("Removing certificates...")
+        log(0, "Removing certificates...")
         Activation._remove_certificates()
-        print("Removing manifest repositories...")
+        log(0, "Removing manifest repositories...")
         Activation._remove_repositories()
 
     @staticmethod
     def manifest_info(manifest_path):
         manifest = Manifest(manifest_path)
-        print("Name: %s" % manifest.get_name())
-        print("UUID: %s" % manifest.get_uuid())
-        print("Owner ID: %s" % manifest.get_ownerid())
-        print("Satellite version: %s" % manifest.get_satellite_version())
-        print("Created: %s" % manifest.get_created())
-        print("API URL: %s" % manifest.get_api_url())
+        log(0, "Name: %s" % manifest.get_name(), cleanYN=1)
+        log(0, "UUID: %s" % manifest.get_uuid(), cleanYN=1)
+        log(0, "Owner ID: %s" % manifest.get_ownerid(), cleanYN=1)
+        log(0, "Satellite version: %s" % manifest.get_satellite_version(), cleanYN=1)
+        log(0, "Created: %s" % manifest.get_created(), cleanYN=1)
+        log(0, "API URL: %s" % manifest.get_api_url(), cleanYN=1)
 
     @staticmethod
     def download_manifest(old_manifest_path, http_proxy=None, http_proxy_username=None,

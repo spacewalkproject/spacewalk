@@ -428,7 +428,7 @@ def main():
             return 1
     # Handle RHSM manifest
     try:
-        cdn_activate = cdn_activation.Activation(options.manifest, verbosity=options.verbose)
+        cdn_activate = cdn_activation.Activation(options.manifest)
     except CdnMappingsLoadError, e:
         writeError(e)
         return 15
