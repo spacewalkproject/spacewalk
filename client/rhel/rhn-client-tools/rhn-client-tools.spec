@@ -54,8 +54,12 @@ Requires: newt-python
 %if 0%{?suse_version}
 Requires: dbus-1-python
 %else
+%if 0%{?fedora}
+Requires: python3-dbus
+%else
 Requires: dbus-python
-%endif
+%endif # 0%{?fedora}
+%endif # 0%{?suse_version}
 %if 0%{?suse_version}
 Requires: zypper
 %else
