@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.76
+Version: 2.7.77
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Wed Apr 19 2017 Jan Dobes 2.7.77-1
+- 1434787 - adding logrotate
+- 1434787 - adding logging to candlepin_api
+- 1434787 - adding logging to manifest
+- 1434787 - adding logging to activation
+- 1434787 - adding logging to rhn_satellite_activate
+
 * Tue Apr 18 2017 Jan Dobes 2.7.76-1
 - 1439721 - subset of log2disk messages is good to include in email too
 - 1439721 - adding to spacewalk-repo-sync
