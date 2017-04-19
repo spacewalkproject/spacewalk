@@ -1009,7 +1009,7 @@ sub wait_for_tomcat {
             return 1;
         }
     }
-    print "Tomcat failed to start properly or the installer ran out of tries.  Please check /var/log/tomcat*/catalina.out for errors.\n";
+    print "Tomcat failed to start properly or the installer ran out of tries.  Please check /var/log/tomcat6/catalina.out or /var/log/tomcat/catalina.\$(date +%Y-%m-%d).log for errors.\n";
     return 0;
 }
 
