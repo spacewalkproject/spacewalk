@@ -480,14 +480,18 @@ ORDER BY UPPER(C.name)
 
 <mode name="owned_channels_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id">
-SELECT CTV.name, CTV.id, CTV.channel_arch_id, C.org_id,
+SELECT CTV.name, CTV.id, CA.name AS arch_name, C.org_id,
+       (SELECT ORG.name
+            FROM web_customer ORG
+            WHERE ORG.id = C.org_id) AS org_name,
        CASE WHEN NOT CTV.parent_or_self_id = CTV.id THEN CTV.parent_or_self_id END AS parent_id,
        (SELECT COUNT (cp.package_id)
           FROM rhnchannelpackage cp
          WHERE cp.channel_id = CTV.id) AS package_count,
        CTV.label AS channel_label
-  FROM rhnchannel C, rhnChannelTreeView CTV, rhnChannel C2
+  FROM rhnchannel C, rhnChannelTreeView CTV, rhnChannel C2, rhnChannelArch CA
  WHERE CTV.id = C.ID
+   AND  CTV.channel_arch_id = CA.id
    AND  CTV.parent_or_self_id = C2.id
    AND (rhn_channel.user_role_check(C.id, :user_id, 'manage') = 1
         OR EXISTS (
@@ -497,6 +501,7 @@ SELECT CTV.name, CTV.id, CTV.channel_arch_id, C.org_id,
                  AND rhn_channel.user_role_check(C2.id, :user_id, 'manage') = 1))
 ORDER BY UPPER(C2.name), depth, UPPER(C.name)
   </query>
+  <elaborator name="visible_server_count"/>
 </mode>
 
 

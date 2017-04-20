@@ -240,4 +240,30 @@ public class ChannelHandler extends BaseHandler {
         dr.elaborate();
         return dr.toArray();
     }
+
+    /**
+     * Lists all software channels that the user is entitled to manage.
+     * @param loggedInUser The current user
+     * @return Returns array of channels with info such as channel_label, channel_name,
+     * channel_parent_label, packages and systems.
+     *
+     * @xmlrpc.doc List all software channels that the user is entitled to manage.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype
+     *     #array()
+     *         $ChannelTreeNodeSerializer
+     *     #array_end()
+     */
+    public Object[] listManageableChannels(User loggedInUser) {
+        DataResult<ChannelTreeNode> dr = ChannelManager.ownedChannelsTree(loggedInUser);
+        dr.elaborate();
+        ArrayList<ChannelTreeNode> toReturn = new ArrayList<>();
+        for (ChannelTreeNode channel : dr) {
+            // Filter null org and other org parent channels included in select
+            if (loggedInUser.getOrg().getId().equals(channel.getOrgId())) {
+                toReturn.add(channel);
+            }
+        }
+        return toReturn.toArray();
+    }
 }

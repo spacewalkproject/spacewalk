@@ -291,6 +291,7 @@ public class ChannelManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Channel_queries", "owned_channels_tree");
 
         Map<String, Long> params = new HashMap<String, Long>();
+        params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
 
         return makeDataResult(params, params, null, m, ChannelTreeNode.class);
