@@ -917,20 +917,22 @@ public class KickstartFormatter {
                 }
             }
         }
-        for (int i = 0; i < UPDATE_PKG_NAMES.length; i++) {
-            Long packageId = ChannelManager.getLatestPackageEqualInTree(c.getId(),
-                    UPDATE_PKG_NAMES[i]);
-            if (packageId == null) {
-                log.debug("package:" + packageId + "not found in kickstart's channel");
-                continue;
-            }
+        if (ksdata.isRhel4()) {
+            for (int i = 0; i < UPDATE_PKG_NAMES.length; i++) {
+                Long packageId = ChannelManager.getLatestPackageEqualInTree(c.getId(),
+                        UPDATE_PKG_NAMES[i]);
+                if (packageId == null) {
+                    log.debug("package:" + packageId + "not found in kickstart's channel");
+                    continue;
+                }
 
-            log.debug("package  : " + UPDATE_PKG_NAMES[i]);
-            log.debug("packageId: " + packageId);
-            Package p =
-                PackageFactory.lookupByIdAndUser(packageId, user);
-            if (p != null) {
-                retval.add(getSHA1PackagePath(p));
+                log.debug("package  : " + UPDATE_PKG_NAMES[i]);
+                log.debug("packageId: " + packageId);
+                Package p =
+                        PackageFactory.lookupByIdAndUser(packageId, user);
+                if (p != null) {
+                    retval.add(getSHA1PackagePath(p));
+                }
             }
         }
         return retval;
