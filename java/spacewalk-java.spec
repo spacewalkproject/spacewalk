@@ -73,8 +73,10 @@ Requires:      servlet >= 3.0
 Requires:      tomcat >= 7
 Requires:      tomcat-lib >= 7
 # obsolete old jpackage rpms to make smooth upgrade
+Obsoletes:     asm <= 1.5.3
 Obsoletes:     classpathx-jaf <= 1.1.1
 Obsoletes:     classpathx-mail <= 1.1.2
+Obsoletes:     excalibur <= 1:1.0
 Obsoletes:     excalibur-avalon-framework-api <= 1:4.3.1
 Obsoletes:     excalibur-avalon-framework-impl <= 1:4.3.1
 Obsoletes:     excalibur-avalon-logkit <= 1:2.2.1
@@ -86,12 +88,17 @@ Obsoletes:     glassfish-jaf <= 1.1.0
 Obsoletes:     glassfish-javamail <= 1.4.0
 Obsoletes:     jakarta-commons-el <= 1.0
 Obsoletes:     jakarta-commons-collections <= 3.1
+Obsoletes:     jython <= 2.2
 Obsoletes:     oscache <= 2.4.1
+Obsoletes:     saxpath <= 1.0
+Obsoletes:     servletapi4 <= 4.0.4
 Obsoletes:     sitemesh <= 2.4.1
 Obsoletes:     spacewalk-jpp-workaround <= 2.3.5
 Obsoletes:     tomcat5-jsp-2.0-api <= 5.5.27
 Obsoletes:     tomcat5-servlet-2.4-api <= 5.5.27
+Obsoletes:     tomcat6-servlet-2.5-api <= 6.0.18
 Obsoletes:     tomcat6-el-1.0-api <= 6.0.18
+Obsoletes:     velocity-dvsl <= 1.0
 BuildRequires: apache-commons-codec
 BuildRequires: apache-commons-discovery
 BuildRequires: apache-commons-el
