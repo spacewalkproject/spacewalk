@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.77
+Version: 2.7.78
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Apr 20 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.78-1
+- 1441135 1434471 - be more specific about catched exception
+
 * Wed Apr 19 2017 Jan Dobes 2.7.77-1
 - 1434787 - adding logrotate
 - 1434787 - adding logging to candlepin_api
