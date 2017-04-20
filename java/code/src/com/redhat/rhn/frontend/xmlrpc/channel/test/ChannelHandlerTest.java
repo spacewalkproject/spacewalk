@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.dto.ChannelTreeNode;
@@ -89,6 +90,39 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
             }
         }
         assertTrue(foundChannel);
+    }
+
+    public void testListManageableChannels() throws Exception {
+        Channel channel = ChannelFactoryTest.createTestChannel(admin);
+        admin.getOrg().addOwnedChannel(channel);
+        OrgFactory.save(admin.getOrg());
+        ChannelFactory.save(channel);
+        flushAndEvict(channel);
+
+        Object[] result = handler.listManageableChannels(regular);
+
+        assertNotNull(result);
+        assertTrue(result.length == 0);
+
+        regular.addPermanentRole(RoleFactory.CHANNEL_ADMIN);
+
+        result = handler.listManageableChannels(regular);
+        assertNotNull(result);
+        assertTrue(result.length > 0);
+
+        boolean foundChannel = false;
+        for (int i = 0; i < result.length; i++) {
+            ChannelTreeNode item = (ChannelTreeNode) result[i];
+            if (item.getName() != null) {
+                if (item.getName().equals(channel.getName())) {
+                    foundChannel = true;
+                    break;
+                }
+            }
+        }
+        assertTrue(foundChannel);
+
+        regular.removePermanentRole(RoleFactory.CHANNEL_ADMIN);
     }
 
     public void testListPopularChannels() throws Exception {
