@@ -3410,10 +3410,10 @@ public class SystemHandler extends BaseHandler {
      * @param loggedInUser The current user
      * @param sids IDs of the servers
      * @param packageNevraList array of dictionaries with package nevra
-     * @param earliestOccurrence Earliest occurrence of the package install
+     * @param earliestOccurrence Earliest occurrence of the package removal
      * @return package action id
      *
-     * @xmlrpc.doc Schedule package installation for a system.
+     * @xmlrpc.doc Schedule package removal for several systems.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #array_single("int", "serverId")
      * @xmlrpc.param #array()
@@ -3444,10 +3444,10 @@ public class SystemHandler extends BaseHandler {
     * @param loggedInUser The current user
     * @param sid ID of the server
     * @param packageNevraList array of dictionaries with package nevra
-    * @param earliestOccurrence Earliest occurrence of the package install
+    * @param earliestOccurrence Earliest occurrence of the package removal
     * @return package action id
     *
-    * @xmlrpc.doc Schedule package installation for a system.
+    * @xmlrpc.doc Schedule package removal for a system.
     * @xmlrpc.param #param("string", "sessionKey")
     * @xmlrpc.param #param("int", "serverId")
     * @xmlrpc.param #array()
