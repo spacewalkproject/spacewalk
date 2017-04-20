@@ -166,7 +166,7 @@ class Cursor(sql_base.Cursor):
         # positional args:
         try:
             self._real_cursor.execute(*(None, ), **params)
-        except cx_Oracle.Error:
+        except cx_Oracle.OperationalError:
             e = sys.exc_info()[1]
             raise sql_base.SQLError("Cannot execute SQL statement: %s" % str(e))
 

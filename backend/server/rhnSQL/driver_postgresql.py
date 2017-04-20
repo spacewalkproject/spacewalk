@@ -317,7 +317,7 @@ class Cursor(sql_base.Cursor):
         params = UserDictCase(kwargs)
         try:
             self._real_cursor.execute(self.sql, params)
-        except psycopg2.Error:
+        except psycopg2.OperationalError:
             e = sys.exc_info()[1]
             raise sql_base.SQLError("Cannot execute SQL statement: %s" % str(e))
 
