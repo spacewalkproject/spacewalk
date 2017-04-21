@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.51
+Version: 2.7.52
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -781,6 +781,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 21 2017 Jan Dobes 2.7.52-1
+- 1414454 - adding test
+- 1414454 - adding channel.listManageableChannels API and changing select to
+  provide all expected fields for serializer
+
 * Fri Apr 21 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.51-1
 - resolving dependencies during upgrade on RHEL6
 - resolving file conflicts on RHEL6 installation
