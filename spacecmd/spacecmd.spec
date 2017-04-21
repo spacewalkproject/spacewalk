@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.7.9
+Version:     2.7.10
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -92,6 +92,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Apr 21 2017 Jan Dobes 2.7.10-1
+- 1414454 - work with list of manageable channels in org-access actions
+- 1414454 - adding softwarechannel_listmanageablechannels
+
 * Fri Apr 21 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.9-1
 - 1436644 - provide more info in error message
 
