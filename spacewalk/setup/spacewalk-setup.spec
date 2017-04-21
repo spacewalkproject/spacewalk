@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.7.5
+Version:        2.7.6
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -117,6 +117,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Apr 21 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.6-1
+- add new option skip-services-restart
+- point users to proper log on tomcat 7+
+
 * Tue Apr 11 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.5-1
 - 1440818 - add option for path completion
 - 1440818 - require perl-Term-Completion module
