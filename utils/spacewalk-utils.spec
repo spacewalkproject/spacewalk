@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.7.11
+Version:	2.7.12
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Apr 21 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.12-1
+- add new channels Fedora 25 and Spacewalk 2.6
+- Adding and updating Oracle channels.
+
 * Wed Apr 19 2017 Eric Herget <eherget@redhat.com> 2.7.11-1
 - 1442238 - taskotop various fixes to command line arg processing and logging
 
