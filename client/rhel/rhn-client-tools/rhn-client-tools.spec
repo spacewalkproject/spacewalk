@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
 Name: rhn-client-tools
-Version: 2.7.7
+Version: 2.7.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -405,6 +405,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Apr 21 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.8-1
+- Enable detection of Oracle Linux during registration.
+
 * Wed Apr 19 2017 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.7-1
 - change requirement from python2 package to python3 for fedora
 
