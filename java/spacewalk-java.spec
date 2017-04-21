@@ -117,11 +117,12 @@ Requires:      jakarta-commons-beanutils-mvn
 Requires:      jakarta-commons-cli
 Requires:      jakarta-commons-cli-mvn
 Requires:      jakarta-commons-codec
+Requires:      jakarta-commons-digester < 1.8
 Requires:      jakarta-commons-discovery
 Requires:      jakarta-commons-el
 Requires:      jakarta-commons-io
 Requires:      jakarta-commons-lang
-Requires:      jakarta-commons-logging
+Requires:      jakarta-commons-logging < 1.1
 Requires:      jpackage-utils
 Requires:      tomcat6
 Requires:      tomcat6-lib
@@ -136,6 +137,72 @@ BuildRequires: jakarta-commons-logging
 BuildRequires: jpackage-utils
 BuildRequires: tomcat6
 BuildRequires: tomcat6-lib
+# obsolete old jpackage rpms to make smooth upgrade
+Obsoletes:     apache-portlet-1.0-api <= 1.0
+Obsoletes:     asm <= 1.5.3
+Obsoletes:     asm2 <= 2.2.3
+Obsoletes:     classpathx-mail <= 1.1.2
+Obsoletes:     easymock <= 1.2
+Obsoletes:     easymock-classextension <= 1.2
+Obsoletes:     excalibur <= 1:1.0
+Obsoletes:     excalibur-avalon-framework-api <= 1:4.3.1
+Obsoletes:     excalibur-avalon-framework-impl <= 1:4.3.1
+Obsoletes:     excalibur-avalon-logkit <= 1:2.2.1
+Obsoletes:     freemarker <= 2.3.15
+Obsoletes:     geronimo-ejb-2.1-api <= 1.2
+Obsoletes:     geronimo-j2ee-1.4-apis <= 1.2
+Obsoletes:     geronimo-jta-1.1-api <= 1.2
+Obsoletes:     geronimo-specs-poms <= 1.2
+Obsoletes:     geronimo-stax-1.0-api <= 1.2
+Obsoletes:     glassfish-jaf <= 1.1.0
+Obsoletes:     glassfish-jaxb <= 2.1.4
+Obsoletes:     gnu-regexp <= 1.1.4
+Obsoletes:     groovy15 <= 1.5.6
+Obsoletes:     hivemind <= 1.1.1
+Obsoletes:     hivemind-lib <= 1.1.1
+Obsoletes:     isorelax <= 0.1
+Obsoletes:     jakarta-commons-chain <= 1.2
+Obsoletes:     jakarta-commons-discovery <= 0.4
+Obsoletes:     jakarta-commons-fileupload <= 1:1.2.1
+Obsoletes:     jakarta-commons-transaction <= 1.1
+Obsoletes:     jakarta-commons-validator <= 1.3.1
+Obsoletes:     jakarta-slide-webdavclient <= 2.1
+Obsoletes:     jarjar <= 0.9
+Obsoletes:     java-cup <= 0.11
+Obsoletes:     jaxen <= 1.1
+Obsoletes:     jcommon <= 1.0.12
+Obsoletes:     jettison <= 1.0.1
+Obsoletes:     jetty5 <= 5.1.14
+Obsoletes:     joda-time <= 1.5.2
+Obsoletes:     mockobjects <= 0.09
+Obsoletes:     msv-xsdlib <= 1.2
+Obsoletes:     myfaces-core11-api <= 1.1.5
+Obsoletes:     ognl <= 2.6.9
+Obsoletes:     oscache <= 2.4.1
+Obsoletes:     portals-pluto10-portlet-1.0-api <= 1.0.1
+Obsoletes:     relaxngDatatype <= 1.0
+Obsoletes:     saxpath <= 1.0
+Obsoletes:     servletapi4 <= 4.0.4
+Obsoletes:     spacewalk-jpp-workaround <= 2.3.5
+Obsoletes:     spacewalk-slf4j <= 1.6.1
+Obsoletes:     spring <= 1.2.9
+Obsoletes:     spring-all <= 1.2.9
+Obsoletes:     struts-taglib <= 1.3.8
+Obsoletes:     struts-tiles <= 1.3.8
+Obsoletes:     tapestry <= 4.0.2
+Obsoletes:     tomcat5-jasper <= 5.5.27
+Obsoletes:     tomcat5-jsp-2.0-api <= 5.5.27
+Obsoletes:     tomcat5-servlet-2.4-api <= 5.5.27
+Obsoletes:     velocity-dvsl <= 1.0
+Obsoletes:     ws-jaxme <= 0.5.1
+Obsoletes:     wstx <= 3.1.1
+Obsoletes:     xml-commons-jaxp-1.2-apis <= 1.3.04
+Obsoletes:     xml-im-exporter <= 1.1
+Obsoletes:     xom <= 1.2.1
+Obsoletes:     xpp2 <= 2.1.10
+Obsoletes:     xpp3 <= 1.1.3.8
+Obsoletes:     xpp3-minimal <= 1.1.3.8
+Obsoletes:     xstream <= 1.3.1
 %endif
 
 BuildRequires: /usr/bin/perl
