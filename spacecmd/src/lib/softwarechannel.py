@@ -85,6 +85,41 @@ def do_softwarechannel_list(self, args, doreturn=False):
 ####################
 
 
+def help_softwarechannel_listmanageablechannels(self):
+    print('softwarechannel_listmanageablechannels: List all software channels')
+    print('                                        manageable by current user')
+    print('''usage: softwarechannel_listmanageablechannels [options]
+options:
+  -v verbose (display label and summary)''')
+
+
+def do_softwarechannel_listmanageablechannels(self, args, doreturn=False):
+    options = [Option('-v', '--verbose', action='store_true')]
+    (args, options) = parse_arguments(args, options)
+
+    channels = self.client.channel.listManageableChannels(self.session)
+    labels = [c.get('label') for c in channels]
+
+    # filter the list if arguments were passed
+    if args:
+        labels = filter_results(labels, args, True)
+
+    if doreturn:
+        return labels
+    elif len(labels):
+        if options.verbose:
+            for l in sorted(labels):
+                details = \
+                    self.client.channel.software.getDetails(self.session, l)
+
+                print("%s : %s" % (l, details['summary']))
+        else:
+            for l in sorted(labels):
+                print("%s" % l)
+
+####################
+
+
 def help_softwarechannel_listbasechannels(self):
     print 'softwarechannel_listbasechannels: List all base software channels'
     print '''usage: softwarechannel_listbasechannels [options]
