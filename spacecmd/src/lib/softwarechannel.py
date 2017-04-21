@@ -1457,7 +1457,8 @@ def help_softwarechannel_getorgaccess(self):
 
 
 def complete_softwarechannel_getorgaccess(self, text, line, beg, end):
-    return tab_completer(self.do_softwarechannel_list('', True), text)
+    return tab_completer(self.do_softwarechannel_listmanageablechannels('', doreturn=True),
+                         text)
 
 
 def do_softwarechannel_getorgaccess(self, args):
@@ -1466,10 +1467,11 @@ def do_softwarechannel_getorgaccess(self, args):
 
     # If no args are passed, we dump the org access for all channels
     if not len(args):
-        channels = self.do_softwarechannel_list('', True)
+        channels = self.do_softwarechannel_listmanageablechannels('', doreturn=True)
     else:
         # allow globbing of software channel names
-        channels = filter_results(self.do_softwarechannel_list('', True), args)
+        channels = filter_results(
+            self.do_softwarechannel_listmanageablechannels('', doreturn=True), args)
 
     for channel in channels:
         logging.debug("Getting org-access for channel %s" % channel)
@@ -1494,7 +1496,8 @@ def help_softwarechannel_setorgaccess(self):
 
 
 def complete_softwarechannel_setorgaccess(self, text, line, beg, end):
-    return tab_completer(self.do_softwarechannel_list('', True), text)
+    return tab_completer(self.do_softwarechannel_listmanageablechannels('', doreturn=True),
+                         text)
 
 
 def do_softwarechannel_setorgaccess(self, args, options=None):
@@ -1512,7 +1515,8 @@ def do_softwarechannel_setorgaccess(self, args, options=None):
         return
 
     # allow globbing of software channel names
-    channels = filter_results(self.do_softwarechannel_list('', True), args)
+    channels = filter_results(self.do_softwarechannel_listmanageablechannels('', doreturn=True),
+                              args)
 
     # get the list of trusted organizations when we are dealing with protected channels
     if (options.protected):
