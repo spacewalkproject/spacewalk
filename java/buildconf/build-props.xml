@@ -128,7 +128,7 @@
        concurrent xalan-j2" />
 
   <property name="run.jar.dependencies"
-      value="antlr objectweb-asm/asm ${cglib} c3p0 commons-discovery dom4j jta
+      value="antlr objectweb-asm/asm ${cglib} c3p0 mchange-commons commons-discovery dom4j jta
              ojdbc14 ${oscache} sitemesh ${taglibs} xalan-j2 xerces-j2
              xml-commons-apis ${common.jar.dependencies}" />
 
@@ -143,7 +143,7 @@
       ${install.common.jar.dependencies} tanukiwrapper" />
 
   <property name="install.run.jar.dependencies"
-      value="antlr objectweb-asm/asm ${cglib} c3p0 commons-discovery dom4j dwr jta
+      value="antlr objectweb-asm/asm ${cglib} c3p0 mchange-commons commons-discovery dom4j dwr jta
              ${oscache} sitemesh ${taglibs} xalan-j2 xerces-j2
              xml-commons-apis ${install.common.jar.dependencies}" />
 
@@ -158,7 +158,7 @@
              concurrent simple-core simple-xml susestudio-java-client" />
 
   <property name="dist.jar.dependencies"
-      value="antlr objectweb-asm/asm bcel c3p0 ${cglib}
+      value="antlr objectweb-asm/asm bcel c3p0 mchange-commons ${cglib}
              commons-collections commons-beanutils commons-cli commons-codec
              commons-digester commons-discovery commons-el commons-fileupload commons-io
              ${commons-lang} commons-logging
