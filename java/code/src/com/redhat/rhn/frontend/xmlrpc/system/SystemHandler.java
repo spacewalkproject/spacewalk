@@ -3354,15 +3354,15 @@ public class SystemHandler extends BaseHandler {
 
 
     /**
-     * Schedule package remove for several systems.
+     * Schedule package removal for several systems.
      *
      * @param loggedInUser The current user
      * @param sids IDs of the servers
      * @param packageIds List of package IDs to install (as Integers)
-     * @param earliestOccurrence Earliest occurrence of the package install
+     * @param earliestOccurrence Earliest occurrence of the package removal
      * @return package action id
      *
-     * @xmlrpc.doc Schedule package installation for several systems.
+     * @xmlrpc.doc Schedule package removal for several systems.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #array_single("int", "serverId")
      * @xmlrpc.param #array_single("int", "packageId")
@@ -3383,7 +3383,7 @@ public class SystemHandler extends BaseHandler {
      * @param loggedInUser The current user
      * @param sid ID of the server
      * @param packageIds List of package IDs to remove (as Integers)
-     * @param earliestOccurrence Earliest occurrence of the package install
+     * @param earliestOccurrence Earliest occurrence of the package removal
      * @return 1 if successful, exception thrown otherwise
      *
      * @xmlrpc.doc Schedule package removal for a system.
@@ -3405,7 +3405,7 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
-     * Schedule package remove for several systems using it's nerva.
+     * Schedule package removal for several systems using it's nevra.
      *
      * @param loggedInUser The current user
      * @param sids IDs of the servers
@@ -3439,7 +3439,7 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
-    * Schedule package remove for a system using it's nerva.
+    * Schedule package removal for a system using it's nevra.
     *
     * @param loggedInUser The current user
     * @param sid ID of the server
