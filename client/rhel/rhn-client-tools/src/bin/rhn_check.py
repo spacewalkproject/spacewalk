@@ -70,7 +70,8 @@ except ImportError: # python3
     import xmlrpc.client as xmlrpclib
     long = int
 
-del sys.modules['sgmlop']
+if 'sgmlop' in sys.modules:
+    del sys.modules['sgmlop']
 
 cfg = config.initUp2dateConfig()
 log = up2dateLog.initLog()
