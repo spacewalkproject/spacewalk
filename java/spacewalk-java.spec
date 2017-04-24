@@ -114,7 +114,7 @@ BuildRequires: mvn(ant-contrib:ant-contrib)
 BuildRequires: tomcat >= 7
 BuildRequires: tomcat-lib >= 7
 %else
-Requires:      jakarta-commons-beanutils-mvn
+Requires:      jakarta-commons-beanutils >= 1.9
 Requires:      jakarta-commons-cli
 Requires:      jakarta-commons-cli-mvn
 Requires:      jakarta-commons-codec
