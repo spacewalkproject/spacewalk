@@ -339,8 +339,17 @@ sub command_pg_online_backup {
 
   print "Backing up to file $file.\n";
   my $ret = system(@{Dobby::CLI::MiscCommands::pg_version('pg_dump')}, "--blobs", "--clean", "-Fc", "-v", "-Z7", "--file=$file", PXT::Config->get('db_name'));
-  print "Backup complete.\n";
-  return $ret;
+  if ($ret == 0) {
+    print "Backup complete.\n";
+    return 0;
+  }
+  my $exitsignal = $ret & 0xff;
+  my $exitstatus = ($ret >> 8) & 0xff;
+  if ($exitsignal == 0) {
+    return $exitstatus;
+  }
+  print "Command terminated on signal $exitsignal\n";
+  return 1;
 }
 
 sub command_pg_restore {
@@ -411,8 +420,17 @@ sub command_pg_restore {
 
   print "** Restoring from file $file.\n";
   my $ret = system(@{Dobby::CLI::MiscCommands::pg_version('pg_restore')}, "-Fc", "--jobs=2", "--dbname=".PXT::Config->get('db_name'), $file );
-  print "Restoration complete.\n";
-  return $ret;
+  if ($ret == 0) {
+    print "Restoration complete.\n";
+    return 0;
+  }
+  my $exitsignal = $ret & 0xff;
+  my $exitstatus = ($ret >> 8) & 0xff;
+  if ($exitsignal == 0) {
+    return $exitstatus;
+  }
+  print "Command terminated on signal $exitsignal\n";
+  return 1;
 }
 
 1;
