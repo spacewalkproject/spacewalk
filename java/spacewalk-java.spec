@@ -118,7 +118,6 @@ Requires:      jakarta-commons-beanutils >= 1.9
 Requires:      jakarta-commons-cli
 Requires:      jakarta-commons-cli-mvn
 Requires:      jakarta-commons-codec
-Requires:      jakarta-commons-digester < 1.8
 Requires:      jakarta-commons-discovery
 Requires:      jakarta-commons-el
 Requires:      jakarta-commons-io
