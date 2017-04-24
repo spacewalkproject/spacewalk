@@ -80,6 +80,7 @@ Obsoletes:     excalibur <= 1:1.0
 Obsoletes:     excalibur-avalon-framework-api <= 1:4.3.1
 Obsoletes:     excalibur-avalon-framework-impl <= 1:4.3.1
 Obsoletes:     excalibur-avalon-logkit <= 1:2.2.1
+Obsoletes:     geronimo-jaf-1.1-api <= 1.2
 Obsoletes:     geronimo-jms-1.1-api <= 1.2
 Obsoletes:     geronimo-jsp-2.1-api <= 1.2
 Obsoletes:     geronimo-servlet-2.5-api <= 1.2
