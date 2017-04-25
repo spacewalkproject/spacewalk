@@ -20,7 +20,7 @@
 
 import sys
 from backend import Backend
-from backendLib import DBint, DBstring, DBdateTime, DBblob, Table, \
+from backendLib import DBint, DBstring, DBdateTime, Table, \
     TableCollection
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnSQL.const import ORACLE, POSTGRESQL

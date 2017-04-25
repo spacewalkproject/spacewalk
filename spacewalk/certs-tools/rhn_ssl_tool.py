@@ -57,7 +57,7 @@ from spacewalk.common.rhn_rpm import hdrLabelCompare, sortRPMs, get_package_head
 from sslToolConfig import ConfigFile, figureSerial, getOption, CERT_PATH, \
         DEFS, MD, CRYPTO, LEGACY_SERVER_RPM_NAME1, LEGACY_SERVER_RPM_NAME2, \
         CA_OPENSSL_CNF_NAME, SERVER_OPENSSL_CNF_NAME, POST_UNINSTALL_SCRIPT, \
-        SERVER_RPM_SUMMARY, CA_CERT_RPM_SUMMARY, BASE_SERVER_RPM_NAME
+        SERVER_RPM_SUMMARY, CA_CERT_RPM_SUMMARY
 
 
 class GenPrivateCaKeyException(RhnSslToolException):

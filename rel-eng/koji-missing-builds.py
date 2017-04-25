@@ -5,7 +5,6 @@ try:
 except:
     import brew as koji
 import os
-import string
 import sys
 from optparse import OptionParser
 import ConfigParser

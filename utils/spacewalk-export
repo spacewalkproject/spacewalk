@@ -25,13 +25,12 @@ to a Satellite-6 instance
 import csv
 import logging
 import os
-import re
 import sys
 
 from optparse import OptionParser, OptionGroup
 from os.path import expanduser
-from string import lower, split
-from subprocess import Popen, call
+from string import split
+from subprocess import call
 
 home = expanduser("~")
 DEFAULT_EXPORT_DIR = home + '/spacewalk-export-dir'

@@ -20,9 +20,8 @@ import time
 import string
 
 from spacewalk.server.rhnServer import server_lib
-from rhn import rpclib
-from spacewalk.common.usix import ListType, TupleType, StringType, IntType
-from spacewalk.common import rhnFlags, rhn_rpm
+from spacewalk.common.usix import ListType, TupleType, StringType
+from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
@@ -30,8 +29,7 @@ from spacewalk.common.rhnTB import add_to_seclist
 from spacewalk.common.rhnTranslate import _
 from spacewalk.server.rhnLib import computeSignature
 from spacewalk.server.rhnHandler import rhnHandler
-from spacewalk.server import rhnChannel, rhnPackage, rhnDependency,\
-    rhnCapability
+from spacewalk.server import rhnChannel, rhnDependency, rhnCapability
 from spacewalk.server.rhnServer import server_route
 
 import re

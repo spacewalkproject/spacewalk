@@ -19,7 +19,6 @@ from spacewalk.common.rhnException import rhnFault
 import rhnSQL
 import rhnLib
 import rpm
-import string
 
 # QUERY PACKAGES
 # sql query for solving a dep as a package

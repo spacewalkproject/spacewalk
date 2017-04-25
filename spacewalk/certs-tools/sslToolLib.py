@@ -18,13 +18,11 @@
 
 ## language imports
 import os
-import re
 import sys
 import string
 import shutil
 import tempfile
-from timeLib import DAY, now, secs2days, secs2years, secs2str, \
-                    str2secs
+from timeLib import DAY, now, secs2days, secs2years
 
 class RhnSslToolException(Exception):
     """ general exception class for the tool """

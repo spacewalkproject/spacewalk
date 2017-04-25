@@ -27,7 +27,7 @@ import re
 import xmlrpclib
 import httplib
 from time import localtime
-from sys import argv, stdout
+from sys import argv
 import getpass
 from subprocess import call
 

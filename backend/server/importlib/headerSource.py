@@ -16,7 +16,6 @@
 # Converts headers to the intermediate format
 #
 
-import os
 import time
 import string
 from importLib import File, Dependency, ChangeLog, Channel, \

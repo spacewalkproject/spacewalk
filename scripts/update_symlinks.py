@@ -34,9 +34,6 @@ import sys
 sys.path.insert(0, "/usr/share/rhn")
 from common.rhnConfig import CFG, initCFG
 from server import rhnSQL
-from server.importlib.backendLib import Table, DBblob, DBint, TableUpdate, \
-    TableInsert
-from pprint import pprint
 from os.path import isabs
 
 def setup_db():

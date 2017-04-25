@@ -28,7 +28,6 @@
 
 import pickle
 import xmlrpclib
-import string
 import sys
 import getpass
 

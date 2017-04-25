@@ -22,7 +22,6 @@ existing localization files in the spacewalk codebase
 
 import os
 import sys
-import re
 from optparse import OptionParser
 import polib
 import git

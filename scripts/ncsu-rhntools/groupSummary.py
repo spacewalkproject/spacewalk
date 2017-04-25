@@ -19,7 +19,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import sys
-import xmlrpclib
 
 from rhnapi import RHNClient
 

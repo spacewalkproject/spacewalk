@@ -19,7 +19,6 @@
 from optparse import Option, OptionParser
 import commands
 import os
-import re
 import shutil
 import stat
 import subprocess

@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-import xmlrpclib
 import unittest
 
 from config import *

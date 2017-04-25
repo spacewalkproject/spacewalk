@@ -40,7 +40,6 @@ try:
     from rhn import rhnLockfile
     from spacewalk.common import rhnLog
     from spacewalk.common.rhnConfig import CFG, initCFG
-    from spacewalk.common.rhnTB import fetchTraceback
     from spacewalk.satellite_tools import reposync
     from spacewalk.satellite_tools.syncLib import log, log2disk
 except KeyboardInterrupt:

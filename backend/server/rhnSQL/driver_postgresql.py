@@ -30,7 +30,6 @@ if not hasattr(psycopg2, 'extensions'):
 import sql_base
 from rhn.UserDictCase import UserDictCase
 from spacewalk.server import rhnSQL
-from spacewalk.server.rhnSQL import sql_types
 
 from spacewalk.common.usix import BufferType, raise_with_tb
 from spacewalk.common.rhnLog import log_debug, log_error

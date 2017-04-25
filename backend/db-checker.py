@@ -17,7 +17,6 @@
 import os
 import sys
 from spacewalk.common import usix
-from optparse import OptionParser, Option
 
 _topdir = os.path.abspath(os.path.dirname(sys.argv[0]))
 if _topdir not in sys.path:
