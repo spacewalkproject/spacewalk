@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-Version: 5.10.103
+Version: 5.10.104
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -131,6 +131,9 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Tue Apr 25 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.104-1
+- 1105723 - execute remote commands in clean environment
+
 * Fri Apr 07 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.103-1
 - fix missing import in rhncfg
 - Updated links to github in spec files
