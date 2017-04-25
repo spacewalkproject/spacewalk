@@ -1,5 +1,5 @@
 Name:           spacewalkproject-java-packages-buildsetup
-Version:        2.7.9
+Version:        2.7.10
 Release:        1%{?dist}
 Summary:        Dist override for spacewalkproject/java-packages copr buildroot.
 
@@ -287,3 +287,6 @@ done
 
 
 %changelog
+* Tue Apr 25 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.10-1
+- setup copr @spacewalkproject/java-packages buildroot
+
