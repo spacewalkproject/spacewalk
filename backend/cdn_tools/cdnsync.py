@@ -151,7 +151,7 @@ class CdnSync(object):
 
         # Select available channel families from DB
         h = rhnSQL.prepare("""
-            select label
+            select distinct label
             from rhnChannelFamilyPermissions cfp inner join
                  rhnChannelFamily cf on cfp.channel_family_id = cf.id
             where cf.org_id is null
