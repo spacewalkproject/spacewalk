@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.53
+Version: 2.7.54
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue Apr 25 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.54-1
+- use newer version of commons-digester on RHEL6
+- newer version of commons-beanutils is needed on RHEL6
+- some java packages has been built with java 1.8.0
+
 * Mon Apr 24 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.53-1
 - fixing upgrade on Fedora 24
 - no more special jar handling is needed
