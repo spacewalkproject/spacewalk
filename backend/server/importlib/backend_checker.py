@@ -3,7 +3,7 @@
 import sys
 from spacewalk.server import rhnSQL
 from spacewalk.server.importlib import backendOracle
-from spacewalk.server.importlib.backendLib import DBint, DBstring, DBdateTime, DBblob, Table, TableCollection
+from spacewalk.server.importlib.backendLib import DBstring
 
 exitval = 0
 

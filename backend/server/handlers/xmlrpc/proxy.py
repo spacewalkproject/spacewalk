@@ -22,7 +22,6 @@ from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
-from spacewalk.common.rhnLib import rfc822time, timestamp
 from spacewalk.common.rhnTranslate import _
 
 # local module imports

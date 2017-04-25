@@ -114,9 +114,8 @@
 
 import xmlrpclib, httplib
 from optparse import OptionParser
-from time import time, localtime, strftime
-from datetime import datetime, timedelta
-import sys, os, re
+from time import localtime, strftime
+import sys
 import ConfigParser
 import base64, urllib
 from urllib import unquote, splittype, splithost

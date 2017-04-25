@@ -18,7 +18,6 @@
 
 import headerSource
 import time
-import string
 from importLib import Channel
 from backendLib import gmtime, localtime
 from spacewalk.common.usix import IntType, UnicodeType

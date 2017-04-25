@@ -32,7 +32,7 @@
 #
 
 
-from time import strftime, strptime, mktime, gmtime, timezone, struct_time
+from time import strftime, strptime, mktime, gmtime, timezone
 from time import time
 
 MIN = 60.0

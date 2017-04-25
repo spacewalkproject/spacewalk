@@ -17,7 +17,6 @@
 
 from importLib import Import, InvalidArchError, \
     InvalidChannelError, InvalidChannelFamilyError, MissingParentChannelError
-from spacewalk.common.rhnConfig import CFG
 from spacewalk.satellite_tools.syncLib import log
 
 

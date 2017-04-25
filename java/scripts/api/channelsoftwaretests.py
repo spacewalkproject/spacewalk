@@ -1,10 +1,9 @@
 #!/usr/bin/python
 
-import xmlrpclib
 import unittest
 
 from random import randint
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 
 from config import *
 

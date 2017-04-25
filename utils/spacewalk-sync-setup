@@ -21,12 +21,11 @@
 
 import logging
 import os
-import re
 import sys
 import xmlrpclib
 import string
 from string import lower
-from ConfigParser import SafeConfigParser, NoOptionError
+from ConfigParser import SafeConfigParser
 from optparse import OptionParser, OptionGroup
 from os import path, access, R_OK
 from os.path import expanduser

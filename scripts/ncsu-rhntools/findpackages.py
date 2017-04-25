@@ -20,7 +20,6 @@
 
 import os
 import os.path
-import sys
 import config
 import string
 from types import IntType, FloatType, StringType, LongType

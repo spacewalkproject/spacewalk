@@ -2,9 +2,7 @@
 
 import xmlrpclib
 import unittest
-import random
 from datetime import datetime, timedelta
-from time import mktime
 
 from config import *
 

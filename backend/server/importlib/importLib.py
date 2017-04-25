@@ -28,7 +28,7 @@ except ImportError:
     from collections import UserList
 
 from spacewalk.common.checksum import getFileChecksum
-from spacewalk.common.fileutils import createPath, setPermsPath
+from spacewalk.common.fileutils import createPath
 from spacewalk.common.rhnConfig import CFG
 
 # no-op class, used to define the type of an attribute

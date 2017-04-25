@@ -40,8 +40,6 @@ _LIBPATH = "/usr/share/rhn"
 if _LIBPATH not in sys.path:
     sys.path.append(_LIBPATH)
 
-import os
-import socket
 from rhn import rhnLockfile
 
 

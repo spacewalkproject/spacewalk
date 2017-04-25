@@ -14,7 +14,6 @@
 #
 
 import os
-import re
 import hashlib
 import string
 import base64

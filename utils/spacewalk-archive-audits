@@ -24,15 +24,13 @@ import os
 import sys
 import time
 
-from os import getenv
-from optparse import OptionParser, OptionGroup
-from csv import writer
+from optparse import OptionParser
 from datetime import datetime
 
 try:
     from spacewalk.common import rhnLog
     from spacewalk.common.rhnConfig import CFG, initCFG
-    from spacewalk.common.rhnLog import LOG, log_clean
+    from spacewalk.common.rhnLog import log_clean
     from spacewalk.server import rhnSQL
 except ImportError:
     # pylint: disable=F0401
@@ -41,7 +39,7 @@ except ImportError:
         sys.path.append(_LIBPATH)
     from server import rhnSQL
     from common import rhnLog
-    from common.rhnLog import LOG, log_clean
+    from common.rhnLog import log_clean
     from common.rhnConfig import CFG, initCFG
 
 LOG_LOCATION = '/var/log/rhn/archive-audit-tables.log'

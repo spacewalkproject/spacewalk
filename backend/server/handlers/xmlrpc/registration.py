@@ -14,7 +14,6 @@
 #
 
 # system modules
-import string
 import sys
 
 from spacewalk.common.usix import raise_with_tb

@@ -25,11 +25,11 @@ except ImportError:
     #  python3
     import xmlrpc.client as xmlrpclib
 
-from spacewalk.common.usix import IntType, ListType, DictType
+from spacewalk.common.usix import IntType
 
 # common module
 from spacewalk.common.usix import raise_with_tb
-from spacewalk.common import rhnCache, rhnFlags, rhn_rpm
+from spacewalk.common import rhnCache, rhnFlags
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault, rhnException

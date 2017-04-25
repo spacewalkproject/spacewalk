@@ -18,7 +18,6 @@
 
 from spacewalk.common import rhn_rpm
 from spacewalk.common.rhnLog import log_debug
-from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
 
 from spacewalk.server import rhnChannel, taskomatic, rhnSQL
