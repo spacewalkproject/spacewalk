@@ -220,10 +220,11 @@ def run(action_id, params, cache_only=None):
         # pid)
         os.setpgrp()
 
+        clean_env = {"PATH": "/sbin:/bin:/usr/sbin:/usr/bin", "TERM": "xterm"}
         # Finally, exec the script
         try:
             os.umask(int("022", 8))
-            os.execv(script_path, [script_path, ])
+            os.execve(script_path, [script_path, ], clean_env)
         finally:
             # This code can be reached only when script_path can not be
             # executed as otherwise execv never returns.
