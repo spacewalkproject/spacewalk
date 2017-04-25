@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.79
+Version: 2.7.80
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue Apr 25 2017 Jan Dobes 2.7.80-1
+- 1445220 - make sure each channel family label is selected only once
+
 * Fri Apr 21 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.79-1
 - replace dots in method names with underscore
 - do not fail with a traceback when media.1 is requested
