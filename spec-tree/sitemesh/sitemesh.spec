@@ -52,7 +52,7 @@ BuildRequires:  velocity-tools >= 0:2.0
 %if %with ant
 BuildRequires:  ant
 BuildRequires:  ant-junit
-BuildRequires:  java-devel
+BuildRequires:  java-1.8.0-openjdk-devel
 BuildRequires:  java_cup
 BuildRequires:  jflex
 %else

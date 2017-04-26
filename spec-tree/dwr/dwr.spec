@@ -19,8 +19,8 @@ Patch2:     dwr-r3975.patch
 BuildArch:  noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
-Requires:   java
-BuildRequires:   java-devel >= 1.5.0
+Requires:        java-headless >= 1:1.8.0
+BuildRequires:   java-1.8.0-openjdk-devel
 BuildRequires:   ant
 %if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 BuildRequires: javapackages-tools

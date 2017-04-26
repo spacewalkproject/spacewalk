@@ -15,9 +15,7 @@ BuildRequires: javapackages-tools
 BuildRequires: jpackage-utils >= 0:1.5
 %endif
 BuildRequires: ant
-%if 0%{?fedora} >= 23
-BuildRequires: java-devel
-%endif
+BuildRequires: java-1.8.0-openjdk-devel
 BuildRequires: unzip
 BuildArch: noarch
 ExcludeArch: ia64

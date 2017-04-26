@@ -38,7 +38,7 @@ Requires: dwr >= 3
 Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
 Requires: hibernate3-ehcache >= 3.6.10
-Requires: java-headless >= 1:1.7.0
+Requires: java-headless >= 1:1.8.0
 Requires: javamail
 Requires: jcommon
 Requires: jdom
@@ -123,7 +123,6 @@ Requires:      jakarta-commons-el
 Requires:      jakarta-commons-io
 Requires:      jakarta-commons-lang
 Requires:      jakarta-commons-logging < 1.1
-Requires:      java-1.8.0-openjdk-devel
 Requires:      jpackage-utils
 Requires:      tomcat6
 Requires:      tomcat6-lib
@@ -201,8 +200,6 @@ Obsoletes:     xml-commons-jaxp-1.2-apis <= 1.3.04
 Obsoletes:     xml-im-exporter <= 1.1
 Obsoletes:     xom <= 1.2.1
 Obsoletes:     xpp2 <= 2.1.10
-Obsoletes:     xpp3 <= 1.1.3.8
-Obsoletes:     xpp3-minimal <= 1.1.3.8
 Obsoletes:     xstream <= 1.3.1
 %endif
 
@@ -225,7 +222,7 @@ BuildRequires: dwr >= 3
 BuildRequires: hibernate3 >= 0:3.6.10
 BuildRequires: hibernate3-c3p0 >= 3.6.10
 BuildRequires: hibernate3-ehcache >= 3.6.10
-BuildRequires: java-devel >= 1:1.7.0
+BuildRequires: java-1.8.0-openjdk-devel
 BuildRequires: javamail
 BuildRequires: jcommon
 BuildRequires: jdom
@@ -357,7 +354,7 @@ Requires: concurrent >= 1.3.4-21
 Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
 Requires: hibernate3-ehcache >= 3.6.10
-Requires: java-headless >= 0:1.7.0
+Requires: java-headless >= 1:1.8.0
 Requires: jcommon
 Requires: jpam
 Requires: log4j

@@ -24,7 +24,7 @@ Url:            https://github.com/susestudio/susestudio-lib-java
 Source0:        https://github.com/susestudio/susestudio-lib-java/archive/v%{version}.tar.gz#/susestudio-lib-java-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  ant
-BuildRequires:  java-devel
+BuildRequires:  java-1.8.0-openjdk-devel
 %if 0%{?fedora} >= 20 || 0%{?rhel} >=7
 BuildRequires: javapackages-tools
 %else

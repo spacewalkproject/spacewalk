@@ -16,7 +16,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 BuildRequires: apache-commons-beanutils >= 1.9
 BuildRequires: gcc
-BuildRequires: java-devel >= 1.6.0
+BuildRequires: java-1.8.0-openjdk-devel
 BuildRequires: make
 BuildRequires: pam-devel
 %if 0%{?fedora} || 0%{?rhel} >= 7

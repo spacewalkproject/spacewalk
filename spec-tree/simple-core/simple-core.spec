@@ -14,11 +14,8 @@ BuildRequires:  ant
 BuildRequires: javapackages-tools
 Requires:      kxml
 %endif
-%if 0%{?fedora} >= 23
-BuildRequires: java-devel
-%endif
-BuildRequires:  java >= 1.5
-Requires:       java >= 1.5
+BuildRequires: java-1.8.0-openjdk-devel
+Requires:      java-headless >= 1:1.8.0
 
 %description
 The core API consists of a simple.http package and various sub-packages, it also contains various utilities. This is all that is required to develop HTTP services. 

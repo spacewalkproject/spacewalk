@@ -10,7 +10,7 @@ Source0:        %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
 
-Requires: java >= 1.5
+Requires: java-headless >= 1:1.8.0
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: apache-commons-logging
 Requires: apache-commons-collections

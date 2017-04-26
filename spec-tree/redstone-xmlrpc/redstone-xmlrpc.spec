@@ -22,7 +22,7 @@ Requires: tomcat6-servlet-2.5-api
 %define third_party_jars tomcat6-servlet-2.5-api
 %endif
 BuildRequires: ant
-BuildRequires: java-devel >= 1:1.6.0
+BuildRequires: java-1.8.0-openjdk-devel
 BuildArch: noarch
 Obsoletes: marquee-xmlrpc
 

@@ -9,7 +9,7 @@ URL: http://lucene.apache.org/nutch/index.html
 Source0: http://hudson.zones.apache.org/hudson/job/Nutch-trunk/647/artifact/trunk/build/nutch-2008-12-01_04-01-21.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
-Requires: java >= 0:1.5.0
+Requires: java-headless >= 1:1.8.0
 
 %description
 Nutch is open source web-search software. It builds on Lucene Java,
