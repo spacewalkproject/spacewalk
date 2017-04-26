@@ -57,12 +57,6 @@ def releaseLOCK():
         LOCK = None
 
 
-def clear_interrupted_downloads():
-    pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1', 'stage')
-    if os.path.exists(pkgdir):
-        shutil.rmtree(pkgdir)
-
-
 def main():
 
     # quick check to see if you are a super-user.
@@ -150,14 +144,6 @@ def main():
         for ch in list(set(l_ch_custom)-set(d_chan_repo)):
             log(0, "%s | No repository set" % ch)
         return 0
-
-    # Automatically remove all the remains inside of /var/spacewalk/packages/1/stage
-    # Yum does not seem to handle download resumes properly. This can lead to
-    # errors like:
-    #
-    # > Repo Sync Errors: (50, u'checksums did not match 326a904c2fbd7a0e20033c87fc84ebba6b24d937 vs
-    # > afd8c60d7908b2b0e2d95ad0b333920aea9892eb', 'Invalid information uploaded to the server')
-    clear_interrupted_downloads()
 
     if not options.channel_label and not options.parent_label and not options.config:
         systemExit(1, "--channel, --parent-channel or --config must be specifed.")
