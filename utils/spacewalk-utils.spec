@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.7.13
+Version:	2.7.14
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Apr 26 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.14-1
+- update CentOS7 addon repos
+- removed definitions of EOLed products
+
 * Tue Apr 25 2017 Eric Herget <eherget@redhat.com> 2.7.13-1
 - 1434564 - RFE: taskotop enhancements continued - fix on Oracle
 
