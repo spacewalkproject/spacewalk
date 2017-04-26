@@ -31,9 +31,10 @@ from spacewalk.server.importlib.importLib import Channel, ChannelFamily, \
     ProductName, DistChannelMap, ReleaseChannelMap
 from spacewalk.satellite_tools import reposync
 from spacewalk.satellite_tools import contentRemove
+from spacewalk.satellite_tools.download import ThreadedDownloader, ProgressBarLogger
 from spacewalk.satellite_tools.satCerts import get_certificate_info, verify_certificate_dates
 from spacewalk.satellite_tools.syncLib import log, log2disk, log2, initEMAIL_LOG, log2email, log2background
-from spacewalk.satellite_tools.repo_plugins import yum_src, ThreadedDownloader, ProgressBarLogger
+from spacewalk.satellite_tools.repo_plugins import yum_src
 
 from common import CustomChannelSyncError, CountingPackagesError, verify_mappings, human_readable_size
 from repository import CdnRepositoryManager, CdnRepositoryNotFoundError

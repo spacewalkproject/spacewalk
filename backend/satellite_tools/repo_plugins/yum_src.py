@@ -40,7 +40,8 @@ except ImportError:
 from urlgrabber.grabber import URLGrabError
 
 from spacewalk.common import fileutils, checksum
-from spacewalk.satellite_tools.repo_plugins import ContentPackage, get_proxies
+from spacewalk.satellite_tools.download import get_proxies
+from spacewalk.satellite_tools.repo_plugins import ContentPackage
 from spacewalk.common.rhnConfig import CFG, initCFG
 
 CACHE_DIR = '/var/cache/rhn/reposync/'

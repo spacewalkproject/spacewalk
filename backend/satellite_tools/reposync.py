@@ -35,7 +35,7 @@ from spacewalk.server.importlib.packageImport import ChannelPackageSubscription
 from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.errataImport import ErrataImport
 from spacewalk.server import taskomatic
-from spacewalk.satellite_tools.repo_plugins import ThreadedDownloader, ProgressBarLogger, TextLogger
+from spacewalk.satellite_tools.download import ThreadedDownloader, ProgressBarLogger, TextLogger
 from spacewalk.satellite_tools.satCerts import verify_certificate_dates
 
 from syncLib import log, log2, log2disk, dumpEMAIL_LOG, log2background
