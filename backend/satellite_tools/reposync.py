@@ -27,17 +27,19 @@ import errno
 from rhn.connections import idn_puny_to_unicode
 
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel
+from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import fileutils, rhnLog, rhnCache, rhnMail
 from spacewalk.common.rhnLib import isSUSE
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhnConfig import CFG, initCFG
-from spacewalk.server.importlib.importLib import IncompletePackage, Erratum, Bug, Keyword
+from spacewalk.common.rhnException import rhnFault
+from spacewalk.server.importlib import importLib, mpmSource, packageImport, errataCache
 from spacewalk.server.importlib.packageImport import ChannelPackageSubscription
 from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.errataImport import ErrataImport
-from spacewalk.server import taskomatic
 from spacewalk.satellite_tools.download import ThreadedDownloader, ProgressBarLogger, TextLogger
 from spacewalk.satellite_tools.repo_plugins import CACHE_DIR
+from spacewalk.server import taskomatic, rhnPackageUpload
 from spacewalk.satellite_tools.satCerts import verify_certificate_dates
 
 from syncLib import log, log2, log2disk, dumpEMAIL_LOG, log2background
@@ -565,7 +567,7 @@ class RepoSync(object):
 
             advisory = notice['update_id'] + '-' + notice['version']
             existing_errata = self.get_errata(notice['update_id'])
-            e = Erratum()
+            e = importLib.Erratum()
             e['errata_from'] = notice['from']
             e['advisory'] = advisory
             e['advisory_name'] = notice['update_id']
@@ -660,7 +662,7 @@ class RepoSync(object):
                     if oldpkg['package_id'] != cs['id']:
                         newpkgs.append(oldpkg)
 
-                package = IncompletePackage().populate(pkg)
+                package = importLib.IncompletePackage().populate(pkg)
                 package['epoch'] = cs['epoch']
                 package['org_id'] = self.org_id
 
@@ -679,11 +681,11 @@ class RepoSync(object):
 
             e['keywords'] = []
             if notice['reboot_suggested']:
-                kw = Keyword()
+                kw = importLib.Keyword()
                 kw.populate({'keyword': 'reboot_suggested'})
                 e['keywords'].append(kw)
             if notice['restart_suggested']:
-                kw = Keyword()
+                kw = importLib.Keyword()
                 kw.populate({'keyword': 'restart_suggested'})
                 e['keywords'].append(kw)
             e['bugs'] = []
@@ -701,7 +703,7 @@ class RepoSync(object):
                                 % (e['advisory_name'], bz['id']))
                             bz_id = int(re.search(r"\d+$", bz['href']).group(0))
                         if bz_id not in tmp:
-                            bug = Bug()
+                            bug = importLib.Bug()
                             bug.populate({'bug_id': bz_id, 'summary': bz['title'], 'href': bz['href']})
                             e['bugs'].append(bug)
                             tmp[bz_id] = None
@@ -834,28 +836,100 @@ class RepoSync(object):
 
         log2background(0, "Importing packages started.")
         progress_bar = ProgressBarLogger("Importing packages:    ", to_download_count)
+
+        # Prepare SQL statements
+        h_delete_package_queue = rhnSQL.prepare("""delete from rhnPackageFileDeleteQueue where path = :path""")
+        backend = SQLBackend()
+
+        mpm_bin_batch = importLib.Collection()
+        mpm_src_batch = importLib.Collection()
+        affected_channels = []
+        upload_caller = "server.app.uploadPackage"
+
         for (index, what) in enumerate(to_process):
             pack, to_download, to_link = what
             if not to_download:
                 continue
-            localpath = pack.path
+            stage_path = pack.path
+
             # pylint: disable=W0703
             try:
-                if os.path.exists(localpath):
-                    pack.load_checksum_from_header()
-                    rel_package_path = pack.upload_package(self.org_id, metadata_only=self.metadata_only)
-                    # Save uploaded package to cache with repository checksum type
-                    if rel_package_path:
-                        self.checksum_cache[rel_package_path] = {pack.checksum_type: pack.checksum}
-
-                    # we do not want to keep a whole 'a_pkg' object for every package in memory,
-                    # because we need only checksum. see BZ 1397417
-                    pack.checksum = pack.a_pkg.checksum
-                    pack.checksum_type = pack.a_pkg.checksum_type
-                    pack.epoch = pack.a_pkg.header['epoch']
-                    pack.a_pkg = None
-                else:
+                # check if package was downloaded
+                if not os.path.exists(stage_path):
                     raise Exception
+
+                pack.load_checksum_from_header()
+                if not self.metadata_only:
+                    rel_package_path = rhnPackageUpload.relative_path_from_header(pack.a_pkg.header, self.org_id,
+                                                                                  pack.a_pkg.checksum_type,
+                                                                                  pack.a_pkg.checksum)
+                else:
+                    rel_package_path = None
+
+                if rel_package_path:
+                    # Save uploaded package to cache with repository checksum type
+                    self.checksum_cache[rel_package_path] = {pack.checksum_type: pack.checksum}
+
+                    # First write the package to the filesystem to final location
+                    # pylint: disable=W0703
+                    try:
+                        importLib.move_package(pack.a_pkg.payload_stream.name, basedir=CFG.MOUNT_POINT,
+                                               relpath=rel_package_path,
+                                               checksum_type=pack.a_pkg.checksum_type,
+                                               checksum=pack.a_pkg.checksum, force=1)
+                    except OSError:
+                        e = sys.exc_info()[1]
+                        raise_with_tb(rhnFault(50, "Package upload failed: %s" % e), sys.exc_info()[2])
+                    except importLib.FileConflictError:
+                        raise_with_tb(rhnFault(50, "File already exists"), sys.exc_info()[2])
+                    except Exception:
+                        raise_with_tb(rhnFault(50, "File error"), sys.exc_info()[2])
+
+                    # Remove any pending scheduled file deletion for this package
+                    h_delete_package_queue.execute(path=rel_package_path)
+
+                pkg = mpmSource.create_package(pack.a_pkg.header, size=pack.a_pkg.payload_size,
+                                               checksum_type=pack.a_pkg.checksum_type, checksum=pack.a_pkg.checksum,
+                                               relpath=rel_package_path, org_id=self.org_id,
+                                               header_start=pack.a_pkg.header_start,
+                                               header_end=pack.a_pkg.header_end, channels=[])
+
+                if pack.a_pkg.header.is_source:
+                    mpm_src_batch.append(pkg)
+                else:
+                    mpm_bin_batch.append(pkg)
+                # we do not want to keep a whole 'a_pkg' object for every package in memory,
+                # because we need only checksum. see BZ 1397417
+                pack.checksum = pack.a_pkg.checksum
+                pack.checksum_type = pack.a_pkg.checksum_type
+                pack.epoch = pack.a_pkg.header['epoch']
+                pack.a_pkg = None
+
+                # importing packages by batch or if the current packages is the last
+                if (index + 1) == len(to_process) or (index + 1) % 10 == 0:
+
+                    if len(mpm_bin_batch) > 0:
+                        importer = packageImport.PackageImport(mpm_bin_batch, backend, caller=upload_caller)
+                        importer.setUploadForce(0)
+                        importer.run()
+                        del importer.batch
+                        affected_channels.extend(importer.affected_channels)
+
+                    if len(mpm_src_batch) > 0:
+                        src_importer = packageImport.SourcePackageImport(mpm_src_batch, backend,
+                                                                         caller=upload_caller)
+                        src_importer.setUploadForce(0)
+                        src_importer.run()
+
+                    # commit the transactions
+                    rhnSQL.commit()
+
+                    del mpm_src_batch
+                    del mpm_bin_batch
+                    mpm_bin_batch = importLib.Collection()
+                    mpm_src_batch = importLib.Collection()
+
+
                 progress_bar.log(True, None)
             except KeyboardInterrupt:
                 raise
@@ -872,8 +946,11 @@ class RepoSync(object):
                 self.all_packages.remove(pack)
                 progress_bar.log(False, None)
             finally:
-                if is_non_local_repo and localpath and os.path.exists(localpath):
-                    os.remove(localpath)
+                if is_non_local_repo and stage_path and os.path.exists(stage_path):
+                    os.remove(stage_path)
+
+        if affected_channels:
+            errataCache.schedule_errata_cache_update(affected_channels)
         log2background(0, "Importing packages finished.")
 
         if self.strict:
@@ -936,7 +1013,7 @@ class RepoSync(object):
                                 'id': self.channel['id']}]
         package['org_id'] = self.org_id
 
-        return IncompletePackage().populate(package)
+        return importLib.IncompletePackage().populate(package)
 
     def disassociate_package(self, pack):
         h = rhnSQL.prepare("""
@@ -1020,7 +1097,7 @@ class RepoSync(object):
         h.execute(eid=ret['id'])
         packages = h.fetchall_dict() or []
         for pkg in packages:
-            ipackage = IncompletePackage().populate(pkg)
+            ipackage = importLib.IncompletePackage().populate(pkg)
             ipackage['epoch'] = pkg.get('epoch', '')
 
             ipackage['checksums'] = {ipackage['checksum_type']: ipackage['checksum']}
