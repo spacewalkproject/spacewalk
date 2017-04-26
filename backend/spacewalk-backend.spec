@@ -739,6 +739,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/updatePackages.py*
 %{pythonrhnroot}/satellite_tools/reposync.py*
 %{pythonrhnroot}/satellite_tools/constants.py*
+%{pythonrhnroot}/satellite_tools/download.py*
 %dir %{pythonrhnroot}/satellite_tools/disk_dumper
 %{pythonrhnroot}/satellite_tools/disk_dumper/__init__.py*
 %{pythonrhnroot}/satellite_tools/disk_dumper/iss.py*
