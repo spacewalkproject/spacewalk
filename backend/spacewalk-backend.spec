@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.81
+Version: 2.7.82
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -797,6 +797,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Apr 27 2017 Jan Dobes 2.7.82-1
+- 1446198 - fixing number of thread input
+- 1446198 - update imports
+- 1446198 - update build configuration
+- 1446198 - move downloading to module and don't block reusing connections
+
 * Wed Apr 26 2017 Gennadii Altukhov <galt@redhat.com> 2.7.81-1
 - revert 200924587a237b57d70d780a637c867c04393438 we don't need to remove
   interrupted downloads, because we don't use yum to download packages anymore.
