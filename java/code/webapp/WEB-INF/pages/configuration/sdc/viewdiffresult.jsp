@@ -44,7 +44,7 @@
          type = "${channel.configChannelType.label}"
                 /></strong></c:set>
 
-<c:set var="systemValue"><strong><a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}"><rhn:icon type="header-system" /> ${fn:escapeXml(current.name)} </a></strong></c:set>
+<c:set var="systemValue"><strong><a href="/rhn/systems/details/configuration/Overview.do?sid=${requestScope.system.id}"><rhn:icon type="header-system" /> ${fn:escapeXml(requestScope.system.name)} </a></strong></c:set>
 
 
 <table class="details">
