@@ -248,7 +248,7 @@ class OracleBackend(Backend):
                   'update_date': DBdateTime(),
                   'last_modified': DBdateTime(),
               },
-              pk=['advisory_name', ],
+              pk=['advisory_name', 'org_id'],
               defaultSeverity=4,
               ),
         Table('rhnErrataBugList',
