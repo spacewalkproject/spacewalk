@@ -976,14 +976,14 @@ class RepoSync(object):
             notice['version'] = str(new_version / 100)
         return notice
 
-    @staticmethod
-    def get_errata(update_id):
+    def get_errata(self, update_id):
         h = rhnSQL.prepare("""select
             e.id, e.advisory, e.advisory_name, e.advisory_rel
             from rhnerrata e
             where e.advisory_name = :name
+              and e.org_id = :org_id
         """)
-        h.execute(name=update_id)
+        h.execute(name=update_id, org_id=self.org_id)
         ret = h.fetchone_dict() or None
         if not ret:
             return None
