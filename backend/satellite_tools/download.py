@@ -235,7 +235,12 @@ class ThreadedDownloader:
     def __init__(self, retries=3, log_obj=None, force=False):
         self.queue = Queue()
         initCFG('server.satellite')
-        self.threads = CFG.REPOSYNC_DOWNLOAD_THREADS
+        try:
+            self.threads = int(CFG.REPOSYNC_DOWNLOAD_THREADS)
+        except ValueError:
+            raise ValueError("Number of threads expected, found: '%s'" % CFG.REPOSYNC_DOWNLOAD_THREADS)
+        if self.threads < 1:
+            raise ValueError("Invalid number of threads: %d" % self.threads)
         self.retries = retries
         self.log_obj = log_obj
         self.force = force
