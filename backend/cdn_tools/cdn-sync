@@ -156,9 +156,10 @@ if __name__ == '__main__':
 
         cdnsync.send_email(additional_messages=error_messages)
 
-        LOCK.release()
         if error_messages:
             system_exit(1, error_messages)
+
+        LOCK.release()
 
     except KeyboardInterrupt:
         system_exit(1, "\nProcess has been interrupted.")
