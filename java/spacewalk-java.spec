@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.54
+Version: 2.7.55
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 27 2017 Grant Gainey 2.7.55-1
+- 1445711 - Fix incorrect reference for id/name in JSP
+- bz1441213. installation->removal in schedulePackageRemove,
+  remove->removal(for consistency), nerva->nevra
+
 * Tue Apr 25 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.54-1
 - use newer version of commons-digester on RHEL6
 - newer version of commons-beanutils is needed on RHEL6
