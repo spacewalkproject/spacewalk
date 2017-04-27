@@ -16,6 +16,7 @@
 import os
 from rhn.i18n import bstr
 from spacewalk.common import checksum
+from rhn.i18n import bstr
 
 def get_package_header(filename=None, file_obj=None, fd=None):
     # pylint: disable=E1103
