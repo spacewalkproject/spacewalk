@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.55
+Version: 2.7.56
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 27 2017 Grant Gainey 2.7.56-1
+- 1445225 - Don't link a package if it doesn't have an id
+
 * Thu Apr 27 2017 Grant Gainey 2.7.55-1
 - 1445711 - Fix incorrect reference for id/name in JSP
 - bz1441213. installation->removal in schedulePackageRemove,
