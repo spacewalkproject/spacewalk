@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.84
+Version: 2.7.85
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -798,6 +798,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Fri Apr 28 2017 Laurence Rochfort <laurence.rochfort@oracle.com>
+- 1342977 - Prevent ORA-01878 on repository sync.
+- Add timezone_utils.py to libs files for BZ 1342977
+
 * Fri Apr 28 2017 Jan Dobes 2.7.84-1
 - 1445957 - default_mail_from key exists but may be empty
 - Remove unused imports.
