@@ -18,11 +18,10 @@ from shutil import rmtree
 import time
 import requests
 from spacewalk.common import fileutils
-from spacewalk.satellite_tools.repo_plugins import ContentPackage
+from spacewalk.satellite_tools.repo_plugins import ContentPackage, CACHE_DIR
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.checksum import getFileChecksum
 
-CACHE_DIR = '/var/cache/rhn/reposync/'
 RETRIES = 10
 RETRY_DELAY = 1
 FORMAT_PRIORITY = ['.xz', '.gz', '']

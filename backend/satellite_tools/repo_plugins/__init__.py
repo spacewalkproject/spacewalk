@@ -19,6 +19,8 @@ from spacewalk.common import rhn_pkg
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.server import rhnPackageUpload
 
+CACHE_DIR = '/var/cache/rhn/reposync/'
+
 
 class ContentPackage:
 

@@ -41,11 +41,11 @@ from urlgrabber.grabber import URLGrabError
 
 from spacewalk.common import fileutils, checksum
 from spacewalk.satellite_tools.download import get_proxies
-from spacewalk.satellite_tools.repo_plugins import ContentPackage
+from spacewalk.satellite_tools.repo_plugins import ContentPackage, CACHE_DIR
 from spacewalk.common.rhnConfig import CFG, initCFG
 
-CACHE_DIR = '/var/cache/rhn/reposync/'
 YUMSRC_CONF = '/etc/rhn/spacewalk-repo-sync/yum.conf'
+
 
 class YumWarnings:
 
