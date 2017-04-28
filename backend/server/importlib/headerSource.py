@@ -381,6 +381,22 @@ class rpmOldSuggests(Dependency):
         'flags': 1158,  # 'suggestsflags',
     }
 
+class rpmOldSuggests(Dependency):
+    # More mappings
+    tagMap = {
+        'name'      : 5049, #'suggestsname',
+        'version'   : 5050, #'suggestsversion',
+        'flags'     : 5051, #'suggestsflags',
+    }
+
+class rpmOldRecommends(Dependency):
+    # More mappings
+    tagMap = {
+        'name'      : 1156, #'recommendsname',
+        'version'   : 1157, #'recommendsversion',
+        'flags'     : 1158, #'recommendsflags',
+    }
+
 class rpmSuggests(Dependency):
     # More mappings
     tagMap = {
