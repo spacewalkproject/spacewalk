@@ -397,7 +397,7 @@ def sendMail(forceEmail=0):
                 'Subject' : _('RHN Management Satellite sync. report from %s') % host_label,
             }
             sndr = "root@%s" % host_label
-            if CFG.has_key("default_mail_from"):
+            if CFG.default_mail_from:
                 sndr = CFG.default_mail_from
             rhnMail.send(headers, body, sender=sndr)
         else:
