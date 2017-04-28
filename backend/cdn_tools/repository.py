@@ -451,18 +451,18 @@ class CdnRepositorySsl(object):
 
     def get_crypto_keys(self, check_dates=False):
         ssl_query = rhnSQL.prepare("""
-            select description, key from rhnCryptoKey where id = :id
+            select description, key, org_id from rhnCryptoKey where id = :id
         """)
         keys = {}
         ssl_query.execute(id=self.ca_cert)
         row = ssl_query.fetchone_dict()
-        keys['ca_cert'] = (str(row['description']), str(row['key']))
+        keys['ca_cert'] = (str(row['description']), str(row['key']), row['org_id'])
         ssl_query.execute(id=self.client_cert)
         row = ssl_query.fetchone_dict()
-        keys['client_cert'] = (str(row['description']), str(row['key']))
+        keys['client_cert'] = (str(row['description']), str(row['key']), row['org_id'])
         ssl_query.execute(id=self.client_key)
         row = ssl_query.fetchone_dict()
-        keys['client_key'] = (str(row['description']), str(row['key']))
+        keys['client_key'] = (str(row['description']), str(row['key']), row['org_id'])
 
         # Check if SSL certificates are usable
         if check_dates:

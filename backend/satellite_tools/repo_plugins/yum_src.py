@@ -19,7 +19,6 @@ import logging
 import os.path
 from os import makedirs
 from shutil import rmtree
-import errno
 
 import yum
 from yum.Errors import RepoMDError
@@ -414,35 +413,9 @@ class ContentSource(object):
 
     def set_ssl_options(self, ca_cert, client_cert, client_key):
         repo = self.repo
-        ssldir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
-        try:
-            makedirs(ssldir, int('0750', 8))
-        except OSError:
-            exc = sys.exc_info()[1]
-            if exc.errno == errno.EEXIST and os.path.isdir(ssldir):
-                pass
-            else:
-                raise
-
-        repo.sslcacert = os.path.join(ssldir, 'ca.pem')
-        f = open(repo.sslcacert, "w")
-        f.write(str(ca_cert))
-        f.close()
-        if client_cert is not None:
-            repo.sslclientcert = os.path.join(ssldir, 'cert.pem')
-            f = open(repo.sslclientcert, "w")
-            f.write(str(client_cert))
-            f.close()
-        if client_key is not None:
-            repo.sslclientkey = os.path.join(ssldir, 'key.pem')
-            f = open(repo.sslclientkey, "w")
-            f.write(str(client_key))
-            f.close()
-
-    def clear_ssl_cache(self):
-        repo = self.repo
-        ssldir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
-        rmtree(ssldir, True)
+        repo.sslcacert = ca_cert
+        repo.sslclientcert = client_cert
+        repo.sslclientkey = client_key
 
     def get_file(self, path, local_base=None):
         try:

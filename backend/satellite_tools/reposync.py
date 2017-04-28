@@ -22,6 +22,7 @@ from xml.dom import minidom
 import gzip
 import ConfigParser
 import gettext
+import errno
 
 from rhn.connections import idn_puny_to_unicode
 
@@ -36,6 +37,7 @@ from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.errataImport import ErrataImport
 from spacewalk.server import taskomatic
 from spacewalk.satellite_tools.download import ThreadedDownloader, ProgressBarLogger, TextLogger
+from spacewalk.satellite_tools.repo_plugins import CACHE_DIR
 from spacewalk.satellite_tools.satCerts import verify_certificate_dates
 
 from syncLib import log, log2, log2disk, dumpEMAIL_LOG, log2background
@@ -240,6 +242,44 @@ def getCustomChannels():
     return l_custom_ch
 
 
+def write_ssl_set_cache(ca_cert, client_cert, client_key):
+    """Write one SSL set into cache directory and return path to files."""
+    def create_dir_tree(path):
+        try:
+            os.makedirs(path, int('0750', 8))
+        except OSError:
+            exc = sys.exc_info()[1]
+            if exc.errno == errno.EEXIST and os.path.isdir(path):
+                pass
+            else:
+                raise
+
+    filenames = {}
+    for cert in (ca_cert, client_cert, client_key):
+        (name, pem, org) = cert
+        filenames[cert] = None
+        if name is not None and pem is not None:
+            if not org:
+                org = "NULL"
+            else:
+                org = str(org)
+            ssldir = os.path.join(CACHE_DIR, '.ssl-certs', org)
+            cert_file = os.path.join(ssldir, "%s.pem" % name)
+            if not os.path.exists(cert_file):
+                create_dir_tree(ssldir)
+                f = open(cert_file, "w")
+                f.write(str(pem))
+                f.close()
+            filenames[cert] = cert_file
+
+    return filenames[ca_cert], filenames[client_cert], filenames[client_key]
+
+
+def clear_ssl_cache():
+    ssldir = os.path.join(CACHE_DIR, '.ssl-certs')
+    shutil.rmtree(ssldir, True)
+
+
 def get_single_ssl_set(keys, check_dates=False):
     """Picks one of available SSL sets for given repository."""
     if check_dates:
@@ -377,7 +417,9 @@ class RepoSync(object):
 
                 if repo_id is not None:
                     keys = rhnSQL.fetchall_dict("""
-                        select k1.key as ca_cert, k2.key as client_cert, k3.key as client_key
+                        select k1.description as ca_cert_name, k1.key as ca_cert, k1.org_id as ca_cert_org,
+                               k2.description as client_cert_name, k2.key as client_cert, k2.org_id as client_cert_org,
+                               k3.description as client_key_name, k3.key as client_key, k3.org_id as client_key_org
                         from rhncontentsource cs inner join
                              rhncontentsourcessl csssl on cs.id = csssl.content_source_id inner join
                              rhncryptokey k1 on csssl.ssl_ca_cert_id = k1.id left outer join
@@ -388,7 +430,11 @@ class RepoSync(object):
                     if keys:
                         ssl_set = get_single_ssl_set(keys, check_dates=self.check_ssl_dates)
                         if ssl_set:
-                            plugin.set_ssl_options(ssl_set['ca_cert'], ssl_set['client_cert'], ssl_set['client_key'])
+                            (ca_cert_file, client_cert_file, client_key_file) = write_ssl_set_cache(
+                                (ssl_set['ca_cert_name'], ssl_set['ca_cert'], ssl_set['ca_cert_org']),
+                                (ssl_set['client_cert_name'], ssl_set['client_cert'], ssl_set['client_cert_org']),
+                                (ssl_set['client_key_name'], ssl_set['client_key'], ssl_set['client_key_org']))
+                            plugin.set_ssl_options(ca_cert_file, client_cert_file, client_key_file)
                         else:
                             raise ValueError("No valid SSL certificates were found for repository.")
 
@@ -415,8 +461,6 @@ class RepoSync(object):
                 log2disk(0, "ERROR: %s" % e)
                 # pylint: disable=W0104
                 sync_error = -1
-            if plugin is not None:
-                plugin.clear_ssl_cache()
         # Update cache with package checksums
         rhnCache.set(checksum_cache_filename, self.checksum_cache)
         if self.regen:

@@ -219,14 +219,6 @@ class ContentSource(object):
         # TODO
         pass
 
-    def clear_ssl_cache(self):
-        repo = self.repo
-        ssldir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
-        try:
-            self._clean_cache(ssldir)
-        except (OSError, IOError):
-            pass
-
     @staticmethod
     def get_file(path, local_base=None):
         # Called from import_kickstarts, not working for deb repo

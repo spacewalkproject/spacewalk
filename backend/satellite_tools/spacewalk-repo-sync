@@ -206,6 +206,8 @@ def main():
             log(0, " %s: %s" % (key,str(getattr(options, key))))
         return 0
 
+    reposync.clear_ssl_cache()
+
     total_time = datetime.timedelta()
     ret_code = 0
     for ch,repo in d_ch_repo_sync.items():
