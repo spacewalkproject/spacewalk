@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.86
+Version: 2.7.87
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -798,6 +798,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Fri Apr 28 2017 Eric Herget <eherget@redhat.com> 2.7.87-1
+- 1342977 - Repository sync can causes ORA-01878 on insertion of timestamp that
+  doesn't exist in timezone - fix python 2.4 build
+
 * Fri Apr 28 2017 Jan Dobes 2.7.86-1
 - 1446198 - do not store SSL certificates per repository on disk cache
 - 1446198 - define CACHE_DIR once
