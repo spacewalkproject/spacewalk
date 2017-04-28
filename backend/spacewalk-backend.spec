@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.83
+Version: 2.7.84
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -797,6 +797,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Fri Apr 28 2017 Jan Dobes 2.7.84-1
+- 1445957 - default_mail_from key exists but may be empty
+- Remove unused imports.
+
 * Thu Apr 27 2017 Eric Herget <eherget@redhat.com> 2.7.83-1
 - 1434913 - cdn-sync could provide information that the satellite is not
   activated - lock release fix
