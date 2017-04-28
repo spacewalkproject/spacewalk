@@ -24,8 +24,9 @@ import time
 def get_utc_offset():
     """Return the UTC offset, allowing for DST."""
     is_dst = time.daylight and time.localtime().tm_isdst > 0
-    utc_offset = - (time.altzone if is_dst else time.timezone)
-
+    utc_offset = - time.timezone
+    if is_dst:
+        utc_offset = - time.altzone
     mins = divmod(utc_offset, 60)[0]
     hours, mins = divmod(mins, 60)
     return '{0:+03d}:{1:02d}'.format(hours, mins)
