@@ -118,7 +118,7 @@ class PyCurlFileObjectThread(PyCurlFileObject):
         if not opts:
             opts = {}
         PyCurlFileObject._set_opts(self, opts=opts)
-        self.curl_obj.setopt(pycurl.FORBID_REUSE, 0)
+        self.curl_obj.setopt(pycurl.FORBID_REUSE, 0) # pylint: disable=E1101
 
 
 class FailedDownloadError(Exception):
