@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.88
+Version: 2.7.89
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -798,6 +798,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue May 02 2017 Gennadii Altukhov <galt@redhat.com> 2.7.89-1
+- 1447296 - optimize package importing during syncing a software channel
+- 1446198 - fixing pylint
+
 * Tue May 02 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.88-1
 - 1444519 - allow sync of the same erratum to more orgs
 - 1444047 - look only for errata from the same org
