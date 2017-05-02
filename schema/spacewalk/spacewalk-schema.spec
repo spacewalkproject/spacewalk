@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.7.16
+Version:        2.7.17
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue May 02 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.17-1
+- 1444047 - remove links between errata and files from different orgs
+- 1444519 - allow sync of the same erratum to more orgs
+- 1444375 - insert package keys only if they exist
+
 * Wed Apr 05 2017 Jan Dobes 2.7.16-1
 - 1434336 - adding postgresql upgrade
 - 1434336 - on postgresql it's needed to define multiple unique indexes because
