@@ -23,7 +23,7 @@ rhnContentSourceFilter
 			constraint rhn_csf_id_pk primary key,
         source_id		number
 			constraint rhn_csf_source_fk
-                                references rhnContentSource (id),
+                                references rhnContentSource (id) on delete cascade,
         sort_order	number NOT NULL,
         flag            varchar2(1) NOT NULL
                         check (flag in ('+','-')),
