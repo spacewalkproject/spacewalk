@@ -14,11 +14,9 @@
 -- in this software or its documentation.
 --
 
-WITH rhnSet_all AS (
-    DELETE FROM rhnSet RETURNING *
-)
-INSERT INTO rhnSet
-    SELECT DISTINCT * FROM rhnSet_all;
+SELECT * INTO TEMPORARY rhnSet_all from rhnSet;
+DELETE FROM rhnSet;
+INSERT INTO rhnSet SELECT DISTINCT * FROM rhnSet_all;
 
 ALTER TABLE rhnSet DROP CONSTRAINT rhn_set_user_label_elem_unq;
 
