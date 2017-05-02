@@ -1,8 +1,8 @@
 <ivysettings>
   <settings defaultResolver="myResolver"/>
   <resolvers>
-    <url name="myResolver">
-      <artifact pattern="${ivyserver}/ivy/[artifact]-[revision].[ext]"/>
-    </url>
+    <filesystem name="myResolver">
+      <artifact pattern="/${system.lib.dir}/[artifact].[ext]"/>
+    </filesystem>
   </resolvers>
 </ivysettings>

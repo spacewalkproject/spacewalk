@@ -20,6 +20,7 @@
   <property name="taskomatic.link.dir" location="/usr/share/spacewalk/taskomatic" />
 
   <property name="eclipse.lib.dirs" location="${lib.dir}" />
+  <property name="system.lib.dirs" location="/usr/share/java" />
 
   <property name="log4j.threshold" value="warn" />
   <property name="rhn.checkout.dir" value="" />
@@ -34,7 +35,6 @@
   <property name="includehelp" value="true" />
 
   <!-- IVY Properties -->
-  <property name="ivyserver" value="https://sherr.fedorapeople.org" />
   <property name="ivy.log.module.when.found" value="false"/>
   <property name="ivy.log.resolved.revision" value="false"/>
 
