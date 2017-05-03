@@ -14727,7 +14727,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context context-type="sourcefile">/rhn/ssm/ViewLogDetails.do</context>
         </context-group>
         <trans-unit id="ssm.operations.viewlog.header">
-          <source>Tasks Log</source>
+          <source>Task Log</source>
         </trans-unit>
         <trans-unit id="ssm.operations.viewlog.description">
           <source>Description</source>
