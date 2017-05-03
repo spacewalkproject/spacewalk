@@ -1,7 +1,7 @@
 Name: quartz
 Summary: Quartz Enterprise Job Scheduler
 Version:        1.8.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Quartz Enterprise Job Scheduler
 License:        ASL 2.0
 URL:            http://www.quartz-scheduler.org/
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}/%{name}-oracle-%{version}.jar
 
 %changelog
+* Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 1.8.4-10
+- recompile all packages with the same (latest) version of java
+
 * Thu Apr 06 2017 Michael Mraka <michael.mraka@redhat.com> 1.8.4-9
 - Revert "updated RHEL6 Requires after jpackage removal"
 
