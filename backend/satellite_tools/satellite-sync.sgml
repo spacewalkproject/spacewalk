@@ -211,7 +211,7 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
                   but not in the export will be deleted. Without this option all disk dumps
                   are interpreted as incremental dumps.
                   This option has sense only for --mount-point.
-                  Live sync and ISS are always considered as full sync.</para>
+                  Sync via ISS are always considered as full sync.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
