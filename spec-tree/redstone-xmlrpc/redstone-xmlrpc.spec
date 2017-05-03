@@ -1,7 +1,7 @@
 Summary: An xmlrpc library
 Name: redstone-xmlrpc
 Version: 1.1_20071120 
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: LGPL
 Group: Development/Library
 URL: http://xmlrpc.sourceforge.net
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}
 
 %changelog
+* Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-18
+- recompile all packages with the same (latest) version of java
+
 * Mon Mar 13 2017 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-17
 - use standard jboss-servlet-2.5-api on Fedora
 
