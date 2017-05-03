@@ -1,6 +1,6 @@
 Name: nutch
 Version: 1.0
-Release: 0.16.20081201040121nightly%{?dist}
+Release: 0.17.20081201040121nightly%{?dist}
 Summary: Open source web-search software
 
 Group: Development/Tools
@@ -47,6 +47,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 1.0-0.17.20081201040121nightly
+- recompile all packages with the same (latest) version of java
+- fixed tito build warning
+- replace legacy name of Tagger with new one
+
 * Mon Jan 21 2013 Michael Mraka <michael.mraka@redhat.com> 1.0-0.16.20081201040121nightly
 - rebuild nutch from git
 
