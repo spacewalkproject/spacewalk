@@ -1,6 +1,6 @@
 Name:		simple-core		
 Version:	3.1.3
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Embeddable Java HTTP engine capable of handling large loads
 Group:	 	Development/Libraries	
 License:	GNU
@@ -65,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadocdir}/*
 
 %changelog
+* Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 3.1.3-9
+- recompile all packages with the same (latest) version of java
+
 * Wed Mar 15 2017 Michael Mraka <michael.mraka@redhat.com> 3.1.3-8
 - don't bundle kxml on Fedora and RHEL7
 
