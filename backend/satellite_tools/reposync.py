@@ -1058,7 +1058,7 @@ class RepoSync(object):
             e.id, e.advisory, e.advisory_name, e.advisory_rel
             from rhnerrata e
             where e.advisory_name = :name
-              and e.org_id = :org_id
+              and (e.org_id = :org_id or (e.org_id is null and :org_id is null))
         """)
         h.execute(name=update_id, org_id=self.org_id)
         ret = h.fetchone_dict() or None
