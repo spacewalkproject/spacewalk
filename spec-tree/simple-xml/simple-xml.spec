@@ -20,7 +20,7 @@
 Name:           simple-xml
 Summary:        An XML serialization framework for Java
 Version:        2.6.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 %if 0%{?suse_version}
 License:        Apache-2.0
 Group:          Development/Libraries/Java
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_javadocdir}/%{name}
 
 %changelog
+* Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 2.6.7-5
+- recompile all packages with the same (latest) version of java
+
 * Wed May 06 2015 Tomas Lestach <tlestach@redhat.com> 2.6.7-4
 - Copyright texts updated to SUSE LLC
 
