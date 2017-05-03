@@ -17,6 +17,7 @@
 <rl:listset name="systemListSet" legend="system">
     <rhn:csrf />
     <rhn:submitted />
+    <c:set var="noAddToSsm" value="1" />
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>
 </rl:listset>
 

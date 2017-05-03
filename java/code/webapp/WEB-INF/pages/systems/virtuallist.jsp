@@ -25,7 +25,6 @@
     <rl:decorator name="PageSizeDecorator"/>
     <rl:decorator name="ElaborationDecorator"/>
     <rl:decorator name="SystemIconDecorator"/>
-    <rl:decorator name="AddToSsmDecorator" />
 
     <rl:decorator name="SelectableDecorator"/>
     <rl:selectablecolumn value="${current.systemId}"
