@@ -1,6 +1,6 @@
 Name:       dwr
 Version:    3.0rc2
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    Direct Web Remoting
 Group:      Development/Libraries/Java
 License:    Apache Software License v2
@@ -52,6 +52,9 @@ install -m 644 ./target/ant/dwr.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version
 
 
 %changelog
+* Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 3.0rc2-8
+- recompile all packages with the same (latest) version of java
+
 * Wed Jul 20 2016 Tomas Lestach <tlestach@redhat.com> 3.0rc2-7
 - setting default encoding for dwr build process
 
