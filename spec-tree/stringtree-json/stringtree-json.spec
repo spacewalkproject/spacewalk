@@ -2,7 +2,7 @@
 Summary: An json string library
 Name: stringtree-json
 Version: 2.0.9
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: LGPL
 Group: Development/Library
 URL: http://stringtree.org/stringtree-json.html
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}
 
 %changelog
+* Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 2.0.9-12
+- recompile all packages with the same (latest) version of java
+
 * Mon Nov 30 2015 Tomas Lestach <tlestach@redhat.com> 2.0.9-11
 - java-devel is required in stringtree-json fc23 buildroot
 
