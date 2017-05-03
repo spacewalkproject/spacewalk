@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.58
+Version: 2.7.59
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -759,6 +759,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.59-1
+- recompile all packages with the same (latest) version of java
+- point ivy to local jars installed from rpms
+- fixed ant compile warning
+
 * Wed May 03 2017 Jiri Dostal <jdostal@redhat.com> 2.7.58-1
 - 1409537 Remove unused packages from KS > Rhel4
 
