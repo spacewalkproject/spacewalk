@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -223,6 +223,9 @@ fi
 %endif
 
 %changelog
+* Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 3.2.3-17
+- recompile all packages with the same (latest) version of java
+
 * Sun Feb 21 2016 Jan Dobes <jdobes@redhat.com> 3.2.3-16
 - adding arm Makefile
 
