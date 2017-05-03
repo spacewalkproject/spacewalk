@@ -32,6 +32,7 @@ Requires:       spacewalk-search
 # Perl
 Requires:       spacewalk-html
 Requires:       spacewalk-base
+Requires:       spacewalk-dobby
 
 # Python
 Requires:       spacewalk-certs-tools
