@@ -17,7 +17,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.7.2
+Version:    2.7.3
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -124,6 +124,12 @@ rm -rf %{buildroot}
 %{wwwdocroot}/css/*.less
 
 %changelog
+* Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.3-1
+- recompile all packages with the same (latest) version of java
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+- Fix checkbox icon align
+
 * Mon Jan 23 2017 Jan Dobes 2.7.2-1
 - Differentiate writable/non-writable fields
 
