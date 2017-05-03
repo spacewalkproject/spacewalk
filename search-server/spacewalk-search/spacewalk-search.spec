@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.4
+Version: 2.7.5
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -223,6 +223,9 @@ fi
 %endif
 
 %changelog
+* Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.5-1
+- recompile all packages with the same (latest) version of java
+
 * Mon Apr 10 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.4-1
 - use java 1.8.0
 - use default RHEL6 jakarta-commons-* packages
