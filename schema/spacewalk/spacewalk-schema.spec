@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.7.19
+Version:        2.7.20
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.20-1
+- 1444519 - fix index behaviour on NULL org
+
 * Wed May 03 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.19-1
 - Revert "1444375 - instert package keys only if they exist"
 - 1444072 - drop filters while deleting repository
