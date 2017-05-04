@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.7.20
+Version:        2.7.21
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu May 04 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.21-1
+- 1444519 - update schema definition and shorten index name
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.20-1
 - 1444519 - fix index behaviour on NULL org
 
