@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.59
+Version: 2.7.60
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -759,6 +759,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu May 04 2017 Gennadii Altukhov <galt@redhat.com> 2.7.60-1
+- 1436746 - remove 'Add Selected to SSM' button, because now WebUI requires
+  enabled JavaScript
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.59-1
 - recompile all packages with the same (latest) version of java
 - point ivy to local jars installed from rpms
