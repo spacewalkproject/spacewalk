@@ -32,7 +32,7 @@
 
 <xsl:template match="/c2s/authreg/module">
   <xsl:copy>
-  <xsl:text>db</xsl:text>
+  <xsl:text>sqlite</xsl:text>
   </xsl:copy>
 </xsl:template>
 

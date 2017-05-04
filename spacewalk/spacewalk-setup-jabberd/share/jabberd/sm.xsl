@@ -31,7 +31,7 @@
 
 <xsl:template match="/sm/storage/driver">
   <xsl:copy>
-    <xsl:text>db</xsl:text>
+    <xsl:text>sqlite</xsl:text>
   </xsl:copy>
 </xsl:template>
 
