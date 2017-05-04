@@ -185,7 +185,7 @@ class DownloadThread(Thread):
                                  proxy=params['proxy'], username=params['proxy_username'],
                                  password=params['proxy_password'], proxies=params['proxies'])
         mirrors = len(params['urls'])
-        for retry in max(range(self.parent.retries), mirrors):
+        for retry in range(max(self.parent.retries, mirrors)):
             fo = None
             url = urlparse.urljoin(params['urls'][self.mirror], params['relative_path'])
             try:
