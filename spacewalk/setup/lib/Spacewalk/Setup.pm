@@ -394,23 +394,17 @@ sub upgrade_stop_services {
 
 my $spinning_callback_count;
 my @spinning_pattern = split /\n/, <<EOF;
-.               
- .              
-  o             
-   @            
-   (O)          
-    (*)         
-   ((%%))       
-    (( # ))     
-   ( ( # ) )    
- (  (  #  )  )  
-    (  !  )     
-       :        
-       .        
-       _        
-      . .       
-    .     .     
-                
+ ᗧ • • • • • • • • • •
+ · ᗧ • • • • • • • • •
+ · · ᗧ • • • • • • • •
+ · · · ᗧ • • • • • • •
+ · · · · ᗧ • • • • • •
+ · · · · · ᗧ • • • • •
+ · · · · · · ᗧ • • • •
+ · · · · · · · ᗧ • • •
+ · · · · · · · · ᗧ • •
+ · · · · · · · · · ᗧ •
+ · · · · · · · · · · ᗧ
 EOF
 
 my $spinning_pattern_maxlength = 0;
