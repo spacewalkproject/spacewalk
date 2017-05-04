@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.7.6
+Version:        2.7.7
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -117,6 +117,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu May 04 2017 Gennadii Altukhov <galt@redhat.com> 2.7.7-1
+- 1415107 - change progress spinner for the installation script
+
 * Fri Apr 21 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.6-1
 - add new option skip-services-restart
 - point users to proper log on tomcat 7+
