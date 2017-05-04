@@ -59,13 +59,8 @@ CREATE TABLE rhnErrata
 ENABLE ROW MOVEMENT
 ;
 
-CREATE UNIQUE INDEX rhn_errata_advisory_uq
-    ON rhnErrata (advisory)
-    TABLESPACE [[64k_tbs]];
-
-CREATE UNIQUE INDEX rhn_errata_advisory_name_uq
-    ON rhnErrata (advisory_name)
-    TABLESPACE [[64k_tbs]];
+-- unique index definitions has been moved to
+-- {oracle,postgres}/tables/rhnErrata_index.sql
 
 CREATE INDEX rhn_errata_udate_index
     ON rhnErrata (update_date)

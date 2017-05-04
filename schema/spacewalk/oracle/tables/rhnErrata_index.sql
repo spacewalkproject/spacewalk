@@ -13,11 +13,10 @@
 -- in this software or its documentation.
 --
 
-DROP INDEX rhn_errata_advisory_name_uq;
-DROP INDEX rhn_errata_advisory_uq;
-
 CREATE UNIQUE INDEX rhn_errata_advname_org_uq
-    ON rhnErrata (advisory_name, org_id);
+    ON rhnErrata (advisory_name, org_id)
+    TABLESPACE [[64k_tbs]];
 
 CREATE UNIQUE INDEX rhn_errata_adv_org_uq
-    ON rhnErrata (advisory, org_id);
+    ON rhnErrata (advisory, org_id)
+    TABLESPACE [[64k_tbs]];

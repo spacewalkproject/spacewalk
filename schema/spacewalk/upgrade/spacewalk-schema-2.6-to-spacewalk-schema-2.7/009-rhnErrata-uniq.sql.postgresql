@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 36a095adc31519d4627bf434550f0817fb915bc7
+-- oracle equivalent source sha1 866f19144f09597b40d16d9c2af34eb30cabf4c0
 --
 -- Copyright (c) 2017 Red Hat, Inc.
 --
@@ -17,18 +17,18 @@
 DROP INDEX rhn_errata_advisory_name_uq;
 DROP INDEX rhn_errata_advisory_uq;
 
-CREATE UNIQUE INDEX rhn_errata_advisory_name_uq
+CREATE UNIQUE INDEX rhn_errata_advname_uq
     ON rhnErrata (advisory_name)
  WHERE org_id IS NULL;
 
-CREATE UNIQUE INDEX rhn_errata_advisory_name_org_uq
+CREATE UNIQUE INDEX rhn_errata_advname_org_uq
     ON rhnErrata (advisory_name, org_id)
  WHERE org_id IS NOT NULL;
 
-CREATE UNIQUE INDEX rhn_errata_advisory_uq
+CREATE UNIQUE INDEX rhn_errata_adv_uq
     ON rhnErrata (advisory)
  WHERE org_id IS NULL;
 
-CREATE UNIQUE INDEX rhn_errata_advisory_org_uq
+CREATE UNIQUE INDEX rhn_errata_adv_org_uq
     ON rhnErrata (advisory, org_id)
  WHERE org_id IS NOT NULL;
