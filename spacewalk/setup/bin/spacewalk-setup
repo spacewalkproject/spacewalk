@@ -26,7 +26,7 @@ use File::Spec ();
 use DBI ();
 use Digest::SHA qw/sha256_hex/;
 use DateTime ();
-use Sys::Hostname ();
+use Net::Domain;
 use Spacewalk::Setup ();
 use Fcntl qw(F_GETFD F_SETFD FD_CLOEXEC);
 use IO::Socket ();
@@ -51,7 +51,7 @@ push @skip, Spacewalk::Setup::EMBEDDED_DB_ANSWERS
 Spacewalk::Setup::load_answer_file(\%opts, \%answers, \@skip);
 my $product_name = $answers{'product_name'} || 'Spacewalk';
 
-$answers{hostname} ||= Sys::Hostname::hostname;
+$answers{hostname} ||= Net::Domain::hostfqdn();
 
 if (not defined $opts{"clear-db"} and defined $answers{"clear-db"} and
     $answers{"clear-db"} =~ /Y/i){
@@ -312,6 +312,8 @@ sub setup_cobbler {
   if (($answers{'enable-tftp'} and $answers{'enable-tftp'} =~ /^[Yy]/) || $opts{"non-interactive"}) {
       if (-e '/usr/lib/systemd/system/tftp.socket') {
         system("systemctl --quiet enable tftp.socket");
+      } elsif (Spacewalk::Setup::isSUSE() && -e '/usr/sbin/atftpd') {
+          system("systemctl --quiet enable atftpd.service");
       } else {
         system("chkconfig tftp on");
         system("chkconfig xinetd on");
@@ -589,8 +591,8 @@ sub setup_ssl_certs {
   print Spacewalk::Setup::loc("** SSL: Deploying CA certificate.\n");
 
   deploy_ca_cert("-source-dir" => $answers->{'ssl-dir'},
-                 "-target-dir" => '/var/www/html/pub',
-                 "-trust-dir" => '/etc/pki/ca-trust/source/anchors');
+                 "-target-dir" => $Spacewalk::Setup::DEFAULT_DOC_ROOT."/pub",
+                 "-trust-dir"  => $Spacewalk::Setup::CA_TRUST_DIR);
 
   print Spacewalk::Setup::loc("** SSL: Generating server certificate.\n");
 
@@ -750,7 +752,7 @@ sub populate_initial_configs {
      serverDOTsatelliteDOThttp_proxy => ($opts->{'rhn-http-proxy'} ? $opts->{'rhn-http-proxy'} : $answers->{'rhn-http-proxy'}) || '',
      serverDOTsatelliteDOThttp_proxy_username => ($opts->{'rhn-http-proxy'} ? $opts->{'rhn-http-proxy-username'} : $answers->{'rhn-http-proxy-username'}) || '',
      serverDOTsatelliteDOThttp_proxy_password => ($opts->{'rhn-http-proxy'} ? $opts->{'rhn-http-proxy-password'} :$answers->{'rhn-http-proxy-password'}) || '',
-     osadispatcherDOTosa_ssl_cert => '/var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT',
+     osadispatcherDOTosa_ssl_cert => $Spacewalk::Setup::DEFAULT_DOC_ROOT.'/pub/RHN-ORG-TRUSTED-SSL-CERT',
      encrypted_passwords => 1,
      db_backend => $answers->{'db-backend'},
      db_user => $answers->{'db-user'},
@@ -943,22 +945,28 @@ sub setup_services {
 
 sub setup_users_and_groups {
 
+    my $apache_user = 'apache';
+    my $apache_group = 'apache';
+    if(Spacewalk::Setup::isSUSE()) {
+        $apache_user = 'wwwrun';
+        $apache_group = 'www';
+    }
     # Check to be sure the required users and groups exist.
-    my @required_groups = qw/apache/;
+    my @required_groups = qw/$apache_group/;
     Spacewalk::Setup::check_groups_exist(@required_groups);
 
     # Need user tomcat in the apache group so the Java stack can read the same
     # configuration files as the rest of the application.
-    (undef, undef, my $apache_group_id, my $apache_group_members) = getgrnam("apache");
+    (undef, undef, my $apache_group_id, my $apache_group_members) = getgrnam($apache_user);
     if (not defined $apache_group_id) {
-        print Spacewalk::Setup::loc("The group 'apache' should exist.\n");
+        print Spacewalk::Setup::loc("The group '$apache_user' should exist.\n");
     }
     if (not grep { $_ eq 'tomcat' } split /\s+/, $apache_group_members) {
-        Spacewalk::Setup::system_or_exit(['/usr/sbin/usermod', '-G', 'apache', '-a', 'tomcat'], 9,
+        Spacewalk::Setup::system_or_exit(['/usr/sbin/usermod', '-G', $apache_group, '-a', 'tomcat'], 9,
             'Could not add tomcat to the apache group.');
         # If you have for example NIS before passwd in nsswitch.conf, the usermod
         # will not modify what the system uses. Let's check.
-        (undef, undef, undef, my $test_apache_group_members) = getgrnam("apache");
+        (undef, undef, undef, my $test_apache_group_members) = getgrnam($apache_user);
         if (not grep { $_ eq 'tomcat' } split /\s+/, $test_apache_group_members) {
             print Spacewalk::Setup::loc("The usermod failed to add tomcat to apache group.\n");
             exit 87;

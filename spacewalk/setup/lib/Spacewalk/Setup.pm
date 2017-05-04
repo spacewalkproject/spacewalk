@@ -95,6 +95,13 @@ use constant ORACLE_RHNCONF_BACKUP =>
 use constant EMBEDDED_DB_ANSWERS =>
   '/usr/share/spacewalk/setup/defaults.d/embedded-postgresql.conf';
 
+use constant OS_RELEASE => '/etc/os-release';
+
+our $DEFAULT_DOC_ROOT = "/var/www/html";
+$DEFAULT_DOC_ROOT = '/srv/www/htdocs' if(isSUSE());
+
+our $CA_TRUST_DIR = '/etc/pki/ca-trust/source/anchors';
+$CA_TRUST_DIR = '/etc/pki/trust/anchors' if(isSUSE());
 
 my $DEBUG;
 $DEBUG = 0;
@@ -1854,6 +1861,16 @@ sub disable_embedded_postgresql {
            '-e',
            's/^\\(SERVICES=.*postgresql.*\$\\)/# \\1/g',
            '/etc/rhn/service-list');
+}
+
+# detect systemd based suse distributions
+sub isSUSE {
+    my %opts = ();
+    return 0 if (! -e OS_RELEASE);
+
+    read_config(OS_RELEASE, \%opts)
+    return 1 if ($opts{CPE_NAME} && $opts{CPE_NAME} =~ /^cpe:\/o:(open)*suse:/);
+    return 0;
 }
 
 =head1 DESCRIPTION

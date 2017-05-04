@@ -32,8 +32,13 @@ sub os_fips_mode_on {
 }
 
 sub mod_ssl_fipsmode_option {
-        my $mod_ssl_version = `rpm -q --qf='%{VERSION}' mod_ssl`;
-        my $mod_ssl_release = `rpm -q --qf='%{RELEASE}' mod_ssl`;
+        my $mod_ssl_pkg = 'mod_ssl';
+        if(Spacewalk::Setup::isSUSE()) {
+            $mod_ssl_pkg = 'apache2';
+        }
+
+        my $mod_ssl_version = `rpm -q --qf='%{VERSION}' $mod_ssl_pkg`;
+        my $mod_ssl_release = `rpm -q --qf='%{RELEASE}' $mod_ssl_pkg`;
 
         # RHEL-5 / CentOS-5 mod_ssl build 2.2.3-66 and above support SSLFIPS directive
         if ($mod_ssl_version eq '2.2.3' and $mod_ssl_release ge '66') {
@@ -81,9 +86,15 @@ sub setup_mod_ssl {
 
         my ($sslconf_content, $original_sslconf_content, $pre, $vhost, $post);
         my $sslconf_dir = '/etc/httpd/conf.d';
+        $sslconf_dir = '/etc/apache2/vhosts.d' if(Spacewalk::Setup::isSUSE());
         my $sslconf     = 'ssl.conf';
+        $sslconf = 'vhosts-ssl.conf' if(Spacewalk::Setup::isSUSE());
         my $sslconf_path = "$sslconf_dir/$sslconf";
         local *FILE;
+
+        if(Spacewalk::Setup::isSUSE() && ! -f $sslconf_path) {
+               `cp "$sslconf_dir/vhost-ssl.template" "$sslconf_path"`;
+        }
 
         die "$sslconf_path does not exist.\n" unless (-f $sslconf_path);
 

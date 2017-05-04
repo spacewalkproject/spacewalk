@@ -1,5 +1,17 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
+%if 0%{?suse_version}
+%define apache_user wwwrun
+%define restorecon policycoreutils
+%define pyyaml python-PyYAML
+%define cobbler cobbler >= 2.0.0
+%else
+%define apache_user apache
+%define restorecon %{sbinpath}/restorecon
+%define pyyaml PyYAML
+%define cobbler cobbler20
+%endif
+
 Name:           spacewalk-setup
 Version:        2.7.7
 Release:        1%{?dist}
@@ -22,13 +34,13 @@ Requires:       perl
 Requires:       perl-Params-Validate
 Requires:       perl(Term::Completion::Path)
 Requires:       spacewalk-schema
-Requires:       %{sbinpath}/restorecon
+Requires:       %{restorecon}
 Requires:       spacewalk-admin
 Requires:       spacewalk-certs-tools
 Requires:       perl-Satcon
 Requires:       spacewalk-backend-tools
-Requires:       cobbler20
-Requires:       PyYAML
+Requires:       %{cobbler}
+Requires:       %{pyyaml}
 Requires:       /usr/bin/gpg
 Requires:       spacewalk-setup-jabberd
 Requires:       spacewalk-base-minimal
@@ -112,9 +124,12 @@ rm -rf %{buildroot}
 %{_bindir}/cobbler20-setup
 %{_mandir}/man[13]/*.[13]*
 %{_datadir}/spacewalk/*
-%attr(755, apache, root) %{_var}/spacewalk
+%attr(755, %{apache_user}, root) %{_var}/spacewalk
 %{_mandir}/man8/spacewalk-make-mount-points*
 %doc LICENSE
+%if 0%{?suse_version}
+%dir %{_datadir}/spacewalk
+%endif
 
 %changelog
 * Thu May 04 2017 Gennadii Altukhov <galt@redhat.com> 2.7.7-1
