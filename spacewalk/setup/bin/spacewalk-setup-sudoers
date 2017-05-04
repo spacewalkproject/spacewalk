@@ -28,11 +28,7 @@ sub setup_sudoers {
     # If /etc/sudoers exists, let's modify that
     open FILE, $sudoers_path or die "Error reading [$sudoers_path]: $!\n";
   } else {
-    # otherwise start with our own file
-    my $init_sudoers_path = Spacewalk::Setup::SHARED_DIR . '/sudoers.base';
-    open FILE, $init_sudoers_path
-      or die "Error reading [$init_sudoers_path]: $!\n";
-    $sudoers_content_orig = '';
+    return;
   }
   {
   local $/ = undef;
@@ -51,26 +47,6 @@ sub setup_sudoers {
     close FILE;
   }
 
-  # The sudoers.1, ... files have parts of configuration that we
-  # need to add to sudoers. The first line of each file helps us
-  # detect that the part is already present, and potentially
-  # modify it to the latest versions we need.
-  for my $file (glob Spacewalk::Setup::SHARED_DIR . '/sudoers.[0-9]') {
-    open FILE, $file or die "Error reading [$file]: $!\n";
-    my $regexp = <FILE>;
-    chomp $regexp;
-
-    my $content;
-    {
-    local $/ = undef;
-    $content = <FILE>;
-    }
-    close FILE;
-
-    $sudoers_content =~ s!$regexp!$content!igm
-      or $sudoers_content .= "\n" . $content;
-  }
-
   if ($sudoers_content ne $sudoers_content_orig) {
     open FILE, "> $sudoers_path" or die "Error writing [$sudoers_path]: $!\n";
     chmod 0440, $sudoers_path;
@@ -85,8 +61,8 @@ setup_sudoers();
 
 =head1 NAME
 
-spacewalk-setup-sudoers - utility for configuring sudo configuration required
-to work with Spacewalk / Satellite
+spacewalk-setup-sudoers - utility to clear sudo configuration from previous version of
+Spacewalk / Satellite
 
 =head1 SYNOPSIS
 
@@ -94,8 +70,8 @@ B<spacewalk-setup-sudoers>
 
 =head1 DESCRIPTION
 
-B<spacewalk-setup-sudoers> is a utility for configuring sudo to give
-access to certain commands run by Spacewalk / Satellite.
+B<spacewalk-setup-sudoers> is a utility to clear sudo configuration from previous version of
+Spacewalk / Satellite. New configuration is properly put into b</etc/sudoers.d/spacewalk>.
 
 Ordinarily, spacewalk-setup-sudoers is called by spacewalk-setup(1) during
 initial Spacewalk / Satellite configuration or upgrade.

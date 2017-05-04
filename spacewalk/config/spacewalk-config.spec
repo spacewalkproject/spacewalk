@@ -81,6 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(400,root,root) %config(noreplace) %{_sysconfdir}/rhn/spacewalk-repo-sync/uln.conf
 %config(noreplace) %{apacheconfdir}/conf.d/zz-spacewalk-www.conf
 %config(noreplace) %{_sysconfdir}/webapp-keyring.gpg
+%attr(440,root,root) %config(noreplace) %{_sysconfdir}/sudoers.d/spacewalk
 %dir %{_var}/lib/cobbler/
 %dir %{_var}/lib/cobbler/kickstarts/
 %dir %{_var}/lib/cobbler/snippets/

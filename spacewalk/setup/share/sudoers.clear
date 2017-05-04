@@ -1,2 +1,5 @@
 (^[ \t]*#.*\n)*^[ \t]*Cmnd_Alias[ \t]+INSTALL_RHN(.+\\\n)*.+\n+
 (^[ \t]*#.*\n)*(^[ \t]*(apache|tomcat).+INSTALL_RHN[ \t]*\n)+
+^([ \t]*#.+\n)*Cmnd_Alias[ \t]+CONFIG_RHN(.+\\\n)*.+\n
+^([ \t]*#.*\n)*[ \t]*((apache|tomcat).+CONFIG_RHN[ \t]*\n)+
+^([ \t]*#.*\n)*[ \t]*(Defaults[ \t]*:[ \t]*(apache|tomcat)\b.+![ \t]*requiretty[ \t]*\n)+
