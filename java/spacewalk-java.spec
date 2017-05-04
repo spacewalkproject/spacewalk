@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.60
+Version: 2.7.61
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -759,6 +759,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu May 04 2017 Can Bulut Bayburt <cbbayburt@suse.com>
+- PR 483 - Hides 'Save/Clear' buttons when no changes are present in action
+  chain lists
+- PR 483 - Fix plus/minus buttons in action chain list
+
 * Thu May 04 2017 Gennadii Altukhov <galt@redhat.com> 2.7.60-1
 - 1436746 - remove 'Add Selected to SSM' button, because now WebUI requires
   enabled JavaScript
