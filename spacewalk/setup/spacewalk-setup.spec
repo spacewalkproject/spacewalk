@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.7.7
+Version:        2.7.8
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -117,6 +117,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri May 05 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.8-1
+- move sudoers configuration to /etc/sudoers.d/spacewalk
+
 * Thu May 04 2017 Gennadii Altukhov <galt@redhat.com> 2.7.7-1
 - 1415107 - change progress spinner for the installation script
 
