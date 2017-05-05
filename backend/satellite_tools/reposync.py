@@ -752,6 +752,7 @@ class RepoSync(object):
 
         packages = plug.list_packages(filters, self.latest)
         self.all_packages.extend(packages)
+        to_disassociate = {}
         to_process = []
         num_passed = len(packages)
         log(0, "Packages in repo:             %5d" % plug.num_packages)
@@ -790,7 +791,8 @@ class RepoSync(object):
 
                 elif db_pack['channel_id'] == channel_id:
                     # different package with SAME NVREA
-                    self.disassociate_package(db_pack)
+                    # disassociate from channel if it doesn't match package which will be downloaded
+                    to_disassociate[(db_pack['checksum_type'], db_pack['checksum'])] = True
 
             if to_download or to_link:
                 to_process.append((pack, to_download, to_link))
@@ -852,6 +854,11 @@ class RepoSync(object):
                     raise Exception
 
                 pack.load_checksum_from_header()
+
+                # Downloaded pkg checksum matches with pkg already in channel, no need to disassociate from channel
+                if (pack.checksum_type, pack.checksum) in to_disassociate:
+                    to_disassociate[(pack.checksum_type, pack.checksum)] = False
+
                 if not self.metadata_only:
                     rel_package_path = rhnPackageUpload.relative_path_from_header(pack.a_pkg.header, self.org_id,
                                                                                   pack.a_pkg.checksum_type,
@@ -951,6 +958,10 @@ class RepoSync(object):
             import_batch = [self.associate_package(pack)
                             for pack in self.all_packages]
         else:
+            # Disassociate packages
+            for (checksum_type, checksum) in to_disassociate:
+                if to_disassociate[(checksum_type, checksum)]:
+                    self.disassociate_package(checksum_type, checksum)
             # Only packages from current repository are appended to channel
             import_batch = [self.associate_package(pack)
                             for (pack, to_download, to_link) in to_process
@@ -1008,7 +1019,7 @@ class RepoSync(object):
 
         return importLib.IncompletePackage().populate(package)
 
-    def disassociate_package(self, pack):
+    def disassociate_package(self, checksum_type, checksum):
         h = rhnSQL.prepare("""
             delete from rhnChannelPackage cp
              where cp.channel_id = :channel_id
@@ -1021,7 +1032,7 @@ class RepoSync(object):
                                     )
                 """)
         h.execute(channel_id=self.channel['id'],
-                  checksum_type=pack['checksum_type'], checksum=pack['checksum'])
+                  checksum_type=checksum_type, checksum=checksum)
 
     def load_channel(self):
         return rhnChannel.channel_info(self.channel_label)
