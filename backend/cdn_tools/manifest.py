@@ -56,6 +56,9 @@ class Manifest(object):
         top_zip = None
         inner_zip = None
         inner_file = None
+
+        # normalize path
+        zip_path = os.path.abspath(os.path.expanduser(zip_path))
         try:
             top_zip = zipfile.ZipFile(zip_path, 'r')
             # Fetch inner zip file into memory
