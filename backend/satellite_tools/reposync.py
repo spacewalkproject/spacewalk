@@ -903,7 +903,7 @@ class RepoSync(object):
 
                     if len(mpm_bin_batch) > 0:
                         importer = packageImport.PackageImport(mpm_bin_batch, backend, caller=upload_caller)
-                        importer.setUploadForce(0)
+                        importer.setUploadForce(1)
                         importer.run()
                         del importer.batch
                         affected_channels.extend(importer.affected_channels)
@@ -911,7 +911,7 @@ class RepoSync(object):
                     if len(mpm_src_batch) > 0:
                         src_importer = packageImport.SourcePackageImport(mpm_src_batch, backend,
                                                                          caller=upload_caller)
-                        src_importer.setUploadForce(0)
+                        src_importer.setUploadForce(1)
                         src_importer.run()
 
                     # commit the transactions
