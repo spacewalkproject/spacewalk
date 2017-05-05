@@ -18,6 +18,14 @@ package com.redhat.rhn.frontend.nav;
 import com.redhat.rhn.frontend.html.HtmlTag;
 
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Stream.concat;
+import static java.util.stream.Stream.empty;
+import static java.util.stream.Stream.of;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * SidenavRenderer renders an unordered list which is decorated
@@ -69,7 +77,7 @@ public class SidenavRenderer extends Renderable {
             return;
         }
 
-        renderNode(sb, node, "active");
+        renderNode(sb, node, Stream.of("active"));
     }
 
     /** {@inheritDoc} */
@@ -82,13 +90,18 @@ public class SidenavRenderer extends Renderable {
             return;
         }
 
-        this.renderNode(sb, node, null);
+        this.renderNode(sb, node, Stream.empty());
     }
 
-    private void renderNode(StringBuffer sb, NavNode node, String cssClass) {
+    private void renderNode(StringBuffer sb, NavNode node, Stream<String> baseClasses) {
         HtmlTag li = new HtmlTag("li");
-        if (cssClass != null) {
-            li.setAttribute("class", cssClass);
+
+        Stream<String> additionalClasses =
+                node.getNodes().isEmpty() ? empty() : of("parent");
+        String classString = concat(baseClasses, additionalClasses).collect(joining(" "));
+
+        if (isNotEmpty(classString)) {
+            li.setAttribute("class", classString);
         }
 
         li.addBody(aHref(node.getPrimaryURL(), node.getName(), node.getTarget()));
