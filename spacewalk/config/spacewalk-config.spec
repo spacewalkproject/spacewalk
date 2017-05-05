@@ -10,7 +10,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.7.1
+Version: 2.7.2
 Release: 1%{?dist}
 URL: https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -145,6 +145,12 @@ sysconf_addword /etc/sysconfig/apache2 APACHE_SERVER_FLAGS ISSUSE
 %endif
 
 %changelog
+* Fri May 05 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.2-1
+- move sudoers configuration to /etc/sudoers.d/spacewalk
+- Use HTTPS in all Github links
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Mon Jan 23 2017 Jan Dobes 2.7.1-1
 - Mandatory Perl build-requires added
   <https://fedoraproject.org/wiki/Changes/Build_Root_Without_Perl>
