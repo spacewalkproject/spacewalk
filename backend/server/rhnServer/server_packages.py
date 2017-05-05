@@ -377,9 +377,9 @@ def processPackageKeyAssociations(header, checksum_type, checksum):
     """)
 
     lookup_pkgid_sql.execute(ctype=checksum_type, csum=checksum)
-    pkg_id = lookup_pkgid_sql.fetchall_dict()
+    pkg_ids = lookup_pkgid_sql.fetchall_dict()
 
-    if not pkg_id:
+    if not pkg_ids:
         # No package to associate, continue with next
         return
 
@@ -403,12 +403,13 @@ def processPackageKeyAssociations(header, checksum_type, checksum):
         lookup_keyid_sql.execute(key_id=key_id)
         keyid = lookup_keyid_sql.fetchall_dict()
 
-    lookup_pkgkey_sql.execute(key_id=keyid[0]['id'],
-                              package_id=pkg_id[0]['id'])
-    exists_check = lookup_pkgkey_sql.fetchall_dict()
+    for pkg_id in pkg_ids:
+        lookup_pkgkey_sql.execute(key_id=keyid[0]['id'],
+                                  package_id=pkg_id['id'])
+        exists_check = lookup_pkgkey_sql.fetchall_dict()
 
-    if not exists_check:
-        provider_sql.execute(key_id=keyid[0]['id'], package_id=pkg_id[0]['id'])
+        if not exists_check:
+            provider_sql.execute(key_id=keyid[0]['id'], package_id=pkg_id['id'])
 
 
 def package_delta(list1, list2):
