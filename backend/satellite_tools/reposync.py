@@ -815,17 +815,10 @@ class RepoSync(object):
                 target_file = os.path.join(plug.repo.pkgdir, os.path.basename(pack.unique_id.relativepath))
                 pack.path = target_file
                 params = {}
-                if self.metadata_only:
-                    bytes_range = (0, pack.unique_id.hdrend)
-                    checksum_type = None
-                    checksum = None
-                else:
-                    bytes_range = None
-                    checksum_type = pack.checksum_type
-                    checksum = pack.checksum
+                checksum_type = pack.checksum_type
+                checksum = pack.checksum
                 plug.set_download_parameters(params, pack.unique_id.relativepath, target_file,
-                                             checksum_type=checksum_type, checksum_value=checksum,
-                                             bytes_range=bytes_range)
+                                             checksum_type=checksum_type, checksum_value=checksum)
                 downloader.add(params)
                 to_download_count += 1
         if num_to_process != 0:
