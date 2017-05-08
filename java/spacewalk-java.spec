@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.64
+Version: 2.7.65
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -759,6 +759,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon May 08 2017 Grant Gainey 2.7.65-1
+- 1381857 - Teach Postgres to correctly-unique-ify rhnConfigInfo rows
+
 * Mon May 08 2017 Silvio Moioli <smoioli@suse.de>
 - PR 485 - Leave System Set Manager page title as-is - Eric Herget <eherget@redhat.com>
 - PR 485 - SSM Task Log: make title coherent with menu item
