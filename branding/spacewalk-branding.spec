@@ -17,7 +17,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.7.3
+Version:    2.7.4
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -124,6 +124,9 @@ rm -rf %{buildroot}
 %{wwwdocroot}/css/*.less
 
 %changelog
+* Mon May 08 2017 Silvio Moioli <smoioli@suse.de>
+- PR 476 - Use different symbols for collapsible sidebar items
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.3-1
 - recompile all packages with the same (latest) version of java
 - Updated links to github in spec files
