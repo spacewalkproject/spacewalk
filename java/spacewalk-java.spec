@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.65
+Version: 2.7.66
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -759,6 +759,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon May 08 2017 Can Bulut Bayburt <cbbayburt@suse.com>
+- PR 472 - Add 'Latest' back to button labels to make clear the latest version
+  will be copied - Eric Herget <eherget@redhat.com>
+- PR 472 - Update 'view/modify file' action buttons text
+
 * Mon May 08 2017 Grant Gainey 2.7.65-1
 - 1381857 - Teach Postgres to correctly-unique-ify rhnConfigInfo rows
 
@@ -769,7 +774,7 @@ fi
 - PR 485 - SSM Task Log page: put default as first tab
 - PR 485 - Rename SSM page titles for consistency (bsc#979623)
 
-* Mon May 08 2017 Eric Herget <eherget@redhat.com> 2.7.64-1
+* Mon May 08 2017 Eric Herget <eherget@redhat.com> 2.7.66-1
 - PR 476 - Change to support java version < 1.8
 - PR 476 - SidenavRenderer: do not ouput empty class
 - PR 476 - Use different symbols for collapsible sidebar items
