@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.62
+Version: 2.7.63
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -759,6 +759,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon May 08 2017 Eric Herget <eherget@redhat.com> 2.7.63-1
+- PR 476 - Change to support java version < 1.8
+- PR 476 - SidenavRenderer: do not ouput empty class
+- PR 476 - Use different symbols for collapsible sidebar items
+
 * Fri May 05 2017 Grant Gainey 2.7.62-1
 - 1448342 - Fix config-deploy success message
 
