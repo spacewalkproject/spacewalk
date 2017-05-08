@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.7.21
+Version:        2.7.22
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon May 08 2017 Grant Gainey 2.7.22-1
+- 1381857 - Teach Postgres to correctly-unique-ify rhnConfigInfo rows
+
 * Thu May 04 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.21-1
 - 1444519 - update schema definition and shorten index name
 
