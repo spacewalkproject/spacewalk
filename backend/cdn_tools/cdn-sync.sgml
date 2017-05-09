@@ -229,7 +229,7 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
     <varlistentry>
         <term>--no-rpms</term>
         <listitem>
-            <para>do not fetch actual rpms.</para>
+            <para>do not keep downloaded RPMs on disk after DB import (debug only).</para>
         </listitem>
     </varlistentry>
     <varlistentry>

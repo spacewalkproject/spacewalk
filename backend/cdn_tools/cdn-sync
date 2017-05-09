@@ -59,7 +59,7 @@ def process_commandline():
     parser.add_argument('-p', '--print-configuration', action='store_true', help='print the configuration and exit')
     parser.add_argument('--count-packages', action='store_true', help="Count number of packages in all"
                         "repositories for every channel")
-    parser.add_argument("--no-rpms", action="store_true", help="Do not sync RPMs (debug only)")
+    parser.add_argument("--no-rpms", action="store_true", help="Do not keep RPMs on disk after DB import (debug only)")
     parser.add_argument("-v", "--verbose", action='count', help="Verbose output. Possible to accumulate: -vvv")
     parser.add_argument("--cdn-certs", action="store_true",
                         help="Print details about currently used SSL certificates for accessing CDN.")
