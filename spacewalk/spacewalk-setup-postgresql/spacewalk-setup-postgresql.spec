@@ -18,6 +18,7 @@ Requires:	postgresql-pltcl
 %endif
 Requires:	lsof
 Requires:	perl(DBD::Pg)
+Requires: spacewalk-dobby
 Obsoletes:	spacewalk-setup-embedded-postgresql
 
 %description
