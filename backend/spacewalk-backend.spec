@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.92
+Version: 2.7.93
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -798,6 +798,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue May 09 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.93-1
+- 1444519 - org_id column can hold NULL
+- 1444894 - normalize path to an RHSM manifest
+- 1447296 - add package_import_skip_changelog option to speed reposync up
+- 1446198 - finish work in threads when KeyboardInterrupt occurs during download
+- 1446198 - fixing semantic error
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.92-1
 - 1444047 - fix errata lookup for NULL org
 
