@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.93
+Version: 2.7.94
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -798,6 +798,20 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Wed May 10 2017 Jan Dobes 2.7.94-1
+- 1437835, 1441096 - updating help
+- 1447296 - can't rely on index in to_process, if last item has to_link only,
+  last chunk of packages is not imported
+- 1437835, 1441096 - optimize linking packages to channel
+- 1437835, 1441096 - disassociate packages later or keep them in channel if
+  they are same but missing package path
+- 1449374 - there may be multiple packages with given checksum in different
+  orgs
+- 1437835, 1441096 - upload with force to update missing package file paths on
+  existing packages
+- 1437835, 1441096 - change metadata_only to just not keep packages after
+  download
+
 * Tue May 09 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.93-1
 - 1444519 - org_id column can hold NULL
 - 1444894 - normalize path to an RHSM manifest
