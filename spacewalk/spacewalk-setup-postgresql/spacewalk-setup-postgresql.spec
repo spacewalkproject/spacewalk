@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-postgresql
-Version:        2.7.2
+Version:        2.7.3
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 Group:          Applications/System
@@ -65,6 +65,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue May 09 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.3-1
+- 1447591 - pull in spacewalk-dobby just on postgresql
+
 * Fri Apr 07 2017 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.2-1
 - fix isSUSE: command not found
 - Updated links to github in spec files
