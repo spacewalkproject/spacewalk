@@ -861,10 +861,12 @@ class RepoSync(object):
         affected_channels = []
         upload_caller = "server.app.uploadPackage"
 
+        import_count = 0
         for (index, what) in enumerate(to_process):
             pack, to_download, to_link = what
             if not to_download:
                 continue
+            import_count += 1
             stage_path = pack.path
 
             # pylint: disable=W0703
@@ -930,29 +932,23 @@ class RepoSync(object):
                     to_process[index] = (pack, True, False)
 
                 # importing packages by batch or if the current packages is the last
-                if (index + 1) == len(to_process) or (index + 1) % 10 == 0:
-
-                    if len(mpm_bin_batch) > 0:
-                        importer = packageImport.PackageImport(mpm_bin_batch, backend, caller=upload_caller)
-                        importer.setUploadForce(1)
-                        importer.run()
-                        del importer.batch
-                        affected_channels.extend(importer.affected_channels)
-
-                    if len(mpm_src_batch) > 0:
-                        src_importer = packageImport.SourcePackageImport(mpm_src_batch, backend,
-                                                                         caller=upload_caller)
-                        src_importer.setUploadForce(1)
-                        src_importer.run()
-
-                    # commit the transactions
+                if len(mpm_bin_batch) > 0 and (import_count == to_download_count or len(mpm_bin_batch) % 10 == 0):
+                    importer = packageImport.PackageImport(mpm_bin_batch, backend, caller=upload_caller)
+                    importer.setUploadForce(1)
+                    importer.run()
                     rhnSQL.commit()
-
-                    del mpm_src_batch
+                    del importer.batch
+                    affected_channels.extend(importer.affected_channels)
                     del mpm_bin_batch
                     mpm_bin_batch = importLib.Collection()
-                    mpm_src_batch = importLib.Collection()
 
+                if len(mpm_src_batch) > 0 and (import_count == to_download_count or len(mpm_src_batch) % 10 == 0):
+                    src_importer = packageImport.SourcePackageImport(mpm_src_batch, backend, caller=upload_caller)
+                    src_importer.setUploadForce(1)
+                    src_importer.run()
+                    rhnSQL.commit()
+                    del mpm_src_batch
+                    mpm_src_batch = importLib.Collection()
 
                 progress_bar.log(True, None)
             except KeyboardInterrupt:
