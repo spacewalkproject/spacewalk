@@ -249,6 +249,7 @@ class OracleBackend(Backend):
                   'last_modified': DBdateTime(),
               },
               pk=['advisory_name', 'org_id'],
+              nullable=['org_id'],
               defaultSeverity=4,
               ),
         Table('rhnErrataBugList',
