@@ -42,6 +42,7 @@ import com.redhat.rhn.manager.acl.AclManager;
 public class EditSlaveAction extends RhnAction {
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
                     HttpServletRequest request, HttpServletResponse response)
                     throws Exception {
@@ -145,16 +146,29 @@ public class EditSlaveAction extends RhnAction {
     }
 
     private boolean validateForm(HttpServletRequest request, DynaActionForm form) {
+        LocalizationService l = LocalizationService.getInstance();
         boolean retval = true;
         String fqdn = form.getString(IssSlave.SLAVE);
         if (fqdn == null || fqdn.isEmpty()) {
-            LocalizationService l = LocalizationService.getInstance();
             retval = false;
             ActionErrors errs = new ActionErrors();
             errs.add(ActionErrors.GLOBAL_MESSAGE, new ActionMessage(
                             "errors.required", l.getMessage("iss.slave.name")));
             getStrutsDelegate().saveMessages(request, errs);
         }
+        else {
+            Long sid = (Long) form.get(IssSlave.ID);
+            boolean isNew = (IssSlave.NEW_SLAVE_ID == sid);
+            IssSlave tmpSlave = IssFactory.lookupSlaveByName(fqdn);
+            if (isNew && tmpSlave != null) {
+                retval = false;
+                ActionErrors errs = new ActionErrors();
+                errs.add(ActionErrors.GLOBAL_MESSAGE,
+                                new ActionMessage("iss.error.slave.exists", fqdn));
+                getStrutsDelegate().saveMessages(request, errs);
+            }
+        }
+
         return retval;
     }
 

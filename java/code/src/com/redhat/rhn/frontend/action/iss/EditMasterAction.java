@@ -51,6 +51,7 @@ import com.redhat.rhn.manager.acl.AclManager;
 public class EditMasterAction extends RhnAction {
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
                     HttpServletRequest request, HttpServletResponse response)
                     throws Exception {
@@ -159,6 +160,19 @@ public class EditMasterAction extends RhnAction {
                             l.getMessage("iss.master.label")));
             getStrutsDelegate().saveMessages(request, errs);
         }
+        else {
+            Long mid = (Long) form.get("id");
+            boolean isNew = (IssMaster.NEW_MASTER_ID == mid);
+            IssMaster tmpMaster = IssFactory.lookupMasterByLabel(label);
+            if (isNew && tmpMaster != null) {
+                retval = false;
+                ActionErrors errs = new ActionErrors();
+                errs.add(ActionErrors.GLOBAL_MESSAGE,
+                                new ActionMessage("iss.error.master.exists", label));
+                getStrutsDelegate().saveMessages(request, errs);
+            }
+        }
+
         return retval;
     }
 
