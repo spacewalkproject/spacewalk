@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        2.7.1
+Version:        2.7.2
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://github.com/spacewalkproject/spacewalk
@@ -174,6 +174,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Tue May 09 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.2-1
+- 1447591 - pull in spacewalk-dobby just on postgresql
+
 * Wed May 03 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.1-1
 - 1447591 - install spacewalk-dobby
 - Migrating Fedorahosted to GitHub
