@@ -3303,7 +3303,6 @@ public class SystemHandler extends BaseHandler {
     *
     *                   #struct_end()
     *               #array_end()
-    * @xmlrpc.param #array_single("int", "packageId")
     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
     * @xmlrpc.returntype #array_single("int", "actionId")
     */
@@ -3337,7 +3336,6 @@ public class SystemHandler extends BaseHandler {
     *
     *                   #struct_end()
     *               #array_end()
-    * @xmlrpc.param #array_single("int", "packageId")
     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
     * @xmlrpc.returntype int actionId - The action id of the scheduled action
     */
@@ -3426,7 +3424,6 @@ public class SystemHandler extends BaseHandler {
      *
      *                   #struct_end()
      *               #array_end()
-     * @xmlrpc.param #array_single("int", "packageId")
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
@@ -3460,7 +3457,6 @@ public class SystemHandler extends BaseHandler {
     *
     *                   #struct_end()
     *               #array_end()
-    * @xmlrpc.param #array_single("int", "packageId")
     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
     * @xmlrpc.returntype #array_single("int", "actionId")
     */
