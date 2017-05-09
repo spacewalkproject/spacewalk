@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.66
+Version: 2.7.67
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -759,6 +759,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue May 09 2017 Grant Gainey 2.7.67-1
+- 1445868 - Handle attempting to create ISS Master/Slave with existing FQDN
+  more gracefully
+- 1440696 , fix updateRepoSsl description
+
 * Mon May 08 2017 Can Bulut Bayburt <cbbayburt@suse.com>
 - PR 472 - Add 'Latest' back to button labels to make clear the latest version
   will be copied - Eric Herget <eherget@redhat.com>
