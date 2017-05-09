@@ -257,7 +257,7 @@ public class KickstartUrlHelper {
      */
     public String getCobblerMediaUrl() {
         StringBuilder url = new StringBuilder();
-        url.append(getCobblerMediaUrlBase() + "$" + COBBLER_MEDIA_VARIABLE);
+        url.append(getCobblerMediaUrlBase()).append("$").append(COBBLER_MEDIA_VARIABLE);
         log.debug("returning: " + url);
         return url.toString();
     }
@@ -271,7 +271,7 @@ public class KickstartUrlHelper {
      */
     public String getCobblerMediaUrlBase() {
         StringBuilder url = new StringBuilder();
-        url.append(protocol + host);
+        url.append(protocol).append(host);
         log.debug("returning: " + url);
         return url.toString();
     }
