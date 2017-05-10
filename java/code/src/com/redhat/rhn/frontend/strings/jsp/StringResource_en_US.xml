@@ -5479,14 +5479,17 @@ organization. You may grant or remove the organization administrator role in the
         <trans-unit id="systemgroup.details.updates">
           <source>Updates:</source>
         </trans-unit>
-        <trans-unit id="systemgroup.details.criticalupdates">
-          <source>critical updates available</source>
-        </trans-unit>
         <trans-unit id="systemgroup.details.someupdates">
-          <source>updates available</source>
+          <source>Software Updates Available</source>
         </trans-unit>
         <trans-unit id="systemgroup.details.noupdates">
           <source>No applicable errata</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.updates.critical">
+          <source>&lt;strong&gt;&lt;a href="{0}"&gt;Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.updates.noncritical">
+          <source>&lt;strong&gt;&lt;a href="{0}"&gt;Non-Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
         </trans-unit>
         <trans-unit id="systemgroup.details.none">
           <source>(none)</source>
@@ -5505,6 +5508,9 @@ organization. You may grant or remove the organization administrator role in the
         </trans-unit>
         <trans-unit id="systemgroup.details.systems">
           <source>Systems:</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.systems.systems">
+          <source>{0} System(s)</source>
         </trans-unit>
         <trans-unit id="systemgroup.details.name">
           <source>Name:</source>
