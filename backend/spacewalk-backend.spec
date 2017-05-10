@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.95
+Version: 2.7.96
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -798,6 +798,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Wed May 10 2017 Jan Dobes 2.7.96-1
+- 1447296 - update man pages about batch size parameter
+- 1447296 - make batch size configurable
+
 * Wed May 10 2017 Jan Dobes 2.7.95-1
 - 1446118 - wildcard support for channel names
 
