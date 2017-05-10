@@ -24,6 +24,7 @@ import sys
 import stat
 import time
 import exceptions
+import fnmatch
 try:
     #  python 2
     import Queue
@@ -767,9 +768,15 @@ class Syncer:
             requested_channels = availableChannels
             log(6, _('XXX: list channels called'), 1)
         else:
-            requested_channels = self._requested_channels
+            requested_channels = set()
+            for channel in self._requested_channels:
+                match_channels = set(fnmatch.filter(importedChannels, channel))
+                match_channels = match_channels.union(fnmatch.filter(availableChannels, channel))
+                if not match_channels:
+                    match_channels = [channel,]
+                requested_channels = requested_channels.union(match_channels)
 
-        rc = req_channels.RequestedChannels(requested_channels)
+        rc = req_channels.RequestedChannels(list(requested_channels))
         rc.set_available(availableChannels)
         rc.set_imported(importedChannels)
         # rc does all the logic of doing intersections and stuff
