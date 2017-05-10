@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.94
+Version: 2.7.95
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -798,6 +798,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Wed May 10 2017 Jan Dobes 2.7.95-1
+- 1446118 - wildcard support for channel names
+
 * Wed May 10 2017 Jan Dobes 2.7.94-1
 - 1437835, 1441096 - updating help
 - 1447296 - can't rely on index in to_process, if last item has to_link only,
