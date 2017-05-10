@@ -48,7 +48,7 @@ class CdnSync(object):
 
     def __init__(self, no_packages=False, no_errata=False, no_rpms=False, no_kickstarts=False,
                  log_level=None, mount_point=None, consider_full=False, force_kickstarts=False,
-                 force_all_errata=False, email=False):
+                 force_all_errata=False, email=False, import_batch_size=None):
 
         if log_level is None:
             log_level = 0
@@ -161,6 +161,7 @@ class CdnSync(object):
         h.execute()
         families = h.fetchall_dict() or []
         self.entitled_families = [f['label'] for f in families]
+        self.import_batch_size = import_batch_size
 
     def _tree_available_channels(self):
         # collect all channel from available families
@@ -392,6 +393,8 @@ class CdnSync(object):
                                  check_ssl_dates=True,
                                  force_null_org_content=True)
         sync.set_ks_tree_type('rhn-managed')
+        if self.import_batch_size:
+            sync.set_import_batch_size(self.import_batch_size)
         if kickstart_trees:
             # Assuming all trees have same install type
             sync.set_ks_install_type(kickstart_trees[0]['ks_install_type'])

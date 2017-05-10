@@ -50,6 +50,7 @@ _ = translation.ugettext
 default_log_location = '/var/log/rhn/'
 relative_comps_dir = 'rhn/comps'
 checksum_cache_filename = 'reposync/checksum_cache'
+default_import_batch_size = 10
 
 
 def send_mail(sync_type="Repo"):
@@ -375,6 +376,10 @@ class RepoSync(object):
         self.checksum_cache = rhnCache.get(checksum_cache_filename)
         if self.checksum_cache is None:
             self.checksum_cache = {}
+        self.import_batch_size = default_import_batch_size
+
+    def set_import_batch_size(self, batch_size):
+        self.import_batch_size = int(batch_size)
 
     def set_urls_prefix(self, prefix):
         """If there are relative urls in DB, set their real location in runtime"""
@@ -932,7 +937,8 @@ class RepoSync(object):
                     to_process[index] = (pack, True, False)
 
                 # importing packages by batch or if the current packages is the last
-                if len(mpm_bin_batch) > 0 and (import_count == to_download_count or len(mpm_bin_batch) % 10 == 0):
+                if len(mpm_bin_batch) > 0 and (import_count == to_download_count
+                                               or len(mpm_bin_batch) % self.import_batch_size == 0):
                     importer = packageImport.PackageImport(mpm_bin_batch, backend, caller=upload_caller)
                     importer.setUploadForce(1)
                     importer.run()
@@ -942,7 +948,8 @@ class RepoSync(object):
                     del mpm_bin_batch
                     mpm_bin_batch = importLib.Collection()
 
-                if len(mpm_src_batch) > 0 and (import_count == to_download_count or len(mpm_src_batch) % 10 == 0):
+                if len(mpm_src_batch) > 0 and (import_count == to_download_count
+                                               or len(mpm_src_batch) % self.import_batch_size == 0):
                     src_importer = packageImport.SourcePackageImport(mpm_src_batch, backend, caller=upload_caller)
                     src_importer.setUploadForce(1)
                     src_importer.run()

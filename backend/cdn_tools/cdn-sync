@@ -60,6 +60,7 @@ def process_commandline():
     parser.add_argument('--count-packages', action='store_true', help="Count number of packages in all"
                         "repositories for every channel")
     parser.add_argument("--no-rpms", action="store_true", help="Do not keep RPMs on disk after DB import (debug only)")
+    parser.add_argument("--batch-size", action="store", help="max. batch size for package import (debug only)")
     parser.add_argument("-v", "--verbose", action='count', help="Verbose output. Possible to accumulate: -vvv")
     parser.add_argument("--cdn-certs", action="store_true",
                         help="Print details about currently used SSL certificates for accessing CDN.")
@@ -88,6 +89,14 @@ def process_commandline():
 
     if cmd_args.channel:
         cmd_args.channel = set(cmd_args.channel)
+
+    if cmd_args.batch_size:
+        try:
+            batch_size = int(cmd_args.batch_size)
+            if batch_size <= 0:
+                raise ValueError()
+        except ValueError:
+            system_exit(1, "Invalid batch size: %s" % cmd_args.batch_size)
 
     return cmd_args
 
@@ -135,7 +144,7 @@ if __name__ == '__main__':
                           consider_full=args.consider_full,
                           force_all_errata=args.force_all_errata,
                           force_kickstarts=args.force_kickstarts,
-                          email=args.email)
+                          email=args.email, import_batch_size=args.batch_size)
 
         error_messages = []
         if args.list_channels:

@@ -111,6 +111,7 @@ def main():
                       default=False, help="Sync kickstartable tree")
     parser.add_option('', '--force-all-errata', action='store_true', dest='force_all_errata',
                       default=False, help="Process metadata of all errata, not only missing.")
+    parser.add_option('', '--batch-size', action='store', help="max. batch size for package import (debug only)")
     parser.add_option('-v', '--verbose', action='count',
                       help="Verbose output. Possible to accumulate: -vvv")
     (options, args) = parser.parse_args()
@@ -206,6 +207,14 @@ def main():
             log(0, " %s: %s" % (key,str(getattr(options, key))))
         return 0
 
+    if options.batch_size:
+        try:
+            batch_size = int(options.batch_size)
+            if batch_size <= 0:
+                raise ValueError()
+        except ValueError:
+            systemExit(1, "Invalid batch size: %s" % options.batch_size)
+
     reposync.clear_ssl_cache()
 
     total_time = datetime.timedelta()
@@ -227,6 +236,8 @@ def main():
                       latest=options.latest,
                       log_level=options.verbose,
                       force_all_errata=options.force_all_errata)
+        if options.batch_size:
+            sync.set_import_batch_size(options.batch_size)
         elapsed_time, channel_ret_code = sync.sync()
         if channel_ret_code != 0 and ret_code == 0:
             ret_code = channel_ret_code
