@@ -48,7 +48,7 @@ def hash_validate(data, *keylist):
 def parse_smbios(smbios):
     vendor = smbios.get('smbios.bios.vendor')
     serial = smbios.get('smbios.system.serial', '')
-    manufacturer = smbios.get('smbios.system.manufacturer')
+    manufacturer = smbios.get('smbios.system.manufacturer', '')
     product = smbios.get('smbios.system.product')
 
     # XXX need to worry about uuid being none for other virt types and
