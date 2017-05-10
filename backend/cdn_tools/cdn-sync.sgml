@@ -85,6 +85,9 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <arg>--http-proxy-password<replaceable> HTTP_PROXY_PASSWORD</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--batch-size=<replaceable>BATCH_SIZE</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-h</arg> <arg>--help</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -279,6 +282,18 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <term>--http-proxy-password<replaceable> HTTP_PROXY_PASSWORD</replaceable></term>
         <listitem>
             <para>alternative http proxy password</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--batch-size=<replaceable>BATCH_SIZE</replaceable></term>
+        <listitem>
+            <para>maximum batch size for package import</para>
+            <para>This option should not be used except for debugging
+            purposes. The most useful case being --batch-size=1 where the
+            database import process each piece of meta-data one at a time,
+            isolating any issues.</para>
+            <para>WARNING: --batch-size=1 will dramatically slow down the
+            sync process.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

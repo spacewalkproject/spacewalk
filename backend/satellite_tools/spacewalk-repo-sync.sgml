@@ -85,6 +85,10 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         </group>
         <sbr>
         <group>
+        <arg>--batch-size=<replaceable>BATCH_SIZE</replaceable></arg>
+        </group>
+        <sbr>
+        <group>
         <arg>--dry-run</arg>
         </group>
         <sbr>
@@ -214,6 +218,18 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         <term>--force-all-errata</term>
         <listitem>
             <para>process metadata of all errata, not only missing.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--batch-size=<replaceable>BATCH_SIZE</replaceable></term>
+        <listitem>
+            <para>maximum batch size for package import</para>
+            <para>This option should not be used except for debugging
+            purposes. The most useful case being --batch-size=1 where the
+            database import process each piece of meta-data one at a time,
+            isolating any issues.</para>
+            <para>WARNING: --batch-size=1 will dramatically slow down the
+            sync process.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
