@@ -195,7 +195,7 @@ def prepRhsmManifest(options):
     #       populates "/var/log/entitlementCert"
     if options.manifest and options.manifest != DEFAULT_RHSM_MANIFEST_LOCATION:
         try:
-            manifest = open(options.manifest, 'rb').read()
+            manifest = open(os.path.abspath(os.path.expanduser(options.manifest)), 'rb').read()
         except (IOError, OSError), e:
             msg = _('"%s" (specified in commandline)\n'
                     'could not be opened and read:\n%s') % (options.manifest, str(e))
