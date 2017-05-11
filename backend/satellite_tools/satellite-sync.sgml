@@ -506,12 +506,9 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
 
 <RefSect1><Title>Examples</Title>
 <simplelist>
-        <member><command>satellite-sync --list-channels</command></member>
-        <member><command>satellite-sync --channel=rhel-i386-as-3</command></member>
-        <member><command>satellite-sync -c rhel-i386-as-3 -c redhat-advanced-server-i386</command></member>
         <member><command>satellite-sync -m /var/tmp/channel-dumps --list-channels</command></member>
-        <member><command>satellite-sync -m /var/tmp/channel-dumps -c rhel-i386-as-3</command></member>
-        <member><command>satellite-sync --iss-parent=stage-satellite.yourorg.com -c rhel-i386-as-4</command></member>
+        <member><command>satellite-sync -m /var/tmp/channel-dumps -c rhel-x86_64-server-7</command></member>
+        <member><command>satellite-sync --iss-parent=stage-satellite.yourorg.com -c rhel-x86_64-server-7</command></member>
 </simplelist>
 </RefSect1>
 
