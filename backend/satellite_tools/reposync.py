@@ -481,7 +481,7 @@ class RepoSync(object):
                   and cp.package_id = p.id
                   and p.checksum_id = c.id
                   and c.checksum_type_id = ct.id
-                """, channel_id=int(self.channel['id']))
+                """, channel_id=int(self.channel['id'])) or []
             for package in channel_packages:
                 if (package['checksum_type'], package['checksum']) not in self.all_packages:
                     self.disassociate_package(package['checksum_type'], package['checksum'])
