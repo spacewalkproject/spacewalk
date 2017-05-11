@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.7.14
+Version:	2.7.15
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu May 11 2017 Eric Herget <eherget@redhat.com> 2.7.15-1
+- 1449529 - taskotop retrieve list of each task by end date, not start date
+- Remove unused imports.
+
 * Wed Apr 26 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.14-1
 - update CentOS7 addon repos
 - removed definitions of EOLed products
