@@ -238,9 +238,13 @@ def get_tasko_runs_latest_each_task():
             run.end_time AS end_time,
             schedule.data AS data
 
-            FROM (SELECT template_id, max(start_time) AS start_time FROM rhnTaskoRun GROUP BY template_id) m
+            FROM (SELECT template_id,
+                         CASE WHEN MAX(CASE WHEN end_time IS NULL THEN 1 ELSE 0 END) = 0
+                              THEN MAX(end_time)
+                         END AS end_time
+                      FROM rhnTaskoRun GROUP BY template_id) m
                 JOIN rhnTaskoRun run ON run.template_id = m.template_id
-                    AND run.start_time = m.start_time
+                    AND (run.end_time = m.end_time OR (run.end_time IS NULL AND m.end_time IS NULL))
                 JOIN rhnTaskoSchedule schedule ON schedule.id = run.schedule_id
                 JOIN rhnTaskoTemplate template ON template.id = run.template_id
                 JOIN rhnTaskoTask task ON task.id = template.task_id
