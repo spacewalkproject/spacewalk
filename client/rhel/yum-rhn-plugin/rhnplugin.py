@@ -168,18 +168,13 @@ def init_hook(conduit):
     for channel in svrChannels:
         if channel['version']:
             repo = RhnRepo(channel)
+            setRHNRepoDefaults(conduit, repo)
             repo.basecachedir = cachedir
-            repo.gpgcheck = conduit_conf.gpgcheck
             repo.proxy = proxy_url
             repo.sslcacert = sslcacert
-            repo.enablegroups = conduit_conf.enablegroups
-            repo.metadata_expire = conduit_conf.metadata_expire
-            repo.exclude = conduit_conf.exclude
             repo._proxy_dict = proxy_dict
             if repo.timeout < timeout:
                 repo.timeout = timeout
-            if hasattr(conduit_conf, '_repos_persistdir'):
-                repo.base_persistdir = conduit_conf._repos_persistdir
             updateRHNRepoOptions(conduit, repo)
             repos.add(repo)
             if cachefile:
@@ -226,12 +221,11 @@ def addCachedRepos(conduit):
         repodir = os.path.join(cachedir, repoid)
         if os.path.isdir(repodir):
             repo = YumRepository(repoid)
+            setRHNRepoDefaults(conduit, repo)
             repo.basecachedir = cachedir
             repo.baseurl = urls
             repo.urls = repo.baseurl
             repo.name = reponame
-            if hasattr(conduit.getConf(), '_repos_persistdir'):
-                repo.base_persistdir = conduit.getConf()._repos_persistdir
             updateRHNRepoOptions(conduit, repo)
             repo.enable()
             if not repos.findRepos(repo.id):
@@ -745,6 +739,16 @@ def getRHNRepoOptions(conduit, repoid):
     except NoSectionError:
         pass
     return None
+
+def setRHNRepoDefaults(conduit, repo):
+    # newly created repo gets defaults hardwired in yum/config.py
+    # update repo defaults according to values parsed from yum.conf
+    conf = conduit.getConf()
+    for opt, value in repo.iteritems():
+        if hasattr(conf, opt):
+            setattr(repo, opt, getattr(conf, opt))
+    if hasattr(conf, '_repos_persistdir'):
+        repo.base_persistdir = conf._repos_persistdir
 
 def updateRHNRepoOptions(conduit, repo):
     pluginOptions = getRHNRepoOptions(conduit, 'main')
