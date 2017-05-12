@@ -13,32 +13,57 @@
 # in this software or its documentation.
 #
 
+import sys
 import os.path
 from shutil import rmtree
 import time
 import requests
 from spacewalk.common import fileutils
+from spacewalk.satellite_tools.download import get_proxies
 from spacewalk.satellite_tools.repo_plugins import ContentPackage, CACHE_DIR
+from spacewalk.satellite_tools.syncLib import log2
 from spacewalk.common.rhnConfig import CFG, initCFG
-from spacewalk.common.checksum import getFileChecksum
 
 RETRIES = 10
 RETRY_DELAY = 1
 FORMAT_PRIORITY = ['.xz', '.gz', '']
 
 
+class DebPackage(object):
+    def __init__(self):
+        self.name = None
+        self.epoch = None
+        self.version = None
+        self.release = None
+        self.arch = None
+        self.relativepath = None
+        self.checksum_type = None
+        self.checksum = None
+
+    def is_populated(self):
+        return all([attribute is not None for attribute in (self.name, self.epoch, self.version, self.release,
+                                                            self.arch, self.relativepath, self.checksum_type,
+                                                            self.checksum)])
+
+
 class DebRepo(object):
     # url example - http://ftp.debian.org/debian/dists/jessie/main/binary-amd64/
-    def __init__(self, url, cache_dir):
+    def __init__(self, url, cache_dir, pkg_dir):
         self.url = url
         parts = url.split('/dists')
-        self.base_url = parts[0]
+        self.base_url = [parts[0]]
+        # Make sure baseurl ends with / and urljoin will work correctly
+        if self.base_url[0][-1] != '/':
+            self.base_url[0] += '/'
+        self.urls = self.base_url
         self.sslclientcert = self.sslclientkey = self.sslcacert = None
+        self.proxy = self.proxy_username = self.proxy_password = None
         self.basecachedir = cache_dir
         if not os.path.isdir(self.basecachedir):
             fileutils.makedirs(self.basecachedir, user='apache', group='apache')
         self.includepkgs = []
         self.exclude = []
+        self.pkgdir = pkg_dir
 
     def _download(self, url):
         for _ in range(0, RETRIES):
@@ -82,26 +107,26 @@ class DebRepo(object):
 
         # Parse and format package metadata
         for chunk in packages_raw:
-            package = {}
-            package['epoch'] = ""
+            package = DebPackage()
+            package.epoch = ""
             lines = chunk.split("\n")
             checksums = {}
             for line in lines:
                 pair = line.split(" ", 1)
                 if pair[0] == "Package:":
-                    package['name'] = pair[1]
+                    package.name = pair[1]
                 elif pair[0] == "Architecture:":
-                    package['arch'] = pair[1] + '-deb'
+                    package.arch = pair[1] + '-deb'
                 elif pair[0] == "Version:":
                     version = pair[1].split('-', 1)
                     if len(version) == 1:
-                        package['version'] = version[0]
-                        package['release'] = 'X'
+                        package.version = version[0]
+                        package.release = 'X'
                     else:
-                        package['version'] = version[0]
-                        package['release'] = version[1]
+                        package.version = version[0]
+                        package.release = version[1]
                 elif pair[0] == "Filename:":
-                    package['path'] = pair[1]
+                    package.relativepath = pair[1]
                 elif pair[0] == "SHA256:":
                     checksums['sha256'] = pair[1]
                 elif pair[0] == "SHA1:":
@@ -111,35 +136,31 @@ class DebRepo(object):
 
             # Pick best available checksum
             if 'sha256' in checksums:
-                package['checksum_type'] = 'sha256'
-                package['checksum'] = checksums['sha256']
+                package.checksum_type = 'sha256'
+                package.checksum = checksums['sha256']
             elif 'sha1' in checksums:
-                package['checksum_type'] = 'sha1'
-                package['checksum'] = checksums['sha1']
+                package.checksum_type = 'sha1'
+                package.checksum = checksums['sha1']
             elif 'md5' in checksums:
-                package['checksum_type'] = 'md5'
-                package['checksum'] = checksums['md5']
+                package.checksum_type = 'md5'
+                package.checksum = checksums['md5']
 
-            if all(k in package for k in ('name', 'epoch', 'version', 'release', 'arch', 'path',
-                                          'checksum_type', 'checksum')):
+            if package.is_populated():
                 to_return.append(package)
 
         return to_return
 
-    def get_package(self, pack):
-        url = self.base_url + '/' + pack['path']
-        file_path = self._download(url)
-        if getFileChecksum(pack['checksum_type'], filename=file_path) != pack['checksum']:
-            raise IOError("Package file does not match intended download.")
-        return file_path
-
 
 class ContentSource(object):
 
-    def __init__(self, url, name):
+    def __init__(self, url, name, org=1, channel_label=""):
+        # pylint: disable=W0613
         self.url = url
         self.name = name
-        self._clean_cache(CACHE_DIR + name)
+        if org:
+            self.org = org
+        else:
+            self.org = "NULL"
 
         # read the proxy configuration in /etc/rhn/rhn.conf
         initCFG('server.satellite')
@@ -147,7 +168,8 @@ class ContentSource(object):
         self.proxy_user = CFG.http_proxy_username
         self.proxy_pass = CFG.http_proxy_password
 
-        self.repo = DebRepo(url, CACHE_DIR + name)
+        self.repo = DebRepo(url, os.path.join(CACHE_DIR, self.org, name),
+                            os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, self.org, 'stage'))
 
         self.num_packages = 0
         self.num_excluded = 0
@@ -176,34 +198,34 @@ class ContentSource(object):
         to_return = []
         for pack in pkglist:
             new_pack = ContentPackage()
-            new_pack.setNVREA(pack['name'], pack['version'], pack['release'],
-                              pack['epoch'], pack['arch'])
+            new_pack.setNVREA(pack.name, pack.version, pack.release,
+                              pack.epoch, pack.arch)
             new_pack.unique_id = pack
-            new_pack.checksum_type = pack['checksum_type']
-            new_pack.checksum = pack['checksum']
+            new_pack.checksum_type = pack.checksum_type
+            new_pack.checksum = pack.checksum
             to_return.append(new_pack)
         return to_return
 
     @staticmethod
     def _sort_packages(pkg1, pkg2):
         """sorts a list of deb package dicts by name"""
-        if pkg1['name'] > pkg2['name']:
+        if pkg1.name > pkg2.name:
             return 1
-        elif pkg1['name'] == pkg2['name']:
+        elif pkg1.name == pkg2.name:
             return 0
         else:
             return -1
 
-    def get_package(self, package, metadata_only=False):
-        """ get package """
-        if metadata_only:
-            raise NotImplementedError()
-        pack = package.unique_id
-        return self.repo.get_package(pack)
-
-    @staticmethod
-    def _clean_cache(directory):
-        rmtree(directory, True)
+    def clear_cache(self, directory=None):
+        if directory is None:
+            directory = os.path.join(CACHE_DIR, self.org, self.name)
+        # remove content in directory
+        for item in os.listdir(directory):
+            path = os.path.join(directory, item)
+            if os.path.isfile(path):
+                os.unlink(path)
+            elif os.path.isdir(path):
+                rmtree(path)
 
     @staticmethod
     def get_updates():
@@ -219,11 +241,32 @@ class ContentSource(object):
         # TODO
         pass
 
+    # Get download parameters for threaded downloader
+    def set_download_parameters(self, params, relative_path, target_file, checksum_type=None, checksum_value=None,
+                                bytes_range=None):
+        # Create directories if needed
+        target_dir = os.path.dirname(target_file)
+        if not os.path.exists(target_dir):
+            os.makedirs(target_dir, int('0755', 8))
+
+        params['urls'] = self.repo.urls
+        params['relative_path'] = relative_path
+        params['target_file'] = target_file
+        params['ssl_ca_cert'] = self.repo.sslcacert
+        params['ssl_client_cert'] = self.repo.sslclientcert
+        params['ssl_client_key'] = self.repo.sslclientkey
+        params['checksum_type'] = checksum_type
+        params['checksum'] = checksum_value
+        params['bytes_range'] = bytes_range
+        params['proxy'] = self.repo.proxy
+        params['proxy_username'] = self.repo.proxy_username
+        params['proxy_password'] = self.repo.proxy_password
+        # Older urlgrabber compatibility
+        params['proxies'] = get_proxies(self.repo.proxy, self.repo.proxy_username, self.repo.proxy_password)
+
     @staticmethod
     def get_file(path, local_base=None):
+        # pylint: disable=W0613
         # Called from import_kickstarts, not working for deb repo
-        if local_base:
-            print("Unable to download path %s from deb repo into %s." % (path, local_base))
-        else:
-            print("Unable to download path %s from deb repo." % path)
+        log2(0, 0, "Unable to download path %s from deb repo." % path, stream=sys.stderr)
         return None
