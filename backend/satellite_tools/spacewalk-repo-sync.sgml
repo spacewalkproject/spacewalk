@@ -161,7 +161,7 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
     <varlistentry>
         <term>-t<replaceable>TYPE</replaceable>, --type=<replaceable>TYPE</replaceable></term>
         <listitem>
-            <para>The type of repository to sync.  Currently only yum and uln are supported and yum is the default. The uln type is used to sync with the Oracle Unbreakable Linux Network. (Optional)</para>
+            <para>The type of repository to sync. Currently only yum, uln and deb are supported. The uln type is used to sync with the Oracle Unbreakable Linux Network. The deb type is used for Debian repositories. This option overrides type of repository stored in DB for given repository.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
