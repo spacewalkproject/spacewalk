@@ -375,7 +375,7 @@ class CdnSync(object):
         log(0, "Sync of channel started.")
         log2disk(0, "Please check 'cdnsync/%s.log' for sync log of this channel." % channel, notimeYN=True)
         sync = reposync.RepoSync(channel,
-                                 "yum",
+                                 repo_type="yum",
                                  url=None,
                                  fail=False,
                                  filters=False,

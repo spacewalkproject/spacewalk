@@ -89,8 +89,7 @@ def main():
     parser.add_option('-g', '--config', action='store', dest='config',
                help='Configuration file')
     parser.add_option('-t', '--type', action='store', dest='repo_type',
-                      help='The type of repo, currently only "yum" and "uln" are supported',
-                      default='yum')
+                      help='The type of repo, currently only "yum" and "uln" are supported')
     parser.add_option('-f', '--fail', action='store_true', dest='fail',
                       default=False,
                       help="If a package import fails, fail the entire operation")

@@ -299,7 +299,7 @@ def get_single_ssl_set(keys, check_dates=False):
 
 class RepoSync(object):
 
-    def __init__(self, channel_label, repo_type, url=None, fail=False,
+    def __init__(self, channel_label, repo_type=None, url=None, fail=False,
                  filters=None, no_errata=False, sync_kickstart=False, latest=False,
                  metadata_only=False, strict=0, excluded_urls=None, no_packages=False,
                  log_dir="reposync", log_level=None, force_kickstart=False, force_all_errata=False,
@@ -348,10 +348,12 @@ class RepoSync(object):
 
         if not url:
             # TODO:need to look at user security across orgs
-            h = rhnSQL.prepare("""select s.id, s.source_url, s.label
+            h = rhnSQL.prepare("""select s.id, s.source_url, s.label as repo_label, cst.label as repo_type_label
                                   from rhnContentSource s,
-                                       rhnChannelContentSource cs
+                                       rhnChannelContentSource cs,
+                                       rhnContentSourceType cst
                                  where s.id = cs.source_id
+                                   and cst.id = s.type_id
                                    and cs.channel_id = :channel_id""")
             h.execute(channel_id=int(self.channel['id']))
             source_data = h.fetchall_dict()
@@ -361,14 +363,22 @@ class RepoSync(object):
             if source_data:
                 for row in source_data:
                     if row['source_url'] not in excluded_urls:
-                        self.urls.append((row['id'], row['source_url'], row['label']))
+                        # Override repo type DB value using parameter
+                        if repo_type:
+                            repo_type_label = repo_type
+                        else:
+                            repo_type_label = row['repo_type_label']
+                        self.urls.append((row['id'], row['source_url'], repo_type_label, row['repo_label']))
         else:
-            self.urls = [(None, u, None) for u in url]
+            if repo_type:
+                repo_type_label = repo_type
+            else:
+                repo_type_label = 'yum'
+            self.urls = [(None, u, repo_type_label, None) for u in url]
 
         if not self.urls:
             log2(0, 0, "Channel %s has no URL associated" % channel_label, stream=sys.stderr)
 
-        self.repo_plugin = self.load_plugin(repo_type)
         self.strict = strict
         self.all_packages = set()
         self.check_ssl_dates = check_ssl_dates
@@ -397,13 +407,15 @@ class RepoSync(object):
         if not self.urls:
             sync_error = -1
         start_time = datetime.now()
-        for (repo_id, url, repo_label) in self.urls:
+        for (repo_id, url, repo_type, repo_label) in self.urls:
             log(0, "Repo URL: %s" % url)
             plugin = None
 
             # If the repository uses a uln:// URL, switch to the ULN plugin, overriding the command-line
             if url.startswith("uln://"):
-                self.repo_plugin = self.load_plugin("uln")
+                repo_type = "uln"
+
+            repo_plugin = self.load_plugin(repo_type)
 
             # pylint: disable=W0703
             try:
@@ -415,9 +427,9 @@ class RepoSync(object):
                     relative_url = '_'.join(url.split('://')[1].split('/')[1:])
                     repo_name = relative_url.replace("?", "_").replace("&", "_").replace("=", "_")
 
-                plugin = self.repo_plugin(url, repo_name,
-                                          org=str(self.org_id or ''),
-                                          channel_label=self.channel_label)
+                plugin = repo_plugin(url, repo_name,
+                                     org=str(self.org_id or ''),
+                                     channel_label=self.channel_label)
 
                 if update_repodata:
                     plugin.clear_cache()
