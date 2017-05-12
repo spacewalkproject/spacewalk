@@ -107,6 +107,14 @@ public class KickstartUrlHelperTest extends BaseKickstartCommandTestCase {
         assertEquals(expected, helper.getCobblerMediaUrl());
     }
 
+    public void testGetCobblerMediaUrlBase() throws Exception {
+        helper = new KickstartUrlHelper(ksdata);
+        String expected = "http://" +
+            KickstartUrlHelper.COBBLER_SERVER_VARIABLE;
+
+        assertEquals(expected, helper.getCobblerMediaUrl());
+    }
+
     public void testGetKickstartMediaSessionUrl() throws Exception {
         // /ks/dist/session/35x45fed383beaeb31a184166b4c1040633/ks-f9-x86_64
         KickstartSession session =

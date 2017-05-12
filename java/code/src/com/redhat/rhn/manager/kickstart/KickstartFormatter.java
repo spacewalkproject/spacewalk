@@ -523,19 +523,29 @@ public class KickstartFormatter {
         log.debug("isRhnTree: " + this.ksdata.getTree().isRhnTree());
         log.debug("Actual URL: " + urlLocation);
 
-        if (urlLocation.startsWith("/")) {
+        StringBuilder url = new StringBuilder();
+        url.append("--url ");
+
+        if (urlLocation.equals(this.ksdata.getTree().getAbsolutePath())) {
             log.debug("URL is not customized.");
             log.debug("Formatting for view use.");
             // /kickstart/dist/ks-rhel-i386-as-4-u2
-            StringBuilder url = new StringBuilder();
-            url.append("--url ");
             url.append(urlHelper.getCobblerMediaUrl());
+            log.debug("constructed: " + url);
+            argVal = url.toString();
+        }
+        else if (urlLocation.startsWith("/")) {
+            log.debug("URL is customized.");
+            log.debug("Appending provided subpath to cobbler host.");
+            url.append(urlHelper.getCobblerMediaUrlBase());
+            url.append(urlLocation);
             log.debug("constructed: " + url);
             argVal = url.toString();
         }
         else {
             log.debug("Just return the arg value.");
         }
+
         log.debug("returning url: " + argVal);
         return argVal;
     }
