@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.7.4
+Version: 2.7.5
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri May 12 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.5-1
+- 1418104 - honor yum.conf when setting repo defaults
+
 * Mon Mar 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.4-1
 - 1391867 - use retry_on_cache only if available
 
