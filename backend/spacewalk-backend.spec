@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.99
+Version: 2.7.100
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -798,6 +798,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Fri May 12 2017 Jan Dobes 2.7.100-1
+- fixing deb plug-in
+- updating help and man page
+- use repository type value from DB if it's possible
+
 * Thu May 11 2017 Gennadii Altukhov <galt@redhat.com> 2.7.99-1
 - 1447296 - fix examples in man page of satellite-sync
 - 1449914 - fixing 'NoneType' object is not iterable if no rows are selected
