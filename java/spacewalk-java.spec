@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.68
+Version: 2.7.69
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -759,6 +759,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri May 12 2017 Laurence Rochfort <laurence.rochfort@oracle.com>
+- 1436634 - PR 527 - Used StringBuilder correctly without '+' operator.
+- 1436634 - PR 527 - Fix KS Default Download Location appending URL verbatim.
+
 * Wed May 10 2017 Jan Dobes 2.7.68-1
 - 1414406. Fix schedulePackage{Install,Remove}ByNevra arguments description.
 
