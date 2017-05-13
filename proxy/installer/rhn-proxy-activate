@@ -6,9 +6,8 @@
 
     Author: Todd Warner <taw@redhat.com>
 """
-#-------------------------------------------------------------------------------
 
-## language imports
+# language imports
 import sys
 import os
 import string
@@ -30,7 +29,6 @@ except ImportError, e:
 mod = getattr(mod, mod_name)
 
 
-#-------------------------------------------------------------------------------
 if __name__ == '__main__':
     try:
         sys.exit(mod.main() or 0)
@@ -42,4 +40,3 @@ if __name__ == '__main__':
     except:
         sys.stderr.write("\nERROR: unhandled exception occurred:\n")
         raise
-#===============================================================================

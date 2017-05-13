@@ -13,7 +13,6 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
-#-------------------------------------------------------------------------------
 
 # common module imports
 from spacewalk.common.rhnConfig import CFG, initCFG
@@ -78,10 +77,8 @@ class HandlerWrap:
         return apacheHandler
 
 
-### Instantiate external entry points:
+# Instantiate external entry points:
 HeaderParserHandler = HandlerWrap("headerParserHandler", init=1)
 Handler = HandlerWrap("handler")
 CleanupHandler = HandlerWrap("cleanupHandler")
 LogHandler = HandlerWrap("logHandler")
-
-#-------------------------------------------------------------------------------

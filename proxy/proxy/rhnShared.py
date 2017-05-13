@@ -14,18 +14,18 @@
 # in this software or its documentation.
 #
 
-## language imports
+# language imports
 import urllib
 import socket
 import sys
 from types import ListType, TupleType
 
-## global imports
+# global imports
 from rhn import connections
 from rhn.SSL import TimeoutException
 from rhn.SmartIO import SmartIO
 
-## common imports
+# common imports
 from rhn.UserDictCase import UserDictCase
 from spacewalk.common.rhnTB import Traceback
 from spacewalk.common.rhnConfig import CFG
@@ -34,7 +34,7 @@ from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common import rhnFlags, rhnLib, apache
 from spacewalk.common.rhnTranslate import _
 
-## local imports
+# local imports
 import rhnConstants
 from responseContext import ResponseContext
 
@@ -251,7 +251,7 @@ class SharedHandler:
             # And that's that
             return status
 
-        if (status == apache.HTTP_PARTIAL_CONTENT):
+        if status == apache.HTTP_PARTIAL_CONTENT:
             return apache.HTTP_PARTIAL_CONTENT
         else:
             # apache.HTTP_OK becomes apache.OK.

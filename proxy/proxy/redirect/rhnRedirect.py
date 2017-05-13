@@ -211,11 +211,9 @@ class RedirectHandler(SharedHandler):
         #     HTTP_MOVED_TEMPORARILY
 
         redirectStatus = self.__redirectToNextLocationNoRetry(loopProtection)
-        while redirectStatus != apache.HTTP_OK                and \
-                redirectStatus != apache.HTTP_PARTIAL_CONTENT   and \
-                redirectStatus != apache.HTTP_MOVED_PERMANENTLY and \
-                redirectStatus != apache.HTTP_MOVED_TEMPORARILY and \
-                retriesLeft > 0:
+        while redirectStatus != apache.HTTP_OK and redirectStatus != apache.HTTP_PARTIAL_CONTENT and \
+                        redirectStatus != apache.HTTP_MOVED_PERMANENTLY and \
+                        redirectStatus != apache.HTTP_MOVED_TEMPORARILY and retriesLeft > 0:
 
             retriesLeft = retriesLeft - 1
             log_debug(1, "Redirection failed; trying again.  "
@@ -423,5 +421,3 @@ class RedirectHandler(SharedHandler):
             status = apache.HTTP_OK
 
         return status
-
-#===============================================================================
