@@ -66,7 +66,7 @@ echo
 echo "MINOR MANUAL EDITING OF THIS FILE MAY BE REQUIRED!"
 echo
 echo "If this bootstrap script was created during the initial installation"
-echo "of an Red Hat Satellite, the ACTIVATION_KEYS, and ORG_GPG_KEY values will"
+echo "of a Red Hat Satellite, the ACTIVATION_KEYS, and ORG_GPG_KEY values will"
 echo "probably *not* be set (see below). If this is the case, please do the"
 echo "following:"
 echo "  - copy this file to a name specific to its use."
@@ -117,7 +117,7 @@ FULLY_UPDATE_THIS_BOX=%s
 # Set if you want to specify profilename for client systems.
 # NOTE: Make sure it's set correctly if any external command is used.
 #
-# ex. PROFILENAME="foo.example.com"  # For specific clinet system
+# ex. PROFILENAME="foo.example.com"  # For specific client system
 #     PROFILENAME=`hostname -s`      # Short hostname
 #     PROFILENAME=`hostname -f`      # FQDN
 PROFILENAME=""   # Empty by default to let it be set automatically.
@@ -396,7 +396,7 @@ if [ $REGISTER_THIS_BOX -eq 1 ] ; then
       exit 1
     fi
 else
-    echo "* explicitely not registering"
+    echo "* explicitly not registering"
 fi
 
 """ % (productName)
