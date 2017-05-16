@@ -9,7 +9,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.0
+Version: 2.7.1
 Release: 1%{?dist}
 URL:      https://github.com/spacewalkproject/spacewalk
 Source0:  https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -79,6 +79,14 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue May 16 2017 Grant Gainey 2.7.1-1
+- 1030013 - fix minor typos in bootstrap.sh
+- Remove unused imports.
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+- Bumping package versions for 2.7.
+- Bumping package versions for 2.6.
+
 * Wed May 25 2016 Tomas Kasparek <tkasparek@redhat.com> 2.5.3-1
 - updating copyright years
 
