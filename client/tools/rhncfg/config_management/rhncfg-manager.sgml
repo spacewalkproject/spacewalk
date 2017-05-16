@@ -45,7 +45,7 @@
 <para>
     This tool is intended for use by the Config Administrator and therefore
     requires an &RHN; username and password that has the appropriate permission
-    set. (The username may be specified in
+    set. (The username and password may be specified in
     <filename>/etc/sysconfig/rhn/rhncfg-manager.conf</filename> or in the [rhncfg-manager] section
     of <filename>~/.rhncfgrc</filename>).
 </para>
@@ -270,6 +270,7 @@
     <member>Mihai Ibanescu <email>misa@redhat.com</email></member>
     <member>Bret McMillan <email>bretm@redhat.com</email></member>
     <member>Todd Warner <email>taw@redhat.com</email> (man page only)</member>
+    <member>Laurence Rochfort <email>laurence.rochfort@oracle.com</email></member>
 </simplelist>
 </RefSect1>
 </RefEntry>
