@@ -392,7 +392,16 @@ class CdnRepositoryTree(object):
         """Finds matching repository in tree.
            url is relative CDN url - e.g. /content/dist/rhel/server/6/6Server/x86_64/os"""
 
-        path = [x for x in url.split('/') if x]
+        path = []
+        for part in url.split('/'):
+            if part == '..':
+                if path:
+                    del path[-1]
+                else:
+                    raise CdnRepositoryNotFoundError("ERROR: Invalid repository path: '%s'" % url)
+            elif part and part != '.':
+                path.append(part)
+
         node = self.root
         try:
             found = self._browse_node(node, path)
