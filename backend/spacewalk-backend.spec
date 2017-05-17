@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.101
+Version: 2.7.102
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -798,6 +798,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Wed May 17 2017 Jan Dobes 2.7.102-1
+- 1427238 - normalize repository path to detect if it's part of any channels or
+  not
+- 1427238 - handle . and .. in path
+- 1427238 - fixing leaf detection
+
 * Mon May 15 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.101-1
 - 1450496 - Revert "1357480 - get_possible_orgs function never called? ->
   removed"
