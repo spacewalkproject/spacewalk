@@ -479,15 +479,21 @@ class CdnSync(object):
     def setup_repos_and_sync(self, channels=None, add_repos=None, delete_repos=None):
         # Fix format of relative url
         if add_repos:
-            for index, repo in enumerate(add_repos):
+            repos = set()
+            for repo in add_repos:
                 repo = repo.replace(CFG.CDN_ROOT, '')
-                repo = os.path.join('/', repo)
-                add_repos[index] = repo
+                repo_dirs = self.cdn_repository_manager.repository_tree.normalize_url(repo)
+                repo = os.path.join('/', '/'.join(repo_dirs))
+                repos.add(repo)
+            add_repos = list(repos)
         if delete_repos:
-            for index, repo in enumerate(delete_repos):
+            repos = set()
+            for repo in delete_repos:
                 repo = repo.replace(CFG.CDN_ROOT, '')
-                repo = os.path.join('/', repo)
-                delete_repos[index] = repo
+                repo_dirs = self.cdn_repository_manager.repository_tree.normalize_url(repo)
+                repo = os.path.join('/', '/'.join(repo_dirs))
+                repos.add(repo)
+            delete_repos = list(repos)
         # We need single custom channel
         if not channels or len(channels) > 1:
             raise CustomChannelSyncError("Single custom channel needed.")

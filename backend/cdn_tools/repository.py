@@ -388,22 +388,28 @@ class CdnRepositoryTree(object):
 
         raise CdnRepositoryNotFoundError()
 
-    def find_repository(self, url):
-        """Finds matching repository in tree.
-           url is relative CDN url - e.g. /content/dist/rhel/server/6/6Server/x86_64/os"""
-
+    @staticmethod
+    def normalize_url(url):
+        """Splits repository URL, removes redundant characters and returns list with directory names."""
         path = []
         for part in url.split('/'):
             if part == '..':
                 if path:
                     del path[-1]
                 else:
-                    raise CdnRepositoryNotFoundError("ERROR: Invalid repository path: '%s'" % url)
+                    # Can't go upper in directory structure, keep it in path
+                    path.append(part)
             elif part and part != '.':
                 path.append(part)
 
+        return path
+
+    def find_repository(self, url):
+        """Finds matching repository in tree.
+           url is relative CDN url - e.g. /content/dist/rhel/server/6/6Server/x86_64/os"""
         node = self.root
         try:
+            path = self.normalize_url(url)
             found = self._browse_node(node, path)
         except CdnRepositoryNotFoundError:
             raise CdnRepositoryNotFoundError("ERROR: Repository '%s' was not found." % url)
