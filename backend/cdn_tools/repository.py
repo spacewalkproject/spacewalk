@@ -363,11 +363,11 @@ class CdnRepositoryTree(object):
     def _browse_node(self, node, keys):
         """Recursive function going through tree."""
         # Return leaf
-        if not keys:
-            if not isinstance(node, dict):
-                return node
-            else:
-                raise CdnRepositoryNotFoundError()
+        is_leaf = not isinstance(node, dict)
+        if is_leaf and not keys:
+            return node
+        elif (is_leaf and keys) or (not is_leaf and not keys):
+            raise CdnRepositoryNotFoundError()
         step = keys[0]
         to_check = [x for x in node.keys() if x in self.VARIABLES or x == step]
         # Remove first step in path, create new list
