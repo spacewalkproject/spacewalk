@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.102
+Version: 2.7.103
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -798,6 +798,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu May 18 2017 Eric Herget <eherget@redhat.com> 2.7.103-1
+- 1434913 - fix exit code to indicate error in other commands when not
+  activated with CDN
+
 * Wed May 17 2017 Jan Dobes 2.7.102-1
 - 1427238 - normalize repository path to detect if it's part of any channels or
   not
