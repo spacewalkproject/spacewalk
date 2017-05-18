@@ -192,6 +192,11 @@ class CdnSync(object):
                 not_available_channels.append(parent_channel)
             channel_tree[parent_channel].append(child_channel)
 
+        if not channel_tree:
+            log(0, "WARNING: No available channels from channel mappings were found. "
+                   "Is %s package installed and your %s activated?" % (constants.MAPPINGS_RPM_NAME, PRODUCT_NAME))
+            sys.exit(1)
+
         return channel_tree, not_available_channels
 
     def _list_available_channels(self):
@@ -442,10 +447,9 @@ class CdnSync(object):
 
             # BZ 1434913 - let user know satellite may not be activated if all channels are in not_available
             if not available:
-                msg = "WARNING: Is your Red Hat Satellite activated for CDN?\n"
-                msg += "(to see details about currently used SSL certificates for accessing CDN:"
-                msg += " /usr/bin/cdn-sync --cdn-certs)"
-                error_messages.append(msg)
+                error_messages.append("WARNING: Is your %s activated for CDN?\n"
+                                      "(to see details about currently used SSL certificates for accessing CDN:"
+                                      " /usr/bin/cdn-sync --cdn-certs)" % PRODUCT_NAME)
 
         # Need to update channel metadata
         self._update_channels_metadata([ch for ch in channels if ch in self.channel_metadata])
@@ -700,10 +704,6 @@ class CdnSync(object):
     def print_channel_tree(self, repos=False):
         channel_tree, not_available_channels = self._tree_available_channels()
 
-        if not channel_tree:
-            log(1, "WARNING: No available channels from channel mappings were found. "
-                   "Is %s package installed and your %s activated?" % (constants.MAPPINGS_RPM_NAME, PRODUCT_NAME))
-
         available_base_channels = [x for x in sorted(channel_tree) if x not in not_available_channels]
         custom_cdn_channels = [ch for ch in self.synced_channels if self.synced_channels[ch]]
         longest_label = len(max(available_base_channels + custom_cdn_channels +
@@ -778,7 +778,7 @@ class CdnSync(object):
         if not keys:
             log2(0, 0, "No SSL certificates were found. Is your %s activated for CDN?"
                  % PRODUCT_NAME, stream=sys.stderr)
-            return
+            sys.exit(1)
 
         for key in keys:
             log(0, "======================================")
