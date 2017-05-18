@@ -49,7 +49,7 @@ Archive and purge the audit-logging tables introduced with Spacewalk 2.0
         Since audit-entries grow over time, this command is provided to give the Spacewalk administrator a tool to cull old table-entries while preserving them for historical reporting.
     </para>
     <para>
-        When --archive or --purge are chosen, an entry is made to /var/log/rhn/archive-audit-tables.log with the action, timestamp, and results.
+        When --archive or --purge are chosen, an entry is made to /var/log/rhn/archive-audit-tables.log with the timestamp, executing-login, action, and results.
     </para>
 </RefSect1>
 
