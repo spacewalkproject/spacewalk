@@ -1,5 +1,5 @@
 Name:		spacewalk-oscap
-Version:	2.7.0
+Version:	2.7.1
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -54,6 +54,12 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu May 18 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.1-1
+- 1451778 - require openscap-utils on rhel for backward compatibility
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+- Bumping package versions for 2.7.
+
 * Mon Sep 12 2016 Ondrej Gajdusek <ogajduse@redhat.com> 2.6.1-1
 - Increasing required version of rhnlib in due to ImportError module i18n in
   scap.py
