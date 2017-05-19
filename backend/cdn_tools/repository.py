@@ -391,18 +391,7 @@ class CdnRepositoryTree(object):
     @staticmethod
     def normalize_url(url):
         """Splits repository URL, removes redundant characters and returns list with directory names."""
-        path = []
-        for part in url.split('/'):
-            if part == '..':
-                if path:
-                    del path[-1]
-                else:
-                    # Can't go upper in directory structure, keep it in path
-                    path.append(part)
-            elif part and part != '.':
-                path.append(part)
-
-        return path
+        return [part for part in os.path.abspath(url).split('/') if part]
 
     def find_repository(self, url):
         """Finds matching repository in tree.
