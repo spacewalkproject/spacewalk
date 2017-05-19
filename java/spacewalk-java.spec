@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.70
+Version: 2.7.71
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -759,6 +759,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri May 19 2017 Grant Gainey 2.7.71-1
+- 1452080 - Escape failure-text of failed-actions
+
 * Tue May 16 2017 Grant Gainey 2.7.70-1
 - 1067601 - Rename org-specific channel-family when org-name changes
 
