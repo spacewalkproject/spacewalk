@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.6.77
+Version: 2.6.78
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -823,6 +823,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Fri May 19 2017 Michael Mraka <michael.mraka@redhat.com> 2.6.78-1
+- 1439622 - return no row if user has no privs for the server
+- 1439622 - don't let disabled user log in
+
 * Tue Mar 07 2017 Grant Gainey 2.6.77-1
 - 1427625 - Fix garbage-char in file (??)
 
