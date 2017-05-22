@@ -57,6 +57,7 @@
         <dependency org="redhat" name="tanukiwrapper" rev="*" />
         <dependency org="redhat" name="velocity" rev="*" />
         <dependency org="redhat" name="xalan-j2" rev="*" />
+        <dependency org="redhat" name="xalan-j2-serializer" rev="*" />
         <dependency org="redhat" name="xerces-j2" rev="*" />
         <dependency org="redhat" name="xml-commons-apis" rev="*" />
     </dependencies>
