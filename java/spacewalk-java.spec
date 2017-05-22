@@ -69,6 +69,7 @@ Requires:      apache-commons-lang
 Requires:      apache-commons-logging
 Requires:      javapackages-tools
 Requires:      javassist
+Requires:      mvn(org.slf4j:slf4j-log4j12)
 Requires:      servlet >= 3.0
 Requires:      tomcat >= 7
 Requires:      tomcat-lib >= 7
@@ -111,6 +112,7 @@ BuildRequires: ehcache-core
 BuildRequires: javassist
 BuildRequires: javapackages-tools
 BuildRequires: mvn(ant-contrib:ant-contrib)
+BuildRequires: mvn(org.slf4j:slf4j-log4j12)
 BuildRequires: tomcat >= 7
 BuildRequires: tomcat-lib >= 7
 %else
