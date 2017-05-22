@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.71
+Version: 2.7.72
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -761,6 +761,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon May 22 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.72-1
+- fixed java developer setup (mainly ivy config)
+- slf4j-log4j12 is in slf4j's subpackage on Fedora 25
+
 * Fri May 19 2017 Grant Gainey 2.7.71-1
 - 1452080 - Escape failure-text of failed-actions
 
