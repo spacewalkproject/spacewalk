@@ -25,7 +25,6 @@
         <dependency org="redhat" name="hibernate3/hibernate-c3p0-3" rev="*" />
         <dependency org="redhat" name="hibernate3/hibernate-core-3" rev="*" />
         <dependency org="redhat" name="hibernate3/hibernate-ehcache-3" rev="*" />
-        <dependency org="redhat" name="jaf" rev="*" />
         <dependency org="redhat" name="javamail/imap" rev="*" />
         <dependency org="redhat" name="javamail/mailapi" rev="*" />
         <dependency org="redhat" name="javamail/pop3" rev="*" />
