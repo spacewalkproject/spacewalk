@@ -125,6 +125,7 @@ Requires:      jakarta-commons-el
 Requires:      jakarta-commons-io
 Requires:      jakarta-commons-lang
 Requires:      jakarta-commons-logging < 1.1
+Requires:      java-1.8.0-openjdk-devel
 Requires:      jpackage-utils
 Requires:      tomcat6
 Requires:      tomcat6-lib
