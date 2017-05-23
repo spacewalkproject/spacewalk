@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.74
+Version: 2.7.75
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue May 23 2017 Grant Gainey 2.7.75-1
+- 1368438 - Teach ListPackagesAction and list.jsp about packageChannels
+
 * Tue May 23 2017 Grant Gainey 2.7.74-1
 - 1005783 - I18N the 'NOT MAPPED' string of ISS
 - 1324737 - polish API description
