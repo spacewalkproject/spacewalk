@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.104
+Version: 2.7.105
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -798,6 +798,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue May 23 2017 Eric Herget <eherget@redhat.com> 2.7.105-1
+- 1434786 - Unable to run cdn-sync if older channels do not exist anymore
+
 * Fri May 19 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.104-1
 - 1439622 - return no row if user has no privs for the server
 - 1439622 - don't let disabled user log in
