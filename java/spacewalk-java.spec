@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.73
+Version: 2.7.74
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue May 23 2017 Grant Gainey 2.7.74-1
+- 1005783 - I18N the 'NOT MAPPED' string of ISS
+- 1324737 - polish API description
+
 * Tue May 23 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.73-1
 - java devel package is needed even in runtime (on RHEL6)
 
