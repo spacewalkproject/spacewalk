@@ -5724,7 +5724,7 @@ public class SystemHandler extends BaseHandler {
      * @param loggedInUser the session key
      * @return List of systems that require reboot
      *
-     * @xmlrpc.doc list systems that require reboot
+     * @xmlrpc.doc List systems that require reboot.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype
      *      #array()
