@@ -54,7 +54,7 @@
       <c:choose>
         <c:when test="${current.packageChannels != null}">
           <c:forEach items="${current.packageChannels}" var="channel">
-            <c:out value="${channel}"/><br />
+            <c:out value="${channel.name}"/><br />
           </c:forEach>
         </c:when>
         <c:otherwise>

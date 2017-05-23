@@ -23,7 +23,9 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -76,7 +78,14 @@ public class ListPackagesAction extends RhnAction implements Listable {
     public List getResult(RequestContext context) {
         //Get the errata from the eid in the request
         Errata errata = context.lookupErratum();
-        return PackageManager.packagesInErrata(errata, null);
+        List<PackageOverview> vals =
+           PackageManager.packagesInErrata(errata, null);
+        for (PackageOverview dto : vals) {
+            DataResult providing =
+              PackageManager.providingChannels(context.getCurrentUser(), dto.getId());
+            dto.setPackageChannels(providing);
+        }
+        return vals;
     }
 
 }
