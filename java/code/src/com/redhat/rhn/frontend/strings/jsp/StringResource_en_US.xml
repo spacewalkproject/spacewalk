@@ -20576,6 +20576,9 @@ given channel.</source>
       <trans-unit id="credentials.jsp.url">
         <source>URL</source>
       </trans-unit>
+      <trans-unit id="iss.unmapped.org">
+        <source>MASTER ORG NOT MAPPED</source>
+      </trans-unit>
       <trans-unit id="iss.slave.name">
         <source>Slave Fully-Qualified Domain Name</source>
       </trans-unit>

@@ -51,6 +51,7 @@ public class EditMasterSetupAction extends RhnAction {
     private static final String MASTER = "master";
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
                     HttpServletRequest request, HttpServletResponse response) {
 
@@ -119,7 +120,9 @@ public class EditMasterSetupAction extends RhnAction {
         }
         Collections.sort(outList, new OrgComparator());
 
-        OrgDto noMap = createOrgDto(IssMasterOrg.NO_MAP_ID, "NOT MAPPED");
+        LocalizationService ls = LocalizationService.getInstance();
+        OrgDto noMap = createOrgDto(IssMasterOrg.NO_MAP_ID,
+                        ls.getMessage("iss.unmapped.org"));
         outList.add(0, noMap);
 
         return outList;
@@ -134,6 +137,7 @@ public class EditMasterSetupAction extends RhnAction {
  */
 class OrgComparator implements Comparator<OrgDto> {
 
+    @Override
     public int compare(OrgDto o1, OrgDto o2) {
         if (o1 == null || o2 == null) {
             throw new NullPointerException("Can't compare OrgDto with null");
@@ -149,6 +153,7 @@ class OrgComparator implements Comparator<OrgDto> {
      */
     class IssSyncOrgComparator implements Comparator<IssMasterOrg> {
 
+        @Override
         public int compare(IssMasterOrg so1, IssMasterOrg so2) {
             if (so1 == null || so2 == null) {
                 throw new NullPointerException("Can't compare IssSyncOrg with null");
