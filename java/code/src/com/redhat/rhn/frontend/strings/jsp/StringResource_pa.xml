@@ -21228,7 +21228,7 @@ given channel.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="help.jsp.about.managementsummary">
-        <source>The Management Module, which includes all the functionality of the Update Module, also gives you the ability to group your systems for easier maintenance, assign role-based permissions, schedule update actions, develop custom content channels (in conjunction with @@PRODUCT_NAME@@), and &lt;a href="http://www.redhat.com/rhn/rhndetails/management/" target="_blank"&gt;more&lt;/a&gt;.</source>
+        <source>The Management Module, which includes all the functionality of the Update Module, also gives you the ability to group your systems for easier maintenance, assign role-based permissions, schedule update actions, develop custom content channels (in conjunction with @@PRODUCT_NAME@@), and more.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/about</context>
         </context-group>
@@ -21240,7 +21240,7 @@ given channel.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="help.jsp.about.provisioningsummary">
-        <source>The Provisioning Module, which includes all the functionality of the Management Module, provides the ability to manage kickstarts, manage and deploy configuration files, create snapshots of your systems over time and roll your systems back to those snapshots, and &lt;a href="http://www.redhat.com/rhn/rhndetails/provisioning/" target="_blank"&gt;more&lt;/a&gt;.</source>
+        <source>The Provisioning Module, which includes all the functionality of the Management Module, provides the ability to manage kickstarts, manage and deploy configuration files, create snapshots of your systems over time and roll your systems back to those snapshots, and more.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/about</context>
         </context-group>
