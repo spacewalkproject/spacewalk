@@ -40,7 +40,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.106
+Version: 2.7.107
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Wed May 24 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.107-1
+- more pylint warning fixes
+
 * Wed May 24 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.106-1
 - fixed pylint warnings
 - hashlib is included in python since RHEL6
