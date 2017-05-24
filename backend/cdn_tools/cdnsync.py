@@ -771,7 +771,8 @@ class CdnSync(object):
         log(0, "Cleaning orphaned CDN repositories in DB.")
         self.cdn_repository_manager.cleanup_orphaned_repos()
 
-    def _get_cdn_certificate_keys_and_certs(self):
+    @staticmethod
+    def _get_cdn_certificate_keys_and_certs():
         h = rhnSQL.prepare("""
             SELECT ck.id, ck.description, ck.key
             FROM rhnCryptoKeyType ckt,
@@ -836,9 +837,10 @@ class CdnSync(object):
             found_valid_key = False
             for key in keys:
                 if not found_valid_key:
-                    if constants.CA_CERT_NAME == key['description'] or constants.CLIENT_CERT_PREFIX in key['description']:
+                    if (constants.CA_CERT_NAME == key['description']
+                            or constants.CLIENT_CERT_PREFIX in key['description']):
                         if verify_certificate_dates(str(key['key'])):
-                            found_valid_key = Ture
+                            found_valid_key = True
             if not found_valid_key:
                 error_messages.append("ERROR: Your %s has no valid SSL certificates for accessing CDN\n"
                                       "(to see details about currently used SSL certificates for accessing CDN:"
