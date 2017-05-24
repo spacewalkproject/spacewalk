@@ -57,8 +57,9 @@ public class ChannelDetailsAction extends RhnAction {
         long cid = ctx.getRequiredParam("cid");
         Channel chan = ChannelManager.lookupByIdAndUser(cid, user);
 
-        if (isSubmitted(form)) {
-            UserManager.verifyChannelAdmin(user, chan);
+        if (isSubmitted(form) && (
+                (chan.getOrg() == null && user.hasRole(RoleFactory.CHANNEL_ADMIN)) ||
+                    UserManager.verifyChannelAdmin(user, chan))) {
             String global = (String)form.get("global");
             chan.setGloballySubscribable((global != null) &&
                     ("all".equals(global)), user.getOrg());
