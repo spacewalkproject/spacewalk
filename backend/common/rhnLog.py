@@ -227,7 +227,7 @@ class rhnLog:
             module = ''
 
         msg = "%s%s.%s" % (self.log_info, module, tbStack[callid][2])
-        if len(args) > 0:
+        if args:
             msg = "%s%s" % (msg, repr(args))
         self.writeMessage(msg)
 

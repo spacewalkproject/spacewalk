@@ -208,7 +208,7 @@ class RHNOptions:
         self.__check()
         # display the configuration read from the file(s) and exit
         vals = list(self.__configs[self.__component].items())
-        vals.sort(lambda a, b: cmp(a[0], b[0]))
+        vals.sort(key=lambda a: a[0])
         for k, v in vals:
             if v is None:
                 v = ""

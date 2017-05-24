@@ -91,7 +91,7 @@ def parse_byteranges(byterange_header, file_size=None):
 
 def _str2int(val):
     val = val.strip()
-    if val is "":
+    if val == "":
         return None
 
     return int(val)
