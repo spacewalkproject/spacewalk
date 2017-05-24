@@ -10,11 +10,11 @@ Source0:	https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:	noarch
 
-%if 0%{?fedora} || 0%{?suse_version} >= 1320
+%if 0%{?suse_version} >= 1320
 Requires:	pylint > 1.1
 %else
-%if 0%{?rhel} > 6
-Requires:	pylint > 1.0
+%if 0%{?fedora} || 0%{?rhel} >= 7
+Requires:	pylint > 1.5
 %else
 Requires:	pylint < 1.0
 %endif
@@ -42,12 +42,10 @@ install -d -m 755 %{buildroot}/%{_bindir}
 install -p -m 755 spacewalk-pylint %{buildroot}/%{_bindir}/
 install -d -m 755 %{buildroot}/%{_sysconfdir}
 install -p -m 644 spacewalk-pylint.rc %{buildroot}/%{_sysconfdir}/
-%if 0%{?rhel}
+%if 0%{?rhel} && 0%{?rhel} < 7
 # new checks in pylint 1.1
 sed -i '/disable=/ s/,bad-whitespace,unpacking-non-sequence,superfluous-parens,cyclic-import//g;' \
         %{buildroot}%{_sysconfdir}/spacewalk-pylint.rc
-%endif
-%if 0%{?rhel} && 0%{?rhel} < 7
 # new checks in pylint 1.0
 sed -i '/disable=/ s/,C1001,W0121,useless-else-on-loop//g;' \
         %{buildroot}%{_sysconfdir}/spacewalk-pylint.rc
