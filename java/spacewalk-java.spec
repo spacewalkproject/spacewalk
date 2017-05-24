@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.75
+Version: 2.7.76
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,12 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed May 24 2017 Jan Dobes 2.7.76-1
+- 1441219 - channel admin should be able to set org user restrictions for null-
+  org channels
+- 1441219 - fixing exploit - user permission is not checked
+- 1446310 - remove not existing links
+
 * Tue May 23 2017 Grant Gainey 2.7.75-1
 - 1368438 - Teach ListPackagesAction and list.jsp about packageChannels
 
