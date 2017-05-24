@@ -2,13 +2,6 @@
 %global rhnconfigdefaults %{rhnroot}/config-defaults
 %global rhnconf %{_sysconfdir}/rhn
 
-%if 0%{?rhel}
-%global apacheconfd %{_sysconfdir}/httpd/conf.d
-%global apache_user apache
-%global apache_group apache
-%global apache_pkg httpd
-%endif
-
 %if 0%{?rhel} && 0%{?rhel} < 6
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 %endif
@@ -18,8 +11,11 @@
 %global python3rhnroot %{python3_sitelib}/spacewalk
 %endif
 
-%if 0%{?fedora}
+%if (0%{?fedora} && 0%{?fedora} < 26) || 0%{?rhel} >= 7
 %{!?pylint_check: %global pylint_check 1}
+%endif
+
+%if 0%{?fedora} || 0%{?rhel}
 %global apacheconfd %{_sysconfdir}/httpd/conf.d
 %global apache_user apache
 %global apache_group apache
