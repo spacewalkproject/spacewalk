@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	2.7.0
+Version:	2.7.1
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -70,6 +70,11 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed May 24 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.1-1
+- Fedora and EPEL7 contain pylint 1.5+
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Tue Aug 16 2016 Jan Dobes 2.6.2-1
 - redefined-variable-type check is broken in pylint-1.5.6-1.fc24.noarch
 
