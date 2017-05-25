@@ -124,7 +124,7 @@ class UploadClass:
         self.ca_chain = self.options.ca_chain
 
     def setProxy(self):
-        if self.options.proxy is None or self.options.proxy is '':
+        if self.options.proxy is None or self.options.proxy == '':
             self.proxy = None
         else:
             self.proxy = "http://%s" % self.options.proxy
@@ -200,29 +200,29 @@ class UploadClass:
             return listChannelSourceBySession(self.server,
                                               self.session.getSessionString(),
                                               self.channels)
-        else:
-            return listChannelSource(self.server,
-                                     self.username, self.password,
-                                     self.channels)
+
+        return listChannelSource(self.server,
+                                 self.username, self.password,
+                                 self.channels)
 
     def _listChannel(self):
         if self.use_session:
             if self.use_checksum_paths:
                 return listChannelChecksumBySession(self.server,
                                                     self.session.getSessionString(), self.channels)
-            else:
-                return listChannelBySession(self.server,
-                                            self.session.getSessionString(),
-                                            self.channels)
-        else:
-            if self.use_checksum_paths:
-                return listChannelChecksum(self.server,
-                                           self.username, self.password,
-                                           self.channels)
-            else:
-                return listChannel(self.server,
-                                   self.username, self.password,
-                                   self.channels)
+
+            return listChannelBySession(self.server,
+                                        self.session.getSessionString(),
+                                        self.channels)
+
+        if self.use_checksum_paths:
+            return listChannelChecksum(self.server,
+                                       self.username, self.password,
+                                       self.channels)
+
+        return listChannel(self.server,
+                           self.username, self.password,
+                           self.channels)
 
     def list(self):
         # set the URL
@@ -343,9 +343,9 @@ class UploadClass:
         if self.use_session:
             return listMissingSourcePackagesBySession(self.server,
                                                       self.session.getSessionString(), self.channels)
-        else:
-            return listMissingSourcePackages(self.server,
-                                             self.username, self.password, self.channels)
+
+        return listMissingSourcePackages(self.server,
+                                         self.username, self.password, self.channels)
 
     def get_missing_source_packages(self):
         localPackagesHash = {}
@@ -379,17 +379,17 @@ class UploadClass:
         if self.use_session:
             return call(self.server.packages.uploadSourcePackageInfoBySession,
                         self.session.getSessionString(), info)
-        else:
-            return call(self.server.packages.uploadSourcePackageInfo,
-                        self.username, self.password, info)
+
+        return call(self.server.packages.uploadSourcePackageInfo,
+                    self.username, self.password, info)
 
     def _uploadPackageInfo(self, info):
         if self.use_session:
             return call(self.server.packages.uploadPackageInfoBySession,
                         self.session.getSessionString(), info)
-        else:
-            return call(self.server.packages.uploadPackageInfo,
-                        self.username, self.password, info)
+
+        return call(self.server.packages.uploadPackageInfo,
+                    self.username, self.password, info)
 
     def uploadHeaders(self):
         # Set the forcing factor

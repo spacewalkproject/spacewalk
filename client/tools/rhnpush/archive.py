@@ -181,8 +181,8 @@ class ArchiveParser(object):
         f = self._find(filename)
         if f:
             return self.direct_read(f)
-        else:
-            return None
+
+        return None
 
     def direct_read(self, filename):
         """ Returns the contens of the file, file is relative path in archive.
