@@ -482,7 +482,7 @@ class RepoSync(object):
                 sync_error = -1
 
         # In strict mode unlink all packages from channel which are not synced from current repositories
-        if self.strict:
+        if self.strict and sync_error == 0:
             channel_packages = rhnSQL.fetchall_dict("""
                 select p.id, ct.label as checksum_type, c.checksum
                 from rhnChannelPackage cp,
