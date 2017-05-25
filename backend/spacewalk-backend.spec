@@ -36,7 +36,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.108
+Version: 2.7.109
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -792,6 +792,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu May 25 2017 Jan Dobes 2.7.109-1
+- 1455433 - don't trim channel content if there is major sync error in any
+  repository
+
 * Wed May 24 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.108-1
 - disable pylint on Fedora 26 because it's python3
 - 1348575 - rhn-charsets is meant to be run only under root user
