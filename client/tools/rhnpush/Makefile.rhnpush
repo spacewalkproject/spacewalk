@@ -8,7 +8,7 @@ INSTALL_DATA    = $(INSTALL) -m 644
 
 SUBDIR		= rhnpush
 FILES		= rhnpush_main rhnpush_v2 uploadLib __init__ connection \
-              rpm2mpm solaris2mpm utils rhnpush_cache \
+              rpm2mpm utils rhnpush_cache \
 			  rhnpush_config rhnpush_confmanager archive
 
 RHN_CONF_DIR    = /etc/sysconfig/rhn
@@ -42,7 +42,7 @@ rhnpush.inst : rhnpush rhnpush.new
 	@ln -sfv rhnpush $(PREFIX)$(BINDIR)/$*
 
 all	: $(MANS) $(OBJECTS)
-install : all rhnpush.inst solaris2mpm.inst rpm2mpm.inst install-conf
+install : all rhnpush.inst rpm2mpm.inst install-conf
 	$(INSTALL_DIR) $(PREFIX)$(MANDIR)/man8
 	$(INSTALL_DATA) $(MANS) $(PREFIX)$(MANDIR)/man8
 
