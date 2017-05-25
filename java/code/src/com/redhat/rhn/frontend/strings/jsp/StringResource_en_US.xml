@@ -19821,7 +19821,7 @@ given channel.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="extauth.sg.message">
-        <source>When creating new users, a default System Group may be created for every single user, that would have the same name as the user. This is usefull, when different users shall administer different groups of systems within one organization.</source>
+        <source>When creating new users, a default System Group may be created for every single user, that would have the same name as the user. This is useful, when different users shall administer different groups of systems within one organization.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/SystemGroupConfig.do</context>
         </context-group>
