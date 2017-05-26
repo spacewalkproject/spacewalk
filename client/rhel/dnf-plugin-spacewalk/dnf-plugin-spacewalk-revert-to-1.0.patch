@@ -37,3 +37,22 @@ index ee8e08e..269f94f 100644
          # dnf stuff
          self.name = ustr(channel['name'])
          self.baseurl = [ url + '/GET-REQ/' + self.id for url in channel['url']]
+diff --git a/client/rhel/dnf-plugin-spacewalk/actions/packages.py b/client/rhel/dnf-plugin-spacewalk/actions/packages.py
+index 86ab72b..5516d1c 100644
+--- a/client/rhel/dnf-plugin-spacewalk/actions/packages.py
++++ b/client/rhel/dnf-plugin-spacewalk/actions/packages.py
+@@ -271,8 +271,12 @@ def _dnf_base(load_system_repo=True, load_available_repos=True):
+     # initialize dnf
+     base = dnf.Base()
+ 
+-    if not base.plugins.plugins:
+-        base.init_plugins()
++    # this is actually workaround for RhBug:1218071
++    if not base.plugins.plugins and base.conf.plugins:
++        base.plugins.load(base.conf.pluginpath, [])
++        base.plugins.run_init(base)
++        plugin = [p for p in base.plugins.plugins if p.name == 'spacewalk'][0]
++        plugin.activate_channels()
+     if load_available_repos:
+         base.read_all_repos()
+     base.fill_sack(load_system_repo=True, load_available_repos=True)

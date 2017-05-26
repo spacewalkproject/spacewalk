@@ -271,12 +271,8 @@ def _dnf_base(load_system_repo=True, load_available_repos=True):
     # initialize dnf
     base = dnf.Base()
 
-    # this is actually workaround for RhBug:1218071
-    if not base.plugins.plugins and base.conf.plugins:
-        base.plugins.load(base.conf.pluginpath, [])
-        base.plugins.run_init(base)
-        plugin = [p for p in base.plugins.plugins if p.name == 'spacewalk'][0]
-        plugin.activate_channels()
+    if not base.plugins.plugins:
+        base.init_plugins()
     if load_available_repos:
         base.read_all_repos()
     base.fill_sack(load_system_repo=True, load_available_repos=True)
