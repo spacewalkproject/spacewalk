@@ -36,7 +36,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.109
+Version: 2.7.110
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -792,6 +792,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Fri May 26 2017 Jan Dobes 2.7.110-1
+- 1455795 - move to different file to not conflict with web.default_mail_from
+  in Java code
+
 * Thu May 25 2017 Jan Dobes 2.7.109-1
 - 1455433 - don't trim channel content if there is major sync error in any
   repository
