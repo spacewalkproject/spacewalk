@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.7.4
+Version: 2.7.5
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -71,6 +71,11 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %{_datadir}/rhn/actions/*
 
 %changelog
+* Fri May 26 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.5-1
+- 1308493 - fixed plugin initialization in dnf 2.X
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Fri Feb 17 2017 Jan Dobes 2.7.4-1
 - fix bz1422518 - request failed: error reading the headers (CVE-2016-8743)
 
