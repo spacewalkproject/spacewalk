@@ -161,13 +161,17 @@ if [[ $INTERACTIVE == 0 && -z $ANSWER_FILE ]]; then
     exit 1
 fi
 
-if [[ $INTERACTIVE == 0 \
-    && ( -z $POPULATE_CONFIG_CHANNEL || $( yes_no $POPULATE_CONFIG_CHANNEL ) == 1 ) \
-    && ( -z  $RHN_USER || -z $RHN_PASSWORD ) ]]; then
+
+if [[ $INTERACTIVE == 0 ]]; then
+    if [[ -z $POPULATE_CONFIG_CHANNEL ]]; then
+        # if POPULATE_CONFIG_CHANNEL is not defined set its value to 'N'
+        # because default value for this variable is 'Y'
+        POPULATE_CONFIG_CHANNEL='N'
+    elif [[ $(yes_no $POPULATE_CONFIG_CHANNEL) == 1 && ( -z  $RHN_USER || -z $RHN_PASSWORD ) ]]; then
         echo "Error: When --populate-config-channel is set to Yes both --rhn-user and --rhn-password have to be provided."
         exit 1
+    fi
 fi
-
 ACCUMULATED_ANSWERS=""
 
 generate_answers() {
