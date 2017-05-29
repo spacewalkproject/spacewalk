@@ -6,7 +6,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.7.2
+Version: 2.7.3
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -100,6 +100,12 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Mon May 29 2017 Gennadii Altukhov <grinrag@gmail.com> 2.7.3-1
+- 1390665 - disable config channel population by default in non-interactive
+  mode
+- add some small pep8 fixes for proxy code
+- wrong-import-position is not present in pylint on Fedora 23
+
 * Wed Mar 15 2017 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.2-1
 - Fixing wrong-import-position (C0413) for proxy_installer
 - 1188508 - fix typos
