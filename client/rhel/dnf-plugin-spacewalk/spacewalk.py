@@ -28,6 +28,7 @@ import librepo
 import os
 import sys
 from copy import copy
+from dnf.conf.config import PRIO_PLUGINCONFIG
 
 # up2date libs are in non-standard path
 sys.path.append("/usr/share/rhn/")
@@ -69,7 +70,7 @@ class Spacewalk(dnf.Plugin):
         if "main" in self.parser.sections():
             options = self.parser.items("main")
             for (key, value) in options:
-                setattr(self.conf, key, value)
+                self.conf._set_value(key, value, PRIO_PLUGINCONFIG)
         if not self.conf.enabled:
             return
         logger.debug('initialized Spacewalk plugin')
@@ -141,7 +142,7 @@ class Spacewalk(dnf.Plugin):
             if channel_id in self.parser.sections():
                 options = self.parser.items(channel_id)
                 for (key, value) in options:
-                    setattr(conf, key, value)
+                    conf._set_value(key, value, PRIO_PLUGINCONFIG)
             repo = SpacewalkRepo(channel_dict, {
                                     'conf'      : self.base.conf,
                                     'proxy'     : proxy_url,
