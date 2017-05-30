@@ -7759,7 +7759,7 @@ Please note that some manual configuration of these scripts may still be require
         <source>Default Distribution Channel Mappings cannot be deleted.</source>
       </trans-unit>
       <trans-unit id="distchannelmap.jsp.summary">
-        <source>Distribution channel mappings define default base channels where servers land according to its OS and architecture by registration. Default distribution channel mappings may be overriden, but not deleted.</source>
+        <source>Distribution channel mappings are defined as default base channels that clients pick up according to their OS and architecture at registration time. These mappings may be overriden, but not deleted.</source>
       </trans-unit>
       <trans-unit id="distchannelmap.jsp.edit.summary">
         <source>Organization specific Distribution Channel Mappings may be edited here. Default Distribution Channel Mappings cannot be edited. They can only be overriden within every organization.</source>
