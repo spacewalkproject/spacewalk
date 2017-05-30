@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.7.6
+Version: 2.7.7
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -71,6 +71,9 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %{_datadir}/rhn/actions/*
 
 %changelog
+* Tue May 30 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.7-1
+- 1236609 - update to dnf's new config module
+
 * Fri May 26 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.6-1
 - 1308493 - actually fix duplicated channel even for dnf 1.X
 
