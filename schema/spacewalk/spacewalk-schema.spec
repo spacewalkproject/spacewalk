@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.7.23
+Version:        2.7.24
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed May 31 2017 Grant Gainey 2.7.24-1
+- 1381857 - Correct overly-broad comparison in the fixup-functions
+  Set ORA back to INDEX from CONSTRAINT - consistency is important...
+
 * Thu May 11 2017 Grant Gainey 2.7.23-1
 - 1381857 - add empty .oracle to make schema-upgrade happy
 
