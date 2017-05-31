@@ -438,6 +438,7 @@ public class PackageFactory extends HibernateFactory {
         params.put("evr", pack.getPackageEvr());
         params.put("name", pack.getPackageName());
         params.put("arch", pack.getPackageArch());
+        params.put("org", pack.getOrg());
 
         return singleton.listObjectsByNamedQuery("Package.findOtherArches", params);
     }
