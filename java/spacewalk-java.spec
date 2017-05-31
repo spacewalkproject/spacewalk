@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.76
+Version: 2.7.77
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed May 31 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.77-1
+- 1444047 - display alternative archs only from the same org
+- Update system group details page
+
 * Wed May 24 2017 Jan Dobes 2.7.76-1
 - 1441219 - channel admin should be able to set org user restrictions for null-
   org channels
