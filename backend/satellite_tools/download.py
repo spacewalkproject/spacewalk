@@ -126,9 +126,10 @@ class FailedDownloadError(Exception):
 
 
 class DownloadThread(Thread):
-    def __init__(self, parent):
+    def __init__(self, parent, queue):
         Thread.__init__(self)
         self.parent = parent
+        self.queue = queue
         # pylint: disable=E1101
         self.curl = pycurl.Curl()
         self.mirror = 0
@@ -218,9 +219,9 @@ class DownloadThread(Thread):
         return True
 
     def run(self):
-        while not self.parent.queue.empty() and self.parent.can_continue():
+        while not self.queue.empty() and self.parent.can_continue():
             try:
-                params = self.parent.queue.get(block=False)
+                params = self.queue.get(block=False)
             except Empty:
                 break
             self.mirror = 0
@@ -228,12 +229,12 @@ class DownloadThread(Thread):
             if self.parent.log_obj:
                 # log_obj must be thread-safe
                 self.parent.log_obj.log(success, os.path.basename(params['relative_path']))
-            self.parent.queue.task_done()
+            self.queue.task_done()
 
 
 class ThreadedDownloader:
     def __init__(self, retries=3, log_obj=None, force=False):
-        self.queue = Queue()
+        self.queues = {}
         initCFG('server.satellite')
         try:
             self.threads = int(CFG.REPOSYNC_DOWNLOAD_THREADS)
@@ -254,7 +255,8 @@ class ThreadedDownloader:
         self.force = force
 
     @staticmethod
-    def _validate(ssl_ca_cert, ssl_cert, ssl_key):
+    def _validate(ssl_set):
+        ssl_ca_cert, ssl_cert, ssl_key = ssl_set
         for certificate_file in (ssl_ca_cert, ssl_cert, ssl_key):
             if certificate_file and not os.path.isfile(certificate_file):
                 log2(0, 0, "ERROR: Certificate file not found: %s" % certificate_file, stream=sys.stderr)
@@ -262,30 +264,40 @@ class ThreadedDownloader:
         return True
 
     def add(self, params):
-        if self._validate(params['ssl_ca_cert'], params['ssl_client_cert'], params['ssl_client_key']):
-            self.queue.put(params)
+        ssl_set = (params['ssl_ca_cert'], params['ssl_client_cert'], params['ssl_client_key'])
+        if self._validate(ssl_set):
+            if ssl_set not in self.queues:
+                self.queues[ssl_set] = Queue()
+            queue = self.queues[ssl_set]
+            queue.put(params)
 
     def run(self):
-        size = self.queue.qsize()
+        size = 0
+        for queue in self.queues.values():
+            size += queue.qsize()
         if size <= 0:
             return
-        log(1, "Downloading %s files." % str(size))
-        started_threads = []
-        for _ in range(self.threads):
-            thread = DownloadThread(self)
-            thread.setDaemon(True)
-            thread.start()
-            started_threads.append(thread)
+        log(1, "Downloading total %d files from %d queues." % (size, len(self.queues)))
 
-        # wait to finish
-        try:
-            while any(t.isAlive() for t in started_threads):
-                time.sleep(1)
-        except KeyboardInterrupt:
-            e = sys.exc_info()[1]
-            self.fail_download(e)
-            while any(t.isAlive() for t in started_threads):
-                time.sleep(1)
+        for index, queue in enumerate(self.queues.values()):
+            log(2, "Downloading %d files from queue #%d." % (queue.qsize(), index))
+            started_threads = []
+            for _ in range(self.threads):
+                thread = DownloadThread(self, queue)
+                thread.setDaemon(True)
+                thread.start()
+                started_threads.append(thread)
+
+            # wait to finish
+            try:
+                while any(t.isAlive() for t in started_threads):
+                    time.sleep(1)
+            except KeyboardInterrupt:
+                e = sys.exc_info()[1]
+                self.fail_download(e)
+                while any(t.isAlive() for t in started_threads):
+                    time.sleep(1)
+                break
 
         # raise first detected exception if any
         if self.exception:
