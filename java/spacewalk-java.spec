@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.77
+Version: 2.7.78
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Jun 01 2017 Michael Calmer <mc@suse.de>
+- PR 519 - make country, state/province and city searchable for system location
+
 * Wed May 31 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.77-1
 - 1444047 - display alternative archs only from the same org
 - Update system group details page
