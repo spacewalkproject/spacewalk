@@ -1,6 +1,6 @@
 Name:       perl-Term-Completion 
 Version:    1.00
-Release:    9%{?dist}.1
+Release:    9%{?dist}.2
 License:    GPL+ or Artistic 
 Group:      Development/Libraries
 Summary:    Read one line of user input, with convenience functions 
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jun 02 2017 Tomas Kasparek <tkasparek@redhat.com> 1.00-9.2
+- 1440818 - handle spaces at the end of input in more mannered way
+
 * Tue Apr 11 2017 Tomas Kasparek <tkasparek@redhat.com> 1.00-9.1
 - new package built with tito
 
