@@ -103,8 +103,9 @@ def get_proxies(proxy, user, password):
 
 
 class PyCurlFileObjectThread(PyCurlFileObject):
-    def __init__(self, url, filename, opts, curl_cache):
+    def __init__(self, url, filename, opts, curl_cache, parent):
         self.curl_cache = curl_cache
+        self.parent = parent
         PyCurlFileObject.__init__(self, url, filename, opts)
 
     def _do_open(self):
@@ -113,6 +114,20 @@ class PyCurlFileObjectThread(PyCurlFileObject):
         self._set_opts()
         self._do_grab()
         return self.fo
+
+    def _do_perform(self):
+        # WORKAROUND - BZ #1439758 - ensure first item in queue is performed alone to properly setup NSS
+        if not self.parent.first_in_queue_done:
+            self.parent.first_in_queue_lock.acquire()
+            # If some other thread was faster, no need to block anymore
+            if self.parent.first_in_queue_done:
+                self.parent.first_in_queue_lock.release()
+        try:
+            PyCurlFileObject._do_perform(self)
+        finally:
+            if not self.parent.first_in_queue_done:
+                self.parent.first_in_queue_done = True
+                self.parent.first_in_queue_lock.release()
 
     def _set_opts(self, opts=None):
         if not opts:
@@ -191,7 +206,7 @@ class DownloadThread(Thread):
             url = urlparse.urljoin(params['urls'][self.mirror], params['relative_path'])
             try:
                 try:
-                    fo = PyCurlFileObjectThread(url, params['target_file'], opts, self.curl)
+                    fo = PyCurlFileObjectThread(url, params['target_file'], opts, self.curl, self.parent)
                     # Check target file
                     if not self.__is_file_done(file_obj=fo, checksum_type=params['checksum_type'],
                                                checksum=params['checksum']):
@@ -247,6 +262,9 @@ class ThreadedDownloader:
         self.force = force
         self.lock = Lock()
         self.exception = None
+        # WORKAROUND - BZ #1439758 - ensure first item in queue is performed alone to properly setup NSS
+        self.first_in_queue_done = False
+        self.first_in_queue_lock = Lock()
 
     def set_log_obj(self, log_obj):
         self.log_obj = log_obj
@@ -281,6 +299,7 @@ class ThreadedDownloader:
 
         for index, queue in enumerate(self.queues.values()):
             log(2, "Downloading %d files from queue #%d." % (queue.qsize(), index))
+            self.first_in_queue_done = False
             started_threads = []
             for _ in range(self.threads):
                 thread = DownloadThread(self, queue)
