@@ -23,6 +23,8 @@ BuildRequires: perl(Term::Size)
 BuildRequires: perl(Test::More)
 BuildRequires: perl(warnings)
 
+Patch0:    space-handling.patch
+
 %{?perl_default_filter}
 
 %description
@@ -34,6 +36,7 @@ of input, submitting the answer by pressing the ENTER key.
 
 %prep
 %setup -q -n Term-Completion-%{version}
+%patch0 -p1
 find . -type f -exec chmod -c -x {} \;
 perl -pi -e 's|^#!/opt/perl_5.8.8/bin/perl|#!%{__perl}|' devel/tget.pl
 for file in README Changes devel/*; do
