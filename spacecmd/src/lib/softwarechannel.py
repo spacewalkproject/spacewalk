@@ -1814,7 +1814,8 @@ def help_softwarechannel_sync(self):
     print 'softwarechannel_sync: '
     print 'sync the packages of two software channels'
     print ''
-    print 'usage: softwarechannel_sync SOURCE_CHANNEL TARGET_CHANNEL'
+    print '''usage: softwarechannel_sync SOURCE_CHANNEL TARGET_CHANNEL [options]
+    -q,--quiet : quiet mode (omits the output of common packages in both channels)'''
 
 
 def complete_softwarechannel_sync(self, text, line, beg, end):
@@ -1831,7 +1832,7 @@ def complete_softwarechannel_sync(self, text, line, beg, end):
 
 
 def do_softwarechannel_sync(self, args):
-    options = []
+    options = [Option('-q', '--quiet', action='store_true')]
 
     (args, options) = parse_arguments(args, options)
 
@@ -1882,11 +1883,13 @@ def do_softwarechannel_sync(self, args):
         except KeyError:
             logging.error("failed to read key id")
             continue
-
-    print "packages common in both channels:"
-    for i in (source_ids & target_ids):
-        print self.get_package_name(i)
-    print
+    if not options.quiet:
+        print "packages common in both channels:"
+        for i in (source_ids & target_ids):
+            print self.get_package_name(i)
+        print
+    else:
+        logging.info("Omitting common packages in both specified channels")
 
     # check for packages only in the source channel
     source_only = source_ids.difference(target_ids)
