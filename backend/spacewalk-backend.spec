@@ -36,7 +36,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.110
+Version: 2.7.111
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -792,6 +792,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Mon Jun 05 2017 Jan Dobes 2.7.111-1
+- 1439758 - close Curl handle
+- 1439758 - workaround - make sure first item from queue is performed alone to
+  prevent multi-threading NSS error
+- 1439758 - split single download queue into multiple download queues based on
+  SSL certificates
+
 * Fri May 26 2017 Jan Dobes 2.7.110-1
 - 1455795 - move to different file to not conflict with web.default_mail_from
   in Java code
