@@ -14,7 +14,11 @@ BuildArch:	noarch
 Requires:	pylint > 1.1
 %else
 %if 0%{?fedora} || 0%{?rhel} >= 7
+%if 0%{?fedora} >= 26
+Requires:	python2-pylint > 1.5
+%else
 Requires:	pylint > 1.5
+%endif
 %else
 Requires:	pylint < 1.0
 %endif
