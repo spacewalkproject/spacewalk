@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.7.10
+Version:     2.7.11
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -92,6 +92,11 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Jun 05 2017 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.11-1
+- 1367562 - show less output of common packages in selected channels
+- Revert "1367562 - spacecmd: Added output to logging.debug from
+  softwarechannel_sync func"
+
 * Fri Apr 21 2017 Jan Dobes 2.7.10-1
 - 1414454 - work with list of manageable channels in org-access actions
 - 1414454 - adding softwarechannel_listmanageablechannels
