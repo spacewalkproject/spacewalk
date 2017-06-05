@@ -245,6 +245,7 @@ class DownloadThread(Thread):
                 # log_obj must be thread-safe
                 self.parent.log_obj.log(success, os.path.basename(params['relative_path']))
             self.queue.task_done()
+        self.curl.close()
 
 
 class ThreadedDownloader:
