@@ -20,7 +20,6 @@ import com.redhat.rhn.testing.TestUtils;
 
 /**
  * SourceRpmTest
- * @version $Rev$
  */
 public class SourceRpmTest extends RhnBaseTestCase {
 
