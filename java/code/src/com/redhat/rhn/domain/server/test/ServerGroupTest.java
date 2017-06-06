@@ -61,10 +61,7 @@ public class ServerGroupTest extends RhnBaseTestCase {
         }
     }
 
-    public static ServerGroup createTestServerGroup(Org org,
-                                            ServerGroupType typeIn)
-        throws Exception {
-
+    public static ServerGroup createTestServerGroup(Org org, ServerGroupType typeIn) {
         if (typeIn != null) {
             EntitlementServerGroup existingGroup =
                         ServerGroupFactory.lookupEntitled(org, typeIn);
