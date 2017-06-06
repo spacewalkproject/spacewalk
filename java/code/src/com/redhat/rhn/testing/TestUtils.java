@@ -237,9 +237,8 @@ public class TestUtils {
      * @param queryname Queryname for the query you want to run.
      *        queryname *MUST* have an :id attribute in it.
      * @return Returns the object corresponding to id
-     * @throws Exception exception
      */
-    public static Object lookupFromCacheById(Long id, String queryname) throws Exception {
+    public static Object lookupFromCacheById(Long id, String queryname) {
         Session session = HibernateFactory.getSession();
         return session.getNamedQuery(queryname)
                         .setLong("id", id)

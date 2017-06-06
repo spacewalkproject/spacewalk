@@ -28,9 +28,8 @@ public class PackageGroupTest extends RhnBaseTestCase {
     /**
      * Simple test to make sure we can create PackageGroups
      * and write them to the db.
-     * @throws Exception
      */
-    public void testPackageGroup() throws Exception {
+    public void testPackageGroup() {
         PackageGroup p = createTestPackageGroup();
         assertNotNull(p);
         //make sure we got committed to the db.
@@ -40,9 +39,8 @@ public class PackageGroupTest extends RhnBaseTestCase {
     /**
      * Create a test PackageGroup
      * @return Returns a commited PackageGroup object
-     * @throws Exception
      */
-    public static PackageGroup createTestPackageGroup() throws Exception {
+    public static PackageGroup createTestPackageGroup() {
         String name = TestUtils.randomString();
 
         PackageGroup p = new PackageGroup();
