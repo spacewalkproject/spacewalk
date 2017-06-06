@@ -33,8 +33,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Tests for ActionChainEditActionTest.
- * @author Silvio Moioli <smoioli@suse.de>
+ * Tests for {@link ActionChainEditAction}.
  */
 public class ActionChainEditActionTest extends RhnPostMockStrutsTestCase {
 
