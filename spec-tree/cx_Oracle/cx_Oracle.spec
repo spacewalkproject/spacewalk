@@ -17,9 +17,9 @@
 
 Summary: Python interface to Oracle
 Name: cx_Oracle
-Version: 5.1.2
-Release: 5%{?dist}
-Source0: %{name}-%{version}.tar.gz
+Version: 5.3
+Release: 0%{?dist}
+Source0: https://github.com/oracle/python-%{name}/archive/%{version}.tar.gz#/python-%{name}-%{version}.tar.gz
 License: Python Software Foundation License
 Group: Development/Libraries
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -36,7 +36,7 @@ Python interface to Oracle conforming to the Python DB API 2.0 specification.
 See http://www.python.org/topics/database/DatabaseAPI-2.0.html.
 
 %prep
-%setup
+%setup -n python-%{name}-%{version}
 
 #kinda ugly but we need ORACLE_HOME to be set
 %if "%{_lib}" == "lib64"
@@ -57,7 +57,7 @@ export ORACLE_HOME=%{oracle_home}
 rm -rf $RPM_BUILD_ROOT
 
 %files -f INSTALLED_FILES
-%doc LICENSE.txt README.txt BUILD.txt HISTORY.txt html samples test
+%doc LICENSE.txt README.txt BUILD.txt samples test
 
 %changelog
 * Thu Jan 29 2015 Tomas Lestach <tlestach@redhat.com> 5.1.2-5
