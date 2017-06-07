@@ -18,7 +18,7 @@
 Summary: Python interface to Oracle
 Name: cx_Oracle
 Version: 5.3
-Release: 0%{?dist}
+Release: 1%{?dist}
 Source0: https://github.com/oracle/python-%{name}/archive/%{version}.tar.gz#/python-%{name}-%{version}.tar.gz
 License: Python Software Foundation License
 Group: Development/Libraries
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE.txt README.txt BUILD.txt samples test
 
 %changelog
+* Wed Jun 07 2017 Michael Mraka <michael.mraka@redhat.com> 5.3-1
+- rebased to latest stable version
+
 * Thu Jan 29 2015 Tomas Lestach <tlestach@redhat.com> 5.1.2-5
 - we need to use the exact oracle instantclient version
 
