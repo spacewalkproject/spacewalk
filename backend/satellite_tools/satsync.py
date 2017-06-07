@@ -2093,8 +2093,6 @@ def processCommandline():
                help=_('e-mail a report of what was synced/imported')),
         Option('--force-all-errata',    action='store_true',
                help=_('forcibly process all (not a diff of) errata metadata')),
-        Option('--force-all-packages',  action='store_true',
-               help=_('forcibly process all (not a diff of) package metadata')),
         Option('--http-proxy',          action='store',
                help=_('alternative http proxy (hostname:port)')),
         Option('--http-proxy-username', action='store',
@@ -2293,7 +2291,6 @@ def processCommandline():
                     #"no_source_packages" : 'no-source-packages',
                     "no_errata": 'no-errata',
                     "no_kickstarts": 'no-kickstarts',
-                    "force_all_packages": 'force-all-packages',
                     "force_all_errata": 'force-all-errata',
                     'no_ssl': 'no-ssl'}
 

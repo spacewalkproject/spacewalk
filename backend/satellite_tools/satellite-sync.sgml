@@ -45,7 +45,7 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
         <arg>--no-rpms</arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>--no-packages</arg> <arg>--force-all-packages</arg>
+        <arg>--no-packages</arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--no-ssl</arg>
@@ -312,13 +312,6 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
             <para>the fully qualified domain name of the master Satellite. Valid with
             --mount-point only. Required if you want to import org data and channel
             permissions.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--force-all-packages</term>
-        <listitem>
-            <simpara>forcibly process full package metadata regardless of diff results.</simpara>
-            <simpara>This option will automatically enable --step rpms.</simpara>
         </listitem>
     </varlistentry>
     <varlistentry>
