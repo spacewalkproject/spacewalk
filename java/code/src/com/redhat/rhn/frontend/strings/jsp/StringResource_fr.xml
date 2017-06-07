@@ -5224,12 +5224,12 @@ que celle par défaut, ces droits d'accès seront déduits de l'organisation
           <target>Identifiant utilisé pour spécifier ce système sur le serveur de gestion de l'alimentation. Celui-ci est optionnel car tous les types de gestion d'alimentation n'auront pas besoin de ce champ. Ce champ peut aussi être utilisé pour passer des options supplémentaires à « l'agent fence ». Par exemple, si vous utilisez un serveur IPMI qui requiert le protocole Lanplus (et que l'identifiant de ce système était « System »), vous pourriez alors définir un identifiant système de « -P System » pour ordonner à fence_ipmilan d'utiliser le protocole Lanplus pour ce système. Veuillez consulter la documentation de l'agent fence pour connaître des options supplémentaires.</target>
         </trans-unit>
         <trans-unit id="provisioning.powermanagement.security_warning">
-          <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
+          <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://cobbler.github.io/manuals/2.4.0/5/6_-_Power_Management.html"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
             <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
           </context-group>
-          <target>&lt;strong&gt;AVERTISSEMENT DE SÉCURITÉ :&lt;/strong&gt; Les informations enregistrées sur cette page sont disponibles à tout le monde sur le réseau. Veuillez consulter la &lt;a href=&quot;https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications&quot;&gt;documentation cobbler&lt;/a&gt; pour obtenir des informations supplémentaires et pour les stratégies de mitigation.</target>
+          <target>&lt;strong&gt;AVERTISSEMENT DE SÉCURITÉ :&lt;/strong&gt; Les informations enregistrées sur cette page sont disponibles à tout le monde sur le réseau. Veuillez consulter la &lt;a href=&quot;https://cobbler.github.io/manuals/2.4.0/5/6_-_Power_Management.html&quot;&gt;documentation cobbler&lt;/a&gt; pour obtenir des informations supplémentaires et pour les stratégies de mitigation.</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>

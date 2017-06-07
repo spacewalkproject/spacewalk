@@ -5224,12 +5224,12 @@ presi dall'organizzazione predefinita.</target>
           <target>L'identificatore usato per specificare questo sistema sul server di gestione dell'alimentazione. Opzionale poichè non tutte le gestioni hanno bisogno di questo campo. Usare questo campo anche per passare le opzioni aggiuntive al &quot;fence agent&quot;. Per esempio, se utilizzate un server IPMI che necessita di un protocollo Lanplus (e l'identificatore del sistema è &quot;System&quot;), allora impostare l'identificatore del sistema su &quot;-P System&quot; per indicare a fence_ipmilan di utilizzare il protocollo Lanplus per questo sistema. Per opzioni aggiuntive consultare la documentazione del fence agent.</target>
         </trans-unit>
         <trans-unit id="provisioning.powermanagement.security_warning">
-          <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
+          <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://cobbler.github.io/manuals/2.4.0/5/6_-_Power_Management.html"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
             <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
           </context-group>
-          <target>&lt;strong&gt;AVVISO SULLA SICUREZZA:&lt;/strong&gt; Le informazioni salvate su questa pagina sono disponibili ad ogni utente presente sulla rete. Consultare la &lt;a href=&quot;https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications&quot;&gt;documentazione di cobbler&lt;/a&gt; per maggiori informazioni sulle strategie per la migrazione.</target>
+          <target>&lt;strong&gt;AVVISO SULLA SICUREZZA:&lt;/strong&gt; Le informazioni salvate su questa pagina sono disponibili ad ogni utente presente sulla rete. Consultare la &lt;a href=&quot;https://cobbler.github.io/manuals/2.4.0/5/6_-_Power_Management.html&quot;&gt;documentazione di cobbler&lt;/a&gt; per maggiori informazioni sulle strategie per la migrazione.</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>

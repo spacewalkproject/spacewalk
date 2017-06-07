@@ -15,7 +15,7 @@ Summary:        SELinux policy module supporting Spacewalk Proxy
 Group:          System Environment/Base
 License:        GPLv2+
 # This src.rpm is cannonical upstream. You can obtain it using
-#      git clone git://git.fedorahosted.org/git/spacewalk.git/
+#      git clone https://github.com/spacewalkproject/spacewalk.git
 # cd spacewalk
 # make srpm TAG=%{name}-%{version}-%{release}
 URL:            https://github.com/spacewalkproject/spacewalk

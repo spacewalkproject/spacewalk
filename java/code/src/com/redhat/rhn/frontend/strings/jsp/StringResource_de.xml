@@ -5224,12 +5224,12 @@ nicht standardmäßigen Organisation hinzufügen, werden diese von der Standard-
           <target>Der zur Festlegung dieses Systems am Energieverwaltungsserver verwendete Bezeichner. Optional, da nicht alle Energieverwaltungstypen dieses Feld benötigen. Dieses Feld kann auch zum Hinzufügen zusätzlicher Optionen zum &quot;Fence Agent&quot; verwendet werden. Wenn Sie zum Beispiel einen IPMI-Server verwenden, der das Lanplus-Protokoll erfordert (und der Bezeichner dieses Systems war &quot;System&quot;), so können Sie einen Systembezeichner &quot;-P System&quot; einstellen, um fence_ipmilan zur Verwendung des Lanplus-Protokolls für dieses System anzuweisen. Weitere Optionen finden Sie in der Dokumentation zum Fence Agent.</target>
         </trans-unit>
         <trans-unit id="provisioning.powermanagement.security_warning">
-          <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
+          <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://cobbler.github.io/manuals/2.4.0/5/6_-_Power_Management.html"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
             <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
           </context-group>
-          <target>&lt;strong&gt;SICHERHEITSWARNUNG:&lt;/strong&gt; Auf dieser Seite gespeicherte Informationen sind allen im Netzwerk zugänglich. In der &lt;a href=&quot;https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications&quot;&gt;Cobbler Dokumentation&lt;/a&gt; finden Sie weitere Informationen und Strategien zur Schadensminimierung.</target>
+          <target>&lt;strong&gt;SICHERHEITSWARNUNG:&lt;/strong&gt; Auf dieser Seite gespeicherte Informationen sind allen im Netzwerk zugänglich. In der &lt;a href=&quot;https://cobbler.github.io/manuals/2.4.0/5/6_-_Power_Management.html&quot;&gt;Cobbler Dokumentation&lt;/a&gt; finden Sie weitere Informationen und Strategien zur Schadensminimierung.</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>

@@ -5220,12 +5220,12 @@ organization. You may grant or remove the organization administrator role in the
           <target>用來在電源管理伺服器上指定這部系統的識別碼。這是選用性的，因為並非所有電源管理類型都需要此欄位。此欄位也能被使用來傳送額外選項至「隔離代理程式（fence agent）」。比方說，若您要使用一個需要 Lanplus 協定的 IPMI 伺服器（並且這部系統的識別碼為「System」）那麼您可設置一項「-P System」系統識別碼以指示 fence_ipmilan 為這部系統使用 Lanplus 協定。欲檢視額外選項請查看隔離代理程式的相關文件。</target>
         </trans-unit>
         <trans-unit id="provisioning.powermanagement.security_warning">
-          <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
+          <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://cobbler.github.io/manuals/2.4.0/5/6_-_Power_Management.html"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
             <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
           </context-group>
-          <target>&lt;strong&gt;安全性警告：&lt;/strong&gt; 儲存在這個網頁上的資訊能被網路上的所有人看見。欲取得更多資訊及防護策略，請查看〈&lt;a href=&quot;https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications&quot;&gt;Cobbler 文件&lt;/a&gt;〉。</target>
+          <target>&lt;strong&gt;安全性警告：&lt;/strong&gt; 儲存在這個網頁上的資訊能被網路上的所有人看見。欲取得更多資訊及防護策略，請查看〈&lt;a href=&quot;https://cobbler.github.io/manuals/2.4.0/5/6_-_Power_Management.html&quot;&gt;Cobbler 文件&lt;/a&gt;〉。</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>

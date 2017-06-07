@@ -6,7 +6,7 @@ Group:          Applications/Multimedia
 License:        GPLv2
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# git clone https://github.com/spacewalkproject/spacewalk.git
 # cd spec-tree/oracle-lib-compat
 # make srpm
 URL:            https://github.com/spacewalkproject/spacewalk

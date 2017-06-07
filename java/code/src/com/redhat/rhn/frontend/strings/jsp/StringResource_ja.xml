@@ -5225,12 +5225,12 @@ organization. You may grant or remove the organization administrator role in the
           <target>電力管理サーバー上でシステムの識別に使用する識別子です。すべての電力管理タイプに必ずしも必要なフィールドではないためオプションになります。このフィールドは「フェンスエージェント」に追加オプションを渡す場合にも使用することができます。たとえば、Lanplus プロトコルを必要とする IPMI サーバーを使用している場合は「-P System」システム識別子を設定して、このシステムに対しては Lanplus プロトコルを使用するよう fence_ipmilan に指示することができます。追加オプションについてはフェンスエージェントの説明書をご覧ください。</target>
         </trans-unit>
         <trans-unit id="provisioning.powermanagement.security_warning">
-          <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
+          <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://cobbler.github.io/manuals/2.4.0/5/6_-_Power_Management.html"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
             <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
           </context-group>
-          <target>&lt;strong&gt;セキュリティー警告:&lt;/strong&gt; このページに保存されている情報はネットワーク上の誰からでもアクセスすることができます。詳細および緩和策については &lt;a href=&quot;https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications&quot;&gt;cobbler のドキュメント&lt;/a&gt; を参照してください。</target>
+          <target>&lt;strong&gt;セキュリティー警告:&lt;/strong&gt; このページに保存されている情報はネットワーク上の誰からでもアクセスすることができます。詳細および緩和策については &lt;a href=&quot;https://cobbler.github.io/manuals/2.4.0/5/6_-_Power_Management.html&quot;&gt;cobbler のドキュメント&lt;/a&gt; を参照してください。</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>

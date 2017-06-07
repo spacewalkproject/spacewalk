@@ -8,7 +8,7 @@ Version: 2.7.5
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# git clone https://github.com/spacewalkproject/spacewalk.git
 # cd search-server
 # make test-srpm
 URL: https://github.com/spacewalkproject/spacewalk

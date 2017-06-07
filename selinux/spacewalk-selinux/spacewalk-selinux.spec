@@ -15,7 +15,7 @@ Summary:        SELinux policy module supporting Spacewalk Server
 Group:          System Environment/Base
 License:        GPLv2+
 # This src.rpm is cannonical upstream. You can obtain it using
-#      git clone git://git.fedorahosted.org/git/spacewalk.git/
+#      git clone https://github.com/spacewalkproject/spacewalk.git
 URL:            https://github.com/spacewalkproject/spacewalk
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)

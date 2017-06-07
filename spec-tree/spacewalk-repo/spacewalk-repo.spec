@@ -6,7 +6,7 @@ License: GPLv2
 Group: System Environment/Base
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# git clone https://github.com/spacewalkproject/spacewalk.git
 # cd spec-tree/spacewalk-repo
 # make test-srpm
 URL:          https://github.com/spacewalkproject/spacewalk
