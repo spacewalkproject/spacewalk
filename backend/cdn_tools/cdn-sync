@@ -57,7 +57,7 @@ def process_commandline():
     parser.add_argument('--http-proxy-username', action='store', help="alternative http proxy username")
     parser.add_argument('--http-proxy-password', action='store', help="alternative http proxy password")
     parser.add_argument('-p', '--print-configuration', action='store_true', help='print the configuration and exit')
-    parser.add_argument('--count-packages', action='store_true', help="Count number of packages in all"
+    parser.add_argument('--count-packages', action='store_true', help="Count number of packages in all "
                         "repositories for every channel")
     parser.add_argument("--no-rpms", action="store_true", help="Do not keep RPMs on disk after DB import (debug only)")
     parser.add_argument("--batch-size", action="store", help="max. batch size for package import (debug only)")
