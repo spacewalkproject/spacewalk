@@ -499,18 +499,12 @@ class CdnSync(object):
         if add_repos and not self._can_add_repos(db_channel, add_repos):
             raise CustomChannelSyncError("Unable to attach requested repositories to this channel.")
         # Add custom repositories to custom channel
-        new_repos_count = self.cdn_repository_manager.assign_repositories_to_channel(channel, delete_repos=delete_repos,
-                                                                                     add_repos=add_repos)
-        if new_repos_count:
-            # Add to synced channels if there are any repos
-            if channel not in self.synced_channels:
-                self.synced_channels[channel] = db_channel['org_id']
-            error_messages = self.sync(channels=channels)
-        else:
-            log(0, "No repositories attached to channel. Skipping sync.")
-            error_messages = None
-
-        return error_messages
+        changed = self.cdn_repository_manager.assign_repositories_to_channel(channel, delete_repos=delete_repos,
+                                                                             add_repos=add_repos)
+        # Add to synced channels and sync if there are any changed repos
+        if changed and channel not in self.synced_channels:
+            self.synced_channels[channel] = db_channel['org_id']
+        return self.sync(channels=channels)
 
     def count_packages(self, channels=None):
         start_time = datetime.now()

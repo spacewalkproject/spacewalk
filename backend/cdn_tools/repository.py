@@ -240,11 +240,13 @@ class CdnRepositoryManager(object):
         backend = SQLBackend()
         self.unlink_all_repos(channel_label, custom_only=True)
         repos = self.list_associated_repos(channel_label)
+        changed = 0
         if delete_repos:
             for to_delete in delete_repos:
                 if to_delete in repos:
                     repos.remove(to_delete)
                     log(0, "Removing repository '%s' from channel." % to_delete)
+                    changed += 1
                 else:
                     log2(0, 0, "WARNING: Repository '%s' is not attached to channel." % to_delete, stream=sys.stderr)
         if add_repos:
@@ -252,6 +254,7 @@ class CdnRepositoryManager(object):
                 if to_add not in repos:
                     repos.append(to_add)
                     log(0, "Attaching repository '%s' to channel." % to_add)
+                    changed += 1
                 else:
                     log2(0, 0, "WARNING: Repository '%s' is already attached to channel." % to_add, stream=sys.stderr)
 
@@ -266,7 +269,7 @@ class CdnRepositoryManager(object):
         else:
             # Make sure everything is unlinked
             self.unlink_all_repos(channel_label)
-        return len(repos)
+        return changed
 
     @staticmethod
     def unlink_all_repos(channel_label, custom_only=False):

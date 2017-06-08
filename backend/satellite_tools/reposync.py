@@ -404,8 +404,6 @@ class RepoSync(object):
         """Trigger a reposync"""
         failed_packages = 0
         sync_error = 0
-        if not self.urls:
-            sync_error = -1
         start_time = datetime.now()
         for (repo_id, url, repo_type, repo_label) in self.urls:
             log(0, "Repo URL: %s" % url)
