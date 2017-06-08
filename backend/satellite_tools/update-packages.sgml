@@ -28,12 +28,12 @@ If you're upgrading from RHN Satellite 5.3, this step can be safely skipped.
 </para>
 <para>
 Run update-packages script as root:
-<code>
+<programlisting>
   /usr/bin/update-packages \
         --update-filer \
         --update-kstrees \
         --debug
-</code>
+</programlisting>
 </para>
 <para>
 The --debug option will direct the script to log all actions into /var/log/rhn/update-packages.log
