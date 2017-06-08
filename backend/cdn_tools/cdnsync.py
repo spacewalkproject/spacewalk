@@ -437,7 +437,8 @@ class CdnSync(object):
 
         # if we have not_available channels log the error immediately
         if not_available:
-            msg = "ERROR: these channels either do not exist or are not available:\n  " + "\n  ".join(not_available)
+            msg = "ERROR: these channels either do not exist or are not available for synchronization:\n  " + \
+                  "\n  ".join(not_available)
             error_messages.append(msg)
 
         # BZ 1434913 - let user know if system is not activated if no available channels
