@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -225,6 +225,10 @@ fi
 %endif
 
 %changelog
+* Thu Jun 08 2017 Michael Mraka <michael.mraka@redhat.com> 3.2.3-18
+- fixed gcc errors on Fedora 26
+- fixed RPM build errors: bogus date in changelog
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 3.2.3-17
 - recompile all packages with the same (latest) version of java
 
