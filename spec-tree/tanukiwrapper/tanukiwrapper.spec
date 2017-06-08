@@ -328,7 +328,7 @@ fi
 - Fix build with newer Java/Ant and ant-nodeps not built with Sun's JDK.
 - Crosslink with local JDK javadocs.
 
-* Wed Apr 14 2005 David Walluck <david@jpackage.org> 0:3.1.2-1jpp
+* Thu Apr 14 2005 David Walluck <david@jpackage.org> 0:3.1.2-1jpp
 - 3.1.2
 - fix ant dependencies
 - change %%section to free
