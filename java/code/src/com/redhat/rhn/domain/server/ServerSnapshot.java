@@ -33,6 +33,7 @@ import com.redhat.rhn.frontend.dto.PackageMetadata;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import java.text.DateFormat;
@@ -254,6 +255,23 @@ public class ServerSnapshot extends BaseDomainHelper {
                                     .append(server.hashCode())
                                     .append(groups.hashCode())
                                     .toHashCode();
+    }
+
+    /**
+     *
+     * {@inheritDoc}
+     */
+    public boolean equals(Object obj) {
+        ServerSnapshot other = (ServerSnapshot) obj;
+        return new EqualsBuilder().append(reason.hashCode(), other.reason.hashCode())
+                                  .append(channels.hashCode(), other.channels.hashCode())
+                                  .append(configChannels.hashCode(),
+                                          other.configChannels.hashCode())
+                                  .append(configRevisions.hashCode(),
+                                          other.configRevisions.hashCode())
+                                  .append(server.hashCode(), other.server.hashCode())
+                                  .append(groups.hashCode(), other.groups.hashCode())
+                                  .isEquals();
     }
 
     /**

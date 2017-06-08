@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.server;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
@@ -62,6 +63,16 @@ public class SnapshotTagName extends BaseDomainHelper {
     public int hashCode() {
         return new HashCodeBuilder().append(name)
                                     .toHashCode();
+    }
+
+    /**
+     *
+     * {@inheritDoc}
+     */
+    public boolean equals(Object obj) {
+        SnapshotTagName other = (SnapshotTagName) obj;
+        return new EqualsBuilder().append(name, other.name)
+                                  .isEquals();
     }
 
 }
