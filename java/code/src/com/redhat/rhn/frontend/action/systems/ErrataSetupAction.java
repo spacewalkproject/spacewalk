@@ -81,7 +81,7 @@ public class ErrataSetupAction extends RhnAction implements Listable {
         help.setListName(LIST_NAME);
         String parentURL = request.getRequestURI() + "?sid=" + sid;
         help.setParentUrl(parentURL);
-
+        help.setWillClearSet(false);
         help.execute();
 
         if (help.isDispatched()) {
