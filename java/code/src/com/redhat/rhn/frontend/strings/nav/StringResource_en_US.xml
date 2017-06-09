@@ -225,25 +225,25 @@
         </context-group>
       </trans-unit>
       <trans-unit id="channel.nav.all">
-        <source>All Channels</source>
+        <source>All</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Channel Navigation Menu</context>
         </context-group>
       </trans-unit>
       <trans-unit id="channel.nav.shared">
-        <source>Shared Channels</source>
+        <source>Shared</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Channel Navigation Menu</context>
         </context-group>
       </trans-unit>
       <trans-unit id="channel.nav.vendor">
-        <source>Red Hat Channels</source>
+        <source>Red Hat</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Channel Navigation Menu</context>
         </context-group>
       </trans-unit>
       <trans-unit id="channel.nav.popular">
-        <source>Popular Channels</source>
+        <source>Popular</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Channel Navigation Menu</context>
         </context-group>
@@ -255,7 +255,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="channel.nav.retired">
-        <source>Retired Channels</source>
+        <source>Retired</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Channel Navigation Menu</context>
         </context-group>
