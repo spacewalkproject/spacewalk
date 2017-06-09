@@ -18,6 +18,7 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.action.satellite.BootstrapConfigAction;
+import com.redhat.rhn.frontend.action.satellite.util.CACertPathUtil;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 
@@ -32,6 +33,7 @@ public class BootstrapConfigActionTest extends RhnPostMockStrutsTestCase {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setUp() throws Exception {
         super.setUp();
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
@@ -53,15 +55,15 @@ public class BootstrapConfigActionTest extends RhnPostMockStrutsTestCase {
         DynaActionForm form = (DynaActionForm) getActionForm();
         assertEquals(expectedHostname,
                 form.getString(BootstrapConfigAction.HOSTNAME));
-        assertEquals(BootstrapConfigAction.DEFAULT_CERT_PATH,
-                form.getString(BootstrapConfigAction.SSL_CERT));
+        assertEquals(form.getString(BootstrapConfigAction.SSL_CERT),
+                CACertPathUtil.processCACertPath());
         assertEquals(Boolean.TRUE,
                 form.get(BootstrapConfigAction.ENABLE_SSL));
         assertEquals(Boolean.TRUE,
                 form.get(BootstrapConfigAction.ENABLE_GPG));
-        assertEquals(Boolean.TRUE,
+        assertEquals(Boolean.FALSE,
                 form.get(BootstrapConfigAction.ALLOW_CONFIG_ACTIONS));
-        assertEquals(Boolean.TRUE,
+        assertEquals(Boolean.FALSE,
                 form.get(BootstrapConfigAction.ALLOW_REMOTE_COMMANDS));
         assertEquals("", form.getString(BootstrapConfigAction.HTTP_PROXY));
         assertEquals("", form.getString(BootstrapConfigAction.HTTP_PROXY_USERNAME));
@@ -85,4 +87,3 @@ public class BootstrapConfigActionTest extends RhnPostMockStrutsTestCase {
         verifyActionMessages(new String[]{"bootstrap.config.success"});
     }
 }
-

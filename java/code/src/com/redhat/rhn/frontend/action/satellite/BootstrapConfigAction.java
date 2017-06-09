@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.satellite;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.frontend.action.satellite.util.CACertPathUtil;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
@@ -38,10 +39,8 @@ import java.net.IDN;
  * @version $Rev: 1 $
  */
 public class BootstrapConfigAction extends BaseConfigAction {
-
-    public static final String DEFAULT_CERT_PATH =
-        "/var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT";
-
+    public static final String DEFAULT_CERT_PACKAGE =
+        "/pub/rhn-org-trusted-ssl-cert-1.0-1.noarch.rpm";
     public static final String HOSTNAME = "hostname";
     public static final String SSL_CERT = "ssl-cert";
     public static final String ENABLE_SSL = "ssl";
@@ -56,6 +55,7 @@ public class BootstrapConfigAction extends BaseConfigAction {
 
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
@@ -103,11 +103,12 @@ public class BootstrapConfigAction extends BaseConfigAction {
         else {
             form.set(HOSTNAME, IDN.toUnicode(
                 Config.get().getString(ConfigDefaults.JABBER_SERVER)));
-            form.set(SSL_CERT, DEFAULT_CERT_PATH);
+            String caCertPath = CACertPathUtil.processCACertPath();
+            form.set(SSL_CERT, caCertPath);
             form.set(ENABLE_SSL, Boolean.TRUE);
             form.set(ENABLE_GPG, Boolean.TRUE);
-            form.set(ALLOW_CONFIG_ACTIONS, Boolean.TRUE);
-            form.set(ALLOW_REMOTE_COMMANDS, Boolean.TRUE);
+            form.set(ALLOW_CONFIG_ACTIONS, Boolean.FALSE);
+            form.set(ALLOW_REMOTE_COMMANDS, Boolean.FALSE);
         }
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
@@ -130,6 +131,7 @@ public class BootstrapConfigAction extends BaseConfigAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected String getCommandClassName() {
         return Config.get().getString("web.com.redhat.rhn.frontend." +
            "action.satellite.BootstrapConfigAction.command",
