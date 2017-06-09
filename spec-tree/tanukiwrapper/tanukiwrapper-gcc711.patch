@@ -5,7 +5,7 @@
 
  void forceFlush(FILE *fp) {
 -    int lastError;
--
+-    
      fflush(fp);
 -    lastError = getLastError();
 +    getLastError();
@@ -18,6 +18,6 @@
      /* Copy the template to the buffer to get started. */
 -    sprintf(buffer, template);
 +    sprintf(buffer, "%s", template);
-
+     
      /* Handle the date token. */
      if (strstr(buffer, "YYYYMMDD")) {
