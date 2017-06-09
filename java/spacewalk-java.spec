@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.78
+Version: 2.7.79
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri Jun 09 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.79-1
+- fixed checkstyle errors on Fedora 26
+- Remove more fedorahosted links
+
 * Thu Jun 01 2017 Michael Calmer <mc@suse.de>
 - PR 519 - make country, state/province and city searchable for system location
 
