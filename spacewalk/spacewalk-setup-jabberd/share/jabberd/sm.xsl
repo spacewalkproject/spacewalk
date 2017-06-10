@@ -14,6 +14,12 @@
   </xsl:copy>
 </xsl:template>
 
+<xsl:template match="/sm/router/pass">
+  <xsl:copy>
+    <xsl:text>@password@</xsl:text>
+  </xsl:copy>
+</xsl:template>
+
 <xsl:template match="/sm/id">
   <xsl:copy>
   <xsl:text>@hostname@</xsl:text>
@@ -26,6 +32,19 @@
     </xsl:text>
     <id>@hostname@</id>
     <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="/sm/user">
+  <xsl:copy>
+    <xsl:if test="not(auto-create)">
+    <xsl:text>
+    </xsl:text>
+    <auto-create/>
+    <xsl:text>
+    </xsl:text>
+    </xsl:if>
+    <xsl:apply-templates select="@*|node()" />
   </xsl:copy>
 </xsl:template>
 

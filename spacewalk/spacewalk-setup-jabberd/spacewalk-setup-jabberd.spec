@@ -13,7 +13,11 @@ BuildArch:      noarch
 Requires:       perl
 Requires:       libxslt
 Requires:       jabberd
+%if 0%{?suse_version}
+Requires:       jabberd-db
+%else
 Requires:       %{_datadir}/spacewalk
+%endif
 
 %description
 Script, which sets up Jabberd for Spacewalk. Used during installation of
@@ -55,6 +59,10 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 %{_datadir}/spacewalk/*
 %{_sysconfdir}/pki/spacewalk
+%if 0%{?suse_version}
+%dir %{_datadir}/spacewalk
+%dir %{_sysconfdir}/pki
+%endif
 
 %changelog
 * Fri May 05 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.1-1
