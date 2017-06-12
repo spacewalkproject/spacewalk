@@ -63,13 +63,6 @@ public abstract class BaseSystemPackagesAction extends RhnAction {
 
         Set<String> sessionSet = SessionSetHelper.lookupAndBind(request, getDecl(sid));
 
-        //if its not submitted
-        // ==> this is the first visit to this page
-        // clear the 'dirty set'
-        if (!requestContext.isSubmitted()) {
-            sessionSet.clear();
-        }
-
         SessionSetHelper helper = new SessionSetHelper(request);
 
         if (request.getParameter("dispatch") != null) {
