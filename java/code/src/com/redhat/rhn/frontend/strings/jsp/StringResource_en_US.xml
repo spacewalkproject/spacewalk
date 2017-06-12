@@ -11063,6 +11063,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.event.history.headerPending">
           <source>Please note that this system has &lt;a href="{0}"&gt;{1} pending event(s)&lt;/a&gt;.</source>
         </trans-unit>
+        <trans-unit id="system.event.history.actionsWithoutDetails">
+          <source>Events marked with a star (*) happened within a different organization: migrate the system back to the original organization to access event details.</source>
+        </trans-unit>
         <trans-unit id="system.event.history.noevent">
           <source>No event history for this system.</source>
         </trans-unit>
