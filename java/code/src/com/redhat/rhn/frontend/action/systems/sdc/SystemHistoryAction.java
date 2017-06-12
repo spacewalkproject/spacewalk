@@ -61,8 +61,10 @@ public class SystemHistoryAction extends RhnAction implements Listable<SystemEve
     }
 
     /** {@inheritDoc} */
+    @Override
     public List<SystemEventDto> getResult(RequestContext context) {
         Long sid = context.getRequiredParam("sid");
-        return SystemManager.systemEventHistory(sid, null);
+        Long oid = context.getCurrentUser().getOrg().getId();
+        return SystemManager.systemEventHistory(sid, oid, null);
     }
 }
