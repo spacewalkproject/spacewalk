@@ -100,8 +100,12 @@ class StreamConnection(_Server):
 
     def __init__(self, uri, proxy=None, username=None, password=None,
                  refreshCallback=None, xml_dump_version=constants.PROTOCOL_VERSION,
-                 timeout=None):
-        _Server.__init__(self, uri, proxy=proxy, username=username,
+                 timeout=None, debug=0):
+        if (debug < 2):
+            # satellite-sync runs at debug 1 normally, but this produces some output
+            # from the rpclib server connection.  So by '1' we mean '0' here.
+            debug = 0
+        _Server.__init__(self, uri, proxy=proxy, username=username, verbose=debug,
                          password=password, refreshCallback=refreshCallback, timeout=timeout)
         self.add_header("X-RHN-Satellite-XML-Dump-Version", xml_dump_version)
 
