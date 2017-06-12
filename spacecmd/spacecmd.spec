@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.7.11
+Version:     2.7.12
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -92,6 +92,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Jun 12 2017 Jiri Dostal <jdostal@redhat.com> 2.7.12-1
+- 1434037 - Make spacecmd prompt for password when overriding config file user
+
 * Mon Jun 05 2017 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.11-1
 - 1367562 - show less output of common packages in selected channels
 - Revert "1367562 - spacecmd: Added output to logging.debug from
