@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.79
+Version: 2.7.80
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,22 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 13 2017 Grant Gainey 2.7.80-1
+- Teach NavNodeTest that not-found-l10n strings are already escaped
+- Teach NavTest to rely on different pages for its test
+- Fix KickstartUrlHelperTest that has never been correct
+- Teach SystemManagerTest correct way to say Integer to Hibernate
+- Removed UserManagerTest's fragile dependency on ordering of rhntimezone table
+- SystemHandlerTest relied on changing a readonly Hibernate entity - look it up
+  instead
+- ToolbarTagCloneTest relied on headers whose strings are no longer lowercase
+- VirtualSystemsListActionTest relied on a page that has been renamed
+- SessionSwapTest has always said 'DO NOT COMMIT THIS' - we should have
+  listened...
+- Teach JarFinderTest to not rely on packages that live in more than one jar
+- Teach AdvDataSourceTest to work even if test-table already exists
+- Update StrutsTestCase to version that supports Struts 1.3
+
 * Fri Jun 09 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.79-1
 - fixed checkstyle errors on Fedora 26
 - Remove more fedorahosted links
