@@ -14,23 +14,26 @@
  */
 
 package com.redhat.rhn.common.finder.test;
-import com.redhat.rhn.common.finder.Finder;
-import com.redhat.rhn.common.finder.FinderFactory;
-import com.redhat.rhn.testing.RhnBaseTestCase;
-
 import java.util.List;
 
-public class JarFinderTest extends RhnBaseTestCase {
+import com.redhat.rhn.common.finder.Finder;
+import com.redhat.rhn.common.finder.FinderFactory;
+
+import junit.framework.TestCase;
+
+public class JarFinderTest extends TestCase {
 
     // NOTE: Test is dependent on knowing things like "How many classes are in jarfile X"
     // When "X" changes, the test FAILS.
     // Sigh.
     // At least make it clear what we're looking for...
 
-    // As of this writing, java/rhnwebapp/WEB-INF/lib/redstone-xmlrpc-1.1_20071120.jar
-    private static final String TESTJAR = "redstone.xmlrpc";
-    private static final int NUM_CLASSES_IN_TESTJAR = 46;
-    private static final int NUM_SUBDIRS_IN_TESTJAR = 47;
+    // As of this writing, velocity-1.5.jar
+    // (previously redstone.xmlrpc could find either redstone-xmlrpc.jar or
+    //  redstone-xmlrpc-client.jar, making test-results indeterminate)
+    private static final String TESTJAR = "org.apache.velocity";
+    private static final int NUM_CLASSES_IN_TESTJAR = 246;
+    private static final int NUM_SUBDIRS_IN_TESTJAR = 249;
 
     public void testGetFinder() throws Exception {
         Finder f = FinderFactory.getFinder(TESTJAR);
