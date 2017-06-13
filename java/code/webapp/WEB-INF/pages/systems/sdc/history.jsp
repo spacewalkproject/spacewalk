@@ -73,7 +73,7 @@
                 </rl:column>
                 <rl:column headerkey="system.event.history.summary">
                     <c:choose>
-                        <c:when test="${current.detailsVisible}">
+                        <c:when test="${current.historyVisible}">
                             <a href="/rhn/systems/details/history/Event.do?sid=${param.sid}&amp;aid=${current.id}">${current.summary}</a>
                         </c:when>
                         <c:otherwise>
