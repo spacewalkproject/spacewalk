@@ -77,8 +77,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-/** JUnit test case for the User
- *  class.
+/**
+ * Tests for {@link ActionManager}.
  */
 public class ActionManagerTest extends RhnBaseTestCase {
     private static Logger log = Logger.getLogger(ActionManagerTest.class);

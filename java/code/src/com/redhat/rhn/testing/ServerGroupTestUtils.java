@@ -40,11 +40,8 @@ public class ServerGroupTestUtils {
      * @param org to own
      * @param typeIn you want
      * @return EntitlementServerGroup created
-     * @throws Exception foob
      */
-    public static EntitlementServerGroup createEntitled(Org org,
-                                                ServerGroupType typeIn)
-                                            throws Exception {
+    public static EntitlementServerGroup createEntitled(Org org, ServerGroupType typeIn) {
         return (EntitlementServerGroup) ServerGroupTest.createTestServerGroup(org, typeIn);
     }
 
@@ -52,9 +49,8 @@ public class ServerGroupTestUtils {
      * Create a ManagedServerGroup ( a group of servers )
      * @param user to own
      * @return ManagedServerGroup created
-     * @throws Exception if failure
      */
-    public static ManagedServerGroup createManaged(User user) throws Exception {
+    public static ManagedServerGroup createManaged(User user) {
         ServerGroupTest.checkSysGroupAdminRole(user);
         return ServerGroupManager.getInstance().
                                         create(user, NAME + TestUtils.randomString(),

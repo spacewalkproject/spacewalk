@@ -85,7 +85,7 @@ public class PackageTest extends RhnBaseTestCase {
         assertEquals("foo", pkg.getFile());
     }
 
-    public static Package createTestPackage(Org org) throws Exception {
+    public static Package createTestPackage(Org org) {
         Package p = new Package();
         populateTestPackage(p, org);
 
@@ -94,7 +94,7 @@ public class PackageTest extends RhnBaseTestCase {
         return p;
     }
 
-    public static Package populateTestPackage(Package p, Org org) throws Exception {
+    public static Package populateTestPackage(Package p, Org org) {
         PackageName pname = PackageNameTest.createTestPackageName();
         PackageEvr pevr = PackageEvrFactoryTest.createTestPackageEvr();
         PackageGroup pgroup = PackageGroupTest.createTestPackageGroup();
@@ -139,7 +139,6 @@ public class PackageTest extends RhnBaseTestCase {
 
 
         return p;
-
     }
 
 

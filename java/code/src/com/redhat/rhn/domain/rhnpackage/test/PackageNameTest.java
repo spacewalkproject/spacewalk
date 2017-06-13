@@ -38,9 +38,8 @@ public class PackageNameTest extends RhnBaseTestCase {
     /**
      * Create a test PackageName
      * @return a test PackageName object.
-     * @throws Exception
      */
-    public static PackageName createTestPackageName() throws Exception {
+    public static PackageName createTestPackageName() {
         PackageName p = new PackageName();
         p.setName("00JavaTest" + TestUtils.randomString());
         TestUtils.saveAndFlush(p);
