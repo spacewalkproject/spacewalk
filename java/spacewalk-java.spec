@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.80
+Version: 2.7.81
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 13 2017 Grant Gainey 2.7.81-1
+- extend package testing methods for more control
+
 * Tue Jun 13 2017 Grant Gainey 2.7.80-1
 - Teach NavNodeTest that not-found-l10n strings are already escaped
 - Teach NavTest to rely on different pages for its test
