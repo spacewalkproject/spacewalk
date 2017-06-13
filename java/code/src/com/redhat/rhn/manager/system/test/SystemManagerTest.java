@@ -14,6 +14,19 @@
  */
 package com.redhat.rhn.manager.system.test;
 
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.cobbler.test.MockConnection;
+import org.hibernate.Session;
+import org.hibernate.type.IntegerType;
+
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -81,19 +94,6 @@ import com.redhat.rhn.testing.TestStatics;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import org.cobbler.test.MockConnection;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 /**
  * SystemManagerTest
  */
@@ -135,7 +135,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         Integer count = (Integer) session.createSQLQuery("Select count(*) as cnt " +
                                                          "  from rhnSnapshot " +
                                                          " where server_id = " + sid)
-                                         .addScalar("cnt", Hibernate.INTEGER)
+                                         .addScalar("cnt", new IntegerType())
                                          .uniqueResult();
         return count;
     }
