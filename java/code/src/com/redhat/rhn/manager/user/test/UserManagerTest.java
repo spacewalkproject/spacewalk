@@ -15,6 +15,13 @@
 
 package com.redhat.rhn.manager.user.test;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import com.redhat.rhn.common.ObjectCreateWrapperException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.LookupException;
@@ -44,13 +51,6 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestStatics;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /** JUnit test case for the User
  *  class.
@@ -391,13 +391,10 @@ public class UserManagerTest extends RhnBaseTestCase {
         List<RhnTimeZone> lst = UserManager.lookupAllTimeZones();
         assertTrue(lst.size() > 30);
         assertTrue(lst.get(5) instanceof RhnTimeZone);
-        assertTrue(lst.get(34) instanceof RhnTimeZone);
+        assertTrue(lst.get(29) instanceof RhnTimeZone);
 
         assertEquals(UserManager.getTimeZone("GMT"), lst.get(0));
         assertEquals("GMT", lst.get(0).getOlsonName());
-
-        assertEquals("Pacific/Auckland", lst.get(5).getOlsonName());
-        assertEquals(UserManager.getTimeZone("Pacific/Auckland"), lst.get(5));
     }
 
    public void testUsersInSet() throws Exception {
