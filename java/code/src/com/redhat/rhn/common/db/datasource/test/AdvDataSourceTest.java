@@ -14,22 +14,6 @@
  */
 package com.redhat.rhn.common.db.datasource.test;
 
-import com.redhat.rhn.common.ObjectCreateWrapperException;
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.db.datasource.CallableMode;
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
-import com.redhat.rhn.common.db.datasource.WriteMode;
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.common.hibernate.HibernateHelper;
-import com.redhat.rhn.testing.RhnBaseTestCase;
-import com.redhat.rhn.testing.TestUtils;
-
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,6 +27,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+
+import com.redhat.rhn.common.ObjectCreateWrapperException;
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.db.datasource.CallableMode;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.common.db.datasource.WriteMode;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.hibernate.HibernateHelper;
+import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.TestUtils;
 
 /*
  * $Rev$
@@ -333,6 +333,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
     }
 
 
+    @Override
     protected void setUp() throws Exception {
         Session session = HibernateFactory.getSession();
         Connection c = session.connection();
@@ -349,7 +350,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
                         ")");
             }
             else {
-                stmt.execute("create table adv_datasource " +
+                stmt.execute("create table if not exists adv_datasource " +
                         "( " +
                         "  foobar VarChar," +
                         "  test_column VarChar," +
@@ -365,6 +366,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         }
     }
 
+    @Override
     protected void tearDown() throws Exception {
         Session session = null;
         Connection c = null;
