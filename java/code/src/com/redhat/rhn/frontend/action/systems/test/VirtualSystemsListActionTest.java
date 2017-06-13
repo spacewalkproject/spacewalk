@@ -23,7 +23,7 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 public class VirtualSystemsListActionTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
-        setRequestPathInfo("/systems/VirtualSystemsList");
+        setRequestPathInfo("/systems/VirtualList");
         actionPerform();
 
     }
