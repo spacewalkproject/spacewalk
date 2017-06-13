@@ -14,14 +14,14 @@
  */
 package com.redhat.rhn.frontend.nav.test;
 
-import com.redhat.rhn.frontend.nav.NavNode;
-import com.redhat.rhn.testing.RhnBaseTestCase;
-import com.redhat.rhn.testing.TestUtils;
+import java.lang.reflect.Field;
+import java.util.List;
 
 import org.apache.commons.beanutils.MethodUtils;
 
-import java.lang.reflect.Field;
-import java.util.List;
+import com.redhat.rhn.frontend.nav.NavNode;
+import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.TestUtils;
 
 /**
  * NavNodeTest
@@ -31,6 +31,7 @@ public class NavNodeTest extends RhnBaseTestCase {
 
     private NavNode node;
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
         node = new NavNode();
@@ -78,8 +79,10 @@ public class NavNodeTest extends RhnBaseTestCase {
         NavNode theNode = new NavNode();
         String random = TestUtils.randomString();
         String name = random + "&you";
-        String escapedName = random + "&amp;you";
+        String escapedName = random + "&amp;amp;you";
         //it localizes the name too
+        //LocalizationService escapes "key-not-found" strings as a general rule -
+        //and so does getName(). So fail-string will be escaped TWICE
         String expected = "**" + escapedName + "**";
 
         theNode.setName(name);
@@ -153,6 +156,7 @@ public class NavNodeTest extends RhnBaseTestCase {
         assertTrue(rc.booleanValue());
     }
 
+    @Override
     public void tearDown() {
         node = null;
     }
