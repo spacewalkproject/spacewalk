@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.82
+Version: 2.7.83
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed Jun 14 2017 Grant Gainey 2.7.83-1
+- Checkstyle is a harsh mistress
+
 * Tue Jun 13 2017 Grant Gainey 2.7.82-1
 - Test create assertions only in the create test, refactor helper method so
   that it can be used in other tests
