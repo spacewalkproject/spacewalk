@@ -14,6 +14,10 @@
  */
 package com.redhat.rhn.domain.rhnpackage.test;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -36,10 +40,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * PackageTest
@@ -138,7 +138,8 @@ public class PackageTest extends RhnBaseTestCase {
     public static Package populateTestPackage(Package p, Org org) throws Exception {
         PackageName pname = PackageNameTest.createTestPackageName();
         PackageEvr pevr = PackageEvrFactoryTest.createTestPackageEvr();
-        PackageArch parch = (PackageArch) TestUtils.lookupFromCacheById(100L, "PackageArch.findById");
+        PackageArch parch =
+            (PackageArch) TestUtils.lookupFromCacheById(100L, "PackageArch.findById");
         return populateTestPackage(p, org, pname, pevr, parch);
     }
 
