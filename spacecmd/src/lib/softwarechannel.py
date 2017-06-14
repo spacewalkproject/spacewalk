@@ -342,6 +342,156 @@ def do_softwarechannel_listlatestpackages(self, args, doreturn=False):
 ####################
 
 
+def help_softwarechannel_setdetails(self):
+    print 'softwarechannel_setdetails: Modify details of a software channel'
+    print '''usage: softwarechannel_setdetails [options] <CHANNEL ...>
+
+options, at least one of which must be given:
+  -n NAME
+  -d DESCRIPTION
+  -s SUMMARY
+  -c CHECKSUM %s
+  -m MAINTAINER_NAME
+  -e MAINTAINER_EMAIL
+  -p MAINTAINER_PHONE
+  -u GPG_URL
+  -i GPG_ID
+  -f GPG_FINGERPRINT''' % CHECKSUM
+
+
+def complete_softwarechannel_setdetails(self, text, line, beg, end):
+    return tab_completer(self.do_softwarechannel_list('', True), text)
+
+
+def do_softwarechannel_setdetails(self, args):
+    options = [Option('-n', '--name', action='store'),
+               Option('-s', '--summary', action='store'),
+               Option('-d', '--description', action='store'),
+               Option('-c', '--checksum', action='store'),
+               Option('-m', '--maintainer_name', action='store'),
+               Option('-e', '--maintainer_email', action='store'),
+               Option('-p', '--maintainer_phone', action='store'),
+               Option('-u', '--gpg_url', action='store'),
+               Option('-i', '--gpg_id', action='store'),
+               Option('-f', '--gpg_fingerprint', action='store')]
+    (args, options) = parse_arguments(args, options)
+
+    if not len(args):
+        self.help_softwarechannel_setdetails()
+        return
+
+    new_details = {}
+    if options.name:
+        new_details['name'] = options.name
+    if options.summary:
+        new_details['summary'] = options.summary
+    if options.description:
+        new_details['description'] = options.description
+    if options.checksum:
+        new_details['checksum_label'] = options.checksum
+    if options.maintainer_name:
+        new_details['maintainer_name'] = options.maintainer_name
+    if options.maintainer_email:
+        new_details['maintainer_email'] = options.maintainer_email
+    if options.maintainer_phone:
+        new_details['maintainer_phone'] = options.maintainer_phone
+    if options.gpg_url:
+        new_details['gpg_key_url'] = options.gpg_url
+    if options.gpg_id:
+        new_details['gpg_key_id'] = options.gpg_id
+    if options.gpg_fingerprint:
+        new_details['gpg_key_fp'] = options.gpg_fingerprint
+
+    if not new_details:
+        logging.error('At least one attribute to set must be given')
+        return
+
+    # allow globbing of software channel names
+    channels = filter_results(self.do_softwarechannel_list('', True), args)
+    if len(channels) < 1:
+        logging.info('No channels matching that label')
+        return
+
+    # channel names must be unique, so if we are asked to set it,
+    # take special precautions: first: check if we're doing this for
+    # more than one channel (because if we do, first might succeed,
+    # all the rest will obviously fail),
+    # second: check if there's any other channel already using this name.
+    # Not reusing softwarechannel_check_existing() here because it
+    # also fails on same label.
+    if new_details.get('name'):
+        if len(channels) > 1:
+            logging.error('Setting same name for more than ' + \
+                          'one channel will fail')
+            return
+        logging.debug('checking other channels for name "%s"' %
+                      new_details.get('name'))
+        for c in self.list_base_channels() + self.list_child_channels():
+            cd = self.client.channel.software.getDetails(self.session, c)
+            if cd.get('name') == new_details.get('name'):
+                logging.error('Name "%s" already in use by channel %s' %
+                              (cd.get('name'), cd.get('label')))
+                return
+
+    # get confirmation
+    print 'Setting following attributes...'
+    print
+    if new_details.get('name'):
+        print 'Name:             %s' % new_details.get('name')
+    if new_details.get('summary'):
+        print 'Summary:          %s' % new_details.get('summary')
+    if new_details.get('description'):
+        print 'Description:      %s' % new_details.get('description')
+    if new_details.get('checksum_label'):
+        print 'Checksum:         %s' % new_details.get('checksum_label')
+    if new_details.get('maintainer_name'):
+        print 'Maintainer name:  %s' % new_details.get('maintainer_name')
+    if new_details.get('maintainer_email'):
+        print 'Maintainer email: %s' % new_details.get('maintainer_email')
+    if new_details.get('maintainer_phone'):
+        print 'Maintainer phone: %s' % new_details.get('maintainer_phone')
+    if new_details.get('gpg_key_id'):
+        print 'GPG Key:          %s' % new_details.get('gpg_key_id')
+    if new_details.get('gpg_key_fp'):
+        print 'GPG Fingerprint:  %s' % new_details.get('gpg_key_fp')
+    if new_details.get('gpg_key_url'):
+        print 'GPG URL:          %s' % new_details.get('gpg_key_url')
+    print
+    print '... for the following channels:'
+    print '\n'.join(channels)
+    print
+    if not self.user_confirm('Apply? [y/N]:'):
+        return
+
+    logging.debug('new channel details dictionary:')
+    logging.debug(new_details)
+    num_changed = 0
+    for channel in channels:
+        logging.debug('getting ID for channel %s' % channel)
+        try:
+            details = self.client.channel.software.getDetails(self.session,
+                                                              channel)
+        except xmlrpclib.Fault, e:
+            logging.error('Could not get details for %s' % channel)
+            logging.error(e)
+            return
+        channel_id = details.get('id')
+        logging.debug('setting details for channel %s (%d)' % (channel,
+                                                               channel_id))
+        try:
+            self.client.channel.software.setDetails(self.session,
+                                                    channel_id,
+                                                    new_details)
+            num_changed += 1
+        except xmlrpclib.Fault, e:
+            logging.error('Error while setting details for %s' % channel)
+            logging.error(e)
+            return
+    logging.info('Channels changed: %d' % num_changed)
+
+####################
+
+
 def help_softwarechannel_details(self):
     print 'softwarechannel_details: Show the details of a software channel'
     print 'usage: softwarechannel_details <CHANNEL ...>'
