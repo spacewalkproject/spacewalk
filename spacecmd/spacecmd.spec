@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.7.12
+Version:     2.7.13
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -92,6 +92,11 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Jun 14 2017 Grant Gainey 2.7.13-1
+- pylint: disable 'too many returns' for src/lib/softwarechannel.py
+- Fix pylint (bad-continuation)
+- Add softwarechannel_setdetails
+
 * Mon Jun 12 2017 Jiri Dostal <jdostal@redhat.com> 2.7.12-1
 - 1434037 - Make spacecmd prompt for password when overriding config file user
 
