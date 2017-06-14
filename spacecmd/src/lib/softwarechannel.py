@@ -364,6 +364,7 @@ def complete_softwarechannel_setdetails(self, text, line, beg, end):
 
 
 def do_softwarechannel_setdetails(self, args):
+    # pylint: disable=R0911
     options = [Option('-n', '--name', action='store'),
                Option('-s', '--summary', action='store'),
                Option('-d', '--description', action='store'),
