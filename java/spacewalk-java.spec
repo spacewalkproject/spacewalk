@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.84
+Version: 2.7.85
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Jun 15 2017 Grant Gainey 2.7.85-1
+- Add a link to action details in single errata schedule notification
+- Add a link to system pending events in errata schedule notification for a
+  single system
+
 * Thu Jun 15 2017 Grant Gainey 2.7.84-1
 - Fix sort directions when the sort column is changed
 - Allow sorting on avisory name in errata lists
