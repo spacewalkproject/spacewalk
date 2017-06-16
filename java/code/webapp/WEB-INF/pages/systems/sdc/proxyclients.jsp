@@ -19,31 +19,10 @@
         <p><bean:message key="sdc.details.proxy.unlicensed" /></p>
       </c:otherwise>
     </c:choose>
-
-	<rl:listset name="systemListSet" legend="system">
-
-	    <rl:list dataset="pageList" name="systemList" emptykey="nosystems.message" alphabarcolumn="name">
-
-             <rl:selectablecolumn value="${current.id}" selected="${current.selected}"/>
-
-             <!-- Name Column -->
-             <rl:column sortable="true"
-                        bound="false"
-                        headerkey="systemlist.jsp.system"
-                        sortattr="name"
-                        defaultsort="asc"
-                        styleclass="${namestyle}">
-                 <a href="/rhn/systems/details/Overview.do?sid=${current.id}">${fn:escapeXml(current.name)}</a>
-             </rl:column>
-
-             <!-- Entitlement Column -->
-             <rl:column sortable="false"
-                        bound="false"
-                        headerkey="systemlist.jsp.entitlement">
-                  <c:out value="${current.entitlementLevel}" escapeXml="false"/>
-             </rl:column>
-
-	    </rl:list>
+    <rl:listset name="systemListSet" legend="system">
+      <c:set var="noAddToSsm" value="1" />
+      <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>
     </rl:listset>
+
   </body>
 </html:html>
