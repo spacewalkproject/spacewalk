@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.86
+Version: 2.7.87
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Jun 19 2017 Gennadii Altukhov <grinrag@gmail.com> 2.7.87-1
+- 1418746 - checkbox should be selected if proxy client is in a SSM
+
 * Thu Jun 15 2017 Grant Gainey 2.7.86-1
 - Increment 'earliest' date by a millisecond between chain actions
 
