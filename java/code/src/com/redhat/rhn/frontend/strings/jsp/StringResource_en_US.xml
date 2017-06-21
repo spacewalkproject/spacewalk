@@ -5277,10 +5277,10 @@ organization. You may grant or remove the organization administrator role in the
           <context context-type="sourcefile">/rhn/systems/DuplicateIPList.do pages</context>
         </context-group>
         <trans-unit id="duplicates.jsp.header">
-          <source>Duplicate System Profiles</source>
+          <source>Duplicate Systems</source>
         </trans-unit>
         <trans-unit id="duplicate.jsp.message">
-          <source>Inactive system profiles are highlighted below.</source>
+          <source>Inactive systems are listed below.</source>
         </trans-unit>
         <trans-unit id="Delete Selected">
           <source>Delete Selected</source>
@@ -20423,7 +20423,7 @@ given channel.</source>
         <source>6 Month</source>
       </trans-unit>
       <trans-unit id="duplicate-ip.jsp.inactive.header">
-        <source>A system profile is inactive if its system has not checked in for:</source>
+        <source>A system is inactive if its system has not checked in for:</source>
       </trans-unit>
       <trans-unit id="schedule.header">
         <source>Select a schedule:</source>
