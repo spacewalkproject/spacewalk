@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.87
+Version: 2.7.88
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Jun 22 2017 Grant Gainey 2.7.88-1
+- request repodata regeneration even if an erratum without new packages is
+  published
+
 * Mon Jun 19 2017 Gennadii Altukhov <grinrag@gmail.com> 2.7.87-1
 - 1418746 - checkbox should be selected if proxy client is in a SSM
 
