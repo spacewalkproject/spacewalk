@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.7.9
+Version:        2.7.10
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -117,6 +117,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Jun 22 2017 Grant Gainey 2.7.10-1
+- add ssl-set-cnames to spacewalk-setup
+
 * Wed May 31 2017 Gennadii Altukhov <grinrag@gmail.com> 2.7.9-1
 - 1455948 - use only ASCII (including extended set) characters for the progress
   spinner
