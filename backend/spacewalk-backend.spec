@@ -36,7 +36,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.114
+Version: 2.7.115
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -792,6 +792,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Jun 22 2017 Grant Gainey 2.7.115-1
+- Fix bug introduced in 46f1320 preventing RPM removal.
+- 1434043 - Fix spacewalk-data-fsck removing SRPMs associated with RPM
+
 * Tue Jun 20 2017 Jiri Dostal <jdostal@redhat.com> 2.7.114-1
 - remove not implemented option
 
