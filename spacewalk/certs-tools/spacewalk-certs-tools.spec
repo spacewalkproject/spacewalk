@@ -9,7 +9,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.1
+Version: 2.7.2
 Release: 1%{?dist}
 URL:      https://github.com/spacewalkproject/spacewalk
 Source0:  https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Jun 22 2017 Grant Gainey 2.7.2-1
+- Allow passing multiple GPG keys to rhn-bootstrap
+
 * Tue May 16 2017 Grant Gainey 2.7.1-1
 - 1030013 - fix minor typos in bootstrap.sh
 - Remove unused imports.
