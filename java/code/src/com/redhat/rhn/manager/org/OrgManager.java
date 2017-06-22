@@ -36,6 +36,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * OrgManager - Manages MultiOrg tasks
@@ -319,11 +321,18 @@ public class OrgManager extends BaseManager {
      * @throws ValidatorException in case of bad/duplicate name
      */
     public static void checkOrgName(String newOrgName) throws ValidatorException {
+        Pattern pattern = Pattern.compile("<.*?>");
+        Matcher matcher = pattern.matcher(newOrgName);
         if (newOrgName == null ||
                 newOrgName.trim().length() == 0 ||
                 newOrgName.trim().length() < 3 ||
                 newOrgName.trim().length() > 128) {
             ValidatorException.raiseException("orgname.jsp.error");
+        }
+        else if (matcher.find()) {
+            // It is better to let the user know that it's incorrect, rather than
+            // force-escape
+            ValidatorException.raiseException("orgname.jsp.htmlerror");
         }
         else if (OrgFactory.lookupByName(newOrgName) != null) {
             ValidatorException.raiseException("error.org_already_taken", newOrgName);
