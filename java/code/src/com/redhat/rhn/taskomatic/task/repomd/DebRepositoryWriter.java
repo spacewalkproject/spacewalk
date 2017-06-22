@@ -15,6 +15,7 @@
 package com.redhat.rhn.taskomatic.task.repomd;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -50,14 +51,22 @@ public class DebRepositoryWriter extends RepositoryWriter {
         File theFile = new File(mountPoint + File.separator + pathPrefix +
                 File.separator + channel.getLabel() + File.separator +
                 "Packages.gz");
-        Date fileModifiedDate = new Date(theFile.lastModified());
+        // Init Date objects without milliseconds
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date(theFile.lastModified()));
+        cal.set(Calendar.MILLISECOND, 0);
+        Date fileModifiedDate = cal.getTime();
+        cal.setTime(channel.getLastModified());
+        cal.set(Calendar.MILLISECOND, 0);
+        Date channelModifiedDate = cal.getTime();
+
         // the file Modified date should be getting set when the file
         // is moved into the correct location.
         log.info("File Modified Date:" + LocalizationService.getInstance().
                 formatCustomDate(fileModifiedDate));
         log.info("Channel Modified Date:" + LocalizationService.getInstance().
-                formatCustomDate(channel.getLastModified()));
-        return !fileModifiedDate.equals(channel.getLastModified());
+                formatCustomDate(channelModifiedDate));
+        return !fileModifiedDate.equals(channelModifiedDate);
     }
 
     /**
@@ -79,6 +88,7 @@ public class DebRepositoryWriter extends RepositoryWriter {
         }
 
         log.info("Generating new DEB repository for channel " + channel.getLabel());
+        Date start = new Date();
         DebPackageWriter writer = new DebPackageWriter(channel, prefix);
         // TODO: is it possible to make this batched to reduce memory requirements
         // like in RpmReporsitoryWriter?
@@ -88,5 +98,9 @@ public class DebRepositoryWriter extends RepositoryWriter {
             writer.addPackage(pkgDto);
         }
         writer.generatePackagesGz();
+
+        log.info("Repository metadata generation for '" +
+                 channel.getLabel() + "' finished in " +
+                 (int) (new Date().getTime() - start.getTime()) / 1000 + " seconds");
     }
 }
