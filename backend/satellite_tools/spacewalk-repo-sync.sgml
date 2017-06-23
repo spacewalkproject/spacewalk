@@ -17,85 +17,72 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
 <refsynopsisdiv>
 <synopsis>
     <cmdsynopsis>
-        <command>spacewalk-repo-sync</command>
-        <sbr>
-        <group>
-        <arg>-c<replaceable>CHANNEL_LABEL</replaceable></arg>
-        <arg>--channel=<replaceable>CHANNEL_LABEL</replaceable></arg>
-        </group>
-        <sbr>
-        <group>
-        <arg>-p<replaceable>CHANNEL_LABEL</replaceable></arg>
-        <arg>--parent-channel=<replaceable>CHANNEL_LABEL</replaceable></arg>
-        </group>
-        <sbr>
-        <group>
+	<command>spacewalk-repo-sync</command>
+	<arg>options <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-c <replaceable>CHANNEL_LABEL</replaceable></arg>
+	<arg>--channel=<replaceable>CHANNEL_LABEL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-p <replaceable>CHANNEL_LABEL</replaceable></arg>
+	<arg>--parent-channel=<replaceable>CHANNEL_LABEL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-l</arg>
-        <arg>--list</arg>
-        </group>
-        <sbr>
-        <group>
-        <arg>-u<replaceable>URL</replaceable></arg>
-        <arg>--url=<replaceable>URL</replaceable></arg>
-        </group>
-        <sbr>
-        <group>
-        <arg>-g<replaceable>CONF_FILE</replaceable></arg>
-        <arg>--config=<replaceable>CONF_FILE</replaceable></arg>
-        </group>
-        <sbr>
-        <group>
-        <arg>-t<replaceable>TYPE</replaceable></arg>
-        <arg>--type=<replaceable>TYPE</replaceable></arg>
-        </group>
-        <sbr>
-        <group>
+	<arg>--list</arg>
+    <cmdsynopsis>
+        <arg>-u <replaceable>URL</replaceable></arg>
+	<arg>--url=<replaceable>URL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-g <replaceable>CONFIG</replaceable></arg>
+        <arg>--config=<replaceable>CONFIG</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-n</arg>
+	<arg>--latest</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-t <replaceable>TYPE</replaceable></arg>
+	<arg>--type=<replaceable>TYPE</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-f</arg>
-        <arg>--fail</arg>
-        </group>
-        <sbr>
-        <group>
-        <arg>-i <replaceable>PKG1,PKG2...</replaceable></arg>
-        <arg>--include <replaceable>PKG1,PKG2...</replaceable></arg>
-        </group>
-        <sbr>
-        <group>
-        <arg>-e <replaceable>PKG1,PKG2...</replaceable></arg>
-        <arg>--exclude <replaceable>PKG1,PKG2...</replaceable></arg>
-        </group>
-        <sbr>
-        <group>
-        <arg>--email</arg>
-        </group>
-        <sbr>
-        <group>
-        <arg>--traceback-mail=<replaceable>EMAIL_ADDESS(ES)</replaceable></arg>
-        </group>
-        <sbr>
-        <group>
-        <arg>--no-errata</arg>
-        </group>
-        <sbr>
-        <group>
-        <arg>--sync-kickstart</arg>
-        </group>
-        <sbr>
-        <group>
-        <arg>--force-all-errata</arg>
-        </group>
-        <sbr>
-        <group>
-        <arg>--batch-size=<replaceable>BATCH_SIZE</replaceable></arg>
-        </group>
-        <sbr>
-        <group>
-        <arg>--dry-run</arg>
-        </group>
-        <sbr>
-        <group>
+	<arg>--fail</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-i <replaceable>FILTERS</replaceable></arg>
+	<arg>--include <replaceable>FILTERS</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-e <replaceable>FILTERS</replaceable></arg>
+	<arg>--exclude <replaceable>FILTERS</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+	<arg>--email</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+	<arg>--traceback-mail=<replaceable>EMAIL_ADDESS(ES)</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+	<arg>--no-errata</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+	<arg>--sync-kickstart</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+	<arg>--force-all-errata</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+	<arg>--batch-size=<replaceable>BATCH_SIZE</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+	<arg>--dry-run</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-v</arg>
-        <arg>--verbose</arg>
-        </group>
+	<arg>--verbose</arg>
     </cmdsynopsis>
 </synopsis>
 </refsynopsisdiv>
@@ -129,19 +116,19 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-c<replaceable>CHANNEL</replaceable>, --channel=<replaceable>CHANNEL</replaceable></term>
+        <term>-c <replaceable>CHANNEL</replaceable>, --channel=<replaceable>CHANNEL</replaceable></term>
         <listitem>
             <para>The channel to sync the repository to.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-p<replaceable>CHANNEL</replaceable>, --parent-channel=<replaceable>CHANNEL</replaceable></term>
+        <term>-p <replaceable>CHANNEL</replaceable>, --parent-channel=<replaceable>CHANNEL</replaceable></term>
         <listitem>
             <para>Synchronize the parent channel and all its child channels. All must have repositories already assigned via WebUI or API.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-u<replaceable>URL</replaceable>, --url=<replaceable>URL</replaceable></term>
+        <term>-u <replaceable>URL</replaceable>, --url=<replaceable>URL</replaceable></term>
         <listitem>
             <para>The repository URL.  Any protocol supported by yum is supported including http://, nfs://, file://. Can be used multiple times in order for more than one repository to be assigned to a channel.(Optional)</para>
         </listitem>
@@ -153,13 +140,19 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-g, --config</term>
+        <term>-g <replaceable>CONFIG</replaceable>, --config=<replaceable>CONFIG</replaceable></term>
         <listitem>
             <para>Configuration file where more than one channel can be specified for synchronization. See section Examples.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-t<replaceable>TYPE</replaceable>, --type=<replaceable>TYPE</replaceable></term>
+        <term>-n, --latest</term>
+        <listitem>
+            <para>Sync latest packages only. Use carefully - you might need to fix some dependencies on your own.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-t <replaceable>TYPE</replaceable>, --type=<replaceable>TYPE</replaceable></term>
         <listitem>
             <para>The type of repository to sync. Currently only yum, uln and deb are supported. The uln type is used to sync with the Oracle Unbreakable Linux Network. The deb type is used for Debian repositories. This option overrides type of repository stored in DB for given repository.</para>
         </listitem>
@@ -177,13 +170,13 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-i <replaceable>PKG1,PKG2...</replaceable>, --include <replaceable>PKG1,PKG2...</replaceable></term>
+        <term>-i <replaceable>FILTERS</replaceable>, --include <replaceable>FILTERS</replaceable></term>
         <listitem>
             <para>Comma or space separated list of included packages.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-e <replaceable>PKG1,PKG2...</replaceable>, --exclude <replaceable>PKG1,PKG2...</replaceable></term>
+        <term>-e <replaceable>FILTERS</replaceable>, --exclude <replaceable>FILTERS</replaceable></term>
         <listitem>
             <para>Comma or space separated list of excluded packages.</para>
         </listitem>

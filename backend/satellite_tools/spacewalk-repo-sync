@@ -96,11 +96,11 @@ def main():
     parser.add_option('-i', '--include', action='callback',
                       callback=reposync.set_filter_opt, type='str', nargs=1,
                       dest='filters', default=[],
-                      help="List of included packages")
+                      help="Comma or space separated list of included packages.")
     parser.add_option('-e', '--exclude', action='callback',
                       callback=reposync.set_filter_opt,
                       type='str', nargs=1, dest='filters', default=[],
-                      help="List of excluded packages")
+                      help="Comma or space separated list of excluded packages")
     parser.add_option('', '--email', action="store_true", help="e-mail a report of what was synced/imported")
     parser.add_option('', '--traceback-mail', action="store",
                       help="alternative email address(es) for sync output (--email option)")
