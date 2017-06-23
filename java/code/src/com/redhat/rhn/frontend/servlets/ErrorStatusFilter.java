@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.servlets;
 
+import org.apache.struts.Globals;
+
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -43,6 +45,10 @@ public class ErrorStatusFilter implements Filter {
         }
         else if (httpRequest.getRequestURI().endsWith("/500.jsp")) {
             httpResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+
+            // Drop all messages from the request and session
+            httpRequest.removeAttribute(Globals.MESSAGE_KEY);
+            httpRequest.getSession().removeAttribute(Globals.MESSAGE_KEY);
         }
 
         chain.doFilter(request, response);
