@@ -29,7 +29,9 @@
                    sortable="true"
                    headerkey="org.nopunc.displayname"
                    sortattr="name">
-                <c:out value="<a href=\"/rhn/admin/multiorg/OrgDetails.do?oid=${current.id}\">${current.name}</a>" escapeXml="false" />
+                <a href="/rhn/admin/multiorg/OrgDetails.do?oid=${current.id}">
+                        <c:out value="${current.name}"/>
+                    </a>
                 <c:if test="${current.id == 1}">*</c:if>
         </rl:column>
         <rl:column bound="false"
