@@ -42,6 +42,12 @@ class DebPackage(object):
         self.checksum_type = None
         self.checksum = None
 
+    def __getitem__(self, key):
+        return getattr(self, key)
+
+    def __setitem__(self, key, value):
+        return setattr(self, key, value)
+
     def is_populated(self):
         return all([attribute is not None for attribute in (self.name, self.epoch, self.version, self.release,
                                                             self.arch, self.relativepath, self.checksum_type,
@@ -247,7 +253,7 @@ class ContentSource(object):
             reobj = re.compile(regex)
             if sense == '+':
                 # include
-                for excluded_pkg in enumerate(excluded):
+                for (index, excluded_pkg) in enumerate(excluded):
                     if (reobj.match(excluded_pkg['name'])):
                         allmatched_include.insert(0,excluded_pkg)
                         selected.insert(0,excluded_pkg)
@@ -256,7 +262,7 @@ class ContentSource(object):
                         excluded.remove(pkg)
             elif sense == '-':
                 # exclude
-                for selected_pkg in enumerate(selected):
+                for (index, selected_pkg) in enumerate(selected):
                     if (reobj.match(selected_pkg['name'])):
                         allmatched_exclude.insert(0,selected_pkg)
                         excluded.insert(0,selected_pkg)
