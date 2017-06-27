@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.91
+Version: 2.7.92
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,13 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 27 2017 Marc-A. Dahlhaus <mad@wol.de>
+- Fix logging of errors to be at error level, not debug.  Also remove
+  milliseconds from metadata stale check to match non-debian stale check
+- PR 500 - fix copy and paste mistake
+- PR 500 - use the already imported and used equalsIgnoreCase
+- PR 500 - Add epoch information for deb packages
+
 * Tue Jun 27 2017 Jiri Dostal <jdostal@redhat.com> 2.7.91-1
 - 1460208 - organization name allows XSS
 - Revert "1460208 - organization name allows XSS"
