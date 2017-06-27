@@ -36,7 +36,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.116
+Version: 2.7.117
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -792,6 +792,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue Jun 27 2017 Marc-A. Dahlhaus <mad@wol.de>
+- PR 500 - Another try to fix the test suite
+- PR 500 - Fix version string for test-suite
+- PR 500 - Fix typo
+- PR 500 - Add epoch information for deb packages
+
 * Fri Jun 23 2017 Gennadii Altukhov <grinrag@gmail.com> 2.7.116-1
 - 1449172 - make documentation in man page and --help consistent
 
