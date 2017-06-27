@@ -36,7 +36,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.117
+Version: 2.7.118
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -792,6 +792,15 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue Jun 27 2017 Valérian Beaudoin <valouille@users.noreply.github.com>
+- PR 502 - fix model objects do not support item assignment errors and tuple
+  indices must be integers, not str errors
+- PR 502 - Correcting unused variable 'index' following the use of enumerates
+- PR 502 - Correcting C0200 and refactoring
+- PR 502 - Indentation & using IOError instead of UpdateNoticeException
+- PR 502 - Moving "import re" & adding "import fnmatch"
+- PR 502 - Adding filters feature to deb_src.py
+
 * Tue Jun 27 2017 Marc-A. Dahlhaus <mad@wol.de>
 - PR 500 - Another try to fix the test suite
 - PR 500 - Fix version string for test-suite
