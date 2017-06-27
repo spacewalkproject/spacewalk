@@ -150,6 +150,8 @@
   <filter-mapping>
     <filter-name>ErrorStatusFilter</filter-name>
     <url-pattern>/errors/*</url-pattern>
+    <dispatcher>request</dispatcher>
+    <dispatcher>error</dispatcher>
   </filter-mapping>
 
   <!--
