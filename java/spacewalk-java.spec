@@ -762,7 +762,7 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
-* Tue Jun 27 2017 Marc-A. Dahlhaus <mad@wol.de>
+* Tue Jun 27 2017 Marc Dahlhaus <ossdev@dahlhaus.it>
 - Fix logging of errors to be at error level, not debug.  Also remove
   milliseconds from metadata stale check to match non-debian stale check
 - PR 500 - fix copy and paste mistake

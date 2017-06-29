@@ -801,7 +801,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 - PR 502 - Moving "import re" & adding "import fnmatch"
 - PR 502 - Adding filters feature to deb_src.py
 
-* Tue Jun 27 2017 Marc-A. Dahlhaus <mad@wol.de>
+* Tue Jun 27 2017 Marc Dahlhaus <ossdev@dahlhaus.it>
 - PR 500 - Another try to fix the test suite
 - PR 500 - Fix version string for test-suite
 - PR 500 - Fix typo
