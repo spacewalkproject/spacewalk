@@ -274,6 +274,7 @@ public class BaseSetHelper {
     }
 
     private void syncObjectToSet(Set set, Object obj) {
+        System.out.println("GALT: in syncObjectToSet");
         if (obj instanceof Selectable) {
             Selectable next = (Selectable) obj;
             if (next.isSelectable()) {
