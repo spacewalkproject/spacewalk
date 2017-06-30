@@ -218,8 +218,8 @@ Provides:       mvn(asm:asm) = 3.2
 %package -n tomcat-servlet-3.0-api-mvn
 Summary:        Adds missing maven dependencies for tomcat-servlet-3.0-api
 Group:          Applications/Internet
-Requires:       tomcat-servlet-3.0-api = 7.0.77
-Provides:       mvn(javax.servlet:javax.servlet-api) = 7.0.77
+Requires:       tomcat-servlet-3.0-api >= 7.0.78
+Provides:       mvn(javax.servlet:javax.servlet-api) = 7.0.78
 
 %description -n tomcat-servlet-3.0-api-mvn
 %{summary}
