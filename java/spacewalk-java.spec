@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.92
+Version: 2.7.93
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri Jun 30 2017 Eric Herget <eherget@redhat.com> 2.7.93-1
+- PR 500 - correcting email address in change log.  Not able/willing to change
+  email addresses in individual commits, however.
+- Duplicate Systems: correct language not to mention 'profiles' (bsc1035728)
+
 * Tue Jun 27 2017 Marc Dahlhaus <ossdev@dahlhaus.it>
 - Fix logging of errors to be at error level, not debug.  Also remove
   milliseconds from metadata stale check to match non-debian stale check
