@@ -397,6 +397,9 @@ static int rhn_do_action(void)
 	/* close the read end of the pipe */
 	close(fds[0]);
 
+	/* close syslog file descriptor */
+	closelog();
+
 	/* redirect stdout */
 	if (fds[1] != STDOUT_FILENO) {
 	    dup2(fds[1], STDOUT_FILENO);
@@ -405,6 +408,9 @@ static int rhn_do_action(void)
 
 	/* make sure this child has a stderr */
 	dup2(STDOUT_FILENO, STDERR_FILENO);
+
+	/* open a new syslog connection for the child */
+	openlog("rhnsd", LOG_CONS | LOG_ODELAY | LOG_PID, LOG_DAEMON);
 
 	/* syslog for safekeeping */
 	syslog(LOG_NOTICE, "running program %s with PID %d", RHN_CHECK, getpid());
