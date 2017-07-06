@@ -298,6 +298,12 @@
           <context context-type="paramnotes">Count must be a double.</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="errors.unexpected">
+        <source>An unexpected error has occurred during the request.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Any page where an unexpected error occurred.</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="toolbar.jsp.helpicon.alt">
         <source>Help Icon</source>
         <context-group name="ctx">
