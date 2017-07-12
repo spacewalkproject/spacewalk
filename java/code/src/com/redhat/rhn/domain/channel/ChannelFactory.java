@@ -36,6 +36,7 @@ import org.hibernate.criterion.Restrictions;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -227,6 +228,7 @@ public class ChannelFactory extends HibernateFactory {
      * @param c Channel to be stored in database.
      */
     public static void save(Channel c) {
+        c.setLastModified(new Date());
         singleton.saveObject(c);
     }
 

@@ -39,7 +39,6 @@ import java.nio.file.Files;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -77,22 +76,19 @@ public class RpmRepositoryWriter extends RepositoryWriter {
         File theFile = new File(mountPoint + File.separator + pathPrefix +
                 File.separator + channel.getLabel() + File.separator +
                 "repomd.xml");
-        // Init Date objects without milliseconds
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date(theFile.lastModified()));
-        cal.set(Calendar.MILLISECOND, 0);
-        Date fileModifiedDate = cal.getTime();
-        cal.setTime(channel.getLastModified());
-        cal.set(Calendar.MILLISECOND, 0);
-        Date channelModifiedDate = cal.getTime();
-
-        // the file Modified date should be getting set when the file
-        // is moved into the correct location.
+        Date mdlastModified = new Date(theFile.lastModified());
+        Date dblastModified = channel.getLastModified();
         log.info("File Modified Date:" + LocalizationService.getInstance().
-                formatCustomDate(fileModifiedDate));
+                formatCustomDate(mdlastModified));
         log.info("Channel Modified Date:" + LocalizationService.getInstance().
-                formatCustomDate(channelModifiedDate));
-        return !fileModifiedDate.equals(channelModifiedDate);
+                formatCustomDate(dblastModified));
+        // We need to cut some digits from ms, we don't want to be very accurate. However
+        // removing ms completely will not work either.
+        Long mdfasttimeCut = mdlastModified.getTime() / 100;
+        Long dbfasttimeCut = dblastModified.getTime() / 100;
+
+        return !mdfasttimeCut.equals(dbfasttimeCut);
+
     }
 
     /**
