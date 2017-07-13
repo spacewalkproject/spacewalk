@@ -2525,7 +2525,7 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
         <target>Errata Update: Aggiornamento combinato per lo stack di aggioramento software ({0} errata)</target>
       </trans-unit>
       <trans-unit id="errata.schedule">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata update has been scheduled for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
+        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata update has been &lt;a href="/rhn/systems/details/history/Pending.do?sid={2}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">1 errata update has been scheduled for workstation.</context>
@@ -2533,7 +2533,7 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
         <target>L'errata update &lt;strong&gt;{0}&lt;/strong&gt; è stata programmata per &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{1}&lt;/a&gt;.</target>
       </trans-unit>
       <trans-unit id="errata.schedule.plural">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata updates have been scheduled for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
+        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata updates have been &lt;a href="/rhn/systems/details/history/Pending.do?sid={2}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">43 errata updates have been scheduled for workstation.</context>
@@ -2541,7 +2541,7 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
         <target>Le errata update &lt;strong&gt;{0}&lt;/strong&gt; sono state programmate per &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{1}&lt;/a&gt;.</target>
       </trans-unit>
       <trans-unit id="errataconfirm.schedule">
-        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
+        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={3}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 1 system</context>
@@ -2549,7 +2549,7 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
         <target>L'errata &lt;a href=&quot;/rhn/errata/details/Details.do?eid={2}&quot;&gt;{0}&lt;/a&gt; è stata programmata per il sistema &lt;strong&gt;{1}&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="errataconfirm.schedule.plural">
-        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; systems</source>
+        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={3}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{1}&lt;/strong&gt; systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 3 systems</context>
@@ -3286,6 +3286,24 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
         <target>Posizione</target>
+      </trans-unit>
+      <trans-unit id="systemsearch_location_country">
+        <source>Country</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="systemsearch_location_state">
+        <source>State/Province</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="systemsearch_location_city">
+        <source>City</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="systemsearch_location_address">
         <source>Address</source>
@@ -7009,20 +7027,20 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         <target>Macro invalida - assicuratevi che il file non sia un file binario! '{0}'</target>
       </trans-unit>
       <trans-unit id="configdiff.schedule.success">
-        <source>Configuration file compare actions are being scheduled for {0} systems, it may take several minutes for this to complete.</source>
+          <source>&lt;a href="{0}"&gt;Configuration file compare actions&lt;/a&gt; are being scheduled for {1} systems, it may take several minutes for this to complete.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
           <context context-type="paramnotes">Configuration file compare action scheduled successfully for 8 systems.</context>
         </context-group>
-        <target>Il confronto del file di configurazione per &lt;strong&gt;{0} sistemi&lt;/strong&gt; è stato programmato con successo, saranno necessari diversi minuti per il suo completamento.</target>
+          <target>Il confronto del file di configurazione per &lt;strong&gt;{0} sistemi&lt;/strong&gt; è stato programmato con successo, saranno necessari diversi minuti per il suo completamento.</target>
       </trans-unit>
       <trans-unit id="configdiff.schedule.success.singular">
-        <source>Configuration file compare action is being scheduled successfully for {0} system.</source>
+          <source>&lt;a href="{0}"&gt;Configuration file compare action&lt;/a&gt; is being scheduled successfully for 1 system.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
           <context context-type="paramnotes">Configuration file compare action scheduled successfully for 1 system.</context>
         </context-group>
-        <target>Il confronto del file di configurazione per {0} sistema è stato programmato con successo.</target>
+          <target>Il confronto del file di configurazione per {0} sistema è stato programmato con successo.</target>
       </trans-unit>
       <trans-unit id="configdiff.schedule.error">
         <source>Failed to schedule configuration file compare action</source>
@@ -8651,6 +8669,24 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
           <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="systemTypeLabel">
+        <source>System Type</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="systemIdForCsv">
+        <source>System Id</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/VirtualList</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hostSystemIdForCsv">
+        <source>Host System Id</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/VirtualList</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="xid">
         <source>Xid</source>
         <target>Xid</target>
@@ -9261,7 +9297,7 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         <target>L'etichetta del repositorio '{0}'è già utilizzata, inserire un'altra etichetta</target>
       </trans-unit>
       <trans-unit id="edit.channel.repo.invalidrepotype">
-        <source>The repository type '{0}' is invalid, please choose a different type</source>
+        <source>The repository type '{0}' is invalid or already in use with given url, please choose a different type</source>
       </trans-unit>
       <trans-unit id="edit.channel.repo.repourlinuse">
         <source>There's already a defined repository with given url, please reuse it.</source>
@@ -9375,7 +9411,7 @@ Di seguito viene riportato un elenco di errori raccolti durante il tentativo di 
 Controllare:
 
 /var/log/rhn/rhn_taskomatic_daemon.log e
-/var/log/tomcat6/catalina.out
+/var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart

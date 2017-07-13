@@ -234,7 +234,7 @@
         <target>Habilite a Configuração</target>
       </trans-unit>
       <trans-unit id="ssm.nav.status">
-        <source>Status</source>
+        <source>Task Log</source>
         <context-group name="ctx">
           <context context-type="sourcefile">System Set Manager Navigation Menu</context>
         </context-group>

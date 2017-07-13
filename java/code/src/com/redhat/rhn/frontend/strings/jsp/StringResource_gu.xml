@@ -791,6 +791,12 @@
           <context context-type="sourcefile">500 error page</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="common.jsp.noscript">
+          <source>Some features require JavaScript in order to work properly. Make sure you enable JavaScript in your browser.</source>
+          <context-group name="ctx">
+              <context context-type="sourcefile">All pages</context>
+          </context-group>
+      </trans-unit>
       <trans-unit id="orgadmin.displayname">
         <source>Org Admin?*</source>
         <context-group name="ctx">
@@ -5360,10 +5366,16 @@ organization. You may grant or remove the organization administrator role in the
           <source>Schedule Systems Reboot</source>
         </trans-unit>
         <trans-unit id="ssm.misc.reboot.message.success.singular">
-          <source>{0} system reboot has been scheduled.</source>
+          <source>{0} system has been &lt;a href="/rhn/schedule/PendingActions.do"&gt;scheduled&lt;/a&gt; to reboot at {1}.</source>
         </trans-unit>
         <trans-unit id="ssm.misc.reboot.message.success.plural">
-          <source>{0} systems reboot has been scheduled.</source>
+          <source>{0} systems have been &lt;a href="/rhn/schedule/PendingActions.do"&gt;scheduled&lt;/a&gt; to reboot at {1}.</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.reboot.message.queued.singular">
+            <source>{0} system reboot has been added to the Action Chain &lt;a href="/rhn/schedule/ActionChain.do?id={1}"&gt;{2}&lt;/a&gt;.</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.reboot.message.queued.plural">
+            <source>{0} system reboots have been added to the Action Chain &lt;a href="/rhn/schedule/ActionChain.do?id={1}"&gt;{2}&lt;/a&gt;.</source>
         </trans-unit>
         <trans-unit id="ssm.misc.reboot.message.error.noselect">
           <source>Please select at least one system for reboot.</source>
@@ -5909,10 +5921,10 @@ organization. You may grant or remove the organization administrator role in the
           <context context-type="sourcefile">/rhn/systems/DuplicateIPList.do pages</context>
         </context-group>
         <trans-unit id="duplicates.jsp.header">
-          <source>Duplicate System Profiles</source>
+          <source>Duplicate Systems</source>
         </trans-unit>
         <trans-unit id="duplicate.jsp.message">
-          <source>Inactive system profiles are highlighted below.</source>
+          <source>Inactive systems are listed below.</source>
         </trans-unit>
         <trans-unit id="Delete Selected">
           <source>Delete Selected</source>
@@ -6130,14 +6142,17 @@ organization. You may grant or remove the organization administrator role in the
         <trans-unit id="systemgroup.details.updates">
           <source>Updates:</source>
         </trans-unit>
-        <trans-unit id="systemgroup.details.criticalupdates">
-          <source>critical updates available</source>
-        </trans-unit>
         <trans-unit id="systemgroup.details.someupdates">
-          <source>updates available</source>
+          <source>Software Updates Available</source>
         </trans-unit>
         <trans-unit id="systemgroup.details.noupdates">
           <source>No applicable errata</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.updates.critical">
+          <source>&lt;strong&gt;&lt;a href="{0}"&gt;Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.updates.noncritical">
+          <source>&lt;strong&gt;&lt;a href="{0}"&gt;Non-Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
         </trans-unit>
         <trans-unit id="systemgroup.details.none">
           <source>(none)</source>
@@ -6156,6 +6171,9 @@ organization. You may grant or remove the organization administrator role in the
         </trans-unit>
         <trans-unit id="systemgroup.details.systems">
           <source>Systems:</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.systems.systems">
+          <source>{0} System(s)</source>
         </trans-unit>
         <trans-unit id="systemgroup.details.name">
           <source>Name:</source>
@@ -9416,12 +9434,6 @@ Please note that some manual configuration of these scripts may still be require
       </trans-unit>
       <trans-unit id="kickstartscript.order.update">
         <source>Update Order</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/Scripts</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="kickstartscript.order.noscript">
-        <source>&lt;strong&gt;Warning:&lt;/strong&gt; Javascript is required for the kickstart script ordering to succeed. Please enable Javascript in order to continue.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/Scripts</context>
         </context-group>
@@ -16388,15 +16400,15 @@ any of these revisions.  Are you sure you want to do this?</source>
           <target>ફાઈલો કાઢી નાંખો</target>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_sandbox">
-          <source>Copy Latest to Sandbox</source>
+          <source>Copy Latest to Local Sandbox</source>
           <target>તાજેતરને સેન્ડબોક્સમાં નકલ કરો</target>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_local">
-          <source>Copy Latest to System Channel</source>
+          <source>Copy Latest to Locally-Managed Files</source>
           <target>તાજેતરને સિસ્ટમ ચેનલમાં નકલ કરો</target>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_global">
-          <source>Copy Latest to Central Channel</source>
+          <source>Copy Latest to Centrally-Managed Files</source>
           <target>તાજેતરને કેન્દ્રિય ચેનલમાં નકલ કરો</target>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.sandbox.success">
@@ -16749,7 +16761,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context context-type="sourcefile">/rhn/ssm/ViewLogDetails.do</context>
         </context-group>
         <trans-unit id="ssm.operations.viewlog.header">
-          <source>Tasks Log</source>
+          <source>Task Log</source>
           <target>ક્રિયાઓનો લોગ</target>
         </trans-unit>
         <trans-unit id="ssm.operations.viewlog.description">
@@ -16835,6 +16847,9 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="ssm.operations.provisioning.remotecommand.form.gid.missing">
           <source>Group name on the target system is not specified.</source>
+        </trans-unit>
+        <trans-unit id="ssm.operations.provisioning.remotecommand.form.timeout.max">
+          <source>Timeout value specified exceeds max value of 2147483647.</source>
         </trans-unit>
         <trans-unit id="ssm.operations.provisioning.remotecommand.form.script_body.missing">
           <source>No script has been specified.</source>
@@ -18768,6 +18783,12 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>સિસ્ટમ સેટ વ્યવસ્થાપક</target>
       </trans-unit>
+      <trans-unit id="view-log.jsp.header">
+        <source>System Set Manager Task Log</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Set Manager header</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="ssm.jsp.imgAlt">
         <source>System Set</source>
         <context-group name="ctx">
@@ -18944,10 +18965,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <trans-unit id="common.config.rank.jsp.warning">
           <source>&lt;strong&gt;Warning:&lt;/strong&gt; You have just selected new configuration channel(s) to subscribe this system to. This system will &lt;strong&gt;not&lt;/strong&gt; be subscribed to these channels until you confirm the subscriptions by determining their ranks and clicking on "{0}" below. </source>
           <target>&lt;strong&gt;ચેતવણી:&lt;/strong&gt; તમે આ સિસ્ટમની ઉમેદવારી કરવા માટે ખાલી નવી રૂપરેખાંકન ચેનલ(ઓ) જ પસંદ કરેલ છે. આ સિસ્ટમની ઉમેદવારી આ ચેનલોમાં &lt;strong&gt;થશે નહિં&lt;/strong&gt; જ્યાં સુધી તમે ઉમેદવારીઓ તેમનો ક્રમ નક્કી કરીને ખાતરી કરો નહિં અને નીચે &quot;{0}&quot; પર ક્લિક કરીને. </target>
-        </trans-unit>
-        <trans-unit id="common.config.rank.jsp.warning.noscript">
-          <source>&lt;strong&gt;Warning:&lt;/strong&gt; Javascript is required for the subscription and channel ranking operations to succeed. Please enable Javascript in order to continue on to these tasks.</source>
-          <target>&lt;strong&gt;ચેતવણી:&lt;/strong&gt; Javascript એ ઉમેદવારી માટે જરૂરી છે અને ચેનલ ક્રમાંકન પ્રક્રિયાઓ સફળતા માટે જરૂરી છે. મહેરબાની કરીને આ ક્રિયાઓ પર કામ ચાલુ રાખવા માટે Javascript સક્રિય કરો.</target>
         </trans-unit>
         <trans-unit id="common.config.rank.jsp.error.nojavascript">
           <source>Please enable Javascript before ordering your channel subscriptions.</source>
@@ -22462,7 +22479,7 @@ given channel.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="extauth.sg.message">
-        <source>When creating new users, a default System Group may be created for every single user, that would have the same name as the user. This is usefull, when different users shall administer different groups of systems within one organization.</source>
+        <source>When creating new users, a default System Group may be created for every single user, that would have the same name as the user. This is useful, when different users shall administer different groups of systems within one organization.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/SystemGroupConfig.do</context>
         </context-group>
@@ -22722,8 +22739,8 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="schedule.edit.jsp.editschedule">
-        <source>Edit Schedule</source>
+      <trans-unit id="schedule.edit.jsp.updateschedule">
+        <source>Update Schedule</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
         </context-group>
@@ -23099,7 +23116,7 @@ given channel.</source>
         <source>6 Month</source>
       </trans-unit>
       <trans-unit id="duplicate-ip.jsp.inactive.header">
-        <source>A system profile is inactive if its system has not checked in for:</source>
+        <source>A system is inactive if its system has not checked in for:</source>
       </trans-unit>
       <trans-unit id="schedule.header">
         <source>Select a schedule:</source>
@@ -23257,6 +23274,9 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="credentials.jsp.url">
         <source>URL</source>
+      </trans-unit>
+      <trans-unit id="iss.unmapped.org">
+        <source>MASTER ORG NOT MAPPED</source>
       </trans-unit>
       <trans-unit id="iss.slave.name">
         <source>Slave Fully-Qualified Domain Name</source>
@@ -23417,6 +23437,9 @@ given channel.</source>
         <trans-unit id="iss.editslave.jsp.nolocalorgs">
           <source>No local organizations available</source>
         </trans-unit>
+        <trans-unit id="iss.error.slave.exists">
+          <source>Slave with domain name {0} already defined</source>
+        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">
@@ -23504,6 +23527,10 @@ given channel.</source>
         <trans-unit id="iss.editmaster.jsp.nomasterorgs">
           <source>This master did not export any of its organizations to this slave</source>
         </trans-unit>
+        <trans-unit id="iss.error.master.exists">
+          <source>Master with domain name {0} already defined</source>
+        </trans-unit>
+        
       </group>
       <group>
         <context-group name="ctx">

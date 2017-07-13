@@ -830,6 +830,12 @@
         </context-group>
         <target>Por favor nos ajude a corrigir esta mensagem, contactando-nos com detalhes de como você recebeu esta mensagem.</target>
       </trans-unit>
+      <trans-unit id="common.jsp.noscript">
+          <source>Some features require JavaScript in order to work properly. Make sure you enable JavaScript in your browser.</source>
+          <context-group name="ctx">
+              <context context-type="sourcefile">All pages</context>
+          </context-group>
+      </trans-unit>
       <trans-unit id="orgadmin.displayname">
         <source>Org Admin?*</source>
         <context-group name="ctx">
@@ -5227,7 +5233,7 @@ serviços de uma organização não-padrão, eles serão deduzidos da organizaç
             <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
             <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
           </context-group>
-          <target>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; As Informações salvas nesta página estão disponíveis à qualquer um na rede &lt;a href=&quot;https://cobbler.github.io/manuals/2.4.0/5/6_-_Power_Management.html&quot;&gt;documentação do cobbler&lt;/a&gt; para obter mais informações e estratégias de migração.</target>
+          <target>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; As Informações salvas nesta página estão disponíveis à qualquer um na rede &lt;a href=&quot;https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications&quot;&gt;documentação do cobbler&lt;/a&gt; para obter mais informações e estratégias de migração.</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>
@@ -5583,12 +5589,18 @@ serviços de uma organização não-padrão, eles serão deduzidos da organizaç
           <target>Agendar Reinicialização de Sistemas</target>
         </trans-unit>
         <trans-unit id="ssm.misc.reboot.message.success.singular">
-          <source>{0} system reboot has been scheduled.</source>
+          <source>{0} system has been &lt;a href="/rhn/schedule/PendingActions.do"&gt;scheduled&lt;/a&gt; to reboot at {1}.</source>
           <target>{0} a reinicialização de sistema foi agendada.</target>
         </trans-unit>
         <trans-unit id="ssm.misc.reboot.message.success.plural">
-          <source>{0} systems reboot has been scheduled.</source>
+          <source>{0} systems have been &lt;a href="/rhn/schedule/PendingActions.do"&gt;scheduled&lt;/a&gt; to reboot at {1}.</source>
           <target>{0} a reinicialização de sistemas foi agendada.</target>
+        </trans-unit>
+        <trans-unit id="ssm.misc.reboot.message.queued.singular">
+            <source>{0} system reboot has been added to the Action Chain &lt;a href="/rhn/schedule/ActionChain.do?id={1}"&gt;{2}&lt;/a&gt;.</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.reboot.message.queued.plural">
+            <source>{0} system reboots have been added to the Action Chain &lt;a href="/rhn/schedule/ActionChain.do?id={1}"&gt;{2}&lt;/a&gt;.</source>
         </trans-unit>
         <trans-unit id="ssm.misc.reboot.message.error.noselect">
           <source>Please select at least one system for reboot.</source>
@@ -6175,11 +6187,11 @@ serviços de uma organização não-padrão, eles serão deduzidos da organizaç
           <context context-type="sourcefile">/rhn/systems/DuplicateIPList.do pages</context>
         </context-group>
         <trans-unit id="duplicates.jsp.header">
-          <source>Duplicate System Profiles</source>
+          <source>Duplicate Systems</source>
           <target>Perfis de Sistemas Duplicados</target>
         </trans-unit>
         <trans-unit id="duplicate.jsp.message">
-          <source>Inactive system profiles are highlighted below.</source>
+          <source>Inactive systems are listed below.</source>
           <target>Os perfis de sistemas inativos estão destacados abaixo.</target>
         </trans-unit>
         <trans-unit id="Delete Selected">
@@ -6425,17 +6437,19 @@ serviços de uma organização não-padrão, eles serão deduzidos da organizaç
           <source>Updates:</source>
           <target>Atualizações:</target>
         </trans-unit>
-        <trans-unit id="systemgroup.details.criticalupdates">
-          <source>critical updates available</source>
-          <target>Atualizações críticas disponíveis</target>
-        </trans-unit>
         <trans-unit id="systemgroup.details.someupdates">
-          <source>updates available</source>
+          <source>Software Updates Available</source>
           <target>atualizações disponíveis</target>
         </trans-unit>
         <trans-unit id="systemgroup.details.noupdates">
           <source>No applicable errata</source>
           <target>Nenhuma errata aplicável</target>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.updates.critical">
+          <source>&lt;strong&gt;&lt;a href="{0}"&gt;Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.updates.noncritical">
+          <source>&lt;strong&gt;&lt;a href="{0}"&gt;Non-Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
         </trans-unit>
         <trans-unit id="systemgroup.details.none">
           <source>(none)</source>
@@ -6460,6 +6474,9 @@ serviços de uma organização não-padrão, eles serão deduzidos da organizaç
         <trans-unit id="systemgroup.details.systems">
           <source>Systems:</source>
           <target>Sistemas:</target>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.systems.systems">
+          <source>{0} System(s)</source>
         </trans-unit>
         <trans-unit id="systemgroup.details.name">
           <source>Name:</source>
@@ -9895,13 +9912,6 @@ Você teria então que usar o $nome dentro do perfil para substituir no valor.</
           <context context-type="sourcefile">/rhn/kickstart/Scripts</context>
         </context-group>
         <target>Atualizar a Ordem</target>
-      </trans-unit>
-      <trans-unit id="kickstartscript.order.noscript">
-        <source>&lt;strong&gt;Warning:&lt;/strong&gt; Javascript is required for the kickstart script ordering to succeed. Please enable Javascript in order to continue.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/Scripts</context>
-        </context-group>
-        <target>&lt;strong&gt;Aviso:&lt;/strong&gt; Para ordenar o script do Kickstart é necessário um Javascript. Ative-o para continuar estas tarefas.</target>
       </trans-unit>
       <trans-unit id="kickstartips.jsp.baremetal_summary">
         <source>&lt;p&gt; In order to kickstart "bare metal systems", you will need to provide them with a boot image that is compatible with the version of the operating system you are kickstarting to via boot CD. &lt;/p&gt; &lt;p&gt; Once these systems have booted using the appropriate image, you will need to provide a kickstart file. You may use the following URL in your Boot CD or in your PXE configuration to provide these systems with the kickstart file associated with this kickstart profile:&lt;/p&gt;</source>
@@ -17243,15 +17253,15 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <target>Remover Arquivos</target>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_sandbox">
-          <source>Copy Latest to Sandbox</source>
+          <source>Copy Latest to Local Sandbox</source>
           <target>Copiar Última Revisão para Quarentena</target>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_local">
-          <source>Copy Latest to System Channel</source>
+          <source>Copy Latest to Locally-Managed Files</source>
           <target>Copiar Última Revisão para Canal do Sistema</target>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_global">
-          <source>Copy Latest to Central Channel</source>
+          <source>Copy Latest to Centrally-Managed Files</source>
           <target>Copiar Última Revisão para Canal Global</target>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.sandbox.success">
@@ -17604,7 +17614,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <context context-type="sourcefile">/rhn/ssm/ViewLogDetails.do</context>
         </context-group>
         <trans-unit id="ssm.operations.viewlog.header">
-          <source>Tasks Log</source>
+          <source>Task Log</source>
           <target>Log de Tarefas</target>
         </trans-unit>
         <trans-unit id="ssm.operations.viewlog.description">
@@ -17700,6 +17710,9 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <trans-unit id="ssm.operations.provisioning.remotecommand.form.gid.missing">
           <source>Group name on the target system is not specified.</source>
           <target>O nome de Grupo no sistema alvo não foi especificado.</target>
+        </trans-unit>
+        <trans-unit id="ssm.operations.provisioning.remotecommand.form.timeout.max">
+          <source>Timeout value specified exceeds max value of 2147483647.</source>
         </trans-unit>
         <trans-unit id="ssm.operations.provisioning.remotecommand.form.script_body.missing">
           <source>No script has been specified.</source>
@@ -19757,6 +19770,12 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         </context-group>
         <target>Gerente de Conjunto de Sistema</target>
       </trans-unit>
+      <trans-unit id="view-log.jsp.header">
+        <source>System Set Manager Task Log</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Set Manager header</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="ssm.jsp.imgAlt">
         <source>System Set</source>
         <context-group name="ctx">
@@ -19933,10 +19952,6 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         <trans-unit id="common.config.rank.jsp.warning">
           <source>&lt;strong&gt;Warning:&lt;/strong&gt; You have just selected new configuration channel(s) to subscribe this system to. This system will &lt;strong&gt;not&lt;/strong&gt; be subscribed to these channels until you confirm the subscriptions by determining their ranks and clicking on "{0}" below. </source>
           <target>&lt;strong&gt;Aviso:&lt;/strong&gt; Você acabou de selecionar um novo canal de configuração para registrar este sistema. Este sistema &lt;strong&gt;não&lt;/strong&gt; será registrado nestes canais até que você confirme as subscrições, determinando suas classes e clicando em &quot;{0}&quot; abaixo. </target>
-        </trans-unit>
-        <trans-unit id="common.config.rank.jsp.warning.noscript">
-          <source>&lt;strong&gt;Warning:&lt;/strong&gt; Javascript is required for the subscription and channel ranking operations to succeed. Please enable Javascript in order to continue on to these tasks.</source>
-          <target>&lt;strong&gt;Aviso:&lt;/strong&gt; A Subscrição e as operações de classificação do canal requerem o Javascript. Ative-o para continuar estas tarefas.</target>
         </trans-unit>
         <trans-unit id="common.config.rank.jsp.error.nojavascript">
           <source>Please enable Javascript before ordering your channel subscriptions.</source>
@@ -23705,7 +23720,7 @@ Serão exibidos somente pacotes de uma arquitetura compatível.</target>
         <target>Criação de novo usuário</target>
       </trans-unit>
       <trans-unit id="extauth.sg.message">
-        <source>When creating new users, a default System Group may be created for every single user, that would have the same name as the user. This is usefull, when different users shall administer different groups of systems within one organization.</source>
+        <source>When creating new users, a default System Group may be created for every single user, that would have the same name as the user. This is useful, when different users shall administer different groups of systems within one organization.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/SystemGroupConfig.do</context>
         </context-group>
@@ -24006,12 +24021,11 @@ Serão exibidos somente pacotes de uma arquitetura compatível.</target>
         </context-group>
         <target>Criar Agenda</target>
       </trans-unit>
-      <trans-unit id="schedule.edit.jsp.editschedule">
-        <source>Edit Schedule</source>
+      <trans-unit id="schedule.edit.jsp.updateschedule">
+        <source>Update Schedule</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
         </context-group>
-        <target>Editar Agenda</target>
       </trans-unit>
       <trans-unit id="schedule.delete.jsp.deleteschedule">
         <source>Delete Schedule</source>
@@ -24431,7 +24445,7 @@ Serão exibidos somente pacotes de uma arquitetura compatível.</target>
         <target>6 Meses</target>
       </trans-unit>
       <trans-unit id="duplicate-ip.jsp.inactive.header">
-        <source>A system profile is inactive if its system has not checked in for:</source>
+        <source>A system is inactive if its system has not checked in for:</source>
         <target>O perfil do sistema será inativo caso seu sistema não for checado para:</target>
       </trans-unit>
       <trans-unit id="schedule.header">
@@ -24613,6 +24627,9 @@ Serão exibidos somente pacotes de uma arquitetura compatível.</target>
       </trans-unit>
       <trans-unit id="credentials.jsp.url">
         <source>URL</source>
+      </trans-unit>
+      <trans-unit id="iss.unmapped.org">
+        <source>MASTER ORG NOT MAPPED</source>
       </trans-unit>
       <trans-unit id="iss.slave.name">
         <source>Slave Fully-Qualified Domain Name</source>
@@ -24823,6 +24840,9 @@ Serão exibidos somente pacotes de uma arquitetura compatível.</target>
           <source>No local organizations available</source>
           <target>Nenhuma organização disponível</target>
         </trans-unit>
+        <trans-unit id="iss.error.slave.exists">
+          <source>Slave with domain name {0} already defined</source>
+        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">
@@ -24941,6 +24961,10 @@ Serão exibidos somente pacotes de uma arquitetura compatível.</target>
           <source>This master did not export any of its organizations to this slave</source>
           <target>Este master não exportou nenhuma de suas empresas para este slave.</target>
         </trans-unit>
+        <trans-unit id="iss.error.master.exists">
+          <source>Master with domain name {0} already defined</source>
+        </trans-unit>
+        
       </group>
       <group>
         <context-group name="ctx">

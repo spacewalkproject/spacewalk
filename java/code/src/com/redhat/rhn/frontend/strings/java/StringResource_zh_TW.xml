@@ -2526,7 +2526,7 @@ available for this kickstart profile to function properly.
         <target>勘誤更新：軟體更新堆疊的合併更新（{0} 勘誤）</target>
       </trans-unit>
       <trans-unit id="errata.schedule">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata update has been scheduled for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
+        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata update has been &lt;a href="/rhn/systems/details/history/Pending.do?sid={2}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">1 errata update has been scheduled for workstation.</context>
@@ -2534,7 +2534,7 @@ available for this kickstart profile to function properly.
         <target>已經為 &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{1}&lt;/a&gt; 排程 &lt;strong&gt;{0}&lt;/strong&gt; 勘誤更新。</target>
       </trans-unit>
       <trans-unit id="errata.schedule.plural">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata updates have been scheduled for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
+        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata updates have been &lt;a href="/rhn/systems/details/history/Pending.do?sid={2}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">43 errata updates have been scheduled for workstation.</context>
@@ -2542,7 +2542,7 @@ available for this kickstart profile to function properly.
         <target>已經為 &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{1}&lt;/a&gt; 排程 &lt;strong&gt;{0}&lt;/strong&gt; 勘誤更新。</target>
       </trans-unit>
       <trans-unit id="errataconfirm.schedule">
-        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
+        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={3}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 1 system</context>
@@ -2550,7 +2550,7 @@ available for this kickstart profile to function properly.
         <target>已經為 &lt;strong&gt;{1}&lt;/strong&gt; 系統排程勘誤 &lt;a href=&quot;/rhn/errata/details/Details.do?eid={2}&quot;&gt;{0}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="errataconfirm.schedule.plural">
-        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; systems</source>
+        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={3}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{1}&lt;/strong&gt; systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 3 systems</context>
@@ -3287,6 +3287,24 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
         <target>位置</target>
+      </trans-unit>
+      <trans-unit id="systemsearch_location_country">
+        <source>Country</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="systemsearch_location_state">
+        <source>State/Province</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="systemsearch_location_city">
+        <source>City</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="systemsearch_location_address">
         <source>Address</source>
@@ -7009,20 +7027,20 @@ Follow this url to see the full list of inactive systems:
         <target>無效的巨集 - 請確認檔案非二進位檔案！ 「{0}」</target>
       </trans-unit>
       <trans-unit id="configdiff.schedule.success">
-        <source>Configuration file compare actions are being scheduled for {0} systems, it may take several minutes for this to complete.</source>
+          <source>&lt;a href="{0}"&gt;Configuration file compare actions&lt;/a&gt; are being scheduled for {1} systems, it may take several minutes for this to complete.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
           <context context-type="paramnotes">Configuration file compare action scheduled successfully for 8 systems.</context>
         </context-group>
-        <target>系統 {0} 的配置檔案之比對工作已排程，需要幾分鐘的時間完成。</target>
+          <target>系統 {0} 的配置檔案之比對工作已排程，需要幾分鐘的時間完成。</target>
       </trans-unit>
       <trans-unit id="configdiff.schedule.success.singular">
-        <source>Configuration file compare action is being scheduled successfully for {0} system.</source>
+          <source>&lt;a href="{0}"&gt;Configuration file compare action&lt;/a&gt; is being scheduled successfully for 1 system.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
           <context context-type="paramnotes">Configuration file compare action scheduled successfully for 1 system.</context>
         </context-group>
-        <target>配置檔案的比對工作已經成功排程於 {0} 系統上。</target>
+          <target>配置檔案的比對工作已經成功排程於 {0} 系統上。</target>
       </trans-unit>
       <trans-unit id="configdiff.schedule.error">
         <source>Failed to schedule configuration file compare action</source>
@@ -8651,6 +8669,24 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="systemTypeLabel">
+        <source>System Type</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="systemIdForCsv">
+        <source>System Id</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/VirtualList</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hostSystemIdForCsv">
+        <source>Host System Id</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/VirtualList</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="xid">
         <source>Xid</source>
         <target>Xid</target>
@@ -9261,7 +9297,7 @@ Follow this url to see the full list of inactive systems:
         <target>軟體庫標籤 '{0}' 正被使用中，請選擇不同的標籤</target>
       </trans-unit>
       <trans-unit id="edit.channel.repo.invalidrepotype">
-        <source>The repository type '{0}' is invalid, please choose a different type</source>
+        <source>The repository type '{0}' is invalid or already in use with given url, please choose a different type</source>
       </trans-unit>
       <trans-unit id="edit.channel.repo.repourlinuse">
         <source>There's already a defined repository with given url, please reuse it.</source>
@@ -9378,7 +9414,7 @@ kickstart 系統：
 請檢查：
 
 /var/log/rhn/rhn_taskomatic_daemon.log 以及
-/var/log/tomcat6/catalina.out
+/var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 以取得更詳細的錯誤資訊。若您不修正這些錯誤，您將無法
