@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 18:09+0100\n"
+"POT-Creation-Date: 2017-07-13 14:33-0400\n"
 "PO-Revision-Date: 2016-09-03 10:50-0400\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -90,19 +90,19 @@ msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 "Ten system otrzymuje aktualizacje z usługi RHN Classic lub Red Hat Satellite."
 
-#: ../rhnplugin.py:286
+#: ../rhnplugin.py:271
 msgid "Package profile information could not be sent."
 msgstr "Nie można wysłać informacji o profilu pakietów."
 
-#: ../rhnplugin.py:294
+#: ../rhnplugin.py:279
 msgid "Error Message:"
 msgstr "Komunikat błędu:"
 
-#: ../rhnplugin.py:295
+#: ../rhnplugin.py:280
 msgid "Please run rhn_register as root on this client"
 msgstr "Proszę wykonać polecenie rhn_register jako root na tym kliencie"
 
-#: ../rhnplugin.py:374
+#: ../rhnplugin.py:359
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Brak wymaganej informacji o logowaniu dla usługi RHN: %s"

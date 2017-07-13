@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 18:09+0100\n"
+"POT-Creation-Date: 2017-07-13 14:33-0400\n"
 "PO-Revision-Date: 2015-03-17 08:22-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -82,19 +82,19 @@ msgstr ""
 msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:286
+#: ../rhnplugin.py:271
 msgid "Package profile information could not be sent."
 msgstr "संकुल प्रोफाइल सूचना नहीं भेजा जा सका."
 
-#: ../rhnplugin.py:294
+#: ../rhnplugin.py:279
 msgid "Error Message:"
 msgstr "त्रुटि संदेश:"
 
-#: ../rhnplugin.py:295
+#: ../rhnplugin.py:280
 msgid "Please run rhn_register as root on this client"
 msgstr "कृपया rhn_register को बतौर रूट इस क्लाइंट पर चलाएँ"
 
-#: ../rhnplugin.py:374
+#: ../rhnplugin.py:359
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "RHN के लिये जरूरी लॉगिनसूचना नहीं मिल पा रहा है: %s"

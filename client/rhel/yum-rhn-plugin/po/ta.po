@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 18:09+0100\n"
+"POT-Creation-Date: 2017-07-13 14:33-0400\n"
 "PO-Revision-Date: 2015-03-17 08:23-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
@@ -85,19 +85,19 @@ msgstr ""
 msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:286
+#: ../rhnplugin.py:271
 msgid "Package profile information could not be sent."
 msgstr "தொகுப்பு விவரக்குறிப்பு தகவலை அனுப்ப முடியவில்லை."
 
-#: ../rhnplugin.py:294
+#: ../rhnplugin.py:279
 msgid "Error Message:"
 msgstr "பிழை செய்தி:பிழை செய்தி"
 
-#: ../rhnplugin.py:295
+#: ../rhnplugin.py:280
 msgid "Please run rhn_register as root on this client"
 msgstr "இந்த கிளையன்டில் rhn_registerஐ ரூட்டாக இயக்கவும்"
 
-#: ../rhnplugin.py:374
+#: ../rhnplugin.py:359
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "RHNக்கு தேவையான விடுபட்ட புகுபதிவு தகவல்: %s"
