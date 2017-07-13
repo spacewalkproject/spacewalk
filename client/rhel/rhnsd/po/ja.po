@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 18:10+0100\n"
+"POT-Creation-Date: 2017-07-13 14:34-0400\n"
 "PO-Revision-Date: 2015-03-17 08:21-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -27,44 +27,44 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Zanata 3.9.6\n"
 
-#: ../rhnsd.c:54
+#: ../rhnsd.c:57
 msgid "MINS"
 msgstr "MINS"
 
-#: ../rhnsd.c:55
+#: ../rhnsd.c:58
 #, fuzzy
 msgid "Connect to Spacewalk every MINS minutes"
 msgstr "MINS 分ごとに Red Hat Network に接続します"
 
-#: ../rhnsd.c:57
+#: ../rhnsd.c:60
 msgid "Run in foreground"
 msgstr "フォアグラウンドで実行します"
 
 #. Short description of program.
-#: ../rhnsd.c:62
+#: ../rhnsd.c:65
 #, fuzzy
 msgid "Spacewalk Services Daemon"
 msgstr "Red Hat Network Services Daemon"
 
-#: ../rhnsd.c:115
+#: ../rhnsd.c:118
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "root ユーザーしかこのプログラムは実行できません\n"
 
-#: ../rhnsd.c:135
+#: ../rhnsd.c:138
 msgid "wrong number of arguments"
 msgstr "引数の数値が間違っています"
 
-#: ../rhnsd.c:142
+#: ../rhnsd.c:145
 msgid "already running"
 msgstr "既に実行しています"
 
-#: ../rhnsd.c:249
+#: ../rhnsd.c:264
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:252
+#: ../rhnsd.c:267
 #, c-format
 msgid "Written by %s.\n"
 msgstr "著作 : %s.\n"
