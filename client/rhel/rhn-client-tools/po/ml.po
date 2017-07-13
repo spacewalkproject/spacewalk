@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 18:07+0100\n"
+"POT-Creation-Date: 2017-07-13 14:31-0400\n"
 "PO-Revision-Date: 2016-02-18 07:50-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Malayalam (http://www.transifex.com/projects/p/spacewalk/"
@@ -1403,7 +1403,7 @@ msgstr ""
 "retry to avoid\n"
 "    requiring a Management entitlement."
 
-#: ../src/bin/rhn_check.py:406
+#: ../src/bin/rhn_check.py:434
 msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
 msgstr ""
 "rhn_check-ന്റെ ഒന്നില്‍ കൂടുതല്‍ ഇന്‍സ്റ്റന്‍സ് പ്രവര്‍ത്തിപ്പിയ്ക്കുവാന്‍ ശ്രമിയ്ക്കുന്നു. പുറത്തു് കടക്കുന്നു.¶\n"

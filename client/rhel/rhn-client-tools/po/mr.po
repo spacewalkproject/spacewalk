@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 18:07+0100\n"
+"POT-Creation-Date: 2017-07-13 14:31-0400\n"
 "PO-Revision-Date: 2016-02-18 07:50-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/spacewalk/"
@@ -1397,7 +1397,7 @@ msgstr ""
 "    म्हणून ठरवल्यास, व्यवस्थापन हक्कांची आवश्यकता टाळण्यासाठी हि कि\n"
 "    अकार्यान्वीत करून पुनः प्रयत्न करा."
 
-#: ../src/bin/rhn_check.py:406
+#: ../src/bin/rhn_check.py:434
 msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
 msgstr "rhn_check चे एकापेक्षा जास्त इंस्टंस् चालवण्याचा प्रयत्न करत आहे. बाहेर पडत आहे.\n"
 

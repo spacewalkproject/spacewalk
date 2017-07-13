@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 18:07+0100\n"
+"POT-Creation-Date: 2017-07-13 14:31-0400\n"
 "PO-Revision-Date: 2015-10-18 03:16-0400\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/spacewalk/"
@@ -1476,7 +1476,7 @@ msgstr ""
 "    aquesta clau i tornar-ho a intentar per evitar que es requereixin els "
 "drets de gestió."
 
-#: ../src/bin/rhn_check.py:406
+#: ../src/bin/rhn_check.py:434
 msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
 msgstr ""
 "S'està intentat d'executar més d'una instància del rhn_check. S'està "

@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 18:07+0100\n"
+"POT-Creation-Date: 2017-07-13 14:31-0400\n"
 "PO-Revision-Date: 2016-02-18 08:06-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
@@ -1362,7 +1362,7 @@ msgstr ""
 "    一組帳號上為全域預設值，您可停用這組金鑰，並重新嘗試以避免\n"
 "    需要使用到 Management 權利。"
 
-#: ../src/bin/rhn_check.py:406
+#: ../src/bin/rhn_check.py:434
 msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
 msgstr "試圖執行超過一組 rhn_check。退出中。\n"
 

@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 18:07+0100\n"
+"POT-Creation-Date: 2017-07-13 14:31-0400\n"
 "PO-Revision-Date: 2016-02-18 08:06-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
@@ -1364,7 +1364,7 @@ msgstr ""
 "的激活码设定为默认通用，您可以禁用这个密钥并重试\n"
 "即可不要求管理授权。"
 
-#: ../src/bin/rhn_check.py:406
+#: ../src/bin/rhn_check.py:434
 msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
 msgstr "尝试运行一个以上 rhn_check 实例。退出。\n"
 

@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 18:07+0100\n"
+"POT-Creation-Date: 2017-07-13 14:31-0400\n"
 "PO-Revision-Date: 2016-02-18 07:29-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/spacewalk/"
@@ -1524,7 +1524,7 @@ msgstr ""
 "clé \n"
 "    et recommencer en évitant le besoin d'un droit Management supplémentaire."
 
-#: ../src/bin/rhn_check.py:406
+#: ../src/bin/rhn_check.py:434
 msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
 msgstr ""
 "Tentative d'exécution de plus d'une instance de rhn_check. Fermeture.\n"

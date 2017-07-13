@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 18:07+0100\n"
+"POT-Creation-Date: 2017-07-13 14:31-0400\n"
 "PO-Revision-Date: 2016-02-18 07:40-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/spacewalk/"
@@ -1478,7 +1478,7 @@ msgstr ""
 "disabilitare la suddetta chiave\n"
 "    evitando cosi la necessità di acquisire un entitlement di Gestione."
 
-#: ../src/bin/rhn_check.py:406
+#: ../src/bin/rhn_check.py:434
 msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
 msgstr ""
 "Tentativo di esecuzione di più di una istanza di  rhn_check. Uscita in "
