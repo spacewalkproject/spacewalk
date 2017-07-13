@@ -70,7 +70,9 @@ msgstr ""
 msgid "_Exit"
 msgstr "বাহির (_E)"
 
-# msgstr "  <Tab>/<Alt-Tab> বস্তুর মধ্যে  |  <Space> বাছাই করে  |  <F12> পরবর্তী পর্দা"-->tranlsated in this format in a few recent files (suggestion)
+# msgstr "  <Tab>/<Alt-Tab> বস্তুর মধ্যে  |  <Space> বাছাই করে  |  <F12>
+# পরবর্তী পর্দা"-->tranlsated in this format in a few recent files
+# (suggestion)
 # modfied for RHEL
 #: ../src/up2date_client/gui.py:324
 msgid "Software Updates Not Set Up"
@@ -361,7 +363,9 @@ msgstr ""
 msgid "Take me back to the registration"
 msgstr "আমাকে নিবন্ধনে ফিরিয়ে নিয়ে যান"
 
-# msgstr "  <Tab>/<Alt-Tab> বস্তুর মধ্যে  |  <Space> বাছাই করে  |  <F12> পরবর্তী পর্দা"-->tranlsated in this format in a few recent files (suggestion)
+# msgstr "  <Tab>/<Alt-Tab> বস্তুর মধ্যে  |  <Space> বাছাই করে  |  <F12>
+# পরবর্তী পর্দা"-->tranlsated in this format in a few recent files
+# (suggestion)
 # modfied for RHEL
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:76

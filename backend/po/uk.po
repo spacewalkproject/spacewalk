@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-07 18:08+0100\n"
-"PO-Revision-Date: 2016-05-01 07:44-0400\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
+"PO-Revision-Date: 2016-11-24 10:38-0500\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -117,7 +117,7 @@ msgstr ""
 "Вашу систему зареєстровано, але вона не отримуватиме оновлень, оскільки\n"
 "її не вдалося підписати на базовий канал.\n"
 "Будь ласка, зв’яжіться із адміністратором вашої організації, щоб\n"
-"отримати допомогу.\n"
+"отримати допомогу."
 
 #: ../server/rhnChannel.py:2229
 #, python-format
@@ -526,7 +526,7 @@ msgid "Unsupported server architecture."
 msgstr "Непідтримувана архітектура сервера."
 
 #: ../common/rhnException.py:73
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "\n"
 "     The anonymous server functionality is no longer available.\n"
@@ -539,6 +539,19 @@ msgid ""
 "system.\n"
 "     "
 msgstr ""
+"\n"
+"     Функціональні можливості анонімного сервера більше не доступні.\n"
+"\n"
+"     Будь ласка, повторно зареєструйте цю систему за допомогою команди "
+"rhn_register,\n"
+"     відданої від імені користувача root.\n"
+"     Будь ласка, відвідайте https://%(hostname)s/rhn/systems/"
+"SystemEntitlements.do\n"
+"     або увійдіть до системи на сторінці https://%(hostname)s, а потім на "
+"вкладці «Огляд» («Overview»),\n"
+"     виберіть «Керування передплатами» («Subscription Management»), щоб "
+"увімкнути службу RHN для цієї системи.\n"
+"     "
 
 #: ../common/rhnException.py:82
 msgid "Record not available in the database."
@@ -549,7 +562,7 @@ msgid "Invalid value for entry."
 msgstr "Некоректне значення для запису."
 
 #: ../common/rhnException.py:84
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "\n"
 "     This system does not have a valid entitlement for Red Hat Satellite.\n"
@@ -559,6 +572,16 @@ msgid ""
 "system.\n"
 "     "
 msgstr ""
+"\n"
+"     Ця система не має коректної реєстрації у Red Hat Network.\n"
+"     Будь ласка, відвідайте https://%(hostname)s/rhn/systems/"
+"SystemEntitlements.do\n"
+"     або увійдіть до системи на сторінці https://%(hostname)s, а потім на "
+"вкладці «Огляд» («Overview»),\n"
+"     виберіть «Керування передплатами» («Subscription Management»), щоб "
+"увімкнути службу RHN для цієї системи.\n"
+"     \n"
+"     "
 
 #: ../common/rhnException.py:90
 msgid "Channel error"
@@ -601,6 +624,7 @@ msgid "Invalid channel version."
 msgstr "Некоректна версія каналу."
 
 #: ../common/rhnException.py:101
+#, fuzzy
 msgid ""
 "\n"
 "     User group membership limits exceeded.\n"
@@ -613,8 +637,19 @@ msgid ""
 "     to be changed.\n"
 "     "
 msgstr ""
+"\n"
+"     Перевищено обмеження на участь у групі.\n"
+"\n"
+"     Поточні параметри для вашого облікового запису не дозволяють\n"
+"     додавання ще одного облікового запису користувача. Будь ласка, "
+"перевірте\n"
+"     разом із адміністратором вашого облікового запису у вашій установі,\n"
+"     чи слід змінювати дозволену максимальну кількість користувачів,\n"
+"     які можуть передплачувати RHN.\n"
+"     "
 
 #: ../common/rhnException.py:109
+#, fuzzy
 msgid ""
 "\n"
 "     System group membership limits exceeded.\n"
@@ -627,6 +662,17 @@ msgid ""
 "     subscribed to your account.\n"
 "     "
 msgstr ""
+"\n"
+"     Перевищено обмеження на участь систем у групі.\n"
+"\n"
+"     Поточні параметри вашого облікового запису забороняють додавання\n"
+"     ще одного профілю системи. Будь ласка, перевірте разом із "
+"адміністратором\n"
+"     вашого облікового запису в установі, чи слід змінити максимальну "
+"кількість\n"
+"     профілів систем, які можуть працювати у межах передплати вашого "
+"облікового запису RHN.\n"
+"     "
 
 #: ../common/rhnException.py:117
 #, fuzzy
@@ -664,6 +710,12 @@ msgid ""
 "     does not already exists on the server\n"
 "     "
 msgstr ""
+"\n"
+"     Спроба вивантаження пакунка зазнала невдачі через порушення умов "
+"однозначності.\n"
+"     Переконайтеся, що у пакунка немає подвійних залежностей і що\n"
+"     пакунок вже не зберігається на сервері.\n"
+"     "
 
 #: ../common/rhnException.py:131
 #, fuzzy
@@ -1036,6 +1088,15 @@ msgid ""
 "     details of what you were trying to do when this error occurred and\n"
 "     details on how to reproduce this problem.\n"
 msgstr ""
+"\n"
+"     Під час спроби обробити ваш запит сталася помилка. Якщо цю\n"
+"     проблему не вдасться вирішити, будь ласка, створіть звіт щодо вади на "
+"bugzilla.redhat.com.\n"
+"     Якщо ви вирішите створити такий звіт щодо вади, будь ласка, не забудьте "
+"вказати у ньому\n"
+"     подробиці щодо того, що саме ви робили, коли сталася помилка, а також "
+"спосіб, у який\n"
+"     цю проблему можна відтворити.\n"
 
 #: ../common/rhnException.py:355
 #, python-format

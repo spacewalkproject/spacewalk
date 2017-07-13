@@ -1041,7 +1041,6 @@ msgstr ""
 msgid "Explanation: %s"
 msgstr ""
 
-#, fuzzy
 #~ msgid "Registration failed: RHN Software service entitlements exhausted: %s"
 #~ msgstr ""
 #~ "Registrace selhala: Vyčerpány všechny povolení pro službu RHN Software "

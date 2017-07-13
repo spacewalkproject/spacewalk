@@ -1068,7 +1068,6 @@ msgstr "Información de Clase de Error: %s\n"
 msgid "Explanation: %s"
 msgstr "Explicación: %s"
 
-#, fuzzy
 #~ msgid "Registration failed: RHN Software service entitlements exhausted: %s"
 #~ msgstr ""
 #~ "Fallo de registro: Servicio de Gestión de Software RHN títulos agotados"

@@ -1100,7 +1100,6 @@ msgstr "Felklassinformation: %s\n"
 msgid "Explanation: %s"
 msgstr "Förklaring: %s"
 
-#, fuzzy
 #~ msgid "Registration failed: RHN Software service entitlements exhausted: %s"
 #~ msgstr ""
 #~ "Registrering misslyckades: RHN Software Management-servicerättigheter "

@@ -1116,7 +1116,6 @@ msgstr "エラークラス情報: %s\n"
 msgid "Explanation: %s"
 msgstr "説明: %s"
 
-#, fuzzy
 #~ msgid "Registration failed: RHN Software service entitlements exhausted: %s"
 #~ msgstr ""
 #~ "登録に失敗しました: RHN Software Management サービスのエンタイトルメントを"
