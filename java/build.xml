@@ -850,6 +850,10 @@ delete from rhnChannel where label like 'ChannelLabel%';
 
   <target name="install-tomcat">
        <property name="webapp-dir" value="/var/lib/tomcat/webapps/" />
+    <!--
+     - initializing prefix otherwise webapp is not copied to tomcat directory
+     -->
+       <property name="prefix" value="" />
        <echo message="${prefix}" />
        <echo message="${webapp-dir}" />
        <antcall target="install" />
