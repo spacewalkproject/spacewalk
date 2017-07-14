@@ -141,10 +141,13 @@ public class ActionManager extends BaseManager {
                                        String message) {
         Action action = ActionFactory.lookupByUserAndId(loggedInUser, actionId);
         Server server = SystemManager.lookupByIdAndUser(serverId, loggedInUser);
+        if (action == null || server == null) {
+            throw new LookupException("Could not find action " + actionId + " on system " +
+                    serverId);
+        }
         ServerAction serverAction = ActionFactory.getServerActionForServerAndAction(server,
                 action);
         Date now = Calendar.getInstance().getTime();
-
         serverAction.setStatus(ActionFactory.STATUS_FAILED);
         serverAction.setResultMsg(message);
         serverAction.setCompletionTime(now);
