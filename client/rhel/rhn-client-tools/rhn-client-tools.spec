@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
 Name: rhn-client-tools
-Version: 2.7.9
+Version: 2.7.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -405,6 +405,11 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 2.7.10-1
+- Regenerating .po and .pot files for rhn-client-tools
+- Updating .po translations from Zanata
+- PR 500 - Add epoch information for deb packages
+
 * Mon Apr 24 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.9-1
 - 1444764 - sgmlop module might not be available on RHEL 7
 
