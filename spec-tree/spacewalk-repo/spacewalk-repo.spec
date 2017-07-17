@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
 Version: 2.6
-Release: 0%{?dist}
+Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
 # This src.rpm is cannonical upstream
@@ -96,6 +96,11 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 2.6-1
+- Remove more fedorahosted links
+- removed outdated Makefile
+- Migrating Fedorahosted to GitHub
+
 * Mon Nov 14 2016 Gennadii Altukhov <galt@redhat.com> 2.6-0
 - Bumping package versions for 2.6.
 
