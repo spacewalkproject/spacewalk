@@ -2,7 +2,7 @@
 
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        2.7.1
+Version:        2.7.2
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
@@ -63,6 +63,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 2.7.2-1
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Mon Jan 23 2017 Jan Dobes 2.7.1-1
 - Specify all dependencies
 - Bumping package versions for 2.7.
