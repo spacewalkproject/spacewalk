@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.7.15
+Version:	2.7.16
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Jul 17 2017 Grant Gainey 2.7.16-1
+- add opensuse_leap42_3 and remove opensuse13_2
+- 1007526 - minor tweak to archive-audits manpage
+
 * Thu May 11 2017 Eric Herget <eherget@redhat.com> 2.7.15-1
 - 1449529 - taskotop retrieve list of each task by end date, not start date
 - Remove unused imports.
