@@ -10,7 +10,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.7.2
+Version: 2.7.3
 Release: 1%{?dist}
 URL: https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -145,6 +145,9 @@ sysconf_addword /etc/sysconfig/apache2 APACHE_SERVER_FLAGS ISSUSE
 %endif
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 2.7.3-1
+- 1447296 - add package_import_skip_changelog option to speed reposync up
+
 * Fri May 05 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.2-1
 - move sudoers configuration to /etc/sudoers.d/spacewalk
 - Use HTTPS in all Github links
