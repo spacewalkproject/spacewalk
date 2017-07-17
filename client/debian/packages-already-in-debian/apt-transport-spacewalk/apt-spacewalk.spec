@@ -3,7 +3,7 @@
 
 Name: apt-spacewalk
 Summary: Spacewalk plugin for Advanced Packaging tool.
-Version: 1.0.10
+Version: 1.0.11
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://example.com/%{name}-%{version}.tar.gz
@@ -19,6 +19,9 @@ to acquire content from Spacewalk server
 %files
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 1.0.11-1
+- Migrating Fedorahosted to GitHub
+
 * Tue Feb 24 2015 Matej Kollar <mkollar@redhat.com> 1.0.10-1
 - Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
 
