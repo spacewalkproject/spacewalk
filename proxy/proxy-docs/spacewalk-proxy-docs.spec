@@ -4,7 +4,7 @@ Group: Applications/Internet
 License: Open Publication
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-Version: 2.7.0
+Version: 2.7.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -36,6 +36,14 @@ rm -rf $RPM_BUILD_ROOT
 %doc squid.conf.sample
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 2.7.1-1
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+- Bumping package versions for 2.7.
+- Bumping package versions for 2.6.
+- Bumping package versions for 2.5.
+- Bumping package versions for 2.4.
+
 * Wed Jan 14 2015 Matej Kollar <mkollar@redhat.com> 2.3.1-1
 - Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
 - Bumping package versions for 2.3.
