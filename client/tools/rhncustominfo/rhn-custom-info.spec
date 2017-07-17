@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
-Version: 5.4.33
+Version: 5.4.34
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -63,6 +63,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 5.4.34-1
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Tue Dec 06 2016 Eric Herget <eherget@redhat.com> 5.4.33-1
 - 1386615 - rhn-custom-info should not require CA cert for non-https server
 
