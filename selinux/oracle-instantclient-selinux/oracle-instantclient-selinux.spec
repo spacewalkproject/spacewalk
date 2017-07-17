@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:		oracle-instantclient-selinux
-Version:	11.2.0.2
+Version:	11.2.0.3
 Release:	1%{?dist}
 Summary:	SELinux support for Oracle Instant Client 11g
 Group:		System Environment/Base
@@ -113,6 +113,12 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-instantclient-sqlplus-selinux-enable
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 11.2.0.3-1
+- Remove more fedorahosted links
+- Use HTTPS in all Github links
+- Migrating Fedorahosted to GitHub
+- fixed tito build warning
+
 * Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 11.2.0.2-1
 - 919468 - fixed path in file based Requires
 - Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
