@@ -2099,6 +2099,8 @@ def processCommandline():
                help=_('e-mail a report of what was synced/imported')),
         Option('--force-all-errata',    action='store_true',
                help=_('forcibly process all (not a diff of) errata metadata')),
+        Option('--ignore-proxy',          action='store_true',
+               help=_('Do not use an http proxy under any circumstances.')),
         Option('--http-proxy',          action='store',
                help=_('alternative http proxy (hostname:port)')),
         Option('--http-proxy-username', action='store',
@@ -2180,10 +2182,11 @@ def processCommandline():
         CFG.set("ISS_CA_CHAIN", OPTIONS.ca_cert or getDbCaChain(CFG.RHN_PARENT)
                 or CFG.CA_CHAIN)
 
-    CFG.set("HTTP_PROXY", idn_ascii_to_puny(OPTIONS.http_proxy or CFG.HTTP_PROXY))
-    CFG.set("HTTP_PROXY_USERNAME", OPTIONS.http_proxy_username or CFG.HTTP_PROXY_USERNAME)
-    CFG.set("HTTP_PROXY_PASSWORD", OPTIONS.http_proxy_password or CFG.HTTP_PROXY_PASSWORD)
-    CFG.set("CA_CHAIN", OPTIONS.ca_cert or CFG.CA_CHAIN)
+    if not OPTIONS.ignore_proxy:
+        CFG.set("HTTP_PROXY", idn_ascii_to_puny(OPTIONS.http_proxy or CFG.HTTP_PROXY))
+        CFG.set("HTTP_PROXY_USERNAME", OPTIONS.http_proxy_username or CFG.HTTP_PROXY_USERNAME)
+        CFG.set("HTTP_PROXY_PASSWORD", OPTIONS.http_proxy_password or CFG.HTTP_PROXY_PASSWORD)
+        CFG.set("CA_CHAIN", OPTIONS.ca_cert or CFG.CA_CHAIN)
 
     CFG.set("SYNC_TO_TEMP", OPTIONS.sync_to_temp or CFG.SYNC_TO_TEMP)
 
