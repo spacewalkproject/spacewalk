@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for Spacewalk and Red Hat Satellite installations
 Name: spacewalk-admin
 URL:     https://github.com/spacewalkproject/spacewalk
-Version: 2.7.0
+Version: 2.7.1
 Release: 1%{?dist}
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -89,6 +89,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 2.7.1-1
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+- Bumping package versions for 2.7.
+
 * Wed Oct 12 2016 Grant Gainey 2.6.1-1
 - Update specfile to be consistent about referring to both SW and Satellite
 - Bumping package versions for 2.6.
