@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
 Name: rhnsd
-Version: 5.0.27
+Version: 5.0.28
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -138,6 +138,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 5.0.28-1
+- Regenerating .po and .pot files for rhnsd
+
 * Tue Jul 11 2017 Jan Dobes 5.0.27-1
 - 1383668 - close and reopen syslog when redirecting child output
 - Updated links to github in spec files
