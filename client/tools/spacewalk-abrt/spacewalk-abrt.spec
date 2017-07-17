@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        2.7.1
+Version:        2.7.2
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -47,6 +47,11 @@ service abrtd restart
 %{_mandir}/man8/*
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 2.7.2-1
+- Updating .po translations from Zanata
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Mon Jan 23 2017 Jan Dobes 2.7.1-1
 - abrt python2/3 fix
 - Bumping package versions for 2.7.
