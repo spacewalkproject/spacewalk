@@ -7,7 +7,7 @@
 %global modulename jabber
 
 Name:           jabberd-selinux
-Version:        2.7.0
+Version:        2.7.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
@@ -105,6 +105,18 @@ rpm -ql jabberd | xargs -n 1 %{sbinpath}/restorecon -ri {} || :
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 2.7.1-1
+- Use HTTPS in all Github links
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+- Bumping package versions for 2.7.
+- Bumping package versions for 2.6.
+- Bumping package versions for 2.5.
+- Bumping package versions for 2.4.
+- Bumping package versions for 2.3.
+- Bumping package versions for 2.2.
+- Bumping package versions for 2.1.
+
 * Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
 - Bumping package versions for 2.0.
 
