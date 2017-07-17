@@ -36,7 +36,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.120
+Version: 2.7.121
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -792,6 +792,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 2.7.121-1
+- fixing pylint - Unused variable 'index' (unused-variable)
+
 * Mon Jul 17 2017 Jan Dobes 2.7.120-1
 - Regenerating .po and .pot files for backend
 - Updating .po translations from Zanata
