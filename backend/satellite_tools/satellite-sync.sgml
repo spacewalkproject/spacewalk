@@ -90,6 +90,9 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
         <arg>--server=<replaceable>HOSTNAME</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--ignore-proxy</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>--http-proxy=<replaceable>HOSTNAME:PORT</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -420,6 +423,12 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
                 </listitem>
                 </varlistentry>
             </variablelist>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ignore-proxy</term>
+        <listitem>
+            <para>Do not use an http proxy under any circumstances</para>
         </listitem>
     </varlistentry>
     <varlistentry>
