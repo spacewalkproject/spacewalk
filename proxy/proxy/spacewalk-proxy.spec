@@ -8,7 +8,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-Version: 2.7.1
+Version: 2.7.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python
@@ -372,6 +372,9 @@ fi
 
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 2.7.2-1
+- add some small pep8 fixes for proxy code
+
 * Thu Mar 16 2017 Ondrej Gajdusek <ogajduse@redhat.com> 2.7.1-1
 - wrong-import-position is not present in pylint on Fedora 23
 - pylint fixes - proxy
