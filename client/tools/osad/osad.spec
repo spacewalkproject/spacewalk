@@ -19,7 +19,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-Version: 5.11.80
+Version: 5.11.81
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -419,6 +419,11 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 5.11.81-1
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+- fix TypeError: descriptor 'with_traceback'
+
 * Thu Feb 16 2017 Eric Herget <eherget@redhat.com> 5.11.80-1
 - BZ1410781 - osad doesn't pick up tasks following a reboot event
 
