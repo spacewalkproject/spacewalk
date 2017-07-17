@@ -1,5 +1,5 @@
 Name:           oracle-lib-compat
-Version:        11.2.0.13
+Version:        11.2.0.14
 Release:        1%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
@@ -107,6 +107,11 @@ find %{_prefix}/lib/oracle/%{icdir} \
         | xargs execstack -c
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 11.2.0.14-1
+- Remove more fedorahosted links
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Tue Nov 10 2015 Tomas Kasparek <tkasparek@redhat.com> 11.2.0.13-1
 - don't build debug package for oracle-lib-compat
 
