@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.5
+Version: 2.7.6
 Release: 1%{?dist}
 URL: https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 2.7.6-1
+- Remove unused imports.
+
 * Tue Mar 07 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.5-1
 - Add issue date to errata-list-all report
 - date is a keyword on oracle
