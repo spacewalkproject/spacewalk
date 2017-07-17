@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://github.com/spacewalkproject/spacewalk
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 
-Version:        5.4.57
+Version:        5.4.58
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -156,6 +156,10 @@ fi
 %doc LICENSE
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 5.4.58-1
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Wed Feb 15 2017 Tomas Kasparek <tkasparek@redhat.com> 5.4.57-1
 - require spacewalk-usix indead of spacewalk-backend-usix
 
