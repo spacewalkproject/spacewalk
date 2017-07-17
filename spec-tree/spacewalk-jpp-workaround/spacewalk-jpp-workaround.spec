@@ -1,5 +1,5 @@
 Name:		spacewalk-jpp-workaround
-Version:	2.3.5
+Version:	2.3.6
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -101,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 17 2017 Jan Dobes 2.3.6-1
+- Migrating Fedorahosted to GitHub
+
 * Fri Dec 04 2015 Tomas Kasparek <tkasparek@redhat.com> 2.3.5-1
 - provide mvn(org.apache.taglibs:taglibs-standard-jstlel) on F23
 
