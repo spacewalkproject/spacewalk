@@ -1,11 +1,11 @@
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
+Name: rhn-client-tools
+Version: 2.7.10
+Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
-Name: rhn-client-tools
-Version: 2.7.10
-Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 %if 0%{?suse_version}
