@@ -4,7 +4,7 @@
 
 Name: spacewalk-proxy
 Summary: Spacewalk Proxy Server
-Version: 2.7.2
+Version: 2.7.3
 Release: 1%{?dist}
 Group:   Applications/Internet
 License: GPLv2
@@ -372,6 +372,9 @@ fi
 
 
 %changelog
+* Tue Jul 18 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.3-1
+- move version and release before sources
+
 * Mon Jul 17 2017 Jan Dobes 2.7.2-1
 - add some small pep8 fixes for proxy code
 
