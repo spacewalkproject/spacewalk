@@ -4,7 +4,7 @@
 
 Name: spacewalk-proxy
 Summary: Spacewalk Proxy Server
-Version: 2.7.3
+Version: 2.7.4
 Release: 1%{?dist}
 Group:   Applications/Internet
 License: GPLv2
@@ -372,6 +372,10 @@ fi
 
 
 %changelog
+* Tue Jul 18 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.4-1
+- disable pylint warnings
+- fixed pylint warnings
+
 * Tue Jul 18 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.3-1
 - move version and release before sources
 
