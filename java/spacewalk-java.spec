@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.95
+Version: 2.7.96
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 18 2017 Grant Gainey 2.7.96-1
+- 1458722 - Only make org-changes, if the org is allowed to be changed
+
 * Mon Jul 17 2017 Jan Dobes 2.7.95-1
 - Merging frontend L10N from Zanata
 
