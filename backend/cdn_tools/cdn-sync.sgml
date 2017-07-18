@@ -148,7 +148,7 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
     <varlistentry>
         <term>--count-packages</term>
         <listitem>
-            <para>Count number of packages in allrepositories for every channel.</para>
+            <para>Count number of packages in all repositories for every channel.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -158,7 +158,7 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
             <para>STATUS NAME NUMBER_PACKAGES</para>
             <para>STATUS: 'p' = previously imported/synced channel, '.' = channel not yet imported/synced.</para>
             <para>NUMBER_PACKAGES: '?' = No CDN source provided to count number of packages, '0' = no packages
-            in channel OR packages are not counted yet (it's necessary to run cnd-sync with --count-packages),
+            in channel OR packages are not counted yet (it's necessary to run cdn-sync with --count-packages),
             number of packages.</para>
         </listitem>
     </varlistentry>
