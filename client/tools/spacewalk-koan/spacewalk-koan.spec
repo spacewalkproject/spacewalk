@@ -1,6 +1,6 @@
 Summary: Support package for spacewalk koan interaction
 Name: spacewalk-koan
-Version: 2.7.1
+Version: 2.7.2
 Release: 1%{?dist}
 Group: System Environment/Kernel
 License: GPLv2
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Tue Jul 18 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.2-1
+- move version and release before sources
+
 * Mon Jul 17 2017 Jan Dobes 2.7.1-1
 - Updated links to github in spec files
 - Migrating Fedorahosted to GitHub
