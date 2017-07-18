@@ -352,15 +352,13 @@ class KickstartRepository(Repository):
         if self.ks_orgId:
             return server.proxy.getKickstartOrgChannel(self.kickstart,
                                                        self.ks_orgId, self.systemId)
-        elif self.ks_session:
+        if self.ks_session:
             return server.proxy.getKickstartSessionChannel(self.kickstart,
                                                            self.ks_session, self.systemId)
-        elif self.ks_child:
+        if self.ks_child:
             return server.proxy.getKickstartChildChannel(self.kickstart,
                                                          self.ks_child, self.systemId)
-        else:
-            return server.proxy.getKickstartChannel(self.kickstart,
-                                                    self.systemId)
+        return server.proxy.getKickstartChannel(self.kickstart, self.systemId)
 
 
 class TinyUrlRepository(KickstartRepository):

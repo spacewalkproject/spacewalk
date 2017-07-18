@@ -268,7 +268,7 @@ class RedirectHandler(SharedHandler):
         # There should always be a redirect URL passed back to us.  If not,
         # there's an error.
 
-        if not redirectLocation or len(redirectLocation) == 0:
+        if not redirectLocation:
             log_error("  No redirect location specified!")
             Traceback(mail=0)
             return apache.HTTP_INTERNAL_SERVER_ERROR

@@ -253,9 +253,9 @@ class SharedHandler:
 
         if status == apache.HTTP_PARTIAL_CONTENT:
             return apache.HTTP_PARTIAL_CONTENT
-        else:
-            # apache.HTTP_OK becomes apache.OK.
-            return apache.OK
+
+        # apache.HTTP_OK becomes apache.OK.
+        return apache.OK
 
     def _get_header(self, k, headerObj=None):
         if headerObj is None:
@@ -396,8 +396,8 @@ class SharedHandler:
     def _getEffectiveURI(self):
         if self.req.headers_in.has_key(rhnConstants.HEADER_EFFECTIVE_URI):
             return self.req.headers_in[rhnConstants.HEADER_EFFECTIVE_URI]
-        else:
-            return self.req.uri
+
+        return self.req.uri
 
     @staticmethod
     def _determineHTTPBodySize(headers):

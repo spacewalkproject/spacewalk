@@ -81,7 +81,7 @@ class ResponseContext:
 
     def clear(self):
         """ Close and remove all contexts. """
-        while len(self._contextStack) > 0:
+        while self._contextStack:
             self.remove()
 
     def __str__(self):

@@ -362,8 +362,8 @@ class BrokerHandler(SharedHandler):
         args = req.path_info.split('/')
         if len(args) < 5:
             return (None, None, None, None)
-        else:
-            return (args[1], args[2], args[3], args[4:])
+
+        return (args[1], args[2], args[3], args[4:])
 
     # --- PRIVATE METHODS ---
 
