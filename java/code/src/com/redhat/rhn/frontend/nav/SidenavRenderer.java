@@ -96,6 +96,11 @@ public class SidenavRenderer extends Renderable {
                 li.setAttribute("class", "parent");
             }
         }
+        else {
+            if (isActive) {
+                li.setAttribute("class", "active");
+            }
+        }
 
         li.addBody(aHref(node.getPrimaryURL(), node.getName(), node.getTarget()));
         sb.append(li.render());
