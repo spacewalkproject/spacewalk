@@ -1,6 +1,6 @@
 Summary: Spacewalk query daemon
 Name: rhnsd
-Version: 5.0.28
+Version: 5.0.29
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -138,6 +138,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Jul 18 2017 Michael Mraka <michael.mraka@redhat.com> 5.0.29-1
+- move version and release before sources
+
 * Mon Jul 17 2017 Jan Dobes 5.0.28-1
 - Regenerating .po and .pot files for rhnsd
 
