@@ -4,7 +4,7 @@
 
 Name:           rhn-virtualization 
 Summary:        RHN/Spacewalk action support for virtualization
-Version:        5.4.58
+Version:        5.4.59
 Release:        1%{?dist}
 
 Group:          System Environment/Base
@@ -156,6 +156,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Jul 18 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.59-1
+- move version and release before sources
+
 * Mon Jul 17 2017 Jan Dobes 5.4.58-1
 - Updated links to github in spec files
 - Migrating Fedorahosted to GitHub
