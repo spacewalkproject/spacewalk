@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.96
+Version: 2.7.97
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 18 2017 Eric Herget <eherget@redhat.com> 2.7.97-1
+- PR 476 - Fix child nav items not being shown as active
+
 * Tue Jul 18 2017 Grant Gainey 2.7.96-1
 - 1458722 - Only make org-changes, if the org is allowed to be changed
 
