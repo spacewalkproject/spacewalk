@@ -6,7 +6,7 @@
 
 Name: spacewalk-proxy-html
 Summary: The HTML component for Spacewalk Proxy
-Version: 2.7.1
+Version: 2.7.2
 Release: 1%{?dist}
 Group:   Applications/Internet
 License: GPLv2
@@ -48,6 +48,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Jul 18 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.2-1
+- move version and release before sources
+
 * Mon Jul 17 2017 Jan Dobes 2.7.1-1
 - Updated links to github in spec files
 - Migrating Fedorahosted to GitHub
