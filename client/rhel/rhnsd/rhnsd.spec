@@ -1,11 +1,11 @@
 Summary: Spacewalk query daemon
+Name: rhnsd
+Version: 5.0.28
+Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
-Name: rhnsd
-Version: 5.0.28
-Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: gettext

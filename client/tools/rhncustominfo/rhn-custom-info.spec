@@ -1,11 +1,11 @@
 Name: rhn-custom-info
 Summary: Set and list custom values for RHN-enabled machines
+Version: 5.4.34
+Release: 1%{?dist}
 Group: Applications/System
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
-Version: 5.4.34
-Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
 BuildRequires: python-devel
