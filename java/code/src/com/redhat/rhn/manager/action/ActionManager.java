@@ -141,17 +141,22 @@ public class ActionManager extends BaseManager {
                                        String message) {
         Action action = ActionFactory.lookupByUserAndId(loggedInUser, actionId);
         Server server = SystemManager.lookupByIdAndUser(serverId, loggedInUser);
-        if (action == null || server == null) {
+        ServerAction serverAction = ActionFactory.getServerActionForServerAndAction(server,
+                action);
+        if (action == null || serverAction == null) {
             throw new LookupException("Could not find action " + actionId + " on system " +
                     serverId);
         }
-        ServerAction serverAction = ActionFactory.getServerActionForServerAndAction(server,
-                action);
         Date now = Calendar.getInstance().getTime();
-        serverAction.setStatus(ActionFactory.STATUS_FAILED);
-        serverAction.setResultMsg(message);
-        serverAction.setCompletionTime(now);
-
+        if (serverAction.getStatus().equals(ActionFactory.STATUS_QUEUED)) {
+            serverAction.setStatus(ActionFactory.STATUS_FAILED);
+            serverAction.setResultMsg(message);
+            serverAction.setCompletionTime(now);
+        }
+        else {
+            throw new IllegalStateException("Action " + actionId +
+                    " must be in Pending state on " + "server " + serverId);
+        }
         return 1;
     }
 
