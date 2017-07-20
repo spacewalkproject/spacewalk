@@ -84,10 +84,10 @@ def _getProtocolError(e, hostname=''):
 
     if e.errcode == 407:
         return 47, "ERROR: http proxy authentication required"
-    elif e.errcode == 404:
+    if e.errcode == 404:
         return 44, "ERROR: host not found%s" % hostname
-    else:
-        return 10, "ERROR: connection issues? %s" % repr(e)
+
+    return 10, "ERROR: connection issues? %s" % repr(e)
 
 
 def _getSocketError(e, hostname=''):
