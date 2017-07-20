@@ -298,7 +298,7 @@ def listSnapshots(systemId, snapshots):
       This will include:
         system id, # snapshots, date of oldest snapshot, date of newest snapshot
     """
-    if len(snapshots) > 0:
+    if snapshots:
         # obtain the dates of the oldest and newest snapshot...
         #
         # the dates will be in dateTime.iso8601 format
