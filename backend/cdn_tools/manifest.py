@@ -145,9 +145,12 @@ class Manifest(object):
 
                         # Extract product IDs
                         products = []
-                        provided_products = data['pool']['providedProducts']
-                        for provided_product in provided_products:
-                            product = Product(provided_product['productId'])
+                        provided_products = data['pool']['providedProducts'] or []
+                        derived_provided_products = data['pool']['derivedProvidedProducts'] or []
+                        product_ids = [provided_product['productId'] for provided_product
+                                       in provided_products + derived_provided_products]
+                        for product_id in set(product_ids):
+                            product = Product(product_id)
                             self._fill_product_repositories(zip_file, product)
                             products.append(product)
 
