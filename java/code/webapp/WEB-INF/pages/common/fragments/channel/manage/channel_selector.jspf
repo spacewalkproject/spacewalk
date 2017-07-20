@@ -19,14 +19,12 @@
         </c:if>
           <c:set var="isOptgroup" value="false"/>
           <c:forEach var="option" items="${channel_list}">
-              <c:if test="${option.baseChannel and isOptgroup}">
-                </optgroup>
-              </c:if>
-                <option value="${option.id}" ${option.selected ? ' selected="selected"' : ''} >${option.name} </option>
-              <c:if test="${option.baseChannel}">
-                <optgroup>
-                <c:set var="isOptgroup" value="true"/>
-              </c:if>
+            <c:if test="${option.parent}">
+              <option value="${option.id}" ${option.selected ? ' selected="selected"' : ''} >${option.name} </option>
+            </c:if>
+            <c:if test="${not option.parent}">
+              <option value="${option.id}" ${option.selected ? ' selected="selected"' : ''} >&#160;&#160;${option.name} </option>
+            </c:if>
           </c:forEach>
           <c:if test="${isOptgroup}">
                 </optgroup>

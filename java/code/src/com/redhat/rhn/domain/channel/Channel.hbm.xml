@@ -126,10 +126,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         -->
     </class>
 
-    <query name="Channel.listCustomChannels">
-        <![CDATA[from com.redhat.rhn.domain.channel.Channel as c where c.org = :org order by name]]>
-    </query>
-
     <query name="Channel.findRedHatBaseChannels">
         <![CDATA[
                 from com.redhat.rhn.domain.channel.Channel as c where c.org is null

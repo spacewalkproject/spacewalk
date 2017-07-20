@@ -14,6 +14,20 @@
  */
 package com.redhat.rhn.domain.channel;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -26,20 +40,6 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
-
-import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * ChannelFactory
@@ -1000,18 +1000,6 @@ public class ChannelFactory extends HibernateFactory {
     public static List<String> findChannelArchLabelsSyncdChannels() {
         return singleton.listObjectsByNamedQuery(
                 "Channel.findChannelArchLabelsSyncdChannels", null);
-    }
-
-    /**
-     * List custom channels for an org
-     * @param org the org doing the searching
-     * @return list of custom channels
-     */
-    public static List<Channel> listCustomChannels(Org org) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("org", org);
-        return singleton.listObjectsByNamedQuery(
-                "Channel.listCustomChannels", params);
     }
 
     /**
