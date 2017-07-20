@@ -37,7 +37,7 @@ def help_custominfo_createkey(self):
 def do_custominfo_createkey(self, args):
     (args, _options) = parse_arguments(args)
 
-    if len(args) > 0:
+    if args:
         key = args[0]
     else:
         key = ''
@@ -71,7 +71,7 @@ def complete_custominfo_deletekey(self, text, line, beg, end):
 def do_custominfo_deletekey(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_custominfo_deletekey()
         return
 
@@ -80,7 +80,7 @@ def do_custominfo_deletekey(self, args):
     logging.debug("customkey_deletekey called with args %s, keys=%s" %
                   (args, keys))
 
-    if not len(keys):
+    if not keys:
         logging.error("No keys matched argument %s" % args)
         return
 
@@ -108,7 +108,7 @@ def do_custominfo_listkeys(self, args, doreturn=False):
     if doreturn:
         return keys
     else:
-        if len(keys):
+        if keys:
             print '\n'.join(sorted(keys))
 
 ####################
@@ -126,7 +126,7 @@ def complete_custominfo_details(self, text, line, beg, end):
 def do_custominfo_details(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_custominfo_details()
         return
 
@@ -135,7 +135,7 @@ def do_custominfo_details(self, args):
     logging.debug("customkey_details called with args %s, keys=%s" %
                   (args, keys))
 
-    if not len(keys):
+    if not keys:
         logging.error("No keys matched argument %s" % args)
         return
 
@@ -168,7 +168,7 @@ def help_custominfo_updatekey(self):
 def do_custominfo_updatekey(self, args):
     (args, _options) = parse_arguments(args)
 
-    if len(args) > 0:
+    if args:
         key = args[0]
     else:
         key = ''

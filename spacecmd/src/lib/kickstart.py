@@ -66,7 +66,7 @@ def do_kickstart_list(self, args, doreturn=False):
     if doreturn:
         return kickstarts
     else:
-        if len(kickstarts):
+        if kickstarts:
             print '\n'.join(sorted(kickstarts))
 
 ####################
@@ -179,7 +179,7 @@ def do_kickstart_delete(self, args):
     labels = filter_results(all_labels, args)
     logging.debug("Got labels to delete of %s" % labels)
 
-    if len(labels) == 0:
+    if not labels:
         logging.error("No valid kickstart labels passed as arguments!")
         self.help_kickstart_delete()
         return
@@ -403,7 +403,7 @@ def do_kickstart_details(self, args):
     for channel in sorted(child_channels):
         result.append('  |-- %s' % channel)
 
-    if len(advanced_options):
+    if advanced_options:
         result.append('')
         result.append('Advanced Options')
         result.append('----------------')
@@ -411,14 +411,14 @@ def do_kickstart_details(self, args):
             if o.get('arguments'):
                 result.append('%s %s' % (o.get('name'), o.get('arguments')))
 
-    if len(custom_options):
+    if custom_options:
         result.append('')
         result.append('Custom Options')
         result.append('--------------')
         for o in sorted(custom_options, key=itemgetter('arguments')):
             result.append(re.sub('\n', '', o.get('arguments')))
 
-    if len(partitions):
+    if partitions:
         result.append('')
         result.append('Partitioning')
         result.append('------------')
@@ -429,21 +429,21 @@ def do_kickstart_details(self, args):
     result.append('--------')
     result.append('\n'.join(software))
 
-    if len(act_keys):
+    if act_keys:
         result.append('')
         result.append('Activation Keys')
         result.append('---------------')
         for k in sorted(act_keys, key=itemgetter('key')):
             result.append(k.get('key'))
 
-    if len(crypto_keys):
+    if crypto_keys:
         result.append('')
         result.append('Crypto Keys')
         result.append('-----------')
         for k in sorted(crypto_keys, key=itemgetter('description')):
             result.append(k.get('description'))
 
-    if len(file_preservations):
+    if file_preservations:
         result.append('')
         result.append('File Preservations')
         result.append('------------------')
@@ -452,14 +452,14 @@ def do_kickstart_details(self, args):
             for profile_name in sorted(fp.get('file_names')):
                 result.append('    |-- %s' % profile_name)
 
-    if len(variables):
+    if variables:
         result.append('')
         result.append('Variables')
         result.append('---------')
         for k in sorted(variables.keys()):
             result.append('%s = %s' % (k, str(variables[k])))
 
-    if len(scripts):
+    if scripts:
         result.append('')
         result.append('Scripts')
         result.append('-------')
@@ -519,7 +519,7 @@ def complete_kickstart_getcontents(self, text, line, beg, end):
 def do_kickstart_getcontents(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_getcontents()
         return
 
@@ -579,7 +579,7 @@ def complete_kickstart_listcryptokeys(self, text, line, beg, end):
 def do_kickstart_listcryptokeys(self, args, doreturn=False):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_listcryptokeys()
         return
 
@@ -592,7 +592,7 @@ def do_kickstart_listcryptokeys(self, args, doreturn=False):
     if doreturn:
         return keys
     else:
-        if len(keys):
+        if keys:
             print '\n'.join(sorted(keys))
 
 ####################
@@ -683,7 +683,7 @@ def complete_kickstart_listactivationkeys(self, text, line, beg, end):
 def do_kickstart_listactivationkeys(self, args, doreturn=False):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_listactivationkeys()
         return
 
@@ -698,7 +698,7 @@ def do_kickstart_listactivationkeys(self, args, doreturn=False):
     if doreturn:
         return keys
     else:
-        if len(keys):
+        if keys:
             print '\n'.join(sorted(keys))
 
 ####################
@@ -798,7 +798,7 @@ def complete_kickstart_enableconfigmanagement(self, text, line, beg,
 def do_kickstart_enableconfigmanagement(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_enableconfigmanagement()
         return
 
@@ -827,7 +827,7 @@ def complete_kickstart_disableconfigmanagement(self, text, line, beg,
 def do_kickstart_disableconfigmanagement(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_disableconfigmanagement()
         return
 
@@ -856,7 +856,7 @@ def complete_kickstart_enableremotecommands(self, text, line, beg,
 def do_kickstart_enableremotecommands(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_enableremotecommands()
         return
 
@@ -884,7 +884,7 @@ def complete_kickstart_disableremotecommands(self, text, line, beg, end):
 def do_kickstart_disableremotecommands(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_disableremotecommands()
         return
 
@@ -980,7 +980,7 @@ def complete_kickstart_setpartitions(self, text, line, beg, end):
 def do_kickstart_setpartitions(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_setpartitions()
         return
 
@@ -1058,7 +1058,7 @@ def complete_kickstart_enablelogging(self, text, line, beg, end):
 def do_kickstart_enablelogging(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_enablelogging()
         return
 
@@ -1205,7 +1205,7 @@ def complete_kickstart_listvariables(self, text, line, beg, end):
 def do_kickstart_listvariables(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_listvariables()
         return
 
@@ -1338,7 +1338,7 @@ def complete_kickstart_listoptions(self, text, line, beg, end):
 def do_kickstart_listoptions(self, args):
     (args, options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_listoptions()
         return
 
@@ -1370,7 +1370,7 @@ def complete_kickstart_listcustomoptions(self, text, line, beg, end):
 def do_kickstart_listcustomoptions(self, args):
     (args, options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_listcustomoptions()
         return
 
@@ -1402,7 +1402,7 @@ def complete_kickstart_setcustomoptions(self, text, line, beg, end):
 def do_kickstart_setcustomoptions(self, args):
     (args, options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_setcustomoptions()
         return
 
@@ -1545,7 +1545,7 @@ def complete_kickstart_listchildchannels(self, text, line, beg, end):
 def do_kickstart_listchildchannels(self, args, doreturn=False):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_listchildchannels()
         return
 
@@ -1557,7 +1557,7 @@ def do_kickstart_listchildchannels(self, args, doreturn=False):
     if doreturn:
         return channels
     else:
-        if len(channels):
+        if channels:
             print '\n'.join(sorted(channels))
 
 ####################
@@ -1582,7 +1582,7 @@ def complete_kickstart_addfilepreservations(self, text, line, beg, end):
 def do_kickstart_addfilepreservations(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_addfilepreservations()
         return
 
@@ -1652,7 +1652,7 @@ def complete_kickstart_listpackages(self, text, line, beg, end):
 def do_kickstart_listpackages(self, args, doreturn=False):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_listpackages()
         return
 
@@ -1665,7 +1665,7 @@ def do_kickstart_listpackages(self, args, doreturn=False):
     if doreturn:
         return packages
     else:
-        if len(packages):
+        if packages:
             print '\n'.join(packages)
 
 ####################
@@ -1755,7 +1755,7 @@ def complete_kickstart_listscripts(self, text, line, beg, end):
 def do_kickstart_listscripts(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_listscripts()
         return
 
@@ -1814,7 +1814,7 @@ def do_kickstart_addscript(self, args):
     (args, options) = parse_arguments(args, options)
 
     if is_interactive(options):
-        if len(args):
+        if args:
             options.profile = args[0]
         else:
             options.profile = prompt_user('Profile Name:', noblank=True)
@@ -1911,7 +1911,7 @@ def complete_kickstart_removescript(self, text, line, beg, end):
 def do_kickstart_removescript(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_kickstart_removescript()
         return
 
@@ -2119,8 +2119,8 @@ def do_kickstart_export(self, args):
 
     # Get the list of profiles to export and sort out the filename if required
     profiles = []
-    if not len(args):
-        if len(filename) == 0:
+    if not args:
+        if not filename:
             filename = "ks_all.json"
         logging.info("Exporting ALL kickstart profiles to %s" % filename)
         profiles = self.do_kickstart_list('', True)
@@ -2129,11 +2129,11 @@ def do_kickstart_export(self, args):
         profiles = filter_results(self.do_kickstart_list('', True), args)
         logging.debug("kickstart_export called with args %s, profiles=%s" %
                       (args, profiles))
-        if (len(profiles) == 0):
+        if not profiles:
             logging.error("Error, no valid kickstart profile passed, " +
                           "check name is  correct with spacecmd kickstart_list")
             return
-        if len(filename) == 0:
+        if not filename:
             # No filename arg, so we try to do something sensible:
             # If we are exporting exactly one ks, we default to ksname.json
             # otherwise, generic ks_profiles.json name
@@ -2176,7 +2176,7 @@ def help_kickstart_importjson(self):
 def do_kickstart_importjson(self, args):
     (args, _options) = parse_arguments(args)
 
-    if len(args) == 0:
+    if not args:
         logging.error("Error, no filename passed")
         self.help_kickstart_import()
         return
@@ -2184,7 +2184,7 @@ def do_kickstart_importjson(self, args):
     for filename in args:
         logging.debug("Passed filename do_kickstart_import %s" % filename)
         ksdetails_list = json_read_from_file(filename)
-        if len(ksdetails_list) == 0:
+        if not ksdetails_list:
             logging.error("Error, could not read json data from %s" % filename)
             return
         for ksdetails in ksdetails_list:
@@ -2275,7 +2275,7 @@ def import_kickstart_fromdetails(self, ksdetails):
     existing_file_preservations = [
         x['name'] for x in self.client.kickstart.filepreservation.listAllFilePreservations(
             self.session)]
-    if len(ksdetails['file_preservations']) != 0:
+    if ksdetails['file_preservations']:
         for fp in ksdetails['file_preservations']:
             if fp in existing_file_preservations:
                 if self.client.kickstart.profile.system.addFilePreservations(
@@ -2439,7 +2439,7 @@ def do_kickstart_getupdatetype(self, args):
     labels = filter_results(all_labels, args)
     logging.debug("Got labels to list the update type %s" % labels)
 
-    if len(labels) == 0:
+    if not labels:
         logging.error("No valid kickstart labels passed as arguments!")
         self.help_kickstart_getupdatetype()
         return
@@ -2492,7 +2492,7 @@ def do_kickstart_setupdatetype(self, args):
     labels = filter_results(all_labels, args)
     logging.debug("Got labels to set the update type %s" % labels)
 
-    if len(labels) == 0:
+    if not labels:
         logging.error("No valid kickstart labels passed as arguments!")
         self.help_kickstart_setupdatetype()
         return
@@ -2530,7 +2530,7 @@ def do_kickstart_getsoftwaredetails(self, args):
     labels = filter_results(all_labels, args)
     logging.debug("Got labels to set the update type %s" % labels)
 
-    if len(labels) == 0:
+    if not labels:
         logging.error("No valid kickstart labels passed as arguments!")
         self.help_kickstart_getsoftwaredetails()
         return
@@ -2565,15 +2565,15 @@ def complete_kickstart_setsoftwaredetails(self, text, line, beg, end):
 
     if length == 2:
         return tab_completer(self.do_kickstart_list('', True), text)
-    elif length in [3, 5]:
+    if length in [3, 5]:
         if 'noBase' in parts:
             return tab_completer(['ignoreMissing'], text)
-        elif 'ignoreMissing' in parts:
+        if 'ignoreMissing' in parts:
             return tab_completer(['noBase'], text)
-        else:
-            kspkginfo = ['noBase', 'ignoreMissing']
-            return tab_completer(kspkginfo, text)
-    elif length in [4, 6]:
+
+        kspkginfo = ['noBase', 'ignoreMissing']
+        return tab_completer(kspkginfo, text)
+    if length in [4, 6]:
         mode= ['True', 'False']
         return tab_completer(mode, text)
 

@@ -235,7 +235,7 @@ def do_org_removetrust(self, args):
     print 'Affected Systems'
     print '----------------'
 
-    if len(systems):
+    if systems:
         print '\n'.join(sorted([s.get('systemName') for s in systems]))
     else:
         print 'None'
@@ -262,7 +262,7 @@ def complete_org_trustdetails(self, text, line, beg, end):
 def do_org_trustdetails(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_org_trustdetails()
         return
 
@@ -280,14 +280,14 @@ def do_org_trustdetails(self, args):
     print
     print 'Channels Consumed'
     print '-----------------'
-    if len(consumed):
+    if consumed:
         print '\n'.join(sorted([c.get('name') for c in consumed]))
 
     print
 
     print 'Channels Provided'
     print '-----------------'
-    if len(provided):
+    if provided:
         print '\n'.join(sorted([c.get('name') for c in provided]))
 
 ####################
@@ -305,7 +305,7 @@ def do_org_list(self, args, doreturn=False):
     if doreturn:
         return orgs
     else:
-        if len(orgs):
+        if orgs:
             print '\n'.join(sorted(orgs))
 
 ####################
@@ -323,7 +323,7 @@ def complete_org_listtrusts(self, text, line, beg, end):
 def do_org_listtrusts(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_org_listtrusts()
         return
 
@@ -350,7 +350,7 @@ def complete_org_listusers(self, text, line, beg, end):
 def do_org_listusers(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_org_listusers()
         return
 
@@ -375,7 +375,7 @@ def complete_org_details(self, text, line, beg, end):
 def do_org_details(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_org_details()
         return
 
@@ -419,7 +419,7 @@ def complete_org_setsystementitlements(self, text, line, beg, end):
 def do_org_setsystementitlements(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_org_setsystementitlements()
         return
 

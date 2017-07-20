@@ -113,7 +113,7 @@ def load_cache(cachefile):
         except IOError:
             logging.error("Couldn't load cache from %s", cachefile)
 
-        if isinstance(data, list) or isinstance(data, dict):
+        if isinstance(data, (list, dict)):
             if 'expire' in data:
                 expire = data['expire']
                 del data['expire']
@@ -327,9 +327,9 @@ def parse_time_input(userinput=''):
 
     if timestamp:
         return xmlrpclib.DateTime(timestamp.timetuple())
-    else:
-        logging.error('Invalid time provided')
-        return
+
+    logging.error('Invalid time provided')
+    return
 
 
 # Compares 2 package objects (dicts) and returns the newest one.
@@ -344,10 +344,10 @@ def latest_pkg(pkg1, pkg2, version_key='version',
     result = rpm.labelCompare(t1, t2) # pylint: disable=no-member
     if result == 1:
         return pkg1
-    elif result == -1:
+    if result == -1:
         return pkg2
-    else:
-        return None
+
+    return None
 
 # build a proper RPM name from the various parts
 
@@ -379,9 +379,9 @@ def build_package_names(packages):
 
     if single:
         return package_names[0]
-    else:
-        package_names.sort()
-        return package_names
+
+    package_names.sort()
+    return package_names
 
 
 def print_errata_summary(erratum):
@@ -419,17 +419,17 @@ def print_errata_list(errata):
                             erratum.get('advisory_name'))
             continue
 
-    if not len(errata):
+    if not errata:
         return
 
-    if len(rhsa):
+    if rhsa:
         print 'Security Errata'
         print '---------------'
         for erratum in rhsa:
             print_errata_summary(erratum)
 
-    if len(rhba):
-        if len(rhsa):
+    if rhba:
+        if rhsa:
             print
 
         print 'Bug Fix Errata'
@@ -437,8 +437,8 @@ def print_errata_list(errata):
         for erratum in rhba:
             print_errata_summary(erratum)
 
-    if len(rhea):
-        if len(rhsa) or len(rhba):
+    if rhea:
+        if rhsa or rhba:
             print
 
         print 'Enhancement Errata'
@@ -568,14 +568,13 @@ def parse_str(s, type_to=None):
         if type_to is not None and isinstance(type_to, type):
             return type_to(s)
 
-        elif re.match(r'[1-9]\d*', s):
+        if re.match(r'[1-9]\d*', s):
             return int(s)
 
-        elif re.match(r'{.*}', s):
+        if re.match(r'{.*}', s):
             return json.loads(s)  # retry with json module
 
-        else:
-            return str(s)
+        return str(s)
 
     except ValueError:
         return str(s)
@@ -631,7 +630,7 @@ def parse_api_args(args, sep=','):
 
     try:
         x = json.loads(args)
-        ret = isinstance(x, list) and x or [x]
+        ret = x if isinstance(x, list) else [x]
 
     except ValueError:
         ret = [parse_str(a) for a in parse_list_str(args, sep)]

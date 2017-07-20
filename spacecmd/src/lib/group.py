@@ -57,7 +57,7 @@ def complete_group_addsystems(self, text, line, beg, end):
 def do_group_addsystems(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_group_addsystems()
         return
 
@@ -105,7 +105,7 @@ def complete_group_removesystems(self, text, line, beg, end):
 def do_group_removesystems(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_group_removesystems()
         return
 
@@ -147,7 +147,7 @@ def help_group_create(self):
 def do_group_create(self, args):
     (args, _options) = parse_arguments(args)
 
-    if len(args) > 0:
+    if args:
         name = args[0]
     else:
         name = prompt_user('Name:')
@@ -174,7 +174,7 @@ def complete_group_delete(self, text, line, beg, end):
 def do_group_delete(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_group_delete()
         return
 
@@ -207,7 +207,7 @@ def complete_group_backup(self, text, line, beg, end):
 def do_group_backup(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_group_backup()
         return
 
@@ -268,7 +268,7 @@ def do_group_restore(self, args):
     files = {}
     current = {}
 
-    if len(args):
+    if args:
         inputdir = args[0]
         groups = args[1:]
     else:
@@ -289,13 +289,13 @@ def do_group_restore(self, args):
         logging.error("Restore dir %s does not exits or is not a directory" % inputdir)
         return
 
-    if not len(files):
+    if not files:
         logging.error("Restore dir %s has no restore items" % inputdir)
         return
 
-    if (len(groups) == 1 and groups[0] == 'ALL') or not len(groups):
+    if (len(groups) == 1 and groups[0] == 'ALL') or not groups:
         groups = files.keys()
-    elif len(groups):
+    elif groups:
         for group in groups:
             if files.has_key(group):
                 groups.append(group)
@@ -350,7 +350,7 @@ def do_group_list(self, args, doreturn=False):
     if doreturn:
         return groups
     else:
-        if len(groups):
+        if groups:
             print '\n'.join(sorted(groups))
 
 ####################
@@ -368,7 +368,7 @@ def complete_group_listsystems(self, text, line, beg, end):
 def do_group_listsystems(self, args, doreturn=False):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_group_listsystems()
         return
 
@@ -384,7 +384,7 @@ def do_group_listsystems(self, args, doreturn=False):
     if doreturn:
         return systems
     else:
-        if len(systems):
+        if systems:
             print '\n'.join(sorted(systems))
 
 ####################
@@ -402,7 +402,7 @@ def complete_group_details(self, text, line, beg, end):
 def do_group_details(self, args, short=False):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_group_details()
         return
 

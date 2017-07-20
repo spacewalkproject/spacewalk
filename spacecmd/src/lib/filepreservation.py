@@ -46,7 +46,7 @@ def do_filepreservation_list(self, args, doreturn=False):
     if doreturn:
         return lists
     else:
-        if len(lists):
+        if lists:
             print '\n'.join(sorted(lists))
 
 ####################
@@ -60,7 +60,7 @@ def help_filepreservation_create(self):
 def do_filepreservation_create(self, args):
     (args, _options) = parse_arguments(args)
 
-    if len(args):
+    if args:
         name = args[0]
     else:
         name = prompt_user('Name:', noblank=True)
@@ -111,7 +111,7 @@ def complete_filepreservation_delete(self, text, line, beg, end):
 def do_filepreservation_delete(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_filepreservation_delete()
         return
 
@@ -138,7 +138,7 @@ def complete_filepreservation_details(self, text, line, beg, end):
 def do_filepreservation_details(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_filepreservation_details()
         return
 

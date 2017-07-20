@@ -158,7 +158,7 @@ def do_system_list(self, args, doreturn=False):
     if doreturn:
         return self.get_system_names()
     else:
-        if len(self.get_system_names()):
+        if self.get_system_names():
             print '\n'.join(sorted(['%s : %s' % (v, k) for k, v in self.get_system_names_ids().iteritems()]))
 
 ####################
@@ -186,7 +186,7 @@ def do_system_reboot(self, args):
 
     (args, options) = parse_arguments(args, options)
 
-    if not len(args):
+    if not args:
         self.help_system_reboot()
         return
 
@@ -313,7 +313,7 @@ def do_system_search(self, args, doreturn=False):
     if doreturn:
         return [s[0] for s in systems]
     else:
-        if len(systems):
+        if systems:
             for s in sorted(systems):
                 if key == 'name':
                     print s[0]
@@ -356,7 +356,7 @@ def do_system_runscript(self, args):
 
     (args, options) = parse_arguments(args, options)
 
-    if not len(args):
+    if not args:
         self.help_system_runscript()
         return
 
@@ -366,7 +366,7 @@ def do_system_runscript(self, args):
     else:
         systems = self.expand_systems(args)
 
-    if not len(systems):
+    if not systems:
         logging.warning('No systems selected')
         return
 
@@ -534,7 +534,7 @@ def complete_system_listhardware(self, text, line, beg, end):
 def do_system_listhardware(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_listhardware()
         return
 
@@ -575,7 +575,7 @@ def do_system_listhardware(self, args):
             print 'System: %s' % system
             print
 
-        if len(network):
+        if network:
             print 'Network'
             print '-------'
 
@@ -628,7 +628,7 @@ def do_system_listhardware(self, args):
             print 'BIOS Vendor:  %s' % dmi.get('bios_vendor')
             print 'BIOS Version: %s' % dmi.get('bios_version')
 
-        if len(devices):
+        if devices:
             print
             print 'Devices'
             print '-------'
@@ -748,7 +748,7 @@ def do_system_installpackage(self, args):
 
                     jobs[system_id].append(package.get('id'))
 
-    if not len(jobs):
+    if not jobs:
         logging.warning('No packages to install')
         return
 
@@ -770,7 +770,7 @@ def do_system_installpackage(self, args):
             print self.get_package_name(package_id)
 
     # show the warnings to the user
-    if len(warnings):
+    if warnings:
         print
     for system_id in warnings:
         logging.warning('%s does not have access to all requested packages' %
@@ -888,7 +888,7 @@ def do_system_removepackage(self, args):
         for package in jobs[system]:
             print self.get_package_name(package)
 
-    if not len(jobs):
+    if not jobs:
         return
 
     print
@@ -990,13 +990,13 @@ def do_system_upgradepackage(self, args):
             self.client.system.listLatestUpgradablePackages(self.session,
                                                             system_id)
 
-        if len(packages):
+        if packages:
             package_ids = [p.get('to_package_id') for p in packages]
             jobs[system] = package_ids
         else:
             logging.warning('No upgrades available for %s' % system)
 
-    if not len(jobs):
+    if not jobs:
         return
 
     add_separator = False
@@ -1060,7 +1060,7 @@ def complete_system_listupgrades(self, text, line, beg, end):
 def do_system_listupgrades(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_listupgrades()
         return
 
@@ -1081,7 +1081,7 @@ def do_system_listupgrades(self, args):
             self.client.system.listLatestUpgradablePackages(self.session,
                                                             system_id)
 
-        if not len(packages):
+        if not packages:
             logging.warning('No upgrades available for %s' % system)
             continue
 
@@ -1122,7 +1122,7 @@ def complete_system_listinstalledpackages(self, text, line, beg, end):
 def do_system_listinstalledpackages(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_listinstalledpackages()
         return
 
@@ -1169,7 +1169,7 @@ def complete_system_listconfigchannels(self, text, line, beg, end):
 def do_system_listconfigchannels(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_listconfigchannels()
         return
 
@@ -1261,7 +1261,7 @@ def do_system_listconfigfiles(self, args):
         options.local = True
         options.central = True
 
-    if not len(args):
+    if not args:
         self.help_system_listconfigfiles()
         return
 
@@ -1377,7 +1377,7 @@ def do_system_addconfigfile(self, args, update_path=''):
     file_info = None
 
     # the system name can be passed in
-    if len(args):
+    if args:
         options.system = args[0]
 
     interactive = is_interactive(options)
@@ -1578,7 +1578,7 @@ def complete_system_setconfigchannelorder(self, text, line, beg, end):
 def do_system_setconfigchannelorder(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_setconfigchannelorder()
         return
 
@@ -1640,7 +1640,7 @@ def do_system_deployconfigfiles(self, args):
 
     (args, options) = parse_arguments(args, options)
 
-    if not len(args):
+    if not args:
         self.help_system_deployconfigfiles()
         return
 
@@ -1662,7 +1662,7 @@ def do_system_deployconfigfiles(self, args):
     else:
         systems = self.expand_systems(args)
 
-    if not len(systems):
+    if not systems:
         return
 
     print
@@ -1701,7 +1701,7 @@ def complete_system_delete(self, text, line, beg, end):
 def do_system_delete(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_delete()
         return
 
@@ -1721,7 +1721,7 @@ def do_system_delete(self, args):
 
         system_ids.append(system_id)
 
-    if not len(system_ids):
+    if not system_ids:
         logging.warning('No systems to delete')
         return
 
@@ -1770,7 +1770,7 @@ def complete_system_lock(self, text, line, beg, end):
 def do_system_lock(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_lock()
         return
 
@@ -1804,7 +1804,7 @@ def complete_system_unlock(self, text, line, beg, end):
 def do_system_unlock(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_unlock()
         return
 
@@ -1880,7 +1880,7 @@ def complete_system_listcustomvalues(self, text, line, beg, end):
 def do_system_listcustomvalues(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_listcustomvalues()
         return
 
@@ -2110,7 +2110,7 @@ def complete_system_deletenotes(self, text, line, beg, end):
 def do_system_deletenotes(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_listnotes()
         return
 
@@ -2123,7 +2123,7 @@ def do_system_deletenotes(self, args):
 
     note_ids = args
 
-    if not len(args):
+    if not args:
         logging.warning('No notes to delete')
         return
 
@@ -2162,7 +2162,7 @@ def complete_system_listnotes(self, text, line, beg, end):
 def do_system_listnotes(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_listnotes()
         return
 
@@ -2273,7 +2273,7 @@ def complete_system_listbasechannel(self, text, line, beg, end):
 def do_system_listbasechannel(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_listbasechannel()
         return
 
@@ -2320,7 +2320,7 @@ def complete_system_listchildchannels(self, text, line, beg, end):
 def do_system_listchildchannels(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_listchildchannels()
         return
 
@@ -2388,7 +2388,7 @@ def do_system_listcrashedsystems(self, args):
     res = self.client.system.listUserSystems(self.session)
     for s in res:
         res_crash = self.client.system.crash.listSystemCrashes(self.session, s['id'])
-        if len(res_crash) != 0:
+        if res_crash:
             print "%d : %s : %s" % (len(res_crash), s['id'], s['name'])
 
 ######
@@ -2554,7 +2554,7 @@ def complete_system_details(self, text, line, beg, end):
 def do_system_details(self, args, short=False):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_details()
         return
 
@@ -2641,7 +2641,7 @@ def do_system_details(self, args, short=False):
         print 'IP Address:    %s' % network.get('ip')
         print 'Kernel:        %s' % kernel
 
-        if len(keys):
+        if keys:
             print
             print 'Activation Keys'
             print '---------------'
@@ -2655,7 +2655,7 @@ def do_system_details(self, args, short=False):
         for channel in child_channels:
             print '  |-- %s' % channel.get('label')
 
-        if len(ranked_config_channels):
+        if ranked_config_channels:
             print
             print 'Configuration Channels'
             print '----------------------'
@@ -2666,7 +2666,7 @@ def do_system_details(self, args, short=False):
         print '------------'
         print '\n'.join(sorted(entitlements))
 
-        if len(groups):
+        if groups:
             print
             print 'System Groups'
             print '-------------'
@@ -2691,7 +2691,7 @@ def complete_system_listerrata(self, text, line, beg, end):
 def do_system_listerrata(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_listerrata()
         return
 
@@ -2767,7 +2767,7 @@ def do_system_applyerrata(self, args):
     # allow globbing and searching of errata
     errata_list = self.expand_errata(args)
 
-    if not len(errata_list) or not len(systems):
+    if not errata_list or not systems:
         return
 
     # reconstruct options so we can pass them to do_errata_apply
@@ -2794,7 +2794,7 @@ def complete_system_listevents(self, text, line, beg, end):
 def do_system_listevents(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_listevents()
         return
 
@@ -2843,7 +2843,7 @@ def complete_system_listentitlements(self, text, line, beg, end):
 def do_system_listentitlements(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_listentitlements()
         return
 
@@ -2887,8 +2887,8 @@ def complete_system_addentitlements(self, text, line, beg, end):
 
     if len(parts) == 2:
         return self.tab_complete_systems(text)
-    else:
-        return tab_completer(self.ENTITLEMENTS, text)
+
+    return tab_completer(self.ENTITLEMENTS, text)
 
 
 def do_system_addentitlements(self, args):
@@ -2935,8 +2935,8 @@ def complete_system_removeentitlement(self, text, line, beg, end):
 
     if len(parts) == 2:
         return self.tab_complete_systems(text)
-    else:
-        return tab_completer(self.ENTITLEMENTS, text)
+
+    return tab_completer(self.ENTITLEMENTS, text)
 
 
 def do_system_removeentitlement(self, args):
@@ -2983,7 +2983,7 @@ def do_system_listpackageprofiles(self, args, doreturn=False):
     if doreturn:
         return profiles
     else:
-        if len(profiles):
+        if profiles:
             print '\n'.join(sorted(profiles))
 
 ####################
@@ -3007,7 +3007,7 @@ def complete_system_deletepackageprofile(self, text, line, beg, end):
 def do_system_deletepackageprofile(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_system_deletepackageprofile()
         return
 
@@ -3372,7 +3372,7 @@ def do_system_comparewithchannel(self, args):
 
     (args, options) = parse_arguments(args, options)
 
-    if not len(args):
+    if not args:
         self.help_system_comparewithchannel()
         return
 
@@ -3497,7 +3497,7 @@ def do_system_schedulehardwarerefresh(self, args):
 
     (args, options) = parse_arguments(args, options)
 
-    if not len(args):
+    if not args:
         self.help_system_schedulehardwarerefresh()
         return
 
@@ -3553,7 +3553,7 @@ def do_system_schedulepackagerefresh(self, args):
 
     (args, options) = parse_arguments(args, options)
 
-    if not len(args):
+    if not args:
         self.help_system_schedulepackagerefresh()
         return
 
@@ -3599,8 +3599,8 @@ def complete_system_show_packageversion(self, text, line, beg, end):
 
     if len(parts) == 2:
         return self.tab_complete_systems(text)
-    else:
-        return tab_completer(self.get_package_names(), text)
+
+    return tab_completer(self.get_package_names(), text)
 
 
 def do_system_show_packageversion(self, args):

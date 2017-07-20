@@ -151,7 +151,7 @@ class SpacewalkShell(Cmd):
 
         parts = shlex.split(line)
 
-        if len(parts):
+        if parts:
             command = parts[0]
         else:
             return ''
@@ -210,7 +210,7 @@ class SpacewalkShell(Cmd):
 
         # append the arguments to the substituted command
         if history_match:
-            if len(parts[1:]):
+            if parts[1:]:
                 for arg in parts[1:]:
                     line += " '%s'" % arg
 
@@ -235,6 +235,7 @@ class SpacewalkShell(Cmd):
                 pass
 
     # update the prompt with the SSM size
+    # pylint: disable=arguments-differ
     def postcmd(self, cmdresult, cmd):
         SpacewalkShell.print_result(cmdresult, cmd)
         self.prompt = re.sub('##', str(len(self.ssm)), self.prompt_template)

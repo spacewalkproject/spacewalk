@@ -45,7 +45,7 @@ def do_snippet_list(self, args, doreturn=False):
     if doreturn:
         return snippets
     else:
-        if len(snippets):
+        if snippets:
             print '\n'.join(sorted(snippets))
 
 ####################
@@ -64,7 +64,7 @@ def complete_snippet_details(self, text, line, beg, end):
 def do_snippet_details(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_snippet_details()
         return
 
@@ -172,7 +172,7 @@ def complete_snippet_update(self, text, line, beg, end):
 def do_snippet_update(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_snippet_update()
         return
 
@@ -193,7 +193,7 @@ def complete_snippet_delete(self, text, line, beg, end):
 def do_snippet_delete(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_snippet_delete()
         return
 

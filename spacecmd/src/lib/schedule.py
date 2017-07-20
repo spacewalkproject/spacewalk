@@ -38,7 +38,7 @@ from spacecmd.utils import *
 def print_schedule_summary(self, action_type, args):
     args = args.split() or []
 
-    if len(args) > 0:
+    if args:
         begin_date = parse_time_input(args[0])
         logging.debug('Begin Date: %s' % begin_date)
     else:
@@ -73,7 +73,7 @@ def print_schedule_summary(self, action_type, args):
     else:
         return
 
-    if not len(actions):
+    if not actions:
         return
 
     print 'ID      Date                 C    F    P     Action'
@@ -137,7 +137,7 @@ def complete_schedule_cancel(self, text, line, beg, end):
 def do_schedule_cancel(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_schedule_cancel()
         return
 
@@ -186,7 +186,7 @@ def complete_schedule_reschedule(self, text, line, beg, end):
 def do_schedule_reschedule(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_schedule_reschedule()
         return
 
@@ -214,7 +214,7 @@ def do_schedule_reschedule(self, args):
                 logging.warning('%s is not a valid ID' % str(a))
                 continue
 
-    if not len(to_reschedule):
+    if not to_reschedule:
         logging.warning('No failed actions to reschedule')
         return
 
@@ -233,7 +233,7 @@ def help_schedule_details(self):
 def do_schedule_details(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_schedule_details()
         return
 
@@ -275,21 +275,21 @@ def do_schedule_details(self, args):
     print 'Failed:    %s' % str(len(failed)).rjust(3)
     print 'Pending:   %s' % str(len(pending)).rjust(3)
 
-    if len(completed):
+    if completed:
         print
         print 'Completed Systems'
         print '-----------------'
         for s in completed:
             print s.get('server_name')
 
-    if len(failed):
+    if failed:
         print
         print 'Failed Systems'
         print '--------------'
         for s in failed:
             print s.get('server_name')
 
-    if len(pending):
+    if pending:
         print
         print 'Pending Systems'
         print '---------------'
@@ -307,7 +307,7 @@ def help_schedule_getoutput(self):
 def do_schedule_getoutput(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_schedule_getoutput()
         return
 

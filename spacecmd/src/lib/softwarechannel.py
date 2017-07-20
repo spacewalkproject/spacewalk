@@ -64,7 +64,7 @@ def do_softwarechannel_list(self, args, doreturn=False):
 
     if doreturn:
         return labels
-    elif len(labels):
+    elif labels:
         if (options.verbose):
             for l in sorted(labels):
                 details = self.client.channel.software.getDetails(
@@ -106,7 +106,7 @@ def do_softwarechannel_listmanageablechannels(self, args, doreturn=False):
 
     if doreturn:
         return labels
-    elif len(labels):
+    elif labels:
         if options.verbose:
             for l in sorted(labels):
                 details = \
@@ -133,7 +133,7 @@ def do_softwarechannel_listbasechannels(self, args):
 
     channels = self.list_base_channels()
 
-    if len(channels):
+    if channels:
         if (options.verbose):
             for c in sorted(channels):
                 details = \
@@ -158,12 +158,12 @@ specific base channel'
 def do_softwarechannel_listchildchannels(self, args):
     options = [Option('-v', '--verbose', action='store_true')]
     (args, options) = parse_arguments(args, options)
-    if not len(args):
+    if not args:
         channels = self.list_child_channels()
     else:
         channels = self.list_child_channels(parent=args[0])
 
-    if len(channels):
+    if channels:
         if (options.verbose):
             for c in sorted(channels):
                 details = \
@@ -188,7 +188,7 @@ def complete_softwarechannel_listsystems(self, text, line, beg, end):
 def do_softwarechannel_listsystems(self, args, doreturn=False):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_softwarechannel_listsystems()
         return
 
@@ -203,7 +203,7 @@ def do_softwarechannel_listsystems(self, args, doreturn=False):
     if doreturn:
         return systems
     else:
-        if len(systems):
+        if systems:
             print '\n'.join(sorted(systems))
 
 ####################
@@ -219,14 +219,14 @@ def complete_softwarechannel_listpackages(self, text, line, beg, end):
     if len(line.split(' ')) == 2:
         return tab_completer(self.do_softwarechannel_list('', True),
                              text)
-    else:
-        return []
+
+    return []
 
 
 def do_softwarechannel_listpackages(self, args, doreturn=False):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_softwarechannel_listpackages()
         return
 
@@ -240,7 +240,7 @@ def do_softwarechannel_listpackages(self, args, doreturn=False):
     if doreturn:
         return packages
     else:
-        if len(packages):
+        if packages:
             print '\n'.join(sorted(packages))
 
 ####################
@@ -255,14 +255,14 @@ def complete_softwarechannel_listallpackages(self, text, line, beg, end):
     if len(line.split(' ')) == 2:
         return tab_completer(self.do_softwarechannel_list('', True),
                              text)
-    else:
-        return []
+
+    return []
 
 
 def do_softwarechannel_listallpackages(self, args, doreturn=False):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_softwarechannel_listallpackages()
         return
 
@@ -276,7 +276,7 @@ def do_softwarechannel_listallpackages(self, args, doreturn=False):
     if doreturn:
         return packages
     else:
-        if len(packages):
+        if packages:
             print '\n'.join(sorted(packages))
 
 ####################
@@ -313,14 +313,14 @@ def complete_softwarechannel_listlatestpackages(self, text, line, beg, end):
     if len(line.split(' ')) == 2:
         return tab_completer(self.do_softwarechannel_list('', True),
                              text)
-    else:
-        return []
+
+    return []
 
 
 def do_softwarechannel_listlatestpackages(self, args, doreturn=False):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_softwarechannel_listlatestpackages()
         return
 
@@ -336,7 +336,7 @@ def do_softwarechannel_listlatestpackages(self, args, doreturn=False):
     if doreturn:
         return packages
     else:
-        if len(packages):
+        if packages:
             print '\n'.join(sorted(packages))
 
 ####################
@@ -377,7 +377,7 @@ def do_softwarechannel_setdetails(self, args):
                Option('-f', '--gpg_fingerprint', action='store')]
     (args, options) = parse_arguments(args, options)
 
-    if not len(args):
+    if not args:
         self.help_softwarechannel_setdetails()
         return
 
@@ -505,7 +505,7 @@ def complete_softwarechannel_details(self, text, line, beg, end):
 def do_softwarechannel_details(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_softwarechannel_details()
         return
 
@@ -557,7 +557,7 @@ def do_softwarechannel_details(self, args):
         print 'GPG Fingerprint:    %s' % details.get('gpg_key_fp')
         print 'GPG URL:            %s' % details.get('gpg_key_url')
 
-        if len(trees):
+        if trees:
             print
             print 'Kickstart Trees'
             print '---------------'
@@ -587,7 +587,7 @@ def complete_softwarechannel_listerrata(self, text, line, beg, end):
 def do_softwarechannel_listerrata(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_softwarechannel_listerrata()
         return
 
@@ -643,7 +643,7 @@ def complete_softwarechannel_delete(self, text, line, beg, end):
 def do_softwarechannel_delete(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_softwarechannel_delete()
         return
 
@@ -653,7 +653,7 @@ def do_softwarechannel_delete(self, args):
     to_delete = filter_results(
         self.do_softwarechannel_list('', True), channels)
 
-    if not len(to_delete):
+    if not to_delete:
         return
 
     print 'Channels'
@@ -1173,7 +1173,7 @@ def do_softwarechannel_addpackages(self, args):
     for package in package_names:
         package_ids += self.get_package_id(package)
 
-    if not len(package_ids):
+    if not package_ids:
         logging.warning('No packages to add')
         return
 
@@ -1210,7 +1210,7 @@ def complete_softwarechannel_removeerrata(self, text, line, beg, end):
 def do_softwarechannel_removeerrata(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_softwarechannel_removeerrata()
         return
 
@@ -1244,7 +1244,7 @@ def do_softwarechannel_removeerrata(self, args):
             if channel in package.get('providing_channels'):
                 package_ids.append(package.get('id'))
 
-    if not len(errata_details):
+    if not errata_details:
         logging.warning('No errata to remove')
         return
 
@@ -1302,7 +1302,7 @@ def complete_softwarechannel_removepackages(self, text, line, beg,
 def do_softwarechannel_removepackages(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_softwarechannel_removepackages()
         return
 
@@ -1325,7 +1325,7 @@ def do_softwarechannel_removepackages(self, args):
     for package in package_names:
         package_ids += self.get_package_id(package)
 
-    if not len(package_ids):
+    if not package_ids:
         logging.warning('No packages to remove')
         return
 
@@ -1393,7 +1393,7 @@ def do_softwarechannel_adderratabydate(self, args):
                                                 parse_time_input(begin_date),
                                                 parse_time_input(end_date))
 
-    if not len(errata):
+    if not errata:
         logging.warning('No errata found between the given dates')
         return
 
@@ -1460,7 +1460,7 @@ def do_softwarechannel_listerratabydate(self, args):
                                                 parse_time_input(begin_date),
                                                 parse_time_input(end_date))
 
-    if not len(errata):
+    if not errata:
         logging.warning('No errata found between the given dates')
         return
 
@@ -1557,7 +1557,7 @@ def do_softwarechannel_adderrata(self, args):
                 if source_channel in package.get('providing_channels'):
                     package_ids.append(package.get('id'))
 
-    if not len(errata):
+    if not errata:
         logging.warning('No errata to add')
         return
 
@@ -1617,7 +1617,7 @@ def do_softwarechannel_getorgaccess(self, args):
     (args, _options) = parse_arguments(args)
 
     # If no args are passed, we dump the org access for all channels
-    if not len(args):
+    if not args:
         channels = self.do_softwarechannel_listmanageablechannels('', doreturn=True)
     else:
         # allow globbing of software channel names
@@ -1652,7 +1652,7 @@ def complete_softwarechannel_setorgaccess(self, text, line, beg, end):
 
 
 def do_softwarechannel_setorgaccess(self, args, options=None):
-    if not len(args):
+    if not args:
         self.help_softwarechannel_setorgaccess()
         return
     if not options:
@@ -1661,7 +1661,7 @@ def do_softwarechannel_setorgaccess(self, args, options=None):
                    Option('-p', '--protected', action='append')]
         (args, options) = parse_arguments(args, options)
 
-    if not len(args):
+    if not args:
         self.help_softwarechannel_setorgaccess()
         return
 
@@ -1721,13 +1721,13 @@ def do_softwarechannel_getorgaccesstree(self, args):
     (args, _options) = parse_arguments(args)
 
     # If no args are passed, we dump the org access for all base channels
-    if not len(args):
+    if not args:
         channels = self.list_base_channels()
     else:
         # allow globbing of software channel names
         channels = filter_results(self.list_base_channels(), args)
 
-    if not len(channels):
+    if not channels:
         logging.error("Channel does not exist or is not a base channel!")
         self.help_softwarechannel_getorgaccesstree()
         return
@@ -1756,14 +1756,14 @@ def do_softwarechannel_setorgaccesstree(self, args):
                Option('-p', '--protected', action='append')]
     (args, options) = parse_arguments(args, options)
 
-    if not len(args) or not (options.enable or options.disable or options.protected):
+    if not args or not (options.enable or options.disable or options.protected):
         self.help_softwarechannel_setorgaccesstree()
         return
 
     # allow globbing of software channel names
     channels = filter_results(self.list_base_channels(), args)
 
-    if not len(channels):
+    if not channels:
         logging.error("Channel does not exist or is not a base channel!")
         self.help_softwarechannel_setorgaccesstree()
         return
@@ -1804,7 +1804,7 @@ def complete_softwarechannel_regenerateyumcache(self, text, line, beg, end):
 def do_softwarechannel_regenerateyumcache(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_softwarechannel_regenerateyumcache()
         return
 
@@ -2213,7 +2213,7 @@ def complete_softwarechannel_syncrepos(self, text, line, beg, end):
 def do_softwarechannel_syncrepos(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_softwarechannel_syncrepos()
         return
 
@@ -2398,7 +2398,7 @@ def do_softwarechannel_listrepos(self, args):
     details = self.client.channel.software.getDetails(self.session, args[0])
     repos = [r.get('label') for r in details.get('contentSources')]
 
-    if len(repos):
+    if repos:
         print '\n'.join(sorted(repos))
 
 ####################
@@ -2419,7 +2419,7 @@ def do_softwarechannel_mirrorpackages(self, args):
     options = [Option('-l', '--latest', action='store_true')]
 
     (args, options) = parse_arguments(args, options)
-    if not len(args):
+    if not args:
         self.help_softwarechannel_mirrorpackages()
         return
     channel = args[0]

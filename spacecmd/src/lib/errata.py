@@ -48,7 +48,7 @@ def do_errata_list(self, args, doreturn=False):
     if doreturn:
         return self.all_errata.keys()
     else:
-        if len(self.all_errata.keys()):
+        if self.all_errata.keys():
             print '\n'.join(sorted(self.all_errata.keys()))
 
 ####################
@@ -87,7 +87,7 @@ def do_errata_apply(self, args, only_systems=None):
     (args, options) = parse_arguments(args, options)
     only_systems = only_systems or []
 
-    if not len(args):
+    if not args:
         self.help_errata_apply()
         return
 
@@ -122,7 +122,7 @@ def do_errata_apply(self, args, only_systems=None):
                 # this erratum if we were not passed a list of systems
                 # (and therefore all systems are to be touched) or we were
                 # passed a list of systems and this one is part of that list
-                if not len(only_systems) or system.get('name') in only_systems:
+                if not only_systems or system.get('name') in only_systems:
                     if erratum not in to_apply_by_name:
                         to_apply_by_name[erratum] = []
                     if system.get('name') not in to_apply_by_name[erratum]:
@@ -143,7 +143,7 @@ def do_errata_apply(self, args, only_systems=None):
         systems += systemlist
     systems = list(set(systems))
 
-    if not len(systems):
+    if not systems:
         logging.warning('No errata to apply')
         return
 
@@ -206,7 +206,7 @@ def do_errata_apply(self, args, only_systems=None):
                         errata_to_apply.append(e.get('id'))
                         break
 
-            if not len(errata_to_apply):
+            if not errata_to_apply:
                 logging.warning('No errata to schedule for %s' % system)
                 continue
 
@@ -234,7 +234,7 @@ def complete_errata_listaffectedsystems(self, text, line, beg, end):
 def do_errata_listaffectedsystems(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_errata_listaffectedsystems()
         return
 
@@ -246,7 +246,7 @@ def do_errata_listaffectedsystems(self, args):
     for erratum in errata_list:
         systems = self.client.errata.listAffectedSystems(self.session, erratum)
 
-        if len(systems):
+        if systems:
             if add_separator:
                 print self.SEPARATOR
             add_separator = True
@@ -269,7 +269,7 @@ def complete_errata_listcves(self, text, line, beg, end):
 def do_errata_listcves(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_errata_listcves()
         return
 
@@ -281,7 +281,7 @@ def do_errata_listcves(self, args):
     for erratum in errata_list:
         cves = self.client.errata.listCves(self.session, erratum)
 
-        if len(cves):
+        if cves:
             if len(errata_list) > 1:
                 if add_separator:
                     print self.SEPARATOR
@@ -306,7 +306,7 @@ def complete_errata_findbycve(self, text, line, beg, end):
 def do_errata_findbycve(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_errata_findbycve()
         return
 
@@ -324,7 +324,7 @@ def do_errata_findbycve(self, args):
 
         print "%s:" % c
         errata = self.client.errata.findByCve(self.session, c)
-        if len(errata):
+        if errata:
             for e in errata:
                 print "%s" % e.get('advisory_name')
 
@@ -343,7 +343,7 @@ def complete_errata_details(self, text, line, beg, end):
 def do_errata_details(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_errata_details()
         return
 
@@ -432,14 +432,14 @@ def complete_errata_delete(self, text, line, beg, end):
 def do_errata_delete(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_errata_delete()
         return
 
     # allow globbing and searching via arguments
     errata = self.expand_errata(args)
 
-    if not len(errata):
+    if not errata:
         logging.warning('No errata to delete')
         return
 
@@ -490,7 +490,7 @@ def do_errata_publish(self, args):
 
     channels = args[1:]
 
-    if not len(errata):
+    if not errata:
         logging.warning('No errata to publish')
         return
 
@@ -521,7 +521,7 @@ def complete_errata_search(self, text, line, beg, end):
 def do_errata_search(self, args, doreturn=False):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_errata_search()
         return
 
@@ -553,7 +553,7 @@ def do_errata_search(self, args, doreturn=False):
             print self.SEPARATOR
         add_separator = True
 
-        if len(errata):
+        if errata:
             if doreturn:
                 return [erratum['advisory_name'] for erratum in errata]
             else:

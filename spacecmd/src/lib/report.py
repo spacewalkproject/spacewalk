@@ -54,7 +54,7 @@ def do_report_inactivesystems(self, args):
         # use the server's default period if no argument was passed
         systems = self.client.system.listInactiveSystems(self.session)
 
-    if len(systems):
+    if systems:
         max_size = max_length([s.get('name') for s in systems])
 
         print '%s  %s  %s' % ('System ID ', 'System'.ljust(max_size), 'Last Checkin')
@@ -87,7 +87,7 @@ def do_report_outofdatesystems(self, args):
 
         report[system.get('name')] = len(packages)
 
-    if len(report):
+    if report:
         print '%s  %s' % ('System'.ljust(max_size), 'Packages')
         print ('-' * max_size) + '  --------'
 
@@ -107,7 +107,7 @@ def do_report_ungroupedsystems(self, args):
     systems = self.client.system.listUngroupedSystems(self.session)
     systems = [s.get('name') for s in systems]
 
-    if len(systems):
+    if systems:
         print '\n'.join(sorted(systems))
 
 ####################
@@ -123,7 +123,7 @@ def help_report_errata(self):
 def do_report_errata(self, args):
     (args, _options) = parse_arguments(args)
 
-    if len(args) == 0:
+    if not args:
         print 'All errata requested - this may take a few minutes, please be patient!'
 
     errata_list = self.expand_errata(args)
@@ -145,7 +145,7 @@ def do_report_errata(self, args):
         if size > max_size:
             max_size = size
 
-    if len(report):
+    if report:
         print '%s  # Systems' % ('Errata'.ljust(max_size))
         print '%s  ---------' % ('------'.ljust(max_size))
         for erratum in sorted(report):
@@ -165,7 +165,7 @@ def help_report_ipaddresses(self):
 def do_report_ipaddresses(self, args):
     (args, _options) = parse_arguments(args)
 
-    if len(args):
+    if args:
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
             systems = self.ssm.keys()
@@ -194,7 +194,7 @@ def do_report_ipaddresses(self, args):
         if size > hostname_max_size:
             hostname_max_size = size
 
-    if len(report):
+    if report:
         print '%s  %s  IP' % ('System'.ljust(system_max_size),
                               'Hostname'.ljust(hostname_max_size))
 
@@ -220,7 +220,7 @@ def help_report_kernels(self):
 def do_report_kernels(self, args):
     (args, _options) = parse_arguments(args)
 
-    if len(args):
+    if args:
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
             systems = self.ssm.keys()
@@ -242,7 +242,7 @@ def do_report_kernels(self, args):
         if size > system_max_size:
             system_max_size = size
 
-    if len(report):
+    if report:
         print '%s  Kernel' % ('System'.ljust(system_max_size))
 
         print '%s  ------' % ('------'.ljust(system_max_size))
@@ -267,7 +267,7 @@ def do_report_duplicates(self, args):
             if system not in dupes_by_profile:
                 dupes_by_profile.append(system)
 
-    if len(dupes_by_profile):
+    if dupes_by_profile:
         add_separator = True
 
         for item in dupes_by_profile:
@@ -292,7 +292,7 @@ def do_report_duplicates(self, args):
         dupes_by_hostname = \
             self.client.system.listDuplicatesByHostname(self.session)
 
-        if len(dupes_by_ip):
+        if dupes_by_ip:
             if add_separator:
                 print self.SEPARATOR
             add_separator = True
@@ -310,7 +310,7 @@ def do_report_duplicates(self, args):
                 if len(dupes_by_ip) > 1:
                     print
 
-        if len(dupes_by_mac):
+        if dupes_by_mac:
             if add_separator:
                 print self.SEPARATOR
             add_separator = True
@@ -328,7 +328,7 @@ def do_report_duplicates(self, args):
                 if len(dupes_by_mac) > 1:
                     print
 
-        if len(dupes_by_hostname):
+        if dupes_by_hostname:
             if add_separator:
                 print self.SEPARATOR
             add_separator = True

@@ -230,7 +230,7 @@ def do_login(self, args):
     (args, _options) = parse_arguments(args)
 
     # logout before logging in again
-    if len(self.session):
+    if self.session:
         logging.warning('You are already logged in')
         return True
 
@@ -250,7 +250,7 @@ def do_login(self, args):
     self.load_config_section(server)
 
     # an argument passed to the function get precedence
-    if len(args):
+    if args:
         username = args[0]
     elif self.config.has_key('username'):
         # use the username from before
@@ -313,7 +313,7 @@ def do_login(self, args):
                 parts = line.split(':')
 
                 # if a username was passed, make sure it matches
-                if len(username):
+                if username:
                     if parts[0] == username:
                         self.session = parts[1]
                 else:
@@ -338,8 +338,8 @@ def do_login(self, args):
             self.session = ''
 
     # attempt to login if we don't have a valid session yet
-    if not len(self.session):
-        if len(username):
+    if not self.session:
+        if username:
             logging.info('Spacewalk Username: %s', username)
         else:
             username = prompt_user('Spacewalk Username:', noblank=True)
@@ -419,7 +419,7 @@ def help_whoami(self):
 
 
 def do_whoami(self, args):
-    if len(self.current_user):
+    if self.current_user:
         print self.current_user
     else:
         logging.warning("You are not logged in")
@@ -433,7 +433,7 @@ def help_whoamitalkingto(self):
 
 
 def do_whoamitalkingto(self, args):
-    if len(self.server):
+    if self.server:
         print self.server
     else:
         logging.warning('Yourself')
@@ -454,23 +454,23 @@ def tab_complete_systems(self, text):
         groups = ['group:%s' % g for g in self.do_group_list('', True)]
 
         return tab_completer(groups, text)
-    elif re.match('channel:', text):
+    if re.match('channel:', text):
         # prepend 'channel' to each item for tab completion
         channels = ['channel:%s' % s
                     for s in self.do_softwarechannel_list('', True)]
 
         return tab_completer(channels, text)
-    elif re.match('search:', text):
+    if re.match('search:', text):
         # prepend 'search' to each item for tab completion
         fields = ['search:%s:' % f for f in self.SYSTEM_SEARCH_FIELDS]
         return tab_completer(fields, text)
-    else:
-        options = self.get_system_names()
 
-        # add our special search options
-        options.extend(['group:', 'channel:', 'search:'])
+    options = self.get_system_names()
 
-        return tab_completer(options, text)
+    # add our special search options
+    options.extend(['group:', 'channel:', 'search:'])
+
+    return tab_completer(options, text)
 
 
 def remove_last_history_item(self):
@@ -620,8 +620,8 @@ def get_package_names(self, longnames=False):
 
     if longnames:
         return self.all_packages.keys()
-    else:
-        return self.all_packages_short
+
+    return self.all_packages_short
 
 
 def get_package_id(self, name):
@@ -759,7 +759,7 @@ def get_system_id(self, name):
 
     if len(systems) == 1:
         return systems[0]
-    elif not len(systems):
+    elif not systems:
         logging.warning("Can't find system ID for %s", name)
         return 0
     else:
@@ -800,7 +800,7 @@ def expand_errata(self, args):
 
     self.generate_errata_cache()
 
-    if len(args) == 0:
+    if not args:
         return self.all_errata
 
     errata = []
@@ -830,7 +830,7 @@ def expand_systems(self, args):
             item = re.sub('group:', '', item)
             members = self.do_group_listsystems("'%s'" % item, True)
 
-            if len(members):
+            if members:
                 systems.extend([re.escape(m) for m in members])
             else:
                 logging.warning('No systems in group %s', item)
@@ -838,13 +838,13 @@ def expand_systems(self, args):
             query = item.split(':', 1)[1]
             results = self.do_system_search(query, True)
 
-            if len(results):
+            if results:
                 systems.extend([re.escape(r) for r in results])
         elif re.match('channel:', item):
             item = re.sub('channel:', '', item)
             members = self.do_softwarechannel_listsystems(item, True)
 
-            if len(members):
+            if members:
                 systems.extend([re.escape(m) for m in members])
             else:
                 logging.warning('No systems subscribed to %s', item)
@@ -921,13 +921,13 @@ def user_confirm(self, prompt='Is this ok [y/N]:', nospacer=False,
     if re.match('y', answer, re.I):
         if integer:
             return 1
-        else:
-            return True
-    else:
-        if integer:
-            return 0
-        else:
-            return False
+
+        return True
+
+    if integer:
+        return 0
+
+    return False
 
 
 # check if the available API is recent enough
@@ -939,12 +939,12 @@ def check_api_version(self, want):
         if have_parts[0] == want_parts[0]:
             # compare minor versions if majors are the same
             return have_parts[1] >= want_parts[1]
-        else:
-            # only compare major versions if they differ
-            return have_parts[0] >= want_parts[0]
-    else:
-        # compare the whole value
-        return float(self.api_version) >= float(want)
+
+        # only compare major versions if they differ
+        return have_parts[0] >= want_parts[0]
+
+    # compare the whole value
+    return float(self.api_version) >= float(want)
 
 
 # replace the current line buffer
@@ -954,7 +954,7 @@ def replace_line_buffer(self, msg=None):
         msg = readline.get_line_buffer()
 
     # don't print a prompt if there wasn't one to begin with
-    if len(readline.get_line_buffer()):
+    if readline.get_line_buffer():
         new_line = '%s%s' % (self.prompt, msg)
     else:
         new_line = '%s' % msg

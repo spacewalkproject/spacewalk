@@ -205,7 +205,7 @@ def do_user_list(self, args, doreturn=False):
     if doreturn:
         return users
     else:
-        if len(users):
+        if users:
             print '\n'.join(sorted(users))
 
 ####################
@@ -222,7 +222,7 @@ def do_user_listavailableroles(self, args, doreturn=False):
     if doreturn:
         return roles
     else:
-        if len(roles):
+        if roles:
             print '\n'.join(sorted(roles))
 
 ####################
@@ -301,7 +301,7 @@ def complete_user_details(self, text, line, beg, end):
 def do_user_details(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_user_details()
         return
 
@@ -341,19 +341,19 @@ def do_user_details(self, args):
         print 'Created:       %s' % details.get('created_date')
         print 'Enabled:       %s' % details.get('enabled')
 
-        if len(roles):
+        if roles:
             print
             print 'Roles'
             print '-----'
             print '\n'.join(sorted(roles))
 
-        if len(groups):
+        if groups:
             print
             print 'Assigned Groups'
             print '---------------'
             print '\n'.join(sorted([g.get('name') for g in groups]))
 
-        if len(default_groups):
+        if default_groups:
             print
             print 'Default Groups'
             print '--------------'
@@ -620,7 +620,7 @@ def do_user_setprefix(self, args):
         return
 
     user = args.pop(0)
-    if len(args) == 0:
+    if not args:
         # clearing prefix with a space currently does not work
         # spacewalk requires a space to clear the prefix but the
         # space seems to be stripped when submitted to the API gateway

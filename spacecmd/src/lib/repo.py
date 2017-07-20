@@ -48,7 +48,7 @@ def do_repo_list(self, args, doreturn=False):
     if doreturn:
         return repos
     else:
-        if len(repos):
+        if repos:
             print '\n'.join(sorted(repos))
 
 ####################
@@ -66,7 +66,7 @@ def complete_repo_details(self, text, line, beg, end):
 def do_repo_details(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_repo_details()
         return
 
@@ -105,7 +105,7 @@ def complete_repo_listfilters(self, text, line, beg, end):
 def do_repo_listfilters(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_repo_listfilters()
         return
 
@@ -133,7 +133,7 @@ def do_repo_addfilters(self, args):
     # arguments can start with -, so don't parse arguments in the normal way
     args = shlex.split(args)
 
-    if not len(args):
+    if not args:
         self.help_repo_addfilters()
         return
 
@@ -168,7 +168,7 @@ def do_repo_removefilters(self, args):
     # arguments can start with -, so don't parse arguments in the normal way
     args = shlex.split(args)
 
-    if not len(args):
+    if not args:
         self.help_repo_removefilters()
         return
 
@@ -203,7 +203,7 @@ def do_repo_setfilters(self, args):
     # arguments can start with -, so don't parse arguments in the normal way
     args = shlex.split(args)
 
-    if not len(args):
+    if not args:
         self.help_repo_setfilters()
         return
 
@@ -238,7 +238,7 @@ def complete_repo_clearfilters(self, text, line, beg, end):
 def do_repo_clearfilters(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_repo_clearfilters()
         return
 
@@ -260,7 +260,7 @@ def complete_repo_delete(self, text, line, beg, end):
 def do_repo_delete(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_repo_delete()
         return
 

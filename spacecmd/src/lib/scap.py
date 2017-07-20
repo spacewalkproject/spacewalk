@@ -45,7 +45,7 @@ def complete_system_scap_listxccdfscans(self, text, line, beg, end):
 def do_scap_listxccdfscans(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_scap_listxccdfscans()
         return
 
@@ -86,7 +86,7 @@ def help_scap_getxccdfscanruleresults(self):
 def do_scap_getxccdfscanruleresults(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_scap_getxccdfscanruleresults()
         return
 
@@ -118,7 +118,7 @@ def help_scap_getxccdfscandetails(self):
 def do_scap_getxccdfscandetails(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_scap_getxccdfscandetails()
         return
 

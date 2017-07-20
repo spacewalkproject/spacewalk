@@ -49,7 +49,7 @@ def do_configchannel_list(self, args, doreturn=False):
     if doreturn:
         return channels
     else:
-        if len(channels):
+        if channels:
             print '\n'.join(sorted(channels))
 
 ####################
@@ -72,7 +72,7 @@ def do_configchannel_listsystems(self, args):
 
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_configchannel_listsystems()
         return
 
@@ -83,7 +83,7 @@ def do_configchannel_listsystems(self, args):
 
     systems = sorted([s.get('name') for s in systems])
 
-    if len(systems):
+    if systems:
         print '\n'.join(systems)
 
 ####################
@@ -101,7 +101,7 @@ def complete_configchannel_listfiles(self, text, line, beg, end):
 def do_configchannel_listfiles(self, args, doreturn=False):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_configchannel_listfiles()
         return []
 
@@ -113,7 +113,7 @@ def do_configchannel_listfiles(self, args, doreturn=False):
         if doreturn:
             return files
         else:
-            if len(files):
+            if files:
                 print '\n'.join(sorted(files))
 
 ####################
@@ -133,7 +133,7 @@ def complete_configchannel_forcedeploy(self, text, line, beg, end):
 def do_configchannel_forcedeploy(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_configchannel_forcedeploy()
         return
 
@@ -142,13 +142,13 @@ def do_configchannel_forcedeploy(self, args):
     files = self.client.configchannel.listFiles(self.session, channel)
     files = [f.get('path') for f in files]
 
-    if not len(files):
+    if not files:
         print 'No files within selected configchannel.'
         return
     else:
         systems = self.client.configchannel.listSubscribedSystems(self.session, channel)
         systems = sorted([s.get('name') for s in systems])
-        if not len(systems):
+        if not systems:
             print 'Channel has no subscribed Systems'
             return
         else:
@@ -176,11 +176,11 @@ def complete_configchannel_filedetails(self, text, line, beg, end):
     if len(parts) == 2:
         return tab_completer(self.do_configchannel_list('', True),
                              text)
-    elif len(parts) > 2:
+    if len(parts) > 2:
         return tab_completer(
             self.do_configchannel_listfiles(parts[1], True), text)
-    else:
-        return []
+
+    return []
 
 
 def do_configchannel_filedetails(self, args):
@@ -356,7 +356,7 @@ def complete_configchannel_details(self, text, line, beg, end):
 def do_configchannel_details(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_configchannel_details()
         return
 
@@ -444,7 +444,7 @@ def complete_configchannel_delete(self, text, line, beg, end):
 def do_configchannel_delete(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_configchannel_delete()
         return
 
@@ -453,7 +453,7 @@ def do_configchannel_delete(self, args):
     logging.debug("configchannel_delete called with args %s, channels=%s" %
                   (args, channels))
 
-    if not len(channels):
+    if not channels:
         logging.error("No channels matched argument %s" % args)
         return
 
@@ -710,7 +710,7 @@ def do_configchannel_addfile(self, args, update_path=''):
     interactive = is_interactive(options)
     if interactive:
         # the channel name can be passed in
-        if len(args):
+        if args:
             options.channel = args[0]
         else:
             while True:
@@ -932,7 +932,7 @@ def export_configchannel_getdetails(self, channel):
         try:
             pinfo = self.client.configchannel.lookupFileInfo(self.session,
                                                              channel, [p])
-            if len(pinfo):
+            if pinfo:
                 fileinfo.append(pinfo[0])
         except xmlrpclib.Fault:
             logging.error("Failed to get details for file %s from %s"
@@ -1012,8 +1012,8 @@ def do_configchannel_export(self, args):
 
     # Get the list of ccs to export and sort out the filename if required
     ccs = []
-    if not len(args):
-        if len(filename) == 0:
+    if not args:
+        if not filename:
             filename = "cc_all.json"
         logging.info("Exporting ALL config channels to %s" % filename)
         ccs = self.do_configchannel_list('', True)
@@ -1022,11 +1022,11 @@ def do_configchannel_export(self, args):
         ccs = filter_results(self.do_configchannel_list('', True), args)
         logging.debug("configchannel_export called with args %s, ccs=%s" %
                       (args, ccs))
-        if (len(ccs) == 0):
+        if not ccs:
             logging.error("Error, no valid config channel passed, " +
                           "check name is  correct with spacecmd configchannel_list")
             return
-        if len(filename) == 0:
+        if not filename:
             # No filename arg, so we try to do something sensible:
             # If we are exporting exactly one cc, we default to ccname.json
             # otherwise, generic ccs.json name
@@ -1065,7 +1065,7 @@ def help_configchannel_import(self):
 def do_configchannel_import(self, args):
     (args, _options) = parse_arguments(args)
 
-    if len(args) == 0:
+    if not args:
         logging.error("Error, no filename passed")
         self.help_configchannel_import()
         return
@@ -1073,7 +1073,7 @@ def do_configchannel_import(self, args):
     for filename in args:
         logging.debug("Passed filename do_configchannel_import %s" % filename)
         ccdetails_list = json_read_from_file(filename)
-        if len(ccdetails_list) == 0:
+        if not ccdetails_list:
             logging.error("Error, could not read json data from %s" % filename)
             return
         for ccdetails in ccdetails_list:
@@ -1207,7 +1207,7 @@ def do_configchannel_clone(self, args):
         else:
             logging.debug("%s : %s" % (options.clonelabel, options.regex))
 
-    if not len(args):
+    if not args:
         logging.error("Error no channel label passed!")
         self.help_configchannel_clone()
         return

@@ -45,7 +45,7 @@ def complete_package_details(self, text, line, beg, end):
 def do_package_details(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_package_details()
         return
 
@@ -53,7 +53,7 @@ def do_package_details(self, args):
     for package in args:
         packages.extend(self.do_package_search(' '.join(args), True))
 
-    if not len(packages):
+    if not packages:
         logging.warning('No packages found')
         return
 
@@ -117,7 +117,7 @@ def help_package_search(self):
 
 
 def do_package_search(self, args, doreturn=False):
-    if not len(args):
+    if not args:
         self.help_package_search()
         return
 
@@ -146,7 +146,7 @@ def do_package_search(self, args, doreturn=False):
     if doreturn:
         return packages
     else:
-        if len(packages):
+        if packages:
             print '\n'.join(sorted(packages))
 
 ####################
@@ -164,7 +164,7 @@ def complete_package_remove(self, text, line, beg, end):
 def do_package_remove(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_package_remove()
         return
 
@@ -172,7 +172,7 @@ def do_package_remove(self, args):
 
     to_remove = filter_results(self.get_package_names(True), packages)
 
-    if not len(to_remove):
+    if not to_remove:
         return
 
     print 'Packages'
@@ -209,7 +209,7 @@ def do_package_listorphans(self, args, doreturn=False):
     if doreturn:
         return packages
     else:
-        if len(packages):
+        if packages:
             print '\n'.join(sorted(packages))
 
 ####################
@@ -224,7 +224,7 @@ def do_package_removeorphans(self, args):
     packages = \
         self.client.channel.software.listPackagesWithoutChannel(self.session)
 
-    if not len(packages):
+    if not packages:
         logging.warning('No orphaned packages')
         return
 
@@ -257,7 +257,7 @@ def complete_package_listinstalledsystems(self, text, line, beg, end):
 def do_package_listinstalledsystems(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_package_listinstalledsystems()
         return
 
@@ -265,7 +265,7 @@ def do_package_listinstalledsystems(self, args):
     for package in args:
         packages.extend(self.do_package_search(' '.join(args), True))
 
-    if not len(packages):
+    if not packages:
         logging.warning('No packages found')
         return
 
@@ -284,7 +284,7 @@ def do_package_listinstalledsystems(self, args):
         print package
         print '-' * len(package)
 
-        if len(systems):
+        if systems:
             print '\n'.join(sorted(['%s : %s' % (s.get('name'), s.get('id')) for s in systems]))
 
 ####################
@@ -302,7 +302,7 @@ def complete_package_listerrata(self, text, line, beg, end):
 def do_package_listerrata(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_package_listerrata()
         return
 
@@ -310,7 +310,7 @@ def do_package_listerrata(self, args):
     for package in args:
         packages.extend(self.do_package_search(' '.join(args), True))
 
-    if not len(packages):
+    if not packages:
         logging.warning('No packages found')
         return
 
@@ -328,7 +328,7 @@ def do_package_listerrata(self, args):
             print package
             print '-' * len(package)
 
-            if len(errata):
+            if errata:
                 print '\n'.join(sorted([e.get('advisory') for e in errata]))
 
 ####################
@@ -342,7 +342,7 @@ def help_package_listdependencies(self):
 def do_package_listdependencies(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_package_listdependencies()
         return
 
@@ -350,7 +350,7 @@ def do_package_listdependencies(self, args):
     for package in args:
         packages.extend(self.do_package_search(' '.join(args), True))
 
-    if not len(packages):
+    if not packages:
         logging.warning('No packages found')
         return
 

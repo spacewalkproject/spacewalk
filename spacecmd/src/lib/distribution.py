@@ -54,7 +54,7 @@ def do_distribution_create(self, args, update=False):
 
     # fill in the name of the distribution when updating
     if update:
-        if len(args):
+        if args:
             options.name = args[0]
         elif not options.name:
             logging.error('The name of the distribution is required')
@@ -152,7 +152,7 @@ def do_distribution_list(self, args, doreturn=False):
     if doreturn:
         return avail_trees
     else:
-        if len(avail_trees):
+        if avail_trees:
             print '\n'.join(sorted(avail_trees))
 
 ####################
@@ -172,7 +172,7 @@ def complete_distribution_delete(self, text, line, beg, end):
 def do_distribution_delete(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_distribution_delete()
         return
 
@@ -181,7 +181,7 @@ def do_distribution_delete(self, args):
     logging.debug("distribution_delete called with args %s, dists=%s" %
                   (args, dists))
 
-    if not len(dists):
+    if not dists:
         logging.error("No distributions matched argument %s" % args)
         return
 
@@ -207,7 +207,7 @@ def complete_distribution_details(self, text, line, beg, end):
 def do_distribution_details(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_distribution_details()
         return
 
@@ -216,7 +216,7 @@ def do_distribution_details(self, args):
     logging.debug("distribution_details called with args %s, dists=%s" %
                   (args, dists))
 
-    if not len(dists):
+    if not dists:
         logging.error("No distributions matched argument %s" % args)
         return
 

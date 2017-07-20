@@ -108,7 +108,7 @@ def complete_cryptokey_delete(self, text, line, beg, end):
 def do_cryptokey_delete(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_cryptokey_delete()
         return
 
@@ -117,7 +117,7 @@ def do_cryptokey_delete(self, args):
     logging.debug("cryptokey_delete called with args %s, keys=%s" %
                   (args, keys))
 
-    if not len(keys):
+    if not keys:
         logging.error("No keys matched argument %s" % args)
         return
 
@@ -143,7 +143,7 @@ def do_cryptokey_list(self, args, doreturn=False):
     if doreturn:
         return keys
     else:
-        if len(keys):
+        if keys:
             print '\n'.join(sorted(keys))
 
 ####################
@@ -161,7 +161,7 @@ def complete_cryptokey_details(self, text, line, beg, end):
 def do_cryptokey_details(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_cryptokey_details()
         return
 
@@ -170,7 +170,7 @@ def do_cryptokey_details(self, args):
     logging.debug("cryptokey_details called with args %s, keys=%s" %
                   (args, keys))
 
-    if not len(keys):
+    if not keys:
         logging.error("No keys matched argument %s" % args)
         return
 

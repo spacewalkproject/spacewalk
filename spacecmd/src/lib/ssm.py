@@ -69,13 +69,13 @@ def complete_ssm_add(self, text, line, beg, end):
 def do_ssm_add(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_ssm_add()
         return
 
     systems = self.expand_systems(args)
 
-    if not len(systems):
+    if not systems:
         logging.warning('No systems found')
         return
 
@@ -87,7 +87,7 @@ def do_ssm_add(self, args):
             self.ssm[system] = self.get_system_id(system)
             logging.debug('Added %s' % system)
 
-    if len(self.ssm):
+    if self.ssm:
         logging.debug('Systems Selected: %i' % len(self.ssm))
 
     # save the SSM for use between sessions
@@ -114,13 +114,13 @@ def complete_ssm_intersect(self, text, line, beg, end):
 def do_ssm_intersect(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_ssm_intersect()
         return
 
     systems = self.expand_systems(args)
 
-    if not len(systems):
+    if not systems:
         logging.warning('No systems found')
         return
 
@@ -135,7 +135,7 @@ def do_ssm_intersect(self, args):
     # set self.ssm to tmp_ssm, which now holds the intersection
     self.ssm = tmp_ssm
 
-    if len(self.ssm):
+    if self.ssm:
         logging.debug('Systems Selected: %i' % len(self.ssm))
 
 ####################
@@ -157,13 +157,13 @@ def complete_ssm_remove(self, text, line, beg, end):
 def do_ssm_remove(self, args):
     (args, _options) = parse_arguments(args)
 
-    if not len(args):
+    if not args:
         self.help_ssm_remove()
         return
 
     systems = self.expand_systems(args)
 
-    if not len(systems):
+    if not systems:
         logging.warning('No systems found')
         return
 
@@ -191,7 +191,7 @@ def help_ssm_list(self):
 def do_ssm_list(self, args):
     systems = sorted(self.ssm)
 
-    if len(systems):
+    if systems:
         print '\n'.join(systems)
         logging.debug('Systems Selected: %i' % len(systems))
 
