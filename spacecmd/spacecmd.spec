@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.7.13
+Version:     2.7.14
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -92,6 +92,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Jul 20 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.14-1
+- pylint fixes
+
 * Wed Jun 14 2017 Grant Gainey 2.7.13-1
 - pylint: disable 'too many returns' for src/lib/softwarechannel.py
 - Fix pylint (bad-continuation)
