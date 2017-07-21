@@ -61,12 +61,12 @@ index 86ab72b..5516d1c 100644
      # initialize dnf
      base = dnf.Base()
  
--    if not base.plugins.plugins:
+-    if not base._plugins.plugins:
 -        base.init_plugins()
 +    # this is actually workaround for RhBug:1218071
-+    if not base.plugins.plugins and base.conf.plugins:
-+        base.plugins.load(base.conf.pluginpath, [])
-+        base.plugins.run_init(base)
++    if not base._plugins.plugins and base.conf.plugins:
++        base._plugins.load(base.conf.pluginpath, [])
++        base._plugins.run_init(base)
      if load_available_repos:
          base.read_all_repos()
      base.fill_sack(load_system_repo=True, load_available_repos=True)
