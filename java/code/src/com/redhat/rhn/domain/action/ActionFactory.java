@@ -779,6 +779,12 @@ public class ActionFactory extends HibernateFactory {
             lookupActionStatusByName("Failed");
 
     /**
+     * The constant representing the Action Status PICKEDUP
+     */
+    public static final ActionStatus STATUS_PICKEDUP =
+            lookupActionStatusByName("Picked Up");
+
+    /**
      * The constant representing Package Refresh List action.  [ID:1]
      */
     public static final ActionType TYPE_PACKAGES_REFRESH_LIST =

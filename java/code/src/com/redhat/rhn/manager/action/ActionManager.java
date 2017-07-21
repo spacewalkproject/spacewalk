@@ -148,7 +148,8 @@ public class ActionManager extends BaseManager {
                     serverId);
         }
         Date now = Calendar.getInstance().getTime();
-        if (serverAction.getStatus().equals(ActionFactory.STATUS_QUEUED)) {
+        if (serverAction.getStatus().equals(ActionFactory.STATUS_QUEUED) ||
+                serverAction.getStatus().equals((ActionFactory.STATUS_PICKEDUP))) {
             serverAction.setStatus(ActionFactory.STATUS_FAILED);
             serverAction.setResultMsg(message);
             serverAction.setCompletionTime(now);
