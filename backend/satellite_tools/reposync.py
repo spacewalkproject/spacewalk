@@ -709,9 +709,13 @@ class RepoSync(object):
 
                 e['packages'] = newpkgs
 
-            if len(e['packages']) == 0:
-                # FIXME: print only with higher debug option
+            # Empty package list in original metadata
+            if not e['packages'] and not notice['pkglist'][0]['packages']:
                 log(2, "Advisory %s has empty package list." % e['advisory_name'])
+            elif not e['packages']:
+                log(2, "Advisory %s skipped because of empty package list (filtered)."
+                    % e['advisory_name'])
+                continue
 
             e['keywords'] = []
             if notice['reboot_suggested']:
