@@ -310,7 +310,15 @@ class Runner(jabber_lib.Runner):
             if not server_url:
                 server_url = config.getServerlURL()
             else:
-                server_url = [config.convert_url_to_puny(i.strip()) for i in server_url.split(';')]
+                def convert_url(s):
+                    s = s.strip()
+                    if hasattr(config, 'convert_url_to_puny'):
+                       s = config.convert_url_to_puny(s)
+                    elif hasattr(config, 'convert_url_to_pune'):
+                       s = config.convert_url_to_pune(s)
+                    return s
+
+                server_url = [convert_url(i) for i in server_url.split(';')]
 
         # Remove empty URLs
         for url in server_url:
