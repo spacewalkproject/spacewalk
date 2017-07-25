@@ -17,7 +17,7 @@ Name: osad
 Summary: Open Source Architecture Daemon
 Group:   System Environment/Daemons
 License: GPLv2
-Version: 5.11.82
+Version: 5.11.83
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -419,6 +419,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Jul 25 2017 Michael Mraka <michael.mraka@redhat.com> 5.11.83-1
+- 1471946 - allow osad to work with older RHEL6 and RHEL7 rhnlib
+
 * Tue Jul 18 2017 Michael Mraka <michael.mraka@redhat.com> 5.11.82-1
 - move version and release before sources
 
