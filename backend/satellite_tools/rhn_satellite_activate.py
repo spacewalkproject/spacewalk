@@ -37,7 +37,8 @@ from spacewalk.server.rhnServer import satellite_cert
 # Try to import cdn activation module if available
 try:
     from spacewalk.cdn_tools import activation as cdn_activation
-    from spacewalk.cdn_tools.manifest import MissingSatelliteCertificateError, ManifestValidationError
+    from spacewalk.cdn_tools.manifest import MissingSatelliteCertificateError, ManifestValidationError,\
+        IncorrectEntitlementsFileFormatError
     from spacewalk.cdn_tools.common import CdnMappingsLoadError
 except ImportError:
     cdn_activation = None
@@ -353,6 +354,7 @@ def main():
         15   cannot load mapping files
         16   manifest download failed
         17   manifest refresh failed
+        18   manifest entitlements parse failed
         30   local activation failure
 
         90   not registered to rhsm
@@ -433,6 +435,9 @@ def main():
     except MissingSatelliteCertificateError, e:
         writeError(e)
         return 13
+    except IncorrectEntitlementsFileFormatError, e:
+        writeError(e)
+        return 18
 
     # general sanity/GPG check
     try:
