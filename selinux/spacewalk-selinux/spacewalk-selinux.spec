@@ -8,7 +8,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        2.7.2
+Version:        2.7.3
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -114,6 +114,11 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Jul 27 2017 Eric Herget <eherget@redhat.com> 2.7.3-1
+- 1446487 - spacewalk-selinux error messages during package install
+- 1452560 - more tomcat selinux rules
+- 1452560 - allow tomcat to access spacewalk logs
+
 * Mon Jul 17 2017 Jan Dobes 2.7.2-1
 - Remove more fedorahosted links
 - Use HTTPS in all Github links
