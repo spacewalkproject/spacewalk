@@ -36,7 +36,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.125
+Version: 2.7.126
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -792,6 +792,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Jul 27 2017 Jan Dobes 2.7.126-1
+- 1451771 - catch IncorrectEntitlementsFileFormatError exception and improve
+  messages
+
 * Tue Jul 25 2017 Jan Dobes 2.7.125-1
 - 1461339 - don't sync errata with empty package list if these packages were
   filtered
