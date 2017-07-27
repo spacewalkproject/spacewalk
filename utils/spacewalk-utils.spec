@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.7.17
+Version:	2.7.18
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,12 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Jul 27 2017 Jan Dobes 2.7.18-1
+- Add Spacewalk 2.7 release for util
+- Add new Fedora 26 channels for util
+- 1321196 - centos6-addons is not available
+- Bug 1321210 - repository for Centos 7 i386 is not available
+
 * Thu Jul 20 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.17-1
 - pylint fixes
 
