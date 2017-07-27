@@ -61,6 +61,10 @@ manage_lnk_files_pattern(httpd_t, spacewalk_data_t, spacewalk_data_t)
 manage_dirs_pattern(httpd_t, spacewalk_data_t, spacewalk_data_t)
 read_lnk_files_pattern(restorecon_t, spacewalk_data_t, spacewalk_data_t)
 
+manage_files_pattern(tomcat_t, spacewalk_data_t, spacewalk_data_t)
+manage_lnk_files_pattern(tomcat_t, spacewalk_data_t, spacewalk_data_t)
+manage_dirs_pattern(tomcat_t, spacewalk_data_t, spacewalk_data_t)
+
 dontaudit system_mail_t httpd_t:file read;
 
 manage_files_pattern(httpd_t, spacewalk_cache_t, spacewalk_cache_t)
