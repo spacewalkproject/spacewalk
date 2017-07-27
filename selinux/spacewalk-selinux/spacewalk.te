@@ -10,6 +10,7 @@ gen_tunable(spacewalk_nfs_mountpoint,false)
 
 require {
 	type httpd_t;
+	type tomcat_t;
 	type restorecon_t;
 	type httpd_sys_script_t;
 	type httpd_log_t;
@@ -52,6 +53,9 @@ allow restorecon_t spacewalk_initrc_exec_t:file { relabelto getattr };
 filetrans_pattern(httpd_t, spacewalk_log_t, spacewalk_httpd_log_t, file)
 manage_files_pattern(httpd_t, spacewalk_log_t, spacewalk_httpd_log_t)
 
+filetrans_pattern(tomcat_t, spacewalk_log_t, spacewalk_httpd_log_t, file)
+manage_files_pattern(tomcat_t, spacewalk_log_t, spacewalk_httpd_log_t)
+
 manage_files_pattern(httpd_t, spacewalk_data_t, spacewalk_data_t)
 manage_lnk_files_pattern(httpd_t, spacewalk_data_t, spacewalk_data_t)
 manage_dirs_pattern(httpd_t, spacewalk_data_t, spacewalk_data_t)
@@ -61,6 +65,9 @@ dontaudit system_mail_t httpd_t:file read;
 
 manage_files_pattern(httpd_t, spacewalk_cache_t, spacewalk_cache_t)
 manage_dirs_pattern(httpd_t, spacewalk_cache_t, spacewalk_cache_t)
+
+manage_files_pattern(tomcat_t, spacewalk_cache_t, spacewalk_cache_t)
+manage_dirs_pattern(tomcat_t, spacewalk_cache_t, spacewalk_cache_t)
 
 tunable_policy(`spacewalk_nfs_mountpoint',`
 	manage_files_pattern(httpd_t, nfs_t, nfs_t)
