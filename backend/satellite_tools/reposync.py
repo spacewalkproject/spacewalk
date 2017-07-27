@@ -52,6 +52,15 @@ relative_comps_dir = 'rhn/comps'
 checksum_cache_filename = 'reposync/checksum_cache'
 default_import_batch_size = 10
 
+errata_typemap = {
+    'security': 'Security Advisory',
+    'recommended': 'Bug Fix Advisory',
+    'bugfix': 'Bug Fix Advisory',
+    'optional': 'Product Enhancement Advisory',
+    'feature': 'Product Enhancement Advisory',
+    'enhancement': 'Product Enhancement Advisory'
+}
+
 
 def send_mail(sync_type="Repo"):
     """ Send email summary """
@@ -582,16 +591,172 @@ class RepoSync(object):
                                                        where channel_id = :cid))""")
             hi.execute(cid=self.channel['id'], relpath=relativepath)
 
+    def _populate_erratum(self, notice):
+        advisory = notice['update_id'] + '-' + notice['version']
+        existing_errata = self.get_errata(notice['update_id'])
+        e = importLib.Erratum()
+        e['errata_from'] = notice['from']
+        e['advisory'] = advisory
+        e['advisory_name'] = notice['update_id']
+        e['advisory_rel'] = notice['version']
+        e['advisory_type'] = errata_typemap.get(notice['type'], 'Product Enhancement Advisory')
+        e['product'] = notice['release'] or 'Unknown'
+        e['description'] = notice['description']
+        e['synopsis'] = notice['title'] or notice['update_id']
+        if (notice['type'] == 'security' and notice['severity'] and
+                not e['synopsis'].startswith(notice['severity'] + ': ')):
+            e['synopsis'] = notice['severity'] + ': ' + e['synopsis']
+        if 'summary' in notice and not notice['summary'] is None:
+            e['topic'] = notice['summary']
+        else:
+            e['topic'] = ' '
+        if 'solution' in notice and not notice['solution'] is None:
+            e['solution'] = notice['solution']
+        else:
+            e['solution'] = ' '
+        e['issue_date'] = self._to_db_date(notice['issued'])
+        if notice['updated']:
+            e['update_date'] = self._to_db_date(notice['updated'])
+        else:
+            e['update_date'] = self._to_db_date(notice['issued'])
+        e['org_id'] = self.org_id
+        e['notes'] = ''
+        e['channels'] = []
+        e['packages'] = []
+        e['files'] = []
+        if existing_errata:
+            e['channels'] = existing_errata['channels']
+            e['packages'] = existing_errata['packages']
+        e['channels'].append({'label': self.channel_label})
+
+        for pkg in notice['pkglist'][0]['packages']:
+            param_dict = {
+                'name': pkg['name'],
+                'version': pkg['version'],
+                'release': pkg['release'],
+                'arch': pkg['arch'],
+                'channel_id': int(self.channel['id']),
+            }
+            if pkg['epoch'] == '0':
+                epochStatement = "(pevr.epoch is NULL or pevr.epoch = '0')"
+            elif pkg['epoch'] is None or pkg['epoch'] == '':
+                epochStatement = "pevr.epoch is NULL"
+            else:
+                epochStatement = "pevr.epoch = :epoch"
+                param_dict['epoch'] = pkg['epoch']
+            if self.org_id:
+                param_dict['org_id'] = self.org_id
+                orgStatement = "= :org_id"
+            else:
+                orgStatement = "is NULL"
+
+            h = rhnSQL.prepare("""
+                            select p.id, pevr.epoch, c.checksum, c.checksum_type
+                              from rhnPackage p
+                              join rhnPackagename pn on p.name_id = pn.id
+                              join rhnpackageevr pevr on p.evr_id = pevr.id
+                              join rhnpackagearch pa on p.package_arch_id = pa.id
+                              join rhnArchType at on pa.arch_type_id = at.id
+                              join rhnChecksumView c on p.checksum_id = c.id
+                              join rhnChannelPackage cp on p.id = cp.package_id
+                             where pn.name = :name
+                               and p.org_id %s
+                               and pevr.version = :version
+                               and pevr.release = :release
+                               and pa.label = :arch
+                               and %s
+                               and at.label = 'rpm'
+                               and cp.channel_id = :channel_id
+                        """ % (orgStatement, epochStatement))
+            h.execute(**param_dict)
+            cs = h.fetchone_dict() or None
+
+            if not cs:
+                if 'epoch' in param_dict:
+                    epoch = str(param_dict['epoch']) + ":"
+                else:
+                    epoch = ""
+                log(2, "No checksum found for %s-%s%s-%s.%s."
+                       " Skipping Package" % (param_dict['name'],
+                                              epoch,
+                                              param_dict['version'],
+                                              param_dict['release'],
+                                              param_dict['arch']))
+                continue
+
+            newpkgs = []
+            for oldpkg in e['packages']:
+                if oldpkg['package_id'] != cs['id']:
+                    newpkgs.append(oldpkg)
+
+            package = importLib.IncompletePackage().populate(pkg)
+            package['epoch'] = cs['epoch']
+            package['org_id'] = self.org_id
+
+            package['checksums'] = {cs['checksum_type']: cs['checksum']}
+            package['checksum_type'] = cs['checksum_type']
+            package['checksum'] = cs['checksum']
+
+            package['package_id'] = cs['id']
+            newpkgs.append(package)
+
+            e['packages'] = newpkgs
+
+        # Empty package list in original metadata
+        if not e['packages'] and not notice['pkglist'][0]['packages']:
+            log(2, "Advisory %s has empty package list." % e['advisory_name'])
+        elif not e['packages']:
+            raise ValueError("Advisory %s skipped because of empty package list (filtered)." % e['advisory_name'])
+
+        e['keywords'] = []
+        if notice['reboot_suggested']:
+            kw = importLib.Keyword()
+            kw.populate({'keyword': 'reboot_suggested'})
+            e['keywords'].append(kw)
+        if notice['restart_suggested']:
+            kw = importLib.Keyword()
+            kw.populate({'keyword': 'restart_suggested'})
+            e['keywords'].append(kw)
+        e['bugs'] = []
+        e['cve'] = []
+        if notice['references']:
+            bzs = [r for r in notice['references'] if r['type'] == 'bugzilla']
+            if len(bzs):
+                tmp = {}
+                for bz in bzs:
+                    try:
+                        bz_id = int(bz['id'])
+                    # This can happen in some incorrectly generated updateinfo, let's be smart
+                    except ValueError:
+                        log(2, "Bugzilla assigned to advisory %s has invalid id: %s, trying to get it from URL..."
+                            % (e['advisory_name'], bz['id']))
+                        bz_id = int(re.search(r"\d+$", bz['href']).group(0))
+                    if bz_id not in tmp:
+                        bug = importLib.Bug()
+                        bug.populate({'bug_id': bz_id, 'summary': bz['title'], 'href': bz['href']})
+                        e['bugs'].append(bug)
+                        tmp[bz_id] = None
+            cves = [r for r in notice['references'] if r['type'] == 'cve']
+            if len(cves):
+                tmp = {}
+                for cve in cves:
+                    if cve['id'] not in tmp:
+                        e['cve'].append(cve['id'])
+                        tmp[cve['id']] = None
+            others = [r for r in notice['references'] if not r['type'] == 'bugzilla' and not r['type'] == 'cve']
+            if len(others):
+                refers_to = ""
+                for other in others:
+                    if refers_to:
+                        refers_to += "\n"
+                    refers_to += other['href']
+                e['refers_to'] = refers_to
+        e['locally_modified'] = None
+        return e
+
     def upload_updates(self, notices):
         batch = []
-        typemap = {
-            'security': 'Security Advisory',
-            'recommended': 'Bug Fix Advisory',
-            'bugfix': 'Bug Fix Advisory',
-            'optional': 'Product Enhancement Advisory',
-            'feature': 'Product Enhancement Advisory',
-            'enhancement': 'Product Enhancement Advisory'
-        }
+
         channel_advisory_names = self.list_errata()
         for notice in notices:
             notice = self.fix_notice(notice)
@@ -599,170 +764,15 @@ class RepoSync(object):
             if not self.force_all_errata and notice['update_id'] in channel_advisory_names:
                 continue
 
-            advisory = notice['update_id'] + '-' + notice['version']
-            existing_errata = self.get_errata(notice['update_id'])
-            e = importLib.Erratum()
-            e['errata_from'] = notice['from']
-            e['advisory'] = advisory
-            e['advisory_name'] = notice['update_id']
-            e['advisory_rel'] = notice['version']
-            e['advisory_type'] = typemap.get(notice['type'], 'Product Enhancement Advisory')
-            e['product'] = notice['release'] or 'Unknown'
-            e['description'] = notice['description']
-            e['synopsis'] = notice['title'] or notice['update_id']
-            if (notice['type'] == 'security' and notice['severity'] and
-                    not e['synopsis'].startswith(notice['severity'] + ': ')):
-                e['synopsis'] = notice['severity'] + ': ' + e['synopsis']
-            if 'summary' in notice and not notice['summary'] is None:
-                e['topic'] = notice['summary']
-            else:
-                e['topic'] = ' '
-            if 'solution' in notice and not notice['solution'] is None:
-                e['solution'] = notice['solution']
-            else:
-                e['solution'] = ' '
-            e['issue_date'] = self._to_db_date(notice['issued'])
-            if notice['updated']:
-                e['update_date'] = self._to_db_date(notice['updated'])
-            else:
-                e['update_date'] = self._to_db_date(notice['issued'])
-            e['org_id'] = self.org_id
-            e['notes'] = ''
-            e['channels'] = []
-            e['packages'] = []
-            e['files'] = []
-            if existing_errata:
-                e['channels'] = existing_errata['channels']
-                e['packages'] = existing_errata['packages']
-            e['channels'].append({'label': self.channel_label})
-
-            for pkg in notice['pkglist'][0]['packages']:
-                param_dict = {
-                    'name': pkg['name'],
-                    'version': pkg['version'],
-                    'release': pkg['release'],
-                    'arch': pkg['arch'],
-                    'channel_id': int(self.channel['id']),
-                }
-                if pkg['epoch'] == '0':
-                    epochStatement = "(pevr.epoch is NULL or pevr.epoch = '0')"
-                elif pkg['epoch'] is None or pkg['epoch'] == '':
-                    epochStatement = "pevr.epoch is NULL"
-                else:
-                    epochStatement = "pevr.epoch = :epoch"
-                    param_dict['epoch'] = pkg['epoch']
-                if self.org_id:
-                    param_dict['org_id'] = self.org_id
-                    orgStatement = "= :org_id"
-                else:
-                    orgStatement = "is NULL"
-
-                h = rhnSQL.prepare("""
-                    select p.id, pevr.epoch, c.checksum, c.checksum_type
-                      from rhnPackage p
-                      join rhnPackagename pn on p.name_id = pn.id
-                      join rhnpackageevr pevr on p.evr_id = pevr.id
-                      join rhnpackagearch pa on p.package_arch_id = pa.id
-                      join rhnArchType at on pa.arch_type_id = at.id
-                      join rhnChecksumView c on p.checksum_id = c.id
-                      join rhnChannelPackage cp on p.id = cp.package_id
-                     where pn.name = :name
-                       and p.org_id %s
-                       and pevr.version = :version
-                       and pevr.release = :release
-                       and pa.label = :arch
-                       and %s
-                       and at.label = 'rpm'
-                       and cp.channel_id = :channel_id
-                """ % (orgStatement, epochStatement))
-                h.execute(**param_dict)
-                cs = h.fetchone_dict() or None
-
-                if not cs:
-                    if 'epoch' in param_dict:
-                        epoch = param_dict['epoch'] + ":"
-                    else:
-                        epoch = ""
-                    log(2, "No checksum found for %s-%s%s-%s.%s."
-                           " Skipping Package" % (param_dict['name'],
-                                                  epoch,
-                                                  param_dict['version'],
-                                                  param_dict['release'],
-                                                  param_dict['arch']))
-                    continue
-
-                newpkgs = []
-                for oldpkg in e['packages']:
-                    if oldpkg['package_id'] != cs['id']:
-                        newpkgs.append(oldpkg)
-
-                package = importLib.IncompletePackage().populate(pkg)
-                package['epoch'] = cs['epoch']
-                package['org_id'] = self.org_id
-
-                package['checksums'] = {cs['checksum_type']: cs['checksum']}
-                package['checksum_type'] = cs['checksum_type']
-                package['checksum'] = cs['checksum']
-
-                package['package_id'] = cs['id']
-                newpkgs.append(package)
-
-                e['packages'] = newpkgs
-
-            # Empty package list in original metadata
-            if not e['packages'] and not notice['pkglist'][0]['packages']:
-                log(2, "Advisory %s has empty package list." % e['advisory_name'])
-            elif not e['packages']:
-                log(2, "Advisory %s skipped because of empty package list (filtered)."
-                    % e['advisory_name'])
-                continue
-
-            e['keywords'] = []
-            if notice['reboot_suggested']:
-                kw = importLib.Keyword()
-                kw.populate({'keyword': 'reboot_suggested'})
-                e['keywords'].append(kw)
-            if notice['restart_suggested']:
-                kw = importLib.Keyword()
-                kw.populate({'keyword': 'restart_suggested'})
-                e['keywords'].append(kw)
-            e['bugs'] = []
-            e['cve'] = []
-            if notice['references']:
-                bzs = [r for r in notice['references'] if r['type'] == 'bugzilla']
-                if len(bzs):
-                    tmp = {}
-                    for bz in bzs:
-                        try:
-                            bz_id = int(bz['id'])
-                        # This can happen in some incorrectly generated updateinfo, let's be smart
-                        except ValueError:
-                            log(2, "Bugzilla assigned to advisory %s has invalid id: %s, trying to get it from URL..."
-                                % (e['advisory_name'], bz['id']))
-                            bz_id = int(re.search(r"\d+$", bz['href']).group(0))
-                        if bz_id not in tmp:
-                            bug = importLib.Bug()
-                            bug.populate({'bug_id': bz_id, 'summary': bz['title'], 'href': bz['href']})
-                            e['bugs'].append(bug)
-                            tmp[bz_id] = None
-                cves = [r for r in notice['references'] if r['type'] == 'cve']
-                if len(cves):
-                    tmp = {}
-                    for cve in cves:
-                        if cve['id'] not in tmp:
-                            e['cve'].append(cve['id'])
-                            tmp[cve['id']] = None
-                others = [r for r in notice['references'] if not r['type'] == 'bugzilla' and not r['type'] == 'cve']
-                if len(others):
-                    tmp = len(others)
-                    refers_to = ""
-                    for other in others:
-                        if refers_to:
-                            refers_to += "\n"
-                        refers_to += other['href']
-                    e['refers_to'] = refers_to
-            e['locally_modified'] = None
-            batch.append(e)
+            # pylint: disable=W0703
+            try:
+                erratum = self._populate_erratum(notice)
+                batch.append(erratum)
+            except Exception:
+                e = "Skipped %s - %s" % (notice['update_id'], sys.exc_info()[1])
+                log2(1, 1, e, stream=sys.stderr)
+                if self.fail:
+                    raise
 
         if batch:
             log(0, "Syncing %s new errata to channel." % len(batch))
