@@ -17,7 +17,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.7.4
+Version:    2.7.5
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -124,6 +124,9 @@ rm -rf %{buildroot}
 %{wwwdocroot}/css/*.less
 
 %changelog
+* Fri Jul 28 2017 Jan Dobes 2.7.5-1
+- bumping version to fix RHEL 7 build
+
 * Mon May 08 2017 Silvio Moioli <smoioli@suse.de>
 - PR 476 - Use different symbols for collapsible sidebar items
 
