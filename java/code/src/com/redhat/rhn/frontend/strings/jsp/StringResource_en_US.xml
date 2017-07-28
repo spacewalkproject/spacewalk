@@ -11095,6 +11095,15 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.event.details.statusFailed">
           <source>Failed</source>
         </trans-unit>
+        <trans-unit id="system.event.failwarning">
+          <source>Forcibly changing status of Picked Up action is potentially &lt;strong&gt;dangerous&lt;/strong&gt;. Are you sure you want to continue?</source>
+        </trans-unit>
+        <trans-unit id="system.event.faildescription">
+          <source>Description for the action</source>
+        </trans-unit>
+        <trans-unit id="system.event.failheader">
+          <source>Confirm Event Status Change</source>
+        </trans-unit>
         <trans-unit id="system.event.details.pickup">
           <source>The client picked up this action on {0}</source>
         </trans-unit>
@@ -11124,6 +11133,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="system.event.returnIcon">
           <source>Return to history list</source>
+        </trans-unit>
+        <trans-unit id="system.event.failActionButton">
+          <source>Set to Failed</source>
+        </trans-unit>
+        <trans-unit id="system.event.failconfirm">
+          <source>Confirm</source>
         </trans-unit>
         <trans-unit id="system.event.rescheduleButton">
           <source>Reschedule</source>

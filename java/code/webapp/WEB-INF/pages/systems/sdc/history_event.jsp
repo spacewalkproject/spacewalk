@@ -73,7 +73,14 @@
     </c:if>
   </ul>
 </div>
-
+  <c:if test="${requestScope.pickedup == true}">
+    <div align="right">
+      <hr/>
+      <a href="FailEventConfirmation.do?sid=${system.id}&aid=${requestScope.aid}" class="btn
+      btn-danger"><bean:message
+              key="system.event.failActionButton"/></a>
+    </div>
+  </c:if>
 <c:if test="${requestScope.failed == true}">
   <div align="right">
     <hr/>

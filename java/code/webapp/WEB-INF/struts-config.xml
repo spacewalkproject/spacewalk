@@ -883,7 +883,11 @@
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
               <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
-
+    <form-bean name="failActionForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+               <form-property name="submitted" type="java.lang.Boolean"/>
+               <form-property name="description" type="java.lang.String"/>
+    </form-bean>
     <form-bean name="systemHardwareForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
                <form-property name="sid" type="java.lang.Long"/>
@@ -3245,6 +3249,18 @@
                  path="/WEB-INF/pages/systems/sdc/delete_confirm.jsp"/>
         <forward name="success"
                  path="/systems/Overview.do" redirect="true"/>
+    </action>
+    <action path="/systems/details/history/FailEventConfirmation"
+              scope="request"
+              input="/WEB-INF/pages/systems/sdc/fail_event_confirm.jsp"
+              type="com.redhat.rhn.frontend.action.systems.sdc.SystemFailEventAction"
+              name="failActionForm"
+              className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+          <set-property property="postRequiredIfSubmitted" value="true" />
+          <forward name="default"
+                   path="/WEB-INF/pages/systems/sdc/fail_event_confirm.jsp"/>
+          <forward name="confirm"
+                   path="/systems/details/history/History.do"/>
     </action>
 
     <action path="/systems/details/history/Event"
