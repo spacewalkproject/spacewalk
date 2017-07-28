@@ -36,6 +36,7 @@ class ActionDeps:
             'short': ['channels'],
             'arches': ['arches-extra'],
             'arches-extra': [''],
+            'productnames': [''],
         }
 
         # self.step_hierarchy lists the export steps in the order they need to be run.
@@ -44,6 +45,7 @@ class ActionDeps:
             'channel-families',
             'arches',
             'arches-extra',
+            'productnames',
             'channels',
             'blacklists',
             'short',

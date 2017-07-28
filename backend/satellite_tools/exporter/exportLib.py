@@ -1524,7 +1524,6 @@ def _dbtime2timestamp(val):
 
 class ProductNamesDumper(BaseDumper):
     tag_name = "rhn-product-names"
-    iterator_query = 'select label, name from rhnProductName'
 
     def dump_subelement(self, data):
         EmptyDumper(self._writer, 'rhn-product-name', data).dump()

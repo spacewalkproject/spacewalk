@@ -97,6 +97,7 @@ class FileMapper:
             'kickstart_files':   xmlDiskSource.KickstartFileDiskSource(self.mp),
             'binary_rpms':   xmlDiskSource.BinaryRPMDiskSource(self.mp),
             'comps':   xmlDiskSource.ChannelCompsDiskSource(self.mp),
+            'productnames': xmlDiskSource.ProductnamesDiskSource(self.mp),
         }
 
     # This will make sure that all of the directories leading up to the
@@ -168,6 +169,9 @@ class FileMapper:
         self.filemap['kickstart_files'].setID(ks_label)
         self.filemap['kickstart_files'].set_relative_path(relative_path)
         return self.setup_file(self.filemap['kickstart_files']._getFile())
+
+    def getProductNamesFile(self):
+        return self.setup_file(self.filemap['productnames']._getFile())
 
 
 class Dumper(dumper.XML_Dumper):
@@ -671,6 +675,13 @@ class Dumper(dumper.XML_Dumper):
                           "Exporting channel families...",
                           "Channel Families exported to %s",
                           "%s caught in dump_channel_families.")
+
+    def dump_product_names(self):
+        self._dump_simple(self.fm.getProductNamesFile(),
+                          dumper.XML_Dumper.dump_product_names,
+                          "Exporting product names...",
+                          "Product names exported to %s",
+                          "%s caught in dump_product_names.")
 
     def dump_orgs(self):
         self._dump_simple(self.fm.getOrgsFile(),
@@ -1204,6 +1215,7 @@ class ExporterMain:
                                               self.dumper.dump_kickstart_files]},
                     'rpms':   {'dump': self.dumper.dump_rpms},
                     'orgs':   {'dump': self.dumper.dump_orgs},
+                    'productnames': {'dump': self.dumper.dump_product_names},
                 }
             else:
                 print("The output directory is not a directory")
@@ -1343,6 +1355,8 @@ class ExporterMain:
                     action = 'channel_families'
                 elif action == 'kickstarts':
                     action = 'kickstart_trees'
+                elif action == 'productnames':
+                    action = 'product_names'
 
                 os_data_dir = os.path.join(self.outputdir, action)
                 if not os.path.exists(os_data_dir):

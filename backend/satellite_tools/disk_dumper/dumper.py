@@ -91,6 +91,20 @@ class XML_Dumper:
         """
         return rhnSQL.prepare(query % args)
 
+    @staticmethod
+    def get_product_names_statement(cids):
+        if cids:
+            query = """
+                select distinct pn.label, pn.name
+                  from rhnchannel c, rhnproductname pn
+                  where c.product_name_id = pn.id and c.id in ( %s )
+            """ % cids
+        else:
+            query = """
+                select label, name from rhnproductname
+            """
+        return rhnSQL.prepare(query)
+
     def get_channels_statement(self):
         query = """
             select c.id channel_id, c.label,
@@ -185,6 +199,17 @@ class XML_Dumper:
         writer.flush()
         log_debug(4, "OK")
         self.close()
+        return 0
+
+    def dump_product_names(self):
+        log_debug(2)
+
+        # Export only product names for relevant channels
+        cids = ','.join([str(x['channel_id']) for x in self.channel_ids + self.channel_ids_for_families])
+        h = self.get_product_names_statement(cids)
+        h.execute()
+
+        self._write_dump(exportLib.ProductNamesDumper, data_iterator=h)
         return 0
 
     def dump_server_group_type_server_arches(self, rpm_arch_type_only=0,
