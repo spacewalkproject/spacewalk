@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.101
+Version: 2.7.102
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri Jul 28 2017 Jiri Dostal <jdostal@redhat.com> 2.7.102-1
+- 1455887 - allow to fail Picked Up action as well
+
 * Tue Jul 25 2017 Gennadii Altukhov <grinrag@gmail.com> 2.7.101-1
 - 1461705 - enable checkboxes for systems are in SSM
 
