@@ -1,6 +1,6 @@
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.7.8
+Version: 2.7.9
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -71,6 +71,9 @@ install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 %{_datadir}/rhn/actions/*
 
 %changelog
+* Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 2.7.9-1
+- update copyright year
+
 * Fri Jul 21 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.8-1
 - 1437864 - base.plugins has been renamed to base._plugins
 
