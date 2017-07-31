@@ -138,6 +138,11 @@ class SSLSocket:
             return
         self._makefile_called = self._makefile_called - 1
 
+    # BZ 1464157 - Python 3 http attempts to call this method during close,
+    # at least add it empty
+    def flush(self):
+        pass
+
     def _really_close(self):
         self._connection.shutdown()
         self._connection.close()
