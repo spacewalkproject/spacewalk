@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 62%{?dist}
+Release: 63%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -494,6 +494,10 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Mon Jul 31 2017 Jan Dobes 2.0.11-63
+- 1457222 - fence_ipmilan returns 2 in case system is off but cobbler expects 0
+- 1457222 - last group contains required value in both cases
+
 * Wed Oct 12 2016 Gennadii Altukhov <galt@redhat.com> 2.0.11-62
 - fix architectures to build cobbler20 on.
 
