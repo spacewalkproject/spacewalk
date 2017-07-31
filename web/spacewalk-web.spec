@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.3
+Version: 2.7.4
 Release: 1%{?dist}
 URL:          https://github.com/spacewalkproject/spacewalk/
 Source0:      https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -154,6 +154,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 2.7.4-1
+- update copyright year
+
 * Thu May 04 2017 Can Bulut Bayburt <cbbayburt@suse.com>
 - PR 483 - Hides 'Save/Clear' buttons when no changes are present in action
   chain lists
