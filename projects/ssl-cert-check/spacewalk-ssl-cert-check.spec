@@ -1,6 +1,6 @@
 Name: spacewalk-ssl-cert-check
 Epoch:	 1
-Version: 2.5
+Version: 2.6
 Release: 1%{?dist}
 Summary: Check ssl certs for impending expiration
 Group:   Applications/System
@@ -39,6 +39,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Jul 31 2017 Michael Mraka <michael.mraka@redhat.com> 2.6-1
+- move version and release before sources
+
 * Mon Jul 17 2017 Jan Dobes 2.5-1
 - Updated links to github in spec files
 - Migrating Fedorahosted to GitHub
