@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-Version: 5.10.105
+Version: 5.10.106
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -131,6 +131,9 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 5.10.106-1
+- update copyright year
+
 * Tue May 16 2017 Laurence Rochfort <laurence.rochfort@oracle.com>
 - PR 543 - Add password config option to rhncfg-manager.
 
