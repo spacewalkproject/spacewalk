@@ -133,5 +133,12 @@ optional_policy(`
                 type cobbler_var_log_t;
         ')
         allow httpd_t cobbler_var_log_t:dir { search };
+        allow tomcat_t cobbler_var_log_t:dir { search };
 ')
 
+optional_policy(`
+        gen_require(`
+                type cobbler_tmp_t;
+        ')
+        allow tomcat_t cobbler_tmp_t:dir { search };
+')
