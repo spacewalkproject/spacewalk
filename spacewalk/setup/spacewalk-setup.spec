@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.7.10
+Version:        2.7.11
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -117,6 +117,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 2.7.11-1
+- update copyright year
+
 * Thu Jun 22 2017 Grant Gainey 2.7.10-1
 - add ssl-set-cnames to spacewalk-setup
 
