@@ -6,23 +6,50 @@ pushd `dirname $0`/.. >/dev/null
 
 . rel-eng/build-missing-builds.conf
 
+build_in_koji() {
+          local tags=$1
+          local releaser=$1
+          local package_dir=$3
+          (
+            cd $package_dir && \
+            ONLY_TAGS="$tags" ${TITO_PATH}tito release $releaser </dev/tty
+          )
+}
+
+build_in_copr() {
+          local tags=$1
+          local releaser=$1
+          local package_dir=$3
+          copr-cli buildtito "$tags" --nowait --git-url "$GIT_URL" --git-dir "$package_dir"
+}
+
+case "$TITO_RELEASER" in
+        copr) KOJI_MISSING_BUILD_ARG=--copr
+              BUILD_FUNC=build_in_copr
+                ;;
+        brew) $KOJI_MISSING_BUILD_ARG=--brew
+              BUILD_FUNC=build_in_koji
+                ;;
+        koji) BUILD_FUNC=build_in_koji
+                ;;
+        *) echo "unknown builder" >&2
+           exit 1
+                ;;
+esac
+
 # say python to be nice to pipe
 export PYTHONUNBUFFERED=1
 
 echo 'Gathering data ...'
 for tag in $TAGS; do
-  rel-eng/koji-missing-builds.py $KOJI_MISSING_BUILD_BREW_ARG --no-extra $tag | \
+  rel-eng/koji-missing-builds.py $KOJI_MISSING_BUILD_ARG --no-extra $tag | \
     perl -lne '/^\s+(.+)-.+-.+$/ and print $1' \
-    | xargs -I replacestring awk '{print $2}' rel-eng/packages/replacestring \
-    | sed "s/$/ $tag/"
+    | xargs -I replacestring awk "{print \$2 \" $tag\"}" rel-eng/packages/replacestring
 done \
     | perl -lane '$X{$F[0]} .= " $F[1]"; END { for (sort keys %X) { print "$_$X{$_}" } }' \
     | while read package_dir tags ; do
-      (
       echo Building package in path $package_dir for $tags
-      cd $package_dir && \
-          ONLY_TAGS="$tags" ${TITO_PATH}tito release $TITO_RELEASER </dev/tty
-      )
+      $BUILD_FUNC "$tags" "$TITO_RELEASER" "$package_dir"
     if [ "0$FEDORA_UPLOAD" -eq 1 ] ; then
       (
       echo Uploading tgz for path $package_dir
