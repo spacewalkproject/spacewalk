@@ -10,7 +10,7 @@
 %global pythonrhnroot %{python_sitelib}/spacewalk
 
 Name:	    spacewalk-usix
-Version:	2.7.6
+Version:	2.7.7
 Release:	1%{?dist}
 Summary:	Spacewalk server and client nano six library
 
@@ -98,6 +98,9 @@ rm -r -f $RPM_BUILD_ROOT%{python3rhnroot}/common/__pycache__
 %endif
 
 %changelog
+* Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 2.7.7-1
+- update copyright year
+
 * Mon Jul 17 2017 Jan Dobes 2.7.6-1
 - Updated links to github in spec files
 - Migrating Fedorahosted to GitHub
