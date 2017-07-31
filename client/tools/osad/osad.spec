@@ -17,7 +17,7 @@ Name: osad
 Summary: Open Source Architecture Daemon
 Group:   System Environment/Daemons
 License: GPLv2
-Version: 5.11.84
+Version: 5.11.85
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -419,6 +419,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 5.11.85-1
+- update copyright year
+
 * Thu Jul 27 2017 Eric Herget <eherget@redhat.com> 5.11.84-1
 - 1446487 - spacewalk-selinux error messages during package install
 
