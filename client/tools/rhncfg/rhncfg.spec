@@ -3,7 +3,7 @@
 %global client_caps_dir %{rhnconf}/clientCaps.d
 
 Name: rhncfg
-Version: 5.10.106
+Version: 5.10.107
 Release: 1%{?dist}
 Summary: Spacewalk Configuration Client Libraries
 Group:   Applications/System
@@ -131,6 +131,9 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Tue Aug 01 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.107-1
+- move version and release before sources
+
 * Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 5.10.106-1
 - update copyright year
 
