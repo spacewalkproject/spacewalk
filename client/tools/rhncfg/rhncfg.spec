@@ -3,13 +3,13 @@
 %global client_caps_dir %{rhnconf}/clientCaps.d
 
 Name: rhncfg
+Version: 5.10.106
+Release: 1%{?dist}
 Summary: Spacewalk Configuration Client Libraries
 Group:   Applications/System
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-Version: 5.10.106
-Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: docbook-utils
