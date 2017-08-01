@@ -341,22 +341,22 @@ class CdnSync(object):
 
     def _create_yum_repo(self, repo_source):
         repo_label = self.cdn_repository_manager.get_content_source_label(repo_source)
-        repo_plugin = yum_src.ContentSource(self.mount_point + str(repo_source['relative_url']),
-                                            str(repo_label), org=None, no_mirrors=True)
         try:
             keys = self.cdn_repository_manager.get_repository_crypto_keys(repo_source['relative_url'])
         except CdnRepositoryNotFoundError:
-            log2(1, 1, "ERROR: No SSL certificates were found for repository '%s'" % repo_source['relative_url'],
-                 stream=sys.stderr)
-            return repo_plugin
-        if len(keys) >= 1:
+            keys = []
+            log2(1, 1, "WARNING: Repository '%s' was not found." % repo_source['relative_url'])
+        if keys:
             (ca_cert_file, client_cert_file, client_key_file) = reposync.write_ssl_set_cache(
                 keys[0]['ca_cert'], keys[0]['client_cert'], keys[0]['client_key'])
-            repo_plugin.set_ssl_options(ca_cert_file, client_cert_file, client_key_file)
         else:
-            log2(1, 1, "ERROR: No valid SSL certificates were found for repository '%s'."
+            (ca_cert_file, client_cert_file, client_key_file) = (None, None, None)
+            log2(1, 1, "WARNING: No valid SSL certificates were found for repository '%s'."
                  % repo_source['relative_url'], stream=sys.stderr)
-        return repo_plugin
+        return yum_src.ContentSource(self.mount_point + str(repo_source['relative_url']),
+                                     str(repo_label), org=None, no_mirrors=True,
+                                     ca_cert_file=ca_cert_file, client_cert_file=client_cert_file,
+                                     client_key_file=client_key_file)
 
     def _sync_channel(self, channel):
         excluded_urls = []

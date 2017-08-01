@@ -165,7 +165,8 @@ class DebRepo(object):
 
 class ContentSource(object):
 
-    def __init__(self, url, name, org=1, channel_label=""):
+    def __init__(self, url, name, org=1, channel_label="", ca_cert_file=None, client_cert_file=None,
+                 client_key_file=None):
         # pylint: disable=W0613
         self.url = url
         self.name = name
@@ -295,10 +296,6 @@ class ContentSource(object):
     def get_groups():
         # There aren't any
         return None
-
-    def set_ssl_options(self, ca_cert, client_cert, client_key):
-        # TODO
-        pass
 
     # Get download parameters for threaded downloader
     def set_download_parameters(self, params, relative_path, target_file, checksum_type=None, checksum_value=None,

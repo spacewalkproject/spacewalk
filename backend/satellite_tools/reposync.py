@@ -434,13 +434,7 @@ class RepoSync(object):
                     relative_url = '_'.join(url.split('://')[1].split('/')[1:])
                     repo_name = relative_url.replace("?", "_").replace("&", "_").replace("=", "_")
 
-                plugin = repo_plugin(url, repo_name,
-                                     org=str(self.org_id or ''),
-                                     channel_label=self.channel_label)
-
-                if update_repodata:
-                    plugin.clear_cache()
-
+                (ca_cert_file, client_cert_file, client_key_file) = (None, None, None)
                 if repo_id is not None:
                     keys = rhnSQL.fetchall_dict("""
                         select k1.description as ca_cert_name, k1.key as ca_cert, k1.org_id as ca_cert_org,
@@ -460,9 +454,18 @@ class RepoSync(object):
                                 (ssl_set['ca_cert_name'], ssl_set['ca_cert'], ssl_set['ca_cert_org']),
                                 (ssl_set['client_cert_name'], ssl_set['client_cert'], ssl_set['client_cert_org']),
                                 (ssl_set['client_key_name'], ssl_set['client_key'], ssl_set['client_key_org']))
-                            plugin.set_ssl_options(ca_cert_file, client_cert_file, client_key_file)
                         else:
                             raise ValueError("No valid SSL certificates were found for repository.")
+
+                plugin = repo_plugin(url, repo_name,
+                                     org=str(self.org_id or ''),
+                                     channel_label=self.channel_label,
+                                     ca_cert_file=ca_cert_file,
+                                     client_cert_file=client_cert_file,
+                                     client_key_file=client_key_file)
+
+                if update_repodata:
+                    plugin.clear_cache()
 
                 if not self.no_packages:
                     ret = self.import_packages(plugin, repo_id, url)

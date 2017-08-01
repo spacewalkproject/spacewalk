@@ -108,7 +108,8 @@ class RepoMDNotFound(Exception):
 class ContentSource(object):
 
     def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF, org="1", channel_label="",
-                 no_mirrors=False):
+                 no_mirrors=False, ca_cert_file=None, client_cert_file=None,
+                 client_key_file=None):
         self.url = url
         self.name = name
         self.yumbase = yum.YumBase()
@@ -153,6 +154,7 @@ class ContentSource(object):
                     self.proxy_pass = yb_cfg.get(section_name, 'proxy_password')
 
         self._authenticate(url)
+
         # Check for settings in yum configuration files (for custom repos/channels only)
         if org:
             repos = self.yumbase.repos.repos
@@ -171,7 +173,7 @@ class ContentSource(object):
             repo.populate(self.configparser, name, self.yumbase.conf)
         self.repo = repo
 
-        self.setup_repo(repo, no_mirrors)
+        self.setup_repo(repo, no_mirrors, ca_cert_file, client_cert_file, client_key_file)
         self.num_packages = 0
         self.num_excluded = 0
 
@@ -200,7 +202,7 @@ class ContentSource(object):
         e = sys.exc_info()[1]
         raise e
 
-    def setup_repo(self, repo, no_mirrors):
+    def setup_repo(self, repo, no_mirrors, ca_cert_file, client_cert_file, client_key_file):
         """Fetch repository metadata"""
         repo.cache = 0
         repo.mirrorlist = self.url
@@ -214,9 +216,9 @@ class ContentSource(object):
         if not os.path.isdir(pkgdir):
             fileutils.makedirs(pkgdir, user='apache', group='apache')
         repo.pkgdir = pkgdir
-        repo.sslcacert = None
-        repo.sslclientcert = None
-        repo.sslclientkey = None
+        repo.sslcacert = ca_cert_file
+        repo.sslclientcert = client_cert_file
+        repo.sslclientkey = client_key_file
         repo.proxy = None
         repo.proxy_username = None
         repo.proxy_password = None
@@ -410,12 +412,6 @@ class ContentSource(object):
         except RepoMDError:
             groups = None
         return groups
-
-    def set_ssl_options(self, ca_cert, client_cert, client_key):
-        repo = self.repo
-        repo.sslcacert = ca_cert
-        repo.sslclientcert = client_cert
-        repo.sslclientkey = client_key
 
     def get_file(self, path, local_base=None):
         try:
