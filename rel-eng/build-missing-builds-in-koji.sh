@@ -8,7 +8,7 @@ pushd `dirname $0`/.. >/dev/null
 
 build_in_koji() {
           local tags=$1
-          local releaser=$1
+          local releaser=$2
           local package_dir=$3
           (
             cd $package_dir && \
@@ -18,7 +18,7 @@ build_in_koji() {
 
 build_in_copr() {
           local tags=$1
-          local releaser=$1
+          local releaser=$2
           local package_dir=$3
           copr-cli buildtito "$tags" --nowait --git-url "$GIT_URL" --git-dir "$package_dir"
 }
