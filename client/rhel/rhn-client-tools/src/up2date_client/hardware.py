@@ -738,7 +738,7 @@ def read_network_interfaces():
                             netmask_bits += 16
                         else:
                             # remove '0b' from begin and find last '1' in the string
-                            netmask_bits += 16 - 1 - bin(int(two_octets, 16))[2:].rindex('1')
+                            netmask_bits += 1 + bin(int(two_octets.split('/')[0], 16))[2:].rindex('1')
 
                     ip6_list.append({
                             'scope':   scope,
