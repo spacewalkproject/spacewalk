@@ -36,7 +36,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.129
+Version: 2.7.130
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -792,6 +792,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Tue Aug 01 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.130-1
+- update copyright year
+
 * Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 2.7.129-1
 - update copyright year
 
