@@ -345,7 +345,7 @@ class CdnSync(object):
             keys = self.cdn_repository_manager.get_repository_crypto_keys(repo_source['relative_url'])
         except CdnRepositoryNotFoundError:
             keys = []
-            log2(1, 1, "WARNING: Repository '%s' was not found." % repo_source['relative_url'])
+            log2(1, 1, "WARNING: Repository '%s' was not found." % repo_source['relative_url'], stream=sys.stderr)
         if keys:
             (ca_cert_file, client_cert_file, client_key_file) = reposync.write_ssl_set_cache(
                 keys[0]['ca_cert'], keys[0]['client_cert'], keys[0]['client_key'])
