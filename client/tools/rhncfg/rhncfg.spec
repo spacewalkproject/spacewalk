@@ -3,7 +3,7 @@
 %global client_caps_dir %{rhnconf}/clientCaps.d
 
 Name: rhncfg
-Version: 5.10.107
+Version: 5.10.108
 Release: 1%{?dist}
 Summary: Spacewalk Configuration Client Libraries
 Group:   Applications/System
@@ -131,6 +131,11 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Wed Aug 02 2017 Tomas Kasparek <tkasparek@redhat.com> 5.10.108-1
+- 1455513 - print different message if file does not exist
+- 1455513 - print a name of file which does not exist during diff
+- 1455513 - tell user which file differs
+
 * Tue Aug 01 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.107-1
 - move version and release before sources
 
