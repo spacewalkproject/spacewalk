@@ -59,7 +59,10 @@ class Handler(handler_base.HandlerBase):
                     dst_file = open(dst, 'rb')
                     dst_content = dst_file.read()
                     dst_file.close()
-                if not dst_content or len(src_content) != len(dst_content):
+                else:
+                    print("File %s that is not readable. Re-deployment of configuration file is recommended." % dst)
+                    return
+                if len(src_content) != len(dst_content):
                     content_differs = True
                 else:
                     for i in range(len(src_content)):
