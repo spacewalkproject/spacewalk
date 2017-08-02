@@ -214,7 +214,7 @@ rpm -qa | sort > $DIR/rpm-manifest-clean
 echo "    * querying schema version, database charactersets and database"
 /usr/bin/rhn-schema-version > $DIR/database-schema-version
 /usr/bin/rhn-charsets > $DIR/database-character-sets
-if [ -f /usr/bin/db-control ] ; then
+if [ -f /usr/bin/db-control ] && [ "$(spacewalk-cfg-get db_backend)" = "postgresql" ] ; then
     /usr/bin/db-control report > $DIR/db-control-report
 fi
 
