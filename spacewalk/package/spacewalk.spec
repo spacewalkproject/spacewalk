@@ -108,6 +108,8 @@ Requires: quartz-oracle
 Requires: oracle-instantclient-selinux
 Requires: oracle-instantclient-sqlplus-selinux
 
+Obsoletes: spacewalk-dobby
+
 %description oracle
 Spacewalk is a systems management application that will
 inventory, provision, update and control your Linux machines.
