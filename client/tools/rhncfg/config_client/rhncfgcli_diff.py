@@ -67,7 +67,7 @@ class Handler(handler_base.HandlerBase):
                             content_differs = True
                             break
                 if content_differs:
-                    sys.stdout.write("Binary file content differs.\n")
+                    sys.stdout.write("Binary file %s differs.\n" % (dst))
             else:
                 sys.stdout.write(''.join(diff(src, dst, srcname=dst, dstname=dst,
                     display_diff=
