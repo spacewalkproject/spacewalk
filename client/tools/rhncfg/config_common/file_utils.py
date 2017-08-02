@@ -273,7 +273,7 @@ def diff(src, dst, srcname=None, dstname=None, display_diff=False):
                 or (dst_stat.st_uid == 0 # file is owned by root
                     and not dst_stat.st_mode & stat.S_IROTH))): # not read-all
         ret_list = [
-                "Differences exist in a file that is not readable by all. ",
+                "Differences exist in a file %s that is not readable by all. " % dst,
                 "Re-deployment of configuration file is recommended.\n"]
     return ret_list
 
