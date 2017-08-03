@@ -1160,12 +1160,12 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
         WHERE server_id = S.id AND errata_type = 'Bug Fix Advisory') AS bug_errata,
       (SELECT  COUNT(pn.id) AS COUNT
         FROM  rhnPackageName PN,
-        (SELECT  SOP.package_name_id AS name_id, MAX(PE.evr) evr
+        (SELECT  SOP.server_id, SOP.package_name_id AS name_id, MAX(PE.evr) evr
            FROM  rhnPackageEVR PE, rhnServerOutdatedPackages SOP
-          WHERE  SOP.server_id = S.id
-            AND  SOP.package_evr_id = PE.id
-       GROUP BY  SOP.package_name_id) full_list
-       WHERE  full_list.name_id = PN.id) AS pending_updates
+          WHERE  SOP.package_evr_id = PE.id
+       GROUP BY  SOP.package_name_id, SOP.server_id) full_list
+          WHERE  full_list.name_id = PN.id
+            AND  full_list.server_id = S.id) AS pending_updates
     FROM rhnServer S, rhnSet ST
    WHERE EXISTS (SELECT 1
                    FROM rhnServerNeededErrataCache SNEC, rhnUserServerPerms USP
