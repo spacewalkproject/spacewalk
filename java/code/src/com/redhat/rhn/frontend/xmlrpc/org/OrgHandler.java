@@ -290,7 +290,7 @@ public class OrgHandler extends BaseHandler {
         if (!org.getName().equals(name)) {
             try {
                 OrgManager.checkOrgName(name);
-                org.setName(name);
+                OrgManager.renameOrg(org, name);
             }
             catch (ValidatorException ve) {
                 throw new ValidationException(ve.getMessage());

@@ -1010,6 +1010,18 @@ public class KickstartFactory extends HibernateFactory {
     }
 
     /**
+     * Lookup a list of all KickstartData objects by org
+     *
+     * @param org who owns the Kickstart.
+     * @return List of KickstartData objects if found
+     */
+    public static List<KickstartData> lookupKickstartDataByOrg(Org org) {
+        String query = "KickstartData.findByOrg";
+        Session session = HibernateFactory.getSession();
+        return session.getNamedQuery(query).setEntity("org_id", org).list();
+    }
+
+    /**
      * Lookup a list of all KickstartData objects that can automatically
      * update their KS Tree.
      * @return List of KickstartData objects if found
