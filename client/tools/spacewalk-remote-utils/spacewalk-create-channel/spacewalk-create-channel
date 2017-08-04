@@ -257,11 +257,12 @@ def populate(client, auth, srcChannel, newChannel, newChannelName, filename, par
         print("Skipping %s packages based off of skip list" % str(skip_num))
 
     while len(ids_to_add) > 0:
-        print('%d of %d' % (pack_num-len(ids_to_add), pack_num),
-              sys.stdout.flush())
+        sys.stdout.write('%d of %d' % (pack_num-len(ids_to_add), pack_num))
+        sys.stdout.flush())
         client.channel.software.addPackages(auth, newChannel, ids_to_add[:bundleSize])
         del ids_to_add[:bundleSize]
-        print('%s\r' % ' '*20, sys.stdout.flush())
+        sys.stdout.write('%s\r' % ' '*20)
+        sys.stdout.flush()
 
 
     print("Successfully pushed %s packages out of %d" % (str(pack_num), len(fileList)))
