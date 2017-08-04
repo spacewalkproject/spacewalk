@@ -1,6 +1,6 @@
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.7.13
+Version: 2.7.14
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -405,6 +405,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Aug 04 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.14-1
+- 1430298 - rhnreg_ks man page missing documentation for some options
+
 * Wed Aug 02 2017 Gennadii Altukhov <grinrag@gmail.com> 2.7.13-1
 - 1477149 - fix rhn-profile sync on Fedora 26 fix ipv6 network mask calculation
 
