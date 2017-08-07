@@ -52,9 +52,6 @@ Requires: %{name}-html
 Requires: jabberd spacewalk-setup-jabberd
 Requires: httpd
 %if 0%{?fedora} || 0%{?rhel}
-# python-hashlib is optional for spacewalk-backend-libs
-# but we need made it mandatory here
-Requires: python-hashlib
 Requires: spacewalk-proxy-selinux
 Requires: sos
 Requires(preun): initscripts
