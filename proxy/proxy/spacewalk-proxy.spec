@@ -4,7 +4,7 @@
 
 Name: spacewalk-proxy
 Summary: Spacewalk Proxy Server
-Version: 2.7.6
+Version: 2.7.7
 Release: 1%{?dist}
 Group:   Applications/Internet
 License: GPLv2
@@ -369,6 +369,9 @@ fi
 
 
 %changelog
+* Mon Aug 07 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.7-1
+- python-hashlib is included in python-libs since RHEL 6
+
 * Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 2.7.6-1
 - update copyright year
 
