@@ -1,6 +1,6 @@
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.7.14
+Version: 2.7.15
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -405,6 +405,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Aug 07 2017 Eric Herget <eherget@redhat.com> 2.7.15-1
+- another pass to update copyright year
+
 * Fri Aug 04 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.14-1
 - 1430298 - rhnreg_ks man page missing documentation for some options
 
