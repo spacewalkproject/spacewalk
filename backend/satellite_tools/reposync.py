@@ -418,14 +418,17 @@ class RepoSync(object):
             log(0, "Repo URL: %s" % url)
             plugin = None
 
-            # If the repository uses a uln:// URL, switch to the ULN plugin, overriding the command-line
-            if url.startswith("uln://"):
-                repo_type = "uln"
-
-            repo_plugin = self.load_plugin(repo_type)
-
             # pylint: disable=W0703
             try:
+                if '://' not in url:
+                    raise Exception("Unknown protocol in repo URL: %s" % url)
+
+                # If the repository uses a uln:// URL, switch to the ULN plugin, overriding the command-line
+                if url.startswith("uln://"):
+                    repo_type = "uln"
+
+                repo_plugin = self.load_plugin(repo_type)
+
                 if repo_label:
                     repo_name = repo_label
                 else:
