@@ -103,6 +103,9 @@ Common files needed by osad and osa-dispatcher
 Summary: OSA dispatcher
 Group:    System Environment/Daemons
 Requires: spacewalk-backend-server >= 1.2.32
+# this subpackage is python2 even on Fedora 23+ so it needs python v2
+BuildRequires: python-devel
+Requires: python
 Requires: jabberpy
 Requires: lsof
 Requires: osa-common = %{version}
@@ -191,6 +194,8 @@ install -d $RPM_BUILD_ROOT%{rhnroot}
 make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} INITDIR=%{_initrddir}
 %if 0%{?fedora} >= 23
     sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' $RPM_BUILD_ROOT/usr/sbin/osad
+    # osa-dispatches is still py2 even on F23+, so we need to run py2 recompile in addition
+    /usr/lib/rpm/brp-python-bytecompile /usr/bin/python 1
 %endif
 mkdir -p %{buildroot}%{_var}/log/rhn
 touch %{buildroot}%{_var}/log/osad
