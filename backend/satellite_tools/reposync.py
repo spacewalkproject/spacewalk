@@ -390,6 +390,7 @@ class RepoSync(object):
 
         self.strict = strict
         self.all_packages = set()
+        self.all_errata = set()
         self.check_ssl_dates = check_ssl_dates
         # Init cache for computed checksums to not compute it on each reposync run again
         self.checksum_cache = rhnCache.get(checksum_cache_filename)
@@ -495,22 +496,31 @@ class RepoSync(object):
                 sync_error = -1
 
         # In strict mode unlink all packages from channel which are not synced from current repositories
-        if self.strict and sync_error == 0 and not self.no_packages:
-            channel_packages = rhnSQL.fetchall_dict("""
-                select p.id, ct.label as checksum_type, c.checksum
-                from rhnChannelPackage cp,
-                     rhnPackage p,
-                     rhnChecksumType ct,
-                     rhnChecksum c
-                where cp.channel_id = :channel_id
-                  and cp.package_id = p.id
-                  and p.checksum_id = c.id
-                  and c.checksum_type_id = ct.id
-                """, channel_id=int(self.channel['id'])) or []
-            for package in channel_packages:
-                if (package['checksum_type'], package['checksum']) not in self.all_packages:
-                    self.disassociate_package(package['checksum_type'], package['checksum'])
-                    self.regen = True
+        if self.strict and sync_error == 0:
+            if not self.no_packages:
+                channel_packages = rhnSQL.fetchall_dict("""
+                    select p.id, ct.label as checksum_type, c.checksum
+                    from rhnChannelPackage cp,
+                         rhnPackage p,
+                         rhnChecksumType ct,
+                         rhnChecksum c
+                    where cp.channel_id = :channel_id
+                      and cp.package_id = p.id
+                      and p.checksum_id = c.id
+                      and c.checksum_type_id = ct.id
+                    """, channel_id=int(self.channel['id'])) or []
+                for package in channel_packages:
+                    if (package['checksum_type'], package['checksum']) not in self.all_packages:
+                        self.disassociate_package(package['checksum_type'], package['checksum'])
+                        self.regen = True
+
+            # For custom channels unlink also errata
+            if not self.no_errata and self.channel['org_id']:
+                channel_errata = self.list_errata()
+                for erratum in channel_errata:
+                    if erratum not in self.all_errata:
+                        self.disassociate_erratum(erratum)
+                        self.regen = True
 
         # Update cache with package checksums
         rhnCache.set(checksum_cache_filename, self.checksum_cache)
@@ -766,6 +776,9 @@ class RepoSync(object):
         channel_advisory_names = self.list_errata()
         for notice in notices:
             notice = self.fix_notice(notice)
+
+            # Save advisory names from all repositories
+            self.all_errata.add(notice['update_id'])
 
             if not self.force_all_errata and notice['update_id'] in channel_advisory_names:
                 continue
@@ -1082,6 +1095,18 @@ class RepoSync(object):
                 """)
         h.execute(channel_id=self.channel['id'],
                   checksum_type=checksum_type, checksum=checksum)
+
+    def disassociate_erratum(self, advisory_name):
+        log(3, "Disassociating erratum: %s" % advisory_name)
+        h = rhnSQL.prepare("""
+                    delete from rhnChannelErrata ce
+                     where ce.channel_id = :channel_id
+                       and ce.errata_id in (select e.id
+                                              from rhnErrata e
+                                            where e.advisory_name = :advisory_name
+                                           )
+                        """)
+        h.execute(channel_id=self.channel['id'], advisory_name=advisory_name)
 
     def load_channel(self):
         return rhnChannel.channel_info(self.channel_label)
