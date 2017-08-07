@@ -17,7 +17,7 @@ Name: osad
 Summary: Open Source Architecture Daemon
 Group:   System Environment/Daemons
 License: GPLv2
-Version: 5.11.86
+Version: 5.11.87
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -443,6 +443,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Mon Aug 07 2017 Michael Mraka <michael.mraka@redhat.com> 5.11.87-1
+- recompile osa-dispatcher with py2 even on F23+
+
 * Thu Aug 03 2017 Michael Mraka <michael.mraka@redhat.com> 5.11.86-1
 - 1477753 - use standard brp-python-bytecompile to make proper .pyc/.pyo
 
