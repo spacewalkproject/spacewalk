@@ -66,12 +66,6 @@ cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/usix.py $RPM_BUILD_ROOT%{python3rhnroo
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%check
-%if 0%{?fedora} && 0%{?fedora} >= 23
-rm -r -f $RPM_BUILD_ROOT%{python3rhnroot}/__pycache__
-rm -r -f $RPM_BUILD_ROOT%{python3rhnroot}/common/__pycache__
-%endif
-
 %files
 %dir %{pythonrhnroot}
 %dir %{pythonrhnroot}/common
@@ -91,10 +85,9 @@ rm -r -f $RPM_BUILD_ROOT%{python3rhnroot}/common/__pycache__
 %{python3rhnroot}/__init__.py
 %{python3rhnroot}/common/__init__.py
 %{python3rhnroot}/common/usix.py*
-%exclude %{python3rhnroot}/__init__.pyc
-%exclude %{python3rhnroot}/__init__.pyo
-%exclude %{python3rhnroot}/common/__init__.pyc
-%exclude %{python3rhnroot}/common/__init__.pyo
+%{python3rhnroot}/common/__pycache__/*
+%exclude %{python3rhnroot}/__pycache__/*
+%exclude %{python3rhnroot}/common/__pycache__/__init__.*
 %endif
 
 %changelog
