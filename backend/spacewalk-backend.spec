@@ -410,11 +410,6 @@ spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \
 rm -f $RPM_BUILD_ROOT%{pythonrhnroot}/common/usix.py
 %endif
 
-%if 0%{?fedora} && 0%{?fedora} >= 23
-rm -r $RPM_BUILD_ROOT%{python3rhnroot}/__pycache__
-rm -r $RPM_BUILD_ROOT%{python3rhnroot}/common/__pycache__
-%endif
-
 %pre server
 OLD_SECRET_FILE=%{_var}/www/rhns/server/secret/rhnSecret.py
 if [ -f $OLD_SECRET_FILE ]; then
@@ -663,6 +658,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{python3rhnroot}/common/rhnLib.py*
 %{python3rhnroot}/__init__.py
 %{python3rhnroot}/common/__init__.py
+%{python3rhnroot}/__pycache__/__init__.*
+%{python3rhnroot}/common/__pycache__/*
 %endif
 
 %files config-files-common
