@@ -132,18 +132,23 @@ class CdnSync(object):
             from rhnChannelFamilyPermissions cfp inner join
                  rhnChannelFamily cf on cfp.channel_family_id = cf.id inner join
                  rhnChannelFamilyMembers cfm on cf.id = cfm.channel_family_id inner join
-                 rhnChannel c on cfm.channel_id = c.id inner join
-                 rhnChannelContentSource ccs on ccs.channel_id = c.id inner join
-                 rhnContentSource cs on ccs.source_id = cs.id
-            where cs.org_id is null
+                 rhnChannel c on cfm.channel_id = c.id
+            where c.org_id is null
+              or (c.org_id is not null and 
+                  exists (
+                          select cs.id
+                          from rhnContentSource cs inner join
+                               rhnChannelContentSource ccs on ccs.source_id = cs.id
+                          where ccs.channel_id = c.id
+                            and cs.org_id is null
+                         )
+                 )
+            order by c.org_id nulls first, label
         """)
         h.execute()
         channels = h.fetchall_dict() or []
         self.synced_channels = {}
         for channel in channels:
-            # Channel mappings missing, don't evaluate channels coming from them as synced
-            if not channel['org_id'] and not channel['label'] in self.channel_metadata:
-                continue
             # Custom channel repositories not available, don't mark as synced
             if channel['org_id']:
                 repos = self.cdn_repository_manager.list_associated_repos(channel['label'])
