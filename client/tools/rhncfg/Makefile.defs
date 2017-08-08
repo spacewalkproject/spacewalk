@@ -28,7 +28,6 @@ INSTALL_DIR	?= $(INSTALL) -m 755 -d
 
 # This is for the subdir part
 PYFILES		= $(addsuffix .py,$(FILES))
-PYCFILES	= $(addsuffix .pyc,$(FILES))
 
 # what do we need to install and where
 INSTALL_FILES	+= $(PYFILES) $(PYCFILES)
@@ -52,12 +51,6 @@ clean ::
 	@rm -f *~ *.pyc *.pyo .??*~
 	@rm -f .\#*
 	@rm -f core
-
-# default compile rules
-%.pyc : %.py
-	python -c "import compileall; compileall.compile_dir('$(CURDIR)')"
-%.pyo : %.py
-	python -OO -c "import compileall; compileall.compile_dir('$(CURDIR)')"
 
 %.8 : %.sgml
 	[ -f /usr/bin/docbook2man ] && /usr/bin/docbook2man $< || true
