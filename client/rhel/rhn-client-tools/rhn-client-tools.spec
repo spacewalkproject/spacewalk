@@ -1,6 +1,6 @@
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.7.15
+Version: 2.7.16
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -468,6 +468,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Aug 09 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.16-1
+- precompile py3 bytecode on Fedora 23+
+- use standard brp-python-bytecompile
+
 * Mon Aug 07 2017 Eric Herget <eherget@redhat.com> 2.7.15-1
 - another pass to update copyright year
 
