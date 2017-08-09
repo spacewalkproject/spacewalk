@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        2.7.3
+Version:        2.7.4
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://github.com/spacewalkproject/spacewalk
@@ -176,6 +176,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Wed Aug 09 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.4-1
+- obsolete only older (oracle) version of dobby
+
 * Wed Aug 02 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.3-1
 - 1449124 - db-control no longer works with oracle, let's add
   conflicts/obsoletes
