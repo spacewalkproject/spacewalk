@@ -1,6 +1,6 @@
 Name: rhn-custom-info
 Summary: Set and list custom values for RHN-enabled machines
-Version: 5.4.36
+Version: 5.4.37
 Release: 1%{?dist}
 Group: Applications/System
 License: GPLv2
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Wed Aug 09 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.37-1
+- fixed python3 buildrequires
+
 * Wed Aug 09 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.36-1
 - precompile py3 bytecode on Fedora 23+
 - use standard brp-python-bytecompile
