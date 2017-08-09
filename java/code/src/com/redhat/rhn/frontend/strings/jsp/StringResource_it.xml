@@ -13354,7 +13354,7 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
           <source>System Event</source>
           <target>Evento del sistema</target>
         </trans-unit>
-        <trans-unit id="system-hisotry-legend.jsp.status.title">
+        <trans-unit id="system-history-legend.jsp.status.title">
           <source>Event Status Legend</source>
           <target>Legenda stato evento</target>
         </trans-unit>

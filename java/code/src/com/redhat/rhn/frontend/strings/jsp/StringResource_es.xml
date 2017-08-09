@@ -13374,7 +13374,7 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
           <source>System Event</source>
           <target>Evento de sistemas</target>
         </trans-unit>
-        <trans-unit id="system-hisotry-legend.jsp.status.title">
+        <trans-unit id="system-history-legend.jsp.status.title">
           <source>Event Status Legend</source>
           <target>Leyenda de estatus de evento</target>
         </trans-unit>

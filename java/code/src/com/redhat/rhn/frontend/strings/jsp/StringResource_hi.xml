@@ -12654,7 +12654,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system-history-legend.jsp.type.system">
           <source>System Event</source>
         </trans-unit>
-        <trans-unit id="system-hisotry-legend.jsp.status.title">
+        <trans-unit id="system-history-legend.jsp.status.title">
           <source>Event Status Legend</source>
         </trans-unit>
         <trans-unit id="system-history-legend.status.jsp.ok">
