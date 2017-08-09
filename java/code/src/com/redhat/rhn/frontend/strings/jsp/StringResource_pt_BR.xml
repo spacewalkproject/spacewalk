@@ -13370,7 +13370,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           <source>System Event</source>
           <target>Evento de Sistema</target>
         </trans-unit>
-        <trans-unit id="system-hisotry-legend.jsp.status.title">
+        <trans-unit id="system-history-legend.jsp.status.title">
           <source>Event Status Legend</source>
           <target>Legenda do Status do Evento</target>
         </trans-unit>
