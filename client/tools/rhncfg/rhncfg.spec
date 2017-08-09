@@ -74,6 +74,9 @@ The code required to run configuration actions scheduled via the RHN Classic web
 
 %prep
 %setup -q
+%if 0%{?fedora} >= 23
+%global __python /usr/bin/python3
+%endif
 
 %build
 make -f Makefile.rhncfg all
