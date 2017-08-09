@@ -219,6 +219,10 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/rhn_register
 
 %find_lang %{name}
 
+%if 0%{?fedora} >= 23
+/usr/lib/rpm/brp-python-bytecompile /usr/bin/python3 1
+%endif
+
 %post
 rm -f %{_localstatedir}/spool/up2date/loginAuth.pkl
 
@@ -288,6 +292,31 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/up2date_client/rhncli.*
 %{_datadir}/rhn/up2date_client/pkgplatform.*
 %{_datadir}/rhn/__init__.*
+%if 0%{?fedora} >= 23
+%{_datadir}/rhn/__pycache__/
+%dir %{_datadir}/rhn/up2date_client/__pycache__/
+%{_datadir}/rhn/up2date_client/__pycache__/__init__.*
+%{_datadir}/rhn/up2date_client/__pycache__/config.*
+%{_datadir}/rhn/up2date_client/__pycache__/haltree.*
+%{_datadir}/rhn/up2date_client/__pycache__/hardware*
+%{_datadir}/rhn/up2date_client/__pycache__/up2dateUtils.*
+%{_datadir}/rhn/up2date_client/__pycache__/up2dateLog.*
+%{_datadir}/rhn/up2date_client/__pycache__/up2dateErrors.*
+%{_datadir}/rhn/up2date_client/__pycache__/up2dateAuth.*
+%{_datadir}/rhn/up2date_client/__pycache__/rpcServer.*
+%{_datadir}/rhn/up2date_client/__pycache__/rhnserver.*
+%{_datadir}/rhn/up2date_client/__pycache__/pkgUtils.*
+%{_datadir}/rhn/up2date_client/__pycache__/rpmUtils.*
+%{_datadir}/rhn/up2date_client/__pycache__/debUtils.*
+%{_datadir}/rhn/up2date_client/__pycache__/rhnPackageInfo.*
+%{_datadir}/rhn/up2date_client/__pycache__/rhnChannel.*
+%{_datadir}/rhn/up2date_client/__pycache__/rhnHardware.*
+%{_datadir}/rhn/up2date_client/__pycache__/transaction.*
+%{_datadir}/rhn/up2date_client/__pycache__/clientCaps.*
+%{_datadir}/rhn/up2date_client/__pycache__/capabilities.*
+%{_datadir}/rhn/up2date_client/__pycache__/rhncli.*
+%{_datadir}/rhn/up2date_client/__pycache__/pkgplatform.*
+%endif
 
 %{_sbindir}/rhn-profile-sync
 
@@ -316,6 +345,17 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/actions/rhnsd.*
 %{_datadir}/rhn/actions/up2date_config.*
 
+%if 0%{?fedora} >= 23
+%dir %{_datadir}/rhn/actions/__pycache__/
+%{_datadir}/rhn/up2date_client/__pycache__/getMethod.*
+%{_datadir}/rhn/actions/__pycache__/__init__.*
+%{_datadir}/rhn/actions/__pycache__/hardware.*
+%{_datadir}/rhn/actions/__pycache__/systemid.*
+%{_datadir}/rhn/actions/__pycache__/reboot.*
+%{_datadir}/rhn/actions/__pycache__/rhnsd.*
+%{_datadir}/rhn/actions/__pycache__/up2date_config.*
+%endif
+
 %files -n rhn-setup
 %{_mandir}/man8/rhnreg_ks.8*
 %{_mandir}/man8/rhn_register.8*
@@ -336,6 +376,13 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/up2date_client/pmPlugin.*
 %{_datadir}/rhn/up2date_client/tui.*
 %{_datadir}/rhn/up2date_client/rhnreg_constants.*
+
+%if 0%{?fedora} >= 23
+%{_datadir}/rhn/up2date_client/__pycache__/rhnreg.*
+%{_datadir}/rhn/up2date_client/__pycache__/pmPlugin.*
+%{_datadir}/rhn/up2date_client/__pycache__/tui.*
+%{_datadir}/rhn/up2date_client/__pycache__/rhnreg_constants.*
+%endif
 
 %{_datadir}/setuptool/setuptool.d/99rhn_register
 
@@ -385,6 +432,22 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/up2date_client/firstboot/rhn_review_gui.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_finish_gui.*
 %endif
+%endif
+
+%if 0%{?fedora} >= 23
+%{_datadir}/rhn/up2date_client/__pycache__/messageWindow.*
+%{_datadir}/rhn/up2date_client/__pycache__/rhnregGui.*
+%{_datadir}/rhn/up2date_client/__pycache__/gui.*
+%{_datadir}/rhn/up2date_client/__pycache__/progress.*
+%{_datadir}/firstboot/modules/__pycache__/rhn_register.*
+%{_datadir}/rhn/up2date_client/firstboot/__pycache__/rhn_login_gui.*
+%{_datadir}/rhn/up2date_client/firstboot/__pycache__/rhn_start_gui.*
+%{_datadir}/rhn/up2date_client/firstboot/__pycache__/rhn_choose_server_gui.*
+%{_datadir}/rhn/up2date_client/firstboot/__pycache__/rhn_choose_channel.*
+%{_datadir}/rhn/up2date_client/firstboot/__pycache__/rhn_provide_certificate_gui.*
+%{_datadir}/rhn/up2date_client/firstboot/__pycache__/rhn_create_profile_gui.*
+%{_datadir}/rhn/up2date_client/firstboot/__pycache__/rhn_review_gui.*
+%{_datadir}/rhn/up2date_client/firstboot/__pycache__/rhn_finish_gui.*
 %endif
 
 %if 0%{?suse_version}
