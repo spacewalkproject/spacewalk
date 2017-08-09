@@ -39,6 +39,10 @@ an RHN-enabled system.
 %prep
 %setup -q
 
+%if 0%{?fedora} >= 23
+%global __python /usr/bin/python3
+%endif
+
 %build
 make -f Makefile.rhn-custom-info all
 %if 0%{?fedora} >= 23
@@ -59,6 +63,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-custom-info
 %dir %{_datadir}/rhn/custominfo
 %{_datadir}/rhn/custominfo/rhn-custom-info.py*
+%if 0%{?fedora} >= 23
+%{_datadir}/rhn/custominfo/__pycache__/
+%endif
 %doc LICENSE
 %{_mandir}/man8/rhn-custom-info.*
 
