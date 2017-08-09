@@ -8,7 +8,5 @@ delete from rhnServerGroup where name = 'Non-Linux Entitled Servers' and group_t
 
 delete from rhnServerGroupType where label = 'nonlinux_entitled';
 
-delete from rhnOrgEntitlementType where label = 'rhn_nonlinux';
-
 end;
 /
