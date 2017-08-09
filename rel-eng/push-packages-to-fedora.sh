@@ -30,7 +30,7 @@ for package in $PACKAGE_LIST; do
 		cd "$TOP_DIR_FEDORA"
 		if [ ! -d "$package" ]; then
 			echo "Directory $TOP_DIR_FEDORA/$package do not exist!"
-			exit 1
+			mkdir "$package"
 		fi
 		cd "$package"
 
