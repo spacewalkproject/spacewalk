@@ -64,6 +64,7 @@ make -f Makefile.rhnpush install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
 
 %if 0%{?fedora} >= 23
 sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' $RPM_BUILD_ROOT%{_bindir}/rhnpush
+%global __python /usr/bin/python3
 %endif
 
 %clean
@@ -79,6 +80,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %files
 %dir %{rhnroot}/rhnpush
 %{rhnroot}/rhnpush/*
+%if 0%{?fedora} >= 23
+%{rhnroot}/rhnpush/__pycache__/
+%endif
 %attr(755,root,root) %{_bindir}/rhnpush
 %attr(755,root,root) %{_bindir}/rpm2mpm
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/sysconfig/rhn/rhnpushrc
