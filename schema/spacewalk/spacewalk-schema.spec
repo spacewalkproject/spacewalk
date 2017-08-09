@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.7.27
+Version:        2.7.28
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Aug 09 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.28-1
+- there's no table rhnOrgEntitlementType in Spacewalk anymore
+
 * Tue Aug 08 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.27-1
 - 1466493 - oracle equivalent source sha1 is missing
 
