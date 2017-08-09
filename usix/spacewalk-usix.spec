@@ -10,7 +10,7 @@
 %global pythonrhnroot %{python_sitelib}/spacewalk
 
 Name:	    spacewalk-usix
-Version:	2.7.7
+Version:	2.7.8
 Release:	1%{?dist}
 Summary:	Spacewalk server and client nano six library
 
@@ -91,6 +91,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Aug 09 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.8-1
+- 1477753 - precompile py3 bytecode
+
 * Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 2.7.7-1
 - update copyright year
 
