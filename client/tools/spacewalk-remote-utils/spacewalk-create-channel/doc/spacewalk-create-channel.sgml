@@ -19,6 +19,8 @@ A utility to create and manage channels at different update levels.
     <cmdsynopsis>
         <command>spacewalk-create-channel</command>
         <arg>options <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-l <replaceable>USER</replaceable></arg>
         <arg>--username=<replaceable>USER</replaceable></arg>
     </cmdsynopsis>
