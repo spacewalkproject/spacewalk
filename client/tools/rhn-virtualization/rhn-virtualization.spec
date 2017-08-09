@@ -4,7 +4,7 @@
 
 Name:           rhn-virtualization 
 Summary:        RHN/Spacewalk action support for virtualization
-Version:        5.4.59
+Version:        5.4.60
 Release:        1%{?dist}
 
 Group:          System Environment/Base
@@ -185,6 +185,10 @@ fi
 %endif
 
 %changelog
+* Wed Aug 09 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.60-1
+- precompile py3 bytecode on Fedora 23+
+- use standard brp-python-bytecompile
+
 * Tue Jul 18 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.59-1
 - move version and release before sources
 
