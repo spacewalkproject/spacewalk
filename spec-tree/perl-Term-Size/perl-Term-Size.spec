@@ -11,7 +11,11 @@ Patch0:         %{name}-0.207-perlio.patch
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
+%if 0%{?fedora} && 0%{?fedora} > 26
+BuildRequires:  perl-interpreter
+%else
 BuildRequires:  perl
+%endif
 BuildRequires:  perl-devel
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Runtime

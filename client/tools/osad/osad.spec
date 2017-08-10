@@ -23,7 +23,11 @@ URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
+%if 0%{?fedora} && 0%{?fedora} > 26
+BuildRequires: perl-interpreter
+%else
 BuildRequires: perl
+%endif
 %if 0%{?fedora} >= 23
 BuildRequires: python3-devel
 Requires: python3

@@ -16,7 +16,11 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
+%if 0%{?fedora} && 0%{?fedora} > 26
+BuildRequires:  perl-interpreter
+%else
 BuildRequires:  perl
+%endif
 BuildRequires:  perl-generators
 # Run-time:
 # bytes not used at tests

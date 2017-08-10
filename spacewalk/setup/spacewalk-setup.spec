@@ -11,7 +11,11 @@ URL:            http://www.spacewalkproject.org/
 Source0:        %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
+%if 0%{?fedora} && 0%{?fedora} > 26
+BuildRequires:  perl-interpreter
+%else
 BuildRequires:  perl
+%endif
 BuildRequires:  perl(ExtUtils::MakeMaker)
 ## non-core
 #BuildRequires:  perl(Getopt::Long), perl(Pod::Usage)

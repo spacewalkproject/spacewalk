@@ -8,7 +8,11 @@ Source:     http://search.cpan.org/CPAN/authors/id/M/MA/MAREKR/Term-Completion-%
 Url:        http://search.cpan.org/dist/Term-Completion
 Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildArch:  noarch
+%if 0%{?fedora} && 0%{?fedora} > 26
+BuildRequires: perl-interpreter
+%else
 BuildRequires: perl
+%endif
 BuildRequires: perl(base)
 BuildRequires: perl(Carp)
 BuildRequires: perl(Exporter)

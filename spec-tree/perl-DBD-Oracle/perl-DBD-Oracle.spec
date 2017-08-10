@@ -14,7 +14,11 @@ BuildRequires: oracle-instantclient11.2-devel
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
+%if 0%{?fedora} && 0%{?fedora} > 26
+BuildRequires:  perl-interpreter
+%else
 BuildRequires:  perl
+%endif
 BuildRequires:  perl-generators
 BuildRequires:  perl(strict)
 
