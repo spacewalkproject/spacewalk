@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.107
+Version: 2.7.108
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,12 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 10 2017 Jan Dobes 2.7.108-1
+- 'if not exists' is unsupported in PG 8.4, catch exception in Java code
+  instead
+- TEST_CONF_LOCATION path is still used in spacewalk-java-tests RPM, use it as
+  fallback when any config file is not found locally
+
 * Mon Aug 07 2017 Eric Herget <eherget@redhat.com> 2.7.107-1
 - another pass to update copyright year
 
