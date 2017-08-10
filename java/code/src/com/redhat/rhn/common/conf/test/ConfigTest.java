@@ -20,6 +20,7 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Properties;
 
@@ -28,29 +29,37 @@ import org.apache.commons.io.FileUtils;
 public class ConfigTest extends RhnBaseTestCase {
     static final String TEST_KEY = "user";
     static final String TEST_VALUE = "newval";
+    static final String TEST_CONF_LOCATION = "/usr/share/rhn/unit-tests/";
     private Config c;
 
     public void setUp() throws Exception {
         c = new Config();
 
         // create test config path
-        String confPath = "/tmp/" + TestUtils.randomString() + "/conf";
-        String defaultPath = confPath + "/default";
-        new File(defaultPath).mkdirs();
+        String confPath = "/tmp/" + TestUtils.randomString();
+        new File(confPath + "/conf/default").mkdirs();
+
+        ArrayList<String> paths = new ArrayList<>();
+        paths.add("conf/rhn.conf");
+        paths.add("conf/default/rhn_web.conf");
+        paths.add("conf/default/rhn_prefix.conf");
+        paths.add("conf/default/bug154517.conf.rpmsave");
 
         // copy test configuration files over
-        FileUtils.copyURLToFile(TestUtils.findTestData("conf/rhn.conf"), new File(confPath,
-                "rhn.conf"));
-        FileUtils.copyURLToFile(TestUtils.findTestData("conf/default/rhn_web.conf"),
-                new File(defaultPath, "rhn_web.conf"));
-        FileUtils.copyURLToFile(TestUtils.findTestData("conf/default/rhn_prefix.conf"),
-                new File(defaultPath, "rhn_prefix.conf"));
-        FileUtils.copyURLToFile(TestUtils
-                .findTestData("conf/default/bug154517.conf.rpmsave"),
-                new File(defaultPath, "bug154517.conf.rpmsave"));
+        for (String relPath : paths) {
+            try {
+                FileUtils.copyURLToFile(TestUtils.findTestData(relPath),
+                        new File(confPath, relPath));
+            }
+            catch (NullPointerException e) {
+                FileUtils.copyFile(new File(TEST_CONF_LOCATION + relPath),
+                        new File(confPath, relPath));
+            }
 
-        c.addPath(confPath);
-        c.addPath(defaultPath);
+        }
+
+        c.addPath(confPath + "/conf");
+        c.addPath(confPath + "/conf/default");
         c.parseFiles();
     }
 
