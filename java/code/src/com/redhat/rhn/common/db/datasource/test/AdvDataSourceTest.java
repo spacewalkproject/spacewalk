@@ -350,7 +350,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
                         ")");
             }
             else {
-                stmt.execute("create table if not exists adv_datasource " +
+                stmt.execute("create table adv_datasource " +
                         "( " +
                         "  foobar VarChar," +
                         "  test_column VarChar," +
@@ -360,6 +360,10 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
                         ");");
             }
             c.commit();
+        }
+        catch (SQLException se) {
+            log.warn("Failed to create table adv_datasource: " + se.toString());
+            c.rollback();
         }
         finally {
             HibernateHelper.cleanupDB(stmt);
