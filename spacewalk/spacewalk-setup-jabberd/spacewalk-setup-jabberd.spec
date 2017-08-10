@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        2.7.1
+Version:        2.7.2
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 Group:          Applications/System
@@ -65,6 +65,11 @@ rm -rf %{buildroot}
 %{_sysconfdir}/pki/spacewalk
 
 %changelog
+* Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.2-1
+- 1479849 - Requires: perl has been renamed to perl-interpreter on Fedora 27
+- 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
+  27
+
 * Fri May 05 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.1-1
 - use sqlite as default osad database backend
 - Updated links to github in spec files
