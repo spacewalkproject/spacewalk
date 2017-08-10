@@ -14,7 +14,11 @@ BuildRequires:  perl
 %endif
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildArch:      noarch
+%if 0%{?fedora} && 0%{?fedora} > 26
+Requires:       perl-interpreter
+%else
 Requires:       perl
+%endif
 Requires:       libxslt
 Requires:       jabberd
 Requires:       %{_datadir}/spacewalk

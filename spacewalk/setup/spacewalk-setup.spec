@@ -22,7 +22,11 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 #BuildRequires:  perl(Test::Pod::Coverage), perl(Test::Pod)
 
 BuildArch:      noarch
+%if 0%{?fedora} && 0%{?fedora} > 26
+Requires:       perl-interpreter
+%else
 Requires:       perl
+%endif
 Requires:       perl-Params-Validate
 Requires:       perl(Term::Completion::Path)
 Requires:       spacewalk-schema
