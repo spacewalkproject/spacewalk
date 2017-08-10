@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.7.11
+Version:        2.7.12
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -125,6 +125,11 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.12-1
+- 1479849 - Requires: perl has been renamed to perl-interpreter on Fedora 27
+- 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
+  27
+
 * Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 2.7.11-1
 - update copyright year
 
