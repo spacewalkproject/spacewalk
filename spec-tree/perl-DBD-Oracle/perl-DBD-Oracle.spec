@@ -1,7 +1,7 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
 Version: 1.62
-Release: 4%{?dist}
+Release: 5%{?dist}
 License:  GPL+ or Artistic
 Group: Development/Libraries
 Source0: DBD-Oracle-%{version}.tar.gz
@@ -71,6 +71,10 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man3/*
 
 %changelog
+* Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 1.62-5
+- 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
+  27
+
 * Tue Mar 28 2017 Michael Mraka <michael.mraka@redhat.com> 1.62-4
 - since Fedora 25 perl is not in default buildroot
 
