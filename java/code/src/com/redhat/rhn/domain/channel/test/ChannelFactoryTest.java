@@ -374,7 +374,11 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         createTestChannel(user);
         List<Channel> channels = ChannelFactory.listAllBaseChannels(user);
         assertNotNull(channels);
-        assertEquals(1, channels.size());
+        int size = channels.size();
+        createTestChannel(user);
+        channels = ChannelFactory.listAllBaseChannels(user);
+        assertNotNull(channels);
+        assertEquals(size + 1, channels.size());
     }
 
     public void testLookupPackageByFileName() throws Exception {
