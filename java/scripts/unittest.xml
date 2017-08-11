@@ -38,6 +38,7 @@
           <include name="webapps/rhn/WEB-INF/lib/*.jar" />
           <include name="**/lib/*.jar" />
         </fileset>
+        <path location="/usr/share/java/hamcrest/all.jar"/>
         <path location="/usr/share/java/jmock/jmock.jar"/>
         <path location="/usr/share/java/jmock/jmock-junit3.jar"/>
         <path location="/usr/share/java/jmock/jmock-legacy.jar"/>
