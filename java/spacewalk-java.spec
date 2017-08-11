@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.109
+Version: 2.7.110
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,17 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri Aug 11 2017 Jan Dobes 2.7.110-1
+- assert is wrong - inverted TEST_CONFIG_BOOLEAN value is not saved when
+  required fields are missing in form
+- fixing various ClassNotFoundException in tests - add hamcrest to classpath
+- update struts libs, they are now in /usr/share/java/struts/, add only tiles
+  lib, others should be linked from tomcat lib dir
+- ChannelFactory.listAllBaseChannels lists also null-org channels, fix test
+- fix table name for set, hibernate is looking for
+  'rhnaction_rhnactionconfigchannel' and 'rhnaction_rhnactionconfigfilename'
+  tables in ConfigUploadActionTest and ConfigUploadMtimeActionTest
+
 * Fri Aug 11 2017 Jiri Dostal <jdostal@redhat.com> 2.7.109-1
 - 1471018 - Allow cancel event that was picked up from queue by WebUI
 
