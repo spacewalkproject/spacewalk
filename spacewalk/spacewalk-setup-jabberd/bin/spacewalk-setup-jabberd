@@ -107,6 +107,14 @@ foreach my $basename ('c2s', 's2s', 'sm', 'router') {
 
 }
 
+# Initialize the sqlite database
+my $definedauthreg = `sqlite3 /var/lib/jabberd/db/sqlite.db ".tables authreg"`;
+chomp $definedauthreg;
+if ($definedauthreg ne 'authreg') {
+        `sqlite3 /var/lib/jabberd/db/sqlite.db < /usr/share/jabberd/db-setup.sqlite`;
+        `chown jabber:jabber /var/lib/jabberd/db/sqlite.db`;
+}
+
 1;
 
 =head1 NAME
