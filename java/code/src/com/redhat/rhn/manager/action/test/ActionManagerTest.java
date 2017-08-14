@@ -587,6 +587,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
 
         Server srvr = ServerFactoryTest.createTestServer(user, true);
         assertNotNull(srvr);
+        KickstartDataTest.setupTestConfiguration(user);
         KickstartData testKickstartData
             = KickstartDataTest.createKickstartWithChannel(user.getOrg());
 
@@ -618,6 +619,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
 
         Server srvr = ServerFactoryTest.createTestServer(user, true);
         assertNotNull(srvr);
+        KickstartDataTest.setupTestConfiguration(user);
         KickstartData testKickstartData
             = KickstartDataTest.createKickstartWithChannel(user.getOrg());
 
