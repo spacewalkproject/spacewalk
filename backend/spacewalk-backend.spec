@@ -36,7 +36,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.136
+Version: 2.7.137
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -789,6 +789,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Mon Aug 14 2017 Jan Dobes 2.7.137-1
+- 1477344 - select all null-org channels and then fiter them
+
 * Wed Aug 09 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.136-1
 - 1477753 - precompile py3 stuff
 - 1477753 - use standard brp-python-bytecompile
