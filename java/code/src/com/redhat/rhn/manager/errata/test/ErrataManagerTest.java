@@ -205,14 +205,6 @@ public class ErrataManagerTest extends BaseTestCaseWithUser {
         assertEquals(1, eos.size());
     }
 
-    public void testAllErrataList() {
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
-        DataResult errata = ErrataManager.allErrata(user);
-        assertNotNull(errata);
-        assertTrue(errata.size() <= 20);
-    }
-
     public void testRelevantErrataList() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
