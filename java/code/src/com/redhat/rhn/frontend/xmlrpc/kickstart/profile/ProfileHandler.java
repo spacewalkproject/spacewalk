@@ -77,8 +77,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 /**
  * ProfileHandler
@@ -967,7 +965,7 @@ public class ProfileHandler extends BaseHandler {
        }
        Long ksid = ksdata.getId();
        KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, loggedInUser);
-       SortedSet<KickstartCommand> customSet = new TreeSet<KickstartCommand>();
+       Set<KickstartCommand> customSet = new LinkedHashSet<>();
        if (options != null) {
            for (int i = 0; i < options.size(); i++) {
                String option = options.get(i);
