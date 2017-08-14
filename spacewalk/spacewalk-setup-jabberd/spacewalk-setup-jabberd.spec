@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        2.7.2
+Version:        2.7.3
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 Group:          Applications/System
@@ -65,6 +65,9 @@ rm -rf %{buildroot}
 %{_sysconfdir}/pki/spacewalk
 
 %changelog
+* Mon Aug 14 2017 Eric Herget <eherget@redhat.com> 2.7.3-1
+- 1480697 - Need to initialize the jabberd sqlite database during setup
+
 * Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.2-1
 - 1479849 - Requires: perl has been renamed to perl-interpreter on Fedora 27
 - 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
