@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.111
+Version: 2.7.112
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 15 2017 Jan Dobes 2.7.112-1
+- KickstartDownloadActionTest is useless
+
 * Mon Aug 14 2017 Jan Dobes 2.7.111-1
 - use LinkedHashSet same as in get method and as on web UI counterpart, TreeSet
   evaluates all KickstartCommand instances as equal (because of compareTo
