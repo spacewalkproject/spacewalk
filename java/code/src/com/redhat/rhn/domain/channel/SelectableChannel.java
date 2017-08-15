@@ -14,10 +14,10 @@
  */
 package com.redhat.rhn.domain.channel;
 
-import com.redhat.rhn.frontend.struts.Selectable;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+
+import com.redhat.rhn.frontend.struts.Selectable;
 
 /**
  * Wrapper class to enable Channels to be used and be selectable
@@ -98,8 +98,16 @@ public class SelectableChannel  implements Selectable, Comparable {
     }
 
     /**
+     * @return Returns true if the contained Channel has no parent, false otherwise
+     */
+    public boolean isParent() {
+        return channel.isBaseChannel();
+    }
+
+    /**
      * {@inheritDoc}
      */
+    @Override
     public String getSelectionKey() {
         return null;
     }
@@ -107,6 +115,7 @@ public class SelectableChannel  implements Selectable, Comparable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isSelectable() {
         return true;
     }
@@ -114,6 +123,7 @@ public class SelectableChannel  implements Selectable, Comparable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isSelected() {
         return selected;
     }
@@ -121,6 +131,7 @@ public class SelectableChannel  implements Selectable, Comparable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setSelected(boolean selectedIn) {
         selected = selectedIn;
     }
@@ -128,6 +139,7 @@ public class SelectableChannel  implements Selectable, Comparable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int compareTo(Object o) {
        return this.getChannel().getName().compareTo(((SelectableChannel)o).
                getChannel().getName());
@@ -136,6 +148,7 @@ public class SelectableChannel  implements Selectable, Comparable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean equals(final Object other) {
         if (other instanceof Channel) {
             return this.getChannel().equals(other);
@@ -151,6 +164,7 @@ public class SelectableChannel  implements Selectable, Comparable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int hashCode() {
         return new HashCodeBuilder().append(getId()).toHashCode();
     }
