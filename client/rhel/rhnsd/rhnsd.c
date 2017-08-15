@@ -309,8 +309,12 @@ static int write_pid (const char *file)
     FILE *fp;
 
     fp = fopen (file, "w");
-    if (fp == NULL)
-	return -1;
+    if (fp == NULL) {
+        return -1;
+    } else if (chmod (file, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) != 0) {
+        fclose(fp);
+        return -1;
+    }
 
     fprintf (fp, "%d\n", getpid ());
     if (fflush (fp) || ferror (fp)) {
