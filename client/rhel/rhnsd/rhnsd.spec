@@ -1,6 +1,6 @@
 Summary: Spacewalk query daemon
 Name: rhnsd
-Version: 5.0.29
+Version: 5.0.30
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -138,6 +138,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Aug 15 2017 Gennadii Altukhov <grinrag@gmail.com> 5.0.30-1
+- 1480306 - change permissions for rhnsd.pid
+
 * Tue Jul 18 2017 Michael Mraka <michael.mraka@redhat.com> 5.0.29-1
 - move version and release before sources
 
