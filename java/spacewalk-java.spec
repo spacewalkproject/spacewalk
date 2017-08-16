@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.113
+Version: 2.7.114
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 16 2017 Eric Herget <eherget@redhat.com> 2.7.114-1
+- SW 2.7 Release prep - update copyright year (3rd pass)
+
 * Tue Aug 15 2017 Grant Gainey 2.7.113-1
 - 1461898 - Fix SelectableChannel for other users of channel_selector.jspf
 
