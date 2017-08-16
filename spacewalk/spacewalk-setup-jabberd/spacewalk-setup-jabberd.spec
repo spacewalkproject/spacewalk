@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        2.7.3
+Version:        2.7.4
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 Group:          Applications/System
@@ -65,6 +65,9 @@ rm -rf %{buildroot}
 %{_sysconfdir}/pki/spacewalk
 
 %changelog
+* Wed Aug 16 2017 Eric Herget <eherget@redhat.com> 2.7.4-1
+- SW 2.7 Release prep - update copyright year (3rd pass)
+
 * Mon Aug 14 2017 Eric Herget <eherget@redhat.com> 2.7.3-1
 - 1480697 - Need to initialize the jabberd sqlite database during setup
 
