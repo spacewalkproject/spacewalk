@@ -16,10 +16,12 @@ package com.redhat.rhn.frontend.action.help;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 
 /**
@@ -30,11 +32,12 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 public class ChatAction extends org.apache.struts.action.Action {
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
-
+        request.setAttribute("isSpacewalk", ConfigDefaults.get().isSpacewalk());
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }
