@@ -142,7 +142,6 @@ def initializeConfig(opt, handle):
 
     slave_stanza = DEFAULT_CONFIG_FQDN_STANZA
     master_stanza = DEFAULT_CONFIG_FQDN_STANZA
-
     if 'slave' in opt.__dict__:
         hdr = hdr.replace('SLAVE', opt.slave)
         slave_stanza = slave_stanza.replace('FQDN', opt.slave)
@@ -283,7 +282,7 @@ def validateConnectInfo(info):
     "Something needs to connect - make sure we have fqdn/login/pwd, and ask for "
     " anything missing"
 
-    if not 'fqdn' in info or len(info['fqdn']) == 0:
+    if not 'fqdn' in info or info['fqdn'] is None or len(info['fqdn']) == 0:
         fail("Can't connect, I don't know what machine you want to go to!")
 
     if not 'login' in info or len(info['login']) == 0:
@@ -300,7 +299,7 @@ def validateConnectInfo(info):
 
 def connectTo(info):
     logging.debug("Connect-to info = %s" % info)
-    logging.info("Connecting to " + info['login'] + "@" + info['fqdn'])
+    logging.info("Connecting to " + info['login'] + "@" + str(info['fqdn']))
     info = validateConnectInfo(info)
     url = "https://%(fqdn)s/rpc/api" % {"fqdn": info['fqdn']}
     client = xmlrpclib.Server(url, verbose=0)
@@ -601,7 +600,8 @@ def ask(msg):
 
 def fail(msg):
     logging.error(msg)
-    sys.exit(msg)
+    logging.info("See spacewalk-sync-setup --help")
+    sys.exit()
 
 
 if __name__ == '__main__':
