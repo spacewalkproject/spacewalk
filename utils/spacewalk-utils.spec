@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.7.22
+Version:	2.7.23
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Aug 16 2017 Eric Herget <eherget@redhat.com> 2.7.23-1
+- SW 2.7 Release prep - update copyright year (3rd pass)
+
 * Wed Aug 16 2017 Jiri Dostal <jdostal@redhat.com> 2.7.22-1
 - 1458440 - The command "spacewalk-sync-setup" without any parameters return
   traceback
