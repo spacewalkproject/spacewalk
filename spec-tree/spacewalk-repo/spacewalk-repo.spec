@@ -96,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
+* Thu Aug 17 2017 Eric Herget <eherget@redhat.com> 2.8-1
+- Bumping spacewalk-repo version for 2.8.
+
 * Fri Jul 21 2017 Tomas Lestach <tlestach@redhat.com> 2.7-1
 - bumping spacewalk-repo to 2.7
 
