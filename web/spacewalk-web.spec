@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.5
+Version: 2.7.6
 Release: 1%{?dist}
 URL:          https://github.com/spacewalkproject/spacewalk/
 Source0:      https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -155,6 +155,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Aug 17 2017 Eric Herget <eherget@redhat.com> 2.7.6-1
+- Update web.version to 2.7
+
 * Wed Aug 02 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.5-1
 - 1449124 - db-control no longer works with oracle, let's add
   conflicts/obsoletes
