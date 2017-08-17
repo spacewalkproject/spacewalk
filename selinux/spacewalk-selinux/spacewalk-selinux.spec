@@ -8,7 +8,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        2.7.6
+Version:        2.8.0
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 

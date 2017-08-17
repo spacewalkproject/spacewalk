@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.7.28
+Version:        2.8.0
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 

@@ -1,6 +1,6 @@
 Name: spacewalk-proxy-docs
 Summary: Spacewalk Proxy Server Documentation
-Version: 2.7.2
+Version: 2.8.0
 Release: 1%{?dist}
 Group: Applications/Internet
 License: Open Publication
