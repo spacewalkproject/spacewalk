@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.114
+Version: 2.7.115
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 17 2017 Jiri Dostal <jdostal@redhat.com> 2.7.115-1
+- 1458712 - "Update Organization" button placed that way it is not clear that
+  it updates "Allow Organization Admin to manage Organization Configuration"
+  setting as well
+
 * Wed Aug 16 2017 Eric Herget <eherget@redhat.com> 2.7.114-1
 - SW 2.7 Release prep - update copyright year (3rd pass)
 
