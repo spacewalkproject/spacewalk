@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.0
+Version: 2.8.1
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri Aug 18 2017 Jan Dobes 2.8.1-1
+- workaround struts 1.3.10 ExceptionHandler call of isCommited method - not
+  implemented in old mockobjects lib (MockHttpServletResponse class)
+- Bumping package versions for 2.8.
+
 * Thu Aug 17 2017 Jiri Dostal <jdostal@redhat.com> 2.7.115-1
 - 1458712 - "Update Organization" button placed that way it is not clear that
   it updates "Allow Organization Admin to manage Organization Configuration"
