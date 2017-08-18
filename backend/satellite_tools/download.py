@@ -215,6 +215,13 @@ class DownloadThread(Thread):
                     break
                 except (FailedDownloadError, URLGrabError):
                     e = sys.exc_info()[1]
+                    # urlgrabber-3.10.1-9 trows URLGrabError for both
+                    # 'HTTP Error 404 - Not Found' and 'No space left on device', so
+                    # workaround for this is check error message:
+                    if 'No space left on device' in str(e):
+                        self.parent.fail_download(e)
+                        return False
+
                     if not self.__can_retry(retry, mirrors, opts, url, e):
                         return False
                     self.__next_mirror(mirrors)
