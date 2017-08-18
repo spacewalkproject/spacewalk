@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.1
+Version: 2.8.2
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri Aug 18 2017 Grant Gainey 2.8.2-1
+- 1469011 - updating about.jsp to bear some resemblance to current reality
+
 * Fri Aug 18 2017 Jan Dobes 2.8.1-1
 - workaround struts 1.3.10 ExceptionHandler call of isCommited method - not
   implemented in old mockobjects lib (MockHttpServletResponse class)
