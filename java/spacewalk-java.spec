@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.2
+Version: 2.8.3
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Aug 21 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.3-1
+- 1461816 - in case of less items than we're expecting start with no pagination
+- remove debugging message
+
 * Fri Aug 18 2017 Grant Gainey 2.8.2-1
 - 1469011 - updating about.jsp to bear some resemblance to current reality
 
