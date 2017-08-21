@@ -1,6 +1,6 @@
-[globalconfig]
-default_builder = spacewalkx.builderx.Builder
-default_tagger = tito.tagger.VersionTagger
+[buildconfig]
+builder = spacewalkx.builderx.Builder
+tagger = tito.tagger.VersionTagger
 changelog_with_email = 0
 changelog_do_not_remove_cherrypick = 0
 lib_dir = rel-eng/lib
