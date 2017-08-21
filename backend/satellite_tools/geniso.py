@@ -143,7 +143,7 @@ def main(arglist):
         grafts = []
         for f in cds[i]:
             # Compute the relative path
-            relpath = f[len(mountPoint) + 1:]
+            relpath = os.path.relpath(f, mountPoint)
             # Append to the graft list: relative=real
             relpath = os.path.dirname(relpath)
             grafts.append("%s/=%s" % (relpath, f))
