@@ -4,7 +4,7 @@
 
 Summary: Streaming zlib (gzip) support for python
 Name: python-gzipstream
-Version: 2.7.1
+Version: 2.7.2
 Release: 1%{?dist}
 URL:        https://github.com/spacewalkproject/spacewalk/wiki/Projects_python-gzipstream
 Source0:    https://github.com/spacewalkproject/spacewalk/archive/python-gzipstream-%{version}.tar.gz
@@ -44,6 +44,11 @@ Summary: %summary
 %license LICENSE
 
 %changelog
+* Mon Aug 21 2017 Miroslav Suchý <msuchy@redhat.com> 2.7.2-1
+- modernize spec
+- rename python-gzipstream to python2-gzipstream
+- Bumping package versions for 2.8.
+
 * Sat Aug 19 2017 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.7.1-2
 - Python 2 binary package renamed to python2-gzipstream
   See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3
