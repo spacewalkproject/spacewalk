@@ -9,8 +9,6 @@ Release: 1%{?dist}
 URL:        https://github.com/spacewalkproject/spacewalk/wiki/Projects_python-gzipstream
 Source0:    https://github.com/spacewalkproject/spacewalk/archive/python-gzipstream-%{version}.tar.gz
 License: GPLv2
-Group: Development/Libraries
-BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
 BuildRequires: python-devel
 
@@ -36,16 +34,14 @@ Summary: %summary
 %{__python} setup.py build
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files -n python2-gzipstream
 %{python_sitelib}/*
 %doc html
-%doc LICENSE
+%license LICENSE
 
 %changelog
 * Sat Aug 19 2017 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.7.1-2
