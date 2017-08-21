@@ -36,7 +36,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.1
+Version: 2.8.2
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -789,6 +789,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Mon Aug 21 2017 Jan Dobes 2.8.2-1
+- 1464540 - get relative path better
+
 * Fri Aug 18 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.1-1
 - 1482981 - stop synchronization if no space left on device
 - Bumping package versions for 2.8.
