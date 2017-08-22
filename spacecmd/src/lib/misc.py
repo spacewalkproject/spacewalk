@@ -753,9 +753,10 @@ def get_system_id(self, name):
         pass
 
     # get a set of matching systems to check for duplicate names
-    for system_id in self.all_systems:
-        if name == self.all_systems[system_id]:
-            systems.append(system_id)
+    if not systems:
+        for system_id in self.all_systems:
+            if name == self.all_systems[system_id]:
+                systems.append(system_id)
 
     if len(systems) == 1:
         return systems[0]
