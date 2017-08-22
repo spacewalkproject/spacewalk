@@ -14,18 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.ssm;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.systems.SystemListHelper;
-import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -33,6 +21,15 @@ import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -44,7 +41,6 @@ public class ListSystemsAction extends RhnAction implements Listable {
     /**
      * ${@inheritDoc}
      */
-    @Override
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
@@ -53,30 +49,14 @@ public class ListSystemsAction extends RhnAction implements Listable {
         helper.setListName("systemList");
         helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.execute();
-        setStatusDisplay(helper.getDataSet(), helper.getContext().getCurrentUser());
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /**
      * ${@inheritDoc}
      */
-    @Override
     public List getResult(RequestContext context) {
         return SystemManager.inSet(context.getCurrentUser(),
-                RhnSetDecl.SYSTEMS.getLabel(), true);
+                RhnSetDecl.SYSTEMS.getLabel());
     }
-
-    /**
-     * Sets the status and entitlementLevel variables of each System Overview
-     * @param overviews The list of System Overviews
-     * @param user The user viewing the System List
-     */
-    public void setStatusDisplay(List<SystemOverview> overviews, User user) {
-
-        for (SystemOverview ovr : overviews) {
-            SystemListHelper.setSystemStatusDisplay(user, ovr);
-        }
-
-    }
-
 }
