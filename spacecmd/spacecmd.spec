@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.8.0
+Version:     2.8.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -92,6 +92,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Aug 22 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.1-1
+- 1429944 - in case of system named by id, let id take precedence
+- Bumping package versions for 2.8.
+
 * Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 2.7.15-1
 - update copyright year
 
