@@ -19,7 +19,7 @@ function showFiltered() {
 
 <body onLoad="onLoadStuff(3); showFiltered();">
 <rhn:toolbar base="h1" icon="header-organisation">
-  ${trustorg}
+  ${fn:escapeXml(trustorg)}
 </rhn:toolbar>
 
 <rhn:dialogmenu mindepth="0" maxdepth="3"

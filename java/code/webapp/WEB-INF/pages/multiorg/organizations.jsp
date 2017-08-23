@@ -33,7 +33,7 @@
                    sortable="true"
                    headerkey="org.nopunc.displayname"
                    sortattr="name">
-                <c:out value="<a href=\"/rhn/multiorg/OrgTrustDetails.do?oid=${current.id}\">${current.name}</a>" escapeXml="false" />
+                <c:out value="<a href=\"/rhn/multiorg/OrgTrustDetails.do?oid=${current.id}\">${fn:escapeXml(current.name)}</a>" escapeXml="false" />
                 <c:if test="${current.id == 1}">*</c:if>
         </rl:column>
         <rl:column bound="false"

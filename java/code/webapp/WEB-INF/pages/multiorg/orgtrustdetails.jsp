@@ -7,7 +7,7 @@
 <html:html >
   <body>
     <rhn:toolbar base="h1" icon="header-organisation" >
-      ${orgtrust}
+      ${fn:escapeXml(orgtrust)}
     </rhn:toolbar>
     <rhn:dialogmenu mindepth="0" maxdepth="3"
                     definition="/WEB-INF/nav/org_trust.xml"
