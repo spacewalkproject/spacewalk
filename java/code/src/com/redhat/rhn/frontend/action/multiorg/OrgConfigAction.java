@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.multiorg;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -124,7 +125,8 @@ public class OrgConfigAction extends RhnAction {
 
             ActionMessages msg = new ActionMessages();
             msg.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("message.org_name_updated", org.getName()));
+                    new ActionMessage("message.org_name_updated",
+                    StringEscapeUtils.escapeHtml(org.getName())));
             getStrutsDelegate().saveMessages(request, msg);
             return getStrutsDelegate().forwardParam(mapping.findForward("success"),
                     RequestContext.ORG_ID,
