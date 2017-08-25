@@ -8,7 +8,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           https://github.com/spacewalkproject/spacewalk
-Version:       5.5.107
+Version:       5.5.107.1
 Release:       1%{?dist}
 Source0:       https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -90,6 +90,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Fri Aug 25 2017 Tomas Kasparek <tkasparek@redhat.com> 5.5.107.1-1
+- disable pylint on RHEL7 due to dependency issues with EPEL7
+
 * Wed Aug 09 2017 Michael Mraka <michael.mraka@redhat.com> 5.5.107-1
 - precompile py3 bytecode on Fedora 23+
 - use standard brp-python-bytecompile
