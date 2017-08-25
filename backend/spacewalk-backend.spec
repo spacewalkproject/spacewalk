@@ -11,7 +11,7 @@
 %global python3rhnroot %{python3_sitelib}/spacewalk
 %endif
 
-%if (0%{?fedora} && 0%{?fedora} < 26) || 0%{?rhel} >= 7
+%if (0%{?fedora} && 0%{?fedora} < 26)
 %{!?pylint_check: %global pylint_check 1}
 %endif
 
