@@ -16,7 +16,6 @@ parser.add_argument('git_branch', nargs=1, help='git branch associated with new 
                                       ' (e.g. SPACEWALK-2.7)')
 opts = parser.parse_args()
 
-import pdb; pdb.set_trace()
 dest_owner, dest_project = opts.destination_repo[0].split('/',2)
 myclient = CoprClient.create_from_file_config()
 
