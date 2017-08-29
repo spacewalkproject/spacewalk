@@ -65,7 +65,7 @@ BuildRequires: rhn-client-tools
 BuildRequires: rpm-python
 BuildRequires: python-crypto
 BuildRequires: python-debian
-BuildRequires: python-gzipstream
+BuildRequires: python2-gzipstream
 BuildRequires: yum
 BuildRequires: m2crypto
 %endif
@@ -305,7 +305,7 @@ Requires: %{name}-app = %{version}-%{release}
 Requires: %{name}
 Requires: spacewalk-certs-tools
 Requires: spacewalk-admin >= 0.1.1-0
-Requires: python-gzipstream
+Requires: python2-gzipstream
 %if 0%{?fedora} || 0%{?rhel} > 6
 Requires: pyliblzma
 %endif
