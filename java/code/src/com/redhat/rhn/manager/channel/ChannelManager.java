@@ -1660,13 +1660,9 @@ public class ChannelManager extends BaseManager {
             else {
                 Channel currBase = s.getBaseChannel();
                 if (currBase != null) {
-                    ReleaseChannelMap rcm =
-                            lookupDefaultReleaseChannelMapForChannel(currBase);
-                    if (rcm != null) {
                         baseEusChans = listBaseEusChannelsByVersionReleaseAndServerArch(
-                                usr, rhelVersion, releaseEvr.getRelease(),
+                                usr, rhelVersion, releaseEvr,
                                 s.getServerArch().getLabel());
-                    }
                 }
             }
             channelDtos.addAll(baseEusChans);
@@ -1709,9 +1705,8 @@ public class ChannelManager extends BaseManager {
 
         ReleaseChannelMap rcm = lookupDefaultReleaseChannelMapForChannel(inChan);
         if (rcm != null) {
-                    eusBaseChans.addAll(listBaseEusChannelsByVersionReleaseAndChannelArch(
-                            u, rcm.getVersion(), rcm.getRelease(),
-                            inChan.getChannelArch().getId()));
+            eusBaseChans.
+                addAll(listBaseEusChannelsByVersionReleaseAndChannelArch(u, rcm));
         }
         else {
             for (DistChannelMap dcm : inChan.getDistChannelMaps()) {
@@ -1774,17 +1769,17 @@ public class ChannelManager extends BaseManager {
      *
      * @param user User performing the query.
      * @param version RHEL version.
-     * @param release RHEL version release.
+     * @param pevr Package EVR of the package whose release we're checking.
      * @param serverArch RHEL server arch.
      * @return List of EssentialChannelDto's.
      */
     public static List<EssentialChannelDto>
         listBaseEusChannelsByVersionReleaseAndServerArch(User user,
-            String version, String release, String serverArch) {
+            String version, PackageEvr pevr, String serverArch) {
 
         log.debug("listBaseEusChannelsByVersionReleaseAndServerArch()");
         log.debug("   version = " + version);
-        log.debug("   release = " + release);
+        log.debug("   release = " + pevr.toString());
         log.debug("   serverArch = " + serverArch);
         SelectMode m = ModeFactory.getMode("Channel_queries",
                     "base_eus_channels_by_version_release_server_arch");
@@ -1802,7 +1797,7 @@ public class ChannelManager extends BaseManager {
         EusReleaseComparator comparator = new EusReleaseComparator(version);
         for (EssentialChannelDto dto : dr) {
             log.debug(dto.getId());
-            if (comparator.compare(dto.getRelease(), release) >= 0) {
+            if (comparator.compare(dto.getRelease(), pevr.toString()) >= 0) {
                 result.add(dto);
             }
         }
@@ -1819,14 +1814,12 @@ public class ChannelManager extends BaseManager {
      * be compared. See normalizeRhelReleaseForMapping for more info.
      *
      * @param user User performing the query.
-     * @param version RHEL version.
-     * @param release RHEL release.
-     * @param channelArchId Channel arch.
+     * @param rcm ReleaseChannelMap entry for this Channel
      * @return List of EssentialChannelDto's.
      */
     public static List<EssentialChannelDto>
         listBaseEusChannelsByVersionReleaseAndChannelArch(User user,
-            String version, String release, Long channelArchId) {
+                ReleaseChannelMap rcm) {
 
         log.debug("listBaseEusChannelsByVersionReleaseAndChannelArch()");
         SelectMode m = ModeFactory.getMode("Channel_queries",
@@ -1834,20 +1827,20 @@ public class ChannelManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
-        log.debug("   version = " + version);
-        log.debug("   release = " + release);
-        log.debug("   channelArch = " + channelArchId);
+        log.debug("   version = " + rcm.getVersion());
+        log.debug("   release = " + rcm.getRelease());
+        log.debug("   channelArch = " + rcm.getChannelArch().getId());
         params.put("product_name_label", RHEL_PRODUCT_NAME);
-        params.put("version", version);
-        params.put("channel_arch_id", channelArchId);
+        params.put("version", rcm.getVersion());
+        params.put("channel_arch_id", rcm.getChannelArch().getId());
         DataResult<EssentialChannelDto> dr =
                 makeDataResult(params, new HashMap<String, Object>(), null, m,
                         EssentialChannelDto.class);
 
         List<EssentialChannelDto> result = new LinkedList<EssentialChannelDto>();
-        EusReleaseComparator comparator = new EusReleaseComparator(version);
+        EusReleaseComparator comparator = new EusReleaseComparator(rcm.getVersion());
         for (EssentialChannelDto dto : dr) {
-            if (comparator.compare(dto.getRelease(), release) > 0) {
+            if (comparator.compare(dto.getRelease(), rcm.getRelease()) > 0) {
                 result.add(dto);
             }
         }
