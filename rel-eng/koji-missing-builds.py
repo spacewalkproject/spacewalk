@@ -46,12 +46,28 @@ if opts.copr:
     owner, project = tag.split('/',2)
     myclient = CoprClient.create_from_file_config()
     result = myclient.get_packages_list(ownername=owner, projectname=project,
-                                         with_latest_succeeded_build=1)
-    rpmlist = [{'name': pkg.data['name'],
-                'nvr': "%s-%s" % (pkg.data['name'],
-                                  # vesrion without epoch
-                                  pkg.data['latest_succeeded_build']['pkg_version'].split(':')[-1])}
-               for pkg in result.packages_list]
+                                         with_latest_build=True,
+                                         with_latest_succeeded_build=True)
+    rpmlist = []
+    for pkg in result.packages_list:
+                pkg_name = pkg.data['name']
+                pkg_succeeded = pkg.data['latest_succeeded_build']
+                if pkg_succeeded:
+                    pkg_version = pkg_succeeded['pkg_version']
+                else:
+                    # packages inherited from forked repo has no latest_succeeded_build
+                    pkg_latest = pkg.data['latest_build']
+                    if pkg_latest and pkg_latest['state'] == "forked":
+                       pkg_version = pkg_latest['pkg_version']
+                    else:
+                       # no latest build
+                       continue
+
+                pkg_nvr = "%s-%s" % (pkg.data['name'],
+                                     # version without epoch
+                                     pkg_version.split(':')[-1])
+                rpmlist.append({'name': pkg_name, 'nvr': pkg_nvr})
+
 else:
     if opts.brew:
         import brew as koji
