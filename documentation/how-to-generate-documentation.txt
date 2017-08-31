@@ -47,7 +47,12 @@ Javadoc
 Python
 ======
     # Note: in last version of epydoc (epydoc-3.0.1-15) is missing fix introduced in upstream r1728,
-    # if it's not applied next step will probably end up with exception
+    # if it's not applied next step will probably end up with exception where epydoc run
+    # fails to run to completion.
+    # NOTE: I ended up running an old version found on rpmfind - 3.0.1-14 and then I applied the
+    #   patch attached to bug 364 manually (https://sourceforge.net/p/epydoc/bugs/364/)
+    # NOTE: There were lots of ImportErrors reported, but this should be ok - each says the source
+    # was still processed
     # Build
     cd $SW_GIT/documentation; make python
     # Move to DOCS_GIT repo
