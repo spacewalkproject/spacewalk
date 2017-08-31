@@ -20,7 +20,7 @@ build_in_copr() {
           local tags=$1
           local releaser=$2
           local package_dir=$3
-          copr-cli buildtito "$tags" --nowait --git-url "$GIT_URL" --git-dir "$package_dir"
+          copr-cli buildtito "$tags" --nowait --git-url "$GIT_URL" --git-dir "$package_dir" ${GIT_BRANCH:+ --git-branch "$GIT_BRANCH"}
 }
 
 case "$TITO_RELEASER" in
