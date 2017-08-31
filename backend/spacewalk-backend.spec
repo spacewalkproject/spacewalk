@@ -36,7 +36,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.7.138
+Version: 2.7.139
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -789,6 +789,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Thu Aug 31 2017 Jan Dobes 2.7.139-1
+- it's now python2-gzipstream
+
 * Fri Aug 25 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.138-1
 - disable pylint on RHEL7 due to dependency issues with EPEL7
 
