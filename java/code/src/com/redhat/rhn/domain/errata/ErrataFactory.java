@@ -121,9 +121,10 @@ public class ErrataFactory extends HibernateFactory {
      * Tries to locate errata based on either the errataum's id or the
      * CVE/CAN identifier string.
      * @param identifier erratum id or CVE/CAN id string
+     * @param org User organization
      * @return list of erratas found
      */
-    public static List lookupByIdentifier(String identifier) {
+    public static List lookupByIdentifier(String identifier, Org org) {
         Long eid = null;
         List retval = new LinkedList();
         Errata errata = null;
@@ -141,12 +142,12 @@ public class ErrataFactory extends HibernateFactory {
         }
         else if (identifier.length() > 4) {
             String prefix = null;
-            errata = ErrataFactory.lookupByAdvisoryId(identifier);
+            errata = ErrataFactory.lookupByAdvisoryId(identifier, org);
             if (errata != null) {
                 retval.add(errata);
             }
             else {
-                errata = ErrataFactory.lookupByAdvisory(identifier);
+                errata = ErrataFactory.lookupByAdvisory(identifier, org);
                 if (errata != null) {
                     retval.add(errata);
                 }
@@ -170,7 +171,7 @@ public class ErrataFactory extends HibernateFactory {
                         }
                     }
                     identifier = buf.toString();
-                    errata = ErrataFactory.lookupByAdvisoryId(identifier);
+                    errata = ErrataFactory.lookupByAdvisoryId(identifier, org);
                 }
                 if (errata != null) {
                     retval.add(errata);
@@ -707,22 +708,25 @@ public class ErrataFactory extends HibernateFactory {
      * Look up an errata by the advisory name. This is a unique field in the db and this
      * method is needed to help us see if a created/edited advisoryName is unique.
      * @param advisory The advisory to lookup
+     * @param org User organization
      * @return Returns the errata corresponding to the passed in advisory name.
      */
-    public static Errata lookupByAdvisory(String advisory) {
+    public static Errata lookupByAdvisory(String advisory, Org org) {
         Session session = null;
         Errata retval = null;
         //  try {
         //look for a published errata first
         session = HibernateFactory.getSession();
         retval = (Errata) session.getNamedQuery("PublishedErrata.findByAdvisoryName")
-                .setString("advisory", advisory)
+                .setParameter("advisory", advisory)
+                .setParameter("org", org)
                 .uniqueResult();
         //if nothing was found, check the unpublished errata table
         if (retval == null) {
             retval = (Errata)
                     session.getNamedQuery("UnpublishedErrata.findByAdvisoryName")
-                    .setString("advisory", advisory)
+                    .setParameter("advisory", advisory)
+                    .setParameter("org", org)
                     .uniqueResult();
         }
         //      }
@@ -736,22 +740,25 @@ public class ErrataFactory extends HibernateFactory {
     /**
      * Finds errata based on advisory id
      * @param advisoryId errata advisory id
+     * @param org User organization
      * @return Errata if found, otherwise null
      */
-    public static Errata lookupByAdvisoryId(String advisoryId) {
+    public static Errata lookupByAdvisoryId(String advisoryId, Org org) {
         Session session = null;
         Errata retval = null;
         try {
             //look for a published errata first
             session = HibernateFactory.getSession();
             retval = (Errata) session.getNamedQuery("PublishedErrata.findByAdvisory")
-                    .setString("advisory", advisoryId)
+                    .setParameter("advisory", advisoryId)
+                    .setParameter("org", org)
                     .uniqueResult();
 
             if (retval == null) {
                 retval = (Errata)
                         session.getNamedQuery("UnpublishedErrata.findByAdvisory")
-                        .setString("advisory", advisoryId)
+                        .setParameter("advisory", advisoryId)
+                        .setParameter("org", org)
                         .uniqueResult();
             }
         }

@@ -170,7 +170,7 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         Errata errata = ErrataFactory.lookupById(pubid);
         assertTrue(errata instanceof PublishedErrata);
         assertEquals(pubid, errata.getId());
-        errata = ErrataFactory.lookupByAdvisory(pubname);
+        errata = ErrataFactory.lookupByAdvisory(pubname, user.getOrg());
         assertTrue(errata instanceof PublishedErrata);
         assertEquals(pubname, errata.getAdvisoryName());
 
@@ -178,7 +178,7 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         errata = ErrataFactory.lookupById(unpubid);
         assertTrue(errata instanceof UnpublishedErrata);
         assertEquals(unpubid, errata.getId());
-        errata = ErrataFactory.lookupByAdvisory(unpubname);
+        errata = ErrataFactory.lookupByAdvisory(unpubname, user.getOrg());
         assertTrue(errata instanceof UnpublishedErrata);
         assertEquals(unpubid, errata.getId());
     }

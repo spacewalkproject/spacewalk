@@ -17,6 +17,8 @@ package com.redhat.rhn.frontend.servlets;
 import com.redhat.rhn.common.util.OvalFileAggregator;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.errata.ErrataManager;
 
 import org.apache.log4j.Logger;
@@ -53,6 +55,7 @@ public class OvalServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
 
+        User user = new RequestContext(request).getCurrentUser();
         String[] errataIds = request.getParameterValues("errata");
         if (errataIds == null || errataIds.length == 0) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -77,7 +80,7 @@ public class OvalServlet extends HttpServlet {
         }
         List erratas = new LinkedList();
         for (int x = 0; x < errataIds.length; x++) {
-            List tmp = ErrataManager.lookupErrataByIdentifier(errataIds[x]);
+            List tmp = ErrataManager.lookupErrataByIdentifier(errataIds[x], user.getOrg());
             if (tmp != null && tmp.size() > 0) {
                 erratas.addAll(tmp);
             }

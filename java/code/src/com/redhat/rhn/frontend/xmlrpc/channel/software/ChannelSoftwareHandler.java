@@ -1366,7 +1366,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
         HashSet<Errata> errataToRemove = new HashSet<Errata>();
 
         for (String erratumName : errataNames) {
-            Errata erratum = ErrataManager.lookupByAdvisory(erratumName);
+            Errata erratum = ErrataManager.lookupByAdvisory(erratumName,
+                    loggedInUser.getOrg());
 
             if (erratum != null) {
                 errataToRemove.add(erratum);
@@ -2160,7 +2161,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         // make sure our errata exist in the "from" channel
         for (String erratumName : errataNames) {
-            Errata toMerge = ErrataManager.lookupByAdvisory(erratumName);
+            Errata toMerge = ErrataManager.lookupByAdvisory(erratumName,
+                    loggedInUser.getOrg());
 
             for (Errata erratum : sourceErrata) {
                 if (erratum.getAdvisoryName() == toMerge.getAdvisoryName()) {

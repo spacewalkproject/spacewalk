@@ -24,6 +24,7 @@ import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.Keyword;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -321,8 +322,10 @@ public class EditAction extends LookupDispatchAction {
             }
         }
 
+        User user = new RequestContext((HttpServletRequest)request).getCurrentUser();
         // Make sure advisoryName is unique
-        if (!ErrataManager.advisoryNameIsUnique(errata.getId(), advisoryNameFromForm)) {
+        if (!ErrataManager.advisoryNameIsUnique(errata.getId(), advisoryNameFromForm,
+                user.getOrg())) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                        new ActionMessage("errata.edit.error.uniqueAdvisoryName"));
         }

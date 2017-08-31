@@ -63,9 +63,11 @@ public class CreateAction extends RhnAction {
         //Validate the form to make sure everything was filled out correctly
         ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this, form);
 
+        User user = requestContext.getCurrentUser();
         String advisoryNameFromForm = form.getString("advisoryName");
         //Make sure advisoryName is unique
-        if (!ErrataManager.advisoryNameIsUnique(null, advisoryNameFromForm)) {
+        if (!ErrataManager.advisoryNameIsUnique(null, advisoryNameFromForm,
+                user.getOrg())) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                        new ActionMessage("errata.edit.error.uniqueAdvisoryName"));
         }
@@ -123,7 +125,6 @@ public class CreateAction extends RhnAction {
         e.setUpdateDate(date);
 
         //Set the org for the errata to the logged in user's org
-        User user = requestContext.getCurrentUser();
         e.setOrg(user.getOrg());
 
         ErrataManager.storeErrata(e);

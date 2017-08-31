@@ -97,7 +97,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <query name="PublishedErrata.findByAdvisoryName">
         <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
-                 where e.advisoryName = :advisory]]>
+                 where e.advisoryName = :advisory and (e.org = :org or e.org is null)]]>
     </query>
     <query name="PublishedErrata.findSameInChannels">
         <![CDATA[
@@ -131,7 +131,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
     <query name="PublishedErrata.findByAdvisory">
         <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
-                 where e.advisory = :advisory]]>
+                 where e.advisory = :advisory and (e.org = :org or e.org is null)]]>
     </query>
     <query name="PublishedErrata.lookupSortedByChannel">
         <![CDATA[select e

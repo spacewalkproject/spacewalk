@@ -137,10 +137,11 @@ public class ErrataManager extends BaseManager {
      * Tries to locate errata based on either the errataum's id or the
      * CVE/CAN identifier string.
      * @param identifier erratum id or CVE/CAN id string
+     * @param org User organization
      * @return list of erratas found
      */
-    public static List lookupErrataByIdentifier(String identifier) {
-        return ErrataFactory.lookupByIdentifier(identifier);
+    public static List lookupErrataByIdentifier(String identifier, Org org) {
+        return ErrataFactory.lookupByIdentifier(identifier, org);
     }
 
     /**
@@ -717,10 +718,11 @@ public class ErrataManager extends BaseManager {
     /**
      * Returns the errata with the given advisory name
      * @param advisoryName The advisory name of the errata you're looking for
+     * @param org User organization
      * @return Returns the requested Errata
      */
-    public static Errata lookupByAdvisory(String advisoryName) {
-        return ErrataFactory.lookupByAdvisory(advisoryName);
+    public static Errata lookupByAdvisory(String advisoryName, Org org) {
+        return ErrataFactory.lookupByAdvisory(advisoryName, org);
     }
 
     /**
@@ -948,11 +950,12 @@ public class ErrataManager extends BaseManager {
      * Sees if there is an errata with the same advisory name as the errata with eid
      * @param eid The id of the errata you're checking
      * @param name The advisory name you're checking
+     * @param org User organization
      * @return Returns true if no other errata exists with the same advisoryName, false
      * otherwise.
      */
-    public static boolean advisoryNameIsUnique(Long eid, String name) {
-        Errata e = lookupByAdvisory(name);
+    public static boolean advisoryNameIsUnique(Long eid, String name, Org org) {
+        Errata e = lookupByAdvisory(name, org);
         //If we can't find an errata, then the advisoryName is unique
         if (e == null) {
             return true;
