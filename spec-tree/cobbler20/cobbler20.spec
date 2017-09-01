@@ -34,6 +34,7 @@ Patch20: buildiso-no-local-hdd.patch
 Patch21: cobbler-s390-kernel-options.patch
 Patch22: cobbler-ipv6.patch
 #Patch23: kickstart-autoinstall-rename.patch
+Patch24: cobbler-unquote-possibly-quoted-url.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -145,6 +146,7 @@ a XMLRPC API for integration with other applications.
 %patch21 -p1
 %patch22 -p1
 #%patch23 -p1
+%patch24 -p1
 
 %build
 %{__python} setup.py build 

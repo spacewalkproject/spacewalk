@@ -1,0 +1,18 @@
+diff -Naur cobbler-2.0.11.orig/scripts/services.wsgi cobbler-2.0.11/scripts/services.wsgi
+--- cobbler-2.0.11.orig/scripts/services.wsgi	2017-09-01 10:34:10.372509105 +0200
++++ cobbler-2.0.11/scripts/services.wsgi	2017-09-01 10:40:57.217564364 +0200
+@@ -22,12 +22,13 @@
+ import yaml
+ import os
+ import xmlrpclib
++import urllib
+ 
+ from cobbler.services import CobblerSvc
+ 
+ def application(environ, start_response):
+ 
+-    my_uri = environ['REQUEST_URI']
++    my_uri = urllib.unquote(environ['REQUEST_URI'])
+     
+     form = {}
+ 
