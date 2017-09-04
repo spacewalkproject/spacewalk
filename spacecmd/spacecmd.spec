@@ -16,7 +16,6 @@ Group:       Applications/System
 License:     GPLv3+
 URL:         https://github.com/spacewalkproject/spacewalk/wiki/spacecmd
 Source:      https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 
 %if 0%{?pylint_check}
