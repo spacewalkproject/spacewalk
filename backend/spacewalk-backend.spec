@@ -36,7 +36,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.3
+Version: 2.8.4
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -789,6 +789,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Mon Sep 04 2017 Jan Dobes 2.8.4-1
+- 1456719 - save the package to the same org as erratum
+
 * Tue Aug 29 2017 Jan Dobes 2.8.3-1
 - it's now python2-gzipstream
 
