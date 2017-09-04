@@ -155,7 +155,7 @@ def do_org_delete(self, args):
     name = args[0]
     org_id = self.get_org_id(name)
 
-    if self.org_confirm('Delete this organization [y/N]:'):
+    if self.user_confirm('Delete this organization [y/N]:'):
         self.client.org.delete(self.session, org_id)
 
 ####################
