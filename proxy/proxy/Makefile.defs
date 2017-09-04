@@ -25,10 +25,9 @@ INSTALL_DIR	= $(INSTALL) -m 755 -d
 
 # This is for the subdir part
 PYFILES		= $(addsuffix .py,$(FILES))
-PYCFILES	= $(addsuffix .pyc,$(FILES))
 
 # what do we need to install and where
-INSTALL_FILES	+= $(PYFILES) $(PYCFILES)
+INSTALL_FILES	+= $(PYFILES)
 INSTALL_DEST	?= $(ROOT)/$(SUBDIR)
 
 DIRS		+= $(addprefix $(PREFIX), \
@@ -47,12 +46,6 @@ clean ::
 	@rm -fv *~ *.pyc *.pyo .??*~
 	@rm -fv .\#*
 	@rm -fv core
-
-# default compile rules
-%.pyc : %.py
-	python -c "import compileall; compileall.compile_dir('$(CURDIR)')"
-%.pyo : %.py
-	python -OO -c "import compileall; compileall.compile_dir('$(CURDIR)')"
 
 # useful macro
 descend-subdirs = @$(foreach d,$(SUBDIRS), $(MAKE) -C $(d) $@ || exit 1; )
