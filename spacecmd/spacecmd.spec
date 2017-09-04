@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.8.1
+Version:     2.8.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -91,6 +91,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Sep 04 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- removed unnecessary BuildRoot tag
+
 * Tue Aug 22 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.1-1
 - 1429944 - in case of system named by id, let id take precedence
 - Bumping package versions for 2.8.
