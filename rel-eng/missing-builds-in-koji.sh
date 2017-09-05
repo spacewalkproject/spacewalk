@@ -17,6 +17,17 @@ pushd `dirname $0`/.. >/dev/null
 # say python to be nice to pipe
 export PYTHONUNBUFFERED=1
 
+case "$TITO_RELEASER" in
+        copr) KOJI_MISSING_BUILD_ARG=--copr
+                ;;
+        brew) KOJI_MISSING_BUILD_ARG=--brew
+                ;;
+        koji) ;;
+        *) echo "unknown builder" >&2
+           exit 1
+                ;;
+esac
+
 for tag in $TAGS; do
   rel-eng/koji-missing-builds.py $KOJI_MISSING_BUILD_ARG --no-extra $tag | \
     perl -lne '/^\s+(.+)-.+-.+$/ and print $1' \
