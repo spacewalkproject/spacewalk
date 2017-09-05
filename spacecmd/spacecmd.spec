@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.8.2
+Version:     2.8.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -91,6 +91,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Sep 05 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.3-1
+- 1487684 - spacecmd ERROR: SpacewalkShell instance has no attribute
+  'org_confirm'
+
 * Mon Sep 04 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - removed unnecessary BuildRoot tag
 
