@@ -60,6 +60,3 @@ rm -rf $RPM_BUILD_ROOT
 * Tue Nov 02 2010 Jan Pazdziora 2.1-1
 - Update copyright years in the rest of the repo.
 
-* Tue May 04 2010 Jan Pazdziora 2.0-1
-- 461270 - replace our own ssl-cert-check with stock certwatch.
-
