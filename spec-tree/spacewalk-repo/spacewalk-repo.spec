@@ -32,16 +32,16 @@ mkdir -p $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 # some sane default value
-%define reposubdir      RHEL/%{rhel}
+%define reposubdir      epel-%{rhel}
 # redefine on fedora
-%{?fedora: %define reposubdir      Fedora/\\\$releasever}
+%{?fedora: %define reposubdir      fedora-\\\$releasever}
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk.repo <<REPO
 [spacewalk]
 name=Spacewalk
-baseurl=http://yum.spacewalkproject.org/%{version}/%{reposubdir}/\$basearch/
-gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2015
+baseurl=https://copr-be.cloud.fedoraproject.org/results/@spacewalkproject/spacewalk-%{version}/%{reposubdir}-\$basearch/
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/@spacewalkproject/spacewalk-%{version}/pubkey.gpg
 enabled=1
 gpgcheck=1
 REPO
@@ -49,37 +49,28 @@ REPO
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-client.repo <<REPO
 [spacewalk-client]
 name=Spacewalk Client Tools
-baseurl=http://yum.spacewalkproject.org/%{version}-client/%{reposubdir}/\$basearch/
-gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2015
+baseurl=https://copr-be.cloud.fedoraproject.org/results/@spacewalkproject/spacewalk-%{version}-client/%{reposubdir}-\$basearch/
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/@spacewalkproject/spacewalk-%{version}-client/pubkey.gpg
 enabled=1
-gpgcheck=1
-REPO
-
-cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-source.repo <<REPO
-[spacewalk-source]
-name=Spacewalk SRPMS
-baseurl=http://yum.spacewalkproject.org/%{version}/%{reposubdir}/source/
-gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2015
-enabled=0
 gpgcheck=1
 REPO
 
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-nightly.repo <<REPO
 [spacewalk-nightly]
 name=Spacewalk nightly
-baseurl=http://yum.spacewalkproject.org/nightly/%{reposubdir}/\$basearch/
-gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2015
+baseurl=https://copr-be.cloud.fedoraproject.org/results/@spacewalkproject/nightly/%{reposubdir}-\$basearch/
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/@spacewalkproject/nightly/pubkey.gpg
 enabled=0
-gpgcheck=0
+gpgcheck=1
 REPO
 
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo <<REPO
 [spacewalk-client-nightly]
 name=Spacewalk Client Tools nightly
-baseurl=http://yum.spacewalkproject.org/nightly-client/%{reposubdir}/\$basearch/
-gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2015
+baseurl=https://copr-be.cloud.fedoraproject.org/results/@spacewalkproject/nightly-client/%{reposubdir}-\$basearch/
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/@spacewalkproject/nightly-client/pubkey.gpg
 enabled=0
-gpgcheck=0
+gpgcheck=1
 REPO
 
 %clean
@@ -87,9 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk.repo
-%config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-source.repo
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-nightly.repo
-%config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-source.repo
 
 %files -n spacewalk-client-repo
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-client.repo
