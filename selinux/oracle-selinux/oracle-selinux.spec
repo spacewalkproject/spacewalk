@@ -120,7 +120,7 @@ rm -rf %{buildroot}
 # Install SELinux policy modules
 for selinuxvariant in %{selinux_variants}
   do
-    if /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
+    if /usr/sbin/semanage module -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
       /usr/sbin/semodule -s ${selinuxvariant} \
         -i %{_datadir}/selinux/${selinuxvariant}/%{modulename}-port.pp \
         -i %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp > /dev/null 2>&1 \
@@ -171,7 +171,7 @@ if [ $1 -eq 0 ]; then
   # Remove SELinux policy modules
   for selinuxvariant in %{selinux_variants}
     do
-      if /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
+      if /usr/sbin/semanage module -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
         /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
         /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename}-port || :
       fi
@@ -194,7 +194,7 @@ if [ $1 -eq 0 ]; then
   # Remove SELinux policy modules
   for selinuxvariant in %{selinux_variants}
     do
-      if /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
+      if /usr/sbin/semanage module -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
         /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename}-nofcontext || :
         /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename}-port || :
       fi
