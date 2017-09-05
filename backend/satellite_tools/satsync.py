@@ -1659,7 +1659,7 @@ class Syncer:
                 # sync
                 continue
             package = sp_coll.get_package(pid)
-	    package['org_id'] = erratum['org_id']
+            package['org_id'] = erratum['org_id']
 
             packages.append(package)
 
@@ -2037,7 +2037,7 @@ def _getImportedChannels(withAdvisory=None):
 				    and e.org_id = :org_id
         """
         query_args={"advisory": withAdvisory["advisory_name"],
-                   "org_id": withAdvisory["org_id"]}
+                    "org_id": withAdvisory["org_id"]}
 
     if not OPTIONS.include_custom_channels:
         query += " where c.org_id is null"
