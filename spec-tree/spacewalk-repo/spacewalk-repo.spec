@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
 Version: 2.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 Group: System Environment/Base
 # This src.rpm is cannonical upstream
@@ -85,6 +85,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
+* Tue Sep 05 2017 Michael Mraka <michael.mraka@redhat.com> 2.8-2
+- 1488441 - spacewalk repo is now in COPR
+
 * Thu Aug 17 2017 Eric Herget <eherget@redhat.com> 2.8-1
 - Bumping spacewalk-repo version for 2.8.
 
