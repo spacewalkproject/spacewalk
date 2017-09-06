@@ -1,6 +1,6 @@
 Name: spacewalk-ssl-cert-check
 Epoch:	 1
-Version: 2.6
+Version: 2.7
 Release: 1%{?dist}
 Summary: Check ssl certs for impending expiration
 Group:   Applications/System
@@ -39,6 +39,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.7-1
+- purged changelog entries for Spacewalk 2.0 and older
+
 * Mon Jul 31 2017 Michael Mraka <michael.mraka@redhat.com> 2.6-1
 - move version and release before sources
 
