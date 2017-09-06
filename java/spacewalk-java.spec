@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.12
+Version: 2.8.13
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,12 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed Sep 06 2017 Jiri Dostal <jdostal@redhat.com> 2.8.13-1
+- Show custom error message in the UI on exception
+- Remove unused parameter
+- Activate ErrorStatusFilter via dispatcher in case of error
+- Drop messages from the session in case of error page
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.12-1
 - purged changelog entries for Spacewalk 2.0 and older
 
