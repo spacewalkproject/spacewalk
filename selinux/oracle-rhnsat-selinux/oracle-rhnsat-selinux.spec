@@ -5,7 +5,7 @@
 %define modulename oracle-rhnsat
 
 Name:            oracle-rhnsat-selinux
-Version:         10.2.0.25
+Version:         10.2.0.26
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -106,6 +106,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 10.2.0.26-1
+- fixed selinux error messages during package install, see related BZ#1446487
+
 * Mon Jul 17 2017 Jan Dobes 10.2.0.25-1
 - Updated links to github in spec files
 
