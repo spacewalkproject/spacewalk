@@ -112,6 +112,7 @@ sub parse_options {
             "skip-db-population",
             "skip-gpg-key-import",
             "skip-ssl-cert-generation",
+	    "skip-ssl-ca-generation",
             "skip-ssl-vhost-setup",
             "skip-services-check",
             "skip-services-restart",
@@ -136,7 +137,7 @@ sub parse_options {
 
   my $usage = loc("usage: %s %s\n",
                   $0,
-                  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --skip-services-restart ] [ --clear-db ] [ --re-register ] [ --upgrade ] [ --run-updater=<yes|no>] [--run-cobbler] [ --enable-tftp=<yes|no>] [ --external-oracle | --external-postgresql [ --external-postgresql-over-ssl ] ]" );
+                  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-ca-generation] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --skip-services-restart ] [ --clear-db ] [ --re-register ] [ --upgrade ] [ --run-updater=<yes|no>] [--run-cobbler] [ --enable-tftp=<yes|no>] [ --external-oracle | --external-postgresql [ --external-postgresql-over-ssl ] ]" );
 
   # Terminate if any errors were encountered parsing the command line args:
   my %opts;
@@ -1931,6 +1932,10 @@ Do not import Red Hat's GPG key.
 =item B<--skip-ssl-cert-generation>
 
 Do not generate the SSL certificates for the Satellite.
+
+=item B<--skip-ssl-ca-generation>
+
+Do not generate the SSL CA, use existing CA to sign certificate for the Satellite.
 
 =item B<--skip-ssl-vhost-setup>
 

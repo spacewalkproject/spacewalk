@@ -465,28 +465,41 @@ sub setup_ssl_certs {
     return;
   }
 
-  my ($password_1, $password_2);
+  my ($password, $password_1, $password_2);
 
   unless ($answers->{"ssl-password"}) {
-    do {
-      ($password_1, $password_2) = (undef, undef); # clear previous passwords
-      Spacewalk::Setup::ask(
-        -noninteractive => $opts{"non-interactive"},
-        -question => "CA certificate password",
-          -test => \&valid_ssl_cert_password,
-          -answer => \$password_1,
-          -password => 1,
-         );
+    unless ($opts{"skip-ssl-ca-generation"})
+    {
+      do {
+        ($password_1, $password_2) = (undef, undef); # clear previous passwords
+        Spacewalk::Setup::ask(
+          -noninteractive => $opts{"non-interactive"},
+          -question => "CA certificate password",
+            -test => \&valid_ssl_cert_password,
+            -answer => \$password_1,
+            -password => 1,
+           );
 
-      Spacewalk::Setup::ask(
-        -noninteractive => $opts{"non-interactive"},
-          -question => "Re-enter CA certificate password",
-          -test => \&valid_ssl_cert_password,
-          -answer => \$password_2,
-          -password => 1,
-         );
-    } until (passwords_match($password_1, $password_2));
-
+        Spacewalk::Setup::ask(
+          -noninteractive => $opts{"non-interactive"},
+            -question => "Re-enter CA certificate password",
+            -test => \&valid_ssl_cert_password,
+            -answer => \$password_2,
+            -password => 1,
+           );
+      } until (passwords_match($password_1, $password_2));
+    } else{
+      do{
+	$password = undef;
+        Spacewalk::Setup::ask(
+          -noninteractive => $opts{"non-interactive"},
+          -question => "CA certificate password",
+            -test => \&valid_ssl_cert_password,
+            -answer => \$password,
+            -password => 1,
+           );
+      } until (check_ca_key($password)==0);
+    }
     $answers->{"ssl-password"} ||= $password_1;
   };
 
@@ -581,18 +594,25 @@ sub setup_ssl_certs {
   $answers->{'ssl-server-rpm'} ||= 'rhn-org-httpd-ssl-key-pair-' . $system_name;
   $answers->{'ssl-dir'} ||= '/root/ssl-build';
 
-  print Spacewalk::Setup::loc("** SSL: Generating CA certificate.\n");
+  unless ($opts->{"skip-ssl-ca-generation"}) {
+    print Spacewalk::Setup::loc("** SSL: Generating CA certificate.\n");
 
-  generate_ca_cert(-dir => $answers->{'ssl-dir'},
-                   -password => $answers->{'ssl-password'},
-                   '-set-country' => $answers->{'ssl-set-country'},
-                   '-set-state' => $answers->{'ssl-set-state'},
-                   '-set-city' => $answers->{'ssl-set-city'},
-                   '-set-org' => $answers->{'ssl-set-org'},
-                   '-set-org-unit' => $answers->{'ssl-set-org-unit'},
-                   '-set-common-name' => $answers->{'ssl-set-common-name'},
-                   '-cert-expiration' => $answers->{'ssl-ca-cert-expiration'},
-                  );
+    generate_ca_cert(-dir => $answers->{'ssl-dir'},
+                     -password => $answers->{'ssl-password'},
+                     '-set-country' => $answers->{'ssl-set-country'},
+                     '-set-state' => $answers->{'ssl-set-state'},
+                     '-set-city' => $answers->{'ssl-set-city'},
+                     '-set-org' => $answers->{'ssl-set-org'},
+                     '-set-org-unit' => $answers->{'ssl-set-org-unit'},
+                     '-set-common-name' => $answers->{'ssl-set-common-name'},
+                     '-cert-expiration' => $answers->{'ssl-ca-cert-expiration'},
+                    );
+  } else {
+    check_ca_cert();
+    print Spacewalk::Setup::loc("** SSL: Generating CA rpm from present CA cert.\n");
+
+    generate_ca_rpm(-dir => $answers->{'ssl-dir'});
+  }
 
   print Spacewalk::Setup::loc("** SSL: Deploying CA certificate.\n");
 
@@ -658,6 +678,16 @@ sub generate_ca_cert {
 
     push @opts, qq(--$name=$params{$name});
   }
+
+  Spacewalk::Setup::system_or_exit(['/usr/bin/rhn-ssl-tool', @opts], 35, 'Could not generate CA certificate.');
+
+  return;
+}
+
+sub generate_ca_rpm {
+  my %params = validate(@_, {dir => 1});
+
+  my @opts = ( "--gen-ca", "--rpm-only", "--dir=$params{dir}" );
 
   Spacewalk::Setup::system_or_exit(['/usr/bin/rhn-ssl-tool', @opts], 35, 'Could not generate CA certificate.');
 
@@ -985,6 +1015,15 @@ sub setup_users_and_groups {
     }
 
     return 1;
+}
+
+sub check_ca_key{
+  my $password = shift;
+  return Spacewalk::Setup::system_debug('/usr/bin/rhn-ssl-tool',"--check-key", "--password=$password");
+}
+
+sub check_ca_cert{
+  return Spacewalk::Setup::system_debug('/usr/bin/rhn-ssl-tool',"--check-cert");
 }
 
 sub valid_multiple_email {
