@@ -17,7 +17,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.8.0
+Version:    2.8.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -124,6 +124,10 @@ rm -rf %{buildroot}
 %{wwwdocroot}/css/*.less
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- Bumping package versions for 2.8.
+
 * Fri Jul 28 2017 Jan Dobes 2.7.5-1
 - bumping version to fix RHEL 7 build
 
