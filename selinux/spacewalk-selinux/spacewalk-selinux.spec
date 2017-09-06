@@ -8,7 +8,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        2.8.0
+Version:        2.8.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -118,6 +118,11 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- fixed selinux error messages during package install, see related BZ#1446487
+- Bumping package versions for 2.8.
+
 * Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.6-1
 - 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
   27
