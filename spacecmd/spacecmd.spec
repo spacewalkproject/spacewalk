@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.8.3
+Version:     2.8.4
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -91,6 +91,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
+- purged changelog entries for Spacewalk 2.0 and older
+
 * Tue Sep 05 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.3-1
 - 1487684 - spacecmd ERROR: SpacewalkShell instance has no attribute
   'org_confirm'
