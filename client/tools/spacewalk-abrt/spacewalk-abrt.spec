@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        2.8.0
+Version:        2.8.1
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -47,6 +47,10 @@ service abrtd restart
 %{_mandir}/man8/*
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- Bumping package versions for 2.8.
+
 * Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 2.7.3-1
 - update copyright year
 
