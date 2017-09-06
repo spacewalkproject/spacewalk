@@ -7,7 +7,7 @@
 %global modulename jabber
 
 Name:           jabberd-selinux
-Version:        2.8.0
+Version:        2.8.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
@@ -105,6 +105,11 @@ rpm -ql jabberd | xargs -n 1 %{sbinpath}/restorecon -ri {} || :
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- fixed selinux error messages during package install, see related BZ#1446487
+- Bumping package versions for 2.8.
+
 * Mon Jul 17 2017 Jan Dobes 2.7.1-1
 - Use HTTPS in all Github links
 - Updated links to github in spec files
