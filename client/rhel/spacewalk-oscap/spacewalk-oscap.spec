@@ -1,5 +1,5 @@
 Name:		spacewalk-oscap
-Version:	2.8.0
+Version:	2.8.1
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -54,6 +54,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- Bumping package versions for 2.8.
+
 * Thu May 18 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.1-1
 - 1451778 - require openscap-utils on rhel for backward compatibility
 - Updated links to github in spec files
