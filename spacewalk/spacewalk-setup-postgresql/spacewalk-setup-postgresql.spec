@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-postgresql
-Version:        2.8.0
+Version:        2.8.1
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 Group:          Applications/System
@@ -65,6 +65,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- Bumping package versions for 2.8.
+
 * Tue May 09 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.3-1
 - 1447591 - pull in spacewalk-dobby just on postgresql
 
