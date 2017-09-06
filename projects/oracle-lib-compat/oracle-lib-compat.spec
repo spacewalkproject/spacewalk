@@ -1,5 +1,5 @@
 Name:           oracle-lib-compat
-Version:        11.2.0.14
+Version:        11.2.0.15
 Release:        1%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
@@ -107,6 +107,9 @@ find %{_prefix}/lib/oracle/%{icdir} \
         | xargs execstack -c
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 11.2.0.15-1
+- purged changelog entries for Spacewalk 2.0 and older
+
 * Mon Jul 17 2017 Jan Dobes 11.2.0.14-1
 - Remove more fedorahosted links
 - Updated links to github in spec files
