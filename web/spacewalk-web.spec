@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.1
+Version: 2.8.2
 Release: 1%{?dist}
 URL:          https://github.com/spacewalkproject/spacewalk/
 Source0:      https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -155,6 +155,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- purged changelog entries for Spacewalk 2.0 and older
+
 * Thu Aug 17 2017 Eric Herget <eherget@redhat.com> 2.8.1-1
 - Bumping web.version for 2.8.
 - Bumping package versions for 2.8.
