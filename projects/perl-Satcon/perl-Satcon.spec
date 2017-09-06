@@ -2,7 +2,7 @@
 
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        2.8.0
+Version:        2.8.1
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
@@ -67,6 +67,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- Bumping package versions for 2.8.
+
 * Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.3-1
 - 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
   27
