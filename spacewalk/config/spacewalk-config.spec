@@ -10,7 +10,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.8.1
+Version: 2.8.2
 Release: 1%{?dist}
 URL: https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -145,6 +145,9 @@ sysconf_addword /etc/sysconfig/apache2 APACHE_SERVER_FLAGS ISSUSE
 %endif
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- purged changelog entries for Spacewalk 2.0 and older
+
 * Tue Aug 22 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.1-1
 - Corrected variables for Taskomatic memory in rhn.conf and added documentation
   for taskomatic.java.initmemory
