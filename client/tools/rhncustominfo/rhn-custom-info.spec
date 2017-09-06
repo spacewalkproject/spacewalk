@@ -1,6 +1,6 @@
 Name: rhn-custom-info
 Summary: Set and list custom values for RHN-enabled machines
-Version: 5.4.37
+Version: 5.4.38
 Release: 1%{?dist}
 Group: Applications/System
 License: GPLv2
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.38-1
+- purged changelog entries for Spacewalk 2.0 and older
+
 * Wed Aug 09 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.37-1
 - fixed python3 buildrequires
 
