@@ -20,7 +20,7 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.1.23.39
+Version:         0.1.23.40
 Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -215,6 +215,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 0.1.23.40-1
+- purged changelog entries for Spacewalk 2.0 and older
+- fixed selinux error messages during package install, see related BZ#1446487
+
 * Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 0.1.23.39-1
 - 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
   27
