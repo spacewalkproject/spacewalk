@@ -10,7 +10,6 @@ Group: System Environment/Base
 # cd spec-tree/spacewalk-repo
 # make test-srpm
 URL:          https://github.com/spacewalkproject/spacewalk
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
 
 %description
