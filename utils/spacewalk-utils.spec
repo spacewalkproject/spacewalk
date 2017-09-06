@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.8.1
+Version:	2.8.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- purged changelog entries for Spacewalk 2.0 and older
+- use standard brp-python-bytecompile
+
 * Thu Aug 24 2017 Ondrej Gajdusek <ogajduse@redhat.com>
 - PR 566 - Add spacewalk client and server repos for Fedora 25 and 26
 - Bumping package versions for 2.8.
