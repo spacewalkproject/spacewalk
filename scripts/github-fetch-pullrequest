@@ -7,6 +7,8 @@ Usage:
   * PROG <n> -- Fetches the pull request #n, creates separate branch
         for it, rebases it on top of requested branch (usually master)
         and deletes remote.
+  * PROG <n> [--ignore-dirty | -i] -- fetch PR without checking local
+        repository
 """
 
 import git
@@ -66,11 +68,12 @@ def guess_USER_REPO():
     return a.get('upstream') or a.get('origin')
 
 
-def prepare_repo(repo, req_num, master):
+def prepare_repo(repo, req_num, master, ignore_dirty):
     """Main functionality"""
-    if repo.is_dirty() or repo.untracked_files:
-        print "Repo is dirty (uncommited changes/untracked files)."
-        sys.exit(1)
+    if not ignore_dirty:
+        if repo.is_dirty() or repo.untracked_files:
+            print "Repo is dirty (uncommited changes/untracked files)."
+            sys.exit(1)
 
     pull_request = get_pull_request(req_num)
 
@@ -113,10 +116,13 @@ if __name__ == "__main__":
     USER, REPO = guess_USER_REPO()
     master = False
     req_num = None
+    ignore_dirty = False
 
     for arg in sys.argv:
         if arg in ("--master", "-m"):
             master = True
+        elif arg in ("--ignore-dirty", "-i"):
+            ignore_dirty = True
         else:
             try:
                 req_num = int(arg)
@@ -128,4 +134,4 @@ if __name__ == "__main__":
         sys.exit(0)
 
     setup_token()
-    prepare_repo(repo, req_num, master)
+    prepare_repo(repo, req_num, master, ignore_dirty)
