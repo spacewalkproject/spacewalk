@@ -3,7 +3,7 @@
 %global client_caps_dir %{rhnconf}/clientCaps.d
 
 Name: rhncfg
-Version: 5.10.110
+Version: 5.10.111
 Release: 1%{?dist}
 Summary: Spacewalk Configuration Client Libraries
 Group:   Applications/System
@@ -134,6 +134,9 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.111-1
+- purged changelog entries for Spacewalk 2.0 and older
+
 * Wed Aug 09 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.110-1
 - precompile py3 bytecode on Fedora 23+
 - use standard brp-python-bytecompile
