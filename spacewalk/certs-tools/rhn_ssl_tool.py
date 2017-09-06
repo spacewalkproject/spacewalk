@@ -290,7 +290,6 @@ ERROR: a CA private key already exists:
     # permissions:
     os.chmod(ca_key, int('0600',8))
 
-
 def genPublicCaCert_dependencies(password, d, forceYN=0):
     """ public CA certificate (client-side) generation """
 
@@ -1146,6 +1145,51 @@ def genServer_dependencies(password, d):
         sys.stderr.write('ERROR: a CA password must be supplied.\n')
         sys.exit(errnoGeneralError)
 
+def checkCaKey(password, d, verbosity=0):
+    """ check CA key's password """
+
+    ca_key = os.path.join(d['--dir'], os.path.basename(d['--ca-key']))
+
+    args = ("/usr/bin/openssl rsa -in %s -check -passin pass:%s"
+            % (repr(cleanupAbsPath(cleanupAbsPath(ca_key))), "%s"))
+
+    if verbosity >= 0:
+        print "\nChecking private CA key's password: %s" % ca_key
+    if verbosity > 1:
+        print "Commandline:", args % "PASSWORD"
+
+    ret, out_stream, err_stream = rhn_popen(args % repr(password))
+
+    out = out_stream.read(); out_stream.close()
+    err = err_stream.read(); err_stream.close()
+    if ret:
+        raise GenPrivateCaKeyException("Certificate Authority private "
+                                   "key's password does not match or "
+                                   "key broken:\n%s\n"
+                                   "%s" % (out, err))
+
+def checkCaCert(d, verbosity=0):
+    """ check CA key's password """
+
+    ca_cert = os.path.join(d['--dir'], os.path.basename(d['--ca-cert']))
+
+    args = ("/usr/bin/openssl x509 -in %s -noout"
+            % (repr(cleanupAbsPath(cleanupAbsPath(ca_cert)))))
+
+    if verbosity >= 0:
+        print "\nChecking CA cert's validity: %s" % ca_cert
+    if verbosity > 1:
+        print "Commandline:", args
+
+    ret, out_stream, err_stream = rhn_popen(args)
+
+    out = out_stream.read(); out_stream.close()
+    err = err_stream.read(); err_stream.close()
+    if ret:
+        raise GenPrivateCaKeyException("Certificate Authority certificate "
+                                   "does not exist or is broken:\n%s\n"
+                                   "%s" % (out, err))
+
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -1155,6 +1199,12 @@ def _main():
     options = processCommandline()
 
     legacyTreeFixup(DEFS)
+
+    if getOption(options, 'check_key'):
+        checkCaKey(getCAPassword(options), DEFS)
+
+    if getOption(options, 'check_cert'):
+        checkCaCert(DEFS)
 
     if getOption(options, 'gen_ca'):
         if getOption(options, 'key_only'):
