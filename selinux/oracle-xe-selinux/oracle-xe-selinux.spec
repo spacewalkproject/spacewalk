@@ -6,7 +6,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:            oracle-xe-selinux
-Version:         10.2.0.44
+Version:         10.2.0.45
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
@@ -143,6 +143,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 10.2.0.45-1
+- purged changelog entries for Spacewalk 2.0 and older
+- fixed selinux error messages during package install, see related BZ#1446487
+
 * Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 10.2.0.44-1
 - 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
   27
