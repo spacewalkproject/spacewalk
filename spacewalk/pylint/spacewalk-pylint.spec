@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	2.8.0
+Version:	2.8.1
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -74,6 +74,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- Bumping package versions for 2.8.
+
 * Wed Jun 07 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.2-1
 - use python2 pylint even on Fedora 26+
 
