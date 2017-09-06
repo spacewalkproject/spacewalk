@@ -73,6 +73,53 @@ enabled=0
 gpgcheck=1
 REPO
 
+%if 0%{rhel}
+
+add_java_packages_repo() {
+        local repofile=$1
+        local enabled=$2
+
+        cat >>$repofile <<REPO
+
+[group_spacewalkproject-java-packages]
+name=Copr repo for java-packages owned by @spacewalkproject
+baseurl=https://copr-be.cloud.fedoraproject.org/results/@spacewalkproject/java-packages/epel-7-x86_64/
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/@spacewalkproject/java-packages/pubkey.gpg
+gpgcheck=1
+repo_gpgcheck=0
+enabled=$enabled
+enabled_metadata=1
+REPO
+}
+
+add_epel6_addons_repo() {
+        local repofile=$1
+        local enabled=$2
+
+        cat >>$repofile <<REPO
+
+[group_spacewalkproject-epel6-addons]
+name=Copr repo for epel6-addons owned by @spacewalkproject
+baseurl=https://copr-be.cloud.fedoraproject.org/results/@spacewalkproject/epel6-addons/epel-6-x86_64/
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/@spacewalkproject/epel6-addons/pubkey.gpg
+gpgcheck=1
+repo_gpgcheck=0
+enabled=$enabled
+enabled_metadata=1
+REPO
+}
+
+add_java_packages_repo $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk.repo 1
+add_java_packages_repo $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-nightly.repo 0
+
+%if 0%{rhel} == 6
+add_epel6_addons_repo $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk.repo 1
+add_epel6_addons_repo $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-nightly.repo 0
+%endif
+
+%endif
+
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
