@@ -18,7 +18,6 @@ License:         GPLv2+
 # make srpm TAG=%{name}-%{version}-%{release}
 URL:             https://github.com/spacewalkproject/spacewalk
 Source0:         https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:       %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 %if 0%{?fedora} && 0%{?fedora} > 26
 BuildRequires:   perl-interpreter
 %else

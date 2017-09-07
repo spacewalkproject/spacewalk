@@ -12,7 +12,6 @@ Group:       Applications/System
 License:     GPLv2
 URL:         https://github.com/spacewalkproject/spacewalk
 Source:      https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 
 BuildRequires: python-devel
