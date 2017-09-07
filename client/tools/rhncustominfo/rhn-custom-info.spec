@@ -6,7 +6,6 @@ Group: Applications/System
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
-BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
 %if 0%{?fedora} >= 23
 BuildRequires: python3-devel
