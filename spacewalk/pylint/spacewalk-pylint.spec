@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	2.8.1
+Version:	2.8.2
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -73,6 +73,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Sep 07 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- removed unnecessary BuildRoot tag
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
 - purged changelog entries for Spacewalk 2.0 and older
 - Bumping package versions for 2.8.
