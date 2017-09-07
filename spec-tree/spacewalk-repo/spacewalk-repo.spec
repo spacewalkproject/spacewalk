@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
 Version: 2.8
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2
 Group: System Environment/Base
 # This src.rpm is cannonical upstream
@@ -131,6 +131,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
+* Thu Sep 07 2017 Michael Mraka <michael.mraka@redhat.com> 2.8-5
+- don't fail if macro is undefined
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8-4
 - removed unnecessary BuildRoot tag
 
