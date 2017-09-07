@@ -2239,7 +2239,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       </trans-unit>
       <trans-unit id="actions.jsp.totalnote">
         <source>
-          Note: For multi-system scheduled actions, the ability to cancel individual 
+          Note: For multi-system scheduled actions, the ability to cancel individual
           systems means that the number of clients mentioned in the Action column may not match the number in Total.
         </source>
         <context-group name="ctx">
@@ -18721,7 +18721,7 @@ given channel.</source>
         <source>
         @@PRODUCT_NAME@@ allows administrators to efficiently manage the systems on their network.
         Through a simple user interface, administrators can perform patch management, updates, and maintenance.
-        @@PRODUCT_NAME@@ provide advanced capabilities and the ability to get updates directly from Red Hat with even greater levels of security and reduced network bandwidth.
+        @@PRODUCT_NAME@@ provides advanced capabilities and the ability to get updates directly from Red Hat with even greater levels of security and reduced network bandwidth.
         </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/about</context>
@@ -18742,7 +18742,7 @@ given channel.</source>
         optimization and control of their systems.
         By using a @@PRODUCT_NAME@@ Proxy server in conjunction with the @@PRODUCT_NAME@@ server,
         the customer's individual systems connect to a locally hosted Proxy.
-        The Proxy aggregate data and performs some tasks locally, communicating with the central @@PRODUCT_NAME@@ servers.
+        The Proxy aggregates data and performs some tasks locally, communicating with the central @@PRODUCT_NAME@@ servers.
         All information stored in the @@PRODUCT_NAME@@ database is kept on the @@PRODUCT_NAME@@ servers.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/about</context>
@@ -20804,7 +20804,7 @@ given channel.</source>
         <trans-unit id="iss.error.master.exists">
           <source>Master with domain name {0} already defined</source>
         </trans-unit>
-        
+
       </group>
       <group>
         <context-group name="ctx">
