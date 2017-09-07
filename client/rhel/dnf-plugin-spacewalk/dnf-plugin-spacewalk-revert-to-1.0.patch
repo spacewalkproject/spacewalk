@@ -57,6 +57,15 @@ diff --git a/client/rhel/dnf-plugin-spacewalk/actions/packages.py b/client/rhel/
 index 86ab72b..5516d1c 100644
 --- a/client/rhel/dnf-plugin-spacewalk/actions/packages.py
 +++ b/client/rhel/dnf-plugin-spacewalk/actions/packages.py
+@@ -125,7 +125,7 @@ def update(package_list, cache_only=None):
+         else:
+             ret = (0, "Requested packages already installed", {})
+         # workaround for RhBug:1218071
+-        base._plugins._unload()
++        base._plugins.unload()
+         base.close()
+         return ret
+ 
 @@ -271,8 +271,10 @@ def _dnf_base(load_system_repo=True, load_available_repos=True):
      # initialize dnf
      base = dnf.Base()
@@ -70,3 +79,12 @@ index 86ab72b..5516d1c 100644
      if load_available_repos:
          base.read_all_repos()
      base.fill_sack(load_system_repo=True, load_available_repos=True)
+@@ -335,7 +335,7 @@ def _dnf_transaction(base, install=[], remove=[], full_update=False,
+         return (status, message, data)
+     finally:
+         # workaround for RhBug:1218071
+-        base._plugins._unload()
++        base._plugins.unload()
+         base.close()
+ 
+     return (0, "Update Succeeded", {})

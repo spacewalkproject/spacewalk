@@ -125,7 +125,7 @@ def update(package_list, cache_only=None):
         else:
             ret = (0, "Requested packages already installed", {})
         # workaround for RhBug:1218071
-        base._plugins.unload()
+        base._plugins._unload()
         base.close()
         return ret
 
@@ -335,7 +335,7 @@ def _dnf_transaction(base, install=[], remove=[], full_update=False,
         return (status, message, data)
     finally:
         # workaround for RhBug:1218071
-        base._plugins.unload()
+        base._plugins._unload()
         base.close()
 
     return (0, "Update Succeeded", {})
