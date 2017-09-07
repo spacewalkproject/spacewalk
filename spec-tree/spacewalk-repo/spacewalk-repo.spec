@@ -72,7 +72,7 @@ enabled=0
 gpgcheck=1
 REPO
 
-%if 0%{rhel}
+%if 0%{?rhel}
 
 add_java_packages_repo() {
         local repofile=$1
@@ -111,7 +111,7 @@ REPO
 add_java_packages_repo $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk.repo 1
 add_java_packages_repo $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-nightly.repo 0
 
-%if 0%{rhel} == 6
+%if 0%{?rhel} == 6
 add_epel6_addons_repo $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk.repo 1
 add_epel6_addons_repo $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-nightly.repo 0
 %endif
