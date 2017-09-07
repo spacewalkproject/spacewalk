@@ -1,6 +1,6 @@
 Name: rhn-custom-info
 Summary: Set and list custom values for RHN-enabled machines
-Version: 5.4.38
+Version: 5.4.39
 Release: 1%{?dist}
 Group: Applications/System
 License: GPLv2
@@ -70,6 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Thu Sep 07 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.39-1
+- removed unnecessary BuildRoot tag
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.38-1
 - purged changelog entries for Spacewalk 2.0 and older
 
