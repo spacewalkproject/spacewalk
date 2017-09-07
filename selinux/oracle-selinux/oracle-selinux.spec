@@ -20,7 +20,7 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.1.23.40
+Version:         0.1.23.41
 Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -214,6 +214,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Thu Sep 07 2017 Michael Mraka <michael.mraka@redhat.com> 0.1.23.41-1
+- removed unnecessary BuildRoot tag
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 0.1.23.40-1
 - purged changelog entries for Spacewalk 2.0 and older
 - fixed selinux error messages during package install, see related BZ#1446487
