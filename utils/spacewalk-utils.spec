@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.8.2
+Version:	2.8.3
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,11 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Sep 08 2017 Grant Gainey 2.8.3-1
+- 1458440 - Fixed processing in the absence of input           Also fixed
+  'xmlrpclib ssl no longer likes self-signed sat-certs' - match examples, use
+  HTTP
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - purged changelog entries for Spacewalk 2.0 and older
 - use standard brp-python-bytecompile
