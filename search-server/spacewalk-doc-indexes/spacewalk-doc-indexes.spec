@@ -1,5 +1,5 @@
 Name: spacewalk-doc-indexes
-Version: 2.7.1
+Version: 2.7.2
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk
 
@@ -48,6 +48,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Sep 11 2017 Eric Herget <eherget@redhat.com> 2.7.2-1
+- reindex docs for search
+- reindex docs
+- update docs urls for indexing
+
 * Mon Jul 17 2017 Jan Dobes 2.7.1-1
 - Remove more fedorahosted links
 - Bumping package versions for 2.7.
