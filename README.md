@@ -13,7 +13,7 @@ Resources
 
 Following links might be of value in case you are interested:
 
-  * [project pages](http://spacewalkproject.org/),
+  * [project pages](https://spacewalkproject.github.io/),
   * [wiki](https://github.com/spacewalkproject/spacewalk/wiki),
   * [issue tracker (Bugzilla)](https://bugzilla.redhat.com/enter_bug.cgi?product=Spacewalk).
 
