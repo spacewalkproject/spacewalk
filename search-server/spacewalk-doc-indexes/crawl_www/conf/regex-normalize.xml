@@ -23,13 +23,13 @@
 <!-- WATCH OUT: an xml parser reads this file an ampersands must be
      expanded to &amp; -->
 
-<!-- The following rules show how to strip out session IDs, default pages,
+<!-- The following rules show how to strip out session IDs, default pages, 
      interpage anchors, etc. Order does matter!  -->
 <regex-normalize>
 
 <!-- removes session ids from urls (such as jsessionid and PHPSESSID) -->
 <regex>
-  <pattern>([;_]?((?i)l|j|bv_)?((?i)sid|phpsessid|sessionid)=.*?)(\?|&amp;|#|$)</pattern>
+  <pattern>(?i)(;?\b_?(l|j|bv_)?(sid|phpsessid|sessionid)=.*?)(\?|&amp;|#|$)</pattern>
   <substitution>$4</substitution>
 </regex>
 
@@ -61,6 +61,20 @@
 <regex>
   <pattern>[\?&amp;\.]$</pattern>
   <substitution></substitution>
+</regex>
+
+<!-- normalize file:/// protocol prefix: -->
+<!--  keep one single slash (NUTCH-1483) -->
+<regex>
+  <pattern>^file://+</pattern>
+  <substitution>file:/</substitution>
+</regex>
+
+<!-- removes duplicate slashes but -->
+<!-- * allow 2 slashes after colon ':' (indicating protocol) -->
+<regex>
+  <pattern>(?&lt;!:)/{2,}</pattern>
+  <substitution>/</substitution>
 </regex>
 
 </regex-normalize>

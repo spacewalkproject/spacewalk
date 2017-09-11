@@ -1,7 +1,9 @@
 This package will generate lucene index files for help documents.
 The specific docs which will be examined are specified by a file located at:
     crawl_www/urls/urls.txt
-Nutch must be installed on the system, a RPM is provided at ../../spec-tree/nutch
+Nutch must be installed on the system.  I was unable to get the crawl to work using the old nutch version that was available via yum repos (fedora or rhel6).  I used the latest 1.x version from apache-nutch project at the time - apache-nutch-1.13.  Download the tgz file here - http://www.apache.org/dyn/closer.lua/nutch/1.13/apache-nutch-1.13-bin.tar.gz.  Extract this into /usr/share to create the directory /usr/share/apache-nutch-1.13.  Then create a softlink /usr/share/nutch to this directory.  If you already have nutch installed on the system from a rpm, either uninstall it or change the directory to nutch.sav before creating the softlink.
+
+Before running, I deleted the log files in the logs directory as well as the data/crawl_www directory.
 
 To run:
 1) ./crawl_www.sh
