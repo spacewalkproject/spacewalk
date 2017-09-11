@@ -229,6 +229,8 @@ def getMasterConnectionInfo(opt, cfg):
     "Make sure we have login, password, and fqdn for MASTER, based on options and config-files"
     info = {}
 
+    info['debug'] = opt.debug
+
     if 'master' in opt.__dict__:
         info['fqdn'] = opt.master
     elif cfg.has_option('Default', 'master.default'):
@@ -258,6 +260,8 @@ def getMasterConnectionInfo(opt, cfg):
 def getSlaveConnectionInfo(opt, cfg):
     "Make sure we have login, password, and fqdn for SLAVE, based on options and config-files"
     info = {}
+
+    info['debug'] = opt.debug
 
     if 'slave' in opt.__dict__:
         info['fqdn'] = opt.slave
@@ -308,8 +312,11 @@ def connectTo(info):
     logging.debug("Connect-to info = %s" % info)
     logging.info("Connecting to " + info['login'] + "@" + str(info['fqdn']))
     info = validateConnectInfo(info)
-    url = "http://%(fqdn)s/rpc/api" % {"fqdn": info['fqdn']}
-    client = xmlrpclib.Server(url, verbose=1)
+    url = "https://%(fqdn)s/rpc/api" % {"fqdn": info['fqdn']}
+    cnx_dbg = 0
+    if info['debug']:
+        cnx_dbg = 1
+    client = xmlrpclib.Server(url, verbose=cnx_dbg)
     key = client.auth.login(info['login'], info['password'])
     return {"client": client, "key": key}
 
