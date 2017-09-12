@@ -132,6 +132,7 @@ def main():
     l_ch_custom=reposync.getCustomChannels()
     d_parent_child=reposync.getParentsChilds()
     d_ch_repo_sync={}
+    l_no_ch_repo_sync=[]
 
     if options.list:
         log(0, "======================================")
@@ -186,7 +187,11 @@ def main():
         if ch not in l_ch_custom:
             systemExit(1, "Channel %s is not custom or does not exist." % ch)
         if not d_ch_repo_sync[ch] and not ch in d_chan_repo:
-            systemExit(1, "Channel %s Channel has no URL associated" % ch)
+            log(0, "Channel %s Channel has no URL associated, skipping sync" % ch)
+            l_no_ch_repo_sync.append(ch)
+
+    for ch in l_no_ch_repo_sync:
+        del d_ch_repo_sync[ch]
 
     if options.dry_run:
         log(0, "======================================")
