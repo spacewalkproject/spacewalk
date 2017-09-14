@@ -185,15 +185,11 @@ def writeRhsmManifest(options, manifest):
     options.manifest = DEFAULT_RHSM_MANIFEST_LOCATION
 
 
-def prepRhsmManifest(options):
-    """ minor prepping of the RHSM manifest
+def storeRhsmManifest(options):
+    """ storing of the RHSM manifest
         writing to default storage location
     """
 
-    # NOTE: db_* options MUST be populated in /etc/rhn/rhn.conf before this
-    #       function is run.
-    #       validateSatCert() must have been run prior to this as well (it
-    #       populates "/var/log/entitlementCert"
     if options.manifest and options.manifest != DEFAULT_RHSM_MANIFEST_LOCATION:
         try:
             manifest = open(os.path.abspath(os.path.expanduser(options.manifest)), 'rb').read()
@@ -471,14 +467,14 @@ def main():
             writeError(e)
             return 91
 
-    prepRhsmManifest(options)
-
     try:
         cdn_activate.activate()
     except ManifestValidationError:
         e = sys.exc_info()[1]
         writeError(e)
         return 14
+
+    storeRhsmManifest(options)
 
     return 0
 
