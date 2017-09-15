@@ -18,7 +18,7 @@ INSTALL_DIR     = $(INSTALL) -m 755 --verbose -d
 
 # Install Directories
 SYSTEMFIRSTBOOTDIR	= $(PREFIX)/usr/share/firstboot/modules/
-FIRSTBOOTDIR	= $(PREFIX)/usr/share/rhn/up2date_client/firstboot/
+FIRSTBOOTDIR	= $(PREFIX)$(PYTHONPATH)/up2date_client/firstboot/
 
 
 PYCHECKER       = /usr/bin/pychecker

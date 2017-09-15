@@ -23,7 +23,7 @@ OBJECTS		:= $(PYFILES)
 
 PYCHECKER       := /usr/bin/pychecker
 
-RHNSHARE_DIR	:= $(PREFIX)/usr/share/rhn
+PYTHON_DIR	:= $(PREFIX)$(PYTHONPATH)
 
 INSTALL         := install -p --verbose 
 INSTALL_DIR     := $(INSTALL) -m 755 -d 
@@ -31,16 +31,18 @@ INSTALL_DATA    = $(INSTALL) -m 644
 
 all:: $(OBJECTS)
 
-install:: all
-	$(INSTALL_DATA) $(PYFILES) $(INITFILE) $(RHNSHARE_DIR)/up2date_client
-
-	$(INSTALL_DATA) $(INITFILE) $(RHNSHARE_DIR)/
+install:: all $(PYTHON_DIR)
+	$(INSTALL_DATA) $(PYFILES) $(INITFILE) $(PYTHON_DIR)/up2date_client
 
 	# this is lame and should be dealt with in the code
 	sed -i -e "s|\@VERSION\@|$(VERSION)|" \
-		$(RHNSHARE_DIR)/up2date_client/up2dateUtils.py
+		$(PYTHON_DIR)/up2date_client/up2dateUtils.py
 	sed -i -e "s|\@PLATFORM\@|$(PLATFORM)|" \
-		$(RHNSHARE_DIR)/up2date_client/pkgplatform.py
+		$(PYTHON_DIR)/up2date_client/pkgplatform.py
+
+$(PYTHON_DIR) :
+	$(INSTALL_DIR) $@
+	$(INSTALL_DIR) $@/up2date_client
 
 # OTHER targets for internal use
 pychecker:: 

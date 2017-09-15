@@ -253,13 +253,22 @@ Python 3 specific files for rhn-setup-gnome.
 
 %build
 make -f Makefile.rhn-client-tools
-%if 0%{?fedora} >= 23
-    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' src/actions/*.py src/bin/*.py test/*.py
-%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir}
+make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} \
+        PYTHONPATH=%{python_sitelib} PYTHONVERSION=%{python_version} \
+        PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir}
+%if 0%{?build_py3}
+sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' src/actions/*.py src/bin/*.py test/*.py
+make -f Makefile.rhn-client-tools
+make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} \
+        PYTHONPATH=%{python3_sitelib} PYTHONVERSION=%{python3_version} \
+        PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir}
+%endif
+
+ln -sf consolehelper $RPM_BUILD_ROOT%{_bindir}/rhn_register
+ln -s spacewalk-channel $RPM_BUILD_ROOT%{_sbindir}/rhn-channel
 
 mkdir -p $RPM_BUILD_ROOT/var/lib/up2date
 mkdir -pm700 $RPM_BUILD_ROOT%{_localstatedir}/spool/up2date
@@ -270,25 +279,24 @@ install 50-spacewalk-client.preset $RPM_BUILD_ROOT/%{_presetdir}
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
-rm $RPM_BUILD_ROOT%{_datadir}/rhn/up2date_client/hardware_hal.*
+rm $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/hardware_hal.*
 %else
-rm $RPM_BUILD_ROOT%{_datadir}/rhn/up2date_client/hardware_gudev.*
+rm $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/hardware_gudev.*
 %endif
 
-%if 0%{?rhel} > 0
-%if 0%{?rhel} < 6
-rm -rf $RPM_BUILD_ROOT%{_datadir}/rhn/up2date_client/firstboot
+%if 0%{?rhel} == 5
+rm -rf $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/firstboot
 rm -f $RPM_BUILD_ROOT%{_datadir}/firstboot/modules/rhn_register.*
 %endif
 %if 0%{?rhel} == 6
 rm -rf $RPM_BUILD_ROOT%{_datadir}/firstboot/modules/rhn_*_*.*
 %endif
-%if 0%{?rhel} > 6
-rm -rf $RPM_BUILD_ROOT%{_datadir}/rhn/up2date_client/firstboot
+%if ! 0%{?rhel} || 0%{?rhel} > 6
+rm -rf $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/firstboot
 rm -rf $RPM_BUILD_ROOT%{_datadir}/firstboot/
 %endif
-%else
-rm -rf $RPM_BUILD_ROOT%{_datadir}/firstboot/modules/rhn_*_*.*
+%if 0%{?build_py3}
+rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/up2date_client/firstboot
 %endif
 
 desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rhn rhn_register.desktop
@@ -299,6 +307,18 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/rhn_register
 %endif
 
 %find_lang %{name}
+
+# create links to default script version
+%define default_suffix %{?default_py3:-%{python3_version}}%{!?default_py3:-%{python_version}}
+for i in \
+    /usr/sbin/rhn-profile-sync \
+    /usr/sbin/rhn_check \
+    /usr/sbin/rhn_register \
+    /usr/sbin/rhnreg_ks \
+    /usr/sbin/spacewalk-channel \
+; do
+    ln -s $(basename "$i")%{default_suffix} "$RPM_BUILD_ROOT$i"
+done
 
 %post
 rm -f %{_localstatedir}/spool/up2date/loginAuth.pkl
