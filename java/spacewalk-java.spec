@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.15
+Version: 2.8.16
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -762,6 +762,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri Sep 15 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.16-1
+- Initialize prefix property in build.xml for install-tomcat target
+
 * Fri Sep 08 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.15-1
 - Disable YaST self update for new autoinstallation trees for SLE
 - Added a script that performs post-processing on DocBook XML output.
