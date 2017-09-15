@@ -15,6 +15,8 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 %endif
 BuildRequires: python-devel
+Provides: python2-rhnlib = %{version}-%{release}
+%{?python_provide:%python_provide python2-rhnlib}
 
 Requires: pyOpenSSL 
 Conflicts: rhncfg < 5.10.45
@@ -35,6 +37,7 @@ Summary: Python libraries for the Spacewalk project
 Group: Development/Libraries
 BuildRequires: python3-devel
 Requires: python3-pyOpenSSL
+%{?python_provide:%python_provide python3-rhnlib}
 Conflicts: rhncfg < 5.10.45
 Conflicts: spacewalk-proxy-installer < 1.3.2
 Conflicts: rhn-client-tools < 1.3.3
